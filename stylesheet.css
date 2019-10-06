@@ -1,0 +1,8 @@
+html {
+    color: #f2f1ef;
+    background-color: #2e3131;
+}
+
+a:link, a:visited, a:hover, a:active {
+	color: #3D6660;
+}
