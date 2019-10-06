@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
 		<meta charset="UTF-8">
-		<link rel='stylesheet' href='stylesheet.css'/>
+		<link rel='stylesheet' href='/home/tsilvaalmeida/repositories/stylesheet.css'/>
 		<link rel='icon' type='image/vnd.microsoft.icon' href='../nxst/favicons/simple.scss.ico'/>
 		<script src="https://use.fontawesome.com/bc556cc56a.js"></script>
 		<title>Ubwiki</title>
