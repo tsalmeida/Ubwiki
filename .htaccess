@@ -2,3 +2,5 @@ Order Allow,Deny
 <FilesMatch "^index\.php$">
 Allow from all
 </FilesMatch>
+
+DirectoryIndex index.php
