@@ -3,6 +3,10 @@ html {
     background-color: #2e3131;
 }
 
+p {
+  max-width: 65ch;
+}
+
 a:link, a:visited, a:hover, a:active {
 	color: #3D6660;
 }
