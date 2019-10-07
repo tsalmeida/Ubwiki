@@ -56,8 +56,6 @@
             </div>
           </a>
         </div>
-      </div>
-      <div class="row text-center">
         <div class="col-sm-3">
           <a href="#dint" class="">
             <div class="thumbnail rounded">
@@ -90,8 +88,6 @@
             </div>
           </a>
         </div>
-      </div>
-      <div class="row text-center">
         <div class="col-sm-3">
           <a href="#liten" class="">
             <div class="thumbnail rounded">
