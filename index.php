@@ -62,7 +62,7 @@
       <div class="row text-center">
         <div class="col-sm-3">
           <div class="thumbnail">
-            <img src="imagens/hb.jpg" alt="Direito Internacional Público" width="300" height="200">
+            <img src="imagens/dint.jpg" alt="Direito Internacional Público" width="300" height="200">
             <p><strong>Direito Internacional Público</strong></p>
           </div>
         </div>
@@ -92,8 +92,6 @@
             <p><strong>Língua Inglesa</strong></p>
           </div>
         </div>
-      </div>
-      <div class="row text-center">
         <div class="col-sm-3">
           <div class="thumbnail">
             <img src="imagens/litfr.jpg" alt="Língua Francesa" width="300" height="200">
