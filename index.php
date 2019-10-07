@@ -43,16 +43,20 @@
           </a>
         </div>
         <div class="col-sm-3">
-          <div class="thumbnail">
-            <img class="rounded" src="imagens/eco.jpg" alt="Economia" width="300" height="200">
-            <p><strong>Economia</strong></p>
-          </div>
+          <a href="#eco" class="">
+            <div class="thumbnail">
+              <img class="rounded" src="imagens/eco.jpg" alt="Economia" width="300" height="200">
+              <p><strong>Economia</strong></p>
+            </div>
+          </a>
         </div>
         <div class="col-sm-3">
-          <div class="thumbnail">
-            <img class="rounded" src="imagens/geo.jpg" alt="Geografia" width="300" height="200">
-            <p><strong>Geografia</strong></p>
-          </div>
+          <a href="#geo" class="">
+            <div class="thumbnail">
+              <img class="rounded" src="imagens/geo.jpg" alt="Geografia" width="300" height="200">
+              <p><strong>Geografia</strong></p>
+            </div>
+          </a>
         </div>
         <div class="col-sm-3">
           <div class="thumbnail">
@@ -63,42 +67,54 @@
       </div>
       <div class="row text-center">
         <div class="col-sm-3">
-          <div class="thumbnail">
-            <img class="rounded" src="imagens/dint.jpg" alt="Direito Internacional Público" width="300" height="200">
-            <p><strong>Direito Internacional Público</strong></p>
-          </div>
+          <a href="#dint" class="">
+            <div class="thumbnail">
+              <img class="rounded" src="imagens/dint.jpg" alt="Direito Internacional Público" width="300" height="200">
+              <p><strong>Direito Internacional Público</strong></p>
+            </div>
+          </a>
         </div>
         <div class="col-sm-3">
-          <div class="thumbnail">
-            <img class="rounded" src="imagens/di.jpg" alt="Direito Interno" width="300" height="200">
-            <p><strong>Direito Interno</strong></p>
-          </div>
+          <a href="#di" class="">
+            <div class="thumbnail">
+              <img class="rounded" src="imagens/di.jpg" alt="Direito Interno" width="300" height="200">
+              <p><strong>Direito Interno</strong></p>
+            </div>
+          </a>
         </div>
         <div class="col-sm-3">
-          <div class="thumbnail">
-            <img class="rounded" src="imagens/pi.jpg" alt="Política Internacional" width="300" height="200">
-            <p><strong>Política Internacional</strong></p>
-          </div>
+          <a href="#pi" class="">
+            <div class="thumbnail">
+              <img class="rounded" src="imagens/pi.jpg" alt="Política Internacional" width="300" height="200">
+              <p><strong>Política Internacional</strong></p>
+            </div>
+          </a>
         </div>
         <div class="col-sm-3">
-          <div class="thumbnail">
-            <img class="rounded" src="imagens/litpt.jpg" alt="Língua Portuguesa" width="300" height="200">
-            <p><strong>Língua Portuguesa</strong></p>
-          </div>
+          <a href="#litpt" class="">
+            <div class="thumbnail">
+              <img class="rounded" src="imagens/litpt.jpg" alt="Língua Portuguesa" width="300" height="200">
+              <p><strong>Língua Portuguesa</strong></p>
+            </div>
+          </a>
         </div>
       </div>
       <div class="row text-center">
         <div class="col-sm-3">
-          <div class="thumbnail">
-            <img class="rounded" src="imagens/liten.jpg" alt="Língua Inglesa" width="300" height="200">
-            <p><strong>Língua Inglesa</strong></p>
-          </div>
+          <a href="#liten" class="">
+            <div class="thumbnail">
+              <img class="rounded" src="imagens/liten.jpg" alt="Língua Inglesa" width="300" height="200">
+              <p><strong>Língua Inglesa</strong></p>
+            </div>
+          </a>
         </div>
         <div class="col-sm-3">
-          <div class="thumbnail">
-            <img class="rounded" src="imagens/litfr.jpg" alt="Língua Francesa" width="300" height="200">
-            <p><strong>Língua Francesa</strong></p>
-          </div>
+          <a href="#litfr" class="">
+            <div class="thumbnail">
+              <img class="rounded" src="imagens/litfr.jpg" alt="Língua Francesa" width="300" height="200">
+              <p><strong>Língua Francesa</strong></p>
+            </div>
+          </a>
         </div>
       </div>
     </div>
