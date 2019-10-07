@@ -11,7 +11,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <title>Ubwiki!</title>
+    <title>Ubwiki</title>
   </head>
   <body>
 
@@ -25,6 +25,34 @@
         <div class="col-sm-2 sidenav">
           <div class="well">
             <p>A Ubwiki atua em conjunção com o acervo de aulas e ferramentas da Ubique, especialmente o Ambiente de Estudos Ubique.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid text-center bg-grey">
+      <h2>Matérias</h2><br>
+      <h4>Selecione para ver os items do edital.</h4>
+      <div class="row text-center">
+        <div class="col-sm-4">
+          <div class="thumbnail">
+            <img src="paris.jpg" alt="Paris" width="400" height="300">
+            <p><strong>História do Brasil</strong></p>
+            <p>Yes, we built Paris</p>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="thumbnail">
+            <img src="newyork.jpg" alt="New York" width="400" height="300">
+            <p><strong>Economia</strong></p>
+            <p>We built New York</p>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="thumbnail">
+            <img src="sanfran.jpg" alt="San Francisco" width="400" height="300">
+            <p><strong>Geografia</strong></p>
+            <p>Yes, San Fran is ours</p>
           </div>
         </div>
       </div>
