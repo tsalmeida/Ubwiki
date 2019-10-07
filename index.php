@@ -93,6 +93,14 @@
           </div>
         </div>
       </div>
+      <div class="row text-center">
+        <div class="col-sm-3">
+          <div class="thumbnail">
+            <img src="imagens/litfr.jpg" alt="Língua Francesa" width="300" height="200">
+            <p><strong>Língua Francesa</strong></p>
+          </div>
+        </div>
+      </div>
     </div>
 
     <footer class="container-fluid text-center">
