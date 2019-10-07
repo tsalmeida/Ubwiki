@@ -63,30 +63,39 @@
     <div class="row text-center">
       <div class="col-sm-3">
         <div class="thumbnail">
-          <img src="imagens/hb.jpg" alt="História do Brasil" width="300" height="200">
+          <img src="imagens/hb.jpg" alt="Direito Internacional Público" width="300" height="200">
           <p><strong>Direito Internacional Público</strong></p>
         </div>
       </div>
       <div class="col-sm-3">
         <div class="thumbnail">
-          <img src="imagens/eco.jpg" alt="Economia" width="300" height="200">
+          <img src="imagens/eco.jpg" alt="Direito Interno" width="300" height="200">
           <p><strong>Direito Interno</strong></p>
         </div>
       </div>
       <div class="col-sm-3">
         <div class="thumbnail">
-          <img src="imagens/geo.jpg" alt="Geografia" width="300" height="200">
-          <p><strong>Língua Portuguesa</strong></p>
+          <img src="imagens/geo.jpg" alt="Política Internacional" width="300" height="200">
+          <p><strong>Política Internacional</strong></p>
         </div>
       </div>
       <div class="col-sm-3">
         <div class="thumbnail">
-          <img src="imagens/geo.jpg" alt="Geografia" width="300" height="200">
-          <p><strong>Língua Inglesa</strong></p>
+          <img src="imagens/geo.jpg" alt="Língua Portuguesa" width="300" height="200">
+          <p><strong>Língua Portuguesa</strong></p>
         </div>
       </div>
     </div>
   </div>
+  <div class="row text-center">
+    <div class="col-sm-3">
+      <div class="thumbnail">
+        <img src="imagens/hb.jpg" alt="Língua Inglesa" width="300" height="200">
+        <p><strong>Língua Inglesa</strong></p>
+      </div>
+    </div>
+  </div>
+</div>
 
     <footer class="container-fluid text-center">
       <p>Footer Text</p>
