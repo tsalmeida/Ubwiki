@@ -15,16 +15,14 @@
   </head>
   <body>
 
-    <div class="container-fluid text-center">
-      <div class="row content">
-        <div class="col-sm-12 text-left">
-          <h1><span class="display-1">Ubwiki</span></h1>
-        </div>
-      </div>
+    <div class="jumbotron">
+      <h1 class="display-4">Ubwiki</h1>
+      <p class="lead">Sistema inteligente de estudo para o CACD.</p>
+      <hr class="my-4">
+      <p>Melhor utilizado em conjunção com o acervo de conteúdo e ferramentas da Ubique, especialmente o Ambiente de Estudos.</p>
     </div>
 
     <div class="container-fluid text-center bg-grey">
-      <h2>Matérias</h2>
       <div class="row text-center">
         <div class="col-sm-3">
           <a href="#hb" class="">
