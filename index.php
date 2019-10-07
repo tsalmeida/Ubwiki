@@ -13,7 +13,7 @@
 
     <title>Ubwiki</title>
   </head>
-  <body class="bg-light">
+  <body>
 
     <div class="jumbotron">
       <h1 class="display-4">Ubwiki</h1>
@@ -22,7 +22,7 @@
       <p>Melhor utilizado em conjunção com o acervo de conteúdo e ferramentas da Ubique, especialmente o Ambiente de Estudos.</p>
     </div>
 
-    <div class="container-fluid text-center bg-light">
+    <div class="container-fluid text-center">
       <div class="row text-center">
         <div class="col-sm-3">
           <a href="#hb" class="">
