@@ -84,8 +84,9 @@
           <p><a href="#">Link</a></p>
         </div>
         <div class="col-sm-8 text-left">
-          <h1 class="display-1">Ubwiki</h1>
-          <small>Superior ordem em seus estudos para o CACD.</small>
+          <h1 class="display-1">Ubwiki
+            <small>Superior ordem em seus estudos para o CACD.</small>
+          </h1>
           <p>Escolha abaixo uma matéria do concurso para começar seus estudos.</p>
         </div>
         <div class="col-sm-2 sidenav">
