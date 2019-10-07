@@ -18,15 +18,13 @@
     <div class="container-fluid text-center">
       <div class="row content">
         <div class="col-sm-12 text-left">
-          <h1><span class="display-1">Ubwiki</span>
-          <small>Superior ordem em seus estudos para o CACD.</small></h1>
+          <h1><span class="display-1">Ubwiki</span></h1>
         </div>
       </div>
     </div>
 
     <div class="container-fluid text-center bg-grey">
-      <h2>Matérias</h2><br>
-      <h4>Selecione para ver os items do edital.</h4>
+      <h2>Matérias</h2>
       <div class="row text-center">
         <div class="col-sm-3">
           <a href="#hb" class="">
