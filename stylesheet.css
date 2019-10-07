@@ -3,7 +3,7 @@ html {
     background-color: #2e3131;
 }
 
-p {
+p, li {
   max-width: 65ch;
 }
 
