@@ -52,18 +52,26 @@
   </head>
   <body>
 
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-      <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Ubwiki</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Ambiente de Estudos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Grupo Ubique</a>
-        </li>
-      </ul>
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Logo</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#about">Ubique</a></li>
+            <li><a href="#services">Ambiente de Estudos</a></li>
+            <li><a href="#portfolio">Ubwiki</a></li>
+            <li><a href="#pricing">Acervo</a></li>
+            <li><a href="#contact">Praeterea</a></li>
+          </ul>
+        </div>
+      </div>
     </nav>
 
     <div class="container-fluid text-center">
