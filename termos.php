@@ -11,7 +11,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="bootstrap.min.css">
 
-    <title>Ubwiki</title>
+    <title>Ubwiki - Termos de Uso</title>
   </head>
   <body>
 
