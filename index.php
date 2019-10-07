@@ -22,7 +22,7 @@
       <p>Melhor utilizado em conjunção com o acervo de conteúdo e ferramentas da Ubique, especialmente o Ambiente de Estudos.</p>
     </div>
 
-    <div class="container-fluid text-center bg-grey">
+    <div class="container-fluid text-center bg-light">
       <div class="row text-center">
         <div class="col-sm-3">
           <a href="#hb" class="">
