@@ -75,13 +75,13 @@
       </div>
       <div class="col-sm-3">
         <div class="thumbnail">
-          <img src="imagens/geo.jpg" alt="Política Internacional" width="300" height="200">
+          <img src="imagens/pi.jpg" alt="Política Internacional" width="300" height="200">
           <p><strong>Política Internacional</strong></p>
         </div>
       </div>
       <div class="col-sm-3">
         <div class="thumbnail">
-          <img src="imagens/geo.jpg" alt="Língua Portuguesa" width="300" height="200">
+          <img src="imagens/litpt.jpg" alt="Língua Portuguesa" width="300" height="200">
           <p><strong>Língua Portuguesa</strong></p>
         </div>
       </div>
@@ -90,7 +90,7 @@
   <div class="row text-center">
     <div class="col-sm-3">
       <div class="thumbnail">
-        <img src="imagens/hb.jpg" alt="Língua Inglesa" width="300" height="200">
+        <img src="imagens/liten.jpg" alt="Língua Inglesa" width="300" height="200">
         <p><strong>Língua Inglesa</strong></p>
       </div>
     </div>
