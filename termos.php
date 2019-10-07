@@ -17,9 +17,6 @@
 
     <div class="jumbotron">
       <h1 class="display-4">Ubwiki</h1>
-      <p class="lead">Sistema inteligente de estudo para o CACD.</p>
-      <hr class="my-4">
-      <p>Termos e condições de uso</p>
     </div>
 
     <div class="embed-responsive embed-responsive-16by9">
