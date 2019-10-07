@@ -1,5 +1,9 @@
 @import "../node_modules/bootstrap/scss/bootstrap";
 
+html, body {
+  background-color: bg-light;
+}
+
 .thumbnail {
   background-color: #e9ecef;
   padding: 1vw;
