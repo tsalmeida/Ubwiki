@@ -13,7 +13,7 @@
 
     <title>Ubwiki</title>
   </head>
-  <body>
+  <body class="bg-light">
 
     <div class="jumbotron">
       <h1 class="display-4">Ubwiki</h1>
