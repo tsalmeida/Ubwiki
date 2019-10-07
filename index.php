@@ -34,21 +34,21 @@
       <h2>Matérias</h2><br>
       <h4>Selecione para ver os items do edital.</h4>
       <div class="row text-center">
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <div class="thumbnail">
-            <img src="imagens/hb.jpg" alt="História do Brasil" width="400" height="300">
+            <img src="imagens/hb.jpg" alt="História do Brasil" width="300" height="200">
             <p><strong>História do Brasil</strong></p>
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <div class="thumbnail">
-            <img src="imagens/eco.jpg" alt="Economia" width="400" height="300">
+            <img src="imagens/eco.jpg" alt="Economia" width="300" height="200">
             <p><strong>Economia</strong></p>
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <div class="thumbnail">
-            <img src="imagens/geo.jpg" alt="Geografia" width="400" height="300">
+            <img src="imagens/geo.jpg" alt="Geografia" width="300" height="200">
             <p><strong>Geografia</strong></p>
           </div>
         </div>
