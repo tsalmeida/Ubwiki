@@ -68,13 +68,13 @@
         </div>
         <div class="col-sm-3">
           <div class="thumbnail">
-            <img src="imagens/eco.jpg" alt="Direito Interno" width="300" height="200">
+            <img src="imagens/di.jpg" alt="Direito Interno" width="300" height="200">
             <p><strong>Direito Interno</strong></p>
           </div>
         </div>
         <div class="col-sm-3">
           <div class="thumbnail">
-            <img src="imagens/dint.jpg" alt="Política Internacional" width="300" height="200">
+            <img src="imagens/pi.jpg" alt="Política Internacional" width="300" height="200">
             <p><strong>Política Internacional</strong></p>
           </div>
         </div>
