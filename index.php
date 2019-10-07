@@ -108,7 +108,7 @@
     </div>
 
     <footer class="container-fluid text-center">
-      <p>A Ubwiki é uma ferramenta de uso público e gratuito. Todos os direitos são reservados ao Grupo Ubique. Clique <a href="https://creator.zohopublic.com/marciliofilho/ubique/page-embed/UBWIKI/uOnXDu8aUhYfeQb96gNy6JYs85fg2YgspqZNgC9WYxMNh3mgemS3P5GyHKmsYTNSk1JxaQk4ukrhrOg3jhWPjVzn3nnUMJSSmN7Y?alu_str=cavalcanti@me.com&pag_str=termos" target="_blank">aqui</a> para rever os termos e condições de uso da página.</p>
+      <p>A Ubwiki é uma ferramenta de uso público e gratuito. Todos os direitos são reservados ao Grupo Ubique. Clique <a href="termos.php" target="_blank">aqui</a> para rever os termos e condições de uso da página.</p>
     </footer>
 
 
