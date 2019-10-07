@@ -5,3 +5,8 @@
   padding: 1vw;
   margin-bottom: 1vw;
 }
+
+.thumbnail > img{
+   width:100%;
+   height:100%;
+}
