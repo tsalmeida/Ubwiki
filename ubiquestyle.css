@@ -1,7 +1,7 @@
 @import "../node_modules/bootstrap/scss/bootstrap";
 
 .thumbnail {
-  background-color: #f2f1ef;
+  background-color: #e9ecef;
   padding: 1vw;
   margin-bottom: 1vw;
 }
