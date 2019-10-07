@@ -52,38 +52,23 @@
   </head>
   <body>
 
-    <nav class="navbar navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Logo</a>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Projects</a></li>
-            <li><a href="#">Contact</a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-          </ul>
-        </div>
-      </div>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Ubwiki</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Ambiente de Estudos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Grupo Ubique</a>
+        </li>
+      </ul>
     </nav>
 
     <div class="container-fluid text-center">
       <div class="row content">
-        <div class="col-sm-2 sidenav">
-          <p><a href="#">Link</a></p>
-          <p><a href="#">Link</a></p>
-          <p><a href="#">Link</a></p>
-        </div>
-        <div class="col-sm-8 text-left">
+        <div class="col-sm-10 text-left">
           <h1><span class="display-1">Ubwiki</span>
           <small>Superior ordem em seus estudos para o CACD.</small></h1>
           <p>Escolha abaixo uma matéria do concurso para começar seus estudos.</p>
