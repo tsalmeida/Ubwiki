@@ -1,15 +1,1 @@
 @import "../node_modules/bootstrap/scss/bootstrap";
-
-html, body {
-    color: #f2f1ef;
-    background-color: #2e3131;
-    height: 100%;
-}
-
-p, li {
-  max-width: 65ch;
-}
-
-a:link, a:visited, a:hover, a:active {
-	color: #3D6660;
-}
