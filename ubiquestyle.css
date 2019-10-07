@@ -1,8 +1,9 @@
 @import "../node_modules/bootstrap/scss/bootstrap";
 
-html {
+html, body {
     color: #f2f1ef;
     background-color: #2e3131;
+    height: 100%;
 }
 
 p, li {
