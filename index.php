@@ -36,23 +36,20 @@
       <div class="row text-center">
         <div class="col-sm-4">
           <div class="thumbnail">
-            <img src="paris.jpg" alt="Paris" width="400" height="300">
+            <img src="imagens/hb.jpg" alt="História do Brasil" width="400" height="300">
             <p><strong>História do Brasil</strong></p>
-            <p>Yes, we built Paris</p>
           </div>
         </div>
         <div class="col-sm-4">
           <div class="thumbnail">
-            <img src="newyork.jpg" alt="New York" width="400" height="300">
+            <img src="imagens/eco.jpg" alt="Economia" width="400" height="300">
             <p><strong>Economia</strong></p>
-            <p>We built New York</p>
           </div>
         </div>
         <div class="col-sm-4">
           <div class="thumbnail">
-            <img src="sanfran.jpg" alt="San Francisco" width="400" height="300">
+            <img src="imagens/geo.jpg" alt="Geografia" width="400" height="300">
             <p><strong>Geografia</strong></p>
-            <p>Yes, San Fran is ours</p>
           </div>
         </div>
       </div>
