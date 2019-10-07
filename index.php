@@ -14,8 +14,11 @@
     <title>Ubwiki!</title>
   </head>
   <body>
-    <h1>Ubwiki!</h1>
-    <p>Teste de caneta</p>
+
+    <div class="jumbotron text-center">
+      <h1>Ubwiki</h1>
+      <p>Ambiente de estudos da Ubique</p> 
+    </div>
 
     <div class="container">
       <div class="row">
