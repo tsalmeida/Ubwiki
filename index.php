@@ -35,26 +35,28 @@
       <h4>Selecione para ver os items do edital.</h4>
       <div class="row text-center">
         <div class="col-sm-3">
-          <div class="thumbnail">
-            <img href="#hb" class="rounded" src="imagens/hb.jpg" alt="História do Brasil" width="300" height="200">
-            <p><strong>História do Brasil</strong></p>
-          </div>
+          <a href="#hb" class="">
+            <div class="thumbnail">
+              <img class="rounded" src="imagens/hb.jpg" alt="História do Brasil" width="300" height="200">
+              <p><strong>História do Brasil</strong></p>
+            </div>
+          </a>
         </div>
         <div class="col-sm-3">
           <div class="thumbnail">
-            <img href="#eco" class="rounded" src="imagens/eco.jpg" alt="Economia" width="300" height="200">
+            <img class="rounded" src="imagens/eco.jpg" alt="Economia" width="300" height="200">
             <p><strong>Economia</strong></p>
           </div>
         </div>
         <div class="col-sm-3">
           <div class="thumbnail">
-            <img href="#geo" class="rounded" src="imagens/geo.jpg" alt="Geografia" width="300" height="200">
+            <img class="rounded" src="imagens/geo.jpg" alt="Geografia" width="300" height="200">
             <p><strong>Geografia</strong></p>
           </div>
         </div>
         <div class="col-sm-3">
           <div class="thumbnail">
-            <img href="#hm" class="rounded" src="imagens/hm.jpg" alt="História Mundial" width="300" height="200">
+            <img class="rounded" src="imagens/hm.jpg" alt="História Mundial" width="300" height="200">
             <p><strong>História Mundial</strong></p>
           </div>
         </div>
@@ -62,25 +64,25 @@
       <div class="row text-center">
         <div class="col-sm-3">
           <div class="thumbnail">
-            <img href="#dint" class="rounded" src="imagens/dint.jpg" alt="Direito Internacional Público" width="300" height="200">
+            <img class="rounded" src="imagens/dint.jpg" alt="Direito Internacional Público" width="300" height="200">
             <p><strong>Direito Internacional Público</strong></p>
           </div>
         </div>
         <div class="col-sm-3">
           <div class="thumbnail">
-            <img href="#di" class="rounded" src="imagens/di.jpg" alt="Direito Interno" width="300" height="200">
+            <img class="rounded" src="imagens/di.jpg" alt="Direito Interno" width="300" height="200">
             <p><strong>Direito Interno</strong></p>
           </div>
         </div>
         <div class="col-sm-3">
           <div class="thumbnail">
-            <img href="#pi" class="rounded" src="imagens/pi.jpg" alt="Política Internacional" width="300" height="200">
+            <img class="rounded" src="imagens/pi.jpg" alt="Política Internacional" width="300" height="200">
             <p><strong>Política Internacional</strong></p>
           </div>
         </div>
         <div class="col-sm-3">
           <div class="thumbnail">
-            <img href="#litpt" class="rounded" src="imagens/litpt.jpg" alt="Língua Portuguesa" width="300" height="200">
+            <img class="rounded" src="imagens/litpt.jpg" alt="Língua Portuguesa" width="300" height="200">
             <p><strong>Língua Portuguesa</strong></p>
           </div>
         </div>
@@ -88,13 +90,13 @@
       <div class="row text-center">
         <div class="col-sm-3">
           <div class="thumbnail">
-            <img href="#liten" class="rounded" src="imagens/liten.jpg" alt="Língua Inglesa" width="300" height="200">
+            <img class="rounded" src="imagens/liten.jpg" alt="Língua Inglesa" width="300" height="200">
             <p><strong>Língua Inglesa</strong></p>
           </div>
         </div>
         <div class="col-sm-3">
           <div class="thumbnail">
-            <img href="#litfr" class="rounded" src="imagens/litfr.jpg" alt="Língua Francesa" width="300" height="200">
+            <img class="rounded" src="imagens/litfr.jpg" alt="Língua Francesa" width="300" height="200">
             <p><strong>Língua Francesa</strong></p>
           </div>
         </div>
