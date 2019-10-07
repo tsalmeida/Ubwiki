@@ -59,10 +59,12 @@
           </a>
         </div>
         <div class="col-sm-3">
-          <div class="thumbnail">
-            <img class="rounded" src="imagens/hm.jpg" alt="História Mundial" width="300" height="200">
-            <p><strong>História Mundial</strong></p>
-          </div>
+          <a href="#hm" class="">
+            <div class="thumbnail">
+              <img class="rounded" src="imagens/hm.jpg" alt="História Mundial" width="300" height="200">
+              <p><strong>História Mundial</strong></p>
+            </div>
+          </a>
         </div>
       </div>
       <div class="row text-center">
