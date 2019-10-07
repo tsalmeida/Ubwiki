@@ -17,15 +17,9 @@
 
     <div class="container-fluid text-center">
       <div class="row content">
-        <div class="col-sm-10 text-left">
+        <div class="col-sm-12 text-left">
           <h1><span class="display-1">Ubwiki</span>
           <small>Superior ordem em seus estudos para o CACD.</small></h1>
-          <p>Escolha abaixo uma matéria do concurso para começar seus estudos.</p>
-        </div>
-        <div class="col-sm-2 sidenav">
-          <div class="well">
-            <p>A Ubwiki atua em conjunção com o acervo de aulas e ferramentas da Ubique, especialmente o Ambiente de Estudos Ubique.</p>
-          </div>
         </div>
       </div>
     </div>
