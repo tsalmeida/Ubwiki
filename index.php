@@ -25,81 +25,81 @@
     </div>
     <div class="container-fluid text-center bg-white">
       <div class="row text-center">
-        <div class="col-sm-2">
+        <div class="col-sm-2 px-0 py-0">
           <a href="#hb" class="">
-            <div class="thumbnail rounded bg-light mx-2 mx-2">
+            <div class="thumbnail rounded bg-light">
               <img class="rounded" src="imagens/hb.jpg" alt="História do Brasil" >
               <p><strong>História do Brasil</strong></p>
             </div>
           </a>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-2 px-0 py-0">
           <a href="#eco" class="">
-            <div class="thumbnail rounded bg-light mx-2">
+            <div class="thumbnail rounded bg-light">
               <img class="rounded" src="imagens/eco.jpg" alt="Economia" >
               <p><strong>Economia</strong></p>
             </div>
           </a>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-2 px-0 py-0">
           <a href="#geo" class="">
-            <div class="thumbnail rounded bg-light mx-2">
+            <div class="thumbnail rounded bg-light">
               <img class="rounded" src="imagens/geo.jpg" alt="Geografia" >
               <p><strong>Geografia</strong></p>
             </div>
           </a>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-2 px-0 py-0">
           <a href="#hm" class="">
-            <div class="thumbnail rounded bg-light mx-2">
+            <div class="thumbnail rounded bg-light">
               <img class="rounded" src="imagens/hm.jpg" alt="História Mundial" >
               <p><strong>História Mundial</strong></p>
             </div>
           </a>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-2 px-0 py-0">
           <a href="#dint" class="">
-            <div class="thumbnail rounded bg-light mx-2">
+            <div class="thumbnail rounded bg-light">
               <img class="rounded" src="imagens/dint.jpg" alt="Direito Internacional Público" >
               <p><strong>Direito Internacional Público</strong></p>
             </div>
           </a>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-2 px-0 py-0">
           <a href="#di" class="">
-            <div class="thumbnail rounded bg-light mx-2">
+            <div class="thumbnail rounded bg-light">
               <img class="rounded" src="imagens/di.jpg" alt="Direito Interno" >
               <p><strong>Direito Interno</strong></p>
             </div>
           </a>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-2 px-0 py-0">
           <a href="#pi" class="">
-            <div class="thumbnail rounded bg-light mx-2">
+            <div class="thumbnail rounded bg-light">
               <img class="rounded" src="imagens/pi.jpg" alt="Política Internacional" >
               <p><strong>Política Internacional</strong></p>
             </div>
           </a>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-2 px-0 py-0">
           <a href="#litpt" class="">
-            <div class="thumbnail rounded bg-light mx-2">
+            <div class="thumbnail rounded bg-light">
               <img class="rounded" src="imagens/litpt.jpg" alt="Língua Portuguesa" >
               <p><strong>Língua Portuguesa</strong></p>
             </div>
           </a>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-2 px-0 py-0">
           <a href="#liten" class="">
-            <div class="thumbnail rounded bg-light mx-2">
+            <div class="thumbnail rounded bg-light">
               <img class="rounded" src="imagens/liten.jpg" alt="Língua Inglesa" >
               <p><strong>Língua Inglesa</strong></p>
             </div>
           </a>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-2 px-0 py-0">
           <a href="#litfr" class="">
-            <div class="thumbnail rounded bg-light mx-2">
+            <div class="thumbnail rounded bg-light">
               <img class="rounded" src="imagens/litfr.jpg" alt="Língua Francesa" >
               <p><strong>Língua Francesa</strong></p>
             </div>
