@@ -27,11 +27,17 @@ top_page();
          ?>
       </div>
     </div>
-    <div class="list-group">
-      <a href="#!" class="list-group-item list-group-item-action">Descobrimento</a>
-      <a href="#!" class="list-group-item list-group-item-action">Independência</a>
-      <a href="#!" class="list-group-item list-group-item-action">Getúlio Vargas</a>
-      <a href="#!" class="list-group-item list-group-item-action">DitaduraMilitar</a>
+    <div class="container my-5">
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="list-group col-sm-8">
+          <a href="#!" class="list-group-item list-group-item-action">Descobrimento</a>
+          <a href="#!" class="list-group-item list-group-item-action">Independência</a>
+          <a href="#!" class="list-group-item list-group-item-action">Getúlio Vargas</a>
+          <a href="#!" class="list-group-item list-group-item-action">DitaduraMilitar</a>
+        </div>
+        <div class="col-sm-2"></div>
+      </div>
     </div>
     <footer class="container-fluid text-center heavy-rain-gradient text-dark py-2">
       <p class="mb-0">A Ubwiki é uma ferramenta de uso público e gratuito. Todos os direitos são reservados ao Grupo Ubique. Clique <a href="termos.php" target="_blank">aqui</a> para rever os termos e condições de uso da página.</p>
