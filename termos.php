@@ -3,7 +3,7 @@
   top_page();
   ?>
   <body>
-    <div class="container-fluid px-1 py-1 text-center">
+    <div class="container-fluid px-1 py-1 mb-3 text-center">
       <div class="jumbotron col-sm-12 mb-0">
         <h1 class="display-4">Ubwiki</h1>
       </div>

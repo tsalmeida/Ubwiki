@@ -27,7 +27,25 @@ top_page();
          ?>
       </div>
     </div>
-
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+          <ul class="list-group">
+            <li class="list-group-item">Descobrimento do Brasil <span class="badge">4</span></li>
+              <ul>
+                <li class="list-grop-item">Pero Vaz de Caminha</li>
+                <li class="list-grop-item">Capitanias</li>
+                <li class="list-grop-item">Minas Gerais</li>
+                <li class="list-grop-item">São Paulo</li>
+              </ul>
+            <li class="list-group-item">Independência do Brasil <span class="badge">8</span></li>
+            <li class="list-group-item">Eleição do Bolsonaro <span class="badge">2</span></li>
+          </ul>
+        </div>
+        <div class="col-sm-2"></div>
+      </div>
+    </div>
     <footer class="container-fluid text-center heavy-rain-gradient text-dark py-2">
       <p class="mb-0">A Ubwiki é uma ferramenta de uso público e gratuito. Todos os direitos são reservados ao Grupo Ubique. Clique <a href="termos.php" target="_blank">aqui</a> para rever os termos e condições de uso da página.</p>
     </footer>

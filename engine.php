@@ -76,7 +76,7 @@ echo "
             </a>
           </div>
           <div class='card-body card-body-cascade'>
-            <h4 class='card-title'>$nome</h4>
+            <h5 class='card-title'>$nome</h5>
           </div>
         </div>
       </a>
