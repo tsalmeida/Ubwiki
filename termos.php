@@ -23,7 +23,11 @@ top_page();
 
     $output = curl_exec($ch);
 
-    // echo $output;
+    $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+    $header = substr($output, 0, $header_size);
+    $body = substr($output, $header_size);
+
+    echo $body;
 
     // close curl resource, and free up system resources
     curl_close($ch);
