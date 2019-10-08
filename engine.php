@@ -65,7 +65,7 @@ function cartao_materia($sigla, $nome) {
   // ";
 
 echo "
-    <div class='col-lg-4 col-md-6'>
+    <div class='col-lg-2 col-md-3 py-2 px-2'>
       <a href='#$sigla' class=''>
         <div class='card card-cascade narrower'>
           <div class='view view-cascade overlay'>
