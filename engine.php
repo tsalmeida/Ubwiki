@@ -62,7 +62,7 @@ function cartao_materia($sigla, $nome) {
       </div>
     </a>
   </div>
-  "
+  ";
 }
 
 
