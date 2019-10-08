@@ -18,7 +18,13 @@ top_page();
     curl_setopt($ch, CURLOPT_URL, "https://docs.google.com/document/d/e/2PACX-1vTAJII7h1Fm2ndrB-KjqH2w4CvwfyKKcr5myjh_IfqCIe7-Ai9JZWj6wlNt5shG_wbNv0_KVELPGU6W/pub?embedded=true");
 
     // grab URL and pass it to the browser
-    curl_exec($ch);
+    $ch = curl_exec($ch);
+
+    $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+    $header = substr($response, 0, $header_size);
+    $body = substr($response, $header_size);
+
+    echo $body;
 
     // close cURL resource, and free up system resources
     curl_close($ch);
