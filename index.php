@@ -3,15 +3,17 @@ include 'engine.php';
 top_page();
 ?>
   <body>
-      <div class="jumbotron col-sm-12 mt-1 mx-1">
-        <h1 class="display-4">Ubwiki</h1>
-        <p class="lead">Sistema inteligente de estudo para o CACD.</p>
-        <hr class="my-4">
-        <p>Melhor utilizado em conjunção com o acervo de conteúdo e ferramentas da Ubique, especialmente o Ambiente de Estudos.</p>
+      <div class="px-1 py-1">
+        <div class="jumbotron col-sm-12 mt-1 mx-1">
+          <h1 class="display-4">Ubwiki</h1>
+          <p class="lead">Sistema inteligente de estudo para o CACD.</p>
+          <hr class="my-4">
+          <p>Melhor utilizado em conjunção com o acervo de conteúdo e ferramentas da Ubique, especialmente o Ambiente de Estudos.</p>
+        </div>
       </div>
     <div class="container-fluid text-center bg-white">
       <div class="row text-center">
-        <div class="col-sm-2 px-1 py-1">
+        <div class="col-sm-2">
           <a href="#hb" class="">
             <div class="thumbnail rounded bg-light">
               <img class="rounded" src="imagens/hb.jpg" alt="História do Brasil" >
