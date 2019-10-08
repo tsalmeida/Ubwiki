@@ -15,14 +15,14 @@
   </head>
   <body>
 
-    <div class="jumbotron">
+    <div class="jumbotron bg-primary">
       <h1 class="display-4">Ubwiki</h1>
       <p class="lead">Sistema inteligente de estudo para o CACD.</p>
       <hr class="my-4">
       <p>Melhor utilizado em conjunção com o acervo de conteúdo e ferramentas da Ubique, especialmente o Ambiente de Estudos.</p>
     </div>
 
-    <div class="container-fluid text-center">
+    <div class="container-fluid text-center bg-secondary">
       <div class="row text-center">
         <div class="col-sm-2">
           <a href="#hb" class="">
@@ -107,7 +107,7 @@
       </div>
     </div>
 
-    <footer class="container-fluid text-center">
+    <footer class="container-fluid text-center bg-secondary text-white">
       <p>A Ubwiki é uma ferramenta de uso público e gratuito. Todos os direitos são reservados ao Grupo Ubique. Clique <a href="termos.php" target="_blank">aqui</a> para rever os termos e condições de uso da página.</p>
     </footer>
 
