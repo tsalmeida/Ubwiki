@@ -4,7 +4,7 @@ top_page();
 ?>
   <body>
       <div class="container-fluid px-1 py-1">
-        <div class="jumbotron col-sm-12 mb-0 blue-gradient z-depth-1">
+        <div class="jumbotron col-sm-12 mb-0 heavy-rain-gradient z-depth-1">
           <h1 class="display-4">Ubwiki</h1>
           <p class="lead">Sistema inteligente de estudos para o CACD.</p>
           <hr class="my-4">
@@ -15,7 +15,7 @@ top_page();
       <div class="row text-center row-eq-height">
         <div class="col-sm-2 px-1 py-1">
           <a href="#hb" class="">
-            <div class="thumbnail rounded blue-gradient z-depth-1">
+            <div class="thumbnail rounded heavy-rain-gradient z-depth-1">
               <img class="rounded" src="imagens/hb.jpg" alt="História do Brasil" >
               <p><strong>História do Brasil</strong></p>
             </div>
@@ -23,7 +23,7 @@ top_page();
         </div>
         <div class="col-sm-2 px-1 py-1">
           <a href="#eco" class="">
-            <div class="thumbnail rounded bg-light">
+            <div class="thumbnail rounded heavy-rain-gradient z-depth-1">
               <img class="rounded" src="imagens/eco.jpg" alt="Economia" >
               <p><strong>Economia</strong></p>
             </div>
@@ -31,7 +31,7 @@ top_page();
         </div>
         <div class="col-sm-2 px-1 py-1">
           <a href="#geo" class="">
-            <div class="thumbnail rounded bg-light">
+            <div class="thumbnail rounded heavy-rain-gradient z-depth-1">
               <img class="rounded" src="imagens/geo.jpg" alt="Geografia" >
               <p><strong>Geografia</strong></p>
             </div>
@@ -39,7 +39,7 @@ top_page();
         </div>
         <div class="col-sm-2 px-1 py-1">
           <a href="#hm" class="">
-            <div class="thumbnail rounded bg-light">
+            <div class="thumbnail rounded heavy-rain-gradient z-depth-1">
               <img class="rounded" src="imagens/hm.jpg" alt="História Mundial" >
               <p><strong>História Mundial</strong></p>
             </div>
@@ -47,7 +47,7 @@ top_page();
         </div>
         <div class="col-sm-2 px-1 py-1">
           <a href="#dint" class="">
-            <div class="thumbnail rounded bg-light">
+            <div class="thumbnail rounded heavy-rain-gradient z-depth-1">
               <img class="rounded" src="imagens/dint.jpg" alt="Direito Internacional Público" >
               <p><strong>Direito Internacional Público</strong></p>
             </div>
@@ -55,7 +55,7 @@ top_page();
         </div>
         <div class="col-sm-2 px-1 py-1">
           <a href="#di" class="">
-            <div class="thumbnail rounded bg-light">
+            <div class="thumbnail rounded heavy-rain-gradient z-depth-1">
               <img class="rounded" src="imagens/di.jpg" alt="Direito Interno" >
               <p><strong>Direito Interno</strong></p>
             </div>
@@ -63,7 +63,7 @@ top_page();
         </div>
         <div class="col-sm-2 px-1 py-1">
           <a href="#pi" class="">
-            <div class="thumbnail rounded bg-light">
+            <div class="thumbnail rounded heavy-rain-gradient z-depth-1">
               <img class="rounded" src="imagens/pi.jpg" alt="Política Internacional" >
               <p><strong>Política Internacional</strong></p>
             </div>
@@ -71,7 +71,7 @@ top_page();
         </div>
         <div class="col-sm-2 px-1 py-1">
           <a href="#litpt" class="">
-            <div class="thumbnail rounded bg-light">
+            <div class="thumbnail rounded heavy-rain-gradient z-depth-1">
               <img class="rounded" src="imagens/litpt.jpg" alt="Língua Portuguesa" >
               <p><strong>Língua Portuguesa</strong></p>
             </div>
@@ -79,7 +79,7 @@ top_page();
         </div>
         <div class="col-sm-2 px-1 py-1">
           <a href="#liten" class="">
-            <div class="thumbnail rounded bg-light">
+            <div class="thumbnail rounded heavy-rain-gradient z-depth-1">
               <img class="rounded" src="imagens/liten.jpg" alt="Língua Inglesa" >
               <p><strong>Língua Inglesa</strong></p>
             </div>
@@ -87,7 +87,7 @@ top_page();
         </div>
         <div class="col-sm-2 px-1 py-1">
           <a href="#litfr" class="">
-            <div class="thumbnail rounded bg-light">
+            <div class="thumbnail rounded heavy-rain-gradient z-depth-1">
               <img class="rounded" src="imagens/litfr.jpg" alt="Língua Francesa" >
               <p><strong>Língua Francesa</strong></p>
             </div>
