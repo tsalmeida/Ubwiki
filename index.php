@@ -27,13 +27,13 @@ top_page();
          ?>
       </div>
     </div>
-    <div class="container text-center bg-white mt-5">
+    <div class="container text-center bg-white my-5">
       <div class="row">
         <div class="col-sm-2"></div>
         <div class="col-sm-8">
           <ul class="list-group">
             <li class="list-group-item">Descobrimento do Brasil <span class="badge">4</span></li>
-              <ul>
+              <ul class="list-group">
                 <li class="list-grop-item">Pero Vaz de Caminha</li>
                 <li class="list-grop-item">Capitanias</li>
                 <li class="list-grop-item">Minas Gerais</li>
