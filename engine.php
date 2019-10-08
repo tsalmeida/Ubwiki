@@ -52,4 +52,19 @@ function extract_gdoc($url) {
   return $body;
 }
 
+function cartao_materia($sigla, $nome) {
+  echo "
+  <div class='col-sm-2 px-1 py-1'>
+    <a href='#$sigla' class=''>
+      <div class='thumbnail rounded heavy-rain-gradient z-depth-1'>
+        <img class='rounded' src='imagens/$sigla.jpg' alt='$nome' >
+        <p class='text-dark'><strong>$nome</strong></p>
+      </div>
+    </a>
+  </div>
+  "
+}
+
+
+
 ?>

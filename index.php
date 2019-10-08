@@ -13,86 +13,18 @@ top_page();
       </div>
     <div class="container-fluid text-center bg-white">
       <div class="row text-center row-eq-height">
-        <div class="col-sm-2 px-1 py-1">
-          <a href="#hb" class="">
-            <div class="thumbnail rounded heavy-rain-gradient z-depth-1">
-              <img class="rounded" src="imagens/hb.jpg" alt="História do Brasil" >
-              <p class="text-dark"><strong>História do Brasil</strong></p>
-            </div>
-          </a>
-        </div>
-        <div class="col-sm-2 px-1 py-1">
-          <a href="#eco" class="">
-            <div class="thumbnail rounded heavy-rain-gradient z-depth-1">
-              <img class="rounded" src="imagens/eco.jpg" alt="Economia" >
-              <p class="text-dark" class="text-dark"><strong>Economia</strong></p>
-            </div>
-          </a>
-        </div>
-        <div class="col-sm-2 px-1 py-1">
-          <a href="#geo" class="">
-            <div class="thumbnail rounded heavy-rain-gradient z-depth-1">
-              <img clas class="text-dark" class="text-dark"s="rounded" src="imagens/geo.jpg" alt="Geografia" >
-              <p class="text-dark" class="text-dark"><strong>Geografia</strong></p>
-            </div>
-          </a>
-        </div>
-        <div class="col-sm-2 px-1 py-1">
-          <a href="#hm" class="">
-            <div class="thumbnail rounded heavy-rain-gradient z-depth-1">
-              <img class="rounded" src="imagens/hm.jpg" alt="História Mundial" >
-              <p class="text-dark" class="text-dark"><strong>História Mundial</strong></p>
-            </div>
-          </a>
-        </div>
-        <div class="col-sm-2 px-1 py-1">
-          <a href="#dint" class="">
-            <div class="thumbnail rounded heavy-rain-gradient z-depth-1">
-              <img class="rounded" src="imagens/dint.jpg" alt="Direito Internacional Público" >
-              <p class="text-dark"><strong>Direito Internacional Público</strong></p>
-            </div>
-          </a>
-        </div>
-        <div class="col-sm-2 px-1 py-1">
-          <a href="#di" class="">
-            <div class="thumbnail rounded heavy-rain-gradient z-depth-1">
-              <img class="rounded" src="imagens/di.jpg" alt="Direito Interno" >
-              <p class="text-dark"><strong>Direito Interno</strong></p>
-            </div>
-          </a>
-        </div>
-        <div class="col-sm-2 px-1 py-1">
-          <a href="#pi" class="">
-            <div class="thumbnail rounded heavy-rain-gradient z-depth-1">
-              <img class="rounded" src="imagens/pi.jpg" alt="Política Internacional" >
-              <p class="text-dark"><strong>Política Internacional</strong></p>
-            </div>
-          </a>
-        </div>
-        <div class="col-sm-2 px-1 py-1">
-          <a href="#litpt" class="">
-            <div class="thumbnail rounded heavy-rain-gradient z-depth-1">
-              <img class="rounded" src="imagens/litpt.jpg" alt="Língua Portuguesa" >
-              <p class="text-dark"><strong>Língua Portuguesa</strong></p>
-            </div>
-          </a>
-        </div>
-        <div class="col-sm-2 px-1 py-1">
-          <a href="#liten" class="">
-            <div class="thumbnail rounded heavy-rain-gradient z-depth-1">
-              <img class="rounded" src="imagens/liten.jpg" alt="Língua Inglesa" >
-              <p class="text-dark"><strong>Língua Inglesa</strong></p>
-            </div>
-          </a>
-        </div>
-        <div class="col-sm-2 px-1 py-1">
-          <a href="#litfr" class="">
-            <div class="thumbnail rounded heavy-rain-gradient z-depth-1">
-              <img class="rounded" src="imagens/litfr.jpg" alt="Língua Francesa" >
-              <p class="text-dark"><strong>Língua Francesa</strong></p>
-            </div>
-          </a>
-        </div>
+        <?php
+            cartao_materia("hb", "História do Brasil");
+            cartao_materia("eco","Economia");
+            cartao_materia("geo","Geografia");
+            cartao_materia("hm","História Mundial");
+            cartao_materia("dint","Direito Internacional");
+            cartao_materia("di","Direito Interno");
+            cartao_materia("pi","Política Internacional");
+            cartao_materia("litpt","Língua Portuguesa");
+            cartao_materia("liten","Língua Inglesa");
+            cartao_materia("litfr","Língua Francesa");
+         ?>
       </div>
     </div>
 
