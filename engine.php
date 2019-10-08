@@ -53,16 +53,38 @@ function extract_gdoc($url) {
 }
 
 function cartao_materia($sigla, $nome) {
-  echo "
-  <div class='col-sm-2 px-1 py-1'>
-    <a href='#$sigla' class=''>
-      <div class='thumbnail rounded heavy-rain-gradient z-depth-1'>
-        <img class='rounded' src='imagens/$sigla.jpg' alt='$nome' >
-        <p class='text-dark'><strong>$nome</strong></p>
-      </div>
-    </a>
-  </div>
-  ";
+  // echo "
+  // <div class='col-sm-2 px-1 py-1'>
+  //
+  //     <div class='thumbnail rounded heavy-rain-gradient z-depth-1'>
+  //       <img class='rounded' src='imagens/$sigla.jpg' alt='$nome' >
+  //       <p class='text-dark'><strong>$nome</strong></p>
+  //     </div>
+  //   </a>
+  // </div>
+  // ";
+
+echo "
+    <div class='col-lg-4 col-md-6'>
+      <a href='#$sigla' class=''>
+        <div class='card card-cascade narrower'>
+          <div class='view view-cascade overlay'>
+            <img src='imagens/$sigla.jpg' class='card-img-top'
+              alt='$nome'>
+            <a>
+              <div class='mask rgba-white-slight'></div>
+            </a>
+          </div>
+          <div class='card-body card-body-cascade'>
+            <h4 class='card-title'>$nome</h4>
+            <p class='card-text'>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit
+              laboriosam, nisi ut aliquid ex ea commodi.</p>
+          </div>
+        </div>
+      </a>
+    </div>
+";
+
 }
 
 
