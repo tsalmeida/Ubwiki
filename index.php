@@ -13,7 +13,7 @@ top_page();
       </div>
     <div class="container-fluid text-center bg-white">
       <div class="row text-center">
-        <div class="col-sm-2">
+        <div class="col-sm-2 px-1 py-1">
           <a href="#hb" class="">
             <div class="thumbnail rounded bg-light">
               <img class="rounded" src="imagens/hb.jpg" alt="História do Brasil" >
