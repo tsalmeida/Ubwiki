@@ -77,8 +77,6 @@ echo "
           </div>
           <div class='card-body card-body-cascade'>
             <h4 class='card-title'>$nome</h4>
-            <p class='card-text'>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit
-              laboriosam, nisi ut aliquid ex ea commodi.</p>
           </div>
         </div>
       </a>
