@@ -15,7 +15,7 @@
   </head>
   <body>
 
-    <div class="jumbotron bg-primary">
+    <div class="jumbotron bg-primary text-white">
       <h1 class="display-4">Ubwiki</h1>
       <p class="lead">Sistema inteligente de estudo para o CACD.</p>
       <hr class="my-4">
@@ -26,7 +26,7 @@
       <div class="row text-center">
         <div class="col-sm-2">
           <a href="#hb" class="">
-            <div class="thumbnail rounded">
+            <div class="thumbnail rounded bg-white">
               <img class="rounded" src="imagens/hb.jpg" alt="História do Brasil" >
               <p><strong>História do Brasil</strong></p>
             </div>
@@ -34,7 +34,7 @@
         </div>
         <div class="col-sm-2">
           <a href="#eco" class="">
-            <div class="thumbnail rounded">
+            <div class="thumbnail rounded bg-white">
               <img class="rounded" src="imagens/eco.jpg" alt="Economia" >
               <p><strong>Economia</strong></p>
             </div>
@@ -42,7 +42,7 @@
         </div>
         <div class="col-sm-2">
           <a href="#geo" class="">
-            <div class="thumbnail rounded">
+            <div class="thumbnail rounded bg-white">
               <img class="rounded" src="imagens/geo.jpg" alt="Geografia" >
               <p><strong>Geografia</strong></p>
             </div>
@@ -50,7 +50,7 @@
         </div>
         <div class="col-sm-2">
           <a href="#hm" class="">
-            <div class="thumbnail rounded">
+            <div class="thumbnail rounded bg-white">
               <img class="rounded" src="imagens/hm.jpg" alt="História Mundial" >
               <p><strong>História Mundial</strong></p>
             </div>
@@ -58,7 +58,7 @@
         </div>
         <div class="col-sm-2">
           <a href="#dint" class="">
-            <div class="thumbnail rounded">
+            <div class="thumbnail rounded bg-white">
               <img class="rounded" src="imagens/dint.jpg" alt="Direito Internacional Público" >
               <p><strong>Direito Internacional Público</strong></p>
             </div>
@@ -66,7 +66,7 @@
         </div>
         <div class="col-sm-2">
           <a href="#di" class="">
-            <div class="thumbnail rounded">
+            <div class="thumbnail rounded bg-white">
               <img class="rounded" src="imagens/di.jpg" alt="Direito Interno" >
               <p><strong>Direito Interno</strong></p>
             </div>
@@ -74,7 +74,7 @@
         </div>
         <div class="col-sm-2">
           <a href="#pi" class="">
-            <div class="thumbnail rounded">
+            <div class="thumbnail rounded bg-white">
               <img class="rounded" src="imagens/pi.jpg" alt="Política Internacional" >
               <p><strong>Política Internacional</strong></p>
             </div>
@@ -82,7 +82,7 @@
         </div>
         <div class="col-sm-2">
           <a href="#litpt" class="">
-            <div class="thumbnail rounded">
+            <div class="thumbnail rounded bg-white">
               <img class="rounded" src="imagens/litpt.jpg" alt="Língua Portuguesa" >
               <p><strong>Língua Portuguesa</strong></p>
             </div>
@@ -90,7 +90,7 @@
         </div>
         <div class="col-sm-2">
           <a href="#liten" class="">
-            <div class="thumbnail rounded">
+            <div class="thumbnail rounded bg-white">
               <img class="rounded" src="imagens/liten.jpg" alt="Língua Inglesa" >
               <p><strong>Língua Inglesa</strong></p>
             </div>
@@ -98,7 +98,7 @@
         </div>
         <div class="col-sm-2">
           <a href="#litfr" class="">
-            <div class="thumbnail rounded">
+            <div class="thumbnail rounded bg-white">
               <img class="rounded" src="imagens/litfr.jpg" alt="Língua Francesa" >
               <p><strong>Língua Francesa</strong></p>
             </div>
