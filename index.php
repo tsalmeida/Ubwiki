@@ -4,8 +4,8 @@ top_page();
 ?>
   <body>
       <div class="container-fluid px-1 py-1">
-        <div class="jumbotron col-sm-12 mb-0 heavy-rain-gradient z-depth-1">
-          <h1 class="display-4">Ubwiki</h1>
+        <div class="jumbotron col-sm-12 mb-0">
+          <h1 class="display-3">Ubwiki</h1>
           <p class="lead">Sistema inteligente de estudos para o CACD.</p>
           <hr class="my-4">
           <p>Melhor utilizado em conjunção com o acervo de conteúdo e ferramentas da Ubique, especialmente o Ambiente de Estudos.</p>
