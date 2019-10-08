@@ -21,10 +21,12 @@ top_page();
     $response = curl_exec($ch);
 
     $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+    error_log($header_size);
     $header = substr($response, 0, $header_size);
+    error_log($header);
     $body = substr($response, $header_size);
-
-    echo $body;
+    error_log($body);
+    echo "<p>Teste</p>";
 
     // close cURL resource, and free up system resources
     curl_close($ch);
