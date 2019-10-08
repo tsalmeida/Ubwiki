@@ -23,7 +23,7 @@ top_page();
 
     $output = curl_exec($ch);
 
-    echo $output;
+    // echo $output;
 
     // close curl resource, and free up system resources
     curl_close($ch);
