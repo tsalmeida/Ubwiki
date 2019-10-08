@@ -29,21 +29,11 @@ top_page();
     </div>
     <div class="container text-center bg-white my-5">
       <ul class="list-group">
-        <li class="list-group-item active">
-          <div class="md-v-line"></div><i class="fas fa-laptop mr-4 pr-3"></i>Descobrimento do Brasil
-        </li>
-        <li class="list-group-item">
-          <div class="md-v-line"></div><i class="fas fa-bomb mr-5"></i>Capitanias Hereditárias
-        </li>
-        <li class="list-group-item">
-          <div class="md-v-line"></div><i class="fas fa-code mr-5"></i>Independência do Brasil
-        </li>
-        <li class="list-group-item">
-          <div class="md-v-line"></div><i class="far fa-gem mr-5"></i>Getúlio Vargas
-        </li>
-        <li class="list-group-item">
-          <div class="md-v-line"></div><i class="fas fa-cogs mr-5"></i>Governo Militar
-        </li>
+        <li class="list-group-item"><div class="md-v-line"></div><i class="fas fa-laptop mr-4 pr-3"></i>Descobrimento do Brasil</li>
+        <li class="list-group-item"><div class="md-v-line"></div><i class="fas fa-laptop mr-4 pr-3"></i>Capitanias Hereditárias</li>
+        <li class="list-group-item"><div class="md-v-line"></div><i class="fas fa-laptop mr-4 pr-3"></i>Minas Gerais</li>
+        <li class="list-group-item"><div class="md-v-line"></div><i class="fas fa-laptop mr-4 pr-3"></i>Independência do Brasil</li>
+        <li class="list-group-item"><div class="md-v-line"></div><i class="fas fa-laptop mr-4 pr-3"></i>Ditadura Militar</li>
       </ul>
     </div>
     <footer class="container-fluid text-center heavy-rain-gradient text-dark py-2">
