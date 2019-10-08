@@ -15,7 +15,7 @@
   </head>
   <body>
 
-    <div class="jumbotron bg-primary text-white">
+    <div class="jumbotron bg-primary text-white col-sm-11">
       <h1 class="display-4">Ubwiki</h1>
       <p class="lead">Sistema inteligente de estudo para o CACD.</p>
       <hr class="my-4">
