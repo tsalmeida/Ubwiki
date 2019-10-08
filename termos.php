@@ -15,8 +15,8 @@ top_page();
 
       $doc = false;
 
+      curl_setopt($ch, CURLOPT_HEADER, false);
       curl_setopt($ch, CURLOPT_FILE, $doc);
-      curl_setopt($ch, CURLOPT_HEADER, 0);
 
       curl_exec($ch);
       curl_close($ch);
