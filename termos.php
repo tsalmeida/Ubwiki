@@ -4,7 +4,7 @@ top_page();
 ?>
   <body>
 
-    <div class="jumbotron">
+    <div class="jumbotron col-sm-11 mt-1">
       <h1 class="display-4">Ubwiki</h1>
     </div>
 
