@@ -3,8 +3,7 @@ include 'engine.php';
 top_page();
 ?>
   <body>
-
-    <div class="px-1 py-1 col-sm-12">
+    <div class="px-1 py-1">
         <div class="jumbotron col-sm-12 mb-0">
           <h1 class="display-4">Ubwiki</h1>
         </div>
