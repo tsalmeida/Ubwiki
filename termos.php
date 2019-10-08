@@ -11,6 +11,8 @@ top_page();
     <iframe>
     <?php
       $gdoc = file_get_contents("https://docs.google.com/document/d/e/2PACX-1vTAJII7h1Fm2ndrB-KjqH2w4CvwfyKKcr5myjh_IfqCIe7-Ai9JZWj6wlNt5shG_wbNv0_KVELPGU6W/pub?embedded=true");
+      $result = _isCurl();
+      echo "<p>$result</p>";
      ?>
     </iframe>
   </body>
