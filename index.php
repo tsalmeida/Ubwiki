@@ -27,14 +27,11 @@ top_page();
          ?>
       </div>
     </div>
-    <div class="container text-center bg-white my-5">
-      <ul class="list-group">
-        <li class="list-group-item"><div class="md-v-line"></div><i class="fas fa-laptop mr-4 pr-3"></i>Descobrimento do Brasil</li>
-        <li class="list-group-item"><div class="md-v-line"></div><i class="fas fa-laptop mr-4 pr-3"></i>Capitanias Hereditárias</li>
-        <li class="list-group-item"><div class="md-v-line"></div><i class="fas fa-laptop mr-4 pr-3"></i>Minas Gerais</li>
-        <li class="list-group-item"><div class="md-v-line"></div><i class="fas fa-laptop mr-4 pr-3"></i>Independência do Brasil</li>
-        <li class="list-group-item"><div class="md-v-line"></div><i class="fas fa-laptop mr-4 pr-3"></i>Ditadura Militar</li>
-      </ul>
+    <div class="list-group">
+      <a href="#!" class="list-group-item list-group-item-action">Descobrimento</a>
+      <a href="#!" class="list-group-item list-group-item-action">Independência</a>
+      <a href="#!" class="list-group-item list-group-item-action">Getúlio Vargas</a>
+      <a href="#!" class="list-group-item list-group-item-action">DitaduraMilitar</a>
     </div>
     <footer class="container-fluid text-center heavy-rain-gradient text-dark py-2">
       <p class="mb-0">A Ubwiki é uma ferramenta de uso público e gratuito. Todos os direitos são reservados ao Grupo Ubique. Clique <a href="termos.php" target="_blank">aqui</a> para rever os termos e condições de uso da página.</p>
