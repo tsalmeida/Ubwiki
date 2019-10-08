@@ -3,7 +3,7 @@ include 'engine.php';
 top_page();
 ?>
   <body>
-      <div class="jumbotron col-sm-11 mt-1">
+      <div class="jumbotron col-sm-12 mt-1 mx-1">
         <h1 class="display-4">Ubwiki</h1>
         <p class="lead">Sistema inteligente de estudo para o CACD.</p>
         <hr class="my-4">
