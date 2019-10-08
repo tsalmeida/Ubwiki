@@ -22,6 +22,7 @@ top_page();
     // grab URL and pass it to the browser
 
     $output = curl_exec($ch);
+    error_log($output);
 
     $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
     $header = substr($output, 0, $header_size);
