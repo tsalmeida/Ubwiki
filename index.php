@@ -4,7 +4,7 @@ top_page();
 ?>
   <body>
       <div class="container-fluid px-1 py-1">
-        <div class="jumbotron col-sm-12 mb-0 blue-gradient">
+        <div class="jumbotron col-sm-12 mb-0 blue-gradient z-depth-1">
           <h1 class="display-4">Ubwiki</h1>
           <p class="lead">Sistema inteligente de estudos para o CACD.</p>
           <hr class="my-4">
@@ -15,7 +15,7 @@ top_page();
       <div class="row text-center row-eq-height">
         <div class="col-sm-2 px-1 py-1">
           <a href="#hb" class="">
-            <div class="thumbnail rounded bg-light">
+            <div class="thumbnail rounded blue-gradient z-depth-1">
               <img class="rounded" src="imagens/hb.jpg" alt="História do Brasil" >
               <p><strong>História do Brasil</strong></p>
             </div>
