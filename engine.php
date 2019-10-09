@@ -76,11 +76,8 @@ function cartao_materia($id) {
   $servername = "localhost";
   $username = "grupoubique";
   $password = "ubique patriae memor";
-  $conn = new mysqli($servername, $username, $password);
-  if ($conn->connect_error) {
-      echo "Connection failed";
-      die("Connection failed: " . $conn->connect_error);
-  }
+  $dbname = "Ubique";
+  $conn = new mysqli($servername, $username, $password, $dbname);
   $sql = "SELECT id, sigla, materia FROM Materias";
   $result = $conn->query($sql);
   $serialized = serialize($result);
