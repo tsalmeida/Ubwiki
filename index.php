@@ -16,7 +16,7 @@ top_page();
         <?php
             $x = 0;
             while ($x =< 10) {
-              echo "<p>$x</p>"
+              echo "<p>$x</p>";
               $x++;
               cartao_materia($x);
             }
