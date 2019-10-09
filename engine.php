@@ -53,17 +53,6 @@ function extract_gdoc($url) {
 }
 
 function cartao_materia($sigla, $nome) {
-  // echo "
-  // <div class='col-sm-2 px-1 py-1'>
-  //
-  //     <div class='thumbnail rounded heavy-rain-gradient z-depth-1'>
-  //       <img class='rounded' src='imagens/$sigla.jpg' alt='$nome' >
-  //       <p class='text-dark'><strong>$nome</strong></p>
-  //     </div>
-  //   </a>
-  // </div>
-  // ";
-
 echo "
     <div class='col-lg-2 col-md-3 py-2 px-2'>
       <a href='#$sigla' class=''>
@@ -82,7 +71,6 @@ echo "
       </a>
     </div>
 ";
-
 }
 
 
