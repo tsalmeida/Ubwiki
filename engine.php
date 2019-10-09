@@ -77,7 +77,7 @@ function cartao_materia($id) {
   $username = "grupoubique";
   $password = "ubique patriae memor";
   $conn = new mysqli($servername, $username, $password);
-  $sql = "SELECT id, sigla, materia FROM materia";
+  $sql = "SELECT id, sigla, materia FROM Materias";
   $result = $conn->query($sql);
 
   if ($result->num_rows > 0) {
