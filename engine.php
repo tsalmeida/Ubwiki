@@ -51,6 +51,19 @@ function extract_gdoc($url) {
   return $body;
 }
 
+function extract_zoho($authtoken, $ownername, $criteria, $scope) {
+  $ch = curl_init();
+  curl_setopt($ch, CURLOPT_URL, $url);
+  curl_setopt($ch, CURLOPT_HEADER, 0);
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+  $output = curl_exec($ch);
+  $position = strpos($output, "<body");
+  $body = substr($output, $position);
+  $body = str_replace("</html>", "", $body);
+  curl_close($ch);
+  return $body;
+}
+
 function cartao_materia($sigla, $nome) {
 echo "
     <div class='col-lg-2 col-md-3 py-2 px-2'>

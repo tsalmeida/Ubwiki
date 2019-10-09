@@ -32,6 +32,19 @@ top_page();
       <div class="row">
         <div class="col-sm-2"></div>
         <div class="col-sm-8 bg-white py-3">
+          <?php
+            $result = extract_zoho("10abe2d1aae94281cff517bb019aea2b", "marciliofilho",'(materia.materia == "Geografia")', "creatorapi");
+            echo "<p>$result</p>";
+           ?>
+        </div>
+        <div class="col-sm-2"></div>
+      </div>
+    </div>
+
+    <div class="container my-5 bg-light py-5 col-sm-12">
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8 bg-white py-3">
           <form method="GET" action="https://creator.zoho.com/api/json/ubique/view/ETIQUETAS_RPT">
             <div class="form-group">
               <label>authtoken</label>
