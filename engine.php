@@ -79,7 +79,8 @@ function cartao_materia($id) {
   $conn = new mysqli($servername, $username, $password);
   $sql = "SELECT id, sigla, materia FROM Materias";
   $result = $conn->query($sql);
-  echo "<p>$result</p>";
+  $serialized = serialize($result);
+  echo "<p>$serialized</p>";
 
   if ($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {
