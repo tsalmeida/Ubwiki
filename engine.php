@@ -67,20 +67,23 @@ function extract_zoho($linkplanilha, $authtoken, $ownername, $materia, $scope) {
   return $output;
 }
 
-function cartao_materia($sigla, $nome) {
+function cartao_materia($id) {
+
+
+
 echo "
     <div class='col-lg-2 col-md-3 py-2 px-2'>
-      <a href='#$sigla' class=''>
+      <a href='#$id' class=''>
         <div class='card card-cascade narrower'>
           <div class='view view-cascade overlay'>
-            <img src='imagens/$sigla.jpg' class='card-img-top'
-              alt='$nome'>
+            <img src='imagens/$id.jpg' class='card-img-top'
+              alt='$id'>
             <a>
               <div class='mask rgba-white-slight'></div>
             </a>
           </div>
           <div class='card-body card-body-cascade'>
-            <h5 class='card-title'>$nome</h5>
+            <h5 class='card-title'>$id</h5>
           </div>
         </div>
       </a>

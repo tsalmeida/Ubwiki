@@ -14,16 +14,11 @@ top_page();
     <div class="container-fluid text-center bg-white">
       <div class="row text-center row-eq-height">
         <?php
-            cartao_materia("hb", "História do Brasil");
-            cartao_materia("eco","Economia");
-            cartao_materia("geo","Geografia");
-            cartao_materia("hm","História Mundial");
-            cartao_materia("dint","Direito Internacional");
-            cartao_materia("di","Direito Interno");
-            cartao_materia("pi","Política Internacional");
-            cartao_materia("litpt","Língua Portuguesa");
-            cartao_materia("liten","Língua Inglesa");
-            cartao_materia("litfr","Língua Francesa");
+            $x = 0;
+            while ($x <= 10) {
+              $x++;
+              cartao_material($x);
+            }
          ?>
       </div>
     </div>
