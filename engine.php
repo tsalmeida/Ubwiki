@@ -78,6 +78,7 @@ function cartao_materia($id) {
   $password = "ubique patriae memor";
   $conn = new mysqli($servername, $username, $password);
   $sql = "SELECT id, sigla, materia FROM Materias";
+  echo "<p>$sql</p>";
   $result = $conn->query($sql);
 
   if ($result->num_rows > 0) {
