@@ -60,7 +60,7 @@ function extract_zoho($linkplanilha, $authtoken, $ownername, $materia, $scope) {
   $output = curl_exec($ch);
   curl_close($ch);
   $output = json_decode($output, TRUE);
-  $output = serialize($oputput);
+  $output = serialize($output);
   return $output;
 }
 
