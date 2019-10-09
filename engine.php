@@ -68,24 +68,32 @@ function extract_zoho($linkplanilha, $authtoken, $ownername, $materia, $scope) {
 }
 
 function cartao_materia($id) {
-echo "
-    <div class='col-lg-2 col-md-3 py-2 px-2'>
-      <a href='#$id' class=''>
-        <div class='card card-cascade narrower'>
-          <div class='view view-cascade overlay'>
-            <img src='imagens/$id.jpg' class='card-img-top'
-              alt='$id'>
-            <a>
-              <div class='mask rgba-white-slight'></div>
-            </a>
+
+  session_start();
+  $sql = "SELECT sigla FROM Matérias WHERE id='$id' limit 1";
+  $result = mysql_query($sql);
+  $value = mysql_fetch_object($result);
+  $_SESSION['myid'] = $value->sigla;
+  $id = $value;
+
+  echo "
+      <div class='col-lg-2 col-md-3 py-2 px-2'>
+        <a href='#$id' class=''>
+          <div class='card card-cascade narrower'>
+            <div class='view view-cascade overlay'>
+              <img src='imagens/$id.jpg' class='card-img-top'
+                alt='$id'>
+              <a>
+                <div class='mask rgba-white-slight'></div>
+              </a>
+            </div>
+            <div class='card-body card-body-cascade'>
+              <h5 class='card-title'>$id</h5>
+            </div>
           </div>
-          <div class='card-body card-body-cascade'>
-            <h5 class='card-title'>$id</h5>
-          </div>
-        </div>
-      </a>
-    </div>
-";
+        </a>
+      </div>
+  ";
 }
 
 
