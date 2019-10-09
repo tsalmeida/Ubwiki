@@ -70,11 +70,18 @@ function extract_zoho($linkplanilha, $authtoken, $ownername, $materia, $scope) {
 function cartao_materia($id) {
 
   session_start();
-  $sql = "SELECT sigla FROM Matérias WHERE id='$id' limit 1";
-  $result = mysql_query($sql);
-  $value = mysql_fetch_object($result);
-  $_SESSION['myid'] = $value->sigla;
-  $id = $value;
+  $servername = "localhost";
+  $username = "grupoubique";
+  $password = "ubique patriae memor";
+
+  // Create connection
+  $conn = new mysqli($servername, $username, $password);
+
+  // Check connection
+  if ($conn->connect_error) {
+      die("<p>Connection failed: " . $conn->connect_error . "</p>");
+  }
+  echo "<p>Connected successfully</p>";
 
   echo "
       <div class='col-lg-2 col-md-3 py-2 px-2'>
