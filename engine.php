@@ -80,8 +80,6 @@ function cartao_materia($id) {
   $conn = new mysqli($servername, $username, $password, $dbname);
   $sql = "SELECT id, sigla, materia FROM Materias";
   $result = $conn->query($sql);
-  $serialized = serialize($result);
-  echo "<p>$serialized</p>";
 
   if ($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {
@@ -91,10 +89,10 @@ function cartao_materia($id) {
         $materia = $row["materia"];
         echo "
             <div class='col-lg-2 col-md-3 py-2 px-2'>
-              <a href='#$id' class=''>
+              <a href='#$sigla' class=''>
                 <div class='card card-cascade narrower'>
                   <div class='view view-cascade overlay'>
-                    <img src='imagens/$id.jpg' class='card-img-top'
+                    <img src='imagens/$sigla.jpg' class='card-img-top'
                       alt='$materia'>
                     <a>
                       <div class='mask rgba-white-slight'></div>
