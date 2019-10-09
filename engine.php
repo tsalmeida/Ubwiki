@@ -73,8 +73,6 @@ function connect_to_mysql($id, $materia) {
 }
 
 function cartao_materia($id) {
-
-  session_start();
   $servername = "localhost";
   $username = "grupoubique";
   $password = "ubique patriae memor";
@@ -83,7 +81,7 @@ function cartao_materia($id) {
   $result = $conn->query($sql);
 
   if ($result->num_rows > 0) {
-      while($row == $result->fetch_assoc()) {
+      while($row = $result->fetch_assoc()) {
         $check = $row['id'];
         if ($id == $check) {
         $sigla = $row["sigla"];
