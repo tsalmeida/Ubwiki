@@ -53,7 +53,7 @@ function extract_gdoc($url) {
 
 function extract_zoho($linkplanilha, $authtoken, $ownername, $criteria, $scope) {
   $ch = curl_init();
-  $linkplanilha = $linkplanilha & "?authtoken=" & $authtoken & "&zc_ownername=" & $ownername & "&criteria=" & $criteria & "&scope=" & $scope;
+  $linkplanilha = "$linkplanilha & '?authtoken=' & $authtoken & '&zc_ownername=' & $ownername & '&criteria=' & $criteria & '&scope=' & $scope";
   return $linkplanilha;
   // curl_setopt($ch, CURLOPT_URL, $linkplanilha);
   // curl_setopt($ch, CURLOPT_HEADER, 0);
