@@ -68,22 +68,24 @@ function extract_zoho($linkplanilha, $authtoken, $ownername, $materia, $scope) {
 }
 
 function connect_to_mysql($id, $materia) {
-  session_start();
-  $servername = "localhost";
-  $username = "grupoubique";
-  $password = "ubique patriae memor";
-  $conn = new mysqli($servername, $username, $password);
-  $sql = "SELECT $id FROM $materia";
-  $result = $conn->query($sql);
+
   return $result;
 }
 
 function cartao_materia($id) {
 
-  $result = connect_to_mysql($id, "materia");
+  session_start();
+  $servername = "localhost";
+  $username = "grupoubique";
+  $password = "ubique patriae memor";
+  $conn = new mysqli($servername, $username, $password);
+  $sql = "SELECT id, sigla, materia FROM materia";
+  $result = $conn->query($sql);
 
   if ($result->num_rows > 0) {
-      while($row = $result->fetch_assoc()) {
+      while($row == $result->fetch_assoc()) {
+        $check = $row['id'];
+        if ($id == $check) {
         $sigla = $row["sigla"];
         $materia = $row["materia"];
         echo "
@@ -105,6 +107,7 @@ function cartao_materia($id) {
             </div>
         ";
       }
+    }
   }
   $conn->close();
 }
