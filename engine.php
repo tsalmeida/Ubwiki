@@ -51,17 +51,14 @@ function extract_gdoc($url) {
   return $body;
 }
 
-function extract_zoho($authtoken, $ownername, $criteria, $scope) {
+function extract_zoho($linkplanilha, $authtoken, $ownername, $criteria, $scope) {
   $ch = curl_init();
-  curl_setopt($ch, CURLOPT_URL, $url);
+  curl_setopt($ch, CURLOPT_URL, $linkplanilha);
   curl_setopt($ch, CURLOPT_HEADER, 0);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
   $output = curl_exec($ch);
-  $position = strpos($output, "<body");
-  $body = substr($output, $position);
-  $body = str_replace("</html>", "", $body);
   curl_close($ch);
-  return $body;
+  return $output;
 }
 
 function cartao_materia($sigla, $nome) {
