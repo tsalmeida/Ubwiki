@@ -33,7 +33,7 @@ top_page();
         <div class="col-sm-2"></div>
         <div class="col-sm-8 bg-white py-3">
           <?php
-            $result = extract_zoho("https://creator.zoho.com/api/xml/ubique/view/ETIQUETAS_RPT", "10abe2d1aae94281cff517bb019aea2b", "marciliofilho", "3320477000008217730", "creatorapi");
+            $result = extract_zoho("https://creator.zoho.com/api/xml/ubique/view/ETIQUETAS_RPT", "10abe2d1aae94281cff517bb019aea2b", "marciliofilho", "Geografia", "creatorapi");
             echo "<p>$result</p>";
            ?>
         </div>
