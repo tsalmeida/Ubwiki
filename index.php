@@ -38,15 +38,15 @@ top_page();
               <input class="form-control mb-4" name ="authtoken" value="10abe2d1aae94281cff517bb019aea2b" type="text"></input>
             </div>
             <div class="form-group">
-              <label>Authentication token</label>
+              <label>Owner name</label>
               <input class="form-control mb-4" name ="zc_ownername" value="marciliofilho" type="text"></input>
             </div>
             <div class="form-group">
-              <label>Authentication token</label>
+              <label>Variável</label>
               <input class="form-control mb-4" name="criteria" value='(etiqueta == "China")' type="text"></input>
             </div>
             <div class="form-group">
-              <label>Authentication token</label>
+              <label>Creator api</label>
               <input class="form-control mb-4" name ="scope" id="scope" value="creatorapi" type="text"></input>
             </div>
             <button type="submit">Send form data</button>
