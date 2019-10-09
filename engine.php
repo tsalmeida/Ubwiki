@@ -52,14 +52,18 @@ function extract_gdoc($url) {
 }
 
 function extract_zoho($linkplanilha, $authtoken, $ownername, $criteria, $scope) {
-  $ch = curl_init();
   $linkplanilha = "$linkplanilha?authtoken=$authtoken&zc_ownername=$ownername&criteria=$criteria&scope=$scope";
-  curl_setopt($ch, CURLOPT_URL, $linkplanilha);
-  curl_setopt($ch, CURLOPT_HEADER, 0);
-  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-  $output = curl_exec($ch);
-  curl_close($ch);
-  return "$linkplanilha $output";
+  $result = file_get_contents($linkplanilha);
+  return $result;
+
+  // $ch = curl_init();
+  // $linkplanilha = "$linkplanilha?authtoken=$authtoken&zc_ownername=$ownername&criteria=$criteria&scope=$scope";
+  // curl_setopt($ch, CURLOPT_URL, $linkplanilha);
+  // curl_setopt($ch, CURLOPT_HEADER, 0);
+  // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+  // $output = curl_exec($ch);
+  // curl_close($ch);
+  // return "$linkplanilha $output";
 }
 
 function cartao_materia($sigla, $nome) {
