@@ -72,6 +72,7 @@ function cartao_materia($id) {
 
 
 echo "
+    <p>$id</p>
     <div class='col-lg-2 col-md-3 py-2 px-2'>
       <a href='#$id' class=''>
         <div class='card card-cascade narrower'>
