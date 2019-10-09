@@ -67,40 +67,46 @@ function extract_zoho($linkplanilha, $authtoken, $ownername, $materia, $scope) {
   return $output;
 }
 
-function cartao_materia($id) {
-
+function connect_to_mysql($id, $materia) {
   session_start();
   $servername = "localhost";
   $username = "grupoubique";
   $password = "ubique patriae memor";
-
-  // Create connection
   $conn = new mysqli($servername, $username, $password);
+  $sql = "SELECT $id FROM $materia";
+  $result = $conn->query($sql);
+  return $result;
+}
 
-  // Check connection
-  if ($conn->connect_error) {
-      die("<p>Connection failed: " . $conn->connect_error . "</p>");
-  }
-  echo "<p>Connected successfully</p>";
+function cartao_materia($id) {
 
-  echo "
-      <div class='col-lg-2 col-md-3 py-2 px-2'>
-        <a href='#$id' class=''>
-          <div class='card card-cascade narrower'>
-            <div class='view view-cascade overlay'>
-              <img src='imagens/$id.jpg' class='card-img-top'
-                alt='$id'>
-              <a>
-                <div class='mask rgba-white-slight'></div>
+  $result = connect_to_mysql($id, "materia");
+
+  if ($result->num_rows > 0) {
+      while($row = $result->fetch_assoc()) {
+        $sigla = $row["sigla"];
+        $materia = $row["materia"];
+        echo "
+            <div class='col-lg-2 col-md-3 py-2 px-2'>
+              <a href='#$id' class=''>
+                <div class='card card-cascade narrower'>
+                  <div class='view view-cascade overlay'>
+                    <img src='imagens/$id.jpg' class='card-img-top'
+                      alt='$materia'>
+                    <a>
+                      <div class='mask rgba-white-slight'></div>
+                    </a>
+                  </div>
+                  <div class='card-body card-body-cascade'>
+                    <h5 class='card-title'>$materia</h5>
+                  </div>
+                </div>
               </a>
             </div>
-            <div class='card-body card-body-cascade'>
-              <h5 class='card-title'>$id</h5>
-            </div>
-          </div>
-        </a>
-      </div>
-  ";
+        ";
+      }
+  }
+  $conn->close();
 }
 
 
