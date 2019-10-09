@@ -27,7 +27,7 @@ top_page();
          ?>
       </div>
     </div>
-    <div class="container my-5">
+    <div class="container my-5 bg-light">
       <div class="row">
         <div class="col-sm-2"></div>
         <div class="list-group col-sm-8">
