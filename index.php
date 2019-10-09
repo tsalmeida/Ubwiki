@@ -14,10 +14,10 @@ top_page();
     <div class="container-fluid text-center bg-white">
       <div class="row text-center row-eq-height">
         <?php
-            $x = 0;
+            $x = 1;
             while ($x <= 10) {
-              $x++;
               cartao_materia($x);
+              $x++;
             }
          ?>
       </div>
