@@ -59,7 +59,7 @@ function extract_zoho($linkplanilha, $authtoken, $ownername, $criteria, $scope) 
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
   $output = curl_exec($ch);
   curl_close($ch);
-  return $output;
+  return "$linkplanilha $output";
 }
 
 function cartao_materia($sigla, $nome) {
