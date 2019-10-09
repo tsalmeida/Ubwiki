@@ -68,9 +68,6 @@ function extract_zoho($linkplanilha, $authtoken, $ownername, $materia, $scope) {
 }
 
 function cartao_materia($id) {
-
-
-
 echo "
     <p>$id</p>
     <div class='col-lg-2 col-md-3 py-2 px-2'>
