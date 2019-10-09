@@ -51,9 +51,9 @@ function extract_gdoc($url) {
   return $body;
 }
 
-function extract_zoho($linkplanilha, $authtoken, $ownername, $criteria, $scope) {
+function extract_zoho($linkplanilha, $authtoken, $ownername, $materia, $scope) {
   $ch = curl_init();
-  $linkplanilha = "$linkplanilha?authtoken=$authtoken&zc_ownername=$ownername&criteria=$criteria&scope=$scope";
+  $linkplanilha = "$linkplanilha?authtoken=$authtoken&zc_ownername=$ownername&materia.materia=$criteria&scope=$scope";
   curl_setopt($ch, CURLOPT_URL, $linkplanilha);
   curl_setopt($ch, CURLOPT_HEADER, 0);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
