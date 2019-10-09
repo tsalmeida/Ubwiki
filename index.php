@@ -16,7 +16,7 @@ top_page();
         <?php
             $x = 0;
             while ($x <= 10) {
-              $x = $x++;
+              $x++;
               cartao_materia($x);
             }
          ?>
