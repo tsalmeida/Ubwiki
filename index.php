@@ -28,20 +28,7 @@ top_page();
       </div>
     </div>
 
-    <div class="container my-5 bg-light py-5 col-sm-12">
-      <div class="row">
-        <div class="col-sm-2"></div>
-        <div class="col-sm-8 bg-white py-3">
-          <?php
-            $result = extract_zoho("https://creator.zoho.com/api/xml/ubique/view/ETIQUETAS_RPT", "10abe2d1aae94281cff517bb019aea2b", "marciliofilho", "Geografia", "creatorapi");
-            echo "<p>$result</p>";
-           ?>
-        </div>
-        <div class="col-sm-2"></div>
-      </div>
-    </div>
-
-    <div class="container my-5 bg-light py-5 col-sm-12">
+    <!-- <div class="container my-5 bg-light py-5 col-sm-12">
       <div class="row">
         <div class="col-sm-2"></div>
         <div class="col-sm-8 bg-white py-3">
@@ -67,7 +54,21 @@ top_page();
         </div>
         <div class="col-sm-2"></div>
       </div>
+    </div> -->
+
+    <div class="container my-5 bg-light py-5 col-sm-12">
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8 bg-white py-3">
+          <?php
+            $result = extract_zoho("https://creator.zoho.com/api/xml/ubique/view/ETIQUETAS_RPT", "10abe2d1aae94281cff517bb019aea2b", "marciliofilho", "Geografia", "creatorapi");
+            echo "<p>$result</p>";
+           ?>
+        </div>
+        <div class="col-sm-2"></div>
+      </div>
     </div>
+
     <div class="container my-5 bg-light py-5 col-sm-12" id="#hb">
       <div class="row">
         <div class="col-sm-2"></div>
