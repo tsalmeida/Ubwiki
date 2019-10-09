@@ -29,17 +29,32 @@ top_page();
     </div>
 
     <div class="container my-5 bg-light py-5 col-sm-12">
-
-      <form method="GET" action="https://creator.zoho.com/api/xml/ubique/view/ETIQUETAS_RPT">
-        <input class="form-control mb-4" name ="authtoken" value="10abe2d1aae94281cff517bb019aea2b" type="text"></input>
-        <input class="form-control mb-4" name ="zc_ownername" value="marciliofilho" type="text"></input>
-        <input class="form-control mb-4" name="criteria" value='(etiqueta == "China")' type="text"></input>
-        <input class="form-control mb-4" name ="scope" id="scope" value="creatorapi" type="text"></input>
-        <button type="submit">Send form data</button>
-      </form>
-
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+          <form method="GET" action="https://creator.zoho.com/api/xml/ubique/view/ETIQUETAS_RPT">
+            <div class="form-group">
+              <label>Authentication token</label>
+              <input class="form-control mb-4" name ="authtoken" value="10abe2d1aae94281cff517bb019aea2b" type="text"></input>
+            </div>
+            <div class="form-group">
+              <label>Authentication token</label>
+              <input class="form-control mb-4" name ="zc_ownername" value="marciliofilho" type="text"></input>
+            </div>
+            <div class="form-group">
+              <label>Authentication token</label>
+              <input class="form-control mb-4" name="criteria" value='(etiqueta == "China")' type="text"></input>
+            </div>
+            <div class="form-group">
+              <label>Authentication token</label>
+              <input class="form-control mb-4" name ="scope" id="scope" value="creatorapi" type="text"></input>
+            </div>
+            <button type="submit">Send form data</button>
+          </form>
+        </div>
+        <div class="col-sm-2"></div>
+      </div>
     </div>
-
     <div class="container my-5 bg-light py-5 col-sm-12" id="#hb">
       <div class="row">
         <div class="col-sm-2"></div>
