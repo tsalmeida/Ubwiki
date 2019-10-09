@@ -78,7 +78,7 @@ function cartao_materia($id) {
   $password = "ubique patriae memor";
   $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname);
-  $mysqli->set_charset("utf8");
+  mysqli_set_charset($conn,"utf8");
   $sql = "SELECT id, sigla, materia FROM Materias";
   $result = $conn->query($sql);
 
