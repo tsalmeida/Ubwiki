@@ -14,7 +14,7 @@ top_page();
     <div class="container-fluid text-center bg-white">
       <div class="row text-center row-eq-height">
         <?php
-            $materias = array("HBCACD", "HMCACD", "ECOCACD", "DICACD", "DINCACD") 
+            $materias = array("HBCACD", "HMCACD", "ECOCACD", "DICACD", "DINCACD");
             cartao_materia($materias);
          ?>
       </div>
