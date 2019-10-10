@@ -88,11 +88,11 @@ function ler_cartoes($concurso) {
       $materia = $row["materia"];
       echo "
 
-      <a href='#verbetes'><div class='col-lg-2 bg-light mx-3 my-3 py-0 px-1'>
-        <div class='bg-light rounded'>
+      <a href='#verbetes'>
+        <div class='col-lg-2 bg-light mx-3 my-3 py-0 px-1 rounded'>
           <a href='#verbetes'><small class='text-muted text-uppercase smaller'>$materia</small></a>
         </div>
-      </div></a>
+      </a>
       ";
       if ($count == 6) {
         echo "</div>";
