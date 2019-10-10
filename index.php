@@ -9,7 +9,7 @@ top_page();
         <li><a class="navlink float-right h4" href="userpage.php">Minha conta</a></li>
       </ul>
     </nav>
-    <div class="container-fluid text-center bg-white my-5 justify-content-center height50vh">
+    <div class="container-fluid text-center bg-white justify-content-center height50vh">
       <div class="row justify-content-center">
           <div class="col-sm-2">
               <img class="img-fluid logo" src="imagens/ubiquelogo.png"></img>
@@ -21,7 +21,7 @@ top_page();
       </div>
       </div>
     </div>
-    <div class="container-fluid text-center bg-white my-5 height30vh">
+    <div class="container-fluid text-center bg-white height30vh">
       <div class="row justify-content-center">
         <div class="col-lg-10">
             <?php
@@ -72,7 +72,7 @@ top_page();
       </div>
     </div> -->
 
-    <div class="container my-5 bg-lighter py-5 col-sm-12" id="verbetes">
+    <div class="container bg-lighter py-5 col-sm-12" id="verbetes">
       <div class="row">
         <div class="col-sm-2"></div>
         <div class="list-group col-sm-8 pr-0">
