@@ -3,7 +3,7 @@ include 'engine.php';
 top_page();
 ?>
   <body>
-    <nav class="navbar navbar-expand-lg bg-white mb-5 height20vh">
+    <nav class="navbar navbar-expand-lg bg-white">
       <a class="navbar-brand" href="index.php"><h2>Ubwiki</h2></a>
       <ul class="nav navbar-nav ml-auto">
         <li><a class="navlink float-right h4" href="userpage.php">Minha conta</a></li>
