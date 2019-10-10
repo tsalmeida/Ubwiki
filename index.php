@@ -5,7 +5,9 @@ top_page();
   <body>
     <nav class="navbar navbar-expand-lg bg-white mb-5">
       <a class="navbar-brand" href="index.php"><h2>Ubwiki</h2></a>
-      <a class="navlink float-right" href="userpage.php">Minha conta</a>
+      <ul class="nav navbar-nav ml-auto">
+        <li><a class="navlink float-right" href="userpage.php">Minha conta</a></li>
+      </ul>
     </nav>
     <div class="container-fluid text-center bg-white my-5 justify-content-center">
       <div class="row justify-content-center">
