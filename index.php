@@ -3,7 +3,7 @@ include 'engine.php';
 top_page();
 ?>
   <body>
-    <div class="container-fluid text-center bg-white mt-5">
+    <div class="container-fluid text-center bg-white mt-5 justify-content-center">
       <div class="row">
           <div class="col-sm-2">
               <img class="img-fluid" src="imagens/logo.jpeg"></img>
@@ -17,15 +17,13 @@ top_page();
     </div>
     <div class="container-fluid text-center bg-white">
       <div class="row">
-        <div class="col-lg-2"></div>
         <div class="col-lg-8">
-        <div class="row justify-content-around">
-          <?php
-              ler_cartoes("CACD");
-          ?>
+          <div class="row justify-content-around">
+            <?php
+                ler_cartoes("CACD");
+            ?>
+          </div>
         </div>
-        </div>
-        <div class="col-lg-2"></div>
       </div>
     </div>
 
