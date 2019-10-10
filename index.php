@@ -18,9 +18,11 @@ top_page();
     <div class="container-fluid text-center bg-white">
       <div class="row justify-content-center">
         <div class="col-lg-8">
+          <div class="row justify-content-around">
             <?php
                 ler_cartoes("CACD");
             ?>
+          </div>
         </div>
       </div>
     </div>
