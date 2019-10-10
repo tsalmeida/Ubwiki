@@ -18,7 +18,22 @@ top_page();
       <div class="row justify-concent-center">
         <div class="col-sm-12">
           <p class="lead">Bem-vindo à Ubwiki, o sistema mais inteligente de preparação para o CACD.</p>
+        </div>
       </div>
+      <div class="row justify-content-center">
+        <div class="">
+          <form id="searchform" action="" method="post">
+            <div id="searchDiv">
+              <input id="searchbar" list="commandlist" type="text" class="searchbar" name="searchbar" rows="1" autocomplete="off" spellcheck="false" required></input>
+              <datalist id="searchlist">
+                <?php
+                  readSearchOptions();
+                ?>
+              </datalist>
+              <input id="searchBarGo" type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;" tabindex="-1" />
+            </div>
+          </form>
+        </div>
       </div>
     </div>
     <div class="container-fluid text-center bg-white height30vh">

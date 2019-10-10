@@ -125,6 +125,10 @@ function ler_edital($materia) {
   $conn->close();
 }
 
-
+function readSearchOptions() {
+  echo "<option>um</option>";
+  echo "<option>dois</option>";
+  echo "<option>tres</option>";
+}
 
 ?>
