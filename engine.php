@@ -96,7 +96,7 @@ function ler_cartoes($concurso) {
                 </a>
               </div>
               <div class='card-body card-body-cascade'>
-                <h5 class='card-title'>$materia</h5>
+                <small class='text-muted'>$materia</small>
               </div>
             </div>
           </a>
