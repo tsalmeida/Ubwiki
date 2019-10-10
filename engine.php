@@ -82,7 +82,7 @@ function ler_cartoes($concurso) {
   if ($result->num_rows > 0) {
     $count = 1;
     while(($row = $result->fetch_assoc()) && ($row['concurso'] = $concurso)) {
-      if ($count == 0) { echo "<div class="row">" }
+      if ($count == 0) { echo "<div class='row'>"; }
       $count++;
       $sigla = $row["sigla"];
       $materia = $row["materia"];
