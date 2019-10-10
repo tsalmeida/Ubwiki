@@ -136,7 +136,7 @@ function readSearchOptions($concurso) {
   if ($result->num_rows > 0) {
     while(($row = $result->fetch_assoc()) && ($row['concurso'] = $concurso) && ($row['estado'] != false)) {
       $materia = $row["materia"];
-      echo "<option>$row['materia']</option>";
+      echo "<option>$materia</option>";
     }
   }
   $conn->close();
