@@ -88,7 +88,7 @@ function cartao_materia($siglas) {
   if ($result->num_rows > 0) {
     while(($row = $result->fetch_assoc()) && ($siglas[$x] != false)) {
       $check = $row['sigla'];
-      if ($sigla == $check) {
+      if ($siglas[$x] == $check) {
         $sigla = $row["sigla"];
         $materia = $row["materia"];
         echo "
