@@ -142,4 +142,14 @@ function readSearchOptions($concurso) {
   $conn->close();
 }
 
+function standard_jumbotron() {
+  echo "
+  <div class='container-fluid px-1 py-1 mb-3 text-center'>
+    <div class='jumbotron col-sm-12 mb-0'>
+      <a href='index.php'><h1 class='display-4 logo-jumbotron'>Ubwiki</h1></a>
+    </div>
+  </div>
+  ";
+}
+
 ?>

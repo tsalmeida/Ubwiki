@@ -3,11 +3,9 @@
   top_page();
   ?>
   <body>
-    <div class="container-fluid px-1 py-1 mb-3 text-center">
-      <div class="jumbotron col-sm-12 mb-0">
-        <h1 class="display-4 logo-jumbotron">Ubwiki</h1>
-      </div>
-    </div>
+    <?php
+    standard_jumbotron();
+    ?>
     <div class="container my-5">
       <div class="row">
         <div class="col-sm-2"></div>
