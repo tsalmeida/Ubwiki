@@ -21,7 +21,7 @@ top_page();
         </div>
       </div>
       <div class="row justify-content-center">
-        <div class="col-lg-8">
+        <div class="col-lg-6">
           <form id="searchform" action="" method="post">
             <div id="searchDiv">
               <input id="searchbar" list="searchlist" type="text" class="searchbar" name="searchbar" rows="1" autocomplete="off" spellcheck="false" required></input>
