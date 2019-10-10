@@ -12,7 +12,7 @@ top_page();
     <div class="container-fluid text-center bg-white my-5 justify-content-center">
       <div class="row justify-content-center">
           <div class="col-sm-2">
-              <img class="img-fluid logo" src="imagens/logo.jpeg"></img>
+              <img class="img-fluid logo" src="imagens/ubiquelogo.png"></img>
           </div>
       </div>
       <div class="row justify-concent-center">
