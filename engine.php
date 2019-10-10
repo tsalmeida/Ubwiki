@@ -85,7 +85,7 @@ function ler_cartoes($concurso) {
       $sigla = $row["sigla"];
       $materia = $row["materia"];
       echo "
-        <div class='col-lg-2 col-md-3 py-3 px-3'>
+        <div class='col-lg-1 col-md-3 py-3 px-3'>
           <a href='#$sigla' class=''>
             <div class='card card-cascade narrower'>
               <div class='view view-cascade overlay'>
