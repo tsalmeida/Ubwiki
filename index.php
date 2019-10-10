@@ -3,21 +3,16 @@ include 'engine.php';
 top_page();
 ?>
   <body>
-      <div class="container-fluid px-1 py-1 mb-3">
-        <div class="jumbotron col-sm-12 mb-0">
-          <div class="container">
-            <div class="row">
-                <div class="col-sm-5"></div>
-                <div class="col-sm-2"><img class="img-responsive" src="imagens/logo.jpeg"></img></div>
-                <div class="col-sm-5"></div>
-            </div>
+    <div class="container">
+      <div class="row">
+          <div class="col-sm-5"></div>
+          <div class="col-sm-2">
+              <img class="img-responsive" src="imagens/logo.jpeg"></img>
+              <p class="lead">Bem-vindo à Ubwiki, o sistema inteligente de estudos para o CACD.</p>
           </div>
-          <h1 class="display-3">Ubwiki</h1>
-          <p class="lead">Sistema inteligente de estudos para o CACD.</p>
-          <hr class="my-4">
-          <p>Melhor utilizado em conjunção com o acervo de conteúdo e ferramentas da Ubique, especialmente o Ambiente de Estudos.</p>
-        </div>
+          <div class="col-sm-5"></div>
       </div>
+    </div>
     <div class="container-fluid text-center bg-white">
       <div class="row">
         <div class="col-lg-2"></div>
