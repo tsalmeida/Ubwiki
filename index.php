@@ -3,7 +3,7 @@ include 'engine.php';
 top_page();
 ?>
   <body>
-    <nav class="navbar navbar-expand-lg bg-white height20vh">
+    <nav class="navbar navbar-expand-lg bg-white height10vh py-0">
       <a class="navbar-brand" href="index.php"><h2>Ubwiki</h2></a>
       <ul class="nav navbar-nav ml-auto">
         <li><a class="navlink float-right h4" href="userpage.php">Minha conta</a></li>
@@ -72,19 +72,19 @@ top_page();
       </div>
     </div> -->
 
-    <div class="container bg-lighter py-5 col-sm-12" id="verbetes">
+    <!-- <div class="container bg-lighter py-5 col-sm-12" id="verbetes">
       <div class="row">
         <div class="col-sm-2"></div>
-        <div class="list-group col-sm-8 pr-0">
+        <div class="list-group col-sm-8 pr-0"> -->
           <?php
-              ler_edital("Cultura Geral");
+              // ler_edital("Cultura Geral");
            ?>
-        </div>
+        <!-- </div>
         <div class="col-sm-2"></div>
       </div>
-    </div>
+    </div> -->
 
-    <footer class="container-fluid text-center bg-dark2 text-white py-2">
+    <footer class="container-fluid text-center bg-dark2 text-white py-2 height10vh">
       <p class="mb-0">A Ubwiki é uma ferramenta de uso público e gratuito. Todos os direitos são reservados ao Grupo Ubique. Clique <a href="termos.php" target="_blank">aqui</a> para rever os termos e condições de uso da página.</p>
     </footer>
   </body>
