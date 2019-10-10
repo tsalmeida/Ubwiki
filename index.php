@@ -3,14 +3,18 @@ include 'engine.php';
 top_page();
 ?>
   <body>
-    <div class="container-fluid text-center bg-light">
+    <div class="container-fluid text-center bg-white mt-10">
       <div class="row">
           <div class="col-sm-5"></div>
           <div class="col-sm-2">
               <img class="img-fluid" src="imagens/logo.jpeg"></img>
-              <p class="lead">Bem-vindo à Ubwiki, o sistema inteligente de estudos para o CACD.</p>
           </div>
           <div class="col-sm-5"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <p class="lead">Bem-vindo à Ubwiki, o sistema inteligente de estudos para o CACD.</p>
+      </div>
       </div>
     </div>
     <div class="container-fluid text-center bg-white">
