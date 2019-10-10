@@ -89,7 +89,7 @@ function ler_cartoes($concurso) {
       echo "
 
       <a href='#verbetes'><div class='col-lg-2 bg-light mx-2 my-2 py-0 px-1'>
-        <div class='thumbnail'>
+        <div class="bg-light">
           <a href='#verbetes'><small class='text-muted text-uppercase smaller'>$materia</small></a>
         </div>
       </div></a>
