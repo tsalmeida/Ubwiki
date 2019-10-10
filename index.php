@@ -12,9 +12,15 @@ top_page();
         </div>
       </div>
     <div class="container-fluid text-center bg-white">
-      <div class="row text-center row-eq-height">
+      <div class="row justify-content-around">
         <?php
             $materias = array("HBCACD", "HMCACD", "ECOCACD", "DICACD", "DINCACD");
+            cartao_materia($materias);
+         ?>
+      </div>
+      <div class="row justify-content-around">
+        <?php
+            $materias = array("GEOCACD", "PICACD", "LPORTCACD", "LIGENGCACD", "LIFRCACD");
             cartao_materia($materias);
          ?>
       </div>
