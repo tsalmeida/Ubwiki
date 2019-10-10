@@ -11,7 +11,7 @@ top_page();
           <p>Melhor utilizado em conjunção com o acervo de conteúdo e ferramentas da Ubique, especialmente o Ambiente de Estudos.</p>
         </div>
       </div>
-    <div class="container-fluid text-center bg-white">
+    <div class="container-fluid bg-white justify-content-around">
       <div class="row">
         <?php
             ler_cartoes("CACD");
