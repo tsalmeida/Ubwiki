@@ -3,9 +3,9 @@ include 'engine.php';
 top_page();
 ?>
   <body>
-    <div class="container-fluid text-center bg-white mt-5 justify-content-center">
+    <div class="container-fluid text-center bg-white my-5 justify-content-center">
       <div class="row justify-content-center">
-          <div class="col-sm-1">
+          <div class="col-sm-2">
               <img class="img-fluid logo" src="imagens/logo.jpeg"></img>
           </div>
       </div>
