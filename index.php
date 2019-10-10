@@ -24,7 +24,7 @@ top_page();
         <div class="">
           <form id="searchform" action="" method="post">
             <div id="searchDiv">
-              <input id="searchbar" list="commandlist" type="text" class="searchbar" name="searchbar" rows="1" autocomplete="off" spellcheck="false" required></input>
+              <input id="searchbar" list="searchlist" type="text" class="searchbar" name="searchbar" rows="1" autocomplete="off" spellcheck="false" required></input>
               <datalist id="searchlist">
                 <?php
                   readSearchOptions();
