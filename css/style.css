@@ -64,7 +64,7 @@ logo {
 
 .height10vh {
   min-height: 10vh;
-  padding-bottom: 5vh;
+  margin-bottom: 5vh;
 }
 
 .height5vh {
