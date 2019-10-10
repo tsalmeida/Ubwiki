@@ -3,7 +3,7 @@ include 'engine.php';
 top_page();
 ?>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-white">
+    <nav class="navbar navbar-expand-lg bg-white mb-5">
       <a class="navbar-brand playfair" href="https://www.grupoubique.com.br">Ubique</a>
 
     </nav>
