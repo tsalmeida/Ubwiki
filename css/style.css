@@ -22,10 +22,11 @@ logo {
   max-width: 20vw;
 }
 
-playfair {
-  font-family: 'Playfair Display', serif !important;
-}
-
 .navbar { box-shadow: none !important; }
 
 .btn { box-shadow: none !important; }
+
+.navbar-brand {
+  font-family: 'Playfair Display', serif !important;
+  text-color: black;
+}

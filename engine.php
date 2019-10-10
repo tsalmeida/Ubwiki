@@ -85,7 +85,7 @@ function ler_cartoes($concurso) {
       $materia = $row["materia"];
       echo "
 
-      <a href='#verbetes'><div class='col-lg-3 bg-light'>
+      <a href='#verbetes'><div class='col-lg-3 bg-light mx-2'>
         <div class='thumbnail'>
           <a href='#verbetes'><strong>$materia</strong></a>
         </div>
