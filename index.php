@@ -3,13 +3,13 @@ include 'engine.php';
 top_page();
 ?>
   <body>
-    <nav class="navbar navbar-expand-lg bg-white mb-5">
+    <nav class="navbar navbar-expand-lg bg-white mb-5 height20vh">
       <a class="navbar-brand" href="index.php"><h2>Ubwiki</h2></a>
       <ul class="nav navbar-nav ml-auto">
         <li><a class="navlink float-right h4" href="userpage.php">Minha conta</a></li>
       </ul>
     </nav>
-    <div class="container-fluid text-center bg-white my-5 justify-content-center">
+    <div class="container-fluid text-center bg-white my-5 justify-content-center height50vh">
       <div class="row justify-content-center">
           <div class="col-sm-2">
               <img class="img-fluid logo" src="imagens/ubiquelogo.png"></img>
@@ -21,7 +21,7 @@ top_page();
       </div>
       </div>
     </div>
-    <div class="container-fluid text-center bg-white my-5">
+    <div class="container-fluid text-center bg-white my-5 height30vh">
       <div class="row justify-content-center">
         <div class="col-lg-10">
             <?php
