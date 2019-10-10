@@ -84,7 +84,7 @@ top_page();
       </div>
     </div>
 
-    <footer class="container-fluid text-center heavy-rain-gradient text-dark py-2">
+    <footer class="container-fluid text-center bg-dark text-white py-2">
       <p class="mb-0">A Ubwiki é uma ferramenta de uso público e gratuito. Todos os direitos são reservados ao Grupo Ubique. Clique <a href="termos.php" target="_blank">aqui</a> para rever os termos e condições de uso da página.</p>
     </footer>
   </body>
