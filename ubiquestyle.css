@@ -24,5 +24,9 @@ logo {
 }
 
 playfair {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Playfair Display', serif !important;
 }
+
+.navbar { box-shadow: none !important; }
+
+.btn { box-shadow: none !important; }

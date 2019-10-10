@@ -17,7 +17,6 @@ function top_page() {
     <link href="css/mdb.min.css" rel="stylesheet">
     <!-- Your custom styles (optional) -->
     <link href="css/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="ubiquestyle.css">
     <link type="image/vnd.microsoft.icon" rel="icon" href="../nxst/favicons/simple.scss.ico"/>
     <title>Ubwiki</title>
   </head>
