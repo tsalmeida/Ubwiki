@@ -28,5 +28,5 @@ logo {
 
 .navbar-brand {
   font-family: 'Playfair Display', serif !important;
-  color: black;
+  color: black !important;
 }
