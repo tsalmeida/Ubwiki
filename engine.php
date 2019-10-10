@@ -125,10 +125,21 @@ function ler_edital($materia) {
   $conn->close();
 }
 
-function readSearchOptions() {
-  echo "<option>um</option>";
-  echo "<option>dois</option>";
-  echo "<option>tres</option>";
+function readSearchOptions($concurso) {
+  $servername = "localhost";
+  $username = "grupoubique";
+  $password = "ubique patriae memor";
+  $dbname = "Ubique";
+  $conn = new mysqli($servername, $username, $password, $dbname);
+  mysqli_set_charset($conn,"utf8");
+  $result = $conn->query("SELECT materia, ordem, concurso, estado FROM Materias ORDER BY ordem");
+  if ($result->num_rows > 0) {
+    while(($row = $result->fetch_assoc()) && ($row['concurso'] = $concurso) && ($row['estado'] != false)) {
+      $materia = $row["materia"];
+      echo "<option>$row['materia']</option>";
+    }
+  }
+  $conn->close();
 }
 
 ?>

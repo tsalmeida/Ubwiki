@@ -27,7 +27,7 @@ top_page();
               <input id="searchbar" list="searchlist" type="text" class="searchbar" name="searchbar" rows="1" autocomplete="off" spellcheck="false" placeholder="o que você vai estudar hoje?" required></input>
               <datalist id="searchlist">
                 <?php
-                  readSearchOptions();
+                  readSearchOptions("CACD");
                 ?>
               </datalist>
               <input id="searchBarGo" type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;" tabindex="-1" />
