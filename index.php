@@ -36,7 +36,7 @@ top_page();
         </div>
       </div>
     </div>
-    <div class="container-fluid text-center bg-white height30vh mt-5">
+    <div class="container-fluid text-center bg-white height30vh pt-5">
       <div class="row justify-content-center">
         <div class="col-lg-10">
             <?php
