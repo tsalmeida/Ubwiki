@@ -94,7 +94,7 @@ function ler_cartoes($concurso) {
         </div>
       </div></a>
       ";
-      if ($count == 5) {
+      if ($count == 6) {
         echo "</div>";
         $count = 1;
       }
