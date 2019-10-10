@@ -7,7 +7,7 @@ top_page();
       <div class="row">
           <div class="col-sm-5"></div>
           <div class="col-sm-2">
-              <img class="img-responsive" src="imagens/logo.jpeg"></img>
+              <img class="img-fluid" src="imagens/logo.jpeg"></img>
               <p class="lead">Bem-vindo à Ubwiki, o sistema inteligente de estudos para o CACD.</p>
           </div>
           <div class="col-sm-5"></div>
