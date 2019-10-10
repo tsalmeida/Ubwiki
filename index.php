@@ -5,6 +5,7 @@ top_page();
   <body>
       <div class="container-fluid px-1 py-1 mb-3">
         <div class="jumbotron col-sm-12 mb-0">
+          <img src="images/logo.jpeg"></img>
           <h1 class="display-3">Ubwiki</h1>
           <p class="lead">Sistema inteligente de estudos para o CACD.</p>
           <hr class="my-4">
