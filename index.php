@@ -3,7 +3,7 @@ include 'engine.php';
 top_page();
 ?>
   <body>
-    <div class="container">
+    <div class="container-fluid text-center bg-light">
       <div class="row">
           <div class="col-sm-5"></div>
           <div class="col-sm-2">
