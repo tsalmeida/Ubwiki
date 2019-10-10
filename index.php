@@ -12,7 +12,7 @@ top_page();
         </div>
       </div>
     <div class="container-fluid text-center bg-white">
-      <div class="row justify-content-around">
+      <div class="row">
         <?php
             ler_cartoes("CACD");
         ?>
