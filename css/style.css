@@ -46,3 +46,10 @@ logo {
 .bg-dark2 {
   background-color: #b5b5b5;
 }
+
+.bdark {
+  border: 0;
+  border-style: solid;
+  border-color: #b5b5b5;
+  border-width: 0.5rem;
+}
