@@ -79,8 +79,7 @@ function ler_cartoes($concurso) {
   $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname);
   mysqli_set_charset($conn,"utf8");
-  $sql = "SELECT sigla, materia, ordem, concurso FROM Materias";
-  $result = $conn->query($sql);
+  $result = $conn->query("SELECT sigla, materia, ordem, concurso FROM Materias ORDER BY ordem");
   if ($result->num_rows > 0) {
     while(($row = $result->fetch_assoc()) && ($row['concurso'] = $concurso)) {
       $sigla = $row["sigla"];
