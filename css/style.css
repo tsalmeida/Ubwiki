@@ -74,7 +74,7 @@ logo {
 .searchbar {
   background-color: white;
   border: 0;
-  border-bottom: 0.5rem;
+  border-bottom: 2px;
   border-style: solid;
   border-color: black;
   width: 100%;
