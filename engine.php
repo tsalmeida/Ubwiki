@@ -72,20 +72,21 @@ function connect_to_mysql($id, $materia) {
   return $result;
 }
 
-function cartao_materia($id) {
+function cartao_materia($sigla) {
+  $sigla = $sigla[0];
   $servername = "localhost";
   $username = "grupoubique";
   $password = "ubique patriae memor";
   $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname);
   mysqli_set_charset($conn,"utf8");
-  $sql = "SELECT id, sigla, materia FROM Materias";
+  $sql = "SELECT sigla, materia FROM Materias";
   $result = $conn->query($sql);
 
   if ($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {
-        $check = $row['id'];
-        if ($id == $check) {
+        $check = $row['sigla'];
+        if ($sigla == $check) {
         $sigla = $row["sigla"];
         $materia = $row["materia"];
         echo "

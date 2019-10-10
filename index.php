@@ -14,11 +14,8 @@ top_page();
     <div class="container-fluid text-center bg-white">
       <div class="row text-center row-eq-height">
         <?php
-            $x = 1;
-            while ($x <= 10) {
-              cartao_materia($x);
-              $x++;
-            }
+            $materias = array("HBCACD", "HMCACD", "ECOCACD", "DICACD", "DINCACD", "PICACD", "GEOCACD", "LITPTCACD", "LITENCACD", "LITFRCACD");
+            cartao_materia($materias);
          ?>
       </div>
     </div>
