@@ -31,7 +31,7 @@ top_page();
       </div>
     </div>
 
-    <!-- <div class="container my-5 bg-light py-5 col-sm-12">
+    <!-- <div class="container my-5 bg-lighter py-5 col-sm-12">
       <div class="row">
         <div class="col-sm-2"></div>
         <div class="col-sm-8 bg-white py-3">
@@ -59,7 +59,7 @@ top_page();
       </div>
     </div> -->
 
-    <!-- <div class="container my-5 bg-light py-5 col-sm-12">
+    <!-- <div class="container my-5 bg-lighter py-5 col-sm-12">
       <div class="row">
         <div class="col-sm-2"></div>
         <div class="col-sm-8 bg-white py-3"> -->
@@ -72,7 +72,7 @@ top_page();
       </div>
     </div> -->
 
-    <div class="container my-5 bg-light py-5 col-sm-12" id="verbetes">
+    <div class="container my-5 bg-lighter py-5 col-sm-12" id="verbetes">
       <div class="row">
         <div class="col-sm-2"></div>
         <div class="list-group col-sm-8 pr-0">
