@@ -14,9 +14,8 @@ top_page();
     <div class="container-fluid text-center bg-white">
       <div class="row justify-content-around">
         <?php
-            $materias = array("HBCACD", "HMCACD", "ECOCACD", "DICACD", "DINCACD","GEOCACD", "PICACD", "LPORTCACD", "LIGENGCACD", "LIFRCACD");
-            cartao_materia($materias);
-         ?>
+            ler_cartoes("CACD");
+        ?>
       </div>
     </div>
 

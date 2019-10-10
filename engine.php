@@ -72,45 +72,37 @@ function connect_to_mysql($id, $materia) {
   return $result;
 }
 
-function cartao_materia($siglas) {
-  if (!is_array($siglas)) {
-    $siglas = array($siglas);
-  }
+function ler_cartoes($concurso) {
   $servername = "localhost";
   $username = "grupoubique";
   $password = "ubique patriae memor";
   $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname);
   mysqli_set_charset($conn,"utf8");
-  $sql = "SELECT sigla, materia FROM Materias";
+  $sql = "SELECT sigla, materia, ordem, concurso FROM Materias";
   $result = $conn->query($sql);
-  $x = 0;
   if ($result->num_rows > 0) {
-    while(($row = $result->fetch_assoc()) && ($siglas[$x] != false)) {
-      $check = $row['sigla'];
-      if ($siglas[$x] == $check) {
-        $sigla = $row["sigla"];
-        $materia = $row["materia"];
-        echo "
-          <div class='col-lg-2 col-md-3 py-2 px-2'>
-            <a href='#$sigla' class=''>
-              <div class='card card-cascade narrower'>
-                <div class='view view-cascade overlay'>
-                  <img src='imagens/$sigla.jpg' class='card-img-top'
-                    alt='$materia'>
-                  <a>
-                    <div class='mask rgba-white-slight'></div>
-                  </a>
-                </div>
-                <div class='card-body card-body-cascade'>
-                  <h5 class='card-title'>$materia</h5>
-                </div>
+    while(($row = $result->fetch_assoc()) && ($row['concurso'] = $concurso)) {
+      $sigla = $row["sigla"];
+      $materia = $row["materia"];
+      echo "
+        <div class='col-lg-2 col-md-3 py-2 px-2'>
+          <a href='#$sigla' class=''>
+            <div class='card card-cascade narrower'>
+              <div class='view view-cascade overlay'>
+                <img src='imagens/$sigla.jpg' class='card-img-top'
+                  alt='$materia'>
+                <a>
+                  <div class='mask rgba-white-slight'></div>
+                </a>
               </div>
-            </a>
-          </div>
-        ";
-      }
-      $x++;
+              <div class='card-body card-body-cascade'>
+                <h5 class='card-title'>$materia</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+      ";
     }
   }
   $conn->close();
