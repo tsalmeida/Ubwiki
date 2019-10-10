@@ -12,15 +12,17 @@ top_page();
         </div>
       </div>
     <div class="container-fluid text-center bg-white">
-      <div class="col-lg-2"></div>
-      <div class="col-lg-8">
-      <div class="row justify-content-around">
-        <?php
-            ler_cartoes("CACD");
-        ?>
+      <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
+        <div class="row justify-content-around">
+          <?php
+              ler_cartoes("CACD");
+          ?>
+        </div>
+        </div>
+        <div class="col-lg-2"></div>
       </div>
-      </div>
-      <div class="col-lg-2"></div>
     </div>
 
     <!-- <div class="container my-5 bg-light py-5 col-sm-12">
