@@ -4,25 +4,23 @@ top_page();
 ?>
   <body>
     <div class="container-fluid text-center bg-white mt-5 justify-content-center">
-      <div class="row">
+      <div class="row justify-content-center">
           <div class="col-sm-2">
               <img class="img-fluid" src="imagens/logo.jpeg"></img>
           </div>
       </div>
-      <div class="row">
+      <div class="row justify-concent-center">
         <div class="col-sm-12">
           <p class="lead">Bem-vindo à Ubwiki, o sistema inteligente de estudos para o CACD.</p>
       </div>
       </div>
     </div>
     <div class="container-fluid text-center bg-white">
-      <div class="row">
+      <div class="row justify-content-center">
         <div class="col-lg-8">
-          <div class="row justify-content-around">
             <?php
                 ler_cartoes("CACD");
             ?>
-          </div>
         </div>
       </div>
     </div>
