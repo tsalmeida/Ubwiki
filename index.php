@@ -69,16 +69,18 @@ top_page();
         <div class="col-sm-2"></div>
         <div class="list-group col-sm-8">
           <?php
-              ler_edital("História do Brasil");
+              ler_edital("Cultura Geral");
            ?>
         </div>
         <div class="col-sm-2"></div>
       </div>
     </div>
+
     <footer class="container-fluid text-center heavy-rain-gradient text-dark py-2">
       <p class="mb-0">A Ubwiki é uma ferramenta de uso público e gratuito. Todos os direitos são reservados ao Grupo Ubique. Clique <a href="termos.php" target="_blank">aqui</a> para rever os termos e condições de uso da página.</p>
     </footer>
   </body>
+
 <?php
   bottom_page();
 ?>

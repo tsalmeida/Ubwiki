@@ -121,14 +121,15 @@ function ler_edital($materia) {
   mysqli_set_charset($conn,"utf8");
   $sql = "SELECT etiqueta, materia, superior FROM Etiquetas";
   $result = $conn->query($sql);
+  echo "<a href='#!' class='list-group-item list-group-item-action'>etiqueta</a>";
 
   if ($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {
         $check = $row['materia'];
         if ($materia == $check) {
-        $superior = $row["superior"];
-        $etiqueta = $row["etiqueta"];
-        echo "<a href='#!' class='list-group-item list-group-item-action'>$etiqueta</a>";
+          $superior = $row["superior"];
+          $etiqueta = $row["etiqueta"];
+          echo "<a href='#!' class='list-group-item list-group-item-action'>$etiqueta</a>";
       }
     }
   }
