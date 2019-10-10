@@ -112,6 +112,29 @@ function cartao_materia($id) {
   $conn->close();
 }
 
+function ler_edital($materia) {
+  $servername = "localhost";
+  $username = "grupoubique";
+  $password = "ubique patriae memor";
+  $dbname = "Ubique";
+  $conn = new mysqli($servername, $username, $password, $dbname);
+  mysqli_set_charset($conn,"utf8");
+  $sql = "SELECT etiqueta, materia, superior FROM Etiquetas";
+  $result = $conn->query($sql);
+
+  if ($result->num_rows > 0) {
+      while($row = $result->fetch_assoc()) {
+        $check = $row['materia'];
+        if ($materia == $check) {
+        $superior = $row["superior"];
+        $etiqueta = $row["etiqueta"];
+        echo "<a href='#!' class='list-group-item list-group-item-action'>$etiqueta</a>";
+      }
+    }
+  }
+  $conn->close();
+}
+
 
 
 ?>

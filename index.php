@@ -68,54 +68,9 @@ top_page();
       <div class="row">
         <div class="col-sm-2"></div>
         <div class="list-group col-sm-8">
-          <a href="#!" class="list-group-item list-group-item-action">Descobrimento</a>
-          <a href="#!" class="list-group-item list-group-item-action">Independência</a>
-          <a href="#!" class="list-group-item list-group-item-action">Getúlio Vargas</a>
-          <a href="#!" class="list-group-item list-group-item-action">Ditadura Militar</a>
-          <a href="#!" class="list-group-item list-group-item-action">Descobrimento</a>
-          <a href="#!" class="list-group-item list-group-item-action">Independência</a>
-          <a href="#!" class="list-group-item list-group-item-action">Getúlio Vargas</a>
-          <a href="#!" class="list-group-item list-group-item-action">Ditadura Militar</a>
-          <a href="#!" class="list-group-item list-group-item-action">Descobrimento</a>
-          <a href="#!" class="list-group-item list-group-item-action">Independência</a>
-          <a href="#!" class="list-group-item list-group-item-action">Getúlio Vargas</a>
-          <a href="#!" class="list-group-item list-group-item-action">Ditadura Militar</a>
-          <a href="#!" class="list-group-item list-group-item-action">Descobrimento</a>
-          <a href="#!" class="list-group-item list-group-item-action">Independência</a>
-          <a href="#!" class="list-group-item list-group-item-action">Getúlio Vargas</a>
-          <a href="#!" class="list-group-item list-group-item-action">Ditadura Militar</a>
-          <a href="#!" class="list-group-item list-group-item-action">Descobrimento</a>
-          <a href="#!" class="list-group-item list-group-item-action">Independência</a>
-          <a href="#!" class="list-group-item list-group-item-action">Getúlio Vargas</a>
-          <a href="#!" class="list-group-item list-group-item-action">Ditadura Militar</a>
-          <a href="#!" class="list-group-item list-group-item-action">Descobrimento</a>
-          <a href="#!" class="list-group-item list-group-item-action">Independência</a>
-          <a href="#!" class="list-group-item list-group-item-action">Getúlio Vargas</a>
-          <a href="#!" class="list-group-item list-group-item-action">Ditadura Militar</a>
-          <a href="#!" class="list-group-item list-group-item-action">Descobrimento</a>
-          <a href="#!" class="list-group-item list-group-item-action">Independência</a>
-          <a href="#!" class="list-group-item list-group-item-action">Getúlio Vargas</a>
-          <a href="#!" class="list-group-item list-group-item-action">Ditadura Militar</a>
-          <a href="#!" class="list-group-item list-group-item-action">Descobrimento</a>
-          <a href="#!" class="list-group-item list-group-item-action">Independência</a>
-          <a href="#!" class="list-group-item list-group-item-action">Getúlio Vargas</a>
-          <a href="#!" class="list-group-item list-group-item-action">Ditadura Militar</a>
-          <a href="#!" class="list-group-item list-group-item-action">Descobrimento</a>
-          <a href="#!" class="list-group-item list-group-item-action">Independência</a>
-          <a href="#!" class="list-group-item list-group-item-action">Getúlio Vargas</a>
-          <a href="#!" class="list-group-item list-group-item-action">Ditadura Militar</a>
-          <a href="#!" class="list-group-item list-group-item-action">Descobrimento</a>
-          <a href="#!" class="list-group-item list-group-item-action">Independência</a>
-          <a href="#!" class="list-group-item list-group-item-action">Getúlio Vargas</a>
-          <a href="#!" class="list-group-item list-group-item-action">Ditadura Militar</a>
-          <a href="#!" class="list-group-item list-group-item-action">Descobrimento</a>
-          <a href="#!" class="list-group-item list-group-item-action">Independência</a>
-          <a href="#!" class="list-group-item list-group-item-action">Getúlio Vargas</a>
-          <a href="#!" class="list-group-item list-group-item-action">Ditadura Militar</a>
-          <a href="#!" class="list-group-item list-group-item-action">Descobrimento</a>
-          <a href="#!" class="list-group-item list-group-item-action">Independência</a>
-          <a href="#!" class="list-group-item list-group-item-action">Getúlio Vargas</a>
-          <a href="#!" class="list-group-item list-group-item-action">Ditadura Militar</a>
+          <?php
+              ler_edital("História do Brasil");
+           ?>
         </div>
         <div class="col-sm-2"></div>
       </div>
