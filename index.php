@@ -5,8 +5,11 @@ top_page();
   <body>
     <nav class="navbar navbar-expand-lg bg-white height10vh py-0">
       <a class="navbar-brand align-top" href="index.php"><h2>Ubwiki</h2></a>
+      <ul class="navlink float-right h5 align-top text-center" href="https://www.grupoubique.com.br/enrollments">
+        Ubique
+      </ul>
       <ul class="nav navbar-nav ml-auto">
-        <li><a class="navlink float-right h5 align-top" href="https://www.grupoubique.com.br/enrollments">Minha conta</a></li>
+        <li><a class="navlink float-right h5 align-top" href="userpage.php">Minha conta</a></li>
       </ul>
     </nav>
     <div class="container-fluid text-center bg-white justify-content-center height50vh">
