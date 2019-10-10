@@ -85,22 +85,13 @@ function ler_cartoes($concurso) {
       $sigla = $row["sigla"];
       $materia = $row["materia"];
       echo "
-        <div class='col-lg-2 col-md-3 py-3 px-3'>
-          <a href='#$sigla' class=''>
-            <div class='card card-cascade narrower'>
-              <div class='view view-cascade overlay'>
-                <img src='imagens/$sigla.jpg' class='card-img-top rounded-circle img-fluid zoom'
-                  alt='$materia'>
-                <a>
-                  <div class='mask rgba-white-slight'></div>
-                </a>
-              </div>
-              <div class='card-body card-body-cascade'>
-                <a href='#verbetes' class=''><small class='text-muted'>$materia</small></a>
-              </div>
-            </div>
-          </a>
+
+      <div href='#verbetes' class='col-lg-2'>
+        <div class='thumbnail'>
+          <img src='imagens/$sigla.jpg' alt='$materia'>
+          <a><strong>$materia</strong></a>
         </div>
+      </div>
       ";
     }
   }
