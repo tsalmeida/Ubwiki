@@ -89,7 +89,7 @@ function ler_cartoes($concurso) {
       <a href='#verbetes'><div class='col-lg-2'>
         <div class='thumbnail'>
           <img src='imagens/$sigla.jpg' alt='$materia' class='rounded img-fluid'>
-          <a><strong>$materia</strong></a>
+          <a href='#verbetes'><strong>$materia</strong></a>
         </div>
       </div></a>
       ";
