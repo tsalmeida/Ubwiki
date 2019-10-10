@@ -73,7 +73,7 @@ function connect_to_mysql($id, $materia) {
 }
 
 function cartao_materia($siglas) {
-  if !is_array($siglas) {
+  if (!is_array($siglas)) {
     $siglas = array($siglas);
   }
   $servername = "localhost";
