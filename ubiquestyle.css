@@ -17,3 +17,7 @@ a {
 h1 {
   text-align: center;
 }
+
+logo {
+  max-width: 20vw;
+}

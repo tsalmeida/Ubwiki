@@ -5,8 +5,8 @@ top_page();
   <body>
     <div class="container-fluid text-center bg-white mt-5 justify-content-center">
       <div class="row justify-content-center">
-          <div class="col-sm-2">
-              <img class="img-fluid" src="imagens/logo.jpeg"></img>
+          <div class="col-sm-1">
+              <img class="img-fluid logo" src="imagens/logo.jpeg"></img>
           </div>
       </div>
       <div class="row justify-concent-center">
