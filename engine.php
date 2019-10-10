@@ -80,17 +80,24 @@ function ler_cartoes($concurso) {
   mysqli_set_charset($conn,"utf8");
   $result = $conn->query("SELECT sigla, materia, ordem, concurso FROM Materias ORDER BY ordem");
   if ($result->num_rows > 0) {
+    $count = 1;
     while(($row = $result->fetch_assoc()) && ($row['concurso'] = $concurso)) {
+      if ($count == 0) { echo "<div class="row">" }
+      $count++;
       $sigla = $row["sigla"];
       $materia = $row["materia"];
       echo "
 
-      <a href='#verbetes'><div class='col-lg-3 bg-light mx-2'>
+      <a href='#verbetes'><div class='col-lg-1 bg-light mx-2'>
         <div class='thumbnail'>
           <a href='#verbetes'><strong>$materia</strong></a>
         </div>
       </div></a>
       ";
+      if ($count == 5) {
+        echo "</div>";
+        $count = 0;
+      }
     }
   }
   $conn->close();
