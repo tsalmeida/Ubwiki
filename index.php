@@ -3,6 +3,10 @@ include 'engine.php';
 top_page();
 ?>
   <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-white">
+      <a class="navbar-brand playfair" href="https://www.grupoubique.com.br">Ubique</a>
+
+    </nav>
     <div class="container-fluid text-center bg-white my-5 justify-content-center">
       <div class="row justify-content-center">
           <div class="col-sm-2">
