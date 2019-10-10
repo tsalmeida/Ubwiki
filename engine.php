@@ -89,7 +89,7 @@ function ler_cartoes($concurso) {
           <a href='#$sigla' class=''>
             <div class='card card-cascade narrower'>
               <div class='view view-cascade overlay'>
-                <img src='imagens/$sigla.jpg' class='card-img-top rounded-circle img-fluid'
+                <img src='imagens/$sigla.jpg' class='card-img-top rounded-circle img-fluid zoom'
                   alt='$materia'>
                 <a>
                   <div class='mask rgba-white-slight'></div>
