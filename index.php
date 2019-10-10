@@ -4,7 +4,7 @@ top_page();
 ?>
   <body>
     <nav class="navbar navbar-expand-lg bg-white mb-5">
-      <a class="navbar-brand" href="index.php">Ubwiki</a>
+      <a class="navbar-brand" href="index.php"><h2>Ubwiki</h2></a>
 
     </nav>
     <div class="container-fluid text-center bg-white my-5 justify-content-center">
