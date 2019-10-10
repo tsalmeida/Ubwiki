@@ -70,3 +70,14 @@ logo {
 .height5vh {
   min-height: 5vh;
 }
+
+.searchbar {
+  background-color: white;
+  border: 0;
+  border-bottom: 0.5rem;
+  border-style: solid;
+  border-color: black;
+  width: 100%;
+  height: 2rem;
+  text-size: 2rem;
+}
