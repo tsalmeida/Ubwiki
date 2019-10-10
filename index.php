@@ -60,7 +60,7 @@ top_page();
       </div>
     </div> -->
 
-    <div class="container my-5 bg-light py-5 col-sm-12" id="#hb">
+    <div class="container my-5 bg-light py-5 col-sm-12" id="#verbetes">
       <div class="row">
         <div class="col-sm-2"></div>
         <div class="list-group col-sm-8 pr-0">
