@@ -38,3 +38,7 @@ logo {
 .smaller {
   text-size: 0.5rem;
 }
+
+.bg-light {
+  background-color: #f6f5f3;
+}
