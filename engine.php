@@ -78,23 +78,22 @@ function ler_cartoes($concurso) {
   $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname);
   mysqli_set_charset($conn,"utf8");
-  $result = $conn->query("SELECT sigla, materia, ordem, concurso FROM Materias ORDER BY ordem");
+  $result = $conn->query("SELECT sigla, materia, ordem, concurso, estado FROM Materias ORDER BY ordem");
   if ($result->num_rows > 0) {
     $count = 1;
-    while(($row = $result->fetch_assoc()) && ($row['concurso'] = $concurso)) {
+    while(($row = $result->fetch_assoc()) && ($row['concurso'] = $concurso) && ($row['estado'] != false)) {
       if ($count == 1) { echo "<div class='row justify-content-center'>"; }
       $count++;
       $sigla = $row["sigla"];
       $materia = $row["materia"];
       echo "
-
       <a href='#verbetes'>
         <div class='col-lg-2 bg-lighter mx-3 my-3 py-0 px-1 rounded'>
           <a href='#verbetes'><small class='text-muted text-uppercase smaller'>$materia</small></a>
         </div>
       </a>
       ";
-      if ($count == 6) {
+      if ($count == 5) {
         echo "</div>";
         $count = 1;
       }
