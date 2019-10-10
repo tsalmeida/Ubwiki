@@ -90,7 +90,7 @@ function ler_cartoes($concurso) {
 
       <a href='#verbetes'><div class='col-lg-2 bg-light mx-1 my-1 py-0 px-1'>
         <div class='thumbnail'>
-          <a href='#verbetes'><strong class='text-muted text-uppercase'>$materia</strong></a>
+          <a href='#verbetes'><small class='text-muted text-uppercase'>$materia</small></a>
         </div>
       </div></a>
       ";
