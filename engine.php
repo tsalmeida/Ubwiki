@@ -1,4 +1,3 @@
-<?php
 function top_page() {
   echo '
   <!DOCTYPE html>
@@ -20,6 +19,7 @@ function top_page() {
   </head>
   ';
 }
+
 function bottom_page() {
   echo '
   <!-- JQuery -->
@@ -33,6 +33,7 @@ function bottom_page() {
   </html>
   ';
 }
+
 function extract_gdoc($url) {
   $ch = curl_init();
   curl_setopt($ch, CURLOPT_URL, $url);
@@ -45,6 +46,7 @@ function extract_gdoc($url) {
   curl_close($ch);
   return $body;
 }
+
 function extract_zoho($linkplanilha, $authtoken, $ownername, $materia, $scope) {
   $ch = curl_init();
   $linkplanilha = "$linkplanilha?authtoken=$authtoken&zc_ownername=$ownername&materia=$materia&scope=$scope";
@@ -59,9 +61,11 @@ function extract_zoho($linkplanilha, $authtoken, $ownername, $materia, $scope) {
   $output = serialize($array);
   return $output;
 }
+
 function connect_to_mysql($id, $materia) {
   return $result;
 }
+
 function ler_cartoes($concurso) {
   $servername = "localhost";
   $username = "grupoubique";
@@ -69,7 +73,7 @@ function ler_cartoes($concurso) {
   $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname);
   mysqli_set_charset($conn,"utf8");
-  $result = $conn->query("SELECT sigla, materia, ordem, estado FROM Materias WHERE concurso = '$concurso' AND estado = 1 ORDER BY ordem");
+  $result = $conn->query("SELECT sigla, materia, ordem  FROM Materias WHERE concurso = '$concurso' AND estado = 1 ORDER BY ordem");
   if ($result->num_rows > 0) {
     $count = 1;
     while($row = $result->fetch_assoc()) {
@@ -92,6 +96,7 @@ function ler_cartoes($concurso) {
   }
   $conn->close();
 }
+
 function ler_edital($materia) {
   $servername = "localhost";
   $username = "grupoubique";
@@ -113,6 +118,7 @@ function ler_edital($materia) {
   }
   $conn->close();
 }
+
 function readSearchOptions($concurso) {
   $servername = "localhost";
   $username = "grupoubique";
@@ -120,15 +126,16 @@ function readSearchOptions($concurso) {
   $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname);
   mysqli_set_charset($conn,"utf8");
-  $result = $conn->query("SELECT materia, ordem, concurso, estado FROM Materias ORDER BY ordem");
+  $result = $conn->query("SELECT materia, ordem FROM Materias WHERE concurso = '$concurso' AND estado = 1 ORDER BY ordem");
   if ($result->num_rows > 0) {
-    while(($row = $result->fetch_assoc()) && ($row['concurso'] = $concurso) && ($row['estado'] != false)) {
+    while($row = $result->fetch_assoc()) {
       $materia = $row["materia"];
       echo "<option>$materia</option>";
     }
   }
   $conn->close();
 }
+
 function standard_jumbotron() {
   echo "
   <div class='container-fluid px-1 py-1 mb-3 text-center'>
@@ -138,4 +145,3 @@ function standard_jumbotron() {
   </div>
   ";
 }
-?>
