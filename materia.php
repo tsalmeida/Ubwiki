@@ -7,13 +7,13 @@
 //   header("materias.php?materia=$materia&concurso=$concurso");
 // }
 
-if (isset($_POST['sigla'])) {
-  $test = $_POST['sigla'];
+if (isset($_GET['sigla'])) {
+  $test = $_GET['sigla'];
   echo "<p>$test sigla was set</p>";
 }
 
-if (isset($_POST['concurso'])) {
-  $test = $_POST['concurso'];
+if (isset($_GET['concurso'])) {
+  $test = $_GET['concurso'];
   echo "<p>$test</p>";
 }
 
