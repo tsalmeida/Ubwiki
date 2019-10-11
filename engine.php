@@ -162,9 +162,5 @@ if ((isset($_POST['sigla'])) && (isset($_POST['searchBarGo']))) {
   }
   $conn->close();
 }
-else {
-  $materia = "geral";
-  header("materias.php?materia=$materia&concurso=$concurso");
-}
 
 ?>
