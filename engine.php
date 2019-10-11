@@ -69,7 +69,7 @@ function ler_cartoes($concurso) {
   $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname);
   mysqli_set_charset($conn,"utf8");
-  $query = "SELECT sigla, materia, ordem, estado FROM Materias WHERE concurso = 'CACD' AND estado = 1 ORDER BY ordem";
+  $query = "SELECT sigla, materia, ordem, estado FROM Materias WHERE concurso = '$concurso' AND estado = 1 ORDER BY ordem";
   $result = $conn->query($query);
   if ($result->num_rows > 0) {
     $count = 1;
