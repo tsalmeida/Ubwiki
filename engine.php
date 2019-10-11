@@ -156,7 +156,7 @@ if (isset($_POST['searchBarGo'])) {
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $sigla = $row["sigla"];
-      header("Location:materias.php?sigla=$sigla&concurso=$concurso");
+      header("Location:materia.php?sigla=$sigla&concurso=$concurso");
     }
   }
   $conn->close();
