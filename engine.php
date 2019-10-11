@@ -79,11 +79,9 @@ function ler_cartoes($concurso) {
       $sigla = $row["sigla"];
       $materia = $row["materia"];
       echo "
-      <a href='materia.php?sigla=$sigla&concurso=$concurso'>
         <div class='col-lg-2 bg-lighter mx-3 my-3 py-0 px-1 rounded bdark'>
-          <small class='text-muted text-uppercase smaller'>$materia</small>
+          <small class='text-muted text-uppercase smaller'><a href='materia.php?sigla=$sigla&concurso=$concurso'>$materia</a></small>
         </div>
-      </a>
       ";
       if ($count == 5) {
         echo "</div>";
