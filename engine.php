@@ -144,6 +144,7 @@ function standard_jumbotron() {
 }
 
 if ((isset($_POST['sigla'])) && (isset($_POST['searchBarGo']))) {
+  error_log("this happened");
   $concurso = $_POST['searchBarGo'];
   $sigla = $_POST['sigla'];
   $servername = "localhost";
