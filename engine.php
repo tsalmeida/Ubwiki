@@ -79,7 +79,7 @@ function ler_cartoes($concurso) {
   $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname);
   mysqli_set_charset($conn,"utf8");
-  $result = $conn->query("SELECT sigla, materia, ordem, concurso FROM Materias WHERE concurso = '$concurso' ORDER BY ordem");
+  $result = $conn->query("SELECT sigla, materia, ordem, concurso FROM Materias WHERE concurso = $concurso ORDER BY ordem");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $sigla = $row["sigla"];
@@ -139,7 +139,7 @@ if (isset($_POST['searchbar'])) {
   $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname);
   mysqli_set_charset($conn,"utf8");
-  $result = $conn->query("SELECT materia, concurso FROM Materias WHERE concurso = '$concurso' ORDER BY ordem");
+  $result = $conn->query("SELECT materia, concurso FROM Materias WHERE concurso = $concurso ORDER BY ordem");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       if ($command == $row['materia']);
