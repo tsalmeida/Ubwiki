@@ -147,7 +147,7 @@ if (isset($_POST['searchBarGo'])) {
   $concurso = $_POST['searchBarGo'];
   $command = $_POST['searchbar'];
   error_log("this happened: concurso: $concurso and command: $command");
-  headers("materias.php?sigla=PICACD&concurso=CACD");
+  header("materia.php?sigla=PICACD&concurso=CACD");
   // $servername = "localhost";
   // $username = "grupoubique";
   // $password = "ubique patriae memor";
