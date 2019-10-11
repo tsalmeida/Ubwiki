@@ -1,3 +1,4 @@
+<?php
 function top_page() {
   echo '
   <!DOCTYPE html>
@@ -145,3 +146,4 @@ function standard_jumbotron() {
   </div>
   ";
 }
+?>
