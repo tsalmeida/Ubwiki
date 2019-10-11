@@ -163,7 +163,8 @@ if ((isset($_POST['sigla'])) && (isset($_POST['searchBarGo']))) {
   $conn->close();
 }
 
-function carregar_pagina($sigla, $concurso);
+function carregar_pagina($sigla, $concurso) {
   echo "<h1>Página de $sigla</h1>";
   echo "<p>Concurso: $concurso</p>";
+}
 ?>
