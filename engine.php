@@ -143,21 +143,21 @@ function standard_jumbotron() {
   ";
 }
 
-if ((isset($_POST['sigla'])) && (isset($_POST['searchBarGo']))) {
-  error_log("this happened");
+if (isset($_POST['searchBarGo'])) {
   $concurso = $_POST['searchBarGo'];
-  $sigla = $_POST['sigla'];
+  $command = $_POST['searchbar'];
+  error_log("this happened: concurso: $concurso and command: $command");
   $servername = "localhost";
   $username = "grupoubique";
   $password = "ubique patriae memor";
   $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname);
   mysqli_set_charset($conn,"utf8");
-  $result = $conn->query("SELECT materia FROM Materias WHERE concurso = '$concurso' AND estado = 1 AND sigla = '$sigla' ORDER BY ordem");
+  $result = $conn->query("SELECT sigla FROM Materias WHERE concurso = '$concurso' AND estado = 1 AND materia = '$command' ORDER BY ordem");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
-      $materia = $row["materia"];
-      header("materias.php?materia=$materia&concurso=$concurso");
+      $sigla = $row["sigla"];
+      header("materias.php?sigla=$sigla&concurso=$concurso");
     }
   }
   $conn->close();
