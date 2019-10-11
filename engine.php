@@ -79,9 +79,9 @@ function ler_cartoes($concurso) {
       $sigla = $row["sigla"];
       $materia = $row["materia"];
       echo "
-      <a href='#verbetes'>
+      <a href='materia.php?sigla=$sigla&concurso=$concurso'>
         <div class='col-lg-2 bg-lighter mx-3 my-3 py-0 px-1 rounded bdark'>
-          <a href='materia.php?sigla=$sigla&concurso=$concurso'><small class='text-muted text-uppercase smaller'>$materia</small></a>
+          <small class='text-muted text-uppercase smaller'>$materia</small>
         </div>
       </a>
       ";
