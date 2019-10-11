@@ -161,14 +161,27 @@ if (isset($_POST['searchBarGo'])) {
       $found = true;
     }
   }
+  // aqui entrará a parte de busca por temas.
   $conn->close();
   if ($found == false) {
-    header("Location:index.php?estado=nomatch");
+    header("Location:index.php");
   }
 }
 
 function carregar_pagina($sigla, $concurso) {
-  echo "<h1>Página de $sigla</h1>";
-  echo "<p>Concurso: $concurso</p>";
+  $servername = "localhost";
+  $username = "grupoubique";
+  $password = "ubique patriae memor";
+  $dbname = "Ubique";
+  $found = false;
+  $conn = new mysqli($servername, $username, $password, $dbname);
+  mysqli_set_charset($conn,"utf8");
+  $result = $conn->query("SELECT materia FROM Materias WHERE concurso = '$concurso' AND estado = 1 AND sigla = '$sigla' ORDER BY ordem");
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $materia = $row["materia"];
+    }
+    echo "<h1>Página de $materia</h1>";
+  }
 }
 ?>
