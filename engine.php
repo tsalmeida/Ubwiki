@@ -146,7 +146,7 @@ function standard_jumbotron() {
 if (isset($_POST['searchBarGo'])) {
   $concurso = $_POST['searchBarGo'];
   $command = $_POST['searchbar'];
-  // error_log("this happened: concurso: $concurso and command: $command");
+  error_log("this happened: concurso: $concurso and command: $command");
   header("materias.php?sigla=PICACD&concurso=CACD");
   // $servername = "localhost";
   // $username = "grupoubique";
