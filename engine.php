@@ -162,24 +162,8 @@ if ((isset($_POST['sigla'])) && (isset($_POST['searchBarGo']))) {
   }
   $conn->close();
 }
-if ((isset($_POST['sigla'])) && (isset($_POST['searchBarGo']))) {
-  error_log("this happened");
-  $concurso = $_POST['searchBarGo'];
-  $sigla = $_POST['sigla'];
-  $servername = "localhost";
-  $username = "grupoubique";
-  $password = "ubique patriae memor";
-  $dbname = "Ubique";
-  $conn = new mysqli($servername, $username, $password, $dbname);
-  mysqli_set_charset($conn,"utf8");
-  $result = $conn->query("SELECT materia FROM Materias WHERE concurso = '$concurso' AND estado = 1 AND sigla = '$sigla' ORDER BY ordem");
-  if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
-      $materia = $row["materia"];
-      header("materias.php?materia=$materia&concurso=$concurso");
-    }
-  }
-  $conn->close();
-}
 
+function carregar_pagina($sigla, $concurso);
+  echo "<h1>Página de $sigla</h1>";
+  echo "<p>Concurso: $concurso</p>";
 ?>

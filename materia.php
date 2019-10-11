@@ -8,13 +8,11 @@
 // }
 
 if (isset($_GET['sigla'])) {
-  $test = $_GET['sigla'];
-  echo "<p>$test sigla was set</p>";
+  $sigla = $_GET['sigla'];
 }
 
 if (isset($_GET['concurso'])) {
-  $test = $_GET['concurso'];
-  echo "<p>$test</p>";
+  $concurso = $_GET['concurso'];
 }
 
   ?>
@@ -26,15 +24,7 @@ if (isset($_GET['concurso'])) {
       <div class="row">
         <div class="col-sm-2"></div>
         <div class="col-sm-8">
-          <?php
-            if ($materia == "geral") {
-              echo "<h1>Matérias do Edital</h1>";
-            }
-            else {
-              echo "<h1>Página de $materia</h1>";
-            }
-          ?>
-          <p>Nesta página, links para todos os verbetes, destaques etc.</p>
+          <?php carregar_pagina($sigla, $concurso); ?>
         </div>
         <div class="col-sm-2"></div>
       </div>
