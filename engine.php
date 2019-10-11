@@ -17,6 +17,7 @@ function top_page() {
     <link href="css/mdb.min.css" rel="stylesheet">
     <!-- Your custom styles (optional) -->
     <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="ubiquestyle.css">
     <link type="image/vnd.microsoft.icon" rel="icon" href="../nxst/favicons/simple.scss.ico"/>
     <title>Ubwiki</title>
   </head>
@@ -78,25 +79,29 @@ function ler_cartoes($concurso) {
   $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname);
   mysqli_set_charset($conn,"utf8");
-  $result = $conn->query("SELECT sigla, materia, ordem, concurso, estado FROM Materias ORDER BY ordem");
+  $result = $conn->query("SELECT sigla, materia, ordem, concurso FROM Materias ORDER BY ordem");
   if ($result->num_rows > 0) {
-    $count = 1;
-    while(($row = $result->fetch_assoc()) && ($row['concurso'] = $concurso) && ($row['estado'] != false)) {
-      if ($count == 1) { echo "<div class='row justify-content-center'>"; }
-      $count++;
+    while(($row = $result->fetch_assoc()) && ($row['concurso'] = $concurso)) {
       $sigla = $row["sigla"];
       $materia = $row["materia"];
       echo "
-      <a href='#verbetes'>
-        <div class='col-lg-2 bg-lighter mx-3 my-3 py-0 px-1 rounded bdark'>
-          <a href='#verbetes'><small class='text-muted text-uppercase smaller'>$materia</small></a>
+        <div class='col-lg-1 col-md-3 py-3 px-3'>
+          <a href='#verbetes' class=''>
+            <div class='card card-cascade narrower'>
+              <div class='view view-cascade overlay'>
+                <img src='imagens/$sigla.jpg' class='card-img-top rounded-circle img-fluid zoom'
+                  alt='$materia'>
+                <a>
+                  <div class='mask rgba-white-slight'></div>
+                </a>
+              </div>
+              <div class='card-body card-body-cascade'>
+                <a href='#verbetes' class=''><small class='text-muted'>$materia</small></a>
+              </div>
+            </div>
+          </a>
         </div>
-      </a>
       ";
-      if ($count == 5) {
-        echo "</div>";
-        $count = 1;
-      }
     }
   }
   $conn->close();
@@ -125,31 +130,23 @@ function ler_edital($materia) {
   $conn->close();
 }
 
-function readSearchOptions($concurso) {
+if (isset($_POST['searchbar'])) {
+	$command = $_POST['searchbar'];
+  $concurso = $_POST['searchbar']
   $servername = "localhost";
   $username = "grupoubique";
   $password = "ubique patriae memor";
   $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname);
   mysqli_set_charset($conn,"utf8");
-  $result = $conn->query("SELECT materia, ordem, concurso, estado FROM Materias ORDER BY ordem");
+  $result = $conn->query("SELECT materia, ordem, concurso FROM Materias ORDER BY ordem");
   if ($result->num_rows > 0) {
-    while(($row = $result->fetch_assoc()) && ($row['concurso'] = $concurso) && ($row['estado'] != false)) {
-      $materia = $row["materia"];
-      echo "<option>$materia</option>";
+    while(($row = $result->fetch_assoc()) && ($row['concurso'] = $concurso)) {
+
     }
   }
   $conn->close();
-}
-
-function standard_jumbotron() {
-  echo "
-  <div class='container-fluid px-1 py-1 mb-3 text-center'>
-    <div class='jumbotron col-sm-12 mb-0'>
-      <a href='index.php'><h1 class='display-4 logo-jumbotron'>Ubwiki</h1></a>
-    </div>
-  </div>
-  ";
+  return;
 }
 
 if (isset($_POST['searchbar'])) {

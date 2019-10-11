@@ -1,5 +1,6 @@
 <?php
 include 'engine.php';
+$concurso = "CACD";
 top_page();
 ?>
   <body>
@@ -17,7 +18,7 @@ top_page();
       </div>
       <div class="row justify-concent-center">
         <div class="col-sm-12">
-          <p class="lead">Bem-vindo à Ubwiki, o sistema mais inteligente de preparação para o CACD.</p>
+          <p class="lead">Bem-vindo à Ubwiki, o sistema mais inteligente de preparação para o $concurso.</p>
         </div>
       </div>
       <div class="row justify-content-center">
@@ -27,10 +28,10 @@ top_page();
               <input id="searchbar" list="searchlist" type="text" class="searchbar" name="searchbar" rows="1" autocomplete="off" spellcheck="false" placeholder="o que você vai estudar hoje?" required></input>
               <datalist id="searchlist">
                 <?php
-                  readSearchOptions("CACD");
+                  readSearchOptions($concurso);
                 ?>
               </datalist>
-              <input id="searchBarGo" type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;" tabindex="-1" />
+              <input id="searchbargo" type="submit" value="CACD" style="position: absolute; left: -9999px; width: 1px; height: 1px;" tabindex="-1" />
             </div>
           </form>
         </div>
@@ -40,7 +41,7 @@ top_page();
       <div class="row justify-content-center">
         <div class="col-lg-10">
             <?php
-                ler_cartoes("CACD");
+                ler_cartoes($concurso);
             ?>
         </div>
       </div>
