@@ -79,9 +79,9 @@ function ler_cartoes($concurso) {
   $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname);
   mysqli_set_charset($conn,"utf8");
-  $result = $conn->query("SELECT sigla, materia, ordem, concurso FROM Materias WHERE concurso = $concurso ORDER BY ordem");
+  $result = $conn->query("SELECT sigla, materia, ordem, concurso FROM Materias ORDER BY ordem");
   if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
+    while(($row = $result->fetch_assoc()) && ($row['concurso'] = $concurso)) {
       $sigla = $row["sigla"];
       $materia = $row["materia"];
       echo "
@@ -132,17 +132,17 @@ function ler_edital($materia) {
 
 if (isset($_POST['searchbar'])) {
 	$command = $_POST['searchbar'];
-  $concurso = $_POST['searchbargo'];
+  $concurso = $_POST['searchbar']
   $servername = "localhost";
   $username = "grupoubique";
   $password = "ubique patriae memor";
   $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname);
   mysqli_set_charset($conn,"utf8");
-  $result = $conn->query("SELECT materia, concurso FROM Materias WHERE concurso = $concurso ORDER BY ordem");
+  $result = $conn->query("SELECT materia, ordem, concurso FROM Materias ORDER BY ordem");
   if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
-      if ($command == $row['materia']);
+    while(($row = $result->fetch_assoc()) && ($row['concurso'] = $concurso)) {
+
     }
   }
   $conn->close();
