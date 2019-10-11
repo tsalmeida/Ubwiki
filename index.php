@@ -43,7 +43,7 @@ $concurso = "CACD";
       <div class="row justify-content-center">
         <div class="col-lg-10">
             <?php
-                ler_cartoes($concurso);
+                ler_cartoes($concurso, 4);
             ?>
         </div>
       </div>

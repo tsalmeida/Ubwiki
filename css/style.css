@@ -95,3 +95,7 @@ logo {
 	-webkit-appearance: none;
   text-align: center;
 }
+
+.cardmateria {
+  cursor: pointer;
+}
