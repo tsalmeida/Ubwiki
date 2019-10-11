@@ -9,7 +9,7 @@
 
 if (isset($_POST['sigla'])) {
   $test = $_POST['sigla'];
-  echo "<p>$test sigla was set</p>"
+  echo "<p>$test sigla was set</p>";
 }
 
 if (isset($_POST['concurso'])) {
