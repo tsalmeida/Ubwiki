@@ -18,7 +18,7 @@ $concurso = "CACD";
       </div>
       <div class="row justify-concent-center">
         <div class="col-sm-12">
-          <p class="lead">Bem-vindo à Ubwiki, o sistema mais inteligente de preparação para o $concurso.</p>
+          <?php echo "<p class='lead'>Bem-vindo à Ubwiki, o sistema mais inteligente de preparação para o $concurso.</p>"; ?>
         </div>
       </div>
       <div class="row justify-content-center">
