@@ -7,6 +7,15 @@
 //   header("materias.php?materia=$materia&concurso=$concurso");
 // }
 
+if (isset($_POST['sigla'])) {
+  $test = $_POST['sigla'];
+  echo "<p>$test sigla was set</p>"
+}
+
+if (isset($_POST['concurso'])) {
+  $test = $_POST['concurso'];
+  echo "<p>$test</p>";
+}
 
   ?>
   <body>
