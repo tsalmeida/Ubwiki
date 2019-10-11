@@ -152,4 +152,10 @@ function standard_jumbotron() {
   ";
 }
 
+if (isset($_POST['searchbar'])) {
+  $termo = $_POST['searchbar'];
+  $termo = mb_strtolower($termo);
+
+}
+
 ?>
