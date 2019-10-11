@@ -132,7 +132,7 @@ function ler_edital($materia) {
 
 if (isset($_POST['searchbar'])) {
 	$command = $_POST['searchbar'];
-  $concurso = $_POST['searchbar']
+  $concurso = $_POST['searchbar'];
   $servername = "localhost";
   $username = "grupoubique";
   $password = "ubique patriae memor";
@@ -152,7 +152,6 @@ if (isset($_POST['searchbar'])) {
 if (isset($_POST['searchbar'])) {
   $termo = $_POST['searchbar'];
   $termo = mb_strtolower($termo);
-
 }
 
 ?>
