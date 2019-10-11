@@ -63,10 +63,6 @@ function extract_zoho($linkplanilha, $authtoken, $ownername, $materia, $scope) {
   return $output;
 }
 
-function connect_to_mysql($id, $materia) {
-  return $result;
-}
-
 function ler_cartoes($concurso) {
   $servername = "localhost";
   $username = "grupoubique";
@@ -85,7 +81,7 @@ function ler_cartoes($concurso) {
       echo "
       <a href='#verbetes'>
         <div class='col-lg-2 bg-lighter mx-3 my-3 py-0 px-1 rounded bdark'>
-          <a href='#verbetes'><small class='text-muted text-uppercase smaller'>$materia</small></a>
+          <a href='materia.php?sigla=$sigla&concurso=$concurso'><small class='text-muted text-uppercase smaller'>$materia</small></a>
         </div>
       </a>
       ";
@@ -146,4 +142,12 @@ function standard_jumbotron() {
   </div>
   ";
 }
+
+if (isset($_POST['materia'])) {
+    $materia = $_POST['materia'];
+}
+else {
+  $materia = "geral";
+}
+
 ?>
