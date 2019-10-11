@@ -150,6 +150,7 @@ if (isset($_POST['searchBarGo'])) {
   $username = "grupoubique";
   $password = "ubique patriae memor";
   $dbname = "Ubique";
+  $found = false;
   $conn = new mysqli($servername, $username, $password, $dbname);
   mysqli_set_charset($conn,"utf8");
   $result = $conn->query("SELECT sigla FROM Materias WHERE concurso = '$concurso' AND estado = 1 AND materia = '$command' ORDER BY ordem");
@@ -157,9 +158,13 @@ if (isset($_POST['searchBarGo'])) {
     while($row = $result->fetch_assoc()) {
       $sigla = $row["sigla"];
       header("Location:materia.php?sigla=$sigla&concurso=$concurso");
+      $found = true;
     }
   }
   $conn->close();
+  if ($found == false) {
+    header("Location:index.php?estado=nomatch");
+  }
 }
 
 function carregar_pagina($sigla, $concurso) {
