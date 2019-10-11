@@ -3,23 +3,50 @@ include 'engine.php';
 top_page();
 ?>
   <body>
-      <div class="container-fluid px-1 py-1 mb-3">
-        <div class="jumbotron col-sm-12 mb-0">
-          <h1 class="display-3">Ubwiki</h1>
-          <p class="lead">Sistema inteligente de estudos para o CACD.</p>
-          <hr class="my-4">
-          <p>Melhor utilizado em conjunção com o acervo de conteúdo e ferramentas da Ubique, especialmente o Ambiente de Estudos.</p>
+    <nav class="navbar navbar-expand-lg bg-white height10vh py-0">
+      <a class="navbar-brand align-top" href="index.php"><h2>Ubwiki</h2></a>
+      <ul class="nav navbar-nav ml-auto">
+        <li><a class="navlink float-right h5 align-top" href="userpage.php">Minha conta</a></li>
+      </ul>
+    </nav>
+    <div class="container-fluid text-center bg-white justify-content-center height50vh">
+      <div class="row justify-content-center">
+          <div class="col-sm-2">
+              <img class="img-fluid logo" src="imagens/ubiquelogo.png"></img>
+          </div>
+      </div>
+      <div class="row justify-concent-center">
+        <div class="col-sm-12">
+          <p class="lead">Bem-vindo à Ubwiki, o sistema mais inteligente de preparação para o CACD.</p>
         </div>
       </div>
-    <div class="container-fluid text-center bg-white">
-      <div class="row justify-content-around">
-        <?php
-            ler_cartoes("CACD");
-        ?>
+      <div class="row justify-content-center">
+        <div class="col-lg-6">
+          <form id="searchform" action="" method="post">
+            <div id="searchDiv">
+              <input id="searchbar" list="searchlist" type="text" class="searchbar" name="searchbar" rows="1" autocomplete="off" spellcheck="false" placeholder="o que você vai estudar hoje?" required></input>
+              <datalist id="searchlist">
+                <?php
+                  readSearchOptions("CACD");
+                ?>
+              </datalist>
+              <input id="searchBarGo" type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;" tabindex="-1" />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid text-center bg-white height30vh pt-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <?php
+                ler_cartoes("CACD");
+            ?>
+        </div>
       </div>
     </div>
 
-    <!-- <div class="container my-5 bg-light py-5 col-sm-12">
+    <!-- <div class="container my-5 bg-lighter py-5 col-sm-12">
       <div class="row">
         <div class="col-sm-2"></div>
         <div class="col-sm-8 bg-white py-3">
@@ -47,7 +74,7 @@ top_page();
       </div>
     </div> -->
 
-    <!-- <div class="container my-5 bg-light py-5 col-sm-12">
+    <!-- <div class="container my-5 bg-lighter py-5 col-sm-12">
       <div class="row">
         <div class="col-sm-2"></div>
         <div class="col-sm-8 bg-white py-3"> -->
@@ -60,19 +87,19 @@ top_page();
       </div>
     </div> -->
 
-    <div class="container my-5 bg-light py-5 col-sm-12" id="verbetes">
+    <!-- <div class="container bg-lighter py-5 col-sm-12" id="verbetes">
       <div class="row">
         <div class="col-sm-2"></div>
-        <div class="list-group col-sm-8 pr-0">
+        <div class="list-group col-sm-8 pr-0"> -->
           <?php
-              ler_edital("Cultura Geral");
+              // ler_edital("Cultura Geral");
            ?>
-        </div>
+        <!-- </div>
         <div class="col-sm-2"></div>
       </div>
-    </div>
+    </div> -->
 
-    <footer class="container-fluid text-center heavy-rain-gradient text-dark py-2">
+    <footer class="container-fluid text-center bg-lighter text-dark py-2 height5vh align-bottom">
       <p class="mb-0">A Ubwiki é uma ferramenta de uso público e gratuito. Todos os direitos são reservados ao Grupo Ubique. Clique <a href="termos.php" target="_blank">aqui</a> para rever os termos e condições de uso da página.</p>
     </footer>
   </body>

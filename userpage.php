@@ -10,10 +10,8 @@
       <div class="row">
         <div class="col-sm-2"></div>
         <div class="col-sm-8">
-          <?php
-          $result = extract_gdoc("https://docs.google.com/document/d/e/2PACX-1vTAJII7h1Fm2ndrB-KjqH2w4CvwfyKKcr5myjh_IfqCIe7-Ai9JZWj6wlNt5shG_wbNv0_KVELPGU6W/pub?embedded=true");
-          echo $result;
-          ?>
+          <h1>Sua página</h1>
+          <p>Informações do usuário aqui. Verbetes em que colaborou, comentários que escreveu, temas em que já fez anotações, temas prioritários etc.</p>
         </div>
         <div class="col-sm-2"></div>
       </div>
