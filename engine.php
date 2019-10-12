@@ -270,6 +270,9 @@ function carregar_verbete($tema, $concurso){
         $tema = $nivel3;
       }
     }
+  $trim = strpos($tema, " ");
+  $tema = substr($tema, $trim);
+  $tema = substr($tema, 0, -1);
 
   echo "<h1>$tema</h1>
     <h2>Índice</h2>
