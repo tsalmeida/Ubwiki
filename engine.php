@@ -279,7 +279,7 @@ function carregar_verbete($tema, $concurso){
   echo"<h2>Índice</h2>
     <h2>Verbete consolidado</h2>";
 
-    if ($verbete != false) {
+    if ($verbete == false) {
       echo "<p>Ainda não há verbete consolidado para este tema do $concurso.</p>";
     }
     else {
