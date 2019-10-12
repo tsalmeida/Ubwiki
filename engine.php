@@ -190,7 +190,7 @@ function readSearchOptions($concurso) {
     while($row = $result->fetch_assoc()) {
       $sigla = $row["sigla"];
       $materia = $row["materia"];
-      echo "<option value='materia.php?sigla=$sigla?concurso=$concurso'>$materia</option>"
+      echo "<option value='materia.php?sigla=$sigla?concurso=$concurso'>$materia</option>";
       $conn->close();
       $found = true;
     }
@@ -219,7 +219,6 @@ function readSearchOptions($concurso) {
         }
       }
       $conn->close();
-      $found = true;
     }
   }
 }
