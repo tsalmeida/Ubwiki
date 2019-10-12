@@ -135,7 +135,6 @@ function standard_jumbotron() {
 
 
 function readSearchOptions($concurso) {
-  $concurso = base64_decode($_POST['concurso']);
   $servername = "localhost";
   $username = "grupoubique";
   $password = "ubique patriae memor";
