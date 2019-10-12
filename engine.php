@@ -174,7 +174,8 @@ function standard_jumbotron() {
   ";
 }
 
-if (isset($_POST['sbcommand'])) {
+
+function readSearchOptions($concurso) {
   $concurso = base64_decode($_POST['sbconcurso']);
   $command = base64_decode($_POST['sbcommand']);
   $servername = "localhost";
@@ -184,50 +185,48 @@ if (isset($_POST['sbcommand'])) {
   $found = false;
   $conn = new mysqli($servername, $username, $password, $dbname);
   mysqli_set_charset($conn,"utf8");
-  $result = $conn->query("SELECT sigla FROM Materias WHERE concurso = '$concurso' AND estado = 1 AND materia = '$command' ORDER BY ordem");
+  $result = $conn->query("SELECT sigla, materia FROM Materias WHERE concurso = '$concurso' AND estado = 1 ORDER BY ordem");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $sigla = $row["sigla"];
-      echo "foundfoundfoundfmateria.php?sigla=$sigla&concurso=$concurso";
+      $materia = $row["materia"];
+      echo "<option value='materia.php?sigla=$sigla?concurso=$concurso'>$materia</option>"
       $conn->close();
       $found = true;
     }
   }
-  // aqui entrará a parte de busca por temas.
-  if ($found == false) {
-    // não havendo encontrado um match exato, o sistema busca por partial matches
-    $index = 500;
-    $winner = 0;
-    $result = $conn->query("SELECT sigla, materia FROM Materias WHERE concurso = '$concurso' AND estado = 1 ORDER BY ordem");
-    if ($result->num_rows > 0) {
-      while($row = $result->fetch_assoc()) {
-        $sigla = $row["sigla"];
-        $materia = $row["materia"];
-        $materialow = mb_strtolower($materia);
-        $commandlow = mb_strtolower($command);
-        $check = levenshtein($materialow, $commandlow, 1, 1, 1);
-  			if (strpos($materialow, $commandlow) !== false) {
-  				echo "foundfoundfoundf$materia";
-          $conn->close();
-  				return;
-  			}
-        elseif ($check < $index) {
-          $index = $check;
-          $winner = $materia;
+  $result = $conn->query("SELECT nivel1, nivel2, nivel3, id FROM Temas WHERE concurso = '$concurso' ORDER BY sigla_materia, nivel1");
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $id = $row["id"];
+      $nivel1 = $row["nivel1"];
+      $nivel2 = $row["nivel2"];
+      $nivel3 = $row["nivel3"];
+      $nivel1 = limpar_tema($nivel1);
+      $nivel2 = limpar_tema($nivel2);
+      $nivel3 = limpar_tema($nivel3);
+      if ($nivel3 != false) {
+        echo "<option value='verbete.php?sigla=$sigla?concurso=$concurso'>$nivel3</option>"
+      }
+      else {
+        if ($nivel2 != false) {
+          echo "<option value='verbete.php?sigla=$sigla?concurso=$concurso'>$nive2</option>"
+        }
+        else {
+          if ($nivel1 != false) {
+            echo "<option value='verbete.php?sigla=$sigla?concurso=$concurso'>$nivel1</option>"
+          }
         }
       }
-      $length = strlen($command);
-      if ($index < $length) {
-        echo "foundfoundfoundf$winner";
-        $conn->close();
-        return;
-      }
+      $conn->close();
+      $found = true;
     }
   }
-  echo "notfoundnotfoundnada foi encontrado";
-  $conn->close();
-  return;
 }
+
+
+
+
 
 function carregar_pagina($sigla, $concurso) {
   $servername = "localhost";
