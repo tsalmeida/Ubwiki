@@ -279,25 +279,41 @@ function carregar_verbete($tema, $concurso){
   echo"<h2>Índice</h2>
     <div class='container-fluid'>
       <div class='row'>
-        <h2>Verbete consolidados</h2>
-        <i class='fal fa-edit'></i>
+        <div class='col-lg-1'><i class='fal fa-edit'></i></div>
+        <div class='col-lg-11'><h2>Verbete consolidados</h2></div>
+        <div class='col-lg-1'></div>
+        <div class='col-lg-11'>";
+        if ($verbete == false) {
+          echo "<p>Ainda não há verbete consolidado para este tema do $concurso.</p>";
+        }
+        else {
+          echo $verbete;
+        }
+        echo "</div>
+      </div>";
+
+      echo "<div class='row'><h2>Verbetes relacionados</h2>
+        <p>Conteúdo.</p>
       </div>
-    </div>";
-
-    if ($verbete == false) {
-      echo "<p>Ainda não há verbete consolidado para este tema do $concurso.</p>";
-    }
-    else {
-      echo $verbete;
-    }
-
-  echo "<h2>Verbetes relacionados</h2>
-    <h2>Bibliografia pertinente</h2>
-    <h2>Vídeos e aulas relacionados</h2>
-    <h2>Links externos</h2>
-    <h2>Minhas anotações</h2>
-    <h2>Questões de provas passadas sobre este tema</h2>
-    <h2>Discussão</h2>
+      <div class='row'><h2>Bibliografia pertinente</h2>
+        <p>Conteúdo.</p>
+      </div>
+      <div class='row'><h2>Vídeos e aulas relacionados</h2>
+        <p>Conteúdo.</p>
+      </div>
+      <div class='row'><h2>Links externos</h2>
+        <p>Conteúdo.</p>
+      </div>
+      <div class='row'><h2>Minhas anotações</h2>
+        <p>Conteúdo.</p>
+      </div>
+      <div class='row'><h2>Questões de provas passadas sobre este tema</h2>
+        <p>Conteúdo.</p>
+      </div>
+      <div class='row'><h2>Discussão</h2>
+        <p>Conteúdo.</p>
+      </div>
+    </div>
   ";
   }
   $conn->close();
