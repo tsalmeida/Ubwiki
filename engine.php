@@ -186,13 +186,13 @@ if (isset($_POST['sbcommand'])) {
           $winner = $materia;
           error_log("check é menor que index: $index $materia");
         }
-        $length = strlen($command);
-        if ($index < $length) {
-          error_log("or maybe this happened and again the link did not take?");
-          echo "foundfoundfoundfmateria.php?sigla=$sigla&concurso=$concurso";
-          $conn->close();
-          return;
-        }
+      }
+      $length = strlen($command);
+      if ($index < $length) {
+        error_log("or maybe this happened and again the link did not take?");
+        echo "foundfoundfoundfmateria.php?sigla=$sigla&concurso=$concurso";
+        $conn->close();
+        return;
       }
     }
   }
