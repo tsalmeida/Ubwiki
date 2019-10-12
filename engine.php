@@ -175,7 +175,7 @@ if (isset($_POST['sbcommand'])) {
         $command = mb_strtolower($command);
         $check = levenshtein($materia, $command, 1, 1, 1);
         error_log("before strpos check: $materia $command");
-  			if (strpos($command, $materia) !== false) {
+  			if (strpos($materia, $command) !== false) {
           error_log("this happened, why did the link not take?");
   				echo "foundfoundfoundfmateria.php?sigla=$sigla&concurso=$concurso";
           $conn->close();
@@ -183,15 +183,15 @@ if (isset($_POST['sbcommand'])) {
   			}
         elseif ($check < $index) {
           $index = $check;
-          $winner = $materia;
-          error_log("check é menor que index: $index $materia");
+          $winner = $sigla;
+          error_log("check é menor que index: $index $winner");
         }
       }
       $length = strlen($command);
       error_log("length: $length / index: $index");
       if ($index < $length) {
         error_log("or maybe this happened and again the link did not take?");
-        echo "foundfoundfoundfmateria.php?sigla=$sigla&concurso=$concurso";
+        echo "foundfoundfoundfmateria.php?sigla=$winner&concurso=$concurso";
         $conn->close();
         return;
       }
