@@ -148,7 +148,6 @@ function readSearchOptions($concurso) {
       $sigla = $row["sigla"];
       $materia = $row["materia"];
       echo "<option>$materia</option>";
-      $conn->close();
       $found = true;
     }
   }
