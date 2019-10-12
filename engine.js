@@ -19,12 +19,10 @@ $(document).ready(function() {
 				var pw = data.substring(0, 16);
 				var pw2 = data.substring(16);
 				if (pw == 'notfoundnotfound') {
-          alert(pw);
 					$("#searchBar").val(pw2);
 				}
         else if (pw = 'foundfoundfoundf') {
-          alert(pw);
-          ("#searchBar").val(pw2);
+          $("#searchBar").val(pw2);
         }
 			}
 		});
