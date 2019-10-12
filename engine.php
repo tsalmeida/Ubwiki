@@ -277,7 +277,7 @@ function carregar_verbete($tema, $concurso){
 
   echo "<h1>$tema</h1>";
   echo"<h2>Índice</h2>
-    <h2>Verbete consolidado <i class='btn btn-light fal fa-edit' data-fa-transform='shrink-8 up-6'></i></h2>";
+    <h2>Verbete consolidado</h2><i class='fal fa-edit'></i>";
 
     if ($verbete == false) {
       echo "<p>Ainda não há verbete consolidado para este tema do $concurso.</p>";
