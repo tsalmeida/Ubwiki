@@ -220,7 +220,7 @@ function carregar_pagina($sigla, $concurso) {
   }
   echo "<h2>Verbetes</h2>
   <ul class='list-group'>";
-  $result = $conn->query("SELECT id, nivel1, nivel2, nivel3 FROM Temas_CACD_2019 WHERE concurso = '$concurso' AND sigla_materia = '$sigla'");
+  $result = $conn->query("SELECT id, nivel1, nivel2, nivel3 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla'");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $id = $row["id"];
@@ -252,7 +252,7 @@ function carregar_verbete($tema, $concurso){
   $found = false;
   $conn = new mysqli($servername, $username, $password, $dbname);
   mysqli_set_charset($conn,"utf8");
-  $result = $conn->query("SELECT nivel1, nivel2, nivel3 FROM Temas_CACD_2019 WHERE concurso = '$concurso' AND id = $tema");
+  $result = $conn->query("SELECT nivel1, nivel2, nivel3 FROM Temas WHERE concurso = '$concurso' AND id = $tema");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $nivel1 = $row["nivel1"];
