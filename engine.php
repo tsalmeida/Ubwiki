@@ -234,7 +234,7 @@ function carregar_pagina($sigla, $concurso) {
         }
       }
       else {
-        echo "<li class='list-group-item><em><span class='ml-5'>$nivel3</span></em></li>";
+        echo "<li class='list-group-item'><em><span class='ml-5'>$nivel3</span></em></li>";
       }
     }
   }
