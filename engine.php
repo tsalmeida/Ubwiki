@@ -174,18 +174,20 @@ if (isset($_POST['sbcommand'])) {
         $materia = mb_strtolower($materia);
         $command = mb_strtolower($command);
         $check = levenshtein($materia, $command, 1, 1, 1);
+        error_log("before strpos check: $materia $command");
   			if (strpos($command, $materia) !== false) {
-  				echo "foundfoundfoundfmateria.php?sigla=$materia&concurso=$concurso";
+  				echo "foundfoundfoundfmateria.php?sigla=$sigla&concurso=$concurso";
           $conn->close();
   				return;
   			}
         elseif ($check < $index) {
           $index = $check;
           $winner = $materia;
+          error_log("$index $materia");
         }
         $length = strlen($command);
         if ($index < $length) {
-          echo "foundfoundfoundfmateria.php?sigla=$winner&concurso=$concurso";
+          echo "foundfoundfoundfmateria.php?sigla=$sigla&concurso=$concurso";
           $conn->close();
           return;
         }
