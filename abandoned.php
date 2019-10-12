@@ -55,6 +55,47 @@ if (isset($_POST['sbcommand'])) {
   return;
 }
 
+function readSearchOptions($concurso) {
+  $servername = "localhost";
+  $username = "grupoubique";
+  $password = "ubique patriae memor";
+  $dbname = "Ubique";
+  $conn = new mysqli($servername, $username, $password, $dbname);
+  mysqli_set_charset($conn,"utf8");
+  $result = $conn->query("SELECT materia, ordem FROM Materias WHERE concurso = '$concurso' AND estado = 1 ORDER BY ordem");
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $materia = $row["materia"];
+      echo "<option>$materia</option>";
+    }
+  }
+
+  $result = $conn->query("SELECT nivel1, nivel2, nivel3 FROM Temas WHERE concurso = '$concurso' ORDER BY id, sigla_materia, nivel1, nivel2, nivel3");
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $nivel1 = $row["nivel1"];
+      $nivel2 = $row["nivel2"];
+      $nivel3 = $row["nivel3"];
+      $nivel1 = limpar_tema($nivel1);
+      $nivel2 = limpar_tema($nivel2);
+      $nivel3 = limpar_tema($nivel3);
+
+      if ($nivel3 != false) {
+        echo "<option>$nivel3</option>";
+      }
+      else {
+        if ($nivel2 != false) {
+          echo "<option>$nivel2</option>";
+        }
+        else {
+          echo "<option>$nivel</option>";
+        }
+      }
+    }
+  }
+  $conn->close();
+}
+
 ?>
 
 <script>
