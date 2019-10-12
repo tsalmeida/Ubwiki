@@ -218,7 +218,7 @@ function carregar_pagina($sigla, $concurso) {
     while($row = $result->fetch_assoc()) {
       $materia = $row["materia"];
     }
-    echo "<h1>Portal de $materia</h1>";
+    echo "<h1 class='mb-5'>Portal de $materia</h1>";
   }
   else {
     echo "<h1>Página não-encontrada</h1>
@@ -283,7 +283,7 @@ function carregar_verbete($tema, $concurso){
   $tema = substr($tema, $trim);
   $tema = substr($tema, 0, -1);
 
-  echo "<h1 class='mb-5 pb-5'>$tema</h1>";
+  echo "<h1 class='mb-5'>$tema</h1>";
   echo"
   <div class='container-fluid px-0 mb-5'>
     <div class='row'>
