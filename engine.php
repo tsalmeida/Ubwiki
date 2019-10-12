@@ -135,11 +135,11 @@ function standard_jumbotron() {
 
 
 function readSearchOptions($concurso) {
+  $searchBarValues = array();
   $servername = "localhost";
   $username = "grupoubique";
   $password = "ubique patriae memor";
   $dbname = "Ubique";
-  $found = false;
   $conn = new mysqli($servername, $username, $password, $dbname);
   mysqli_set_charset($conn,"utf8");
   $result = $conn->query("SELECT sigla, materia FROM Materias WHERE concurso = '$concurso' AND estado = 1 ORDER BY ordem");
@@ -147,8 +147,8 @@ function readSearchOptions($concurso) {
     while($row = $result->fetch_assoc()) {
       $sigla = $row["sigla"];
       $materia = $row["materia"];
+      array_push($searchBarValues,$materia=>$sigla);
       echo "<option>$materia</option>";
-      $found = true;
     }
   }
   $result = $conn->query("SELECT nivel1, nivel2, nivel3, id FROM Temas WHERE concurso = '$concurso' ORDER BY sigla_materia, nivel1");
@@ -162,21 +162,24 @@ function readSearchOptions($concurso) {
       $nivel2 = limpar_tema($nivel2);
       $nivel3 = limpar_tema($nivel3);
       if ($nivel3 != false) {
+        array_push($searchBarValues,$nivel3=>$id);
         echo "<option>$nivel3</option>";
       }
       else {
+        array_push($searchBarValues,$nivel2=>$id);
         if ($nivel2 != false) {
           echo "<option>$nive2</option>";
         }
         else {
-          if ($nivel1 != false) {
-            echo "<option>$nivel1</option>";
-          }
+          array_push($searchBarValues,$nivel1=>$id);
+          echo "<option>$nivel1</option>";
         }
       }
       $conn->close();
     }
   }
+  $searchBarValues = serialize($searchBarValues);
+  error_log($searchBarValues);
 }
 
 
