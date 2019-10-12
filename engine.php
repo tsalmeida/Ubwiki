@@ -212,6 +212,13 @@ function carregar_pagina($sigla, $concurso) {
     }
     echo "<h1>Página de $materia</h1>";
   }
+  else {
+    echo "<h1>Página não-encontrada</h1>
+    <p>Clique <a href='index.php'>aqui</a> para retornar.</p>
+    ";
+    return;
+  }
+  echo "<ul>";
   $result = $conn->query("SELECT nivel1, nivel2, nivel3 FROM Temas_CACD_2019 WHERE concurso = '$concurso' AND sigla = '$sigla'");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
@@ -220,17 +227,18 @@ function carregar_pagina($sigla, $concurso) {
       $nivel3 = $row["nivel3"];
       if ($nivel3 == false) {
         if ($nivel2 == false) {
-          echo "<h1>$nivel1</h1>";
+          echo "<li class='h2'>$nivel1</li>";
         }
         else {
-          echo "<h2>$nivel2</h2>";
+          echo "<li class='h3'>$nivel2</li>";
         }
       }
       else {
-        echo "<h3>$nivel3</h3>";
+        echo "<li class='h4'>$nivel3</li>";
       }
     }
   }
   $conn->close();
+  echo "</ul>";
 }
 ?>
