@@ -242,4 +242,11 @@ function carregar_pagina($sigla, $concurso) {
   $conn->close();
   echo "</ul>";
 }
+
+function carregar_verbete($tema, $concurso){
+  echo "<h1>$tema</h1>
+  <p>Nesta página, encontraremos o texto do verbete, os cadernos digitais, etc.</p>
+  ";
+}
+
 ?>
