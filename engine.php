@@ -220,22 +220,23 @@ function carregar_pagina($sigla, $concurso) {
   }
   echo "<h2>Verbetes</h2>
   <ul class='list-group'>";
-  $result = $conn->query("SELECT nivel1, nivel2, nivel3 FROM Temas_CACD_2019 WHERE concurso = '$concurso' AND sigla = '$sigla'");
+  $result = $conn->query("SELECT id, nivel1, nivel2, nivel3 FROM Temas_CACD_2019 WHERE concurso = '$concurso' AND sigla = '$sigla'");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
+      $id = $row["id"];
       $nivel1 = $row["nivel1"];
       $nivel2 = $row["nivel2"];
       $nivel3 = $row["nivel3"];
       if ($nivel3 == false) {
         if ($nivel2 == false) {
-          echo "<a class='list-group-item list-group-item-action' href='verbete.php?concurso=$concurso&tema=$nivel1'><strong>$nivel1</strong></a>";
+          echo "<a class='list-group-item list-group-item-action' href='verbete.php?concurso=$concurso&tema=$id'><strong>$nivel1</strong></a>";
         }
         else {
-          echo "<a class='list-group-item list-group-item-action' href='verbete.php?concurso=$concurso&tema=$nivel2'><span class='ml-2'>$nivel2</span></a>";
+          echo "<a class='list-group-item list-group-item-action' href='verbete.php?concurso=$concurso&tema=$id'><span class='ml-2'>$nivel2</span></a>";
         }
       }
       else {
-        echo "<a class='list-group-item list-group-item-action' href='verbete.php?concurso=$concurso&tema=$nivel3'><em><span class='ml-5'>$nivel3</span></em></a>";
+        echo "<a class='list-group-item list-group-item-action' href='verbete.php?concurso=$concurso&tema=$id'><em><span class='ml-5'>$nivel3</span></em></a>";
       }
     }
   }
