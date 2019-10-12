@@ -281,10 +281,22 @@ function carregar_verbete($tema, $concurso){
     <div class='row'>
       <div class='col-lg-12'><h2>Índice</h2></div>
     </div>
+    <div class='row'>
+      <ul>
+        <a href='#verbete'>Verbete consolidado</a>
+        <a href='#verbetes'>Verbetes relacionados</a>
+        <a href='#bibliografia'>Bibliografia pertinente</a>
+        <a href='#videos'>Vídeos e aulas relacionados</a>
+        <a href='#links'>Links externos</a>
+        <a href='#anotacoes'>Minhas anotações</a>
+        <a href='#questoes'>Questões de provas passadas</a>
+        <a href='#discussao'>Discussão</a>
+      </ul>
+    </div>
   </div>
   <div class='container-fluid px-0 mb-5'>
     <div class='row h2'>
-      <div class='col-lg-11'><h2>Verbete consolidado</h2></div>
+      <div class='col-lg-11'><h2 id='verbete'>Verbete consolidado</h2></div>
       <div class='col-lg-1 float-right'><i class='fal fa-edit'></i></div>
     </div>
     <div class='row'>";
@@ -299,41 +311,41 @@ function carregar_verbete($tema, $concurso){
   </div>
   <div class='container-fluid px-0 mb-5'>
     <div class='row'>
-      <div class='col-lg-12'><h2>Verbetes relacionados</h2></div>
+      <div class='col-lg-12'><h2 id='verbetes'>Verbetes relacionados</h2></div>
     </div>
   </div>
   <div class='container-fluid px-0 mb-5'>
     <div class='row'>
-      <div class='col-lg-11'><h2>Bibliografia pertinente</h2></div>
+      <div class='col-lg-11'><h2 id='bibliografia'>Bibliografia pertinente</h2></div>
       <div class='col-lg-1 h2 float-right'><i class='fal fa-plus-square'></i></div>
     </div>
   </div>
   <div class='container-fluid px-0 mb-5'>
     <div class='row'>
-      <div class='col-lg-11'><h2>Vídeos e aulas relacionados</h2></div>
+      <div class='col-lg-11'><h2 id='videos'>Vídeos e aulas relacionados</h2></div>
       <div class='col-lg-1 h2 float-right'><i class='fal fa-plus-square'></i></div>
     </div>
   </div>
   <div class='container-fluid px-0 mb-5'>
     <div class='row'>
-      <div class='col-lg-11'><h2>Links externos</h2></div>
+      <div class='col-lg-11'><h2 id='links'>Links externos</h2></div>
       <div class='col-lg-1 h2 float-right'><i class='fal fa-plus-square'></i></div>
     </div>
   </div>
   <div class='container-fluid px-0 mb-5'>
     <div class='row'>
-      <div class='col-lg-11'><h2>Minhas anotações</h2></div>
+      <div class='col-lg-11'><h2 id='anotacoes'>Minhas anotações</h2></div>
       <div class='col-lg-1 h2 float-right'><i class='fal fa-edit'></i></div>
     </div>
   </div>
   <div class='container-fluid px-0 mb-5'>
     <div class='row'>
-      <div class='col-lg-12'><h2>Questões de provas passadas</h2></div>
+      <div class='col-lg-12'><h2 id='questoes'>Questões de provas passadas</h2></div>
     </div>
   </div>
   <div class='container-fluid px-0 mb-5'>
     <div class='row'>
-      <div class='col-lg-12'><h2>Discussão</h2></div>
+      <div class='col-lg-12'><h2 id='discussao'>Discussão</h2></div>
     </div>
   </div>
   ";
