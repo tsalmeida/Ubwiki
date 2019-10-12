@@ -230,11 +230,11 @@ function carregar_pagina($sigla, $concurso) {
           echo "<li class='list-group-item'>$nivel1</li>";
         }
         else {
-          echo "<li class='ml-2 list-group-item>$nivel2</li>";
+          echo "<li class='list-group-item>$nivel2</li>";
         }
       }
       else {
-        echo "<li class='ml-5 list-group-item'>$nivel3</li>";
+        echo "<li class='list-group-item'>$nivel3</li>";
       }
     }
   }
