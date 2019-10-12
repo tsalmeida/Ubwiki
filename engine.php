@@ -210,7 +210,7 @@ function carregar_pagina($sigla, $concurso) {
     while($row = $result->fetch_assoc()) {
       $materia = $row["materia"];
     }
-    echo "<h1>Página de $materia</h1>";
+    echo "<h1>Portal de $materia</h1>";
   }
   else {
     echo "<h1>Página não-encontrada</h1>
@@ -228,14 +228,14 @@ function carregar_pagina($sigla, $concurso) {
       $nivel3 = $row["nivel3"];
       if ($nivel3 == false) {
         if ($nivel2 == false) {
-          echo "<li class='list-group-item'><strong>$nivel1</strong></li>";
+          echo "<a class='list-group-item list-group-item-action' href='verbete.php?concurso=$concurso&tema=$nivel1'><strong>$nivel1</strong></a>";
         }
         else {
-          echo "<li class='list-group-item'><span class='ml-2'>$nivel2</span></li>";
+          echo "<a class='list-group-item list-group-item-action' href='verbete.php?concurso=$concurso&tema=$nivel2><span class='ml-2'>$nivel2</span></a>";
         }
       }
       else {
-        echo "<li class='list-group-item'><em><span class='ml-5'>$nivel3</span></em></li>";
+        echo "<a class='list-group-item list-group-item-action' href='verbete.php?concurso=$concurso&tema=$nivel3><em><span class='ml-5'>$nivel3</span></em></a>";
       }
     }
   }
