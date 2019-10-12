@@ -144,6 +144,10 @@ function readSearchOptions($concurso) {
       $nivel1 = $row["nivel1"];
       $nivel2 = $row["nivel2"];
       $nivel3 = $row["nivel3"];
+      $nivel1 = limpar_tema($nivel1);
+      $nivel2 = limpar_tema($nivel2);
+      $nivel3 = limpar_tema($nivel3);
+
       if ($nivel3 != false) {
         echo "<option>$nivel3</option>";
       }
@@ -299,9 +303,8 @@ function carregar_verbete($tema, $concurso){
         $tema = $nivel3;
       }
     }
-  $trim = strpos($tema, " ");
-  $tema = substr($tema, $trim);
-  $tema = substr($tema, 0, -1);
+
+  $tema = limpar_tema($tema);
 
   echo "<h1 class='mb-5'>$tema</h1>";
   echo"
@@ -382,4 +385,11 @@ function carregar_verbete($tema, $concurso){
   }
   $conn->close();
 }
+
+function limpar_tema($tema) {
+  $trim = strpos($tema, " ");
+  $tema = substr($tema, $trim);
+  $tema = substr($tema, 0, -1);
+}
+
 ?>
