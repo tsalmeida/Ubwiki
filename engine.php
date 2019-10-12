@@ -299,26 +299,25 @@ function carregar_verbete($tema, $concurso){
   echo "
   <div class='container-fluid px-0 mb-3'>
     <div class='row'>
-      <div class='col-lg-11'><h2>Verbetes relacionados</h2></div>
-      <div class='col-lg-1 h2 float-right'><i class='fal fa-edit'></i></div>
+      <div class='col-lg-12'><h2>Verbetes relacionados</h2></div>
     </div>
   </div>
   <div class='container-fluid px-0 mb-3'>
     <div class='row'>
       <div class='col-lg-11'><h2>Bibliografia pertinente</h2></div>
-      <div class='col-lg-1 h2 float-right'><i class='fal fa-edit'></i></div>
+      <div class='col-lg-1 h2 float-right'><i class='fal fa-plus-square'></i></div>
     </div>
   </div>
   <div class='container-fluid px-0 mb-3'>
     <div class='row'>
       <div class='col-lg-11'><h2>Vídeos e aulas relacionados</h2></div>
-      <div class='col-lg-1 h2 float-right'><i class='fal fa-edit'></i></div>
+      <div class='col-lg-1 h2 float-right'><i class='fal fa-plus-square'></i></div>
     </div>
   </div>
   <div class='container-fluid px-0 mb-3'>
     <div class='row'>
       <div class='col-lg-11'><h2>Links externos</h2></div>
-      <div class='col-lg-1 h2 float-right'><i class='fal fa-edit'></i></div>
+      <div class='col-lg-1 h2 float-right'><i class='fal fa-plus-square'></i></div>
     </div>
   </div>
   <div class='container-fluid px-0 mb-3'>
@@ -329,14 +328,12 @@ function carregar_verbete($tema, $concurso){
   </div>
   <div class='container-fluid px-0 mb-3'>
     <div class='row'>
-      <div class='col-lg-11'><h2>Questões de provas passadas</h2></div>
-      <div class='col-lg-1 h2 float-right'><i class='fal fa-edit'></i></div>
+      <div class='col-lg-12'><h2>Questões de provas passadas</h2></div>
     </div>
   </div>
   <div class='container-fluid px-0 mb-3'>
     <div class='row'>
-      <div class='col-lg-11'><h2>Discussão</h2></div>
-      <div class='col-lg-1 h2 float-right'><i class='fal fa-edit'></i></div>
+      <div class='col-lg-12'><h2>Discussão</h2></div>
     </div>
   </div>
   ";
