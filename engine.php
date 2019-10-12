@@ -285,7 +285,7 @@ function carregar_verbete($tema, $concurso){
 
   echo "<h1 class='mb-5'>$tema</h1>";
   echo"
-  <div class='container-fluid px-0 mb-5 grayline'>
+  <div class='container-fluid px-0 mb-5'>
     <div class='row'>
       <div class='col-lg-12'><h2>Índice</h2></div>
     </div>
@@ -304,7 +304,7 @@ function carregar_verbete($tema, $concurso){
       </div>
     </div>
   </div>
-  <div class='container-fluid px-0 mb-5 grayline'>
+  <div class='container-fluid px-0 mb-5'>
     <div class='row h2'>
       <div class='col-lg-11'><h2 id='verbete'>Verbete consolidado</h2></div>
       <div class='col-lg-1 float-right'><i class='fal fa-edit'></i></div>
@@ -319,41 +319,41 @@ function carregar_verbete($tema, $concurso){
     echo "
     </div>
   </div>
-  <div class='container-fluid px-0 mb-5 grayline'>
+  <div class='container-fluid px-0 mb-5'>
     <div class='row'>
       <div class='col-lg-12'><h2 id='verbetes'>Verbetes relacionados</h2></div>
     </div>
   </div>
-  <div class='container-fluid px-0 mb-5 grayline'>
+  <div class='container-fluid px-0 mb-5'>
     <div class='row'>
       <div class='col-lg-11'><h2 id='bibliografia'>Bibliografia pertinente</h2></div>
       <div class='col-lg-1 h2 float-right'><i class='fal fa-plus-square'></i></div>
     </div>
   </div>
-  <div class='container-fluid px-0 mb-5 grayline'>
+  <div class='container-fluid px-0 mb-5'>
     <div class='row'>
       <div class='col-lg-11'><h2 id='videos'>Vídeos e aulas relacionados</h2></div>
       <div class='col-lg-1 h2 float-right'><i class='fal fa-plus-square'></i></div>
     </div>
   </div>
-  <div class='container-fluid px-0 mb-5 grayline'>
+  <div class='container-fluid px-0 mb-5'>
     <div class='row'>
       <div class='col-lg-11'><h2 id='links'>Links externos</h2></div>
       <div class='col-lg-1 h2 float-right'><i class='fal fa-plus-square'></i></div>
     </div>
   </div>
-  <div class='container-fluid px-0 mb-5 grayline'>
+  <div class='container-fluid px-0 mb-5'>
     <div class='row'>
       <div class='col-lg-11'><h2 id='anotacoes'>Minhas anotações</h2></div>
       <div class='col-lg-1 h2 float-right'><i class='fal fa-edit'></i></div>
     </div>
   </div>
-  <div class='container-fluid px-0 mb-5 grayline'>
+  <div class='container-fluid px-0 mb-5'>
     <div class='row'>
       <div class='col-lg-12'><h2 id='questoes'>Questões de provas passadas</h2></div>
     </div>
   </div>
-  <div class='container-fluid px-0 mb-5 grayline'>
+  <div class='container-fluid px-0 mb-5'>
     <div class='row'>
       <div class='col-lg-12'><h2 id='discussao'>Discussão</h2></div>
     </div>

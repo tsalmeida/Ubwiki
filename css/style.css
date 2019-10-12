@@ -99,14 +99,3 @@ logo {
 .cardmateria {
   cursor: pointer;
 }
-
-.clickable {
-  cursor: pointer;
-}
-
-.grayline {
-  border: 0;
-  border-style: solid;
-  border-color: #b5b5b5;
-  border-bottom-width: 3px;
-}
