@@ -171,7 +171,7 @@ function readSearchOptions($concurso) {
         $match = array($nivel2,$id);
         array_push($searchBarValues,$match);
         if ($nivel2 != false) {
-          echo "<option>$nive2</option>";
+          echo "<option>$nivel2</option>";
         }
         else {
           $match = array($nivel1,$id);
