@@ -179,9 +179,9 @@ function readSearchOptions($concurso) {
           echo "<option>$nivel1</option>";
         }
       }
-      $conn->close();
     }
   }
+  $conn->close();
   $searchBarValues = serialize($searchBarValues);
   error_log($searchBarValues);
 }
