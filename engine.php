@@ -280,7 +280,7 @@ function carregar_verbete($tema, $concurso){
   <div class='container'>
     <div class='row'>
       <h2>Verbete consolidado</h2>
-      <i class='fal fa-edit'></i>
+      <span class='h2 float-right'><i class='fal fa-edit'></i></span>
     </div>
   </div>
   ";
