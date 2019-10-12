@@ -282,16 +282,18 @@ function carregar_verbete($tema, $concurso){
       <div class='col-lg-12'><h2>Índice</h2></div>
     </div>
     <div class='row'>
-      <ul>
-        <a href='#verbete'>Verbete consolidado</a>
-        <a href='#verbetes'>Verbetes relacionados</a>
-        <a href='#bibliografia'>Bibliografia pertinente</a>
-        <a href='#videos'>Vídeos e aulas relacionados</a>
-        <a href='#links'>Links externos</a>
-        <a href='#anotacoes'>Minhas anotações</a>
-        <a href='#questoes'>Questões de provas passadas</a>
-        <a href='#discussao'>Discussão</a>
-      </ul>
+      <div class='col-lg-12'>
+        <ul class='list-group'>
+          <a class='list-group-item list-group-item-action' href='#verbete'>Verbete consolidado</a>
+          <a class='list-group-item list-group-item-action' href='#verbetes'>Verbetes relacionados</a>
+          <a class='list-group-item list-group-item-action' href='#bibliografia'>Bibliografia pertinente</a>
+          <a class='list-group-item list-group-item-action' href='#videos'>Vídeos e aulas relacionados</a>
+          <a class='list-group-item list-group-item-action' href='#links'>Links externos</a>
+          <a class='list-group-item list-group-item-action' href='#anotacoes'>Minhas anotações</a>
+          <a class='list-group-item list-group-item-action' href='#questoes'>Questões de provas passadas</a>
+          <a class='list-group-item list-group-item-action' href='#discussao'>Discussão</a>
+        </ul>
+      </div>
     </div>
   </div>
   <div class='container-fluid px-0 mb-5'>
