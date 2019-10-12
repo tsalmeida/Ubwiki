@@ -147,7 +147,7 @@ function readSearchOptions($concurso) {
     while($row = $result->fetch_assoc()) {
       $sigla = $row["sigla"];
       $materia = $row["materia"];
-      echo "<option value='materia.php?sigla=$sigla?concurso=$concurso'>$materia</option>";
+      echo "<option>$materia</option>";
       $conn->close();
       $found = true;
     }
@@ -163,15 +163,15 @@ function readSearchOptions($concurso) {
       $nivel2 = limpar_tema($nivel2);
       $nivel3 = limpar_tema($nivel3);
       if ($nivel3 != false) {
-        echo "<option value='verbete.php?sigla=$sigla?concurso=$concurso'>$nivel3</option>";
+        echo "<option>$nivel3</option>";
       }
       else {
         if ($nivel2 != false) {
-          echo "<option value='verbete.php?sigla=$sigla?concurso=$concurso'>$nive2</option>";
+          echo "<option>$nive2</option>";
         }
         else {
           if ($nivel1 != false) {
-            echo "<option value='verbete.php?sigla=$sigla?concurso=$concurso'>$nivel1</option>";
+            echo "<option>$nivel1</option>";
           }
         }
       }
