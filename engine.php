@@ -137,6 +137,26 @@ function readSearchOptions($concurso) {
       echo "<option>$materia</option>";
     }
   }
+
+  $result = $conn->query("SELECT nivel1, nivel2, nivel3 FROM Temas WHERE concurso = '$concurso' ORDER BY id, sigla_materia, nivel1, nivel2, nivel3");
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $nivel1 = $row["nivel1"];
+      $nivel2 = $row["nivel2"];
+      $nivel3 = $row["nivel3"];
+      if ($nivel3 != false) {
+        echo "<option>$nivel3</option>";
+      }
+      else {
+        if ($nivel2 != false) {
+          echo "<option>$nivel2</option>";
+        }
+        else {
+          echo "<option>$nivel</option>";
+        }
+      }
+    }
+  }
   $conn->close();
 }
 
