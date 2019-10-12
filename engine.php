@@ -283,7 +283,7 @@ function carregar_verbete($tema, $concurso){
     </div>
     <div class='row mt-2'>
       <div class='col-lg-12'>
-        <ul class='list-group'>
+        <ul class='list-group list-group-horizontal'>
           <a class='list-group-item list-group-item-action' href='#verbete'>Verbete consolidado</a>
           <a class='list-group-item list-group-item-action' href='#verbetes'>Verbetes relacionados</a>
           <a class='list-group-item list-group-item-action' href='#bibliografia'>Bibliografia pertinente</a>
