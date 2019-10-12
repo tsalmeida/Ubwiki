@@ -183,7 +183,7 @@ if (isset($_POST['sbcommand'])) {
         elseif ($check < $index) {
           $index = $check;
           $winner = $materia;
-          error_log("$index $materia");
+          error_log("check é menor que index: $index $materia");
         }
         $length = strlen($command);
         if ($index < $length) {
