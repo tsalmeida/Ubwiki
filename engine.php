@@ -390,6 +390,7 @@ function limpar_tema($tema) {
   $trim = strpos($tema, " ");
   $tema = substr($tema, $trim);
   $tema = substr($tema, 0, -1);
+  return $tema;
 }
 
 ?>
