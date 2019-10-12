@@ -181,7 +181,7 @@ if (isset($_POST['sbcommand'])) {
   			}
         elseif ($check < $index) {
           $index = $check;
-          $winner = $sigla;
+          $winner = $materia;
         }
       }
       $length = strlen($command);
