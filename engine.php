@@ -171,32 +171,28 @@ if (isset($_POST['sbcommand'])) {
       while($row = $result->fetch_assoc()) {
         $sigla = $row["sigla"];
         $materia = $row["materia"];
-        $materia = mb_strtolower($materia);
-        $command = mb_strtolower($command);
-        $check = levenshtein($materia, $command, 1, 1, 1);
-        error_log("before strpos check: $materia $command");
-  			if (strpos($materia, $command) !== false) {
-          error_log("this happened, why did the link not take?");
-  				echo "foundfoundfoundfmateria.php?sigla=$sigla&concurso=$concurso";
+        $materialow = mb_strtolower($materia);
+        $commandlow = mb_strtolower($command);
+        $check = levenshtein($materialow, $commandlow, 1, 1, 1);
+  			if (strpos($materialow, $commandlow) !== false) {
+  				echo "foundfoundfoundf$materia";
           $conn->close();
   				return;
   			}
         elseif ($check < $index) {
           $index = $check;
           $winner = $sigla;
-          error_log("check é menor que index: $index $winner");
         }
       }
       $length = strlen($command);
-      error_log("length: $length / index: $index");
       if ($index < $length) {
-        error_log("or maybe this happened and again the link did not take?");
-        echo "foundfoundfoundfmateria.php?sigla=$winner&concurso=$concurso";
+        echo "foundfoundfoundf$winner";
         $conn->close();
         return;
       }
     }
   }
+  echo "notfoundnotfoundnada foi encontrado";
   $conn->close();
   return;
 }
