@@ -175,7 +175,7 @@ if (isset($_POST['sbcommand'])) {
         $command = mb_strtolower($command);
         $check = levenshtein($materia, $command, 1, 1, 1);
   			if (strpos($command, $materia) !== false) {
-  				echo "foundfoundfoundf$materia";
+  				echo "foundfoundfoundfmateria.php?sigla=$materia&concurso=$concurso";
           $conn->close();
   				return;
   			}
@@ -185,7 +185,7 @@ if (isset($_POST['sbcommand'])) {
         }
         $length = strlen($command);
         if ($index < $length) {
-          echo "foundfoundfoundf$winner";
+          echo "foundfoundfoundfmateria.php?sigla=$winner&concurso=$concurso";
           $conn->close();
           return;
         }
