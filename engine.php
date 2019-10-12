@@ -36,6 +36,14 @@ function bottom_page() {
   ';
 }
 
+function load_footer {
+  echo '
+    <footer class="container-fluid text-center bg-lighter text-dark py-2 height5vh align-bottom">
+      <p class="mb-0">A Ubwiki é uma ferramenta de uso público e gratuito. Todos os direitos são reservados ao Grupo Ubique. Clique <a href="termos.php" target="_blank">aqui</a> para rever os termos e condições de uso da página.</p>
+    </footer>
+  ';
+}
+
 function extract_gdoc($url) {
   $ch = curl_init();
   curl_setopt($ch, CURLOPT_URL, $url);
