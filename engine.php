@@ -147,7 +147,7 @@ function readSearchOptions($concurso) {
     while($row = $result->fetch_assoc()) {
       $sigla = $row["sigla"];
       $materia = $row["materia"];
-      $match = $materia[$sigla];
+      $match = array($materia,$sigla);
       array_push($searchBarValues,$match);
       echo "<option>$materia</option>";
     }
@@ -163,18 +163,18 @@ function readSearchOptions($concurso) {
       $nivel2 = limpar_tema($nivel2);
       $nivel3 = limpar_tema($nivel3);
       if ($nivel3 != false) {
-        $match = $nivel3[$id];
+        $match = array($nivel3,$id);
         array_push($searchBarValues,$match);
         echo "<option>$nivel3</option>";
       }
       else {
-        $match = $nivel2[$id];
+        $match = array($nivel2,$id);
         array_push($searchBarValues,$match);
         if ($nivel2 != false) {
           echo "<option>$nive2</option>";
         }
         else {
-          $match = $nivel1[$id];
+          $match = array($nivel1,$id);
           array_push($searchBarValues,$match);
           echo "<option>$nivel1</option>";
         }
