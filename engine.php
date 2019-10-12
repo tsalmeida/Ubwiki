@@ -252,14 +252,29 @@ function carregar_verbete($tema, $concurso){
   $found = false;
   $conn = new mysqli($servername, $username, $password, $dbname);
   mysqli_set_charset($conn,"utf8");
-  $result = $conn->query("SELECT nivel1, nivel2, nivel3 FROM Temas_CACD_2019 WHERE concurso = '$concurso' AND estado = 1 AND sigla_materia = '$sigla' ORDER BY ordem");
+  $result = $conn->query("SELECT nivel1, nivel2, nivel3 FROM Temas_CACD_2019 WHERE concurso = '$concurso' AND id = $tema");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
+      $nivel1 = $row["nivel1"];
+      $nivel2 = $row["nivel2"];
+      $nivel3 = $row["nivel3"];
+      if ($nivel3 == false) {
+        if ($nivel2 == false) {
+          $tema = $nivel1;
+        }
+        else {
+          $tema = $nivel2;
+        }
+      }
+      else {
+        $tema = $nivel3;
+      }
     }
 
   echo "<h1>$tema</h1>
   <p>Nesta página, encontraremos o texto do verbete, os cadernos digitais, etc.</p>
   ";
   }
+  $conn->close();
 }
 ?>
