@@ -16,6 +16,7 @@ $(document).ready(function() {
 		$.post('engine.php', {'sbcommand': command, 'sbconcurso': concurso}, function(data) {
 			$("#searchBar").val('');
 			if (data != 0) {
+        alert('this happened');
 				var pw = data.substring(0, 16);
 				var pw2 = data.substring(16);
 				if (pw == 'notfoundnotfound') {
