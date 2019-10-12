@@ -99,3 +99,7 @@ logo {
 .cardmateria {
   cursor: pointer;
 }
+
+.clickable {
+  cursor: pointer;
+}
