@@ -20,7 +20,7 @@ $(document).ready(function() {
 				if (pw == 'notfoundnotfound') {
 					$("#searchBar").val(pw2);
 				}
-        elseif (pw = 'foundfoundfoundf') {
+        else if (pw = 'foundfoundfoundf') {
           window.open(pw2, '_self');
         }
 			}
