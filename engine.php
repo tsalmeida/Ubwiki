@@ -176,6 +176,7 @@ if (isset($_POST['sbcommand'])) {
         $check = levenshtein($materia, $command, 1, 1, 1);
         error_log("before strpos check: $materia $command");
   			if (strpos($command, $materia) !== false) {
+          error_log("this happened, why did the link not take?);
   				echo "foundfoundfoundfmateria.php?sigla=$sigla&concurso=$concurso";
           $conn->close();
   				return;
@@ -187,6 +188,7 @@ if (isset($_POST['sbcommand'])) {
         }
         $length = strlen($command);
         if ($index < $length) {
+          error_log("or maybe this happened and again the link did not take?");
           echo "foundfoundfoundfmateria.php?sigla=$sigla&concurso=$concurso";
           $conn->close();
           return;
