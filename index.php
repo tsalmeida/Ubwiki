@@ -25,7 +25,7 @@ $concurso = "CACD";
         <div class="col-lg-6">
           <form id="searchform" action="" method="post">
             <div id="searchDiv">
-              <input id="searchbar" list="searchlist" type="text" class="searchbar" name="searchbar" rows="1" autocomplete="off" spellcheck="false" placeholder="o que você vai estudar hoje?" required></input>
+              <input id="searchBar" list="searchlist" type="text" class="searchBar" name="searchBar" rows="1" autocomplete="off" spellcheck="false" placeholder="o que você vai estudar hoje?" required></input>
               <datalist id="searchlist">
                 <?php
                   readSearchOptions($concurso);

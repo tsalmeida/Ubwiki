@@ -142,9 +142,9 @@ function standard_jumbotron() {
   ";
 }
 
-if (isset($_POST['searchBarGo'])) {
-  $concurso = $_POST['searchBarGo'];
-  $command = $_POST['searchbar'];
+if (isset($_POST['sbcommand'])) {
+  $concurso = base64_decode($_POST['sbconcurso']);
+  $command = base64_decode($_POST['sbcommand']);
   $servername = "localhost";
   $username = "grupoubique";
   $password = "ubique patriae memor";
@@ -156,15 +156,44 @@ if (isset($_POST['searchBarGo'])) {
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $sigla = $row["sigla"];
-      header("Location:materia.php?sigla=$sigla&concurso=$concurso");
+      echo "foundfoundfoundfmateria.php?sigla=$sigla&concurso=$concurso";
+      $conn->close();
       $found = true;
     }
   }
   // aqui entrará a parte de busca por temas.
-  $conn->close();
   if ($found == false) {
-    header("Location:index.php");
+    // não havendo encontrado um match exato, o sistema busca por partial matches
+    $index = 500;
+    $winner = 0;
+    $result = $conn->query("SELECT sigla, materia FROM Materias WHERE concurso = '$concurso' AND estado = 1 ORDER BY ordem");
+    if ($result->num_rows > 0) {
+      while($row = $result->fetch_assoc()) {
+        $sigla = $row["sigla"];
+        $materia = $row["materia"];
+        $materia = mb_strtolower($materia);
+        $command = mb_strtolower($command);
+        $check = levenshtein($materia, $command, 1, 1, 1);
+  			if (strpos($command, $materia) !== false) {
+  				echo "foundfoundfoundf$materia";
+          $conn->close();
+  				return;
+  			}
+        elseif ($check < $index) {
+          $index = $check;
+          $winner = $materia;
+        }
+        $length = strlen($command);
+        if ($index < $length) {
+          echo "foundfoundfoundf$winner";
+          $conn->close();
+          return;
+        }
+      }
+    }
   }
+  $conn->close();
+  return;
 }
 
 function carregar_pagina($sigla, $concurso) {
