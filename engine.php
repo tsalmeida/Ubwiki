@@ -233,17 +233,4 @@ function carregar_pagina($sigla, $concurso) {
   }
   $conn->close();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-}
 ?>
