@@ -252,12 +252,13 @@ function carregar_verbete($tema, $concurso){
   $found = false;
   $conn = new mysqli($servername, $username, $password, $dbname);
   mysqli_set_charset($conn,"utf8");
-  $result = $conn->query("SELECT nivel1, nivel2, nivel3 FROM Temas WHERE concurso = '$concurso' AND id = $tema");
+  $result = $conn->query("SELECT nivel1, nivel2, nivel3, verbete_consolidado FROM Temas WHERE concurso = '$concurso' AND id = $tema");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $nivel1 = $row["nivel1"];
       $nivel2 = $row["nivel2"];
       $nivel3 = $row["nivel3"];
+      $verbete = $row["verbete_consolidado"];
       if ($nivel3 == false) {
         if ($nivel2 == false) {
           $tema = $nivel1;
@@ -274,10 +275,18 @@ function carregar_verbete($tema, $concurso){
   $tema = substr($tema, $trim);
   $tema = substr($tema, 0, -1);
 
-  echo "<h1>$tema</h1>
-    <h2>Índice</h2>
-    <h2>Verbete consolidado</h2>
-    <h2>Verbetes relacionados</h2>
+  echo "<h1>$tema</h1>";
+  echo"<h2>Índice</h2>
+    <h2>Verbete consolidado</h2>";
+
+    if ($verbete != false) {
+      echo "<p>Ainda não há verbete consolidado para este tema do $concurso.</p>";
+    }
+    else {
+      echo $verbete;
+    }
+
+  echo"<h2>Verbetes relacionados</h2>
     <h2>Bibliografia pertinente</h2>
     <h2>Vídeos e aulas relacionados</h2>
     <h2>Links externos</h2>
