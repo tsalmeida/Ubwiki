@@ -227,14 +227,14 @@ function carregar_pagina($sigla, $concurso) {
       $nivel3 = $row["nivel3"];
       if ($nivel3 == false) {
         if ($nivel2 == false) {
-          echo "<li class='list-group-item'>$nivel1</li>";
+          echo "<li class='list-group-item'><strong>$nivel1</strong></li>";
         }
         else {
           echo "<li class='list-group-item'>$nivel2</li>";
         }
       }
       else {
-        echo "<li class='list-group-item'>$nivel3</li>";
+        echo "<li class='list-group-item ml-5'>$nivel3</li>";
       }
     }
   }
