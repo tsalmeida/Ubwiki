@@ -284,19 +284,20 @@ function carregar_verbete($tema, $concurso){
     </div>
   </div>
   <div class='container-fluid px-0 mb-5'>
-    <div class='row'>
+    <div class='row h2'>
       <div class='col-lg-11'><h2>Verbete consolidado</h2></div>
-      <div class='col-lg-1 h2 float-right'><i class='fal fa-edit'></i></div>
+      <div class='col-lg-1 float-right'><i class='fal fa-edit'></i></div>
+    </div>
+    <div class='row'>";
+      if ($verbete == false) {
+        echo "<p>Ainda não há verbete consolidado para este tema do $concurso.</p>";
+      }
+      else {
+        echo $verbete;
+      }
+    echo "
     </div>
   </div>
-  ";
-  if ($verbete == false) {
-    echo "<p>Ainda não há verbete consolidado para este tema do $concurso.</p>";
-  }
-  else {
-    echo $verbete;
-  }
-  echo "
   <div class='container-fluid px-0 mb-5'>
     <div class='row'>
       <div class='col-lg-12'><h2>Verbetes relacionados</h2></div>
