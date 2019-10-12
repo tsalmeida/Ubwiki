@@ -277,7 +277,7 @@ function carregar_verbete($tema, $concurso){
 
   echo "<h1 class='mb-5 pb-5'>$tema</h1>";
   echo"
-  <div class='container-fluid px-0 mb-5'>
+  <div class='container-fluid px-0 mb-5 px-0'>
     <div class='row'>
       <div class='col-lg-11'><h2>Índice</h2></div>
       <div class='col-lg-1 h2 float-right'><i class='fal fa-edit'></i></div>
