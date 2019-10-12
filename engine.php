@@ -272,7 +272,15 @@ function carregar_verbete($tema, $concurso){
     }
 
   echo "<h1>$tema</h1>
-  <p>Nesta página, encontraremos o texto do verbete, os cadernos digitais, etc.</p>
+    <h2>Índice</h2>
+    <h2>Verbete consolidado</h2>
+    <h2>Verbetes relacionados</h2>
+    <h2>Bibliografia pertinente</h2>
+    <h2>Vídeos e aulas relacionados</h2>
+    <h2>Links externos</h2>
+    <h2>Minhas anotações</h2>
+    <h2>Questões de provas passadas sobre este tema</h2>
+    <h2>Discussão</h2>
   ";
   }
   $conn->close();
