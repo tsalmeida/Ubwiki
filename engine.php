@@ -277,8 +277,8 @@ function carregar_verbete($tema, $concurso){
 
   echo "<h1>$tema</h1>";
   echo"<h2>Índice</h2>
-    <div class="container-fluid">
-      <div class="row">
+    <div class='container-fluid'>
+      <div class='row'>
         <h2>Verbete consolidados</h2>
         <i class='fal fa-edit'></i>
       </div>
@@ -291,7 +291,7 @@ function carregar_verbete($tema, $concurso){
       echo $verbete;
     }
 
-  echo"<h2>Verbetes relacionados</h2>
+  echo "<h2>Verbetes relacionados</h2>
     <h2>Bibliografia pertinente</h2>
     <h2>Vídeos e aulas relacionados</h2>
     <h2>Links externos</h2>
