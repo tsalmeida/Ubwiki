@@ -276,8 +276,14 @@ function carregar_verbete($tema, $concurso){
   $tema = substr($tema, 0, -1);
 
   echo "<h1>$tema</h1>";
-  echo"<h2>Índice</h2>
-  <div class='container-fluid px-0'>
+  echo"
+  <div class='container-fluid px-0 mb-3'>
+    <div class='row'>
+      <div class='col-lg-11'><h2>Índice</h2></div>
+      <div class='col-lg-1 h2 float-right'><i class='fal fa-edit'></i></div>
+    </div>
+  </div>
+  <div class='container-fluid px-0 mb-3'>
     <div class='row'>
       <div class='col-lg-11'><h2>Verbete consolidado</h2></div>
       <div class='col-lg-1 h2 float-right'><i class='fal fa-edit'></i></div>
@@ -291,13 +297,48 @@ function carregar_verbete($tema, $concurso){
     echo $verbete;
   }
   echo "
-  <h2>Verbetes relacionados</h2>
-  <h2>Bibliografia pertinente</h2>
-  <h2>Vídeos e aulas relacionados</h2>
-  <h2>Links externos</h2>
-  <h2>Minhas anotações</h2>
-  <h2>Questões de provas passadas sobre este tema</h2>
-  <h2>Discussão</h2>
+  <div class='container-fluid px-0 mb-3'>
+    <div class='row'>
+      <div class='col-lg-11'><h2>Verbetes relacionados</h2></div>
+      <div class='col-lg-1 h2 float-right'><i class='fal fa-edit'></i></div>
+    </div>
+  </div>
+  <div class='container-fluid px-0 mb-3'>
+    <div class='row'>
+      <div class='col-lg-11'><h2>Bibliografia pertinente</h2></div>
+      <div class='col-lg-1 h2 float-right'><i class='fal fa-edit'></i></div>
+    </div>
+  </div>
+  <div class='container-fluid px-0 mb-3'>
+    <div class='row'>
+      <div class='col-lg-11'><h2>Vídeos e aulas relacionados</h2></div>
+      <div class='col-lg-1 h2 float-right'><i class='fal fa-edit'></i></div>
+    </div>
+  </div>
+  <div class='container-fluid px-0 mb-3'>
+    <div class='row'>
+      <div class='col-lg-11'><h2>Links externos</h2></div>
+      <div class='col-lg-1 h2 float-right'><i class='fal fa-edit'></i></div>
+    </div>
+  </div>
+  <div class='container-fluid px-0 mb-3'>
+    <div class='row'>
+      <div class='col-lg-11'><h2>Minhas anotações</h2></div>
+      <div class='col-lg-1 h2 float-right'><i class='fal fa-edit'></i></div>
+    </div>
+  </div>
+  <div class='container-fluid px-0 mb-3'>
+    <div class='row'>
+      <div class='col-lg-11'><h2>Questões de provas passadas</h2></div>
+      <div class='col-lg-1 h2 float-right'><i class='fal fa-edit'></i></div>
+    </div>
+  </div>
+  <div class='container-fluid px-0 mb-3'>
+    <div class='row'>
+      <div class='col-lg-11'><h2>Discussão</h2></div>
+      <div class='col-lg-1 h2 float-right'><i class='fal fa-edit'></i></div>
+    </div>
+  </div>
   ";
   }
   $conn->close();
