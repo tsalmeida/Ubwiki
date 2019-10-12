@@ -188,6 +188,7 @@ if (isset($_POST['sbcommand'])) {
         }
       }
       $length = strlen($command);
+      error_log("length: $length / index: $index");
       if ($index < $length) {
         error_log("or maybe this happened and again the link did not take?");
         echo "foundfoundfoundfmateria.php?sigla=$sigla&concurso=$concurso";
