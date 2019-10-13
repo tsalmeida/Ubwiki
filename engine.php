@@ -443,7 +443,6 @@ if (isset($_POST['sbcommand'])) {
   $concurso = base64_decode($_POST['sbconcurso']);
   $command = base64_decode($_POST['sbcommand']);
   $command = utf8_encode($command);
-  error_log($command);
   $servername = "localhost";
   $username = "grupoubique";
   $password = "ubique patriae memor";
@@ -485,6 +484,7 @@ if (isset($_POST['sbcommand'])) {
       elseif ($check < $index) {
         $index = $check;
         $winner = $chave;
+        error_log($winner);
       }
     }
     $length = strlen($command);
