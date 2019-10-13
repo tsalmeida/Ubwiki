@@ -390,7 +390,7 @@ function reconstruir_searchbar($concurso) {
     while($row = $result->fetch_assoc()) {
       $sigla = $row["sigla"];
       $materia = $row["materia"];
-      $odem++;
+      $ordem++;
       $conn->query("INSERT INTO Searchbar (ordem, concurso, sigla, chave, tipo) VALUES ('$ordem', '$concurso', '$sigla', '$materia', 'materia')");
     }
   }
