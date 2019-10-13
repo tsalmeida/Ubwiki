@@ -17,13 +17,9 @@
               <fieldset class="form-group">
                 <div class="row">
                   <legend class="col-form-label col-sm-2 pt-0">Concurso</legend>
-                  <div class="col-sm-10">
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="reconstruir_concurso" value="CACD" checked>
-                      <label class="form-check-label" for="gridRadios1">
-                        CACD
-                      </label>
-                    </div>
+                  <div class="custom-control custom-radio mb-4">
+                    <input type="radio" class="custom-control-input" name="reconstruir_concurso" value="CACD">
+                    <label class="custom-control-label" for="radio">CACD</label>
                   </div>
                 </div>
               </fieldset>
