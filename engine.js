@@ -15,7 +15,6 @@ $(document).ready(function() {
     $.post('engine.php', {'sbcommand': command, 'sbconcurso': concurso}, function(data) {
       $("#searchBar").val('');
       if (data != 0) {
-        var resultado = btoa(data);
         $("#searchBar").val(resultado);
       }
     });
