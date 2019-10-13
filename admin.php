@@ -27,9 +27,9 @@
                   </div>
                 </div>
               </fieldset>
-              <?php
-              echo "<button class='btn btn-info btn-block my-4' type='submit'>Reconstruir</button>";
-              ?>
+            <?php
+            echo "<button class='btn btn-info btn-block my-4' type='submit'>Reconstruir</button>";
+            ?>
           </form>
         </div>
         <div class="col-sm-2"></div>
