@@ -374,11 +374,9 @@ function limpar_tema($tema) {
 if (isset($_POST['reconstruir_concurso'])) {
   $concurso = $_POST['reconstruir_concurso'];
   reconstruir_searchbar($concurso);
-  error_log("this happened");
 }
 
 function reconstruir_searchbar($concurso) {
-  error_log("this also happened");
   $servername = "localhost";
   $username = "grupoubique";
   $password = "ubique patriae memor";
@@ -392,6 +390,7 @@ function reconstruir_searchbar($concurso) {
     while($row = $result->fetch_assoc()) {
       $sigla = $row["sigla"];
       $materia = $row["materia"];
+      error_log("$sigla $materia");
       $conn->query("INSERT INTO Searchbar (concurso, sigla, match, tipo) VALUES ('$concurso', '$sigla', $materia, 'materia')");
     }
   }
@@ -405,6 +404,7 @@ function reconstruir_searchbar($concurso) {
       $nivel1 = limpar_tema($nivel1);
       $nivel2 = limpar_tema($nivel2);
       $nivel3 = limpar_tema($nivel3);
+      error_log("$id $nivel1 $nivel2 $nivel3");
       if ($nivel3 != false) {
         $conn->query("INSERT INTO Searchbar (concurso, sigla, match, tipo) VALUES ('$concurso', '$id', '$nivel3', 'tema')");
       }
