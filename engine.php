@@ -469,7 +469,7 @@ if (isset($_POST['sbcommand'])) {
     // não havendo encontrado um match exato, o sistema busca por partial matches
     $index = 500;
     $winner = 0;
-    $result = $conn->query("SELECT chave FROM Searchbar WHERE concurso = '$concurso' AND CHAR_LENGTH(chave) < 250 ORDER BY ordem");
+    $result = $conn->query("SELECT chave FROM Searchbar WHERE concurso = '$concurso' AND CHAR_LENGTH(chave) < 100 ORDER BY ordem");
     if ($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {
         $chave = $row["chave"];
@@ -477,17 +477,20 @@ if (isset($_POST['sbcommand'])) {
         $commandlow = mb_strtolower($command);
         $check = levenshtein($chavelow, $commandlow, 1, 1, 1);
   			if (strpos($chavelow, $commandlow) !== false) {
+          error_log("found $chave by strpos non false");
   				echo "foundfoundfoundf$chave";
           $conn->close();
   				return;
   			}
         elseif ($check < $index) {
+          error_log("check menor que falso: index: $index, check: $check, winner: $winner, chave: $chave");
           $index = $check;
           $winner = $chave;
         }
       }
       $length = strlen($command);
       if ($index < $length) {
+        error_log("index menor que length, winner: $winner");
         echo "foundfoundfoundf$winner";
         $conn->close();
         return;
