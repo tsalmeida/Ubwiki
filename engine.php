@@ -457,47 +457,43 @@ if (isset($_POST['sbcommand'])) {
       if ($tipo == "materia") {
         echo "foundfoundfoundfLocation:materia.php?sigla=$sigla&concurso=$concurso";
         $conn->close();
-        $found = true;
+        return;
       }
       elseif ($tipo == "tema") {
         echo "foundfoundfoundfverbete.php?concurso=$concurso&tema=$sigla";
         $conn->close();
-        $found = true;
+        return;
       }
     }
   }
-  // aqui entrará a parte de busca por temas.
-  if ($found == false) {
-    // não havendo encontrado um match exato, o sistema busca por partial matches
-    $index = 500;
-    $winner = 0;
-    $result = $conn->query("SELECT chave FROM Searchbar WHERE concurso = '$concurso' AND CHAR_LENGTH(chave) < 100 ORDER BY ordem");
-    if ($result->num_rows > 0) {
-      while($row = $result->fetch_assoc()) {
-        $chave = $row["chave"];
-        $chavelow = mb_strtolower($chave);
-        $commandlow = mb_strtolower($command);
-        $check = levenshtein($chavelow, $commandlow, 1, 1, 1);
-        error_log("levenshtein: $chavelow, $commandlow, resultado: $check");
-  			if (strpos($chavelow, $commandlow) !== false) {
-          error_log("found $chave by strpos non false");
-          echo "notfoundnotfound$chave";
-          $conn->close();
-  				return;
-  			}
-        elseif ($check < $index) {
-          error_log("check menor que falso: index: $index, check: $check, winner: $winner, chave: $chave");
-          $index = $check;
-          $winner = $chave;
-        }
-      }
-      $length = strlen($command);
-      if ($index < $length) {
-        error_log("index menor que length, winner: $winner");
-        echo "notfoundnotfound$winner";
+  $index = 500;
+  $winner = 0;
+  $result = $conn->query("SELECT chave FROM Searchbar WHERE concurso = '$concurso' AND CHAR_LENGTH(chave) < 100 ORDER BY ordem");
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $chave = $row["chave"];
+      $chavelow = mb_strtolower($chave);
+      $commandlow = mb_strtolower($command);
+      $check = levenshtein($chavelow, $commandlow, 1, 1, 1);
+      error_log("levenshtein: $chavelow, $commandlow, resultado: $check");
+			if (strpos($chavelow, $commandlow) !== false) {
+        error_log("found $chave by strpos non false");
+        echo "notfoundnotfound$chave";
         $conn->close();
-        return;
+				return;
+			}
+      elseif ($check < $index) {
+        error_log("check menor que falso: index: $index, check: $check, winner: $winner, chave: $chave");
+        $index = $check;
+        $winner = $chave;
       }
+    }
+    $length = strlen($command);
+    if ($index < $length) {
+      error_log("index menor que length, winner: $winner");
+      echo "notfoundnotfound$winner";
+      $conn->close();
+      return;
     }
   }
   echo "nada foi encontrado";
