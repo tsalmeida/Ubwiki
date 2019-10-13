@@ -247,8 +247,7 @@ function carregar_verbete($id_tema, $concurso){
     <div class='row'>
       <form>
         <div class='form-group'>
-          <label for='edicao_verbete'>Example textarea</label>
-          <textarea class='form-control' id='edicao_verbete' rows='10'></textarea>
+          <textarea class='form-control z-depth-1' id='edicao_verbete' rows='10'></textarea>
         </div>
       </form>";
       if ($verbete == false) {
