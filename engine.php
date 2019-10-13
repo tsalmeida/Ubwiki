@@ -432,7 +432,7 @@ function readSearchOptions($concurso) {
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $chave = $row['chave'];
-      echo "<option>$chave</option>"
+      echo "<option>$chave</option>";
       $conn->close();
     }
   }
