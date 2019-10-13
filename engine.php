@@ -338,6 +338,7 @@ function carregar_verbete($id_tema, $concurso){
       <div class='col-lg-12'><h2 id='questoes'>Questões de provas passadas</h2></div>
     </div>
     <div class='row'>";
+      $questoes = false;
       if ($questoes == false) {
         echo "<div class='col-lg-12'><p>Não há registro de questão em provas passadas sobre este tema.</p></div>";
       }
