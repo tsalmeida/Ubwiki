@@ -31,7 +31,7 @@ function bottom_page() {
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
   <!-- MDB core JavaScript -->
   <script type="text/javascript" src="js/mdb.min.js"></script>
-  <script type="text/javascript" src="engine.js"></script>
+  <script type="text/javascript" charset="UTF-8" src="engine.js"></script>
   </html>
   ';
 }
@@ -456,13 +456,11 @@ if (isset($_POST['sbcommand'])) {
       $sigla = $row["sigla"];
       $tipo = $row["tipo"];
       if ($tipo == "materia") {
-        error_log("materia encontrada: $sigla");
         echo "foundfoundfoundfmateria.php?sigla=$sigla&concurso=$concurso";
         $conn->close();
         return;
       }
       elseif ($tipo == "tema") {
-        error_log("tema encontrado: $sigla");
         echo "foundfoundfoundfverbete.php?concurso=$concurso&tema=$sigla";
         $conn->close();
         return;
@@ -478,22 +476,18 @@ if (isset($_POST['sbcommand'])) {
       $chavelow = mb_strtolower($chave);
       $commandlow = mb_strtolower($command);
       $check = levenshtein($chavelow, $commandlow, 1, 1, 1);
-      error_log("levenshtein: $chavelow, $commandlow, resultado: $check");
 			if (strpos($chavelow, $commandlow) !== false) {
-        error_log("found $chave by strpos non false");
         echo "notfoundnotfound$chave";
         $conn->close();
 				return;
 			}
       elseif ($check < $index) {
-        error_log("check menor que falso: index: $index, check: $check, winner: $winner, chave: $chave");
         $index = $check;
         $winner = $chave;
       }
     }
     $length = strlen($command);
     if ($index < $length) {
-      error_log("index menor que length, winner: $winner");
       echo "notfoundnotfound$winner";
       $conn->close();
       return;
