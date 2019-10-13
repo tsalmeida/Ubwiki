@@ -335,6 +335,7 @@ function carregar_verbete($id_tema, $concurso){
         echo $verbetes;
       }
     echo "
+    </div>
   </div>
   <div class='container-fluid px-0 mb-5'>
     <div class='row'>
@@ -349,7 +350,7 @@ function carregar_verbete($id_tema, $concurso){
         echo $bibliografia;
       }
     echo "
-
+    </div>
   </div>
   <div class='container-fluid px-0 mb-5'>
     <div class='row'>
@@ -364,7 +365,7 @@ function carregar_verbete($id_tema, $concurso){
         echo $videos;
       }
     echo "
-
+    </div>
   </div>
   <div class='container-fluid px-0 mb-5'>
     <div class='row'>
@@ -379,7 +380,7 @@ function carregar_verbete($id_tema, $concurso){
         echo $links;
       }
     echo "
-
+    </div>
   </div>
   <div class='container-fluid px-0 mb-5'>
     <div class='row'>
@@ -393,13 +394,13 @@ function carregar_verbete($id_tema, $concurso){
     </div>
     <div class='row'>";
       if ($questoes == false) {
-        echo "<div class='col-lg-12'><p>Não há registro de questão em prova passada sobre este tema.</p></div>";
+        echo "<div class='col-lg-12'><p>Não há registro de questão em provas passadas sobre este tema.</p></div>";
       }
       else {
         echo $questoes;
       }
     echo "
-
+    </div>
   </div>
   <div class='container-fluid px-0 mb-5'>
     <div class='row'>
@@ -413,7 +414,7 @@ function carregar_verbete($id_tema, $concurso){
         echo $discussao;
       }
     echo "
-
+    </div>
   </div>
   ";
 }
