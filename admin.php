@@ -13,7 +13,7 @@
           <h1>Administrador</h1>
           <form class='text-center border border-light p-5' method='post'>
               <p class="h4 mb-4">Funções</p>
-              <p>Reconstruir tabela de opções de barra de busca.</p>
+              <p>Reconstruir tabela de opções da barra de busca.</p>
               <fieldset class="form-group">
                 <div class="row">
                   <legend class="col-form-label col-sm-2 pt-0">Concurso</legend>
