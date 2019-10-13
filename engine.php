@@ -448,11 +448,17 @@ if (isset($_POST['sbcommand'])) {
   $found = false;
   $conn = new mysqli($servername, $username, $password, $dbname);
   mysqli_set_charset($conn,"utf8");
-  $result = $conn->query("SELECT sigla FROM Searchbar WHERE concurso = '$concurso' AND estado = 1 AND materia = '$command' ORDER BY ordem");
+  $result = $conn->query("SELECT sigla, tipo FROM Searchbar WHERE concurso = '$concurso' AND chave = '$command' ORDER BY ordem");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $sigla = $row["sigla"];
-      echo "foundfoundfoundfmateria.php?sigla=$sigla&concurso=$concurso";
+      $tipo = $row["tipo"];
+      if ($tipo == "materia") {
+        header("Location:materia.php?sigla=$sigla&concurso=$concurso");
+      }
+      elseif ($tipo == "tema") {
+        header("Location:verbete.php?concurso=$concurso&tema=$sigla");
+      }
       $conn->close();
       $found = true;
     }
@@ -462,22 +468,21 @@ if (isset($_POST['sbcommand'])) {
     // não havendo encontrado um match exato, o sistema busca por partial matches
     $index = 500;
     $winner = 0;
-    $result = $conn->query("SELECT sigla, materia FROM Materias WHERE concurso = '$concurso' AND estado = 1 ORDER BY ordem");
+    $result = $conn->query("SELECT chave FROM Searchbar WHERE concurso = '$concurso' ORDER BY ordem");
     if ($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {
-        $sigla = $row["sigla"];
-        $materia = $row["materia"];
-        $materialow = mb_strtolower($materia);
+        $chave = $row["chave"];
+        $chavelow = mb_strtolower($chave);
         $commandlow = mb_strtolower($command);
         $check = levenshtein($materialow, $commandlow, 1, 1, 1);
   			if (strpos($materialow, $commandlow) !== false) {
-  				echo "foundfoundfoundf$materia";
+  				echo "foundfoundfoundf$chave";
           $conn->close();
   				return;
   			}
         elseif ($check < $index) {
           $index = $check;
-          $winner = $materia;
+          $winner = $chave;
         }
       }
       $length = strlen($command);
