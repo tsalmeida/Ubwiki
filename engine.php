@@ -220,7 +220,7 @@ function carregar_verbete($id_tema, $concurso){
 
   echo "<h1 class='mb-5'>$tema</h1>";
   echo"
-  <div class='container-fluid mb-5'>
+  <div class='container-fluid mb-5 bg-lighter rounded'>
     <div class='row'>
       <div class='col-lg-12'><h2>Índice</h2></div>
     </div>
