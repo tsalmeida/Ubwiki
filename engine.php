@@ -455,7 +455,7 @@ if (isset($_POST['sbcommand'])) {
       $sigla = $row["sigla"];
       $tipo = $row["tipo"];
       if ($tipo == "materia") {
-        echo "foundfoundfoundfLocation:materia.php?sigla=$sigla&concurso=$concurso";
+        echo "foundfoundfoundfmateria.php?sigla=$sigla&concurso=$concurso";
         $conn->close();
         return;
       }
