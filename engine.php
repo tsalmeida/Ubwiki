@@ -455,10 +455,14 @@ if (isset($_POST['sbcommand'])) {
       $sigla = $row["sigla"];
       $tipo = $row["tipo"];
       if ($tipo == "materia") {
+        session_write_close();
         header("Location:materia.php?sigla=$sigla&concurso=$concurso");
+        exit;
       }
       elseif ($tipo == "tema") {
+        session_write_close();
         header("Location:verbete.php?concurso=$concurso&tema=$sigla");
+        exit;
       }
       $conn->close();
       $found = true;
