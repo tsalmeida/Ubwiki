@@ -390,7 +390,7 @@ function reconstruir_searchbar($concurso) {
     while($row = $result->fetch_assoc()) {
       $sigla = $row["sigla"];
       $materia = $row["materia"];
-      $adding = $conn->query("INSERT INTO Searchbar (concurso, sigla, match, tipo) VALUES ('$concurso', '$sigla', '$materia', 'materia')");
+      $conn->query("INSERT INTO Searchbar (concurso, sigla, chave, tipo) VALUES ('$concurso', '$sigla', '$materia', 'materia')");
     }
   }
   $result = $conn->query("SELECT nivel1, nivel2, nivel3, id FROM Temas WHERE concurso = '$concurso' ORDER BY sigla_materia, nivel1");
@@ -404,14 +404,14 @@ function reconstruir_searchbar($concurso) {
       $nivel2 = limpar_tema($nivel2);
       $nivel3 = limpar_tema($nivel3);
       if ($nivel3 != false) {
-        $adding = $conn->query("INSERT INTO Searchbar (concurso, sigla, match, tipo) VALUES ('$concurso', $id, '$nivel3', 'tema')");
+        $conn->query("INSERT INTO Searchbar (concurso, sigla, chave, tipo) VALUES ('$concurso', $id, '$nivel3', 'tema')");
       }
       else {
         if ($nivel2 != false) {
-          $adding = $conn->query("INSERT INTO Searchbar (concurso, sigla, match, tipo) VALUES ('$concurso', $id, '$nivel2', 'tema')");
+          $conn->query("INSERT INTO Searchbar (concurso, sigla, chave, tipo) VALUES ('$concurso', $id, '$nivel2', 'tema')");
         }
         else {
-          $adding = $conn->query("INSERT INTO Searchbar (concurso, sigla, match, tipo) VALUES ('$concurso', $id, '$nivel1', 'tema')");
+          $conn->query("INSERT INTO Searchbar (concurso, sigla, chave, tipo) VALUES ('$concurso', $id, '$nivel1', 'tema')");
         }
       }
     }
