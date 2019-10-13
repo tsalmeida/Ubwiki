@@ -475,8 +475,8 @@ if (isset($_POST['sbcommand'])) {
         $chave = $row["chave"];
         $chavelow = mb_strtolower($chave);
         $commandlow = mb_strtolower($command);
-        $check = levenshtein($materialow, $commandlow, 1, 1, 1);
-  			if (strpos($materialow, $commandlow) !== false) {
+        $check = levenshtein($chavelow, $commandlow, 1, 1, 1);
+  			if (strpos($chavelow, $commandlow) !== false) {
   				echo "foundfoundfoundf$chave";
           $conn->close();
   				return;
