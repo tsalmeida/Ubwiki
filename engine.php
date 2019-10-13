@@ -402,8 +402,10 @@ function reconstruir_searchbar($concurso) {
       $nivel1 = $row["nivel1"];
       $nivel2 = $row["nivel2"];
       $nivel3 = $row["nivel3"];
+      error_log($nivel2);
       $nivel1 = limpar_tema($nivel1);
       $nivel2 = limpar_tema($nivel2);
+      error_log($nivel2);
       $nivel3 = limpar_tema($nivel3);
       $ordem++;
       if ($nivel3 != false) {
@@ -473,7 +475,6 @@ if (isset($_POST['sbcommand'])) {
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $chave = $row["chave"];
-      error_log($chave);
       $chavelow = mb_strtolower($chave);
       $commandlow = mb_strtolower($command);
       $check = levenshtein($chavelow, $commandlow, 1, 1, 1);
