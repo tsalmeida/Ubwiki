@@ -469,7 +469,7 @@ if (isset($_POST['sbcommand'])) {
     // não havendo encontrado um match exato, o sistema busca por partial matches
     $index = 500;
     $winner = 0;
-    $result = $conn->query("SELECT chave FROM Searchbar WHERE concurso = '$concurso' ORDER BY ordem");
+    $result = $conn->query("SELECT chave FROM Searchbar WHERE concurso = '$concurso' AND CHAR_LENGTH(chave) < 250 ORDER BY ordem");
     if ($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {
         $chave = $row["chave"];
