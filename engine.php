@@ -479,7 +479,6 @@ if (isset($_POST['sbcommand'])) {
         error_log("levenshtein: $chavelow, $commandlow, resultado: $check");
   			if (strpos($chavelow, $commandlow) !== false) {
           error_log("found $chave by strpos non false");
-          $chave = base64_encode($chave);
           echo "$chave";
           $conn->close();
   				return;
@@ -493,7 +492,6 @@ if (isset($_POST['sbcommand'])) {
       $length = strlen($command);
       if ($index < $length) {
         error_log("index menor que length, winner: $winner");
-        $winner = base64_encode($winner);
         echo "$winner";
         $conn->close();
         return;
