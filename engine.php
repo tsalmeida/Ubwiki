@@ -477,6 +477,7 @@ if (isset($_POST['sbcommand'])) {
       $commandlow = mb_strtolower($command);
       $check = levenshtein($chavelow, $commandlow, 1, 1, 1);
 			if (strpos($chavelow, $commandlow) !== false) {
+        error_log($chave);
         echo "notfoundnotfound$chave";
         $conn->close();
 				return;
