@@ -15,7 +15,14 @@ $(document).ready(function() {
     $.post('engine.php', {'sbcommand': command, 'sbconcurso': concurso}, function(data) {
       $("#searchBar").val('');
       if (data != 0) {
-        $("#searchBar").val(data);
+        var pw = data.substring(0, 16);
+        var pw2 = data.substring(16);
+        if (pw == 'notfoundnotfound') {
+          $("#searchBar").val(pw2);
+        }
+        else if (pw = 'foundfoundfoundf') {
+          window.open(pw2, '_self');
+        }
       }
     });
     return false;

@@ -455,14 +455,10 @@ if (isset($_POST['sbcommand'])) {
       $sigla = $row["sigla"];
       $tipo = $row["tipo"];
       if ($tipo == "materia") {
-        session_write_close();
-        header("Location:materia.php?sigla=$sigla&concurso=$concurso");
-        exit;
+        echo "foundfoundfoundfLocation:materia.php?sigla=$sigla&concurso=$concurso";
       }
       elseif ($tipo == "tema") {
-        session_write_close();
-        header("Location:verbete.php?concurso=$concurso&tema=$sigla");
-        exit;
+        echo "foundfoundfoundfverbete.php?concurso=$concurso&tema=$sigla";
       }
       $conn->close();
       $found = true;
@@ -483,7 +479,7 @@ if (isset($_POST['sbcommand'])) {
         error_log("levenshtein: $chavelow, $commandlow, resultado: $check");
   			if (strpos($chavelow, $commandlow) !== false) {
           error_log("found $chave by strpos non false");
-          echo $chave;
+          echo "notfoundnotfound$chave";
           $conn->close();
   				return;
   			}
@@ -496,7 +492,7 @@ if (isset($_POST['sbcommand'])) {
       $length = strlen($command);
       if ($index < $length) {
         error_log("index menor que length, winner: $winner");
-        echo $winner;
+        echo "notfoundnotfound$winner";
         $conn->close();
         return;
       }
