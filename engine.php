@@ -271,7 +271,7 @@ function carregar_verbete($id_tema, $concurso){
   <div class='container-fluid px-0 mb-5'>
     <div class='row'>
       <div class='col-lg-11'><h2 id='bibliografia'>Bibliografia pertinente</h2></div>
-      <div class='col-lg-1 h2 float-right'><i class='fal fa-plus-square'></i></div>
+      <div class='col-lg-1 h2 float-right'><a><i class='fal fa-plus-square'></i></a></div>
     </div>
     <div class='row'>";
       if ($bibliografia == false) {
@@ -286,7 +286,7 @@ function carregar_verbete($id_tema, $concurso){
   <div class='container-fluid px-0 mb-5'>
     <div class='row'>
       <div class='col-lg-11'><h2 id='videos'>Vídeos e aulas relacionados</h2></div>
-      <div class='col-lg-1 h2 float-right'><i class='fal fa-plus-square'></i></div>
+      <div class='col-lg-1 h2 float-right'><a><i class='fal fa-plus-square'></i></a></div>
     </div>
     <div class='row'>";
       if ($videos == false) {
@@ -301,7 +301,7 @@ function carregar_verbete($id_tema, $concurso){
   <div class='container-fluid px-0 mb-5'>
     <div class='row'>
       <div class='col-lg-11'><h2 id='links'>Links externos</h2></div>
-      <div class='col-lg-1 h2 float-right'><i class='fal fa-plus-square'></i></div>
+      <div class='col-lg-1 h2 float-right'><a><i class='fal fa-plus-square'></i></a></div>
     </div>
     <div class='row'>";
       if ($links == false) {
@@ -316,7 +316,7 @@ function carregar_verbete($id_tema, $concurso){
   <div class='container-fluid px-0 mb-5'>
     <div class='row'>
       <div class='col-lg-11'><h2 id='anotacoes'>Minhas anotações</h2></div>
-      <div class='col-lg-1 h2 float-right'><i class='fal fa-edit'></i></div>
+      <div class='col-lg-1 h2 float-right'><a><i class='fal fa-edit'></i></a></div>
     </div>
   </div>
   <div class='container-fluid px-0 mb-5'>
