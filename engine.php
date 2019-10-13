@@ -456,12 +456,14 @@ if (isset($_POST['sbcommand'])) {
       $tipo = $row["tipo"];
       if ($tipo == "materia") {
         echo "foundfoundfoundfLocation:materia.php?sigla=$sigla&concurso=$concurso";
+        $conn->close();
+        $found = true;
       }
       elseif ($tipo == "tema") {
         echo "foundfoundfoundfverbete.php?concurso=$concurso&tema=$sigla";
+        $conn->close();
+        $found = true;
       }
-      $conn->close();
-      $found = true;
     }
   }
   // aqui entrará a parte de busca por temas.
