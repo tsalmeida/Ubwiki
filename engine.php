@@ -235,7 +235,7 @@ function carregar_pagina($sigla, $concurso) {
   echo "</ul>";
 }
 
-function carregar_verbete($tema, $concurso){
+function carregar_verbete($id_tema, $concurso){
   $servername = "localhost";
   $username = "grupoubique";
   $password = "ubique patriae memor";
@@ -243,7 +243,7 @@ function carregar_verbete($tema, $concurso){
   $found = false;
   $conn = new mysqli($servername, $username, $password, $dbname);
   mysqli_set_charset($conn,"utf8");
-  $result = $conn->query("SELECT nivel1, nivel2, nivel3 FROM Temas WHERE concurso = '$concurso' AND id = $tema");
+  $result = $conn->query("SELECT nivel1, nivel2, nivel3 FROM Temas WHERE concurso = '$concurso' AND id = $id_tema");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $nivel1 = $row["nivel1"];
@@ -261,8 +261,31 @@ function carregar_verbete($tema, $concurso){
         $tema = $nivel3;
       }
     }
-
   $tema = limpar_tema($tema);
+  }
+  $found = false;
+  $id_verbete = false;
+  $verbete = false;
+  $verbetes = false;
+  $bibliografia = false;
+  $videos = false;
+  $links = false;
+  $discussao = false;
+  $result = $conn->query("SELECT id, verbete, verbetes, bibliografia, videos, links, discussao FROM Verbetes WHERE id_tema = $id_tema");
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $found = true;
+      $id_verbete = $row["id"];
+      $verbete = $row["verbete"];
+      $verbetes = $row["verbetes"];
+      $bibliografia = $row["bibliografia"];
+      $videos = $row["videos"];
+      $links = $row["links"];
+      $discussao = $row["discussao"];
+    }
+  $tema = limpar_tema($tema);
+  }
+  $conn->close();
 
   echo "<h1 class='mb-5'>$tema</h1>";
   echo"
@@ -286,13 +309,13 @@ function carregar_verbete($tema, $concurso){
     </div>
   </div>
   <div class='container-fluid px-0 mb-5'>
-    <div class='row h2'>
+    <div class='row'>
       <div class='col-lg-11'><h2 id='verbete'>Verbete consolidado</h2></div>
-      <div class='col-lg-1 float-right'><i class='fal fa-edit'></i></div>
+      <div class='col-lg-1 h2 float-right'><i class='fal fa-edit'></i></div>
     </div>
     <div class='row'>";
       if ($verbete == false) {
-        echo "<div class='col-lg-12'><p>Ainda não há verbete consolidado para este tema do $concurso.</p></div>";
+        echo "<div class='col-lg-12'><p>Ainda não há verbete consolidado para este tema.</p></div>";
       }
       else {
         echo $verbete;
@@ -304,24 +327,59 @@ function carregar_verbete($tema, $concurso){
     <div class='row'>
       <div class='col-lg-12'><h2 id='verbetes'>Verbetes relacionados</h2></div>
     </div>
+    <div class='row'>";
+      if ($verbetes == false) {
+        echo "<div class='col-lg-12'><p>Ainda não foram identificados verbetes relacionados para este tema.</p></div>";
+      }
+      else {
+        echo $verbetes;
+      }
+    echo "
   </div>
   <div class='container-fluid px-0 mb-5'>
     <div class='row'>
       <div class='col-lg-11'><h2 id='bibliografia'>Bibliografia pertinente</h2></div>
       <div class='col-lg-1 h2 float-right'><i class='fal fa-plus-square'></i></div>
     </div>
+    <div class='row'>";
+      if ($bibliografia == false) {
+        echo "<div class='col-lg-12'><p>Ainda não foram identificados recursos bibliográficos sobre este tema.</p></div>";
+      }
+      else {
+        echo $bibliografia;
+      }
+    echo "
+
   </div>
   <div class='container-fluid px-0 mb-5'>
     <div class='row'>
       <div class='col-lg-11'><h2 id='videos'>Vídeos e aulas relacionados</h2></div>
       <div class='col-lg-1 h2 float-right'><i class='fal fa-plus-square'></i></div>
     </div>
+    <div class='row'>";
+      if ($videos == false) {
+        echo "<div class='col-lg-12'><p>Ainda não foram acrescentados links para vídeos e aulas sobre este tema.</p></div>";
+      }
+      else {
+        echo $videos;
+      }
+    echo "
+
   </div>
   <div class='container-fluid px-0 mb-5'>
     <div class='row'>
       <div class='col-lg-11'><h2 id='links'>Links externos</h2></div>
       <div class='col-lg-1 h2 float-right'><i class='fal fa-plus-square'></i></div>
     </div>
+    <div class='row'>";
+      if ($links == false) {
+        echo "<div class='col-lg-12'><p>Ainda não foram acrescentados links externos sobre este tema.</p></div>";
+      }
+      else {
+        echo $links;
+      }
+    echo "
+
   </div>
   <div class='container-fluid px-0 mb-5'>
     <div class='row'>
@@ -333,15 +391,31 @@ function carregar_verbete($tema, $concurso){
     <div class='row'>
       <div class='col-lg-12'><h2 id='questoes'>Questões de provas passadas</h2></div>
     </div>
+    <div class='row'>";
+      if ($questoes == false) {
+        echo "<div class='col-lg-12'><p>Não há registro de questão em prova passada sobre este tema.</p></div>";
+      }
+      else {
+        echo $questoes;
+      }
+    echo "
+
   </div>
   <div class='container-fluid px-0 mb-5'>
     <div class='row'>
       <div class='col-lg-12'><h2 id='discussao'>Discussão</h2></div>
     </div>
+    <div class='row'>";
+      if ($discussao == false) {
+        echo "<div class='col-lg-12'><p>Não há discussão sobre este tema. Faça você um comentário!</p></div>";
+      }
+      else {
+        echo $discussao;
+      }
+    echo "
+
   </div>
   ";
-  }
-  $conn->close();
 }
 
 function limpar_tema($tema) {
