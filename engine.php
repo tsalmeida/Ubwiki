@@ -393,7 +393,7 @@ function reconstruir_searchbar($concurso) {
       $conn->query("INSERT INTO Searchbar (concurso, sigla, chave, tipo) VALUES ('$concurso', '$sigla', '$materia', 'materia')");
     }
   }
-  $result = $conn->query("SELECT nivel1, nivel2, nivel3, id FROM Temas WHERE concurso = '$concurso' ORDER BY sigla_materia, nivel1");
+  $result = $conn->query("SELECT nivel1, nivel2, nivel3, id FROM Temas WHERE concurso = '$concurso' ORDER BY id");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $id = $row["id"];
