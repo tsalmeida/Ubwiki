@@ -21,7 +21,8 @@ $(document).ready(function() {
           $("#searchBar").val(pw2);
         }
         else if (pw = 'foundfoundfoundf') {
-          window.open(pw2, '_self');
+          $("#searchBar").val(pw2);
+          // window.open(pw2, '_self');
         }
       }
     });
