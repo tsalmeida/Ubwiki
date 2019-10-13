@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
   $(document.body).on('click', '.cardmateria' ,function(){
     if ($(this).attr("href")) {
       var link = $(this).attr("href");
@@ -9,6 +8,7 @@ $(document).ready(function() {
   });
   $('#searchBarGo').click(function() {
     var command = $('#searchBar').val();
+    alert(command);
     var command = btoa(command);
     var concurso = $('#searchBarGo').val();
     var concurso = btoa(concurso);
