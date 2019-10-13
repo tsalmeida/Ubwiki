@@ -422,7 +422,20 @@ function reconstruir_searchbar($concurso) {
 }
 
 function readSearchOptions($concurso) {
-  return;
+  $servername = "localhost";
+  $username = "grupoubique";
+  $password = "ubique patriae memor";
+  $dbname = "Ubique";
+  $conn = new mysqli($servername, $username, $password, $dbname);
+  mysqli_set_charset($conn,"utf8");
+  $result = $conn->query("SELECT chave FROM Searchbar WHERE concurso = '$concurso' ORDER BY ordem");
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $chave = $row['chave'];
+      echo "<option>$chave</option>"
+      $conn->close();
+    }
+  }
 }
 
 if (isset($_POST['sbcommand'])) {
