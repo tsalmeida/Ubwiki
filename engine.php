@@ -188,25 +188,11 @@ function carregar_verbete($id_tema, $concurso){
   $found = false;
   $conn = new mysqli($servername, $username, $password, $dbname);
   mysqli_set_charset($conn,"utf8");
-  $result = $conn->query("SELECT nivel1, nivel2, nivel3 FROM Temas WHERE concurso = '$concurso' AND id = $id_tema");
+  $result = $conn->query("SELECT chave FROM Searchbar WHERE concurso = '$concurso' AND sigla = $id_tema");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
-      $nivel1 = $row["nivel1"];
-      $nivel2 = $row["nivel2"];
-      $nivel3 = $row["nivel3"];
-      if ($nivel3 == false) {
-        if ($nivel2 == false) {
-          $tema = $nivel1;
-        }
-        else {
-          $tema = $nivel2;
-        }
-      }
-      else {
-        $tema = $nivel3;
-      }
+      $tema = $row['chave'];
     }
-  $tema = limpar_tema($tema);
   }
   $found = false;
   $id_verbete = false;
