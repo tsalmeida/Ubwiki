@@ -367,6 +367,7 @@ function carregar_verbete($id_tema, $concurso){
 
 function limpar_tema($tema) {
   $trim = strpos($tema, " ");
+  $trim = $trim - 1;
   $tema = substr($tema, $trim);
   $tema = substr($tema, 0, -1);
   return $tema;
@@ -402,10 +403,8 @@ function reconstruir_searchbar($concurso) {
       $nivel1 = $row["nivel1"];
       $nivel2 = $row["nivel2"];
       $nivel3 = $row["nivel3"];
-      error_log($nivel2);
       $nivel1 = limpar_tema($nivel1);
       $nivel2 = limpar_tema($nivel2);
-      error_log($nivel2);
       $nivel3 = limpar_tema($nivel3);
       $ordem++;
       if ($nivel3 != false) {
