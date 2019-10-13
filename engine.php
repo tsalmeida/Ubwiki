@@ -367,7 +367,7 @@ function carregar_verbete($id_tema, $concurso){
 
 function limpar_tema($tema) {
   $trim = strpos($tema, " ");
-  $trim = $trim - 1;
+  $trim = $trim + 1;
   $tema = substr($tema, $trim);
   $tema = substr($tema, 0, -1);
   return $tema;
