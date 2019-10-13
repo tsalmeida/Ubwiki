@@ -14,7 +14,7 @@
           <form class='text-center border border-light p-5' method='post'>
               <p class="h4 mb-4">Funções</p>
               <p>Reconstruir tabela de opções de barra de busca.</p>
-              <input type="text" id="reconstruir_concurso" class="from-control mb-4" placeholder="Concurso"></input>
+              <input type="text" name="reconstruir_concurso" class="from-control mb-4" placeholder="Concurso"></input>
               <?php
               echo "<button class='btn btn-info btn-block my-4' type='submit'>Reconstruir</button>";
               ?>
