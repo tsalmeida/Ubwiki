@@ -442,6 +442,7 @@ function readSearchOptions($concurso) {
 if (isset($_POST['sbcommand'])) {
   $concurso = base64_decode($_POST['sbconcurso']);
   $command = base64_decode($_POST['sbcommand']);
+  $command = utf8_encode($command);
   error_log($command);
   $servername = "localhost";
   $username = "grupoubique";
