@@ -381,7 +381,7 @@ function reconstruir_searchbar($concurso) {
   $username = "grupoubique";
   $password = "ubique patriae memor";
   $dbname = "Ubique";
-  $found = false;
+  $ordem = 0;
   $conn = new mysqli($servername, $username, $password, $dbname);
   mysqli_set_charset($conn,"utf8");
   $conn->query("DELETE FROM Searchbar WHERE concurso = '$concurso'");
@@ -390,7 +390,8 @@ function reconstruir_searchbar($concurso) {
     while($row = $result->fetch_assoc()) {
       $sigla = $row["sigla"];
       $materia = $row["materia"];
-      $conn->query("INSERT INTO Searchbar (concurso, sigla, chave, tipo) VALUES ('$concurso', '$sigla', '$materia', 'materia')");
+      $odem++;
+      $conn->query("INSERT INTO Searchbar (ordem, concurso, sigla, chave, tipo) VALUES ('$ordem', '$concurso', '$sigla', '$materia', 'materia')");
     }
   }
   $result = $conn->query("SELECT nivel1, nivel2, nivel3, id FROM Temas WHERE concurso = '$concurso' ORDER BY id");
@@ -403,15 +404,16 @@ function reconstruir_searchbar($concurso) {
       $nivel1 = limpar_tema($nivel1);
       $nivel2 = limpar_tema($nivel2);
       $nivel3 = limpar_tema($nivel3);
+      $ordem++;
       if ($nivel3 != false) {
-        $conn->query("INSERT INTO Searchbar (concurso, sigla, chave, tipo) VALUES ('$concurso', $id, '$nivel3', 'tema')");
+        $conn->query("INSERT INTO Searchbar (ordem, concurso, sigla, chave, tipo) VALUES ('$ordem', '$concurso', $id, '$nivel3', 'tema')");
       }
       else {
         if ($nivel2 != false) {
-          $conn->query("INSERT INTO Searchbar (concurso, sigla, chave, tipo) VALUES ('$concurso', $id, '$nivel2', 'tema')");
+          $conn->query("INSERT INTO Searchbar (ordem, concurso, sigla, chave, tipo) VALUES ('$ordem', '$concurso', $id, '$nivel2', 'tema')");
         }
         else {
-          $conn->query("INSERT INTO Searchbar (concurso, sigla, chave, tipo) VALUES ('$concurso', $id, '$nivel1', 'tema')");
+          $conn->query("INSERT INTO Searchbar (ordem, concurso, sigla, chave, tipo) VALUES ('$ordem', '$concurso', $id, '$nivel1', 'tema')");
         }
       }
     }
