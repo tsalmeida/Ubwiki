@@ -374,9 +374,11 @@ function limpar_tema($tema) {
 if (isset($_POST['reconstruir_concurso'])) {
   $concurso = $_POST['reconstruir_concurso'];
   reconstruir_searchbar($concurso);
+  error_log("this happened");
 }
 
 function reconstruir_searchbar($concurso) {
+  error_log("this also happened");
   $servername = "localhost";
   $username = "grupoubique";
   $password = "ubique patriae memor";
