@@ -403,11 +403,11 @@ function carregar_verbete($id_tema, $concurso){
   </div>
   <div class='container-fluid px-0 mb-5'>
     <div class='row'>
-      <div class='col-lg-12'><h2 id='discussao'>Discussão</h2></div>
+      <div class='col-lg-12'><h2 id='discussao'>Debate</h2></div>
     </div>
     <div class='row'>";
       if ($discussao == false) {
-        echo "<div class='col-lg-12'><p>Não há discussão sobre este tema. Faça você um comentário!</p></div>";
+        echo "<div class='col-lg-12'><p>Não há debate sobre este tema. Deixe sua opinião!</p></div>";
       }
       else {
         echo $discussao;
