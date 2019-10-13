@@ -476,9 +476,10 @@ if (isset($_POST['sbcommand'])) {
         $chavelow = mb_strtolower($chave);
         $commandlow = mb_strtolower($command);
         $check = levenshtein($chavelow, $commandlow, 1, 1, 1);
+        error_log("levenshtein: $chavelow, $commandlow, resultado: $check");
   			if (strpos($chavelow, $commandlow) !== false) {
           error_log("found $chave by strpos non false");
-  				echo "foundfoundfoundf$chave";
+  				echo "$chave";
           $conn->close();
   				return;
   			}
@@ -491,13 +492,13 @@ if (isset($_POST['sbcommand'])) {
       $length = strlen($command);
       if ($index < $length) {
         error_log("index menor que length, winner: $winner");
-        echo "foundfoundfoundf$winner";
+        echo "$winner";
         $conn->close();
         return;
       }
     }
   }
-  echo "notfoundnotfoundnada foi encontrado";
+  echo "nada foi encontrado";
   $conn->close();
   return;
 }
