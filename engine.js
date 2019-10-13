@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	$("#searchBar").focus();
   $(document.body).on('click', '.cardmateria' ,function(){
     if ($(this).attr("href")) {
       var link = $(this).attr("href");
