@@ -473,11 +473,11 @@ if (isset($_POST['sbcommand'])) {
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $chave = $row["chave"];
+      error_log($chave);
       $chavelow = mb_strtolower($chave);
       $commandlow = mb_strtolower($command);
       $check = levenshtein($chavelow, $commandlow, 1, 1, 1);
 			if (strpos($chavelow, $commandlow) !== false) {
-        error_log($chave);
         echo "notfoundnotfound$chave";
         $conn->close();
 				return;
@@ -485,7 +485,6 @@ if (isset($_POST['sbcommand'])) {
       elseif ($check < $index) {
         $index = $check;
         $winner = $chave;
-        error_log($winner);
       }
     }
     $length = strlen($command);
