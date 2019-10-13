@@ -9,6 +9,7 @@ $(document).ready(function() {
   $('#searchBarGo').click(function() {
     var command = $('#searchBar').val();
     var command = btoa(command);
+		alert(command);
     var concurso = $('#searchBarGo').val();
     var concurso = btoa(concurso);
     $.post('engine.php', {'sbcommand': command, 'sbconcurso': concurso}, function(data) {
