@@ -244,12 +244,7 @@ function carregar_verbete($id_tema, $concurso){
       <div class='col-lg-11'><h2 id='verbete'>Verbete consolidado</h2></div>
       <div class='col-lg-1 h2 float-right'><a id='editar_verbete'><i class='fal fa-edit'></i></a></div>
     </div>
-    <div class='row'>
-      <form>
-        <div class='form-group'>
-          <textarea class='form-control z-depth-1' id='edicao_verbete' rows='10'></textarea>
-        </div>
-      </form>";
+    <div class='row'>";
       if ($verbete == false) {
         echo "<div class='col-lg-12'><p>Ainda não há verbete consolidado para este tema.</p></div>";
       }
