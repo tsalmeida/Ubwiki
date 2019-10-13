@@ -433,9 +433,9 @@ function readSearchOptions($concurso) {
     while($row = $result->fetch_assoc()) {
       $chave = $row['chave'];
       echo "<option>$chave</option>";
-      $conn->close();
     }
   }
+  $conn->close();
 }
 
 if (isset($_POST['sbcommand'])) {
