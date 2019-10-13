@@ -21,8 +21,7 @@ $(document).ready(function() {
           $("#searchBar").val(pw2);
         }
         else if (pw = 'foundfoundfoundf') {
-          $("#searchBar").val('isso aconteceu');
-          // window.open(pw2, '_self');
+          window.open(pw2, '_self');
         }
       }
     });
