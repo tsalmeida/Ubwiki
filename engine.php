@@ -180,6 +180,23 @@ function carregar_pagina($sigla, $concurso) {
   echo "</ul>";
 }
 
+function carregar_edicao_verbete($id_tema, $concurso) {
+  $servername = "localhost";
+  $username = "grupoubique";
+  $password = "ubique patriae memor";
+  $dbname = "Ubique";
+  $found = false;
+  $conn = new mysqli($servername, $username, $password, $dbname);
+  mysqli_set_charset($conn,"utf8");
+  $result = $conn->query("SELECT chave FROM Searchbar WHERE concurso = '$concurso' AND sigla = $id_tema");
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $tema = $row['chave'];
+    }
+  }
+  echo "<h1 class='mb-5'>$tema</h1>";
+}
+
 function carregar_verbete($id_tema, $concurso){
   $servername = "localhost";
   $username = "grupoubique";
@@ -242,7 +259,7 @@ function carregar_verbete($id_tema, $concurso){
   <div class='container-fluid mb-5 py-2 bg-lighter rounded'>
     <div class='row'>
       <div class='col-lg-11'><h2 id='verbete'>Verbete consolidado</h2></div>
-      <div class='col-lg-1 h2 float-right'><a id='editar_verbete'><i class='fal fa-edit'></i></a></div>
+      <div class='col-lg-1 h2 float-right'><a href='editar_verbete.php?concurso=$concurso&tema=$tema'><i class='fal fa-edit'></i></a></div>
     </div>
     <div class='row'>";
       if ($verbete == false) {
