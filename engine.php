@@ -455,11 +455,13 @@ if (isset($_POST['sbcommand'])) {
       $sigla = $row["sigla"];
       $tipo = $row["tipo"];
       if ($tipo == "materia") {
+        error_log("materia encontrada: $sigla");
         echo "foundfoundfoundfmateria.php?sigla=$sigla&concurso=$concurso";
         $conn->close();
         return;
       }
       elseif ($tipo == "tema") {
+        error_log("tema encontrado: $sigla");
         echo "foundfoundfoundfverbete.php?concurso=$concurso&tema=$sigla";
         $conn->close();
         return;
@@ -468,7 +470,7 @@ if (isset($_POST['sbcommand'])) {
   }
   $index = 500;
   $winner = 0;
-  $result = $conn->query("SELECT chave FROM Searchbar WHERE concurso = '$concurso' AND CHAR_LENGTH(chave) < 100 ORDER BY ordem");
+  $result = $conn->query("SELECT chave FROM Searchbar WHERE concurso = '$concurso' AND CHAR_LENGTH(chave) < 150 ORDER BY ordem");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $chave = $row["chave"];
