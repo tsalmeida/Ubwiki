@@ -254,7 +254,7 @@ function carregar_verbete($id_tema, $concurso){
     echo "
     </div>
   </div>
-  <div class='container-fluid px-0 mb-5'>
+  <div class='container-fluid px-0 mb-5 bg-lighter rounded'>
     <div class='row'>
       <div class='col-lg-12'><h2 id='verbetes'>Verbetes relacionados</h2></div>
     </div>
