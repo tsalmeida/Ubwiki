@@ -242,7 +242,7 @@ function carregar_verbete($id_tema, $concurso){
   <div class='container-fluid px-0 mb-5'>
     <div class='row'>
       <div class='col-lg-11'><h2 id='verbete'>Verbete consolidado</h2></div>
-      <div class='col-lg-1 h2 float-right'><a><i class='fal fa-edit'></i></a></div>
+      <div class='col-lg-1 h2 float-right'><a id='editar_verbete'><i class='fal fa-edit'></i></a></div>
     </div>
     <div class='row'>";
       if ($verbete == false) {

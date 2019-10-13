@@ -27,5 +27,7 @@ $(document).ready(function() {
     });
     return false;
 		// comment
+  });$('#editar_verbete').click(function() {
+		alert('working');
   });
 });
