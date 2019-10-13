@@ -8,7 +8,6 @@ $(document).ready(function() {
   });
   $('#searchBarGo').click(function() {
     var command = $('#searchBar').val();
-    alert(command);
     var command = btoa(command);
     var concurso = $('#searchBarGo').val();
     var concurso = btoa(concurso);
