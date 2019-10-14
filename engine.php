@@ -555,6 +555,10 @@ function carregar_edicao_temas($concurso) {
             <label for='registrarmeta'>Novo meta-tema para este assunto:</label>
             <input name='novo_metatema' id='registrarmeta' type='text'></input>
           </fieldset>
+          <div class='custom-control custom-checkbox'>
+              <input type='checkbox' class='custom-control-input' id='remover_ciclo' name='remover_ciclo' checked>
+              <label class='custom-control-label' for='remover_ciclo'>Remover do ciclo de revisão</label>
+          </div>
           <button name='novo_metatema_id' type='submit' class='btn btn-primary' value='$id'>Registrar novo meta-tema</button>
         </form>
       ";
@@ -566,6 +570,7 @@ function carregar_edicao_temas($concurso) {
 if (isset($_POST['novo_metatema_id'])) {
   $novo_metatema = $_POST['novo_metatema'];
   $novo_metatema_id = $_POST['novo_metatema_id'];
+  $remover_ciclo = $_POST['remover_ciclo'];
   $servername = "localhost";
   $username = "grupoubique";
   $password = "ubique patriae memor";
@@ -574,6 +579,8 @@ if (isset($_POST['novo_metatema_id'])) {
   $conn = new mysqli($servername, $username, $password, $dbname);
   mysqli_set_charset($conn,"utf8");
   $result = $conn->query("UPDATE Temas SET metaid = '$novo_metatema' WHERE id = '$novo_metatema_id'");
-
+  if ($remover_ciclo = true) {
+    $result = $conn->query("UPDATE Temas SET ciclo_revisao = 1 WHERE id = '$novo_metatema_id'");
+  }
 }
 ?>
