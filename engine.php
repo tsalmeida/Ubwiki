@@ -664,7 +664,7 @@ if (isset($_POST['metatemas_automaticos'])) {
       $novo_metaid = str_replace(" para ", "_", $novo_metaid);
       $novo_metaid = str_replace("__", "_", $novo_metaid);
       $novo_metaid = substr($novo_metaid, 25);
-      $update = $conn->query("UPDATE Temas SET metaid = '$novo_metaid' WHERE id = '$id'")
+      $update = $conn->query("UPDATE Temas SET metaid = '$novo_metaid' WHERE id = '$id'");
     }
   }
 }
