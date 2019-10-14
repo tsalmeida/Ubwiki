@@ -515,11 +515,12 @@ function carregar_edicao_temas($concurso) {
   $found = false;
   $conn = new mysqli($servername, $username, $password, $dbname);
   mysqli_set_charset($conn,"utf8");
-  $result = $conn->query("SELECT id, sigla_materia, nivel1, nivel2, nivel3 FROM Temas WHERE concurso = '$concurso' AND ciclo_revisao = 0 ORDER BY id");
+  $result = $conn->query("SELECT id, sigla_materia, metaid, nivel1, nivel2, nivel3 FROM Temas WHERE concurso = '$concurso' AND ciclo_revisao = 0 ORDER BY id");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $id = $row['id'];
       $sigla_materia = $row['sigla_materia'];
+      $metaid = $row['metaid'];
       $nivel1 = $row['nivel1'];
       $nivel2 = $row['nivel2'];
       $nivel3 = $row['nivel3'];
@@ -533,6 +534,26 @@ function carregar_edicao_temas($concurso) {
         </ul>
       ";
       return;
+      if ($metaid != false) {
+        echo "<form class='text-center border border-light p-5' method='post'>
+            <p class='h4 mb-4'>Acrescentar meta-tema.</p>
+            <p class='text-left'>Para que o sistema seja imune a mudanças de edital, é necessário que cada tema seja internamente identificado por um meta-tema.</p>
+            <fieldset class='form-group'>
+              <div class='row'>
+                <legend class='col-form-label col-sm-2 pt-0'>Concurso</legend>
+                <div class='col-sm-10'>
+                  <div class='form-check'>
+                    <input class='form-check-input' type='radio' name="metalinguagem_concurso" value="CACD" checked>
+                    <label class="form-check-label" for="gridRadios1">
+                      CACD
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          <button class='btn btn-info btn-block my-4' type='submit'>Acessar ferramenta</button>
+        </form>";
+      }
     }
   }
 }
