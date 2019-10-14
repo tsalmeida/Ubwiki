@@ -518,19 +518,33 @@ function carregar_edicao_temas($concurso) {
   $result = $conn->query("SELECT id, sigla_materia, metaid, nivel1, nivel2, nivel3 FROM Temas WHERE concurso = '$concurso' AND ciclo_revisao = 0 ORDER BY id");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
+      $active1 = false;
+      $active2 = false;
+      $active3 = false;
       $id = $row['id'];
       $sigla_materia = $row['sigla_materia'];
       $metaid = $row['metaid'];
       $nivel1 = $row['nivel1'];
       $nivel2 = $row['nivel2'];
       $nivel3 = $row['nivel3'];
+      if ($nivel3 != false) {
+        $active3 = 'active';
+      }
+      else {
+        if ($nivel2 != false) {
+          $active2 = 'active';
+        }
+        else {
+          $active1 = 'active';
+        }
+      }
       echo "
         <ul class='list-group text-left'>
           <li class='list-group-item'><strong>ID:</strong> $id</li>
           <li class='list-group-item'><strong>MATERIA:</strong> $sigla_materia</li>
-          <li class='list-group-item'><strong>Nível 1:</strong> $nivel1</li>
-          <li class='list-group-item'><strong>Nível 2:</strong> $nivel2</li>
-          <li class='list-group-item'><strong>Nível 3:</strong> $nivel3</li>
+          <li class='list-group-item $active1'><strong>Nível 1:</strong> $nivel1</li>
+          <li class='list-group-item $active2'><strong>Nível 2:</strong> $nivel2</li>
+          <li class='list-group-item $active3'><strong>Nível 3:</strong> $nivel3</li>
         </ul>
         <form class='text-center border border-light p-5' method='post'>
           <p class='h4 mb-4'>Acrescentar meta-tema.</p>
