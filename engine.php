@@ -532,26 +532,12 @@ function carregar_edicao_temas($concurso) {
           <li>Nível 2: $nivel2</li>
           <li>Nível 3: $nivel3</li>
         </ul>
-      ";
-      return;
-      if ($metaid != false) {
-        echo "<form class='text-center border border-light p-5' method='post'>
-            <p class='h4 mb-4'>Acrescentar meta-tema.</p>
-            <p class='text-left'>Para que o sistema seja imune a mudanças de edital, é necessário que cada tema seja internamente identificado por um meta-tema.</p>
-            <fieldset class='form-group'>
-              <div class='row'>
-                <legend class='col-form-label col-sm-2 pt-0'>Concurso</legend>
-                <div class='col-sm-10'>
-                  <div class='form-check'>
-                    <input class='form-check-input' type='radio' name="metalinguagem_concurso" value="CACD" checked>
-                    <label class="form-check-label" for="gridRadios1">
-                      CACD
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </fieldset>
-          <button class='btn btn-info btn-block my-4' type='submit'>Acessar ferramenta</button>
+        <form class='text-center border border-light p-5' method='post'>
+          <p class='h4 mb-4'>Acrescentar meta-tema.</p>
+          <p class='text-left'>Para que o sistema seja imune a mudanças de edital, é necessário que cada tema seja internamente identificado por um meta-tema.</p>
+          <fieldset class='form-group'>
+            <button type='submit' class='btn btn-info btn-block my-4'></button>
+          </fieldset>
         </form>";
       }
     }
