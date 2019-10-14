@@ -548,7 +548,7 @@ function carregar_edicao_temas($concurso) {
           <li class='list-group-item'><strong>Metatema:</strong> $metaid</li>
         </ul>";
       echo "
-        <form class='text-center border border-light' method='post'>
+        <form class='text-center border border-light px-2 my-2' method='post'>
           <p class='h4 my-4'>Acrescentar meta-tema.</p>
           <p class='text-left'>Para que o sistema seja imune a mudanças de edital, é necessário que cada tema seja internamente identificado por um meta-tema.</p>
           <fieldset class='form-group text-left'>
