@@ -664,6 +664,7 @@ if (isset($_POST['metatemas_automaticos'])) {
       $novo_metaid = str_replace(" na ", "_", $novo_metaid);
       $novo_metaid = str_replace(" nos ", "_", $novo_metaid);
       $novo_metaid = str_replace(" nas ", "_", $novo_metaid);
+      $novo_metaid = str_replace(" em ", "_", $novo_metaid);
       $novo_metaid = str_replace("O ", "_", $novo_metaid);
       $novo_metaid = str_replace("A ", "_", $novo_metaid);
       $novo_metaid = str_replace("Os ", "_", $novo_metaid);
