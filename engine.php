@@ -633,6 +633,39 @@ if (isset($_POST['metatemas_automaticos'])) {
   $found = false;
   $conn = new mysqli($servername, $username, $password, $dbname);
   mysqli_set_charset($conn,"utf8");
-  $result = $conn->query("UPDATE Temas SET ciclo_revisao = 0 WHERE concurso = '$concurso'");
+  $result = $conn->query("SELECT id, nivel1, nivel2, nivel3 FROM Temas WHERE concurso = '$concurso' AND metaid IS NULL");
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $id = $row['id'];
+      $nivel1 = $row['nivel1'];
+      $nivel2 = $row['nivel2'];
+      $nivel3 = $row['nivel3'];
+      if ($nivel3 != false) {
+        $novo_metaid = limpar_tema($nivel3);
+      }
+      else {
+        if ($nivel2 != false) {
+          $novo_metaid = limpar_tema($nivel2);
+        }
+        else {
+          $novo_metaid = limpar_tema($nivel1);
+        }
+      }
+      $novo_metaid = str_replace(" ", "_", $novo_metaid);
+      $novo_metaid = str_replace(" e ", "_", $novo_metaid);
+      $novo_metaid = str_replace(" a ", "_", $novo_metaid);
+      $novo_metaid = str_replace(" o ", "_", $novo_metaid);
+      $novo_metaid = str_replace(" de ", "_", $novo_metaid);
+      $novo_metaid = str_replace(" do ", "_", $novo_metaid);
+      $novo_metaid = str_replace("O ", "_", $novo_metaid);
+      $novo_metaid = str_replace("A ", "_", $novo_metaid);
+      $novo_metaid = str_replace("Os ", "_", $novo_metaid);
+      $novo_metaid = str_replace("As ", "_", $novo_metaid);
+      $novo_metaid = str_replace(" para ", "_", $novo_metaid);
+      $novo_metaid = str_replace("__", "_", $novo_metaid);
+      $novo_metaid = substr($novo_metaid, 25);
+      $update = $conn->query("UPDATE Temas SET metaid = '$novo_metaid' WHERE id = '$id'")
+    }
+  }
 }
 ?>
