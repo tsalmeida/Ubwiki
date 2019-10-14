@@ -652,7 +652,7 @@ if (isset($_POST['metatemas_automaticos'])) {
         }
       }
       $novo_metaid = strtolower($novo_metaid);
-      $nove_metaid = preg_replace('/[^A-Za-z0-9\-]/', '', $novo_metaid);
+      $novo_metaid = preg_replace('/[^A-Za-z]/', '', $novo_metaid);
       $novo_metaid = str_replace(" e ", "", $novo_metaid);
       $novo_metaid = str_replace(" a ", "", $novo_metaid);
       $novo_metaid = str_replace(" o ", "", $novo_metaid);
@@ -672,8 +672,9 @@ if (isset($_POST['metatemas_automaticos'])) {
       $novo_metaid = str_replace(" ", "-", $novo_metaid);
       $novo_metaid = str_replace("---", "-", $novo_metaid);
       $novo_metaid = str_replace("--", "-", $novo_metaid);
-      $novo_metaid = substr($novo_metaid, 0, 25);
-      $update = $conn->query("UPDATE Temas SET metaid = '$novo_metaid' WHERE id = '$id'");
+      $novo_metaid = substr($novo_metaid, 0, 30);
+      error_log($novo_metaid);
+      //$update = $conn->query("UPDATE Temas SET metaid = '$novo_metaid' WHERE id = '$id'");
     }
   }
 }
