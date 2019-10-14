@@ -540,11 +540,12 @@ function carregar_edicao_temas($concurso) {
       }
       echo "
         <ul class='list-group text-left'>
-          <li class='list-group-item'><strong>ID:</strong> $id</li>
           <li class='list-group-item'><strong>MATERIA:</strong> $sigla_materia</li>
           <li class='list-group-item $active1'><strong>Nível 1:</strong> $nivel1</li>
           <li class='list-group-item $active2'><strong>Nível 2:</strong> $nivel2</li>
           <li class='list-group-item $active3'><strong>Nível 3:</strong> $nivel3</li>
+          <li class='list-group-item'><strong>ID:</strong> $id</li>
+          <li class='list-group-item'><strong>Metatema:</strong> $metaid</li>
         </ul>
         <form class='text-center border border-light p-5' method='post'>
           <p class='h4 mb-4'>Acrescentar meta-tema.</p>
