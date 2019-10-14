@@ -566,6 +566,11 @@ function carregar_edicao_temas($concurso) {
           <p class='text-left'>Ao pressionar o botão abaixo, todas as questões deste concurso serão colocadas no ciclo de revisão.</p>
           <button name='reiniciar_ciclo' type='submit' class='btn btn-primary' value='$concurso'>Reiniciar ciclo de revisão</button>
         </form>
+        <form class='text-center border border-light px-2 my-2' method='post'>
+          <p class='h4 my-4'>Metatemas automáticos</p>
+          <p class='text-left'>Ao pressionar o botão abaixo, todos os metatemas não-registrados serão automaticamente criados, baseados no título do tema.</p>
+          <button name='metatemas_automaticos' type='submit' class='btn btn-primary' value='$concurso'>Reiniciar ciclo de revisão</button>
+        </form>
       ";
       return;
     }
@@ -591,6 +596,18 @@ if (isset($_POST['novo_metatema_id'])) {
 
 if (isset($_POST['reiniciar_ciclo'])) {
   $concurso = $_POST['reiniciar_ciclo'];
+  $servername = "localhost";
+  $username = "grupoubique";
+  $password = "ubique patriae memor";
+  $dbname = "Ubique";
+  $found = false;
+  $conn = new mysqli($servername, $username, $password, $dbname);
+  mysqli_set_charset($conn,"utf8");
+  $result = $conn->query("UPDATE Temas SET ciclo_revisao = 0 WHERE concurso = '$concurso'");
+}
+
+if (isset($_POST['metatemas_automaticos'])) {
+  $concurso = $_POST['metatemas_automaticos'];
   $servername = "localhost";
   $username = "grupoubique";
   $password = "ubique patriae memor";
