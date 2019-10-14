@@ -540,6 +540,7 @@ function carregar_edicao_temas($concurso) {
           </fieldset>
         </form>
       ";
+      return;
     }
   }
 }
