@@ -524,7 +524,7 @@ function carregar_edicao_temas($concurso) {
       $nivel2 = $row['nivel2'];
       $nivel3 = $row['nivel3'];
       echo "
-        <ul>
+        <ul class='text-left'>
           <li>ID: $id</li>
           <li>MATERIA: $sigla_materia</li>
           <li>Nível 1: $nivel1</li>
