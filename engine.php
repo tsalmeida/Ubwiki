@@ -686,8 +686,9 @@ if (isset($_POST['metatemas_automaticos'])) {
       $novo_metaid = str_replace(")", "", $novo_metaid);
       $novo_metaid = str_replace("ó", "o", $novo_metaid);
       $novo_metaid = str_replace("ô", "o", $novo_metaid);
-      error_log($novo_metaid);
-      //$update = $conn->query("UPDATE Temas SET metaid = '$novo_metaid' WHERE id = '$id'");
+      $novo_metaid = utf8_encode($novo_metaid);
+      $novo_metaid = substr($novo_metaid, 0, 25);
+      $update = $conn->query("UPDATE Temas SET metaid = '$novo_metaid' WHERE id = '$id'");
     }
   }
 }
