@@ -553,9 +553,9 @@ function carregar_edicao_temas($concurso) {
           <p class='text-left'>Para que o sistema seja imune a mudanças de edital, é necessário que cada tema seja internamente identificado por um meta-tema.</p>
           <fieldset class='form-group text-left'>
             <label for='registrarmeta'>Novo meta-tema para este assunto:</label>
-            <input id='registrarmeta' type='text'></input>
+            <input name='novo_metatema' id='registrarmeta' type='text'></input>
           </fieldset>
-          <button type='submit' class='btn btn-primary' value='$id'>Registrar novo meta-tema</button>
+          <button name='novo_metatema_id' type='submit' class='btn btn-primary' value='$id'>Registrar novo meta-tema</button>
         </form>
       ";
       return;
@@ -563,4 +563,18 @@ function carregar_edicao_temas($concurso) {
   }
 }
 
+if (isset($_POST['novo_metatema_id'])) {
+  $novo_metatema = $_POST['novo_metatema'];
+  $novo_metatema_id = $_POST['novo_metatema_id'];
+  $servername = "localhost";
+  $username = "grupoubique";
+  $password = "ubique patriae memor";
+  $dbname = "Ubique";
+  $found = false;
+  $conn = new mysqli($servername, $username, $password, $dbname);
+  mysqli_set_charset($conn,"utf8");
+  $result = $conn->query("UPDATE Temas SET metaid = '$novo_metaid' WHERE id = '$novo_metatema_id'");
+
+}
+  $conn->query("INSERT INTO Searchbar (ordem, concurso, sigla, chave, tipo) VALUES ('$ordem', '$concurso', $id, '$nivel3', 'tema')");
 ?>
