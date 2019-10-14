@@ -654,10 +654,10 @@ if (isset($_POST['metatemas_automaticos'])) {
       $novo_metaid = strtolower($novo_metaid);
       $nove_metaid = preg_replace('/[^A-Za-z0-9\-]/', '', $novo_metaid);
       $novo_metaid = str_replace(" e ", "", $novo_metaid);
-      $novo_metaid = str_replace("a ", "", $novo_metaid);
-      $novo_metaid = str_replace("o ", "", $novo_metaid);
-      $novo_metaid = str_replace("as ", "", $novo_metaid);
-      $novo_metaid = str_replace("os ", "", $novo_metaid);
+      $novo_metaid = str_replace(" a ", "", $novo_metaid);
+      $novo_metaid = str_replace(" o ", "", $novo_metaid);
+      $novo_metaid = str_replace(" as ", "", $novo_metaid);
+      $novo_metaid = str_replace(" os ", "", $novo_metaid);
       $novo_metaid = str_replace(" de ", "-", $novo_metaid);
       $novo_metaid = str_replace(" do ", "-", $novo_metaid);
       $novo_metaid = str_replace(" da ", "-", $novo_metaid);
