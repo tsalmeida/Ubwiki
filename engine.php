@@ -677,6 +677,7 @@ if (isset($_POST['metatemas_automaticos'])) {
       $novo_metaid = str_replace("ç", "c", $novo_metaid);
       $novo_metaid = str_replace("ã", "a", $novo_metaid);
       $novo_metaid = str_replace("á", "a", $novo_metaid);
+      $novo_metaid = str_replace("â", "a", $novo_metaid);
       $novo_metaid = str_replace("í", "i", $novo_metaid);
       $novo_metaid = str_replace("ê", "e", $novo_metaid);
       $novo_metaid = str_replace("é", "e", $novo_metaid);
