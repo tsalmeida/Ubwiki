@@ -214,6 +214,7 @@ function carregar_verbete($id_tema, $concurso){
   $found = false;
   $id_verbete = false;
   $verbete = false;
+  $imagens = false;
   $verbetes = false;
   $bibliografia = false;
   $videos = false;
@@ -225,6 +226,7 @@ function carregar_verbete($id_tema, $concurso){
       $found = true;
       $id_verbete = $row["id"];
       $verbete = $row["verbete"];
+      $imagens = $row["imagens"];
       $verbetes = $row["verbetes"];
       $bibliografia = $row["bibliografia"];
       $videos = $row["videos"];
@@ -245,6 +247,7 @@ function carregar_verbete($id_tema, $concurso){
       <div class='col-lg-12'>
         <ul class='list-group'>
           <a class='list-group-item list-group-item-action' href='#verbete'>Verbete consolidado</a>
+          <a class='list-group-item list-group-item-action' href='#imagens'>Imagens de apoio</a>
           <a class='list-group-item list-group-item-action' href='#verbetes'>Verbetes relacionados</a>
           <a class='list-group-item list-group-item-action' href='#bibliografia'>Bibliografia pertinente</a>
           <a class='list-group-item list-group-item-action' href='#videos'>Vídeos e aulas relacionados</a>
@@ -267,6 +270,21 @@ function carregar_verbete($id_tema, $concurso){
       }
       else {
         echo $verbete;
+      }
+    echo "
+    </div>
+  </div>
+  <div class='container-fluid mb-5 py-2 bg-lighter rounded'>
+    <div class='row'>
+      <div class='col-lg-11'><h2 id='imagens'>Imagens de apoio</h2></div>
+      <div class='col-lg-1 h2 float-right'><a><i class='fal fa-plus-square'></i></a></div>
+    </div>
+    <div class='row'>";
+      if ($imagens == false) {
+        echo "<div class='col-lg-12'><p>Ainda não foram acrescentadas imagens de apoio sobre este tema.</p></div>";
+      }
+      else {
+        echo $imagens;
       }
     echo "
     </div>
