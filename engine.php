@@ -555,7 +555,7 @@ function carregar_edicao_temas($concurso) {
             <label for='registrarmeta'>Novo meta-tema para este assunto:</label>
             <input id='registrarmeta' type='text'></input>
           </fieldset>
-          <button type='submit' class='btn btn-primary'>Registrar novo meta-tema</button>
+          <button type='submit' class='btn btn-primary' value='$id'>Registrar novo meta-tema</button>
         </form>
       ";
       return;
