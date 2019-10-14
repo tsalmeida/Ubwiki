@@ -576,5 +576,4 @@ if (isset($_POST['novo_metatema_id'])) {
   $result = $conn->query("UPDATE Temas SET metaid = '$novo_metaid' WHERE id = '$novo_metatema_id'");
 
 }
-  $conn->query("INSERT INTO Searchbar (ordem, concurso, sigla, chave, tipo) VALUES ('$ordem', '$concurso', $id, '$nivel3', 'tema')");
 ?>
