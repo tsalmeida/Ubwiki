@@ -506,4 +506,33 @@ if (isset($_POST['metalinguagem_concurso'])) {
   $metalinguagem_concurso = $_POST['metalinguagem_concurso'];
   header("Location:edicao_temas.php?concurso=$metalinguagem_concurso");
 }
+
+function carregar_edicao_temas($concurso) {
+  $servername = "localhost";
+  $username = "grupoubique";
+  $password = "ubique patriae memor";
+  $dbname = "Ubique";
+  $found = false;
+  $conn = new mysqli($servername, $username, $password, $dbname);
+  mysqli_set_charset($conn,"utf8");
+  $result = $conn->query("SELECT id, sigla_materia, nivel1, nivel2, nivel3 FROM Temas WHERE concurso = '$concurso' AND ciclo_revisao = 0 ORDER BY id");
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $id = $row['id'];
+      $sigla_materia = $row['sigla_materia'];
+      $nivel1 = $row['nivel1'];
+      $nivel2 = $row['nivel2'];
+      $nivel3 = $row['nivel3'];
+      echo "
+        <ul>
+          <li>ID: $id</li>
+          <li>MATERIA: $sigla_materia</li>
+          <li>Nível 1: $nivel1</li>
+          <li>Nível 2: $nivel2</li>
+          <li>Nível 3: $nivel3</li>
+        </ul>
+      ";
+      return;
+}
+
 ?>
