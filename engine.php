@@ -651,6 +651,15 @@ if (isset($_POST['metatemas_automaticos'])) {
           $novo_metaid = limpar_tema($nivel1);
         }
       }
+
+      $novo_metaid = str_replace(";", "", $novo_metaid);
+      $novo_metaid = str_replace(",", "", $novo_metaid);
+      $novo_metaid = str_replace(".", "", $novo_metaid);
+      $novo_metaid = str_replace("ç", "c", $novo_metaid);
+      $novo_metaid = str_replace("(", "", $novo_metaid);
+      $novo_metaid = str_replace(")", "", $novo_metaid);
+
+
       $novo_metaid = str_replace(" ", "_", $novo_metaid);
       $novo_metaid = str_replace(" e ", "_", $novo_metaid);
       $novo_metaid = str_replace(" a ", "_", $novo_metaid);
