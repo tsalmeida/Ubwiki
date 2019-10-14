@@ -573,7 +573,7 @@ if (isset($_POST['novo_metatema_id'])) {
   $found = false;
   $conn = new mysqli($servername, $username, $password, $dbname);
   mysqli_set_charset($conn,"utf8");
-  $result = $conn->query("UPDATE Temas SET metaid = '$novo_metaid' WHERE id = '$novo_metatema_id'");
+  $result = $conn->query("UPDATE Temas SET metaid = '$novo_metatema' WHERE id = '$novo_metatema_id'");
 
 }
 ?>
