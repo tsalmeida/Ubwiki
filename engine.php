@@ -561,6 +561,13 @@ function carregar_edicao_temas($concurso) {
           </div>
           <button name='novo_metatema_id' type='submit' class='btn btn-primary' value='$id'>Registrar novo meta-tema</button>
         </form>
+        <form class='text-center border border-light px-2 my-2' method='post'>
+          <p class='h4 my-4'>Re-iniciar ciclo de revisão</p>
+          <p class='text-left'>Ao pressionar o botão abaixo, todas as questões deste concurso serão colocadas no ciclo de revisão.</p>
+          <fieldset class='form-group text-left'>
+            <button name='reiniciar_ciclo' type='submit' class='btn btn-primary' value='$concurso'>Reiniciar ciclo de revisão</button>
+          </fieldset>
+        </form>
       ";
       return;
     }
@@ -582,5 +589,16 @@ if (isset($_POST['novo_metatema_id'])) {
   if ($remover_ciclo = true) {
     $result = $conn->query("UPDATE Temas SET ciclo_revisao = 1 WHERE id = '$novo_metatema_id'");
   }
+}
+
+if (isset($_POST['reiniciar_ciclo'])) {
+  $servername = "localhost";
+  $username = "grupoubique";
+  $password = "ubique patriae memor";
+  $dbname = "Ubique";
+  $found = false;
+  $conn = new mysqli($servername, $username, $password, $dbname);
+  mysqli_set_charset($conn,"utf8");
+  $result = $conn->query("UPDATE Temas SET ciclo_revisao = 0 WHERE concurso = '$concurso'");
 }
 ?>
