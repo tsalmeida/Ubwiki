@@ -525,17 +525,18 @@ function carregar_edicao_temas($concurso) {
       $nivel2 = $row['nivel2'];
       $nivel3 = $row['nivel3'];
       echo "
-        <ul class='text-left'>
-          <li>ID: $id</li>
-          <li>MATERIA: $sigla_materia</li>
-          <li>Nível 1: $nivel1</li>
-          <li>Nível 2: $nivel2</li>
-          <li>Nível 3: $nivel3</li>
+        <ul class='list-group text-left'>
+          <li class='list-group-$id_tema'><strong>ID:</strong> $id</li>
+          <li class='list-group-$id_tema'><strong>MATERIA:</strong> $sigla_materia</li>
+          <li class='list-group-$id_tema'><strong>Nível 1:</strong> $nivel1</li>
+          <li class='list-group-$id_tema'><strong>Nível 2:</strong> $nivel2</li>
+          <li class='list-group-$id_tema'><strong>Nível 3:</strong> $nivel3</li>
         </ul>
         <form class='text-center border border-light p-5' method='post'>
           <p class='h4 mb-4'>Acrescentar meta-tema.</p>
           <p class='text-left'>Para que o sistema seja imune a mudanças de edital, é necessário que cada tema seja internamente identificado por um meta-tema.</p>
           <fieldset class='form-group'>
+            <input type='text' placeholder='novo meta-tema para este assunto.'></input>
             <button type='submit' class='btn btn-info btn-block my-4'></button>
           </fieldset>
         </form>
