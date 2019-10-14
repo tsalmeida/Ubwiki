@@ -590,6 +590,7 @@ if (isset($_POST['novo_metatema_id'])) {
 }
 
 if (isset($_POST['reiniciar_ciclo'])) {
+  $concurso = $_POST['reiniciar_ciclo'];
   $servername = "localhost";
   $username = "grupoubique";
   $password = "ubique patriae memor";
