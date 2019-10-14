@@ -564,9 +564,7 @@ function carregar_edicao_temas($concurso) {
         <form class='text-center border border-light px-2 my-2' method='post'>
           <p class='h4 my-4'>Re-iniciar ciclo de revisão</p>
           <p class='text-left'>Ao pressionar o botão abaixo, todas as questões deste concurso serão colocadas no ciclo de revisão.</p>
-          <fieldset class='form-group text-left'>
-            <button name='reiniciar_ciclo' type='submit' class='btn btn-primary' value='$concurso'>Reiniciar ciclo de revisão</button>
-          </fieldset>
+          <button name='reiniciar_ciclo' type='submit' class='btn btn-primary' value='$concurso'>Reiniciar ciclo de revisão</button>
         </form>
       ";
       return;
