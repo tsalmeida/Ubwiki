@@ -533,6 +533,7 @@ function carregar_edicao_temas($concurso) {
         </ul>
       ";
       return;
+  }
 }
 
 ?>
