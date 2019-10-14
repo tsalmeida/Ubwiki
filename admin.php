@@ -19,7 +19,7 @@
                   <legend class="col-form-label col-sm-2 pt-0">Concurso</legend>
                   <div class="col-sm-10">
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="reconstruir_concurso" value="CACD" checked>
+                      <input class="form-check-input" type="radio" name="metalinguagem_concurso" value="CACD" checked>
                       <label class="form-check-label" for="gridRadios1">
                         CACD
                       </label>
@@ -28,7 +28,7 @@
                 </div>
               </fieldset>
             <?php
-            echo "<button class='btn btn-info btn-block my-4' type='submit'>Reconstruir</button>";
+            echo "<button class='btn btn-info btn-block my-4' type='submit'>Iniciar ciclo de revisão</button>";
             ?>
           </form>
           <form class='text-center border border-light p-5' method='post'>
