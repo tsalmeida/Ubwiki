@@ -538,8 +538,8 @@ function carregar_edicao_temas($concurso) {
           <fieldset class='form-group'>
             <button type='submit' class='btn btn-info btn-block my-4'></button>
           </fieldset>
-        </form>";
-      }
+        </form>
+      ";
     }
   }
 }
