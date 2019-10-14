@@ -2,18 +2,13 @@
   include 'engine.php';
   top_page();
 
-// else {
-//   $materia = "geral";
-//   header("materias.php?materia=$materia&concurso=$concurso");
-// }
+  if (isset($_GET['tema'])) {
+    $id_tema = $_GET['tema'];
+  }
 
-if (isset($_GET['tema'])) {
-  $id_tema = $_GET['tema'];
-}
-
-if (isset($_GET['concurso'])) {
-  $concurso = $_GET['concurso'];
-}
+  if (isset($_GET['concurso'])) {
+    $concurso = $_GET['concurso'];
+  }
 
   ?>
   <body>

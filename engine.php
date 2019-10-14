@@ -504,5 +504,6 @@ if (isset($_POST['sbcommand'])) {
 
 if (isset($_POST['metalinguagem_concurso'])) {
   $metalinguagem_concurso = $_POST['metalinguagem_concurso'];
+  header("Location:edicao_temas.php?concurso=$metalinguagem_concurso");
 }
 ?>

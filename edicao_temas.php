@@ -1,6 +1,9 @@
   <?php
   include 'engine.php';
   top_page();
+  if (isset($_GET['concurso'])) {
+    $concurso = $_GET['concurso'];
+  }
   ?>
   <body>
     <?php
@@ -11,7 +14,7 @@
         <div class="col-sm-2"></div>
         <div class="col-sm-8">
           <?php
-            echo "<h1>Edição de temas: $metalinguagem_concurso</h1>";
+            echo "<h1>Edição de temas: $concurso</h1>";
           ?>
           <form class='text-center border border-light p-5' method='post'>
               <p class="h4 mb-4">Tabela de temas: metalinguagem e organização</p>
