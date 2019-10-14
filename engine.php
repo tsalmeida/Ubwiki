@@ -657,13 +657,20 @@ if (isset($_POST['metatemas_automaticos'])) {
       $novo_metaid = str_replace(" o ", "_", $novo_metaid);
       $novo_metaid = str_replace(" de ", "_", $novo_metaid);
       $novo_metaid = str_replace(" do ", "_", $novo_metaid);
+      $novo_metaid = str_replace(" da ", "_", $novo_metaid);
+      $novo_metaid = str_replace(" dos ", "_", $novo_metaid);
+      $novo_metaid = str_replace(" das ", "_", $novo_metaid);
+      $novo_metaid = str_replace(" no ", "_", $novo_metaid);
+      $novo_metaid = str_replace(" na ", "_", $novo_metaid);
+      $novo_metaid = str_replace(" nos ", "_", $novo_metaid);
+      $novo_metaid = str_replace(" nas ", "_", $novo_metaid);
       $novo_metaid = str_replace("O ", "_", $novo_metaid);
       $novo_metaid = str_replace("A ", "_", $novo_metaid);
       $novo_metaid = str_replace("Os ", "_", $novo_metaid);
       $novo_metaid = str_replace("As ", "_", $novo_metaid);
       $novo_metaid = str_replace(" para ", "_", $novo_metaid);
       $novo_metaid = str_replace("__", "_", $novo_metaid);
-      $novo_metaid = substr($novo_metaid, 25);
+      $novo_metaid = substr($novo_metaid, 0, 25);
       $update = $conn->query("UPDATE Temas SET metaid = '$novo_metaid' WHERE id = '$id'");
     }
   }
