@@ -502,4 +502,7 @@ if (isset($_POST['sbcommand'])) {
   return;
 }
 
+if (isset($_POST['metalinguagem_concurso'])) {
+  $metalinguagem_concurso = $_POST['metalinguagem_concurso'];
+}
 ?>
