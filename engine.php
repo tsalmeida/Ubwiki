@@ -98,7 +98,7 @@ function ler_cartoes($concurso, $row_itens) {
       $sigla = $row["sigla"];
       $materia = $row["materia"];
       echo "
-        <div class='col-lg-2 bg-lighter mx-3 my-3 py-0 px-1 rounded bdark cardmateria' href='materia.php?sigla=$sigla&concurso=$concurso'>
+        <div class='col-2 bg-lighter mx-3 my-3 py-0 px-1 rounded bdark cardmateria' href='materia.php?sigla=$sigla&concurso=$concurso'>
           <small class='text-muted text-uppercase smaller'>$materia</small>
         </div>
       ";
@@ -137,7 +137,7 @@ function standard_jumbotron($titulo, $link) {
   if ($link == false) {
     echo "
     <div class='container-fluid px-1 py-1 mb-0 text-center'>
-      <div class='jumbotron col-sm-12 mb-0'>
+      <div class='jumbotron col-12 mb-0'>
         <h1 class='display-4 logo-jumbotron'>$titulo</h1>
       </div>
     </div>
@@ -146,7 +146,7 @@ function standard_jumbotron($titulo, $link) {
   else {
     echo "
     <div class='container-fluid px-1 py-1 mb-0 text-center'>
-      <div class='jumbotron col-sm-12 mb-0'>
+      <div class='jumbotron col-12 mb-0'>
         <a href='$link'><h1 class='display-4 logo-jumbotron'>$titulo</h1></a>
       </div>
     </div>

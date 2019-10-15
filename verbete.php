@@ -53,7 +53,7 @@ if (isset($_GET['concurso'])) {
   $conn->close();
   standard_jumbotron($tema, false);
 ?>
-  <div class='container-fluid py-3 col-lg-12 bg-lighter text-center'>
+  <div class='container-fluid py-3 col-12 bg-lighter text-center'>
     <ul class='list-group list-group-horizontal'>
       <a class='list-group-item list-group-item-action bg-lighter text-dark' href='#verbete'>Verbete consolidado</a>
       <a class='list-group-item list-group-item-action bg-lighter text-dark' href='#imagens'>Imagens de apoio</a>
@@ -68,13 +68,13 @@ if (isset($_GET['concurso'])) {
   </div>
   <div class='container-fluid mt-5'>
     <div class='row'>
-      <div class='col-lg-2 text-center justify-content-center align-middle'>
+      <div class='col-2 text-center justify-content-center align-middle'>
         <span class='align-middle'>Verbete consolidado</span>
       </div>
-      <div class='col-lg-3 text-center justify-content-center align-middle'>
+      <div class='col-3 text-center justify-content-center align-middle'>
           <?php echo "<span class='h4 text-center justify-content-center align-middle'><a href='editar_verbete.php?concurso=$concurso&tema=$id_tema'><i class='fal fa-edit'></i></a></span>"; ?>
       </div>
-      <div class='col-lg-6 text-left'>
+      <div class='col-6 text-left'>
         <?php
           if ($verbete == false) {
             echo "<p>Não há, no momento, verbete consolidado para este tema.</p>";
@@ -100,13 +100,13 @@ if (isset($_GET['concurso'])) {
   </div>
   <div class='container-fluid mt-5 py-2 rounded'>
     <div class='row'>
-      <div class='col-lg-11'><h2 id='imagens'>Imagens de apoio</h2></div>
-      <div class='col-lg-1 h2 float-right'><a><i class='fal fa-plus-square'></i></a></div>
+      <div class='col-11'><h2 id='imagens'>Imagens de apoio</h2></div>
+      <div class='col-1 h2 float-right'><a><i class='fal fa-plus-square'></i></a></div>
     </div>
     <div class='row'>
 <?php
       if ($imagens == false) {
-        echo "<div class='col-lg-12'><p>Ainda não foram acrescentadas imagens de apoio sobre este tema.</p></div>";
+        echo "<div class='col-12'><p>Ainda não foram acrescentadas imagens de apoio sobre este tema.</p></div>";
       }
       else {
         echo $imagens;
@@ -116,12 +116,12 @@ if (isset($_GET['concurso'])) {
   </div>
   <div class='container-fluid mt-5 py-2 rounded'>
     <div class='row'>
-      <div class='col-lg-12'><h2 id='verbetes'>Verbetes relacionados</h2></div>
+      <div class='col-12'><h2 id='verbetes'>Verbetes relacionados</h2></div>
     </div>
     <div class='row'>
 <?php
       if ($verbetes == false) {
-        echo "<div class='col-lg-12'><p>Ainda não foram identificados verbetes relacionados para este tema.</p></div>";
+        echo "<div class='col-12'><p>Ainda não foram identificados verbetes relacionados para este tema.</p></div>";
       }
       else {
         echo $verbetes;
@@ -131,13 +131,13 @@ if (isset($_GET['concurso'])) {
   </div>
   <div class='container-fluid mt-5 py-2 rounded'>
     <div class='row'>
-      <div class='col-lg-11'><h2 id='bibliografia'>Bibliografia pertinente</h2></div>
-      <div class='col-lg-1 h2 float-right'><a><i class='fal fa-plus-square'></i></a></div>
+      <div class='col-11'><h2 id='bibliografia'>Bibliografia pertinente</h2></div>
+      <div class='col-1 h2 float-right'><a><i class='fal fa-plus-square'></i></a></div>
     </div>
     <div class='row'>
 <?php
       if ($bibliografia == false) {
-        echo "<div class='col-lg-12'><p>Ainda não foram identificados recursos bibliográficos sobre este tema.</p></div>";
+        echo "<div class='col-12'><p>Ainda não foram identificados recursos bibliográficos sobre este tema.</p></div>";
       }
       else {
         echo $bibliografia;
@@ -147,13 +147,13 @@ if (isset($_GET['concurso'])) {
   </div>
   <div class='container-fluid mt-5 py-2 rounded'>
     <div class='row'>
-      <div class='col-lg-11'><h2 id='videos'>Vídeos e aulas relacionados</h2></div>
-      <div class='col-lg-1 h2 float-right'><a><i class='fal fa-plus-square'></i></a></div>
+      <div class='col-11'><h2 id='videos'>Vídeos e aulas relacionados</h2></div>
+      <div class='col-1 h2 float-right'><a><i class='fal fa-plus-square'></i></a></div>
     </div>
     <div class='row'>
 <?php
       if ($videos == false) {
-        echo "<div class='col-lg-12'><p>Ainda não foram acrescentados links para vídeos e aulas sobre este tema.</p></div>";
+        echo "<div class='col-12'><p>Ainda não foram acrescentados links para vídeos e aulas sobre este tema.</p></div>";
       }
       else {
         echo $videos;
@@ -163,13 +163,13 @@ if (isset($_GET['concurso'])) {
   </div>
   <div class='container-fluid mt-5 py-2 rounded'>
     <div class='row'>
-      <div class='col-lg-11'><h2 id='links'>Links externos</h2></div>
-      <div class='col-lg-1 h2 float-right'><a><i class='fal fa-plus-square'></i></a></div>
+      <div class='col-11'><h2 id='links'>Links externos</h2></div>
+      <div class='col-1 h2 float-right'><a><i class='fal fa-plus-square'></i></a></div>
     </div>
     <div class='row'>
 <?php
       if ($links == false) {
-        echo "<div class='col-lg-12'><p>Ainda não foram acrescentados links externos sobre este tema.</p></div>";
+        echo "<div class='col-12'><p>Ainda não foram acrescentados links externos sobre este tema.</p></div>";
       }
       else {
         echo $links;
@@ -179,19 +179,19 @@ if (isset($_GET['concurso'])) {
   </div>
   <div class='container-fluid mt-5 py-2 rounded'>
     <div class='row'>
-      <div class='col-lg-11'><h2 id='anotacoes'>Minhas anotações</h2></div>
-      <div class='col-lg-1 h2 float-right'><a><i class='fal fa-edit'></i></a></div>
+      <div class='col-11'><h2 id='anotacoes'>Minhas anotações</h2></div>
+      <div class='col-1 h2 float-right'><a><i class='fal fa-edit'></i></a></div>
     </div>
   </div>
   <div class='container-fluid mt-5 py-2 rounded'>
     <div class='row'>
-      <div class='col-lg-12'><h2 id='questoes'>Questões de provas passadas</h2></div>
+      <div class='col-12'><h2 id='questoes'>Questões de provas passadas</h2></div>
     </div>
     <div class='row'>
 <?php
       $questoes = false;
       if ($questoes == false) {
-        echo "<div class='col-lg-12'><p>Não há registro de questão em provas passadas sobre este tema.</p></div>";
+        echo "<div class='col-12'><p>Não há registro de questão em provas passadas sobre este tema.</p></div>";
       }
       else {
         echo $questoes;
@@ -201,12 +201,12 @@ if (isset($_GET['concurso'])) {
   </div>
   <div class='container-fluid mt-5 py-2 rounded'>
     <div class='row'>
-      <div class='col-lg-12'><h2 id='discussao'>Debate</h2></div>
+      <div class='col-12'><h2 id='discussao'>Debate</h2></div>
     </div>
     <div class='row'>
 <?php
       if ($discussao == false) {
-        echo "<div class='col-lg-12'><p>Não há debate sobre este tema. Deixe aqui sua opinião!</p></div>";
+        echo "<div class='col-12'><p>Não há debate sobre este tema. Deixe aqui sua opinião!</p></div>";
       }
       else {
         echo $discussao;

@@ -33,8 +33,8 @@ if ($result->num_rows > 0) {
   ?>
   <div class="container my-5">
     <div class="row">
-      <div class="col-sm-2"></div>
-      <div class="col-sm-8">
+      <div class="col-2"></div>
+      <div class="col-8">
 <?php
         $servername = "localhost";
         $username = "grupoubique";
@@ -83,7 +83,7 @@ if ($result->num_rows > 0) {
         echo "</ul>";
 ?>
       </div>
-      <div class="col-sm-2"></div>
+      <div class="col-2"></div>
     </div>
   </div>
 </body>

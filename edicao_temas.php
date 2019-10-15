@@ -11,8 +11,8 @@
     ?>
     <div class="container my-5">
       <div class="row">
-        <div class="col-sm-2"></div>
-        <div class="col-sm-8">
+        <div class="col-2"></div>
+        <div class="col-8">
           <?php
             echo "<h1>$concurso</h1>";
           ?>
@@ -21,7 +21,7 @@
               carregar_edicao_temas($concurso);
              ?>
         </div>
-        <div class="col-sm-2"></div>
+        <div class="col-2"></div>
       </div>
     </div>
   </body>
