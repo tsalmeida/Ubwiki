@@ -65,7 +65,7 @@ if (isset($_GET['concurso'])) {
         <div class='col-lg-2'>
           <div class='container-fluid mb-5 py-2 bg-lighter rounded'>
             <div class='row'>
-              <h4 class='text-center'>Índice</h4>
+              <p class='h4 text-center'>Índice</p>
             </div>
             <div class='row mt-2'>
               <div class='col-lg-12'>
@@ -96,9 +96,10 @@ if (isset($_GET['concurso'])) {
               <div class='col-lg-12'>
 <?php
               if ($verbete == false) {
-                echo "<div class='col-lg-12 bg-white'><p>Ainda não há verbete consolidado para este tema.</p></div></div></div></div>";
+                echo "<div class='col-lg-12 bg-white'><p>Ainda não há verbete consolidado para este tema.</p></div></div>";
               }
               else {
+                echo "</div><div class='row'>";
                 $verbete = base64_decode($verbete);
                 $separator = "\r\n";
                 $line = strtok($verbete, $separator);
