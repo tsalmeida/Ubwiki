@@ -204,13 +204,13 @@ function carregar_edicao_verbete($id_tema, $concurso) {
   $salvar = serialize($salvar);
   echo "<h1 class='mb-5'>$tema</h1>";
   echo "
-  <form class='text-center border border-light px-2 my-2' method='post'>
-    <div class='row text-center'>
+  <form class='text-center px-2 my-2' method='post'>
+    <fieldset>
       <textarea class='textarea_verbete' name='verbete_texto'></textarea>
-    </div>
-    <div class='row text-center'>
+    </fieldset>
+    <fieldset>
       <button name='metatemas_automaticos' type='submit' class='btn btn-primary' value='$salvar'>Salvar</button>
-    </div>
+    </fieldset>
   </form>
   ";
 }
