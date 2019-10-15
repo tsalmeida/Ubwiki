@@ -37,7 +37,7 @@
   <body>
 <?php
     carregar_navbar();
-    standard_jumbotron("$tema");
+    standard_jumbotron($tema, "verbete.php?concurso=$concurso&tema=$id_tema");
 ?>
     <div class="container my-5">
       <div class="row">
