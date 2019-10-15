@@ -60,7 +60,7 @@ if (isset($_GET['concurso'])) {
     standard_jumbotron($tema);
     ?>
     <div class='container-fluid my-5 col-lg-12 bg-lighter'>
-      <ul class='list-group'>
+      <ul class='list-group list-group-horizontal'>
         <a class='list-group-item list-group-item-action' href='#verbete'>Verbete consolidado</a>
         <a class='list-group-item list-group-item-action' href='#imagens'>Imagens de apoio</a>
         <a class='list-group-item list-group-item-action' href='#verbetes'>Verbetes relacionados</a>
