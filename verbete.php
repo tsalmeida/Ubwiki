@@ -8,7 +8,7 @@
 // }
 
 if (isset($_GET['tema'])) {
-  $tema = $_GET['tema'];
+  $id_tema = $_GET['tema'];
 }
 
 if (isset($_GET['concurso'])) {
@@ -30,7 +30,7 @@ if (isset($_GET['concurso'])) {
     $result = $conn->query("SELECT chave FROM Searchbar WHERE concurso = '$concurso' AND sigla = $id_tema");
     if ($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {
-        $titulo_tema = $row['chave'];
+        $tema = $row['chave'];
       }
     }
     $found = false;
@@ -58,7 +58,7 @@ if (isset($_GET['concurso'])) {
     }
     $conn->close();
 
-    echo "<h1 class='mb-5'>$titulo_tema</h1>";
+    echo "<h1 class='mb-5'>$tema</h1>";
     ?>
     <div class='container my-5'>
       <div class='row'>
