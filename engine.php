@@ -430,7 +430,11 @@ function carregar_verbete($id_tema, $concurso){
           echo "
           </div>
         </div>
-        ";
+      </div>
+      <div class='col-sm-2'></div>
+    </div>
+  </div>
+  ";
 }
 
 if (isset($_POST['reconstruir_concurso'])) {
