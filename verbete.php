@@ -63,24 +63,20 @@ if (isset($_GET['concurso'])) {
     <div class='container my-5'>
       <div class='row'>
         <div class='col-lg-2'>
-          <div class='container-fluid mb-5 py-2 bg-lighter rounded'>
-            <div class='row'>
-              <h2>Índice</h2>
-            </div>
-            <div class='row mt-2'>
-              <div class='col-lg-12'>
-                <ul class='list-group'>
-                  <a class='list-group-item list-group-item-action' href='#verbete'>Verbete consolidado</a>
-                  <a class='list-group-item list-group-item-action' href='#imagens'>Imagens de apoio</a>
-                  <a class='list-group-item list-group-item-action' href='#verbetes'>Verbetes relacionados</a>
-                  <a class='list-group-item list-group-item-action' href='#bibliografia'>Bibliografia pertinente</a>
-                  <a class='list-group-item list-group-item-action' href='#videos'>Vídeos e aulas relacionados</a>
-                  <a class='list-group-item list-group-item-action' href='#links'>Links externos</a>
-                  <a class='list-group-item list-group-item-action' href='#anotacoes'>Minhas anotações</a>
-                  <a class='list-group-item list-group-item-action' href='#questoes'>Questões de provas passadas</a>
-                  <a class='list-group-item list-group-item-action' href='#discussao'>Discussão</a>
-                </ul>
-              </div>
+          <div class='container-fluid mb-5 py-2 sidenav'>
+            <h4>Índice</h4>
+            <div class='col-lg-12'>
+              <ul class='list-group'>
+                <a class='list-group-item list-group-item-action' href='#verbete'>Verbete consolidado</a>
+                <a class='list-group-item list-group-item-action' href='#imagens'>Imagens de apoio</a>
+                <a class='list-group-item list-group-item-action' href='#verbetes'>Verbetes relacionados</a>
+                <a class='list-group-item list-group-item-action' href='#bibliografia'>Bibliografia pertinente</a>
+                <a class='list-group-item list-group-item-action' href='#videos'>Vídeos e aulas relacionados</a>
+                <a class='list-group-item list-group-item-action' href='#links'>Links externos</a>
+                <a class='list-group-item list-group-item-action' href='#anotacoes'>Minhas anotações</a>
+                <a class='list-group-item list-group-item-action' href='#questoes'>Questões de provas passadas</a>
+                <a class='list-group-item list-group-item-action' href='#discussao'>Discussão</a>
+              </ul>
             </div>
           </div>
         </div>
