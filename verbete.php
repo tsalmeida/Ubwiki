@@ -62,7 +62,7 @@ if (isset($_GET['concurso'])) {
     ?>
     <div class='container my-5'>
       <div class='row'>
-        <div class='col-lg-2'>
+        <div class='col-lg-4'>
           <div class='container-fluid mb-5 py-2 bg-lighter rounded'>
             <div class='row'>
               <div class='col-lg-12'><h4>Índice</h4></div>
@@ -93,12 +93,12 @@ if (isset($_GET['concurso'])) {
 ?>
             </div>
             <div class='row'>
+              <div class='col-lg-12'>
 <?php
               if ($verbete == false) {
-                echo "<div class='col-lg-12'><p>Ainda não há verbete consolidado para este tema.</p></div>";
+                echo "<div class='col-lg-12 bg-white'><p>Ainda não há verbete consolidado para este tema.</p></div></div>";
               }
               else {
-                echo "<div class='col-lg-12'>";
                 $verbete = base64_decode($verbete);
                 $separator = "\r\n";
                 $line = strtok($verbete, $separator);
@@ -110,7 +110,6 @@ if (isset($_GET['concurso'])) {
                 echo "</div>";
               }
 ?>
-            </div>
           </div>
           <div class='container-fluid mb-5 py-2 bg-lighter rounded'>
             <div class='row'>
@@ -229,7 +228,6 @@ if (isset($_GET['concurso'])) {
             </div>
           </div>
         </div>
-        <div class='col-lg-2'></div>
       </div>
     </div>
   </body>
