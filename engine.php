@@ -201,6 +201,12 @@ function carregar_edicao_verbete($id_tema, $concurso) {
     }
   }
   $verbete_consolidado = $conn->query("SELECT verbete FROM Verbetes WHERE concurso = '$concurso' AND id_tema = $id_tema");
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $verbete_consolidado = $row['verbete'];
+      end;
+    }
+  }
   $verbete_consolidado = base64_decode($verbete_consolidado);
   $salvar = array($concurso, $id_tema);
   $salvar = serialize($salvar);
