@@ -134,7 +134,7 @@ function ler_edital($materia) {
 }
 
 function standard_jumbotron($titulo, $link) {
-  if (!isset($link)) {
+  if ($link == false) {
     echo "
     <div class='container-fluid px-1 py-1 mb-0 text-center'>
       <div class='jumbotron col-sm-12 mb-0'>

@@ -5,7 +5,7 @@
   <body>
     <?php
     carregar_navbar();
-    standard_jumbotron("Sua página");
+    standard_jumbotron("Sua página", false);
     ?>
     <div class="container my-5">
       <div class="row">

@@ -29,7 +29,7 @@ if ($result->num_rows > 0) {
 <body>
   <?php
   carregar_navbar();
-  standard_jumbotron($materia);
+  standard_jumbotron($materia, false);
   ?>
   <div class="container my-5">
     <div class="row">

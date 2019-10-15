@@ -5,7 +5,7 @@
   <body>
     <?php
       carregar_navbar();
-      standard_jumbotron("Página de Administrador");
+      standard_jumbotron("Página de Administrador", false);
     ?>
     <div class="container my-5">
       <div class="row">

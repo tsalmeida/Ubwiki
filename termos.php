@@ -5,7 +5,7 @@
   <body>
     <?php
     carregar_navbar();
-    standard_jumbotron("Ubwiki");
+    standard_jumbotron("Ubwiki", false);
     ?>
     <div class="container my-5">
       <div class="row">

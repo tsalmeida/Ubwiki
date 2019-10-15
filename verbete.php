@@ -51,7 +51,7 @@ if (isset($_GET['concurso'])) {
     }
   }
   $conn->close();
-  standard_jumbotron($tema);
+  standard_jumbotron($tema, false);
 ?>
   <div class='container-fluid py-3 col-lg-12 bg-lighter text-center'>
     <ul class='list-group list-group-horizontal'>
