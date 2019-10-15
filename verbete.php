@@ -68,7 +68,7 @@ if (isset($_GET['concurso'])) {
   </div>
   <div class='container-fluid'>
     <div class='row'>
-      <div class='col-lg-2 text-center'>
+      <div class='col-lg-2 text-center align-middle'>
         <p>Verbete consolidado</p>
       </div>
       <div class='col-lg-1 text-center'>
