@@ -96,7 +96,7 @@ if (isset($_GET['concurso'])) {
               <div class='col-lg-12'>
 <?php
               if ($verbete == false) {
-                echo "<div class='col-lg-12 bg-white'><p>Ainda não há verbete consolidado para este tema.</p></div></div>";
+                echo "<div class='col-lg-12 bg-white'><p>Ainda não há verbete consolidado para este tema.</p></div></div></div>";
               }
               else {
                 $verbete = base64_decode($verbete);
@@ -107,7 +107,7 @@ if (isset($_GET['concurso'])) {
                     echo "<p>$line</p>";
                     $line = strtok( $separator );
                 }
-                echo "</div>";
+                echo "</div></div>";
               }
 ?>
           </div>
