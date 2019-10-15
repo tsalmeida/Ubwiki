@@ -66,15 +66,15 @@ if (isset($_GET['concurso'])) {
       <a class='list-group-item list-group-item-action bg-lighter text-dark' href='#discussao'>Discussão</a>
     </ul>
   </div>
-  <div class='container-fluid text-center'>
+  <div class='container-fluid'>
     <div class='row'>
-      <div class='col-lg-2'>
+      <div class='col-lg-2 text-center'>
         <p class='h4'>Verbete consolidado</p>
       </div>
-      <div class='col-lg-1'>
+      <div class='col-lg-1 text-center'>
         <?php echo "<div class='col-lg-1 h2 float-right'><a href='editar_verbete.php?concurso=$concurso&tema=$id_tema'><i class='fal fa-edit'></i></a></div>"; ?>
       </div>
-      <div class='col-lg-9'>
+      <div class='col-lg-6 text-left'>
         <?php
           if ($verbete == false) {
             echo "<p>Não há, no momento, verbete consolidado para este tema.</p>";
@@ -92,11 +92,11 @@ if (isset($_GET['concurso'])) {
         ?>
       </div>
     </div>
+  </div>
 
 
 <!-- avacalhado -->
 
-    </div>
   </div>
   <div class='container-fluid mt-5 py-2 rounded'>
     <div class='row'>
