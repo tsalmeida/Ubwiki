@@ -1,4 +1,4 @@
-col  <?php
+<?php
   include 'engine.php';
   top_page();
 
@@ -33,7 +33,7 @@ col  <?php
   $salvar = array($concurso, $id_tema);
   $salvar = serialize($salvar);
 
-  ?>
+?>
   <body>
 <?php
     carregar_navbar();
