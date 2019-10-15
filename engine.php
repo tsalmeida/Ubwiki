@@ -310,7 +310,7 @@ function carregar_verbete($id_tema, $concurso){
       }
       else {
         $verbete = base64_decode($verbete);
-        echo "<div class=col-lg-12'><p>$verbete</p></div>";
+        echo "<div class='col-lg-12'><p>$verbete</p></div>";
       }
     echo "
     </div>
