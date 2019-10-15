@@ -66,32 +66,43 @@ if (isset($_GET['concurso'])) {
       <a class='list-group-item list-group-item-action bg-lighter text-dark' href='#discussao'>Discussão</a>
     </ul>
   </div>
-  <div class='container-fluid mt-5 py-2 rounded'>
-    <div class='row'>
-      <div class='col-lg-11'><h2 id='verbete'>Verbete consolidado</h2></div>
-  <?php
-      echo "<div class='col-lg-1 h2 float-right'><a href='editar_verbete.php?concurso=$concurso&tema=$id_tema'><i class='fal fa-edit'></i></a></div>";
-  ?>
+  <div class='container-fluid text-center'>
+    <div class='col-lg-2'>
+      <div class='row'>
+        <p class='h4'>Verbete consolidado</p>
+      </div>
+    </div>
+    <div class='col-lg-8'>
+      <div class='row'>
+        <div class'col-lg-11'>
+        </div>
+        <div class='col-lg-1'>
+          <?php echo "<div class='col-lg-1 h2 float-right'><a href='editar_verbete.php?concurso=$concurso&tema=$id_tema'><i class='fal fa-edit'></i></a></div>"; ?>
+        </div>
+      </div>
     </div>
     <div class='row'>
-      <div class='col-lg-12'>
-  <?php
-    if ($verbete == false) {
-      echo "<div class='col-lg-12 bg-white'><p>Ainda não há verbete consolidado para este tema.</p></div>";
-    }
-    else {
-      echo "</div><div class='row col-lg-12'>";
-      $verbete = base64_decode($verbete);
-      $separator = "\r\n";
-      $line = strtok($verbete, $separator);
+      <?php
+        if ($verbete == false) {
+          echo "<p>Não há, no momento, verbete consolidado para este tema.</p>";
+        }
+        else {
+          $verbete = base64_decode($verbete);
+          $separator = "\r\n";
+          $line = strtok($verbete, $separator);
 
-      while ($line !== false) {
-          echo "<p>$line</p>";
-          $line = strtok( $separator );
-      }
-      echo "</div>";
-    }
-  ?>
+          while ($line !== false) {
+              echo "<p>$line</p>";
+              $line = strtok( $separator );
+          }
+        }
+      ?>
+    </div>
+  </div>
+
+
+<!-- avacalhado -->
+
     </div>
   </div>
   <div class='container-fluid mt-5 py-2 rounded'>
