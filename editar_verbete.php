@@ -10,17 +10,55 @@
     $concurso = $_GET['concurso'];
   }
 
+  $servername = "localhost";
+  $username = "grupoubique";
+  $password = "ubique patriae memor";
+  $dbname = "Ubique";
+  $found = false;
+  $conn = new mysqli($servername, $username, $password, $dbname);
+  mysqli_set_charset($conn,"utf8");
+  $result = $conn->query("SELECT chave FROM Searchbar WHERE concurso = '$concurso' AND sigla = $id_tema");
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $tema = $row['chave'];
+    }
+  }
+
   ?>
   <body>
-    <?php
+<?php
     carregar_navbar();
-    standard_jumbotron("Edição de verbete: $id_tema");
-    ?>
+    standard_jumbotron("Edição de verbete: $tema");
+?>
     <div class="container my-5">
       <div class="row">
         <div class="col-sm-2"></div>
         <div class="col-sm-8">
-          <?php carregar_edicao_verbete($id_tema, $concurso); ?>
+<?php
+
+            $result = $conn->query("SELECT verbete FROM Verbetes WHERE concurso = '$concurso' AND id_tema = $id_tema");
+            if ($result->num_rows > 0) {
+              while($row = $result->fetch_assoc()) {
+                $verbete_consolidado = $row['verbete'];
+              }
+            }
+            $verbete_consolidado = base64_decode($verbete_consolidado);
+            $salvar = array($concurso, $id_tema);
+            $salvar = serialize($salvar);
+            echo "<h1 class='mb-5'>$tema</h1>";
+            echo "
+            <form class='text-center px-2 my-2' method='post'>
+              <fieldset>
+                <textarea id='textarea_verbete' name='verbete_texto' class='rounded'>$verbete_consolidado</textarea>
+              </fieldset>
+              <fieldset>
+                <button name='salvar_verbete_texto' type='submit' class='btn btn-primary' value='$salvar'>Salvar</button>
+              </fieldset>
+            </form>
+            ";
+?>
+
+
         </div>
         <div class="col-sm-2"></div>
       </div>
