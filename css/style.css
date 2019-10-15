@@ -59,21 +59,12 @@ logo {
   border-bottom-width: 0.2rem;
 }
 
-.height55vh {
-  min-height: 55vh;
+.home1 {
+  height: 55vh
 }
 
-.height30vh {
-  min-height: 30vh;
-}
-
-.height10vh {
-  min-height: 10vh;
-  margin-bottom: 5vh;
-}
-
-.height5vh {
-  min-height: 5vh;
+.home2 {
+  height: 25vh;
 }
 
 .searchBar {
