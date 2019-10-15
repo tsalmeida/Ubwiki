@@ -232,7 +232,8 @@ if (isset($_GET['concurso'])) {
         </div>
       </div>
     </div>
-  </body>
+  </div>
+</body>
 <?php
   load_footer();
   bottom_page();
