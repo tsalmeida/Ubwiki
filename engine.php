@@ -309,7 +309,8 @@ function carregar_verbete($id_tema, $concurso){
         echo "<div class='col-lg-12'><p>Ainda não há verbete consolidado para este tema.</p></div>";
       }
       else {
-        echo $verbete;
+        $verbete = base64_decode($verbete);
+        echo "<div class=col-lg-12'><p>$verbete</p></div>";
       }
     echo "
     </div>
