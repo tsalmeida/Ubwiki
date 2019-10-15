@@ -200,7 +200,7 @@ function carregar_edicao_verbete($id_tema, $concurso) {
       $tema = $row['chave'];
     }
   }
-  $salvar = array($concurso, $tema);
+  $salvar = array($concurso, $id_tema);
   $salvar = serialize($salvar);
   echo "<h1 class='mb-5'>$tema</h1>";
   echo "
@@ -209,10 +209,24 @@ function carregar_edicao_verbete($id_tema, $concurso) {
       <textarea id='textarea_verbete' name='verbete_texto' class='rounded'></textarea>
     </fieldset>
     <fieldset>
-      <button name='metatemas_automaticos' type='submit' class='btn btn-primary' value='$salvar'>Salvar</button>
+      <button name='salvar_verbete_texto' type='submit' class='btn btn-primary' value='$salvar'>Salvar</button>
     </fieldset>
   </form>
   ";
+}
+
+if (isset($_POST['salvar_verbete_texto'])) {
+  $concursoid = $_POST['salvar_verbete_texto'];
+  $novo_verbete = $_POST['verbete_texto'];
+  //verificar se existe verbete, se não existir, criar novo.
+  $servername = "localhost";
+  $username = "grupoubique";
+  $password = "ubique patriae memor";
+  $dbname = "Ubique";
+  $found = false;
+  $conn = new mysqli($servername, $username, $password, $dbname);
+  mysqli_set_charset($conn,"utf8");
+  $result = $conn->query("UPDATE Temas SET ciclo_revisao = 0 WHERE concurso = '$concurso'");
 }
 
 function carregar_verbete($id_tema, $concurso){
