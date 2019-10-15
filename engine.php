@@ -414,24 +414,30 @@ function reconstruir_searchbar($concurso) {
       $conn->query("INSERT INTO Searchbar (ordem, concurso, sigla, chave, tipo) VALUES ('$ordem', '$concurso', '$sigla', '$materia', 'materia')");
     }
   }
-  $result = $conn->query("SELECT nivel1, nivel2, nivel3, id FROM Temas WHERE concurso = '$concurso' ORDER BY id");
+  $result = $conn->query("SELECT nivel1, nivel2, nivel3, nivel4, nivel5, id FROM Temas WHERE concurso = '$concurso' ORDER BY id");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $id = $row["id"];
       $nivel1 = $row["nivel1"];
       $nivel2 = $row["nivel2"];
       $nivel3 = $row["nivel3"];
+      $nivel4 = $row["nivel4"];
+      $nivel5 = $row["nivel5"];
       $ordem++;
-      if ($nivel3 != false) {
+      if ($nivel5 != false) {
+        $conn->query("INSERT INTO Searchbar (ordem, concurso, sigla, chave, tipo) VALUES ('$ordem', '$concurso', $id, '$nivel5', 'tema')");
+      }
+      elseif ($nivel4 != false) {
+        $conn->query("INSERT INTO Searchbar (ordem, concurso, sigla, chave, tipo) VALUES ('$ordem', '$concurso', $id, '$nivel4', 'tema')");
+      }
+      elseif ($nivel3 != false) {
         $conn->query("INSERT INTO Searchbar (ordem, concurso, sigla, chave, tipo) VALUES ('$ordem', '$concurso', $id, '$nivel3', 'tema')");
       }
+      elseif ($nivel2 != false) {
+        $conn->query("INSERT INTO Searchbar (ordem, concurso, sigla, chave, tipo) VALUES ('$ordem', '$concurso', $id, '$nivel2', 'tema')");
+      }
       else {
-        if ($nivel2 != false) {
-          $conn->query("INSERT INTO Searchbar (ordem, concurso, sigla, chave, tipo) VALUES ('$ordem', '$concurso', $id, '$nivel2', 'tema')");
-        }
-        else {
-          $conn->query("INSERT INTO Searchbar (ordem, concurso, sigla, chave, tipo) VALUES ('$ordem', '$concurso', $id, '$nivel1', 'tema')");
-        }
+        $conn->query("INSERT INTO Searchbar (ordem, concurso, sigla, chave, tipo) VALUES ('$ordem', '$concurso', $id, '$nivel1', 'tema')");
       }
     }
   }
@@ -527,7 +533,7 @@ function carregar_edicao_temas($concurso) {
   $found = false;
   $conn = new mysqli($servername, $username, $password, $dbname);
   mysqli_set_charset($conn,"utf8");
-  $result = $conn->query("SELECT id, sigla_materia, metaid, nivel1, nivel2, nivel3 FROM Temas WHERE concurso = '$concurso' AND ciclo_revisao = 0 ORDER BY id");
+  $result = $conn->query("SELECT id, sigla_materia, metaid, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND ciclo_revisao = 0 ORDER BY id");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $active1 = false;
@@ -539,23 +545,21 @@ function carregar_edicao_temas($concurso) {
       $nivel1 = $row['nivel1'];
       $nivel2 = $row['nivel2'];
       $nivel3 = $row['nivel3'];
-      if ($nivel3 != false) {
-        $active3 = 'active';
-      }
-      else {
-        if ($nivel2 != false) {
-          $active2 = 'active';
-        }
-        else {
-          $active1 = 'active';
-        }
-      }
+      $nivel4 = $row['nivel4'];
+      $nivel5 = $row['nivel5'];
+      if ($nivel5 != false) { $active3 = 'active'; }
+      elseif ($nivel4 != false) { $active4 = 'active'; }
+      elseif ($nivel3 != false) { $active3 = 'active'; }
+      elseif ($nivel2 != false) { $active2 = 'active'; }
+      else { $active1 = 'active'; }
       echo "
         <ul class='list-group text-left'>
           <li class='list-group-item'><strong>MATERIA:</strong> $sigla_materia</li>
           <li class='list-group-item $active1'><strong>Nível 1:</strong> $nivel1</li>
           <li class='list-group-item $active2'><strong>Nível 2:</strong> $nivel2</li>
           <li class='list-group-item $active3'><strong>Nível 3:</strong> $nivel3</li>
+          <li class='list-group-item $active4'><strong>Nível 2:</strong> $nivel4</li>
+          <li class='list-group-item $active5'><strong>Nível 3:</strong> $nivel5</li>
           <li class='list-group-item'><strong>ID:</strong> $id</li>
           <li class='list-group-item'><strong>Metatema:</strong> $metaid</li>
         </ul>";
@@ -627,13 +631,20 @@ if (isset($_POST['metatemas_automaticos'])) {
   $found = false;
   $conn = new mysqli($servername, $username, $password, $dbname);
   mysqli_set_charset($conn,"utf8");
-  $result = $conn->query("SELECT id, nivel1, nivel2, nivel3 FROM Temas WHERE concurso = '$concurso' AND metaid IS NULL");
+  $result = $conn->query("SELECT id, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND metaid IS NULL");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $id = $row['id'];
       $nivel1 = $row['nivel1'];
       $nivel2 = $row['nivel2'];
       $nivel3 = $row['nivel3'];
+      $nivel4 = $row['nivel4'];
+      $nivel5 = $row['nivel5'];
+      if ($nivel5 != false) { $novo_metaid = $nivel5; }
+      elseif ($nivel4 != false) { $novo_metaid = $nivel4; }
+      elseif ($nivel3 != false) { $novo_metaid = $nivel3; }
+      elseif ($nivel2 != false) { $novo_metaid = $nivel2; }
+      else { $novo_metaid = $nivel1; }
       $novo_metaid = strtolower($novo_metaid);
       $novo_metaid = str_replace(" e ", "-", $novo_metaid);
       $novo_metaid = str_replace(" a ", "-", $novo_metaid);
@@ -671,7 +682,8 @@ if (isset($_POST['metatemas_automaticos'])) {
       $novo_metaid = str_replace("ô", "o", $novo_metaid);
       $novo_metaid = utf8_encode($novo_metaid);
       $novo_metaid = substr($novo_metaid, 0, 25);
-      $update = $conn->query("UPDATE Temas SET metaid = '$novo_metaid' WHERE id = '$id'");
+      // $update = $conn->query("UPDATE Temas SET metaid = '$novo_metaid' WHERE id = '$id'");
+      error_log($novo_metaid);
     }
   }
 }
