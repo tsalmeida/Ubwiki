@@ -203,6 +203,7 @@ function carregar_edicao_verbete($id_tema, $concurso) {
   $verbete_results = $conn->query("SELECT verbete FROM Verbetes WHERE concurso = '$concurso' AND id_tema = $id_tema");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
+      error_log("this happened");
       $verbete_consolidado = $row['verbete'];
       break;
     }
