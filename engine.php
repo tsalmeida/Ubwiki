@@ -204,7 +204,6 @@ function carregar_edicao_verbete($id_tema, $concurso) {
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $verbete_consolidado = $row['verbete'];
-      break;
     }
   }
   $verbete_consolidado = base64_decode($verbete_consolidado);
