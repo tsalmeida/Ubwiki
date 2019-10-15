@@ -233,7 +233,6 @@ function carregar_verbete($id_tema, $concurso){
       $links = $row["links"];
       $discussao = $row["discussao"];
     }
-  $tema = limpar_tema($tema);
   }
   $conn->close();
 
@@ -386,14 +385,6 @@ function carregar_verbete($id_tema, $concurso){
   ";
 }
 
-function limpar_tema($tema) {
-  $trim = strpos($tema, " ");
-  $trim = $trim + 1;
-  $tema = substr($tema, $trim);
-  $tema = substr($tema, 0, -1);
-  return $tema;
-}
-
 if (isset($_POST['reconstruir_concurso'])) {
   $concurso = $_POST['reconstruir_concurso'];
   reconstruir_searchbar($concurso);
@@ -424,9 +415,6 @@ function reconstruir_searchbar($concurso) {
       $nivel1 = $row["nivel1"];
       $nivel2 = $row["nivel2"];
       $nivel3 = $row["nivel3"];
-      $nivel1 = limpar_tema($nivel1);
-      $nivel2 = limpar_tema($nivel2);
-      $nivel3 = limpar_tema($nivel3);
       $ordem++;
       if ($nivel3 != false) {
         $conn->query("INSERT INTO Searchbar (ordem, concurso, sigla, chave, tipo) VALUES ('$ordem', '$concurso', $id, '$nivel3', 'tema')");
@@ -640,17 +628,6 @@ if (isset($_POST['metatemas_automaticos'])) {
       $nivel1 = $row['nivel1'];
       $nivel2 = $row['nivel2'];
       $nivel3 = $row['nivel3'];
-      if ($nivel3 != false) {
-        $novo_metaid = limpar_tema($nivel3);
-      }
-      else {
-        if ($nivel2 != false) {
-          $novo_metaid = limpar_tema($nivel2);
-        }
-        else {
-          $novo_metaid = limpar_tema($nivel1);
-        }
-      }
       $novo_metaid = strtolower($novo_metaid);
       $novo_metaid = str_replace(" e ", "-", $novo_metaid);
       $novo_metaid = str_replace(" a ", "-", $novo_metaid);
