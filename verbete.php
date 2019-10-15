@@ -72,7 +72,7 @@ if (isset($_GET['concurso'])) {
         <span class='align-middle'>Verbete consolidado</span>
       </div>
       <div class='col-lg-3 text-center justify-content-center align-middle'>
-          <?php echo "<div class='col-lg-1 h2 float-right'><a href='editar_verbete.php?concurso=$concurso&tema=$id_tema'><i class='fal fa-edit'></i></a></div>"; ?>
+          <?php echo "<a href='editar_verbete.php?concurso=$concurso&tema=$id_tema'><i class='fal fa-edit'></i></a>"; ?>
       </div>
       <div class='col-lg-6 text-left'>
         <?php
