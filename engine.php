@@ -166,13 +166,13 @@ function carregar_pagina($sigla, $concurso) {
       $nivel4 = $row["nivel4"];
       $nivel5 = $row["nivel5"];
       if ($nivel5 != false) {
-        echo "<a class='list-group-item list-group-item-action' href='verbete.php?concurso=$concurso&tema=$id'><span class='ml-4'>$nivel5</span></a>";
+        echo "<a class='list-group-item list-group-item-action' href='verbete.php?concurso=$concurso&tema=$id'><em><span class='ml-5'>$nivel5</span></a></em>";
       }
       elseif ($nivel4 != false) {
-        echo "<a class='list-group-item list-group-item-action' href='verbete.php?concurso=$concurso&tema=$id'><span class='ml-3'>$nivel4</span></a>";
+        echo "<a class='list-group-item list-group-item-action' href='verbete.php?concurso=$concurso&tema=$id'><em><span class='ml-4'>$nivel4</span></em></a>";
       }
       elseif ($nivel3 != false) {
-        echo "<a class='list-group-item list-group-item-action' href='verbete.php?concurso=$concurso&tema=$id'><span class='ml-2'>$nivel3</span></a>";
+        echo "<a class='list-group-item list-group-item-action' href='verbete.php?concurso=$concurso&tema=$id'><em><span class='ml-2'>$nivel3</span></em></a>";
       }
       elseif ($nivel2 != false) {
         echo "<a class='list-group-item list-group-item-action' href='verbete.php?concurso=$concurso&tema=$id'><span class='ml-1'>$nivel2</span></a>";
