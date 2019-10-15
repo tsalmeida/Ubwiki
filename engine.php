@@ -571,7 +571,7 @@ function carregar_edicao_temas($concurso) {
           <p class='text-left'>Para que o sistema seja imune a mudanças de edital, é necessário que cada tema seja internamente identificado por um meta-tema.</p>
           <fieldset class='form-group text-left'>
             <label for='registrarmeta'>Novo meta-tema para este assunto:</label>
-            <input name='novo_metatema' id='registrarmeta' type='text'></input>
+            <input name='novo_metatema' id='registrarmeta' type='text'>$metaid</input>
           </fieldset>
           <div class='custom-control custom-checkbox'>
               <input type='checkbox' class='custom-control-input' id='remover_ciclo' name='remover_ciclo' checked>
