@@ -67,6 +67,10 @@ logo {
   height: 25vh;
 }
 
+.height5vh {
+  height: 5vh;
+}
+
 .searchBar {
   background-color: white;
   border: 0;
