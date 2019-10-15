@@ -94,127 +94,168 @@ if (isset($_GET['concurso'])) {
     </div>
   </div>
 
+  <div class='container-fluid mt-5'>
+    <div class='row'>
+      <div class='col-2 text-center justify-content-center align-middle'>
+        <span class='align-middle'>Imagens de apoio</span>
+      </div>
+      <div class='col-1 text-center justify-content-center align-middle'>
+          <?php echo "<span class='h4 text-center justify-content-center align-middle'><i class='fal fa-plus-square'></i></span>"; ?>
+      </div>
+      <div class='col-6 text-left'>
+        <?php
+          if ($imagens == false) {
+            echo "<p>Ainda não foram acrescentadas imagens de apoio a este verbete.</p>";
+          }
+          else {
+            echo "$imagens";
+          }
+        ?>
+      </div>
+    </div>
+  </div>
 
-<!-- avacalhado -->
+  <div class='container-fluid mt-5'>
+    <div class='row'>
+      <div class='col-2 text-center justify-content-center align-middle'>
+        <span class='align-middle'>Verbetes relacionados</span>
+      </div>
+      <div class='col-1 text-center justify-content-center align-middle'></div>
+      <div class='col-6 text-left'>
+        <?php
+          if ($verbetes == false) {
+            echo "<p>Não há verbetes relacionados a este tema.</p>";
+          }
+          else {
+            echo "$verbetes";
+          }
+        ?>
+      </div>
+    </div>
+  </div>
 
-  </div>
-  <div class='container-fluid mt-5 py-2 rounded'>
+  <div class='container-fluid mt-5'>
     <div class='row'>
-      <div class='col-11'><h2 id='imagens'>Imagens de apoio</h2></div>
-      <div class='col-1 h2 float-right'><a><i class='fal fa-plus-square'></i></a></div>
-    </div>
-    <div class='row'>
-<?php
-      if ($imagens == false) {
-        echo "<div class='col-12'><p>Ainda não foram acrescentadas imagens de apoio sobre este tema.</p></div>";
-      }
-      else {
-        echo $imagens;
-      }
-?>
-    </div>
-  </div>
-  <div class='container-fluid mt-5 py-2 rounded'>
-    <div class='row'>
-      <div class='col-12'><h2 id='verbetes'>Verbetes relacionados</h2></div>
-    </div>
-    <div class='row'>
-<?php
-      if ($verbetes == false) {
-        echo "<div class='col-12'><p>Ainda não foram identificados verbetes relacionados para este tema.</p></div>";
-      }
-      else {
-        echo $verbetes;
-      }
-?>
+      <div class='col-2 text-center justify-content-center align-middle'>
+        <span class='align-middle'>Bibliografia pertinente</span>
+      </div>
+      <div class='col-1 text-center justify-content-center align-middle'>
+          <?php echo "<span class='h4 text-center justify-content-center align-middle'><i class='fal fa-plus-square'></i></span>"; ?>
+      </div>
+      <div class='col-6 text-left'>
+        <?php
+          if ($bibliografia == false) {
+            echo "<p>Não foram identificados, até o momento, recursos bibliográficos sobre este tema.</p>";
+          }
+          else {
+            echo "$bibliografia";
+          }
+        ?>
+      </div>
     </div>
   </div>
-  <div class='container-fluid mt-5 py-2 rounded'>
+
+  <div class='container-fluid mt-5'>
     <div class='row'>
-      <div class='col-11'><h2 id='bibliografia'>Bibliografia pertinente</h2></div>
-      <div class='col-1 h2 float-right'><a><i class='fal fa-plus-square'></i></a></div>
-    </div>
-    <div class='row'>
-<?php
-      if ($bibliografia == false) {
-        echo "<div class='col-12'><p>Ainda não foram identificados recursos bibliográficos sobre este tema.</p></div>";
-      }
-      else {
-        echo $bibliografia;
-      }
-?>
-    </div>
-  </div>
-  <div class='container-fluid mt-5 py-2 rounded'>
-    <div class='row'>
-      <div class='col-11'><h2 id='videos'>Vídeos e aulas relacionados</h2></div>
-      <div class='col-1 h2 float-right'><a><i class='fal fa-plus-square'></i></a></div>
-    </div>
-    <div class='row'>
-<?php
-      if ($videos == false) {
-        echo "<div class='col-12'><p>Ainda não foram acrescentados links para vídeos e aulas sobre este tema.</p></div>";
-      }
-      else {
-        echo $videos;
-      }
-?>
+      <div class='col-2 text-center justify-content-center align-middle'>
+        <span class='align-middle'>Vídeos e aulas relacionados</span>
+      </div>
+      <div class='col-1 text-center justify-content-center align-middle'>
+          <?php echo "<span class='h4 text-center justify-content-center align-middle'><i class='fal fa-plus-square'></i></span>"; ?>
+      </div>
+      <div class='col-6 text-left'>
+        <?php
+          if ($videos == false) {
+            echo "<p>Aindda não foram acrescentados links para vídeos e aulas sobre este tema.</p>";
+          }
+          else {
+            echo "$videos";
+          }
+        ?>
+      </div>
     </div>
   </div>
-  <div class='container-fluid mt-5 py-2 rounded'>
+
+  <div class='container-fluid mt-5'>
     <div class='row'>
-      <div class='col-11'><h2 id='links'>Links externos</h2></div>
-      <div class='col-1 h2 float-right'><a><i class='fal fa-plus-square'></i></a></div>
-    </div>
-    <div class='row'>
-<?php
-      if ($links == false) {
-        echo "<div class='col-12'><p>Ainda não foram acrescentados links externos sobre este tema.</p></div>";
-      }
-      else {
-        echo $links;
-      }
-?>
-    </div>
-  </div>
-  <div class='container-fluid mt-5 py-2 rounded'>
-    <div class='row'>
-      <div class='col-11'><h2 id='anotacoes'>Minhas anotações</h2></div>
-      <div class='col-1 h2 float-right'><a><i class='fal fa-edit'></i></a></div>
-    </div>
-  </div>
-  <div class='container-fluid mt-5 py-2 rounded'>
-    <div class='row'>
-      <div class='col-12'><h2 id='questoes'>Questões de provas passadas</h2></div>
-    </div>
-    <div class='row'>
-<?php
-      $questoes = false;
-      if ($questoes == false) {
-        echo "<div class='col-12'><p>Não há registro de questão em provas passadas sobre este tema.</p></div>";
-      }
-      else {
-        echo $questoes;
-      }
-?>
+      <div class='col-2 text-center justify-content-center align-middle'>
+        <span class='align-middle'>Links externos</span>
+      </div>
+      <div class='col-1 text-center justify-content-center align-middle'>
+          <?php echo "<span class='h4 text-center justify-content-center align-middle'><i class='fal fa-plus-square'></i></span>"; ?>
+      </div>
+      <div class='col-6 text-left'>
+        <?php
+          if ($links == false) {
+            echo "<p>Ainda não foram acrescentados links externos sobre este tema.</p>";
+          }
+          else {
+            echo "$links";
+          }
+        ?>
+      </div>
     </div>
   </div>
-  <div class='container-fluid mt-5 py-2 rounded'>
+
+  <div class='container-fluid mt-5'>
     <div class='row'>
-      <div class='col-12'><h2 id='discussao'>Debate</h2></div>
-    </div>
-    <div class='row'>
-<?php
-      if ($discussao == false) {
-        echo "<div class='col-12'><p>Não há debate sobre este tema. Deixe aqui sua opinião!</p></div>";
-      }
-      else {
-        echo $discussao;
-      }
-?>
+      <div class='col-2 text-center justify-content-center align-middle'>
+        <span class='align-middle'>Minhas anotações</span>
+      </div>
+      <div class='col-1 text-center justify-content-center align-middle'>
+          <?php echo "<span class='h4 text-center justify-content-center align-middle'><i class='fal fa-edit'></i></span>"; ?>
+      </div>
+      <div class='col-6 text-left'>
+        <?php
+          $anotacoes = false;
+          if ($anotacoes == false) {
+            echo "<p>Você ainda não acrescentou suas próprias anotações sobre este tema.</p>";
+          }
+          else {
+            echo "$anotacoes";
+          }
+        ?>
+      </div>
     </div>
   </div>
-</div>
+
+  <div class='container-fluid mt-5'>
+    <div class='row'>
+      <div class='col-2 text-center justify-content-center align-middle'>
+        <span class='align-middle'>Questões de provas passadas</span>
+      </div>
+      <div class='col-1 text-center justify-content-center align-middle'></div>
+      <div class='col-6 text-left'>
+        <?php
+          if ($questoes == false) {
+            echo "<p>Não há registro de questões em provas passadas sobre este tema.</p>";
+          }
+          else {
+            echo "$questoes";
+          }
+        ?>
+      </div>
+    </div>
+  </div>
+
+  <div class='container-fluid mt-5'>
+    <div class='row'>
+      <div class='col-2 text-center justify-content-center align-middle'>
+        <span class='align-middle'>Debate</span>
+      </div>
+      <div class='col-1 text-center justify-content-center align-middle'></div>
+      <div class='col-6 text-left'>
+        <?php
+          if ($discussao == false) {
+            echo "<p>Não há debate sobre este tema. Deixe aqui sua opinião!</p>";
+          }
+          else {
+            echo "$discussao";
+          }
+        ?>
+      </div>
+    </div>
+  </div>
 </body>
 <?php
   load_footer();
