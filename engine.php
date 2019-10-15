@@ -206,7 +206,7 @@ function carregar_edicao_verbete($id_tema, $concurso) {
   echo "
   <form class='text-center px-2 my-2' method='post'>
     <fieldset>
-      <textarea class='textarea_verbete' name='verbete_texto'></textarea>
+      <textarea id='textarea_verbete' name='verbete_texto' class='rounded'></textarea>
     </fieldset>
     <fieldset>
       <button name='metatemas_automaticos' type='submit' class='btn btn-primary' value='$salvar'>Salvar</button>

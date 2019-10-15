@@ -99,3 +99,16 @@ logo {
 .cardmateria {
   cursor: pointer;
 }
+
+#textarea_verbete {
+  width: 100%;
+  padding-right: 5ch;
+  padding-left: 5ch;
+  padding-top: 5em;
+  padding-bottom: 5em;
+  min-height: 40em;
+  resize: none;
+  border-style: solid;
+  border-color: black;
+  border-width: 2px;
+}
