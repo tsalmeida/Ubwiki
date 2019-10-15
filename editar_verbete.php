@@ -14,7 +14,7 @@
   <body>
     <?php
     carregar_navbar();
-    standard_jumbotron("Edição de verbetes: $id_tema");
+    standard_jumbotron("Edição de verbete: $id_tema");
     ?>
     <div class="container my-5">
       <div class="row">
