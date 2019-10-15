@@ -85,7 +85,7 @@ if (isset($_GET['concurso'])) {
             $line = strtok($verbete, $separator);
 
             while ($line !== false) {
-                echo "<p>$line</p>";
+                echo "<p class='pv'>$line</p>";
                 $line = strtok( $separator );
             }
           }

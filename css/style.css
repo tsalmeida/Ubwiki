@@ -116,3 +116,7 @@ logo {
   border-width: 2px;
   font-size: 1.2rem;
 }
+
+.pv {
+  max-width: 65ch;
+}
