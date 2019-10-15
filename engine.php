@@ -133,14 +133,25 @@ function ler_edital($materia) {
   $conn->close();
 }
 
-function standard_jumbotron($titulo) {
-  echo "
-  <div class='container-fluid px-1 py-1 mb-0 text-center'>
-    <div class='jumbotron col-sm-12 mb-0'>
-      <h1 class='display-4 logo-jumbotron'>$titulo</h1>
+function standard_jumbotron($titulo, $link) {
+  if (!isset($link)) {
+    echo "
+    <div class='container-fluid px-1 py-1 mb-0 text-center'>
+      <div class='jumbotron col-sm-12 mb-0'>
+        <h1 class='display-4 logo-jumbotron'>$titulo</h1>
+      </div>
     </div>
-  </div>
-  ";
+    ";
+  }
+  else {
+    echo "
+    <div class='container-fluid px-1 py-1 mb-0 text-center'>
+      <div class='jumbotron col-sm-12 mb-0'>
+        <a href='$link'><h1 class='display-4 logo-jumbotron'>$titulo</h1></a>
+      </div>
+    </div>
+    ";
+  }
 }
 
 if (isset($_POST['salvar_verbete_texto'])) {
