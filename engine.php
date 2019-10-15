@@ -539,6 +539,8 @@ function carregar_edicao_temas($concurso) {
       $active1 = false;
       $active2 = false;
       $active3 = false;
+      $active4 = false;
+      $active5 = false;
       $id = $row['id'];
       $sigla_materia = $row['sigla_materia'];
       $metaid = $row['metaid'];
@@ -547,21 +549,21 @@ function carregar_edicao_temas($concurso) {
       $nivel3 = $row['nivel3'];
       $nivel4 = $row['nivel4'];
       $nivel5 = $row['nivel5'];
-      if ($nivel5 != false) { $active3 = 'active'; }
+      if ($nivel5 != false) { $active5 = 'active'; }
       elseif ($nivel4 != false) { $active4 = 'active'; }
       elseif ($nivel3 != false) { $active3 = 'active'; }
       elseif ($nivel2 != false) { $active2 = 'active'; }
       else { $active1 = 'active'; }
       echo "
         <ul class='list-group text-left'>
-          <li class='list-group-item'><strong>MATERIA:</strong> $sigla_materia</li>
-          <li class='list-group-item $active1'><strong>Nível 1:</strong> $nivel1</li>
-          <li class='list-group-item $active2'><strong>Nível 2:</strong> $nivel2</li>
-          <li class='list-group-item $active3'><strong>Nível 3:</strong> $nivel3</li>
-          <li class='list-group-item $active4'><strong>Nível 2:</strong> $nivel4</li>
-          <li class='list-group-item $active5'><strong>Nível 3:</strong> $nivel5</li>
-          <li class='list-group-item'><strong>ID:</strong> $id</li>
-          <li class='list-group-item'><strong>Metatema:</strong> $metaid</li>
+          <li class='list-group-item'><strong>MATERIA: </strong>$sigla_materia</li>
+          <li class='list-group-item $active1'><strong>Nível 1: </strong>$nivel1</li>
+          <li class='list-group-item $active2'><strong>Nível 2: </strong>$nivel2</li>
+          <li class='list-group-item $active3'><strong>Nível 3: </strong>$nivel3</li>
+          <li class='list-group-item $active4'><strong>Nível 2: </strong>$nivel4</li>
+          <li class='list-group-item $active5'><strong>Nível 3: </strong>$nivel5</li>
+          <li class='list-group-item'><strong>ID: </strong>$id</li>
+          <li class='list-group-item'><strong>Metatema: </strong>$metaid</li>
         </ul>";
       echo "
         <form class='text-center border border-light px-2 my-2' method='post'>
