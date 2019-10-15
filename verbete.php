@@ -81,7 +81,7 @@ if (isset($_GET['concurso'])) {
         </div>
       </div>
     </div>
-    <div class='row'>
+    <div class='row text-left'>
       <?php
         if ($verbete == false) {
           echo "<p>Não há, no momento, verbete consolidado para este tema.</p>";
