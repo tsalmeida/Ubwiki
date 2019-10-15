@@ -156,23 +156,29 @@ function carregar_pagina($sigla, $concurso) {
   }
   echo "<h2>Verbetes</h2>
   <ul class='list-group'>";
-  $result = $conn->query("SELECT id, nivel1, nivel2, nivel3 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla'");
+  $result = $conn->query("SELECT id, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla'");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $id = $row["id"];
       $nivel1 = $row["nivel1"];
       $nivel2 = $row["nivel2"];
       $nivel3 = $row["nivel3"];
-      if ($nivel3 == false) {
-        if ($nivel2 == false) {
-          echo "<a class='list-group-item list-group-item-action' href='verbete.php?concurso=$concurso&tema=$id'><strong>$nivel1</strong></a>";
-        }
-        else {
-          echo "<a class='list-group-item list-group-item-action' href='verbete.php?concurso=$concurso&tema=$id'><span class='ml-2'>$nivel2</span></a>";
-        }
+      $nivel4 = $row["nivel4"];
+      $nivel5 = $row["nivel5"];
+      if ($nivel5 != false) {
+        echo "<a class='list-group-item list-group-item-action' href='verbete.php?concurso=$concurso&tema=$id'><strong>$nivel5</strong></a>";
       }
-      else {
-        echo "<a class='list-group-item list-group-item-action' href='verbete.php?concurso=$concurso&tema=$id'><em><span class='ml-5'>$nivel3</span></em></a>";
+      elseif ($nivel4 != false) {
+        echo "<a class='list-group-item list-group-item-action' href='verbete.php?concurso=$concurso&tema=$id'><span class='ml-2'>$nivel4</span></a>";
+      }
+      elseif ($nivel3 != false) {
+        echo "<a class='list-group-item list-group-item-action' href='verbete.php?concurso=$concurso&tema=$id'><span class='ml-3'>$nivel3</span></a>";
+      }
+      elseif ($nivel2 != false) {
+        echo "<a class='list-group-item list-group-item-action' href='verbete.php?concurso=$concurso&tema=$id'><span class='ml-4'>$nivel2</span></a>";
+      }
+      elseif ($nivel1 != false) {
+        echo "<a class='list-group-item list-group-item-action' href='verbete.php?concurso=$concurso&tema=$id'><span class='ml-5'>$nivel1</span></a>";
       }
     }
   }
