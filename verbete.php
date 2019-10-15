@@ -73,34 +73,30 @@ if (isset($_GET['concurso'])) {
           <p class='h4'>Verbete consolidado</p>
         </div>
       </div>
-      <div class='col-lg-8'>
-        <div class='row'>
-          <div class'col-lg-11'>
-          </div>
-          <div class='col-lg-1'>
-            <?php echo "<div class='col-lg-1 h2 float-right'><a href='editar_verbete.php?concurso=$concurso&tema=$id_tema'><i class='fal fa-edit'></i></a></div>"; ?>
-          </div>
-        </div>
+      <div class='col-lg-2'>
+      <div class='col-lg-1'>
+        <?php echo "<div class='col-lg-1 h2 float-right'><a href='editar_verbete.php?concurso=$concurso&tema=$id_tema'><i class='fal fa-edit'></i></a></div>"; ?>
       </div>
-    <div>
-    <div class='row text-left'>
-      <?php
-        if ($verbete == false) {
-          echo "<p>Não há, no momento, verbete consolidado para este tema.</p>";
-        }
-        else {
-          $verbete = base64_decode($verbete);
-          $separator = "\r\n";
-          $line = strtok($verbete, $separator);
-
-          while ($line !== false) {
-              echo "<p>$line</p>";
-              $line = strtok( $separator );
-          }
-        }
-      ?>
     </div>
-  </div>
+    <div>
+      <div class='col-lg-9'>
+        <?php
+          if ($verbete == false) {
+            echo "<p>Não há, no momento, verbete consolidado para este tema.</p>";
+          }
+          else {
+            $verbete = base64_decode($verbete);
+            $separator = "\r\n";
+            $line = strtok($verbete, $separator);
+
+            while ($line !== false) {
+                echo "<p>$line</p>";
+                $line = strtok( $separator );
+            }
+          }
+        ?>
+      </div>
+    </div>
 
 
 <!-- avacalhado -->
