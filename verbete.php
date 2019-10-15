@@ -66,10 +66,10 @@ if (isset($_GET['concurso'])) {
       <a class='list-group-item list-group-item-action bg-lighter text-dark' href='#discussao'>Discussão</a>
     </ul>
   </div>
-  <div class='container-fluid'>
+  <div class='container-fluid mt-5'>
     <div class='row'>
-      <div class='col-lg-2 text-center align-middle'>
-        <p>Verbete consolidado</p>
+      <div class='col-lg-2 text-center'>
+        <span class='align-middle'>Verbete consolidado</span>
       </div>
       <div class='col-lg-1 text-center'>
         <?php echo "<div class='col-lg-1 h2 float-right'><a href='editar_verbete.php?concurso=$concurso&tema=$id_tema'><i class='fal fa-edit'></i></a></div>"; ?>
