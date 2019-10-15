@@ -137,7 +137,7 @@ function standard_jumbotron($titulo) {
   echo "
   <div class='container-fluid px-1 py-1 mb-3 text-center'>
     <div class='jumbotron col-sm-12 mb-0'>
-      <a href='index.php'><h1 class='display-4 logo-jumbotron'>$titulo</h1></a>
+      <h1 class='display-4 logo-jumbotron'>$titulo</h1>
     </div>
   </div>
   ";
