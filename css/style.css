@@ -108,6 +108,8 @@ logo {
   padding-bottom: 5em;
   min-height: 40em;
   resize: none;
+  outline: none;
+  word-wrap: normal;
   border-style: solid;
   border-color: black;
   border-width: 2px;
