@@ -44,7 +44,6 @@ if ($result->num_rows > 0) {
         $conn = new mysqli($servername, $username, $password, $dbname);
         mysqli_set_charset($conn,"utf8");
         $result = $conn->query("SELECT materia FROM Materias WHERE concurso = '$concurso' AND estado = 1 AND sigla = '$sigla' ORDER BY ordem");
-        echo "<h1 class='mb-5'>Índice</h1>";
         if ($materia == false) {
           echo "<h4>Página não-encontrada</h4>
           <p>Clique <a href='index.php'>aqui</a> para retornar.</p>
