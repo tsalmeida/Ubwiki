@@ -70,6 +70,7 @@ logo {
 
 .height5vh {
   height: 5vh;
+  margin-bottom: 0;
 }
 
 .searchBar {
