@@ -19,7 +19,6 @@ if (isset($_GET['concurso'])) {
   <body>
     <?php
     carregar_navbar();
-    standard_jumbotron();
 
     $servername = "localhost";
     $username = "grupoubique";
@@ -58,8 +57,7 @@ if (isset($_GET['concurso'])) {
       }
     }
     $conn->close();
-
-    echo "<h1 class='mb-5'>$tema</h1>";
+    standard_jumbotron($tema);
     ?>
     <div class='container my-5 col-lg-12'>
       <div class='row'>

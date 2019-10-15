@@ -19,7 +19,7 @@ if (isset($_GET['concurso'])) {
   <body>
     <?php
     carregar_navbar();
-    standard_jumbotron();
+    standard_jumbotron($sigla);
     ?>
     <div class="container my-5">
       <div class="row">
