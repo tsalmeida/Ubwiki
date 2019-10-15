@@ -69,16 +69,11 @@ if (isset($_GET['concurso'])) {
   <div class='container-fluid text-center'>
     <div class='row'>
       <div class='col-lg-2'>
-        <div class='row'>
-          <p class='h4'>Verbete consolidado</p>
-        </div>
+        <p class='h4'>Verbete consolidado</p>
       </div>
-      <div class='col-lg-2'>
       <div class='col-lg-1'>
         <?php echo "<div class='col-lg-1 h2 float-right'><a href='editar_verbete.php?concurso=$concurso&tema=$id_tema'><i class='fal fa-edit'></i></a></div>"; ?>
       </div>
-    </div>
-    <div>
       <div class='col-lg-9'>
         <?php
           if ($verbete == false) {
