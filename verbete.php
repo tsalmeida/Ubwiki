@@ -99,7 +99,7 @@ if (isset($_GET['concurso'])) {
       <div class='col-2 text-center justify-content-center align-middle'>
         <span class='align-middle'>Imagens de apoio</span>
       </div>
-      <div class='col-1 text-center justify-content-center align-middle'>
+      <div class='col-1 text-center justify-content-center align-middle border-right border-dark'>
           <?php echo "<span class='h4 text-center justify-content-center align-middle'><a><i class='fal fa-plus-square'></i></span></a>"; ?>
       </div>
       <div class='col-6 text-left'>
