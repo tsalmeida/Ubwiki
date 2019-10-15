@@ -46,7 +46,7 @@ if ($result->num_rows > 0) {
         $result = $conn->query("SELECT materia FROM Materias WHERE concurso = '$concurso' AND estado = 1 AND sigla = '$sigla' ORDER BY ordem");
         echo "<h1 class='mb-5'>Índice</h1>";
         if ($materia == false) {
-          echo "<h1>Página não-encontrada</h1>
+          echo "<h4>Página não-encontrada</h4>
           <p>Clique <a href='index.php'>aqui</a> para retornar.</p>
           ";
           return;
