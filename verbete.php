@@ -71,7 +71,7 @@ if (isset($_GET['concurso'])) {
       <div class='col-2 text-center justify-content-center align-middle'>
         <span class='align-middle'>Verbete consolidado</span>
       </div>
-      <div class='col-3 text-center justify-content-center align-middle'>
+      <div class='col-1 text-center justify-content-center align-middle'>
           <?php echo "<span class='h4 text-center justify-content-center align-middle'><a href='editar_verbete.php?concurso=$concurso&tema=$id_tema'><i class='fal fa-edit'></i></a></span>"; ?>
       </div>
       <div class='col-6 text-left'>
