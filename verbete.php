@@ -65,7 +65,7 @@ if (isset($_GET['concurso'])) {
         <div class='col-lg-2'>
           <div class='container-fluid mb-5 py-2 bg-lighter rounded'>
             <div class='row'>
-              <h4>Índice</h4>
+              <div class='col-lg-12'><h2>Índice</h2></div>
             </div>
             <div class='row mt-2'>
               <div class='col-lg-12'>
