@@ -207,8 +207,12 @@ function carregar_edicao_verbete($id_tema, $concurso) {
   <form class='text-center border border-light px-2 my-2' method='post'>
     <p class='h4 my-4'>Edição de verbete</p>
     <p class='text-left'>Recomenda-se escrever em um meio termo entre a linguagem da Wikipédia e a da etapa discursiva do concurso.</p>
-    <textarea class='textarea_verbete' name='verbete_texto'></textarea>
-    <button name='metatemas_automaticos' type='submit' class='btn btn-primary' value='$salvar'>Salvar</button>
+    <div class='row'>
+      <textarea class='textarea_verbete' name='verbete_texto'></textarea>
+    </div>
+    <div class='row'>
+      <button name='metatemas_automaticos' type='submit' class='btn btn-primary' value='$salvar'>Salvar</button>
+    </div>
   </form>
   ";
 }

@@ -101,3 +101,6 @@ if (isset($_POST['novo_metatema_id'])) {
   <p class='text-left'>Ao pressionar o botão abaixo, todos os metatemas não-registrados serão automaticamente criados, baseados no título do tema.</p>
   <button name='metatemas_automaticos' type='submit' class='btn btn-primary' value='$concurso'>criar metatemas automaticos</button>
 </form>
+
+<p class='text-left'>Utiliza-se esta ferramenta para alterar a estrutura de temas do edital dos concursos. Alguns temas do edital são muito vagos, exigindo que sejam criadas novas sub-entradas. Outros incluem vários temas ao mesmo tempo, precisando ser divididos em várias entradas. É necessário, ainda, determinar uma metalinguagem permanente, que seja independente do texto do edital, que será reconhecida pelo sistema como correspondente àquele tema.</p>
+<p class='text-left'>A matéria listada abaixo está marcada para revisão.</p>
