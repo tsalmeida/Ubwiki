@@ -228,6 +228,7 @@ if (isset($_POST['salvar_verbete_texto'])) {
   $concurso = $concursoid[0];
   $id_tema = $concursoid[1];
   $novo_verbete = $_POST['verbete_texto'];
+  $novo_verbete = strip_tags($novo_verbete);
   $novo_verbete = base64_encode($novo_verbete);
   $servername = "localhost";
   $username = "grupoubique";
