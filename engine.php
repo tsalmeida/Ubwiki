@@ -218,8 +218,8 @@ function carregar_edicao_verbete($id_tema, $concurso) {
 if (isset($_POST['salvar_verbete_texto'])) {
   $concursoid = $_POST['salvar_verbete_texto'];
   $concursoid = unserialize($concursoid);
-  $concurso = $concursoid[1];
-  $id = $concursoid[2];
+  $concurso = $concursoid[0];
+  $id = $concursoid[1];
   $novo_verbete = $_POST['verbete_texto'];
   $novo_verbete = base64_encode($novo_verbete);
   $servername = "localhost";
