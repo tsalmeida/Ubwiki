@@ -206,7 +206,7 @@ function carregar_edicao_verbete($id_tema, $concurso) {
       $verbete_consolidado = $row['verbete'];
     }
   }
-  // $verbete_consolidado = base64_decode($verbete_consolidado);
+  $verbete_consolidado = base64_decode($verbete_consolidado);
   $salvar = array($concurso, $id_tema);
   $salvar = serialize($salvar);
   echo "<h1 class='mb-5'>$tema</h1>";
