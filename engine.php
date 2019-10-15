@@ -1,7 +1,7 @@
 <?php
 
 function carregar_navbar() {
-  echo "<nav class='navbar navbar-expand-lg bg-white height10vh py-0'>
+  echo "<nav class='navbar navbar-expand-lg bg-white height5vh py-0'>
     <a class='navbar-brand align-top' href='index.php'><h2>Ubwiki</h2></a>
     <ul class='nav navbar-nav ml-auto'>
       <li><a class='navlink float-right h5 align-top' href='userpage.php'>Minha conta</a></li>
