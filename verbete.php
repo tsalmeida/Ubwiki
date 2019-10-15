@@ -100,7 +100,7 @@ if (isset($_GET['concurso'])) {
         <span class='align-middle'>Imagens de apoio</span>
       </div>
       <div class='col-1 text-center justify-content-center align-middle'>
-          <?php echo "<span class='h4 text-center justify-content-center align-middle'><i class='fal fa-plus-square'></i></span>"; ?>
+          <?php echo "<span class='h4 text-center justify-content-center align-middle'><a><i class='fal fa-plus-square'></i></span></a>"; ?>
       </div>
       <div class='col-6 text-left'>
         <?php
@@ -140,7 +140,7 @@ if (isset($_GET['concurso'])) {
         <span class='align-middle'>Bibliografia pertinente</span>
       </div>
       <div class='col-1 text-center justify-content-center align-middle'>
-          <?php echo "<span class='h4 text-center justify-content-center align-middle'><i class='fal fa-plus-square'></i></span>"; ?>
+          <?php echo "<span class='h4 text-center justify-content-center align-middle'><a><i class='fal fa-plus-square'></i></span></a>"; ?>
       </div>
       <div class='col-6 text-left'>
         <?php
@@ -161,12 +161,12 @@ if (isset($_GET['concurso'])) {
         <span class='align-middle'>Vídeos e aulas relacionados</span>
       </div>
       <div class='col-1 text-center justify-content-center align-middle'>
-          <?php echo "<span class='h4 text-center justify-content-center align-middle'><i class='fal fa-plus-square'></i></span>"; ?>
+          <?php echo "<span class='h4 text-center justify-content-center align-middle'><a><i class='fal fa-plus-square'></i></span></a>"; ?>
       </div>
       <div class='col-6 text-left'>
         <?php
           if ($videos == false) {
-            echo "<p>Aindda não foram acrescentados links para vídeos e aulas sobre este tema.</p>";
+            echo "<p>Ainda não foram acrescentados links para vídeos e aulas sobre este tema.</p>";
           }
           else {
             echo "$videos";
@@ -182,7 +182,7 @@ if (isset($_GET['concurso'])) {
         <span class='align-middle'>Links externos</span>
       </div>
       <div class='col-1 text-center justify-content-center align-middle'>
-          <?php echo "<span class='h4 text-center justify-content-center align-middle'><i class='fal fa-plus-square'></i></span>"; ?>
+          <?php echo "<span class='h4 text-center justify-content-center align-middle'><a><i class='fal fa-plus-square'></i></span></a>"; ?>
       </div>
       <div class='col-6 text-left'>
         <?php
@@ -203,7 +203,7 @@ if (isset($_GET['concurso'])) {
         <span class='align-middle'>Minhas anotações</span>
       </div>
       <div class='col-1 text-center justify-content-center align-middle'>
-          <?php echo "<span class='h4 text-center justify-content-center align-middle'><i class='fal fa-edit'></i></span>"; ?>
+          <?php echo "<span class='h4 text-center justify-content-center align-middle'><a><i class='fal fa-edit'></i></span></a>"; ?>
       </div>
       <div class='col-6 text-left'>
         <?php
