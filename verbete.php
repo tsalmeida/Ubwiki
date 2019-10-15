@@ -2,11 +2,6 @@
   include 'engine.php';
   top_page();
 
-// else {
-//   $materia = "geral";
-//   header("materias.php?materia=$materia&concurso=$concurso");
-// }
-
 if (isset($_GET['tema'])) {
   $id_tema = $_GET['tema'];
 }
@@ -59,17 +54,17 @@ if (isset($_GET['concurso'])) {
     $conn->close();
     standard_jumbotron($tema);
     ?>
-    <div class='container-fluid my-5 col-lg-12 bg-lighter'>
+    <div class='container-fluid py-3 col-lg-12 bg-lighter'>
       <ul class='list-group list-group-horizontal'>
-        <a class='list-group-item list-group-item-action' href='#verbete'>Verbete consolidado</a>
-        <a class='list-group-item list-group-item-action' href='#imagens'>Imagens de apoio</a>
-        <a class='list-group-item list-group-item-action' href='#verbetes'>Verbetes relacionados</a>
-        <a class='list-group-item list-group-item-action' href='#bibliografia'>Bibliografia pertinente</a>
-        <a class='list-group-item list-group-item-action' href='#videos'>Vídeos e aulas relacionados</a>
-        <a class='list-group-item list-group-item-action' href='#links'>Links externos</a>
-        <a class='list-group-item list-group-item-action' href='#anotacoes'>Minhas anotações</a>
-        <a class='list-group-item list-group-item-action' href='#questoes'>Questões de provas passadas</a>
-        <a class='list-group-item list-group-item-action' href='#discussao'>Discussão</a>
+        <a class='list-group-item list-group-item-action bg-lighter' href='#verbete'>Verbete consolidado</a>
+        <a class='list-group-item list-group-item-action bg-lighter' href='#imagens'>Imagens de apoio</a>
+        <a class='list-group-item list-group-item-action bg-lighter' href='#verbetes'>Verbetes relacionados</a>
+        <a class='list-group-item list-group-item-action bg-lighter' href='#bibliografia'>Bibliografia pertinente</a>
+        <a class='list-group-item list-group-item-action bg-lighter' href='#videos'>Vídeos e aulas relacionados</a>
+        <a class='list-group-item list-group-item-action bg-lighter' href='#links'>Links externos</a>
+        <a class='list-group-item list-group-item-action bg-lighter' href='#anotacoes'>Minhas anotações</a>
+        <a class='list-group-item list-group-item-action bg-lighter' href='#questoes'>Questões de provas passadas</a>
+        <a class='list-group-item list-group-item-action bg-lighter' href='#discussao'>Discussão</a>
       </ul>
     </div>
         <div class='col-lg-8'>
@@ -100,6 +95,7 @@ if (isset($_GET['concurso'])) {
               }
 ?>
           </div>
+        </div>
           <div class='container-fluid mb-5 py-2 bg-lighter rounded'>
             <div class='row'>
               <div class='col-lg-11'><h2 id='imagens'>Imagens de apoio</h2></div>
@@ -217,9 +213,6 @@ if (isset($_GET['concurso'])) {
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
 </body>
 <?php
   load_footer();
