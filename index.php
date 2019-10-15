@@ -4,12 +4,7 @@ top_page();
 $concurso = "CACD";
 ?>
   <body>
-    <nav class="navbar navbar-expand-lg bg-white height10vh py-0">
-      <a class="navbar-brand align-top" href="index.php"><h2>Ubwiki</h2></a>
-      <ul class="nav navbar-nav ml-auto">
-        <li><a class="navlink float-right h5 align-top" href="userpage.php">Minha conta</a></li>
-      </ul>
-    </nav>
+    <?php carregar_navbar(); ?>
     <div class="container-fluid text-center bg-white justify-content-center height50vh">
       <div class="row justify-content-center">
           <div class="col-sm-2">

@@ -18,6 +18,7 @@ if (isset($_GET['concurso'])) {
   ?>
   <body>
     <?php
+    carregar_navbar();
     standard_jumbotron();
 
     $servername = "localhost";
