@@ -39,12 +39,15 @@
     carregar_navbar();
     standard_jumbotron($tema, "verbete.php?concurso=$concurso&tema=$id_tema");
 ?>
+    <div class='container-fluid py-3 col-lg-12 bg-lighter text-center'>
+      <h1 class='mb-5'>Edição de verbete</h1>
+    </div>
     <div class="container my-5">
       <div class="row">
         <div class="col-sm-2"></div>
         <div class="col-sm-8">
 <?php
-            echo "<h1 class='mb-5'>Edição de verbete</h1>
+            echo "
             <form class='text-center px-2 my-2' method='post'>
               <fieldset>
                 <textarea id='textarea_verbete' name='verbete_texto' class='rounded'>$verbete_consolidado</textarea>
