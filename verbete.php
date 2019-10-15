@@ -54,7 +54,7 @@ if (isset($_GET['concurso'])) {
     $conn->close();
     standard_jumbotron($tema);
     ?>
-    <div class='container-fluid py-3 col-lg-12 bg-lighter'>
+    <div class='container-fluid py-3 col-lg-12 bg-lighter text-center'>
       <ul class='list-group list-group-horizontal'>
         <a class='list-group-item list-group-item-action bg-lighter text-dark' href='#verbete'>Verbete consolidado</a>
         <a class='list-group-item list-group-item-action bg-lighter text-dark' href='#imagens'>Imagens de apoio</a>
