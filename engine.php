@@ -200,13 +200,13 @@ function carregar_edicao_verbete($id_tema, $concurso) {
       $tema = $row['chave'];
     }
   }
-  $verbete_results = $conn->query("SELECT verbete FROM Verbetes WHERE concurso = '$concurso' AND id_tema = '$id_tema'");
+  $verbete_results = $conn->query("SELECT verbete FROM Verbetes WHERE concurso = '$concurso' AND id_tema = $id_tema");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $verbete_consolidado = $row['verbete'];
     }
   }
-  $verbete_consolidado = base64_decode($verbete_consolidado);
+  // $verbete_consolidado = base64_decode($verbete_consolidado);
   $salvar = array($concurso, $id_tema);
   $salvar = serialize($salvar);
   echo "<h1 class='mb-5'>$tema</h1>";
@@ -241,9 +241,10 @@ if (isset($_POST['salvar_verbete_texto'])) {
     $result = $conn->query("INSERT INTO Verbetes (id_tema, concurso, verbete) VALUES ('$id_tema', '$concurso', '$novo_verbete')");
   }
   else {
-    $result = $conn->query("UPDATE Verbetes (id_tema, concurso, verbete) VALUES ('$id_tema', '$concurso', '$novo_verbete')");
+    $result = $conn->query("UPDATE Verbetes (verbete) VALUES ('$novo_verbete')");
   }
 }
+
 if (isset($_POST['reconstruir_concurso'])) {
   $concurso = $_POST['reconstruir_concurso'];
   reconstruir_searchbar($concurso);
