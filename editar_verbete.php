@@ -10,7 +10,13 @@
     $concurso = $_GET['concurso'];
   }
 
+  $servername = "localhost";
+  $username = "grupoubique";
+  $password = "ubique patriae memor";
+  $dbname = "Ubique";
   $found = false;
+  $conn = new mysqli($servername, $username, $password, $dbname);
+  mysqli_set_charset($conn,"utf8");
   $result = $conn->query("SELECT chave FROM Searchbar WHERE concurso = '$concurso' AND sigla = $id_tema");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
