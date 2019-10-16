@@ -80,7 +80,7 @@ function bottom_page() {
 
 function load_footer() {
   $args = func_get_args();
-  if $args[0] == "fixed" {$fixed = "position-fixed";}
+  if ($args[0] == "fixed") {$fixed = "position-fixed";}
   else {$fixed = false;}
   echo '
     <footer class="footer-copyright bg-lighter text-dark text-center font-small mt-2 $fixed">
