@@ -34,15 +34,14 @@
             </form>
           </div>
         </div>
-        <div class="row justify-content-center mt-5">
-          <div class="col-lg-7 col-sm-12">
+        <div class="row justify-content-around mt-5">
             <?php
-                $row_items = 4;
+                $row_items = 2;
                 $result = $conn->query("SELECT sigla, materia, ordem  FROM Materias WHERE concurso = '$concurso' AND estado = 1 ORDER BY ordem");
                 if ($result->num_rows > 0) {
                   $count = 0;
                   while($row = $result->fetch_assoc()) {
-                    if ($count == 0) { echo "<div class='row justify-content-around px-2'>"; }
+                    if ($count == 0) { echo "<div class='col-lg-3'>"; }
                     $count++;
                     $sigla = $row["sigla"];
                     $materia = $row["materia"];
@@ -59,7 +58,6 @@
                 }
                 $conn->close();
             ?>
-          </div>
         </div>
       </div>
     </div>
