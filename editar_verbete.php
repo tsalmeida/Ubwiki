@@ -41,7 +41,7 @@
             <form method='post'>
               <div class='row justify-content-center'>
                 <div class='col-12'>
-                  <textarea id='editor' name='verbete_texto' class='rounded textarea_verbete px-2 py-3 my-2'>$verbete_consolidado</textarea>
+                  <textarea id='editor' name='verbete_texto' class='rounded textarea_verbete px-3 py-4 my-2'>$verbete_consolidado</textarea>
                 </div>
               </div>
               <div class='row justify-content-center'>
