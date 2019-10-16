@@ -114,9 +114,9 @@ function ler_cartoes($concurso, $row_itens) {
       $sigla = $row["sigla"];
       $materia = $row["materia"];
       echo "
-        <a href='materia.php?sigla=$sigla&concurso=$concurso'><div class='col-2 bg-lighter mx-3 my-3 py-0 px-1 rounded bdark cardmateria text-break text-center'>
+        <div href='materia.php?sigla=$sigla&concurso=$concurso' class='col-2 bg-lighter mx-3 my-3 py-0 px-1 rounded bdark cardmateria text-break text-center'>
           <small class='text-muted text-uppercase smaller align-middle'>$materia</small>
-        </div></a>
+        </div>
       ";
       if ($count == $row_itens) {
         echo "</div>";
@@ -196,10 +196,6 @@ if (isset($_POST['salvar_verbete_texto'])) {
 
 if (isset($_POST['reconstruir_concurso'])) {
   $concurso = $_POST['reconstruir_concurso'];
-  reconstruir_searchbar($concurso);
-}
-
-function reconstruir_searchbar($concurso) {
   $servername = "localhost";
   $username = "grupoubique";
   $password = "ubique patriae memor";
