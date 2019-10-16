@@ -26,9 +26,9 @@
     $concursoid = unserialize($concursoid);
     $concurso = $concursoid[0];
     $id_tema = $concursoid[1];
-    $novo_verbete = $_POST['verbete_texto'];
-    $novo_verbete = strip_tags($novo_verbete);
-    $novo_verbete = base64_encode($novo_verbete);
+    $verbete_texto = $_POST['verbete_texto'];
+    $verbete_texto = strip_tags($verbete_texto);
+    $novo_verbete = base64_encode($verbete_texto);
     $found = false;
     mysqli_set_charset($conn,"utf8");
     $result = $conn->query("SELECT verbete FROM Verbetes WHERE concurso = '$concurso' AND id_tema = $id_tema");
@@ -39,7 +39,7 @@
     else {
       $result = $conn->query("INSERT INTO Verbetes (id_tema, concurso, verbete) VALUES ('$id_tema', '$concurso', '$novo_verbete')");
     }
-    $verbete_consolidado = $novo_verbete;
+    $verbete_consolidado = $verbete_texto;
   }
 
   $result = $conn->query("SELECT chave FROM Searchbar WHERE concurso = '$concurso' AND sigla = $id_tema");
