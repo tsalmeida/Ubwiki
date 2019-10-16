@@ -41,46 +41,7 @@ function top_page() {
       while (isset($args[$array])) {
         if ($args[$array] == "quill") {
           echo "
-            var Delta = Quill.import('delta');
-            var quill = new Quill('#quill_editor', {
-              modules: {
-                toolbar: true
-              },
-              placeholder: 'Compose an epic...',
-              theme: 'snow'
-            });
 
-            // Store accumulated changes
-            var change = new Delta();
-            quill.on('text-change', function(delta) {
-              change = change.compose(delta);
-            });
-
-            // Save periodically
-            setInterval(function() {
-              if (change.length() > 0) {
-                console.log('Saving changes', change);
-                /*
-                Send partial changes
-                $.post('/your-endpoint', {
-                  partial: JSON.stringify(change)
-                });
-
-                Send entire document
-                $.post('/your-endpoint', {
-                  doc: JSON.stringify(quill.getContents())
-                });
-                */
-                change = new Delta();
-              }
-            }, 5*1000);
-
-            // Check for unsaved data
-            window.onbeforeunload = function() {
-              if (change.length() > 0) {
-                return 'There are unsaved changes. Are you sure you want to leave?';
-              }
-            }
           ";
         }
         elseif ($args[$array] == "onepage") {
@@ -119,19 +80,7 @@ function bottom_page() {
     $array = 0;
     while (isset($args[$array])) {
       if ($args[$array] == "quill") {
-        echo '
-        <!-- Include the Quill library -->
-        <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-        ';
-        echo "
 
-
-        <!-- Initialize Quill editor -->
-        <script>
-          var quill = new Quill('#quill_editor', {
-            theme: 'snow'
-          });
-        </script>
         ";
       }
       $array++;
