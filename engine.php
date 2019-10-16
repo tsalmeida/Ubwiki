@@ -48,7 +48,7 @@ function bottom_page() {
 
 function load_footer() {
   echo '
-    <footer class="footer-copyright bg-lighter text-dark text-center font-small">
+    <footer class="footer-copyright bg-lighter text-dark text-center font-small mt-5">
       <p class="mb-0">A Ubwiki é uma ferramenta de uso público e gratuito. Todos os direitos são reservados ao Grupo Ubique. Siga <a href="termos.php" target="_blank">este</a> link para rever os termos e condições de uso da página.</p>
     </footer>
   ';
@@ -98,9 +98,9 @@ function ler_cartoes($concurso, $row_itens) {
       $sigla = $row["sigla"];
       $materia = $row["materia"];
       echo "
-        <div class='col-2 bg-lighter mx-3 my-3 py-0 px-1 rounded bdark cardmateria text-break text-center' href='materia.php?sigla=$sigla&concurso=$concurso'>
+        <a href='materia.php?sigla=$sigla&concurso=$concurso'><div class='col-2 bg-lighter mx-3 my-3 py-0 px-1 rounded bdark cardmateria text-break text-center'>
           <small class='text-muted text-uppercase smaller align-middle'>$materia</small>
-        </div>
+        </div></a>
       ";
       if ($count == $row_itens) {
         echo "</div>";
