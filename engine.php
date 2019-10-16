@@ -100,7 +100,7 @@ function ler_cartoes($concurso, $row_itens) {
       $sigla = $row["sigla"];
       $materia = $row["materia"];
       echo "
-        <div class='col-2 bg-lighter mx-3 my-3 py-0 px-1 rounded bdark cardmateria text-break' href='materia.php?sigla=$sigla&concurso=$concurso'>
+        <div class='col-2 bg-lighter mx-3 my-3 py-0 px-1 rounded bdark cardmateria text-break align-middle text-center' href='materia.php?sigla=$sigla&concurso=$concurso'>
           <small class='text-muted text-uppercase smaller'>$materia</small>
         </div>
       ";
