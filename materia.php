@@ -34,7 +34,7 @@ if ($result->num_rows > 0) {
 
   <div class="container my-5">
     <div class="row justify-content-center">
-      <div class="col-8">
+      <div class="col-lg-8 col-sm-12">
 <?php
         $servername = "localhost";
         $username = "grupoubique";
