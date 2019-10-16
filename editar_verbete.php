@@ -33,9 +33,9 @@
     standard_jumbotron($tema, "verbete.php?concurso=$concurso&tema=$id_tema");
     sub_jumbotron("Edição de verbete", false);
 ?>
-    <div class="container-fluid my-5">
+    <div class="container-fluid">
       <div class="row text-center justify-content-center">
-        <div class="col-lg-8 col-sm-12 px-2 my-2">
+        <div class="col-lg-8 col-sm-12">
 <?php
             echo "
             <form method='post'>
