@@ -35,7 +35,7 @@
           </div>
         </div>
         <div class="row justify-content-center mt-5">
-          <div class="col-lg-7 col-sm-12">
+          <div class="col-lg-8 col-sm-12">
             <?php
                 $row_items = 4;
                 $servername = "localhost";
