@@ -35,6 +35,7 @@
           </div>
         </div>
         <div class="row mt-5">
+          <div class='col-lg-8 col-sm-12'>
             <?php
                 $row_items = 2;
                 $result = $conn->query("SELECT sigla, materia, ordem  FROM Materias WHERE concurso = '$concurso' AND estado = 1 ORDER BY ordem");
@@ -58,6 +59,7 @@
                 }
                 $conn->close();
             ?>
+          </div>
         </div>
       </div>
     </div>
