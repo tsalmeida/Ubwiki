@@ -1,5 +1,12 @@
 <?php
 
+$servername = "localhost";
+$username = "grupoubique";
+$password = "ubique patriae memor";
+$dbname = "Ubique";
+$conn = new mysqli($servername, $username, $password, $dbname);
+mysqli_set_charset($conn,"utf8");
+
 function carregar_navbar() {
   echo "<nav class='navbar navbar-expand-lg bg-white'>
     <a class='navbar-brand align-top' href='index.php'><h2>Ubwiki</h2></a>
@@ -31,7 +38,7 @@ function top_page() {
 
     if ($args != false) {
       $array = 0;
-      while ($args[$array] != false) {
+      while (isset($args[$array])) {
         if ($args[$array] == "quill") {
           echo '
             <!-- Main Quill library -->
@@ -76,6 +83,7 @@ function bottom_page() {
   <script type="text/javascript" charset="UTF-8" src="engine.js"></script>
   </html>
   ';
+  $conn->close();
 }
 
 function load_footer() {
@@ -118,12 +126,6 @@ function extract_zoho($linkplanilha, $authtoken, $ownername, $materia, $scope) {
 }
 
 function ler_edital($materia) {
-  $servername = "localhost";
-  $username = "grupoubique";
-  $password = "ubique patriae memor";
-  $dbname = "Ubique";
-  $conn = new mysqli($servername, $username, $password, $dbname);
-  mysqli_set_charset($conn,"utf8");
   $sql = "SELECT etiqueta, materia, superior FROM Etiquetas";
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
@@ -136,7 +138,6 @@ function ler_edital($materia) {
       }
     }
   }
-  $conn->close();
 }
 
 function standard_jumbotron($titulo, $link) {
@@ -178,13 +179,7 @@ if (isset($_POST['salvar_verbete_texto'])) {
   $novo_verbete = $_POST['verbete_texto'];
   $novo_verbete = strip_tags($novo_verbete);
   $novo_verbete = base64_encode($novo_verbete);
-  $servername = "localhost";
-  $username = "grupoubique";
-  $password = "ubique patriae memor";
-  $dbname = "Ubique";
   $found = false;
-  $conn = new mysqli($servername, $username, $password, $dbname);
-  mysqli_set_charset($conn,"utf8");
   $result = $conn->query("SELECT verbete FROM Verbetes WHERE concurso = '$concurso' AND id_tema = '$id_tema'");
   if ($result != false) {
     $result = $conn->query("INSERT INTO Verbetes (id_tema, concurso, verbete) VALUES ('$id_tema', '$concurso', '$novo_verbete')");
@@ -196,13 +191,7 @@ if (isset($_POST['salvar_verbete_texto'])) {
 
 if (isset($_POST['reconstruir_concurso'])) {
   $concurso = $_POST['reconstruir_concurso'];
-  $servername = "localhost";
-  $username = "grupoubique";
-  $password = "ubique patriae memor";
-  $dbname = "Ubique";
   $ordem = 0;
-  $conn = new mysqli($servername, $username, $password, $dbname);
-  mysqli_set_charset($conn,"utf8");
   $conn->query("DELETE FROM Searchbar WHERE concurso = '$concurso'");
   $result = $conn->query("SELECT sigla, materia FROM Materias WHERE concurso = '$concurso' AND estado = 1 ORDER BY ordem");
   if ($result->num_rows > 0) {
@@ -240,16 +229,9 @@ if (isset($_POST['reconstruir_concurso'])) {
       }
     }
   }
-  $conn->close();
 }
 
 function readSearchOptions($concurso) {
-  $servername = "localhost";
-  $username = "grupoubique";
-  $password = "ubique patriae memor";
-  $dbname = "Ubique";
-  $conn = new mysqli($servername, $username, $password, $dbname);
-  mysqli_set_charset($conn,"utf8");
   $result = $conn->query("SELECT chave FROM Searchbar WHERE concurso = '$concurso' ORDER BY ordem");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
@@ -257,20 +239,13 @@ function readSearchOptions($concurso) {
       echo "<option>$chave</option>";
     }
   }
-  $conn->close();
 }
 
 if (isset($_POST['sbcommand'])) {
   $concurso = base64_decode($_POST['sbconcurso']);
   $command = base64_decode($_POST['sbcommand']);
   $command = utf8_encode($command);
-  $servername = "localhost";
-  $username = "grupoubique";
-  $password = "ubique patriae memor";
-  $dbname = "Ubique";
   $found = false;
-  $conn = new mysqli($servername, $username, $password, $dbname);
-  mysqli_set_charset($conn,"utf8");
   $result = $conn->query("SELECT sigla, tipo FROM Searchbar WHERE concurso = '$concurso' AND chave = '$command' ORDER BY ordem");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
@@ -278,12 +253,10 @@ if (isset($_POST['sbcommand'])) {
       $tipo = $row["tipo"];
       if ($tipo == "materia") {
         echo "foundfoundfoundfmateria.php?sigla=$sigla&concurso=$concurso";
-        $conn->close();
         return;
       }
       elseif ($tipo == "tema") {
         echo "foundfoundfoundfverbete.php?concurso=$concurso&tema=$sigla";
-        $conn->close();
         return;
       }
     }
@@ -299,7 +272,6 @@ if (isset($_POST['sbcommand'])) {
       $check = levenshtein($chavelow, $commandlow, 1, 1, 1);
 			if (strpos($chavelow, $commandlow) !== false) {
         echo "notfoundnotfound$chave";
-        $conn->close();
 				return;
 			}
       elseif ($check < $index) {
@@ -310,12 +282,10 @@ if (isset($_POST['sbcommand'])) {
     $length = strlen($command);
     if ($index < $length) {
       echo "notfoundnotfound$winner";
-      $conn->close();
       return;
     }
   }
   echo "nada foi encontrado";
-  $conn->close();
   return;
 }
 
@@ -325,13 +295,7 @@ if (isset($_POST['metalinguagem_concurso'])) {
 }
 
 function carregar_edicao_temas($concurso) {
-  $servername = "localhost";
-  $username = "grupoubique";
-  $password = "ubique patriae memor";
-  $dbname = "Ubique";
   $found = false;
-  $conn = new mysqli($servername, $username, $password, $dbname);
-  mysqli_set_charset($conn,"utf8");
   $result = $conn->query("SELECT id, sigla_materia, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND ciclo_revisao = 0 ORDER BY id");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
@@ -377,13 +341,7 @@ function carregar_edicao_temas($concurso) {
 
 if (isset($_POST['reiniciar_ciclo'])) {
   $concurso = $_POST['reiniciar_ciclo'];
-  $servername = "localhost";
-  $username = "grupoubique";
-  $password = "ubique patriae memor";
-  $dbname = "Ubique";
   $found = false;
-  $conn = new mysqli($servername, $username, $password, $dbname);
-  mysqli_set_charset($conn,"utf8");
   $result = $conn->query("UPDATE Temas SET ciclo_revisao = 0 WHERE concurso = '$concurso'");
 }
 
