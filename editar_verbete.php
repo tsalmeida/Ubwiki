@@ -38,7 +38,7 @@
 <?php
     carregar_navbar();
     standard_jumbotron($tema, "verbete.php?concurso=$concurso&tema=$id_tema");
-    sub_jumbotron("Edição de verbete");
+    sub_jumbotron("Edição de verbete", falso);
 ?>
     <div class="container my-5">
       <div class="row">
@@ -48,7 +48,7 @@
             echo "
             <form class='text-center px-2 my-2' method='post'>
               <fieldset>
-                <textarea id='textarea_verbete' name='verbete_texto' class='rounded'>$verbete_consolidado</textarea>
+                <textarea id='editor' name='verbete_texto' class='rounded'>$verbete_consolidado</textarea>
               </fieldset>
               <fieldset>
                 <button name='salvar_verbete_texto' type='submit' class='btn btn-primary' value='$salvar'>Salvar</button>
@@ -63,5 +63,5 @@
   </body>
 <?php
   load_footer();
-  bottom_page();
+  bottom_page("quill");
 ?>

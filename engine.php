@@ -40,11 +40,6 @@ function top_page() {
 
             <!-- Theme included stylesheets -->
             <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-            <link href="//cdn.quilljs.com/1.3.6/quill.bubble.css" rel="stylesheet">
-
-            <!-- Core build with no theme, formatting, non-essential modules -->
-            <link href="//cdn.quilljs.com/1.3.6/quill.core.css" rel="stylesheet">
-            <script src="//cdn.quilljs.com/1.3.6/quill.core.js"></script>
           ';
         }
         elseif ($args[$array] == "onepage") {
@@ -64,6 +59,9 @@ function top_page() {
 }
 
 function bottom_page() {
+
+  $args = func_get_args();
+
   echo '
   <!-- JQuery -->
   <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
@@ -76,6 +74,21 @@ function bottom_page() {
   <script type="text/javascript" charset="UTF-8" src="engine.js"></script>
   </html>
   ';
+
+  if ($args != false) {
+    $array = 0;
+    while (isset($args[$array])) {
+      if ($args[$array] == "quill") {
+        echo "
+          <script>
+            var quill = new Quill('#editor', {
+              theme: 'snow'
+            });
+          </script>
+        ";
+      }
+    }
+  }
 }
 
 function load_footer() {
