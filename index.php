@@ -47,7 +47,7 @@ $concurso = "CACD";
               if ($result->num_rows > 0) {
                 $count = 0;
                 while($row = $result->fetch_assoc()) {
-                  if ($count == 0) { echo "<div class='row justify-content-around py-5'>"; }
+                  if ($count == 0) { echo "<div class='row justify-content-around py-2'>"; }
                   $count++;
                   $sigla = $row["sigla"];
                   $materia = $row["materia"];
