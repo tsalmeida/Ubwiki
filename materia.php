@@ -10,6 +10,13 @@ if (isset($_GET['concurso'])) {
   $concurso = $_GET['concurso'];
 }
 $materia = false;
+$servername = "localhost";
+$username = "grupoubique";
+$password = "ubique patriae memor";
+$dbname = "Ubique";
+$found = false;
+$conn = new mysqli($servername, $username, $password, $dbname);
+mysqli_set_charset($conn,"utf8");
 $result = $conn->query("SELECT materia FROM Materias WHERE concurso = '$concurso' AND estado = 1 AND sigla = '$sigla' ORDER BY ordem");
 if ($result->num_rows > 0) {
   while($row = $result->fetch_assoc()) {
@@ -29,6 +36,13 @@ if ($result->num_rows > 0) {
     <div class="row">
       <div class="col-8">
 <?php
+        $servername = "localhost";
+        $username = "grupoubique";
+        $password = "ubique patriae memor";
+        $dbname = "Ubique";
+        $found = false;
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        mysqli_set_charset($conn,"utf8");
         $result = $conn->query("SELECT materia FROM Materias WHERE concurso = '$concurso' AND estado = 1 AND sigla = '$sigla' ORDER BY ordem");
         if ($materia == false) {
           echo "<h4>Página não-encontrada</h4>
