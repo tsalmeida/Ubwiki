@@ -76,6 +76,9 @@ logo {
 
 .textarea_verbete {
   max-width: 65ch;
+  min-widht: 90%;
+  margin-left: 2ch;
+  margin-right: 2ch;
   padding-right: 2ch;
   padding-left: 2ch;
   padding-top: 1em;
