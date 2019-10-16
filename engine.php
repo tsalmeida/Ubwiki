@@ -50,7 +50,7 @@ function top_page() {
         elseif ($args[$array] == "onepage") {
           echo "
             <style>
-              html, body {
+              html, body, .onepage {
                 height: 100vh;
                 overflow-y: auto;
               }
