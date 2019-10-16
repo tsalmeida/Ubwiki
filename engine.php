@@ -174,30 +174,6 @@ function sub_jumbotron($titulo, $link) {
   }
 }
 
-if (isset($_POST['salvar_verbete_texto'])) {
-  $concursoid = $_POST['salvar_verbete_texto'];
-  $concursoid = unserialize($concursoid);
-  $concurso = $concursoid[0];
-  $id_tema = $concursoid[1];
-  $novo_verbete = $_POST['verbete_texto'];
-  $novo_verbete = strip_tags($novo_verbete);
-  $novo_verbete = base64_encode($novo_verbete);
-  $servername = "localhost";
-  $username = "grupoubique";
-  $password = "ubique patriae memor";
-  $dbname = "Ubique";
-  $found = false;
-  $conn = new mysqli($servername, $username, $password, $dbname);
-  mysqli_set_charset($conn,"utf8");
-  $result = $conn->query("SELECT verbete FROM Verbetes WHERE concurso = '$concurso' AND id_tema = '$id_tema'");
-  if ($result != false) {
-    $result = $conn->query("INSERT INTO Verbetes (id_tema, concurso, verbete) VALUES ('$id_tema', '$concurso', '$novo_verbete')");
-  }
-  else {
-    $result = $conn->query("UPDATE Verbetes (verbete) VALUES ('$novo_verbete')");
-  }
-}
-
 if (isset($_POST['reconstruir_concurso'])) {
   $concurso = $_POST['reconstruir_concurso'];
   $servername = "localhost";

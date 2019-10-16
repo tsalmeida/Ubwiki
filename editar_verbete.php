@@ -10,6 +10,27 @@
     $concurso = $_GET['concurso'];
   }
 
+  if (isset($_POST['salvar_verbete_texto'])) {
+    $concursoid = $_POST['salvar_verbete_texto'];
+    $concursoid = unserialize($concursoid);
+    $concurso = $concursoid[0];
+    $id_tema = $concursoid[1];
+    $novo_verbete = $_POST['verbete_texto'];
+    $novo_verbete = strip_tags($novo_verbete);
+    $novo_verbete = base64_encode($novo_verbete);
+    $found = false;
+    mysqli_set_charset($conn,"utf8");
+    error_log("$concurso $id_tema");
+    $result = $conn->query("SELECT verbete FROM Verbetes WHERE concurso = '$concurso' AND id_tema = '$id_tema'");
+    error_log($result);
+    if ($result != false) {
+      $result = $conn->query("INSERT INTO Verbetes (id_tema, concurso, verbete) VALUES ('$id_tema', '$concurso', '$novo_verbete')");
+    }
+    else {
+      $result = $conn->query("UPDATE Verbetes (verbete) VALUES ('$novo_verbete')");
+    }
+  }
+
   $result = $conn->query("SELECT chave FROM Searchbar WHERE concurso = '$concurso' AND sigla = $id_tema");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
