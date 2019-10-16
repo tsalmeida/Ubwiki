@@ -7,16 +7,16 @@ $concurso = "CACD";
     <?php carregar_navbar(); ?>
     <div class="container-fluid bg-white">
       <div class="row justify-content-center">
-          <div class="col-lg-1 col-xs-5">
+          <div class="col-lg-2 col-sm-5 px-3">
               <img class="img-fluid logo" src="imagens/ubiquelogo.png"></img>
           </div>
       </div>
-      <div class="row text-center py-5">
+      <div class="row text-center">
         <div class="col-lg-12 col-sm-12">
           <?php echo "<p class='lead'>Bem-vindo à Ubwiki, o sistema mais inteligente de preparação para o $concurso.</p>"; ?>
         </div>
       </div>
-      <div class="row justify-content-center py-5">
+      <div class="row justify-content-center">
         <div class="col-lg-6 col-sm-12">
           <form id="searchform" action="" method="post">
             <div id="searchDiv">
