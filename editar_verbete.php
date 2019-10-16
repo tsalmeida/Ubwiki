@@ -47,7 +47,7 @@
   }
   else {
     error_log("nothing was found and verbete was declared false");
-    $verbete_consoliado = false;
+    $verbete_consolidado = false;
   }
   $salvar = array($concurso, $id_tema);
   $salvar = serialize($salvar);
