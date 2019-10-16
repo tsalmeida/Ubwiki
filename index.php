@@ -68,9 +68,6 @@
           </div>
         </div>
       </div>
-<?php
-      load_footer("fixed");
-?>
     </div>
   </body>
 <?php
