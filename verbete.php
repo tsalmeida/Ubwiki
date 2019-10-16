@@ -95,7 +95,7 @@ if (isset($_GET['concurso'])) {
     </div>
   </div>
 
-  <div class='container mt-5' id='imagens'>
+  <div class='container-fluid mt-5' id='imagens'>
     <div class='row'>
 
       <div class='col-2 text-center justify-content-center align-middle'>
@@ -117,7 +117,7 @@ if (isset($_GET['concurso'])) {
     </div>
   </div>
 
-  <div class='container mt-5' id='verbetes'>
+  <div class='container-fluid mt-5' id='verbetes'>
     <div class='row'>
 
       <div class='col-2 text-center justify-content-center align-middle'>
@@ -137,7 +137,7 @@ if (isset($_GET['concurso'])) {
     </div>
   </div>
 
-  <div class='container mt-5' id='bibliografia'>
+  <div class='container-fluid mt-5' id='bibliografia'>
     <div class='row'>
 
       <div class='col-2 text-center justify-content-center align-middle'>
@@ -159,7 +159,7 @@ if (isset($_GET['concurso'])) {
     </div>
   </div>
 
-  <div class='container mt-5' id='videos'>
+  <div class='container-fluid mt-5' id='videos'>
     <div class='row'>
 
       <div class='col-2 text-center justify-content-center align-middle'>
@@ -181,7 +181,7 @@ if (isset($_GET['concurso'])) {
     </div>
   </div>
 
-  <div class='container mt-5' id='links'>
+  <div class='container-fluid mt-5' id='links'>
     <div class='row'>
 
       <div class='col-2 text-center justify-content-center align-middle'>
@@ -203,7 +203,7 @@ if (isset($_GET['concurso'])) {
     </div>
   </div>
 
-  <div class='container mt-5' id='anotacoes'>
+  <div class='container-fluid mt-5' id='anotacoes'>
     <div class='row'>
 
       <div class='col-2 text-center justify-content-center align-middle'>
@@ -226,7 +226,7 @@ if (isset($_GET['concurso'])) {
     </div>
   </div>
 
-  <div class='container mt-5' id='questoes'>
+  <div class='container-fluid mt-5' id='questoes'>
     <div class='row'>
 
       <div class='col-2 text-center justify-content-center align-middle'>
@@ -246,7 +246,7 @@ if (isset($_GET['concurso'])) {
     </div>
   </div>
 
-  <div class='container mt-5' id='discussao'>
+  <div class='container-fluid mt-5' id='discussao'>
     <div class='row'>
       <div class='col-2 text-center justify-content-center align-middle'>
         <span class='align-middle'>Debate</span>
