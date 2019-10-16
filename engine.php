@@ -11,8 +11,6 @@ function carregar_navbar() {
 
 function top_page() {
 	$args = func_get_args();
-  $serialize = serialize($args);
-  error_log($serialize);
   echo '
   <!DOCTYPE html>
   <html lang="en">
@@ -49,7 +47,7 @@ function top_page() {
             <script src="//cdn.quilljs.com/1.3.6/quill.core.js"></script>
           ';
         }
-        elseif ($arags[$array] == "onepage") {
+        elseif ($args[$array] == "onepage") {
           echo "
             <style>
               html, body {
