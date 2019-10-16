@@ -38,10 +38,8 @@
 <?php
     carregar_navbar();
     standard_jumbotron($tema, "verbete.php?concurso=$concurso&tema=$id_tema");
+    sub_jumbotron("Edição de verbete");
 ?>
-    <div class='container-fluid py-3 col-lg-12 bg-lighter text-center'>
-      <h1 class='mb-5'>Edição de verbete</h1>
-    </div>
     <div class="container my-5">
       <div class="row">
         <div class="col-2"></div>

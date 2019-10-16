@@ -28,8 +28,10 @@ if ($result->num_rows > 0) {
 <body>
   <?php
     carregar_navbar();
-    standard_jumbotron($materia, false);
+    standard_jumbotron($materia,false);
+    sub_jumbotron("Índice",false);
   ?>
+
   <div class="container my-5">
     <div class="row">
       <div class="col-8">
