@@ -38,7 +38,7 @@ function top_page() {
 
     if ($args != false) {
       $array = 0;
-      while ($args[$array] != false) {
+      while (isset($args[$array])) {
         if ($args[$array] == "quill") {
           echo '
             <!-- Main Quill library -->
