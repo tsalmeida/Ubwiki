@@ -34,7 +34,7 @@ $concurso = "CACD";
         </div>
       </div>
       <div class="row justify-content-center">
-        <div class="col-lg-10 col-sm-12">
+        <div class="col-lg-6 col-sm-12">
           <?php
               $row_items = 4;
               $servername = "localhost";
@@ -56,7 +56,7 @@ $concurso = "CACD";
                       <small class='text-muted text-uppercase smaller'>$materia</small>
                     </div>
                   ";
-                  if ($count == $row_itens) {
+                  if ($count == $row_items) {
                     echo "</div>";
                     $count = 0;
                   }
