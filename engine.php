@@ -9,7 +9,7 @@ function carregar_navbar() {
   </nav>";
 }
 
-function top_page() {
+function top_page($elements) {
   echo '
   <!DOCTYPE html>
   <html lang="en">
@@ -26,9 +26,25 @@ function top_page() {
     <!-- Your custom styles (optional) -->
     <link href="css/style.css" rel="stylesheet">
     <link type="image/vnd.microsoft.icon" rel="icon" href="imagens/favicon.ico"/>
-    <title>Ubwiki</title>
-  </head>
-  ';
+    <title>Ubwiki</title>';
+
+  if ($elements == "quill") {
+    echo '
+      <!-- Main Quill library -->
+      <script src="//cdn.quilljs.com/1.3.6/quill.js"></script>
+      <script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
+
+      <!-- Theme included stylesheets -->
+      <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+      <link href="//cdn.quilljs.com/1.3.6/quill.bubble.css" rel="stylesheet">
+
+      <!-- Core build with no theme, formatting, non-essential modules -->
+      <link href="//cdn.quilljs.com/1.3.6/quill.core.css" rel="stylesheet">
+      <script src="//cdn.quilljs.com/1.3.6/quill.core.js"></script>
+    ';
+  }
+
+  echo '</head>';
 }
 
 function bottom_page() {
