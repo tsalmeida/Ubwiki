@@ -34,7 +34,7 @@
             </form>
           </div>
         </div>
-        <div class="row justify-content-center">
+        <div class="row justify-content-center mt-5">
           <div class="col-lg-6 col-sm-12">
             <?php
                 $row_items = 4;
