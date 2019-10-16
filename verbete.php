@@ -69,13 +69,13 @@ if (isset($_GET['concurso'])) {
   <div class='container-fluid mt-5' id='verbete'>
     <div class='row justify-content-center'>
 
-      <div class='col-lg-2 col-sm-6 text-center justify-content-center align-middle'>
+      <div class='col-lg-2 text-center justify-content-center align-middle'>
         <span class='align-middle'>Verbete consolidado</span>
       </div>
-      <div class='col-lg-1 col-sm-6 text-center justify-content-center align-middle border-right border-dark'>
+      <div class='col-lg-1 text-center justify-content-center align-middle border-right border-dark'>
           <?php echo "<span class='h4 text-center justify-content-center align-middle'><a href='editar_verbete.php?concurso=$concurso&tema=$id_tema'><i class='fal fa-edit'></i></a></span>"; ?>
       </div>
-      <div class='col-lg-5 col-sm-12 text-left'>
+      <div class='col-lg-5 text-left'>
         <?php
           if ($verbete == false) {
             echo "<p>Não há, no momento, verbete consolidado para este tema.</p>";
