@@ -39,10 +39,10 @@
 <?php
             echo "
             <form method='post'>
-              <div class='row'>
+              <div class='row justify-content-center'>
                 <textarea id='editor' name='verbete_texto' class='rounded textarea_verbete'>$verbete_consolidado</textarea>
               </div>
-              <div class='row'>
+              <div class='row justify-content-center'>
                 <button name='salvar_verbete_texto' type='submit' class='btn btn-primary' value='$salvar'>Salvar</button>
               </div>
             </form>
