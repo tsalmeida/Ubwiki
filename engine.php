@@ -41,8 +41,8 @@ function top_page() {
       while (isset($args[$array])) {
         if ($args[$array] == "quill") {
           echo '
-          <link href="//cdn.quilljs.com/1.3.6/quill.core.css" rel="stylesheet">
-          <script src="//cdn.quilljs.com/1.3.6/quill.core.js"></script>
+            <link href="//cdn.quilljs.com/1.3.6/quill.core.css" rel="stylesheet">
+            <script src="//cdn.quilljs.com/1.3.6/quill.core.js"></script>
           ';
         }
         elseif ($args[$array] == "onepage") {
@@ -84,7 +84,7 @@ function bottom_page() {
         echo "
         <script>
           var quill = new Quill('#editor', {
-            theme: 'snow'
+            theme: 'core'
           });
         </script>
         ";
