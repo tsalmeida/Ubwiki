@@ -35,15 +35,9 @@
           </div>
         </div>
         <div class="row justify-content-center mt-5">
-          <div class="col-lg-8 col-sm-12">
+          <div class="col-lg-6 col-sm-12">
             <?php
                 $row_items = 4;
-                $servername = "localhost";
-                $username = "grupoubique";
-                $password = "ubique patriae memor";
-                $dbname = "Ubique";
-                $conn = new mysqli($servername, $username, $password, $dbname);
-                mysqli_set_charset($conn,"utf8");
                 $result = $conn->query("SELECT sigla, materia, ordem  FROM Materias WHERE concurso = '$concurso' AND estado = 1 ORDER BY ordem");
                 if ($result->num_rows > 0) {
                   $count = 0;
