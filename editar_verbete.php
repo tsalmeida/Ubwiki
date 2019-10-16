@@ -10,6 +10,17 @@
     $concurso = $_GET['concurso'];
   }
 
+  $result = $conn->query("SELECT verbete FROM Verbetes WHERE concurso = '$concurso' AND id_tema = $id_tema");
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $verbete_consolidado = $row['verbete'];
+      $verbete_consolidado = base64_decode($verbete_consolidado);
+    }
+  }
+  else {
+    $verbete_consolidado = false;
+  }
+
   if (isset($_POST['salvar_verbete_texto'])) {
     $concursoid = $_POST['salvar_verbete_texto'];
     $concursoid = unserialize($concursoid);
@@ -23,10 +34,12 @@
     $result = $conn->query("SELECT verbete FROM Verbetes WHERE concurso = '$concurso' AND id_tema = $id_tema");
     if ($result->num_rows > 0) {
       $result = $conn->query("UPDATE Verbetes SET verbete = '$novo_verbete' WHERE concurso = '$concurso' AND id_tema = $id_tema");
+      $result = $conn->query("INSERT INTO Verbetes_passados (id_tema, concurso, verbete) VALUES ('$id_tema', '$concurso', '$verbete_consolidado')");
     }
     else {
       $result = $conn->query("INSERT INTO Verbetes (id_tema, concurso, verbete) VALUES ('$id_tema', '$concurso', '$novo_verbete')");
     }
+    $verbete_consolidado = $novo_verbete;
   }
 
   $result = $conn->query("SELECT chave FROM Searchbar WHERE concurso = '$concurso' AND sigla = $id_tema");
@@ -35,16 +48,7 @@
       $tema = $row['chave'];
     }
   }
-  $result = $conn->query("SELECT verbete FROM Verbetes WHERE concurso = '$concurso' AND id_tema = $id_tema");
-  if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
-      $verbete_consolidado = $row['verbete'];
-      $verbete_consolidado = base64_decode($verbete_consolidado);
-    }
-  }
-  else {
-    $verbete_consolidado = false;
-  }
+
   $salvar = array($concurso, $id_tema);
   $salvar = serialize($salvar);
 
