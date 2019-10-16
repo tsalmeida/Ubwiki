@@ -98,35 +98,6 @@ function extract_zoho($linkplanilha, $authtoken, $ownername, $materia, $scope) {
   return $output;
 }
 
-function ler_cartoes($concurso, $row_itens) {
-  $servername = "localhost";
-  $username = "grupoubique";
-  $password = "ubique patriae memor";
-  $dbname = "Ubique";
-  $conn = new mysqli($servername, $username, $password, $dbname);
-  mysqli_set_charset($conn,"utf8");
-  $result = $conn->query("SELECT sigla, materia, ordem  FROM Materias WHERE concurso = '$concurso' AND estado = 1 ORDER BY ordem");
-  if ($result->num_rows > 0) {
-    $count = 0;
-    while($row = $result->fetch_assoc()) {
-      if ($count == 0) { echo "<div class='row justify-content-around'>"; }
-      $count++;
-      $sigla = $row["sigla"];
-      $materia = $row["materia"];
-      echo "
-        <div href='materia.php?sigla=$sigla&concurso=$concurso' class='col-lg-2 col-sm-12 bg-lighter rounded bdark cardmateria text-break text-center align-middle'>
-          <small class='text-muted text-uppercase smaller'>$materia</small>
-        </div>
-      ";
-      if ($count == $row_itens) {
-        echo "</div>";
-        $count = 0;
-      }
-    }
-  }
-  $conn->close();
-}
-
 function ler_edital($materia) {
   $servername = "localhost";
   $username = "grupoubique";
