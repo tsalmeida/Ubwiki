@@ -40,9 +40,6 @@ function top_page() {
       $array = 0;
       while (isset($args[$array])) {
         if ($args[$array] == "quill") {
-          echo "
-
-          ";
         }
         elseif ($args[$array] == "onepage") {
           echo "
@@ -80,8 +77,6 @@ function bottom_page() {
     $array = 0;
     while (isset($args[$array])) {
       if ($args[$array] == "quill") {
-
-        ";
       }
       $array++;
     }
