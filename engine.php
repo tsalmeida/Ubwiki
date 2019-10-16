@@ -94,6 +94,7 @@ function bottom_page() {
           </script>
         ";
       }
+      $array++;
     }
   }
 
