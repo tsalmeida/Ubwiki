@@ -36,29 +36,31 @@
         </div>
         <div class="row mt-5">
           <div class='col-lg-8 col-sm-12'>
-            <?php
-                $row_items = 2;
-                $result = $conn->query("SELECT sigla, materia, ordem  FROM Materias WHERE concurso = '$concurso' AND estado = 1 ORDER BY ordem");
-                if ($result->num_rows > 0) {
-                  $count = 0;
-                  while($row = $result->fetch_assoc()) {
-                    if ($count == 0) { echo "<div class='col-lg-3 col-sm-12'>"; }
-                    $count++;
-                    $sigla = $row["sigla"];
-                    $materia = $row["materia"];
-                    echo "
-                      <div href='materia.php?sigla=$sigla&concurso=$concurso' class='bg-lighter rounded bdark cardmateria text-break text-center align-middle my-1'>
-                        <small class='text-muted text-uppercase smaller'>$materia</small>
-                      </div>
-                    ";
-                    if ($count == $row_items) {
-                      echo "</div>";
-                      $count = 0;
+            <div class='row'>
+              <?php
+                  $row_items = 2;
+                  $result = $conn->query("SELECT sigla, materia, ordem  FROM Materias WHERE concurso = '$concurso' AND estado = 1 ORDER BY ordem");
+                  if ($result->num_rows > 0) {
+                    $count = 0;
+                    while($row = $result->fetch_assoc()) {
+                      if ($count == 0) { echo "<div class='col-lg-3 col-sm-12'>"; }
+                      $count++;
+                      $sigla = $row["sigla"];
+                      $materia = $row["materia"];
+                      echo "
+                        <div href='materia.php?sigla=$sigla&concurso=$concurso' class='bg-lighter rounded bdark cardmateria text-break text-center align-middle my-1'>
+                          <small class='text-muted text-uppercase smaller'>$materia</small>
+                        </div>
+                      ";
+                      if ($count == $row_items) {
+                        echo "</div>";
+                        $count = 0;
+                      }
                     }
                   }
-                }
-                $conn->close();
-            ?>
+                  $conn->close();
+              ?>
+            </div>
           </div>
         </div>
       </div>
