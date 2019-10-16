@@ -40,8 +40,8 @@
             echo "
             <form method='post'>
               <div class='row justify-content-center'>
-                <div class='col-12 container'>
-                  <textarea id='editor' name='verbete_texto' class='rounded textarea_verbete px-4 py-4 my-2'>$verbete_consolidado</textarea>
+                <div id='quill_container' class='col-12'>
+                  <div id='quill_editor' name='verbete_texto' class='rounded textarea_verbete px-4 py-4 my-2'>$verbete_consolidado</div>
                 </div>
               </div>
               <div class='row justify-content-center'>

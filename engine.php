@@ -89,13 +89,13 @@ function bottom_page() {
           var options = {
             debug: 'info',
             modules: {
-              toolbar: '#toolbar'
+              toolbar: '#quill_container'
             },
             placeholder: 'Compose an epic...',
             readOnly: true,
             theme: 'snow'
           };
-          var editor = new Quill('#editor', options);
+          var editor = new Quill('#quill_editor', options);
           </script>
         ";
       }
