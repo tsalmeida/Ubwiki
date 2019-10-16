@@ -69,7 +69,7 @@
         </div>
       </div>
 <?php
-      load_footer();
+      load_footer("fixed");
 ?>
     </div>
   </body>
