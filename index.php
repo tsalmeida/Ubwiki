@@ -35,7 +35,7 @@
           </div>
         </div>
         <div class="row mt-5">
-          <div class='col-lg-8 col-sm-12'>
+          <div class='col-lg-8 col-sm-12 justify-content-center'>
             <div class='row'>
               <?php
                   $row_items = 2;
