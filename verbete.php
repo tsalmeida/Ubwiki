@@ -67,7 +67,7 @@ if (isset($_GET['concurso'])) {
     </ul>
   </div>
   <div class='container-fluid mt-5' id='verbete'>
-    <div class='row'>
+    <div class='row justify-content-center'>
 
       <div class='col-2 text-center justify-content-center align-middle'>
         <span class='align-middle'>Verbete consolidado</span>
@@ -96,7 +96,7 @@ if (isset($_GET['concurso'])) {
   </div>
 
   <div class='container-fluid mt-5' id='imagens'>
-    <div class='row'>
+    <div class='row justify-content-center'>
 
       <div class='col-2 text-center justify-content-center align-middle'>
         <span class='align-middle'>Imagens de apoio</span>
@@ -118,7 +118,7 @@ if (isset($_GET['concurso'])) {
   </div>
 
   <div class='container-fluid mt-5' id='verbetes'>
-    <div class='row'>
+    <div class='row justify-content-center'>
 
       <div class='col-2 text-center justify-content-center align-middle'>
         <span class='align-middle'>Verbetes relacionados</span>
@@ -138,7 +138,7 @@ if (isset($_GET['concurso'])) {
   </div>
 
   <div class='container-fluid mt-5' id='bibliografia'>
-    <div class='row'>
+    <div class='row justify-content-center'>
 
       <div class='col-2 text-center justify-content-center align-middle'>
         <span class='align-middle'>Bibliografia pertinente</span>
@@ -160,7 +160,7 @@ if (isset($_GET['concurso'])) {
   </div>
 
   <div class='container-fluid mt-5' id='videos'>
-    <div class='row'>
+    <div class='row justify-content-center'>
 
       <div class='col-2 text-center justify-content-center align-middle'>
         <span class='align-middle'>Vídeos e aulas relacionados</span>
@@ -182,7 +182,7 @@ if (isset($_GET['concurso'])) {
   </div>
 
   <div class='container-fluid mt-5' id='links'>
-    <div class='row'>
+    <div class='row justify-content-center'>
 
       <div class='col-2 text-center justify-content-center align-middle'>
         <span class='align-middle'>Links externos</span>
@@ -204,7 +204,7 @@ if (isset($_GET['concurso'])) {
   </div>
 
   <div class='container-fluid mt-5' id='anotacoes'>
-    <div class='row'>
+    <div class='row justify-content-center'>
 
       <div class='col-2 text-center justify-content-center align-middle'>
         <span class='align-middle'>Minhas anotações</span>
@@ -227,7 +227,7 @@ if (isset($_GET['concurso'])) {
   </div>
 
   <div class='container-fluid mt-5' id='questoes'>
-    <div class='row'>
+    <div class='row justify-content-center'>
 
       <div class='col-2 text-center justify-content-center align-middle'>
         <span class='align-middle'>Questões de provas passadas</span>
@@ -247,7 +247,7 @@ if (isset($_GET['concurso'])) {
   </div>
 
   <div class='container-fluid mt-5' id='discussao'>
-    <div class='row'>
+    <div class='row justify-content-center'>
       <div class='col-2 text-center justify-content-center align-middle'>
         <span class='align-middle'>Debate</span>
       </div>
