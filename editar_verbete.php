@@ -20,14 +20,12 @@
     $novo_verbete = base64_encode($novo_verbete);
     $found = false;
     mysqli_set_charset($conn,"utf8");
-    error_log("$concurso $id_tema");
     $result = $conn->query("SELECT verbete FROM Verbetes WHERE concurso = '$concurso' AND id_tema = '$id_tema'");
-    if ($result != false) {
-      error_log("result was not false");
+    $check = mysql_num_rows($result);
+    if ($check > 0) {
       $result = $conn->query("INSERT INTO Verbetes (id_tema, concurso, verbete) VALUES ('$id_tema', '$concurso', '$novo_verbete')");
     }
     else {
-      error_log("result was false")
       $result = $conn->query("UPDATE Verbetes (verbete) VALUES ('$novo_verbete')");
     }
   }
@@ -43,11 +41,9 @@
     while($row = $result->fetch_assoc()) {
       $verbete_consolidado = $row['verbete'];
       $verbete_consolidado = base64_decode($verbete_consolidado);
-      error_log("something was found: $verbete_consolidado // concurso: $concurso // idtema: $id_tema");
     }
   }
   else {
-    error_log("nothing was found and verbete was declared false");
     $verbete_consolidado = false;
   }
   $salvar = array($concurso, $id_tema);
