@@ -34,7 +34,7 @@
     sub_jumbotron("Edição de verbete", false);
 ?>
     <div class="container-fluid my-5">
-      <div class="row">
+      <div class="row text-center justify-content-center">
         <div class="col-lg-8 col-sm-12 px-2 my-2">
 <?php
             echo "
