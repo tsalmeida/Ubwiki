@@ -11,6 +11,8 @@ function carregar_navbar() {
 
 function top_page() {
 	$args = func_get_args();
+  $serialize = serialize($args);
+  error_log($serialize);
   echo '
   <!DOCTYPE html>
   <html lang="en">
