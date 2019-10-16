@@ -76,11 +76,11 @@ function bottom_page() {
   <script type="text/javascript" charset="UTF-8" src="engine.js"></script>
   </html>
   ';
-  $conn->close();
 }
 
 function load_footer() {
   $args = func_get_args();
+  if (!isset($args)) { $args = array(); }
   if ($args[0] == "fixed") {$fixed = "fixed-bottom";}
   else {$fixed = false;}
   echo "

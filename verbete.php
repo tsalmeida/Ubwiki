@@ -235,6 +235,7 @@ if (isset($_GET['concurso'])) {
       <div class='col-1 text-center justify-content-center align-middle border-right border-dark'></div>
       <div class='col-5 text-left'>
         <?php
+          $questoes = false;
           if ($questoes == false) {
             echo "<p>Não há registro de questões em provas passadas sobre este tema.</p>";
           }
