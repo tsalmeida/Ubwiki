@@ -13,12 +13,12 @@
             </div>
         </div>
         <div class="row text-center">
-          <div class="col-lg-12 col-sm-12">
+          <div class="col-lg-12 col-sm-12 mb-5">
             <?php echo "<p class='lead'>Bem-vindo à Ubwiki, o sistema mais inteligente de preparação para o $concurso.</p>"; ?>
           </div>
         </div>
         <div class="row justify-content-center">
-          <div class="col-lg-6 col-sm-12">
+          <div class="col-lg-6 col-sm-12 mb-5">
             <form id="searchform" action="" method="post">
               <div id="searchDiv">
                 <input id="searchBar" list="searchlist" type="text" class="searchBar" name="searchBar" rows="1" autocomplete="off" spellcheck="false" placeholder="O que você vai estudar hoje?" required></input>
