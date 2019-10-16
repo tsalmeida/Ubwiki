@@ -66,6 +66,7 @@
               <div class='row justify-content-center'>
                 <div id='quill_container' class='container col-12'>
                   <textarea id='quill_editor' name='verbete_texto' class='rounded textarea_verbete px-4 py-4 my-2'>$verbete_consolidado</textarea>
+                </div>
               </div>
               <div class='row justify-content-center'>
                 <button name='salvar_verbete_texto' type='submit' class='btn btn-primary' value='$salvar'>Salvar</button>
@@ -73,6 +74,7 @@
             </form>
             ";
 ?>
+        </div>
       </div>
     </div>
   </body>
