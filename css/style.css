@@ -63,20 +63,6 @@ logo {
   border-bottom-width: 0.2rem;
 }
 
-.home1 {
-  margin-top: 10vh;
-  height: 55vh
-}
-
-.home2 {
-  height: 25vh;
-}
-
-.height5vh {
-  height: 5vh;
-  margin-bottom: 0;
-}
-
 .searchBar {
   background-color: white;
   border: 0;
@@ -95,10 +81,6 @@ logo {
 	-webkit-box-flex: 1;
 	-webkit-appearance: none;
   text-align: center;
-}
-
-.cardmateria {
-  cursor: pointer;
 }
 
 #textarea_verbete {
