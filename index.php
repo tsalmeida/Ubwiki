@@ -4,8 +4,8 @@ top_page("quill");
 $concurso = "CACD";
 ?>
   <body>
-    <?php carregar_navbar(); ?>
     <div class="container-fluid bg-white">
+      <?php carregar_navbar(); ?>
       <div class="row justify-content-center">
           <div class="col-lg-2 col-sm-5">
               <img class="img-fluid logo" src="imagens/ubiquelogo.png"></img>
@@ -66,10 +66,10 @@ $concurso = "CACD";
           ?>
         </div>
       </div>
+  <?php
+      load_footer();
+  ?>
     </div>
-<?php
-    load_footer();
-?>
   </body>
 <?php
   bottom_page();
