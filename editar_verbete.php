@@ -38,7 +38,7 @@
 <?php
     carregar_navbar();
     standard_jumbotron($tema, "verbete.php?concurso=$concurso&tema=$id_tema");
-    sub_jumbotron("Edição de verbete", falso);
+    sub_jumbotron("Edição de verbete", false);
 ?>
     <div class="container my-5">
       <div class="row">
