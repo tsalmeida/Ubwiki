@@ -33,7 +33,7 @@
     standard_jumbotron($tema, "verbete.php?concurso=$concurso&tema=$id_tema");
     sub_jumbotron("Edição de verbete", false);
 ?>
-    <div class="container-fluid">
+    <div class="container-fluid mb-5">
       <div class="row text-center justify-content-center">
         <div class="col-lg-8 col-sm-12">
 <?php
