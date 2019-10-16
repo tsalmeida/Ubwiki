@@ -35,7 +35,7 @@
 ?>
     <div class="container-fluid my-5">
       <div class="row">
-        <div class="col-8">
+        <div class="col-lg-8 col-sm-12">
 <?php
             echo "
             <form class='text-center px-2 my-2' method='post'>
