@@ -74,7 +74,7 @@ logo {
   text-align: center;
 }
 
-#textarea_verbete {
+.textarea_verbete {
   width: 100%;
   padding-right: 2ch;
   padding-left: 2ch;
