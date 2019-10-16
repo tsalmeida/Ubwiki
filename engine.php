@@ -81,16 +81,7 @@ function bottom_page() {
     $array = 0;
     while (isset($args[$array])) {
       if ($args[$array] == "quill") {
-        echo '
-          <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-        ';
-        echo "
-        <script>
-          var quill = new Quill('#editor', {
-            theme: 'snow'
-          });
-        </script>
-        ";
+
       }
       $array++;
     }
