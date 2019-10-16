@@ -22,11 +22,12 @@
     mysqli_set_charset($conn,"utf8");
     error_log("$concurso $id_tema");
     $result = $conn->query("SELECT verbete FROM Verbetes WHERE concurso = '$concurso' AND id_tema = '$id_tema'");
-    error_log($result);
-    if ($result != false) {
+    if ($result != NULL) {
+      error_log("result was not false");
       $result = $conn->query("INSERT INTO Verbetes (id_tema, concurso, verbete) VALUES ('$id_tema', '$concurso', '$novo_verbete')");
     }
     else {
+      error_log("result was false")
       $result = $conn->query("UPDATE Verbetes (verbete) VALUES ('$novo_verbete')");
     }
   }
