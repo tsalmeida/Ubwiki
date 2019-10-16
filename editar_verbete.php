@@ -41,9 +41,12 @@
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $verbete_consolidado = $row['verbete'];
+      $verbete_consolidado = base64_decode($verbete_consolidado);
     }
   }
-  $verbete_consolidado = base64_decode($verbete_consolidado);
+  else {
+    $verbete_consoliado = false;
+  }
   $salvar = array($concurso, $id_tema);
   $salvar = serialize($salvar);
 
