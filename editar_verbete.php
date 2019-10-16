@@ -40,7 +40,7 @@
             echo "
             <form method='post'>
               <div class='row justify-content-center'>
-                <div id='quill_container' class='col-12'>
+                <div id='quill_container' class='container col-12'>
                   <div id='quill_editor' name='verbete_texto' class='rounded textarea_verbete px-4 py-4 my-2'>$verbete_consolidado</div>
                 </div>
               </div>
