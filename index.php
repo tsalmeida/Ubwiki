@@ -11,12 +11,12 @@ $concurso = "CACD";
               <img class="img-fluid logo" src="imagens/ubiquelogo.png"></img>
           </div>
       </div>
-      <div class="row text-center">
+      <div class="row text-center py-5">
         <div class="col-lg-12 col-sm-12">
           <?php echo "<p class='lead'>Bem-vindo à Ubwiki, o sistema mais inteligente de preparação para o $concurso.</p>"; ?>
         </div>
       </div>
-      <div class="row justify-content-center">
+      <div class="row justify-content-center py-5">
         <div class="col-lg-6 col-sm-12">
           <form id="searchform" action="" method="post">
             <div id="searchDiv">
@@ -47,7 +47,7 @@ $concurso = "CACD";
               if ($result->num_rows > 0) {
                 $count = 0;
                 while($row = $result->fetch_assoc()) {
-                  if ($count == 0) { echo "<div class='row justify-content-around'>"; }
+                  if ($count == 0) { echo "<div class='row justify-content-around py-5'>"; }
                   $count++;
                   $sigla = $row["sigla"];
                   $materia = $row["materia"];
