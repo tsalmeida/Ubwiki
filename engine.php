@@ -64,7 +64,7 @@ function bottom_page() {
 
 function load_footer() {
   echo '
-    <footer class="footer-copyright bg-lighter text-dark text-center font-small mt-5">
+    <footer class="footer-copyright bg-lighter text-dark text-center font-small">
       <p class="mb-0">A Ubwiki é uma ferramenta de uso público e gratuito. Todos os direitos são reservados ao Grupo Ubique. Siga <a href="termos.php" target="_blank">este</a> link para rever os termos e condições de uso da página.</p>
     </footer>
   ';
