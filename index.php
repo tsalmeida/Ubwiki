@@ -33,8 +33,6 @@ $concurso = "CACD";
           </form>
         </div>
       </div>
-    </div>
-    <div class="container-fluid text-center bg-white home2 pt-5">
       <div class="row justify-content-center">
         <div class="col-lg-10">
             <?php
