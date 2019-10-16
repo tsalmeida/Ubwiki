@@ -38,16 +38,22 @@
           <div class="col-lg-6 col-sm-12">
             <?php
                 $row_items = 4;
+                $servername = "localhost";
+                $username = "grupoubique";
+                $password = "ubique patriae memor";
+                $dbname = "Ubique";
+                $conn = new mysqli($servername, $username, $password, $dbname);
+                mysqli_set_charset($conn,"utf8");
                 $result = $conn->query("SELECT sigla, materia, ordem  FROM Materias WHERE concurso = '$concurso' AND estado = 1 ORDER BY ordem");
                 if ($result->num_rows > 0) {
                   $count = 0;
                   while($row = $result->fetch_assoc()) {
-                    if ($count == 0) { echo "<div class='row justify-content-around my-2'>"; }
+                    if ($count == 0) { echo "<div class='row justify-content-around px-2'>"; }
                     $count++;
                     $sigla = $row["sigla"];
                     $materia = $row["materia"];
                     echo "
-                      <div href='materia.php?sigla=$sigla&concurso=$concurso' class='col-lg-2 col-sm-12 bg-lighter rounded bdark cardmateria text-break text-center align-middle'>
+                      <div href='materia.php?sigla=$sigla&concurso=$concurso' class='col-lg-2 col-sm-12 bg-lighter rounded bdark cardmateria text-break text-center align-middle my-1 mx-1'>
                         <small class='text-muted text-uppercase smaller'>$materia</small>
                       </div>
                     ";
