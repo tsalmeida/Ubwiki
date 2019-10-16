@@ -76,7 +76,7 @@ logo {
   text-align: center;
 }
 
-.textarea_verbete {
+/* .textarea_verbete {
   width: 100%;
   max-width: 65ch;
   min-height: 40em;
@@ -88,7 +88,7 @@ logo {
   border-color: black;
   border-width: 2px;
   font-size: 1.2rem;
-}
+} */
 
 .footer.page-footer .footer-copyright {
  position: absolute;
