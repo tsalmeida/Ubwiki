@@ -39,7 +39,6 @@ function top_page() {
     if ($args != false) {
       $array = 0;
       while (isset($args[$array])) {
-        erro_log("this happened");
         if ($args[$array] == "quill") {
           echo '
             <!-- Main Quill library -->
@@ -84,7 +83,7 @@ function bottom_page() {
 
   if ($args != false) {
     $array = 0;
-    while ($args[$array] != false) {
+    while (isset($args[$array])) {
       error_log($array);
       if ($args[$array] == "quill") {
         error_log("this happened");
