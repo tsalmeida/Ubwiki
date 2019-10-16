@@ -75,8 +75,8 @@ logo {
 }
 
 .textarea_verbete {
-  max-width: 90%;
-  min-width: 65ch !important;
+  width: 100%;
+  max-width: 65ch;
   min-height: 40em;
   max-height: 90vh;
   resize: none;
