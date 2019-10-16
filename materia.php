@@ -32,7 +32,7 @@ if ($result->num_rows > 0) {
     sub_jumbotron("Índice",false);
   ?>
 
-  <div class="container-fluid my-5">
+  <div class="container my-5">
     <div class="row">
       <div class="col-8">
 <?php
