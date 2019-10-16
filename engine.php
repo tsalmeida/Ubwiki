@@ -47,11 +47,6 @@ function top_page() {
 
             <!-- Theme included stylesheets -->
             <link href='//cdn.quilljs.com/1.3.6/quill.snow.css' rel='stylesheet'>
-            <script>
-              var quill = new Quill('#editor', {
-                theme: 'snow'
-              });
-            </script>
           ";
         }
         elseif ($args[$array] == "onepage") {
@@ -91,6 +86,11 @@ function bottom_page() {
     while (isset($args[$array])) {
       if ($args[$array] == "quill") {
         echo "
+        <script>
+          var quill = new Quill('#editor', {
+            theme: 'snow'
+          });
+        </script>
         ";
       }
       $array++;
