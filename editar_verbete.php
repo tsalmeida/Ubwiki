@@ -39,12 +39,8 @@
 <?php
             echo "
             <form class='text-center px-2 my-2' method='post'>
-              <fieldset>
                 <textarea id='editor' name='verbete_texto' class='rounded textarea_verbete'>$verbete_consolidado</textarea>
-              </fieldset>
-              <fieldset>
                 <button name='salvar_verbete_texto' type='submit' class='btn btn-primary' value='$salvar'>Salvar</button>
-              </fieldset>
             </form>
             ";
 ?>
