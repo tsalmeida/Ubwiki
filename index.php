@@ -7,7 +7,7 @@ $concurso = "CACD";
     <?php carregar_navbar(); ?>
     <div class="container text-center bg-white justify-content-center px-0">
       <div class="row justify-content-center">
-          <div class="col-lg-2 col-sm-12">
+          <div class="col-lg-2 col-sm-5">
               <img class="img-fluid logo" src="imagens/ubiquelogo.png"></img>
           </div>
       </div>
