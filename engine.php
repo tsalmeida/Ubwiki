@@ -84,9 +84,7 @@ function bottom_page() {
   if ($args != false) {
     $array = 0;
     while (isset($args[$array])) {
-      error_log($array);
       if ($args[$array] == "quill") {
-        error_log("this happened");
         echo "
           <script>
             var quill = new Quill('#editor', {
