@@ -40,9 +40,11 @@ $concurso = "CACD";
             ?>
         </div>
       </div>
+<?php
+      load_footer();
+?>
     </div>
   </body>
 <?php
-  load_footer();
   bottom_page();
 ?>
