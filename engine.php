@@ -40,10 +40,10 @@ function top_page() {
       $array = 0;
       while (isset($args[$array])) {
         if ($args[$array] == "quill") {
-          echo '
-            <link href="//cdn.quilljs.com/1.3.6/quill.core.css" rel="stylesheet">
-            <script src="//cdn.quilljs.com/1.3.6/quill.core.js"></script>
-          ';
+          echo "
+            <!-- Theme included stylesheets -->
+            <link href='//cdn.quilljs.com/1.3.6/quill.snow.css' rel='stylesheet'>
+          ";
         }
         elseif ($args[$array] == "onepage") {
           echo "
@@ -82,9 +82,12 @@ function bottom_page() {
     while (isset($args[$array])) {
       if ($args[$array] == "quill") {
         echo "
+          <!-- Main Quill library -->
+          <script src='//cdn.quilljs.com/1.3.6/quill.js'></script>
+          <script src='//cdn.quilljs.com/1.3.6/quill.min.js'></script>
         <script>
           var quill = new Quill('#editor', {
-            theme: 'core'
+            theme: 'snow'
           });
         </script>
         ";
