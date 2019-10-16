@@ -34,7 +34,7 @@
     $result = $conn->query("SELECT verbete FROM Verbetes WHERE concurso = '$concurso' AND id_tema = $id_tema");
     if ($result->num_rows > 0) {
       $result = $conn->query("UPDATE Verbetes SET verbete = '$novo_verbete' WHERE concurso = '$concurso' AND id_tema = $id_tema");
-      $result = $conn->query("INSERT INTO Verbetes_passados (id_tema, concurso, verbete) VALUES ('$id_tema', '$concurso', '$verbete_consolidado_encoded')");
+      $result = $conn->query("INSERT INTO Verbetes_arquivo (id_tema, concurso, verbete) VALUES ('$id_tema', '$concurso', '$verbete_consolidado_encoded')");
     }
     else {
       $result = $conn->query("INSERT INTO Verbetes (id_tema, concurso, verbete) VALUES ('$id_tema', '$concurso', '$novo_verbete')");
