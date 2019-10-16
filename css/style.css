@@ -50,8 +50,10 @@ logo {
 .bdark {
   border: 0;
   border-style: solid;
-  border-color: #b5b5b5;
+  border-bottom-color: #b5b5b5;
   border-bottom-width: 0.2rem;
+  border-right-width: 0.5rem;
+  border-right-color: white;
 }
 
 .searchBar {
