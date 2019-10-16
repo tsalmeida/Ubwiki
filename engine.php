@@ -1,5 +1,12 @@
 <?php
 
+$servername = "localhost";
+$username = "grupoubique";
+$password = "ubique patriae memor";
+$dbname = "Ubique";
+$conn = new mysqli($servername, $username, $password, $dbname);
+mysqli_set_charset($conn,"utf8");
+
 function carregar_navbar() {
   echo "<nav class='navbar navbar-expand-lg bg-white'>
     <a class='navbar-brand align-top' href='index.php'><h2>Ubwiki</h2></a>
@@ -76,6 +83,7 @@ function bottom_page() {
   <script type="text/javascript" charset="UTF-8" src="engine.js"></script>
   </html>
   ';
+  $conn->close();
 }
 
 function load_footer() {
@@ -136,7 +144,6 @@ function ler_edital($materia) {
       }
     }
   }
-  $conn->close();
 }
 
 function standard_jumbotron($titulo, $link) {
@@ -240,7 +247,6 @@ if (isset($_POST['reconstruir_concurso'])) {
       }
     }
   }
-  $conn->close();
 }
 
 function readSearchOptions($concurso) {
@@ -257,7 +263,6 @@ function readSearchOptions($concurso) {
       echo "<option>$chave</option>";
     }
   }
-  $conn->close();
 }
 
 if (isset($_POST['sbcommand'])) {
@@ -278,12 +283,10 @@ if (isset($_POST['sbcommand'])) {
       $tipo = $row["tipo"];
       if ($tipo == "materia") {
         echo "foundfoundfoundfmateria.php?sigla=$sigla&concurso=$concurso";
-        $conn->close();
         return;
       }
       elseif ($tipo == "tema") {
         echo "foundfoundfoundfverbete.php?concurso=$concurso&tema=$sigla";
-        $conn->close();
         return;
       }
     }
@@ -299,7 +302,6 @@ if (isset($_POST['sbcommand'])) {
       $check = levenshtein($chavelow, $commandlow, 1, 1, 1);
 			if (strpos($chavelow, $commandlow) !== false) {
         echo "notfoundnotfound$chave";
-        $conn->close();
 				return;
 			}
       elseif ($check < $index) {
@@ -310,12 +312,10 @@ if (isset($_POST['sbcommand'])) {
     $length = strlen($command);
     if ($index < $length) {
       echo "notfoundnotfound$winner";
-      $conn->close();
       return;
     }
   }
   echo "nada foi encontrado";
-  $conn->close();
   return;
 }
 
