@@ -102,3 +102,10 @@ logo {
 .pv {
   max-width: 65ch;
 }
+
+.footer.page-footer .footer-copyright {
+ position: absolute;
+ bottom: 0;
+ width: 100%;
+ z-index:9999999;
+}
