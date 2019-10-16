@@ -9,7 +9,8 @@ function carregar_navbar() {
   </nav>";
 }
 
-function top_page($elements) {
+function top_page() {
+	$args = func_get_args();
   echo '
   <!DOCTYPE html>
   <html lang="en">
@@ -28,22 +29,37 @@ function top_page($elements) {
     <link type="image/vnd.microsoft.icon" rel="icon" href="imagens/favicon.ico"/>
     <title>Ubwiki</title>';
 
-  if ($elements == "quill") {
-    echo '
-      <!-- Main Quill library -->
-      <script src="//cdn.quilljs.com/1.3.6/quill.js"></script>
-      <script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
+    if ($args != false) {
+      $array = 0;
+      while ($args[$array] != false) {
+        if ($args[$array] == "quill") {
+          echo '
+            <!-- Main Quill library -->
+            <script src="//cdn.quilljs.com/1.3.6/quill.js"></script>
+            <script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
 
-      <!-- Theme included stylesheets -->
-      <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-      <link href="//cdn.quilljs.com/1.3.6/quill.bubble.css" rel="stylesheet">
+            <!-- Theme included stylesheets -->
+            <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+            <link href="//cdn.quilljs.com/1.3.6/quill.bubble.css" rel="stylesheet">
 
-      <!-- Core build with no theme, formatting, non-essential modules -->
-      <link href="//cdn.quilljs.com/1.3.6/quill.core.css" rel="stylesheet">
-      <script src="//cdn.quilljs.com/1.3.6/quill.core.js"></script>
-    ';
-  }
-
+            <!-- Core build with no theme, formatting, non-essential modules -->
+            <link href="//cdn.quilljs.com/1.3.6/quill.core.css" rel="stylesheet">
+            <script src="//cdn.quilljs.com/1.3.6/quill.core.js"></script>
+          ';
+        }
+        elseif ($arags[$array] == "onepage") {
+          echo "
+            <style>
+              html, body {
+                height: 100vh;
+                overflow-y: auto;
+              }
+            </style>
+          ";
+        }
+        $array++;
+      }
+    }
   echo '</head>';
 }
 

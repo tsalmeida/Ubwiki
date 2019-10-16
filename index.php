@@ -1,7 +1,7 @@
 <?php
-include 'engine.php';
-top_page("quill");
-$concurso = "CACD";
+  include 'engine.php';
+  top_page("quill", "onepage");
+  $concurso = "CACD";
 ?>
   <body>
     <?php carregar_navbar(); ?>
