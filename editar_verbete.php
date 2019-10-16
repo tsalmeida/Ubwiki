@@ -35,12 +35,16 @@
 ?>
     <div class="container-fluid my-5">
       <div class="row">
-        <div class="col-lg-8 col-sm-12">
+        <div class="col-lg-8 col-sm-12 px-2 my-2">
 <?php
             echo "
-            <form class='text-center px-2 my-2' method='post'>
+            <form method='post'>
+              <div class='row'>
                 <textarea id='editor' name='verbete_texto' class='rounded textarea_verbete'>$verbete_consolidado</textarea>
+              </div>
+              <div class='row'>
                 <button name='salvar_verbete_texto' type='submit' class='btn btn-primary' value='$salvar'>Salvar</button>
+              </div>
             </form>
             ";
 ?>
