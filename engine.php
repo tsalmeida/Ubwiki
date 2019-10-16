@@ -85,18 +85,11 @@ function bottom_page() {
           <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
         ';
         echo "
-          <script>
-          var options = {
-            debug: 'info',
-            modules: {
-              toolbar: '#quill_container'
-            },
-            placeholder: 'Compose an epic...',
-            readOnly: true,
+        <script>
+          var quill = new Quill('#editor', {
             theme: 'snow'
-          };
-          var editor = new Quill('#quill_editor', options);
-          </script>
+          });
+        </script>
         ";
       }
       $array++;
