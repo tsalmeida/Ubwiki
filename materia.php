@@ -23,17 +23,15 @@ if ($result->num_rows > 0) {
     $materia = $row["materia"];
   }
 }
-
-
 ?>
+
 <body>
   <?php
-  carregar_navbar();
-  standard_jumbotron($materia, false);
+    carregar_navbar();
+    standard_jumbotron($materia, false);
   ?>
   <div class="container my-5">
     <div class="row">
-      <div class="col-2"></div>
       <div class="col-8">
 <?php
         $servername = "localhost";
@@ -82,7 +80,6 @@ if ($result->num_rows > 0) {
         echo "</ul>";
 ?>
       </div>
-      <div class="col-2"></div>
     </div>
   </div>
 </body>
