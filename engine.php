@@ -95,13 +95,13 @@ function ler_cartoes($concurso, $row_itens) {
   if ($result->num_rows > 0) {
     $count = 0;
     while($row = $result->fetch_assoc()) {
-      if ($count == 0) { echo "<div class='row justify-content-center align-middle'>"; }
+      if ($count == 0) { echo "<div class='row justify-content-center'>"; }
       $count++;
       $sigla = $row["sigla"];
       $materia = $row["materia"];
       echo "
-        <div class='col-2 bg-lighter mx-3 my-3 py-0 px-1 rounded bdark cardmateria text-break align-middle text-center' href='materia.php?sigla=$sigla&concurso=$concurso'>
-          <small class='text-muted text-uppercase smaller'>$materia</small>
+        <div class='col-2 bg-lighter mx-3 my-3 py-0 px-1 rounded bdark cardmateria text-break text-center' href='materia.php?sigla=$sigla&concurso=$concurso'>
+          <small class='text-muted text-uppercase smaller align-middle'>$materia</small>
         </div>
       ";
       if ($count == $row_itens) {
