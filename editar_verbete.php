@@ -1,6 +1,6 @@
 <?php
   include 'engine.php';
-  top_page();
+  top_page("quill");
 
   if (isset($_GET['tema'])) {
     $id_tema = $_GET['tema'];
