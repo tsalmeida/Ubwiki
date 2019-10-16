@@ -1,12 +1,5 @@
 <?php
 
-$servername = "localhost";
-$username = "grupoubique";
-$password = "ubique patriae memor";
-$dbname = "Ubique";
-$conn = new mysqli($servername, $username, $password, $dbname);
-mysqli_set_charset($conn,"utf8");
-
 function carregar_navbar() {
   echo "<nav class='navbar navbar-expand-lg bg-white'>
     <a class='navbar-brand align-top' href='index.php'><h2>Ubwiki</h2></a>
