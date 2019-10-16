@@ -79,13 +79,13 @@ function bottom_page() {
   <!-- MDB core JavaScript -->
   <script type="text/javascript" src="js/mdb.min.js"></script>
   <script type="text/javascript" charset="UTF-8" src="engine.js"></script>
-  </html>
   ';
 
   if ($args != false) {
     $array = 0;
     while (isset($args[$array])) {
       if ($args[$array] == "quill") {
+        error_log("this happened");
         echo "
           <script>
             var quill = new Quill('#editor', {
@@ -96,6 +96,9 @@ function bottom_page() {
       }
     }
   }
+
+  echo "</html>";
+
 }
 
 function load_footer() {
