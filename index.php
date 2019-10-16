@@ -5,13 +5,13 @@ $concurso = "CACD";
 ?>
   <body>
     <?php carregar_navbar(); ?>
-    <div class="container text-center bg-white justify-content-center">
+    <div class="container-fluid bg-white">
       <div class="row justify-content-center">
           <div class="col-lg-2 col-sm-5">
               <img class="img-fluid logo" src="imagens/ubiquelogo.png"></img>
           </div>
       </div>
-      <div class="row justify-concent-center">
+      <div class="row text-center">
         <div class="col-lg-12 col-sm-12">
           <?php echo "<p class='lead'>Bem-vindo à Ubwiki, o sistema mais inteligente de preparação para o $concurso.</p>"; ?>
         </div>
