@@ -42,9 +42,11 @@
     while($row = $result->fetch_assoc()) {
       $verbete_consolidado = $row['verbete'];
       $verbete_consolidado = base64_decode($verbete_consolidado);
+      error_log("something was found: $verbete_consolidado // concurso: $concurso // idtema: $id_tema");
     }
   }
   else {
+    error_log("nothing was found and verbete was declared false");
     $verbete_consoliado = false;
   }
   $salvar = array($concurso, $id_tema);
