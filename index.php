@@ -34,7 +34,7 @@
             </form>
           </div>
         </div>
-        <div class="row justify-content-around mt-5">
+        <div class="row mt-5">
             <?php
                 $row_items = 2;
                 $result = $conn->query("SELECT sigla, materia, ordem  FROM Materias WHERE concurso = '$concurso' AND estado = 1 ORDER BY ordem");
