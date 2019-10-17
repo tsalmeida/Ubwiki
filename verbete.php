@@ -68,6 +68,43 @@ if (isset($_POST['novo_video_titulo'])) {
   }
 }
 
+$result = $conn->query("SELECT verbete FROM Verbetes WHERE concurso = '$concurso' AND id_tema = $id_tema");
+if ($result->num_rows > 0) {
+  while($row = $result->fetch_assoc()) {
+    $verbete_consolidado_encoded = $row['verbete'];
+    $verbete_consolidado = base64_decode($verbete_consolidado_encoded);
+  }
+}
+else {
+  $verbete_consolidado = false;
+}
+
+if (isset($_POST['salvar_verbete_texto'])) {
+  $concursoid = $_POST['salvar_verbete_texto'];
+  $concursoid = unserialize($concursoid);
+  $concurso = $concursoid[0];
+  $id_tema = $concursoid[1];
+  $verbete_texto = $_POST['verbete_texto'];
+  $verbete_texto = strip_tags($verbete_texto);
+  $novo_verbete = base64_encode($verbete_texto);
+  $result = $conn->query("SELECT verbete FROM Verbetes WHERE concurso = '$concurso' AND id_tema = $id_tema");
+  if ($result->num_rows > 0) {
+    $result = $conn->query("UPDATE Verbetes SET verbete = '$novo_verbete' WHERE concurso = '$concurso' AND id_tema = $id_tema");
+    $result = $conn->query("INSERT INTO Verbetes_arquivo (id_tema, concurso, verbete) VALUES ('$id_tema', '$concurso', '$verbete_consolidado_encoded')");
+  }
+  else {
+    $result = $conn->query("INSERT INTO Verbetes (id_tema, concurso, verbete) VALUES ('$id_tema', '$concurso', '$novo_verbete')");
+  }
+  $verbete_consolidado = $verbete_texto;
+}
+
+$result = $conn->query("SELECT chave FROM Searchbar WHERE concurso = '$concurso' AND sigla = $id_tema");
+if ($result->num_rows > 0) {
+  while($row = $result->fetch_assoc()) {
+    $tema = $row['chave'];
+  }
+}
+
 ?>
 <body>
   <?php
@@ -445,6 +482,34 @@ if (isset($_POST['novo_video_titulo'])) {
             <input type='url' id='novo_video_link' name='novo_video_link' class='form-control validate' required>
             <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_video_link'>Link para o vídeo</label>
           </div>
+        </div>
+        <div class='modal-footer d-flex justify-content-center'>
+          <button type='button' class='btn bg-lighter btn-lg' data-dismiss='modal'><i class="fal fa-times-circle"></i> Cancelar</button>
+          <button type='submit' class='but btn-primary btn-lg'><i class='fal fa-check'></i> Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class='modal fade' id='modal_editar_verbete' role='dialog' tabindex='-1'>
+  <div class='modal-dialog modal-lg' role='document'>
+    <div class='modal-content'>
+      <form method='post'>
+        <div class='modal-header text-center'>
+          <h4 class='modal-title w-100 font-weight-bold'>Editar verbete</h4>
+          <button type='button' class='close' data-dismiss='modal'>
+            <i class="fal fa-times-circle"></i>
+          </button>
+        </div>
+        <div class='modal-body mx-3'>
+
+          <div class='row justify-content-center'>
+            <div class='container col-12'>
+              <textarea name='verbete_texto' class='rounded textarea_verbete px-4 py-5'>$verbete_consolidado</textarea>
+            </div>
+          </div>
+
         </div>
         <div class='modal-footer d-flex justify-content-center'>
           <button type='button' class='btn bg-lighter btn-lg' data-dismiss='modal'><i class="fal fa-times-circle"></i> Cancelar</button>
