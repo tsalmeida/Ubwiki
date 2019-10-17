@@ -54,7 +54,17 @@ if (isset($_POST['nova_referencia_titulo'])) {
   $nova_referencia_ano = $_POST['nova_referencia_ano'];
   $result = $conn->query("SELECT id FROM Bibliografia WHERE concurso = '$concurso' AND id_tema = $id_tema AND titulo = '$nova_referencia_titulo'");
   if ($result->num_rows == 0) {
-    $result = $conn->query("INSERT INTO Bibliografia (id_tema, concurso, titulo, autor, ano) VALUES ($id_tema, '$concurso', '$nova_referencia_titulo', '$nova_referencia_autor', '$nova_referencia_autor')");
+    $result = $conn->query("INSERT INTO Bibliografia (id_tema, concurso, titulo, autor, ano) VALUES ($id_tema, '$concurso', '$nova_referencia_titulo', '$nova_referencia_autor', '$nova_referencia_ano')");
+  }
+}
+
+if (isset($_POST['novo_video_titulo'])) {
+  $novo_video_titulo = $_POST['novo_video_titulo'];
+  $novo_video_autor = $_POST['novo_video_autor'];
+  $novo_video_link = $_POST['novo_video_link'];
+  $result = $conn->query("SELECT id FROM Videos WHERE concurso = '$concurso' AND id_tema = $id_tema AND titulo = '$novo_video_titulo'");
+  if ($result->num_rows == 0) {
+    $result = $conn->query("INSERT INTO Videos (id_tema, concurso, titulo, autor, link) VALUES ($id_tema, '$concurso', '$novo_video_titulo', '$novo_video_autor', '$novo_video_link')");
   }
 }
 
@@ -273,26 +283,26 @@ if (isset($_POST['nova_referencia_titulo'])) {
     <div class='modal-content'>
       <form method='post'>
         <div class='modal-header text-center'>
-          <h4 class='modal-title w-100 font-weight-bold'>Adicionar imagens</h4>
+          <h4 class='modal-title w-100 font-weight-bold'>Adicionar imagem</h4>
           <button type='button' class='close' data-dismiss='modal'>
             <i class="fal fa-times-circle"></i>
           </button>
         </div>
         <div class='modal-body mx-3'>
           <div class='md-form mb-2'>
-            <input type='url' id='nova_imagem_link' name='nova_imagem_link' class='form-control validate'>
+            <input type='url' id='nova_imagem_link' name='nova_imagem_link' class='form-control validate' required>
             <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_imagem_link'>Link para a imagem</label>
           </div>
           <div class='md-form mb-2'>
-            <input type='text' id='nova_imagem_titulo' name='nova_imagem_titulo' class='form-control validate'>
+            <input type='text' id='nova_imagem_titulo' name='nova_imagem_titulo' class='form-control validate' required>
             <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_imagem_titulo'>Titulo da imagem</label>
           </div>
           <div class='md-form mb-2'>
-            <input type='text' id='nova_imagem_trecho' name='nova_imagem_trecho' class='form-control validate'>
+            <input type='text' id='nova_imagem_trecho' name='nova_imagem_trecho' class='form-control validate' required>
             <label data-error='preenchimento incorreto' data-success='preenchimento correto' for='nova_imagem_trecho'>Trecho do verbete a vincular</label>
           </div>
           <div class='md-form'>
-            <textarea type='text' id='nova_imagem_comentario' name='nova_imagem_comentario' class='md-textarea form-control' rows='4'></textarea>
+            <textarea type='text' id='nova_imagem_comentario' name='nova_imagem_comentario' class='md-textarea form-control' rows='4' required></textarea>
             <label data-error='preenchimento incorreto' data-success='preenchimento correto' for='nova_imagem_comentario'>Breve comentário sobre a imagem, destacando sua relevância para a compreensão do tema.</label>
           </div>
         </div>
@@ -317,15 +327,15 @@ if (isset($_POST['nova_referencia_titulo'])) {
         </div>
         <div class='modal-body mx-3'>
           <div class='md-form mb-2'>
-            <input type='text' id='nova_referencia_titulo' name='nova_referencia_titulo' class='form-control validate'>
+            <input type='text' id='nova_referencia_titulo' name='nova_referencia_titulo' class='form-control validate' required>
             <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_referencia_titulo'>Título da obra</label>
           </div>
           <div class='md-form mb-2'>
-            <input type='text' id='nova_referencia_autor' name='nova_referencia_autor' class='form-control validate'>
+            <input type='text' id='nova_referencia_autor' name='nova_referencia_autor' class='form-control validate' required>
             <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_referencia_autor'>Nome do autor</label>
           </div>
           <div class='md-form mb-2'>
-            <input type='text' id='nova_referencia_ano' name='nova_referencia_ano' class='form-control validate'>
+            <input type='text' id='nova_referencia_ano' name='nova_referencia_ano' class='form-control validate' required>
             <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_referencia_ano'>Ano de publicação</label>
           </div>
         </div>
@@ -343,7 +353,7 @@ if (isset($_POST['nova_referencia_titulo'])) {
     <div class='modal-content'>
       <form method='post'>
         <div class='modal-header text-center'>
-          <h4 class='modal-title w-100 font-weight-bold'>Adicionar links</h4>
+          <h4 class='modal-title w-100 font-weight-bold'>Adicionar link</h4>
           <button type='button' class='close' data-dismiss='modal'>
             <i class="fal fa-times-circle"></i>
           </button>
@@ -351,15 +361,48 @@ if (isset($_POST['nova_referencia_titulo'])) {
         <div class='modal-body mx-3'>
           <div class='md-form mb-2'>
             <input type='url' id='novo_link_link' name='novo_link_link' class='form-control validate'>
-            <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_link_link'>Link para a link</label>
+            <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_link_link' required>Link para a link</label>
           </div>
           <div class='md-form mb-2'>
             <input type='text' id='novo_link_titulo' name='novo_link_titulo' class='form-control validate'>
-            <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_link_titulo'>Titulo da link</label>
+            <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_link_titulo' required>Titulo da link</label>
           </div>
           <div class='md-form'>
-            <textarea type='text' id='novo_link_comentario' name='novo_link_comentario' class='md-textarea form-control' rows='4'></textarea>
+            <textarea type='text' id='novo_link_comentario' name='novo_link_comentario' class='md-textarea form-control' rows='4' required></textarea>
             <label data-error='preenchimento incorreto' data-success='preenchimento correto' for='novo_link_comentario'>Breve comentário sobre o link, destacando sua relevância para a compreensão do tema.</label>
+          </div>
+        </div>
+        <div class='modal-footer d-flex justify-content-center'>
+          <button type='button' class='btn bg-lighter btn-lg' data-dismiss='modal'><i class="fal fa-times-circle"></i> Cancelar</button>
+          <button type='submit' class='but btn-primary btn-lg'><i class='fal fa-check'></i> Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class='modal fade' id='modal_videos_form' role='dialog' tabindex='-1'>
+  <div class='modal-dialog modal-lg' role='document'>
+    <div class='modal-content'>
+      <form method='post'>
+        <div class='modal-header text-center'>
+          <h4 class='modal-title w-100 font-weight-bold'>Adicionar referência bibliográfica</h4>
+          <button type='button' class='close' data-dismiss='modal'>
+            <i class="fal fa-times-circle"></i>
+          </button>
+        </div>
+        <div class='modal-body mx-3'>
+          <div class='md-form mb-2'>
+            <input type='text' id='novo_video_titulo' name='novo_video_titulo' class='form-control validate' required>
+            <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_video_titulo'>Título do vídeo</label>
+          </div>
+          <div class='md-form mb-2'>
+            <input type='text' id='novo_video_autor' name='novo_video_autor' class='form-control validate' required>
+            <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_video_autor'>Nome do autor</label>
+          </div>
+          <div class='md-form mb-2'>
+            <input type='text' id='novo_video_link' name='novo_video_link' class='form-control validate' required>
+            <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_video_link'>Link para o vídeo</label>
           </div>
         </div>
         <div class='modal-footer d-flex justify-content-center'>
