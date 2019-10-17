@@ -128,12 +128,21 @@ if (isset($_POST['novo_video_titulo'])) {
     <div class='row justify-content-center border-bottom border-dark py-5'>
       <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
         <?php
-          if ($imagens == false) {
-            echo "<p>Ainda não foram acrescentadas imagens de apoio a este verbete.</p>";
-          }
-          else {
-            echo $imagens;
-          }
+        $result = $conn->query("SELECT titulo, link, comentario, trecho FROM Imagens WHERE id_tema = $id_tema AND concurso = '$concurso'");
+        if ($result->num_rows > 0) {
+          echo "<ul class='list-group'>";
+            while($row = $result->fetch_assoc()) {
+              $imagem_titulo = $row['titulo'];
+              $imagem_link = $row['link'];
+              $imagem_comentario = $row['comentario'];
+              $imagem_trecho = $row['trecho'];
+              echo "<li class='list-group'item' href='$imagem_link'>$imagem_titulo : $imagem_comentario : $imagem_trecho</li>";
+            }
+          echo "</ul>";
+        }
+        else {
+          echo "<p>Não foram acrescentadas, até o momento, imagens de apoio a este verbete.</p>";
+        }
         ?>
       </div>
     </div>
