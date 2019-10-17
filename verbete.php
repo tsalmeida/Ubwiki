@@ -244,9 +244,21 @@ if ($result->num_rows > 0) {
           <i class="fal fa-times-circle"></i>
         </button>
       </div>
-      <div class='modal-body'>
+      <div class='modal-body mx-3'>
+        <div class='md-form mb-5'>
+          <input type='url' id='nova_imagem_link' class='form_control validate'>
+          <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_imagem_link'>Link para a imagem</label>
+        </div>
+        <div class='md-form mb-5'>
+          <input type='text' id='nova_imagem_titulo' class='form_control validate'>
+          <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_imagem_titulo'>Titulo da imagem</label>
+        </div>
+        <div class='md-form mb-5'>
+          <input type='text' id='nova_imagem_trecho' class='form_control validate'>
+          <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_imagem_trecho'>Trecho do verbete a vincular</label>
+        </div>
       </div>
-      <div class='modal-footer'>
+      <div class='modal-footer d-flex justify-content-center'>
         <button type='button' class='btn btn-secundary btn-lg' data-dismiss='modal'><i class="fal fa-times-circle"></i> Fechar</button>
         <button type='button' class='but btn-primary btn-lg'><i class="fal fa-check"></i> Salvar</button>
       </div>
@@ -263,7 +275,7 @@ if ($result->num_rows > 0) {
           <i class="fal fa-times-circle"></i>
         </button>
       </div>
-      <div class='modal-body'>
+      <div class='modal-body mx-3'>
       </div>
       <div class='modal-footer'>
         <button type='button' class='btn btn-secundary btn-lg' data-dismiss='modal'><i class="fal fa-times-circle"></i> Fechar</button>
@@ -282,7 +294,7 @@ if ($result->num_rows > 0) {
           <i class="fal fa-times-circle"></i>
         </button>
       </div>
-      <div class='modal-body'>
+      <div class='modal-body mx-3'>
       </div>
       <div class='modal-footer'>
         <button type='button' class='btn btn-secundary btn-lg' data-dismiss='modal'><i class="fal fa-times-circle"></i> Fechar</button>
@@ -301,7 +313,7 @@ if ($result->num_rows > 0) {
           <i class="fal fa-times-circle"></i>
         </button>
       </div>
-      <div class='modal-body'>
+      <div class='modal-body mx-3'>
       </div>
       <div class='modal-footer'>
         <button type='button' class='btn btn-secundary btn-lg' data-dismiss='modal'><i class="fal fa-times-circle"></i> Fechar</button>
