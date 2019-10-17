@@ -220,7 +220,7 @@ if (isset($_POST['novo_video_titulo'])) {
               $video_titulo = $row['titulo'];
               $video_autor = $row['autor'];
               $video_link = $row['link'];
-              echo "<a href='$video_link' target='_blank'><li class='list-group-item list-group-item-action'>$video_titulo : $video_autor</li></a>";
+              echo "<li class='list-group-item list-group-item-action'><a href='$video_link' target='_blank'>$video_titulo : $video_autor</a></li>";
             }
           echo "</ul>";
         }
