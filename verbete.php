@@ -87,8 +87,8 @@ if (isset($_POST['novo_video_titulo'])) {
       <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#discussao'>Discussão</a>
     </ul>
   </div>
-  <div class='container-fluid my-5' id='verbete'>
-    <div class='row justify-content-center'>
+  <div class='container my-5' id='verbete'>
+    <div class='row justify-content-left h2'>
       <div class='col-lg-2 text-center justify-content-center align-middle'>
         <span class='align-middle'>Verbete consolidado</span>
       </div>
