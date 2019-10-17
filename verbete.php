@@ -136,7 +136,7 @@ if (isset($_POST['novo_video_titulo'])) {
               $imagem_link = $row['link'];
               $imagem_comentario = $row['comentario'];
               $imagem_trecho = $row['trecho'];
-              echo "<li class='list-group-item' href='$imagem_link'>$imagem_titulo : $imagem_comentario : $imagem_trecho</li>";
+              echo "<li class='list-group-item list-group-item-action' href='$imagem_link'>$imagem_titulo : $imagem_comentario : $imagem_trecho</li>";
             }
           echo "</ul>";
         }
