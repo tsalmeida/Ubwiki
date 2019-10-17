@@ -130,7 +130,7 @@ if ($result->num_rows > 0) {
         <span class='align-middle'>Verbete consolidado</span>
       </div>
       <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
-          <?php echo "<span class='text-center justify-content-center align-middle'><a href='editar_verbete.php?concurso=$concurso&tema=$id_tema'><i class='fal fa-edit'></i></a></span>"; ?>
+        <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_editar_verbete'><i class='fal fa-plus-square'></i></a></span>
       </div>
     </div>
     <div class='row justify-content-center border-bottom border-dark py-5'>
