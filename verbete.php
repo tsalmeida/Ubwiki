@@ -136,7 +136,7 @@ if (isset($_POST['novo_video_titulo'])) {
               $imagem_link = $row['link'];
               $imagem_comentario = $row['comentario'];
               $imagem_trecho = $row['trecho'];
-              echo "<li class='list-group-item list-group-item-action'><a href='$imagem_link'>$imagem_titulo : $imagem_comentario : $imagem_trecho</a></li>";
+              echo "<li class='list-group-item list-group-item-action'><a href='$imagem_link' target='_blank'>$imagem_titulo : $imagem_comentario : $imagem_trecho</a></li>";
             }
           echo "</ul>";
         }
@@ -189,7 +189,7 @@ if (isset($_POST['novo_video_titulo'])) {
               $referencia_titulo = $row['titulo'];
               $referencia_autor = $row['autor'];
               $referencia_capitulo = $row['capitulo'];
-              echo "<li class='list-group-item'>$imagem_titulo : $imagem_comentario : $imagem_trecho</li>";
+              echo "<li class='list-group-item'>$referencia_titulo : $referencia_autor : $refrencia_capitulo</li>";
             }
           echo "</ul>";
         }
@@ -217,10 +217,10 @@ if (isset($_POST['novo_video_titulo'])) {
         if ($result->num_rows > 0) {
           echo "<ul class='list-group'>";
             while($row = $result->fetch_assoc()) {
-              $referencia_titulo = $row['titulo'];
-              $referencia_autor = $row['autor'];
-              $referencia_capitulo = $row['capitulo'];
-              echo "<li class='list-group-item'>$referencia_titulo : $referencia_comentario : $referencia_capitulo</li>";
+              $video_titulo = $row['titulo'];
+              $video_autor = $row['autor'];
+              $video_link = $row['link'];
+              echo "<a href='$video_link' target='_blank'><li class='list-group-item list-group-item-action'>$video_titulo : $video_autor</li></a>";
             }
           echo "</ul>";
         }
@@ -255,7 +255,7 @@ if (isset($_POST['novo_video_titulo'])) {
     </div>
   </div>
 
-  <div class='container my-5' id='anotacoese'>
+  <div class='container my-5' id='anotacoes'>
     <div class='row justify-content-between h3 my-5'>
       <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
         <span class='align-middle'>Suas anotações</span>
