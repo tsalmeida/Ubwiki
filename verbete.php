@@ -27,12 +27,11 @@ if ($result->num_rows > 0) {
   }
 }
 
-id (isset($_POST['nova_imagem_link'];))
+if (isset($_POST['nova_imagem_link'];)) {
   $nova_imagem_link = $_POST['nova_imagem_link'];
   $nova_imagem_titulo = $_POST['nova_imagem_titulo'];
-  $nova_imagem_trecho = $_POST['nova_imagem_comentario'];
   $nova_imagem_trecho = $_POST['nova_imagem_trecho'];
-
+  $nova_imagem_comentario = $_POST['nova_imagem_comentario'];
   $result = $conn->query("SELECT id FROM Imagens WHERE concurso = '$concurso' AND id_tema = $id_tema AND link = '$nova_imagem_link'");
   if ($result->num_rows == 0) {
     $result = $conn->query("INSERT INTO Imagens (id_tema, concurso, titulo, link, comentario, trecho) VALUES ($id_tema, '$concurso', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_comentario', '$nova_imagem_trecho')");
@@ -269,7 +268,11 @@ id (isset($_POST['nova_imagem_link'];))
         </div>
         <div class='md-form mb-2'>
           <input type='text' id='nova_imagem_trecho' name='nova_imagem_trecho' class='form-control validate'>
-          <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_imagem_trecho'>Trecho do verbete a vincular</label>
+          <label data-error='preenchimento incorreto' data-success='preenchimento correto' for='nova_imagem_trecho'>Trecho do verbete a vincular</label>
+        </div>
+        <div class='md-form'>
+          <textarea type='text' id='nova_imagem_comentario' name='nova_imagem_comentario' class='md-textarea form-control' rows='4'></textarea>
+          <label data-error='preenchimento incorreto' data-success='preenchimento correto' for='nova_imagem_comentario'>Breve comentário sobre a imagem, destacando sua relevância para a compreensão do tema.</label>
         </div>
       </div>
       <div class='modal-footer d-flex justify-content-center'>
