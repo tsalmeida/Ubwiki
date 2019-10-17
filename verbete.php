@@ -27,7 +27,7 @@ if ($result->num_rows > 0) {
   }
 }
 
-if (isset($_POST['nova_imagem_link'];)) {
+if (isset($_POST['nova_imagem_link'])) {
   $nova_imagem_link = $_POST['nova_imagem_link'];
   $nova_imagem_titulo = $_POST['nova_imagem_titulo'];
   $nova_imagem_trecho = $_POST['nova_imagem_trecho'];
