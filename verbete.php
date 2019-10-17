@@ -189,7 +189,7 @@ if (isset($_POST['novo_video_titulo'])) {
               $referencia_titulo = $row['titulo'];
               $referencia_autor = $row['autor'];
               $referencia_capitulo = $row['capitulo'];
-              echo "<li class='list-group-item list-group-item-action'><a href='$imagem_link'>$imagem_titulo : $imagem_comentario : $imagem_trecho</a></li>";
+              echo "<li class='list-group-item'>$imagem_titulo : $imagem_comentario : $imagem_trecho</li>";
             }
           echo "</ul>";
         }
