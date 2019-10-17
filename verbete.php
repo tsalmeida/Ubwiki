@@ -42,9 +42,9 @@ if (isset($_POST['novo_link_link'])) {
   $novo_link_link = $_POST['novo_link_link'];
   $novo_link_titulo = $_POST['novo_link_titulo'];
   $novo_link_comentario = $_POST['novo_link_comentario'];
-  $result = $conn->query("SELECT id FROM Imagens WHERE concurso = '$concurso' AND id_tema = $id_tema AND link = '$novo_link_link'");
+  $result = $conn->query("SELECT id FROM Links WHERE concurso = '$concurso' AND id_tema = $id_tema AND link = '$novo_link_link'");
   if ($result->num_rows == 0) {
-    $result = $conn->query("INSERT INTO Imagens (id_tema, concurso, titulo, link, comentario) VALUES ($id_tema, '$concurso', '$novo_link_titulo', '$novo_link_link', '$novo_link_comentario')");
+    $result = $conn->query("INSERT INTO Links (id_tema, concurso, titulo, link, comentario) VALUES ($id_tema, '$concurso', '$novo_link_titulo', '$novo_link_link', '$novo_link_comentario')");
   }
 }
 
