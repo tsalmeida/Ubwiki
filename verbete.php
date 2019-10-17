@@ -33,20 +33,19 @@ if ($result->num_rows > 0) {
 ?>
   <div class='container-fluid py-3 col-12 bg-lighter text-center'>
     <ul class='list-group list-group-horizontal-lg'>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark' href='#verbete'>Verbete consolidado</a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark' href='#imagens'>Imagens de apoio</a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark' href='#verbetes'>Verbetes relacionados</a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark' href='#bibliografia'>Bibliografia pertinente</a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark' href='#videos'>Vídeos e aulas relacionados</a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark' href='#links'>Links externos</a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark' href='#anotacoes'>Minhas anotações</a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark' href='#questoes'>Questões de provas passadas</a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark' href='#discussao'>Discussão</a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#verbete'>Verbete consolidado</a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#imagens'>Imagens de apoio</a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#verbetes'>Verbetes relacionados</a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#bibliografia'>Bibliografia pertinente</a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#videos'>Vídeos e aulas relacionados</a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#links'>Links externos</a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#anotacoes'>Minhas anotações</a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#questoes'>Questões de provas passadas</a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#discussao'>Discussão</a>
     </ul>
   </div>
   <div class='container-fluid mt-5' id='verbete'>
     <div class='row justify-content-center'>
-
       <div class='col-lg-2 text-center justify-content-center align-middle'>
         <span class='align-middle'>Verbete consolidado</span>
       </div>
@@ -62,7 +61,6 @@ if ($result->num_rows > 0) {
             $verbete = base64_decode($verbete);
             $separator = "\r\n";
             $line = strtok($verbete, $separator);
-
             while ($line !== false) {
                 echo "<p>$line</p>";
                 $line = strtok( $separator );
@@ -75,12 +73,11 @@ if ($result->num_rows > 0) {
 
   <div class='container-fluid mt-5' id='imagens'>
     <div class='row justify-content-center'>
-
       <div class='col-lg-2 text-center justify-content-center align-middle'>
         <span class='align-middle'>Imagens de apoio</span>
       </div>
       <div class='col-lg-1 text-center justify-content-center align-middle border-right border-dark'>
-          <?php echo "<span class='h4 text-center justify-content-center align-middle'><a><i class='fal fa-plus-square'></i></span></a>"; ?>
+          <span class='h4 text-center justify-content-center align-middle'><a><i class='fal fa-plus-square'></i></span></a>
       </div>
       <div class='col-lg-5 text-left'>
         <?php
@@ -97,7 +94,6 @@ if ($result->num_rows > 0) {
 
   <div class='container-fluid mt-5' id='verbetes'>
     <div class='row justify-content-center'>
-
       <div class='col-lg-2 text-center justify-content-center align-middle'>
         <span class='align-middle'>Verbetes relacionados</span>
       </div>
@@ -117,12 +113,11 @@ if ($result->num_rows > 0) {
 
   <div class='container-fluid mt-5' id='bibliografia'>
     <div class='row justify-content-center'>
-
       <div class='col-lg-2 text-center justify-content-center align-middle'>
         <span class='align-middle'>Bibliografia pertinente</span>
       </div>
       <div class='col-lg-1 text-center justify-content-center align-middle border-right border-dark'>
-          <?php echo "<span class='h4 text-center justify-content-center align-middle'><a><i class='fal fa-plus-square'></i></span></a>"; ?>
+        <span class='h4 text-center justify-content-center align-middle'><a><i class='fal fa-plus-square'></i></span></a>
       </div>
       <div class='col-lg-5 text-left'>
         <?php
@@ -139,12 +134,11 @@ if ($result->num_rows > 0) {
 
   <div class='container-fluid mt-5' id='videos'>
     <div class='row justify-content-center'>
-
       <div class='col-lg-2 text-center justify-content-center align-middle'>
         <span class='align-middle'>Vídeos e aulas relacionados</span>
       </div>
       <div class='col-lg-1 text-center justify-content-center align-middle border-right border-dark'>
-          <?php echo "<span class='h4 text-center justify-content-center align-middle'><a><i class='fal fa-plus-square'></i></span></a>"; ?>
+        <span class='h4 text-center justify-content-center align-middle'><a><i class='fal fa-plus-square'></i></span></a>
       </div>
       <div class='col-lg-5 text-left'>
         <?php
@@ -161,12 +155,11 @@ if ($result->num_rows > 0) {
 
   <div class='container-fluid mt-5' id='links'>
     <div class='row justify-content-center'>
-
       <div class='col-lg-2 text-center justify-content-center align-middle'>
         <span class='align-middle'>Links externos</span>
       </div>
       <div class='col-lg-1 text-center justify-content-center align-middle border-right border-dark'>
-          <?php echo "<span class='h4 text-center justify-content-center align-middle'><a><i class='fal fa-plus-square'></i></span></a>"; ?>
+        <span class='h4 text-center justify-content-center align-middle'><a><i class='fal fa-plus-square'></i></span></a>
       </div>
       <div class='col-lg-5 text-left'>
         <?php
@@ -183,12 +176,11 @@ if ($result->num_rows > 0) {
 
   <div class='container-fluid mt-5' id='anotacoes'>
     <div class='row justify-content-center'>
-
       <div class='col-lg-2 text-center justify-content-center align-middle'>
         <span class='align-middle'>Minhas anotações</span>
       </div>
       <div class='col-lg-1 text-center justify-content-center align-middle border-right border-dark'>
-          <?php echo "<span class='h4 text-center justify-content-center align-middle'><a><i class='fal fa-edit'></i></span></a>"; ?>
+        <span class='h4 text-center justify-content-center align-middle'><a><i class='fal fa-edit'></i></span></a>
       </div>
       <div class='col-lg-5 text-left'>
         <?php
@@ -206,7 +198,6 @@ if ($result->num_rows > 0) {
 
   <div class='container-fluid mt-5' id='questoes'>
     <div class='row justify-content-center'>
-
       <div class='col-lg-2 text-center justify-content-center align-middle'>
         <span class='align-middle'>Questões de provas passadas</span>
       </div>
