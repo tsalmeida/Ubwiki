@@ -117,7 +117,7 @@ if ($result->num_rows > 0) {
         <span class='align-middle'>Bibliografia pertinente</span>
       </div>
       <div class='col-lg-1 text-center justify-content-center align-middle border-right border-dark'>
-        <span class='h4 text-center justify-content-center align-middle'><a><i class='fal fa-plus-square'></i></a></span>
+        <span class='h4 text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_bibliografia'><i class='fal fa-plus-square'></i></a></span>
       </div>
       <div class='col-lg-5 text-left'>
         <?php
@@ -138,7 +138,7 @@ if ($result->num_rows > 0) {
         <span class='align-middle'>Vídeos e aulas relacionados</span>
       </div>
       <div class='col-lg-1 text-center justify-content-center align-middle border-right border-dark'>
-        <span class='h4 text-center justify-content-center align-middle'><a><i class='fal fa-plus-square'></i></a></span>
+        <span class='h4 text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_videos'><i class='fal fa-plus-square'></i></a></span>
       </div>
       <div class='col-lg-5 text-left'>
         <?php
@@ -159,7 +159,7 @@ if ($result->num_rows > 0) {
         <span class='align-middle'>Links externos</span>
       </div>
       <div class='col-lg-1 text-center justify-content-center align-middle border-right border-dark'>
-        <span class='h4 text-center justify-content-center align-middle'><a><i class='fal fa-plus-square'></i></a></span>
+        <span class='h4 text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_links'><i class='fal fa-plus-square'></i></a></span>
       </div>
       <div class='col-lg-5 text-left'>
         <?php
@@ -254,7 +254,62 @@ if ($result->num_rows > 0) {
   </div>
 </div>
 
+<div class='modal fade' id='modal_bibliografia' tabindex='-1'>
+  <div class='modal-dialog modal-lg' role='document'>
+    <div class='modal-content'>
+      <div class='modal-header'>
+        <h4 class='modal-title w-100'>Adicionar referência bibliográfica</h4>
+        <button type='button' class='close' data-dismiss='modal'>
+          <i class="fal fa-times-circle"></i>
+        </button>
+      </div>
+      <div class='modal-body'>
+      </div>
+      <div class='modal-footer'>
+        <button type='button' class='btn btn-secundary btn-lg' data-dismiss='modal'><i class="fal fa-times-circle"></i> Fechar</button>
+        <button type='button' class='but btn-primary btn-lg'><i class="fal fa-check"></i> Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
+<div class='modal fade' id='modal_videos' tabindex='-1'>
+  <div class='modal-dialog modal-lg' role='document'>
+    <div class='modal-content'>
+      <div class='modal-header'>
+        <h4 class='modal-title w-100'>Adicionar conteúdo videográfico</h4>
+        <button type='button' class='close' data-dismiss='modal'>
+          <i class="fal fa-times-circle"></i>
+        </button>
+      </div>
+      <div class='modal-body'>
+      </div>
+      <div class='modal-footer'>
+        <button type='button' class='btn btn-secundary btn-lg' data-dismiss='modal'><i class="fal fa-times-circle"></i> Fechar</button>
+        <button type='button' class='but btn-primary btn-lg'><i class="fal fa-check"></i> Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class='modal fade' id='modal_links' tabindex='-1'>
+  <div class='modal-dialog modal-lg' role='document'>
+    <div class='modal-content'>
+      <div class='modal-header'>
+        <h4 class='modal-title w-100'>Adicionar link externo</h4>
+        <button type='button' class='close' data-dismiss='modal'>
+          <i class="fal fa-times-circle"></i>
+        </button>
+      </div>
+      <div class='modal-body'>
+      </div>
+      <div class='modal-footer'>
+        <button type='button' class='btn btn-secundary btn-lg' data-dismiss='modal'><i class="fal fa-times-circle"></i> Fechar</button>
+        <button type='button' class='but btn-primary btn-lg'><i class="fal fa-check"></i> Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 </body>
 <?php
