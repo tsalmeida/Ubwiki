@@ -361,11 +361,11 @@ if (isset($_POST['novo_video_titulo'])) {
         <div class='modal-body mx-3'>
           <div class='md-form mb-2'>
             <input type='url' id='novo_link_link' name='novo_link_link' class='form-control validate'>
-            <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_link_link' required>Link para a link</label>
+            <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_link_link' required>Link para a página</label>
           </div>
           <div class='md-form mb-2'>
             <input type='text' id='novo_link_titulo' name='novo_link_titulo' class='form-control validate'>
-            <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_link_titulo' required>Titulo da link</label>
+            <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_link_titulo' required>Título da página</label>
           </div>
           <div class='md-form'>
             <textarea type='text' id='novo_link_comentario' name='novo_link_comentario' class='md-textarea form-control' rows='4' required></textarea>
@@ -401,7 +401,7 @@ if (isset($_POST['novo_video_titulo'])) {
             <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_video_autor'>Nome do autor</label>
           </div>
           <div class='md-form mb-2'>
-            <input type='text' id='novo_video_link' name='novo_video_link' class='form-control validate' required>
+            <input type='url' id='novo_video_link' name='novo_video_link' class='form-control validate' required>
             <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_video_link'>Link para o vídeo</label>
           </div>
         </div>
