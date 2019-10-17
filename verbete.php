@@ -95,6 +95,8 @@ if (isset($_POST['novo_video_titulo'])) {
       <div class='col-lg-1 text-center justify-content-center align-middle border-right border-dark'>
           <?php echo "<span class='h4 text-center justify-content-center align-middle'><a href='editar_verbete.php?concurso=$concurso&tema=$id_tema'><i class='fal fa-edit'></i></a></span>"; ?>
       </div>
+    </div>
+    <div class='row'>
       <div class='col-lg-5 text-left'>
         <?php
           if ($verbete == false) {
