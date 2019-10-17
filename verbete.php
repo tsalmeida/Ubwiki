@@ -88,11 +88,11 @@ if (isset($_POST['novo_video_titulo'])) {
     </ul>
   </div>
   <div class='container my-5' id='verbete'>
-    <div class='row justify-content-left h3'>
-      <div class='col-lg-4 text-center justify-content-center align-middle'>
+    <div class='row justify-content-between h3'>
+      <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
         <span class='align-middle'>Verbete consolidado</span>
       </div>
-      <div class='col-lg-1 text-center justify-content-center align-middle'>
+      <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
           <?php echo "<span class='h4 text-center justify-content-center align-middle'><a href='editar_verbete.php?concurso=$concurso&tema=$id_tema'><i class='fal fa-edit'></i></a></span>"; ?>
       </div>
     </div>
