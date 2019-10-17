@@ -10,35 +10,25 @@ if (isset($_GET['concurso'])) {
   $concurso = $_GET['concurso'];
 }
 
+
+$result = $conn->query("SELECT chave FROM Searchbar WHERE concurso = '$concurso' AND sigla = $id_tema");
+if ($result->num_rows > 0) {
+  while($row = $result->fetch_assoc()) {
+    $tema = $row['chave'];
+  }
+}
+$verbete = false;
+$result = $conn->query("SELECT verbete FROM Verbetes WHERE id_tema = $id_tema AND concurso = '$concurso'");
+if ($result->num_rows > 0) {
+  while($row = $result->fetch_assoc()) {
+    $verbete = $row["verbete"];
+  }
+}
+
 ?>
 <body>
   <?php
   carregar_navbar();
-  $servername = "localhost";
-  $username = "grupoubique";
-  $password = "ubique patriae memor";
-  $dbname = "Ubique";
-  $found = false;
-  $conn = new mysqli($servername, $username, $password, $dbname);
-  mysqli_set_charset($conn,"utf8");
-  $result = $conn->query("SELECT chave FROM Searchbar WHERE concurso = '$concurso' AND sigla = $id_tema");
-  if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
-      $tema = $row['chave'];
-    }
-  }
-  $found = false;
-  $id_verbete = false;
-  $verbete = false;
-  $result = $conn->query("SELECT id, verbete FROM Verbetes WHERE id_tema = $id_tema AND concurso = '$concurso'");
-  if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
-      $found = true;
-      $id_verbete = $row["id"];
-      $verbete = $row["verbete"];
-    }
-  }
-  $conn->close();
   standard_jumbotron($tema, false);
 ?>
   <div class='container-fluid py-3 col-12 bg-lighter text-center'>
@@ -257,4 +247,5 @@ if (isset($_GET['concurso'])) {
 <?php
   load_footer();
   bottom_page();
+  $conn->close();
 ?>
