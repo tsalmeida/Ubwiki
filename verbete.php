@@ -247,8 +247,8 @@ if ($result->num_rows > 0) {
       <div class='modal-body'>
       </div>
       <div class='modal-footer'>
-        <button type='button' class='btn btn-secundary btn-sm' data-dismiss='modal'><i class="fal fa-times-circle"></i> Fechar</button>
-        <button type='button' class='but btn-primary btn-sm'><i class="fal fa-check"></i> Salvar</button>
+        <button type='button' class='btn btn-secundary btn-lg' data-dismiss='modal'><i class="fal fa-times-circle"></i> Fechar</button>
+        <button type='button' class='but btn-primary btn-lg'><i class="fal fa-check"></i> Salvar</button>
       </div>
     </div>
   </div>
