@@ -93,7 +93,7 @@ if (isset($_POST['novo_video_titulo'])) {
         <span class='align-middle'>Verbete consolidado</span>
       </div>
       <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
-          <?php echo "<span class='h4 text-center justify-content-center align-middle'><a href='editar_verbete.php?concurso=$concurso&tema=$id_tema'><i class='fal fa-edit'></i></a></span>"; ?>
+          <?php echo "<span class='text-center justify-content-center align-middle'><a href='editar_verbete.php?concurso=$concurso&tema=$id_tema'><i class='fal fa-edit'></i></a></span>"; ?>
       </div>
     </div>
     <div class='row justify-content-center border-bottom border-dark py-5'>
@@ -116,164 +116,178 @@ if (isset($_POST['novo_video_titulo'])) {
     </div>
   </div>
 
-  <div class='container-fluid mt-5' id='imagens'>
-    <div class='row justify-content-center'>
-      <div class='col-lg-2 text-center justify-content-center align-middle'>
+  <div class='container my-5' id='imagens'>
+    <div class='row justify-content-between h3 my-5'>
+      <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
         <span class='align-middle'>Imagens de apoio</span>
       </div>
-      <div class='col-lg-1 text-center justify-content-center align-middle border-right border-dark'>
-        <span class='h4 text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_imagens_form'><i class='fal fa-plus-square'></i></a></span>
+      <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
+          <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_imagens_form'><i class='fal fa-plus-square'></i></a></span>
       </div>
-      <div class='col-lg-5 text-left'>
+    </div>
+    <div class='row justify-content-center border-bottom border-dark py-5'>
+      <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
         <?php
           if ($imagens == false) {
             echo "<p>Ainda não foram acrescentadas imagens de apoio a este verbete.</p>";
           }
           else {
-            echo "$imagens";
+            echo $imagens;
           }
         ?>
       </div>
     </div>
   </div>
 
-  <div class='container-fluid mt-5' id='verbetes'>
-    <div class='row justify-content-center'>
-      <div class='col-lg-2 text-center justify-content-center align-middle'>
+  <div class='container my-5' id='verbetes'>
+    <div class='row justify-content-between h3 my-5'>
+      <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
         <span class='align-middle'>Verbetes relacionados</span>
       </div>
-      <div class='col-lg-1 text-center justify-content-center align-middle border-right border-dark'></div>
-      <div class='col-lg-5 text-left'>
+      <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
+      </div>
+    </div>
+    <div class='row justify-content-center border-bottom border-dark py-5'>
+      <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
         <?php
           if ($verbetes == false) {
             echo "<p>Não há verbetes relacionados a este tema.</p>";
           }
           else {
-            echo "$verbetes";
+            echo $verbetes;
           }
         ?>
       </div>
     </div>
   </div>
 
-  <div class='container-fluid mt-5' id='bibliografia'>
-    <div class='row justify-content-center'>
-      <div class='col-lg-2 text-center justify-content-center align-middle'>
+  <div class='container my-5' id='bibliografia'>
+    <div class='row justify-content-between h3 my-5'>
+      <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
         <span class='align-middle'>Bibliografia pertinente</span>
       </div>
-      <div class='col-lg-1 text-center justify-content-center align-middle border-right border-dark'>
-        <span class='h4 text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_referencia_form'><i class='fal fa-plus-square'></i></a></span>
+      <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
+          <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_referencia_form'><i class='fal fa-plus-square'></i></a></span>
       </div>
-      <div class='col-lg-5 text-left'>
+    </div>
+    <div class='row justify-content-center border-bottom border-dark py-5'>
+      <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
         <?php
           if ($bibliografia == false) {
             echo "<p>Não foram identificados, até o momento, recursos bibliográficos sobre este tema.</p>";
           }
           else {
-            echo "$bibliografia";
+            echo $bibliografia;
           }
         ?>
       </div>
     </div>
   </div>
 
-  <div class='container-fluid mt-5' id='videos'>
-    <div class='row justify-content-center'>
-      <div class='col-lg-2 text-center justify-content-center align-middle'>
-        <span class='align-middle'>Vídeos e aulas relacionados</span>
+  <div class='container my-5' id='videos'>
+    <div class='row justify-content-between h3 my-5'>
+      <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
+        <span class='align-middle'>Vídeos e aulas</span>
       </div>
-      <div class='col-lg-1 text-center justify-content-center align-middle border-right border-dark'>
-        <span class='h4 text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_videos_form'><i class='fal fa-plus-square'></i></a></span>
+      <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
+          <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_videos_form'><i class='fal fa-plus-square'></i></a></span>
       </div>
-      <div class='col-lg-5 text-left'>
+    </div>
+    <div class='row justify-content-center border-bottom border-dark py-5'>
+      <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
         <?php
           if ($videos == false) {
             echo "<p>Ainda não foram acrescentados links para vídeos e aulas sobre este tema.</p>";
           }
           else {
-            echo "$videos";
+            echo $videos;
           }
         ?>
       </div>
     </div>
   </div>
 
-  <div class='container-fluid mt-5' id='links'>
-    <div class='row justify-content-center'>
-      <div class='col-lg-2 text-center justify-content-center align-middle'>
+  <div class='container my-5' id='links'>
+    <div class='row justify-content-between h3 my-5'>
+      <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
         <span class='align-middle'>Links externos</span>
       </div>
-      <div class='col-lg-1 text-center justify-content-center align-middle border-right border-dark'>
-        <span class='h4 text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_links_form'><i class='fal fa-plus-square'></i></a></span>
+      <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
+          <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_links_form'><i class='fal fa-plus-square'></i></a></span>
       </div>
-      <div class='col-lg-5 text-left'>
+    </div>
+    <div class='row justify-content-center border-bottom border-dark py-5'>
+      <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
         <?php
           if ($links == false) {
             echo "<p>Ainda não foram acrescentados links externos sobre este tema.</p>";
           }
           else {
-            echo "$links";
+            echo $links;
           }
         ?>
       </div>
     </div>
   </div>
 
-  <div class='container-fluid mt-5' id='anotacoes'>
-    <div class='row justify-content-center'>
-      <div class='col-lg-2 text-center justify-content-center align-middle'>
-        <span class='align-middle'>Minhas anotações</span>
+  <div class='container my-5' id='anotacoese'>
+    <div class='row justify-content-between h3 my-5'>
+      <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
+        <span class='align-middle'>Suas anotações</span>
       </div>
-      <div class='col-lg-1 text-center justify-content-center align-middle border-right border-dark'>
-        <span class='h4 text-center justify-content-center align-middle'><a><i class='fal fa-edit'></i></a></span>
+      <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
       </div>
-      <div class='col-lg-5 text-left'>
+    </div>
+    <div class='row justify-content-center border-bottom border-dark py-5'>
+      <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
         <?php
-          $anotacoes = false;
           if ($anotacoes == false) {
-            echo "<p>Você ainda não acrescentou suas próprias anotações sobre este tema.</p>";
+            echo "<p>Você ainda não fez anotações sobre este tema.</p>";
           }
           else {
-            echo "$anotacoes";
+            echo $anotacoes;
           }
         ?>
       </div>
     </div>
   </div>
 
-  <div class='container-fluid mt-5' id='questoes'>
-    <div class='row justify-content-center'>
-      <div class='col-lg-2 text-center justify-content-center align-middle'>
+  <div class='container my-5' id='questoes'>
+    <div class='row justify-content-between h3 my-5'>
+      <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
         <span class='align-middle'>Questões de provas passadas</span>
       </div>
-      <div class='col-lg-1 text-center justify-content-center align-middle border-right border-dark'></div>
-      <div class='col-lg-5 text-left'>
+      <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'></div>
+    </div>
+    <div class='row justify-content-center border-bottom border-dark py-5'>
+      <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
         <?php
-          $questoes = false;
           if ($questoes == false) {
             echo "<p>Não há registro de questões em provas passadas sobre este tema.</p>";
           }
           else {
-            echo "$questoes";
+            echo $questoes;
           }
         ?>
       </div>
     </div>
   </div>
 
-  <div class='container-fluid mt-5' id='discussao'>
-    <div class='row justify-content-center'>
-      <div class='col-lg-2 text-center justify-content-center align-middle'>
+  <div class='container my-5' id='discussao'>
+    <div class='row justify-content-between h3 my-5'>
+      <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
         <span class='align-middle'>Debate</span>
       </div>
-      <div class='col-lg-1 text-center justify-content-center align-middle border-right border-dark'></div>
-      <div class='col-lg-5 text-left'>
+      <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'></div>
+    </div>
+    <div class='row justify-content-center border-bottom border-dark py-5'>
+      <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
         <?php
           if ($discussao == false) {
             echo "<p>Não há debate sobre este tema. Deixe aqui sua opinião!</p>";
           }
           else {
-            echo "$discussao";
+            echo $discussao;
           }
         ?>
       </div>

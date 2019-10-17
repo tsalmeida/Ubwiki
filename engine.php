@@ -360,5 +360,4 @@ if (isset($_POST['reiniciar_ciclo'])) {
   $result = $conn->query("UPDATE Temas SET ciclo_revisao = 0 WHERE concurso = '$concurso'");
 }
 
-
 ?>
