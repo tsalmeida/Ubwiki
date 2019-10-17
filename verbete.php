@@ -251,34 +251,36 @@ if (isset($_POST['nova_imagem_link'])) {
 <div class='modal fade' id='modal_imagens_form' role='dialog' tabindex='-1'>
   <div class='modal-dialog modal-lg' role='document'>
     <div class='modal-content'>
-      <div class='modal-header text-center'>
-        <h4 class='modal-title w-100 font-weight-bold'>Adicionar imagens</h4>
-        <button type='button' class='close' data-dismiss='modal'>
-          <i class="fal fa-times-circle"></i>
-        </button>
-      </div>
-      <div class='modal-body mx-3'>
-        <div class='md-form mb-2'>
-          <input type='url' id='nova_imagem_link' name='nova_imagem_link' class='form-control validate'>
-          <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_imagem_link'>Link para a imagem</label>
+      <form method='post'>
+        <div class='modal-header text-center'>
+          <h4 class='modal-title w-100 font-weight-bold'>Adicionar imagens</h4>
+          <button type='button' class='close' data-dismiss='modal'>
+            <i class="fal fa-times-circle"></i>
+          </button>
         </div>
-        <div class='md-form mb-2'>
-          <input type='text' id='nova_imagem_titulo' name='nova_imagem_titulo' class='form-control validate'>
-          <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_imagem_titulo'>Titulo da imagem</label>
+        <div class='modal-body mx-3'>
+          <div class='md-form mb-2'>
+            <input type='url' id='nova_imagem_link' name='nova_imagem_link' class='form-control validate'>
+            <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_imagem_link'>Link para a imagem</label>
+          </div>
+          <div class='md-form mb-2'>
+            <input type='text' id='nova_imagem_titulo' name='nova_imagem_titulo' class='form-control validate'>
+            <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_imagem_titulo'>Titulo da imagem</label>
+          </div>
+          <div class='md-form mb-2'>
+            <input type='text' id='nova_imagem_trecho' name='nova_imagem_trecho' class='form-control validate'>
+            <label data-error='preenchimento incorreto' data-success='preenchimento correto' for='nova_imagem_trecho'>Trecho do verbete a vincular</label>
+          </div>
+          <div class='md-form'>
+            <textarea type='text' id='nova_imagem_comentario' name='nova_imagem_comentario' class='md-textarea form-control' rows='4'></textarea>
+            <label data-error='preenchimento incorreto' data-success='preenchimento correto' for='nova_imagem_comentario'>Breve comentário sobre a imagem, destacando sua relevância para a compreensão do tema.</label>
+          </div>
         </div>
-        <div class='md-form mb-2'>
-          <input type='text' id='nova_imagem_trecho' name='nova_imagem_trecho' class='form-control validate'>
-          <label data-error='preenchimento incorreto' data-success='preenchimento correto' for='nova_imagem_trecho'>Trecho do verbete a vincular</label>
+        <div class='modal-footer d-flex justify-content-center'>
+          <button type='button' class='btn bg-lighter btn-lg' data-dismiss='modal'><i class="fal fa-times-circle"></i> Cancelar</button>
+          <button type='submit' value='nova_imagem_submit' class='but btn-primary btn-lg'><i class='fal fa-check'></i> Salvar</button>
         </div>
-        <div class='md-form'>
-          <textarea type='text' id='nova_imagem_comentario' name='nova_imagem_comentario' class='md-textarea form-control' rows='4'></textarea>
-          <label data-error='preenchimento incorreto' data-success='preenchimento correto' for='nova_imagem_comentario'>Breve comentário sobre a imagem, destacando sua relevância para a compreensão do tema.</label>
-        </div>
-      </div>
-      <div class='modal-footer d-flex justify-content-center'>
-        <button type='button' class='btn bg-lighter btn-lg' data-dismiss='modal'><i class="fal fa-times-circle"></i> Cancelar</button>
-        <button type='submit' class='but btn-primary btn-lg'><i class='fal fa-check'></i> Salvar</button>
-      </div>
+      </form>
     </div>
   </div>
 </div>
