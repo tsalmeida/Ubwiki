@@ -241,14 +241,14 @@ if ($result->num_rows > 0) {
       <div class='modal-header'>
         <h4 class='modal-title w-100'>Adicionar imagens</h4>
         <button type='button' class='close' data-dismiss='modal'>
-          Fechar
+          <i class="fal fa-times-circle"></i>
         </button>
       </div>
       <div class='modal-body'>
       </div>
       <div class='modal-footer'>
-        <button type='button' class='btn btn-secundary btn-sm' data-dismiss='modal'>Fechar</button>
-        <button type='button' class='but btn-primary btn-sm'>Salvar</button>
+        <button type='button' class='btn btn-secundary btn-sm' data-dismiss='modal'><i class="fal fa-times-circle"></i> Fechar</button>
+        <button type='button' class='but btn-primary btn-sm'><i class="fal fa-check"></i> Salvar</button>
       </div>
     </div>
   </div>
