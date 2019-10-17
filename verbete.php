@@ -38,6 +38,17 @@ if (isset($_POST['nova_imagem_link'])) {
   }
 }
 
+if (isset($_POST['novo_link_link'])) {
+  $novo_link_link = $_POST['novo_link_link'];
+  $novo_link_titulo = $_POST['novo_link_titulo'];
+  $novo_link_comentario = $_POST['novo_link_comentario'];
+  $result = $conn->query("SELECT id FROM Imagens WHERE concurso = '$concurso' AND id_tema = $id_tema AND link = '$novo_link_link'");
+  if ($result->num_rows == 0) {
+    $result = $conn->query("INSERT INTO Imagens (id_tema, concurso, titulo, link, comentario) VALUES ($id_tema, '$concurso', '$novo_link_titulo', '$novo_link_link', '$novo_link_comentario')");
+  }
+}
+
+
 ?>
 <body>
   <?php
@@ -285,7 +296,38 @@ if (isset($_POST['nova_imagem_link'])) {
   </div>
 </div>
 
-
+<div class='modal fade' id='modal_links_form' role='dialog' tabindex='-1'>
+  <div class='modal-dialog modal-lg' role='document'>
+    <div class='modal-content'>
+      <form method='post'>
+        <div class='modal-header text-center'>
+          <h4 class='modal-title w-100 font-weight-bold'>Adicionar links</h4>
+          <button type='button' class='close' data-dismiss='modal'>
+            <i class="fal fa-times-circle"></i>
+          </button>
+        </div>
+        <div class='modal-body mx-3'>
+          <div class='md-form mb-2'>
+            <input type='url' id='novo_link_link' name='novo_link_link' class='form-control validate'>
+            <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_link_link'>Link para a link</label>
+          </div>
+          <div class='md-form mb-2'>
+            <input type='text' id='novo_link_titulo' name='novo_link_titulo' class='form-control validate'>
+            <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_link_titulo'>Titulo da link</label>
+          </div>
+          <div class='md-form'>
+            <textarea type='text' id='novo_link_comentario' name='novo_link_comentario' class='md-textarea form-control' rows='4'></textarea>
+            <label data-error='preenchimento incorreto' data-success='preenchimento correto' for='novo_link_comentario'>Breve comentário sobre o link, destacando sua relevância para a compreensão do tema.</label>
+          </div>
+        </div>
+        <div class='modal-footer d-flex justify-content-center'>
+          <button type='button' class='btn bg-lighter btn-lg' data-dismiss='modal'><i class="fal fa-times-circle"></i> Cancelar</button>
+          <button type='submit' value='novo_link_submit' class='but btn-primary btn-lg'><i class='fal fa-check'></i> Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 </body>
 <?php
