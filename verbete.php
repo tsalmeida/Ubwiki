@@ -88,7 +88,7 @@ if (isset($_POST['novo_video_titulo'])) {
     </ul>
   </div>
   <div class='container my-5' id='verbete'>
-    <div class='row justify-content-between h3'>
+    <div class='row justify-content-between h3 my-5'>
       <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
         <span class='align-middle'>Verbete consolidado</span>
       </div>
