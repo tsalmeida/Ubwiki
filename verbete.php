@@ -97,7 +97,7 @@ if (isset($_POST['novo_video_titulo'])) {
       </div>
     </div>
     <div class='row justify-content-center border-bottom border-dark'>
-      <div class='col-lg-5 col-sm-12 text-left'>
+      <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
         <?php
           if ($verbete == false) {
             echo "<p>Não há, no momento, verbete consolidado para este tema.</p>";
