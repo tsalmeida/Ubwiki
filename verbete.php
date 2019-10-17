@@ -235,11 +235,11 @@ if ($result->num_rows > 0) {
     </div>
   </div>
 
-<div class='modal fade' id='modal_imagens' tabindex='-1'>
+<div class='modal fade' id='modal_imagens_form' role='dialog' tabindex='-1'>
   <div class='modal-dialog modal-lg' role='document'>
     <div class='modal-content'>
-      <div class='modal-header'>
-        <h4 class='modal-title w-100'>Adicionar imagens</h4>
+      <div class='modal-header text-center'>
+        <h4 class='modal-title w-100 font-weight-bold'>Adicionar imagens</h4>
         <button type='button' class='close' data-dismiss='modal'>
           <i class="fal fa-times-circle"></i>
         </button>
@@ -259,69 +259,14 @@ if ($result->num_rows > 0) {
         </div>
       </div>
       <div class='modal-footer d-flex justify-content-center'>
-        <button type='button' class='btn btn-secundary btn-lg' data-dismiss='modal'><i class="fal fa-times-circle"></i> Fechar</button>
+        <button type='button' class='btn btn-secundary btn-lg' data-dismiss='modal'><i class="fal fa-times-circle"></i> Cancelar</button>
         <button type='button' class='but btn-primary btn-lg'><i class="fal fa-check"></i> Salvar</button>
       </div>
     </div>
   </div>
 </div>
 
-<div class='modal fade' id='modal_bibliografia' tabindex='-1'>
-  <div class='modal-dialog modal-lg' role='document'>
-    <div class='modal-content'>
-      <div class='modal-header'>
-        <h4 class='modal-title w-100'>Adicionar referência bibliográfica</h4>
-        <button type='button' class='close' data-dismiss='modal'>
-          <i class="fal fa-times-circle"></i>
-        </button>
-      </div>
-      <div class='modal-body mx-3'>
-      </div>
-      <div class='modal-footer'>
-        <button type='button' class='btn btn-secundary btn-lg' data-dismiss='modal'><i class="fal fa-times-circle"></i> Fechar</button>
-        <button type='button' class='but btn-primary btn-lg'><i class="fal fa-check"></i> Salvar</button>
-      </div>
-    </div>
-  </div>
-</div>
 
-<div class='modal fade' id='modal_videos' tabindex='-1'>
-  <div class='modal-dialog modal-lg' role='document'>
-    <div class='modal-content'>
-      <div class='modal-header'>
-        <h4 class='modal-title w-100'>Adicionar conteúdo videográfico</h4>
-        <button type='button' class='close' data-dismiss='modal'>
-          <i class="fal fa-times-circle"></i>
-        </button>
-      </div>
-      <div class='modal-body mx-3'>
-      </div>
-      <div class='modal-footer'>
-        <button type='button' class='btn btn-secundary btn-lg' data-dismiss='modal'><i class="fal fa-times-circle"></i> Fechar</button>
-        <button type='button' class='but btn-primary btn-lg'><i class="fal fa-check"></i> Salvar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class='modal fade' id='modal_links' tabindex='-1'>
-  <div class='modal-dialog modal-lg' role='document'>
-    <div class='modal-content'>
-      <div class='modal-header'>
-        <h4 class='modal-title w-100'>Adicionar link externo</h4>
-        <button type='button' class='close' data-dismiss='modal'>
-          <i class="fal fa-times-circle"></i>
-        </button>
-      </div>
-      <div class='modal-body mx-3'>
-      </div>
-      <div class='modal-footer'>
-        <button type='button' class='btn btn-secundary btn-lg' data-dismiss='modal'><i class="fal fa-times-circle"></i> Fechar</button>
-        <button type='button' class='but btn-primary btn-lg'><i class="fal fa-check"></i> Salvar</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 </body>
 <?php
