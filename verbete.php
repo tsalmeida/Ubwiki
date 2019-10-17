@@ -10,6 +10,8 @@ if (isset($_GET['concurso'])) {
   $concurso = $_GET['concurso'];
 }
 
+$salvar = array($concurso, $id_tema);
+$salvar = serialize($salvar);
 
 $result = $conn->query("SELECT chave FROM Searchbar WHERE concurso = '$concurso' AND sigla = $id_tema");
 if ($result->num_rows > 0) {
@@ -22,6 +24,18 @@ $result = $conn->query("SELECT verbete FROM Verbetes WHERE id_tema = $id_tema AN
 if ($result->num_rows > 0) {
   while($row = $result->fetch_assoc()) {
     $verbete = $row["verbete"];
+  }
+}
+
+id (isset($_POST['nova_imagem_link'];))
+  $nova_imagem_link = $_POST['nova_imagem_link'];
+  $nova_imagem_titulo = $_POST['nova_imagem_titulo'];
+  $nova_imagem_trecho = $_POST['nova_imagem_comentario'];
+  $nova_imagem_trecho = $_POST['nova_imagem_trecho'];
+
+  $result = $conn->query("SELECT id FROM Imagens WHERE concurso = '$concurso' AND id_tema = $id_tema AND link = '$nova_imagem_link'");
+  if ($result->num_rows == 0) {
+    $result = $conn->query("INSERT INTO Imagens (id_tema, concurso, titulo, link, comentario, trecho) VALUES ($id_tema, '$concurso', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_comentario', '$nova_imagem_trecho')");
   }
 }
 
@@ -246,21 +260,21 @@ if ($result->num_rows > 0) {
       </div>
       <div class='modal-body mx-3'>
         <div class='md-form mb-2'>
-          <input type='url' id='nova_imagem_link' class='form-control validate'>
+          <input type='url' id='nova_imagem_link' name='nova_imagem_link' class='form-control validate'>
           <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_imagem_link'>Link para a imagem</label>
         </div>
         <div class='md-form mb-2'>
-          <input type='text' id='nova_imagem_titulo' class='form-control validate'>
+          <input type='text' id='nova_imagem_titulo' name='nova_imagem_titulo' class='form-control validate'>
           <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_imagem_titulo'>Titulo da imagem</label>
         </div>
         <div class='md-form mb-2'>
-          <input type='text' id='nova_imagem_trecho' class='form-control validate'>
+          <input type='text' id='nova_imagem_trecho' name='nova_imagem_trecho' class='form-control validate'>
           <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_imagem_trecho'>Trecho do verbete a vincular</label>
         </div>
       </div>
       <div class='modal-footer d-flex justify-content-center'>
         <button type='button' class='btn bg-lighter btn-lg' data-dismiss='modal'><i class="fal fa-times-circle"></i> Cancelar</button>
-        <button type='button' class='but btn-primary btn-lg'><i class="fal fa-check"></i> Salvar</button>
+        <button type='button' class='but btn-primary btn-lg'><i class='fal fa-check'></i> Salvar</button>
       </div>
     </div>
   </div>
