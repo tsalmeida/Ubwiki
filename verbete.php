@@ -141,7 +141,7 @@ if (isset($_POST['novo_link_link'])) {
         <span class='align-middle'>Bibliografia pertinente</span>
       </div>
       <div class='col-lg-1 text-center justify-content-center align-middle border-right border-dark'>
-        <span class='h4 text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_bibliografia_form'><i class='fal fa-plus-square'></i></a></span>
+        <span class='h4 text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_referencia_form'><i class='fal fa-plus-square'></i></a></span>
       </div>
       <div class='col-lg-5 text-left'>
         <?php
@@ -289,7 +289,40 @@ if (isset($_POST['novo_link_link'])) {
         </div>
         <div class='modal-footer d-flex justify-content-center'>
           <button type='button' class='btn bg-lighter btn-lg' data-dismiss='modal'><i class="fal fa-times-circle"></i> Cancelar</button>
-          <button type='submit' value='nova_imagem_submit' class='but btn-primary btn-lg'><i class='fal fa-check'></i> Salvar</button>
+          <button type='submit' class='but btn-primary btn-lg'><i class='fal fa-check'></i> Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class='modal fade' id='modal_referencia_form' role='dialog' tabindex='-1'>
+  <div class='modal-dialog modal-lg' role='document'>
+    <div class='modal-content'>
+      <form method='post'>
+        <div class='modal-header text-center'>
+          <h4 class='modal-title w-100 font-weight-bold'>Adicionar referência bibliográfica</h4>
+          <button type='button' class='close' data-dismiss='modal'>
+            <i class="fal fa-times-circle"></i>
+          </button>
+        </div>
+        <div class='modal-body mx-3'>
+          <div class='md-form mb-2'>
+            <input type='text' id='nova_referencia_titulo' name='nova_referencia_titulo' class='form-control validate'>
+            <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_referencia_titulo'>Titulo da obra</label>
+          </div>
+          <div class='md-form mb-2'>
+            <input type='text' id='nova_referencia_autor' name='nova_referencia_autor' class='form-control validate'>
+            <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_referencia_autor'></label>
+          </div>
+          <div class='md-form mb-2'>
+            <input type='text' id='nova_referencia_ano' name='nova_referencia_ano' class='form-control validate'>
+            <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_referencia_ano'></label>
+          </div>
+        </div>
+        <div class='modal-footer d-flex justify-content-center'>
+          <button type='button' class='btn bg-lighter btn-lg' data-dismiss='modal'><i class="fal fa-times-circle"></i> Cancelar</button>
+          <button type='submit' class='but btn-primary btn-lg'><i class='fal fa-check'></i> Salvar</button>
         </div>
       </form>
     </div>
@@ -322,7 +355,7 @@ if (isset($_POST['novo_link_link'])) {
         </div>
         <div class='modal-footer d-flex justify-content-center'>
           <button type='button' class='btn bg-lighter btn-lg' data-dismiss='modal'><i class="fal fa-times-circle"></i> Cancelar</button>
-          <button type='submit' value='novo_link_submit' class='but btn-primary btn-lg'><i class='fal fa-check'></i> Salvar</button>
+          <button type='submit' class='but btn-primary btn-lg'><i class='fal fa-check'></i> Salvar</button>
         </div>
       </form>
     </div>
