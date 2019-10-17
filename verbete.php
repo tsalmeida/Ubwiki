@@ -309,15 +309,15 @@ if (isset($_POST['novo_link_link'])) {
         <div class='modal-body mx-3'>
           <div class='md-form mb-2'>
             <input type='text' id='nova_referencia_titulo' name='nova_referencia_titulo' class='form-control validate'>
-            <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_referencia_titulo'>Titulo da obra</label>
+            <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_referencia_titulo'>Título da obra</label>
           </div>
           <div class='md-form mb-2'>
             <input type='text' id='nova_referencia_autor' name='nova_referencia_autor' class='form-control validate'>
-            <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_referencia_autor'></label>
+            <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_referencia_autor'>Nome do autor</label>
           </div>
           <div class='md-form mb-2'>
             <input type='text' id='nova_referencia_ano' name='nova_referencia_ano' class='form-control validate'>
-            <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_referencia_ano'></label>
+            <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_referencia_ano'>Ano de publicação</label>
           </div>
         </div>
         <div class='modal-footer d-flex justify-content-center'>
