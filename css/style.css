@@ -78,15 +78,14 @@ logo {
 
 .textarea_verbete {
   width: 100%;
-  min-height: 40em;
-  max-height: 90vh;
+  min-height: 80vh;
   resize: none;
   outline: none;
   word-wrap: normal;
   border-style: solid;
   border-color: #f6f5f3;
   border-width: 1px;
-  font-size: 1.2rem;
+  font-weight: 400;
 }
 
 .footer.page-footer .footer-copyright {
