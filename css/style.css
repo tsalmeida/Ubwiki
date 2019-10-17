@@ -78,15 +78,14 @@ logo {
 
 .textarea_verbete {
   width: 100%;
-  max-width: 65ch;
   min-height: 40em;
   max-height: 90vh;
   resize: none;
   outline: none;
   word-wrap: normal;
   border-style: solid;
-  border-color: black;
-  border-width: 2px;
+  border-color: #f6f5f3;
+  border-width: 1px;
   font-size: 1.2rem;
 }
 
