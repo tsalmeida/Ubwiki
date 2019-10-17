@@ -10,9 +10,6 @@ if (isset($_GET['concurso'])) {
   $concurso = $_GET['concurso'];
 }
 
-$salvar = array($concurso, $id_tema);
-$salvar = serialize($salvar);
-
 $result = $conn->query("SELECT chave FROM Searchbar WHERE concurso = '$concurso' AND sigla = $id_tema");
 if ($result->num_rows > 0) {
   while($row = $result->fetch_assoc()) {
@@ -79,11 +76,7 @@ else {
   $verbete_consolidado = false;
 }
 
-if (isset($_POST['salvar_verbete_texto'])) {
-  $concursoid = $_POST['salvar_verbete_texto'];
-  $concursoid = unserialize($concursoid);
-  $concurso = $concursoid[0];
-  $id_tema = $concursoid[1];
+if (isset($_POST['verbete_texto'])) {
   $verbete_texto = $_POST['verbete_texto'];
   $verbete_texto = strip_tags($verbete_texto);
   $novo_verbete = base64_encode($verbete_texto);
