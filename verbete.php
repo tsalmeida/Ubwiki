@@ -88,8 +88,8 @@ if (isset($_POST['novo_video_titulo'])) {
     </ul>
   </div>
   <div class='container my-5' id='verbete'>
-    <div class='row justify-content-left h2'>
-      <div class='col-lg-2 text-center justify-content-center align-middle'>
+    <div class='row justify-content-left h3'>
+      <div class='col-lg-4 text-center justify-content-center align-middle'>
         <span class='align-middle'>Verbete consolidado</span>
       </div>
       <div class='col-lg-1 text-center justify-content-center align-middle'>
@@ -97,7 +97,7 @@ if (isset($_POST['novo_video_titulo'])) {
       </div>
     </div>
     <div class='row justify-content-center border-bottom border-dark'>
-      <div class='col-lg-4 col-sm-12 text-left'>
+      <div class='col-lg-5 col-sm-12 text-left'>
         <?php
           if ($verbete == false) {
             echo "<p>Não há, no momento, verbete consolidado para este tema.</p>";
