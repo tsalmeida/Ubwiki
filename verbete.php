@@ -51,10 +51,10 @@ if (isset($_POST['novo_link_link'])) {
 if (isset($_POST['nova_referencia_titulo'])) {
   $nova_referencia_titulo = $_POST['nova_referencia_titulo'];
   $nova_referencia_autor = $_POST['nova_referencia_autor'];
-  $nova_referencia_ano = $_POST['nova_referencia_ano'];
+  $nova_referencia_capitulo = $_POST['nova_referencia_capitulo'];
   $result = $conn->query("SELECT id FROM Bibliografia WHERE concurso = '$concurso' AND id_tema = $id_tema AND titulo = '$nova_referencia_titulo'");
   if ($result->num_rows == 0) {
-    $result = $conn->query("INSERT INTO Bibliografia (id_tema, concurso, titulo, autor, ano) VALUES ($id_tema, '$concurso', '$nova_referencia_titulo', '$nova_referencia_autor', '$nova_referencia_ano')");
+    $result = $conn->query("INSERT INTO Bibliografia (id_tema, concurso, titulo, autor, ano) VALUES ($id_tema, '$concurso', '$nova_referencia_titulo', '$nova_referencia_autor', '$nova_referencia_capitulo')");
   }
 }
 
@@ -360,8 +360,8 @@ if (isset($_POST['novo_video_titulo'])) {
             <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_referencia_autor'>Nome do autor</label>
           </div>
           <div class='md-form mb-2'>
-            <input type='text' id='nova_referencia_ano' name='nova_referencia_ano' class='form-control validate' required>
-            <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_referencia_ano'>Ano de publicação</label>
+            <input type='text' id='nova_referencia_capitulo' name='nova_referencia_capitulo' class='form-control validate'>
+            <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_referencia_capitulo'>Capítulo (opcional)</label>
           </div>
         </div>
         <div class='modal-footer d-flex justify-content-center'>
