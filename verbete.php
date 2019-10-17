@@ -77,7 +77,7 @@ if ($result->num_rows > 0) {
         <span class='align-middle'>Imagens de apoio</span>
       </div>
       <div class='col-lg-1 text-center justify-content-center align-middle border-right border-dark'>
-        <span class='h4 text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_imagens'><i class='fal fa-plus-square'></i></a></span>
+        <span class='h4 text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_imagens_form'><i class='fal fa-plus-square'></i></a></span>
       </div>
       <div class='col-lg-5 text-left'>
         <?php
@@ -117,7 +117,7 @@ if ($result->num_rows > 0) {
         <span class='align-middle'>Bibliografia pertinente</span>
       </div>
       <div class='col-lg-1 text-center justify-content-center align-middle border-right border-dark'>
-        <span class='h4 text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_bibliografia'><i class='fal fa-plus-square'></i></a></span>
+        <span class='h4 text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_bibliografia_form'><i class='fal fa-plus-square'></i></a></span>
       </div>
       <div class='col-lg-5 text-left'>
         <?php
@@ -138,7 +138,7 @@ if ($result->num_rows > 0) {
         <span class='align-middle'>Vídeos e aulas relacionados</span>
       </div>
       <div class='col-lg-1 text-center justify-content-center align-middle border-right border-dark'>
-        <span class='h4 text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_videos'><i class='fal fa-plus-square'></i></a></span>
+        <span class='h4 text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_videos_form'><i class='fal fa-plus-square'></i></a></span>
       </div>
       <div class='col-lg-5 text-left'>
         <?php
@@ -159,7 +159,7 @@ if ($result->num_rows > 0) {
         <span class='align-middle'>Links externos</span>
       </div>
       <div class='col-lg-1 text-center justify-content-center align-middle border-right border-dark'>
-        <span class='h4 text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_links'><i class='fal fa-plus-square'></i></a></span>
+        <span class='h4 text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_links_form'><i class='fal fa-plus-square'></i></a></span>
       </div>
       <div class='col-lg-5 text-left'>
         <?php
