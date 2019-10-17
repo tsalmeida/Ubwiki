@@ -505,7 +505,7 @@ if ($result->num_rows > 0) {
         <div class='modal-body mx-3'>
 
           <div class='row justify-content-center'>
-            <div class='container col-12'>
+            <div class='container col-12 justify-content-center'>
               <?php
                 echo "<textarea name='verbete_texto' class='rounded textarea_verbete px-4 py-5'>$verbete_consolidado</textarea>";
               ?>
