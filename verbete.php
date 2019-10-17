@@ -48,6 +48,15 @@ if (isset($_POST['novo_link_link'])) {
   }
 }
 
+if (isset($_POST['nova_referencia_titulo'])) {
+  $nova_referencia_titulo = $_POST['nova_referencia_titulo'];
+  $nova_referencia_autor = $_POST['nova_referencia_autor'];
+  $nova_referencia_ano = $_POST['nova_referencia_ano'];
+  $result = $conn->query("SELECT id FROM Bibliografia WHERE concurso = '$concurso' AND id_tema = $id_tema AND titulo = '$nova_referencia_titulo'");
+  if ($result->num_rows == 0) {
+    $result = $conn->query("INSERT INTO Bibliografia (id_tema, concurso, titulo, autor, ano) VALUES ($id_tema, '$concurso', '$nova_referencia_titulo', '$nova_referencia_autor', '$nova_referencia_autor')");
+  }
+}
 
 ?>
 <body>
