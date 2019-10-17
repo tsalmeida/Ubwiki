@@ -213,12 +213,20 @@ if (isset($_POST['novo_video_titulo'])) {
     <div class='row justify-content-center border-bottom border-dark py-5'>
       <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
         <?php
-          if ($videos == false) {
-            echo "<p>Ainda não foram acrescentados links para vídeos e aulas sobre este tema.</p>";
-          }
-          else {
-            echo $videos;
-          }
+        $result = $conn->query("SELECT titulo, autor, capitulo FROM Bibliografia WHERE id_tema = $id_tema AND concurso = '$concurso'");
+        if ($result->num_rows > 0) {
+          echo "<ul class='list-group'>";
+            while($row = $result->fetch_assoc()) {
+              $referencia_titulo = $row['titulo'];
+              $referencia_autor = $row['autor'];
+              $referencia_capitulo = $row['capitulo'];
+              echo "<li class='list-group-item'>$referencia_titulo : $referencia_comentario : $referencia_capitulo</li>";
+            }
+          echo "</ul>";
+        }
+        else {
+          echo "<p>Ainda não foram acrescentados vídeos ou aulas sobre este assunto.</p>";
+        }
         ?>
       </div>
     </div>
