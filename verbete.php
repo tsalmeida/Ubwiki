@@ -246,15 +246,15 @@ if ($result->num_rows > 0) {
       </div>
       <div class='modal-body mx-3'>
         <div class='md-form mb-2'>
-          <input type='url' id='nova_imagem_link' class='form_control validate'>
+          <input type='url' id='nova_imagem_link' class='form-control validate'>
           <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_imagem_link'>Link para a imagem</label>
         </div>
         <div class='md-form mb-2'>
-          <input type='text' id='nova_imagem_titulo' class='form_control validate'>
+          <input type='text' id='nova_imagem_titulo' class='form-control validate'>
           <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_imagem_titulo'>Titulo da imagem</label>
         </div>
         <div class='md-form mb-2'>
-          <input type='text' id='nova_imagem_trecho' class='form_control validate'>
+          <input type='text' id='nova_imagem_trecho' class='form-control validate'>
           <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_imagem_trecho'>Trecho do verbete a vincular</label>
         </div>
       </div>
