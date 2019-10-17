@@ -30,24 +30,12 @@ if (isset($_GET['concurso'])) {
   $found = false;
   $id_verbete = false;
   $verbete = false;
-  $imagens = false;
-  $verbetes = false;
-  $bibliografia = false;
-  $videos = false;
-  $links = false;
-  $discussao = false;
-  $result = $conn->query("SELECT id, verbete, imagens, verbetes, bibliografia, videos, links, discussao FROM Verbetes WHERE id_tema = $id_tema");
+  $result = $conn->query("SELECT id, verbete FROM Verbetes WHERE id_tema = $id_tema AND concurso = '$concurso'");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $found = true;
       $id_verbete = $row["id"];
       $verbete = $row["verbete"];
-      $imagens = $row["imagens"];
-      $verbetes = $row["verbetes"];
-      $bibliografia = $row["bibliografia"];
-      $videos = $row["videos"];
-      $links = $row["links"];
-      $discussao = $row["discussao"];
     }
   }
   $conn->close();
