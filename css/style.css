@@ -78,7 +78,7 @@ logo {
 
 .textarea_verbete {
   width: 100%;
-  min-height: 80vh;
+  min-height: 60vh;
   resize: none;
   outline: none;
   word-wrap: normal;
