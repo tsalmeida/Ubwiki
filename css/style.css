@@ -42,8 +42,8 @@ logo {
   background-color: #b5b5b5;
 }
 
-.text-muted2 {
-  color: #5f5f5f !important;
+.navbar .breadcrumb .breadcrumb-item {
+    color: #5f5f5f;
 }
 
 .bdark {
