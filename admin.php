@@ -21,22 +21,22 @@
         $nivel4 = $row["nivel4"];
         $nivel5 = $row["nivel5"];
         if ($nivel5 != false) {
-          conn->query("UPDATE Temas SET nivel = 5 WHERE id = '$id'");
+          $conn->query("UPDATE Temas SET nivel = 5 WHERE id = '$id'");
         }
         elseif ($nivel4 != false) {
-          conn->query("UPDATE Temas SET nivel = 4 WHERE id = '$id'");
+          $conn->query("UPDATE Temas SET nivel = 4 WHERE id = '$id'");
 
         }
         elseif ($nivel3 != false) {
-          conn->query("UPDATE Temas SET nivel = 3 WHERE id = '$id'");
+          $conn->query("UPDATE Temas SET nivel = 3 WHERE id = '$id'");
 
         }
         elseif ($nivel2 != false) {
-          conn->query("UPDATE Temas SET nivel = 2 WHERE id = '$id'");
+          $conn->query("UPDATE Temas SET nivel = 2 WHERE id = '$id'");
 
         }
         else {
-          conn->query("UPDATE Temas SET nivel = 1 WHERE id = '$id'");
+          $conn->query("UPDATE Temas SET nivel = 1 WHERE id = '$id'");
 
         }
       }
