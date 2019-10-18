@@ -14,8 +14,8 @@ function carregar_navbar() {
     <div class='mr-auto'>
       <nav>
         <ol class='breadcrumb d-inline-flex pl-0 pt-0 text-dark'>
-          <li class='breadcrumb-item text-dark'><a href=''>Teste 1</a></li>
-          <li class='breadcrumb-item active text-dark'><a href=''>Teste 2</a></li>
+          <li class='breadcrumb-item'><a href=''>Teste 1</a></li>
+          <li class='breadcrumb-item active h4' active>Teste 2</li>
         </ol>
       </nav>
     </div>
