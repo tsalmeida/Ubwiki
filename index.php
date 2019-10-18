@@ -1,11 +1,14 @@
 <?php
 
-  if ((isset($_SESSION['email'])) | (isset($_GET['email']))) {
-    session_start();
-    $user = $_SESSION['email'];
-  }
-  else {
-    header('Location:login.php');
+  session_start();
+  if (!isset($_SESSION['email'])) {
+    if (isset($_GET['email'])) {
+      $_SESSION['email'] = $_GET['email'];
+      $user = $_SESSION['email'];
+    }
+    else {
+      header('Location:login.php');
+    }
   }
 
   include 'engine.php';
