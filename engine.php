@@ -9,23 +9,23 @@ mysqli_set_charset($conn,"utf8");
 
 function carregar_navbar() {
   $breadcrumbs = func_get_args();
-  echo "<nav class='navbar navbar-expand-lg bg-white'>
-    <a class='navbar-brand navbar-text' href='index.php'>Ubwiki</a>
+  echo "<nav class='navbar navbar-expand-lg'>
+    <a class='navbar-brand' href='index.php'>Ubwiki</a>
     <div class='mr-auto'>
       <nav>
         <ol class='breadcrumb d-inline-flex pl-0 pt-0 text-dark'>
-          <li class='breadcrumb-item navbar-text'>Matéria</li>
-          <li class='breadcrumb-item navbar-text'>Nível 1</li>
-          <li class='breadcrumb-item navbar-text'>Nível 2</li>
-          <li class='breadcrumb-item navbar-text'>Nível 3</li>
-          <li class='breadcrumb-item navbar-text'>Nível 4</li>
-          <li class='breadcrumb-item navbar-text'>Nível 5</li>
+          <li class='breadcrumb-item'>Matéria</li>
+          <li class='breadcrumb-item'>Nível 1</li>
+          <li class='breadcrumb-item'>Nível 2</li>
+          <li class='breadcrumb-item'>Nível 3</li>
+          <li class='breadcrumb-item'>Nível 4</li>
+          <li class='breadcrumb-item'>Nível 5</li>
         </ol>
       </nav>
     </div>
     <ul class='nav navbar-nav ml-auto nav-flex-icons'>
       <li class='nav-item'>
-        <a class='navlink navbar-text' href='userpage.php'>
+        <a class='navlink waves-effect waves-light' href='userpage.php'>
           <i class='fas fa-user-tie'></i>
         </a>
       </li>
