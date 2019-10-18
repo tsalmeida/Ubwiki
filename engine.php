@@ -14,8 +14,12 @@ function carregar_navbar() {
     <div class='mr-auto'>
       <nav>
         <ol class='breadcrumb d-inline-flex pl-0 pt-0 text-dark'>
-          <li class='breadcrumb-item navbar-text'><a href='' class='navbar-text'>Teste 1</a></li>
-          <li class='breadcrumb-item navbar-text'>Teste 2</li>
+          <li class='breadcrumb-item navbar-text'>Matéria</li>
+          <li class='breadcrumb-item navbar-text'>Nível 1</li>
+          <li class='breadcrumb-item navbar-text'>Nível 2</li>
+          <li class='breadcrumb-item navbar-text'>Nível 3</li>
+          <li class='breadcrumb-item navbar-text'>Nível 4</li>
+          <li class='breadcrumb-item navbar-text'>Nível 5</li>
         </ol>
       </nav>
     </div>
