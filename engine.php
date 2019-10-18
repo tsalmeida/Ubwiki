@@ -25,7 +25,13 @@ function breadcrumbs($content) {
     <div class='container'>
       <div class='row'>
         <div class='col-lg-11'>
-          $content
+          <div class='mr-auto'>
+            <nav>
+              <ol class='breadcrumb d-inline-flex text-dark'>
+                $content
+              </ol>
+            </nav>
+          </div>
         </div>
       </div>
     </div>

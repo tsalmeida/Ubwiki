@@ -7,14 +7,8 @@
     carregar_navbar();
     standard_jumbotron("Ubwiki", false);
     breadcrumbs("
-      <div class='mr-auto'>
-        <nav>
-          <ol class='breadcrumb d-inline-flex pl-0 pt-0 text-dark'>
-            <li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li>
-            <li class='breadcrumb-item text-muted2'>Termos de Serviço</li>
-          </ol>
-        </nav>
-      </div>
+      <li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li>
+      <li class='breadcrumb-item text-muted2'>Termos de Serviço</li>
     ");
     ?>
     <div class="container my-5">
