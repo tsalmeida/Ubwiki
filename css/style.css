@@ -16,9 +16,8 @@ logo {
 
 .btn { box-shadow: none !important; }
 
-.navbar-playfair {
+.playfair {
   font-family: 'Playfair Display', serif !important;
-  color: #5f5f5f !important;
 }
 
 .logo-jumbotron {

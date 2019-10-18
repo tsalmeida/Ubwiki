@@ -26,7 +26,7 @@ function carregar_navbar() {
     <ul class='nav navbar-nav ml-auto nav-flex-icons'>
       <li class='nav-item'>
         <a class='navlink waves-effect waves-light text-muted2' href='userpage.php'>
-          <i class='fas fa-user-tie'></i>
+          <i class='fas fa-user-tie fa-2x'></i>
         </a>
       </li>
     </ul>
