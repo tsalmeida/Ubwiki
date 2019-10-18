@@ -22,8 +22,8 @@ function carregar_navbar() {
 
 function breadcrumbs($content) {
   echo "
-    <div class='content'>
-      <div class='row justify-content-center'>
+    <div class='container'>
+      <div class='row'>
         <div class='col-lg-11'>
           $content
         </div>
