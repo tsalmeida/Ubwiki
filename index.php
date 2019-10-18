@@ -1,6 +1,6 @@
 <?php
 
-  if (isset($_SESSION['email'])) {
+  if ((isset($_SESSION['email'])) | (isset($_GET['email']))) {
     session_start();
     $user = $_SESSION['email'];
   }
