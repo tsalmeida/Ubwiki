@@ -101,27 +101,8 @@ function ler_relacionados($id_tema, $concurso) {
 ?>
 <body>
 <?php
-
-  $breadcrumbs = "
-  <div class='mr-auto'>
-    <nav>
-      <ol class='breadcrumb d-inline-flex pl-0 pt-0 text-dark'>
-        <li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li>
-        <li class='breadcrumb-item text-muted2'><a href='index.php'>$concurso</a></li>
-        <li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li>
-        <li class='breadcrumb-item text-muted2'><a href='materia.php?concurso=$concurso&sigla=$sigla_materia'>$sigla_materia</a></li>
-        <li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li>
-        <li class='breadcrumb-item text-muted2'>$nivel1</li>
-        ";
-  if ($nivel2 != false) { $breadcrumbs .= "<li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li><li class='breadcrumb-item text-muted2'>$nivel2</li>"; }
-  if ($nivel3 != false) { $breadcrumbs .= "<li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li><li class='breadcrumb-item text-muted2'>$nivel3</li>"; }
-  if ($nivel4 != false) { $breadcrumbs .= "<li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li><li class='breadcrumb-item text-muted2'>$nivel4</li>"; }
-  if ($nivel5 != false) { $breadcrumbs .= "<li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li><li class='breadcrumb-item text-muted2'>$nivel5</li>"; }
-  $breadcrumbs .= "</ol></nav></div>";
-
   carregar_navbar();
   standard_jumbotron($tema, false);
-  breadcrumbs($breadcrumbs);
 ?>
   <div class='container-fluid py-3 col-12 bg-lighter text-center'>
     <ul class='list-group list-group-horizontal-lg'>
@@ -136,6 +117,25 @@ function ler_relacionados($id_tema, $concurso) {
       <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#discussao'>Discussão</a>
     </ul>
   </div>
+  <?php
+    $breadcrumbs = "
+    <div class='mr-auto'>
+      <nav>
+        <ol class='breadcrumb d-inline-flex pl-0 pt-0 text-dark'>
+          <li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li>
+          <li class='breadcrumb-item text-muted2'><a href='index.php'>$concurso</a></li>
+          <li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li>
+          <li class='breadcrumb-item text-muted2'><a href='materia.php?concurso=$concurso&sigla=$sigla_materia'>$sigla_materia</a></li>
+          <li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li>
+          <li class='breadcrumb-item text-muted2'>$nivel1</li>
+          ";
+    if ($nivel2 != false) { $breadcrumbs .= "<li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li><li class='breadcrumb-item text-muted2'>$nivel2</li>"; }
+    if ($nivel3 != false) { $breadcrumbs .= "<li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li><li class='breadcrumb-item text-muted2'>$nivel3</li>"; }
+    if ($nivel4 != false) { $breadcrumbs .= "<li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li><li class='breadcrumb-item text-muted2'>$nivel4</li>"; }
+    if ($nivel5 != false) { $breadcrumbs .= "<li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li><li class='breadcrumb-item text-muted2'>$nivel5</li>"; }
+    $breadcrumbs .= "</ol></nav></div>";
+    breadcrumbs($breadcrumbs);
+  ?>
   <div class='container my-5' id='verbete'>
     <div class='row justify-content-between h3 my-5'>
       <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>

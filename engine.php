@@ -22,9 +22,9 @@ function carregar_navbar() {
 
 function breadcrumbs($content) {
   echo "
-    <div class='content-fluid'>
-      <div class='row bg-lighter'>
-        <div class='col-lg-12'>
+    <div class='content'>
+      <div class='row'>
+        <div class='col-lg-10'>
           $content
         </div>
       </div>

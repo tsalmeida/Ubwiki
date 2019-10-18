@@ -94,3 +94,9 @@ logo {
 .cardmateria {
   cursor: pointer;
 }
+
+.breadcrumb-item + .breadcrumb-item::before {
+    font-family: "Font Awesome 5 Free";
+    content: "\f054" !important;
+    font-weight: 300;
+}
