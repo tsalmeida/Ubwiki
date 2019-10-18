@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	$breadcrumb-divider: none;
 	$("#searchBar").focus();
   $(document.body).on('click', '.cardmateria' ,function(){
     if ($(this).attr("href")) {
