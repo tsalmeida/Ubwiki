@@ -7,28 +7,11 @@ $dbname = "Ubique";
 $conn = new mysqli($servername, $username, $password, $dbname);
 mysqli_set_charset($conn,"utf8");
 
-function carregar_navbar() {
+function carregar_navbar($breadcrumbs) {
   $breadcrumbs = func_get_args();
   echo "<nav class='navbar navbar-expand-lg'>
     <a class='navbar-brand playfair' href='index.php'>Ubwiki</a>
-    <div class='mr-auto'>
-      <nav>
-        <ol class='breadcrumb d-inline-flex pl-0 pt-0 text-dark'>
-          <li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li>
-          <li class='breadcrumb-item text-muted2'>Matéria</li>
-          <li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li>
-          <li class='breadcrumb-item text-muted2'>Nível 1</li>
-          <li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li>
-          <li class='breadcrumb-item text-muted2'>Nível 2</li>
-          <li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li>
-          <li class='breadcrumb-item text-muted2'>Nível 3</li>
-          <li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li>
-          <li class='breadcrumb-item text-muted2'>Nível 4</li>
-          <li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li>
-          <li class='breadcrumb-item text-muted2'>Nível 5</li>
-        </ol>
-      </nav>
-    </div>
+    $breadcrumbs;
     <ul class='nav navbar-nav ml-auto nav-flex-icons'>
       <li class='nav-item'>
         <a class='navlink waves-effect waves-light text-muted2' href='userpage.php'>

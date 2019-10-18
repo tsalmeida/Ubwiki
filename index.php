@@ -23,7 +23,7 @@ function readSearchOptions($concurso) {
 ?>
   <body>
     <div class='container-fluid px-0 onepage'>
-      <?php carregar_navbar(); ?>
+      <?php carregar_navbar(false); ?>
       <div class="container-fluid bg-white">
         <div class="row justify-content-center">
             <div class="col-lg-2 col-sm-5 px-3 mt-5">

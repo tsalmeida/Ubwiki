@@ -4,7 +4,16 @@
   ?>
   <body>
     <?php
-    carregar_navbar();
+    carregar_navbar("
+      <div class='mr-auto'>
+        <nav>
+          <ol class='breadcrumb d-inline-flex pl-0 pt-0 text-dark'>
+            <li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li>
+            <li class='breadcrumb-item text-muted2'>Termos de Serviço</li>
+          </ol>
+        </nav>
+      </div>
+    ");
     standard_jumbotron("Ubwiki", false);
     ?>
     <div class="container my-5">
