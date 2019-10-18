@@ -16,7 +16,7 @@ logo {
 
 .btn { box-shadow: none !important; }
 
-.navbar-text {
+.navbar-playfair {
   font-family: 'Playfair Display', serif !important;
   color: #5f5f5f !important;
 }
@@ -29,10 +29,6 @@ logo {
 .jumbotron {
   background-color: #474d55;
   box-shadow: none !important;
-}
-
-.navlink {
-  color: #5f5f5f !important;
 }
 
 .smaller {
