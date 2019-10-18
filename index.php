@@ -14,6 +14,11 @@
   include 'engine.php';
   $concurso = 'CACD';
 
+  $result = $conn->query("SELECT id FROM Usuarios WHERE email = '$user'");
+  if ($result->num_rows == 0) {
+    $insert = $conn->query("INSERT INTO Usuarios (email) VALUES ('$user')");
+  }
+
   top_page("onepage");
 
   function readSearchOptions($concurso) {

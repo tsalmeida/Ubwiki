@@ -53,11 +53,11 @@ if (isset($_POST['verbete_texto'])) {
   $novo_verbete = strip_tags($novo_verbete);
   $result = $conn->query("SELECT verbete FROM Verbetes WHERE concurso = '$concurso' AND id_tema = $id_tema");
   if ($result->num_rows > 0) {
-    $result = $conn->query("UPDATE Verbetes SET verbete = '$novo_verbete' WHERE concurso = '$concurso' AND id_tema = $id_tema");
-    $result = $conn->query("INSERT INTO Verbetes_arquivo (id_tema, concurso, verbete) VALUES ('$id_tema', '$concurso', '$verbete_consolidado')");
+    $result = $conn->query("UPDATE Verbetes SET verbete = '$novo_verbete', usuario = '$user' WHERE concurso = '$concurso' AND id_tema = $id_tema");
+    $result = $conn->query("INSERT INTO Verbetes_arquivo (id_tema, concurso, verbete, usuario) VALUES ('$id_tema', '$concurso', '$verbete_consolidado', '$user')");
   }
   else {
-    $result = $conn->query("INSERT INTO Verbetes (id_tema, concurso, verbete) VALUES ('$id_tema', '$concurso', '$novo_verbete')");
+    $result = $conn->query("INSERT INTO Verbetes (id_tema, concurso, verbete, usuario) VALUES ('$id_tema', '$concurso', '$novo_verbete', '$user')");
   }
   $verbete_consolidado = $novo_verbete;
 }
@@ -69,7 +69,7 @@ if (isset($_POST['nova_imagem_link'])) {
   $nova_imagem_comentario = $_POST['nova_imagem_comentario'];
   $result = $conn->query("SELECT id FROM Imagens WHERE concurso = '$concurso' AND id_tema = $id_tema AND link = '$nova_imagem_link'");
   if ($result->num_rows == 0) {
-    $result = $conn->query("INSERT INTO Imagens (id_tema, concurso, titulo, link, comentario, trecho) VALUES ($id_tema, '$concurso', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_comentario', '$nova_imagem_trecho')");
+    $result = $conn->query("INSERT INTO Imagens (id_tema, concurso, titulo, link, comentario, trecho, usuario) VALUES ($id_tema, '$concurso', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_comentario', '$nova_imagem_trecho', '$user')");
   }
 }
 
@@ -79,7 +79,7 @@ if (isset($_POST['novo_link_link'])) {
   $novo_link_comentario = $_POST['novo_link_comentario'];
   $result = $conn->query("SELECT id FROM Links WHERE concurso = '$concurso' AND id_tema = $id_tema AND link = '$novo_link_link'");
   if ($result->num_rows == 0) {
-    $result = $conn->query("INSERT INTO Links (id_tema, concurso, titulo, link, comentario) VALUES ($id_tema, '$concurso', '$novo_link_titulo', '$novo_link_link', '$novo_link_comentario')");
+    $result = $conn->query("INSERT INTO Links (id_tema, concurso, titulo, link, comentario, usuario) VALUES ($id_tema, '$concurso', '$novo_link_titulo', '$novo_link_link', '$novo_link_comentario', '$user')");
   }
 }
 
@@ -89,7 +89,7 @@ if (isset($_POST['nova_referencia_titulo'])) {
   $nova_referencia_capitulo = $_POST['nova_referencia_capitulo'];
   $result = $conn->query("SELECT id FROM Bibliografia WHERE concurso = '$concurso' AND id_tema = $id_tema AND titulo = '$nova_referencia_titulo'");
   if ($result->num_rows == 0) {
-    $result = $conn->query("INSERT INTO Bibliografia (id_tema, concurso, titulo, autor, ano) VALUES ($id_tema, '$concurso', '$nova_referencia_titulo', '$nova_referencia_autor', '$nova_referencia_capitulo')");
+    $result = $conn->query("INSERT INTO Bibliografia (id_tema, concurso, titulo, autor, ano, usuario) VALUES ($id_tema, '$concurso', '$nova_referencia_titulo', '$nova_referencia_autor', '$nova_referencia_capitulo', '$user')");
   }
 }
 
@@ -99,7 +99,7 @@ if (isset($_POST['novo_video_titulo'])) {
   $novo_video_link = $_POST['novo_video_link'];
   $result = $conn->query("SELECT id FROM Videos WHERE concurso = '$concurso' AND id_tema = $id_tema AND titulo = '$novo_video_titulo'");
   if ($result->num_rows == 0) {
-    $result = $conn->query("INSERT INTO Videos (id_tema, concurso, titulo, autor, link) VALUES ($id_tema, '$concurso', '$novo_video_titulo', '$novo_video_autor', '$novo_video_link')");
+    $result = $conn->query("INSERT INTO Videos (id_tema, concurso, titulo, autor, link, usuario) VALUES ($id_tema, '$concurso', '$novo_video_titulo', '$novo_video_autor', '$novo_video_link', '$user')");
   }
 }
 
