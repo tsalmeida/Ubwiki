@@ -106,7 +106,7 @@ function ler_relacionados($id_tema, $concurso) {
     <nav>
       <ol class='breadcrumb d-inline-flex pl-0 pt-0 text-dark'>
         <li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li>
-        <li class='breadcrumb-item text-muted2'><a href='index.php>$concurso</a></li>
+        <li class='breadcrumb-item text-muted2'><a href='index.php'>$concurso</a></li>
         <li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li>
         <li class='breadcrumb-item text-muted2'><a href='materia.php?concurso=$concurso&sigla=$sigla_materia'>$sigla_materia</a></li>
         <li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li>
