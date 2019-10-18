@@ -271,12 +271,20 @@ if ($result->num_rows > 0) {
     <div class='row justify-content-center border-bottom border-dark py-5'>
       <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
         <?php
-          if ($links == false) {
-            echo "<p>Ainda não foram acrescentados links externos sobre este tema.</p>";
-          }
-          else {
-            echo $links;
-          }
+        $result = $conn->query("SELECT titulo, autor, link FROM Links WHERE id_tema = $id_tema AND concurso = '$concurso'");
+        if ($result->num_rows > 0) {
+          echo "<ul class='list-group'>";
+            while($row = $result->fetch_assoc()) {
+              $link_titulo = $row['titulo'];
+              $link_link = $row['link'];
+              $link_comentario = $row['comentario'];
+              echo "<li class='list-group-item list-group-item-action'><a href='$link_link' target='_blank'>$link_titulo : $link_comentario</a></li>";
+            }
+          echo "</ul>";
+        }
+        else {
+          echo "<p>Ainda não foram acrescentados links externos sobre este tema.</p>";
+        }
         ?>
       </div>
     </div>
