@@ -23,7 +23,18 @@ function readSearchOptions($concurso) {
 ?>
   <body>
     <div class='container-fluid px-0 onepage'>
-      <?php carregar_navbar(false); ?>
+      <?php
+        carregar_navbar("
+          <div class='mr-auto'>
+            <nav>
+              <ol class='breadcrumb d-inline-flex pl-0 pt-0 text-dark'>
+                <li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li>
+                <li class='breadcrumb-item text-muted2'>$concurso</li>
+              </ol>
+            </nav>
+          </div>
+        ");
+      ?>
       <div class="container-fluid bg-white">
         <div class="row justify-content-center">
             <div class="col-lg-2 col-sm-5 px-3 mt-5">
@@ -61,7 +72,7 @@ function readSearchOptions($concurso) {
                 if ($result->num_rows > 0) {
                   $count = 0;
                   while($row = $result->fetch_assoc()) {
-                    if ($count == 0) { echo "<div class='col-lg-3 col-sm-12 my-3'>"; }
+                    if ($count == 0) { echo "<div class='col-lg-3 col-sm-12'>"; }
                     $count++;
                     $sigla = $row["sigla"];
                     $materia = $row["materia"];

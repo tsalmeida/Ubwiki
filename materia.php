@@ -27,6 +27,8 @@ if ($result->num_rows > 0) {
         <nav>
           <ol class='breadcrumb d-inline-flex pl-0 pt-0 text-dark'>
             <li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li>
+            <li class='breadcrumb-item text-muted2'>$concurso</li>
+            <li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li>
             <li class='breadcrumb-item text-muted2'>Matérias</li>
           </ol>
         </nav>
