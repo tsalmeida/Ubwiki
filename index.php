@@ -26,7 +26,7 @@ function readSearchOptions($concurso) {
       <?php carregar_navbar(); ?>
       <div class="container-fluid bg-white">
         <div class="row justify-content-center">
-            <div class="col-lg-2 col-sm-5 px-3">
+            <div class="col-lg-2 col-sm-5 px-3 mt-5">
                 <img class="img-fluid logo" src="imagens/ubiquelogo.png"></img>
             </div>
         </div>

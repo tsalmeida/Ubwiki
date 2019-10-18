@@ -10,7 +10,7 @@ mysqli_set_charset($conn,"utf8");
 function carregar_navbar() {
   $breadcrumbs = func_get_args();
   echo "<nav class='navbar navbar-expand-lg'>
-    <a class='navbar-brand text-muted2' href='index.php'>Ubwiki</a>
+    <a class='navbar-brand text-muted2 playfair' href='index.php'>Ubwiki</a>
     <div class='mr-auto'>
       <nav>
         <ol class='breadcrumb d-inline-flex pl-0 pt-0 text-dark'>
