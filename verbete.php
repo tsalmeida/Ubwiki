@@ -96,6 +96,13 @@ if ($result->num_rows > 0) {
   }
 }
 
+function ler_relacionados($id_tema, $concurso) {
+  $result = $conn->query("SELECT nivel FROM Temas WHERE concurso = '$concurso' AND id = $id_tema");
+  if ($result->num_rows > 0) {
+    $nivel = $row['nivel'];
+  }
+}
+
 ?>
 <body>
   <?php
@@ -186,12 +193,7 @@ if ($result->num_rows > 0) {
     <div class='row justify-content-center border-bottom border-dark py-5'>
       <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
         <?php
-          if ($verbetes == false) {
-            echo "<p>Não há verbetes relacionados a este tema.</p>";
-          }
-          else {
-            echo $verbetes;
-          }
+          ler_relacionados($id_tema, $concurso);
         ?>
       </div>
     </div>
