@@ -97,10 +97,11 @@ if ($result->num_rows > 0) {
 }
 
 function ler_relacionados($id_tema, $concurso) {
-  $result = $conn->query("SELECT nivel FROM Temas WHERE concurso = '$concurso' AND id = $id_tema");
-  if ($result->num_rows > 0) {
-    $nivel = $row['nivel'];
-  }
+  return false;
+  // $result = $conn->query("SELECT nivel FROM Temas WHERE concurso = '$concurso' AND id = $id_tema");
+  // if ($result->num_rows > 0) {
+  //   $nivel = $row['nivel'];
+  // }
 }
 
 ?>
