@@ -1,5 +1,47 @@
-  <?php
+<?php
   include 'engine.php';
+
+  if (isset($_POST['otimizar_tema_concurso'])) {
+    $concurso = $_POST['otimizar_tema_concurso'];
+    $concurso = $_POST['reconstruir_concurso'];
+    $servername = "localhost";
+    $username = "grupoubique";
+    $password = "ubique patriae memor";
+    $dbname = "Ubique";
+    $ordem = 0;
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    mysqli_set_charset($conn,"utf8");
+    $conn->query("SELECT id, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso'");
+    if ($result->num_rows > 0) {
+      while($row = $result->fetch_assoc()) {
+        $id = $row["id"];
+        $nivel1 = $row["nivel1"];
+        $nivel2 = $row["nivel2"];
+        $nivel3 = $row["nivel3"];
+        $nivel4 = $row["nivel4"];
+        $nivel5 = $row["nivel5"];
+        if ($nivel5 != false) {
+          conn->query("UPDATE Temas SET nivel = 5 WHERE id = '$id'");
+        }
+        elseif ($nivel4 != false) {
+          conn->query("UPDATE Temas SET nivel = 4 WHERE id = '$id'");
+
+        }
+        elseif ($nivel3 != false) {
+          conn->query("UPDATE Temas SET nivel = 3 WHERE id = '$id'");
+
+        }
+        elseif ($nivel2 != false) {
+          conn->query("UPDATE Temas SET nivel = 2 WHERE id = '$id'");
+
+        }
+        else {
+          conn->query("UPDATE Temas SET nivel = 1 WHERE id = '$id'");
+
+        }
+      }
+    }
+  }
 
   if (isset($_POST['reconstruir_concurso'])) {
     $concurso = $_POST['reconstruir_concurso'];
@@ -111,7 +153,7 @@
     mysqli_set_charset($conn,"utf8");
     $result = $conn->query("UPDATE Temas SET ciclo_revisao = 0 WHERE concurso = '$concurso'");
   }
-  
+
   if (isset($_POST['metalinguagem_concurso'])) {
     $metalinguagem_concurso = $_POST['metalinguagem_concurso'];
     header("Location:edicao_temas.php?concurso=$metalinguagem_concurso");
