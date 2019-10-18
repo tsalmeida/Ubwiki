@@ -16,7 +16,7 @@ logo {
 
 .btn { box-shadow: none !important; }
 
-.navbar-brand {
+.navbar-text {
   font-family: 'Playfair Display', serif !important;
   color: #5f5f5f !important;
 }

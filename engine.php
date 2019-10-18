@@ -10,17 +10,17 @@ mysqli_set_charset($conn,"utf8");
 function carregar_navbar() {
   $breadcrumbs = func_get_args();
   echo "<nav class='navbar navbar-expand-lg bg-white'>
-    <a class='navbar-brand align-top' href='index.php'><h2>Ubwiki</h3></a>
+    <a class='navbar-brand align-top navbar-text' href='index.php'><h4>Ubwiki</h4></a>
     <div class='mr-auto'>
       <nav>
         <ol class='breadcrumb d-inline-flex pl-0 pt-0 text-dark'>
-          <li class='breadcrumb-item h4'><a href='' class='text-dark'>Teste 1</a></li>
-          <li class='breadcrumb-item h4 text-dark'>Teste 2</li>
+          <li class='breadcrumb-item h4 navbar-text'><a href='' class='text-dark'>Teste 1</a></li>
+          <li class='breadcrumb-item h4 navbar-text'>Teste 2</li>
         </ol>
       </nav>
     </div>
     <ul class='nav navbar-nav ml-auto'>
-      <li><a class='navlink float-right h4 align-top' href='userpage.php'>Sua conta</a></li>
+      <li><a class='navlink h4 navbar-text' href='userpage.php'>Sua conta</a></li>
     </ul>
   </nav>";
 }
