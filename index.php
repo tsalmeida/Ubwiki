@@ -24,16 +24,7 @@ function readSearchOptions($concurso) {
   <body>
     <div class='container-fluid px-0 onepage'>
       <?php
-        carregar_navbar("
-          <div class='mr-auto'>
-            <nav>
-              <ol class='breadcrumb d-inline-flex pl-0 pt-0 text-dark'>
-                <li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li>
-                <li class='breadcrumb-item text-muted2'>$concurso</li>
-              </ol>
-            </nav>
-          </div>
-        ");
+        carregar_navbar();
       ?>
       <div class="container-fluid bg-white">
         <div class="row justify-content-center">

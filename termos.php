@@ -4,7 +4,9 @@
   ?>
   <body>
     <?php
-    carregar_navbar("
+    carregar_navbar();
+    standard_jumbotron("Ubwiki", false);
+    breadcrumbs("
       <div class='mr-auto'>
         <nav>
           <ol class='breadcrumb d-inline-flex pl-0 pt-0 text-dark'>
@@ -14,7 +16,6 @@
         </nav>
       </div>
     ");
-    standard_jumbotron("Ubwiki", false);
     ?>
     <div class="container my-5">
       <div class="row">

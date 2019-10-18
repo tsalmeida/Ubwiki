@@ -22,7 +22,10 @@ if ($result->num_rows > 0) {
 
 <body>
   <?php
-    carregar_navbar("
+    carregar_navbar();
+    standard_jumbotron($materia,false);
+    sub_jumbotron("Índice",false);
+    breadcrumbs("
       <div class='mr-auto'>
         <nav>
           <ol class='breadcrumb d-inline-flex pl-0 pt-0 text-dark'>
@@ -34,8 +37,6 @@ if ($result->num_rows > 0) {
         </nav>
       </div>
     ");
-    standard_jumbotron($materia,false);
-    sub_jumbotron("Índice",false);
   ?>
 
   <div class="container my-5">

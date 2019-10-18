@@ -40,7 +40,7 @@ logo {
 
 .navbar .breadcrumb .breadcrumb-item {
   font-weight: 400;
-  color: #5f5f5f;
+  color: #5f5f5f !important;
 }
 
 .bdark {

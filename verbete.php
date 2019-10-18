@@ -101,7 +101,8 @@ function ler_relacionados($id_tema, $concurso) {
 ?>
 <body>
 <?php
-  $navbar = "
+
+  $breadcrumbs = "
   <div class='mr-auto'>
     <nav>
       <ol class='breadcrumb d-inline-flex pl-0 pt-0 text-dark'>
@@ -112,13 +113,15 @@ function ler_relacionados($id_tema, $concurso) {
         <li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li>
         <li class='breadcrumb-item text-muted2'>$nivel1</li>
         ";
-  if ($nivel2 != false) { $navbar .= "<li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li><li class='breadcrumb-item text-muted2'>$nivel2</li>"; }
-  if ($nivel3 != false) { $navbar .= "<li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li><li class='breadcrumb-item text-muted2'>$nivel3</li>"; }
-  if ($nivel4 != false) { $navbar .= "<li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li><li class='breadcrumb-item text-muted2'>$nivel4</li>"; }
-  if ($nivel5 != false) { $navbar .= "<li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li><li class='breadcrumb-item text-muted2'>$nivel5</li>"; }
-  $navbar .= "</ol></nav></div>";
-  carregar_navbar($navbar);
+  if ($nivel2 != false) { $breadcrumbs .= "<li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li><li class='breadcrumb-item text-muted2'>$nivel2</li>"; }
+  if ($nivel3 != false) { $breadcrumbs .= "<li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li><li class='breadcrumb-item text-muted2'>$nivel3</li>"; }
+  if ($nivel4 != false) { $breadcrumbs .= "<li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li><li class='breadcrumb-item text-muted2'>$nivel4</li>"; }
+  if ($nivel5 != false) { $breadcrumbs .= "<li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li><li class='breadcrumb-item text-muted2'>$nivel5</li>"; }
+  $breadcrumbs .= "</ol></nav></div>";
+
+  carregar_navbar();
   standard_jumbotron($tema, false);
+  breadcrumbs($breadcrumbs);
 ?>
   <div class='container-fluid py-3 col-12 bg-lighter text-center'>
     <ul class='list-group list-group-horizontal-lg'>

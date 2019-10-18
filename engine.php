@@ -20,6 +20,18 @@ function carregar_navbar() {
   </nav>";
 }
 
+function breadcrumbs($content) {
+  echo "
+    <div class='content-fluid'>
+      <div class='row bg-lighter'>
+        <div class='col-lg-12'>
+          $content
+        </div>
+      </div>
+    </div>
+  ";
+}
+
 function top_page() {
 	$args = func_get_args();
   echo '
