@@ -13,9 +13,9 @@ function carregar_navbar() {
     <a class='navbar-brand align-top' href='index.php'><h2>Ubwiki</h3></a>
     <div class='mr-auto'>
       <nav>
-        <ol class='breadcrumb d-inline-flex pl-0 pt-0'>
-          <li class='breadcrumb-item'><a href=''>Teste 1</a></li>
-          <li class='breadcrumb-item active'><a href=''>Teste 2</a></li>
+        <ol class='breadcrumb d-inline-flex pl-0 pt-0 text-dark'>
+          <li class='breadcrumb-item text-dark'><a href=''>Teste 1</a></li>
+          <li class='breadcrumb-item active text-dark'><a href=''>Teste 2</a></li>
         </ol>
       </nav>
     </div>
