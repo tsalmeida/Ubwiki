@@ -30,10 +30,10 @@
   if ($newuser == true) {
     $create = $conn2->query("CREATE TABLE `Ubwiki_usuarios`.`$usuario_id` ( `id` INT NOT NULL AUTO_INCREMENT , `tipo` VARCHAR(255) NOT NULL , `tipo_conteudo` VARCHAR(255) NOT NULL , `conteudo_varchar` VARCHAR(255) NOT NULL , `conteudo_texto` TEXT NOT NULL , `conteudo_timestamp` TIMESTAMP NOT NULL , `conteudo_boolean` BOOLEAN NOT NULL , PRIMARY KEY (`id`)) ENGINE = MyISAM COMMENT = 'tabela de $user';");
     error_log($usuario_criacao);
-    $insert = $conn2->query("INSERT INTO $usuario_id (tipo, tipo_conteudo, conteudo_timestamp) VALUES ('criacao', 'timestamp', '$usuario_criacao')");
-    $insert = $conn2->query("INSERT INTO $usuario_id (tipo, tipo_conteudo, conteudo_timestamp) VALUES ('email', 'varchar', '$user')");
-    $insert = $conn2->query("INSERT INTO $usuario_id (tipo, tipo_conteudo, conteudo_timestamp) VALUES ('concurso', 'varchar', '$concurso')");
-    $insert = $conn2->query("INSERT INTO 1 (tipo, tipo_conteudo, conteudo_varchar) VALUES ('teste', 'varchar', 'teste1')");
+    $insert = $conn2->query("INSERT INTO '$usuario_id' (tipo, tipo_conteudo, conteudo_timestamp) VALUES ('criacao', 'timestamp', '$usuario_criacao')");
+    $insert = $conn2->query("INSERT INTO '$usuario_id' (tipo, tipo_conteudo, conteudo_timestamp) VALUES ('email', 'varchar', '$user')");
+    $insert = $conn2->query("INSERT INTO '$usuario_id' (tipo, tipo_conteudo, conteudo_timestamp) VALUES ('concurso', 'varchar', '$concurso')");
+    $insert = $conn2->query("INSERT INTO '1' (tipo, tipo_conteudo, conteudo_varchar) VALUES ('teste', 'varchar', 'teste1')");
     $insert = $conn2->query("INSERT INTO tsa (tipo, tipo_conteudo, conteudo_texto) VALUES ('teste', 'texto', 'teste2')");
   }
 
