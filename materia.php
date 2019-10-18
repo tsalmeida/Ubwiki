@@ -1,7 +1,7 @@
 <?php
 
+session_start();
 if (isset($_SESSION['email'])) {
-  session_start();
   $user = $_SESSION['email'];
 }
 else {

@@ -1,7 +1,7 @@
-  <?php
+<?php
 
+  session_start();
   if (isset($_SESSION['email'])) {
-    session_start();
     $user = $_SESSION['email'];
   }
   else {
@@ -10,7 +10,8 @@
 
   include 'engine.php';
   top_page();
-  ?>
+
+?>
   <body>
     <?php
     carregar_navbar();
@@ -29,6 +30,6 @@
       </div>
     </div>
   </body>
-  <?php
-    bottom_page();
-  ?>
+<?php
+  bottom_page();
+?>
