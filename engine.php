@@ -183,7 +183,6 @@ if (isset($_POST['reconstruir_concurso'])) {
   $ordem = 0;
   $conn = new mysqli($servername, $username, $password, $dbname);
   mysqli_set_charset($conn,"utf8");
-  $conn->query("DELETE FROM Searchbar WHERE concurso = '$concurso'");
   $result = $conn->query("SELECT sigla, materia FROM Materias WHERE concurso = '$concurso' AND estado = 1 ORDER BY ordem");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
