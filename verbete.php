@@ -219,7 +219,7 @@ function ler_relacionados($id_tema, $concurso) {
               $referencia_titulo = $row['titulo'];
               $referencia_autor = $row['autor'];
               $referencia_capitulo = $row['capitulo'];
-              echo "<li class='list-group-item'>$referencia_titulo : $referencia_autor : $refrencia_capitulo</li>";
+              echo "<li class='list-group-item'>$referencia_titulo : $referencia_autor : $referencia_capitulo</li>";
             }
           echo "</ul>";
         }
