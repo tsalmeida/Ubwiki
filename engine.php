@@ -27,7 +27,7 @@ function breadcrumbs($content) {
         <div class='col-lg-12 px-2'>
           <div class='mr-auto'>
             <nav>
-              <ol class='breadcrumb d-inline-flex text-dark'>
+              <ol class='breadcrumb d-inline-flex text-dark bg-white'>
                 $content
               </ol>
             </nav>
