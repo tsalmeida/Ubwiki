@@ -34,7 +34,7 @@
     $insert = $conn2->query("INSERT INTO $usuario_id (tipo, tipo_conteudo, conteudo_timestamp) VALUES ('email', 'varchar', '$user')");
     $insert = $conn2->query("INSERT INTO $usuario_id (tipo, tipo_conteudo, conteudo_timestamp) VALUES ('concurso', 'varchar', '$concurso')");
     $insert = $conn2->query("INSERT INTO 1 (tipo, tipo_conteudo, conteudo_varchar) VALUES ('teste', 'varchar', 'teste1')");
-    $insert = $conn2->query("INSERT INTO $usuario_id (tipo, tipo_conteudo, conteudo_texto) VALUES ('teste', 'texto', 'teste2')");
+    $insert = $conn2->query("INSERT INTO tsa (tipo, tipo_conteudo, conteudo_texto) VALUES ('teste', 'texto', 'teste2')");
   }
 
   top_page("onepage");
