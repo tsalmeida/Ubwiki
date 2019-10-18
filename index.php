@@ -1,7 +1,78 @@
 <?php
   include 'engine.php';
-  top_page("quill", "onepage");
-  $concurso = "CACD";
+  $concurso = 'CACD';
+
+  function readSearchOptions($concurso) {
+    $servername = "localhost";
+    $username = "grupoubique";
+    $password = "ubique patriae memor";
+    $dbname = "Ubique";
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    mysqli_set_charset($conn,"utf8");
+    $result = $conn->query("SELECT chave FROM Searchbar WHERE concurso = '$concurso' ORDER BY ordem");
+    if ($result->num_rows > 0) {
+      while($row = $result->fetch_assoc()) {
+        $chave = $row['chave'];
+        echo "<option>$chave</option>";
+      }
+    }
+  }
+
+  if (isset($_POST['sbcommand'])) {
+    $concurso = base64_decode($_POST['sbconcurso']);
+    $command = base64_decode($_POST['sbcommand']);
+    $command = utf8_encode($command);
+    $servername = "localhost";
+    $username = "grupoubique";
+    $password = "ubique patriae memor";
+    $dbname = "Ubique";
+    $found = false;
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    mysqli_set_charset($conn,"utf8");
+    $result = $conn->query("SELECT sigla, tipo FROM Searchbar WHERE concurso = '$concurso' AND chave = '$command' ORDER BY ordem");
+    if ($result->num_rows > 0) {
+      while($row = $result->fetch_assoc()) {
+        $sigla = $row["sigla"];
+        $tipo = $row["tipo"];
+        if ($tipo == "materia") {
+          echo "foundfoundfoundfmateria.php?sigla=$sigla&concurso=$concurso";
+          return;
+        }
+        elseif ($tipo == "tema") {
+          echo "foundfoundfoundfverbete.php?concurso=$concurso&tema=$sigla";
+          return;
+        }
+      }
+    }
+    $index = 500;
+    $winner = 0;
+    $result = $conn->query("SELECT chave FROM Searchbar WHERE concurso = '$concurso' AND CHAR_LENGTH(chave) < 150 ORDER BY ordem");
+    if ($result->num_rows > 0) {
+      while($row = $result->fetch_assoc()) {
+        $chave = $row["chave"];
+        $chavelow = mb_strtolower($chave);
+        $commandlow = mb_strtolower($command);
+        $check = levenshtein($chavelow, $commandlow, 1, 1, 1);
+  			if (strpos($chavelow, $commandlow) !== false) {
+          echo "notfoundnotfound$chave";
+  				return;
+  			}
+        elseif ($check < $index) {
+          $index = $check;
+          $winner = $chave;
+        }
+      }
+      $length = strlen($command);
+      if ($index < $length) {
+        echo "notfoundnotfound$winner";
+        return;
+      }
+    }
+    echo "nada foi encontrado";
+    return;
+  }
+
+  top_page("onepage");
 ?>
   <body>
     <div class='container-fluid px-0 onepage'>
