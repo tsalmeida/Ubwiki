@@ -14,6 +14,7 @@
     $conn->query("SELECT id, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso'");
     if ($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {
+        error_log("$id $nivel1 $nivel2 $nivel3 $nivel4 $nivel5");
         $id = $row["id"];
         $nivel1 = $row["nivel1"];
         $nivel2 = $row["nivel2"];
