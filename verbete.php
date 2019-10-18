@@ -10,6 +10,13 @@ if (isset($_GET['concurso'])) {
   $concurso = $_GET['concurso'];
 }
 
+$result = $conn->query("SELECT chave FROM Searchbar WHERE concurso = '$concurso' AND sigla = $id_tema");
+if ($result->num_rows > 0) {
+  while($row = $result->fetch_assoc()) {
+    $tema = $row['chave'];
+  }
+}
+
 $result = $conn->query("SELECT verbete FROM Verbetes WHERE concurso = '$concurso' AND id_tema = $id_tema");
 if ($result->num_rows > 0) {
   while($row = $result->fetch_assoc()) {
@@ -32,20 +39,6 @@ if (isset($_POST['verbete_texto'])) {
     $result = $conn->query("INSERT INTO Verbetes (id_tema, concurso, verbete) VALUES ('$id_tema', '$concurso', '$novo_verbete')");
   }
   $verbete_consolidado = $novo_verbete;
-}
-
-$result = $conn->query("SELECT chave FROM Searchbar WHERE concurso = '$concurso' AND sigla = $id_tema");
-if ($result->num_rows > 0) {
-  while($row = $result->fetch_assoc()) {
-    $tema = $row['chave'];
-  }
-}
-$verbete = false;
-$result = $conn->query("SELECT verbete FROM Verbetes WHERE id_tema = $id_tema AND concurso = '$concurso'");
-if ($result->num_rows > 0) {
-  while($row = $result->fetch_assoc()) {
-    $verbete = $row["verbete"];
-  }
 }
 
 if (isset($_POST['nova_imagem_link'])) {
@@ -148,12 +141,12 @@ function ler_relacionados($id_tema, $concurso) {
     <div class='row justify-content-center border-bottom border-dark py-5'>
       <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
         <?php
-          if ($verbete == false) {
+          if ($verbete_consolidado == false) {
             echo "<p>Não há, no momento, verbete consolidado para este tema.</p>";
           }
           else {
             $separator = "\r\n";
-            $line = strtok($verbete, $separator);
+            $line = strtok($verbete_consolidado, $separator);
             while ($line !== false) {
                 echo "<p>$line</p>";
                 $line = strtok( $separator );
