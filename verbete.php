@@ -10,12 +10,26 @@ if (isset($_GET['concurso'])) {
   $concurso = $_GET['concurso'];
 }
 
-$result = $conn->query("SELECT chave FROM Searchbar WHERE concurso = '$concurso' AND sigla = $id_tema");
+$result = $conn->query("SELECT sigla_materia, nivel, ordem, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND id = $id_tema");
 if ($result->num_rows > 0) {
   while($row = $result->fetch_assoc()) {
-    $tema = $row['chave'];
+    $sigla_materia = $row['sigla_materia'];
+    $nivel = $row['nivel'];
+    $ordem = $row['ordem'];
+    $nivel1 = $row['nivel1'];
+    $nivel2 = $row['nivel2'];
+    $nivel3 = $row['nivel3'];
+    $nivel4 = $row['nivel4'];
+    $nivel5 = $row['nivel5'];
+    if ($nivel = 5) { $tema = $nivel5; }
+    elseif ($nivel = 4) { $tema = $nivel4; }
+    elseif ($nivel = 3) { $tema = $nivel3; }
+    elseif ($nivel = 2) { $tema = $nivel2; }
+    else { $tema = $nivel1 }
   }
 }
+
+// set $tema
 
 $result = $conn->query("SELECT verbete FROM Verbetes WHERE concurso = '$concurso' AND id_tema = $id_tema");
 if ($result->num_rows > 0) {
@@ -79,13 +93,6 @@ if (isset($_POST['novo_video_titulo'])) {
   $result = $conn->query("SELECT id FROM Videos WHERE concurso = '$concurso' AND id_tema = $id_tema AND titulo = '$novo_video_titulo'");
   if ($result->num_rows == 0) {
     $result = $conn->query("INSERT INTO Videos (id_tema, concurso, titulo, autor, link) VALUES ($id_tema, '$concurso', '$novo_video_titulo', '$novo_video_autor', '$novo_video_link')");
-  }
-}
-
-$result = $conn->query("SELECT chave FROM Searchbar WHERE concurso = '$concurso' AND sigla = $id_tema");
-if ($result->num_rows > 0) {
-  while($row = $result->fetch_assoc()) {
-    $tema = $row['chave'];
   }
 }
 
