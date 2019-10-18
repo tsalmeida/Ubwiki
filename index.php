@@ -1,5 +1,7 @@
 <?php
 
+  include 'engine.php';
+
   session_start();
   if (!isset($_SESSION['email'])) {
     if (isset($_GET['email'])) {
@@ -15,7 +17,6 @@
     }
   }
 
-  include 'engine.php';
   $concurso = 'CACD';
 
   top_page("onepage");
