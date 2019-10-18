@@ -19,15 +19,17 @@
     }
   }
 
-  $result = $conn->query("SELECT id FROM Usuarios WHERE email = '$user'");
+  $result = $conn->query("SELECT id, criacao FROM Usuarios WHERE email = '$user'");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $usuario_id = $row['id'];
+      $usuario_criacao = $row['criacao'];
     }
   }
 
   if ($newuser == true) {
     $create = $conn2->query("CREATE TABLE `Ubwiki_usuarios`.`$usuario_id` ( `id` INT NOT NULL AUTO_INCREMENT , `tipo` VARCHAR(255) NOT NULL , `tipo_conteudo` VARCHAR(255) NOT NULL , `conteudo_varchar` VARCHAR(255) NOT NULL , `conteudo_text` TEXT NOT NULL , `conteudo_timestamp` TIMESTAMP NOT NULL , `conteudo_boolean` BOOLEAN NOT NULL , PRIMARY KEY (`id`)) ENGINE = MyISAM COMMENT = 'tabela de $user';");
+    $create = $conn2->query("INSERT INTO $usuario_id (tipo, tipo_conteudo, conteudo_timestamp) VALUES ('criacao', 'timestamp', '$usuario_criacao')")
   }
 
   $concurso = 'CACD';
