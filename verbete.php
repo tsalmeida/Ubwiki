@@ -21,11 +21,11 @@ if ($result->num_rows > 0) {
     $nivel3 = $row['nivel3'];
     $nivel4 = $row['nivel4'];
     $nivel5 = $row['nivel5'];
-    if ($nivel == 5) { $tema = $nivel5; }
-    elseif ($nivel == 4) { $tema = $nivel4; }
-    elseif ($nivel == 3) { $tema = $nivel3; }
-    elseif ($nivel == 2) { $tema = $nivel2; }
-    else { $tema = $nivel1; }
+    if ($nivel == 5) { $tema = $nivel5; $parent = $nivel4; }
+    elseif ($nivel == 4) { $tema = $nivel4; $parent = $nivel3; }
+    elseif ($nivel == 3) { $tema = $nivel3; $parent = $nivel2; }
+    elseif ($nivel == 2) { $tema = $nivel2; $parent = $nivel1; }
+    else { $tema = $nivel1; $parent = false; }
   }
 }
 
@@ -96,29 +96,28 @@ if (isset($_POST['novo_video_titulo'])) {
 
 function ler_relacionados($id_tema, $concurso) {
   return false;
-  // $result = $conn->query("SELECT nivel FROM Temas WHERE concurso = '$concurso' AND id = $id_tema");
-  // if ($result->num_rows > 0) {
-  //   $nivel = $row['nivel'];
-  // }
 }
 
 ?>
 <body>
-  <?php
-  carregar_navbar("
-    <div class='mr-auto'>
-      <nav>
-        <ol class='breadcrumb d-inline-flex pl-0 pt-0 text-dark'>
-          <li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li>
-          <li class='breadcrumb-item text-muted2'>$concurso</li>
-          <li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li>
-          <li class='breadcrumb-item text-muted2'>Matéria</li>
-          <li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li>
-          <li class='breadcrumb-item text-muted2'>$tema</li>
-        </ol>
-      </nav>
-    </div>
-  ");
+<?php
+  $navbar = "
+  <div class='mr-auto'>
+    <nav>
+      <ol class='breadcrumb d-inline-flex pl-0 pt-0 text-dark'>
+        <li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li>
+        <li class='breadcrumb-item text-muted2'>$concurso</li>
+        <li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li>
+        <li class='breadcrumb-item text-muted2'>$materia</li>
+        <li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li>
+        <li class='breadcrumb-item text-muted2'>$nivel1</li>
+        ";
+  if ($nivel2 != false) { $navbar .= "<li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li><li class='breadcrumb-item text-muted2'>$nivel2</li>"; }
+  if ($nivel3 != false) { $navbar .= "<li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li><li class='breadcrumb-item text-muted2'>$nivel3</li>"; }
+  if ($nivel4 != false) { $navbar .= "<li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li><li class='breadcrumb-item text-muted2'>$nivel4</li>"; }
+  if ($nivel5 != false) { $navbar .= "<li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li><li class='breadcrumb-item text-muted2'>$nivel5</li>"; }
+  $navbar .= "</ol></nav></div>";
+  carregar_navbar($navbar);
   standard_jumbotron($tema, false);
 ?>
   <div class='container-fluid py-3 col-12 bg-lighter text-center'>
