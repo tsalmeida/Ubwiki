@@ -18,42 +18,25 @@
       header('Location:login.php');
     }
   }
+  else {
+    $user = $_SESSION['email'];
+  }
 
   $result = $conn->query("SELECT id, criacao FROM Usuarios WHERE email = '$user'");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $usuario_id = $row['id'];
-      $usuario_criacao = $row['criacao'];
     }
   }
 
   if ($newuser == true) {
     $create = $conn2->query("CREATE TABLE `Ubwiki_usuarios`.`$usuario_id` ( `id` INT NOT NULL AUTO_INCREMENT , `tipo` VARCHAR(255) NOT NULL , `tipo_conteudo` VARCHAR(255) NOT NULL , `conteudo_varchar` VARCHAR(255) NOT NULL , `conteudo_texto` TEXT NOT NULL , `conteudo_timestamp` TIMESTAMP NOT NULL , `conteudo_boolean` BOOLEAN NOT NULL , PRIMARY KEY (`id`)) ENGINE = MyISAM COMMENT = 'tabela de $user';");
-    error_log($usuario_criacao);
-    $insert = $conn2->query("INSERT INTO `$usuario_id` (tipo, tipo_conteudo, conteudo_timestamp) VALUES ('criacao', 'timestamp', '$usuario_criacao')");
-    $insert = $conn2->query("INSERT INTO `$usuario_id` (tipo, tipo_conteudo, conteudo_timestamp) VALUES ('email', 'varchar', '$user')");
-    $insert = $conn2->query("INSERT INTO '$usuario_id' (tipo, tipo_conteudo, conteudo_timestamp) VALUES ('concurso', 'varchar', '$concurso')");
-    $insert = $conn2->query("INSERT INTO `1` (tipo, tipo_conteudo, conteudo_varchar) VALUES ('teste', 'varchar', 'teste1')");
-    $insert = $conn2->query("INSERT INTO tsa (tipo, tipo_conteudo, conteudo_texto) VALUES ('teste', 'texto', 'teste2')");
+    $insert = $conn2->query("INSERT INTO `$usuario_id` (tipo, tipo_conteudo) VALUES ('criacao', 'timestamp')");
+    $insert = $conn2->query("INSERT INTO `$usuario_id` (tipo, tipo_conteudo, conteudo_varchar) VALUES ('email', 'varchar', '$user')");
+    $insert = $conn2->query("INSERT INTO `$usuario_id` (tipo, tipo_conteudo, conteudo_varchar) VALUES ('concurso', 'varchar', '$concurso')");
   }
 
   top_page("onepage");
-
-  function readSearchOptions($concurso) {
-    $servername = "localhost";
-    $username = "grupoubique";
-    $password = "ubique patriae memor";
-    $dbname = "Ubique";
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    mysqli_set_charset($conn,"utf8");
-    $result = $conn->query("SELECT chave FROM Searchbar WHERE concurso = '$concurso' ORDER BY ordem");
-    if ($result->num_rows > 0) {
-      while($row = $result->fetch_assoc()) {
-        $chave = $row['chave'];
-        echo "<option>$chave</option>";
-      }
-    }
-  }
 
 ?>
   <body>
@@ -79,7 +62,13 @@
                 <input id="searchBar" list="searchlist" type="text" class="searchBar" name="searchBar" rows="1" autocomplete="off" spellcheck="false" placeholder="O que você vai estudar hoje?" required></input>
                 <datalist id="searchlist">
                   <?php
-                    readSearchOptions($concurso);
+                    $result = $conn->query("SELECT chave FROM Searchbar WHERE concurso = '$concurso' ORDER BY ordem");
+                    if ($result->num_rows > 0) {
+                      while($row = $result->fetch_assoc()) {
+                        $chave = $row['chave'];
+                        echo "<option>$chave</option>";
+                      }
+                    }
                   ?>
                 </datalist>
                 <?php
