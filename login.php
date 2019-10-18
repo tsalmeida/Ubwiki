@@ -1,13 +1,4 @@
   <?php
-
-  if (isset($_SESSION['email'])) {
-    session_start();
-    $user = $_SESSION['email'];
-  }
-  else {
-    header('Location:login.php');
-  }
-
   include 'engine.php';
   top_page();
   ?>
@@ -20,10 +11,8 @@
       <div class="row">
         <div class="col-2"></div>
         <div class="col-8">
-          <?php
-          $result = extract_gdoc("https://docs.google.com/document/d/e/2PACX-1vTAJII7h1Fm2ndrB-KjqH2w4CvwfyKKcr5myjh_IfqCIe7-Ai9JZWj6wlNt5shG_wbNv0_KVELPGU6W/pub?embedded=true");
-          echo $result;
-          ?>
+          <h1>Login necessário</h1>
+          <p>Você não está logado. Para fazê-lo gratuitamente, por favor crie uma conta na <a href='https://www.grupoubique.com.br'>página do Grupo Ubique</a> e siga o link 'Ubwiki' no topo da página ou na sua lista de cursos.</p>
         </div>
         <div class="col-2"></div>
       </div>

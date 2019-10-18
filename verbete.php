@@ -1,14 +1,23 @@
 <?php
+
+  if (isset($_SESSION['email'])) {
+    session_start();
+    $user = $_SESSION['email'];
+  }
+  else {
+    header('Location:login.php');
+  }
+
   include 'engine.php';
   top_page();
 
-if (isset($_GET['tema'])) {
-  $id_tema = $_GET['tema'];
-}
+  if (isset($_GET['tema'])) {
+    $id_tema = $_GET['tema'];
+  }
 
-if (isset($_GET['concurso'])) {
-  $concurso = $_GET['concurso'];
-}
+  if (isset($_GET['concurso'])) {
+    $concurso = $_GET['concurso'];
+  }
 
 $result = $conn->query("SELECT sigla_materia, nivel, ordem, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND id = $id_tema");
 if ($result->num_rows > 0) {

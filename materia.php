@@ -1,4 +1,13 @@
 <?php
+
+if (isset($_SESSION['email'])) {
+  session_start();
+  $user = $_SESSION['email'];
+}
+else {
+  header('Location:login.php');
+}
+
 include 'engine.php';
 top_page();
 
