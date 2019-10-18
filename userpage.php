@@ -7,7 +7,6 @@
       carregar_navbar();
       standard_jumbotron("Sua página", false);
       breadcrumbs("
-        <li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li>
         <li class='breadcrumb-item text-muted2'>Sua página</li>
       ");
     ?>

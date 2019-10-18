@@ -7,7 +7,6 @@
     carregar_navbar();
     standard_jumbotron("Ubwiki", false);
     breadcrumbs("
-      <li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li>
       <li class='breadcrumb-item text-muted2'>Termos de Serviço</li>
     ");
     ?>
