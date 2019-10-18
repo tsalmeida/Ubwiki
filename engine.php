@@ -14,11 +14,17 @@ function carregar_navbar() {
     <div class='mr-auto'>
       <nav>
         <ol class='breadcrumb d-inline-flex pl-0 pt-0 text-dark'>
+          <li class='breadcrumb-item text-muted-2'><i class='fal fa-chevron-right'></i></li>
           <li class='breadcrumb-item text-muted2'>Matéria</li>
+          <li class='breadcrumb-item text-muted-2'><i class='fal fa-chevron-right'></i></li>
           <li class='breadcrumb-item text-muted2'>Nível 1</li>
+          <li class='breadcrumb-item text-muted-2'><i class='fal fa-chevron-right'></i></li>
           <li class='breadcrumb-item text-muted2'>Nível 2</li>
+          <li class='breadcrumb-item text-muted-2'><i class='fal fa-chevron-right'></i></li>
           <li class='breadcrumb-item text-muted2'>Nível 3</li>
+          <li class='breadcrumb-item text-muted-2'><i class='fal fa-chevron-right'></i></li>
           <li class='breadcrumb-item text-muted2'>Nível 4</li>
+          <li class='breadcrumb-item text-muted-2'><i class='fal fa-chevron-right'></i></li>
           <li class='breadcrumb-item text-muted2'>Nível 5</li>
         </ol>
       </nav>
