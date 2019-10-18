@@ -6,9 +6,6 @@
     <?php
     carregar_navbar();
     standard_jumbotron("Ubwiki", false);
-    breadcrumbs("
-      <li class='breadcrumb-item text-muted2'>Termos de Serviço</li>
-    ");
     ?>
     <div class="container my-5">
       <div class="row">

@@ -160,9 +160,6 @@
     <?php
       carregar_navbar();
       standard_jumbotron("Página de Administrador", false);
-      breadcrumbs("
-        <li class='breadcrumb-item text-muted2'>Página de administrador</li>
-      ");
     ?>
     <div class="container my-5">
       <div class="row">

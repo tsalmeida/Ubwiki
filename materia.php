@@ -25,10 +25,6 @@ if ($result->num_rows > 0) {
     carregar_navbar();
     standard_jumbotron($materia,false);
     sub_jumbotron("Índice",false);
-    breadcrumbs("
-      <li class='breadcrumb-item text-muted2'>$concurso</li>
-      <li class='breadcrumb-item text-muted2'>Matérias</li>
-    ");
   ?>
 
   <div class="container my-5">
