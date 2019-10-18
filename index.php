@@ -9,7 +9,9 @@
       $user = $_SESSION['email'];
       $result = $conn->query("SELECT id FROM Usuarios WHERE email = '$user'");
       if ($result->num_rows == 0) {
+        $usuario_id = $row['id'];
         $insert = $conn->query("INSERT INTO Usuarios (email) VALUES ('$user')");
+        $create = $conn2->query("CREATE TABLE 'Ubwiki_usuarios'.'$usuario_id' ( 'id' INT NOT NULL AUTO_INCREMENT , 'tipo' VARCHAR(255) NOT NULL , 'tipo_conteudo' VARCHAR(255) NOT NULL , 'conteudo_varchar' VARCHAR(255) NOT NULL , 'conteudo_text' TEXT NOT NULL , 'conteudo_timestamp' TIMESTAMP NOT NULL , 'conteudo_boolean' BOOLEAN NOT NULL , PRIMARY KEY ('id')) ENGINE = MyISAM COMMENT = 'tabela de $user';")
       }
     }
     else {
