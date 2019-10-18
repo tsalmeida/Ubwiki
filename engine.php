@@ -8,7 +8,6 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 mysqli_set_charset($conn,"utf8");
 
 function carregar_navbar($breadcrumbs) {
-  $breadcrumbs = func_get_args();
   echo "<nav class='navbar navbar-expand-lg'>
     <a class='navbar-brand playfair' href='index.php'>Ubwiki</a>
     $breadcrumbs;
