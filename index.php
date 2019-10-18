@@ -29,11 +29,14 @@
     }
   }
 
+  $nova_tabela = "usuario_id_";
+  $nova_tabela .= $usuario_id;
+
   if ($newuser == true) {
-    $create = $conn2->query("CREATE TABLE `Ubwiki_usuarios`.`$usuario_id` ( `id` INT NOT NULL AUTO_INCREMENT , `tipo` VARCHAR(255) NOT NULL , `tipo_conteudo` VARCHAR(255) NOT NULL , `conteudo_varchar` VARCHAR(255) NOT NULL , `conteudo_texto` TEXT NOT NULL , `conteudo_timestamp` TIMESTAMP NOT NULL , `conteudo_boolean` BOOLEAN NOT NULL , PRIMARY KEY (`id`)) ENGINE = MyISAM COMMENT = 'tabela de $user';");
-    $insert = $conn2->query("INSERT INTO `$usuario_id` (tipo, tipo_conteudo) VALUES ('criacao', 'timestamp')");
-    $insert = $conn2->query("INSERT INTO `$usuario_id` (tipo, tipo_conteudo, conteudo_varchar) VALUES ('email', 'varchar', '$user')");
-    $insert = $conn2->query("INSERT INTO `$usuario_id` (tipo, tipo_conteudo, conteudo_varchar) VALUES ('concurso', 'varchar', '$concurso')");
+    $create = $conn2->query("CREATE TABLE `Ubwiki_usuarios`.`$nova_tabela` ( `id` INT NOT NULL AUTO_INCREMENT , `tipo` VARCHAR(255) NOT NULL , `tipo2` VARCHAR(255) NOT NULL , `tipo3` VARCHAR(255) NOT NULL , `tipo_conteudo` VARCHAR(255) NOT NULL , `tipo_conteudo2` VARCHAR(255) NOT NULL , `tipo_conteudo3` VARCHAR(255) NOT NULL , `conteudo_varchar` VARCHAR(255) NOT NULL , `conteudo_varchar2` VARCHAR(255) NOT NULL , `conteudo_varchar3` VARCHAR(255) NOT NULL , `conteudo_texto` TEXT NOT NULL , `conteudo_boolean` BOOLEAN NOT NULL , `timestamp` TIMESTAMP NOT NULL , PRIMARY KEY (`id`)) ENGINE = MyISAM COMMENT = 'tabela de $user';");
+    $insert = $conn2->query("INSERT INTO $nova_tabela (tipo, tipo_conteudo) VALUES ('criacao', 'timestamp')");
+    $insert = $conn2->query("INSERT INTO $nova_tabela (tipo, tipo_conteudo, conteudo_varchar) VALUES ('email', 'varchar', '$user')");
+    $insert = $conn2->query("INSERT INTO $nova_tabela (tipo, tipo_conteudo, conteudo_varchar) VALUES ('concurso', 'varchar', '$concurso')");
   }
 
   top_page("onepage");
