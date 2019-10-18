@@ -5,6 +5,10 @@
     if (isset($_GET['email'])) {
       $_SESSION['email'] = $_GET['email'];
       $user = $_SESSION['email'];
+      $result = $conn->query("SELECT id FROM Usuarios WHERE email = '$user'");
+      if ($result->num_rows == 0) {
+        $insert = $conn->query("INSERT INTO Usuarios (email) VALUES ('$user')");
+      }
     }
     else {
       header('Location:login.php');
@@ -13,11 +17,6 @@
 
   include 'engine.php';
   $concurso = 'CACD';
-
-  $result = $conn->query("SELECT id FROM Usuarios WHERE email = '$user'");
-  if ($result->num_rows == 0) {
-    $insert = $conn->query("INSERT INTO Usuarios (email) VALUES ('$user')");
-  }
 
   top_page("onepage");
 
