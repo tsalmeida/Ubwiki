@@ -8,10 +8,19 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 mysqli_set_charset($conn,"utf8");
 
 function carregar_navbar() {
+  $breadcrumbs = func_get_args();
   echo "<nav class='navbar navbar-expand-lg bg-white'>
-    <a class='navbar-brand align-top' href='index.php'><h2>Ubwiki</h2></a>
+    <a class='navbar-brand align-top' href='index.php'><h2>Ubwiki</h3></a>
+    <div class='mr-auto'>
+      <nav>
+        <ol class='breadcrumb d-inline-flex pl-0 pt-0'>
+          <li class='breadcrumb-item'><a href=''>Teste 1</a></li>
+          <li class='breadcrumb-item active'><a href=''>Teste 2</a></li>
+        </ol>
+      </nav>
+    </div>
     <ul class='nav navbar-nav ml-auto'>
-      <li><a class='navlink float-right h4 align-top' href='userpage.php'>Minha conta</a></li>
+      <li><a class='navlink float-right h4 align-top' href='userpage.php'>Sua conta</a></li>
     </ul>
   </nav>";
 }
