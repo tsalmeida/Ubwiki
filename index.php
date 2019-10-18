@@ -21,8 +21,9 @@
 
   $result = $conn->query("SELECT id FROM Usuarios WHERE email = '$user'");
   if ($result->num_rows > 0) {
-    $usuario_id = $row['id'];
-    error_log($usuario_id);
+    while($row = $result->fetch_assoc()) {
+      $usuario_id = $row['id'];
+    }
   }
 
   if ($newuser == true) {
