@@ -25,7 +25,7 @@ if ($result->num_rows > 0) {
     elseif ($nivel = 4) { $tema = $nivel4; }
     elseif ($nivel = 3) { $tema = $nivel3; }
     elseif ($nivel = 2) { $tema = $nivel2; }
-    else { $tema = $nivel1 }
+    else { $tema = $nivel1; }
   }
 }
 
