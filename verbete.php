@@ -114,17 +114,9 @@ function ler_relacionados($id_tema, $concurso) {
           <li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li>
           <li class='breadcrumb-item text-muted2'>$concurso</li>
           <li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li>
-          <li class='breadcrumb-item text-muted2'>Matérias</li>
+          <li class='breadcrumb-item text-muted2'>Matéria</li>
           <li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li>
-          <li class='breadcrumb-item text-muted2'>Nível 1</li>
-          <li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li>
-          <li class='breadcrumb-item text-muted2'>Nível 2</li>
-          <li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li>
-          <li class='breadcrumb-item text-muted2'>Nível 3</li>
-          <li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li>
-          <li class='breadcrumb-item text-muted2'>Nível 4</li>
-          <li class='breadcrumb-item'><i class='fal fa-chevron-right'></i></li>
-          <li class='breadcrumb-item text-muted2'>Nível 5</li>
+          <li class='breadcrumb-item text-muted2'>$tema</li>
         </ol>
       </nav>
     </div>
