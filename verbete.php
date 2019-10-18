@@ -10,10 +10,19 @@ if (isset($_GET['concurso'])) {
   $concurso = $_GET['concurso'];
 }
 
+$result = $conn->query("SELECT verbete FROM Verbetes WHERE concurso = '$concurso' AND id_tema = $id_tema");
+if ($result->num_rows > 0) {
+  while($row = $result->fetch_assoc()) {
+    $verbete_consolidado = $row['verbete'];
+  }
+}
+else {
+  $verbete_consolidado = false;
+}
+
 if (isset($_POST['verbete_texto'])) {
   $verbete_texto = $_POST['verbete_texto'];
-  $verbete_texto = strip_tags($verbete_texto);
-  $novo_verbete = base64_encode($verbete_texto);
+  $novo_texto = strip_tags($verbete_texto);
   $result = $conn->query("SELECT verbete FROM Verbetes WHERE concurso = '$concurso' AND id_tema = $id_tema");
   if ($result->num_rows > 0) {
     $result = $conn->query("UPDATE Verbetes SET verbete = '$novo_verbete' WHERE concurso = '$concurso' AND id_tema = $id_tema");
@@ -80,17 +89,6 @@ if (isset($_POST['novo_video_titulo'])) {
   }
 }
 
-$result = $conn->query("SELECT verbete FROM Verbetes WHERE concurso = '$concurso' AND id_tema = $id_tema");
-if ($result->num_rows > 0) {
-  while($row = $result->fetch_assoc()) {
-    $verbete_consolidado_encoded = $row['verbete'];
-    $verbete_consolidado = base64_decode($verbete_consolidado_encoded);
-  }
-}
-else {
-  $verbete_consolidado = false;
-}
-
 $result = $conn->query("SELECT chave FROM Searchbar WHERE concurso = '$concurso' AND sigla = $id_tema");
 if ($result->num_rows > 0) {
   while($row = $result->fetch_assoc()) {
@@ -133,7 +131,6 @@ if ($result->num_rows > 0) {
             echo "<p>Não há, no momento, verbete consolidado para este tema.</p>";
           }
           else {
-            $verbete = base64_decode($verbete);
             $separator = "\r\n";
             $line = strtok($verbete, $separator);
             while ($line !== false) {
