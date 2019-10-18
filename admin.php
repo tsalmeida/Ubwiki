@@ -2,8 +2,7 @@
   include 'engine.php';
 
   if (isset($_POST['otimizar_temas_concurso'])) {
-    $concurso = $_POST['otimizar_tema_concurso'];
-    $concurso = $_POST['reconstruir_concurso'];
+    $concurso = $_POST['otimizar_temas_concurso'];
     $servername = "localhost";
     $username = "grupoubique";
     $password = "ubique patriae memor";
@@ -11,7 +10,7 @@
     $ordem = 0;
     $conn = new mysqli($servername, $username, $password, $dbname);
     mysqli_set_charset($conn,"utf8");
-    $conn->query("SELECT id, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso'");
+    $result = $conn->query("SELECT id, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso'");
     if ($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {
         error_log("$id $nivel1 $nivel2 $nivel3 $nivel4 $nivel5");
