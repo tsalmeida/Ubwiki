@@ -103,7 +103,8 @@
                     </div>
               </form>
               <form class='border border-light p-4 my-2' method='post'>
-                <h3>Matéria específica</h3>
+                <h2 class='text-center'>Ciclo de revisão</h2>
+                  <h3 class='text-center'>Matéria específica</h3>
                   <p>Escolha abaixo uma matéria para acrescentar ao ciclo de revisão:</p>";
                     $result = $conn->query("SELECT materia, sigla, estado FROM Materias WHERE concurso = '$concurso'");
                     if ($result->num_rows > 0) {
