@@ -201,7 +201,7 @@
                   if ($result->num_rows > 0) {
                     while($row = $result->fetch_assoc()) {
                       $sigla = $row['sigla'];
-                      $materia = $row['materia'];
+                      $materia_pick = $row['materia'];
                       $estado = $row['estado'];
                       if ($estado == false) { $estado = "(matéria desativada)"; }
                       else { $estado = false; }
@@ -210,7 +210,7 @@
                       echo "
                         <div class='form-check my-1'>
                           <input class='form-check-input' type='radio' name='ciclo_materia' id='$item_id' value='$sigla'>
-                          <label class='form-check-label' for='$item_id'>$materia $estado</label>
+                          <label class='form-check-label' for='$item_id'>$materia_pick $estado</label>
                         </div>
                       ";
                     }
