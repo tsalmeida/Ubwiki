@@ -11,6 +11,17 @@
   include 'engine.php';
   top_page();
 
+  $result = $conn->query("SELECT id FROM Usuarios WHERE email = $user");
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $usuario_id = $row['id'];
+    }
+  }
+  $tabela_usuario = "usuario_id_";
+  $tabela_usuario .= $usuario_id;
+  $tabela_usuario_arquivo = $tabela_usuario;
+  $tabela_usuario_arquivo .= "_arquivo";
+
   if (isset($_GET['tema'])) {
     $id_tema = $_GET['tema'];
   }
@@ -60,6 +71,30 @@ if (isset($_POST['verbete_texto'])) {
     $result = $conn->query("INSERT INTO Verbetes (id_tema, concurso, verbete, usuario) VALUES ('$id_tema', '$concurso', '$novo_verbete', '$user')");
   }
   $verbete_consolidado = $novo_verbete;
+}
+
+$result = $conn2->query("SELECT conteudo_texto FROM $tabela_usuario WHERE tipo = 'anotacoes' AND tipo2 = $id_tema");
+if ($result->num_rows > 0) {
+  while($row = $result->fetch_assoc()) {
+    $anotacoes = $row['conteudo_texto'];
+  }
+}
+else {
+  $anotacoes = false;
+}
+
+if (isset($_POST['anotacoes_texto'])) {
+  $novas_anotacoes = $_POST['anotacoes_texto'];
+  $novas_anotacoes = strip_tags($novas_anotacoes);
+  $result = $conn2->query("SELECT conteudo_texto FROM $tabela_usuario WHERE tipo = 'anotacoes' AND tipo2 = $id_tema ");
+  if ($anotacoes != false) {
+    $result = $conn2->query("UPDATE $tabela_usuario SET conteudo_texto = '$novas_anotacoes', WHERE tipo = 'anotacoes' AND tipo2 = $id_tema");
+    $result = $conn2->query("INSERT INTO $tabela_usuario_arquivo (tipo, tipo2, conteudo_texto) VALUES ('anotacoes', $id_tema, '$anotacoes')");
+  }
+  else {
+    $result = $conn2->query("INSERT INTO $tabela_usuario (tipo, tipo2, conteudo_texto) VALUES ('anotacoes', $id_tema, '$novas_anotacoes')");
+  }
+  $anotacoes = $novas_anotacoes;
 }
 
 if (isset($_POST['nova_imagem_link'])) {
@@ -144,7 +179,7 @@ function ler_relacionados($id_tema, $concurso) {
         <span class='align-middle'>Verbete consolidado</span>
       </div>
       <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
-        <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_editar_verbete'><i class='fal fa-plus-square'></i></a></span>
+        <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_editar_verbete'><i class="fal fa-edit"></i></a></span>
       </div>
     </div>
     <div class='row justify-content-center border-bottom border-dark py-5'>
@@ -311,9 +346,10 @@ function ler_relacionados($id_tema, $concurso) {
   <div class='container my-5' id='anotacoes'>
     <div class='row justify-content-between h3 my-5'>
       <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
-        <span class='align-middle'>Suas anotações</span>
+        <span class='align-middle'>Minhas anotações</span>
       </div>
       <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
+        <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_editar_anotacoes'><i class="fal fa-edit"></i></a></span>
       </div>
     </div>
     <div class='row justify-content-center border-bottom border-dark py-5'>
@@ -323,7 +359,12 @@ function ler_relacionados($id_tema, $concurso) {
             echo "<p>Você ainda não fez anotações sobre este tema.</p>";
           }
           else {
-            echo $anotacoes;
+            $separator = "\r\n";
+            $line = strtok($anotacoes, $separator);
+            while ($line !== false) {
+                echo "<p>$line</p>";
+                $line = strtok( $separator );
+            }
           }
         ?>
       </div>
@@ -524,6 +565,36 @@ function ler_relacionados($id_tema, $concurso) {
             <div class='container col-12 justify-content-center'>
               <?php
                 echo "<textarea name='verbete_texto' class='rounded textarea_verbete px-4 py-5'>$verbete_consolidado</textarea>";
+              ?>
+            </div>
+          </div>
+
+        </div>
+        <div class='modal-footer d-flex justify-content-center'>
+          <button type='button' class='btn bg-lighter btn-lg' data-dismiss='modal'><i class="fal fa-times-circle"></i> Cancelar</button>
+          <button type='submit' class='but btn-primary btn-lg'><i class='fal fa-check'></i> Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class='modal fade' id='modal_editar_anotacoes' role='dialog' tabindex='-1'>
+  <div class='modal-dialog modal-lg' role='document'>
+    <div class='modal-content'>
+      <form method='post'>
+        <div class='modal-header text-center'>
+          <h4 class='modal-title w-100 font-weight-bold'>Minhas anotações</h4>
+          <button type='button' class='close' data-dismiss='modal'>
+            <i class="fal fa-times-circle"></i>
+          </button>
+        </div>
+        <div class='modal-body mx-3'>
+
+          <div class='row justify-content-center'>
+            <div class='container col-12 justify-content-center'>
+              <?php
+                echo "<textarea name='anotacoes_texto' class='rounded textarea_verbete px-4 py-5'>$anotacoes</textarea>";
               ?>
             </div>
           </div>
