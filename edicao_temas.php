@@ -87,7 +87,6 @@
     }
     $coluna_nivel = 'nivel';
     $coluna_nivel .= $nivel_relevante;
-    error_log("$tema_novo_titulo $tema_id $nivel_relevante $coluna_nivel");
     $result = $conn->query("UPDATE Temas SET $coluna_nivel = '$tema_novo_titulo' WHERE id = $tema_id");
   }
 
@@ -96,7 +95,6 @@
   $result = $conn->query("SELECT id, sigla_materia, nivel, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND ciclo_revisao = 0 ORDER BY id");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
-      error_log("this happened");
       $active1 = false; $active2 = false; $active3 = false; $active4 = false; $active5 = false;
       $id = $row['id'];
       $sigla_materia = $row['sigla_materia'];
@@ -110,7 +108,6 @@
   else {
     $revisao = false;
   }
-  error_log($sigla_materia);
 
   $result = $conn->query("SELECT materia FROM Materias WHERE concurso = '$concurso' AND sigla = '$sigla_materia'");
   if ($result->num_rows > 0) {
