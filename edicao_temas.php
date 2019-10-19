@@ -91,6 +91,35 @@
     $result = $conn->query("UPDATE Temas_testes SET $coluna_nivel = '$tema_novo_titulo' WHERE id = $tema_id");
   }
 
+  $revisao = false;
+
+  $result = $conn->query("SELECT id, sigla_materia, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas_testes WHERE concurso = '$concurso' AND ciclo_revisao = 0 ORDER BY id");
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $active1 = false; $active2 = false; $active3 = false; $active4 = false; $active5 = false;
+      $id = $row['id'];
+      $sigla_materia = $row['sigla_materia'];
+      $nivel1 = $row['nivel1']; $nivel2 = $row['nivel2']; $nivel3 = $row['nivel3']; $nivel4 = $row['nivel4']; $nivel5 = $row['nivel5'];
+      if ($nivel5 != false) { $active5 = 'active'; } elseif ($nivel4 != false) { $active4 = 'active'; } elseif ($nivel3 != false) { $active3 = 'active'; } elseif ($nivel2 != false) { $active2 = 'active'; } else { $active1 = 'active'; }
+      $revisao = true;
+      break;
+    }
+  }
+  else {
+    $revisao = false;
+  }
+
+  if (isset($_POST['topico_subalterno1'])) {
+    $novo_subtopico = $_POST['topico_subalterno1'];
+    $servername = "localhost";
+    $username = "grupoubique";
+    $password = "ubique patriae memor";
+    $dbname = "Ubique";
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    mysqli_set_charset($conn,"utf8");
+    $result = $conn->query("SELECT nivel FROM Temas_testes WHERE id = $tema_id");
+  }
+
   ?>
   <body>
     <?php
@@ -105,14 +134,6 @@
             echo "
             <form class='border boder-light p-4 my-2' method='post'>
             <h2 class='text-center'>Edição de tópicos</h2>";
-            $result = $conn->query("SELECT id, sigla_materia, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas_testes WHERE concurso = '$concurso' AND ciclo_revisao = 0 ORDER BY id");
-            if ($result->num_rows > 0) {
-              while($row = $result->fetch_assoc()) {
-                $active1 = false; $active2 = false; $active3 = false; $active4 = false; $active5 = false;
-                $id = $row['id'];
-                $sigla_materia = $row['sigla_materia'];
-                $nivel1 = $row['nivel1']; $nivel2 = $row['nivel2']; $nivel3 = $row['nivel3']; $nivel4 = $row['nivel4']; $nivel5 = $row['nivel5'];
-                if ($nivel5 != false) { $active5 = 'active'; } elseif ($nivel4 != false) { $active4 = 'active'; } elseif ($nivel3 != false) { $active3 = 'active'; } elseif ($nivel2 != false) { $active2 = 'active'; } else { $active1 = 'active'; }
                 echo "
                   <ul class='list-group p-4'>
                     <li class='list-group-item'><strong>MATERIA: </strong>$sigla_materia</li>
@@ -155,10 +176,7 @@
                       <button name='tema_id' type='submit' class='btn btn-primary' value='$id'>Registrar mudanças</button>
                     </div>
                   ";
-                break;
-              }
-            }
-            else {
+            if ($revisao = false) {
               echo "
                 <h5 class='text-center'>Não há tópicos marcados para revisão.</h5>
               ";
