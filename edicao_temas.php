@@ -66,7 +66,7 @@
                 elseif ($nivel2 != false) { $active2 = 'active'; }
                 else { $active1 = 'active'; }
                 echo "
-                  <ul class='list-group p-4 m-2'>
+                  <ul class='list-group p-4 my-2'>
                     <li class='list-group-item'><strong>MATERIA: </strong>$sigla_materia</li>
                     <li class='list-group-item $active1'><strong>Nível 1: </strong>$nivel1</li>
                     <li class='list-group-item $active2'><strong>Nível 2: </strong>$nivel2</li>
@@ -92,21 +92,25 @@
                     </div>
               </form>
               <form class='border border-light p-4 my-2' method='post'>
-                  <h3>Matéria específica</h3>
-                    <p>Escolha abaixo uma matéria para acrescentar ao ciclo de revisão:</p>";
-                      $result = $conn->query("SELECT materia, sigla FROM Materias WHERE concurso = '$concurso'");
-                      if ($result->num_rows > 0) {
+                <h3>Matéria específica</h3>
+                  <p>Escolha abaixo uma matéria para acrescentar ao ciclo de revisão:</p>";
+                    $result = $conn->query("SELECT materia, sigla FROM Materias WHERE concurso = '$concurso'");
+                    if ($result->num_rows > 0) {
+                      while($row = $result->fetch_assoc()) {
+                        $sigla = $row['sigla'];
+                        $materia = $row['materia'];
                         echo "
-                          <ul class='list-group'>";
-                            while($row = $result->fetch_assoc()) {
-                              $sigla = $row['sigla'];
-                              $materia = $row['materia'];
-                              echo "<li class='list-group-item list-group-item-action class='text-center'' value='$sigla'>$materia</li>";
-                            }
-                        echo "</ul>";
+                          <div class='form-check'>
+                            <input class='form-check-input' type='radio' name='ciclo_materia' id='ciclo_materia' value='$sigla'>
+                            <label class='form-check-label' for='ciclo_materia'>$materia</label>
+                          </div>
+                        ";
                       }
-
-              echo "</form>";
+                    }
+              echo "
+                <button name='ciclo_materia_submit' type='submit' class='btn btn-primary' value='$concurso'>Marcar para revisão</button>
+              </form>
+              ";
            ?>
         </div>
       </div>
