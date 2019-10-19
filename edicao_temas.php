@@ -94,15 +94,18 @@
               <form class='border border-light p-4 my-2' method='post'>
                 <h3>Matéria específica</h3>
                   <p>Escolha abaixo uma matéria para acrescentar ao ciclo de revisão:</p>";
-                    $result = $conn->query("SELECT materia, sigla FROM Materias WHERE concurso = '$concurso'");
+                    $result = $conn->query("SELECT materia, sigla, estado FROM Materias WHERE concurso = '$concurso'");
                     if ($result->num_rows > 0) {
                       while($row = $result->fetch_assoc()) {
                         $sigla = $row['sigla'];
                         $materia = $row['materia'];
+                        $estado = $row['estado'];
+                        if ($estado == false) { $estado = "(matéria desativada)"; }
+                        else { $estado = false; }
                         echo "
                           <div class='form-check my-1'>
                             <input class='form-check-input' type='radio' name='ciclo_materia' id='ciclo_materia' value='$sigla'>
-                            <label class='form-check-label' for='ciclo_materia'>$materia</label>
+                            <label class='form-check-label' for='ciclo_materia'>$materia $estado</label>
                           </div>
                         ";
                       }
