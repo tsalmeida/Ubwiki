@@ -85,13 +85,10 @@
         $nivel_relevante = $row['nivel'];
       }
     }
-    if ($nivel_relevante = 1) { $nivel_relevante = 'nivel1'; }
-    elseif ($nivel_relevante = 2) { $nivel_relevante = 'nivel2'; }
-    elseif ($nivel_relevante = 3) { $nivel_relevante = 'nivel3'; }
-    elseif ($nivel_relevante = 4) { $nivel_relevante = 'nivel4'; }
-    elseif ($nivel_relevante = 5) { $nivel_relevante = 'nivel5'; }
-    error_log("$tema_novo_titulo $tema_id $nivel_relevante");
-    $result = $conn->query("UPDATE Temas_testes SET $nivel_relevante = '$tema_novo_titulo' WHERE id = $tema_id");
+    $coluna_nivel = 'nivel';
+    $coluna_nivel .= $nivel_relevante;
+    error_log("$tema_novo_titulo $tema_id $nivel_relevante $coluna_nivel");
+    $result = $conn->query("UPDATE Temas_testes SET $coluna_nivel = '$tema_novo_titulo' WHERE id = $tema_id");
   }
 
   ?>
