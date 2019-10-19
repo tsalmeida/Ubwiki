@@ -111,7 +111,7 @@
       <div class="row">
         <div class="col-2"></div>
         <div class="col-8">
-          <form class='text-center border border-light p-5' method='post' formaction='edicao_temas.php'>
+          <form class='text-center border border-light p-5 my-2' method='post' formaction='edicao_temas.php'>
               <p class="h4 mb-4">Editar tabela de temas</p>
               <p class='text-left'>Com esta ferramenta, o administrador pode alterar a tabela de temas de um concurso. O objetivo é maximizar a utilidade do edital original para as atividades do estudante.</p>
               <fieldset class="form-group">
@@ -129,7 +129,7 @@
               </fieldset>
             <button class='btn btn-info btn-block my-4' type='submit'>Acessar ferramenta</button>
           </form>
-          <form class='text-center border border-light p-5' method='post'>
+          <form class='text-center border border-light p-5 my-2' method='post'>
               <p class="h4 mb-4">Funções</p>
               <p>Reconstruir tabela de opções da barra de busca.</p>
               <fieldset class="form-group">
@@ -147,7 +147,7 @@
               </fieldset>
             <button class='btn btn-info btn-block my-4' type='submit'>Reconstruir</button>
           </form>
-          <form class='text-center border border-light p-5' method='post'>
+          <form class='text-center border border-light p-5 my-2' method='post'>
               <p class="h4 mb-4">Otimizar tabela de temas</p>
               <p>Essa ferramenta determina o nível relevante de cada entrada na tabela de temas, de 1 a 5.</p>
               <fieldset class="form-group">
