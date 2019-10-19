@@ -130,26 +130,26 @@
                     <h4 class='text-center'>Alterar título</h4>
                     <input class='form-control' type='text' name='tema_novo_titulo' placeholder='novo título'></input>
                     <h4 class='text-center mt-3'>Criar subtópicos</h4>
-                    <input class='form-control mt-2' type='text' name='topico_subalterno1' placeholder='título do novo tópico'></input>
-                    <input class='form-control mt-2' type='text' name='topico_subalterno2' placeholder='título do novo tópico'></input>
-                    <input class='form-control mt-2' type='text' name='topico_subalterno3' placeholder='título do novo tópico'></input>
-                    <input class='form-control mt-2' type='text' name='topico_subalterno4' placeholder='título do novo tópico'></input>
-                    <input class='form-control mt-2' type='text' name='topico_subalterno5' placeholder='título do novo tópico'></input>
-                    <input class='form-control mt-2' type='text' name='topico_subalterno6' placeholder='título do novo tópico'></input>
-                    <input class='form-control mt-2' type='text' name='topico_subalterno7' placeholder='título do novo tópico'></input>
-                    <input class='form-control mt-2' type='text' name='topico_subalterno8' placeholder='título do novo tópico'></input>
-                    <input class='form-control mt-2' type='text' name='topico_subalterno9' placeholder='título do novo tópico'></input>
-                    <input class='form-control mt-2' type='text' name='topico_subalterno10' placeholder='título do novo tópico'></input>
-                    <input class='form-control mt-2' type='text' name='topico_subalterno11' placeholder='título do novo tópico'></input>
-                    <input class='form-control mt-2' type='text' name='topico_subalterno12' placeholder='título do novo tópico'></input>
-                    <input class='form-control mt-2' type='text' name='topico_subalterno13' placeholder='título do novo tópico'></input>
-                    <input class='form-control mt-2' type='text' name='topico_subalterno14' placeholder='título do novo tópico'></input>
-                    <input class='form-control mt-2' type='text' name='topico_subalterno15' placeholder='título do novo tópico'></input>
-                    <input class='form-control mt-2' type='text' name='topico_subalterno16' placeholder='título do novo tópico'></input>
-                    <input class='form-control mt-2' type='text' name='topico_subalterno17' placeholder='título do novo tópico'></input>
-                    <input class='form-control mt-2' type='text' name='topico_subalterno18' placeholder='título do novo tópico'></input>
-                    <input class='form-control mt-2' type='text' name='topico_subalterno19' placeholder='título do novo tópico'></input>
-                    <input class='form-control mt-2' type='text' name='topico_subalterno20' placeholder='título do novo tópico'></input>
+                    <input class='form-control mt-2' type='text' id='novosub1' name='topico_subalterno1' placeholder='título do novo tópico'></input>
+                    <input class='form-control mt-2 novosub' type='text' id='novosub2' name='topico_subalterno2' placeholder='título do novo tópico'></input>
+                    <input class='form-control mt-2 novosub' type='text' id='novosub3' name='topico_subalterno3' placeholder='título do novo tópico'></input>
+                    <input class='form-control mt-2 novosub' type='text' id='novosub4' name='topico_subalterno4' placeholder='título do novo tópico'></input>
+                    <input class='form-control mt-2 novosub' type='text' id='novosub5' name='topico_subalterno5' placeholder='título do novo tópico'></input>
+                    <input class='form-control mt-2 novosub' type='text' id='novosub6' name='topico_subalterno6' placeholder='título do novo tópico'></input>
+                    <input class='form-control mt-2 novosub' type='text' id='novosub7' name='topico_subalterno7' placeholder='título do novo tópico'></input>
+                    <input class='form-control mt-2 novosub' type='text' id='novosub8' name='topico_subalterno8' placeholder='título do novo tópico'></input>
+                    <input class='form-control mt-2 novosub' type='text' id='novosub9' name='topico_subalterno9' placeholder='título do novo tópico'></input>
+                    <input class='form-control mt-2 novosub' type='text' id='novosub10' name='topico_subalterno10' placeholder='título do novo tópico'></input>
+                    <input class='form-control mt-2 novosub' type='text' id='novosub11' name='topico_subalterno11' placeholder='título do novo tópico'></input>
+                    <input class='form-control mt-2 novosub' type='text' id='novosub12' name='topico_subalterno12' placeholder='título do novo tópico'></input>
+                    <input class='form-control mt-2 novosub' type='text' id='novosub13' name='topico_subalterno13' placeholder='título do novo tópico'></input>
+                    <input class='form-control mt-2 novosub' type='text' id='novosub14' name='topico_subalterno14' placeholder='título do novo tópico'></input>
+                    <input class='form-control mt-2 novosub' type='text' id='novosub15' name='topico_subalterno15' placeholder='título do novo tópico'></input>
+                    <input class='form-control mt-2 novosub' type='text' id='novosub16' name='topico_subalterno16' placeholder='título do novo tópico'></input>
+                    <input class='form-control mt-2 novosub' type='text' id='novosub17' name='topico_subalterno17' placeholder='título do novo tópico'></input>
+                    <input class='form-control mt-2 novosub' type='text' id='novosub18' name='topico_subalterno18' placeholder='título do novo tópico'></input>
+                    <input class='form-control mt-2 novosub' type='text' id='novosub19' name='topico_subalterno19' placeholder='título do novo tópico'></input>
+                    <input class='form-control mt-2 novosub' type='text' id='novosub20' name='topico_subalterno20' placeholder='título do novo tópico'></input>
                     <div class='row justify-content-center mt-3'>
                       <button name='tema_id' type='submit' class='btn btn-primary' value='$id'>Registrar mudanças</button>
                     </div>
@@ -207,6 +207,11 @@
       </div>
     </div>
   </body>
+  <script type='javascript'>
+    $(document).ready(function() {
+      $(".novosub").hide();
+    });
+  </script>
 <?php
   load_footer();
   bottom_page();
