@@ -58,7 +58,7 @@
 
   if ((isset($_POST['remover_ciclo'])) && (isset($_POST['tema_id']))) {
     $remover_ciclo = $_POST['remover_ciclo'];
-    $tema_id = $_POST['tema_id']
+    $tema_id = $_POST['tema_id'];
     if ($remover_ciclo == true) {
       $servername = "localhost";
       $username = "grupoubique";
