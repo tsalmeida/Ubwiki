@@ -103,6 +103,15 @@ function bottom_page() {
     while (isset($args[$array])) {
       if ($args[$array] == "quill") {
       }
+      if ($args[$array] == "edicao_temas") {
+        echo "
+          <script type='text/javascript'>
+            $(document).ready(function() {
+              $('.novosub').hide();
+            });
+          </script>
+        ";
+      }
       $array++;
     }
   }

@@ -209,10 +209,6 @@
   </body>
 <?php
   load_footer();
-  bottom_page();
-  <script type='text/javascript'>
-    $(document).ready(function() {
-      $(".novosub").hide();
-    });
-  </script>
+  bottom_page("edicao_temas");
+?>
 ?>
