@@ -70,17 +70,19 @@
                       <li class='list-group-item $active5'><strong>Nível 3: </strong>$nivel5</li>
                       <li class='list-group-item'><strong>ID: </strong>$id</li>
                     </ul>";
-                  echo "
-                    <form class='text-center border border-light px-2 my-2' method='post'>
-                      <p class='h4 my-4'>Re-iniciar ciclo de revisão</p>
-                      <p class='text-left'>Ao pressionar o botão abaixo, todas as questões deste concurso serão colocadas no ciclo de revisão.</p>
-                      <button name='reiniciar_ciclo' type='submit' class='btn btn-primary' value='$concurso'>Reiniciar ciclo de revisão</button>
-                    </form>
-
-                  ";
                   return;
                 }
               }
+              else {
+                echo "<h4>Não há temas marcados para revisão.</h4>";
+              }
+                echo "
+                  <form class='text-center border border-light px-2 my-2' method='post'>
+                    <p class='h4 my-4'>Re-iniciar ciclo de revisão</p>
+                    <p class='text-left'>Ao pressionar o botão abaixo, todas as questões deste concurso serão colocadas no ciclo de revisão.</p>
+                    <button name='reiniciar_ciclo' type='submit' class='btn btn-primary' value='$concurso'>Reiniciar ciclo de revisão</button>
+                  </form>
+                ";
              ?>
         </div>
         <div class="col-2"></div>
