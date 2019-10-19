@@ -114,10 +114,12 @@
                         $estado = $row['estado'];
                         if ($estado == false) { $estado = "(matéria desativada)"; }
                         else { $estado = false; }
+                        $item_id = "ciclo_materia_";
+                        $item_id .= $sigla;
                         echo "
                           <div class='form-check my-1'>
-                            <input class='form-check-input' type='radio' name='ciclo_materia' id='ciclo_materia' value='$sigla'>
-                            <label class='form-check-label' for='ciclo_materia'>$materia $estado</label>
+                            <input class='form-check-input' type='radio' name='ciclo_materia' id='$item_id' value='$sigla'>
+                            <label class='form-check-label' for='$item_id'>$materia $estado</label>
                           </div>
                         ";
                       }
