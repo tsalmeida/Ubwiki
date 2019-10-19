@@ -108,7 +108,9 @@
                       }
                     }
               echo "
-                <button name='ciclo_materia_submit' type='submit' class='btn btn-primary' value='$concurso'>Marcar para revisão</button>
+                <div class='row justify-content-center'>
+                  <button name='ciclo_materia_submit' type='submit' class='btn btn-primary' value='$concurso'>Marcar para revisão</button>
+                </div>
               </form>
               ";
            ?>
