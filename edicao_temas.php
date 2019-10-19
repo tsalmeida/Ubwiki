@@ -15,12 +15,20 @@
   }
 
   if (isset($_POST['reiniciar_ciclo'])) {
+    $servername = "localhost";
+    $username = "grupoubique";
+    $password = "ubique patriae memor";
+    $dbname = "Ubique";
     $conn = new mysqli($servername, $username, $password, $dbname);
     mysqli_set_charset($conn,"utf8");
     $result = $conn->query("UPDATE Temas SET ciclo_revisao = 0 WHERE concurso = '$concurso'");
   }
 
   if (isset($_POST['finalizar_ciclo'])) {
+    $servername = "localhost";
+    $username = "grupoubique";
+    $password = "ubique patriae memor";
+    $dbname = "Ubique";
     $conn = new mysqli($servername, $username, $password, $dbname);
     mysqli_set_charset($conn,"utf8");
     $result = $conn->query("UPDATE Temas SET ciclo_revisao = 1 WHERE concurso = '$concurso'");
@@ -75,9 +83,10 @@
             }
             echo "
               <form class='text-center border border-light px-2 my-2' method='post'>
-                <p class='h4 my-4'>Re-iniciar ciclo de revisão</p>
-                <p class='text-left'>Ao pressionar o botão abaixo, todas as questões deste concurso serão colocadas no ciclo de revisão.</p>
+                <p class='h4 my-4'>Ciclo de revisão</p>
+                <p class='text-left'>Ao pressionar 'reiniciar o ciclo de revisão', todas as questões serão marcadas para revisão. Ao pressionar 'finalizar o ciclo de revisão', todas serão removidas do ciclo de revisão.</p>
                 <button name='reiniciar_ciclo' type='submit' class='btn btn-primary' value='$concurso'>Reiniciar ciclo de revisão</button>
+                <button name='finalizar_ciclo' type='submit' class='btn btn-primary' value='$concurso'>Finalizar ciclo de revisão</button>
               </form>
             ";
            ?>
