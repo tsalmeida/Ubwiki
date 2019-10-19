@@ -1,7 +1,9 @@
 <?php
 
 if ((isset($_POST['topico_subalterno1'])) && ($_POST['topico_subalterno1'] != "")) {
+  error_log("this happened");
   $novo_subtopico = $_POST['topico_subalterno1'];
+  error_log($novo_subtopico);
   $servername = "localhost"; $username = "grupoubique"; $password = "ubique patriae memor"; $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname); mysqli_set_charset($conn,"utf8");
   if ($nivel == 1) { $insert = $conn->query("INSERT INTO Temas_testes (ciclo_revisao, concurso, sigla_materia, nivel, nivel1, nivel2) VALUES (0, '$concurso', '$sigla_materia', 2, '$nivel1', '$novo_subtopico') "); }
