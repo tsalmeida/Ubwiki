@@ -109,6 +109,63 @@ function bottom_page() {
             $(document).ready(function() {
               $('.novosub').hide();
             });
+            $('#novosub1').on('input',function(e){
+          	    $('#novosub2').show();
+          	});
+            $('#novosub2').on('input',function(e){
+          	    $('#novosub3').show();
+          	});
+            $('#novosub3').on('input',function(e){
+          	    $('#novosub4').show();
+          	});
+            $('#novosub4').on('input',function(e){
+          	    $('#novosub5').show();
+          	});
+            $('#novosub5').on('input',function(e){
+          	    $('#novosub6').show();
+          	});
+            $('#novosub6').on('input',function(e){
+          	    $('#novosub7').show();
+          	});
+            $('#novosub7').on('input',function(e){
+          	    $('#novosub8').show();
+          	});
+            $('#novosub8').on('input',function(e){
+          	    $('#novosub9').show();
+          	});
+            $('#novosub9').on('input',function(e){
+          	    $('#novosub10').show();
+          	});
+            $('#novosub10').on('input',function(e){
+          	    $('#novosub11').show();
+          	});
+            $('#novosub11').on('input',function(e){
+          	    $('#novosub12').show();
+          	});
+            $('#novosub12').on('input',function(e){
+          	    $('#novosub13').show();
+          	});
+            $('#novosub13').on('input',function(e){
+          	    $('#novosub14').show();
+          	});
+            $('#novosub14').on('input',function(e){
+          	    $('#novosub15').show();
+          	});
+            $('#novosub15').on('input',function(e){
+          	    $('#novosub16').show();
+          	});
+            $('#novosub16').on('input',function(e){
+          	    $('#novosub17').show();
+          	});
+            $('#novosub17').on('input',function(e){
+          	    $('#novosub18').show();
+          	});
+            $('#novosub18').on('input',function(e){
+          	    $('#novosub19').show();
+          	});
+            $('#novosub19').on('input',function(e){
+          	    $('#novosub20').show();
+          	});
           </script>
         ";
       }
