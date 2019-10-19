@@ -138,7 +138,7 @@
               echo "
             </ul>
               <div class='custom-control custom-checkbox'>
-                  <input type='checkbox' class='custom-control-input my-2' id='remover_ciclo' name='remover_ciclo' value='$id'>
+                  <input type='checkbox' class='custom-control-input my-2' id='remover_ciclo' name='remover_ciclo' value='$id' checked>
                   <label class='custom-control-label my-2' for='remover_ciclo'>Remover do ciclo de revisão</label>
               </div>
               <h4 class='text-center'>Alterar título</h4>
