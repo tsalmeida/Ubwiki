@@ -56,6 +56,44 @@
     $result = $conn->query("UPDATE Temas_testes SET ciclo_revisao = 1 WHERE concurso = '$concurso' AND sigla_materia = '$materia_revisao'");
   }
 
+  if ((isset($_POST['remover_ciclo'])) && (isset($_POST['tema_id']))) {
+    $remover_ciclo = $_POST['remover_ciclo'];
+    $tema_id = $_POST['tema_id']
+    if ($remover_ciclo == true) {
+      $servername = "localhost";
+      $username = "grupoubique";
+      $password = "ubique patriae memor";
+      $dbname = "Ubique";
+      $conn = new mysqli($servername, $username, $password, $dbname);
+      mysqli_set_charset($conn,"utf8");
+      $result = $conn->query("UPDATE Temas_testes SET ciclo_revisao = 1 WHERE id = '$tema_id'");
+    }
+  }
+
+  if (isset($_POST['tema_novo_titulo'])) {
+    $tema_novo_titulo = $_POST['tema_novo_titulo'];
+    $tema_id = $_POST['tema_id'];
+    $servername = "localhost";
+    $username = "grupoubique";
+    $password = "ubique patriae memor";
+    $dbname = "Ubique";
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    mysqli_set_charset($conn,"utf8");
+    $result = $conn->query("SELECT nivel FROM Temas_testes WHERE id = $tema_id");
+    if ($result->num_rows > 0) {
+      while($row = $result->fetch_assoc()) {
+        $nivel_relevante = $row['nivel'];
+      }
+    }
+    if ($nivel_relevante = 1) { $nivel_relevante = 'nivel1'; }
+    elseif ($nivel_relevante = 2) { $nivel_relevante = 'nivel2'; }
+    elseif ($nivel_relevante = 3) { $nivel_relevante = 'nivel3'; }
+    elseif ($nivel_relevante = 4) { $nivel_relevante = 'nivel4'; }
+    elseif ($nivel_relevante = 5) { $nivel_relevante = 'nivel5'; }
+    error_log("$tema_novo_titulo $tema_id $nivel_relevante");
+    $result = $conn->query("UPDATE Temas_testes SET '$nivel_relevante' = '$tema_novo_titulo' WHERE id = $tema_id");
+  }
+
   ?>
   <body>
     <?php
@@ -72,23 +110,11 @@
             $result = $conn->query("SELECT id, sigla_materia, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas_testes WHERE concurso = '$concurso' AND ciclo_revisao = 0 ORDER BY id");
             if ($result->num_rows > 0) {
               while($row = $result->fetch_assoc()) {
-                $active1 = false;
-                $active2 = false;
-                $active3 = false;
-                $active4 = false;
-                $active5 = false;
+                $active1 = false; $active2 = false; $active3 = false; $active4 = false; $active5 = false;
                 $id = $row['id'];
                 $sigla_materia = $row['sigla_materia'];
-                $nivel1 = $row['nivel1'];
-                $nivel2 = $row['nivel2'];
-                $nivel3 = $row['nivel3'];
-                $nivel4 = $row['nivel4'];
-                $nivel5 = $row['nivel5'];
-                if ($nivel5 != false) { $active5 = 'active'; }
-                elseif ($nivel4 != false) { $active4 = 'active'; }
-                elseif ($nivel3 != false) { $active3 = 'active'; }
-                elseif ($nivel2 != false) { $active2 = 'active'; }
-                else { $active1 = 'active'; }
+                $nivel1 = $row['nivel1']; $nivel2 = $row['nivel2']; $nivel3 = $row['nivel3']; $nivel4 = $row['nivel4']; $nivel5 = $row['nivel5'];
+                if ($nivel5 != false) { $active5 = 'active'; } elseif ($nivel4 != false) { $active4 = 'active'; } elseif ($nivel3 != false) { $active3 = 'active'; } elseif ($nivel2 != false) { $active2 = 'active'; } else { $active1 = 'active'; }
                 echo "
                   <ul class='list-group p-4'>
                     <li class='list-group-item'><strong>MATERIA: </strong>$sigla_materia</li>
@@ -106,7 +132,7 @@
                         <label class='custom-control-label my-2' for='remover_ciclo'>Remover do ciclo de revisão</label>
                     </div>
                     <div class='row justify-content-center'>
-                      <button name='tema_novo_titulo_id' type='submit' class='btn btn-primary' value='$id'>Alterar título</button>
+                      <button name='tema_id' type='submit' class='btn btn-primary' value='$id'>Alterar título</button>
                     </div>
                   ";
                 break;
