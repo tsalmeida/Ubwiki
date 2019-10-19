@@ -70,8 +70,7 @@
     }
   }
 
-  if (isset($_POST['tema_novo_titulo'])) {
-    if ($tema_novo_titulo == false) { break; }
+  if ((isset($_POST['tema_novo_titulo'])) && ($_POST['tema_novo_titulo'] != "")) {
     $tema_novo_titulo = $_POST['tema_novo_titulo'];
     $tema_id = $_POST['tema_id'];
     $servername = "localhost";
