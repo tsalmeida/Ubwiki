@@ -28,7 +28,6 @@
     <?php
       carregar_navbar();
       standard_jumbotron("Sua página", false);
-      sub_jumbotron("Índice",false);
       if ($tipo == 'admin') {
         sub_jumbotron("Administrador", 'admin.php');
       }
