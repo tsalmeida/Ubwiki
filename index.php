@@ -11,7 +11,7 @@
       $result = $conn->query("SELECT id FROM Usuarios WHERE email = '$user'");
       if ($result->num_rows == 0) {
         $newuser = true;
-        $insert = $conn->query("INSERT INTO Usuarios (email) VALUES ('$user')");
+        $insert = $conn->query("INSERT INTO Usuarios (tipo, email) VALUES ('estudante', '$user')");
       }
     }
     else {
