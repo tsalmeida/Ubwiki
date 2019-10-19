@@ -224,6 +224,24 @@
             ";
          ?>
         </div>
+        <?php
+          if ($revisao != false) {
+          echo "
+            <div class='col-lg-6 col-sm-6'>
+              <ul class='list-group'>
+                <li class='list-group-item'>Teste teste</li>
+                <li class='list-group-item'>Teste teste</li>
+                <li class='list-group-item'>Teste teste</li>
+                <li class='list-group-item'>Teste teste</li>
+                <li class='list-group-item'>Teste teste</li>
+                <li class='list-group-item'>Teste teste</li>
+                <li class='list-group-item'>Teste teste</li>
+                <li class='list-group-item'>Teste teste</li>
+              </ul>
+            </div>
+          ";
+          }
+        ?>
       </div>
     </div>
   </body>
