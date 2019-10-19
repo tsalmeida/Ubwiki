@@ -101,7 +101,7 @@
       $sigla_materia = $row['sigla_materia'];
       $nivel = $row['nivel'];
       $nivel1 = $row['nivel1']; $nivel2 = $row['nivel2']; $nivel3 = $row['nivel3']; $nivel4 = $row['nivel4']; $nivel5 = $row['nivel5'];
-      if ($nivel5 != false) { $active5 = 'active'; } elseif ($nivel4 != false) { $active4 = 'active'; } elseif ($nivel3 != false) { $active3 = 'active'; } elseif ($nivel2 != false) { $active2 = 'active'; } else { $active1 = 'active'; }
+      if ($nivel5 != false) { $active5 = 'list-group-item-primary'; } elseif ($nivel4 != false) { $active4 = 'list-group-item-primary'; } elseif ($nivel3 != false) { $active3 = 'list-group-item-primary'; } elseif ($nivel2 != false) { $active2 = 'list-group-item-primary'; } else { $active1 = 'list-group-item-primary'; }
       $revisao = true;
       break;
     }
@@ -136,7 +136,7 @@
           if ($revisao != false) {
           echo "
             <ul class='list-group p-4'>
-              <li class='list-group-item'><strong>MATERIA: </strong>$materia</li>
+              <li class='list-group-item'><strong>MATÉRIA: </strong>$materia</li>
               <li class='list-group-item $active1'><strong>Nível 1: </strong>$nivel1</li>";
               if ($nivel2 != false) { echo "<li class='list-group-item $active2'><strong>Nível 2: </strong>$nivel2</li>"; }
               if ($nivel3 != false) { echo "<li class='list-group-item $active3'><strong>Nível 3: </strong>$nivel3</li>"; }
