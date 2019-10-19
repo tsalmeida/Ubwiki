@@ -119,7 +119,7 @@
             }
             echo "
               </form>
-              <form class='border border-light p-4 my-2' method='post'>
+              <form class='border border-light p-4 mb-2 mt-5' method='post'>
                 <h2 class='text-center'>Ciclo de revisão</h2>
                   <h4 class='text-center'>Todos os temas</h4>
                     <p>Ao pressionar 'reiniciar o ciclo de revisão', todas as questões serão marcadas para revisão. Ao pressionar 'finalizar o ciclo de revisão', todas serão removidas do ciclo de revisão.</p>
