@@ -43,8 +43,8 @@
       <div class="row justify-content-center">
         <div class="col-lg-6 col-sm-12">
           <?php
-            echo "<h1>$concurso</h1>";
-            echo "<h2>Edição de temas</h2>";
+            echo "<h1 class='text-center'>$concurso</h1>";
+            echo "<h2 class='text-center'>Edição de temas</h2>";
             $result = $conn->query("SELECT id, sigla_materia, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND ciclo_revisao = 0 ORDER BY id");
             if ($result->num_rows > 0) {
               while($row = $result->fetch_assoc()) {
@@ -79,12 +79,12 @@
               }
             }
             else {
-              echo "<h4>Não há temas marcados para revisão.</h4>";
+              echo "<h4 class='text-center'>Não há temas marcados para revisão.</h4>";
             }
             echo "
               <form class='border border-light px-2 my-2' method='post'>
-                <h2>Ciclo de revisão</h2>
-                  <h3>Todos os temas</h3>
+                <h2 class='text-center'>Ciclo de revisão</h2>
+                  <h3 class='text-center'>Todos os temas</h3>
                     <p>Ao pressionar 'reiniciar o ciclo de revisão', todas as questões serão marcadas para revisão. Ao pressionar 'finalizar o ciclo de revisão', todas serão removidas do ciclo de revisão.</p>
                     <button name='reiniciar_ciclo' type='submit' class='btn btn-primary' value='$concurso'>Reiniciar ciclo de revisão</button>
                     <button name='finalizar_ciclo' type='submit' class='btn btn-primary' value='$concurso'>Finalizar ciclo de revisão</button>
@@ -99,7 +99,7 @@
                             while($row = $result->fetch_assoc()) {
                               $sigla = $row['sigla'];
                               $materia = $row['materia'];
-                              echo "<li class='list-group-item list-group-item-action' value='$sigla'>$materia</li>";
+                              echo "<li class='list-group-item list-group-item-action class='text-center'' value='$sigla'>$materia</li>";
                             }
                         echo "</ul>";
                       }
