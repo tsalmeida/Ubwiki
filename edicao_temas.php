@@ -110,6 +110,13 @@
     $revisao = false;
   }
 
+  $result = $conn->query("SELECT materia FROM Materias WHERE concurso = '$concurso' AND sigla = '$sigla_materia'");
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $materia = $row["materia"];
+    }
+  }
+
   include 'engine_criar_subtopicos.php';
 
   ?>
@@ -129,7 +136,7 @@
           if ($revisao != false) {
           echo "
             <ul class='list-group p-4'>
-              <li class='list-group-item'><strong>MATERIA: </strong>$sigla_materia</li>
+              <li class='list-group-item'><strong>MATERIA: </strong>$materia</li>
               <li class='list-group-item $active1'><strong>Nível 1: </strong>$nivel1</li>";
               if ($nivel2 != false) { echo "<li class='list-group-item $active2'><strong>Nível 2: </strong>$nivel2</li>"; }
               if ($nivel3 != false) { echo "<li class='list-group-item $active3'><strong>Nível 3: </strong>$nivel3</li>"; }

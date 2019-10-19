@@ -169,10 +169,10 @@ function ler_relacionados($id_tema, $concurso) {
   </div>
   <?php
     $breadcrumbs = "
-          <li class='breadcrumb-item text-muted2'><a href='index.php'>$concurso</a></li>
-          <li class='breadcrumb-item text-muted2'><a href='materia.php?concurso=$concurso&sigla=$sigla_materia'>$materia</a></li>
-          <li class='breadcrumb-item text-muted2'>$nivel1</li>
-          ";
+      <li class='breadcrumb-item text-muted2'><a href='index.php'>$concurso</a></li>
+      <li class='breadcrumb-item text-muted2'><a href='materia.php?concurso=$concurso&sigla=$sigla_materia'>$materia</a></li>
+      <li class='breadcrumb-item text-muted2'>$nivel1</li>
+    ";
     if ($nivel2 != false) { $breadcrumbs .= "<li class='breadcrumb-item text-muted2'>$nivel2</li>"; }
     if ($nivel3 != false) { $breadcrumbs .= "<li class='breadcrumb-item text-muted2'>$nivel3</li>"; }
     if ($nivel4 != false) { $breadcrumbs .= "<li class='breadcrumb-item text-muted2'>$nivel4</li>"; }
