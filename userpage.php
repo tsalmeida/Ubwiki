@@ -28,18 +28,19 @@
     <?php
       carregar_navbar();
       standard_jumbotron("Sua página", false);
+      sub_jumbotron("Índice",false);
+      if ($tipo == 'admin') {
+        sub_jumbotron("Administrador", 'admin.php');
+      }
+      else {
+        sub_jumbotron($tipo);
+      }
     ?>
     <div class="container-fluid my-5">
-      <div class="row">
-        <div class="col-8">
+      <div class="row justify-content-center">
+        <div class="col-lg-6 col-sm-12">
 
           <?php
-            if ($tipo = 'admin') {
-              echo "
-                <h2>Administrador</h2>
-                <p>Você tem acesso à <a href='admin.php'>página de administrador</a>.</p>
-              ";
-            }
             echo "
               <h2>Dados da sua conta:</h2>
               <ul class='list-group'>
