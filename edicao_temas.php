@@ -230,16 +230,37 @@
             <div class='col-lg-6 col-sm-6'>
               <form class='border boder-light p-4 my-2'>
               <h2 class='text-center'>Tópicos de $materia</h2>
-                <ul class='list-group p-4'>
-                  <li class='list-group-item'>Teste teste</li>
-                  <li class='list-group-item'>Teste teste</li>
-                  <li class='list-group-item'>Teste teste</li>
-                  <li class='list-group-item'>Teste teste</li>
-                  <li class='list-group-item'>Teste teste</li>
-                  <li class='list-group-item'>Teste teste</li>
-                  <li class='list-group-item'>Teste teste</li>
-                  <li class='list-group-item'>Teste teste</li>
-                </ul>
+                <ul class='list-group p-4'>";
+
+                $result = $conn->query("SELECT id, sigla_materia, nivel, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND ciclo_revisao = 0 ORDER BY id");
+                if ($result->num_rows > 0) {
+                  while($row = $result->fetch_assoc()) {
+                    $active1 = false; $active2 = false; $active3 = false; $active4 = false; $active5 = false;
+                    $id_lista = $row['id'];
+                    if ($id_lista = $id) { $color = "list-group-item-primary"; }
+                    else { $color = false; }
+                    $sigla_materia = $row['sigla_materia'];
+                    $nivel = $row['nivel'];
+                    $nivel1 = $row['nivel1']; $nivel2 = $row['nivel2']; $nivel3 = $row['nivel3']; $nivel4 = $row['nivel4']; $nivel5 = $row['nivel5'];
+                    if ($nivel5 != false) {
+                      echo "<li class='list-group-item $color'><em><span style='margin-left: 13ch'><i class='fal fa-chevron-double-right'></i><i class='fal fa-chevron-double-right'></i> $nivel5</span></em></li>";
+                    }
+                    elseif ($nivel4 != false) {
+                      echo "<li class='list-group-item $color'><em><span style='margin-left: 8ch'><i class='fal fa-chevron-double-right'></i><i class='fal fa-chevron-right'></i> $nivel4</span></em></li>";
+                    }
+                    elseif ($nivel3 != false) {
+                      echo "<li class='list-group-item $color'><span style='margin-left: 5ch'><i class='fal fa-chevron-double-right'></i> $nivel3</span></li>";
+                    }
+                    elseif ($nivel2 != false) {
+                      echo "<li class='list-group-item $color'><span style='margin-left: 3ch'><i class='fal fa-chevron-right'></i> $nivel2</span></li>";
+                    }
+                    elseif ($nivel1 != false) {
+                      echo "<li class='list-group-item $color'><strong>$nivel1</strong></li>";
+                    }
+                  }
+                }
+
+                echo "</ul>
               </form>
             </div>
           ";
