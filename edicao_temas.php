@@ -100,13 +100,13 @@
 
                   <form class='border boder-light p-4 my-2' method='post'>
                     <h4 class='text-center'>Alterar título</h4>
-                    <input type='text' name='tema_novo_titulo'></input>
+                    <input class='form-control' type='text' name='tema_novo_titulo' placeholder='novo título'></input>
                     <div class='custom-control custom-checkbox'>
                         <input type='checkbox' class='custom-control-input' id='remover_ciclo' name='remover_ciclo' value='$id' checked>
                         <label class='custom-control-label' for='remover_ciclo'>Remover do ciclo de revisão</label>
                     </div>
                     <div class='row justify-content-center>
-                      <button name='tema_novo_titulo_id' value='$id'>Alterar título</button>
+                      <button name='tema_novo_titulo_id' type='submit' class='btn btn-primary' value='$id'>Alterar título</button>
                     </div>
                   </form>
                   ";
