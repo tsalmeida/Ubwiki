@@ -95,7 +95,7 @@
   <body>
     <?php
     carregar_navbar();
-    standard_jumbotron("Edição de temas", false);
+    standard_jumbotron("Alterar tópicos", false);
     sub_jumbotron($concurso,false);
     ?>
     <div class="container-fluid my-5">
