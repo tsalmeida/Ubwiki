@@ -93,12 +93,13 @@
 
   $revisao = false;
 
-  $result = $conn->query("SELECT id, sigla_materia, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas_testes WHERE concurso = '$concurso' AND ciclo_revisao = 0 ORDER BY id");
+  $result = $conn->query("SELECT id, sigla_materia, nivel, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas_testes WHERE concurso = '$concurso' AND ciclo_revisao = 0 ORDER BY id");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $active1 = false; $active2 = false; $active3 = false; $active4 = false; $active5 = false;
       $id = $row['id'];
       $sigla_materia = $row['sigla_materia'];
+      $nivel = $row['nivel'];
       $nivel1 = $row['nivel1']; $nivel2 = $row['nivel2']; $nivel3 = $row['nivel3']; $nivel4 = $row['nivel4']; $nivel5 = $row['nivel5'];
       if ($nivel5 != false) { $active5 = 'active'; } elseif ($nivel4 != false) { $active4 = 'active'; } elseif ($nivel3 != false) { $active3 = 'active'; } elseif ($nivel2 != false) { $active2 = 'active'; } else { $active1 = 'active'; }
       $revisao = true;
@@ -117,7 +118,22 @@
     $dbname = "Ubique";
     $conn = new mysqli($servername, $username, $password, $dbname);
     mysqli_set_charset($conn,"utf8");
-    $result = $conn->query("SELECT nivel FROM Temas_testes WHERE id = $tema_id");
+    if ($nivel == 1) {
+      $insert = $conn->query("INSERT INTO Temas_testes (ciclo_revisao, concurso, sigla_materia, nivel, nivel1, nivel2) VALUES (0, '$concurso', '$sigla_materia', 2, '$nivel1', '$novo_subtopico') ");
+    }
+    elseif ($nivel == 2) {
+      $insert = $conn->query("INSERT INTO Temas_testes (ciclo_revisao, concurso, sigla_materia, nivel, nivel1, nivel2, nivel3) VALUES (0, '$concurso', '$sigla_materia', 3, '$nivel1', '$nivel2', '$novo_subtopico') ");
+    }
+    elseif ($nivel == 3) {
+      $insert = $conn->query("INSERT INTO Temas_testes (ciclo_revisao, concurso, sigla_materia, nivel, nivel1, nivel2, nivel3, nivel4) VALUES (0, '$concurso', '$sigla_materia', 4, '$nivel1', '$nivel2', '$nivel3', '$novo_subtopico') ");
+    }
+    elseif ($nivel == 4) {
+      $insert = $conn->query("INSERT INTO Temas_testes (ciclo_revisao, concurso, sigla_materia, nivel, nivel1, nivel2, nivel3, nivel4, nivel5) VALUES (0, '$concurso', '$sigla_materia', 5, '$nivel1', '$nivel2', '$nivel3', '$nivel4', '$novo_subtopico') ");
+    }
+    else {
+      error_log("this happened");
+      return false;
+    }
   }
 
   ?>
