@@ -108,15 +108,17 @@
                     <div class='row justify-content-center'>
                       <button name='tema_novo_titulo_id' type='submit' class='btn btn-primary' value='$id'>Alterar título</button>
                     </div>
-                  </form>
                   ";
                 break;
               }
             }
             else {
-              echo "<h4 class='text-center'>Não há temas marcados para revisão.</h4>";
+              echo "
+                <h5 class='text-center'>Não há temas marcados para revisão.</h5>
+              ";
             }
             echo "
+              </form>
               <form class='border border-light p-4 my-2' method='post'>
                 <h2 class='text-center'>Ciclo de revisão</h2>
                   <h4 class='text-center'>Todos os temas</h4>
