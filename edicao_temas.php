@@ -140,7 +140,7 @@
                     <input class='form-control mt-2' type='text' name='topico_subalterno8' placeholder='título do novo tópico'></input>
                     <input class='form-control mt-2' type='text' name='topico_subalterno9' placeholder='título do novo tópico'></input>
                     <input class='form-control mt-2' type='text' name='topico_subalterno10' placeholder='título do novo tópico'></input>
-                    <div class='row justify-content-center'>
+                    <div class='row justify-content-center mt-3'>
                       <button name='tema_id' type='submit' class='btn btn-primary' value='$id'>Registrar mudanças</button>
                     </div>
                   ";
