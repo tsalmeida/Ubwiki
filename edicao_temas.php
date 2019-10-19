@@ -60,14 +60,15 @@
   <body>
     <?php
     standard_jumbotron("Edição de temas", false);
+    sub_jumbotron($concurso,false);
     ?>
     <div class="container-fluid my-5">
       <div class="row justify-content-center">
         <div class="col-lg-6 col-sm-12">
           <?php
-            echo "<h1 class='text-center'>$concurso</h1>
-                  <form class='border boder-light p-4 my-2' method='post'>
-                  <h2 class='text-center'>Edição de temas</h2>";
+            echo "
+            <form class='border boder-light p-4 my-2' method='post'>
+            <h2 class='text-center'>Edição de temas</h2>";
             $result = $conn->query("SELECT id, sigla_materia, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas_testes WHERE concurso = '$concurso' AND ciclo_revisao = 0 ORDER BY id");
             if ($result->num_rows > 0) {
               while($row = $result->fetch_assoc()) {
