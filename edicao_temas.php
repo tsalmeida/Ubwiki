@@ -91,7 +91,7 @@
     elseif ($nivel_relevante = 4) { $nivel_relevante = 'nivel4'; }
     elseif ($nivel_relevante = 5) { $nivel_relevante = 'nivel5'; }
     error_log("$tema_novo_titulo $tema_id $nivel_relevante");
-    $result = $conn->query("UPDATE Temas_testes SET '$nivel_relevante' = '$tema_novo_titulo' WHERE id = $tema_id");
+    $result = $conn->query("UPDATE Temas_testes SET $nivel_relevante = '$tema_novo_titulo' WHERE id = $tema_id");
   }
 
   ?>
