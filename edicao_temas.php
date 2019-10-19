@@ -140,6 +140,16 @@
                     <input class='form-control mt-2' type='text' name='topico_subalterno8' placeholder='título do novo tópico'></input>
                     <input class='form-control mt-2' type='text' name='topico_subalterno9' placeholder='título do novo tópico'></input>
                     <input class='form-control mt-2' type='text' name='topico_subalterno10' placeholder='título do novo tópico'></input>
+                    <input class='form-control mt-2' type='text' name='topico_subalterno11' placeholder='título do novo tópico'></input>
+                    <input class='form-control mt-2' type='text' name='topico_subalterno12' placeholder='título do novo tópico'></input>
+                    <input class='form-control mt-2' type='text' name='topico_subalterno13' placeholder='título do novo tópico'></input>
+                    <input class='form-control mt-2' type='text' name='topico_subalterno14' placeholder='título do novo tópico'></input>
+                    <input class='form-control mt-2' type='text' name='topico_subalterno15' placeholder='título do novo tópico'></input>
+                    <input class='form-control mt-2' type='text' name='topico_subalterno16' placeholder='título do novo tópico'></input>
+                    <input class='form-control mt-2' type='text' name='topico_subalterno17' placeholder='título do novo tópico'></input>
+                    <input class='form-control mt-2' type='text' name='topico_subalterno18' placeholder='título do novo tópico'></input>
+                    <input class='form-control mt-2' type='text' name='topico_subalterno19' placeholder='título do novo tópico'></input>
+                    <input class='form-control mt-2' type='text' name='topico_subalterno20' placeholder='título do novo tópico'></input>
                     <div class='row justify-content-center mt-3'>
                       <button name='tema_id' type='submit' class='btn btn-primary' value='$id'>Registrar mudanças</button>
                     </div>
