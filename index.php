@@ -31,7 +31,7 @@
 
   $nova_tabela = "usuario_id_";
   $nova_tabela .= $usuario_id;
-  $nova_tabela_arquivo = $usuario_id;
+  $nova_tabela_arquivo = $nova_tabela;
   $nova_tabela_arquivo .= "_arquivo";
 
   if ($newuser == true) {
