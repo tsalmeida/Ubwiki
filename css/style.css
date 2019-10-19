@@ -19,6 +19,7 @@ logo {
 .jumbotron {
   background-color: #474d55;
   box-shadow: none !important;
+  color: white !important;
 }
 
 .smaller {
