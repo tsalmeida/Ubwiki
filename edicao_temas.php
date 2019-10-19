@@ -100,7 +100,7 @@
                         $sigla = $row['sigla'];
                         $materia = $row['materia'];
                         echo "
-                          <div class='form-check'>
+                          <div class='form-check my-1'>
                             <input class='form-check-input' type='radio' name='ciclo_materia' id='ciclo_materia' value='$sigla'>
                             <label class='form-check-label' for='ciclo_materia'>$materia</label>
                           </div>
