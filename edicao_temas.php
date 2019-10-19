@@ -97,7 +97,6 @@
                     if ($nivel4 != false) { echo "<li class='list-group-item $active4'><strong>Nível 4: </strong>$nivel4</li>"; }
                     if ($nivel5 != false) { echo "<li class='list-group-item $active5'><strong>Nível 5: </strong>$nivel5</li>"; }
                     echo "
-                    <li class='list-group-item'><strong>ID: </strong>$id</li>
                   </ul>
                     <h4 class='text-center'>Alterar título</h4>
                     <input class='form-control' type='text' name='tema_novo_titulo' placeholder='novo título'></input>
@@ -130,7 +129,7 @@
               </form>
               <form class='border border-light p-4 my-2' method='post'>
                 <h2 class='text-center'>Ciclo de revisão</h2>
-                  <h4 class='text-center'>Matéria específica</h4>
+                  <h4 class='text-center'>Por matéria</h4>
                   <p>Escolha abaixo uma matéria para acrescentar ao ciclo de revisão:</p>";
                     $result = $conn->query("SELECT materia, sigla, estado FROM Materias WHERE concurso = '$concurso'");
                     if ($result->num_rows > 0) {
