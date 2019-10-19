@@ -91,11 +91,12 @@
                 echo "
                   <ul class='list-group p-4'>
                     <li class='list-group-item'><strong>MATERIA: </strong>$sigla_materia</li>
-                    <li class='list-group-item $active1'><strong>Nível 1: </strong>$nivel1</li>
-                    <li class='list-group-item $active2'><strong>Nível 2: </strong>$nivel2</li>
-                    <li class='list-group-item $active3'><strong>Nível 3: </strong>$nivel3</li>
-                    <li class='list-group-item $active4'><strong>Nível 4: </strong>$nivel4</li>
-                    <li class='list-group-item $active5'><strong>Nível 5: </strong>$nivel5</li>
+                    <li class='list-group-item $active1'><strong>Nível 1: </strong>$nivel1</li>";
+                    if ($nivel2 != false) { echo "<li class='list-group-item $active2'><strong>Nível 2: </strong>$nivel2</li>"; }
+                    if ($nivel3 != false) { echo "<li class='list-group-item $active3'><strong>Nível 3: </strong>$nivel3</li>"; }
+                    if ($nivel4 != false) { echo "<li class='list-group-item $active4'><strong>Nível 4: </strong>$nivel4</li>"; }
+                    if ($nivel5 != false) { echo "<li class='list-group-item $active5'><strong>Nível 5: </strong>$nivel5</li>"; }
+                    echo "
                     <li class='list-group-item'><strong>ID: </strong>$id</li>
                   </ul>
                     <h4 class='text-center'>Alterar título</h4>
