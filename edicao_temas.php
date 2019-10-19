@@ -86,8 +86,10 @@
                 <h2 class='text-center'>Ciclo de revisão</h2>
                   <h3 class='text-center'>Todos os temas</h3>
                     <p>Ao pressionar 'reiniciar o ciclo de revisão', todas as questões serão marcadas para revisão. Ao pressionar 'finalizar o ciclo de revisão', todas serão removidas do ciclo de revisão.</p>
-                    <button name='reiniciar_ciclo' type='submit' class='btn btn-primary' value='$concurso'>Reiniciar ciclo de revisão</button>
-                    <button name='finalizar_ciclo' type='submit' class='btn btn-primary' value='$concurso'>Finalizar ciclo de revisão</button>
+                    <div class='row justify-content-center>
+                      <button name='reiniciar_ciclo' type='submit' class='btn btn-primary' value='$concurso'>Reiniciar ciclo de revisão</button>
+                      <button name='finalizar_ciclo' type='submit' class='btn btn-primary' value='$concurso'>Finalizar ciclo de revisão</button>
+                    </div>
               </form>
               <form class='border border-light px-2 my-2' method='post'>
                   <h3>Matéria específica</h3>
