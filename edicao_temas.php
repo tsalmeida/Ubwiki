@@ -229,7 +229,7 @@
           echo "
             <div class='col-lg-6 col-sm-6'>
               <form class='border boder-light p-4 my-2'>
-              <h2 class='text-center'>Edição de tópicos</h2>
+              <h2 class='text-center'>Tópicos de $materia</h2>
                 <ul class='list-group p-4'>
                   <li class='list-group-item'>Teste teste</li>
                   <li class='list-group-item'>Teste teste</li>
