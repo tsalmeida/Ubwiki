@@ -96,7 +96,20 @@
                     <li class='list-group-item $active4'><strong>Nível 4: </strong>$nivel4</li>
                     <li class='list-group-item $active5'><strong>Nível 5: </strong>$nivel5</li>
                     <li class='list-group-item'><strong>ID: </strong>$id</li>
-                  </ul>";
+                  </ul>
+
+                  <form class='border boder-light p-4 my-2' method='post'>
+                    <h4 class='text-center'>Alterar título</h4>
+                    <input type='text' name='tema_novo_titulo'></input>
+                    <div class='custom-control custom-checkbox'>
+                        <input type='checkbox' class='custom-control-input' id='remover_ciclo' name='remover_ciclo' value='$id' checked>
+                        <label class='custom-control-label' for='remover_ciclo'>Remover do ciclo de revisão</label>
+                    </div>
+                    <div class='row justify-content-center>
+                      <button name='tema_novo_titulo_id' value='$id'>Alterar título</button>
+                    </div>
+                  </form>
+                  ";
                 break;
               }
             }
