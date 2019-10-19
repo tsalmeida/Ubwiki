@@ -138,10 +138,10 @@ echo "
       <div class='jumbotron col-12 mb-0'>
 ";
         if ($link == false) {
-          echo "<span class='display-1 logo-jumbotron'>$titulo</span>";
+          echo "<span class='display-3 logo-jumbotron'>$titulo</span>";
         }
         else {
-          echo "<a href='$link'><span class='display-1 logo-jumbotron'>$titulo</span></a>";
+          echo "<a href='$link'><span class='display-3 logo-jumbotron'>$titulo</span></a>";
         }
 echo "
       </div>
@@ -154,10 +154,10 @@ echo "
   <div class='container-fluid py-5 col-lg-12 bg-lighter text-center mb-3'>
 ";
     if ($link == false) {
-      echo "<span class='display-4'>$titulo</span>";
+      echo "<span class='display-5'>$titulo</span>";
     }
     else {
-      echo "<a href='$link' class='display-4'>$titulo</a>";
+      echo "<a href='$link' class='display-5'>$titulo</a>";
     }
 echo "
   </div>
