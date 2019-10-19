@@ -1,6 +1,6 @@
 <?php
 
-if ($_POST['topico_subalterno1'] != "") {
+if ((isset($_POST['topico_subalterno1'])) && ($_POST['topico_subalterno1'] != "")) {
   $novo_subtopico = $_POST['topico_subalterno1'];
   $servername = "localhost"; $username = "grupoubique"; $password = "ubique patriae memor"; $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname); mysqli_set_charset($conn,"utf8");
@@ -11,7 +11,7 @@ if ($_POST['topico_subalterno1'] != "") {
   else { return false; }
 }
 
-if ($_POST['topico_subalterno2'] != "") {
+if ((isset($_POST['topico_subalterno2'])) && ($_POST['topico_subalterno2'] != "")) {
   $novo_subtopico = $_POST['topico_subalterno2'];
   $servername = "localhost"; $username = "grupoubique"; $password = "ubique patriae memor"; $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname); mysqli_set_charset($conn,"utf8");
@@ -22,7 +22,7 @@ if ($_POST['topico_subalterno2'] != "") {
   else { return false; }
 }
 
-if ($_POST['topico_subalterno3'] != "") {
+if ((isset($_POST['topico_subalterno3'])) && ($_POST['topico_subalterno3'] != "")) {
   $novo_subtopico = $_POST['topico_subalterno3'];
   $servername = "localhost"; $username = "grupoubique"; $password = "ubique patriae memor"; $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname); mysqli_set_charset($conn,"utf8");
@@ -33,7 +33,7 @@ if ($_POST['topico_subalterno3'] != "") {
   else { return false; }
 }
 
-if ($_POST['topico_subalterno4'] != "") {
+if ((isset($_POST['topico_subalterno4'])) && ($_POST['topico_subalterno4'] != "")) {
   $novo_subtopico = $_POST['topico_subalterno4'];
   $servername = "localhost"; $username = "grupoubique"; $password = "ubique patriae memor"; $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname); mysqli_set_charset($conn,"utf8");
@@ -44,7 +44,7 @@ if ($_POST['topico_subalterno4'] != "") {
   else { return false; }
 }
 
-if ($_POST['topico_subalterno5'] != "") {
+if((isset($_POST['topico_subalterno5'])) && ($_POST['topico_subalterno5'] != "")) {
   $novo_subtopico = $_POST['topico_subalterno5'];
   $servername = "localhost"; $username = "grupoubique"; $password = "ubique patriae memor"; $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname); mysqli_set_charset($conn,"utf8");
@@ -55,7 +55,7 @@ if ($_POST['topico_subalterno5'] != "") {
   else { return false; }
 }
 
-if ($_POST['topico_subalterno6'] != "") {
+if((isset($_POST['topico_subalterno6'])) && ($_POST['topico_subalterno6'] != "")) {
   $novo_subtopico = $_POST['topico_subalterno6'];
   $servername = "localhost"; $username = "grupoubique"; $password = "ubique patriae memor"; $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname); mysqli_set_charset($conn,"utf8");
@@ -66,7 +66,7 @@ if ($_POST['topico_subalterno6'] != "") {
   else { return false; }
 }
 
-if ($_POST['topico_subalterno7'] != "") {
+if((isset($_POST['topico_subalterno7'])) && ($_POST['topico_subalterno7'] != "")) {
   $novo_subtopico = $_POST['topico_subalterno7'];
   $servername = "localhost"; $username = "grupoubique"; $password = "ubique patriae memor"; $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname); mysqli_set_charset($conn,"utf8");
@@ -77,7 +77,7 @@ if ($_POST['topico_subalterno7'] != "") {
   else { return false; }
 }
 
-if ($_POST['topico_subalterno8'] != "") {
+if((isset($_POST['topico_subalterno8'])) && ($_POST['topico_subalterno8'] != "")) {
   $novo_subtopico = $_POST['topico_subalterno8'];
   $servername = "localhost"; $username = "grupoubique"; $password = "ubique patriae memor"; $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname); mysqli_set_charset($conn,"utf8");
@@ -88,7 +88,7 @@ if ($_POST['topico_subalterno8'] != "") {
   else { return false; }
 }
 
-if ($_POST['topico_subalterno9'] != "") {
+if((isset($_POST['topico_subalterno9'])) && ($_POST['topico_subalterno9'] != "")) {
   $novo_subtopico = $_POST['topico_subalterno9'];
   $servername = "localhost"; $username = "grupoubique"; $password = "ubique patriae memor"; $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname); mysqli_set_charset($conn,"utf8");
@@ -99,7 +99,7 @@ if ($_POST['topico_subalterno9'] != "") {
   else { return false; }
 }
 
-if ($_POST['topico_subalterno10'] != "") {
+if ((isset($_POST['topico_subalterno10'])) && ($_POST['topico_subalterno10'] != "")) {
   $novo_subtopico = $_POST['topico_subalterno10'];
   $servername = "localhost"; $username = "grupoubique"; $password = "ubique patriae memor"; $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname); mysqli_set_charset($conn,"utf8");
@@ -110,7 +110,7 @@ if ($_POST['topico_subalterno10'] != "") {
   else { return false; }
 }
 
-if ($_POST['topico_subalterno11'] != "") {
+if ((isset($_POST['topico_subalterno11'])) && ($_POST['topico_subalterno11'] != "")) {
   $novo_subtopico = $_POST['topico_subalterno11'];
   $servername = "localhost"; $username = "grupoubique"; $password = "ubique patriae memor"; $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname); mysqli_set_charset($conn,"utf8");
@@ -121,7 +121,7 @@ if ($_POST['topico_subalterno11'] != "") {
   else { return false; }
 }
 
-if ($_POST['topico_subalterno12'] != "") {
+if ((isset($_POST['topico_subalterno12'])) && ($_POST['topico_subalterno12'] != "")) {
   $novo_subtopico = $_POST['topico_subalterno12'];
   $servername = "localhost"; $username = "grupoubique"; $password = "ubique patriae memor"; $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname); mysqli_set_charset($conn,"utf8");
@@ -132,7 +132,7 @@ if ($_POST['topico_subalterno12'] != "") {
   else { return false; }
 }
 
-if ($_POST['topico_subalterno13'] != "") {
+if ((isset($_POST['topico_subalterno13'])) && ($_POST['topico_subalterno13'] != "")) {
   $novo_subtopico = $_POST['topico_subalterno13'];
   $servername = "localhost"; $username = "grupoubique"; $password = "ubique patriae memor"; $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname); mysqli_set_charset($conn,"utf8");
@@ -143,7 +143,7 @@ if ($_POST['topico_subalterno13'] != "") {
   else { return false; }
 }
 
-if ($_POST['topico_subalterno14'] != "") {
+if ((isset($_POST['topico_subalterno14'])) && ($_POST['topico_subalterno14'] != "")) {
   $novo_subtopico = $_POST['topico_subalterno14'];
   $servername = "localhost"; $username = "grupoubique"; $password = "ubique patriae memor"; $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname); mysqli_set_charset($conn,"utf8");
@@ -154,7 +154,7 @@ if ($_POST['topico_subalterno14'] != "") {
   else { return false; }
 }
 
-if ($_POST['topico_subalterno15'] != "") {
+if ((isset($_POST['topico_subalterno15'])) && ($_POST['topico_subalterno15'] != "")) {
   $novo_subtopico = $_POST['topico_subalterno15'];
   $servername = "localhost"; $username = "grupoubique"; $password = "ubique patriae memor"; $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname); mysqli_set_charset($conn,"utf8");
@@ -165,7 +165,7 @@ if ($_POST['topico_subalterno15'] != "") {
   else { return false; }
 }
 
-if ($_POST['topico_subalterno16'] != "") {
+if ((isset($_POST['topico_subalterno16'])) && ($_POST['topico_subalterno16'] != "")) {
   $novo_subtopico = $_POST['topico_subalterno16'];
   $servername = "localhost"; $username = "grupoubique"; $password = "ubique patriae memor"; $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname); mysqli_set_charset($conn,"utf8");
@@ -176,7 +176,7 @@ if ($_POST['topico_subalterno16'] != "") {
   else { return false; }
 }
 
-if ($_POST['topico_subalterno17'] != "") {
+if ((isset($_POST['topico_subalterno17'])) && ($_POST['topico_subalterno17'] != "")) {
   $novo_subtopico = $_POST['topico_subalterno17'];
   $servername = "localhost"; $username = "grupoubique"; $password = "ubique patriae memor"; $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname); mysqli_set_charset($conn,"utf8");
@@ -187,7 +187,7 @@ if ($_POST['topico_subalterno17'] != "") {
   else { return false; }
 }
 
-if ($_POST['topico_subalterno18'] != "") {
+if ((isset($_POST['topico_subalterno18'])) && ($_POST['topico_subalterno18'] != "")) {
   $novo_subtopico = $_POST['topico_subalterno18'];
   $servername = "localhost"; $username = "grupoubique"; $password = "ubique patriae memor"; $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname); mysqli_set_charset($conn,"utf8");
@@ -198,7 +198,7 @@ if ($_POST['topico_subalterno18'] != "") {
   else { return false; }
 }
 
-if ($_POST['topico_subalterno19'] != "") {
+if ((isset($_POST['topico_subalterno19'])) && ($_POST['topico_subalterno19'] != "")) {
   $novo_subtopico = $_POST['topico_subalterno19'];
   $servername = "localhost"; $username = "grupoubique"; $password = "ubique patriae memor"; $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname); mysqli_set_charset($conn,"utf8");
@@ -209,7 +209,7 @@ if ($_POST['topico_subalterno19'] != "") {
   else { return false; }
 }
 
-if ($_POST['topico_subalterno20'] != "") {
+if ((isset($_POST['topico_subalterno20'])) && ($_POST['topico_subalterno20'] != "")) {
   $novo_subtopico = $_POST['topico_subalterno20'];
   $servername = "localhost"; $username = "grupoubique"; $password = "ubique patriae memor"; $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname); mysqli_set_charset($conn,"utf8");
