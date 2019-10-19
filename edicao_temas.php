@@ -36,6 +36,7 @@
 
   if (isset($_POST['ciclo_materia'])) {
     $materia_revisao = $_POST['ciclo_materia'];
+    error_log($materia_revisao);
     $servername = "localhost";
     $username = "grupoubique";
     $password = "ubique patriae memor";
