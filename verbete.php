@@ -10,7 +10,7 @@
 
   include 'engine.php';
   top_page();
-
+  error_log($user);
   $result = $conn->query("SELECT id FROM Usuarios WHERE email = $user");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
