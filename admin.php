@@ -95,18 +95,6 @@
     }
   }
 
-  if (isset($_POST['reiniciar_ciclo'])) {
-    $concurso = $_POST['reiniciar_ciclo'];
-    $servername = "localhost";
-    $username = "grupoubique";
-    $password = "ubique patriae memor";
-    $dbname = "Ubique";
-    $found = false;
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    mysqli_set_charset($conn,"utf8");
-    $result = $conn->query("UPDATE Temas SET ciclo_revisao = 0 WHERE concurso = '$concurso'");
-  }
-
   if (isset($_POST['metalinguagem_concurso'])) {
     $metalinguagem_concurso = $_POST['metalinguagem_concurso'];
     header("Location:edicao_temas.php?concurso=$metalinguagem_concurso");
