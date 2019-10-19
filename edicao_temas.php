@@ -102,10 +102,10 @@
                     <h4 class='text-center'>Alterar título</h4>
                     <input class='form-control' type='text' name='tema_novo_titulo' placeholder='novo título'></input>
                     <div class='custom-control custom-checkbox'>
-                        <input type='checkbox' class='custom-control-input' id='remover_ciclo' name='remover_ciclo' value='$id' checked>
-                        <label class='custom-control-label' for='remover_ciclo'>Remover do ciclo de revisão</label>
+                        <input type='checkbox' class='custom-control-input my-2' id='remover_ciclo' name='remover_ciclo' value='$id' checked>
+                        <label class='custom-control-label my-2' for='remover_ciclo'>Remover do ciclo de revisão</label>
                     </div>
-                    <div class='row justify-content-center>
+                    <div class='row justify-content-center'>
                       <button name='tema_novo_titulo_id' type='submit' class='btn btn-primary' value='$id'>Alterar título</button>
                     </div>
                   </form>
