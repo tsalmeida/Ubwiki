@@ -157,7 +157,7 @@ echo "
       echo "<h1>$titulo</h1>";
     }
     else {
-      echo "<a href='$link><h1>$titulo</h1></a>";
+      echo "<a href='$link'><h1>$titulo</h1></a>";
     }
 echo "
   </div>
