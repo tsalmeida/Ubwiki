@@ -237,7 +237,7 @@
                   while($row = $result->fetch_assoc()) {
                     $active1 = false; $active2 = false; $active3 = false; $active4 = false; $active5 = false;
                     $id_lista = $row['id'];
-                    if ($id_lista = $id) { $color = "list-group-item-primary"; }
+                    if ($id_lista == $id) { $color = "list-group-item-primary"; }
                     else { $color = false; }
                     $sigla_materia = $row['sigla_materia'];
                     $nivel = $row['nivel'];
