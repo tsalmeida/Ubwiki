@@ -132,27 +132,12 @@ function extract_gdoc($url) {
   return $body;
 }
 
-function extract_zoho($linkplanilha, $authtoken, $ownername, $materia, $scope) {
-  $ch = curl_init();
-  $linkplanilha = "$linkplanilha?authtoken=$authtoken&zc_ownername=$ownername&materia=$materia&scope=$scope";
-  curl_setopt($ch, CURLOPT_URL, $linkplanilha);
-  curl_setopt($ch, CURLOPT_HEADER, 0);
-  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-  $output = curl_exec($ch);
-  curl_close($ch);
-  $xml = simplexml_load_string($output, "SimpleXMLElement", LIBXML_NOCDATA);
-  $json = json_encode($xml);
-  $array = json_decode($json,TRUE);
-  $output = serialize($array);
-  return $output;
-}
-
 function standard_jumbotron($titulo, $link) {
   if ($link == false) {
     echo "
     <div class='container-fluid p-0 m-0 text-center'>
       <div class='jumbotron col-12 mb-0'>
-        <h1 class='display-4 logo-jumbotron'>$titulo</h1>
+        <span class='display-2 logo-jumbotron'>$titulo</span>
       </div>
     </div>
     ";
@@ -161,7 +146,7 @@ function standard_jumbotron($titulo, $link) {
     echo "
     <div class='container-fluid p-0 m-0 text-center'>
       <div class='jumbotron col-12 mb-0'>
-        <a href='$link'><h1 class='display-4 logo-jumbotron'>$titulo</h1></a>
+        <a href='$link'><span class='display-2 logo-jumbotron'>$titulo</span></a>
       </div>
     </div>
     ";
@@ -169,13 +154,18 @@ function standard_jumbotron($titulo, $link) {
 }
 
 function sub_jumbotron($titulo, $link) {
+  echo "<div class='container-fluid py-5 col-lg-12 bg-lighter text-center mb-3'>";
   if ($link == false) {
     echo "
-    <div class='container-fluid py-5 col-lg-12 bg-lighter text-center mb-3'>
-      <h1>$titulo</h1>
-    </div>
+      <span class='display-3'>$titulo</span>
     ";
   }
+  else {
+    echo "
+      <a href='$link' class='display-3'>$titulo</a>
+    ";
+  }
+  echo "</div>";
 }
 
 if (isset($_POST['sbcommand'])) {

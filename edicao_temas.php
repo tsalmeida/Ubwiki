@@ -94,6 +94,7 @@
   ?>
   <body>
     <?php
+    carregar_navbar();
     standard_jumbotron("Edição de temas", false);
     sub_jumbotron($concurso,false);
     ?>

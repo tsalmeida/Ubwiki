@@ -104,3 +104,18 @@ if (isset($_POST['novo_metatema_id'])) {
 
 <p class='text-left'>Utiliza-se esta ferramenta para alterar a estrutura de temas do edital dos concursos. Alguns temas do edital são muito vagos, exigindo que sejam criadas novas sub-entradas. Outros incluem vários temas ao mesmo tempo, precisando ser divididos em várias entradas. É necessário, ainda, determinar uma metalinguagem permanente, que seja independente do texto do edital, que será reconhecida pelo sistema como correspondente àquele tema.</p>
 <p class='text-left'>A matéria listada abaixo está marcada para revisão.</p>
+
+function extract_zoho($linkplanilha, $authtoken, $ownername, $materia, $scope) {
+  $ch = curl_init();
+  $linkplanilha = "$linkplanilha?authtoken=$authtoken&zc_ownername=$ownername&materia=$materia&scope=$scope";
+  curl_setopt($ch, CURLOPT_URL, $linkplanilha);
+  curl_setopt($ch, CURLOPT_HEADER, 0);
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+  $output = curl_exec($ch);
+  curl_close($ch);
+  $xml = simplexml_load_string($output, "SimpleXMLElement", LIBXML_NOCDATA);
+  $json = json_encode($xml);
+  $array = json_decode($json,TRUE);
+  $output = serialize($array);
+  return $output;
+}

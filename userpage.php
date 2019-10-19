@@ -33,7 +33,8 @@
         sub_jumbotron("Administrador", 'admin.php');
       }
       else {
-        sub_jumbotron($tipo);
+        $tipo_capitalizado = ucfirst($tipo);
+        sub_jumbotron($tipo_capitalizado, false);
       }
     ?>
     <div class="container-fluid my-5">
