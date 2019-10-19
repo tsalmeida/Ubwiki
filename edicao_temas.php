@@ -82,7 +82,7 @@
               echo "<h4 class='text-center'>Não há temas marcados para revisão.</h4>";
             }
             echo "
-              <form class='border border-light p-4 m-2' method='post'>
+              <form class='border border-light p-4' method='post'>
                 <h2 class='text-center'>Ciclo de revisão</h2>
                   <h3 class='text-center'>Todos os temas</h3>
                     <p>Ao pressionar 'reiniciar o ciclo de revisão', todas as questões serão marcadas para revisão. Ao pressionar 'finalizar o ciclo de revisão', todas serão removidas do ciclo de revisão.</p>
@@ -91,7 +91,7 @@
                       <button name='finalizar_ciclo' type='submit' class='btn btn-primary' value='$concurso'>Finalizar ciclo de revisão</button>
                     </div>
               </form>
-              <form class='border border-light p-4 m-2' method='post'>
+              <form class='border border-light p-4' method='post'>
                   <h3>Matéria específica</h3>
                     <p>Escolha abaixo uma matéria para acrescentar ao ciclo de revisão:</p>";
                       $result = $conn->query("SELECT materia, sigla FROM Materias WHERE concurso = '$concurso'");
