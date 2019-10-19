@@ -129,7 +129,6 @@
                     </div>
                     <h4 class='text-center'>Alterar título</h4>
                     <input class='form-control' type='text' name='tema_novo_titulo' placeholder='novo título'></input>
-                    <div class='row justify-content-center'>
                     <h4 class='text-center'>Criar tópicos subalternos</h4>
                     <input class='form-control' type='text' name='topico_subalterno1' placeholder='título do novo tópico'></input>
                     <input class='form-control' type='text' name='topico_subalterno2' placeholder='título do novo tópico'></input>
