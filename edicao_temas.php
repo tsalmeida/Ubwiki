@@ -36,14 +36,13 @@
 
   if (isset($_POST['ciclo_materia'])) {
     $materia_revisao = $_POST['ciclo_materia'];
-    error_log($materia_revisao);
     $servername = "localhost";
     $username = "grupoubique";
     $password = "ubique patriae memor";
     $dbname = "Ubique";
     $conn = new mysqli($servername, $username, $password, $dbname);
     mysqli_set_charset($conn,"utf8");
-    $result = $conn->query("UPDATE Temas SET ciclo_revisao = 0 WHERE concurso = '$concurso' AND sigla = $materia_revisao");
+    $result = $conn->query("UPDATE Temas SET ciclo_revisao = 0 WHERE concurso = '$concurso' AND sigla = '$materia_revisao'");
   }
 
   ?>
