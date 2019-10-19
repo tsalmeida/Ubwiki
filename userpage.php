@@ -11,15 +11,15 @@
   include 'engine.php';
   top_page();
 
-  $result = $conn->query("SELECT id, tipo, criacao, apelido, senha, nome, sobrenome, concursos FROM Usuarios WHERE email = '$user'");
+  $result = $conn->query("SELECT id, tipo, criacao, apelido, nome, sobrenome FROM Usuarios WHERE email = '$user'");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $id = $row['id'];
       $tipo = $row['tipo'];
+      $criacao = $row['criacao'];
       $apelido = $row['apelido'];
       $nome = $row['nome'];
       $sobrenome = $row['sobrenome'];
-      $concursos = $row['concursos'];
     }
   }
 
@@ -44,6 +44,7 @@
             echo "
               <h2>Dados da sua conta:</h2>
               <ul class='list-group'>
+                <li class='list-group-item'>Conta criada em: $criacao</li>
                 <li class='list-group-item'>Apelido: $apelido</li>
                 <li class='list-group-item'>Nome: $nome</li>
                 <li class='list-group-item'>Sobrenome: $sobrenome</li>
