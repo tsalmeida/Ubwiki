@@ -63,11 +63,11 @@
                     <li class='list-group-item $active1'><strong>Nível 1: </strong>$nivel1</li>
                     <li class='list-group-item $active2'><strong>Nível 2: </strong>$nivel2</li>
                     <li class='list-group-item $active3'><strong>Nível 3: </strong>$nivel3</li>
-                    <li class='list-group-item $active4'><strong>Nível 2: </strong>$nivel4</li>
-                    <li class='list-group-item $active5'><strong>Nível 3: </strong>$nivel5</li>
+                    <li class='list-group-item $active4'><strong>Nível 4: </strong>$nivel4</li>
+                    <li class='list-group-item $active5'><strong>Nível 5: </strong>$nivel5</li>
                     <li class='list-group-item'><strong>ID: </strong>$id</li>
                   </ul>";
-                return;
+                break;
               }
             }
             else {
