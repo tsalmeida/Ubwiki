@@ -89,7 +89,7 @@
                 elseif ($nivel2 != false) { $active2 = 'active'; }
                 else { $active1 = 'active'; }
                 echo "
-                  <ul class='list-group p-4 my-2'>
+                  <ul class='list-group p-4'>
                     <li class='list-group-item'><strong>MATERIA: </strong>$sigla_materia</li>
                     <li class='list-group-item $active1'><strong>Nível 1: </strong>$nivel1</li>
                     <li class='list-group-item $active2'><strong>Nível 2: </strong>$nivel2</li>
