@@ -133,39 +133,35 @@ function extract_gdoc($url) {
 }
 
 function standard_jumbotron($titulo, $link) {
-  if ($link == false) {
-    echo "
+echo "
     <div class='container-fluid p-0 m-0 text-center'>
       <div class='jumbotron col-12 mb-0'>
-        <span class='display-2 logo-jumbotron'>$titulo</span>
+";
+        if ($link == false) {
+          echo "<span class='display-1 logo-jumbotron'>$titulo</span>";
+        }
+        else {
+          echo "<a href='$link'><span class='display-1 logo-jumbotron'>$titulo</span></a>";
+        }
+echo "
       </div>
     </div>
-    ";
-  }
-  else {
-    echo "
-    <div class='container-fluid p-0 m-0 text-center'>
-      <div class='jumbotron col-12 mb-0'>
-        <a href='$link'><span class='display-2 logo-jumbotron'>$titulo</span></a>
-      </div>
-    </div>
-    ";
-  }
+";
 }
 
 function sub_jumbotron($titulo, $link) {
-  echo "<div class='container-fluid py-5 col-lg-12 bg-lighter text-center mb-3'>";
-  if ($link == false) {
-    echo "
-      <span class='display-3'>$titulo</span>
-    ";
-  }
-  else {
-    echo "
-      <a href='$link' class='display-3'>$titulo</a>
-    ";
-  }
-  echo "</div>";
+echo "
+  <div class='container-fluid py-5 col-lg-12 bg-lighter text-center mb-3'>
+";
+    if ($link == false) {
+      echo "<span class='display-3'>$titulo</span>";
+    }
+    else {
+      echo "<a href='$link' class='display-3'>$titulo</a>";
+    }
+echo "
+  </div>
+";
 }
 
 if (isset($_POST['sbcommand'])) {
@@ -218,7 +214,7 @@ if (isset($_POST['sbcommand'])) {
       return;
     }
   }
-  echo "nada foi encontrado";
+  echo "Nada foi encontrado";
   return;
 }
 
