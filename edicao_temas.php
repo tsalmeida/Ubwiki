@@ -130,7 +130,19 @@
                     <h4 class='text-center'>Alterar título</h4>
                     <input class='form-control' type='text' name='tema_novo_titulo' placeholder='novo título'></input>
                     <div class='row justify-content-center'>
-                      <button name='tema_id' type='submit' class='btn btn-primary' value='$id'>Alterar título</button>
+                    <h4 class='text-center'>Criar tópicos subalternos</h4>
+                    <input class='form-control' type='text' name='topico_subalterno1' placeholder='título do novo tópico'></input>
+                    <input class='form-control' type='text' name='topico_subalterno2' placeholder='título do novo tópico'></input>
+                    <input class='form-control' type='text' name='topico_subalterno3' placeholder='título do novo tópico'></input>
+                    <input class='form-control' type='text' name='topico_subalterno4' placeholder='título do novo tópico'></input>
+                    <input class='form-control' type='text' name='topico_subalterno5' placeholder='título do novo tópico'></input>
+                    <input class='form-control' type='text' name='topico_subalterno6' placeholder='título do novo tópico'></input>
+                    <input class='form-control' type='text' name='topico_subalterno7' placeholder='título do novo tópico'></input>
+                    <input class='form-control' type='text' name='topico_subalterno8' placeholder='título do novo tópico'></input>
+                    <input class='form-control' type='text' name='topico_subalterno9' placeholder='título do novo tópico'></input>
+                    <input class='form-control' type='text' name='topico_subalterno10' placeholder='título do novo tópico'></input>
+                    <div class='row justify-content-center'>
+                      <button name='tema_id' type='submit' class='btn btn-primary' value='$id'>Registrar mudanças</button>
                     </div>
                   ";
                 break;
