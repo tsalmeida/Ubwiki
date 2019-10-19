@@ -1,5 +1,7 @@
 <?php
 
+error_log("$nivel $sigla_materia");
+
 if ((isset($_POST['topico_subalterno1'])) && ($_POST['topico_subalterno1'] != "")) {
   $novo_subtopico = $_POST['topico_subalterno1'];
   $servername = "localhost"; $username = "grupoubique"; $password = "ubique patriae memor"; $dbname = "Ubique";

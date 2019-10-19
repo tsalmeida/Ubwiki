@@ -110,6 +110,7 @@
   else {
     $revisao = false;
   }
+  error_log($sigla_materia);
 
   $result = $conn->query("SELECT materia FROM Materias WHERE concurso = '$concurso' AND sigla = '$sigla_materia'");
   if ($result->num_rows > 0) {
