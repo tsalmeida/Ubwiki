@@ -21,7 +21,7 @@
     $dbname = "Ubique";
     $conn = new mysqli($servername, $username, $password, $dbname);
     mysqli_set_charset($conn,"utf8");
-    $result = $conn->query("UPDATE Temas SET ciclo_revisao = 0 WHERE concurso = '$concurso'");
+    $result = $conn->query("UPDATE Temas_testes SET ciclo_revisao = 0 WHERE concurso = '$concurso'");
   }
 
   if (isset($_POST['finalizar_ciclo'])) {
@@ -31,7 +31,7 @@
     $dbname = "Ubique";
     $conn = new mysqli($servername, $username, $password, $dbname);
     mysqli_set_charset($conn,"utf8");
-    $result = $conn->query("UPDATE Temas SET ciclo_revisao = 1 WHERE concurso = '$concurso'");
+    $result = $conn->query("UPDATE Temas_testes SET ciclo_revisao = 1 WHERE concurso = '$concurso'");
   }
 
   if (isset($_POST['ciclo_materia_adicionar'])) {
@@ -42,7 +42,7 @@
     $dbname = "Ubique";
     $conn = new mysqli($servername, $username, $password, $dbname);
     mysqli_set_charset($conn,"utf8");
-    $result = $conn->query("UPDATE Temas SET ciclo_revisao = 0 WHERE concurso = '$concurso' AND sigla_materia = '$materia_revisao'");
+    $result = $conn->query("UPDATE Temas_testes SET ciclo_revisao = 0 WHERE concurso = '$concurso' AND sigla_materia = '$materia_revisao'");
   }
 
   if (isset($_POST['ciclo_materia_remover'])) {
@@ -53,7 +53,7 @@
     $dbname = "Ubique";
     $conn = new mysqli($servername, $username, $password, $dbname);
     mysqli_set_charset($conn,"utf8");
-    $result = $conn->query("UPDATE Temas SET ciclo_revisao = 1 WHERE concurso = '$concurso' AND sigla_materia = '$materia_revisao'");
+    $result = $conn->query("UPDATE Temas_testes SET ciclo_revisao = 1 WHERE concurso = '$concurso' AND sigla_materia = '$materia_revisao'");
   }
 
   ?>
@@ -68,7 +68,7 @@
             echo "<h1 class='text-center'>$concurso</h1>
                   <form class='border boder-light p-4 my-2' method='post'>
                   <h2 class='text-center'>Edição de temas</h2>";
-            $result = $conn->query("SELECT id, sigla_materia, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND ciclo_revisao = 0 ORDER BY id");
+            $result = $conn->query("SELECT id, sigla_materia, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas_testes WHERE concurso = '$concurso' AND ciclo_revisao = 0 ORDER BY id");
             if ($result->num_rows > 0) {
               while($row = $result->fetch_assoc()) {
                 $active1 = false;
