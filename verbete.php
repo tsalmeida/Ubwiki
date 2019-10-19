@@ -48,6 +48,13 @@ if ($result->num_rows > 0) {
   }
 }
 
+$result = $conn->query("SELECT materia FROM Materias WHERE concurso = '$concurso' AND estado = 1 AND sigla = '$sigla_materia' ORDER BY ordem");
+if ($result->num_rows > 0) {
+  while($row = $result->fetch_assoc()) {
+    $materia = $row["materia"];
+  }
+}
+
 $result = $conn->query("SELECT verbete FROM Verbetes WHERE concurso = '$concurso' AND id_tema = $id_tema");
 if ($result->num_rows > 0) {
   while($row = $result->fetch_assoc()) {
@@ -163,7 +170,7 @@ function ler_relacionados($id_tema, $concurso) {
   <?php
     $breadcrumbs = "
           <li class='breadcrumb-item text-muted2'><a href='index.php'>$concurso</a></li>
-          <li class='breadcrumb-item text-muted2'><a href='materia.php?concurso=$concurso&sigla=$sigla_materia'>$sigla_materia</a></li>
+          <li class='breadcrumb-item text-muted2'><a href='materia.php?concurso=$concurso&sigla=$sigla_materia'>$materia</a></li>
           <li class='breadcrumb-item text-muted2'>$nivel1</li>
           ";
     if ($nivel2 != false) { $breadcrumbs .= "<li class='breadcrumb-item text-muted2'>$nivel2</li>"; }

@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 if (isset($_SESSION['email'])) {
   $user = $_SESSION['email'];
@@ -26,28 +25,19 @@ if ($result->num_rows > 0) {
     $materia = $row["materia"];
   }
 }
-
 ?>
 
 <body>
-  <?php
-    carregar_navbar();
-    standard_jumbotron($materia,false);
-    sub_jumbotron("Tópicos",false);
-  ?>
+<?php
+  carregar_navbar();
+  standard_jumbotron($materia,false);
+  sub_jumbotron("Tópicos",false);
+?>
 
   <div class="container my-5">
     <div class="row justify-content-center">
       <div class="col-lg-8 col-sm-12">
 <?php
-        $servername = "localhost";
-        $username = "grupoubique";
-        $password = "ubique patriae memor";
-        $dbname = "Ubique";
-        $found = false;
-        $conn = new mysqli($servername, $username, $password, $dbname);
-        mysqli_set_charset($conn,"utf8");
-        $result = $conn->query("SELECT materia FROM Materias WHERE concurso = '$concurso' AND estado = 1 AND sigla = '$sigla' ORDER BY ordem");
         if ($materia == false) {
           echo "<h4>Página não-encontrada</h4>
           <p>Clique <a href='index.php'>aqui</a> para retornar.</p>
