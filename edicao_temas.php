@@ -34,7 +34,7 @@
     $result = $conn->query("UPDATE Temas SET ciclo_revisao = 1 WHERE concurso = '$concurso'");
   }
 
-  if (isset($_POST['ciclo_materia'])) {
+  if (isset($_POST['ciclo_materia_adicionar'])) {
     $materia_revisao = $_POST['ciclo_materia'];
     $servername = "localhost";
     $username = "grupoubique";
@@ -43,6 +43,17 @@
     $conn = new mysqli($servername, $username, $password, $dbname);
     mysqli_set_charset($conn,"utf8");
     $result = $conn->query("UPDATE Temas SET ciclo_revisao = 0 WHERE concurso = '$concurso' AND sigla_materia = '$materia_revisao'");
+  }
+
+  if (isset($_POST['ciclo_materia_remover'])) {
+    $materia_revisao = $_POST['ciclo_materia'];
+    $servername = "localhost";
+    $username = "grupoubique";
+    $password = "ubique patriae memor";
+    $dbname = "Ubique";
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    mysqli_set_charset($conn,"utf8");
+    $result = $conn->query("UPDATE Temas SET ciclo_revisao = 1 WHERE concurso = '$concurso' AND sigla_materia = '$materia_revisao'");
   }
 
   ?>
@@ -95,7 +106,7 @@
             echo "
               <form class='border border-light p-4 my-2' method='post'>
                 <h2 class='text-center'>Ciclo de revisão</h2>
-                  <h3 class='text-center'>Todos os temas</h3>
+                  <h4 class='text-center'>Todos os temas</h4>
                     <p>Ao pressionar 'reiniciar o ciclo de revisão', todas as questões serão marcadas para revisão. Ao pressionar 'finalizar o ciclo de revisão', todas serão removidas do ciclo de revisão.</p>
                     <div class='row justify-content-center'>
                       <button name='reiniciar_ciclo' type='submit' class='btn btn-primary' value='$concurso'>Reiniciar ciclo de revisão</button>
@@ -104,7 +115,7 @@
               </form>
               <form class='border border-light p-4 my-2' method='post'>
                 <h2 class='text-center'>Ciclo de revisão</h2>
-                  <h3 class='text-center'>Matéria específica</h3>
+                  <h4 class='text-center'>Matéria específica</h4>
                   <p>Escolha abaixo uma matéria para acrescentar ao ciclo de revisão:</p>";
                     $result = $conn->query("SELECT materia, sigla, estado FROM Materias WHERE concurso = '$concurso'");
                     if ($result->num_rows > 0) {
@@ -126,7 +137,8 @@
                     }
               echo "
                 <div class='row justify-content-center'>
-                  <button name='ciclo_materia_submit' type='submit' class='btn btn-primary' value='$concurso'>Marcar para revisão</button>
+                  <button name='ciclo_materia_adicionar' type='submit' class='btn btn-primary' value='$concurso'>Marcar para revisão</button>
+                  <button name='ciclo_materia_remover' type='submit' class='btn btn-primary' value='$concurso'>Remover do ciclo de revisão</button>
                 </div>
               </form>
               ";
