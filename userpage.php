@@ -44,10 +44,10 @@
             echo "
               <h2>Dados da sua conta:</h2>
               <ul class='list-group'>
-                <li class='list-group-item'>Conta criada em: $criacao</li>
-                <li class='list-group-item'>Apelido: $apelido</li>
-                <li class='list-group-item'>Nome: $nome</li>
-                <li class='list-group-item'>Sobrenome: $sobrenome</li>
+                <li class='list-group-item'><strong>Conta criada em:</strong> $criacao</li>
+                <li class='list-group-item'><strong>Apelido:</strong> $apelido</li>
+                <li class='list-group-item'><strong>Nome:</strong> $nome</li>
+                <li class='list-group-item'><strong>Sobrenome:</strong> $sobrenome</li>
               </ul>
             ";
           ?>
