@@ -185,7 +185,7 @@ function ler_relacionados($id_tema, $concurso) {
       <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
         <?php
           if ($verbete_consolidado == false) {
-            echo "<p>Não há, no momento, verbete consolidado para este tema.</p>";
+            echo "<p>Não há, no momento, verbete consolidado para este tópico.</p>";
           }
           else {
             $separator = "\r\n";
@@ -335,7 +335,7 @@ function ler_relacionados($id_tema, $concurso) {
           echo "</ul>";
         }
         else {
-          echo "<p>Ainda não foram acrescentados links externos sobre este tema.</p>";
+          echo "<p>Ainda não foram acrescentados links externos sobre este tópico.</p>";
         }
         ?>
       </div>
@@ -355,7 +355,7 @@ function ler_relacionados($id_tema, $concurso) {
       <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
         <?php
           if ($anotacoes == false) {
-            echo "<p>Você ainda não fez anotações sobre este tema.</p>";
+            echo "<p>Você ainda não fez anotações sobre este tópico.</p>";
           }
           else {
             $separator = "\r\n";
@@ -381,7 +381,7 @@ function ler_relacionados($id_tema, $concurso) {
       <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
         <?php
           if ($questoes == false) {
-            echo "<p>Não há registro de questões em provas passadas sobre este tema.</p>";
+            echo "<p>Não há registro de questões em provas passadas sobre este tópico.</p>";
           }
           else {
             echo $questoes;
@@ -402,7 +402,7 @@ function ler_relacionados($id_tema, $concurso) {
       <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
         <?php
           if ($discussao == false) {
-            echo "<p>Não há debate sobre este tema. Deixe aqui sua opinião!</p>";
+            echo "<p>Não há debate sobre este tópico. Deixe aqui sua opinião!</p>";
           }
           else {
             echo $discussao;
@@ -437,7 +437,7 @@ function ler_relacionados($id_tema, $concurso) {
           </div>
           <div class='md-form'>
             <textarea type='text' id='nova_imagem_comentario' name='nova_imagem_comentario' class='md-textarea form-control' rows='4' required></textarea>
-            <label data-error='preenchimento incorreto' data-success='preenchimento correto' for='nova_imagem_comentario'>Breve comentário sobre a imagem, destacando sua relevância para a compreensão do tema.</label>
+            <label data-error='preenchimento incorreto' data-success='preenchimento correto' for='nova_imagem_comentario'>Breve comentário sobre a imagem, destacando sua relevância para a compreensão do tópico.</label>
           </div>
         </div>
         <div class='modal-footer d-flex justify-content-center'>
@@ -503,7 +503,7 @@ function ler_relacionados($id_tema, $concurso) {
           </div>
           <div class='md-form'>
             <textarea type='text' id='novo_link_comentario' name='novo_link_comentario' class='md-textarea form-control' rows='4' required></textarea>
-            <label data-error='preenchimento incorreto' data-success='preenchimento correto' for='novo_link_comentario'>Breve comentário sobre o link, destacando sua relevância para a compreensão do tema.</label>
+            <label data-error='preenchimento incorreto' data-success='preenchimento correto' for='novo_link_comentario'>Breve comentário sobre o link, destacando sua relevância para a compreensão do tópico.</label>
           </div>
         </div>
         <div class='modal-footer d-flex justify-content-center'>

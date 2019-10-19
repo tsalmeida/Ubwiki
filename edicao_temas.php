@@ -104,7 +104,7 @@
           <?php
             echo "
             <form class='border boder-light p-4 my-2' method='post'>
-            <h2 class='text-center'>Edição de temas</h2>";
+            <h2 class='text-center'>Edição de tópicos</h2>";
             $result = $conn->query("SELECT id, sigla_materia, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas_testes WHERE concurso = '$concurso' AND ciclo_revisao = 0 ORDER BY id");
             if ($result->num_rows > 0) {
               while($row = $result->fetch_assoc()) {
@@ -129,7 +129,7 @@
                     </div>
                     <h4 class='text-center'>Alterar título</h4>
                     <input class='form-control' type='text' name='tema_novo_titulo' placeholder='novo título'></input>
-                    <h4 class='text-center mt-3'>Criar tópicos subalternos</h4>
+                    <h4 class='text-center mt-3'>Criar subtópicos</h4>
                     <input class='form-control mt-2' type='text' name='topico_subalterno1' placeholder='título do novo tópico'></input>
                     <input class='form-control mt-2' type='text' name='topico_subalterno2' placeholder='título do novo tópico'></input>
                     <input class='form-control mt-2' type='text' name='topico_subalterno3' placeholder='título do novo tópico'></input>
@@ -149,15 +149,15 @@
             }
             else {
               echo "
-                <h5 class='text-center'>Não há temas marcados para revisão.</h5>
+                <h5 class='text-center'>Não há tópicos marcados para revisão.</h5>
               ";
             }
             echo "
               </form>
               <form class='border border-light p-4 mb-2 mt-5' method='post'>
                 <h2 class='text-center'>Ciclo de revisão</h2>
-                  <h4 class='text-center'>Todos os temas</h4>
-                    <p>Ao pressionar 'reiniciar o ciclo de revisão', todas as questões serão marcadas para revisão. Ao pressionar 'finalizar o ciclo de revisão', todas serão removidas do ciclo de revisão.</p>
+                  <h4 class='text-center'>Todos os tópicos</h4>
+                    <p>Ao pressionar 'reiniciar o ciclo de revisão', todos os tópicos serão marcadas para revisão. Ao pressionar 'finalizar o ciclo de revisão', todos serão removidas do ciclo de revisão.</p>
                     <div class='row justify-content-center'>
                       <button name='reiniciar_ciclo' type='submit' class='btn btn-primary' value='$concurso'>Reiniciar ciclo de revisão</button>
                       <button name='finalizar_ciclo' type='submit' class='btn btn-primary' value='$concurso'>Finalizar ciclo de revisão</button>
