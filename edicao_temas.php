@@ -122,98 +122,100 @@
     <div class="container-fluid my-5">
       <div class="row justify-content-center">
         <div class="col-lg-6 col-sm-12">
-          <?php
-            echo "
-            <form class='border boder-light p-4 my-2' method='post'>
-            <h2 class='text-center'>Edição de tópicos</h2>";
-                echo "
-                  <ul class='list-group p-4'>
-                    <li class='list-group-item'><strong>MATERIA: </strong>$sigla_materia</li>
-                    <li class='list-group-item $active1'><strong>Nível 1: </strong>$nivel1</li>";
-                    if ($nivel2 != false) { echo "<li class='list-group-item $active2'><strong>Nível 2: </strong>$nivel2</li>"; }
-                    if ($nivel3 != false) { echo "<li class='list-group-item $active3'><strong>Nível 3: </strong>$nivel3</li>"; }
-                    if ($nivel4 != false) { echo "<li class='list-group-item $active4'><strong>Nível 4: </strong>$nivel4</li>"; }
-                    if ($nivel5 != false) { echo "<li class='list-group-item $active5'><strong>Nível 5: </strong>$nivel5</li>"; }
-                    echo "
-                  </ul>
-                    <div class='custom-control custom-checkbox'>
-                        <input type='checkbox' class='custom-control-input my-2' id='remover_ciclo' name='remover_ciclo' value='$id'>
-                        <label class='custom-control-label my-2' for='remover_ciclo'>Remover do ciclo de revisão</label>
-                    </div>
-                    <h4 class='text-center'>Alterar título</h4>
-                    <input class='form-control' type='text' name='tema_novo_titulo' placeholder='novo título para este tópico'></input>
-                    <h4 class='text-center mt-3'>Criar subtópicos</h4>
-                    <p>Os novos subtópicos serão criados um nível abaixo do atual tópico, compartilhando seus tópicos superiores.</p>
-                    <input class='form-control mt-2' type='text' id='novosub1' name='topico_subalterno1' placeholder='título do novo tópico'></input>
-                    <input class='form-control mt-2 novosub' type='text' id='novosub2' name='topico_subalterno2' placeholder='título do novo tópico'></input>
-                    <input class='form-control mt-2 novosub' type='text' id='novosub3' name='topico_subalterno3' placeholder='título do novo tópico'></input>
-                    <input class='form-control mt-2 novosub' type='text' id='novosub4' name='topico_subalterno4' placeholder='título do novo tópico'></input>
-                    <input class='form-control mt-2 novosub' type='text' id='novosub5' name='topico_subalterno5' placeholder='título do novo tópico'></input>
-                    <input class='form-control mt-2 novosub' type='text' id='novosub6' name='topico_subalterno6' placeholder='título do novo tópico'></input>
-                    <input class='form-control mt-2 novosub' type='text' id='novosub7' name='topico_subalterno7' placeholder='título do novo tópico'></input>
-                    <input class='form-control mt-2 novosub' type='text' id='novosub8' name='topico_subalterno8' placeholder='título do novo tópico'></input>
-                    <input class='form-control mt-2 novosub' type='text' id='novosub9' name='topico_subalterno9' placeholder='título do novo tópico'></input>
-                    <input class='form-control mt-2 novosub' type='text' id='novosub10' name='topico_subalterno10' placeholder='título do novo tópico'></input>
-                    <input class='form-control mt-2 novosub' type='text' id='novosub11' name='topico_subalterno11' placeholder='título do novo tópico'></input>
-                    <input class='form-control mt-2 novosub' type='text' id='novosub12' name='topico_subalterno12' placeholder='título do novo tópico'></input>
-                    <input class='form-control mt-2 novosub' type='text' id='novosub13' name='topico_subalterno13' placeholder='título do novo tópico'></input>
-                    <input class='form-control mt-2 novosub' type='text' id='novosub14' name='topico_subalterno14' placeholder='título do novo tópico'></input>
-                    <input class='form-control mt-2 novosub' type='text' id='novosub15' name='topico_subalterno15' placeholder='título do novo tópico'></input>
-                    <input class='form-control mt-2 novosub' type='text' id='novosub16' name='topico_subalterno16' placeholder='título do novo tópico'></input>
-                    <input class='form-control mt-2 novosub' type='text' id='novosub17' name='topico_subalterno17' placeholder='título do novo tópico'></input>
-                    <input class='form-control mt-2 novosub' type='text' id='novosub18' name='topico_subalterno18' placeholder='título do novo tópico'></input>
-                    <input class='form-control mt-2 novosub' type='text' id='novosub19' name='topico_subalterno19' placeholder='título do novo tópico'></input>
-                    <input class='form-control mt-2 novosub' type='text' id='novosub20' name='topico_subalterno20' placeholder='título do novo tópico'></input>
-                    <div class='row justify-content-center mt-3'>
-                      <button name='tema_id' type='submit' class='btn btn-primary' value='$id'>Registrar mudanças</button>
-                    </div>
-                  ";
-            if ($revisao = false) {
+        <?php
+          echo "
+          <form class='border boder-light p-4 my-2' method='post'>
+          <h2 class='text-center'>Edição de tópicos</h2>";
+          if ($revisao != false) {
+          echo "
+            <ul class='list-group p-4'>
+              <li class='list-group-item'><strong>MATERIA: </strong>$sigla_materia</li>
+              <li class='list-group-item $active1'><strong>Nível 1: </strong>$nivel1</li>";
+              if ($nivel2 != false) { echo "<li class='list-group-item $active2'><strong>Nível 2: </strong>$nivel2</li>"; }
+              if ($nivel3 != false) { echo "<li class='list-group-item $active3'><strong>Nível 3: </strong>$nivel3</li>"; }
+              if ($nivel4 != false) { echo "<li class='list-group-item $active4'><strong>Nível 4: </strong>$nivel4</li>"; }
+              if ($nivel5 != false) { echo "<li class='list-group-item $active5'><strong>Nível 5: </strong>$nivel5</li>"; }
               echo "
-                <h5 class='text-center'>Não há tópicos marcados para revisão.</h5>
-              ";
-            }
+            </ul>
+              <div class='custom-control custom-checkbox'>
+                  <input type='checkbox' class='custom-control-input my-2' id='remover_ciclo' name='remover_ciclo' value='$id'>
+                  <label class='custom-control-label my-2' for='remover_ciclo'>Remover do ciclo de revisão</label>
+              </div>
+              <h4 class='text-center'>Alterar título</h4>
+              <input class='form-control' type='text' name='tema_novo_titulo' placeholder='novo título para este tópico'></input>
+              <h4 class='text-center mt-3'>Criar subtópicos</h4>
+              <p>Os novos subtópicos serão criados um nível abaixo do atual tópico, compartilhando seus tópicos superiores.</p>
+              <input class='form-control mt-2' type='text' id='novosub1' name='topico_subalterno1' placeholder='título do novo tópico'></input>
+              <input class='form-control mt-2 novosub' type='text' id='novosub2' name='topico_subalterno2' placeholder='título do novo tópico'></input>
+              <input class='form-control mt-2 novosub' type='text' id='novosub3' name='topico_subalterno3' placeholder='título do novo tópico'></input>
+              <input class='form-control mt-2 novosub' type='text' id='novosub4' name='topico_subalterno4' placeholder='título do novo tópico'></input>
+              <input class='form-control mt-2 novosub' type='text' id='novosub5' name='topico_subalterno5' placeholder='título do novo tópico'></input>
+              <input class='form-control mt-2 novosub' type='text' id='novosub6' name='topico_subalterno6' placeholder='título do novo tópico'></input>
+              <input class='form-control mt-2 novosub' type='text' id='novosub7' name='topico_subalterno7' placeholder='título do novo tópico'></input>
+              <input class='form-control mt-2 novosub' type='text' id='novosub8' name='topico_subalterno8' placeholder='título do novo tópico'></input>
+              <input class='form-control mt-2 novosub' type='text' id='novosub9' name='topico_subalterno9' placeholder='título do novo tópico'></input>
+              <input class='form-control mt-2 novosub' type='text' id='novosub10' name='topico_subalterno10' placeholder='título do novo tópico'></input>
+              <input class='form-control mt-2 novosub' type='text' id='novosub11' name='topico_subalterno11' placeholder='título do novo tópico'></input>
+              <input class='form-control mt-2 novosub' type='text' id='novosub12' name='topico_subalterno12' placeholder='título do novo tópico'></input>
+              <input class='form-control mt-2 novosub' type='text' id='novosub13' name='topico_subalterno13' placeholder='título do novo tópico'></input>
+              <input class='form-control mt-2 novosub' type='text' id='novosub14' name='topico_subalterno14' placeholder='título do novo tópico'></input>
+              <input class='form-control mt-2 novosub' type='text' id='novosub15' name='topico_subalterno15' placeholder='título do novo tópico'></input>
+              <input class='form-control mt-2 novosub' type='text' id='novosub16' name='topico_subalterno16' placeholder='título do novo tópico'></input>
+              <input class='form-control mt-2 novosub' type='text' id='novosub17' name='topico_subalterno17' placeholder='título do novo tópico'></input>
+              <input class='form-control mt-2 novosub' type='text' id='novosub18' name='topico_subalterno18' placeholder='título do novo tópico'></input>
+              <input class='form-control mt-2 novosub' type='text' id='novosub19' name='topico_subalterno19' placeholder='título do novo tópico'></input>
+              <input class='form-control mt-2 novosub' type='text' id='novosub20' name='topico_subalterno20' placeholder='título do novo tópico'></input>
+              <div class='row justify-content-center mt-3'>
+                <button name='tema_id' type='submit' class='btn btn-primary' value='$id'>Registrar mudanças</button>
+              </div>
+            ";
+          }
+          else {
             echo "
-              </form>
-              <form class='border border-light p-4 mb-2 mt-5' method='post'>
-                <h2 class='text-center'>Ciclo de revisão</h2>
-                  <h4 class='text-center'>Todos os tópicos</h4>
-                    <p>Ao pressionar 'reiniciar o ciclo de revisão', todos os tópicos serão marcadas para revisão. Ao pressionar 'finalizar o ciclo de revisão', todos serão removidas do ciclo de revisão.</p>
-                    <div class='row justify-content-center'>
-                      <button name='reiniciar_ciclo' type='submit' class='btn btn-primary' value='$concurso'>Reiniciar ciclo de revisão</button>
-                      <button name='finalizar_ciclo' type='submit' class='btn btn-primary' value='$concurso'>Finalizar ciclo de revisão</button>
-                    </div>
-              </form>
-              <form class='border border-light p-4 my-2' method='post'>
-                <h2 class='text-center'>Ciclo de revisão</h2>
-                  <h4 class='text-center'>Por matéria</h4>
-                  <p>Escolha abaixo uma matéria para acrescentar ao ciclo de revisão:</p>";
-                    $result = $conn->query("SELECT materia, sigla, estado FROM Materias WHERE concurso = '$concurso'");
-                    if ($result->num_rows > 0) {
-                      while($row = $result->fetch_assoc()) {
-                        $sigla = $row['sigla'];
-                        $materia = $row['materia'];
-                        $estado = $row['estado'];
-                        if ($estado == false) { $estado = "(matéria desativada)"; }
-                        else { $estado = false; }
-                        $item_id = "ciclo_materia_";
-                        $item_id .= $sigla;
-                        echo "
-                          <div class='form-check my-1'>
-                            <input class='form-check-input' type='radio' name='ciclo_materia' id='$item_id' value='$sigla'>
-                            <label class='form-check-label' for='$item_id'>$materia $estado</label>
-                          </div>
-                        ";
-                      }
+              <h5 class='text-center'>Não há tópicos marcados para revisão.</h5>
+            ";
+          }
+          echo "
+            </form>
+            <form class='border border-light p-4 mb-2 mt-5' method='post'>
+              <h2 class='text-center'>Ciclo de revisão</h2>
+                <h4 class='text-center'>Todos os tópicos</h4>
+                  <p>Ao pressionar 'reiniciar o ciclo de revisão', todos os tópicos serão marcadas para revisão. Ao pressionar 'finalizar o ciclo de revisão', todos serão removidas do ciclo de revisão.</p>
+                  <div class='row justify-content-center'>
+                    <button name='reiniciar_ciclo' type='submit' class='btn btn-primary' value='$concurso'>Reiniciar ciclo de revisão</button>
+                    <button name='finalizar_ciclo' type='submit' class='btn btn-primary' value='$concurso'>Finalizar ciclo de revisão</button>
+                  </div>
+            </form>
+            <form class='border border-light p-4 my-2' method='post'>
+              <h2 class='text-center'>Ciclo de revisão</h2>
+                <h4 class='text-center'>Por matéria</h4>
+                <p>Escolha abaixo uma matéria para acrescentar ao ciclo de revisão:</p>";
+                  $result = $conn->query("SELECT materia, sigla, estado FROM Materias WHERE concurso = '$concurso'");
+                  if ($result->num_rows > 0) {
+                    while($row = $result->fetch_assoc()) {
+                      $sigla = $row['sigla'];
+                      $materia = $row['materia'];
+                      $estado = $row['estado'];
+                      if ($estado == false) { $estado = "(matéria desativada)"; }
+                      else { $estado = false; }
+                      $item_id = "ciclo_materia_";
+                      $item_id .= $sigla;
+                      echo "
+                        <div class='form-check my-1'>
+                          <input class='form-check-input' type='radio' name='ciclo_materia' id='$item_id' value='$sigla'>
+                          <label class='form-check-label' for='$item_id'>$materia $estado</label>
+                        </div>
+                      ";
                     }
-              echo "
-                <div class='row justify-content-center'>
-                  <button name='ciclo_materia_adicionar' type='submit' class='btn btn-primary' value='$concurso'>Marcar para revisão</button>
-                  <button name='ciclo_materia_remover' type='submit' class='btn btn-primary' value='$concurso'>Remover do ciclo de revisão</button>
-                </div>
-              </form>
-              ";
-           ?>
+                  }
+            echo "
+              <div class='row justify-content-center'>
+                <button name='ciclo_materia_adicionar' type='submit' class='btn btn-primary' value='$concurso'>Marcar para revisão</button>
+                <button name='ciclo_materia_remover' type='submit' class='btn btn-primary' value='$concurso'>Remover do ciclo de revisão</button>
+              </div>
+            </form>
+            ";
+         ?>
         </div>
       </div>
     </div>
@@ -221,5 +223,4 @@
 <?php
   load_footer();
   bottom_page("edicao_temas");
-?>
 ?>
