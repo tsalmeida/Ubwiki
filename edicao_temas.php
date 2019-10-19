@@ -231,7 +231,7 @@
               <h2 class='text-center'>Tópicos de $materia</h2>
                 <ul class='list-group p-4'>";
 
-                $result = $conn->query("SELECT id, sigla_materia, nivel, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' ORDER BY id");
+                $result = $conn->query("SELECT id, sigla_materia, nivel, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' ORDER BY id, nivel5, nivel4, nivel3, nivel2, nivel1");
                 if ($result->num_rows > 0) {
                   while($row = $result->fetch_assoc()) {
                     $active1 = false; $active2 = false; $active3 = false; $active4 = false; $active5 = false;
