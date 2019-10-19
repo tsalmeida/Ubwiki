@@ -44,7 +44,7 @@
         <div class="col-lg-6 col-sm-12">
           <?php
             echo "<h1>$concurso</h1>";
-            echo "<p class='h4 mb-4 text-center'>Edição de temas</p>";
+            echo "<h2>Edição de temas</h2>";
             $result = $conn->query("SELECT id, sigla_materia, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND ciclo_revisao = 0 ORDER BY id");
             if ($result->num_rows > 0) {
               while($row = $result->fetch_assoc()) {
@@ -66,7 +66,7 @@
                 elseif ($nivel2 != false) { $active2 = 'active'; }
                 else { $active1 = 'active'; }
                 echo "
-                  <ul class='list-group text-left'>
+                  <ul class='list-group'>
                     <li class='list-group-item'><strong>MATERIA: </strong>$sigla_materia</li>
                     <li class='list-group-item $active1'><strong>Nível 1: </strong>$nivel1</li>
                     <li class='list-group-item $active2'><strong>Nível 2: </strong>$nivel2</li>
@@ -82,13 +82,29 @@
               echo "<h4>Não há temas marcados para revisão.</h4>";
             }
             echo "
-              <form class='text-center border border-light px-2 my-2' method='post'>
-                <p class='h4 my-4'>Ciclo de revisão</p>
-                <p class='text-left'>Ao pressionar 'reiniciar o ciclo de revisão', todas as questões serão marcadas para revisão. Ao pressionar 'finalizar o ciclo de revisão', todas serão removidas do ciclo de revisão.</p>
-                <button name='reiniciar_ciclo' type='submit' class='btn btn-primary' value='$concurso'>Reiniciar ciclo de revisão</button>
-                <button name='finalizar_ciclo' type='submit' class='btn btn-primary' value='$concurso'>Finalizar ciclo de revisão</button>
+              <form class='border border-light px-2 my-2' method='post'>
+                <h2>Ciclo de revisão</h2>
+                  <h3>Todos os temas</h3>
+                    <p>Ao pressionar 'reiniciar o ciclo de revisão', todas as questões serão marcadas para revisão. Ao pressionar 'finalizar o ciclo de revisão', todas serão removidas do ciclo de revisão.</p>
+                    <button name='reiniciar_ciclo' type='submit' class='btn btn-primary' value='$concurso'>Reiniciar ciclo de revisão</button>
+                    <button name='finalizar_ciclo' type='submit' class='btn btn-primary' value='$concurso'>Finalizar ciclo de revisão</button>
               </form>
-            ";
+              <form class='border border-light px-2 my-2' method='post'>
+                  <h3>Matéria específica</h3>
+                    <p>Escolha abaixo uma matéria para acrescentar ao ciclo de revisão:</p>";
+                      $result = $conn->query("SELECT materia, sigla FROM Materias WHERE concurso = '$concurso'");
+                      if ($result->num_rows > 0) {
+                        echo "
+                          <ul class='list-group'>";
+                            while($row = $result->fetch_assoc()) {
+                              $sigla = $row['sigla'];
+                              $materia = $row['materia'];
+                              echo "<li class='list-group-item list-group-item-action' value='$sigla'>$materia</li>";
+                            }
+                        echo "</ul>";
+                      }
+
+              echo "</form>";
            ?>
         </div>
       </div>
