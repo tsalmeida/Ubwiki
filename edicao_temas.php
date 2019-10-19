@@ -33,7 +33,7 @@
     ?>
     <div class="container-fluid my-5">
       <div class="row justify-content-center">
-        <div class="col-8">
+        <div class="col-lg-6 col-sm-12">
           <?php
             echo "<h1>$concurso</h1>";
             echo "<p class='h4 mb-4 text-center'>Edição de temas</p>";
