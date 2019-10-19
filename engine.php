@@ -154,10 +154,10 @@ echo "
   <div class='container-fluid py-5 col-lg-12 bg-lighter text-center mb-3'>
 ";
     if ($link == false) {
-      echo "<span class='display-5'>$titulo</span>";
+      echo "<span class='h1'>$titulo</span>";
     }
     else {
-      echo "<a href='$link' class='display-5'>$titulo</a>";
+      echo "<a href='$link' class='h1'>$titulo</a>";
     }
 echo "
   </div>
