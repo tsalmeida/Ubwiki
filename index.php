@@ -22,7 +22,7 @@
     $user = $_SESSION['email'];
   }
 
-  $result = $conn->query("SELECT id, criacao FROM Usuarios WHERE email = '$user'");
+  $result = $conn->query("SELECT id FROM Usuarios WHERE email = '$user'");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $usuario_id = $row['id'];
