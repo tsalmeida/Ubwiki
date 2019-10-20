@@ -185,7 +185,7 @@ function ler_relacionados($id_tema, $concurso) {
         <span class='align-middle'>Verbete consolidado</span>
       </div>
       <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
-        <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_editar_verbete'><i class="fal fa-edit"></i></a></span>
+        <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_editar_verbete' href=''><i class="fal fa-edit"></i></a></span>
       </div>
     </div>
     <div class='row justify-content-center border-bottom border-dark py-5'>

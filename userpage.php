@@ -42,7 +42,7 @@
 
           <?php
             echo "
-              <h2>Dados da sua conta:</h2>
+              <h2 class='text-center'>Dados da sua conta:</h2>
               <ul class='list-group'>
                 <li class='list-group-item'><strong>Conta criada em:</strong> $criacao</li>
                 <li class='list-group-item'><strong>Apelido:</strong> $apelido</li>
