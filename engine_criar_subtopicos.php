@@ -6,6 +6,7 @@ if ((isset($_POST['topico_subalterno1'])) && ($_POST['topico_subalterno1'] != ""
   $refazer_ordem = true;
   $novo_subtopico = $_POST['topico_subalterno1'];
   $tema_id = $_POST['tema_id'];
+  error_log("$novo_subtopico, $tema_id, $sigla_materia, $concurso, $nivel");
   $servername = "localhost"; $username = "grupoubique"; $password = "ubique patriae memor"; $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname); mysqli_set_charset($conn,"utf8");
   if ($nivel == 1) { $insert = $conn->query("INSERT INTO Temas (ciclo_revisao, concurso, sigla_materia, nivel, parent_id, nivel1 nivel2) VALUES (0, '$concurso', '$sigla_materia', 2, $tema_id, '$nivel1', '$novo_subtopico') "); }
@@ -19,6 +20,7 @@ if ((isset($_POST['topico_subalterno2'])) && ($_POST['topico_subalterno2'] != ""
   $refazer_ordem = true;
   $novo_subtopico = $_POST['topico_subalterno2'];
   $tema_id = $_POST['tema_id'];
+  error_log("$novo_subtopico, $tema_id, $sigla_materia, $concurso, $nivel");
   $servername = "localhost"; $username = "grupoubique"; $password = "ubique patriae memor"; $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname); mysqli_set_charset($conn,"utf8");
   if ($nivel == 1) { $insert = $conn->query("INSERT INTO Temas (ciclo_revisao, concurso, sigla_materia, nivel, parent_id, nivel1 nivel2) VALUES (0, '$concurso', '$sigla_materia', 2, $tema_id, '$nivel1', '$novo_subtopico') "); }
@@ -32,6 +34,7 @@ if ((isset($_POST['topico_subalterno3'])) && ($_POST['topico_subalterno3'] != ""
   $refazer_ordem = true;
   $novo_subtopico = $_POST['topico_subalterno3'];
   $tema_id = $_POST['tema_id'];
+  error_log("$novo_subtopico, $tema_id, $sigla_materia, $concurso, $nivel");
   $servername = "localhost"; $username = "grupoubique"; $password = "ubique patriae memor"; $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname); mysqli_set_charset($conn,"utf8");
   if ($nivel == 1) { $insert = $conn->query("INSERT INTO Temas (ciclo_revisao, concurso, sigla_materia, nivel, parent_id, nivel1 nivel2) VALUES (0, '$concurso', '$sigla_materia', 2, $tema_id, '$nivel1', '$novo_subtopico') "); }
@@ -45,6 +48,7 @@ if ((isset($_POST['topico_subalterno4'])) && ($_POST['topico_subalterno4'] != ""
   $refazer_ordem = true;
   $novo_subtopico = $_POST['topico_subalterno4'];
   $tema_id = $_POST['tema_id'];
+  error_log("$novo_subtopico, $tema_id, $sigla_materia, $concurso, $nivel");
   $servername = "localhost"; $username = "grupoubique"; $password = "ubique patriae memor"; $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname); mysqli_set_charset($conn,"utf8");
   if ($nivel == 1) { $insert = $conn->query("INSERT INTO Temas (ciclo_revisao, concurso, sigla_materia, nivel, parent_id, nivel1 nivel2) VALUES (0, '$concurso', '$sigla_materia', 2, $tema_id, '$nivel1', '$novo_subtopico') "); }
