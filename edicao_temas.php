@@ -110,6 +110,10 @@
     $revisao = false;
   }
 
+  if ($parent_id == false){
+    error_log("registers as false, not as null");
+  }
+
   $result = $conn->query("SELECT materia FROM Materias WHERE concurso = '$concurso' AND sigla = '$sigla_materia'");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
