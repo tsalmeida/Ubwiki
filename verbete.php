@@ -213,7 +213,7 @@ function ler_relacionados($id_tema, $concurso) {
         <span class='align-middle'>Imagens de apoio</span>
       </div>
       <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
-          <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_imagens_form'><i class='fal fa-plus-square'></i></a></span>
+          <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_imagens_form' href=''><i class='fal fa-plus-square'></i></a></span>
       </div>
     </div>
     <div class='row justify-content-center border-bottom border-dark py-5'>
@@ -262,7 +262,7 @@ function ler_relacionados($id_tema, $concurso) {
         <span class='align-middle'>Bibliografia pertinente</span>
       </div>
       <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
-          <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_referencia_form'><i class='fal fa-plus-square'></i></a></span>
+          <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_referencia_form' href=''><i class='fal fa-plus-square'></i></a></span>
       </div>
     </div>
     <div class='row justify-content-center border-bottom border-dark py-5'>
@@ -293,7 +293,7 @@ function ler_relacionados($id_tema, $concurso) {
         <span class='align-middle'>Vídeos e aulas</span>
       </div>
       <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
-          <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_videos_form'><i class='fal fa-plus-square'></i></a></span>
+          <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_videos_form' href=''><i class='fal fa-plus-square'></i></a></span>
       </div>
     </div>
     <div class='row justify-content-center border-bottom border-dark py-5'>
@@ -324,7 +324,7 @@ function ler_relacionados($id_tema, $concurso) {
         <span class='align-middle'>Links externos</span>
       </div>
       <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
-          <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_links_form'><i class='fal fa-plus-square'></i></a></span>
+          <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_links_form' href=''><i class='fal fa-plus-square'></i></a></span>
       </div>
     </div>
     <div class='row justify-content-center border-bottom border-dark py-5'>
@@ -355,7 +355,7 @@ function ler_relacionados($id_tema, $concurso) {
         <span class='align-middle'>Minhas anotações</span>
       </div>
       <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
-        <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_editar_anotacoes'><i class="fal fa-edit"></i></a></span>
+        <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_editar_anotacoes' href=''><i class="fal fa-edit"></i></a></span>
       </div>
     </div>
     <div class='row justify-content-center border-bottom border-dark py-5'>
