@@ -92,7 +92,7 @@
 
   $revisao = false;
 
-  $result = $conn->query("SELECT id, sigla_materia, nivel, parent_id, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND ciclo_revisao = 0 ORDER BY id, parent_id");
+  $result = $conn->query("SELECT id, sigla_materia, nivel, parent_id, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND ciclo_revisao = 0 ORDER BY parent_id, id");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $active1 = false; $active2 = false; $active3 = false; $active4 = false; $active5 = false;
