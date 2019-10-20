@@ -9,7 +9,6 @@
   }
 
   include 'engine.php';
-  top_page();
   if (isset($_GET['concurso'])) {
     $concurso = $_GET['concurso'];
   }
@@ -56,6 +55,8 @@
     $result = $conn->query("UPDATE Temas SET ciclo_revisao = 1 WHERE concurso = '$concurso' AND sigla_materia = '$materia_revisao'");
   }
 
+  $revisao = false;
+
   if ((isset($_POST['remover_ciclo'])) && (isset($_POST['tema_id']))) {
     $remover_ciclo = $_POST['remover_ciclo'];
     $tema_id = $_POST['tema_id'];
@@ -95,13 +96,20 @@
     $update = $conn->query("UPDATE Temas SET $coluna_nivel = '$tema_novo_titulo' WHERE $coluna_nivel = '$antigo_titulo' AND concurso = '$novo_titulo_concurso' AND sigla_materia = '$novo_titulo_sigla_materia'");
   }
 
-  $revisao = false;
+  $result = $conn->query("SELECT materia FROM Materias WHERE concurso = '$concurso' AND sigla = '$sigla_materia'");
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $nome_materia = $row["materia"];
+    }
+  }
 
-  $result = $conn->query("SELECT id, sigla_materia, nivel, ordem, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND ciclo_revisao = 0 ORDER BY ordem");
+  include 'engine_criar_subtopicos.php';
+
+  $result = $conn->query("SELECT id, sigla_materia, nivel, ordem, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND ciclo_revisao = 0 AND ROWNUM <= 1 ORDER BY ordem");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $active1 = false; $active2 = false; $active3 = false; $active4 = false; $active5 = false;
-      $id = $row['id'];
+      $tema_id = $row['id'];
       $sigla_materia = $row['sigla_materia'];
       $nivel = $row['nivel'];
       $ordem = $row['ordem'];
@@ -115,14 +123,7 @@
     $revisao = false;
   }
 
-  $result = $conn->query("SELECT materia FROM Materias WHERE concurso = '$concurso' AND sigla = '$sigla_materia'");
-  if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
-      $nome_materia = $row["materia"];
-    }
-  }
-
-  include 'engine_criar_subtopicos.php';
+  top_page();
 
   ?>
   <body>
@@ -159,7 +160,7 @@
               echo "
             </ul>
               <div class='custom-control custom-checkbox'>
-                  <input type='checkbox' class='custom-control-input my-2' id='remover_ciclo' name='remover_ciclo' value='$id' checked>
+                  <input type='checkbox' class='custom-control-input my-2' id='remover_ciclo' name='remover_ciclo' value='$tema_id' checked>
                   <label class='custom-control-label my-2' for='remover_ciclo'>Remover do ciclo de revisão</label>
               </div>
               <h4 class='text-center'>Alterar título</h4>
@@ -187,7 +188,7 @@
               <input class='form-control mt-2 novosub' type='text' id='novosub19' name='topico_subalterno19' placeholder='título do novo tópico'></input>
               <input class='form-control mt-2 novosub' type='text' id='novosub20' name='topico_subalterno20' placeholder='título do novo tópico'></input>
               <div class='row justify-content-center mt-3'>
-                <button name='tema_id' type='submit' class='btn btn-primary' value='$id'>Registrar mudanças</button>
+                <button name='tema_id' type='submit' class='btn btn-primary' value='$tema_id'>Registrar mudanças</button>
               </div>
             ";
           }
@@ -251,7 +252,7 @@
                   while($row = $result->fetch_assoc()) {
                     $active1 = false; $active2 = false; $active3 = false; $active4 = false; $active5 = false;
                     $id_lista = $row['id'];
-                    if ($id_lista == $id) { $color = "list-group-item-primary"; }
+                    if ($id_lista == $tema_id) { $color = "list-group-item-primary"; }
                     else { $color = false; }
                     $sigla_materia = $row['sigla_materia'];
                     $nivel = $row['nivel'];
