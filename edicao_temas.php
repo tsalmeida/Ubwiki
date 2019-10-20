@@ -74,6 +74,7 @@
   if ((isset($_POST['tema_novo_titulo'])) && ($_POST['tema_novo_titulo'] != "")) {
     $tema_novo_titulo = $_POST['tema_novo_titulo'];
     $form_tema_id = $_POST['form_tema_id'];
+    error_log("$tema_novo_titulo $form_tema_id");
     $servername = "localhost"; $username = "grupoubique"; $password = "ubique patriae memor"; $dbname = "Ubique";
     $conn = new mysqli($servername, $username, $password, $dbname); mysqli_set_charset($conn,"utf8");
     $result = $conn->query("SELECT nivel, sigla_materia, concurso, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE id = $form_tema_id");
@@ -87,11 +88,13 @@
         elseif ($nivel_relevante = 3) { $antigo_titulo = $row['nivel3']; }
         elseif ($nivel_relevante = 4) { $antigo_titulo = $row['nivel4']; }
         elseif ($nivel_relevante = 5) { $antigo_titulo = $row['nivel5']; }
+        error_log("$nivel_relevante $novo_titulo_sigla_materia $novo_titulo_concurso $antigo_titulo");
       }
     }
     $coluna_nivel = 'nivel';
     $coluna_nivel .= $nivel_relevante;
     $update = $conn->query("UPDATE Temas SET $coluna_nivel = '$tema_novo_titulo' WHERE $coluna_nivel = '$antigo_titulo' AND concurso = '$novo_titulo_concurso' AND sigla_materia = '$novo_titulo_sigla_materia'");
+    error_log("$coluna_nivel");
   }
 
   include 'engine_criar_subtopicos.php';
