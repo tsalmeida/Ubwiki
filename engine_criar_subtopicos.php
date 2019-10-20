@@ -2,12 +2,13 @@
 
 $refazer_ordem = false;
 
-$form_nivel1 = $_POST['form_nivel1']; $form_nivel2 = $_POST['form_nivel2']; $form_nivel3 = $_POST['form_nivel3']; $form_nivel4 = $_POST['form_nivel4']; $form_nivel5 = $_POST['form_nivel5']; $form_sigla_materia = $_POST['form_sigla_materia']; $form_nivel = $_POST['form_nivel'];
+if (isset($_POST['form_sigla_materia'])) {
+  $form_nivel1 = $_POST['form_nivel1']; $form_nivel2 = $_POST['form_nivel2']; $form_nivel3 = $_POST['form_nivel3']; $form_nivel4 = $_POST['form_nivel4']; $form_nivel5 = $_POST['form_nivel5']; $form_sigla_materia = $_POST['form_sigla_materia']; $form_nivel = $_POST['form_nivel'];
+}
 
 if ((isset($_POST['topico_subalterno1'])) && ($_POST['topico_subalterno1'] != "")) {
   $refazer_ordem = true;
   $novo_subtopico = $_POST['topico_subalterno1'];
-  error_log($form_nivel1);
   $servername = "localhost"; $username = "grupoubique"; $password = "ubique patriae memor"; $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname); mysqli_set_charset($conn,"utf8");
   if ($form_nivel == 1) { $insert = $conn->query("INSERT INTO Temas (ciclo_revisao, concurso, sigla_materia, nivel, parent_id, nivel1, nivel2) VALUES (0, '$concurso', '$form_sigla_materia', 2, $tema_id, '$form_nivel1', '$novo_subtopico') "); }
