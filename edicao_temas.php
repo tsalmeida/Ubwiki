@@ -75,12 +75,8 @@
   if ((isset($_POST['tema_novo_titulo'])) && ($_POST['tema_novo_titulo'] != "")) {
     $tema_novo_titulo = $_POST['tema_novo_titulo'];
     $tema_id = $_POST['tema_id'];
-    $servername = "localhost";
-    $username = "grupoubique";
-    $password = "ubique patriae memor";
-    $dbname = "Ubique";
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    mysqli_set_charset($conn,"utf8");
+    $servername = "localhost"; $username = "grupoubique"; $password = "ubique patriae memor"; $dbname = "Ubique";
+    $conn = new mysqli($servername, $username, $password, $dbname); mysqli_set_charset($conn,"utf8");
     $result = $conn->query("SELECT nivel, sigla_materia, concurso, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE id = $tema_id");
     if ($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {
@@ -92,6 +88,7 @@
         elseif ($nivel_relevante = 3) { $antigo_titulo = $row['nivel3']; }
         elseif ($nivel_relevante = 4) { $antigo_titulo = $row['nivel4']; }
         elseif ($nivel_relevante = 5) { $antigo_titulo = $row['nivel5']; }
+        error_log($antigo_titulo);
       }
     }
     $coluna_nivel = 'nivel';
