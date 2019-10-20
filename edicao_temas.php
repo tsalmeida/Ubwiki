@@ -55,11 +55,9 @@
     $result = $conn->query("UPDATE Temas SET ciclo_revisao = 1 WHERE concurso = '$concurso' AND sigla_materia = '$materia_revisao'");
   }
 
-  $revisao = false;
-
-  if ((isset($_POST['remover_ciclo'])) && (isset($_POST['tema_id']))) {
+  if ((isset($_POST['remover_ciclo'])) && (isset($_POST['form_tema_id']))) {
     $remover_ciclo = $_POST['remover_ciclo'];
-    $tema_id = $_POST['tema_id'];
+    $form_tema_id = $_POST['form_tema_id'];
     if ($remover_ciclo == true) {
       $servername = "localhost";
       $username = "grupoubique";
@@ -67,7 +65,7 @@
       $dbname = "Ubique";
       $conn = new mysqli($servername, $username, $password, $dbname);
       mysqli_set_charset($conn,"utf8");
-      $result = $conn->query("UPDATE Temas SET ciclo_revisao = 1 WHERE id = '$tema_id'");
+      $result = $conn->query("UPDATE Temas SET ciclo_revisao = 1 WHERE id = '$form_tema_id'");
     }
   }
 
@@ -75,10 +73,10 @@
 
   if ((isset($_POST['tema_novo_titulo'])) && ($_POST['tema_novo_titulo'] != "")) {
     $tema_novo_titulo = $_POST['tema_novo_titulo'];
-    $tema_id = $_POST['tema_id'];
+    $form_tema_id = $_POST['form_tema_id'];
     $servername = "localhost"; $username = "grupoubique"; $password = "ubique patriae memor"; $dbname = "Ubique";
     $conn = new mysqli($servername, $username, $password, $dbname); mysqli_set_charset($conn,"utf8");
-    $result = $conn->query("SELECT nivel, sigla_materia, concurso, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE id = $tema_id");
+    $result = $conn->query("SELECT nivel, sigla_materia, concurso, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE id = $form_tema_id");
     if ($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {
         $nivel_relevante = $row['nivel'];
@@ -97,6 +95,8 @@
   }
 
   include 'engine_criar_subtopicos.php';
+
+  $revisao = false;
 
   $result = $conn->query("SELECT id, sigla_materia, nivel, ordem, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND ciclo_revisao = 0 ORDER BY ordem");
   if ($result->num_rows > 0) {
@@ -135,7 +135,8 @@
       <div class="row justify-content-center">
         <div class="col-lg-6 col-sm-12">
         <?php
-          echo "
+          if ($revisao != false) {
+            echo "
             <form class='border boder-light p-4 my-2' method='post'>
             <input type='hidden' name='form_nivel' value='$nivel'>
             <input type='hidden' name='form_ordem' value='$ordem'>
@@ -146,17 +147,15 @@
             <input type='hidden' name='form_nivel5' value='$nivel5'>
             <input type='hidden' name='form_sigla_materia' value='$sigla_materia'>
             <h2 class='text-center'>Edição de tópicos</h2>
-          ";
-          if ($revisao != false) {
-          echo "
             <ul class='list-group p-4'>
               <li class='list-group-item'><strong>MATÉRIA: </strong>$nome_materia</li>
-              <li class='list-group-item $active1'><strong>Nível 1: </strong>$nivel1</li>";
+              <li class='list-group-item $active1'><strong>Nível 1: </strong>$nivel1</li>
+            ";
               if ($nivel2 != false) { echo "<li class='list-group-item $active2'><strong>Nível 2: </strong>$nivel2</li>"; }
               if ($nivel3 != false) { echo "<li class='list-group-item $active3'><strong>Nível 3: </strong>$nivel3</li>"; }
               if ($nivel4 != false) { echo "<li class='list-group-item $active4'><strong>Nível 4: </strong>$nivel4</li>"; }
               if ($nivel5 != false) { echo "<li class='list-group-item $active5'><strong>Nível 5: </strong>$nivel5</li>"; }
-              echo "
+            echo "
             </ul>
               <div class='custom-control custom-checkbox'>
                   <input type='checkbox' class='custom-control-input my-2' id='remover_ciclo' name='remover_ciclo' value='$tema_id' checked>
@@ -187,7 +186,7 @@
               <input class='form-control mt-2 novosub' type='text' id='novosub19' name='topico_subalterno19' placeholder='título do novo tópico'></input>
               <input class='form-control mt-2 novosub' type='text' id='novosub20' name='topico_subalterno20' placeholder='título do novo tópico'></input>
               <div class='row justify-content-center mt-3'>
-                <button name='tema_id' type='submit' class='btn btn-primary' value='$tema_id'>Registrar mudanças</button>
+                <button name='form_tema_id' type='submit' class='btn btn-primary' value='$tema_id'>Registrar mudanças</button>
               </div>
             ";
           }
