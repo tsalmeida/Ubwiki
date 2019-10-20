@@ -3,6 +3,7 @@
   include 'engine.php';
 
   $newuser = false;
+  session_save_path('/home/tsilvaalmeida/public_html/ubwiki/sessions/');
   session_start();
   if (!isset($_SESSION['email'])) {
     if (isset($_GET['email'])) {
