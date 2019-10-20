@@ -96,7 +96,7 @@
     }
     $coluna_nivel = 'nivel';
     $coluna_nivel .= $nivel_relevante;
-    $update = $conn->query("UPDATE Temas SET $coluna_nivel = '$tema_novo_titulo' WHERE $coluna_nivel = $antigo_titulo AND concurso = $novo_titulo_concurso AND sigla_materia = $novo_titulo_sigla_materia");
+    $update = $conn->query("UPDATE Temas SET $coluna_nivel = '$tema_novo_titulo' WHERE $coluna_nivel = '$antigo_titulo' AND concurso = '$novo_titulo_concurso' AND sigla_materia = '$novo_titulo_sigla_materia'");
   }
 
   $revisao = false;
