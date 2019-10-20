@@ -112,7 +112,7 @@
   $result = $conn->query("SELECT materia FROM Materias WHERE concurso = '$concurso' AND sigla = '$sigla_materia'");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
-      $materia = $row["materia"];
+      $nome_materia = $row["materia"];
     }
   }
 
@@ -135,7 +135,7 @@
           if ($revisao != false) {
           echo "
             <ul class='list-group p-4'>
-              <li class='list-group-item'><strong>MATÉRIA: </strong>$materia</li>
+              <li class='list-group-item'><strong>MATÉRIA: </strong>$nome_materia</li>
               <li class='list-group-item $active1'><strong>Nível 1: </strong>$nivel1</li>";
               if ($nivel2 != false) { echo "<li class='list-group-item $active2'><strong>Nível 2: </strong>$nivel2</li>"; }
               if ($nivel3 != false) { echo "<li class='list-group-item $active3'><strong>Nível 3: </strong>$nivel3</li>"; }
@@ -228,7 +228,7 @@
           echo "
             <div class='col-lg-6 col-sm-6'>
               <form class='border boder-light p-4 my-2'>
-              <h2 class='text-center'>Tópicos de $materia</h2>
+              <h2 class='text-center'>Tópicos de $nome_materia</h2>
                 <ul class='list-group p-4'>";
 
                 $result = $conn->query("SELECT id, sigla_materia, nivel, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' ORDER BY id, parent_id");
