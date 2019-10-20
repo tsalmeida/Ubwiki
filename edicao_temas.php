@@ -92,13 +92,14 @@
 
   $revisao = false;
 
-  $result = $conn->query("SELECT id, sigla_materia, nivel, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND ciclo_revisao = 0 ORDER BY id, parent_id");
+  $result = $conn->query("SELECT id, sigla_materia, nivel, parent_id, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND ciclo_revisao = 0 ORDER BY id, parent_id");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $active1 = false; $active2 = false; $active3 = false; $active4 = false; $active5 = false;
       $id = $row['id'];
       $sigla_materia = $row['sigla_materia'];
       $nivel = $row['nivel'];
+      $parent_id = $row['parent_id'];
       $nivel1 = $row['nivel1']; $nivel2 = $row['nivel2']; $nivel3 = $row['nivel3']; $nivel4 = $row['nivel4']; $nivel5 = $row['nivel5'];
       if ($nivel5 != false) { $active5 = 'list-group-item-primary'; } elseif ($nivel4 != false) { $active4 = 'list-group-item-primary'; } elseif ($nivel3 != false) { $active3 = 'list-group-item-primary'; } elseif ($nivel2 != false) { $active2 = 'list-group-item-primary'; } else { $active1 = 'list-group-item-primary'; }
       $revisao = true;
@@ -132,6 +133,7 @@
           echo "
             <form class='border boder-light p-4 my-2' method='post'>
             <input type='hidden' name='form_nivel' value='$nivel'>
+            <input type='hidden' name='form_parent_id' value='$parent_id'>
             <input type='hidden' name='form_nivel1' value='$nivel1'>
             <input type='hidden' name='form_nivel2' value='$nivel2'>
             <input type='hidden' name='form_nivel3' value='$nivel3'>
@@ -144,6 +146,7 @@
           echo "
             <ul class='list-group p-4'>
               <li class='list-group-item'><strong>MATÉRIA: </strong>$nome_materia</li>
+              <li class='list-group-item'><strong>PARENT ID: </strong>$parent_id</li>
               <li class='list-group-item $active1'><strong>Nível 1: </strong>$nivel1</li>";
               if ($nivel2 != false) { echo "<li class='list-group-item $active2'><strong>Nível 2: </strong>$nivel2</li>"; }
               if ($nivel3 != false) { echo "<li class='list-group-item $active3'><strong>Nível 3: </strong>$nivel3</li>"; }
