@@ -286,7 +286,7 @@ if ($refazer_ordem == true) {
           $update = $conn->query("UPDATE Temas SET ordem = $nova_ordem WHERE id = $id_nivel2");
           $ordem3 = $conn->query("SELECT nivel3, id FROM Temas WHERE nivel2 = '$tema_nivel2'");
           if ($ordem3->num_rows > 0) {
-            while ($row3 = $odem3->fetch_assoc()) {
+            while ($row3 = $ordem3->fetch_assoc()) {
               $nova_ordem++;
               $tema_nivel3 = $row3['nivel3'];
               $id_nivel3 = $row3['id'];
