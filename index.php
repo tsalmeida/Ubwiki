@@ -2,25 +2,13 @@
   $concurso = 'CACD';
   include 'engine.php';
 
-  $newuser = false;
   session_save_path('/home/tsilvaalmeida/public_html/ubwiki/sessions/');
   session_start();
-  if (!isset($_SESSION['email'])) {
-    if (isset($_GET['email'])) {
-      $_SESSION['email'] = $_GET['email'];
-      $user = $_SESSION['email'];
-      $result = $conn->query("SELECT id FROM Usuarios WHERE email = '$user'");
-      if ($result->num_rows == 0) {
-        $newuser = true;
-        $insert = $conn->query("INSERT INTO Usuarios (tipo, email) VALUES ('estudante', '$user')");
-      }
-    }
-    else {
-      header('Location:login.php');
-    }
+  if (isset($_SESSION['email'])) {
+    $user = $_SESSION['email'];
   }
   else {
-    $user = $_SESSION['email'];
+    header('Location:login.php');
   }
 
   $result = $conn->query("SELECT id FROM Usuarios WHERE email = '$user'");
