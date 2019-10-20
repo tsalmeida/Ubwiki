@@ -1,6 +1,6 @@
 <?php
 
-$refazer_order = false;
+$refazer_ordem = false;
 
 if ((isset($_POST['topico_subalterno1'])) && ($_POST['topico_subalterno1'] != "")) {
   $refazer_ordem = true;
