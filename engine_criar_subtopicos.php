@@ -4,11 +4,14 @@ $refazer_ordem = false;
 
 if (isset($_POST['form_sigla_materia'])) {
   $form_nivel1 = $_POST['form_nivel1']; $form_nivel2 = $_POST['form_nivel2']; $form_nivel3 = $_POST['form_nivel3']; $form_nivel4 = $_POST['form_nivel4']; $form_nivel5 = $_POST['form_nivel5']; $form_sigla_materia = $_POST['form_sigla_materia']; $form_nivel = $_POST['form_nivel'];
-  if ($form_nivel == 1) { $form_nivel1 = $antigo_titulo; }
-  elseif ($form_nivel == 2) { $form_nivel2 = $antigo_titulo; }
-  elseif ($form_nivel == 3) { $form_nivel3 = $antigo_titulo; }
-  elseif ($form_nivel == 4) { $form_nivel4 = $antigo_titulo; }
   error_log("$form_nivel1 $form_nivel2 $form_nivel3 $form_nivel4 $form_nivel5 $form_sigla_materia $form_nivel");
+}
+
+if ((isset($_POST['tema_novo_titulo'])) && ($_POST['tema_novo_titulo'] != "")) {
+  if ($form_nivel == 1) { $form_nivel1 = $tema_novo_titulo; }
+  elseif ($form_nivel == 2) { $form_nivel2 = $tema_novo_titulo; }
+  elseif ($form_nivel == 3) { $form_nivel3 = $tema_novo_titulo; }
+  elseif ($form_nivel == 4) { $form_nivel4 = $tema_novo_titulo; }
 }
 
 if ((isset($_POST['topico_subalterno1'])) && ($_POST['topico_subalterno1'] != "")) {
@@ -24,8 +27,6 @@ if ((isset($_POST['topico_subalterno1'])) && ($_POST['topico_subalterno1'] != ""
 if ((isset($_POST['topico_subalterno2'])) && ($_POST['topico_subalterno2'] != "")) {
   $refazer_ordem = true;
   $novo_subtopico = $_POST['topico_subalterno2'];
-
-
   if ($form_nivel == 1) { $insert = $conn->query("INSERT INTO Temas (ciclo_revisao, concurso, sigla_materia, nivel, nivel1, nivel2) VALUES (0, '$concurso', '$form_sigla_materia', 2, '$form_nivel1', '$novo_subtopico') "); }
   elseif ($form_nivel == 2) { $insert = $conn->query("INSERT INTO Temas (ciclo_revisao, concurso, sigla_materia, nivel, nivel1, nivel2, nivel3) VALUES (0, '$concurso', '$form_sigla_materia', 3, '$form_nivel1', '$form_nivel2', '$novo_subtopico') "); }
   elseif ($form_nivel == 3) { $insert = $conn->query("INSERT INTO Temas (ciclo_revisao, concurso, sigla_materia, nivel, nivel1, nivel2, nivel3, nivel4) VALUES (0, '$concurso', '$form_sigla_materia', 4, '$form_nivel1', '$form_nivel2', '$form_nivel3', '$novo_subtopico') "); }
@@ -36,8 +37,6 @@ if ((isset($_POST['topico_subalterno2'])) && ($_POST['topico_subalterno2'] != ""
 if ((isset($_POST['topico_subalterno3'])) && ($_POST['topico_subalterno3'] != "")) {
   $refazer_ordem = true;
   $novo_subtopico = $_POST['topico_subalterno3'];
-
-
   if ($form_nivel == 1) { $insert = $conn->query("INSERT INTO Temas (ciclo_revisao, concurso, sigla_materia, nivel, nivel1, nivel2) VALUES (0, '$concurso', '$form_sigla_materia', 2, '$form_nivel1', '$novo_subtopico') "); }
   elseif ($form_nivel == 2) { $insert = $conn->query("INSERT INTO Temas (ciclo_revisao, concurso, sigla_materia, nivel, nivel1, nivel2, nivel3) VALUES (0, '$concurso', '$form_sigla_materia', 3, '$form_nivel1', '$form_nivel2', '$novo_subtopico') "); }
   elseif ($form_nivel == 3) { $insert = $conn->query("INSERT INTO Temas (ciclo_revisao, concurso, sigla_materia, nivel, nivel1, nivel2, nivel3, nivel4) VALUES (0, '$concurso', '$form_sigla_materia', 4, '$form_nivel1', '$form_nivel2', '$form_nivel3', '$novo_subtopico') "); }
@@ -48,8 +47,6 @@ if ((isset($_POST['topico_subalterno3'])) && ($_POST['topico_subalterno3'] != ""
 if ((isset($_POST['topico_subalterno4'])) && ($_POST['topico_subalterno4'] != "")) {
   $refazer_ordem = true;
   $novo_subtopico = $_POST['topico_subalterno4'];
-
-
   if ($form_nivel == 1) { $insert = $conn->query("INSERT INTO Temas (ciclo_revisao, concurso, sigla_materia, nivel, nivel1, nivel2) VALUES (0, '$concurso', '$form_sigla_materia', 2, '$form_nivel1', '$novo_subtopico') "); }
   elseif ($form_nivel == 2) { $insert = $conn->query("INSERT INTO Temas (ciclo_revisao, concurso, sigla_materia, nivel, nivel1, nivel2, nivel3) VALUES (0, '$concurso', '$form_sigla_materia', 3, '$form_nivel1', '$form_nivel2', '$novo_subtopico') "); }
   elseif ($form_nivel == 3) { $insert = $conn->query("INSERT INTO Temas (ciclo_revisao, concurso, sigla_materia, nivel, nivel1, nivel2, nivel3, nivel4) VALUES (0, '$concurso', '$form_sigla_materia', 4, '$form_nivel1', '$form_nivel2', '$form_nivel3', '$novo_subtopico') "); }
@@ -60,8 +57,6 @@ if ((isset($_POST['topico_subalterno4'])) && ($_POST['topico_subalterno4'] != ""
 if((isset($_POST['topico_subalterno5'])) && ($_POST['topico_subalterno5'] != "")) {
   $refazer_ordem = true;
   $novo_subtopico = $_POST['topico_subalterno5'];
-
-
   if ($form_nivel == 1) { $insert = $conn->query("INSERT INTO Temas (ciclo_revisao, concurso, sigla_materia, nivel, nivel1, nivel2) VALUES (0, '$concurso', '$form_sigla_materia', 2, '$form_nivel1', '$novo_subtopico') "); }
   elseif ($form_nivel == 2) { $insert = $conn->query("INSERT INTO Temas (ciclo_revisao, concurso, sigla_materia, nivel, nivel1, nivel2, nivel3) VALUES (0, '$concurso', '$form_sigla_materia', 3, '$form_nivel1', '$form_nivel2', '$novo_subtopico') "); }
   elseif ($form_nivel == 3) { $insert = $conn->query("INSERT INTO Temas (ciclo_revisao, concurso, sigla_materia, nivel, nivel1, nivel2, nivel3, nivel4) VALUES (0, '$concurso', '$form_sigla_materia', 4, '$form_nivel1', '$form_nivel2', '$form_nivel3', '$novo_subtopico') "); }
