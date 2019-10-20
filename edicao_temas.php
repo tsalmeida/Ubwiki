@@ -138,31 +138,31 @@
     sub_jumbotron($concurso,false);
     ?>
     <div class="container-fluid my-5">
-      <div class="row justify-content-center">
+      <div class="row justify-content-center" id="ferramenta">
         <div class="col-lg-6 col-sm-12">
         <?php
           if ($revisao != false) {
             echo "
-            <form class='border boder-light p-4 my-2' method='post'>
-            <input type='hidden' name='form_nivel' value='$nivel'>
-            <input type='hidden' name='form_ordem' value='$ordem'>
-            <input type='hidden' name='form_nivel1' value='$nivel1'>
-            <input type='hidden' name='form_nivel2' value='$nivel2'>
-            <input type='hidden' name='form_nivel3' value='$nivel3'>
-            <input type='hidden' name='form_nivel4' value='$nivel4'>
-            <input type='hidden' name='form_nivel5' value='$nivel5'>
-            <input type='hidden' name='form_sigla_materia' value='$sigla_materia'>
-            <h2 class='text-center'>Edição de tópicos</h2>
-            <ul class='list-group p-4'>
-              <li class='list-group-item'><strong>MATÉRIA: </strong>$nome_materia</li>
-              <li class='list-group-item $active1'><strong>Nível 1: </strong>$nivel1</li>
-            ";
-              if ($nivel2 != false) { echo "<li class='list-group-item $active2'><strong>Nível 2: </strong>$nivel2</li>"; }
-              if ($nivel3 != false) { echo "<li class='list-group-item $active3'><strong>Nível 3: </strong>$nivel3</li>"; }
-              if ($nivel4 != false) { echo "<li class='list-group-item $active4'><strong>Nível 4: </strong>$nivel4</li>"; }
-              if ($nivel5 != false) { echo "<li class='list-group-item $active5'><strong>Nível 5: </strong>$nivel5</li>"; }
-            echo "
-            </ul>
+            <form class='border boder-light p-4 my-2' method='post' action='edicao_temas.php?concurso=$concurso#ferramenta'>
+              <input type='hidden' name='form_nivel' value='$nivel'>
+              <input type='hidden' name='form_ordem' value='$ordem'>
+              <input type='hidden' name='form_nivel1' value='$nivel1'>
+              <input type='hidden' name='form_nivel2' value='$nivel2'>
+              <input type='hidden' name='form_nivel3' value='$nivel3'>
+              <input type='hidden' name='form_nivel4' value='$nivel4'>
+              <input type='hidden' name='form_nivel5' value='$nivel5'>
+              <input type='hidden' name='form_sigla_materia' value='$sigla_materia'>
+              <h2 class='text-center'>Edição de tópicos</h2>
+              <ul class='list-group p-4'>
+                <li class='list-group-item'><strong>MATÉRIA: </strong>$nome_materia</li>
+                <li class='list-group-item $active1'><strong>Nível 1: </strong>$nivel1</li>
+              ";
+                if ($nivel2 != false) { echo "<li class='list-group-item $active2'><strong>Nível 2: </strong>$nivel2</li>"; }
+                if ($nivel3 != false) { echo "<li class='list-group-item $active3'><strong>Nível 3: </strong>$nivel3</li>"; }
+                if ($nivel4 != false) { echo "<li class='list-group-item $active4'><strong>Nível 4: </strong>$nivel4</li>"; }
+                if ($nivel5 != false) { echo "<li class='list-group-item $active5'><strong>Nível 5: </strong>$nivel5</li>"; }
+              echo "
+              </ul>
               <div class='custom-control custom-checkbox'>
                   <input type='checkbox' class='custom-control-input my-2' id='remover_ciclo' name='remover_ciclo' value='$tema_id' checked>
                   <label class='custom-control-label my-2' for='remover_ciclo'>Remover do ciclo de revisão</label>
