@@ -83,11 +83,11 @@
         $nivel_relevante = $row['nivel'];
         $novo_titulo_sigla_materia = $row['sigla_materia'];
         $novo_titulo_concurso = $row['concurso'];
-        if ($nivel_relevante = 1) { $antigo_titulo = $row['nivel1']; }
-        elseif ($nivel_relevante = 2) { $antigo_titulo = $row['nivel2']; }
-        elseif ($nivel_relevante = 3) { $antigo_titulo = $row['nivel3']; }
-        elseif ($nivel_relevante = 4) { $antigo_titulo = $row['nivel4']; }
-        elseif ($nivel_relevante = 5) { $antigo_titulo = $row['nivel5']; }
+        if ($nivel_relevante == 1) { $antigo_titulo = $row['nivel1']; }
+        elseif ($nivel_relevante == 2) { $antigo_titulo = $row['nivel2']; }
+        elseif ($nivel_relevante == 3) { $antigo_titulo = $row['nivel3']; }
+        elseif ($nivel_relevante == 4) { $antigo_titulo = $row['nivel4']; }
+        elseif ($nivel_relevante == 5) { $antigo_titulo = $row['nivel5']; }
         error_log("$nivel_relevante $novo_titulo_sigla_materia $novo_titulo_concurso $antigo_titulo");
       }
     }
