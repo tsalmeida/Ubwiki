@@ -96,13 +96,6 @@
     $update = $conn->query("UPDATE Temas SET $coluna_nivel = '$tema_novo_titulo' WHERE $coluna_nivel = '$antigo_titulo' AND concurso = '$novo_titulo_concurso' AND sigla_materia = '$novo_titulo_sigla_materia'");
   }
 
-  $result = $conn->query("SELECT materia FROM Materias WHERE concurso = '$concurso' AND sigla = '$sigla_materia'");
-  if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
-      $nome_materia = $row["materia"];
-    }
-  }
-
   include 'engine_criar_subtopicos.php';
 
   $result = $conn->query("SELECT id, sigla_materia, nivel, ordem, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND ciclo_revisao = 0 AND ROWNUM <= 1 ORDER BY ordem");
@@ -117,6 +110,12 @@
       if ($nivel5 != false) { $active5 = 'list-group-item-primary'; } elseif ($nivel4 != false) { $active4 = 'list-group-item-primary'; } elseif ($nivel3 != false) { $active3 = 'list-group-item-primary'; } elseif ($nivel2 != false) { $active2 = 'list-group-item-primary'; } else { $active1 = 'list-group-item-primary'; }
       $revisao = true;
       break;
+    }
+    $result = $conn->query("SELECT materia FROM Materias WHERE concurso = '$concurso' AND sigla = '$sigla_materia'");
+    if ($result->num_rows > 0) {
+      while($row = $result->fetch_assoc()) {
+        $nome_materia = $row["materia"];
+      }
     }
   }
   else {
