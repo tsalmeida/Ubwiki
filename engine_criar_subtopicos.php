@@ -244,17 +244,7 @@ if ((isset($_POST['topico_subalterno20'])) && ($_POST['topico_subalterno20'] != 
 }
 
 if ($refazer_ordem == true) {
-  $servername = "localhost"; $username = "grupoubique"; $password = "ubique patriae memor"; $dbname = "Ubique";
-  $conn = new mysqli($servername, $username, $password, $dbname); mysqli_set_charset($conn,"utf8");
-  $ordem = 0;
-  $result = $conn->query("SELECT id FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' ORDER BY id, nivel1");
-  if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
-      $ordem++;
-      $id = $row['id'];
-      $update = $conn->query("UPDATE Temas SET ordem = $ordem WHERE id = $id");
-    }
-  }
+
 }
 
 ?>
