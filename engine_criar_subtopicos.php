@@ -270,35 +270,35 @@ if ($refazer_ordem == true) {
   $nova_ordem = 0;
   $servername = "localhost"; $username = "grupoubique"; $password = "ubique patriae memor"; $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname); mysqli_set_charset($conn,"utf8");
-  $ordem1 = $conn->query("SELECT nivel1, id FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$form_sigla_materia' AND nivel = 1");
+  $ordem1 = $conn->query("SELECT nivel1, id FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$form_sigla_materia' AND nivel = 1 ORDER BY id");
   if ($ordem1->num_rows > 0) {
     while($row1 = $ordem1->fetch_assoc()) {
       $nova_ordem++;
       $tema_nivel1 = $row1['nivel1'];
       $id_nivel1 = $row1['id'];
       $update = $conn->query("UPDATE Temas SET ordem = $nova_ordem WHERE id = $id_nivel1");
-      $ordem2 = $conn->query("SELECT nivel2, id FROM Temas WHERE nivel1 = '$tema_nivel1' AND concurso = '$concurso' AND sigla_materia = '$form_sigla_materia' AND nivel = 2");
+      $ordem2 = $conn->query("SELECT nivel2, id FROM Temas WHERE nivel1 = '$tema_nivel1' AND concurso = '$concurso' AND sigla_materia = '$form_sigla_materia' AND nivel = 2 ORDER BY id");
       if ($ordem2->num_rows > 0) {
         while($row2 = $ordem2->fetch_assoc()) {
           $nova_ordem++;
           $tema_nivel2 = $row2['nivel2'];
           $id_nivel2 = $row2['id'];
           $update = $conn->query("UPDATE Temas SET ordem = $nova_ordem WHERE id = $id_nivel2");
-          $ordem3 = $conn->query("SELECT nivel3, id FROM Temas WHERE nivel2 = '$tema_nivel2' AND concurso = '$concurso' AND sigla_materia = '$form_sigla_materia' AND nivel = 3");
+          $ordem3 = $conn->query("SELECT nivel3, id FROM Temas WHERE nivel2 = '$tema_nivel2' AND concurso = '$concurso' AND sigla_materia = '$form_sigla_materia' AND nivel = 3 ORDER BY id");
           if ($ordem3->num_rows > 0) {
             while ($row3 = $ordem3->fetch_assoc()) {
               $nova_ordem++;
               $tema_nivel3 = $row3['nivel3'];
               $id_nivel3 = $row3['id'];
               $update = $conn->query("UPDATE Temas SET ordem = $nova_ordem WHERE id = $id_nivel3");
-              $ordem4 = $conn->query("SELECT nivel4, id FROM Temas WHERE nivel3 = '$tema_nivel3' AND concurso = '$concurso' AND sigla_materia = '$form_sigla_materia' AND nivel = 4");
+              $ordem4 = $conn->query("SELECT nivel4, id FROM Temas WHERE nivel3 = '$tema_nivel3' AND concurso = '$concurso' AND sigla_materia = '$form_sigla_materia' AND nivel = 4 ORDER BY id");
               if ($ordem4->num_rows > 0) {
                 while ($row4 = $ordem4->fetch_assoc()) {
                   $nova_ordem++;
                   $tema_nivel4 = $row4['nivel4'];
                   $id_nivel4 = $row4['id'];
                   $update = $conn->query("UPDATE Temas SET ordem = $nova_ordem WHERE id = $id_nivel4");
-                  $ordem5 = $conn->query("SELECT id FROM Temas WHERE nivel4 = '$tema_nivel4' AND concurso = '$concurso' AND sigla_materia = '$form_sigla_materia' AND nivel = 5");
+                  $ordem5 = $conn->query("SELECT id FROM Temas WHERE nivel4 = '$tema_nivel4' AND concurso = '$concurso' AND sigla_materia = '$form_sigla_materia' AND nivel = 5 ORDER BY id");
                   if ($ordem5->num_rows > 0) {
                     while ($row5 = $ordem5->fetch_assoc()) {
                       $nova_ordem++;
