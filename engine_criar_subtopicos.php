@@ -8,6 +8,7 @@ if (isset($_POST['form_sigla_materia'])) {
   elseif ($form_nivel == 2) { $form_nivel2 = $antigo_titulo; }
   elseif ($form_nivel == 3) { $form_nivel3 = $antigo_titulo; }
   elseif ($form_nivel == 4) { $form_nivel4 = $antigo_titulo; }
+  error_log("$form_nivel1 $form_nivel2 $form_nivel3 $form_nivel4 $form_nivel5 $form_sigla_materia $form_nivel");
 }
 
 if ((isset($_POST['topico_subalterno1'])) && ($_POST['topico_subalterno1'] != "")) {
