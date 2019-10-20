@@ -88,7 +88,6 @@
         elseif ($nivel_relevante = 3) { $antigo_titulo = $row['nivel3']; }
         elseif ($nivel_relevante = 4) { $antigo_titulo = $row['nivel4']; }
         elseif ($nivel_relevante = 5) { $antigo_titulo = $row['nivel5']; }
-        error_log($antigo_titulo);
       }
     }
     $coluna_nivel = 'nivel';
@@ -152,7 +151,6 @@
           echo "
             <ul class='list-group p-4'>
               <li class='list-group-item'><strong>MATÉRIA: </strong>$nome_materia</li>
-              <li class='list-group-item'><strong>PARENT ID: </strong>$ordem</li>
               <li class='list-group-item $active1'><strong>Nível 1: </strong>$nivel1</li>";
               if ($nivel2 != false) { echo "<li class='list-group-item $active2'><strong>Nível 2: </strong>$nivel2</li>"; }
               if ($nivel3 != false) { echo "<li class='list-group-item $active3'><strong>Nível 3: </strong>$nivel3</li>"; }
