@@ -92,7 +92,7 @@
 
   $revisao = false;
 
-  $result = $conn->query("SELECT id, sigla_materia, nivel, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND ciclo_revisao = 0 ORDER BY parent_id, id");
+  $result = $conn->query("SELECT id, sigla_materia, nivel, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND ciclo_revisao = 0 ORDER BY id, parent_id");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $active1 = false; $active2 = false; $active3 = false; $active4 = false; $active5 = false;
@@ -130,8 +130,16 @@
         <div class="col-lg-6 col-sm-12">
         <?php
           echo "
-          <form class='border boder-light p-4 my-2' method='post'>
-          <h2 class='text-center'>Edição de tópicos</h2>";
+            <form class='border boder-light p-4 my-2' method='post'>
+            <input type='hidden' name='form_nivel' value='$nivel'>
+            <input type='hidden' name='form_nivel1' value='$nivel1'>
+            <input type='hidden' name='form_nivel2' value='$nivel2'>
+            <input type='hidden' name='form_nivel3' value='$nivel3'>
+            <input type='hidden' name='form_nivel4' value='$nivel4'>
+            <input type='hidden' name='form_nivel5' value='$nivel5'>
+            <input type='hidden' name='form_sigla_materia' value='$sigla_materia'>
+            <h2 class='text-center'>Edição de tópicos</h2>
+          ";
           if ($revisao != false) {
           echo "
             <ul class='list-group p-4'>
