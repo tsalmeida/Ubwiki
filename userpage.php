@@ -66,7 +66,7 @@
                 <i class="fal fa-times-circle"></i>
               </button>
             </div>
-            <div class='modal-body mx-3'>
+            <div class='modal-body mx-3 pb-0'>
               <p>Você é identificado por seu apelido em todas as circunstâncias da página em que sua participação ou contribuição sejam tornadas públicas.</p>
               <div class='md-form md-2'>
 <?php
@@ -75,7 +75,7 @@
                 <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_apelido' required>Apelido</label>
               </div>
             </div>
-            <div class='modal-body mx-3'>
+            <div class='modal-body mx-3 pb-0'>
               <p>Seu nome e seu sobrenome não serão tornados públicos em nenhuma seção pública da página.</p>
               <div class='md-form md-2'>
 <?php
@@ -84,7 +84,7 @@
                 <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_nome'>Nome</label>
               </div>
             </div>
-            <div class='modal-body mx-3'>
+            <div class='modal-body mx-3 pb-0'>
               <div class='md-form md-2'>
 <?php
                 echo "<input type='text' name='novo_sobrenome' id='novo_sobrenome' class='form-control validate' value='$sobrenome' required></input>";
