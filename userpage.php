@@ -60,14 +60,12 @@
           <form method='post'>
             <div class='modal-header text-center'>
               <h4 class='modal-title w-100 font-weight-bold'>Alterar apelido</h4>
-              <div class='row'>
-                <p>Seu apelido é sua identificação nos fórums de debate na página de cada verbete.</p>
-              </div>
               <button type='button' class='close' data-dismiss='modal'>
                 <i class="fal fa-times-circle"></i>
               </button>
             </div>
             <div class='modal-body mx-3'>
+              <p>Seu apelido é sua identificação nos fórums de debate na página de cada verbete.</p>
               <div class='md-form md-2'>
                 <input type='text' name='novo_apelido' class='form-control validate'></input>
                 <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_link_link' required>Novo apelido</label>
