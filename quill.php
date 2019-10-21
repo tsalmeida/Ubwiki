@@ -19,6 +19,6 @@
 <script>
   var editor = new Quill('#editor', {
     modules: { toolbar: '#toolbar' },
-    theme: 'bubble'
+    theme: 'core'
   });
 </script>
