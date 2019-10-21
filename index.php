@@ -17,6 +17,9 @@
       $usuario_id = $row['id'];
     }
   }
+  else {
+    $newuser = true;
+  }
 
   $nova_tabela = "usuario_id_";
   $nova_tabela .= $usuario_id;
