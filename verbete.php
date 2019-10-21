@@ -156,14 +156,14 @@ function ler_relacionados($id_tema, $concurso) {
 ?>
   <div class='container-fluid py-3 col-12 bg-lighter text-center'>
     <ul class='list-group list-group-horizontal-lg'>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#verbete'>Verbete consolidado</a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#verbete'>Verbete</a>
       <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#imagens'>Imagens</a>
       <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#verbetes'>Relacionados</a>
       <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#bibliografia'>Bibliografia</a>
       <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#videos'>Vídeos e aulas</a>
       <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#links'>Links</a>
       <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#anotacoes'>Minhas anotações</a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#questoes'>Questões de provas passadas</a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#questoes'>Questões de prova</a>
       <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#discussao'>Fórum</a>
     </ul>
   </div>
@@ -182,7 +182,7 @@ function ler_relacionados($id_tema, $concurso) {
   <div class='container my-5' id='verbete'>
     <div class='row justify-content-between h3 my-5'>
       <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
-        <span class='align-middle'>Verbete consolidado</span>
+        <span class='align-middle'>Verbete</span>
       </div>
       <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
         <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_editar_verbete' href=''><i class="fal fa-edit"></i></a></span>
@@ -192,7 +192,7 @@ function ler_relacionados($id_tema, $concurso) {
       <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
         <?php
           if ($verbete_consolidado == false) {
-            echo "<p>Não há, no momento, verbete consolidado para este tópico.</p>";
+            echo "<p>O verbete deste tópico ainda não começou a ser escrito.</p>";
           }
           else {
             $separator = "\r\n";
@@ -380,7 +380,7 @@ function ler_relacionados($id_tema, $concurso) {
   <div class='container my-5' id='questoes'>
     <div class='row justify-content-between h3 my-5'>
       <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
-        <span class='align-middle'>Questões de provas passadas</span>
+        <span class='align-middle'>Questões de prova</span>
       </div>
       <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'></div>
     </div>
