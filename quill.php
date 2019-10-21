@@ -1,5 +1,5 @@
 <!-- Include Quill stylesheet -->
-<link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
+<link href="https://cdn.quilljs.com/1.0.0/quill.bubble.css" rel="stylesheet">
 
 <!-- Create the toolbar container -->
 <div id="toolbar">
@@ -19,6 +19,6 @@
 <script>
   var editor = new Quill('#editor', {
     modules: { toolbar: '#toolbar' },
-    theme: 'snow'
+    theme: 'bubble'
   });
 </script>
