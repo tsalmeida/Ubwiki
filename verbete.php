@@ -161,10 +161,10 @@ function ler_relacionados($id_tema, $concurso) {
       <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#verbetes' title='Relacionados'><i class="fal fa-copy fa-2x"></i> <span class='d-none d-lg-block'>Relacionados</span></a>
       <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#bibliografia' title='Bibliografia'><i class="fal fa-books fa-2x"></i> <span class='d-none d-lg-block'>Bibliografia</span></a>
       <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#videos' title='Vídeos e aulas'><i class="fal fa-chalkboard-teacher fa-2x"></i> <span class='d-none d-lg-block'>Vídeos e aulas</span></a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#links' title='Links'><i class="fal fa-link fa-2x"></i> <span class='d-none d-lg-block'></span>Links</a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#links' title='Links'><i class="fal fa-link fa-2x"></i> <span class='d-none d-lg-block'>Links</span></a>
       <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#anotacoes' title='Anotações'><i class="fal fa-user-edit fa-2x"></i> <span class='d-none d-lg-block'>Anotações</span></a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#questoes' title='Questões'><i class="fal fa-trophy fa-2x"></i> <span class='d-none d-lg-block'></span>Questões</a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#discussao' title='Fórum'><i class="fal fa-comments-alt fa-2x"></i> <span class='d-none d-lg-block'></span>Fórum</a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#questoes' title='Questões'><i class="fal fa-trophy fa-2x"></i> <span class='d-none d-lg-block'>Questões</span></a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#discussao' title='Fórum'><i class="fal fa-comments-alt fa-2x"></i> <span class='d-none d-lg-block'>Fórum</span></a>
     </ul>
   </div>
   <?php
