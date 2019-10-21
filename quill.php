@@ -17,7 +17,7 @@
 <body>
 
 <!-- Create the toolbar container -->
-<div class='ql-around'>
+<div id='quill_cont' class='ql-around'>
   <div id="toolbar">
     <button class="ql-bold">Bold</button>
     <button class="ql-italic">Italic</button>
@@ -36,7 +36,7 @@
 <!-- Initialize Quill editor -->
 <script>
 
-  var container = quill.addContainer('ql-around');
+  var container = quill.addContainer('quill_cont');
   var toolbarOptions = [
     ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
     ['blockquote', 'code-block'],
@@ -58,7 +58,7 @@
   ];
 
   var quill = new Quill('#editor', {
-    debug: 'info',
+    debug: 'info'
     modules: {
       toolbar: {
         toolbarOptions,
