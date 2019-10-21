@@ -156,15 +156,15 @@ function ler_relacionados($id_tema, $concurso) {
 ?>
   <div class='container-fluid py-3 col-12 bg-lighter text-center'>
     <ul class='list-group list-group-horizontal-lg'>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#verbete' title='Verbete'><i class="fal fa-file-alt fa-2x fa-fw"></i> <span class='d-sm-block d-xs-block d-md-block'>Verbete</span></a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#imagens' title='Imagens'><i class="fal fa-images fa-2x fa-fw"></i> <span class='d-sm-block d-xs-block d-md-block'>Imagens</span></a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#verbetes' title='Relacionados'><i class="fal fa-copy fa-2x fa-fw"></i> <span class='d-sm-block d-xs-block d-md-block'>Relacionados</span></a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#bibliografia' title='Bibliografia'><i class="fal fa-books fa-2x fa-fw"></i> <span class='d-sm-block d-xs-block d-md-block'>Bibliografia</span></a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#videos' title='Vídeos e aulas'><i class="fal fa-chalkboard-teacher fa-2x fa-fw"></i> <span class='d-sm-block d-xs-block d-md-block'>Vídeos e aulas</span></a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#links' title='Links'><i class="fal fa-link fa-2x fa-fw"></i> <span class='d-sm-block d-xs-block d-md-block'>Links</span></a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#anotacoes' title='Anotações'><i class="fal fa-user-edit fa-2x fa-fw"></i> <span class='d-sm-block d-xs-block d-md-block'>Anotações</span></a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#questoes' title='Questões'><i class="fal fa-trophy fa-2x fa-fw"></i> <span class='d-sm-block d-xs-block d-md-block'>Questões</span></a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#discussao' title='Fórum'><i class="fal fa-comments-alt fa-2x fa-fw"></i> <span class='d-sm-block d-xs-block d-md-block'>Fórum</span></a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#verbete' title='Verbete'><i class="fal fa-file-alt fa-2x fa-fw"></i> <span class='d-block'>Verbete</span></a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#imagens' title='Imagens'><i class="fal fa-images fa-2x fa-fw"></i> <span class='d-block'>Imagens</span></a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#verbetes' title='Relacionados'><i class="fal fa-copy fa-2x fa-fw"></i> <span class='d-block'>Relacionados</span></a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#bibliografia' title='Bibliografia'><i class="fal fa-books fa-2x fa-fw"></i> <span class='d-block'>Bibliografia</span></a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#videos' title='Vídeos e aulas'><i class="fal fa-chalkboard-teacher fa-2x fa-fw"></i> <span class='d-block'>Vídeos e aulas</span></a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#links' title='Links'><i class="fal fa-link fa-2x fa-fw"></i> <span class='d-block'>Links</span></a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#anotacoes' title='Anotações'><i class="fal fa-user-edit fa-2x fa-fw"></i> <span class='d-block'>Anotações</span></a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#questoes' title='Questões'><i class="fal fa-trophy fa-2x fa-fw"></i> <span class='d-block'>Questões</span></a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#discussao' title='Fórum'><i class="fal fa-comments-alt fa-2x fa-fw"></i> <span class='d-block'>Fórum</span></a>
     </ul>
   </div>
   <?php
