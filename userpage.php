@@ -50,7 +50,7 @@
           <?php
             echo "
               <div class='row justify-content-center'>
-                <h3 class='text-center'><a data-toggle='modal' data-target='#modal_editar_dados' href=''><i class='fal fa-edit'></i></a>Dados da sua conta:</h3>
+                <h4 class='text-center'><a data-toggle='modal' data-target='#modal_editar_dados' href=''><i class='fal fa-edit'></i></a>Dados da sua conta:</h4>
               </div>
               <ul class='list-group'>
                 <li class='list-group-item'><strong>Conta criada em:</strong> $criacao</li>
