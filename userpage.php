@@ -45,8 +45,8 @@
               <ul class='list-group'>
                 <li class='list-group-item'><strong>Conta criada em:</strong> $criacao</li>
                 <li class='list-group-item'><a data-toggle='modal' data-target='#modal_editar_apelido' href=''><i class='fal fa-edit'></i></a> <strong>Apelido:</strong> $apelido</li>
-                <li class='list-group-item'><a href='#'><i class='fal fa-edit'></i></a> <strong>Nome:</strong> $nome</li>
-                <li class='list-group-item'><a href='#'><i class='fal fa-edit'></i></a> <strong>Sobrenome:</strong> $sobrenome</li>
+                <li class='list-group-item'><a href=''><i class='fal fa-edit'></i></a> <strong>Nome:</strong> $nome</li>
+                <li class='list-group-item'><a href=''><i class='fal fa-edit'></i></a> <strong>Sobrenome:</strong> $sobrenome</li>
                 <li class='list-group-item'><strong>Email:</strong> $user</li>
               </ul>
             ";
@@ -54,8 +54,8 @@
         </div>
       </div>
     </div>
-    <div id='modal_editar_apelido' class='modal-fade' role='dialog' tabindex='-1'>
-      <div class='modal-dialog modal-lg' role='document'>
+    <div id='modal_editar_apelido' class='modal fade' role='dialog' tabindex='-1'>
+      <div class='modal-dialog modal-dialog-centered' role='document'>
         <div class='modal-content'>
           <form method='post'>
             <div class='modal-header text-center'>
