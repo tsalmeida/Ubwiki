@@ -1,5 +1,5 @@
 <!-- Include Quill stylesheet -->
-<link href="https://cdn.quilljs.com/1.0.0/quill.bubble.css" rel="stylesheet">
+<link href="//cdn.quilljs.com/1.0.0/quill.core.css" rel="stylesheet">
 
 <!-- Create the toolbar container -->
 <div id="toolbar">
@@ -13,7 +13,7 @@
 </div>
 
 <!-- Include the Quill library -->
-<script src="https://cdn.quilljs.com/1.0.0/quill.js"></script>
+<script src="//cdn.quilljs.com/1.0.0/quill.core.js"></script>
 
 <!-- Initialize Quill editor -->
 <script>
