@@ -18,6 +18,7 @@
 <!-- Initialize Quill editor -->
 <script>
   var editor = new Quill('#editor', {
-    modules: { toolbar: '#toolbar' }
+    modules: { toolbar: '#toolbar' },
+    theme: 'snow'
   });
 </script>
