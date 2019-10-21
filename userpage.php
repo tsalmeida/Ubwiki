@@ -38,7 +38,7 @@
     ?>
     <div class="container-fluid my-5">
       <div class="row justify-content-center">
-        <div class="col-lg-6 col-sm-12">
+        <div class="col-lg-4 col-sm-12">
           <?php
             echo "
               <h2 class='text-center'>Dados da sua conta:</h2>
