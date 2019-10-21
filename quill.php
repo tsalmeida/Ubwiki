@@ -8,7 +8,7 @@
 <style>
   .around_quill {
     max-width: 65ch;
-    height: 60em;
+    height: 40em;
   }
 </style>
 
@@ -35,10 +35,16 @@
 
 <!-- Initialize Quill editor -->
 <script>
-  var editor = new Quill('#editor', {
-    modules: { toolbar: '#toolbar' },
+
+  var options = {
+    modules: {
+      toolbar: '#toolbar'
+    },
     theme: 'snow'
-  });
+  }
+
+  var editor = new Quill('#editor', options);
+
 </script>
 
 </html>
