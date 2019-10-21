@@ -6,7 +6,7 @@
 <link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
 
 <style>
-  .editor {
+  .around_quill {
     max-width: 65ch;
     height: 60em;
   }
@@ -17,16 +17,17 @@
 <body>
 
 <!-- Create the toolbar container -->
-<div id="toolbar">
-  <button class="ql-bold">Bold</button>
-  <button class="ql-italic">Italic</button>
-</div>
+<div class='around_quill'>
+  <div id="toolbar">
+    <button class="ql-bold">Bold</button>
+    <button class="ql-italic">Italic</button>
+  </div>
 
-<!-- Create the editor container -->
-<div id="editor" class='editor'>
-  <p>Hello World!</p>
+  <!-- Create the editor container -->
+  <div id="editor">
+    <p>Hello World!</p>
+  </div>
 </div>
-
 </body>
 
 <!-- Include the Quill library -->
