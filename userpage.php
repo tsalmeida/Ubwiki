@@ -44,14 +44,13 @@
               <h2 class='text-center'>Dados da sua conta:</h2>
               <ul class='list-group'>
                 <li class='list-group-item'><strong>Conta criada em:</strong> $criacao</li>
-                <li class='list-group-item'><strong>Apelido:</strong> $apelido</li>
-                <li class='list-group-item'><strong>Nome:</strong> $nome</li>
-                <li class='list-group-item'><strong>Sobrenome:</strong> $sobrenome</li>
+                <li class='list-group-item'><a href='#'><i class="fal fa-edit"></i></a> <strong>Apelido:</strong> $apelido</li>
+                <li class='list-group-item'><a href='#'><i class="fal fa-edit"></i></a> <strong>Nome:</strong> $nome</li>
+                <li class='list-group-item'><a href='#'><i class="fal fa-edit"></i></a> <strong>Sobrenome:</strong> $sobrenome</li>
                 <li class='list-group-item'><strong>Email:</strong> $user</li>
               </ul>
             ";
           ?>
-
         </div>
       </div>
     </div>
