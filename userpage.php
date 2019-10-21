@@ -69,20 +69,26 @@
             <div class='modal-body mx-3'>
               <p>Você é identificado por seu apelido em todas as circunstâncias da página em que sua participação ou contribuição sejam tornadas públicas.</p>
               <div class='md-form md-2'>
-                <input type='text' name='novo_apelido' id='novo_apelido' class='form-control validate' value='$apelido' required></input>
+<?php
+                echo "<input type='text' name='novo_apelido' id='novo_apelido' class='form-control validate' value='$apelido' required></input>";
+?>
                 <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_apelido' required>Apelido</label>
               </div>
             </div>
             <div class='modal-body mx-3'>
               <p>Seu nome e seu sobrenome não serão tornados públicos em nenhuma seção pública da página.</p>
               <div class='md-form md-2'>
-                <input type='text' name='novo_nome' id='novo_nome' class='form-control validate' value='$nome' required></input>
+<?php
+                echo "<input type='text' name='novo_nome' id='novo_nome' class='form-control validate' value='$nome' required></input>";
+?>
                 <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_nome'>Nome</label>
               </div>
             </div>
             <div class='modal-body mx-3'>
               <div class='md-form md-2'>
-                <input type='text' name='novo_sobrenome' id='novo_sobrenome' class='form-control validate' value='$sobrenome' required></input>
+<?php
+                echo "<input type='text' name='novo_sobrenome' id='novo_sobrenome' class='form-control validate' value='$sobrenome' required></input>";
+?>
                 <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_sobrenome' required>Sobrenome</label>
               </div>
             </div>
