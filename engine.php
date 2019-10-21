@@ -14,10 +14,13 @@ function carregar_navbar() {
   echo "<nav class='navbar navbar-expand-lg'>
     <a class='navbar-brand playfair' href='index.php'>Ubwiki</a>
     <ul class='nav navbar-nav ml-auto nav-flex-icons'>
-      <li class='nav-item'>
-        <a class='navlink waves-effect waves-light text-muted2' href='userpage.php'>
+      <li class='nav-item dropdown'>
+        <a class='navlink dropdown-toggle waves-effect waves-light text-muted2' id='user_dropdown' href='userpage.php'>
           <i class='fas fa-user-tie fa-2x'></i>
         </a>
+        <div class='dropdown-menu dropdown-menu-right dropdown-default'>
+          <a class='dropdown-item' href='#'>Sua página</a>
+          <a class='dropdown-item' href='#'>Logout></a>
       </li>
     </ul>
   </nav>";
