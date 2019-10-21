@@ -12,14 +12,6 @@
   include 'engine.php';
   top_page();
 
-  if (isset($_POST['novo_nome'])) {
-    $novonome = $_POST['novo_nome'];
-    $novosobrenome = $_POST['novo_sobrenome'];
-    $novoapelido = $_POST['novo_apelido'];
-    $result = $conn->query("UPDATE Usuarios SET nome = '$novonome', sobrenome = '$novosobrenome', apelido = '$novoapelido' WHERE id = $id");
-  }
-
-
   $result = $conn->query("SELECT id, tipo, criacao, apelido, nome, sobrenome FROM Usuarios WHERE email = '$user'");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
@@ -30,6 +22,13 @@
       $nome = $row['nome'];
       $sobrenome = $row['sobrenome'];
     }
+  }
+
+  if (isset($_POST['novo_nome'])) {
+    $nome = $_POST['novo_nome'];
+    $sobrenome = $_POST['novo_sobrenome'];
+    $apelido = $_POST['novo_apelido'];
+    $result = $conn->query("UPDATE Usuarios SET nome = '$nome', sobrenome = '$sobrenome', apelido = '$apelido' WHERE id = $id");
   }
 
 ?>
