@@ -156,15 +156,15 @@ function ler_relacionados($id_tema, $concurso) {
 ?>
   <div class='container-fluid py-3 col-12 bg-lighter text-center'>
     <ul class='list-group list-group-horizontal-lg'>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#verbete'>Verbete</a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#imagens'>Imagens</a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#verbetes'>Relacionados</a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#bibliografia'>Bibliografia</a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#videos'>Vídeos e aulas</a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#links'>Links</a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#anotacoes'>Anotações</a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#questoes'>Questões</a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#discussao'>Fórum</a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#verbete' title='Verbete'><i class="fal fa-file-alt"></i></a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#imagens' title='Imagens'><i class="fal fa-images"></i></a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#verbetes' title='Relacionados'><i class="fal fa-copy"></i></a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#bibliografia' title='Bibliografia'><i class="fal fa-books"></i></a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#videos' title='Vídeos e aulas'><i class="fal fa-chalkboard-teacher"></i></a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#links' title='Links'><i class="fal fa-link"></i></a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#anotacoes' title='Anotações'><i class="fal fa-user-edit"></i></a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#questoes' title='Questões'><i class="fal fa-trophy"></i></a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#discussao' title='Fórum'><i class="fal fa-comments-alt"></i></a>
     </ul>
   </div>
   <?php
