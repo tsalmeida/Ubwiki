@@ -47,6 +47,7 @@
                 <li class='list-group-item'><strong>Apelido:</strong> $apelido</li>
                 <li class='list-group-item'><strong>Nome:</strong> $nome</li>
                 <li class='list-group-item'><strong>Sobrenome:</strong> $sobrenome</li>
+                <li class='list-group-item'><strong>Email:</strong> $user</li>
               </ul>
             ";
           ?>
