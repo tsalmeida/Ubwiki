@@ -20,8 +20,8 @@ function carregar_navbar() {
           <i class='fas fa-user-tie fa-2x'></i>
         </a>
         <div class='dropdown-menu dropdown-menu-right dropdown-default'>
-          <a class='dropdown-item' href='#'>Sua página</a>
-          <a class='dropdown-item' href='#'>Logout></a>
+          <a class='dropdown-item navlink' href='userpage.php'>Sua página</a>
+          <a class='dropdown-item' href='#'>Logout</a>
       </li>
     </ul>
 
