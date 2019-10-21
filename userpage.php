@@ -76,7 +76,7 @@
               </div>
             </div>
             <div class='modal-body mx-3 pb-0'>
-              <p>Seu nome e seu sobrenome não serão tornados públicos em nenhuma seção pública da página.</p>
+              <p>Seu nome e seu sobrenome não serão divulgados em nenhuma seção pública da página.</p>
               <div class='md-form md-2'>
 <?php
                 echo "<input type='text' name='novo_nome' id='novo_nome' class='form-control validate' value='$nome' required></input>";
