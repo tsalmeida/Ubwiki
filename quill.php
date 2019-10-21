@@ -38,11 +38,7 @@
 
   var container = quill.addContainer('ql-around');
   var toolbarOptions = [
-    ['italic', 'superscript', 'image', 'link', 'blockquote'],
-    [{'header': 1}, {'header': 2}],
-    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-    [{ 'script': 'sub'}, { 'script': 'super' }],
-    ['clean']
+
   ];
 
   var options = {
