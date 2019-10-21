@@ -21,7 +21,7 @@ function carregar_navbar() {
         </a>
         <div class='dropdown-menu dropdown-menu-right dropdown-default'>
           <a class='dropdown-item navlink' href='userpage.php'>Sua página</a>
-          <a class='dropdown-item' href='#'>Logout</a>
+          <a class='dropdown-item' href='logout.php'>Logout</a>
       </li>
     </ul>
 
