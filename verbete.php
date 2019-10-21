@@ -162,8 +162,8 @@ function ler_relacionados($id_tema, $concurso) {
       <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#bibliografia'>Bibliografia</a>
       <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#videos'>Vídeos e aulas</a>
       <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#links'>Links</a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#anotacoes'>Minhas anotações</a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#questoes'>Questões de prova</a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#anotacoes'>Anotações</a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#questoes'>Questões</a>
       <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#discussao'>Fórum</a>
     </ul>
   </div>
@@ -352,7 +352,7 @@ function ler_relacionados($id_tema, $concurso) {
   <div class='container my-5' id='anotacoes'>
     <div class='row justify-content-between h3 my-5'>
       <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
-        <span class='align-middle'>Minhas anotações</span>
+        <span class='align-middle'>Anotações</span>
       </div>
       <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
         <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_editar_anotacoes' href=''><i class="fal fa-edit"></i></a></span>
@@ -380,7 +380,7 @@ function ler_relacionados($id_tema, $concurso) {
   <div class='container my-5' id='questoes'>
     <div class='row justify-content-between h3 my-5'>
       <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
-        <span class='align-middle'>Questões de prova</span>
+        <span class='align-middle'>Questões</span>
       </div>
       <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'></div>
     </div>
