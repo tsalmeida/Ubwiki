@@ -60,7 +60,9 @@
           <form method='post'>
             <div class='modal-header text-center'>
               <h4 class='modal-title w-100 font-weight-bold'>Alterar apelido</h4>
-              <p>Seu apelido é sua identificação nos fórums de debate na página de cada verbete.</p>
+              <div class='row'>
+                <p>Seu apelido é sua identificação nos fórums de debate na página de cada verbete.</p>
+              </div>
               <button type='button' class='close' data-dismiss='modal'>
                 <i class="fal fa-times-circle"></i>
               </button>
