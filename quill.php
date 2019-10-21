@@ -6,7 +6,7 @@
 <link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
 
 <style>
-  .around_quill {
+  .ql-around {
     max-width: 65ch;
     height: 40em;
   }
@@ -17,7 +17,7 @@
 <body>
 
 <!-- Create the toolbar container -->
-<div class='around_quill'>
+<div class='ql-around'>
   <div id="toolbar">
     <button class="ql-bold">Bold</button>
     <button class="ql-italic">Italic</button>
@@ -36,9 +36,22 @@
 <!-- Initialize Quill editor -->
 <script>
 
+  var container = quill.addContainer('ql-around');
+  var toolbarOptions = [
+    ['italic', 'superscript', 'image', 'link', 'blockquote'],
+    [{'header': 1}, {'header': 2}],
+    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+    [{ 'script': 'sub'}, { 'script': 'super' }],
+    ['clean']
+  ];
+
   var options = {
+    debug: 'info',
     modules: {
-      toolbar: '#toolbar'
+      toolbar: {
+        container: '#toolbar',
+      }
+      toolbar: toolbarOptions
     },
     theme: 'snow'
   }
