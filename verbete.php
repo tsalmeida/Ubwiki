@@ -157,14 +157,14 @@ function ler_relacionados($id_tema, $concurso) {
   <div class='container-fluid py-3 col-12 bg-lighter text-center'>
     <ul class='list-group list-group-horizontal-lg'>
       <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#verbete'>Verbete consolidado</a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#imagens'>Imagens de apoio</a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#verbetes'>Verbetes relacionados</a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#bibliografia'>Bibliografia pertinente</a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#videos'>Vídeos e aulas relacionados</a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#links'>Links externos</a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#imagens'>Imagens</a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#verbetes'>Relacionados</a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#bibliografia'>Bibliografia</a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#videos'>Vídeos e aulas</a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#links'>Links</a>
       <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#anotacoes'>Minhas anotações</a>
       <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#questoes'>Questões de provas passadas</a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#discussao'>Discussão</a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#discussao'>Fórum</a>
     </ul>
   </div>
   <?php
@@ -210,7 +210,7 @@ function ler_relacionados($id_tema, $concurso) {
   <div class='container my-5' id='imagens'>
     <div class='row justify-content-between h3 my-5'>
       <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
-        <span class='align-middle'>Imagens de apoio</span>
+        <span class='align-middle'>Imagens</span>
       </div>
       <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
           <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_imagens_form' href=''><i class='fal fa-plus-square'></i></a></span>
@@ -232,7 +232,7 @@ function ler_relacionados($id_tema, $concurso) {
           echo "</ul>";
         }
         else {
-          echo "<p>Não foram acrescentadas, até o momento, imagens de apoio a este verbete.</p>";
+          echo "<p>Não foram acrescentadas, até o momento, imagens a este verbete.</p>";
         }
         ?>
       </div>
@@ -242,7 +242,7 @@ function ler_relacionados($id_tema, $concurso) {
   <div class='container my-5' id='verbetes'>
     <div class='row justify-content-between h3 my-5'>
       <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
-        <span class='align-middle'>Verbetes relacionados</span>
+        <span class='align-middle'>Relacionados</span>
       </div>
       <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
       </div>
@@ -259,7 +259,7 @@ function ler_relacionados($id_tema, $concurso) {
   <div class='container my-5' id='bibliografia'>
     <div class='row justify-content-between h3 my-5'>
       <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
-        <span class='align-middle'>Bibliografia pertinente</span>
+        <span class='align-middle'>Bibliografia</span>
       </div>
       <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
           <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_referencia_form' href=''><i class='fal fa-plus-square'></i></a></span>
@@ -321,7 +321,7 @@ function ler_relacionados($id_tema, $concurso) {
   <div class='container my-5' id='links'>
     <div class='row justify-content-between h3 my-5'>
       <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
-        <span class='align-middle'>Links externos</span>
+        <span class='align-middle'>Links</span>
       </div>
       <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
           <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_links_form' href=''><i class='fal fa-plus-square'></i></a></span>
@@ -342,7 +342,7 @@ function ler_relacionados($id_tema, $concurso) {
           echo "</ul>";
         }
         else {
-          echo "<p>Ainda não foram acrescentados links externos sobre este tópico.</p>";
+          echo "<p>Ainda não foram acrescentados links sobre este tópico.</p>";
         }
         ?>
       </div>
@@ -401,7 +401,7 @@ function ler_relacionados($id_tema, $concurso) {
   <div class='container my-5' id='discussao'>
     <div class='row justify-content-between h3 my-5'>
       <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
-        <span class='align-middle'>Debate</span>
+        <span class='align-middle'>Fórum</span>
       </div>
       <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'></div>
     </div>
@@ -409,7 +409,7 @@ function ler_relacionados($id_tema, $concurso) {
       <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
         <?php
           if ($discussao == false) {
-            echo "<p>Não há debate sobre este tópico. Deixe aqui sua opinião!</p>";
+            echo "<p>Não há comentários sobre este tópico. Deixe aqui sua opinião!</p>";
           }
           else {
             echo $discussao;
