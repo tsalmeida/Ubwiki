@@ -1,4 +1,5 @@
 <?php
+
   session_save_path('/home/tsilvaalmeida/public_html/ubwiki/sessions/');
   session_start();
   if (isset($_SESSION['email'])) {
@@ -22,6 +23,14 @@
       $sobrenome = $row['sobrenome'];
     }
   }
+
+  if (isset($_POST['novo_nome'])) {
+    $novonome = $_POST['novo_nome'];
+    $novosobrenome = $_POST['novo_sobrenome'];
+    $novoapelido = $_POST['novo_apelido'];
+    $result = $conn->query("UPDATE Usuarios SET nome = '$novonome', sobrenome = '$novosobrenome', apelido = '$novoapelido' WHERE id = $id");
+  }
+
 
 ?>
   <body>
