@@ -18,7 +18,7 @@
     standard_jumbotron("Ubwiki", false);
     ?>
     <div class="container-fluid my-5">
-      <div class="row">
+      <div class="row justify-content-center">
         <div class="col-8">
           <h1>Logout realizado</h1>
           <p>Para retornar, por favor siga o link na <a href='https://www.grupoubique.com.br'>página do Grupo Ubique</a>.</p>
