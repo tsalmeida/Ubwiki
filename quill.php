@@ -18,10 +18,7 @@
 
 <!-- Create the toolbar container -->
 <div id='quill_cont' class='ql-around'>
-  <div id="toolbar">
-    <button class="ql-bold">Bold</button>
-    <button class="ql-italic">Italic</button>
-  </div>
+  <div id="toolbar"></div>
 
   <!-- Create the editor container -->
   <div id="editor">
