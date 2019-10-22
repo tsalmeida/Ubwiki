@@ -92,7 +92,7 @@ logo {
 
 .quill_container_modal {
   width: 100%;
-  height: 50em;
+  max-height: 50vh;
   resize: none;
   outline: none;
   word-wrap: normal;
