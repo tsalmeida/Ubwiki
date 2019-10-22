@@ -110,37 +110,33 @@ function bottom_page() {
       if ($args[$array] == "quill_v") {
 
         echo "
-          <!-- Include the Quill library -->
-          <script src='https://cdn.quilljs.com/1.0.0/quill.js'></script>
+        <!-- Include the Quill library -->
+        <script src='https://cdn.quilljs.com/1.3.6/quill.js'></script>
 
-          <!-- Initialize Quill editor -->
-          <script>
+        <!-- Initialize Quill editor -->
+        <script>
 
-            var toolbarOptions = [
-              ['italic'],        // toggled buttons
-              ['blockquote', 'code-block'],
-              [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-              [{ 'script': 'super' }],
-              ['image'],
-              [{ 'header': [2, false] }],
+        var toolbarOptions = [
+          ['italic'],        // toggled buttons
+          ['blockquote'],
+          [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+          [{ 'script': 'super' }],
+          ['image'],
+          [{ 'header': [2, false] }],
 
-              ['clean']
-            ];
+          ['clean']
+        ];
 
-            var formats_wl = [
-              ['italic'], ['script'], ['blockquote'], [{'header': 2}, ['list'], ['image']]
-            ]
+        var formatWhitelist = ['italic','script','link','blockquote','list','image','header'];
 
-            var quill = new Quill('#editor', {
-              modules: {
-                toolbar: toolbarOptions,
-                container: '#quill_cont',
-                formats: formats_wl
-              },
-              theme: 'snow'
-            });
-
-          </script>
+          var quill = new Quill('#editor', {
+            theme: 'snow',
+            formats: formatWhitelist,
+            modules: {
+              toolbar: toolbarOptions
+            }
+          });
+        </script>
         ";
 
       }
