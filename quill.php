@@ -29,8 +29,5 @@ var formatWhitelist = ['italic','script','link','blockquote','list','image','hea
 
   var quill = new Quill('#editor', {
     theme: 'snow',
-    modules: {
-      formats: formatWhitelist
-    }
   });
 </script>
