@@ -70,13 +70,6 @@ function top_page() {
         if ($args[$array] == "quill_v") {
           echo "
             <link href='https://cdn.quilljs.com/1.0.0/quill.snow.css' rel='stylesheet'>
-
-            <style>
-              .ql-around {
-                max-width: 65ch;
-                height: 40em;
-              }
-            </style>
           ";
         }
         elseif ($args[$array] == "onepage") {
