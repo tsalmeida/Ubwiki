@@ -36,11 +36,10 @@
   var toolbarOptions = [
     ['italic'],        // toggled buttons
     ['blockquote', 'code-block'],
-    [{ header : [2, false] }],               // custom button values
     [{ 'list': 'ordered'}, { 'list': 'bullet' }],
     [{ 'script': 'super' }],                            // superscript
 
-    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+    [{ 'header': [2, false] }],
 
     ['clean']                                         // remove formatting button
   ];

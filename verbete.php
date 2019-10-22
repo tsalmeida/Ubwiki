@@ -569,16 +569,15 @@ function ler_relacionados($id_tema, $concurso) {
             <div class='row justify-content-center'>
               <div class='container col-12 justify-content-center'>
                 <?php
-                  echo "<div name='verbete_texto' class='rounded textarea_verbete px-4 py-5'>
+                  echo "
+                  <div name='verbete_texto' class='rounded textarea_verbete px-4 py-5'>
+                    <div id='quill_cont' class='ql-around'>
+                      <div id='toolbar'></div>
 
-                  <div id='quill_cont' class='ql-around'>
-                    <div id='toolbar'></div>
-
-                    <div id='editor'>
-                      $verbete_consolidado
+                      <div id='editor'>
+                        $verbete_consolidado
+                      </div>
                     </div>
-                  </div>
-
                   </div>";
                 ?>
               </div>
