@@ -36,7 +36,7 @@
   var toolbarOptions = [
     ['italic'],        // toggled buttons
     ['blockquote', 'code-block'],
-    [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+    [{ header : [2, false] }],               // custom button values
     [{ 'list': 'ordered'}, { 'list': 'bullet' }],
     [{ 'script': 'super' }],                            // superscript
 
