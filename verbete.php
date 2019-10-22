@@ -575,7 +575,7 @@ function ler_relacionados($id_tema, $concurso) {
                       <div id='toolbar'></div>
 
                       <div id='editor' name='verbete_texto'>
-                        <p>$verbete_consolidado</p>
+                        $verbete_consolidado
                       </div>
                     </div>
                   ";
