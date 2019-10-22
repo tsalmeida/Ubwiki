@@ -67,7 +67,17 @@ function top_page() {
     if ($args != false) {
       $array = 0;
       while (isset($args[$array])) {
-        if ($args[$array] == "quill") {
+        if ($args[$array] == "quill_v") {
+          echo "
+            <link href='https://cdn.quilljs.com/1.0.0/quill.snow.css' rel='stylesheet'>
+
+            <style>
+              .ql-around {
+                max-width: 65ch;
+                height: 40em;
+              }
+            </style>
+          ";
         }
         elseif ($args[$array] == "onepage") {
           echo "
@@ -104,7 +114,38 @@ function bottom_page() {
   if ($args != false) {
     $array = 0;
     while (isset($args[$array])) {
-      if ($args[$array] == "quill") {
+      if ($args[$array] == "quill_v") {
+
+        echo "
+          <!-- Include the Quill library -->
+          <script src='https://cdn.quilljs.com/1.0.0/quill.js'></script>
+
+          <!-- Initialize Quill editor -->
+          <script>
+
+            var toolbarOptions = [
+              ['italic'],        // toggled buttons
+              ['blockquote', 'code-block'],
+              [{ header : [2, false] }],               // custom button values
+              [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+              [{ 'script': 'super' }],                            // superscript
+
+              [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+              ['clean']                                         // remove formatting button
+            ];
+
+            var quill = new Quill('#editor', {
+              modules: {
+                toolbar: toolbarOptions,
+                container: '#quill_cont'
+              },
+              theme: 'snow'
+            });
+
+          </script>
+        ";
+
       }
       if ($args[$array] == "edicao_temas") {
         echo "
