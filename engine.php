@@ -117,13 +117,12 @@ function bottom_page() {
         <script>
 
         var toolbarOptions = [
-          ['italic'],        // toggled buttons
+          ['italic'],
           ['blockquote'],
           [{ 'list': 'ordered'}, { 'list': 'bullet' }],
           [{ 'script': 'super' }],
           ['image'],
           [{ 'header': [2, false] }],
-
           ['clean']
         ];
 
