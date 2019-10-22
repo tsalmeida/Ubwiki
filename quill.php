@@ -31,7 +31,6 @@ var formatWhitelist = ['italic','script','link','blockquote','list','image','hea
     theme: 'snow',
     modules: {
       formats: formatWhitelist
-    },
-    options
+    }
   });
 </script>
