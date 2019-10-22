@@ -4,7 +4,7 @@
 <!-- Create the editor container -->
 <div id="editor">
   <p>Hello World!</p>
-  <p>Some initial text</p>
+  <p>Some <strong>initial</strong> text</p>
   <p><br></p>
 </div>
 
