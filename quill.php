@@ -16,7 +16,7 @@
 
 var toolbarOptions = [
   ['italic'],        // toggled buttons
-  ['blockquote', 'code-block'],
+  ['blockquote'],
   [{ 'list': 'ordered'}, { 'list': 'bullet' }],
   [{ 'script': 'super' }],
   ['image'],
@@ -25,14 +25,15 @@ var toolbarOptions = [
   ['clean']
 ];
 
-  var formats_wl = [
-    ['italic'], ['script'], ['blockquote'], [{'header': 2}, ['list'], ['image']]
-  ]
+var options = [
+  format: ['italic'], ['script'], ['blockquote'], [{'header': 2}], ['list'], ['image']
+];
 
   var quill = new Quill('#editor', {
     theme: 'snow',
     modules: {
       toolbar: toolbarOptions
-    }
+    },
+    options
   });
 </script>
