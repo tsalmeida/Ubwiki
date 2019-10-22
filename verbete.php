@@ -565,12 +565,12 @@ function ler_relacionados($id_tema, $concurso) {
               <i class="fal fa-times-circle"></i>
             </button>
           </div>
-          <div class='modal-body mx-3'>
+          <div class='modal-body'>
             <div class='row justify-content-center'>
               <div class='container col-12 justify-content-center'>
                 <?php
                   echo "
-                    <div id='quill_cont' class='ql-around textarea_verbete px-4 py-5'>
+                    <div id='quill_cont' class='ql-around textarea_verbete'>
                       <div id='toolbar'></div>
 
                       <div id='editor' name='verbete_texto'>
