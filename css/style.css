@@ -90,9 +90,9 @@ logo {
   text-align: center;
 }
 
-.textarea_verbete {
+.quill_container_modal {
   width: 100%;
-  height: 25em;
+  height: 50em;
   resize: none;
   outline: none;
   word-wrap: normal;
