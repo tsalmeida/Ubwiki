@@ -13,6 +13,23 @@
 
 <!-- Initialize Quill editor -->
 <script>
+
+var toolbarOptions = [
+  ['italic'],        // toggled buttons
+  ['blockquote', 'code-block'],
+  [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+  [{ 'script': 'super' }],
+  ['image'],
+  [{ 'header': [2, false] }],
+
+  ['clean']
+];
+
+var formats_wl = [
+  ['italic'], ['script'], ['blockquote'], [{'header': 2}, ['list'], ['image']]
+]
+
+
   var quill = new Quill('#editor', {
     theme: 'snow'
   });
