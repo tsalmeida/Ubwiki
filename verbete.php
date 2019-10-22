@@ -65,8 +65,8 @@ else {
   $verbete_consolidado = false;
 }
 
-if (isset($_POST['verbete_texto'])) {
-  $novo_verbete = $_POST['verbete_texto'];
+if (isset($_POST['quill_novo_verbete'])) {
+  $novo_verbete = $_POST['quill_novo_verbete'];
   $novo_verbete = strip_tags($novo_verbete);
   $result = $conn->query("SELECT verbete FROM Verbetes WHERE concurso = '$concurso' AND id_tema = $id_tema");
   if ($result->num_rows > 0) {
@@ -559,7 +559,8 @@ function ler_relacionados($id_tema, $concurso) {
   <div class='modal fade' id='modal_editar_verbete' role='dialog' tabindex='-1'>
     <div class='modal-dialog modal-md' role='document'>
       <div class='modal-content'>
-        <form method='post'>
+        <form id='quill_verbete_form' method='post'>
+          <input name='quill_novo_verbete' type='hidden'>
           <div class='modal-header text-center'>
             <h4 class='modal-title w-100 font-weight-bold'>Editar verbete</h4>
             <button type='button' class='close' data-dismiss='modal'>

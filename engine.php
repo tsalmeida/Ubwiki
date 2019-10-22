@@ -129,13 +129,20 @@ function bottom_page() {
 
         var formatWhitelist = ['italic','script','link','blockquote','list','image','header'];
 
-          var quill = new Quill('#quill_container_verbete', {
-            theme: 'snow',
-            formats: formatWhitelist,
-            modules: {
-              toolbar: toolbarOptions
-            }
-          });
+        var quill = new Quill('#quill_container_verbete', {
+          theme: 'snow',
+          formats: formatWhitelist,
+          modules: {
+            toolbar: toolbarOptions
+          }
+        });
+
+        var form = document.querySelector('#quill_verbete_form');
+        form.onsubmit = function() {
+          var quill_result = document.querySelector('input[name=quill_result]');
+          quill_result.value = JSON.stringify(quill.getContents());
+        }
+
         </script>
         ";
 
