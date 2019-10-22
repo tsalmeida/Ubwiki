@@ -22,6 +22,8 @@
 
   var quill = new Quill('#editor', {
     theme: 'snow',
-    toolbar: toolbarOptions
+    modules: {
+      toolbar: toolbarOptions
+    }
   });
 </script>
