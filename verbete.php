@@ -195,6 +195,7 @@ function ler_relacionados($id_tema, $concurso) {
             echo "<p>O verbete deste tópico ainda não começou a ser escrito.</p>";
           }
           else {
+            echo "<h1>$tema</h1>";
             $separator = "\r\n";
             $line = strtok($verbete_consolidado, $separator);
             while ($line !== false) {
