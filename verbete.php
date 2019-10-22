@@ -9,7 +9,7 @@
   }
 
   include 'engine.php';
-  top_page();
+  top_page("quill_v");
   $result = $conn->query("SELECT id FROM Usuarios WHERE email = '$user'");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
@@ -627,6 +627,6 @@ function ler_relacionados($id_tema, $concurso) {
   </body>
 <?php
     load_footer();
-    bottom_page();
+    bottom_page("quill_v");
     $conn->close();
 ?>
