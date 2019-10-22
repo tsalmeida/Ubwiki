@@ -4,7 +4,7 @@
 <!-- Create the editor container -->
 <div id="editor">
   <p>Hello World!</p>
-  <p>Some initial <strong>bold</strong> text</p>
+  <p>Some initial text</p>
   <p><br></p>
 </div>
 
@@ -29,5 +29,8 @@ var formatWhitelist = ['italic','script','link','blockquote','list','image','hea
 
   var quill = new Quill('#editor', {
     theme: 'snow',
+    modules: {
+      formats: formatWhitelist
+    }
   });
 </script>
