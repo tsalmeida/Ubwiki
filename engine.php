@@ -120,17 +120,22 @@ function bottom_page() {
               ['italic'],        // toggled buttons
               ['blockquote', 'code-block'],
               [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-              [{ 'script': 'super' }],                            // superscript
-
+              [{ 'script': 'super' }],
+              ['image'],
               [{ 'header': [2, false] }],
 
-              ['clean']                                         // remove formatting button
+              ['clean']
             ];
+
+            var formats_wl = [
+              ['italic'], ['script'], ['blockquote'], [{'header': 2}, ['list'], ['image']]
+            ]
 
             var quill = new Quill('#editor', {
               modules: {
                 toolbar: toolbarOptions,
-                container: '#quill_cont'
+                container: '#quill_cont',
+                formats: formats_wl
               },
               theme: 'snow'
             });

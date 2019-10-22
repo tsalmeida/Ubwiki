@@ -574,7 +574,8 @@ function ler_relacionados($id_tema, $concurso) {
                     <div id='quill_cont' class='ql-around textarea_verbete'>
                       <div id='toolbar'></div>
 
-                      <div id='editor' name='verbete_texto' value='$verbete_consolidado'>
+                      <div id='editor' name='verbete_texto'>
+                        $verbete_consolidado
                       </div>
                     </div>
                   ";
