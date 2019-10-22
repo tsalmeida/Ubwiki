@@ -139,7 +139,7 @@ function bottom_page() {
         var form = document.querySelector('#quill_verbete_form');
         form.onsubmit = function() {
           var quill_novo_verbete = document.querySelector('input[name=quill_novo_verbete]');
-          quill_novo_verbete.value = quill.ql-editor.firstChild.innerHTML;
+          quill_novo_verbete.value = quill.root.firstChild.innerHTML;
         }
 
         </script>
