@@ -25,15 +25,13 @@ var toolbarOptions = [
   ['clean']
 ];
 
-var options = [
-  format: ['italic'], ['script'], ['blockquote'], [{'header': 2}], ['list'], ['image']
-];
+var formatWhitelist = ['italic','script','link','blockquote','list','image','header'];
 
   var quill = new Quill('#editor', {
     theme: 'snow',
     modules: {
-      toolbar: toolbarOptions
-    },
+      formats: formatWhitelist,
+    }
     options
   });
 </script>
