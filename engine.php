@@ -129,7 +129,7 @@ function bottom_page() {
 
         var formatWhitelist = ['italic','script','link','blockquote','list','image','header'];
 
-          var quill = new Quill('#editor', {
+          var quill = new Quill('#quill_container_verbete', {
             theme: 'snow',
             formats: formatWhitelist,
             modules: {
