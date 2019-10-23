@@ -46,18 +46,13 @@
             </div>
         </div>
         <div class='row'>
-            <div class="col-lg-12 col-sm-12 mb-5 text-center">
-              <span class='display-1 wireone'>Ubwiki</span>
+            <div class="col-12 mb-5 text-center">
+              <?php echo "<span class='display-1 wireone'>Ubwiki $concurso</span>" ?>
             </div>
         </div>
         <div class='row'>
-          <div class="col-lg-12 col-sm-12 mb-5 text-center">
-            <?php echo "<span class='display-2 wireone'>$concurso</span>"; ?>
-          </div>
-        </div>
-        <div class='row'>
-          <div class="col-lg-12 col-sm-12 mb-5 text-center">
-            <span class='display-3 wireone'>Ordem e Progresso</span>
+          <div class='col-12 text-center'>
+            <span class='lead'>Ordem e Progresso</span>
           </div>
         </div>
         <div class="row justify-content-center">
