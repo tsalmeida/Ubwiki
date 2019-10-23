@@ -169,7 +169,7 @@ function ler_relacionados($id_tema, $concurso) {
   <div class='container-fluid text-center'>
     <div class='row'>
       <div class='col-lg-2 col-sm-12'>
-        <ul class='list-group list-group-horizontal-lg'>
+        <ul class='list-group border-dark rounded-lg'>
           <a class='list-group-item list-group-item-action text-dark border-0' href='#verbete' title='Verbete'><i class="fal fa-file-alt fa-2x fa-fw"></i> <span class='d-block'>Verbete</span></a>
           <a class='list-group-item list-group-item-action text-dark border-0' href='#imagens' title='Imagens'><i class="fal fa-images fa-2x fa-fw"></i> <span class='d-block'>Imagens</span></a>
           <a class='list-group-item list-group-item-action text-dark border-0' href='#verbetes' title='Relacionados'><i class="fal fa-copy fa-2x fa-fw"></i> <span class='d-block'>Relacionados</span></a>
