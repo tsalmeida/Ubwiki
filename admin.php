@@ -97,6 +97,15 @@
     $conn->query("INSERT INTO Admin_data (tipo, conteudo) VALUES ('notas', '$nova_mensagem')");
     $admin_mensagens = $nova_mensagem;
   }
+  else {
+    $results = $conn->query("SELECT conteudo FROM Admin_data WHERE tipo = 'notas' ORDER BY id DESC");
+    if ($result->num_rows > 0) {
+      while($row = $result->fetch_assoc()) {
+        $admin_mensagens = $row['conteudo'];
+        break;
+      }
+    }
+  }
 
   top_page("quill_admin");
   ?>
