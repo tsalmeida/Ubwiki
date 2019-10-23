@@ -56,19 +56,19 @@ if ($result->num_rows > 0) {
             $nivel4 = $row["nivel4"];
             $nivel5 = $row["nivel5"];
             if ($nivel5 != false) {
-              echo "<a class='list-group-item list-group-item-action b-0' href='verbete.php?concurso=$concurso&tema=$id'><em><span style='margin-left: 13ch'><i class='fal fa-chevron-double-right'></i><i class='fal fa-chevron-double-right'></i> $nivel5</span></a></em>";
+              echo "<a class='list-group-item list-group-item-action border-0' href='verbete.php?concurso=$concurso&tema=$id'><em><span style='margin-left: 13ch'><i class='fal fa-chevron-double-right'></i><i class='fal fa-chevron-double-right'></i> $nivel5</span></a></em>";
             }
             elseif ($nivel4 != false) {
-              echo "<a class='list-group-item list-group-item-action b-0' href='verbete.php?concurso=$concurso&tema=$id'><em><span style='margin-left: 8ch'><i class='fal fa-chevron-double-right'></i><i class='fal fa-chevron-right'></i> $nivel4</span></em></a>";
+              echo "<a class='list-group-item list-group-item-action border-0' href='verbete.php?concurso=$concurso&tema=$id'><em><span style='margin-left: 8ch'><i class='fal fa-chevron-double-right'></i><i class='fal fa-chevron-right'></i> $nivel4</span></em></a>";
             }
             elseif ($nivel3 != false) {
-              echo "<a class='list-group-item list-group-item-action b-0' href='verbete.php?concurso=$concurso&tema=$id'><span style='margin-left: 5ch'><i class='fal fa-chevron-double-right'></i> $nivel3</span></a>";
+              echo "<a class='list-group-item list-group-item-action border-0' href='verbete.php?concurso=$concurso&tema=$id'><span style='margin-left: 5ch'><i class='fal fa-chevron-double-right'></i> $nivel3</span></a>";
             }
             elseif ($nivel2 != false) {
-              echo "<a class='list-group-item list-group-item-action b-0' href='verbete.php?concurso=$concurso&tema=$id'><span style='margin-left: 3ch'><i class='fal fa-chevron-right'></i> $nivel2</span></a>";
+              echo "<a class='list-group-item list-group-item-action border-0' href='verbete.php?concurso=$concurso&tema=$id'><span style='margin-left: 3ch'><i class='fal fa-chevron-right'></i> $nivel2</span></a>";
             }
             elseif ($nivel1 != false) {
-              echo "<a class='list-group-item list-group-item-action b-0' href='verbete.php?concurso=$concurso&tema=$id'><strong>$nivel1</strong></a>";
+              echo "<a class='list-group-item list-group-item-action border-0' href='verbete.php?concurso=$concurso&tema=$id'><strong>$nivel1</strong></a>";
             }
           }
         }
