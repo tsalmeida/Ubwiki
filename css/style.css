@@ -106,10 +106,10 @@ logo {
   cursor: pointer;
   border: 0;
   border-style: solid;
-  border-bottom-color: #bdbdbd;
+  border-bottom-color: #eeeeee;
   border-bottom-width: 0.2rem;
   border-right-width: 0.2rem;
-  border-right-color: #bdbdbd;
+  border-right-color: #eeeeee;
 }
 
 .bc-icons .breadcrumb-item + .breadcrumb-item::before {

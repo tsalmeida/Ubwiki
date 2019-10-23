@@ -87,7 +87,7 @@
                     $sigla = $row["sigla"];
                     $materia = $row["materia"];
                     echo "
-                      <div href='materia.php?sigla=$sigla&concurso=$concurso' class='rounded cardmateria grey lighten-2 text-break text-center align-middle mb-3'>
+                      <div href='materia.php?sigla=$sigla&concurso=$concurso' class='rounded cardmateria grey lighten-4 text-break text-center align-middle mb-3'>
                         <small class='text-dark text-uppercase smaller'>$materia</small>
                       </div>
                     ";
