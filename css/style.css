@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Playfair+Display:700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Wire+One&display=swap');
 
 html {
 font-size: 1rem;
@@ -36,6 +37,10 @@ logo {
 
 .playfair {
   font-family: 'Playfair Display', serif !important;
+}
+
+.wireone {
+  font-family: 'Wire One', sans-serif;
 }
 
 .jumbotron {
