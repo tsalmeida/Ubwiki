@@ -150,9 +150,9 @@ if (isset($_POST['novo_video_titulo'])) {
   <?php
     carregar_navbar('dark');
     $breadcrumbs = "
-      <li class='breadcrumb-item text-muted2'><a href='index.php'>$concurso</a></li>
-      <li class='breadcrumb-item text-muted2'><a href='materia.php?concurso=$concurso&sigla=$sigla_materia'>$materia</a></li>
-      <li class='breadcrumb-item text-muted2'>$nivel1</li>
+      <li class='breadcrumb-item'><a href='index.php'>$concurso</a></li>
+      <li class='breadcrumb-item'><a href='materia.php?concurso=$concurso&sigla=$sigla_materia'>$materia</a></li>
+      <li class='breadcrumb-item'>$nivel1</li>
     ";
     if ($nivel2 != false) { $breadcrumbs .= "<li class='breadcrumb-item text-white'>$nivel2</li>"; }
     if ($nivel3 != false) { $breadcrumbs .= "<li class='breadcrumb-item text-white'>$nivel3</li>"; }
