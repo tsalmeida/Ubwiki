@@ -424,7 +424,7 @@ function ler_relacionados($id_tema, $concurso) {
   <div class='modal fade' id='modal_imagens_form' role='dialog' tabindex='-1'>
     <div class='modal-dialog modal-lg' role='document'>
       <div class='modal-content'>
-        <form method='post'>
+        <form method='post' action='#imagens'>
           <div class='modal-header text-center'>
             <h4 class='modal-title w-100 font-weight-bold'>Adicionar imagem</h4>
             <button type='button' class='close' data-dismiss='modal'>
