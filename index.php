@@ -50,16 +50,11 @@
               <?php echo "<span class='display-1 wireone'>Ubwiki $concurso</span>" ?>
             </div>
         </div>
-        <div class='row'>
-          <div class='col-12 text-center'>
-            <span class='lead'>Ordem e Progresso</span>
-          </div>
-        </div>
         <div class="row justify-content-center">
           <div class="col-lg-6 col-sm-12 mb-5">
             <form id="searchform" action="" method="post">
               <div id="searchDiv">
-                <input id="searchBar" list="searchlist" type="text" class="searchBar" name="searchBar" rows="1" autocomplete="off" spellcheck="false" placeholder="O que você vai estudar hoje?" required></input>
+                <input id="searchBar" list="searchlist" type="text" class="searchBar" name="searchBar" rows="1" autocomplete="off" spellcheck="false" placeholder="O que você vai aprender hoje?" required></input>
                 <datalist id="searchlist">
                   <?php
                     $result = $conn->query("SELECT chave FROM Searchbar WHERE concurso = '$concurso' ORDER BY ordem");
