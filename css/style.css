@@ -118,3 +118,7 @@ logo {
 .bc-icons .breadcrumb-item + .breadcrumb-item::before {
   content: none;
 }
+
+.bradcrumb {
+  margin-bottom: 0;
+}
