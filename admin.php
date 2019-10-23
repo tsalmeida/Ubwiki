@@ -177,11 +177,11 @@
             <p class="h4 mb-4">Notas dos administradores</p>
             <p class='text-left'>Estas anotações são compartilhadas entre todos os administradores, por exemplo, para registrar idéia de melhorias futuras para a página.</p>
             <div class='row'>
-              <div class='col-12 border'>
+              <div class='col-12 border' style='height: 60rem'>
                 <?php echo "$admin_mensagens"; ?>
               </div>
             </div>
-            <button class='btn btn-primary btn-block my-4' data-toggle='modal' data-target='#modal_notas_admin'>Acessar ferramenta</button>
+            <button class='btn btn-primary btn-block my-4' data-toggle='modal' data-target='#modal_notas_admin'>Editar notas</button>
           </div>
         </div>
       </div>
