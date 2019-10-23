@@ -12,7 +12,7 @@ mysqli_set_charset($conn2,"utf8");
 
 function carregar_navbar() {
   echo "<nav class='navbar navbar-expand-lg'>
-    <a class='navbar-brand playfair' href='index.php'>Ubwiki</a>
+    <a class='navbar-brand playfair' href='https://www.grupoubique.com.br/' target='_blank'>Ubique</a>
     <ul class='nav navbar-nav ml-auto nav-flex-icons'>
       <li class='nav-item dropdown'>
         <a class='navlink dropdown-toggle waves-effect waves-light' id='user_dropdown' data-toggle='dropdown' href='#'>

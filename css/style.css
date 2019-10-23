@@ -66,8 +66,8 @@ logo {
   border-style: solid;
   border-bottom-color: #b5b5b5;
   border-bottom-width: 0.2rem;
-  border-right-width: 0.5rem;
-  border-right-color: white;
+  border-right-width: 0.2rem;
+  border-right-color: #b5b5b5;
 }
 
 .searchBar {
