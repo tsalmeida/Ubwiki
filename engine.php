@@ -139,9 +139,9 @@ function bottom_page() {
         var form = document.querySelector('#quill_verbete_form');
         form.onsubmit = function() {
           var quill_novo_verbete_html = document.querySelector('input[name=quill_novo_verbete_html]');
-          quill_novo_verbete_html.value = quill.container.innerHTML();
-          var test = quill.container.innerHTML();
-          alert(test)
+          quill_novo_verbete_html.value = quill.root.innerHTML();
+          var test = quill.root.innerHTML();
+          alert(test);
         }
 
         </script>
