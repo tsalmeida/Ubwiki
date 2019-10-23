@@ -100,7 +100,7 @@
     header("Location:edicao_temas.php?concurso=$metalinguagem_concurso");
   }
 
-  top_page();
+  top_page("quill_admin");
   ?>
   <body>
     <?php
@@ -174,13 +174,14 @@
         </div>
       </div>
     </div>
+
     <div class='modal fade' id='modal_notas_admin' role='dialog' tabindex='-1'>
       <div class='modal-dialog modal-lg quill_modal' role='document'>
         <div class='modal-content'>
-          <form id='quill_verbete_form' method='post' action='#verbete'>
-            <input name='quill_novo_verbete_html' type='hidden'>
+          <form id='quill_admin_form' method='post'>
+            <input name='quill_nova_mensagem_html' type='hidden'>
             <div class='modal-header text-center'>
-              <h4 class='modal-title w-100 font-weight-bold'>Editar verbete</h4>
+              <h4 class='modal-title w-100 font-weight-bold'>Notas dos administradores</h4>
               <button type='button' class='close' data-dismiss='modal'>
                 <i class="fal fa-times-circle"></i>
               </button>
@@ -190,9 +191,9 @@
                 <div class='container col-12 justify-content-center'>
                   <?php
                     echo "
-                      <div id='quill_container_verbete' class='quill_container_modal'>
-                        <div id='quill_editor_verbete'>
-                          $verbete_html
+                      <div id='quill_container_admin' class='quill_container_modal'>
+                        <div id='quill_editor_admin'>
+                          <p>Variável com as notas dos administradores vão aqui.</p>
                         </div>
                       </div>
                     ";
@@ -211,5 +212,5 @@
   </body>
 <?php
   load_footer();
-  bottom_page();
+  bottom_page("quill_admin");
 ?>
