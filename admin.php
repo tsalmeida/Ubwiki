@@ -1,6 +1,7 @@
 <?php
   session_save_path('/home/tsilvaalmeida/public_html/ubwiki/sessions/');
   session_start();
+
   if (isset($_SESSION['email'])) {
     $user = $_SESSION['email'];
   }
@@ -12,12 +13,7 @@
 
   if (isset($_POST['otimizar_temas_concurso'])) {
     $concurso = $_POST['otimizar_temas_concurso'];
-    $servername = "localhost";
-    $username = "grupoubique";
-    $password = "ubique patriae memor";
-    $dbname = "Ubique";
     $ordem = 0;
-    $conn = new mysqli($servername, $username, $password, $dbname);
     mysqli_set_charset($conn,"utf8");
     $result = $conn->query("SELECT id, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso'");
     if ($result->num_rows > 0) {
@@ -49,13 +45,7 @@
 
   if (isset($_POST['reconstruir_concurso'])) {
     $concurso = $_POST['reconstruir_concurso'];
-    $servername = "localhost";
-    $username = "grupoubique";
-    $password = "ubique patriae memor";
-    $dbname = "Ubique";
     $ordem = 0;
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    mysqli_set_charset($conn,"utf8");
     $conn->query("DELETE FROM Searchbar WHERE concurso = '$concurso'");
     $result = $conn->query("SELECT sigla, materia FROM Materias WHERE concurso = '$concurso' AND estado = 1 ORDER BY ordem");
     if ($result->num_rows > 0) {
@@ -98,6 +88,14 @@
   if (isset($_POST['metalinguagem_concurso'])) {
     $metalinguagem_concurso = $_POST['metalinguagem_concurso'];
     header("Location:edicao_temas.php?concurso=$metalinguagem_concurso");
+  }
+
+  $admin_mensagens = false;
+
+  if (isset($_POST['quill_nova_mensagem_html'])) {
+    $nova_mensagem = $_POST['quill_nova_mensagem_html'];
+    $conn->query("INSERT INTO Admin_data (tipo, conteudo) VALUE ('notas', $nova_mensagem)")
+    $admin_mensagens = $nova_mensagem;
   }
 
   top_page("quill_admin");
@@ -167,7 +165,7 @@
         </div>
         <div class='col-lg-6 col-sm-12'>
           <div class='text-center border border-light p-5 my-2'>
-            <p class="h4 mb-4">Notas de administrador</p>
+            <p class="h4 mb-4">Notas dos administradores</p>
             <p class='text-left'>Estas anotações são compartilhadas entre todos os administradores, por exemplo, para registrar idéia de melhorias futuras para a página.</p>
             <button class='btn btn-primary btn-block my-4' data-toggle='modal' data-target='#modal_notas_admin'>Acessar ferramenta</button>
           </div>
@@ -193,7 +191,7 @@
                     echo "
                       <div id='quill_container_admin' class='quill_container_modal'>
                         <div id='quill_editor_admin'>
-                          <p>Variável com as notas dos administradores vão aqui.</p>
+                          $admin_mensagens
                         </div>
                       </div>
                     ";
