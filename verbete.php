@@ -180,10 +180,10 @@ if (isset($_POST['novo_video_titulo'])) {
       <div class='col-lg-10 col-sm-12 bg-white'>
         <div class='container' id='verbete'>
           <div class='row justify-content-middle h3 my-5'>
-            <div class='col-lg-10 col-sm-12 text-left justify-content-center align-middle'>
-              <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_editar_verbete' href=''><i class="fal fa-edit"></i></a></span>
+            <div class='col-1 justify-content-center'>
+              <a data-toggle='modal' data-target='#modal_editar_verbete' href=''><i class="fal fa-edit"></i></a>
             </div>
-            <div class='col-lg-2 col-sm-12 text-right justify-content-center align-middle'>
+            <div class='col-11'>
               <?php echo "<span class='display-2 text-center'>$tema</span>"; ?>
             </div>
           </div>
