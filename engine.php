@@ -41,7 +41,7 @@ function breadcrumbs($content) {
         </div>
         <div class='col-2'>
           <div class='ml-auto'>
-            <a href='#'>Verbetes relacionados</a>
+            <ol class='d-inline-flex transparent mb-0'><li class='breadcrumb-item'><a href='#'>Verbetes relacionados</a></li></ol>
           </div>
         </div>
       </div>
