@@ -187,6 +187,9 @@ if (isset($_POST['novo_video_titulo'])) {
               <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_editar_verbete' href=''><i class="fal fa-edit"></i></a></span>
             </div>
           </div>
+          <div class='row justify-content-middle'>
+            <?php echo "<span class='display-2 text-center'>$tema</span>"; ?>
+          </div>
           <div class='row justify-content-center border-bottom border-dark py-5'>
             <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
               <?php
@@ -194,7 +197,6 @@ if (isset($_POST['novo_video_titulo'])) {
                   echo "<p>O verbete deste tópico ainda não começou a ser escrito.</p>";
                 }
                 else {
-                  echo "<span class='display-2'>$tema</span>";
                   $verbete_reformatado = quill_reformatar($verbete_html);
                   echo $verbete_reformatado;
                 }
