@@ -10,7 +10,17 @@ $dbname = "Ubwiki_usuarios";
 $conn2 = new mysqli($servername, $username, $password, $dbname);
 mysqli_set_charset($conn2,"utf8");
 
-function carregar_navbar($mode) {
+function carregar_navbar() {
+  $args = func_get_args();
+  $forum = false;
+  $count = 0;
+  while (isset($args[$count])) {
+    $arg = $args[$count];
+    if ($arg == 'dark') { $mode = 'dark'; }
+    elseif ($arg == 'light') { $mode = 'light'; }
+    elseif ($arg == 'forum') { $forum = true; }
+    $arg++;
+  }
   if ($mode == 'dark') { $mode = 'dark'; $color = 'elegant-color'; }
   elseif ($mode == 'light') { $color = 'bg-white'; }
   echo "<nav class='navbar navbar-expand-lg $color'>";
@@ -20,10 +30,9 @@ function carregar_navbar($mode) {
   else {
     echo "<a class='navbar-brand playfair text-dark' href='index.php'>Ubwiki</a>";
   }
-  echo "
-    <ul class='nav navbar-nav ml-auto nav-flex-icons'>
-    <li class='nav-item dropdown'>
-  ";
+  echo "<ul class='nav navbar-nav ml-auto nav-flex-icons'>";
+  if ($forum == true) { echo "<li class='nav-item dropdown'><a class='navlink waves-effect waves-light text-white' id='abrir_forum_modal'><i class='fal fa-comments'></i></a></li>"; }
+  echo "<li class='nav-item dropdown'>";
   if ($mode == 'dark') {
     echo "<a class='navlink dropdown-toggle waves-effect waves-light text-white' id='user_dropdown' data-toggle='dropdown' href='#'>";
   }
