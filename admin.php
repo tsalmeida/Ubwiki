@@ -174,7 +174,7 @@
                   <p>Colocar quill aqui.</p>
                 </div>
               </fieldset>
-            <button class='btn btn-primary btn-block my-4' type='submit'>Acessar ferramenta</button>
+            <button class='btn btn-primary btn-block my-4' type='submit'>Abrir ferramenta</button>
           </form>
         </div>
       </div>
