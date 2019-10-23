@@ -48,13 +48,13 @@
         <div class="row text-center">
           <div class="col-lg-12 col-sm-12 mb-5">
             <div class='row text-center'>
-              <span class='display-3'>Ubwiki</span>
+              <span class='display-3 wireone'>Ubwiki</span>
             </div>
             <div class='row text-center'>
-              <?php echo "<span class='display-4'>$concurso</span>"; ?>
+              <?php echo "<span class='display-4 wireone'>$concurso</span>"; ?>
             </div>
             <div class='row'>
-              <span class='lead'>Ordem e Progresso</span>
+              <span class='lead wireone'>Ordem e Progresso</span>
             </div>
           </div>
         </div>
