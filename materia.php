@@ -37,7 +37,7 @@ if ($result->num_rows > 0) {
 
   <div class="container my-5">
     <div class="row justify-content-center">
-      <div class="col-lg-8 col-sm-12">
+      <div class="col-lg-9 col-sm-12">
 <?php
         if ($materia == false) {
           echo "<h4>Página não-encontrada</h4>
