@@ -4249,16 +4249,13 @@ tbody.collapse.show {
 }
 .list-group-item-action {
 	width: 100%;
-	color: #495057;
 	text-align: inherit
 }
 .list-group-item-action:focus, .list-group-item-action:hover {
-	color: #495057;
 	text-decoration: none;
 	background-color: #f8f9fa
 }
 .list-group-item-action:active {
-	color: #212529;
 	background-color: #e9ecef
 }
 .list-group-item {
