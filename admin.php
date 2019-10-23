@@ -166,15 +166,44 @@
           </form>
         </div>
         <div class='col-lg-6 col-sm-12'>
-          <form class='text-center border border-light p-5 my-2' method='post'>
-              <p class="h4 mb-4">Notas de administrador</p>
-              <p class='text-left'>Estas anotações são compartilhadas entre todos os administradores, por exemplo, para registrar idéia de melhorias futuras para a página.</p>
-              <fieldset class="form-group">
-                <div class="row">
-                  <p>Colocar quill aqui.</p>
+          <div class='text-center border border-light p-5 my-2'>
+            <p class="h4 mb-4">Notas de administrador</p>
+            <p class='text-left'>Estas anotações são compartilhadas entre todos os administradores, por exemplo, para registrar idéia de melhorias futuras para a página.</p>
+            <button class='btn btn-primary btn-block my-4' data-toggle='modal' data-target='#modal_notas_admin'>Acessar ferramenta</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class='modal fade' id='modal_notas_admin' role='dialog' tabindex='-1'>
+      <div class='modal-dialog modal-lg quill_modal' role='document'>
+        <div class='modal-content'>
+          <form id='quill_verbete_form' method='post' action='#verbete'>
+            <input name='quill_novo_verbete_html' type='hidden'>
+            <div class='modal-header text-center'>
+              <h4 class='modal-title w-100 font-weight-bold'>Editar verbete</h4>
+              <button type='button' class='close' data-dismiss='modal'>
+                <i class="fal fa-times-circle"></i>
+              </button>
+            </div>
+            <div class='modal-body'>
+              <div class='row justify-content-center'>
+                <div class='container col-12 justify-content-center'>
+                  <?php
+                    echo "
+                      <div id='quill_container_verbete' class='quill_container_modal'>
+                        <div id='quill_editor_verbete'>
+                          $verbete_html
+                        </div>
+                      </div>
+                    ";
+                  ?>
                 </div>
-              </fieldset>
-            <button class='btn btn-primary btn-block my-4' type='submit'>Abrir ferramenta</button>
+              </div>
+            </div>
+            <div class='modal-footer d-flex justify-content-center mt-5'>
+              <button type='button' class='btn bg-lighter btn-lg' data-dismiss='modal'><i class="fal fa-times-circle"></i> Cancelar</button>
+              <button type='submit' class='but btn-primary btn-lg'><i class='fal fa-check'></i> Salvar</button>
+            </div>
           </form>
         </div>
       </div>
