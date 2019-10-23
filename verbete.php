@@ -438,7 +438,7 @@ function ler_relacionados($id_tema, $concurso) {
             </div>
             <div class='md-form mb-2'>
               <input type='text' id='nova_imagem_titulo' name='nova_imagem_titulo' class='form-control validate' required>
-              <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_imagem_titulo'>Titulo da imagem</label>
+              <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_imagem_titulo'>Título da imagem</label>
             </div>
             <div class='md-form mb-2'>
               <input type='text' id='nova_imagem_trecho' name='nova_imagem_trecho' class='form-control validate' required>
