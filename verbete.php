@@ -194,7 +194,7 @@ if (isset($_POST['novo_video_titulo'])) {
                   echo "<p>O verbete deste tópico ainda não começou a ser escrito.</p>";
                 }
                 else {
-                  echo "<h1>$tema</h1>";
+                  echo "<span class='display-2'>$tema</span>";
                   $verbete_reformatado = quill_reformatar($verbete_html);
                   echo $verbete_reformatado;
                 }
