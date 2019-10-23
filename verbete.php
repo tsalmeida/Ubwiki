@@ -166,255 +166,258 @@ function ler_relacionados($id_tema, $concurso) {
   breadcrumbs($breadcrumbs);
 ?>
 
-  <div class='container-fluid py-3 col-2 bg-lighter text-center'>
-    <ul class='list-group list-group-horizontal-lg'>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#verbete' title='Verbete'><i class="fal fa-file-alt fa-2x fa-fw"></i> <span class='d-block'>Verbete</span></a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#imagens' title='Imagens'><i class="fal fa-images fa-2x fa-fw"></i> <span class='d-block'>Imagens</span></a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#verbetes' title='Relacionados'><i class="fal fa-copy fa-2x fa-fw"></i> <span class='d-block'>Relacionados</span></a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#bibliografia' title='Bibliografia'><i class="fal fa-books fa-2x fa-fw"></i> <span class='d-block'>Bibliografia</span></a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#videos' title='Vídeos e aulas'><i class="fal fa-chalkboard-teacher fa-2x fa-fw"></i> <span class='d-block'>Vídeos e aulas</span></a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#links' title='Links'><i class="fal fa-link fa-2x fa-fw"></i> <span class='d-block'>Links</span></a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#anotacao' title='Anotações'><i class="fal fa-user-edit fa-2x fa-fw"></i> <span class='d-block'>Anotações</span></a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#questoes' title='Questões'><i class="fal fa-trophy fa-2x fa-fw"></i> <span class='d-block'>Questões</span></a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#discussao' title='Fórum'><i class="fal fa-comments-alt fa-2x fa-fw"></i> <span class='d-block'>Fórum</span></a>
-    </ul>
-  </div>
-  <div class='container my-5' id='verbete'>
-    <div class='row justify-content-between h3 my-5'>
-      <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
-        <span class='align-middle'>Verbete</span>
+  <div class='container-fluid bg-lighter text-center'>
+    <div class='row'>
+      <div class='col-lg-2 col-sm-12'>
+        <ul class='list-group list-group-horizontal-lg'>
+          <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#verbete' title='Verbete'><i class="fal fa-file-alt fa-2x fa-fw"></i> <span class='d-block'>Verbete</span></a>
+          <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#imagens' title='Imagens'><i class="fal fa-images fa-2x fa-fw"></i> <span class='d-block'>Imagens</span></a>
+          <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#verbetes' title='Relacionados'><i class="fal fa-copy fa-2x fa-fw"></i> <span class='d-block'>Relacionados</span></a>
+          <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#bibliografia' title='Bibliografia'><i class="fal fa-books fa-2x fa-fw"></i> <span class='d-block'>Bibliografia</span></a>
+          <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#videos' title='Vídeos e aulas'><i class="fal fa-chalkboard-teacher fa-2x fa-fw"></i> <span class='d-block'>Vídeos e aulas</span></a>
+          <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#links' title='Links'><i class="fal fa-link fa-2x fa-fw"></i> <span class='d-block'>Links</span></a>
+          <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#anotacao' title='Anotações'><i class="fal fa-user-edit fa-2x fa-fw"></i> <span class='d-block'>Anotações</span></a>
+          <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#questoes' title='Questões'><i class="fal fa-trophy fa-2x fa-fw"></i> <span class='d-block'>Questões</span></a>
+          <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#discussao' title='Fórum'><i class="fal fa-comments-alt fa-2x fa-fw"></i> <span class='d-block'>Fórum</span></a>
+        </ul>
       </div>
-      <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
-        <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_editar_verbete' href=''><i class="fal fa-edit"></i></a></span>
+      <div class='container my-5' id='verbete'>
+        <div class='row justify-content-between h3 my-5'>
+          <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
+            <span class='align-middle'>Verbete</span>
+          </div>
+          <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
+            <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_editar_verbete' href=''><i class="fal fa-edit"></i></a></span>
+          </div>
+        </div>
+        <div class='row justify-content-center border-bottom border-dark py-5'>
+          <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
+            <?php
+              if ($verbete_html == false) {
+                echo "<p>O verbete deste tópico ainda não começou a ser escrito.</p>";
+              }
+              else {
+                echo "<h1>$tema</h1>";
+                $verbete_reformatado = quill_reformatar($verbete_html);
+                echo $verbete_reformatado;
+              }
+            ?>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class='row justify-content-center border-bottom border-dark py-5'>
-      <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
-        <?php
-          if ($verbete_html == false) {
-            echo "<p>O verbete deste tópico ainda não começou a ser escrito.</p>";
-          }
-          else {
-            echo "<h1>$tema</h1>";
-            $verbete_reformatado = quill_reformatar($verbete_html);
-            echo $verbete_reformatado;
-          }
-        ?>
-      </div>
-    </div>
-  </div>
 
-  <div class='container my-5' id='imagens'>
-    <div class='row justify-content-between h3 my-5'>
-      <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
-        <span class='align-middle'>Imagens</span>
-      </div>
-      <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
-          <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_imagens_form' href=''><i class='fal fa-plus-square'></i></a></span>
-      </div>
-    </div>
-    <div class='row justify-content-center border-bottom border-dark py-5'>
-      <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
-        <?php
-        $result = $conn->query("SELECT titulo, link, comentario, trecho FROM Imagens WHERE id_tema = $id_tema AND concurso = '$concurso'");
-        if ($result->num_rows > 0) {
-          echo "<ul class='list-group'>";
-            while($row = $result->fetch_assoc()) {
-              $imagem_titulo = $row['titulo'];
-              $imagem_link = $row['link'];
-              $imagem_comentario = $row['comentario'];
-              $imagem_trecho = $row['trecho'];
-              echo "<li class='list-group-item list-group-item-action'><a href='$imagem_link' target='_blank'>$imagem_titulo : $imagem_comentario : $imagem_trecho</a></li>";
+      <div class='container my-5' id='imagens'>
+        <div class='row justify-content-between h3 my-5'>
+          <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
+            <span class='align-middle'>Imagens</span>
+          </div>
+          <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
+              <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_imagens_form' href=''><i class='fal fa-plus-square'></i></a></span>
+          </div>
+        </div>
+        <div class='row justify-content-center border-bottom border-dark py-5'>
+          <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
+            <?php
+            $result = $conn->query("SELECT titulo, link, comentario, trecho FROM Imagens WHERE id_tema = $id_tema AND concurso = '$concurso'");
+            if ($result->num_rows > 0) {
+              echo "<ul class='list-group'>";
+                while($row = $result->fetch_assoc()) {
+                  $imagem_titulo = $row['titulo'];
+                  $imagem_link = $row['link'];
+                  $imagem_comentario = $row['comentario'];
+                  $imagem_trecho = $row['trecho'];
+                  echo "<li class='list-group-item list-group-item-action'><a href='$imagem_link' target='_blank'>$imagem_titulo : $imagem_comentario : $imagem_trecho</a></li>";
+                }
+              echo "</ul>";
             }
-          echo "</ul>";
-        }
-        else {
-          echo "<p>Não foram acrescentadas, até o momento, imagens a este verbete.</p>";
-        }
-        ?>
-      </div>
-    </div>
-  </div>
-
-  <div class='container my-5' id='verbetes'>
-    <div class='row justify-content-between h3 my-5'>
-      <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
-        <span class='align-middle'>Relacionados</span>
-      </div>
-      <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
-      </div>
-    </div>
-    <div class='row justify-content-center border-bottom border-dark py-5'>
-      <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
-        <?php
-          ler_relacionados($id_tema, $concurso);
-        ?>
-      </div>
-    </div>
-  </div>
-
-  <div class='container my-5' id='bibliografia'>
-    <div class='row justify-content-between h3 my-5'>
-      <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
-        <span class='align-middle'>Bibliografia</span>
-      </div>
-      <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
-          <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_referencia_form' href=''><i class='fal fa-plus-square'></i></a></span>
-      </div>
-    </div>
-    <div class='row justify-content-center border-bottom border-dark py-5'>
-      <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
-        <?php
-        $result = $conn->query("SELECT titulo, autor, capitulo FROM Bibliografia WHERE id_tema = $id_tema AND concurso = '$concurso'");
-        if ($result->num_rows > 0) {
-          echo "<ul class='list-group'>";
-            while($row = $result->fetch_assoc()) {
-              $referencia_titulo = $row['titulo'];
-              $referencia_autor = $row['autor'];
-              $referencia_capitulo = $row['capitulo'];
-              echo "<li class='list-group-item'>$referencia_titulo : $referencia_autor : $referencia_capitulo</li>";
+            else {
+              echo "<p>Não foram acrescentadas, até o momento, imagens a este verbete.</p>";
             }
-          echo "</ul>";
-        }
-        else {
-          echo "<p>Não foram identificados, até o momento, recursos bibliográficos sobre este tema.</p>";
-        }
-        ?>
+            ?>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
 
-  <div class='container my-5' id='videos'>
-    <div class='row justify-content-between h3 my-5'>
-      <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
-        <span class='align-middle'>Vídeos e aulas</span>
+      <div class='container my-5' id='verbetes'>
+        <div class='row justify-content-between h3 my-5'>
+          <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
+            <span class='align-middle'>Relacionados</span>
+          </div>
+          <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
+          </div>
+        </div>
+        <div class='row justify-content-center border-bottom border-dark py-5'>
+          <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
+            <?php
+              ler_relacionados($id_tema, $concurso);
+            ?>
+          </div>
+        </div>
       </div>
-      <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
-          <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_videos_form' href=''><i class='fal fa-plus-square'></i></a></span>
-      </div>
-    </div>
-    <div class='row justify-content-center border-bottom border-dark py-5'>
-      <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
-        <?php
-        $result = $conn->query("SELECT titulo, autor, link FROM Videos WHERE id_tema = $id_tema AND concurso = '$concurso'");
-        if ($result->num_rows > 0) {
-          echo "<ul class='list-group'>";
-            while($row = $result->fetch_assoc()) {
-              $video_titulo = $row['titulo'];
-              $video_autor = $row['autor'];
-              $video_link = $row['link'];
-              echo "<li class='list-group-item list-group-item-action'><a href='$video_link' target='_blank'>$video_titulo : $video_autor</a></li>";
+
+      <div class='container my-5' id='bibliografia'>
+        <div class='row justify-content-between h3 my-5'>
+          <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
+            <span class='align-middle'>Bibliografia</span>
+          </div>
+          <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
+              <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_referencia_form' href=''><i class='fal fa-plus-square'></i></a></span>
+          </div>
+        </div>
+        <div class='row justify-content-center border-bottom border-dark py-5'>
+          <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
+            <?php
+            $result = $conn->query("SELECT titulo, autor, capitulo FROM Bibliografia WHERE id_tema = $id_tema AND concurso = '$concurso'");
+            if ($result->num_rows > 0) {
+              echo "<ul class='list-group'>";
+                while($row = $result->fetch_assoc()) {
+                  $referencia_titulo = $row['titulo'];
+                  $referencia_autor = $row['autor'];
+                  $referencia_capitulo = $row['capitulo'];
+                  echo "<li class='list-group-item'>$referencia_titulo : $referencia_autor : $referencia_capitulo</li>";
+                }
+              echo "</ul>";
             }
-          echo "</ul>";
-        }
-        else {
-          echo "<p>Ainda não foram acrescentados vídeos ou aulas sobre este assunto.</p>";
-        }
-        ?>
-      </div>
-    </div>
-  </div>
-
-  <div class='container my-5' id='links'>
-    <div class='row justify-content-between h3 my-5'>
-      <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
-        <span class='align-middle'>Links</span>
-      </div>
-      <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
-          <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_links_form' href=''><i class='fal fa-plus-square'></i></a></span>
-      </div>
-    </div>
-    <div class='row justify-content-center border-bottom border-dark py-5'>
-      <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
-        <?php
-        $result = $conn->query("SELECT titulo, comentario, link FROM Links WHERE id_tema = $id_tema AND concurso = '$concurso'");
-        if ($result->num_rows > 0) {
-          echo "<ul class='list-group'>";
-            while($row = $result->fetch_assoc()) {
-              $link_titulo = $row['titulo'];
-              $link_link = $row['link'];
-              $link_comentario = $row['comentario'];
-              echo "<li class='list-group-item list-group-item-action'><a href='$link_link' target='_blank'>$link_titulo : $link_comentario</a></li>";
+            else {
+              echo "<p>Não foram identificados, até o momento, recursos bibliográficos sobre este tema.</p>";
             }
-          echo "</ul>";
-        }
-        else {
-          echo "<p>Ainda não foram acrescentados links sobre este tópico.</p>";
-        }
-        ?>
+            ?>
+          </div>
+        </div>
+      </div>
+
+      <div class='container my-5' id='videos'>
+        <div class='row justify-content-between h3 my-5'>
+          <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
+            <span class='align-middle'>Vídeos e aulas</span>
+          </div>
+          <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
+              <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_videos_form' href=''><i class='fal fa-plus-square'></i></a></span>
+          </div>
+        </div>
+        <div class='row justify-content-center border-bottom border-dark py-5'>
+          <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
+            <?php
+            $result = $conn->query("SELECT titulo, autor, link FROM Videos WHERE id_tema = $id_tema AND concurso = '$concurso'");
+            if ($result->num_rows > 0) {
+              echo "<ul class='list-group'>";
+                while($row = $result->fetch_assoc()) {
+                  $video_titulo = $row['titulo'];
+                  $video_autor = $row['autor'];
+                  $video_link = $row['link'];
+                  echo "<li class='list-group-item list-group-item-action'><a href='$video_link' target='_blank'>$video_titulo : $video_autor</a></li>";
+                }
+              echo "</ul>";
+            }
+            else {
+              echo "<p>Ainda não foram acrescentados vídeos ou aulas sobre este assunto.</p>";
+            }
+            ?>
+          </div>
+        </div>
+      </div>
+
+      <div class='container my-5' id='links'>
+        <div class='row justify-content-between h3 my-5'>
+          <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
+            <span class='align-middle'>Links</span>
+          </div>
+          <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
+              <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_links_form' href=''><i class='fal fa-plus-square'></i></a></span>
+          </div>
+        </div>
+        <div class='row justify-content-center border-bottom border-dark py-5'>
+          <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
+            <?php
+            $result = $conn->query("SELECT titulo, comentario, link FROM Links WHERE id_tema = $id_tema AND concurso = '$concurso'");
+            if ($result->num_rows > 0) {
+              echo "<ul class='list-group'>";
+                while($row = $result->fetch_assoc()) {
+                  $link_titulo = $row['titulo'];
+                  $link_link = $row['link'];
+                  $link_comentario = $row['comentario'];
+                  echo "<li class='list-group-item list-group-item-action'><a href='$link_link' target='_blank'>$link_titulo : $link_comentario</a></li>";
+                }
+              echo "</ul>";
+            }
+            else {
+              echo "<p>Ainda não foram acrescentados links sobre este tópico.</p>";
+            }
+            ?>
+          </div>
+        </div>
+      </div>
+
+      <div class='container my-5' id='anotacao'>
+        <div class='row justify-content-between h3 my-5'>
+          <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
+            <span class='align-middle'>Anotações</span>
+          </div>
+          <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
+            <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_editar_anotacao' href=''><i class="fal fa-edit"></i></a></span>
+          </div>
+        </div>
+        <div class='row justify-content-center border-bottom border-dark py-5'>
+          <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
+            <?php
+              if ($anotacao_html == false) {
+                echo "<p>Você ainda não fez anotações sobre este tópico.</p>";
+              }
+              else {
+                echo "<h1>$tema</h1>";
+                $anotacao_reformatada = quill_reformatar($anotacao_html);
+                echo $anotacao_reformatada;
+              }
+            ?>
+          </div>
+        </div>
+      </div>
+
+      <div class='container my-5' id='questoes'>
+        <div class='row justify-content-between h3 my-5'>
+          <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
+            <span class='align-middle'>Questões</span>
+          </div>
+          <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'></div>
+        </div>
+        <div class='row justify-content-center border-bottom border-dark py-5'>
+          <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
+            <?php
+              $questoes = false;
+              if ($questoes == false) {
+                echo "<p>Não há registro de questões em provas passadas sobre este tópico.</p>";
+              }
+              else {
+                echo $questoes;
+              }
+            ?>
+          </div>
+        </div>
+      </div>
+
+      <div class='container my-5' id='discussao'>
+        <div class='row justify-content-between h3 my-5'>
+          <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
+            <span class='align-middle'>Fórum</span>
+          </div>
+          <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'></div>
+        </div>
+        <div class='row justify-content-center border-bottom border-dark py-5'>
+          <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
+            <?php
+              $discussao = false;
+              if ($discussao == false) {
+                echo "<p>Não há comentários sobre este tópico. Deixe aqui sua opinião!</p>";
+              }
+              else {
+                echo $discussao;
+              }
+            ?>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-
-  <div class='container my-5' id='anotacao'>
-    <div class='row justify-content-between h3 my-5'>
-      <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
-        <span class='align-middle'>Anotações</span>
-      </div>
-      <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
-        <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_editar_anotacao' href=''><i class="fal fa-edit"></i></a></span>
-      </div>
-    </div>
-    <div class='row justify-content-center border-bottom border-dark py-5'>
-      <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
-        <?php
-          if ($anotacao_html == false) {
-            echo "<p>Você ainda não fez anotações sobre este tópico.</p>";
-          }
-          else {
-            echo "<h1>$tema</h1>";
-            $anotacao_reformatada = quill_reformatar($anotacao_html);
-            echo $anotacao_reformatada;
-          }
-        ?>
-      </div>
-    </div>
-  </div>
-
-  <div class='container my-5' id='questoes'>
-    <div class='row justify-content-between h3 my-5'>
-      <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
-        <span class='align-middle'>Questões</span>
-      </div>
-      <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'></div>
-    </div>
-    <div class='row justify-content-center border-bottom border-dark py-5'>
-      <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
-        <?php
-          $questoes = false;
-          if ($questoes == false) {
-            echo "<p>Não há registro de questões em provas passadas sobre este tópico.</p>";
-          }
-          else {
-            echo $questoes;
-          }
-        ?>
-      </div>
-    </div>
-  </div>
-
-  <div class='container my-5' id='discussao'>
-    <div class='row justify-content-between h3 my-5'>
-      <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
-        <span class='align-middle'>Fórum</span>
-      </div>
-      <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'></div>
-    </div>
-    <div class='row justify-content-center border-bottom border-dark py-5'>
-      <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
-        <?php
-          $discussao = false;
-          if ($discussao == false) {
-            echo "<p>Não há comentários sobre este tópico. Deixe aqui sua opinião!</p>";
-          }
-          else {
-            echo $discussao;
-          }
-        ?>
-      </div>
-    </div>
-  </div>
-
   <div class='modal fade' id='modal_imagens_form' role='dialog' tabindex='-1'>
     <div class='modal-dialog modal-lg' role='document'>
       <div class='modal-content'>
