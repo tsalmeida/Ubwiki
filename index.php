@@ -47,7 +47,13 @@
         </div>
         <div class="row text-center">
           <div class="col-lg-12 col-sm-12 mb-5">
-            <?php echo "<p class='lead'>Bem-vindo à Ubwiki, o sistema mais inteligente de preparação para o $concurso.</p>"; ?>
+            <div class='row text-center'>
+              <span class='display-3'>Ubwiki</span>
+            </div>
+            <div class='row text-center'>
+              <?php echo "<span class='display4'>$concurso</span>"; ?>
+              <span class='lead'>Ordem e Progresso</span>
+            </div>
           </div>
         </div>
         <div class="row justify-content-center">
