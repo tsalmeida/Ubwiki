@@ -1,7 +1,7 @@
 <?php
   $concurso = 'CACD';
   include 'engine.php';
-  $newuser = false;
+
   session_save_path('/home/tsilvaalmeida/public_html/ubwiki/sessions/');
   session_start();
   if (isset($_SESSION['email'])) {
@@ -16,9 +16,6 @@
     while($row = $result->fetch_assoc()) {
       $usuario_id = $row['id'];
     }
-  }
-  else {
-    $newuser = true;
   }
 
   $nova_tabela = "usuario_id_";
@@ -90,8 +87,8 @@
                     $sigla = $row["sigla"];
                     $materia = $row["materia"];
                     echo "
-                      <div href='materia.php?sigla=$sigla&concurso=$concurso' class='bg-lighter rounded bdark cardmateria text-break text-center align-middle mb-3'>
-                        <small class='text-muted text-uppercase smaller'>$materia</small>
+                      <div href='materia.php?sigla=$sigla&concurso=$concurso' class='rounded cardmateria grey lighten-2 text-break text-center align-middle mb-3'>
+                        <small class='text-dark text-uppercase smaller'>$materia</small>
                       </div>
                     ";
                     if ($count == $row_items) {
@@ -110,4 +107,39 @@
   </body>
 <?php
   bottom_page();
+?>
+
+
+<?php
+  include 'ubwiki/engine.php';
+
+  $newuser = false;
+  session_save_path('/home/tsilvaalmeida/public_html/ubwiki/sessions/');
+  session_start();
+  if (!isset($_SESSION['email'])) {
+    if ((isset($_POST['email'])) && (isset($_POST['bora']))) {
+      $_SESSION['email'] = $_POST['email'];
+      $_SESSION['bora'] = $_POST['bora'];
+      $user_id = $_SESSION['email'];
+      $bora = $_SESSIO['bora'];
+      $result = $conn->query("SELECT id FROM Usuarios WHERE email = '$user_id'");
+      if ($result->num_rows == 0) {
+        $newuser = true;
+        $insert = $conn->query("INSERT INTO Usuarios (tipo, email) VALUES ('estudante', '$user_id')");
+      }
+    }
+    else {
+      header('Location:ubwiki/login.php');
+    }
+  }
+  else {
+    $user_id = $_SESSION['email'];
+  }
+
+  $result = $conn->query("SELECT id FROM Usuarios WHERE email = '$user_id'");
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      include("Location:'ubwiki/index.php");
+    }
+  }
 ?>

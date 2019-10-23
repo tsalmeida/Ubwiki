@@ -61,15 +61,6 @@ logo {
   color: #5f5f5f !important;
 }
 
-/* .bdark {
-  border: 0;
-  border-style: solid;
-  border-bottom-color: #b5b5b5;
-  border-bottom-width: 0.2rem;
-  border-right-width: 0.2rem;
-  border-right-color: #b5b5b5;
-} */
-
 .searchBar {
   background-color: white;
   border: 0;
@@ -113,6 +104,12 @@ logo {
 
 .cardmateria {
   cursor: pointer;
+  border: 0;
+  border-style: solid;
+  border-bottom-color: #bdbdbd;
+  border-bottom-width: 0.2rem;
+  border-right-width: 0.2rem;
+  border-right-color: #bdbdbd;
 }
 
 .bc-icons .breadcrumb-item + .breadcrumb-item::before {
