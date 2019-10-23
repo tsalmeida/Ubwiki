@@ -328,4 +328,9 @@ if (isset($_POST['sbcommand'])) {
   return;
 }
 
+function quill_reformatar($texto) {
+  $texto = str_replace("<blockquote>", "<blockquote class='blockquote'>", $texto);
+  return $texto;
+}
+
 ?>

@@ -197,12 +197,8 @@ function ler_relacionados($id_tema, $concurso) {
           }
           else {
             echo "<h1>$tema</h1>";
-            $separator = "\r\n";
-            $line = strtok($verbete_consolidado, $separator);
-            while ($line !== false) {
-                echo "<p>$line</p>";
-                $line = strtok( $separator );
-            }
+            $verbete_reformatado = quill_reformatar($verbete_consolidado);
+            echo $verbete_reformatado;
           }
         ?>
       </div>
