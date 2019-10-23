@@ -184,7 +184,7 @@ function ler_relacionados($id_tema, $concurso) {
       <div class='col-lg-10 col-sm-12 bg-white'>
         <div class='container my-5' id='verbete'>
           <div class='row justify-content-between h3 my-5'>
-            <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
+            <div class='col-lg-4 col-sm-8 text-left justify-content-center align-middle'>
               <span class='align-left'>Verbete</span>
             </div>
             <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
@@ -209,7 +209,7 @@ function ler_relacionados($id_tema, $concurso) {
 
         <div class='container my-5' id='imagens'>
           <div class='row justify-content-between h3 my-5'>
-            <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
+            <div class='col-lg-4 col-sm-8 text-left justify-content-center align-middle'>
               <span class='align-left'>Imagens</span>
             </div>
             <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
@@ -241,7 +241,7 @@ function ler_relacionados($id_tema, $concurso) {
 
         <div class='container my-5' id='verbetes'>
           <div class='row justify-content-between h3 my-5'>
-            <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
+            <div class='col-lg-4 col-sm-8 text-left justify-content-center align-middle'>
               <span class='align-left'>Relacionados</span>
             </div>
             <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
@@ -258,7 +258,7 @@ function ler_relacionados($id_tema, $concurso) {
 
         <div class='container my-5' id='bibliografia'>
           <div class='row justify-content-between h3 my-5'>
-            <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
+            <div class='col-lg-4 col-sm-8 text-left justify-content-center align-middle'>
               <span class='align-left'>Bibliografia</span>
             </div>
             <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
@@ -289,7 +289,7 @@ function ler_relacionados($id_tema, $concurso) {
 
         <div class='container my-5' id='videos'>
           <div class='row justify-content-between h3 my-5'>
-            <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
+            <div class='col-lg-4 col-sm-8 text-left justify-content-center align-middle'>
               <span class='align-left'>Vídeos e aulas</span>
             </div>
             <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
@@ -320,7 +320,7 @@ function ler_relacionados($id_tema, $concurso) {
 
         <div class='container my-5' id='links'>
           <div class='row justify-content-between h3 my-5'>
-            <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
+            <div class='col-lg-4 col-sm-8 text-left justify-content-center align-middle'>
               <span class='align-left'>Links</span>
             </div>
             <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
@@ -351,7 +351,7 @@ function ler_relacionados($id_tema, $concurso) {
 
         <div class='container my-5' id='anotacao'>
           <div class='row justify-content-between h3 my-5'>
-            <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
+            <div class='col-lg-4 col-sm-8 text-left justify-content-center align-middle'>
               <span class='align-left'>Anotações</span>
             </div>
             <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
@@ -376,7 +376,7 @@ function ler_relacionados($id_tema, $concurso) {
 
         <div class='container my-5' id='questoes'>
           <div class='row justify-content-between h3 my-5'>
-            <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
+            <div class='col-lg-4 col-sm-8 text-left justify-content-center align-middle'>
               <span class='align-left'>Questões</span>
             </div>
             <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'></div>
@@ -398,7 +398,7 @@ function ler_relacionados($id_tema, $concurso) {
 
         <div class='container my-5' id='discussao'>
           <div class='row justify-content-between h3 my-5'>
-            <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
+            <div class='col-lg-4 col-sm-8 text-left justify-content-center align-middle'>
               <span class='align-left'>Fórum</span>
             </div>
             <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'></div>
