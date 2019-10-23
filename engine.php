@@ -138,7 +138,7 @@ function bottom_page() {
 
             var form = document.querySelector('#quill_verbete_form');
             form.onsubmit = function() {
-              var test = 'teste de caneta';
+              var test = verbete_editor.root.innerHTML;
               alert(test);
               var quill_novo_verbete_html = document.querySelector('input[name=quill_novo_verbete_html]');
               quill_novo_verbete_html.value = verbete_editor.root.innerHTML();
