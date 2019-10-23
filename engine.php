@@ -28,12 +28,12 @@ function carregar_navbar() {
 
 function breadcrumbs($content) {
   echo "
-    <div class='container-fluid'>
+    <div class='container-fluid grey lighten-4'>
       <div class='row'>
         <div class='col-lg-12 px-2'>
           <div class='mr-auto'>
             <nav>
-              <ol class='breadcrumb d-inline-flex text-dark bg-white mb-0'>
+              <ol class='breadcrumb d-inline-flex text-dark transparent mb-0'>
                 $content
               </ol>
             </nav>
