@@ -135,6 +135,17 @@
               </fieldset>
             <button class='btn btn-primary btn-block my-4' type='submit'>Acessar ferramenta</button>
           </form>
+          <form class='text-center border border-light p-5 my-2' method='post' formaction='edicao_temas.php'>
+              <p class="h4 mb-4">Acrescentar concurso</p>
+              <p class='text-left'>Cada concurso tem um título completo e uma sigla. Este é o primeiro passo no processo de inclusão de novos concursos.</p>
+              <fieldset class="form-group">
+                <div class="row">
+                  <label target='novo_concurso'>Título oficial do novo concurso, sem menção a ano.</label>
+                  <input type='text' id='novo_concurso'></input>
+                </div>
+              </fieldset>
+            <button class='btn btn-primary btn-block my-4' type='submit'>Acrescentar concurso</button>
+          </form>
           <form class='text-center border border-light p-5 my-2' method='post'>
               <p class="h4 mb-4">Barra de busca</p>
               <p>Reconstruir tabela de opções da barra de busca.</p>
