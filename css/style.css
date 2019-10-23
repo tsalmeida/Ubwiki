@@ -51,6 +51,10 @@ logo {
   border-bottom-width: 2px;
 }
 
+.left-menu-nav {
+  border-radius: 2vh;
+}
+
 .jumbotron {
   /* background-color: #474d55; */
   box-shadow: none !important;
