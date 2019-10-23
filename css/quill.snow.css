@@ -4,10 +4,20 @@
  * Copyright (c) 2014, Jason Chen
  * Copyright (c) 2013, salesforce.com
  */
+
+p, li {
+  max-width: 65ch;
+}
+
+p, li, h2 {
+  margin-bottom: 1rem;
+}
+
 .ql-container {
   box-sizing: border-box;
   /* font-family: Helvetica, Arial, sans-serif; */
   /* font-size: 13px; */
+  font-weight: 400;
   height: 100%;
   margin: 0px;
   position: relative;
