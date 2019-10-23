@@ -134,11 +134,15 @@ function bottom_page() {
                 toolbar: toolbarOptions
               }
             });
-            var form = document.querySelector('#quill_anotacao_form');
-            form.onsubmit = function() {
+            var form_verbete = document.querySelector('#quill_verbete_form');
+            form_verbete.onsubmit = function() {
+              var quill_novo_verbete_html = document.querySelector('input[name=quill_novo_verbete_html]');
+              quill_novo_verbete_html.value = verbete_editor.root.innerHTML;
+            }
+            var form_anotacao = document.querySelector('#quill_anotacao_form');
+            form_anotacao.onsubmit = function() {
               var quill_nova_anotacao_html = document.querySelector('input[name=quill_nova_anotacao_html]');
               quill_nova_anotacao_html.value = anotacao_editor.root.innerHTML;
-              alert('this happened');
             }
           </script>
         ";
