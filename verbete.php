@@ -92,6 +92,7 @@ else {
 
 if (isset($_POST['quill_nova_anotacao_html'])) {
   $nova_anotacao_html = $_POST['quill_nova_anotacao_html'];
+  error_log("this happened: $nova_anotacao_html");
   $nova_anotacao_html = strip_tags($nova_anotacao_html, '<p><li><ul><ol><h2><blockquote><em><sup>');
   $result = $conn2->query("SELECT conteudo_texto FROM $tabela_usuario WHERE tipo = 'anotacoes' AND tipo2 = $id_tema ");
   if ($anotacao_html != false) {
