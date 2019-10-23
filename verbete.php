@@ -178,8 +178,8 @@ if (isset($_POST['novo_video_titulo'])) {
         </div>
       </div>
       <div class='col-lg-10 col-sm-12 bg-white'>
-        <div class='container my-5' id='verbete'>
-          <div class='row justify-content-between h3 my-5'>
+        <div class='container' id='verbete'>
+          <div class='row justify-content-middle h3 my-5'>
             <div class='col-lg-10 col-sm-12 text-left justify-content-center align-middle'>
               <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_editar_verbete' href=''><i class="fal fa-edit"></i></a></span>
             </div>
