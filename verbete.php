@@ -181,14 +181,14 @@ if (isset($_POST['novo_video_titulo'])) {
         <div class='container' id='verbete'>
           <div class='row h3 my-5'>
             <div class='col-11'>
-              <?php echo "<span class='display-2 text-center'>$tema</span>"; ?>
+              <?php echo "<span class='display-2 wireone'>$tema</span>"; ?>
             </div>
             <div class='col-1'>
               <a data-toggle='modal' data-target='#modal_editar_verbete' href=''><i class="fal fa-edit"></i></a>
             </div>
           </div>
-          <div class='row justify-content-center border-bottom border-dark py-5'>
-            <div class='col-12 text-left font-weight-normal'>
+          <div class='row justify-content-center border-bottom border-dark py-3'>
+            <div class='col-6 text-left font-weight-normal'>
               <?php
                 if ($verbete_html == false) {
                   echo "<p>O verbete deste tópico ainda não começou a ser escrito.</p>";
