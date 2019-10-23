@@ -261,7 +261,7 @@ echo "
 
 function sub_jumbotron($titulo, $link) {
 echo "
-  <div class='container-fluid py-5 col-lg-12 grey lighten-1 text-center mb-3'>
+  <div class='container-fluid py-5 col-lg-12 grey lighten-3 text-center mb-3'>
 ";
     if ($link == false) {
       echo "<h1>$titulo</h1>";
