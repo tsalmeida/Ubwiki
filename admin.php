@@ -110,7 +110,7 @@
       <div class="row">
         <div class="col-lg-6 col-sm-12">
           <form class='text-center border border-light p-5 my-2' method='post' formaction='edicao_temas.php'>
-              <p class="h4 mb-4">Editar tabela de tópicos</p>
+              <p class="h4 mb-4">Editar tópicos</p>
               <p class='text-left'>Com esta ferramenta, o administrador pode alterar a tabela de tópicos de um concurso. O objetivo é maximizar a utilidade do edital original para as atividades do estudante.</p>
               <fieldset class="form-group">
                 <div class="row">
@@ -128,7 +128,7 @@
             <button class='btn btn-primary btn-block my-4' type='submit'>Acessar ferramenta</button>
           </form>
           <form class='text-center border border-light p-5 my-2' method='post'>
-              <p class="h4 mb-4">Funções</p>
+              <p class="h4 mb-4">Barra de busca</p>
               <p>Reconstruir tabela de opções da barra de busca.</p>
               <fieldset class="form-group">
                 <div class="row">
