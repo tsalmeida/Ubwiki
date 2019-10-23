@@ -131,8 +131,6 @@ function bottom_page() {
             form_admin.onsubmit = function() {
               var quill_nova_mensagem_html = document.querySelector('input[name=quill_nova_mensagem_html]');
               quill_nova_mensagem_html.value = admin_editor.root.innerHTML;
-              var test = admin_editor.root.innerHTML;
-              alert(test);
             }
           </script>
         ";
