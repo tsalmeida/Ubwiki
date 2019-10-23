@@ -164,7 +164,7 @@ if (isset($_POST['novo_video_titulo'])) {
   <div class='container-fluid text-center'>
     <div class='row'>
       <div class='col-lg-2 col-sm-12'>
-        <div class='border p-3 mt-3 left-menu-nav elegant-color text-white'>
+        <div class='border p-3 mt-3 left-menu-nav elegant-color text-white block-sm block-md block-xs'>
           <ul class='list-group text-center'>
             <a class='list-group-item list-group-item-action left-nav-item p-1 text-white elegant-color' href='#verbete' title='Verbete'><i class="fal fa-file-alt fa-2x fa-fw"></i> <span class='d-block'>Verbete</span></a>
             <a class='list-group-item list-group-item-action left-nav-item p-1 text-white elegant-color' href='#imagens' title='Imagens'><i class="fal fa-images fa-2x fa-fw"></i> <span class='d-block'>Imagens</span></a>
@@ -180,15 +180,15 @@ if (isset($_POST['novo_video_titulo'])) {
       <div class='col-lg-10 col-sm-12 bg-white'>
         <div class='container-fluid' id='verbete'>
           <div class='row h3 my-5 text-left'>
-            <div class='col-11'>
+            <div class='col-lg-11 col-sm-12'>
               <?php echo "<span class='display-2 wireone'>$tema</span>"; ?>
             </div>
-            <div class='col-1'>
+            <div class='col-lg-1 col-sm-12'>
               <a data-toggle='modal' data-target='#modal_editar_verbete' href=''><i class="fal fa-edit"></i></a>
             </div>
           </div>
           <div class='row justify-content-left border-bottom border-dark py-3'>
-            <div class='col-6 text-left font-weight-normal'>
+            <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
               <?php
                 if ($verbete_html == false) {
                   echo "<p>O verbete deste tópico ainda não começou a ser escrito.</p>";
