@@ -69,7 +69,7 @@ function top_page() {
       while (isset($args[$array])) {
         if ($args[$array] == "quill_v") {
           echo "
-            <link href='https://cdn.quilljs.com/1.0.0/quill.snow.css' rel='stylesheet'>
+            <link href='css/quill.snow.css' rel='stylesheet'>
           ";
         }
         elseif ($args[$array] == "onepage") {
