@@ -65,18 +65,18 @@ else {
   $verbete_consolidado = false;
 }
 
-if (isset($_POST['quill_novo_verbete'])) {
-  $novo_verbete = $_POST['quill_novo_verbete'];
-  //$novo_verbete = strip_tags($novo_verbete);
+if (isset($_POST['quill_novo_verbete_html'])) {
+  $novo_verbete_html = $_POST['quill_novo_verbete_html'];
+  //$novo_verbete_html = strip_tags($novo_verbete_html);
   $result = $conn->query("SELECT verbete FROM Verbetes WHERE concurso = '$concurso' AND id_tema = $id_tema");
   if ($result->num_rows > 0) {
-    $result = $conn->query("UPDATE Verbetes SET verbete = '$novo_verbete', usuario = '$user' WHERE concurso = '$concurso' AND id_tema = $id_tema");
+    $result = $conn->query("UPDATE Verbetes SET verbete = '$novo_verbete_html', usuario = '$user' WHERE concurso = '$concurso' AND id_tema = $id_tema");
     $result = $conn->query("INSERT INTO Verbetes_arquivo (id_tema, concurso, verbete, usuario) VALUES ('$id_tema', '$concurso', '$verbete_consolidado', '$user')");
   }
   else {
-    $result = $conn->query("INSERT INTO Verbetes (id_tema, concurso, verbete, usuario) VALUES ('$id_tema', '$concurso', '$novo_verbete', '$user')");
+    $result = $conn->query("INSERT INTO Verbetes (id_tema, concurso, verbete, usuario) VALUES ('$id_tema', '$concurso', '$novo_verbete_html', '$user')");
   }
-  $verbete_consolidado = $novo_verbete;
+  $verbete_consolidado = $novo_verbete_html;
 }
 
 $result = $conn2->query("SELECT conteudo_texto FROM $tabela_usuario WHERE tipo = 'anotacoes' AND tipo2 = $id_tema");
@@ -560,7 +560,7 @@ function ler_relacionados($id_tema, $concurso) {
     <div class='modal-dialog modal-md' role='document'>
       <div class='modal-content'>
         <form id='quill_verbete_form' method='post'>
-          <input name='quill_novo_verbete' type='hidden'>
+          <input name='quill_novo_verbete_html' type='hidden'>
           <div class='modal-header text-center'>
             <h4 class='modal-title w-100 font-weight-bold'>Editar verbete</h4>
             <button type='button' class='close' data-dismiss='modal'>
