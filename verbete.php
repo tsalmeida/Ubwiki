@@ -67,6 +67,7 @@ else {
 
 if (isset($_POST['quill_novo_verbete_html'])) {
   $novo_verbete_html = $_POST['quill_novo_verbete_html'];
+  error_log($novo_verbete_html);
   //$novo_verbete_html = strip_tags($novo_verbete_html);
   $result = $conn->query("SELECT verbete FROM Verbetes WHERE concurso = '$concurso' AND id_tema = $id_tema");
   if ($result->num_rows > 0) {
