@@ -461,7 +461,7 @@ function ler_relacionados($id_tema, $concurso) {
   <div class='modal fade' id='modal_referencia_form' role='dialog' tabindex='-1'>
     <div class='modal-dialog modal-lg' role='document'>
       <div class='modal-content'>
-        <form method='post'>
+        <form method='post' action='#bibliografia'>
           <div class='modal-header text-center'>
             <h4 class='modal-title w-100 font-weight-bold'>Adicionar referência bibliográfica</h4>
             <button type='button' class='close' data-dismiss='modal'>
@@ -494,7 +494,7 @@ function ler_relacionados($id_tema, $concurso) {
   <div class='modal fade' id='modal_links_form' role='dialog' tabindex='-1'>
     <div class='modal-dialog modal-lg' role='document'>
       <div class='modal-content'>
-        <form method='post'>
+        <form method='post' action='#links'>
           <div class='modal-header text-center'>
             <h4 class='modal-title w-100 font-weight-bold'>Adicionar link</h4>
             <button type='button' class='close' data-dismiss='modal'>
@@ -527,9 +527,9 @@ function ler_relacionados($id_tema, $concurso) {
   <div class='modal fade' id='modal_videos_form' role='dialog' tabindex='-1'>
     <div class='modal-dialog modal-lg' role='document'>
       <div class='modal-content'>
-        <form method='post'>
+        <form method='post' action='#videos'>
           <div class='modal-header text-center'>
-            <h4 class='modal-title w-100 font-weight-bold'>Adicionar referência bibliográfica</h4>
+            <h4 class='modal-title w-100 font-weight-bold'>Adicionar vídeo ou aula</h4>
             <button type='button' class='close' data-dismiss='modal'>
               <i class="fal fa-times-circle"></i>
             </button>
@@ -560,7 +560,7 @@ function ler_relacionados($id_tema, $concurso) {
   <div class='modal fade' id='modal_editar_verbete' role='dialog' tabindex='-1'>
     <div class='modal-dialog modal-lg quill_modal' role='document'>
       <div class='modal-content'>
-        <form id='quill_verbete_form' method='post'>
+        <form id='quill_verbete_form' method='post' action='#verbete'>
           <input name='quill_novo_verbete_html' type='hidden'>
           <div class='modal-header text-center'>
             <h4 class='modal-title w-100 font-weight-bold'>Editar verbete</h4>
@@ -595,7 +595,7 @@ function ler_relacionados($id_tema, $concurso) {
   <div class='modal fade' id='modal_editar_anotacao' role='dialog' tabindex='-1'>
     <div class='modal-dialog modal-lg quill_modal' role='document'>
       <div class='modal-content'>
-        <form id='quill_anotacao_form' method='post'>
+        <form id='quill_anotacao_form' method='post' action='#anotacao'>
           <input name='quill_nova_anotacao_html' type='hidden'>
           <div class='modal-header text-center'>
             <h4 class='modal-title w-100 font-weight-bold'>Editar verbete</h4>
