@@ -46,6 +46,7 @@ logo {
 
 .left-nav-item {
   border: 0;
+  border-style: solid;
   border-color: white;
   border-bottom-width: 2px;
 }
