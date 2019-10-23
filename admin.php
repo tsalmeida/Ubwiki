@@ -127,7 +127,7 @@
                   </div>
                 </div>
               </fieldset>
-            <button class='btn btn-info btn-block my-4' type='submit'>Acessar ferramenta</button>
+            <button class='btn btn-primary btn-block my-4' type='submit'>Acessar ferramenta</button>
           </form>
           <form class='text-center border border-light p-5 my-2' method='post'>
               <p class="h4 mb-4">Funções</p>
@@ -145,7 +145,7 @@
                   </div>
                 </div>
               </fieldset>
-            <button class='btn btn-info btn-block my-4' type='submit'>Reconstruir</button>
+            <button class='btn btn-primary btn-block my-4' type='submit'>Reconstruir</button>
           </form>
           <form class='text-center border border-light p-5 my-2' method='post'>
               <p class="h4 mb-4">Otimizar tabela de tópicos</p>
@@ -163,7 +163,7 @@
                   </div>
                 </div>
               </fieldset>
-            <button class='btn btn-info btn-block my-4' type='submit'>Otimizar</button>
+            <button class='btn btn-primary btn-block my-4' type='submit'>Otimizar</button>
           </form>
         </div>
         <div class="col-2"></div>
