@@ -45,17 +45,19 @@
                 <img class="img-fluid logo" src="imagens/ubiquelogo.png"></img>
             </div>
         </div>
-        <div class="row text-center">
-          <div class="col-lg-12 col-sm-12 mb-5">
-            <div class='row text-center'>
+        <div class='row'>
+            <div class="col-lg-12 col-sm-12 mb-5 text-align-center">
               <span class='display-3 wireone'>Ubwiki</span>
             </div>
-            <div class='row text-center'>
-              <?php echo "<span class='display-4 wireone'>$concurso</span>"; ?>
-            </div>
-            <div class='row'>
-              <span class='lead wireone'>Ordem e Progresso</span>
-            </div>
+        </div>
+        <div class='row text-center'>
+          <div class="col-lg-12 col-sm-12 mb-5 text-align-center">
+            <?php echo "<span class='display-4 wireone'>$concurso</span>"; ?>
+          </div>
+        </div>
+        <div class='row'>
+          <div class="col-lg-12 col-sm-12 mb-5 text-align-center">
+            <span class='lead wireone'>Ordem e Progresso</span>
           </div>
         </div>
         <div class="row justify-content-center">
