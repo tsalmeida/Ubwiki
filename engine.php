@@ -245,7 +245,7 @@ function extract_gdoc($url) {
 function standard_jumbotron($titulo, $link) {
 echo "
     <div class='container-fluid p-0 m-0 text-center'>
-      <div class='jumbotron col-12 mb-0'>
+      <div class='jumbotron col-12 mb-0 elegant-color text-white'>
 ";
         if ($link == false) {
           echo "<span class='display-3 logo-jumbotron'>$titulo</span>";
@@ -261,7 +261,7 @@ echo "
 
 function sub_jumbotron($titulo, $link) {
 echo "
-  <div class='container-fluid py-5 col-lg-12 bg-lighter text-center mb-3'>
+  <div class='container-fluid py-5 col-lg-12 grey lighten-1 text-center mb-3'>
 ";
     if ($link == false) {
       echo "<h1>$titulo</h1>";
