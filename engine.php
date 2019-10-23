@@ -125,7 +125,7 @@ function bottom_page() {
               ['clean']
             ];
 
-            var formatWhitelist = ['italic','script','link','blockquote','list',{'header': [2, false]}];
+            var formatWhitelist = ['italic','script','link','blockquote','list','header'];
 
             var verbete_editor = new Quill('#quill_editor_verbete', {
               theme: 'snow',
