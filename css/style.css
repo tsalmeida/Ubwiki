@@ -44,6 +44,12 @@ logo {
   text-align: center;
 }
 
+.left-nav-item {
+  border: 0;
+  border-color: white;
+  border-bottom-width: 2px;
+}
+
 .jumbotron {
   /* background-color: #474d55; */
   box-shadow: none !important;
