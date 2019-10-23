@@ -103,6 +103,10 @@ logo {
   font-weight: 400;
 }
 
+.ql-editor {
+  margin-bottom: 0.8em;
+}
+
 .footer.page-footer .footer-copyright {
  position: absolute;
  bottom: 0;
