@@ -112,7 +112,7 @@
   <body>
     <?php
       carregar_navbar();
-      standard_jumbotron("Página de Administrador", false);
+      standard_jumbotron("Página dos Administradores", false);
     ?>
     <div class="container-fluid my-5 px-3">
       <div class="row">
