@@ -11,7 +11,7 @@ $conn2 = new mysqli($servername, $username, $password, $dbname);
 mysqli_set_charset($conn2,"utf8");
 
 function carregar_navbar($mode) {
-  if (!isset($mode)) { $mode = 'dark'; $color = 'elegant-color'; }
+  if ($mode == 'dark') { $mode = 'dark'; $color = 'elegant-color'; }
   elseif ($mode == 'light') { $color = 'bg-white'; }
   echo "<nav class='navbar navbar-expand-lg $color'>";
   if ($mode == 'dark') {
