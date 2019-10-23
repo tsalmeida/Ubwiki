@@ -67,7 +67,7 @@ else {
 
 if (isset($_POST['quill_novo_verbete'])) {
   $novo_verbete = $_POST['quill_novo_verbete'];
-  $novo_verbete = strip_tags($novo_verbete);
+  //$novo_verbete = strip_tags($novo_verbete);
   $result = $conn->query("SELECT verbete FROM Verbetes WHERE concurso = '$concurso' AND id_tema = $id_tema");
   if ($result->num_rows > 0) {
     $result = $conn->query("UPDATE Verbetes SET verbete = '$novo_verbete', usuario = '$user' WHERE concurso = '$concurso' AND id_tema = $id_tema");
@@ -573,7 +573,9 @@ function ler_relacionados($id_tema, $concurso) {
                 <?php
                   echo "
                     <div id='quill_container_verbete' class='quill_container_modal'>
-                      $verbete_consolidado
+                      <div id='quill_editor_verbete'>
+                        $verbete_consolidado
+                      </div>
                     </div>
                   ";
                 ?>

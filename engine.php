@@ -128,7 +128,7 @@ function bottom_page() {
 
         var formatWhitelist = ['italic','script','link','blockquote','list','image','header'];
 
-        var quill = new Quill('#quill_container_verbete', {
+        var quill = new Quill('#quill_editor_verbete', {
           theme: 'snow',
           formats: formatWhitelist,
           modules: {
@@ -139,7 +139,7 @@ function bottom_page() {
         var form = document.querySelector('#quill_verbete_form');
         form.onsubmit = function() {
           var quill_novo_verbete = document.querySelector('input[name=quill_novo_verbete]');
-          quill_novo_verbete.value = quill.getContents();
+          quill_novo_verbete.value = quill.container.innerHTML();
         }
 
         </script>
