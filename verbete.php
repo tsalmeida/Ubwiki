@@ -364,7 +364,7 @@ function ler_relacionados($id_tema, $concurso) {
           }
           else {
             echo "<h1>$tema</h1>";
-            $anotacao_reformatada = quill_reformatar($anotacao_reformatada);
+            $anotacao_reformatada = quill_reformatar($anotacao_html);
             echo $anotacao_reformatada;
           }
         ?>
