@@ -248,7 +248,7 @@ echo "
       <div class='jumbotron col-12 mb-0 elegant-color text-white'>
 ";
         if ($link == false) {
-          echo "<span class='display-3 logo-jumbotron wireone'>$titulo</span>";
+          echo "<span class='display-1 logo-jumbotron wireone'>$titulo</span>";
         }
         else {
           echo "<a href='$link'><span class='display-3 logo-jumbotron'>$titulo</span></a>";
@@ -264,7 +264,7 @@ echo "
   <div class='container-fluid py-5 col-lg-12 grey lighten-3 text-center mb-3'>
 ";
     if ($link == false) {
-      echo "<span class='display-5 wireone'>$titulo</span>";
+      echo "<span class='display-3 wireone'>$titulo</span>";
     }
     else {
       echo "<a href='$link'><h1>$titulo</h1></a>";
