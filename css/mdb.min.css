@@ -1447,10 +1447,10 @@ a.bg-light:focus, a.bg-light:hover, button.bg-light:focus, button.bg-light:hover
 }
 body {
 	font-family: Roboto, sans-serif;
-	font-weight: 300
+	font-weight: 400
 }
 h1, h2, h3, h4, h5, h6 {
-	font-weight: 300
+	font-weight: 400
 }
 .blockquote {
 	padding: .5rem 1rem;
@@ -5839,7 +5839,7 @@ a.btn:not([href]):not([tabindex]), a.btn:not([href]):not([tabindex]):focus, a.bt
 	margin: 0
 }
 .navbar {
-	font-weight: 300
+	font-weight: 400
 }
 .navbar form .md-form input {
 	margin: 0 5px 1px 8px
@@ -5849,7 +5849,7 @@ a.btn:not([href]):not([tabindex]), a.btn:not([href]):not([tabindex]):focus, a.bt
 	padding: .3rem 0 0 1rem;
 	background-color: inherit;
 	font-size: 15px;
-	font-weight: 300
+	font-weight: 400
 }
 .navbar .breadcrumb .breadcrumb-item {
 	color: #fff
@@ -5890,7 +5890,7 @@ a.btn:not([href]):not([tabindex]), a.btn:not([href]):not([tabindex]):focus, a.bt
 .navbar .dropdown-menu a {
 	padding: 10px;
 	font-size: .9375rem;
-	font-weight: 300;
+	font-weight: 400;
 	color: #000
 }
 @media (max-width:600px) {
@@ -5926,7 +5926,7 @@ a.btn:not([href]):not([tabindex]), a.btn:not([href]):not([tabindex]):focus, a.bt
 }
 .navbar.navbar-light form .md-form .form-control::-webkit-input-placeholder {
 	color: #000;
-	font-weight: 300
+	font-weight: 400
 }
 .navbar.navbar-light form .md-form .form-control::-moz-placeholder {
 	color: #000;
