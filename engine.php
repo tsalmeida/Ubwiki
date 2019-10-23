@@ -11,7 +11,7 @@ $conn2 = new mysqli($servername, $username, $password, $dbname);
 mysqli_set_charset($conn2,"utf8");
 
 function carregar_navbar() {
-  echo "<nav class='navbar navbar-expand-lg'>
+  echo "<nav class='navbar navbar-expand-lg elegant-color'>
     <a class='navbar-brand playfair' href='index.php'>Ubwiki</a>
     <ul class='nav navbar-nav ml-auto nav-flex-icons'>
       <li class='nav-item dropdown'>
@@ -28,12 +28,12 @@ function carregar_navbar() {
 
 function breadcrumbs($content) {
   echo "
-    <div class='container-fluid grey lighten-4'>
+    <div class='container-fluid grey lighten-4 elegant-color'>
       <div class='row'>
         <div class='col-10 px-2'>
           <div class='mr-auto'>
             <nav>
-              <ol class='breadcrumb d-inline-flex text-dark transparent mb-0'>
+              <ol class='breadcrumb d-inline-flex text-white transparent mb-0'>
                 $content
               </ol>
             </nav>
