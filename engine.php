@@ -138,6 +138,7 @@ function bottom_page() {
             form.onsubmit = function() {
               var quill_nova_anotacao_html = document.querySelector('input[name=quill_nova_anotacao_html]');
               quill_nova_anotacao_html.value = anotacao_editor.root.innerHTML;
+              alert('this happened'):
               ;
             }
           </script>
