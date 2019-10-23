@@ -94,7 +94,7 @@
 
   if (isset($_POST['quill_nova_mensagem_html'])) {
     $nova_mensagem = $_POST['quill_nova_mensagem_html'];
-    $conn->query("INSERT INTO Admin_data (tipo, conteudo) VALUE ('notas', $nova_mensagem)")
+    $conn->query("INSERT INTO Admin_data (tipo, conteudo) VALUE ('notas', $nova_mensagem)");
     $admin_mensagens = $nova_mensagem;
   }
 
