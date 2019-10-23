@@ -169,17 +169,19 @@ function ler_relacionados($id_tema, $concurso) {
   <div class='container-fluid text-center'>
     <div class='row'>
       <div class='col-lg-2 col-sm-12'>
-        <ul class='list-group border border-dark rounded-lg'>
-          <a class='list-group-item list-group-item-action text-dark border-0' href='#verbete' title='Verbete'><i class="fal fa-file-alt fa-2x fa-fw"></i> <span class='d-block'>Verbete</span></a>
-          <a class='list-group-item list-group-item-action text-dark border-0' href='#imagens' title='Imagens'><i class="fal fa-images fa-2x fa-fw"></i> <span class='d-block'>Imagens</span></a>
-          <a class='list-group-item list-group-item-action text-dark border-0' href='#verbetes' title='Relacionados'><i class="fal fa-copy fa-2x fa-fw"></i> <span class='d-block'>Relacionados</span></a>
-          <a class='list-group-item list-group-item-action text-dark border-0' href='#bibliografia' title='Bibliografia'><i class="fal fa-books fa-2x fa-fw"></i> <span class='d-block'>Bibliografia</span></a>
-          <a class='list-group-item list-group-item-action text-dark border-0' href='#videos' title='Vídeos e aulas'><i class="fal fa-chalkboard-teacher fa-2x fa-fw"></i> <span class='d-block'>Vídeos e aulas</span></a>
-          <a class='list-group-item list-group-item-action text-dark border-0' href='#links' title='Links'><i class="fal fa-link fa-2x fa-fw"></i> <span class='d-block'>Links</span></a>
-          <a class='list-group-item list-group-item-action text-dark border-0' href='#anotacao' title='Anotações'><i class="fal fa-user-edit fa-2x fa-fw"></i> <span class='d-block'>Anotações</span></a>
-          <a class='list-group-item list-group-item-action text-dark border-0' href='#questoes' title='Questões'><i class="fal fa-trophy fa-2x fa-fw"></i> <span class='d-block'>Questões</span></a>
-          <a class='list-group-item list-group-item-action text-dark border-0' href='#discussao' title='Fórum'><i class="fal fa-comments-alt fa-2x fa-fw"></i> <span class='d-block'>Fórum</span></a>
-        </ul>
+        <div class='border border-dark rounded-lg p-3 mt-3'>
+          <ul class='list-group'>
+            <a class='list-group-item list-group-item-action text-dark border-0' href='#verbete' title='Verbete'><i class="fal fa-file-alt fa-2x fa-fw"></i> <span class='d-block'>Verbete</span></a>
+            <a class='list-group-item list-group-item-action text-dark border-0' href='#imagens' title='Imagens'><i class="fal fa-images fa-2x fa-fw"></i> <span class='d-block'>Imagens</span></a>
+            <a class='list-group-item list-group-item-action text-dark border-0' href='#verbetes' title='Relacionados'><i class="fal fa-copy fa-2x fa-fw"></i> <span class='d-block'>Relacionados</span></a>
+            <a class='list-group-item list-group-item-action text-dark border-0' href='#bibliografia' title='Bibliografia'><i class="fal fa-books fa-2x fa-fw"></i> <span class='d-block'>Bibliografia</span></a>
+            <a class='list-group-item list-group-item-action text-dark border-0' href='#videos' title='Vídeos e aulas'><i class="fal fa-chalkboard-teacher fa-2x fa-fw"></i> <span class='d-block'>Vídeos e aulas</span></a>
+            <a class='list-group-item list-group-item-action text-dark border-0' href='#links' title='Links'><i class="fal fa-link fa-2x fa-fw"></i> <span class='d-block'>Links</span></a>
+            <a class='list-group-item list-group-item-action text-dark border-0' href='#anotacao' title='Anotações'><i class="fal fa-user-edit fa-2x fa-fw"></i> <span class='d-block'>Anotações</span></a>
+            <a class='list-group-item list-group-item-action text-dark border-0' href='#questoes' title='Questões'><i class="fal fa-trophy fa-2x fa-fw"></i> <span class='d-block'>Questões</span></a>
+            <a class='list-group-item list-group-item-action text-dark border-0' href='#discussao' title='Fórum'><i class="fal fa-comments-alt fa-2x fa-fw"></i> <span class='d-block'>Fórum</span></a>
+          </ul>
+        </div>
       </div>
       <div class='col-lg-10 col-sm-12 bg-white'>
         <div class='container my-5' id='verbete'>
