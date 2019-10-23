@@ -110,7 +110,7 @@
     <div class="container my-5">
       <div class="row">
         <div class="col-lg-6 col-sm-12">
-          <form class='text-center border border-light p-5 my-2' method='post' formaction='edicao_temas.php'>
+          <form class='text-center border border-light my-2' method='post' formaction='edicao_temas.php'>
               <p class="h4 mb-4">Editar tabela de tópicos</p>
               <p class='text-left'>Com esta ferramenta, o administrador pode alterar a tabela de tópicos de um concurso. O objetivo é maximizar a utilidade do edital original para as atividades do estudante.</p>
               <fieldset class="form-group">
@@ -128,7 +128,7 @@
               </fieldset>
             <button class='btn btn-primary btn-block my-4' type='submit'>Acessar ferramenta</button>
           </form>
-          <form class='text-center border border-light p-5 my-2' method='post'>
+          <form class='text-center border border-light my-2' method='post'>
               <p class="h4 mb-4">Funções</p>
               <p>Reconstruir tabela de opções da barra de busca.</p>
               <fieldset class="form-group">
@@ -146,7 +146,7 @@
               </fieldset>
             <button class='btn btn-primary btn-block my-4' type='submit'>Reconstruir</button>
           </form>
-          <form class='text-center border border-light p-5 my-2' method='post'>
+          <form class='text-center border border-light my-2' method='post'>
               <p class="h4 mb-4">Otimizar tabela de tópicos</p>
               <p>Essa ferramenta determina o nível relevante de cada entrada na tabela de tópicos, de 1 a 5.</p>
               <fieldset class="form-group">
@@ -166,7 +166,7 @@
           </form>
         </div>
         <div class='col-lg-6 col-sm-12'>
-          <form class='text-center border border-light p-5 my-2' method='post'>
+          <form class='text-center border border-light my-2' method='post'>
               <p class="h4 mb-4">Notas de administrador</p>
               <p class='text-left'>Estas anotações são compartilhadas entre todos os administradores, por exemplo, para registrar idéia de melhorias futuras para a página.</p>
               <fieldset class="form-group">
