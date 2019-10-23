@@ -99,8 +99,9 @@ logo {
   word-wrap: normal;
 }
 
-.ql-editor {
-  margin-bottom: 0.8em;
+.quill_modal {
+  max-width: 90vw;
+  width: 70ch;
 }
 
 .footer.page-footer .footer-copyright {
