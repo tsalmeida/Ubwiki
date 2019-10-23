@@ -19,7 +19,7 @@ function carregar_navbar() {
     if ($arg == 'dark') { $mode = 'dark'; }
     elseif ($arg == 'light') { $mode = 'light'; }
     elseif ($arg == 'forum') { $forum = true; }
-    $arg++;
+    $count++;
   }
   if ($mode == 'dark') { $mode = 'dark'; $color = 'elegant-color'; }
   elseif ($mode == 'light') { $color = 'bg-white'; }
