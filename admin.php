@@ -177,7 +177,7 @@
             <p class="h4 mb-4">Notas dos administradores</p>
             <p class='text-left'>Estas anotações são compartilhadas entre todos os administradores, por exemplo, para registrar idéia de melhorias futuras para a página.</p>
             <div class='row'>
-              <div class='col-12 border text-left' style='height: 20rem'>
+              <div class='col-12 border text-left p-3' style='height: 20rem'>
                 <?php echo "$admin_mensagens"; ?>
               </div>
             </div>
