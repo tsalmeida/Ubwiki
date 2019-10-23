@@ -560,7 +560,7 @@ function ler_relacionados($id_tema, $concurso) {
   </div>
 
   <div class='modal fade' id='modal_editar_verbete' role='dialog' tabindex='-1'>
-    <div class='modal-dialog modal-md' role='document'>
+    <div class='modal-dialog modal-lg' role='document'>
       <div class='modal-content'>
         <form id='quill_verbete_form' method='post'>
           <input name='quill_novo_verbete_html' type='hidden'>
