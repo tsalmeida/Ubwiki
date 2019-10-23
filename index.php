@@ -37,7 +37,7 @@
   <body>
     <div class='container-fluid px-0 onepage'>
       <?php
-        carregar_navbar();
+        carregar_navbar('light');
       ?>
       <div class="container-fluid bg-white">
         <div class="row justify-content-center">

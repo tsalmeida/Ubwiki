@@ -10,13 +10,28 @@ $dbname = "Ubwiki_usuarios";
 $conn2 = new mysqli($servername, $username, $password, $dbname);
 mysqli_set_charset($conn2,"utf8");
 
-function carregar_navbar() {
-  echo "<nav class='navbar navbar-expand-lg elegant-color'>
-    <a class='navbar-brand playfair text-white' href='index.php'>Ubwiki</a>
+function carregar_navbar($mode) {
+  if (!isset($mode)) { $mode = 'dark'; $color = 'elegant-color'; }
+  elseif ($mode == 'light') { $color = 'bg-white'; }
+  echo "<nav class='navbar navbar-expand-lg $color'>";
+  if ($mode == 'dark') {
+    echo "<a class='navbar-brand playfair text-white' href='index.php'>Ubwiki</a>";
+  }
+  else {
+    echo "<a class='navbar-brand playfair text-dark' href='index.php'>Ubwiki</a>";
+  }
+  echo "
     <ul class='nav navbar-nav ml-auto nav-flex-icons'>
-      <li class='nav-item dropdown'>
-        <a class='navlink dropdown-toggle waves-effect waves-light text-white' id='user_dropdown' data-toggle='dropdown' href='#'>
-          <i class='fas fa-user-tie fa-2x'></i>
+    <li class='nav-item dropdown'>
+  ";
+  if ($mode == 'dark') {
+    echo "<a class='navlink dropdown-toggle waves-effect waves-light text-white' id='user_dropdown' data-toggle='dropdown' href='#'>";
+  }
+  else {
+    echo "<a class='navlink dropdown-toggle waves-effect waves-light text-dark' id='user_dropdown' data-toggle='dropdown' href='#'>";
+  }
+  echo "
+        <i class='fas fa-user-tie fa-2x'></i>
         </a>
         <div class='dropdown-menu dropdown-menu-right dropdown-default'>
           <a class='dropdown-item navlink' href='userpage.php'>Sua página</a>
