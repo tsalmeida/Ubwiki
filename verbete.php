@@ -148,7 +148,7 @@ if (isset($_POST['novo_video_titulo'])) {
 ?>
 <body>
   <?php
-    carregar_navbar('dark', 'forum');
+    carregar_navbar('dark');
     $breadcrumbs = "
       <li class='breadcrumb-item'><a href='index.php'>$concurso</a></li>
       <li class='breadcrumb-item'><a href='materia.php?concurso=$concurso&sigla=$sigla_materia'>$materia</a></li>
