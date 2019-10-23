@@ -31,7 +31,7 @@ function carregar_navbar($mode) {
     echo "<a class='navlink dropdown-toggle waves-effect waves-light text-dark' id='user_dropdown' data-toggle='dropdown' href='#'>";
   }
   echo "
-        <i class='fas fa-user-tie fa-2x'></i>
+        <i class='fal fa-user-tie fa-2x'></i>
         </a>
         <div class='dropdown-menu dropdown-menu-right dropdown-default'>
           <a class='dropdown-item navlink' href='userpage.php'>Sua página</a>
