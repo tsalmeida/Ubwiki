@@ -389,6 +389,7 @@ function ler_relacionados($id_tema, $concurso) {
     <div class='row justify-content-center border-bottom border-dark py-5'>
       <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
         <?php
+          $questoes = false;
           if ($questoes == false) {
             echo "<p>Não há registro de questões em provas passadas sobre este tópico.</p>";
           }
@@ -410,6 +411,7 @@ function ler_relacionados($id_tema, $concurso) {
     <div class='row justify-content-center border-bottom border-dark py-5'>
       <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
         <?php
+          $discussao = false;
           if ($discussao == false) {
             echo "<p>Não há comentários sobre este tópico. Deixe aqui sua opinião!</p>";
           }
