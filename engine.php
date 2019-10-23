@@ -121,12 +121,11 @@ function bottom_page() {
               ['blockquote'],
               [{ 'list': 'ordered'}, { 'list': 'bullet' }],
               [{ 'script': 'super' }],
-              ['image'],
               [{ 'header': [2, false] }],
               ['clean']
             ];
 
-            var formatWhitelist = ['italic','script','link','blockquote','list','image','header'];
+            var formatWhitelist = ['italic','script','link','blockquote','list',{'header': [2, false]}];
 
             var verbete_editor = new Quill('#quill_editor_verbete', {
               theme: 'snow',
