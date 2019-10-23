@@ -164,7 +164,7 @@ function ler_relacionados($id_tema, $concurso) {
       <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#bibliografia' title='Bibliografia'><i class="fal fa-books fa-2x fa-fw"></i> <span class='d-block'>Bibliografia</span></a>
       <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#videos' title='Vídeos e aulas'><i class="fal fa-chalkboard-teacher fa-2x fa-fw"></i> <span class='d-block'>Vídeos e aulas</span></a>
       <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#links' title='Links'><i class="fal fa-link fa-2x fa-fw"></i> <span class='d-block'>Links</span></a>
-      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#anotacoes' title='Anotações'><i class="fal fa-user-edit fa-2x fa-fw"></i> <span class='d-block'>Anotações</span></a>
+      <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#anotacao' title='Anotações'><i class="fal fa-user-edit fa-2x fa-fw"></i> <span class='d-block'>Anotações</span></a>
       <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#questoes' title='Questões'><i class="fal fa-trophy fa-2x fa-fw"></i> <span class='d-block'>Questões</span></a>
       <a class='list-group-item list-group-item-action bg-lighter text-dark border-0' href='#discussao' title='Fórum'><i class="fal fa-comments-alt fa-2x fa-fw"></i> <span class='d-block'>Fórum</span></a>
     </ul>
@@ -348,13 +348,13 @@ function ler_relacionados($id_tema, $concurso) {
     </div>
   </div>
 
-  <div class='container my-5' id='anotacoes'>
+  <div class='container my-5' id='anotacao'>
     <div class='row justify-content-between h3 my-5'>
       <div class='col-lg-4 col-sm-8 text-center justify-content-center align-middle'>
         <span class='align-middle'>Anotações</span>
       </div>
       <div class='col-lg-1 col-sm-4 text-center justify-content-center align-middle'>
-        <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_editar_anotacoes' href=''><i class="fal fa-edit"></i></a></span>
+        <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_editar_anotacao' href=''><i class="fal fa-edit"></i></a></span>
       </div>
     </div>
     <div class='row justify-content-center border-bottom border-dark py-5'>
@@ -578,7 +578,6 @@ function ler_relacionados($id_tema, $concurso) {
                 ?>
               </div>
             </div>
-
           </div>
           <div class='modal-footer d-flex justify-content-center mt-5'>
             <button type='button' class='btn bg-lighter btn-lg' data-dismiss='modal'><i class="fal fa-times-circle"></i> Cancelar</button>
@@ -589,10 +588,10 @@ function ler_relacionados($id_tema, $concurso) {
     </div>
   </div>
 
-  <div class='modal fade' id='modal_editar_anotacoes' role='dialog' tabindex='-1'>
+  <div class='modal fade' id='modal_editar_anotacao' role='dialog' tabindex='-1'>
     <div class='modal-dialog modal-lg quill_modal' role='document'>
       <div class='modal-content'>
-        <form id='quill_anotacoes_form' method='post'>
+        <form id='quill_anotacao_form' method='post'>
           <input name='quill_nova_anotacao_html' type='hidden'>
           <div class='modal-header text-center'>
             <h4 class='modal-title w-100 font-weight-bold'>Editar verbete</h4>
