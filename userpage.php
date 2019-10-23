@@ -34,7 +34,7 @@
 ?>
   <body>
     <?php
-      carregar_navbar();
+      carregar_navbar('dark');
       standard_jumbotron("Sua página", false);
       if ($tipo == 'admin') {
         sub_jumbotron("Administrador", 'admin.php');

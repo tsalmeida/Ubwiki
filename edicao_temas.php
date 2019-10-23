@@ -133,7 +133,7 @@
   ?>
   <body>
     <?php
-    carregar_navbar();
+    carregar_navbar('dark');
     standard_jumbotron("Alterar tópicos", false);
     sub_jumbotron($concurso,false);
     ?>

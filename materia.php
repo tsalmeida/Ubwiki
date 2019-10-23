@@ -30,7 +30,7 @@ if ($result->num_rows > 0) {
 
 <body>
 <?php
-  carregar_navbar();
+  carregar_navbar('dark');
   standard_jumbotron($materia,false);
   sub_jumbotron("Tópicos",false);
 ?>

@@ -14,7 +14,7 @@
 ?>
   <body>
     <?php
-    carregar_navbar();
+    carregar_navbar('dark');
     standard_jumbotron("Ubwiki", false);
     ?>
     <div class="container-fluid my-5">

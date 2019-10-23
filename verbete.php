@@ -148,8 +148,7 @@ if (isset($_POST['novo_video_titulo'])) {
 ?>
 <body>
   <?php
-    carregar_navbar();
-    standard_jumbotron($tema, false);
+    carregar_navbar('dark');
     $breadcrumbs = "
       <li class='breadcrumb-item text-muted2'><a href='index.php'>$concurso</a></li>
       <li class='breadcrumb-item text-muted2'><a href='materia.php?concurso=$concurso&sigla=$sigla_materia'>$materia</a></li>

@@ -111,7 +111,7 @@
   ?>
   <body>
     <?php
-      carregar_navbar();
+      carregar_navbar('dark');
       standard_jumbotron("Página dos Administradores", false);
     ?>
     <div class="container-fluid my-5 px-3">
