@@ -145,10 +145,6 @@ if (isset($_POST['novo_video_titulo'])) {
   }
 }
 
-function ler_relacionados($id_tema, $concurso) {
-  return false;
-}
-
 ?>
 <body>
   <?php
@@ -173,7 +169,6 @@ function ler_relacionados($id_tema, $concurso) {
           <ul class='list-group text-center'>
             <a class='list-group-item list-group-item-action left-nav-item p-1 text-white elegant-color' href='#verbete' title='Verbete'><i class="fal fa-file-alt fa-2x fa-fw"></i> <span class='d-block'>Verbete</span></a>
             <a class='list-group-item list-group-item-action left-nav-item p-1 text-white elegant-color' href='#imagens' title='Imagens'><i class="fal fa-images fa-2x fa-fw"></i> <span class='d-block'>Imagens</span></a>
-            <a class='list-group-item list-group-item-action left-nav-item p-1 text-white elegant-color' href='#verbetes' title='Relacionados'><i class="fal fa-copy fa-2x fa-fw"></i> <span class='d-block'>Relacionados</span></a>
             <a class='list-group-item list-group-item-action left-nav-item p-1 text-white elegant-color' href='#bibliografia' title='Bibliografia'><i class="fal fa-books fa-2x fa-fw"></i> <span class='d-block'>Bibliografia</span></a>
             <a class='list-group-item list-group-item-action left-nav-item p-1 text-white elegant-color' href='#videos' title='Vídeos e aulas'><i class="fal fa-chalkboard-teacher fa-2x fa-fw"></i> <span class='d-block'>Vídeos e aulas</span></a>
             <a class='list-group-item list-group-item-action left-nav-item p-1 text-white elegant-color' href='#links' title='Links'><i class="fal fa-link fa-2x fa-fw"></i> <span class='d-block'>Links</span></a>
@@ -236,23 +231,6 @@ function ler_relacionados($id_tema, $concurso) {
               else {
                 echo "<p>Não foram acrescentadas, até o momento, imagens a este verbete.</p>";
               }
-              ?>
-            </div>
-          </div>
-        </div>
-
-        <div class='container my-5' id='verbetes'>
-          <div class='row justify-content-between h3 my-5'>
-            <div class='col-lg-4 col-sm-8 text-left justify-content-center align-middle'>
-              <span class='align-left'>Relacionados</span>
-            </div>
-            <div class='col-lg-2 col-sm-4 text-right justify-content-center align-middle'>
-            </div>
-          </div>
-          <div class='row justify-content-center border-bottom border-dark py-5'>
-            <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
-              <?php
-                ler_relacionados($id_tema, $concurso);
               ?>
             </div>
           </div>
