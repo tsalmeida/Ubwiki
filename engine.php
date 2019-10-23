@@ -116,34 +116,34 @@ function bottom_page() {
           <!-- Initialize Quill editor -->
           <script>
 
-          var toolbarOptions = [
-            ['italic'],
-            ['blockquote'],
-            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-            [{ 'script': 'super' }],
-            ['image'],
-            [{ 'header': [2, false] }],
-            ['clean']
-          ];
+            var toolbarOptions = [
+              ['italic'],
+              ['blockquote'],
+              [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+              [{ 'script': 'super' }],
+              ['image'],
+              [{ 'header': [2, false] }],
+              ['clean']
+            ];
 
-          var formatWhitelist = ['italic','script','link','blockquote','list','image','header'];
+            var formatWhitelist = ['italic','script','link','blockquote','list','image','header'];
 
-          var quill = new Quill('#quill_editor_verbete', {
-            theme: 'snow',
-            formats: formatWhitelist,
-            modules: {
-              toolbar: toolbarOptions
+            var verbete_editor = new Quill('#quill_editor_verbete', {
+              theme: 'snow',
+              formats: formatWhitelist,
+              modules: {
+                toolbar: toolbarOptions
+              }
+            });
+
+            var form = document.querySelector('#quill_verbete_form');
+            form.onsubmit = function() {
+              var test = verbete_editor.root.innerHTML();
+              alert(test);
+              var quill_novo_verbete_html = document.querySelector('input[name=quill_novo_verbete_html]');
+              quill_novo_verbete_html.value = verbete_editor.root.innerHTML();
+              ;
             }
-          });
-
-          var form = document.querySelector('#quill_verbete_form');
-          form.onsubmit = function() {
-            var test = quill.root.innerHTML();
-            alert(test);
-            var quill_novo_verbete_html = document.querySelector('input[name=quill_novo_verbete_html]');
-            quill_novo_verbete_html.value = quill.root.innerHTML();
-            ;
-          }
 
           </script>
         ";
