@@ -51,7 +51,9 @@
               <span class='display-3'>Ubwiki</span>
             </div>
             <div class='row text-center'>
-              <?php echo "<span class='display4'>$concurso</span>"; ?>
+              <?php echo "<span class='display-4'>$concurso</span>"; ?>
+            </div>
+            <div class='row'>
               <span class='lead'>Ordem e Progresso</span>
             </div>
           </div>
