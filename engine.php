@@ -108,14 +108,9 @@ function bottom_page() {
     $array = 0;
     while (isset($args[$array])) {
       if ($args[$array] == "quill_v") {
-
         echo "
-          <!-- Include the Quill library -->
           <script src='https://cdn.quilljs.com/1.3.6/quill.js'></script>
-
-          <!-- Initialize Quill editor -->
           <script>
-
             var toolbarOptions = [
               ['italic'],
               ['blockquote'],
@@ -124,9 +119,7 @@ function bottom_page() {
               [{ 'header': [2, false] }],
               ['clean']
             ];
-
             var formatWhitelist = ['italic','script','link','blockquote','list','header'];
-
             var verbete_editor = new Quill('#quill_editor_verbete', {
               theme: 'snow',
               formats: formatWhitelist,
@@ -134,17 +127,21 @@ function bottom_page() {
                 toolbar: toolbarOptions
               }
             });
-
-            var form = document.querySelector('#quill_verbete_form');
+            var anotacao_editor = new Quill('#quill_editor_anotacao', {
+              theme: 'snow',
+              formats: formatWhitelist,
+              modules: {
+                toolbar: toolbarOptions
+              }
+            });
+            var form = document.querySelector('#quill_anotacao_form');
             form.onsubmit = function() {
-              var quill_novo_verbete_html = document.querySelector('input[name=quill_novo_verbete_html]');
-              quill_novo_verbete_html.value = verbete_editor.root.innerHTML;
+              var quill_nova_anotacao_html = document.querySelector('input[name=quill_nova_anotacao_html]');
+              quill_nova_anotacao_html.value = anotacao_editor.root.innerHTML;
               ;
             }
-
           </script>
         ";
-
       }
       if ($args[$array] == "edicao_temas") {
         echo "

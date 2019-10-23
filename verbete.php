@@ -58,11 +58,11 @@ if ($result->num_rows > 0) {
 $result = $conn->query("SELECT verbete FROM Verbetes WHERE concurso = '$concurso' AND id_tema = $id_tema");
 if ($result->num_rows > 0) {
   while($row = $result->fetch_assoc()) {
-    $verbete_consolidado = $row['verbete'];
+    $verbete_html = $row['verbete'];
   }
 }
 else {
-  $verbete_consolidado = false;
+  $verbete_html = false;
 }
 
 if (isset($_POST['quill_novo_verbete_html'])) {
@@ -72,36 +72,36 @@ if (isset($_POST['quill_novo_verbete_html'])) {
   $result = $conn->query("SELECT verbete FROM Verbetes WHERE concurso = '$concurso' AND id_tema = $id_tema");
   if ($result->num_rows > 0) {
     $result = $conn->query("UPDATE Verbetes SET verbete = '$novo_verbete_html', usuario = '$user' WHERE concurso = '$concurso' AND id_tema = $id_tema");
-    $result = $conn->query("INSERT INTO Verbetes_arquivo (id_tema, concurso, verbete, usuario) VALUES ('$id_tema', '$concurso', '$verbete_consolidado', '$user')");
+    $result = $conn->query("INSERT INTO Verbetes_arquivo (id_tema, concurso, verbete, usuario) VALUES ('$id_tema', '$concurso', '$verbete_html', '$user')");
   }
   else {
     $result = $conn->query("INSERT INTO Verbetes (id_tema, concurso, verbete, usuario) VALUES ('$id_tema', '$concurso', '$novo_verbete_html', '$user')");
   }
-  $verbete_consolidado = $novo_verbete_html;
+  $verbete_html = $novo_verbete_html;
 }
 
 $result = $conn2->query("SELECT conteudo_texto FROM $tabela_usuario WHERE tipo = 'anotacoes' AND tipo2 = $id_tema");
 if ($result->num_rows > 0) {
   while($row = $result->fetch_assoc()) {
-    $anotacoes = $row['conteudo_texto'];
+    $anotacao_html = $row['conteudo_texto'];
   }
 }
 else {
-  $anotacoes = false;
+  $anotacao_html = false;
 }
 
-if (isset($_POST['anotacoes_texto'])) {
-  $novas_anotacoes = $_POST['anotacoes_texto'];
-  $novas_anotacoes = strip_tags($novas_anotacoes);
+if (isset($_POST['quill_nova_anotacao_html'])) {
+  $nova_anotacao_html = $_POST['quill_nova_anotacao_html'];
+  $nova_anotacao_html = strip_tags($nova_anotacao_html, '<p><li><ul><ol><h2><blockquote><em><sup>');
   $result = $conn2->query("SELECT conteudo_texto FROM $tabela_usuario WHERE tipo = 'anotacoes' AND tipo2 = $id_tema ");
-  if ($anotacoes != false) {
-    $result = $conn2->query("UPDATE $tabela_usuario SET conteudo_texto = '$novas_anotacoes', WHERE tipo = 'anotacoes' AND tipo2 = $id_tema");
-    $result = $conn2->query("INSERT INTO $tabela_usuario_arquivo (tipo, tipo2, conteudo_texto) VALUES ('anotacoes', $id_tema, '$anotacoes')");
+  if ($anotacao_html != false) {
+    $result = $conn2->query("UPDATE $tabela_usuario SET conteudo_texto = '$nova_anotacao_html', WHERE tipo = 'anotacoes' AND tipo2 = $id_tema");
+    $result = $conn2->query("INSERT INTO $tabela_usuario_arquivo (tipo, tipo2, conteudo_texto) VALUES ('anotacoes', $id_tema, '$nova_anotacao_html')");
   }
   else {
-    $result = $conn2->query("INSERT INTO $tabela_usuario (tipo, tipo2, conteudo_texto) VALUES ('anotacoes', $id_tema, '$novas_anotacoes')");
+    $result = $conn2->query("INSERT INTO $tabela_usuario (tipo, tipo2, conteudo_texto) VALUES ('anotacoes', $id_tema, '$nova_anotacao_html')");
   }
-  $anotacoes = $novas_anotacoes;
+  $anotacao_html = $nova_anotacao_html;
 }
 
 if (isset($_POST['nova_imagem_link'])) {
@@ -192,12 +192,12 @@ function ler_relacionados($id_tema, $concurso) {
     <div class='row justify-content-center border-bottom border-dark py-5'>
       <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
         <?php
-          if ($verbete_consolidado == false) {
+          if ($verbete_html == false) {
             echo "<p>O verbete deste tópico ainda não começou a ser escrito.</p>";
           }
           else {
             echo "<h1>$tema</h1>";
-            $verbete_reformatado = quill_reformatar($verbete_consolidado);
+            $verbete_reformatado = quill_reformatar($verbete_html);
             echo $verbete_reformatado;
           }
         ?>
@@ -359,16 +359,13 @@ function ler_relacionados($id_tema, $concurso) {
     <div class='row justify-content-center border-bottom border-dark py-5'>
       <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
         <?php
-          if ($anotacoes == false) {
+          if ($anotacao_html == false) {
             echo "<p>Você ainda não fez anotações sobre este tópico.</p>";
           }
           else {
-            $separator = "\r\n";
-            $line = strtok($anotacoes, $separator);
-            while ($line !== false) {
-                echo "<p>$line</p>";
-                $line = strtok( $separator );
-            }
+            echo "<h1>$tema</h1>";
+            $anotacao_reformatada = quill_reformatar($anotacao_reformatada);
+            echo $anotacao_reformatada;
           }
         ?>
       </div>
@@ -573,7 +570,7 @@ function ler_relacionados($id_tema, $concurso) {
                   echo "
                     <div id='quill_container_verbete' class='quill_container_modal'>
                       <div id='quill_editor_verbete'>
-                        $verbete_consolidado
+                        $verbete_html
                       </div>
                     </div>
                   ";
@@ -592,27 +589,33 @@ function ler_relacionados($id_tema, $concurso) {
   </div>
 
   <div class='modal fade' id='modal_editar_anotacoes' role='dialog' tabindex='-1'>
-    <div class='modal-dialog modal-lg' role='document'>
+    <div class='modal-dialog modal-lg quill_modal' role='document'>
       <div class='modal-content'>
-        <form method='post'>
+        <form id='quill_anotacoes_form' method='post'>
+          <input name='quill_nova_anotacao_html' type='hidden'>
           <div class='modal-header text-center'>
-            <h4 class='modal-title w-100 font-weight-bold'>Minhas anotações</h4>
+            <h4 class='modal-title w-100 font-weight-bold'>Editar verbete</h4>
             <button type='button' class='close' data-dismiss='modal'>
               <i class="fal fa-times-circle"></i>
             </button>
           </div>
-          <div class='modal-body mx-3'>
-
+          <div class='modal-body'>
             <div class='row justify-content-center'>
               <div class='container col-12 justify-content-center'>
                 <?php
-                  echo "<textarea name='anotacoes_texto' class='rounded textarea_verbete px-4 py-5'>$anotacoes</textarea>";
+                  echo "
+                    <div id='quill_container_anotacao' class='quill_container_modal'>
+                      <div id='quill_editor_anotacao'>
+                        $anotacao_html
+                      </div>
+                    </div>
+                  ";
                 ?>
               </div>
             </div>
 
           </div>
-          <div class='modal-footer d-flex justify-content-center'>
+          <div class='modal-footer d-flex justify-content-center mt-5'>
             <button type='button' class='btn bg-lighter btn-lg' data-dismiss='modal'><i class="fal fa-times-circle"></i> Cancelar</button>
             <button type='submit' class='but btn-primary btn-lg'><i class='fal fa-check'></i> Salvar</button>
           </div>
