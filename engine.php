@@ -18,7 +18,6 @@ function carregar_navbar() {
     $arg = $args[$count];
     if ($arg == 'dark') { $mode = 'dark'; }
     elseif ($arg == 'light') { $mode = 'light'; }
-    elseif ($arg == 'forum') { $forum = true; }
     $count++;
   }
   if ($mode == 'dark') { $mode = 'dark'; $color = 'elegant-color'; }
@@ -31,7 +30,6 @@ function carregar_navbar() {
     echo "<a class='navbar-brand playfair text-dark' href='index.php'>Ubwiki</a>";
   }
   echo "<ul class='nav navbar-nav ml-auto nav-flex-icons'>";
-  if ($forum == true) { echo "<li class='nav-item mr-3'><a class='navlink waves-effect waves-light text-white' id='abrir_forum_modal'><i class='fal fa-comments fa-2x'></i></a></li>"; }
   echo "<li class='nav-item dropdown'>";
   if ($mode == 'dark') {
     echo "<a class='navlink dropdown-toggle waves-effect waves-light text-white' id='user_dropdown' data-toggle='dropdown' href='#'>";
