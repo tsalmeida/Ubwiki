@@ -166,14 +166,14 @@ if (isset($_POST['novo_video_titulo'])) {
       <div class='col-lg-2 col-sm-12'>
         <div class='border p-3 mt-3 left-menu-nav elegant-color text-white position-fixed hidden-xs hidden-sm hidden-md'>
           <ul class='list-group text-center'>
-            <a class='list-group-item list-group-item-action left-nav-item p-1 text-white elegant-color' href='#verbete' title='Verbete'><i class="fal fa-file-alt fa-2x fa-fw"></i> <span class='d-block'>Verbete</span></a>
-            <a class='list-group-item list-group-item-action left-nav-item p-1 text-white elegant-color' href='#imagens' title='Imagens'><i class="fal fa-images fa-2x fa-fw"></i> <span class='d-block'>Imagens</span></a>
-            <a class='list-group-item list-group-item-action left-nav-item p-1 text-white elegant-color' href='#bibliografia' title='Bibliografia'><i class="fal fa-books fa-2x fa-fw"></i> <span class='d-block'>Bibliografia</span></a>
-            <a class='list-group-item list-group-item-action left-nav-item p-1 text-white elegant-color' href='#videos' title='Vídeos e aulas'><i class="fal fa-chalkboard-teacher fa-2x fa-fw"></i> <span class='d-block'>Vídeos e aulas</span></a>
-            <a class='list-group-item list-group-item-action left-nav-item p-1 text-white elegant-color' href='#links' title='Links'><i class="fal fa-link fa-2x fa-fw"></i> <span class='d-block'>Links</span></a>
-            <a class='list-group-item list-group-item-action left-nav-item p-1 text-white elegant-color' href='#anotacao' title='Anotações'><i class="fal fa-user-edit fa-2x fa-fw"></i> <span class='d-block'>Anotações</span></a>
-            <a class='list-group-item list-group-item-action left-nav-item p-1 text-white elegant-color' href='#questoes' title='Questões'><i class="fal fa-trophy fa-2x fa-fw"></i> <span class='d-block'>Questões</span></a>
-            <a class='list-group-item list-group-item-action left-nav-item p-1 text-white elegant-color' href='#discussao' title='Fórum'><i class="fal fa-comments-alt fa-2x fa-fw"></i> <span class='d-block'>Fórum</span></a>
+            <a class='list-group-item list-group-item-action left-nav-item p-1 text-white elegant-color' href='#verbete' title='Verbete'>Verbete</a>
+            <a class='list-group-item list-group-item-action left-nav-item p-1 text-white elegant-color' href='#imagens' title='Imagens'>Imagens</a>
+            <a class='list-group-item list-group-item-action left-nav-item p-1 text-white elegant-color' href='#bibliografia' title='Bibliografia'>Bibliografia</a>
+            <a class='list-group-item list-group-item-action left-nav-item p-1 text-white elegant-color' href='#videos' title='Vídeos e aulas'>Vídeos e aulas</a>
+            <a class='list-group-item list-group-item-action left-nav-item p-1 text-white elegant-color' href='#links' title='Links'>Links</a>
+            <a class='list-group-item list-group-item-action left-nav-item p-1 text-white elegant-color' href='#anotacao' title='Anotações'>Anotações</a>
+            <a class='list-group-item list-group-item-action left-nav-item p-1 text-white elegant-color' href='#questoes' title='Questões'>Questões</a>
+            <a class='list-group-item list-group-item-action left-nav-item p-1 text-white elegant-color' href='#discussao' title='Fórum'>Fórum</a>
           </ul>
         </div>
       </div>
