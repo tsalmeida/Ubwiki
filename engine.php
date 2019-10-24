@@ -322,7 +322,7 @@ echo "
       echo "<span class='display-3 wireone'>$titulo</span>";
     }
     else {
-      echo "<a href='$link'><h1>$titulo</h1></a>";
+      echo "<span class='display-3 wireone'><a href='$link'>$titulo</a></span>";
     }
 echo "
   </div>
