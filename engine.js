@@ -1,5 +1,13 @@
 $(document).ready(function() {
 	$(".hidewhen").hide();
+	$(document.body).on('click', '.anotacoes_down', function(){
+		$('.anotacoes_up').show();
+		$('.anotacoes_down').hide()
+	})
+	$(document.body).on('click', '.anotacoes_up', function(){
+		$('.anotacoes_up').hide();
+		$('.anotacoes_down').show()
+	})
 	$("#searchBar").focus();
   $(document.body).on('click', '.cardmateria' ,function(){
     if ($(this).attr("href")) {

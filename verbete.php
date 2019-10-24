@@ -369,10 +369,10 @@ if (isset($_POST['novo_video_titulo'])) {
                 <span class='h4 align-middle'>Anotações</span>
               </div>
               <div class='col-3 text-right'>
-                <button type='button' class='btn btn-light p-1'>
+                <button type='button' class='btn btn-light p-1 anotacoes_down'>
                   <i class="fal fa-chevron-square-down fa-fw fa-2x"></i>
                 </button>
-                <button type='button' class='btn btn-light p-1 hidewhen'>
+                <button type='button' class='btn btn-light p-1 hidewhen anotacoes_up'>
                   <i class="fal fa-chevron-square-up fa-fw fa-2x"></i>
                 </button>
               </div>
