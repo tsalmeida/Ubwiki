@@ -55,6 +55,11 @@ logo {
   border-radius: 2vh;
 }
 
+.right-menu-nav {
+  border-radius: 2vh;
+  width: 100%;
+}
+
 .jumbotron {
   /* background-color: #474d55; */
   box-shadow: none !important;
