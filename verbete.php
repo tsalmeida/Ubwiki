@@ -183,10 +183,10 @@ if (isset($_POST['novo_video_titulo'])) {
             <div class='col-lg-11 col-sm-12'>
               <?php
                 echo "<span class='display-2 wireone d-none d-md-block'>$tema</span>";
-                echo "<span class='display-4 wireone d-none d-lg-none'>$tema</span>";
+                echo "<span class='display-4 wireone d-block d-lg-none'>$tema</span>";
               ?>
             </div>
-            <div class='col-lg-1 col-sm-12'>
+            <div class='col-lg-1 col-sm-12 h3'>
               <a data-toggle='modal' data-target='#modal_editar_verbete' href=''><i class="fal fa-edit"></i></a>
             </div>
           </div>
