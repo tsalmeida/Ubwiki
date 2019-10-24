@@ -191,7 +191,7 @@ if (isset($_POST['novo_video_titulo'])) {
             </div>
           </div>
           <div class='row justify-content-left border-bottom border-dark py-3'>
-            <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
+            <div class='col-lg-8 col-sm-12 text-left font-weight-normal'>
               <?php
                 if ($verbete_html == false) {
                   echo "<p>O verbete deste tópico ainda não começou a ser escrito.</p>";
