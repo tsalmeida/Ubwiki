@@ -162,8 +162,8 @@ if (isset($_POST['novo_video_titulo'])) {
   ?>
 
   <div class='container-fluid text-center'>
-    <div class='row justify-content-between'>
-      <div class='col-lg-2 col-sm-12 justify-content-center d-none d-lg-block'>
+    <div class='row justify-content-center'>
+      <div class='col-lg-2 col-sm-12 justify-content-center d-none d-lg-flex'>
         <div class='border p-3 mt-3 left-menu-nav elegant-color text-white position-fixed'>
           <ul class='list-group text-center'>
             <a class='list-group-item list-group-item-action left-nav-item p-1 text-white elegant-color' href='#verbete' title='Verbete'>Verbete</a>
@@ -177,7 +177,7 @@ if (isset($_POST['novo_video_titulo'])) {
           </ul>
         </div>
       </div>
-      <div class='col-lg-6 col-sm-12 bg-white'>
+      <div class='col-lg-5 col-sm-12 bg-white'>
         <div class='row my-5 text-left' id='verbete'>
           <div class='col-10 text-left'>
             <?php
