@@ -43,7 +43,7 @@
     }
   }
 
-  if (isset($_POST['reconstruir_concurso'])) {
+  if (isset($_POST['reconstruir_busca'])) {
     $concurso = $_POST['reconstruir_concurso'];
     $ordem = 0;
     $conn->query("DELETE FROM Searchbar WHERE concurso = '$concurso'");

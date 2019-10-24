@@ -23,6 +23,12 @@
     header('Location:index.php');
   }
 
+  if ((isset($POST_['nova_materia_titulo'])) && isset($_POST['nova_materia_sigla'])) {
+    $nova_materia_titulo = $_POST['nova_materia_titulo'];
+    $nova_materia_sigla = $_POST['nova_materia_sigla'];
+    $conn->query("INSERT INTO Materias (materia, sigla, concurso) VALUES ('$nova_materia_titulo', '$nova_materia_sigla', '$concurso')")
+  }
+
   if (isset($_POST['apagar_tema_id'])) {
     $apagar_tema_id = $_POST['apagar_tema_id'];
     $result = $conn->query("SELECT nivel, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE id = $apagar_tema_id");
@@ -210,21 +216,24 @@
               <h5 class='text-center'>Não há tópicos marcados para revisão.</h5>
             ";
           }
-          echo "
+?>
             </form>
             <form class='border border-light p-4 mb-2 mt-5' method='post'>
               <h2 class='text-center'>Ciclo de revisão</h2>
                 <h4 class='text-center'>Todos os tópicos</h4>
                   <p>Ao pressionar 'reiniciar o ciclo de revisão', todos os tópicos serão marcadas para revisão. Ao pressionar 'finalizar o ciclo de revisão', todos serão removidos do ciclo de revisão.</p>
                   <div class='row justify-content-center'>
-                    <button name='reiniciar_ciclo' type='submit' class='btn btn-primary' value='$concurso'>Reiniciar ciclo de revisão</button>
-                    <button name='finalizar_ciclo' type='submit' class='btn btn-primary' value='$concurso'>Finalizar ciclo de revisão</button>
+<?php
+                    echo "<button name='reiniciar_ciclo' type='submit' class='btn btn-primary' value='$concurso'>Reiniciar ciclo de revisão</button>";
+                    echo "<button name='finalizar_ciclo' type='submit' class='btn btn-primary' value='$concurso'>Finalizar ciclo de revisão</button>";
+?>
                   </div>
             </form>
             <form class='border border-light p-4 my-2' method='post'>
-              <h2 class='text-center'>Ciclo de revisão</h2>
-                <h4 class='text-center'>Por matéria</h4>
-                <p>Escolha abaixo uma matéria para acrescentar ao ciclo de revisão:</p>";
+              <h2>Ciclo de revisão</h2>
+                <h4>Por matéria</h4>
+                <p>Escolha abaixo uma matéria para acrescentar ao ciclo de revisão:</p>
+<?php
                   $result = $conn->query("SELECT materia, sigla, estado FROM Materias WHERE concurso = '$concurso'");
                   if ($result->num_rows > 0) {
                     while($row = $result->fetch_assoc()) {
@@ -235,6 +244,7 @@
                       else { $estado = false; }
                       $item_id = "ciclo_materia_";
                       $item_id .= $sigla;
+?>
                       echo "
                         <div class='form-check my-1'>
                           <input class='form-check-input' type='radio' name='ciclo_materia' id='$item_id' value='$sigla'>
@@ -249,9 +259,26 @@
                 <button name='ciclo_materia_remover' type='submit' class='btn btn-primary' value='$concurso'>Remover do ciclo de revisão</button>
               </div>
             </form>
-            ";
-         ?>
+            <form class='border border-light p-4 my-2' method='post'>
+              <h2>Acrescentar matéria</h2>
+              <p>Para acrescentar uma matéria, é necessário criar um sigla. A sigla é necessariamente única em todo o sistema Ubwiki e, portanto, é melhor que inclua a sigla do próprio concurso. Por exemplo: 'GEOCACD' é a sigla para a matéria 'Geografia' do concurso 'CACD'.</p>
+              <p>A ordem em que as matérias forem acrscentadas será a ordem em que serão apresentadas na página. Por favor, tire um instante para pensar nas conexões naturais entre as matérias, assim como em sua progressão natural, seja de importância ou de complexidade, para que sua ordem de apresentação seja minimamente significativa.</p>
+              <fieldset class="form-group">
+                <div class="row">
+                  <input type='text' id='nova_materia_titulo' name='nova_materia_titulo' class='form-control validate' required>
+                  <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_materia_titulo'>Título da matéria</label>
+                </div>
+                <div class="row">
+                  <input type='text' id='nova_materia_sigla' name='nova_materia_sigla' class='form-control validate' required>
+                  <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_materia_sigla'>Sigla da matéria</label>
+                </div>
+              </fieldset>
+<?php
+              echo "<button type='submit' class='btn btn-primary' value='$concurso' name='nova_materia_concurso'>Incluir matéria</button>";
+?>
+            </form>
         </div>
+
         <?php
           if ($revisao != false) {
           echo "
