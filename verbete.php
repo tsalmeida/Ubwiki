@@ -179,13 +179,13 @@ if (isset($_POST['novo_video_titulo'])) {
       </div>
       <div class='col-lg-8 col-sm-12 bg-white'>
         <div class='row my-5 text-left' id='verbete'>
-          <div class='col-lg-11 col-sm-12 text-left'>
+          <div class='col-11 text-left'>
             <?php
               echo "<span class='display-2 wireone d-none d-lg-inline'>$tema</span>";
               echo "<span class='display-3 wireone d-block d-lg-none'>$tema</span>";
             ?>
           </div>
-          <div class='col-lg-1 col-sm-12 h3 text-right'>
+          <div class='col-1 h3 text-right'>
             <a data-toggle='modal' data-target='#modal_editar_verbete' href=''><i class="fal fa-edit fa-fw"></i></a>
           </div>
         </div>
