@@ -85,8 +85,8 @@
     }
   }
 
-  if (isset($_POST['metalinguagem_concurso'])) {
-    $metalinguagem_concurso = $_POST['metalinguagem_concurso'];
+  if (isset($_POST['editar_topicos_concurso'])) {
+    $metalinguagem_concurso = $_POST['editar_topicos_concurso'];
     header("Location:edicao_topicos.php?concurso=$metalinguagem_concurso");
   }
 
