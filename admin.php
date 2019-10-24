@@ -143,7 +143,7 @@
               <p class='text-left'>Com esta ferramenta, o administrador pode alterar a tabela de tópicos de um concurso. O objetivo é maximizar a utilidade do edital original para as atividades do estudante.</p>
               <div class="form-group">
                 <label for="editar_topicos_concurso">Concurso</label>
-                <select class="form-control" name="editar_topicos_concurso">
+                <select class="form-control" id="editar_topicos_concurso">
 <?php
                   foreach ($lista_concursos as $um_concurso) {
                     if ($um_concurso[2] == 0) { $estado = '(desativado)'; } else { $estado = '(ativado)'; }
@@ -188,20 +188,20 @@
             <button class='btn btn-primary btn-block my-4' type='submit'>Reconstruir</button>
           </form>
           <form class='text-center border border-light p-5 my-2' method='post'>
-            <p class="h4 mb-4">Otimizar tabela de tópicos</p>
-            <p>Essa ferramenta determina o nível relevante de cada entrada na tabela de tópicos, de 1 a 5.</p>
-            <div class="form-group">
-              <label for="editar_topicos_concurso">Concurso</label>
-              <select class="form-control" name="editar_topicos_concurso">
-<?php
-                foreach ($lista_concursos as $um_concurso) {
-                  if ($um_concurso[2] == 0) { $estado = '(desativado)'; } else { $estado = '(ativado)'; }
-                  echo "<option value='$um_concurso[0]'>$um_concurso[1] / $estado</option>";
-                  $count++;
-                }
-?>
-              </select>
-            </div>
+              <p class="h4 mb-4">Otimizar tabela de tópicos</p>
+              <p>Essa ferramenta determina o nível relevante de cada entrada na tabela de tópicos, de 1 a 5.</p>
+              <div class="form-group">
+                <label for="editar_topicos_concurso">Concurso</label>
+                <select class="form-control" name="otimizar_temas_concurso">
+  <?php
+                  foreach ($lista_concursos as $um_concurso) {
+                    if ($um_concurso[2] == 0) { $estado = '(desativado)'; } else { $estado = '(ativado)'; }
+                    echo "<option value='$um_concurso[0]'>$um_concurso[1] $estado</option>";
+                    $count++;
+                  }
+  ?>
+                </select>
+              </div>
             <button class='btn btn-primary btn-block my-4' type='submit'>Otimizar</button>
           </form>
         </div>
