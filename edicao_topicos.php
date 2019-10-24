@@ -1,4 +1,5 @@
 <?php
+  insert 'engine.php';
   session_save_path('/home/tsilvaalmeida/public_html/ubwiki/sessions/');
   session_start();
   if (isset($_SESSION['email'])) {
@@ -13,21 +14,23 @@
     $concurso = $_GET['concurso'];
   }
 
+  $result = $conn->query("SELECT estado FROM Concursos WHERE sigla = '$concurso'");
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $estado = $row['estado'];
+    }
+  }
+  else {
+    header('Location:index.php');
+  }
+
   if (isset($_POST['reiniciar_ciclo'])) {
-    $servername = "localhost";
-    $username = "grupoubique";
-    $password = "ubique patriae memor";
-    $dbname = "Ubique";
     $conn = new mysqli($servername, $username, $password, $dbname);
     mysqli_set_charset($conn,"utf8");
     $result = $conn->query("UPDATE Temas SET ciclo_revisao = 0 WHERE concurso = '$concurso'");
   }
 
   if (isset($_POST['finalizar_ciclo'])) {
-    $servername = "localhost";
-    $username = "grupoubique";
-    $password = "ubique patriae memor";
-    $dbname = "Ubique";
     $conn = new mysqli($servername, $username, $password, $dbname);
     mysqli_set_charset($conn,"utf8");
     $result = $conn->query("UPDATE Temas SET ciclo_revisao = 1 WHERE concurso = '$concurso'");
@@ -35,10 +38,6 @@
 
   if (isset($_POST['ciclo_materia_adicionar'])) {
     $materia_revisao = $_POST['ciclo_materia'];
-    $servername = "localhost";
-    $username = "grupoubique";
-    $password = "ubique patriae memor";
-    $dbname = "Ubique";
     $conn = new mysqli($servername, $username, $password, $dbname);
     mysqli_set_charset($conn,"utf8");
     $result = $conn->query("UPDATE Temas SET ciclo_revisao = 0 WHERE concurso = '$concurso' AND sigla_materia = '$materia_revisao'");
@@ -46,10 +45,6 @@
 
   if (isset($_POST['ciclo_materia_remover'])) {
     $materia_revisao = $_POST['ciclo_materia'];
-    $servername = "localhost";
-    $username = "grupoubique";
-    $password = "ubique patriae memor";
-    $dbname = "Ubique";
     $conn = new mysqli($servername, $username, $password, $dbname);
     mysqli_set_charset($conn,"utf8");
     $result = $conn->query("UPDATE Temas SET ciclo_revisao = 1 WHERE concurso = '$concurso' AND sigla_materia = '$materia_revisao'");
@@ -59,10 +54,6 @@
     $remover_ciclo = $_POST['remover_ciclo'];
     $form_tema_id = $_POST['form_tema_id'];
     if ($remover_ciclo == true) {
-      $servername = "localhost";
-      $username = "grupoubique";
-      $password = "ubique patriae memor";
-      $dbname = "Ubique";
       $conn = new mysqli($servername, $username, $password, $dbname);
       mysqli_set_charset($conn,"utf8");
       $result = $conn->query("UPDATE Temas SET ciclo_revisao = 1 WHERE id = '$form_tema_id'");
@@ -192,9 +183,11 @@
               <input class='form-control mt-2 novosub' type='text' id='novosub19' name='topico_subalterno19' placeholder='título do novo tópico'></input>
               <input class='form-control mt-2 novosub' type='text' id='novosub20' name='topico_subalterno20' placeholder='título do novo tópico'></input>
               <div class='row justify-content-center mt-3'>
-                <button name='form_tema_id' type='submit' class='btn btn-primary' value='$tema_id'>Registrar mudanças</button>
-              </div>
-            ";
+                <button name='form_tema_id' type='submit' class='btn btn-primary' value='$tema_id'>Registrar mudanças</button>";
+                if ($estado == 0) {
+                  echo "<button name='apagar_tema_id' type='button' class='btn btn-primary' value='$tema_id'>Apagar tópico e subtópicos</button>";
+                }
+              echo '</div>';
           }
           else {
             echo "
