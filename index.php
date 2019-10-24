@@ -1,5 +1,6 @@
 <?php
   $concurso = 'CACD';
+  $newuser = false;
   include 'engine.php';
 
   session_save_path('/home/tsilvaalmeida/public_html/ubwiki/sessions/');
@@ -16,6 +17,9 @@
     while($row = $result->fetch_assoc()) {
       $usuario_id = $row['id'];
     }
+  }
+  else {
+    $newuser = true;
   }
 
   $nova_tabela = "usuario_id_";
