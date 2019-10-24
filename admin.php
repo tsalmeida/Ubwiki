@@ -107,6 +107,18 @@
     }
   }
 
+  if (isset($_POST['novo_concurso_titulo'])) {
+    $novo_concurso_titulo = $_POST['novo_concurso_titulo'];
+    $novo_concurso_sigla = $_POST['novo_concurso_sigla'];
+    $result = $conn->query("SELECT titulo, sigla FROM Concursos WHERE sigla = '$novo_concurso_sigla' AND titulo = '$novo_concurso_titulo'");
+    if ($result->num_rows == 0) {
+      $conn->query("INSERT INTO Concursos (titulo, sigla) VALUES ('$novo_concurso_titulo', '$novo_concurso_sigla')");
+    }
+    else {
+      return false;
+    }
+  }
+
   top_page("quill_admin");
   ?>
   <body>
