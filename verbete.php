@@ -204,10 +204,10 @@ if (isset($_POST['novo_video_titulo'])) {
         </div>
 
         <div class='row justify-content-between h3 my-5' id='imagens'>
-          <div class='col-lg-4 col-sm-8 text-left justify-content-center align-middle'>
+          <div class='col-11 text-left justify-content-center align-middle'>
             <span class='align-left'>Imagens</span>
           </div>
-          <div class='col-lg-2 col-sm-4 text-right justify-content-center align-middle'>
+          <div class='col-1 text-right justify-content-center align-middle'>
               <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_imagens_form' href=''><i class='fal fa-plus-square fa-fw'></i></a></span>
           </div>
         </div>
