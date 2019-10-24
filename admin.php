@@ -150,6 +150,7 @@
                     $um_concurso = $lista_concursos($count);
                     if ($um_concurso(2) == 0) { $estado = '(desativado)'; } else { $estado = '(ativado)'; }
                     echo "<option>$um_concurso(0): $um_concurso(1) / $estado</option>";
+                    $count++;
                   }
 ?>
                 </select>
