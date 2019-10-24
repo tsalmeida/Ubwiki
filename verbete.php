@@ -361,7 +361,7 @@ if (isset($_POST['novo_video_titulo'])) {
       </div>
       <div class='col-lg-1 justify-content-center d-none d-lg-flex'></div>
       <div class='col-lg-4 justify-content-center d-none d-lg-flex'>
-        <div class='p-3 right-menu-nav'>
+        <div class='p-3 right-menu-nav positon-absolute'>
           <form id='quill_anotacao_form' method='post' action='#anotacao'>
             <input name='quill_nova_anotacao_html' type='hidden'>
             <div class='modal-header text-center'>
@@ -384,7 +384,6 @@ if (isset($_POST['novo_video_titulo'])) {
                   ?>
                 </div>
               </div>
-
             </div>
             <div class='modal-footer d-flex justify-content-center mt-5'>
               <button type='button' class='btn bg-lighter btn-lg' data-dismiss='modal'><i class="fal fa-times-circle"></i> Cancelar</button>
