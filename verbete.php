@@ -361,23 +361,23 @@ if (isset($_POST['novo_video_titulo'])) {
       </div>
       <div class='col-lg-6 justify-content-center d-none d-lg-flex'>
         <div class='p-3 right-menu-nav position-fixed'>
-          <form id='quill_anotacao_form' method='post' action='#anotacao'>
-            <div class='row justify-content-around'>
-              <div class='col-3'></div>
-              <div class='col-6 text-center'>
-                <input name='quill_nova_anotacao_html' type='hidden'>
-                <span class='h4 align-middle'>Anotações</span>
-              </div>
-              <div class='col-3 text-right'>
-                <button type='button' class='btn btn-light p-1 anotacoes_down'>
-                  <i class="fal fa-chevron-square-down fa-fw fa-2x"></i>
-                </button>
-                <button type='button' class='btn btn-light p-1 hidewhen anotacoes_up'>
-                  <i class="fal fa-chevron-square-up fa-fw fa-2x"></i>
-                </button>
-              </div>
+          <div class='row justify-content-around'>
+            <div class='col-3'></div>
+            <div class='col-6 text-center'>
+              <span class='h4 align-middle'>Anotações</span>
             </div>
-            <div class='row justify-content-center hidewhen anotacoes_up'>
+            <div class='col-3 text-right'>
+              <button type='button' class='btn btn-light p-1 anotacoes_down'>
+                <i class="fal fa-chevron-square-down fa-fw fa-2x"></i>
+              </button>
+              <button type='button' class='btn btn-light p-1 hidewhen anotacoes_up'>
+                <i class="fal fa-chevron-square-up fa-fw fa-2x"></i>
+              </button>
+            </div>
+          </div>
+          <form id='quill_anotacao_form' method='post' action='#anotacao' class='hidewhen anotacoes_up'>
+            <input name='quill_nova_anotacao_html' type='hidden'>
+            <div class='row justify-content-center'>
               <div class='container col-12 justify-content-center'>
                 <?php
                   echo "
@@ -390,9 +390,9 @@ if (isset($_POST['novo_video_titulo'])) {
                 ?>
               </div>
             </div>
-            <div class='row d-flex justify-content-center mt-3 hidewhen anotacoes_up'>
-              <button type='button' class='btn btn-light btn-sm hidewhen anotacoes_up'><i class="fal fa-times-circle fa-fw"></i> Cancelar</button>
-              <button type='submit' class='btn btn-primary btn-sm hidewhen anotacoes_up'><i class='fal fa-check fa-fw'></i> Salvar</button>
+            <div class='row d-flex justify-content-center mt-3'>
+              <button type='button' class='btn btn-light btn-sm'><i class="fal fa-times-circle fa-fw"></i> Cancelar</button>
+              <button type='submit' class='btn btn-primary btn-sm'><i class='fal fa-check fa-fw'></i> Salvar</button>
             </div>
           </form>
         </div>
