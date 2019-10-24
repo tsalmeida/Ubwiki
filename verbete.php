@@ -372,7 +372,7 @@ if (isset($_POST['novo_video_titulo'])) {
                 <button type='button' class='btn btn-light p-1'>
                   <i class="fal fa-chevron-square-down fa-fw fa-2x"></i>
                 </button>
-                <button type='button' class='btn btn-light p-1'>
+                <button type='button' class='btn btn-light p-1 hidewhen'>
                   <i class="fal fa-chevron-square-up fa-fw fa-2x"></i>
                 </button>
               </div>
