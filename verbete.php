@@ -364,26 +364,19 @@ if (isset($_POST['novo_video_titulo'])) {
         <div class='p-3 right-menu-nav position-absolute'>
           <form id='quill_anotacao_form' method='post' action='#anotacao'>
             <input name='quill_nova_anotacao_html' type='hidden'>
-            <div class='modal-header text-center'>
-              <h4 class='modal-title w-100 font-weight-bold'>Anotações</h4>
-              <button type='button' class='close' data-dismiss='modal'>
-                <i class="fal fa-chevron-square-down fa-fw"></i>
-                <i class="fal fa-chevron-square-up fa-fw"></i>
-              </button>
-            </div>
-            <div class='modal-body'>
-              <div class='row justify-content-center'>
-                <div class='container col-12 justify-content-center'>
-                  <?php
-                    echo "
-                      <div id='quill_container_anotacao' class='quill_container_modal'>
-                        <div id='quill_editor_anotacao'>
-                          $anotacao_html
-                        </div>
+            <h4 class='modal-title w-100 font-weight-bold'>Anotações</h4>
+            <button type='button'><i class="fal fa-chevron-square-down fa-fw"></i><i class="fal fa-chevron-square-up fa-fw"></i></button>
+            <div class='row justify-content-center'>
+              <div class='container col-12 justify-content-center'>
+                <?php
+                  echo "
+                    <div id='quill_container_anotacao' class='quill_container_modal'>
+                      <div id='quill_editor_anotacao'>
+                        $anotacao_html
                       </div>
-                    ";
-                  ?>
-                </div>
+                    </div>
+                  ";
+                ?>
               </div>
             </div>
             <div class='modal-footer d-flex justify-content-center mt-5'>
