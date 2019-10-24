@@ -23,7 +23,7 @@
     header('Location:index.php');
   }
 
-  if ((isset($POST_['nova_materia_titulo'])) && isset($_POST['nova_materia_sigla'])) {
+  if ((isset($_POST['nova_materia_titulo'])) && isset($_POST['nova_materia_sigla'])) {
     error_log("this happened");
     $nova_materia_titulo = $_POST['nova_materia_titulo'];
     $nova_materia_sigla = $_POST['nova_materia_sigla'];
@@ -277,10 +277,8 @@
                   <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_materia_sigla'>Sigla da matéria</label>
                 </div>
               </fieldset>
-<?
-              echo "<button type='submit' class='btn btn-primary' value='$concurso' name='nova_materia_concurso'>Incluir matéria</button>";
-?>
-            </form>
+              <button type='submit' class='btn btn-primary' name='nova_materia_concurso'>Incluir matéria</button>
+          </form>
         </div>
 
         <?php
