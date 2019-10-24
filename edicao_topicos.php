@@ -206,7 +206,7 @@
             <form class='border border-light p-4 mb-2 mt-5' method='post'>
               <h2 class='text-center'>Ciclo de revisão</h2>
                 <h4 class='text-center'>Todos os tópicos</h4>
-                  <p>Ao pressionar 'reiniciar o ciclo de revisão', todos os tópicos serão marcadas para revisão. Ao pressionar 'finalizar o ciclo de revisão', todos serão removidas do ciclo de revisão.</p>
+                  <p>Ao pressionar 'reiniciar o ciclo de revisão', todos os tópicos serão marcadas para revisão. Ao pressionar 'finalizar o ciclo de revisão', todos serão removidos do ciclo de revisão.</p>
                   <div class='row justify-content-center'>
                     <button name='reiniciar_ciclo' type='submit' class='btn btn-primary' value='$concurso'>Reiniciar ciclo de revisão</button>
                     <button name='finalizar_ciclo' type='submit' class='btn btn-primary' value='$concurso'>Finalizar ciclo de revisão</button>

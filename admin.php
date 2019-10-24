@@ -118,6 +118,16 @@
       return false;
     }
   }
+  $lista_concursos = array();
+  $result = $conn->query("SELECT titulo, sigla, estado FROM Concursos");
+  while ($row = $result->fetch_assoc()) {
+    $sigla = $row['sigla'];
+    $titulo = $row['titulo'];
+    $estado = $row['estado'];
+    $instance = array($sigla,$titulo,$estado);
+    array_push($lista_concursos, $instance);
+    $check = serialize($lista_concursos);
+  }
 
   top_page("quill_admin");
   ?>
@@ -125,6 +135,7 @@
     <?php
       carregar_navbar('dark');
       standard_jumbotron("Página dos Administradores", false);
+      echo "<p>$check</p>";
     ?>
     <div class="container-fluid my-5 px-3">
       <div class="row">
