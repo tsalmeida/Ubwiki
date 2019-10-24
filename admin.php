@@ -148,7 +148,6 @@
                   foreach ($lista_concursos as $um_concurso) {
                     if ($um_concurso[2] == 0) { $estado = '(desativado)'; } else { $estado = '(ativado)'; }
                     echo "<option value='$um_concurso[0]'>$um_concurso[1] / $estado</option>";
-                    $count++;
                   }
 ?>
                 </select>
@@ -181,7 +180,6 @@
                   foreach ($lista_concursos as $um_concurso) {
                     if ($um_concurso[2] == 0) { $estado = '(desativado)'; } else { $estado = '(ativado)'; }
                     echo "<option value='$um_concurso[0]'>$um_concurso[1] / $estado</option>";
-                    $count++;
                   }
 ?>
                 </select>
@@ -198,7 +196,6 @@
                   foreach ($lista_concursos as $um_concurso) {
                     if ($um_concurso[2] == 0) { $estado = '(desativado)'; } else { $estado = '(ativado)'; }
                     echo "<option value='$um_concurso[0]'>$um_concurso[1] $estado</option>";
-                    $count++;
                   }
   ?>
                 </select>
