@@ -377,7 +377,7 @@ if (isset($_POST['novo_video_titulo'])) {
                 </button>
               </div>
             </div>
-            <div class='row justify-content-center'>
+            <div class='row justify-content-center anotacoes_up'>
               <div class='container col-12 justify-content-center'>
                 <?php
                   echo "
@@ -390,7 +390,7 @@ if (isset($_POST['novo_video_titulo'])) {
                 ?>
               </div>
             </div>
-            <div class='row d-flex justify-content-center mt-5'>
+            <div class='row d-flex justify-content-center mt-5 anotacoes_up'>
               <button type='button' class='btn btn-light btn-sm'><i class="fal fa-times-circle fa-fw"></i> Cancelar</button>
               <button type='submit' class='btn btn-primary btn-sm'><i class='fal fa-check fa-fw'></i> Salvar</button>
             </div>
