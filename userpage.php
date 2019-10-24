@@ -45,8 +45,8 @@
       }
     ?>
     <div class="container-fluid my-5">
-      <div class="row">
-        <div class="col-lg-4 col-md-8 col-sm-12">
+      <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-8 col-sm-12">
           <?php
             echo "
               <div class='row'>
