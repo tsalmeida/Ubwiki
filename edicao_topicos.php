@@ -34,30 +34,29 @@
   }
 
   if (isset($_POST['primeiro_nivel_1'])) {
-    error_log("this happened");
     $primeiro_nivel_1 = $_POST['primeiro_nivel_1'];
     error_log("$primeiro_nivel_1 $nivel_1_materia $concurso");
-    $novo_tema = $conn->query("INSERT INTO Temas (ciclo_revisao, concurso, materia, nivel, nivel1) VALUES (0, '$concurso', '$nivel_1_materia', 1, '$primeiro_nivel_1')");
+    $novo_tema = $conn->query("INSERT INTO Temas (ciclo_revisao, concurso, sigla_materia, nivel, nivel1) VALUES (0, '$concurso', '$nivel_1_materia', 1, '$primeiro_nivel_1')");
   }
 
   if (isset($_POST['primeiro_nivel_2'])) {
     $primeiro_nivel_2 = $_POST['primeiro_nivel_2'];
-    $conn->query("INSERT INTO Temas (ciclo_revisao, concurso, materia, nivel, nivel1) VALUES (0, '$concurso', '$nivel_1_materia', 1, '$primeiro_nivel_2')");
+    $conn->query("INSERT INTO Temas (ciclo_revisao, concurso, sigla_materia, nivel, nivel1) VALUES (0, '$concurso', '$nivel_1_materia', 1, '$primeiro_nivel_2')");
   }
 
   if (isset($_POST['primeiro_nivel_3'])) {
     $primeiro_nivel_3 = $_POST['primeiro_nivel_3'];
-    $conn->query("INSERT INTO Temas (ciclo_revisao, concurso, materia, nivel, nivel1) VALUES (0, '$concurso', '$nivel_1_materia', 1, '$primeiro_nivel_3')");
+    $conn->query("INSERT INTO Temas (ciclo_revisao, concurso, sigla_materia, nivel, nivel1) VALUES (0, '$concurso', '$nivel_1_materia', 1, '$primeiro_nivel_3')");
   }
 
   if (isset($_POST['primeiro_nivel_4'])) {
     $primeiro_nivel_4 = $_POST['primeiro_nivel_4'];
-    $conn->query("INSERT INTO Temas (ciclo_revisao, concurso, materia, nivel, nivel1) VALUES (0, '$concurso', '$nivel_1_materia', 1, '$primeiro_nivel_4')");
+    $conn->query("INSERT INTO Temas (ciclo_revisao, concurso, sigla_materia, nivel, nivel1) VALUES (0, '$concurso', '$nivel_1_materia', 1, '$primeiro_nivel_4')");
   }
 
   if (isset($_POST['primeiro_nivel_5'])) {
     $primeiro_nivel_5 = $_POST['primeiro_nivel_5'];
-    $conn->query("INSERT INTO Temas (ciclo_revisao, concurso, materia, nivel, nivel1) VALUES (0, '$concurso', '$nivel_1_materia', 1, '$primeiro_nivel_5')");
+    $conn->query("INSERT INTO Temas (ciclo_revisao, concurso, sigla_materia, nivel, nivel1) VALUES (0, '$concurso', '$nivel_1_materia', 1, '$primeiro_nivel_5')");
   }
 
   if (isset($_POST['apagar_tema_id'])) {
