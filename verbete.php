@@ -163,7 +163,6 @@ if (isset($_POST['novo_video_titulo'])) {
 
   <div class='container-fluid'>
     <div class='row justify-content'>
-      <div class='col-lg-2'></div>
       <div class='col-lg-2 justify-content-center d-none d-lg-flex my-5'>
         <div class='border p-3 left-menu-nav elegant-color text-white position-fixed'>
           <ul class='list-group text-center'>
@@ -178,8 +177,9 @@ if (isset($_POST['novo_video_titulo'])) {
           </ul>
         </div>
       </div>
-      <div class='col-lg-4 col-sm-12 bg-white'>
-        <div class='row my-5 text-left' id='verbete'>
+      <div class='col-lg-2 d-none d-lg-flex my-5'></div>
+      <div class='col-lg-4 col-sm-12 bg-white my-5'>
+        <div class='row text-left' id='verbete'>
           <div class='col-10 text-left'>
             <?php
               echo "<span class='display-2 wireone d-none d-lg-inline'>$tema</span>";
