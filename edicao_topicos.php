@@ -24,10 +24,39 @@
   }
 
   if ((isset($_POST['nova_materia_titulo'])) && isset($_POST['nova_materia_sigla'])) {
-    error_log("this happened");
     $nova_materia_titulo = $_POST['nova_materia_titulo'];
     $nova_materia_sigla = $_POST['nova_materia_sigla'];
     $conn->query("INSERT INTO Materias (materia, sigla, concurso) VALUES ('$nova_materia_titulo', '$nova_materia_sigla', '$concurso')");
+  }
+
+  if (isset($_POST['primeiro_nivel_1'])) {
+    $primeiro_nivel_1 = $_POST['primeiro_nivel_1'];
+    $nivel_1_materia = $_POST['$nivel_1_materia'];
+    $conn->query("INSERT INTO Temas (ciclo_revisao, concurso, materia, nivel, nivel1) VALUES (0, '$concurso', '$nivel_1_materia', 1, '$primeiro_nivel_1')");
+  }
+
+  if (isset($_POST['primeiro_nivel_2'])) {
+    $primeiro_nivel_2 = $_POST['primeiro_nivel_2'];
+    $nivel_1_materia = $_POST['$nivel_1_materia'];
+    $conn->query("INSERT INTO Temas (ciclo_revisao, concurso, materia, nivel, nivel1) VALUES (0, '$concurso', '$nivel_1_materia', 1, '$primeiro_nivel_2')");
+  }
+
+  if (isset($_POST['primeiro_nivel_3'])) {
+    $primeiro_nivel_3 = $_POST['primeiro_nivel_3'];
+    $nivel_1_materia = $_POST['$nivel_1_materia'];
+    $conn->query("INSERT INTO Temas (ciclo_revisao, concurso, materia, nivel, nivel1) VALUES (0, '$concurso', '$nivel_1_materia', 1, '$primeiro_nivel_3')");
+  }
+
+  if (isset($_POST['primeiro_nivel_4'])) {
+    $primeiro_nivel_4 = $_POST['primeiro_nivel_4'];
+    $nivel_1_materia = $_POST['$nivel_1_materia'];
+    $conn->query("INSERT INTO Temas (ciclo_revisao, concurso, materia, nivel, nivel1) VALUES (0, '$concurso', '$nivel_1_materia', 1, '$primeiro_nivel_4')");
+  }
+
+  if (isset($_POST['primeiro_nivel_5'])) {
+    $primeiro_nivel_5 = $_POST['primeiro_nivel_5'];
+    $nivel_1_materia = $_POST['$nivel_1_materia'];
+    $conn->query("INSERT INTO Temas (ciclo_revisao, concurso, materia, nivel, nivel1) VALUES (0, '$concurso', '$nivel_1_materia', 1, '$primeiro_nivel_5')");
   }
 
   if (isset($_POST['apagar_tema_id'])) {
@@ -278,8 +307,57 @@
                 </div>
               </fieldset>
               <button type='submit' class='btn btn-primary' name='nova_materia_concurso'>Incluir matéria</button>
-          </form>
-        </div>
+            </form>
+
+            <form class='border border-light p-4 my-2' method='post'>
+              <h2>Acrescentar tópicos de primeiro nível</h2>
+              <p>Após a inclusão de uma nova matéria, o próximo passo é acrescentar todos os tópicos de primeiro nível da nova matéria.</p>
+
+              <?php
+                $result = $conn->query("SELECT materia, sigla, estado FROM Materias WHERE concurso = '$concurso'");
+                if ($result->num_rows > 0) {
+                  while($row = $result->fetch_assoc()) {
+                    $sigla = $row['sigla'];
+                    $materia_pick = $row['materia'];
+                    $estado = $row['estado'];
+                    if ($estado == false) { $estado = "(matéria desativada)"; }
+                    else { $estado = false; }
+                    $item_id = "novo_nivel_1_";
+                    $item_id .= $sigla;
+                    echo "
+                      <div class='form-check my-1'>
+                        <input class='form-check-input' type='radio' name='nivel_1_materia' id='$item_id' value='$sigla'>
+                        <label class='form-check-label' for='$item_id'>$materia_pick $estado</label>
+                      </div>
+                    ";
+                  }
+                }
+              ?>
+
+              <fieldset class='form-group'>
+                <div class='row'>
+                  <input type='text' id='primeiro_nivel_1' name='primeiro_nivel_1' class='form-control validate' required>
+                  <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='primeiro_nivel_1'>Tópico de primeiro nível</label>
+                </div>
+                <div class='row'>
+                  <input type='text' id='primeiro_nivel_2' name='primeiro_nivel_2' class='form-control validate' required>
+                  <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='primeiro_nivel_2'>Tópico de primeiro nível</label>
+                </div>
+                <div class='row'>
+                  <input type='text' id='primeiro_nivel_3' name='primeiro_nivel_3' class='form-control validate' required>
+                  <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='primeiro_nivel_3'>Tópico de primeiro nível</label>
+                </div>
+                <div class='row'>
+                  <input type='text' id='primeiro_nivel_4' name='primeiro_nivel_4' class='form-control validate' required>
+                  <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='primeiro_nivel_4'>Tópico de primeiro nível</label>
+                </div>
+                <div class='row'>
+                  <input type='text' id='primeiro_nivel_5' name='primeiro_nivel_5' class='form-control validate' required>
+                  <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='primeiro_nivel_5'>Tópico de primeiro nível</label>
+              </fieldset>
+              <button type='submit' class='btn btn-primary' name='nova_materia_concurso'>Incluir matéria</button>
+            </form>
+          </div>
 
         <?php
           if ($revisao != false) {
