@@ -162,7 +162,7 @@ if (isset($_POST['novo_video_titulo'])) {
   ?>
 
   <div class='container-fluid'>
-    <div class='row'>
+    <div class='row justify-content-between'>
       <div class='col-lg-2 justify-content-center d-none d-lg-flex my-5'>
         <div class='border p-3 left-menu-nav elegant-color text-white position-fixed'>
           <ul class='list-group text-center'>
