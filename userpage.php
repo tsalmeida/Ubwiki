@@ -49,8 +49,11 @@
         <div class="col-lg-4 col-sm-12">
           <?php
             echo "
-              <div class='row justify-content-center'>
-                <h4 class='text-center'><a data-toggle='modal' data-target='#modal_editar_dados' href=''><i class='fal fa-edit'></i></a>Dados da sua conta:</h4>
+              <div class='row justify-content-between'>
+                <div class='col-12 justify-content-between'>
+                  <span class='h4 text-left'>Dados da sua conta</span>
+                  <span class='h4 text-right'><a data-toggle='modal' data-target='#modal_editar_dados' href=''><i class='fal fa-edit'></i></span>
+                </div>
               </div>
               <ul class='list-group'>
                 <li class='list-group-item'><strong>Conta criada em:</strong> $criacao</li>
