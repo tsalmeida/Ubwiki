@@ -33,6 +33,7 @@
     error_log("this happened");
     $primeiro_nivel_1 = $_POST['primeiro_nivel_1'];
     $nivel_1_materia = $_POST['nivel_1_materia'];
+    error_log("$primeiro_nivel_1 $nivel_1_materia");
     $conn->query("INSERT INTO Temas (ciclo_revisao, concurso, materia, nivel, nivel1) VALUES (0, '$concurso', '$nivel_1_materia', 1, '$primeiro_nivel_1')");
   }
 
