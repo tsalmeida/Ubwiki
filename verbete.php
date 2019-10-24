@@ -179,13 +179,13 @@ if (isset($_POST['novo_video_titulo'])) {
       </div>
       <div class='col-lg-8 col-sm-12 bg-white'>
         <div class='row my-5 text-left' id='verbete'>
-          <div class='col-11 text-left'>
+          <div class='col-10 text-left'>
             <?php
               echo "<span class='display-2 wireone d-none d-lg-inline'>$tema</span>";
               echo "<span class='display-3 wireone d-block d-lg-none'>$tema</span>";
             ?>
           </div>
-          <div class='col-1 h3 text-right'>
+          <div class='col-2 h3 text-right'>
             <a data-toggle='modal' data-target='#modal_editar_verbete' href=''><i class="fal fa-edit fa-fw"></i></a>
           </div>
         </div>
@@ -204,10 +204,10 @@ if (isset($_POST['novo_video_titulo'])) {
         </div>
 
         <div class='row justify-content-between h3 my-5' id='imagens'>
-          <div class='col-11 text-left justify-content-center align-middle'>
+          <div class='col-10 text-left justify-content-center align-middle'>
             <span class='align-left'>Imagens</span>
           </div>
-          <div class='col-1 text-right justify-content-center align-middle'>
+          <div class='col-2 text-right justify-content-center align-middle'>
               <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_imagens_form' href=''><i class='fal fa-plus-square fa-fw'></i></a></span>
           </div>
         </div>
@@ -234,10 +234,10 @@ if (isset($_POST['novo_video_titulo'])) {
         </div>
 
         <div class='row justify-content-between h3 my-5' id='bibliografia'>
-          <div class='col-lg-4 col-sm-8 text-left justify-content-center align-middle'>
+          <div class='col-10 text-left justify-content-center align-middle'>
             <span class='align-left'>Bibliografia</span>
           </div>
-          <div class='col-lg-2 col-sm-4 text-right justify-content-center align-middle'>
+          <div class='col-2 text-right justify-content-center align-middle'>
               <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_referencia_form' href=''><i class='fal fa-plus-square fa-fw'></i></a></span>
           </div>
         </div>
@@ -263,10 +263,10 @@ if (isset($_POST['novo_video_titulo'])) {
         </div>
 
         <div class='row justify-content-between h3 my-5' id='videos'>
-          <div class='col-lg-4 col-sm-8 text-left justify-content-center align-middle'>
+          <div class='col-10 text-left justify-content-center align-middle'>
             <span class='align-left'>Vídeos e aulas</span>
           </div>
-          <div class='col-lg-2 col-sm-4 text-right justify-content-center align-middle'>
+          <div class='col-2 text-right justify-content-center align-middle'>
               <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_videos_form' href=''><i class='fal fa-plus-square fa-fw'></i></a></span>
           </div>
         </div>
@@ -292,10 +292,10 @@ if (isset($_POST['novo_video_titulo'])) {
         </div>
 
         <div class='row justify-content-between h3 my-5' id='links'>
-          <div class='col-lg-4 col-sm-8 text-left justify-content-center align-middle'>
+          <div class='col-10 text-left justify-content-center align-middle'>
             <span class='align-left'>Links</span>
           </div>
-          <div class='col-lg-2 col-sm-4 text-right justify-content-center align-middle'>
+          <div class='col-2 text-right justify-content-center align-middle'>
               <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_links_form' href=''><i class='fal fa-plus-square fa-fw'></i></a></span>
           </div>
         </div>
@@ -321,10 +321,10 @@ if (isset($_POST['novo_video_titulo'])) {
         </div>
 
         <div class='row justify-content-between h3 my-5' id='anotacao'>
-          <div class='col-lg-4 col-sm-8 text-left justify-content-center align-middle'>
+          <div class='col-10 text-left justify-content-center align-middle'>
             <span class='align-left'>Anotações</span>
           </div>
-          <div class='col-lg-2 col-sm-4 text-right justify-content-center align-middle'>
+          <div class='col-2 text-right justify-content-center align-middle'>
             <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_editar_anotacao' href=''><i class="fal fa-edit fa-fw"></i></a></span>
           </div>
         </div>
@@ -344,10 +344,10 @@ if (isset($_POST['novo_video_titulo'])) {
         </div>
 
         <div class='row justify-content-between h3 my-5' id='questoes'>
-          <div class='col-lg-4 col-sm-8 text-left justify-content-center align-middle'>
+          <div class='col-10 text-left justify-content-center align-middle'>
             <span class='align-left'>Questões</span>
           </div>
-          <div class='col-lg-2 col-sm-4 text-right justify-content-center align-middle'></div>
+          <div class='col-2 text-right justify-content-center align-middle'></div>
         </div>
         <div class='row justify-content-center border-bottom border-dark py-5'>
           <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
@@ -364,10 +364,10 @@ if (isset($_POST['novo_video_titulo'])) {
         </div>
 
         <div class='row justify-content-between h3 my-5' id='discussao'>
-          <div class='col-lg-4 col-sm-8 text-left justify-content-center align-middle'>
+          <div class='col-10 text-left justify-content-center align-middle'>
             <span class='align-left'>Fórum</span>
           </div>
-          <div class='col-lg-2 col-sm-4 text-right justify-content-center align-middle'></div>
+          <div class='col-2 text-right justify-content-center align-middle'></div>
         </div>
         <div class='row justify-content-center border-bottom border-dark py-5'>
           <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
