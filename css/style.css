@@ -120,6 +120,10 @@ logo {
   width: 70ch;
 }
 
+.quill_editor_anotacao {
+  min-width: 30em;
+}
+
 .footer.page-footer .footer-copyright {
  position: absolute;
  bottom: 0;
