@@ -161,8 +161,8 @@ if (isset($_POST['novo_video_titulo'])) {
     breadcrumbs($breadcrumbs);
   ?>
 
-  <div class='container-fluid text-center'>
-    <div class='row justify-content-center'>
+  <div class='container-fluid'>
+    <div class='row'>
       <div class='col-lg-2 col-sm-12 justify-content-center d-none d-lg-flex'>
         <div class='border p-3 mt-3 left-menu-nav elegant-color text-white position-fixed'>
           <ul class='list-group text-center'>
