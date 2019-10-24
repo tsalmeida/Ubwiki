@@ -143,11 +143,11 @@
               <p class='text-left'>Com esta ferramenta, o administrador pode alterar a tabela de tópicos de um concurso. O objetivo é maximizar a utilidade do edital original para as atividades do estudante.</p>
               <div class="form-group">
                 <label for="editar_topicos_concurso">Concurso</label>
-                <select class="form-control" id="editar_topicos_concurso">
+                <select class="form-control" name="editar_topicos_concurso">
 <?php
                   foreach ($lista_concursos as $um_concurso) {
                     if ($um_concurso[2] == 0) { $estado = '(desativado)'; } else { $estado = '(ativado)'; }
-                    echo "<option>$um_concurso[0]: $um_concurso[1] / $estado</option>";
+                    echo "<option value='$um_concurso[0]'>$um_concurso[1] / $estado</option>";
                     $count++;
                   }
 ?>
@@ -173,37 +173,35 @@
           <form class='text-center border border-light p-5 my-2' method='post'>
               <p class="h4 mb-4">Barra de busca</p>
               <p>Reconstruir tabela de opções da barra de busca.</p>
-              <fieldset class="form-group">
-                <div class="row">
-                  <legend class="col-form-label col-2 pt-0">Concurso</legend>
-                  <div class="col-10">
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="reconstruir_concurso" value="CACD" checked>
-                      <label class="form-check-label" for="gridRadios1">
-                        CACD
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              </fieldset>
+              <div class="form-group">
+                <label for="editar_topicos_concurso">Concurso</label>
+                <select class="form-control" name="reconstruir_concurso">
+<?php
+                  foreach ($lista_concursos as $um_concurso) {
+                    if ($um_concurso[2] == 0) { $estado = '(desativado)'; } else { $estado = '(ativado)'; }
+                    echo "<option value='$um_concurso[0]'>$um_concurso[1] / $estado</option>";
+                    $count++;
+                  }
+?>
+                </select>
+              </div>
             <button class='btn btn-primary btn-block my-4' type='submit'>Reconstruir</button>
           </form>
           <form class='text-center border border-light p-5 my-2' method='post'>
-              <p class="h4 mb-4">Otimizar tabela de tópicos</p>
-              <p>Essa ferramenta determina o nível relevante de cada entrada na tabela de tópicos, de 1 a 5.</p>
-              <fieldset class="form-group">
-                <div class="row">
-                  <legend class="col-form-label col-2 pt-0">Concurso</legend>
-                  <div class="col-10">
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="otimizar_temas_concurso" value="CACD" checked>
-                      <label class="form-check-label" for="gridRadios1">
-                        CACD
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              </fieldset>
+            <p class="h4 mb-4">Otimizar tabela de tópicos</p>
+            <p>Essa ferramenta determina o nível relevante de cada entrada na tabela de tópicos, de 1 a 5.</p>
+            <div class="form-group">
+              <label for="editar_topicos_concurso">Concurso</label>
+              <select class="form-control" name="editar_topicos_concurso">
+<?php
+                foreach ($lista_concursos as $um_concurso) {
+                  if ($um_concurso[2] == 0) { $estado = '(desativado)'; } else { $estado = '(ativado)'; }
+                  echo "<option value='$um_concurso[0]'>$um_concurso[1] / $estado</option>";
+                  $count++;
+                }
+?>
+              </select>
+            </div>
             <button class='btn btn-primary btn-block my-4' type='submit'>Otimizar</button>
           </form>
         </div>
