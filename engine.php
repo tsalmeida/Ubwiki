@@ -202,7 +202,7 @@ function bottom_page() {
           </script>
         ";
       }
-      if ($args[$array] == "edicao_temas") {
+      if ($args[$array] == "edicao_topicos") {
         echo "
           <script type='text/javascript'>
             $(document).ready(function() {

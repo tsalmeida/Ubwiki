@@ -150,7 +150,7 @@
         <?php
           if ($revisao != false) {
             echo "
-            <form class='border boder-light p-4 my-2' method='post' action='edicao_temas.php?concurso=$concurso#ferramenta'>
+            <form class='border boder-light p-4 my-2' method='post' action='edicao_topicos.php?concurso=$concurso#ferramenta'>
               <input type='hidden' name='form_nivel' value='$nivel'>
               <input type='hidden' name='form_ordem' value='$ordem'>
               <input type='hidden' name='form_nivel1' value='$nivel1'>
@@ -299,5 +299,5 @@
   </body>
 <?php
   load_footer();
-  bottom_page("edicao_temas");
+  bottom_page("edicao_topicos");
 ?>
