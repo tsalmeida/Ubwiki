@@ -4,7 +4,7 @@ $(document).ready(function() {
 		$('.anotacoes_up').show();
 		$('.anotacoes_down').hide()
 	})
-	$(document.body).on('click', '.anotacoes_up', function(){
+	$(document.body).on('click', '#anotacoes_up', function(){
 		$('.anotacoes_up').hide();
 		$('.anotacoes_down').show()
 	})
