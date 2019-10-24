@@ -171,7 +171,6 @@ if (isset($_POST['novo_video_titulo'])) {
             <a class='list-group-item list-group-item-action left-nav-item p-1 text-white elegant-color' href='#bibliografia' title='Bibliografia'>Bibliografia</a>
             <a class='list-group-item list-group-item-action left-nav-item p-1 text-white elegant-color' href='#videos' title='Vídeos e aulas'>Vídeos e aulas</a>
             <a class='list-group-item list-group-item-action left-nav-item p-1 text-white elegant-color' href='#links' title='Links'>Links</a>
-            <a class='list-group-item list-group-item-action left-nav-item p-1 text-white elegant-color' href='#anotacao' title='Anotações'>Anotações</a>
             <a class='list-group-item list-group-item-action left-nav-item p-1 text-white elegant-color' href='#questoes' title='Questões'>Questões</a>
             <a class='list-group-item list-group-item-action left-nav-item p-1 text-white elegant-color' href='#discussao' title='Fórum'>Fórum</a>
           </ul>
@@ -317,29 +316,6 @@ if (isset($_POST['novo_video_titulo'])) {
             else {
               echo "<p>Ainda não foram acrescentados links sobre este tópico.</p>";
             }
-            ?>
-          </div>
-        </div>
-
-        <div class='row justify-content-between h3 my-5' id='anotacao'>
-          <div class='col-10 text-left justify-content-center align-middle'>
-            <span class='align-left'>Anotações</span>
-          </div>
-          <div class='col-2 text-right justify-content-center align-middle'>
-            <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_editar_anotacao' href=''><i class="fal fa-edit fa-fw"></i></a></span>
-          </div>
-        </div>
-        <div class='row justify-content-center border-bottom border-dark py-5'>
-          <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
-            <?php
-              if ($anotacao_html == false) {
-                echo "<p>Você ainda não fez anotações sobre este tópico.</p>";
-              }
-              else {
-                echo "<h1>$tema</h1>";
-                $anotacao_reformatada = quill_reformatar($anotacao_html);
-                echo $anotacao_reformatada;
-              }
             ?>
           </div>
         </div>
