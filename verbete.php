@@ -163,8 +163,8 @@ if (isset($_POST['novo_video_titulo'])) {
 
   <div class='container-fluid'>
     <div class='row'>
-      <div class='col-lg-2 col-sm-12 justify-content-center d-none d-lg-flex'>
-        <div class='border p-3 mt-3 left-menu-nav elegant-color text-white position-fixed'>
+      <div class='col-lg-2 justify-content-center d-none d-lg-flex my-5'>
+        <div class='border p-3 left-menu-nav elegant-color text-white position-fixed'>
           <ul class='list-group text-center'>
             <a class='list-group-item list-group-item-action left-nav-item p-1 text-white elegant-color' href='#verbete' title='Verbete'>Verbete</a>
             <a class='list-group-item list-group-item-action left-nav-item p-1 text-white elegant-color' href='#imagens' title='Imagens'>Imagens</a>
@@ -383,6 +383,7 @@ if (isset($_POST['novo_video_titulo'])) {
           </div>
         </div>
       </div>
+      <div class='col-lg-2 d-none d-lg-flex my-5'></div>
     </div>
   </div>
 
