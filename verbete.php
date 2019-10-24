@@ -360,7 +360,7 @@ if (isset($_POST['novo_video_titulo'])) {
         </div>
       </div>
       <div class='col-lg-6 justify-content-center d-none d-lg-flex'>
-        <div class='p-3 right-menu-nav position-fixed'>
+        <div class='p-3 right-menu-nav position-fixed elegant-color text-white'>
           <form id='quill_anotacao_form' method='post' action='#anotacao'>
             <div class='row justify-content-around'>
               <div class='col-3'></div>
