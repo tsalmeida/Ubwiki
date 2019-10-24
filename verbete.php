@@ -211,7 +211,7 @@ if (isset($_POST['novo_video_titulo'])) {
           </div>
         </div>
         <div class='row justify-content-center border-bottom border-dark py-5'>
-          <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
+          <div class='col-12 text-left font-weight-normal'>
             <?php
             $result = $conn->query("SELECT titulo, link, comentario, trecho FROM Imagens WHERE id_tema = $id_tema AND concurso = '$concurso'");
             if ($result->num_rows > 0) {
@@ -241,7 +241,7 @@ if (isset($_POST['novo_video_titulo'])) {
           </div>
         </div>
         <div class='row justify-content-center border-bottom border-dark py-5'>
-          <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
+          <div class='col-12 text-left font-weight-normal'>
             <?php
             $result = $conn->query("SELECT titulo, autor, capitulo FROM Bibliografia WHERE id_tema = $id_tema AND concurso = '$concurso'");
             if ($result->num_rows > 0) {
@@ -270,7 +270,7 @@ if (isset($_POST['novo_video_titulo'])) {
           </div>
         </div>
         <div class='row justify-content-center border-bottom border-dark py-5'>
-          <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
+          <div class='col-12 text-left font-weight-normal'>
             <?php
             $result = $conn->query("SELECT titulo, autor, link FROM Videos WHERE id_tema = $id_tema AND concurso = '$concurso'");
             if ($result->num_rows > 0) {
@@ -299,7 +299,7 @@ if (isset($_POST['novo_video_titulo'])) {
           </div>
         </div>
         <div class='row justify-content-center border-bottom border-dark py-5'>
-          <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
+          <div class='col-12 text-left font-weight-normal'>
             <?php
             $result = $conn->query("SELECT titulo, comentario, link FROM Links WHERE id_tema = $id_tema AND concurso = '$concurso'");
             if ($result->num_rows > 0) {
@@ -326,7 +326,7 @@ if (isset($_POST['novo_video_titulo'])) {
           <div class='col-2 text-right justify-content-center align-middle'></div>
         </div>
         <div class='row justify-content-center border-bottom border-dark py-5'>
-          <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
+          <div class='col-12 text-left font-weight-normal'>
             <?php
               $questoes = false;
               if ($questoes == false) {
@@ -346,7 +346,7 @@ if (isset($_POST['novo_video_titulo'])) {
           <div class='col-2 text-right justify-content-center align-middle'></div>
         </div>
         <div class='row justify-content-center border-bottom border-dark py-5'>
-          <div class='col-lg-6 col-sm-12 text-left font-weight-normal'>
+          <div class='col-12 text-left font-weight-normal'>
             <?php
               $discussao = false;
               if ($discussao == false) {
