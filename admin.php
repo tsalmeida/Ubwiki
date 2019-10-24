@@ -124,8 +124,8 @@
     $sigla = $row['sigla'];
     $titulo = $row['titulo'];
     $estado = $row['estado'];
-    $instance = array($sigla,$titulo,$estado);
-    array_push($lista_concursos, $instance);
+    $um_concurso = array($sigla,$titulo,$estado);
+    array_push($lista_concursos, $um_concurso);
     $check = serialize($lista_concursos);
   }
 
