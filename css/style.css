@@ -56,6 +56,9 @@ logo {
 }
 
 .right-menu-nav {
+  border-style: solid;
+  border-color: #2e2e2e;
+  border-width: 3px;
   border-radius: 2vh;
   width: 30%;
 }
