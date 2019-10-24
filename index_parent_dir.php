@@ -1,5 +1,5 @@
 <?php
-    include 'ubwiki/engine.php';
+    include '/home/tsilvaalmeida/public_html/ubwiki/engine.php';
     $user_id = false;
     $newuser = false;
     $dev = false;
