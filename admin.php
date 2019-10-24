@@ -144,14 +144,11 @@
               <p class='text-left'>Com esta ferramenta, o administrador pode alterar a tabela de tópicos de um concurso. O objetivo é maximizar a utilidade do edital original para as atividades do estudante.</p>
               <fieldset class="form-group">
                 <div class="row">
-                  <legend class="col-form-label col-2 pt-0">Concurso</legend>
-                  <div class="col-10">
-                    <div class="form-check">
-                      <input id='concurso-1' class="form-check-input" type="radio" name="metalinguagem_concurso" value="CACD" checked>
-                      <label class="form-check-label" for="concurso-1">
-                        CACD
-                      </label>
-                    </div>
+                  <div class="form-check">
+                    <input id='concurso-1' class="form-check-input" type="radio" name="metalinguagem_concurso" value="CACD" checked>
+                    <label class="form-check-label" for="concurso-1">
+                      CACD
+                    </label>
                   </div>
                 </div>
               </fieldset>
