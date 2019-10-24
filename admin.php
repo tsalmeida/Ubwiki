@@ -142,16 +142,19 @@
           <form class='text-center border border-light p-5 my-2' method='post' formaction='edicao_topicos.php'>
               <p class="h4 mb-4">Editar tópicos</p>
               <p class='text-left'>Com esta ferramenta, o administrador pode alterar a tabela de tópicos de um concurso. O objetivo é maximizar a utilidade do edital original para as atividades do estudante.</p>
-              <fieldset class="form-group">
-                <div class="row">
-                  <div class="form-check">
-                    <input id='concurso-1' class="form-check-input" type="radio" name="metalinguagem_concurso" value="CACD" checked>
-                    <label class="form-check-label" for="concurso-1">
-                      CACD
-                    </label>
-                  </div>
-                </div>
-              </fieldset>
+              <div class="form-group">
+                <label for="editar_topicos_concurso">Concurso</label>
+                <select class="form-control" id="editar_topicos_concurso">
+<?php
+                  $count = 0;
+                  while (isset($lista_concursos($count))) {
+                    $um_concurso = $lista_concursos($count);
+                    if ($um_concurso(2) == 0) { $estado = '(desativado)'; } else { $estado = '(ativado)'; }
+                    echo "<option>$um_concurso(0): $um_concurso(1) / $estado</option>";
+                  }
+?>
+                </select>
+              </div>
             <button class='btn btn-primary btn-block my-4' type='submit'>Acessar ferramenta</button>
           </form>
           <form class='text-center border border-light p-5 my-2' method='post' formaction='edicao_topicos.php'>
