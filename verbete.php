@@ -367,7 +367,7 @@ if (isset($_POST['novo_video_titulo'])) {
             <div class='modal-header text-center'>
               <h4 class='modal-title w-100 font-weight-bold'>Anotações</h4>
               <button type='button' class='close' data-dismiss='modal'>
-                <i class="fal fa-times-circle"></i>
+                <i class="fal fa-chevron-square-down fa-fw"></i>
               </button>
             </div>
             <div class='modal-body'>
