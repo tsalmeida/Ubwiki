@@ -26,7 +26,7 @@
   if ((isset($POST_['nova_materia_titulo'])) && isset($_POST['nova_materia_sigla'])) {
     $nova_materia_titulo = $_POST['nova_materia_titulo'];
     $nova_materia_sigla = $_POST['nova_materia_sigla'];
-    $conn->query("INSERT INTO Materias (materia, sigla, concurso) VALUES ('$nova_materia_titulo', '$nova_materia_sigla', '$concurso')")
+    $conn->query("INSERT INTO Materias (materia, sigla, concurso) VALUES ('$nova_materia_titulo', '$nova_materia_sigla', '$concurso')");
   }
 
   if (isset($_POST['apagar_tema_id'])) {
