@@ -205,8 +205,7 @@ if (isset($_POST['novo_video_titulo'])) {
           </div>
         </div>
 
-        <div class='container my-5' id='imagens'>
-          <div class='row justify-content-between h3 my-5'>
+          <div class='row justify-content-between h3 my-5' id='imagens'>
             <div class='col-lg-4 col-sm-8 text-left justify-content-center align-middle'>
               <span class='align-left'>Imagens</span>
             </div>
@@ -235,10 +234,8 @@ if (isset($_POST['novo_video_titulo'])) {
               ?>
             </div>
           </div>
-        </div>
 
-        <div class='container my-5' id='bibliografia'>
-          <div class='row justify-content-between h3 my-5'>
+          <div class='row justify-content-between h3 my-5' id='bibliografia'>
             <div class='col-lg-4 col-sm-8 text-left justify-content-center align-middle'>
               <span class='align-left'>Bibliografia</span>
             </div>
@@ -266,10 +263,8 @@ if (isset($_POST['novo_video_titulo'])) {
               ?>
             </div>
           </div>
-        </div>
 
-        <div class='container my-5' id='videos'>
-          <div class='row justify-content-between h3 my-5'>
+          <div class='row justify-content-between h3 my-5' id='videos'>
             <div class='col-lg-4 col-sm-8 text-left justify-content-center align-middle'>
               <span class='align-left'>Vídeos e aulas</span>
             </div>
@@ -297,10 +292,8 @@ if (isset($_POST['novo_video_titulo'])) {
               ?>
             </div>
           </div>
-        </div>
 
-        <div class='container my-5' id='links'>
-          <div class='row justify-content-between h3 my-5'>
+          <div class='row justify-content-between h3 my-5' id='links'>
             <div class='col-lg-4 col-sm-8 text-left justify-content-center align-middle'>
               <span class='align-left'>Links</span>
             </div>
@@ -328,10 +321,8 @@ if (isset($_POST['novo_video_titulo'])) {
               ?>
             </div>
           </div>
-        </div>
 
-        <div class='container my-5' id='anotacao'>
-          <div class='row justify-content-between h3 my-5'>
+          <div class='row justify-content-between h3 my-5' id='anotacao'>
             <div class='col-lg-4 col-sm-8 text-left justify-content-center align-middle'>
               <span class='align-left'>Anotações</span>
             </div>
@@ -353,10 +344,8 @@ if (isset($_POST['novo_video_titulo'])) {
               ?>
             </div>
           </div>
-        </div>
 
-        <div class='container my-5' id='questoes'>
-          <div class='row justify-content-between h3 my-5'>
+          <div class='row justify-content-between h3 my-5' id='questoes'>
             <div class='col-lg-4 col-sm-8 text-left justify-content-center align-middle'>
               <span class='align-left'>Questões</span>
             </div>
@@ -375,10 +364,8 @@ if (isset($_POST['novo_video_titulo'])) {
               ?>
             </div>
           </div>
-        </div>
 
-        <div class='container my-5' id='discussao'>
-          <div class='row justify-content-between h3 my-5'>
+          <div class='row justify-content-between h3 my-5' id='discussao'>
             <div class='col-lg-4 col-sm-8 text-left justify-content-center align-middle'>
               <span class='align-left'>Fórum</span>
             </div>
@@ -397,7 +384,6 @@ if (isset($_POST['novo_video_titulo'])) {
               ?>
             </div>
           </div>
-        </div>
       </div>
     </div>
   </div>
