@@ -385,7 +385,11 @@ if (isset($_POST['novo_video_titulo'])) {
         </div>
       </div>
       <div class='col-lg-4 d-none d-lg-flex my-5'>
-        <p>Anotações aqui.</p>
+        <div class='border p-3 right-menu-nav elegant-color text-white position-fixed'>
+          <ul class='list-group text-center'>
+            <li>Teste de caneta.</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
