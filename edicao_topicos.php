@@ -1,5 +1,5 @@
 <?php
-  insert 'engine.php';
+  include 'engine.php';
   session_save_path('/home/tsilvaalmeida/public_html/ubwiki/sessions/');
   session_start();
   if (isset($_SESSION['email'])) {
