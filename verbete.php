@@ -179,7 +179,7 @@ if (isset($_POST['novo_video_titulo'])) {
       </div>
       <div class='col-lg-10 col-sm-12 bg-white'>
         <div class='container-fluid' id='verbete'>
-          <div class='row my-5 text-left'>
+          <div class='row my-5 text-left justify-content-between'>
             <div class='col-lg-11 col-sm-12'>
               <?php
                 echo "<span class='display-2 wireone d-none d-lg-inline'>$tema</span>";
