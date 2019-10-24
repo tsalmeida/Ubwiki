@@ -140,8 +140,12 @@
               <p class='text-left'>Cada concurso tem um título completo e uma sigla. Este é o primeiro passo no processo de inclusão de novos concursos.</p>
               <fieldset class="form-group">
                 <div class="row">
-                  <label target='novo_concurso'>Título oficial do novo concurso, sem menção a ano.</label>
-                  <input type='text' id='novo_concurso'></input>
+                  <input type='text' id='novo_concurso_titulo' name='novo_concurso_titulo' class='form-control validate' required>
+                  <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_concurso_titulo'>Título do concurso</label>
+                </div>
+                <div class="row">
+                  <input type='text' id='novo_concurso_sigla' name='novo_concurso_sigla' class='form-control validate' required>
+                  <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_concurso_sigla'>Sigla do concurso</label>
                 </div>
               </fieldset>
             <button class='btn btn-primary btn-block my-4' type='submit'>Acrescentar concurso</button>
