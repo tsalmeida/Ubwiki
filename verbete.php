@@ -381,8 +381,8 @@ if (isset($_POST['novo_video_titulo'])) {
               <div class='container col-12 justify-content-center'>
                 <?php
                   echo "
-                    <div id='quill_container_anotacao' class='quill_container_modal'>
-                      <div id='quill_editor_anotacao'>
+                    <div id='quill_container_anotacao'>
+                      <div id='quill_editor_anotacao' class='bg-white'>
                         $anotacao_html
                       </div>
                     </div>
