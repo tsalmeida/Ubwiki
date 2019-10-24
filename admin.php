@@ -134,7 +134,6 @@
     <?php
       carregar_navbar('dark');
       standard_jumbotron("Página dos Administradores", false);
-      echo "<p>$check</p>";
     ?>
     <div class="container-fluid my-5 px-3">
       <div class="row">
@@ -147,7 +146,7 @@
                 <select class="form-control" id="editar_topicos_concurso">
 <?php
                   $count = 0;
-                  while (isset($lista_concursos($count))) {
+                  while ($lista_concursos($count) != false) {
                     $um_concurso = $lista_concursos($count);
                     if ($um_concurso(2) == 0) { $estado = '(desativado)'; } else { $estado = '(ativado)'; }
                     echo "<option>$um_concurso(0): $um_concurso(1) / $estado</option>";
