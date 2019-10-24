@@ -87,7 +87,7 @@
 
   if (isset($_POST['metalinguagem_concurso'])) {
     $metalinguagem_concurso = $_POST['metalinguagem_concurso'];
-    header("Location:edicao_temas.php?concurso=$metalinguagem_concurso");
+    header("Location:edicao_topicos.php?concurso=$metalinguagem_concurso");
   }
 
   $admin_mensagens = false;
@@ -140,7 +140,7 @@
     <div class="container-fluid my-5 px-3">
       <div class="row">
         <div class="col-lg-6 col-sm-12">
-          <form class='text-center border border-light p-5 my-2' method='post' formaction='edicao_temas.php'>
+          <form class='text-center border border-light p-5 my-2' method='post' formaction='edicao_topicos.php'>
               <p class="h4 mb-4">Editar tópicos</p>
               <p class='text-left'>Com esta ferramenta, o administrador pode alterar a tabela de tópicos de um concurso. O objetivo é maximizar a utilidade do edital original para as atividades do estudante.</p>
               <fieldset class="form-group">
@@ -158,7 +158,7 @@
               </fieldset>
             <button class='btn btn-primary btn-block my-4' type='submit'>Acessar ferramenta</button>
           </form>
-          <form class='text-center border border-light p-5 my-2' method='post' formaction='edicao_temas.php'>
+          <form class='text-center border border-light p-5 my-2' method='post' formaction='edicao_topicos.php'>
               <p class="h4 mb-4">Acrescentar concurso</p>
               <p class='text-left'>Cada concurso tem um título completo e uma sigla. Este é o primeiro passo no processo de inclusão de novos concursos.</p>
               <fieldset class="form-group">
