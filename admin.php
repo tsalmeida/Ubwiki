@@ -45,6 +45,7 @@
 
   if (isset($_POST['reconstruir_busca'])) {
     $concurso = $_POST['reconstruir_concurso'];
+    error_log("$concurso");
     $ordem = 0;
     $conn->query("DELETE FROM Searchbar WHERE concurso = '$concurso'");
     $result = $conn->query("SELECT sigla, materia FROM Materias WHERE concurso = '$concurso' AND estado = 1 ORDER BY ordem");
@@ -175,7 +176,7 @@
               <p>Reconstruir tabela de opções da barra de busca.</p>
               <div class="form-group">
                 <label for="editar_topicos_concurso">Concurso</label>
-                <select class="form-control" name="reconstruir_concurso">
+                <select class="form-control" name="reconstruir_concurso" id='reconstruir_concurso'>
 <?php
                   foreach ($lista_concursos as $um_concurso) {
                     if ($um_concurso[2] == 0) { $estado = '(desativado)'; } else { $estado = '(ativado)'; }
@@ -184,7 +185,7 @@
 ?>
                 </select>
               </div>
-            <button class='btn btn-primary btn-block my-4' type='submit'>Reconstruir</button>
+            <button class='btn btn-primary btn-block my-4' type='submit' name='reconstruir_busca'>Reconstruir</button>
           </form>
           <form class='text-center border border-light p-5 my-2' method='post'>
               <p class="h4 mb-4">Otimizar tabela de tópicos</p>
