@@ -360,7 +360,7 @@ if (isset($_POST['novo_video_titulo'])) {
         </div>
       </div>
       <div class='col-lg-6 justify-content-center d-none d-lg-flex'>
-        <div class='p-3 right-menu-nav position-fixed elegant-color text-white'>
+        <div class='p-3 right-menu-nav position-fixed'>
           <form id='quill_anotacao_form' method='post' action='#anotacao'>
             <div class='row justify-content-around'>
               <div class='col-3'></div>
@@ -381,8 +381,8 @@ if (isset($_POST['novo_video_titulo'])) {
               <div class='container col-12 justify-content-center'>
                 <?php
                   echo "
-                    <div id='quill_container_anotacao' class='bg-white text-dark'>
-                      <div id='quill_editor_anotacao' class='bg-white text-dark'>
+                    <div id='quill_container_anotacao'>
+                      <div id='quill_editor_anotacao'>
                         $anotacao_html
                       </div>
                     </div>
