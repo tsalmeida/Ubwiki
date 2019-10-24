@@ -386,8 +386,35 @@ if (isset($_POST['novo_video_titulo'])) {
       </div>
       <div class='col-lg-4 d-none d-lg-flex my-5'>
         <div class='border p-3 right-menu-nav elegant-color text-white position-fixed'>
-          <h3>Anotações</h3>
-          <p>Blá blá blá</p>
+          <form id='quill_anotacao_form' method='post' action='#anotacao'>
+            <input name='quill_nova_anotacao_html' type='hidden'>
+            <div class='modal-header text-center'>
+              <h4 class='modal-title w-100 font-weight-bold'>Editar verbete</h4>
+              <button type='button' class='close' data-dismiss='modal'>
+                <i class="fal fa-times-circle"></i>
+              </button>
+            </div>
+            <div class='modal-body'>
+              <div class='row justify-content-center'>
+                <div class='container col-12 justify-content-center'>
+                  <?php
+                    echo "
+                      <div id='quill_container_anotacao' class='quill_container_modal'>
+                        <div id='quill_editor_anotacao'>
+                          $anotacao_html
+                        </div>
+                      </div>
+                    ";
+                  ?>
+                </div>
+              </div>
+
+            </div>
+            <div class='modal-footer d-flex justify-content-center mt-5'>
+              <button type='button' class='btn bg-lighter btn-lg' data-dismiss='modal'><i class="fal fa-times-circle"></i> Cancelar</button>
+              <button type='submit' class='but btn-primary btn-lg'><i class='fal fa-check'></i> Salvar</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
@@ -554,42 +581,6 @@ if (isset($_POST['novo_video_titulo'])) {
                 ?>
               </div>
             </div>
-          </div>
-          <div class='modal-footer d-flex justify-content-center mt-5'>
-            <button type='button' class='btn bg-lighter btn-lg' data-dismiss='modal'><i class="fal fa-times-circle"></i> Cancelar</button>
-            <button type='submit' class='but btn-primary btn-lg'><i class='fal fa-check'></i> Salvar</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <div class='modal fade' id='modal_editar_anotacao' role='dialog' tabindex='-1'>
-    <div class='modal-dialog modal-lg quill_modal' role='document'>
-      <div class='modal-content'>
-        <form id='quill_anotacao_form' method='post' action='#anotacao'>
-          <input name='quill_nova_anotacao_html' type='hidden'>
-          <div class='modal-header text-center'>
-            <h4 class='modal-title w-100 font-weight-bold'>Editar verbete</h4>
-            <button type='button' class='close' data-dismiss='modal'>
-              <i class="fal fa-times-circle"></i>
-            </button>
-          </div>
-          <div class='modal-body'>
-            <div class='row justify-content-center'>
-              <div class='container col-12 justify-content-center'>
-                <?php
-                  echo "
-                    <div id='quill_container_anotacao' class='quill_container_modal'>
-                      <div id='quill_editor_anotacao'>
-                        $anotacao_html
-                      </div>
-                    </div>
-                  ";
-                ?>
-              </div>
-            </div>
-
           </div>
           <div class='modal-footer d-flex justify-content-center mt-5'>
             <button type='button' class='btn bg-lighter btn-lg' data-dismiss='modal'><i class="fal fa-times-circle"></i> Cancelar</button>
