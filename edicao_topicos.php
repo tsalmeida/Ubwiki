@@ -184,7 +184,7 @@
               <div class='row justify-content-center mt-3'>
                 <button name='form_tema_id' type='submit' class='btn btn-primary' value='$tema_id'>Registrar mudanças</button>";
                 if ($estado == 0) {
-                  echo "<button name='apagar_tema_id' type='button' class='btn btn-primary' value='$tema_id'>Apagar tópico e subtópicos</button>";
+                  echo "<button name='apagar_tema_id' type='button' class='btn btn-danger' value='$tema_id'>Apagar tópico e subtópicos</button>";
                 }
               echo '</div>';
           }
