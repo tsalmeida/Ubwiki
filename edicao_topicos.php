@@ -340,19 +340,19 @@
                   <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='primeiro_nivel_1'>Tópico de primeiro nível</label>
                 </div>
                 <div class='row'>
-                  <input type='text' id='primeiro_nivel_2' name='primeiro_nivel_2' class='form-control validate' required>
+                  <input type='text' id='primeiro_nivel_2' name='primeiro_nivel_2' class='form-control validate'>
                   <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='primeiro_nivel_2'>Tópico de primeiro nível</label>
                 </div>
                 <div class='row'>
-                  <input type='text' id='primeiro_nivel_3' name='primeiro_nivel_3' class='form-control validate' required>
+                  <input type='text' id='primeiro_nivel_3' name='primeiro_nivel_3' class='form-control validate'>
                   <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='primeiro_nivel_3'>Tópico de primeiro nível</label>
                 </div>
                 <div class='row'>
-                  <input type='text' id='primeiro_nivel_4' name='primeiro_nivel_4' class='form-control validate' required>
+                  <input type='text' id='primeiro_nivel_4' name='primeiro_nivel_4' class='form-control validate'>
                   <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='primeiro_nivel_4'>Tópico de primeiro nível</label>
                 </div>
                 <div class='row'>
-                  <input type='text' id='primeiro_nivel_5' name='primeiro_nivel_5' class='form-control validate' required>
+                  <input type='text' id='primeiro_nivel_5' name='primeiro_nivel_5' class='form-control validate'>
                   <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='primeiro_nivel_5'>Tópico de primeiro nível</label>
               </fieldset>
               <button type='submit' class='btn btn-primary' name='nova_materia_concurso'>Incluir matéria</button>
