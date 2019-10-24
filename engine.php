@@ -53,7 +53,7 @@ function breadcrumbs($content) {
     <div class='container-fluid grey lighten-4'>
       <div class='row'>
         <div class='col-lg-10 col-sm-12'>
-          <div class='mr-auto'>
+          <div class='text-left'>
             <nav>
               <ol class='breadcrumb d-inline-flex transparent mb-0'>
                 $content
@@ -62,7 +62,7 @@ function breadcrumbs($content) {
           </div>
         </div>
         <div class='col-lg-2 col-sm-12'>
-          <div class='ml-auto'>
+          <div class='text-right'>
             <ol class='breadcrumb d-inline-flex transparent mb-0'><li class='breadcrumb-item'><a href='#'>Verbetes relacionados</a></li></ol>
           </div>
         </div>
