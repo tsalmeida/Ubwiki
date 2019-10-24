@@ -126,7 +126,6 @@
     $estado = $row['estado'];
     $um_concurso = array($sigla,$titulo,$estado);
     array_push($lista_concursos, $um_concurso);
-    $check = serialize($lista_concursos);
   }
 
   top_page("quill_admin");
@@ -148,8 +147,8 @@
                   <legend class="col-form-label col-2 pt-0">Concurso</legend>
                   <div class="col-10">
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="metalinguagem_concurso" value="CACD" checked>
-                      <label class="form-check-label" for="gridRadios1">
+                      <input id='concurso-1' class="form-check-input" type="radio" name="metalinguagem_concurso" value="CACD" checked>
+                      <label class="form-check-label" for="concurso-1">
                         CACD
                       </label>
                     </div>
