@@ -145,9 +145,7 @@
                 <label for="editar_topicos_concurso">Concurso</label>
                 <select class="form-control" id="editar_topicos_concurso">
 <?php
-                  $count = 0;
-                  while ($lista_concursos($count) != false) {
-                    $um_concurso = $lista_concursos($count);
+                  foreach ($listaconcursos as $um_concurso) {
                     if ($um_concurso(2) == 0) { $estado = '(desativado)'; } else { $estado = '(ativado)'; }
                     echo "<option>$um_concurso(0): $um_concurso(1) / $estado</option>";
                     $count++;
