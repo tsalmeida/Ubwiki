@@ -187,7 +187,7 @@ if (isset($_POST['novo_video_titulo'])) {
               ?>
             </div>
             <div class='col-lg-1 col-sm-12 h3 text-right'>
-              <a data-toggle='modal' data-target='#modal_editar_verbete' href=''><i class="fal fa-edit"></i></a>
+              <a data-toggle='modal' data-target='#modal_editar_verbete' href=''><i class="fal fa-edit fa-fw"></i></a>
             </div>
           </div>
           <div class='row justify-content-left border-bottom border-dark py-3'>
@@ -211,7 +211,7 @@ if (isset($_POST['novo_video_titulo'])) {
               <span class='align-left'>Imagens</span>
             </div>
             <div class='col-lg-2 col-sm-4 text-right justify-content-center align-middle'>
-                <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_imagens_form' href=''><i class='fal fa-plus-square'></i></a></span>
+                <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_imagens_form' href=''><i class='fal fa-plus-square fa-fw'></i></a></span>
             </div>
           </div>
           <div class='row justify-content-center border-bottom border-dark py-5'>
@@ -243,7 +243,7 @@ if (isset($_POST['novo_video_titulo'])) {
               <span class='align-left'>Bibliografia</span>
             </div>
             <div class='col-lg-2 col-sm-4 text-right justify-content-center align-middle'>
-                <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_referencia_form' href=''><i class='fal fa-plus-square'></i></a></span>
+                <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_referencia_form' href=''><i class='fal fa-plus-square fa-fw'></i></a></span>
             </div>
           </div>
           <div class='row justify-content-center border-bottom border-dark py-5'>
@@ -274,7 +274,7 @@ if (isset($_POST['novo_video_titulo'])) {
               <span class='align-left'>Vídeos e aulas</span>
             </div>
             <div class='col-lg-2 col-sm-4 text-right justify-content-center align-middle'>
-                <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_videos_form' href=''><i class='fal fa-plus-square'></i></a></span>
+                <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_videos_form' href=''><i class='fal fa-plus-square fa-fw'></i></a></span>
             </div>
           </div>
           <div class='row justify-content-center border-bottom border-dark py-5'>
@@ -305,7 +305,7 @@ if (isset($_POST['novo_video_titulo'])) {
               <span class='align-left'>Links</span>
             </div>
             <div class='col-lg-2 col-sm-4 text-right justify-content-center align-middle'>
-                <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_links_form' href=''><i class='fal fa-plus-square'></i></a></span>
+                <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_links_form' href=''><i class='fal fa-plus-square fa-fw'></i></a></span>
             </div>
           </div>
           <div class='row justify-content-center border-bottom border-dark py-5'>
@@ -336,7 +336,7 @@ if (isset($_POST['novo_video_titulo'])) {
               <span class='align-left'>Anotações</span>
             </div>
             <div class='col-lg-2 col-sm-4 text-right justify-content-center align-middle'>
-              <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_editar_anotacao' href=''><i class="fal fa-edit"></i></a></span>
+              <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_editar_anotacao' href=''><i class="fal fa-edit fa-fw"></i></a></span>
             </div>
           </div>
           <div class='row justify-content-center border-bottom border-dark py-5'>
