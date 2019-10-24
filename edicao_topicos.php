@@ -24,6 +24,7 @@
   }
 
   if ((isset($POST_['nova_materia_titulo'])) && isset($_POST['nova_materia_sigla'])) {
+    error_log("this happened");
     $nova_materia_titulo = $_POST['nova_materia_titulo'];
     $nova_materia_sigla = $_POST['nova_materia_sigla'];
     $conn->query("INSERT INTO Materias (materia, sigla, concurso) VALUES ('$nova_materia_titulo', '$nova_materia_sigla', '$concurso')");
