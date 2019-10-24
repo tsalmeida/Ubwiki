@@ -29,35 +29,34 @@
     $conn->query("INSERT INTO Materias (materia, sigla, concurso) VALUES ('$nova_materia_titulo', '$nova_materia_sigla', '$concurso')");
   }
 
+  if (isset($_POST['nivel_1_materia'])) {
+    $nivel_1_materia = $_POST['nivel_1_materia'];
+  }
+
   if (isset($_POST['primeiro_nivel_1'])) {
     error_log("this happened");
     $primeiro_nivel_1 = $_POST['primeiro_nivel_1'];
-    $nivel_1_materia = $_POST['nivel_1_materia'];
-    error_log("$primeiro_nivel_1 $nivel_1_materia");
-    $conn->query("INSERT INTO Temas (ciclo_revisao, concurso, materia, nivel, nivel1) VALUES (0, '$concurso', '$nivel_1_materia', 1, '$primeiro_nivel_1')");
+    error_log("$primeiro_nivel_1 $nivel_1_materia $concurso");
+    $novo_tema = $conn->query("INSERT INTO Temas (ciclo_revisao, concurso, materia, nivel, nivel1) VALUES (0, '$concurso', '$nivel_1_materia', 1, '$primeiro_nivel_1')");
   }
 
   if (isset($_POST['primeiro_nivel_2'])) {
     $primeiro_nivel_2 = $_POST['primeiro_nivel_2'];
-    $nivel_1_materia = $_POST['nivel_1_materia'];
     $conn->query("INSERT INTO Temas (ciclo_revisao, concurso, materia, nivel, nivel1) VALUES (0, '$concurso', '$nivel_1_materia', 1, '$primeiro_nivel_2')");
   }
 
   if (isset($_POST['primeiro_nivel_3'])) {
     $primeiro_nivel_3 = $_POST['primeiro_nivel_3'];
-    $nivel_1_materia = $_POST['nivel_1_materia'];
     $conn->query("INSERT INTO Temas (ciclo_revisao, concurso, materia, nivel, nivel1) VALUES (0, '$concurso', '$nivel_1_materia', 1, '$primeiro_nivel_3')");
   }
 
   if (isset($_POST['primeiro_nivel_4'])) {
     $primeiro_nivel_4 = $_POST['primeiro_nivel_4'];
-    $nivel_1_materia = $_POST['nivel_1_materia'];
     $conn->query("INSERT INTO Temas (ciclo_revisao, concurso, materia, nivel, nivel1) VALUES (0, '$concurso', '$nivel_1_materia', 1, '$primeiro_nivel_4')");
   }
 
   if (isset($_POST['primeiro_nivel_5'])) {
     $primeiro_nivel_5 = $_POST['primeiro_nivel_5'];
-    $nivel_1_materia = $_POST['nivel_1_materia'];
     $conn->query("INSERT INTO Temas (ciclo_revisao, concurso, materia, nivel, nivel1) VALUES (0, '$concurso', '$nivel_1_materia', 1, '$primeiro_nivel_5')");
   }
 
