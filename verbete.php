@@ -364,11 +364,12 @@ if (isset($_POST['novo_video_titulo'])) {
         <div class='p-3 right-menu-nav position-absolute'>
           <form id='quill_anotacao_form' method='post' action='#anotacao'>
             <div class='row'>
-              <div class='col-10'>
+              <div class='col-2'></div>
+              <div class='col-8'>
                 <input name='quill_nova_anotacao_html' type='hidden'>
                 <h4 class='modal-title w-100 font-weight-bold'>Anotações</h4>
               </div>
-              <div class='col-2'>
+              <div class='col-2 text-right'>
                 <button type='button'><i class="fal fa-chevron-square-down fa-fw"></i><i class="fal fa-chevron-square-up fa-fw"></i></button>
               </div>
             </div>
