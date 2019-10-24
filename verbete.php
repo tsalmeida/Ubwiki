@@ -163,20 +163,7 @@ if (isset($_POST['novo_video_titulo'])) {
 
   <div class='container-fluid'>
     <div class='row justify-content my-5'>
-      <div class='col-lg-2 justify-content-center d-none d-lg-flex'>
-        <div class='border p-3 left-menu-nav elegant-color text-white position-fixed'>
-          <ul class='list-group text-center'>
-            <a class='list-group-item list-group-item-action left-nav-item p-1 text-white elegant-color' href='#verbete' title='Verbete'>Verbete</a>
-            <a class='list-group-item list-group-item-action left-nav-item p-1 text-white elegant-color' href='#imagens' title='Imagens'>Imagens</a>
-            <a class='list-group-item list-group-item-action left-nav-item p-1 text-white elegant-color' href='#bibliografia' title='Bibliografia'>Bibliografia</a>
-            <a class='list-group-item list-group-item-action left-nav-item p-1 text-white elegant-color' href='#videos' title='Vídeos e aulas'>Vídeos e aulas</a>
-            <a class='list-group-item list-group-item-action left-nav-item p-1 text-white elegant-color' href='#links' title='Links'>Links</a>
-            <a class='list-group-item list-group-item-action left-nav-item p-1 text-white elegant-color' href='#questoes' title='Questões'>Questões</a>
-            <a class='list-group-item list-group-item-action left-nav-item p-1 text-white elegant-color' href='#discussao' title='Fórum'>Fórum</a>
-          </ul>
-        </div>
-      </div>
-      <div class='col-lg-4 col-sm-12 bg-white'>
+      <div class='col-lg-6 col-sm-12 bg-white'>
         <div class='row text-left' id='verbete'>
           <div class='col-10 text-left'>
             <?php
