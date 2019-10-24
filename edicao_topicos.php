@@ -23,29 +23,53 @@
     header('Location:index.php');
   }
 
+  if (isset($_POST['apagar_tema_id'])) {
+    $apagar_tema_id = $_POST['apagar_tema_id'];
+    $result = $conn->query("SELECT nivel, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE id = $apagar_tema_id");
+    while ($row = $result->fetch_assoc()) {
+      $apagar_nivel = $row['nivel'];
+      if ($apagar_nivel == 1) {
+        $apagar_nivel1 = $row['nivel1'];
+        $apagar = $conn->query("DELETE FROM Temas WHERE nivel1 = '$apagar_nivel1'");
+      }
+      elseif ($apagar_nivel == 2) {
+        $apagar_nivel2 = $row['nivel2'];
+        $apagar = $conn->query("DELETE FROM Temas WHERE nivel2 = '$apagar_nivel2'");
+
+      }
+      elseif ($apagar_nivel == 3) {
+        $apagar_nivel3 = $row['nivel3'];
+        $apagar = $conn->query("DELETE FROM Temas WHERE nivel3 = '$apagar_nivel3'");
+
+      }
+      elseif ($apagar_nivel == 4) {
+        $apagar_nivel4 = $row['nivel4'];
+        $apagar = $conn->query("DELETE FROM Temas WHERE nivel4 = '$apagar_nivel4'");
+
+      }
+      else {
+        $apagar_nivel5 = $row['nivel5'];
+        $apagar = $conn->query("DELETE FROM Temas WHERE nivel5 = '$apagar_nivel5'");
+
+      }
+    }
+  }
+
   if (isset($_POST['reiniciar_ciclo'])) {
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    mysqli_set_charset($conn,"utf8");
     $result = $conn->query("UPDATE Temas SET ciclo_revisao = 0 WHERE concurso = '$concurso'");
   }
 
   if (isset($_POST['finalizar_ciclo'])) {
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    mysqli_set_charset($conn,"utf8");
     $result = $conn->query("UPDATE Temas SET ciclo_revisao = 1 WHERE concurso = '$concurso'");
   }
 
   if (isset($_POST['ciclo_materia_adicionar'])) {
     $materia_revisao = $_POST['ciclo_materia'];
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    mysqli_set_charset($conn,"utf8");
     $result = $conn->query("UPDATE Temas SET ciclo_revisao = 0 WHERE concurso = '$concurso' AND sigla_materia = '$materia_revisao'");
   }
 
   if (isset($_POST['ciclo_materia_remover'])) {
     $materia_revisao = $_POST['ciclo_materia'];
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    mysqli_set_charset($conn,"utf8");
     $result = $conn->query("UPDATE Temas SET ciclo_revisao = 1 WHERE concurso = '$concurso' AND sigla_materia = '$materia_revisao'");
   }
 
@@ -53,8 +77,6 @@
     $remover_ciclo = $_POST['remover_ciclo'];
     $form_tema_id = $_POST['form_tema_id'];
     if ($remover_ciclo == true) {
-      $conn = new mysqli($servername, $username, $password, $dbname);
-      mysqli_set_charset($conn,"utf8");
       $result = $conn->query("UPDATE Temas SET ciclo_revisao = 1 WHERE id = '$form_tema_id'");
     }
   }
@@ -63,8 +85,6 @@
 
   if (isset($_POST['form_tema_id'])) {
     $form_tema_id = $_POST['form_tema_id'];
-    $servername = "localhost"; $username = "grupoubique"; $password = "ubique patriae memor"; $dbname = "Ubique";
-    $conn = new mysqli($servername, $username, $password, $dbname); mysqli_set_charset($conn,"utf8");
     $result = $conn->query("SELECT nivel, sigla_materia, concurso, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE id = $form_tema_id");
     if ($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {
@@ -76,7 +96,6 @@
         elseif ($nivel_relevante == 3) { $antigo_titulo = $row['nivel3']; }
         elseif ($nivel_relevante == 4) { $antigo_titulo = $row['nivel4']; }
         elseif ($nivel_relevante == 5) { $antigo_titulo = $row['nivel5']; }
-        error_log("$nivel_relevante $novo_titulo_sigla_materia $novo_titulo_concurso $antigo_titulo");
       }
     }
     $coluna_nivel = 'nivel';
@@ -85,9 +104,7 @@
 
   if ((isset($_POST['tema_novo_titulo'])) && ($_POST['tema_novo_titulo'] != "")) {
     $tema_novo_titulo = $_POST['tema_novo_titulo'];
-    error_log("$tema_novo_titulo $form_tema_id");
     $update = $conn->query("UPDATE Temas SET $coluna_nivel = '$tema_novo_titulo' WHERE $coluna_nivel = '$antigo_titulo' AND concurso = '$novo_titulo_concurso' AND sigla_materia = '$novo_titulo_sigla_materia'");
-    error_log("$coluna_nivel");
   }
 
   include 'engine_criar_subtopicos.php';
