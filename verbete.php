@@ -253,7 +253,7 @@ if (isset($_POST['novo_video_titulo'])) {
         </div>
       </div>
       <div class='col-lg-4 col-sm-12'>
-        <div class='row border p-1 mb-1'>
+        <div class='row border p-1 mb-1 collapse'>
           <div class='col-12'>
             <div class='collapse' id='anotacoes'>
               <form id='quill_anotacao_form' method='post' action='#anotacoes'>
@@ -289,7 +289,7 @@ if (isset($_POST['novo_video_titulo'])) {
               }
             ?>
           </div>
-          <div class='col-12 text-left justify-content-center' id='bibliografia'>
+          <div class='col-12 text-left justify-content-center collapse' id='bibliografia'>
             <?php
               $result = $conn->query("SELECT titulo, autor, capitulo FROM Bibliografia WHERE id_tema = $id_tema AND concurso = '$concurso'");
               if ($result->num_rows > 0) {
