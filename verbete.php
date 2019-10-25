@@ -220,35 +220,6 @@ if (isset($_POST['novo_video_titulo'])) {
           </div>
         </div>
 
-        <div class='row justify-content-between h3 my-5' id='bibliografia'>
-          <div class='col-10 text-left justify-content-center align-middle'>
-            <span class='align-left'>Bibliografia</span>
-          </div>
-          <div class='col-2 text-right justify-content-center align-middle'>
-              <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_referencia_form' href=''><i class='fal fa-plus-square fa-fw'></i></a></span>
-          </div>
-        </div>
-        <div class='row justify-content-center border-bottom border-dark py-5'>
-          <div class='col-12 text-left font-weight-normal'>
-            <?php
-            $result = $conn->query("SELECT titulo, autor, capitulo FROM Bibliografia WHERE id_tema = $id_tema AND concurso = '$concurso'");
-            if ($result->num_rows > 0) {
-              echo "<ul class='list-group'>";
-                while($row = $result->fetch_assoc()) {
-                  $referencia_titulo = $row['titulo'];
-                  $referencia_autor = $row['autor'];
-                  $referencia_capitulo = $row['capitulo'];
-                  echo "<li class='list-group-item'>$referencia_titulo : $referencia_autor : $referencia_capitulo</li>";
-                }
-              echo "</ul>";
-            }
-            else {
-              echo "<p>Não foram identificados, até o momento, recursos bibliográficos sobre este tema.</p>";
-            }
-            ?>
-          </div>
-        </div>
-
         <div class='row justify-content-between h3 my-5' id='videos'>
           <div class='col-10 text-left justify-content-center align-middle'>
             <span class='align-left'>Vídeos e aulas</span>
@@ -301,7 +272,7 @@ if (isset($_POST['novo_video_titulo'])) {
       <div class='col-lg-1 col-sm-12'></div>
       <div class='col-lg-4 col-sm-12'>
 
-        <div class='row border justify-content-center p-1 mb-1'>
+        <div class='row border p-1 mb-1'>
           <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#anotacoes'>Anotações</button>
           <div class='collapse' id='anotacoes'>
             <form id='quill_anotacao_form' method='post' action='#anotacoes'>
@@ -328,7 +299,7 @@ if (isset($_POST['novo_video_titulo'])) {
         </div>
 
         <div class='row border justify-content-center p-1 mb-1'>
-          <div class='row justify-content-between'>
+          <div class='row'>
             <div class='col-12 text-left justify-content-center align-middle'>
               <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#questoes'>Questões</button>
             </div>
@@ -349,7 +320,35 @@ if (isset($_POST['novo_video_titulo'])) {
         </div>
 
         <div class='row border justify-content-center p-1 mb-1'>
-          <div class='row justify-content-between'>
+          <div class='row'>
+            <div class='col-12 text-left justify-content-center align-middle'>
+              <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#bibliografia'>Bibliografia</button>
+            </div>
+          </div>
+          <div class='row justify-content-center collapse' id='bibliografia'>
+            <div class='col-12 text-left'>
+              <?php
+                $result = $conn->query("SELECT titulo, autor, capitulo FROM Bibliografia WHERE id_tema = $id_tema AND concurso = '$concurso'");
+                if ($result->num_rows > 0) {
+                  echo "<ul class='list-group'>";
+                    while($row = $result->fetch_assoc()) {
+                      $referencia_titulo = $row['titulo'];
+                      $referencia_autor = $row['autor'];
+                      $referencia_capitulo = $row['capitulo'];
+                      echo "<li class='list-group-item'>$referencia_titulo : $referencia_autor : $referencia_capitulo</li>";
+                    }
+                  echo "</ul>";
+                }
+                else {
+                  echo "<p>Não foram identificados, até o momento, recursos bibliográficos sobre este tema.</p>";
+                }
+              ?>
+            </div>
+          </div>
+        </div>
+
+        <div class='row border justify-content-center p-1 mb-1'>
+          <div class='row'>
             <div class='col-12 justify-content-center align-middle'>
               <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#links'>Links</button>
             </div>
