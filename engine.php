@@ -162,7 +162,7 @@ function bottom_page() {
           </script>
         ";
       }
-      if ($args[$array] == "quill_v") {
+      elseif ($args[$array] == "quill_v") {
         echo "
           <script src='https://cdn.quilljs.com/1.3.6/quill.js'></script>
           <script>
@@ -202,7 +202,7 @@ function bottom_page() {
           </script>
         ";
       }
-      if ($args[$array] == "edicao_topicos") {
+      elseif ($args[$array] == "edicao_topicos") {
         echo "
           <script type='text/javascript'>
             $(document).ready(function() {
@@ -266,15 +266,6 @@ function bottom_page() {
           	    $('#novosub20').show();
           	});
           </script>
-        ";
-      }
-      elseif ($args[$array] == 'collapse') {
-        echo "
-        <script>
-          $(document).ready(function() {
-            $('.collapse').collapse()
-          });
-        </script>
         ";
       }
       $array++;
