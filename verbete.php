@@ -161,11 +161,11 @@ if (isset($_POST['novo_video_titulo'])) {
     breadcrumbs($breadcrumbs);
   ?>
   <div class='container-fluid bg-white text-right justify-contents-right'>
-    <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#anotacoes'>Anotações</button>
-    <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#questoes'>Questões</button>
-    <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#bibliografia'>Bibliografia</button>
-    <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#links'>Links</button>
-    <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#discussao'>Fórum</button>
+    <button class='btn btn-primary btn-sm' type='button' data-toggle='collapse' data-target='#anotacoes'>Anotações</button>
+    <button class='btn btn-primary btn-sm' type='button' data-toggle='collapse' data-target='#questoes'>Questões</button>
+    <button class='btn btn-primary btn-sm' type='button' data-toggle='collapse' data-target='#bibliografia'>Bibliografia</button>
+    <button class='btn btn-primary btn-sm' type='button' data-toggle='collapse' data-target='#links'>Links</button>
+    <button class='btn btn-primary btn-sm' type='button' data-toggle='collapse' data-target='#discussao'>Fórum</button>
   </div>
   <div class='container-fluid'>
     <div class='row justify-content-around my-5'>
