@@ -269,7 +269,6 @@ if (isset($_POST['novo_video_titulo'])) {
           </div>
         </div>
       </div>
-      <div class='col-lg-1 col-sm-12'></div>
       <div class='col-lg-4 col-sm-12'>
 
         <div class='row border p-1 mb-1'>
@@ -379,7 +378,6 @@ if (isset($_POST['novo_video_titulo'])) {
         </div>
 
       </div>
-      <div class='col-lg-1 col-sm-12'></div>
     </div>
 
     <div class='modal fade' id='modal_imagens_form' role='dialog' tabindex='-1'>
