@@ -298,7 +298,7 @@ if (isset($_POST['novo_video_titulo'])) {
           </div>
         </div>
 
-        <div class='row border justify-content-center p-1 mb-1'>
+        <div class='row border p-1 mb-1'>
           <div class='row'>
             <div class='col-12 text-left justify-content-center align-middle'>
               <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#questoes'>Questões</button>
@@ -319,7 +319,7 @@ if (isset($_POST['novo_video_titulo'])) {
           </div>
         </div>
 
-        <div class='row border justify-content-center p-1 mb-1'>
+        <div class='row border p-1 mb-1'>
           <div class='row'>
             <div class='col-12 text-left justify-content-center'>
               <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#bibliografia'>Bibliografia</button>
@@ -347,13 +347,13 @@ if (isset($_POST['novo_video_titulo'])) {
           </div>
         </div>
 
-        <div class='row border justify-content-center p-1 mb-1'>
+        <div class='row border p-1 mb-1'>
           <div class='row'>
             <div class='col-12 justify-content-center align-middle'>
               <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#links'>Links</button>
             </div>
           </div>
-          <div class='row justify-content-center py-5 collapse' id='links'>
+          <div class='row justify-content-center collapse' id='links'>
             <div class='col-12 text-left'>
               <?php
               $result = $conn->query("SELECT titulo, comentario, link FROM Links WHERE id_tema = $id_tema AND concurso = '$concurso'");
