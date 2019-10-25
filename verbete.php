@@ -172,7 +172,7 @@ if (isset($_POST['novo_video_titulo'])) {
         </div>
       </div>
       <div class='col-2 d-flex justify-content-right'>
-        <button id='botao_anotacoes' class='btn btn-primary-sm collapse'><a href='#'><i class='fal fa-user-edit fa-2x'></i></a></button>
+        <button class='btn btn-primary-sm collapse anotacoes_collapsible' data-toggle='collapse' data-target='.anotacoes_collapsible'><a href='#'><i class='fal fa-user-edit fa-2x'></i></a></button>
       </div>
     </div>
   </div>
@@ -331,7 +331,7 @@ if (isset($_POST['novo_video_titulo'])) {
           </div>
         </div>
       </div>
-      <div id='anotacoes' class='col-lg-5 col-sm-12 collapse show'>
+      <div id='anotacoes' class='col-lg-5 col-sm-12 collapse show anotacoes_collapsible'>
         <div class='row'>
           <div class='col-12'>
             <div class='row justify-content-between h3'>
@@ -339,7 +339,7 @@ if (isset($_POST['novo_video_titulo'])) {
                 <span class='align-left'>Anotações</span>
               </div>
               <div class='col-2 text-right justify-content-center align-middle'>
-                <span class='text-center justify-content-center align-middle' data-toggle='collapse' data-target='#anotacoes'><a href='#inicio'><i class='fal fa-times-square fa-fw'></i></a></span>
+                <span class='text-center justify-content-center align-middle' data-toggle='collapse' data-target='.anotacoes_collapsible'><a href='#inicio'><i class='fal fa-times-square fa-fw'></i></a></span>
               </div>
             </div>
             <div class='row justify-content-center border-bottom border-dark py-5'>
