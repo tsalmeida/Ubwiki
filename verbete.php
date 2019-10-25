@@ -362,7 +362,7 @@ if (isset($_POST['novo_video_titulo'])) {
             }
             ?>
             <div class='row'>
-              <div class='col-12'>
+              <div class='col-12 justify-content-center h3'>
                 <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_links_form' href=''><i class='fal fa-plus-square fa-fw'></i></a></span>
               </div>
             </div>
