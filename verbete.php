@@ -374,7 +374,7 @@ if (isset($_POST['novo_video_titulo'])) {
             </form>
           </div>
         </div>
-        <div class='row border justify-content-center p-1'>
+        <div class='row border justify-content-center p-1 mt-1'>
           <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#links'>Links</button>
           <div class='collapse' id='links'>
             <form method='post' action='#links'>
@@ -385,13 +385,15 @@ if (isset($_POST['novo_video_titulo'])) {
               <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_link_titulo' required>Título da página</label>
               <textarea type='text' id='novo_link_comentario' name='novo_link_comentario' class='md-textarea form-control' rows='4' required></textarea>
               <label data-error='preenchimento incorreto' data-success='preenchimento correto' for='novo_link_comentario'>Breve comentário sobre o link, destacando sua relevância para a compreensão do tópico.</label>
-            <button type='button' class='btn bg-lighter btn-lg' data-dismiss='modal'><i class="fal fa-times-circle"></i> Cancelar</button>
-            <button type='submit' class='but btn-primary btn-lg'><i class='fal fa-check'></i> Salvar</button>
-          </form>
+              <div class='row d-flex justify-content-center mt-3'>
+                <button type='button' class='btn btn-light btn-sm'><i class="fal fa-times-circle fa-fw"></i> Cancelar</button>
+                <button type='submit' class='btn btn-primary btn-sm'><i class='fal fa-check fa-fw'></i> Salvar</button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
-    <div class='col-lg-1 col-sm-12'></div>
+      <div class='col-lg-1 col-sm-12'></div>
 
   <div class='modal fade' id='modal_imagens_form' role='dialog' tabindex='-1'>
     <div class='modal-dialog modal-lg' role='document'>
