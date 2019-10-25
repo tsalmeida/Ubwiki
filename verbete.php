@@ -163,12 +163,12 @@ if (isset($_POST['novo_video_titulo'])) {
   <div class='container-fluid grey lighten-5' data-toggle='buttons'>
     <div class='row'>
       <div class='col-12 justify-contents-right'>
-        <div btn-group btn-group-toggle>
+        <div class='btn-group btn-group-toggle'>
           <label class='btn btn-primary btn-sm active' data-toggle='collapse' data-target='#anotacoes'><input type='checkbox' autocomplete='off' checked>Anotações</label>
-          <label class='btn btn-primary btn-sm active'><input type='checkbox' autocomplete='off' data-toggle='collapse' data-target='#questoes'>Questões</label>
-          <label class='btn btn-primary btn-sm active'><input type='checkbox' autocomplete='off' data-toggle='collapse' data-target='#bibliografia'>Bibliografia</label>
-          <label class='btn btn-primary btn-sm active'><input type='checkbox' autocomplete='off' data-toggle='collapse' data-target='#links'>Links</label>
-          <label class='btn btn-primary btn-sm active'><input type='checkbox' autocomplete='off' data-toggle='collapse' data-target='#discussao'>Fórum</label>
+          <label class='btn btn-primary btn-sm active' data-toggle='collapse' data-target='#questoes'><input type='checkbox' autocomplete='off'>Questões</label>
+          <label class='btn btn-primary btn-sm active' data-toggle='collapse' data-target='#bibliografia'><input type='checkbox' autocomplete='off'>Bibliografia</label>
+          <label class='btn btn-primary btn-sm active' data-toggle='collapse' data-target='#links'><input type='checkbox' autocomplete='off'>Links</label>
+          <label class='btn btn-primary btn-sm active' data-toggle='collapse' data-target='#discussao'><input type='checkbox' autocomplete='off'>Fórum</label>
         </div>
       </div>
     </div>
