@@ -165,6 +165,7 @@ if (isset($_POST['novo_video_titulo'])) {
     <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#questoes'>Questões</button>
     <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#bibliografia'>Bibliografia</button>
     <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#links'>Links</button>
+    <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#discussao'>Fórum</button>
   </div>
   <div class='container-fluid'>
     <div class='row justify-content-around my-5'>
@@ -250,25 +251,6 @@ if (isset($_POST['novo_video_titulo'])) {
             ?>
           </div>
         </div>
-        <div class='row justify-content-between h3 my-5' id='discussao'>
-          <div class='col-10 text-left justify-content-center align-middle'>
-            <span class='align-left'>Fórum</span>
-          </div>
-          <div class='col-2 text-right justify-content-center align-middle'></div>
-        </div>
-        <div class='row justify-content-center border-bottom border-dark py-5'>
-          <div class='col-12 text-left font-weight-normal'>
-            <?php
-              $discussao = false;
-              if ($discussao == false) {
-                echo "<p>Não há comentários sobre este tópico. Deixe aqui sua opinião!</p>";
-              }
-              else {
-                echo $discussao;
-              }
-            ?>
-          </div>
-        </div>
       </div>
       <div class='col-lg-4 col-sm-12'>
         <div class='row border p-1 mb-1'>
@@ -347,6 +329,11 @@ if (isset($_POST['novo_video_titulo'])) {
                 <a data-toggle='modal' data-target='#modal_links_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
               </div>
             </div>
+          </div>
+          <div class='col-12 text-left collapse' id='discussao'>
+            <?php
+              echo "<p>Fórum vai aqui.</p>";
+            ?>
           </div>
         </div>
       </div>
