@@ -116,7 +116,7 @@ if (isset($_POST['nova_imagem_link'])) {
     $nova_imagem_arquivo = "$randomfilename$extensao";
     $nova_imagem_diretorio = "imagens/$randomfilename$extensao";
     file_put_contents("$nova_imagem_diretorio", fopen($nova_imagem_link, 'r'));
-    makethumb($nova_imagem_arquivo);
+    make_thumb($nova_imagem_arquivo);
     $result = $conn->query("INSERT INTO Imagens (id_tema, concurso, titulo, link, arquivo, comentario, trecho, usuario) VALUES ($id_tema, '$concurso', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_arquivo', '$nova_imagem_comentario', '$nova_imagem_trecho', '$user')");
   }
 }
