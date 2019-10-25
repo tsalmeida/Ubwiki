@@ -329,12 +329,11 @@ if (isset($_POST['novo_video_titulo'])) {
 
         <div class='row border justify-content-center p-1 mb-1'>
           <div class='row justify-content-between h3 my-5'>
-            <div class='col-10 text-left justify-content-center align-middle'>
+            <div class='col-12 text-left justify-content-center align-middle'>
               <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#questoes'>Questões</button>
             </div>
-            <div class='col-2 text-right justify-content-center align-middle'></div>
           </div>
-          <div class='row justify-content-center' id='questoes'>
+          <div class='row justify-content-center collapse' id='questoes'>
             <div class='col-12 text-left font-weight-normal'>
               <?php
                 $questoes = false;
@@ -352,7 +351,7 @@ if (isset($_POST['novo_video_titulo'])) {
         <div class='row border justify-content-center p-1 mb-1'>
           <div class='row justify-content-between h3'>
             <div class='col-2'></div>
-            <div class='col-10 text-left justify-content-center align-middle'>
+            <div class='col-8 text-left justify-content-center align-middle'>
               <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#links'>Links</button>
             </div>
             <div class='col-2 text-right justify-content-center align-middle'>
