@@ -172,7 +172,7 @@ if (isset($_POST['novo_video_titulo'])) {
         </div>
       </div>
       <div class='col-2 d-flex justify-content-right'>
-        <div class='btn-group btn-group-toggle'>
+        <div class='row btn-group btn-group-toggle d-flex justify-content-right'>
           <label class='btn btn-primary btn-sm inactive collapse anotacoes_collapsible' data-toggle='collapse' data-target='.anotacoes_collapsible'><input type='checkbox'>Anotações</label>
         </div>
       </div>
