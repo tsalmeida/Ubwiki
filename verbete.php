@@ -373,7 +373,7 @@ if (isset($_POST['novo_video_titulo'])) {
                 echo "</ul>";
               }
               else {
-                echo "<p>Ainda não foram acrescentados links sobre este tópico.</p>";
+                echo "<p>Até o momento, não foram acrescentados links sobre este tópico.</p>";
               }
               ?>
             </div>
