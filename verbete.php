@@ -278,27 +278,36 @@ if (isset($_POST['novo_video_titulo'])) {
       </div>
       <div class='col-lg-4 col-sm-12'>
         <div class='col-12'>
-          <div class='collapse show' id='anotacoes'>
-            <form id='quill_anotacao_form' method='post' action='#anotacoes'>
-              <input name='quill_nova_anotacao_html' type='hidden'>
-              <div class='row justify-content-center'>
-                <div class='container col-12 justify-content-center'>
-                  <?php
-                    echo "
-                      <div id='quill_container_anotacao'>
-                        <div id='quill_editor_anotacao'>
-                          $anotacao_html
+
+        <div id='anotacoes' class='collapse show'>
+          <div class='row justify-content-between h3 my-5'>
+            <div class='col-10 text-left justify-content-center align-middle'>
+              <span class='align-left'>Anotações</span>
+            </div>
+          </div>
+          <div class='row justify-content-center border-bottom border-dark py-5'>
+            <div class='col-12 text-left font-weight-normal'>
+              <form id='quill_anotacao_form' method='post' action='#anotacoes'>
+                <input name='quill_nova_anotacao_html' type='hidden'>
+                <div class='row justify-content-center'>
+                  <div class='container col-12 justify-content-center'>
+                    <?php
+                      echo "
+                        <div id='quill_container_anotacao'>
+                          <div id='quill_editor_anotacao'>
+                            $anotacao_html
+                          </div>
                         </div>
-                      </div>
-                    ";
-                  ?>
+                      ";
+                    ?>
+                  </div>
                 </div>
-              </div>
-              <div class='row d-flex justify-content-center mt-3'>
-                <button type='button' class='btn btn-light btn-sm'><i class="fal fa-times-circle fa-fw"></i> Cancelar</button>
-                <button type='submit' class='btn btn-primary btn-sm'><i class='fal fa-check fa-fw'></i> Salvar</button>
-              </div>
-            </form>
+                <div class='row d-flex justify-content-center mt-3'>
+                  <button type='button' class='btn btn-light btn-sm'><i class="fal fa-times-circle fa-fw"></i> Cancelar</button>
+                  <button type='submit' class='btn btn-primary btn-sm'><i class='fal fa-check fa-fw'></i> Salvar</button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
         <div class='col-12 text-left font-weight-normal collapse' id='questoes'>
