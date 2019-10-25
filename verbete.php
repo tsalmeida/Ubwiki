@@ -268,52 +268,51 @@ if (isset($_POST['novo_video_titulo'])) {
           </div>
         </div>
       </div>
+
       <div class='col-lg-4 col-sm-12'>
 
         <div class='row border p-1 mb-1'>
-          <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#anotacoes'>Anotações</button>
-          <div class='collapse' id='anotacoes'>
-            <form id='quill_anotacao_form' method='post' action='#anotacoes'>
-              <input name='quill_nova_anotacao_html' type='hidden'>
-              <div class='row justify-content-center'>
-                <div class='container col-12 justify-content-center'>
-                  <?php
-                    echo "
-                      <div id='quill_container_anotacao'>
-                        <div id='quill_editor_anotacao'>
-                          $anotacao_html
+          <div class='col-12'>
+            <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#anotacoes'>Anotações</button>
+            <div class='collapse' id='anotacoes'>
+              <form id='quill_anotacao_form' method='post' action='#anotacoes'>
+                <input name='quill_nova_anotacao_html' type='hidden'>
+                <div class='row justify-content-center'>
+                  <div class='container col-12 justify-content-center'>
+                    <?php
+                      echo "
+                        <div id='quill_container_anotacao'>
+                          <div id='quill_editor_anotacao'>
+                            $anotacao_html
+                          </div>
                         </div>
-                      </div>
-                    ";
-                  ?>
+                      ";
+                    ?>
+                  </div>
                 </div>
-              </div>
-              <div class='row d-flex justify-content-center mt-3'>
-                <button type='button' class='btn btn-light btn-sm'><i class="fal fa-times-circle fa-fw"></i> Cancelar</button>
-                <button type='submit' class='btn btn-primary btn-sm'><i class='fal fa-check fa-fw'></i> Salvar</button>
-              </div>
-            </form>
+                <div class='row d-flex justify-content-center mt-3'>
+                  <button type='button' class='btn btn-light btn-sm'><i class="fal fa-times-circle fa-fw"></i> Cancelar</button>
+                  <button type='submit' class='btn btn-primary btn-sm'><i class='fal fa-check fa-fw'></i> Salvar</button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
 
         <div class='row border p-1 mb-1'>
-          <div class='row'>
-            <div class='col-12 text-left justify-content-center align-middle'>
-              <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#questoes'>Questões</button>
-            </div>
+          <div class='col-12 text-left justify-content-center align-middle'>
+            <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#questoes'>Questões</button>
           </div>
-          <div class='row justify-content-center collapse' id='questoes'>
-            <div class='col-12 text-left font-weight-normal'>
-              <?php
-                $questoes = false;
-                if ($questoes == false) {
-                  echo "<p>Não há registro de questões em provas passadas sobre este tópico.</p>";
-                }
-                else {
-                  echo $questoes;
-                }
-              ?>
-            </div>
+          <div class='col-12 text-left font-weight-normal collapse' id='questoes'>
+            <?php
+              $questoes = false;
+              if ($questoes == false) {
+                echo "<p>Não há registro de questões em provas passadas sobre este tópico.</p>";
+              }
+              else {
+                echo $questoes;
+              }
+            ?>
           </div>
         </div>
 
