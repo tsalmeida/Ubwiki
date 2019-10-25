@@ -337,7 +337,7 @@ if (isset($_POST['novo_video_titulo'])) {
                 <span class='align-left'>Anotações</span>
               </div>
               <div class='col-2 text-right justify-content-center align-middle'>
-                <span class='text-center justify-content-center align-middle'><a href=''><i class='fal fa-times-square fa-fw'></i></a></span>
+                <span class='text-center justify-content-center align-middle' data-toggle='collapse' data-target='#anotacoes'><a href=''><i class='fal fa-times-square fa-fw'></i></a></span>
               </div>
             </div>
             <div class='row justify-content-center border-bottom border-dark py-5'>
