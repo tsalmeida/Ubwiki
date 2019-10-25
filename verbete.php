@@ -310,65 +310,112 @@ if (isset($_POST['novo_video_titulo'])) {
             </div>
           </div>
         </div>
-        <div class='col-12 text-left font-weight-normal collapse' id='questoes'>
-          <?php
-            $questoes = false;
-            if ($questoes == false) {
-              echo "<p>Não há registro de questões em provas passadas sobre este tópico.</p>";
-            }
-            else {
-              echo $questoes;
-            }
-          ?>
-        </div>
-        <div class='col-12 text-left justify-content-center collapse' id='bibliografia'>
-          <?php
-            $result = $conn->query("SELECT titulo, autor, capitulo FROM Bibliografia WHERE id_tema = $id_tema AND concurso = '$concurso'");
-            if ($result->num_rows > 0) {
-              echo "<ul class='list-group'>";
-                while($row = $result->fetch_assoc()) {
-                  $referencia_titulo = $row['titulo'];
-                  $referencia_autor = $row['autor'];
-                  $referencia_capitulo = $row['capitulo'];
-                  echo "<li class='list-group-item'>$referencia_titulo : $referencia_autor : $referencia_capitulo</li>";
+
+        <div id='questoes' class='collapse'>
+          <div class='row justify-content-between h3 my-5'>
+            <div class='col-10 text-left justify-content-center align-middle'>
+              <span class='align-left'>Questões</span>
+            </div>
+          </div>
+          <div class='row justify-content-center border-bottom border-dark py-5'>
+            <div class='col-12 text-left font-weight-normal'>
+              <?php
+                $questoes = false;
+                if ($questoes == false) {
+                  echo "<p>Não há registro de questões em provas passadas sobre este tópico.</p>";
                 }
-              echo "</ul>";
-            }
-            else {
-              echo "<p>Não foram identificados, até o momento, recursos bibliográficos sobre este tema.</p>";
-            }
-          ?>
-        </div>
-        <div class='col-12 text-left collapse' id='links'>
-          <?php
-          $result = $conn->query("SELECT titulo, comentario, link FROM Links WHERE id_tema = $id_tema AND concurso = '$concurso'");
-          if ($result->num_rows > 0) {
-            echo "<ul class='list-group'>";
-              while($row = $result->fetch_assoc()) {
-                $link_titulo = $row['titulo'];
-                $link_link = $row['link'];
-                $link_comentario = $row['comentario'];
-                echo "<li class='list-group-item list-group-item-action'><a href='$link_link' target='_blank'>$link_titulo : $link_comentario</a></li>";
-              }
-            echo "</ul>";
-          }
-          else {
-            echo "<p>Até o momento, não foram acrescentados links sobre este tópico.</p>";
-          }
-          ?>
-          <div class='row'>
-            <div class='col-12 text-center h3'>
-              <a data-toggle='modal' data-target='#modal_links_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
+                else {
+                  echo $questoes;
+                }
+              ?>
             </div>
           </div>
         </div>
-        <div class='col-12 text-left collapse' id='discussao'>
-          <?php
-            echo "<p>Fórum vai aqui.</p>";
-          ?>
+
+
+        <div id='bibliografia' class='collapse'>
+          <div class='row justify-content-between h3 my-5'>
+            <div class='col-10 text-left justify-content-center align-middle'>
+              <span class='align-left'>Bibliografia</span>
+            </div>
+          </div>
+          <div class='row justify-content-center border-bottom border-dark py-5'>
+            <div class='col-12 text-left font-weight-normal'>
+              <?php
+                $result = $conn->query("SELECT titulo, autor, capitulo FROM Bibliografia WHERE id_tema = $id_tema AND concurso = '$concurso'");
+                if ($result->num_rows > 0) {
+                  echo "<ul class='list-group'>";
+                    while($row = $result->fetch_assoc()) {
+                      $referencia_titulo = $row['titulo'];
+                      $referencia_autor = $row['autor'];
+                      $referencia_capitulo = $row['capitulo'];
+                      echo "<li class='list-group-item'>$referencia_titulo : $referencia_autor : $referencia_capitulo</li>";
+                    }
+                  echo "</ul>";
+                }
+                else {
+                  echo "<p>Não foram identificados, até o momento, recursos bibliográficos sobre este tema.</p>";
+                }
+              ?>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+
+
+        <div id='links' class='collapse'>
+          <div class='row justify-content-between h3 my-5'>
+            <div class='col-10 text-left justify-content-center align-middle'>
+              <span class='align-left'>Links</span>
+            </div>
+          </div>
+          <div class='row justify-content-center border-bottom border-dark py-5'>
+            <div class='col-12 text-left font-weight-normal'>
+              <?php
+              $result = $conn->query("SELECT titulo, comentario, link FROM Links WHERE id_tema = $id_tema AND concurso = '$concurso'");
+              if ($result->num_rows > 0) {
+                echo "<ul class='list-group'>";
+                  while($row = $result->fetch_assoc()) {
+                    $link_titulo = $row['titulo'];
+                    $link_link = $row['link'];
+                    $link_comentario = $row['comentario'];
+                    echo "<li class='list-group-item list-group-item-action'><a href='$link_link' target='_blank'>$link_titulo : $link_comentario</a></li>";
+                  }
+                echo "</ul>";
+              }
+              else {
+                echo "<p>Até o momento, não foram acrescentados links sobre este tópico.</p>";
+              }
+              ?>
+              <div class='row'>
+                <div class='col-12 text-center h3'>
+                  <a data-toggle='modal' data-target='#modal_links_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id='discussao' class='collapse'>
+          <div class='row justify-content-between h3 my-5'>
+            <div class='col-10 text-left justify-content-center align-middle'>
+              <span class='align-left'>Links</span>
+            </div>
+          </div>
+          <div class='row justify-content-center border-bottom border-dark py-5'>
+            <div class='col-12 text-left font-weight-normal'>
+              <?php
+                echo "<p>O fórum vai aqui.</p>";
+              ?>
+              <div class='row'>
+                <div class='col-12 text-center h3'>
+                  <a data-toggle='modal' data-target='#modal_links_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
 
     <div class='modal fade' id='modal_imagens_form' role='dialog' tabindex='-1'>
       <div class='modal-dialog modal-lg' role='document'>
