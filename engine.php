@@ -144,13 +144,14 @@ function bottom_page() {
           <script>
             var toolbarOptions = [
               ['italic'],
+              ['strike'],
               ['blockquote'],
               [{ 'list': 'ordered'}, { 'list': 'bullet' }],
               [{ 'script': 'super' }],
               [{ 'header': [2, false] }],
               ['clean']
             ];
-            var formatWhitelist = ['italic','script','link','blockquote','list','header'];
+            var formatWhitelist = ['italic','script','link','blockquote','list','header','strike'];
             var admin_editor = new Quill('#quill_editor_admin', {
               theme: 'snow',
               formats: formatWhitelist,

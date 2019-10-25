@@ -68,7 +68,6 @@ else {
 if (isset($_POST['quill_novo_verbete_html'])) {
   $novo_verbete_html = $_POST['quill_novo_verbete_html'];
   $novo_verbete_html = strip_tags($novo_verbete_html, '<p><li><ul><ol><h2><blockquote><em><sup>');
-  //$novo_verbete_html = strip_tags($novo_verbete_html);
   $result = $conn->query("SELECT verbete FROM Verbetes WHERE concurso = '$concurso' AND id_tema = $id_tema");
   if ($result->num_rows > 0) {
     $result = $conn->query("UPDATE Verbetes SET verbete = '$novo_verbete_html', usuario = '$user' WHERE concurso = '$concurso' AND id_tema = $id_tema");
