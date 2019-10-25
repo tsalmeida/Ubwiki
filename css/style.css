@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display:700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Wire+One&display=swap');
+
+html {
+font-size: 1rem;
+}
+
+@include media-breakpoint-up(sm) {
+  html {
+  font-size: 1.2rem;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  html {
+  font-size: 1.4rem;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  html {
+  font-size: 1.6rem;
+  }
+}
+
+h1, h2, h3, h4, h5 {
+  text-align: center;
+}
+
+logo {
+  max-width: 20vw;
+}
+
+.navbar { box-shadow: none !important; }
+
+.btn { box-shadow: none !important; }
+
+.playfair {
+  font-family: 'Playfair Display', serif !important;
+}
+
+.wireone {
+  font-family: 'Wire One', sans-serif;
+  text-align: center;
+}
+
+.left-nav-item {
+  border: 0;
+  border-style: solid;
+  border-color: white;
+  border-bottom-width: 2px;
+}
+
+.left-menu-nav {
+  border-radius: 2vh;
+}
+
+.right-menu-nav {
+  border-style: solid;
+  border-color: #2e2e2e;
+  border-width: 1px;
+  border-radius: 2vh;
+  width: 40%;
+}
+
+.jumbotron {
+  /* background-color: #474d55; */
+  box-shadow: none !important;
+  /* color: white !important; */
+}
+
+.smaller {
+  font-size: 0.9rem;
+}
+
+/* .bg-lighter {
+  background-color: #f6f5f3;
+}
+
+.bg-dark2 {
+  background-color: #b5b5b5;
+} */
+
+.navbar .breadcrumb .breadcrumb-item {
+  font-weight: 400;
+  color: #5f5f5f !important;
+}
+
+.searchBar {
+  background-color: white;
+  border: 0;
+  border-bottom: 2px;
+  border-style: solid;
+  border-color: black;
+  width: 100%;
+  height: 3.5rem;
+  font-size: 1.5rem;
+  color: black;
+  margin-top: 3vh;
+  resize: none;
+  padding-left: 1ch;
+  padding-right: 1ch;
+  outline: none;
+	-webkit-box-flex: 1;
+	-webkit-appearance: none;
+  text-align: center;
+}
+
+.quill_container_modal {
+  width: 100%;
+  max-height: 50vh;
+  height: 50vh;
+  resize: none;
+  outline: none;
+  word-wrap: normal;
+}
+
+.quill_modal {
+  max-width: 90vw;
+  width: 70ch;
+}
+
+#quill_editor_anotacao {
+  height: 20em;
+}
+
+.footer.page-footer .footer-copyright {
+ position: absolute;
+ bottom: 0;
+ width: 100%;
+ z-index:9999999;
+}
+
+.cardmateria {
+  cursor: pointer;
+  border: 0;
+  border-style: solid;
+  border-bottom-color: #eeeeee;
+  border-bottom-width: 0.2rem;
+  border-right-width: 0.2rem;
+  border-right-color: #eeeeee;
+}
+
+.bc-icons .breadcrumb-item + .breadcrumb-item::before {
+  content: none;
+}
+
+.bradcrumb {
+  margin-bottom: 0;
+}
