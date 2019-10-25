@@ -145,6 +145,6 @@ logo {
   content: none;
 }
 
-.bradcrumb {
-  margin-bottom: 0;
+.breadcrumb {
+  background-color: transparent;
 }
