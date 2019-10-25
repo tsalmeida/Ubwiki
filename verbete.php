@@ -170,7 +170,6 @@ if (isset($_POST['novo_video_titulo'])) {
           <label class='btn btn-primary btn-sm active' data-toggle='collapse' data-target='#videos'><input type='checkbox' autocomplete='off'>Vídeos</label>
           <label class='btn btn-primary btn-sm' data-toggle='collapse' data-target='#bibliografia'><input type='checkbox' autocomplete='off'>Bibliografia</label>
           <label class='btn btn-primary btn-sm' data-toggle='collapse' data-target='#links'><input type='checkbox' autocomplete='off'>Links</label>
-          <label class='btn btn-primary btn-sm' data-toggle='collapse' data-target='#discussao'><input type='checkbox' autocomplete='off'>Fórum</label>
         </div>
       </div>
     </div>
@@ -360,25 +359,6 @@ if (isset($_POST['novo_video_titulo'])) {
                     <button type='submit' class='btn btn-primary btn-sm'><i class='fal fa-check fa-fw'></i> Salvar</button>
                   </div>
                 </form>
-              </div>
-            </div>
-          </div>
-          <div id='discussao' class='collapse mb-5'>
-            <div class='row justify-content-between h3'>
-              <div class='col-10 text-left justify-content-center align-middle'>
-                <span class='align-left'>Fórum</span>
-              </div>
-            </div>
-            <div class='row justify-content-center border-bottom border-dark py-5'>
-              <div class='col-12 text-left font-weight-normal'>
-                <?php
-                  echo "<p>O fórum vai aqui.</p>";
-                ?>
-                <div class='row'>
-                  <div class='col-12 text-center h3'>
-                    <a data-toggle='modal' data-target='#modal_links_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
