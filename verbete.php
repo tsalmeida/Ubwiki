@@ -351,7 +351,7 @@ if (isset($_POST['novo_video_titulo'])) {
       <div class='col-lg-5 col-sm-12'>
         <div>
           <a class='btn btn-primary' data-toggle='collapse' href='#anotacoes'>Anotações</a>
-          <div class='collapse' id='#anotacoes'>
+          <div class='collapse' id='anotacoes'>
             <form id='quill_anotacao_form' method='post' action='#anotacao' class='hidewhen anotacoes_up'>
               <input name='quill_nova_anotacao_html' type='hidden'>
               <div class='row justify-content-center'>
@@ -371,9 +371,10 @@ if (isset($_POST['novo_video_titulo'])) {
                 <button type='button' class='btn btn-light btn-sm'><i class="fal fa-times-circle fa-fw"></i> Cancelar</button>
                 <button type='submit' class='btn btn-primary btn-sm'><i class='fal fa-check fa-fw'></i> Salvar</button>
               </div>
-            </form>    
+            </form>
           </div>
         </div>
+      </div>
 
   <div class='modal fade' id='modal_imagens_form' role='dialog' tabindex='-1'>
     <div class='modal-dialog modal-lg' role='document'>
