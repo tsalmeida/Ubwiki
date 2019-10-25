@@ -161,11 +161,11 @@ if (isset($_POST['novo_video_titulo'])) {
     breadcrumbs($breadcrumbs);
   ?>
   <div class='container-fluid text-right justify-contents-right btn-group btn-group-toggle grey lighten-5' data-toggle='buttons'>
-    <label class='btn btn-primary btn-sm active'><input type='checkbox' autocomplete='off' data-toggle='collapse' data-target='#anotacoes' checked>Anotações</label>
-    <label class='btn btn-primary btn-sm active'><input type='checkbox' autocomplete='off' data-toggle='collapse' data-target='#questoes' checked>Questões</label>
-    <label class='btn btn-primary btn-sm active'><input type='checkbox' autocomplete='off' data-toggle='collapse' data-target='#bibliografia' checked>Bibliografia</label>
-    <label class='btn btn-primary btn-sm active'><input type='checkbox' autocomplete='off' data-toggle='collapse' data-target='#links' checked>Links</label>
-    <label class='btn btn-primary btn-sm active'><input type='checkbox' autocomplete='off' data-toggle='collapse' data-target='#discussao' checked>Fórum</label>
+    <label class='btn btn-primary btn-sm active' data-toggle='collapse' data-target='#anotacoes'><input type='checkbox' autocomplete='off' checked>Anotações</label>
+    <label class='btn btn-primary btn-sm active'><input type='checkbox' autocomplete='off' data-toggle='collapse' data-target='#questoes'>Questões</label>
+    <label class='btn btn-primary btn-sm active'><input type='checkbox' autocomplete='off' data-toggle='collapse' data-target='#bibliografia'>Bibliografia</label>
+    <label class='btn btn-primary btn-sm active'><input type='checkbox' autocomplete='off' data-toggle='collapse' data-target='#links'>Links</label>
+    <label class='btn btn-primary btn-sm active'><input type='checkbox' autocomplete='off' data-toggle='collapse' data-target='#discussao'>Fórum</label>
   </div>
 
 
@@ -263,7 +263,7 @@ if (isset($_POST['novo_video_titulo'])) {
       </div>
       <div class='col-lg-4 col-sm-12'>
         <div class='col-12'>
-          <div class='collapse' id='anotacoes'>
+          <div class='collapse show' id='anotacoes'>
             <form id='quill_anotacao_form' method='post' action='#anotacoes'>
               <input name='quill_nova_anotacao_html' type='hidden'>
               <div class='row justify-content-center'>
