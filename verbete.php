@@ -321,12 +321,12 @@ if (isset($_POST['novo_video_titulo'])) {
 
         <div class='row border justify-content-center p-1 mb-1'>
           <div class='row'>
-            <div class='col-12 text-left justify-content-center align-middle'>
+            <div class='col-12 text-left justify-content-center'>
               <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#bibliografia'>Bibliografia</button>
             </div>
           </div>
           <div class='row justify-content-center collapse' id='bibliografia'>
-            <div class='col-12 text-left'>
+            <div class='col-12 text-left justify-content-center'>
               <?php
                 $result = $conn->query("SELECT titulo, autor, capitulo FROM Bibliografia WHERE id_tema = $id_tema AND concurso = '$concurso'");
                 if ($result->num_rows > 0) {
