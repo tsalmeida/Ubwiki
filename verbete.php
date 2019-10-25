@@ -188,7 +188,6 @@ if (isset($_POST['novo_video_titulo'])) {
             ?>
           </div>
         </div>
-
         <div class='row justify-content-between h3 my-5' id='imagens'>
           <div class='col-10 text-left justify-content-center align-middle'>
             <span class='align-left'>Imagens</span>
@@ -218,7 +217,6 @@ if (isset($_POST['novo_video_titulo'])) {
             ?>
           </div>
         </div>
-
         <div class='row justify-content-between h3 my-5' id='videos'>
           <div class='col-10 text-left justify-content-center align-middle'>
             <span class='align-left'>Vídeos e aulas</span>
@@ -247,7 +245,6 @@ if (isset($_POST['novo_video_titulo'])) {
             ?>
           </div>
         </div>
-
         <div class='row justify-content-between h3 my-5' id='discussao'>
           <div class='col-10 text-left justify-content-center align-middle'>
             <span class='align-left'>Fórum</span>
@@ -268,12 +265,13 @@ if (isset($_POST['novo_video_titulo'])) {
           </div>
         </div>
       </div>
-
       <div class='col-lg-4 col-sm-12'>
-
         <div class='row border p-1 mb-1'>
           <div class='col-12'>
             <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#anotacoes'>Anotações</button>
+            <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#questoes'>Questões</button>
+            <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#bibliografia'>Bibliografia</button>
+            <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#links'>Links</button>
             <div class='collapse' id='anotacoes'>
               <form id='quill_anotacao_form' method='post' action='#anotacoes'>
                 <input name='quill_nova_anotacao_html' type='hidden'>
@@ -297,9 +295,6 @@ if (isset($_POST['novo_video_titulo'])) {
               </form>
             </div>
           </div>
-          <div class='col-12 text-left justify-content-center align-middle'>
-            <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#questoes'>Questões</button>
-          </div>
           <div class='col-12 text-left font-weight-normal collapse' id='questoes'>
             <?php
               $questoes = false;
@@ -310,9 +305,6 @@ if (isset($_POST['novo_video_titulo'])) {
                 echo $questoes;
               }
             ?>
-          </div>
-          <div class='col-12 text-left justify-content-center'>
-            <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#bibliografia'>Bibliografia</button>
           </div>
           <div class='col-12 text-left justify-content-center' id='bibliografia'>
             <?php
@@ -331,9 +323,6 @@ if (isset($_POST['novo_video_titulo'])) {
                 echo "<p>Não foram identificados, até o momento, recursos bibliográficos sobre este tema.</p>";
               }
             ?>
-          </div>
-          <div class='col-12 justify-content-center align-middle'>
-            <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#links'>Links</button>
           </div>
           <div class='col-12 text-left collapse' id='links'>
             <?php
@@ -359,7 +348,6 @@ if (isset($_POST['novo_video_titulo'])) {
             </div>
           </div>
         </div>
-
       </div>
     </div>
 
