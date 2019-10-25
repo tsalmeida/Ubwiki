@@ -108,9 +108,16 @@ if (isset($_POST['nova_imagem_link'])) {
   $nova_imagem_titulo = $_POST['nova_imagem_titulo'];
   $nova_imagem_trecho = $_POST['nova_imagem_trecho'];
   $nova_imagem_comentario = $_POST['nova_imagem_comentario'];
+  $randomfilename = generateRandomString(12);
+  $ultimo_ponto = strripos($nova_imagem_link, ".");
+  $extensao = substr($nova_imagem_link, $ultimo_ponto);
+  $nova_imagem_arquivo = "$randomfilename$extensao";
+  $nova_imagem_diretorio = "imagens/$randomfilename$extensao";
+  file_put_contents("$nova_imagem_diretorio", fopen($nova_imagem_link, 'r'));
+  makethumb($nova_imagem_arquivo);
   $result = $conn->query("SELECT id FROM Imagens WHERE concurso = '$concurso' AND id_tema = $id_tema AND link = '$nova_imagem_link'");
   if ($result->num_rows == 0) {
-    $result = $conn->query("INSERT INTO Imagens (id_tema, concurso, titulo, link, comentario, trecho, usuario) VALUES ($id_tema, '$concurso', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_comentario', '$nova_imagem_trecho', '$user')");
+    $result = $conn->query("INSERT INTO Imagens (id_tema, concurso, titulo, link, arquivo, comentario, trecho, usuario) VALUES ($id_tema, '$concurso', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_arquivo', '$nova_imagem_comentario', '$nova_imagem_trecho', '$user')");
   }
 }
 

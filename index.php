@@ -49,6 +49,11 @@
                 <img class="img-fluid logo" src="imagens/ubiquelogo.png"></img>
             </div>
         </div>
+        <!-- <div class='row'>
+            <div class="col-12 mb-5 text-center">
+              <?php // echo "<span class='display-1 wireone'>Ubwiki $concurso</span>" ?>
+            </div>
+        </div> -->
         <div class="row justify-content-center">
           <div class="col-lg-6 col-sm-12 mb-5">
             <form id="searchform" action="" method="post">

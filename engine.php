@@ -393,4 +393,52 @@ function quill_reformatar($texto) {
   return $texto;
 }
 
+function generateRandomString() {
+	$length = func_get_args();
+	if (!isset($length[0])) { $length[0] = 8; }
+	return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length[0]);
+}
+
+function make_thumb() {
+    $filename = func_get_args();
+    $filename = $filename[0];
+    $check = substr($filename, -4);
+    /* read the source image */
+    $original = "imagens/$filename";
+    if (($check == ".jpg") || ($check == "jpeg")) {
+        $source_image = imagecreatefromjpeg($original);
+    }
+    elseif ($check == ".png") {
+        $source_image = imagecreatefrompng($original);
+    }
+    elseif ($check == ".gif") {
+        $source_image = imagecreatefromgif($original);
+    }
+    $width = imagesx($source_image);
+    $height = imagesy($source_image);
+
+    /* find the "desired height" of this thumbnail, relative to the desired width  */
+    $desired_width = 450;
+    $desired_height = floor($height * ($desired_width / $width));
+
+    /* create a new, "virtual" image */
+    $virtual_image = imagecreatetruecolor($desired_width, $desired_height);
+
+    /* copy source image at a resized size */
+    imagecopyresampled($virtual_image, $source_image, 0, 0, 0, 0, $desired_width, $desired_height, $width, $height);
+
+    /* create the physical thumbnail image to its destination */
+    $prefix = "imagens/thumbnails/";
+    $destination = "$prefix$filename";
+    if (($check == ".jpg") || ($check == "jpeg")) {
+        imagejpeg($virtual_image, "$destination");
+    }
+    elseif ($check == ".png") {
+        imagepng($virtual_image, "$destination");
+    }
+    elseif ($check == ".gif") {
+        imagegif($virtual_image, "$destination");
+    }
+}
+
 ?>
