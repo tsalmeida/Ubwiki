@@ -66,7 +66,7 @@ function breadcrumbs($content) {
             <ol class='breadcrumb d-inline-flex transparent mb-0'>
               <li class='breadcrumb-item' title='Verbetes relacionados'><a href='#'><i class='fal fa-chart-network fa-fw'></i></a></li>
               <li class='breadcrumb-item' title='Simulados'><a href='#'><i class='fal fa-check-double fa-fw'></i></a></li>
-              li class='breadcrumb-item' title='Fórum'><a href='#'><i class='fal fa-comments-alt fa-fw'></i></a></li>
+              <li class='breadcrumb-item' title='Fórum'><a href='#'><i class='fal fa-comments-alt fa-fw'></i></a></li>
             </ol>
           </div>
         </div>
