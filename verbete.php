@@ -172,7 +172,7 @@ if (isset($_POST['novo_video_titulo'])) {
         </div>
       </div>
       <div class='col-2 d-flex justify-content-right'>
-        <span><a href='#'><i class='fal fa-user-edit fa-2x'></i></a></span>
+        <button id='botao_anotacoes' class='btn btn-primary-sm collapse'><a href='#'><i class='fal fa-user-edit fa-2x'></i></a></button>
       </div>
     </div>
   </div>
