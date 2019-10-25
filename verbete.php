@@ -227,24 +227,32 @@ if (isset($_POST['novo_video_titulo'])) {
           <div class='row justify-content-center border-bottom border-dark py-5'>
             <div class='col-12 text-left font-weight-normal'>
               <?php
-              $result = $conn->query("SELECT titulo, link, arquivo, comentario, trecho FROM Imagens WHERE id_tema = $id_tema AND concurso = '$concurso'");
+              $result = $conn->query("SELECT titulo, link, arquivo, comentario FROM Imagens WHERE id_tema = $id_tema AND concurso = '$concurso'");
               if ($result->num_rows > 0) {
-                echo "<ul class='list-group'>";
-                  while($row = $result->fetch_assoc()) {
-                    $imagem_titulo = $row['titulo'];
-                    $imagem_link = $row['link'];
-                    $imagem_comentario = $row['comentario'];
-                    $imagem_trecho = $row['trecho'];
-                    $imagem_arquivo = $row['arquivo'];
-                    echo "
-                      <li class='list-group-item list-group-item-action'>
-                        <a href='imagens/verbetes/$imagem_arquivo' target='_blank'><img src='imagens/verbetes/thumbnails/$imagem_arquivo'></img></a>
-                        </br>
-                        $imagem_comentario
-                      </li>
-                    ";
-                  }
-                echo "</ul>";
+                echo "
+                <div class='row'>
+                  <div class='col-12'>
+                    <div id='mdb-lightbox-ui'></div>
+                    <div class='mdb-lightbox no-margin'>
+                ";
+                      while($row = $result->fetch_assoc()) {
+                        $imagem_titulo = $row['titulo'];
+                        $imagem_link = $row['link'];
+                        $imagem_comentario = $row['comentario'];
+                        $imagem_arquivo = $row['arquivo'];
+                        echo "
+                          <figure class='col-2'>
+                            <a href='imagens/verbetes/$imagem_arquivo'>
+                              <img src='imagens/verbetes/thumbnails/$imagem_arquivo' class='img-fluid'></img>
+                            </a>
+                            <figcaption>$imagem_titulo // $imagem_comentario // <a href='$imagem_link'>Link original.</a></figcaption>
+                          </figure>
+                        ";
+                      }
+                      echo "
+                    </div>
+                  </div>
+                </div>";
               }
               else {
                 echo "<p>Não foram acrescentadas, até o momento, imagens a este verbete.</p>";
