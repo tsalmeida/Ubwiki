@@ -163,7 +163,8 @@ if (isset($_POST['novo_video_titulo'])) {
 
   <div class='container-fluid'>
     <div class='row justify-content my-5'>
-      <div class='col-lg-6 col-sm-12 bg-white'>
+      <div class='col-lg-1 col-sm-12'></div>
+      <div class='col-lg-5 col-sm-12'>
         <div class='row text-left' id='verbete'>
           <div class='col-10 text-left'>
             <?php
@@ -346,46 +347,33 @@ if (isset($_POST['novo_video_titulo'])) {
           </div>
         </div>
       </div>
-      <div class='col-lg-6 justify-content-center d-none d-lg-flex'>
-        <div class='p-3 right-menu-nav'>
-          <div class='row justify-content-around'>
-            <div class='col-3'></div>
-            <div class='col-6 text-center'>
-              <span class='h4 align-middle'>Anotações</span>
-            </div>
-            <div class='col-3 text-right'>
-              <button type='button' class='btn btn-link p-1 anotacoes_down'>
-                <i class="fal fa-chevron-square-down fa-fw fa-2x"></i>
-              </button>
-              <button id='anotacoes_up' type='button' class='btn btn-link p-1 hidewhen anotacoes_up'>
-                <i class="fal fa-chevron-square-up fa-fw fa-2x"></i>
-              </button>
-            </div>
-          </div>
-          <form id='quill_anotacao_form' method='post' action='#anotacao' class='hidewhen anotacoes_up'>
-            <input name='quill_nova_anotacao_html' type='hidden'>
-            <div class='row justify-content-center'>
-              <div class='container col-12 justify-content-center'>
-                <?php
-                  echo "
-                    <div id='quill_container_anotacao'>
-                      <div id='quill_editor_anotacao'>
-                        $anotacao_html
+      <div class='col-lg-1 col-sm-12'></div>
+      <div class='col-lg-5 col-sm-12'>
+        <div>
+          <a class='btn btn-primary' data-toggle='collapse' href='#anotacoes'>Anotações</a>
+          <div class='collapse' id='#anotacoes'>
+            <form id='quill_anotacao_form' method='post' action='#anotacao' class='hidewhen anotacoes_up'>
+              <input name='quill_nova_anotacao_html' type='hidden'>
+              <div class='row justify-content-center'>
+                <div class='container col-12 justify-content-center'>
+                  <?php
+                    echo "
+                      <div id='quill_container_anotacao'>
+                        <div id='quill_editor_anotacao'>
+                          $anotacao_html
+                        </div>
                       </div>
-                    </div>
-                  ";
-                ?>
+                    ";
+                  ?>
+                </div>
               </div>
-            </div>
-            <div class='row d-flex justify-content-center mt-3'>
-              <button type='button' class='btn btn-light btn-sm'><i class="fal fa-times-circle fa-fw"></i> Cancelar</button>
-              <button type='submit' class='btn btn-primary btn-sm'><i class='fal fa-check fa-fw'></i> Salvar</button>
-            </div>
-          </form>
+              <div class='row d-flex justify-content-center mt-3'>
+                <button type='button' class='btn btn-light btn-sm'><i class="fal fa-times-circle fa-fw"></i> Cancelar</button>
+                <button type='submit' class='btn btn-primary btn-sm'><i class='fal fa-check fa-fw'></i> Salvar</button>
+              </div>
+            </form>    
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
 
   <div class='modal fade' id='modal_imagens_form' role='dialog' tabindex='-1'>
     <div class='modal-dialog modal-lg' role='document'>
