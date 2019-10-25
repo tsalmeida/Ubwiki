@@ -22,7 +22,7 @@ function carregar_navbar() {
   }
   if ($mode == 'dark') { $mode = 'dark'; $color = 'elegant-color'; }
   elseif ($mode == 'light') { $color = 'bg-white'; }
-  echo "<nav class='navbar navbar-expand-lg $color'>";
+  echo "<nav class='navbar navbar-expand-lg $color' id='inicio'>";
   if ($mode == 'dark') {
     echo "<a class='navbar-brand playfair text-white' href='index.php'>Ubwiki</a>";
   }
