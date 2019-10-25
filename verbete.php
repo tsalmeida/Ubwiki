@@ -217,7 +217,7 @@ if (isset($_POST['novo_video_titulo'])) {
         <div id='imagens' class='collapse mb-5'>
           <div class='row justify-content-between h3'>
             <div class='col-10 text-left justify-content-center align-middle'>
-              <span class='align-left'>Imagens</span>
+              <h2 class='align-left'>Imagens</h2>
             </div>
             <div class='col-2 text-right justify-content-center align-middle'>
                 <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_imagens_form' href=''><i class='fal fa-plus-square fa-fw'></i></a></span>
@@ -263,7 +263,7 @@ if (isset($_POST['novo_video_titulo'])) {
         <div id='videos' class='collapse show mb-5'>
           <div class='row justify-content-between h3'>
             <div class='col-10 text-left justify-content-center align-middle'>
-              <span class='align-left'>Vídeos e aulas</span>
+              <h2 class='align-left'>Vídeos e aulas</h2>
             </div>
             <div class='col-2 text-right justify-content-center align-middle'>
                 <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_videos_form' href=''><i class='fal fa-plus-square fa-fw'></i></a></span>
@@ -293,7 +293,7 @@ if (isset($_POST['novo_video_titulo'])) {
         <div id='bibliografia' class='collapse mb-5'>
           <div class='row justify-content-between h3'>
             <div class='col-10 text-left justify-content-center align-middle'>
-              <span class='align-left'>Bibliografia</span>
+              <h2 class='align-left'>Bibliografia</h2>
             </div>
           </div>
           <div class='row justify-content-center border-bottom border-dark py-5'>
@@ -325,7 +325,7 @@ if (isset($_POST['novo_video_titulo'])) {
         <div id='links' class='collapse mb-5'>
           <div class='row justify-content-between h3'>
             <div class='col-10 text-left justify-content-center align-middle'>
-              <span class='align-left'>Links</span>
+              <h2 class='align-left'>Links</h2>
             </div>
           </div>
           <div class='row justify-content-center border-bottom border-dark py-5'>
@@ -360,7 +360,7 @@ if (isset($_POST['novo_video_titulo'])) {
           <div class='col-12'>
             <div class='row justify-content-between h3'>
               <div class='col-10 text-left justify-content-center align-middle'>
-                <span class='align-left'>Anotações</span>
+                <h2 class='align-left'>Anotações</h2>
               </div>
               <div class='col-2 text-right justify-content-center align-middle'>
                 <span class='text-center justify-content-center align-middle' data-toggle='collapse' data-target='.anotacoes_collapsible'><a href='#inicio'><i class='fal fa-times-square fa-fw'></i></a></span>
