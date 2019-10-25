@@ -165,6 +165,8 @@ if (isset($_POST['novo_video_titulo'])) {
       <div class='col-12 justify-contents-right'>
         <div class='btn-group btn-group-toggle'>
           <label class='btn btn-primary btn-sm active' data-toggle='collapse' data-target='#anotacoes'><input type='checkbox' autocomplete='off' checked>Anotações</label>
+          <label class='btn btn-primary btn-sm' data-toggle='collapse' data-target='#imagens'><input type='checkbox' autocomplete='off'>Imagens</label>
+          <label class='btn btn-primary btn-sm active' data-toggle='collapse' data-target='#videos'><input type='checkbox' autocomplete='off'>Vídeos</label>
           <label class='btn btn-primary btn-sm' data-toggle='collapse' data-target='#questoes'><input type='checkbox' autocomplete='off'>Questões</label>
           <label class='btn btn-primary btn-sm' data-toggle='collapse' data-target='#bibliografia'><input type='checkbox' autocomplete='off'>Bibliografia</label>
           <label class='btn btn-primary btn-sm' data-toggle='collapse' data-target='#links'><input type='checkbox' autocomplete='off'>Links</label>
@@ -209,7 +211,7 @@ if (isset($_POST['novo_video_titulo'])) {
             ?>
           </div>
         </div>
-        <div class='row justify-content-between h3 my-5' id='imagens'>
+        <div class='row justify-content-between h3 my-5 collapse' id='imagens'>
           <div class='col-10 text-left justify-content-center align-middle'>
             <span class='align-left'>Imagens</span>
           </div>
@@ -238,7 +240,7 @@ if (isset($_POST['novo_video_titulo'])) {
             ?>
           </div>
         </div>
-        <div class='row justify-content-between h3 my-5' id='videos'>
+        <div class='row justify-content-between h3 my-5 collapse show' id='videos'>
           <div class='col-10 text-left justify-content-center align-middle'>
             <span class='align-left'>Vídeos e aulas</span>
           </div>
