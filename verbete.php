@@ -297,9 +297,6 @@ if (isset($_POST['novo_video_titulo'])) {
               </form>
             </div>
           </div>
-        </div>
-
-        <div class='row border p-1 mb-1'>
           <div class='col-12 text-left justify-content-center align-middle'>
             <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#questoes'>Questões</button>
           </div>
@@ -314,9 +311,6 @@ if (isset($_POST['novo_video_titulo'])) {
               }
             ?>
           </div>
-        </div>
-
-        <div class='row border p-1 mb-1'>
           <div class='col-12 text-left justify-content-center'>
             <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#bibliografia'>Bibliografia</button>
           </div>
@@ -338,9 +332,6 @@ if (isset($_POST['novo_video_titulo'])) {
               }
             ?>
           </div>
-        </div>
-
-        <div class='row border p-1 mb-1'>
           <div class='col-12 justify-content-center align-middle'>
             <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#links'>Links</button>
           </div>
