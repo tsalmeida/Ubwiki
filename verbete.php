@@ -211,61 +211,65 @@ if (isset($_POST['novo_video_titulo'])) {
             ?>
           </div>
         </div>
-        <div class='row justify-content-between h3 my-5 collapse' id='imagens'>
-          <div class='col-10 text-left justify-content-center align-middle'>
-            <span class='align-left'>Imagens</span>
+        <div id='imagens' class='collapse'>
+          <div class='row justify-content-between h3 my-5'>
+            <div class='col-10 text-left justify-content-center align-middle'>
+              <span class='align-left'>Imagens</span>
+            </div>
+            <div class='col-2 text-right justify-content-center align-middle'>
+                <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_imagens_form' href=''><i class='fal fa-plus-square fa-fw'></i></a></span>
+            </div>
           </div>
-          <div class='col-2 text-right justify-content-center align-middle'>
-              <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_imagens_form' href=''><i class='fal fa-plus-square fa-fw'></i></a></span>
-          </div>
-        </div>
-        <div class='row justify-content-center border-bottom border-dark py-5'>
-          <div class='col-12 text-left font-weight-normal'>
-            <?php
-            $result = $conn->query("SELECT titulo, link, comentario, trecho FROM Imagens WHERE id_tema = $id_tema AND concurso = '$concurso'");
-            if ($result->num_rows > 0) {
-              echo "<ul class='list-group'>";
-                while($row = $result->fetch_assoc()) {
-                  $imagem_titulo = $row['titulo'];
-                  $imagem_link = $row['link'];
-                  $imagem_comentario = $row['comentario'];
-                  $imagem_trecho = $row['trecho'];
-                  echo "<li class='list-group-item list-group-item-action'><a href='$imagem_link' target='_blank'>$imagem_titulo : $imagem_comentario : $imagem_trecho</a></li>";
-                }
-              echo "</ul>";
-            }
-            else {
-              echo "<p>Não foram acrescentadas, até o momento, imagens a este verbete.</p>";
-            }
-            ?>
-          </div>
-        </div>
-        <div class='row justify-content-between h3 my-5 collapse show' id='videos'>
-          <div class='col-10 text-left justify-content-center align-middle'>
-            <span class='align-left'>Vídeos e aulas</span>
-          </div>
-          <div class='col-2 text-right justify-content-center align-middle'>
-              <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_videos_form' href=''><i class='fal fa-plus-square fa-fw'></i></a></span>
+          <div class='row justify-content-center border-bottom border-dark py-5'>
+            <div class='col-12 text-left font-weight-normal'>
+              <?php
+              $result = $conn->query("SELECT titulo, link, comentario, trecho FROM Imagens WHERE id_tema = $id_tema AND concurso = '$concurso'");
+              if ($result->num_rows > 0) {
+                echo "<ul class='list-group'>";
+                  while($row = $result->fetch_assoc()) {
+                    $imagem_titulo = $row['titulo'];
+                    $imagem_link = $row['link'];
+                    $imagem_comentario = $row['comentario'];
+                    $imagem_trecho = $row['trecho'];
+                    echo "<li class='list-group-item list-group-item-action'><a href='$imagem_link' target='_blank'>$imagem_titulo : $imagem_comentario : $imagem_trecho</a></li>";
+                  }
+                echo "</ul>";
+              }
+              else {
+                echo "<p>Não foram acrescentadas, até o momento, imagens a este verbete.</p>";
+              }
+              ?>
+            </div>
           </div>
         </div>
-        <div class='row justify-content-center border-bottom border-dark py-5'>
-          <div class='col-12 text-left font-weight-normal'>
-            <?php
-            $result = $conn->query("SELECT titulo, autor, link FROM Videos WHERE id_tema = $id_tema AND concurso = '$concurso'");
-            if ($result->num_rows > 0) {
-              echo "<ul class='list-group'>";
-                while($row = $result->fetch_assoc()) {
-                  $video_titulo = $row['titulo'];
-                  $video_autor = $row['autor'];
-                  $video_link = $row['link'];
-                  echo "<li class='list-group-item list-group-item-action'><a href='$video_link' target='_blank'>$video_titulo : $video_autor</a></li>";
-                }
-              echo "</ul>";
-            }
-            else {
-              echo "<p>Ainda não foram acrescentados vídeos ou aulas sobre este assunto.</p>";
-            }
-            ?>
+        <div id='videos' class='collapse show'>
+          <div class='row justify-content-between h3 my-5'>
+            <div class='col-10 text-left justify-content-center align-middle'>
+              <span class='align-left'>Vídeos e aulas</span>
+            </div>
+            <div class='col-2 text-right justify-content-center align-middle'>
+                <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_videos_form' href=''><i class='fal fa-plus-square fa-fw'></i></a></span>
+            </div>
+          </div>
+          <div class='row justify-content-center border-bottom border-dark py-5'>
+            <div class='col-12 text-left font-weight-normal'>
+              <?php
+              $result = $conn->query("SELECT titulo, autor, link FROM Videos WHERE id_tema = $id_tema AND concurso = '$concurso'");
+              if ($result->num_rows > 0) {
+                echo "<ul class='list-group'>";
+                  while($row = $result->fetch_assoc()) {
+                    $video_titulo = $row['titulo'];
+                    $video_autor = $row['autor'];
+                    $video_link = $row['link'];
+                    echo "<li class='list-group-item list-group-item-action'><a href='$video_link' target='_blank'>$video_titulo : $video_autor</a></li>";
+                  }
+                echo "</ul>";
+              }
+              else {
+                echo "<p>Ainda não foram acrescentados vídeos ou aulas sobre este assunto.</p>";
+              }
+              ?>
+            </div>
           </div>
         </div>
       </div>
