@@ -165,7 +165,6 @@ if (isset($_POST['novo_video_titulo'])) {
       <div class='col-12 d-flex justify-content-center'>
         <div class='btn-group btn-group-toggle'>
           <label class='btn btn-primary btn-sm active' data-toggle='collapse' data-target='#verbete'><input type='checkbox' autocomplete='off' checked>Verbete</label>
-          <label class='btn btn-primary btn-sm active' data-toggle='collapse' data-target='#anotacoes'><input type='checkbox' autocomplete='off' checked>Anotações</label>
           <label class='btn btn-primary btn-sm' data-toggle='collapse' data-target='#imagens'><input type='checkbox' autocomplete='off'>Imagens</label>
           <label class='btn btn-primary btn-sm active' data-toggle='collapse' data-target='#videos'><input type='checkbox' autocomplete='off' checked>Vídeos</label>
           <label class='btn btn-primary btn-sm' data-toggle='collapse' data-target='#bibliografia'><input type='checkbox' autocomplete='off'>Bibliografia</label>
