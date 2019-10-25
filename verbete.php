@@ -278,26 +278,6 @@ if (isset($_POST['novo_video_titulo'])) {
           </div>
         </div>
 
-        <div class='row justify-content-between h3 my-5' id='questoes'>
-          <div class='col-10 text-left justify-content-center align-middle'>
-            <span class='align-left'>Questões</span>
-          </div>
-          <div class='col-2 text-right justify-content-center align-middle'></div>
-        </div>
-        <div class='row justify-content-center border-bottom border-dark py-5'>
-          <div class='col-12 text-left font-weight-normal'>
-            <?php
-              $questoes = false;
-              if ($questoes == false) {
-                echo "<p>Não há registro de questões em provas passadas sobre este tópico.</p>";
-              }
-              else {
-                echo $questoes;
-              }
-            ?>
-          </div>
-        </div>
-
         <div class='row justify-content-between h3 my-5' id='discussao'>
           <div class='col-10 text-left justify-content-center align-middle'>
             <span class='align-left'>Fórum</span>
@@ -344,6 +324,31 @@ if (isset($_POST['novo_video_titulo'])) {
                 <button type='submit' class='btn btn-primary btn-sm'><i class='fal fa-check fa-fw'></i> Salvar</button>
               </div>
             </form>
+          </div>
+        </div>
+
+        <div class='row border justify-content-center p-1 mb-1'>
+          <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#questoes'></button>
+          <div class='collapse' id='questoes'>
+            <div class='row justify-content-between h3 my-5' id='questoes'>
+              <div class='col-10 text-left justify-content-center align-middle'>
+                <span class='align-left'>Questões</span>
+              </div>
+              <div class='col-2 text-right justify-content-center align-middle'></div>
+            </div>
+            <div class='row justify-content-center'>
+              <div class='col-12 text-left font-weight-normal'>
+                <?php
+                  $questoes = false;
+                  if ($questoes == false) {
+                    echo "<p>Não há registro de questões em provas passadas sobre este tópico.</p>";
+                  }
+                  else {
+                    echo $questoes;
+                  }
+                ?>
+              </div>
+            </div>
           </div>
         </div>
 
