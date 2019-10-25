@@ -328,60 +328,55 @@ if (isset($_POST['novo_video_titulo'])) {
         </div>
 
         <div class='row border justify-content-center p-1 mb-1'>
-          <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#questoes'>Questões</button>
-          <div class='collapse' id='questoes'>
-            <div class='row justify-content-between h3 my-5' id='questoes'>
-              <div class='col-10 text-left justify-content-center align-middle'>
-                <span class='align-left'>Questões</span>
-              </div>
-              <div class='col-2 text-right justify-content-center align-middle'></div>
+          <div class='row justify-content-between h3 my-5'>
+            <div class='col-10 text-left justify-content-center align-middle'>
+              <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#questoes'>Questões</button>
             </div>
-            <div class='row justify-content-center'>
-              <div class='col-12 text-left font-weight-normal'>
-                <?php
-                  $questoes = false;
-                  if ($questoes == false) {
-                    echo "<p>Não há registro de questões em provas passadas sobre este tópico.</p>";
-                  }
-                  else {
-                    echo $questoes;
-                  }
-                ?>
-              </div>
+            <div class='col-2 text-right justify-content-center align-middle'></div>
+          </div>
+          <div class='row justify-content-center' id='questoes'>
+            <div class='col-12 text-left font-weight-normal'>
+              <?php
+                $questoes = false;
+                if ($questoes == false) {
+                  echo "<p>Não há registro de questões em provas passadas sobre este tópico.</p>";
+                }
+                else {
+                  echo $questoes;
+                }
+              ?>
             </div>
           </div>
         </div>
 
         <div class='row border justify-content-center p-1 mb-1'>
-          <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#links'>Links</button>
-          <div class='collapse' id='links'>
-            <div class='row justify-content-between h3'>
-              <div class='col-10 text-left justify-content-center align-middle'>
-                <span class='align-left'>Links</span>
-              </div>
-              <div class='col-2 text-right justify-content-center align-middle'>
-                  <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_links_form' href=''><i class='fal fa-plus-square fa-fw'></i></a></span>
-              </div>
+          <div class='row justify-content-between h3'>
+            <div class='col-2'></div>
+            <div class='col-10 text-left justify-content-center align-middle'>
+              <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#links'>Links</button>
             </div>
-            <div class='row justify-content-center py-5'>
-              <div class='col-12 text-left font-weight-normal'>
-                <?php
-                $result = $conn->query("SELECT titulo, comentario, link FROM Links WHERE id_tema = $id_tema AND concurso = '$concurso'");
-                if ($result->num_rows > 0) {
-                  echo "<ul class='list-group'>";
-                    while($row = $result->fetch_assoc()) {
-                      $link_titulo = $row['titulo'];
-                      $link_link = $row['link'];
-                      $link_comentario = $row['comentario'];
-                      echo "<li class='list-group-item list-group-item-action'><a href='$link_link' target='_blank'>$link_titulo : $link_comentario</a></li>";
-                    }
-                  echo "</ul>";
-                }
-                else {
-                  echo "<p>Ainda não foram acrescentados links sobre este tópico.</p>";
-                }
-                ?>
-              </div>
+            <div class='col-2 text-right justify-content-center align-middle'>
+                <span class='text-center justify-content-center align-middle collapse'><a data-toggle='modal' data-target='#modal_links_form' href=''><i class='fal fa-plus-square fa-fw'></i></a></span>
+            </div>
+          </div>
+          <div class='row justify-content-center py-5 collapse' id='links'>
+            <div class='col-12 text-left font-weight-normal'>
+              <?php
+              $result = $conn->query("SELECT titulo, comentario, link FROM Links WHERE id_tema = $id_tema AND concurso = '$concurso'");
+              if ($result->num_rows > 0) {
+                echo "<ul class='list-group'>";
+                  while($row = $result->fetch_assoc()) {
+                    $link_titulo = $row['titulo'];
+                    $link_link = $row['link'];
+                    $link_comentario = $row['comentario'];
+                    echo "<li class='list-group-item list-group-item-action'><a href='$link_link' target='_blank'>$link_titulo : $link_comentario</a></li>";
+                  }
+                echo "</ul>";
+              }
+              else {
+                echo "<p>Ainda não foram acrescentados links sobre este tópico.</p>";
+              }
+              ?>
             </div>
           </div>
         </div>
