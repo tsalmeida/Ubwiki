@@ -193,8 +193,8 @@ if (isset($_POST['novo_video_titulo'])) {
           <div class='row text-left'>
             <div class='col-10 text-left'>
               <?php
-                echo "<span class='display-2 wireone d-none d-lg-inline'>$tema</span>";
-                echo "<span class='display-3 wireone d-inline d-lg-none'>$tema</span>";
+                echo "<span class='display-2 d-none d-lg-inline'>$tema</span>";
+                echo "<span class='display-3 d-inline d-lg-none'>$tema</span>";
               ?>
             </div>
             <div class='col-2 h3 text-right'>
