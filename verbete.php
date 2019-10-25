@@ -160,7 +160,7 @@ if (isset($_POST['novo_video_titulo'])) {
     if ($nivel5 != false) { $breadcrumbs .= "<li class='breadcrumb-item'>$nivel5</li>"; }
     breadcrumbs($breadcrumbs);
   ?>
-  <div class='container-fluid bg-dark'>
+  <div class='container-fluid bg-white text-right justify-contents-right'>
     <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#anotacoes'>Anotações</button>
     <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#questoes'>Questões</button>
     <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#bibliografia'>Bibliografia</button>
