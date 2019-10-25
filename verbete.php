@@ -227,7 +227,7 @@ if (isset($_POST['novo_video_titulo'])) {
           <div class='row justify-content-center border-bottom border-dark py-5'>
             <div class='col-12 text-left font-weight-normal'>
               <?php
-              $result = $conn->query("SELECT titulo, link, comentario, trecho FROM Imagens WHERE id_tema = $id_tema AND concurso = '$concurso'");
+              $result = $conn->query("SELECT titulo, link, arquivo, comentario, trecho FROM Imagens WHERE id_tema = $id_tema AND concurso = '$concurso'");
               if ($result->num_rows > 0) {
                 echo "<ul class='list-group'>";
                   while($row = $result->fetch_assoc()) {
