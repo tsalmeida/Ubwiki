@@ -328,7 +328,7 @@ if (isset($_POST['novo_video_titulo'])) {
         </div>
 
         <div class='row border justify-content-center p-1 mb-1'>
-          <div class='row justify-content-between h3'>
+          <div class='row justify-content-between'>
             <div class='col-12 text-left justify-content-center align-middle'>
               <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#questoes'>Questões</button>
             </div>
