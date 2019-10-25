@@ -418,7 +418,7 @@ function make_thumb() {
     $height = imagesy($source_image);
 
     /* find the "desired height" of this thumbnail, relative to the desired width  */
-    $desired_width = 450;
+    $desired_width = 300;
     $desired_height = floor($height * ($desired_width / $width));
 
     /* create a new, "virtual" image */
