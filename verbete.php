@@ -162,8 +162,7 @@ if (isset($_POST['novo_video_titulo'])) {
   ?>
 
   <div class='container-fluid'>
-    <div class='row justify-content my-5'>
-      <div class='col-lg-1 col-sm-12'></div>
+    <div class='row justify-content-around my-5'>
       <div class='col-lg-5 col-sm-12'>
         <div class='row text-left' id='verbete'>
           <div class='col-10 text-left'>
