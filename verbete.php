@@ -350,16 +350,12 @@ if (isset($_POST['novo_video_titulo'])) {
 
         <div class='row border justify-content-center p-1 mb-1'>
           <div class='row justify-content-between h3'>
-            <div class='col-2'></div>
-            <div class='col-8 text-left justify-content-center align-middle'>
+            <div class='col-12 justify-content-center align-middle'>
               <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#links'>Links</button>
-            </div>
-            <div class='col-2 text-right justify-content-center align-middle'>
-                <span class='text-center justify-content-center align-middle collapse'><a data-toggle='modal' data-target='#modal_links_form' href=''><i class='fal fa-plus-square fa-fw'></i></a></span>
             </div>
           </div>
           <div class='row justify-content-center py-5 collapse' id='links'>
-            <div class='col-12 text-left font-weight-normal'>
+            <div class='col-12 text-left'>
               <?php
               $result = $conn->query("SELECT titulo, comentario, link FROM Links WHERE id_tema = $id_tema AND concurso = '$concurso'");
               if ($result->num_rows > 0) {
@@ -376,6 +372,9 @@ if (isset($_POST['novo_video_titulo'])) {
                 echo "<p>Até o momento, não foram acrescentados links sobre este tópico.</p>";
               }
               ?>
+            </div>
+            <div class='col-12 justify-content-center'>
+              <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_links_form' href=''><i class='fal fa-plus-square fa-fw'></i></a></span>
             </div>
           </div>
         </div>
