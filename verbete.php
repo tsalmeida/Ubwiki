@@ -318,30 +318,26 @@ if (isset($_POST['novo_video_titulo'])) {
         </div>
 
         <div class='row border p-1 mb-1'>
-          <div class='row'>
-            <div class='col-12 text-left justify-content-center'>
-              <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#bibliografia'>Bibliografia</button>
-            </div>
+          <div class='col-12 text-left justify-content-center'>
+            <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#bibliografia'>Bibliografia</button>
           </div>
-          <div class='row justify-content-center collapse' id='bibliografia'>
-            <div class='col-12 text-left justify-content-center'>
-              <?php
-                $result = $conn->query("SELECT titulo, autor, capitulo FROM Bibliografia WHERE id_tema = $id_tema AND concurso = '$concurso'");
-                if ($result->num_rows > 0) {
-                  echo "<ul class='list-group'>";
-                    while($row = $result->fetch_assoc()) {
-                      $referencia_titulo = $row['titulo'];
-                      $referencia_autor = $row['autor'];
-                      $referencia_capitulo = $row['capitulo'];
-                      echo "<li class='list-group-item'>$referencia_titulo : $referencia_autor : $referencia_capitulo</li>";
-                    }
-                  echo "</ul>";
-                }
-                else {
-                  echo "<p>Não foram identificados, até o momento, recursos bibliográficos sobre este tema.</p>";
-                }
-              ?>
-            </div>
+          <div class='col-12 text-left justify-content-center' id='bibliografia'>
+            <?php
+              $result = $conn->query("SELECT titulo, autor, capitulo FROM Bibliografia WHERE id_tema = $id_tema AND concurso = '$concurso'");
+              if ($result->num_rows > 0) {
+                echo "<ul class='list-group'>";
+                  while($row = $result->fetch_assoc()) {
+                    $referencia_titulo = $row['titulo'];
+                    $referencia_autor = $row['autor'];
+                    $referencia_capitulo = $row['capitulo'];
+                    echo "<li class='list-group-item'>$referencia_titulo : $referencia_autor : $referencia_capitulo</li>";
+                  }
+                echo "</ul>";
+              }
+              else {
+                echo "<p>Não foram identificados, até o momento, recursos bibliográficos sobre este tema.</p>";
+              }
+            ?>
           </div>
         </div>
 
