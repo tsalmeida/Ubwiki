@@ -161,7 +161,7 @@ if (isset($_POST['novo_video_titulo'])) {
     breadcrumbs($breadcrumbs);
   ?>
   <div class='container-fluid grey lighten-5' data-toggle='buttons'>
-    <div class='row d-flex justidy-content-center'>
+    <div class='row d-flex justify-content-center'>
       <div class='col-12'>
         <div class='btn-group btn-group-toggle'>
           <label class='btn btn-primary btn-sm active' data-toggle='collapse' data-target='#verbete'><input type='checkbox' autocomplete='off' checked>Verbete</label>
