@@ -502,7 +502,7 @@ if (isset($_POST['novo_video_titulo'])) {
     <div class='modal fade' id='modal_editar_verbete' role='dialog' tabindex='-1'>
       <div class='modal-dialog modal-lg quill_modal' role='document'>
         <div class='modal-content'>
-          <form id='quill_verbete_form' method='post' action='#verbete'>
+          <form id='quill_verbete_form' method='post' action='#inicio'>
             <input name='quill_novo_verbete_html' type='hidden'>
             <div class='modal-header text-center'>
               <h4 class='modal-title w-100 font-weight-bold'>Editar verbete</h4>
