@@ -375,6 +375,7 @@ if (isset($_POST['novo_video_titulo'])) {
           </div>
         </div>
       </div>
+    </div>
 
   <div class='modal fade' id='modal_imagens_form' role='dialog' tabindex='-1'>
     <div class='modal-dialog modal-lg' role='document'>
