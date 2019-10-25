@@ -347,7 +347,7 @@ if (isset($_POST['novo_video_titulo'])) {
         </div>
       </div>
       <div class='col-lg-6 justify-content-center d-none d-lg-flex'>
-        <div class='p-3 right-menu-nav position-fixed'>
+        <div class='p-3 right-menu-nav'>
           <div class='row justify-content-around'>
             <div class='col-3'></div>
             <div class='col-6 text-center'>
