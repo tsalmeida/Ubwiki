@@ -349,10 +349,10 @@ if (isset($_POST['novo_video_titulo'])) {
       </div>
       <div class='col-lg-1 col-sm-12'></div>
       <div class='col-lg-5 col-sm-12'>
-        <div class='border justify-content-center p-1'>
+        <div class='row border justify-content-center p-1'>
           <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#anotacoes'>Anotações</button>
           <div class='collapse' id='anotacoes'>
-            <form id='quill_anotacao_form' method='post' action='#anotacoes' class='collapse'>
+            <form id='quill_anotacao_form' method='post' action='#anotacoes'>
               <input name='quill_nova_anotacao_html' type='hidden'>
               <div class='row justify-content-center'>
                 <div class='container col-12 justify-content-center'>
