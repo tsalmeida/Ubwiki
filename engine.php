@@ -268,6 +268,15 @@ function bottom_page() {
           </script>
         ";
       }
+      elseif ($args[$array] == 'collapse') {
+        echo "
+        <script>
+          $(document).ready(function() {
+            $('.collapse').collapse()
+          });
+        </script>
+        ";
+      }
       $array++;
     }
   }

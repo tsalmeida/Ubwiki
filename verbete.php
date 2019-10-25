@@ -253,7 +253,7 @@ if (isset($_POST['novo_video_titulo'])) {
         </div>
       </div>
       <div class='col-lg-4 col-sm-12'>
-        <div class='row border p-1 mb-1 collapse'>
+        <div class='row border p-1 mb-1'>
           <div class='col-12'>
             <div class='collapse' id='anotacoes'>
               <form id='quill_anotacao_form' method='post' action='#anotacoes'>
@@ -513,6 +513,6 @@ if (isset($_POST['novo_video_titulo'])) {
   </body>
 <?php
     load_footer();
-    bottom_page("quill_v");
+    bottom_page("quill_v", 'collapse');
     $conn->close();
 ?>

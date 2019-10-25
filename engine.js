@@ -1,5 +1,4 @@
 $(document).ready(function() {
-	$('.collapse').collapse()
 	$(".hidewhen").hide();
 	$("#searchBar").focus();
   $(document.body).on('click', '.cardmateria' ,function(){
