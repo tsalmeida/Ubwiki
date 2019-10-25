@@ -404,7 +404,7 @@ function make_thumb() {
     $filename = $filename[0];
     $check = substr($filename, -4);
     /* read the source image */
-    $original = "imagens/$filename";
+    $original = "imagens/verbetes/$filename";
     if (($check == ".jpg") || ($check == "jpeg")) {
         $source_image = imagecreatefromjpeg($original);
     }
@@ -428,7 +428,7 @@ function make_thumb() {
     imagecopyresampled($virtual_image, $source_image, 0, 0, 0, 0, $desired_width, $desired_height, $width, $height);
 
     /* create the physical thumbnail image to its destination */
-    $prefix = "imagens/thumbnails/";
+    $prefix = "imagens/verbetes/thumbnails/";
     $destination = "$prefix$filename";
     if (($check == ".jpg") || ($check == "jpeg")) {
         imagejpeg($virtual_image, "$destination");
