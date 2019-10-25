@@ -161,7 +161,7 @@ if (isset($_POST['novo_video_titulo'])) {
     breadcrumbs($breadcrumbs);
   ?>
   <div class='container-fluid grey lighten-5' data-toggle='buttons'>
-    <div class='row'>
+    <div class='row justify-content-between'>
       <div class='col-2 d-flex justify-content-left'></div>
       <div class='col-8 d-flex justify-content-center'>
         <div class='btn-group btn-group-toggle'>
