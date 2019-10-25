@@ -341,33 +341,29 @@ if (isset($_POST['novo_video_titulo'])) {
         </div>
 
         <div class='row border p-1 mb-1'>
-          <div class='row'>
-            <div class='col-12 justify-content-center align-middle'>
-              <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#links'>Links</button>
-            </div>
+          <div class='col-12 justify-content-center align-middle'>
+            <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#links'>Links</button>
           </div>
-          <div class='row justify-content-center collapse' id='links'>
-            <div class='col-12 text-left'>
-              <?php
-              $result = $conn->query("SELECT titulo, comentario, link FROM Links WHERE id_tema = $id_tema AND concurso = '$concurso'");
-              if ($result->num_rows > 0) {
-                echo "<ul class='list-group'>";
-                  while($row = $result->fetch_assoc()) {
-                    $link_titulo = $row['titulo'];
-                    $link_link = $row['link'];
-                    $link_comentario = $row['comentario'];
-                    echo "<li class='list-group-item list-group-item-action'><a href='$link_link' target='_blank'>$link_titulo : $link_comentario</a></li>";
-                  }
-                echo "</ul>";
-              }
-              else {
-                echo "<p>Até o momento, não foram acrescentados links sobre este tópico.</p>";
-              }
-              ?>
-            </div>
-            <div class='col-12 justify-content-center'>
-              <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_links_form' href=''><i class='fal fa-plus-square fa-fw'></i></a></span>
-            </div>
+          <div class='col-12 text-left collapse' id='links'>
+            <?php
+            $result = $conn->query("SELECT titulo, comentario, link FROM Links WHERE id_tema = $id_tema AND concurso = '$concurso'");
+            if ($result->num_rows > 0) {
+              echo "<ul class='list-group'>";
+                while($row = $result->fetch_assoc()) {
+                  $link_titulo = $row['titulo'];
+                  $link_link = $row['link'];
+                  $link_comentario = $row['comentario'];
+                  echo "<li class='list-group-item list-group-item-action'><a href='$link_link' target='_blank'>$link_titulo : $link_comentario</a></li>";
+                }
+              echo "</ul>";
+            }
+            else {
+              echo "<p>Até o momento, não foram acrescentados links sobre este tópico.</p>";
+            }
+            ?>
+          </div>
+          <div class='col-12 justify-content-center'>
+            <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_links_form' href=''><i class='fal fa-plus-square fa-fw'></i></a></span>
           </div>
         </div>
 
