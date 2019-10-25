@@ -167,7 +167,7 @@ if (isset($_POST['novo_video_titulo'])) {
           <label class='btn btn-primary btn-sm active' data-toggle='collapse' data-target='#verbete'><input type='checkbox' autocomplete='off' checked>Verbete</label>
           <label class='btn btn-primary btn-sm active' data-toggle='collapse' data-target='#anotacoes'><input type='checkbox' autocomplete='off' checked>Anotações</label>
           <label class='btn btn-primary btn-sm' data-toggle='collapse' data-target='#imagens'><input type='checkbox' autocomplete='off'>Imagens</label>
-          <label class='btn btn-primary btn-sm active' data-toggle='collapse' data-target='#videos'><input type='checkbox' autocomplete='off'>Vídeos</label>
+          <label class='btn btn-primary btn-sm active' data-toggle='collapse' data-target='#videos'><input type='checkbox' autocomplete='off' checked>Vídeos</label>
           <label class='btn btn-primary btn-sm' data-toggle='collapse' data-target='#bibliografia'><input type='checkbox' autocomplete='off'>Bibliografia</label>
           <label class='btn btn-primary btn-sm' data-toggle='collapse' data-target='#links'><input type='checkbox' autocomplete='off'>Links</label>
         </div>
@@ -329,9 +329,9 @@ if (isset($_POST['novo_video_titulo'])) {
           </div>
         </div>
       </div>
-      <div class='col-lg-5 col-sm-12'>
-        <div class='col-12'>
-          <div id='anotacoes' class='collapse show mb-5'>
+      <div id='anotacoes' class='col-lg-5 col-sm-12 collapse show'>
+        <div class='row'>
+          <div class='col-12'>
             <div class='row justify-content-between h3'>
               <div class='col-10 text-left justify-content-center align-middle'>
                 <span class='align-left'>Anotações</span>
