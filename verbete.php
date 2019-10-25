@@ -361,9 +361,11 @@ if (isset($_POST['novo_video_titulo'])) {
               echo "<p>Até o momento, não foram acrescentados links sobre este tópico.</p>";
             }
             ?>
-          </div>
-          <div class='col-12 justify-content-center'>
-            <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_links_form' href=''><i class='fal fa-plus-square fa-fw'></i></a></span>
+            <div class='row'>
+              <div class='col-12'>
+                <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_links_form' href=''><i class='fal fa-plus-square fa-fw'></i></a></span>
+              </div>
+            </div>
           </div>
         </div>
 
