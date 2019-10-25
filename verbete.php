@@ -161,9 +161,8 @@ if (isset($_POST['novo_video_titulo'])) {
     breadcrumbs($breadcrumbs);
   ?>
   <div class='container-fluid grey lighten-5' data-toggle='buttons'>
-    <div class='row justify-content-between'>
-      <div class='col-2 d-flex justify-content-left'></div>
-      <div class='col-8 d-flex justify-content-center'>
+    <div class='row d-flex justify-content-between'>
+      <div class='col-10 d-flex justify-content-left'>
         <div class='btn-group btn-group-toggle'>
           <label class='btn btn-primary btn-sm active' data-toggle='collapse' data-target='#verbete'><input type='checkbox' autocomplete='off' checked>Verbete</label>
           <label class='btn btn-primary btn-sm' data-toggle='collapse' data-target='#imagens'><input type='checkbox' autocomplete='off'>Imagens</label>
@@ -173,7 +172,7 @@ if (isset($_POST['novo_video_titulo'])) {
         </div>
       </div>
       <div class='col-2 d-flex justify-content-right'>
-        <span><a href='#'><i class='fal fa-pen-square fa-2x'></i></a></span>
+        <span><a href='#'><i class='fal fa-user-edit fa-2x'></i></a></span>
       </div>
     </div>
   </div>
