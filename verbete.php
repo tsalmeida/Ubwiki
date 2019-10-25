@@ -164,6 +164,7 @@ if (isset($_POST['novo_video_titulo'])) {
     <div class='row'>
       <div class='col-12 justify-contents-right'>
         <div class='btn-group btn-group-toggle'>
+          <label class='btn btn-primary btn-sm active' data-toggle='collapse' data-target='#verbete'><input type='checkbox' autocomplete='off' checked>Verbete</label>
           <label class='btn btn-primary btn-sm active' data-toggle='collapse' data-target='#anotacoes'><input type='checkbox' autocomplete='off' checked>Anotações</label>
           <label class='btn btn-primary btn-sm' data-toggle='collapse' data-target='#imagens'><input type='checkbox' autocomplete='off'>Imagens</label>
           <label class='btn btn-primary btn-sm active' data-toggle='collapse' data-target='#videos'><input type='checkbox' autocomplete='off'>Vídeos</label>
@@ -187,28 +188,30 @@ if (isset($_POST['novo_video_titulo'])) {
   <div class='container-fluid'>
     <div class='row justify-content-around my-5'>
       <div class='col-lg-5 col-sm-12'>
-        <div class='row text-left' id='verbete'>
-          <div class='col-10 text-left'>
-            <?php
-              echo "<span class='display-2 wireone d-none d-lg-inline'>$tema</span>";
-              echo "<span class='display-3 wireone d-inline d-lg-none'>$tema</span>";
-            ?>
+        <div id='verbete' class='collapse show'>
+          <div class='row text-left'>
+            <div class='col-10 text-left'>
+              <?php
+                echo "<span class='display-2 wireone d-none d-lg-inline'>$tema</span>";
+                echo "<span class='display-3 wireone d-inline d-lg-none'>$tema</span>";
+              ?>
+            </div>
+            <div class='col-2 h3 text-right'>
+              <a data-toggle='modal' data-target='#modal_editar_verbete' href=''><i class="fal fa-edit fa-fw"></i></a>
+            </div>
           </div>
-          <div class='col-2 h3 text-right'>
-            <a data-toggle='modal' data-target='#modal_editar_verbete' href=''><i class="fal fa-edit fa-fw"></i></a>
-          </div>
-        </div>
-        <div class='row justify-content-left border-bottom border-dark py-3'>
-          <div class='col-12 text-left font-weight-normal'>
-            <?php
-              if ($verbete_html == false) {
-                echo "<p>O verbete deste tópico ainda não começou a ser escrito.</p>";
-              }
-              else {
-                $verbete_reformatado = quill_reformatar($verbete_html);
-                echo $verbete_reformatado;
-              }
-            ?>
+          <div class='row justify-content-left border-bottom border-dark py-3'>
+            <div class='col-12 text-left font-weight-normal'>
+              <?php
+                if ($verbete_html == false) {
+                  echo "<p>O verbete deste tópico ainda não começou a ser escrito.</p>";
+                }
+                else {
+                  $verbete_reformatado = quill_reformatar($verbete_html);
+                  echo $verbete_reformatado;
+                }
+              ?>
+            </div>
           </div>
         </div>
         <div id='imagens' class='collapse'>
