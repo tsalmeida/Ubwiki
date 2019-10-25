@@ -357,6 +357,11 @@ if (isset($_POST['novo_video_titulo'])) {
                   echo "<p>Não foram identificados, até o momento, recursos bibliográficos sobre este tema.</p>";
                 }
               ?>
+              <div class='row'>
+                <div class='col-12 text-center h3'>
+                  <a data-toggle='modal' data-target='#modal_referencia_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -398,7 +403,7 @@ if (isset($_POST['novo_video_titulo'])) {
         <div id='discussao' class='collapse'>
           <div class='row justify-content-between h3 my-5'>
             <div class='col-10 text-left justify-content-center align-middle'>
-              <span class='align-left'>Links</span>
+              <span class='align-left'>Fórum</span>
             </div>
           </div>
           <div class='row justify-content-center border-bottom border-dark py-5'>
