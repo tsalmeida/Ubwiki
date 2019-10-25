@@ -161,11 +161,11 @@ if (isset($_POST['novo_video_titulo'])) {
     breadcrumbs($breadcrumbs);
   ?>
   <div class='container-fluid bg-white text-right justify-contents-right'>
-    <button class='btn btn-primary btn-sm' type='button' data-toggle='collapse' data-target='#anotacoes'>Anotações</button>
-    <button class='btn btn-primary btn-sm' type='button' data-toggle='collapse' data-target='#questoes'>Questões</button>
-    <button class='btn btn-primary btn-sm' type='button' data-toggle='collapse' data-target='#bibliografia'>Bibliografia</button>
-    <button class='btn btn-primary btn-sm' type='button' data-toggle='collapse' data-target='#links'>Links</button>
-    <button class='btn btn-primary btn-sm' type='button' data-toggle='collapse' data-target='#discussao'>Fórum</button>
+    <button class='btn btn-primary btn-sm' type='button' data-toggle='collapse' data-target='#anotacoes' aria-expanded='false' aria-controls='anotacoes'>Anotações</button>
+    <button class='btn btn-primary btn-sm' type='button' data-toggle='collapse' data-target='#questoes' aria-expanded='false' aria-controls='questoes'>Questões</button>
+    <button class='btn btn-primary btn-sm' type='button' data-toggle='collapse' data-target='#bibliografia' aria-expanded='false' aria-controls='bibliografia'>Bibliografia</button>
+    <button class='btn btn-primary btn-sm' type='button' data-toggle='collapse' data-target='#links' aria-expanded='false' aria-controls='links'>Links</button>
+    <button class='btn btn-primary btn-sm' type='button' data-toggle='collapse' data-target='#discussao' aria-expanded='false' aria-controls='discussao'>Fórum</button>
   </div>
   <div class='container-fluid'>
     <div class='row justify-content-around my-5'>
