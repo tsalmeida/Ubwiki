@@ -171,9 +171,11 @@ if (isset($_POST['novo_video_titulo'])) {
           <label class='btn btn-primary btn-sm' data-toggle='collapse' data-target='#links'><input type='checkbox' autocomplete='off'>Links</label>
         </div>
       </div>
-      <div class='col-2 d-flex justify-content-right'>
-        <div class='row btn-group btn-group-toggle d-flex justify-content-right'>
-          <label class='btn btn-primary btn-sm inactive collapse anotacoes_collapsible' data-toggle='collapse' data-target='.anotacoes_collapsible'><input type='checkbox'>Anotações</label>
+      <div class='col-2 d-flex'>
+        <div class='row d-flex justify-content-right'>
+          <div class='btn-group btn-group-toggle'>
+            <label class='btn btn-primary btn-sm inactive collapse anotacoes_collapsible' data-toggle='collapse' data-target='.anotacoes_collapsible'><input type='checkbox'>Anotações</label>
+          </div>
         </div>
       </div>
     </div>
