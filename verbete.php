@@ -374,6 +374,37 @@ if (isset($_POST['novo_video_titulo'])) {
             </form>
           </div>
         </div>
+        <div class='row border justify-content-center p-1'>
+          <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#links'>Links</button>
+          <div class='collapse' id='links'>
+            <form method='post' action='#links'>
+              <div class='modal-header text-center'>
+                <h4 class='modal-title w-100 font-weight-bold'>Adicionar link</h4>
+                <button type='button' class='close' data-dismiss='modal'>
+                  <i class="fal fa-times-circle"></i>
+                </button>
+              </div>
+              <div class='modal-body mx-3'>
+                <div class='md-form mb-2'>
+                  <input type='url' id='novo_link_link' name='novo_link_link' class='form-control validate'>
+                  <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_link_link' required>Link para a página</label>
+                </div>
+                <div class='md-form mb-2'>
+                  <input type='text' id='novo_link_titulo' name='novo_link_titulo' class='form-control validate'>
+                  <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_link_titulo' required>Título da página</label>
+                </div>
+                <div class='md-form'>
+                  <textarea type='text' id='novo_link_comentario' name='novo_link_comentario' class='md-textarea form-control' rows='4' required></textarea>
+                  <label data-error='preenchimento incorreto' data-success='preenchimento correto' for='novo_link_comentario'>Breve comentário sobre o link, destacando sua relevância para a compreensão do tópico.</label>
+                </div>
+              </div>
+              <div class='modal-footer d-flex justify-content-center'>
+                <button type='button' class='btn bg-lighter btn-lg' data-dismiss='modal'><i class="fal fa-times-circle"></i> Cancelar</button>
+                <button type='submit' class='but btn-primary btn-lg'><i class='fal fa-check'></i> Salvar</button>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
       <div class='col-lg-1 col-sm-12'></div>
     </div>
@@ -437,39 +468,6 @@ if (isset($_POST['novo_video_titulo'])) {
             <div class='md-form mb-2'>
               <input type='text' id='nova_referencia_capitulo' name='nova_referencia_capitulo' class='form-control validate'>
               <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_referencia_capitulo'>Capítulo (opcional)</label>
-            </div>
-          </div>
-          <div class='modal-footer d-flex justify-content-center'>
-            <button type='button' class='btn bg-lighter btn-lg' data-dismiss='modal'><i class="fal fa-times-circle"></i> Cancelar</button>
-            <button type='submit' class='but btn-primary btn-lg'><i class='fal fa-check'></i> Salvar</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <div class='modal fade' id='modal_links_form' role='dialog' tabindex='-1'>
-    <div class='modal-dialog modal-lg' role='document'>
-      <div class='modal-content'>
-        <form method='post' action='#links'>
-          <div class='modal-header text-center'>
-            <h4 class='modal-title w-100 font-weight-bold'>Adicionar link</h4>
-            <button type='button' class='close' data-dismiss='modal'>
-              <i class="fal fa-times-circle"></i>
-            </button>
-          </div>
-          <div class='modal-body mx-3'>
-            <div class='md-form mb-2'>
-              <input type='url' id='novo_link_link' name='novo_link_link' class='form-control validate'>
-              <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_link_link' required>Link para a página</label>
-            </div>
-            <div class='md-form mb-2'>
-              <input type='text' id='novo_link_titulo' name='novo_link_titulo' class='form-control validate'>
-              <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_link_titulo' required>Título da página</label>
-            </div>
-            <div class='md-form'>
-              <textarea type='text' id='novo_link_comentario' name='novo_link_comentario' class='md-textarea form-control' rows='4' required></textarea>
-              <label data-error='preenchimento incorreto' data-success='preenchimento correto' for='novo_link_comentario'>Breve comentário sobre o link, destacando sua relevância para a compreensão do tópico.</label>
             </div>
           </div>
           <div class='modal-footer d-flex justify-content-center'>
