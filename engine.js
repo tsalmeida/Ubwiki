@@ -28,7 +28,7 @@ $(document).ready(function() {
     });
     return false;
   });
-	$(function () {
-		$("#mdb-lightbox-ui").load("mdb-addons/mdb-lightbox-ui.html");
-	});
+});
+$(function () {
+	$("#mdb-lightbox-ui").load("mdb-addons/mdb-lightbox-ui.html");
 });
