@@ -160,7 +160,12 @@ if (isset($_POST['novo_video_titulo'])) {
     if ($nivel5 != false) { $breadcrumbs .= "<li class='breadcrumb-item'>$nivel5</li>"; }
     breadcrumbs($breadcrumbs);
   ?>
-
+  <div class='container-fluid bg-dark'>
+    <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#anotacoes'>Anotações</button>
+    <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#questoes'>Questões</button>
+    <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#bibliografia'>Bibliografia</button>
+    <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#links'>Links</button>
+  </div>
   <div class='container-fluid'>
     <div class='row justify-content-around my-5'>
       <div class='col-lg-5 col-sm-12'>
@@ -268,10 +273,6 @@ if (isset($_POST['novo_video_titulo'])) {
       <div class='col-lg-4 col-sm-12'>
         <div class='row border p-1 mb-1'>
           <div class='col-12'>
-            <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#anotacoes'>Anotações</button>
-            <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#questoes'>Questões</button>
-            <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#bibliografia'>Bibliografia</button>
-            <button class='btn btn-primary' type='button' data-toggle='collapse' data-target='#links'>Links</button>
             <div class='collapse' id='anotacoes'>
               <form id='quill_anotacao_form' method='post' action='#anotacoes'>
                 <input name='quill_nova_anotacao_html' type='hidden'>
