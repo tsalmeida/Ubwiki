@@ -235,7 +235,14 @@ if (isset($_POST['novo_video_titulo'])) {
                     $imagem_link = $row['link'];
                     $imagem_comentario = $row['comentario'];
                     $imagem_trecho = $row['trecho'];
-                    echo "<li class='list-group-item list-group-item-action'><a href='$imagem_link' target='_blank'>$imagem_titulo : $imagem_comentario : $imagem_trecho</a></li>";
+                    $imagem_arquivo = $row['arquivo'];
+                    echo "
+                      <li class='list-group-item list-group-item-action'>
+                        <a href='imagens/verbetes/$imagem_arquivo' target='_blank'><img src='imagens/verbetes/thumbnails/$imagem_arquivo'></img></a>
+                        </br>
+                        $imagem_comentario
+                      </li>
+                    ";
                   }
                 echo "</ul>";
               }
