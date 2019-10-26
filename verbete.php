@@ -240,7 +240,7 @@ if (isset($_POST['novo_video_titulo'])) {
                         $imagem_comentario = $row['comentario'];
                         $imagem_arquivo = $row['arquivo'];
                         echo "
-                          <figure class='col-md-4'>
+                          <figure class='col-3'>
                             <a href='imagens/verbetes/$imagem_arquivo'>
                               <img src='imagens/verbetes/thumbnails/$imagem_arquivo' class='img-fluid'></img>
                             </a>
