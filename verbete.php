@@ -537,43 +537,6 @@ if (isset($_POST['novo_video_titulo'])) {
               </a>
             </figure>
 
-            <figure class="col-md-4 d-md-inline-block">
-              <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(4).jpg"
-                data-size="1600x1067">
-                <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(4).jpg"
-                  class="img-fluid">
-              </a>
-            </figure>
-
-            <figure class="col-md-4 d-md-inline-block">
-              <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(6).jpg"
-                data-size="1600x1067">
-                <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(6).jpg"
-                  class="img-fluid">
-              </a>
-            </figure>
-
-            <figure class="col-md-4 d-md-inline-block">
-              <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(10).jpg"
-                data-size="1600x1067">
-                <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(10).jpg"
-                  class="img-fluid">
-              </a>
-            </figure>
-            <figure class="col-md-4 d-md-inline-block">
-              <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(12).jpg"
-                data-size="1600x1067">
-                <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(12).jpg"
-                  class="img-fluid">
-              </a>
-            </figure>
-            <figure class="col-md-4 d-md-inline-block">
-              <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(14).jpg"
-                data-size="1600x1067">
-                <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(14).jpg"
-                  class="img-fluid">
-              </a>
-            </figure>
 
           </div>
           <!--/.First slide-->
@@ -589,43 +552,6 @@ if (isset($_POST['novo_video_titulo'])) {
               </a>
             </figure>
 
-            <figure class="col-md-4 d-md-inline-block">
-              <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(25).jpg"
-                data-size="1600x1067">
-                <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(25).jpg"
-                  class="img-fluid">
-              </a>
-            </figure>
-
-            <figure class="col-md-4 d-md-inline-block">
-              <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(29).jpg"
-                data-size="1600x1067">
-                <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(29).jpg"
-                  class="img-fluid">
-              </a>
-            </figure>
-
-            <figure class="col-md-4 d-md-inline-block">
-              <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(31).jpg"
-                data-size="1600x1067">
-                <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(31).jpg"
-                  class="img-fluid">
-              </a>
-            </figure>
-            <figure class="col-md-4 d-md-inline-block">
-              <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(32).jpg"
-                data-size="1600x1067">
-                <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(32).jpg"
-                  class="img-fluid">
-              </a>
-            </figure>
-            <figure class="col-md-4 d-md-inline-block">
-              <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(33).jpg"
-                data-size="1600x1067">
-                <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(33).jpg"
-                  class="img-fluid">
-              </a>
-            </figure>
 
           </div>
           <!--/.Second slide-->
@@ -641,43 +567,6 @@ if (isset($_POST['novo_video_titulo'])) {
               </a>
             </figure>
 
-            <figure class="col-md-4 d-md-inline-block">
-              <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(45).jpg"
-                data-size="1600x1067">
-                <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(45).jpg"
-                  class="img-fluid">
-              </a>
-            </figure>
-
-            <figure class="col-md-4 d-md-inline-block">
-              <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(66).jpg"
-                data-size="1600x1067">
-                <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(66).jpg"
-                  class="img-fluid">
-              </a>
-            </figure>
-
-            <figure class="col-md-4 d-md-inline-block">
-              <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(53).jpg"
-                data-size="1600x1067">
-                <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(53).jpg"
-                  class="img-fluid">
-              </a>
-            </figure>
-            <figure class="col-md-4 d-md-inline-block">
-              <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(56).jpg"
-                data-size="1600x1067">
-                <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(56).jpg"
-                  class="img-fluid">
-              </a>
-            </figure>
-            <figure class="col-md-4 d-md-inline-block">
-              <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(77).jpg"
-                data-size="1600x1067">
-                <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(77).jpg"
-                  class="img-fluid">
-              </a>
-            </figure>
 
           </div>
           <!--/.Third slide-->
