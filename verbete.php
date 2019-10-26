@@ -224,7 +224,7 @@ if (isset($_POST['novo_video_titulo'])) {
                   <div class='col-12 overflow-auto'>
                     <div id='lightbox-imagens'></div>
                     <div class='mdb-lightbox no-margin'>
-                      <ul class='list-group list-group-horizontal'>
+                      <ul class='list-group'>
                 ";
                         $active = 'active';
                         while($row = $result->fetch_assoc()) {
