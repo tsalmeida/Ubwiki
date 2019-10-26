@@ -241,7 +241,7 @@ if (isset($_POST['novo_video_titulo'])) {
                         $imagem_arquivo = $row['arquivo'];
                         $resolucao = $row['resolucao'];
                         echo "
-                          <figure class='col-md-4'>
+                          <figure>
                             <a href='imagens/verbetes/$imagem_arquivo' data-size='$resolucao'>
                               <img src='imagens/verbetes/thumbnails/$imagem_arquivo' class='img-fluid'></img>
                             </a>
