@@ -162,18 +162,18 @@ if (isset($_POST['novo_video_titulo'])) {
   <div class='container-fluid grey lighten-5' data-toggle='buttons'>
     <div class='row'>
       <div class='col-12 d-flex justify-content-center'>
-        <button class='btn btn-primary btn-sm' data-toggle='collapse' data-target='#verbete' href='#inicio'>Verbete</button>
-        <button class='btn btn-primary btn-sm ml-1' data-toggle='collapse' data-target='#imagens' href='#imagens'>Imagens</button>
-        <button class='btn btn-primary btn-sm ml-1' data-toggle='collapse' data-target='#videos' href='#videos'>Vídeos</button>
-        <button class='btn btn-primary btn-sm ml-1' data-toggle='collapse' data-target='#bibliografia' href='#bibliografia'>Leitura complementar</button>
-        <button class='btn btn-primary btn-sm collapse anotacoes_collapsible ml-1' data-toggle='collapse' data-target='.anotacoes_collapsible'>Anotações</button>
+        <button class='btn btn-primary btn-sm verbete_collapse' data-toggle='collapse' data-target='.verbete_collapse' href='#inicio'>Verbete</button>
+        <button class='btn btn-primary btn-sm imagens_collapse ml-1' data-toggle='collapse' data-target='.imagens_collapse' href='#imagens'>Imagens</button>
+        <button class='btn btn-primary btn-sm videos_collapse ml-1' data-toggle='collapse' data-target='.videos_collapse' href='#videos'>Vídeos</button>
+        <button class='btn btn-primary btn-sm bibliografia_collapse ml-1' data-toggle='collapse' data-target='.bibliografia_collapse' href='#bibliografia'>Leitura complementar</button>
+        <button class='btn btn-primary btn-sm collapse anotacoes_collapse ml-1' data-toggle='collapse' data-target='.anotacoes_collapse' href='#anotacoes'>Anotações</button>
       </div>
     </div>
   </div>
   <div class='container-fluid'>
     <div class='row justify-content-around my-5'>
       <div class='col-lg-5 col-sm-12'>
-        <div id='verbete' class='collapse show mb-5'>
+        <div id='verbete' class='verbete_collapse collapse show mb-5'>
           <div class='row text-left'>
             <div class='col-10 text-left'>
               <?php
@@ -198,7 +198,7 @@ if (isset($_POST['novo_video_titulo'])) {
             </div>
           </div>
         </div>
-        <div id='imagens' class='collapse mb-5'>
+        <div id='imagens' class='imagens_collapse collapse mb-5'>
           <div class='row justify-content-between h3'>
             <div class='col-10 text-left justify-content-center align-middle'>
               <h2 class='align-left'>Imagens</h2>
@@ -260,7 +260,7 @@ if (isset($_POST['novo_video_titulo'])) {
             </div>
           </div>
         </div>
-        <div id='videos' class='collapse show mb-5'>
+        <div id='videos' class='videos_collapse collapse show mb-5'>
           <div class='row justify-content-between h3'>
             <div class='col-10 text-left justify-content-center align-middle'>
               <h2 class='align-left'>Vídeos e aulas</h2>
@@ -290,7 +290,7 @@ if (isset($_POST['novo_video_titulo'])) {
             </div>
           </div>
         </div>
-        <div id='bibliografia' class='collapse mb-5'>
+        <div id='bibliografia' class='bibliografia_collapse collapse mb-5'>
           <div class='row justify-content-between h3'>
             <div class='col-10 text-left justify-content-center align-middle'>
               <h2 class='align-left'>Leitura complementar</h2>
@@ -323,7 +323,7 @@ if (isset($_POST['novo_video_titulo'])) {
           </div>
         </div>
       </div>
-      <div id='anotacoes' class='col-lg-5 col-sm-12 collapse show anotacoes_collapsible'>
+      <div id='anotacoes' class='col-lg-5 col-sm-12 collapse show anotacoes_collapse'>
         <div class='row'>
           <div class='col-12'>
             <div class='row justify-content-between h3'>
@@ -331,7 +331,7 @@ if (isset($_POST['novo_video_titulo'])) {
                 <h2 class='align-left'>Anotações</h2>
               </div>
               <div class='col-2 text-right justify-content-center align-middle'>
-                <span class='text-center justify-content-center align-middle' data-toggle='collapse' data-target='.anotacoes_collapsible'><a href='#inicio'><i class='fal fa-times-square fa-fw'></i></a></span>
+                <span class='text-center justify-content-center align-middle' data-toggle='collapse' data-target='.anotacoes_collapse'><a href='#inicio'><i class='fal fa-times-square fa-fw'></i></a></span>
               </div>
             </div>
             <div class='row justify-content-center border-bottom border-dark py-5'>
