@@ -230,7 +230,7 @@ if (isset($_POST['novo_video_titulo'])) {
               if ($result->num_rows > 0) {
                 echo "
                 <div class='row'>
-                  <div class='col-12''>
+                  <div class='col-md-12''>
                     <div id='mdb-lightbox-ui'></div>
                     <div class='mdb-lightbox no-margin'>
                 ";
@@ -240,7 +240,7 @@ if (isset($_POST['novo_video_titulo'])) {
                         $imagem_comentario = $row['comentario'];
                         $imagem_arquivo = $row['arquivo'];
                         echo "
-                          <figure>
+                          <figure class='col-md-4'>
                             <a href='imagens/verbetes/$imagem_arquivo' data-size='1600x1067'>
                               <img src='imagens/verbetes/thumbnails/$imagem_arquivo' class='img-fluid'></img>
                             </a>
