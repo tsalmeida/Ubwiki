@@ -234,40 +234,41 @@ if (isset($_POST['novo_video_titulo'])) {
                 <div class='row'>
                   <div class='col-12'>
                     <div id='imagens_carrossel' class='carousel slide carousel-multi-item v-2' data-ride='carousel'>
-                    <div class='controls-top'>
-                      <a class='btn-floating' href='#imagens_carrossel' data-slide='prev'><i class='fal fa-chevron-left fa-fw'></i></a>
-                      <a class='btn-floating' href='#imagens_carrossel' data-slide='next'><i class='fal fa-chevron-right fa-fw'></i></a>
-                    </div>
-                    <ol class='carousel-indicators'>
-                      <li data-target='#imagens_carrossel' data-slide-to='0' class='active'></li>
-                      <li data-target='#imagens_carrossel' data-slide-to='1'></li>
-                    <ol>
-                    <div class='carousel-inner v-2' role='listbox'>
-                ";
-                      while($row = $result->fetch_assoc()) {
-                        $imagem_titulo = $row['titulo'];
-                        $imagem_link = $row['link'];
-                        $imagem_comentario = $row['comentario'];
-                        $imagem_arquivo = $row['arquivo'];
-                        $imagem_resolucao = $row['resolucao'];
-                        error_log("$imagem_titulo $imagem_arquivo $imagem_resolucao");
-                        echo "
-                          <div class='carousel-item active'>
-                            <div class='col-12 col-md-4'>
-                              <div class='card mb-2'>
-                                <img class='card-img-top' src='imagens/verbetes/thumbnails/$imagem_arquivo'>
-                                <div class='card-body'>
-                                  <h4>$imagem_titulo</h4>
-                                  <p class='card-text'>$imagem_comentario</p>
-                                  <p class='card-text'><a href='$imagem_link' target='_blank'>Link original</a></p>
-                                  <a class='btn btn-primary btn-md btn-rounded'>Ampliar</a>
+                      <div class='controls-top'>
+                        <a class='btn-floating' href='#imagens_carrossel' data-slide='prev'><i class='fal fa-chevron-left fa-fw'></i></a>
+                        <a class='btn-floating' href='#imagens_carrossel' data-slide='next'><i class='fal fa-chevron-right fa-fw'></i></a>
+                      </div>
+                      <ol class='carousel-indicators'>
+                        <li data-target='#imagens_carrossel' data-slide-to='0' class='active'></li>
+                        <li data-target='#imagens_carrossel' data-slide-to='1'></li>
+                      </ol>
+                      <div class='carousel-inner v-2' role='listbox'>
+                  ";
+                        while($row = $result->fetch_assoc()) {
+                          $imagem_titulo = $row['titulo'];
+                          $imagem_link = $row['link'];
+                          $imagem_comentario = $row['comentario'];
+                          $imagem_arquivo = $row['arquivo'];
+                          $imagem_resolucao = $row['resolucao'];
+                          error_log("$imagem_titulo $imagem_arquivo $imagem_resolucao");
+                          echo "
+                            <div class='carousel-item active'>
+                              <div class='col-12 col-md-4'>
+                                <div class='card mb-2'>
+                                  <img class='card-img-top' src='imagens/verbetes/thumbnails/$imagem_arquivo'>
+                                  <div class='card-body'>
+                                    <h4>$imagem_titulo</h4>
+                                    <p class='card-text'>$imagem_comentario</p>
+                                    <p class='card-text'><a href='$imagem_link' target='_blank'>Link original</a></p>
+                                    <a class='btn btn-primary btn-md btn-rounded'>Ampliar</a>
+                                  </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                        ";
-                      }
-                      echo "
+                          ";
+                        }
+                        echo "
+                      </div>
                     </div>
                   </div>
                 </div>
