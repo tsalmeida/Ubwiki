@@ -284,7 +284,7 @@ function bottom_page() {
       }
       elseif ($args[$array] == 'carousel') {
         echo "
-          <script type='text/javascript'>
+          <script>
             $('.carousel.carousel-multi-item.v-2 .carousel-item').each(function(){
               var next = $(this).next();
               if (!next.length) {

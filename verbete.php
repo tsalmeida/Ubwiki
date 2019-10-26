@@ -250,7 +250,6 @@ if (isset($_POST['novo_video_titulo'])) {
                           $imagem_comentario = $row['comentario'];
                           $imagem_arquivo = $row['arquivo'];
                           $imagem_resolucao = $row['resolucao'];
-                          error_log("$imagem_titulo $imagem_arquivo $imagem_resolucao");
                           echo "
                             <div class='carousel-item'>
                               <div class='col-12 col-md-4'>
