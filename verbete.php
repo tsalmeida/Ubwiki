@@ -245,7 +245,7 @@ if (isset($_POST['novo_video_titulo'])) {
                                 <div class='carousel-item $active'>
                                   <figure class='col-$col d-md-inline-block'>
                                     <a href='imagens/verbetes/$imagem_arquivo' data-size='$imagem_resolucao'>
-                                      <img class='card-img-top cardlimit img-fluid' src='imagens/verbetes/thumbnails/$imagem_arquivo'></img>
+                                      <img class='img-fluid' src='imagens/verbetes/thumbnails/$imagem_arquivo'></img>
                                     </a>
                                   </figure>
                                 </div>
@@ -257,7 +257,8 @@ if (isset($_POST['novo_video_titulo'])) {
                       </div>
                     </div>
                   </div>
-                </div>";
+                </div>
+                            ";
                 }
                 else {
                   echo "<p>Não foram acrescentadas, até o momento, imagens a este verbete.</p>";
