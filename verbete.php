@@ -220,7 +220,7 @@ if (isset($_POST['novo_video_titulo'])) {
               $result = $conn->query("SELECT titulo, link, arquivo, resolucao, orientacao, comentario FROM Imagens WHERE id_tema = $id_tema AND concurso = '$concurso'");
               if ($result->num_rows > 0) {
                 echo "
-                <div class='row'>
+                <div class='row row-horizon'>
                   <div class='col-12'>
                     <div id='lightbox-imagens'></div>
                     <div class='mdb-lightbox no-margin'>
