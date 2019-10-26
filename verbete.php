@@ -228,7 +228,7 @@ if (isset($_POST['novo_video_titulo'])) {
                         <a class='btn-floating btn-light btn-sm text-dark z-depth-0' href='#imagens_carrossel' data-slide='next'><i class='fal fa-chevron-right fa-fw'></i></a>
                       </div>
                       <div class='carousel-inner v-2 mdb-lightbox' role='listbox'>
-                        <div id='lightbox-imagens'></div>
+                        <div id='lightbox-imagens2'></div>
                           <div class='mdb-lightbox'>
                 ";
                             $active = 'active';
@@ -526,7 +526,7 @@ if (isset($_POST['novo_video_titulo'])) {
         <!--Slides and lightbox-->
 
         <div class="carousel-inner mdb-lightbox" role="listbox">
-          <div id="mdb-lightbox-ui"></div>
+          <div id="lightbox-imagens"></div>
           <!--First slide-->
           <div class=" carousel-item active text-center">
 
@@ -627,6 +627,6 @@ if (isset($_POST['novo_video_titulo'])) {
 </body>
 <?php
     load_footer();
-    bottom_page("quill_v", 'carousel', 'lightbox-imagens2');
+    bottom_page("quill_v", 'carousel', 'lightbox-imagens');
     $conn->close();
 ?>
