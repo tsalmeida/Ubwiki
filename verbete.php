@@ -220,36 +220,40 @@ if (isset($_POST['novo_video_titulo'])) {
               $result = $conn->query("SELECT titulo, link, arquivo, resolucao, orientacao, comentario FROM Imagens WHERE id_tema = $id_tema AND concurso = '$concurso'");
               if ($result->num_rows > 0) {
                 echo "
-                <div class='row'>
-                  <div class='col-12'>
+                <div class='row row-horizon'>
+                  <div class='col-12 overflow-auto'>
                     <div id='lightbox-imagens'></div>
                     <div class='mdb-lightbox no-margin'>
+                      <ul class='list-inline'>
                 ";
-                      $active = 'active';
-                      while($row = $result->fetch_assoc()) {
-                        $imagem_titulo = $row['titulo'];
-                        $imagem_link = $row['link'];
-                        $imagem_comentario = $row['comentario'];
-                        $imagem_arquivo = $row['arquivo'];
-                        $imagem_resolucao = $row['resolucao'];
-                        $imagem_orientacao = $row['orientacao'];
-                        if ($imagem_orientacao == 'retrato') { $col = 6; }
-                        else { $col = 12; }
+                        $active = 'active';
+                        while($row = $result->fetch_assoc()) {
+                          $imagem_titulo = $row['titulo'];
+                          $imagem_link = $row['link'];
+                          $imagem_comentario = $row['comentario'];
+                          $imagem_arquivo = $row['arquivo'];
+                          $imagem_resolucao = $row['resolucao'];
+                          $imagem_orientacao = $row['orientacao'];
+                          if ($imagem_orientacao == 'retrato') { $col = 6; }
+                          else { $col = 12; }
+                          echo "
+                            <li>
+                              <figure class='col-$col'>
+                                <a href='imagens/verbetes/$imagem_arquivo' data-size='$imagem_resolucao'>
+                                  <img class='img-fluid' src='imagens/verbetes/thumbnails/$imagem_arquivo'></img>
+                                </a>
+                                <figcaption>$imagem_comentario</figcaption>
+                              </figure>
+                            </li>
+                          ";
+                          $active = false;
+                        }
                         echo "
-                          <figure class='col-$col'>
-                            <a href='imagens/verbetes/$imagem_arquivo' data-size='$imagem_resolucao'>
-                              <img class='img-fluid' src='imagens/verbetes/thumbnails/$imagem_arquivo'></img>
-                            </a>
-                            <figcaption>$imagem_comentario</figcaption>
-                          </figure>
-                        ";
-                        $active = false;
-                      }
-                      echo "
+                      </ul>
                     </div>
                   </div>
                 </div>
-                      ";
+                        ";
                 }
                 else {
                   echo "<p>Não foram acrescentadas, até o momento, imagens a este verbete.</p>";

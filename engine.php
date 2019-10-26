@@ -92,6 +92,8 @@ function top_page() {
     <link href="css/mdb.min.css" rel="stylesheet">
     <!-- Your custom styles (optional) -->
     <link href="css/style.css" rel="stylesheet">
+    <!-- Bootstrap Horizon -->
+    <link href="css/bootstrap-horizon.css" rel="stylesheet">
     <link type="image/vnd.microsoft.icon" rel="icon" href="imagens/favicon.ico"/>
     <title>Ubwiki</title>';
 
