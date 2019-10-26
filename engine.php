@@ -284,6 +284,15 @@ function bottom_page() {
           </script>
         ";
       }
+      elseif ($args[$array] == 'lightbox-test') {
+        echo "
+          <script type='text/javascript'>
+            $(function () {
+              $('#mdb-lightbox-ui').load('mdb-addons/mdb-lightbox-ui.html');
+            });
+          </script>
+        ";
+      }
       elseif ($args[$array] == 'carousel') {
         echo "
           <script type='text/javascript'>
