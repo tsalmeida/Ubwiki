@@ -123,16 +123,6 @@ if (isset($_POST['nova_imagem_link'])) {
   }
 }
 
-if (isset($_POST['novo_link_link'])) {
-  $novo_link_link = $_POST['novo_link_link'];
-  $novo_link_titulo = $_POST['novo_link_titulo'];
-  $novo_link_comentario = $_POST['novo_link_comentario'];
-  $result = $conn->query("SELECT id FROM Links WHERE concurso = '$concurso' AND id_tema = $id_tema AND link = '$novo_link_link'");
-  if ($result->num_rows == 0) {
-    $result = $conn->query("INSERT INTO Links (id_tema, concurso, titulo, link, comentario, usuario) VALUES ($id_tema, '$concurso', '$novo_link_titulo', '$novo_link_link', '$novo_link_comentario', '$user')");
-  }
-}
-
 if (isset($_POST['nova_referencia_titulo'])) {
   $nova_referencia_titulo = $_POST['nova_referencia_titulo'];
   $nova_referencia_autor = $_POST['nova_referencia_autor'];
@@ -175,8 +165,7 @@ if (isset($_POST['novo_video_titulo'])) {
           <label class='btn btn-primary btn-sm active' data-toggle='collapse' data-target='#verbete' href='#inicio'><input type='checkbox' autocomplete='off' checked>Verbete</label>
           <label class='btn btn-primary btn-sm' data-toggle='collapse' data-target='#imagens' href='#imagens'><input type='checkbox' autocomplete='off'>Imagens</label>
           <label class='btn btn-primary btn-sm active' data-toggle='collapse' data-target='#videos' href='#videos'><input type='checkbox' autocomplete='off' checked>Vídeos</label>
-          <label class='btn btn-primary btn-sm' data-toggle='collapse' data-target='#bibliografia' href='#bibliografia'><input type='checkbox' autocomplete='off'>Bibliografia</label>
-          <label class='btn btn-primary btn-sm' data-toggle='collapse' data-target='#links' href='#links'><input type='checkbox' autocomplete='off'>Links</label>
+          <label class='btn btn-primary btn-sm' data-toggle='collapse' data-target='#bibliografia' href='#bibliografia'><input type='checkbox' autocomplete='off'>Leitura complementar</label>
         </div>
       </div>
       <div class='col-2 d-flex'>
@@ -344,38 +333,6 @@ if (isset($_POST['novo_video_titulo'])) {
             </div>
           </div>
         </div>
-        <div id='links' class='collapse mb-5'>
-          <div class='row justify-content-between h3'>
-            <div class='col-10 text-left justify-content-center align-middle'>
-              <h2 class='align-left'>Links</h2>
-            </div>
-          </div>
-          <div class='row justify-content-center border-bottom border-dark py-5'>
-            <div class='col-12 text-left font-weight-normal'>
-              <?php
-              $result = $conn->query("SELECT titulo, comentario, link FROM Links WHERE id_tema = $id_tema AND concurso = '$concurso'");
-              if ($result->num_rows > 0) {
-                echo "<ul class='list-group'>";
-                  while($row = $result->fetch_assoc()) {
-                    $link_titulo = $row['titulo'];
-                    $link_link = $row['link'];
-                    $link_comentario = $row['comentario'];
-                    echo "<li class='list-group-item list-group-item-action'><a href='$link_link' target='_blank'>$link_titulo : $link_comentario</a></li>";
-                  }
-                echo "</ul>";
-              }
-              else {
-                echo "<p>Até o momento, não foram acrescentados links sobre este tópico.</p>";
-              }
-              ?>
-              <div class='row'>
-                <div class='col-12 text-center h3'>
-                  <a data-toggle='modal' data-target='#modal_links_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
       <div id='anotacoes' class='col-lg-5 col-sm-12 collapse show anotacoes_collapsible'>
         <div class='row'>
@@ -474,38 +431,6 @@ if (isset($_POST['novo_video_titulo'])) {
               <div class='md-form mb-2'>
                 <input type='text' id='nova_referencia_capitulo' name='nova_referencia_capitulo' class='form-control validate'>
                 <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_referencia_capitulo'>Capítulo (opcional)</label>
-              </div>
-            </div>
-            <div class='modal-footer d-flex justify-content-center'>
-              <button type='button' class='btn bg-lighter btn-lg' data-dismiss='modal'><i class="fal fa-times-circle"></i> Cancelar</button>
-              <button type='submit' class='but btn-primary btn-lg'><i class='fal fa-check'></i> Salvar</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-    <div class='modal fade' id='modal_links_form' role='dialog' tabindex='-1'>
-      <div class='modal-dialog modal-lg' role='document'>
-        <div class='modal-content'>
-          <form method='post' action='#links'>
-            <div class='modal-header text-center'>
-              <h4 class='modal-title w-100 font-weight-bold'>Adicionar link</h4>
-              <button type='button' class='close' data-dismiss='modal'>
-                <i class="fal fa-times-circle"></i>
-              </button>
-            </div>
-            <div class='modal-body mx-3'>
-              <div class='md-form mb-2'>
-                <input type='url' id='novo_link_link' name='novo_link_link' class='form-control validate'>
-                <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_link_link' required>Link para a página</label>
-              </div>
-              <div class='md-form mb-2'>
-                <input type='text' id='novo_link_titulo' name='novo_link_titulo' class='form-control validate'>
-                <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_link_titulo' required>Título da página</label>
-              </div>
-              <div class='md-form'>
-                <textarea type='text' id='novo_link_comentario' name='novo_link_comentario' class='md-textarea form-control' rows='4' required></textarea>
-                <label data-error='preenchimento incorreto' data-success='preenchimento correto' for='novo_link_comentario'>Breve comentário sobre o link, destacando sua relevância para a compreensão do tópico.</label>
               </div>
             </div>
             <div class='modal-footer d-flex justify-content-center'>
