@@ -1,5 +1,4 @@
 $(document).ready(function() {
-	$(".hidewhen").hide();
 	$("#searchBar").focus();
   $(document.body).on('click', '.cardmateria' ,function(){
     if ($(this).attr("href")) {
@@ -28,4 +27,12 @@ $(document).ready(function() {
     });
     return false;
   });
+	$('#add_bookmark').click(function() {
+		$('#add_bookmark').hide();
+		$('#remove_bookmark').show();
+	});
+	$('#remove_bookmark').click(function() {
+		$('#remove_bookmark').hide();
+		$('#add_bookmark').show();
+	});
 });
