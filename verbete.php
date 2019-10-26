@@ -243,8 +243,8 @@ if (isset($_POST['novo_video_titulo'])) {
                                 <img src='imagens/verbetes/thumbnails/$imagem_arquivo'
                                   class='img-fluid' style='height:300px'>
                               </a>
-                              <h5 class='mt-3'>$imagem_titulo</h5>
-                              <figcaption>$imagem_comentario</figcaption>
+                              <figcaption><h5 class='mt-3'>$imagem_titulo</h5>
+                              $imagem_comentario</figcaption>
                             </figure>
                           </div>
                           ";
