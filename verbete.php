@@ -221,11 +221,15 @@ if (isset($_POST['novo_video_titulo'])) {
               $result = $conn->query("SELECT titulo, link, arquivo, resolucao, orientacao, comentario FROM Imagens WHERE id_tema = $id_tema AND concurso = '$concurso'");
               if ($result->num_rows > 0) {
                 echo "
-                <div class='row row-horizon'>
-                  <div class='col-12 overflow-auto'>
-                    <div id='lightbox-imagens'></div>
-                    <div class='mdb-lightbox no-margin'>
-                      <ul class='list-group list-group-horizontal'>
+                <div id='carousel-with-lb' class='carousel slide carousel-multi-item' data-ride='carousel'>
+                  <div class='controls-top'>
+                    <a class='btn-floating btn-light z-depth-0' href='#carousel-with-lb' data-slide='prev'><i
+                        class='fas fa-chevron-left'></i></a>
+                    <a class='btn-floating btn-light z-depth-0' href='#carousel-with-lb' data-slide='next'><i
+                        class='fas fa-chevron-right'></i></a>
+                  </div>
+                  <div class='carousel-inner mdb-lightbox' role='listbox'>
+                    <div id='mdb-lightbox-ui'></div>
                 ";
                         $active = 'active';
                         while($row = $result->fetch_assoc()) {
@@ -238,22 +242,21 @@ if (isset($_POST['novo_video_titulo'])) {
                           // if ($imagem_orientacao == 'retrato') { $col = 6; }
                           // else { $col = 12; }
                           echo "
-                            <li class='list-group-item'>
-                              <figure>
-                                <a href='imagens/verbetes/$imagem_arquivo' data-size='$imagem_resolucao'>
-                                  <img class='img-fluid' src='imagens/verbetes/thumbnails/$imagem_arquivo'></img>
-                                </a>
-                                <figcaption style='white-space: initial'>$imagem_comentario</figcaption>
-                              </figure>
-                            </li>
+                          <div class=' carousel-item $active text-center'>
+                            <figure class='col-12'>
+                              <a href='imagens/verbetes/$imagem_arquivo'
+                                data-size='$imagem_resolucao'>
+                                <img src='imagens/verbetes/thumbnails/$imagem_arquivo'
+                                  class='img-fluid'>
+                              </a>
+                            </figure>
+                          </div>
                           ";
                           $active = false;
                         }
                         echo "
-                      </ul>
+                      </div>
                     </div>
-                  </div>
-                </div>
                         ";
                 }
                 else {
@@ -500,53 +503,6 @@ if (isset($_POST['novo_video_titulo'])) {
       </div>
     </div>
   </div>
-  <div class='row'>
-    <div class=col-5>
-      <div id='carousel-with-lb' class='carousel slide carousel-multi-item' data-ride='carousel'>
-        <div class='controls-top'>
-          <a class='btn-floating btn-light z-depth-0' href='#carousel-with-lb' data-slide='prev'><i
-              class='fas fa-chevron-left'></i></a>
-          <a class='btn-floating btn-light z-depth-0' href='#carousel-with-lb' data-slide='next'><i
-              class='fas fa-chevron-right'></i></a>
-        </div>
-        <div class='carousel-inner mdb-lightbox' role='listbox'>
-          <div id='mdb-lightbox-ui'></div>
-
-          <div class=' carousel-item active text-center'>
-            <figure class='col-12'>
-              <a href='https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(2).jpg'
-                data-size='1600x1067'>
-                <img src='https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(2).jpg'
-                  class='img-fluid'>
-              </a>
-            </figure>
-          </div>
-
-          <div class='carousel-item text-center'>
-            <figure class='col-12'>
-              <a href='https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(22).jpg'
-                data-size='1600x1067'>
-                <img src='https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(22).jpg'
-                  class='img-fluid'>
-              </a>
-            </figure>
-          </div>
-
-          <div class='carousel-item text-center'>
-            <figure class='col-12'>
-              <a href='https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(44).jpg'
-                data-size='1600x1067'>
-                <img src='https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(44).jpg'
-                  class='img-fluid'>
-              </a>
-            </figure>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </div>
-
 </body>
 <?php
     load_footer();
