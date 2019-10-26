@@ -222,43 +222,32 @@ if (isset($_POST['novo_video_titulo'])) {
                 echo "
                 <div class='row'>
                   <div class='col-12'>
-                    <div id='imagens_carrossel' class='carousel slide carousel-multi-item v-2' data-ride='carousel'>
-                      <div class='controls-top'>
-                        <a class='btn-floating btn-light btn-sm text-dark z-depth-0' href='#imagens_carrossel' data-slide='prev'><i class='fal fa-chevron-left fa-fw'></i></a>
-                        <a class='btn-floating btn-light btn-sm text-dark z-depth-0' href='#imagens_carrossel' data-slide='next'><i class='fal fa-chevron-right fa-fw'></i></a>
-                      </div>
-                      <div class='carousel-inner mdb-lightbox' role='listbox'>
-                        <div id='lightbox-imagens'></div>
+                    <div id='lightbox-imagens'></div>
                 ";
-                          $active = 'active';
-                          while($row = $result->fetch_assoc()) {
-                            $imagem_titulo = $row['titulo'];
-                            $imagem_link = $row['link'];
-                            $imagem_comentario = $row['comentario'];
-                            $imagem_arquivo = $row['arquivo'];
-                            $imagem_resolucao = $row['resolucao'];
-                            $imagem_orientacao = $row['orientacao'];
-                            error_log($imagem_titulo);
-                            // if ($imagem_orientacao == 'retrato') { $col = 6; }
-                            // else { $col = 12; }
-                            $col = 12;
-                            echo "
-                              <div class='carousel-item $active'>
-                                <figure class='col-$col d-md-inline-block'>
-                                  <a href='imagens/verbetes/$imagem_arquivo' data-size='$imagem_resolucao'>
-                                    <img class='img-fluid' src='imagens/verbetes/thumbnails/$imagem_arquivo'></img>
-                                  </a>
-                                </figure>
-                              </div>
-                            ";
-                            $active = false;
-                          }
-                          echo "
-                      </div>
+                      $active = 'active';
+                      while($row = $result->fetch_assoc()) {
+                        $imagem_titulo = $row['titulo'];
+                        $imagem_link = $row['link'];
+                        $imagem_comentario = $row['comentario'];
+                        $imagem_arquivo = $row['arquivo'];
+                        $imagem_resolucao = $row['resolucao'];
+                        $imagem_orientacao = $row['orientacao'];
+                        // if ($imagem_orientacao == 'retrato') { $col = 6; }
+                        // else { $col = 12; }
+                        echo "
+                          <figure>
+                            <a href='imagens/verbetes/$imagem_arquivo' data-size='$imagem_resolucao'>
+                              <img class='img-fluid' src='imagens/verbetes/thumbnails/$imagem_arquivo'></img>
+                            </a>
+                          </figure>
+                        ";
+                        $active = false;
+                      }
+                      echo "
                     </div>
                   </div>
                 </div>
-                            ";
+                      ";
                 }
                 else {
                   echo "<p>Não foram acrescentadas, até o momento, imagens a este verbete.</p>";
