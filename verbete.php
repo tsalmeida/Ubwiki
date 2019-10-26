@@ -245,12 +245,12 @@ if (isset($_POST['novo_video_titulo'])) {
                     <div class='carousel-inner v-2' role='listbox'>
                 ";
                       while($row = $result->fetch_assoc()) {
-                        error_log("this happened");
                         $imagem_titulo = $row['titulo'];
                         $imagem_link = $row['link'];
                         $imagem_comentario = $row['comentario'];
                         $imagem_arquivo = $row['arquivo'];
                         $imagem_resolucao = $row['resolucao'];
+                        error_log("$imagem_titulo $imagem_arquivo $imagem_resolucao");
                         echo "
                           <div class='carousel-item active'>
                             <div class='col-12 col-md-4'>
