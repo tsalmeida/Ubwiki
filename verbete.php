@@ -173,7 +173,7 @@ if (isset($_POST['novo_video_titulo'])) {
   <div class='container-fluid'>
     <div class='row justify-content-around my-5'>
       <div class='col-lg-5 col-sm-12'>
-        <div id='verbete' class='verbete_collapse collapse show mb-5'>
+        <div id='verbete' class='verbete_collapse mb-5'>
           <div class='row text-left'>
             <div class='col-10 text-left'>
               <?php
@@ -262,7 +262,7 @@ if (isset($_POST['novo_video_titulo'])) {
             </div>
           </div>
         </div>
-        <div id='videos' class='videos_collapse collapse show mb-5'>
+        <div id='videos' class='videos_collapse mb-5'>
           <div class='row justify-content-between h3'>
             <div class='col-10 text-left justify-content-center align-middle'>
               <h2 class='align-left'>Vídeos e aulas</h2>
@@ -325,7 +325,7 @@ if (isset($_POST['novo_video_titulo'])) {
           </div>
         </div>
       </div>
-      <div id='anotacoes' class='col-lg-5 col-sm-12 collapse show anotacoes_collapse'>
+      <div id='anotacoes' class='col-lg-5 col-sm-12 anotacoes_collapse'>
         <div class='row'>
           <div class='col-12'>
             <div class='row justify-content-between h3'>
