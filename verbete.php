@@ -201,15 +201,15 @@ if (isset($_POST['novo_video_titulo'])) {
         </div>
         <div id='imagens' class='imagens_collapse collapse show mb-5'>
           <div class='row justify-content-between h3'>
-            <div class='col-10 text-left justify-content-center align-middle'>
+            <div class='col-10 text-left'>
               <h2 class='align-left'>Imagens</h2>
             </div>
-            <div class='col-2 text-right justify-content-center align-middle'>
-                <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_imagens_form' href=''><i class='fal fa-plus-square fa-fw'></i></a></span>
-                <span class='text-center justify-content-center align-middle imagens_collapse' data-toggle='collapse' data-target='.imagens_collapse'><a href=''><i class='fal fa-times-square fa-fw'></i></a></span>
+            <div class='col-2 text-right'>
+                <a data-toggle='modal' data-target='#modal_imagens_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
+                <span data-toggle='collapse' data-target='.imagens_collapse'><a href='#'><i class='fal fa-times-square fa-fw'></i></a></span>
             </div>
           </div>
-          <div class='row justify-content-center border-bottom border-dark'>
+          <div class='row border-bottom border-dark'>
             <div class='col-12 text-left font-weight-normal'>
               <?php
               $result = $conn->query("SELECT titulo, link, arquivo, resolucao, orientacao, comentario FROM Imagens WHERE id_tema = $id_tema AND concurso = '$concurso'");
@@ -264,15 +264,15 @@ if (isset($_POST['novo_video_titulo'])) {
         </div>
         <div id='videos' class='videos_collapse collapse show mb-5'>
           <div class='row justify-content-between h3'>
-            <div class='col-10 text-left justify-content-center align-middle'>
+            <div class='col-10 text-left'>
               <h2 class='align-left'>Vídeos e aulas</h2>
             </div>
-            <div class='col-2 text-right justify-content-center align-middle'>
-                <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_videos_form' href=''><i class='fal fa-plus-square fa-fw'></i></a></span>
-                <span class='text-center justify-content-center align-middle videos_collapse' data-toggle='collapse' data-target='.videos_collapse'><a href=''><i class='fal fa-times-square fa-fw'></i></a></span>
+            <div class='col-2 text-right'>
+                <a data-toggle='modal' data-target='#modal_videos_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
+                <span data-toggle='collapse' data-target='.videos_collapse'><a href='#'><i class='fal fa-times-square fa-fw'></i></a></span>
             </div>
           </div>
-          <div class='row justify-content-center border-bottom border-dark py-5'>
+          <div class='row border-bottom border-dark py-5'>
             <div class='col-12 text-left font-weight-normal'>
               <?php
               $result = $conn->query("SELECT titulo, autor, link FROM Videos WHERE id_tema = $id_tema AND concurso = '$concurso'");
@@ -300,10 +300,10 @@ if (isset($_POST['novo_video_titulo'])) {
             </div>
             <div class='col-2'>
               <a data-toggle='modal' data-target='#modal_referencia_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
-              <span class='text-center justify-content-center align-middle bibliografia_collapse' data-toggle='collapse' data-target='.bibliografia_collapse'><a href=''><i class='fal fa-times-square fa-fw'></i></a></span>
+              <span data-toggle='collapse' data-target='.bibliografia_collapse'><a href='#'><i class='fal fa-times-square fa-fw'></i></a></span>
             </div>
           </div>
-          <div class='row justify-content-center border-bottom border-dark py-5'>
+          <div class='row border-bottom border-dark py-5'>
             <div class='col-12 text-left font-weight-normal'>
               <?php
                 $result = $conn->query("SELECT titulo, autor, capitulo FROM Bibliografia WHERE id_tema = $id_tema AND concurso = '$concurso'");
@@ -329,19 +329,19 @@ if (isset($_POST['novo_video_titulo'])) {
         <div class='row'>
           <div class='col-12'>
             <div class='row justify-content-between h3'>
-              <div class='col-10 text-left justify-content-center align-middle'>
+              <div class='col-10 text-left'>
                 <h2 class='align-left'>Anotações</h2>
               </div>
-              <div class='col-2 text-right justify-content-center align-middle'>
-                <span class='text-center justify-content-center align-middle' data-toggle='collapse' data-target='.anotacoes_collapse'><a href='#inicio'><i class='fal fa-times-square fa-fw'></i></a></span>
+              <div class='col-2 text-right'>
+                <span class='text-center' data-toggle='collapse' data-target='.anotacoes_collapse'><a href='#inicio'><i class='fal fa-times-square fa-fw'></i></a></span>
               </div>
             </div>
-            <div class='row justify-content-center border-bottom border-dark py-5'>
+            <div class='row border-bottom border-dark py-5'>
               <div class='col-12 text-left font-weight-normal'>
                 <form id='quill_anotacao_form' method='post' action='#anotacoes'>
                   <input name='quill_nova_anotacao_html' type='hidden'>
-                  <div class='row justify-content-center'>
-                    <div class='container col-12 justify-content-center'>
+                  <div class='row'>
+                    <div class='container col-12'>
                       <?php
                         echo "
                           <div id='quill_container_anotacao'>
@@ -353,7 +353,7 @@ if (isset($_POST['novo_video_titulo'])) {
                       ?>
                     </div>
                   </div>
-                  <div class='row d-flex justify-content-center mt-3'>
+                  <div class='row d-flex mt-3'>
                     <button type='button' class='btn btn-light'><i class="fal fa-times-circle fa-fw"></i> Cancelar</button>
                     <button type='submit' class='btn btn-primary'><i class='fal fa-check fa-fw'></i> Salvar</button>
                   </div>
@@ -476,7 +476,7 @@ if (isset($_POST['novo_video_titulo'])) {
               </button>
             </div>
             <div class='modal-body'>
-              <div class='row justify-content-center'>
+              <div class='row'>
                 <div class='container col-12 justify-content-center'>
                   <?php
                     echo "
