@@ -230,7 +230,7 @@ if (isset($_POST['novo_video_titulo'])) {
               if ($result->num_rows > 0) {
                 echo "
                 <div class='row'>
-                  <div class='col-12' style='overflow-x: auto;'>
+                  <div class='col-12''>
                     <div id='mdb-lightbox-ui'></div>
                     <div class='mdb-lightbox no-margin'>
                 ";

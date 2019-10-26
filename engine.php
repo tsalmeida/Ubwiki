@@ -276,9 +276,9 @@ function bottom_page() {
       elseif ($args[$array] == 'lightbox') {
         echo "
         <script type='text/javascript'>
-        $(document).ready(function() {
-          $( '#mdb-lightbox-ui' ).load('mdb-addons/mdb-lightbox-ui.html');
-        });
+          $(function () {
+          $('#mdb-lightbox-ui').load('mdb-addons/mdb-lightbox-ui.html');
+          });
         </script>";
       }
       $array++;
