@@ -228,7 +228,7 @@ if (isset($_POST['novo_video_titulo'])) {
                         <a class='btn-floating btn-light btn-sm text-dark z-depth-0' href='#imagens_carrossel' data-slide='next'><i class='fal fa-chevron-right fa-fw'></i></a>
                       </div>
                       <div class='carousel-inner v-2 mdb-lightbox' role='listbox'>
-                        <div id='lightbox-imagens'></div>
+                        <div id='lightbox-imagens2'></div>
                 ";
                         $active = 'active';
                         while($row = $result->fetch_assoc()) {
@@ -513,7 +513,7 @@ if (isset($_POST['novo_video_titulo'])) {
 
       <div class="row">
         <div class="col-md-12">
-          <div id="lightbox-test"></div>
+          <div id="lightbox-imagens"></div>
           <div class="mdb-lightbox no-margin">
             <figure class="col-md-4">
               <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(117).jpg" data-size="1600x1067">
@@ -523,27 +523,12 @@ if (isset($_POST['novo_video_titulo'])) {
           </div>
         </div>
       </div>
-
-      <div class="row">
-        <div class="col-md-12">
-          <div id="lightbox-test2"></div>
-          <div class="mdb-lightbox no-margin">
-            <figure class="col-md-4">
-              <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(117).jpg" data-size="1600x1067">
-                <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(117).jpg" class="img-fluid">
-              </a>
-            </figure>
-          </div>
-        </div>
-      </div>
-
-
 
     </div>
   </div>
 </body>
 <?php
     load_footer();
-    bottom_page("quill_v", 'carousel', 'lightbox-test', 'lightbox-test2');
+    bottom_page("quill_v", 'carousel', 'lightbox-imagens');
     $conn->close();
 ?>
