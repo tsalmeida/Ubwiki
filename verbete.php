@@ -225,63 +225,8 @@ if (isset($_POST['novo_video_titulo'])) {
           </div>
           <div class='row justify-content-center border-bottom border-dark py-5'>
             <div class='col-12 text-left font-weight-normal'>
-
-              <div class="row">
-                <div class="col-md-12">
-                  <div id="mdb-lightbox-ui"></div>
-                  <div class="mdb-lightbox no-margin">
-                    <figure class="col-md-4">
-                      <a href="imagens/verbetes/1f8XHMAUxgOu.jpg" data-size="1600x1067">
-                        <img src="imagens/verbetes/thumbnails/1f8XHMAUxgOu.jpg" class="img-fluid">
-                      </a>
-                    </figure>
-                    <figure class="col-md-4">
-                      <a href="imagens/verbetes/LuT3KdcHsJYg.jpg" data-size="1600x1067">
-                        <img src="imagens/verbetes/thumbnails/LuT3KdcHsJYg.jpg" class="img-fluid" />
-                      </a>
-                    </figure>
-                    <figure class="col-md-4">
-                      <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(131).jpg" data-size="1600x1067">
-                        <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(131).jpg" class="img-fluid" />
-                      </a>
-                    </figure>
-                    <figure class="col-md-4">
-                      <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(123).jpg" data-size="1600x1067">
-                        <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(123).jpg" class="img-fluid" />
-                      </a>
-                    </figure>
-                    <figure class="col-md-4">
-                      <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(118).jpg" data-size="1600x1067">
-                        <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(118).jpg" class="img-fluid" />
-                      </a>
-                    </figure>
-                    <figure class="col-md-4">
-                      <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(128).jpg" data-size="1600x1067">
-                        <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(128).jpg" class="img-fluid" />
-                      </a>
-                    </figure>
-                    <figure class="col-md-4">
-                      <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(132).jpg" data-size="1600x1067">
-                        <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(132).jpg" class="img-fluid" />
-                      </a>
-                    </figure>
-                    <figure class="col-md-4">
-                      <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(115).jpg" data-size="1600x1067">
-                        <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(115).jpg" class="img-fluid" />
-                      </a>
-                    </figure>
-                    <figure class="col-md-4">
-                      <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(133).jpg" data-size="1600x1067">
-                        <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(133).jpg" class="img-fluid" />
-                      </a>
-                    </figure>
-                  </div>
-                </div>
-              </div>
-
               <?php
-              // $result = $conn->query("SELECT titulo, link, arquivo, comentario FROM Imagens WHERE id_tema = $id_tema AND concurso = '$concurso'");
-              $result = false;
+              $result = $conn->query("SELECT titulo, link, arquivo, comentario FROM Imagens WHERE id_tema = $id_tema AND concurso = '$concurso'");
               if ($result->num_rows > 0) {
                 echo "
                 <div class='row'>
@@ -296,7 +241,7 @@ if (isset($_POST['novo_video_titulo'])) {
                         $imagem_arquivo = $row['arquivo'];
                         echo "
                           <figure>
-                            <a href='imagens/verbetes/$imagem_arquivo'>
+                            <a href='imagens/verbetes/$imagem_arquivo' data-size='1600x1067'>
                               <img src='imagens/verbetes/thumbnails/$imagem_arquivo' class='img-fluid'></img>
                             </a>
                             <figcaption>$imagem_titulo // $imagem_comentario // <a href='$imagem_link'>Link original.</a></figcaption>
