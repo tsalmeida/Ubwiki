@@ -228,7 +228,7 @@ if (isset($_POST['novo_video_titulo'])) {
                         <a class='btn-floating btn-light btn-sm text-dark z-depth-0' href='#imagens_carrossel' data-slide='next'><i class='fal fa-chevron-right fa-fw'></i></a>
                       </div>
                       <div class='carousel-inner v-2 mdb-lightbox' role='listbox'>
-                      <div id='lightbox-imagens'></div>
+                        <div id='lightbox-imagens'></div>
                 ";
                         $active = 'active';
                         while($row = $result->fetch_assoc()) {
@@ -246,7 +246,7 @@ if (isset($_POST['novo_video_titulo'])) {
                                 <div class='card mb-2 z-depth-0 border'>
                                   <figure>
                                     <a href='imagens/verbetes/$imagem_arquivo' data-size='$imagem_resolucao'>
-                                      <img class='card-img-top cardlimit' src='imagens/verbetes/thumbnails/$imagem_arquivo'></img>
+                                      <img class='card-img-top cardlimit img-fluid' src='imagens/verbetes/thumbnails/$imagem_arquivo'></img>
                                     </a>
                                   </figure>
                                   <div class='card-body'>
