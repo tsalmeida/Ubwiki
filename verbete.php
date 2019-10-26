@@ -502,72 +502,48 @@ if (isset($_POST['novo_video_titulo'])) {
   </div>
   <div class='row'>
     <div class=col-5>
-      <!--Carousel Wrapper-->
-      <div id="carousel-with-lb" class="carousel slide carousel-multi-item" data-ride="carousel">
-
-        <!--Controls-->
-        <div class="controls-top">
-          <a class="btn-floating btn-lighter z-depth-0" href="#carousel-with-lb" data-slide="prev"><i
-              class="fas fa-chevron-left"></i></a>
-          <a class="btn-floating btn-lighter z-depth-0" href="#carousel-with-lb" data-slide="next"><i
-              class="fas fa-chevron-right"></i></a>
+      <div id='carousel-with-lb' class='carousel slide carousel-multi-item' data-ride='carousel'>
+        <div class='controls-top'>
+          <a class='btn-floating btn-light z-depth-0' href='#carousel-with-lb' data-slide='prev'><i
+              class='fas fa-chevron-left'></i></a>
+          <a class='btn-floating btn-light z-depth-0' href='#carousel-with-lb' data-slide='next'><i
+              class='fas fa-chevron-right'></i></a>
         </div>
-        <!--/.Controls-->
+        <div class='carousel-inner mdb-lightbox' role='listbox'>
+          <div id='mdb-lightbox-ui'></div>
 
-        <!--Slides and lightbox-->
-
-        <div class="carousel-inner mdb-lightbox" role="listbox">
-          <div id="mdb-lightbox-ui"></div>
-          <!--First slide-->
-          <div class=" carousel-item active text-center">
-
-            <figure class="col-12">
-              <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(2).jpg"
-                data-size="1600x1067">
-                <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(2).jpg"
-                  class="img-fluid">
+          <div class=' carousel-item active text-center'>
+            <figure class='col-12'>
+              <a href='https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(2).jpg'
+                data-size='1600x1067'>
+                <img src='https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(2).jpg'
+                  class='img-fluid'>
               </a>
             </figure>
-
-
           </div>
-          <!--/.First slide-->
 
-          <!--Second slide-->
-          <div class="carousel-item text-center">
-
-            <figure class="col-12">
-              <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(22).jpg"
-                data-size="1600x1067">
-                <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(22).jpg"
-                  class="img-fluid">
+          <div class='carousel-item text-center'>
+            <figure class='col-12'>
+              <a href='https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(22).jpg'
+                data-size='1600x1067'>
+                <img src='https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(22).jpg'
+                  class='img-fluid'>
               </a>
             </figure>
-
-
           </div>
-          <!--/.Second slide-->
 
-          <!--Third slide-->
-          <div class="carousel-item text-center">
-
-            <figure class="col-12">
-              <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(44).jpg"
-                data-size="1600x1067">
-                <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(44).jpg"
-                  class="img-fluid">
+          <div class='carousel-item text-center'>
+            <figure class='col-12'>
+              <a href='https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(44).jpg'
+                data-size='1600x1067'>
+                <img src='https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(44).jpg'
+                  class='img-fluid'>
               </a>
             </figure>
-
-
           </div>
-          <!--/.Third slide-->
 
         </div>
-        <!--/.Slides-->
-
       </div>
-      <!--/.Carousel Wrapper-->
     </div>
   </div>
 
