@@ -113,6 +113,15 @@ function top_page() {
             </style>
           ";
         }
+        elseif ($args[$array] == 'lightbox') {
+          echo "
+            <script>
+              $(function () {
+                $('#mdb-lightbox-ui').load('mdb-addons/mdb-lightbox-ui.html');
+              });
+            </script>
+          ";
+        }
         $array++;
       }
     }
@@ -270,15 +279,6 @@ function bottom_page() {
             $('#novosub19').on('input',function(e){
           	    $('#novosub20').show();
           	});
-          </script>
-        ";
-      }
-      elseif ($args[$array] == 'lightbox') {
-        echo "
-          <script>
-            $(function () {
-              $('#mdb-lightbox-ui').load('mdb-addons/mdb-lightbox-ui.html');
-            });
           </script>
         ";
       }
