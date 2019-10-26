@@ -229,31 +229,29 @@ if (isset($_POST['novo_video_titulo'])) {
                       </div>
                       <div class='carousel-inner mdb-lightbox' role='listbox'>
                         <div id='lightbox-imagens'></div>
-                          <div class='carousel-item active text-center'>
                 ";
-                            $active = 'active';
-                            while($row = $result->fetch_assoc()) {
-                              $imagem_titulo = $row['titulo'];
-                              $imagem_link = $row['link'];
-                              $imagem_comentario = $row['comentario'];
-                              $imagem_arquivo = $row['arquivo'];
-                              $imagem_resolucao = $row['resolucao'];
-                              $imagem_orientacao = $row['orientacao'];
-                              if ($imagem_orientacao == 'retrato') { $col = 6; }
-                              else { $col = 12; }
-                              echo "
-                                <div class='carousel-item $active'>
-                                  <figure class='col-$col d-md-inline-block'>
-                                    <a href='imagens/verbetes/$imagem_arquivo' data-size='$imagem_resolucao'>
-                                      <img class='img-fluid' src='imagens/verbetes/thumbnails/$imagem_arquivo'></img>
-                                    </a>
-                                  </figure>
-                                </div>
-                              ";
-                              $active = false;
-                            }
+                          $active = 'active';
+                          while($row = $result->fetch_assoc()) {
+                            $imagem_titulo = $row['titulo'];
+                            $imagem_link = $row['link'];
+                            $imagem_comentario = $row['comentario'];
+                            $imagem_arquivo = $row['arquivo'];
+                            $imagem_resolucao = $row['resolucao'];
+                            $imagem_orientacao = $row['orientacao'];
+                            if ($imagem_orientacao == 'retrato') { $col = 6; }
+                            else { $col = 12; }
                             echo "
-                        </div>
+                              <div class='carousel-item $active'>
+                                <figure class='col-$col d-md-inline-block'>
+                                  <a href='imagens/verbetes/$imagem_arquivo' data-size='$imagem_resolucao'>
+                                    <img class='img-fluid' src='imagens/verbetes/thumbnails/$imagem_arquivo'></img>
+                                  </a>
+                                </figure>
+                              </div>
+                            ";
+                            $active = false;
+                          }
+                          echo "
                       </div>
                     </div>
                   </div>
