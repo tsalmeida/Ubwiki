@@ -286,7 +286,7 @@ function bottom_page() {
         echo "
           <script type='text/javascript'>
           $(function () {
-            $('#mdb-lightbox-ui').load('mdb-addons/mdb-lightbox-ui.html');
+            $('#lightbox-test').load('mdb-addons/mdb-lightbox-ui.html');
           });
           </script>
         ";

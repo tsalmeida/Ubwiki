@@ -513,7 +513,7 @@ if (isset($_POST['novo_video_titulo'])) {
 
       <div class="row">
         <div class="col-md-12">
-          <div id="mdb-lightbox-ui"></div>
+          <div id="lightbox-test"></div>
           <div class="mdb-lightbox no-margin">
             <figure class="col-md-4">
               <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(117).jpg" data-size="1600x1067">
