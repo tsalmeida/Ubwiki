@@ -113,15 +113,6 @@ function top_page() {
             </style>
           ";
         }
-        elseif ($args[$array] == 'lightbox') {
-          echo "
-            <script type='text/javascript'>
-              $(document).ready(function() {
-                $( '#mdb-lightbox-ui' ).load( 'mdb-addons/mdb-lightbox-ui.html' );
-              });
-            </script>
-          ";
-        }
         $array++;
       }
     }
@@ -180,6 +171,9 @@ function bottom_page() {
         echo "
           <script src='https://cdn.quilljs.com/1.3.6/quill.js'></script>
           <script>
+            $(document).ready(function() {
+              $( '#mdb-lightbox-ui' ).load( 'mdb-addons/mdb-lightbox-ui.html' );
+            });
             var toolbarOptions = [
               ['italic'],
               ['blockquote'],
