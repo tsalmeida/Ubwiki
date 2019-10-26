@@ -161,12 +161,12 @@ if (isset($_POST['novo_video_titulo'])) {
   ?>
   <div class='container-fluid grey lighten-5' data-toggle='buttons'>
     <div class='row'>
-      <div class='col-12 d-flex justify-content-around'>
+      <div class='col-12 d-flex justify-content-center'>
         <button class='btn btn-primary btn-sm' data-toggle='collapse' data-target='#verbete' href='#inicio'>Verbete</button>
-        <button class='btn btn-primary btn-sm' data-toggle='collapse' data-target='#imagens' href='#imagens'>Imagens</button>
-        <button class='btn btn-primary btn-sm' data-toggle='collapse' data-target='#videos' href='#videos'>Vídeos</button>
-        <button class='btn btn-primary btn-sm' data-toggle='collapse' data-target='#bibliografia' href='#bibliografia'>Leitura complementar</button>
-        <button class='btn btn-primary btn-sm collapse anotacoes_collapsible' data-toggle='collapse' data-target='.anotacoes_collapsible'>Anotações</button>
+        <button class='btn btn-primary btn-sm ml-1' data-toggle='collapse' data-target='#imagens' href='#imagens'>Imagens</button>
+        <button class='btn btn-primary btn-sm ml-1' data-toggle='collapse' data-target='#videos' href='#videos'>Vídeos</button>
+        <button class='btn btn-primary btn-sm ml-1' data-toggle='collapse' data-target='#bibliografia' href='#bibliografia'>Leitura complementar</button>
+        <button class='btn btn-primary btn-sm collapse anotacoes_collapsible ml-1' data-toggle='collapse' data-target='.anotacoes_collapsible'>Anotações</button>
       </div>
     </div>
   </div>
