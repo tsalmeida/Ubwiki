@@ -215,7 +215,7 @@ if (isset($_POST['novo_video_titulo'])) {
                 <span class='text-center justify-content-center align-middle'><a data-toggle='modal' data-target='#modal_imagens_form' href=''><i class='fal fa-plus-square fa-fw'></i></a></span>
             </div>
           </div>
-          <div class='row justify-content-center border-bottom border-dark py-5'>
+          <div class='row justify-content-center border-bottom border-dark'>
             <div class='col-12 text-left font-weight-normal'>
               <?php
               $result = $conn->query("SELECT titulo, link, arquivo, resolucao, orientacao, comentario FROM Imagens WHERE id_tema = $id_tema AND concurso = '$concurso'");
@@ -249,7 +249,7 @@ if (isset($_POST['novo_video_titulo'])) {
                                 <img src='imagens/verbetes/thumbnails/$imagem_arquivo'
                                   class='img-fluid'>
                               </a>
-                              <h5>$imagem_titulo</h5>
+                              <h5 class='mt-3'>$imagem_titulo</h5>
                               <figcaption>$imagem_comentario</figcaption>
                             </figure>
                           </div>
