@@ -239,8 +239,9 @@ if (isset($_POST['novo_video_titulo'])) {
                             $imagem_resolucao = $row['resolucao'];
                             $imagem_orientacao = $row['orientacao'];
                             error_log($imagem_titulo);
-                            if ($imagem_orientacao == 'retrato') { $col = 6; }
-                            else { $col = 12; }
+                            // if ($imagem_orientacao == 'retrato') { $col = 6; }
+                            // else { $col = 12; }
+                            $col = 12;
                             echo "
                               <div class='carousel-item $active'>
                                 <figure class='col-$col d-md-inline-block'>
