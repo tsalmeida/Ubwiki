@@ -64,11 +64,11 @@ function breadcrumbs($content) {
         <div class='col-lg-3 col-sm-12'>
           <div class='text-right'>
             <ol class='breadcrumb d-inline-flex transparent mb-0'>
-              <li class='breadcrumb-item' title='Verbetes relacionados'><a href=''><i class='fal fa-chart-network fa-fw'></i></a></li>
-              <li class='breadcrumb-item' title='Simulados'><a href=''><i class='fal fa-check-double fa-fw'></i></a></li>
-              <li class='breadcrumb-item' title='Fórum'><a href=''><i class='fal fa-comments-alt fa-fw'></i></a></li>
-              <li id='add_bookmark' class='breadcrumb-item' title='Marcar para leitura'><a href=''><i class='fal fa-bookmark fa-fw'></i></a></li>
-              <li id='remove_bookmark' class='breadcrumb-item' title='Marcar para leitura'><span class='text-danger'><i class='fas fa-bookmark fa-fw'></i></span><a href=''></a></li>
+              <li id='verbetes_relacionados' class='breadcrumb-item' title='Verbetes relacionados'><a href='#'><i class='fal fa-chart-network fa-fw'></i></a></li>
+              <li id='simulados' class='breadcrumb-item' title='Simulados'><a href='#'><i class='fal fa-check-double fa-fw'></i></a></li>
+              <li id='forum' class='breadcrumb-item' title='Fórum'><a href='#'><i class='fal fa-comments-alt fa-fw'></i></a></li>
+              <li id='add_bookmark' class='breadcrumb-item' title='Marcar para leitura'><a href='#'><i class='fal fa-bookmark fa-fw'></i></a></li>
+              <li id='remove_bookmark' class='breadcrumb-item' title='Marcar para leitura'><a href='#'><span class='text-danger'><i class='fas fa-bookmark fa-fw'></i></span></span></a></li>
             </ol>
           </div>
         </div>
