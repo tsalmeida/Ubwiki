@@ -231,13 +231,13 @@ if (isset($_POST['novo_video_titulo'])) {
                   <div id="mdb-lightbox-ui"></div>
                   <div class="mdb-lightbox no-margin">
                     <figure class="col-md-4">
-                      <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(117).jpg" data-size="1600x1067">
-                        <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(117).jpg" class="img-fluid">
+                      <a href="imagens/verbetes/1f8XHMAUxgOu.jpg" data-size="1600x1067">
+                        <img src="imagens/verbetes/thumbnails/1f8XHMAUxgOu.jpg" class="img-fluid">
                       </a>
                     </figure>
                     <figure class="col-md-4">
-                      <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(98).jpg" data-size="1600x1067">
-                        <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(98).jpg" class="img-fluid" />
+                      <a href="imagens/verbetes/LuT3KdcHsJYg.jpg" data-size="1600x1067">
+                        <img src="imagens/verbetes/thumbnails/LuT3KdcHsJYg.jpg" class="img-fluid" />
                       </a>
                     </figure>
                     <figure class="col-md-4">
