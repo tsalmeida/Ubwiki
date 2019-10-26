@@ -222,7 +222,7 @@ if (isset($_POST['novo_video_titulo'])) {
                 echo "
                 <div class='row'>
                   <div class='col-12'>
-                    <div id='imagens_carrossel' class='carousel slide carousel-multi-item v-2' data-ride='carousel'>
+                    <div id='carousel-with-lb' class='carousel slide carousel-multi-item v-2' data-ride='carousel'>
                       <div class='controls-top'>
                         <a class='btn-floating btn-light btn-sm text-dark z-depth-0' href='#imagens_carrossel' data-slide='prev'><i class='fal fa-chevron-left fa-fw'></i></a>
                         <a class='btn-floating btn-light btn-sm text-dark z-depth-0' href='#imagens_carrossel' data-slide='next'><i class='fal fa-chevron-right fa-fw'></i></a>
@@ -513,13 +513,13 @@ if (isset($_POST['novo_video_titulo'])) {
   <div class='row'>
     <div class='col-12'>
       <!--Carousel Wrapper-->
-      <div id="carousel-with-lb" class="carousel slide carousel-multi-item" data-ride="carousel">
+      <div id="imagens_carousel" class="carousel slide carousel-multi-item" data-ride="carousel">
 
         <!--Controls-->
         <div class="controls-top">
-          <a class="btn-floating btn-light z-depth-0" href="#carousel-with-lb" data-slide="prev"><i
+          <a class="btn-floating btn-light z-depth-0" href="#imagens_carousel" data-slide="prev"><i
               class="fas fa-chevron-left"></i></a>
-          <a class="btn-floating btn-light z-depth-0" href="#carousel-with-lb" data-slide="next"><i
+          <a class="btn-floating btn-light z-depth-0" href="#imagens_carousel" data-slide="next"><i
               class="fas fa-chevron-right"></i></a>
         </div>
         <!--/.Controls-->
