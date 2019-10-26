@@ -533,7 +533,7 @@ if (isset($_POST['novo_video_titulo'])) {
         <!--Slides and lightbox-->
 
         <div class="carousel-inner mdb-lightbox" role="listbox">
-          <div id="mdb-lightbox-ui"></div>
+          <div id="lightbox-test"></div>
           <!--First slide-->
           <div class=" carousel-item active text-center">
 
@@ -700,6 +700,6 @@ if (isset($_POST['novo_video_titulo'])) {
 </body>
 <?php
     load_footer();
-    bottom_page("quill_v", 'carousel', 'lightbox-imagens');
+    bottom_page("quill_v", 'carousel', 'lightbox-imagens', 'lightbox-test');
     $conn->close();
 ?>
