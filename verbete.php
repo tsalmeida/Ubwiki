@@ -571,6 +571,6 @@ if (isset($_POST['novo_video_titulo'])) {
 </body>
 <?php
     load_footer();
-    bottom_page("quill_v", 'carousel', 'lightbox-imagens', 'lightbox-test');
+    bottom_page("quill_v", 'carousel', 'lightbox-test');
     $conn->close();
 ?>
