@@ -273,11 +273,11 @@ function bottom_page() {
           </script>
         ";
       }
-      elseif ($args[$array] == 'lightbox') {
+      elseif ($args[$array] == 'lightbox-imagens') {
         echo "
-          <script type='text/javascript'>
+          <script>
             $(function () {
-            $('#mdb-lightbox-ui').load('mdb-addons/mdb-lightbox-ui.html');
+              $('#lightbox-imagens').load('mdb-addons/mdb-lightbox-ui.html');
             });
           </script>
         ";

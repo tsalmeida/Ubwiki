@@ -228,7 +228,7 @@ if (isset($_POST['novo_video_titulo'])) {
                         <a class='btn-floating btn-light btn-sm text-dark z-depth-0' href='#imagens_carrossel' data-slide='next'><i class='fal fa-chevron-right fa-fw'></i></a>
                       </div>
                       <div class='carousel-inner v-2' role='listbox'>
-                      <div id='mdb-lightbox-ui'></div>
+                      <div id='lightbox-imagens'></div>
                 ";
                         $active = 'active';
                         while($row = $result->fetch_assoc()) {
@@ -304,7 +304,7 @@ if (isset($_POST['novo_video_titulo'])) {
         <div id='bibliografia' class='collapse mb-5'>
           <div class='row justify-content-between h3'>
             <div class='col-10 text-left justify-content-center align-middle'>
-              <h2 class='align-left'>Bibliografia</h2>
+              <h2 class='align-left'>Leitura complementar</h2>
             </div>
           </div>
           <div class='row justify-content-center border-bottom border-dark py-5'>
@@ -511,6 +511,6 @@ if (isset($_POST['novo_video_titulo'])) {
 </body>
 <?php
     load_footer();
-    bottom_page("quill_v", 'carousel', 'lightbox');
+    bottom_page("quill_v", 'carousel', 'lightbox-imagens');
     $conn->close();
 ?>
