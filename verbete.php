@@ -243,7 +243,7 @@ if (isset($_POST['novo_video_titulo'])) {
                           echo "
                             <div class='carousel-item $active'>
                               <div class='col-$col'>
-                                <div class='card mb-2'>
+                                <div class='card mb-2 z-depth-0 border'>
                                   <figure>
                                     <a href='imagens/verbetes/$imagem_arquivo' data-size='$imagem_resolucao'>
                                       <img class='card-img-top cardlimit' src='imagens/verbetes/thumbnails/$imagem_arquivo'></img>
