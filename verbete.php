@@ -241,7 +241,7 @@ if (isset($_POST['novo_video_titulo'])) {
                               <a href='imagens/verbetes/$imagem_arquivo'
                                 data-size='$imagem_resolucao'>
                                 <img src='imagens/verbetes/thumbnails/$imagem_arquivo'
-                                  class='img-fluid'>
+                                  class='img-fluid' style='width:300px'>
                               </a>
                               <h5 class='mt-3'>$imagem_titulo</h5>
                               <figcaption>$imagem_comentario</figcaption>
