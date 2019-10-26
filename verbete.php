@@ -222,14 +222,14 @@ if (isset($_POST['novo_video_titulo'])) {
                 echo "
                 <div class='row'>
                   <div class='col-12'>
-                    <div id='carousel-with-lb' class='carousel slide carousel-multi-item v-2' data-ride='carousel'>
+                    <div id='imagens_carrossel' class='carousel slide carousel-multi-item v-2' data-ride='carousel'>
                       <div class='controls-top'>
                         <a class='btn-floating btn-light btn-sm text-dark z-depth-0' href='#imagens_carrossel' data-slide='prev'><i class='fal fa-chevron-left fa-fw'></i></a>
                         <a class='btn-floating btn-light btn-sm text-dark z-depth-0' href='#imagens_carrossel' data-slide='next'><i class='fal fa-chevron-right fa-fw'></i></a>
                       </div>
-                      <div class='carousel-inner v-2 mdb-lightbox' role='listbox'>
-                        <div id='lightbox-imagens2'></div>
-                          <div class='mdb-lightbox'>
+                      <div class='carousel-inner mdb-lightbox' role='listbox'>
+                        <div id='lightbox-imagens'></div>
+                          <div class='carousel-item active text-center'>
                 ";
                             $active = 'active';
                             while($row = $result->fetch_assoc()) {
@@ -243,18 +243,11 @@ if (isset($_POST['novo_video_titulo'])) {
                               else { $col = 12; }
                               echo "
                                 <div class='carousel-item $active'>
-                                  <div class='col-$col'>
-                                    <div class='card mb-2 z-depth-0 border'>
-                                      <figure>
-                                        <a href='imagens/verbetes/$imagem_arquivo' data-size='$imagem_resolucao'>
-                                          <img class='card-img-top cardlimit img-fluid' src='imagens/verbetes/thumbnails/$imagem_arquivo'></img>
-                                        </a>
-                                      </figure>
-                                      <div class='card-body'>
-                                        <p>$imagem_titulo</p>
-                                      </div>
-                                    </div>
-                                  </div>
+                                  <figure class='col-$col d-md-inline-block'>
+                                    <a href='imagens/verbetes/$imagem_arquivo' data-size='$imagem_resolucao'>
+                                      <img class='card-img-top cardlimit img-fluid' src='imagens/verbetes/thumbnails/$imagem_arquivo'></img>
+                                    </a>
+                                  </figure>
                                 </div>
                               ";
                               $active = false;
@@ -508,120 +501,6 @@ if (isset($_POST['novo_video_titulo'])) {
           </form>
         </div>
       </div>
-    </div>
-  </div>
-  <div class='row'>
-    <div class='col-12'>
-      <!--Carousel Wrapper-->
-      <div id="imagens_carousel" class="carousel slide carousel-multi-item" data-ride="carousel">
-
-        <!--Controls-->
-        <div class="controls-top">
-          <a class="btn-floating btn-light z-depth-0" href="#imagens_carousel" data-slide="prev"><i
-              class="fas fa-chevron-left"></i></a>
-          <a class="btn-floating btn-light z-depth-0" href="#imagens_carousel" data-slide="next"><i
-              class="fas fa-chevron-right"></i></a>
-        </div>
-        <!--/.Controls-->
-        <!--Slides and lightbox-->
-
-        <div class="carousel-inner mdb-lightbox" role="listbox">
-          <div id="lightbox-imagens"></div>
-          <!--First slide-->
-          <div class=" carousel-item active text-center">
-
-            <figure class="col-md-4 d-md-inline-block">
-              <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(2).jpg"
-                data-size="1600x1067">
-                <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(2).jpg"
-                  class="img-fluid">
-              </a>
-            </figure>
-
-            <figure class="col-md-4 d-md-inline-block">
-              <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(4).jpg"
-                data-size="1600x1067">
-                <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(4).jpg"
-                  class="img-fluid">
-              </a>
-            </figure>
-
-            <figure class="col-md-4 d-md-inline-block">
-              <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(6).jpg"
-                data-size="1600x1067">
-                <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(6).jpg"
-                  class="img-fluid">
-              </a>
-            </figure>
-
-          </div>
-          <!--/.First slide-->
-
-          <!--Second slide-->
-          <div class="carousel-item text-center">
-
-            <figure class="col-md-4 d-md-inline-block">
-              <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(22).jpg"
-                data-size="1600x1067">
-                <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(22).jpg"
-                  class="img-fluid">
-              </a>
-            </figure>
-
-            <figure class="col-md-4 d-md-inline-block">
-              <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(25).jpg"
-                data-size="1600x1067">
-                <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(25).jpg"
-                  class="img-fluid">
-              </a>
-            </figure>
-
-            <figure class="col-md-4 d-md-inline-block">
-              <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(29).jpg"
-                data-size="1600x1067">
-                <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(29).jpg"
-                  class="img-fluid">
-              </a>
-            </figure>
-
-          </div>
-          <!--/.Second slide-->
-
-          <!--Third slide-->
-          <div class="carousel-item text-center">
-
-            <figure class="col-md-4 d-md-inline-block">
-              <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(44).jpg"
-                data-size="1600x1067">
-                <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(44).jpg"
-                  class="img-fluid">
-              </a>
-            </figure>
-
-            <figure class="col-md-4 d-md-inline-block">
-              <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(45).jpg"
-                data-size="1600x1067">
-                <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(45).jpg"
-                  class="img-fluid">
-              </a>
-            </figure>
-
-            <figure class="col-md-4 d-md-inline-block">
-              <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(66).jpg"
-                data-size="1600x1067">
-                <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(66).jpg"
-                  class="img-fluid">
-              </a>
-            </figure>
-
-          </div>
-          <!--/.Third slide-->
-
-        </div>
-        <!--/.Slides-->
-
-      </div>
-      <!--/.Carousel Wrapper-->
     </div>
   </div>
 </body>
