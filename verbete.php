@@ -235,15 +235,11 @@ if (isset($_POST['novo_video_titulo'])) {
                   <div class='col-12'>
                     <div id='imagens_carrossel' class='carousel slide carousel-multi-item v-2' data-ride='carousel'>
                       <div class='controls-top'>
-                        <a class='btn-floating btn-light btn-sm text-dark' href='#imagens_carrossel' data-slide='prev'><i class='fal fa-chevron-left fa-fw'></i></a>
-                        <a class='btn-floating btn-light btn-sm text-dark' href='#imagens_carrossel' data-slide='next'><i class='fal fa-chevron-right fa-fw'></i></a>
+                        <a class='btn-floating btn-light btn-sm text-dark z-depth-0' href='#imagens_carrossel' data-slide='prev'><i class='fal fa-chevron-left fa-fw'></i></a>
+                        <a class='btn-floating btn-light btn-sm text-dark z-depth-0' href='#imagens_carrossel' data-slide='next'><i class='fal fa-chevron-right fa-fw'></i></a>
                       </div>
-                      <ol class='carousel-indicators'>
-                        <li data-target='#imagens_carrossel' data-slide-to='0' class='active'></li>
-                        <li data-target='#imagens_carrossel' data-slide-to='1'></li>
-                      </ol>
                       <div class='carousel-inner v-2' role='listbox'>
-                  ";
+                ";
                         $active = 'active';
                         while($row = $result->fetch_assoc()) {
                           $imagem_titulo = $row['titulo'];
