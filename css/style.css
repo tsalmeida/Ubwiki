@@ -138,3 +138,8 @@ logo {
 .breadcrumb {
   background-color: transparent;
 }
+
+.cardlimit {
+  overflow-y: auto;
+  max-height: 350px;
+}
