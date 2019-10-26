@@ -228,37 +228,39 @@ if (isset($_POST['novo_video_titulo'])) {
                         <a class='btn-floating btn-light btn-sm text-dark z-depth-0' href='#imagens_carrossel' data-slide='next'><i class='fal fa-chevron-right fa-fw'></i></a>
                       </div>
                       <div class='carousel-inner v-2 mdb-lightbox' role='listbox'>
-                        <div id='lightbox-imagens2'></div>
+                        <div id='lightbox-imagens'></div>
+                          <div class='mdb-lightbox'>
                 ";
-                        $active = 'active';
-                        while($row = $result->fetch_assoc()) {
-                          $imagem_titulo = $row['titulo'];
-                          $imagem_link = $row['link'];
-                          $imagem_comentario = $row['comentario'];
-                          $imagem_arquivo = $row['arquivo'];
-                          $imagem_resolucao = $row['resolucao'];
-                          $imagem_orientacao = $row['orientacao'];
-                          if ($imagem_orientacao == 'retrato') { $col = 6; }
-                          else { $col = 12; }
-                          echo "
-                            <div class='carousel-item $active'>
-                              <div class='col-$col'>
-                                <div class='card mb-2 z-depth-0 border'>
-                                  <figure>
-                                    <a href='imagens/verbetes/$imagem_arquivo' data-size='$imagem_resolucao'>
-                                      <img class='card-img-top cardlimit img-fluid' src='imagens/verbetes/thumbnails/$imagem_arquivo'></img>
-                                    </a>
-                                  </figure>
-                                  <div class='card-body'>
-                                    <p>$imagem_titulo</p>
+                            $active = 'active';
+                            while($row = $result->fetch_assoc()) {
+                              $imagem_titulo = $row['titulo'];
+                              $imagem_link = $row['link'];
+                              $imagem_comentario = $row['comentario'];
+                              $imagem_arquivo = $row['arquivo'];
+                              $imagem_resolucao = $row['resolucao'];
+                              $imagem_orientacao = $row['orientacao'];
+                              if ($imagem_orientacao == 'retrato') { $col = 6; }
+                              else { $col = 12; }
+                              echo "
+                                <div class='carousel-item $active'>
+                                  <div class='col-$col'>
+                                    <div class='card mb-2 z-depth-0 border'>
+                                      <figure>
+                                        <a href='imagens/verbetes/$imagem_arquivo' data-size='$imagem_resolucao'>
+                                          <img class='card-img-top cardlimit img-fluid' src='imagens/verbetes/thumbnails/$imagem_arquivo'></img>
+                                        </a>
+                                      </figure>
+                                      <div class='card-body'>
+                                        <p>$imagem_titulo</p>
+                                      </div>
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
-                            </div>
-                          ";
-                          $active = false;
-                        }
-                        echo "
+                              ";
+                              $active = false;
+                            }
+                            echo "
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -513,7 +515,7 @@ if (isset($_POST['novo_video_titulo'])) {
 
       <div class="row">
         <div class="col-md-12">
-          <div id="lightbox-imagens"></div>
+          <div id="lightbox-imagens2"></div>
           <div class="mdb-lightbox no-margin">
             <figure class="col-md-4">
               <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(117).jpg" data-size="1600x1067">
