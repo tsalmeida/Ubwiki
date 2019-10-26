@@ -181,8 +181,10 @@ if (isset($_POST['novo_video_titulo'])) {
               ?>
             </div>
             <div class='col-2 h3 text-right'>
-            <span class='text-center' data-toggle='collapse' data-target='.verbete_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
-              <a data-toggle='modal' data-target='#modal_editar_verbete' href=''><i class="fal fa-pen-square fa-fw"></i></a>
+              <p>
+                <span class='text-center' data-toggle='collapse' data-target='.verbete_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
+                <a data-toggle='modal' data-target='#modal_editar_verbete' href=''><i class="fal fa-pen-square fa-fw"></i></a>
+              </p>
             </div>
           </div>
           <div class='row justify-content-left border-bottom border-dark py-3'>
