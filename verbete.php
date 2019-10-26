@@ -238,6 +238,7 @@ if (isset($_POST['novo_video_titulo'])) {
                             $imagem_arquivo = $row['arquivo'];
                             $imagem_resolucao = $row['resolucao'];
                             $imagem_orientacao = $row['orientacao'];
+                            error_log($imagem_titulo);
                             if ($imagem_orientacao == 'retrato') { $col = 6; }
                             else { $col = 12; }
                             echo "
