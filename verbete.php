@@ -529,7 +529,7 @@ if (isset($_POST['novo_video_titulo'])) {
           <!--First slide-->
           <div class=" carousel-item active text-center">
 
-            <figure class="col-md-4 d-md-inline-block">
+            <figure class="col-12">
               <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(2).jpg"
                 data-size="1600x1067">
                 <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(2).jpg"
@@ -544,7 +544,7 @@ if (isset($_POST['novo_video_titulo'])) {
           <!--Second slide-->
           <div class="carousel-item text-center">
 
-            <figure class="col-md-4 d-md-inline-block">
+            <figure class="col-12">
               <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(22).jpg"
                 data-size="1600x1067">
                 <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(22).jpg"
@@ -559,7 +559,7 @@ if (isset($_POST['novo_video_titulo'])) {
           <!--Third slide-->
           <div class="carousel-item text-center">
 
-            <figure class="col-md-4 d-md-inline-block">
+            <figure class="col-12">
               <a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(44).jpg"
                 data-size="1600x1067">
                 <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(44).jpg"
