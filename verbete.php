@@ -181,8 +181,8 @@ if (isset($_POST['novo_video_titulo'])) {
               ?>
             </div>
             <div class='col-2 h3 text-right'>
+            <span class='text-center' data-toggle='collapse' data-target='.verbete_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
               <a data-toggle='modal' data-target='#modal_editar_verbete' href=''><i class="fal fa-pen-square fa-fw"></i></a>
-              <span class='text-center' data-toggle='collapse' data-target='.verbete_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
             </div>
           </div>
           <div class='row justify-content-left border-bottom border-dark py-3'>
@@ -205,8 +205,8 @@ if (isset($_POST['novo_video_titulo'])) {
               <h2 class='align-left'>Imagens</h2>
             </div>
             <div class='col-2 text-right'>
+            <span data-toggle='collapse' data-target='.imagens_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
                 <a data-toggle='modal' data-target='#modal_imagens_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
-                <span data-toggle='collapse' data-target='.imagens_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
             </div>
           </div>
           <div class='row border-bottom border-dark'>
@@ -268,8 +268,8 @@ if (isset($_POST['novo_video_titulo'])) {
               <h2 class='align-left'>Vídeos e aulas</h2>
             </div>
             <div class='col-2 text-right'>
+            <span data-toggle='collapse' data-target='.videos_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
                 <a data-toggle='modal' data-target='#modal_videos_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
-                <span data-toggle='collapse' data-target='.videos_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
             </div>
           </div>
           <div class='row border-bottom border-dark py-5'>
@@ -299,8 +299,8 @@ if (isset($_POST['novo_video_titulo'])) {
               <h2 class='align-left'>Leia mais</h2>
             </div>
             <div class='col-2 text-right'>
+            <span data-toggle='collapse' data-target='.bibliografia_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
               <a data-toggle='modal' data-target='#modal_referencia_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
-              <span data-toggle='collapse' data-target='.bibliografia_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
             </div>
           </div>
           <div class='row border-bottom border-dark py-5'>
@@ -332,8 +332,8 @@ if (isset($_POST['novo_video_titulo'])) {
               <div class='col-10 text-left'>
                 <h2 class='align-left'>Anotações</h2>
               </div>
-              <div class='col-2 text-right'>
                 <span class='text-center' data-toggle='collapse' data-target='.anotacoes_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
+              <div class='col-2 text-right'>
               </div>
             </div>
             <div class='row border-bottom border-dark py-5'>
