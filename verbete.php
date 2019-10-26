@@ -227,7 +227,7 @@ if (isset($_POST['novo_video_titulo'])) {
                         <a class='btn-floating btn-light btn-sm text-dark z-depth-0' href='#imagens_carrossel' data-slide='prev'><i class='fal fa-chevron-left fa-fw'></i></a>
                         <a class='btn-floating btn-light btn-sm text-dark z-depth-0' href='#imagens_carrossel' data-slide='next'><i class='fal fa-chevron-right fa-fw'></i></a>
                       </div>
-                      <div class='carousel-inner v-2' role='listbox'>
+                      <div class='carousel-inner v-2 mdb-lightbox' role='listbox'>
                       <div id='lightbox-imagens'></div>
                 ";
                         $active = 'active';
