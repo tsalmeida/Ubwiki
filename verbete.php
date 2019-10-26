@@ -244,7 +244,6 @@ if (isset($_POST['novo_video_titulo'])) {
                         $active = false;
                       }
                       echo "
-                    </div>
                   </div>
                 </div>
                       ";
