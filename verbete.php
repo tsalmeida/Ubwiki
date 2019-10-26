@@ -296,7 +296,7 @@ if (isset($_POST['novo_video_titulo'])) {
         <div id='bibliografia' class='bibliografia_collapse collapse show mb-5'>
           <div class='row justify-content-between h3'>
             <div class='col-10 text-left'>
-              <h2 class='align-left'>Leitura complementar</h2>
+              <h2 class='align-left'>Leia mais</h2>
             </div>
             <div class='col-2 text-right'>
               <a data-toggle='modal' data-target='#modal_referencia_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
