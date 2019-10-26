@@ -40,7 +40,7 @@ function carregar_navbar() {
   echo "
         <i class='fal fa-user-tie fa-2x'></i>
         </a>
-        <div class='dropdown-menu dropdown-menu-right dropdown-default'>
+        <div class='dropdown-menu dropdown-menu-right'>
           <a class='dropdown-item navlink' href='userpage.php'>Sua página</a>
           <a class='dropdown-item' href='logout.php'>Logout</a>
       </li>
