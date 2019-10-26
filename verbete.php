@@ -501,7 +501,7 @@ if (isset($_POST['novo_video_titulo'])) {
     </div>
   </div>
   <div class='row'>
-    <div class=col-12>
+    <div class=col-5>
       <!--Carousel Wrapper-->
       <div id="carousel-with-lb" class="carousel slide carousel-multi-item" data-ride="carousel">
 
