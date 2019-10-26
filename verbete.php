@@ -228,6 +228,8 @@ if (isset($_POST['novo_video_titulo'])) {
               <?php
               $result = $conn->query("SELECT titulo, link, arquivo, resolucao, comentario FROM Imagens WHERE id_tema = $id_tema AND concurso = '$concurso'");
               if ($result->num_rows > 0) {
+                $check = serialize($result);
+                error_log($check);
                 echo "
                 <div class='row'>
                   <div class='col-12'>
