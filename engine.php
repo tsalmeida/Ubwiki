@@ -447,6 +447,9 @@ function make_thumb() {
     elseif ($check == ".gif") {
         imagegif($virtual_image, "$destination");
     }
+    $x = 'x';
+    $resolucao_original = "$width$x$height";
+    return $resolucao_original;
 }
 
 ?>
