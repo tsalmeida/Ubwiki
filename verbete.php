@@ -244,6 +244,7 @@ if (isset($_POST['novo_video_titulo'])) {
                       </ol>
                       <div class='carousel-inner v-2' role='listbox'>
                   ";
+                        $active = 'active';
                         while($row = $result->fetch_assoc()) {
                           $imagem_titulo = $row['titulo'];
                           $imagem_link = $row['link'];
@@ -251,7 +252,7 @@ if (isset($_POST['novo_video_titulo'])) {
                           $imagem_arquivo = $row['arquivo'];
                           $imagem_resolucao = $row['resolucao'];
                           echo "
-                            <div class='carousel-item'>
+                            <div class='carousel-item $active'>
                               <div class='col-12 col-md-4'>
                                 <div class='card mb-2'>
                                   <img class='card-img-top' src='imagens/verbetes/thumbnails/$imagem_arquivo'></img>
@@ -265,6 +266,7 @@ if (isset($_POST['novo_video_titulo'])) {
                               </div>
                             </div>
                           ";
+                          $active = false;
                         }
                         echo "
                       </div>
