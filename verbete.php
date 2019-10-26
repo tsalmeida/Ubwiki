@@ -116,8 +116,10 @@ if (isset($_POST['nova_imagem_link'])) {
     $nova_imagem_arquivo = "$randomfilename$extensao";
     $nova_imagem_diretorio = "imagens/verbetes/$randomfilename$extensao";
     file_put_contents("$nova_imagem_diretorio", fopen($nova_imagem_link, 'r'));
-    $nova_imagem_resolucao_original = make_thumb($nova_imagem_arquivo);
-    $result = $conn->query("INSERT INTO Imagens (id_tema, concurso, titulo, link, arquivo, resolucao, comentario, trecho, usuario) VALUES ($id_tema, '$concurso', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_arquivo', '$nova_imagem_resolucao_original', '$nova_imagem_comentario', '$nova_imagem_trecho', '$user')");
+    $dados_da_imagem = make_thumb($nova_imagem_arquivo);
+    $nova_imagem_resolucao_original = $dados_da_imagem[0];
+    $nova_imagem_orientacao = $dados_da_imagem[1];
+    $result = $conn->query("INSERT INTO Imagens (id_tema, concurso, titulo, link, arquivo, resolucao, orientacao, comentario, trecho, usuario) VALUES ($id_tema, '$concurso', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_arquivo', '$nova_imagem_resolucao_original', '$nova_imagem_orientacao', '$nova_imagem_comentario', '$nova_imagem_trecho', '$user')");
   }
 }
 
@@ -226,10 +228,8 @@ if (isset($_POST['novo_video_titulo'])) {
           <div class='row justify-content-center border-bottom border-dark py-5'>
             <div class='col-12 text-left font-weight-normal'>
               <?php
-              $result = $conn->query("SELECT titulo, link, arquivo, resolucao, comentario FROM Imagens WHERE id_tema = $id_tema AND concurso = '$concurso'");
+              $result = $conn->query("SELECT titulo, link, arquivo, resolucao, orientacao, comentario FROM Imagens WHERE id_tema = $id_tema AND concurso = '$concurso'");
               if ($result->num_rows > 0) {
-                $check = serialize($result);
-                error_log($check);
                 echo "
                 <div class='row'>
                   <div class='col-12'>
@@ -251,9 +251,12 @@ if (isset($_POST['novo_video_titulo'])) {
                           $imagem_comentario = $row['comentario'];
                           $imagem_arquivo = $row['arquivo'];
                           $imagem_resolucao = $row['resolucao'];
+                          $imagem_orientacao = $row['orientacao'];
+                          if ($imagem_orientacao == 'retrato') { $col = 6; }
+                          else { $col = 12; }
                           echo "
                             <div class='carousel-item $active'>
-                              <div class='col-12'>
+                              <div class='col-$col'>
                                 <div class='card mb-2'>
                                   <img class='card-img-top cardlimit' src='imagens/verbetes/thumbnails/$imagem_arquivo'></img>
                                   <div class='card-body'>

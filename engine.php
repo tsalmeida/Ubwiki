@@ -470,8 +470,11 @@ function make_thumb() {
         imagegif($virtual_image, "$destination");
     }
     $x = 'x';
+    if ($width > $height) { $orientacao = 'paisagem'; }
+    else { $orientacao = 'retrato'; }
     $resolucao_original = "$width$x$height";
-    return $resolucao_original;
+    $dados_da_imagem  = array($resolucao_original,$orientacao);
+    return $dados_da_imagem;
 }
 
 ?>
