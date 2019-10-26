@@ -254,8 +254,8 @@ if (isset($_POST['novo_video_titulo'])) {
                           echo "
                             <div class='carousel-item $active'>
                               <div class='col-6'>
-                                <div class='card mb-2 cardlimit'>
-                                  <img class='card-img-top' src='imagens/verbetes/thumbnails/$imagem_arquivo'></img>
+                                <div class='card mb-2'>
+                                  <img class='card-img-top cardlimit' src='imagens/verbetes/thumbnails/$imagem_arquivo'></img>
                                   <div class='card-body'>
                                     <p>$imagem_titulo</p>
                                   </div>
