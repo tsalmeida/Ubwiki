@@ -275,11 +275,12 @@ function bottom_page() {
       }
       elseif ($args[$array] == 'lightbox') {
         echo "
-        <script type='text/javascript'>
-          $(function () {
-          $('#mdb-lightbox-ui').load('mdb-addons/mdb-lightbox-ui.html');
-          });
-        </script>";
+          <script type='text/javascript'>
+            $(function () {
+            $('#mdb-lightbox-ui').load('mdb-addons/mdb-lightbox-ui.html');
+            });
+          </script>
+        ";
       }
       elseif ($args[$array] == 'carousel') {
         echo "
