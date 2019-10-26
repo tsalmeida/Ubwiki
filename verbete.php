@@ -267,7 +267,8 @@ if (isset($_POST['novo_video_titulo'])) {
                       echo "
                     </div>
                   </div>
-                </div>";
+                </div>
+              </div>";
               }
               else {
                 echo "<p>Não foram acrescentadas, até o momento, imagens a este verbete.</p>";
