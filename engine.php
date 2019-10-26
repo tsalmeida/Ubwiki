@@ -275,7 +275,7 @@ function bottom_page() {
       }
       elseif ($args[$array] == 'lightbox-imagens') {
         echo "
-          <script>
+          <script type='text/javascript'>
             $(function () {
               $('#lightbox-imagens').load('mdb-addons/mdb-lightbox-ui.html');
             });
@@ -284,7 +284,7 @@ function bottom_page() {
       }
       elseif ($args[$array] == 'lightbox-test') {
         echo "
-          <script>
+          <script type='text/javascript'>
           $(function () {
             $('#mdb-lightbox-ui').load('mdb-addons/mdb-lightbox-ui.html');
           });
@@ -293,7 +293,7 @@ function bottom_page() {
       }
       elseif ($args[$array] == 'carousel') {
         echo "
-          <script>
+          <script type='text/javascript'>
             $('.carousel.carousel-multi-item.v-2 .carousel-item').each(function(){
               var next = $(this).next();
               if (!next.length) {
