@@ -52,7 +52,7 @@ function breadcrumbs($content) {
   echo "
     <div class='container-fluid grey lighten-4'>
       <div class='row'>
-        <div class='col-lg-10 col-sm-12'>
+        <div class='col-lg-9 col-sm-12'>
           <div class='text-left'>
             <nav>
               <ol class='breadcrumb d-inline-flex transparent mb-0'>
@@ -61,14 +61,14 @@ function breadcrumbs($content) {
             </nav>
           </div>
         </div>
-        <div class='col-lg-2 col-sm-12'>
+        <div class='col-lg-3 col-sm-12'>
           <div class='text-right'>
             <ol class='breadcrumb d-inline-flex transparent mb-0'>
               <li class='breadcrumb-item' title='Verbetes relacionados'><a href=''><i class='fal fa-chart-network fa-fw'></i></a></li>
               <li class='breadcrumb-item' title='Simulados'><a href=''><i class='fal fa-check-double fa-fw'></i></a></li>
               <li class='breadcrumb-item' title='Fórum'><a href=''><i class='fal fa-comments-alt fa-fw'></i></a></li>
               <li id='add_bookmark' class='breadcrumb-item' title='Marcar para leitura'><i class='fal fa-bookmark fa-fw'></i><a href=''></a></li>
-              <li id='remove_bookmark' class='breadcrumb-item' title='Marcar para leitura'><span class='danger-color'><i class='fas fa-bookmark fa-fw'></i></span><a href=''></a></li>
+              <li id='remove_bookmark' class='breadcrumb-item' title='Marcar para leitura'><span class='text-danger'><i class='fas fa-bookmark fa-fw'></i></span><a href=''></a></li>
             </ol>
           </div>
         </div>
