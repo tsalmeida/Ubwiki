@@ -511,6 +511,6 @@ if (isset($_POST['novo_video_titulo'])) {
 </body>
 <?php
     load_footer();
-    bottom_page("quill_v", 'carousel');
+    bottom_page("quill_v", 'carousel', 'lightbox');
     $conn->close();
 ?>
