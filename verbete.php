@@ -173,7 +173,7 @@ if (isset($_POST['novo_video_titulo'])) {
   <div class='container-fluid'>
     <div class='row justify-content-around my-5'>
       <div class='col-lg-5 col-sm-12'>
-        <div id='verbete' class='verbete_collapse mb-5'>
+        <div id='verbete' class='verbete_collapse collapse show mb-5'>
           <div class='row text-left'>
             <div class='col-10 text-left'>
               <?php
