@@ -325,7 +325,7 @@ if (isset($_POST['novo_video_titulo'])) {
           </div>
         </div>
       </div>
-      <div id='anotacoes' class='col-lg-5 col-sm-12 anotacoes_collapse'>
+      <div class='col-lg-5 col-sm-12 anotacoes_collapse collapse show'>
         <div class='row'>
           <div class='col-12'>
             <div class='row justify-content-between h3'>
