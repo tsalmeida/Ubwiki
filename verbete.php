@@ -182,7 +182,7 @@ if (isset($_POST['novo_video_titulo'])) {
             </div>
             <div class='col-2 h3 text-right'>
               <a data-toggle='modal' data-target='#modal_editar_verbete' href=''><i class="fal fa-pen-square fa-fw"></i></a>
-              <span class='text-center' data-toggle='collapse' data-target='.verbete_collapse'><a href='#inicio'><i class='fal fa-times-square fa-fw'></i></a></span>
+              <span class='text-center' data-toggle='collapse' data-target='.verbete_collapse'><a href='#'><i class='fal fa-times-square fa-fw'></i></a></span>
             </div>
           </div>
           <div class='row justify-content-left border-bottom border-dark py-3'>
@@ -333,7 +333,7 @@ if (isset($_POST['novo_video_titulo'])) {
                 <h2 class='align-left'>Anotações</h2>
               </div>
               <div class='col-2 text-right'>
-                <span class='text-center' data-toggle='collapse' data-target='.anotacoes_collapse'><a href='#inicio'><i class='fal fa-times-square fa-fw'></i></a></span>
+                <span class='text-center' data-toggle='collapse' data-target='.anotacoes_collapse'><a href='#'><i class='fal fa-times-square fa-fw'></i></a></span>
               </div>
             </div>
             <div class='row border-bottom border-dark py-5'>
@@ -467,7 +467,7 @@ if (isset($_POST['novo_video_titulo'])) {
     <div class='modal fade' id='modal_editar_verbete' role='dialog' tabindex='-1'>
       <div class='modal-dialog modal-lg quill_modal' role='document'>
         <div class='modal-content'>
-          <form id='quill_verbete_form' method='post' action='#inicio'>
+          <form id='quill_verbete_form' method='post' action='#'>
             <input name='quill_novo_verbete_html' type='hidden'>
             <div class='modal-header text-center'>
               <h4 class='modal-title w-100 font-weight-bold'>Editar verbete</h4>
