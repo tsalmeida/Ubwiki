@@ -9,7 +9,7 @@
   }
 
   include 'engine.php';
-  top_page("quill_v");
+  top_page("quill_v", "lightbox");
   $result = $conn->query("SELECT id FROM Usuarios WHERE email = '$user'");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {

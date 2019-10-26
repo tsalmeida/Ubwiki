@@ -273,6 +273,15 @@ function bottom_page() {
           </script>
         ";
       }
+      elseif ($args[$array] == 'lightbox') {
+        echo "
+          <script>
+            $(function () {
+              $('#mdb-lightbox-ui').load('mdb-addons/mdb-lightbox-ui.html');
+            });
+          </script>
+        ";
+      }
       $array++;
     }
   }
