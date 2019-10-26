@@ -67,7 +67,7 @@ function breadcrumbs($content) {
               <li class='breadcrumb-item' title='Verbetes relacionados'><a href=''><i class='fal fa-chart-network fa-fw'></i></a></li>
               <li class='breadcrumb-item' title='Simulados'><a href=''><i class='fal fa-check-double fa-fw'></i></a></li>
               <li class='breadcrumb-item' title='Fórum'><a href=''><i class='fal fa-comments-alt fa-fw'></i></a></li>
-              <li id='add_bookmark' class='breadcrumb-item' title='Marcar para leitura'><i class='fal fa-bookmark fa-fw'></i><a href=''></a></li>
+              <li id='add_bookmark' class='breadcrumb-item' title='Marcar para leitura'><a href=''><i class='fal fa-bookmark fa-fw'></i></a></li>
               <li id='remove_bookmark' class='breadcrumb-item' title='Marcar para leitura'><span class='text-danger'><i class='fas fa-bookmark fa-fw'></i></span><a href=''></a></li>
             </ol>
           </div>
