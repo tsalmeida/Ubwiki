@@ -281,6 +281,25 @@ function bottom_page() {
           });
         </script>";
       }
+      elseif ($args[$array] == 'carousel') {
+        echo "
+          $('.carousel.carousel-multi-item.v-2 .carousel-item').each(function(){
+            var next = $(this).next();
+            if (!next.length) {
+              next = $(this).siblings(':first');
+            }
+            next.children(':first-child').clone().appendTo($(this));
+
+            for (var i=0;i<4;i++) {
+              next=next.next();
+              if (!next.length) {
+                next=$(this).siblings(':first');
+              }
+              next.children(':first-child').clone().appendTo($(this));
+            }
+          });
+        ";
+      }
       $array++;
     }
   }
