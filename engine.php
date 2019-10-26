@@ -48,7 +48,10 @@ function carregar_navbar() {
   </nav>";
 }
 
-function breadcrumbs($content) {
+function breadcrumbs() {
+  $content = func_get_args();
+  if ($content[0] != false) { $breadcrumbs = $content[0]; }
+  if ($content[1] != false) { $id_tema = $content[1]; }
   echo "
     <div class='container-fluid grey lighten-4'>
       <div class='row'>
@@ -56,7 +59,7 @@ function breadcrumbs($content) {
           <div class='text-left'>
             <nav>
               <ol class='breadcrumb d-inline-flex transparent mb-0'>
-                $content
+                $breadcrumbs
               </ol>
             </nav>
           </div>
@@ -67,8 +70,8 @@ function breadcrumbs($content) {
               <li id='verbetes_relacionados' class='breadcrumb-item' title='Verbetes relacionados'><a href='#'><i class='fal fa-chart-network fa-fw'></i></a></li>
               <li id='simulados' class='breadcrumb-item' title='Simulados'><a href='#'><i class='fal fa-check-double fa-fw'></i></a></li>
               <li id='forum' class='breadcrumb-item' title='Fórum'><a href='#'><i class='fal fa-comments-alt fa-fw'></i></a></li>
-              <li id='add_bookmark' class='breadcrumb-item' title='Marcar para leitura'><a href='#'><i class='fal fa-bookmark fa-fw'></i></a></li>
-              <li id='remove_bookmark' class='breadcrumb-item' title='Marcar para leitura'><a href='#'><span class='text-danger'><i class='fas fa-bookmark fa-fw'></i></span></span></a></li>
+              <li id='add_bookmark' class='breadcrumb-item' title='Marcar para leitura' value='$id_tema'><a href='#'><i class='fal fa-bookmark fa-fw'></i></a></li>
+              <li id='remove_bookmark' class='breadcrumb-item' title='Remover da lista de leitura' value='$id_tema'><a href='#'><span class='text-danger'><i class='fas fa-bookmark fa-fw'></i></span></span></a></li>
             </ol>
           </div>
         </div>
