@@ -117,6 +117,7 @@ if (isset($_POST['nova_imagem_link'])) {
     $nova_imagem_diretorio = "imagens/verbetes/$randomfilename$extensao";
     file_put_contents("$nova_imagem_diretorio", fopen($nova_imagem_link, 'r'));
     $dados_da_imagem = make_thumb($nova_imagem_arquivo);
+    if ($dados_da_imagem == false) { return false; }
     $nova_imagem_resolucao_original = $dados_da_imagem[0];
     $nova_imagem_orientacao = $dados_da_imagem[1];
     $result = $conn->query("INSERT INTO Imagens (id_tema, concurso, titulo, link, arquivo, resolucao, orientacao, comentario, trecho, usuario) VALUES ($id_tema, '$concurso', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_arquivo', '$nova_imagem_resolucao_original', '$nova_imagem_orientacao', '$nova_imagem_comentario', '$nova_imagem_trecho', '$user')");

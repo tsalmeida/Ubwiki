@@ -435,6 +435,7 @@ function make_thumb() {
     $filename = func_get_args();
     $filename = $filename[0];
     $check = substr($filename, -4);
+    $check = strtolower($check);
     /* read the source image */
     $original = "imagens/verbetes/$filename";
     if (($check == ".jpg") || ($check == "jpeg")) {
@@ -445,6 +446,9 @@ function make_thumb() {
     }
     elseif ($check == ".gif") {
         $source_image = imagecreatefromgif($original);
+    }
+    else {
+      return false;
     }
     $width = imagesx($source_image);
     $height = imagesy($source_image);
