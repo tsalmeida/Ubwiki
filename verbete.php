@@ -513,13 +513,13 @@ if (isset($_POST['novo_video_titulo'])) {
   <div class='row'>
     <div class='col-12'>
       <!--Carousel Wrapper-->
-      <div id="carousel-with-lb" class="carousel slide carousel-multi-item" data-ride="carousel">
+      <div id="carousel-imagens" class="carousel slide carousel-multi-item" data-ride="carousel">
 
         <!--Controls-->
         <div class="controls-top">
-          <a class="btn-floating btn-light" href="#carousel-with-lb" data-slide="prev"><i
+          <a class="btn-floating btn-light z-depth-0" href="#carousel-with-lb" data-slide="prev"><i
               class="fas fa-chevron-left"></i></a>
-          <a class="btn-floating btn-light" href="#carousel-with-lb" data-slide="next"><i
+          <a class="btn-floating btn-light z-depth-0" href="#carousel-with-lb" data-slide="next"><i
               class="fas fa-chevron-right"></i></a>
         </div>
         <!--/.Controls-->
