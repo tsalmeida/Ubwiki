@@ -427,7 +427,7 @@ function make_thumb() {
 
     /* find the "desired height" of this thumbnail, relative to the desired width  */
     $desired_height = 300;
-    $desired_width = floor($desired_height * ($height / $width));
+    $desired_width = floor($width * ($desired_height / $height));
 
     /* create a new, "virtual" image */
     $virtual_image = imagecreatetruecolor($desired_width, $desired_height);
