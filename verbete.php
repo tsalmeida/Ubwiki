@@ -165,7 +165,7 @@ if (isset($_POST['novo_video_titulo'])) {
         <button class='btn btn-primary btn-sm verbete_collapse' data-toggle='collapse' data-target='.verbete_collapse' href='#inicio'>Verbete</button>
         <button class='btn btn-primary btn-sm imagens_collapse ml-1' data-toggle='collapse' data-target='.imagens_collapse' href='#imagens'>Imagens</button>
         <button class='btn btn-primary btn-sm videos_collapse ml-1' data-toggle='collapse' data-target='.videos_collapse' href='#videos'>Vídeos</button>
-        <button class='btn btn-primary btn-sm bibliografia_collapse ml-1' data-toggle='collapse' data-target='.bibliografia_collapse' href='#bibliografia'>Leitura complementar</button>
+        <button class='btn btn-primary btn-sm bibliografia_collapse ml-1' data-toggle='collapse' data-target='.bibliografia_collapse' href='#bibliografia'>Leia mais</button>
         <button class='btn btn-primary btn-sm collapse anotacoes_collapse ml-1' data-toggle='collapse' data-target='.anotacoes_collapse' href='#anotacoes'>Anotações</button>
       </div>
     </div>
