@@ -226,7 +226,7 @@ if (isset($_POST['novo_video_titulo'])) {
           <div class='row justify-content-center border-bottom border-dark py-5'>
             <div class='col-12 text-left font-weight-normal'>
               <?php
-              $result = $conn->query("SELECT titulo, link, arquivo, comentario FROM Imagens WHERE id_tema = $id_tema AND concurso = '$concurso'");
+              $result = $conn->query("SELECT titulo, link, arquivo, resolucao, comentario FROM Imagens WHERE id_tema = $id_tema AND concurso = '$concurso'");
               if ($result->num_rows > 0) {
                 echo "
                 <div class='row'>
@@ -239,9 +239,10 @@ if (isset($_POST['novo_video_titulo'])) {
                         $imagem_link = $row['link'];
                         $imagem_comentario = $row['comentario'];
                         $imagem_arquivo = $row['arquivo'];
+                        $resolucao = $row['resolucao'];
                         echo "
                           <figure class='col-md-4'>
-                            <a href='imagens/verbetes/$imagem_arquivo' data-size='1600x1067'>
+                            <a href='imagens/verbetes/$imagem_arquivo' data-size='$resolucao'>
                               <img src='imagens/verbetes/thumbnails/$imagem_arquivo' class='img-fluid'></img>
                             </a>
                             <figcaption>$imagem_titulo // $imagem_comentario // <a href='$imagem_link'>Link original.</a></figcaption>
