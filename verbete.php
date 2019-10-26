@@ -162,11 +162,11 @@ if (isset($_POST['novo_video_titulo'])) {
   <div class='container-fluid grey lighten-5' data-toggle='buttons'>
     <div class='row'>
       <div class='col-12 d-flex justify-content-center'>
-        <button class='btn btn-light btn-rounded text-white btn-sm verbete_collapse collapse' data-toggle='collapse' data-target='.verbete_collapse' role='button'>Verbete</button>
-        <button class='btn btn-light btn-rounded text-white btn-sm imagens_collapse collapse ml-1' data-toggle='collapse' data-target='.imagens_collapse' role='button'>Imagens</button>
-        <button class='btn btn-light btn-rounded text-white btn-sm videos_collapse ml-1 collapse' data-toggle='collapse' data-target='.videos_collapse' role='button'>Vídeos</button>
-        <button class='btn btn-light btn-rounded text-white btn-sm bibliografia_collapse collapse ml-1' data-toggle='collapse' data-target='.bibliografia_collapse' role='button'>Leia mais</button>
-        <button class='btn btn-light btn-rounded text-white btn-sm collapse anotacoes_collapse ml-1 collapse' data-toggle='collapse' data-target='.anotacoes_collapse' role='button'>Anotações</button>
+        <button class='btn btn-light btn-rounded btn-sm verbete_collapse collapse' data-toggle='collapse' data-target='.verbete_collapse' role='button'>Verbete</button>
+        <button class='btn btn-light btn-rounded btn-sm imagens_collapse collapse ml-1' data-toggle='collapse' data-target='.imagens_collapse' role='button'>Imagens</button>
+        <button class='btn btn-light btn-rounded btn-sm videos_collapse ml-1 collapse' data-toggle='collapse' data-target='.videos_collapse' role='button'>Vídeos</button>
+        <button class='btn btn-light btn-rounded btn-sm bibliografia_collapse collapse ml-1' data-toggle='collapse' data-target='.bibliografia_collapse' role='button'>Leia mais</button>
+        <button class='btn btn-light btn-rounded btn-sm collapse anotacoes_collapse ml-1 collapse' data-toggle='collapse' data-target='.anotacoes_collapse' role='button'>Anotações</button>
       </div>
     </div>
   </div>
