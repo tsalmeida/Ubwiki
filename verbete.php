@@ -224,7 +224,7 @@ if (isset($_POST['novo_video_titulo'])) {
                   <div class='col-12 overflow-auto'>
                     <div id='lightbox-imagens'></div>
                     <div class='mdb-lightbox no-margin'>
-                      <ul class='list-inline'>
+                      <ul class='list-group list-group-horizontal'>
                 ";
                         $active = 'active';
                         while($row = $result->fetch_assoc()) {
@@ -234,11 +234,11 @@ if (isset($_POST['novo_video_titulo'])) {
                           $imagem_arquivo = $row['arquivo'];
                           $imagem_resolucao = $row['resolucao'];
                           $imagem_orientacao = $row['orientacao'];
-                          if ($imagem_orientacao == 'retrato') { $col = 6; }
-                          else { $col = 12; }
+                          // if ($imagem_orientacao == 'retrato') { $col = 6; }
+                          // else { $col = 12; }
                           echo "
-                            <li>
-                              <figure class='col-$col'>
+                            <li class='list-group-item'>
+                              <figure>
                                 <a href='imagens/verbetes/$imagem_arquivo' data-size='$imagem_resolucao'>
                                   <img class='img-fluid' src='imagens/verbetes/thumbnails/$imagem_arquivo'></img>
                                 </a>
