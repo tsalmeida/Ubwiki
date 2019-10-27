@@ -339,6 +339,7 @@
             </div>
           </div>
         </div>
+
         <div id='videos' class='videos_collapse collapse show mb-5'>
           <div class='row justify-content-between h3'>
             <div class='col-10 text-left'>
@@ -372,6 +373,7 @@
             </div>
           </div>
         </div>
+
         <div id='bibliografia' class='bibliografia_collapse collapse show mb-5'>
           <div class='row justify-content-between h3'>
             <div class='col-10 text-left'>
@@ -391,18 +393,23 @@
                 if ($result->num_rows > 0) {
                   echo "<ul class='list-group'>";
                     while($row = $result->fetch_assoc()) {
-                      $referencia_titulo = $row['titulo'];
-                      $referencia_autor = $row['autor'];
-                      $referencia_capitulo = $row['capitulo'];
-                      $referencia_ano = $row['ano'];
-                      $referencia_link = $row['link'];
-                      if ($referencia_link != '') {
-                        echo "<li class='list-group-item'>$referencia_titulo : $referencia_autor : $referencia_capitulo : $referencia_ano : <a href='$referencia_link' target='_blank'>link</a></li>";
+                      $id_elemento = $row['id_elemento'];
+                      $result2 = $conn->query("SELECT titulo, autor, capitulo, ano, link FROM Elementos WHERE id = $id_elemento")
+                      if ($result2->num_rows > 0) {
+                        while ($row = $result2->fetch_assoc()) {
+                          $referencia_titulo = $row['titulo'];
+                          $referencia_autor = $row['autor'];
+                          $referencia_capitulo = $row['capitulo'];
+                          $referencia_ano = $row['ano'];
+                          $referencia_link = $row['link'];
+                          if ($referencia_link != '') {
+                            echo "<li class='list-group-item'>$referencia_titulo : $referencia_autor : $referencia_capitulo : $referencia_ano : <a href='$referencia_link' target='_blank'>link</a></li>";
+                          }
+                          else {
+                            echo "<li class='list-group-item'>$referencia_titulo : $referencia_autor : $referencia_capitulo : $referencia_ano</li>";
+                          }
+                        }
                       }
-                      else {
-                        echo "<li class='list-group-item'>$referencia_titulo : $referencia_autor : $referencia_capitulo : $referencia_ano</li>";
-                      }
-
                     }
                   echo "</ul>";
                 }
@@ -413,7 +420,9 @@
             </div>
           </div>
         </div>
+
       </div>
+
       <div id='coluna_direita' class='col-lg-5 col-sm-12 anotacoes_collapse collapse show'>
         <div class='row'>
           <div class='col-12'>
