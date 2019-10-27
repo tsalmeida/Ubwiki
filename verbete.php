@@ -157,7 +157,7 @@
       if ($result2->num_rows == 0) {
         while ($row = $result2->fetch_assoc()) {
           $nova_referencia_id = $row['id'];
-          $insert = $conn->query("INSERT INTO Verbetes_elementos (id_tema, id_elemento, tipo, user_id) VALUES ($tema_id, $nova_referencia_id, 'referencia', $user_id)")
+          $insert = $conn->query("INSERT INTO Verbetes_elementos (id_tema, id_elemento, tipo, user_id) VALUES ($tema_id, $nova_referencia_id, 'referencia', $user_id)");
           break;
         }
       }
