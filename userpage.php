@@ -10,7 +10,7 @@
   }
 
   include 'engine.php';
-  top_page();
+  top_page(false);
 
   $result = $conn->query("SELECT id, tipo, criacao, apelido, nome, sobrenome FROM Usuarios WHERE email = '$user'");
   if ($result->num_rows > 0) {

@@ -9,7 +9,7 @@
   }
 
   include 'engine.php';
-  top_page();
+  top_page(false);
 
 ?>
   <body>

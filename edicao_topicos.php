@@ -171,7 +171,7 @@
     $revisao = false;
   }
 
-  top_page();
+  top_page(false);
 
   ?>
   <body>

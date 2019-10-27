@@ -130,7 +130,7 @@
     array_push($lista_concursos, $um_concurso);
   }
 
-  top_page("quill_admin");
+  top_page(false, "quill_admin");
   ?>
   <body>
     <?php

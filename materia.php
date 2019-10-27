@@ -9,7 +9,7 @@ else {
 }
 
 include 'engine.php';
-top_page();
+top_page(false);
 
 if (isset($_GET['sigla'])) {
   $sigla = $_GET['sigla'];

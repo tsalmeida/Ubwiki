@@ -114,6 +114,11 @@ function top_page() {
     if ($args != false) {
       $array = 0;
       while (isset($args[$array])) {
+        if ($array == 0) {
+          if ($args[0] != false) {
+            echo $args[0];
+          }
+        }
         if (($args[$array] == "quill_v") || ($args[$array] == "quill_admin")) {
           echo "
             <link href='css/quill.snow.css' rel='stylesheet'>

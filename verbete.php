@@ -9,7 +9,6 @@
   }
 
   include 'engine.php';
-  top_page("quill_v", "lightbox");
   $result = $conn->query("SELECT id FROM Usuarios WHERE email = '$user'");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
@@ -24,6 +23,17 @@
   if (isset($_GET['concurso'])) {
     $concurso = $_GET['concurso'];
   }
+
+  $variaveis_php_session = "
+    <script type='text/javascript'>
+      var tema_id=$tema_id;
+      var concurso=$concurso;
+      var user_email=$user;
+      alert(tema_id);
+    </script>
+  ";
+
+  top_page($variaveis_php_session, "quill_v", "lightbox");
 
   $result = $conn->query("SELECT sigla_materia, nivel, ordem, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND id = $tema_id");
   if ($result->num_rows > 0) {
@@ -140,10 +150,10 @@
     }
   }
 
-  $bookmark = $conn->query("SELECT conteudo_boolean FROM $tabela_usuario WHERE tipo = 'bookmark' AND tipo2 = '$sigla_materia'");
+  $bookmark = $conn->query("SELECT bookmark FROM Bookmarks WHERE user_id = $user_id AND tema_id = $tema_id");
   if ($bookmark->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
-      $tema_bookmark = $row['conteudo_boolean'];
+      $tema_bookmark = $row['bookmark'];
     }
   }
   else {
