@@ -65,7 +65,7 @@
                     <li class='list-group-item list-group-item-action'><strong>Orientação:</strong> $orientacao_elemento</li>
                     <li class='list-group-item list-group-item-action'><strong>Comentário:</strong> $comentario_elemento</li>
                     <li class='list-group-item list-group-item-action'><strong>Trecho:</strong> $trecho_elemento</li>
-                    <li class='list-group-item list-group-item-action'>Acrescentado pelo usuário $user_apelido_elemento</li>
+                    <li class='list-group-item list-group-item-action'>Acrescentado pelo usuário <strong>$user_apelido_elemento</strong></li>
                   </ul>
                 ";
               }
