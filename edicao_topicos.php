@@ -357,6 +357,38 @@
               </fieldset>
               <button type='submit' class='btn btn-primary' name='nova_materia_concurso'>Incluir matéria</button>
             </form>
+            <form class='border border-light p-4 my-2' method='post'>
+              <h2>Ativar matéria</h2>
+                <p>Após compôr definitivamente a lista de tópicos de uma matéria, é necessário ativá-la para que os usuários a vejam. Uma vez ativada, não será possível remover tópicos, embora ainda seja possível acrescentar tópicos novos ou mudar o nome dos tópicos pre-existentes, inclusive tópicos de primeiro nível.</p>
+                <p>Em suma, apenas ative uma matéria se tiver certeza que nenhum tópico precisará ser removido.</p>
+<?php
+                  $result = $conn->query("SELECT materia, sigla, estado FROM Materias WHERE concurso = '$concurso' AND estado = 0");
+                  if ($result->num_rows > 0) {
+                    while($row = $result->fetch_assoc()) {
+                      $sigla = $row['sigla'];
+                      $materia_pick = $row['materia'];
+                      $item_id = "ativar_materia_";
+                      $item_id .= $sigla;
+                      echo "
+                        <div class='form-check my-1'>
+                          <input class='form-check-input' type='radio' name='ativar_materia' id='$item_id' value='$sigla'>
+                          <label class='form-check-label' for='$item_id'>$materia_pick</label>
+                        </div>
+                      ";
+                    }
+                  }
+                  else {
+                    echo "<p>Este concurso não possui matérias desativadas.</p>";
+                  }
+?>
+              <div class='row justify-content-center'>
+<?
+                echo "
+                  <button name='ativar_materia' type='submit' class='btn btn-primary' value='$concurso'>Ativar materia</button>
+                ";
+?>
+              </div>
+            </form>
           </div>
 
         <?php
