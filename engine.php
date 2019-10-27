@@ -362,6 +362,7 @@ function bottom_page() {
         			'bookmark_tema_id': tema_id,
         			'bookmark_user_id': user_id
         		}, function(data) {
+              alert(data);
         			if (data == true) {
         				$('#add_bookmark').hide();
         				$('#remove_bookmark').show();
@@ -376,6 +377,7 @@ function bottom_page() {
         			'bookmark_tema_id': tema_id,
         			'bookmark_user_id': user_id
         		}, function(data) {
+              alert(data);
         			if (data == true) {
         				$('#add_bookmark').hide();
         				$('#remove_bookmark').show();
@@ -385,9 +387,6 @@ function bottom_page() {
         	});
         </script>
         '";
-      }
-      elseif ($args[$array] == 'testing') {
-        echo "<script type='text/javascript'> alert(tema_id); </script>";
       }
       $array++;
     }
