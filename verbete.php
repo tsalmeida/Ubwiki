@@ -81,9 +81,7 @@ if (isset($_POST['quill_novo_verbete_html'])) {
 
 $result = $conn2->query("SELECT conteudo_texto FROM $tabela_usuario WHERE tipo = 'anotacoes' AND tipo2 = $id_tema");
 if ($result->num_rows > 0) {
-  while($row = $result->fetch_assoc()) {
-    $anotacao_html = $row['conteudo_texto'];
-  }
+  $anotacao_html = $row['conteudo_texto'];
 }
 else {
   $anotacao_html = false;
