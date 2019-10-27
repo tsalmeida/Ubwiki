@@ -226,7 +226,7 @@
               </div>
             </div>
           </div>
-          <div class='row border-bottom border-dark'>
+          <div class='row border-bottom border-dark py-3'>
             <div class='col-12 text-left font-weight-normal'>
 <?php
               $result = $conn->query("SELECT titulo, link, arquivo, resolucao, orientacao, comentario FROM Imagens WHERE id_tema = $tema_id AND concurso = '$concurso'");
