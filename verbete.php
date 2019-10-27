@@ -526,6 +526,6 @@
 </body>
 <?php
     load_footer();
-    bottom_page("quill_v", 'carousel', 'lightbox-imagens', 'collapse_stuff');
+    bottom_page("quill_v", 'carousel', 'lightbox-imagens', 'collapse_stuff', 'bookmark_stuff');
     $conn->close();
 ?>

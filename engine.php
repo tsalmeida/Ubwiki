@@ -352,6 +352,38 @@ function bottom_page() {
           });
         </script>";
       }
+      elseif ($args[$array] == 'bookmark_stuff') {
+        echo "
+        <script type='text/javascript>
+          $('#add_bookmark').click(function() {
+        		$.post('engine.php', {
+        			'bookmark_change': true,
+        			'bookmark_tema_id': tema_id,
+        			'bookmark_user_id': user_id
+        		}, function(data) {
+        			if (data == true) {
+        				$('#add_bookmark').hide();
+        				$('#remove_bookmark').show();
+        			}
+        		});
+        		return false;
+        	});
+        	$('#remove_bookmark').click(function() {
+        		$.post('engine.php', {
+        			'bookmark_change': false,
+        			'bookmark_tema_id': tema_id,
+        			'bookmark_user_id': user_id
+        		}, function(data) {
+        			if (data == true) {
+        				$('#add_bookmark').hide();
+        				$('#remove_bookmark').show();
+        			}
+        		});
+        		return false;
+        	});
+        </script>
+        '";
+      }
       $array++;
     }
   }
