@@ -51,8 +51,8 @@
             echo "
               <div class='row'>
                 <div class='col-12 d-flex justify-content-between'>
-                  <span class='h4 text-left'>Dados da sua conta</span>
-                  <span class='h4 text-right'><a data-toggle='modal' data-target='#modal_editar_dados' href=''><i class='fal fa-edit'></i></a></span>
+                  <h4>Dados da sua conta</h4>
+                  <h4><a data-toggle='modal' data-target='#modal_editar_dados' href=''><i class='fal fa-edit'></i></a></h4>
                 </div>
               </div>
               <ul class='list-group'>
