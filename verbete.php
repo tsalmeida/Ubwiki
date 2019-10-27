@@ -111,7 +111,7 @@
 
   if (isset($_POST['nova_imagem_link'])) {
     $nova_imagem_link = $_POST['nova_imagem_link'];
-    $result = $conn->query("SELECT id FROM Imagens WHERE concurso = '$concurso' AND id_tema = $tema_id AND link = '$nova_imagem_link'");
+    $result = $conn->query("SELECT id FROM Elementos WHERE concurso = '$concurso' AND id_tema = $tema_id AND link = '$nova_imagem_link'");
     if ($result->num_rows == 0) {
       $nova_imagem_titulo = $_POST['nova_imagem_titulo'];
       $nova_imagem_trecho = $_POST['nova_imagem_trecho'];
@@ -126,7 +126,7 @@
       if ($dados_da_imagem == false) { return false; }
       $nova_imagem_resolucao_original = $dados_da_imagem[0];
       $nova_imagem_orientacao = $dados_da_imagem[1];
-      $result = $conn->query("INSERT INTO Imagens (id_tema, concurso, titulo, link, arquivo, resolucao, orientacao, comentario, trecho, usuario) VALUES ($tema_id, '$concurso', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_arquivo', '$nova_imagem_resolucao_original', '$nova_imagem_orientacao', '$nova_imagem_comentario', '$nova_imagem_trecho', '$user_id')");
+      $result = $conn->query("INSERT INTO Elementos (id_tema, concurso, titulo, link, arquivo, resolucao, orientacao, comentario, trecho, usuario) VALUES ($tema_id, '$concurso', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_arquivo', '$nova_imagem_resolucao_original', '$nova_imagem_orientacao', '$nova_imagem_comentario', '$nova_imagem_trecho', '$user_id')");
     }
   }
 
@@ -134,9 +134,9 @@
     $nova_referencia_titulo = $_POST['nova_referencia_titulo'];
     $nova_referencia_autor = $_POST['nova_referencia_autor'];
     $nova_referencia_capitulo = $_POST['nova_referencia_capitulo'];
-    $result = $conn->query("SELECT id FROM Bibliografia WHERE concurso = '$concurso' AND id_tema = $tema_id AND titulo = '$nova_referencia_titulo'");
+    $result = $conn->query("SELECT id FROM Elementos WHERE concurso = '$concurso' AND id_tema = $tema_id AND titulo = '$nova_referencia_titulo'");
     if ($result->num_rows == 0) {
-      $result = $conn->query("INSERT INTO Bibliografia (id_tema, concurso, titulo, autor, ano, usuario) VALUES ($tema_id, '$concurso', '$nova_referencia_titulo', '$nova_referencia_autor', '$nova_referencia_capitulo', '$user_id')");
+      $result = $conn->query("INSERT INTO Elementos (id_tema, concurso, titulo, autor, ano, usuario) VALUES ($tema_id, '$concurso', '$nova_referencia_titulo', '$nova_referencia_autor', '$nova_referencia_capitulo', '$user_id')");
     }
   }
 
@@ -144,9 +144,9 @@
     $novo_video_titulo = $_POST['novo_video_titulo'];
     $novo_video_autor = $_POST['novo_video_autor'];
     $novo_video_link = $_POST['novo_video_link'];
-    $result = $conn->query("SELECT id FROM Videos WHERE concurso = '$concurso' AND id_tema = $tema_id AND titulo = '$novo_video_titulo'");
+    $result = $conn->query("SELECT id FROM Elementos WHERE concurso = '$concurso' AND id_tema = $tema_id AND titulo = '$novo_video_titulo'");
     if ($result->num_rows == 0) {
-      $result = $conn->query("INSERT INTO Videos (id_tema, concurso, titulo, autor, link, usuario) VALUES ($tema_id, '$concurso', '$novo_video_titulo', '$novo_video_autor', '$novo_video_link', '$user_id')");
+      $result = $conn->query("INSERT INTO Elementos (id_tema, concurso, titulo, autor, link, usuario) VALUES ($tema_id, '$concurso', '$novo_video_titulo', '$novo_video_autor', '$novo_video_link', '$user_id')");
     }
   }
   $tema_bookmark = false;
@@ -229,7 +229,7 @@
           <div class='row border-bottom border-dark py-3'>
             <div class='col-12 text-left font-weight-normal'>
 <?php
-              $result = $conn->query("SELECT titulo, link, arquivo, resolucao, orientacao, comentario FROM Imagens WHERE id_tema = $tema_id AND concurso = '$concurso'");
+              $result = $conn->query("SELECT titulo, link, arquivo, resolucao, orientacao, comentario FROM Elementos WHERE id_tema = $tema_id AND concurso = '$concurso'");
               if ($result->num_rows > 0) {
               echo "
               <div id='carousel-with-lb' class='carousel slide carousel-multi-item' data-ride='carousel'>
@@ -294,7 +294,7 @@
           <div class='row border-bottom border-dark py-3'>
             <div class='col-12 text-left font-weight-normal'>
               <?php
-              $result = $conn->query("SELECT titulo, autor, link FROM Videos WHERE id_tema = $tema_id AND concurso = '$concurso'");
+              $result = $conn->query("SELECT titulo, autor, link FROM Elementos WHERE id_tema = $tema_id AND concurso = '$concurso'");
               if ($result->num_rows > 0) {
                 echo "<ul class='list-group'>";
                   while($row = $result->fetch_assoc()) {
@@ -327,7 +327,7 @@
           <div class='row border-bottom border-dark py-3'>
             <div class='col-12 text-left font-weight-normal'>
               <?php
-                $result = $conn->query("SELECT titulo, autor, capitulo FROM Bibliografia WHERE id_tema = $tema_id AND concurso = '$concurso'");
+                $result = $conn->query("SELECT titulo, autor, capitulo FROM Elementos WHERE id_tema = $tema_id AND concurso = '$concurso'");
                 if ($result->num_rows > 0) {
                   echo "<ul class='list-group'>";
                     while($row = $result->fetch_assoc()) {
