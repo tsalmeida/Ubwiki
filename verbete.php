@@ -144,7 +144,7 @@
     }
   }
 
-  $bookmark = $conn->query("SELECT conteudo_boolean FROM $tabela_usuario WHERE tipo = 'bookmark' AND tipo2 = '$sigla_materia'")
+  $bookmark = $conn->query("SELECT conteudo_boolean FROM $tabela_usuario WHERE tipo = 'bookmark' AND tipo2 = '$sigla_materia'");
   if ($bookmark->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $tema_bookmark = $row['conteudo_boolean'];
