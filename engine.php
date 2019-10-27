@@ -446,7 +446,7 @@ if (isset($_POST['bookmark_change'])) {
   $conn = new mysqli($servername, $username, $password, $dbname);
   mysqli_set_charset($conn,"utf8");
   error_log("select happened");
-  $check = $conn->query("SELECT id FROM Bookmarks WHERE user_id = $bookmark_user_id AND tema_id = $bookmark_tema_id");
+  $result = $conn->query("SELECT id FROM Bookmarks WHERE user_id = $bookmark_user_id AND tema_id = $bookmark_tema_id");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       error_log("update happened");

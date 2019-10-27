@@ -149,15 +149,12 @@
       $result = $conn->query("INSERT INTO Videos (id_tema, concurso, titulo, autor, link, usuario) VALUES ($tema_id, '$concurso', '$novo_video_titulo', '$novo_video_autor', '$novo_video_link', '$user_id')");
     }
   }
-
+  $tema_bookmark = false;
   $bookmark = $conn->query("SELECT bookmark FROM Bookmarks WHERE user_id = $user_id AND tema_id = $tema_id");
   if ($bookmark->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $tema_bookmark = $row['bookmark'];
     }
-  }
-  else {
-    $tema_bookmark = false;
   }
 ?>
 <body>
