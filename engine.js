@@ -30,9 +30,10 @@ $(document).ready(function() {
 	$('#add_bookmark').click(function() {
 		$('#add_bookmark').hide();
 		$('#remove_bookmark').show();
-		$.post('engine.php', {
-			'bookmark_change': true,
-		});
+		alert(tema_id);
+		// $.post('engine.php', {
+		// 	'bookmark_change': true,
+		// });
 	});
 	$('#remove_bookmark').click(function() {
 		$('#remove_bookmark').hide();
