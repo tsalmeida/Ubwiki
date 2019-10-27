@@ -291,7 +291,7 @@
               </div>
             </div>
           </div>
-          <div class='row border-bottom border-dark py-5'>
+          <div class='row border-bottom border-dark py-3'>
             <div class='col-12 text-left font-weight-normal'>
               <?php
               $result = $conn->query("SELECT titulo, autor, link FROM Videos WHERE id_tema = $tema_id AND concurso = '$concurso'");
@@ -324,7 +324,7 @@
               </div>
             </div>
           </div>
-          <div class='row border-bottom border-dark py-5'>
+          <div class='row border-bottom border-dark py-3'>
             <div class='col-12 text-left font-weight-normal'>
               <?php
                 $result = $conn->query("SELECT titulo, autor, capitulo FROM Bibliografia WHERE id_tema = $tema_id AND concurso = '$concurso'");
@@ -359,7 +359,7 @@
                 </div>
               </div>
             </div>
-            <div class='row border-bottom border-dark py-5'>
+            <div class='row border-bottom border-dark py-3'>
               <div class='col-12 text-left font-weight-normal'>
                 <form id='quill_anotacao_form' method='post' action='#anotacoes'>
                   <input name='quill_nova_anotacao_html' type='hidden'>

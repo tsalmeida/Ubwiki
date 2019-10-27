@@ -123,7 +123,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .quill_editor_height {
-  height: 40em;
+  height: 40em !important;
 }
 
 .footer.page-footer .footer-copyright {
