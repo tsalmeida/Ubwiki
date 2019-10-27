@@ -51,7 +51,7 @@
                     <li class='list-group-item list-group-item-action'>Ano: $ano_elemento</li>
                     <li class='list-group-item list-group-item-action'><a href='$link_elemento' target='_blank'>Link</a></li>
                     <li class='list-group-item list-group-item-action'><a href='imagens/verbetes/$arquivo_elemento' target='_blank'>Arquivo</a></li>
-                    <li class='list-group-item list-group-item-action'><a href='imagens/verbetes/thumbnail/$arquivo_elemento' target='_blank'>Thumbnail></a></li>
+                    <li class='list-group-item list-group-item-action'><a href='imagens/verbetes/thumbnail/$arquivo_elemento' target='_blank'>Thumbnail</a></li>
                     <li class='list-group-item list-group-item-action'>Resolução: $resolucao_elemento</li>
                     <li class='list-group-item list-group-item-action'>Orientação: $orientacao_elemento</li>
                     <li class='list-group-item list-group-item-action'>Comentário: $comentario_elemento</li>
