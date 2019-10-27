@@ -205,31 +205,28 @@
           </form>
         </div>
         <div class='col-lg-6 col-sm-12'>
-          <div class='text-center border border-light p-5 my-2'>
-            <p class="h4 mb-4">Notas dos administradores</p>
-            <p class='text-left'>Estas anotações são compartilhadas entre todos os administradores, por exemplo, para registrar idéia de melhorias futuras para a página.</p>
-            <form id='quill_admin_form' method='post'>
-              <input name='quill_nova_mensagem_html' type='hidden'>
-                <h4>Notas dos administradores</h4>
-                <div class='row justify-content-center'>
-                  <div class='container col-12 justify-content-center'>
-                    <?php
-                      echo "
-                        <div id='quill_container_admin' class='quill_container_modal'>
-                          <div id='quill_editor_admin'>
-                            $admin_mensagens
-                          </div>
+          <h4>Notas dos administradores</h4>
+          <p>Estas anotações são compartilhadas entre todos os administradores, por exemplo, para registrar idéia de melhorias futuras para a página.</p>
+          <form id='quill_admin_form' method='post'>
+            <input name='quill_nova_mensagem_html' type='hidden'>
+              <div class='row d-flex justify-content-center'>
+                <div class='container col-12 d-flex justify-content-center'>
+                  <?php
+                    echo "
+                      <div id='quill_container_admin' class='quill_container_modal'>
+                        <div id='quill_editor_admin'>
+                          $admin_mensagens
                         </div>
-                      ";
-                    ?>
-                  </div>
+                      </div>
+                    ";
+                  ?>
                 </div>
-              <div class='modal-footer d-flex justify-content-center mt-5'>
-                <button type='button' class='btn bg-lighter btn-lg'><i class="fal fa-times-circle"></i> Cancelar</button>
-                <button type='submit' class='but btn-primary btn-lg'><i class='fal fa-check'></i> Salvar</button>
               </div>
-            </form>
-          </div>
+            <div class='modal-footer d-flex justify-content-center mt-5'>
+              <button type='button' class='btn bg-lighter btn-lg'><i class="fal fa-times-circle"></i> Cancelar</button>
+              <button type='submit' class='but btn-primary btn-lg'><i class='fal fa-check'></i> Salvar</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
