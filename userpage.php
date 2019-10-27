@@ -47,6 +47,9 @@
         $user_mensagens = $row['anotacao'];
       }
     }
+    else {
+      $user_mensagens = false;
+    }
   }
 
   if (isset($_POST['novo_nome'])) {
