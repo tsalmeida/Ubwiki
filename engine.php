@@ -374,7 +374,7 @@ function bottom_page() {
             $('#remove_bookmark').hide();
         	});
         </script>
-        '";
+        ";
       }
       $array++;
     }
