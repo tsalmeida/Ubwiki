@@ -412,10 +412,12 @@ echo "
 }
 
 if (isset($_POST['bookmark_change'])) {
+  error_log('this happened');
   $bookmark_change = $_POST['bookmark_change'];
   $bookmark_tema_id = $_POST['bookmark_tema_id'];
   $bookmark_user_id = $_POST['bookmark_user_id'];
   error_log("$bookmark_change $bookmark_tema_id $bookmark_user_id");
+  echo true;
 }
 
 if (isset($_POST['sbcommand'])) {
