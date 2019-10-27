@@ -355,14 +355,20 @@
           <div class='row border-bottom border-dark py-3'>
             <div class='col-12 text-left font-weight-normal'>
               <?php
-              $result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND concurso = '$concurso' AND tipo = 'video'");
+              $result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND tipo = 'video'");
               if ($result->num_rows > 0) {
                 echo "<ul class='list-group'>";
                   while($row = $result->fetch_assoc()) {
-                    $video_titulo = $row['titulo'];
-                    $video_autor = $row['autor'];
-                    $video_link = $row['link'];
-                    echo "<li class='list-group-item list-group-item-action'><a href='$video_link' target='_blank'>$video_titulo : $video_autor</a></li>";
+                    $id_elemento = $row['id_elemento'];
+                    $result2 = $conn->query("SELECT titulo, autor, link FROM Elementos WHERE id = $id_elemento");
+                    if ($result2->num_rows >  0) {
+                      while ($row = $result2->fetch_assoc()) {
+                        $video_titulo = $row['titulo'];
+                        $video_autor = $row['autor'];
+                        $video_link = $row['link'];
+                        echo "<li class='list-group-item list-group-item-action'><a href='$video_link' target='_blank'>$video_titulo : $video_autor</a></li>";
+                      }
+                    }
                   }
                 echo "</ul>";
               }
