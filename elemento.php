@@ -41,6 +41,15 @@
                 $comentario_elemento = $row['comentario'];
                 $trecho_elemento = $row['trecho'];
                 $user_id_elemento = $row['user_id'];
+                $result = $conn->query("SELECT apelido FROM Usuarios WHERE id = $user_id_elemento");
+                if ($result->num_rows > 0) {
+                  while ($row = $result->fetch_assoc()) {
+                    $user_apelido_elemento = $row['apelido'];
+                  }
+                }
+                else {
+                  $user_apelido_elemeto = "(usuário não-identificado)";
+                }
                 echo "
                   <ul class='list-group'>
                     <li class='list-group-item list-group-item-action'><strong>Criado em:</strong> $criacao_elemento</li>
@@ -56,7 +65,7 @@
                     <li class='list-group-item list-group-item-action'><strong>Orientação:</strong> $orientacao_elemento</li>
                     <li class='list-group-item list-group-item-action'><strong>Comentário:</strong> $comentario_elemento</li>
                     <li class='list-group-item list-group-item-action'><strong>Trecho:</strong> $trecho_elemento</li>
-                    <li class='list-group-item list-group-item-action'>Acrescentado pelo usuário $user_id_elemento</li>
+                    <li class='list-group-item list-group-item-action'>Acrescentado pelo usuário $user_apelido_elemento</li>
                   </ul>
                 ";
               }
