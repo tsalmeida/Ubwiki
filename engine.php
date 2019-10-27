@@ -387,7 +387,7 @@ function bottom_page() {
         '";
       }
       elseif ($args[$array] == 'testing') {
-        alert(tema_id);
+        echo "<script> alert(tema_id); </script>"
       }
       $array++;
     }
