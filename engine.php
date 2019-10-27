@@ -449,9 +449,10 @@ if (isset($_POST['bookmark_change'])) {
   if ($result->num_rows > 0) {
     $bookmark_id = $row['id'];
     $update = $conn->query("UPDATE Bookmarks SET bookmark = $bookmark_change WHERE id = $bookmark_id");
+    break;
   }
   else {
-    $insert = $conn->query("INSERT INTO Bookmarks (user_id, tema_id, bookmark) VALUES ($user_id, $tema_id, $bookmark_change)");
+    $insert = $conn->query("INSERT INTO Bookmarks (user_id, tema_id, bookmark) VALUES ($bookmark_user_id, $bookmark_tema_id, $bookmark_change)");
   }
 }
 
