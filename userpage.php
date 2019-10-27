@@ -187,5 +187,5 @@
   </body>
 <?php
   load_footer();
-  bottom_page();
+  bottom_page('quill_user');
 ?>
