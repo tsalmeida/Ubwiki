@@ -23,6 +23,11 @@
     header('Location:index.php');
   }
 
+  if (isset($_POST['ativar_materia_id'])) {
+    $ativar_materia_id = $_POST['ativar_materia_id'];
+    $update = $conn->query("UPDATE Materias SET estado = 1 WHERE id = $ativar_materia_id");
+  }
+
   if ((isset($_POST['nova_materia_titulo'])) && isset($_POST['nova_materia_sigla'])) {
     $nova_materia_titulo = $_POST['nova_materia_titulo'];
     $nova_materia_sigla = $_POST['nova_materia_sigla'];
@@ -306,7 +311,9 @@
                   <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_materia_sigla'>Sigla da matéria</label>
                 </div>
               </fieldset>
-              <button type='submit' class='btn btn-primary' name='nova_materia_concurso'>Incluir matéria</button>
+              <div class='row justify-content-center'>
+                <button type='submit' class='btn btn-primary' name='nova_materia_concurso'>Incluir matéria</button>
+              </div>
             </form>
 
             <form class='border border-light p-4 my-2' method='post'>
@@ -355,8 +362,12 @@
                   <input type='text' id='primeiro_nivel_5' name='primeiro_nivel_5' class='form-control validate'>
                   <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='primeiro_nivel_5'>Tópico de primeiro nível</label>
               </fieldset>
-              <button type='submit' class='btn btn-primary' name='nova_materia_concurso'>Incluir matéria</button>
+
+              <div class='row justify-content-center'>
+                <button type='submit' class='btn btn-primary' name='nova_materia_concurso'>Incluir matéria</button>
+              </div>
             </form>
+
             <form class='border border-light p-4 my-2' method='post'>
               <h2>Ativar matéria</h2>
                 <p>Após compôr definitivamente a lista de tópicos de uma matéria, é necessário ativá-la para que os usuários a vejam. Uma vez ativada, não será possível remover tópicos, embora ainda seja possível acrescentar tópicos novos ou mudar o nome dos tópicos pre-existentes, inclusive tópicos de primeiro nível.</p>
@@ -371,7 +382,7 @@
                       $item_id .= $sigla;
                       echo "
                         <div class='form-check my-1'>
-                          <input class='form-check-input' type='radio' name='ativar_materia' id='$item_id' value='$sigla'>
+                          <input class='form-check-input' type='radio' name='ativar_materia_id' id='$item_id' value='$sigla'>
                           <label class='form-check-label' for='$item_id'>$materia_pick</label>
                         </div>
                       ";
@@ -384,7 +395,7 @@
               <div class='row justify-content-center'>
 <?
                 echo "
-                  <button name='ativar_materia' type='submit' class='btn btn-primary' value='$concurso'>Ativar materia</button>
+                  <button type='submit' class='btn btn-primary'>Ativar materia</button>
                 ";
 ?>
               </div>
