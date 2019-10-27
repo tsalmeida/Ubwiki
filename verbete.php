@@ -93,9 +93,8 @@ else {
 if (isset($_POST['quill_nova_anotacao_html'])) {
   $nova_anotacao_html = $_POST['quill_nova_anotacao_html'];
   $nova_anotacao_html = strip_tags($nova_anotacao_html, '<p><li><ul><ol><h2><blockquote><em><sup>');
-  error_log("this happened and this is anotacao_html: $anotacao_html");
   if ($anotacao_html != false) {
-    $update = $conn2->query("UPDATE $tabela_usuario SET conteudo_texto = '$nova_anotacao_html', WHERE tipo = 'anotacoes' AND tipo2 = $id_tema");
+    $update = $conn2->query("UPDATE $tabela_usuario SET conteudo_texto = '$nova_anotacao_html' WHERE tipo = 'anotacoes' AND tipo2 = $id_tema");
     $insert = $conn2->query("INSERT INTO $tabela_usuario_arquivo (tipo, tipo2, conteudo_texto) VALUES ('anotacoes', $id_tema, '$nova_anotacao_html')");
   }
   else {
