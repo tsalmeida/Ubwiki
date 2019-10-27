@@ -4,7 +4,6 @@ $refazer_ordem = false;
 
 if (isset($_POST['form_sigla_materia'])) {
   $form_nivel1 = $_POST['form_nivel1']; $form_nivel2 = $_POST['form_nivel2']; $form_nivel3 = $_POST['form_nivel3']; $form_nivel4 = $_POST['form_nivel4']; $form_nivel5 = $_POST['form_nivel5']; $form_sigla_materia = $_POST['form_sigla_materia']; $form_nivel = $_POST['form_nivel'];
-  error_log("$form_nivel1 $form_nivel2 $form_nivel3 $form_nivel4 $form_nivel5 $form_sigla_materia $form_nivel");
 }
 
 if ((isset($_POST['tema_novo_titulo'])) && ($_POST['tema_novo_titulo'] != "")) {

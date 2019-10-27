@@ -45,7 +45,6 @@
 
   if (isset($_POST['reconstruir_busca'])) {
     $concurso = $_POST['reconstruir_concurso'];
-    error_log("$concurso");
     $ordem = 0;
     $conn->query("DELETE FROM Searchbar WHERE concurso = '$concurso'");
     $result = $conn->query("SELECT sigla, materia FROM Materias WHERE concurso = '$concurso' AND estado = 1 ORDER BY ordem");

@@ -25,7 +25,6 @@
 
   if (isset($_POST['ativar_materia_id'])) {
     $ativar_materia_id = $_POST['ativar_materia_id'];
-    error_log($ativar_materia_id);
     $update = $conn->query("UPDATE Materias SET estado = 1 WHERE id = $ativar_materia_id");
   }
 
