@@ -384,6 +384,12 @@ function bottom_page() {
             $('#coluna_direita').addClass('col-lg-5');
             $('#coluna_direita').removeClass('col-lg-6');
           });
+          $('#minimizar_anotacoes').click(function(){
+            $('#coluna_esquerda').addClass('col-lg-6');
+            $('#coluna_esquerda').removeClass('col-lg-5');
+            $('#coluna_direita').addClass('col-lg-6');
+            $('#coluna_direita').removeClass('col-lg-5');
+          });
         </script>";
       }
       elseif ($args[$array] == 'bookmark_stuff') {

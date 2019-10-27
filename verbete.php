@@ -355,7 +355,7 @@
               </div>
               <div class='col-2 text-right'>
                 <div class='row'>
-                  <span class='text-center' data-toggle='collapse' data-target='.anotacoes_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
+                  <span id='minimizar_anotacoes' class='text-center' data-toggle='collapse' data-target='.anotacoes_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
                 </div>
               </div>
             </div>
