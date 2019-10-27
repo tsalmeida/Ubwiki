@@ -298,8 +298,6 @@
                       $imagem_arquivo = $row['arquivo'];
                       $imagem_resolucao = $row['resolucao'];
                       $imagem_orientacao = $row['orientacao'];
-                      // if ($imagem_orientacao == 'retrato') { $col = 6; }
-                      // else { $col = 12; }
                       echo "
                       <div class=' carousel-item $active text-center'>
                         <figure class='col-12'>
@@ -315,22 +313,22 @@
                       ";
                       $active = false;
                     }
+                    if ($count != 1) {
+                      echo "
+                      </div>
+                        <div class='controls-top'>
+                          <a class='btn btn-sm grey lighten-3 z-depth-0' href='#carousel-with-lb' data-slide='prev'><i
+                              class='fas fa-chevron-left'></i></a>
+                          <a class='btn btn-sm grey lighten-3 z-depth-0' href='#carousel-with-lb' data-slide='next'><i
+                              class='fas fa-chevron-right'></i></a>
+                        </div>
+                      </div>
+                      ";
+                    }
+                    else {
+                      echo "</div></div>";
+                    }
                   }
-                }
-                if ($count != 1) {
-                  echo "
-                  </div>
-                    <div class='controls-top'>
-                      <a class='btn btn-sm grey lighten-3 z-depth-0' href='#carousel-with-lb' data-slide='prev'><i
-                          class='fas fa-chevron-left'></i></a>
-                      <a class='btn btn-sm grey lighten-3 z-depth-0' href='#carousel-with-lb' data-slide='next'><i
-                          class='fas fa-chevron-right'></i></a>
-                    </div>
-                  </div>
-                  ";
-                }
-                else {
-                  echo "</div></div>";
                 }
               }
               else {
