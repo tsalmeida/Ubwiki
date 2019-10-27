@@ -95,11 +95,11 @@
   if (isset($_POST['quill_nova_mensagem_html'])) {
     $nova_mensagem = $_POST['quill_nova_mensagem_html'];
     $nova_mensagem = strip_tags($nova_mensagem, '<p><li><ul><ol><h2><blockquote><em><sup><s>');
-    $conn->query("INSERT INTO Anotacoes_user (user_id, tipo, anotacao) VALUES ($user_id, 'user_page', '$nova_mensagem')");
+    $conn->query("INSERT INTO Admin_data (tipo, conteudo) VALUES ('notas', '$nova_mensagem')");
     $admin_mensagens = $nova_mensagem;
   }
   else {
-    $result = $conn->query("SELECT anotacao FROM Anotacoes_user WHERE tipo = 'user_page' ORDER BY id DESC");
+    $result = $conn->query("SELECT conteudo FROM Admin_data WHERE tipo = 'notas' ORDER BY id DESC");
     if ($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {
         $admin_mensagens = $row['conteudo'];

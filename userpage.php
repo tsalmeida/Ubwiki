@@ -115,11 +115,11 @@
         </div>
         <div class='col-lg-5 col-sm-12'>
           <div class='text-center border border-light p-5 my-2'>
+            <h4>Anotações</h4>
             <form id='quill_user_form' method='post'>
               <input name='quill_nova_mensagem_html' type='hidden'>
-                <h4>Anotações</h4>
-                <div class='row justify-content-center'>
-                  <div class='container col-12 justify-content-center'>
+                <div class='row d-flex justify-content-center'>
+                  <div class='container col-12 d-flex justify-content-center'>
                     <?php
                       echo "
                         <div id='quill_container_user' class='quill_container_modal'>
