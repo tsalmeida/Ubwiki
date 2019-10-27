@@ -29,5 +29,6 @@
     </div>
   </body>
 <?php
+  load_footer();
   bottom_page();
 ?>
