@@ -307,7 +307,7 @@
                               class='img-fluid' style='height:300px'>
                           </a>
                           <figcaption><h5 class='mt-3'>$imagem_titulo</h5>
-                          $imagem_comentario<p><a href='elemento.php$id_elemento' target='_blank'>Página da imagem</a></p></figcaption>
+                          $imagem_comentario<p><a href='elemento.php?id=$id_elemento' target='_blank'>Página da imagem</a></p></figcaption>
                         </figure>
                       </div>
                       ";
