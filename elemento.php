@@ -43,19 +43,19 @@
                 $user_id_elemento = $row['user_id'];
                 echo "
                   <ul class='list-group'>
-                    <li class='list-group-item list-group-item-action'>Criado em: $criacao_elemento</li>
-                    <li class='list-group-item list-group-item-action'>Tipo: $tipo_elemento</li>
-                    <li class='list-group-item list-group-item-action'>Título: $titulo_elemento</li>
-                    <li class='list-group-item list-group-item-action'>Autor: $autor_elemento</li>
-                    <li class='list-group-item list-group-item-action'>Capítulo: $capitulo_elemento</li>
-                    <li class='list-group-item list-group-item-action'>Ano: $ano_elemento</li>
+                    <li class='list-group-item list-group-item-action'><strong>Criado em:</strong> $criacao_elemento</li>
+                    <li class='list-group-item list-group-item-action'><strong>Tipo:</strong> $tipo_elemento</li>
+                    <li class='list-group-item list-group-item-action'><strong>Título:</strong> $titulo_elemento</li>
+                    <li class='list-group-item list-group-item-action'><strong>Autor:</strong> $autor_elemento</li>
+                    <li class='list-group-item list-group-item-action'><strong>Capítulo:</strong> $capitulo_elemento</li>
+                    <li class='list-group-item list-group-item-action'><strong>Ano:</strong> $ano_elemento</li>
                     <li class='list-group-item list-group-item-action'><a href='$link_elemento' target='_blank'>Link</a></li>
                     <li class='list-group-item list-group-item-action'><a href='imagens/verbetes/$arquivo_elemento' target='_blank'>Arquivo</a></li>
                     <li class='list-group-item list-group-item-action'><a href='imagens/verbetes/thumbnails/$arquivo_elemento' target='_blank'>Thumbnail</a></li>
-                    <li class='list-group-item list-group-item-action'>Resolução: $resolucao_elemento</li>
-                    <li class='list-group-item list-group-item-action'>Orientação: $orientacao_elemento</li>
-                    <li class='list-group-item list-group-item-action'>Comentário: $comentario_elemento</li>
-                    <li class='list-group-item list-group-item-action'>Trecho: $trecho_elemento</li>
+                    <li class='list-group-item list-group-item-action'><strong>Resolução:</strong> $resolucao_elemento</li>
+                    <li class='list-group-item list-group-item-action'><strong>Orientação:</strong> $orientacao_elemento</li>
+                    <li class='list-group-item list-group-item-action'><strong>Comentário:</strong> $comentario_elemento</li>
+                    <li class='list-group-item list-group-item-action'><strong>Trecho:</strong> $trecho_elemento</li>
                     <li class='list-group-item list-group-item-action'>Acrescentado pelo usuário $user_id_elemento</li>
                   </ul>
                 ";
