@@ -15,13 +15,13 @@
   if (isset($_POST['quill_nova_mensagem_html'])) {
     $nova_mensagem = $_POST['quill_nova_mensagem_html'];
     $nova_mensagem = strip_tags($nova_mensagem, '<p><li><ul><ol><h2><blockquote><em><sup><s>');
-    $conn->query("SELECT user_id, anotacao FROM Anotacoes WHERE tipo = 'userpage'")
+    $conn->query("SELECT user_id, anotacao FROM Anotacoes WHERE tipo = 'userpage'");
     if ($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {
         $anotacao_user_id = $row['user_id'];
         $anotacao_previa = $row['anotacao'];
         $conn->query("UPDATE Anotacoes SET anotacao = '$nova_mensagem' WHERE user_id = $user_id AND tipo = 'userpage'");
-        $conn->query("INSERT INTO Anotacoes_arquivo (user_id, tipo, anotacao) VALUES ($user_id, 'userpage', $anotacao_previa)");
+        $conn->query("INSERT INTO Anotacoes_arquivo (user_id, tipo, anotacao) VALUES ($user_id, 'userpage', '$anotacao_previa')");
       }
     }
     else {
