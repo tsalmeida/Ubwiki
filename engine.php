@@ -447,9 +447,11 @@ if (isset($_POST['bookmark_change'])) {
   mysqli_set_charset($conn,"utf8");
   $check = $conn->query("SELECT id FROM Bookmarks WHERE user_id = $bookmark_user_id AND tema_id = $bookmark_tema_id");
   if ($result->num_rows > 0) {
-    $bookmark_id = $row['id'];
-    $update = $conn->query("UPDATE Bookmarks SET bookmark = $bookmark_change WHERE id = $bookmark_id");
-    break;
+    while($row = $result->fetch_assoc()) {
+      $bookmark_id = $row['id'];
+      $update = $conn->query("UPDATE Bookmarks SET bookmark = $bookmark_change WHERE id = $bookmark_id");
+      break;
+    }
   }
   else {
     $insert = $conn->query("INSERT INTO Bookmarks (user_id, tema_id, bookmark) VALUES ($bookmark_user_id, $bookmark_tema_id, $bookmark_change)");
