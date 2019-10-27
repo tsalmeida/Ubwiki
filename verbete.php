@@ -130,7 +130,7 @@
       if ($result2->num_rows > 0) {
         while ($row = $result2->fetch_assoc()) {
           $nova_imagem_id = $row['id'];
-          $insert = $conn->query("INSERT INTO Verbetes_elementos (id_tema, id_elemento, tipo) VALUES ($tema_id, $nova_imagem_id, 'imagem')");
+          $insert = $conn->query("INSERT INTO Verbetes_elementos (id_tema, id_elemento, tipo, user_id) VALUES ($tema_id, $nova_imagem_id, 'imagem', $user_id)");
           break;
         }
       }
@@ -138,7 +138,7 @@
     else {
       while ($row = $result->fetch_assoc()) {
         $nova_imagem_id = $row['id'];
-        $insert = $conn->query("INSERT INTO Verbetes_elementos (id_tema, id_elemento, tipo) VALUES ($tema_id, $nova_imagem_id, 'imagem')");
+        $insert = $conn->query("INSERT INTO Verbetes_elementos (id_tema, id_elemento, tipo, user_id) VALUES ($tema_id, $nova_imagem_id, 'imagem', $user_id)");
         break;
       }
     }
@@ -157,7 +157,7 @@
       if ($result2->num_rows == 0) {
         while ($row = $result2->fetch_assoc()) {
           $nova_referencia_id = $row['id'];
-          $insert = $conn->query("INSERT INTO Verbetes_elementos (id_tema, id_elemento, tipo) VALUES ($tema_id, $nova_referencia_id, 'referencia')")
+          $insert = $conn->query("INSERT INTO Verbetes_elementos (id_tema, id_elemento, tipo, user_id) VALUES ($tema_id, $nova_referencia_id, 'referencia', $user_id)")
           break;
         }
       }
@@ -165,7 +165,7 @@
     else {
       while ($row = $result->fetch_assoc()) {
         $nova_referencia_id = $row['id'];
-        $insert = $conn->query("INSERT INTO Verbetes_elementos (id_tema, id_elemento, tipo) VALUES ($tema_id, $nova_referencia_id, 'referencia')");
+        $insert = $conn->query("INSERT INTO Verbetes_elementos (id_tema, id_elemento, tipo, user_id) VALUES ($tema_id, $nova_referencia_id, 'referencia', $user_id)");
         break;
       }
     }
@@ -182,7 +182,7 @@
       if ($result2->num_rows > 0) {
         while ($row = $result2->fetch_assoc()) {
           $novo_video_id = $row['id'];
-          $insert = $conn->query("INSERT INTO Verbetes_elementos (id_tema, id_elemento, tipo) VALUES ($tema_id, $novo_video_id, 'video')");
+          $insert = $conn->query("INSERT INTO Verbetes_elementos (id_tema, id_elemento, tipo, user_id) VALUES ($tema_id, $novo_video_id, 'video', $user_id)");
           break;
         }
       }
@@ -190,7 +190,7 @@
     else {
       while ($row = $result->fetch_assoc()) {
         $novo_video_id = $row['id'];
-        $insert = $conn->query("INSERT INTO Verbetes_elementos (id_tema, id_elemento, tipo) VALUES ($tema_id, $novo_video_id, 'video')");
+        $insert = $conn->query("INSERT INTO Verbetes_elementos (id_tema, id_elemento, tipo, user_id) VALUES ($tema_id, $novo_video_id, 'video', $user_id)");
         break;
       }
     }
