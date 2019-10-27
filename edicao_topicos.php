@@ -25,6 +25,7 @@
 
   if (isset($_POST['ativar_materia_id'])) {
     $ativar_materia_id = $_POST['ativar_materia_id'];
+    error_log($ativar_materia_id);
     $update = $conn->query("UPDATE Materias SET estado = 1 WHERE id = $ativar_materia_id");
   }
 
@@ -40,7 +41,6 @@
 
   if ($_POST['primeiro_nivel_1'] != '') {
     $primeiro_nivel_1 = $_POST['primeiro_nivel_1'];
-    error_log("$primeiro_nivel_1 $nivel_1_materia $concurso");
     $novo_tema = $conn->query("INSERT INTO Temas (ciclo_revisao, concurso, sigla_materia, nivel, nivel1) VALUES (0, '$concurso', '$nivel_1_materia', 1, '$primeiro_nivel_1')");
   }
 
