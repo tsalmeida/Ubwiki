@@ -326,9 +326,9 @@
                       <a class='btn btn-sm grey lighten-3 z-depth-0' href='#carousel-with-lb' data-slide='next'><i
                           class='fas fa-chevron-right'></i></a>
                     </div>
-                  </div>
                   ";
                 }
+                echo "</div>";
               }
               else {
                 echo "<p>Não foram acrescentadas, até o momento, imagens a este verbete.</p>";
