@@ -126,7 +126,7 @@
       $nova_imagem_resolucao_original = $dados_da_imagem[0];
       $nova_imagem_orientacao = $dados_da_imagem[1];
       $result = $conn->query("INSERT INTO Elementos (tipo, titulo, link, arquivo, resolucao, orientacao, comentario, user_id) VALUES ('imagem', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_arquivo', '$nova_imagem_resolucao_original', '$nova_imagem_orientacao', '$nova_imagem_comentario', '$user_id')");
-      $result2 = $conn->query("SELECT id FROM Elementos WHERE link = $nova_imagem_link");
+      $result2 = $conn->query("SELECT id FROM Elementos WHERE link = '$nova_imagem_link'");
       if ($result2->num_rows > 0) {
         while ($row = $result2->fetch_assoc()) {
           $nova_imagem_id = $row['id'];
@@ -277,7 +277,7 @@
           <div class='row border-bottom border-dark py-3'>
             <div class='col-12 text-left font-weight-normal'>
 <?php
-              $result = $conn->query("SELECT titulo, link, arquivo, resolucao, orientacao, comentario FROM Elementos WHERE id_tema = $tema_id AND concurso = '$concurso' AND tipo = 'imagem'");
+              $result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND concurso = '$concurso' AND tipo = 'imagem'");
               if ($result->num_rows > 0) {
               echo "
               <div id='carousel-with-lb' class='carousel slide carousel-multi-item' data-ride='carousel'>
@@ -342,7 +342,7 @@
           <div class='row border-bottom border-dark py-3'>
             <div class='col-12 text-left font-weight-normal'>
               <?php
-              $result = $conn->query("SELECT titulo, autor, link FROM Elementos WHERE id_tema = $tema_id AND concurso = '$concurso' AND tipo = 'video'");
+              $result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND concurso = '$concurso' AND tipo = 'video'");
               if ($result->num_rows > 0) {
                 echo "<ul class='list-group'>";
                   while($row = $result->fetch_assoc()) {
@@ -375,7 +375,7 @@
           <div class='row border-bottom border-dark py-3'>
             <div class='col-12 text-left font-weight-normal'>
               <?php
-                $result = $conn->query("SELECT titulo, autor, capitulo, ano, link FROM Elementos WHERE id_tema = $tema_id AND concurso = '$concurso' AND tipo = 'referencia'");
+                $result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND concurso = '$concurso' AND tipo = 'referencia'");
                 if ($result->num_rows > 0) {
                   echo "<ul class='list-group'>";
                     while($row = $result->fetch_assoc()) {
