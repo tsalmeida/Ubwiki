@@ -213,7 +213,7 @@
                 <div class='container col-12 d-flex justify-content-center'>
                   <?php
                     echo "
-                      <div id='quill_container_admin' class='quill_container_modal'>
+                      <div id='quill_container_admin'>
                         <div id='quill_editor_admin'>
                           $admin_mensagens
                         </div>
@@ -222,7 +222,7 @@
                   ?>
                 </div>
               </div>
-            <div class='modal-footer d-flex justify-content-center mt-5'>
+            <div class='row d-flex justify-content-center mt-5'>
               <button type='button' class='btn bg-lighter btn-lg'><i class="fal fa-times-circle"></i> Cancelar</button>
               <button type='submit' class='but btn-primary btn-lg'><i class='fal fa-check'></i> Salvar</button>
             </div>
