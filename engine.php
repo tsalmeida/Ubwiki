@@ -6,9 +6,6 @@ $password = "ubique patriae memor";
 $dbname = "Ubique";
 $conn = new mysqli($servername, $username, $password, $dbname);
 mysqli_set_charset($conn,"utf8");
-$dbname = "Ubwiki_usuarios";
-$conn2 = new mysqli($servername, $username, $password, $dbname);
-mysqli_set_charset($conn2,"utf8");
 
 function carregar_navbar() {
   $args = func_get_args();
