@@ -277,38 +277,44 @@
           <div class='row border-bottom border-dark py-3'>
             <div class='col-12 text-left font-weight-normal'>
 <?php
-              $result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND concurso = '$concurso' AND tipo = 'imagem'");
+              $result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND tipo = 'imagem'");
               if ($result->num_rows > 0) {
-              echo "
-              <div id='carousel-with-lb' class='carousel slide carousel-multi-item' data-ride='carousel'>
-                <div class='carousel-inner mdb-lightbox' role='listbox'>
-                  <div id='mdb-lightbox-ui'></div>
-              ";
-                  $active = 'active';
-                  while($row = $result->fetch_assoc()) {
-                    $imagem_titulo = $row['titulo'];
-                    $imagem_link = $row['link'];
-                    $imagem_comentario = $row['comentario'];
-                    $imagem_arquivo = $row['arquivo'];
-                    $imagem_resolucao = $row['resolucao'];
-                    $imagem_orientacao = $row['orientacao'];
-                    // if ($imagem_orientacao == 'retrato') { $col = 6; }
-                    // else { $col = 12; }
-                    echo "
-                    <div class=' carousel-item $active text-center'>
-                      <figure class='col-12'>
-                        <a href='imagens/verbetes/$imagem_arquivo'
-                          data-size='$imagem_resolucao'>
-                          <img src='imagens/verbetes/thumbnails/$imagem_arquivo'
-                            class='img-fluid' style='height:300px'>
-                        </a>
-                        <figcaption><h5 class='mt-3'>$imagem_titulo</h5>
-                        $imagem_comentario</figcaption>
-                      </figure>
-                    </div>
-                    ";
-                    $active = false;
+                echo "
+                <div id='carousel-with-lb' class='carousel slide carousel-multi-item' data-ride='carousel'>
+                  <div class='carousel-inner mdb-lightbox' role='listbox'>
+                    <div id='mdb-lightbox-ui'></div>
+                ";
+                $active = 'active';
+                while($row = $result->fetch_assoc()) {
+                  $id_elemento = $row['id_elemento'];
+                  $result2 = $conn->query("SELECT titulo, link, comentario, arquivo, resolucao, orientacao FROM Elementos WHERE id = $id_elemento");
+                  if ($result1->num_rows > 0) {
+                    while($row = $result1->fetch_assoc()) {
+                      $imagem_titulo = $row['titulo'];
+                      $imagem_link = $row['link'];
+                      $imagem_comentario = $row['comentario'];
+                      $imagem_arquivo = $row['arquivo'];
+                      $imagem_resolucao = $row['resolucao'];
+                      $imagem_orientacao = $row['orientacao'];
+                      // if ($imagem_orientacao == 'retrato') { $col = 6; }
+                      // else { $col = 12; }
+                      echo "
+                      <div class=' carousel-item $active text-center'>
+                        <figure class='col-12'>
+                          <a href='imagens/verbetes/$imagem_arquivo'
+                            data-size='$imagem_resolucao'>
+                            <img src='imagens/verbetes/thumbnails/$imagem_arquivo'
+                              class='img-fluid' style='height:300px'>
+                          </a>
+                          <figcaption><h5 class='mt-3'>$imagem_titulo</h5>
+                          $imagem_comentario</figcaption>
+                        </figure>
+                      </div>
+                      ";
+                      $active = false;
+                    }
                   }
+                }
                 echo "
                 </div>
                   <div class='controls-top'>
