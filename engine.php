@@ -411,6 +411,13 @@ echo "
 ";
 }
 
+if (isset($_POST['bookmark_change'])) {
+  $bookmark_change = $_POST['bookmark_change'];
+  $bookmark_tema_id = $_POST['bookmark_tema_id'];
+  $bookmark_user_id = $_POST['bookmark_user_id'];
+  error_log("$bookmark_change $bookmark_tema_id $bookmark_user_id");
+}
+
 if (isset($_POST['sbcommand'])) {
   $concurso = base64_decode($_POST['sbconcurso']);
   $command = base64_decode($_POST['sbcommand']);

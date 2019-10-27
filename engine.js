@@ -28,15 +28,29 @@ $(document).ready(function() {
     return false;
   });
 	$('#add_bookmark').click(function() {
-		$('#add_bookmark').hide();
-		$('#remove_bookmark').show();
-		alert(tema_id);
-		// $.post('engine.php', {
-		// 	'bookmark_change': true,
-		// });
+		$.post('engine.php', {
+			'bookmark_change': true,
+			'bookmark_tema_id': tema_id,
+			'bookmark_user_id': user_id
+		}, function(data) {
+			if (data == true) {
+				$('#add_bookmark').hide();
+				$('#remove_bookmark').show();
+			}
+		});
+		return false;
 	});
 	$('#remove_bookmark').click(function() {
-		$('#remove_bookmark').hide();
-		$('#add_bookmark').show();
+		$.post('engine.php', {
+			'bookmark_change': false,
+			'bookmark_tema_id': tema_id,
+			'bookmark_user_id': user_id
+		}, function(data) {
+			if (data == true) {
+				$('#add_bookmark').hide();
+				$('#remove_bookmark').show();
+			}
+		});
+		return false;
 	});
 });
