@@ -74,12 +74,12 @@ function breadcrumbs() {
               if ($tema_bookmark == false) {
                 echo "
                   <li id='add_bookmark' class='breadcrumb-item' title='Marcar para leitura' value='$id_tema'><a href='#'><i class='fal fa-bookmark fa-fw'></i></a></li>
-                  <li id='remove_bookmark' class='breadcrumb-item d-none' title='Remover da lista de leitura' value='$id_tema'><a href='#'><span class='text-danger'><i class='fas fa-bookmark fa-fw'></i></span></span></a></li>
+                  <li id='remove_bookmark' class='breadcrumb-item collapse' title='Remover da lista de leitura' value='$id_tema'><a href='#'><span class='text-danger'><i class='fas fa-bookmark fa-fw'></i></span></span></a></li>
                 ";
               }
               else {
                 echo "
-                  <li id='add_bookmark' class='breadcrumb-item d-none' title='Marcar para leitura' value='$id_tema'><a href='#'><i class='fal fa-bookmark fa-fw'></i></a></li>
+                  <li id='add_bookmark' class='breadcrumb-item collapse' title='Marcar para leitura' value='$id_tema'><a href='#'><i class='fal fa-bookmark fa-fw'></i></a></li>
                   <li id='remove_bookmark' class='breadcrumb-item' title='Remover da lista de leitura' value='$id_tema'><a href='#'><span class='text-danger'><i class='fas fa-bookmark fa-fw'></i></span></span></a></li>
                 ";
               }
