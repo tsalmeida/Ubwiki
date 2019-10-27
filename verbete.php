@@ -9,7 +9,7 @@
   }
 
   include 'engine.php';
-  $result = $conn->query("SELECT id FROM user_ids WHERE email = '$user_email'");
+  $result = $conn->query("SELECT id FROM Usuarios WHERE email = '$user_email'");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $user_id = $row['id'];
