@@ -10,7 +10,23 @@
   }
 
   include 'engine.php';
-  top_page(false);
+  top_page(false, 'quill_user');
+
+  if (isset($_POST['quill_nova_mensagem_html'])) {
+    $nova_mensagem = $_POST['quill_nova_mensagem_html'];
+    $nova_mensagem = strip_tags($nova_mensagem, '<p><li><ul><ol><h2><blockquote><em><sup><s>');
+    $conn->query("INSERT INTO Anotacoes (tipo, conteudo) VALUES ('notas', '$nova_mensagem')");
+    $admin_mensagens = $nova_mensagem;
+  }
+  else {
+    $result = $conn->query("SELECT conteudo FROM Anotacoes WHERE tipo = 'notas' ORDER BY id DESC");
+    if ($result->num_rows > 0) {
+      while($row = $result->fetch_assoc()) {
+        $admin_mensagens = $row['conteudo'];
+        break;
+      }
+    }
+  }
 
   $result = $conn->query("SELECT id, tipo, criacao, apelido, nome, sobrenome FROM Usuarios WHERE email = '$user_email'");
   if ($result->num_rows > 0) {
