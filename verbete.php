@@ -9,7 +9,7 @@
   }
 
   include 'engine.php';
-  $result = $conn->query("SELECT id FROM Usuarios WHERE email = '$user_email'");
+  $result = $conn->query("SELECT id FROM user_ids WHERE email = '$user_email'");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $user_id = $row['id'];
@@ -76,11 +76,11 @@
     $novo_verbete_html = strip_tags($novo_verbete_html, '<p><li><ul><ol><h2><blockquote><em><sup>');
     $result = $conn->query("SELECT verbete FROM Verbetes WHERE concurso = '$concurso' AND id_tema = $tema_id");
     if ($result->num_rows > 0) {
-      $result = $conn->query("UPDATE Verbetes SET verbete = '$novo_verbete_html', usuario = '$user_id' WHERE concurso = '$concurso' AND id_tema = $tema_id");
-      $result = $conn->query("INSERT INTO Verbetes_arquivo (id_tema, concurso, verbete, usuario) VALUES ('$tema_id', '$concurso', '$verbete_html', '$user_id')");
+      $result = $conn->query("UPDATE Verbetes SET verbete = '$novo_verbete_html', user_id = '$user_id' WHERE concurso = '$concurso' AND id_tema = $tema_id");
+      $result = $conn->query("INSERT INTO Verbetes_arquivo (id_tema, concurso, verbete, user_id) VALUES ('$tema_id', '$concurso', '$verbete_html', '$user_id')");
     }
     else {
-      $result = $conn->query("INSERT INTO Verbetes (id_tema, concurso, verbete, usuario) VALUES ('$tema_id', '$concurso', '$novo_verbete_html', '$user_id')");
+      $result = $conn->query("INSERT INTO Verbetes (id_tema, concurso, verbete, user_id) VALUES ('$tema_id', '$concurso', '$novo_verbete_html', '$user_id')");
     }
     $verbete_html = $novo_verbete_html;
   }
@@ -114,7 +114,6 @@
     $result = $conn->query("SELECT id FROM Elementos WHERE concurso = '$concurso' AND id_tema = $tema_id AND link = '$nova_imagem_link'");
     if ($result->num_rows == 0) {
       $nova_imagem_titulo = $_POST['nova_imagem_titulo'];
-      $nova_imagem_trecho = $_POST['nova_imagem_trecho'];
       $nova_imagem_comentario = $_POST['nova_imagem_comentario'];
       $randomfilename = generateRandomString(12);
       $ultimo_ponto = strripos($nova_imagem_link, ".");
@@ -126,7 +125,7 @@
       if ($dados_da_imagem == false) { return false; }
       $nova_imagem_resolucao_original = $dados_da_imagem[0];
       $nova_imagem_orientacao = $dados_da_imagem[1];
-      $result = $conn->query("INSERT INTO Elementos (id_tema, concurso, titulo, link, arquivo, resolucao, orientacao, comentario, trecho, usuario) VALUES ($tema_id, '$concurso', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_arquivo', '$nova_imagem_resolucao_original', '$nova_imagem_orientacao', '$nova_imagem_comentario', '$nova_imagem_trecho', '$user_id')");
+      $result = $conn->query("INSERT INTO Elementos (id_tema, concurso, tipo, titulo, link, arquivo, resolucao, orientacao, comentario, user_id) VALUES ($tema_id, '$concurso', 'imagem', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_arquivo', '$nova_imagem_resolucao_original', '$nova_imagem_orientacao', '$nova_imagem_comentario', '$user_id')");
     }
   }
 
@@ -134,9 +133,10 @@
     $nova_referencia_titulo = $_POST['nova_referencia_titulo'];
     $nova_referencia_autor = $_POST['nova_referencia_autor'];
     $nova_referencia_capitulo = $_POST['nova_referencia_capitulo'];
+    $nova_referencia_ano = $_POST['nova_referencia_ano'];
     $result = $conn->query("SELECT id FROM Elementos WHERE concurso = '$concurso' AND id_tema = $tema_id AND titulo = '$nova_referencia_titulo'");
     if ($result->num_rows == 0) {
-      $result = $conn->query("INSERT INTO Elementos (id_tema, concurso, titulo, autor, ano, usuario) VALUES ($tema_id, '$concurso', '$nova_referencia_titulo', '$nova_referencia_autor', '$nova_referencia_capitulo', '$user_id')");
+      $result = $conn->query("INSERT INTO Elementos (id_tema, concurso, tipo, titulo, autor, capitulo, ano, user_id) VALUES ($tema_id, '$concurso', 'referencia', '$nova_referencia_titulo', '$nova_referencia_autor', '$nova_referencia_capitulo', '$nova_referencia_ano', '$user_id')");
     }
   }
 
@@ -146,9 +146,10 @@
     $novo_video_link = $_POST['novo_video_link'];
     $result = $conn->query("SELECT id FROM Elementos WHERE concurso = '$concurso' AND id_tema = $tema_id AND titulo = '$novo_video_titulo'");
     if ($result->num_rows == 0) {
-      $result = $conn->query("INSERT INTO Elementos (id_tema, concurso, titulo, autor, link, usuario) VALUES ($tema_id, '$concurso', '$novo_video_titulo', '$novo_video_autor', '$novo_video_link', '$user_id')");
+      $result = $conn->query("INSERT INTO Elementos (id_tema, concurso, tipo, titulo, autor, link, user_id) VALUES ($tema_id, '$concurso', 'video', '$novo_video_titulo', '$novo_video_autor', '$novo_video_link', '$user_id')");
     }
   }
+
   $tema_bookmark = false;
   $bookmark = $conn->query("SELECT bookmark FROM Bookmarks WHERE user_id = $user_id AND tema_id = $tema_id");
   if ($bookmark->num_rows > 0) {
@@ -157,6 +158,7 @@
       break;
     }
   }
+
 ?>
 <body>
   <?php
@@ -229,7 +231,7 @@
           <div class='row border-bottom border-dark py-3'>
             <div class='col-12 text-left font-weight-normal'>
 <?php
-              $result = $conn->query("SELECT titulo, link, arquivo, resolucao, orientacao, comentario FROM Elementos WHERE id_tema = $tema_id AND concurso = '$concurso'");
+              $result = $conn->query("SELECT titulo, link, arquivo, resolucao, orientacao, comentario FROM Elementos WHERE id_tema = $tema_id AND concurso = '$concurso' AND tipo = 'imagem'");
               if ($result->num_rows > 0) {
               echo "
               <div id='carousel-with-lb' class='carousel slide carousel-multi-item' data-ride='carousel'>
@@ -294,7 +296,7 @@
           <div class='row border-bottom border-dark py-3'>
             <div class='col-12 text-left font-weight-normal'>
               <?php
-              $result = $conn->query("SELECT titulo, autor, link FROM Elementos WHERE id_tema = $tema_id AND concurso = '$concurso'");
+              $result = $conn->query("SELECT titulo, autor, link FROM Elementos WHERE id_tema = $tema_id AND concurso = '$concurso' AND tipo = 'video'");
               if ($result->num_rows > 0) {
                 echo "<ul class='list-group'>";
                   while($row = $result->fetch_assoc()) {
@@ -327,14 +329,15 @@
           <div class='row border-bottom border-dark py-3'>
             <div class='col-12 text-left font-weight-normal'>
               <?php
-                $result = $conn->query("SELECT titulo, autor, capitulo FROM Elementos WHERE id_tema = $tema_id AND concurso = '$concurso'");
+                $result = $conn->query("SELECT titulo, autor, capitulo, ano FROM Elementos WHERE id_tema = $tema_id AND concurso = '$concurso' AND tipo = 'referencia'");
                 if ($result->num_rows > 0) {
                   echo "<ul class='list-group'>";
                     while($row = $result->fetch_assoc()) {
                       $referencia_titulo = $row['titulo'];
                       $referencia_autor = $row['autor'];
                       $referencia_capitulo = $row['capitulo'];
-                      echo "<li class='list-group-item'>$referencia_titulo : $referencia_autor : $referencia_capitulo</li>";
+                      $referencia_ano = $row['ano'];
+                      echo "<li class='list-group-item'>$referencia_titulo : $referencia_autor : $referencia_capitulo : $referencia_ano</li>";
                     }
                   echo "</ul>";
                 }
@@ -406,13 +409,9 @@
                 <input type='text' id='nova_imagem_titulo' name='nova_imagem_titulo' class='form-control validate' required>
                 <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_imagem_titulo'>Título da imagem</label>
               </div>
-              <div class='md-form mb-2'>
-                <input type='text' id='nova_imagem_trecho' name='nova_imagem_trecho' class='form-control validate' required>
-                <label data-error='preenchimento incorreto' data-success='preenchimento correto' for='nova_imagem_trecho'>Trecho do verbete a vincular</label>
-              </div>
               <div class='md-form'>
                 <textarea type='text' id='nova_imagem_comentario' name='nova_imagem_comentario' class='md-textarea form-control' rows='4' required></textarea>
-                <label data-error='preenchimento incorreto' data-success='preenchimento correto' for='nova_imagem_comentario'>Breve comentário sobre a imagem, destacando sua relevância para a compreensão do tópico.</label>
+                <label data-error='preenchimento incorreto' data-success='preenchimento correto' for='nova_imagem_comentario'>Breve comentário sobre a imagem, destacando sua relevância didática.</label>
               </div>
             </div>
             <div class='modal-footer d-flex justify-content-center'>
@@ -445,6 +444,10 @@
               <div class='md-form mb-2'>
                 <input type='text' id='nova_referencia_capitulo' name='nova_referencia_capitulo' class='form-control validate'>
                 <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_referencia_capitulo'>Capítulo (opcional)</label>
+              </div>
+              <div class='md-form mb-2'>
+                <input type='text' id='nova_referencia_ano' name='nova_referencia_ano' class='form-control validate'>
+                <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_referencia_ano'>Ano (opcional)</label>
               </div>
             </div>
             <div class='modal-footer d-flex justify-content-center'>
