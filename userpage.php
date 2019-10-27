@@ -46,7 +46,7 @@
     ?>
     <div class="container-fluid my-5">
       <div class="row">
-        <div class="col-lg-6 col-sm-12">
+        <div class="col-lg-5 col-sm-12">
           <?php
             echo "
               <div class='row'>
@@ -65,7 +65,7 @@
             ";
           ?>
         </div>
-        <div class='col-lg-6 col-sm-12'>
+        <div class='col-lg-5 col-sm-12'>
           <h4>Lista de leitura</h4>
           <ul class='list-group'>
           </ul>
