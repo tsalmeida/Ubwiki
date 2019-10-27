@@ -26,6 +26,7 @@
 
   $variaveis_php_session = "
     <script type='text/javascript'>
+      var user_id=$user_id;
       var tema_id=$tema_id;
       var concurso='$concurso';
       var user_email='$user_email';
