@@ -137,7 +137,7 @@
                   <?php
                     echo "
                       <div id='quill_container_user'>
-                        <div id='quill_editor_user'>
+                        <div id='quill_editor_user' class='quill_editor_height'>
                           $user_mensagens
                         </div>
                       </div>

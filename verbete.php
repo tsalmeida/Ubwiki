@@ -368,7 +368,7 @@
                       <?php
                         echo "
                           <div id='quill_container_anotacao'>
-                            <div id='quill_editor_anotacao'>
+                            <div id='quill_editor_anotacao' class='quill_editor_height'>
                               $anotacao_html
                             </div>
                           </div>

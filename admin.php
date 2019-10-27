@@ -215,7 +215,7 @@
                   <?php
                     echo "
                       <div id='quill_container_admin'>
-                        <div id='quill_editor_admin'>
+                        <div id='quill_editor_admin' class='quill_editor_height'>
                           $admin_mensagens
                         </div>
                       </div>

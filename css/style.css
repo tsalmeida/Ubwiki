@@ -122,8 +122,8 @@ h1, h2, h3, h4, h5, h6 {
   width: 70ch;
 }
 
-#quill_editor_anotacao {
-  height: 20em;
+.quill_editor_height {
+  height: 40em;
 }
 
 .footer.page-footer .footer-copyright {
