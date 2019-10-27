@@ -354,7 +354,7 @@ function bottom_page() {
       }
       elseif ($args[$array] == 'bookmark_stuff') {
         echo "
-        <script type='text/javascript>
+        <script type='text/javascript'>
           $('#add_bookmark').click(function() {
             alert(tema_id);
         		$.post('engine.php', {
@@ -387,7 +387,7 @@ function bottom_page() {
         '";
       }
       elseif ($args[$array] == 'testing') {
-        echo "<script> alert(tema_id); </script>";
+        echo "<script type='text/javascript'> alert(tema_id); </script>";
       }
       $array++;
     }
