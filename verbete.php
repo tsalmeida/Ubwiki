@@ -394,7 +394,7 @@
                   echo "<ul class='list-group'>";
                     while($row = $result->fetch_assoc()) {
                       $id_elemento = $row['id_elemento'];
-                      $result2 = $conn->query("SELECT titulo, autor, capitulo, ano, link FROM Elementos WHERE id = $id_elemento")
+                      $result2 = $conn->query("SELECT titulo, autor, capitulo, ano, link FROM Elementos WHERE id = $id_elemento");
                       if ($result2->num_rows > 0) {
                         while ($row = $result2->fetch_assoc()) {
                           $referencia_titulo = $row['titulo'];
