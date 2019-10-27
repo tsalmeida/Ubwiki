@@ -324,7 +324,7 @@ function bottom_page() {
         <script type='text/javascript'>
           $('.collapse').click(function(){
             if ( $('#verbete').css('display') == 'none' && $('#videos').css('display') == 'none' && $('#imagens').css('display') == 'none' && $('#bibliografia').css('display') == 'none' ) {
-              $(''#coluna_esquerda').css('display', 'none');
+              $('#coluna_esquerda').css('display', 'none');
             }
             else {
               $('#coluna_esquerda').css('display', 'inline');
