@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i&display=swap');
 
 html {
-font-size: 1.2rem;
+font-size: 1.1rem;
 }
 
 @include media-breakpoint-up(sm) {
