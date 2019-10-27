@@ -28,6 +28,7 @@ $(document).ready(function() {
     return false;
   });
 	$('#add_bookmark').click(function() {
+		alert(user_id);
 		$.post('engine.php', {
 			'bookmark_change': true,
 			'bookmark_tema_id': tema_id,
@@ -41,6 +42,7 @@ $(document).ready(function() {
 		return false;
 	});
 	$('#remove_bookmark').click(function() {
+		alert(tema_id);
 		$.post('engine.php', {
 			'bookmark_change': false,
 			'bookmark_tema_id': tema_id,
