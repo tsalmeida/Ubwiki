@@ -333,45 +333,56 @@ function bottom_page() {
             if ( $('#videos').css('display') == 'none' && $('#imagens').css('display') == 'none' && $('#bibliografia').css('display') == 'none' ) {
               $('#coluna_esquerda').css('display', 'none');
               $('#coluna_direita').addClass('col-lg-6');
+              $('#coluna_direita').removeClass('col-lg-5');
             }
             if ( $('#coluna_direita').css('display') == 'none' ) {
-              $('#coluna_esquerda').css('col-lg-6');
+              $('#coluna_esquerda').addClass('col-lg-6');
+              $('#coluna_esquerda').removeClass('col-lg-5');
             }
           });
           $('#esconder_imagens').click(function(){
             if ( $('#verbete').css('display') == 'none' && $('#videos').css('display') == 'none' && $('#bibliografia').css('display') == 'none' ) {
               $('#coluna_esquerda').css('display', 'none');
               $('#coluna_direita').addClass('col-lg-6');
+              $('#coluna_direita').removeClass('col-lg-5');
             }
             if ( $('#coluna_direita').css('display') == 'none' ) {
-              $('#coluna_esquerda').css('col-lg-6');
+              $('#coluna_esquerda').addClass('col-lg-6');
+              $('#coluna_esquerda').removeClass('col-lg-5');
             }
           });
           $('#esconder_videos').click(function(){
             if ( $('#verbete').css('display') == 'none' && $('#imagens').css('display') == 'none' && $('#bibliografia').css('display') == 'none' ) {
               $('#coluna_esquerda').css('display', 'none');
               $('#coluna_direita').addClass('col-lg-6');
+              $('#coluna_direita').removeClass('col-lg-5');
             }
             if ( $('#coluna_direita').css('display') == 'none' ) {
-              $('#coluna_esquerda').css('col-lg-6');
+              $('#coluna_esquerda').addClass('col-lg-6');
+              $('#coluna_esquerda').removeClass('col-lg-5');
             }
           });
           $('#esconder_bibliografia').click(function(){
             if ( $('#verbete').css('display') == 'none' && $('#videos').css('display') == 'none' && $('#imagens').css('display') == 'none' ) {
               $('#coluna_esquerda').css('display', 'none');
               $('#coluna_direita').addClass('col-lg-6');
+              $('#coluna_direita').removeClass('col-lg-5');
             }
             if ( $('#coluna_direita').css('display') == 'none' ) {
-              $('#coluna_esquerda').css('col-lg-6');
+              $('#coluna_esquerda').addClass('col-lg-6');
+              $('#coluna_esquerda').removeClass('col-lg-5');
             }
           });
           $('.mostrar_coluna_esquerda').click(function(){
             $('#coluna_esquerda').css('display', 'inline');
             $('#coluna_direita').addClass('col-lg-5');
+            $('#coluna_direita').removeClass('col-lg-6');
           });
           $('#mostrar_anotacoes').click(function(){
             $('#coluna_esquerda').addClass('col-lg-5');
+            $('#coluna_esquerda').removeClass('col-lg-6');
             $('#coluna_direita').addClass('col-lg-5');
+            $('#coluna_direita').removeClass('col-lg-6');
           });
         </script>";
       }
