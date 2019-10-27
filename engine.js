@@ -35,13 +35,4 @@ $(document).ready(function() {
 		$('#remove_bookmark').hide();
 		$('#add_bookmark').show();
 	});
-	$('.collapse').click(function(){
-		alert('this happened');
-		if ( $('#verbete').css('display') == 'none' && $('#videos').css('display') == 'none' && $('#imagens').css('display') == 'none' && $('#bibliografia').css('display') == 'none' ) {
-	    $("#coluna_esquerda").css("display", "none");
-		}
-		else {
-			$("#coluna_esquerda").css("display", "inline");
-		}
-	});
 });

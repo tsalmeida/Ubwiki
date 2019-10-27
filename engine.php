@@ -319,6 +319,19 @@ function bottom_page() {
           </script>
         ";
       }
+      elseif ($args[$array] == 'collapse_stuff') {
+        echo "
+        <script>
+        $('.collapse').click(function(){
+          if ( $('#verbete').css('display') == 'none' && $('#videos').css('display') == 'none' && $('#imagens').css('display') == 'none' && $('#bibliografia').css('display') == 'none' ) {
+            $(''#coluna_esquerda').css('display', 'none');
+          }
+          else {
+            $('#coluna_esquerda').css('display', 'inline');
+          }
+        });
+        </script>";
+      }
       $array++;
     }
   }
