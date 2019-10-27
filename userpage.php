@@ -45,29 +45,30 @@
       }
     ?>
     <div class="container-fluid my-5">
-      <div class="row">
+      <div class="row d-flex justify-content-around">
         <div class="col-lg-5 col-sm-12">
-          <?php
+          <div class='row'>
+            <div class='col-12 d-flex justify-content-between'>
+              <h4>Dados da sua conta</h4>
+              <h4><a data-toggle='modal' data-target='#modal_editar_dados' href=''><i class='fal fa-edit'></i></a></h4>
+            </div>
+          </div>
+          <ul class='list-group'>
+<?php
             echo "
-              <div class='row'>
-                <div class='col-12 d-flex justify-content-between'>
-                  <h4>Dados da sua conta</h4>
-                  <h4><a data-toggle='modal' data-target='#modal_editar_dados' href=''><i class='fal fa-edit'></i></a></h4>
-                </div>
-              </div>
-              <ul class='list-group'>
-                <li class='list-group-item'><strong>Conta criada em:</strong> $criacao</li>
-                <li class='list-group-item'><strong>Apelido:</strong> $apelido</li>
-                <li class='list-group-item'><strong>Nome:</strong> $nome</li>
-                <li class='list-group-item'><strong>Sobrenome:</strong> $sobrenome</li>
-                <li class='list-group-item'><strong>Email:</strong> $user</li>
-              </ul>
+              <li class='list-group-item'><strong>Conta criada em:</strong> $criacao</li>
+              <li class='list-group-item'><strong>Apelido:</strong> $apelido</li>
+              <li class='list-group-item'><strong>Nome:</strong> $nome</li>
+              <li class='list-group-item'><strong>Sobrenome:</strong> $sobrenome</li>
+              <li class='list-group-item'><strong>Email:</strong> $user</li>
             ";
-          ?>
+?>
+          </ul>
         </div>
         <div class='col-lg-5 col-sm-12'>
           <h4>Lista de leitura</h4>
           <ul class='list-group'>
+            
           </ul>
         </div>
       </div>
