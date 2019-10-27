@@ -503,7 +503,7 @@
                 <div class='container col-12 justify-content-center'>
                   <?php
                     echo "
-                      <div id='quill_container_verbete' class='quill_container_modal'>
+                      <div id='quill_container_verbete' class='quill_container'>
                         <div id='quill_editor_verbete'>
                           $verbete_html
                         </div>

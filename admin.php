@@ -205,28 +205,30 @@
           </form>
         </div>
         <div class='col-lg-5 col-sm-12'>
-          <h4>Notas dos administradores</h4>
-          <p>Estas anotações são compartilhadas entre todos os administradores, por exemplo, para registrar idéia de melhorias futuras para a página.</p>
-          <form id='quill_admin_form' method='post'>
-            <input name='quill_nova_mensagem_html' type='hidden'>
-              <div class='row d-flex justify-content-center'>
-                <div class='container col-12 d-flex justify-content-center'>
+          <div class='col-12 text-left font-weight-normal'>
+            <h4>Notas dos administradores</h4>
+            <p>Estas anotações são compartilhadas entre todos os administradores, por exemplo, para registrar idéia de melhorias futuras para a página.</p>
+            <form id='quill_admin_form' method='post'>
+              <input name='quill_nova_mensagem_html' type='hidden'>
+              <div class='row'>
+                <div class='container col-12'>
                   <?php
                     echo "
                       <div id='quill_container_admin'>
                         <div id='quill_editor_admin'>
-                          $admin_mensagens
+                          $anotacao_html
                         </div>
                       </div>
                     ";
                   ?>
                 </div>
               </div>
-            <div class='row d-flex justify-content-center mt-5'>
-              <button type='button' class='btn bg-lighter btn-lg'><i class="fal fa-times-circle"></i> Cancelar</button>
-              <button type='submit' class='but btn-primary btn-lg'><i class='fal fa-check'></i> Salvar</button>
-            </div>
-          </form>
+              <div class='row d-flex justify-content-center mt-3'>
+                <button type='button' class='btn btn-light'><i class="fal fa-times-circle fa-fw"></i> Cancelar</button>
+                <button type='submit' class='btn btn-primary'><i class='fal fa-check fa-fw'></i> Salvar</button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
