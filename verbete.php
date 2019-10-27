@@ -292,6 +292,7 @@
                     $count = 0;
                     while($row = $result2->fetch_assoc()) {
                       $count++;
+                      error_log($count);
                       $imagem_titulo = $row['titulo'];
                       $imagem_link = $row['link'];
                       $imagem_comentario = $row['comentario'];
@@ -313,6 +314,7 @@
                       ";
                       $active = false;
                     }
+                    error_log($count);
                     if ($count != 1) {
                       echo "
                       </div>
