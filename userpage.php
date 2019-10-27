@@ -126,7 +126,7 @@
                     echo "
                       <div id='quill_container_user'>
                         <div id='quill_editor_user'>
-                          $anotacao_html
+                          $user_mensagens
                         </div>
                       </div>
                     ";

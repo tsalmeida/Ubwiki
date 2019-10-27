@@ -216,7 +216,7 @@
                     echo "
                       <div id='quill_container_admin'>
                         <div id='quill_editor_admin'>
-                          $anotacao_html
+                          $admin_mensagens
                         </div>
                       </div>
                     ";
