@@ -288,8 +288,8 @@
                 while($row = $result->fetch_assoc()) {
                   $id_elemento = $row['id_elemento'];
                   $result2 = $conn->query("SELECT titulo, link, comentario, arquivo, resolucao, orientacao FROM Elementos WHERE id = $id_elemento");
-                  if ($result1->num_rows > 0) {
-                    while($row = $result1->fetch_assoc()) {
+                  if ($result2->num_rows > 0) {
+                    while($row = $result2->fetch_assoc()) {
                       $imagem_titulo = $row['titulo'];
                       $imagem_link = $row['link'];
                       $imagem_comentario = $row['comentario'];
