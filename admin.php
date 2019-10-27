@@ -138,7 +138,7 @@
     ?>
     <div class="container-fluid my-5 px-3">
       <div class="row">
-        <div class="col-lg-6 col-sm-12">
+        <div class="col-lg-5 col-sm-12">
           <form class='text-center border border-light p-5 my-2' method='post' formaction='edicao_topicos.php'>
               <p class="h4 mb-4">Editar tópicos</p>
               <p class='text-left'>Com esta ferramenta, o administrador pode alterar a tabela de tópicos de um concurso. O objetivo é maximizar a utilidade do edital original para as atividades do estudante.</p>
@@ -204,7 +204,7 @@
             <button class='btn btn-primary btn-block my-4' type='submit'>Otimizar</button>
           </form>
         </div>
-        <div class='col-lg-6 col-sm-12'>
+        <div class='col-lg-5 col-sm-12'>
           <h4>Notas dos administradores</h4>
           <p>Estas anotações são compartilhadas entre todos os administradores, por exemplo, para registrar idéia de melhorias futuras para a página.</p>
           <form id='quill_admin_form' method='post'>
