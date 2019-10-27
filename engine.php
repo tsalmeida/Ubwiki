@@ -72,10 +72,16 @@ function breadcrumbs() {
               <li id='simulados' class='breadcrumb-item' title='Simulados'><a href='#'><i class='fal fa-check-double fa-fw'></i></a></li>
               <li id='forum' class='breadcrumb-item' title='Fórum'><a href='#'><i class='fal fa-comments-alt fa-fw'></i></a></li>";
               if ($tema_bookmark == false) {
-                echo "<li id='add_bookmark' class='breadcrumb-item' title='Marcar para leitura' value='$id_tema'><a href='#'><i class='fal fa-bookmark fa-fw'></i></a></li>";
+                echo "
+                  <li id='add_bookmark' class='breadcrumb-item' title='Marcar para leitura' value='$id_tema'><a href='#'><i class='fal fa-bookmark fa-fw'></i></a></li>
+                  <li id='remove_bookmark' class='breadcrumb-item d-none' title='Remover da lista de leitura' value='$id_tema'><a href='#'><span class='text-danger'><i class='fas fa-bookmark fa-fw'></i></span></span></a></li>
+                ";
               }
               else {
-                echo "<li id='remove_bookmark' class='breadcrumb-item' title='Remover da lista de leitura' value='$id_tema'><a href='#'><span class='text-danger'><i class='fas fa-bookmark fa-fw'></i></span></span></a></li>";
+                echo "
+                  <li id='add_bookmark' class='breadcrumb-item d-none' title='Marcar para leitura' value='$id_tema'><a href='#'><i class='fal fa-bookmark fa-fw'></i></a></li>
+                  <li id='remove_bookmark' class='breadcrumb-item' title='Remover da lista de leitura' value='$id_tema'><a href='#'><span class='text-danger'><i class='fas fa-bookmark fa-fw'></i></span></span></a></li>
+                ";
               }
             echo "
             </ol>
