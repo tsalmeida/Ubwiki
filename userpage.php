@@ -74,7 +74,7 @@
               while ($row = $result->fetch_assoc()) {
                 $tema_id = $row['tema_id'];
                 error_log($tema_id);
-                $info_temas = $conn->query("SELECT concurso, sigla_materia, nivel, nivel1, nivel2, nivel3, nivel4, nivel5 WHERE id = $tema_id");
+                $info_temas = $conn->query("SELECT concurso, sigla_materia, nivel, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE id = $tema_id");
                 if ($result->num_rows > 0) {
                   while ($row = $result->fetch_assoc()) {
                     $concurso = $row['concurso'];
