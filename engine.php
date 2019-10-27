@@ -356,6 +356,7 @@ function bottom_page() {
         echo "
         <script type='text/javascript>
           $('#add_bookmark').click(function() {
+            alert(tema_id);
         		$.post('engine.php', {
         			'bookmark_change': true,
         			'bookmark_tema_id': tema_id,
@@ -369,6 +370,7 @@ function bottom_page() {
         		return false;
         	});
         	$('#remove_bookmark').click(function() {
+            alert(user_id);
         		$.post('engine.php', {
         			'bookmark_change': false,
         			'bookmark_tema_id': tema_id,
