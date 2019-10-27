@@ -73,7 +73,6 @@
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
                 $tema_id = $row['tema_id'];
-                error_log($tema_id);
                 $info_temas = $conn->query("SELECT concurso, sigla_materia, nivel, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE id = $tema_id");
                 if ($info_temas->num_rows > 0) {
                   while ($row = $info_temas->fetch_assoc()) {
@@ -85,13 +84,12 @@
                     $nivel3 = $row['nivel3'];
                     $nivel4 = $row['nivel4'];
                     $nivel5 = $row['nivel5'];
-                    error_log("$concurso, $sigla_matera, $nivel, $nivel1");
                     if ($nivel == 1) { $titulo = $nivel1; }
                     elseif ($nivel == 2) { $titulo = $nivel2; }
                     elseif ($nivel == 3) { $titulo = $nivel3; }
                     elseif ($nivel == 4) { $titulo = $nivel4; }
                     else { $titulo = $nivel5; }
-                    echo "<li class='list-group-item'>$titulo</li>";
+                    echo "<li class='list-group-item list-group-item-action' href='verbete.php?concurso=$concurso&tema=$tema_id'>$titulo</li>";
                   }
                 }
               }
