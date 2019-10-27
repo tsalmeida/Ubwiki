@@ -307,7 +307,7 @@
                               class='img-fluid' style='height:300px'>
                           </a>
                           <figcaption><h5 class='mt-3'>$imagem_titulo</h5>
-                          $imagem_comentario<p><a href='elemento.php$id_elemento'>Página da imagem</a></p></figcaption>
+                          $imagem_comentario<p><a href='elemento.php$id_elemento' target='_blank'>Página da imagem</a></p></figcaption>
                         </figure>
                       </div>
                       ";
@@ -366,7 +366,7 @@
                         $video_titulo = $row['titulo'];
                         $video_autor = $row['autor'];
                         $video_link = $row['link'];
-                        echo "<li class='list-group-item list-group-item-action'><a href='$video_link' target='_blank'>$video_titulo : $video_autor</a> // <a href='elemento.php?id=$id_elemento'>Página do vídeo</a></li>";
+                        echo "<li class='list-group-item list-group-item-action'><a href='$video_link' target='_blank'>$video_titulo : $video_autor</a> // <a href='elemento.php?id=$id_elemento' target='_blank'>Página do vídeo</a></li>";
                       }
                     }
                   }
@@ -409,10 +409,10 @@
                           $referencia_ano = $row['ano'];
                           $referencia_link = $row['link'];
                           if ($referencia_link != '') {
-                            echo "<li class='list-group-item list-group-item-action'><a href='$video_link' target='_blank'>$video_titulo : $video_autor</a> // <a href='elemento.php?id=$id_elemento'>Página do elemento</a> // <a href='elemento.php?id=$id_elemento'>Página da referência</a></li>";
+                            echo "<li class='list-group-item list-group-item-action'><a href='$referencia_link' target='_blank'>$referencia_titulo : $referencia_autor</a> // <a href='elemento.php?id=$id_elemento' target='_blank'>Página da referência</a></li>";
                           }
                           else {
-                            echo "<li class='list-group-item'>$referencia_titulo : $referencia_autor : $referencia_capitulo : $referencia_ano // <a href='elemento.php?id=$id_elemento'>Página da referência</a></li>";
+                            echo "<li class='list-group-item'>$referencia_titulo : $referencia_autor : $referencia_capitulo : $referencia_ano // <a href='elemento.php?id=$id_elemento' target='_blank'>Página da referência</a></li>";
                           }
                         }
                       }

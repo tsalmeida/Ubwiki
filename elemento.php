@@ -22,7 +22,7 @@
     ?>
     <div class="container-fluid my-5">
       <div class="row justify-content-center">
-        <div class="col-6 col-sm-12">
+        <div class="col-lg-6 col-sm-12">
           <h3>Dados do elemento:</h3>
           <?php
             $result = $conn->query("SELECT criacao, tipo, titulo, autor, capitulo, ano, link, arquivo, resolucao, orientacao, comentario, trecho, user_id FROM Elementos WHERE id = $id_elemento");
@@ -49,8 +49,9 @@
                     <li class='list-group-item list-group-item-action'>Autor: $autor_elemento</li>
                     <li class='list-group-item list-group-item-action'>Capítulo: $capitulo_elemento</li>
                     <li class='list-group-item list-group-item-action'>Ano: $ano_elemento</li>
-                    <li class='list-group-item list-group-item-action'>Link: $link_elemento</li>
-                    <li class='list-group-item list-group-item-action'>Arquivo: $arquivo_elemento</li>
+                    <li class='list-group-item list-group-item-action'><a href='$link_elemento' target='_blank'>Link</a></li>
+                    <li class='list-group-item list-group-item-action'><a href='imagens/verbetes/$arquivo_elemento' target='_blank'>Arquivo</a></li>
+                    <li class='list-group-item list-group-item-action'><a href='imagens/verbetes/thumbnail/$arquivo_elemento' target='_blank'>Thumbnail></a></li>
                     <li class='list-group-item list-group-item-action'>Resolução: $resolucao_elemento</li>
                     <li class='list-group-item list-group-item-action'>Orientação: $orientacao_elemento</li>
                     <li class='list-group-item list-group-item-action'>Comentário: $comentario_elemento</li>
