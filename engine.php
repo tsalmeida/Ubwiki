@@ -356,9 +356,8 @@ function bottom_page() {
         echo "
         <script type='text/javascript'>
           $('#add_bookmark').click(function() {
-            alert(tema_id);
         		$.post('engine.php', {
-        			'bookmark_change': 1,
+        			'bookmark_change': 'incluir',
         			'bookmark_tema_id': tema_id,
         			'bookmark_user_id': user_id
         		}, function(data) {
@@ -371,9 +370,8 @@ function bottom_page() {
         		return false;
         	});
         	$('#remove_bookmark').click(function() {
-            alert(user_id);
         		$.post('engine.php', {
-        			'bookmark_change': 0,
+        			'bookmark_change': 'remover',
         			'bookmark_tema_id': tema_id,
         			'bookmark_user_id': user_id
         		}, function(data) {
@@ -448,8 +446,9 @@ echo "
 }
 
 if (isset($_POST['bookmark_change'])) {
-  error_log('this happened');
   $bookmark_change = $_POST['bookmark_change'];
+  if ($bookmark_change == 'incluir') { $bookmark_change = true; }
+  elseif ($bookmark_change == 'remover') { $bookmark_change = false; }
   $bookmark_tema_id = $_POST['bookmark_tema_id'];
   $bookmark_user_id = $_POST['bookmark_user_id'];
   error_log("$bookmark_change $bookmark_tema_id $bookmark_user_id");
