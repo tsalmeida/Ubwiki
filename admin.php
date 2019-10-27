@@ -140,7 +140,7 @@
       <div class="row justify-content-around">
         <div class="col-lg-5 col-sm-12">
           <form class='text-center border border-light p-5 my-2' method='post' formaction='edicao_topicos.php'>
-              <p class="h4 mb-4">Editar tópicos</p>
+              <h4 class='mb-4'>Editar tópicos</h4>
               <p class='text-left'>Com esta ferramenta, o administrador pode alterar a tabela de tópicos de um concurso. O objetivo é maximizar a utilidade do edital original para as atividades do estudante.</p>
               <div class="form-group">
                 <label for="editar_topicos_concurso">Concurso</label>
@@ -157,22 +157,22 @@
           </form>
 
           <form class='text-center border border-light p-5 my-2' method='post' formaction='edicao_topicos.php'>
-              <p class="h4 mb-4">Acrescentar concurso</p>
-              <p class='text-left'>Cada concurso tem um título completo e uma sigla. Este é o primeiro passo no processo de inclusão de novos concursos.</p>
-              <fieldset class="form-group">
-                <div class="row">
-                  <input type='text' id='novo_concurso_titulo' name='novo_concurso_titulo' class='form-control validate' required>
-                  <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_concurso_titulo'>Título do concurso</label>
-                </div>
-                <div class="row">
-                  <input type='text' id='novo_concurso_sigla' name='novo_concurso_sigla' class='form-control validate' required>
-                  <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_concurso_sigla'>Sigla do concurso</label>
-                </div>
+            <h4 class='mb-4'>Acrescentar concurso</h4>
+            <p class='text-left'>Cada concurso tem um título completo e uma sigla. Este é o primeiro passo no processo de inclusão de novos concursos.</p>
+            <fieldset class="form-group">
+              <div class="row">
+                <input type='text' id='novo_concurso_titulo' name='novo_concurso_titulo' class='form-control validate' required>
+                <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_concurso_titulo'>Título do concurso</label>
+              </div>
+              <div class="row">
+                <input type='text' id='novo_concurso_sigla' name='novo_concurso_sigla' class='form-control validate' required>
+                <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_concurso_sigla'>Sigla do concurso</label>
+              </div>
               </fieldset>
             <button class='btn btn-primary btn-block my-4' type='submit'>Acrescentar concurso</button>
           </form>
           <form class='text-center border border-light p-5 my-2' method='post'>
-              <p class="h4 mb-4">Barra de busca</p>
+              <h4 class='mb-4'>Barra de busca</h4>
               <p>Reconstruir tabela de opções da barra de busca.</p>
               <div class="form-group">
                 <label for="editar_topicos_concurso">Concurso</label>
@@ -188,19 +188,19 @@
             <button class='btn btn-primary btn-block my-4' type='submit' name='reconstruir_busca'>Reconstruir</button>
           </form>
           <form class='text-center border border-light p-5 my-2' method='post'>
-              <p class="h4 mb-4">Otimizar tabela de tópicos</p>
-              <p>Essa ferramenta determina o nível relevante de cada entrada na tabela de tópicos, de 1 a 5.</p>
-              <div class="form-group">
-                <label for="editar_topicos_concurso">Concurso</label>
-                <select class="form-control" name="otimizar_temas_concurso">
-  <?php
-                  foreach ($lista_concursos as $um_concurso) {
-                    if ($um_concurso[2] == 0) { $estado = '(desativado)'; } else { $estado = '(ativado)'; }
-                    echo "<option value='$um_concurso[0]'>$um_concurso[1] $estado</option>";
-                  }
-  ?>
-                </select>
-              </div>
+            <h4 class='mb-4'>Otimizar tabela de tópicos</h4>
+            <p>Essa ferramenta determina o nível relevante de cada entrada na tabela de tópicos, de 1 a 5.</p>
+            <div class="form-group">
+              <label for="editar_topicos_concurso">Concurso</label>
+              <select class="form-control" name="otimizar_temas_concurso">
+<?php
+                foreach ($lista_concursos as $um_concurso) {
+                  if ($um_concurso[2] == 0) { $estado = '(desativado)'; } else { $estado = '(ativado)'; }
+                  echo "<option value='$um_concurso[0]'>$um_concurso[1] $estado</option>";
+                }
+?>
+              </select>
+            </div>
             <button class='btn btn-primary btn-block my-4' type='submit'>Otimizar</button>
           </form>
         </div>
