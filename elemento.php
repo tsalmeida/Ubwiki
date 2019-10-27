@@ -21,8 +21,8 @@
     standard_jumbotron("Página de Elemento", false);
     ?>
     <div class="container-fluid my-5">
-      <div class="row justify-content-center">
-        <div class="col-lg-6 col-sm-12">
+      <div class="row justify-content-around">
+        <div class="col-lg-5 col-sm-12">
           <h3>Dados do elemento:</h3>
           <?php
             $result = $conn->query("SELECT criacao, tipo, titulo, autor, capitulo, ano, link, arquivo, resolucao, orientacao, comentario, trecho, user_id FROM Elementos WHERE id = $id_elemento");
@@ -51,7 +51,7 @@
                     <li class='list-group-item list-group-item-action'>Ano: $ano_elemento</li>
                     <li class='list-group-item list-group-item-action'><a href='$link_elemento' target='_blank'>Link</a></li>
                     <li class='list-group-item list-group-item-action'><a href='imagens/verbetes/$arquivo_elemento' target='_blank'>Arquivo</a></li>
-                    <li class='list-group-item list-group-item-action'><a href='imagens/verbetes/thumbnail/$arquivo_elemento' target='_blank'>Thumbnail</a></li>
+                    <li class='list-group-item list-group-item-action'><a href='imagens/verbetes/thumbnails/$arquivo_elemento' target='_blank'>Thumbnail</a></li>
                     <li class='list-group-item list-group-item-action'>Resolução: $resolucao_elemento</li>
                     <li class='list-group-item list-group-item-action'>Orientação: $orientacao_elemento</li>
                     <li class='list-group-item list-group-item-action'>Comentário: $comentario_elemento</li>
@@ -62,6 +62,10 @@
               }
             }
           ?>
+        </div>
+        <div class='col-lg-5 col-sm-12'>
+          <h3>Anotações aqui</h3>
+          <p>Quill text editor</p>
         </div>
       </div>
     </div>
