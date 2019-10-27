@@ -389,7 +389,7 @@
           <div class='row border-bottom border-dark py-3'>
             <div class='col-12 text-left font-weight-normal'>
               <?php
-                $result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND concurso = '$concurso' AND tipo = 'referencia'");
+                $result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND tipo = 'referencia'");
                 if ($result->num_rows > 0) {
                   echo "<ul class='list-group'>";
                     while($row = $result->fetch_assoc()) {
