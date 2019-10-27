@@ -386,6 +386,9 @@ function bottom_page() {
         </script>
         '";
       }
+      elseif ($args[$array] == 'testing') {
+        alert(tema_id);
+      }
       $array++;
     }
   }
