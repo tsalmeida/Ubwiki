@@ -134,9 +134,10 @@
     $nova_referencia_autor = $_POST['nova_referencia_autor'];
     $nova_referencia_capitulo = $_POST['nova_referencia_capitulo'];
     $nova_referencia_ano = $_POST['nova_referencia_ano'];
+    $nova_referencia_link = $_POST['nova_referencia_link'];
     $result = $conn->query("SELECT id FROM Elementos WHERE concurso = '$concurso' AND id_tema = $tema_id AND titulo = '$nova_referencia_titulo'");
     if ($result->num_rows == 0) {
-      $result = $conn->query("INSERT INTO Elementos (id_tema, concurso, tipo, titulo, autor, capitulo, ano, user_id) VALUES ($tema_id, '$concurso', 'referencia', '$nova_referencia_titulo', '$nova_referencia_autor', '$nova_referencia_capitulo', '$nova_referencia_ano', '$user_id')");
+      $result = $conn->query("INSERT INTO Elementos (id_tema, concurso, tipo, titulo, autor, capitulo, link, ano, user_id) VALUES ($tema_id, '$concurso', 'referencia', '$nova_referencia_titulo', '$nova_referencia_autor', '$nova_referencia_capitulo', '$nova_referencia_link', '$nova_referencia_ano', '$user_id')");
     }
   }
 
@@ -329,7 +330,7 @@
           <div class='row border-bottom border-dark py-3'>
             <div class='col-12 text-left font-weight-normal'>
               <?php
-                $result = $conn->query("SELECT titulo, autor, capitulo, ano FROM Elementos WHERE id_tema = $tema_id AND concurso = '$concurso' AND tipo = 'referencia'");
+                $result = $conn->query("SELECT titulo, autor, capitulo, ano, link FROM Elementos WHERE id_tema = $tema_id AND concurso = '$concurso' AND tipo = 'referencia'");
                 if ($result->num_rows > 0) {
                   echo "<ul class='list-group'>";
                     while($row = $result->fetch_assoc()) {
@@ -337,7 +338,14 @@
                       $referencia_autor = $row['autor'];
                       $referencia_capitulo = $row['capitulo'];
                       $referencia_ano = $row['ano'];
-                      echo "<li class='list-group-item'>$referencia_titulo : $referencia_autor : $referencia_capitulo : $referencia_ano</li>";
+                      $referencia_link = $row['link'];
+                      if ($referencia_link != '') {
+                        echo "<li class='list-group-item'>$referencia_titulo : $referencia_autor : $referencia_capitulo : $referencia_ano : <a href='$referencia_link' target='_blank'>link</a></li>";
+                      }
+                      else {
+                        echo "<li class='list-group-item'>$referencia_titulo : $referencia_autor : $referencia_capitulo : $referencia_ano</li>";
+                      }
+
                     }
                   echo "</ul>";
                 }
@@ -448,6 +456,10 @@
               <div class='md-form mb-2'>
                 <input type='text' id='nova_referencia_ano' name='nova_referencia_ano' class='form-control validate'>
                 <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_referencia_ano'>Ano (opcional)</label>
+              </div>
+              <div class='md-form mb-2'>
+                <input type='text' id='nova_referencia_link' name='nova_referencia_link' class='form-control validate'>
+                <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='nova_referencia_link'>Link (opcional)</label>
               </div>
             </div>
             <div class='modal-footer d-flex justify-content-center'>
