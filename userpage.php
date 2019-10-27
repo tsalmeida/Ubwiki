@@ -64,8 +64,8 @@
             ";
 ?>
           </ul>
-        </div>
-        <div class='col-lg-5 col-sm-12'>
+
+
           <h4>Lista de leitura</h4>
           <ul class='list-group'>
 <?php
@@ -96,6 +96,10 @@
             }
 ?>
           </ul>
+        </div>
+        <div class='col-lg-5 col-sm-12'>
+          <h4>Anotações</h4>
+          <p>Quill de anotações vai aqui.</p>
         </div>
       </div>
     </div>
