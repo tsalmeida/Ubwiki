@@ -448,6 +448,7 @@ if (isset($_POST['bookmark_change'])) {
   $check = $conn->query("SELECT id FROM Bookmarks WHERE user_id = $bookmark_user_id AND tema_id = $bookmark_tema_id");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
+      error_log("this happened");
       $bookmark_id = $row['id'];
       $update = $conn->query("UPDATE Bookmarks SET bookmark = $bookmark_change WHERE id = $bookmark_id");
       break;
