@@ -3,7 +3,7 @@
   session_save_path('/home/tsilvaalmeida/public_html/ubwiki/sessions/');
   session_start();
   if (isset($_SESSION['email'])) {
-    $user = $_SESSION['email'];
+    $user_email = $_SESSION['email'];
   }
   else {
     header('Location:login.php');
@@ -12,23 +12,23 @@
   include 'engine.php';
   top_page(false);
 
-  $result = $conn->query("SELECT id, tipo, criacao, apelido, nome, sobrenome FROM Usuarios WHERE email = '$user'");
+  $result = $conn->query("SELECT id, tipo, criacao, apelido, nome, sobrenome FROM Usuarios WHERE email = '$user_email'");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
-      $id = $row['id'];
-      $tipo = $row['tipo'];
-      $criacao = $row['criacao'];
-      $apelido = $row['apelido'];
-      $nome = $row['nome'];
-      $sobrenome = $row['sobrenome'];
+      $user_id = $row['id'];
+      $user_tipo = $row['tipo'];
+      $user_criacao = $row['criacao'];
+      $user_apelido = $row['apelido'];
+      $user_nome = $row['nome'];
+      $user_sobrenome = $row['sobrenome'];
     }
   }
 
   if (isset($_POST['novo_nome'])) {
-    $nome = $_POST['novo_nome'];
-    $sobrenome = $_POST['novo_sobrenome'];
-    $apelido = $_POST['novo_apelido'];
-    $result = $conn->query("UPDATE Usuarios SET nome = '$nome', sobrenome = '$sobrenome', apelido = '$apelido' WHERE id = $id");
+    $novo_user_nome = $_POST['novo_nome'];
+    $novo_user_sobrenome = $_POST['novo_sobrenome'];
+    $novo_user_apelido = $_POST['novo_apelido'];
+    $result = $conn->query("UPDATE Usuarios SET nome = '$novo_user_nome', sobrenome = '$novo_user_sobrenome', apelido = '$novo_user_apelido' WHERE id = $user_id");
   }
 
 ?>
@@ -56,11 +56,11 @@
           <ul class='list-group'>
 <?php
             echo "
-              <li class='list-group-item'><strong>Conta criada em:</strong> $criacao</li>
-              <li class='list-group-item'><strong>Apelido:</strong> $apelido</li>
-              <li class='list-group-item'><strong>Nome:</strong> $nome</li>
-              <li class='list-group-item'><strong>Sobrenome:</strong> $sobrenome</li>
-              <li class='list-group-item'><strong>Email:</strong> $user</li>
+              <li class='list-group-item'><strong>Conta criada em:</strong> $user_criacao</li>
+              <li class='list-group-item'><strong>Apelido:</strong> $user_apelido</li>
+              <li class='list-group-item'><strong>Nome:</strong> $user_nome</li>
+              <li class='list-group-item'><strong>Sobrenome:</strong> $user_sobrenome</li>
+              <li class='list-group-item'><strong>Email:</strong> $user_email</li>
             ";
 ?>
           </ul>
@@ -68,7 +68,14 @@
         <div class='col-lg-5 col-sm-12'>
           <h4>Lista de leitura</h4>
           <ul class='list-group'>
-            
+<?php
+            $result = $conn->query("SELECT tema_id FROM Bookmarks WHERE user_id = $user_id");
+            if ($result->num_rows > 0) {
+              while ($row = $result->fetch_assoc()) {
+                echo "<li class='list-group-item'>$row['tema_id']</li>";
+              }
+            }
+?>
           </ul>
         </div>
       </div>
