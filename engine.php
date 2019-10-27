@@ -53,7 +53,7 @@ function breadcrumbs() {
   if ($content[0] != false) { $breadcrumbs = $content[0]; }
   if ($content[1] != false) { $id_tema = $content[1]; }
   echo "
-    <div class='container-fluid grey lighten-4'>
+    <div class='container-fluid grey lighten-3'>
       <div class='row'>
         <div class='col-lg-9 col-sm-12'>
           <div class='text-left'>
