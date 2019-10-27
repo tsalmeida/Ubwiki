@@ -370,8 +370,8 @@ function bottom_page() {
         			'bookmark_tema_id': tema_id,
         			'bookmark_user_id': user_id
         		});
-            $('#add_bookmark').hide();
-            $('#remove_bookmark').show();
+            $('#add_bookmark').show();
+            $('#remove_bookmark').hide();
         	});
         </script>
         '";
@@ -439,7 +439,20 @@ if (isset($_POST['bookmark_change'])) {
   $bookmark_change = $_POST['bookmark_change'];
   $bookmark_tema_id = $_POST['bookmark_tema_id'];
   $bookmark_user_id = $_POST['bookmark_user_id'];
-  error_log("$bookmark_change $bookmark_tema_id $bookmark_user_id");
+  $servername = "localhost";
+  $username = "grupoubique";
+  $password = "ubique patriae memor";
+  $dbname = "Ubique";
+  $conn = new mysqli($servername, $username, $password, $dbname);
+  mysqli_set_charset($conn,"utf8");
+  $check = $conn->query("SELECT id FROM Bookmarks WHERE user_id = $bookmark_user_id AND tema_id = $bookmark_tema_id");
+  if ($result->num_rows > 0) {
+    $bookmark_id = $row['id'];
+    $update = $conn->query("UPDATE Bookmarks SET bookmark = $bookmark_change WHERE id = $bookmark_id");
+  }
+  else {
+    $insert = $conn->query("INSERT INTO Bookmarks (user_id, tema_id, bookmark) VALUES ($user_id, $tema_id, $bookmark_change)");
+  }
 }
 
 if (isset($_POST['sbcommand'])) {
