@@ -78,7 +78,7 @@
   $result = $conn->query("SELECT anotacao FROM Anotacoes WHERE user_id = $user_id AND tema_id = $tema_id");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
-      $anotacao_html = $row['conteudo_texto'];
+      $anotacao_html = $row['anotacao'];
       break;
     }
   }
