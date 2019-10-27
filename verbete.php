@@ -203,7 +203,7 @@
           <div class='row justify-content-left border-bottom border-dark py-3'>
             <div class='col-12 text-left font-weight-normal'>
               <?php
-                if ($verbete_html == false) {
+                if (($verbete_html == false) || ($verbete_html == '')) {
                   echo "<p>O verbete deste tópico ainda não começou a ser escrito.</p>";
                 }
                 else {
