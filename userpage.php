@@ -36,11 +36,11 @@
     <?php
       carregar_navbar('dark');
       standard_jumbotron("Sua página", false);
-      if ($tipo == 'admin') {
+      if ($user_tipo == 'admin') {
         sub_jumbotron("Administrador", 'admin.php');
       }
       else {
-        $tipo_capitalizado = ucfirst($tipo);
+        $tipo_capitalizado = ucfirst($user_tipo);
         sub_jumbotron($tipo_capitalizado, false);
       }
     ?>
