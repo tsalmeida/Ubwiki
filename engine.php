@@ -177,7 +177,7 @@ function bottom_page() {
       elseif ($args[$array] == "quill_v") {
         echo "
           <script src='https://cdn.quilljs.com/1.3.6/quill.js'></script>
-          <script>
+          <script type='text/javascript'>
             var toolbarOptions = [
               ['italic'],
               ['blockquote'],
@@ -284,15 +284,6 @@ function bottom_page() {
         echo "
           <script type='text/javascript'>
             $(function () {
-              $('#lightbox-imagens').load('mdb-addons/mdb-lightbox-ui.html');
-            });
-          </script>
-        ";
-      }
-      elseif ($args[$array] == 'lightbox-test') {
-        echo "
-          <script type='text/javascript'>
-            $(function () {
               $('#mdb-lightbox-ui').load('mdb-addons/mdb-lightbox-ui.html');
             });
           </script>
@@ -322,22 +313,35 @@ function bottom_page() {
       elseif ($args[$array] == 'collapse_stuff') {
         echo "
         <script type='text/javascript'>
-          $('.collapse').click(function(){
-            if ( $('#verbete').css('display') == 'none' && $('#videos').css('display') == 'none' && $('#imagens').css('display') == 'none' && $('#bibliografia').css('display') == 'none' ) {
+          $('#esconder_verbete').click(function(){
+            if ( $('#videos').css('display') == 'none' && $('#imagens').css('display') == 'none' && $('#bibliografia').css('display') == 'none' ) {
               $('#coluna_esquerda').css('display', 'none');
             }
-            else {
-              $('#coluna_esquerda').css('display', 'inline');
+          });
+          $('#esconder_imagens').click(function(){
+            if ( $('#verbete').css('display') == 'none' && $('#videos').css('display') == 'none' && $('#bibliografia').css('display') == 'none' ) {
+              $('#coluna_esquerda').css('display', 'none');
             }
+          });
+          $('#esconder_videos').click(function(){
+            if ( $('#verbete').css('display') == 'none' && $('#imagens').css('display') == 'none' && $('#bibliografia').css('display') == 'none' ) {
+              $('#coluna_esquerda').css('display', 'none');
+            }
+          });
+          $('#esconder_bibliografia').click(function(){
+            if ( $('#verbete').css('display') == 'none' && $('#videos').css('display') == 'none' && $('#imagens').css('display') == 'none' ) {
+              $('#coluna_esquerda').css('display', 'none');
+            }
+          });
+          $('.mostrar_coluna_esquerda').click(function(){
+            $('#coluna_esquerda').css('display', 'inline');
           });
         </script>";
       }
       $array++;
     }
   }
-
   echo "</html>";
-
 }
 
 function load_footer() {

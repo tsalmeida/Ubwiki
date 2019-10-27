@@ -162,11 +162,11 @@ if (isset($_POST['novo_video_titulo'])) {
   <div class='container-fluid grey lighten-5' data-toggle='buttons'>
     <div class='row'>
       <div class='col-12 d-flex justify-content-center'>
-        <button class='btn grey lighten-4 btn-rounded btn-sm verbete_collapse collapse' data-toggle='collapse' data-target='.verbete_collapse' role='button'>Verbete</button>
-        <button class='btn grey lighten-4 btn-rounded btn-sm imagens_collapse collapse ml-1' data-toggle='collapse' data-target='.imagens_collapse' role='button'>Imagens</button>
-        <button class='btn grey lighten-4 btn-rounded btn-sm videos_collapse ml-1 collapse' data-toggle='collapse' data-target='.videos_collapse' role='button'>Vídeos</button>
-        <button class='btn grey lighten-4 btn-rounded btn-sm bibliografia_collapse collapse ml-1' data-toggle='collapse' data-target='.bibliografia_collapse' role='button'>Leia mais</button>
-        <button class='btn grey lighten-4 btn-rounded btn-sm collapse anotacoes_collapse ml-1 collapse' data-toggle='collapse' data-target='.anotacoes_collapse' role='button'>Anotações</button>
+        <button class='btn grey lighten-4 btn-rounded btn-sm verbete_collapse collapse mostrar_coluna_esquerda' data-toggle='collapse' data-target='.verbete_collapse' role='button'>Verbete</button>
+        <button class='btn grey lighten-4 btn-rounded btn-sm imagens_collapse collapse ml-1 mostrar_coluna_esquerda' data-toggle='collapse' data-target='.imagens_collapse' role='button'>Imagens</button>
+        <button class='btn grey lighten-4 btn-rounded btn-sm videos_collapse ml-1 collapse mostrar_coluna_esquerda' data-toggle='collapse' data-target='.videos_collapse' role='button'>Vídeos</button>
+        <button class='btn grey lighten-4 btn-rounded btn-sm bibliografia_collapse collapse ml-1 mostrar_coluna_esquerda' data-toggle='collapse' data-target='.bibliografia_collapse' role='button'>Leia mais</button>
+        <button class='btn grey lighten-4 btn-rounded btn-sm collapse anotacoes_collapse collapse ml-1 mostrar_coluna_esquerda' data-toggle='collapse' data-target='.anotacoes_collapse' role='button'>Anotações</button>
       </div>
     </div>
   </div>
@@ -183,7 +183,7 @@ if (isset($_POST['novo_video_titulo'])) {
             <div class='col-2 h3 text-right'>
               <div class='row'>
                 <a data-toggle='modal' data-target='#modal_editar_verbete' href=''><i class="fal fa-pen-square fa-fw"></i></a>
-                <span class='text-center' data-toggle='collapse' data-target='.verbete_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
+                <span id='esconder_verbete' class='text-center' data-toggle='collapse' data-target='.verbete_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
               </div>
             </div>
           </div>
@@ -209,7 +209,7 @@ if (isset($_POST['novo_video_titulo'])) {
             <div class='col-2 text-right'>
               <div class='row'>
                 <a data-toggle='modal' data-target='#modal_imagens_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
-                <span data-toggle='collapse' data-target='.imagens_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
+                <span id='esconder_imagens' data-toggle='collapse' data-target='.imagens_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
               </div>
             </div>
           </div>
@@ -274,7 +274,7 @@ if (isset($_POST['novo_video_titulo'])) {
             <div class='col-2 text-right'>
               <div class='row'>
                 <a data-toggle='modal' data-target='#modal_videos_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
-                <span data-toggle='collapse' data-target='.videos_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
+                <span id='esconder_videos' data-toggle='collapse' data-target='.videos_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
               </div>
             </div>
           </div>
@@ -307,7 +307,7 @@ if (isset($_POST['novo_video_titulo'])) {
             <div class='col-2 text-right'>
               <div class='row'>
                 <a data-toggle='modal' data-target='#modal_referencia_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
-                <span data-toggle='collapse' data-target='.bibliografia_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
+                <span id='esconder_bibliografia' data-toggle='collapse' data-target='.bibliografia_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
               </div>
             </div>
           </div>
@@ -333,7 +333,7 @@ if (isset($_POST['novo_video_titulo'])) {
           </div>
         </div>
       </div>
-      <div class='col-lg-5 col-sm-12 anotacoes_collapse collapse show'>
+      <div id='coluna_direita' class='col-lg-5 col-sm-12 anotacoes_collapse collapse show'>
         <div class='row'>
           <div class='col-12'>
             <div class='row justify-content-between h3'>
@@ -512,6 +512,6 @@ if (isset($_POST['novo_video_titulo'])) {
 </body>
 <?php
     load_footer();
-    bottom_page("quill_v", 'carousel', 'lightbox-test', 'collapse_stuff');
+    bottom_page("quill_v", 'carousel', 'lightbox-imagens', 'collapse_stuff');
     $conn->close();
 ?>
