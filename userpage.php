@@ -73,6 +73,7 @@
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
                 $tema_id = $row['tema_id'];
+                error_log($tema_id);
                 $info_temas = $conn->query("SELECT concurso, sigla_materia, nivel, nivel1, nivel2, nivel3, nivel4, nivel5 WHERE id = $tema_id");
                 if ($result->num_rows > 0) {
                   while ($row = $result->fetch_assoc()) {
@@ -84,6 +85,7 @@
                     $nivel3 = $row['nivel3'];
                     $nivel4 = $row['nivel4'];
                     $nivel5 = $row['nivel5'];
+                    error_log("$concurso, $sigla_matera, $nivel, $nivel1");
                     if ($nivel == 1) { $titulo = $nivel1; }
                     elseif ($nivel == 2) { $titulo = $nivel2; }
                     elseif ($nivel == 3) { $titulo = $nivel3; }
