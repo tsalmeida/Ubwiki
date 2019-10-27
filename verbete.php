@@ -221,9 +221,9 @@ if (isset($_POST['novo_video_titulo'])) {
                 echo "
                 <div id='carousel-with-lb' class='carousel slide carousel-multi-item' data-ride='carousel'>
                   <div class='controls-top'>
-                    <a class='btn-floating btn-light z-depth-0' href='#carousel-with-lb' data-slide='prev'><i
+                    <a class='btn btn-light z-depth-0' href='#carousel-with-lb' data-slide='prev'><i
                         class='fas fa-chevron-left'></i></a>
-                    <a class='btn-floating btn-light z-depth-0' href='#carousel-with-lb' data-slide='next'><i
+                    <a class='btn btn-light z-depth-0' href='#carousel-with-lb' data-slide='next'><i
                         class='fas fa-chevron-right'></i></a>
                   </div>
                   <div class='carousel-inner mdb-lightbox' role='listbox'>
