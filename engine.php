@@ -357,31 +357,21 @@ function bottom_page() {
         <script type='text/javascript'>
           $('#add_bookmark').click(function() {
         		$.post('engine.php', {
-        			'bookmark_change': 'incluir',
+        			'bookmark_change': true,
         			'bookmark_tema_id': tema_id,
         			'bookmark_user_id': user_id
-        		}, function(data) {
-              alert(data);
-        			if (data == true) {
-        				$('#add_bookmark').hide();
-        				$('#remove_bookmark').show();
-        			}
         		});
-        		return false;
+            $('#add_bookmark').hide();
+            $('#remove_bookmark').show();
         	});
         	$('#remove_bookmark').click(function() {
         		$.post('engine.php', {
-        			'bookmark_change': 'remover',
+        			'bookmark_change': false,
         			'bookmark_tema_id': tema_id,
         			'bookmark_user_id': user_id
-        		}, function(data) {
-              alert(data);
-        			if (data == true) {
-        				$('#add_bookmark').hide();
-        				$('#remove_bookmark').show();
-        			}
         		});
-        		return false;
+            $('#add_bookmark').hide();
+            $('#remove_bookmark').show();
         	});
         </script>
         '";
