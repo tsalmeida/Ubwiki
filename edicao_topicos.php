@@ -373,17 +373,18 @@
                 <p>Após compôr definitivamente a lista de tópicos de uma matéria, é necessário ativá-la para que os usuários a vejam. Uma vez ativada, não será possível remover tópicos, embora ainda seja possível acrescentar tópicos novos ou mudar o nome dos tópicos pre-existentes, inclusive tópicos de primeiro nível.</p>
                 <p>Em suma, apenas ative uma matéria se tiver certeza que nenhum tópico precisará ser removido.</p>
 <?php
-                  $result = $conn->query("SELECT materia, sigla, estado FROM Materias WHERE concurso = '$concurso' AND estado = 0");
+                  $result = $conn->query("SELECT id, materia, sigla, estado FROM Materias WHERE concurso = '$concurso' AND estado = 0");
                   if ($result->num_rows > 0) {
                     while($row = $result->fetch_assoc()) {
                       $sigla = $row['sigla'];
                       $materia_pick = $row['materia'];
-                      $item_id = "ativar_materia_";
-                      $item_id .= $sigla;
+                      $materia_id = $row['id'];
+                      $input_id = "ativar_materia_";
+                      $input_id .= $sigla;
                       echo "
                         <div class='form-check my-1'>
-                          <input class='form-check-input' type='radio' name='ativar_materia_id' id='$item_id' value='$sigla'>
-                          <label class='form-check-label' for='$item_id'>$materia_pick</label>
+                          <input class='form-check-input' type='radio' name='ativar_materia_id' id='$input_id' value='$materia_id'>
+                          <label class='form-check-label' for='$input_id'>$materia_pick</label>
                         </div>
                       ";
                     }
