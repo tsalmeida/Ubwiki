@@ -352,6 +352,13 @@ function bottom_page() {
           });
         </script>";
       }
+      elseif ($args[$array] == 'tema_test') {
+        echo "
+          <script type='text/javascript'>
+            alert(tema_id);
+          </script>
+        ";
+      }
       $array++;
     }
   }

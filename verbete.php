@@ -2,14 +2,14 @@
   session_save_path('/home/tsilvaalmeida/public_html/ubwiki/sessions/');
   session_start();
   if (isset($_SESSION['email'])) {
-    $user = $_SESSION['email'];
+    $user_email = $_SESSION['email'];
   }
   else {
     header('Location:login.php');
   }
 
   include 'engine.php';
-  $result = $conn->query("SELECT id FROM Usuarios WHERE email = '$user'");
+  $result = $conn->query("SELECT id FROM Usuarios WHERE email = '$user_email'");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $user_id = $row['id'];
@@ -28,8 +28,7 @@
     <script type='text/javascript'>
       var tema_id=$tema_id;
       var concurso=$concurso;
-      var user_email=$user;
-      alert(tema_id);
+      var user_email=$user_email;
     </script>
   ";
 
@@ -76,11 +75,11 @@
     $novo_verbete_html = strip_tags($novo_verbete_html, '<p><li><ul><ol><h2><blockquote><em><sup>');
     $result = $conn->query("SELECT verbete FROM Verbetes WHERE concurso = '$concurso' AND id_tema = $tema_id");
     if ($result->num_rows > 0) {
-      $result = $conn->query("UPDATE Verbetes SET verbete = '$novo_verbete_html', usuario = '$user' WHERE concurso = '$concurso' AND id_tema = $tema_id");
-      $result = $conn->query("INSERT INTO Verbetes_arquivo (id_tema, concurso, verbete, usuario) VALUES ('$tema_id', '$concurso', '$verbete_html', '$user')");
+      $result = $conn->query("UPDATE Verbetes SET verbete = '$novo_verbete_html', usuario = '$user_id' WHERE concurso = '$concurso' AND id_tema = $tema_id");
+      $result = $conn->query("INSERT INTO Verbetes_arquivo (id_tema, concurso, verbete, usuario) VALUES ('$tema_id', '$concurso', '$verbete_html', '$user_id')");
     }
     else {
-      $result = $conn->query("INSERT INTO Verbetes (id_tema, concurso, verbete, usuario) VALUES ('$tema_id', '$concurso', '$novo_verbete_html', '$user')");
+      $result = $conn->query("INSERT INTO Verbetes (id_tema, concurso, verbete, usuario) VALUES ('$tema_id', '$concurso', '$novo_verbete_html', '$user_id')");
     }
     $verbete_html = $novo_verbete_html;
   }
@@ -126,7 +125,7 @@
       if ($dados_da_imagem == false) { return false; }
       $nova_imagem_resolucao_original = $dados_da_imagem[0];
       $nova_imagem_orientacao = $dados_da_imagem[1];
-      $result = $conn->query("INSERT INTO Imagens (id_tema, concurso, titulo, link, arquivo, resolucao, orientacao, comentario, trecho, usuario) VALUES ($tema_id, '$concurso', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_arquivo', '$nova_imagem_resolucao_original', '$nova_imagem_orientacao', '$nova_imagem_comentario', '$nova_imagem_trecho', '$user')");
+      $result = $conn->query("INSERT INTO Imagens (id_tema, concurso, titulo, link, arquivo, resolucao, orientacao, comentario, trecho, usuario) VALUES ($tema_id, '$concurso', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_arquivo', '$nova_imagem_resolucao_original', '$nova_imagem_orientacao', '$nova_imagem_comentario', '$nova_imagem_trecho', '$user_id')");
     }
   }
 
@@ -136,7 +135,7 @@
     $nova_referencia_capitulo = $_POST['nova_referencia_capitulo'];
     $result = $conn->query("SELECT id FROM Bibliografia WHERE concurso = '$concurso' AND id_tema = $tema_id AND titulo = '$nova_referencia_titulo'");
     if ($result->num_rows == 0) {
-      $result = $conn->query("INSERT INTO Bibliografia (id_tema, concurso, titulo, autor, ano, usuario) VALUES ($tema_id, '$concurso', '$nova_referencia_titulo', '$nova_referencia_autor', '$nova_referencia_capitulo', '$user')");
+      $result = $conn->query("INSERT INTO Bibliografia (id_tema, concurso, titulo, autor, ano, usuario) VALUES ($tema_id, '$concurso', '$nova_referencia_titulo', '$nova_referencia_autor', '$nova_referencia_capitulo', '$user_id')");
     }
   }
 
@@ -146,7 +145,7 @@
     $novo_video_link = $_POST['novo_video_link'];
     $result = $conn->query("SELECT id FROM Videos WHERE concurso = '$concurso' AND id_tema = $tema_id AND titulo = '$novo_video_titulo'");
     if ($result->num_rows == 0) {
-      $result = $conn->query("INSERT INTO Videos (id_tema, concurso, titulo, autor, link, usuario) VALUES ($tema_id, '$concurso', '$novo_video_titulo', '$novo_video_autor', '$novo_video_link', '$user')");
+      $result = $conn->query("INSERT INTO Videos (id_tema, concurso, titulo, autor, link, usuario) VALUES ($tema_id, '$concurso', '$novo_video_titulo', '$novo_video_autor', '$novo_video_link', '$user_id')");
     }
   }
 
@@ -527,6 +526,6 @@
 </body>
 <?php
     load_footer();
-    bottom_page("quill_v", 'carousel', 'lightbox-imagens', 'collapse_stuff');
+    bottom_page("quill_v", 'carousel', 'lightbox-imagens', 'collapse_stuff', 'tema_test');
     $conn->close();
 ?>
