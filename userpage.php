@@ -10,25 +10,6 @@
   }
 
   include 'engine.php';
-  top_page(false, 'quill_user');
-
-  if (isset($_POST['quill_nova_mensagem_html'])) {
-    $nova_mensagem = $_POST['quill_nova_mensagem_html'];
-    $nova_mensagem = strip_tags($nova_mensagem, '<p><li><ul><ol><h2><blockquote><em><sup><s>');
-    $conn->query("SELECT user_id, anotacao FROM Anotacoes WHERE tipo = 'userpage'");
-    if ($result->num_rows > 0) {
-      while($row = $result->fetch_assoc()) {
-        $anotacao_user_id = $row['user_id'];
-        $anotacao_previa = $row['anotacao'];
-        $conn->query("UPDATE Anotacoes SET anotacao = '$nova_mensagem' WHERE user_id = $user_id AND tipo = 'userpage'");
-        $conn->query("INSERT INTO Anotacoes_arquivo (user_id, tipo, anotacao) VALUES ($user_id, 'userpage', '$anotacao_previa')");
-      }
-    }
-    else {
-      $conn->query("INSERT INTO Anotacoes (user_id, tipo, anotacao) VALUES ($user_id, 'userpage', '$nova_mensagem')");
-    }
-    $user_mensagens = $nova_mensagem;
-  }
 
   $result = $conn->query("SELECT id, tipo, criacao, apelido, nome, sobrenome FROM Usuarios WHERE email = '$user_email'");
   if ($result->num_rows > 0) {
@@ -42,12 +23,40 @@
     }
   }
 
+  if (isset($_POST['quill_nova_mensagem_html'])) {
+    $nova_mensagem = $_POST['quill_nova_mensagem_html'];
+    $nova_mensagem = strip_tags($nova_mensagem, '<p><li><ul><ol><h2><blockquote><em><sup><s>');
+    $result = $conn->query("SELECT user_id, anotacao FROM Anotacoes WHERE tipo = 'userpage'");
+    if ($result->num_rows > 0) {
+      while($row = $result->fetch_assoc()) {
+        $anotacao_user_id = $row['user_id'];
+        $anotacao_previa = $row['anotacao'];
+        $conn->query("UPDATE Anotacoes SET anotacao = '$nova_mensagem' WHERE user_id = $user_id AND tipo = 'userpage'");
+        $conn->query("INSERT INTO Anotacoes_arquivo (user_id, tipo, anotacao) VALUES ($user_id, 'userpage', '$anotacao_previa')");
+      }
+    }
+    else {
+      $conn->query("INSERT INTO Anotacoes (user_id, tipo, anotacao) VALUES ($user_id, 'userpage', '$nova_mensagem')");
+    }
+    $user_mensagens = $nova_mensagem;
+  }
+  else {
+    $result = $conn->query("SELECT anotacao FROM Anotacoes WHERE tipo = 'userpage' AND user_id = $user_id");
+    if ($result->num_rows > 0) {
+      while($row = $result->fetch_assoc()) {
+        $user_mensagens = $row['anotacao'];
+      }
+    }
+  }
+
   if (isset($_POST['novo_nome'])) {
     $novo_user_nome = $_POST['novo_nome'];
     $novo_user_sobrenome = $_POST['novo_sobrenome'];
     $novo_user_apelido = $_POST['novo_apelido'];
     $result = $conn->query("UPDATE Usuarios SET nome = '$novo_user_nome', sobrenome = '$novo_user_sobrenome', apelido = '$novo_user_apelido' WHERE id = $user_id");
   }
+
+  top_page(false, 'quill_user');
 
 ?>
   <body>
