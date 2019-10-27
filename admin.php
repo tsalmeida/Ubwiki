@@ -208,48 +208,28 @@
           <div class='text-center border border-light p-5 my-2'>
             <p class="h4 mb-4">Notas dos administradores</p>
             <p class='text-left'>Estas anotações são compartilhadas entre todos os administradores, por exemplo, para registrar idéia de melhorias futuras para a página.</p>
-            <div class='row'>
-              <div class='col-12 border text-left p-3' style='height: 40rem; overflow-y: auto;'>
-                <?php echo "$admin_mensagens"; ?>
-              </div>
-            </div>
-            <button class='btn btn-primary btn-block my-4' data-toggle='modal' data-target='#modal_notas_admin'>Editar notas</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class='modal fade' id='modal_notas_admin' role='dialog' tabindex='-1'>
-      <div class='modal-dialog modal-lg quill_modal' role='document'>
-        <div class='modal-content'>
-          <form id='quill_admin_form' method='post'>
-            <input name='quill_nova_mensagem_html' type='hidden'>
-            <div class='modal-header text-center'>
-              <h4 class='modal-title w-100 font-weight-bold'>Notas dos administradores</h4>
-              <button type='button' class='close' data-dismiss='modal'>
-                <i class="fal fa-times-circle"></i>
-              </button>
-            </div>
-            <div class='modal-body'>
-              <div class='row justify-content-center'>
-                <div class='container col-12 justify-content-center'>
-                  <?php
-                    echo "
-                      <div id='quill_container_admin' class='quill_container_modal'>
-                        <div id='quill_editor_admin'>
-                          $admin_mensagens
+            <form id='quill_admin_form' method='post'>
+              <input name='quill_nova_mensagem_html' type='hidden'>
+                <h4>Notas dos administradores</h4>
+                <div class='row justify-content-center'>
+                  <div class='container col-12 justify-content-center'>
+                    <?php
+                      echo "
+                        <div id='quill_container_admin' class='quill_container_modal'>
+                          <div id='quill_editor_admin'>
+                            $admin_mensagens
+                          </div>
                         </div>
-                      </div>
-                    ";
-                  ?>
+                      ";
+                    ?>
+                  </div>
                 </div>
+              <div class='modal-footer d-flex justify-content-center mt-5'>
+                <button type='button' class='btn bg-lighter btn-lg'><i class="fal fa-times-circle"></i> Cancelar</button>
+                <button type='submit' class='but btn-primary btn-lg'><i class='fal fa-check'></i> Salvar</button>
               </div>
-            </div>
-            <div class='modal-footer d-flex justify-content-center mt-5'>
-              <button type='button' class='btn bg-lighter btn-lg' data-dismiss='modal'><i class="fal fa-times-circle"></i> Cancelar</button>
-              <button type='submit' class='but btn-primary btn-lg'><i class='fal fa-check'></i> Salvar</button>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     </div>

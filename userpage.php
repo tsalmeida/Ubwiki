@@ -16,13 +16,13 @@
     $nova_mensagem = $_POST['quill_nova_mensagem_html'];
     $nova_mensagem = strip_tags($nova_mensagem, '<p><li><ul><ol><h2><blockquote><em><sup><s>');
     $conn->query("INSERT INTO Anotacoes (tipo, conteudo) VALUES ('notas', '$nova_mensagem')");
-    $admin_mensagens = $nova_mensagem;
+    $user_mensagens = $nova_mensagem;
   }
   else {
     $result = $conn->query("SELECT conteudo FROM Anotacoes WHERE tipo = 'notas' ORDER BY id DESC");
     if ($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {
-        $admin_mensagens = $row['conteudo'];
+        $user_mensagens = $row['conteudo'];
         break;
       }
     }
@@ -114,8 +114,29 @@
           </ul>
         </div>
         <div class='col-lg-5 col-sm-12'>
-          <h4>Anotações</h4>
-          <p>Quill de anotações vai aqui.</p>
+          <div class='text-center border border-light p-5 my-2'>
+            <form id='quill_user_form' method='post'>
+              <input name='quill_nova_mensagem_html' type='hidden'>
+                <h4>Anotações</h4>
+                <div class='row justify-content-center'>
+                  <div class='container col-12 justify-content-center'>
+                    <?php
+                      echo "
+                        <div id='quill_container_user' class='quill_container_modal'>
+                          <div id='quill_editor_user'>
+                            $user_mensagens
+                          </div>
+                        </div>
+                      ";
+                    ?>
+                  </div>
+                </div>
+              <div class='modal-footer d-flex justify-content-center mt-5'>
+                <button type='button' class='btn bg-lighter btn-lg'><i class="fal fa-times-circle"></i> Cancelar</button>
+                <button type='submit' class='but btn-primary btn-lg'><i class='fal fa-check'></i> Salvar</button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
