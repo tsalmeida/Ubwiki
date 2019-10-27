@@ -228,54 +228,54 @@
           </div>
           <div class='row border-bottom border-dark'>
             <div class='col-12 text-left font-weight-normal'>
-              <?php
+<?php
               $result = $conn->query("SELECT titulo, link, arquivo, resolucao, orientacao, comentario FROM Imagens WHERE id_tema = $tema_id AND concurso = '$concurso'");
               if ($result->num_rows > 0) {
+              echo "
+              <div id='carousel-with-lb' class='carousel slide carousel-multi-item' data-ride='carousel'>
+                <div class='carousel-inner mdb-lightbox' role='listbox'>
+                  <div id='mdb-lightbox-ui'></div>
+              ";
+                  $active = 'active';
+                  while($row = $result->fetch_assoc()) {
+                    $imagem_titulo = $row['titulo'];
+                    $imagem_link = $row['link'];
+                    $imagem_comentario = $row['comentario'];
+                    $imagem_arquivo = $row['arquivo'];
+                    $imagem_resolucao = $row['resolucao'];
+                    $imagem_orientacao = $row['orientacao'];
+                    // if ($imagem_orientacao == 'retrato') { $col = 6; }
+                    // else { $col = 12; }
+                    echo "
+                    <div class=' carousel-item $active text-center'>
+                      <figure class='col-12'>
+                        <a href='imagens/verbetes/$imagem_arquivo'
+                          data-size='$imagem_resolucao'>
+                          <img src='imagens/verbetes/thumbnails/$imagem_arquivo'
+                            class='img-fluid' style='height:300px'>
+                        </a>
+                        <figcaption><h5 class='mt-3'>$imagem_titulo</h5>
+                        $imagem_comentario</figcaption>
+                      </figure>
+                    </div>
+                    ";
+                    $active = false;
+                  }
                 echo "
-                <div id='carousel-with-lb' class='carousel slide carousel-multi-item' data-ride='carousel'>
+                </div>
                   <div class='controls-top'>
                     <a class='btn btn-sm btn-light z-depth-0' href='#carousel-with-lb' data-slide='prev'><i
                         class='fas fa-chevron-left'></i></a>
                     <a class='btn btn-sm btn-light z-depth-0' href='#carousel-with-lb' data-slide='next'><i
                         class='fas fa-chevron-right'></i></a>
                   </div>
-                  <div class='carousel-inner mdb-lightbox' role='listbox'>
-                    <div id='mdb-lightbox-ui'></div>
+                </div>
                 ";
-                        $active = 'active';
-                        while($row = $result->fetch_assoc()) {
-                          $imagem_titulo = $row['titulo'];
-                          $imagem_link = $row['link'];
-                          $imagem_comentario = $row['comentario'];
-                          $imagem_arquivo = $row['arquivo'];
-                          $imagem_resolucao = $row['resolucao'];
-                          $imagem_orientacao = $row['orientacao'];
-                          // if ($imagem_orientacao == 'retrato') { $col = 6; }
-                          // else { $col = 12; }
-                          echo "
-                          <div class=' carousel-item $active text-center'>
-                            <figure class='col-12'>
-                              <a href='imagens/verbetes/$imagem_arquivo'
-                                data-size='$imagem_resolucao'>
-                                <img src='imagens/verbetes/thumbnails/$imagem_arquivo'
-                                  class='img-fluid' style='height:300px'>
-                              </a>
-                              <figcaption><h5 class='mt-3'>$imagem_titulo</h5>
-                              $imagem_comentario</figcaption>
-                            </figure>
-                          </div>
-                          ";
-                          $active = false;
-                        }
-                        echo "
-                      </div>
-                    </div>
-                        ";
-                }
-                else {
-                  echo "<p>Não foram acrescentadas, até o momento, imagens a este verbete.</p>";
-                }
-              ?>
+              }
+              else {
+                echo "<p>Não foram acrescentadas, até o momento, imagens a este verbete.</p>";
+              }
+?>
             </div>
           </div>
         </div>
