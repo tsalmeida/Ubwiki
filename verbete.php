@@ -61,7 +61,7 @@
     }
   }
 
-  $result = $conn->query("SELECT verbete FROM Verbetes WHERE concurso = '$concurso' AND id_tema = $tema_id");
+  $result = $conn->query("SELECT verbete FROM Verbetes WHERE id_tema = $tema_id");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $verbete_html = $row['verbete'];
@@ -74,13 +74,13 @@
   if (isset($_POST['quill_novo_verbete_html'])) {
     $novo_verbete_html = $_POST['quill_novo_verbete_html'];
     $novo_verbete_html = strip_tags($novo_verbete_html, '<p><li><ul><ol><h2><blockquote><em><sup>');
-    $result = $conn->query("SELECT verbete FROM Verbetes WHERE concurso = '$concurso' AND id_tema = $tema_id");
+    $result = $conn->query("SELECT verbete FROM Verbetes WHERE id_tema = $tema_id");
     if ($result->num_rows > 0) {
-      $result = $conn->query("UPDATE Verbetes SET verbete = '$novo_verbete_html', user_id = '$user_id' WHERE concurso = '$concurso' AND id_tema = $tema_id");
-      $result = $conn->query("INSERT INTO Verbetes_arquivo (id_tema, concurso, verbete, user_id) VALUES ('$tema_id', '$concurso', '$verbete_html', '$user_id')");
+      $result = $conn->query("UPDATE Verbetes SET verbete = '$novo_verbete_html', user_id = '$user_id' WHERE id_tema = $tema_id");
+      $result = $conn->query("INSERT INTO Verbetes_arquivo (id_tema, verbete, user_id) VALUES ('$tema_id', '$verbete_html', '$user_id')");
     }
     else {
-      $result = $conn->query("INSERT INTO Verbetes (id_tema, concurso, verbete, user_id) VALUES ('$tema_id', '$concurso', '$novo_verbete_html', '$user_id')");
+      $result = $conn->query("INSERT INTO Verbetes (id_tema, verbete, user_id) VALUES ('$tema_id', '$novo_verbete_html', '$user_id')");
     }
     $verbete_html = $novo_verbete_html;
   }
@@ -111,7 +111,7 @@
 
   if (isset($_POST['nova_imagem_link'])) {
     $nova_imagem_link = $_POST['nova_imagem_link'];
-    $result = $conn->query("SELECT id FROM Elementos WHERE concurso = '$concurso' AND id_tema = $tema_id AND link = '$nova_imagem_link'");
+    $result = $conn->query("SELECT id FROM Elementos WHERE link = '$nova_imagem_link'");
     if ($result->num_rows == 0) {
       $nova_imagem_titulo = $_POST['nova_imagem_titulo'];
       $nova_imagem_comentario = $_POST['nova_imagem_comentario'];
@@ -125,7 +125,22 @@
       if ($dados_da_imagem == false) { return false; }
       $nova_imagem_resolucao_original = $dados_da_imagem[0];
       $nova_imagem_orientacao = $dados_da_imagem[1];
-      $result = $conn->query("INSERT INTO Elementos (id_tema, concurso, tipo, titulo, link, arquivo, resolucao, orientacao, comentario, user_id) VALUES ($tema_id, '$concurso', 'imagem', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_arquivo', '$nova_imagem_resolucao_original', '$nova_imagem_orientacao', '$nova_imagem_comentario', '$user_id')");
+      $result = $conn->query("INSERT INTO Elementos (tipo, titulo, link, arquivo, resolucao, orientacao, comentario, user_id) VALUES ('imagem', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_arquivo', '$nova_imagem_resolucao_original', '$nova_imagem_orientacao', '$nova_imagem_comentario', '$user_id')");
+      $result2 = $conn->query("SELECT id FROM Elementos WHERE link = $nova_imagem_link");
+      if ($result2->num_rows > 0) {
+        while ($row = $result2->fetch_assoc()) {
+          $nova_imagem_id = $row['id'];
+          $insert = $conn->query("INSERT INTO Verbetes_elementos (id_tema, id_elemento, tipo) VALUES ($tema_id, $nova_imagem_id, 'imagem')");
+          break;
+        }
+      }
+    }
+    else {
+      while ($row = $result->fetch_assoc()) {
+        $nova_imagem_id = $row['id'];
+        $insert = $conn->query("INSERT INTO Verbetes_elementos (id_tema, id_elemento, tipo) VALUES ($tema_id, $nova_imagem_id, 'imagem')");
+        break;
+      }
     }
   }
 
@@ -135,9 +150,24 @@
     $nova_referencia_capitulo = $_POST['nova_referencia_capitulo'];
     $nova_referencia_ano = $_POST['nova_referencia_ano'];
     $nova_referencia_link = $_POST['nova_referencia_link'];
-    $result = $conn->query("SELECT id FROM Elementos WHERE concurso = '$concurso' AND id_tema = $tema_id AND titulo = '$nova_referencia_titulo'");
+    $result = $conn->query("SELECT id FROM Elementos WHERE titulo = '$nova_referencia_titulo'");
     if ($result->num_rows == 0) {
-      $result = $conn->query("INSERT INTO Elementos (id_tema, concurso, tipo, titulo, autor, capitulo, link, ano, user_id) VALUES ($tema_id, '$concurso', 'referencia', '$nova_referencia_titulo', '$nova_referencia_autor', '$nova_referencia_capitulo', '$nova_referencia_link', '$nova_referencia_ano', '$user_id')");
+      $result = $conn->query("INSERT INTO Elementos (tipo, titulo, autor, capitulo, link, ano, user_id) VALUES ('referencia', '$nova_referencia_titulo', '$nova_referencia_autor', '$nova_referencia_capitulo', '$nova_referencia_link', '$nova_referencia_ano', '$user_id')");
+      $result2 = $conn->query("SELECT id FROM Elementos WHERE titulo = '$nova_referencia_titulo'");
+      if ($result2->num_rows == 0) {
+        while ($row = $result2->fetch_assoc()) {
+          $nova_referencia_id = $row['id'];
+          $insert = $conn->query("INSERT INTO Verbetes_elementos (id_tema, id_elemento, tipo) VALUES ($tema_id, $nova_referencia_id, 'referencia')")
+          break;
+        }
+      }
+    }
+    else {
+      while ($row = $result->fetch_assoc()) {
+        $nova_referencia_id = $row['id'];
+        $insert = $conn->query("INSERT INTO Verbetes_elementos (id_tema, id_elemento, tipo) VALUES ($tema_id, $nova_referencia_id, 'referencia')");
+        break;
+      }
     }
   }
 
@@ -145,9 +175,24 @@
     $novo_video_titulo = $_POST['novo_video_titulo'];
     $novo_video_autor = $_POST['novo_video_autor'];
     $novo_video_link = $_POST['novo_video_link'];
-    $result = $conn->query("SELECT id FROM Elementos WHERE concurso = '$concurso' AND id_tema = $tema_id AND titulo = '$novo_video_titulo'");
+    $result = $conn->query("SELECT id FROM Elementos WHERE link = '$novo_video_link'");
     if ($result->num_rows == 0) {
-      $result = $conn->query("INSERT INTO Elementos (id_tema, concurso, tipo, titulo, autor, link, user_id) VALUES ($tema_id, '$concurso', 'video', '$novo_video_titulo', '$novo_video_autor', '$novo_video_link', '$user_id')");
+      $result = $conn->query("INSERT INTO Elementos (tipo, titulo, autor, link, user_id) VALUES ('video', '$novo_video_titulo', '$novo_video_autor', '$novo_video_link', '$user_id')");
+      $result2 = $conn->query("SELECT id FROM Elementos WHERE link = '$novo_video_link'");
+      if ($result2->num_rows > 0) {
+        while ($row = $result2->fetch_assoc()) {
+          $novo_video_id = $row['id'];
+          $insert = $conn->query("INSERT INTO Verbetes_elementos (id_tema, id_elemento, tipo) VALUES ($tema_id, $novo_video_id, 'video')");
+          break;
+        }
+      }
+    }
+    else {
+      while ($row = $result->fetch_assoc()) {
+        $novo_video_id = $row['id'];
+        $insert = $conn->query("INSERT INTO Verbetes_elementos (id_tema, id_elemento, tipo) VALUES ($tema_id, $novo_video_id, 'video')");
+        break;
+      }
     }
   }
 
