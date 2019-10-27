@@ -89,7 +89,7 @@
                     elseif ($nivel == 3) { $titulo = $nivel3; }
                     elseif ($nivel == 4) { $titulo = $nivel4; }
                     else { $titulo = $nivel5; }
-                    echo "<li class='list-group-item list-group-item-action' href='verbete.php?concurso=$concurso&tema=$tema_id'>$titulo</li>";
+                    echo "<a href='verbete.php?concurso=$concurso&tema=$tema_id'><li class='list-group-item list-group-item-action'>$titulo</li></a>";
                   }
                 }
               }
