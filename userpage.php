@@ -72,7 +72,8 @@
             $result = $conn->query("SELECT tema_id FROM Bookmarks WHERE user_id = $user_id");
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
-                echo "<li class='list-group-item'>$row['tema_id']</li>";
+                $tema_id = $row['tema_id'];
+                echo "<li class='list-group-item'>$tema_id</li>";
               }
             }
 ?>
