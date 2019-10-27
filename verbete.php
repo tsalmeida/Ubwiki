@@ -280,7 +280,7 @@
               $result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND tipo = 'imagem'");
               if ($result->num_rows > 0) {
                 echo "
-                <div id='carousel-with-lb' class='carousel slide carousel-multi-item' data-ride='carousel'>
+                <div id='carousel-with-lb' class='carousel slide carousel-multi-item mb-0' data-ride='carousel'>
                   <div class='carousel-inner mdb-lightbox' role='listbox'>
                     <div id='mdb-lightbox-ui'></div>
                 ";
@@ -289,7 +289,9 @@
                   $id_elemento = $row['id_elemento'];
                   $result2 = $conn->query("SELECT titulo, link, comentario, arquivo, resolucao, orientacao FROM Elementos WHERE id = $id_elemento");
                   if ($result2->num_rows > 0) {
+                    $count = 0;
                     while($row = $result2->fetch_assoc()) {
+                      $count++;
                       $imagem_titulo = $row['titulo'];
                       $imagem_link = $row['link'];
                       $imagem_comentario = $row['comentario'];
@@ -315,16 +317,18 @@
                     }
                   }
                 }
-                echo "
-                </div>
-                  <div class='controls-top'>
-                    <a class='btn btn-sm grey lighten-3 z-depth-0' href='#carousel-with-lb' data-slide='prev'><i
-                        class='fas fa-chevron-left'></i></a>
-                    <a class='btn btn-sm grey lighten-3 z-depth-0' href='#carousel-with-lb' data-slide='next'><i
-                        class='fas fa-chevron-right'></i></a>
+                if ($count != 1) {
+                  echo "
                   </div>
-                </div>
-                ";
+                    <div class='controls-top'>
+                      <a class='btn btn-sm grey lighten-3 z-depth-0' href='#carousel-with-lb' data-slide='prev'><i
+                          class='fas fa-chevron-left'></i></a>
+                      <a class='btn btn-sm grey lighten-3 z-depth-0' href='#carousel-with-lb' data-slide='next'><i
+                          class='fas fa-chevron-right'></i></a>
+                    </div>
+                  </div>
+                  ";
+                }
               }
               else {
                 echo "<p>Não foram acrescentadas, até o momento, imagens a este verbete.</p>";
