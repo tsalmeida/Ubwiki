@@ -278,6 +278,7 @@
             <div class='col-12 text-left font-weight-normal'>
 <?php
               $result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND tipo = 'imagem'");
+              $count = 0;
               if ($result->num_rows > 0) {
                 echo "
                 <div id='carousel-with-lb' class='carousel slide carousel-multi-item mb-0' data-ride='carousel'>
@@ -289,10 +290,8 @@
                   $id_elemento = $row['id_elemento'];
                   $result2 = $conn->query("SELECT titulo, link, comentario, arquivo, resolucao, orientacao FROM Elementos WHERE id = $id_elemento");
                   if ($result2->num_rows > 0) {
-                    $count = 0;
                     while($row = $result2->fetch_assoc()) {
                       $count++;
-                      error_log($count);
                       $imagem_titulo = $row['titulo'];
                       $imagem_link = $row['link'];
                       $imagem_comentario = $row['comentario'];
@@ -313,24 +312,24 @@
                       </div>
                       ";
                       $active = false;
-                    }
-                    error_log($count);
-                    if ($count != 1) {
-                      echo "
-                      </div>
-                        <div class='controls-top'>
-                          <a class='btn btn-sm grey lighten-3 z-depth-0' href='#carousel-with-lb' data-slide='prev'><i
-                              class='fas fa-chevron-left'></i></a>
-                          <a class='btn btn-sm grey lighten-3 z-depth-0' href='#carousel-with-lb' data-slide='next'><i
-                              class='fas fa-chevron-right'></i></a>
-                        </div>
-                      </div>
-                      ";
-                    }
-                    else {
-                      echo "</div></div>";
+                      break;
                     }
                   }
+                }
+                if ($count != 1) {
+                  echo "
+                  </div>
+                    <div class='controls-top'>
+                      <a class='btn btn-sm grey lighten-3 z-depth-0' href='#carousel-with-lb' data-slide='prev'><i
+                          class='fas fa-chevron-left'></i></a>
+                      <a class='btn btn-sm grey lighten-3 z-depth-0' href='#carousel-with-lb' data-slide='next'><i
+                          class='fas fa-chevron-right'></i></a>
+                    </div>
+                  </div>
+                  ";
+                }
+                else {
+                  echo "</div></div>";
                 }
               }
               else {
