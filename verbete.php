@@ -152,8 +152,9 @@
   $tema_bookmark = false;
   $bookmark = $conn->query("SELECT bookmark FROM Bookmarks WHERE user_id = $user_id AND tema_id = $tema_id");
   if ($bookmark->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
+    while($row = $bookmark->fetch_assoc()) {
       $tema_bookmark = $row['bookmark'];
+      break;
     }
   }
 ?>
