@@ -73,9 +73,6 @@ h1, h2, h3, h4, h5, h6 {
   /* color: white !important; */
 }
 
-.smaller {
-  font-size: 0.9rem;
-}
 
 /* .bg-lighter {
   background-color: #f6f5f3;
@@ -146,6 +143,7 @@ h1, h2, h3, h4, h5, h6 {
   border-right-color: #eeeeee;
   font-family: 'Roboto Condensed', sans-serif;
   font-weight: 300 !important;
+  font-size: 0.9rem;
 }
 
 .bc-icons .breadcrumb-item + .breadcrumb-item::before {

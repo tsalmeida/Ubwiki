@@ -137,7 +137,7 @@
       standard_jumbotron("Página dos Administradores", false);
     ?>
     <div class="container-fluid my-5 px-3">
-      <div class="row">
+      <div class="row justify-content-around">
         <div class="col-lg-5 col-sm-12">
           <form class='text-center border border-light p-5 my-2' method='post' formaction='edicao_topicos.php'>
               <p class="h4 mb-4">Editar tópicos</p>
