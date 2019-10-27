@@ -445,16 +445,18 @@ if (isset($_POST['bookmark_change'])) {
   $dbname = "Ubique";
   $conn = new mysqli($servername, $username, $password, $dbname);
   mysqli_set_charset($conn,"utf8");
+  error_log("select happened");
   $check = $conn->query("SELECT id FROM Bookmarks WHERE user_id = $bookmark_user_id AND tema_id = $bookmark_tema_id");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
-      error_log("this happened");
+      error_log("update happened");
       $bookmark_id = $row['id'];
       $update = $conn->query("UPDATE Bookmarks SET bookmark = $bookmark_change WHERE id = $bookmark_id");
       break;
     }
   }
   else {
+    error_log("insert happened");
     $insert = $conn->query("INSERT INTO Bookmarks (user_id, tema_id, bookmark) VALUES ($bookmark_user_id, $bookmark_tema_id, $bookmark_change)");
   }
 }
