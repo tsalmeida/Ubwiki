@@ -179,7 +179,7 @@
         <button class='btn grey lighten-3 btn-rounded btn-sm imagens_collapse collapse ml-1 mostrar_coluna_esquerda' data-toggle='collapse' data-target='.imagens_collapse' role='button'>Imagens</button>
         <button class='btn grey lighten-3 btn-rounded btn-sm videos_collapse ml-1 collapse mostrar_coluna_esquerda' data-toggle='collapse' data-target='.videos_collapse' role='button'>Vídeos</button>
         <button class='btn grey lighten-3 btn-rounded btn-sm bibliografia_collapse collapse ml-1 mostrar_coluna_esquerda' data-toggle='collapse' data-target='.bibliografia_collapse' role='button'>Leia mais</button>
-        <button class='btn grey lighten-3 btn-rounded btn-sm collapse anotacoes_collapse collapse ml-1' data-toggle='collapse' data-target='.anotacoes_collapse' role='button'>Anotações</button>
+        <button id='mostrar_anotacoes' class='btn grey lighten-3 btn-rounded btn-sm collapse anotacoes_collapse collapse ml-1' data-toggle='collapse' data-target='.anotacoes_collapse' role='button'>Anotações</button>
       </div>
     </div>
   </div>
