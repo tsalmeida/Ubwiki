@@ -154,7 +154,7 @@
     if ($result->num_rows == 0) {
       $result = $conn->query("INSERT INTO Elementos (tipo, titulo, autor, capitulo, link, ano, user_id) VALUES ('referencia', '$nova_referencia_titulo', '$nova_referencia_autor', '$nova_referencia_capitulo', '$nova_referencia_link', '$nova_referencia_ano', '$user_id')");
       $result2 = $conn->query("SELECT id FROM Elementos WHERE titulo = '$nova_referencia_titulo'");
-      if ($result2->num_rows == 0) {
+      if ($result2->num_rows > 0) {
         while ($row = $result2->fetch_assoc()) {
           $nova_referencia_id = $row['id'];
           $insert = $conn->query("INSERT INTO Verbetes_elementos (id_tema, id_elemento, tipo, user_id) VALUES ($tema_id, $nova_referencia_id, 'referencia', $user_id)");
