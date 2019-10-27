@@ -29,121 +29,130 @@
     $concurso = $_GET['concurso'];
   }
 
-$result = $conn->query("SELECT sigla_materia, nivel, ordem, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND id = $id_tema");
-if ($result->num_rows > 0) {
-  while($row = $result->fetch_assoc()) {
-    $sigla_materia = $row['sigla_materia'];
-    $nivel = $row['nivel'];
-    $ordem = $row['ordem'];
-    $nivel1 = $row['nivel1'];
-    $nivel2 = $row['nivel2'];
-    $nivel3 = $row['nivel3'];
-    $nivel4 = $row['nivel4'];
-    $nivel5 = $row['nivel5'];
-    if ($nivel == 5) { $tema = $nivel5; $parent = $nivel4; }
-    elseif ($nivel == 4) { $tema = $nivel4; $parent = $nivel3; }
-    elseif ($nivel == 3) { $tema = $nivel3; $parent = $nivel2; }
-    elseif ($nivel == 2) { $tema = $nivel2; $parent = $nivel1; }
-    else { $tema = $nivel1; $parent = false; }
+  $result = $conn->query("SELECT sigla_materia, nivel, ordem, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND id = $id_tema");
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $sigla_materia = $row['sigla_materia'];
+      $nivel = $row['nivel'];
+      $ordem = $row['ordem'];
+      $nivel1 = $row['nivel1'];
+      $nivel2 = $row['nivel2'];
+      $nivel3 = $row['nivel3'];
+      $nivel4 = $row['nivel4'];
+      $nivel5 = $row['nivel5'];
+      if ($nivel == 5) { $tema = $nivel5; $parent = $nivel4; }
+      elseif ($nivel == 4) { $tema = $nivel4; $parent = $nivel3; }
+      elseif ($nivel == 3) { $tema = $nivel3; $parent = $nivel2; }
+      elseif ($nivel == 2) { $tema = $nivel2; $parent = $nivel1; }
+      else { $tema = $nivel1; $parent = false; }
+    }
   }
-}
 
-$result = $conn->query("SELECT materia FROM Materias WHERE concurso = '$concurso' AND estado = 1 AND sigla = '$sigla_materia' ORDER BY ordem");
-if ($result->num_rows > 0) {
-  while($row = $result->fetch_assoc()) {
-    $materia = $row["materia"];
+  $result = $conn->query("SELECT materia FROM Materias WHERE concurso = '$concurso' AND estado = 1 AND sigla = '$sigla_materia' ORDER BY ordem");
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $materia = $row["materia"];
+    }
   }
-}
 
-$result = $conn->query("SELECT verbete FROM Verbetes WHERE concurso = '$concurso' AND id_tema = $id_tema");
-if ($result->num_rows > 0) {
-  while($row = $result->fetch_assoc()) {
-    $verbete_html = $row['verbete'];
-  }
-}
-else {
-  $verbete_html = false;
-}
-
-if (isset($_POST['quill_novo_verbete_html'])) {
-  $novo_verbete_html = $_POST['quill_novo_verbete_html'];
-  $novo_verbete_html = strip_tags($novo_verbete_html, '<p><li><ul><ol><h2><blockquote><em><sup>');
   $result = $conn->query("SELECT verbete FROM Verbetes WHERE concurso = '$concurso' AND id_tema = $id_tema");
   if ($result->num_rows > 0) {
-    $result = $conn->query("UPDATE Verbetes SET verbete = '$novo_verbete_html', usuario = '$user' WHERE concurso = '$concurso' AND id_tema = $id_tema");
-    $result = $conn->query("INSERT INTO Verbetes_arquivo (id_tema, concurso, verbete, usuario) VALUES ('$id_tema', '$concurso', '$verbete_html', '$user')");
+    while($row = $result->fetch_assoc()) {
+      $verbete_html = $row['verbete'];
+    }
   }
   else {
-    $result = $conn->query("INSERT INTO Verbetes (id_tema, concurso, verbete, usuario) VALUES ('$id_tema', '$concurso', '$novo_verbete_html', '$user')");
+    $verbete_html = false;
   }
-  $verbete_html = $novo_verbete_html;
-}
 
-$result = $conn2->query("SELECT conteudo_texto FROM $tabela_usuario WHERE tipo = 'anotacoes' AND tipo2 = $id_tema");
-if ($result->num_rows > 0) {
-  while($row = $result->fetch_assoc()) {
-    $anotacao_html = $row['conteudo_texto'];
-    break;
+  if (isset($_POST['quill_novo_verbete_html'])) {
+    $novo_verbete_html = $_POST['quill_novo_verbete_html'];
+    $novo_verbete_html = strip_tags($novo_verbete_html, '<p><li><ul><ol><h2><blockquote><em><sup>');
+    $result = $conn->query("SELECT verbete FROM Verbetes WHERE concurso = '$concurso' AND id_tema = $id_tema");
+    if ($result->num_rows > 0) {
+      $result = $conn->query("UPDATE Verbetes SET verbete = '$novo_verbete_html', usuario = '$user' WHERE concurso = '$concurso' AND id_tema = $id_tema");
+      $result = $conn->query("INSERT INTO Verbetes_arquivo (id_tema, concurso, verbete, usuario) VALUES ('$id_tema', '$concurso', '$verbete_html', '$user')");
+    }
+    else {
+      $result = $conn->query("INSERT INTO Verbetes (id_tema, concurso, verbete, usuario) VALUES ('$id_tema', '$concurso', '$novo_verbete_html', '$user')");
+    }
+    $verbete_html = $novo_verbete_html;
   }
-}
-else {
-  $anotacao_html = false;
-}
 
-if (isset($_POST['quill_nova_anotacao_html'])) {
-  $nova_anotacao_html = $_POST['quill_nova_anotacao_html'];
-  $nova_anotacao_html = strip_tags($nova_anotacao_html, '<p><li><ul><ol><h2><blockquote><em><sup>');
-  if ($anotacao_html != false) {
-    $update = $conn2->query("UPDATE $tabela_usuario SET conteudo_texto = '$nova_anotacao_html' WHERE tipo = 'anotacoes' AND tipo2 = $id_tema");
-    $insert = $conn2->query("INSERT INTO $tabela_usuario_arquivo (tipo, tipo2, conteudo_texto) VALUES ('anotacoes', $id_tema, '$nova_anotacao_html')");
+  $result = $conn2->query("SELECT conteudo_texto FROM $tabela_usuario WHERE tipo = 'anotacoes' AND tipo2 = $id_tema");
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $anotacao_html = $row['conteudo_texto'];
+      break;
+    }
   }
   else {
-    $insert = $conn2->query("INSERT INTO $tabela_usuario (tipo, tipo2, conteudo_texto) VALUES ('anotacoes', $id_tema, '$nova_anotacao_html')");
+    $anotacao_html = false;
   }
-  $anotacao_html = $nova_anotacao_html;
-}
 
-if (isset($_POST['nova_imagem_link'])) {
-  $nova_imagem_link = $_POST['nova_imagem_link'];
-  $result = $conn->query("SELECT id FROM Imagens WHERE concurso = '$concurso' AND id_tema = $id_tema AND link = '$nova_imagem_link'");
-  if ($result->num_rows == 0) {
-    $nova_imagem_titulo = $_POST['nova_imagem_titulo'];
-    $nova_imagem_trecho = $_POST['nova_imagem_trecho'];
-    $nova_imagem_comentario = $_POST['nova_imagem_comentario'];
-    $randomfilename = generateRandomString(12);
-    $ultimo_ponto = strripos($nova_imagem_link, ".");
-    $extensao = substr($nova_imagem_link, $ultimo_ponto);
-    $nova_imagem_arquivo = "$randomfilename$extensao";
-    $nova_imagem_diretorio = "imagens/verbetes/$randomfilename$extensao";
-    file_put_contents("$nova_imagem_diretorio", fopen($nova_imagem_link, 'r'));
-    $dados_da_imagem = make_thumb($nova_imagem_arquivo);
-    if ($dados_da_imagem == false) { return false; }
-    $nova_imagem_resolucao_original = $dados_da_imagem[0];
-    $nova_imagem_orientacao = $dados_da_imagem[1];
-    $result = $conn->query("INSERT INTO Imagens (id_tema, concurso, titulo, link, arquivo, resolucao, orientacao, comentario, trecho, usuario) VALUES ($id_tema, '$concurso', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_arquivo', '$nova_imagem_resolucao_original', '$nova_imagem_orientacao', '$nova_imagem_comentario', '$nova_imagem_trecho', '$user')");
+  if (isset($_POST['quill_nova_anotacao_html'])) {
+    $nova_anotacao_html = $_POST['quill_nova_anotacao_html'];
+    $nova_anotacao_html = strip_tags($nova_anotacao_html, '<p><li><ul><ol><h2><blockquote><em><sup>');
+    if ($anotacao_html != false) {
+      $update = $conn2->query("UPDATE $tabela_usuario SET conteudo_texto = '$nova_anotacao_html' WHERE tipo = 'anotacoes' AND tipo2 = $id_tema");
+      $insert = $conn2->query("INSERT INTO $tabela_usuario_arquivo (tipo, tipo2, conteudo_texto) VALUES ('anotacoes', $id_tema, '$nova_anotacao_html')");
+    }
+    else {
+      $insert = $conn2->query("INSERT INTO $tabela_usuario (tipo, tipo2, conteudo_texto) VALUES ('anotacoes', $id_tema, '$nova_anotacao_html')");
+    }
+    $anotacao_html = $nova_anotacao_html;
   }
-}
 
-if (isset($_POST['nova_referencia_titulo'])) {
-  $nova_referencia_titulo = $_POST['nova_referencia_titulo'];
-  $nova_referencia_autor = $_POST['nova_referencia_autor'];
-  $nova_referencia_capitulo = $_POST['nova_referencia_capitulo'];
-  $result = $conn->query("SELECT id FROM Bibliografia WHERE concurso = '$concurso' AND id_tema = $id_tema AND titulo = '$nova_referencia_titulo'");
-  if ($result->num_rows == 0) {
-    $result = $conn->query("INSERT INTO Bibliografia (id_tema, concurso, titulo, autor, ano, usuario) VALUES ($id_tema, '$concurso', '$nova_referencia_titulo', '$nova_referencia_autor', '$nova_referencia_capitulo', '$user')");
+  if (isset($_POST['nova_imagem_link'])) {
+    $nova_imagem_link = $_POST['nova_imagem_link'];
+    $result = $conn->query("SELECT id FROM Imagens WHERE concurso = '$concurso' AND id_tema = $id_tema AND link = '$nova_imagem_link'");
+    if ($result->num_rows == 0) {
+      $nova_imagem_titulo = $_POST['nova_imagem_titulo'];
+      $nova_imagem_trecho = $_POST['nova_imagem_trecho'];
+      $nova_imagem_comentario = $_POST['nova_imagem_comentario'];
+      $randomfilename = generateRandomString(12);
+      $ultimo_ponto = strripos($nova_imagem_link, ".");
+      $extensao = substr($nova_imagem_link, $ultimo_ponto);
+      $nova_imagem_arquivo = "$randomfilename$extensao";
+      $nova_imagem_diretorio = "imagens/verbetes/$randomfilename$extensao";
+      file_put_contents("$nova_imagem_diretorio", fopen($nova_imagem_link, 'r'));
+      $dados_da_imagem = make_thumb($nova_imagem_arquivo);
+      if ($dados_da_imagem == false) { return false; }
+      $nova_imagem_resolucao_original = $dados_da_imagem[0];
+      $nova_imagem_orientacao = $dados_da_imagem[1];
+      $result = $conn->query("INSERT INTO Imagens (id_tema, concurso, titulo, link, arquivo, resolucao, orientacao, comentario, trecho, usuario) VALUES ($id_tema, '$concurso', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_arquivo', '$nova_imagem_resolucao_original', '$nova_imagem_orientacao', '$nova_imagem_comentario', '$nova_imagem_trecho', '$user')");
+    }
   }
-}
 
-if (isset($_POST['novo_video_titulo'])) {
-  $novo_video_titulo = $_POST['novo_video_titulo'];
-  $novo_video_autor = $_POST['novo_video_autor'];
-  $novo_video_link = $_POST['novo_video_link'];
-  $result = $conn->query("SELECT id FROM Videos WHERE concurso = '$concurso' AND id_tema = $id_tema AND titulo = '$novo_video_titulo'");
-  if ($result->num_rows == 0) {
-    $result = $conn->query("INSERT INTO Videos (id_tema, concurso, titulo, autor, link, usuario) VALUES ($id_tema, '$concurso', '$novo_video_titulo', '$novo_video_autor', '$novo_video_link', '$user')");
+  if (isset($_POST['nova_referencia_titulo'])) {
+    $nova_referencia_titulo = $_POST['nova_referencia_titulo'];
+    $nova_referencia_autor = $_POST['nova_referencia_autor'];
+    $nova_referencia_capitulo = $_POST['nova_referencia_capitulo'];
+    $result = $conn->query("SELECT id FROM Bibliografia WHERE concurso = '$concurso' AND id_tema = $id_tema AND titulo = '$nova_referencia_titulo'");
+    if ($result->num_rows == 0) {
+      $result = $conn->query("INSERT INTO Bibliografia (id_tema, concurso, titulo, autor, ano, usuario) VALUES ($id_tema, '$concurso', '$nova_referencia_titulo', '$nova_referencia_autor', '$nova_referencia_capitulo', '$user')");
+    }
   }
-}
 
+  if (isset($_POST['novo_video_titulo'])) {
+    $novo_video_titulo = $_POST['novo_video_titulo'];
+    $novo_video_autor = $_POST['novo_video_autor'];
+    $novo_video_link = $_POST['novo_video_link'];
+    $result = $conn->query("SELECT id FROM Videos WHERE concurso = '$concurso' AND id_tema = $id_tema AND titulo = '$novo_video_titulo'");
+    if ($result->num_rows == 0) {
+      $result = $conn->query("INSERT INTO Videos (id_tema, concurso, titulo, autor, link, usuario) VALUES ($id_tema, '$concurso', '$novo_video_titulo', '$novo_video_autor', '$novo_video_link', '$user')");
+    }
+  }
+
+  $bookmark = $conn->query("SELECT conteudo_boolean FROM $tabela_usuario WHERE tipo = 'bookmark' AND tipo2 = '$sigla_materia'")
+  if ($bookmark->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $tema_bookmark = $row['conteudo_boolean'];
+    }
+  }
+  else {
+    $tema_bookmark = false;
+  }
 ?>
 <body>
   <?php
@@ -157,7 +166,7 @@ if (isset($_POST['novo_video_titulo'])) {
     if ($nivel3 != false) { $breadcrumbs .= "<li class='breadcrumb-item'>$nivel3</li>"; }
     if ($nivel4 != false) { $breadcrumbs .= "<li class='breadcrumb-item'>$nivel4</li>"; }
     if ($nivel5 != false) { $breadcrumbs .= "<li class='breadcrumb-item'>$nivel5</li>"; }
-    breadcrumbs($breadcrumbs);
+    breadcrumbs($breadcrumbs, $id_tema, $tema_bookmark);
   ?>
   <div class='container-fluid grey lighten-5' data-toggle='buttons'>
     <div class='row'>

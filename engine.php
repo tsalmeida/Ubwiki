@@ -50,8 +50,9 @@ function carregar_navbar() {
 
 function breadcrumbs() {
   $content = func_get_args();
-  if ($content[0] != false) { $breadcrumbs = $content[0]; }
-  if ($content[1] != false) { $id_tema = $content[1]; }
+  if (isset($content[0])) { $breadcrumbs = $content[0]; }
+  if (isset($content[1])) { $id_tema = $content[1]; }
+  if (isset($content[2])) { $tema_bookmark = $content[2]; }
   echo "
     <div class='container-fluid grey lighten-3'>
       <div class='row'>
@@ -69,9 +70,14 @@ function breadcrumbs() {
             <ol class='breadcrumb d-inline-flex transparent mb-0'>
               <li id='verbetes_relacionados' class='breadcrumb-item' title='Verbetes relacionados'><a href='#'><i class='fal fa-chart-network fa-fw'></i></a></li>
               <li id='simulados' class='breadcrumb-item' title='Simulados'><a href='#'><i class='fal fa-check-double fa-fw'></i></a></li>
-              <li id='forum' class='breadcrumb-item' title='Fórum'><a href='#'><i class='fal fa-comments-alt fa-fw'></i></a></li>
-              <li id='add_bookmark' class='breadcrumb-item' title='Marcar para leitura' value='$id_tema'><a href='#'><i class='fal fa-bookmark fa-fw'></i></a></li>
-              <li id='remove_bookmark' class='breadcrumb-item' title='Remover da lista de leitura' value='$id_tema'><a href='#'><span class='text-danger'><i class='fas fa-bookmark fa-fw'></i></span></span></a></li>
+              <li id='forum' class='breadcrumb-item' title='Fórum'><a href='#'><i class='fal fa-comments-alt fa-fw'></i></a></li>";
+              if ($tema_bookmark == false) {
+                echo "<li id='add_bookmark' class='breadcrumb-item' title='Marcar para leitura' value='$id_tema'><a href='#'><i class='fal fa-bookmark fa-fw'></i></a></li>";
+              }
+              else {
+                echo "<li id='remove_bookmark' class='breadcrumb-item' title='Remover da lista de leitura' value='$id_tema'><a href='#'><span class='text-danger'><i class='fas fa-bookmark fa-fw'></i></span></span></a></li>";
+              }
+            echo "
             </ol>
           </div>
         </div>
