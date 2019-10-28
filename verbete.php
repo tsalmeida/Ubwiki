@@ -278,7 +278,7 @@
 
   breadcrumbs($breadcrumbs, $tema_id, $tema_bookmark);
 ?>
-  <div id='page_height' class='container-fluid grey lighten-5' data-toggle='buttons'>
+  <div class='container-fluid grey lighten-5' data-toggle='buttons'>
     <div class='row'>
       <div class='col-12 d-flex justify-content-center'>
         <button class='btn grey lighten-3 btn-rounded btn-sm verbete_collapse collapse mostrar_coluna_esquerda' data-toggle='collapse' data-target='.verbete_collapse' role='button'>Verbete</button>
@@ -289,7 +289,7 @@
       </div>
     </div>
   </div>
-  <div class='container-fluid'>
+  <div id='page_height' class='container-fluid'>
     <div class='row my-5 d-flex justify-content-center'>
       <div class='col-10 text-center'>
         <?php
