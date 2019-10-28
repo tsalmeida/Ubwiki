@@ -311,8 +311,8 @@
           <div class='row'>
             <div class='col-12 d-flex justify-content-between'>
               <h1>Verbete</h1>
-              <a data-toggle='modal' data-target='#modal_editar_verbete' href=''><i class="fal fa-pen-square fa-fw"></i></a>
-              <span id='esconder_verbete' data-toggle='collapse' data-target='.verbete_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
+              <span class='h4'><a data-toggle='modal' data-target='#modal_editar_verbete' href=''><i class="fal fa-pen-square fa-fw"></i></a>
+              <span id='esconder_verbete' data-toggle='collapse' data-target='.verbete_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span></span>
             </div>
           </div>
           <div class='row justify-content-left py-3'>
@@ -334,8 +334,8 @@
           <div class='row'>
             <div class='col-12 d-flex justify-content-between'>
               <h1>Imagens</h1>
-              <a data-toggle='modal' data-target='#modal_imagens_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
-              <span id='esconder_imagens' data-toggle='collapse' data-target='.imagens_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
+              <span class='h4'><a data-toggle='modal' data-target='#modal_imagens_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
+              <span id='esconder_imagens' data-toggle='collapse' data-target='.imagens_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span></span>
             </div>
           </div>
           <div class='row py-3'>
@@ -408,8 +408,8 @@
           <div class='row'>
             <div class='col-12 d-flex justify-content-between'>
               <h1>Vídeos e aulas</h1>
-              <a data-toggle='modal' data-target='#modal_videos_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
-              <span id='esconder_videos' data-toggle='collapse' data-target='.videos_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
+              <span class='h4'><a data-toggle='modal' data-target='#modal_videos_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
+              <span id='esconder_videos' data-toggle='collapse' data-target='.videos_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span></span>
             </div>
           </div>
           <div class='row py-3'>
@@ -444,8 +444,8 @@
           <div class='row'>
             <div class='col-12 d-flex justify-content-between'>
               <h1>Leia mais</h1>
-              <a data-toggle='modal' data-target='#modal_referencia_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
-              <span id='esconder_bibliografia' data-toggle='collapse' data-target='.bibliografia_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
+              <span class='h4'><a data-toggle='modal' data-target='#modal_referencia_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
+              <span id='esconder_bibliografia' data-toggle='collapse' data-target='.bibliografia_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span></span>
             </div>
           </div>
           <div class='row py-3'>
@@ -490,7 +490,7 @@
           <div class='row'>
             <div class='col-12 d-flex justify-content-between'>
               <h1>Anotações</h1>
-              <span id='minimizar_anotacoes' data-toggle='collapse' data-target='.anotacoes_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
+              <span class='h4' id='minimizar_anotacoes' data-toggle='collapse' data-target='.anotacoes_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
             </div>
           </div>
           <div class='row py-3'>
