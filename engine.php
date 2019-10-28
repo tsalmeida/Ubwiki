@@ -482,6 +482,7 @@ function bottom_page() {
                 topSpacing: 50,
                 zIndex: 2,
                 stopper: '#footer',
+                minHeight: 768,
               });
             });
           </script>
