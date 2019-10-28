@@ -313,14 +313,14 @@
             <div class='col-12 d-flex justify-content-between'>
               <h1>Verbete</h1>
               <span class='h5'>
-                <span class='verbete_editor_collapse collapse' id='travar_verbete' data-toggle='collapse' data-target='.verbete_editor_collapse' title='travar verbete para edição'><a href='#'><i class='fal fa-unlock-alt fa-fw'></i></a></span>
-                <span class='verbete_editor_collapse collapse show' id='destravar_verbete' data-toggle='collapse' data-target='.verbete_editor_collapse' title='destravar verbete para edição'><a href='#'><i class='fal fa-lock-alt fa-fw'></i></a></span>
-                <span id='esconder_verbete' data-toggle='collapse' data-target='.verbete_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
+                <span class='verbete_editor_collapse collapse' id='travar_verbete' data-toggle='collapse' data-target='.verbete_editor_collapse' title='travar verbete para edição'><a href='javascript:void(0);'><i class='fal fa-unlock-alt fa-fw'></i></a></span>
+                <span class='verbete_editor_collapse collapse show' id='destravar_verbete' data-toggle='collapse' data-target='.verbete_editor_collapse' title='destravar verbete para edição'><a href='javascript:void(0);'><i class='fal fa-lock-alt fa-fw'></i></a></span>
+                <span id='esconder_verbete' data-toggle='collapse' data-target='.verbete_collapse'><a href='javascript:void(0);'><i class='fal fa-chevron-up fa-fw'></i></a></span>
             </div>
           </div>
           <div class='row py-3'>
             <div class='col-12'>
-              <form id='quill_verbete_form' method='post' action='#anotacoes'>
+              <form id='quill_verbete_form' method='post'>
                 <input name='quill_novo_verbete_html' type='hidden'>
                 <div class='row'>
                   <div class='container col-12'>
@@ -355,7 +355,7 @@
             <div class='col-12 d-flex justify-content-between'>
               <h1>Imagens</h1>
               <span class='h5'><a data-toggle='modal' data-target='#modal_imagens_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
-              <span id='esconder_imagens' data-toggle='collapse' data-target='.imagens_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span></span>
+              <span id='esconder_imagens' data-toggle='collapse' data-target='.imagens_collapse'><a href='javascript:void(0);'><i class='fal fa-chevron-up fa-fw'></i></a></span></span>
             </div>
           </div>
           <div class='row py-3'>
@@ -429,7 +429,7 @@
             <div class='col-12 d-flex justify-content-between'>
               <h1>Vídeos e aulas</h1>
               <span class='h5'><a data-toggle='modal' data-target='#modal_videos_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
-              <span id='esconder_videos' data-toggle='collapse' data-target='.videos_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span></span>
+              <span id='esconder_videos' data-toggle='collapse' data-target='.videos_collapse'><a href='javascript:void(0);'><i class='fal fa-chevron-up fa-fw'></i></a></span></span>
             </div>
           </div>
           <div class='row py-3'>
@@ -465,7 +465,7 @@
             <div class='col-12 d-flex justify-content-between'>
               <h1>Leia mais</h1>
               <span class='h5'><a data-toggle='modal' data-target='#modal_referencia_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
-              <span id='esconder_bibliografia' data-toggle='collapse' data-target='.bibliografia_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span></span>
+              <span id='esconder_bibliografia' data-toggle='collapse' data-target='.bibliografia_collapse'><a href='javascript:void(0);'><i class='fal fa-chevron-up fa-fw'></i></a></span></span>
             </div>
           </div>
           <div class='row py-3'>
@@ -510,12 +510,12 @@
           <div class='row'>
             <div class='col-12 d-flex justify-content-between'>
               <h1>Anotações</h1>
-              <span class='h5' id='minimizar_anotacoes' data-toggle='collapse' data-target='.anotacoes_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
+              <span class='h5' id='minimizar_anotacoes' data-toggle='collapse' data-target='.anotacoes_collapse'><a href='javascript:void(0);'><i class='fal fa-chevron-up fa-fw'></i></a></span>
             </div>
           </div>
           <div class='row py-3'>
             <div class='col-12'>
-              <form id='quill_anotacao_form' method='post' action='#anotacoes'>
+              <form id='quill_anotacao_form' method='post'>
                 <input name='quill_nova_anotacao_html' type='hidden'>
                 <div class='row'>
                   <div class='container col-12'>
@@ -543,7 +543,7 @@
     <div class='modal fade' id='modal_imagens_form' role='dialog' tabindex='-1'>
       <div class='modal-dialog modal-lg' role='document'>
         <div class='modal-content'>
-          <form method='post' action='#imagens'>
+          <form method='post'>
             <div class='modal-header text-center'>
               <h4 class='modal-title w-100 font-weight-bold'>Adicionar imagem</h4>
               <button type='button' class='close' data-dismiss='modal'>
@@ -575,7 +575,7 @@
     <div class='modal fade' id='modal_referencia_form' role='dialog' tabindex='-1'>
       <div class='modal-dialog modal-lg' role='document'>
         <div class='modal-content'>
-          <form method='post' action='#bibliografia'>
+          <form method='post'>
             <div class='modal-header text-center'>
               <h4 class='modal-title w-100 font-weight-bold'>Adicionar referência bibliográfica</h4>
               <button type='button' class='close' data-dismiss='modal'>
@@ -615,7 +615,7 @@
     <div class='modal fade' id='modal_videos_form' role='dialog' tabindex='-1'>
       <div class='modal-dialog modal-lg' role='document'>
         <div class='modal-content'>
-          <form method='post' action='#videos'>
+          <form method='post'>
             <div class='modal-header text-center'>
               <h4 class='modal-title w-100 font-weight-bold'>Adicionar vídeo ou aula</h4>
               <button type='button' class='close' data-dismiss='modal'>
