@@ -221,6 +221,7 @@
   }
   else {
     $breadcrumbs .= "<li class='breadcrumb-item'>$nivel1</li>";
+    $tema_titulo = $nivel1;
   }
   if ($nivel != 2) {
     if ($nivel2 != false) {
@@ -236,6 +237,7 @@
   }
   else {
     $breadcrumbs .= "<li class='breadcrumb-item'>$nivel2</li>";
+    $tema_titulo = $nivel2;
   }
   if ($nivel != 3) {
     if ($nivel3 != false) {
@@ -251,6 +253,7 @@
   }
   else {
     $breadcrumbs .= "<li class='breadcrumb-item'>$nivel3</li>";
+    $tema_titulo = $nivel3;
   }
   if ($nivel != 4) {
     if ($nivel4 != false) {
@@ -266,9 +269,11 @@
   }
   else {
     $breadcrumbs .= "<li class='breadcrumb-item'>$nivel4</li>";
+    $tema_titulo = $nivel4;
   }
   if ($nivel5 != false) {
     $breadcrumbs .= "<li class='breadcrumb-item'>$nivel5</li>";
+    $tema_titulo = $nivel5;
   }
 
   breadcrumbs($breadcrumbs, $tema_id, $tema_bookmark);
