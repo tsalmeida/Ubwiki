@@ -486,14 +486,14 @@
       </div>
 
       <div id='coluna_direita' class='col-lg-5 col-sm-12 anotacoes_collapse collapse show'>
-        <div class='mb-5 border-top border-light pt-4'>
+        <div id='sticky_anotacoes' class='mb-5 border-top border-light pt-4'>
           <div class='row'>
             <div class='col-12 d-flex justify-content-between'>
               <h1>Anotações</h1>
               <span class='h5' id='minimizar_anotacoes' data-toggle='collapse' data-target='.anotacoes_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
             </div>
           </div>
-          <div id='sticky_anotacoes' class='row py-3'>
+          <div class='row py-3'>
             <div class='col-12'>
               <form id='quill_anotacao_form' method='post' action='#anotacoes'>
                 <input name='quill_nova_anotacao_html' type='hidden'>
