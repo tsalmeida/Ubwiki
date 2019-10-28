@@ -477,6 +477,7 @@ function bottom_page() {
       elseif ($args[$array] == 'sticky_anotacoes') {
         echo "
           <script type='text/javascript'>
+            alert('test');
             $(function(){
               $'#sticky_anotacoes').sticky({
                 topSpacing: 50,
