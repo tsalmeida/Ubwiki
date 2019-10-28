@@ -308,15 +308,17 @@
     <div class='row justify-content-around'>
       <div id='coluna_esquerda' class='col-lg-5 col-sm-12'>
         <div id='verbete' class='verbete_collapse collapse show mb-5'>
-          <div class='row text-left'>
-            <div class='col-12 text-left'>
+          <div class='row'>
+            <div class='col-12 d-flex justify-content-between'>
               <h1>Verbete</h1>
-              <a data-toggle='modal' data-target='#modal_editar_verbete' href=''><i class="fal fa-pen-square fa-fw"></i></a>
-              <span id='esconder_verbete' data-toggle='collapse' data-target='.verbete_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
+              <div class='row'>
+                <a data-toggle='modal' data-target='#modal_editar_verbete' href=''><i class="fal fa-pen-square fa-fw"></i></a>
+                <span id='esconder_verbete' data-toggle='collapse' data-target='.verbete_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
+              </div>
             </div>
           </div>
           <div class='row justify-content-left border-bottom border-dark py-3'>
-            <div class='col-12 text-left font-weight-normal'>
+            <div class='col-12'>
               <?php
                 if ($verbete_html == false) {
                   echo "<p>O verbete deste tópico ainda não começou a ser escrito.</p>";
@@ -338,7 +340,7 @@
             </div>
           </div>
           <div class='row border-bottom border-dark py-3'>
-            <div class='col-12 text-left font-weight-normal'>
+            <div class='col-12'>
 <?php
               $result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND tipo = 'imagem'");
               $count = 0;
@@ -412,7 +414,7 @@
             </div>
           </div>
           <div class='row border-bottom border-dark py-3'>
-            <div class='col-12 text-left font-weight-normal'>
+            <div class='col-12'>
 <?php
               $result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND tipo = 'video'");
               if ($result->num_rows > 0) {
@@ -448,7 +450,7 @@
             </div>
           </div>
           <div class='row border-bottom border-dark py-3'>
-            <div class='col-12 text-left font-weight-normal'>
+            <div class='col-12'>
 <?php
                 $result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND tipo = 'referencia'");
                 if ($result->num_rows > 0) {
@@ -492,7 +494,7 @@
           </div>
         </div>
         <div class='row border-bottom border-dark py-3'>
-          <div class='col-12 text-left font-weight-normal'>
+          <div class='col-12'>
             <form id='quill_anotacao_form' method='post' action='#anotacoes'>
               <input name='quill_nova_anotacao_html' type='hidden'>
               <div class='row'>
