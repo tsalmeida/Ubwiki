@@ -37,6 +37,7 @@
   text-align: left;
   white-space: pre-wrap;
   word-wrap: break-word;
+  min-height: 15em !important;
 }
 .ql-editor p,
 .ql-editor ol,
