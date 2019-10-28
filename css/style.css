@@ -128,7 +128,7 @@ h1, h2, h3, h4, h5, h6 {
 .quill_editor_height_verbete {
   min-height: 10em !important;
   height: auto !important;
-  max-height: 150vh;
+  max-height: 150vh !important;
 }
 
 .footer.page-footer .footer-copyright {
