@@ -294,8 +294,8 @@
       <div class='col-12 d-flex justify-content-center'>
         <?php
           echo "
-            <span class='display-2 .d-none .d-lg-inline'>$tema_titulo</span>
-            <span class='display-4 .d-inline .d-md-none'>$tema_titulo</span>
+            <span class='display-2 d-none d-lg-inline text-center'>$tema_titulo</span>
+            <span class='display-4 d-inline d-md-none text-center'>$tema_titulo</span>
           ";
         ?>
       </div>
