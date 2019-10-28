@@ -493,7 +493,7 @@
               <span class='h5' id='minimizar_anotacoes' data-toggle='collapse' data-target='.anotacoes_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
             </div>
           </div>
-          <div class='row py-3'>
+          <div id='sticky_anotacoes' class='row py-3'>
             <div class='col-12'>
               <form id='quill_anotacao_form' method='post' action='#anotacoes'>
                 <input name='quill_nova_anotacao_html' type='hidden'>

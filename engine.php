@@ -478,7 +478,7 @@ function bottom_page() {
         echo "
           <script type='text/javascript'>
             $(function(){
-              $'.sticky-content').sticky({
+              $'#sticky_anotacoes').sticky({
                 topSpacing: 50,
                 zIndex: 2,
                 stopper: '#footer',
