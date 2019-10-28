@@ -340,7 +340,7 @@
                     </div>
                   </div>
                 </div>
-                <div class='row d-flex justify-content-center verbete_editor_collapse collapse mt-3'>
+                <div class='row justify-content-center verbete_editor_collapse collapse mt-3'>
                   <button type='button' class='btn btn-light btn-sm'><i class="fal fa-times-circle fa-fw"></i> Cancelar</button>
                   <button type='submit' class='btn btn-primary btn-sm'><i class='fal fa-check fa-fw'></i> Salvar</button>
                 </div>
