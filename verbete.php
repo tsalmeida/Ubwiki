@@ -290,8 +290,8 @@
     </div>
   </div>
   <div class='container-fluid'>
-    <div class='row my-5'>
-      <div class='col-12 d-flex justify-content-center'>
+    <div class='row my-5 d-flex justify-content-center'>
+      <div class='col-10'>
         <?php
           $tema_length = strlen($tema_titulo);
           if ($tema_length < 20) { $display_size_large = 'display-1'; $display_size_mobile = 'display-3'; }
