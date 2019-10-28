@@ -56,7 +56,7 @@
             echo "
             <h3>Imagem</h3>
             <div class='col-12 mb-3 d-flex justify-content-center'>
-              <img class='' src='imagens/verbetes/$arquivo_elemento'></img>
+              <img class='imagem_pagina' src='imagens/verbetes/$arquivo_elemento'></img>
             </div>
             ";
           }
