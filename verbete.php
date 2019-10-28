@@ -299,7 +299,7 @@
           elseif ($tema_length < 70) { $display_size_large = 'display-3'; $display_size_mobile = 'h1'; }
           else { $display_size_large = 'display-4'; $display_size_mobile = 'h1'; }
           echo "
-            <span class='$display_size_large d-none d-lg-inline text-center'>$tema_titulo</span>
+            <span class='$display_size_large d-none d-lg-inline text-center playfair'>$tema_titulo</span>
             <span class='$display_size_mobile d-inline d-md-none text-center'>$tema_titulo</span>
           ";
         ?>
