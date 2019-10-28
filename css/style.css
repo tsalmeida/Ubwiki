@@ -3,25 +3,7 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i&display=swap');
 
 html {
-font-size: 1.1rem;
-}
-
-@include media-breakpoint-up(sm) {
-  html {
-  font-size: 1.2rem;
-  }
-}
-
-@include media-breakpoint-up(md) {
-  html {
-  font-size: 1.4rem;
-  }
-}
-
-@include media-breakpoint-up(lg) {
-  html {
-  font-size: 1.6rem;
-  }
+font-size: 1.2rem;
 }
 
 logo {
@@ -31,6 +13,10 @@ logo {
 html, body, p, li {
   font-family: 'Lato', sans-serif;
   font-weight: 400 !important;
+}
+
+p {
+  max-width: 70ch;
 }
 
 h1, h2, h3, h4, h5, h6 {
