@@ -233,12 +233,7 @@ function bottom_page() {
             ];
             var formatWhitelist = ['italic','script','link','blockquote','list','header'];
             var verbete_editor = new Quill('#quill_editor_verbete', {
-              theme: 'snow',
-              formats: formatWhitelist,
               readOnly: true,
-              modules: {
-                toolbar: toolbarOptions
-              }
             });
             var anotacao_editor = new Quill('#quill_editor_anotacao', {
               theme: 'snow',
