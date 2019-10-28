@@ -242,6 +242,20 @@ function bottom_page() {
                 toolbar: toolbarOptions
               }
             });
+            $('#travar_verbete').click(function(){
+              var verbete_editor = new Quill('#quill_editor_verbete', {
+                readOnly: true
+              });
+            });
+            $('#destravar_verbete').click(function(){
+              var verbete_editor = new Quill('#quill_editor_verbete', {
+                theme: 'snow',
+                formats: formatWhitelist,
+                modules: {
+                  toolbar: toolbarOptions
+                }
+              });
+            });
             var form_verbete = document.querySelector('#quill_verbete_form');
             form_verbete.onsubmit = function() {
               var quill_novo_verbete_html = document.querySelector('input[name=quill_novo_verbete_html]');
