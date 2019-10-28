@@ -122,8 +122,6 @@ h1, h2, h3, h4, h5, h6 {
 .quill_editor_height {
   min-height: 15em !important;
   height: auto !important;
-  max-height: 60vh !important;
-  overflow-y: auto;
 }
 
 .quill_editor_height_verbete {
