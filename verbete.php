@@ -404,9 +404,9 @@
           </div>
         </div>
 
-        <div id='videos' class='videos_collapse collapse show mb-5'>
+        <div id='videos' class='videos_collapse collapse show mb-5 border-top border-light'>
           <div class='row'>
-            <div class='col-12 justify-content-between border-top border-light'>
+            <div class='col-12 d-flex justify-content-between'>
               <h1>Vídeos e aulas</h1>
               <a data-toggle='modal' data-target='#modal_videos_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
               <span id='esconder_videos' data-toggle='collapse' data-target='.videos_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
@@ -485,9 +485,9 @@
 
       </div>
 
-      <div id='coluna_direita' class='col-lg-5 col-sm-12 anotacoes_collapse collapse show'>
+      <div id='coluna_direita' class='col-lg-5 col-sm-12 anotacoes_collapse collapse show border-top border-light'>
         <div class='row'>
-          <div class='col-12 justify-content-between border-top border-light'>
+          <div class='col-12 justify-content-between'>
             <h1>Anotações</h1>
             <span id='minimizar_anotacoes' class='text-center' data-toggle='collapse' data-target='.anotacoes_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
           </div>
