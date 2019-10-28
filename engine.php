@@ -242,8 +242,13 @@ function bottom_page() {
                 toolbar: toolbarOptions
               }
             });
-            $('#travar_verbete').click(function(){
+            $('#destravar_verbete').click(function(){
               var verbete_editor = new Quill('#quill_editor_verbete', {
+                theme: false,
+                formats: false,
+                modules: {
+                  toolbar: false
+                },
                 readOnly: true
               });
             });
