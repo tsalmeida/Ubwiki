@@ -233,8 +233,7 @@ function bottom_page() {
             ];
             var formatWhitelist = ['italic','script','link','blockquote','list','header'];
             var verbete_editor = new Quill('#quill_editor_verbete', {
-              readOnly: true,
-              theme: 'snow'
+              readOnly: true
             });
             var anotacao_editor = new Quill('#quill_editor_anotacao', {
               theme: 'snow',
