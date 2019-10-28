@@ -27,10 +27,11 @@
 .ql-editor {
   box-sizing: border-box;
   cursor: text;
+  line-height: 1.42;
   height: 100%;
   outline: none;
   overflow-y: auto;
-  padding-top: 1em;
+  padding: 12px 15px;
   tab-size: 4;
   -moz-tab-size: 4;
   text-align: left;
@@ -670,15 +671,15 @@
 }
 .ql-snow .ql-picker.ql-header .ql-picker-label[data-value="4"]::before,
 .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="4"]::before {
-  content: 'Nível 4';
+  content: 'Heading 4';
 }
 .ql-snow .ql-picker.ql-header .ql-picker-label[data-value="5"]::before,
 .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="5"]::before {
-  content: 'Nível 5';
+  content: 'Heading 5';
 }
 .ql-snow .ql-picker.ql-header .ql-picker-label[data-value="6"]::before,
 .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="6"]::before {
-  content: 'Nível 6';
+  content: 'Heading 6';
 }
 .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="1"]::before {
   font-size: 2em;
@@ -850,5 +851,5 @@
   color: #06c;
 }
 .ql-container.ql-snow {
-  border: 0;
+  border: 1px solid #ccc;
 }
