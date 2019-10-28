@@ -204,22 +204,30 @@
       break;
     }
   }
-
 ?>
 <body>
-  <?php
-    carregar_navbar('dark');
-    $breadcrumbs = "
-      <li class='breadcrumb-item'><a href='index.php'>$concurso</a></li>
-      <li class='breadcrumb-item'><a href='materia.php?concurso=$concurso&sigla=$sigla_materia'>$materia</a></li>
-      <li class='breadcrumb-item'>$nivel1</li>
-    ";
-    if ($nivel2 != false) { $breadcrumbs .= "<li class='breadcrumb-item'>$nivel2</li>"; }
-    if ($nivel3 != false) { $breadcrumbs .= "<li class='breadcrumb-item'>$nivel3</li>"; }
-    if ($nivel4 != false) { $breadcrumbs .= "<li class='breadcrumb-item'>$nivel4</li>"; }
-    if ($nivel5 != false) { $breadcrumbs .= "<li class='breadcrumb-item'>$nivel5</li>"; }
-    breadcrumbs($breadcrumbs, $tema_id, $tema_bookmark);
-  ?>
+<?php
+  carregar_navbar('dark');
+  $breadcrumbs = "
+    <li class='breadcrumb-item'><a href='index.php'>$concurso</a></li>
+    <li class='breadcrumb-item'><a href='materia.php?concurso=$concurso&sigla=$sigla_materia'>$materia</a></li>
+  ";
+  if ($nivel1 != false) {
+    $result = $conn->query("SELECT id FROM Temas WHERE nivel1 = '$nivel1' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia'");
+    if ($result->num_rows > 0) {
+      while($row = $result->fetch_assoc()) {
+        $id_nivel1 = $row['id'];
+        break;
+      }
+    }
+  }
+  $breadcrumbs .= "<li class='breadcrumb-item'><a href='verbete.php?concurso=$concurso&tema=$id_nivel1'>$nivel1</a></li>";
+  if ($nivel2 != false) { $breadcrumbs .= "<li class='breadcrumb-item'>$nivel2</li>"; }
+  if ($nivel3 != false) { $breadcrumbs .= "<li class='breadcrumb-item'>$nivel3</li>"; }
+  if ($nivel4 != false) { $breadcrumbs .= "<li class='breadcrumb-item'>$nivel4</li>"; }
+  if ($nivel5 != false) { $breadcrumbs .= "<li class='breadcrumb-item'>$nivel5</li>"; }
+  breadcrumbs($breadcrumbs, $tema_id, $tema_bookmark);
+?>
   <div class='container-fluid grey lighten-5' data-toggle='buttons'>
     <div class='row'>
       <div class='col-12 d-flex justify-content-center'>
@@ -354,7 +362,7 @@
           </div>
           <div class='row border-bottom border-dark py-3'>
             <div class='col-12 text-left font-weight-normal'>
-              <?php
+<?php
               $result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND tipo = 'video'");
               if ($result->num_rows > 0) {
                 echo "<ul class='list-group'>";
@@ -375,7 +383,7 @@
               else {
                 echo "<p>Ainda não foram acrescentados vídeos ou aulas sobre este assunto.</p>";
               }
-              ?>
+?>
             </div>
           </div>
         </div>
@@ -394,7 +402,7 @@
           </div>
           <div class='row border-bottom border-dark py-3'>
             <div class='col-12 text-left font-weight-normal'>
-              <?php
+<?php
                 $result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND tipo = 'referencia'");
                 if ($result->num_rows > 0) {
                   echo "<ul class='list-group'>";
@@ -422,7 +430,7 @@
                 else {
                   echo "<p>Não foram identificados, até o momento, recursos bibliográficos sobre este tema.</p>";
                 }
-              ?>
+?>
             </div>
           </div>
         </div>
@@ -448,7 +456,7 @@
                   <input name='quill_nova_anotacao_html' type='hidden'>
                   <div class='row'>
                     <div class='container col-12'>
-                      <?php
+<?php
                         echo "
                           <div id='quill_container_anotacao'>
                             <div id='quill_editor_anotacao' class='quill_editor_height'>
@@ -456,7 +464,7 @@
                             </div>
                           </div>
                         ";
-                      ?>
+?>
                     </div>
                   </div>
                   <div class='row d-flex justify-content-center mt-3'>
