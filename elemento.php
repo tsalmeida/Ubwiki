@@ -62,7 +62,7 @@
         $analise_user_id = $row['user_id'];
         $analise_previa = $row['analise'];
         $conn->query("UPDATE Elementos_analise SET analise = '$nova_mensagem' WHERE id_elemento = $id_elemento");
-        $conn->query("INSERT INTO Elementos_analise_arquivo (user_id, id_elemento, analise§) VALUES ($analise_user_id, $id_elemento, '$analise_previa')");
+        $conn->query("INSERT INTO Elementos_analise_arquivo (user_id, id_elemento, analise) VALUES ($analise_user_id, $id_elemento, '$analise_previa')");
       }
     }
     else {
