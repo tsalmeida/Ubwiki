@@ -51,18 +51,17 @@
     ?>
     <div class="container-fluid my-5">
       <div class="row justify-content-around">
+        <?php
+          if ($tipo_elemento == 'imagem') {
+            echo "
+            <h3>Imagem</h3>
+            <div class='col-12'>
+              <img class='imagem_pagina' src='imagens/verbetes/$arquivo_elemento'></img>
+            </div>
+            ";
+          }
+        ?>
         <div class="col-lg-5 col-sm-12">
-          <?php
-            if ($tipo_elemento == 'imagem') {
-              echo "<h3>Imagem</h3>
-                <div class='row'>
-                  <div class='col-12'>
-                    <img class='imagem_pagina' src='imagens/verbetes/$arquivo_elemento'></img>
-                  </div>
-                </div>
-              ";
-            }
-          ?>
           <h3>Dados do elemento:</h3>
           <?php
                 echo "
