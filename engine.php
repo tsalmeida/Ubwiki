@@ -235,6 +235,7 @@ function bottom_page() {
             var verbete_editor = new Quill('#quill_editor_verbete', {
               theme: 'snow',
               formats: formatWhitelist,
+              readOnly: true,
               modules: {
                 toolbar: toolbarOptions
               }
