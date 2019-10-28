@@ -309,13 +309,13 @@
       <div id='coluna_esquerda' class='col-lg-5 col-sm-12'>
         <div id='verbete' class='verbete_collapse collapse show mb-5'>
           <div class='row text-left'>
-            <div class='col-10 text-left'>
+            <div class='col-11 text-left'>
               <?php
                 echo "<h3>Verbete</h3>";
               ?>
             </div>
-            <div class='col-2'>
-              <div class='row d-flex justify-content-end'>
+            <div class='col-1'>
+              <div class='row d-flex justify-content-end h5'>
                 <a data-toggle='modal' data-target='#modal_editar_verbete' href=''><i class="fal fa-pen-square fa-fw"></i></a>
                 <span id='esconder_verbete' class='text-center' data-toggle='collapse' data-target='.verbete_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
               </div>
@@ -337,11 +337,11 @@
         </div>
         <div id='imagens' class='imagens_collapse collapse show mb-5'>
           <div class='row justify-content-between'>
-            <div class='col-10 text-left h3'>
+            <div class='col-11 text-left h3'>
               <h2 class='align-left'>Imagens</h2>
             </div>
-            <div class='col-2'>
-              <div class='row d-flex justify-content-end'>
+            <div class='col-1'>
+              <div class='row d-flex justify-content-end h5'>
                 <a data-toggle='modal' data-target='#modal_imagens_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
                 <span id='esconder_imagens' data-toggle='collapse' data-target='.imagens_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
               </div>
@@ -415,11 +415,11 @@
 
         <div id='videos' class='videos_collapse collapse show mb-5'>
           <div class='row justify-content-between'>
-            <div class='col-10 text-left h3'>
+            <div class='col-11 text-left h3'>
               <h2 class='align-left'>Vídeos e aulas</h2>
             </div>
-            <div class='col-2'>
-              <div class='row d-flex justify-content-end'>
+            <div class='col-1'>
+              <div class='row d-flex justify-content-end h5'>
                 <a data-toggle='modal' data-target='#modal_videos_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
                 <span id='esconder_videos' data-toggle='collapse' data-target='.videos_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
               </div>
@@ -455,11 +455,11 @@
 
         <div id='bibliografia' class='bibliografia_collapse collapse show mb-5'>
           <div class='row justify-content-between'>
-            <div class='col-10 text-left h3'>
+            <div class='col-11 text-left h3'>
               <h2 class='align-left'>Leia mais</h2>
             </div>
-            <div class='col-2'>
-              <div class='row d-flex justify-content-end'>
+            <div class='col-1'>
+              <div class='row d-flex justify-content-end h5'>
                 <a data-toggle='modal' data-target='#modal_referencia_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
                 <span id='esconder_bibliografia' data-toggle='collapse' data-target='.bibliografia_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
               </div>
@@ -506,11 +506,11 @@
         <div class='row'>
           <div class='col-12'>
             <div class='row justify-content-between'>
-              <div class='col-10 text-left h3'>
+              <div class='col-11 text-left h3'>
                 <h2 class='align-left'>Anotações</h2>
               </div>
-              <div class='col-2'>
-                <div class='row d-flex justify-content-end'>
+              <div class='col-1'>
+                <div class='row d-flex justify-content-end h5'>
                   <span id='minimizar_anotacoes' class='text-center' data-toggle='collapse' data-target='.anotacoes_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
                 </div>
               </div>
