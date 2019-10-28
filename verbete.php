@@ -309,16 +309,10 @@
       <div id='coluna_esquerda' class='col-lg-5 col-sm-12'>
         <div id='verbete' class='verbete_collapse collapse show mb-5'>
           <div class='row text-left'>
-            <div class='col-11 text-left'>
-              <?php
-                echo "<h3>Verbete</h3>";
-              ?>
-            </div>
-            <div class='col-1'>
-              <div class='row d-flex justify-content-end h5'>
-                <a data-toggle='modal' data-target='#modal_editar_verbete' href=''><i class="fal fa-pen-square fa-fw"></i></a>
-                <span id='esconder_verbete' class='text-center' data-toggle='collapse' data-target='.verbete_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
-              </div>
+            <div class='col-12 text-left'>
+              <h3>Verbete</h3>
+              <a data-toggle='modal' data-target='#modal_editar_verbete' href=''><i class="fal fa-pen-square fa-fw"></i></a>
+              <span id='esconder_verbete' data-toggle='collapse' data-target='.verbete_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
             </div>
           </div>
           <div class='row justify-content-left border-bottom border-dark py-3'>
@@ -336,15 +330,11 @@
           </div>
         </div>
         <div id='imagens' class='imagens_collapse collapse show mb-5'>
-          <div class='row justify-content-between'>
-            <div class='col-11 text-left h3'>
-              <h2 class='align-left'>Imagens</h2>
-            </div>
-            <div class='col-1'>
-              <div class='row d-flex justify-content-end h5'>
-                <a data-toggle='modal' data-target='#modal_imagens_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
-                <span id='esconder_imagens' data-toggle='collapse' data-target='.imagens_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
-              </div>
+          <div class='row'>
+            <div class='col-12'>
+              <h2>Imagens</h2>
+              <a data-toggle='modal' data-target='#modal_imagens_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
+              <span id='esconder_imagens' data-toggle='collapse' data-target='.imagens_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
             </div>
           </div>
           <div class='row border-bottom border-dark py-3'>
@@ -415,14 +405,10 @@
 
         <div id='videos' class='videos_collapse collapse show mb-5'>
           <div class='row justify-content-between'>
-            <div class='col-11 text-left h3'>
+            <div class='col-12'>
               <h2 class='align-left'>Vídeos e aulas</h2>
-            </div>
-            <div class='col-1'>
-              <div class='row d-flex justify-content-end h5'>
-                <a data-toggle='modal' data-target='#modal_videos_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
-                <span id='esconder_videos' data-toggle='collapse' data-target='.videos_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
-              </div>
+              <a data-toggle='modal' data-target='#modal_videos_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
+              <span id='esconder_videos' data-toggle='collapse' data-target='.videos_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
             </div>
           </div>
           <div class='row border-bottom border-dark py-3'>
@@ -455,14 +441,10 @@
 
         <div id='bibliografia' class='bibliografia_collapse collapse show mb-5'>
           <div class='row justify-content-between'>
-            <div class='col-11 text-left h3'>
+            <div class='col-12'>
               <h2 class='align-left'>Leia mais</h2>
-            </div>
-            <div class='col-1'>
-              <div class='row d-flex justify-content-end h5'>
-                <a data-toggle='modal' data-target='#modal_referencia_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
-                <span id='esconder_bibliografia' data-toggle='collapse' data-target='.bibliografia_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
-              </div>
+              <a data-toggle='modal' data-target='#modal_referencia_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
+              <span id='esconder_bibliografia' data-toggle='collapse' data-target='.bibliografia_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
             </div>
           </div>
           <div class='row border-bottom border-dark py-3'>
@@ -503,42 +485,34 @@
       </div>
 
       <div id='coluna_direita' class='col-lg-5 col-sm-12 anotacoes_collapse collapse show'>
-        <div class='row'>
+        <div class='row justify-content-between'>
           <div class='col-12'>
-            <div class='row justify-content-between'>
-              <div class='col-11 text-left h3'>
-                <h2 class='align-left'>Anotações</h2>
-              </div>
-              <div class='col-1'>
-                <div class='row d-flex justify-content-end h5'>
-                  <span id='minimizar_anotacoes' class='text-center' data-toggle='collapse' data-target='.anotacoes_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
+            <h2 class='align-left'>Anotações</h2>
+            <span id='minimizar_anotacoes' class='text-center' data-toggle='collapse' data-target='.anotacoes_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
+          </div>
+        </div>
+        <div class='row border-bottom border-dark py-3'>
+          <div class='col-12 text-left font-weight-normal'>
+            <form id='quill_anotacao_form' method='post' action='#anotacoes'>
+              <input name='quill_nova_anotacao_html' type='hidden'>
+              <div class='row'>
+                <div class='container col-12'>
+<?php
+                    echo "
+                      <div id='quill_container_anotacao'>
+                        <div id='quill_editor_anotacao' class='quill_editor_height'>
+                          $anotacao_html
+                        </div>
+                      </div>
+                    ";
+?>
                 </div>
               </div>
-            </div>
-            <div class='row border-bottom border-dark py-3'>
-              <div class='col-12 text-left font-weight-normal'>
-                <form id='quill_anotacao_form' method='post' action='#anotacoes'>
-                  <input name='quill_nova_anotacao_html' type='hidden'>
-                  <div class='row'>
-                    <div class='container col-12'>
-<?php
-                        echo "
-                          <div id='quill_container_anotacao'>
-                            <div id='quill_editor_anotacao' class='quill_editor_height'>
-                              $anotacao_html
-                            </div>
-                          </div>
-                        ";
-?>
-                    </div>
-                  </div>
-                  <div class='row d-flex justify-content-center mt-3'>
-                    <button type='button' class='btn btn-light'><i class="fal fa-times-circle fa-fw"></i> Cancelar</button>
-                    <button type='submit' class='btn btn-primary'><i class='fal fa-check fa-fw'></i> Salvar</button>
-                  </div>
-                </form>
+              <div class='row d-flex justify-content-center mt-3'>
+                <button type='button' class='btn btn-light'><i class="fal fa-times-circle fa-fw"></i> Cancelar</button>
+                <button type='submit' class='btn btn-primary'><i class='fal fa-check fa-fw'></i> Salvar</button>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
