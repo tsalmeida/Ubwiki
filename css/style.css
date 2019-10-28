@@ -123,6 +123,10 @@ h1, h2, h3, h4, h5, h6 {
   height: 30em !important;
 }
 
+.quill_editor_height_verbete {
+  height: auto !important;
+}
+
 .footer.page-footer .footer-copyright {
  position: absolute;
  bottom: 0;

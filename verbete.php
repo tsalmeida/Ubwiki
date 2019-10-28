@@ -322,7 +322,7 @@
                 <div class='row'>
                   <div class='container col-12'>
                     <div id='quill_container_verbete'>
-                      <div id='quill_editor_verbete' class='quill_editor_height'>
+                      <div id='quill_editor_verbete' class='quill_editor_height_verbete'>
 
                         <?php
                           if ($verbete_html == false) {
