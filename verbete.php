@@ -317,7 +317,7 @@
               </div>
             </div>
           </div>
-          <div class='row justify-content-left border-top border-dark py-3'>
+          <div class='row justify-content-left py-3'>
             <div class='col-12'>
               <?php
                 if ($verbete_html == false) {
@@ -339,7 +339,7 @@
               <span id='esconder_imagens' data-toggle='collapse' data-target='.imagens_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
             </div>
           </div>
-          <div class='row border-top border-dark py-3'>
+          <div class='row py-3'>
             <div class='col-12'>
 <?php
               $result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND tipo = 'imagem'");
@@ -413,7 +413,7 @@
               <span id='esconder_videos' data-toggle='collapse' data-target='.videos_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
             </div>
           </div>
-          <div class='row border-top border-dark py-3'>
+          <div class='row py-3'>
             <div class='col-12'>
 <?php
               $result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND tipo = 'video'");
@@ -449,7 +449,7 @@
               <span id='esconder_bibliografia' data-toggle='collapse' data-target='.bibliografia_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
             </div>
           </div>
-          <div class='row border-top border-dark py-3'>
+          <div class='row py-3'>
             <div class='col-12'>
 <?php
                 $result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND tipo = 'referencia'");
@@ -493,7 +493,7 @@
             <span id='minimizar_anotacoes' class='text-center' data-toggle='collapse' data-target='.anotacoes_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
           </div>
         </div>
-        <div class='row border-top border-dark py-3'>
+        <div class='row py-3'>
           <div class='col-12'>
             <form id='quill_anotacao_form' method='post' action='#anotacoes'>
               <input name='quill_nova_anotacao_html' type='hidden'>
