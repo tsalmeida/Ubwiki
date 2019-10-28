@@ -239,7 +239,7 @@ function bottom_page() {
                 toolbar: toolbarOptions
               }
             });
-            verbete_editor.editor.disable();
+            verbete_editor.disable();
             var anotacao_editor = new Quill('#quill_editor_anotacao', {
               theme: 'snow',
               formats: formatWhitelist,
@@ -248,10 +248,10 @@ function bottom_page() {
               }
             });
             $('#travar_verbete').click(function(){
-              verbete_editor.editor.disable();
+              verbete_editor.disable();
             });
             $('#destravar_verbete').click(function(){
-              verbete_editor.editor.enable();
+              verbete_editor.enable();
             });
             var form_verbete = document.querySelector('#quill_verbete_form');
             form_verbete.onsubmit = function() {
