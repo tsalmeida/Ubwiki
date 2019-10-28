@@ -487,9 +487,9 @@
 
       <div id='coluna_direita' class='col-lg-5 col-sm-12 anotacoes_collapse collapse show border-top border-light'>
         <div class='row'>
-          <div class='col-12 justify-content-between'>
+          <div class='col-12 d-flex justify-content-between'>
             <h1>Anotações</h1>
-            <span id='minimizar_anotacoes' class='text-center' data-toggle='collapse' data-target='.anotacoes_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
+            <span id='minimizar_anotacoes' data-toggle='collapse' data-target='.anotacoes_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
           </div>
         </div>
         <div class='row py-3'>
