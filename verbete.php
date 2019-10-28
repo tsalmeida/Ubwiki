@@ -293,7 +293,10 @@
     <div class='row my-5'>
       <div class='col-12 d-flex justify-content-center'>
         <?php
-        echo "<h1>$tema_titulo</h1>";
+          echo "
+            <span class='display-1 .d-none .d-lg-inline'>$tema_titulo</span>
+            <span class='display-4 .d-inline .d-lg-none'>$tema_titulo</span>
+          ";
         ?>
       </div>
     </div>
