@@ -2,7 +2,7 @@
   session_save_path('/home/tsilvaalmeida/public_html/ubwiki/sessions/');
   session_start();
   if (isset($_SESSION['email'])) {
-    $user = $_SESSION['email'];
+    $user_email = $_SESSION['email'];
   }
   else {
     header('Location:login.php');
@@ -66,7 +66,7 @@
       }
     }
     else {
-      $conn->query("INSERT INTO Elementos_analise (user_id, id_elemento, analise) VALUES ($user_id, $id_elmento, '$nova_mensagem')");
+      $conn->query("INSERT INTO Elementos_analise (user_id, id_elemento, analise) VALUES ($user_id, $id_elemento, '$nova_mensagem')");
     }
     $elemento_analise = $nova_mensagem;
   }
