@@ -256,9 +256,12 @@ function bottom_page() {
               var verbete_editor = new Quill('#quill_editor_verbete', {
                 theme: 'snow',
                 formats: formatWhitelist,
-                modules: {
-                  toolbar: toolbarOptions
+                if (first_session != false) {
+                  modules: {
+                    toolbar: toolbarOptions
+                  }
                 }
+                var first_session = false;
               });
             });
             var form_verbete = document.querySelector('#quill_verbete_form');
