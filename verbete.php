@@ -307,7 +307,7 @@
     </div>
     <div class='row justify-content-around'>
       <div id='coluna_esquerda' class='col-lg-5 col-sm-12'>
-        <div id='verbete' class='verbete_collapse collapse show mb-5 border-top border-light'>
+        <div id='verbete' class='verbete_collapse collapse show mb-5 border-top border-light pt-4'>
           <div class='row'>
             <div class='col-12 d-flex justify-content-between'>
               <h1>Verbete</h1>
@@ -330,7 +330,7 @@
           </div>
         </div>
 
-        <div id='imagens' class='imagens_collapse collapse show mb-5 border-top border-light'>
+        <div id='imagens' class='imagens_collapse collapse show mb-5 border-top border-light pt-4'>
           <div class='row'>
             <div class='col-12 d-flex justify-content-between'>
               <h1>Imagens</h1>
@@ -404,7 +404,7 @@
           </div>
         </div>
 
-        <div id='videos' class='videos_collapse collapse show mb-5 border-top border-light'>
+        <div id='videos' class='videos_collapse collapse show mb-5 border-top border-light pt-4'>
           <div class='row'>
             <div class='col-12 d-flex justify-content-between'>
               <h1>Vídeos e aulas</h1>
@@ -440,7 +440,7 @@
           </div>
         </div>
 
-        <div id='bibliografia' class='bibliografia_collapse collapse show mb-5 border-top border-light'>
+        <div id='bibliografia' class='bibliografia_collapse collapse show mb-5 border-top border-light pt-4'>
           <div class='row'>
             <div class='col-12 d-flex justify-content-between'>
               <h1>Leia mais</h1>
@@ -486,7 +486,7 @@
       </div>
 
       <div id='coluna_direita' class='col-lg-5 col-sm-12 anotacoes_collapse collapse show'>
-        <div class='mb-5 border-top border-light'>
+        <div class='mb-5 border-top border-light pt-4'>
           <div class='row'>
             <div class='col-12 d-flex justify-content-between'>
               <h1>Anotações</h1>
