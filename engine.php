@@ -119,7 +119,7 @@ function top_page() {
             echo $args[0];
           }
         }
-        if (($args[$array] == "quill_v") || ($args[$array] == "quill_admin") || ($args[$array] == 'quill_user')) {
+        if (($args[$array] == "quill_v") || ($args[$array] == "quill_admin") || ($args[$array] == 'quill_user') || ($args[$array] == 'quill_elemento')) {
           echo "
             <link href='css/quill.snow.css' rel='stylesheet'>
           ";
@@ -255,6 +255,35 @@ function bottom_page() {
             form_anotacao.onsubmit = function() {
               var quill_nova_anotacao_html = document.querySelector('input[name=quill_nova_anotacao_html]');
               quill_nova_anotacao_html.value = anotacao_editor.root.innerHTML;
+            }
+          </script>
+        ";
+      }
+      elseif ($args[$array] == "quill_elemento") {
+        echo "
+          <script src='https://cdn.quilljs.com/1.3.6/quill.js'></script>
+          <script>
+            var toolbarOptions = [
+              ['italic'],
+              ['strike'],
+              ['blockquote'],
+              [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+              [{ 'script': 'super' }],
+              [{ 'header': [2, false] }],
+              ['clean']
+            ];
+            var formatWhitelist = ['italic','script','link','blockquote','list','header','strike'];
+            var elemento_editor = new Quill('#quill_editor_elemento', {
+              theme: 'snow',
+              formats: formatWhitelist,
+              modules: {
+                toolbar: toolbarOptions
+              }
+            });
+            var form_elemento = document.querySelector('#quill_elemento_form');
+            form_elemento.onsubmit = function() {
+              var quill_nova_mensagem_html = document.querySelector('input[name=quill_nova_mensagem_html]');
+              quill_nova_mensagem_html.value = elemento_editor.root.innerHTML;
             }
           </script>
         ";
