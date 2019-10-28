@@ -14,6 +14,35 @@
   include 'engine.php';
   top_page(false);
 
+  $result = $conn->query("SELECT criacao, tipo, titulo, autor, capitulo, ano, link, arquivo, resolucao, orientacao, comentario, trecho, user_id FROM Elementos WHERE id = $id_elemento");
+  if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+      $criacao_elemento = $row['criacao'];
+      $tipo_elemento = $row['tipo'];
+      $titulo_elemento = $row['titulo'];
+      $autor_elemento = $row['autor'];
+      $capitulo_elemento = $row['capitulo'];
+      $ano_elemento = $row['ano'];
+      $link_elemento = $row['link'];
+      $arquivo_elemento = $row['arquivo'];
+      $resolucao_elemento = $row['resolucao'];
+      $orientacao_elemento = $row['orientacao'];
+      $comentario_elemento = $row['comentario'];
+      $trecho_elemento = $row['trecho'];
+      $user_id_elemento = $row['user_id'];
+      $result = $conn->query("SELECT apelido FROM Usuarios WHERE id = $user_id_elemento");
+      if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+          $user_apelido_elemento = $row['apelido'];
+        }
+      }
+      else {
+        $user_apelido_elemeto = "(usuário não-identificado)";
+      }
+      break;
+    }
+}
+
 ?>
   <body>
     <?php
@@ -23,33 +52,15 @@
     <div class="container-fluid my-5">
       <div class="row justify-content-around">
         <div class="col-lg-5 col-sm-12">
+          <?php
+            if ($tipo_elemento == 'imagem') {
+              echo "<h3>Imagem</h3>
+                <img src='imagens/verbetes/$arquivo_elemento'></img>
+              ";
+            }
+          ?>
           <h3>Dados do elemento:</h3>
           <?php
-            $result = $conn->query("SELECT criacao, tipo, titulo, autor, capitulo, ano, link, arquivo, resolucao, orientacao, comentario, trecho, user_id FROM Elementos WHERE id = $id_elemento");
-            if ($result->num_rows > 0) {
-              while ($row = $result->fetch_assoc()) {
-                $criacao_elemento = $row['criacao'];
-                $tipo_elemento = $row['tipo'];
-                $titulo_elemento = $row['titulo'];
-                $autor_elemento = $row['autor'];
-                $capitulo_elemento = $row['capitulo'];
-                $ano_elemento = $row['ano'];
-                $link_elemento = $row['link'];
-                $arquivo_elemento = $row['arquivo'];
-                $resolucao_elemento = $row['resolucao'];
-                $orientacao_elemento = $row['orientacao'];
-                $comentario_elemento = $row['comentario'];
-                $trecho_elemento = $row['trecho'];
-                $user_id_elemento = $row['user_id'];
-                $result = $conn->query("SELECT apelido FROM Usuarios WHERE id = $user_id_elemento");
-                if ($result->num_rows > 0) {
-                  while ($row = $result->fetch_assoc()) {
-                    $user_apelido_elemento = $row['apelido'];
-                  }
-                }
-                else {
-                  $user_apelido_elemeto = "(usuário não-identificado)";
-                }
                 echo "
                   <ul class='list-group'>
                     <li class='list-group-item list-group-item-action'><strong>Criado em:</strong> $criacao_elemento</li>
@@ -68,8 +79,6 @@
                     <li class='list-group-item list-group-item-action'>Acrescentado pelo usuário <strong>$user_apelido_elemento</strong></li>
                   </ul>
                 ";
-              }
-            }
           ?>
         </div>
         <div class='col-lg-5 col-sm-12'>
