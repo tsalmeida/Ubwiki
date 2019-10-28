@@ -233,14 +233,13 @@ function bottom_page() {
             ];
             var formatWhitelist = ['italic','script','link','blockquote','list','header'];
             var verbete_editor = new Quill('#quill_editor_verbete', {
-              var verbete_editor = new Quill('#quill_editor_verbete', {
-                theme: 'snow',
-                formats: formatWhitelist,
-                modules: {
-                  toolbar: toolbarOptions
-                }
-              });
+              theme: 'snow',
+              formats: formatWhitelist,
+              modules: {
+                toolbar: toolbarOptions
+              }
             });
+            verbete_editor.editor.disable();
             var anotacao_editor = new Quill('#quill_editor_anotacao', {
               theme: 'snow',
               formats: formatWhitelist,
