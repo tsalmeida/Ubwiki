@@ -405,8 +405,8 @@
         </div>
 
         <div id='videos' class='videos_collapse collapse show mb-5'>
-          <div class='row justify-content-between'>
-            <div class='col-12'>
+          <div class='row'>
+            <div class='col-12 justify-content-between border-top border-light'>
               <h1>Vídeos e aulas</h1>
               <a data-toggle='modal' data-target='#modal_videos_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
               <span id='esconder_videos' data-toggle='collapse' data-target='.videos_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
@@ -442,7 +442,7 @@
 
         <div id='bibliografia' class='bibliografia_collapse collapse show mb-5 border-top border-light'>
           <div class='row'>
-            <div class='col-12 d-flex justify-cointent-between'>
+            <div class='col-12 d-flex justify-content-between'>
               <h1>Leia mais</h1>
               <a data-toggle='modal' data-target='#modal_referencia_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
               <span id='esconder_bibliografia' data-toggle='collapse' data-target='.bibliografia_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
