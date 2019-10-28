@@ -293,7 +293,7 @@
     <div class='row my-5'>
       <div class='col-12 d-flex justify-content-center'>
         <?php
-          $tema_length = strlen($tema);
+          $tema_length = strlen($tema_titulo);
           if ($tema_length < 20) { $display_size_large = 'display-1'; $display_size_mobile = 'display-3'; }
           elseif ($tema_length < 40) { $display_size_large = 'display-2'; $display_size_mobile = 'display-4'; }
           else { $display_size_large = 'display-4'; $display_size_mobile = 'h1'; }
