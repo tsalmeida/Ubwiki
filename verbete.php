@@ -293,9 +293,13 @@
     <div class='row my-5'>
       <div class='col-12 d-flex justify-content-center'>
         <?php
+          $tema_length = strlen($tema);
+          if ($tema_length < 20) { $display_size_large = 'display-1'; $display_size_mobile = 'display-3'; }
+          elseif ($tema_length < 40) { $display_size_large = 'display-2'; $display_size_mobile = 'display-4'; }
+          else { $display_size_large = 'display-4'; $display_size_mobile = 'h1'; }
           echo "
-            <span class='display-3 d-none d-lg-inline text-center'>$tema_titulo</span>
-            <span class='display-4 d-inline d-md-none text-center'>$tema_titulo</span>
+            <span class='$display_size_large d-none d-lg-inline text-center'>$tema_titulo</span>
+            <span class='$display_size_mobile d-inline d-md-none text-center'>$tema_titulo</span>
           ";
         ?>
       </div>
