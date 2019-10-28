@@ -55,7 +55,11 @@
           <?php
             if ($tipo_elemento == 'imagem') {
               echo "<h3>Imagem</h3>
-                <img src='imagens/verbetes/$arquivo_elemento'></img>
+                <div class='row'>
+                  <div class='col-12'>
+                    <img class='imagem_pagina' src='imagens/verbetes/$arquivo_elemento'></img>
+                  </div>
+                </div>
               ";
             }
           ?>
