@@ -158,4 +158,10 @@ h1, h2, h3, h4, h5, h6 {
 
 #sticky_anotacoes {
   position: sticky;
+  top: 0px;
+}
+
+#footer {
+  position: sticky;
+  bottom: 0px;
 }
