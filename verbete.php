@@ -312,7 +312,9 @@
           <div class='row'>
             <div class='col-12 d-flex justify-content-between'>
               <h1>Verbete</h1>
-              <span class='h5' id='esconder_verbete' data-toggle='collapse' data-target='.verbete_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
+              <span class='h5'>
+                <span id='destravar_verbete' data-toggle='collapse' data-target='.verbete_editor_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
+                <span id='esconder_verbete' data-toggle='collapse' data-target='.verbete_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
             </div>
           </div>
           <div class='row py-3'>
@@ -338,7 +340,7 @@
                     </div>
                   </div>
                 </div>
-                <div class='row d-flex justify-content-center mt-3'>
+                <div class='row d-flex justify-content-center verbete_editor_collapse collapse mt-3'>
                   <button type='button' class='btn btn-light btn-sm'><i class="fal fa-times-circle fa-fw"></i> Cancelar</button>
                   <button type='submit' class='btn btn-primary btn-sm'><i class='fal fa-check fa-fw'></i> Salvar</button>
                 </div>
