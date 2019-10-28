@@ -290,10 +290,10 @@
     </div>
   </div>
   <div class='container-fluid'>
-    <div class='row justify-content-center my-5'>
-      <div class='col-12'>
+    <div class='row my-5'>
+      <div class='col-12 d-flex justify-content-center'>
         <?php
-        echo "<span class='display-1'>$tema_titulo</span>";
+        echo "<h1>$tema_titulo</h1>";
         ?>
       </div>
     </div>
