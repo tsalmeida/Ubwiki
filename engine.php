@@ -249,9 +249,11 @@ function bottom_page() {
             });
             $('#travar_verbete').click(function(){
               verbete_editor.disable();
+              $('.ql-toolbar:first').hide();
             });
             $('#destravar_verbete').click(function(){
               verbete_editor.enable();
+              $('.ql-toolbar:first').show();
             });
             var form_verbete = document.querySelector('#quill_verbete_form');
             form_verbete.onsubmit = function() {
