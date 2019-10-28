@@ -55,32 +55,30 @@
             if ($tipo_elemento == 'imagem') {
               echo "
               <h3>Imagem</h3>
-              <div class='col-12 mb-3 d-flex justify-content-center'>
-                <img class='imagem_pagina' src='imagens/verbetes/$arquivo_elemento'></img>
-              </div>
+              <img class='imagem_pagina border' src='imagens/verbetes/$arquivo_elemento'></img>
               ";
             }
           ?>
           <h3>Dados do elemento:</h3>
           <?php
-                echo "
-                  <ul class='list-group'>
-                    <li class='list-group-item list-group-item-action'><strong>Criado em:</strong> $criacao_elemento</li>
-                    <li class='list-group-item list-group-item-action'><strong>Tipo:</strong> $tipo_elemento</li>
-                    <li class='list-group-item list-group-item-action'><strong>Título:</strong> $titulo_elemento</li>
-                    <li class='list-group-item list-group-item-action'><strong>Autor:</strong> $autor_elemento</li>
-                    <li class='list-group-item list-group-item-action'><strong>Capítulo:</strong> $capitulo_elemento</li>
-                    <li class='list-group-item list-group-item-action'><strong>Ano:</strong> $ano_elemento</li>
-                    <li class='list-group-item list-group-item-action'><a href='$link_elemento' target='_blank'>Link</a></li>
-                    <li class='list-group-item list-group-item-action'><a href='imagens/verbetes/$arquivo_elemento' target='_blank'>Arquivo</a></li>
-                    <li class='list-group-item list-group-item-action'><a href='imagens/verbetes/thumbnails/$arquivo_elemento' target='_blank'>Thumbnail</a></li>
-                    <li class='list-group-item list-group-item-action'><strong>Resolução:</strong> $resolucao_elemento</li>
-                    <li class='list-group-item list-group-item-action'><strong>Orientação:</strong> $orientacao_elemento</li>
-                    <li class='list-group-item list-group-item-action'><strong>Comentário:</strong> $comentario_elemento</li>
-                    <li class='list-group-item list-group-item-action'><strong>Trecho:</strong> $trecho_elemento</li>
-                    <li class='list-group-item list-group-item-action'>Acrescentado pelo usuário <strong>$user_apelido_elemento</strong></li>
-                  </ul>
-                ";
+            echo "
+              <ul class='list-group'>
+                <li class='list-group-item list-group-item-action'><strong>Criado em:</strong> $criacao_elemento</li>
+                <li class='list-group-item list-group-item-action'><strong>Tipo:</strong> $tipo_elemento</li>
+                <li class='list-group-item list-group-item-action'><strong>Título:</strong> $titulo_elemento</li>
+                <li class='list-group-item list-group-item-action'><strong>Autor:</strong> $autor_elemento</li>
+                <li class='list-group-item list-group-item-action'><strong>Capítulo:</strong> $capitulo_elemento</li>
+                <li class='list-group-item list-group-item-action'><strong>Ano:</strong> $ano_elemento</li>
+                <li class='list-group-item list-group-item-action'><a href='$link_elemento' target='_blank'>Link</a></li>
+                <li class='list-group-item list-group-item-action'><a href='imagens/verbetes/$arquivo_elemento' target='_blank'>Arquivo</a></li>
+                <li class='list-group-item list-group-item-action'><a href='imagens/verbetes/thumbnails/$arquivo_elemento' target='_blank'>Thumbnail</a></li>
+                <li class='list-group-item list-group-item-action'><strong>Resolução:</strong> $resolucao_elemento</li>
+                <li class='list-group-item list-group-item-action'><strong>Orientação:</strong> $orientacao_elemento</li>
+                <li class='list-group-item list-group-item-action'><strong>Comentário:</strong> $comentario_elemento</li>
+                <li class='list-group-item list-group-item-action'><strong>Trecho:</strong> $trecho_elemento</li>
+                <li class='list-group-item list-group-item-action'>Acrescentado pelo usuário <strong>$user_apelido_elemento</strong></li>
+              </ul>
+            ";
           ?>
         </div>
         <div class='col-lg-5 col-sm-12'>
