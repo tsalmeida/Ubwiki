@@ -94,7 +94,7 @@
 
   if (isset($_POST['quill_nova_mensagem_html'])) {
     $nova_mensagem = $_POST['quill_nova_mensagem_html'];
-    $nova_mensagem = strip_tags($nova_mensagem, '<p><li><ul><ol><h2><blockquote><em><sup><s>');
+    $nova_mensagem = strip_tags($nova_mensagem, '<p><li><ul><ol><h2><h3><blockquote><em><sup><s>');
     $conn->query("INSERT INTO Admin_data (tipo, conteudo) VALUES ('notas', '$nova_mensagem')");
     $admin_mensagens = $nova_mensagem;
   }

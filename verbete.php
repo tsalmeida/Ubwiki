@@ -73,7 +73,7 @@
 
   if (isset($_POST['quill_novo_verbete_html'])) {
     $novo_verbete_html = $_POST['quill_novo_verbete_html'];
-    $novo_verbete_html = strip_tags($novo_verbete_html, '<p><li><ul><ol><h2><blockquote><em><sup>');
+    $novo_verbete_html = strip_tags($novo_verbete_html, '<p><li><ul><ol><h2><h3><blockquote><em><sup>');
     $result = $conn->query("SELECT verbete FROM Verbetes WHERE id_tema = $tema_id");
     if ($result->num_rows > 0) {
       $result = $conn->query("UPDATE Verbetes SET verbete = '$novo_verbete_html', user_id = '$user_id' WHERE id_tema = $tema_id");
@@ -98,7 +98,7 @@
 
   if (isset($_POST['quill_nova_anotacao_html'])) {
     $nova_anotacao_html = $_POST['quill_nova_anotacao_html'];
-    $nova_anotacao_html = strip_tags($nova_anotacao_html, '<p><li><ul><ol><h2><blockquote><em><sup>');
+    $nova_anotacao_html = strip_tags($nova_anotacao_html, '<p><li><ul><ol><h2><h3><blockquote><em><sup>');
     if ($anotacao_html != false) {
       $update = $conn->query("UPDATE Anotacoes SET anotacao = '$nova_anotacao_html' WHERE user_id = $user_id AND tema_id = $tema_id");
       $insert = $conn->query("INSERT INTO Anotacoes_arquivo (user_id, tema_id, anotacao) VALUES ($user_id, $tema_id, '$nova_anotacao_html')");

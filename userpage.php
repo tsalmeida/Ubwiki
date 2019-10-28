@@ -25,7 +25,7 @@
 
   if (isset($_POST['quill_nova_mensagem_html'])) {
     $nova_mensagem = $_POST['quill_nova_mensagem_html'];
-    $nova_mensagem = strip_tags($nova_mensagem, '<p><li><ul><ol><h2><blockquote><em><sup><s>');
+    $nova_mensagem = strip_tags($nova_mensagem, '<p><li><ul><ol><h2><h3><blockquote><em><sup><s>');
     $result = $conn->query("SELECT user_id, anotacao FROM Anotacoes WHERE tipo = 'userpage'");
     if ($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {

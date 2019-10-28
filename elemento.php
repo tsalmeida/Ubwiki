@@ -55,7 +55,7 @@
 
   if (isset($_POST['quill_nova_mensagem_html'])) {
     $nova_mensagem = $_POST['quill_nova_mensagem_html'];
-    $nova_mensagem = strip_tags($nova_mensagem, '<p><li><ul><ol><h2><blockquote><em><sup><s>');
+    $nova_mensagem = strip_tags($nova_mensagem, '<p><li><ul><ol><h2><h3><blockquote><em><sup><s>');
     $result = $conn->query("SELECT analise, user_id FROM Elementos_analise WHERE id_elemento = $id_elemento");
     if ($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {
@@ -106,20 +106,20 @@
           <?php
             echo "
               <ul class='list-group'>
-                <li class='list-group-item list-group-item-action'><strong>Criado em:</strong> $criacao_elemento</li>
-                <li class='list-group-item list-group-item-action'><strong>Tipo:</strong> $tipo_elemento</li>
-                <li class='list-group-item list-group-item-action'><strong>Título:</strong> $titulo_elemento</li>
-                <li class='list-group-item list-group-item-action'><strong>Autor:</strong> $autor_elemento</li>
-                <li class='list-group-item list-group-item-action'><strong>Capítulo:</strong> $capitulo_elemento</li>
-                <li class='list-group-item list-group-item-action'><strong>Ano:</strong> $ano_elemento</li>
-                <li class='list-group-item list-group-item-action'><a href='$link_elemento' target='_blank'>Link</a></li>
-                <li class='list-group-item list-group-item-action'><a href='imagens/verbetes/$arquivo_elemento' target='_blank'>Arquivo</a></li>
-                <li class='list-group-item list-group-item-action'><a href='imagens/verbetes/thumbnails/$arquivo_elemento' target='_blank'>Thumbnail</a></li>
-                <li class='list-group-item list-group-item-action'><strong>Resolução:</strong> $resolucao_elemento</li>
-                <li class='list-group-item list-group-item-action'><strong>Orientação:</strong> $orientacao_elemento</li>
-                <li class='list-group-item list-group-item-action'><strong>Comentário:</strong> $comentario_elemento</li>
-                <li class='list-group-item list-group-item-action'><strong>Trecho:</strong> $trecho_elemento</li>
-                <li class='list-group-item list-group-item-action'>Acrescentado pelo usuário <strong>$user_apelido_elemento</strong></li>
+                <li class='list-group-item'><strong>Criado em:</strong> $criacao_elemento</li>
+                <li class='list-group-item'><strong>Tipo:</strong> $tipo_elemento</li>
+                <li class='list-group-item'><strong>Título:</strong> $titulo_elemento</li>
+                <li class='list-group-item'><strong>Autor:</strong> $autor_elemento</li>
+                <li class='list-group-item'><strong>Capítulo:</strong> $capitulo_elemento</li>
+                <li class='list-group-item'><strong>Ano:</strong> $ano_elemento</li>
+                <li class='list-group-item'><a href='$link_elemento' target='_blank'>Link</a></li>
+                <li class='list-group-item'><a href='imagens/verbetes/$arquivo_elemento' target='_blank'>Arquivo</a></li>
+                <li class='list-group-item'><a href='imagens/verbetes/thumbnails/$arquivo_elemento' target='_blank'>Thumbnail</a></li>
+                <li class='list-group-item'><strong>Resolução:</strong> $resolucao_elemento</li>
+                <li class='list-group-item'><strong>Orientação:</strong> $orientacao_elemento</li>
+                <li class='list-group-item'><strong>Comentário:</strong> $comentario_elemento</li>
+                <li class='list-group-item'><strong>Trecho:</strong> $trecho_elemento</li>
+                <li class='list-group-item'>Acrescentado pelo usuário <strong>$user_apelido_elemento</strong></li>
               </ul>
             ";
           ?>

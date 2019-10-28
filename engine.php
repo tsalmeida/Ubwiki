@@ -171,7 +171,7 @@ function bottom_page() {
               ['blockquote'],
               [{ 'list': 'ordered'}, { 'list': 'bullet' }],
               [{ 'script': 'super' }],
-              [{ 'header': [2, false] }],
+              [{ 'header': [2, 3, false] }],
               ['clean']
             ];
             var formatWhitelist = ['italic','script','link','blockquote','list','header','strike'];
@@ -200,7 +200,7 @@ function bottom_page() {
               ['blockquote'],
               [{ 'list': 'ordered'}, { 'list': 'bullet' }],
               [{ 'script': 'super' }],
-              [{ 'header': [2, false] }],
+              [{ 'header': [2, 3, false] }],
               ['clean']
             ];
             var formatWhitelist = ['italic','script','link','blockquote','list','header','strike'];
@@ -228,7 +228,7 @@ function bottom_page() {
               ['blockquote'],
               [{ 'list': 'ordered'}, { 'list': 'bullet' }],
               [{ 'script': 'super' }],
-              [{ 'header': [2, false] }],
+              [{ 'header': [2, 3, false] }],
               ['clean']
             ];
             var formatWhitelist = ['italic','script','link','blockquote','list','header'];
@@ -269,7 +269,7 @@ function bottom_page() {
               ['blockquote'],
               [{ 'list': 'ordered'}, { 'list': 'bullet' }],
               [{ 'script': 'super' }],
-              [{ 'header': [2, false] }],
+              [{ 'header': [2, 3, false] }],
               ['clean']
             ];
             var formatWhitelist = ['italic','script','link','blockquote','list','header','strike'];
