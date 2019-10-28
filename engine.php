@@ -122,6 +122,7 @@ function top_page() {
         if (($args[$array] == "quill_v") || ($args[$array] == "quill_admin") || ($args[$array] == 'quill_user') || ($args[$array] == 'quill_elemento')) {
           echo "
             <link href='css/quill.snow.css' rel='stylesheet'>
+            <link href='css/quill.readOnly.css' rel='stylesheet'>
           ";
         }
         elseif ($args[$array] == "onepage") {
@@ -233,12 +234,8 @@ function bottom_page() {
             ];
             var formatWhitelist = ['italic','script','link','blockquote','list','header'];
             var verbete_editor = new Quill('#quill_editor_verbete', {
-              theme: 'snow',
-              formats: formatWhitelist,
               readOnly: true,
-              modules: {
-                toolbar: toolbarOptions
-              }
+              theme: 'readOnly'
             });
             var anotacao_editor = new Quill('#quill_editor_anotacao', {
               theme: 'snow',
