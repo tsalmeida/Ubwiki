@@ -479,7 +479,7 @@ function bottom_page() {
           <script type='text/javascript'>
             alert('test');
             $(function(){
-              $'#sticky_anotacoes').sticky({
+              $('#sticky_anotacoes').sticky({
                 topSpacing: 50,
                 zIndex: 2,
                 stopper: '#footer',
@@ -496,7 +496,7 @@ function bottom_page() {
 
 function load_footer() {
   echo "
-    <footer class='footer-copyright grey lighten-4 text-center font-small py-2'>
+    <footer id='footer' class='footer-copyright grey lighten-4 text-center font-small py-2'>
       <span class='text-dark'>A Ubwiki é uma ferramenta de uso público e gratuito. Todos os direitos são reservados ao Grupo Ubique. Siga <a href='termos.php' target='_blank'>este</a> link para rever os termos e condições de uso da página.</span>
     </footer>
   ";
