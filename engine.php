@@ -242,7 +242,7 @@ function bottom_page() {
                 toolbar: toolbarOptions
               }
             });
-            $('#destravar_verbete').click(function(){
+            $('#travar_verbete').click(function(){
               var verbete_editor = new Quill('#quill_editor_verbete', {
                 theme: false,
                 formats: false,
