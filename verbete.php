@@ -46,11 +46,6 @@
       $nivel3 = $row['nivel3'];
       $nivel4 = $row['nivel4'];
       $nivel5 = $row['nivel5'];
-      if ($nivel == 5) { $tema = $nivel5; $parent = $nivel4; }
-      elseif ($nivel == 4) { $tema = $nivel4; $parent = $nivel3; }
-      elseif ($nivel == 3) { $tema = $nivel3; $parent = $nivel2; }
-      elseif ($nivel == 2) { $tema = $nivel2; $parent = $nivel1; }
-      else { $tema = $nivel1; $parent = false; }
     }
   }
 
@@ -212,7 +207,7 @@
     <li class='breadcrumb-item'><a href='index.php'>$concurso</a></li>
     <li class='breadcrumb-item'><a href='materia.php?concurso=$concurso&sigla=$sigla_materia'>$materia</a></li>
   ";
-  if ($nivel1 != false) {
+  if (($nivel1 != false) && ($nivel != 1)) {
     $result = $conn->query("SELECT id FROM Temas WHERE nivel1 = '$nivel1' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia'");
     if ($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {
@@ -220,38 +215,68 @@
         break;
       }
     }
+    $breadcrumbs .= "<li class='breadcrumb-item'><a href='verbete.php?concurso=$concurso&tema=$id_nivel1'>$nivel1</a></li>";
   }
-  $breadcrumbs .= "<li class='breadcrumb-item'><a href='verbete.php?concurso=$concurso&tema=$id_nivel1'>$nivel1</a></li>";
-  if ($nivel2 != false) {
-    $result = $conn->query("SELECT id FROM Temas WHERE nivel1 = '$nivel2' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia'");
+  else {
+    $breadcrumbs .= "<li class='breadcrumb-item'>$nivel1</li>";
+  }
+  if (($nivel2 != false) && ($nivel != 2)) {
+    $result = $conn->query("SELECT id FROM Temas WHERE nivel2 = '$nivel2' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia'");
     if ($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {
         $id_nivel2 = $row['id'];
         break;
       }
     }
+    $breadcrumbs .= "<li class='breadcrumb-item'><a href='verbete.php?concurso=$concurso&tema=$id_nivel2'>$nivel2</a></li>";
   }
-  $breadcrumbs .= "<li class='breadcrumb-item'><a href='verbete.php?concurso=$concurso&tema=$id_nivel2'>$nivel2</a></li>";
-  if ($nivel3 != false) {
-    $result = $conn->query("SELECT id FROM Temas WHERE nivel1 = '$nivel3' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia'");
+  else {
+    $breadcrumbs .= "<li class='breadcrumb-item'>$nivel2</li>";
+  }
+  if (($nivel3 != false) && ($nivel != 3)) {
+    $result = $conn->query("SELECT id FROM Temas WHERE nivel3 = '$nivel3' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia'");
     if ($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {
         $id_nivel3 = $row['id'];
         break;
       }
     }
+    $breadcrumbs .= "<li class='breadcrumb-item'><a href='verbete.php?concurso=$concurso&tema=$id_nivel3'>$nivel3</a></li>";
   }
-  $breadcrumbs .= "<li class='breadcrumb-item'><a href='verbete.php?concurso=$concurso&tema=$id_nivel3'>$nivel3</a></li>";
-  if ($nivel4 != false) {
-    $result = $conn->query("SELECT id FROM Temas WHERE nivel1 = '$nivel4' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia'");
+  else {
+    $breadcrumbs .= "<li class='breadcrumb-item'>$nivel3</li>";
+  }
+  if (($nivel4 != false) && ($nivel != 4)) {
+    $result = $conn->query("SELECT id FROM Temas WHERE nivel4 = '$nivel4' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia'");
     if ($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {
         $id_nivel4 = $row['id'];
         break;
       }
     }
+    $breadcrumbs .= "<li class='breadcrumb-item'><a href='verbete.php?concurso=$concurso&tema=$id_nivel4'>$nivel4</a></li>";
   }
-  $breadcrumbs .= "<li class='breadcrumb-item'><a href='verbete.php?concurso=$concurso&tema=$id_nivel4'>$nivel4</a></li>";
+  else {
+    $breadcrumbs .= "<li class='breadcrumb-item'>$nivel4</li>";
+  }
+  if (($nivel5 != false) && ($nivel != 5)) {
+    $result = $conn->query("SELECT id FROM Temas WHERE nivel5 = '$nivel5' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia'");
+    if ($result->num_rows > 0) {
+      while($row = $result->fetch_assoc()) {
+        $id_nivel5 = $row['id'];
+        break;
+      }
+    }
+    $breadcrumbs .= "<li class='breadcrumb-item'><a href='verbete.php?concurso=$concurso&tema=$id_nivel5'>$nivel5</a></li>";
+  }
+  else {
+    $breadcrumbs .= "<li class='breadcrumb-item'>$nivel5</li>";
+  }
+
+
+
+
+
   breadcrumbs($breadcrumbs, $tema_id, $tema_bookmark);
 ?>
   <div class='container-fluid grey lighten-5' data-toggle='buttons'>
