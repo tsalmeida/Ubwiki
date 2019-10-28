@@ -233,7 +233,13 @@ function bottom_page() {
             ];
             var formatWhitelist = ['italic','script','link','blockquote','list','header'];
             var verbete_editor = new Quill('#quill_editor_verbete', {
-              readOnly: true
+              var verbete_editor = new Quill('#quill_editor_verbete', {
+                theme: 'snow',
+                formats: formatWhitelist,
+                modules: {
+                  toolbar: toolbarOptions
+                }
+              });
             });
             var anotacao_editor = new Quill('#quill_editor_anotacao', {
               theme: 'snow',
@@ -242,14 +248,11 @@ function bottom_page() {
                 toolbar: toolbarOptions
               }
             });
+            $('#travar_verbete').click(function(){
+              verbete_editor.editor.disable();
+            });
             $('#destravar_verbete').click(function(){
-              var verbete_editor = new Quill('#quill_editor_verbete', {
-                theme: 'snow',
-                formats: formatWhitelist,
-                modules: {
-                  toolbar: toolbarOptions
-                }
-              });
+              verbete_editor.editor.enable();
             });
             var form_verbete = document.querySelector('#quill_verbete_form');
             form_verbete.onsubmit = function() {
