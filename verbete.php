@@ -311,7 +311,7 @@
           <div class='row'>
             <div class='col-12 d-flex justify-content-between'>
               <h1>Verbete</h1>
-              <div class='row'>
+              <div>
                 <a data-toggle='modal' data-target='#modal_editar_verbete' href=''><i class="fal fa-pen-square fa-fw"></i></a>
                 <span id='esconder_verbete' data-toggle='collapse' data-target='.verbete_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
               </div>
