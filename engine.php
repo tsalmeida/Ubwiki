@@ -474,6 +474,19 @@ function bottom_page() {
         </script>
         ";
       }
+      elseif ($args[$array] == 'sticky_anotacoes') {
+        echo "
+          <script type='text/javascript'>
+            $(function(){
+              $'.sticky-content').sticky({
+                topSpacing: 50,
+                zIndex: 2,
+                stopper: '#footer',
+              });
+            });
+          </script>
+        ";
+      }
       $array++;
     }
   }

@@ -662,6 +662,6 @@
 </body>
 <?php
   load_footer();
-  bottom_page("quill_v", 'carousel', 'lightbox-imagens', 'collapse_stuff', 'bookmark_stuff');
+  bottom_page("quill_v", 'carousel', 'lightbox-imagens', 'collapse_stuff', 'bookmark_stuff', 'sticky_anotacoes');
   $conn->close();
 ?>
