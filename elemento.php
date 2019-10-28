@@ -97,7 +97,7 @@
           <?php
             if ($tipo_elemento == 'imagem') {
               echo "
-              <h3>Imagem</h3>
+              <h2>Imagem</h2>
               <img class='imagem_pagina border' src='imagens/verbetes/$arquivo_elemento'></img>
               ";
             }
