@@ -310,7 +310,7 @@
         <div id='verbete' class='verbete_collapse collapse show mb-5'>
           <div class='row text-left'>
             <div class='col-12 text-left'>
-              <h3>Verbete</h3>
+              <h1>Verbete</h1>
               <a data-toggle='modal' data-target='#modal_editar_verbete' href=''><i class="fal fa-pen-square fa-fw"></i></a>
               <span id='esconder_verbete' data-toggle='collapse' data-target='.verbete_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
             </div>
@@ -332,7 +332,7 @@
         <div id='imagens' class='imagens_collapse collapse show mb-5'>
           <div class='row'>
             <div class='col-12'>
-              <h2>Imagens</h2>
+              <h1>Imagens</h1>
               <a data-toggle='modal' data-target='#modal_imagens_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
               <span id='esconder_imagens' data-toggle='collapse' data-target='.imagens_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
             </div>
@@ -406,7 +406,7 @@
         <div id='videos' class='videos_collapse collapse show mb-5'>
           <div class='row justify-content-between'>
             <div class='col-12'>
-              <h2 class='align-left'>Vídeos e aulas</h2>
+              <h1>Vídeos e aulas</h1>
               <a data-toggle='modal' data-target='#modal_videos_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
               <span id='esconder_videos' data-toggle='collapse' data-target='.videos_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
             </div>
@@ -442,7 +442,7 @@
         <div id='bibliografia' class='bibliografia_collapse collapse show mb-5'>
           <div class='row justify-content-between'>
             <div class='col-12'>
-              <h2 class='align-left'>Leia mais</h2>
+              <h1>Leia mais</h1>
               <a data-toggle='modal' data-target='#modal_referencia_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
               <span id='esconder_bibliografia' data-toggle='collapse' data-target='.bibliografia_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
             </div>
@@ -487,7 +487,7 @@
       <div id='coluna_direita' class='col-lg-5 col-sm-12 anotacoes_collapse collapse show'>
         <div class='row justify-content-between'>
           <div class='col-12'>
-            <h2 class='align-left'>Anotações</h2>
+            <h1>Anotações</h1>
             <span id='minimizar_anotacoes' class='text-center' data-toggle='collapse' data-target='.anotacoes_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
           </div>
         </div>
