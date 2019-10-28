@@ -307,14 +307,12 @@
     </div>
     <div class='row justify-content-around'>
       <div id='coluna_esquerda' class='col-lg-5 col-sm-12'>
-        <div id='verbete' class='verbete_collapse collapse show mb-5'>
+        <div id='verbete' class='verbete_collapse collapse show mb-5 border-top border-light'>
           <div class='row'>
             <div class='col-12 d-flex justify-content-between'>
               <h1>Verbete</h1>
-              <div>
-                <a data-toggle='modal' data-target='#modal_editar_verbete' href=''><i class="fal fa-pen-square fa-fw"></i></a>
-                <span id='esconder_verbete' data-toggle='collapse' data-target='.verbete_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
-              </div>
+              <a data-toggle='modal' data-target='#modal_editar_verbete' href=''><i class="fal fa-pen-square fa-fw"></i></a>
+              <span id='esconder_verbete' data-toggle='collapse' data-target='.verbete_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
             </div>
           </div>
           <div class='row justify-content-left py-3'>
@@ -331,9 +329,10 @@
             </div>
           </div>
         </div>
-        <div id='imagens' class='imagens_collapse collapse show mb-5'>
+
+        <div id='imagens' class='imagens_collapse collapse show mb-5 border-top border-light'>
           <div class='row'>
-            <div class='col-12'>
+            <div class='col-12 d-flex justify-content-between'>
               <h1>Imagens</h1>
               <a data-toggle='modal' data-target='#modal_imagens_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
               <span id='esconder_imagens' data-toggle='collapse' data-target='.imagens_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
@@ -441,9 +440,9 @@
           </div>
         </div>
 
-        <div id='bibliografia' class='bibliografia_collapse collapse show mb-5'>
-          <div class='row justify-content-between'>
-            <div class='col-12'>
+        <div id='bibliografia' class='bibliografia_collapse collapse show mb-5 border-top border-light'>
+          <div class='row'>
+            <div class='col-12 d-flex justify-cointent-between'>
               <h1>Leia mais</h1>
               <a data-toggle='modal' data-target='#modal_referencia_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
               <span id='esconder_bibliografia' data-toggle='collapse' data-target='.bibliografia_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
@@ -487,8 +486,8 @@
       </div>
 
       <div id='coluna_direita' class='col-lg-5 col-sm-12 anotacoes_collapse collapse show'>
-        <div class='row justify-content-between'>
-          <div class='col-12'>
+        <div class='row'>
+          <div class='col-12 justify-content-between border-top border-light'>
             <h1>Anotações</h1>
             <span id='minimizar_anotacoes' class='text-center' data-toggle='collapse' data-target='.anotacoes_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
           </div>
