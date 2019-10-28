@@ -242,27 +242,13 @@ function bottom_page() {
                 toolbar: toolbarOptions
               }
             });
-            $('#travar_verbete').click(function(){
-              var verbete_editor = new Quill('#quill_editor_verbete', {
-                theme: false,
-                formats: false,
-                modules: {
-                  toolbar: false
-                },
-                readOnly: true
-              });
-            });
-            var first_session = 1;
             $('#destravar_verbete').click(function(){
               var verbete_editor = new Quill('#quill_editor_verbete', {
                 theme: 'snow',
                 formats: formatWhitelist,
-                if (first_session != 0) {
-                  first_session = 0;
-                  modules: {
-                    toolbar: toolbarOptions
-                  }
-                },
+                modules: {
+                  toolbar: toolbarOptions
+                }
               });
             });
             var form_verbete = document.querySelector('#quill_verbete_form');
