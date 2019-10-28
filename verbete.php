@@ -307,25 +307,42 @@
     </div>
     <div class='row justify-content-around'>
       <div id='coluna_esquerda' class='col-lg-5 col-sm-12'>
+
         <div id='verbete' class='verbete_collapse collapse show mb-5 border-top border-light pt-4'>
           <div class='row'>
             <div class='col-12 d-flex justify-content-between'>
               <h1>Verbete</h1>
-              <span class='h5'><a data-toggle='modal' data-target='#modal_editar_verbete' href=''><i class="fal fa-pen-square fa-fw"></i></a>
-              <span id='esconder_verbete' data-toggle='collapse' data-target='.verbete_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span></span>
+              <span class='h5' id='esconder_verbete' data-toggle='collapse' data-target='.verbete_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
             </div>
           </div>
-          <div class='row justify-content-left py-3'>
+          <div class='row py-3'>
             <div class='col-12'>
-              <?php
-                if ($verbete_html == false) {
-                  echo "<p>O verbete deste tópico ainda não começou a ser escrito.</p>";
-                }
-                else {
-                  $verbete_reformatado = quill_reformatar($verbete_html);
-                  echo $verbete_reformatado;
-                }
-              ?>
+              <form id='quill_verbete_form' method='post' action='#anotacoes'>
+                <input name='quill_novo_verbete_html' type='hidden'>
+                <div class='row'>
+                  <div class='container col-12'>
+                    <div id='quill_container_anotacao'>
+                      <div id='quill_editor_anotacao' class='quill_editor_height'>
+
+                        <?php
+                          if ($verbete_html == false) {
+                            echo "<p>O verbete deste tópico ainda não começou a ser escrito.</p>";
+                          }
+                          else {
+                            $verbete_reformatado = quill_reformatar($verbete_html);
+                            echo $verbete_reformatado;
+                          }
+                        ?>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class='row d-flex justify-content-center mt-3'>
+                  <button type='button' class='btn btn-light btn-sm'><i class="fal fa-times-circle fa-fw"></i> Cancelar</button>
+                  <button type='submit' class='btn btn-primary btn-sm'><i class='fal fa-check fa-fw'></i> Salvar</button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -617,40 +634,6 @@
               </div>
             </div>
             <div class='modal-footer d-flex justify-content-center'>
-              <button type='button' class='btn bg-lighter btn-lg' data-dismiss='modal'><i class="fal fa-times-circle"></i> Cancelar</button>
-              <button type='submit' class='but btn-primary btn-lg'><i class='fal fa-check'></i> Salvar</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-    <div class='modal fade' id='modal_editar_verbete' role='dialog' tabindex='-1'>
-      <div class='modal-dialog modal-lg quill_modal' role='document'>
-        <div class='modal-content'>
-          <form id='quill_verbete_form' method='post' action='#'>
-            <input name='quill_novo_verbete_html' type='hidden'>
-            <div class='modal-header text-center'>
-              <h4 class='modal-title w-100 font-weight-bold'>Editar verbete</h4>
-              <button type='button' class='close' data-dismiss='modal'>
-                <i class="fal fa-times-circle"></i>
-              </button>
-            </div>
-            <div class='modal-body'>
-              <div class='row'>
-                <div class='container col-12 justify-content-center'>
-                  <?php
-                    echo "
-                      <div id='quill_container_verbete' class='quill_container'>
-                        <div id='quill_editor_verbete'>
-                          $verbete_html
-                        </div>
-                      </div>
-                    ";
-                  ?>
-                </div>
-              </div>
-            </div>
-            <div class='modal-footer d-flex justify-content-center mt-5'>
               <button type='button' class='btn bg-lighter btn-lg' data-dismiss='modal'><i class="fal fa-times-circle"></i> Cancelar</button>
               <button type='submit' class='but btn-primary btn-lg'><i class='fal fa-check'></i> Salvar</button>
             </div>
