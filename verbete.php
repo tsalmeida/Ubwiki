@@ -485,35 +485,37 @@
 
       </div>
 
-      <div id='coluna_direita' class='col-lg-5 col-sm-12 anotacoes_collapse collapse show border-top border-light'>
-        <div class='row'>
-          <div class='col-12 d-flex justify-content-between'>
-            <h1>Anotações</h1>
-            <span id='minimizar_anotacoes' data-toggle='collapse' data-target='.anotacoes_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
+      <div id='coluna_direita' class='col-lg-5 col-sm-12 anotacoes_collapse collapse show'>
+        <div class='mb-5 border-top border-light'>
+          <div class='row'>
+            <div class='col-12 d-flex justify-content-between'>
+              <h1>Anotações</h1>
+              <span id='minimizar_anotacoes' data-toggle='collapse' data-target='.anotacoes_collapse'><a href='#'><i class='fal fa-chevron-up fa-fw'></i></a></span>
+            </div>
           </div>
-        </div>
-        <div class='row py-3'>
-          <div class='col-12'>
-            <form id='quill_anotacao_form' method='post' action='#anotacoes'>
-              <input name='quill_nova_anotacao_html' type='hidden'>
-              <div class='row'>
-                <div class='container col-12'>
-<?php
-                    echo "
-                      <div id='quill_container_anotacao'>
-                        <div id='quill_editor_anotacao' class='quill_editor_height'>
-                          $anotacao_html
+          <div class='row py-3'>
+            <div class='col-12'>
+              <form id='quill_anotacao_form' method='post' action='#anotacoes'>
+                <input name='quill_nova_anotacao_html' type='hidden'>
+                <div class='row'>
+                  <div class='container col-12'>
+  <?php
+                      echo "
+                        <div id='quill_container_anotacao'>
+                          <div id='quill_editor_anotacao' class='quill_editor_height'>
+                            $anotacao_html
+                          </div>
                         </div>
-                      </div>
-                    ";
-?>
+                      ";
+  ?>
+                  </div>
                 </div>
-              </div>
-              <div class='row d-flex justify-content-center mt-3'>
-                <button type='button' class='btn btn-light'><i class="fal fa-times-circle fa-fw"></i> Cancelar</button>
-                <button type='submit' class='btn btn-primary'><i class='fal fa-check fa-fw'></i> Salvar</button>
-              </div>
-            </form>
+                <div class='row d-flex justify-content-center mt-3'>
+                  <button type='button' class='btn btn-light'><i class="fal fa-times-circle fa-fw"></i> Cancelar</button>
+                  <button type='submit' class='btn btn-primary'><i class='fal fa-check fa-fw'></i> Salvar</button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
