@@ -50,6 +50,7 @@
     standard_jumbotron("Página de Elemento", false);
     ?>
     <div class="container-fluid my-5">
+      <div class='row'>
         <div class="col-lg-5 col-sm-12">
           <?php
             if ($tipo_elemento == 'imagem') {
