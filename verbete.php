@@ -292,7 +292,9 @@
   <div class='container-fluid'>
     <div class='row justify-content-center my-5'>
       <div class='col-12'>
-        <span class='display-1'>$tema_titulo</span>
+        <?php
+        echo "<span class='display-1'>$tema_titulo</span>";
+        ?>
       </div>
     </div>
     <div class='row justify-content-around'>
@@ -301,7 +303,7 @@
           <div class='row text-left'>
             <div class='col-10 text-left'>
               <?php
-                echo "<h1>$tema</h1>";
+                echo "<h3>Verbete</h3>";
               ?>
             </div>
             <div class='col-2 h3 text-right'>
