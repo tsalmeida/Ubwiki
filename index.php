@@ -79,7 +79,7 @@
                     $materia = $row["materia"];
                     echo "
                       <div href='materia.php?sigla=$sigla&concurso=$concurso' class='rounded cardmateria grey lighten-4 text-break text-center align-middle mb-3 py-2'>
-                        <span class='text-dark text-uppercase'>$materia</span>
+                        <span class='text-muted text-uppercase'>$materia</span>
                       </div>
                     ";
                     if ($count == $row_items) {
