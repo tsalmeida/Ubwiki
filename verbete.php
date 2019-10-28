@@ -300,7 +300,7 @@
           else { $display_size_large = 'display-4'; $display_size_mobile = 'h1'; }
           echo "
             <span class='$display_size_large d-none d-lg-inline playfair'>$tema_titulo</span>
-            <span class='$display_size_mobile d-inline d-md-none playfair'>$tema_titulo</span>
+            <span class='$display_size_mobile d-inline d-lg-none playfair'>$tema_titulo</span>
           ";
         ?>
       </div>
