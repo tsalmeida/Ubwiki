@@ -290,7 +290,12 @@
     </div>
   </div>
   <div class='container-fluid'>
-    <div class='row justify-content-around my-5'>
+    <div class='row justify-content-center my-5'>
+      <div class='col-12'>
+        <span class='display-1'>$tema_titulo</span>
+      </div>
+    </div>
+    <div class='row justify-content-around'>
       <div id='coluna_esquerda' class='col-lg-5 col-sm-12'>
         <div id='verbete' class='verbete_collapse collapse show mb-5'>
           <div class='row text-left'>
@@ -669,7 +674,7 @@
   </div>
 </body>
 <?php
-    load_footer();
-    bottom_page("quill_v", 'carousel', 'lightbox-imagens', 'collapse_stuff', 'bookmark_stuff');
-    $conn->close();
+  load_footer();
+  bottom_page("quill_v", 'carousel', 'lightbox-imagens', 'collapse_stuff', 'bookmark_stuff');
+  $conn->close();
 ?>
