@@ -446,7 +446,7 @@
                         $video_titulo = $row['titulo'];
                         $video_autor = $row['autor'];
                         $video_link = $row['link'];
-                        echo "<li class='list-group-item list-group-item-action'><a href='$video_link' target='_blank'>$video_titulo : $video_autor</a> // <a href='elemento.php?id=$id_elemento' target='_blank'>Página do vídeo</a></li>";
+                        echo "<li class='list-group-item list-group-item-action'><a href='elemento.php?id=$id_elemento' target='_blank'>$video_titulo : $video_autor</a></li>";
                       }
                     }
                   }
@@ -488,7 +488,7 @@
                             echo "<li class='list-group-item list-group-item-action'><a href='$referencia_link' target='_blank'>$referencia_titulo : $referencia_autor</a> // <a href='elemento.php?id=$id_elemento' target='_blank'>Página da referência</a></li>";
                           }
                           else {
-                            echo "<li class='list-group-item'>$referencia_titulo : $referencia_autor : $referencia_capitulo : $referencia_ano // <a href='elemento.php?id=$id_elemento' target='_blank'>Página da referência</a></li>";
+                            echo "<li class='list-group-item'><a href='href='elemento.php?id=$id_elemento' target='_blank'>$referencia_titulo : $referencia_autor : $referencia_capitulo : $referencia_ano</a></li>";
                           }
                         }
                       }
