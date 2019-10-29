@@ -255,7 +255,7 @@ function bottom_page() {
               }
             }, 5*1000);
 
-            win.onbeforeunload = function() {
+            window.onbeforeunload = function() {
               if (change.length() > 0) {
                 alert('Suas contribuições ainda não foram salvas. Realmente deseja sair?');
               }
