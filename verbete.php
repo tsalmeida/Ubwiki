@@ -484,12 +484,7 @@
                           $referencia_capitulo = $row['capitulo'];
                           $referencia_ano = $row['ano'];
                           $referencia_link = $row['link'];
-                          if ($referencia_link != '') {
-                            echo "<li class='list-group-item list-group-item-action'><a href='$referencia_link' target='_blank'>$referencia_titulo : $referencia_autor</a> // <a href='elemento.php?id=$id_elemento' target='_blank'>Página da referência</a></li>";
-                          }
-                          else {
-                            echo "<li class='list-group-item'><a href='href='elemento.php?id=$id_elemento' target='_blank'>$referencia_titulo : $referencia_autor : $referencia_capitulo : $referencia_ano</a></li>";
-                          }
+                          echo "<li class='list-group-item'><a href='href='elemento.php?id=$id_elemento' target='_blank'>$referencia_titulo : $referencia_autor : $referencia_capitulo : $referencia_ano</a></li>";
                         }
                       }
                     }
