@@ -654,7 +654,11 @@
 
   <script type='text/javascript'>
     $(document).ready(function() {
-      verbete_editor.setContents($verbete_content);
+      verbete_editor.setContents([
+  { insert: 'Hello ' },
+  { insert: 'World!', attributes: { bold: true } },
+  { insert: '\n' }
+]);
     });
   </script>
   "
