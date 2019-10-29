@@ -650,11 +650,12 @@
   load_footer();
   bottom_page("quill_v", 'carousel', 'lightbox-imagens', 'collapse_stuff', 'bookmark_stuff');
   $conn->close();
+  $verbete_contents_strip = stripslashes($verbete_content);
 ?>
 
   <script type='text/javascript'>
     $(document).ready(function() {
-      verbete_editor.setContents(<?php echo $verbete_content; ?>);
+      verbete_editor.setContents(<?php echo $verbete_content_strip; ?>);
     });
   </script>
 
