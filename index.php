@@ -23,7 +23,7 @@
     $newuser = true;
   }
 
-  top_page(false, "onepage", "homepage");
+  top_page(false, "onepage");
 
 ?>
   <body>
@@ -98,5 +98,5 @@
     </div>
   </body>
 <?php
-  bottom_page();
+  bottom_page('homepage');
 ?>
