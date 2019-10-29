@@ -138,7 +138,7 @@ function top_page() {
         }
         elseif ($args[$array] == 'homepage') {
           echo "
-          <script type='javascript'>
+          <script type='text/javascript'>
             $(document).ready(function() {
             	$('#searchBar').focus();
               $(document.body).on('click', '.cardmateria' ,function(){
