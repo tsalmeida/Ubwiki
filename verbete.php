@@ -84,7 +84,7 @@
     $verbete_content = $novo_verbete_content;
   }
 
-  $verbete_content = base64_decode($verbete_content);
+  $verbete_content = urldecode($verbete_content);
   $verbete_content = utf8_encode($verbete_content);
 
   $result = $conn->query("SELECT anotacao FROM Anotacoes WHERE user_id = $user_id AND tema_id = $tema_id");
