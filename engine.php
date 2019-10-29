@@ -240,6 +240,7 @@ function bottom_page() {
               }
             });
             verbete_editor.disable();
+            $('.ql-toolbar:first').hide();
             var anotacao_editor = new Quill('#quill_editor_anotacao', {
               theme: 'snow',
               formats: formatWhitelist,
