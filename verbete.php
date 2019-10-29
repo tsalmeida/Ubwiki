@@ -317,7 +317,7 @@
               <div class='col-12 d-flex justify-content-between'>
                 <h1>Verbete</h1>
                 <span class='h5'>
-                  <input type='submit'><span class='verbete_editor_collapse collapse' id='travar_verbete' data-toggle='collapse' data-target='.verbete_editor_collapse' title='travar verbete para edição'><a href='javascript:void(0);'><i class='fal fa-lock-open-alt fa-fw'></i></a></span></input>
+                  <span onclick="form.submit();" class='verbete_editor_collapse collapse' id='travar_verbete' data-toggle='collapse' data-target='.verbete_editor_collapse' title='travar verbete para edição'><a href='javascript:void(0);'><i class='fal fa-lock-open-alt fa-fw'></i></a></span>
                   <span class='verbete_editor_collapse collapse show' id='destravar_verbete' data-toggle='collapse' data-target='.verbete_editor_collapse' title='destravar verbete para edição'><a href='javascript:void(0);'><i class='fal fa-lock-alt fa-fw'></i></a></span>
                   <span id='esconder_verbete' data-toggle='collapse' data-target='.verbete_collapse'><a href='javascript:void(0);'><i class='fal fa-chevron-up fa-fw'></i></a></span>
               </div>
