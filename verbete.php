@@ -484,7 +484,7 @@
                           $referencia_capitulo = $row['capitulo'];
                           $referencia_ano = $row['ano'];
                           $referencia_link = $row['link'];
-                          echo "<li class='list-group-item'><a href='href='elemento.php?id=$id_elemento' target='_blank'>$referencia_titulo : $referencia_autor : $referencia_capitulo : $referencia_ano</a></li>";
+                          echo "<li class='list-group-item'><a href='elemento.php?id=$id_elemento' target='_blank'>$referencia_titulo : $referencia_autor : $referencia_capitulo : $referencia_ano</a></li>";
                         }
                       }
                     }
