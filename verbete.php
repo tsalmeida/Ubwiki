@@ -652,8 +652,9 @@
   $conn->close();
 ?>
 
-  <!-- <script type='text/javascript'>
-    verbete_editor.setContents('');
-  </script> -->
+  <script type='text/javascript'>
+    verbete_editor.setContents('{"ops":[{"insert":"Teeste de caneta.
+"}]}');
+  </script>
 
 </html>
