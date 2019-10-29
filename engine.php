@@ -21,10 +21,10 @@ function carregar_navbar() {
   elseif ($mode == 'light') { $color = 'bg-white'; }
   echo "<nav class='navbar navbar-expand-lg $color' id='inicio'>";
   if ($mode == 'dark') {
-    echo "<a class='navbar-brand playfair text-white' href='index.php'>Ubwiki</a>";
+    echo "<a class='navbar-brand playfair900 text-white' href='index.php'>Ubwiki</a>";
   }
   else {
-    echo "<a class='navbar-brand playfair text-dark' href='index.php'>Ubwiki</a>";
+    echo "<a class='navbar-brand playfair900 text-dark' href='index.php'>Ubwiki</a>";
   }
   echo "<ul class='nav navbar-nav ml-auto nav-flex-icons'>";
   echo "<li class='nav-item dropdown'>";

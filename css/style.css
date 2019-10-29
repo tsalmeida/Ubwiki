@@ -51,9 +51,14 @@ h1, h2, h3, h4, h5, h6 {
 
 .btn { box-shadow: none !important; }
 
-.playfair {
+.playfair400 {
   font-family: 'Playfair Display', serif !important;
   font-weight: 400 !important;
+}
+
+.playfar900 {
+  font-family: 'Playfair Display', serif !important;
+  font-weight: 900 !important;
 }
 
 .left-nav-item {
