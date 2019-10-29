@@ -68,14 +68,16 @@
 
   if (isset($_POST['quill_novo_verbete_html'])) {
     $novo_verbete_html = $_POST['quill_novo_verbete_html'];
+    $novo_verbete_text = $_POST['quill_novo_verbete_text'];
+    $novo_verbete_content = $_POST['quill_novo_verbete_content'];
     $novo_verbete_html = strip_tags($novo_verbete_html, '<p><li><ul><ol><h2><h3><blockquote><em><sup>');
-    $result = $conn->query("SELECT verbete_html FROM Verbetes WHERE id_tema = $tema_id");
+    $result = $conn->query("SELECT id FROM Verbetes WHERE id_tema = $tema_id");
     if ($result->num_rows > 0) {
-      $result = $conn->query("UPDATE Verbetes SET verbete_html = '$novo_verbete_html', user_id = '$user_id' WHERE id_tema = $tema_id");
-      $result = $conn->query("INSERT INTO Verbetes_arquivo (id_tema, verbete_html, user_id) VALUES ('$tema_id', '$verbete_html', '$user_id')");
+      $result = $conn->query("UPDATE Verbetes SET verbete_html = '$novo_verbete_html', verbete_text = '$novo_verbete_text', verbete_content = '$novo_verbete_content', user_id = '$user_id' WHERE id_tema = $tema_id");
+      $result = $conn->query("INSERT INTO Verbetes_arquivo (id_tema, verbete_html, verbete_text, verbete_content, user_id) VALUES ('$tema_id', '$verbete_html', '$verbete_text', '$verbete_content', '$user_id')");
     }
     else {
-      $result = $conn->query("INSERT INTO Verbetes (id_tema, verbete_html, user_id) VALUES ('$tema_id', '$novo_verbete_html', '$user_id')");
+      $result = $conn->query("INSERT INTO Verbetes (id_tema, verbete_html, verbete_text, verbete_content, user_id) VALUES ('$tema_id', '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', '$user_id')");
     }
     $verbete_html = $novo_verbete_html;
   }
