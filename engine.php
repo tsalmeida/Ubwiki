@@ -262,8 +262,7 @@ function bottom_page() {
               anotacao_editor.disable();
               $('.ql-toolbar:last').hide();
             });
-            $('#destravar_anotacoes').click(function(){
-              alert(test);
+            $('#destravar_anotacao').click(function(){
               anotacao_editor.enable();
               $('.ql-toolbar:last').show();
             });
