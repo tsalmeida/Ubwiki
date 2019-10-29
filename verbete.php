@@ -653,7 +653,7 @@
 ?>
 
   <script type='text/javascript'>
-    verbete_editor.setContents('{"ops":[{"insert":"Teste de caneta. "},{"attributes":{"italic":true},"insert":"Teste de caneta."},{"insert":" Teste de caneta.\n"}]}');
+    verbete_editor.setContents({"ops":[{"insert":"Teste de caneta. "},{"attributes":{"italic":true},"insert":"Teste de caneta."},{"insert":" Teste de caneta.\n"}]});
   </script>
 
 </html>
