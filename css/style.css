@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Playfair+Display:400,900&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Lato:400,400i,700,700i&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Lato:400,400i&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Oswald:300&display=swap');
 
 html {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
 body {
@@ -51,14 +51,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .btn { box-shadow: none !important; }
 
-.playfair400 {
+.playfair {
   font-family: 'Playfair Display', serif !important;
   font-weight: 400 !important;
-}
-
-.playfair900 {
-  font-family: 'Playfair Display', serif !important;
-  font-weight: 900 !important;
 }
 
 .left-nav-item {
@@ -127,10 +122,15 @@ h1, h2, h3, h4, h5, h6 {
 .quill_editor_height {
   min-height: 15em !important;
   height: auto !important;
+  max-height: 60vh !important;
+  overflow-y: auto;
 }
 
 .quill_editor_height_verbete {
+  min-height: 10em !important;
   height: auto !important;
+  max-height: 90vh !important;
+  overflow-y: auto;
 }
 
 .footer.page-footer .footer-copyright {
