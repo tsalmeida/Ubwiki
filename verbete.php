@@ -650,8 +650,7 @@
   load_footer();
   bottom_page("quill_v", 'carousel', 'lightbox-imagens', 'collapse_stuff', 'bookmark_stuff');
   $conn->close();
-  echo '
-
+?>
   <script type='text/javascript'>
       verbete_editor.setContents([
         { insert: 'Hello ' },
@@ -659,7 +658,4 @@
         { insert: '\n' }
       ]);
   </script>
-  ';
-
-?>
 </html>
