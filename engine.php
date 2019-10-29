@@ -244,22 +244,6 @@ function bottom_page() {
             });
             verbete_editor.disable();
             $('.ql-toolbar:first').hide();
-            var change_verbete = new Delta_verbete();
-            verbete_editor.on('text-change', function(delta) {
-              change_verbete = change_verbete.compose(delta);
-            });
-            setInterval(function() {
-              if(change_verbete.length() > 0) {
-                console.log('Saving changes', change_verbete);
-                change_verbete = new Delta_verbete();
-              }
-            }, 5*1000);
-
-            window.onbeforeunload = function() {
-              if (change_verbete.length() > 0) {
-                alert('Suas contribuições ainda não foram salvas. Realmente deseja sair?');
-              }
-            }
 
             var anotacao_editor = new Quill('#quill_editor_anotacao', {
               theme: 'snow',
@@ -288,6 +272,14 @@ function bottom_page() {
             form_verbete.onsubmit = function() {
               var quill_novo_verbete_html = document.querySelector('input[name=quill_novo_verbete_html]');
               quill_novo_verbete_html.value = verbete_editor.root.innerHTML;
+
+              var quill_novo_verbete_text = document.querySelector('input[name=quill_novo_verbete_text]');
+              quill_novo_verbete_text.value = verbete_editor.getText();
+
+              var quill_novo_verbete_content = document.querySelector('input[name=quill_novo_verbete_content]');
+              var quill_verbete_content = verbete_editor.getContents();
+              quill_verbete_content = JSON.stringify(quill_verbete_content);
+              quill_novo_verbete_content.value = quill_verbete_content;
             }
             var form_anotacao = document.querySelector('#quill_anotacao_form');
             form_anotacao.onsubmit = function() {

@@ -56,10 +56,10 @@
     }
   }
 
-  $result = $conn->query("SELECT verbete FROM Verbetes WHERE id_tema = $tema_id");
+  $result = $conn->query("SELECT verbete_html FROM Verbetes WHERE id_tema = $tema_id");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
-      $verbete_html = $row['verbete'];
+      $verbete_html = $row['verbete_html'];
     }
   }
   else {
@@ -69,13 +69,13 @@
   if (isset($_POST['quill_novo_verbete_html'])) {
     $novo_verbete_html = $_POST['quill_novo_verbete_html'];
     $novo_verbete_html = strip_tags($novo_verbete_html, '<p><li><ul><ol><h2><h3><blockquote><em><sup>');
-    $result = $conn->query("SELECT verbete FROM Verbetes WHERE id_tema = $tema_id");
+    $result = $conn->query("SELECT verbete_html FROM Verbetes WHERE id_tema = $tema_id");
     if ($result->num_rows > 0) {
-      $result = $conn->query("UPDATE Verbetes SET verbete = '$novo_verbete_html', user_id = '$user_id' WHERE id_tema = $tema_id");
-      $result = $conn->query("INSERT INTO Verbetes_arquivo (id_tema, verbete, user_id) VALUES ('$tema_id', '$verbete_html', '$user_id')");
+      $result = $conn->query("UPDATE Verbetes SET verbete_html = '$novo_verbete_html', user_id = '$user_id' WHERE id_tema = $tema_id");
+      $result = $conn->query("INSERT INTO Verbetes_arquivo (id_tema, verbete_html, user_id) VALUES ('$tema_id', '$verbete_html', '$user_id')");
     }
     else {
-      $result = $conn->query("INSERT INTO Verbetes (id_tema, verbete, user_id) VALUES ('$tema_id', '$novo_verbete_html', '$user_id')");
+      $result = $conn->query("INSERT INTO Verbetes (id_tema, verbete_html, user_id) VALUES ('$tema_id', '$novo_verbete_html', '$user_id')");
     }
     $verbete_html = $novo_verbete_html;
   }
@@ -322,6 +322,8 @@
             <div class='col-12'>
               <form id='quill_verbete_form' method='post'>
                 <input name='quill_novo_verbete_html' type='hidden'>
+                <input name='quill_novo_verbete_text' type='hidden'>
+                <input name='quill_novo_verbete_content' type='hidden'>
                 <div class='row'>
                   <div class='container col-12'>
                     <div id='quill_container_verbete'>
