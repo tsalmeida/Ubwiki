@@ -654,9 +654,7 @@
 
   <script type='text/javascript'>
     $(document).ready(function() {
-      var content_verbete = JSON.parse('$verbete_content');
-      var quill_editor_verbete = document.getElementById('quill_editor_verbete');
-      quill_editor_verbete.innerHTML = content_verbete;
+      verbete_editor.setContents($verbete_content);
     });
   </script>
   "
