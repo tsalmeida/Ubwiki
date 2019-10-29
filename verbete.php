@@ -651,11 +651,11 @@
   bottom_page("quill_v", 'carousel', 'lightbox-imagens', 'collapse_stuff', 'bookmark_stuff');
   $conn->close();
 ?>
+
   <script type='text/javascript'>
-      verbete_editor.setContents([
-        { insert: 'Hello ' },
-        { insert: 'World!', attributes: { bold: true } },
-        { insert: '\n' }
-      ]);
+    $(document).ready(function() {
+      verbete_editor.setContents(<?php echo '$verbete_content'; ?>);
+    });
   </script>
+
 </html>
