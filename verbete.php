@@ -506,7 +506,7 @@
       </div>
 
       <div id='coluna_direita' class='col-lg-5 col-sm-12 anotacoes_collapse collapse show'>
-        <div id='sticky_anotacoes' class='mb-5 border-top border-light pt-4'>
+        <div id='sticky_anotacoes' class='mb-5 border border-light pt-4'>
           <div class='row'>
             <div class='col-12 d-flex justify-content-between'>
               <h1>Anotações</h1>
