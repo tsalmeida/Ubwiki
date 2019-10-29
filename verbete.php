@@ -653,8 +653,7 @@
 ?>
 
   <script type='text/javascript'>
-    var content = atob('<?php echo $verbete_content; ?>');
-    verbete_editor.setContents(content);
+    verbete_editor.setContents('{"ops":[{"insert":"Teste de caneta. "},{"attributes":{"italic":true},"insert":"Teste de caneta."},{"insert":" Teste de caneta.\n"}]}');
   </script>
 
 </html>
