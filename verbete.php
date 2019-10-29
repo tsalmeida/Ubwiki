@@ -299,8 +299,8 @@
           elseif ($tema_length < 70) { $display_size_large = 'display-3'; $display_size_mobile = 'h1'; }
           else { $display_size_large = 'display-4'; $display_size_mobile = 'h1'; }
           echo "
-            <span class='$display_size_large d-none d-lg-inline playfair'>$tema_titulo</span>
-            <span class='$display_size_mobile d-inline d-lg-none playfair'>$tema_titulo</span>
+            <span class='$display_size_large d-none d-lg-inline playfair400'>$tema_titulo</span>
+            <span class='$display_size_mobile d-inline d-lg-none playfair400'>$tema_titulo</span>
           ";
         ?>
       </div>
@@ -446,7 +446,7 @@
                         $video_titulo = $row['titulo'];
                         $video_autor = $row['autor'];
                         $video_link = $row['link'];
-                        echo "<li class='list-group-item list-group-item-action'><a href='$video_link' target='_blank'>$video_titulo : $video_autor</a> // <a href='elemento.php?id=$id_elemento' target='_blank'>Página do vídeo</a></li>";
+                        echo "<li class='list-group-item list-group-item-action'><a href='elemento.php?id=$id_elemento' target='_blank'>$video_titulo : $video_autor</a></li>";
                       }
                     }
                   }
@@ -484,12 +484,7 @@
                           $referencia_capitulo = $row['capitulo'];
                           $referencia_ano = $row['ano'];
                           $referencia_link = $row['link'];
-                          if ($referencia_link != '') {
-                            echo "<li class='list-group-item list-group-item-action'><a href='$referencia_link' target='_blank'>$referencia_titulo : $referencia_autor</a> // <a href='elemento.php?id=$id_elemento' target='_blank'>Página da referência</a></li>";
-                          }
-                          else {
-                            echo "<li class='list-group-item'>$referencia_titulo : $referencia_autor : $referencia_capitulo : $referencia_ano // <a href='elemento.php?id=$id_elemento' target='_blank'>Página da referência</a></li>";
-                          }
+                          echo "<li class='list-group-item'><a href='elemento.php?id=$id_elemento' target='_blank'>$referencia_titulo : $referencia_autor : $referencia_capitulo : $referencia_ano</a></li>";
                         }
                       }
                     }
@@ -502,7 +497,6 @@
             </div>
           </div>
         </div>
-
       </div>
 
       <div id='coluna_direita' class='col-lg-5 col-sm-12 anotacoes_collapse collapse show'>
@@ -523,7 +517,7 @@
                 <input name='quill_nova_anotacao_html' type='hidden'>
                 <div class='row'>
                   <div class='container col-12'>
-  <?php
+<?php
                       echo "
                         <div id='quill_container_anotacao'>
                           <div id='quill_editor_anotacao' class='quill_editor_height'>
@@ -531,7 +525,7 @@
                           </div>
                         </div>
                       ";
-  ?>
+?>
                   </div>
                 </div>
                 <div class='row justify-content-center mt-3 anotacao_editor_collapse collapse show'>

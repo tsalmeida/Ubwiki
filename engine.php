@@ -21,10 +21,10 @@ function carregar_navbar() {
   elseif ($mode == 'light') { $color = 'bg-white'; }
   echo "<nav class='navbar navbar-expand-lg $color' id='inicio'>";
   if ($mode == 'dark') {
-    echo "<a class='navbar-brand playfair text-white' href='index.php'>Ubwiki</a>";
+    echo "<a class='navbar-brand playfair900 text-white' href='index.php'>Ubwiki</a>";
   }
   else {
-    echo "<a class='navbar-brand playfair text-dark' href='index.php'>Ubwiki</a>";
+    echo "<a class='navbar-brand playfair900 text-dark' href='index.php'>Ubwiki</a>";
   }
   echo "<ul class='nav navbar-nav ml-auto nav-flex-icons'>";
   echo "<li class='nav-item dropdown'>";
@@ -35,7 +35,7 @@ function carregar_navbar() {
     echo "<a class='navlink dropdown-toggle waves-effect waves-light text-dark' id='user_dropdown' data-toggle='dropdown' href='#'>";
   }
   echo "
-        <i class='fal fa-user-tie fa-2x'></i>
+        <i class='fas fa-user-tie fa-2x fa-fw'></i>
         </a>
         <div class='dropdown-menu dropdown-menu-right z-depth-0'>
           <a class='dropdown-item navlink' href='userpage.php'>Sua página</a>
@@ -111,6 +111,8 @@ function top_page() {
     <link type="image/vnd.microsoft.icon" rel="icon" href="imagens/favicon.ico"/>
     <title>Ubwiki</title>';
 
+    include 'templates.html';
+
     if ($args != false) {
       $array = 0;
       while (isset($args[$array])) {
@@ -132,6 +134,42 @@ function top_page() {
                 overflow-y: auto;
               }
             </style>
+          ";
+        }
+        elseif ($args[$array] == 'homepage') {
+          echo "
+          <script type='javascript'>
+            $(document).ready(function() {
+            	$('#searchBar').focus();
+              $(document.body).on('click', '.cardmateria' ,function(){
+                if ($(this).attr('href')) {
+                  var link = $(this).attr('href');
+                  window.open(link, '_self');
+                  event.preventDefault();
+                }
+              });
+              $('#searchBarGo').click(function() {
+                var command = $('#searchBar').val();
+                var command = btoa(command);
+                var concurso = $('#searchBarGo').val();
+                var concurso = btoa(concurso);
+                $.post('engine.php', {'sbcommand': command, 'sbconcurso': concurso}, function(data) {
+                  $('#searchBar').val('');
+                  if (data != 0) {
+                    var pw = data.substring(0, 16);
+                    var pw2 = data.substring(16);
+                    if (pw == 'notfoundnotfound') {
+                      $('#searchBar').val(pw2);
+                    }
+                    else if (pw = 'foundfoundfoundf') {
+                      window.open(pw2, '_self');
+                    }
+                  }
+                });
+                return false;
+              });
+            });
+          </script>
           ";
         }
         $array++;
@@ -260,7 +298,7 @@ function bottom_page() {
               anotacao_editor.disable();
               $('.ql-toolbar:last').hide();
             });
-            $('#destravar_anotacoes').click(function(){
+            $('#destravar_anotacao').click(function(){
               anotacao_editor.enable();
               $('.ql-toolbar:last').show();
             });
