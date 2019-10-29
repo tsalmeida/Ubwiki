@@ -234,6 +234,7 @@ function bottom_page() {
               ['clean']
             ];
             var formatWhitelist = ['italic','script','link','blockquote','list','header'];
+            var Delta_verbete = Quill.import('delta');
             var verbete_editor = new Quill('#quill_editor_verbete', {
               theme: 'snow',
               formats: formatWhitelist,
@@ -243,6 +244,23 @@ function bottom_page() {
             });
             verbete_editor.disable();
             $('.ql-toolbar:first').hide();
+            var change_verbete = new Delta();
+            verbete_editor.on('text-change', function(delta) {
+              change_verbete = change_verbete.compose(delta);
+            });
+            setInterval(function() {
+              if(change.length() > 0) {
+                console.log('Saving changes', change);
+                change = new Delta();
+              }
+            }, 5*1000);
+
+            win.onbeforeunload = function() {
+              if (change.length() > 0) {
+                alert('Suas contribuições ainda não foram salvas. Realmente deseja sair?');
+              }
+            }
+
             var anotacao_editor = new Quill('#quill_editor_anotacao', {
               theme: 'snow',
               formats: formatWhitelist,
