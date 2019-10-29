@@ -506,42 +506,14 @@
       </div>
 
       <div id='coluna_direita' class='col-lg-5 col-sm-12 anotacoes_collapse collapse show'>
-        <div id='sticky_anotacoes' class='mb-5 border-top border-bottom border-light pt-4'>
-          <div class='row'>
-            <div class='col-12 d-flex justify-content-between'>
-              <h1>Anotações</h1>
-              <span class='h5'>
-                <span class='anotacao_editor_collapse collapse show' id='travar_anotacao' data-toggle='collapse' data-target='.anotacao_editor_collapse' title='travar para edição'><a href='javascript:void(0);'><i class='fal fa-lock-open-alt fa-fw'></i></a></span>
-                <span class='anotacao_editor_collapse collapse' id='destravar_anotacao' data-toggle='collapse' data-target='.anotacao_editor_collapse' title='destravar para edição'><a href='javascript:void(0);'><i class='fal fa-lock-alt fa-fw'></i></a></span>
-                <span id='minimizar_anotacoes' data-toggle='collapse' data-target='.anotacoes_collapse'><a href='javascript:void(0);'><i class='fal fa-chevron-up fa-fw'></i></a></span>
-              </span>
-            </div>
-          </div>
-          <div class='row py-3'>
-            <div class='col-12'>
-              <form id='quill_anotacao_form' method='post'>
-                <input name='quill_nova_anotacao_html' type='hidden'>
-                <div class='row'>
-                  <div class='container col-12'>
-  <?php
-                      echo "
-                        <div id='quill_container_anotacao'>
-                          <div id='quill_editor_anotacao' class='quill_editor_height'>
-                            $anotacao_html
-                          </div>
-                        </div>
-                      ";
-  ?>
-                  </div>
-                </div>
-                <div class='row justify-content-center mt-3 anotacao_editor_collapse collapse show'>
-                  <button type='button' class='btn btn-light btn-sm'><i class="fal fa-times-circle fa-fw"></i> Cancelar</button>
-                  <button type='submit' class='btn btn-primary btn-sm'><i class='fal fa-check fa-fw'></i> Salvar</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
+        <script type='text/javascript'>
+          var temp, item, a, i;
+          temp = document.getElementByTagName("template")[0];
+          item = temp.content.querySelector("div");
+          a = document.importNode(item, true);
+          a.textContent += 'Teste de caneta';
+          document.body.appendChild(a);
+        </script>
       </div>
     </div>
     <div class='modal fade' id='modal_imagens_form' role='dialog' tabindex='-1'>
