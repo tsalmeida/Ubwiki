@@ -22,7 +22,7 @@
     $newuser = true;
   }
 
-  top_page(false, "onepage");
+  top_page(false, "onepage", "homepage");
 
 ?>
   <body>
