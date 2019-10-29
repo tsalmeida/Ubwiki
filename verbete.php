@@ -83,7 +83,7 @@
     else {
       $result = $conn->query("INSERT INTO Verbetes (id_tema, verbete_html, verbete_text, verbete_content, user_id) VALUES ('$tema_id', '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', '$user_id')");
     }
-    $verbete_html = $novo_verbete_html;
+    $verbete_content = $novo_verbete_content;
   }
 
   $result = $conn->query("SELECT anotacao FROM Anotacoes WHERE user_id = $user_id AND tema_id = $tema_id");
