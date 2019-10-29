@@ -654,7 +654,7 @@
 ?>
 
   <script type='text/javascript'>
-    verbete_editor.setContents(<?php echo $verbete_content; ?>);
+    verbete_editor.setContents(<?php echo utf8_encode($verbete_content); ?>);
   </script>
 
 </html>
