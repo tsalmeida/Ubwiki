@@ -655,13 +655,7 @@
   <script type='text/javascript'>
     verbete_editor.setContents(
 
-      {
-        ops: [
-          { insert: 'Gandalf', attributes: { bold: true } },
-          { insert: ' the ' },
-          { insert: 'Grey', attributes: { color: '#cccccc' } }
-        ]
-      }
+      {"ops":[{"insert":"Teste de caneta. Teste de caneta.\n\n"},{"attributes":{"bold":true},"insert":"Outras coisas acontecem."},{"insert":"\n\n"},{"attributes":{"italic":true},"insert":"Então, o que fazer agora?"},{"insert":"\n\nNada.\n"}]}
 
 
 
