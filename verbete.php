@@ -534,7 +534,7 @@
   ?>
                   </div>
                 </div>
-                <div class='row d-flex justify-content-center mt-3 anotacao_editor_collapse collapse show'>
+                <div class='row justify-content-center mt-3 anotacao_editor_collapse collapse show'>
                   <button type='button' class='btn btn-light btn-sm'><i class="fal fa-times-circle fa-fw"></i> Cancelar</button>
                   <button type='submit' class='btn btn-primary btn-sm'><i class='fal fa-check fa-fw'></i> Salvar</button>
                 </div>
