@@ -278,6 +278,7 @@ function bottom_page() {
               var quill_verbete_content = verbete_editor.getContents();
               quill_verbete_content = JSON.stringify(quill_verbete_content);
               quill_verbete_content = encodeURI(quill_verbete_content);
+              alert(quill_verbete_content);
               quill_verbete_content = btoa(quill_verbete_content);
               quill_novo_verbete_content.value = quill_verbete_content;
             }
