@@ -237,3 +237,4 @@
   load_footer();
   bottom_page("quill_admin");
 ?>
+</html>

@@ -83,3 +83,4 @@ if ($result->num_rows > 0) {
   load_footer();
   bottom_page();
 ?>
+</html>

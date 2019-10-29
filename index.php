@@ -100,3 +100,4 @@
 <?php
   bottom_page('homepage');
 ?>
+</html>

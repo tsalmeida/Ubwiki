@@ -153,3 +153,4 @@
 <?php
   bottom_page('quill_elemento');
 ?>
+</html>

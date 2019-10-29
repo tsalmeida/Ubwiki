@@ -32,3 +32,4 @@
   load_footer();
   bottom_page();
 ?>
+</html>

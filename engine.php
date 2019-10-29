@@ -556,7 +556,6 @@ function bottom_page() {
       $array++;
     }
   }
-  echo "</html>";
 }
 
 function load_footer() {

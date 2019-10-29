@@ -25,3 +25,4 @@
   <?php
     bottom_page();
   ?>
+</html>

@@ -451,3 +451,4 @@
   load_footer();
   bottom_page("edicao_topicos");
 ?>
+</html>
