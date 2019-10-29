@@ -653,17 +653,19 @@
 ?>
 
   <script type='text/javascript'>
-    verbete_editor.setContents([
-      {"ops":[
-        {"insert":"Teeste de caneta."}
-        { insert: 'Hello ' },
-        { insert: 'World!', attributes: { bold: true } },
-        { insert: '\n' }
-    ]}
+    verbete_editor.setContents(
+
+      {
+        ops: [
+          { insert: 'Gandalf', attributes: { bold: true } },
+          { insert: ' the ' },
+          { insert: 'Grey', attributes: { color: '#cccccc' } }
+        ]
+      }
 
 
 
-    ]);
+    );
   </script>
 
 </html>
