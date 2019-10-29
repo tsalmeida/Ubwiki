@@ -502,7 +502,6 @@
             </div>
           </div>
         </div>
-
       </div>
 
       <div id='coluna_direita' class='col-lg-5 col-sm-12 anotacoes_collapse collapse show'>
@@ -523,7 +522,7 @@
                 <input name='quill_nova_anotacao_html' type='hidden'>
                 <div class='row'>
                   <div class='container col-12'>
-  <?php
+<?php
                       echo "
                         <div id='quill_container_anotacao'>
                           <div id='quill_editor_anotacao' class='quill_editor_height'>
@@ -531,7 +530,7 @@
                           </div>
                         </div>
                       ";
-  ?>
+?>
                   </div>
                 </div>
                 <div class='row justify-content-center mt-3 anotacao_editor_collapse collapse show'>
