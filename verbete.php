@@ -62,6 +62,7 @@
       $verbete_html = $row['verbete_html'];
       $verbete_text = $row['verbete_text'];
       $verbete_content = $row['verbete_content'];
+      $verbete_content = base64_decode($verbete_content);
     }
   }
   else {
@@ -653,7 +654,7 @@
 ?>
 
   <script type='text/javascript'>
-    verbete_editor.setContents({"ops":[{"insert":"Teste de caneta. "},{"attributes":{"italic":true},"insert":"Teste de caneta."},{"insert":" Teste de caneta.\n"}]});
+    verbete_editor.setContents(<?php echo $verbete_content; ?>);
   </script>
 
 </html>
