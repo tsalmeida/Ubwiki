@@ -111,8 +111,6 @@ function top_page() {
     <link type="image/vnd.microsoft.icon" rel="icon" href="imagens/favicon.ico"/>
     <title>Ubwiki</title>';
 
-    include 'templates.html';
-
     if ($args != false) {
       $array = 0;
       while (isset($args[$array])) {
@@ -279,6 +277,7 @@ function bottom_page() {
               var quill_novo_verbete_content = document.querySelector('input[name=quill_novo_verbete_content]');
               var quill_verbete_content = verbete_editor.getContents();
               quill_verbete_content = JSON.stringify(quill_verbete_content);
+              quill_verbete_content = decode_utf8(quill_verbete_content);
               quill_verbete_content = btoa(quill_verbete_content);
               quill_novo_verbete_content.value = quill_verbete_content;
             }
