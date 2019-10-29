@@ -111,6 +111,8 @@ function top_page() {
     <link type="image/vnd.microsoft.icon" rel="icon" href="imagens/favicon.ico"/>
     <title>Ubwiki</title>';
 
+    insert('templates.html');
+
     if ($args != false) {
       $array = 0;
       while (isset($args[$array])) {
