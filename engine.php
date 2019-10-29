@@ -251,7 +251,7 @@ function bottom_page() {
             setInterval(function() {
               if(change.length() > 0) {
                 console.log('Saving changes', change);
-                change = new Delta();
+                change = new Delta_verbete();
               }
             }, 5*1000);
 
