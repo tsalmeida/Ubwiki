@@ -63,6 +63,7 @@
       $verbete_text = $row['verbete_text'];
       $verbete_content = $row['verbete_content'];
       $verbete_content = base64_decode($verbete_content);
+      $verbete_content = utf8_encode($verbete_content);
     }
   }
   else {
@@ -654,7 +655,7 @@
 ?>
 
   <script type='text/javascript'>
-    verbete_editor.setContents(<?php echo utf8_encode($verbete_content); ?>);
+    verbete_editor.setContents(<?php echo $verbete_content; ?>);
   </script>
 
 </html>
