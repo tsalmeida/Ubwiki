@@ -512,7 +512,7 @@
           item = temp.content.querySelector("div");
           a = document.importNode(item, true);
           a.textContent += 'Teste de caneta';
-          document.body.appendChild(a);
+          document.getElementById("coluna_direita").appendChild(a);
         </script>
       </div>
     </div>
