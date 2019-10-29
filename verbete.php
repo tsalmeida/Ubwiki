@@ -72,8 +72,6 @@
     $novo_verbete_html = $_POST['quill_novo_verbete_html'];
     $novo_verbete_text = $_POST['quill_novo_verbete_text'];
     $novo_verbete_content = $_POST['quill_novo_verbete_content'];
-    error_log('novo verbete content:');
-    error_log($novo_verbete_content);
     $novo_verbete_html = strip_tags($novo_verbete_html, '<p><li><ul><ol><h2><h3><blockquote><em><sup>');
     $result = $conn->query("SELECT id FROM Verbetes WHERE id_tema = $tema_id");
     if ($result->num_rows > 0) {

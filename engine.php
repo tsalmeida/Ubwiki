@@ -277,13 +277,8 @@ function bottom_page() {
               var quill_novo_verbete_content = document.querySelector('input[name=quill_novo_verbete_content]');
               var quill_verbete_content = verbete_editor.getContents();
               quill_verbete_content = JSON.stringify(quill_verbete_content);
-              
-              quill_verbete_content = decode_utf8(quill_verbete_content);
-              alert('then this happened');
               quill_verbete_content = btoa(quill_verbete_content);
-              alert('then this also happened');
               quill_novo_verbete_content.value = quill_verbete_content;
-              alert('and finally this happened');
             }
             var form_anotacao = document.querySelector('#quill_anotacao_form');
             form_anotacao.onsubmit = function() {
