@@ -256,6 +256,14 @@ function bottom_page() {
               verbete_editor.enable();
               $('.ql-toolbar:first').show();
             });
+            $('#travar_anotacao').click(function(){
+              anotacao_editor.disable();
+              $('.ql-toolbar').filter('.ql-toolbar').eq(1).hide();
+            });
+            $('#destravar_anotacoes').click(function(){
+              anotacao_editor.enable();
+              $('.ql-toolbar').filter('.ql-toolbar').eq(1).show();
+            });
             var form_verbete = document.querySelector('#quill_verbete_form');
             form_verbete.onsubmit = function() {
               var quill_novo_verbete_html = document.querySelector('input[name=quill_novo_verbete_html]');
