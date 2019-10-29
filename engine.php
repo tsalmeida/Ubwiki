@@ -244,7 +244,7 @@ function bottom_page() {
             });
             verbete_editor.disable();
             $('.ql-toolbar:first').hide();
-            var change_verbete = new Delta();
+            var change_verbete = new Delta_verbete();
             verbete_editor.on('text-change', function(delta) {
               change_verbete = change_verbete.compose(delta);
             });
