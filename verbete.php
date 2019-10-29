@@ -56,10 +56,12 @@
     }
   }
 
-  $result = $conn->query("SELECT verbete_html FROM Verbetes WHERE id_tema = $tema_id");
+  $result = $conn->query("SELECT verbete_html, verbete_text, verbete_content FROM Verbetes WHERE id_tema = $tema_id");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
       $verbete_html = $row['verbete_html'];
+      $verbete_text = $row['verbete_text'];
+      $verbete_content = $row['verbete_content'];
     }
   }
   else {
