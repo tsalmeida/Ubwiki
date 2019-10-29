@@ -508,7 +508,7 @@
       <div id='coluna_direita' class='col-lg-5 col-sm-12 anotacoes_collapse collapse show'>
         <script type='text/javascript'>
           var temp, item, a, i;
-          temp = document.getElementByTagName("template")[0];
+          temp = document.getElementsByTagName("template")[0];
           item = temp.content.querySelector("div");
           a = document.importNode(item, true);
           a.textContent += 'Teste de caneta';
