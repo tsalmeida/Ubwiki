@@ -89,8 +89,8 @@
   error_log("base64 decode: $verbete_content");
   $verbete_content = urldecode($verbete_content);
   error_log("url decode: $verbete_content");
-  $verbete_content = utf8_encode($verbete_content);
-  error_log("utf8 encode: $verbete_content");
+  // $verbete_content = utf8_encode($verbete_content);
+  // error_log("utf8 encode: $verbete_content");
 
   $result = $conn->query("SELECT anotacao FROM Anotacoes WHERE user_id = $user_id AND tema_id = $tema_id");
   if ($result->num_rows > 0) {
