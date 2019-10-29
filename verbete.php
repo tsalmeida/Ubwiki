@@ -654,8 +654,7 @@
 
   <script type='text/javascript'>
     verbete_editor.setContents([
-      {"insert":"Teeste de caneta.
-"}
+      {"ops":[{"insert":"Teeste de caneta.\n"}]}
     ]);
   </script>
 
