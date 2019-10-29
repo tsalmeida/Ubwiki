@@ -650,5 +650,13 @@
   load_footer();
   bottom_page("quill_v", 'carousel', 'lightbox-imagens', 'collapse_stuff', 'bookmark_stuff');
   $conn->close();
+  echo "
+  <script type='text/javascript'>
+    var content_verbete = JSON.parse($verbete_content);
+    var quill_editor_verbete = document.getElementById('quill_editor_verbete');
+    quill_editor_verbete.innerHTML = content_verbete;
+  </script>
+  "
+
 ?>
 </html>

@@ -13,3 +13,21 @@ function extract_zoho($linkplanilha, $authtoken, $ownername, $materia, $scope) {
   $output = serialize($array);
   return $output;
 }
+
+
+var change_verbete = new Delta_verbete();
+verbete_editor.on('text-change', function(delta) {
+  change_verbete = change_verbete.compose(delta);
+});
+setInterval(function() {
+  if(change_verbete.length() > 0) {
+    console.log('Saving changes', change_verbete);
+    change_verbete = new Delta_verbete();
+  }
+}, 5*1000);
+
+window.onbeforeunload = function() {
+  if (change_verbete.length() > 0) {
+    alert('Suas contribuições ainda não foram salvas. Realmente deseja sair?');
+  }
+}
