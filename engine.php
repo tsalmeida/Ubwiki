@@ -258,11 +258,11 @@ function bottom_page() {
             });
             $('#travar_anotacao').click(function(){
               anotacao_editor.disable();
-              $('.ql-toolbar').filter('.ql-toolbar').eq(1).hide();
+              $('.ql-toolbar:last').hide();
             });
             $('#destravar_anotacoes').click(function(){
               anotacao_editor.enable();
-              $('.ql-toolbar').filter('.ql-toolbar').eq(1).show();
+              $('.ql-toolbar:last').show();
             });
             var form_verbete = document.querySelector('#quill_verbete_form');
             form_verbete.onsubmit = function() {

@@ -510,7 +510,11 @@
           <div class='row'>
             <div class='col-12 d-flex justify-content-between'>
               <h1>Anotações</h1>
-              <span class='h5' id='minimizar_anotacoes' data-toggle='collapse' data-target='.anotacoes_collapse'><a href='javascript:void(0);'><i class='fal fa-chevron-up fa-fw'></i></a></span>
+              <span class='h5'>
+                <span class='anotacao_editor_collapse collapse show' id='travar_anotacao' data-toggle='collapse' data-target='.anotacao_editor_collapse' title='travar para edição'><a href='javascript:void(0);'><i class='fal fa-unlock-alt fa-fw'></i></a></span>
+                <span class='anotacao_editor_collapse collapse' id='destravar_anotacao' data-toggle='collapse' data-target='.anotacao_editor_collapse' title='destravar para edição'><a href='javascript:void(0);'><i class='fal fa-lock-alt fa-fw'></i></a></span>
+                <span id='minimizar_anotacoes' data-toggle='collapse' data-target='.anotacoes_collapse'><a href='javascript:void(0);'><i class='fal fa-chevron-up fa-fw'></i></a></span>
+              </span>
             </div>
           </div>
           <div class='row py-3'>
@@ -530,7 +534,7 @@
   ?>
                   </div>
                 </div>
-                <div class='row d-flex justify-content-center mt-3'>
+                <div class='row d-flex justify-content-center mt-3 anotacao_editor_collapse collapse show'>
                   <button type='button' class='btn btn-light btn-sm'><i class="fal fa-times-circle fa-fw"></i> Cancelar</button>
                   <button type='submit' class='btn btn-primary btn-sm'><i class='fal fa-check fa-fw'></i> Salvar</button>
                 </div>
