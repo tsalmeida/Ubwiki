@@ -654,7 +654,7 @@
 
   <script type='text/javascript'>
     $(document).ready(function() {
-      verbete_editor.setContents(<?php echo '$verbete_content'; ?>);
+      verbete_editor.setContents(<?php echo $verbete_content; ?>);
     });
   </script>
 
