@@ -654,9 +654,8 @@
 
   <script type='text/javascript'>
     verbete_editor.setContents([
-      { insert: "Hello " },
-      { insert: "World!", attributes: { bold: true } },
-      { insert: "\n" }
+      {"ops":[{"insert":"Teeste de caneta.
+"}]}
     ]);
   </script>
 
