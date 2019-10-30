@@ -375,6 +375,7 @@
                         <?php
                           error_log($verbete_text);
                           if (($verbete_text == false) || ($verbete_text == '')) {
+                            error_log('this happened');
                             echo "<p>O verbete deste tópico ainda não começou a ser escrito.</p>";
                           }
                         ?>
