@@ -67,7 +67,7 @@
   else {
     $verbete_html = false;
     $verbete_text = false;
-    $verbete_content = false;
+    $verbete_content = '<p>Este verbete ainda não começou a ser escrito.</p>';
   }
 
   if (isset($_POST['quill_novo_verbete_html'])) {
@@ -371,15 +371,6 @@
                   <div class='container col-12'>
                     <div id='quill_container_verbete'>
                       <div id='quill_editor_verbete' class='quill_editor_height_verbete'>
-
-                        <?php
-                          error_log($verbete_text);
-                          if (($verbete_text == false) || ($verbete_text == '')) {
-                            error_log('this happened');
-                            echo "<p>O verbete deste tópico ainda não começou a ser escrito.</p>";
-                          }
-                        ?>
-
                       </div>
                     </div>
                   </div>
