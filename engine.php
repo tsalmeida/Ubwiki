@@ -229,9 +229,10 @@ function bottom_page() {
               [{ 'list': 'ordered'}, { 'list': 'bullet' }],
               [{ 'script': 'super' }],
               [{ 'header': [2, 3, false] }],
-              ['clean']
+              ['clean'],
+              ['image']
             ];
-            var formatWhitelist = ['italic','script','link','blockquote','list','header'];
+            var formatWhitelist = ['italic','script','link','blockquote','list','header','image'];
             var Delta_verbete = Quill.import('delta');
             var verbete_editor = new Quill('#quill_editor_verbete', {
               theme: 'snow',
