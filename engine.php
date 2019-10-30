@@ -243,16 +243,17 @@ function bottom_page() {
                   handlers: {
                     image: imageHandler
                   }
+                }
               }
             });
             verbete_editor.disable();
             $('.ql-toolbar:first').hide();
 
             function imageHandler() {
-                var range = this.verbete_editor.getSelection();
+                var range = this.quill.getSelection();
                 var value = prompt('Qual o endereço da imagem?');
                 if(value){
-                    this.verbete_editor.insertEmbed(range.index, 'image', value, Quill.sources.USER);
+                    this.quill.insertEmbed(range.index, 'image', value, Quill.sources.USER);
                 }
             }
 
