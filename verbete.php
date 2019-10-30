@@ -373,6 +373,7 @@
                       <div id='quill_editor_verbete' class='quill_editor_height_verbete'>
 
                         <?php
+                          error_log($verbete_text);
                           if (($verbete_text == false) || ($verbete_text == '')) {
                             echo "<p>O verbete deste tópico ainda não começou a ser escrito.</p>";
                           }
