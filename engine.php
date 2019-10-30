@@ -35,7 +35,7 @@ function carregar_navbar() {
     echo "<a class='navlink dropdown-toggle waves-effect waves-light text-dark' id='user_dropdown' data-toggle='dropdown' href='#'>";
   }
   echo "
-        <i class='fas fa-user-tie fa-2x fa-fw'></i>
+        <i class='fas fa-user-tie fa-lg fa-fw'></i>
         </a>
         <div class='dropdown-menu dropdown-menu-right z-depth-0'>
           <a class='dropdown-item navlink' href='userpage.php'>Sua página</a>
