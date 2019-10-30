@@ -254,6 +254,7 @@ function bottom_page() {
                 var value = prompt('Qual o endereço da imagem?');
                 if(value){
                     this.quill.insertEmbed(range.index, 'image', value, Quill.sources.USER);
+                    console.log(value);
                 }
             }
 
@@ -595,7 +596,7 @@ function extract_gdoc($url) {
 function standard_jumbotron($titulo, $link) {
 echo "
     <div class='container-fluid p-0 m-0 text-center'>
-      <div class='jumbotron col-12 mb-0 elegant-color text-white'>
+      <div class='playfair900 jumbotron col-12 mb-0 elegant-color text-white'>
 ";
         if ($link == false) {
           echo "<span class='display-1 logo-jumbotron wireone'>$titulo</span>";
