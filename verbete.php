@@ -62,13 +62,12 @@
       $verbete_html = $row['verbete_html'];
       $verbete_text = $row['verbete_text'];
       $verbete_content = $row['verbete_content'];
-      error_log($verbete_content);
     }
   }
   else {
     $verbete_html = false;
     $verbete_text = false;
-    $verbete_content = false;
+    $verbete_content = '%7B%22ops%22:%5B%7B%22insert%22:%22Este%20verbete%20ainda%20n%C3%A3o%20come%C3%A7ou%20a%20ser%20escrito.%5Cn%22%7D%5D%7D';
   }
 
   if (isset($_POST['quill_novo_verbete_html'])) {
@@ -333,10 +332,8 @@
     <div class='row my-5 d-flex justify-content-center'>
       <div class='col-lg-10 col-sm-12 text-center'>
         <?php
-          error_log("this happened");
           $playfair = 'playfair400';
           $tema_length = strlen($tema_titulo);
-          error_log($tema_length);
           if ($tema_length < 20) { $display_size_large = 'display-1'; $display_size_mobile = 'display-2'; }
           elseif ($tema_length < 40) { $display_size_large = 'display-2'; $display_size_mobile = 'display-3'; }
           elseif ($tema_length < 60) { $display_size_large = 'display-3'; $display_size_mobile = 'display-4'; }
