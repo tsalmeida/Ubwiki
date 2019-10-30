@@ -196,3 +196,27 @@ h3 {
   padding: 12px 15px;
   border: 1px solid #ccc;
 }
+
+.spacing1 {
+  margin-left: 2ch;
+}
+
+.spacing2 {
+  margin-left: 4ch;
+}
+
+.spacing3 {
+  margin-left: 6ch;
+}
+
+.spacing4 {
+  margin-left: 8ch;
+}
+
+.spacing5 {
+  margin-left: 10ch;
+}
+
+.spacing6 {
+  margin-left: 12ch;
+}
