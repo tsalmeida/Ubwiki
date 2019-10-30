@@ -288,12 +288,8 @@
     <div class='container-fluid grey lighten-3'>
       <div class='row'>
         <div class='col-lg-9 col-sm-12'>
-          <div class='text-left'>
-            <nav>
-              <div class='d-flex flex-row'>
-                $breadcrumbs
-              </div>
-            </nav>
+          <div class='d-flex flex-row'>
+            $breadcrumbs
           </div>
         </div>
         <div class='col-lg-3 col-sm-12'>
