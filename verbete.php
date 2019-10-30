@@ -332,6 +332,7 @@
     <div class='row my-5 d-flex justify-content-center'>
       <div class='col-lg-10 col-sm-12 text-center'>
         <?php
+          error_log("this happened");
           $playfair = 'playfair400';
           $tema_length = strlen($tema_titulo);
           error_log($tema_length);
