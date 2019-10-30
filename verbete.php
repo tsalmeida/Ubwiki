@@ -66,6 +66,8 @@
   }
   else {
     $verbete_html = false;
+    $verbete_text = false;
+    $verbete_content = false;
   }
 
   if (isset($_POST['quill_novo_verbete_html'])) {
