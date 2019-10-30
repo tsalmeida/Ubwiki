@@ -328,7 +328,7 @@
   </div>
   <div id='page_height' class='container-fluid'>
     <div class='row my-5 d-flex justify-content-center'>
-      <div class='col-10 text-center'>
+      <div class='col-lg-10 col-sm-12 text-center'>
         <?php
           $playfair = 'playfair400';
           $tema_length = strlen($tema_titulo);
