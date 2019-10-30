@@ -293,20 +293,20 @@
         </div>
         <div class='col-lg-3 col-sm-12'>
           <div class='text-right py-2'>
-              <span id='verbetes_relacionados' class='mx-1' title='Verbetes relacionados' data-toggle='collapse' href='#collapse_breadcrumbs' ><a href='javascript:void(0);'><i class='fal fa-chart-network fa-fw fa-lg'></i></a></span>
-              <span id='simulados' class='mx-1' title='Simulados'><a href='javascript:void(0);'><i class='fal fa-check-double fa-fw fa-lg'></i></a></span>
-              <span id='forum' title='Fórum'><a href='javascript:void(0);'><i class='fal fa-comments-alt fa-fw fa-lg'></i></a></span>
+              <span id='verbetes_relacionados' class='mx-1' title='Verbetes relacionados' data-toggle='collapse' href='#collapse_breadcrumbs' ><a href='javascript:void(0);'><i class='fal fa-chart-network fa-fw'></i></a></span>
+              <span id='simulados' class='mx-1' title='Simulados'><a href='javascript:void(0);'><i class='fal fa-check-double fa-fw'></i></a></span>
+              <span id='forum' title='Fórum'><a href='javascript:void(0);'><i class='fal fa-comments-alt fa-fw'></i></a></span>
 <?php
               if ($tema_bookmark == false) {
                 echo "
-                  <span id='add_bookmark' class='ml-1' title='Marcar para leitura' value='$tema_id'><a href='javascript:void(0);'><i class='fal fa-bookmark fa-fw fa-lg'></i></a></span>
-                  <span id='remove_bookmark' class='ml-1 collapse' title='Remover da lista de leitura' value='$tema_id'><a href='javascript:void(0);'><span class='text-danger'><i class='fas fa-bookmark fa-fw fa-lg'></i></span></span></a></span>
+                  <span id='add_bookmark' class='ml-1' title='Marcar para leitura' value='$tema_id'><a href='javascript:void(0);'><i class='fal fa-bookmark fa-fw'></i></a></span>
+                  <span id='remove_bookmark' class='ml-1 collapse' title='Remover da lista de leitura' value='$tema_id'><a href='javascript:void(0);'><span class='text-danger'><i class='fas fa-bookmark fa-fw'></i></span></span></a></span>
                 ";
               }
               else {
                 echo "
-                  <span id='add_bookmark' class='ml-1 collapse' title='Marcar para leitura' value='$tema_id'><a href='javascript:void(0);'><i class='fal fa-bookmark fa-fw fa-lg'></i></a></span>
-                  <span id='remove_bookmark' class='ml-1' title='Remover da lista de leitura' value='$tema_id'><a href='javascript:void(0);'><span class='text-danger'><i class='fas fa-bookmark fa-fw fa-lg'></i></span></span></a></span>
+                  <span id='add_bookmark' class='ml-1 collapse' title='Marcar para leitura' value='$tema_id'><a href='javascript:void(0);'><i class='fal fa-bookmark fa-fw'></i></a></span>
+                  <span id='remove_bookmark' class='ml-1' title='Remover da lista de leitura' value='$tema_id'><a href='javascript:void(0);'><span class='text-danger'><i class='fas fa-bookmark fa-fw'></i></span></span></a></span>
                 ";
               }
 ?>
