@@ -119,7 +119,7 @@
                 <li class='list-group-item'><strong>Orientação:</strong> $orientacao_elemento</li>
                 <li class='list-group-item'><strong>Comentário:</strong> $comentario_elemento</li>
                 <li class='list-group-item'><strong>Trecho:</strong> $trecho_elemento</li>
-                <li class='list-group-item'>Acrescentado pelo usuário <strong>$user_apelido_elemento</strong></li>
+                <li class='list-group-item'>Adicionado pelo usuário <strong>$user_apelido_elemento</strong></li>
               </ul>
             ";
           ?>
