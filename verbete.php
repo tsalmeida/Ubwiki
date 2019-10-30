@@ -224,11 +224,11 @@
           break;
         }
       }
-      $breadcrumbs .= "<li class='breadcrumb-item'><a href='verbete.php?concurso=$concurso&tema=$id_nivel1'>$nivel1</a></li>";
+      $breadcrumbs .= "<li><a href='verbete.php?concurso=$concurso&tema=$id_nivel1'>$nivel1</a></li>";
     }
   }
   else {
-    $breadcrumbs .= "<li class='breadcrumb-item'>$nivel1</li>";
+    $breadcrumbs .= "<li>$nivel1</li>";
     $tema_titulo = $nivel1;
   }
   if ($nivel != 2) {
@@ -240,11 +240,11 @@
           break;
         }
       }
-      $breadcrumbs .= "<li class='breadcrumb-item'><a href='verbete.php?concurso=$concurso&tema=$id_nivel2'>$nivel2</a></li>";
+      $breadcrumbs .= "<li><a href='verbete.php?concurso=$concurso&tema=$id_nivel2'>$nivel2</a></li>";
     }
   }
   else {
-    $breadcrumbs .= "<li class='breadcrumb-item'>$nivel2</li>";
+    $breadcrumbs .= "<li>$nivel2</li>";
     $tema_titulo = $nivel2;
   }
   if ($nivel != 3) {
@@ -256,11 +256,11 @@
           break;
         }
       }
-      $breadcrumbs .= "<li class='breadcrumb-item'><a href='verbete.php?concurso=$concurso&tema=$id_nivel3'>$nivel3</a></li>";
+      $breadcrumbs .= "<li><a href='verbete.php?concurso=$concurso&tema=$id_nivel3'>$nivel3</a></li>";
     }
   }
   else {
-    $breadcrumbs .= "<li class='breadcrumb-item'>$nivel3</li>";
+    $breadcrumbs .= "<li>$nivel3</li>";
     $tema_titulo = $nivel3;
   }
   if ($nivel != 4) {
@@ -272,15 +272,15 @@
           break;
         }
       }
-      $breadcrumbs .= "<li class='breadcrumb-item'><a href='verbete.php?concurso=$concurso&tema=$id_nivel4'>$nivel4</a></li>";
+      $breadcrumbs .= "<li><a href='verbete.php?concurso=$concurso&tema=$id_nivel4'>$nivel4</a></li>";
     }
   }
   else {
-    $breadcrumbs .= "<li class='breadcrumb-item'>$nivel4</li>";
+    $breadcrumbs .= "<li>$nivel4</li>";
     $tema_titulo = $nivel4;
   }
   if ($nivel5 != false) {
-    $breadcrumbs .= "<li class='breadcrumb-item'>$nivel5</li>";
+    $breadcrumbs .= "<li>$nivel5</li>";
     $tema_titulo = $nivel5;
   }
 
