@@ -298,24 +298,22 @@
         </div>
         <div class='col-lg-3 col-sm-12'>
           <div class='text-right'>
-            <ol class='transparent mb-0'>
-              <li id='verbetes_relacionados' title='Verbetes relacionados'><a href='javascript:void(0);'><i class='fal fa-chart-network fa-fw'></i></a></li>
-              <li id='simulados' title='Simulados'><a href='javascript:void(0);'><i class='fal fa-check-double fa-fw'></i></a></li>
-              <li id='forum' title='Fórum'><a href='javascript:void(0);'><i class='fal fa-comments-alt fa-fw'></i></a></li>";
+              <span id='verbetes_relacionados' title='Verbetes relacionados'><a href='javascript:void(0);'><i class='fal fa-chart-network fa-fw'></i></a></span>
+              <span id='simulados' title='Simulados'><a href='javascript:void(0);'><i class='fal fa-check-double fa-fw'></i></a></span>
+              <span id='forum' title='Fórum'><a href='javascript:void(0);'><i class='fal fa-comments-alt fa-fw'></i></a></span>";
               if ($tema_bookmark == false) {
                 echo "
-                  <li id='add_bookmark' title='Marcar para leitura' value='$tema_id'><a href='javascript:void(0);'><i class='fal fa-bookmark fa-fw'></i></a></li>
-                  <li id='remove_bookmark' class='collapse' title='Remover da lista de leitura' value='$tema_id'><a href='javascript:void(0);'><span class='text-danger'><i class='fas fa-bookmark fa-fw'></i></span></span></a></li>
+                  <span id='add_bookmark' title='Marcar para leitura' value='$tema_id'><a href='javascript:void(0);'><i class='fal fa-bookmark fa-fw'></i></a></span>
+                  <span id='remove_bookmark' class='collapse' title='Remover da lista de leitura' value='$tema_id'><a href='javascript:void(0);'><span class='text-danger'><i class='fas fa-bookmark fa-fw'></i></span></span></a></span>
                 ";
               }
               else {
                 echo "
-                  <li id='add_bookmark' class='collapse' title='Marcar para leitura' value='$tema_id'><a href='javascript:void(0);'><i class='fal fa-bookmark fa-fw'></i></a></li>
-                  <li id='remove_bookmark' title='Remover da lista de leitura' value='$tema_id'><a href='javascript:void(0);'><span class='text-danger'><i class='fas fa-bookmark fa-fw'></i></span></span></a></li>
+                  <span id='add_bookmark' class='collapse' title='Marcar para leitura' value='$tema_id'><a href='javascript:void(0);'><i class='fal fa-bookmark fa-fw'></i></a></span>
+                  <span id='remove_bookmark' title='Remover da lista de leitura' value='$tema_id'><a href='javascript:void(0);'><span class='text-danger'><i class='fas fa-bookmark fa-fw'></i></span></span></a></span>
                 ";
               }
             echo "
-            </ol>
           </div>
         </div>
       </div>
