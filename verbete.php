@@ -288,7 +288,7 @@
     <div class='container-fluid grey lighten-3'>
       <div class='row'>
         <div class='col-lg-9 col-sm-12'>
-          <div id='collapse_breadcrumbs' class='d-flex flex-column collapse collapse_breadcrumbs'>
+          <div id='collapse_breadcrumbs' class='flex-column collapse'>
             $breadcrumbs
           </div>
         </div>
