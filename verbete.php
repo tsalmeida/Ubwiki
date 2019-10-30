@@ -333,9 +333,9 @@
           $playfair = 'playfair400';
           $tema_length = strlen($tema_titulo);
           if ($tema_length < 20) { $display_size_large = 'display-1'; $display_size_mobile = 'display-4'; }
-          elseif ($tema_length < 35) { $display_size_large = 'display-2'; $display_size_mobile = 'display-3'; }
-          elseif ($tema_length < 50) { $display_size_large = 'display-3'; $display_size_mobile = 'display-2'; }
-          elseif ($tema_length < 70) { $display_size_large = 'display-4'; $display_size_mobile = 'display-1'; }
+          elseif ($tema_length < 40) { $display_size_large = 'display-2'; $display_size_mobile = 'display-3'; }
+          elseif ($tema_length < 60) { $display_size_large = 'display-3'; $display_size_mobile = 'display-2'; }
+          elseif ($tema_length < 90) { $display_size_large = 'display-4'; $display_size_mobile = 'display-1'; }
           else { $display_size_large = 'h1'; $display_size_mobile = 'h1'; $playfair = 'oswald'; }
           echo "
             <span class='$display_size_large d-none d-lg-inline $playfair'>$tema_titulo</span>
