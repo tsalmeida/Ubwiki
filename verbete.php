@@ -288,13 +288,13 @@
     <div class='container-fluid grey lighten-3'>
       <div class='row'>
         <div class='col-lg-9 col-sm-12'>
-          <div class='d-flex flex-column'>
+          <div id='collapse_breadcrumbs' class='d-flex flex-column collapse collapse_breadcrumbs'>
             $breadcrumbs
           </div>
         </div>
         <div class='col-lg-3 col-sm-12'>
           <div class='text-right'>
-              <span id='verbetes_relacionados' title='Verbetes relacionados'><a href='javascript:void(0);'><i class='fal fa-chart-network fa-fw'></i></a></span>
+              <span id='verbetes_relacionados' title='Verbetes relacionados' data-toggle='collapse' href='#collapse_breadcrumbs'><a href='javascript:void(0);'><i class='fal fa-chart-network fa-fw'></i></a></span>
               <span id='simulados' title='Simulados'><a href='javascript:void(0);'><i class='fal fa-check-double fa-fw'></i></a></span>
               <span id='forum' title='Fórum'><a href='javascript:void(0);'><i class='fal fa-comments-alt fa-fw'></i></a></span>";
               if ($tema_bookmark == false) {
