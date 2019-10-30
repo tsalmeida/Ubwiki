@@ -596,13 +596,13 @@ function extract_gdoc($url) {
 function standard_jumbotron($titulo, $link) {
 echo "
     <div class='container-fluid p-0 m-0 text-center'>
-      <div class='playfair900 jumbotron col-12 mb-0 elegant-color text-white'>
+      <div class='jumbotron col-12 mb-0 elegant-color text-white'>
 ";
         if ($link == false) {
-          echo "<span class='display-1 logo-jumbotron wireone'>$titulo</span>";
+          echo "<span class='display-1 logo-jumbotron playfair400'>$titulo</span>";
         }
         else {
-          echo "<a href='$link'><span class='display-3 logo-jumbotron'>$titulo</span></a>";
+          echo "<a href='$link'><span class='display-3 logo-jumbotron playfair400'>$titulo</span></a>";
         }
 echo "
       </div>
