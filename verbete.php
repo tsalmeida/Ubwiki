@@ -283,41 +283,38 @@
     $breadcrumbs .= "<div class='d-block'>$nivel5</div>";
     $tema_titulo = $nivel5;
   }
-
-  echo "
+?>
     <div class='container-fluid grey lighten-3'>
       <div class='row'>
         <div class='col-lg-9 col-sm-12'>
           <div id='collapse_breadcrumbs' class='flex-column collapse'>
-            $breadcrumbs
+            <?php echo $breadcrumbs; ?>
           </div>
         </div>
         <div class='col-lg-3 col-sm-12'>
           <div class='text-right py-2'>
-              <span id='verbetes_relacionados' title='Verbetes relacionados' data-toggle='collapse' href='#collapse_breadcrumbs'><a href='javascript:void(0);'><i class='fal fa-chart-network fa-fw fa-lg'></i></a></span>
-              <span id='simulados' title='Simulados'><a href='javascript:void(0);'><i class='fal fa-check-double fa-fw fa-lg'></i></a></span>
-              <span id='forum' title='Fórum'><a href='javascript:void(0);'><i class='fal fa-comments-alt fa-fw fa-lg'></i></a></span>";
+              <span id='verbetes_relacionados' class='mx-1' title='Verbetes relacionados' data-toggle='collapse' href='#collapse_breadcrumbs' ><a href='javascript:void(0);'><i class='fal fa-chart-network fa-fw fa-lg'></i></a></span>
+              <span id='simulados' class='mx-1' title='Simulados'><a href='javascript:void(0);'><i class='fal fa-check-double fa-fw fa-lg'></i></a></span>
+              <span id='forum' title='Fórum'><a href='javascript:void(0);'><i class='fal fa-comments-alt fa-fw fa-lg'></i></a></span>
+<?php
               if ($tema_bookmark == false) {
                 echo "
-                  <span id='add_bookmark' title='Marcar para leitura' value='$tema_id'><a href='javascript:void(0);'><i class='fal fa-bookmark fa-fw fa-lg'></i></a></span>
-                  <span id='remove_bookmark' class='collapse' title='Remover da lista de leitura' value='$tema_id'><a href='javascript:void(0);'><span class='text-danger'><i class='fas fa-bookmark fa-fw fa-lg'></i></span></span></a></span>
+                  <span id='add_bookmark' class='ml-1' title='Marcar para leitura' value='$tema_id'><a href='javascript:void(0);'><i class='fal fa-bookmark fa-fw fa-lg'></i></a></span>
+                  <span id='remove_bookmark' class='ml-1 collapse' title='Remover da lista de leitura' value='$tema_id'><a href='javascript:void(0);'><span class='text-danger'><i class='fas fa-bookmark fa-fw fa-lg'></i></span></span></a></span>
                 ";
               }
               else {
                 echo "
-                  <span id='add_bookmark' class='collapse' title='Marcar para leitura' value='$tema_id'><a href='javascript:void(0);'><i class='fal fa-bookmark fa-fw fa-lg'></i></a></span>
-                  <span id='remove_bookmark' title='Remover da lista de leitura' value='$tema_id'><a href='javascript:void(0);'><span class='text-danger'><i class='fas fa-bookmark fa-fw fa-lg'></i></span></span></a></span>
+                  <span id='add_bookmark' class='ml-1 collapse' title='Marcar para leitura' value='$tema_id'><a href='javascript:void(0);'><i class='fal fa-bookmark fa-fw fa-lg'></i></a></span>
+                  <span id='remove_bookmark' class='ml-1' title='Remover da lista de leitura' value='$tema_id'><a href='javascript:void(0);'><span class='text-danger'><i class='fas fa-bookmark fa-fw fa-lg'></i></span></span></a></span>
                 ";
               }
-            echo "
+?>
           </div>
         </div>
       </div>
     </div>
-  ";
 
-
-?>
   <div class='container-fluid grey lighten-5' data-toggle='buttons'>
     <div class='row'>
       <div class='col-12 d-flex justify-content-center'>
