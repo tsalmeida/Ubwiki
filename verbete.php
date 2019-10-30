@@ -290,7 +290,7 @@
         <div class='col-lg-9 col-sm-12'>
           <div class='text-left'>
             <nav>
-              <span>
+              <div class='d-flex flex-row'>
                 $breadcrumbs
               </span>
             </nav>
