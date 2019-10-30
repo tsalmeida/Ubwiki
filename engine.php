@@ -238,11 +238,23 @@ function bottom_page() {
               theme: 'snow',
               formats: formatWhitelist,
               modules: {
-                toolbar: toolbarOptions
+                toolbar: {
+                  container: toolbarOptions,
+                  handlers: {
+                    image: imageHandler
+                  }
               }
             });
             verbete_editor.disable();
             $('.ql-toolbar:first').hide();
+
+            function imageHandler() {
+                var range = this.verbete_editor.getSelection();
+                var value = prompt('Qual o endereço da imagem?');
+                if(value){
+                    this.verbete_editor.insertEmbed(range.index, 'image', value, Quill.sources.USER);
+                }
+            }
 
             var anotacao_editor = new Quill('#quill_editor_anotacao', {
               theme: 'snow',
