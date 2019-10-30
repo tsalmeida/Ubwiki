@@ -62,12 +62,13 @@
       $verbete_html = $row['verbete_html'];
       $verbete_text = $row['verbete_text'];
       $verbete_content = $row['verbete_content'];
+      error_log($verbete_content);
     }
   }
   else {
     $verbete_html = false;
     $verbete_text = false;
-    $verbete_content = '<p>Este verbete ainda não começou a ser escrito.</p>';
+    $verbete_content = false;
   }
 
   if (isset($_POST['quill_novo_verbete_html'])) {
