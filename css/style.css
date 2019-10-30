@@ -186,3 +186,8 @@ h3 {
 #page_height {
   min-height: 90vh;
 }
+
+.ql-editor-active {
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+}

@@ -38,8 +38,7 @@
   white-space: pre-wrap;
   word-wrap: break-word;
   min-height: 15em !important;
-  border: 1px solid #ccc;
-  padding: 3px;
+  /* border: 1px solid #ccc; */
 }
 .ql-editor p,
 .ql-editor ol,
