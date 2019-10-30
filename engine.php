@@ -29,10 +29,10 @@ function carregar_navbar() {
   echo "<ul class='nav navbar-nav ml-auto nav-flex-icons'>";
   echo "<li class='nav-item dropdown'>";
   if ($mode == 'dark') {
-    echo "<a class='navlink dropdown-toggle waves-effect waves-light text-white' id='user_dropdown' data-toggle='dropdown' href='#'>";
+    echo "<a class='navlink dropdown-toggle waves-effect waves-light text-white' id='user_dropdown' data-toggle='dropdown' href='javascript:void(0);'>";
   }
   else {
-    echo "<a class='navlink dropdown-toggle waves-effect waves-light text-dark' id='user_dropdown' data-toggle='dropdown' href='#'>";
+    echo "<a class='navlink dropdown-toggle waves-effect waves-light text-dark' id='user_dropdown' data-toggle='dropdown' href='javascript:void(0);'>";
   }
   echo "
         <i class='fas fa-user-tie fa-lg fa-fw'></i>
@@ -65,19 +65,19 @@ function breadcrumbs() {
         <div class='col-lg-3 col-sm-12'>
           <div class='text-right'>
             <ol class='breadcrumb d-inline-flex transparent mb-0'>
-              <li id='verbetes_relacionados' class='breadcrumb-item' title='Verbetes relacionados'><a href='#'><i class='fal fa-chart-network fa-fw'></i></a></li>
-              <li id='simulados' class='breadcrumb-item' title='Simulados'><a href='#'><i class='fal fa-check-double fa-fw'></i></a></li>
-              <li id='forum' class='breadcrumb-item' title='Fórum'><a href='#'><i class='fal fa-comments-alt fa-fw'></i></a></li>";
+              <li id='verbetes_relacionados' class='breadcrumb-item' title='Verbetes relacionados'><a href='javascript:void(0);'><i class='fal fa-chart-network fa-fw'></i></a></li>
+              <li id='simulados' class='breadcrumb-item' title='Simulados'><a href='javascript:void(0);'><i class='fal fa-check-double fa-fw'></i></a></li>
+              <li id='forum' class='breadcrumb-item' title='Fórum'><a href='javascript:void(0);'><i class='fal fa-comments-alt fa-fw'></i></a></li>";
               if ($tema_bookmark == false) {
                 echo "
-                  <li id='add_bookmark' class='breadcrumb-item' title='Marcar para leitura' value='$tema_id'><a href='#'><i class='fal fa-bookmark fa-fw'></i></a></li>
-                  <li id='remove_bookmark' class='breadcrumb-item collapse' title='Remover da lista de leitura' value='$tema_id'><a href='#'><span class='text-danger'><i class='fas fa-bookmark fa-fw'></i></span></span></a></li>
+                  <li id='add_bookmark' class='breadcrumb-item' title='Marcar para leitura' value='$tema_id'><a href='javascript:void(0);'><i class='fal fa-bookmark fa-fw'></i></a></li>
+                  <li id='remove_bookmark' class='breadcrumb-item collapse' title='Remover da lista de leitura' value='$tema_id'><a href='javascript:void(0);'><span class='text-danger'><i class='fas fa-bookmark fa-fw'></i></span></span></a></li>
                 ";
               }
               else {
                 echo "
-                  <li id='add_bookmark' class='breadcrumb-item collapse' title='Marcar para leitura' value='$tema_id'><a href='#'><i class='fal fa-bookmark fa-fw'></i></a></li>
-                  <li id='remove_bookmark' class='breadcrumb-item' title='Remover da lista de leitura' value='$tema_id'><a href='#'><span class='text-danger'><i class='fas fa-bookmark fa-fw'></i></span></span></a></li>
+                  <li id='add_bookmark' class='breadcrumb-item collapse' title='Marcar para leitura' value='$tema_id'><a href='javascript:void(0);'><i class='fal fa-bookmark fa-fw'></i></a></li>
+                  <li id='remove_bookmark' class='breadcrumb-item' title='Remover da lista de leitura' value='$tema_id'><a href='javascript:void(0);'><span class='text-danger'><i class='fas fa-bookmark fa-fw'></i></span></span></a></li>
                 ";
               }
             echo "
