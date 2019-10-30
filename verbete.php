@@ -290,7 +290,7 @@
         <div class='col-lg-9 col-sm-12'>
           <div class='text-left'>
             <nav>
-              <ol class='breadcrumb d-inline-flex transparent mb-0'>
+              <ol class='d-inline-flex transparent mb-0'>
                 $breadcrumbs
               </ol>
             </nav>
@@ -298,7 +298,7 @@
         </div>
         <div class='col-lg-3 col-sm-12'>
           <div class='text-right'>
-            <ol class='breadcrumb d-inline-flex transparent mb-0'>
+            <ol class='d-inline-flex transparent mb-0'>
               <li id='verbetes_relacionados' class='breadcrumb-item' title='Verbetes relacionados'><a href='javascript:void(0);'><i class='fal fa-chart-network fa-fw'></i></a></li>
               <li id='simulados' class='breadcrumb-item' title='Simulados'><a href='javascript:void(0);'><i class='fal fa-check-double fa-fw'></i></a></li>
               <li id='forum' class='breadcrumb-item' title='Fórum'><a href='javascript:void(0);'><i class='fal fa-comments-alt fa-fw'></i></a></li>";
