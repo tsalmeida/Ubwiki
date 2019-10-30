@@ -332,6 +332,7 @@
         <?php
           $playfair = 'playfair400';
           $tema_length = strlen($tema_titulo);
+          error_log($tema_length);
           if ($tema_length < 20) { $display_size_large = 'display-1'; $display_size_mobile = 'display-4'; }
           elseif ($tema_length < 40) { $display_size_large = 'display-2'; $display_size_mobile = 'display-3'; }
           elseif ($tema_length < 60) { $display_size_large = 'display-3'; $display_size_mobile = 'display-2'; }
