@@ -278,12 +278,13 @@ function bottom_page() {
             $('#travar_anotacao').click(function(){
               anotacao_editor.disable();
               $('.ql-toolbar:last').hide();
-              $('.ql-editor:last').addClass('ql-editor-active');
+              $('.ql-editor:last').removeClass('ql-editor-active');
             });
+            $('.ql-editor:last').addClass('ql-editor-active');
             $('#destravar_anotacao').click(function(){
               anotacao_editor.enable();
               $('.ql-toolbar:last').show();
-              $('.ql-editor:last').removeClass('ql-editor-active');
+              $('.ql-editor:last').addClass('ql-editor-active');
             });
             var form_verbete = document.querySelector('#quill_verbete_form');
             form_verbete.onsubmit = function() {
