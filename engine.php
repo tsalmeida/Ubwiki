@@ -267,22 +267,26 @@ function bottom_page() {
             });
             $('#travar_verbete').click(function(){
               verbete_editor.disable();
+              $('#destravar_verbete').hide();
               $('.ql-toolbar:first').hide();
               $('.ql-editor:first').removeClass('ql-editor-active');
             });
             $('#destravar_verbete').click(function(){
               verbete_editor.enable();
+              $('#travar_verbete').hide();
               $('.ql-toolbar:first').show();
               $('.ql-editor:first').addClass('ql-editor-active');
             });
             $('#travar_anotacao').click(function(){
               anotacao_editor.disable();
+              $('#destravar_anotacao').hide();
               $('.ql-toolbar:last').hide();
               $('.ql-editor:last').removeClass('ql-editor-active');
             });
             $('.ql-editor:last').addClass('ql-editor-active');
             $('#destravar_anotacao').click(function(){
               anotacao_editor.enable();
+              $('#travar_anotacao').hide();
               $('.ql-toolbar:last').show();
               $('.ql-editor:last').addClass('ql-editor-active');
             });
