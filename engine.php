@@ -45,50 +45,6 @@ function carregar_navbar() {
   </nav>";
 }
 
-function breadcrumbs() {
-  $content = func_get_args();
-  if (isset($content[0])) { $breadcrumbs = $content[0]; }
-  if (isset($content[1])) { $tema_id = $content[1]; }
-  if (isset($content[2])) { $tema_bookmark = $content[2]; }
-  echo "
-    <div class='container-fluid grey lighten-3'>
-      <div class='row'>
-        <div class='col-lg-9 col-sm-12'>
-          <div class='text-left'>
-            <nav>
-              <ol class='breadcrumb d-inline-flex transparent mb-0'>
-                $breadcrumbs
-              </ol>
-            </nav>
-          </div>
-        </div>
-        <div class='col-lg-3 col-sm-12'>
-          <div class='text-right'>
-            <ol class='breadcrumb d-inline-flex transparent mb-0'>
-              <li id='verbetes_relacionados' class='breadcrumb-item' title='Verbetes relacionados'><a href='javascript:void(0);'><i class='fal fa-chart-network fa-fw'></i></a></li>
-              <li id='simulados' class='breadcrumb-item' title='Simulados'><a href='javascript:void(0);'><i class='fal fa-check-double fa-fw'></i></a></li>
-              <li id='forum' class='breadcrumb-item' title='Fórum'><a href='javascript:void(0);'><i class='fal fa-comments-alt fa-fw'></i></a></li>";
-              if ($tema_bookmark == false) {
-                echo "
-                  <li id='add_bookmark' class='breadcrumb-item' title='Marcar para leitura' value='$tema_id'><a href='javascript:void(0);'><i class='fal fa-bookmark fa-fw'></i></a></li>
-                  <li id='remove_bookmark' class='breadcrumb-item collapse' title='Remover da lista de leitura' value='$tema_id'><a href='javascript:void(0);'><span class='text-danger'><i class='fas fa-bookmark fa-fw'></i></span></span></a></li>
-                ";
-              }
-              else {
-                echo "
-                  <li id='add_bookmark' class='breadcrumb-item collapse' title='Marcar para leitura' value='$tema_id'><a href='javascript:void(0);'><i class='fal fa-bookmark fa-fw'></i></a></li>
-                  <li id='remove_bookmark' class='breadcrumb-item' title='Remover da lista de leitura' value='$tema_id'><a href='javascript:void(0);'><span class='text-danger'><i class='fas fa-bookmark fa-fw'></i></span></span></a></li>
-                ";
-              }
-            echo "
-            </ol>
-          </div>
-        </div>
-      </div>
-    </div>
-  ";
-}
-
 function top_page() {
 	$args = func_get_args();
   echo '
