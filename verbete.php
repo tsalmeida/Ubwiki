@@ -330,15 +330,16 @@
     <div class='row my-5 d-flex justify-content-center'>
       <div class='col-10 text-center'>
         <?php
+          $playfair = 'playfair400';
           $tema_length = strlen($tema_titulo);
           if ($tema_length < 20) { $display_size_large = 'display-1'; $display_size_mobile = 'display-4'; }
           elseif ($tema_length < 35) { $display_size_large = 'display-2'; $display_size_mobile = 'display-3'; }
           elseif ($tema_length < 50) { $display_size_large = 'display-3'; $display_size_mobile = 'display-2'; }
           elseif ($tema_length < 70) { $display_size_large = 'display-4'; $display_size_mobile = 'display-1'; }
-          else { $display_size_large = 'h1'; $display_size_mobile = 'h1'; }
+          else { $display_size_large = 'h1'; $display_size_mobile = 'h1'; $playfair = false; }
           echo "
-            <span class='$display_size_large d-none d-lg-inline playfair400'>$tema_titulo</span>
-            <span class='$display_size_mobile d-inline d-lg-none playfair400'>$tema_titulo</span>
+            <span class='$display_size_large d-none d-lg-inline $playfair'>$tema_titulo</span>
+            <span class='$display_size_mobile d-inline d-lg-none $playfair'>$tema_titulo</span>
           ";
         ?>
       </div>
