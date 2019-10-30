@@ -212,8 +212,8 @@
 <?php
   carregar_navbar('dark');
   $breadcrumbs = "
-    <li><a href='index.php'>$concurso</a></li>
-    <li><a href='materia.php?concurso=$concurso&sigla=$sigla_materia'>$materia</a></li>
+    <span><a href='index.php'>$concurso</a></span>
+    <span><a href='materia.php?concurso=$concurso&sigla=$sigla_materia'>$materia</a></span>
   ";
   if ($nivel != 1) {
     if ($nivel1 != false) {
@@ -224,11 +224,11 @@
           break;
         }
       }
-      $breadcrumbs .= "<li><a href='verbete.php?concurso=$concurso&tema=$id_nivel1'>$nivel1</a></li>";
+      $breadcrumbs .= "<span><a href='verbete.php?concurso=$concurso&tema=$id_nivel1'>$nivel1</a></span>";
     }
   }
   else {
-    $breadcrumbs .= "<li>$nivel1</li>";
+    $breadcrumbs .= "<span>$nivel1</span>";
     $tema_titulo = $nivel1;
   }
   if ($nivel != 2) {
@@ -240,11 +240,11 @@
           break;
         }
       }
-      $breadcrumbs .= "<li><a href='verbete.php?concurso=$concurso&tema=$id_nivel2'>$nivel2</a></li>";
+      $breadcrumbs .= "<span><a href='verbete.php?concurso=$concurso&tema=$id_nivel2'>$nivel2</a></span>";
     }
   }
   else {
-    $breadcrumbs .= "<li>$nivel2</li>";
+    $breadcrumbs .= "<span>$nivel2</span>";
     $tema_titulo = $nivel2;
   }
   if ($nivel != 3) {
@@ -256,11 +256,11 @@
           break;
         }
       }
-      $breadcrumbs .= "<li><a href='verbete.php?concurso=$concurso&tema=$id_nivel3'>$nivel3</a></li>";
+      $breadcrumbs .= "<span><a href='verbete.php?concurso=$concurso&tema=$id_nivel3'>$nivel3</a></span>";
     }
   }
   else {
-    $breadcrumbs .= "<li>$nivel3</li>";
+    $breadcrumbs .= "<span>$nivel3</span>";
     $tema_titulo = $nivel3;
   }
   if ($nivel != 4) {
@@ -272,15 +272,15 @@
           break;
         }
       }
-      $breadcrumbs .= "<li><a href='verbete.php?concurso=$concurso&tema=$id_nivel4'>$nivel4</a></li>";
+      $breadcrumbs .= "<span><a href='verbete.php?concurso=$concurso&tema=$id_nivel4'>$nivel4</a></span>";
     }
   }
   else {
-    $breadcrumbs .= "<li>$nivel4</li>";
+    $breadcrumbs .= "<span>$nivel4</span>";
     $tema_titulo = $nivel4;
   }
   if ($nivel5 != false) {
-    $breadcrumbs .= "<li>$nivel5</li>";
+    $breadcrumbs .= "<span>$nivel5</span>";
     $tema_titulo = $nivel5;
   }
 
@@ -290,9 +290,9 @@
         <div class='col-lg-9 col-sm-12'>
           <div class='text-left'>
             <nav>
-              <ol class='transparent mb-0'>
+              <span>
                 $breadcrumbs
-              </ol>
+              </span>
             </nav>
           </div>
         </div>
