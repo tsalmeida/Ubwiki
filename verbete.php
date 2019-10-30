@@ -84,7 +84,6 @@
     $verbete_content = $novo_verbete_content;
   }
 
-  $verbete_content = base64_decode($verbete_content);
   $verbete_content = urldecode($verbete_content);
   // $verbete_content = utf8_encode($verbete_content);
   // error_log("utf8 encode: $verbete_content");
