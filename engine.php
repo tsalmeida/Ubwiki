@@ -268,22 +268,22 @@ function bottom_page() {
             $('#travar_verbete').click(function(){
               verbete_editor.disable();
               $('.ql-toolbar:first').hide();
-              $('.ql-editor:first').removeClass('.ql-editor-active');
+              $('.ql-editor:first').removeClass('ql-editor-active');
             });
             $('#destravar_verbete').click(function(){
               verbete_editor.enable();
               $('.ql-toolbar:first').show();
-              $('.ql-editor:first').addClass('.ql-editor-active');
+              $('.ql-editor:first').addClass('ql-editor-active');
             });
             $('#travar_anotacao').click(function(){
               anotacao_editor.disable();
               $('.ql-toolbar:last').hide();
-              $('.ql-editor:last').addClass('.ql-editor-active');
+              $('.ql-editor:last').addClass('ql-editor-active');
             });
             $('#destravar_anotacao').click(function(){
               anotacao_editor.enable();
               $('.ql-toolbar:last').show();
-              $('.ql-editor:last').removeClass('.ql-editor-active');
+              $('.ql-editor:last').removeClass('ql-editor-active');
             });
             var form_verbete = document.querySelector('#quill_verbete_form');
             form_verbete.onsubmit = function() {
