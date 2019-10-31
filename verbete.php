@@ -514,6 +514,7 @@
           </div>
         </div>
       </div>
+    </div>
 
       <div id='coluna_direita' class='col-lg-5 col-sm-12 anotacoes_collapse collapse show'>
         <div id='sticky_anotacoes' class='mb-5 border-top border-bottom border-light pt-4'>
