@@ -366,80 +366,6 @@
           </div>
         </div>
 
-        <div id='imagens' class='imagens_collapse collapse show mb-5 border-top border-light pt-4'>
-          <div class='row'>
-            <div class='col-12 d-flex justify-content-between'>
-              <h1>Imagens</h1>
-              <span class='h5'><a data-toggle='modal' data-target='#modal_imagens_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
-              <span id='esconder_imagens' data-toggle='collapse' data-target='.imagens_collapse'><a href='javascript:void(0);'><i class='fal fa-chevron-up fa-fw'></i></a></span></span>
-            </div>
-          </div>
-          <div class='row py-3'>
-            <div class='col-12'>
-<?php
-              $result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND tipo = 'imagem'");
-              $count = 0;
-              if ($result->num_rows > 0) {
-                echo "
-                <div id='carousel-with-lb' class='carousel slide carousel-multi-item mb-0' data-ride='carousel'>
-                  <div class='carousel-inner mdb-lightbox' role='listbox'>
-                    <div id='mdb-lightbox-ui'></div>
-                ";
-                $active = 'active';
-                while($row = $result->fetch_assoc()) {
-                  $id_elemento = $row['id_elemento'];
-                  $result2 = $conn->query("SELECT titulo, link, comentario, arquivo, resolucao, orientacao FROM Elementos WHERE id = $id_elemento");
-                  if ($result2->num_rows > 0) {
-                    while($row = $result2->fetch_assoc()) {
-                      $count++;
-                      $imagem_titulo = $row['titulo'];
-                      $imagem_link = $row['link'];
-                      $imagem_comentario = $row['comentario'];
-                      $imagem_arquivo = $row['arquivo'];
-                      $imagem_resolucao = $row['resolucao'];
-                      $imagem_orientacao = $row['orientacao'];
-                      echo "
-                      <div class=' carousel-item $active text-center'>
-                        <figure class='col-12'>
-                          <a href='imagens/verbetes/$imagem_arquivo'
-                            data-size='$imagem_resolucao'>
-                            <img src='imagens/verbetes/thumbnails/$imagem_arquivo'
-                              class='img-fluid' style='height:300px'>
-                          </a>
-                          <figcaption><h5 class='mt-3'>$imagem_titulo</h5>
-                          $imagem_comentario<p><a href='elemento.php?id=$id_elemento' target='_blank'>Página da imagem</a></p></figcaption>
-                        </figure>
-                      </div>
-                      ";
-                      $active = false;
-                      break;
-                    }
-                  }
-                }
-                if ($count != 1) {
-                  echo "
-                  </div>
-                    <div class='controls-top'>
-                      <a class='btn btn-sm grey lighten-3 z-depth-0' href='#carousel-with-lb' data-slide='prev'><i
-                          class='fas fa-chevron-left'></i></a>
-                      <a class='btn btn-sm grey lighten-3 z-depth-0' href='#carousel-with-lb' data-slide='next'><i
-                          class='fas fa-chevron-right'></i></a>
-                    </div>
-                  </div>
-                  ";
-                }
-                else {
-                  echo "</div></div>";
-                }
-              }
-              else {
-                echo "<p>Não foram acrescentadas, até o momento, imagens a este verbete.</p>";
-              }
-?>
-            </div>
-          </div>
-        </div>
-
         <div id='videos' class='videos_collapse collapse show mb-5 border-top border-light pt-4'>
           <div class='row'>
             <div class='col-12 d-flex justify-content-between'>
@@ -511,6 +437,80 @@
                 }
 ?>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div id='imagens' class='imagens_collapse collapse show mb-5 border-top border-light pt-4'>
+        <div class='row'>
+          <div class='col-12 d-flex justify-content-between'>
+            <h1>Imagens</h1>
+            <span class='h5'><a data-toggle='modal' data-target='#modal_imagens_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
+            <span id='esconder_imagens' data-toggle='collapse' data-target='.imagens_collapse'><a href='javascript:void(0);'><i class='fal fa-chevron-up fa-fw'></i></a></span></span>
+          </div>
+        </div>
+        <div class='row py-3'>
+          <div class='col-12'>
+<?php
+            $result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND tipo = 'imagem'");
+            $count = 0;
+            if ($result->num_rows > 0) {
+              echo "
+              <div id='carousel-with-lb' class='carousel slide carousel-multi-item mb-0' data-ride='carousel'>
+                <div class='carousel-inner mdb-lightbox' role='listbox'>
+                  <div id='mdb-lightbox-ui'></div>
+              ";
+              $active = 'active';
+              while($row = $result->fetch_assoc()) {
+                $id_elemento = $row['id_elemento'];
+                $result2 = $conn->query("SELECT titulo, link, comentario, arquivo, resolucao, orientacao FROM Elementos WHERE id = $id_elemento");
+                if ($result2->num_rows > 0) {
+                  while($row = $result2->fetch_assoc()) {
+                    $count++;
+                    $imagem_titulo = $row['titulo'];
+                    $imagem_link = $row['link'];
+                    $imagem_comentario = $row['comentario'];
+                    $imagem_arquivo = $row['arquivo'];
+                    $imagem_resolucao = $row['resolucao'];
+                    $imagem_orientacao = $row['orientacao'];
+                    echo "
+                    <div class=' carousel-item $active text-center'>
+                      <figure class='col-12'>
+                        <a href='imagens/verbetes/$imagem_arquivo'
+                          data-size='$imagem_resolucao'>
+                          <img src='imagens/verbetes/thumbnails/$imagem_arquivo'
+                            class='img-fluid' style='height:300px'>
+                        </a>
+                        <figcaption><h5 class='mt-3'>$imagem_titulo</h5>
+                        $imagem_comentario<p><a href='elemento.php?id=$id_elemento' target='_blank'>Página da imagem</a></p></figcaption>
+                      </figure>
+                    </div>
+                    ";
+                    $active = false;
+                    break;
+                  }
+                }
+              }
+              if ($count != 1) {
+                echo "
+                </div>
+                  <div class='controls-top'>
+                    <a class='btn btn-sm grey lighten-3 z-depth-0' href='#carousel-with-lb' data-slide='prev'><i
+                        class='fas fa-chevron-left'></i></a>
+                    <a class='btn btn-sm grey lighten-3 z-depth-0' href='#carousel-with-lb' data-slide='next'><i
+                        class='fas fa-chevron-right'></i></a>
+                  </div>
+                </div>
+                ";
+              }
+              else {
+                echo "</div></div>";
+              }
+            }
+            else {
+              echo "<p>Não foram acrescentadas, até o momento, imagens a este verbete.</p>";
+            }
+?>
           </div>
         </div>
       </div>
