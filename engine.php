@@ -749,6 +749,12 @@ function adicionar_imagem() {
   $nova_imagem_comentario = $args[2];
   $tema_id = $args[3];
   $user_id = $args[4];
+  $servername = "localhost";
+  $username = "grupoubique";
+  $password = "ubique patriae memor";
+  $dbname = "Ubique";
+  $conn = new mysqli($servername, $username, $password, $dbname);
+  mysqli_set_charset($conn,"utf8");
   $result = $conn->query("SELECT id FROM Elementos WHERE link = '$nova_imagem_link'");
   if ($result->num_rows == 0) {
     $randomfilename = generateRandomString(12);
