@@ -257,6 +257,18 @@
     $breadcrumbs .= "<div class='d-block spacing6'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i>$nivel5</div>";
     $tema_titulo = $nivel5;
   }
+
+  if ($nivel == 3) {
+    $result = $conn->query("SELECT id, nivel3 FROM Temas WHERE nivel2 = '$nivel2' AND nivel4 = '' WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia'");
+    if ($result->num_rows > 0) {
+      foreach ($row = $result->fetch_assoc()) {
+        $sibling_titulo = $row['nivel3'];
+        $sibling_id = $row['id'];
+        $breadcrumbs .= "<div class='d-block spacing4'<i class='fal fa-long-arrow-right fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$sibling_id'>$sibling_titulo</a></div>";
+      }
+    }
+  }
+
 ?>
     <div class='container-fluid grey lighten-3'>
       <div class='row'>
