@@ -134,15 +134,9 @@ h3 {
 }
 
 .quill_editor_height {
-  min-height: 15em !important;
-  height: auto !important;
-  max-height: 60vh !important;
-  overflow-y: auto;
-}
-
-.quill_editor_height_verbete {
   min-height: 10em !important;
   height: auto !important;
+  max-height: 60vh;
   overflow-y: auto;
 }
 
@@ -195,6 +189,7 @@ h3 {
 .ql-editor-active {
   padding: 12px 15px;
   border: 1px solid #ccc;
+  max-height: none !important;
 }
 
 .spacing1 {
