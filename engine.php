@@ -210,9 +210,10 @@ function bottom_page() {
                 var value = prompt('Qual o endereço da imagem?');
                 if(value){
                     this.quill.insertEmbed(range.index, 'image', value, Quill.sources.USER);
-                    alert(value);
                     $.post('engine.php', {
-                      'nova_imagem': value
+                      'nova_imagem': value,
+                      'user_id': $args[0],
+                      'tema_id': $args[1]
                     });
                 }
             }
@@ -686,77 +687,62 @@ function generateRandomString() {
 }
 
 function make_thumb() {
-    $filename = func_get_args();
-    $filename = $filename[0];
-    $check = substr($filename, -4);
-    $check = strtolower($check);
-    /* read the source image */
-    $original = "imagens/verbetes/$filename";
-    if (($check == ".jpg") || ($check == "jpeg")) {
-        $source_image = imagecreatefromjpeg($original);
-    }
-    elseif ($check == ".png") {
-        $source_image = imagecreatefrompng($original);
-    }
-    elseif ($check == ".gif") {
-        $source_image = imagecreatefromgif($original);
-    }
-    else {
-      return false;
-    }
-    $width = imagesx($source_image);
-    $height = imagesy($source_image);
+  $filename = func_get_args();
+  $filename = $filename[0];
+  $check = substr($filename, -4);
+  $check = strtolower($check);
+  /* read the source image */
+  $original = "imagens/verbetes/$filename";
+  if (($check == ".jpg") || ($check == "jpeg")) {
+    $source_image = imagecreatefromjpeg($original);
+  }
+  elseif ($check == ".png") {
+    $source_image = imagecreatefrompng($original);
+  }
+  elseif ($check == ".gif") {
+    $source_image = imagecreatefromgif($original);
+  }
+  else {
+    return false;
+  }
+  $width = imagesx($source_image);
+  $height = imagesy($source_image);
 
-    /* find the "desired height" of this thumbnail, relative to the desired width  */
-    $desired_height = 300;
-    $desired_width = floor($desired_height * ($width / $height));
+  /* find the "desired height" of this thumbnail, relative to the desired width  */
+  $desired_height = 300;
+  $desired_width = floor($desired_height * ($width / $height));
 
-    /* create a new, "virtual" image */
-    $virtual_image = imagecreatetruecolor($desired_width, $desired_height);
+  /* create a new, "virtual" image */
+  $virtual_image = imagecreatetruecolor($desired_width, $desired_height);
 
-    /* copy source image at a resized size */
-    imagecopyresampled($virtual_image, $source_image, 0, 0, 0, 0, $desired_width, $desired_height, $width, $height);
+  /* copy source image at a resized size */
+  imagecopyresampled($virtual_image, $source_image, 0, 0, 0, 0, $desired_width, $desired_height, $width, $height);
 
-    /* create the physical thumbnail image to its destination */
-    $prefix = "imagens/verbetes/thumbnails/";
-    $destination = "$prefix$filename";
-    if (($check == ".jpg") || ($check == "jpeg")) {
-        imagejpeg($virtual_image, "$destination");
-    }
-    elseif ($check == ".png") {
-        imagepng($virtual_image, "$destination");
-    }
-    elseif ($check == ".gif") {
-        imagegif($virtual_image, "$destination");
-    }
-    $x = 'x';
-    if ($width > $height) { $orientacao = 'paisagem'; }
-    else { $orientacao = 'retrato'; }
-    $resolucao_original = "$width$x$height";
-    $dados_da_imagem  = array($resolucao_original,$orientacao);
-    return $dados_da_imagem;
+  /* create the physical thumbnail image to its destination */
+  $prefix = "imagens/verbetes/thumbnails/";
+  $destination = "$prefix$filename";
+  if (($check == ".jpg") || ($check == "jpeg")) {
+    imagejpeg($virtual_image, "$destination");
+  }
+  elseif ($check == ".png") {
+    imagepng($virtual_image, "$destination");
+  }
+  elseif ($check == ".gif") {
+    imagegif($virtual_image, "$destination");
+  }
+  $x = 'x';
+  if ($width > $height) { $orientacao = 'paisagem'; }
+  else { $orientacao = 'retrato'; }
+  $resolucao_original = "$width$x$height";
+  $dados_da_imagem  = array($resolucao_original,$orientacao);
+  return $dados_da_imagem;
 }
 
 if (isset($_POST['nova_imagem'])) {
   $nova_imagem_link = $_POST['nova_imagem'];
-  $servername = "localhost";
-  $username = "grupoubique";
-  $password = "ubique patriae memor";
-  $dbname = "Ubique";
-  $conn = new mysqli($servername, $username, $password, $dbname);
-  mysqli_set_charset($conn,"utf8");
-  if (isset($_SESSION['email'])) {
-    $user_email = $_SESSION['email'];
-  }
-  $result = $conn->query("SELECT id FROM Usuarios WHERE email = '$user_email'");
-  if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
-      $user_id = $row['id'];
-      break;
-    }
-  }
-  if ($user_id == false) { $user_id = 'desconhecido'; }
-  adicionar_imagem($nova_imagem_link, 'desconhecido', 'não há comentário registrado', 0, $user_id);
+  $user_id = $_POST['user_id'];
+  $tema_id = $_POST['tema_id'];
+  adicionar_imagem($nova_imagem_link, 'Não há título registrado', 'Não há comentário registrado', $tema_id, $user_id);
 }
 
 function adicionar_imagem() {

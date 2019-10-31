@@ -650,7 +650,7 @@
 </body>
 <?php
   load_footer();
-  bottom_page("quill_v", 'carousel', 'lightbox-imagens', 'collapse_stuff', 'bookmark_stuff');
+  bottom_page($user_id, $tema_id, "quill_v", 'carousel', 'lightbox-imagens', 'collapse_stuff', 'bookmark_stuff');
   $conn->close();
 ?>
 
