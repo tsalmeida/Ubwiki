@@ -738,8 +738,26 @@ function make_thumb() {
 }
 
 if (isset($_POST['nova_imagem'])) {
-  $link_nova_imagem = $_POST['nova_imagem'];
-  $add = $conn->query("INSERT INTO Elementos (tipo, link) VALUES ('imagem', '$link_nova_imagem')");
+  $nova_imagem_link = $_POST['nova_imagem'];
+  $servername = "localhost";
+  $username = "grupoubique";
+  $password = "ubique patriae memor";
+  $dbname = "Ubique";
+  $conn = new mysqli($servername, $username, $password, $dbname);
+  mysqli_set_charset($conn,"utf8");
+  if (isset($_SESSION['email'])) {
+    $user_email = $_SESSION['email'];
+  }
+  $result = $conn->query("SELECT id FROM Usuarios WHERE email = '$user_email'");
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $user_id = $row['id'];
+      break;
+    }
+  }
+
+
+  adicionar_imagem($nova_imagem_link, 'desconhecido', 'não há comentário registrado', 0, $user_id);
 }
 
 function adicionar_imagem() {
