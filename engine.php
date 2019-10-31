@@ -755,8 +755,7 @@ if (isset($_POST['nova_imagem'])) {
       break;
     }
   }
-
-
+  if ($user_id == false) { $user_id = 'desconhecido'; }
   adicionar_imagem($nova_imagem_link, 'desconhecido', 'não há comentário registrado', 0, $user_id);
 }
 
