@@ -264,7 +264,7 @@
       while($row = $result->fetch_assoc()) {
         $sibling_titulo = $row['nivel3'];
         $sibling_id = $row['id'];
-        $breadcrumbs .= "<div class='d-block spacing4'<i class='fal fa-long-arrow-right fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$sibling_id'>$sibling_titulo</a></div>";
+        $breadcrumbs .= "<div class='d-block spacing4'<i class='fal fa-long-arrow-alt-right fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$sibling_id'>$sibling_titulo</a></div>";
       }
     }
   }
