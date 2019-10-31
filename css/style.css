@@ -136,8 +136,14 @@ h3 {
 .quill_editor_height {
   min-height: 10em !important;
   height: auto !important;
-  max-height: 60vh;
+  max-height: none;
   overflow-y: auto;
+}
+
+.ql-editor-active {
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  max-height: 60vh;
 }
 
 .footer.page-footer .footer-copyright {
@@ -184,12 +190,6 @@ h3 {
 
 #page_height {
   min-height: 90vh;
-}
-
-.ql-editor-active {
-  padding: 12px 15px;
-  border: 1px solid #ccc;
-  max-height: none !important;
 }
 
 .spacing1 {
