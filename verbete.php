@@ -259,7 +259,7 @@
   }
 
   if ($nivel == 3) {
-    $result = $conn->query("SELECT id, nivel3 FROM Temas WHERE nivel2 = '$nivel2' AND nivel4 = '' WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia'");
+    $result = $conn->query("SELECT id, nivel3 FROM Temas WHERE nivel2 = '$nivel2' AND nivel4 IS NULL WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia'");
     if ($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {
         $sibling_titulo = $row['nivel3'];
