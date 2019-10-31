@@ -137,13 +137,14 @@ h3 {
   min-height: 10em !important;
   height: auto !important;
   max-height: none;
-  overflow-y: auto;
+  overflow-y: initial;
 }
 
 .ql-editor-active {
   padding: 12px 15px;
   border: 1px solid #ccc;
   max-height: 60vh;
+  overflow-y: auto;
 }
 
 .footer.page-footer .footer-copyright {
