@@ -210,7 +210,10 @@ function bottom_page() {
                 var value = prompt('Qual o endereço da imagem?');
                 if(value){
                     this.quill.insertEmbed(range.index, 'image', value, Quill.sources.USER);
-                    console.log(value);
+                    alert(value);
+                    $.post('engine.php', {
+                      'nova_imagem': value
+                    });
                 }
             }
 
@@ -732,6 +735,49 @@ function make_thumb() {
     $resolucao_original = "$width$x$height";
     $dados_da_imagem  = array($resolucao_original,$orientacao);
     return $dados_da_imagem;
+}
+
+if (isset($_POST['nova_imagem'])) {
+  $link_nova_imagem = $_POST['nova_imagem'];
+  $add = $conn->query("INSERT INTO Elementos (tipo, link) VALUES ('imagem', '$link_nova_imagem')");
+}
+
+function adicionar_imagem() {
+  $args = func_get_args();
+  $nova_imagem_link = $args[0];
+  $nova_imagem_titulo = $args[1];
+  $nova_imagem_comentario = $args[2];
+  $tema_id = $args[3];
+  $user_id = $args[4];
+  $result = $conn->query("SELECT id FROM Elementos WHERE link = '$nova_imagem_link'");
+  if ($result->num_rows == 0) {
+    $randomfilename = generateRandomString(12);
+    $ultimo_ponto = strripos($nova_imagem_link, ".");
+    $extensao = substr($nova_imagem_link, $ultimo_ponto);
+    $nova_imagem_arquivo = "$randomfilename$extensao";
+    $nova_imagem_diretorio = "imagens/verbetes/$randomfilename$extensao";
+    file_put_contents("$nova_imagem_diretorio", fopen($nova_imagem_link, 'r'));
+    $dados_da_imagem = make_thumb($nova_imagem_arquivo);
+    if ($dados_da_imagem == false) { return false; }
+    $nova_imagem_resolucao_original = $dados_da_imagem[0];
+    $nova_imagem_orientacao = $dados_da_imagem[1];
+    $result = $conn->query("INSERT INTO Elementos (tipo, titulo, link, arquivo, resolucao, orientacao, comentario, user_id) VALUES ('imagem', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_arquivo', '$nova_imagem_resolucao_original', '$nova_imagem_orientacao', '$nova_imagem_comentario', '$user_id')");
+    $result2 = $conn->query("SELECT id FROM Elementos WHERE link = '$nova_imagem_link'");
+    if ($result2->num_rows > 0) {
+      while ($row = $result2->fetch_assoc()) {
+        $nova_imagem_id = $row['id'];
+        $insert = $conn->query("INSERT INTO Verbetes_elementos (id_tema, id_elemento, tipo, user_id) VALUES ($tema_id, $nova_imagem_id, 'imagem', $user_id)");
+        break;
+      }
+    }
+  }
+  else {
+    while ($row = $result->fetch_assoc()) {
+      $nova_imagem_id = $row['id'];
+      $insert = $conn->query("INSERT INTO Verbetes_elementos (id_tema, id_elemento, tipo, user_id) VALUES ($tema_id, $nova_imagem_id, 'imagem', $user_id)");
+      break;
+    }
+  }
 }
 
 ?>

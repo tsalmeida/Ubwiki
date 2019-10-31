@@ -116,37 +116,9 @@
 
   if (isset($_POST['nova_imagem_link'])) {
     $nova_imagem_link = $_POST['nova_imagem_link'];
-    $result = $conn->query("SELECT id FROM Elementos WHERE link = '$nova_imagem_link'");
-    if ($result->num_rows == 0) {
-      $nova_imagem_titulo = $_POST['nova_imagem_titulo'];
-      $nova_imagem_comentario = $_POST['nova_imagem_comentario'];
-      $randomfilename = generateRandomString(12);
-      $ultimo_ponto = strripos($nova_imagem_link, ".");
-      $extensao = substr($nova_imagem_link, $ultimo_ponto);
-      $nova_imagem_arquivo = "$randomfilename$extensao";
-      $nova_imagem_diretorio = "imagens/verbetes/$randomfilename$extensao";
-      file_put_contents("$nova_imagem_diretorio", fopen($nova_imagem_link, 'r'));
-      $dados_da_imagem = make_thumb($nova_imagem_arquivo);
-      if ($dados_da_imagem == false) { return false; }
-      $nova_imagem_resolucao_original = $dados_da_imagem[0];
-      $nova_imagem_orientacao = $dados_da_imagem[1];
-      $result = $conn->query("INSERT INTO Elementos (tipo, titulo, link, arquivo, resolucao, orientacao, comentario, user_id) VALUES ('imagem', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_arquivo', '$nova_imagem_resolucao_original', '$nova_imagem_orientacao', '$nova_imagem_comentario', '$user_id')");
-      $result2 = $conn->query("SELECT id FROM Elementos WHERE link = '$nova_imagem_link'");
-      if ($result2->num_rows > 0) {
-        while ($row = $result2->fetch_assoc()) {
-          $nova_imagem_id = $row['id'];
-          $insert = $conn->query("INSERT INTO Verbetes_elementos (id_tema, id_elemento, tipo, user_id) VALUES ($tema_id, $nova_imagem_id, 'imagem', $user_id)");
-          break;
-        }
-      }
-    }
-    else {
-      while ($row = $result->fetch_assoc()) {
-        $nova_imagem_id = $row['id'];
-        $insert = $conn->query("INSERT INTO Verbetes_elementos (id_tema, id_elemento, tipo, user_id) VALUES ($tema_id, $nova_imagem_id, 'imagem', $user_id)");
-        break;
-      }
-    }
+    $nova_imagem_titulo = $_POST['nova_imagem_titulo'];
+    $nova_imagem_comentario = $_POST['nova_imagem_comentario'];
+    adicionar_imagem($nova_imagem_link, $nova_imagem_titulo, $nova_imagem_comentario, $tema_id, $user_id);
   }
 
   if (isset($_POST['nova_referencia_titulo'])) {
