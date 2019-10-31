@@ -270,36 +270,36 @@
   }
 
 ?>
-    <div class='container-fluid grey lighten-3'>
-      <div class='row'>
-        <div class='col-lg-9 col-sm-12'>
-          <div id='collapse_breadcrumbs' class='flex-column collapse'>
-            <?php echo $breadcrumbs; ?>
-          </div>
+  <div class='container-fluid grey lighten-3'>
+    <div class='row'>
+      <div class='col-lg-9 col-sm-12'>
+        <div id='collapse_breadcrumbs' class='flex-column collapse'>
+          <?php echo $breadcrumbs; ?>
         </div>
-        <div class='col-lg-3 col-sm-12'>
-          <div class='text-right py-2'>
-              <span id='verbetes_relacionados' class='mx-1' title='Verbetes relacionados' data-toggle='collapse' href='#collapse_breadcrumbs' ><a href='javascript:void(0);'><i class='fal fa-chart-network fa-fw'></i></a></span>
-              <span id='simulados' class='mx-1' title='Simulados'><a href='javascript:void(0);'><i class='fal fa-check-double fa-fw'></i></a></span>
-              <span id='forum' title='Fórum'><a href='javascript:void(0);'><i class='fal fa-comments-alt fa-fw'></i></a></span>
+      </div>
+      <div class='col-lg-3 col-sm-12'>
+        <div class='text-right py-2'>
+            <span id='verbetes_relacionados' class='mx-1' title='Verbetes relacionados' data-toggle='collapse' href='#collapse_breadcrumbs' ><a href='javascript:void(0);'><i class='fal fa-chart-network fa-fw'></i></a></span>
+            <span id='simulados' class='mx-1' title='Simulados'><a href='javascript:void(0);'><i class='fal fa-check-double fa-fw'></i></a></span>
+            <span id='forum' title='Fórum'><a href='javascript:void(0);'><i class='fal fa-comments-alt fa-fw'></i></a></span>
 <?php
-              if ($tema_bookmark == false) {
-                echo "
-                  <span id='add_bookmark' class='ml-1' title='Marcar para leitura' value='$tema_id'><a href='javascript:void(0);'><i class='fal fa-bookmark fa-fw'></i></a></span>
-                  <span id='remove_bookmark' class='ml-1 collapse' title='Remover da lista de leitura' value='$tema_id'><a href='javascript:void(0);'><span class='text-danger'><i class='fas fa-bookmark fa-fw'></i></span></span></a></span>
-                ";
-              }
-              else {
-                echo "
-                  <span id='add_bookmark' class='ml-1 collapse' title='Marcar para leitura' value='$tema_id'><a href='javascript:void(0);'><i class='fal fa-bookmark fa-fw'></i></a></span>
-                  <span id='remove_bookmark' class='ml-1' title='Remover da lista de leitura' value='$tema_id'><a href='javascript:void(0);'><span class='text-danger'><i class='fas fa-bookmark fa-fw'></i></span></span></a></span>
-                ";
-              }
+            if ($tema_bookmark == false) {
+              echo "
+                <span id='add_bookmark' class='ml-1' title='Marcar para leitura' value='$tema_id'><a href='javascript:void(0);'><i class='fal fa-bookmark fa-fw'></i></a></span>
+                <span id='remove_bookmark' class='ml-1 collapse' title='Remover da lista de leitura' value='$tema_id'><a href='javascript:void(0);'><span class='text-danger'><i class='fas fa-bookmark fa-fw'></i></span></span></a></span>
+              ";
+            }
+            else {
+              echo "
+                <span id='add_bookmark' class='ml-1 collapse' title='Marcar para leitura' value='$tema_id'><a href='javascript:void(0);'><i class='fal fa-bookmark fa-fw'></i></a></span>
+                <span id='remove_bookmark' class='ml-1' title='Remover da lista de leitura' value='$tema_id'><a href='javascript:void(0);'><span class='text-danger'><i class='fas fa-bookmark fa-fw'></i></span></span></a></span>
+              ";
+            }
 ?>
-          </div>
         </div>
       </div>
     </div>
+  </div>
 
   <div class='container-fluid grey lighten-5' data-toggle='buttons'>
     <div class='row'>
@@ -312,6 +312,7 @@
       </div>
     </div>
   </div>
+
   <div id='page_height' class='container-fluid'>
     <div class='row my-5 d-flex justify-content-center'>
       <div class='col-lg-10 col-sm-12 text-center'>
@@ -513,8 +514,7 @@
 ?>
           </div>
         </div>
-      </div>
-    </div>
+
 
       <div id='coluna_direita' class='col-lg-5 col-sm-12 anotacoes_collapse collapse show'>
         <div id='sticky_anotacoes' class='mb-5 border-top border-bottom border-light pt-4'>
