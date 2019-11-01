@@ -31,3 +31,14 @@ window.onbeforeunload = function() {
     alert('Suas contribuições ainda não foram salvas. Realmente deseja sair?');
   }
 }
+
+if ($nivel == 3) {
+  $result = $conn->query("SELECT id, nivel3 FROM Temas WHERE nivel2 = '$nivel2' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia'");
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $sibling_titulo = $row['nivel3'];
+      $sibling_id = $row['id'];
+      $breadcrumbs .= "<div class='d-block spacing4'><i class='fal fa-long-arrow-right fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$sibling_id'>$sibling_titulo</a></div>";
+    }
+  }
+}
