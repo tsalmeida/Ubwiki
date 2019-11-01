@@ -190,83 +190,34 @@
     <div class='d-block spacing1'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='materia.php?concurso=$concurso&sigla=$sigla_materia'>$materia</a></div>
   ";
   if ($nivel == 1) {
-    $result = $conn->query("SELECT id FROM Temas WHERE nivel1 = '$nivel1' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia'");
+    $result = $conn->query("SELECT id, nivel1 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia'");
     while ($row = $result->fetch_assoc()) {
       $id_nivel1 = $row['id'];
-      $breadcrumbs .= "<div></div>";
+      $titulo_nivel1 = $row['nivel1'];
+      if ($titulo_nivel1 = $nivel1) {
+        $breadcrumbs .= "<div class='spacing2'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i>$titulo_nivel1</div>";
+      }
+      else {
+        $breadcrumbs .= "<div class='spacing2'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel1'>$titulo_nivel1</a></div>";
+      }
+    }
+  }
+
+  elseif ($nivel == 2) {
+    $result = $conn->query("SELECT id, nivel2 FROM Temas WHERE nivel1 = '$nivel1' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia'");
+    while ($row = $result->fetch_assoc()) {
+      $id_nivel2 = $row['id'];
+      $titulo_nivel1 = $row['nivel1'];
+      if ($titulo_nivel1 = $nivel1) {
+        $breadcrumbs .= "<div class='spacing2'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i>$titulo_nivel1</div>";
+      }
+      else {
+        $breadcrumbs .= "<div class='spacing2'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel1'>$titulo_nivel1</a></div>";
+      }
     }
   }
 
 
-
-  if ($nivel != 1) {
-    if ($nivel1 != false) {
-      $result = $conn->query("SELECT id FROM Temas WHERE nivel1 = '$nivel1' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia'");
-      if ($result->num_rows > 0) {
-        while($row = $result->fetch_assoc()) {
-          $id_nivel1 = $row['id'];
-          break;
-        }
-      }
-      $breadcrumbs .= "<div class='d-block spacing2'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel1'>$nivel1</a></div>";
-    }
-  }
-  else {
-    $breadcrumbs .= "<div class='d-block spacing2'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i>$nivel1</div>";
-    $tema_titulo = $nivel1;
-  }
-  if ($nivel != 2) {
-    if ($nivel2 != false) {
-      $result = $conn->query("SELECT id FROM Temas WHERE nivel2 = '$nivel2' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia'");
-      if ($result->num_rows > 0) {
-        while($row = $result->fetch_assoc()) {
-          $id_nivel2 = $row['id'];
-          break;
-        }
-      }
-      $breadcrumbs .= "<div class='d-block spacing3'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel2'>$nivel2</a></div>";
-    }
-  }
-  else {
-    $breadcrumbs .= "<div class='d-block spacing3'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i>$nivel2</div>";
-    $tema_titulo = $nivel2;
-  }
-  if ($nivel != 3) {
-    if ($nivel3 != false) {
-      $result = $conn->query("SELECT id FROM Temas WHERE nivel3 = '$nivel3' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia'");
-      if ($result->num_rows > 0) {
-        while($row = $result->fetch_assoc()) {
-          $id_nivel3 = $row['id'];
-          break;
-        }
-      }
-      $breadcrumbs .= "<div class='d-block spacing4'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel3'>$nivel3</a></div>";
-    }
-  }
-  else {
-    $breadcrumbs .= "<div class='d-block spacing4'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i>$nivel3</div>";
-    $tema_titulo = $nivel3;
-  }
-  if ($nivel != 4) {
-    if ($nivel4 != false) {
-      $result = $conn->query("SELECT id FROM Temas WHERE nivel4 = '$nivel4' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia'");
-      if ($result->num_rows > 0) {
-        while($row = $result->fetch_assoc()) {
-          $id_nivel4 = $row['id'];
-          break;
-        }
-      }
-      $breadcrumbs .= "<div class='d-block spacing5'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel4'>$nivel4</a></div>";
-    }
-  }
-  else {
-    $breadcrumbs .= "<div class='d-block spacing5'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i>$nivel4</div>";
-    $tema_titulo = $nivel4;
-  }
-  if ($nivel5 != false) {
-    $breadcrumbs .= "<div class='d-block spacing6'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i>$nivel5</div>";
-    $tema_titulo = $nivel5;
-  }
 
 ?>
   <div class='container-fluid grey lighten-3'>
