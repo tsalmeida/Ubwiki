@@ -189,6 +189,16 @@
     <div class='d-block'><a href='index.php'>$concurso</a></div>
     <div class='d-block spacing1'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='materia.php?concurso=$concurso&sigla=$sigla_materia'>$materia</a></div>
   ";
+  if ($nivel == 1) {
+    $result = $conn->query("SELECT id FROM Temas WHERE nivel1 = '$nivel1' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia'");
+    while ($row = $result->fetch_assoc()) {
+      $id_nivel1 = $row['id'];
+      $breadcrumbs .= "<div></div>";
+    }
+  }
+
+
+
   if ($nivel != 1) {
     if ($nivel1 != false) {
       $result = $conn->query("SELECT id FROM Temas WHERE nivel1 = '$nivel1' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia'");
