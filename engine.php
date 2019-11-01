@@ -211,7 +211,7 @@ function bottom_page() {
                 }
               }
             });
-            var anotacao_editor = new Quill('#quill_editor_verbete', {
+            var anotacao_editor = new Quill('#quill_editor_anotacao', {
               theme: 'snow',
               formats: formatWhitelist_anotacao,
               modules: {

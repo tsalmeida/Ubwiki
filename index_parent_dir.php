@@ -20,7 +20,7 @@
         $_SESSION['email'] = 'cavalcanti@me.com';
         $special = true;
     }
-    elseif ($special == 28012009) {
+    elseif ($special == 17091979) {
         $_SESSION['email'] = 'marciliofcf@gmail.com';
         $special = true;
     }
