@@ -130,10 +130,10 @@ function bottom_page() {
               [{ 'header': [2, 3, false] }],
               ['clean']
             ];
-            var formatWhitelist = ['italic','script','link','blockquote','list','header','strike'];
+            var formatWhitelist_admin = ['italic','script','link','blockquote','list','header','strike'];
             var admin_editor = new Quill('#quill_editor_admin', {
               theme: 'snow',
-              formats: formatWhitelist,
+              formats: formatWhitelist_admin,
               modules: {
                 toolbar: toolbarOptions
               }
@@ -159,10 +159,10 @@ function bottom_page() {
               [{ 'header': [2, 3, false] }],
               ['clean']
             ];
-            var formatWhitelist = ['italic','script','link','blockquote','list','header','strike'];
+            var formatWhitelist_user = ['italic','script','link','blockquote','list','header','strike'];
             var user_editor = new Quill('#quill_editor_user', {
               theme: 'snow',
-              formats: formatWhitelist,
+              formats: formatWhitelist_user,
               modules: {
                 toolbar: toolbarOptions
               }
@@ -196,12 +196,12 @@ function bottom_page() {
               [{ 'header': [2, 3, false] }],
               ['clean']
             ];
-            var formatWhitelist_editor = ['italic','script','link','blockquote','list','header','image'];
+            var formatWhitelist_verbete = ['italic','script','link','blockquote','list','header','image'];
             var formatWhitelist_anotacao = ['italic','script','link','blockquote','list','header','image'];
             var Delta_verbete = Quill.import('delta');
             var verbete_editor = new Quill('#quill_editor_verbete', {
               theme: 'snow',
-              formats: formatWhitelist_editor,
+              formats: formatWhitelist_verbete,
               modules: {
                 toolbar: {
                   container: toolbarOptions_editor,
@@ -238,7 +238,7 @@ function bottom_page() {
 
             var anotacao_editor = new Quill('#quill_editor_anotacao', {
               theme: 'snow',
-              formats: formatWhitelist,
+              formats: formatWhitelist_anotacao,
               modules: {
                 toolbar: toolbarOptions
               }
@@ -307,10 +307,10 @@ function bottom_page() {
               [{ 'header': [2, 3, false] }],
               ['clean']
             ];
-            var formatWhitelist = ['italic','script','link','blockquote','list','header','strike'];
+            var formatWhitelist_elemento = ['italic','script','link','blockquote','list','header','strike'];
             var elemento_editor = new Quill('#quill_editor_elemento', {
               theme: 'snow',
-              formats: formatWhitelist,
+              formats: formatWhitelist_elemento,
               modules: {
                 toolbar: toolbarOptions
               }
