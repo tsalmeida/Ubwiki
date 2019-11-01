@@ -211,15 +211,6 @@ function bottom_page() {
                 }
               }
             });
-            var anotacao_editor = new Quill('#quill_editor_anotacao', {
-              theme: 'snow',
-              formats: formatWhitelist_anotacao,
-              modules: {
-                toolbar: {
-                  container: toolbarOptions_anotacao
-                }
-              }
-            });
             verbete_editor.disable();
             $('.ql-toolbar:first').hide();
 
