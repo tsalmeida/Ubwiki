@@ -121,7 +121,7 @@ function bottom_page() {
         echo "
           <script src='https://cdn.quilljs.com/1.3.6/quill.js'></script>
           <script>
-            var toolbarOptions = [
+            var toolbarOptions_admin = [
               ['italic'],
               ['strike'],
               ['blockquote'],
@@ -135,7 +135,7 @@ function bottom_page() {
               theme: 'snow',
               formats: formatWhitelist_admin,
               modules: {
-                toolbar: toolbarOptions
+                toolbar: toolbarOptions_admin
               }
             });
             var form_admin = document.querySelector('#quill_admin_form');
@@ -150,7 +150,7 @@ function bottom_page() {
         echo "
           <script src='https://cdn.quilljs.com/1.3.6/quill.js'></script>
           <script>
-            var toolbarOptions = [
+            var toolbarOptions_user = [
               ['italic'],
               ['strike'],
               ['blockquote'],
@@ -164,7 +164,7 @@ function bottom_page() {
               theme: 'snow',
               formats: formatWhitelist_user,
               modules: {
-                toolbar: toolbarOptions
+                toolbar: toolbarOptions_user
               }
             });
             var form_user = document.querySelector('#quill_user_form');
@@ -179,7 +179,7 @@ function bottom_page() {
         echo "
           <script src='https://cdn.quilljs.com/1.3.6/quill.js'></script>
           <script type='text/javascript'>
-            var toolbarOptions_editor = [
+            var toolbarOptions_verbete = [
               ['italic'],
               ['blockquote'],
               [{ 'list': 'ordered'}, { 'list': 'bullet' }],
@@ -204,7 +204,7 @@ function bottom_page() {
               formats: formatWhitelist_verbete,
               modules: {
                 toolbar: {
-                  container: toolbarOptions_editor,
+                  container: toolbarOptions_verbete,
                   handlers: {
                     image: imageHandler
                   }
@@ -240,7 +240,7 @@ function bottom_page() {
               theme: 'snow',
               formats: formatWhitelist_anotacao,
               modules: {
-                toolbar: toolbarOptions
+                toolbar: toolbarOptions_anotacao
               }
             });
             $('#travar_verbete').click(function(){
@@ -298,7 +298,7 @@ function bottom_page() {
         echo "
           <script src='https://cdn.quilljs.com/1.3.6/quill.js'></script>
           <script>
-            var toolbarOptions = [
+            var toolbarOptions_elemento = [
               ['italic'],
               ['strike'],
               ['blockquote'],
@@ -312,7 +312,7 @@ function bottom_page() {
               theme: 'snow',
               formats: formatWhitelist_elemento,
               modules: {
-                toolbar: toolbarOptions
+                toolbar: toolbarOptions_elemento
               }
             });
             var form_elemento = document.querySelector('#quill_elemento_form');
