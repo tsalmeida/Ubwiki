@@ -179,7 +179,7 @@ function bottom_page() {
         echo "
           <script src='https://cdn.quilljs.com/1.3.6/quill.js'></script>
           <script type='text/javascript'>
-            var toolbarOptions = [
+            var toolbarOptions_editor = [
               ['italic'],
               ['blockquote'],
               [{ 'list': 'ordered'}, { 'list': 'bullet' }],
@@ -188,17 +188,35 @@ function bottom_page() {
               ['clean'],
               ['image']
             ];
-            var formatWhitelist = ['italic','script','link','blockquote','list','header','image'];
+            var toolbarOptions_anotacao = [
+              ['italic'],
+              ['blockquote'],
+              [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+              [{ 'script': 'super' }],
+              [{ 'header': [2, 3, false] }],
+              ['clean']
+            ];
+            var formatWhitelist_editor = ['italic','script','link','blockquote','list','header','image'];
+            var formatWhitelist_anotacao = ['italic','script','link','blockquote','list','header','image'];
             var Delta_verbete = Quill.import('delta');
             var verbete_editor = new Quill('#quill_editor_verbete', {
               theme: 'snow',
-              formats: formatWhitelist,
+              formats: formatWhitelist_editor,
               modules: {
                 toolbar: {
-                  container: toolbarOptions,
+                  container: toolbarOptions_editor,
                   handlers: {
                     image: imageHandler
                   }
+                }
+              }
+            });
+            var anotacao_editor = new Quill('#quill_editor_verbete', {
+              theme: 'snow',
+              formats: formatWhitelist_anotacao,
+              modules: {
+                toolbar: {
+                  container: toolbarOptions_anotacao
                 }
               }
             });
