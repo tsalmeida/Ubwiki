@@ -333,7 +333,6 @@
     </div>
     <div class='row justify-content-around'>
       <div id='coluna_esquerda' class='col-lg-5 col-sm-12'>
-
         <div id='verbete' class='verbete_collapse collapse show mb-5 border-top border-light pt-4'>
           <div class='row'>
             <div class='col-12 d-flex justify-content-between'>
@@ -440,18 +439,17 @@
             </div>
           </div>
         </div>
-      </div>
 
-      <div id='imagens' class='imagens_collapse collapse show mb-5 border-top border-light pt-4'>
-        <div class='row'>
-          <div class='col-12 d-flex justify-content-between'>
-            <h1>Imagens</h1>
-            <span class='h5'><a data-toggle='modal' data-target='#modal_imagens_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
-            <span id='esconder_imagens' data-toggle='collapse' data-target='.imagens_collapse'><a href='javascript:void(0);'><i class='fal fa-chevron-up fa-fw'></i></a></span></span>
+        <div id='imagens' class='imagens_collapse collapse show mb-5 border-top border-light pt-4'>
+          <div class='row'>
+            <div class='col-12 d-flex justify-content-between'>
+              <h1>Imagens</h1>
+              <span class='h5'><a data-toggle='modal' data-target='#modal_imagens_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
+              <span id='esconder_imagens' data-toggle='collapse' data-target='.imagens_collapse'><a href='javascript:void(0);'><i class='fal fa-chevron-up fa-fw'></i></a></span></span>
+            </div>
           </div>
-        </div>
-        <div class='row py-3'>
-          <div class='col-12'>
+          <div class='row py-3'>
+            <div class='col-12'>
 <?php
             $result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND tipo = 'imagem'");
             $count = 0;
@@ -512,8 +510,10 @@
               echo "<p>Não foram acrescentadas, até o momento, imagens a este verbete.</p>";
             }
 ?>
+            </div>
           </div>
         </div>
+      </div>
 
 
       <div id='coluna_direita' class='col-lg-5 col-sm-12 anotacoes_collapse collapse show'>
