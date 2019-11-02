@@ -203,17 +203,17 @@
       $nivel_nivel1 = $row['nivel'];
       if ($nivel_nivel1 == 1) {
         if ($titulo_nivel1 == $nivel1) {
-          $breadcrumbs .= "<div class='spacing1'>$fawesome$titulo_nivel1</div>";
+          $breadcrumbs .= "<div class='spacing2'>$fawesome$titulo_nivel1</div>";
+          $count2 = 0;
           while ($row = $result->fetch_assoc()) {
             $id_nivel2 = $row['id'];
             $titulo_nivel2 = $row['nivel2'];
             $nivel1_nivel2 = $row['nivel1'];
-            $count2 = 0;
             $fawesome = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
             if ($nivel1_nivel2 == $nivel1) {
               $count2++;
               if ($count2 == 2) { $fawesome = "<i class='fal fa-long-arrow-right fa-fw'></i>"; }
-              $breadcrumbs .= "<div class='spacing1'>$fawesome<a href='verbete.php?concurso=$concurso&tema=$id_nivel2'>$titulo_nivel2</a></div>";
+              $breadcrumbs .= "<div class='spacing2'>$fawesome<a href='verbete.php?concurso=$concurso&tema=$id_nivel2'>$titulo_nivel2</a></div>";
             }
           }
         }
