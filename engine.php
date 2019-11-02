@@ -12,7 +12,7 @@
   $conn = new mysqli($servername, $username, $password, $dbname);
   mysqli_set_charset($conn,"utf8");
   
-  $user_id = false;
+  $user_email = false;
   $newuser = false;
   $special = false;
   
@@ -35,36 +35,41 @@
     if ((isset($_POST['email'])) && (isset($_POST['bora']))) {
       $_SESSION['email'] = $_POST['email'];
       $_SESSION['bora'] = $_POST['bora'];
-      $user_id = $_SESSION['email'];
+      $user_email = $_SESSION['email'];
       $bora = $_SESSIO['bora'];
-      $result = $conn->query("SELECT id FROM Usuarios WHERE email = '$user_id'");
+      $result = $conn->query("SELECT id FROM Usuarios WHERE email = '$user_email'");
       if ($result->num_rows == 0) {
         $newuser = true;
-        $insert = $conn->query("INSERT INTO Usuarios (tipo, email) VALUES ('estudante', '$user_id')");
+        $insert = $conn->query("INSERT INTO Usuarios (tipo, email) VALUES ('estudante', '$user_email')");
       }
     }
     else {
-      header('Location:ubwiki/login.php');
+      header('Location:login.php');
     }
   }
   else {
-    $user_id = $_SESSION['email'];
+    $user_email = $_SESSION['email'];
   }
-  if ($user_id != false) {
-    $result = $conn->query("SELECT id FROM Usuarios WHERE email = '$user_id'");
+  if ($user_email != false) {
+    $result = $conn->query("SELECT id FROM Usuarios WHERE email = '$user_email'");
     if ($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {
-        header("Location:index.php");
+//        header("Location:index.php");
       }
     }
   }
   else {
     if ($special == true) {
-      header('Location:ubwiki/index.php');
+//      header('Location:index.php');
     }
   }
-
-
+  
+  $result = $conn->query("SELECT id FROM Usuarios WHERE email = '$user_email'");
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $user_id = $row['id'];
+    }
+  }
 
 function carregar_navbar() {
   $args = func_get_args();

@@ -1,13 +1,6 @@
 <?php
 	
-	include 'engine.php';
-
-  if (isset($_SESSION['email'])) {
-    $user_email = $_SESSION['email'];
-  }
-  else {
-    header('Location:login.php');
-  }
+  include 'engine.php';
 
   $result = $conn->query("SELECT id, tipo, criacao, apelido, nome, sobrenome FROM Usuarios WHERE email = '$user_email'");
   if ($result->num_rows > 0) {

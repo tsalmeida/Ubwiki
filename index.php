@@ -1,25 +1,7 @@
 <?php
 
   $concurso = 'CACD';
-  $newuser = false;
   include 'engine.php';
-
-  if (isset($_SESSION['email'])) {
-    $user = $_SESSION['email'];
-  }
-  else {
-    header('Location:login.php');
-  }
-
-  $result = $conn->query("SELECT id FROM Usuarios WHERE email = '$user'");
-  if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
-      $usuario_id = $row['id'];
-    }
-  }
-  else {
-    $newuser = true;
-  }
 
   top_page(false, "onepage");
 

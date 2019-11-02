@@ -1,38 +1,24 @@
 <?php
   
   include 'engine.php';
-
-  if (isset($_SESSION['email'])) {
-    $user_email = $_SESSION['email'];
-  }
-  else {
-    header('Location:login.php');
-  }
-
-  $result = $conn->query("SELECT id FROM Usuarios WHERE email = '$user_email'");
-  if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
-      $user_id = $row['id'];
+	
+    if (isset($_GET['tema'])) {
+      $tema_id = $_GET['tema'];
     }
-  }
-
-  if (isset($_GET['tema'])) {
-    $tema_id = $_GET['tema'];
-  }
-
-  if (isset($_GET['concurso'])) {
-    $concurso = $_GET['concurso'];
-  }
-
-  $variaveis_php_session = "
-    <script type='text/javascript'>
-      var user_id=$user_id;
-      var tema_id=$tema_id;
-      var concurso='$concurso';
-      var user_email='$user_email';
-    </script>
-  ";
-
+    
+    if (isset($_GET['concurso'])) {
+      $concurso = $_GET['concurso'];
+    }
+    
+    $variaveis_php_session = "
+        <script type='text/javascript'>
+          var user_id=$user_id;
+          var tema_id=$tema_id;
+          var concurso='$concurso';
+          var user_email='$user_email';
+        </script>
+    ";
+  
   top_page($variaveis_php_session, "quill_v", "lightbox");
 
   $result = $conn->query("SELECT sigla_materia, nivel, ordem, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND id = $tema_id");
