@@ -301,6 +301,7 @@
         }
       }
     }
+  }
 
 ?>
   <div class='container-fluid grey lighten-3'>
