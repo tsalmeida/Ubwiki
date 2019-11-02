@@ -1,8 +1,5 @@
   <?php
-  $sessionpath = realpath(dirname($_SERVER['DOCUMENT_ROOT']));
-  $sessionpath .= '/htdocs/sessions';
-  session_save_path($sessionpath);
-  session_start();
+
   if (isset($_SESSION['email'])) {
     header('Location:index.php');
   }

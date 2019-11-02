@@ -1,6 +1,7 @@
 <?php
   
   include 'engine.php';
+
   if (isset($_SESSION['email'])) {
     $user_email = $_SESSION['email'];
   }

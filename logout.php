@@ -1,6 +1,6 @@
   <?php
-  session_save_path('/sessions/');
-  session_start();
+
+  include 'engine.php';
   if (!isset($_SESSION['email'])) {
     header('Location:index.php');
   }
@@ -9,7 +9,6 @@
     session_destroy();
   }
 
-  include 'engine.php';
   top_page(false);
   ?>
   <body>

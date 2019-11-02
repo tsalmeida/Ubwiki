@@ -1,14 +1,14 @@
 <?php
-  session_save_path('/sessions/');
-  session_start();
+	
+  include 'engine.php';
+  
   if (isset($_SESSION['email'])) {
     $user = $_SESSION['email'];
   }
   else {
     header('Location:login.php');
   }
-
-  include 'engine.php';
+  
   if (isset($_GET['concurso'])) {
     $concurso = $_GET['concurso'];
   }

@@ -1,6 +1,6 @@
 <?php
-  session_save_path('/sessions/');
-  session_start();
+
+  include 'engine.php';
 
   if (isset($_SESSION['email'])) {
     $user = $_SESSION['email'];
@@ -8,9 +8,7 @@
   else {
     header('Location:login.php');
   }
-
-  include 'engine.php';
-
+  
   if (isset($_POST['otimizar_temas_concurso'])) {
     $concurso = $_POST['otimizar_temas_concurso'];
     $ordem = 0;

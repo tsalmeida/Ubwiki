@@ -1,11 +1,11 @@
 <?php
+
     include '/ubwiki/engine.php';
     $user_id = false;
     $newuser = false;
     $dev = false;
     $special = false;
-    session_save_path('/ubwiki/sessions/');
-    session_start();
+
     if (isset($_GET['special'])) {
         $special = $_GET['special'];
     }

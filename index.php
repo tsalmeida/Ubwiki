@@ -4,8 +4,6 @@
   $newuser = false;
   include 'engine.php';
 
-  session_save_path('/sessions/');
-  session_start();
   if (isset($_SESSION['email'])) {
     $user = $_SESSION['email'];
   }

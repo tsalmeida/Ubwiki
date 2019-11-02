@@ -1,31 +1,32 @@
 <?php
-session_save_path('/sessions/');
-session_start();
-if (isset($_SESSION['email'])) {
-  $user = $_SESSION['email'];
-}
-else {
-  header('Location:login.php');
-}
 
-include 'engine.php';
-top_page(false);
-
-if (isset($_GET['sigla'])) {
-  $sigla = $_GET['sigla'];
-}
-
-if (isset($_GET['concurso'])) {
-  $concurso = $_GET['concurso'];
-}
-$materia = false;
-$found = false;
-$result = $conn->query("SELECT materia FROM Materias WHERE concurso = '$concurso' AND estado = 1 AND sigla = '$sigla' ORDER BY ordem");
-if ($result->num_rows > 0) {
-  while($row = $result->fetch_assoc()) {
-    $materia = $row["materia"];
-  }
-}
+    include 'engine.php';
+    
+    if (isset($_SESSION['email'])) {
+      $user = $_SESSION['email'];
+    }
+    else {
+      header('Location:login.php');
+    }
+    
+    
+    top_page(false);
+    
+    if (isset($_GET['sigla'])) {
+      $sigla = $_GET['sigla'];
+    }
+    
+    if (isset($_GET['concurso'])) {
+      $concurso = $_GET['concurso'];
+    }
+    $materia = false;
+    $found = false;
+    $result = $conn->query("SELECT materia FROM Materias WHERE concurso = '$concurso' AND estado = 1 AND sigla = '$sigla' ORDER BY ordem");
+    if ($result->num_rows > 0) {
+      while($row = $result->fetch_assoc()) {
+        $materia = $row["materia"];
+      }
+    }
 ?>
 
 <body>
