@@ -1,3 +1,3 @@
 <?php
-    header('ubwiki/index.php');
+    header('index.php');
 ?>
