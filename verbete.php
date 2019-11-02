@@ -198,7 +198,7 @@
     $spacing = 'spacing1';
     while ($row = $result->fetch_assoc()) {
       $count++;
-      if ($count == 2) { $fawesome = false; }
+      if ($count == 2) { $fawesome = false; $spacing = 'spacing2'; }
       $id_nivel1 = $row['id'];
       $titulo_nivel1 = $row['nivel1'];
       $nivel_nivel1 = $row['nivel'];
