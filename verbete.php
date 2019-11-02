@@ -1,6 +1,6 @@
 <?php
-  session_save_path('/home/tsilvaalmeida/public_html/ubwiki/sessions/');
-  session_start();
+  
+  include 'engine.php';
   if (isset($_SESSION['email'])) {
     $user_email = $_SESSION['email'];
   }
@@ -8,7 +8,6 @@
     header('Location:login.php');
   }
 
-  include 'engine.php';
   $result = $conn->query("SELECT id FROM Usuarios WHERE email = '$user_email'");
   if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {

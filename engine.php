@@ -1,5 +1,10 @@
 <?php
 
+$sessionpath = realpath(dirname($_SERVER['DOCUMENT_ROOT']));
+$sessionpath .= '/htdocs/sessions';
+session_save_path($sessionpath);
+session_start();
+
 $servername = "localhost";
 $username = "grupoubique";
 $password = "ubique patriae memor";

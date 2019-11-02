@@ -1,5 +1,5 @@
 <?php
-  session_save_path('/home/tsilvaalmeida/public_html/ubwiki/sessions/');
+  session_save_path('/sessions/');
   session_start();
 
   if (isset($_SESSION['email'])) {
