@@ -196,12 +196,14 @@
     while ($row = $result->fetch_assoc()) {
       $id_nivel1 = $row['id'];
       $titulo_nivel1 = $row['nivel1'];
-      $titulo_nivel2 = $row['nivel2'];
-      if (($titulo_nivel1 == $nivel1) && ($titulo_nivel2 == false)) {
-        $breadcrumbs .= "<div class='spacing1'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i>$titulo_nivel1</div>";
-      }
-      else {
-        $breadcrumbs .= "<div class='spacing1'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel1'>$titulo_nivel1</a></div>";
+      $nivel_nivel1 = $row['nivel'];
+      if ($nivel_nivel1 == 1) {
+        if ($titulo_nivel1 == $nivel1) {
+          $breadcrumbs .= "<div class='spacing1'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i>$titulo_nivel1</div>";
+        }
+        else {
+          $breadcrumbs .= "<div class='spacing1'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel1'>$titulo_nivel1</a></div>";
+        }
       }
     }
   }
