@@ -212,7 +212,7 @@
             $fawesome = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
             if ($nivel1_nivel2 == $nivel1) {
               $count2++;
-              if ($count == 2) { $fawesome = "<i class='fal fa-long-arrow-right fa-fw'></i>"; }
+              if ($count2 == 2) { $fawesome = "<i class='fal fa-long-arrow-right fa-fw'></i>"; }
               $breadcrumbs .= "<div class='spacing1'>$fawesome<a href='verbete.php?concurso=$concurso&tema=$id_nivel2'>$titulo_nivel2</a></div>";
             }
           }
