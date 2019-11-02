@@ -203,7 +203,7 @@
       $nivel_nivel1 = $row['nivel'];
       if ($nivel_nivel1 == 1) {
         if ($titulo_nivel1 == $nivel1) {
-          $breadcrumbs .= "<div class='spacing2'>$fawesome$titulo_nivel1</div>";
+          $breadcrumbs .= "<div class='spacing1'>$fawesome$titulo_nivel1</div>";
           $count2 = 0;
           while ($row = $result->fetch_assoc()) {
             $id_nivel2 = $row['id'];
