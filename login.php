@@ -17,7 +17,6 @@
         <div class="col-lg-5 col-sm-12">
           <h1 class="text-center">Login necessário</h1>
           <p>Você não está logado. Para fazê-lo gratuitamente, por favor crie uma conta na <a href='https://www.grupoubique.com.br'>página do Grupo Ubique</a> e siga o link 'Ubwiki' no topo da página ou na sua lista de cursos.</p>
-            <?php phpinfo(); ?>
         </div>
       </div>
     </div>

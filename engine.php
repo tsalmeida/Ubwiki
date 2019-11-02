@@ -1,7 +1,7 @@
 <?php
 
 $sessionpath = realpath(dirname($_SERVER['DOCUMENT_ROOT']));
-$sessionpath .= '/htdocs/sessions';
+$sessionpath .= '/sessions';
 session_save_path($sessionpath);
 session_start();
 
