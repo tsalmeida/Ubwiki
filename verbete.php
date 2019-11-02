@@ -452,9 +452,9 @@
 																echo "
                     <div class=' carousel-item $active text-center'>
                       <figure class='col-12'>
-                        <a href='imagens/verbetes/$imagem_arquivo'
+                        <a href='../imagens/verbetes/$imagem_arquivo'
                           data-size='$imagem_resolucao'>
-                          <img src='imagens/verbetes/thumbnails/$imagem_arquivo'
+                          <img src='../imagens/verbetes/thumbnails/$imagem_arquivo'
                             class='img-fluid' style='height:300px'>
                         </a>
                         <figcaption><h5 class='mt-3'>$imagem_titulo</h5>

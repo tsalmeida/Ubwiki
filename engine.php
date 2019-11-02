@@ -132,7 +132,7 @@
     <link href="css/style.css" rel="stylesheet">
     <!-- Bootstrap Horizon -->
     <link href="css/bootstrap-horizon.css" rel="stylesheet">
-    <link type="image/vnd.microsoft.icon" rel="icon" href="imagens/favicon.ico"/>
+    <link type="image/vnd.microsoft.icon" rel="icon" href="../imagens/favicon.ico"/>
     <title>Ubwiki</title>';
 		
 		if ($args != false) {
@@ -764,7 +764,7 @@
 		$check = substr($filename, -4);
 		$check = strtolower($check);
 		/* read the source image */
-		$original = "imagens/verbetes/$filename";
+		$original = "../imagens/verbetes/$filename";
 		if (($check == ".jpg") || ($check == "jpeg")) {
 			$source_image = imagecreatefromjpeg($original);
 		} elseif ($check == ".png") {
@@ -788,7 +788,7 @@
 		imagecopyresampled($virtual_image, $source_image, 0, 0, 0, 0, $desired_width, $desired_height, $width, $height);
 		
 		/* create the physical thumbnail image to its destination */
-		$prefix = "imagens/verbetes/thumbnails/";
+		$prefix = "../imagens/verbetes/thumbnails/";
 		$destination = "$prefix$filename";
 		if (($check == ".jpg") || ($check == "jpeg")) {
 			imagejpeg($virtual_image, "$destination");
@@ -835,7 +835,7 @@
 			$ultimo_ponto = strripos($nova_imagem_link, ".");
 			$extensao = substr($nova_imagem_link, $ultimo_ponto);
 			$nova_imagem_arquivo = "$randomfilename$extensao";
-			$nova_imagem_diretorio = "imagens/verbetes/$randomfilename$extensao";
+			$nova_imagem_diretorio = "../imagens/verbetes/$randomfilename$extensao";
 			file_put_contents("$nova_imagem_diretorio", fopen($nova_imagem_link, 'r'));
 			$dados_da_imagem = make_thumb($nova_imagem_arquivo);
 			if ($dados_da_imagem == false) {

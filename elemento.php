@@ -91,7 +91,7 @@
             if ($tipo_elemento == 'imagem') {
               echo "
               <h2>Imagem</h2>
-              <img class='imagem_pagina border' src='imagens/verbetes/$arquivo_elemento'></img>
+              <img class='imagem_pagina border' src='../imagens/verbetes/$arquivo_elemento'></img>
               ";
             }
           ?>
@@ -106,8 +106,8 @@
                 <li class='list-group-item'><strong>Capítulo:</strong> $capitulo_elemento</li>
                 <li class='list-group-item'><strong>Ano:</strong> $ano_elemento</li>
                 <li class='list-group-item'><a href='$link_elemento' target='_blank'>Link</a></li>
-                <li class='list-group-item'><a href='imagens/verbetes/$arquivo_elemento' target='_blank'>Arquivo</a></li>
-                <li class='list-group-item'><a href='imagens/verbetes/thumbnails/$arquivo_elemento' target='_blank'>Thumbnail</a></li>
+                <li class='list-group-item'><a href='../imagens/verbetes/$arquivo_elemento' target='_blank'>Arquivo</a></li>
+                <li class='list-group-item'><a href='../imagens/verbetes/thumbnails/$arquivo_elemento' target='_blank'>Thumbnail</a></li>
                 <li class='list-group-item'><strong>Resolução:</strong> $resolucao_elemento</li>
                 <li class='list-group-item'><strong>Orientação:</strong> $orientacao_elemento</li>
                 <li class='list-group-item'><strong>Comentário:</strong> $comentario_elemento</li>
