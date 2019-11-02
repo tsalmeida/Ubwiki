@@ -196,7 +196,8 @@
     while ($row = $result->fetch_assoc()) {
       $id_nivel1 = $row['id'];
       $titulo_nivel1 = $row['nivel1'];
-      if ($titulo_nivel1 = $nivel1) {
+      $titulo_nivel2 = $row['nivel2'];
+      if (($titulo_nivel1 == $nivel1) && ($titulo_nivel2 == false)) {
         $breadcrumbs .= "<div class='spacing1'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i>$titulo_nivel1</div>";
       }
       else {
@@ -217,7 +218,7 @@
       while ($row = $result->fetch_assoc()) {
         $id_nivel2 = $row['id'];
         $titulo_nivel2 = $row['nivel2'];
-        if ($titulo_nivel2 = $nivel2) {
+        if ($titulo_nivel2 == $nivel2) {
           $breadcrumbs .= "<div class='spacing2'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i>$titulo_nivel2</div>";
         }
         else {
@@ -238,7 +239,7 @@
         while ($row = $result->fetch_assoc()) {
           $id_nivel3 = $row['id'];
           $titulo_nivel3 = $row['nivel3'];
-          if ($titulo_nivel3 = $nivel3) {
+          if ($titulo_nivel3 == $nivel3) {
             $breadcrumbs .= "<div class='spacing3'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i>$titulo_nivel3</div>";
           }
           else {
@@ -259,7 +260,7 @@
           while ($row = $result->fetch_assoc()) {
             $id_nivel4 = $row['id'];
             $titulo_nivel4 = $row['nivel4'];
-            if ($titulo_nivel4 = $nivel4) {
+            if ($titulo_nivel4 == $nivel4) {
               $breadcrumbs .= "<div class='spacing4'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i>$titulo_nivel4</div>";
             }
             else {
@@ -280,7 +281,7 @@
             while ($row = $result->fetch_assoc()) {
               $id_nivel5 = $row['id'];
               $titulo_nivel5 = $row['nivel5'];
-              if ($titulo_nivel5 = $nivel5) {
+              if ($titulo_nivel5 == $nivel5) {
                 $breadcrumbs .= "<div class='spacing5'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i>$titulo_nivel5</div>";
               }
               else {

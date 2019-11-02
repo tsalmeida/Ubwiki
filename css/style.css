@@ -189,26 +189,26 @@ h1, h2, h3, h4, h5, h6 {
   min-height: 90vh;
 }
 
-.spacing1 {
+.spacing0 {
   margin-left: 1ch;
 }
 
-.spacing2 {
+.spacing1 {
   margin-left: 2ch;
 }
 
-.spacing3 {
+.spacing2 {
   margin-left: 3ch;
 }
 
-.spacing4 {
+.spacing3 {
   margin-left: 4ch;
 }
 
-.spacing5 {
+.spacing4 {
   margin-left: 5ch;
 }
 
-.spacing6 {
+.spacing5 {
   margin-left: 6ch;
 }
