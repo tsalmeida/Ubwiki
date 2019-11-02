@@ -1,7 +1,7 @@
 <?php
-	
-	$logout = true;
-	
+
+    $loginpage = true;
+
 	include 'engine.php';
 	
 	top_page(false);

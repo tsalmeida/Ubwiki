@@ -1,5 +1,7 @@
 <?php
 	
+  if (!isset($loginpage)) { $loginpage = false; }
+  
 	$sessionpath = getcwd();
 	$sessionpath .= '/../sessions';
 	session_save_path($sessionpath);
@@ -41,7 +43,7 @@
 				$insert = $conn->query("INSERT INTO Usuarios (tipo, email) VALUES ('estudante', '$user_email')");
 			}
 		} else {
-			header('Location:login.php');
+		  if ($loginpage == false) { header('Location:login.php'); }
 		}
 	} else {
 		$user_email = $_SESSION['email'];
