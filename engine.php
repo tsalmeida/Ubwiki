@@ -2,6 +2,7 @@
 
 $sessionpath = realpath(dirname($_SERVER['DOCUMENT_ROOT']));
 $sessionpath .= '/sessions';
+error_log($sessionpath);
 session_save_path($sessionpath);
 session_start();
 
