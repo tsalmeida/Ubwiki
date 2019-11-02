@@ -195,19 +195,18 @@
   if ($nivel == 1) {
     $count = 0;
     $fawesome = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
-    $spacing = 'spacing1';
     while ($row = $result->fetch_assoc()) {
       $count++;
-      if ($count == 2) { $fawesome = "<i class='fal fa-long-arrow-right fa-fw'></i>"; $spacing = 'spacing3'; }
+      if ($count == 2) { $fawesome = "<i class='fal fa-long-arrow-right fa-fw'></i>"; }
       $id_nivel1 = $row['id'];
       $titulo_nivel1 = $row['nivel1'];
       $nivel_nivel1 = $row['nivel'];
       if ($nivel_nivel1 == 1) {
         if ($titulo_nivel1 == $nivel1) {
-          $breadcrumbs .= "<div class='$spacing'>$fawesome$titulo_nivel1</div>";
+          $breadcrumbs .= "<div class='spacing1'>$fawesome$titulo_nivel1</div>";
         }
         else {
-          $breadcrumbs .= "<div class='$spacing'>$fawesome<a href='verbete.php?concurso=$concurso&tema=$id_nivel1'>$titulo_nivel1</a></div>";
+          $breadcrumbs .= "<div class='spacing1'>$fawesome<a href='verbete.php?concurso=$concurso&tema=$id_nivel1'>$titulo_nivel1</a></div>";
         }
       }
     }
