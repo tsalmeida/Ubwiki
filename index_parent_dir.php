@@ -1,6 +1,6 @@
 <?php
 
-    include '/ubwiki/engine.php';
+    include 'engine.php';
     $user_id = false;
     $newuser = false;
     $dev = false;
