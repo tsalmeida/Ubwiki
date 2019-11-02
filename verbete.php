@@ -172,11 +172,11 @@
 	
 	
 	$result = $conn->query("SELECT id, nivel, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' ORDER BY ordem");
-    if ($nivel == 1) { $tema_titulo = $nivel1 };
-    elseif ($nivel2 == ) { $tema_titulo = $nivel2; }
-    elseif ($nivel3 == ) { $tema_titulo = $nivel3; }
-    elseif ($nivel4 == ) { $tema_titulo = $nivel4; }
-    elseif ($nivel5 == ) { $tema_titulo = $nivel5; }
+    if ($nivel == 1) { $tema_titulo = $nivel1; }
+    elseif ($nivel == 2) { $tema_titulo = $nivel2; }
+    elseif ($nivel == 3) { $tema_titulo = $nivel3; }
+    elseif ($nivel == 4) { $tema_titulo = $nivel4; }
+    elseif ($nivel == 5) { $tema_titulo = $nivel5; }
 	if ($nivel == 1) {
 		$count = 0;
 		$fawesome = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
