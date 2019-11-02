@@ -1,7 +1,7 @@
 <?php
 
   $sessionpath = getcwd();
-  $sessionpath .= '/sessions';
+  $sessionpath .= '/../sessions';
   session_save_path($sessionpath);
   session_start();
   
