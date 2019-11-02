@@ -206,8 +206,8 @@
           $breadcrumbs .= "<div class='spacing1'>$fawesome$titulo_nivel1</div>";
           while ($row = $result->fetch_assoc()) {
             $id_nivel2 = $row['id'];
-            $titulo_nivel2 = $row['nivel2']
-            $nivel1_nivel2 = $row['nivel1']
+            $titulo_nivel2 = $row['nivel2'];
+            $nivel1_nivel2 = $row['nivel1'];
             $count2 = 0;
             $fawesome = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
             if ($nivel1_nivel2 == $nivel1) {
