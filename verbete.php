@@ -191,7 +191,7 @@
   ";
 
 
-  $result = $conn->query("SELECT id, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' ORDER BY ordem");
+  $result = $conn->query("SELECT id, nivel, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' ORDER BY ordem");
   if ($nivel == 1) {
     while ($row = $result->fetch_assoc()) {
       $id_nivel1 = $row['id'];
