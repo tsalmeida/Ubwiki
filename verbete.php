@@ -204,107 +204,21 @@
       if ($nivel_nivel1 == 1) {
         if ($titulo_nivel1 == $nivel1) {
           $breadcrumbs .= "<div class='spacing1'>$fawesome$titulo_nivel1</div>";
+          while ($row = $result->fetch_assoc()) {
+            $id_nivel2 = $row['id'];
+            $titulo_nivel2 = $row['nivel2']
+            $nivel1_nivel2 = $row['nivel1']
+            $count2 = 0;
+            $fawesome = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
+            if ($nivel1_nivel2 == $nivel1) {
+              $count2++;
+              if ($count == 2) { $fawesome = "<i class='fal fa-long-arrow-right fa-fw'></i>"; }
+              $breadcrumbs .= "<div class='spacing1'>$fawesome<a href='verbete.php?concurso=$concurso&tema=$id_nivel2'>$titulo_nivel2</a></div>";
+            }
+          }
         }
         else {
           $breadcrumbs .= "<div class='spacing1'>$fawesome<a href='verbete.php?concurso=$concurso&tema=$id_nivel1'>$titulo_nivel1</a></div>";
-        }
-      }
-    }
-  }
-  else {
-    while ($row = $result->fetch_assoc()) {
-      $id_nivel1 = $row['id'];
-      $titulo_nivel1 = $row['nivel1'];
-      if ($titulo_nivel1 == $nivel1) {
-        $breadcrumbs .= "<div class='spacing1'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel1'>$titulo_nivel1</a></div>";
-        break;
-      }
-    }
-    if ($nivel == 2) {
-      while ($row = $result->fetch_assoc()) {
-        $id_nivel2 = $row['id'];
-        $titulo_nivel2 = $row['nivel2'];
-        if ($titulo_nivel2 == $nivel2) {
-          $breadcrumbs .= "<div class='spacing2'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i>$titulo_nivel2</div>";
-        }
-        else {
-          $breadcrumbs .= "<div class='spacing2'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel2'>$titulo_nivel2</a></div>";
-        }
-      }
-    }
-    else {
-      while ($row = $result->fetch_assoc()) {
-        $id_nivel2 = $row['id'];
-        $titulo_nivel2 = $row['nivel2'];
-        if ($titulo_nivel2 == $nivel2) {
-          $breadcrumbs .= "<div class='spacing2'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel2'>$titulo_nivel2</a></div>";
-          break;
-        }
-      }
-      if ($nivel == 3) {
-        while ($row = $result->fetch_assoc()) {
-          $id_nivel3 = $row['id'];
-          $titulo_nivel3 = $row['nivel3'];
-          if ($titulo_nivel3 == $nivel3) {
-            $breadcrumbs .= "<div class='spacing3'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i>$titulo_nivel3</div>";
-          }
-          else {
-            $breadcrumbs .= "<div class='spacing3'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel3'>$titulo_nivel3</a></div>";
-          }
-        }
-      }
-      else {
-        while ($row = $result->fetch_assoc()) {
-          $id_nivel3 = $row['id'];
-          $titulo_nivel3 = $row['nivel3'];
-          if ($titulo_nivel3 == $nivel3) {
-            $breadcrumbs .= "<div class='spacing3'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel3'>$titulo_nivel3</a></div>";
-            break;
-          }
-        }
-        if ($nivel == 4) {
-          while ($row = $result->fetch_assoc()) {
-            $id_nivel4 = $row['id'];
-            $titulo_nivel4 = $row['nivel4'];
-            if ($titulo_nivel4 == $nivel4) {
-              $breadcrumbs .= "<div class='spacing4'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i>$titulo_nivel4</div>";
-            }
-            else {
-              $breadcrumbs .= "<div class='spacing4'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel4'>$titulo_nivel4</a></div>";
-            }
-          }
-        }
-        else {
-          while ($row = $result->fetch_assoc()) {
-            $id_nivel4 = $row['id'];
-            $titulo_nivel4 = $row['nivel4'];
-            if ($titulo_nivel4 == $nivel4) {
-              $breadcrumbs .= "<div class='spacing4'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel4'>$titulo_nivel4</a></div>";
-              break;
-            }
-          }
-          if ($nivel == 5) {
-            while ($row = $result->fetch_assoc()) {
-              $id_nivel5 = $row['id'];
-              $titulo_nivel5 = $row['nivel5'];
-              if ($titulo_nivel5 == $nivel5) {
-                $breadcrumbs .= "<div class='spacing5'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i>$titulo_nivel5</div>";
-              }
-              else {
-                $breadcrumbs .= "<div class='spacing5'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel5'>$titulo_nivel5</a></div>";
-              }
-            }
-          }
-          else {
-            while ($row = $result->fetch_assoc()) {
-              $id_nivel5 = $row['id'];
-              $titulo_nivel5 = $row['nivel5'];
-              if ($titulo_nivel5 == $nivel5) {
-                $breadcrumbs .= "<div class='spacing5'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel5'>$titulo_nivel5</a></div>";
-                break;
-              }
-            }
-          }
         }
       }
     }
