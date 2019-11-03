@@ -210,126 +210,126 @@
 		}
 	}
 	if ($nivel > 1) {
-		$result = $conn->query("SELECT id FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' AND nivel1 = '$nivel1' AND nivel = 1 ORDER BY ordem");
-		while ($row = $result->fetch_assoc()) {
-			$id_nivel1 = $row['id'];
-			$breadcrumbs .= "<div class='spacing1'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel1'>$nivel1</a></div>";
-		}
-	}
-	if ($nivel == 2) {
-		$result2 = $conn->query("SELECT id, nivel2 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' AND nivel1 = '$nivel1' AND nivel = 2 ORDER BY ordem");
-		$count = 0;
-		$fawesome = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
-		while ($row2 = $result2->fetch_assoc()) {
-			$count++;
-			if ($count == 2) {
-				$fawesome = "<i class='fal fa-long-arrow-right fa-fw'></i>";
+			$result = $conn->query("SELECT id FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' AND nivel1 = '$nivel1' AND nivel = 1 ORDER BY ordem");
+			while ($row = $result->fetch_assoc()) {
+				$id_nivel1 = $row['id'];
+				$breadcrumbs .= "<div class='spacing1'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel1'>$nivel1</a></div>";
 			}
-			$id_nivel2 = $row2['id'];
-			$titulo_nivel2 = $row2['nivel2'];
-			if ($titulo_nivel2 == $nivel2) {
-				$breadcrumbs .= "<div class='spacing2'>$fawesome$nivel2</div>";
-				$result3 = $conn->query("SELECT id, nivel3 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' AND nivel = 3 AND nivel2 = '$nivel2' ORDER BY ordem");
-				$count = 0;
-				$fawesome3 = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
-				while ($row3 = $result3->fetch_assoc()) {
-					$id_nivel3 = $row3['id'];
-					$titulo_nivel3 = $row3['nivel3'];
-					$count++;
-					if ($count == 2) {
-						$fawesome3 = "<i class='fal fa-long-arrow-right fa-fw'></i>";
+		}
+	if ($nivel == 2) {
+			$result2 = $conn->query("SELECT id, nivel2 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' AND nivel1 = '$nivel1' AND nivel = 2 ORDER BY ordem");
+			$count = 0;
+			$fawesome = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
+			while ($row2 = $result2->fetch_assoc()) {
+				$count++;
+				if ($count == 2) {
+					$fawesome = "<i class='fal fa-long-arrow-right fa-fw'></i>";
+				}
+				$id_nivel2 = $row2['id'];
+				$titulo_nivel2 = $row2['nivel2'];
+				if ($titulo_nivel2 == $nivel2) {
+					$breadcrumbs .= "<div class='spacing2'>$fawesome$nivel2</div>";
+					$result3 = $conn->query("SELECT id, nivel3 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' AND nivel = 3 AND nivel2 = '$nivel2' ORDER BY ordem");
+					$count = 0;
+					$fawesome3 = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
+					while ($row3 = $result3->fetch_assoc()) {
+						$id_nivel3 = $row3['id'];
+						$titulo_nivel3 = $row3['nivel3'];
+						$count++;
+						if ($count == 2) {
+							$fawesome3 = "<i class='fal fa-long-arrow-right fa-fw'></i>";
+						}
+						$breadcrumbs .= "<div class='spacing3'>$fawesome3<a href='verbete.php?concurso=$concurso&tema=$id_nivel3'>$titulo_nivel3</a></div>";
 					}
+				} else {
+					$breadcrumbs .= "<div class='spacing2'>$fawesome<a href='verbete.php?concurso=$concurso&tema=$id_nivel2'>$titulo_nivel2</a></div>";
+				}
+			}
+		}
+	if ($nivel > 2) {
+			$result2 = $conn->query("SELECT id, nivel2 FROM Temas WHERE nivel1 = '$nivel1' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia' ORDER BY ordem");
+			while ($row2 = $result2->fetch_assoc()) {
+				$id_nivel2 = $row2['id'];
+				$titulo_nivel2 = $row2['nivel2'];
+				if ($titulo_nivel2 == $nivel2) {
+					$breadcrumbs .= "<div class='spacing2'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel2'>$nivel2</a></div>";
+					break;
+				}
+			}
+		}
+	if ($nivel == 3) {
+			$result3 = $conn->query("SELECT id, nivel3 FROM Temas WHERE nivel2 = '$nivel2' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia' AND nivel = 3 ORDER BY ordem");
+			$count = 0;
+			$fawesome3 = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
+			while ($row3 = $result3->fetch_assoc()) {
+				$count++;
+				if ($count == 2) {
+					$fawesome3 = "<i class='fal fa-long-arrow-right fa-fw'></i>";
+				};
+				$id_nivel3 = $row3['id'];
+				$titulo_nivel3 = $row3['nivel3'];
+				if ($titulo_nivel3 == $nivel3) {
+					$breadcrumbs .= "<div class='spacing3'>$fawesome3$nivel3</div>";
+					$result4 = $conn->query("SELECT id, nivel4 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' AND nivel = 4 AND nivel3 = '$nivel3' ORDER BY ordem");
+					$count = 0;
+					$fawesome4 = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
+					while ($row4 = $result4->fetch_assoc()) {
+						$id_nivel4 = $row4['id'];
+						$titulo_nivel4 = $row4['nivel4'];
+						$count++;
+						if ($count == 2) {
+							$fawesome4 = "<i class='fal fa-long-arrow-right fa-fw'></i>";
+						}
+						$breadcrumbs .= "<div class='spacing4'>$fawesome4<a href='verbete.php?concurso=$concurso&tema=$id_nivel4'>$titulo_nivel4</a></div>";
+					}
+				} else {
 					$breadcrumbs .= "<div class='spacing3'>$fawesome3<a href='verbete.php?concurso=$concurso&tema=$id_nivel3'>$titulo_nivel3</a></div>";
 				}
-			} else {
-				$breadcrumbs .= "<div class='spacing2'>$fawesome<a href='verbete.php?concurso=$concurso&tema=$id_nivel2'>$titulo_nivel2</a></div>";
 			}
 		}
-	}
-	if ($nivel > 2) {
-		$result2 = $conn->query("SELECT id, nivel2 FROM Temas WHERE nivel1 = '$nivel1' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia' ORDER BY ordem");
-		while ($row2 = $result2->fetch_assoc()) {
-			$id_nivel2 = $row2['id'];
-			$titulo_nivel2 = $row2['nivel2'];
-			if ($titulo_nivel2 == $nivel2) {
-				$breadcrumbs .= "<div class='spacing2'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel2'>$nivel2</a></div>";
-				break;
-			}
-		}
-	}
-	if ($nivel == 3) {
-		$result3 = $conn->query("SELECT id, nivel3 FROM Temas WHERE nivel2 = '$nivel2' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia' AND nivel = 3 ORDER BY ordem");
-		$count = 0;
-		$fawesome3 = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
-		while ($row3 = $result3->fetch_assoc()) {
-			$count++;
-			if ($count == 2) {
-				$fawesome3 = "<i class='fal fa-long-arrow-right fa-fw'></i>";
-			};
-			$id_nivel3 = $row3['id'];
-			$titulo_nivel3 = $row3['nivel3'];
-			if ($titulo_nivel3 == $nivel3) {
-				$breadcrumbs .= "<div class='spacing3'>$fawesome3$nivel3</div>";
-				$result4 = $conn->query("SELECT id, nivel4 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' AND nivel = 4 AND nivel3 = '$nivel3' ORDER BY ordem");
-				$count = 0;
-				$fawesome4 = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
-				while ($row4 = $result4->fetch_assoc()) {
-					$id_nivel4 = $row4['id'];
-					$titulo_nivel4 = $row4['nivel4'];
-					$count++;
-					if ($count == 2) {
-						$fawesome4 = "<i class='fal fa-long-arrow-right fa-fw'></i>";
-					}
-					$breadcrumbs .= "<div class='spacing4'>$fawesome4<a href='verbete.php?concurso=$concurso&tema=$id_nivel4'>$titulo_nivel4</a></div>";
-				}
-			} else {
-				$breadcrumbs .= "<div class='spacing3'>$fawesome3<a href='verbete.php?concurso=$concurso&tema=$id_nivel3'>$titulo_nivel3</a></div>";
-			}
-		}
-	}
 	if ($nivel > 3) {
-		$result3 = $conn->query("SELECT id, nivel3 FROM Temas WHERE nivel2 = '$nivel2' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia' ORDER BY ordem");
-		while ($row3 = $result3->fetch_assoc()) {
-			$id_nivel3 = $row3['id'];
-			$titulo_nivel3 = $row3['nivel3'];
-			if ($titulo_nivel3 == $nivel3) {
-				$breadcrumbs .= "<div class='spacing3'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel3'>$titulo_nivel3</a></div>";
-				break;
+			$result3 = $conn->query("SELECT id, nivel3 FROM Temas WHERE nivel2 = '$nivel2' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia' ORDER BY ordem");
+			while ($row3 = $result3->fetch_assoc()) {
+				$id_nivel3 = $row3['id'];
+				$titulo_nivel3 = $row3['nivel3'];
+				if ($titulo_nivel3 == $nivel3) {
+					$breadcrumbs .= "<div class='spacing3'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel3'>$titulo_nivel3</a></div>";
+					break;
+				}
 			}
 		}
-	}
 	if ($nivel == 4) {
-		$result4 = $conn->query("SELECT id, nivel4 FROM Temas WHERE nivel3 = '$nivel3' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia' AND nivel = 4 ORDER BY ordem");
-		$count = 0;
-		$fawesome4 = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
-		while ($row4 = $result4->fetch_assoc()) {
-			$count++;
-			if ($count == 2) {
-				$fawesome4 = "<i class='fal fa-long-arrow-right fa-fw'></i>";
-			};
+			$result4 = $conn->query("SELECT id, nivel4 FROM Temas WHERE nivel3 = '$nivel3' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia' AND nivel = 4 ORDER BY ordem");
+			$count = 0;
+			$fawesome4 = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
+			while ($row4 = $result4->fetch_assoc()) {
+				$count++;
+				if ($count == 2) {
+					$fawesome4 = "<i class='fal fa-long-arrow-right fa-fw'></i>";
+				};
 			$id_nivel4 = $row4['id'];
 			$titulo_nivel4 = $row4['nivel4'];
 			if ($titulo_nivel4 == $nivel4) {
-				$breadcrumbs .= "<div class='spacing4'>$fawesome4$titulo_nivel4</div>";
-			} else {
-				$breadcrumbs .= "<div class='spacing4'>$fawesome4<a href='verbete.php?concurso=$concurso&tema=$id_nivel4'>$titulo_nivel4</a></div>";
+							$breadcrumbs .= "<div class='spacing4'>$fawesome4$titulo_nivel4</div>";
+						} else {
+							$breadcrumbs .= "<div class='spacing4'>$fawesome4<a href='verbete.php?concurso=$concurso&tema=$id_nivel4'>$titulo_nivel4</a></div>";
+						}
 			}
 		}
-	}
 	if ($nivel > 4) {
-		$result4 = $conn->query("SELECT id, nivel4 FROM Temas WHERE nivel3 = '$nivel3' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia' ORDER BY ordem");
-		while ($row4 = $result4->fetch_assoc()) {
-			$id_nivel4 = $row4['id'];
-			$titulo_nivel4 = $row4['nivel4'];
-			if ($titulo_nivel4 == $nivel4) {
-				$breadcrumbs .= "<div class='spacing4'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel4'>$titulo_nivel4</a></div>";
-				break;
+			$result4 = $conn->query("SELECT id, nivel4 FROM Temas WHERE nivel3 = '$nivel3' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia' ORDER BY ordem");
+			while ($row4 = $result4->fetch_assoc()) {
+				$id_nivel4 = $row4['id'];
+				$titulo_nivel4 = $row4['nivel4'];
+				if ($titulo_nivel4 == $nivel4) {
+					$breadcrumbs .= "<div class='spacing4'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel4'>$titulo_nivel4</a></div>";
+					break;
+				}
 			}
 		}
-	}
 	if ($nivel == 5) {
-		$breadcrumbs .= "<div class='spacing5'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i>$nivel5</div>";
-	}
+			$breadcrumbs .= "<div class='spacing5'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i>$nivel5</div>";
+		}
 ?>
 <div class='container-fluid grey lighten-3'>
     <div class='row'>
@@ -545,34 +545,34 @@
                 </div>
                 <div class='row py-3'>
                     <div class='col-12'>
-											<?php
-												$result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND tipo = 'imagem'");
-												$count = 0;
-												if ($result->num_rows > 0) {
-													echo "
+	                    <?php
+		                    $result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND tipo = 'imagem'");
+		                    $count = 0;
+		                    if ($result->num_rows > 0) {
+			                    echo "
               <div id='carousel-with-lb' class='carousel slide carousel-multi-item mb-0' data-ride='carousel'>
                 <div class='carousel-inner mdb-lightbox' role='listbox'>
                   <div id='mdb-lightbox-ui'></div>
               ";
-													$active = 'active';
-													while ($row = $result->fetch_assoc()) {
-														$id_elemento = $row['id_elemento'];
-														$result2 = $conn->query("SELECT titulo, link, comentario, arquivo, resolucao, orientacao FROM Elementos WHERE id = $id_elemento");
-														if ($result2->num_rows > 0) {
-															while ($row = $result2->fetch_assoc()) {
-																$count++;
-																$imagem_titulo = $row['titulo'];
-																$imagem_link = $row['link'];
-																$imagem_comentario = $row['comentario'];
-																$imagem_arquivo = $row['arquivo'];
-																$imagem_resolucao = $row['resolucao'];
-																$imagem_orientacao = $row['orientacao'];
-																echo "
+			                    $active = 'active';
+			                    while ($row = $result->fetch_assoc()) {
+				                    $id_elemento = $row['id_elemento'];
+				                    $result2 = $conn->query("SELECT titulo, link, comentario, arquivo, resolucao, orientacao FROM Elementos WHERE id = $id_elemento");
+				                    if ($result2->num_rows > 0) {
+					                    while ($row = $result2->fetch_assoc()) {
+						                    $count++;
+						                    $imagem_titulo = $row['titulo'];
+						                    $imagem_link = $row['link'];
+						                    $imagem_comentario = $row['comentario'];
+						                    $imagem_arquivo = $row['arquivo'];
+						                    $imagem_resolucao = $row['resolucao'];
+						                    $imagem_orientacao = $row['orientacao'];
+						                    echo "
                     <div class=' carousel-item $active text-center'>
                       <figure class='col-12'>
-                        <a href='../imagens/verbetes/$imagem_arquivo'
+                        <a href='/../imagens/verbetes/$imagem_arquivo'
                           data-size='$imagem_resolucao'>
-                          <img src='../imagens/verbetes/thumbnails/$imagem_arquivo'
+                          <img src='/../imagens/verbetes/thumbnails/$imagem_arquivo'
                             class='img-fluid' style='height:300px'>
                         </a>
                         <figcaption><h5 class='mt-3'>$imagem_titulo</h5>
