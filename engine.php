@@ -843,6 +843,7 @@
 			}
 			$nova_imagem_resolucao_original = $dados_da_imagem[0];
 			$nova_imagem_orientacao = $dados_da_imagem[1];
+			error_log("$nova_imagem_titulo, $nova_imagem_link, $nova_imagem_arquivo, $nova_imagem_resolucao_original, $nova_imagem_orientacao $nova_imagem_comentario $user_id");
 			$conn->query("INSERT INTO Elementos (tipo, titulo, link, arquivo, resolucao, orientacao, comentario, user_id) VALUES ('imagem', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_arquivo', '$nova_imagem_resolucao_original', '$nova_imagem_orientacao', '$nova_imagem_comentario', '$user_id')");
 			$result2 = $conn->query("SELECT id FROM Elementos WHERE link = '$nova_imagem_link'");
 			if ($result2->num_rows > 0) {
