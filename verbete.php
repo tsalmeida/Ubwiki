@@ -193,17 +193,15 @@
 					$breadcrumbs .= "<div class='spacing1'>$fawesome$titulo_nivel1</div>";
 					$count2 = 0;
 					$fawesome = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
-					while ($row = $result->fetch_assoc()) {
-						$id_nivel2 = $row['id'];
-						$titulo_nivel2 = $row['nivel2'];
-						$nivel1_nivel2 = $row['nivel1'];
-						if ($nivel1_nivel2 == $nivel1) {
-							$count2++;
-							if ($count2 == 2) {
-								$fawesome = "<i class='fal fa-long-arrow-right fa-fw'></i>";
-							}
-							$breadcrumbs .= "<div class='spacing2'>$fawesome<a href='verbete.php?concurso=$concurso&tema=$id_nivel2'>$titulo_nivel2</a></div>";
-						}
+									$result2 = $conn->query("SELECT id, nivel2 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' AND nivel1 = '$nivel1' AND nivel = 2 ORDER BY ordem");
+									while ($row2 = $result2->fetch_assoc()) {
+										$id_nivel2 = $row2['id'];
+										$titulo_nivel2 = $row2['nivel2'];
+										$count2++;
+										if ($count2 == 2) {
+											$fawesome = "<i class='fal fa-long-arrow-right fa-fw'></i>";
+										}
+										$breadcrumbs .= "<div class='spacing2'>$fawesome<a href='verbete.php?concurso=$concurso&tema=$id_nivel2'>$titulo_nivel2</a></div>";
 					}
 				} else {
 					$breadcrumbs .= "<div class='spacing1'>$fawesome<a href='verbete.php?concurso=$concurso&tema=$id_nivel1'>$titulo_nivel1</a></div>";
@@ -211,33 +209,153 @@
 			}
 		}
 	}
-
+	if ($nivel > 1) {
+		$result = $conn->query("SELECT id FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' AND nivel1 = '$nivel1' AND nivel = 1 ORDER BY ordem");
+		while ($row = $result->fetch_assoc()) {
+			$id_nivel1 = $row['id'];
+			$breadcrumbs .= "<div class='spacing1'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel1'>$nivel1</a></div>";
+		}
+	}
+	if ($nivel == 2) {
+		$result2 = $conn->query("SELECT id, nivel2 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' AND nivel1 = '$nivel1' AND nivel = 2 ORDER BY ordem");
+		$count = 0;
+		$fawesome = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
+		while ($row2 = $result2->fetch_assoc()) {
+			$count++;
+			if ($count == 2) {
+				$fawesome = "<i class='fal fa-long-arrow-right fa-fw'></i>";
+			}
+			$id_nivel2 = $row2['id'];
+			$titulo_nivel2 = $row2['nivel2'];
+			if ($titulo_nivel2 == $nivel2) {
+				$breadcrumbs .= "<div class='spacing2'>$fawesome$nivel2</div>";
+				$result3 = $conn->query("SELECT id, nivel3 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' AND nivel = 3 AND nivel2 = '$nivel2' ORDER BY ordem");
+				$count = 0;
+				$fawesome3 = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
+				while ($row3 = $result3->fetch_assoc()) {
+					$id_nivel3 = $row3['id'];
+					$titulo_nivel3 = $row3['nivel3'];
+					$count++;
+					if ($count == 2) {
+						$fawesome3 = "<i class='fal fa-long-arrow-right fa-fw'></i>";
+					}
+					$breadcrumbs .= "<div class='spacing3'>$fawesome3<a href='verbete.php?concurso=$concurso&tema=$id_nivel3'>$titulo_nivel3</a></div>";
+				}
+			} else {
+				$breadcrumbs .= "<div class='spacing2'>$fawesome<a href='verbete.php?concurso=$concurso&tema=$id_nivel2'>$titulo_nivel2</a></div>";
+			}
+		}
+	}
+	if ($nivel > 2) {
+		$result2 = $conn->query("SELECT id, nivel2 FROM Temas WHERE nivel1 = '$nivel1' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia' ORDER BY ordem");
+		while ($row2 = $result2->fetch_assoc()) {
+			$id_nivel2 = $row2['id'];
+			$titulo_nivel2 = $row2['nivel2'];
+			if ($titulo_nivel2 == $nivel2) {
+				$breadcrumbs .= "<div class='spacing2'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel2'>$nivel2</a></div>";
+				break;
+			}
+		}
+	}
+	if ($nivel == 3) {
+		$result3 = $conn->query("SELECT id, nivel3 FROM Temas WHERE nivel2 = '$nivel2' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia' AND nivel = 3 ORDER BY ordem");
+		$count = 0;
+		$fawesome3 = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
+		while ($row3 = $result3->fetch_assoc()) {
+			$count++;
+			if ($count == 2) {
+				$fawesome3 = "<i class='fal fa-long-arrow-right fa-fw'></i>";
+			};
+			$id_nivel3 = $row3['id'];
+			$titulo_nivel3 = $row3['nivel3'];
+			if ($titulo_nivel3 == $nivel3) {
+				$breadcrumbs .= "<div class='spacing3'>$fawesome3$nivel3</div>";
+				$result4 = $conn->query("SELECT id, nivel4 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' AND nivel = 4 AND nivel3 = '$nivel3' ORDER BY ordem");
+				$count = 0;
+				$fawesome4 = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
+				while ($row4 = $result4->fetch_assoc()) {
+					$id_nivel4 = $row4['id'];
+					$titulo_nivel4 = $row4['nivel4'];
+					$count++;
+					if ($count == 2) {
+						$fawesome4 = "<i class='fal fa-long-arrow-right fa-fw'></i>";
+					}
+					$breadcrumbs .= "<div class='spacing4'>$fawesome4<a href='verbete.php?concurso=$concurso&tema=$id_nivel4'>$titulo_nivel4</a></div>";
+				}
+			} else {
+				$breadcrumbs .= "<div class='spacing3'>$fawesome3<a href='verbete.php?concurso=$concurso&tema=$id_nivel3'>$titulo_nivel3</a></div>";
+			}
+		}
+	}
+	if ($nivel > 3) {
+		$result3 = $conn->query("SELECT id, nivel3 FROM Temas WHERE nivel2 = '$nivel2' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia' ORDER BY ordem");
+		while ($row3 = $result3->fetch_assoc()) {
+			$id_nivel3 = $row3['id'];
+			$titulo_nivel3 = $row3['nivel3'];
+			if ($titulo_nivel3 == $nivel3) {
+				$breadcrumbs .= "<div class='spacing3'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel3'>$titulo_nivel3</a></div>";
+				break;
+			}
+		}
+	}
+	if ($nivel == 4) {
+		$result4 = $conn->query("SELECT id, nivel4 FROM Temas WHERE nivel3 = '$nivel3' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia' AND nivel = 4 ORDER BY ordem");
+		$count = 0;
+		$fawesome4 = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
+		while ($row4 = $result4->fetch_assoc()) {
+			$count++;
+			if ($count == 2) {
+				$fawesome4 = "<i class='fal fa-long-arrow-right fa-fw'></i>";
+			};
+			$id_nivel4 = $row4['id'];
+			$titulo_nivel4 = $row4['nivel4'];
+			if ($titulo_nivel4 == $nivel4) {
+				$breadcrumbs .= "<div class='spacing4'>$fawesome4$titulo_nivel4</div>";
+			} else {
+				$breadcrumbs .= "<div class='spacing4'>$fawesome4<a href='verbete.php?concurso=$concurso&tema=$id_nivel4'>$titulo_nivel4</a></div>";
+			}
+		}
+	}
+	if ($nivel > 4) {
+		$result4 = $conn->query("SELECT id, nivel4 FROM Temas WHERE nivel3 = '$nivel3' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia' ORDER BY ordem");
+		while ($row4 = $result4->fetch_assoc()) {
+			$id_nivel4 = $row4['id'];
+			$titulo_nivel4 = $row4['nivel4'];
+			if ($titulo_nivel4 == $nivel4) {
+				$breadcrumbs .= "<div class='spacing4'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel4'>$titulo_nivel4</a></div>";
+				break;
+			}
+		}
+	}
+	if ($nivel == 5) {
+		$breadcrumbs .= "<div class='spacing5'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i>$nivel5</div>";
+	}
 ?>
 <div class='container-fluid grey lighten-3'>
     <div class='row'>
-        <div class='col-lg-3 col-sm-12'>
+        <div class='col-lg-4 col-sm-12'>
             <div id='collapse_breadcrumbs' class='flex-column collapse'>
-							<?php echo $breadcrumbs; ?>
+	            <?php echo $breadcrumbs; ?>
             </div>
         </div>
-        <div class='col-lg-6 col-sm-12 d-flex justify-content-center'>
-            <button class='btn transparent verbete_collapse collapse mostrar_coluna_esquerda px-2'
+        <div class='col-lg-4 col-sm-12 d-flex justify-content-center'>
+            <button class='btn transparent verbete_collapse collapse mostrar_coluna_esquerda p-0'
                     data-toggle='collapse' data-target='.verbete_collapse' role='button'>Verbete
             </button>
-            <button class='btn transparent imagens_collapse collapse mostrar_coluna_esquerda px-2'
+            <button class='btn transparent imagens_collapse collapse mostrar_coluna_esquerda p-0'
                     data-toggle='collapse' data-target='.imagens_collapse' role='button'>Imagens
             </button>
-            <button class='btn transparent videos_collapse collapse mostrar_coluna_esquerda px-2' data-toggle='collapse'
+            <button class='btn transparent videos_collapse collapse mostrar_coluna_esquerda p-0' data-toggle='collapse'
                     data-target='.videos_collapse' role='button'>Vídeos
             </button>
-            <button class='btn transparent bibliografia_collapse collapse mostrar_coluna_esquerda px-2'
+            <button class='btn transparent bibliografia_collapse collapse mostrar_coluna_esquerda p-0'
                     data-toggle='collapse' data-target='.bibliografia_collapse' role='button'>Leia mais
             </button>
-            <button id='mostrar_anotacoes' class='btn transparent collapse anotacoes_collapse collapse px-2'
+            <button id='mostrar_anotacoes' class='btn transparent collapse anotacoes_collapse collapse p-0'
                     data-toggle='collapse' data-target='.anotacoes_collapse' role='button'>Anotações
             </button>
         </div>
-        <div class='col-lg-3 col-sm-12'>
+        <div class='col-lg-4 col-sm-12'>
             <div class='text-right py-2'>
                 <span id='verbetes_relacionados' class='mx-1' title='Verbetes relacionados' data-toggle='collapse'
                       href='#collapse_breadcrumbs'><a href='javascript:void(0);'><i

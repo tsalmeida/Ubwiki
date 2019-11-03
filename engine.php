@@ -36,7 +36,7 @@
 			$_SESSION['email'] = $_POST['email'];
 			$_SESSION['bora'] = $_POST['bora'];
 			$user_email = $_SESSION['email'];
-			$bora = $_SESSIO['bora'];
+			$bora = $_SESSION['bora'];
 			$result = $conn->query("SELECT id FROM Usuarios WHERE email = '$user_email'");
 			if ($result->num_rows == 0) {
 				$newuser = true;
@@ -181,7 +181,7 @@
   <script type="text/javascript" src="js/mdb.min.js"></script>
   <script type="text/javascript" charset="UTF-8" src="engine.js"></script>
   ';
-		
+		//TODO: imageHandler deve salvar no artigo o link interno do servidor, e não o link original. Não é difícil de fazer, basta capturar a resposta em echo do engine.php e substituir o link final onde diz 'value'
 		if ($args != false) {
 			$array = 0;
 			while (isset($args[$array])) {
@@ -290,7 +290,7 @@
                       'nova_imagem': value,
                       'user_id': $args[0],
                       'tema_id': $args[1]
-                    });
+                    })
                 }
             }
 
@@ -343,7 +343,7 @@
               quill_verbete_content = JSON.stringify(quill_verbete_content);
               quill_verbete_content = encodeURI(quill_verbete_content);
               quill_novo_verbete_content.value = quill_verbete_content;
-            }
+            };
             var form_anotacao = document.querySelector('#quill_anotacao_form');
             form_anotacao.onsubmit = function() {
               var quill_nova_anotacao_html = document.querySelector('input[name=quill_nova_anotacao_html]');
@@ -385,61 +385,61 @@
             $(document).ready(function() {
               $('.novosub').hide();
             });
-            $('#novosub1').on('input',function(e){
+            $('#novosub1').on('input',function(){
           	    $('#novosub2').show();
           	});
-            $('#novosub2').on('input',function(e){
+            $('#novosub2').on('input',function(){
           	    $('#novosub3').show();
           	});
-            $('#novosub3').on('input',function(e){
+            $('#novosub3').on('input',function(){
           	    $('#novosub4').show();
           	});
-            $('#novosub4').on('input',function(e){
+            $('#novosub4').on('input',function(){
           	    $('#novosub5').show();
           	});
-            $('#novosub5').on('input',function(e){
+            $('#novosub5').on('input',function(){
           	    $('#novosub6').show();
           	});
-            $('#novosub6').on('input',function(e){
+            $('#novosub6').on('input',function(){
           	    $('#novosub7').show();
           	});
-            $('#novosub7').on('input',function(e){
+            $('#novosub7').on('input',function(){
           	    $('#novosub8').show();
           	});
-            $('#novosub8').on('input',function(e){
+            $('#novosub8').on('input',function(){
           	    $('#novosub9').show();
           	});
-            $('#novosub9').on('input',function(e){
+            $('#novosub9').on('input',function(){
           	    $('#novosub10').show();
           	});
-            $('#novosub10').on('input',function(e){
+            $('#novosub10').on('input',function(){
           	    $('#novosub11').show();
           	});
-            $('#novosub11').on('input',function(e){
+            $('#novosub11').on('input',function(){
           	    $('#novosub12').show();
           	});
-            $('#novosub12').on('input',function(e){
+            $('#novosub12').on('input',function(){
           	    $('#novosub13').show();
           	});
-            $('#novosub13').on('input',function(e){
+            $('#novosub13').on('input',function(){
           	    $('#novosub14').show();
           	});
-            $('#novosub14').on('input',function(e){
+            $('#novosub14').on('input',function(){
           	    $('#novosub15').show();
           	});
-            $('#novosub15').on('input',function(e){
+            $('#novosub15').on('input',function(){
           	    $('#novosub16').show();
           	});
-            $('#novosub16').on('input',function(e){
+            $('#novosub16').on('input',function(){
           	    $('#novosub17').show();
           	});
-            $('#novosub17').on('input',function(e){
+            $('#novosub17').on('input',function(){
           	    $('#novosub18').show();
           	});
-            $('#novosub18').on('input',function(e){
+            $('#novosub18').on('input',function(){
           	    $('#novosub19').show();
           	});
-            $('#novosub19').on('input',function(e){
+            $('#novosub19').on('input',function(){
           	    $('#novosub20').show();
           	});
           </script>
@@ -597,7 +597,7 @@
                   if (pw == 'notfoundnotfound') {
                     $('#searchBar').val(pw2);
                   }
-                  else if (pw = 'foundfoundfoundf') {
+                  else if (pw == 'foundfoundfoundf') {
                     window.open(pw2, '_self');
                   }
                 }
@@ -843,22 +843,23 @@
 			}
 			$nova_imagem_resolucao_original = $dados_da_imagem[0];
 			$nova_imagem_orientacao = $dados_da_imagem[1];
-			$result = $conn->query("INSERT INTO Elementos (tipo, titulo, link, arquivo, resolucao, orientacao, comentario, user_id) VALUES ('imagem', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_arquivo', '$nova_imagem_resolucao_original', '$nova_imagem_orientacao', '$nova_imagem_comentario', '$user_id')");
+			$conn->query("INSERT INTO Elementos (tipo, titulo, link, arquivo, resolucao, orientacao, comentario, user_id) VALUES ('imagem', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_arquivo', '$nova_imagem_resolucao_original', '$nova_imagem_orientacao', '$nova_imagem_comentario', '$user_id')");
 			$result2 = $conn->query("SELECT id FROM Elementos WHERE link = '$nova_imagem_link'");
 			if ($result2->num_rows > 0) {
 				while ($row = $result2->fetch_assoc()) {
 					$nova_imagem_id = $row['id'];
-					$insert = $conn->query("INSERT INTO Verbetes_elementos (id_tema, id_elemento, tipo, user_id) VALUES ($tema_id, $nova_imagem_id, 'imagem', $user_id)");
+					$conn->query("INSERT INTO Verbetes_elementos (id_tema, id_elemento, tipo, user_id) VALUES ($tema_id, $nova_imagem_id, 'imagem', $user_id)");
 					break;
 				}
 			}
 		} else {
 			while ($row = $result->fetch_assoc()) {
 				$nova_imagem_id = $row['id'];
-				$insert = $conn->query("INSERT INTO Verbetes_elementos (id_tema, id_elemento, tipo, user_id) VALUES ($tema_id, $nova_imagem_id, 'imagem', $user_id)");
+				$conn->query("INSERT INTO Verbetes_elementos (id_tema, id_elemento, tipo, user_id) VALUES ($tema_id, $nova_imagem_id, 'imagem', $user_id)");
 				break;
 			}
 		}
+		return false;
 	}
 
 ?>

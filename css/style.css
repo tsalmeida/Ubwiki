@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Playfair+Display:400,900&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Lato:400,400i&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Oswald:300&display=swap');
 
 html {
@@ -190,25 +190,25 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .spacing0 {
-  margin-left: 1ch;
+    margin-left: 3ch;
 }
 
 .spacing1 {
-  margin-left: 2ch;
+    margin-left: 6ch;
 }
 
 .spacing2 {
-  margin-left: 3ch;
+    margin-left: 9ch;
 }
 
 .spacing3 {
-  margin-left: 4ch;
+    margin-left: 12ch;
 }
 
 .spacing4 {
-  margin-left: 5ch;
+    margin-left: 15ch;
 }
 
 .spacing5 {
-  margin-left: 6ch;
+    margin-left: 18ch;
 }
