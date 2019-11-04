@@ -1,7 +1,9 @@
 <?php
 	
-  if (!isset($loginpage)) { $loginpage = false; }
-  
+	if (!isset($loginpage)) {
+		$loginpage = false;
+	}
+	
 	$sessionpath = getcwd();
 	$sessionpath .= '/../sessions';
 	session_save_path($sessionpath);
@@ -43,7 +45,9 @@
 				$insert = $conn->query("INSERT INTO Usuarios (tipo, email) VALUES ('estudante', '$user_email')");
 			}
 		} else {
-		  if ($loginpage == false) { header('Location:login.php'); }
+			if ($loginpage == false) {
+				header('Location:login.php');
+			}
 		}
 	} else {
 		$user_email = $_SESSION['email'];
@@ -843,8 +847,7 @@
 			}
 			$nova_imagem_resolucao_original = $dados_da_imagem[0];
 			$nova_imagem_orientacao = $dados_da_imagem[1];
-			error_log("$nova_imagem_titulo, $nova_imagem_link, $nova_imagem_arquivo, $nova_imagem_resolucao_original, $nova_imagem_orientacao $nova_imagem_comentario $user_id");
-			$conn->query("INSERT INTO Elementos (tipo, titulo, link, arquivo, resolucao, orientacao, comentario, user_id) VALUES ('imagem', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_arquivo', '$nova_imagem_resolucao_original', '$nova_imagem_orientacao', '$nova_imagem_comentario', '$user_id')");
+			$conn->query("INSERT INTO Elementos (tipo, titulo, link, arquivo, resolucao, orientacao, comentario, user_id) VALUES ('imagem', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_arquivo', '$nova_imagem_resolucao_original', '$nova_imagem_orientacao', '$nova_imagem_comentario', $user_id)");
 			$result2 = $conn->query("SELECT id FROM Elementos WHERE link = '$nova_imagem_link'");
 			if ($result2->num_rows > 0) {
 				while ($row = $result2->fetch_assoc()) {
@@ -862,5 +865,6 @@
 		}
 		return false;
 	}
+
 
 ?>

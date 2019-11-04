@@ -1,0 +1,22 @@
+<form id='${form_name}' method='post'>
+    <input name='${conteudo_html}' type='hidden'>
+    <input name='${conteudo_text}' type='hidden'>
+    <input name='${conteudo_content}' type='hidden'>
+    <div class='row'>
+        <div class='container col-12'>
+            <div id='${quill_container_id}'>
+                <div id='${quill_editor_id}'
+                     class='${quill_editor_classes}'>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='row justify-content-center verbete_editor_collapse collapse mt-3'>
+        <button type='button' class='btn btn-light btn-sm'><i
+                class="fal fa-times-circle fa-fw"></i> Cancelar
+        </button>
+        <button type='submit' class='btn btn-primary btn-sm'><i class='fal fa-check fa-fw'></i>
+            Salvar
+        </button>
+    </div>
+</form>

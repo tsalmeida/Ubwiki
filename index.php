@@ -14,7 +14,7 @@
     <div class="container-fluid bg-white">
         <div class="row justify-content-center">
             <div class="col-lg-2 col-sm-6 px-3 mt-5 pt-5">
-                <img class="img-fluid logo" src="imagens/ubiquelogo.png"></img>
+                <img class="img-fluid logo" src="/../imagens/ubiquelogo.png"></img>
             </div>
         </div>
         <!-- <div class='row'>
