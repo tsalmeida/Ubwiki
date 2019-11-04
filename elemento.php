@@ -61,7 +61,7 @@
 			}
 			$elemento_analise = $nova_mensagem;
 		} else {
-			$result = $conn->query("SELECT analise FROM Elementos_analise WHERE id_elemento = $id_elemento");
+					$result = $conn->query("SELECT analise_content FROM Elementos_analise WHERE id_elemento = $id_elemento");
 			if ($result->num_rows > 0) {
 				while ($row = $result->fetch_assoc()) {
 					$elemento_analise = $row['analise'];

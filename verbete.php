@@ -172,11 +172,17 @@
 	
 	
 	$result = $conn->query("SELECT id, nivel, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' ORDER BY ordem");
-    if ($nivel == 1) { $tema_titulo = $nivel1; }
-    elseif ($nivel == 2) { $tema_titulo = $nivel2; }
-    elseif ($nivel == 3) { $tema_titulo = $nivel3; }
-    elseif ($nivel == 4) { $tema_titulo = $nivel4; }
-    elseif ($nivel == 5) { $tema_titulo = $nivel5; }
+	if ($nivel == 1) {
+		$tema_titulo = $nivel1;
+	} elseif ($nivel == 2) {
+		$tema_titulo = $nivel2;
+	} elseif ($nivel == 3) {
+		$tema_titulo = $nivel3;
+	} elseif ($nivel == 4) {
+		$tema_titulo = $nivel4;
+	} elseif ($nivel == 5) {
+		$tema_titulo = $nivel5;
+	}
 	if ($nivel == 1) {
 		$count = 0;
 		$fawesome = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
@@ -414,11 +420,11 @@
     </div>
     <div class='row justify-content-around'>
         <div id='coluna_esquerda' class='col-lg-5 col-sm-12'>
-            <div id='verbete' class='verbete_collapse collapse show mb-5 border-top border-light pt-4'>
-                <div class='row'>
-                    <div class='col-12 d-flex justify-content-between'>
-                        <h1>Verbete</h1>
-                        <span class='h5'>
+	        <?php
+		        $template_id = 'verbete';
+		        $template_collapse_stuff = 'verbete_collapse collapse show';
+		        $template_titulo = 'Verbete';
+		        $template_botoes = "
                 <span class='verbete_editor_collapse collapse' id='travar_verbete' data-toggle='collapse'
                       data-target='.verbete_editor_collapse' title='travar verbete para edição'><a
                             href='javascript:void(0);'><i class='fal fa-lock-open-alt fa-fw'></i></a></span>
@@ -426,373 +432,339 @@
                       data-target='.verbete_editor_collapse' title='destravar verbete para edição'><a
                             href='javascript:void(0);'><i class='fal fa-lock-alt fa-fw'></i></a></span>
                 <span id='esconder_verbete' data-toggle='collapse' data-target='.verbete_collapse'><a
-                            href='javascript:void(0);'><i class='fal fa-chevron-up fa-fw'></i></a></span>
-                    </div>
-                </div>
-                <div class='row py-3'>
-                    <div class='col-12'>
-                        <form id='quill_verbete_form' method='post'>
-                            <input name='quill_novo_verbete_html' type='hidden'>
-                            <input name='quill_novo_verbete_text' type='hidden'>
-                            <input name='quill_novo_verbete_content' type='hidden'>
-                            <div class='row'>
-                                <div class='container col-12'>
-                                    <div id='quill_container_verbete'>
-                                        <div id='quill_editor_verbete'
-                                             class='quill_editor_height quill_editor_height_leitura'>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class='row justify-content-center verbete_editor_collapse collapse mt-3'>
-                                <button type='button' class='btn btn-light btn-sm'><i
-                                            class="fal fa-times-circle fa-fw"></i> Cancelar
-                                </button>
-                                <button type='submit' class='btn btn-primary btn-sm'><i class='fal fa-check fa-fw'></i>
-                                    Salvar
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-            <div id='videos' class='videos_collapse collapse show mb-5 border-top border-light pt-4'>
-                <div class='row'>
-                    <div class='col-12 d-flex justify-content-between'>
-                        <h1>Vídeos e aulas</h1>
-                        <span class='h5'><a data-toggle='modal' data-target='#modal_videos_form' href=''><i
-                                        class='fal fa-plus-square fa-fw'></i></a>
-              <span id='esconder_videos' data-toggle='collapse' data-target='.videos_collapse'><a
-                          href='javascript:void(0);'><i class='fal fa-chevron-up fa-fw'></i></a></span></span>
-                    </div>
-                </div>
-                <div class='row py-3'>
-                    <div class='col-12'>
-											<?php
-												$result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND tipo = 'video'");
-												if ($result->num_rows > 0) {
-													echo "<ul class='list-group'>";
-													while ($row = $result->fetch_assoc()) {
-														$id_elemento = $row['id_elemento'];
-														$result2 = $conn->query("SELECT titulo, autor, link FROM Elementos WHERE id = $id_elemento");
-														if ($result2->num_rows > 0) {
-															while ($row = $result2->fetch_assoc()) {
-																$video_titulo = $row['titulo'];
-																$video_autor = $row['autor'];
-																$video_link = $row['link'];
-																echo "<li class='list-group-item list-group-item-action'><a href='elemento.php?id=$id_elemento' target='_blank'>$video_titulo : $video_autor</a></li>";
-															}
-														}
-													}
-													echo "</ul>";
-												} else {
-													echo "<p>Ainda não foram acrescentados vídeos ou aulas sobre este assunto.</p>";
-												}
-											?>
-                    </div>
-                </div>
-            </div>
-
-            <div id='bibliografia' class='bibliografia_collapse collapse show mb-5 border-top border-light pt-4'>
-                <div class='row'>
-                    <div class='col-12 d-flex justify-content-between'>
-                        <h1>Leia mais</h1>
-                        <span class='h5'><a data-toggle='modal' data-target='#modal_referencia_form' href=''><i
+                            href='javascript:void(0);'><i class='fal fa-chevron-up fa-fw'></i></a></span>";
+		        $template_conteudo = false;
+		
+		        $template_quill_form_id = 'quill_verbete_form';
+		        $template_quill_conteudo_html = 'quill_novo_verbete_html';
+		        $template_quill_conteudo_text = 'quill_novo_verbete_text';
+		        $template_quill_conteudo_content = 'quill_novo_verbete_content';
+		        $template_quill_container_id = 'quill_container_verbete';
+		        $template_quill_editor_id = 'quill_editor_verbete';
+		        $template_quill_editor_classes = 'quill_editor_height quill_editor_height_leitura';
+		        $template_quill_conteudo_opcional = false;
+		        $template_quill_botoes_collapse_stuff = 'verbete_editor_collapse collapse';
+		
+		        $template_conteudo = include 'templates/quill_form.php';
+		        $template = include 'templates/page_element.php';
+		        echo $template;
+		
+		        $template_id = 'videos';
+		        $template_collapse_stuff = 'videos_collapse collapse show';
+		        $template_titulo = 'Vídeos e aulas';
+		        $template_botoes = "
+                                  <a data-toggle='modal' data-target='#modal_videos_form' href=''>
+                                    <i class='fal fa-plus-square fa-fw'></i>
+                                  </a>
+                                  <span id='esconder_videos' data-toggle='collapse' data-target='.videos_collapse'>
+                                    <a href='javascript:void(0);'>
+                                        <i class='fal fa-chevron-up fa-fw'></i>
+                                    </a>
+                                  </span>
+                        ";
+		        $template_conteudo = false;
+		
+		        $result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND tipo = 'video'");
+		        if ($result->num_rows > 0) {
+			        $template_conteudo .= "<ul class='list-group'>";
+			        while ($row = $result->fetch_assoc()) {
+				        $id_elemento = $row['id_elemento'];
+				        $result2 = $conn->query("SELECT titulo, autor, link FROM Elementos WHERE id = $id_elemento");
+				        if ($result2->num_rows > 0) {
+					        while ($row = $result2->fetch_assoc()) {
+						        $video_titulo = $row['titulo'];
+						        $video_autor = $row['autor'];
+						        $video_link = $row['link'];
+						        $template_conteudo .= "<li class='list-group-item list-group-item-action'><a href='elemento.php?id=$id_elemento' target='_blank'>$video_titulo : $video_autor</a></li>";
+					        }
+				        }
+			        }
+			        $template_conteudo .= "</ul>";
+		        } else {
+			        $template_conteudo .= "<p>Ainda não foram acrescentados vídeos ou aulas sobre este assunto.</p>";
+		        }
+		
+		        $template = include 'templates/page_element.php';
+		        echo $template;
+		
+		        $template_id = 'bibliografia';
+		        $template_collapse_stuff = 'bibliografia_collapse collapse show';
+		        $template_titulo = 'Leia mais';
+		        $template_botoes = "<a data-toggle='modal' data-target='#modal_referencia_form' href=''><i
                                         class='fal fa-plus-square fa-fw'></i></a>
               <span id='esconder_bibliografia' data-toggle='collapse' data-target='.bibliografia_collapse'><a
-                          href='javascript:void(0);'><i class='fal fa-chevron-up fa-fw'></i></a></span></span>
-                    </div>
-                </div>
-                <div class='row py-3'>
-                    <div class='col-12'>
-											<?php
-												$result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND tipo = 'referencia'");
-												if ($result->num_rows > 0) {
-													echo "<ul class='list-group'>";
-													while ($row = $result->fetch_assoc()) {
-														$id_elemento = $row['id_elemento'];
-														$result2 = $conn->query("SELECT titulo, autor, capitulo, ano, link FROM Elementos WHERE id = $id_elemento");
-														if ($result2->num_rows > 0) {
-															while ($row = $result2->fetch_assoc()) {
-																$referencia_titulo = $row['titulo'];
-																$referencia_autor = $row['autor'];
-																$referencia_capitulo = $row['capitulo'];
-																$referencia_ano = $row['ano'];
-																$referencia_link = $row['link'];
-																echo "<li class='list-group-item'><a href='elemento.php?id=$id_elemento' target='_blank'>$referencia_titulo : $referencia_autor : $referencia_capitulo : $referencia_ano</a></li>";
-															}
-														}
-													}
-													echo "</ul>";
-												} else {
-													echo "<p>Não foram identificados, até o momento, recursos bibliográficos sobre este tema.</p>";
-												}
-											?>
-                    </div>
-                </div>
-            </div>
-
-            <div id='imagens' class='imagens_collapse collapse show mb-5 border-top border-light pt-4'>
-                <div class='row'>
-                    <div class='col-12 d-flex justify-content-between'>
-                        <h1>Imagens</h1>
-                        <span class='h5'><a data-toggle='modal' data-target='#modal_imagens_form' href=''><i
+                          href='javascript:void(0);'><i class='fal fa-chevron-up fa-fw'></i></a></span>";
+		        $template_conteudo = false;
+		
+		        $result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND tipo = 'referencia'");
+		        if ($result->num_rows > 0) {
+			        $template_conteudo .= "<ul class='list-group'>";
+			        while ($row = $result->fetch_assoc()) {
+				        $id_elemento = $row['id_elemento'];
+				        $result2 = $conn->query("SELECT titulo, autor, capitulo, ano, link FROM Elementos WHERE id = $id_elemento");
+				        if ($result2->num_rows > 0) {
+					        while ($row = $result2->fetch_assoc()) {
+						        $referencia_titulo = $row['titulo'];
+						        $referencia_autor = $row['autor'];
+						        $referencia_capitulo = $row['capitulo'];
+						        $referencia_ano = $row['ano'];
+						        $referencia_link = $row['link'];
+						        $template_conteudo .= "<li class='list-group-item'><a href='elemento.php?id=$id_elemento' target='_blank'>$referencia_titulo : $referencia_autor : $referencia_capitulo : $referencia_ano</a></li>";
+					        }
+				        }
+			        }
+			        $template_conteudo .= "</ul>";
+		        } else {
+			        $template_conteudo .= "<p>Não foram identificados, até o momento, recursos bibliográficos sobre este tema.</p>";
+		        }
+		
+		        $template = include 'templates/page_element.php';
+		        echo $template;
+		
+		        $template_id = 'imagens';
+		        $template_collapse_stuff = 'imagens_collapse collapse show';
+		        $template_titulo = 'Imagens';
+		        $template_botoes = "<a data-toggle='modal' data-target='#modal_imagens_form' href=''><i
                                         class='fal fa-plus-square fa-fw'></i></a>
               <span id='esconder_imagens' data-toggle='collapse' data-target='.imagens_collapse'><a
-                          href='javascript:void(0);'><i class='fal fa-chevron-up fa-fw'></i></a></span></span>
-                    </div>
-                </div>
-                <div class='row py-3'>
-                    <div class='col-12'>
-	                    <?php
-		                    $result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND tipo = 'imagem'");
-		                    $count = 0;
-		                    if ($result->num_rows > 0) {
-			                    echo "
-              <div id='carousel-with-lb' class='carousel slide carousel-multi-item mb-0' data-ride='carousel'>
-                <div class='carousel-inner mdb-lightbox' role='listbox'>
-                  <div id='mdb-lightbox-ui'></div>
-              ";
-			                    $active = 'active';
-			                    while ($row = $result->fetch_assoc()) {
-				                    $id_elemento = $row['id_elemento'];
-				                    $result2 = $conn->query("SELECT titulo, link, comentario, arquivo, resolucao, orientacao FROM Elementos WHERE id = $id_elemento");
-				                    if ($result2->num_rows > 0) {
-					                    while ($row = $result2->fetch_assoc()) {
-						                    $count++;
-						                    $imagem_titulo = $row['titulo'];
-						                    $imagem_link = $row['link'];
-						                    $imagem_comentario = $row['comentario'];
-						                    $imagem_arquivo = $row['arquivo'];
-						                    $imagem_resolucao = $row['resolucao'];
-						                    $imagem_orientacao = $row['orientacao'];
-						                    echo "
-                    <div class=' carousel-item $active text-center'>
-                      <figure class='col-12'>
-                        <a href='/../imagens/verbetes/$imagem_arquivo'
-                          data-size='$imagem_resolucao'>
-                          <img src='/../imagens/verbetes/thumbnails/$imagem_arquivo'
-                            class='img-fluid' style='height:300px'>
-                        </a>
-                        <figcaption><h5 class='mt-3'>$imagem_titulo</h5>
-                        $imagem_comentario<p><a href='elemento.php?id=$id_elemento' target='_blank'>Página da imagem</a></p></figcaption>
-                      </figure>
-                    </div>
-                    ";
-																$active = false;
-																break;
-															}
-														}
-													}
-													if ($count != 1) {
-														echo "
-                </div>
-                  <div class='controls-top'>
-                    <a class='btn btn-sm grey lighten-3 z-depth-0' href='#carousel-with-lb' data-slide='prev'><i
-                        class='fas fa-chevron-left'></i></a>
-                    <a class='btn btn-sm grey lighten-3 z-depth-0' href='#carousel-with-lb' data-slide='next'><i
-                        class='fas fa-chevron-right'></i></a>
-                  </div>
-                </div>
-                ";
-													} else {
-														echo "</div></div>";
-													}
-												} else {
-													echo "<p>Não foram acrescentadas, até o momento, imagens a este verbete.</p>";
-												}
-											?>
-                    </div>
-                </div>
-            </div>
+                          href='javascript:void(0);'><i class='fal fa-chevron-up fa-fw'></i></a></span>";
+		
+		        $template_conteudo = false;
+		
+		        $result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND tipo = 'imagem'");
+		        $count = 0;
+		        if ($result->num_rows > 0) {
+			        $template_conteudo .= "
+                                <div id='carousel-with-lb' class='carousel slide carousel-multi-item mb-0' data-ride='carousel'>
+                                <div class='carousel-inner mdb-lightbox' role='listbox'>
+                                <div id='mdb-lightbox-ui'></div>
+                            ";
+			        $active = 'active';
+			        while ($row = $result->fetch_assoc()) {
+				        $id_elemento = $row['id_elemento'];
+				        $result2 = $conn->query("SELECT titulo, link, comentario, arquivo, resolucao, orientacao FROM Elementos WHERE id = $id_elemento");
+				        if ($result2->num_rows > 0) {
+					        while ($row = $result2->fetch_assoc()) {
+						        $count++;
+						        $imagem_titulo = $row['titulo'];
+						        $imagem_link = $row['link'];
+						        $imagem_comentario = $row['comentario'];
+						        $imagem_arquivo = $row['arquivo'];
+						        $imagem_resolucao = $row['resolucao'];
+						        $imagem_orientacao = $row['orientacao'];
+						        $template_conteudo .= "
+                                <div class=' carousel-item $active text-center'>
+                                  <figure class='col-12'>
+                                    <a href='/../imagens/verbetes/$imagem_arquivo'
+                                      data-size='$imagem_resolucao'>
+                                      <img src='/../imagens/verbetes/thumbnails/$imagem_arquivo'
+                                        class='img-fluid' style='height:300px'>
+                                    </a>
+                                    <figcaption><h5 class='mt-3'>$imagem_titulo</h5>
+                                    $imagem_comentario<p><a href='elemento.php?id=$id_elemento' target='_blank'>Página da imagem</a></p></figcaption>
+                                  </figure>
+                                </div>
+                                ";
+						        $active = false;
+						        break;
+					        }
+				        }
+			        }
+			        if ($count != 1) {
+				        $template_conteudo .= "
+                            </div>
+                              <div class='controls-top'>
+                                <a class='btn btn-sm grey lighten-3 z-depth-0' href='#carousel-with-lb' data-slide='prev'><i
+                                    class='fas fa-chevron-left'></i></a>
+                                <a class='btn btn-sm grey lighten-3 z-depth-0' href='#carousel-with-lb' data-slide='next'><i
+                                    class='fas fa-chevron-right'></i></a>
+                              </div>
+                            </div>
+                            ";
+			        } else {
+				        $template_conteudo .= "</div></div>";
+			        }
+		        } else {
+			        $template_conteudo .= "<p>Não foram acrescentadas, até o momento, imagens a este verbete.</p>";
+		        }
+		        $template = include 'templates/page_element.php';
+		        echo $template;
+	
+	
+	        ?>
+
         </div>
-
-
         <div id='coluna_direita' class='col-lg-5 col-sm-12 anotacoes_collapse collapse show'>
-            <div id='sticky_anotacoes' class='mb-5 border-top border-bottom border-light pt-4'>
-                <div class='row'>
-                    <div class='col-12 d-flex justify-content-between'>
-                        <h1>Anotações</h1>
-                        <span class='h5'>
-                <span class='anotacao_editor_collapse collapse show' id='travar_anotacao' data-toggle='collapse'
+	
+	        <?php
+		        $template_id = 'sticky_anotacoes';
+		        $template_collapse_stuff = false;
+		        $template_titulo = 'Anotações';
+		        $template_botoes = "<span class='anotacao_editor_collapse collapse show' id='travar_anotacao' data-toggle='collapse'
                       data-target='.anotacao_editor_collapse' title='travar para edição'><a
                             href='javascript:void(0);'><i class='fal fa-lock-open-alt fa-fw'></i></a></span>
                 <span class='anotacao_editor_collapse collapse' id='destravar_anotacao' data-toggle='collapse'
                       data-target='.anotacao_editor_collapse' title='destravar para edição'><a
                             href='javascript:void(0);'><i class='fal fa-lock-alt fa-fw'></i></a></span>
                 <span id='minimizar_anotacoes' data-toggle='collapse' data-target='.anotacoes_collapse'><a
-                            href='javascript:void(0);'><i class='fal fa-chevron-up fa-fw'></i></a></span>
-              </span>
-                    </div>
-                </div>
-                <div class='row py-3'>
-                    <div class='col-12'>
-                        <form id='quill_anotacao_form' method='post'>
-                            <input name='quill_nova_anotacao_html' type='hidden'>
-                            <div class='row'>
-                                <div class='container col-12'>
-																	<?php
-																		echo "
-                        <div id='quill_container_anotacao'>
-                          <div id='quill_editor_anotacao' class='quill_editor_height'>
-                            $anotacao_html
-                          </div>
-                        </div>
-                      ";
-																	?>
-                                </div>
-                            </div>
-                            <div class='row justify-content-center mt-3 anotacao_editor_collapse collapse show'>
-                                <button type='button' class='btn btn-light btn-sm'><i
-                                            class="fal fa-times-circle fa-fw"></i> Cancelar
-                                </button>
-                                <button type='submit' class='btn btn-primary btn-sm'><i class='fal fa-check fa-fw'></i>
-                                    Salvar
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+                            href='javascript:void(0);'><i class='fal fa-chevron-up fa-fw'></i></a></span>";
+		        $template_conteudo = false;
+		
+		        $template_quill_form_id = 'quill_anotacao_form';
+		        $template_quill_conteudo_html = 'quill_nova_anotacao_html';
+		        $template_quill_conteudo_text = 'quill_nova_anotacao_text';
+		        $template_quill_conteudo_content = 'quill_nova_anotacao_content';
+		        $template_quill_container_id = 'quill_container_anotacao';
+		        $template_quill_editor_id = 'quill_editor_anotacao';
+		        $template_quill_editor_classes = 'quill_editor_height';
+		        $template_quill_conteudo_opcional = $anotacao_html;
+		        $template_quill_botoes_collapse_stuff = 'anotacao_editor_collapse collapse show';
+		
+		        $template_conteudo = include 'templates/quill_form.php';
+		        $template = include 'templates/page_element.php';
+		        echo $template;
+	
+	        ?>
+
         </div>
     </div>
-    <div class='modal fade' id='modal_imagens_form' role='dialog' tabindex='-1'>
-        <div class='modal-dialog modal-lg' role='document'>
-            <div class='modal-content'>
-                <form method='post'>
-                    <div class='modal-header text-center'>
-                        <h4 class='modal-title w-100 font-weight-bold'>Adicionar imagem</h4>
-                        <button type='button' class='close' data-dismiss='modal'>
-                            <i class="fal fa-times-circle"></i>
-                        </button>
+</div>
+<div class='modal fade' id='modal_imagens_form' role='dialog' tabindex='-1'>
+    <div class='modal-dialog modal-lg' role='document'>
+        <div class='modal-content'>
+            <form method='post'>
+                <div class='modal-header text-center'>
+                    <h4 class='modal-title w-100 font-weight-bold'>Adicionar imagem</h4>
+                    <button type='button' class='close' data-dismiss='modal'>
+                        <i class="fal fa-times-circle"></i>
+                    </button>
+                </div>
+                <div class='modal-body mx-3'>
+                    <div class='md-form mb-2'>
+                        <input type='url' id='nova_imagem_link' name='nova_imagem_link'
+                               class='form-control validate' required>
+                        <label data-error='preenchimento incorreto' data-successd='preenchimento correto'
+                               for='nova_imagem_link'>Link para a imagem</label>
                     </div>
-                    <div class='modal-body mx-3'>
-                        <div class='md-form mb-2'>
-                            <input type='url' id='nova_imagem_link' name='nova_imagem_link'
-                                   class='form-control validate' required>
-                            <label data-error='preenchimento incorreto' data-successd='preenchimento correto'
-                                   for='nova_imagem_link'>Link para a imagem</label>
-                        </div>
-                        <div class='md-form mb-2'>
-                            <input type='text' id='nova_imagem_titulo' name='nova_imagem_titulo'
-                                   class='form-control validate' required>
-                            <label data-error='preenchimento incorreto' data-successd='preenchimento correto'
-                                   for='nova_imagem_titulo'>Título da imagem</label>
-                        </div>
-                        <div class='md-form'>
+                    <div class='md-form mb-2'>
+                        <input type='text' id='nova_imagem_titulo' name='nova_imagem_titulo'
+                               class='form-control validate' required>
+                        <label data-error='preenchimento incorreto' data-successd='preenchimento correto'
+                               for='nova_imagem_titulo'>Título da imagem</label>
+                    </div>
+                    <div class='md-form'>
                             <textarea type='text' id='nova_imagem_comentario' name='nova_imagem_comentario'
                                       class='md-textarea form-control' rows='4' required></textarea>
-                            <label data-error='preenchimento incorreto' data-success='preenchimento correto'
-                                   for='nova_imagem_comentario'>Breve comentário sobre a imagem, destacando sua
-                                relevância didática.</label>
-                        </div>
+                        <label data-error='preenchimento incorreto' data-success='preenchimento correto'
+                               for='nova_imagem_comentario'>Breve comentário sobre a imagem, destacando sua
+                            relevância didática.</label>
                     </div>
-                    <div class='modal-footer d-flex justify-content-center'>
-                        <button type='button' class='btn bg-lighter btn-lg' data-dismiss='modal'><i
-                                    class="fal fa-times-circle"></i> Cancelar
-                        </button>
-                        <button type='submit' class='but btn-primary btn-lg'><i class='fal fa-check'></i> Salvar
-                        </button>
-                    </div>
-                </form>
-            </div>
+                </div>
+                <div class='modal-footer d-flex justify-content-center'>
+                    <button type='button' class='btn bg-lighter btn-lg' data-dismiss='modal'><i
+                                class="fal fa-times-circle"></i> Cancelar
+                    </button>
+                    <button type='submit' class='but btn-primary btn-lg'><i class='fal fa-check'></i> Salvar
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
-    <div class='modal fade' id='modal_referencia_form' role='dialog' tabindex='-1'>
-        <div class='modal-dialog modal-lg' role='document'>
-            <div class='modal-content'>
-                <form method='post'>
-                    <div class='modal-header text-center'>
-                        <h4 class='modal-title w-100 font-weight-bold'>Adicionar referência bibliográfica</h4>
-                        <button type='button' class='close' data-dismiss='modal'>
-                            <i class="fal fa-times-circle"></i>
-                        </button>
+</div>
+<div class='modal fade' id='modal_referencia_form' role='dialog' tabindex='-1'>
+    <div class='modal-dialog modal-lg' role='document'>
+        <div class='modal-content'>
+            <form method='post'>
+                <div class='modal-header text-center'>
+                    <h4 class='modal-title w-100 font-weight-bold'>Adicionar referência bibliográfica</h4>
+                    <button type='button' class='close' data-dismiss='modal'>
+                        <i class="fal fa-times-circle"></i>
+                    </button>
+                </div>
+                <div class='modal-body mx-3'>
+                    <div class='md-form mb-2'>
+                        <input type='text' id='nova_referencia_titulo' name='nova_referencia_titulo'
+                               class='form-control validate' required>
+                        <label data-error='preenchimento incorreto' data-successd='preenchimento correto'
+                               for='nova_referencia_titulo'>Título da obra</label>
                     </div>
-                    <div class='modal-body mx-3'>
-                        <div class='md-form mb-2'>
-                            <input type='text' id='nova_referencia_titulo' name='nova_referencia_titulo'
-                                   class='form-control validate' required>
-                            <label data-error='preenchimento incorreto' data-successd='preenchimento correto'
-                                   for='nova_referencia_titulo'>Título da obra</label>
-                        </div>
-                        <div class='md-form mb-2'>
-                            <input type='text' id='nova_referencia_autor' name='nova_referencia_autor'
-                                   class='form-control validate' required>
-                            <label data-error='preenchimento incorreto' data-successd='preenchimento correto'
-                                   for='nova_referencia_autor'>Nome do autor</label>
-                        </div>
-                        <div class='md-form mb-2'>
-                            <input type='text' id='nova_referencia_capitulo' name='nova_referencia_capitulo'
-                                   class='form-control validate'>
-                            <label data-error='preenchimento incorreto' data-successd='preenchimento correto'
-                                   for='nova_referencia_capitulo'>Capítulo (opcional)</label>
-                        </div>
-                        <div class='md-form mb-2'>
-                            <input type='text' id='nova_referencia_ano' name='nova_referencia_ano'
-                                   class='form-control validate'>
-                            <label data-error='preenchimento incorreto' data-successd='preenchimento correto'
-                                   for='nova_referencia_ano'>Ano (opcional)</label>
-                        </div>
-                        <div class='md-form mb-2'>
-                            <input type='text' id='nova_referencia_link' name='nova_referencia_link'
-                                   class='form-control validate'>
-                            <label data-error='preenchimento incorreto' data-successd='preenchimento correto'
-                                   for='nova_referencia_link'>Link (opcional)</label>
-                        </div>
+                    <div class='md-form mb-2'>
+                        <input type='text' id='nova_referencia_autor' name='nova_referencia_autor'
+                               class='form-control validate' required>
+                        <label data-error='preenchimento incorreto' data-successd='preenchimento correto'
+                               for='nova_referencia_autor'>Nome do autor</label>
                     </div>
-                    <div class='modal-footer d-flex justify-content-center'>
-                        <button type='button' class='btn bg-lighter btn-lg' data-dismiss='modal'><i
-                                    class="fal fa-times-circle"></i> Cancelar
-                        </button>
-                        <button type='submit' class='but btn-primary btn-lg'><i class='fal fa-check'></i> Salvar
-                        </button>
+                    <div class='md-form mb-2'>
+                        <input type='text' id='nova_referencia_capitulo' name='nova_referencia_capitulo'
+                               class='form-control validate'>
+                        <label data-error='preenchimento incorreto' data-successd='preenchimento correto'
+                               for='nova_referencia_capitulo'>Capítulo (opcional)</label>
                     </div>
-                </form>
-            </div>
+                    <div class='md-form mb-2'>
+                        <input type='text' id='nova_referencia_ano' name='nova_referencia_ano'
+                               class='form-control validate'>
+                        <label data-error='preenchimento incorreto' data-successd='preenchimento correto'
+                               for='nova_referencia_ano'>Ano (opcional)</label>
+                    </div>
+                    <div class='md-form mb-2'>
+                        <input type='text' id='nova_referencia_link' name='nova_referencia_link'
+                               class='form-control validate'>
+                        <label data-error='preenchimento incorreto' data-successd='preenchimento correto'
+                               for='nova_referencia_link'>Link (opcional)</label>
+                    </div>
+                </div>
+                <div class='modal-footer d-flex justify-content-center'>
+                    <button type='button' class='btn bg-lighter btn-lg' data-dismiss='modal'><i
+                                class="fal fa-times-circle"></i> Cancelar
+                    </button>
+                    <button type='submit' class='but btn-primary btn-lg'><i class='fal fa-check'></i> Salvar
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
-    <div class='modal fade' id='modal_videos_form' role='dialog' tabindex='-1'>
-        <div class='modal-dialog modal-lg' role='document'>
-            <div class='modal-content'>
-                <form method='post'>
-                    <div class='modal-header text-center'>
-                        <h4 class='modal-title w-100 font-weight-bold'>Adicionar vídeo ou aula</h4>
-                        <button type='button' class='close' data-dismiss='modal'>
-                            <i class="fal fa-times-circle"></i>
-                        </button>
+</div>
+<div class='modal fade' id='modal_videos_form' role='dialog' tabindex='-1'>
+    <div class='modal-dialog modal-lg' role='document'>
+        <div class='modal-content'>
+            <form method='post'>
+                <div class='modal-header text-center'>
+                    <h4 class='modal-title w-100 font-weight-bold'>Adicionar vídeo ou aula</h4>
+                    <button type='button' class='close' data-dismiss='modal'>
+                        <i class="fal fa-times-circle"></i>
+                    </button>
+                </div>
+                <div class='modal-body mx-3'>
+                    <div class='md-form mb-2'>
+                        <input type='text' id='novo_video_titulo' name='novo_video_titulo'
+                               class='form-control validate' required>
+                        <label data-error='preenchimento incorreto' data-successd='preenchimento correto'
+                               for='novo_video_titulo'>Título do vídeo</label>
                     </div>
-                    <div class='modal-body mx-3'>
-                        <div class='md-form mb-2'>
-                            <input type='text' id='novo_video_titulo' name='novo_video_titulo'
-                                   class='form-control validate' required>
-                            <label data-error='preenchimento incorreto' data-successd='preenchimento correto'
-                                   for='novo_video_titulo'>Título do vídeo</label>
-                        </div>
-                        <div class='md-form mb-2'>
-                            <input type='text' id='novo_video_autor' name='novo_video_autor'
-                                   class='form-control validate' required>
-                            <label data-error='preenchimento incorreto' data-successd='preenchimento correto'
-                                   for='novo_video_autor'>Nome do autor</label>
-                        </div>
-                        <div class='md-form mb-2'>
-                            <input type='url' id='novo_video_link' name='novo_video_link' class='form-control validate'
-                                   required>
-                            <label data-error='preenchimento incorreto' data-successd='preenchimento correto'
-                                   for='novo_video_link'>Link para o vídeo</label>
-                        </div>
+                    <div class='md-form mb-2'>
+                        <input type='text' id='novo_video_autor' name='novo_video_autor'
+                               class='form-control validate' required>
+                        <label data-error='preenchimento incorreto' data-successd='preenchimento correto'
+                               for='novo_video_autor'>Nome do autor</label>
                     </div>
-                    <div class='modal-footer d-flex justify-content-center'>
-                        <button type='button' class='btn bg-lighter btn-lg' data-dismiss='modal'><i
-                                    class="fal fa-times-circle"></i> Cancelar
-                        </button>
-                        <button type='submit' class='but btn-primary btn-lg'><i class='fal fa-check'></i> Salvar
-                        </button>
+                    <div class='md-form mb-2'>
+                        <input type='url' id='novo_video_link' name='novo_video_link' class='form-control validate'
+                               required>
+                        <label data-error='preenchimento incorreto' data-successd='preenchimento correto'
+                               for='novo_video_link'>Link para o vídeo</label>
                     </div>
-                </form>
-            </div>
+                </div>
+                <div class='modal-footer d-flex justify-content-center'>
+                    <button type='button' class='btn bg-lighter btn-lg' data-dismiss='modal'><i
+                                class="fal fa-times-circle"></i> Cancelar
+                    </button>
+                    <button type='submit' class='but btn-primary btn-lg'><i class='fal fa-check'></i> Salvar
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
+</div>
 </div>
 </body>
 <?php
