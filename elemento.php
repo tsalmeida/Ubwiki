@@ -90,8 +90,7 @@
 							$template_titulo = 'Imagem';
 							$template_botoes = false;
 							$template_conteudo = "<img class='imagem_pagina border' src='../imagens/verbetes/$arquivo_elemento'></img>";
-							$template = include 'templates/page_element.php';
-							echo $template;
+													include 'templates/page_element.php';
 						}
 
 						$dados_elemento = "
@@ -118,8 +117,7 @@
 						$template_titulo = 'Dados do elemento';
 						$template_botoes = false;
 						$template_conteudo = $dados_elemento;
-						$template = include 'templates/page_element.php';
-						echo $template;
+											include 'templates/page_element.php';
 
 
 					?>
@@ -142,9 +140,8 @@
                         $template_quill_conteudo_opcional = $elemento_analise;
                         $template_quill_botoes_collapse_stuff = false;
                         $template_conteudo = include 'templates/quill_form.php';
-
-						$template = include 'templates/page_element.php';
-						echo $template;
+											
+											include 'templates/page_element.php';
 					?>
         </div>
     </div>

@@ -426,14 +426,13 @@
 		        $template_titulo = 'Verbete';
 		        $template_botoes = "
                 <span class='verbete_editor_collapse collapse' id='travar_verbete' data-toggle='collapse'
-                      data-target='.verbete_editor_collapse' title='travar verbete para edição'><a
+                      data-target='.verbete_editor_collapse' title='travar para edição'><a
                             href='javascript:void(0);'><i class='fal fa-lock-open-alt fa-fw'></i></a></span>
                 <span class='verbete_editor_collapse collapse show' id='destravar_verbete' data-toggle='collapse'
-                      data-target='.verbete_editor_collapse' title='destravar verbete para edição'><a
+                      data-target='.verbete_editor_collapse' title='permitir edição'><a
                             href='javascript:void(0);'><i class='fal fa-lock-alt fa-fw'></i></a></span>
                 <span id='esconder_verbete' data-toggle='collapse' data-target='.verbete_collapse'><a
                             href='javascript:void(0);'><i class='fal fa-chevron-up fa-fw'></i></a></span>";
-		        $template_conteudo = false;
 		
 		        $template_quill_form_id = 'quill_verbete_form';
 		        $template_quill_conteudo_html = 'quill_novo_verbete_html';
@@ -442,12 +441,10 @@
 		        $template_quill_container_id = 'quill_container_verbete';
 		        $template_quill_editor_id = 'quill_editor_verbete';
 		        $template_quill_editor_classes = 'quill_editor_height quill_editor_height_leitura';
-		        $template_quill_conteudo_opcional = false;
 		        $template_quill_botoes_collapse_stuff = 'verbete_editor_collapse collapse';
 		
 		        $template_conteudo = include 'templates/quill_form.php';
-		        $template = include 'templates/page_element.php';
-		        echo $template;
+		        include 'templates/page_element.php';
 		
 		        $template_id = 'videos';
 		        $template_collapse_stuff = 'videos_collapse collapse show';
@@ -484,8 +481,7 @@
 			        $template_conteudo .= "<p>Ainda não foram acrescentados vídeos ou aulas sobre este assunto.</p>";
 		        }
 		
-		        $template = include 'templates/page_element.php';
-		        echo $template;
+		        include 'templates/page_element.php';
 		
 		        $template_id = 'bibliografia';
 		        $template_collapse_stuff = 'bibliografia_collapse collapse show';
@@ -518,8 +514,7 @@
 			        $template_conteudo .= "<p>Não foram identificados, até o momento, recursos bibliográficos sobre este tema.</p>";
 		        }
 		
-		        $template = include 'templates/page_element.php';
-		        echo $template;
+		        include 'templates/page_element.php';
 		
 		        $template_id = 'imagens';
 		        $template_collapse_stuff = 'imagens_collapse collapse show';
@@ -528,8 +523,8 @@
                                         class='fal fa-plus-square fa-fw'></i></a>
               <span id='esconder_imagens' data-toggle='collapse' data-target='.imagens_collapse'><a
                           href='javascript:void(0);'><i class='fal fa-chevron-up fa-fw'></i></a></span>";
-		
 		        $template_conteudo = false;
+		
 		
 		        $result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND tipo = 'imagem'");
 		        $count = 0;
@@ -574,9 +569,9 @@
 				        $template_conteudo .= "
                             </div>
                               <div class='controls-top'>
-                                <a class='btn btn-sm grey lighten-3 z-depth-0' href='#carousel-with-lb' data-slide='prev'><i
+                                <a class='btn btn-md grey lighten-3 z-depth-0' href='#carousel-with-lb' data-slide='prev'><i
                                     class='fas fa-chevron-left'></i></a>
-                                <a class='btn btn-sm grey lighten-3 z-depth-0' href='#carousel-with-lb' data-slide='next'><i
+                                <a class='btn btn-md grey lighten-3 z-depth-0' href='#carousel-with-lb' data-slide='next'><i
                                     class='fas fa-chevron-right'></i></a>
                               </div>
                             </div>
@@ -585,10 +580,9 @@
 				        $template_conteudo .= "</div></div>";
 			        }
 		        } else {
-			        $template_conteudo .= "<p>Não foram acrescentadas, até o momento, imagens a este verbete.</p>";
+			        $template_conteudo .= "<p>Não foram acrescentadas, até o momento, imagens a este verbete.</p></div></div>";
 		        }
-		        $template = include 'templates/page_element.php';
-		        echo $template;
+		        include 'templates/page_element.php';
 	
 	
 	        ?>
@@ -598,17 +592,15 @@
 	
 	        <?php
 		        $template_id = 'sticky_anotacoes';
-		        $template_collapse_stuff = false;
 		        $template_titulo = 'Anotações';
 		        $template_botoes = "<span class='anotacao_editor_collapse collapse show' id='travar_anotacao' data-toggle='collapse'
                       data-target='.anotacao_editor_collapse' title='travar para edição'><a
                             href='javascript:void(0);'><i class='fal fa-lock-open-alt fa-fw'></i></a></span>
                 <span class='anotacao_editor_collapse collapse' id='destravar_anotacao' data-toggle='collapse'
-                      data-target='.anotacao_editor_collapse' title='destravar para edição'><a
+                      data-target='.anotacao_editor_collapse' title='permitir edição'><a
                             href='javascript:void(0);'><i class='fal fa-lock-alt fa-fw'></i></a></span>
                 <span id='minimizar_anotacoes' data-toggle='collapse' data-target='.anotacoes_collapse'><a
                             href='javascript:void(0);'><i class='fal fa-chevron-up fa-fw'></i></a></span>";
-		        $template_conteudo = false;
 		
 		        $template_quill_form_id = 'quill_anotacao_form';
 		        $template_quill_conteudo_html = 'quill_nova_anotacao_html';
@@ -621,26 +613,19 @@
 		        $template_quill_botoes_collapse_stuff = 'anotacao_editor_collapse collapse show';
 		
 		        $template_conteudo = include 'templates/quill_form.php';
-		        $template = include 'templates/page_element.php';
-		        echo $template;
+		        include 'templates/page_element.php';
 	
 	        ?>
 
         </div>
     </div>
 </div>
-<div class='modal fade' id='modal_imagens_form' role='dialog' tabindex='-1'>
-    <div class='modal-dialog modal-lg' role='document'>
-        <div class='modal-content'>
-            <form method='post'>
-                <div class='modal-header text-center'>
-                    <h4 class='modal-title w-100 font-weight-bold'>Adicionar imagem</h4>
-                    <button type='button' class='close' data-dismiss='modal'>
-                        <i class="fal fa-times-circle"></i>
-                    </button>
-                </div>
-                <div class='modal-body mx-3'>
-                    <div class='md-form mb-2'>
+<?php
+	
+	$template_modal_div_id = 'modal_imagens_form';
+	$template_modal_titulo = 'Adicionar imagem';
+	$template_modal_body_conteudo = "
+                        <div class='md-form mb-2'>
                         <input type='url' id='nova_imagem_link' name='nova_imagem_link'
                                class='form-control validate' required>
                         <label data-error='preenchimento incorreto' data-successd='preenchimento correto'
@@ -659,29 +644,13 @@
                                for='nova_imagem_comentario'>Breve comentário sobre a imagem, destacando sua
                             relevância didática.</label>
                     </div>
-                </div>
-                <div class='modal-footer d-flex justify-content-center'>
-                    <button type='button' class='btn bg-lighter btn-lg' data-dismiss='modal'><i
-                                class="fal fa-times-circle"></i> Cancelar
-                    </button>
-                    <button type='submit' class='but btn-primary btn-lg'><i class='fal fa-check'></i> Salvar
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<div class='modal fade' id='modal_referencia_form' role='dialog' tabindex='-1'>
-    <div class='modal-dialog modal-lg' role='document'>
-        <div class='modal-content'>
-            <form method='post'>
-                <div class='modal-header text-center'>
-                    <h4 class='modal-title w-100 font-weight-bold'>Adicionar referência bibliográfica</h4>
-                    <button type='button' class='close' data-dismiss='modal'>
-                        <i class="fal fa-times-circle"></i>
-                    </button>
-                </div>
-                <div class='modal-body mx-3'>
+    ";
+	include 'templates/modal.php';
+	
+	
+	$template_modal_div_id = 'modal_referencia_form';
+	$template_modal_titulo = 'Adicionar material de leitura';
+	$template_modal_body_conteudo = "
                     <div class='md-form mb-2'>
                         <input type='text' id='nova_referencia_titulo' name='nova_referencia_titulo'
                                class='form-control validate' required>
@@ -712,29 +681,13 @@
                         <label data-error='preenchimento incorreto' data-successd='preenchimento correto'
                                for='nova_referencia_link'>Link (opcional)</label>
                     </div>
-                </div>
-                <div class='modal-footer d-flex justify-content-center'>
-                    <button type='button' class='btn bg-lighter btn-lg' data-dismiss='modal'><i
-                                class="fal fa-times-circle"></i> Cancelar
-                    </button>
-                    <button type='submit' class='but btn-primary btn-lg'><i class='fal fa-check'></i> Salvar
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<div class='modal fade' id='modal_videos_form' role='dialog' tabindex='-1'>
-    <div class='modal-dialog modal-lg' role='document'>
-        <div class='modal-content'>
-            <form method='post'>
-                <div class='modal-header text-center'>
-                    <h4 class='modal-title w-100 font-weight-bold'>Adicionar vídeo ou aula</h4>
-                    <button type='button' class='close' data-dismiss='modal'>
-                        <i class="fal fa-times-circle"></i>
-                    </button>
-                </div>
-                <div class='modal-body mx-3'>
+	";
+	
+	include 'templates/modal.php';
+	
+	$template_modal_div_id = 'modal_videos_form';
+	$template_modal_titulo = 'Adicionar vídeo ou aula';
+	$template_modal_body_conteudo = "
                     <div class='md-form mb-2'>
                         <input type='text' id='novo_video_titulo' name='novo_video_titulo'
                                class='form-control validate' required>
@@ -753,18 +706,17 @@
                         <label data-error='preenchimento incorreto' data-successd='preenchimento correto'
                                for='novo_video_link'>Link para o vídeo</label>
                     </div>
-                </div>
-                <div class='modal-footer d-flex justify-content-center'>
-                    <button type='button' class='btn bg-lighter btn-lg' data-dismiss='modal'><i
-                                class="fal fa-times-circle"></i> Cancelar
-                    </button>
-                    <button type='submit' class='but btn-primary btn-lg'><i class='fal fa-check'></i> Salvar
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+	";
+	
+	include 'templates/modal.php';
+
+
+?>
+
+
+
+
+
 </div>
 </body>
 <?php

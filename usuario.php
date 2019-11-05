@@ -1,7 +1,7 @@
 <?php
-
+	
 	include 'engine.php';
-
+	
 	$result = $conn->query("SELECT id, tipo, criacao, apelido, nome, sobrenome FROM Usuarios WHERE email = '$user_email'");
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
@@ -13,7 +13,7 @@
 			$user_sobrenome = $row['sobrenome'];
 		}
 	}
-
+	
 	if (isset($_POST['quill_nova_mensagem_html'])) {
 		$nova_mensagem = $_POST['quill_nova_mensagem_html'];
 		$nova_mensagem = strip_tags($nova_mensagem, '<p><li><ul><ol><h2><h3><blockquote><em><sup><s>');
@@ -39,14 +39,14 @@
 			$user_mensagens = false;
 		}
 	}
-
+	
 	if (isset($_POST['novo_nome'])) {
-		$novo_user_nome = $_POST['novo_nome'];
-		$novo_user_sobrenome = $_POST['novo_sobrenome'];
-		$novo_user_apelido = $_POST['novo_apelido'];
-		$result = $conn->query("UPDATE Usuarios SET nome = '$novo_user_nome', sobrenome = '$novo_user_sobrenome', apelido = '$novo_user_apelido' WHERE id = $user_id");
+		$user_nome = $_POST['novo_nome'];
+		$user_sobrenome = $_POST['novo_sobrenome'];
+		$user_apelido = $_POST['novo_apelido'];
+		$result = $conn->query("UPDATE Usuarios SET nome = '$user_nome', sobrenome = '$user_sobrenome', apelido = '$user_apelido' WHERE id = $user_id");
 	}
-
+	
 	top_page(false, 'quill_user');
 
 ?>
@@ -77,17 +77,16 @@
 						$template_conteudo .= "<li class='list-group-item'><strong>Sobrenome:</strong> $user_sobrenome</li>";
 						$template_conteudo .= "<li class='list-group-item'><strong>Email:</strong> $user_email</li>";
 						$template_conteudo .= "</ul>";
-
-						$template = include 'templates/page_element.php';
-						echo $template;
-
+											
+											include 'templates/page_element.php';
+						
 						$template_id = '#lista_leitura';
 						$template_collapse_stuff = false;
 						$template_titulo = 'Lista de leitura';
 						$template_botoes = false;
 						$template_conteudo = false;
-
-						$template_conteudo .= "<ul class='list-group'>";
+											
+											$template_conteudo .= "<ul class='list-group'>";
 						$result = $conn->query("SELECT tema_id FROM Bookmarks WHERE user_id = $user_id");
 						if ($result->num_rows > 0) {
 							while ($row = $result->fetch_assoc()) {
@@ -120,10 +119,9 @@
 							}
 						}
 						$template_conteudo .= "</ul>";
-						$template = include 'templates/page_element.php';
-						echo $template;
-
-
+											include 'templates/page_element.php';
+					
+					
 					?>
         </div>
         <div class='col-lg-5 col-sm-12'>
@@ -133,7 +131,7 @@
 		        $template_titulo = 'Anotações';
 		        $template_botoes = false;
 		        $template_conteudo = false;
-
+		
 		        $template_quill_container_id = 'anotacoes_div';
 		        $template_quill_form_id = 'quill_user_form';
 		        $template_quill_conteudo_html = 'quill_nova_mensagem_html';
@@ -144,67 +142,43 @@
 		        $template_quill_editor_classes = 'quill_editor_height';
 		        $template_quill_conteudo_opcional = $user_mensagens;
 		        $template_quill_botoes_collapse_stuff = false;
-		        
+		
 		        $template_conteudo .= include 'templates/quill_form.php';
-
-		        $template = include 'templates/page_element.php';
-		        echo $template;
-
+		
+		        include 'templates/page_element.php';
+	
 	        ?>
         </div>
     </div>
 </div>
-<div id='modal_editar_dados' class='modal fade' role='dialog' tabindex='-1'>
-    <div class='modal-dialog modal-dialog-centered' role='document'>
-        <div class='modal-content'>
-            <form method='post'>
-                <div class='modal-header text-center'>
-                    <h4 class='modal-title w-100 font-weight-bold'>Alterar dados</h4>
-                    <button type='button' class='close' data-dismiss='modal'>
-                        <i class="fal fa-times-circle"></i>
-                    </button>
-                </div>
-                <div class='modal-body mx-3 pb-0'>
-                    <p>Você é identificado por seu apelido em todas as circunstâncias da página em que sua
-                        participação ou contribuição sejam tornadas públicas.</p>
-                    <div class='md-form md-2'>
-											<?php
-												echo "<input type='text' name='novo_apelido' id='novo_apelido' class='form-control validate' value='$user_apelido' required></input>";
-											?>
-                        <label data-error='preenchimento incorreto' data-successd='preenchimento correto'
-                               for='novo_apelido' required>Apelido</label>
-                    </div>
-                </div>
-                <div class='modal-body mx-3 pb-0'>
-                    <p>Seu nome e seu sobrenome não serão divulgados em nenhuma seção pública da página.</p>
-                    <div class='md-form md-2'>
-											<?php
-												echo "<input type='text' name='novo_nome' id='novo_nome' class='form-control validate' value='$user_nome' required></input>";
-											?>
-                        <label data-error='preenchimento incorreto' data-successd='preenchimento correto'
-                               for='novo_nome'>Nome</label>
-                    </div>
-                </div>
-                <div class='modal-body mx-3 pb-0'>
-                    <div class='md-form md-2'>
-											<?php
-												echo "<input type='text' name='novo_sobrenome' id='novo_sobrenome' class='form-control validate' value='$user_sobrenome' required></input>";
-											?>
-                        <label data-error='preenchimento incorreto' data-successd='preenchimento correto'
-                               for='novo_sobrenome' required>Sobrenome</label>
-                    </div>
-                </div>
-                <div class='modal-footer d-flex justify-content-center'>
-                    <button type='button' class='btn bg-lighter btn-lg' data-dismiss='modal'><i
-                                class="fal fa-times-circle"></i> Cancelar
-                    </button>
-                    <button type='submit' class='but btn-primary btn-lg'><i class='fal fa-check'></i> Salvar
-                    </button>
-                </div>
-            </form>
+
+<?php
+	
+	$template_modal_div_id = 'modal_editar_dados';
+	$template_modal_titulo = 'Alterar dados';
+	$template_modal_body_conteudo = "
+        <p>Você é identificado por seu apelido em todas as circunstâncias da página em que sua
+            participação ou contribuição sejam tornadas públicas.</p>
+        <div class='md-form md-2'><input type='text' name='novo_apelido' id='novo_apelido' class='form-control validate' value='$user_apelido' required></input>
+            <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_apelido' required>Apelido</label>
         </div>
-    </div>
-</div>
+        <p>Seu nome e seu sobrenome não serão divulgados em nenhuma seção pública da página.</p>
+        <div class='md-form md-2'>
+               <input type='text' name='novo_nome' id='novo_nome' class='form-control validate' value='$user_nome' required></input>
+
+            <label data-error='preenchimento incorreto' data-successd='preenchimento correto'
+                   for='novo_nome'>Nome</label>
+        </div>
+        <div class='md-form md-2'>
+            <input type='text' name='novo_sobrenome' id='novo_sobrenome' class='form-control validate' value='$user_sobrenome' required></input>
+
+            <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_sobrenome' required>Sobrenome</label>
+        </div>
+    ";
+	include 'templates/modal.php';
+
+?>
+
 </body>
 <?php
 	load_footer();
