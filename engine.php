@@ -288,7 +288,6 @@
             function imageHandler() {
                 var range = this.quill.getSelection();
                 var value = prompt('Qual o endereço da imagem?');
-                this.quill.insertEmbed(range.index, 'image', value, Quill.sources.USER);
                 if(value){
                     $.post('engine.php', {
                       'nova_imagem': value,
