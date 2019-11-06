@@ -277,25 +277,28 @@
                 toolbar: {
                   container: toolbarOptions_verbete,
                   handlers: {
-                    image: {
-			                var range = this.quill.getSelection();
-			                var value = prompt('Qual o endereço da imagem?');
-			                if(value){
-		                    $.post('engine.php', {
-		                      'nova_imagem': value,
-		                      'user_id': $args[0],
-		                      'tema_id': $args[1]
-		                    }, function(data) {
-						                this.quill.insertEmbed(range.index, 'image', data, Quill.sources.USER);
-		                    })
-			                }
-                    }
+                    image: imageHandler
                   }
                 }
               }
             });
             verbete_editor.disable();
             $('.ql-toolbar:first').hide();
+
+            function imageHandler() {
+                var range = this.quill.getSelection();
+                var value = prompt('Qual o endereço da imagem?');
+                if(value){
+                    $.post('engine.php', {
+                      'nova_imagem': value,
+                      'user_id': $args[0],
+                      'tema_id': $args[1]
+                    }, function(data) {
+                        alert(data);
+				                this.quill.insertEmbed(range.index, 'image', 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Gogh%2C_Vincent_van_-_Landscape_at_Saint-R%C3%A9my_%28Enclosed_Field_with_Peasant%29_-_Google_Art_Project.jpg/957px-Gogh%2C_Vincent_van_-_Landscape_at_Saint-R%C3%A9my_%28Enclosed_Field_with_Peasant%29_-_Google_Art_Project.jpg', Quill.sources.USER);
+                    });
+                }
+            }
 
             var anotacao_editor = new Quill('#quill_editor_anotacao', {
               theme: 'snow',
