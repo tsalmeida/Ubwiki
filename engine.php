@@ -295,7 +295,7 @@
                       'tema_id': $args[1]
                     }, function(data) {
                         alert(data);
-				                this.quill.insertEmbed(range.index, 'image', data, Quill.sources.USER);
+				                this.quill.insertEmbed(range.index, 'image', 'data', Quill.sources.USER);
                     });
                 }
             }
