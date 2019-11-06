@@ -281,13 +281,13 @@
 			                var range = this.quill.getSelection();
 			                var value = prompt('Qual o endereço da imagem?');
 			                if(value){
-			                    $.post('engine.php', {
-			                      'nova_imagem': value,
-			                      'user_id': $args[0],
-			                      'tema_id': $args[1]
-			                    }, function(data) {
-							                this.quill.insertEmbed(range.index, 'image', data, Quill.sources.USER);
-			                    });
+		                    $.post('engine.php', {
+		                      'nova_imagem': value,
+		                      'user_id': $args[0],
+		                      'tema_id': $args[1]
+		                    }, function(data) {
+						                this.quill.insertEmbed(range.index, 'image', data, Quill.sources.USER);
+		                    })
 			                }
                     }
                   }
