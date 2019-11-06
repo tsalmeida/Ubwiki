@@ -289,11 +289,11 @@
                 var range = this.quill.getSelection();
                 var value = prompt('Qual o endereço da imagem?');
                 if(value){
-                    $.post('engine.php', {
+                    var imagem = $.post('engine.php', {
                       'nova_imagem': value,
                       'user_id': $args[0],
                       'tema_id': $args[1]
-                    }, var imagem = function(data) {
+                    }, function(data) {
                     });
                 }
                 alert(imagem);
