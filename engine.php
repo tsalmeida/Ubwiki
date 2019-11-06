@@ -289,12 +289,14 @@
                 var range = this.quill.getSelection();
                 var value = prompt('Qual o endereço da imagem?');
                 if(value){
-                    this.quill.insertEmbed(range.index, 'image', value, Quill.sources.USER);
                     $.post('engine.php', {
                       'nova_imagem': value,
                       'user_id': $args[0],
                       'tema_id': $args[1]
-                    })
+                    }, function(data) {
+                        alert(data);
+				                this.quill.insertEmbed(range.index, 'image', imagem, Quill.sources.USER);
+                    });
                 }
             }
 
@@ -755,7 +757,8 @@
 		$nova_imagem_link = $_POST['nova_imagem'];
 		$user_id = $_POST['user_id'];
 		$tema_id = $_POST['tema_id'];
-		adicionar_imagem($nova_imagem_link, 'Não há título registrado', 'Não há comentário registrado', $tema_id, $user_id);
+		$nossa_copia = adicionar_imagem($nova_imagem_link, 'Não há título registrado', 'Não há comentário registrado', $tema_id, $user_id);
+		echo $nossa_copia;
 	}
 	
 	function adicionar_imagem()
@@ -802,7 +805,7 @@
 				break;
 			}
 		}
-		return false;
+		return "https://www.ubwiki.com.br/imagens/verbetes/$nova_imagem_arquivo";
 	}
 
 
