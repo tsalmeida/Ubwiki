@@ -1,7 +1,7 @@
 <?php
-	
+
 	include 'engine.php';
-	
+
 	$result = $conn->query("SELECT id, tipo, criacao, apelido, nome, sobrenome FROM Usuarios WHERE email = '$user_email'");
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
@@ -13,7 +13,7 @@
 			$user_sobrenome = $row['sobrenome'];
 		}
 	}
-	
+
 	if (isset($_POST['quill_nova_mensagem_html'])) {
 		$nova_mensagem = $_POST['quill_nova_mensagem_html'];
 		$nova_mensagem = strip_tags($nova_mensagem, '<p><li><ul><ol><h2><h3><blockquote><em><sup><s>');
@@ -39,14 +39,14 @@
 			$user_mensagens = false;
 		}
 	}
-	
+
 	if (isset($_POST['novo_nome'])) {
 		$user_nome = $_POST['novo_nome'];
 		$user_sobrenome = $_POST['novo_sobrenome'];
 		$user_apelido = $_POST['novo_apelido'];
 		$result = $conn->query("UPDATE Usuarios SET nome = '$user_nome', sobrenome = '$user_sobrenome', apelido = '$user_apelido' WHERE id = $user_id");
 	}
-	
+
 	top_page(false, 'quill_user');
 
 ?>
@@ -56,17 +56,17 @@
 	standard_jumbotron("Sua página", false);
 	if ($user_tipo == 'admin') {
 		sub_jumbotron("Administrador", 'admin.php');
-	} else {
-		$tipo_capitalizado = ucfirst($user_tipo);
-		sub_jumbotron($tipo_capitalizado, false);
 	}
+	//	else {
+	//		$tipo_capitalizado = ucfirst($user_tipo);
+	//		sub_jumbotron($tipo_capitalizado, false);
+	//	}
 ?>
 <div class="container-fluid my-5">
     <div class="row d-flex justify-content-around">
         <div class="col-lg-5 col-sm-12">
 					<?php
 						$template_id = 'dados_conta';
-						$template_collapse_stuff = false;
 						$template_titulo = 'Dados da sua conta';
 						$template_botoes = "<a data-toggle='modal' data-target='#modal_editar_dados' href=''><i class='fal fa-edit'></i></a>";
 						$template_conteudo = false;
@@ -77,16 +77,15 @@
 						$template_conteudo .= "<li class='list-group-item'><strong>Sobrenome:</strong> $user_sobrenome</li>";
 						$template_conteudo .= "<li class='list-group-item'><strong>Email:</strong> $user_email</li>";
 						$template_conteudo .= "</ul>";
-											
-											include 'templates/page_element.php';
-						
-						$template_id = '#lista_leitura';
-						$template_collapse_stuff = false;
+
+						include 'templates/page_element.php';
+
+						$template_id = 'lista_leitura';
 						$template_titulo = 'Lista de leitura';
 						$template_botoes = false;
 						$template_conteudo = false;
-											
-											$template_conteudo .= "<ul class='list-group'>";
+
+						$template_conteudo .= "<ul class='list-group'>";
 						$result = $conn->query("SELECT tema_id FROM Bookmarks WHERE user_id = $user_id");
 						if ($result->num_rows > 0) {
 							while ($row = $result->fetch_assoc()) {
@@ -119,41 +118,40 @@
 							}
 						}
 						$template_conteudo .= "</ul>";
-											include 'templates/page_element.php';
-					
-					
+						include 'templates/page_element.php';
+
+
 					?>
         </div>
         <div class='col-lg-5 col-sm-12'>
-	        <?php
-		        $template_id = 'anotacoes_usuario';
-		        $template_collapse_stuff = false;
-		        $template_titulo = 'Anotações';
-		        $template_botoes = false;
-		        $template_conteudo = false;
-		
-		        $template_quill_container_id = 'anotacoes_div';
-		        $template_quill_form_id = 'quill_user_form';
-		        $template_quill_conteudo_html = 'quill_nova_mensagem_html';
-		        $template_quill_conteudo_text = 'quill_nova_mensagem_texto';
-		        $template_quill_conteudo_content = 'quill_nova_mensagem_content';
-		        $template_quill_container_id = 'quill_container_user';
-		        $template_quill_editor_id = 'quill_editor_user';
-		        $template_quill_editor_classes = 'quill_editor_height';
-		        $template_quill_conteudo_opcional = $user_mensagens;
-		        $template_quill_botoes_collapse_stuff = false;
-		
-		        $template_conteudo .= include 'templates/quill_form.php';
-		
-		        include 'templates/page_element.php';
-	
-	        ?>
+					<?php
+						$template_id = 'anotacoes_usuario';
+						$template_titulo = 'Anotações';
+						$template_botoes = false;
+						$template_conteudo = false;
+
+						$template_quill_container_id = 'anotacoes_div';
+						$template_quill_form_id = 'quill_user_form';
+						$template_quill_conteudo_html = 'quill_nova_mensagem_html';
+						$template_quill_conteudo_text = 'quill_nova_mensagem_texto';
+						$template_quill_conteudo_content = 'quill_nova_mensagem_content';
+						$template_quill_container_id = 'quill_container_user';
+						$template_quill_editor_id = 'quill_editor_user';
+						$template_quill_editor_classes = 'quill_editor_height';
+						$template_quill_conteudo_opcional = $user_mensagens;
+						$template_quill_botoes_collapse_stuff = false;
+
+						$template_conteudo .= include 'templates/quill_form.php';
+
+						include 'templates/page_element.php';
+
+					?>
         </div>
     </div>
 </div>
 
 <?php
-	
+
 	$template_modal_div_id = 'modal_editar_dados';
 	$template_modal_titulo = 'Alterar dados';
 	$template_modal_body_conteudo = "

@@ -190,25 +190,31 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .spacing0 {
-    margin-left: 3ch;
+    margin-left: 0;
 }
 
 .spacing1 {
-    margin-left: 6ch;
+    margin-left: 1ch;
 }
 
 .spacing2 {
-    margin-left: 9ch;
+    margin-left: 4ch;
 }
 
 .spacing3 {
-    margin-left: 12ch;
+    margin-left: 7ch;
 }
 
 .spacing4 {
-    margin-left: 15ch;
+    margin-left: 10ch;
 }
 
 .spacing5 {
-    margin-left: 18ch;
+    margin-left: 13ch;
+}
+
+#mostrar_coluna_direita {
+  position: fixed;
+  right: 0;
+  bottom: 60%;
 }

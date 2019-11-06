@@ -137,6 +137,8 @@
     <!-- Bootstrap Horizon -->
     <link href="css/bootstrap-horizon.css" rel="stylesheet">
     <link type="image/vnd.microsoft.icon" rel="icon" href="../imagens/favicon.ico"/>
+	  <!-- JQuery -->
+	  <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
     <title>Ubwiki</title>';
 		
 		if ($args != false) {
@@ -175,8 +177,6 @@
 		$args = func_get_args();
 		
 		echo '
-  <!-- JQuery -->
-  <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
   <!-- Bootstrap tooltips -->
   <script type="text/javascript" src="js/popper.min.js"></script>
   <!-- Bootstrap core JavaScript -->
@@ -476,71 +476,6 @@
             });
           </script>
         ";
-				} elseif ($args[$array] == 'collapse_stuff') {
-					echo "
-        <script type='text/javascript'>
-          $('#esconder_verbete').click(function(){
-            if ( $('#videos').css('display') == 'none' && $('#imagens').css('display') == 'none' && $('#bibliografia').css('display') == 'none' ) {
-              $('#coluna_esquerda').css('display', 'none');
-              $('#coluna_direita').addClass('col-lg-6');
-              $('#coluna_direita').removeClass('col-lg-5');
-            }
-            if ( $('#coluna_direita').css('display') == 'none' ) {
-              $('#coluna_esquerda').addClass('col-lg-6');
-              $('#coluna_esquerda').removeClass('col-lg-5');
-            }
-          });
-          $('#esconder_imagens').click(function(){
-            if ( $('#verbete').css('display') == 'none' && $('#videos').css('display') == 'none' && $('#bibliografia').css('display') == 'none' ) {
-              $('#coluna_esquerda').css('display', 'none');
-              $('#coluna_direita').addClass('col-lg-6');
-              $('#coluna_direita').removeClass('col-lg-5');
-            }
-            if ( $('#coluna_direita').css('display') == 'none' ) {
-              $('#coluna_esquerda').addClass('col-lg-6');
-              $('#coluna_esquerda').removeClass('col-lg-5');
-            }
-          });
-          $('#esconder_videos').click(function(){
-            if ( $('#verbete').css('display') == 'none' && $('#imagens').css('display') == 'none' && $('#bibliografia').css('display') == 'none' ) {
-              $('#coluna_esquerda').css('display', 'none');
-              $('#coluna_direita').addClass('col-lg-6');
-              $('#coluna_direita').removeClass('col-lg-5');
-            }
-            if ( $('#coluna_direita').css('display') == 'none' ) {
-              $('#coluna_esquerda').addClass('col-lg-6');
-              $('#coluna_esquerda').removeClass('col-lg-5');
-            }
-          });
-          $('#esconder_bibliografia').click(function(){
-            if ( $('#verbete').css('display') == 'none' && $('#videos').css('display') == 'none' && $('#imagens').css('display') == 'none' ) {
-              $('#coluna_esquerda').css('display', 'none');
-              $('#coluna_direita').addClass('col-lg-6');
-              $('#coluna_direita').removeClass('col-lg-5');
-            }
-            if ( $('#coluna_direita').css('display') == 'none' ) {
-              $('#coluna_esquerda').addClass('col-lg-6');
-              $('#coluna_esquerda').removeClass('col-lg-5');
-            }
-          });
-          $('.mostrar_coluna_esquerda').click(function(){
-            $('#coluna_esquerda').css('display', 'inline');
-            $('#coluna_direita').addClass('col-lg-5');
-            $('#coluna_direita').removeClass('col-lg-6');
-          });
-          $('#mostrar_anotacoes').click(function(){
-            $('#coluna_esquerda').addClass('col-lg-5');
-            $('#coluna_esquerda').removeClass('col-lg-6');
-            $('#coluna_direita').addClass('col-lg-5');
-            $('#coluna_direita').removeClass('col-lg-6');
-          });
-          $('#minimizar_anotacoes').click(function(){
-            $('#coluna_esquerda').addClass('col-lg-6');
-            $('#coluna_esquerda').removeClass('col-lg-5');
-            $('#coluna_direita').addClass('col-lg-6');
-            $('#coluna_direita').removeClass('col-lg-5');
-          });
-        </script>";
 				} elseif ($args[$array] == 'bookmark_stuff') {
 					echo "
         <script type='text/javascript'>
@@ -563,18 +498,6 @@
             $('#remove_bookmark').hide();
         	});
         </script>
-        ";
-				} elseif ($args[$array] == 'sticky_anotacoes') {
-					echo "
-          <script type='text/javascript'>
-            $(document).ready(function() {
-              $('#sticky_anotacoes').sticky({
-                topSpacing: 50,
-                zIndex: 2,
-                stopper: '#footer',
-              });
-            });
-          </script>
         ";
 				} elseif ($args[$array] == 'homepage') {
 					echo "
@@ -611,6 +534,22 @@
           });
         </script>
         ";
+				} elseif ($args[$array] == 'sticky_anotacoes') {
+					echo "
+						<script type='text/javascript'>
+							$('#mostrar_coluna_direita').hide();
+							$('#esconder_sticky_anotacoes').click(function() {
+								$('#coluna_direita').hide();
+								$('#mostrar_coluna_direita').show();
+							});
+							$('#mostrar_coluna_direita').click(function() {
+						    $('.sticky_anotacoes_collapse').show();
+						    $('#mostrar_sticky_anotacoes').hide();
+						    $('#mostrar_coluna_direita').hide();
+						    $('#coluna_direita').show();
+							})
+						</script>
+					";
 				}
 				$array++;
 			}
@@ -645,7 +584,7 @@
 		echo "
     <div class='container-fluid p-0 m-0 text-center'>
       <div class='jumbotron col-12 mb-0 elegant-color text-white'>
-";
+		";
 		if ($link == false) {
 			echo "<span class='display-1 logo-jumbotron playfair400'>$titulo</span>";
 		} else {

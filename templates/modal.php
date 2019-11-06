@@ -16,7 +16,7 @@
         <div class='modal-content' >
             <form method = 'post' >
                 <div class='modal-header text-center' >
-                    <h4 class='modal-title w-100 font-weight-bold' > $template_modal_titulo </h4 >
+                    <h4 class='modal-title w-100' > $template_modal_titulo </h4 >
                     <button type = 'button' class='close' data-dismiss='modal' >
                         <i class='fal fa-times-circle' ></i >
                     </button >

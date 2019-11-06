@@ -86,7 +86,6 @@
 					<?php
 						if ($tipo_elemento == 'imagem') {
 							$template_id = 'imagem_div';
-							$template_collapse_stuff = false;
 							$template_titulo = 'Imagem';
 							$template_botoes = false;
 							$template_conteudo = "<img class='imagem_pagina border' src='../imagens/verbetes/$arquivo_elemento'></img>";
@@ -113,7 +112,6 @@
 						";
 
 						$template_id = 'dados_elemento_div';
-						$template_collapse_stuff = false;
 						$template_titulo = 'Dados do elemento';
 						$template_botoes = false;
 						$template_conteudo = $dados_elemento;
@@ -125,7 +123,6 @@
         <div class='col-lg-5 col-sm-12'>
 					<?php
 						$template_id = 'anotacoes_elemento_div';
-						$template_collapse_stuff = false;
 						$template_titulo = 'Análise';
 						$template_botoes = false;
 						$template_conteudo = false;

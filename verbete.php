@@ -1,15 +1,15 @@
 <?php
-	
+
 	include 'engine.php';
-	
+
 	if (isset($_GET['tema'])) {
 		$tema_id = $_GET['tema'];
 	}
-	
+
 	if (isset($_GET['concurso'])) {
 		$concurso = $_GET['concurso'];
 	}
-	
+
 	$variaveis_php_session = "
         <script type='text/javascript'>
           var user_id=$user_id;
@@ -18,9 +18,9 @@
           var user_email='$user_email';
         </script>
     ";
-	
+
 	top_page($variaveis_php_session, "quill_v", "lightbox");
-	
+
 	$result = $conn->query("SELECT sigla_materia, nivel, ordem, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND id = $tema_id");
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
@@ -34,14 +34,14 @@
 			$nivel5 = $row['nivel5'];
 		}
 	}
-	
+
 	$result = $conn->query("SELECT materia FROM Materias WHERE concurso = '$concurso' AND estado = 1 AND sigla = '$sigla_materia' ORDER BY ordem");
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
 			$materia = $row["materia"];
 		}
 	}
-	
+
 	$result = $conn->query("SELECT verbete_html, verbete_text, verbete_content FROM Verbetes WHERE id_tema = $tema_id");
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
@@ -54,7 +54,7 @@
 		$verbete_text = false;
 		$verbete_content = '%7B%22ops%22:%5B%7B%22insert%22:%22Este%20verbete%20ainda%20n%C3%A3o%20come%C3%A7ou%20a%20ser%20escrito.%5Cn%22%7D%5D%7D';
 	}
-	
+
 	if (isset($_POST['quill_novo_verbete_html'])) {
 		$novo_verbete_html = $_POST['quill_novo_verbete_html'];
 		$novo_verbete_text = $_POST['quill_novo_verbete_text'];
@@ -69,11 +69,11 @@
 		}
 		$verbete_content = $novo_verbete_content;
 	}
-	
+
 	$verbete_content = urldecode($verbete_content);
 	// $verbete_content = utf8_encode($verbete_content);
 	// error_log("utf8 encode: $verbete_content");
-	
+
 	$result = $conn->query("SELECT anotacao FROM Anotacoes WHERE user_id = $user_id AND tema_id = $tema_id");
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
@@ -83,7 +83,7 @@
 	} else {
 		$anotacao_html = false;
 	}
-	
+
 	if (isset($_POST['quill_nova_anotacao_html'])) {
 		$nova_anotacao_html = $_POST['quill_nova_anotacao_html'];
 		$nova_anotacao_html = strip_tags($nova_anotacao_html, '<p><li><ul><ol><h2><h3><blockquote><em><sup>');
@@ -95,14 +95,14 @@
 		}
 		$anotacao_html = $nova_anotacao_html;
 	}
-	
+
 	if (isset($_POST['nova_imagem_link'])) {
 		$nova_imagem_link = $_POST['nova_imagem_link'];
 		$nova_imagem_titulo = $_POST['nova_imagem_titulo'];
 		$nova_imagem_comentario = $_POST['nova_imagem_comentario'];
 		adicionar_imagem($nova_imagem_link, $nova_imagem_titulo, $nova_imagem_comentario, $tema_id, $user_id);
 	}
-	
+
 	if (isset($_POST['nova_referencia_titulo'])) {
 		$nova_referencia_titulo = $_POST['nova_referencia_titulo'];
 		$nova_referencia_autor = $_POST['nova_referencia_autor'];
@@ -128,7 +128,7 @@
 			}
 		}
 	}
-	
+
 	if (isset($_POST['novo_video_titulo'])) {
 		$novo_video_titulo = $_POST['novo_video_titulo'];
 		$novo_video_autor = $_POST['novo_video_autor'];
@@ -152,7 +152,7 @@
 			}
 		}
 	}
-	
+
 	$tema_bookmark = false;
 	$bookmark = $conn->query("SELECT bookmark FROM Bookmarks WHERE user_id = $user_id AND tema_id = $tema_id");
 	if ($bookmark->num_rows > 0) {
@@ -169,8 +169,8 @@
     <div class='d-block'><a href='index.php'>$concurso</a></div>
     <div class='d-block spacing0'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='materia.php?concurso=$concurso&sigla=$sigla_materia'>$materia</a></div>
   ";
-	
-	
+
+
 	$result = $conn->query("SELECT id, nivel, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' ORDER BY ordem");
 	if ($nivel == 1) {
 		$tema_titulo = $nivel1;
@@ -199,15 +199,15 @@
 					$breadcrumbs .= "<div class='spacing1'>$fawesome$titulo_nivel1</div>";
 					$count2 = 0;
 					$fawesome = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
-									$result2 = $conn->query("SELECT id, nivel2 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' AND nivel1 = '$nivel1' AND nivel = 2 ORDER BY ordem");
-									while ($row2 = $result2->fetch_assoc()) {
-										$id_nivel2 = $row2['id'];
-										$titulo_nivel2 = $row2['nivel2'];
-										$count2++;
-										if ($count2 == 2) {
-											$fawesome = "<i class='fal fa-long-arrow-right fa-fw'></i>";
-										}
-										$breadcrumbs .= "<div class='spacing2'>$fawesome<a href='verbete.php?concurso=$concurso&tema=$id_nivel2'>$titulo_nivel2</a></div>";
+					$result2 = $conn->query("SELECT id, nivel2 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' AND nivel1 = '$nivel1' AND nivel = 2 ORDER BY ordem");
+					while ($row2 = $result2->fetch_assoc()) {
+						$id_nivel2 = $row2['id'];
+						$titulo_nivel2 = $row2['nivel2'];
+						$count2++;
+						if ($count2 == 2) {
+							$fawesome = "<i class='fal fa-long-arrow-right fa-fw'></i>";
+						}
+						$breadcrumbs .= "<div class='spacing2'>$fawesome<a href='verbete.php?concurso=$concurso&tema=$id_nivel2'>$titulo_nivel2</a></div>";
 					}
 				} else {
 					$breadcrumbs .= "<div class='spacing1'>$fawesome<a href='verbete.php?concurso=$concurso&tema=$id_nivel1'>$titulo_nivel1</a></div>";
@@ -216,150 +216,133 @@
 		}
 	}
 	if ($nivel > 1) {
-			$result = $conn->query("SELECT id FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' AND nivel1 = '$nivel1' AND nivel = 1 ORDER BY ordem");
-			while ($row = $result->fetch_assoc()) {
-				$id_nivel1 = $row['id'];
-				$breadcrumbs .= "<div class='spacing1'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel1'>$nivel1</a></div>";
-			}
+		$result = $conn->query("SELECT id FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' AND nivel1 = '$nivel1' AND nivel = 1 ORDER BY ordem");
+		while ($row = $result->fetch_assoc()) {
+			$id_nivel1 = $row['id'];
+			$breadcrumbs .= "<div class='spacing1'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel1'>$nivel1</a></div>";
 		}
+	}
 	if ($nivel == 2) {
-			$result2 = $conn->query("SELECT id, nivel2 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' AND nivel1 = '$nivel1' AND nivel = 2 ORDER BY ordem");
-			$count = 0;
-			$fawesome = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
-			while ($row2 = $result2->fetch_assoc()) {
-				$count++;
-				if ($count == 2) {
-					$fawesome = "<i class='fal fa-long-arrow-right fa-fw'></i>";
-				}
-				$id_nivel2 = $row2['id'];
-				$titulo_nivel2 = $row2['nivel2'];
-				if ($titulo_nivel2 == $nivel2) {
-					$breadcrumbs .= "<div class='spacing2'>$fawesome$nivel2</div>";
-					$result3 = $conn->query("SELECT id, nivel3 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' AND nivel = 3 AND nivel2 = '$nivel2' ORDER BY ordem");
-					$count = 0;
-					$fawesome3 = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
-					while ($row3 = $result3->fetch_assoc()) {
-						$id_nivel3 = $row3['id'];
-						$titulo_nivel3 = $row3['nivel3'];
-						$count++;
-						if ($count == 2) {
-							$fawesome3 = "<i class='fal fa-long-arrow-right fa-fw'></i>";
-						}
-						$breadcrumbs .= "<div class='spacing3'>$fawesome3<a href='verbete.php?concurso=$concurso&tema=$id_nivel3'>$titulo_nivel3</a></div>";
-					}
-				} else {
-					$breadcrumbs .= "<div class='spacing2'>$fawesome<a href='verbete.php?concurso=$concurso&tema=$id_nivel2'>$titulo_nivel2</a></div>";
-				}
+		$result2 = $conn->query("SELECT id, nivel2 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' AND nivel1 = '$nivel1' AND nivel = 2 ORDER BY ordem");
+		$count = 0;
+		$fawesome = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
+		while ($row2 = $result2->fetch_assoc()) {
+			$count++;
+			if ($count == 2) {
+				$fawesome = "<i class='fal fa-long-arrow-right fa-fw'></i>";
 			}
-		}
-	if ($nivel > 2) {
-			$result2 = $conn->query("SELECT id, nivel2 FROM Temas WHERE nivel1 = '$nivel1' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia' ORDER BY ordem");
-			while ($row2 = $result2->fetch_assoc()) {
-				$id_nivel2 = $row2['id'];
-				$titulo_nivel2 = $row2['nivel2'];
-				if ($titulo_nivel2 == $nivel2) {
-					$breadcrumbs .= "<div class='spacing2'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel2'>$nivel2</a></div>";
-					break;
-				}
-			}
-		}
-	if ($nivel == 3) {
-			$result3 = $conn->query("SELECT id, nivel3 FROM Temas WHERE nivel2 = '$nivel2' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia' AND nivel = 3 ORDER BY ordem");
-			$count = 0;
-			$fawesome3 = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
-			while ($row3 = $result3->fetch_assoc()) {
-				$count++;
-				if ($count == 2) {
-					$fawesome3 = "<i class='fal fa-long-arrow-right fa-fw'></i>";
-				};
-				$id_nivel3 = $row3['id'];
-				$titulo_nivel3 = $row3['nivel3'];
-				if ($titulo_nivel3 == $nivel3) {
-					$breadcrumbs .= "<div class='spacing3'>$fawesome3$nivel3</div>";
-					$result4 = $conn->query("SELECT id, nivel4 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' AND nivel = 4 AND nivel3 = '$nivel3' ORDER BY ordem");
-					$count = 0;
-					$fawesome4 = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
-					while ($row4 = $result4->fetch_assoc()) {
-						$id_nivel4 = $row4['id'];
-						$titulo_nivel4 = $row4['nivel4'];
-						$count++;
-						if ($count == 2) {
-							$fawesome4 = "<i class='fal fa-long-arrow-right fa-fw'></i>";
-						}
-						$breadcrumbs .= "<div class='spacing4'>$fawesome4<a href='verbete.php?concurso=$concurso&tema=$id_nivel4'>$titulo_nivel4</a></div>";
+			$id_nivel2 = $row2['id'];
+			$titulo_nivel2 = $row2['nivel2'];
+			if ($titulo_nivel2 == $nivel2) {
+				$breadcrumbs .= "<div class='spacing2'>$fawesome$nivel2</div>";
+				$result3 = $conn->query("SELECT id, nivel3 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' AND nivel = 3 AND nivel2 = '$nivel2' ORDER BY ordem");
+				$count = 0;
+				$fawesome3 = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
+				while ($row3 = $result3->fetch_assoc()) {
+					$id_nivel3 = $row3['id'];
+					$titulo_nivel3 = $row3['nivel3'];
+					$count++;
+					if ($count == 2) {
+						$fawesome3 = "<i class='fal fa-long-arrow-right fa-fw'></i>";
 					}
-				} else {
 					$breadcrumbs .= "<div class='spacing3'>$fawesome3<a href='verbete.php?concurso=$concurso&tema=$id_nivel3'>$titulo_nivel3</a></div>";
 				}
+			} else {
+				$breadcrumbs .= "<div class='spacing2'>$fawesome<a href='verbete.php?concurso=$concurso&tema=$id_nivel2'>$titulo_nivel2</a></div>";
 			}
 		}
-	if ($nivel > 3) {
-			$result3 = $conn->query("SELECT id, nivel3 FROM Temas WHERE nivel2 = '$nivel2' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia' ORDER BY ordem");
-			while ($row3 = $result3->fetch_assoc()) {
-				$id_nivel3 = $row3['id'];
-				$titulo_nivel3 = $row3['nivel3'];
-				if ($titulo_nivel3 == $nivel3) {
-					$breadcrumbs .= "<div class='spacing3'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel3'>$titulo_nivel3</a></div>";
-					break;
+	}
+	if ($nivel > 2) {
+		$result2 = $conn->query("SELECT id, nivel2 FROM Temas WHERE nivel1 = '$nivel1' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia' ORDER BY ordem");
+		while ($row2 = $result2->fetch_assoc()) {
+			$id_nivel2 = $row2['id'];
+			$titulo_nivel2 = $row2['nivel2'];
+			if ($titulo_nivel2 == $nivel2) {
+				$breadcrumbs .= "<div class='spacing2'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel2'>$nivel2</a></div>";
+				break;
+			}
+		}
+	}
+	if ($nivel == 3) {
+		$result3 = $conn->query("SELECT id, nivel3 FROM Temas WHERE nivel2 = '$nivel2' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia' AND nivel = 3 ORDER BY ordem");
+		$count = 0;
+		$fawesome3 = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
+		while ($row3 = $result3->fetch_assoc()) {
+			$count++;
+			if ($count == 2) {
+				$fawesome3 = "<i class='fal fa-long-arrow-right fa-fw'></i>";
+			};
+			$id_nivel3 = $row3['id'];
+			$titulo_nivel3 = $row3['nivel3'];
+			if ($titulo_nivel3 == $nivel3) {
+				$breadcrumbs .= "<div class='spacing3'>$fawesome3$nivel3</div>";
+				$result4 = $conn->query("SELECT id, nivel4 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' AND nivel = 4 AND nivel3 = '$nivel3' ORDER BY ordem");
+				$count = 0;
+				$fawesome4 = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
+				while ($row4 = $result4->fetch_assoc()) {
+					$id_nivel4 = $row4['id'];
+					$titulo_nivel4 = $row4['nivel4'];
+					$count++;
+					if ($count == 2) {
+						$fawesome4 = "<i class='fal fa-long-arrow-right fa-fw'></i>";
+					}
+					$breadcrumbs .= "<div class='spacing4'>$fawesome4<a href='verbete.php?concurso=$concurso&tema=$id_nivel4'>$titulo_nivel4</a></div>";
 				}
+			} else {
+				$breadcrumbs .= "<div class='spacing3'>$fawesome3<a href='verbete.php?concurso=$concurso&tema=$id_nivel3'>$titulo_nivel3</a></div>";
 			}
 		}
+	}
+	if ($nivel > 3) {
+		$result3 = $conn->query("SELECT id, nivel3 FROM Temas WHERE nivel2 = '$nivel2' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia' ORDER BY ordem");
+		while ($row3 = $result3->fetch_assoc()) {
+			$id_nivel3 = $row3['id'];
+			$titulo_nivel3 = $row3['nivel3'];
+			if ($titulo_nivel3 == $nivel3) {
+				$breadcrumbs .= "<div class='spacing3'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel3'>$titulo_nivel3</a></div>";
+				break;
+			}
+		}
+	}
 	if ($nivel == 4) {
-			$result4 = $conn->query("SELECT id, nivel4 FROM Temas WHERE nivel3 = '$nivel3' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia' AND nivel = 4 ORDER BY ordem");
-			$count = 0;
-			$fawesome4 = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
-			while ($row4 = $result4->fetch_assoc()) {
-				$count++;
-				if ($count == 2) {
-					$fawesome4 = "<i class='fal fa-long-arrow-right fa-fw'></i>";
-				};
+		$result4 = $conn->query("SELECT id, nivel4 FROM Temas WHERE nivel3 = '$nivel3' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia' AND nivel = 4 ORDER BY ordem");
+		$count = 0;
+		$fawesome4 = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
+		while ($row4 = $result4->fetch_assoc()) {
+			$count++;
+			if ($count == 2) {
+				$fawesome4 = "<i class='fal fa-long-arrow-right fa-fw'></i>";
+			};
 			$id_nivel4 = $row4['id'];
 			$titulo_nivel4 = $row4['nivel4'];
 			if ($titulo_nivel4 == $nivel4) {
-							$breadcrumbs .= "<div class='spacing4'>$fawesome4$titulo_nivel4</div>";
-						} else {
-							$breadcrumbs .= "<div class='spacing4'>$fawesome4<a href='verbete.php?concurso=$concurso&tema=$id_nivel4'>$titulo_nivel4</a></div>";
-						}
+				$breadcrumbs .= "<div class='spacing4'>$fawesome4$titulo_nivel4</div>";
+			} else {
+				$breadcrumbs .= "<div class='spacing4'>$fawesome4<a href='verbete.php?concurso=$concurso&tema=$id_nivel4'>$titulo_nivel4</a></div>";
 			}
 		}
+	}
 	if ($nivel > 4) {
-			$result4 = $conn->query("SELECT id, nivel4 FROM Temas WHERE nivel3 = '$nivel3' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia' ORDER BY ordem");
-			while ($row4 = $result4->fetch_assoc()) {
-				$id_nivel4 = $row4['id'];
-				$titulo_nivel4 = $row4['nivel4'];
-				if ($titulo_nivel4 == $nivel4) {
-					$breadcrumbs .= "<div class='spacing4'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel4'>$titulo_nivel4</a></div>";
-					break;
-				}
+		$result4 = $conn->query("SELECT id, nivel4 FROM Temas WHERE nivel3 = '$nivel3' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia' ORDER BY ordem");
+		while ($row4 = $result4->fetch_assoc()) {
+			$id_nivel4 = $row4['id'];
+			$titulo_nivel4 = $row4['nivel4'];
+			if ($titulo_nivel4 == $nivel4) {
+				$breadcrumbs .= "<div class='spacing4'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel4'>$titulo_nivel4</a></div>";
+				break;
 			}
 		}
+	}
 	if ($nivel == 5) {
-			$breadcrumbs .= "<div class='spacing5'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i>$nivel5</div>";
-		}
+		$breadcrumbs .= "<div class='spacing5'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i>$nivel5</div>";
+	}
 ?>
 <div class='container-fluid grey lighten-3'>
     <div class='row'>
-        <div class='col-lg-4 col-sm-12'>
+        <div class='col-lg-8 col-sm-12'>
             <div id='collapse_breadcrumbs' class='flex-column collapse'>
-	            <?php echo $breadcrumbs; ?>
+							<?php echo $breadcrumbs; ?>
             </div>
-        </div>
-        <div class='col-lg-4 col-sm-12 d-flex justify-content-center'>
-            <button class='btn transparent verbete_collapse collapse mostrar_coluna_esquerda p-0'
-                    data-toggle='collapse' data-target='.verbete_collapse' role='button'>Verbete
-            </button>
-            <button class='btn transparent imagens_collapse collapse mostrar_coluna_esquerda p-0'
-                    data-toggle='collapse' data-target='.imagens_collapse' role='button'>Imagens
-            </button>
-            <button class='btn transparent videos_collapse collapse mostrar_coluna_esquerda p-0' data-toggle='collapse'
-                    data-target='.videos_collapse' role='button'>Vídeos
-            </button>
-            <button class='btn transparent bibliografia_collapse collapse mostrar_coluna_esquerda p-0'
-                    data-toggle='collapse' data-target='.bibliografia_collapse' role='button'>Leia mais
-            </button>
-            <button id='mostrar_anotacoes' class='btn transparent collapse anotacoes_collapse collapse p-0'
-                    data-toggle='collapse' data-target='.anotacoes_collapse' role='button'>Anotações
-            </button>
         </div>
         <div class='col-lg-4 col-sm-12'>
             <div class='text-right py-2'>
@@ -389,8 +372,9 @@
 </div>
 
 <div id='page_height' class='container-fluid'>
-    <div class='row my-5 d-flex justify-content-center'>
-        <div class='col-lg-10 col-sm-12 text-center'>
+    <button id='mostrar_coluna_direita' class='btn btn-md elegant-color text-white p-2 m-1'><i class='fas fa-pen-alt fa-fw'></i></button>
+    <div class='row d-flex justify-content-center'>
+        <div class='col-lg-10 col-sm-12 text-center py-5'>
 					<?php
 						$playfair = 'playfair400';
 						$tema_length = strlen($tema_titulo);
@@ -420,134 +404,118 @@
     </div>
     <div class='row justify-content-around'>
         <div id='coluna_esquerda' class='col-lg-5 col-sm-12'>
-	        <?php
-		        $template_id = 'verbete';
-		        $template_collapse_stuff = 'verbete_collapse collapse show';
-		        $template_titulo = 'Verbete';
-		        $template_botoes = "
+					<?php
+						$template_id = 'verbete';
+						$template_titulo = 'Verbete';
+						$template_botoes = "
                 <span class='verbete_editor_collapse collapse' id='travar_verbete' data-toggle='collapse'
                       data-target='.verbete_editor_collapse' title='travar para edição'><a
                             href='javascript:void(0);'><i class='fal fa-lock-open-alt fa-fw'></i></a></span>
                 <span class='verbete_editor_collapse collapse show' id='destravar_verbete' data-toggle='collapse'
                       data-target='.verbete_editor_collapse' title='permitir edição'><a
                             href='javascript:void(0);'><i class='fal fa-lock-alt fa-fw'></i></a></span>
-                <span id='esconder_verbete' data-toggle='collapse' data-target='.verbete_collapse'><a
-                            href='javascript:void(0);'><i class='fal fa-chevron-up fa-fw'></i></a></span>";
-		
-		        $template_quill_form_id = 'quill_verbete_form';
-		        $template_quill_conteudo_html = 'quill_novo_verbete_html';
-		        $template_quill_conteudo_text = 'quill_novo_verbete_text';
-		        $template_quill_conteudo_content = 'quill_novo_verbete_content';
-		        $template_quill_container_id = 'quill_container_verbete';
-		        $template_quill_editor_id = 'quill_editor_verbete';
-		        $template_quill_editor_classes = 'quill_editor_height quill_editor_height_leitura';
-		        $template_quill_botoes_collapse_stuff = 'verbete_editor_collapse collapse';
-		
-		        $template_conteudo = include 'templates/quill_form.php';
-		        include 'templates/page_element.php';
-		
-		        $template_id = 'videos';
-		        $template_collapse_stuff = 'videos_collapse collapse show';
-		        $template_titulo = 'Vídeos e aulas';
-		        $template_botoes = "
+                ";
+
+						$template_quill_form_id = 'quill_verbete_form';
+						$template_quill_conteudo_html = 'quill_novo_verbete_html';
+						$template_quill_conteudo_text = 'quill_novo_verbete_text';
+						$template_quill_conteudo_content = 'quill_novo_verbete_content';
+						$template_quill_container_id = 'quill_container_verbete';
+						$template_quill_editor_id = 'quill_editor_verbete';
+						$template_quill_editor_classes = 'quill_editor_height quill_editor_height_leitura';
+						$template_quill_botoes_collapse_stuff = 'verbete_editor_collapse collapse';
+
+						$template_conteudo = include 'templates/quill_form.php';
+						include 'templates/page_element.php';
+
+						$template_id = 'videos';
+						$template_titulo = 'Vídeos e aulas';
+						$template_botoes = "
                                   <a data-toggle='modal' data-target='#modal_videos_form' href=''>
                                     <i class='fal fa-plus-square fa-fw'></i>
                                   </a>
-                                  <span id='esconder_videos' data-toggle='collapse' data-target='.videos_collapse'>
-                                    <a href='javascript:void(0);'>
-                                        <i class='fal fa-chevron-up fa-fw'></i>
-                                    </a>
-                                  </span>
                         ";
-		        $template_conteudo = false;
-		
-		        $result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND tipo = 'video'");
-		        if ($result->num_rows > 0) {
-			        $template_conteudo .= "<ul class='list-group'>";
-			        while ($row = $result->fetch_assoc()) {
-				        $id_elemento = $row['id_elemento'];
-				        $result2 = $conn->query("SELECT titulo, autor, link FROM Elementos WHERE id = $id_elemento");
-				        if ($result2->num_rows > 0) {
-					        while ($row = $result2->fetch_assoc()) {
-						        $video_titulo = $row['titulo'];
-						        $video_autor = $row['autor'];
-						        $video_link = $row['link'];
-						        $template_conteudo .= "<li class='list-group-item list-group-item-action'><a href='elemento.php?id=$id_elemento' target='_blank'>$video_titulo : $video_autor</a></li>";
-					        }
-				        }
-			        }
-			        $template_conteudo .= "</ul>";
-		        } else {
-			        $template_conteudo .= "<p>Ainda não foram acrescentados vídeos ou aulas sobre este assunto.</p>";
-		        }
-		
-		        include 'templates/page_element.php';
-		
-		        $template_id = 'bibliografia';
-		        $template_collapse_stuff = 'bibliografia_collapse collapse show';
-		        $template_titulo = 'Leia mais';
-		        $template_botoes = "<a data-toggle='modal' data-target='#modal_referencia_form' href=''><i
-                                        class='fal fa-plus-square fa-fw'></i></a>
-              <span id='esconder_bibliografia' data-toggle='collapse' data-target='.bibliografia_collapse'><a
-                          href='javascript:void(0);'><i class='fal fa-chevron-up fa-fw'></i></a></span>";
-		        $template_conteudo = false;
-		
-		        $result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND tipo = 'referencia'");
-		        if ($result->num_rows > 0) {
-			        $template_conteudo .= "<ul class='list-group'>";
-			        while ($row = $result->fetch_assoc()) {
-				        $id_elemento = $row['id_elemento'];
-				        $result2 = $conn->query("SELECT titulo, autor, capitulo, ano, link FROM Elementos WHERE id = $id_elemento");
-				        if ($result2->num_rows > 0) {
-					        while ($row = $result2->fetch_assoc()) {
-						        $referencia_titulo = $row['titulo'];
-						        $referencia_autor = $row['autor'];
-						        $referencia_capitulo = $row['capitulo'];
-						        $referencia_ano = $row['ano'];
-						        $referencia_link = $row['link'];
-						        $template_conteudo .= "<li class='list-group-item'><a href='elemento.php?id=$id_elemento' target='_blank'>$referencia_titulo : $referencia_autor : $referencia_capitulo : $referencia_ano</a></li>";
-					        }
-				        }
-			        }
-			        $template_conteudo .= "</ul>";
-		        } else {
-			        $template_conteudo .= "<p>Não foram identificados, até o momento, recursos bibliográficos sobre este tema.</p>";
-		        }
-		
-		        include 'templates/page_element.php';
-		
-		        $template_id = 'imagens';
-		        $template_collapse_stuff = 'imagens_collapse collapse show';
-		        $template_titulo = 'Imagens';
-		        $template_botoes = "<a data-toggle='modal' data-target='#modal_imagens_form' href=''><i
-                                        class='fal fa-plus-square fa-fw'></i></a>
-              <span id='esconder_imagens' data-toggle='collapse' data-target='.imagens_collapse'><a
-                          href='javascript:void(0);'><i class='fal fa-chevron-up fa-fw'></i></a></span>";
-		        $template_conteudo = false;
-		
-		
-		        $result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND tipo = 'imagem'");
-		        $count = 0;
-		        if ($result->num_rows > 0) {
-			        $template_conteudo .= "
+						$template_conteudo = false;
+
+						$result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND tipo = 'video'");
+						if ($result->num_rows > 0) {
+							$template_conteudo .= "<ul class='list-group'>";
+							while ($row = $result->fetch_assoc()) {
+								$id_elemento = $row['id_elemento'];
+								$result2 = $conn->query("SELECT titulo, autor, link FROM Elementos WHERE id = $id_elemento");
+								if ($result2->num_rows > 0) {
+									while ($row = $result2->fetch_assoc()) {
+										$video_titulo = $row['titulo'];
+										$video_autor = $row['autor'];
+										$video_link = $row['link'];
+										$template_conteudo .= "<li class='list-group-item list-group-item-action'><a href='elemento.php?id=$id_elemento' target='_blank'>$video_titulo : $video_autor</a></li>";
+									}
+								}
+							}
+							$template_conteudo .= "</ul>";
+						} else {
+							$template_conteudo .= "<p>Ainda não foram acrescentados vídeos ou aulas sobre este assunto.</p>";
+						}
+
+						include 'templates/page_element.php';
+
+						$template_id = 'bibliografia';
+						$template_titulo = 'Leia mais';
+						$template_botoes = "<a data-toggle='modal' data-target='#modal_referencia_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>";
+						$template_conteudo = false;
+
+						$result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND tipo = 'referencia'");
+						if ($result->num_rows > 0) {
+							$template_conteudo .= "<ul class='list-group'>";
+							while ($row = $result->fetch_assoc()) {
+								$id_elemento = $row['id_elemento'];
+								$result2 = $conn->query("SELECT titulo, autor, capitulo, ano, link FROM Elementos WHERE id = $id_elemento");
+								if ($result2->num_rows > 0) {
+									while ($row = $result2->fetch_assoc()) {
+										$referencia_titulo = $row['titulo'];
+										$referencia_autor = $row['autor'];
+										$referencia_capitulo = $row['capitulo'];
+										$referencia_ano = $row['ano'];
+										$referencia_link = $row['link'];
+										$template_conteudo .= "<li class='list-group-item'><a href='elemento.php?id=$id_elemento' target='_blank'>$referencia_titulo : $referencia_autor : $referencia_capitulo : $referencia_ano</a></li>";
+									}
+								}
+							}
+							$template_conteudo .= "</ul>";
+						} else {
+							$template_conteudo .= "<p>Não foram identificados, até o momento, recursos bibliográficos sobre este tema.</p>";
+						}
+
+						include 'templates/page_element.php';
+
+						$template_id = 'imagens';
+						$template_titulo = 'Imagens';
+						$template_botoes = "<a data-toggle='modal' data-target='#modal_imagens_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>";
+						$template_conteudo = false;
+
+
+						$result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND tipo = 'imagem'");
+						$count = 0;
+						if ($result->num_rows > 0) {
+							$template_conteudo .= "
                                 <div id='carousel-with-lb' class='carousel slide carousel-multi-item mb-0' data-ride='carousel'>
                                 <div class='carousel-inner mdb-lightbox' role='listbox'>
                                 <div id='mdb-lightbox-ui'></div>
                             ";
-			        $active = 'active';
-			        while ($row = $result->fetch_assoc()) {
-				        $id_elemento = $row['id_elemento'];
-				        $result2 = $conn->query("SELECT titulo, link, comentario, arquivo, resolucao, orientacao FROM Elementos WHERE id = $id_elemento");
-				        if ($result2->num_rows > 0) {
-					        while ($row = $result2->fetch_assoc()) {
-						        $count++;
-						        $imagem_titulo = $row['titulo'];
-						        $imagem_link = $row['link'];
-						        $imagem_comentario = $row['comentario'];
-						        $imagem_arquivo = $row['arquivo'];
-						        $imagem_resolucao = $row['resolucao'];
-						        $imagem_orientacao = $row['orientacao'];
-						        $template_conteudo .= "
+							$active = 'active';
+							while ($row = $result->fetch_assoc()) {
+								$id_elemento = $row['id_elemento'];
+								$result2 = $conn->query("SELECT titulo, link, comentario, arquivo, resolucao, orientacao FROM Elementos WHERE id = $id_elemento");
+								if ($result2->num_rows > 0) {
+									while ($row = $result2->fetch_assoc()) {
+										$count++;
+										$imagem_titulo = $row['titulo'];
+										$imagem_link = $row['link'];
+										$imagem_comentario = $row['comentario'];
+										$imagem_arquivo = $row['arquivo'];
+										$imagem_resolucao = $row['resolucao'];
+										$imagem_orientacao = $row['orientacao'];
+										$template_conteudo .= "
                                 <div class=' carousel-item $active text-center'>
                                   <figure class='col-12'>
                                     <a href='/../imagens/verbetes/$imagem_arquivo'
@@ -560,68 +528,61 @@
                                   </figure>
                                 </div>
                                 ";
-						        $active = false;
-						        break;
-					        }
-				        }
-			        }
-			        if ($count != 1) {
-				        $template_conteudo .= "
+										$active = false;
+										break;
+									}
+								}
+							}
+							if ($count != 1) {
+								$template_conteudo .= "
                             </div>
                               <div class='controls-top'>
                                 <a class='btn btn-md grey lighten-3 z-depth-0' href='#carousel-with-lb' data-slide='prev'><i
                                     class='fas fa-chevron-left'></i></a>
                                 <a class='btn btn-md grey lighten-3 z-depth-0' href='#carousel-with-lb' data-slide='next'><i
                                     class='fas fa-chevron-right'></i></a>
-                              </div>
-                            </div>
                             ";
-			        } else {
-				        $template_conteudo .= "</div></div>";
-			        }
-		        } else {
-			        $template_conteudo .= "<p>Não foram acrescentadas, até o momento, imagens a este verbete.</p></div></div>";
-		        }
-		        include 'templates/page_element.php';
-	
-	
-	        ?>
+							}
+							$template_conteudo .= "</div></div>";
+						} else {
+							$template_conteudo .= "<p>Não foram acrescentadas, até o momento, imagens a este verbete.</p>";
+						}
+						include 'templates/page_element.php';
+					?>
 
         </div>
         <div id='coluna_direita' class='col-lg-5 col-sm-12 anotacoes_collapse collapse show'>
-	
-	        <?php
-		        $template_id = 'sticky_anotacoes';
-		        $template_titulo = 'Anotações';
-		        $template_botoes = "<span class='anotacao_editor_collapse collapse show' id='travar_anotacao' data-toggle='collapse'
+
+					<?php
+						$template_id = 'sticky_anotacoes';
+						$template_titulo = 'Anotações';
+						$template_botoes = "<span class='anotacao_editor_collapse collapse show' id='travar_anotacao' data-toggle='collapse'
                       data-target='.anotacao_editor_collapse' title='travar para edição'><a
                             href='javascript:void(0);'><i class='fal fa-lock-open-alt fa-fw'></i></a></span>
                 <span class='anotacao_editor_collapse collapse' id='destravar_anotacao' data-toggle='collapse'
                       data-target='.anotacao_editor_collapse' title='permitir edição'><a
-                            href='javascript:void(0);'><i class='fal fa-lock-alt fa-fw'></i></a></span>
-                <span id='minimizar_anotacoes' data-toggle='collapse' data-target='.anotacoes_collapse'><a
-                            href='javascript:void(0);'><i class='fal fa-chevron-up fa-fw'></i></a></span>";
-		
-		        $template_quill_form_id = 'quill_anotacao_form';
-		        $template_quill_conteudo_html = 'quill_nova_anotacao_html';
-		        $template_quill_conteudo_text = 'quill_nova_anotacao_text';
-		        $template_quill_conteudo_content = 'quill_nova_anotacao_content';
-		        $template_quill_container_id = 'quill_container_anotacao';
-		        $template_quill_editor_id = 'quill_editor_anotacao';
-		        $template_quill_editor_classes = 'quill_editor_height';
-		        $template_quill_conteudo_opcional = $anotacao_html;
-		        $template_quill_botoes_collapse_stuff = 'anotacao_editor_collapse collapse show';
-		
-		        $template_conteudo = include 'templates/quill_form.php';
-		        include 'templates/page_element.php';
-	
-	        ?>
+                            href='javascript:void(0);'><i class='fal fa-lock-alt fa-fw'></i></a></span>";
+
+						$template_quill_form_id = 'quill_anotacao_form';
+						$template_quill_conteudo_html = 'quill_nova_anotacao_html';
+						$template_quill_conteudo_text = 'quill_nova_anotacao_text';
+						$template_quill_conteudo_content = 'quill_nova_anotacao_content';
+						$template_quill_container_id = 'quill_container_anotacao';
+						$template_quill_editor_id = 'quill_editor_anotacao';
+						$template_quill_editor_classes = 'quill_editor_height';
+						$template_quill_conteudo_opcional = $anotacao_html;
+						$template_quill_botoes_collapse_stuff = 'anotacao_editor_collapse collapse show';
+
+						$template_conteudo = include 'templates/quill_form.php';
+						include 'templates/page_element.php';
+
+					?>
 
         </div>
     </div>
 </div>
 <?php
-	
+
 	$template_modal_div_id = 'modal_imagens_form';
 	$template_modal_titulo = 'Adicionar imagem';
 	$template_modal_body_conteudo = "
@@ -646,8 +607,8 @@
                     </div>
     ";
 	include 'templates/modal.php';
-	
-	
+
+
 	$template_modal_div_id = 'modal_referencia_form';
 	$template_modal_titulo = 'Adicionar material de leitura';
 	$template_modal_body_conteudo = "
@@ -682,9 +643,9 @@
                                for='nova_referencia_link'>Link (opcional)</label>
                     </div>
 	";
-	
+
 	include 'templates/modal.php';
-	
+
 	$template_modal_div_id = 'modal_videos_form';
 	$template_modal_titulo = 'Adicionar vídeo ou aula';
 	$template_modal_body_conteudo = "
@@ -707,21 +668,18 @@
                                for='novo_video_link'>Link para o vídeo</label>
                     </div>
 	";
-	
+
 	include 'templates/modal.php';
 
 
 ?>
 
 
-
-
-
 </div>
 </body>
 <?php
 	load_footer();
-	bottom_page($user_id, $tema_id, "quill_v", 'carousel', 'lightbox-imagens', 'collapse_stuff', 'bookmark_stuff');
+	bottom_page($user_id, $tema_id, "quill_v", 'carousel', 'lightbox-imagens', 'bookmark_stuff', 'sticky_anotacoes');
 	$conn->close();
 ?>
 

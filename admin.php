@@ -122,7 +122,6 @@
         <div class="col-lg-5 col-sm-12">
 	        <?php
 		        $template_id = 'editar_topicos';
-		        $template_collapse_stuff = false;
 		        $template_titulo = 'Editar tópicos';
 		        $template_botoes = false;
 		        $template_conteudo = false;
@@ -145,7 +144,6 @@
 		        include 'templates/page_element.php';
 		
 		        $template_id = 'acrescentar_concurso';
-		        $template_collapse_stuff = false;
 		        $template_titulo = 'Acrescentar concurso';
 		        $template_botoes = false;
 		        $template_conteudo = false;
@@ -166,7 +164,6 @@
 		        include 'templates/page_element.php';
 		
 		        $template_id = 'barra_busca';
-		        $template_collapse_stuff = false;
 		        $template_titulo = 'Barra de busca';
 		        $template_botoes = false;
 		        $template_conteudo = false;
@@ -195,7 +192,6 @@
 		        include 'templates/page_element.php';
 		
 		        $template_id = 'otimizar_tabela';
-		        $template_collapse_stuff = false;
 		        $template_titulo = 'Otimizar tabela de tópicos';
 		        $template_botoes = false;
 		        $template_conteudo = false;
@@ -224,7 +220,6 @@
 	        <?php
 		
 		        $template_id = 'notas_administradores';
-		        $template_collapse_stuff = false;
 		        $template_titulo = 'Notas dos administradores';
 		        $template_botoes = false;
 		        $template_conteudo = false;

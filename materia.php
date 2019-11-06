@@ -25,7 +25,7 @@
 <?php
 	carregar_navbar('dark');
 	standard_jumbotron($materia, false);
-	sub_jumbotron("Tópicos", false);
+//	sub_jumbotron("Tópicos", false);
 ?>
 
 <div class="container my-5">
