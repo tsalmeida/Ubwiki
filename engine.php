@@ -289,15 +289,15 @@
                 var range = this.quill.getSelection();
                 var value = prompt('Qual o endereço da imagem?');
                 if(value){
-                    var imagem = $.post('engine.php', {
+                    $.post('engine.php', {
                       'nova_imagem': value,
                       'user_id': $args[0],
                       'tema_id': $args[1]
                     }, function(data) {
+                        window.data = data;
                     });
                 }
-                serialized = $.param(imagem)
-                alert(serialized);
+                alert(data);
                 this.quill.insertEmbed(range.index, 'image', 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Eritrean_Railway_-_2008-11-04-edit1.jpg/1024px-Eritrean_Railway_-_2008-11-04-edit1.jpg', Quill.sources.USER);
             }
 
