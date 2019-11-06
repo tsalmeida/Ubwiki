@@ -296,7 +296,8 @@
                     }, function(data) {
                     });
                 }
-                alert(imagem);
+                serialized = $.param(imagem)
+                alert(serialized);
                 this.quill.insertEmbed(range.index, 'image', 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Eritrean_Railway_-_2008-11-04-edit1.jpg/1024px-Eritrean_Railway_-_2008-11-04-edit1.jpg', Quill.sources.USER);
             }
 
