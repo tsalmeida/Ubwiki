@@ -294,11 +294,10 @@
                       'user_id': $args[0],
                       'tema_id': $args[1]
                     }, function(data) {
-                        var imagem = data;
+                        alert(data);
+                        this.quill.insertEmbed(range.index, 'image', 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Eritrean_Railway_-_2008-11-04-edit1.jpg/1024px-Eritrean_Railway_-_2008-11-04-edit1.jpg', Quill.sources.USER);
                     });
                 }
-                this.quill.insertEmbed(range.index, 'image', imagem, Quill.sources.USER);
-                alert(imagem);
             }
 
             var anotacao_editor = new Quill('#quill_editor_anotacao', {
