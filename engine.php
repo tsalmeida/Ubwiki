@@ -805,7 +805,7 @@
 				break;
 			}
 		}
-		echo "https://www.ubwiki.com.br/imagens/verbetes/$nova_imagem_arquivo";
+		return "https://www.ubwiki.com.br/imagens/verbetes/$nova_imagem_arquivo";
 	}
 
 
