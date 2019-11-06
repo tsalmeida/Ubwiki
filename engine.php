@@ -293,9 +293,7 @@
                       'nova_imagem': value,
                       'user_id': $args[0],
                       'tema_id': $args[1]
-                    }, function(data) {
-                        alert(data);
-                        var imagem = data;
+                    }, var imagem = function(data) {
                     });
                 }
                 alert(imagem);
