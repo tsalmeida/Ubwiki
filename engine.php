@@ -294,8 +294,8 @@
                       'user_id': $args[0],
                       'tema_id': $args[1]
                     }, function(data) {
-                        alert(data);
-				                this.quill.insertEmbed(range.index, 'image', data, Quill.sources.USER);
+                        alert(value);
+				                this.quill.insertEmbed(range.index, 'image', value, Quill.sources.USER);
                     });
                 }
             }
