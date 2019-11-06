@@ -277,28 +277,25 @@
                 toolbar: {
                   container: toolbarOptions_verbete,
                   handlers: {
-                    image: imageHandler
+                    image: {
+			                var range = this.quill.getSelection();
+			                var value = prompt('Qual o endereço da imagem?');
+			                if(value){
+			                    $.post('engine.php', {
+			                      'nova_imagem': value,
+			                      'user_id': $args[0],
+			                      'tema_id': $args[1]
+			                    }, function(data) {
+							                this.quill.insertEmbed(range.index, 'image', data, Quill.sources.USER);
+			                    });
+			                }
+                    }
                   }
                 }
               }
             });
             verbete_editor.disable();
             $('.ql-toolbar:first').hide();
-
-            function imageHandler() {
-                var range = this.quill.getSelection();
-                var value = prompt('Qual o endereço da imagem?');
-                if(value){
-                    $.post('engine.php', {
-                      'nova_imagem': value,
-                      'user_id': $args[0],
-                      'tema_id': $args[1]
-                    }, function(data) {
-                        alert(data);
-				                this.quill.insertEmbed(range.index, 'image', 'data', Quill.sources.USER);
-                    });
-                }
-            }
 
             var anotacao_editor = new Quill('#quill_editor_anotacao', {
               theme: 'snow',
