@@ -129,28 +129,17 @@
 		}
 	}
 
-	if (isset($_POST['novo_video_titulo'])) {
-		$novo_video_titulo = $_POST['novo_video_titulo'];
-		$novo_video_autor = $_POST['novo_video_autor'];
+	if (isset($_POST['novo_video_link'])) {
 		$novo_video_link = $_POST['novo_video_link'];
-		$result = $conn->query("SELECT id FROM Elementos WHERE link = '$novo_video_link'");
-		if ($result->num_rows == 0) {
-			$result = $conn->query("INSERT INTO Elementos (tipo, titulo, autor, link, user_id) VALUES ('video', '$novo_video_titulo', '$novo_video_autor', '$novo_video_link', '$user_id')");
-			$result2 = $conn->query("SELECT id FROM Elementos WHERE link = '$novo_video_link'");
-			if ($result2->num_rows > 0) {
-				while ($row = $result2->fetch_assoc()) {
-					$novo_video_id = $row['id'];
-					$insert = $conn->query("INSERT INTO Verbetes_elementos (id_tema, id_elemento, tipo, user_id) VALUES ($tema_id, $novo_video_id, 'video', $user_id)");
-					break;
-				}
-			}
-		} else {
-			while ($row = $result->fetch_assoc()) {
-				$novo_video_id = $row['id'];
-				$insert = $conn->query("INSERT INTO Verbetes_elementos (id_tema, id_elemento, tipo, user_id) VALUES ($tema_id, $novo_video_id, 'video', $user_id)");
-				break;
-			}
-		}
+        $novo_video_data = get_youtube($novo_video_link);
+        $novo_video_data = serialize($novo_video_data);
+        error_log($novo_video_data[0]);
+        error_log($novo_video_data[1]);
+        error_log($novo_video_data[2]);
+        error_log($novo_video_data[3]);
+        error_log($novo_video_data[4]);
+        error_log($novo_video_data[5]);
+        error_log($novo_video_data[6]);
 	}
 
 	$tema_bookmark = false;
@@ -649,18 +638,7 @@
 	$template_modal_div_id = 'modal_videos_form';
 	$template_modal_titulo = 'Adicionar vídeo ou aula';
 	$template_modal_body_conteudo = "
-                    <div class='md-form mb-2'>
-                        <input type='text' id='novo_video_titulo' name='novo_video_titulo'
-                               class='form-control validate' required>
-                        <label data-error='preenchimento incorreto' data-successd='preenchimento correto'
-                               for='novo_video_titulo'>Título do vídeo</label>
-                    </div>
-                    <div class='md-form mb-2'>
-                        <input type='text' id='novo_video_autor' name='novo_video_autor'
-                               class='form-control validate' required>
-                        <label data-error='preenchimento incorreto' data-successd='preenchimento correto'
-                               for='novo_video_autor'>Nome do autor</label>
-                    </div>
+                    <p>No momento, apenas vídeos do Youtube podem ser adicionados. Outras opções estarão disponíveis em breve.</p>
                     <div class='md-form mb-2'>
                         <input type='url' id='novo_video_link' name='novo_video_link' class='form-control validate'
                                required>
