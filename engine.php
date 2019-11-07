@@ -296,8 +296,9 @@
                       'tema_id': $args[1]
                     },
                     function(data) {
-                    	value = data;
+                    	value2 = data;
                     });
+                    alert(value2);
                 		this.quill.insertEmbed(range.index, 'image', value, Quill.sources.USER);
                 }
             }
