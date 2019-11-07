@@ -1,25 +1,25 @@
 <?php
-	
+
 	if (!isset($loginpage)) {
 		$loginpage = false;
 	}
-	
+
 	$sessionpath = getcwd();
 	$sessionpath .= '/../sessions';
 	session_save_path($sessionpath);
 	session_start();
-	
+
 	$servername = "localhost";
 	$username = "grupoubique";
 	$password = "ubique patriae memor";
 	$dbname = "Ubique";
 	$conn = new mysqli($servername, $username, $password, $dbname);
 	mysqli_set_charset($conn, "utf8");
-	
+
 	$user_email = false;
 	$newuser = false;
 	$special = false;
-	
+
 	if (isset($_GET['special'])) {
 		$special = $_GET['special'];
 	}
@@ -64,14 +64,14 @@
 //      header('Location:index.php');
 		}
 	}
-	
+
 	$result = $conn->query("SELECT id FROM Usuarios WHERE email = '$user_email'");
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
 			$user_id = $row['id'];
 		}
 	}
-	
+
 	function carregar_navbar()
 	{
 		$args = func_get_args();
@@ -115,7 +115,7 @@
     </ul>
   </nav>";
 	}
-	
+
 	function top_page()
 	{
 		$args = func_get_args();
@@ -170,12 +170,12 @@
   </head>
   ';
 	}
-	
+
 	function bottom_page()
 	{
-		
+
 		$args = func_get_args();
-		
+
 		echo '
   <!-- Bootstrap tooltips -->
   <script type="text/javascript" src="js/popper.min.js"></script>
@@ -294,11 +294,12 @@
                       'nova_imagem': value,
                       'user_id': $args[0],
                       'tema_id': $args[1]
-                    }, function(data) {
-                        value = data;
+                    },
+                    function(data) {
+                    	value = data;
                     });
+                		this.quill.insertEmbed(range.index, 'image', value, Quill.sources.USER);
                 }
-                this.quill.insertEmbed(range.index, 'image', value, Quill.sources.USER);
             }
 
             var anotacao_editor = new Quill('#quill_editor_anotacao', {
@@ -558,7 +559,7 @@
 			}
 		}
 	}
-	
+
 	function load_footer()
 	{
 		echo "
@@ -567,7 +568,7 @@
     </footer>
   ";
 	}
-	
+
 	function extract_gdoc($url)
 	{
 		$ch = curl_init();
@@ -581,7 +582,7 @@
 		curl_close($ch);
 		return $body;
 	}
-	
+
 	function standard_jumbotron($titulo, $link)
 	{
 		echo "
@@ -598,7 +599,7 @@
     </div>
 ";
 	}
-	
+
 	function sub_jumbotron($titulo, $link)
 	{
 		echo "
@@ -613,7 +614,7 @@
   </div>
 ";
 	}
-	
+
 	if (isset($_POST['bookmark_change'])) {
 		$bookmark_change = $_POST['bookmark_change'];
 		$bookmark_tema_id = $_POST['bookmark_tema_id'];
@@ -635,7 +636,7 @@
 			$insert = $conn->query("INSERT INTO Bookmarks (user_id, tema_id, bookmark) VALUES ($bookmark_user_id, $bookmark_tema_id, $bookmark_change)");
 		}
 	}
-	
+
 	if (isset($_POST['sbcommand'])) {
 		$concurso = base64_decode($_POST['sbconcurso']);
 		$command = base64_decode($_POST['sbcommand']);
@@ -687,13 +688,13 @@
 		echo "Nada foi encontrado";
 		return;
 	}
-	
+
 	function quill_reformatar($texto)
 	{
 		$texto = str_replace("<blockquote>", "<blockquote class='blockquote'>", $texto);
 		return $texto;
 	}
-	
+
 	function generateRandomString()
 	{
 		$length = func_get_args();
@@ -702,7 +703,7 @@
 		}
 		return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length[0]);
 	}
-	
+
 	function make_thumb()
 	{
 		$filename = func_get_args();
@@ -722,17 +723,17 @@
 		}
 		$width = imagesx($source_image);
 		$height = imagesy($source_image);
-		
+
 		/* find the "desired height" of this thumbnail, relative to the desired width  */
 		$desired_height = 300;
 		$desired_width = floor($desired_height * ($width / $height));
-		
+
 		/* create a new, "virtual" image */
 		$virtual_image = imagecreatetruecolor($desired_width, $desired_height);
-		
+
 		/* copy source image at a resized size */
 		imagecopyresampled($virtual_image, $source_image, 0, 0, 0, 0, $desired_width, $desired_height, $width, $height);
-		
+
 		/* create the physical thumbnail image to its destination */
 		$prefix = "../imagens/verbetes/thumbnails/";
 		$destination = "$prefix$filename";
@@ -753,7 +754,7 @@
 		$dados_da_imagem = array($resolucao_original, $orientacao);
 		return $dados_da_imagem;
 	}
-	
+
 	if (isset($_POST['nova_imagem'])) {
 		$nova_imagem_link = $_POST['nova_imagem'];
 		$user_id = $_POST['user_id'];
@@ -761,7 +762,7 @@
 		$nossa_copia = adicionar_imagem($nova_imagem_link, 'Não há título registrado', 'Não há comentário registrado', $tema_id, $user_id);
 		echo $nossa_copia;
 	}
-	
+
 	function adicionar_imagem()
 	{
 		$args = func_get_args();
