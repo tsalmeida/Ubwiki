@@ -296,9 +296,8 @@
                       'tema_id': $args[1]
                     },
                     function(data) {
-                    	value2 = data;
+                        alert(data);
                     });
-                    alert(value2);
                 		this.quill.insertEmbed(range.index, 'image', value, Quill.sources.USER);
                 }
             }
@@ -808,7 +807,7 @@
 				break;
 			}
 		}
-		return "https://www.ubwiki.com.br/imagens/verbetes/$nova_imagem_arquivo";
+		echo "https://www.ubwiki.com.br/imagens/verbetes/$nova_imagem_arquivo";
 	}
 
 
