@@ -140,7 +140,7 @@
 	  <!-- JQuery -->
 	  <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
     <title>Ubwiki</title>';
-		
+
 		if ($args != false) {
 			$array = 0;
 			while (isset($args[$array])) {
@@ -288,6 +288,7 @@
             function imageHandler() {
                 var range = this.quill.getSelection();
                 var value = prompt('Qual o endereço da imagem?');
+                value = encodeURI(value);
                 if(value){
                     $.post('engine.php', {
                       'nova_imagem': value,
