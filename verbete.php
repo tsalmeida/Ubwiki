@@ -132,9 +132,17 @@
 	if (isset($_POST['novo_video_link'])) {
 		$novo_video_link = $_POST['novo_video_link'];
 		$novo_video_data = get_youtube($novo_video_link);
-		foreach ($novo_video_data as $data) {
-			error_log(serialize($data));
+		if ($novo_video_data == false) {
+			return false;
 		}
+		$novo_video_titulo = $novo_video_data['title'];
+		$novo_video_autor = $novo_video_data['author_name'];
+		$novo_video_thumbnail = $novo_video_data['thumbnail_url'];
+		$novo_video_iframe = $novo_video_data['html'];
+		$novo_video_iframe = base64_encode($novo_video_iframe);
+
+		error_log("INSERT INTO Elementos (tipo, titulo, autor, link, iframe, arquivo, user_id) VALUES ('video', $novo_video_titulo, $novo_video_autor, $novo_video_link, $novo_video_iframe, $novo_video_thumbnail, $user_id)");
+		$insert = $conn->query("INSERT INTO Elementos (tipo, titulo, autor, link, iframe, arquivo, user_id) VALUES ('video', $novo_video_titulo, $novo_video_autor, $novo_video_link, $novo_video_iframe, $novo_video_thumbnail, $user_id)");
 	}
 
 	$tema_bookmark = false;
@@ -362,14 +370,21 @@
 					<?php
 						$tema_length = strlen($tema_titulo);
 						$display_level = false;
-						if ($tema_length < 15) { $display_level = 'display-1'; }
-						elseif ($tema_length < 25) { $display_level = 'display-2'; }
-						elseif ($tema_length < 45) { $display_level = 'display-3'; }
-                        elseif ($tema_length < 60) { $display_level = 'display-4'; }
-						elseif ($tema_length > 80) { echo "<h1 class='h1-responsive'>$tema_titulo</h1>"; $display_level = false; }
+						if ($tema_length < 15) {
+							$display_level = 'display-1';
+						} elseif ($tema_length < 25) {
+							$display_level = 'display-2';
+						} elseif ($tema_length < 45) {
+							$display_level = 'display-3';
+						} elseif ($tema_length < 60) {
+							$display_level = 'display-4';
+						} else {
+							echo "<h1 class='h1-responsive'>$tema_titulo</h1>";
+							$display_level = false;
+						}
 						if ($display_level != false) {
-                            echo "<span class='$display_level playfair400 d-none d-md-inline'>$tema_titulo</span>";
-                            echo "<h1 class='h1-responsive d-sm-inline d-md-none'>$tema_titulo</h1>";
+							echo "<span class='$display_level playfair400 d-none d-md-inline'>$tema_titulo</span>";
+							echo "<h1 class='h1-responsive d-sm-inline d-md-none'>$tema_titulo</h1>";
 						}
 					?>
         </div>
@@ -509,10 +524,8 @@
 								$template_conteudo .= "
                             </div>
                               <div class='controls-top'>
-                                <a class='btn btn-md grey lighten-3 z-depth-0' href='#carousel-with-lb' data-slide='prev'><i
-                                    class='fas fa-chevron-left'></i></a>
-                                <a class='btn btn-md grey lighten-3 z-depth-0' href='#carousel-with-lb' data-slide='next'><i
-                                    class='fas fa-chevron-right'></i></a>
+                                <a class='btn btn-floating grey lighten-3 z-depth-0' href='#carousel-with-lb' data-slide='prev'><i style='transform: translateY(70%)' class='fas fa-chevron-left'></i></a>
+                                <a class='btn btn-floating grey lighten-3 z-depth-0' href='#carousel-with-lb' data-slide='next'><i style='transform: translateY(70%)' class='fas fa-chevron-right'></i></a>
                             ";
 							}
 							$template_conteudo .= "</div></div>";

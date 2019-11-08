@@ -562,11 +562,7 @@
 
 	function load_footer()
 	{
-		echo "
-    <footer id='footer' class='footer-copyright grey lighten-4 text-center font-small py-2'>
-      <span class='text-dark'>A Ubwiki é uma ferramenta de uso público e gratuito. Todos os direitos são reservados ao Grupo Ubique. Siga <a href='termos.php' target='_blank'>este</a> link para rever os termos e condições de uso da página.</span>
-    </footer>
-  ";
+		include 'templates/footer.php';
 	}
 
 	function extract_gdoc($url)
@@ -811,7 +807,7 @@
 				break;
 			}
 		}
-		echo "https://www.ubwiki.com.br/imagens/verbetes/$nova_imagem_arquivo";
+		return "https://www.ubwiki.com.br/imagens/verbetes/$nova_imagem_arquivo";
 	}
 
 	function get_youtube($url){
