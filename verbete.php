@@ -140,9 +140,8 @@
 		$novo_video_thumbnail = $novo_video_data['thumbnail_url'];
 		$novo_video_iframe = $novo_video_data['html'];
 		$novo_video_iframe = base64_encode($novo_video_iframe);
-
-		error_log("INSERT INTO Elementos (tipo, titulo, autor, link, iframe, arquivo, user_id) VALUES ('video', $novo_video_titulo, $novo_video_autor, $novo_video_link, $novo_video_iframe, $novo_video_thumbnail, $user_id)");
-		$insert = $conn->query("INSERT INTO Elementos (tipo, titulo, autor, link, iframe, arquivo, user_id) VALUES ('video', $novo_video_titulo, $novo_video_autor, $novo_video_link, $novo_video_iframe, $novo_video_thumbnail, $user_id)");
+		error_log("INSERT INTO Elementos (tipo, titulo, autor, link, iframe, arquivo, user_id) VALUES ('video', '$novo_video_titulo', '$novo_video_autor', '$novo_video_link', '$novo_video_iframe', '$novo_video_thumbnail', $user_id)");
+		$insert = $conn->query("INSERT INTO Elementos (tipo, titulo, autor, link, iframe, arquivo, user_id) VALUES ('video', '$novo_video_titulo', '$novo_video_autor', '$novo_video_link', '$novo_video_iframe', '$novo_video_thumbnail', $user_id)");
 	}
 
 	$tema_bookmark = false;
