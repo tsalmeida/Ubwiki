@@ -92,7 +92,7 @@
 							$template_conteudo = "<img class='imagem_pagina border' src='../imagens/verbetes/$arquivo_elemento'></img>";
 													include 'templates/page_element.php';
 						}
-						elseif ($tipo == 'video') {
+						elseif ($tipo_elemento == 'video') {
 						    $template_div = 'video_div';
 						    $template_titulo = $titulo_elemento;
 						    $template_botoes = false;
