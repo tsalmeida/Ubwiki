@@ -1,15 +1,15 @@
 <?php
-
+	
 	include 'engine.php';
-
+	
 	if (isset($_GET['tema'])) {
 		$tema_id = $_GET['tema'];
 	}
-
+	
 	if (isset($_GET['concurso'])) {
 		$concurso = $_GET['concurso'];
 	}
-
+	
 	$variaveis_php_session = "
         <script type='text/javascript'>
           var user_id=$user_id;
@@ -18,9 +18,9 @@
           var user_email='$user_email';
         </script>
     ";
-
+	
 	top_page($variaveis_php_session, "quill_v", "lightbox");
-
+	
 	$result = $conn->query("SELECT sigla_materia, nivel, ordem, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND id = $tema_id");
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
@@ -34,14 +34,14 @@
 			$nivel5 = $row['nivel5'];
 		}
 	}
-
+	
 	$result = $conn->query("SELECT materia FROM Materias WHERE concurso = '$concurso' AND estado = 1 AND sigla = '$sigla_materia' ORDER BY ordem");
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
 			$materia = $row["materia"];
 		}
 	}
-
+	
 	$result = $conn->query("SELECT verbete_html, verbete_text, verbete_content FROM Verbetes WHERE id_tema = $tema_id");
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
@@ -54,7 +54,7 @@
 		$verbete_text = false;
 		$verbete_content = '%7B%22ops%22:%5B%7B%22insert%22:%22Este%20verbete%20ainda%20n%C3%A3o%20come%C3%A7ou%20a%20ser%20escrito.%5Cn%22%7D%5D%7D';
 	}
-
+	
 	if (isset($_POST['quill_novo_verbete_html'])) {
 		$novo_verbete_html = $_POST['quill_novo_verbete_html'];
 		$novo_verbete_text = $_POST['quill_novo_verbete_text'];
@@ -69,11 +69,11 @@
 		}
 		$verbete_content = $novo_verbete_content;
 	}
-
+	
 	$verbete_content = urldecode($verbete_content);
 	// $verbete_content = utf8_encode($verbete_content);
 	// error_log("utf8 encode: $verbete_content");
-
+	
 	$result = $conn->query("SELECT anotacao FROM Anotacoes WHERE user_id = $user_id AND tema_id = $tema_id");
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
@@ -83,7 +83,7 @@
 	} else {
 		$anotacao_html = false;
 	}
-
+	
 	if (isset($_POST['quill_nova_anotacao_html'])) {
 		$nova_anotacao_html = $_POST['quill_nova_anotacao_html'];
 		$nova_anotacao_html = strip_tags($nova_anotacao_html, '<p><li><ul><ol><h2><h3><blockquote><em><sup>');
@@ -95,14 +95,14 @@
 		}
 		$anotacao_html = $nova_anotacao_html;
 	}
-
+	
 	if (isset($_POST['nova_imagem_link'])) {
 		$nova_imagem_link = $_POST['nova_imagem_link'];
 		$nova_imagem_titulo = $_POST['nova_imagem_titulo'];
 		$nova_imagem_comentario = $_POST['nova_imagem_comentario'];
 		adicionar_imagem($nova_imagem_link, $nova_imagem_titulo, $nova_imagem_comentario, $tema_id, $user_id);
 	}
-
+	
 	if (isset($_POST['nova_referencia_titulo'])) {
 		$nova_referencia_titulo = $_POST['nova_referencia_titulo'];
 		$nova_referencia_autor = $_POST['nova_referencia_autor'];
@@ -128,7 +128,7 @@
 			}
 		}
 	}
-
+	
 	if (isset($_POST['novo_video_link'])) {
 		$novo_video_link = $_POST['novo_video_link'];
 		$novo_video_data = get_youtube($novo_video_link);
@@ -140,9 +140,30 @@
 		$novo_video_thumbnail = $novo_video_data['thumbnail_url'];
 		$novo_video_iframe = $novo_video_data['html'];
 		$novo_video_iframe = base64_encode($novo_video_iframe);
-		$insert = $conn->query("INSERT INTO Elementos (tipo, titulo, autor, link, iframe, arquivo, user_id) VALUES ('video', '$novo_video_titulo', '$novo_video_autor', '$novo_video_link', '$novo_video_iframe', '$novo_video_thumbnail', $user_id)");
+		$result = $conn->query("SELECT id FROM Elementos WHERE link = '$novo_video_link'");
+		if ($result->num_rows > 0) {
+			while ($row = $result->fetch_assoc()) {
+				$id_video_preexistente = $row['id'];
+				$insert = $conn->query("INSERT INTO Verbetes_elementos (id_tema, id_elemento, tipo, user_id) VALUES ($tema_id, $id_video_preexistente, 'video', $user_id)");
+				break;
+			}
+		} else {
+			$insert = $conn->query("INSERT INTO Elementos (tipo, titulo, autor, link, iframe, arquivo, user_id) VALUES ('video', '$novo_video_titulo', '$novo_video_autor', '$novo_video_link', '$novo_video_iframe', '$novo_video_thumbnail', $user_id)");
+			$result = $conn->query("SELECT id FROM Elementos WHERE link = '$novo_video_link'");
+			if ($result->num_rows > 0) {
+				while ($row = $result->fetch_assoc()) {
+					$novo_video_id = $row['id'];
+					$insert = $conn->query("INSERT INTO Verbete_elementos (id_tema, id_elemento, tipo, user_id) VALUES ($tema_id, $novo_video_id, 'video', $user_id)");
+					break;
+				}
+			} else {
+				return false;
+			}
+		}
+		
+		
 	}
-
+	
 	$tema_bookmark = false;
 	$bookmark = $conn->query("SELECT bookmark FROM Bookmarks WHERE user_id = $user_id AND tema_id = $tema_id");
 	if ($bookmark->num_rows > 0) {
@@ -159,7 +180,7 @@
     <div class='d-block'><a href='index.php'>$concurso</a></div>
     <div class='d-block spacing0'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='materia.php?concurso=$concurso&sigla=$sigla_materia'>$materia</a></div>
   ";
-
+	
 	$result = $conn->query("SELECT id, nivel, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' ORDER BY ordem");
 	if ($nivel == 1) {
 		$tema_titulo = $nivel1;
@@ -400,8 +421,8 @@
                       data-target='.verbete_editor_collapse' title='permitir edição'><a
                             href='javascript:void(0);'><i class='fal fa-lock-alt fa-fw'></i></a></span>
                         ";
-
-						$template_quill_form_id = 'quill_verbete_form';
+											
+											$template_quill_form_id = 'quill_verbete_form';
 						$template_quill_conteudo_html = 'quill_novo_verbete_html';
 						$template_quill_conteudo_text = 'quill_novo_verbete_text';
 						$template_quill_conteudo_content = 'quill_novo_verbete_content';
@@ -409,11 +430,11 @@
 						$template_quill_editor_id = 'quill_editor_verbete';
 						$template_quill_editor_classes = 'quill_editor_height quill_editor_height_leitura';
 						$template_quill_botoes_collapse_stuff = 'verbete_editor_collapse collapse';
-
-						$template_conteudo = include 'templates/quill_form.php';
+											
+											$template_conteudo = include 'templates/quill_form.php';
 						include 'templates/page_element.php';
-
-						$template_id = 'videos';
+											
+											$template_id = 'videos';
 						$template_titulo = 'Vídeos e aulas';
 						$template_botoes = "
                                   <a data-toggle='modal' data-target='#modal_videos_form' href=''>
@@ -421,8 +442,8 @@
                                   </a>
                         ";
 						$template_conteudo = false;
-
-						$result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND tipo = 'video'");
+											
+											$result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND tipo = 'video'");
 						if ($result->num_rows > 0) {
 							$template_conteudo .= "<ul class='list-group'>";
 							while ($row = $result->fetch_assoc()) {
@@ -441,15 +462,15 @@
 						} else {
 							$template_conteudo .= "<p>Ainda não foram acrescentados vídeos ou aulas sobre este assunto.</p>";
 						}
-
-						include 'templates/page_element.php';
-
-						$template_id = 'bibliografia';
+											
+											include 'templates/page_element.php';
+											
+											$template_id = 'bibliografia';
 						$template_titulo = 'Leia mais';
 						$template_botoes = "<a data-toggle='modal' data-target='#modal_referencia_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>";
 						$template_conteudo = false;
-
-						$result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND tipo = 'referencia'");
+											
+											$result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND tipo = 'referencia'");
 						if ($result->num_rows > 0) {
 							$template_conteudo .= "<ul class='list-group'>";
 							while ($row = $result->fetch_assoc()) {
@@ -470,16 +491,16 @@
 						} else {
 							$template_conteudo .= "<p>Não foram identificados, até o momento, recursos bibliográficos sobre este tema.</p>";
 						}
-
-						include 'templates/page_element.php';
-
-						$template_id = 'imagens';
+											
+											include 'templates/page_element.php';
+											
+											$template_id = 'imagens';
 						$template_titulo = 'Imagens';
 						$template_botoes = "<a data-toggle='modal' data-target='#modal_imagens_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>";
 						$template_conteudo = false;
-
-
-						$result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND tipo = 'imagem'");
+											
+											
+											$result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND tipo = 'imagem'");
 						$count = 0;
 						if ($result->num_rows > 0) {
 							$template_conteudo .= "
@@ -535,8 +556,8 @@
 
         </div>
         <div id='coluna_direita' class='col-lg-5 col-sm-12 anotacoes_collapse collapse show'>
-
-					<?php
+	
+	        <?php
 						$template_id = 'sticky_anotacoes';
 						$template_titulo = 'Anotações';
 						$template_botoes = "<span class='anotacao_editor_collapse collapse show' id='travar_anotacao' data-toggle='collapse'
@@ -545,8 +566,8 @@
                 <span class='anotacao_editor_collapse collapse' id='destravar_anotacao' data-toggle='collapse'
                       data-target='.anotacao_editor_collapse' title='permitir edição'><a
                             href='javascript:void(0);'><i class='fal fa-lock-alt fa-fw'></i></a></span>";
-
-						$template_quill_form_id = 'quill_anotacao_form';
+		
+		        $template_quill_form_id = 'quill_anotacao_form';
 						$template_quill_conteudo_html = 'quill_nova_anotacao_html';
 						$template_quill_conteudo_text = 'quill_nova_anotacao_text';
 						$template_quill_conteudo_content = 'quill_nova_anotacao_content';
@@ -555,17 +576,17 @@
 						$template_quill_editor_classes = 'quill_editor_height';
 						$template_quill_conteudo_opcional = $anotacao_html;
 						$template_quill_botoes_collapse_stuff = 'anotacao_editor_collapse collapse show';
-
-						$template_conteudo = include 'templates/quill_form.php';
+		
+		        $template_conteudo = include 'templates/quill_form.php';
 						include 'templates/page_element.php';
-
-					?>
+	
+	        ?>
 
         </div>
     </div>
 </div>
 <?php
-
+	
 	$template_modal_div_id = 'modal_imagens_form';
 	$template_modal_titulo = 'Adicionar imagem';
 	$template_modal_body_conteudo = "
@@ -590,8 +611,8 @@
         </div>
     ";
 	include 'templates/modal.php';
-
-
+	
+	
 	$template_modal_div_id = 'modal_referencia_form';
 	$template_modal_titulo = 'Adicionar material de leitura';
 	$template_modal_body_conteudo = "
@@ -626,9 +647,9 @@
                    for='nova_referencia_link'>Link (opcional)</label>
         </div>
 	";
-
+	
 	include 'templates/modal.php';
-
+	
 	$template_modal_div_id = 'modal_videos_form';
 	$template_modal_titulo = 'Adicionar vídeo ou aula';
 	$template_modal_body_conteudo = "
@@ -640,7 +661,7 @@
                                for='novo_video_link'>Link para o vídeo</label>
                     </div>
 	";
-
+	
 	include 'templates/modal.php';
 
 
