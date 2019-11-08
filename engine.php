@@ -590,9 +590,11 @@
       <div class='jumbotron col-12 mb-0 elegant-color text-white'>
 		";
 		if ($link == false) {
-			echo "<span class='display-1 logo-jumbotron playfair400'>$titulo</span>";
+			echo "<h1 class='h1-responsive playfair400 logo-jumbotron d-sm-inline d-md-none'>$titulo</h1>";
+			echo "<span class='display-2 playfair400 logo-jumbotron d-none d-md-inline'>$titulo</span>";
 		} else {
-			echo "<a href='$link'><span class='display-3 logo-jumbotron playfair400'>$titulo</span></a>";
+			echo "<a href='$link'><h1 class='h1-responsive playfair400 logo-jumbotron d-sm-inline d-md-none'>$titulo</h1></a>";
+			echo "<a href='$link'><span class='display-2 playfair400 logo-jumbotron d-none d-md-inline'>$titulo</span></a>";
 		}
 		echo "
       </div>
@@ -606,9 +608,11 @@
   <div class='container-fluid py-5 col-lg-12 grey lighten-3 text-center mb-3'>
 ";
 		if ($link == false) {
-			echo "<span class='display-3 wireone'>$titulo</span>";
+			echo "<h2 class='h2-responsive' d-sm-inline d-md-none>$titulo</h2>";
+			echo "<span class='display-4 d-none d-md-inline'>$titulo</span>";
 		} else {
-			echo "<span class='display-3 wireone'><a href='$link'>$titulo</a></span>";
+			echo "<h2 class='h2-responsive d-sm-inline d-md-none'><a href='$link'>$titulo</a></h2>";
+			echo "<span class='display-4 d-none d-md-inline'><a href='$link'>$titulo</a></span>";
 		}
 		echo "
   </div>
