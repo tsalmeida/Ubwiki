@@ -18,7 +18,7 @@
 		}
 	}
 
-	$result = $conn->query("SELECT criacao, tipo, titulo, autor, capitulo, ano, link, arquivo, resolucao, orientacao, comentario, trecho, user_id FROM Elementos WHERE id = $id_elemento");
+	$result = $conn->query("SELECT criacao, tipo, titulo, autor, capitulo, ano, link, iframe, arquivo, resolucao, orientacao, comentario, trecho, user_id FROM Elementos WHERE id = $id_elemento");
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
 			$criacao_elemento = $row['criacao'];
@@ -28,6 +28,7 @@
 			$capitulo_elemento = $row['capitulo'];
 			$ano_elemento = $row['ano'];
 			$link_elemento = $row['link'];
+			$iframe_elemento = $row['iframe'];
 			$arquivo_elemento = $row['arquivo'];
 			$resolucao_elemento = $row['resolucao'];
 			$orientacao_elemento = $row['orientacao'];
@@ -91,6 +92,12 @@
 							$template_conteudo = "<img class='imagem_pagina border' src='../imagens/verbetes/$arquivo_elemento'></img>";
 													include 'templates/page_element.php';
 						}
+						elseif ($tipo == 'video') {
+						    $template_div = 'video_div';
+						    $template_titulo = $titulo_elemento;
+						    $template_botoes = false;
+						    $template_conteudo = $iframe_elemento;
+                        }
 
 						$dados_elemento = "
 						              <ul class='list-group'>
