@@ -97,6 +97,7 @@
 						    $template_titulo = $titulo_elemento;
 						    $template_botoes = false;
 						    $template_conteudo = $iframe_elemento;
+						    include 'templates/page_element.php';
                         }
 
 						$dados_elemento = "
