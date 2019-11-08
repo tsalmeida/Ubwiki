@@ -153,7 +153,7 @@
 			if ($result->num_rows > 0) {
 				while ($row = $result->fetch_assoc()) {
 					$novo_video_id = $row['id'];
-					$insert = $conn->query("INSERT INTO Verbete_elementos (id_tema, id_elemento, tipo, user_id) VALUES ($tema_id, $novo_video_id, 'video', $user_id)");
+					$insert = $conn->query("INSERT INTO Verbetes_elementos (id_tema, id_elemento, tipo, user_id) VALUES ($tema_id, $novo_video_id, 'video', $user_id)");
 					break;
 				}
 			} else {
