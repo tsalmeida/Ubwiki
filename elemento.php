@@ -96,6 +96,7 @@
 						    $template_div = 'video_div';
 						    $template_titulo = $titulo_elemento;
 						    $template_botoes = false;
+						    $iframe_elemento = base64_decode($iframe_elemento);
 						    $template_conteudo = $iframe_elemento;
 						    include 'templates/page_element.php';
                         }
