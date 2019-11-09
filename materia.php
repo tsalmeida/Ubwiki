@@ -39,6 +39,41 @@
 							return;
 						}
 						echo "<ul class='list-group my-5'>";
+
+						$result = $conn->query("SELECT DISTINCT nivel FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla'");
+						$nivel_count = 0;
+						while ($row = mysqli_fetch_array($result)) {
+						    $nivel_count++;
+                        }
+                        $cor_nivel1 = false;
+                        $cor_nivel2 = false;
+                        $cor_nivel3 = false;
+                        $cor_nivel4 = false;
+                        $cor_nivel5 = false;
+						
+                        if ($nivel_count == 5) {
+                            $cor_nivel1 = 'grey lighten-1';
+                            $cor_nivel2 = 'grey lighten-2';
+                            $cor_nivel3 = 'grey lighten-3';
+                            $cor_nivel4 = 'grey lighten-4';
+                            $cor_nivel5 = 'grey lighten-5';
+                        }
+                        elseif ($nivel_count == 4) {
+                            $cor_nivel1 = 'grey lighten-2';
+                            $cor_nivel2 = 'grey lighten-3';
+                            $cor_nivel3 = 'grey lighten-4';
+                            $cor_nivel4 = 'grey lighten-5';
+                        }
+                        elseif ($nivel_count == 3) {
+                            $cor_nivel1 = 'grey lighten-2';
+                            $cor_nivel2 = 'grey lighten-4';
+                            $cor_nivel3 = 'grey lighten-5';
+                        }
+                        elseif ($nivel_count == 2) {
+                            $cor_nivel1 = 'grey lighten-4';
+                            $cor_nivel2 = 'grey lighten-5';
+                        }
+
 						$result = $conn->query("SELECT id, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla' ORDER BY ordem");
 						if ($result->num_rows > 0) {
 							while ($row = $result->fetch_assoc()) {
@@ -49,15 +84,15 @@
 								$nivel4 = $row["nivel4"];
 								$nivel5 = $row["nivel5"];
 								if ($nivel5 != false) {
-									echo "<a class='list-group-item list-group-item-action grey-lighten-5' href='verbete.php?concurso=$concurso&tema=$id'><span style='width: 16ch; display: inline-grid;' class='bg-light'></span><em>$nivel5</em></a>";
+									echo "<a class='list-group-item list-group-item-action $cor_nivel5' href='verbete.php?concurso=$concurso&tema=$id'><span style='width: 16ch; display: inline-grid;' class='bg-light'></span><em>$nivel5</em></a>";
 								} elseif ($nivel4 != false) {
-									echo "<a class='list-group-item list-group-item-action grey lighten-4' href='verbete.php?concurso=$concurso&tema=$id'><span style='width: 12ch; display: inline-grid;' class='bg-light'></span><em>$nivel4</em></a>";
+									echo "<a class='list-group-item list-group-item-action $cor_nivel4' href='verbete.php?concurso=$concurso&tema=$id'><span style='width: 12ch; display: inline-grid;' class='bg-light'></span><em>$nivel4</em></a>";
 								} elseif ($nivel3 != false) {
-									echo "<a class='list-group-item list-group-item-action grey lighten-3' href='verbete.php?concurso=$concurso&tema=$id'><span style='width: 8ch; display: inline-grid;' class='bg-light'></span>$nivel3</a>";
+									echo "<a class='list-group-item list-group-item-action $cor_nivel3' href='verbete.php?concurso=$concurso&tema=$id'><span style='width: 8ch; display: inline-grid;' class='bg-light'></span>$nivel3</a>";
 								} elseif ($nivel2 != false) {
-									echo "<a class='list-group-item list-group-item-action grey lighten-2' href='verbete.php?concurso=$concurso&tema=$id'><span style='width: 4ch; display: inline-grid;' class=''></span>$nivel2</a>";
+									echo "<a class='list-group-item list-group-item-action $cor_nivel2' href='verbete.php?concurso=$concurso&tema=$id'><span style='width: 4ch; display: inline-grid;' class=''></span>$nivel2</a>";
 								} elseif ($nivel1 != false) {
-									echo "<a class='list-group-item list-group-item-action grey lighten-1' href='verbete.php?concurso=$concurso&tema=$id'><strong><span style='width: 0ch; display: inline-grid;' class=''></span>$nivel1</strong></a>";
+									echo "<a class='list-group-item list-group-item-action $cor_nivel1' href='verbete.php?concurso=$concurso&tema=$id'><strong><span style='width: 0ch; display: inline-grid;' class=''></span>$nivel1</strong></a>";
 								}
 							}
 						}
