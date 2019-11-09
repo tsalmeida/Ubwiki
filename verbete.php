@@ -144,11 +144,12 @@
 		if ($result->num_rows > 0) {
 			while ($row = $result->fetch_assoc()) {
 				$id_video_preexistente = $row['id'];
-				$insert = $conn->query("INSERT INTO Verbetes_elementos (id_tema, id_elemento, tipo, user_id) VALUES ($tema_id, $id_video_preexistente, 'video', $user_id)");
+							$insert = $conn->query("INSERT INTO Verbetes_elementos (id_tema, id_elemento, tipo, user_id) VALUES ($tema_id, $id_video_preexistente, 'youtube', $user_id)");
 				break;
 			}
 		} else {
-			$insert = $conn->query("INSERT INTO Elementos (tipo, titulo, autor, link, iframe, arquivo, user_id) VALUES ('video', '$novo_video_titulo', '$novo_video_autor', '$novo_video_link', '$novo_video_iframe', '$novo_video_thumbnail', $user_id)");
+					$novo_youtube_thumbnail = adicionar_thumbnail_youtube($novo_video_thumbnail);
+					$insert = $conn->query("INSERT INTO Elementos (tipo, titulo, autor, link, iframe, arquivo, user_id) VALUES ('video', '$novo_video_titulo', '$novo_video_autor', '$novo_video_link', '$novo_video_iframe', '$novo_youtube_thumbnail', $user_id)");
 			$result = $conn->query("SELECT id FROM Elementos WHERE link = '$novo_video_link'");
 			if ($result->num_rows > 0) {
 				while ($row = $result->fetch_assoc()) {
@@ -157,11 +158,8 @@
 					break;
 				}
 			} else {
-				return false;
 			}
 		}
-		
-		
 	}
 	
 	$tema_bookmark = false;
@@ -411,6 +409,10 @@
     <div class='row justify-content-around'>
         <div id='coluna_esquerda' class='col-lg-5 col-sm-12'>
 					<?php
+											
+											
+											//VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE
+						
 						$template_id = 'verbete';
 						$template_titulo = 'Verbete';
 						$template_botoes = "
@@ -434,6 +436,8 @@
 											$template_conteudo = include 'templates/quill_form.php';
 						include 'templates/page_element.php';
 											
+											//VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS
+											
 											$template_id = 'videos';
 						$template_titulo = 'Vídeos e aulas';
 						$template_botoes = "
@@ -444,26 +448,58 @@
 						$template_conteudo = false;
 											
 											$result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND tipo = 'video'");
+											$count = 0;
 						if ($result->num_rows > 0) {
-							$template_conteudo .= "<ul class='list-group'>";
+													$template_conteudo .= "
+                                <div id='carousel-videos' class='carousel slide carousel-multi-item mb-0' data-ride='carousel'>
+                                <div class='carousel-inner' role='listbox'>
+                            ";
+													$active = 'active';
 							while ($row = $result->fetch_assoc()) {
 								$id_elemento = $row['id_elemento'];
-								$result2 = $conn->query("SELECT titulo, autor, link FROM Elementos WHERE id = $id_elemento");
+															$result2 = $conn->query("SELECT titulo, autor, arquivo FROM Elementos WHERE id = $id_elemento");
 								if ($result2->num_rows > 0) {
 									while ($row = $result2->fetch_assoc()) {
+																			$count++;
 										$video_titulo = $row['titulo'];
 										$video_autor = $row['autor'];
-										$video_link = $row['link'];
-										$template_conteudo .= "<li class='list-group-item list-group-item-action'><a href='elemento.php?id=$id_elemento' target='_blank'>$video_titulo : $video_autor</a></li>";
+																			$video_arquivo = $row['arquivo'];
+																			$template_conteudo .= "
+                                <div class=' carousel-item $active text-center'>
+                                  <figure class='col-12'>
+                                    <a href='elemento.php?id=$id_elemento' target='_blank'>
+                                      <img src='/../imagens/youthumb/$video_arquivo'
+                                        class='img-fluid' style='height:300px'>
+                                    </a>";
+																			$template_conteudo .= "<figcaption>
+                                           <strong class='h5-responsive mt-2'>$video_titulo</strong>";
+																			$template_conteudo .= "<p>$video_autor</p>";
+																			$template_conteudo .= "</figcaption>";
+																			
+																			$template_conteudo .= "</figure>
+                                </div>
+                                ";
+																			$active = false;
+																			break;
 									}
 								}
 							}
-							$template_conteudo .= "</ul>";
+													if ($count != 1) {
+														$template_conteudo .= "
+                            </div>
+                              <div class='controls-top'>
+                                <a class='btn btn-floating grey lighten-3 z-depth-0' href='#carousel-videos' data-slide='prev'><i style='transform: translateY(70%)' class='fas fa-chevron-left'></i></a>
+                                <a class='btn btn-floating grey lighten-3 z-depth-0' href='#carousel-videos' data-slide='next'><i style='transform: translateY(70%)' class='fas fa-chevron-right'></i></a>
+                            ";
+													}
+													$template_conteudo .= "</div></div>";
 						} else {
-							$template_conteudo .= "<p>Ainda não foram acrescentados vídeos ou aulas sobre este assunto.</p>";
+													$template_conteudo .= "<p>Não foram acrescentadas, até o momento, vídeos ou aulas sobre este tópico.</p>";
 						}
-											
 											include 'templates/page_element.php';
+											
+											
+											//LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS
 											
 											$template_id = 'bibliografia';
 						$template_titulo = 'Leia mais';
@@ -494,44 +530,41 @@
 											
 											include 'templates/page_element.php';
 											
+											// IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS
+											
 											$template_id = 'imagens';
 						$template_titulo = 'Imagens';
 						$template_botoes = "<a data-toggle='modal' data-target='#modal_imagens_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>";
 						$template_conteudo = false;
 											
-											
 											$result = $conn->query("SELECT id_elemento FROM Verbetes_elementos WHERE id_tema = $tema_id AND tipo = 'imagem'");
 						$count = 0;
 						if ($result->num_rows > 0) {
 							$template_conteudo .= "
-                                <div id='carousel-with-lb' class='carousel slide carousel-multi-item mb-0' data-ride='carousel'>
-                                <div class='carousel-inner mdb-lightbox' role='listbox'>
-                                <div id='mdb-lightbox-ui'></div>
+                                <div id='carousel-imagens' class='carousel slide carousel-multi-item mb-0' data-ride='carousel'>
+                                <div class='carousel-inner' role='listbox'>
                             ";
 							$active = 'active';
 							while ($row = $result->fetch_assoc()) {
 								$id_elemento = $row['id_elemento'];
-								$result2 = $conn->query("SELECT titulo, link, comentario, arquivo, resolucao, orientacao FROM Elementos WHERE id = $id_elemento");
+															$result2 = $conn->query("SELECT titulo, arquivo FROM Elementos WHERE id = $id_elemento");
 								if ($result2->num_rows > 0) {
 									while ($row = $result2->fetch_assoc()) {
 										$count++;
 										$imagem_titulo = $row['titulo'];
-										$imagem_link = $row['link'];
-										$imagem_comentario = $row['comentario'];
 										$imagem_arquivo = $row['arquivo'];
-										$imagem_resolucao = $row['resolucao'];
-										$imagem_orientacao = $row['orientacao'];
 										$template_conteudo .= "
                                 <div class=' carousel-item $active text-center'>
                                   <figure class='col-12'>
-                                    <a href='/../imagens/verbetes/$imagem_arquivo'
-                                      data-size='$imagem_resolucao'>
+                                    <a href='elemento.php?id=$id_elemento' target='_blank'>
                                       <img src='/../imagens/verbetes/thumbnails/$imagem_arquivo'
                                         class='img-fluid' style='height:300px'>
-                                    </a>
-                                    <figcaption><h5 class='mt-3'>$imagem_titulo</h5>
-                                    $imagem_comentario<p><a href='elemento.php?id=$id_elemento' target='_blank'>Página da imagem</a></p></figcaption>
-                                  </figure>
+                                    </a>";
+																			$template_conteudo .= "<figcaption>
+                                           <strong class='h5-responsive mt-2'>$imagem_titulo</strong>";
+																			$template_conteudo .= "</figcaption>";
+																			
+																			$template_conteudo .= "</figure>
                                 </div>
                                 ";
 										$active = false;
@@ -543,8 +576,8 @@
 								$template_conteudo .= "
                             </div>
                               <div class='controls-top'>
-                                <a class='btn btn-floating grey lighten-3 z-depth-0' href='#carousel-with-lb' data-slide='prev'><i style='transform: translateY(70%)' class='fas fa-chevron-left'></i></a>
-                                <a class='btn btn-floating grey lighten-3 z-depth-0' href='#carousel-with-lb' data-slide='next'><i style='transform: translateY(70%)' class='fas fa-chevron-right'></i></a>
+                                <a class='btn btn-floating grey lighten-3 z-depth-0' href='#carousel-imagens' data-slide='prev'><i style='transform: translateY(70%)' class='fas fa-chevron-left'></i></a>
+                                <a class='btn btn-floating grey lighten-3 z-depth-0' href='#carousel-imagens' data-slide='next'><i style='transform: translateY(70%)' class='fas fa-chevron-right'></i></a>
                             ";
 							}
 							$template_conteudo .= "</div></div>";
@@ -555,6 +588,9 @@
 					?>
 
         </div>
+
+        <!-- COLUNA DIREITA COLUNA DIRETA COLUNA DIREITA COLUNA DIREITA COLUNA DIREITA COLUNA DIREITA COLUNA DIREITA COLUNA DIREITA COLUNA DIREITA COLUNA DIREITA COLUNA DIREITA -->
+
         <div id='coluna_direita' class='col-lg-5 col-sm-12 anotacoes_collapse collapse show'>
 	
 	        <?php
@@ -587,6 +623,8 @@
 </div>
 <?php
 	
+	//IMAGENS MODAL IMAGENS MODAL IMAGENS MODAL IMAGENS MODAL IMAGENS MODAL IMAGENS MODAL IMAGENS MODAL IMAGENS MODAL IMAGENS MODAL IMAGENS MODAL
+	
 	$template_modal_div_id = 'modal_imagens_form';
 	$template_modal_titulo = 'Adicionar imagem';
 	$template_modal_body_conteudo = "
@@ -612,6 +650,7 @@
     ";
 	include 'templates/modal.php';
 	
+	//LEIA MAIS MODAL LEIA MAIS MODAL LEIA MAIS MODAL LEIA MAIS MODAL LEIA MAIS MODAL LEIA MAIS MODAL LEIA MAIS MODAL LEIA MAIS MODAL
 	
 	$template_modal_div_id = 'modal_referencia_form';
 	$template_modal_titulo = 'Adicionar material de leitura';
@@ -650,6 +689,8 @@
 	
 	include 'templates/modal.php';
 	
+	// VIDEOS MODAL VIDEOS MODAL VIDEOS MODAL VIDEOS MODAL VIDEOS MODAL VIDEOS MODAL VIDEOS MODAL VIDEOS MODAL VIDEOS MODAL
+	
 	$template_modal_div_id = 'modal_videos_form';
 	$template_modal_titulo = 'Adicionar vídeo ou aula';
 	$template_modal_body_conteudo = "
@@ -672,7 +713,7 @@
 </body>
 <?php
 	load_footer();
-	bottom_page($user_id, $tema_id, "quill_v", 'carousel', 'lightbox-imagens', 'bookmark_stuff', 'sticky_anotacoes');
+	bottom_page($user_id, $tema_id, "quill_v", 'carousel', 'bookmark_stuff', 'sticky_anotacoes');
 	$conn->close();
 ?>
 

@@ -37,19 +37,18 @@
       <hr class='clearfix w-100 d-md-none'>
       <div class='col-md-4 col-lg-3 mx-auto my-md-4 my-0 mt-4 mb-1'>
         <h5 class='font-weight-bold text-uppercase mb-4'>Address</h5>
-
         <ul class='list-unstyled'>
           <li>
             <p>
-              <i class='fas fa-building mr-3'></i>Brasília, DF</p>
+              <i class='fas fa-building fa-fw mr-3'></i>Brasília, DF</p>
           </li>
           <li>
             <p>
-              <i class='fas fa-envelope mr-3'></i> info@grupoubique.com.br</p>
+              <i class='fas fa-envelope fa-fw mr-3'></i> info@grupoubique.com.br</p>
           </li>
           <li>
             <p>
-              <i class='fab fa-whatsapp mr-3'></i> +244 912 552 359</p>
+              <i class='fab fa-whatsapp fa-fw mr-3'></i> +244 912 552 359</p>
           </li>
         </ul>
       </div>
@@ -57,16 +56,16 @@
       <div class='col-md-2 col-lg-2 text-center mx-auto my-4'>
         <h5 class='font-weight-bold text-uppercase mb-4'>Follow Us</h5>
         <a type='button' class='btn-floating elegant-color text-white'>
-          <i style='transform: translateY(70%)' class='fab fa-facebook-f'></i>
+          <i style='transform: translateY(70%)' class='fab fa-facebook-f fa-fw'></i>
         </a>
         <a type='button' class='btn-floating elegant-color text-white'>
-          <i style='transform: translateY(70%)' class='fab fa-youtube'></i>
+          <i style='transform: translateY(70%)' class='fab fa-youtube fa-fw'></i>
         </a>
         <a type='button' class='btn-floating elegant-color text-white'>
-          <i style='transform: translateY(70%)' class='fal fa-external-link-alt'></i>
+          <i style='transform: translateY(70%)' class='fal fa-home fa-fw'></i>
         </a>
         <a type='button' class='btn-floating elegant-color text-white'>
-          <i style='transform: translateY(70%)' class='fab fa-instagram'></i>
+          <i style='transform: translateY(70%)' class='fab fa-instagram fa-fw'></i>
         </a>
       </div>
     </div>
