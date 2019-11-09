@@ -11,7 +11,7 @@
 	}
 	
 	echo "
-	<div class='modal fade' id = '$template_modal_div_id' role = 'dialog' tabindex = '-1' >
+	<div class='modal fade' id='$template_modal_div_id' role='dialog' tabindex='-1' >
     <div class='modal-dialog modal-lg' role = 'document' >
         <div class='modal-content' >
             <form method = 'post' >
