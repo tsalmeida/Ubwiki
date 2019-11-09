@@ -387,8 +387,6 @@
 </div>
 
 <div id='page_height' class='container-fluid'>
-    <button id='mostrar_coluna_direita' class='btn btn-md elegant-color text-white p-2 m-1' tabindex='-1'><i
-                class='fas fa-pen-alt fa-fw'></i></button>
     <div class='row d-flex justify-content-center'>
         <div class='col-lg-10 col-sm-12 text-center py-5'>
 					<?php
@@ -627,6 +625,8 @@
 
         </div>
     </div>
+    <button id='mostrar_coluna_direita' class='btn btn-md elegant-color text-white p-2 m-1' tabindex='-1'><i
+                class='fas fa-pen-alt fa-fw'></i></button>
 </div>
 <?php
 	
