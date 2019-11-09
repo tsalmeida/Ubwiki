@@ -5,7 +5,7 @@
     <div class='row'>
       <div class='col-md-4 col-lg-3 mr-auto my-md-4 my-0 mt-4 mb-1'>
         <h5 class='font-weight-bold text-uppercase mb-4'>Termos de uso</h5>
-				<p>Para ler nossos termos de uso, por favor <a href='termos.php' class='text-muted'>clique aqui</a>.</p>
+				<p>Para ler nossos termos de uso, por favor <a href='termos.php' class='text-muted' target='_blank'><u>clique aqui</u></a>.</p>
       </div>
       <hr class='clearfix w-100 d-md-none'>
       <div class='col-md-2 col-lg-2 mx-auto my-md-4 my-0 mt-4 mb-1'>
@@ -14,29 +14,29 @@
         <ul class='list-unstyled'>
           <li>
             <p>
-              <a href='#!' class='text-muted'>PRINCIPAL</a>
+              <a href='#!' class='text-muted'>Portal</a>
             </p>
           </li>
            <li>
             <p>
-              <a href='#!' class='text-muted'>UBWIKI</a>
+              <a href='#!' class='text-muted'>Ubwiki</a>
             </p>
           </li>
           <li>
             <p>
-              <a href='#!' class='text-muted'>PRAETEREA</a>
+              <a href='#!' class='text-muted'>Preterea</a>
             </p>
           </li>
           <li>
             <p>
-              <a href='#!' class='text-muted'>ESPAÇO ZEITGEIST</a>
+              <a href='#!' class='text-muted'>Espaço Zeigeist</a>
             </p>
           </li>
         </ul>
       </div>
       <hr class='clearfix w-100 d-md-none'>
       <div class='col-md-4 col-lg-3 mx-auto my-md-4 my-0 mt-4 mb-1'>
-        <h5 class='font-weight-bold text-uppercase mb-4'>Address</h5>
+        <h5 class='font-weight-bold text-uppercase mb-4'>Contatos</h5>
         <ul class='list-unstyled'>
           <li>
             <p>
@@ -54,7 +54,7 @@
       </div>
       <hr class='clearfix w-100 d-md-none'>
       <div class='col-md-2 col-lg-2 text-center mx-auto my-4'>
-        <h5 class='font-weight-bold text-uppercase mb-4'>Follow Us</h5>
+        <h5 class='font-weight-bold text-uppercase mb-4'>Siga-nos</h5>
         <a type='button' class='btn-floating elegant-color text-white'>
           <i style='transform: translateY(70%)' class='fab fa-facebook-f fa-fw'></i>
         </a>
