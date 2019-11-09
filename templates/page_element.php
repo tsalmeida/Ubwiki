@@ -12,6 +12,9 @@
 	if (!isset($template_conteudo)) {
 		$template_conteudo = false;
 	}
+	if (!isset($template_conteudo_class)) {
+		$template_conteudo_class = false;
+	}
 
 	$template_collapse = $template_id . "_collapse";
 	$template_esconder = "esconder_" . $template_id;
@@ -33,7 +36,7 @@ echo "
     </div>
         
     <div class='row py-3 $template_collapse collapse show'>
-        <div class='col-12'>
+        <div class='col-12 $template_conteudo_class'>
             $template_conteudo
         </div>
     </div>
@@ -57,6 +60,7 @@ echo "
 	unset($template_collapse);
 	unset($template_esconder);
 	unset($template_mostrar);
+	unset($template_conteudo_class);
 
 	unset($template_quill_form_id);
 	unset($template_quill_conteudo_html);

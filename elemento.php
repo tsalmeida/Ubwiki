@@ -90,7 +90,7 @@
 							$template_titulo = 'Imagem';
 							$template_botoes = false;
 							$template_conteudo = "<img class='imagem_pagina border' src='../imagens/verbetes/$arquivo_elemento'></img>";
-													include 'templates/page_element.php';
+                            include 'templates/page_element.php';
 						}
 						elseif ($tipo_elemento == 'video') {
 						    $template_div = 'video_div';
@@ -98,6 +98,7 @@
 						    $template_botoes = false;
 						    $iframe_elemento = base64_decode($iframe_elemento);
 						    $template_conteudo = $iframe_elemento;
+                            $template_conteudo_class = 'text-center';
 						    include 'templates/page_element.php';
                         }
 
