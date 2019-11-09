@@ -24,12 +24,12 @@
           </li>
           <li>
             <p>
-              <a href='#!' class='text-muted'>Preterea</a>
+              <a href='#!' class='text-muted'>Praeterea</a>
             </p>
           </li>
           <li>
             <p>
-              <a href='#!' class='text-muted'>Espaço Zeigeist</a>
+              <a href='#!' class='text-muted'>Espaço Zeitgeist</a>
             </p>
           </li>
         </ul>
