@@ -1,11 +1,19 @@
 <?php
-
+	
 	include 'engine.php';
-
+	
 	if (isset($_GET['id'])) {
 		$id_elemento = $_GET['id'];
 	}
-
+	
+	if (isset($_POST['elemento_novo_titulo'])) {
+		$elemento_novo_titulo = $_POST['elemento_novo_titulo'];
+		$elemento_novo_autor = $_POST['elemento_novo_autor'];
+		$elemento_novo_capitulo = $_POST['elemento_novo_capitulo'];
+		$elemento_novo_ano = $_POST['elemento_novo_ano'];
+		$update = $conn->query("UPDATE Elementos SET titulo = '$elemento_novo_titulo', autor = '$elemento_novo_autor', capitulo = '$elemento_novo_capitulo', ano = $elemento_novo_ano WHERE id = $id_elemento");
+	}
+	
 	$result = $conn->query("SELECT id, tipo, criacao, apelido, nome, sobrenome FROM Usuarios WHERE email = '$user_email'");
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
@@ -17,7 +25,7 @@
 			$user_sobrenome = $row['sobrenome'];
 		}
 	}
-
+	
 	$result = $conn->query("SELECT criacao, tipo, titulo, autor, capitulo, ano, link, iframe, arquivo, resolucao, orientacao, comentario, trecho, user_id FROM Elementos WHERE id = $id_elemento");
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
@@ -30,10 +38,6 @@
 			$link_elemento = $row['link'];
 			$iframe_elemento = $row['iframe'];
 			$arquivo_elemento = $row['arquivo'];
-			$resolucao_elemento = $row['resolucao'];
-			$orientacao_elemento = $row['orientacao'];
-			$comentario_elemento = $row['comentario'];
-			$trecho_elemento = $row['trecho'];
 			$user_id_elemento = $row['user_id'];
 			$result = $conn->query("SELECT apelido FROM Usuarios WHERE id = $user_id_elemento");
 			if ($result->num_rows > 0) {
@@ -45,7 +49,7 @@
 			}
 			break;
 		}
-
+		
 		if (isset($_POST['quill_nova_mensagem_html'])) {
 			$nova_mensagem = $_POST['quill_nova_mensagem_html'];
 			$nova_mensagem = strip_tags($nova_mensagem, '<p><li><ul><ol><h2><h3><blockquote><em><sup><s>');
@@ -62,7 +66,7 @@
 			}
 			$elemento_analise = $nova_mensagem;
 		} else {
-					$result = $conn->query("SELECT analise_content FROM Elementos_analise WHERE id_elemento = $id_elemento");
+			$result = $conn->query("SELECT analise_content FROM Elementos_analise WHERE id_elemento = $id_elemento");
 			if ($result->num_rows > 0) {
 				while ($row = $result->fetch_assoc()) {
 					$elemento_analise = $row['analise'];
@@ -72,7 +76,7 @@
 			}
 		}
 	}
-
+	
 	top_page(false, 'quill_elemento');
 
 ?>
@@ -89,45 +93,43 @@
 							$template_id = 'imagem_div';
 							$template_titulo = 'Imagem';
 							$template_botoes = false;
-							$template_conteudo = "<img class='imagem_pagina border' src='../imagens/verbetes/$arquivo_elemento'></img>";
-                            include 'templates/page_element.php';
+							$template_conteudo = "<a href='../imagens/verbetes/$arquivo_elemento' target='_blank'><img class='imagem_pagina border' src='../imagens/verbetes/$arquivo_elemento'></img></a>";
+							include 'templates/page_element.php';
+						} elseif ($tipo_elemento == 'video') {
+							$template_div = 'video_div';
+							$template_titulo = $titulo_elemento;
+							$template_botoes = false;
+							$iframe_elemento = base64_decode($iframe_elemento);
+							$template_conteudo = $iframe_elemento;
+							$template_conteudo_class = 'text-center';
+							include 'templates/page_element.php';
 						}
-						elseif ($tipo_elemento == 'video') {
-						    $template_div = 'video_div';
-						    $template_titulo = $titulo_elemento;
-						    $template_botoes = false;
-						    $iframe_elemento = base64_decode($iframe_elemento);
-						    $template_conteudo = $iframe_elemento;
-                            $template_conteudo_class = 'text-center';
-						    include 'templates/page_element.php';
-                        }
-
+						
 						$dados_elemento = "
 						              <ul class='list-group'>
                                         <li class='list-group-item'><strong>Criado em:</strong> $criacao_elemento</li>
-                                        <li class='list-group-item'><strong>Tipo:</strong> $tipo_elemento</li>
                                         <li class='list-group-item'><strong>Título:</strong> $titulo_elemento</li>
                                         <li class='list-group-item'><strong>Autor:</strong> $autor_elemento</li>
                                         <li class='list-group-item'><strong>Capítulo:</strong> $capitulo_elemento</li>
                                         <li class='list-group-item'><strong>Ano:</strong> $ano_elemento</li>
-                                        <li class='list-group-item'><a href='$link_elemento' target='_blank'>Link</a></li>
+                                        <li class='list-group-item'><a href='$link_elemento' target='_blank'>Link original</a></li>
                                         <li class='list-group-item'><a href='../imagens/verbetes/$arquivo_elemento' target='_blank'>Arquivo</a></li>
-                                        <li class='list-group-item'><a href='../imagens/verbetes/thumbnails/$arquivo_elemento' target='_blank'>Thumbnail</a></li>
-                                        <li class='list-group-item'><strong>Resolução:</strong> $resolucao_elemento</li>
-                                        <li class='list-group-item'><strong>Orientação:</strong> $orientacao_elemento</li>
-                                        <li class='list-group-item'><strong>Comentário:</strong> $comentario_elemento</li>
-                                        <li class='list-group-item'><strong>Trecho:</strong> $trecho_elemento</li>
+                                        <li class='list-group-item'><a href='../imagens/verbetes/thumbnails/$arquivo_elemento' target='_blank'>Versão reduzida</a></li>
                                         <li class='list-group-item'>Adicionado pelo usuário <strong>$user_apelido_elemento</strong></li>
                                       </ul>
 						";
-
+						
 						$template_id = 'dados_elemento_div';
 						$template_titulo = 'Dados do elemento';
-						$template_botoes = false;
+						$template_botoes = "
+                                  <a data-toggle='modal' data-target='#modal_elemento_form' href=''>
+                                    <i class='fal fa-edit fa-fw'></i>
+                                  </a>
+                            ";
 						$template_conteudo = $dados_elemento;
-											include 'templates/page_element.php';
-
-
+						include 'templates/page_element.php';
+					
+					
 					?>
         </div>
         <div class='col-lg-5 col-sm-12'>
@@ -136,22 +138,48 @@
 						$template_titulo = 'Análise';
 						$template_botoes = false;
 						$template_conteudo = false;
-
-                        $template_quill_form_id = 'quill_elemento_form';
-                        $template_quill_conteudo_html = 'quill_nova_mensagem_html';
-                        $template_quill_conteudo_text = 'quill_nova_mensagem_texto';
-                        $template_quill_conteudo_content = 'quill_nova_mensagem_content';
-                        $template_quill_container_id = 'quill_container_elemento';
-                        $template_quill_editor_id = 'quill_editor_elemento';
-                        $template_quill_editor_classes = 'quill_editor_height';
-                        $template_quill_conteudo_opcional = $elemento_analise;
-                        $template_quill_botoes_collapse_stuff = false;
-                        $template_conteudo = include 'templates/quill_form.php';
-											
-											include 'templates/page_element.php';
+						
+						$template_quill_form_id = 'quill_elemento_form';
+						$template_quill_conteudo_html = 'quill_nova_mensagem_html';
+						$template_quill_conteudo_text = 'quill_nova_mensagem_texto';
+						$template_quill_conteudo_content = 'quill_nova_mensagem_content';
+						$template_quill_container_id = 'quill_container_elemento';
+						$template_quill_editor_id = 'quill_editor_elemento';
+						$template_quill_editor_classes = 'quill_editor_height';
+						$template_quill_conteudo_opcional = $elemento_analise;
+						$template_quill_botoes_collapse_stuff = false;
+						$template_conteudo = include 'templates/quill_form.php';
+						
+						include 'templates/page_element.php';
 					?>
         </div>
     </div>
+	<?php
+		$template_modal_div_id = 'modal_elemento_form';
+		$template_modal_titulo = 'Alterar dados do elemento';
+		$template_modal_body_conteudo = false;
+		$template_modal_body_conteudo .= "<div class='md-form mb-2'>";
+		$template_modal_body_conteudo .= "<input type='text' id='elemento_novo_titulo' name='elemento_novo_titulo' class='form-control' value='$titulo_elemento'>";
+		$template_modal_body_conteudo .= "<label for='elemento_novo_titulo'>Título</label>";
+		$template_modal_body_conteudo .= "</div>";
+		
+		$template_modal_body_conteudo .= "<div class='md-form mb-2'>";
+		$template_modal_body_conteudo .= "<input type='text' id='elemento_novo_autor' name='elemento_novo_autor' class='form-control' value='$autor_elemento'>";
+		$template_modal_body_conteudo .= "<label for='elemento_novo_autor'>Autor</label>";
+		$template_modal_body_conteudo .= "</div>";
+		
+		$template_modal_body_conteudo .= "<div class='md-form mb-2'>";
+		$template_modal_body_conteudo .= "<input type='text' id='elemento_novo_capitulo' name='elemento_novo_capitulo' class='form-control' value='$capitulo_elemento'>";
+		$template_modal_body_conteudo .= "<label for='elemento_novo_capitulo'>Capítulo</label>";
+		$template_modal_body_conteudo .= "</div>";
+		
+		$template_modal_body_conteudo .= "<div class='md-form mb-2'>";
+		$template_modal_body_conteudo .= "<input type='number' id='elemento_novo_ano' name='elemento_novo_ano' class='form-control' value='$ano_elemento'>";
+		$template_modal_body_conteudo .= "<label for='elemento_novo_ano'>Ano</label>";
+		$template_modal_body_conteudo .= "</div>";
+		
+		include 'templates/modal.php';
+	?>
 </body>
 <?php
 	bottom_page('quill_elemento');

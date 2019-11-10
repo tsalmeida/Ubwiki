@@ -14,22 +14,22 @@
         <ul class='list-unstyled'>
           <li>
             <p>
-              <a href='#!' class='text-muted'>Portal</a>
+              <a href='#!' class='text-muted' href='https://www.grupoubique.com' target='_blank'>Portal</a>
             </p>
           </li>
            <li>
             <p>
-              <a href='#!' class='text-muted'>Ubwiki</a>
+              <a href='#!' class='text-muted' href='index.php'>Ubwiki</a>
             </p>
           </li>
           <li>
             <p>
-              <a href='#!' class='text-muted'>Praeterea</a>
+              <a class='text-muted' href='https://praeterea.com.br/' target='_blank'>Praeterea</a>
             </p>
           </li>
           <li>
             <p>
-              <a href='#!' class='text-muted'>Espaço Zeitgeist</a>
+              <a class='text-muted' href='https://ava.ensinabox.com/espacozeitgeist' target='_blank'>Espaço Zeitgeist</a>
             </p>
           </li>
         </ul>
@@ -40,11 +40,7 @@
         <ul class='list-unstyled'>
           <li>
             <p>
-              <i class='fas fa-building fa-fw mr-3'></i>Brasília, DF</p>
-          </li>
-          <li>
-            <p>
-              <i class='fas fa-envelope fa-fw mr-3'></i> info@grupoubique.com.br</p>
+              <i class='fas fa-envelope fa-fw mr-3'></i> info@grupoubique.com</p>
           </li>
           <li>
             <p>
@@ -55,17 +51,14 @@
       <hr class='clearfix w-100 d-md-none'>
       <div class='col-md-2 col-lg-2 text-center mx-auto my-4'>
         <h5 class='font-weight-bold text-uppercase mb-4'>Siga-nos</h5>
-        <a type='button' class='btn-floating elegant-color text-white'>
-          <i style='transform: translateY(70%)' class='fab fa-facebook-f fa-fw'></i>
+        <a type='button' class='btn-floating elegant-color text-white' href='https://www.instagram.com/falcao.marcilio' target='_blank'>
+          <i style='transform: translateY(70%)' class='fab fa-instagram fa-fw'></i>
         </a>
-        <a type='button' class='btn-floating elegant-color text-white'>
+        <a type='button' class='btn-floating elegant-color text-white' href='https://www.youtube.com/channel/UCTYT8j8Mdf1e1wnAt6nudEA/videos' target='_blank'>
           <i style='transform: translateY(70%)' class='fab fa-youtube fa-fw'></i>
         </a>
-        <a type='button' class='btn-floating elegant-color text-white'>
-          <i style='transform: translateY(70%)' class='fal fa-home fa-fw'></i>
-        </a>
-        <a type='button' class='btn-floating elegant-color text-white'>
-          <i style='transform: translateY(70%)' class='fab fa-instagram fa-fw'></i>
+        <a type='button' class='btn-floating elegant-color text-white' href='https://www.grupoubique.com.br' target='_blank'>
+          <i style='transform: translateY(70%)' class='fas fa-home fa-fw'></i>
         </a>
       </div>
     </div>

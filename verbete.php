@@ -351,7 +351,7 @@
 	}
 
 ?>
-<div class='container-fluid grey lighten-3'>
+<div class='container-fluid bg-white'>
     <div class='row'>
         <div class='col-lg-8 col-sm-12'>
             <div id='collapse_breadcrumbs' class='flex-column collapse'>
@@ -363,8 +363,8 @@
                 <span id='verbetes_relacionados' class='mx-1' title='Verbetes relacionados' data-toggle='collapse'
                       href='#collapse_breadcrumbs'><a href='javascript:void(0);'><i
                                 class='fal fa-chart-network fa-fw'></i></a></span>
-                <span id='simulados' class='mx-1' title='Simulados'><a href='javascript:void(0);'><i
-                                class='fal fa-check-double fa-fw'></i></a></span>
+                <!--<span id='simulados' class='mx-1' title='Simulados'><a href='javascript:void(0);'><i
+                                class='fal fa-check-double fa-fw'></i></a></span>-->
                 <span id='forum' title='Fórum' data-toggle='modal' data-target='#modal_forum'><a
                             href='javascript:void(0);'><i
                                 class='fal fa-comments-alt fa-fw'></i></a></span>
@@ -725,22 +725,33 @@
 			$data_comentario = $row['data'];
 			$texto_comentario = $row['comentario'];
 			$autor_comentario = $row['user_id'];
+			$result2 = $conn->query("SELECT apelido FROM usuarios WHERE id = $autor_comentario");
+			while ($row2 = $result2->fetch_assoc()) {
+			    $autor_comentario = $row2['apelido'];
+			    break;
+            }
 			$template_modal_body_conteudo .= "<li class='list-group-item'>
-                                                <p><strong>$autor_comentario</strong> <span class='text-muted'>escreveu em $data_comentario</span></p>
+                                                <p><strong>$autor_comentario</strong> <span class='text-muted'><small>escreveu em $data_comentario</small></span></p>
                                                 $texto_comentario
                                               </li>";
 		}
 		$template_modal_body_conteudo .= "</ul>";
 	} else {
-		$template_modal_body_conteudo .= "<p>Não há comentários sobre este tópico.</p>";
+		$template_modal_body_conteudo .= "<p><strong>Não há comentários sobre este tópico.</strong></p>";
 	}
-	$template_modal_body_conteudo .= "
-        <div class='md-form mb-2'>
-            <p>Acrescente seu comentário:</p>
-            <textarea type='paragraph' id='novo_comentario' name='novo_comentario' class='form-control validate' required></textarea>
-            <label data-error='preenchimento incorreto' data-success='preenchimento válido' for='novo_comentario'></label>
-        </div>
-    ";
+	$result = $conn->query("SELECT apelido FROM usuarios WHERE id = $user_id AND apelido IS NOT NULL");
+	    if ($result->num_rows > 0) {
+            $template_modal_body_conteudo .= "
+                <div class='md-form mb-2'>
+                    <p>Adicione seu comentário:</p>
+                    <input type='text' id='novo_comentario' name='novo_comentario' class='form-control validate' required></input>
+                    <label data-error='preenchimento incorreto' data-success='preenchimento válido' for='novo_comentario'></label>
+                </div>
+            ";
+	    }
+	    else {
+	        $template_modal_body_conteudo .= "<p class='mt-3'><strong>Para adicionar um comentário, você precisará definir seu apelido em sua <a href='usuario.php' target='_blank'>página de usuário</a>.</strong></p>";
+        }
 	
 	include 'templates/modal.php';
 

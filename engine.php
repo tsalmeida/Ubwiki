@@ -604,7 +604,7 @@
   <div class='container-fluid py-5 col-lg-12 grey lighten-3 text-center mb-3'>
 ";
 		if ($link == false) {
-			echo "<h2 class='h2-responsive' d-sm-inline d-md-none>$titulo</h2>";
+			echo "<h2 class='h2-responsive d-sm-inline d-md-none'>$titulo</h2>";
 			echo "<span class='display-4 d-none d-md-inline'>$titulo</span>";
 		} else {
 			echo "<h2 class='h2-responsive d-sm-inline d-md-none'><a href='$link'>$titulo</a></h2>";

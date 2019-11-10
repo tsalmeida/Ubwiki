@@ -120,6 +120,40 @@
 						$template_conteudo .= "</ul>";
 						include 'templates/page_element.php';
 
+						$template_id = 'lista_comentarios';
+						$template_titulo = 'Participações no fórum';
+						$template_botoes = false;
+						$template_conteudo = false;
+						$result = $conn->query("SELECT DISTINCT tema_id FROM Forum WHERE user_id = $user_id");
+						if ($result->num_rows > 0) {
+						    $template_conteudo .= "<ul class='list-group'>";
+						    while ($row = $result->fetch_assoc()) {
+						        $tema_id = $row['tema_id'];
+						        $result2 = $conn->query("SELECT concurso, nivel, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE id = $tema_id");
+						        if ($result2->num_rows > 0) {
+						            while ($row2 = $result2->fetch_assoc()) {
+						                $concurso = $row2['concurso'];
+						                $nivel = $row2['nivel'];
+						                $nivel1 = $row2['nivel1'];
+						                $nivel2 = $row2['nivel2'];
+						                $nivel3 = $row2['nivel3'];
+						                $nivel4 = $row2['nivel4'];
+						                $nivel5 = $row2['nivel5'];
+						                if ($nivel == 1) { $nivel_relevante = $nivel1; }
+						                elseif ($nivel == 2) { $nivel_relevante = $nivel2; }
+						                elseif ($nivel == 3) { $nivel_relevante = $nivel3; }
+						                elseif ($nivel == 4) { $nivel_relevante = $nivel4; }
+						                else { $nivel_relevante = $nivel5; }
+						                $template_conteudo .= "<a href='verbete.php?concurso=$concurso&tema=$tema_id'><li class='list-group-item list-group-item-action'>$nivel_relevante</li></a>";
+                                    }
+                                }
+                            }
+                            $template_conteudo .= "</ul>";
+                        }
+						else {
+						    $template_conteudo .= "<p>Não há registro de participação sua em fórum de verbete.</p>";
+                        }
+						include 'templates/page_element.php';
 
 					?>
         </div>
@@ -157,12 +191,12 @@
 	$template_modal_body_conteudo = "
         <p>Você é identificado por seu apelido em todas as circunstâncias da página em que sua
             participação ou contribuição sejam tornadas públicas.</p>
-        <div class='md-form md-2'><input type='text' name='novo_apelido' id='novo_apelido' class='form-control validate' value='$user_apelido' required></input>
+        <div class='md-form md-2'><input type='text' name='novo_apelido' id='novo_apelido' class='form-control validate' value='$user_apelido' pattern='([A-z0-9À-ž\s]){2,14}' required></input>
             <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_apelido' required>Apelido</label>
         </div>
         <p>Seu nome e seu sobrenome não serão divulgados em nenhuma seção pública da página.</p>
         <div class='md-form md-2'>
-               <input type='text' name='novo_nome' id='novo_nome' class='form-control validate' value='$user_nome' required></input>
+               <input type='text' name='novo_nome' id='novo_nome' class='form-control validate' value='$user_nome' pattern='([A-z0-9À-ž\s]){2,}' required></input>
 
             <label data-error='preenchimento incorreto' data-successd='preenchimento correto'
                    for='novo_nome'>Nome</label>
@@ -170,7 +204,7 @@
         <div class='md-form md-2'>
             <input type='text' name='novo_sobrenome' id='novo_sobrenome' class='form-control validate' value='$user_sobrenome' required></input>
 
-            <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_sobrenome' required>Sobrenome</label>
+            <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_sobrenome' pattern='([A-z0-9À-ž\s]){2,}' required>Sobrenome</label>
         </div>
     ";
 	include 'templates/modal.php';
