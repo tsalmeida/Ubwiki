@@ -22,7 +22,7 @@
     </div>
   </body>
 <?php
-  load_footer();
-  bottom_page();
+	include 'templates/footer.php';
+	include 'templates/html_bottom.php';
 ?>
 </html>

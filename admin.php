@@ -247,7 +247,7 @@
 </div>
 </body>
 <?php
-	load_footer();
-	bottom_page("quill_admin");
+	include 'templates/footer.php';
+	include 'templates/html_bottom.php';
 ?>
 </html>

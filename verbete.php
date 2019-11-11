@@ -430,6 +430,9 @@
                       data-target='.verbete_editor_collapse' title='permitir edição'><a
                             href='javascript:void(0);'><i class='fal fa-lock-alt fa-fw'></i></a></span>
                         ";
+											
+											include 'templates/quill_formatWhitelist_verbete.html';
+											include 'templates/quill_toolbarOptions_verbete.html;';
 						
 						$template_quill_form_id = 'quill_verbete_form';
 						$template_quill_conteudo_html = 'quill_novo_verbete_html';
@@ -757,8 +760,15 @@
 </div>
 </body>
 <?php
-	load_footer();
-	bottom_page($user_id, $tema_id, "quill_v", 'carousel', 'bookmark_stuff', 'sticky_anotacoes');
+	include 'templates/footer.php';
+	$html_bottom_template_carousel = true;
+	$html_bottom_template_bookmarks = true;
+	include 'templates/html_bottom.php';
+	include 'templates/sticky_anotacoes.html';
+	include 'templates/bookmarks.html';
+	include 'templates/carousel.html';
+	include 'templates/imagehandler.html';
+    
 	$conn->close();
 ?>
 

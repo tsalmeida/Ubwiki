@@ -210,7 +210,7 @@
 
 </body>
 <?php
-	load_footer();
-	bottom_page('quill_user');
+	include 'templates/footer.php';
+	include 'templates/html_bottom.php'
 ?>
 </html>

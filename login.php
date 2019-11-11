@@ -23,6 +23,6 @@
 </div>
 </body>
 <?php
-	bottom_page();
+	include 'templates/html_bottom.php';
 ?>
 </html>

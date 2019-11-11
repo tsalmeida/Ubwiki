@@ -1,0 +1,13 @@
+<script type='text/javascript'>
+    $('#mostrar_coluna_direita').hide();
+    $('#esconder_sticky_anotacoes').click(function () {
+        $('#coluna_direita').hide();
+        $('#mostrar_coluna_direita').show();
+    });
+    $('#mostrar_coluna_direita').click(function () {
+        $('.sticky_anotacoes_collapse').show();
+        $('#mostrar_sticky_anotacoes').hide();
+        $('#mostrar_coluna_direita').hide();
+        $('#coluna_direita').show();
+    })
+</script>

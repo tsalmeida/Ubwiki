@@ -183,6 +183,6 @@
 	?>
 </body>
 <?php
-	bottom_page('quill_elemento');
+	include 'templates/html_bottom.php';
 ?>
 </html>

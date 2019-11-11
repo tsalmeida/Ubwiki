@@ -83,6 +83,6 @@
 </div>
 </body>
 <?php
-	bottom_page('homepage');
+	include 'templates/searchbar.html';
 ?>
 </html>

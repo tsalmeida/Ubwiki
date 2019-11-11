@@ -535,7 +535,8 @@
     </div>
 </body>
 <?php
-	load_footer();
-	bottom_page("edicao_topicos");
+	include 'templates/footer.php';
+	include 'templates/html_bottom.php';
+	include 'templates/acrescentar_subtopico.html';
 ?>
 </html>
