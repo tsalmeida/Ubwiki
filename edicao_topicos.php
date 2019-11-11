@@ -207,8 +207,8 @@
 	} else {
 		$revisao = false;
 	}
-
-	top_page(false);
+	
+	include 'templates/html_head.php'
 
 ?>
 <body>

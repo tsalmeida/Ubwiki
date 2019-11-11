@@ -46,9 +46,10 @@
 		$user_apelido = $_POST['novo_apelido'];
 		$result = $conn->query("UPDATE Usuarios SET nome = '$user_nome', sobrenome = '$user_sobrenome', apelido = '$user_apelido' WHERE id = $user_id");
 	}
-
-	top_page(false, 'quill_user');
-
+	
+	$html_head_template_quill_theme = true;
+	include 'templates/html_head.php';
+	
 ?>
 <body>
 <?php
@@ -57,10 +58,6 @@
 	if ($user_tipo == 'admin') {
 		sub_jumbotron("Administrador", 'admin.php');
 	}
-	//	else {
-	//		$tipo_capitalizado = ucfirst($user_tipo);
-	//		sub_jumbotron($tipo_capitalizado, false);
-	//	}
 ?>
 <div class="container-fluid my-5">
     <div class="row d-flex justify-content-around">

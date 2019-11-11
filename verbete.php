@@ -10,17 +10,6 @@
 		$concurso = $_GET['concurso'];
 	}
 	
-	$variaveis_php_session = "
-        <script type='text/javascript'>
-          var user_id=$user_id;
-          var tema_id=$tema_id;
-          var concurso='$concurso';
-          var user_email='$user_email';
-        </script>
-    ";
-	
-	top_page($variaveis_php_session, "quill_v", "lightbox");
-	
 	$result = $conn->query("SELECT sigla_materia, nivel, ordem, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND id = $tema_id");
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
@@ -99,8 +88,7 @@
 	if (isset($_POST['nova_imagem_link'])) {
 		$nova_imagem_link = $_POST['nova_imagem_link'];
 		$nova_imagem_titulo = $_POST['nova_imagem_titulo'];
-		$nova_imagem_comentario = $_POST['nova_imagem_comentario'];
-		adicionar_imagem($nova_imagem_link, $nova_imagem_titulo, $nova_imagem_comentario, $tema_id, $user_id);
+			adicionar_imagem($nova_imagem_link, $nova_imagem_titulo, $tema_id, $user_id);
 	}
 	
 	if (isset($_POST['nova_referencia_titulo'])) {
@@ -175,6 +163,19 @@
 			break;
 		}
 	}
+	
+	$html_head_template_quill_theme = true;
+	$html_head_template_conteudo = "
+        <script type='text/javascript'>
+          var user_id=$user_id;
+          var tema_id=$tema_id;
+          var concurso='$concurso';
+          var user_email='$user_email';
+        </script>
+    ";
+	
+	include 'templates/html_head.php';
+
 ?>
 <body>
 <?php
@@ -388,7 +389,7 @@
 
 <div id='page_height' class='container-fluid'>
     <div class='row d-flex justify-content-center'>
-        <div class='col-lg-10 col-sm-12 text-center py-5'>
+        <div class='col-lg-10 col-sm-12 text-center py-2'>
 					<?php
 						$tema_length = strlen($tema_titulo);
 						$display_level = false;
@@ -421,6 +422,7 @@
 						$template_id = 'verbete';
 						$template_titulo = 'Verbete';
 						$template_botoes = "
+						<a href='historico_verbete.php?concurso=$concurso&tema=$tema_id' target='_blank'><i class='fal fa-history fa-fw'></i></a>
                 <span class='verbete_editor_collapse collapse' id='travar_verbete' data-toggle='collapse'
                       data-target='.verbete_editor_collapse' title='travar para edição'><a
                             href='javascript:void(0);'><i class='fal fa-lock-open-alt fa-fw'></i></a></span>
@@ -646,13 +648,6 @@
                    class='form-control validate' required>
             <label data-error='preenchimento incorreto' data-success='preenchimento válido'
                    for='nova_imagem_titulo'>Título da imagem</label>
-        </div>
-        <div class='md-form'>
-                <textarea type='text' id='nova_imagem_comentario' name='nova_imagem_comentario'
-                          class='md-textarea form-control' rows='4' required></textarea>
-            <label data-error='preenchimento incorreto' data-success='preenchimento válido'
-                   for='nova_imagem_comentario'>Breve comentário sobre a imagem, destacando sua
-                relevância didática.</label>
         </div>
     ";
 	include 'templates/modal.php';

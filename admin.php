@@ -110,7 +110,9 @@
 		array_push($lista_concursos, $um_concurso);
 	}
 	
-	top_page(false, "quill_admin");
+	$html_head_template_quill_theme = true;
+	include 'templates/html_head.php';
+	
 ?>
 <body>
 <?php

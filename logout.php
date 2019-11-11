@@ -5,7 +5,7 @@
 	session_unset();
 	session_destroy();
 	
-	top_page(false);
+	include 'templates/html_head.php';
 ?>
 <body>
 <?php

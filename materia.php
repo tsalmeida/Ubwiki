@@ -1,8 +1,8 @@
 <?php
 
 	include 'engine.php';
-
-	top_page(false);
+	
+	include 'templates/html_head.php';
 
 	if (isset($_GET['sigla'])) {
 		$sigla = $_GET['sigla'];

@@ -77,7 +77,8 @@
 		}
 	}
 	
-	top_page(false, 'quill_elemento');
+	$html_head_template_quill_theme = true;
+	include 'templates/html_head.php';
 
 ?>
 <body>

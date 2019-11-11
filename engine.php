@@ -116,61 +116,6 @@
   </nav>";
 	}
 	
-	function top_page()
-	{
-		$args = func_get_args();
-		echo '
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <!-- Font Awesome -->
-    <script src="https://kit.fontawesome.com/b8e073920a.js" crossorigin="anonymous"></script>
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <!-- Material Design Bootstrap -->
-    <link href="css/mdb.min.css" rel="stylesheet">
-    <!-- Your custom styles (optional) -->
-    <link href="css/style.css" rel="stylesheet">
-    <!-- Bootstrap Horizon -->
-    <link href="css/bootstrap-horizon.css" rel="stylesheet">
-    <link type="image/vnd.microsoft.icon" rel="icon" href="../imagens/favicon.ico"/>
-	  <!-- JQuery -->
-	  <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-    <title>Ubwiki</title>';
-		
-		if ($args != false) {
-			$array = 0;
-			while (isset($args[$array])) {
-				if ($array == 0) {
-					if ($args[0] != false) {
-						echo $args[0];
-					}
-				}
-				if (($args[$array] == "quill_v") || ($args[$array] == "quill_admin") || ($args[$array] == 'quill_user') || ($args[$array] == 'quill_elemento')) {
-					echo "
-            <link href='css/quill.snow.css' rel='stylesheet'>
-          ";
-				} elseif ($args[$array] == "onepage") {
-					echo "
-            <style>
-              html, body, .onepage {
-                height: 100vh;
-                overflow-y: auto;
-              }
-            </style>
-          ";
-				}
-				$array++;
-			}
-		}
-		echo '
-  </head>
-  ';
-	}
-	
 	function bottom_page()
 	{
 		
@@ -759,7 +704,7 @@
 		$nova_imagem_link = $_POST['nova_imagem'];
 		$user_id = $_POST['user_id'];
 		$tema_id = $_POST['tema_id'];
-		$nossa_copia = adicionar_imagem($nova_imagem_link, 'Não há título registrado', 'Não há comentário registrado', $tema_id, $user_id);
+		$nossa_copia = adicionar_imagem($nova_imagem_link, 'Não há título registrado', $tema_id, $user_id);
 		echo $nossa_copia;
 	}
 	
@@ -778,9 +723,8 @@
 		$args = func_get_args();
 		$nova_imagem_link = $args[0];
 		$nova_imagem_titulo = $args[1];
-		$nova_imagem_comentario = $args[2];
-		$tema_id = $args[3];
-		$user_id = $args[4];
+		$tema_id = $args[2];
+		$user_id = $args[3];
 		$servername = "localhost";
 		$username = "grupoubique";
 		$password = "ubique patriae memor";
@@ -801,7 +745,7 @@
 			}
 			$nova_imagem_resolucao_original = $dados_da_imagem[0];
 			$nova_imagem_orientacao = $dados_da_imagem[1];
-			$conn->query("INSERT INTO Elementos (tipo, titulo, link, arquivo, resolucao, orientacao, comentario, user_id) VALUES ('imagem', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_arquivo', '$nova_imagem_resolucao_original', '$nova_imagem_orientacao', '$nova_imagem_comentario', $user_id)");
+			$conn->query("INSERT INTO Elementos (tipo, titulo, link, arquivo, resolucao, orientacao, user_id) VALUES ('imagem', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_arquivo', '$nova_imagem_resolucao_original', '$nova_imagem_orientacao', $user_id)");
 			$result2 = $conn->query("SELECT id FROM Elementos WHERE link = '$nova_imagem_link'");
 			if ($result2->num_rows > 0) {
 				while ($row = $result2->fetch_assoc()) {

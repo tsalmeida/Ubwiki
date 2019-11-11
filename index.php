@@ -3,7 +3,8 @@
 	$concurso = 'CACD';
 	include 'engine.php';
 	
-	top_page(false, "onepage");
+	$html_head_template_one_page = true;
+	include 'templates/html_head.php';
 
 ?>
 <body>

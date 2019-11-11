@@ -17,7 +17,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .elegant-color {
-  background-color: #0b2e13;
+  background-color: #2e3131 !important;
 }
 
 .logo {
@@ -199,4 +199,8 @@ h1, h2, h3, h4, h5, h6 {
   position: fixed;
   right: 0;
   bottom: 60%;
+}
+
+.controls-top {
+  margin-bottom: 0 !important;
 }
