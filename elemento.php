@@ -107,6 +107,13 @@
 	
 	$anotacoes_content = urldecode($anotacoes_content);
 	
+	// FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM
+	
+	if (isset($_POST['novo_comentario'])) {
+		$novo_comentario = $_POST['novo_comentario'];
+		$insert = $conn->query("INSERT INTO Forum (user_id, elemento_id, comentario)  VALUES ($user_id, $elemento_id, '$novo_comentario')");
+	}
+
 	$html_head_template_quill = true;
 	$html_head_template_conteudo = "
         <script type='text/javascript'>
@@ -152,24 +159,8 @@
     <div class='row d-flex justify-content-center'>
         <div class='col-lg-10 col-sm-12 text-center py-2'>
 					<?php
-						$tema_length = strlen($titulo_elemento);
-						$display_level = false;
-						if ($tema_length < 15) {
-							$display_level = 'display-1';
-						} elseif ($tema_length < 25) {
-							$display_level = 'display-2';
-						} elseif ($tema_length < 45) {
-							$display_level = 'display-3';
-						} elseif ($tema_length < 60) {
-							$display_level = 'display-4';
-						} else {
-							echo "<h1 class='h1-responsive'>$titulo_elemento</h1>";
-							$display_level = false;
-						}
-						if ($display_level != false) {
-							echo "<span class='$display_level playfair400 d-none d-md-inline'>$titulo_elemento</span>";
-							echo "<h1 class='h1-responsive d-sm-inline d-md-none'>$titulo_elemento</h1>";
-						}
+                        $template_titulo = $titulo_elemento;
+                        include 'templates/titulo.php'
 					?>
         </div>
     </div>
@@ -207,7 +198,7 @@
 						";
 						
 						$template_id = 'dados_elemento_div';
-						$template_titulo = 'Dados do elemento';
+						$template_titulo = 'Dados';
 						$template_botoes = "
                                   <a data-toggle='modal' data-target='#modal_elemento_form' href=''>
                                     <i class='fal fa-edit fa-fw'></i>
@@ -292,6 +283,48 @@
 	$template_modal_body_conteudo .= "</div>";
 	
 	include 'templates/modal.php';
+	
+	$template_modal_div_id = 'modal_forum';
+	$template_modal_titulo = 'Fórum';
+	$template_modal_body_conteudo = false;
+	
+	$result = $conn->query("SELECT timestamp, comentario, user_id FROM Forum WHERE elemento_id = $elemento_id");
+	if ($result->num_rows > 0) {
+		$template_modal_body_conteudo .= "<ul class='list-group'>";
+		while ($row = $result->fetch_assoc()) {
+			$timestamp_comentario = $row['timestamp'];
+			$texto_comentario = $row['comentario'];
+			$autor_comentario = $row['user_id'];
+			$result2 = $conn->query("SELECT apelido FROM usuarios WHERE id = $autor_comentario");
+			while ($row2 = $result2->fetch_assoc()) {
+				$autor_comentario = $row2['apelido'];
+				break;
+			}
+			$template_modal_body_conteudo .= "<li class='list-group-item'>
+                                                <p><strong>$autor_comentario</strong> <span class='text-muted'><small>escreveu em $timestamp_comentario</small></span></p>
+                                                $texto_comentario
+                                              </li>";
+		}
+		$template_modal_body_conteudo .= "</ul>";
+	} else {
+		$template_modal_body_conteudo .= "<p><strong>Não há comentários sobre este tópico.</strong></p>";
+	}
+	$result = $conn->query("SELECT apelido FROM Usuarios WHERE id = $user_id AND apelido IS NOT NULL");
+	if ($result->num_rows > 0) {
+		$template_modal_body_conteudo .= "
+                <div class='md-form mb-2'>
+                    <p>Adicione seu comentário:</p>
+                    <input type='text' id='novo_comentario' name='novo_comentario' class='form-control validate' required></input>
+                    <label data-error='preenchimento incorreto' data-success='preenchimento válido' for='novo_comentario'></label>
+                </div>
+            ";
+	} else {
+		$template_modal_body_conteudo .= "<p class='mt-3'><strong>Para adicionar um comentário, você precisará definir seu apelido em sua <a href='usuario.php' target='_blank'>página de usuário</a>.</strong></p>";
+	}
+	
+	include 'templates/modal.php';
+
+
 ?>
 </body>
 <?php

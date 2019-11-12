@@ -414,24 +414,8 @@
     <div class='row d-flex justify-content-center'>
         <div class='col-lg-10 col-sm-12 text-center py-2'>
 					<?php
-						$tema_length = strlen($tema_titulo);
-						$display_level = false;
-						if ($tema_length < 15) {
-							$display_level = 'display-1';
-						} elseif ($tema_length < 25) {
-							$display_level = 'display-2';
-						} elseif ($tema_length < 45) {
-							$display_level = 'display-3';
-						} elseif ($tema_length < 60) {
-							$display_level = 'display-4';
-						} else {
-							echo "<h1 class='h1-responsive'>$tema_titulo</h1>";
-							$display_level = false;
-						}
-						if ($display_level != false) {
-							echo "<span class='$display_level playfair400 d-none d-md-inline'>$tema_titulo</span>";
-							echo "<h1 class='h1-responsive d-sm-inline d-md-none'>$tema_titulo</h1>";
-						}
+                        $template_titulo = $tema_titulo;
+                        include 'templates/titulo.php';
 					?>
         </div>
     </div>
@@ -759,9 +743,8 @@
 	} else {
 		$template_modal_body_conteudo .= "<p class='mt-3'><strong>Para adicionar um comentário, você precisará definir seu apelido em sua <a href='usuario.php' target='_blank'>página de usuário</a>.</strong></p>";
 	}
-	
-	include 'templates/modal.php';
 
+	include 'templates/modal.php';
 
 ?>
 
@@ -775,7 +758,6 @@
 	include 'templates/bookmarks.php';
 	include 'templates/carousel.html';
 	include 'templates/lock_unlock_quill.html';
-	
 ?>
 
 </html>

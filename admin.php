@@ -117,9 +117,16 @@
 <body>
 <?php
 	carregar_navbar('dark');
-	standard_jumbotron("Página dos Administradores", false);
 ?>
-<div class="container-fluid my-5 px-3">
+<div class="container-fluid">
+    <div class='row d-flex justify-content-center'>
+        <div class='col-lg-10 col-sm-12 text-center py-5'>
+					<?php
+						$template_titulo = 'Página de Administradores';
+						include 'templates/titulo.php';
+					?>
+        </div>
+    </div>
     <div class="row justify-content-around">
         <div class="col-lg-5 col-sm-12">
 	        <?php

@@ -1,13 +1,13 @@
 <?php
-
+	
 	include 'engine.php';
 	
 	include 'templates/html_head.php';
-
+	
 	if (isset($_GET['sigla'])) {
 		$sigla = $_GET['sigla'];
 	}
-
+	
 	if (isset($_GET['concurso'])) {
 		$concurso = $_GET['concurso'];
 	}
@@ -24,11 +24,17 @@
 <body>
 <?php
 	carregar_navbar('dark');
-	standard_jumbotron($materia, false);
-	//	sub_jumbotron("Tópicos", false);
 ?>
 
 <div class="container-fluid">
+    <div class='row d-flex justify-content-center elegant-color'>
+        <div class='col-lg-10 col-sm-12 text-center py-5 text-white'>
+					<?php
+						$template_titulo = $materia;
+						include 'templates/titulo.php';
+					?>
+        </div>
+    </div>
     <div class="row justify-content-center">
         <div class="col-lg-7 col-sm-12">
 					<?php
@@ -39,41 +45,38 @@
 							return;
 						}
 						echo "<ul class='list-group my-5'>";
-
+						
 						$result = $conn->query("SELECT DISTINCT nivel FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla'");
 						$nivel_count = 0;
 						while ($row = mysqli_fetch_array($result)) {
-						    $nivel_count++;
-                        }
-                        $cor_nivel1 = false;
-                        $cor_nivel2 = false;
-                        $cor_nivel3 = false;
-                        $cor_nivel4 = false;
-                        $cor_nivel5 = false;
+							$nivel_count++;
+						}
+						$cor_nivel1 = false;
+						$cor_nivel2 = false;
+						$cor_nivel3 = false;
+						$cor_nivel4 = false;
+						$cor_nivel5 = false;
 						
-                        if ($nivel_count == 5) {
-                            $cor_nivel1 = 'grey lighten-1';
-                            $cor_nivel2 = 'grey lighten-2';
-                            $cor_nivel3 = 'grey lighten-3';
-                            $cor_nivel4 = 'grey lighten-4';
-                            $cor_nivel5 = 'grey lighten-5';
-                        }
-                        elseif ($nivel_count == 4) {
-                            $cor_nivel1 = 'grey lighten-2';
-                            $cor_nivel2 = 'grey lighten-3';
-                            $cor_nivel3 = 'grey lighten-4';
-                            $cor_nivel4 = 'grey lighten-5';
-                        }
-                        elseif ($nivel_count == 3) {
-                            $cor_nivel1 = 'grey lighten-2';
-                            $cor_nivel2 = 'grey lighten-4';
-                            $cor_nivel3 = 'grey lighten-5';
-                        }
-                        elseif ($nivel_count == 2) {
-                            $cor_nivel1 = 'grey lighten-4';
-                            $cor_nivel2 = 'grey lighten-5';
-                        }
-
+						if ($nivel_count == 5) {
+							$cor_nivel1 = 'grey lighten-1';
+							$cor_nivel2 = 'grey lighten-2';
+							$cor_nivel3 = 'grey lighten-3';
+							$cor_nivel4 = 'grey lighten-4';
+							$cor_nivel5 = 'grey lighten-5';
+						} elseif ($nivel_count == 4) {
+							$cor_nivel1 = 'grey lighten-2';
+							$cor_nivel2 = 'grey lighten-3';
+							$cor_nivel3 = 'grey lighten-4';
+							$cor_nivel4 = 'grey lighten-5';
+						} elseif ($nivel_count == 3) {
+							$cor_nivel1 = 'grey lighten-2';
+							$cor_nivel2 = 'grey lighten-4';
+							$cor_nivel3 = 'grey lighten-5';
+						} elseif ($nivel_count == 2) {
+							$cor_nivel1 = 'grey lighten-4';
+							$cor_nivel2 = 'grey lighten-5';
+						}
+						
 						$result = $conn->query("SELECT id, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla' ORDER BY ordem");
 						if ($result->num_rows > 0) {
 							while ($row = $result->fetch_assoc()) {

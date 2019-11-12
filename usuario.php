@@ -50,6 +50,7 @@
 	
 	$anotacoes_content = urldecode($anotacoes_content);
 	
+	
 	$html_head_template_quill = true;
 	$html_head_template_conteudo = "
         <script type='text/javascript'>
@@ -66,12 +67,42 @@
 <body>
 <?php
 	carregar_navbar('dark');
-	standard_jumbotron("Sua página", false);
-	if ($user_tipo == 'admin') {
-		sub_jumbotron("Administrador", 'admin.php');
-	}
 ?>
+
+
+<div class='container-fluid bg-white'>
+    <div class='row'>
+        <div class='col-lg-4 col-sm-12'>
+        </div>
+        <div class='col-lg-8 col-sm-12'>
+            <div class='text-right py-2'>
+                <?php
+                    if ($user_tipo == 'admin') {
+                        echo "<a href='admin.php' target='_blank'>Página de Administrador</a>";
+                    }
+                ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <div class="container-fluid my-5">
+    <div class='row d-flex justify-content-center'>
+        <div class='col-lg-10 col-sm-12 text-center py-2'>
+					<?php
+                        if ($user_apelido != false) {
+                            $template_titulo = $user_apelido;
+                        }
+                        else {
+                            $template_titulo = "Sua Página";
+                        }
+                        include 'templates/titulo.php'
+
+					?>
+        </div>
+    </div>
     <div class="row d-flex justify-content-around">
         <div id='coluna_esquerda' class="col-lg-5 col-sm-12">
 					<?php
@@ -216,6 +247,8 @@
 
         </div>
     </div>
+    <button id='mostrar_coluna_direita' class='btn btn-md elegant-color text-white p-2 m-1' tabindex='-1'><i
+                class='fas fa-pen-alt fa-fw'></i></button>
 </div>
 
 <?php

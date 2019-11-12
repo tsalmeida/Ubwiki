@@ -8,7 +8,7 @@
 	$sessionpath .= '/../sessions';
 	session_save_path($sessionpath);
 	session_start();
-	
+
 	$servername = "localhost";
 	$username = "grupoubique";
 	$password = "ubique patriae memor";
