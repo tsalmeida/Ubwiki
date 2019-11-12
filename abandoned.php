@@ -48,81 +48,12 @@ echo "
 ";
 } elseif ($args[$array] == "quill_v") {
 echo "
-<script src='https://cdn.quilljs.com/1.3.6/quill.js'></script>
+
 <script type='text/javascript'>
 
     var Delta_verbete = Quill.import('delta');
-    var verbete_editor = new Quill('#quill_editor_verbete', {
-        theme: 'snow',
-        formats: formatWhitelist_verbete,
-        modules: {
-            toolbar: {
-                container: toolbarOptions_verbete,
-                handlers: {
-                    image: imageHandler
-                }
-            }
-        }
-    });
-    verbete_editor.disable();
-    $('.ql-toolbar:first').hide();
 
 
-    var anotacao_editor = new Quill('#quill_editor_anotacao', {
-        theme: 'snow',
-        formats: formatWhitelist_anotacao,
-        modules: {
-            toolbar: toolbarOptions_anotacao
-        }
-    });
-    $('#travar_verbete').click(function () {
-        verbete_editor.disable();
-        $('#destravar_verbete').show();
-        $('#travar_verbete').hide();
-        $('.ql-toolbar:first').hide();
-        $('.ql-editor:first').removeClass('ql-editor-active');
-    });
-    $('#destravar_verbete').click(function () {
-        verbete_editor.enable();
-        $('#travar_verbete').show();
-        $('#destravar_verbete').hide();
-        $('.ql-toolbar:first').show();
-        $('.ql-editor:first').addClass('ql-editor-active');
-    });
-    $('#travar_anotacao').click(function () {
-        anotacao_editor.disable();
-        $('#travar_anotacao').hide();
-        $('#destravar_anotacao').show();
-        $('.ql-toolbar:last').hide();
-        $('.ql-editor:last').removeClass('ql-editor-active');
-    });
-    $('.ql-editor:last').addClass('ql-editor-active');
-    $('#destravar_anotacao').click(function () {
-        anotacao_editor.enable();
-        $('#destravar_anotacao').hide();
-        $('#travar_anotacao').show();
-        $('.ql-toolbar:last').show();
-        $('.ql-editor:last').addClass('ql-editor-active');
-    });
-    var form_verbete = document.querySelector('#quill_verbete_form');
-    form_verbete.onsubmit = function () {
-        var quill_novo_verbete_html = document.querySelector('input[name=quill_novo_verbete_html]');
-        quill_novo_verbete_html.value = verbete_editor.root.innerHTML;
-
-        var quill_novo_verbete_text = document.querySelector('input[name=quill_novo_verbete_text]');
-        quill_novo_verbete_text.value = verbete_editor.getText();
-
-        var quill_novo_verbete_content = document.querySelector('input[name=quill_novo_verbete_content]');
-        var quill_verbete_content = verbete_editor.getContents();
-        quill_verbete_content = JSON.stringify(quill_verbete_content);
-        quill_verbete_content = encodeURI(quill_verbete_content);
-        quill_novo_verbete_content.value = quill_verbete_content;
-    };
-    var form_anotacao = document.querySelector('#quill_anotacao_form');
-    form_anotacao.onsubmit = function () {
-        var quill_nova_anotacao_html = document.querySelector('input[name=quill_nova_anotacao_html]');
-        quill_nova_anotacao_html.value = anotacao_editor.root.innerHTML;
-    }
 </script>
 ";
 } elseif ($args[$array] == "quill_elemento") {
@@ -149,6 +80,7 @@ echo "
 ";
 }
 
+<?php
 
 function extract_zoho($linkplanilha, $authtoken, $ownername, $materia, $scope) {
 $ch = curl_init();

@@ -78,13 +78,13 @@
 	if (isset($_POST['quill_nova_mensagem_html'])) {
 		$nova_mensagem = $_POST['quill_nova_mensagem_html'];
 		$nova_mensagem = strip_tags($nova_mensagem, '<p><li><ul><ol><h2><h3><blockquote><em><sup><s>');
-		$conn->query("INSERT INTO Admin_data (tipo, conteudo) VALUES ('notas', '$nova_mensagem')");
+		$conn->query("INSERT INTO Anotacoes (tipo, anotacao_content) VALUES ('admin', '$nova_mensagem')");
 		$admin_mensagens = $nova_mensagem;
 	} else {
-		$result = $conn->query("SELECT conteudo FROM Admin_data WHERE tipo = 'notas' ORDER BY id DESC");
+		$result = $conn->query("SELECT anotacao_content FROM Anotacoes WHERE tipo = 'admin'");
 		if ($result->num_rows > 0) {
 			while ($row = $result->fetch_assoc()) {
-				$admin_mensagens = $row['conteudo'];
+				$admin_mensagens = $row['anotacao_content'];
 				break;
 			}
 		}
@@ -247,7 +247,7 @@
 </div>
 </body>
 <?php
-	include 'templates/footer.php';
+	include 'templates/footer.html';
 	include 'templates/html_bottom.php';
 ?>
 </html>

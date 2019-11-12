@@ -12,7 +12,7 @@
 	$servername = "localhost";
 	$username = "grupoubique";
 	$password = "ubique patriae memor";
-	$dbname = "Ubique";
+	$dbname = "Ubwiki";
 	$conn = new mysqli($servername, $username, $password, $dbname);
 	mysqli_set_charset($conn, "utf8");
 	
@@ -168,15 +168,22 @@
 	
 	if (isset($_POST['bookmark_change'])) {
 		$bookmark_change = $_POST['bookmark_change'];
-		$bookmark_tema_id = $_POST['bookmark_tema_id'];
+		$bookmark_page_id = $_POST['bookmark_page_id'];
 		$bookmark_user_id = $_POST['bookmark_user_id'];
+		$bookmark_contexto = $_POST['bookmark_contexto'];
+		if ($bookmark_contexto == 'verbete') {
+			$coluna_relevante = 'tema_id';
+		}
+		elseif ($bookmark_contexto == 'elemento') {
+			$coluna_relevante = 'elemento_id';
+		}
 		$servername = "localhost";
 		$username = "grupoubique";
 		$password = "ubique patriae memor";
-		$dbname = "Ubique";
+		$dbname = "Ubwiki";
 		$conn = new mysqli($servername, $username, $password, $dbname);
 		mysqli_set_charset($conn, "utf8");
-		$result = $conn->query("SELECT id FROM Bookmarks WHERE user_id = $bookmark_user_id AND tema_id = $bookmark_tema_id");
+		$result = $conn->query("SELECT id FROM Bookmarks WHERE user_id = $bookmark_user_id AND $coluna_relevante = $bookmark_tema_id");
 		if ($result->num_rows > 0) {
 			while ($row = $result->fetch_assoc()) {
 				$bookmark_id = $row['id'];
@@ -184,7 +191,7 @@
 				break;
 			}
 		} else {
-			$insert = $conn->query("INSERT INTO Bookmarks (user_id, tema_id, bookmark) VALUES ($bookmark_user_id, $bookmark_tema_id, $bookmark_change)");
+			$insert = $conn->query("INSERT INTO Bookmarks (user_id, $coluna_relevante, bookmark) VALUES ($bookmark_user_id, $bookmark_page_id, $bookmark_change)");
 		}
 	}
 	
@@ -195,7 +202,7 @@
 		$servername = "localhost";
 		$username = "grupoubique";
 		$password = "ubique patriae memor";
-		$dbname = "Ubique";
+		$dbname = "Ubwiki";
 		$found = false;
 		$conn = new mysqli($servername, $username, $password, $dbname);
 		mysqli_set_charset($conn, "utf8");
@@ -309,8 +316,9 @@
 	if (isset($_POST['nova_imagem'])) {
 		$nova_imagem_link = $_POST['nova_imagem'];
 		$user_id = $_POST['user_id'];
-		$tema_id = $_POST['tema_id'];
-		$nossa_copia = adicionar_imagem($nova_imagem_link, 'Não há título registrado', $tema_id, $user_id);
+		$page_id = $_POST['page_id'];
+		$contexto = $_POST['contexto'];
+		$nossa_copia = adicionar_imagem($nova_imagem_link, 'Não há título registrado', $page_id, $user_id, $contexto);
 		echo $nossa_copia;
 	}
 	
@@ -329,12 +337,20 @@
 		$args = func_get_args();
 		$nova_imagem_link = $args[0];
 		$nova_imagem_titulo = $args[1];
-		$tema_id = $args[2];
+		$page_id = $args[2];
 		$user_id = $args[3];
+		$contexto = $args[4];
+		if ($contexto == 'verbete') {
+			$contexto_column = 'tema_id';
+		}
+		elseif ($contexto == 'elemento') {
+			$contexto_column = 'elemento_page_id';
+		}
+		error_log("$nova_imagem_link, $nova_imagem_titulo, $page_id, $user_id, $contexto");
 		$servername = "localhost";
 		$username = "grupoubique";
 		$password = "ubique patriae memor";
-		$dbname = "Ubique";
+		$dbname = "Ubwiki";
 		$conn = new mysqli($servername, $username, $password, $dbname);
 		mysqli_set_charset($conn, "utf8");
 		$result = $conn->query("SELECT id FROM Elementos WHERE link = '$nova_imagem_link'");
@@ -356,14 +372,14 @@
 			if ($result2->num_rows > 0) {
 				while ($row = $result2->fetch_assoc()) {
 					$nova_imagem_id = $row['id'];
-					$conn->query("INSERT INTO Verbetes_elementos (id_tema, id_elemento, tipo, user_id) VALUES ($tema_id, $nova_imagem_id, 'imagem', $user_id)");
+					$conn->query("INSERT INTO Verbetes_elementos ($contexto_column, elemento_id, tipo, user_id) VALUES ($page_id, $nova_imagem_id, 'imagem', $user_id)");
 					break;
 				}
 			}
 		} else {
 			while ($row = $result->fetch_assoc()) {
 				$nova_imagem_id = $row['id'];
-				$conn->query("INSERT INTO Verbetes_elementos (id_tema, id_elemento, tipo, user_id) VALUES ($tema_id, $nova_imagem_id, 'imagem', $user_id)");
+				$conn->query("INSERT INTO Verbetes_elementos ($contexto_column, elemento_id, tipo, user_id) VALUES ($page_id, $nova_imagem_id, 'imagem', $user_id)");
 				break;
 			}
 		}

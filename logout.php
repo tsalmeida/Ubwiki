@@ -23,7 +23,7 @@
 </div>
 </body>
 <?php
-	include 'templates/footer.php';
+	include 'templates/footer.html';
 	include 'templates/html_bottom.php';
 ?>
 </html>

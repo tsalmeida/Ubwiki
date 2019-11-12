@@ -1,7 +1,7 @@
 <?php
 	
-	if (!isset($html_head_template_quill_theme)) {
-		$html_head_template_quill_theme = false;
+	if (!isset($html_head_template_quill)) {
+		$html_head_template_quill = false;
 	}
 	
 	if (!isset($html_head_template_one_page)) {
@@ -35,11 +35,40 @@
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
     <title>Ubwiki</title>
 	<?php
-		if ($html_head_template_quill_theme == true) {
+		if ($html_head_template_quill == true) {
 			echo "<link href='css/quill.snow.css' rel='stylesheet'>";
-		}
-		if ($html_head_template_one_page == true) {
-			echo "
+            echo "<script src='https://cdn.quilljs.com/1.3.6/quill.js'></script>";
+            echo "<script type='text/javascript'>
+	  	        var formatWhitelist_general = ['italic', 'script', 'link', 'blockquote', 'list', 'header', 'image'];
+			</script>";
+            echo "<script type='text/javascript'>
+	  	        var formatWhitelist_anotacoes = ['italic', 'script', 'link', 'blockquote', 'list', 'header', 'image'];
+			</script>";
+            echo "<script type='text/javascript'>
+		    var toolbarOptions_general = [
+		        ['italic'],
+		        ['blockquote'],
+		        [{'list': 'ordered'}, {'list': 'bullet'}],
+		        [{'script': 'super'}],
+		        [{'header': [2, 3, false]}],
+		        ['clean'],
+		        ['image']
+		    ];
+			</script>";
+            echo "<script type='text/javascript'>
+	    var toolbarOptions_anotacoes = [
+	        ['italic'],
+	        ['strike'],
+	        ['blockquote'],
+	        [{'list': 'ordered'}, {'list': 'bullet'}],
+	        [{'script': 'super'}],
+	        [{'header': [2, 3, false]}],
+	        ['clean']
+	    ];
+	</script>";
+	}
+        if ($html_head_template_one_page == true) {
+            echo "
             <style>
               html, body, .onepage {
                 height: 100vh;
@@ -47,10 +76,10 @@
               }
             </style>
           ";
-		}
-		if ($html_head_template_conteudo != false) {
-			echo "$html_head_template_conteudo";
-		}
+        }
+        if ($html_head_template_conteudo != false) {
+            echo "$html_head_template_conteudo";
+        }
 	?>
 </head>
 <?php

@@ -1,4 +1,5 @@
 <?php
+	
 	include 'engine.php';
 	
 	if (isset($_GET['tema'])) {
@@ -9,18 +10,31 @@
 		$concurso = $_GET['concurso'];
 	}
 	
-	$variaveis_php_session = "
-        <script type='text/javascript'>
-          var user_id=$user_id;
-          var tema_id=$tema_id;
-          var concurso='$concurso';
-          var user_email='$user_email';
-        </script>
-    ";
+	$result = $conn->query("SELECT sigla_materia, nivel, ordem, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND id = $tema_id");
+	if ($result->num_rows > 0) {
+		while ($row = $result->fetch_assoc()) {
+			$sigla_materia = $row['sigla_materia'];
+			$nivel = $row['nivel'];
+			$ordem = $row['ordem'];
+			$nivel1 = $row['nivel1'];
+			$nivel2 = $row['nivel2'];
+			$nivel3 = $row['nivel3'];
+			$nivel4 = $row['nivel4'];
+			$nivel5 = $row['nivel5'];
+		}
+	}
 	
-	top_page($variaveis_php_session, "quill_h");
+	$result = $conn->query("SELECT materia FROM Materias WHERE concurso = '$concurso' AND estado = 1 AND sigla = '$sigla_materia' ORDER BY ordem");
+	if ($result->num_rows > 0) {
+		while ($row = $result->fetch_assoc()) {
+			$materia = $row["materia"];
+		}
+	}
+	
+	include 'templates/html_head.php';
 ?>
-    <body>
-<?php
-	carregar_navbar('dark');
-	
+<body>
+<h1>Em construção</h1>
+<p>Em breve.</p>
+</body>
+</html>
