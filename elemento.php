@@ -128,7 +128,7 @@
 ?>
 <body>
 <?php
-	carregar_navbar('dark');
+	include 'templates/navbar.php';
 ?>
 <div class="container-fluid bg-white">
     <div class='row'>

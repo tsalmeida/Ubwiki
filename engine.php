@@ -72,48 +72,6 @@
 		}
 	}
 	
-	function carregar_navbar()
-	{
-		$args = func_get_args();
-		$count = 0;
-		while (isset($args[$count])) {
-			$arg = $args[$count];
-			if ($arg == 'dark') {
-				$mode = 'dark';
-			} elseif ($arg == 'light') {
-				$mode = 'light';
-			}
-			$count++;
-		}
-		if ($mode == 'dark') {
-			$color = 'elegant-color';
-		} elseif ($mode == 'light') {
-			$color = 'bg-white';
-		}
-		echo "<nav class='navbar navbar-expand-lg $color' id='inicio'>";
-		if ($mode == 'dark') {
-			echo "<a class='navbar-brand playfair900 text-white' href='index.php'>Ubwiki</a>";
-		} else {
-			echo "<a class='navbar-brand playfair900 text-dark' href='index.php'>Ubwiki</a>";
-		}
-		echo "<ul class='nav navbar-nav ml-auto nav-flex-icons'>";
-		echo "<li class='nav-item dropdown'>";
-		if ($mode == 'dark') {
-			echo "<a class='navlink dropdown-toggle waves-effect waves-light text-white' id='user_dropdown' data-toggle='dropdown' href='javascript:void(0);'>";
-		} else {
-			echo "<a class='navlink dropdown-toggle waves-effect waves-light text-dark' id='user_dropdown' data-toggle='dropdown' href='javascript:void(0);'>";
-		}
-		echo "
-        <i class='fas fa-user-tie fa-lg fa-fw'></i>
-        </a>
-        <div class='dropdown-menu dropdown-menu-right z-depth-0'>
-          <a class='dropdown-item navlink' href='usuario.php'>Sua página</a>
-          <a class='dropdown-item navlink' href='logout.php'>Logout</a>
-      </li>
-    </ul>
-  </nav>";
-	}
-	
 	function extract_gdoc($url)
 	{
 		$ch = curl_init();

@@ -7,8 +7,8 @@
 ?>
   <body>
     <?php
-    carregar_navbar('dark');
-    standard_jumbotron("Ubwiki", false);
+	    include 'templates/navbar.php';
+        standard_jumbotron("Ubwiki", false);
     ?>
     <div class="container-fluid my-5">
       <div class="row justify-content-center">

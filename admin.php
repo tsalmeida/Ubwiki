@@ -116,7 +116,7 @@
 ?>
 <body>
 <?php
-	carregar_navbar('dark');
+	include 'templates/navbar.php';
 ?>
 <div class="container-fluid">
     <div class='row d-flex justify-content-center'>

@@ -197,7 +197,7 @@
 ?>
 <body>
 <?php
-	carregar_navbar('dark');
+	include 'templates/navbar.php';
 	$breadcrumbs = "
     <div class='d-block'><a href='index.php'>$concurso</a></div>
     <div class='d-block spacing0'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='materia.php?concurso=$concurso&sigla=$sigla_materia'>$materia</a></div>

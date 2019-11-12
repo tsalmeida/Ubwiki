@@ -10,7 +10,8 @@
 <body>
 <div class='container-fluid px-0 onepage bg-white'>
 	<?php
-		carregar_navbar('light');
+        $template_navbar_mode = 'light';
+        include 'templates/navbar.php';
 	?>
     <div class="container-fluid bg-white">
         <div class="row justify-content-center">

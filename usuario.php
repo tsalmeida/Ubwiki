@@ -66,7 +66,7 @@
 ?>
 <body>
 <?php
-	carregar_navbar('dark');
+	include 'templates/navbar.php';
 ?>
 
 

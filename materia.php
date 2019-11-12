@@ -2,10 +2,8 @@
 	
 	include 'engine.php';
 	
-	include 'templates/html_head.php';
-	
 	if (isset($_GET['sigla'])) {
-		$sigla = $_GET['sigla'];
+		$sigla_materia = $_GET['sigla'];
 	}
 	
 	if (isset($_GET['concurso'])) {
@@ -13,21 +11,35 @@
 	}
 	$materia = false;
 	$found = false;
-	$result = $conn->query("SELECT materia FROM Materias WHERE concurso = '$concurso' AND estado = 1 AND sigla = '$sigla' ORDER BY ordem");
+	$result = $conn->query("SELECT materia FROM Materias WHERE concurso = '$concurso' AND estado = 1 AND sigla = '$sigla_materia' ORDER BY ordem");
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
 			$materia = $row["materia"];
 		}
 	}
+
+	$html_head_template_conteudo = "
+	    <style>
+	        #materia_background {
+	            background-image: url('../imagens/$sigla_materia.jpg');
+	            background-size: cover;
+	            background-position: center center;
+            }
+	    </style>
+	";
+
+	include 'templates/html_head.php';
 ?>
 
 <body>
+<div id='materia_background' class='elegant-color'>
 <?php
-	carregar_navbar('dark');
+	$template_navbar_mode = 'transparent';
+	include 'templates/navbar.php';
 ?>
 
 <div class="container-fluid">
-    <div class='row d-flex justify-content-center elegant-color'>
+    <div class='row d-flex justify-content-center transparent'>
         <div class='col-lg-10 col-sm-12 text-center py-5 text-white'>
 					<?php
 						$template_titulo = $materia;
@@ -35,6 +47,9 @@
 					?>
         </div>
     </div>
+</div>
+</div>
+<div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-lg-7 col-sm-12">
 					<?php
@@ -46,7 +61,7 @@
 						}
 						echo "<ul class='list-group my-5'>";
 						
-						$result = $conn->query("SELECT DISTINCT nivel FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla'");
+						$result = $conn->query("SELECT DISTINCT nivel FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia'");
 						$nivel_count = 0;
 						while ($row = mysqli_fetch_array($result)) {
 							$nivel_count++;
@@ -77,7 +92,7 @@
 							$cor_nivel2 = 'grey lighten-5';
 						}
 						
-						$result = $conn->query("SELECT id, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla' ORDER BY ordem");
+						$result = $conn->query("SELECT id, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' ORDER BY ordem");
 						if ($result->num_rows > 0) {
 							while ($row = $result->fetch_assoc()) {
 								$id = $row["id"];
