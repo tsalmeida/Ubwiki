@@ -75,7 +75,6 @@
 	function carregar_navbar()
 	{
 		$args = func_get_args();
-		$forum = false;
 		$count = 0;
 		while (isset($args[$count])) {
 			$arg = $args[$count];
@@ -87,7 +86,6 @@
 			$count++;
 		}
 		if ($mode == 'dark') {
-			$mode = 'dark';
 			$color = 'elegant-color';
 		} elseif ($mode == 'light') {
 			$color = 'bg-white';

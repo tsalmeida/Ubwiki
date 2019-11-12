@@ -8,7 +8,7 @@
 
 ?>
 <body>
-<div class='container-fluid px-0 onepage'>
+<div class='container-fluid px-0 onepage bg-white'>
 	<?php
 		carregar_navbar('light');
 	?>
@@ -18,18 +18,13 @@
                 <img class="img-fluid logo" src="/../imagens/ubiquelogo.png"></img>
             </div>
         </div>
-        <!-- <div class='row'>
-            <div class="col-12 mb-5 text-center">
-              <?php // echo "<span class='display-1 wireone'>Ubwiki $concurso</span>" ?>
-            </div>
-        </div> -->
         <div class="row justify-content-center">
             <div class="col-lg-6 col-sm-12 mb-5">
                 <form id="searchform" action="" method="post">
                     <div id="searchDiv">
                         <input id="searchBar" list="searchlist" type="text" class="searchBar text-muted"
                                name="searchBar" rows="1" autocomplete="off" spellcheck="false"
-                               placeholder="O que você vai aprender hoje?" required></input>
+                               placeholder="O que você vai aprender hoje?" required>
                         <datalist id="searchlist">
 													<?php
 														$result = $conn->query("SELECT chave FROM Searchbar WHERE concurso = '$concurso' ORDER BY ordem");
@@ -84,5 +79,6 @@
 </body>
 <?php
 	include 'templates/searchbar.html';
+	include 'templates/html_bottom.php';
 ?>
 </html>
