@@ -749,10 +749,6 @@
 	}
 	$result = $conn->query("SELECT apelido FROM Usuarios WHERE id = $user_id AND apelido IS NOT NULL");
 	if ($result->num_rows > 0) {
-	    while ($row = $result->fetch_assoc()) {
-	        $what = $row['apelido'];
-	        error_log($what);
-        }
 		$template_modal_body_conteudo .= "
                 <div class='md-form mb-2'>
                     <p>Adicione seu comentário:</p>
