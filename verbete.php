@@ -39,7 +39,7 @@
 			$verbete_content = $row['verbete_content'];
 		}
 	} else {
-		$verbete_content = '%7B%22ops%22:%5B%7B%22insert%22:%22Este%20verbete%20ainda%20n%C3%A3o%20come%C3%A7ou%20a%20ser%20escrito.%5Cn%22%7D%5D%7D';
+		$verbete_content = false;
 	}
 	
 	if (isset($_POST['quill_novo_verbete_html'])) {
@@ -57,8 +57,9 @@
 		}
 		$verbete_content = $novo_verbete_content;
 	}
-	
-	$verbete_content = urldecode($verbete_content);
+	if ($verbete_content != false) {
+		$verbete_content = urldecode($verbete_content);
+	}
 	
 	// ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO
 	
@@ -373,7 +374,7 @@
 
 
 ?>
-<div class='container-fluid bg-white'>
+<div class='container-fluid'>
     <div class='row'>
         <div class='col-lg-8 col-sm-12'>
             <div id='collapse_breadcrumbs' class='flex-column collapse'>
@@ -430,13 +431,17 @@
                       data-target='.verbete_editor_collapse' title='permitir edição'><a
                             href='javascript:void(0);'><i class='fal fa-lock-alt fa-fw'></i></a></span>
                         ";
+						$template_conteudo = false;
 						
 						
 						$template_quill_unique_name = 'verbete';
 						$template_quill_initial_state = 'leitura';
 						$template_quill_conteudo = $verbete_content;
 						
-						$template_conteudo = include 'templates/quill_form.php';
+						if ($verbete_content == false) {
+						    $template_conteudo .= "<p id='verbete_vazio'>O verbete sobre este tópico ainda não começou a ser escrito.</p>";
+                        }
+						$template_conteudo .= include 'templates/quill_form.php';
 						include 'templates/page_element.php';
 						
 						//VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS
@@ -527,7 +532,7 @@
 							}
 							$template_conteudo .= "</ul>";
 						} else {
-							$template_conteudo .= "<p>Não foram identificados, até o momento, recursos bibliográficos sobre este tema.</p>";
+							$template_conteudo .= "<p>Associe referências bibliográficas sobre este tema.</p>";
 						}
 						
 						include 'templates/page_element.php';
@@ -584,7 +589,7 @@
 							}
 							$template_conteudo .= "</div></div>";
 						} else {
-							$template_conteudo .= "<p>Não foram acrescentadas, até o momento, imagens a este verbete.</p>";
+							$template_conteudo .= "<p>Ainda não foram associadas imagens a este verbete.</p>";
 						}
 						include 'templates/page_element.php';
 					?>
@@ -745,6 +750,7 @@
 </body>
 <?php
 	include 'templates/footer.html';
+    if ($verbete_content == false) { $verbete_vazio = true; }
 	include 'templates/html_bottom.php';
 	include 'templates/sticky_anotacoes.html';
 	include 'templates/bookmarks.php';

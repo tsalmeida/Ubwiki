@@ -11,7 +11,7 @@
 		$display_level = 'display-2';
 	} elseif ($titulo_length < 45) {
 		$display_level = 'display-3';
-	} elseif ($tema_length < 60) {
+	} elseif ($titulo_length < 60) {
 		$display_level = 'display-4';
 	} else {
 		echo "<h1 class='h1-responsive'>$template_titulo</h1>";
