@@ -123,7 +123,6 @@
 	$anotacoes_content = urldecode($anotacoes_content);
 	
 	
-	
 	$html_head_template_quill = true;
 	$html_head_template_conteudo = "
         <script type='text/javascript'>
@@ -147,7 +146,7 @@
 		include 'templates/titulo.php';
 	?>
     <div class="row justify-content-around">
-        <div class="col-lg-5 col-sm-12">
+        <div id='coluna_esquerda' class="col-lg-5 col-sm-12">
 					<?php
 						$template_id = 'editar_topicos';
 						$template_titulo = 'Editar tópicos';
@@ -245,7 +244,7 @@
 					?>
 
         </div>
-        <div id='' class='col-lg-5 col-sm-12'>
+        <div id='coluna_direita' class='col-lg-5 col-sm-12'>
 					<?php
 						$template_id = 'sticky_anotacoes';
 						$template_titulo = 'Anotações';
@@ -267,6 +266,8 @@
 					?>
         </div>
     </div>
+    <button id='mostrar_coluna_direita' class='btn btn-md elegant-color text-white p-2 m-1' tabindex='-1'><i
+                class='fas fa-pen-alt fa-fw'></i></button>
 </div>
 </body>
 <?php

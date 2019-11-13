@@ -3,11 +3,15 @@
     $('#esconder_sticky_anotacoes').click(function () {
         $('#coluna_direita').hide();
         $('#mostrar_coluna_direita').show();
+        $('#coluna_esquerda').addClass('col-lg-6');
+        $('#coluna_esquerda').removeClass('col-lg-5');
     });
     $('#mostrar_coluna_direita').click(function () {
         $('.sticky_anotacoes_collapse').show();
         $('#mostrar_sticky_anotacoes').hide();
         $('#mostrar_coluna_direita').hide();
         $('#coluna_direita').show();
+        $('#coluna_esquerda').addClass('col-lg-5');
+        $('#coluna_esquerda').removeClass('col-lg-6');
     })
 </script>
