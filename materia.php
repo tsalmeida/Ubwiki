@@ -1,11 +1,11 @@
 <?php
-	
+
 	include 'engine.php';
-	
+
 	if (isset($_GET['sigla'])) {
 		$sigla_materia = $_GET['sigla'];
 	}
-	
+
 	if (isset($_GET['concurso'])) {
 		$concurso = $_GET['concurso'];
 	}
@@ -17,12 +17,11 @@
 			$materia = $row["materia"];
 		}
 	}
-    $html_head_template_conteudo = false;
-	if (file_exists('../imagens/materias/$sigla_materia.jpg')) {
-	    $background_image = "background-image: url('../imagens/materias/$sigla_materia.jpg');";
-    }
-	else {
-	    $background_image = false;
+	$html_head_template_conteudo = false;
+	if (file_exists("../imagens/materias/$sigla_materia.jpg")) {
+		$background_image = "background-image: url('../imagens/materias/$sigla_materia.jpg');";
+	} else {
+		$background_image = false;
 	}
 	$html_head_template_conteudo .= "
 	    <style>
@@ -39,21 +38,21 @@
 
 <body>
 <div id='materia_background' class='elegant-color'>
-<?php
-	$template_navbar_mode = 'transparent';
-	include 'templates/navbar.php';
-?>
+	<?php
+		$template_navbar_mode = 'transparent';
+		include 'templates/navbar.php';
+	?>
 
-<div class="container-fluid">
-    <div class='row d-flex justify-content-center transparent'>
-        <div class='col-lg-10 col-sm-12 text-center py-5 text-white'>
-					<?php
-						$template_titulo = $materia;
-						include 'templates/titulo.php';
-					?>
+    <div class="container-fluid">
+        <div class='row d-flex justify-content-center transparent'>
+            <div class='col-lg-10 col-sm-12 text-center py-5 text-white'>
+							<?php
+								$template_titulo = $materia;
+								include 'templates/titulo.php';
+							?>
+            </div>
         </div>
     </div>
-</div>
 </div>
 <div class="container-fluid">
     <div class="row justify-content-center">
@@ -66,7 +65,7 @@
 							return;
 						}
 						echo "<ul class='list-group my-5'>";
-						
+
 						$result = $conn->query("SELECT DISTINCT nivel FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia'");
 						$nivel_count = 0;
 						while ($row = mysqli_fetch_array($result)) {
@@ -77,7 +76,7 @@
 						$cor_nivel3 = false;
 						$cor_nivel4 = false;
 						$cor_nivel5 = false;
-						
+
 						if ($nivel_count == 5) {
 							$cor_nivel1 = 'grey lighten-1';
 							$cor_nivel2 = 'grey lighten-2';
@@ -97,7 +96,7 @@
 							$cor_nivel1 = 'grey lighten-4';
 							$cor_nivel2 = 'grey lighten-5';
 						}
-						
+
 						$result = $conn->query("SELECT id, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' ORDER BY ordem");
 						if ($result->num_rows > 0) {
 							while ($row = $result->fetch_assoc()) {
