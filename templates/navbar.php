@@ -3,7 +3,7 @@
 		$template_navbar_mode = 'dark';
 	}
 	if ($template_navbar_mode == 'dark') {
-		$template_navbar_color = 'elegant_color';
+		$template_navbar_color = 'elegant-color';
 		$template_navbar_text = 'text-white';
 	}
 	elseif ($template_navbar_mode == 'light') {

@@ -112,52 +112,50 @@
 	
 	$html_head_template_quill_theme = true;
 	include 'templates/html_head.php';
-	
+
 ?>
 <body>
 <?php
 	include 'templates/navbar.php';
 ?>
 <div class="container-fluid">
-    <div class='row d-flex justify-content-center'>
-        <div class='col-lg-10 col-sm-12 text-center py-5'>
-					<?php
-						$template_titulo = 'Página de Administradores';
-						include 'templates/titulo.php';
-					?>
-        </div>
-    </div>
+	<?php
+        $template_titulo_context = true;
+		$template_titulo = 'Página de Administradores';
+        $template_titulo_no_nav = true;
+		include 'templates/titulo.php';
+	?>
     <div class="row justify-content-around">
         <div class="col-lg-5 col-sm-12">
-	        <?php
-		        $template_id = 'editar_topicos';
-		        $template_titulo = 'Editar tópicos';
-		        $template_botoes = false;
-		        $template_conteudo = false;
-		        $template_conteudo .= "
+					<?php
+						$template_id = 'editar_topicos';
+						$template_titulo = 'Editar tópicos';
+						$template_botoes = false;
+						$template_conteudo = false;
+						$template_conteudo .= "
                 <form method='post' formaction='edicao_topicos.php'>
                     <p>Com esta ferramenta, o administrador pode alterar a tabela de tópicos de um concurso. O objetivo é maximizar a utilidade do edital original para as atividades do estudante.</p>
                      <label for='editar_topicos_concurso'>Concurso</label>
                         <select class='form-control' name='editar_topicos_concurso'>
                         ";
-		        foreach ($lista_concursos as $um_concurso) {
-			        if ($um_concurso[2] == 0) {
-				        $estado = '(desativado)';
-			        } else {
-				        $estado = '(ativado)';
-			        }
-			        $template_conteudo .= "<option value='$um_concurso[0]'>$um_concurso[1] / $estado</option>";
-		        }
-		        $template_conteudo .= "</select>";
-		        $template_conteudo .= "<button class='btn btn-primary btn-block btn-md'>Acessar ferramenta</button></form>";
-		        include 'templates/page_element.php';
-		
-		        $template_id = 'acrescentar_concurso';
-		        $template_titulo = 'Acrescentar concurso';
-		        $template_botoes = false;
-		        $template_conteudo = false;
-		        $template_conteudo .= "<form method='post' formaction='edicao_topicos.php'>";
-		        $template_conteudo .= "
+						foreach ($lista_concursos as $um_concurso) {
+							if ($um_concurso[2] == 0) {
+								$estado = '(desativado)';
+							} else {
+								$estado = '(ativado)';
+							}
+							$template_conteudo .= "<option value='$um_concurso[0]'>$um_concurso[1] / $estado</option>";
+						}
+						$template_conteudo .= "</select>";
+						$template_conteudo .= "<button class='btn btn-primary btn-block btn-md'>Acessar ferramenta</button></form>";
+						include 'templates/page_element.php';
+						
+						$template_id = 'acrescentar_concurso';
+						$template_titulo = 'Acrescentar concurso';
+						$template_botoes = false;
+						$template_conteudo = false;
+						$template_conteudo .= "<form method='post' formaction='edicao_topicos.php'>";
+						$template_conteudo .= "
                 <p>Cada concurso tem um título completo e uma sigla. Este é o primeiro passo no processo de inclusão de novos concursos.</p>
               <div class='row'>
                 <input type='text' id='novo_concurso_titulo' name='novo_concurso_titulo' class='form-control validate' required>
@@ -170,85 +168,85 @@
             <button class='btn btn-primary btn-block btn-md' type='submit'>Acrescentar concurso</button>
             </form>
               ";
-		        include 'templates/page_element.php';
-		
-		        $template_id = 'barra_busca';
-		        $template_titulo = 'Barra de busca';
-		        $template_botoes = false;
-		        $template_conteudo = false;
-		        $template_conteudo .= "
+						include 'templates/page_element.php';
+						
+						$template_id = 'barra_busca';
+						$template_titulo = 'Barra de busca';
+						$template_botoes = false;
+						$template_conteudo = false;
+						$template_conteudo .= "
                             <form method='post'>
                 <p>Reconstruir tabela de opções da barra de busca.</p>
                     <label for='editar_topicos_concurso'>Concurso</label>
                     <select class='form-control' name='reconstruir_concurso' id='reconstruir_concurso'>
                         ";
-		
-		        foreach ($lista_concursos as $um_concurso) {
-			        if ($um_concurso[2] == 0) {
-				        $estado = '(desativado)';
-			        } else {
-				        $estado = '(ativado)';
-			        }
-			        $template_conteudo .= "<option value='$um_concurso[0]'>$um_concurso[1] / $estado</option>";
-		        }
-		
-		        $template_conteudo .= "
+						
+						foreach ($lista_concursos as $um_concurso) {
+							if ($um_concurso[2] == 0) {
+								$estado = '(desativado)';
+							} else {
+								$estado = '(ativado)';
+							}
+							$template_conteudo .= "<option value='$um_concurso[0]'>$um_concurso[1] / $estado</option>";
+						}
+						
+						$template_conteudo .= "
                                             </select>
                 <button class='btn btn-primary btn-block btn-md' type='submit' name='reconstruir_busca'>Reconstruir
                 </button>
             </form>
                         ";
-		        include 'templates/page_element.php';
-		
-		        $template_id = 'otimizar_tabela';
-		        $template_titulo = 'Otimizar tabela de tópicos';
-		        $template_botoes = false;
-		        $template_conteudo = false;
-		        $template_conteudo .= "<form method='post'>";
-		        $template_conteudo .= "<p>Essa ferramenta determina o nível relevante de cada entrada na tabela de tópicos, de 1 a 5.</p>";
-		        $template_conteudo .= "
+						include 'templates/page_element.php';
+						
+						$template_id = 'otimizar_tabela';
+						$template_titulo = 'Otimizar tabela de tópicos';
+						$template_botoes = false;
+						$template_conteudo = false;
+						$template_conteudo .= "<form method='post'>";
+						$template_conteudo .= "<p>Essa ferramenta determina o nível relevante de cada entrada na tabela de tópicos, de 1 a 5.</p>";
+						$template_conteudo .= "
 		    				<label for='editar_topicos_concurso'>Concurso</label>
                             <select class='form-control' name='otimizar_temas_concurso'>
 						";
-		        foreach ($lista_concursos as $um_concurso) {
-			        if ($um_concurso[2] == 0) {
-				        $estado = '(desativado)';
-			        } else {
-				        $estado = '(ativado)';
-			        }
-			        $template_conteudo .= "<option value='$um_concurso[0]'>$um_concurso[1] $estado</option>";
-		        }
-		        $template_conteudo .= "</select>";
-		        $template_conteudo .= "<button class='btn btn-primary btn-block btn-md' type='submit'>Otimizar</button>";
-		        $template_conteudo .= '</form>';
-		        include 'templates/page_element.php';
-	        ?>
+						foreach ($lista_concursos as $um_concurso) {
+							if ($um_concurso[2] == 0) {
+								$estado = '(desativado)';
+							} else {
+								$estado = '(ativado)';
+							}
+							$template_conteudo .= "<option value='$um_concurso[0]'>$um_concurso[1] $estado</option>";
+						}
+						$template_conteudo .= "</select>";
+						$template_conteudo .= "<button class='btn btn-primary btn-block btn-md' type='submit'>Otimizar</button>";
+						$template_conteudo .= '</form>';
+						include 'templates/page_element.php';
+					
+					?>
 
         </div>
         <div class='col-lg-5 col-sm-12'>
-	        <?php
-		
-		        $template_id = 'notas_administradores';
-		        $template_titulo = 'Notas dos administradores';
-		        $template_botoes = false;
-		        $template_conteudo = false;
-		        $template_conteudo .= "<p>Estas anotações são compartilhadas entre todos os administradores, por exemplo, para registrar idéias de atualizações futuras da página.</p>";
-		
-		        $template_quill_form_id = 'quill_admin_form';
-		        $template_quill_conteudo_html = 'quill_nova_mensagem_html';
-		        $template_quill_conteudo_text = 'quill_nova_mensagem_text';
-		        $template_quill_conteudo_content = 'quill_nova_mensagem_content';
-		        $template_quill_container_id = 'quill_container_admin';
-		        $template_quill_editor_id = 'quill_editor_admin';
-		        $template_quill_editor_classes = 'quill_editor_height';
-		        $template_quill_conteudo_opcional = $admin_mensagens;
-		        $template_quill_botoes_collapse_stuff = false;
-		
-		        $template_conteudo .= include 'templates/quill_form.php';
-		        include 'templates/page_element.php';
-	
-	        ?>
-        
+					
+					<?php
+						$template_id = 'sticky_anotacoes';
+						$template_titulo = 'Anotações';
+						$template_botoes = "<span class='anotacoes_editor_collapse collapse show' id='travar_anotacao' data-toggle='collapse'
+                      data-target='.anotacoes_editor_collapse' title='travar para edição'><a
+                            href='javascript:void(0);'><i class='fal fa-lock-open-alt fa-fw'></i></a></span>
+                <span class='anotacoes_editor_collapse collapse' id='destravar_anotacao' data-toggle='collapse'
+                      data-target='.anotacoes_editor_collapse' title='permitir edição'><a
+                            href='javascript:void(0);'><i class='fal fa-lock-alt fa-fw'></i></a></span>";
+						$template_conteudo = false;
+						$template_conteudo .= "<p>Estas anotações são compartilhadas entre todos os administradores, por exemplo, para registrar idéias de atualizações futuras da página.</p>";
+						$template_quill_unique_name = 'anotacoes';
+						$template_quill_initial_state = 'edicao';
+						$template_quill_conteudo = $anotacoes_content;
+						
+						$template_conteudo .= include 'templates/quill_form.php';
+						include 'templates/page_element.php';
+					
+					?>
+
+
         </div>
     </div>
 </div>
@@ -256,5 +254,7 @@
 <?php
 	include 'templates/footer.html';
 	include 'templates/html_bottom.php';
+	include 'templates/sticky_anotacoes.html';
+	include 'templates/lock_unlock_quill.html';
 ?>
 </html>

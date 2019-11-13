@@ -76,33 +76,29 @@
         </div>
         <div class='col-lg-8 col-sm-12'>
             <div class='text-right py-2'>
-                <?php
-                    if ($user_tipo == 'admin') {
-                        echo "<a href='admin.php' target='_blank'>Página de Administrador</a>";
-                    }
-                ?>
+							<?php
+								if ($user_tipo == 'admin') {
+									echo "<a href='admin.php' target='_blank'>Página de Administrador</a>";
+								}
+							?>
             </div>
         </div>
     </div>
 </div>
 
 
-
-<div class="container-fluid my-5">
-    <div class='row d-flex justify-content-center'>
-        <div class='col-lg-10 col-sm-12 text-center py-2'>
+<div class="container-fluid">
 					<?php
-                        if ($user_apelido != false) {
-                            $template_titulo = $user_apelido;
-                        }
-                        else {
-                            $template_titulo = "Sua Página";
-                        }
-                        include 'templates/titulo.php'
-
+						if ($user_apelido != false) {
+							$template_titulo = $user_apelido;
+						} else {
+							$template_titulo = "Sua Página";
+						}
+						$template_titulo_context = true;
+						$template_titulo_no_nav = true;
+						include 'templates/titulo.php'
+					
 					?>
-        </div>
-    </div>
     <div class="row d-flex justify-content-around">
         <div id='coluna_esquerda' class="col-lg-5 col-sm-12">
 					<?php
@@ -130,9 +126,9 @@
 						if ($result->num_rows > 0) {
 							while ($row = $result->fetch_assoc()) {
 								$tema_id = $row['tema_id'];
-								$info_temas = $conn->query("SELECT concurso, sigla_materia, nivel, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE id = $tema_id");
-								if ($info_temas->num_rows > 0) {
-									while ($row = $info_temas->fetch_assoc()) {
+								$infotemas = $conn->query("SELECT concurso, sigla_materia, nivel, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE id = $tema_id");
+								if ($infotemas->num_rows > 0) {
+									while ($row = $infotemas->fetch_assoc()) {
 										$concurso = $row['concurso'];
 										$sigla_materia = $row['sigla_materia'];
 										$nivel = $row['nivel'];
@@ -153,6 +149,7 @@
 											$titulo = $nivel5;
 										}
 										$template_conteudo .= "<a href='verbete.php?concurso=$concurso&tema=$tema_id' target='_blank'><li class='list-group-item list-group-item-action'>$titulo</li></a>";
+										break;
 									}
 								}
 							}
@@ -229,7 +226,7 @@
 					<?php
 						$template_id = 'sticky_anotacoes';
 						$template_titulo = 'Anotações';
-                        $template_botoes = "<span class='anotacoes_editor_collapse collapse show' id='travar_anotacao' data-toggle='collapse'
+						$template_botoes = "<span class='anotacoes_editor_collapse collapse show' id='travar_anotacao' data-toggle='collapse'
                       data-target='.anotacoes_editor_collapse' title='travar para edição'><a
                             href='javascript:void(0);'><i class='fal fa-lock-open-alt fa-fw'></i></a></span>
                 <span class='anotacoes_editor_collapse collapse' id='destravar_anotacao' data-toggle='collapse'

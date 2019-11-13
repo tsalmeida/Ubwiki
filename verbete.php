@@ -53,11 +53,11 @@
 			$result = $conn->query("INSERT INTO Verbetes_arquivo (tema_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('$tema_id', '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', '$user_id')");
 		} else {
 			$result = $conn->query("INSERT INTO Verbetes (tema_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('$tema_id', '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', '$user_id')");
-            $result = $conn->query("INSERT INTO Verbetes_arquivo (tema_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('$tema_id', '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', '$user_id')");
+			$result = $conn->query("INSERT INTO Verbetes_arquivo (tema_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('$tema_id', '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', '$user_id')");
 		}
 		$verbete_content = $novo_verbete_content;
 	}
-
+	
 	$verbete_content = urldecode($verbete_content);
 	
 	// ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO
@@ -82,7 +82,7 @@
 			$result = $conn->query("INSERT INTO Anotacoes_arquivo (tema_id, anotacao_html, anotacao_text, anotacao_content, user_id) VALUES ('$tema_id', '$novo_anotacoes_html', '$novo_anotacoes_text', '$novo_anotacoes_content', '$user_id')");
 		} else {
 			$result = $conn->query("INSERT INTO Anotacoes (tema_id, anotacao_html, anotacao_text, anotacao_content, user_id) VALUES ('$tema_id', '$novo_anotacoes_html', '$novo_anotacoes_text', '$novo_anotacoes_content', '$user_id')");
-            $result = $conn->query("INSERT INTO Anotacoes_arquivo (tema_id, anotacao_html, anotacao_text, anotacao_content, user_id) VALUES ('$tema_id', '$novo_anotacoes_html', '$novo_anotacoes_text', '$novo_anotacoes_content', '$user_id')");
+			$result = $conn->query("INSERT INTO Anotacoes_arquivo (tema_id, anotacao_html, anotacao_text, anotacao_content, user_id) VALUES ('$tema_id', '$novo_anotacoes_html', '$novo_anotacoes_text', '$novo_anotacoes_content', '$user_id')");
 		}
 		$anotacoes_content = $novo_anotacoes_content;
 	}
@@ -373,7 +373,7 @@
 	
 	// PAGINA PAGINA PAGINA PAGINA PAGINA PAGINA PAGINA PAGINA PAGINA PAGINA PAGINA PAGINA
 
- 
+
 ?>
 <div class='container-fluid bg-white'>
     <div class='row'>
@@ -411,19 +411,14 @@
 </div>
 
 <div id='page_height' class='container-fluid'>
-    <div class='row d-flex justify-content-center'>
-        <div class='col-lg-10 col-sm-12 text-center py-2'>
-					<?php
-                        $template_titulo = $tema_titulo;
-                        include 'templates/titulo.php';
-					?>
-        </div>
-    </div>
+	<?php
+		$template_titulo_context = true;
+		$template_titulo = $tema_titulo;
+		include 'templates/titulo.php';
+	?>
     <div class='row justify-content-around'>
         <div id='coluna_esquerda' class='col-lg-5 col-sm-12'>
 					<?php
-						
-						
 						//VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE
 						
 						$template_id = 'verbete';
@@ -507,7 +502,6 @@
 							$template_conteudo .= "<p>Não foram acrescentadas, até o momento, vídeos ou aulas sobre este tópico.</p>";
 						}
 						include 'templates/page_element.php';
-						
 						
 						//LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS
 						
@@ -743,7 +737,7 @@
 	} else {
 		$template_modal_body_conteudo .= "<p class='mt-3'><strong>Para adicionar um comentário, você precisará definir seu apelido em sua <a href='usuario.php' target='_blank'>página de usuário</a>.</strong></p>";
 	}
-
+	
 	include 'templates/modal.php';
 
 ?>

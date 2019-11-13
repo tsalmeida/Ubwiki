@@ -17,11 +17,17 @@
 			$materia = $row["materia"];
 		}
 	}
-
-	$html_head_template_conteudo = "
+    $html_head_template_conteudo = false;
+	if (file_exists('../imagens/materias/$sigla_materia.jpg')) {
+	    $background_image = "background-image: url('../imagens/materias/$sigla_materia.jpg');";
+    }
+	else {
+	    $background_image = false;
+	}
+	$html_head_template_conteudo .= "
 	    <style>
 	        #materia_background {
-	            background-image: url('../imagens/$sigla_materia.jpg');
+                $background_image
 	            background-size: cover;
 	            background-position: center center;
             }
