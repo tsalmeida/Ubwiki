@@ -73,23 +73,6 @@
 		header("Location:edicao_topicos.php?concurso=$metalinguagem_concurso");
 	}
 	
-	$admin_mensagens = false;
-	
-	if (isset($_POST['quill_nova_mensagem_html'])) {
-		$nova_mensagem = $_POST['quill_nova_mensagem_html'];
-		$nova_mensagem = strip_tags($nova_mensagem, '<p><li><ul><ol><h2><h3><blockquote><em><sup><s>');
-		$conn->query("INSERT INTO Anotacoes (tipo, anotacao_content) VALUES ('admin', '$nova_mensagem')");
-		$admin_mensagens = $nova_mensagem;
-	} else {
-		$result = $conn->query("SELECT anotacao_content FROM Anotacoes WHERE tipo = 'admin'");
-		if ($result->num_rows > 0) {
-			while ($row = $result->fetch_assoc()) {
-				$admin_mensagens = $row['anotacao_content'];
-				break;
-			}
-		}
-	}
-	
 	if (isset($_POST['novo_concurso_titulo'])) {
 		$novo_concurso_titulo = $_POST['novo_concurso_titulo'];
 		$novo_concurso_sigla = $_POST['novo_concurso_sigla'];
@@ -110,8 +93,46 @@
 		array_push($lista_concursos, $um_concurso);
 	}
 	
-	$html_head_template_quill_theme = true;
+	// ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO
+	
+	$result = $conn->query("SELECT anotacao_content FROM Anotacoes WHERE tipo = 'admin'");
+	if ($result->num_rows > 0) {
+		while ($row = $result->fetch_assoc()) {
+			$anotacoes_content = $row['anotacao_content'];
+		}
+	} else {
+		$anotacoes_content = '';
+	}
+	
+	if (isset($_POST['quill_novo_anotacoes_html'])) {
+		$novo_anotacoes_html = $_POST['quill_novo_anotacoes_html'];
+		$novo_anotacoes_text = $_POST['quill_novo_anotacoes_text'];
+		$novo_anotacoes_content = $_POST['quill_novo_anotacoes_content'];
+		$novo_anotacoes_html = strip_tags($novo_anotacoes_html, '<p><li><ul><ol><h2><h3><blockquote><em><sup>');
+		$result = $conn->query("SELECT id FROM Anotacoes WHERE tipo = 'admin'");
+		if ($result->num_rows > 0) {
+			$result = $conn->query("UPDATE Anotacoes SET anotacao_html = '$novo_anotacoes_html', anotacao_text = '$novo_anotacoes_text', anotacao_content = '$novo_anotacoes_content', user_id = '$user_id' WHERE tipo = 'admin'");
+			$result = $conn->query("INSERT INTO Anotacoes_arquivo (tipo, anotacao_html, anotacao_text, anotacao_content, user_id) VALUES ('admin', '$novo_anotacoes_html', '$novo_anotacoes_text', '$novo_anotacoes_content', '$user_id')");
+		} else {
+			$result = $conn->query("INSERT INTO Anotacoes (tipo, anotacao_html, anotacao_text, anotacao_content, user_id) VALUES ('admin', '$novo_anotacoes_html', '$novo_anotacoes_text', '$novo_anotacoes_content', '$user_id')");
+			$result = $conn->query("INSERT INTO Anotacoes_arquivo (tipo, anotacao_html, anotacao_text, anotacao_content, user_id) VALUES ('admin', '$novo_anotacoes_html', '$novo_anotacoes_text', '$novo_anotacoes_content', '$user_id')");
+		}
+		$anotacoes_content = $novo_anotacoes_content;
+	}
+	
+	$anotacoes_content = urldecode($anotacoes_content);
+	
+	
+	
+	$html_head_template_quill = true;
+	$html_head_template_conteudo = "
+        <script type='text/javascript'>
+          var user_id=$user_id;
+          var user_email='$user_email';
+        </script>
+    ";
 	include 'templates/html_head.php';
+	include 'templates/imagehandler.php';
 
 ?>
 <body>
@@ -120,9 +141,9 @@
 ?>
 <div class="container-fluid">
 	<?php
-        $template_titulo_context = true;
+		$template_titulo_context = true;
 		$template_titulo = 'Página de Administradores';
-        $template_titulo_no_nav = true;
+		$template_titulo_no_nav = true;
 		include 'templates/titulo.php';
 	?>
     <div class="row justify-content-around">
@@ -224,15 +245,14 @@
 					?>
 
         </div>
-        <div class='col-lg-5 col-sm-12'>
-					
+        <div id='' class='col-lg-5 col-sm-12'>
 					<?php
 						$template_id = 'sticky_anotacoes';
 						$template_titulo = 'Anotações';
 						$template_botoes = "<span class='anotacoes_editor_collapse collapse show' id='travar_anotacao' data-toggle='collapse'
                       data-target='.anotacoes_editor_collapse' title='travar para edição'><a
                             href='javascript:void(0);'><i class='fal fa-lock-open-alt fa-fw'></i></a></span>
-                <span class='anotacoes_editor_collapse collapse' id='destravar_anotacao' data-toggle='collapse'
+                                            <span class='anotacoes_editor_collapse collapse' id='destravar_anotacao' data-toggle='collapse'
                       data-target='.anotacoes_editor_collapse' title='permitir edição'><a
                             href='javascript:void(0);'><i class='fal fa-lock-alt fa-fw'></i></a></span>";
 						$template_conteudo = false;
@@ -245,8 +265,6 @@
 						include 'templates/page_element.php';
 					
 					?>
-
-
         </div>
     </div>
 </div>

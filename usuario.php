@@ -59,7 +59,6 @@
         </script>
     ";
 	
-	$html_head_template_quill_theme = true;
 	include 'templates/html_head.php';
 	include 'templates/imagehandler.php';
 
@@ -122,36 +121,35 @@
 						$template_conteudo = false;
 						
 						$template_conteudo .= "<ul class='list-group'>";
-						$result = $conn->query("SELECT tema_id FROM Bookmarks WHERE user_id = $user_id");
+						$result = $conn->query("SELECT tema_id FROM Bookmarks WHERE user_id = $user_id AND tema_id IS NOT NULL");
 						if ($result->num_rows > 0) {
 							while ($row = $result->fetch_assoc()) {
 								$tema_id = $row['tema_id'];
-								$infotemas = $conn->query("SELECT concurso, sigla_materia, nivel, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE id = $tema_id");
-								if ($infotemas->num_rows > 0) {
-									while ($row = $infotemas->fetch_assoc()) {
-										$concurso = $row['concurso'];
-										$sigla_materia = $row['sigla_materia'];
-										$nivel = $row['nivel'];
-										$nivel1 = $row['nivel1'];
-										$nivel2 = $row['nivel2'];
-										$nivel3 = $row['nivel3'];
-										$nivel4 = $row['nivel4'];
-										$nivel5 = $row['nivel5'];
-										if ($nivel == 1) {
-											$titulo = $nivel1;
-										} elseif ($nivel == 2) {
-											$titulo = $nivel2;
-										} elseif ($nivel == 3) {
-											$titulo = $nivel3;
-										} elseif ($nivel == 4) {
-											$titulo = $nivel4;
-										} else {
-											$titulo = $nivel5;
-										}
-										$template_conteudo .= "<a href='verbete.php?concurso=$concurso&tema=$tema_id' target='_blank'><li class='list-group-item list-group-item-action'>$titulo</li></a>";
-										break;
-									}
-								}
+								$infotemas = mysqli_query($conn, "SELECT concurso, sigla_materia, nivel, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE id = $tema_id");
+								error_log(serialize($infotemas));
+                                while ($row = $infotemas->fetch_assoc()) {
+                                    $concurso = $row['concurso'];
+                                    $sigla_materia = $row['sigla_materia'];
+                                    $nivel = $row['nivel'];
+                                    $nivel1 = $row['nivel1'];
+                                    $nivel2 = $row['nivel2'];
+                                    $nivel3 = $row['nivel3'];
+                                    $nivel4 = $row['nivel4'];
+                                    $nivel5 = $row['nivel5'];
+                                    if ($nivel == 1) {
+                                        $titulo = $nivel1;
+                                    } elseif ($nivel == 2) {
+                                        $titulo = $nivel2;
+                                    } elseif ($nivel == 3) {
+                                        $titulo = $nivel3;
+                                    } elseif ($nivel == 4) {
+                                        $titulo = $nivel4;
+                                    } else {
+                                        $titulo = $nivel5;
+                                    }
+                                    $template_conteudo .= "<a href='verbete.php?concurso=$concurso&tema=$tema_id' target='_blank'><li class='list-group-item list-group-item-action'>$titulo</li></a>";
+                                    break;
+                                }
 							}
 						}
 						$template_conteudo .= "</ul>";
@@ -163,7 +161,7 @@
 						$template_conteudo = false;
 						
 						$template_conteudo .= "<ul class='list-group'>";
-						$result = $conn->query("SELECT elemento_id FROM Bookmarks WHERE user_id = $user_id");
+						$result = $conn->query("SELECT elemento_id FROM Bookmarks WHERE user_id = $user_id AND elemento_id IS NOT NULL");
 						if ($result->num_rows > 0) {
 							while ($row = $result->fetch_assoc()) {
 								$elemento_id = $row['elemento_id'];
@@ -183,7 +181,7 @@
 						$template_titulo = 'Participações no fórum';
 						$template_botoes = false;
 						$template_conteudo = false;
-						$result = $conn->query("SELECT DISTINCT tema_id FROM Forum WHERE user_id = $user_id");
+						$result = $conn->query("SELECT DISTINCT tema_id FROM Forum WHERE user_id = $user_id AND tema_id IS NOT NULL");
 						if ($result->num_rows > 0) {
 							$template_conteudo .= "<ul class='list-group'>";
 							while ($row = $result->fetch_assoc()) {

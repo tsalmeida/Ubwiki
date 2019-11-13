@@ -189,8 +189,6 @@
           var user_email='$user_email';
         </script>
     ";
-	
-	$html_head_template_quill_theme = true;
 	include 'templates/html_head.php';
 	include 'templates/imagehandler.php';
 
