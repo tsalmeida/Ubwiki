@@ -1,6 +1,12 @@
-<script type='text/javascript'>
-    $('.ql-toolbar:first').hide();
-    $('#travar_verbete').click(function () {
+<?php
+    if (!isset($template_sem_verbete)) {
+        $template_sem_verbete = false;
+    }
+	echo "<script type='text/javascript'>";
+	if ($template_sem_verbete == false) {
+		echo "$('.ql-toolbar:first') . hide();";
+	}
+	echo "$('#travar_verbete').click(function () {
         verbete_editor.disable();
         $('#destravar_verbete').show();
         $('#travar_verbete').hide();
@@ -29,4 +35,5 @@
         $('.ql-toolbar:last').show();
         $('.ql-editor:last').addClass('ql-editor-active');
     });
-</script>
+</script>";
+	unset($template_sem_verbete);

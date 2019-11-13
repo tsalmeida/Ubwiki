@@ -8,12 +8,13 @@
 	if (!isset($template_quill_unique_name)) {
 		$template_quill_unique_name = 'general';
 	}
-	if (!isset($template_quill_whitelist)) {
-		$template_quill_whitelist = 'general';
+	$template_quill_toolbar_and_whitelist = 'general';
+	if ($template_quill_unique_name == 'anotacoes') {
+		$template_quill_toolbar_and_whitelist = 'anotacoes';
 	}
-	if (!isset($template_quill_toolbar)) {
-		$template_quill_toolbar = 'general';
-	}
+	$template_quill_whitelist = "formatWhitelist_{$template_quill_toolbar_and_whitelist}";
+	$template_quill_toolbar = "toolbarOptions_{$template_quill_toolbar_and_whitelist}";
+	
 	if (!isset($template_quill_conteudo)) {
 		$template_quill_conteudo = false;
 	}
@@ -29,20 +30,8 @@
 		$template_quill_collapse = 'collapse';
 	}
 	
-	if ($template_quill_whitelist == false) {
-		$template_quill_whitelist = "formatWhitelist_general";
-	} else {
-		$template_quill_whitelist = "formatWhitelist_{$template_quill_whitelist}";
-	}
-	
-	if ($template_quill_toolbar == false) {
-		$template_quill_toolbar = "toolbarOptions_general";
-	} else {
-		$template_quill_toolbar = "toolbarOptions_{$template_quill_toolbar}";
-	}
-	
 	$quill_result = false;
-
+	
 	$quill_result .= "
     <form id='quill_{$template_quill_unique_name}_form' method='post'>
         <input name='quill_novo_{$template_quill_unique_name}_html' type='hidden'>
@@ -57,12 +46,11 @@
             </div>
         </div>
         <div class='row justify-content-center {$template_quill_unique_name}_editor_collapse $template_quill_collapse mt-3'>
-            <button type='button' class='btn btn-light btn-md'><i
-                    class='fal fa-times-circle fa-fw'
-                    ></i> Cancelar
+        		<button type='button' class='btn btn-light btn-md'>
+        			<i class='fal fa-times-circle fa-fw'></i> Cancelar
             </button>
-            <button type='submit' class='btn btn-primary btn-md'><i class='fal fa-check fa-fw'></i>
-                Salvar
+            <button type='submit' class='btn btn-primary btn-md'>
+            	<i class='fal fa-check fa-fw'></i> Salvar
             </button>
         </div>
     </form>
@@ -108,10 +96,9 @@
 	}
 	
 	unset($template_quill_unique_name);
-	unset($template_quill_whitelist);
-	unset($template_quill_toolbar);
 	unset($template_quill_initial_state);
 	unset($template_quill_conteudo);
 	unset($template_quill_editor_classes);
+	unset($template_quill_toolbar_and_whitelist);
 	
 	return $quill_result;

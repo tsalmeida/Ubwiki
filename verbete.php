@@ -76,7 +76,7 @@
 		$novo_anotacoes_html = $_POST['quill_novo_anotacoes_html'];
 		$novo_anotacoes_text = $_POST['quill_novo_anotacoes_text'];
 		$novo_anotacoes_content = $_POST['quill_novo_anotacoes_content'];
-		$novo_anotacoes_html = strip_tags($novo_anotacoes_html, '<p><li><ul><ol><h2><h3><blockquote><em><sup>');
+		$novo_anotacoes_html = strip_tags($novo_anotacoes_html, '<p><li><ul><ol><h2><h3><blockquote><em><sup><b>');
 		$result = $conn->query("SELECT id FROM Anotacoes WHERE tema_id = $tema_id AND user_id = $user_id");
 		if ($result->num_rows > 0) {
 			$result = $conn->query("UPDATE Anotacoes SET anotacao_html = '$novo_anotacoes_html', anotacao_text = '$novo_anotacoes_text', anotacao_content = '$novo_anotacoes_content', user_id = '$user_id' WHERE tema_id = $tema_id");
@@ -755,7 +755,7 @@
 	include 'templates/sticky_anotacoes.html';
 	include 'templates/bookmarks.php';
 	include 'templates/carousel.html';
-	include 'templates/lock_unlock_quill.html';
+	include 'templates/lock_unlock_quill.php';
 ?>
 
 </html>

@@ -560,6 +560,7 @@
   height: 24px;
   position: relative;
   vertical-align: middle;
+  line-height: 1;
 }
 .ql-snow .ql-picker-label {
   cursor: pointer;

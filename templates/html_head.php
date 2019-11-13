@@ -37,38 +37,43 @@
 	<?php
 		if ($html_head_template_quill == true) {
 			echo "<link href='css/quill.snow.css' rel='stylesheet'>";
-            echo "<script src='https://cdn.quilljs.com/1.3.6/quill.js'></script>";
-            echo "<script type='text/javascript'>
+			echo "<script src='https://cdn.quilljs.com/1.3.6/quill.js'></script>";
+			echo "
+            <script type='text/javascript'>
 	  	        var formatWhitelist_general = ['italic', 'script', 'link', 'blockquote', 'list', 'header', 'image'];
-			</script>";
-            echo "<script type='text/javascript'>
-	  	        var formatWhitelist_anotacoes = ['italic', 'script', 'link', 'blockquote', 'list', 'header', 'image'];
-			</script>";
-            echo "<script type='text/javascript'>
-		    var toolbarOptions_general = [
-		        ['italic'],
-		        ['blockquote'],
-		        [{'list': 'ordered'}, {'list': 'bullet'}],
-		        [{'script': 'super'}],
-		        [{'header': [2, 3, false]}],
-		        ['clean'],
-		        ['image']
-		    ];
-			</script>";
-            echo "<script type='text/javascript'>
-	    var toolbarOptions_anotacoes = [
-	        ['italic'],
-	        ['strike'],
-	        ['blockquote'],
-	        [{'list': 'ordered'}, {'list': 'bullet'}],
-	        [{'script': 'super'}],
-	        [{'header': [2, 3, false]}],
-	        ['clean']
-	    ];
-	</script>";
-	}
-        if ($html_head_template_one_page == true) {
-            echo "
+	  	        var formatWhitelist_anotacoes = ['italic', 'script', 'link', 'blockquote', 'list', 'header', 'image', 'bold', 'background', 'color', 'strike', 'underline', 'align'];
+                var toolbarOptions_general = [
+                    ['clean'],
+                    ['italic'],
+                    ['blockquote'],
+                    [{'list': 'ordered'}, {'list': 'bullet'}],
+                    [{'script': 'super'}],
+                    [{'header': [2, 3, false]}],
+                    ['strike'],
+                    ['image']
+                ];
+                var toolbarOptions_anotacoes = [
+                    ['clean'],
+                    ['italic'],
+                    ['blockquote'],
+                    [{'list': 'ordered'}, {'list': 'bullet'}],
+                    [{'script': 'super'}],
+                    [{'header': [2, 3, false]}],
+                    ['strike'],
+                    ['bold'],
+                    ['underline'],
+                    [{'align': []}],
+                    [{'background': [false, 'red', 'orange', 'yellow', 'green', 'blue', 'purple']}],
+                    [{'color': [false, 'red', 'orange', 'yellow', 'green', 'blue', 'purple']}]
+                ];
+                var BackgroundClass = Quill.import('attributors/class/background');
+                var ColorClass = Quill.import('attributors/class/color');
+				Quill.register(BackgroundClass, true);
+				Quill.register(ColorClass, true);
+            </script>";
+		}
+		if ($html_head_template_one_page == true) {
+			echo "
             <style>
               html, body, .onepage {
                 height: 100vh;
@@ -76,10 +81,10 @@
               }
             </style>
           ";
-        }
-        if ($html_head_template_conteudo != false) {
-            echo "$html_head_template_conteudo";
-        }
+		}
+		if ($html_head_template_conteudo != false) {
+			echo "$html_head_template_conteudo";
+		}
 	?>
 </head>
 <?php

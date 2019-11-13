@@ -331,6 +331,6 @@
 	include 'templates/html_bottom.php';
 	include 'templates/sticky_anotacoes.html';
 	include 'templates/bookmarks.php';
-	include 'templates/lock_unlock_quill.html';
+	include 'templates/lock_unlock_quill.php';
 ?>
 </html>
