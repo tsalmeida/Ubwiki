@@ -1,15 +1,15 @@
 <?php
-	
+
 	include 'engine.php';
-	
+
 	if (isset($_GET['tema'])) {
 		$tema_id = $_GET['tema'];
 	}
-	
+
 	if (isset($_GET['concurso'])) {
 		$concurso = $_GET['concurso'];
 	}
-	
+
 	$result = $conn->query("SELECT sigla_materia, nivel, ordem, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND id = $tema_id");
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
@@ -23,16 +23,16 @@
 			$nivel5 = $row['nivel5'];
 		}
 	}
-	
+
 	$result = $conn->query("SELECT materia FROM Materias WHERE concurso = '$concurso' AND estado = 1 AND sigla = '$sigla_materia' ORDER BY ordem");
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
 			$materia = $row["materia"];
 		}
 	}
-	
+
 	// VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE
-	
+
 	$result = $conn->query("SELECT verbete_content, user_id FROM Verbetes WHERE tema_id = $tema_id");
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
@@ -41,7 +41,7 @@
 	} else {
 		$verbete_content = false;
 	}
-	
+
 	if (isset($_POST['quill_novo_verbete_html'])) {
 		$novo_verbete_html = $_POST['quill_novo_verbete_html'];
 		$novo_verbete_text = $_POST['quill_novo_verbete_text'];
@@ -60,9 +60,9 @@
 	if ($verbete_content != false) {
 		$verbete_content = urldecode($verbete_content);
 	}
-	
+
 	// ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO
-	
+
 	$result = $conn->query("SELECT anotacao_content FROM Anotacoes WHERE tema_id = $tema_id AND user_id = $user_id");
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
@@ -71,7 +71,7 @@
 	} else {
 		$anotacoes_content = '';
 	}
-	
+
 	if (isset($_POST['quill_novo_anotacoes_html'])) {
 		$novo_anotacoes_html = $_POST['quill_novo_anotacoes_html'];
 		$novo_anotacoes_text = $_POST['quill_novo_anotacoes_text'];
@@ -87,19 +87,19 @@
 		}
 		$anotacoes_content = $novo_anotacoes_content;
 	}
-	
+
 	$anotacoes_content = urldecode($anotacoes_content);
-	
+
 	// IMAGEM IMAGEM IMAGEM IMAGEM IMAGEM IMAGEM IMAGEM IMAGEM IMAGEM IMAGEM IMAGEM IMAGEM
-	
+
 	if (isset($_POST['nova_imagem_link'])) {
 		$nova_imagem_link = $_POST['nova_imagem_link'];
 		$nova_imagem_titulo = $_POST['nova_imagem_titulo'];
 		adicionar_imagem($nova_imagem_link, $nova_imagem_titulo, $tema_id, $user_id, 'verbete');
 	}
-	
+
 	// REFERENCIA REFERENCIA REFERENCIA REFERENCIA REFERENCIA REFERENCIA REFERENCIA REFERENCIA
-	
+
 	if (isset($_POST['nova_referencia_titulo'])) {
 		$nova_referencia_titulo = $_POST['nova_referencia_titulo'];
 		$nova_referencia_autor = $_POST['nova_referencia_autor'];
@@ -125,9 +125,9 @@
 			}
 		}
 	}
-	
+
 	// VIDEO VIDEO VIDEO VIDEO VIDEO VIDEO VIDEO VIDEO VIDEO VIDEO VIDEO VIDEO VIDEO VIDEO VIDEO
-	
+
 	if (isset($_POST['novo_video_link'])) {
 		$novo_video_link = $_POST['novo_video_link'];
 		$novo_video_data = get_youtube($novo_video_link);
@@ -160,16 +160,27 @@
 			}
 		}
 	}
-	
+
 	// FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM
-	
+
 	if (isset($_POST['novo_comentario'])) {
 		$novo_comentario = $_POST['novo_comentario'];
 		$insert = $conn->query("INSERT INTO Forum (user_id, tema_id, comentario)  VALUES ($user_id, $tema_id, '$novo_comentario')");
 	}
-	
+
+	// COMPLETED COMPLETED COMPLETED COMPLETED COMPLETED COMPLETED COMPLETED COMPLETED COMPLETED COMPLETED
+
+	$estado_estudo = false;
+	$estudos = $conn->query("SELECT estado FROM Completed WHERE user_id = $user_id AND tema_id = $tema_id");
+	if ($estudos->num_rows > 0) {
+		while ($row = $estudos->fetch_assoc()) {
+			$estado_estudo = $row['estado'];
+			break;
+		}
+	}
+
 	// BOOKMARK BOOKMARK BOOKMARK BOOKMARK BOOKMARK BOOKMARK BOOKMARK BOOKMARK BOOKMARK BOOKMARK
-	
+
 	$tema_bookmark = false;
 	$bookmark = $conn->query("SELECT bookmark FROM Bookmarks WHERE user_id = $user_id AND tema_id = $tema_id");
 	if ($bookmark->num_rows > 0) {
@@ -178,9 +189,9 @@
 			break;
 		}
 	}
-	
+
 	// HTML HEAD HTML HEAD HTML HEAD HTML HEAD HTML HEAD HTML HEAD HTML HEAD HTML HEAD HTML HEAD
-	
+
 	$html_head_template_quill = true;
 	$html_head_template_conteudo = "
         <script type='text/javascript'>
@@ -201,9 +212,9 @@
     <div class='d-block'><a href='index.php'>$concurso</a></div>
     <div class='d-block spacing0'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='materia.php?concurso=$concurso&sigla=$sigla_materia'>$materia</a></div>
   ";
-	
+
 	// VERBETES RELACIONADOS VERBETES RELACIONADOS VERBETES RELACIONADOS VERBETES RELACIONADOS
-	
+
 	$result = $conn->query("SELECT id, nivel, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' ORDER BY ordem");
 	if ($nivel == 1) {
 		$tema_titulo = $nivel1;
@@ -369,7 +380,7 @@
 	if ($nivel == 5) {
 		$breadcrumbs .= "<div class='spacing5'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i>$nivel5</div>";
 	}
-	
+
 	// PAGINA PAGINA PAGINA PAGINA PAGINA PAGINA PAGINA PAGINA PAGINA PAGINA PAGINA PAGINA
 
 
@@ -392,6 +403,18 @@
                             href='javascript:void(0);'><i
                                 class='fal fa-comments-alt fa-fw'></i></a></span>
 							<?php
+                                $estado_estudo = false;
+								if ($estado_estudo == false) {
+									echo "
+      <span id='add_completed' class='ml-1' title='Estudo completo' value='$tema_id'><a href='javascript:void(0);'><i class='fal fa-check-circle fa-fw'></i></a></span>
+      <span id='remove_completed' class='ml-1 collapse' title='Desmarcar como completo' value='$tema_id'><a href='javascript:void(0);'><span class='text-success'><i class='fas fa-check-circle fa-fw'></i></span></span></a></span>
+    ";
+								} else {
+									echo "
+      <span id='add_completed' class='ml-1 collapse' title='Estudo completo' value='$tema_id'><a href='javascript:void(0);'><i class='fal fa-check-circle fa-fw'></i></a></span>
+      <span id='remove_completed' class='ml-1' title='Desmarcar como completo' value='$tema_id'><a href='javascript:void(0);'><span class='text-success'><i class='fas fa-check-circle fa-fw'></i></span></span></a></span>
+    ";
+								}
 								if ($tema_bookmark == false) {
 									echo "
               <span id='add_bookmark' class='ml-1' title='Marcar para leitura' value='$tema_id'><a href='javascript:void(0);'><i class='fal fa-bookmark fa-fw'></i></a></span>
@@ -419,7 +442,7 @@
         <div id='coluna_esquerda' class='col-lg-5 col-sm-12'>
 					<?php
 						//VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE
-						
+
 						$template_id = 'verbete';
 						$template_titulo = 'Verbete';
 						$template_botoes = "
@@ -432,20 +455,20 @@
                             href='javascript:void(0);'><i class='fal fa-lock-alt fa-fw'></i></a></span>
                         ";
 						$template_conteudo = false;
-						
-						
+
+
 						$template_quill_unique_name = 'verbete';
 						$template_quill_initial_state = 'leitura';
 						$template_quill_conteudo = $verbete_content;
-						
+
 						if ($verbete_content == false) {
-						    $template_conteudo .= "<p id='verbete_vazio'>Seja o primeiro a contribuir para a construção deste verbete.</p>";
-                        }
+							$template_conteudo .= "<p id='verbete_vazio'>Seja o primeiro a contribuir para a construção deste verbete.</p>";
+						}
 						$template_conteudo .= include 'templates/quill_form.php';
 						include 'templates/page_element.php';
-						
+
 						//VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS
-						
+
 						$template_id = 'videos';
 						$template_titulo = 'Vídeos e aulas';
 						$template_botoes = "
@@ -454,7 +477,7 @@
                                   </a>
                         ";
 						$template_conteudo = false;
-						
+
 						$result = $conn->query("SELECT elemento_id FROM Verbetes_elementos WHERE tema_id = $tema_id AND tipo = 'video'");
 						$count = 0;
 						if ($result->num_rows > 0) {
@@ -483,7 +506,7 @@
                                            <strong class='h5-responsive mt-2'>$video_titulo</strong>";
 										$template_conteudo .= "<p>$video_autor</p>";
 										$template_conteudo .= "</figcaption>";
-										
+
 										$template_conteudo .= "</figure>
                                 </div>
                                 ";
@@ -505,14 +528,14 @@
 							$template_conteudo .= "<p>Não foram acrescentadas, até o momento, vídeos ou aulas sobre este tópico.</p>";
 						}
 						include 'templates/page_element.php';
-						
+
 						//LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS
-						
+
 						$template_id = 'bibliografia';
 						$template_titulo = 'Leia mais';
 						$template_botoes = "<a data-toggle='modal' data-target='#modal_referencia_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>";
 						$template_conteudo = false;
-						
+
 						$result = $conn->query("SELECT elemento_id FROM Verbetes_elementos WHERE tema_id = $tema_id AND tipo = 'referencia'");
 						if ($result->num_rows > 0) {
 							$template_conteudo .= "<ul class='list-group'>";
@@ -534,16 +557,16 @@
 						} else {
 							$template_conteudo .= "<p>Associe referências bibliográficas sobre este tema.</p>";
 						}
-						
+
 						include 'templates/page_element.php';
-						
+
 						// IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS
-						
+
 						$template_id = 'imagens';
 						$template_titulo = 'Imagens';
 						$template_botoes = "<a data-toggle='modal' data-target='#modal_imagens_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>";
 						$template_conteudo = false;
-						
+
 						$result = $conn->query("SELECT elemento_id FROM Verbetes_elementos WHERE tema_id = $tema_id AND tipo = 'imagem'");
 						$count = 0;
 						if ($result->num_rows > 0) {
@@ -570,7 +593,7 @@
 										$template_conteudo .= "<figcaption>
                                            <strong class='h5-responsive mt-2'>$imagem_titulo</strong>";
 										$template_conteudo .= "</figcaption>";
-										
+
 										$template_conteudo .= "</figure>
                                 </div>
                                 ";
@@ -599,7 +622,7 @@
         <!-- COLUNA DIREITA COLUNA DIRETA COLUNA DIREITA COLUNA DIREITA COLUNA DIREITA COLUNA DIREITA COLUNA DIREITA COLUNA DIREITA COLUNA DIREITA COLUNA DIREITA COLUNA DIREITA -->
 
         <div id='coluna_direita' class='col-lg-5 col-sm-12 anotacoes_collapse collapse show'>
-					
+
 					<?php
 						$template_id = 'sticky_anotacoes';
 						$template_titulo = 'Anotações privadas';
@@ -609,14 +632,14 @@
                 <span class='anotacoes_editor_collapse collapse' id='destravar_anotacao' data-toggle='collapse'
                       data-target='.anotacoes_editor_collapse' title='permitir edição'><a
                             href='javascript:void(0);'><i class='fal fa-lock-alt fa-fw'></i></a></span>";
-						
+
 						$template_quill_unique_name = 'anotacoes';
 						$template_quill_initial_state = 'edicao';
 						$template_quill_conteudo = $anotacoes_content;
-						
+
 						$template_conteudo = include 'templates/quill_form.php';
 						include 'templates/page_element.php';
-					
+
 					?>
 
         </div>
@@ -625,9 +648,9 @@
                 class='fas fa-pen-alt fa-fw'></i></button>
 </div>
 <?php
-	
+
 	//IMAGENS MODAL IMAGENS MODAL IMAGENS MODAL IMAGENS MODAL IMAGENS MODAL IMAGENS MODAL IMAGENS MODAL IMAGENS MODAL IMAGENS MODAL IMAGENS MODAL
-	
+
 	$template_modal_div_id = 'modal_imagens_form';
 	$template_modal_titulo = 'Adicionar imagem';
 	$template_modal_body_conteudo = "
@@ -645,9 +668,9 @@
         </div>
     ";
 	include 'templates/modal.php';
-	
+
 	//LEIA MAIS MODAL LEIA MAIS MODAL LEIA MAIS MODAL LEIA MAIS MODAL LEIA MAIS MODAL LEIA MAIS MODAL LEIA MAIS MODAL LEIA MAIS MODAL
-	
+
 	$template_modal_div_id = 'modal_referencia_form';
 	$template_modal_titulo = 'Adicionar material de leitura';
 	$template_modal_body_conteudo = "
@@ -682,11 +705,11 @@
                    for='nova_referencia_link'>Link (opcional)</label>
         </div>
 	";
-	
+
 	include 'templates/modal.php';
-	
+
 	// VIDEOS MODAL VIDEOS MODAL VIDEOS MODAL VIDEOS MODAL VIDEOS MODAL VIDEOS MODAL VIDEOS MODAL VIDEOS MODAL VIDEOS MODAL
-	
+
 	$template_modal_div_id = 'modal_videos_form';
 	$template_modal_titulo = 'Adicionar vídeo ou aula';
 	$template_modal_body_conteudo = "
@@ -698,15 +721,15 @@
                                for='novo_video_link'>Link para o vídeo</label>
                     </div>
 	";
-	
+
 	include 'templates/modal.php';
-	
+
 	// FORUM MODAL FORUM MODAL FORUM MODAL FORUM MODAL FORUM MODAL FORUM MODAL FORUM MODAL FORUM MODAL FORUM MODAL
-	
+
 	$template_modal_div_id = 'modal_forum';
 	$template_modal_titulo = 'Fórum';
 	$template_modal_body_conteudo = false;
-	
+
 	$result = $conn->query("SELECT timestamp, comentario, user_id FROM Forum WHERE tema_id = $tema_id");
 	if ($result->num_rows > 0) {
 		$template_modal_body_conteudo .= "<ul class='list-group'>";
@@ -740,7 +763,7 @@
 	} else {
 		$template_modal_body_conteudo .= "<p class='mt-3'><strong>Para adicionar um comentário, você precisará definir seu apelido em sua <a href='usuario.php' target='_blank'>página de usuário</a>.</strong></p>";
 	}
-	
+
 	include 'templates/modal.php';
 
 ?>
@@ -750,10 +773,13 @@
 </body>
 <?php
 	include 'templates/footer.html';
-    if ($verbete_content == false) { $verbete_vazio = true; }
+	if ($verbete_content == false) {
+		$verbete_vazio = true;
+	}
 	include 'templates/html_bottom.php';
 	include 'templates/sticky_anotacoes.html';
 	include 'templates/bookmarks.php';
+	include 'templates/completed.php';
 	include 'templates/carousel.html';
 	include 'templates/lock_unlock_quill.php';
 ?>
