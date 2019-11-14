@@ -56,7 +56,7 @@
 </div>
 <div class="container-fluid">
     <div class="row justify-content-around">
-        <div class="col-lg-6 col-sm-12">
+        <div class="col-lg-7 col-sm-12">
 					<?php
 						$template_id = 'lista_topicos';
 						$template_titulo = 'Tópicos';
@@ -99,6 +99,12 @@
 							$cor_nivel1 = 'grey lighten-4';
 							$cor_nivel2 = 'grey lighten-5';
 						}
+						
+						$spacing1 = "style=''";
+						$spacing2 = "style='padding-left: 5ch'";
+						$spacing3 = "style='padding-left: 10ch'";
+						$spacing4 = "style='padding-left: 15ch'";
+						$spacing5 = "style='padding-left: 20ch'";
 
 						$result = $conn->query("SELECT id, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' ORDER BY ordem");
 						if ($result->num_rows > 0) {
@@ -110,15 +116,15 @@
 								$nivel4 = $row["nivel4"];
 								$nivel5 = $row["nivel5"];
 								if ($nivel5 != false) {
-									$template_conteudo .= "<a class='list-group-item list-group-item-action $cor_nivel5' href='verbete.php?concurso=$concurso&tema=$id'><span style='width: 16ch; display: inline-grid;' class='bg-light'></span>$nivel5</a>";
+									$template_conteudo .= "<a class='list-group-item list-group-item-action $cor_nivel5' href='verbete.php?concurso=$concurso&tema=$id' $spacing5>$nivel5</a>";
 								} elseif ($nivel4 != false) {
-									$template_conteudo .= "<a class='list-group-item list-group-item-action $cor_nivel4' href='verbete.php?concurso=$concurso&tema=$id'><span style='width: 12ch; display: inline-grid;' class='bg-light'></span>$nivel4</a>";
+									$template_conteudo .= "<a class='list-group-item list-group-item-action $cor_nivel4' href='verbete.php?concurso=$concurso&tema=$id' $spacing4>$nivel4</a>";
 								} elseif ($nivel3 != false) {
-									$template_conteudo .= "<a class='list-group-item list-group-item-action $cor_nivel3' href='verbete.php?concurso=$concurso&tema=$id'><span style='width: 8ch; display: inline-grid;' class='bg-light'></span>$nivel3</a>";
+									$template_conteudo .= "<a class='list-group-item list-group-item-action $cor_nivel3' href='verbete.php?concurso=$concurso&tema=$id' $spacing3>$nivel3</a>";
 								} elseif ($nivel2 != false) {
-									$template_conteudo .= "<a class='list-group-item list-group-item-action $cor_nivel2' href='verbete.php?concurso=$concurso&tema=$id'><span style='width: 4ch; display: inline-grid;' class=''></span>$nivel2</a>";
+									$template_conteudo .= "<a class='list-group-item list-group-item-action $cor_nivel2' href='verbete.php?concurso=$concurso&tema=$id' $spacing2>$nivel2</a>";
 								} elseif ($nivel1 != false) {
-									$template_conteudo .= "<a class='list-group-item list-group-item-action $cor_nivel1' href='verbete.php?concurso=$concurso&tema=$id'><span style='width: 0ch; display: inline-grid;' class=''></span>$nivel1</a>";
+									$template_conteudo .= "<a class='list-group-item list-group-item-action $cor_nivel1' href='verbete.php?concurso=$concurso&tema=$id' $spacing1>$nivel1</a>";
 								}
 							}
 						}
