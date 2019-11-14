@@ -61,6 +61,8 @@
 	
 	include 'templates/html_head.php';
 	include 'templates/imagehandler.php';
+	
+	$conn->query("INSERT INTO Visualizacoes (user_id, tipo_pagina) VALUES ($user_id, 'userpage')");
 
 ?>
 <body>

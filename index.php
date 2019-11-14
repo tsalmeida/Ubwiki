@@ -6,6 +6,8 @@
 	$html_head_template_one_page = true;
 	include 'templates/html_head.php';
 
+	$conn->query("INSERT INTO Visualizacoes (user_id, tipo_pagina) VALUES ($user_id, 'index')");
+	
 ?>
 <body>
 <div class='container-fluid px-0 onepage bg-white'>

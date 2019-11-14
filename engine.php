@@ -146,6 +146,7 @@
 				break;
 			}
 		}
+		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina, extra) VALUES ($bookmark_user_id, $bookmark_page_id, 'bookmark', $bookmark_change)");
 		$conn->query("INSERT INTO Bookmarks (user_id, $coluna_relevante, bookmark, active) VALUES ($bookmark_user_id, $bookmark_page_id, $bookmark_change, 1)");
 	}
 	
@@ -167,6 +168,7 @@
 				break;
 			}
 		}
+		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina, extra) VALUES ($completed_user_id, $completed_page_id, 'completed', $completed_change)");
 		$conn->query("INSERT INTO Completed (user_id, tema_id, estado, active) VALUES ($completed_user_id, $completed_page_id, $completed_change, 1)");
 	}
 	

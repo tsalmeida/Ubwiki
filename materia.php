@@ -11,9 +11,10 @@
 	}
 	$materia = false;
 	$found = false;
-	$result = $conn->query("SELECT materia FROM Materias WHERE concurso = '$concurso' AND estado = 1 AND sigla = '$sigla_materia' ORDER BY ordem");
+	$result = $conn->query("SELECT id, materia FROM Materias WHERE concurso = '$concurso' AND estado = 1 AND sigla = '$sigla_materia' ORDER BY ordem");
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
+		    $id_materia = $row['id'];
 			$materia = $row["materia"];
 		}
 	}
@@ -34,7 +35,10 @@
 	";
 
 	include 'templates/html_head.php';
-?>
+	
+	$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $id_materia, 'materia')");
+	
+	?>
 
 <body>
 <div id='materia_background' class='elegant-color'>

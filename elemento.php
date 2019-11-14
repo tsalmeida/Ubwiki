@@ -6,6 +6,8 @@
 		$elemento_id = $_GET['id'];
 	}
 	
+	$nao_contar = false;
+	
 	if (isset($_POST['elemento_novo_titulo'])) {
 		$elemento_novo_titulo = $_POST['elemento_novo_titulo'];
 		$elemento_novo_autor = $_POST['elemento_novo_autor'];
@@ -13,6 +15,8 @@
 		$elemento_novo_ano = $_POST['elemento_novo_ano'];
 		$update = $conn->query("UPDATE Elementos SET titulo = '$elemento_novo_titulo', autor = '$elemento_novo_autor', capitulo = '$elemento_novo_capitulo', ano = '$elemento_novo_ano' WHERE id = $elemento_id");
 		error_log("UPDATE Elementos SET titulo = '$elemento_novo_titulo', autor = '$elemento_novo_autor', capitulo = '$elemento_novo_capitulo', ano = '$elemento_novo_ano' WHERE id = $elemento_id");
+		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $elemento_id, 'elemento_dados')");
+		
 	}
 	
 	$result = $conn->query("SELECT criacao, tipo, titulo, autor, capitulo, ano, link, iframe, arquivo, resolucao, orientacao, comentario, trecho, user_id FROM Elementos WHERE id = $elemento_id");
@@ -73,6 +77,7 @@
 			$result = $conn->query("INSERT INTO Verbetes (elemento_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('$elemento_id', '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', '$user_id')");
 			$result = $conn->query("INSERT INTO Verbetes_arquivo (elemento_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('$elemento_id', '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', '$user_id')");
 		}
+			$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $elemento_id, 'elemento_verbete')");
 		$verbete_content = $novo_verbete_content;
 	}
 	
@@ -102,6 +107,7 @@
 			$result = $conn->query("INSERT INTO Anotacoes (elemento_id, anotacao_html, anotacao_text, anotacao_content, user_id) VALUES ('$elemento_id', '$novo_anotacoes_html', '$novo_anotacoes_text', '$novo_anotacoes_content', '$user_id')");
 			$result = $conn->query("INSERT INTO Anotacoes_arquivo (elemento_id, anotacao_html, anotacao_text, anotacao_content, user_id) VALUES ('$elemento_id', '$novo_anotacoes_html', '$novo_anotacoes_text', '$novo_anotacoes_content', '$user_id')");
 		}
+			$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $elemento_id, 'elemento_anotacoes')");
 		$anotacoes_content = $novo_anotacoes_content;
 	}
 	
@@ -112,8 +118,9 @@
 	if (isset($_POST['novo_comentario'])) {
 		$novo_comentario = $_POST['novo_comentario'];
 		$insert = $conn->query("INSERT INTO Forum (user_id, elemento_id, comentario)  VALUES ($user_id, $elemento_id, '$novo_comentario')");
+			$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $elemento_id, 'elemento_forum')");
 	}
-
+	
 	$html_head_template_quill = true;
 	$html_head_template_conteudo = "
         <script type='text/javascript'>
@@ -124,7 +131,9 @@
     ";
 	include 'templates/html_head.php';
 	include 'templates/imagehandler.php';
-
+	if ($nao_contar == false) {
+		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $elemento_id, 'elemento')");
+	}
 ?>
 <body>
 <?php
@@ -159,8 +168,8 @@
     <div class='row d-flex justify-content-center'>
         <div class='col-lg-10 col-sm-12 text-center py-2'>
 					<?php
-                        $template_titulo = $titulo_elemento;
-                        include 'templates/titulo.php'
+						$template_titulo = $titulo_elemento;
+						include 'templates/titulo.php'
 					?>
         </div>
     </div>
