@@ -439,7 +439,7 @@
 						$template_quill_conteudo = $verbete_content;
 						
 						if ($verbete_content == false) {
-						    $template_conteudo .= "<p id='verbete_vazio'>O verbete sobre este tópico ainda não começou a ser escrito.</p>";
+						    $template_conteudo .= "<p id='verbete_vazio'>Seja o primeiro a contribuir para a construção deste verbete.</p>";
                         }
 						$template_conteudo .= include 'templates/quill_form.php';
 						include 'templates/page_element.php';
@@ -602,7 +602,7 @@
 					
 					<?php
 						$template_id = 'sticky_anotacoes';
-						$template_titulo = 'Anotações';
+						$template_titulo = 'Anotações privadas';
 						$template_botoes = "<span class='anotacoes_editor_collapse collapse show' id='travar_anotacao' data-toggle='collapse'
                       data-target='.anotacoes_editor_collapse' title='travar para edição'><a
                             href='javascript:void(0);'><i class='fal fa-lock-open-alt fa-fw'></i></a></span>

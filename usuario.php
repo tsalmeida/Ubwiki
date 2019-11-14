@@ -223,7 +223,7 @@
 					
 					<?php
 						$template_id = 'sticky_anotacoes';
-						$template_titulo = 'Anotações';
+						$template_titulo = 'Anotações privadas';
 						$template_botoes = "<span class='anotacoes_editor_collapse collapse show' id='travar_anotacao' data-toggle='collapse'
                       data-target='.anotacoes_editor_collapse' title='travar para edição'><a
                             href='javascript:void(0);'><i class='fal fa-lock-open-alt fa-fw'></i></a></span>
