@@ -121,7 +121,7 @@
 						$template_conteudo = false;
 						
 						$template_conteudo .= "<ul class='list-group'>";
-						$result = $conn->query("SELECT DISTINCT tema_id FROM Bookmarks WHERE user_id = $user_id AND tema_id IS NOT NULL AND bookmark = 1 ORDER BY id DESC");
+						$result = $conn->query("SELECT DISTINCT tema_id FROM Bookmarks WHERE user_id = $user_id AND tema_id IS NOT NULL AND bookmark = 1 AND active = 1 ORDER BY id DESC");
 						if ($result->num_rows > 0) {
 							while ($row = $result->fetch_assoc()) {
 								$bookmark_tema_id = $row['tema_id'];
@@ -161,7 +161,7 @@
 						$template_conteudo = false;
 						
 						$template_conteudo .= "<ul class='list-group'>";
-						$result = $conn->query("SELECT elemento_id SELECT bookmark FROM Bookmarks WHERE user_id = $user_id AND elemento_id IS NOT NULL ORDER BY id DESC");
+						$result = $conn->query("SELECT elemento_id FROM Bookmarks WHERE user_id = $user_id AND bookmark = 1 AND elemento_id IS NOT NULL AND active = 1 ORDER BY id DESC");
 						if ($result->num_rows > 0) {
 							while ($row = $result->fetch_assoc()) {
 								$elemento_id = $row['elemento_id'];
@@ -223,7 +223,7 @@
 						$template_conteudo = false;
 						
 						$template_conteudo .= "<ul class='list-group'>";
-						$result = $conn->query("SELECT tema_id FROM Completed WHERE user_id = $user_id AND estado = 1");
+						$result = $conn->query("SELECT tema_id FROM Completed WHERE user_id = $user_id AND estado = 1 AND active = 1");
 						if ($result->num_rows > 0) {
 							while ($row = $result->fetch_assoc()) {
 								$tema_id = $row['tema_id'];
