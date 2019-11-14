@@ -120,9 +120,9 @@
 						$template_botoes = false;
 						$template_conteudo = false;
 						
-						$template_conteudo .= "<ul class='list-group'>";
 						$result = $conn->query("SELECT DISTINCT tema_id FROM Bookmarks WHERE user_id = $user_id AND tema_id IS NOT NULL AND bookmark = 1 AND active = 1 ORDER BY id DESC");
 						if ($result->num_rows > 0) {
+							$template_conteudo .= "<ul class='list-group'>";
 							while ($row = $result->fetch_assoc()) {
 								$bookmark_tema_id = $row['tema_id'];
 								$infotemas = mysqli_query($conn, "SELECT concurso, sigla_materia, nivel, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE id = $bookmark_tema_id");
@@ -151,8 +151,12 @@
 									break;
 								}
 							}
+							$template_conteudo .= "</ul>";
 						}
-						$template_conteudo .= "</ul>";
+						else {
+						    $template_conteudo .= "<p>Você ainda não acrescentou tópicos à sua lista de leitura.</p>";
+                        }
+						
 						include 'templates/page_element.php';
 						
 						$template_id = 'lista_leitura_elementos';
@@ -173,6 +177,8 @@
 									}
 								}
 							}
+						} else {
+							$template_conteudo .= "<p>Você ainda não acrescentou nenhum elemento de página (imagens, vídeos, referências bibliográficas) à sua lista de leitura.</p>";
 						}
 						$template_conteudo .= "</ul>";
 						include 'templates/page_element.php';
@@ -222,9 +228,9 @@
 						$template_botoes = false;
 						$template_conteudo = false;
 						
-						$template_conteudo .= "<ul class='list-group'>";
 						$result = $conn->query("SELECT tema_id FROM Completed WHERE user_id = $user_id AND estado = 1 AND active = 1");
 						if ($result->num_rows > 0) {
+							$template_conteudo .= "<ul class='list-group'>";
 							while ($row = $result->fetch_assoc()) {
 								$tema_id = $row['tema_id'];
 								$infotemas = mysqli_query($conn, "SELECT concurso, sigla_materia, nivel, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE id = $tema_id");
@@ -253,8 +259,10 @@
 									break;
 								}
 							}
+							$template_conteudo .= "</ul>";
+						} else {
+							$template_conteudo .= '<p>Você ainda não marcou nenhum tópico como estudado.</p>';
 						}
-						$template_conteudo .= "</ul>";
 						include 'templates/page_element.php';
 					
 					?>
