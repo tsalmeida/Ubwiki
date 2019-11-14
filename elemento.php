@@ -41,7 +41,7 @@
 	}
 	
 	$elemento_bookmark = false;
-	$bookmark = $conn->query("SELECT bookmark FROM Bookmarks WHERE user_id = $user_id AND elemento_id = $elemento_id");
+	$bookmark = $conn->query("SELECT bookmark FROM Bookmarks WHERE user_id = $user_id AND elemento_id = $elemento_id AND active = 1");
 	if ($bookmark->num_rows > 0) {
 		while ($row = $bookmark->fetch_assoc()) {
 			$elemento_bookmark = $row['bookmark'];

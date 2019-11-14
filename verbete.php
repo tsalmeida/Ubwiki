@@ -171,7 +171,7 @@
 	// COMPLETED COMPLETED COMPLETED COMPLETED COMPLETED COMPLETED COMPLETED COMPLETED COMPLETED COMPLETED
 
 	$estado_estudo = false;
-	$estudos = $conn->query("SELECT estado FROM Completed WHERE user_id = $user_id AND tema_id = $tema_id");
+	$estudos = $conn->query("SELECT estado FROM Completed WHERE user_id = $user_id AND tema_id = $tema_id AND active = 1 ORDER BY id DESC");
 	if ($estudos->num_rows > 0) {
 		while ($row = $estudos->fetch_assoc()) {
 			$estado_estudo = $row['estado'];
@@ -182,7 +182,7 @@
 	// BOOKMARK BOOKMARK BOOKMARK BOOKMARK BOOKMARK BOOKMARK BOOKMARK BOOKMARK BOOKMARK BOOKMARK
 
 	$tema_bookmark = false;
-	$bookmark = $conn->query("SELECT bookmark FROM Bookmarks WHERE user_id = $user_id AND tema_id = $tema_id");
+	$bookmark = $conn->query("SELECT bookmark FROM Bookmarks WHERE user_id = $user_id AND tema_id = $tema_id AND active = 1 ORDER BY id DESC");
 	if ($bookmark->num_rows > 0) {
 		while ($row = $bookmark->fetch_assoc()) {
 			$tema_bookmark = $row['bookmark'];
@@ -403,7 +403,6 @@
                             href='javascript:void(0);'><i
                                 class='fal fa-comments-alt fa-fw'></i></a></span>
 							<?php
-                                $estado_estudo = false;
 								if ($estado_estudo == false) {
 									echo "
       <span id='add_completed' class='ml-1' title='Estudo completo' value='$tema_id'><a href='javascript:void(0);'><i class='fal fa-check-circle fa-fw'></i></a></span>

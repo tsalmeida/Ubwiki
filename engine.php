@@ -8,7 +8,7 @@
 	$sessionpath .= '/../sessions';
 	session_save_path($sessionpath);
 	session_start();
-
+	
 	$servername = "localhost";
 	$username = "grupoubique";
 	$password = "ubique patriae memor";
@@ -129,8 +129,7 @@
 		$bookmark_contexto = $_POST['bookmark_contexto'];
 		if ($bookmark_contexto == 'verbete') {
 			$coluna_relevante = 'tema_id';
-		}
-		elseif ($bookmark_contexto == 'elemento') {
+		} elseif ($bookmark_contexto == 'elemento') {
 			$coluna_relevante = 'elemento_id';
 		}
 		$servername = "localhost";
@@ -139,16 +138,36 @@
 		$dbname = "Ubwiki";
 		$conn = new mysqli($servername, $username, $password, $dbname);
 		mysqli_set_charset($conn, "utf8");
-		$result = $conn->query("SELECT id FROM Bookmarks WHERE user_id = $bookmark_user_id AND $coluna_relevante = $bookmark_tema_id");
+		$result = $conn->query("SELECT id FROM Bookmarks WHERE user_id = $bookmark_user_id AND $coluna_relevante = $bookmark_page_id AND active = 1");
 		if ($result->num_rows > 0) {
 			while ($row = $result->fetch_assoc()) {
 				$bookmark_id = $row['id'];
-				$update = $conn->query("UPDATE Bookmarks SET bookmark = $bookmark_change WHERE id = $bookmark_id");
+				$conn->query("UPDATE Bookmarks SET active = 0 WHERE id = $bookmark_id");
 				break;
 			}
-		} else {
-			$insert = $conn->query("INSERT INTO Bookmarks (user_id, $coluna_relevante, bookmark) VALUES ($bookmark_user_id, $bookmark_page_id, $bookmark_change)");
 		}
+		$conn->query("INSERT INTO Bookmarks (user_id, $coluna_relevante, bookmark, active) VALUES ($bookmark_user_id, $bookmark_page_id, $bookmark_change, 1)");
+	}
+	
+	if (isset($_POST['completed_change'])) {
+		$completed_change = $_POST['completed_change'];
+		$completed_page_id = $_POST['completed_page_id'];
+		$completed_user_id = $_POST['completed_user_id'];
+		$servername = "localhost";
+		$username = "grupoubique";
+		$password = "ubique patriae memor";
+		$dbname = "Ubwiki";
+		$conn = new mysqli($servername, $username, $password, $dbname);
+		mysqli_set_charset($conn, "utf8");
+		$result = $conn->query("SELECT id FROM Completed WHERE user_id = $completed_user_id AND tema_id = $completed_page_id AND active = 1");
+		if ($result->num_rows > 0) {
+			while ($row = $result->fetch_assoc()) {
+				$completed_id = $row['id'];
+				$conn->query("UPDATE Completed SET active = 0 WHERE id = $completed_id");
+				break;
+			}
+		}
+		$conn->query("INSERT INTO Completed (user_id, tema_id, estado, active) VALUES ($completed_user_id, $completed_page_id, $completed_change, 1)");
 	}
 	
 	if (isset($_POST['sbcommand'])) {
@@ -298,8 +317,7 @@
 		$contexto = $args[4];
 		if ($contexto == 'verbete') {
 			$contexto_column = 'tema_id';
-		}
-		elseif ($contexto == 'elemento') {
+		} elseif ($contexto == 'elemento') {
 			$contexto_column = 'elemento_page_id';
 		}
 		error_log("$nova_imagem_link, $nova_imagem_titulo, $page_id, $user_id, $contexto");
