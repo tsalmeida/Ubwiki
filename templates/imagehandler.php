@@ -18,7 +18,7 @@
     function imageHandler() {
         var range = this.quill.getSelection();
         var value = prompt('Qual o endereço da imagem?');
-        value = encodeURI(value);
+/*			value = encodeURI(value); */
         if (value) {
             $.post('engine.php', {
                     'nova_imagem': value,
