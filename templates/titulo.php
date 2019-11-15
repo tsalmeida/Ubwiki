@@ -14,7 +14,6 @@
 	} elseif ($titulo_length < 60) {
 		$display_level = 'display-4';
 	} else {
-		echo "<h1 class='h1-responsive'>$template_titulo</h1>";
 		$display_level = false;
 	}
 	if ($template_titulo_no_nav == true) { $spacing = 'my-5'; }
@@ -29,6 +28,9 @@
 	if ($display_level != false) {
 		echo "<span class='$display_level playfair400 d-none d-md-inline m-0'>$template_titulo</span>
 		<h1 class='h1-responsive d-sm-inline d-md-none m-0'>$template_titulo</h1>";
+	}
+	else {
+		echo "<h1 class='h1-responsive'>$template_titulo</h1>";
 	}
 	if ($template_titulo_context == true) {
 		echo "
