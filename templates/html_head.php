@@ -43,28 +43,27 @@
 	  	        var formatWhitelist_general = ['italic', 'script', 'link', 'blockquote', 'list', 'header', 'image'];
 	  	        var formatWhitelist_anotacoes = ['italic', 'script', 'link', 'blockquote', 'list', 'header', 'image', 'bold', 'background', 'color', 'strike', 'underline', 'align'];
                 var toolbarOptions_general = [
-                    ['clean'],
+                    [{'header': [2, 3, false]}],
                     ['italic'],
+                    [{'script': 'super'}],
                     ['blockquote'],
                     [{'list': 'ordered'}, {'list': 'bullet'}],
-                    [{'script': 'super'}],
-                    [{'header': [2, 3, false]}],
-                    ['strike'],
-                    ['image']
+                    ['image'],
+                    ['clean'],
                 ];
                 var toolbarOptions_anotacoes = [
-                    ['clean'],
+                    [{'header': [2, 3, false]}],
+                    ['bold'],
                     ['italic'],
+                    ['underline'],
+                    ['strike'],
+                    [{'color': [false, 'red', 'orange', 'yellow', 'green', 'blue', 'purple']}],
+                    [{'background': [false, 'red', 'orange', 'yellow', 'green', 'blue', 'purple']}],
+                    [{'script': 'super'}],
                     ['blockquote'],
                     [{'list': 'ordered'}, {'list': 'bullet'}],
-                    [{'script': 'super'}],
-                    [{'header': [2, 3, false]}],
-                    ['strike'],
-                    ['bold'],
-                    ['underline'],
                     [{'align': []}],
-                    [{'background': [false, 'red', 'orange', 'yellow', 'green', 'blue', 'purple']}],
-                    [{'color': [false, 'red', 'orange', 'yellow', 'green', 'blue', 'purple']}]
+                    ['clean'],
                 ];
                 var BackgroundClass = Quill.import('attributors/class/background');
                 var ColorClass = Quill.import('attributors/class/color');
