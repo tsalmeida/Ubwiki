@@ -292,7 +292,7 @@
 	
 	if (isset($_POST['nova_imagem'])) {
 		$nova_imagem_link = $_POST['nova_imagem'];
-		$nova_imagem_link = urlencode($nova_imagem_link);
+		$nova_imagem_link = urldecode($nova_imagem_link);
 		$user_id = $_POST['user_id'];
 		$page_id = $_POST['page_id'];
 		$contexto = $_POST['contexto'];
