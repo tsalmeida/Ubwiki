@@ -9,7 +9,7 @@
 		$contexto = 'elemento';
 	}
 	elseif (isset($user_id)) {
-		$page_id = 0;
+		$page_id = false;
 		$contexto = 'userpage';
 	}
 	
