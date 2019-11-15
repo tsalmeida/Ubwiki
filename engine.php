@@ -292,7 +292,6 @@
 	
 	if (isset($_POST['nova_imagem'])) {
 		$nova_imagem_link = $_POST['nova_imagem'];
-		$nova_imagem_link = urldecode($nova_imagem_link);
 		$user_id = $_POST['user_id'];
 		$page_id = $_POST['page_id'];
 		$contexto = $_POST['contexto'];
@@ -314,6 +313,7 @@
 	{
 		$args = func_get_args();
 		$nova_imagem_link = $args[0];
+		$nova_imagem_link = base64_decode($nova_imagem_link);
 		$nova_imagem_titulo = $args[1];
 		$page_id = $args[2];
 		$user_id = $args[3];

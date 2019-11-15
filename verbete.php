@@ -100,6 +100,7 @@
 	
 	if (isset($_POST['nova_imagem_link'])) {
 		$nova_imagem_link = $_POST['nova_imagem_link'];
+		$nova_imagem_link = base64_encode($nova_imagem_link);
 		$nova_imagem_titulo = $_POST['nova_imagem_titulo'];
 		adicionar_imagem($nova_imagem_link, $nova_imagem_titulo, $tema_id, $user_id, 'verbete');
 		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $tema_id, 'topico_imagem')");
