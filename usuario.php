@@ -114,6 +114,9 @@
 						$template_conteudo .= "<li class='list-group-item'><strong>Sobrenome:</strong> $user_sobrenome</li>";
 						$template_conteudo .= "<li class='list-group-item'><strong>Email:</strong> $user_email</li>";
 						$template_conteudo .= "</ul>";
+						if ($user_apelido != false) {
+						    $template_load_invisible = true;
+                        }
 						
 						include 'templates/page_element.php';
 						
@@ -156,6 +159,7 @@
 							$template_conteudo .= "</ul>";
 						}
 						else {
+						    $template_load_invisible = true;
 						    $template_conteudo .= "<p>Você ainda não acrescentou tópicos à sua lista de leitura.</p>";
                         }
 						
@@ -180,6 +184,7 @@
 								}
 							}
 						} else {
+						    $template_load_invisible = true;
 							$template_conteudo .= "<p>Você ainda não acrescentou nenhum elemento de página (imagens, vídeos, referências bibliográficas) à sua lista de leitura.</p>";
 						}
 						$template_conteudo .= "</ul>";
@@ -221,6 +226,7 @@
 							}
 							$template_conteudo .= "</ul>";
 						} else {
+						    $template_load_invisible = true;
 							$template_conteudo .= "<p>Não há registro de participação sua em fórum de verbete.</p>";
 						}
 						include 'templates/page_element.php';
@@ -263,6 +269,7 @@
 							}
 							$template_conteudo .= "</ul>";
 						} else {
+						    $template_load_invisible = true;
 							$template_conteudo .= '<p>Você ainda não marcou nenhum tópico como estudado.</p>';
 						}
 						include 'templates/page_element.php';

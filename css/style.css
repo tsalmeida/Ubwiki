@@ -16,7 +16,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .elegant-color {
-    background-color: #2e3131 !important;
+  background-color: #2e3131 !important;
 }
 
 .logo {
@@ -31,6 +31,14 @@ h1, h2, h3, h4, h5, h6 {
 .display-1, .display-2, .display-3, .display-4 {
   font-family: "Oswald", sans-serif;
   font-weight: 300;
+}
+
+.navbar .btn-group .dropdown-menu a:hover {
+  background-color: #2e3131 !important;
+}
+
+.navbar .btn-group .dropdown-menu a:active {
+  background-color: #2e3131 !important;
 }
 
 .navbar {
@@ -205,7 +213,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .controls-top {
-    margin-bottom: 0 !important;
+  margin-bottom: 0 !important;
 }
 
 /*# sourceMappingURL=style.css.map */

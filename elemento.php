@@ -214,6 +214,9 @@
                                   </a>
                             ";
 						$template_conteudo = $dados_elemento;
+						if ($titulo_elemento != 'Não há título registrado') {
+						    $template_load_invisible = true;
+                        }
 						include 'templates/page_element.php';
 						
 						//VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE

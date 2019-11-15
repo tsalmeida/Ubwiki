@@ -23,8 +23,8 @@
         <i class='fas fa-user-tie fa-lg fa-fw'></i>
         </a>
         <div class='dropdown-menu dropdown-menu-right z-depth-0'>
-          <a class='dropdown-item navlink' href='usuario.php'>Sua página</a>
-          <a class='dropdown-item navlink' href='logout.php'>Logout</a>
+          <a class='dropdown-item navlink z-depth-0' href='usuario.php'>Sua página</a>
+          <a class='dropdown-item navlink z-depth-0' href='logout.php'>Logout</a>
       </li>
     </ul>
   </nav>";

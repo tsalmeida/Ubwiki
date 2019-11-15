@@ -2,6 +2,8 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Oswald:300&display=swap');
 
+$elegant-color: #2e3131;
+
 html {
   font-size: 1.2rem;
 }
@@ -17,7 +19,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .elegant-color {
-  background-color: #2e3131 !important;
+  background-color: $elegant-color !important;
 }
 
 .logo {
@@ -32,6 +34,13 @@ h1, h2, h3, h4, h5, h6 {
 .display-1, .display-2, .display-3, .display-4 {
   font-family: 'Oswald', sans-serif;
   font-weight: 300;
+}
+
+.navbar .btn-group .dropdown-menu a:hover {
+  background-color: $elegant-color !important;
+}
+.navbar .btn-group .dropdown-menu a:active {
+  background-color: $elegant-color !important;
 }
 
 .navbar { box-shadow: none !important; }

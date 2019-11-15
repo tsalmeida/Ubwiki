@@ -15,11 +15,22 @@
 	if (!isset($template_conteudo_class)) {
 		$template_conteudo_class = false;
 	}
-
+	if (!isset($template_load_invisible)) {
+		$template_load_invisible = false;
+	}
+	
 	$template_collapse = $template_id . "_collapse";
 	$template_esconder = "esconder_" . $template_id;
 	$template_mostrar = "mostrar_" . $template_id;
 
+	$show = false;
+	$hide = false;
+	if ($template_load_invisible == false) {
+		$show = 'show';
+	}
+	else {
+		$hide = 'show';
+	}
 
 echo "
 <div id='$template_id' class='show mb-2 border-top border-light pt-4'>
@@ -28,14 +39,14 @@ echo "
             <h1>$template_titulo</h1>
             <span class='h5'>
                 $template_botoes
-								<span id='$template_esconder' class='$template_collapse collapse show' data-toggle='collapse' data-target='.$template_collapse'><a href='javascript:void(0);'><i class='fal fa-chevron-square-up fa-fw'></i></a></span>
-								<span id='$template_mostrar' class='$template_collapse collapse' data-toggle='collapse' data-target='.$template_collapse'><a href='javascript:void(0);'><i class='fal fa-chevron-square-down fa-fw'></i></a></span>
+								<span id='$template_esconder' class='$template_collapse collapse $show' data-toggle='collapse' data-target='.$template_collapse'><a href='javascript:void(0);'><i class='fal fa-chevron-square-up fa-fw'></i></a></span>
+								<span id='$template_mostrar' class='$template_collapse collapse $hide' data-toggle='collapse' data-target='.$template_collapse'><a href='javascript:void(0);'><i class='fal fa-chevron-square-down fa-fw'></i></a></span>
                 <span 
             </span>
         </div>
     </div>
         
-    <div class='row py-3 $template_collapse collapse show'>
+    <div class='row py-3 $template_collapse collapse $show'>
         <div class='col-12 $template_conteudo_class'>
             $template_conteudo
         </div>
@@ -61,7 +72,8 @@ echo "
 	unset($template_esconder);
 	unset($template_mostrar);
 	unset($template_conteudo_class);
-
+	unset($template_load_invisible);
+	
 	unset($template_quill_form_id);
 	unset($template_quill_conteudo_html);
 	unset($template_quill_conteudo_text);

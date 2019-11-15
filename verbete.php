@@ -536,7 +536,8 @@
 							}
 							$template_conteudo .= "</div></div>";
 						} else {
-							$template_conteudo .= "<p>Não foram acrescentadas, até o momento, vídeos ou aulas sobre este tópico.</p>";
+						    $template_load_invisible = true;
+							$template_conteudo .= "<p>Não foram acrescentados, até o momento, vídeos ou aulas sobre este tópico.</p>";
 						}
 						include 'templates/page_element.php';
 						
@@ -566,6 +567,7 @@
 							}
 							$template_conteudo .= "</ul>";
 						} else {
+						    $template_load_invisible = true;
 							$template_conteudo .= "<p>Associe referências bibliográficas sobre este tema.</p>";
 						}
 						
@@ -623,6 +625,7 @@
 							}
 							$template_conteudo .= "</div></div>";
 						} else {
+						    $template_load_invisible = true;
 							$template_conteudo .= "<p>Ainda não foram associadas imagens a este verbete.</p>";
 						}
 						include 'templates/page_element.php';
