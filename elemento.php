@@ -206,20 +206,27 @@
 							$estado_elemento_visivel = 'removido';
 						}
 						
-						$dados_elemento = "
-						              <ul class='list-group'>
-                                        <li class='list-group-item'><strong>Criado em:</strong> $criacao_elemento</li>
-                                        <li class='list-group-item'><strong>Estado de publicação:</strong> $estado_elemento_visivel</li>
-                                        <li class='list-group-item'><strong>Título:</strong> $titulo_elemento</li>
-                                        <li class='list-group-item'><strong>Autor:</strong> $autor_elemento</li>
-                                        <li class='list-group-item'><strong>Capítulo:</strong> $capitulo_elemento</li>
-                                        <li class='list-group-item'><strong>Ano:</strong> $ano_elemento</li>
-                                        <li class='list-group-item'><a href='$link_elemento' target='_blank'>Link original</a></li>
-                                        <li class='list-group-item'><a href='../imagens/verbetes/$arquivo_elemento' target='_blank'>Arquivo</a></li>
-                                        <li class='list-group-item'><a href='../imagens/verbetes/thumbnails/$arquivo_elemento' target='_blank'>Versão reduzida</a></li>
-                                        <li class='list-group-item'>Adicionado pelo usuário <strong>$user_apelido_elemento</strong></li>
-                                      </ul>
-						";
+						$dados_elemento = false;
+						$dados_elemento .= "<ul class='list-group'>";
+						$dados_elemento .= "<li class='list-group-item'><strong>Criado em:</strong> $criacao_elemento</li>";
+						$dados_elemento .= "<li class='list-group-item'><strong>Estado de publicação:</strong> $estado_elemento_visivel</li>";
+                        if ($titulo_elemento != false) {
+                            $dados_elemento .= "<li class='list-group-item'><strong>Título:</strong> $titulo_elemento</li>";
+                        }
+                        if ($autor_elemento != false) {
+                            $dados_elemento .= "<li class='list-group-item'><strong>Autor:</strong> $autor_elemento</li>";
+                        }
+                        if ($capitulo_elemento != false) {
+                            $dados_elemento .= "<li class='list-group-item'><strong>Capítulo:</strong> $capitulo_elemento</li>";
+                        }
+                        if ($ano_elemento != 0) {
+                            $dados_elemento .= "<li class='list-group-item'><strong>Ano:</strong> $ano_elemento</li>";
+                        }
+                        if ($link_original 1= false) {
+                            $dados_elemento .= "<li class='list-group-item'><a href='$link_elemento' target='_blank'>Link original</a></li>";
+                        }
+                        $dados_elemento .= "<li class='list-group-item'>Adicionado pelo usuário <strong>$user_apelido_elemento</strong></li>";
+						$dados_elemento .= "</ul>";
 						
 						$template_id = 'dados_elemento_div';
 						$template_titulo = 'Dados';
