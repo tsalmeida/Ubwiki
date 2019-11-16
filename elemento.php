@@ -371,9 +371,13 @@
 ?>
 </body>
 <?php
+	if ($verbete_content == false) {
+		$verbete_vazio = true;
+	}
 	include 'templates/html_bottom.php';
 	include 'templates/sticky_anotacoes.html';
 	include 'templates/bookmarks.php';
 	include 'templates/lock_unlock_quill.php';
+	include 'templates/footer.php';
 ?>
 </html>
