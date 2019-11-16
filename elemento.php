@@ -222,7 +222,7 @@
                         if ($ano_elemento != 0) {
                             $dados_elemento .= "<li class='list-group-item'><strong>Ano:</strong> $ano_elemento</li>";
                         }
-                        if ($link_original 1= false) {
+                        if ($link_original != false) {
                             $dados_elemento .= "<li class='list-group-item'><a href='$link_elemento' target='_blank'>Link original</a></li>";
                         }
                         $dados_elemento .= "<li class='list-group-item'>Adicionado pelo usuário <strong>$user_apelido_elemento</strong></li>";
