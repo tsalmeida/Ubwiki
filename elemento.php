@@ -256,7 +256,7 @@
 						if ($verbete_content == false) {
 							$template_conteudo .= "<p id='verbete_vazio'>Seja o primeiro a contribuir para a escrever sobre este elemento.</p>";
 						}
-						$template_conteudo = include 'templates/quill_form.php';
+						$template_conteudo .= include 'templates/quill_form.php';
 						include 'templates/page_element.php';
 					
 					?>
