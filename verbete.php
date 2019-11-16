@@ -622,9 +622,11 @@
 									}
 								}
 							}
+							if ($count != 0) {
+							    $template_conteudo .= "</div>";
+                            }
 							if ($count != 1) {
 								$template_conteudo .= "
-                                    </div>
                                       <div class='controls-top'>
                                         <a class='btn btn-floating grey lighten-3 z-depth-0' href='#carousel-imagens' data-slide='prev'><i style='transform: translateY(70%)' class='fas fa-chevron-left'></i></a>
                                         <a class='btn btn-floating grey lighten-3 z-depth-0' href='#carousel-imagens' data-slide='next'><i style='transform: translateY(70%)' class='fas fa-chevron-right'></i></a>
