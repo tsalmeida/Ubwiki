@@ -5,10 +5,7 @@
 	if (isset($_GET['materia_id'])) {
 		$materia_id = $_GET['materia_id'];
 	}
-
-	if (isset($_GET['concurso_id'])) {
-		$concurso_id = $_GET['concurso_id'];
-	}
+	$concurso_id = return_concurso_id_materia($materia_id);
 	$materia_titulo = false;
 	$found = false;
 	$result = $conn->query("SELECT titulo FROM Materias WHERE concurso_id = '$concurso_id' AND estado = 1 AND id = '$materia_id' ORDER BY ordem");

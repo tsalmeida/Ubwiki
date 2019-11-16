@@ -417,5 +417,22 @@
 		}
 		return false;
 	}
+	
+	function return_concurso_id_materia($materia_id) {
+		$servername = "localhost";
+		$username = "grupoubique";
+		$password = "ubique patriae memor";
+		$dbname = "Ubwiki";
+		$conn = new mysqli($servername, $username, $password, $dbname);
+		mysqli_set_charset($conn, "utf8");
+		$result_find_concurso_id = $conn->query("SELECT concurso_id FROM Materias WHERE id = $materia_id");
+		if ($result_find_concurso_id->num_rows > 0) {
+			while ($row_find_concurso_id = $result_find_concurso_id->fetch_assoc()) {
+				$found_concurso_id = $row_find_concurso_id['concurso_id'];
+			}
+			return $found_concurso_id;
+		}
+		return false;
+	}
 
 ?>
