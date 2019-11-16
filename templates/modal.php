@@ -9,6 +9,9 @@
 	if (!isset($template_modal_body_conteudo)) {
 		$template_modal_body_conteudo = false;
 	}
+	if (!isset($template_modal_submit_name)) {
+		$template_modal_submit_name = 'modal_form_submit';
+	}
 	
 	echo "
 	<div class='modal fade' id='$template_modal_div_id' role='dialog' tabindex='-1' >
@@ -28,7 +31,7 @@
                     <button type = 'button' class='btn bg-lighter btn-md' data-dismiss='modal' ><i
                                 class='fal fa-times-circle' ></i > Cancelar
                     </button >
-                    <button type = 'submit' class='btn btn-primary btn-md' ><i class='fal fa-check' ></i > Salvar
+                    <button type='submit' class='btn btn-primary btn-md' name='$template_modal_submit_name'><i class='fal fa-check' ></i > Salvar
                     </button >
                 </div >
             </form >

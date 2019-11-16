@@ -8,20 +8,24 @@
 	
 	$nao_contar = false;
 	
-	if (isset($_POST['elemento_novo_titulo'])) {
+	if (isset($_POST['submit_elemento_dados'])) {
+        $elemento_mudanca_estado = 0;
+		if (isset($_POST['elemento_mudanca_estado'])) {
+			$elemento_mudanca_estado = 1;
+		}
 		$elemento_novo_titulo = $_POST['elemento_novo_titulo'];
 		$elemento_novo_autor = $_POST['elemento_novo_autor'];
 		$elemento_novo_capitulo = $_POST['elemento_novo_capitulo'];
 		$elemento_novo_ano = $_POST['elemento_novo_ano'];
-		$update = $conn->query("UPDATE Elementos SET titulo = '$elemento_novo_titulo', autor = '$elemento_novo_autor', capitulo = '$elemento_novo_capitulo', ano = '$elemento_novo_ano' WHERE id = $elemento_id");
-		error_log("UPDATE Elementos SET titulo = '$elemento_novo_titulo', autor = '$elemento_novo_autor', capitulo = '$elemento_novo_capitulo', ano = '$elemento_novo_ano' WHERE id = $elemento_id");
+		$update = $conn->query("UPDATE Elementos SET estado = $elemento_mudanca_estado, titulo = '$elemento_novo_titulo', autor = '$elemento_novo_autor', capitulo = '$elemento_novo_capitulo', ano = '$elemento_novo_ano' WHERE id = $elemento_id");
 		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $elemento_id, 'elemento_dados')");
-		
+		$nao_contar = true;
 	}
 	
-	$result = $conn->query("SELECT criacao, tipo, titulo, autor, capitulo, ano, link, iframe, arquivo, resolucao, orientacao, comentario, trecho, user_id FROM Elementos WHERE id = $elemento_id");
+	$result = $conn->query("SELECT estado, criacao, tipo, titulo, autor, capitulo, ano, link, iframe, arquivo, resolucao, orientacao, comentario, trecho, user_id FROM Elementos WHERE id = $elemento_id");
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
+			$estado_elemento = $row['estado'];
 			$criacao_elemento = $row['criacao'];
 			$tipo_elemento = $row['tipo'];
 			$titulo_elemento = $row['titulo'];
@@ -77,8 +81,9 @@
 			$result = $conn->query("INSERT INTO Verbetes (elemento_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('$elemento_id', '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', '$user_id')");
 			$result = $conn->query("INSERT INTO Verbetes_arquivo (elemento_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('$elemento_id', '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', '$user_id')");
 		}
-			$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $elemento_id, 'elemento_verbete')");
+		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $elemento_id, 'elemento_verbete')");
 		$verbete_content = $novo_verbete_content;
+		$nao_contar = true;
 	}
 	
 	$verbete_content = urldecode($verbete_content);
@@ -107,8 +112,9 @@
 			$result = $conn->query("INSERT INTO Anotacoes (elemento_id, anotacao_html, anotacao_text, anotacao_content, user_id) VALUES ('$elemento_id', '$novo_anotacoes_html', '$novo_anotacoes_text', '$novo_anotacoes_content', '$user_id')");
 			$result = $conn->query("INSERT INTO Anotacoes_arquivo (elemento_id, anotacao_html, anotacao_text, anotacao_content, user_id) VALUES ('$elemento_id', '$novo_anotacoes_html', '$novo_anotacoes_text', '$novo_anotacoes_content', '$user_id')");
 		}
-			$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $elemento_id, 'elemento_anotacoes')");
+		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $elemento_id, 'elemento_anotacoes')");
 		$anotacoes_content = $novo_anotacoes_content;
+		$nao_contar = true;
 	}
 	
 	$anotacoes_content = urldecode($anotacoes_content);
@@ -118,7 +124,8 @@
 	if (isset($_POST['novo_comentario'])) {
 		$novo_comentario = $_POST['novo_comentario'];
 		$insert = $conn->query("INSERT INTO Forum (user_id, elemento_id, comentario)  VALUES ($user_id, $elemento_id, '$novo_comentario')");
-			$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $elemento_id, 'elemento_forum')");
+		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $elemento_id, 'elemento_forum')");
+		$nao_contar = true;
 	}
 	
 	$html_head_template_quill = true;
@@ -192,9 +199,16 @@
 							include 'templates/page_element.php';
 						}
 						
+						if ($estado_elemento == true) {
+							$estado_elemento_visivel = 'publicado';
+						} else {
+							$estado_elemento_visivel = 'removido';
+						}
+						
 						$dados_elemento = "
 						              <ul class='list-group'>
                                         <li class='list-group-item'><strong>Criado em:</strong> $criacao_elemento</li>
+                                        <li class='list-group-item'><strong>Estado de publicação:</strong> $estado_elemento_visivel</li>
                                         <li class='list-group-item'><strong>Título:</strong> $titulo_elemento</li>
                                         <li class='list-group-item'><strong>Autor:</strong> $autor_elemento</li>
                                         <li class='list-group-item'><strong>Capítulo:</strong> $capitulo_elemento</li>
@@ -215,8 +229,8 @@
                             ";
 						$template_conteudo = $dados_elemento;
 						if ($titulo_elemento != 'Não há título registrado') {
-						    $template_load_invisible = true;
-                        }
+							$template_load_invisible = true;
+						}
 						include 'templates/page_element.php';
 						
 						//VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE
@@ -274,6 +288,16 @@
 	$template_modal_div_id = 'modal_elemento_form';
 	$template_modal_titulo = 'Alterar dados do elemento';
 	$template_modal_body_conteudo = false;
+	
+	$estado_elemento_checkbox = false;
+	if ($estado_elemento == true) {
+		$estado_elemento_checkbox = 'checked';
+	}
+	$template_modal_body_conteudo .= "<div class='form-check pl-0'>";
+	$template_modal_body_conteudo .= "<input type='checkbox' class='form-check-input' id='elemento_mudanca_estado' name='elemento_mudanca_estado' $estado_elemento_checkbox>";
+	$template_modal_body_conteudo .= "<label class='form-check-label' for='elemento_mudanca_estado'>Adequado para publicação</label>";
+	$template_modal_body_conteudo .= "</div>";
+	
 	$template_modal_body_conteudo .= "<div class='md-form mb-2'>";
 	$template_modal_body_conteudo .= "<input type='text' id='elemento_novo_titulo' name='elemento_novo_titulo' class='form-control' value='$titulo_elemento'>";
 	$template_modal_body_conteudo .= "<label for='elemento_novo_titulo'>Título</label>";
@@ -293,6 +317,8 @@
 	$template_modal_body_conteudo .= "<input type='number' id='elemento_novo_ano' name='elemento_novo_ano' class='form-control' value='$ano_elemento'>";
 	$template_modal_body_conteudo .= "<label for='elemento_novo_ano'>Ano</label>";
 	$template_modal_body_conteudo .= "</div>";
+	
+	$template_modal_submit_name = 'submit_elemento_dados';
 	
 	include 'templates/modal.php';
 	

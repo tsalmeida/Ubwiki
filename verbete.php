@@ -116,19 +116,19 @@
 		$nova_referencia_link = $_POST['nova_referencia_link'];
 		$result = $conn->query("SELECT id FROM Elementos WHERE titulo = '$nova_referencia_titulo'");
 		if ($result->num_rows == 0) {
-			$result = $conn->query("INSERT INTO Elementos (tipo, titulo, autor, capitulo, link, ano, user_id) VALUES ('referencia', '$nova_referencia_titulo', '$nova_referencia_autor', '$nova_referencia_capitulo', '$nova_referencia_link', '$nova_referencia_ano', '$user_id')");
+			$conn->query("INSERT INTO Elementos (tipo, titulo, autor, capitulo, link, ano, user_id) VALUES ('referencia', '$nova_referencia_titulo', '$nova_referencia_autor', '$nova_referencia_capitulo', '$nova_referencia_link', '$nova_referencia_ano', '$user_id')");
 			$result2 = $conn->query("SELECT id FROM Elementos WHERE titulo = '$nova_referencia_titulo'");
 			if ($result2->num_rows > 0) {
 				while ($row = $result2->fetch_assoc()) {
 					$nova_referencia_id = $row['id'];
-					$insert = $conn->query("INSERT INTO Verbetes_elementos (tema_id, elemento_id, tipo, user_id) VALUES ($tema_id, $nova_referencia_id, 'referencia', $user_id)");
+					$conn->query("INSERT INTO Verbetes_elementos (tema_id, elemento_id, tipo, user_id) VALUES ($tema_id, $nova_referencia_id, 'referencia', $user_id)");
 					break;
 				}
 			}
 		} else {
 			while ($row = $result->fetch_assoc()) {
 				$nova_referencia_id = $row['id'];
-				$insert = $conn->query("INSERT INTO Verbetes_elementos (tema_id, elemento_id, tipo, user_id) VALUES ($tema_id, $nova_referencia_id, 'referencia', $user_id)");
+				$conn->query("INSERT INTO Verbetes_elementos (tema_id, elemento_id, tipo, user_id) VALUES ($tema_id, $nova_referencia_id, 'referencia', $user_id)");
 				break;
 			}
 		}
@@ -537,7 +537,7 @@
 							}
 							$template_conteudo .= "</div></div>";
 						} else {
-						    $template_load_invisible = true;
+							$template_load_invisible = true;
 							$template_conteudo .= "<p>Não foram acrescentados, até o momento, vídeos ou aulas sobre este tópico.</p>";
 						}
 						include 'templates/page_element.php';
@@ -568,7 +568,7 @@
 							}
 							$template_conteudo .= "</ul>";
 						} else {
-						    $template_load_invisible = true;
+							$template_load_invisible = true;
 							$template_conteudo .= "<p>Associe referências bibliográficas sobre este tema.</p>";
 						}
 						
@@ -584,33 +584,39 @@
 						$result = $conn->query("SELECT elemento_id FROM Verbetes_elementos WHERE tema_id = $tema_id AND tipo = 'imagem'");
 						$count = 0;
 						if ($result->num_rows > 0) {
-							$template_conteudo .= "
-                                <div id='carousel-imagens' class='carousel slide carousel-multi-item mb-0' data-ride='carousel'>
-                                <div class='carousel-inner' role='listbox'>
-                            ";
 							$active = 'active';
 							while ($row = $result->fetch_assoc()) {
 								$elemento_id = $row['elemento_id'];
-								$result2 = $conn->query("SELECT titulo, arquivo FROM Elementos WHERE id = $elemento_id");
+								$result2 = $conn->query("SELECT titulo, arquivo, estado FROM Elementos WHERE id = $elemento_id");
 								if ($result2->num_rows > 0) {
-									while ($row = $result2->fetch_assoc()) {
-										$count++;
-										$imagem_titulo = $row['titulo'];
-										$imagem_arquivo = $row['arquivo'];
+									while ($row2 = $result2->fetch_assoc()) {
+										$imagem_titulo = $row2['titulo'];
+										$imagem_arquivo = $row2['arquivo'];
+										$imagem_estado = $row2['estado'];
+										if ($imagem_estado == false) {
+											continue;
+										} else {
+											$count++;
+										}
+										if ($count == 1) {
+											$template_conteudo .= "
+                                                <div id='carousel-imagens' class='carousel slide carousel-multi-item mb-0' data-ride='carousel'>
+                                                <div class='carousel-inner' role='listbox'>
+                                            ";
+										}
 										$template_conteudo .= "
-                                <div class=' carousel-item $active text-center'>
-                                  <figure class='col-12'>
-                                    <a href='elemento.php?id=$elemento_id' target='_blank'>
-                                      <img src='/../imagens/verbetes/thumbnails/$imagem_arquivo'
-                                        class='img-fluid' style='height:300px'>
-                                    </a>";
+                                            <div class=' carousel-item $active text-center'>
+                                              <figure class='col-12'>
+                                                <a href='elemento.php?id=$elemento_id' target='_blank'>
+                                                  <img src='/../imagens/verbetes/thumbnails/$imagem_arquivo'
+                                                    class='img-fluid' style='height:300px'>
+                                                </a>
+                                        ";
 										$template_conteudo .= "<figcaption>
                                            <strong class='h5-responsive mt-2'>$imagem_titulo</strong>";
 										$template_conteudo .= "</figcaption>";
-										
-										$template_conteudo .= "</figure>
-                                </div>
-                                ";
+										$template_conteudo .= "</figure>";
+										$template_conteudo .= "</div>";
 										$active = false;
 										break;
 									}
@@ -618,15 +624,18 @@
 							}
 							if ($count != 1) {
 								$template_conteudo .= "
-                            </div>
-                              <div class='controls-top'>
-                                <a class='btn btn-floating grey lighten-3 z-depth-0' href='#carousel-imagens' data-slide='prev'><i style='transform: translateY(70%)' class='fas fa-chevron-left'></i></a>
-                                <a class='btn btn-floating grey lighten-3 z-depth-0' href='#carousel-imagens' data-slide='next'><i style='transform: translateY(70%)' class='fas fa-chevron-right'></i></a>
-                            ";
+                                    </div>
+                                      <div class='controls-top'>
+                                        <a class='btn btn-floating grey lighten-3 z-depth-0' href='#carousel-imagens' data-slide='prev'><i style='transform: translateY(70%)' class='fas fa-chevron-left'></i></a>
+                                        <a class='btn btn-floating grey lighten-3 z-depth-0' href='#carousel-imagens' data-slide='next'><i style='transform: translateY(70%)' class='fas fa-chevron-right'></i></a>
+                                      </div>
+                                ";
 							}
-							$template_conteudo .= "</div></div>";
+							if ($count != 0) {
+								$template_conteudo .= "</div>";
+							}
 						} else {
-						    $template_load_invisible = true;
+							$template_load_invisible = true;
 							$template_conteudo .= "<p>Ainda não foram associadas imagens a este verbete.</p>";
 						}
 						include 'templates/page_element.php';
