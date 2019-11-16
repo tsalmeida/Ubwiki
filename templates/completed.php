@@ -1,4 +1,13 @@
 <?php
+	
+	if (isset($topico_id)) {
+		$page_id = $topico_id;
+		$bookmark_contexto = 'verbete';
+	} elseif (isset($elemento_id)) {
+		$page_id = $elemento_id;
+		$bookmark_contexto = 'elemento';
+	}
+
 	echo "
         <script type='text/javascript'>
             $('#add_completed').click(function () {
@@ -21,3 +30,5 @@
             });
         </script>
     ";
+	
+	unset($page_id);

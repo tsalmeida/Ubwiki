@@ -2,75 +2,47 @@
 	
 	include 'engine.php';
 	
-	if (isset($_POST['otimizar_temas_concurso'])) {
-		$concurso = $_POST['otimizar_temas_concurso'];
-		$ordem = 0;
-		mysqli_set_charset($conn, "utf8");
-		$result = $conn->query("SELECT id, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso'");
-		if ($result->num_rows > 0) {
-			while ($row = $result->fetch_assoc()) {
-				$id = $row["id"];
-				$nivel1 = $row["nivel1"];
-				$nivel2 = $row["nivel2"];
-				$nivel3 = $row["nivel3"];
-				$nivel4 = $row["nivel4"];
-				$nivel5 = $row["nivel5"];
-				if ($nivel5 != false) {
-					$conn->query("UPDATE Temas SET nivel = 5 WHERE id = '$id'");
-				} elseif ($nivel4 != false) {
-					$conn->query("UPDATE Temas SET nivel = 4 WHERE id = '$id'");
-				} elseif ($nivel3 != false) {
-					$conn->query("UPDATE Temas SET nivel = 3 WHERE id = '$id'");
-				} elseif ($nivel2 != false) {
-					$conn->query("UPDATE Temas SET nivel = 2 WHERE id = '$id'");
-				} else {
-					$conn->query("UPDATE Temas SET nivel = 1 WHERE id = '$id'");
-				}
-			}
-		}
-	}
-	
 	if (isset($_POST['reconstruir_busca'])) {
-		$concurso = $_POST['reconstruir_concurso'];
+		$reconstruir_concurso_id = $_POST['reconstruir_concurso'];
 		$ordem = 0;
-		$conn->query("DELETE FROM Searchbar WHERE concurso = '$concurso'");
-		$result = $conn->query("SELECT sigla, materia FROM Materias WHERE concurso = '$concurso' AND estado = 1 ORDER BY ordem");
+		$conn->query("DELETE FROM Searchbar WHERE concurso_id = $reconstruir_concurso_id");
+		$result = $conn->query("SELECT id, titulo FROM Materias WHERE concurso_id = $reconstruir_concurso_id AND estado = 1 ORDER BY ordem");
 		if ($result->num_rows > 0) {
 			while ($row = $result->fetch_assoc()) {
-				$sigla = $row["sigla"];
-				$materia = $row["materia"];
+				$reconstruir_materia_id = $row['id'];
+				$reconstruir_materia_titulo = $row["titulo"];
 				$ordem++;
-				$conn->query("INSERT INTO Searchbar (ordem, concurso, sigla, chave, tipo) VALUES ('$ordem', '$concurso', '$sigla', '$materia', 'materia')");
+				$conn->query("INSERT INTO Searchbar (ordem, concurso_id, page_id, chave, tipo) VALUES ('$ordem', $reconstruir_concurso_id, $reconstruir_materia_id , '$reconstruir_materia_titulo', 'materia')");
 			}
 		}
-		$result = $conn->query("SELECT nivel1, nivel2, nivel3, nivel4, nivel5, id FROM Temas WHERE concurso = '$concurso' ORDER BY id");
+		$result = $conn->query("SELECT nivel1, nivel2, nivel3, nivel4, nivel5, id FROM Topicos WHERE concurso_id = '$reconstruir_concurso_id' ORDER BY ordem");
 		if ($result->num_rows > 0) {
 			while ($row = $result->fetch_assoc()) {
-				$id = $row["id"];
-				$nivel1 = $row["nivel1"];
-				$nivel2 = $row["nivel2"];
-				$nivel3 = $row["nivel3"];
-				$nivel4 = $row["nivel4"];
-				$nivel5 = $row["nivel5"];
+				$reconstruir_topico_id = $row["id"];
+				$reconstruir_topico_nivel1 = $row["nivel1"];
+				$reconstruir_topico_nivel2 = $row["nivel2"];
+				$reconstruir_topico_nivel3 = $row["nivel3"];
+				$reconstruir_topico_nivel4 = $row["nivel4"];
+				$reconstruir_topico_nivel5 = $row["nivel5"];
 				$ordem++;
-				if ($nivel5 != false) {
-					$conn->query("INSERT INTO Searchbar (ordem, concurso, sigla, chave, tipo) VALUES ('$ordem', '$concurso', $id, '$nivel5', 'tema')");
-				} elseif ($nivel4 != false) {
-					$conn->query("INSERT INTO Searchbar (ordem, concurso, sigla, chave, tipo) VALUES ('$ordem', '$concurso', $id, '$nivel4', 'tema')");
-				} elseif ($nivel3 != false) {
-					$conn->query("INSERT INTO Searchbar (ordem, concurso, sigla, chave, tipo) VALUES ('$ordem', '$concurso', $id, '$nivel3', 'tema')");
-				} elseif ($nivel2 != false) {
-					$conn->query("INSERT INTO Searchbar (ordem, concurso, sigla, chave, tipo) VALUES ('$ordem', '$concurso', $id, '$nivel2', 'tema')");
+				if ($reconstruir_topico_nivel5 != false) {
+					$conn->query("INSERT INTO Searchbar (ordem, concurso_id, page_id, chave, tipo) VALUES ('$ordem', $reconstruir_concurso_id, $reconstruir_topico_id, '$reconstruir_topico_nivel5', 'topico')");
+				} elseif ($reconstruir_topico_nivel4 != false) {
+					$conn->query("INSERT INTO Searchbar (ordem, concurso_id, page_id, chave, tipo) VALUES ('$ordem', $reconstruir_concurso_id, $reconstruir_topico_id, '$reconstruir_topico_nivel4', 'topico')");
+				} elseif ($reconstruir_topico_nivel3 != false) {
+					$conn->query("INSERT INTO Searchbar (ordem, concurso_id, page_id, chave, tipo) VALUES ('$ordem', $reconstruir_concurso_id, $reconstruir_topico_id, '$reconstruir_topico_nivel3', 'topico')");
+				} elseif ($reconstruir_topico_nivel2 != false) {
+					$conn->query("INSERT INTO Searchbar (ordem, concurso_id, page_id, chave, tipo) VALUES ('$ordem', $reconstruir_concurso_id, $reconstruir_topico_id, '$reconstruir_topico_nivel2', 'topico')");
 				} else {
-					$conn->query("INSERT INTO Searchbar (ordem, concurso, sigla, chave, tipo) VALUES ('$ordem', '$concurso', $id, '$nivel1', 'tema')");
+					$conn->query("INSERT INTO Searchbar (ordem, concurso_id, page_id, chave, tipo) VALUES ('$ordem', $reconstruir_concurso_id, $reconstruir_topico_id, '$reconstruir_topico_nivel1', 'topico')");
 				}
 			}
 		}
 	}
 	
 	if (isset($_POST['editar_topicos_concurso'])) {
-		$metalinguagem_concurso = $_POST['editar_topicos_concurso'];
-		header("Location:edicao_topicos.php?concurso=$metalinguagem_concurso");
+		$concurso_editar = $_POST['editar_topicos_concurso'];
+		header("Location:edicao_topicos.php?concurso_id=$concurso_editar");
 	}
 	
 	if (isset($_POST['novo_concurso_titulo'])) {
@@ -84,12 +56,12 @@
 		}
 	}
 	$lista_concursos = array();
-	$result = $conn->query("SELECT titulo, sigla, estado FROM Concursos");
+	$result = $conn->query("SELECT id, titulo, estado FROM Concursos");
 	while ($row = $result->fetch_assoc()) {
-		$sigla = $row['sigla'];
-		$titulo = $row['titulo'];
-		$estado = $row['estado'];
-		$um_concurso = array($sigla, $titulo, $estado);
+		$concurso_id = $row['id'];
+		$concurso_titulo = $row['titulo'];
+		$concurso_estado = $row['estado'];
+		$um_concurso = array($concurso_id, $concurso_titulo, $concurso_estado);
 		array_push($lista_concursos, $um_concurso);
 	}
 	
@@ -160,11 +132,11 @@
                         ";
 						foreach ($lista_concursos as $um_concurso) {
 							if ($um_concurso[2] == 0) {
-								$estado = '(desativado)';
+								$estado_concurso = '(desativado)';
 							} else {
-								$estado = '(ativado)';
+								$estado_concurso = '(ativado)';
 							}
-							$template_conteudo .= "<option value='$um_concurso[0]'>$um_concurso[1] / $estado</option>";
+							$template_conteudo .= "<option value='$um_concurso[0]'>$um_concurso[1] / $estado_concurso</option>";
 						}
 						$template_conteudo .= "</select>";
 						$template_conteudo .= "<button class='btn btn-primary btn-block btn-md'>Acessar ferramenta</button></form>";
@@ -203,11 +175,11 @@
 						
 						foreach ($lista_concursos as $um_concurso) {
 							if ($um_concurso[2] == 0) {
-								$estado = '(desativado)';
+								$estado_concurso = '(desativado)';
 							} else {
-								$estado = '(ativado)';
+								$estado_concurso = '(ativado)';
 							}
-							$template_conteudo .= "<option value='$um_concurso[0]'>$um_concurso[1] / $estado</option>";
+							$template_conteudo .= "<option value='$um_concurso[0]'>$um_concurso[1] / $estado_concurso</option>";
 						}
 						
 						$template_conteudo .= "
@@ -216,29 +188,6 @@
                 </button>
             </form>
                         ";
-						include 'templates/page_element.php';
-						
-						$template_id = 'otimizar_tabela';
-						$template_titulo = 'Otimizar tabela de tópicos';
-						$template_botoes = false;
-						$template_conteudo = false;
-						$template_conteudo .= "<form method='post'>";
-						$template_conteudo .= "<p>Essa ferramenta determina o nível relevante de cada entrada na tabela de tópicos, de 1 a 5.</p>";
-						$template_conteudo .= "
-		    				<label for='editar_topicos_concurso'>Concurso</label>
-                            <select class='form-control' name='otimizar_temas_concurso'>
-						";
-						foreach ($lista_concursos as $um_concurso) {
-							if ($um_concurso[2] == 0) {
-								$estado = '(desativado)';
-							} else {
-								$estado = '(ativado)';
-							}
-							$template_conteudo .= "<option value='$um_concurso[0]'>$um_concurso[1] $estado</option>";
-						}
-						$template_conteudo .= "</select>";
-						$template_conteudo .= "<button class='btn btn-primary btn-block btn-md' type='submit'>Otimizar</button>";
-						$template_conteudo .= '</form>';
 						include 'templates/page_element.php';
 					
 					?>

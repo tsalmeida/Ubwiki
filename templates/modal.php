@@ -43,5 +43,6 @@
 	unset($template_modal_div_id);
 	unset($template_modal_titulo);
 	unset($template_modal_body_conteudo);
+	unset($template_modal_submit_name);
 
 ?>

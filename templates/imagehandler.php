@@ -1,7 +1,7 @@
 <?php
 	
-	if (isset($tema_id)) {
-		$page_id = $tema_id;
+	if (isset($topico_id)) {
+		$page_id = $topico_id;
 		$contexto = 'verbete';
 	}
 	elseif (isset($elemento_id)) {

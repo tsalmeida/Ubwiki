@@ -1,6 +1,6 @@
 <?php
-	if (isset($tema_id)) {
-		$page_id = $tema_id;
+	if (isset($topico_id)) {
+		$page_id = $topico_id;
 		$bookmark_contexto = 'verbete';
 	} elseif (isset($elemento_id)) {
 		$page_id = $elemento_id;
@@ -31,3 +31,5 @@
             });
         </script>
     ";
+	
+	unset($page_id);

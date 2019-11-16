@@ -65,10 +65,12 @@
 		}
 	}
 	
-	$result = $conn->query("SELECT id FROM Usuarios WHERE email = '$user_email'");
+	$result = $conn->query("SELECT id, apelido, nome FROM Usuarios WHERE email = '$user_email'");
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
 			$user_id = $row['id'];
+			$user_apelido = $row['apelido'];
+			$user_nome = $row['nome'];
 		}
 	}
 	
@@ -105,30 +107,13 @@
 ";
 	}
 	
-	function sub_jumbotron($titulo, $link)
-	{
-		echo "
-  <div class='container-fluid py-5 col-lg-12 grey lighten-3 text-center mb-3'>
-";
-		if ($link == false) {
-			echo "<h2 class='h2-responsive d-sm-inline d-md-none'>$titulo</h2>";
-			echo "<span class='display-4 d-none d-md-inline'>$titulo</span>";
-		} else {
-			echo "<h2 class='h2-responsive d-sm-inline d-md-none'><a href='$link'>$titulo</a></h2>";
-			echo "<span class='display-4 d-none d-md-inline'><a href='$link'>$titulo</a></span>";
-		}
-		echo "
-  </div>
-";
-	}
-	
 	if (isset($_POST['bookmark_change'])) {
 		$bookmark_change = $_POST['bookmark_change'];
 		$bookmark_page_id = $_POST['bookmark_page_id'];
 		$bookmark_user_id = $_POST['bookmark_user_id'];
 		$bookmark_contexto = $_POST['bookmark_contexto'];
 		if ($bookmark_contexto == 'verbete') {
-			$coluna_relevante = 'tema_id';
+			$coluna_relevante = 'topico_id';
 		} elseif ($bookmark_contexto == 'elemento') {
 			$coluna_relevante = 'elemento_id';
 		}
@@ -160,7 +145,7 @@
 		$dbname = "Ubwiki";
 		$conn = new mysqli($servername, $username, $password, $dbname);
 		mysqli_set_charset($conn, "utf8");
-		$result = $conn->query("SELECT id FROM Completed WHERE user_id = $completed_user_id AND tema_id = $completed_page_id AND active = 1");
+		$result = $conn->query("SELECT id FROM Completed WHERE user_id = $completed_user_id AND topico_id = $completed_page_id AND active = 1");
 		if ($result->num_rows > 0) {
 			while ($row = $result->fetch_assoc()) {
 				$completed_id = $row['id'];
@@ -169,7 +154,7 @@
 			}
 		}
 		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina, extra) VALUES ($completed_user_id, $completed_page_id, 'completed', $completed_change)");
-		$conn->query("INSERT INTO Completed (user_id, tema_id, estado, active) VALUES ($completed_user_id, $completed_page_id, $completed_change, 1)");
+		$conn->query("INSERT INTO Completed (user_id, topico_id, estado, active) VALUES ($completed_user_id, $completed_page_id, $completed_change, 1)");
 	}
 	
 	if (isset($_POST['sbcommand'])) {
@@ -183,23 +168,23 @@
 		$found = false;
 		$conn = new mysqli($servername, $username, $password, $dbname);
 		mysqli_set_charset($conn, "utf8");
-		$result = $conn->query("SELECT sigla, tipo FROM Searchbar WHERE concurso = '$concurso' AND chave = '$command' ORDER BY ordem");
+		$result = $conn->query("SELECT page_id, tipo FROM Searchbar WHERE concurso_id = '$concurso_id' AND chave = '$command' ORDER BY ordem");
 		if ($result->num_rows > 0) {
 			while ($row = $result->fetch_assoc()) {
-				$sigla = $row["sigla"];
+				$page_id = $row["page_id"];
 				$tipo = $row["tipo"];
 				if ($tipo == "materia") {
-					echo "foundfoundfoundfmateria.php?sigla=$sigla&concurso=$concurso";
+					echo "foundfoundfoundfmateria.php?materia_id=$page_id";
 					return;
-				} elseif ($tipo == "tema") {
-					echo "foundfoundfoundfverbete.php?concurso=$concurso&tema=$sigla";
+				} elseif ($tipo == "topico") {
+					echo "foundfoundfoundfverbete.php?topico_id=$page_id";
 					return;
 				}
 			}
 		}
 		$index = 500;
 		$winner = 0;
-		$result = $conn->query("SELECT chave FROM Searchbar WHERE concurso = '$concurso' AND CHAR_LENGTH(chave) < 150 ORDER BY ordem");
+		$result = $conn->query("SELECT chave FROM Searchbar WHERE concurso_id = '$concurso_id' AND CHAR_LENGTH(chave) < 150 ORDER BY ordem");
 		if ($result->num_rows > 0) {
 			while ($row = $result->fetch_assoc()) {
 				$chave = $row["chave"];
@@ -222,12 +207,6 @@
 		}
 		echo "Nada foi encontrado";
 		return;
-	}
-	
-	function quill_reformatar($texto)
-	{
-		$texto = str_replace("<blockquote>", "<blockquote class='blockquote'>", $texto);
-		return $texto;
 	}
 	
 	function generateRandomString()
@@ -319,11 +298,10 @@
 		$user_id = $args[3];
 		$contexto = $args[4];
 		if ($contexto == 'verbete') {
-			$contexto_column = 'tema_id';
+			$contexto_column = 'topico_id';
 		} elseif ($contexto == 'elemento') {
 			$contexto_column = 'elemento_page_id';
 		}
-		error_log("$nova_imagem_link, $nova_imagem_titulo, $page_id, $user_id, $contexto");
 		$servername = "localhost";
 		$username = "grupoubique";
 		$password = "ubique patriae memor";
@@ -365,7 +343,6 @@
 	
 	function get_youtube($url)
 	{
-		
 		$youtube = "http://www.youtube.com/oembed?url=" . $url . "&format=json";
 		
 		$curl = curl_init($youtube);
@@ -373,8 +350,72 @@
 		$return = curl_exec($curl);
 		curl_close($curl);
 		return json_decode($return, true);
-		
 	}
 
+	function return_titulo_topico($topico_id) {
+		$servername = "localhost";
+		$username = "grupoubique";
+		$password = "ubique patriae memor";
+		$dbname = "Ubwiki";
+		$conn = new mysqli($servername, $username, $password, $dbname);
+		mysqli_set_charset($conn, "utf8");
+		$result_find_topico = $conn->query("SELECT nivel, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Topicos WHERE id = $topico_id");
+		if ($result_find_topico->num_rows > 0) {
+			while ($row_find = $result_find_topico->fetch_assoc()) {
+				$found_topico_nivel = $row_find['nivel'];
+				if ($found_topico_nivel == 1) {
+					$found_topico_titulo = $row_find['nivel1'];
+				}
+				elseif ($found_topico_nivel == 2) {
+					$found_topico_titulo = $row_find['nivel2'];
+				}
+				elseif ($found_topico_nivel == 3) {
+					$found_topico_titulo = $row_find['nivel3'];
+				}
+				elseif ($found_topico_nivel == 4) {
+					$found_topico_titulo = $row_find['nivel4'];
+				}
+				else {
+					$found_topico_titulo = $row_find['nivel5'];
+				}
+			}
+			return $found_topico_titulo;
+		}
+		return false;
+	}
+	
+	function return_concurso_id_topico($topico_id) {
+		$servername = "localhost";
+		$username = "grupoubique";
+		$password = "ubique patriae memor";
+		$dbname = "Ubwiki";
+		$conn = new mysqli($servername, $username, $password, $dbname);
+		mysqli_set_charset($conn, "utf8");
+		$result_find_concurso = $conn->query("SELECT concurso_id FROM Topicos WHERE id = $topico_id");
+		if ($result_find_concurso->num_rows > 0) {
+			while ($row_find_concurso = $result_find_concurso->fetch_assoc()) {
+				$found_concurso_id = $row_find_concurso['concurso_id'];
+			}
+			return $found_concurso_id;
+		}
+		return false;
+	}
+	
+	function return_concurso_sigla($concurso_id) {
+		$servername = "localhost";
+		$username = "grupoubique";
+		$password = "ubique patriae memor";
+		$dbname = "Ubwiki";
+		$conn = new mysqli($servername, $username, $password, $dbname);
+		mysqli_set_charset($conn, "utf8");
+		$result_find_concurso_sigla = $conn->query("SELECT sigla FROM Concursos WHERE id = $concurso_id");
+		if ($result_find_concurso_sigla->num_rows > 0) {
+			while ($row_find_concurso_sigla = $result_find_concurso_sigla->fetch_assoc()) {
+				$found_concurso_sigla = $row_find_concurso_sigla['sigla'];
+			}
+			return $found_concurso_sigla;
+		}
+		return false;
+	}
 
 ?>

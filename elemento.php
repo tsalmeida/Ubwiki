@@ -13,10 +13,18 @@
 		if (isset($_POST['elemento_mudanca_estado'])) {
 			$elemento_mudanca_estado = 1;
 		}
-		$elemento_novo_titulo = $_POST['elemento_novo_titulo'];
-		$elemento_novo_autor = $_POST['elemento_novo_autor'];
-		$elemento_novo_capitulo = $_POST['elemento_novo_capitulo'];
-		$elemento_novo_ano = $_POST['elemento_novo_ano'];
+		if (isset($_POST['elemento_novo_titulo'])) {
+			$elemento_novo_titulo = $_POST['elemento_novo_titulo'];
+		}
+		if (isset($_POST['elemento_novo_autor'])) {
+			$elemento_novo_autor = $_POST['elemento_novo_autor'];
+		}
+		if (isset($_POST['elemento_novo_capitulo'])) {
+			$elemento_novo_capitulo = $_POST['elemento_novo_capitulo'];
+		}
+		if (isset($_POST['elemento_novo_ano'])) {
+			$elemento_novo_ano = $_POST['elemento_novo_ano'];
+		}
 		$update = $conn->query("UPDATE Elementos SET estado = $elemento_mudanca_estado, titulo = '$elemento_novo_titulo', autor = '$elemento_novo_autor', capitulo = '$elemento_novo_capitulo', ano = '$elemento_novo_ano' WHERE id = $elemento_id");
 		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $elemento_id, 'elemento_dados')");
 		$nao_contar = true;
@@ -210,22 +218,22 @@
 						$dados_elemento .= "<ul class='list-group'>";
 						$dados_elemento .= "<li class='list-group-item'><strong>Criado em:</strong> $criacao_elemento</li>";
 						$dados_elemento .= "<li class='list-group-item'><strong>Estado de publicação:</strong> $estado_elemento_visivel</li>";
-                        if ($titulo_elemento != false) {
-                            $dados_elemento .= "<li class='list-group-item'><strong>Título:</strong> $titulo_elemento</li>";
-                        }
-                        if ($autor_elemento != false) {
-                            $dados_elemento .= "<li class='list-group-item'><strong>Autor:</strong> $autor_elemento</li>";
-                        }
-                        if ($capitulo_elemento != false) {
-                            $dados_elemento .= "<li class='list-group-item'><strong>Capítulo:</strong> $capitulo_elemento</li>";
-                        }
-                        if ($ano_elemento != 0) {
-                            $dados_elemento .= "<li class='list-group-item'><strong>Ano:</strong> $ano_elemento</li>";
-                        }
-                        if ($link_original != false) {
-                            $dados_elemento .= "<li class='list-group-item'><a href='$link_elemento' target='_blank'>Link original</a></li>";
-                        }
-                        $dados_elemento .= "<li class='list-group-item'>Adicionado pelo usuário <strong>$user_apelido_elemento</strong></li>";
+						if ($titulo_elemento != false) {
+							$dados_elemento .= "<li class='list-group-item'><strong>Título:</strong> $titulo_elemento</li>";
+						}
+						if ($autor_elemento != false) {
+							$dados_elemento .= "<li class='list-group-item'><strong>Autor:</strong> $autor_elemento</li>";
+						}
+						if ($capitulo_elemento != false) {
+							$dados_elemento .= "<li class='list-group-item'><strong>Capítulo:</strong> $capitulo_elemento</li>";
+						}
+						if ($ano_elemento != 0) {
+							$dados_elemento .= "<li class='list-group-item'><strong>Ano:</strong> $ano_elemento</li>";
+						}
+						if ($link_elemento != false) {
+							$dados_elemento .= "<li class='list-group-item'><a href='$link_elemento' target='_blank'>Link original</a></li>";
+						}
+						$dados_elemento .= "<li class='list-group-item'>Adicionado pelo usuário <strong>$user_apelido_elemento</strong></li>";
 						$dados_elemento .= "</ul>";
 						
 						$template_id = 'dados_elemento_div';
@@ -385,6 +393,6 @@
 	include 'templates/sticky_anotacoes.html';
 	include 'templates/bookmarks.php';
 	include 'templates/lock_unlock_quill.php';
-	include 'templates/footer.php';
+	include 'templates/footer.html';
 ?>
 </html>

@@ -2,20 +2,21 @@
 	
 	include 'engine.php';
 	
-	if (isset($_GET['tema'])) {
-		$tema_id = $_GET['tema'];
+	if (isset($_GET['topico_id'])) {
+		$topico_id = $_GET['topico_id'];
 	}
 	
-	if (isset($_GET['concurso'])) {
-		$concurso = $_GET['concurso'];
-	}
+	$concurso_id = return_concurso_id_topico($topico_id);
+	$concurso_sigla = return_concurso_sigla($concurso_id);
 	
 	$nao_contar = false;
 	
-	$result = $conn->query("SELECT sigla_materia, nivel, ordem, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND id = $tema_id");
+	// set concurso_id e concurso_sigla
+	
+	$result = $conn->query("SELECT materia_id, nivel, ordem, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Topicos WHERE concurso_id = '$concurso_id' AND id = $topico_id");
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
-			$sigla_materia = $row['sigla_materia'];
+			$materia_id = $row['materia_id'];
 			$nivel = $row['nivel'];
 			$ordem = $row['ordem'];
 			$nivel1 = $row['nivel1'];
@@ -24,18 +25,29 @@
 			$nivel4 = $row['nivel4'];
 			$nivel5 = $row['nivel5'];
 		}
+		if ($nivel == 1) {
+			$topico_titulo = $nivel1;
+		} elseif ($nivel == 2) {
+			$topico_titulo = $nivel2;
+		} elseif ($nivel == 3) {
+			$topico_titulo = $nivel3;
+		} elseif ($nivel == 4) {
+			$topico_titulo = $nivel4;
+		} elseif ($nivel == 5) {
+			$topico_titulo = $nivel5;
+		}
 	}
 	
-	$result = $conn->query("SELECT materia FROM Materias WHERE concurso = '$concurso' AND estado = 1 AND sigla = '$sigla_materia' ORDER BY ordem");
+	$result = $conn->query("SELECT titulo FROM Materias WHERE concurso_id = '$concurso_id' AND estado = 1 AND id = $materia_id ORDER BY ordem");
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
-			$materia = $row["materia"];
+			$materia_titulo = $row["titulo"];
 		}
 	}
 	
 	// VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE
 	
-	$result = $conn->query("SELECT verbete_content, user_id FROM Verbetes WHERE tema_id = $tema_id");
+	$result = $conn->query("SELECT verbete_content, user_id FROM Verbetes WHERE topico_id = $topico_id");
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
 			$verbete_content = $row['verbete_content'];
@@ -49,15 +61,15 @@
 		$novo_verbete_text = $_POST['quill_novo_verbete_text'];
 		$novo_verbete_content = $_POST['quill_novo_verbete_content'];
 		$novo_verbete_html = strip_tags($novo_verbete_html, '<p><li><ul><ol><h2><h3><blockquote><em><sup>');
-		$result = $conn->query("SELECT id FROM Verbetes WHERE tema_id = $tema_id");
+		$result = $conn->query("SELECT id FROM Verbetes WHERE topico_id = $topico_id");
 		if ($result->num_rows > 0) {
-			$conn->query("UPDATE Verbetes SET verbete_html = '$novo_verbete_html', verbete_text = '$novo_verbete_text', verbete_content = '$novo_verbete_content', user_id = '$user_id' WHERE tema_id = $tema_id");
-			$conn->query("INSERT INTO Verbetes_arquivo (tema_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('$tema_id', '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', '$user_id')");
+			$conn->query("UPDATE Verbetes SET verbete_html = '$novo_verbete_html', verbete_text = '$novo_verbete_text', verbete_content = '$novo_verbete_content', user_id = '$user_id' WHERE topico_id = $topico_id");
+			$conn->query("INSERT INTO Verbetes_arquivo (topico_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('$topico_id', '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', '$user_id')");
 		} else {
-			$conn->query("INSERT INTO Verbetes (tema_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('$tema_id', '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', '$user_id')");
-			$conn->query("INSERT INTO Verbetes_arquivo (tema_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('$tema_id', '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', '$user_id')");
+			$conn->query("INSERT INTO Verbetes (topico_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('$topico_id', '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', '$user_id')");
+			$conn->query("INSERT INTO Verbetes_arquivo (topico_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('$topico_id', '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', '$user_id')");
 		}
-		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $tema_id, 'verbete')");
+		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $topico_id, 'verbete')");
 		$verbete_content = $novo_verbete_content;
 		$nao_contar = true;
 	}
@@ -67,7 +79,7 @@
 	
 	// ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO
 	
-	$result = $conn->query("SELECT anotacao_content FROM Anotacoes WHERE tema_id = $tema_id AND user_id = $user_id");
+	$result = $conn->query("SELECT anotacao_content FROM Anotacoes WHERE topico_id = $topico_id AND user_id = $user_id");
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
 			$anotacoes_content = $row['anotacao_content'];
@@ -81,15 +93,15 @@
 		$novo_anotacoes_text = $_POST['quill_novo_anotacoes_text'];
 		$novo_anotacoes_content = $_POST['quill_novo_anotacoes_content'];
 		$novo_anotacoes_html = strip_tags($novo_anotacoes_html, '<p><li><ul><ol><h2><h3><blockquote><em><sup><b>');
-		$result = $conn->query("SELECT id FROM Anotacoes WHERE tema_id = $tema_id AND user_id = $user_id");
+		$result = $conn->query("SELECT id FROM Anotacoes WHERE topico_id = $topico_id AND user_id = $user_id");
 		if ($result->num_rows > 0) {
-			$conn->query("UPDATE Anotacoes SET anotacao_html = '$novo_anotacoes_html', anotacao_text = '$novo_anotacoes_text', anotacao_content = '$novo_anotacoes_content', user_id = '$user_id' WHERE tema_id = $tema_id");
-			$conn->query("INSERT INTO Anotacoes_arquivo (tema_id, anotacao_html, anotacao_text, anotacao_content, user_id) VALUES ('$tema_id', '$novo_anotacoes_html', '$novo_anotacoes_text', '$novo_anotacoes_content', '$user_id')");
+			$conn->query("UPDATE Anotacoes SET anotacao_html = '$novo_anotacoes_html', anotacao_text = '$novo_anotacoes_text', anotacao_content = '$novo_anotacoes_content', user_id = '$user_id' WHERE topico_id = $topico_id");
+			$conn->query("INSERT INTO Anotacoes_arquivo (topico_id, anotacao_html, anotacao_text, anotacao_content, user_id) VALUES ('$topico_id', '$novo_anotacoes_html', '$novo_anotacoes_text', '$novo_anotacoes_content', '$user_id')");
 		} else {
-			$conn->query("INSERT INTO Anotacoes (tema_id, anotacao_html, anotacao_text, anotacao_content, user_id) VALUES ('$tema_id', '$novo_anotacoes_html', '$novo_anotacoes_text', '$novo_anotacoes_content', '$user_id')");
-			$conn->query("INSERT INTO Anotacoes_arquivo (tema_id, anotacao_html, anotacao_text, anotacao_content, user_id) VALUES ('$tema_id', '$novo_anotacoes_html', '$novo_anotacoes_text', '$novo_anotacoes_content', '$user_id')");
+			$conn->query("INSERT INTO Anotacoes (topico_id, anotacao_html, anotacao_text, anotacao_content, user_id) VALUES ('$topico_id', '$novo_anotacoes_html', '$novo_anotacoes_text', '$novo_anotacoes_content', '$user_id')");
+			$conn->query("INSERT INTO Anotacoes_arquivo (topico_id, anotacao_html, anotacao_text, anotacao_content, user_id) VALUES ('$topico_id', '$novo_anotacoes_html', '$novo_anotacoes_text', '$novo_anotacoes_content', '$user_id')");
 		}
-		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $tema_id, 'verbete_anotacao')");
+		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $topico_id, 'verbete_anotacao')");
 		$anotacoes_content = $novo_anotacoes_content;
 		$nao_contar = true;
 	}
@@ -102,8 +114,8 @@
 		$nova_imagem_link = $_POST['nova_imagem_link'];
 		$nova_imagem_link = base64_encode($nova_imagem_link);
 		$nova_imagem_titulo = $_POST['nova_imagem_titulo'];
-		adicionar_imagem($nova_imagem_link, $nova_imagem_titulo, $tema_id, $user_id, 'verbete');
-		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $tema_id, 'topico_imagem')");
+		adicionar_imagem($nova_imagem_link, $nova_imagem_titulo, $topico_id, $user_id, 'verbete');
+		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $topico_id, 'topico_imagem')");
 	}
 	
 	// REFERENCIA REFERENCIA REFERENCIA REFERENCIA REFERENCIA REFERENCIA REFERENCIA REFERENCIA
@@ -121,18 +133,18 @@
 			if ($result2->num_rows > 0) {
 				while ($row = $result2->fetch_assoc()) {
 					$nova_referencia_id = $row['id'];
-					$conn->query("INSERT INTO Verbetes_elementos (tema_id, elemento_id, tipo, user_id) VALUES ($tema_id, $nova_referencia_id, 'referencia', $user_id)");
+					$conn->query("INSERT INTO Verbetes_elementos (topico_id, elemento_id, tipo, user_id) VALUES ($topico_id, $nova_referencia_id, 'referencia', $user_id)");
 					break;
 				}
 			}
 		} else {
 			while ($row = $result->fetch_assoc()) {
 				$nova_referencia_id = $row['id'];
-				$conn->query("INSERT INTO Verbetes_elementos (tema_id, elemento_id, tipo, user_id) VALUES ($tema_id, $nova_referencia_id, 'referencia', $user_id)");
+				$conn->query("INSERT INTO Verbetes_elementos (topico_id, elemento_id, tipo, user_id) VALUES ($topico_id, $nova_referencia_id, 'referencia', $user_id)");
 				break;
 			}
 		}
-		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $tema_id, 'topico_referencia')");
+		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $topico_id, 'topico_referencia')");
 	}
 	
 	// VIDEO VIDEO VIDEO VIDEO VIDEO VIDEO VIDEO VIDEO VIDEO VIDEO VIDEO VIDEO VIDEO VIDEO VIDEO
@@ -152,7 +164,7 @@
 		if ($result->num_rows > 0) {
 			while ($row = $result->fetch_assoc()) {
 				$id_video_preexistente = $row['id'];
-				$insert = $conn->query("INSERT INTO Verbetes_elementos (tema_id, elemento_id, tipo, user_id) VALUES ($tema_id, $id_video_preexistente, 'youtube', $user_id)");
+				$insert = $conn->query("INSERT INTO Verbetes_elementos (topico_id, elemento_id, tipo, user_id) VALUES ($topico_id, $id_video_preexistente, 'youtube', $user_id)");
 				break;
 			}
 		} else {
@@ -162,27 +174,27 @@
 			if ($result->num_rows > 0) {
 				while ($row = $result->fetch_assoc()) {
 					$novo_video_id = $row['id'];
-					$insert = $conn->query("INSERT INTO Verbetes_elementos (tema_id, elemento_id, tipo, user_id) VALUES ($tema_id, $novo_video_id, 'video', $user_id)");
+					$insert = $conn->query("INSERT INTO Verbetes_elementos (topico_id, elemento_id, tipo, user_id) VALUES ($topico_id, $novo_video_id, 'video', $user_id)");
 					break;
 				}
 			} else {
 			}
 		}
-		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $tema_id, 'topico_video')");
+		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $topico_id, 'topico_video')");
 	}
 	
 	// FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM
 	
 	if (isset($_POST['novo_comentario'])) {
 		$novo_comentario = $_POST['novo_comentario'];
-		$insert = $conn->query("INSERT INTO Forum (user_id, tema_id, comentario)  VALUES ($user_id, $tema_id, '$novo_comentario')");
-		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $tema_id, 'topico_forum')");
+		$insert = $conn->query("INSERT INTO Forum (user_id, topico_id, comentario)  VALUES ($user_id, $topico_id, '$novo_comentario')");
+		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $topico_id, 'topico_forum')");
 	}
 	
 	// COMPLETED COMPLETED COMPLETED COMPLETED COMPLETED COMPLETED COMPLETED COMPLETED COMPLETED COMPLETED
 	
 	$estado_estudo = false;
-	$estudos = $conn->query("SELECT estado FROM Completed WHERE user_id = $user_id AND tema_id = $tema_id AND active = 1 ORDER BY id DESC");
+	$estudos = $conn->query("SELECT estado FROM Completed WHERE user_id = $user_id AND topico_id = $topico_id AND active = 1 ORDER BY id DESC");
 	if ($estudos->num_rows > 0) {
 		while ($row = $estudos->fetch_assoc()) {
 			$estado_estudo = $row['estado'];
@@ -192,11 +204,11 @@
 	
 	// BOOKMARK BOOKMARK BOOKMARK BOOKMARK BOOKMARK BOOKMARK BOOKMARK BOOKMARK BOOKMARK BOOKMARK
 	
-	$tema_bookmark = false;
-	$bookmark = $conn->query("SELECT bookmark FROM Bookmarks WHERE user_id = $user_id AND tema_id = $tema_id AND active = 1 ORDER BY id DESC");
+	$topico_bookmark = false;
+	$bookmark = $conn->query("SELECT bookmark FROM Bookmarks WHERE user_id = $user_id AND topico_id = $topico_id AND active = 1 ORDER BY id DESC");
 	if ($bookmark->num_rows > 0) {
 		while ($row = $bookmark->fetch_assoc()) {
-			$tema_bookmark = $row['bookmark'];
+			$topico_bookmark = $row['bookmark'];
 			break;
 		}
 	}
@@ -207,39 +219,29 @@
 	$html_head_template_conteudo = "
         <script type='text/javascript'>
           var user_id=$user_id;
-          var tema_id=$tema_id;
-          var concurso='$concurso';
+          var topico_id=$topico_id;
+          var concurso_id='$concurso_id';
           var user_email='$user_email';
         </script>
     ";
 	include 'templates/html_head.php';
 	include 'templates/imagehandler.php';
 	if ($nao_contar == false) {
-		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $tema_id, 'topico')");
+		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $topico_id, 'topico')");
 	}
 ?>
 <body>
 <?php
 	include 'templates/navbar.php';
 	$breadcrumbs = "
-    <div class='d-block'><a href='index.php'>$concurso</a></div>
-    <div class='d-block spacing0'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='materia.php?concurso=$concurso&sigla=$sigla_materia'>$materia</a></div>
+    <div class='d-block'><a href='index.php'>$concurso_sigla</a></div>
+    <div class='d-block spacing0'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='materia.php?concurso_id=$concurso_id&materia_id=$materia_id'>$materia_titulo</a></div>
   ";
 	
 	// VERBETES RELACIONADOS VERBETES RELACIONADOS VERBETES RELACIONADOS VERBETES RELACIONADOS
 	
-	$result = $conn->query("SELECT id, nivel, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' ORDER BY ordem");
-	if ($nivel == 1) {
-		$tema_titulo = $nivel1;
-	} elseif ($nivel == 2) {
-		$tema_titulo = $nivel2;
-	} elseif ($nivel == 3) {
-		$tema_titulo = $nivel3;
-	} elseif ($nivel == 4) {
-		$tema_titulo = $nivel4;
-	} elseif ($nivel == 5) {
-		$tema_titulo = $nivel5;
-	}
+	$result = $conn->query("SELECT id, nivel, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Topicos WHERE concurso_id = $concurso_id AND materia_id = $materia_id ORDER BY ordem");
+	
 	if ($nivel == 1) {
 		$count = 0;
 		$fawesome = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
@@ -256,7 +258,7 @@
 					$breadcrumbs .= "<div class='spacing1'>$fawesome$titulo_nivel1</div>";
 					$count2 = 0;
 					$fawesome = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
-					$result2 = $conn->query("SELECT id, nivel2 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' AND nivel1 = '$nivel1' AND nivel = 2 ORDER BY ordem");
+					$result2 = $conn->query("SELECT id, nivel2 FROM Topicos WHERE nivel1 = '$id_nivel1' AND nivel = 2 ORDER BY ordem");
 					while ($row2 = $result2->fetch_assoc()) {
 						$id_nivel2 = $row2['id'];
 						$titulo_nivel2 = $row2['nivel2'];
@@ -264,23 +266,20 @@
 						if ($count2 == 2) {
 							$fawesome = "<i class='fal fa-long-arrow-right fa-fw'></i>";
 						}
-						$breadcrumbs .= "<div class='spacing2'>$fawesome<a href='verbete.php?concurso=$concurso&tema=$id_nivel2'>$titulo_nivel2</a></div>";
+						$breadcrumbs .= "<div class='spacing2'>$fawesome<a href='verbete.php?topico_id=$id_nivel2'>$titulo_nivel2</a></div>";
 					}
 				} else {
-					$breadcrumbs .= "<div class='spacing1'>$fawesome<a href='verbete.php?concurso=$concurso&tema=$id_nivel1'>$titulo_nivel1</a></div>";
+					$breadcrumbs .= "<div class='spacing1'>$fawesome<a href='verbete.php?topico_id=$id_nivel1'>$titulo_nivel1</a></div>";
 				}
 			}
 		}
 	}
 	if ($nivel > 1) {
-		$result = $conn->query("SELECT id FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' AND nivel1 = '$nivel1' AND nivel = 1 ORDER BY ordem");
-		while ($row = $result->fetch_assoc()) {
-			$id_nivel1 = $row['id'];
-			$breadcrumbs .= "<div class='spacing1'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel1'>$nivel1</a></div>";
-		}
+		$titulo_nivel1 = return_titulo_topico($nivel1);
+		$breadcrumbs .= "<div class='spacing1'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?topico_id=$nivel1'>$titulo_nivel1</a></div>";
 	}
 	if ($nivel == 2) {
-		$result2 = $conn->query("SELECT id, nivel2 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' AND nivel1 = '$nivel1' AND nivel = 2 ORDER BY ordem");
+		$result2 = $conn->query("SELECT id, nivel2 FROM Topicos WHERE nivel1 = $nivel1 AND nivel = 2 ORDER BY ordem");
 		$count = 0;
 		$fawesome = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
 		while ($row2 = $result2->fetch_assoc()) {
@@ -292,7 +291,7 @@
 			$titulo_nivel2 = $row2['nivel2'];
 			if ($titulo_nivel2 == $nivel2) {
 				$breadcrumbs .= "<div class='spacing2'>$fawesome$nivel2</div>";
-				$result3 = $conn->query("SELECT id, nivel3 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' AND nivel = 3 AND nivel2 = '$nivel2' ORDER BY ordem");
+				$result3 = $conn->query("SELECT id, nivel3 FROM Topicos WHERE concurso_id = $concurso_id AND materia_id = $materia_id AND nivel = 3 AND nivel2 = $id_nivel2 ORDER BY ordem");
 				$count = 0;
 				$fawesome3 = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
 				while ($row3 = $result3->fetch_assoc()) {
@@ -302,26 +301,19 @@
 					if ($count == 2) {
 						$fawesome3 = "<i class='fal fa-long-arrow-right fa-fw'></i>";
 					}
-					$breadcrumbs .= "<div class='spacing3'>$fawesome3<a href='verbete.php?concurso=$concurso&tema=$id_nivel3'>$titulo_nivel3</a></div>";
+					$breadcrumbs .= "<div class='spacing3'>$fawesome3<a href='verbete.php?topico_id=$id_nivel3'>$titulo_nivel3</a></div>";
 				}
 			} else {
-				$breadcrumbs .= "<div class='spacing2'>$fawesome<a href='verbete.php?concurso=$concurso&tema=$id_nivel2'>$titulo_nivel2</a></div>";
+				$breadcrumbs .= "<div class='spacing2'>$fawesome<a href='verbete.php?topico_id=$id_nivel2'>$titulo_nivel2</a></div>";
 			}
 		}
 	}
 	if ($nivel > 2) {
-		$result2 = $conn->query("SELECT id, nivel2 FROM Temas WHERE nivel1 = '$nivel1' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia' ORDER BY ordem");
-		while ($row2 = $result2->fetch_assoc()) {
-			$id_nivel2 = $row2['id'];
-			$titulo_nivel2 = $row2['nivel2'];
-			if ($titulo_nivel2 == $nivel2) {
-				$breadcrumbs .= "<div class='spacing2'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel2'>$nivel2</a></div>";
-				break;
-			}
-		}
+		$titulo_nivel2 = return_titulo_topico($nivel2);
+		$breadcrumbs .= "<div class='spacing2'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?topico_id=$nivel2'>$titulo_nivel2</a></div>";
 	}
 	if ($nivel == 3) {
-		$result3 = $conn->query("SELECT id, nivel3 FROM Temas WHERE nivel2 = '$nivel2' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia' AND nivel = 3 ORDER BY ordem");
+		$result3 = $conn->query("SELECT id, nivel3 FROM Topicos WHERE nivel2 = $nivel2 AND nivel = 3 ORDER BY ordem");
 		$count = 0;
 		$fawesome3 = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
 		while ($row3 = $result3->fetch_assoc()) {
@@ -333,7 +325,7 @@
 			$titulo_nivel3 = $row3['nivel3'];
 			if ($titulo_nivel3 == $nivel3) {
 				$breadcrumbs .= "<div class='spacing3'>$fawesome3$nivel3</div>";
-				$result4 = $conn->query("SELECT id, nivel4 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' AND nivel = 4 AND nivel3 = '$nivel3' ORDER BY ordem");
+				$result4 = $conn->query("SELECT id, nivel4 FROM Topicos WHERE concurso_id = $concurso_id AND materia_id = $materia_id AND nivel = 4 AND nivel3 = $id_nivel3 ORDER BY ordem");
 				$count = 0;
 				$fawesome4 = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
 				while ($row4 = $result4->fetch_assoc()) {
@@ -343,26 +335,19 @@
 					if ($count == 2) {
 						$fawesome4 = "<i class='fal fa-long-arrow-right fa-fw'></i>";
 					}
-					$breadcrumbs .= "<div class='spacing4'>$fawesome4<a href='verbete.php?concurso=$concurso&tema=$id_nivel4'>$titulo_nivel4</a></div>";
+					$breadcrumbs .= "<div class='spacing4'>$fawesome4<a href='verbete.php?topico_id=$id_nivel4'>$titulo_nivel4</a></div>";
 				}
 			} else {
-				$breadcrumbs .= "<div class='spacing3'>$fawesome3<a href='verbete.php?concurso=$concurso&tema=$id_nivel3'>$titulo_nivel3</a></div>";
+				$breadcrumbs .= "<div class='spacing3'>$fawesome3<a href='verbete.php?topico_id=$id_nivel3'>$titulo_nivel3</a></div>";
 			}
 		}
 	}
 	if ($nivel > 3) {
-		$result3 = $conn->query("SELECT id, nivel3 FROM Temas WHERE nivel2 = '$nivel2' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia' ORDER BY ordem");
-		while ($row3 = $result3->fetch_assoc()) {
-			$id_nivel3 = $row3['id'];
-			$titulo_nivel3 = $row3['nivel3'];
-			if ($titulo_nivel3 == $nivel3) {
-				$breadcrumbs .= "<div class='spacing3'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel3'>$titulo_nivel3</a></div>";
-				break;
-			}
-		}
+		$titulo_nivel3 = return_titulo_topico($nivel3);
+		$breadcrumbs .= "<div class='spacing3'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?topico_id=$nivel3'>$titulo_nivel3</a></div>";
 	}
 	if ($nivel == 4) {
-		$result4 = $conn->query("SELECT id, nivel4 FROM Temas WHERE nivel3 = '$nivel3' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia' AND nivel = 4 ORDER BY ordem");
+		$result4 = $conn->query("SELECT id, nivel4 FROM Topicos WHERE nivel3 = $nivel3 AND nivel = 4 ORDER BY ordem");
 		$count = 0;
 		$fawesome4 = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
 		while ($row4 = $result4->fetch_assoc()) {
@@ -373,25 +358,45 @@
 			$id_nivel4 = $row4['id'];
 			$titulo_nivel4 = $row4['nivel4'];
 			if ($titulo_nivel4 == $nivel4) {
-				$breadcrumbs .= "<div class='spacing4'>$fawesome4$titulo_nivel4</div>";
+				$breadcrumbs .= "<div class='spacing4'>$fawesome4$nivel4</div>";
+				$result5 = $conn->query("SELECT id, nivel5 FROM Topicos WHERE concurso_id = $concurso_id AND materia_id = $materia_id AND nivel = 5 AND nivel4 = $id_nivel4 ORDER BY ordem");
+				$count = 0;
+				$fawesome5 = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
+				while ($row5 = $result5->fetch_assoc()) {
+					$id_nivel5 = $row5['id'];
+					$titulo_nivel5 = $row5['nivel5'];
+					$count++;
+					if ($count == 2) {
+						$fawesome5 = "<i class='fal fa-long-arrow-right fa-fw'></i>";
+					}
+					$breadcrumbs .= "<div class='spacing5'>$fawesome5<a href='verbete.php?topico_id=$id_nivel5'>$titulo_nivel5</a></div>";
+				}
 			} else {
-				$breadcrumbs .= "<div class='spacing4'>$fawesome4<a href='verbete.php?concurso=$concurso&tema=$id_nivel4'>$titulo_nivel4</a></div>";
+				$breadcrumbs .= "<div class='spacing4'>$fawesome4<a href='verbete.php?topico_id=$id_nivel4'>$titulo_nivel4</a></div>";
 			}
 		}
 	}
 	if ($nivel > 4) {
-		$result4 = $conn->query("SELECT id, nivel4 FROM Temas WHERE nivel3 = '$nivel3' AND concurso = '$concurso' AND sigla_materia = '$sigla_materia' ORDER BY ordem");
-		while ($row4 = $result4->fetch_assoc()) {
-			$id_nivel4 = $row4['id'];
-			$titulo_nivel4 = $row4['nivel4'];
-			if ($titulo_nivel4 == $nivel4) {
-				$breadcrumbs .= "<div class='spacing4'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?concurso=$concurso&tema=$id_nivel4'>$titulo_nivel4</a></div>";
-				break;
-			}
-		}
+		$titulo_nivel4 = return_titulo_topico($nivel4);
+		$breadcrumbs .= "<div class='spacing4'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?topico_id=$nivel4'>$titulo_nivel4</a></div>";
 	}
 	if ($nivel == 5) {
-		$breadcrumbs .= "<div class='spacing5'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i>$nivel5</div>";
+			$result5 = $conn->query("SELECT id, nivel5 FROM Topicos WHERE nivel4 = $nivel4 AND nivel = 5 ORDER BY ordem");
+			$count = 0;
+			$fawesome5 = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
+			while ($row5 = $result5->fetch_assoc()) {
+				$count++;
+				if ($count == 2) {
+					$fawesome5 = "<i class='fal fa-long-arrow-right fa-fw'></i>";
+				};
+				$id_nivel5 = $row5['id'];
+				$titulo_nivel5 = $row5['nivel5'];
+				if ($titulo_nivel5 == $nivel5) {
+					$breadcrumbs .= "<div class='spacing5'>$fawesome5$nivel5</div>";
+				} else {
+					$breadcrumbs .= "<div class='spacing5'>$fawesome5<a href='verbete.php?topico_id=$id_nivel5'>$titulo_nivel5</a></div>";
+				}
+			}
 	}
 	
 	// PAGINA PAGINA PAGINA PAGINA PAGINA PAGINA PAGINA PAGINA PAGINA PAGINA PAGINA PAGINA
@@ -418,24 +423,24 @@
 							<?php
 								if ($estado_estudo == false) {
 									echo "
-      <span id='add_completed' class='ml-1' title='Estudo completo' value='$tema_id'><a href='javascript:void(0);'><i class='fal fa-check-circle fa-fw'></i></a></span>
-      <span id='remove_completed' class='ml-1 collapse' title='Desmarcar como completo' value='$tema_id'><a href='javascript:void(0);'><span class='text-success'><i class='fas fa-check-circle fa-fw'></i></span></span></a></span>
+      <span id='add_completed' class='ml-1' title='Estudo completo' value='$topico_id'><a href='javascript:void(0);'><i class='fal fa-check-circle fa-fw'></i></a></span>
+      <span id='remove_completed' class='ml-1 collapse' title='Desmarcar como completo' value='$topico_id'><a href='javascript:void(0);'><span class='text-success'><i class='fas fa-check-circle fa-fw'></i></span></span></a></span>
     ";
 								} else {
 									echo "
-      <span id='add_completed' class='ml-1 collapse' title='Estudo completo' value='$tema_id'><a href='javascript:void(0);'><i class='fal fa-check-circle fa-fw'></i></a></span>
-      <span id='remove_completed' class='ml-1' title='Desmarcar como completo' value='$tema_id'><a href='javascript:void(0);'><span class='text-success'><i class='fas fa-check-circle fa-fw'></i></span></span></a></span>
+      <span id='add_completed' class='ml-1 collapse' title='Estudo completo' value='$topico_id'><a href='javascript:void(0);'><i class='fal fa-check-circle fa-fw'></i></a></span>
+      <span id='remove_completed' class='ml-1' title='Desmarcar como completo' value='$topico_id'><a href='javascript:void(0);'><span class='text-success'><i class='fas fa-check-circle fa-fw'></i></span></span></a></span>
     ";
 								}
-								if ($tema_bookmark == false) {
+								if ($topico_bookmark == false) {
 									echo "
-              <span id='add_bookmark' class='ml-1' title='Marcar para leitura' value='$tema_id'><a href='javascript:void(0);'><i class='fal fa-bookmark fa-fw'></i></a></span>
-              <span id='remove_bookmark' class='ml-1 collapse' title='Remover da lista de leitura' value='$tema_id'><a href='javascript:void(0);'><span class='text-danger'><i class='fas fa-bookmark fa-fw'></i></span></span></a></span>
+              <span id='add_bookmark' class='ml-1' title='Marcar para leitura' value='$topico_id'><a href='javascript:void(0);'><i class='fal fa-bookmark fa-fw'></i></a></span>
+              <span id='remove_bookmark' class='ml-1 collapse' title='Remover da lista de leitura' value='$topico_id'><a href='javascript:void(0);'><span class='text-danger'><i class='fas fa-bookmark fa-fw'></i></span></span></a></span>
             ";
 								} else {
 									echo "
-              <span id='add_bookmark' class='ml-1 collapse' title='Marcar para leitura' value='$tema_id'><a href='javascript:void(0);'><i class='fal fa-bookmark fa-fw'></i></a></span>
-              <span id='remove_bookmark' class='ml-1' title='Remover da lista de leitura' value='$tema_id'><a href='javascript:void(0);'><span class='text-danger'><i class='fas fa-bookmark fa-fw'></i></span></span></a></span>
+              <span id='add_bookmark' class='ml-1 collapse' title='Marcar para leitura' value='$topico_id'><a href='javascript:void(0);'><i class='fal fa-bookmark fa-fw'></i></a></span>
+              <span id='remove_bookmark' class='ml-1' title='Remover da lista de leitura' value='$topico_id'><a href='javascript:void(0);'><span class='text-danger'><i class='fas fa-bookmark fa-fw'></i></span></span></a></span>
             ";
 								}
 							?>
@@ -447,7 +452,7 @@
 <div id='page_height' class='container-fluid'>
 	<?php
 		$template_titulo_context = true;
-		$template_titulo = $tema_titulo;
+		$template_titulo = $topico_titulo;
 		include 'templates/titulo.php';
 	?>
     <div class='row justify-content-around'>
@@ -458,7 +463,7 @@
 						$template_id = 'verbete';
 						$template_titulo = 'Verbete';
 						$template_botoes = "
-						<a href='historico_verbete.php?concurso=$concurso&tema=$tema_id' target='_blank'><i class='fal fa-history fa-fw'></i></a>
+						<a href='historico_verbete.php?topico_id=$topico_id' target='_blank'><i class='fal fa-history fa-fw'></i></a>
                 <span class='verbete_editor_collapse collapse' id='travar_verbete' data-toggle='collapse'
                       data-target='.verbete_editor_collapse' title='travar para edição'><a
                             href='javascript:void(0);'><i class='fal fa-lock-open-alt fa-fw'></i></a></span>
@@ -490,7 +495,7 @@
                         ";
 						$template_conteudo = false;
 						
-						$result = $conn->query("SELECT elemento_id FROM Verbetes_elementos WHERE tema_id = $tema_id AND tipo = 'video'");
+						$result = $conn->query("SELECT elemento_id FROM Verbetes_elementos WHERE topico_id = $topico_id AND tipo = 'video'");
 						$count = 0;
 						if ($result->num_rows > 0) {
 							$template_conteudo .= "
@@ -549,7 +554,7 @@
 						$template_botoes = "<a data-toggle='modal' data-target='#modal_referencia_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>";
 						$template_conteudo = false;
 						
-						$result = $conn->query("SELECT elemento_id FROM Verbetes_elementos WHERE tema_id = $tema_id AND tipo = 'referencia'");
+						$result = $conn->query("SELECT elemento_id FROM Verbetes_elementos WHERE topico_id = $topico_id AND tipo = 'referencia'");
 						if ($result->num_rows > 0) {
 							$template_conteudo .= "<ul class='list-group'>";
 							while ($row = $result->fetch_assoc()) {
@@ -569,7 +574,7 @@
 							$template_conteudo .= "</ul>";
 						} else {
 							$template_load_invisible = true;
-							$template_conteudo .= "<p>Associe referências bibliográficas sobre este tema.</p>";
+							$template_conteudo .= "<p>Associe referências bibliográficas sobre este topico.</p>";
 						}
 						
 						include 'templates/page_element.php';
@@ -581,7 +586,7 @@
 						$template_botoes = "<a data-toggle='modal' data-target='#modal_imagens_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>";
 						$template_conteudo = false;
 						
-						$result = $conn->query("SELECT elemento_id FROM Verbetes_elementos WHERE tema_id = $tema_id AND tipo = 'imagem'");
+						$result = $conn->query("SELECT elemento_id FROM Verbetes_elementos WHERE topico_id = $topico_id AND tipo = 'imagem'");
 						$count = 0;
 						if ($result->num_rows > 0) {
 							$active = 'active';
@@ -623,8 +628,8 @@
 								}
 							}
 							if ($count != 0) {
-							    $template_conteudo .= "</div>";
-                            }
+								$template_conteudo .= "</div>";
+							}
 							if ($count != 1) {
 								$template_conteudo .= "
                                       <div class='controls-top'>
@@ -756,7 +761,7 @@
 	$template_modal_titulo = 'Fórum';
 	$template_modal_body_conteudo = false;
 	
-	$result = $conn->query("SELECT timestamp, comentario, user_id FROM Forum WHERE tema_id = $tema_id");
+	$result = $conn->query("SELECT timestamp, comentario, user_id FROM Forum WHERE topico_id = $topico_id");
 	if ($result->num_rows > 0) {
 		$template_modal_body_conteudo .= "<ul class='list-group'>";
 		while ($row = $result->fetch_assoc()) {

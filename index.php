@@ -1,6 +1,6 @@
 <?php
 	
-	$concurso = 'CACD';
+	$concurso_id = 1;
 	include 'engine.php';
 	
 	$html_head_template_one_page = true;
@@ -30,7 +30,7 @@
                                placeholder="O que você vai aprender hoje?" required>
                         <datalist id="searchlist">
 													<?php
-														$result = $conn->query("SELECT chave FROM Searchbar WHERE concurso = '$concurso' ORDER BY ordem");
+														$result = $conn->query("SELECT chave FROM Searchbar WHERE concurso_id = '$concurso_id' ORDER BY ordem");
 														if ($result->num_rows > 0) {
 															while ($row = $result->fetch_assoc()) {
 																$chave = $row['chave'];
@@ -40,7 +40,7 @@
 													?>
                         </datalist>
 											<?php
-												echo "<input id='searchBarGo' name='searchBarGo' value='$concurso' type='submit' style='position: absolute; left: -9999px; width: 1px; height: 1px;' tabindex='-1' />";
+												echo "<input id='searchBarGo' name='searchBarGo' value='$concurso_id' type='submit' style='position: absolute; left: -9999px; width: 1px; height: 1px;' tabindex='-1' />";
 											?>
                     </div>
                 </form>
@@ -51,7 +51,7 @@
                 <div class='row'>
 									<?php
 										$row_items = 2;
-										$result = $conn->query("SELECT sigla, materia, ordem  FROM Materias WHERE concurso = '$concurso' AND estado = 1 ORDER BY ordem");
+										$result = $conn->query("SELECT titulo, id FROM Materias WHERE concurso_id = '$concurso_id' AND estado = 1 ORDER BY ordem");
 										if ($result->num_rows > 0) {
 											$count = 0;
 											while ($row = $result->fetch_assoc()) {
@@ -59,11 +59,11 @@
 													echo "<div class='col-lg-3 col-sm-12'>";
 												}
 												$count++;
-												$sigla = $row["sigla"];
-												$materia = $row["materia"];
+												$materia_titulo = $row['titulo'];
+												$materia_id = $row["id"];
 												echo "
-                      <div href='materia.php?sigla=$sigla&concurso=$concurso' class='rounded cardmateria grey lighten-4 text-break text-center align-middle mb-3 py-2'>
-                        <span class='text-muted text-uppercase'>$materia</span>
+                      <div href='materia.php?materia_id=$materia_id&concurso_id=$concurso_id' class='rounded cardmateria grey lighten-4 text-break text-center align-middle mb-3 py-2'>
+                        <span class='text-muted text-uppercase'>$materia_titulo</span>
                       </div>
                     ";
 												if ($count == $row_items) {

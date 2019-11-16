@@ -2,25 +2,24 @@
 
 	include 'engine.php';
 
-	if (isset($_GET['sigla'])) {
-		$sigla_materia = $_GET['sigla'];
+	if (isset($_GET['materia_id'])) {
+		$materia_id = $_GET['materia_id'];
 	}
 
-	if (isset($_GET['concurso'])) {
-		$concurso = $_GET['concurso'];
+	if (isset($_GET['concurso_id'])) {
+		$concurso_id = $_GET['concurso_id'];
 	}
-	$materia = false;
+	$materia_titulo = false;
 	$found = false;
-	$result = $conn->query("SELECT id, materia FROM Materias WHERE concurso = '$concurso' AND estado = 1 AND sigla = '$sigla_materia' ORDER BY ordem");
+	$result = $conn->query("SELECT titulo FROM Materias WHERE concurso_id = '$concurso_id' AND estado = 1 AND id = '$materia_id' ORDER BY ordem");
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
-		    $id_materia = $row['id'];
-			$materia = $row["materia"];
+			$materia_titulo = $row["titulo"];
 		}
 	}
 	$html_head_template_conteudo = false;
-	if (file_exists("../imagens/materias/$sigla_materia.jpg")) {
-		$background_image = "background-image: url('../imagens/materias/$sigla_materia.jpg');";
+	if (file_exists("../imagens/materias/$materia_id.jpg")) {
+		$background_image = "background-image: url('../imagens/materias/$materia_id.jpg');";
 	} else {
 		$background_image = false;
 	}
@@ -36,7 +35,7 @@
 
 	include 'templates/html_head.php';
 	
-	$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $id_materia, 'materia')");
+	$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $materia_id, 'materia')");
 	
 	?>
 
@@ -51,7 +50,7 @@
         <div class='row d-flex justify-content-center transparent'>
             <div class='col-lg-10 col-sm-12 text-center py-5 text-white'>
 							<?php
-								$template_titulo = $materia;
+								$template_titulo = $materia_titulo;
 								include 'templates/titulo.php';
 							?>
             </div>
@@ -65,7 +64,7 @@
 						$template_id = 'lista_topicos';
 						$template_titulo = 'Tópicos';
 						$template_conteudo = false;
-						if ($materia == false) {
+						if ($materia_titulo == false) {
 							$template_conteudo .= "<h4>Página não-encontrada</h4>
           <p>Clique <a href='index.php'>aqui</a> para retornar.</p>
           ";
@@ -73,7 +72,7 @@
 						}
 						$template_conteudo .= "<ul class='list-group'>";
 
-						$result = $conn->query("SELECT DISTINCT nivel FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia'");
+						$result = $conn->query("SELECT DISTINCT nivel FROM Topicos WHERE concurso_id = '$concurso_id' AND materia_id = '$materia_id'");
 						$nivel_count = 0;
 						while ($row = mysqli_fetch_array($result)) {
 							$nivel_count++;
@@ -110,25 +109,25 @@
 						$spacing4 = "style='padding-left: 15ch'";
 						$spacing5 = "style='padding-left: 20ch'";
 
-						$result = $conn->query("SELECT id, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Temas WHERE concurso = '$concurso' AND sigla_materia = '$sigla_materia' ORDER BY ordem");
+						$result = $conn->query("SELECT id, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Topicos WHERE concurso_id = '$concurso_id' AND materia_id = '$materia_id' ORDER BY ordem");
 						if ($result->num_rows > 0) {
 							while ($row = $result->fetch_assoc()) {
-								$id = $row["id"];
+								$topico_id = $row["id"];
 								$nivel1 = $row["nivel1"];
 								$nivel2 = $row["nivel2"];
 								$nivel3 = $row["nivel3"];
 								$nivel4 = $row["nivel4"];
 								$nivel5 = $row["nivel5"];
 								if ($nivel5 != false) {
-									$template_conteudo .= "<a class='list-group-item list-group-item-action $cor_nivel5' href='verbete.php?concurso=$concurso&tema=$id' $spacing5>$nivel5</a>";
+									$template_conteudo .= "<a class='list-group-item list-group-item-action $cor_nivel5' href='verbete.php?topico_id=$topico_id' $spacing5>$nivel5</a>";
 								} elseif ($nivel4 != false) {
-									$template_conteudo .= "<a class='list-group-item list-group-item-action $cor_nivel4' href='verbete.php?concurso=$concurso&tema=$id' $spacing4>$nivel4</a>";
+									$template_conteudo .= "<a class='list-group-item list-group-item-action $cor_nivel4' href='verbete.php?topico_id=$topico_id' $spacing4>$nivel4</a>";
 								} elseif ($nivel3 != false) {
-									$template_conteudo .= "<a class='list-group-item list-group-item-action $cor_nivel3' href='verbete.php?concurso=$concurso&tema=$id' $spacing3>$nivel3</a>";
+									$template_conteudo .= "<a class='list-group-item list-group-item-action $cor_nivel3' href='verbete.php?topico_id=$topico_id' $spacing3>$nivel3</a>";
 								} elseif ($nivel2 != false) {
-									$template_conteudo .= "<a class='list-group-item list-group-item-action $cor_nivel2' href='verbete.php?concurso=$concurso&tema=$id' $spacing2>$nivel2</a>";
+									$template_conteudo .= "<a class='list-group-item list-group-item-action $cor_nivel2' href='verbete.php?topico_id=$topico_id' $spacing2>$nivel2</a>";
 								} elseif ($nivel1 != false) {
-									$template_conteudo .= "<a class='list-group-item list-group-item-action $cor_nivel1' href='verbete.php?concurso=$concurso&tema=$id' $spacing1>$nivel1</a>";
+									$template_conteudo .= "<a class='list-group-item list-group-item-action $cor_nivel1' href='verbete.php?topico_id=$topico_id' $spacing1>$nivel1</a>";
 								}
 							}
 						}
