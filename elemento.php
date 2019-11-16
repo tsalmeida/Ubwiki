@@ -9,7 +9,7 @@
 	$nao_contar = false;
 	
 	if (isset($_POST['submit_elemento_dados'])) {
-        $elemento_mudanca_estado = 0;
+		$elemento_mudanca_estado = 0;
 		if (isset($_POST['elemento_mudanca_estado'])) {
 			$elemento_mudanca_estado = 1;
 		}
@@ -65,7 +65,7 @@
 			$verbete_content = $row['verbete_content'];
 		}
 	} else {
-		$verbete_content = '%7B%22ops%22:%5B%7B%22insert%22:%22Este%20verbete%20ainda%20n%C3%A3o%20come%C3%A7ou%20a%20ser%20escrito.%5Cn%22%7D%5D%7D';
+		$verbete_content = false;
 	}
 	
 	if (isset($_POST['quill_novo_verbete_html'])) {
@@ -85,8 +85,9 @@
 		$verbete_content = $novo_verbete_content;
 		$nao_contar = true;
 	}
-	
-	$verbete_content = urldecode($verbete_content);
+	if ($verbete_content != false) {
+		$verbete_content = urldecode($verbete_content);
+	}
 	
 	// ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO
 	
@@ -246,11 +247,15 @@
       data-target='.verbete_editor_collapse' title='permitir edição'><a
             href='javascript:void(0);'><i class='fal fa-lock-alt fa-fw'></i></a></span>
         ";
+						$template_conteudo = false;
 						
 						$template_quill_unique_name = 'verbete';
 						$template_quill_initial_state = 'leitura';
 						$template_quill_conteudo = $verbete_content;
 						
+						if ($verbete_content == false) {
+							$template_conteudo .= "<p id='verbete_vazio'>Seja o primeiro a contribuir para a escrever sobre este elemento.</p>";
+						}
 						$template_conteudo = include 'templates/quill_form.php';
 						include 'templates/page_element.php';
 					
