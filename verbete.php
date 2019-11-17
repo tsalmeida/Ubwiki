@@ -235,7 +235,7 @@
 	include 'templates/navbar.php';
 	$breadcrumbs = "
     <div class='d-block'><a href='index.php'>$concurso_sigla</a></div>
-    <div class='d-block spacing0'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='materia.php?concurso_id=$concurso_id&materia_id=$materia_id'>$materia_titulo</a></div>
+    <div class='d-block spacing0'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='materia.php?materia_id=$materia_id'>$materia_titulo</a></div>
   ";
 	
 	// VERBETES RELACIONADOS VERBETES RELACIONADOS VERBETES RELACIONADOS VERBETES RELACIONADOS
