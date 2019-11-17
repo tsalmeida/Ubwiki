@@ -14,8 +14,7 @@
 	$topico_titulo = return_titulo_topico($topico_id);
 	
 	// HTML HEAD HTML HEAD HTML HEAD HTML HEAD HTML HEAD HTML HEAD HTML HEAD HTML HTML HEAD HTML HEAD HTML HEAD
-	
-	$html_head_template_quill = true;
+ 
 	$html_head_template_conteudo = "
         <script type='text/javascript'>
           var user_id=$user_id;
@@ -94,4 +93,11 @@
 
 
 </body>
+
+
+<?php
+	include 'templates/footer.html';
+	include 'templates/html_bottom.php';
+?>
+
 </html>
