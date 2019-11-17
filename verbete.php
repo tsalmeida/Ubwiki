@@ -559,15 +559,17 @@
 							$template_conteudo .= "<ul class='list-group'>";
 							while ($row = $result->fetch_assoc()) {
 								$elemento_id = $row['elemento_id'];
-								$result2 = $conn->query("SELECT titulo, autor, capitulo, ano, link FROM Elementos WHERE id = $elemento_id");
+								$result2 = $conn->query("SELECT titulo, autor, capitulo, estado FROM Elementos WHERE id = $elemento_id");
 								if ($result2->num_rows > 0) {
 									while ($row = $result2->fetch_assoc()) {
 										$referencia_titulo = $row['titulo'];
 										$referencia_autor = $row['autor'];
 										$referencia_capitulo = $row['capitulo'];
-										$referencia_ano = $row['ano'];
-										$referencia_link = $row['link'];
-										$template_conteudo .= "<li class='list-group-item'><a href='elemento.php?id=$elemento_id' target='_blank'>$referencia_titulo : $referencia_autor : $referencia_capitulo : $referencia_ano</a></li>";
+										$referencia_estado = $row['estado'];
+										if ($referencia_estado == false) {
+										    continue;
+                                        }
+										$template_conteudo .= "<li class='list-group-item'><a href='elemento.php?id=$elemento_id' target='_blank'>$referencia_titulo : $referencia_autor : $referencia_capitulo</a></li>";
 									}
 								}
 							}
