@@ -183,7 +183,6 @@
 							$template_conteudo .= "<ul class='list-group'>";
 							while ($row = $result->fetch_assoc()) {
 								$forum_topico_id = $row['topico_id'];
-								$forum_concurso_id = $row['concurso_id'];
 								$forum_topico_titulo = return_titulo_topico($forum_topico_id);
                                 $template_conteudo .= "<a href='verbete.php?topico_id=$forum_topico_id'><li class='list-group-item list-group-item-action'>$forum_topico_titulo</li></a>";
 							}

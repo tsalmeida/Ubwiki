@@ -23,7 +23,7 @@
             $.post('engine.php', {
                     'nova_imagem': value64,
                     'user_id': $user_id,
-                    'page_id': $page_id,
+                    'page_id': '$page_id',
                     'contexto': '$contexto'
                 },
                 function (data) {
