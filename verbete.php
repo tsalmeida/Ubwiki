@@ -381,22 +381,22 @@
 		$breadcrumbs .= "<div class='spacing4'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?topico_id=$nivel4'>$titulo_nivel4</a></div>";
 	}
 	if ($nivel == 5) {
-			$result5 = $conn->query("SELECT id, nivel5 FROM Topicos WHERE nivel4 = $nivel4 AND nivel = 5 ORDER BY ordem");
-			$count = 0;
-			$fawesome5 = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
-			while ($row5 = $result5->fetch_assoc()) {
-				$count++;
-				if ($count == 2) {
-					$fawesome5 = "<i class='fal fa-long-arrow-right fa-fw'></i>";
-				};
-				$id_nivel5 = $row5['id'];
-				$titulo_nivel5 = $row5['nivel5'];
-				if ($titulo_nivel5 == $nivel5) {
-					$breadcrumbs .= "<div class='spacing5'>$fawesome5$nivel5</div>";
-				} else {
-					$breadcrumbs .= "<div class='spacing5'>$fawesome5<a href='verbete.php?topico_id=$id_nivel5'>$titulo_nivel5</a></div>";
-				}
+		$result5 = $conn->query("SELECT id, nivel5 FROM Topicos WHERE nivel4 = $nivel4 AND nivel = 5 ORDER BY ordem");
+		$count = 0;
+		$fawesome5 = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
+		while ($row5 = $result5->fetch_assoc()) {
+			$count++;
+			if ($count == 2) {
+				$fawesome5 = "<i class='fal fa-long-arrow-right fa-fw'></i>";
+			};
+			$id_nivel5 = $row5['id'];
+			$titulo_nivel5 = $row5['nivel5'];
+			if ($titulo_nivel5 == $nivel5) {
+				$breadcrumbs .= "<div class='spacing5'>$fawesome5$nivel5</div>";
+			} else {
+				$breadcrumbs .= "<div class='spacing5'>$fawesome5<a href='verbete.php?topico_id=$id_nivel5'>$titulo_nivel5</a></div>";
 			}
+		}
 	}
 	
 	// PAGINA PAGINA PAGINA PAGINA PAGINA PAGINA PAGINA PAGINA PAGINA PAGINA PAGINA PAGINA
@@ -567,9 +567,13 @@
 										$referencia_capitulo = $row['capitulo'];
 										$referencia_estado = $row['estado'];
 										if ($referencia_estado == false) {
-										    continue;
-                                        }
-										$template_conteudo .= "<li class='list-group-item'><a href='elemento.php?id=$elemento_id' target='_blank'>$referencia_titulo : $referencia_autor : $referencia_capitulo</a></li>";
+											continue;
+										}
+										if ($referencia_capitulo == false) {
+											$template_conteudo .= "<li class='list-group-item'><a href='elemento.php?id=$elemento_id' target='_blank'>$referencia_titulo : $referencia_autor</a></li>";
+										} else {
+											$template_conteudo .= "<li class='list-group-item'><a href='elemento.php?id=$elemento_id' target='_blank'>$referencia_titulo : $referencia_autor : $referencia_capitulo</a></li>";
+										}
 									}
 								}
 							}
