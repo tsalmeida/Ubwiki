@@ -25,6 +25,8 @@
 		if (isset($_POST['elemento_novo_ano'])) {
 			$elemento_novo_ano = $_POST['elemento_novo_ano'];
 		}
+		error_log("UPDATE Elementos SET estado = $elemento_mudanca_estado, titulo = '$elemento_novo_titulo', autor = '$elemento_novo_autor', capitulo = '$elemento_novo_capitulo', ano = '$elemento_novo_ano' WHERE id = $elemento_id");
+		error_log("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $elemento_id, 'elemento_dados')");
 		$update = $conn->query("UPDATE Elementos SET estado = $elemento_mudanca_estado, titulo = '$elemento_novo_titulo', autor = '$elemento_novo_autor', capitulo = '$elemento_novo_capitulo', ano = '$elemento_novo_ano' WHERE id = $elemento_id");
 		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $elemento_id, 'elemento_dados')");
 		$nao_contar = true;
