@@ -45,7 +45,7 @@
 						$template_botoes = false;
 						$template_conteudo = false;
 						
-						$template_conteudo .= "<p>Para visualizar as últimas quarenta versões deste verbete, clique em um dos botões abaixo.</p>";
+						$template_conteudo .= "<p>Para visualizar as mais recentes versões salvas deste verbete, clique em um dos botões abaixo.</p>";
 						$result = $conn->query("SELECT timestamp, id, user_id FROM Verbetes_arquivo WHERE topico_id = $topico_id ORDER BY id DESC");
 						if ($result->num_rows > 0) {
 							$template_conteudo .= "<ul class='list-group'>";
