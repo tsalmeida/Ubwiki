@@ -158,7 +158,7 @@
 	}
 	
 	if (isset($_POST['sbcommand'])) {
-		$concurso = base64_decode($_POST['sbconcurso']);
+		$concurso_id = base64_decode($_POST['sbconcurso']);
 		$command = base64_decode($_POST['sbcommand']);
 		$command = utf8_encode($command);
 		$servername = "localhost";

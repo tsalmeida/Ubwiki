@@ -12,29 +12,34 @@
 				$reconstruir_materia_id = $row['id'];
 				$reconstruir_materia_titulo = $row["titulo"];
 				$ordem++;
-				$conn->query("INSERT INTO Searchbar (ordem, concurso_id, page_id, chave, tipo) VALUES ('$ordem', $reconstruir_concurso_id, $reconstruir_materia_id , '$reconstruir_materia_titulo', 'materia')");
+				$conn->query("INSERT INTO Searchbar (ordem, concurso_id, page_id, chave, tipo) VALUES ($ordem, $reconstruir_concurso_id, $reconstruir_materia_id , '$reconstruir_materia_titulo', 'materia')");
 			}
 		}
-		$result = $conn->query("SELECT nivel1, nivel2, nivel3, nivel4, nivel5, id FROM Topicos WHERE concurso_id = '$reconstruir_concurso_id' ORDER BY ordem");
-		if ($result->num_rows > 0) {
-			while ($row = $result->fetch_assoc()) {
-				$reconstruir_topico_id = $row["id"];
-				$reconstruir_topico_nivel1 = $row["nivel1"];
-				$reconstruir_topico_nivel2 = $row["nivel2"];
-				$reconstruir_topico_nivel3 = $row["nivel3"];
-				$reconstruir_topico_nivel4 = $row["nivel4"];
-				$reconstruir_topico_nivel5 = $row["nivel5"];
-				$ordem++;
-				if ($reconstruir_topico_nivel5 != false) {
-					$conn->query("INSERT INTO Searchbar (ordem, concurso_id, page_id, chave, tipo) VALUES ('$ordem', $reconstruir_concurso_id, $reconstruir_topico_id, '$reconstruir_topico_nivel5', 'topico')");
-				} elseif ($reconstruir_topico_nivel4 != false) {
-					$conn->query("INSERT INTO Searchbar (ordem, concurso_id, page_id, chave, tipo) VALUES ('$ordem', $reconstruir_concurso_id, $reconstruir_topico_id, '$reconstruir_topico_nivel4', 'topico')");
-				} elseif ($reconstruir_topico_nivel3 != false) {
-					$conn->query("INSERT INTO Searchbar (ordem, concurso_id, page_id, chave, tipo) VALUES ('$ordem', $reconstruir_concurso_id, $reconstruir_topico_id, '$reconstruir_topico_nivel3', 'topico')");
-				} elseif ($reconstruir_topico_nivel2 != false) {
-					$conn->query("INSERT INTO Searchbar (ordem, concurso_id, page_id, chave, tipo) VALUES ('$ordem', $reconstruir_concurso_id, $reconstruir_topico_id, '$reconstruir_topico_nivel2', 'topico')");
-				} else {
-					$conn->query("INSERT INTO Searchbar (ordem, concurso_id, page_id, chave, tipo) VALUES ('$ordem', $reconstruir_concurso_id, $reconstruir_topico_id, '$reconstruir_topico_nivel1', 'topico')");
+		$result = $conn->query("SELECT id, titulo FROM Materias WHERE concurso_id = $reconstruir_concurso_id AND estado = 1 ORDER BY ordem");
+		while ($row = $result->fetch_assoc()) {
+			$reconstruir_materia_id = $row['id'];
+			$result2 = $conn->query("SELECT id, nivel, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Topicos WHERE materia_id = $reconstruir_materia_id ORDER BY ordem");
+			if ($result2->num_rows > 0) {
+				while ($row2 = $result2->fetch_assoc()) {
+					$reconstruir_topico_id = $row2["id"];
+					$reconstruir_topico_nivel = $row2['nivel'];
+					$reconstruir_topico_nivel1 = $row2["nivel1"];
+					$reconstruir_topico_nivel2 = $row2["nivel2"];
+					$reconstruir_topico_nivel3 = $row2["nivel3"];
+					$reconstruir_topico_nivel4 = $row2["nivel4"];
+					$reconstruir_topico_nivel5 = $row2["nivel5"];
+					$ordem++;
+					if ($reconstruir_topico_nivel == 1) {
+						$conn->query("INSERT INTO Searchbar (ordem, concurso_id, page_id, chave, tipo) VALUES ($ordem, $reconstruir_concurso_id, $reconstruir_topico_id, '$reconstruir_topico_nivel1', 'topico')");
+					} elseif ($reconstruir_topico_nivel == 2) {
+						$conn->query("INSERT INTO Searchbar (ordem, concurso_id, page_id, chave, tipo) VALUES ($ordem, $reconstruir_concurso_id, $reconstruir_topico_id, '$reconstruir_topico_nivel2', 'topico')");
+					} elseif ($reconstruir_topico_nivel == 3) {
+						$conn->query("INSERT INTO Searchbar (ordem, concurso_id, page_id, chave, tipo) VALUES ($ordem, $reconstruir_concurso_id, $reconstruir_topico_id, '$reconstruir_topico_nivel3', 'topico')");
+					} elseif ($reconstruir_topico_nivel == 4) {
+						$conn->query("INSERT INTO Searchbar (ordem, concurso_id, page_id, chave, tipo) VALUES ($ordem, $reconstruir_concurso_id, $reconstruir_topico_id, '$reconstruir_topico_nivel4', 'topico')");
+					} elseif ($reconstruir_topico_nivel == 5) {
+						$conn->query("INSERT INTO Searchbar (ordem, concurso_id, page_id, chave, tipo) VALUES ($ordem, $reconstruir_concurso_id, $reconstruir_topico_id, '$reconstruir_topico_nivel5', 'topico')");
+					}
 				}
 			}
 		}

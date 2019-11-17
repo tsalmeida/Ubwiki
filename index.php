@@ -1,19 +1,24 @@
 <?php
 	
-	$concurso_id = 2;
+	if (isset($_GET['concurso_id'])) {
+		$concurso_id = $_GET['concurso_id'];
+	} else {
+		$concurso_id = 2;
+	}
+	
 	include 'engine.php';
 	
 	$html_head_template_one_page = true;
 	include 'templates/html_head.php';
-
-	$conn->query("INSERT INTO Visualizacoes (user_id, tipo_pagina) VALUES ($user_id, 'index')");
 	
+	$conn->query("INSERT INTO Visualizacoes (user_id, tipo_pagina) VALUES ($user_id, 'index')");
+
 ?>
 <body>
 <div class='container-fluid px-0 onepage bg-white'>
 	<?php
-        $template_navbar_mode = 'light';
-        include 'templates/navbar.php';
+		$template_navbar_mode = 'light';
+		include 'templates/navbar.php';
 	?>
     <div class="container-fluid bg-white">
         <div class="row justify-content-center">
@@ -62,7 +67,7 @@
 												$materia_titulo = $row['titulo'];
 												$materia_id = $row["id"];
 												echo "
-                      <div href='materia.php?materia_id=$materia_id&concurso_id=$concurso_id' class='rounded cardmateria grey lighten-4 text-break text-center align-middle mb-3 py-2'>
+                      <div href='materia.php?materia_id=$materia_id' class='rounded cardmateria grey lighten-4 text-break text-center align-middle mb-3 py-2'>
                         <span class='text-muted text-uppercase'>$materia_titulo</span>
                       </div>
                     ";
