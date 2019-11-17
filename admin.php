@@ -156,11 +156,11 @@
                 <p>Cada concurso tem um título completo e uma sigla. Este é o primeiro passo no processo de inclusão de novos concursos.</p>
               <div class='row'>
                 <input type='text' id='novo_concurso_titulo' name='novo_concurso_titulo' class='form-control validate' required>
-                <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_concurso_titulo'>Título do concurso</label>
+                <label data-error='inválido' data-successd='válido' for='novo_concurso_titulo'>Título do concurso</label>
               </div>
               <div class='row'>
                 <input type='text' id='novo_concurso_sigla' name='novo_concurso_sigla' class='form-control validate' required>
-                <label data-error='preenchimento incorreto' data-successd='preenchimento correto' for='novo_concurso_sigla'>Sigla do concurso</label>
+                <label data-error='inválido' data-successd='válido' for='novo_concurso_sigla'>Sigla do concurso</label>
               </div>
             <button class='btn btn-primary btn-block btn-md' type='submit'>Acrescentar concurso</button>
             </form>

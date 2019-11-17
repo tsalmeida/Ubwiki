@@ -373,7 +373,7 @@
                 <div class='md-form mb-2'>
                     <p>Adicione seu comentário:</p>
                     <input type='text' id='novo_comentario' name='novo_comentario' class='form-control validate' required></input>
-                    <label data-error='preenchimento incorreto' data-success='preenchimento válido' for='novo_comentario'></label>
+                    <label data-error='inválido' data-success='válido' for='novo_comentario'></label>
                 </div>
             ";
 	} else {

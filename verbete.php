@@ -688,13 +688,13 @@
         <div class='md-form mb-2'>
         <input type='url' id='nova_imagem_link' name='nova_imagem_link'
                class='form-control validate' required>
-        <label data-error='preenchimento incorreto' data-success='preenchimento válido'
+        <label data-error='inválido' data-success='válido'
                for='nova_imagem_link'>Link para a imagem</label>
         </div>
         <div class='md-form mb-2'>
             <input type='text' id='nova_imagem_titulo' name='nova_imagem_titulo'
                    class='form-control validate' required>
-            <label data-error='preenchimento incorreto' data-success='preenchimento válido'
+            <label data-error='inválido' data-success='válido'
                    for='nova_imagem_titulo'>Título da imagem</label>
         </div>
     ";
@@ -708,31 +708,31 @@
         <div class='md-form mb-2'>
             <input type='text' id='nova_referencia_titulo' name='nova_referencia_titulo'
                    class='form-control validate' required>
-            <label data-error='preenchimento incorreto' data-success='preenchimento válido'
+            <label data-error='inválido' data-success='válido'
                    for='nova_referencia_titulo'>Título da obra</label>
         </div>
         <div class='md-form mb-2'>
             <input type='text' id='nova_referencia_autor' name='nova_referencia_autor'
                    class='form-control validate' required>
-            <label data-error='preenchimento incorreto' data-success='preenchimento válido'
+            <label data-error='inválido' data-success='válido'
                    for='nova_referencia_autor'>Nome do autor</label>
         </div>
         <div class='md-form mb-2'>
             <input type='text' id='nova_referencia_capitulo' name='nova_referencia_capitulo'
                    class='form-control validate'>
-            <label data-error='preenchimento incorreto' data-success='preenchimento válido'
+            <label data-error='inválido' data-success='válido'
                    for='nova_referencia_capitulo'>Capítulo (opcional)</label>
         </div>
         <div class='md-form mb-2'>
             <input type='text' id='nova_referencia_ano' name='nova_referencia_ano'
                    class='form-control validate'>
-            <label data-error='preenchimento incorreto' data-success='preenchimento válido'
+            <label data-error='inválido' data-success='válido'
                    for='nova_referencia_ano'>Ano (opcional)</label>
         </div>
         <div class='md-form mb-2'>
             <input type='text' id='nova_referencia_link' name='nova_referencia_link'
                    class='form-control validate'>
-            <label data-error='preenchimento incorreto' data-success='preenchimento válido'
+            <label data-error='inválido' data-success='válido'
                    for='nova_referencia_link'>Link (opcional)</label>
         </div>
 	";
@@ -748,7 +748,7 @@
                     <div class='md-form mb-2'>
                         <input type='url' id='novo_video_link' name='novo_video_link' class='form-control validate'
                                required>
-                        <label data-error='preenchimento incorreto' data-success='preenchimento válido'
+                        <label data-error='inválido' data-success='válido'
                                for='novo_video_link'>Link para o vídeo</label>
                     </div>
 	";
@@ -788,7 +788,7 @@
                 <div class='md-form mb-2'>
                     <p>Adicione seu comentário:</p>
                     <input type='text' id='novo_comentario' name='novo_comentario' class='form-control validate' required></input>
-                    <label data-error='preenchimento incorreto' data-success='preenchimento válido' for='novo_comentario'></label>
+                    <label data-error='inválido' data-success='válido' for='novo_comentario'></label>
                 </div>
             ";
 	} else {
