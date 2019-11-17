@@ -4,10 +4,12 @@
 		$loginpage = false;
 	}
 	
-	$sessionpath = getcwd();
-	$sessionpath .= '/../sessions';
-	session_save_path($sessionpath);
-	session_start();
+	if (!isset($_SESSION['email'])) {
+		$sessionpath = getcwd();
+		$sessionpath .= '/../sessions';
+		session_save_path($sessionpath);
+		session_start();
+	}
 	
 	$servername = "localhost";
 	$username = "grupoubique";
@@ -351,8 +353,9 @@
 		curl_close($curl);
 		return json_decode($return, true);
 	}
-
-	function return_titulo_topico($topico_id) {
+	
+	function return_titulo_topico($topico_id)
+	{
 		$servername = "localhost";
 		$username = "grupoubique";
 		$password = "ubique patriae memor";
@@ -365,17 +368,13 @@
 				$found_topico_nivel = $row_find['nivel'];
 				if ($found_topico_nivel == 1) {
 					$found_topico_titulo = $row_find['nivel1'];
-				}
-				elseif ($found_topico_nivel == 2) {
+				} elseif ($found_topico_nivel == 2) {
 					$found_topico_titulo = $row_find['nivel2'];
-				}
-				elseif ($found_topico_nivel == 3) {
+				} elseif ($found_topico_nivel == 3) {
 					$found_topico_titulo = $row_find['nivel3'];
-				}
-				elseif ($found_topico_nivel == 4) {
+				} elseif ($found_topico_nivel == 4) {
 					$found_topico_titulo = $row_find['nivel4'];
-				}
-				else {
+				} else {
 					$found_topico_titulo = $row_find['nivel5'];
 				}
 			}
@@ -384,7 +383,8 @@
 		return false;
 	}
 	
-	function return_concurso_id_topico($topico_id) {
+	function return_concurso_id_topico($topico_id)
+	{
 		$servername = "localhost";
 		$username = "grupoubique";
 		$password = "ubique patriae memor";
@@ -401,7 +401,8 @@
 		return false;
 	}
 	
-	function return_concurso_sigla($concurso_id) {
+	function return_concurso_sigla($concurso_id)
+	{
 		$servername = "localhost";
 		$username = "grupoubique";
 		$password = "ubique patriae memor";
@@ -418,7 +419,8 @@
 		return false;
 	}
 	
-	function return_concurso_id_materia($materia_id) {
+	function return_concurso_id_materia($materia_id)
+	{
 		$servername = "localhost";
 		$username = "grupoubique";
 		$password = "ubique patriae memor";
@@ -435,4 +437,21 @@
 		return false;
 	}
 
+	function return_apelido_user_id($find_user_id) {
+		$servername = "localhost";
+		$username = "grupoubique";
+		$password = "ubique patriae memor";
+		$dbname = "Ubwiki";
+		$conn = new mysqli($servername, $username, $password, $dbname);
+		mysqli_set_charset($conn, "utf8");
+		$result_find_apelido = $conn->query("SELECT apelido FROM Usuarios WHERE id = $find_user_id");
+		if ($result_find_apelido->num_rows > 0) {
+			while ($row_find_apelido = $result_find_apelido->fetch_assoc()) {
+				$found_apelido = $row_find_apelido['apelido'];
+			}
+			return $found_apelido;
+		}
+		return false;
+	}
+	
 ?>
