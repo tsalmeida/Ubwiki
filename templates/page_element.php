@@ -39,8 +39,8 @@ echo "
             <h1>$template_titulo</h1>
             <span class='h5'>
                 $template_botoes
-								<span id='$template_esconder' class='$template_collapse collapse $show' data-toggle='collapse' data-target='.$template_collapse'><a href='javascript:void(0);'><i class='fal fa-chevron-square-up fa-fw'></i></a></span>
-								<span id='$template_mostrar' class='$template_collapse collapse $hide' data-toggle='collapse' data-target='.$template_collapse'><a href='javascript:void(0);'><i class='fal fa-chevron-square-down fa-fw'></i></a></span>
+								<span id='$template_esconder' class='$template_collapse collapse $show' data-toggle='collapse' data-target='.$template_collapse' title='esconder'><a href='javascript:void(0);'><i class='fal fa-chevron-square-up fa-fw'></i></a></span>
+								<span id='$template_mostrar' class='$template_collapse collapse $hide' data-toggle='collapse' data-target='.$template_collapse' title='mostrar'><a href='javascript:void(0);'><i class='fal fa-chevron-square-down fa-fw'></i></a></span>
                 <span 
             </span>
         </div>
