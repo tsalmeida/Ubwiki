@@ -235,7 +235,7 @@
 						$template_botoes = false;
 						$template_conteudo = false;
 						
-						$query_verbetes = $conn->query("SELECT DISTINCT topico_id FROM Verbetes_arquivo WHERE user_id = $user_id AND topico_id <> 0 ORDER BY id DESC");
+						$query_verbetes = $conn->query("SELECT DISTINCT topico_id FROM Verbetes_arquivo WHERE user_id = $user_id AND topico_id IS NOT NULL ORDER BY id DESC");
 						if ($query_verbetes->num_rows > 0) {
 							$template_conteudo .= "<ul class='list-group'>";
 							while ($row_verbete = $query_verbetes->fetch_assoc()) {
@@ -246,7 +246,7 @@
 							$template_conteudo .= "</ul>";
 						} else {
 							$template_load_invisible = false;
-							$template_conteudo .= "<p>Você ainda não participou na construção de nenhum verbete.</p>";
+							$template_conteudo .= "<p>Você ainda não participou da construção de nenhum verbete.</p>";
 						}
 						if ($query_verbetes->num_rows > 10) {
 							$template_load_invisible = true;
