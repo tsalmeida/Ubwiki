@@ -115,8 +115,8 @@
 						$template_conteudo .= "<li class='list-group-item'><strong>Email:</strong> $user_email</li>";
 						$template_conteudo .= "</ul>";
 						if ($user_apelido != false) {
-						    $template_load_invisible = true;
-                        }
+							$template_load_invisible = true;
+						}
 						
 						include 'templates/page_element.php';
 						
@@ -141,22 +141,24 @@
 								}
 							}
 							$template_conteudo .= "</ul>";
+						} else {
+							$template_load_invisible = true;
+							$template_conteudo .= "<p>Você ainda não acrescentou tópicos à sua lista de leitura.</p>";
 						}
-						else {
-						    $template_load_invisible = true;
-						    $template_conteudo .= "<p>Você ainda não acrescentou tópicos à sua lista de leitura.</p>";
-                        }
-
+						if ($result->num_rows > 10) {
+							$template_load_invisible = true;
+						}
+						
 						include 'templates/page_element.php';
-
+						
 						$template_id = 'lista_leitura_elementos';
 						$template_titulo = 'Lista de leitura: elementos';
 						$template_botoes = false;
 						$template_conteudo = false;
-
-						$template_conteudo .= "<ul class='list-group'>";
+						
 						$result = $conn->query("SELECT elemento_id FROM Bookmarks WHERE user_id = $user_id AND bookmark = 1 AND elemento_id IS NOT NULL AND active = 1 ORDER BY id DESC");
 						if ($result->num_rows > 0) {
+							$template_conteudo .= "<ul class='list-group'>";
 							while ($row = $result->fetch_assoc()) {
 								$elemento_id = $row['elemento_id'];
 								$info_elementos = $conn->query("SELECT titulo FROM Elementos WHERE id = $elemento_id");
@@ -167,11 +169,14 @@
 									}
 								}
 							}
+							$template_conteudo .= "</ul>";
 						} else {
-						    $template_load_invisible = true;
+							$template_load_invisible = true;
 							$template_conteudo .= "<p>Você ainda não acrescentou nenhum elemento de página (imagens, vídeos, referências bibliográficas) à sua lista de leitura.</p>";
 						}
-						$template_conteudo .= "</ul>";
+						if ($result->num_rows > 10) {
+							$template_load_invisible = true;
+						}
 						include 'templates/page_element.php';
 						
 						$template_id = 'lista_comentarios';
@@ -184,12 +189,15 @@
 							while ($row = $result->fetch_assoc()) {
 								$forum_topico_id = $row['topico_id'];
 								$forum_topico_titulo = return_titulo_topico($forum_topico_id);
-                                $template_conteudo .= "<a href='verbete.php?topico_id=$forum_topico_id'><li class='list-group-item list-group-item-action'>$forum_topico_titulo</li></a>";
+								$template_conteudo .= "<a href='verbete.php?topico_id=$forum_topico_id'><li class='list-group-item list-group-item-action'>$forum_topico_titulo</li></a>";
 							}
 							$template_conteudo .= "</ul>";
 						} else {
-						    $template_load_invisible = true;
+							$template_load_invisible = true;
 							$template_conteudo .= "<p>Não há registro de participação sua em fórum de verbete.</p>";
+						}
+						if ($result->num_rows > 10) {
+							$template_load_invisible = true;
 						}
 						include 'templates/page_element.php';
 						
@@ -205,19 +213,46 @@
 								$topico_id = $row['topico_id'];
 								$infotopicos = mysqli_query($conn, "SELECT id, materia_id FROM Topicos WHERE id = $topico_id");
 								while ($row = $infotopicos->fetch_assoc()) {
-								    $completed_topico_id = $row['id'];
-								    $completed_materia_id = $row['materia_id'];
-								    $completed_topico_titulo = return_titulo_topico($completed_topico_id);
+									$completed_topico_id = $row['id'];
+									$completed_materia_id = $row['materia_id'];
+									$completed_topico_titulo = return_titulo_topico($completed_topico_id);
 									$template_conteudo .= "<a href='verbete.php?topico_id=$completed_topico_id' target='_blank'><li class='list-group-item list-group-item-action'>$completed_topico_titulo</li></a>";
 									break;
 								}
 							}
 							$template_conteudo .= "</ul>";
 						} else {
-						    $template_load_invisible = true;
+							$template_load_invisible = true;
 							$template_conteudo .= '<p>Você ainda não marcou nenhum tópico como estudado.</p>';
 						}
+						if ($result->num_rows > 10) {
+							$template_load_invisible = true;
+						}
 						include 'templates/page_element.php';
+						
+						$template_id = 'lista_verbetes';
+						$template_titulo = 'Verbetes escritos';
+						$template_botoes = false;
+						$template_conteudo = false;
+						
+						$query_verbetes = $conn->query("SELECT DISTINCT topico_id FROM Verbetes_arquivo WHERE user_id = $user_id AND topico_id <> 0 ORDER BY id DESC");
+						if ($query_verbetes->num_rows > 0) {
+							$template_conteudo .= "<ul class='list-group'>";
+							while ($row_verbete = $query_verbetes->fetch_assoc()) {
+								$topico_id = $row_verbete['topico_id'];
+								$topico_titulo = return_titulo_topico($topico_id);
+								$template_conteudo .= "<a href='verbete.php?topico_id=$topico_id' target='_blank'><li class='list-group-item list-group-item-action'>$topico_titulo</li></a>";
+							}
+							$template_conteudo .= "</ul>";
+						} else {
+							$template_load_invisible = false;
+							$template_conteudo .= "<p>Você ainda não participou na construção de nenhum verbete.</p>";
+						}
+						if ($query_verbetes->num_rows > 10) {
+							$template_load_invisible = true;
+						}
+						include 'templates/page_element.php';
+					
 					
 					?>
         </div>
