@@ -354,6 +354,12 @@
 		return json_decode($return, true);
 	}
 	
+	function escape_quotes($string) {
+		$output = str_replace('"','\"',$string);
+		$output = str_replace("'","\'",$output);
+		return $output;
+	}
+	
 	function return_titulo_topico($topico_id)
 	{
 		$servername = "localhost";

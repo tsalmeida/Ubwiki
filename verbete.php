@@ -114,6 +114,7 @@
 		$nova_imagem_link = $_POST['nova_imagem_link'];
 		$nova_imagem_link = base64_encode($nova_imagem_link);
 		$nova_imagem_titulo = $_POST['nova_imagem_titulo'];
+		$nova_imagem_titulo = escape_quotes($nova_imagem_titulo);
 		adicionar_imagem($nova_imagem_link, $nova_imagem_titulo, $topico_id, $user_id, 'verbete');
 		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $topico_id, 'topico_imagem')");
 	}
@@ -122,10 +123,13 @@
 	
 	if (isset($_POST['nova_referencia_titulo'])) {
 		$nova_referencia_titulo = $_POST['nova_referencia_titulo'];
+		$nova_referencia_titulo = escape_quotes($nova_referencia_titulo);
 		$nova_referencia_autor = $_POST['nova_referencia_autor'];
+		$nova_referencia_autor = escape_quotes($nova_referencia_autor);
 		$nova_referencia_capitulo = $_POST['nova_referencia_capitulo'];
 		$nova_referencia_ano = $_POST['nova_referencia_ano'];
 		$nova_referencia_link = $_POST['nova_referencia_link'];
+		error_log("SELECT id FROM Elementos WHERE titulo = '$nova_referencia_titulo'");
 		$result = $conn->query("SELECT id FROM Elementos WHERE titulo = '$nova_referencia_titulo'");
 		if ($result->num_rows == 0) {
 			$conn->query("INSERT INTO Elementos (tipo, titulo, autor, capitulo, link, ano, user_id) VALUES ('referencia', '$nova_referencia_titulo', '$nova_referencia_autor', '$nova_referencia_capitulo', '$nova_referencia_link', '$nova_referencia_ano', '$user_id')");
@@ -156,7 +160,9 @@
 			return false;
 		}
 		$novo_video_titulo = $novo_video_data['title'];
+		$novo_video_titulo = escape_quotes($novo_video_titulo);
 		$novo_video_autor = $novo_video_data['author_name'];
+		$novo_video_autor = escape_quotes($novo_video_autor);
 		$novo_video_thumbnail = $novo_video_data['thumbnail_url'];
 		$novo_video_iframe = $novo_video_data['html'];
 		$novo_video_iframe = base64_encode($novo_video_iframe);
