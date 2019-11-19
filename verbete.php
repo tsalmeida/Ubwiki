@@ -11,8 +11,6 @@
 
 	$nao_contar = false;
 
-	// set concurso_id e concurso_sigla
-
 	$result = $conn->query("SELECT materia_id, nivel, ordem, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Topicos WHERE concurso_id = '$concurso_id' AND id = $topico_id");
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
@@ -44,72 +42,7 @@
 			$materia_titulo = $row["titulo"];
 		}
 	}
-
-	// VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE
-
-	$verbete_exists = false;
-	$result = $conn->query("SELECT verbete_content, id FROM Textos WHERE page_id = $topico_id AND tipo = 'verbete'");
-	if ($result->num_rows > 0) {
-		while ($row = $result->fetch_assoc()) {
-			$verbete_content = $row['verbete_content'];
-			$texto_id = $row['id'];
-			$verbete_exists = true;
-		}
-		if (isset($_POST['quill_novo_verbete_html'])) {
-			$novo_verbete_html = $_POST['quill_novo_verbete_html'];
-			$novo_verbete_text = $_POST['quill_novo_verbete_text'];
-			$novo_verbete_content = $_POST['quill_novo_verbete_content'];
-			$novo_verbete_html = strip_tags($novo_verbete_html, '<p><li><ul><ol><h2><h3><blockquote><em><sup>');
-			$result = $conn->query("SELECT id FROM Textos WHERE page_id = $topico_id AND tipo = 'verbete'");
-			if ($verbete_exists == true) {
-				$conn->query("UPDATE Textos SET verbete_html = '$novo_verbete_html', verbete_text = '$novo_verbete_text', verbete_content = '$novo_verbete_content' WHERE id = $texto_id");
-				$conn->query("INSERT INTO Textos_arquivo (tipo, page_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('verbete', $topico_id, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
-			} else {
-				$conn->query("INSERT INTO Textos (tipo, page_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('verbete', $topico_id, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
-				$conn->query("INSERT INTO Textos_arquivo (page_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('verbete' , $topico_id, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
-			}
-			$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $topico_id, 'verbete_mudanca')");
-			$verbete_content = $novo_verbete_content;
-			$nao_contar = true;
-		}
-		if ($verbete_content != false) {
-			$verbete_content = urldecode($verbete_content);
-		}
-	} else {
-		$verbete_content = false;
-	}
-
-	// ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO
-
-
-	$result = $conn->query("SELECT verbete_content FROM Textos WHERE page_id = $topico_id AND user_id = $user_id AND tipo = 'anotacao'");
-	if ($result->num_rows > 0) {
-		while ($row = $result->fetch_assoc()) {
-			$anotacoes_content = $row['anotacao_content'];
-		}
-	} else {
-		$anotacoes_content = '';
-	}
-
-	if (isset($_POST['quill_novo_anotacoes_html'])) {
-		$novo_anotacoes_html = $_POST['quill_novo_anotacoes_html'];
-		$novo_anotacoes_text = $_POST['quill_novo_anotacoes_text'];
-		$novo_anotacoes_content = $_POST['quill_novo_anotacoes_content'];
-		$novo_anotacoes_html = strip_tags($novo_anotacoes_html, '<p><li><ul><ol><h2><h3><blockquote><em><sup><b>');
-		$result = $conn->query("SELECT id FROM Textos WHERE page_id = $topico_id AND user_id = $user_id AND tipo = 'anotacao'");
-		if ($result->num_rows > 0) {
-			$conn->query("UPDATE Textos SET anotacao_html = '$novo_anotacoes_html', anotacao_text = '$novo_anotacoes_text', anotacao_content = '$novo_anotacoes_content', user_id = $user_id, tipo = 'anotacao' WHERE page_id = $topico_id AND tipo = 'anotacao'");
-			$conn->query("INSERT INTO Textos_arquivo (tipo, page_id, anotacao_html, anotacao_text, anotacao_content, user_id) VALUES ('anotacao', $topico_id, '$novo_anotacoes_html', '$novo_anotacoes_text', '$novo_anotacoes_content', $user_id");
-		} else {
-			$conn->query("INSERT INTO Textos (tipo, page_id, anotacao_html, anotacao_text, anotacao_content, user_id) VALUES ('anotacao', $topico_id, '$novo_anotacoes_html', '$novo_anotacoes_text', '$novo_anotacoes_content', $user_id)");
-			$conn->query("INSERT INTO Textos_arquivo (tipo, page_id, anotacao_html, anotacao_text, anotacao_content, user_id) VALUES ('anotacao', $topico_id, '$novo_anotacoes_html', '$novo_anotacoes_text', '$novo_anotacoes_content', $user_id)");
-		}
-		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $topico_id, 'verbete_anotacao')");
-		$anotacoes_content = $novo_anotacoes_content;
-		$nao_contar = true;
-	}
-
-	$anotacoes_content = urldecode($anotacoes_content);
+	
 
 	// IMAGEM IMAGEM IMAGEM IMAGEM IMAGEM IMAGEM IMAGEM IMAGEM IMAGEM IMAGEM IMAGEM IMAGEM
 
