@@ -84,7 +84,9 @@
 	
 	if (isset($_POST[$quill_trigger_button])) {
 		$novo_verbete_html = $_POST[$quill_novo_verbete_html];
+		$novo_verbete_html = escape_quotes($novo_verbete_html);
 		$novo_verbete_text = $_POST[$quill_novo_verbete_text];
+		$novo_verbete_text = escape_quotes($novo_verbete_text);
 		$novo_verbete_content = $_POST[$quill_novo_verbete_content];
 		$novo_verbete_content = escape_quotes($novo_verbete_content);
 		$novo_verbete_html = strip_tags($novo_verbete_html, '<p><li><ul><ol><h2><h3><blockquote><em><sup><img><u><b>');
