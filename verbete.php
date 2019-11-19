@@ -483,7 +483,7 @@
 						$template_botoes = "<a data-toggle='modal' data-target='#modal_referencia_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>";
 						$template_conteudo = false;
 
-						$result = $conn->query("SELECT elemento_id FROM Verbetes_elementos WHERE topico_id = $topico_id AND tipo = 'referencia'");
+						$result = $conn->query("SELECT elemento_id FROM Verbetes_elementos WHERE topico_id = $topico_id AND tipo = 'referencia' SORT BY id");
 						if ($result->num_rows > 0) {
 							$template_conteudo .= "<ul class='list-group'>";
 							while ($row = $result->fetch_assoc()) {
