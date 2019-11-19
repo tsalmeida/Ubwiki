@@ -63,8 +63,10 @@
 		$nova_referencia_autor = $_POST['nova_referencia_autor'];
 		$nova_referencia_autor = escape_quotes($nova_referencia_autor);
 		$nova_referencia_capitulo = $_POST['nova_referencia_capitulo'];
+		$nova_referencia_capitulo = escape_quotes($nova_referencia_capitulo);
 		$nova_referencia_ano = $_POST['nova_referencia_ano'];
 		$nova_referencia_link = $_POST['nova_referencia_link'];
+		$nova_referencia_link = escape_quotes($nova_referencia_link);
 		error_log("SELECT id FROM Elementos WHERE titulo = '$nova_referencia_titulo'");
 		$result = $conn->query("SELECT id FROM Elementos WHERE titulo = '$nova_referencia_titulo'");
 		if ($result->num_rows == 0) {
