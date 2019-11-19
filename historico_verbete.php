@@ -75,7 +75,7 @@
         <div id='coluna_direita' class='col-lg-5 col-sm-12 anotacoes_collapse collapse show'>
 					<?php
 						if ($visualizar_historico_id != false) {
-							$result = $conn->query("SELECT verbete_html FROM Verbetes_arquivo WHERE id = $visualizar_historico_id");
+							$result = $conn->query("SELECT verbete_html FROM Textos_arquivo WHERE id = $visualizar_historico_id");
 							if ($result->num_rows > 0) {
 								while ($row = $result->fetch_assoc()) {
 									$verbete_html = $row['verbete_html'];
