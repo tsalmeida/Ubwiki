@@ -86,6 +86,7 @@
 		$novo_verbete_html = $_POST[$quill_novo_verbete_html];
 		$novo_verbete_text = $_POST[$quill_novo_verbete_text];
 		$novo_verbete_content = $_POST[$quill_novo_verbete_content];
+		$novo_verbete_content = escape_quotes($novo_verbete_content);
 		$novo_verbete_html = strip_tags($novo_verbete_html, '<p><li><ul><ol><h2><h3><blockquote><em><sup><img><u><b>');
 		if ($template_quill_public == true) {
 			$result = $conn->query("SELECT id FROM Textos WHERE page_id = $template_quill_page_id AND tipo = '$template_id'");
