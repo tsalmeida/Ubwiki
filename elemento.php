@@ -390,7 +390,7 @@
 		$verbete_vazio = true;
 	}
 	include 'templates/html_bottom.php';
-	include 'templates/sticky_anotacoes.html';
+	include 'templates/esconder_anotacoes.html';
 	include 'templates/bookmarks.php';
 	include 'templates/lock_unlock_quill.php';
 	include 'templates/footer.html';

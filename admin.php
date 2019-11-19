@@ -228,7 +228,7 @@
 	include 'templates/footer.html';
 	$template_sem_verbete = true;
 	include 'templates/html_bottom.php';
-	include 'templates/sticky_anotacoes.html';
+	include 'templates/esconder_anotacoes.html';
 	include 'templates/lock_unlock_quill.php';
 ?>
 </html>

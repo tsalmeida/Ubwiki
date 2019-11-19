@@ -42,7 +42,7 @@
 			$materia_titulo = $row["titulo"];
 		}
 	}
-	
+
 
 	// IMAGEM IMAGEM IMAGEM IMAGEM IMAGEM IMAGEM IMAGEM IMAGEM IMAGEM IMAGEM IMAGEM IMAGEM
 
@@ -404,23 +404,11 @@
 
 						$template_id = 'verbete';
 						$template_titulo = 'Verbete';
+						$template_quill_empty_content = "<p id='verbete_vazio_{$template_id}'>Seja o primeiro a contribuir para a construção deste verbete.</p>";
 						$template_botoes = "
-						<a href='historico_verbete.php?topico_id=$topico_id' target='_blank'><i class='fal fa-history fa-fw'></i></a>
-                <span class='verbete_editor_collapse collapse' id='travar_verbete' data-toggle='collapse'
-                      data-target='.verbete_editor_collapse' title='travar para edição'><a
-                            href='javascript:void(0);'><i class='fal fa-lock-open-alt fa-fw'></i></a></span>
-                <span class='verbete_editor_collapse collapse show' id='destravar_verbete' data-toggle='collapse'
-                      data-target='.verbete_editor_collapse' title='permitir edição'><a
-                            href='javascript:void(0);'><i class='fal fa-lock-alt fa-fw'></i></a></span>
-                        ";
-						$template_conteudo = false;
-
-						$template_quill_unique_name = 'verbete';
-						$template_quill_initial_state = 'leitura';
-						$template_quill_page_id = $topico_id;
-                        $template_quill_empty_content = "<p id='verbete_vazio'>Seja o primeiro a contribuir para a construção deste verbete.</p>";
-                        
-						$template_conteudo .= include 'templates/quill_form.php';
+											    <a href='historico_verbete.php?topico_id=$topico_id' target='_blank'><i class='fal fa-history fa-fw'></i></a>
+											";
+						$template_conteudo = include 'templates/quill_form.php';
 						include 'templates/page_element.php';
 
 						//VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS
@@ -600,24 +588,11 @@
         <div id='coluna_direita' class='col-lg-5 col-sm-12 anotacoes_collapse collapse show'>
 
 					<?php
-						$template_id = 'sticky_anotacoes';
+						$template_id = 'anotacoes';
 						$template_titulo = 'Anotações privadas';
-						$template_botoes = "<span class='anotacoes_editor_collapse collapse show' id='travar_anotacao' data-toggle='collapse'
-                      data-target='.anotacoes_editor_collapse' title='travar para edição'><a
-                            href='javascript:void(0);'><i class='fal fa-lock-open-alt fa-fw'></i></a></span>
-                <span class='anotacoes_editor_collapse collapse' id='destravar_anotacao' data-toggle='collapse'
-                      data-target='.anotacoes_editor_collapse' title='permitir edição'><a
-                            href='javascript:void(0);'><i class='fal fa-lock-alt fa-fw'></i></a></span>";
-
-						$template_quill_unique_name = 'anotacoes';
-						$template_quill_initial_state = 'edicao';
-						$template_quill_tipo = 'anotacoes';
-
 						$template_conteudo = include 'templates/quill_form.php';
 						include 'templates/page_element.php';
-
 					?>
-
         </div>
     </div>
     <button id='mostrar_coluna_direita' class='btn btn-md elegant-color text-white p-2 m-1' tabindex='-1'><i
@@ -748,15 +723,11 @@
 </body>
 <?php
 	include 'templates/footer.html';
-	if ($verbete_content == false) {
-		$verbete_vazio = true;
-	}
 	include 'templates/html_bottom.php';
-	include 'templates/sticky_anotacoes.html';
+	include 'templates/esconder_anotacoes.html';
 	include 'templates/bookmarks.php';
 	include 'templates/completed.php';
 	include 'templates/carousel.html';
-	include 'templates/lock_unlock_quill.php';
 ?>
 
 </html>

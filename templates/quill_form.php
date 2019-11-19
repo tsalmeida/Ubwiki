@@ -1,5 +1,5 @@
 <?php
-	
+
 	// para criar uma nova instance do quill, as seguintes variáveis devem ser set:
 	// $template_quill_unique_name (se nenhum, nome será 'general')
 	// $template_quill_initial_state ('edicao' ou 'leitura')
@@ -7,12 +7,23 @@
 	// $template_quill_empty_content (em anotações, não é necessário)
 	// $quill_visualizacoes_tipo (para a tabela de visualizacoes, registra que o usuário mudou o texto desse elemento)
 	// $template_quill_public (boolean, determina se o query buscará o id do usuario ou não, default é true)
-	
+
+	if (!isset($template_quill_tipo)) {
+		if ($template_id == 'anotacoes') {
+			$template_quill_tipo = 'anotacao';
+		} else {
+			$template_quill_tipo = 'verbete';
+		}
+	}
 	if (!isset($template_quill_empty_content)) {
 		$template_quill_empty_content = false;
 	}
 	if (!isset($template_quill_unique_name)) {
-		$template_quill_unique_name = 'general';
+		if (isset($template_id)) {
+			$template_quill_unique_name = $template_id;
+		} else {
+			$template_quill_unique_name = 'general';
+		}
 	}
 	$template_quill_toolbar_and_whitelist = 'general';
 	if ($template_quill_unique_name == 'anotacoes') {
@@ -20,17 +31,19 @@
 	}
 	$template_quill_whitelist = "formatWhitelist_{$template_quill_toolbar_and_whitelist}";
 	$template_quill_toolbar = "toolbarOptions_{$template_quill_toolbar_and_whitelist}";
-	
+
 	if (!isset($template_quill_initial_state)) {
-		$template_quill_initial_state = 'edicao';
+		if ($template_quill_tipo == 'anotacao') {
+			$template_quill_initial_state = 'edicao';
+		} else {
+			$template_quill_initial_state = 'leitura';
+		}
 	}
-	
+
 	if ($template_quill_initial_state == 'edicao') {
 		$template_quill_editor_classes = 'quill_editor_height quill_editor_height_leitura';
-		$template_quill_collapse = 'collapse show';
 	} else {
 		$template_quill_editor_classes = 'quill_editor_height';
-		$template_quill_collapse = 'collapse';
 	}
 	if (!isset($template_quill_page_id)) {
 		if (isset($topico_id)) {
@@ -42,9 +55,6 @@
 			// nesse caso, o $template_quill_tipo deve ser determinado. Será 'admin' ou 'userpage'.
 		}
 	}
-	if (!isset($template_quill_tipo)) {
-		$template_quill_tipo = 'verbete';
-	}
 	if (!isset($quill_visualizacoes_tipo)) {
 		$quill_visualizacoes_tipo = 'verbete_mudanca';
 	}
@@ -52,13 +62,16 @@
 	$quill_novo_verbete_text = "quill_novo_{$template_quill_unique_name}_text";
 	$quill_novo_verbete_content = "quill_novo_{$template_quill_unique_name}_content";
 	$quill_trigger_button = "quill_trigger_{$template_quill_unique_name}";
-	
+
 	$verbete_exists = false; // essa variável muda se é encontrado conteúdo prévio.
-	
+
 	if (!isset($template_quill_public)) {
 		$template_quill_public = true;
 	}
-	
+	if (!isset($template_botoes)) {
+		$template_botoes = false;
+	}
+
 	if ($template_quill_public == true) {
 		$result = $conn->query("SELECT verbete_content, id FROM Textos WHERE page_id = $template_quill_page_id AND tipo = '$template_quill_tipo'");
 	} else {
@@ -75,7 +88,12 @@
 			$quill_verbete_content = urldecode($quill_verbete_content);
 		}
 	}
-	
+	else {
+		if ($template_quill_tipo == 'verbete') {
+			$template_vazio = true;
+		}
+	}
+
 	if (isset($_POST[$quill_trigger_button])) {
 		$novo_verbete_html = $_POST[$quill_novo_verbete_html];
 		$novo_verbete_text = $_POST[$quill_novo_verbete_text];
@@ -83,8 +101,7 @@
 		$novo_verbete_html = strip_tags($novo_verbete_html, '<p><li><ul><ol><h2><h3><blockquote><em><sup><img><u><b>');
 		if ($template_quill_public == true) {
 			$result = $conn->query("SELECT id FROM Textos WHERE page_id = $template_quill_page_id AND tipo = '$template_quill_tipo'");
-		}
-		else {
+		} else {
 			$result = $conn->query("SELECT id FROM Textos WHERE page_id = $template_quill_page_id AND tipo = '$template_quill_tipo' AND user_id = $user_id");
 		}
 		if ($verbete_exists == true) {
@@ -95,12 +112,25 @@
 			$conn->query("INSERT INTO Textos_arquivo (tipo, page_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('$template_quill_tipo' , $template_quill_page_id, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
 		}
 		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $template_quill_page_id, '$quill_visualizacoes_tipo')");
-		$quill_verbete_content = urlencode($novo_verbete_content);
+		$quill_verbete_content = urldecode($novo_verbete_content);
 		$nao_contar = true;
 	}
-	
+
 	$quill_result = false;
-	
+
+	if ($quill_verbete_content == false) {
+		$quill_result .= $template_quill_empty_content;
+	}
+
+	$template_botoes .= "
+		<span id='travar_{$template_quill_unique_name}' title='travar para edição'>
+			<a href='javascript:void(0);'><i class='fal fa-lock-open-alt fa-fw'></i></a>
+  	</span>
+    <span id='destravar_{$template_quill_unique_name}' title='permitir edição'>
+    	<a href='javascript:void(0);'><i class='fal fa-lock-alt fa-fw'></i></a>
+  	</span>
+	";
+
 	$quill_result .= "
     <form id='quill_{$template_quill_unique_name}_form' method='post'>
         <input name='$quill_novo_verbete_html' type='hidden'>
@@ -114,15 +144,16 @@
                 </div>
             </div>
         </div>
-        <div class='row justify-content-center {$template_quill_unique_name}_editor_collapse $template_quill_collapse mt-3'>
-        		<button type='button' class='btn btn-light btn-md'>
+        <div id='botoes_salvar_{$template_quill_unique_name}' class='row justify-content-center mt-3'>
+        		<button type='button' class='btn btn-light btn-sm'>
         			<i class='fal fa-times-circle fa-fw'></i> Cancelar
             </button>
-            <button type='submit' class='btn btn-primary btn-md' name='$quill_trigger_button'>
+            <button type='submit' class='btn btn-primary btn-sm' name='$quill_trigger_button'>
             	<i class='fal fa-check fa-fw'></i> Salvar
             </button>
         </div>
-    </form>
+    </form>";
+	$quill_result .= "
     <script>
     var {$template_quill_unique_name}_editor = new Quill('#quill_editor_{$template_quill_unique_name}', {
         theme: 'snow',
@@ -136,7 +167,6 @@
             }
         }
     });
-
 
     var form_{$template_quill_unique_name} = document.querySelector('#quill_{$template_quill_unique_name}_form');
     form_{$template_quill_unique_name}.onsubmit = function () {
@@ -152,18 +182,54 @@
         quill_{$template_quill_unique_name}_content = encodeURI(quill_{$template_quill_unique_name}_content);
         quill_novo_{$template_quill_unique_name}_content.value = quill_{$template_quill_unique_name}_content;
     };
-    
+
 	  {$template_quill_unique_name}_editor.setContents($quill_verbete_content);
+
+	  $('#travar_{$template_quill_unique_name}').click(function () {
+        {$template_quill_unique_name}_editor.disable();
+        $('#travar_{$template_quill_unique_name}').hide();
+        $('#destravar_{$template_quill_unique_name}').show();
+        $('#quill_container_{$template_quill_unique_name}').children(':first').hide();
+        $('#botoes_salvar_{$template_quill_unique_name}').hide();
+        $('#quill_editor_{$template_quill_unique_name}').children(':first').removeClass('ql-editor-active');
+        $('#verbete_vazio_{$template_id}').show();
+    });
+    $('#destravar_{$template_quill_unique_name}').click(function () {
+        {$template_quill_unique_name}_editor.enable();
+        $('#travar_{$template_quill_unique_name}').show();
+        $('#destravar_{$template_quill_unique_name}').hide();
+        $('#quill_container_{$template_quill_unique_name}').children(':first').show();
+        $('#botoes_salvar_{$template_quill_unique_name}').show();
+        $('#quill_editor_{$template_quill_unique_name}').children(':first').addClass('ql-editor-active');
+        $('#verbete_vazio_{$template_id}').hide();
+    });
+
 	</script>
 	";
-	
-	if ($template_quill_initial_state != 'edicao') {
+
+	if ($template_quill_initial_state == 'leitura') {
 		$quill_result .= "
 			<script type='text/javascript'>
+				$('#destravar_{$template_quill_unique_name}').show();
+				$('#travar_{$template_quill_unique_name}').hide();
+				$('#quill_container_{$template_quill_unique_name}').removeClass('ql-editor-active');
+        $('#quill_container_{$template_quill_unique_name}').children(':first').hide();
+        $('#botoes_salvar_{$template_quill_unique_name}').hide();
 				{$template_quill_unique_name}_editor.disable();
 			</script>";
 	}
-	
+	elseif ($template_quill_initial_state == 'edicao') {
+		$quill_result .= "
+			<script type='text/javascript'>
+				$('#destravar_{$template_quill_unique_name}').hide();
+				$('#travar_{$template_quill_unique_name}').show();
+				$('#quill_editor_{$template_quill_unique_name}').children(':first').addClass('ql-editor-active');
+        $('#quill_container_{$template_quill_unique_name}').children(':first').show();
+        $('#botoes_salvar_{$template_quill_unique_name}').show();
+				{$template_quill_unique_name}_editor.enable();
+			</script>";
+	}
+
 	unset($template_quill_unique_name);
 	unset($template_quill_initial_state);
 	unset($template_quill_editor_classes);
@@ -173,5 +239,6 @@
 	unset($quill_visualizacoes_tipo);
 	unset($quill_verbete_content);
 	unset($template_quill_public);
-	
+	unset($template_quill_empty_content);
+
 	return $quill_result;
