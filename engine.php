@@ -329,7 +329,10 @@
 			if ($result2->num_rows > 0) {
 				while ($row = $result2->fetch_assoc()) {
 					$nova_imagem_id = $row['id'];
-					$conn->query("INSERT INTO Verbetes_elementos ($contexto_column, elemento_id, tipo, user_id) VALUES ($page_id, $nova_imagem_id, 'imagem', $user_id)");
+					$result3 = $conn->query("SELECT id FROM Verbetes_elementos WHERE elemento_id = $nova_imagem_id");
+					if ($result3->num_rows == 0) {
+						$conn->query("INSERT INTO Verbetes_elementos ($contexto_column, elemento_id, tipo, user_id) VALUES ($page_id, $nova_imagem_id, 'imagem', $user_id)");
+					}
 					break;
 				}
 			}
@@ -354,9 +357,10 @@
 		return json_decode($return, true);
 	}
 	
-	function escape_quotes($string) {
-		$output = str_replace('"','\"',$string);
-		$output = str_replace("'","\'",$output);
+	function escape_quotes($string)
+	{
+		$output = str_replace('"', '\"', $string);
+		$output = str_replace("'", "\'", $output);
 		return $output;
 	}
 	
@@ -442,8 +446,9 @@
 		}
 		return false;
 	}
-
-	function return_apelido_user_id($find_user_id) {
+	
+	function return_apelido_user_id($find_user_id)
+	{
 		$servername = "localhost";
 		$username = "grupoubique";
 		$password = "ubique patriae memor";
@@ -459,5 +464,5 @@
 		}
 		return false;
 	}
-	
+
 ?>
