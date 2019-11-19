@@ -1,13 +1,13 @@
 <?php
-	
+
 	include 'engine.php';
-	
+
 	if (isset($_GET['id'])) {
 		$elemento_id = $_GET['id'];
 	}
-	
+
 	$nao_contar = false;
-	
+
 	if (isset($_POST['submit_elemento_dados'])) {
 		$elemento_mudanca_estado = 0;
 		if (isset($_POST['elemento_mudanca_estado'])) {
@@ -29,7 +29,7 @@
 		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $elemento_id, 'elemento_dados')");
 		$nao_contar = true;
 	}
-	
+
 	$result = $conn->query("SELECT estado, criacao, tipo, titulo, autor, capitulo, ano, link, iframe, arquivo, resolucao, orientacao, comentario, trecho, user_id FROM Elementos WHERE id = $elemento_id");
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
@@ -55,7 +55,7 @@
 			break;
 		}
 	}
-	
+
 	$elemento_bookmark = false;
 	$bookmark = $conn->query("SELECT bookmark FROM Bookmarks WHERE user_id = $user_id AND elemento_id = $elemento_id AND active = 1");
 	if ($bookmark->num_rows > 0) {
@@ -64,79 +64,16 @@
 			break;
 		}
 	}
-	
-	// VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE
-	
-	$result = $conn->query("SELECT verbete_content, user_id FROM Verbetes WHERE elemento_id = $elemento_id");
-	if ($result->num_rows > 0) {
-		while ($row = $result->fetch_assoc()) {
-			$verbete_content = $row['verbete_content'];
-		}
-	} else {
-		$verbete_content = false;
-	}
-	
-	if (isset($_POST['quill_novo_verbete_html'])) {
-		$novo_verbete_html = $_POST['quill_novo_verbete_html'];
-		$novo_verbete_text = $_POST['quill_novo_verbete_text'];
-		$novo_verbete_content = $_POST['quill_novo_verbete_content'];
-		$novo_verbete_html = strip_tags($novo_verbete_html, '<p><li><ul><ol><h2><h3><blockquote><em><sup>');
-		$result = $conn->query("SELECT id FROM Verbetes WHERE elemento_id = $elemento_id");
-		if ($result->num_rows > 0) {
-			$result = $conn->query("UPDATE Verbetes SET verbete_html = '$novo_verbete_html', verbete_text = '$novo_verbete_text', verbete_content = '$novo_verbete_content', user_id = '$user_id' WHERE elemento_id = $elemento_id");
-			$result = $conn->query("INSERT INTO Verbetes_arquivo (elemento_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('$elemento_id', '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', '$user_id')");
-		} else {
-			$result = $conn->query("INSERT INTO Verbetes (elemento_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('$elemento_id', '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', '$user_id')");
-			$result = $conn->query("INSERT INTO Verbetes_arquivo (elemento_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('$elemento_id', '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', '$user_id')");
-		}
-		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $elemento_id, 'elemento_verbete')");
-		$verbete_content = $novo_verbete_content;
-		$nao_contar = true;
-	}
-	if ($verbete_content != false) {
-		$verbete_content = urldecode($verbete_content);
-	}
-	
-	// ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO
-	
-	$result = $conn->query("SELECT anotacao_content FROM Anotacoes WHERE elemento_id = $elemento_id AND user_id = $user_id");
-	if ($result->num_rows > 0) {
-		while ($row = $result->fetch_assoc()) {
-			$anotacoes_content = $row['anotacao_content'];
-		}
-	} else {
-		$anotacoes_content = '';
-	}
-	
-	if (isset($_POST['quill_novo_anotacoes_html'])) {
-		$novo_anotacoes_html = $_POST['quill_novo_anotacoes_html'];
-		$novo_anotacoes_text = $_POST['quill_novo_anotacoes_text'];
-		$novo_anotacoes_content = $_POST['quill_novo_anotacoes_content'];
-		$novo_anotacoes_html = strip_tags($novo_anotacoes_html, '<p><li><ul><ol><h2><h3><blockquote><em><sup>');
-		$result = $conn->query("SELECT id FROM Anotacoes WHERE elemento_id = $elemento_id AND user_id = $user_id");
-		if ($result->num_rows > 0) {
-			$result = $conn->query("UPDATE Anotacoes SET anotacao_html = '$novo_anotacoes_html', anotacao_text = '$novo_anotacoes_text', anotacao_content = '$novo_anotacoes_content', user_id = '$user_id' WHERE elemento_id = $elemento_id");
-			$result = $conn->query("INSERT INTO Anotacoes_arquivo (elemento_id, anotacao_html, anotacao_text, anotacao_content, user_id) VALUES ('$elemento_id', '$novo_anotacoes_html', '$novo_anotacoes_text', '$novo_anotacoes_content', '$user_id')");
-		} else {
-			$result = $conn->query("INSERT INTO Anotacoes (elemento_id, anotacao_html, anotacao_text, anotacao_content, user_id) VALUES ('$elemento_id', '$novo_anotacoes_html', '$novo_anotacoes_text', '$novo_anotacoes_content', '$user_id')");
-			$result = $conn->query("INSERT INTO Anotacoes_arquivo (elemento_id, anotacao_html, anotacao_text, anotacao_content, user_id) VALUES ('$elemento_id', '$novo_anotacoes_html', '$novo_anotacoes_text', '$novo_anotacoes_content', '$user_id')");
-		}
-		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $elemento_id, 'elemento_anotacoes')");
-		$anotacoes_content = $novo_anotacoes_content;
-		$nao_contar = true;
-	}
-	
-	$anotacoes_content = urldecode($anotacoes_content);
-	
+
 	// FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM
-	
+
 	if (isset($_POST['novo_comentario'])) {
 		$novo_comentario = $_POST['novo_comentario'];
 		$insert = $conn->query("INSERT INTO Forum (user_id, elemento_id, comentario)  VALUES ($user_id, $elemento_id, '$novo_comentario')");
 		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $elemento_id, 'elemento_forum')");
 		$nao_contar = true;
 	}
-	
+
 	$html_head_template_quill = true;
 	$html_head_template_conteudo = "
         <script type='text/javascript'>
@@ -207,13 +144,13 @@
 							$template_conteudo_class = 'text-center';
 							include 'templates/page_element.php';
 						}
-						
+
 						if ($estado_elemento == true) {
 							$estado_elemento_visivel = 'publicado';
 						} else {
 							$estado_elemento_visivel = 'removido';
 						}
-						
+
 						$dados_elemento = false;
 						$dados_elemento .= "<ul class='list-group'>";
 						$dados_elemento .= "<li class='list-group-item'><strong>Criado em:</strong> $criacao_elemento</li>";
@@ -235,7 +172,7 @@
 						}
 						$dados_elemento .= "<li class='list-group-item'>Adicionado pelo usuário <strong>$user_apelido_elemento</strong></li>";
 						$dados_elemento .= "</ul>";
-						
+
 						$template_id = 'dados_elemento_div';
 						$template_titulo = 'Dados';
 						$template_botoes = "
@@ -248,53 +185,27 @@
 							$template_load_invisible = true;
 						}
 						include 'templates/page_element.php';
-						
+
 						//VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE
-						
+
 						$template_id = 'verbete';
 						$template_titulo = 'Verbete';
-						$template_botoes = "
-<a href='historico_verbete.php?elemento=$elemento_id' target='_blank'><i class='fal fa-history fa-fw'></i></a>
-<span class='verbete_editor_collapse collapse' id='travar_verbete' data-toggle='collapse'
-      data-target='.verbete_editor_collapse' title='travar para edição'><a
-            href='javascript:void(0);'><i class='fal fa-lock-open-alt fa-fw'></i></a></span>
-<span class='verbete_editor_collapse collapse show' id='destravar_verbete' data-toggle='collapse'
-      data-target='.verbete_editor_collapse' title='permitir edição'><a
-            href='javascript:void(0);'><i class='fal fa-lock-alt fa-fw'></i></a></span>
-        ";
-						$template_conteudo = false;
-						
-						$template_quill_unique_name = 'verbete';
-						$template_quill_initial_state = 'leitura';
-						$template_quill_conteudo = $verbete_content;
-						
-						if ($verbete_content == false) {
-							$template_conteudo .= "<p id='verbete_vazio'>Seja o primeiro a escrever sobre este elemento.</p>";
-						}
-						$template_conteudo .= include 'templates/quill_form.php';
+						$template_quill_empty_content = "<p id='verbete_vazio_{$template_id}'>Seja o primeiro a contribuir para a construção deste verbete.</p>";
+						$template_botoes = false;
+						$template_conteudo = include 'templates/quill_form.php';
 						include 'templates/page_element.php';
-					
+
 					?>
         </div>
         <div id='coluna_direita' class='col-lg-5 col-sm-12 anotacoes_collapse collapse show'>
-					
+
 					<?php
-						$template_id = 'sticky_anotacoes';
+
+						$template_id = 'anotacoes';
 						$template_titulo = 'Anotações privadas';
-						$template_botoes = "<span class='anotacoes_editor_collapse collapse show' id='travar_anotacao' data-toggle='collapse'
-                      data-target='.anotacoes_editor_collapse' title='travar para edição'><a
-                            href='javascript:void(0);'><i class='fal fa-lock-open-alt fa-fw'></i></a></span>
-                <span class='anotacoes_editor_collapse collapse' id='destravar_anotacao' data-toggle='collapse'
-                      data-target='.anotacoes_editor_collapse' title='permitir edição'><a
-                            href='javascript:void(0);'><i class='fal fa-lock-alt fa-fw'></i></a></span>";
-						
-						$template_quill_unique_name = 'anotacoes';
-						$template_quill_initial_state = 'edicao';
-						$template_quill_conteudo = $anotacoes_content;
-						
 						$template_conteudo = include 'templates/quill_form.php';
 						include 'templates/page_element.php';
-					
+
 					?>
 
         </div>
@@ -308,7 +219,7 @@
 	$template_modal_div_id = 'modal_elemento_form';
 	$template_modal_titulo = 'Alterar dados do elemento';
 	$template_modal_body_conteudo = false;
-	
+
 	$estado_elemento_checkbox = false;
 	if ($estado_elemento == true) {
 		$estado_elemento_checkbox = 'checked';
@@ -317,35 +228,35 @@
 	$template_modal_body_conteudo .= "<input type='checkbox' class='form-check-input' id='elemento_mudanca_estado' name='elemento_mudanca_estado' $estado_elemento_checkbox>";
 	$template_modal_body_conteudo .= "<label class='form-check-label' for='elemento_mudanca_estado'>Adequado para publicação</label>";
 	$template_modal_body_conteudo .= "</div>";
-	
+
 	$template_modal_body_conteudo .= "<div class='md-form mb-2'>";
 	$template_modal_body_conteudo .= "<input type='text' id='elemento_novo_titulo' name='elemento_novo_titulo' class='form-control' value='$titulo_elemento'>";
 	$template_modal_body_conteudo .= "<label for='elemento_novo_titulo'>Título</label>";
 	$template_modal_body_conteudo .= "</div>";
-	
+
 	$template_modal_body_conteudo .= "<div class='md-form mb-2'>";
 	$template_modal_body_conteudo .= "<input type='text' id='elemento_novo_autor' name='elemento_novo_autor' class='form-control' value='$autor_elemento'>";
 	$template_modal_body_conteudo .= "<label for='elemento_novo_autor'>Autor</label>";
 	$template_modal_body_conteudo .= "</div>";
-	
+
 	$template_modal_body_conteudo .= "<div class='md-form mb-2'>";
 	$template_modal_body_conteudo .= "<input type='text' id='elemento_novo_capitulo' name='elemento_novo_capitulo' class='form-control' value='$capitulo_elemento'>";
 	$template_modal_body_conteudo .= "<label for='elemento_novo_capitulo'>Capítulo</label>";
 	$template_modal_body_conteudo .= "</div>";
-	
+
 	$template_modal_body_conteudo .= "<div class='md-form mb-2'>";
 	$template_modal_body_conteudo .= "<input type='number' id='elemento_novo_ano' name='elemento_novo_ano' class='form-control' value='$ano_elemento'>";
 	$template_modal_body_conteudo .= "<label for='elemento_novo_ano'>Ano</label>";
 	$template_modal_body_conteudo .= "</div>";
-	
+
 	$template_modal_submit_name = 'submit_elemento_dados';
-	
+
 	include 'templates/modal.php';
-	
+
 	$template_modal_div_id = 'modal_forum';
 	$template_modal_titulo = 'Fórum';
 	$template_modal_body_conteudo = false;
-	
+
 	$result = $conn->query("SELECT timestamp, comentario, user_id FROM Forum WHERE elemento_id = $elemento_id");
 	if ($result->num_rows > 0) {
 		$template_modal_body_conteudo .= "<ul class='list-group'>";
@@ -379,20 +290,16 @@
 	} else {
 		$template_modal_body_conteudo .= "<p class='mt-3'><strong>Para adicionar um comentário, você precisará definir seu apelido em sua <a href='usuario.php' target='_blank'>página de usuário</a>.</strong></p>";
 	}
-	
+
 	include 'templates/modal.php';
 
 
 ?>
 </body>
 <?php
-	if ($verbete_content == false) {
-		$verbete_vazio = true;
-	}
 	include 'templates/html_bottom.php';
 	include 'templates/esconder_anotacoes.html';
 	include 'templates/bookmarks.php';
-	include 'templates/lock_unlock_quill.php';
 	include 'templates/footer.html';
 ?>
 </html>
