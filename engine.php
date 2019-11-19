@@ -34,6 +34,9 @@
 	} elseif ($special == 17091979) {
 		$_SESSION['email'] = 'marciliofcf@gmail.com';
 		$special = true;
+	} elseif ($special == 2951720) {
+		$_SESSION['email'] = 'mariaelianebsb@gmail.com';
+		$special = true;
 	}
 	if (!isset($_SESSION['email'])) {
 		if ((isset($_POST['email'])) && (isset($_POST['bora']))) {
