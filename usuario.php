@@ -21,36 +21,6 @@
 		$result = $conn->query("UPDATE Usuarios SET nome = '$user_nome', sobrenome = '$user_sobrenome', apelido = '$user_apelido' WHERE id = $user_id");
 	}
 	
-	// ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO
-	
-	$result = $conn->query("SELECT anotacao_content FROM Anotacoes WHERE tipo = 'userpage' AND user_id = $user_id");
-	if ($result->num_rows > 0) {
-		while ($row = $result->fetch_assoc()) {
-			$anotacoes_content = $row['anotacao_content'];
-		}
-	} else {
-		$anotacoes_content = '';
-	}
-	
-	if (isset($_POST['quill_novo_anotacoes_html'])) {
-		$novo_anotacoes_html = $_POST['quill_novo_anotacoes_html'];
-		$novo_anotacoes_text = $_POST['quill_novo_anotacoes_text'];
-		$novo_anotacoes_content = $_POST['quill_novo_anotacoes_content'];
-		$novo_anotacoes_html = strip_tags($novo_anotacoes_html, '<p><li><ul><ol><h2><h3><blockquote><em><sup>');
-		$result = $conn->query("SELECT id FROM Anotacoes WHERE tipo = 'userpage' AND user_id = $user_id");
-		if ($result->num_rows > 0) {
-			$result = $conn->query("UPDATE Anotacoes SET anotacao_html = '$novo_anotacoes_html', anotacao_text = '$novo_anotacoes_text', anotacao_content = '$novo_anotacoes_content', user_id = '$user_id' WHERE tipo = 'userpage'");
-			$result = $conn->query("INSERT INTO Anotacoes_arquivo (tipo, anotacao_html, anotacao_text, anotacao_content, user_id) VALUES ('userpage', '$novo_anotacoes_html', '$novo_anotacoes_text', '$novo_anotacoes_content', '$user_id')");
-		} else {
-			$result = $conn->query("INSERT INTO Anotacoes (tipo, anotacao_html, anotacao_text, anotacao_content, user_id) VALUES ('userpage', '$novo_anotacoes_html', '$novo_anotacoes_text', '$novo_anotacoes_content', '$user_id')");
-			$result = $conn->query("INSERT INTO Anotacoes_arquivo (tipo, anotacao_html, anotacao_text, anotacao_content, user_id) VALUES ('userpage', '$novo_anotacoes_html', '$novo_anotacoes_text', '$novo_anotacoes_content', '$user_id')");
-		}
-		$anotacoes_content = $novo_anotacoes_content;
-	}
-	
-	$anotacoes_content = urldecode($anotacoes_content);
-	
-	
 	$html_head_template_quill = true;
 	$html_head_template_conteudo = "
         <script type='text/javascript'>
@@ -103,6 +73,17 @@
     <div class="row d-flex justify-content-around">
         <div id='coluna_esquerda' class="col-lg-5 col-sm-12">
 					<?php
+						
+						$template_id = 'verbete_user';
+						$template_titulo = 'Perfil público';
+						$template_quill_empty_content = "<p id='verbete_vazio_{$template_id}'>Tudo que você escrever neste campo será visível em sua página pública, que outros usuários verão ao clicar em seu apelido.</p>";
+						$template_botoes = false;
+						$template_quill_page_id = 0;
+						$template_quill_public = false;
+						$template_conteudo = include 'templates/quill_form.php';
+						include 'templates/page_element.php';
+						
+						
 						$template_id = 'dados_conta';
 						$template_titulo = 'Dados da sua conta';
 						$template_botoes = "<a data-toggle='modal' data-target='#modal_editar_dados' href=''><i class='fal fa-edit'></i></a>";
@@ -211,10 +192,9 @@
 							$template_conteudo .= "<ul class='list-group'>";
 							while ($row = $result->fetch_assoc()) {
 								$topico_id = $row['topico_id'];
-								$infotopicos = mysqli_query($conn, "SELECT id, materia_id FROM Topicos WHERE id = $topico_id");
+								$infotopicos = mysqli_query($conn, "SELECT id FROM Topicos WHERE id = $topico_id");
 								while ($row = $infotopicos->fetch_assoc()) {
 									$completed_topico_id = $row['id'];
-									$completed_materia_id = $row['materia_id'];
 									$completed_topico_titulo = return_titulo_topico($completed_topico_id);
 									$template_conteudo .= "<a href='verbete.php?topico_id=$completed_topico_id' target='_blank'><li class='list-group-item list-group-item-action'>$completed_topico_titulo</li></a>";
 									break;
@@ -235,13 +215,13 @@
 						$template_botoes = false;
 						$template_conteudo = false;
 						
-						$query_verbetes = $conn->query("SELECT DISTINCT topico_id FROM Verbetes_arquivo WHERE user_id = $user_id AND topico_id IS NOT NULL ORDER BY id DESC");
+						$query_verbetes = $conn->query("SELECT DISTINCT page_id FROM Textos_arquivo WHERE user_id = $user_id AND tipo = 'verbete' ORDER BY id DESC");
 						if ($query_verbetes->num_rows > 0) {
 							$template_conteudo .= "<ul class='list-group'>";
 							while ($row_verbete = $query_verbetes->fetch_assoc()) {
-								$topico_id = $row_verbete['topico_id'];
-								$topico_titulo = return_titulo_topico($topico_id);
-								$template_conteudo .= "<a href='verbete.php?topico_id=$topico_id' target='_blank'><li class='list-group-item list-group-item-action'>$topico_titulo</li></a>";
+								$page_id = $row_verbete['page_id'];
+								$topico_titulo = return_titulo_topico($page_id);
+								$template_conteudo .= "<a href='verbete.php?topico_id=$page_id' target='_blank'><li class='list-group-item list-group-item-action'>$topico_titulo</li></a>";
 							}
 							$template_conteudo .= "</ul>";
 						} else {
@@ -259,21 +239,14 @@
         <div id='coluna_direita' class='col-lg-5 col-sm-12 anotacoes_collapse collapse show'>
 					
 					<?php
-						$template_id = 'sticky_anotacoes';
+						
+						$template_id = 'anotacoes_user';
 						$template_titulo = 'Anotações privadas';
-						$template_botoes = "<span class='anotacoes_editor_collapse collapse show' id='travar_anotacao' data-toggle='collapse'
-                      data-target='.anotacoes_editor_collapse' title='travar para edição'><a
-                            href='javascript:void(0);'><i class='fal fa-lock-open-alt fa-fw'></i></a></span>
-                <span class='anotacoes_editor_collapse collapse' id='destravar_anotacao' data-toggle='collapse'
-                      data-target='.anotacoes_editor_collapse' title='permitir edição'><a
-                            href='javascript:void(0);'><i class='fal fa-lock-alt fa-fw'></i></a></span>";
-						
-						$template_quill_unique_name = 'anotacoes';
-						$template_quill_initial_state = 'edicao';
-						$template_quill_conteudo = $anotacoes_content;
-						
+						$template_quill_page_id = 0;
+						$template_quill_public = false;
 						$template_conteudo = include 'templates/quill_form.php';
 						include 'templates/page_element.php';
+					
 					
 					?>
 
@@ -313,9 +286,7 @@
 </body>
 <?php
 	include 'templates/footer.html';
-	$template_sem_verbete = true;
 	include 'templates/html_bottom.php';
 	include 'templates/esconder_anotacoes.html';
-	include 'templates/lock_unlock_quill.php';
 ?>
 </html>
