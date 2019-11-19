@@ -1,9 +1,16 @@
 <?php
 	
 	// para criar uma nova instance do quill, as seguintes variáveis devem ser set:
-	// $template_quill_unique_name
-	// $template_quill_initial_state
+	// $template_quill_unique_name (se nenhum, nome será 'general')
+	// $template_quill_initial_state ('edicao' ou 'leitura')
+	// $template_quill_page_id (em alguns casos, determinada automaticamente, exceto em admin ou userpage)
+	// $template_quill_empty_content (em anotações, não é necessário)
+	// $quill_visualizacoes_tipo (para a tabela de visualizacoes, registra que o usuário mudou o texto desse elemento)
+	// $template_quill_public (boolean, determina se o query buscará o id do usuario ou não, default é true)
 	
+	if (!isset($template_quill_empty_content)) {
+		$template_quill_empty_content = false;
+	}
 	if (!isset($template_quill_unique_name)) {
 		$template_quill_unique_name = 'general';
 	}
@@ -25,21 +32,20 @@
 		$template_quill_editor_classes = 'quill_editor_height';
 		$template_quill_collapse = 'collapse';
 	}
-	if (!isset($quill_page_id)) {
+	if (!isset($template_quill_page_id)) {
 		if (isset($topico_id)) {
-			$quill_page_id = $topico_id;
-		}
-		elseif (isset($elemento_id)) {
-			$quill_page_id = $elemento_id;
-		}
-		else {
-			$quill_page_id = false;
+			$template_quill_page_id = $topico_id;
+		} elseif (isset($elemento_id)) {
+			$template_quill_page_id = $elemento_id;
+		} else {
+			$template_quill_page_id = false;
+			// nesse caso, o $template_quill_tipo deve ser determinado. Será 'admin' ou 'userpage'.
 		}
 	}
-	if (!isset($quill_tipo)) {
-		$quill_tipo = 'verbete';
+	if (!isset($template_quill_tipo)) {
+		$template_quill_tipo = 'verbete';
 	}
-	if (isset($quill_visualizacoes_tipo)) {
+	if (!isset($quill_visualizacoes_tipo)) {
 		$quill_visualizacoes_tipo = 'verbete_mudanca';
 	}
 	$quill_novo_verbete_html = "quill_novo_{$template_quill_unique_name}_html";
@@ -47,41 +53,51 @@
 	$quill_novo_verbete_content = "quill_novo_{$template_quill_unique_name}_content";
 	$quill_trigger_button = "quill_trigger_{$template_quill_unique_name}";
 	
+	$verbete_exists = false; // essa variável muda se é encontrado conteúdo prévio.
 	
+	if (!isset($template_quill_public)) {
+		$template_quill_public = true;
+	}
 	
-	$verbete_exists = false;
-	$result = $conn->query("SELECT verbete_content, id FROM Textos WHERE page_id = $quill_page_id AND tipo = '$quill_tipo'");
+	if ($template_quill_public == true) {
+		$result = $conn->query("SELECT verbete_content, id FROM Textos WHERE page_id = $template_quill_page_id AND tipo = '$template_quill_tipo'");
+	} else {
+		$result = $conn->query("SELECT verbete_content, id FROM Textos WHERE page_id = $template_quill_page_id AND tipo = '$template_quill_tipo' AND user_id = $user_id");
+	}
+	$quill_verbete_content = false; // o conteúdo final, é determinado ao final ou permanece vazio.
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
 			$quill_verbete_content = $row['verbete_content'];
-			$texto_id = $row['id'];
+			$quill_texto_id = $row['id'];
 			$verbete_exists = true;
-		}
-		if (isset($_POST[$quill_trigger_button])) {
-			$novo_verbete_html = $_POST[$quill_novo_verbete_html];
-			$novo_verbete_text = $_POST[$quill_novo_verbete_text];
-			$novo_verbete_content = $_POST[$quill_novo_verbete_content];
-			$novo_verbete_html = strip_tags($novo_verbete_html, '<p><li><ul><ol><h2><h3><blockquote><em><sup><img><u><b>');
-			$result = $conn->query("SELECT id FROM Textos WHERE page_id = $topico_id AND tipo = '$quill_tipo'");
-			if ($verbete_exists == true) {
-				$conn->query("UPDATE Textos SET verbete_html = '$novo_verbete_html', verbete_text = '$novo_verbete_text', verbete_content = '$novo_verbete_content' WHERE id = $texto_id");
-				$conn->query("INSERT INTO Textos_arquivo (tipo, page_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('verbete', $topico_id, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
-			} else {
-				$conn->query("INSERT INTO Textos (tipo, page_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('$quill_tipo', $topico_id, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
-				$conn->query("INSERT INTO Textos_arquivo (page_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('$quill_tipo' , $topico_id, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
-			}
-			$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $topico_id, '$quill_visualizacoes_tipo')");
-			$quill_verbete_content = $novo_verbete_content;
-			$nao_contar = true;
 		}
 		if ($quill_verbete_content != false) {
 			$quill_verbete_content = urldecode($quill_verbete_content);
 		}
-	} else {
-		$quill_verbete_content = false;
 	}
 	
-	
+	if (isset($_POST[$quill_trigger_button])) {
+		$novo_verbete_html = $_POST[$quill_novo_verbete_html];
+		$novo_verbete_text = $_POST[$quill_novo_verbete_text];
+		$novo_verbete_content = $_POST[$quill_novo_verbete_content];
+		$novo_verbete_html = strip_tags($novo_verbete_html, '<p><li><ul><ol><h2><h3><blockquote><em><sup><img><u><b>');
+		if ($template_quill_public == true) {
+			$result = $conn->query("SELECT id FROM Textos WHERE page_id = $template_quill_page_id AND tipo = '$template_quill_tipo'");
+		}
+		else {
+			$result = $conn->query("SELECT id FROM Textos WHERE page_id = $template_quill_page_id AND tipo = '$template_quill_tipo' AND user_id = $user_id");
+		}
+		if ($verbete_exists == true) {
+			$conn->query("UPDATE Textos SET verbete_html = '$novo_verbete_html', verbete_text = '$novo_verbete_text', verbete_content = '$novo_verbete_content' WHERE id = $quill_texto_id");
+			$conn->query("INSERT INTO Textos_arquivo (tipo, page_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('verbete', $template_quill_page_id, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
+		} else {
+			$conn->query("INSERT INTO Textos (tipo, page_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('$template_quill_tipo', $template_quill_page_id, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
+			$conn->query("INSERT INTO Textos_arquivo (tipo, page_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('$template_quill_tipo' , $template_quill_page_id, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
+		}
+		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $template_quill_page_id, '$quill_visualizacoes_tipo')");
+		$quill_verbete_content = urlencode($novo_verbete_content);
+		$nao_contar = true;
+	}
 	
 	$quill_result = false;
 	
@@ -152,9 +168,10 @@
 	unset($template_quill_initial_state);
 	unset($template_quill_editor_classes);
 	unset($template_quill_toolbar_and_whitelist);
-	unset($quill_page_id);
-	unset($quill_tipo);
+	unset($template_quill_page_id);
+	unset($template_quill_tipo);
 	unset($quill_visualizacoes_tipo);
 	unset($quill_verbete_content);
+	unset($template_quill_public);
 	
 	return $quill_result;

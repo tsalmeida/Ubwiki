@@ -415,14 +415,11 @@
                         ";
 						$template_conteudo = false;
 
-
 						$template_quill_unique_name = 'verbete';
 						$template_quill_initial_state = 'leitura';
-						$template_quill_conteudo = $verbete_content;
-
-						if ($verbete_content == false) {
-							$template_conteudo .= "<p id='verbete_vazio'>Seja o primeiro a contribuir para a construção deste verbete.</p>";
-						}
+						$template_quill_page_id = $topico_id;
+                        $template_quill_empty_content = "<p id='verbete_vazio'>Seja o primeiro a contribuir para a construção deste verbete.</p>";
+                        
 						$template_conteudo .= include 'templates/quill_form.php';
 						include 'templates/page_element.php';
 
@@ -614,7 +611,7 @@
 
 						$template_quill_unique_name = 'anotacoes';
 						$template_quill_initial_state = 'edicao';
-						$template_quill_conteudo = $anotacoes_content;
+						$template_quill_tipo = 'anotacoes';
 
 						$template_conteudo = include 'templates/quill_form.php';
 						include 'templates/page_element.php';
@@ -746,7 +743,6 @@
 	include 'templates/modal.php';
 
 ?>
-
 
 </div>
 </body>
