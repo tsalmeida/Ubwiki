@@ -14,7 +14,7 @@
     <script type='text/javascript' src='js/bootstrap.min.js'></script>
     <!-- MDB core JavaScript -->
     <script type='text/javascript' src='js/mdb.min.js'></script>
-    ";
+  ";
 	
 	if ($verbete_vazio == true) {
 		echo "
@@ -23,7 +23,7 @@
 				$('#verbete_vazio').hide();
 	    });
 		</script>
-	";
+		";
 	}
 	
 	if ($mdb_select == true) {
@@ -36,4 +36,3 @@
 		";
 	}
 	
-	unset($verbete_vazio);

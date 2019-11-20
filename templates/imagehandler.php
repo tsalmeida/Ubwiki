@@ -17,8 +17,9 @@
 <script type='text/javascript'>
     function imageHandler() {
         var range = this.quill.getSelection();
-        var value = prompt('Qual o endereço da imagem?');
-        var value64 = btoa(value);
+        var link = prompt('Qual o endereço da imagem?');
+        var titulo = prompt('Por favor determine um título para a imagem.');
+        var value64 = btoa(link);
         if (value) {
             $.post('engine.php', {
                     'nova_imagem': value64,
@@ -28,7 +29,7 @@
                 },
                 function (data) {
                 });
-            this.quill.insertEmbed(range.index, 'image', value, Quill.sources.USER);
+            this.quill.insertEmbed(range.index, 'image', link, Quill.sources.USER);
         }
     }
 </script>";

@@ -330,7 +330,6 @@
 			$nova_imagem_diretorio = "../imagens/verbetes/$randomfilename$extensao";
 			file_put_contents($nova_imagem_diretorio, fopen($nova_imagem_link, 'r'));
 			$dados_da_imagem = make_thumb($nova_imagem_arquivo);
-			image_resize();
 			if ($dados_da_imagem == false) {
 				return false;
 			}

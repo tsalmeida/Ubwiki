@@ -61,10 +61,8 @@
 	
 	if ($template_quill_public == true) {
 		$result = $conn->query("SELECT verbete_content, id FROM Textos WHERE page_id = '$template_quill_page_id' AND tipo = '$template_id'");
-		error_log("SELECT verbete_content, id FROM Textos WHERE page_id = '$template_quill_page_id' AND tipo = '$template_id'");
 	} else {
 		$result = $conn->query("SELECT verbete_content, id FROM Textos WHERE page_id = '$template_quill_page_id' AND tipo = '$template_id' AND user_id = $user_id");
-		error_log("SELECT verbete_content, id FROM Textos WHERE page_id = '$template_quill_page_id' AND tipo = '$template_id' AND user_id = $user_id");
 	}
 	$quill_verbete_content = false; // o conteúdo final, é determinado ao final ou permanece vazio.
 	if ($result->num_rows > 0) {
@@ -97,7 +95,7 @@
 		}
 		if ($verbete_exists == true) {
 			$conn->query("UPDATE Textos SET verbete_html = '$novo_verbete_html', verbete_text = '$novo_verbete_text', verbete_content = '$novo_verbete_content' WHERE id = $quill_texto_id");
-			$conn->query("INSERT INTO Textos_arquivo (tipo, page_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('verbete', $template_quill_page_id, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
+			$conn->query("INSERT INTO Textos_arquivo (tipo, page_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('$template_id', $template_quill_page_id, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
 		} else {
 			$conn->query("INSERT INTO Textos (tipo, page_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('$template_id', $template_quill_page_id, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
 			$conn->query("INSERT INTO Textos_arquivo (tipo, page_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('$template_id' , $template_quill_page_id, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
@@ -228,5 +226,6 @@
 	unset($quill_verbete_content);
 	unset($template_quill_public);
 	unset($template_quill_empty_content);
+	unset($verbete_exists);
 	
 	return $quill_result;
