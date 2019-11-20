@@ -728,7 +728,7 @@
 	}
 	
 	$template_modal_div_id = 'modal_estado';
-	$template_modal_titulo = 'Estado de completude da página';
+	$template_modal_titulo = 'Qualidade da página';
 	$template_modal_body_conteudo = "
         <p>Por favor, determine abaixo sua avaliação sobre o estado atual desta página:</p>
         <div class='md-form mb-2'>
