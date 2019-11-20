@@ -2,6 +2,14 @@
 	
 	include 'engine.php';
 	
+	if (isset($_POST['funcoes_gerais'])) {
+	    $result = $conn->query("SELECT page_id FROM Textos WHERE tipo = 'verbete'");
+	    while ($row = $result->fetch_assoc()) {
+	        $page_id = $row['page_id'];
+	        $conn->query("UPDATE Topicos SET estado_pagina = 1 WHERE id = $page_id");
+        }
+    }
+	
 	if (isset($_POST['reconstruir_busca'])) {
 		$reconstruir_concurso_id = $_POST['reconstruir_concurso'];
 		$ordem = 0;
@@ -69,36 +77,6 @@
 		$um_concurso = array($concurso_id, $concurso_titulo, $concurso_estado);
 		array_push($lista_concursos, $um_concurso);
 	}
-	
-	// ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO ANOTACAO
-	
-	$result = $conn->query("SELECT anotacao_content FROM Anotacoes WHERE tipo = 'admin'");
-	if ($result->num_rows > 0) {
-		while ($row = $result->fetch_assoc()) {
-			$anotacoes_content = $row['anotacao_content'];
-		}
-	} else {
-		$anotacoes_content = '';
-	}
-	
-	if (isset($_POST['quill_novo_anotacoes_html'])) {
-		$novo_anotacoes_html = $_POST['quill_novo_anotacoes_html'];
-		$novo_anotacoes_text = $_POST['quill_novo_anotacoes_text'];
-		$novo_anotacoes_content = $_POST['quill_novo_anotacoes_content'];
-		$novo_anotacoes_html = strip_tags($novo_anotacoes_html, '<p><li><ul><ol><h2><h3><blockquote><em><sup>');
-		$result = $conn->query("SELECT id FROM Anotacoes WHERE tipo = 'admin'");
-		if ($result->num_rows > 0) {
-			$result = $conn->query("UPDATE Anotacoes SET anotacao_html = '$novo_anotacoes_html', anotacao_text = '$novo_anotacoes_text', anotacao_content = '$novo_anotacoes_content', user_id = '$user_id' WHERE tipo = 'admin'");
-			$result = $conn->query("INSERT INTO Anotacoes_arquivo (tipo, anotacao_html, anotacao_text, anotacao_content, user_id) VALUES ('admin', '$novo_anotacoes_html', '$novo_anotacoes_text', '$novo_anotacoes_content', '$user_id')");
-		} else {
-			$result = $conn->query("INSERT INTO Anotacoes (tipo, anotacao_html, anotacao_text, anotacao_content, user_id) VALUES ('admin', '$novo_anotacoes_html', '$novo_anotacoes_text', '$novo_anotacoes_content', '$user_id')");
-			$result = $conn->query("INSERT INTO Anotacoes_arquivo (tipo, anotacao_html, anotacao_text, anotacao_content, user_id) VALUES ('admin', '$novo_anotacoes_html', '$novo_anotacoes_text', '$novo_anotacoes_content', '$user_id')");
-		}
-		$anotacoes_content = $novo_anotacoes_content;
-	}
-	
-	$anotacoes_content = urldecode($anotacoes_content);
-	
 	
 	$html_head_template_quill = true;
 	$html_head_template_conteudo = "
@@ -195,26 +173,28 @@
                         ";
 						include 'templates/page_element.php';
 					
+						$template_id = 'funcoes_gerais';
+						$template_titulo = 'Funções gerais';
+						$template_botoes = false;
+						$template_conteudo = false;
+						$template_conteudo .= "
+						    <form method='post'>
+						        <p>Estado rascunho para todas as páginas com verbete.</p>
+						        <button class='btn btn-primary btn-block btn-md' type='submit' name='funcoes_gerais'>Ativar função</button>
+						    </form>
+						";
+						include 'templates/page_element.php';
+						
 					?>
 
         </div>
         <div id='coluna_direita' class='col-lg-5 col-sm-12'>
 					<?php
-						$template_id = 'sticky_anotacoes';
-						$template_titulo = 'Anotações';
-						$template_botoes = "<span class='anotacoes_editor_collapse collapse show' id='travar_anotacao' data-toggle='collapse'
-                      data-target='.anotacoes_editor_collapse' title='travar para edição'><a
-                            href='javascript:void(0);'><i class='fal fa-lock-open-alt fa-fw'></i></a></span>
-                                            <span class='anotacoes_editor_collapse collapse' id='destravar_anotacao' data-toggle='collapse'
-                      data-target='.anotacoes_editor_collapse' title='permitir edição'><a
-                            href='javascript:void(0);'><i class='fal fa-lock-alt fa-fw'></i></a></span>";
-						$template_conteudo = false;
-						$template_conteudo .= "<p>Estas anotações são compartilhadas entre todos os administradores, por exemplo, para registrar idéias de atualizações futuras da página.</p>";
-						$template_quill_unique_name = 'anotacoes';
-						$template_quill_initial_state = 'edicao';
-						$template_quill_conteudo = $anotacoes_content;
 						
-						$template_conteudo .= include 'templates/quill_form.php';
+						$template_id = 'anotacoes_admin';
+						$template_titulo = 'Anotações';
+						$template_quill_page_id = 0;
+						$template_conteudo = include 'templates/quill_form.php';
 						include 'templates/page_element.php';
 					
 					?>
@@ -226,9 +206,8 @@
 </body>
 <?php
 	include 'templates/footer.html';
-	$template_sem_verbete = true;
+	$mdb_select = true;
 	include 'templates/html_bottom.php';
 	include 'templates/esconder_anotacoes.html';
-	include 'templates/lock_unlock_quill.php';
 ?>
 </html>

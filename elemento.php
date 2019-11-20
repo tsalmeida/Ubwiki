@@ -188,7 +188,7 @@
 
 						//VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE
 
-						$template_id = 'verbete';
+						$template_id = 'verbete_elemento';
 						$template_titulo = 'Verbete';
 						$template_quill_empty_content = "<p id='verbete_vazio_{$template_id}'>Seja o primeiro a contribuir para a construção deste verbete.</p>";
 						$template_botoes = false;
@@ -201,7 +201,7 @@
 
 					<?php
 
-						$template_id = 'anotacoes';
+						$template_id = 'anotacoes_elemento';
 						$template_titulo = 'Anotações privadas';
 						$template_conteudo = include 'templates/quill_form.php';
 						include 'templates/page_element.php';
