@@ -3,6 +3,9 @@
 	if (!isset($verbete_vazio)) {
 		$verbete_vazio = false;
 	}
+	if (!isset($mdb_select)) {
+		$mdb_select = false;
+	}
 	
 	echo "
     <!-- Bootstrap tooltips -->
@@ -21,6 +24,16 @@
 	    });
 		</script>
 	";
+	}
+	
+	if ($mdb_select == true) {
+		echo "
+			<script type='text/javascript'>
+				$(document).ready(function() {
+					$('.mdb-select').materialSelect()
+				});
+			</script>
+		";
 	}
 	
 	unset($verbete_vazio);
