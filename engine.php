@@ -1,27 +1,27 @@
 <?php
-	
+
 	if (!isset($loginpage)) {
 		$loginpage = false;
 	}
-	
+
 	if (!isset($_SESSION['email'])) {
 		$sessionpath = getcwd();
 		$sessionpath .= '/../sessions';
 		session_save_path($sessionpath);
 		session_start();
 	}
-	
+
 	$servername = "localhost";
 	$username = "grupoubique";
 	$password = "ubique patriae memor";
 	$dbname = "Ubwiki";
 	$conn = new mysqli($servername, $username, $password, $dbname);
 	mysqli_set_charset($conn, "utf8");
-	
+
 	$user_email = false;
 	$newuser = false;
 	$special = false;
-	
+
 	if (isset($_GET['special'])) {
 		$special = $_GET['special'];
 	}
@@ -69,7 +69,7 @@
 //      header('Location:index.php');
 		}
 	}
-	
+
 	$result = $conn->query("SELECT id, apelido, nome FROM Usuarios WHERE email = '$user_email'");
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
@@ -78,7 +78,7 @@
 			$user_nome = $row['nome'];
 		}
 	}
-	
+
 	function extract_gdoc($url)
 	{
 		$ch = curl_init();
@@ -92,7 +92,7 @@
 		curl_close($ch);
 		return $body;
 	}
-	
+
 	function standard_jumbotron($titulo, $link)
 	{
 		echo "
@@ -111,7 +111,7 @@
     </div>
 ";
 	}
-	
+
 	if (isset($_POST['bookmark_change'])) {
 		$bookmark_change = $_POST['bookmark_change'];
 		$bookmark_page_id = $_POST['bookmark_page_id'];
@@ -139,7 +139,7 @@
 		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina, extra) VALUES ($bookmark_user_id, $bookmark_page_id, 'bookmark', $bookmark_change)");
 		$conn->query("INSERT INTO Bookmarks (user_id, $coluna_relevante, bookmark, active) VALUES ($bookmark_user_id, $bookmark_page_id, $bookmark_change, 1)");
 	}
-	
+
 	if (isset($_POST['completed_change'])) {
 		$completed_change = $_POST['completed_change'];
 		$completed_page_id = $_POST['completed_page_id'];
@@ -161,7 +161,7 @@
 		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina, extra) VALUES ($completed_user_id, $completed_page_id, 'completed', $completed_change)");
 		$conn->query("INSERT INTO Completed (user_id, topico_id, estado, active) VALUES ($completed_user_id, $completed_page_id, $completed_change, 1)");
 	}
-	
+
 	if (isset($_POST['sbcommand'])) {
 		$concurso_id = base64_decode($_POST['sbconcurso']);
 		$command = base64_decode($_POST['sbcommand']);
@@ -213,7 +213,7 @@
 		echo "Nada foi encontrado";
 		return;
 	}
-	
+
 	function generateRandomString()
 	{
 		$length = func_get_args();
@@ -221,56 +221,6 @@
 			$length[0] = 8;
 		}
 		return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length[0]);
-	}
-
-	function image_resize($src, $dst, $width, $height, $crop=0){
-
-		if(!list($w, $h) = getimagesize($src)) return "Unsupported picture type!";
-
-		$type = strtolower(substr(strrchr($src,"."),1));
-		if($type == 'jpeg') $type = 'jpg';
-		switch($type){
-			case 'bmp': $img = imagecreatefromwbmp($src); break;
-			case 'gif': $img = imagecreatefromgif($src); break;
-			case 'jpg': $img = imagecreatefromjpeg($src); break;
-			case 'png': $img = imagecreatefrompng($src); break;
-			default : return "Unsupported picture type!";
-		}
-
-		// resize
-		if($crop){
-			if($w < $width or $h < $height) return "Picture is too small!";
-			$ratio = max($width/$w, $height/$h);
-			$h = $height / $ratio;
-			$x = ($w - $width / $ratio) / 2;
-			$w = $width / $ratio;
-		}
-		else{
-			if($w < $width and $h < $height) return "Picture is too small!";
-			$ratio = min($width/$w, $height/$h);
-			$width = $w * $ratio;
-			$height = $h * $ratio;
-			$x = 0;
-		}
-
-		$new = imagecreatetruecolor($width, $height);
-
-		// preserve transparency
-		if($type == "gif" or $type == "png"){
-			imagecolortransparent($new, imagecolorallocatealpha($new, 0, 0, 0, 127));
-			imagealphablending($new, false);
-			imagesavealpha($new, true);
-		}
-
-		imagecopyresampled($new, $img, 0, 0, $x, 0, $width, $height, $w, $h);
-
-		switch($type){
-			case 'bmp': imagewbmp($new, $dst); break;
-			case 'gif': imagegif($new, $dst); break;
-			case 'jpg': imagejpeg($new, $dst); break;
-			case 'png': imagepng($new, $dst); break;
-		}
-		return true;
 	}
 
 	function make_thumb()
@@ -291,19 +241,26 @@
 		} else {
 			return false;
 		}
+
 		$width = imagesx($source_image);
 		$height = imagesy($source_image);
-		
+
 		/* find the "desired height" of this thumbnail, relative to the desired width  */
 		$desired_height = 300;
 		$desired_width = floor($desired_height * ($width / $height));
-		
+
 		/* create a new, "virtual" image */
 		$virtual_image = imagecreatetruecolor($desired_width, $desired_height);
-		
+
+		if (($check == ".png") || ($check = ".gif")) {
+			imagecolortransparent($virtual_image, imagecolorallocatealpha($virtual_image, 0, 0, 0, 127));
+			imagealphablending($virtual_image, false);
+			imagesavealpha($virtual_image, true);
+		}
+
 		/* copy source image at a resized size */
 		imagecopyresampled($virtual_image, $source_image, 0, 0, 0, 0, $desired_width, $desired_height, $width, $height);
-		
+
 		/* create the physical thumbnail image to its destination */
 		$prefix = "../imagens/verbetes/thumbnails/";
 		$destination = "$prefix$filename";
@@ -324,7 +281,7 @@
 		$dados_da_imagem = array($resolucao_original, $orientacao);
 		return $dados_da_imagem;
 	}
-	
+
 	if (isset($_POST['nova_imagem'])) {
 		$nova_imagem_link = $_POST['nova_imagem'];
 		$user_id = $_POST['user_id'];
@@ -333,7 +290,7 @@
 		$nossa_copia = adicionar_imagem($nova_imagem_link, 'Não há título registrado', $page_id, $user_id, $contexto);
 		echo $nossa_copia;
 	}
-	
+
 	function adicionar_thumbnail_youtube($youtube_thumbnail_original)
 	{
 		$randomfilename = generateRandomString(12);
@@ -343,7 +300,7 @@
 		file_put_contents($nova_imagem_diretorio, fopen($youtube_thumbnail_original, 'r'));
 		return $nova_imagem_arquivo;
 	}
-	
+
 	function adicionar_imagem()
 	{
 		$args = func_get_args();
@@ -400,25 +357,25 @@
 		}
 		return "https://www.ubwiki.com.br/imagens/verbetes/$nova_imagem_arquivo";
 	}
-	
+
 	function get_youtube($url)
 	{
 		$youtube = "http://www.youtube.com/oembed?url=" . $url . "&format=json";
-		
+
 		$curl = curl_init($youtube);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 		$return = curl_exec($curl);
 		curl_close($curl);
 		return json_decode($return, true);
 	}
-	
+
 	function escape_quotes($string)
 	{
 		$output = str_replace('"', '\"', $string);
 		$output = str_replace("'", "\'", $output);
 		return $output;
 	}
-	
+
 	function return_titulo_topico($topico_id)
 	{
 		$servername = "localhost";
@@ -447,7 +404,7 @@
 		}
 		return false;
 	}
-	
+
 	function return_concurso_id_topico($topico_id)
 	{
 		$servername = "localhost";
@@ -465,7 +422,7 @@
 		}
 		return false;
 	}
-	
+
 	function return_concurso_sigla($concurso_id)
 	{
 		$servername = "localhost";
@@ -483,7 +440,7 @@
 		}
 		return false;
 	}
-	
+
 	function return_concurso_id_materia($materia_id)
 	{
 		$servername = "localhost";
@@ -501,7 +458,7 @@
 		}
 		return false;
 	}
-	
+
 	function return_apelido_user_id($find_user_id)
 	{
 		$servername = "localhost";
