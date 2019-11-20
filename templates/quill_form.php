@@ -11,7 +11,7 @@
 		$template_quill_empty_content = false;
 	}
 	$template_quill_toolbar_and_whitelist = 'general';
-	if (($template_id == 'anotacoes') || ($template_id == 'anotacoes_user') || ($template_id == 'anotacoes_admin')) {
+	if (($template_id == 'anotacoes') || ($template_id == 'anotacoes_user') || ($template_id == 'anotacoes_admin') || ($template_id == 'anotacoes_elemento')) {
 		$template_quill_toolbar_and_whitelist = 'anotacoes';
 		$template_quill_initial_state = 'edicao';
 	}
