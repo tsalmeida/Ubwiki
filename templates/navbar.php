@@ -15,7 +15,7 @@
 		$template_navbar_text = 'text-white';
 	}
 	echo "<nav class='navbar navbar-expand-lg $template_navbar_color' id='inicio'>";
-	echo "<a class='navbar-brand playfair900 $template_navbar_text' href='index.php'>Ubwiki</a>";
+	echo "<a class='navbar-brand playfair900 $template_navbar_text' href='index.php?concurso_id=$concurso_id'>Ubwiki</a>";
 	echo "<ul class='nav navbar-nav ml-auto nav-flex-icons'>";
 	echo "<li class='nav-item dropdown'>";
 	echo "<a class='navlink dropdown-toggle waves-effect waves-light $template_navbar_text' id='user_dropdown' data-toggle='dropdown' href='javascript:void(0);'>";

@@ -12,41 +12,6 @@
 		$concurso_id = $_GET['concurso_id'];
 	}
 	
-	if (isset($_POST['atualizar_db'])) {
-		$result = $conn->query("SELECT nivel1, id FROM Topicos WHERE nivel = 1");
-		if ($result->num_rows > 0) {
-			while ($row = $result->fetch_assoc()) {
-				$nivel1 = $row['nivel1'];
-				$nivel1_id = $row['id'];
-				$conn->query("UPDATE Topicos SET nivel1 = $nivel1_id WHERE nivel <> 1 AND nivel1 = '$nivel1'");
-			}
-		}
-		$result = $conn->query("SELECT nivel2, id FROM Topicos WHERE nivel = 2");
-		if ($result->num_rows > 0) {
-			while ($row = $result->fetch_assoc()) {
-				$nivel2 = $row['nivel2'];
-				$nivel2_id = $row['id'];
-				$conn->query("UPDATE Topicos SET nivel2 = $nivel2_id WHERE nivel <> 2 AND nivel2 = '$nivel2'");
-			}
-		}
-		$result = $conn->query("SELECT nivel3, id FROM Topicos WHERE nivel = 3");
-		if ($result->num_rows > 0) {
-			while ($row = $result->fetch_assoc()) {
-				$nivel3 = $row['nivel3'];
-				$nivel3_id = $row['id'];
-				$conn->query("UPDATE Topicos SET nivel3 = $nivel3_id WHERE nivel <> 3 AND nivel3 = '$nivel3'");
-			}
-		}
-		$result = $conn->query("SELECT nivel4, id FROM Topicos WHERE nivel = 4");
-		if ($result->num_rows > 0) {
-			while ($row = $result->fetch_assoc()) {
-				$nivel4 = $row['nivel4'];
-				$nivel4_id = $row['id'];
-				$conn->query("UPDATE Topicos SET nivel4 = $nivel4_id WHERE nivel <> 4 AND nivel4 = '$nivel4'");
-			}
-		}
-	}
-	
 	$result = $conn->query("SELECT sigla, estado, titulo FROM Concursos WHERE id = $concurso_id");
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
@@ -549,18 +514,6 @@
 						$template_conteudo .= "</div>
                             </form>";
 						include 'templates/page_element.php';
-						
-						$template_id = 'atualizar_databank';
-						$template_titulo = 'Atualizar bancos de dados';
-						$template_conteudo = false;
-						$template_conteudo .= "
-						    <form method='post'>
-						        <p>Tentando resolver o problema</p>
-						        <button type='submit' class='btn btn-primary' name='atualizar_db'>Atualizar banco de dados</button>
-                            </form>
-						";
-						include 'templates/page_element.php';
-					
 					
 					?>
 
