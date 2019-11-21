@@ -428,7 +428,7 @@
 		include 'templates/titulo.php';
 	?>
     <div class='row justify-content-around'>
-        <div id='coluna_esquerda' class='col-lg-5 col-sm-12'>
+        <div id='coluna_esquerda' class='col-xl-4 col-lg-5 col-md-10 col-sm-11'>
 					<?php
 						//VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE
 
@@ -615,7 +615,7 @@
 
         <!-- COLUNA DIREITA COLUNA DIRETA COLUNA DIREITA COLUNA DIREITA COLUNA DIREITA COLUNA DIREITA COLUNA DIREITA COLUNA DIREITA COLUNA DIREITA COLUNA DIREITA COLUNA DIREITA -->
 
-        <div id='coluna_direita' class='col-lg-5 col-sm-12 anotacoes_collapse collapse show'>
+        <div id='coluna_direita' class='col-xl-4 col-lg-5 col-sm-12 anotacoes_collapse collapse show'>
 
 					<?php
 						$template_id = 'anotacoes';
