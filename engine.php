@@ -476,4 +476,19 @@
 		return false;
 	}
 
+	function return_estado_icone($estado_pagina) {
+		if ($estado_pagina == 0) {
+			return 'fal fa-empty-set';
+		}
+		elseif ($estado_pagina == 1) {
+			return 'fal fa-star-half';
+		} elseif ($estado_pagina == 2) {
+			return 'fal fa-star';
+		} elseif ($estado_pagina == 3) {
+			return 'fas fa-star';
+		} elseif ($estado_pagina == 4) {
+			return 'fas fa-certificate';
+		}
+	}
+	
 ?>

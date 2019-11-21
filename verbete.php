@@ -405,17 +405,8 @@
 								}
 								if ($estado_pagina != 0) {
 									$estado_cor = false;
-									if ($estado_pagina == 1) {
-										$icone_estado = 'fal fa-star-half-alt';
-									} elseif ($estado_pagina == 2) {
-										$icone_estado = 'fal fa-star';
-									} elseif ($estado_pagina == 3) {
-										$icone_estado = 'fas fa-star';
-										$estado_cor = 'text-warning';
-									} elseif ($estado_pagina == 4) {
-										$icone_estado = 'fas fa-certificate';
-										$estado_cor = 'text-warning';
-									}
+									$icone_estado = return_estado_icone($estado_pagina);
+									if ($estado_pagina > 2) { $estado_cor = 'text-warning'; }
 									echo "
 								    <span id='change_estado_pagina' class='ml-1' title='Estado da página' data-toggle='modal' data-target='#modal_estado'><a href='javascript:void(0);'><span class='$estado_cor'><i class='$icone_estado fa-fw'></i></span></a></span>
 								";
