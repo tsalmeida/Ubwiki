@@ -284,11 +284,14 @@
 
 	if (isset($_POST['nova_imagem'])) {
 		$nova_imagem_link = $_POST['nova_imagem'];
+		$nova_imagem_titulo = $_POST['nova_imagem_titulo'];
+		if ($nova_imagem_titulo == false) {
+			$nova_imagem_titulo = 'Não há título registrado';
+		}
 		$user_id = $_POST['user_id'];
 		$page_id = $_POST['page_id'];
 		$contexto = $_POST['contexto'];
-		$nossa_copia = adicionar_imagem($nova_imagem_link, 'Não há título registrado', $page_id, $user_id, $contexto);
-		echo $nossa_copia;
+		$nossa_copia = adicionar_imagem($nova_imagem_link, $nova_imagem_titulo, $page_id, $user_id, $contexto);
 	}
 
 	function adicionar_thumbnail_youtube($youtube_thumbnail_original)

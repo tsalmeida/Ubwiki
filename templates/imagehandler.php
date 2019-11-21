@@ -3,12 +3,10 @@
 	if (isset($topico_id)) {
 		$page_id = $topico_id;
 		$contexto = 'verbete';
-	}
-	elseif (isset($elemento_id)) {
+	} elseif (isset($elemento_id)) {
 		$page_id = $elemento_id;
 		$contexto = 'elemento';
-	}
-	elseif (isset($user_id)) {
+	} elseif (isset($user_id)) {
 		$page_id = false;
 		$contexto = 'userpage';
 	}
@@ -20,11 +18,12 @@
         var link = prompt('Qual o endereço da imagem?');
         var titulo = prompt('Por favor determine um título para a imagem.');
         var value64 = btoa(link);
-        if (value) {
+        if (link) {
             $.post('engine.php', {
                     'nova_imagem': value64,
                     'user_id': $user_id,
                     'page_id': '$page_id',
+                    'nova_imagem_titulo': titulo,
                     'contexto': '$contexto'
                 },
                 function (data) {
