@@ -1,16 +1,16 @@
 <?php
-
+	
 	include 'engine.php';
-
+	
 	if (isset($_GET['topico_id'])) {
 		$topico_id = $_GET['topico_id'];
 	}
-
+	
 	$concurso_id = return_concurso_id_topico($topico_id);
 	$concurso_sigla = return_concurso_sigla($concurso_id);
-
+	
 	$nao_contar = false;
-
+	
 	$result = $conn->query("SELECT estado_pagina, materia_id, nivel, ordem, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Topicos WHERE concurso_id = '$concurso_id' AND id = $topico_id");
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
@@ -36,24 +36,24 @@
 			$topico_titulo = $nivel5;
 		}
 	}
-
+	
 	if (isset($_POST['quill_trigger_verbete'])) {
 		if ($estado_pagina == 0) {
 			$conn->query("UPDATE Topicos SET estado_pagina = 1 WHERE id = $topico_id");
 			$estado_pagina = 1;
 		}
 	}
-
+	
 	$result = $conn->query("SELECT titulo FROM Materias WHERE concurso_id = '$concurso_id' AND estado = 1 AND id = $materia_id ORDER BY ordem");
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
 			$materia_titulo = $row["titulo"];
 		}
 	}
-
-
+	
+	
 	// IMAGEM IMAGEM IMAGEM IMAGEM IMAGEM IMAGEM IMAGEM IMAGEM IMAGEM IMAGEM IMAGEM IMAGEM
-
+	
 	if (isset($_POST['nova_imagem_link'])) {
 		$nova_imagem_link = $_POST['nova_imagem_link'];
 		$nova_imagem_link = base64_encode($nova_imagem_link);
@@ -62,9 +62,9 @@
 		adicionar_imagem($nova_imagem_link, $nova_imagem_titulo, $topico_id, $user_id, 'verbete');
 		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $topico_id, 'topico_imagem')");
 	}
-
+	
 	// REFERENCIA REFERENCIA REFERENCIA REFERENCIA REFERENCIA REFERENCIA REFERENCIA REFERENCIA
-
+	
 	if (isset($_POST['nova_referencia_titulo'])) {
 		$nova_referencia_titulo = $_POST['nova_referencia_titulo'];
 		$nova_referencia_titulo = escape_quotes($nova_referencia_titulo);
@@ -95,9 +95,9 @@
 		}
 		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $topico_id, 'topico_referencia')");
 	}
-
+	
 	// VIDEO VIDEO VIDEO VIDEO VIDEO VIDEO VIDEO VIDEO VIDEO VIDEO VIDEO VIDEO VIDEO VIDEO VIDEO
-
+	
 	if (isset($_POST['novo_video_link'])) {
 		$novo_video_link = $_POST['novo_video_link'];
 		$novo_video_data = get_youtube($novo_video_link);
@@ -133,17 +133,17 @@
 		}
 		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $topico_id, 'topico_video')");
 	}
-
+	
 	// FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM
-
+	
 	if (isset($_POST['novo_comentario'])) {
 		$novo_comentario = $_POST['novo_comentario'];
 		$conn->query("INSERT INTO Forum (user_id, topico_id, comentario)  VALUES ($user_id, $topico_id, '$novo_comentario')");
 		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $topico_id, 'topico_forum')");
 	}
-
+	
 	// COMPLETED COMPLETED COMPLETED COMPLETED COMPLETED COMPLETED COMPLETED COMPLETED COMPLETED COMPLETED
-
+	
 	$estado_estudo = false;
 	$estudos = $conn->query("SELECT estado FROM Completed WHERE user_id = $user_id AND topico_id = $topico_id AND active = 1 ORDER BY id DESC");
 	if ($estudos->num_rows > 0) {
@@ -152,9 +152,9 @@
 			break;
 		}
 	}
-
+	
 	// BOOKMARK BOOKMARK BOOKMARK BOOKMARK BOOKMARK BOOKMARK BOOKMARK BOOKMARK BOOKMARK BOOKMARK
-
+	
 	$topico_bookmark = false;
 	$bookmark = $conn->query("SELECT bookmark FROM Bookmarks WHERE user_id = $user_id AND topico_id = $topico_id AND active = 1 ORDER BY id DESC");
 	if ($bookmark->num_rows > 0) {
@@ -163,18 +163,18 @@
 			break;
 		}
 	}
-
+	
 	// ESTADO PAGINA ESTADO PAGINA ESTADO PAGINA ESTADO PAGINA ESTADO PAGINA ESTADO PAGINA ESTADO PAGINA
-
+	
 	if (isset($_POST['novo_estado_pagina'])) {
 		$novo_estado_pagina = $_POST['novo_estado_pagina'];
 		$conn->query("UPDATE Topicos SET estado_pagina = $novo_estado_pagina WHERE id = $topico_id");
 		$estado_pagina = $novo_estado_pagina;
 		$nao_contar = true;
 	}
-
+	
 	// HTML HEAD HTML HEAD HTML HEAD HTML HEAD HTML HEAD HTML HEAD HTML HEAD HTML HEAD HTML HEAD
-
+	
 	$html_head_template_quill = true;
 	$html_head_template_conteudo = "
         <script type='text/javascript'>
@@ -197,11 +197,11 @@
     <div class='d-block'><a href='index.php'>$concurso_sigla</a></div>
     <div class='d-block spacing0'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='materia.php?materia_id=$materia_id'>$materia_titulo</a></div>
   ";
-
+	
 	// VERBETES RELACIONADOS VERBETES RELACIONADOS VERBETES RELACIONADOS VERBETES RELACIONADOS
-
+	
 	$result = $conn->query("SELECT id, nivel, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Topicos WHERE materia_id = $materia_id ORDER BY ordem");
-
+	
 	if ($nivel == 1) {
 		$count = 0;
 		$fawesome = "<i class='fal fa-level-up fa-rotate-90 fa-fw'></i>";
@@ -358,7 +358,7 @@
 			}
 		}
 	}
-
+	
 	// PAGINA PAGINA PAGINA PAGINA PAGINA PAGINA PAGINA PAGINA PAGINA PAGINA PAGINA PAGINA
 
 
@@ -377,9 +377,26 @@
                                 class='fal fa-chart-network fa-fw'></i></a></span>
                 <!--<span id='simulados' class='mx-1' title='Simulados'><a href='javascript:void(0);'><i
                                 class='fal fa-check-double fa-fw'></i></a></span>-->
-                <span id='forum' title='Fórum' data-toggle='modal' data-target='#modal_forum'><a
-                            href='javascript:void(0);'><i
-                                class='fal fa-comments-alt fa-fw'></i></a></span>
+                <span id='forum' title='Fórum' data-toggle='modal' data-target='#modal_forum'>
+                    <?php
+	                    $comments = $conn->query("SELECT timestamp, comentario, user_id FROM Forum WHERE topico_id = $topico_id");
+	                    if ($comments->num_rows == 0) {
+		                    echo "
+                                <a href='javascript:void(0);'>
+                                    <i class='fal fa-comments-alt fa-fw'></i>
+                                </a>
+                            ";
+	                    } else {
+		                    echo "
+                                <a href='javascript:void(0);'>
+		                            <span class='text-secondary'>
+                                        <i class='fas fa-comments-alt fa-fw'></i>
+                                    </span>
+                                </a>
+		                    ";
+	                    }
+                    ?>
+                </span>
 							<?php
 								if ($estado_estudo == false) {
 									echo "
@@ -428,10 +445,10 @@
 		include 'templates/titulo.php';
 	?>
     <div class='row justify-content-around'>
-        <div id='coluna_esquerda' class='col-xl-4 col-lg-5 col-md-10 col-sm-11'>
+        <div id='coluna_esquerda' class='col-lg-5 col-md-10 col-sm-11'>
 					<?php
 						//VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE
-
+						
 						$template_id = 'verbete';
 						$template_titulo = 'Verbete';
 						$template_quill_empty_content = "<p id='verbete_vazio_{$template_id}'>Seja o primeiro a contribuir para a construção deste verbete.</p>";
@@ -440,9 +457,9 @@
 											";
 						$template_conteudo = include 'templates/quill_form.php';
 						include 'templates/page_element.php';
-
+						
 						//VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS
-
+						
 						$template_id = 'videos';
 						$template_titulo = 'Vídeos e aulas';
 						$template_botoes = "
@@ -451,7 +468,7 @@
                                   </a>
                         ";
 						$template_conteudo = false;
-
+						
 						$result = $conn->query("SELECT elemento_id FROM Verbetes_elementos WHERE topico_id = $topico_id AND tipo = 'video'");
 						$count = 0;
 						if ($result->num_rows > 0) {
@@ -480,7 +497,7 @@
                                            <strong class='h5-responsive mt-2'>$video_titulo</strong>";
 										$template_conteudo .= "<p>$video_autor</p>";
 										$template_conteudo .= "</figcaption>";
-
+										
 										$template_conteudo .= "</figure>
                                 </div>
                                 ";
@@ -503,14 +520,14 @@
 							$template_conteudo .= "<p>Não foram acrescentados, até o momento, vídeos ou aulas sobre este tópico.</p>";
 						}
 						include 'templates/page_element.php';
-
+						
 						//LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS LEIA MAIS
-
+						
 						$template_id = 'bibliografia';
 						$template_titulo = 'Leia mais';
 						$template_botoes = "<a data-toggle='modal' data-target='#modal_referencia_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>";
 						$template_conteudo = false;
-
+						
 						$result = $conn->query("SELECT elemento_id FROM Verbetes_elementos WHERE topico_id = $topico_id AND tipo = 'referencia' ORDER BY id");
 						if ($result->num_rows > 0) {
 							$template_conteudo .= "<ul class='list-group'>";
@@ -539,16 +556,16 @@
 							$template_load_invisible = true;
 							$template_conteudo .= "<p>Associe referências bibliográficas sobre este topico.</p>";
 						}
-
+						
 						include 'templates/page_element.php';
-
+						
 						// IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS IMAGENS
-
+						
 						$template_id = 'imagens';
 						$template_titulo = 'Imagens';
 						$template_botoes = "<a data-toggle='modal' data-target='#modal_imagens_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>";
 						$template_conteudo = false;
-
+						
 						$result = $conn->query("SELECT elemento_id FROM Verbetes_elementos WHERE topico_id = $topico_id AND tipo = 'imagem'");
 						$count = 0;
 						if ($result->num_rows > 0) {
@@ -615,8 +632,8 @@
 
         <!-- COLUNA DIREITA COLUNA DIRETA COLUNA DIREITA COLUNA DIREITA COLUNA DIREITA COLUNA DIREITA COLUNA DIREITA COLUNA DIREITA COLUNA DIREITA COLUNA DIREITA COLUNA DIREITA -->
 
-        <div id='coluna_direita' class='col-xl-4 col-lg-5 col-sm-12 anotacoes_collapse collapse show'>
-
+        <div id='coluna_direita' class='col-lg-5 col-sm-12 anotacoes_collapse collapse show'>
+					
 					<?php
 						$template_id = 'anotacoes';
 						$template_titulo = 'Anotações privadas';
@@ -629,9 +646,9 @@
                 class='fas fa-pen-alt fa-fw'></i></button>
 </div>
 <?php
-
+	
 	//IMAGENS MODAL IMAGENS MODAL IMAGENS MODAL IMAGENS MODAL IMAGENS MODAL IMAGENS MODAL IMAGENS MODAL IMAGENS MODAL IMAGENS MODAL IMAGENS MODAL
-
+	
 	$template_modal_div_id = 'modal_imagens_form';
 	$template_modal_titulo = 'Adicionar imagem';
 	$template_modal_body_conteudo = "
@@ -649,9 +666,9 @@
         </div>
     ";
 	include 'templates/modal.php';
-
+	
 	//LEIA MAIS MODAL LEIA MAIS MODAL LEIA MAIS MODAL LEIA MAIS MODAL LEIA MAIS MODAL LEIA MAIS MODAL LEIA MAIS MODAL LEIA MAIS MODAL
-
+	
 	$template_modal_div_id = 'modal_referencia_form';
 	$template_modal_titulo = 'Adicionar material de leitura';
 	$template_modal_body_conteudo = "
@@ -686,11 +703,11 @@
                    for='nova_referencia_link'>Link (opcional)</label>
         </div>
 	";
-
+	
 	include 'templates/modal.php';
-
+	
 	// VIDEOS MODAL VIDEOS MODAL VIDEOS MODAL VIDEOS MODAL VIDEOS MODAL VIDEOS MODAL VIDEOS MODAL VIDEOS MODAL VIDEOS MODAL
-
+	
 	$template_modal_div_id = 'modal_videos_form';
 	$template_modal_titulo = 'Adicionar vídeo ou aula';
 	$template_modal_body_conteudo = "
@@ -702,16 +719,16 @@
                                for='novo_video_link'>Link para o vídeo</label>
                     </div>
 	";
-
+	
 	include 'templates/modal.php';
-
+	
 	// ESTADO MODAL ESTADO MODAL ESTADO MODAL ESTADO MODAL ESTADO MODAL ESTADO MODAL ESTADO MODAL ESTADO MODAL
-
+	
 	$active1 = false;
 	$active2 = false;
 	$active3 = false;
 	$active4 = false;
-
+	
 	if ($estado_pagina == 1) {
 		$active1 = 'selected';
 	} elseif ($estado_pagina == 2) {
@@ -721,7 +738,7 @@
 	} else {
 		$active4 = 'selected';
 	}
-
+	
 	$template_modal_div_id = 'modal_estado';
 	$template_modal_titulo = 'Qualidade da página';
 	$template_modal_body_conteudo = "
@@ -737,21 +754,20 @@
             </select>
         </div>
     ";
-
+	
 	if ($estado_pagina != 0) {
 		include 'templates/modal.php';
 	}
-
+	
 	// FORUM MODAL FORUM MODAL FORUM MODAL FORUM MODAL FORUM MODAL FORUM MODAL FORUM MODAL FORUM MODAL FORUM MODAL
-
+	
 	$template_modal_div_id = 'modal_forum';
 	$template_modal_titulo = 'Fórum';
 	$template_modal_body_conteudo = false;
-
-	$result = $conn->query("SELECT timestamp, comentario, user_id FROM Forum WHERE topico_id = $topico_id");
-	if ($result->num_rows > 0) {
+	
+	if ($comments->num_rows > 0) {
 		$template_modal_body_conteudo .= "<ul class='list-group'>";
-		while ($row = $result->fetch_assoc()) {
+		while ($row = $comments->fetch_assoc()) {
 			$timestamp_comentario = $row['timestamp'];
 			$texto_comentario = $row['comentario'];
 			$autor_comentario = $row['user_id'];
@@ -769,8 +785,8 @@
 	} else {
 		$template_modal_body_conteudo .= "<p><strong>Não há comentários sobre este tópico.</strong></p>";
 	}
-	$result = $conn->query("SELECT apelido FROM Usuarios WHERE id = $user_id AND apelido IS NOT NULL");
-	if ($result->num_rows > 0) {
+	$apelido = $conn->query("SELECT apelido FROM Usuarios WHERE id = $user_id AND apelido IS NOT NULL");
+	if ($apelido->num_rows > 0) {
 		$template_modal_body_conteudo .= "
                 <div class='md-form mb-2'>
                     <p>Adicione seu comentário:</p>
@@ -781,7 +797,7 @@
 	} else {
 		$template_modal_body_conteudo .= "<p class='mt-3'><strong>Para adicionar um comentário, você precisará definir seu apelido em sua <a href='usuario.php' target='_blank'>página de usuário</a>.</strong></p>";
 	}
-
+	
 	include 'templates/modal.php';
 
 ?>
