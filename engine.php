@@ -479,19 +479,30 @@
 		return false;
 	}
 
-	function return_estado_icone($estado_pagina) {
+	function return_estado_icone($estado_pagina, $contexto) {
+		$icone0 = 'fal fa-empty-set';
+		$icone1 = 'fal fa-acorn';
+		$icone2 = 'fal fa-seedling';
+		$icone3 = 'fas fa-leaf';
+		$icone4 = 'fas fa-leaf';
+
+		if ($contexto == 'verbete') {
+			$icone1 = 'fas fa-acorn';
+			$icone2 = 'fas fa-seedling';
+		}
+
 		if ($estado_pagina == 0) {
-			return 'fal fa-empty-set';
+			return $icone0;
 		}
 		elseif ($estado_pagina == 1) {
-			return 'fal fa-star-half';
+			return $icone1;
 		} elseif ($estado_pagina == 2) {
-			return 'fal fa-star';
+			return $icone2;
 		} elseif ($estado_pagina == 3) {
-			return 'fas fa-star';
+			return $icone3;
 		} elseif ($estado_pagina == 4) {
-			return 'fas fa-certificate';
+			return $icone4;
 		}
 	}
-	
+
 ?>
