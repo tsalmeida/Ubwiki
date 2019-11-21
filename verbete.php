@@ -770,14 +770,14 @@
 		while ($row = $comments->fetch_assoc()) {
 			$timestamp_comentario = $row['timestamp'];
 			$texto_comentario = $row['comentario'];
-			$autor_comentario = $row['user_id'];
-			$result2 = $conn->query("SELECT apelido FROM usuarios WHERE id = $autor_comentario");
+			$autor_comentario_id = $row['user_id'];
+			$result2 = $conn->query("SELECT apelido FROM usuarios WHERE id = $autor_comentario_id");
 			while ($row2 = $result2->fetch_assoc()) {
-				$autor_comentario = $row2['apelido'];
+				$autor_comentario_apelido = $row2['apelido'];
 				break;
 			}
 			$template_modal_body_conteudo .= "<li class='list-group-item'>
-                                                <p><strong>$autor_comentario</strong> <span class='text-muted'><small>escreveu em $timestamp_comentario</small></span></p>
+                                                <p><strong><a href='perfil.php?pub_user_id=$autor_comentario_id' target='_blank'>$autor_comentario_apelido</a></strong> <span class='text-muted'><small>escreveu em $timestamp_comentario</small></span></p>
                                                 $texto_comentario
                                               </li>";
 		}
