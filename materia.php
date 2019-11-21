@@ -132,7 +132,7 @@
 									    $estado_cor = 'text-dark';
                                     }
 									$icone_badge = "
-									    <span class='badge $cor_badge $estado_cor badge-pill z-depth-0'>
+									    <span class='badge bg-white $estado_cor badge-pill z-depth-0'>
                                             <i class='fa $icone_estado fa-fw'></i>
                                         </span>
 									";
