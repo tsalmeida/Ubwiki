@@ -122,9 +122,9 @@
 							$template_conteudo .= "<option value='$um_concurso[0]'>$um_concurso[1] / $estado_concurso</option>";
 						}
 						$template_conteudo .= "</select>";
-						$template_conteudo .= "<button class='btn btn-primary btn-block btn-md'>Acessar ferramenta</button></form>";
+						$template_conteudo .= "<button class='$button_classes'>Acessar ferramenta</button></form>";
 						include 'templates/page_element.php';
-						
+
 						$template_id = 'acrescentar_concurso';
 						$template_titulo = 'Acrescentar concurso';
 						$template_botoes = false;
@@ -140,7 +140,7 @@
                 <input type='text' id='novo_concurso_sigla' name='novo_concurso_sigla' class='form-control validate' required>
                 <label data-error='inválido' data-successd='válido' for='novo_concurso_sigla'>Sigla do concurso</label>
               </div>
-            <button class='btn btn-primary btn-block btn-md' type='submit'>Acrescentar concurso</button>
+            <button class='$button_classes' type='submit'>Acrescentar concurso</button>
             </form>
               ";
 						include 'templates/page_element.php';
@@ -167,7 +167,7 @@
 						
 						$template_conteudo .= "
                                             </select>
-                <button class='btn btn-primary btn-block btn-md' type='submit' name='reconstruir_busca'>Reconstruir
+                <button class='$button_classes' type='submit' name='reconstruir_busca'>Reconstruir
                 </button>
             </form>
                         ";
@@ -180,7 +180,7 @@
 						$template_conteudo .= "
 						    <form method='post'>
 						        <p>Estado rascunho para todas as páginas com verbete.</p>
-						        <button class='btn btn-primary btn-block btn-md' type='submit' name='funcoes_gerais'>Ativar função</button>
+						        <button class='$button_classes' type='submit' name='funcoes_gerais'>Ativar função</button>
 						    </form>
 						";
 						include 'templates/page_element.php';

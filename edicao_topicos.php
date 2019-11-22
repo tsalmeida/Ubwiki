@@ -328,7 +328,7 @@
                 <div class='row justify-content-center'>
                 <button name='form_topico_id' type='submit' class='btn btn-primary' value='$topico_id'>Registrar mudanças</button>";
 							if ($concurso_estado == 0) {
-								$template_conteudo .= "<button name='apagar_topico_id' type='submit' class='btn btn-danger' value='$topico_id'>Apagar tópico e subtópicos</button>";
+								$template_conteudo .= "<button name='apagar_topico_id' type='submit' class='$button_classes btn-danger' value='$topico_id'>Apagar tópico e subtópicos</button>";
 							}
 							$template_conteudo .= '</div>';
 						} else {
@@ -345,8 +345,8 @@
 						$template_conteudo .= "<form method='post'>";
 						$template_conteudo .= "<p>Ao pressionar 'reiniciar o ciclo de revisão', todos os tópicos serão marcadas para revisão. Ao pressionar 'finalizar o ciclo de revisão', todos serão removidos do ciclo de revisão.</p>";
 						$template_conteudo .= "<div class='row justify-content-center'>";
-						$template_conteudo .= "<button name='reiniciar_ciclo' type='submit' class='btn btn-primary' value='$concurso_id'>Reiniciar ciclo de revisão</button>";
-						$template_conteudo .= "<button name='finalizar_ciclo' type='submit' class='btn btn-primary' value='$concurso_id'>Finalizar ciclo de revisão</button>";
+						$template_conteudo .= "<button name='reiniciar_ciclo' type='submit' class='$button_classes' value='$concurso_id'>Reiniciar ciclo de revisão</button>";
+						$template_conteudo .= "<button name='finalizar_ciclo' type='submit' class='$button_classes' value='$concurso_id'>Finalizar ciclo de revisão</button>";
 						$template_conteudo .= "</div>";
 						include 'templates/page_element.php';
 						
@@ -401,7 +401,7 @@
                                for='nova_materia_titulo'>Título da matéria</label>
                     </div>
                 <div class='row justify-content-center'>
-                    <button type='submit' class='btn btn-primary'>Incluir matéria</button>
+                    <button type='submit' class='$button_classes'>Incluir matéria</button>
                 </div>
             </form>
                         
@@ -469,7 +469,7 @@
                             </fieldset>
             
                             <div class='row justify-content-center'>
-                                <button type='submit' class='btn btn-primary' name='nova_materia_concurso'>Incluir tópicos</button>
+                                <button type='submit' class='$button_classes' name='nova_materia_concurso'>Incluir tópicos</button>
                             </div>
                         </form>";
 						} else {
@@ -508,7 +508,7 @@
 							$template_conteudo .= "<p>Este concurso não possui matérias desativadas.</p>";
 						}
 						$template_conteudo .= "<div class='row justify-content-center'>";
-						$template_conteudo .= "<button type='submit' class='btn btn-primary'>Ativar matéria</button>";
+						$template_conteudo .= "<button type='submit' class='$button_classes'>Ativar matéria</button>";
 						$template_conteudo .= "</div>
                             </form>";
 						include 'templates/page_element.php';

@@ -77,7 +77,9 @@
                               <option value='3'>Oral</option>
                               <option value='4'>Física</option>
                             </select>
-                            <button type='button' class='btn btn-primary btn-sm btn-block'>Adicionar prova</button>
+                            <div class='row justify-content-center'>
+                                <button type='button' class='$button_classes'>Adicionar prova</button>
+                            </div>
 						";
 						$template_conteudo .= "</form>";
 						include 'templates/page_element.php';
@@ -91,8 +93,9 @@
                               <input type='text' class='form-control' name='nova_etapa_1' id='nova_etapa_1'>
                               <label for='nova_etapa_1'>Etapa</label>
                             </div>
-                            <button type='button' class='btn btn-primary btn-sm btn-block'>Adicionar etapa</button>" .
-                          "
+                            <div class='row justify-content-center'>
+                                <button type='button' class='$button_classes'>Adicionar etapa</button>
+                            </div>
 						";
 						$template_conteudo .= "</form>";
 						include 'templates/page_element.php';
@@ -110,7 +113,9 @@
                                 <input type='checkbox' class='form-check-input' id='unica_edicao_ano'>
                                 <label class='form-check-label' for='unica_edicao_ano'>Única edição do concurso neste ano?</label>
                             </div>
-                            <button type='button' class='btn btn-primary btn-md btn-block'>Adicionar edição do concurso</button>
+                            <div class='row justify-content-center'>
+                                <button type='button' class='$button_classes'>Adicionar edição do concurso</button>
+                            </div>
 						";
 						$template_conteudo .= "</form>";
 						include 'templates/page_element.php';

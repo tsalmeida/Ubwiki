@@ -518,4 +518,6 @@
 		}
 	}
 
+	$button_classes = 'btn btn-primary btn-md mt-4 text-center';
+
 ?>
