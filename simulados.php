@@ -2,23 +2,12 @@
 	
 	include 'engine.php';
 	include 'templates/html_head.php';
-	
-	$concurso_id = false;
-	$concurso_sigla = false;
-	if (isset($_GET['concurso_id'])) {
-		$concurso_id = $_GET['concurso_id'];
-		$concursos = $conn->query("SELECT sigla FROM Concursos WHERE id = $concurso_id");
-		if ($concursos->num_rows > 0) {
-			while ($concurso = $concursos->fetch_assoc()) {
-				$concurso_sigla = $concurso['sigla'];
-			}
-		}
+
+	if (!isset($concurso_id)) {
+		$concurso_id = return_concurso_id_topico($topico_id);
 	}
-	else {
-		header('Location:index.php');
-	}
-	
-	
+	$concurso_sigla = return_concurso_sigla($concurso_id);
+
 ?>
 
 <body>

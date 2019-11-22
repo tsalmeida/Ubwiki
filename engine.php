@@ -11,6 +11,19 @@
 		session_start();
 	}
 
+	if (isset($_GET['concurso_id'])) {
+		$_SESSION['concurso_id'] = $_GET['concurso_id'];
+		$concurso_id = $_GET['concurso_id'];
+	}
+	else {
+		if (isset($_SESSION['concurso_id'])) {
+			$concurso_id = $_SESSION['concurso_id'];
+		}
+		else {
+			$concurso_id = 1;
+		}
+	}
+
 	$servername = "localhost";
 	$username = "grupoubique";
 	$password = "ubique patriae memor";

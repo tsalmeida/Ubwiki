@@ -1,11 +1,5 @@
 <?php
-	
-	if (isset($_GET['concurso_id'])) {
-		$concurso_id = $_GET['concurso_id'];
-	} else {
-		$concurso_id = 2;
-	}
-	
+
 	include 'engine.php';
 	
 	$html_head_template_one_page = true;
