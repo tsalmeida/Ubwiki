@@ -20,7 +20,7 @@
 			$concurso_id = $_SESSION['concurso_id'];
 		}
 		else {
-			$concurso_id = 1;
+			$concurso_id = 2;
 		}
 	}
 
