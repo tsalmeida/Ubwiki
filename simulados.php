@@ -65,9 +65,20 @@
 						$template_titulo = 'Adicionar prova';
 						$template_conteudo = false;
 						$template_conteudo .= "<form method='post'>";
-						$template_conteudo .= "<p>Quantas provas?</p>";
-						$template_conteudo .= "<p>Títulos das provas?</p>";
-						$template_conteudo .= "<p>Tipo (discursiva, objetiva, oral, física)?</p>";
+						$template_conteudo .= "
+                            <div class='md-form'>
+                              <input type='text' class='form-control' name='novo_titulo_prova' id='novo_titulo_prova'>
+                              <label for='novo_titulo_prova'>Título da prova</label>
+                            </div>
+                            <select class='mdb-select md-form'>
+                              <option value='' disabled selected>Tipo de prova:</option>
+                              <option value='1'>Objetiva</option>
+                              <option value='2'>Discursiva</option>
+                              <option value='3'>Oral</option>
+                              <option value='4'>Física</option>
+                            </select>
+                            <button type='button' class='btn btn-primary btn-sm btn-block'>Adicionar prova</button>
+						";
 						$template_conteudo .= "</form>";
 						include 'templates/page_element.php';
 
@@ -75,8 +86,14 @@
 						$template_titulo = 'Adicionar etapa';
 						$template_conteudo = false;
 						$template_conteudo .= "<form method='post'>";
-						$template_conteudo .= "<p>Quantas etapas?</p>";
-						$template_conteudo .= "<p>Título da etapa?</p>";
+						$template_conteudo .= "
+						    <div class='md-form'>
+                              <input type='text' class='form-control' name='nova_etapa_1' id='nova_etapa_1'>
+                              <label for='nova_etapa_1'>Etapa</label>
+                            </div>
+                            <button type='button' class='btn btn-primary btn-sm btn-block'>Adicionar etapa</button>" .
+                          "
+						";
 						$template_conteudo .= "</form>";
 						include 'templates/page_element.php';
 
@@ -84,8 +101,17 @@
 						$template_titulo = 'Adicionar edição do concurso';
 						$template_conteudo = false;
 						$template_conteudo .= "<form method='post'>";
-						$template_conteudo .= "<p>Digite o ano</p>";
-						$template_conteudo .= "<input type='checkbox'>Único do ano?</input>";
+						$template_conteudo .= "
+                            <div class='md-form'>
+                              <input type='text' class='form-control' name='nova_edicao_ano' id='nova_edicao_ano'>
+                              <label for='nova_edicao_ano'>Ano</label>
+                            </div>
+                            <div class='form-check pl-0'>
+                                <input type='checkbox' class='form-check-input' id='unica_edicao_ano'>
+                                <label class='form-check-label' for='unica_edicao_ano'>Única edição do concurso neste ano?</label>
+                            </div>
+                            <button type='button' class='btn btn-primary btn-md btn-block'>Adicionar edição do concurso</button>
+						";
 						$template_conteudo .= "</form>";
 						include 'templates/page_element.php';
 					?>
@@ -103,5 +129,6 @@
 </body>
 <?php
 	include 'templates/footer.html';
+	$mdb_select = true;
 	include 'templates/html_bottom.php';
 ?>

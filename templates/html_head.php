@@ -41,7 +41,7 @@
 			echo "
             <script type='text/javascript'>
 	  	        var formatWhitelist_general = ['italic', 'script', 'link', 'blockquote', 'list', 'header', 'image'];
-	  	        var formatWhitelist_anotacoes = ['italic', 'script', 'link', 'blockquote', 'list', 'header', 'image', 'bold', 'background', 'color', 'strike', 'underline', 'align'];
+	  	        var formatWhitelist_anotacoes = ['italic', 'script', 'link', 'blockquote', 'list', 'header', 'image', 'bold', 'background', 'color', 'strike', 'underline', 'align', 'link', 'video', 'image'];
                 var toolbarOptions_general = [
                     [{'header': [2, 3, false]}],
                     ['italic'],
@@ -63,6 +63,9 @@
                     ['blockquote'],
                     [{'list': 'ordered'}, {'list': 'bullet'}],
                     [{'align': []}],
+                    ['link'],
+                    ['image'],
+                    ['video'],
                     ['clean'],
                 ];
                 var BackgroundClass = Quill.import('attributors/class/background');

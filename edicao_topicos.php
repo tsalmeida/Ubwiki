@@ -508,9 +508,7 @@
 							$template_conteudo .= "<p>Este concurso não possui matérias desativadas.</p>";
 						}
 						$template_conteudo .= "<div class='row justify-content-center'>";
-						$template_conteudo .= "
-                          <button type='submit' class='btn btn-primary'>Ativar materia</button>
-                        ";
+						$template_conteudo .= "<button type='submit' class='btn btn-primary'>Ativar matéria</button>";
 						$template_conteudo .= "</div>
                             </form>";
 						include 'templates/page_element.php';
