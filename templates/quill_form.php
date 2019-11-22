@@ -10,17 +10,19 @@
 	if (!isset($template_quill_empty_content)) {
 		$template_quill_empty_content = false;
 	}
-	$template_quill_toolbar_and_whitelist = 'general';
 	if (($template_id == 'anotacoes') || ($template_id == 'anotacoes_user') || ($template_id == 'anotacoes_admin') || ($template_id == 'anotacoes_elemento')) {
+		$template_quill_meta_tipo = 'anotacoes';
 		$template_quill_toolbar_and_whitelist = 'anotacoes';
 		$template_quill_initial_state = 'edicao';
+	} else {
+		$template_quill_meta_tipo = 'verbete';
+		$template_quill_toolbar_and_whitelist = 'general';
+		if (!isset($template_quill_initial_state)) {
+			$template_quill_initial_state = 'leitura';
+		}
 	}
 	$template_quill_whitelist = "formatWhitelist_{$template_quill_toolbar_and_whitelist}";
 	$template_quill_toolbar = "toolbarOptions_{$template_quill_toolbar_and_whitelist}";
-	
-	if (!isset($template_quill_initial_state)) {
-		$template_quill_initial_state = 'leitura';
-	}
 	
 	if ($template_quill_initial_state == 'edicao') {
 		$template_quill_editor_classes = 'quill_editor_height quill_editor_height_leitura';
@@ -47,12 +49,9 @@
 	$verbete_exists = false; // essa variável muda se é encontrado conteúdo prévio.
 	
 	if (!isset($template_quill_public)) {
-		if ($template_id == 'anotacoes') {
+		$template_quill_public = true;
+		if ($template_quill_meta_tipo == 'anotacoes') {
 			$template_quill_public = false;
-		} elseif ($template_id == 'verbete') {
-			$template_quill_public = true;
-		} else {
-			$template_quill_public = true;
 		}
 	}
 	if (!isset($template_botoes)) {
@@ -75,7 +74,7 @@
 			$quill_verbete_content = urldecode($quill_verbete_content);
 		}
 	} else {
-		if ($template_id == 'verbete') {
+		if ($template_quill_meta_tipo == 'verbete') {
 			$template_vazio = true;
 		}
 	}
@@ -87,7 +86,7 @@
 		$novo_verbete_text = escape_quotes($novo_verbete_text);
 		$novo_verbete_content = $_POST[$quill_novo_verbete_content];
 		$novo_verbete_content = escape_quotes($novo_verbete_content);
-		$novo_verbete_html = strip_tags($novo_verbete_html, '<p><li><ul><ol><h2><h3><blockquote><em><sup><img><u><b>');
+		$novo_verbete_html = strip_tags($novo_verbete_html, '<p><li><ul><ol><h2><h3><blockquote><em><sup><img><u><b><a>');
 		if ($template_quill_public == true) {
 			$result = $conn->query("SELECT id FROM Textos WHERE page_id = $template_quill_page_id AND tipo = '$template_id'");
 		} else {
@@ -111,12 +110,23 @@
 		$quill_result .= $template_quill_empty_content;
 	}
 	
+	if ($template_quill_meta_tipo == 'anotacoes') {
+		$template_botoes .= "
+		<span id='esconder_coluna_esquerda' title='expandir'>
+			<a href='javascript:void(0);'><i class='fal fa-chevron-square-left fa-fw'></i></a>
+  	</span>
+    <span id='mostrar_coluna_esquerda' title='comprimir'>
+    	<a href='javascript:void(0);'><i class='fal fa-chevron-square-right fa-fw'></i></a>
+  	</span>
+		";
+	}
+	
 	$template_botoes .= "
 		<span id='travar_{$template_id}' title='travar para edição'>
-			<a href='javascript:void(0);'><i class='fal fa-lock-open-alt fa-fw'></i></a>
+    	<a href='javascript:void(0);'><i class='fal fa-pen-square fa-fw'></i></a>
   	</span>
     <span id='destravar_{$template_id}' title='permitir edição'>
-    	<a href='javascript:void(0);'><i class='fal fa-lock-alt fa-fw'></i></a>
+			<a href='javascript:void(0);'><span class='text-muted'><i class='fas fa-pen-square fa-fw'></i></span></a>
   	</span>
 	";
 	
@@ -134,9 +144,9 @@
             </div>
         </div>
         <div id='botoes_salvar_{$template_id}' class='row justify-content-center mt-3'>
-        		<button type='button' class='btn btn-light btn-sm'>
+        		<!--<button type='button' class='btn btn-light btn-sm'>
         			<i class='fal fa-times-circle fa-fw'></i> Cancelar
-            </button>
+            </button>!-->
             <button type='submit' class='btn btn-primary btn-sm' name='$quill_trigger_button'>
             	<i class='fal fa-check fa-fw'></i> Salvar
             </button>
@@ -150,8 +160,14 @@
         modules: {
             toolbar: {
                 container: $template_quill_toolbar,
-                handlers: {
-                    image: imageHandler
+                handlers: {";
+	if ($template_quill_meta_tipo == 'verbete') {
+                    $quill_result .= "image: imageHandler";
+	}
+	else {
+										$quill_result .= "image: imageHandler_privado";
+	}
+		$quill_result .= "
                 }
             }
         }
@@ -227,5 +243,6 @@
 	unset($template_quill_public);
 	unset($template_quill_empty_content);
 	unset($verbete_exists);
+	unset($template_quill_meta_tipo);
 	
 	return $quill_result;

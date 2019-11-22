@@ -64,7 +64,6 @@
                     [{'list': 'ordered'}, {'list': 'bullet'}],
                     [{'align': []}],
                     ['link'],
-                    ['image'],
                     ['video'],
                     ['clean'],
                 ];

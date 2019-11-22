@@ -287,6 +287,7 @@
 <?php
 	include 'templates/footer.html';
 	include 'templates/html_bottom.php';
-	include 'templates/esconder_anotacoes.html';
+	$anotacoes_id = 'anotacoes_user';
+	include 'templates/esconder_anotacoes.php';
 ?>
 </html>

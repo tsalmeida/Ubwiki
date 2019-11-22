@@ -314,7 +314,8 @@
 </body>
 <?php
 	include 'templates/html_bottom.php';
-	include 'templates/esconder_anotacoes.html';
+	$anotacoes_id = 'anotacoes_elemento';
+	include 'templates/esconder_anotacoes.php';
 	include 'templates/bookmarks.php';
 	include 'templates/footer.html';
 ?>
