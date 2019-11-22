@@ -480,15 +480,15 @@
 	}
 
 	function return_estado_icone($estado_pagina, $contexto) {
-		$icone0 = 'fal fa-empty-set';
-		$icone1 = 'fal fa-acorn';
-		$icone2 = 'fal fa-seedling';
-		$icone3 = 'fas fa-leaf';
-		$icone4 = 'fas fa-leaf';
+		$icone0 = 'fal fa-empty-set fa-fw';
+		$icone1 = 'fal fa-acorn fa-fw';
+		$icone2 = 'fal fa-seedling fa-fw';
+		$icone3 = 'fas fa-leaf fa-fw';
+		$icone4 = 'fas fa-leaf fa-fw';
 
 		if ($contexto == 'verbete') {
-			$icone1 = 'fas fa-acorn';
-			$icone2 = 'fas fa-seedling';
+			$icone1 = 'fas fa-acorn fa-fw';
+			$icone2 = 'fas fa-seedling fa-fw';
 		}
 
 		if ($estado_pagina == 0) {

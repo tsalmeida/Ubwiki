@@ -58,17 +58,18 @@
 										$row_items = 2;
 										$result = $conn->query("SELECT titulo, id FROM Materias WHERE concurso_id = '$concurso_id' AND estado = 1 ORDER BY ordem");
 										$rowcount = mysqli_num_rows($result);
-										if ($rowcount > 4) {
+										if ($rowcount > 8) {
+											$row_items = 3;
+										} elseif ($rowcount > 4) {
 											$row_items = 2;
+										} elseif ($rowcount < 5) {
+											$row_items = 1;
 										}
-										elseif ($rowcount < 5) {
-										    $row_items = 1;
-                                        }
 										if ($result->num_rows > 0) {
 											$count = 0;
 											while ($row = $result->fetch_assoc()) {
 												if ($count == 0) {
-													echo "<div class='col-lg col-sm-12'>";
+													echo "<div class='col-lg col-md-6 col-sm-12'>";
 												}
 												$count++;
 												$materia_titulo = $row['titulo'];
