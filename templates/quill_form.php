@@ -14,6 +14,7 @@
 		$template_quill_meta_tipo = 'anotacoes';
 		$template_quill_toolbar_and_whitelist = 'anotacoes';
 		$template_quill_initial_state = 'edicao';
+		$template_classes = 'anotacoes_sticky';
 	} else {
 		$template_quill_meta_tipo = 'verbete';
 		$template_quill_toolbar_and_whitelist = 'general';

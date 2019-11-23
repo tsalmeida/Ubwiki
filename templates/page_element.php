@@ -18,6 +18,9 @@
 	if (!isset($template_load_invisible)) {
 		$template_load_invisible = false;
 	}
+	if (!isset($template_classes)) {
+		$template_classes = false;
+	}
 	
 	$template_collapse = $template_id . "_collapse";
 	$template_esconder = "esconder_" . $template_id;
@@ -33,7 +36,7 @@
 	}
 
 echo "
-<div id='$template_id' class='show mb-2 border-top border-light pt-4'>
+<div id='$template_id' class='show mb-2 border-top border-light pt-4 $template_classes'>
     <div class='row'>
         <div class='col-12 d-flex justify-content-between'>
             <h1>$template_titulo</h1>
@@ -73,6 +76,7 @@ echo "
 	unset($template_mostrar);
 	unset($template_conteudo_class);
 	unset($template_load_invisible);
+	unset($template_classes);
 	
 	unset($template_quill_form_id);
 	unset($template_quill_conteudo_html);
