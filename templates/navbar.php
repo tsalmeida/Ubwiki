@@ -14,6 +14,9 @@
 		$template_navbar_color = 'transparent';
 		$template_navbar_text = 'text-white';
 	}
+	
+	$concursos = $conn->query("SELECT id, titulo FROM Concursos WHERE estado = 1");
+	
 	echo "<nav class='navbar navbar-expand-lg $template_navbar_color' id='inicio'>";
 	echo "<a class='navbar-brand playfair900 $template_navbar_text' href='index.php'>Ubwiki</a>";
 	echo "<ul class='nav navbar-nav ml-auto nav-flex-icons'>";
@@ -24,6 +27,7 @@
         </a>
         <div class='dropdown-menu dropdown-menu-right z-depth-0'>
           <a class='dropdown-item navlink z-depth-0' href='usuario.php'>Sua página</a>
+          <a class='dropdown-item navlink z-depth-0' href='cursos.php'>Trocar curso</a>
           <a class='dropdown-item navlink z-depth-0' href='logout.php'>Logout</a>
       </li>
     </ul>
