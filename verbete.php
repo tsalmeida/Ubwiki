@@ -768,6 +768,7 @@
 	$template_modal_titulo = 'Fórum';
 	$template_modal_body_conteudo = false;
 
+	$comments = $conn->query("SELECT timestamp, comentario, user_id FROM Forum WHERE topico_id = $topico_id");
 	if ($comments->num_rows > 0) {
 		$template_modal_body_conteudo .= "<ul class='list-group'>";
 		while ($row = $comments->fetch_assoc()) {
