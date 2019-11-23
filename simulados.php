@@ -8,6 +8,48 @@
 	}
 	$concurso_sigla = return_concurso_sigla($concurso_id);
 
+	if (isset($_POST['nova_edicao_trigger'])) {
+	    if (isset($_POST['nova_edicao_ano'])) {
+	        $nova_edicao_ano = $_POST['nova_edicao_ano'];
+        }
+	    if (isset($_POST['nova_edicao_titulo'])) {
+	        $nova_edicao_titulo = $_POST['nova_edicao_titulo'];
+        }
+	    if (($nova_edicao_ano != false) && ($nova_edicao_titulo != false)) {
+	        $conn->query("INSERT INTO sim_edicoes (concurso_id, ano, titulo, user_id) VALUES ($concurso_id, $nova_edicao_ano, '$nova_edicao_titulo', $user_id)");
+        }
+    }
+	
+    if (isset($_POST['nova_etapa_trigger'])) {
+        if (isset($_POST['nova_etapa_titulo'])) {
+            $nova_etapa_titulo = $_POST['nova_etapa_titulo'];
+        }
+        if (isset($_POST['nova_etapa_edicao'])) {
+            $nova_etapa_edicao = $_POST['nova_etapa_edicao'];
+        }
+	    if (($nova_etapa_titulo != false) && ($nova_etapa_edicao != false)) {
+		    $conn->query("INSERT INTO sim_etapas (concurso_id, edicao_id, titulo, user_id) VALUES ($concurso_id, $nova_etapa_edicao, '$nova_etapa_titulo', $user_id)");
+	    }
+    }
+    
+    if (isset($_POST['nova_prova_trigger'])) {
+        if (isset($_POST['nova_prova_etapa'])) {
+            $nova_prova_etapa = $_POST['nova_prova_etapa'];
+        }
+        if (isset($_POST['nova_prova_titulo'])) {
+            $nova_prova_titulo = $_POST['nova_prova_titulo'];
+        }
+        if (isset($_POST['nova_prova_tipo'])) {
+            $nova_prova_tipo = $_POST['nova_prova_tipo'];
+        }
+        if (($nova_prova_etapa != false) && ($nova_prova_titulo != false) && ($nova_prova_tipo != false)) {
+            $conn->query("INSERT INTO sim_provas (concurso_id, etapa_id, titulo, tipo, user_id) VALUES ($concurso_id, $nova_prova_etapa, '$nova_prova_titulo', $nova_prova_tipo, $user_id)");
+        }
+    }
+	
+	$edicoes = $conn->query("SELECT id, ano, titulo FROM sim_edicoes WHERE concurso_id = $concurso_id ORDER BY id DESC");
+	$etapas = $conn->query("SELECT id, edicao_id, titulo FROM sim_etapas WHERE concurso_id = $concurso_id ORDER BY id DESC");
+	
 ?>
 
 <body>
@@ -26,6 +68,23 @@
     <div class="row d-flex justify-content-around">
         <div id="coluna_esquerda" class="col-lg-5 col-sm-12">
 					<?php
+                        
+                        $template_id = 'sobre_adicao_simulados';
+                        $template_titulo = 'Plataforma de simulados';
+                        $template_conteudo = false;
+                        $template_conteudo .= "
+                            <p>A plataforma de simulados é populada por questões oficiais de concursos e por questões criadas pelos usuários da página.</p>
+                            <p>Para acrescentar questões de edições passadas do concurso, é necessário registrar algumas informações prévias:</p>
+                            <ol>
+                                <li>A edição do concurso</li>
+                                <li>A etapa da edição</li>
+                                <li>A prova da etapa</li>
+                            </ol>
+                            <p>Caso a questão possua um texto de apoio, será também necessário registrá-lo primeiro.</p>
+                            <p>É importante prestar atenção para que todos as questões não-oficiais sejam devidamente identificadas como tal. É possível criar textos de apoio não oficiais, mas também criar questões com os textos de apoio de edições passadas do concurso.</p>
+                        ";
+                        include 'templates/page_element.php';
+                        
 						$template_id = 'adicionar_questao';
 						$template_titulo = 'Adicionar questão';
 						$template_conteudo = false;
@@ -40,7 +99,7 @@
                         $template_conteudo .= "
                             <div class='form-check pl-0'>
                                 <input id='nova_questao_sem_apoio' name='nova_questao_sem_apoio' type='checkbox' class='form-check-input' checked>
-                                <label class='form-check-label' for='nova_questao_sem_apoio'>Esta questão possui texto de apoio.</label>
+                                <label class='form-check-label' for='nova_questao_sem_apoio'>Esta questão tem texto de apoio.</label>
                             </div>
 						";
 						$template_conteudo .= "
@@ -106,7 +165,7 @@
 						";
 						$template_conteudo .= "
                             <div class='row justify-content-center'>
-                                <button type='button' class='$button_classes'>Adicionar questão</button>
+                                <button type='submit' class='$button_classes'>Adicionar questão</button>
                             </div>
 						";
 						$template_conteudo .= "</form>";
@@ -145,68 +204,82 @@
 						";
 						$template_conteudo .= "
                             <div class='row justify-content-center'>
-                                <button type='button' class='$button_classes'>Adicionar texto de apoio</button>
+                                <button type='submit' class='$button_classes'>Adicionar texto de apoio</button>
                             </div>
 						";
 						$template_conteudo .= "</form>";
 						include 'templates/page_element.php';
 						
-						$template_id = 'adicionar_prova';
-						$template_titulo = 'Adicionar prova';
-						$template_conteudo = false;
-						$template_conteudo .= "<form method='post'>";
-						$template_conteudo .= "
-                            <select class='mdb-select md-form' name='nova_prova_etapa'>
-                                  <option value='' disabled selected>Etapa do concurso:</option>
-                                  <option value='1'>Etapa</option>
-                                  <option value='2'>Etapa</option>
-                                  <option value='3'>Etapa</option>
-                                  <option value='4'>Etapa</option>
+						if ($etapas->num_rows > 0) {
+                            $template_id = 'adicionar_prova';
+                            $template_titulo = 'Adicionar prova';
+                            $template_conteudo = false;
+                            $template_conteudo .= "<form method='post'>";
+                            $template_conteudo .= "
+                                <select class='mdb-select md-form' name='nova_prova_etapa'>
+                                      <option value='' disabled selected>Etapa do concurso:</option>";
+                                        while ($etapa = $etapas->fetch_assoc()) {
+                                            $etapa_id = $etapa['id'];
+                                            $etapa_titulo = $etapa['titulo'];
+                                            $etapa_edicao_id = $etapa['edicao_id'];
+                                            $edicoes = $conn->query("SELECT ano, titulo FROM sim_edicoes WHERE id = $etapa_edicao_id");
+                                            while ($edicao = $edicoes->fetch_assoc()) {
+                                                $edicao_ano = $edicao['ano'];
+                                                $edicao_titulo = $edicao['titulo'];
+                                            }
+                                            $template_conteudo .= "<option value='$etapa_id'>$edicao_ano: $edicao_titulo: $etapa_titulo</option>";
+                                        }
+                            $template_conteudo .= "</select>
+                            ";
+                            $template_conteudo .= "
+                                <div class='md-form'>
+                                  <input type='text' class='form-control' name='nova_prova_titulo' id='nova_prova_titulo'>
+                                  <label for='nova_prova_titulo'>Título da prova</label>
+                                </div>
+                                <select class='mdb-select md-form' name='nova_prova_tipo'>
+                                  <option value='' disabled selected>Tipo de prova:</option>
+                                  <option value='1'>Objetiva</option>
+                                  <option value='2'>Discursiva</option>
+                                  <option value='3'>Oral</option>
+                                  <option value='4'>Física</option>
                                 </select>
-                        ";
-						$template_conteudo .= "
-                            <div class='md-form'>
-                              <input type='text' class='form-control' name='nova_prova_titulo' id='nova_prova_titulo'>
-                              <label for='nova_prova_titulo'>Título da prova</label>
-                            </div>
-                            <select class='mdb-select md-form' name='nova_prova_tipo'>
-                              <option value='' disabled selected>Tipo de prova:</option>
-                              <option value='1'>Objetiva</option>
-                              <option value='2'>Discursiva</option>
-                              <option value='3'>Oral</option>
-                              <option value='4'>Física</option>
-                            </select>
-                            <div class='row justify-content-center'>
-                                <button type='button' class='$button_classes'>Adicionar prova</button>
-                            </div>
-						";
-						$template_conteudo .= "</form>";
-						include 'templates/page_element.php';
+                                <div class='row justify-content-center'>
+                                    <button type='submit' name='nova_prova_trigger' class='$button_classes'>Adicionar prova</button>
+                                </div>
+                            ";
+                            $template_conteudo .= "</form>";
+                            include 'templates/page_element.php';
+						}
 						
-						$template_id = 'adicionar_etapa';
-						$template_titulo = 'Adicionar etapa';
-						$template_conteudo = false;
-						$template_conteudo .= "<form method='post'>";
-						$template_conteudo .= "
-                            <select class='mdb-select md-form' name='nova_etapa_concurso'>
-                                  <option value='' disabled selected>Edição do concurso:</option>
-                                  <option value='1'>Edição</option>
-                                  <option value='2'>Edição</option>
-                                  <option value='3'>Edição</option>
-                                  <option value='4'>Edição</option>
+						if ($edicoes->num_rows > 0) {
+                            $template_id = 'adicionar_etapa';
+                            $template_titulo = 'Adicionar etapa';
+                            $template_conteudo = false;
+                            $template_conteudo .= "<form method='post'>";
+                            $template_conteudo .= "
+                                <select class='mdb-select md-form' name='nova_etapa_edicao'>
+                                      <option value='' disabled selected>Edição do concurso:</option>";
+                                        while ($edicao = $edicoes->fetch_assoc()) {
+                                            $edicao_id = $edicao['id'];
+                                            $edicao_ano = $edicao['ano'];
+                                            $edicao_titulo = $edicao['titulo'];
+                                            $template_conteudo .= "<option value='$edicao_id'>$edicao_ano : $edicao_titulo</option>";
+                                        }
+                            $template_conteudo .= "
                                 </select>
-                        ";
-						$template_conteudo .= "
-						    <div class='md-form'>
-                              <input type='text' class='form-control' name='nova_etapa' id='nova_etapa'>
-                              <label for='nova_etapa'>Título da etapa</label>
-                            </div>
-                            <div class='row justify-content-center'>
-                                <button type='button' class='$button_classes'>Adicionar etapa</button>
-                            </div>
-						";
-						$template_conteudo .= "</form>";
-						include 'templates/page_element.php';
+                            ";
+                            $template_conteudo .= "
+                                <div class='md-form'>
+                                  <input type='text' class='form-control' name='nova_etapa_titulo' id='nova_etapa_titulo'>
+                                  <label for='nova_etapa_titulo'>Título da etapa</label>
+                                </div>
+                                <div class='row justify-content-center'>
+                                    <button type='submit' name='nova_etapa_trigger' class='$button_classes'>Adicionar etapa</button>
+                                </div>
+                            ";
+                            $template_conteudo .= "</form>";
+                            include 'templates/page_element.php';
+						}
 						
 						$template_id = 'adicionar_edicao';
 						$template_titulo = 'Adicionar edição do concurso';
@@ -222,7 +295,7 @@
                               <label for='nova_edicao_titulo'>Título</label>
                             </div>
                             <div class='row justify-content-center'>
-                                <button type='button' class='$button_classes'>Adicionar edição do concurso</button>
+                                <button type='submit' class='$button_classes' name='nova_edicao_trigger'>Adicionar edição do concurso</button>
                             </div>
 						";
 						$template_conteudo .= "</form>";
@@ -249,7 +322,7 @@
                         ";
 						$template_conteudo .= "
 						    <div class='row justify-content-center'>
-                                <button type='button' class='$button_classes'>Gerar simulado</button>
+                                <button type='submit' name='novo_simulado_trigger' class='$button_classes'>Gerar simulado</button>
                             </div>
 						";
 						include 'templates/page_element.php';
