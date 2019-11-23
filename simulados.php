@@ -39,8 +39,8 @@
 											
                         $template_conteudo .= "
                             <div class='form-check pl-0'>
-                                <input id='nova_questao_sem_apoio' name='nova_questao_sem_apoio' type='checkbox' class='form-check-input'>
-                                <label class='form-check-label' for='nova_questao_sem_apoio'>Esta questão não possui texto de apoio.</label>
+                                <input id='nova_questao_sem_apoio' name='nova_questao_sem_apoio' type='checkbox' class='form-check-input' checked>
+                                <label class='form-check-label' for='nova_questao_sem_apoio'>Esta questão possui texto de apoio.</label>
                             </div>
 						";
 						$template_conteudo .= "
