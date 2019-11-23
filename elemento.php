@@ -19,7 +19,7 @@
 		}
 		if (isset($_POST['elemento_novo_autor'])) {
 			$elemento_novo_autor = $_POST['elemento_novo_autor'];
-			$elemento_novo_autor = escape_quotes($elemento_novo_autor):
+			$elemento_novo_autor = escape_quotes($elemento_novo_autor);
 		}
 		if (isset($_POST['elemento_novo_capitulo'])) {
 			$elemento_novo_capitulo = $_POST['elemento_novo_capitulo'];
