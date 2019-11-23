@@ -148,7 +148,7 @@
         		<!--<button type='button' class='btn btn-light btn-sm'>
         			<i class='fal fa-times-circle fa-fw'></i> Cancelar
             </button>!-->
-            <button type='submit' class='btn btn-primary btn-sm' name='$quill_trigger_button'>
+            <button type='submit' class='$button_classes' name='$quill_trigger_button'>
             	<i class='fal fa-check fa-fw'></i> Salvar
             </button>
         </div>

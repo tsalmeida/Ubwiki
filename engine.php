@@ -494,6 +494,48 @@
 		}
 		return false;
 	}
+	
+	function return_etapa_titulo_id($etapa_id) {
+		$servername = "localhost";
+		$username = "grupoubique";
+		$password = "ubique patriae memor";
+		$dbname = "Ubwiki";
+		$conn = new mysqli($servername, $username, $password, $dbname);
+		mysqli_set_charset($conn, "utf8");
+		$result_find_titulo = $conn->query("SELECT titulo FROM sim_etapas WHERE id = $etapa_id");
+		if ($result_find_titulo->num_rows > 0) {
+			while ($row_find_titulo = $result_find_titulo->fetch_assoc()) {
+				$found_titulo = $row_find_titulo['titulo'];
+			}
+			return $found_titulo;
+		}
+		return false;
+	}
+	
+	function return_etapa_edicao_ano_e_titulo($etapa_id) {
+		$servername = "localhost";
+		$username = "grupoubique";
+		$password = "ubique patriae memor";
+		$dbname = "Ubwiki";
+		$conn = new mysqli($servername, $username, $password, $dbname);
+		mysqli_set_charset($conn, "utf8");
+		$result = $conn->query("SELECT edicao_id FROM sim_etapas WHERE id = $etapa_id");
+		if ($result->num_rows > 0) {
+			while ($row = $result->fetch_assoc()) {
+				$edicao_id = $row['edicao_id'];
+				$result2 = $conn->query("SELECT ano, titulo FROM sim_edicoes WHERE id = $edicao_id");
+				if ($result2->num_rows > 0) {
+					while ($row2 = $result2->fetch_assoc()) {
+						$edicao_ano = $row2['ano'];
+						$edicao_titulo = $row2['titulo'];
+						$edicao_ano_e_titulo = array($edicao_ano, $edicao_titulo);
+						return $edicao_ano_e_titulo;
+					}
+				}
+			}
+		}
+		return false;
+	}
 
 	function return_estado_icone($estado_pagina, $contexto) {
 		$icone0 = 'fal fa-empty-set fa-fw';
@@ -521,6 +563,7 @@
 		}
 	}
 
-	$button_classes = 'btn btn-primary btn-md mt-4 text-center';
+	$button_classes = 'btn btn-primary btn-rounded btn-md mt-4 text-center';
+	$button_classes_light = 'btn btn-light btn-rounded btn-md mt-4 text-center';
 
 ?>

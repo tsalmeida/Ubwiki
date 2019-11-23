@@ -39,7 +39,7 @@ echo "
 <div id='$template_id' class='show mb-2 border-top border-light pt-4 $template_classes'>
     <div class='row'>
         <div class='col-12 d-flex justify-content-between'>
-            <h1>$template_titulo</h1>
+            <h1 class='h1-responsive'>$template_titulo</h1>
             <span class='h5'>
                 $template_botoes
 								<span id='$template_esconder' class='$template_collapse collapse $show' data-toggle='collapse' data-target='.$template_collapse' title='esconder'><a href='javascript:void(0);'><i class='fal fa-chevron-square-up fa-fw'></i></a></span>
