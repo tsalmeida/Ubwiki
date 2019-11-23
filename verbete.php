@@ -768,18 +768,22 @@
 	$template_modal_titulo = 'Fórum';
 	$template_modal_body_conteudo = false;
 
-	$comments = $conn->query("SELECT timestamp, comentario, user_id FROM Forum WHERE topico_id = $topico_id");
 	if ($comments->num_rows > 0) {
 		$template_modal_body_conteudo .= "<ul class='list-group'>";
 		while ($row = $comments->fetch_assoc()) {
 			$timestamp_comentario = $row['timestamp'];
 			$texto_comentario = $row['comentario'];
 			$autor_comentario_id = $row['user_id'];
-			$result2 = $conn->query("SELECT apelido FROM usuarios WHERE id = $autor_comentario_id");
-			while ($row2 = $result2->fetch_assoc()) {
-				$autor_comentario_apelido = $row2['apelido'];
-				break;
+			$result2 = $conn->query("SELECT apelido FROM Usuarios WHERE id = $autor_comentario_id");
+			if ($result2->num_rows > 0) {
+				while ($row2 = $result2->fetch_assoc()) {
+					$autor_comentario_apelido = $row2['apelido'];
+					break;
+				}
 			}
+			else {
+			    $autor_comentario_apelido = false;
+            }
 			$template_modal_body_conteudo .= "<li class='list-group-item'>
                                                 <p><strong><a href='perfil.php?pub_user_id=$autor_comentario_id' target='_blank'>$autor_comentario_apelido</a></strong> <span class='text-muted'><small>escreveu em $timestamp_comentario</small></span></p>
                                                 $texto_comentario
