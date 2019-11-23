@@ -26,48 +26,6 @@
     <div class="row d-flex justify-content-around">
         <div id="coluna_esquerda" class="col-lg-5 col-sm-12">
 					<?php
-						$template_id = 'adicionar_itens';
-						$template_titulo = 'Adicionar itens';
-						$template_conteudo = false;
-						$template_conteudo .= "<form method='post'>";
-						$template_conteudo .= "
-                            <select class='mdb-select md-form' name='novos_itens_questão'>
-                              <option value='' disabled selected>Selecione a questão:</option>
-                              <option value='1'>Questão 1</option>
-                              <option value='2'>Questão 2</option>
-                              <option value='3'>Questão 3</option>
-                              <option value='4'>Questão 4</option>
-                            </select>
-						";
-						$template_conteudo .= "
-						<div class='md-form'>
-                              <input type='text' class='form-control' name='novo_item_texto' id='novo_item_texto'>
-                              <label for='novo_item_texto'>Texto do primeiro item</label>
-                        </div>
-						<div class='md-form'>
-                              <input type='text' class='form-control' name='novo_item_texto' id='novo_item_texto'>
-                              <label for='novo_item_texto'>Texto do segundo item</label>
-                        </div>
-						<div class='md-form'>
-                              <input type='text' class='form-control' name='novo_item_texto' id='novo_item_texto'>
-                              <label for='novo_item_texto'>Texto do terceiro item</label>
-                        </div>
-						<div class='md-form'>
-                              <input type='text' class='form-control' name='novo_item_texto' id='novo_item_texto'>
-                              <label for='novo_item_texto'>Texto do quarto item</label>
-                        </div>
-						<div class='md-form'>
-                              <input type='text' class='form-control' name='novo_item_texto' id='novo_item_texto'>
-                              <label for='novo_item_texto'>Texto do quinto item</label>
-                        </div>
-						";
-						$template_conteudo .= "
-                            <div class='row justify-content-center'>
-                                <button type='button' class='$button_classes'>Adicionar itens</button>
-                            </div>
-						";
-						$template_conteudo .= "</form>";
-						include 'templates/page_element.php';
 						
 						$template_id = 'adicionar_questao';
 						$template_titulo = 'Adicionar questão';
@@ -110,6 +68,29 @@
                               <option value='2'>Múltipla escolha</option>
                               <option value='3'>Dissertativa</option>
                             </select>
+						";
+						$template_conteudo .= "<h2>Itens</h2>";
+						$template_conteudo .= "
+                            <div class='md-form'>
+                                  <input type='text' class='form-control' name='novo_item_texto' id='novo_item_texto'>
+                                  <label for='novo_item_texto'>Texto do primeiro item</label>
+                            </div>
+                            <div class='md-form'>
+                                  <input type='text' class='form-control' name='novo_item_texto' id='novo_item_texto'>
+                                  <label for='novo_item_texto'>Texto do segundo item</label>
+                            </div>
+                            <div class='md-form'>
+                                  <input type='text' class='form-control' name='novo_item_texto' id='novo_item_texto'>
+                                  <label for='novo_item_texto'>Texto do terceiro item</label>
+                            </div>
+                            <div class='md-form'>
+                                  <input type='text' class='form-control' name='novo_item_texto' id='novo_item_texto'>
+                                  <label for='novo_item_texto'>Texto do quarto item</label>
+                            </div>
+                            <div class='md-form'>
+                                  <input type='text' class='form-control' name='novo_item_texto' id='novo_item_texto'>
+                                  <label for='novo_item_texto'>Texto do quinto item</label>
+                            </div>
 						";
 						$template_conteudo .= "
                             <div class='row justify-content-center'>
