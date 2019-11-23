@@ -140,6 +140,7 @@
 
 	if (isset($_POST['novo_comentario'])) {
 		$novo_comentario = $_POST['novo_comentario'];
+		$novo_comentario = escape_quotes($novo_comentario);
 		$conn->query("INSERT INTO Forum (user_id, topico_id, comentario)  VALUES ($user_id, $topico_id, '$novo_comentario')");
 		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $topico_id, 'topico_forum')");
 	}

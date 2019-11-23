@@ -15,12 +15,15 @@
 		}
 		if (isset($_POST['elemento_novo_titulo'])) {
 			$elemento_novo_titulo = $_POST['elemento_novo_titulo'];
+			$elemento_novo_titulo = escape_quotes($elemento_novo_titulo);
 		}
 		if (isset($_POST['elemento_novo_autor'])) {
 			$elemento_novo_autor = $_POST['elemento_novo_autor'];
+			$elemento_novo_autor = escape_quotes($elemento_novo_autor):
 		}
 		if (isset($_POST['elemento_novo_capitulo'])) {
 			$elemento_novo_capitulo = $_POST['elemento_novo_capitulo'];
+			$elemento_novo_capitulo = escape_quotes($elemento_novo_capitulo);
 		}
 		if (isset($_POST['elemento_novo_ano'])) {
 			$elemento_novo_ano = $_POST['elemento_novo_ano'];
@@ -69,6 +72,7 @@
 
 	if (isset($_POST['novo_comentario'])) {
 		$novo_comentario = $_POST['novo_comentario'];
+		$novo_comentario = escape_quotes($novo_comentario);
 		$insert = $conn->query("INSERT INTO Forum (user_id, elemento_id, comentario)  VALUES ($user_id, $elemento_id, '$novo_comentario')");
 		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $elemento_id, 'elemento_forum')");
 		$nao_contar = true;
