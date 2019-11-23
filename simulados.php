@@ -26,11 +26,23 @@
     <div class="row d-flex justify-content-around">
         <div id="coluna_esquerda" class="col-lg-5 col-sm-12">
 					<?php
-						
 						$template_id = 'adicionar_questao';
 						$template_titulo = 'Adicionar questão';
 						$template_conteudo = false;
 						$template_conteudo .= "<form method='post'>";
+						$template_conteudo .= "
+						<div class='form-check pl-0'>
+                            <input id='nova_questao_origem' name='nova_questao_origem' type='checkbox' class='form-check-input' checked>
+                            <label class='form-check-label' for='nova_questao_origem'>Questão oficial do concurso.</label>
+                        </div>
+						";
+											
+                        $template_conteudo .= "
+                            <div class='form-check pl-0'>
+                                <input id='nova_questao_sem_apoio' name='nova_questao_sem_apoio' type='checkbox' class='form-check-input'>
+                                <label class='form-check-label' for='nova_questao_sem_apoio'>Esta questão não possui texto de apoio.</label>
+                            </div>
+						";
 						$template_conteudo .= "
                             <select class='mdb-select md-form' name='nova_questao_texto_apoio'>
                               <option value='' disabled selected>Selecione o texto de apoio:</option>
@@ -104,6 +116,12 @@
 						$template_titulo = 'Adicionar texto de apoio';
 						$template_conteudo = false;
 						$template_conteudo .= "<form method='post'>";
+                        $template_conteudo .= "
+                            <div class='form-check pl-0'>
+                                <input id='novo_texto_apoio_origem' name='novo_texto_apoio_origem' type='checkbox' class='form-check-input' checked>
+                                <label class='form-check-label' for='novo_texto_apoio_origem'>Texto de apoio oficial do concurso.</label>
+                            </div>
+						";
 						$template_conteudo .= "
                             <select class='mdb-select md-form' name='novo_texto_apoio_prova'>
                               <option value='' disabled selected>Selecione a prova:</option>
@@ -217,6 +235,10 @@
 						$template_titulo = 'Gerar simulado';
 						$template_conteudo = false;
 						$template_conteudo .= "
+						    <p>O ato de fazer simulados é muito importante, mas deve ser realizado com muito cuidado, de mandeira que de fato traga você mais próximo a seus objetivos. Fazer provas é uma habilidade que pode e deve ser desenvolvida pela prática, esse é seu objetivo principal ao fazer simulados, e não necessariamente o aprendizado de conteúdo.</p>
+						    <p>Somente recomendamos que você comece a fazer simulados após haver estudado todo o conteúdo do seu concurso pelo menos uma vez, mesmo que em um primeiro nível introdutório e superficial.</p>
+						";
+						$template_conteudo .= "
                             <select class='mdb-select md-form' name='novo_simulado_tipo'>
                                   <option value='' disabled selected>Tipo:</option>
                                   <option value='inteligente'>Criado por nosso algoritmo</option>
@@ -225,6 +247,11 @@
                                   <option value='questoes_estudados'>Apenas questões de tópicos que você marcou como estudados</option>
                                 </select>
                         ";
+						$template_conteudo .= "
+						    <div class='row justify-content-center'>
+                                <button type='button' class='$button_classes'>Gerar simulado</button>
+                            </div>
+						";
 						include 'templates/page_element.php';
 					?>
         </div>
