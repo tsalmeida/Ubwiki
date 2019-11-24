@@ -296,7 +296,7 @@
 		}
 		$template_modal_body_conteudo .= "</ul>";
 	} else {
-		$template_modal_body_conteudo .= "<p><strong>Não há comentários sobre este tópico.</strong></p>";
+		$template_modal_body_conteudo .= "<p><strong>Não há comentários sobre este elemento.</strong></p>";
 	}
 	$result = $conn->query("SELECT apelido FROM Usuarios WHERE id = $user_id AND apelido IS NOT NULL");
 	if ($result->num_rows > 0) {
