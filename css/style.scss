@@ -213,3 +213,19 @@ h1, h2, h3, h4, h5, h6 {
 .controls-top {
   margin-bottom: 0 !important;
 }
+
+.form-check-label,
+.form-check-label:before,
+.form-check-label:after {
+  -webkit-box-sizing: content-box !important;
+  -moz-box-sizing: content-box !important;
+  box-sizing: content-box !important;
+}
+
+.form-check-inline {
+  width: fit-content !important;
+}
+
+.respostas_box {
+  width: 100% !important;
+}

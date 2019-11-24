@@ -40,7 +40,11 @@
 							$template_conteudo .= "<option value='$curso_id'>$curso_sigla: $curso_titulo</option>";
 						}
 						$template_conteudo .= "</select>";
-						$template_conteudo .= "<button type='submit' name='trocar_concurso_trigger' class='$button_classes'>Trocar curso</button>";
+						$template_conteudo .= "
+                            <div class='row justify-content-center'>
+                                <button type='submit' name='trocar_concurso_trigger' class='$button_classes'>Acessar curso</button>
+                            </div>
+                            ";
 						$template_conteudo .= "</form>";
 						include 'templates/page_element.php';
 					?>

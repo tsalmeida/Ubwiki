@@ -797,9 +797,8 @@
 	if ($apelido->num_rows > 0) {
 		$template_modal_body_conteudo .= "
                 <div class='md-form mb-2'>
-                    <p>Adicione seu comentário:</p>
-                    <input type='text' id='novo_comentario' name='novo_comentario' class='form-control validate' required></input>
-                    <label data-error='inválido' data-success='válido' for='novo_comentario'></label>
+                    <textarea id='novo_comentario' name='novo_comentario' class='md-textarea form-control' rows='3' required></textarea>
+                    <label for='novo_comentario'>Adicione seu comentário:</label>
                 </div>
             ";
 	} else {
