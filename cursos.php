@@ -32,12 +32,15 @@
 						$template_conteudo = false;
 						$template_conteudo .= "<form method='post'>";
 						$template_conteudo .= "<select class='mdb-select md-form' name='trocar_concurso'>
-																		<option value='' disabled selected>Curso</option>";
+                                                <option value='' disabled selected>Curso</option>";
+						$selected = false;
 						while ($curso = $cursos->fetch_assoc()) {
-							$curso_id = $curso['id'];
-							$curso_titulo = $curso['titulo'];
+						    $curso_id = $curso['id'];
+							if ($curso_id == 2) { $selected = 'selected'; }
+							else { $selected = false; }
+						    $curso_titulo = $curso['titulo'];
 							$curso_sigla = $curso['sigla'];
-							$template_conteudo .= "<option value='$curso_id'>$curso_sigla: $curso_titulo</option>";
+							$template_conteudo .= "<option value='$curso_id' $selected>$curso_sigla: $curso_titulo</option>";
 						}
 						$template_conteudo .= "</select>";
 						$template_conteudo .= "

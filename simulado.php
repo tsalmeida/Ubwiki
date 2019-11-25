@@ -64,136 +64,146 @@
 						}
 						include 'templates/page_element.php';
 						
-						$count = 0;
-						foreach ($todas_as_provas as $prova) {
-							$prova_id = $prova[0];
-							$prova_titulo = $prova[1];
-							$prova_tipo = $prova[2];
-							$prova_tipo_string = convert_prova_tipo($prova_tipo);
-							$prova_edicao_ano = $prova[3];
-							$prova_edicao_titulo = $prova[4];
-							
-							$template_id = 'prova_data';
-							$template_titulo = "Prova de $prova_edicao_ano: $prova_titulo ($prova_tipo_string)";
-							$template_conteudo = false;
-							include 'templates/page_element.php';
-							
-							$materias = $conn->query("SELECT DISTINCT materia FROM sim_questoes WHERE prova_id = $prova_id ORDER BY numero");
-							if ($materias->num_rows > 0) {
-								while ($materia = $materias->fetch_assoc()) {
-									$unique_materia_id = $materia['materia'];
-									$unique_materia_titulo = return_materia_titulo_id($unique_materia_id);
-									
-									$template_id = "prova_materia_{$unique_materia_id}";
-									$template_titulo = $unique_materia_titulo;
-									$template_titulo_heading = 'h2';
-									$template_conteudo = false;
-									include 'templates/page_element.php';
-									
-									
-									$questoes = $conn->query("SELECT texto_apoio_id, enunciado, numero, materia, tipo, item1, item2, item3, item4, item5, item1_gabarito, item2_gabarito, item3_gabarito, item4_gabarito, item5_gabarito FROM sim_questoes WHERE prova_id = $prova_id AND materia = $unique_materia_id ORDER BY numero");
-									if ($questoes->num_rows > 0) {
-										while ($questao = $questoes->fetch_assoc()) {
-											$count++;
-											$questao_texto_apoio_id = $questao['texto_apoio_id'];
-											$questao_enunciado = $questao['enunciado'];
-											$questao_numero = $questao['numero'];
-											$questao_materia = $questao['materia'];
-											$questao_tipo = $questao['tipo'];
-											$questao_item1 = $questao['item1'];
-											$questao_item2 = $questao['item2'];
-											$questao_item3 = $questao['item3'];
-											$questao_item4 = $questao['item4'];
-											$questao_item5 = $questao['item5'];
-											$questao_item1_gabarito = $questao['item1_gabarito'];
-											$questao_item2_gabarito = $questao['item2_gabarito'];
-											$questao_item3_gabarito = $questao['item3_gabarito'];
-											$questao_item4_gabarito = $questao['item4_gabarito'];
-											$questao_item5_gabarito = $questao['item5_gabarito'];
-											
-											$template_id = "questao_{$questao_numero}_{$prova_id}";
-											$template_titulo = "Questão $questao_numero";
-											$template_titulo_heading = 'h3';
-											$template_conteudo = false;
-											$template_conteudo .= "<p>$questao_enunciado</p>";
-											if ($questao_tipo == 1) {
-												$template_conteudo .= "<ol class='list-group'>";
-												if ($questao_item1 != false) {
-													$template_questao_item = '1';
-													$template_conteudo .= include('templates/questao_item.php');
-													$template_conteudo .= "<p class='mt-2'>$questao_item1</p>";
-												}
-												if ($questao_item2 != false) {
-													$template_questao_item = '2';
-													$template_conteudo .= include('templates/questao_item.php');
-													$template_conteudo .= "<p class='mt-2'>$questao_item2</p>";
-												}
-												if ($questao_item3 != false) {
-													$template_questao_item = '3';
-													$template_conteudo .= include('templates/questao_item.php');
-													$template_conteudo .= "<p class='mt-2'>$questao_item3</p>";
-												}
-												if ($questao_item4 != false) {
-													$template_questao_item = '4';
-													$template_conteudo .= include('templates/questao_item.php');
-													$template_conteudo .= "<p class='mt-2'>$questao_item4</p>";
-												}
-												if ($questao_item5 != false) {
-													$template_questao_item = '5';
-													$template_conteudo .= include('templates/questao_item.php');
-													$template_conteudo .= "<p class='mt-2'>$questao_item5</p>";
-												}
+						if (!isset($todas_as_provas)) {
+							$todas_as_provas = false;
+						} else {
+							$count = 0;
+							foreach ($todas_as_provas as $prova) {
+								$prova_id = $prova[0];
+								$prova_titulo = $prova[1];
+								$prova_tipo = $prova[2];
+								$prova_tipo_string = convert_prova_tipo($prova_tipo);
+								$prova_edicao_ano = $prova[3];
+								$prova_edicao_titulo = $prova[4];
+								
+								$template_id = 'prova_data';
+								$template_titulo = "Prova de $prova_edicao_ano: $prova_titulo ($prova_tipo_string)";
+								$template_conteudo = false;
+								include 'templates/page_element.php';
+								
+								$materias = $conn->query("SELECT DISTINCT materia FROM sim_questoes WHERE prova_id = $prova_id ORDER BY numero");
+								if ($materias->num_rows > 0) {
+									while ($materia = $materias->fetch_assoc()) {
+										$unique_materia_id = $materia['materia'];
+										$unique_materia_titulo = return_materia_titulo_id($unique_materia_id);
+										
+										$template_id = "prova_materia_{$unique_materia_id}";
+										$template_titulo = $unique_materia_titulo;
+										$template_titulo_heading = 'h2';
+										$template_conteudo = false;
+										include 'templates/page_element.php';
+										
+										
+										$questoes = $conn->query("SELECT id, texto_apoio_id, enunciado, numero, materia, tipo, item1, item2, item3, item4, item5, item1_gabarito, item2_gabarito, item3_gabarito, item4_gabarito, item5_gabarito FROM sim_questoes WHERE prova_id = $prova_id AND materia = $unique_materia_id ORDER BY numero");
+										if ($questoes->num_rows > 0) {
+											while ($questao = $questoes->fetch_assoc()) {
+												$count++;
+												$questao_id = $questao['id'];
+												$questao_texto_apoio_id = $questao['texto_apoio_id'];
+												$questao_enunciado = $questao['enunciado'];
+												$questao_numero = $questao['numero'];
+												$questao_materia = $questao['materia'];
+												$questao_tipo = $questao['tipo'];
+												$questao_item1 = $questao['item1'];
+												$questao_item2 = $questao['item2'];
+												$questao_item3 = $questao['item3'];
+												$questao_item4 = $questao['item4'];
+												$questao_item5 = $questao['item5'];
+												$questao_item1_gabarito = $questao['item1_gabarito'];
+												$questao_item2_gabarito = $questao['item2_gabarito'];
+												$questao_item3_gabarito = $questao['item3_gabarito'];
+												$questao_item4_gabarito = $questao['item4_gabarito'];
+												$questao_item5_gabarito = $questao['item5_gabarito'];
 												
-												$template_conteudo .= "</ol>";
-											} elseif ($questao_tipo == 2) {
-												$template_conteudo .= "
+												$template_id = "questao_{$questao_numero}_{$prova_id}";
+												$template_titulo = "Questão $questao_numero";
+												$template_titulo_heading = 'h3';
+												$template_botoes = "
+												<span id='pagina_questao_{$questao_numero}' title='Página da questão'>
+													<a href='questao.php?questao_id=$questao_id'><i class='fal fa-external-link-square fa-fw'></i></a>
+										    </span>
+											";
+												$template_conteudo = false;
+												$template_conteudo .= "<p>$questao_enunciado</p>";
+												if ($questao_tipo == 1) {
+													$template_conteudo .= "<ol class='list-group'>";
+													if ($questao_item1 != false) {
+														$template_questao_item = '1';
+														$template_conteudo .= include('templates/questao_item.php');
+														$template_conteudo .= "<p class='mt-2'>$questao_item1</p>";
+													}
+													if ($questao_item2 != false) {
+														$template_questao_item = '2';
+														$template_conteudo .= include('templates/questao_item.php');
+														$template_conteudo .= "<p class='mt-2'>$questao_item2</p>";
+													}
+													if ($questao_item3 != false) {
+														$template_questao_item = '3';
+														$template_conteudo .= include('templates/questao_item.php');
+														$template_conteudo .= "<p class='mt-2'>$questao_item3</p>";
+													}
+													if ($questao_item4 != false) {
+														$template_questao_item = '4';
+														$template_conteudo .= include('templates/questao_item.php');
+														$template_conteudo .= "<p class='mt-2'>$questao_item4</p>";
+													}
+													if ($questao_item5 != false) {
+														$template_questao_item = '5';
+														$template_conteudo .= include('templates/questao_item.php');
+														$template_conteudo .= "<p class='mt-2'>$questao_item5</p>";
+													}
+													
+													$template_conteudo .= "</ol>";
+												} elseif ($questao_tipo == 2) {
+													$template_conteudo .= "
 													<div class='form-check mb-3'>
 														<input type='radio' class='form-check-input' id='item_branco_{$count}' name='questao_{$count}' checked>
 														<label class='form-check-label' for='item_branco_{$count}' value='branco'><span class='text-muted'>Deixar em branco</span></label>
 													</div>
 												";
-												if ($questao_item1 != false) {
-													$template_conteudo .= "
+													if ($questao_item1 != false) {
+														$template_conteudo .= "
 														<div class='form-check'>
 															<input type='radio' class='form-check-input mt-1' id='item_1_{$count}' name='questao_{$count}'>
 															<label class='form-check-label' for='item_1_{$count}' value='item1'>$questao_item1</label>
 														</div>
 													";
-												}
-												if ($questao_item2 != false) {
-													$template_conteudo .= "
+													}
+													if ($questao_item2 != false) {
+														$template_conteudo .= "
 														<div class='form-check'>
 															<input type='radio' class='form-check-input mt-1' id='item_2_{$count}' name='questao_{$count}'>
 															<label class='form-check-label' for='item_2_{$count}' value='item2'>$questao_item2</label>
 														</div>
 													";
-												}
-												if ($questao_item3 != false) {
-													$template_conteudo .= "
+													}
+													if ($questao_item3 != false) {
+														$template_conteudo .= "
 														<div class='form-check'>
 															<input type='radio' class='form-check-input mt-1' id='item_3_{$count}' name='questao_{$count}'>
 															<label class='form-check-label' for='item_3_{$count}' value='item3'>$questao_item3</label>
 														</div>
 													";
-												}
-												if ($questao_item4 != false) {
-													$template_conteudo .= "
+													}
+													if ($questao_item4 != false) {
+														$template_conteudo .= "
 														<div class='form-check'>
 															<input type='radio' class='form-check-input mt-1' id='item_4_{$count}' name='questao_{$count}'>
 															<label class='form-check-label' for='item_4_{$count}' value='item4'>$questao_item4</label>
 														</div>
 													";
-												}
-												if ($questao_item5 != false) {
-													$template_conteudo .= "
+													}
+													if ($questao_item5 != false) {
+														$template_conteudo .= "
 														<div class='form-check'>
 															<input type='radio' class='form-check-input mt-1' id='item_5_{$count}' name='questao_{$count}'>
 															<label class='form-check-label' for='item_5_{$count}' value='item5'>$questao_item5</label>
 														</div>
 													";
+													}
 												}
+												include 'templates/page_element.php';
 											}
-											include 'templates/page_element.php';
 										}
 									}
 								}
