@@ -10,16 +10,16 @@
 							<strong>Item $template_questao_item: </strong>
 						</div>
 						<div class='form-check form-check-inline'>
-							<input type='radio' class='form-check-input' id='item{$template_questao_item}_certo_{$count}' name='item{$template_questao_item}_questao_{$count}' value='1'>
-							<label class='form-check-label' for='item{$template_questao_item}_certo_{$count}'>Certo</label>
+							<input type='radio' class='form-check-input' id='item{$template_questao_item}_certo_{$questao_id}' name='item{$template_questao_item}_questao_{$questao_id}' value='1'>
+							<label class='form-check-label' for='item{$template_questao_item}_certo_{$questao_id}'>Certo</label>
 						</div>
 						<div class='form-check form-check-inline'>
-							<input type='radio' class='form-check-input' id='item{$template_questao_item}_errado_{$count}' name='item{$template_questao_item}_questao_{$count}' value='2'>
-							<label class='form-check-label' for='item{$template_questao_item}_errado_{$count}'>Errado</label>
+							<input type='radio' class='form-check-input' id='item{$template_questao_item}_errado_{$questao_id}' name='item{$template_questao_item}_questao_{$questao_id}' value='2'>
+							<label class='form-check-label' for='item{$template_questao_item}_errado_{$questao_id}'>Errado</label>
 						</div>
 						<div class='form-check form-check-inline'>
-							<input type='radio' class='form-check-input' id='item{$template_questao_item}_branco_{$count}' name='item{$template_questao_item}_questao_{$count}' value='0' checked>
-							<label class='form-check-label' for='item{$template_questao_item}_branco_{$count}'><span class='text-muted'>Deixar em branco</span></label>
+							<input type='radio' class='form-check-input' id='item{$template_questao_item}_branco_{$questao_id}' name='item{$template_questao_item}_questao_{$questao_id}' value='0' checked>
+							<label class='form-check-label' for='item{$template_questao_item}_branco_{$questao_id}'><span class='text-muted'>Branco</span></label>
 						</div>
 					</div>
 					";

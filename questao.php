@@ -2,6 +2,7 @@
 	include 'engine.php';
 	$html_head_template_quill = true;
 	include 'templates/html_head.php';
+	include 'templates/imagehandler.php';
 	
 	if (isset($_GET['questao_id'])) {
 		$questao_id = $_GET['questao_id'];

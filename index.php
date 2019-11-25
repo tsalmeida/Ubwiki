@@ -63,7 +63,7 @@
 											$count = 0;
 											while ($row = $result->fetch_assoc()) {
 												if ($count == 0) {
-													echo "<div class='col-lg col-md-6 col-sm-12'>";
+													echo "<div class='col-xl col-lg-6 col-md-6 col-sm-12'>";
 												}
 												$count++;
 												$materia_titulo = $row['titulo'];

@@ -6,6 +6,9 @@
 	if (!isset($mdb_select)) {
 		$mdb_select = false;
 	}
+	if (!isset($gabarito)) {
+		$gabarito = false;
+	}
 	
 	echo "
     <!-- Bootstrap tooltips -->
@@ -35,7 +38,7 @@
 			</script>
 		";
 	}
-	
+
 	if ($gabarito == true) {
 		echo "
 		<script type='text/javascript'>

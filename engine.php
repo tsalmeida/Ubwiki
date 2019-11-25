@@ -1,27 +1,27 @@
 <?php
-	
+
 	if (!isset($loginpage)) {
 		$loginpage = false;
 	}
-	
+
 	if (!isset($_SESSION['email'])) {
 		$sessionpath = getcwd();
 		$sessionpath .= '/../sessions';
 		session_save_path($sessionpath);
 		session_start();
 	}
-	
+
 	$servername = "localhost";
 	$username = "grupoubique";
 	$password = "ubique patriae memor";
 	$dbname = "Ubwiki";
 	$conn = new mysqli($servername, $username, $password, $dbname);
 	mysqli_set_charset($conn, "utf8");
-	
+
 	$user_email = false;
 	$newuser = false;
 	$special = false;
-	
+
 	if (isset($_GET['special'])) {
 		$special = $_GET['special'];
 	}
@@ -72,7 +72,7 @@
 //      header('Location:index.php');
 		}
 	}
-	
+
 	$result = $conn->query("SELECT id, apelido, nome FROM Usuarios WHERE email = '$user_email'");
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
@@ -81,15 +81,17 @@
 			$user_nome = $row['nome'];
 		}
 	}
-	
+
 	if (!isset($_SESSION['concurso_id'])) {
 		$_SESSION['concurso_id'] = false;
 		header('Location:cursos.php');
 	} else {
 		$concurso_id = $_SESSION['concurso_id'];
-		$concurso_sigla = return_concurso_sigla($concurso_id);
+		if ($concurso_id != false) {
+			$concurso_sigla = return_concurso_sigla($concurso_id);
+		}
 	}
-	
+
 	function extract_gdoc($url)
 	{
 		$ch = curl_init();
@@ -103,7 +105,7 @@
 		curl_close($ch);
 		return $body;
 	}
-	
+
 	function standard_jumbotron($titulo, $link)
 	{
 		echo "
@@ -122,7 +124,7 @@
     </div>
 ";
 	}
-	
+
 	if (isset($_POST['bookmark_change'])) {
 		$bookmark_change = $_POST['bookmark_change'];
 		$bookmark_page_id = $_POST['bookmark_page_id'];
@@ -150,7 +152,7 @@
 		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina, extra) VALUES ($bookmark_user_id, $bookmark_page_id, 'bookmark', $bookmark_change)");
 		$conn->query("INSERT INTO Bookmarks (user_id, $coluna_relevante, bookmark, active) VALUES ($bookmark_user_id, $bookmark_page_id, $bookmark_change, 1)");
 	}
-	
+
 	if (isset($_POST['completed_change'])) {
 		$completed_change = $_POST['completed_change'];
 		$completed_page_id = $_POST['completed_page_id'];
@@ -172,7 +174,7 @@
 		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina, extra) VALUES ($completed_user_id, $completed_page_id, 'completed', $completed_change)");
 		$conn->query("INSERT INTO Completed (user_id, topico_id, estado, active) VALUES ($completed_user_id, $completed_page_id, $completed_change, 1)");
 	}
-	
+
 	if (isset($_POST['sbcommand'])) {
 		$concurso_id = base64_decode($_POST['sbconcurso']);
 		$command = base64_decode($_POST['sbcommand']);
@@ -224,7 +226,7 @@
 		echo "Nada foi encontrado";
 		return;
 	}
-	
+
 	function generateRandomString()
 	{
 		$length = func_get_args();
@@ -233,14 +235,14 @@
 		}
 		return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length[0]);
 	}
-	
+
 	function make_thumb()
 	{
 		$filename = func_get_args();
 		$filename = $filename[0];
 		$check = substr($filename, -4);
 		$check = strtolower($check);
-		
+
 		/* read the source image */
 		$original = "../imagens/verbetes/$filename";
 		if (($check == ".jpg") || ($check == "jpeg")) {
@@ -252,26 +254,26 @@
 		} else {
 			return false;
 		}
-		
+
 		$width = imagesx($source_image);
 		$height = imagesy($source_image);
-		
+
 		/* find the "desired height" of this thumbnail, relative to the desired width  */
 		$desired_height = 300;
 		$desired_width = floor($desired_height * ($width / $height));
-		
+
 		/* create a new, "virtual" image */
 		$virtual_image = imagecreatetruecolor($desired_width, $desired_height);
-		
+
 		if (($check == ".png") || ($check = ".gif")) {
 			imagecolortransparent($virtual_image, imagecolorallocatealpha($virtual_image, 0, 0, 0, 127));
 			imagealphablending($virtual_image, false);
 			imagesavealpha($virtual_image, true);
 		}
-		
+
 		/* copy source image at a resized size */
 		imagecopyresampled($virtual_image, $source_image, 0, 0, 0, 0, $desired_width, $desired_height, $width, $height);
-		
+
 		/* create the physical thumbnail image to its destination */
 		$prefix = "../imagens/verbetes/thumbnails/";
 		$destination = "$prefix$filename";
@@ -292,7 +294,7 @@
 		$dados_da_imagem = array($resolucao_original, $orientacao);
 		return $dados_da_imagem;
 	}
-	
+
 	if (isset($_POST['nova_imagem'])) {
 		$nova_imagem_link = $_POST['nova_imagem'];
 		$nova_imagem_titulo = $_POST['nova_imagem_titulo'];
@@ -304,7 +306,7 @@
 		$contexto = $_POST['contexto'];
 		$nossa_copia = adicionar_imagem($nova_imagem_link, $nova_imagem_titulo, $page_id, $user_id, $contexto);
 	}
-	
+
 	function adicionar_thumbnail_youtube($youtube_thumbnail_original)
 	{
 		$randomfilename = generateRandomString(12);
@@ -314,7 +316,7 @@
 		file_put_contents($nova_imagem_diretorio, fopen($youtube_thumbnail_original, 'r'));
 		return $nova_imagem_arquivo;
 	}
-	
+
 	function adicionar_imagem()
 	{
 		$args = func_get_args();
@@ -370,25 +372,25 @@
 		}
 		return "https://www.ubwiki.com.br/imagens/verbetes/$nova_imagem_arquivo";
 	}
-	
+
 	function get_youtube($url)
 	{
 		$youtube = "http://www.youtube.com/oembed?url=" . $url . "&format=json";
-		
+
 		$curl = curl_init($youtube);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 		$return = curl_exec($curl);
 		curl_close($curl);
 		return json_decode($return, true);
 	}
-	
+
 	function escape_quotes($string)
 	{
 		$output = str_replace('"', '\"', $string);
 		$output = str_replace("'", "\'", $output);
 		return $output;
 	}
-	
+
 	function return_titulo_topico($topico_id)
 	{
 		$servername = "localhost";
@@ -417,7 +419,7 @@
 		}
 		return false;
 	}
-	
+
 	function return_concurso_id_topico($topico_id)
 	{
 		$servername = "localhost";
@@ -435,7 +437,7 @@
 		}
 		return false;
 	}
-	
+
 	function return_concurso_sigla($concurso_id)
 	{
 		$servername = "localhost";
@@ -453,7 +455,7 @@
 		}
 		return false;
 	}
-	
+
 	function return_concurso_id_materia($materia_id)
 	{
 		$servername = "localhost";
@@ -471,7 +473,7 @@
 		}
 		return false;
 	}
-	
+
 	function return_apelido_user_id($find_user_id)
 	{
 		$servername = "localhost";
@@ -489,7 +491,7 @@
 		}
 		return false;
 	}
-	
+
 	function return_etapa_titulo_id($etapa_id)
 	{
 		$servername = "localhost";
@@ -507,7 +509,7 @@
 		}
 		return false;
 	}
-	
+
 	function return_etapa_edicao_ano_e_titulo($etapa_id)
 	{
 		$servername = "localhost";
@@ -533,7 +535,7 @@
 		}
 		return false;
 	}
-	
+
 	function return_info_prova_id($prova_id)
 	{
 		$servername = "localhost";
@@ -557,7 +559,7 @@
 		}
 		return false;
 	}
-	
+
 	function return_texto_apoio_prova_id($texto_apoio_id)
 	{
 		$servername = "localhost";
@@ -575,7 +577,7 @@
 		}
 		return false;
 	}
-	
+
 	function return_materia_titulo_id($materia_id)
 	{
 		$servername = "localhost";
@@ -592,7 +594,7 @@
 			}
 		}
 	}
-	
+
 	function convert_prova_tipo($prova_tipo)
 	{
 		if ($prova_tipo == 1) {
@@ -606,7 +608,7 @@
 		}
 		return false;
 	}
-	
+
 	function return_estado_icone($estado_pagina, $contexto)
 	{
 		$icone0 = 'fal fa-empty-set fa-fw';
@@ -614,12 +616,12 @@
 		$icone2 = 'fal fa-seedling fa-fw';
 		$icone3 = 'fas fa-leaf fa-fw';
 		$icone4 = 'fas fa-leaf fa-fw';
-		
+
 		if ($contexto == 'verbete') {
 			$icone1 = 'fas fa-acorn fa-fw';
 			$icone2 = 'fas fa-seedling fa-fw';
 		}
-		
+
 		if ($estado_pagina == 0) {
 			return $icone0;
 		} elseif ($estado_pagina == 1) {
@@ -632,22 +634,20 @@
 			return $icone4;
 		}
 	}
-	
-	function convert_gabarito_cor($gabarito) {
+
+	function convert_gabarito_cor($gabarito)
+	{
 		if ($gabarito == 0) {
 			return 'list-group-item-warning';
-		}
-		elseif ($gabarito == 1) {
+		} elseif ($gabarito == 1) {
 			return 'list-group-item-success';
-		}
-		elseif ($gabarito == 2) {
+		} elseif ($gabarito == 2) {
 			return 'list-group-item-danger';
-		}
-		else {
+		} else {
 			return false;
 		}
 	}
-	
+
 	$all_buttons_classes = "btn rounded btn-md mt-4 text-center";
 	$button_classes = "$all_buttons_classes btn-primary";
 	$button_classes_light = "$all_buttons_classes btn-light";
