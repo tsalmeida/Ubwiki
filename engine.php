@@ -85,8 +85,7 @@
 	if (!isset($_SESSION['concurso_id'])) {
 		$_SESSION['concurso_id'] = false;
 		header('Location:cursos.php');
-	}
-	else {
+	} else {
 		$concurso_id = $_SESSION['concurso_id'];
 		$concurso_sigla = return_concurso_sigla($concurso_id);
 	}
@@ -559,7 +558,8 @@
 		return false;
 	}
 	
-	function return_texto_apoio_prova_id($texto_apoio_id) {
+	function return_texto_apoio_prova_id($texto_apoio_id)
+	{
 		$servername = "localhost";
 		$username = "grupoubique";
 		$password = "ubique patriae memor";
@@ -576,7 +576,8 @@
 		return false;
 	}
 	
-	function return_materia_titulo_id($materia_id) {
+	function return_materia_titulo_id($materia_id)
+	{
 		$servername = "localhost";
 		$username = "grupoubique";
 		$password = "ubique patriae memor";
@@ -592,17 +593,15 @@
 		}
 	}
 	
-	function convert_prova_tipo($prova_tipo) {
+	function convert_prova_tipo($prova_tipo)
+	{
 		if ($prova_tipo == 1) {
 			return 'objetiva';
-		}
-		elseif ($prova_tipo == 2) {
+		} elseif ($prova_tipo == 2) {
 			return 'dissertativa';
-		}
-		elseif ($prova_tipo == 3) {
+		} elseif ($prova_tipo == 3) {
 			return 'oral';
-		}
-		elseif ($prova_tipo == 4) {
+		} elseif ($prova_tipo == 4) {
 			return 'física';
 		}
 		return false;
@@ -631,6 +630,21 @@
 			return $icone3;
 		} elseif ($estado_pagina == 4) {
 			return $icone4;
+		}
+	}
+	
+	function convert_gabarito_cor($gabarito) {
+		if ($gabarito == 0) {
+			return 'list-group-item-warning';
+		}
+		elseif ($gabarito == 1) {
+			return 'list-group-item-success';
+		}
+		elseif ($gabarito == 2) {
+			return 'list-group-item-danger';
+		}
+		else {
+			return false;
 		}
 	}
 	

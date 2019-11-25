@@ -83,7 +83,6 @@
 						$template_conteudo = include 'templates/quill_form.php';
 						include 'templates/page_element.php';
 						
-						
 						$template_id = 'dados_conta';
 						$template_titulo = 'Dados da sua conta';
 						$template_botoes = "<a data-toggle='modal' data-target='#modal_editar_dados' href=''><i class='fal fa-edit'></i></a>";

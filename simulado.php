@@ -55,7 +55,7 @@
 									$questao_edicao_titulo = $questao_prova_info[3];
 									array_unshift($questao_prova_info, $questao_prova_id);
 									array_push($todas_as_provas, $questao_prova_info);
-									$template_conteudo .= "<li class='list-group-item list-group-item-action'><a href='provas.php?prova_id=$questao_prova_id' target='_blank'>$questao_edicao_ano: $questao_edicao_titulo: $questao_prova_titulo ($questao_prova_tipo_string)</a></li>";
+									$template_conteudo .= "<li class='list-group-item list-group-item-action'><a href='prova.php?prova_id=$questao_prova_id' target='_blank'>$questao_edicao_ano: $questao_edicao_titulo: $questao_prova_titulo ($questao_prova_tipo_string)</a></li>";
 								}
 								$template_conteudo .= "<ul>";
 							} else {
@@ -120,7 +120,7 @@
 												$template_titulo_heading = 'h3';
 												$template_botoes = "
 												<span id='pagina_questao_{$questao_numero}' title='Página da questão'>
-													<a href='questao.php?questao_id=$questao_id'><i class='fal fa-external-link-square fa-fw'></i></a>
+													<a href='questao.php?questao_id=$questao_id' target='_blank'><i class='fal fa-external-link-square fa-fw'></i></a>
 										    </span>
 											";
 												$template_conteudo = false;

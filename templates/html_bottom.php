@@ -36,3 +36,14 @@
 		";
 	}
 	
+	if ($gabarito == true) {
+		echo "
+		<script type='text/javascript'>
+			$('#mostrar_gabarito').click(function () {
+				$('.list-group-item').removeClass('list-group-item-light');
+				$('#mostrar_gabarito').hide();
+	    });
+		</script>
+		";
+	}
+	

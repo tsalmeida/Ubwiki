@@ -10,7 +10,7 @@
 	if (!isset($template_quill_empty_content)) {
 		$template_quill_empty_content = false;
 	}
-	if (($template_id == 'anotacoes') || ($template_id == 'anotacoes_user') || ($template_id == 'anotacoes_admin') || ($template_id == 'anotacoes_elemento')) {
+	if (($template_id == 'anotacoes') || ($template_id == 'anotacoes_user') || ($template_id == 'anotacoes_admin') || ($template_id == 'anotacoes_elemento') || ($template_id == 'anotacoes_prova') || ($template_id == 'anotacoes_questao')) {
 		$template_quill_meta_tipo = 'anotacoes';
 		$template_quill_toolbar_and_whitelist = 'anotacoes';
 		$template_quill_initial_state = 'edicao';
@@ -35,6 +35,8 @@
 			$template_quill_page_id = $topico_id;
 		} elseif (isset($elemento_id)) {
 			$template_quill_page_id = $elemento_id;
+		} elseif (isset($questao_id)) {
+			$template_quill_page_id = $questao_id;
 		} else {
 			$template_quill_page_id = false;
 		}
@@ -163,12 +165,11 @@
                 container: $template_quill_toolbar,
                 handlers: {";
 	if ($template_quill_meta_tipo == 'verbete') {
-                    $quill_result .= "image: imageHandler";
+		$quill_result .= "image: imageHandler";
+	} else {
+		$quill_result .= "image: imageHandler_privado";
 	}
-	else {
-										$quill_result .= "image: imageHandler_privado";
-	}
-		$quill_result .= "
+	$quill_result .= "
                 }
             }
         }
