@@ -3,10 +3,15 @@
 	include 'engine.php';
 	
 	if (isset($_POST['funcoes_gerais'])) {
-	    $result = $conn->query("SELECT page_id FROM Textos WHERE tipo = 'verbete'");
-	    while ($row = $result->fetch_assoc()) {
-	        $page_id = $row['page_id'];
-	        $conn->query("UPDATE Topicos SET estado_pagina = 1 WHERE id = $page_id");
+        $results = $conn->query("SELECT id, verbete_content FROM Textos WHERE verbete_content IS NOT NULL");
+        if ($results->num_rows > 0) {
+            while ($result = $results->fetch_assoc()) {
+                $id = $result['id'];
+                $verbete_content = $result['verbete_content'];
+                $verbete_content = urldecode($verbete_content);
+                $verbete_content = mysqli_real_escape_string($conn, $verbete_content);
+                $conn->query("UPDATE Textos SET verbete_content = '$verbete_content' WHERE id = $id");
+            }
         }
     }
 	
@@ -179,7 +184,7 @@
 						$template_conteudo = false;
 						$template_conteudo .= "
 						    <form method='post'>
-						        <p>Estado rascunho para todas as páginas com verbete.</p>
+						        <p>desfazer URI.</p>
 						        <button class='$button_classes' type='submit' name='funcoes_gerais'>Ativar função</button>
 						    </form>
 						";

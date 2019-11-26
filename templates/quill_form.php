@@ -74,7 +74,6 @@
 			$verbete_exists = true;
 		}
 		if ($quill_verbete_content != false) {
-			$quill_verbete_content = urldecode($quill_verbete_content);
 		}
 	} else {
 		if ($template_quill_meta_tipo == 'verbete') {
@@ -84,11 +83,12 @@
 	
 	if (isset($_POST[$quill_trigger_button])) {
 		$novo_verbete_html = $_POST[$quill_novo_verbete_html];
-		$novo_verbete_html = escape_quotes($novo_verbete_html);
+		$novo_verbete_html = mysqli_real_escape_string($conn, $novo_verbete_html);
 		$novo_verbete_text = $_POST[$quill_novo_verbete_text];
-		$novo_verbete_text = escape_quotes($novo_verbete_text);
+		$novo_verbete_text = mysqli_real_escape_string($conn, $novo_verbete_text);
 		$novo_verbete_content = $_POST[$quill_novo_verbete_content];
-		$novo_verbete_content = escape_quotes($novo_verbete_content);
+		$quill_verbete_content = $novo_verbete_content;
+		$novo_verbete_content = mysqli_real_escape_string($conn, $novo_verbete_content);
 		$novo_verbete_html = strip_tags($novo_verbete_html, '<p><li><ul><ol><h2><h3><blockquote><em><sup><img><u><b><a>');
 		if ($template_quill_public == true) {
 			$result = $conn->query("SELECT id FROM Textos WHERE page_id = $template_quill_page_id AND tipo = '$template_id'");
@@ -103,7 +103,6 @@
 			$conn->query("INSERT INTO Textos_arquivo (tipo, page_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('$template_id' , $template_quill_page_id, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
 		}
 		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $template_quill_page_id, '$quill_visualizacoes_tipo')");
-		$quill_verbete_content = urldecode($novo_verbete_content);
 		$nao_contar = true;
 	}
 	
@@ -137,7 +136,7 @@
     <form id='quill_{$template_id}_form' method='post'>
         <input name='$quill_novo_verbete_html' type='hidden'>
         <input name='$quill_novo_verbete_text' type='hidden'>
-        <input name='$quill_novo_verbete_content' type='hidden'>
+        <pre><input name='$quill_novo_verbete_content' type='hidden'></pre>
         <div class='row'>
             <div class='container col-12'>
                 <div id='quill_container_{$template_id}'>
@@ -186,10 +185,9 @@
         var quill_novo_{$template_id}_content = document.querySelector('input[name=quill_novo_{$template_id}_content]');
         var quill_{$template_id}_content = {$template_id}_editor.getContents();
         quill_{$template_id}_content = JSON.stringify(quill_{$template_id}_content);
-        quill_{$template_id}_content = encodeURI(quill_{$template_id}_content);
         quill_novo_{$template_id}_content.value = quill_{$template_id}_content;
     };
-
+		
 	  {$template_id}_editor.setContents($quill_verbete_content);
 
 	  $('#travar_{$template_id}').click(function () {
