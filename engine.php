@@ -684,6 +684,6 @@
 	$button_classes_info = "$all_buttons_classes btn-info";
 	$button_classes_red = "$all_buttons_classes btn-danger";
 	$select_classes = "browser-default custom-select mt-2";
-	$coluna_classes = "col-xl-4 col-lg-5 col-md-10 col-sm-11";
+	$coluna_classes = "col-lg-5 col-md-10 col-sm-11";
 
 ?>
