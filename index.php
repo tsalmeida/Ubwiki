@@ -1,7 +1,11 @@
 <?php
 
 	include 'engine.php';
-	
+
+	if ($concurso_id == false) {
+		header('Location:cursos.php');
+	}
+
 	$html_head_template_one_page = true;
 	include 'templates/html_head.php';
 	

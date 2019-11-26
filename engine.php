@@ -91,7 +91,7 @@
 			$concurso_sigla = return_concurso_sigla($concurso_id);
 		}
 	}
-	
+
 	function extract_gdoc($url)
 	{
 		$ch = curl_init();
