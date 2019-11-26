@@ -38,7 +38,7 @@
 		include 'templates/titulo.php';
 	?>
     <div class="row justify-content-around">
-        <div id="coluna_esquerda" class="col-lg-5 col-sm-12">
+        <div id="coluna_esquerda" class="<?php echo $coluna_classes; ?>">
 					<?php
 						$template_id = 'selecionar_historico';
 						$template_titulo = 'Histórico de mudanças';
@@ -72,7 +72,7 @@
 						include 'templates/page_element.php';
 					?>
         </div>
-        <div id='coluna_direita' class='col-lg-5 col-sm-12 anotacoes_collapse collapse show'>
+        <div id='coluna_direita' class='<?php echo $coluna_classes; ?>'>
 					<?php
 						if ($visualizar_historico_id != false) {
 							$result = $conn->query("SELECT verbete_html FROM Textos_arquivo WHERE id = $visualizar_historico_id");

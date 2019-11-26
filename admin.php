@@ -101,7 +101,7 @@
 		include 'templates/titulo.php';
 	?>
     <div class="row justify-content-around">
-        <div id='coluna_esquerda' class="col-lg-5 col-sm-12">
+        <div id='coluna_esquerda' class="<?php echo $coluna_classes; ?>">
 					<?php
 						$template_id = 'editar_topicos';
 						$template_titulo = 'Editar tópicos';
@@ -188,7 +188,7 @@
 					?>
 
         </div>
-        <div id='coluna_direita' class='col-lg-5 col-sm-12'>
+        <div id='coluna_direita' class='<?php echo $coluna_classes; ?>'>
 					<?php
 						
 						$template_id = 'anotacoes_admin';

@@ -148,7 +148,7 @@
         </div>
     </div>
     <div class='row justify-content-around'>
-        <div id='coluna_esquerda' class='col-lg-5 col-sm-12'>
+        <div id='coluna_esquerda' class='<?php echo $coluna_classes; ?>'>
 					<?php
 						if ($tipo_elemento == 'imagem') {
 							$template_id = 'imagem_div';
@@ -218,7 +218,7 @@
 
 					?>
         </div>
-        <div id='coluna_direita' class='col-lg-5 col-sm-12 anotacoes_collapse collapse show'>
+        <div id='coluna_direita' class='<?php echo $coluna_classes; ?> anotacoes_collapse collapse show'>
 
 					<?php
 

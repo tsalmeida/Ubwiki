@@ -38,7 +38,7 @@
 		include 'templates/titulo.php';
 	?>
     <div class="row d-flex justify-content-center">
-        <div id="coluna_esquerda" class="col-lg-5 col-sm-12">
+        <div id="coluna_esquerda" class="<?php echo $coluna_classes; ?>">
 					<?php
 						$template_id = 'perfil_publico';
 						$template_titulo = 'Perfil público';

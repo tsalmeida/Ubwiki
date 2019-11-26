@@ -202,7 +202,7 @@
 				include 'templates/titulo.php';
 			?>
         <div class="row d-flex justify-content-around">
-            <div id="coluna_esquerda" class="col-lg-5 col-sm-12">
+            <div id="coluna_esquerda" class="<?php echo $coluna_classes; ?>">
 							<?php
 								
 								$template_id = 'sobre_adicao_simulados';
@@ -244,7 +244,7 @@
 							
 							?>
             </div>
-            <div id="coluna_direita" class="col-lg-5 col-sm-12">
+            <div id="coluna_direita" class="<?php echo $coluna_classes; ?>">
 							<?php
 								$template_id = 'gerar_simulado';
 								$template_titulo = 'Gerar simulado';
