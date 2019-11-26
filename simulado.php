@@ -1,7 +1,8 @@
 <?php
 	include 'engine.php';
 	include 'templates/html_head.php';
-
+ 
+	$simulado_id = false;
 	$simulado_tipo = false;
 	if (isset($_GET['simulado_tipo'])) {
 		$simulado_tipo = $_GET['simulado_tipo'];
@@ -58,6 +59,13 @@
 									$template_conteudo .= "<li class='list-group-item list-group-item-action'><a href='prova.php?prova_id=$questao_prova_id' target='_blank'>$questao_edicao_ano: $questao_edicao_titulo: $questao_prova_titulo ($questao_prova_tipo_string)</a></li>";
 								}
 								$template_conteudo .= "<ul>";
+								$simulado_id = false;
+								$conn->query("INSERT INTO sim_gerados (user_id, tipo) VALUES ($user_id, '$simulado_tipo')");
+								$gerados = $conn->query("SELECT id FROM sim_gerados WHERE user_id = $user_id ORDER BY id DESC");
+								while ($simulado = $gerados->fetch_assoc()) {
+								    $simulado_id = $simulado['id'];
+								    break;
+                                }
 							} else {
 								$template_conteudo .= "<p>Não há questões registradas para este curso.</p>";
 							}
@@ -76,7 +84,7 @@
 								$prova_edicao_titulo = $prova[4];
 
 								$template_id = 'prova_dados';
-								$template_titulo = "Prova de $prova_edicao_ano: $prova_titulo ($prova_tipo_string)";
+								$template_titulo = "Prova de $prova_edicao_ano: $prova_titulo";
 								$template_conteudo = false;
 								include 'templates/page_element.php';
 								$questoes_impressas = array();
@@ -154,6 +162,23 @@
 								}
 							}
 						}
+						if ($simulado_id != false) {
+						    $template_id = 'ver_resultados';
+						    $template_titulo = 'Finalizar';
+						    $template_botoes = false;
+						    $template_conteudo = false;
+						    $template_conteudo .= "
+						        <p>Ao pressionar o botão abaixo, você verá os resultados de todas as questões com respostas registradas. As questões não-registradas serão completamente ignoradas: não contarão como 'em branco' nem serão consideradas na análise.</p>
+						    ";
+						    $template_conteudo .= "
+						        <div class='row d-flex justify-content-center'>
+						            <a href='resultados.php?simulado_id=$simulado_id'>
+						                <button type='button' class='$button_classes_red'>Finalizar simulado e ver resultados</button>
+						            </a>
+                                </div>
+						    ";
+						    include 'templates/page_element.php';
+                        }
 
 					?>
         </div>
