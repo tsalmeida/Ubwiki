@@ -1,3 +1,3 @@
 <?php
-    header('Location:ubwiki/index.php?concurso_id=2');
+    header('Location:ubwiki/index.php');
 ?>
