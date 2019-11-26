@@ -3,14 +3,14 @@
 	include 'engine.php';
 	
 	if (isset($_POST['funcoes_gerais'])) {
-        $results = $conn->query("SELECT id, verbete_content FROM Textos WHERE verbete_content IS NOT NULL");
+        $results = $conn->query("SELECT id, verbete_content FROM Textos_arquivo WHERE verbete_content IS NOT NULL");
         if ($results->num_rows > 0) {
             while ($result = $results->fetch_assoc()) {
                 $id = $result['id'];
                 $verbete_content = $result['verbete_content'];
                 $verbete_content = urldecode($verbete_content);
                 $verbete_content = mysqli_real_escape_string($conn, $verbete_content);
-                $conn->query("UPDATE Textos SET verbete_content = '$verbete_content' WHERE id = $id");
+                $conn->query("UPDATE Textos_arquivo SET verbete_content = '$verbete_content' WHERE id = $id");
             }
         }
     }
