@@ -55,7 +55,7 @@
 								if ($count == 41) {
 									break;
 								}
-								$historico_verbete_timestamp = $row['criacao'];
+								$historico_verbete_criacao = $row['criacao'];
 								$historico_verbete_id = $row['id'];
 								$historico_verbete_user_id = $row['user_id'];
 								$historico_verbete_user_apelido = return_apelido_user_id($historico_verbete_user_id);
@@ -63,7 +63,7 @@
                         <form method='post'>
                             <li class='list-group-item'>
                                 <button type='submit' value='$historico_verbete_id' name='visualizar_historico' class='btn btn-primary btn-sm'>Visualizar</button>
-                                $historico_verbete_timestamp : <a href='perfil.php?pub_user_id=$historico_verbete_user_id' target='_blank'>$historico_verbete_user_apelido</a></li>
+                                $historico_verbete_criacao : <a href='perfil.php?pub_user_id=$historico_verbete_user_id' target='_blank'>$historico_verbete_user_apelido</a></li>
                         </form>
                       ";
 							}
