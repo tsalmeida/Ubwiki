@@ -91,7 +91,7 @@
         <div id='coluna_esquerda' class='<?php echo $coluna_classes; ?>'>
 					<?php
 						$template_id = 'paginas_recentes';
-						$template_titulo = 'Páginas recentemente modificadas';
+						$template_titulo = 'Verbetes recentemente modificados';
 						$template_botoes = false;
 						$template_conteudo = false;
 
