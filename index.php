@@ -95,7 +95,7 @@
 						$template_botoes = false;
 						$template_conteudo = false;
 
-						$paginas = $conn->query("SELECT DISTINCT page_id FROM Textos_arquivo WHERE tipo = 'verbete' ORDER BY id DESC");
+						$paginas = $conn->query("SELECT DISTINCT page_id FROM (SELECT id, page_id FROM Textos_arquivo WHERE tipo = 'verbete' GROUP BY id ORDER BY id DESC) t");
 						if ($paginas->num_rows > 0) {
 							$template_conteudo .= "<ol class='list-group'>";
 							$count = 0;
@@ -105,7 +105,9 @@
 									break;
 								}
 								$topico_id = $pagina['page_id'];
+                                error_log($topico_id);
 								$topico_titulo = return_titulo_topico($topico_id);
+                                error_log("$topico_id $topico_titulo");
 								$template_conteudo .= "<a href='verbete.php?topico_id=$topico_id'><li class='list-group-item list-group-item-action'>$topico_titulo</li></a>";
 							}
 							$template_conteudo .= "</ol>";
