@@ -73,16 +73,6 @@
 				Quill.register(ColorClass, true);
             </script>";
 		}
-		if ($html_head_template_one_page == true) {
-			echo "
-            <style>
-              html, body, .onepage {
-                height: 100vh;
-                overflow-y: auto;
-              }
-            </style>
-          ";
-		}
 		if ($html_head_template_conteudo != false) {
 			echo "$html_head_template_conteudo";
 		}
