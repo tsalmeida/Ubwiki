@@ -1,13 +1,13 @@
 <?php
-	
+
 	include 'engine.php';
-	
+
 	if ($concurso_id == false) {
 		header('Location:cursos.php');
 	}
-	
+
 	include 'templates/html_head.php';
-	
+
 	$conn->query("INSERT INTO Visualizacoes (user_id, tipo_pagina) VALUES ($user_id, 'index')");
 
 ?>
@@ -81,7 +81,6 @@
 										}
 									}
 								}
-								$conn->close();
 							?>
             </div>
         </div>
@@ -95,33 +94,26 @@
 						$template_titulo = 'Páginas recentemente modificadas';
 						$template_botoes = false;
 						$template_conteudo = false;
-						$template_conteudo .= "<p>Teste de caneta</p>";
+
+						$paginas = $conn->query("SELECT DISTINCT page_id FROM Textos_arquivo WHERE tipo = 'verbete' ORDER BY id DESC");
+						if ($paginas->num_rows > 0) {
+							$template_conteudo .= "<ol class='list-group'>";
+							$count = 0;
+							while ($pagina = $paginas->fetch_assoc()) {
+								$count++;
+								if ($count == 11) {
+									break;
+								}
+								$topico_id = $pagina['page_id'];
+								$topico_titulo = return_titulo_topico($topico_id);
+								$template_conteudo .= "<a href='verbete.php?topico_id=$topico_id'><li class='list-group-item list-group-item-action'>$topico_titulo</li></a>";
+							}
+							$template_conteudo .= "</ol>";
+						}
+
 						include 'templates/page_element.php';
-						
-						$template_id = 'paginas_mais_visitadas';
-						$template_titulo = 'Páginas mais visitadas';
-						$template_botoes = false;
-						$template_conteudo = false;
-						$template_conteudo .= "<p>Teste de caneta</p>";
-						include 'templates/page_element.php';
-						
-						$template_id = 'paginas_recentes_criadas';
-						$template_titulo = 'Páginas recentemente criadas';
-						$template_botoes = false;
-						$template_conteudo = false;
-						$template_conteudo .= "<p>Teste de caneta</p>";
-						include 'templates/page_element.php';
-					
-					?>
-        </div>
-        <div id='coluna_direita' class='<?php echo $coluna_classes; ?>'>
-					<?php
-						$template_id = 'suas_paginas_recentes';
-						$template_titulo = 'Páginas recentemente modificadas em que você participou';
-						$template_botoes = false;
-						$template_conteudo = false;
-						$template_conteudo .= "<p>Teste de caneta.</p>";
-						include 'templates/page_element.php';
+
+
 					?>
         </div>
     </div>
@@ -132,5 +124,6 @@
 	include 'templates/footer.html';
 	include 'templates/searchbar.html';
 	include 'templates/html_bottom.php';
+	$conn->close();
 ?>
 </html>
