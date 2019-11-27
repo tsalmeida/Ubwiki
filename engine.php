@@ -438,6 +438,24 @@
 		return false;
 	}
 	
+	function return_materia_id_topico($topico_id)
+	{
+		$servername = "localhost";
+		$username = "grupoubique";
+		$password = "ubique patriae memor";
+		$dbname = "Ubwiki";
+		$conn = new mysqli($servername, $username, $password, $dbname);
+		mysqli_set_charset($conn, "utf8");
+		$materias = $conn->query("SELECT materia_id FROM Topicos WHERE id = $topico_id");
+		if ($materias->num_rows > 0) {
+			while ($materia = $materias->fetch_assoc()) {
+				$found_materia_id = $materia['materia_id'];
+			}
+			return $found_materia_id;
+		}
+		return false;
+	}
+	
 	function return_concurso_sigla($concurso_id)
 	{
 		$servername = "localhost";
@@ -685,5 +703,7 @@
 	$button_classes_red = "$all_buttons_classes btn-danger";
 	$select_classes = "browser-default custom-select mt-2";
 	$coluna_classes = "col-lg-5 col-md-10 col-sm-11";
+	$coluna_maior_classes = "col-lg-9 col-md-10 col-sm-11";
+	$coluna_media_classes = "col-lg-7 col-md-10 col-sm-11";
 
 ?>

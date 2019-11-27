@@ -58,7 +58,7 @@
 </div>
 <div class="container-fluid">
     <div class="row justify-content-around">
-        <div class="col-lg-9 col-md-10 col-sm-12">
+        <div class="<?php echo $coluna_maior_classes; ?>">
 					<?php
 						$template_id = 'lista_topicos';
 						$template_titulo = 'Tópicos';

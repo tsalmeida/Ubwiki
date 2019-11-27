@@ -88,7 +88,7 @@
 </div>
 <div class="container-fluid">
     <div class="row justify-content-around">
-        <div id='coluna_esquerda' class='<?php echo $coluna_classes; ?>'>
+        <div id='coluna_esquerda' class='<?php echo $coluna_media_classes; ?>'>
 					<?php
 						$template_id = 'paginas_recentes';
 						$template_titulo = 'Verbetes recentemente modificados';
@@ -105,10 +105,10 @@
 									break;
 								}
 								$topico_id = $pagina['page_id'];
-                                error_log($topico_id);
+								$topico_materia_id = return_materia_id_topico($topico_id);
+								$topico_materia_titulo = return_materia_titulo_id($topico_materia_id);
 								$topico_titulo = return_titulo_topico($topico_id);
-                                error_log("$topico_id $topico_titulo");
-								$template_conteudo .= "<a href='verbete.php?topico_id=$topico_id'><li class='list-group-item list-group-item-action'>$topico_titulo</li></a>";
+								$template_conteudo .= "<a href='verbete.php?topico_id=$topico_id'><li class='list-group-item list-group-item-action'><strong>$topico_materia_titulo:</strong> $topico_titulo</li></a>";
 							}
 							$template_conteudo .= "</ol>";
 						}
