@@ -1,13 +1,13 @@
 <?php
-
+	
 	include 'engine.php';
-
+	
 	if ($concurso_id == false) {
 		header('Location:cursos.php');
 	}
-
+	
 	include 'templates/html_head.php';
-
+	
 	$conn->query("INSERT INTO Visualizacoes (user_id, tipo_pagina) VALUES ($user_id, 'index')");
 
 ?>
@@ -88,34 +88,62 @@
 </div>
 <div class="container-fluid">
     <div class="row justify-content-around">
-        <div id='coluna_esquerda' class='<?php echo $coluna_media_classes; ?>'>
+        <div id='coluna_esquerda' class='<?php echo $coluna_maior_classes; ?>'>
 					<?php
 						$template_id = 'paginas_recentes';
 						$template_titulo = 'Verbetes recentemente modificados';
 						$template_botoes = false;
 						$template_conteudo = false;
-
+						
 						$paginas = $conn->query("SELECT DISTINCT page_id FROM (SELECT id, page_id FROM Textos_arquivo WHERE tipo = 'verbete' GROUP BY id ORDER BY id DESC) t");
 						if ($paginas->num_rows > 0) {
 							$template_conteudo .= "<ol class='list-group'>";
 							$count = 0;
 							while ($pagina = $paginas->fetch_assoc()) {
-								$count++;
-								if ($count == 11) {
-									break;
-								}
 								$topico_id = $pagina['page_id'];
 								$topico_materia_id = return_materia_id_topico($topico_id);
 								$topico_materia_titulo = return_materia_titulo_id($topico_materia_id);
 								$topico_titulo = return_titulo_topico($topico_id);
-								$template_conteudo .= "<a href='verbete.php?topico_id=$topico_id'><li class='list-group-item list-group-item-action'><strong>$topico_materia_titulo:</strong> $topico_titulo</li></a>";
+								$topicos = $conn->query("SELECT estado_pagina FROM Topicos WHERE id = $topico_id AND concurso_id = $concurso_id");
+								if ($count == 11) {
+									break;
+								}
+								if ($topicos->num_rows > 0) {
+									while ($topico = $topicos->fetch_assoc()) {
+										$topico_estado_pagina = $topico['estado_pagina'];
+										$icone_estado = return_estado_icone($topico_estado_pagina, 'materia');
+										if ($topico_estado_pagina > 3) {
+											$estado_cor = 'text-warning';
+										} else {
+											$estado_cor = 'text-dark';
+										}
+										$cor_badge = 'grey lighten-3';
+										$icone_badge = "
+                                            <span class='badge $cor_badge $estado_cor badge-pill z-depth-0'>
+                                                <i class='fa $icone_estado fa-fw'></i>
+                                            </span>
+										";
+										$template_conteudo .= "
+                                            <a href='verbete.php?topico_id=$topico_id'>
+                                                <li class='list-group-item list-group-item-action d-flex justify-content-between align-items-center'>
+                                                    <span>
+                                                        <strong>$topico_materia_titulo: </strong>
+                                                        $topico_titulo
+                                                    </span>
+                                                    $icone_badge
+                                                </li>
+                                            </a>";
+										$count++;
+										break;
+									}
+								}
 							}
 							$template_conteudo .= "</ol>";
 						}
-
+						
 						include 'templates/page_element.php';
-
-
+					
+					
 					?>
         </div>
     </div>
