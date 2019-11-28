@@ -91,7 +91,7 @@
 			$concurso_sigla = return_concurso_sigla($concurso_id);
 		}
 	}
-
+	
 	function extract_gdoc($url)
 	{
 		$ch = curl_init();
@@ -680,12 +680,13 @@
 		if ($questao_tipo == 1) {
 			$user_id = $_POST['user_id'];
 			$questao_id = $_POST['questao_id'];
+			$questao_numero = $_POST['questao_numero'];
 			$item1_resposta = $_POST['item1'];
 			$item2_resposta = $_POST['item2'];
 			$item3_resposta = $_POST['item3'];
 			$item4_resposta = $_POST['item4'];
 			$item5_resposta = $_POST['item5'];
-			$conn->query("INSERT INTO sim_respostas (user_id, simulado_id, questao_id, item1, item2, item3, item4, item5) VALUES ($user_id, $simulado_id, $questao_id, $item1_resposta, $item2_resposta, $item3_resposta, $item4_resposta, $item5_resposta)");
+			$conn->query("INSERT INTO sim_respostas (user_id, simulado_id, questao_id, questao_numero, item1, item2, item3, item4, item5) VALUES ($user_id, $simulado_id, $questao_id, $questao_numero, $item1_resposta, $item2_resposta, $item3_resposta, $item4_resposta, $item5_resposta)");
 		} elseif ($questao_tipo == 2) {
 			$user_id = $_POST['user_id'];
 			$questao_id = $_POST['questao_id'];
@@ -694,6 +695,19 @@
 			$conn->query("INSERT INTO sim_respostas (user_id, simulado_id, questao_id, multipla) VALUES ($user_id, $simulado_id, $questao_id, $resposta)");
 		}
 		echo true;
+	}
+	
+	function converter_respostas($resposta)
+	{
+		if ($resposta == 1) {
+			return 'certo';
+		} elseif ($resposta == 2) {
+			return 'errado';
+		} elseif ($resposta == 0) {
+			return 'em branco';
+		} else {
+			return false;
+		}
 	}
 	
 	$all_buttons_classes = "btn rounded btn-md mt-4 text-center";

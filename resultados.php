@@ -26,12 +26,25 @@
 		header('Location:index.php');
 	}
 	
-	$questoes = $conn->query("SELECT criacao, questao_id, item1, item2, item3, item4, item5, multipla, redacao FROM sim_respostas WHERE user_id = $user_id AND simulado_id = $simulado_id");
-	if ($questoes->num_rows > 0) {
-		$questoes_numero_total = $questoes->num_rows;
-	}
-	else {
-		$questoes_numero_total = false;
+	$simulados_elementos = $conn->query("SELECT tipo, elemento_id FROM sim_detalhes WHERE simulado_id = $simulado_id");
+	if ($simulados_elementos->num_rows > 0) {
+		$questoes_count = 0;
+		$materias_count = 0;
+		$textos_apoio_count = 0;
+		while ($simulado_elemento = $simulados_elementos->fetch_assoc()) {
+			$simulado_elemento_tipo = $simulado_elemento['tipo'];
+			$simulado_elemento_id = $simulado_elemento['elemento_id'];
+			if ($simulado_elemento_tipo == 'questao') {
+				$questoes_count++;
+			} elseif ($simulado_elemento_tipo == 'materia') {
+				$materias_count++;
+			} elseif ($simulado_elemento_tipo == 'texto_apoio') {
+				$textos_apoio_count++;
+			}
+		}
+		error_log($questoes_count);
+		error_log($materias_count);
+		error_log($textos_apoio_count);
 	}
 
 ?>
@@ -49,33 +62,140 @@
 	?>
     <div class="row d-flex justify-content-around">
         <div id="coluna_esquerda" class="<?php echo $coluna_classes; ?>">
-	        <?php
-		        $template_id = 'simulado_dados';
-		        $template_titulo = 'Dados';
-		        $template_botoes = false;
-		        $template_conteudo = false;
-		        $template_conteudo .= "<p>Este simulado foi gerado em $simulado_criacao</p>";
-		        $template_conteudo .= "<p>Tipo de simulado: $simulado_tipo</p>";
-		        if ($questoes_numero_total == false) {
-		        	$template_conteudo .= "<p>Não há questões com resposta registrada para este simulado.</p>";
-			        include 'templates/page_element.php';
-		        }
-		        else {
-			        include 'templates/page_element.php';
-		        	$template_id = 'simulado_questoes';
-		        	$template_titulo = 'Questões';
-		        	$template_botoes = false;
-		        	$template_conteudo = false;
-		        	$template_conteudo .= "<p>Questões com respostas registradas:</p>";
-		        	$template_conteudo .= "<ul class='list-group'>";
-		        	while ($questao = $questoes->fetch_assoc()) {
-		        		$questao_id = $questao['questao_id'];
-		        		$template_conteudo .= "<li class='list-group-item'>$questao_id</li>";
-			        }
-			        $template_conteudo .= "</ul>";
-			        include 'templates/page_element.php';
-		        }
-	        ?>
+					<?php
+						$template_id = 'simulado_dados';
+						$template_titulo = 'Dados';
+						$template_botoes = false;
+						$template_conteudo = false;
+						$template_conteudo .= "<p>Este simulado foi gerado em $simulado_criacao</p>";
+						$template_conteudo .= "<p>Tipo de simulado: $simulado_tipo</p>";
+						$template_conteudo .= "<p>No documento abaixo, os items que você acertou aparecem em verde, enquanto os que errou, em vermelho e os items que deixou em branco, em amarelo</p>";
+						
+						if ($questoes_count == 0) {
+							$template_conteudo .= "<p>Não há questão com resposta registrada para este simulado.</p>";
+							include 'templates/page_element.php';
+						} else {
+							include 'templates/page_element.php';
+							
+							mysqli_data_seek($simulados_elementos, 0);
+							while ($simulado_elemento = $simulados_elementos->fetch_assoc()) {
+								$simulado_elemento_tipo = $simulado_elemento['tipo'];
+								$simulado_elemento_id = $simulado_elemento['elemento_id'];
+								if ($simulado_elemento_tipo == 'prova') {
+									$prova_info = return_info_prova_id($simulado_elemento_id);
+									$prova_titulo = $prova_info[0];
+									$prova_edicao_ano = $prova_info[2];
+									$template_id = "prova_{$simulado_elemento_id}";
+									$template_titulo = "Prova de $prova_edicao_ano: $prova_titulo";
+									include 'templates/page_element.php';
+								} elseif ($simulado_elemento_tipo == 'materia') {
+									$materia_titulo = return_materia_titulo_id($simulado_elemento_id);
+									$template_id = "simulado_materia_{$simulado_elemento_id}";
+									$template_titulo = $materia_titulo;
+									$template_titulo_heading = 'h2';
+									include 'templates/page_element.php';
+								} elseif ($simulado_elemento_tipo == 'texto_apoio') {
+									
+									$textos_apoio = $conn->query("SELECT titulo, enunciado FROM sim_textos_apoio WHERE id = $simulado_elemento_id");
+									if ($textos_apoio->num_rows > 0) {
+										while ($texto_apoio = $textos_apoio->fetch_assoc()) {
+											$texto_apoio_titulo = $texto_apoio['titulo'];
+											$texto_apoio_enunciado = $texto_apoio['enunciado'];
+											$template_id = "simulado_texto_apoio_{$simulado_elemento_id}";
+											$template_titulo = "Texto de apoio: $texto_apoio_titulo";
+											$template_titulo_heading = 'h3';
+											$template_conteudo = false;
+											$template_conteudo .= "<p>$texto_apoio_enunciado</p>";
+											include 'templates/page_element.php';
+											break;
+										}
+									}
+								} elseif ($simulado_elemento_tipo == 'questao') {
+									$questoes = $conn->query("SELECT questao_numero, item1, item2, item3, item4, item5, multipla, redacao FROM sim_respostas WHERE questao_id = $simulado_elemento_id AND simulado_id = $simulado_id");
+									if ($questoes->num_rows > 0) {
+										while ($questao = $questoes->fetch_assoc()) {
+											$questao_id = $simulado_elemento_id;
+											$questao_numero = $questao['questao_numero'];
+											$questao_item1 = $questao['item1'];
+											$questao_item2 = $questao['item2'];
+											$questao_item3 = $questao['item3'];
+											$questao_item4 = $questao['item4'];
+											$questao_item5 = $questao['item5'];
+											$questao_multipla = $questao['multipla'];
+											$questao_redacao = $questao['redacao'];
+											
+											$dados_questoes = $conn->query("SELECT enunciado, item1, item2, item3, item4, item5, item1_gabarito, item2_gabarito, item3_gabarito, item4_gabarito, item5_gabarito FROM sim_questoes WHERE id = $questao_id");
+											if ($dados_questoes->num_rows > 0) {
+												while ($dado_questao = $dados_questoes->fetch_assoc()) {
+													$dado_questao_enunciado = $dado_questao['enunciado'];
+													$dado_questao_item1 = $dado_questao['item1'];
+													$dado_questao_item2 = $dado_questao['item2'];
+													$dado_questao_item3 = $dado_questao['item3'];
+													$dado_questao_item4 = $dado_questao['item4'];
+													$dado_questao_item5 = $dado_questao['item5'];
+													$dado_questao_item1_gabarito = $dado_questao['item1_gabarito'];
+													$dado_questao_item2_gabarito = $dado_questao['item2_gabarito'];
+													$dado_questao_item3_gabarito = $dado_questao['item3_gabarito'];
+													$dado_questao_item4_gabarito = $dado_questao['item4_gabarito'];
+													$dado_questao_item5_gabarito = $dado_questao['item5_gabarito'];
+													$template_id = "questao_{$questao_id}";
+													$template_titulo = "Questão $questao_numero";
+													$template_botoes = false;
+													$template_conteudo = false;
+													if ($questao_redacao == false) {
+														if ($questao_multipla == false) {
+															$template_conteudo .= "<p>$dado_questao_enunciado</p>";
+															$template_conteudo .= "<ul class='list-group'>";
+															if ($dado_questao_item1 != false) {
+																$template_questao_item_nome = 'Item 1';
+																$template_questao_item = $questao_item1;
+																$template_dado_questao_item_gabarito = $dado_questao_item1_gabarito;
+																$template_dado_questao_item = $dado_questao_item1;
+																include 'templates/resultados_questao.php';
+															}
+															if ($dado_questao_item2 != false) {
+																$template_questao_item_nome = 'Item 2';
+																$template_questao_item = $questao_item2;
+																$template_dado_questao_item_gabarito = $dado_questao_item2_gabarito;
+																$template_dado_questao_item = $dado_questao_item2;
+																include 'templates/resultados_questao.php';
+															}
+															if ($dado_questao_item3 != false) {
+																$template_questao_item_nome = 'Item 3';
+																$template_questao_item = $questao_item3;
+																$template_dado_questao_item_gabarito = $dado_questao_item3_gabarito;
+																$template_dado_questao_item = $dado_questao_item3;
+																include 'templates/resultados_questao.php';
+															}
+															if ($dado_questao_item4 != false) {
+																$template_questao_item_nome = 'Item 4';
+																$template_questao_item = $questao_item4;
+																$template_dado_questao_item_gabarito = $dado_questao_item4_gabarito;
+																$template_dado_questao_item = $dado_questao_item4;
+																include 'templates/resultados_questao.php';
+															}
+															if ($dado_questao_item5 != false) {
+																$template_questao_item_nome = 'Item 5';
+																$template_questao_item = $questao_item5;
+																$template_dado_questao_item_gabarito = $dado_questao_item5_gabarito;
+																$template_dado_questao_item = $dado_questao_item5;
+																include 'templates/resultados_questao.php';
+															}
+															$template_conteudo .= "</ul>";
+														} else {
+															$template_conteudo .= "<p>Você escolheu o item $questao_multipla.</p>";
+														}
+													}
+													$template_titulo_heading = 'h4';
+													include 'templates/page_element.php';
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					?>
         </div>
     </div>
 </div>

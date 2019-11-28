@@ -1,7 +1,7 @@
 <?php
 	include 'engine.php';
 	include 'templates/html_head.php';
- 
+	
 	$simulado_id = false;
 	$simulado_tipo = false;
 	if (isset($_GET['simulado_tipo'])) {
@@ -34,7 +34,7 @@
 						$template_conteudo .= "<p>No entanto, sabemos que muitas pessoas usam simulados como uma forma de aprender o conteúdo e, portanto, podem preferir ter acesso a informações adicionais. Por esse motivo, nosso sistema inclui links para páginas sobre cada questão, assim como para páginas sobre os tópicos relacionados.</p>";
 						$template_conteudo .= "<p>Nesses casos, recomendamos que você preencha o item de acordo com seu conhecimento, deixando para fazer sua pesquisa apenas posteriormente, sem que afete suas respostas iniciais. Dessa maneira, a análise posterior dos resultados não será influenciada.</p>";
 						include 'templates/page_element.php';
-
+						
 						$template_id = 'simulado_dados';
 						$template_titulo = 'Sobre este simulado';
 						$template_conteudo = false;
@@ -60,18 +60,18 @@
 								}
 								$template_conteudo .= "<ul>";
 								$simulado_id = false;
-								$conn->query("INSERT INTO sim_gerados (user_id, tipo) VALUES ($user_id, '$simulado_tipo')");
+								$conn->query("INSERT INTO sim_gerados (user_id, concurso_id, tipo) VALUES ($user_id, $concurso_id, '$simulado_tipo')");
 								$gerados = $conn->query("SELECT id FROM sim_gerados WHERE user_id = $user_id ORDER BY id DESC");
 								while ($simulado = $gerados->fetch_assoc()) {
-								    $simulado_id = $simulado['id'];
-								    break;
-                                }
+									$simulado_id = $simulado['id'];
+									break;
+								}
 							} else {
 								$template_conteudo .= "<p>Não há questões registradas para este curso.</p>";
 							}
 						}
 						include 'templates/page_element.php';
-
+						
 						if (!isset($todas_as_provas)) {
 							$todas_as_provas = false;
 						} else {
@@ -79,12 +79,13 @@
 								$prova_id = $prova[0];
 								$prova_titulo = $prova[1];
 								$prova_tipo = $prova[2];
-								$prova_tipo_string = convert_prova_tipo($prova_tipo);
 								$prova_edicao_ano = $prova[3];
 								$prova_edicao_titulo = $prova[4];
-
+								
 								$template_id = 'prova_dados';
 								$template_titulo = "Prova de $prova_edicao_ano: $prova_titulo";
+								$conn->query("INSERT INTO sim_detalhes (simulado_id, tipo, elemento_id) VALUES ($simulado_id, 'prova',
+$prova_id)");
 								$template_conteudo = false;
 								include 'templates/page_element.php';
 								$questoes_impressas = array();
@@ -94,11 +95,12 @@
 									while ($materia = $materias->fetch_assoc()) {
 										$unique_materia_id = $materia['materia'];
 										$unique_materia_titulo = return_materia_titulo_id($unique_materia_id);
-
+										
 										$template_id = "prova_materia_{$unique_materia_id}";
 										$template_titulo = $unique_materia_titulo;
 										$template_titulo_heading = 'h2';
 										$template_conteudo = false;
+										$conn->query("INSERT INTO sim_detalhes (simulado_id, tipo, elemento_id) VALUES ($simulado_id, 'materia', $unique_materia_id)");
 										include 'templates/page_element.php';
 										$questoes = $conn->query("SELECT id, texto_apoio_id, numero, enunciado, materia, tipo, item1, item2, item3, item4, item5, item1_gabarito, item2_gabarito, item3_gabarito, item4_gabarito, item5_gabarito FROM sim_questoes WHERE prova_id = $prova_id AND materia = $unique_materia_id ORDER BY numero");
 										if ($questoes->num_rows > 0) {
@@ -138,6 +140,7 @@
 															$texto_apoio_check = array_search($questao_texto_apoio_id, $textos_apoio_impressos);
 															if ($texto_apoio_check === false) {
 																array_push($textos_apoio_impressos, $questao_texto_apoio_id);
+																$conn->query("INSERT INTO sim_detalhes (simulado_id, tipo, elemento_id) VALUES ($simulado_id, 'texto_apoio', $questao_texto_apoio_id)");
 																include 'templates/page_element.php';
 															}
 															$questoes_texto_apoio = $conn->query("SELECT id FROM sim_questoes WHERE texto_apoio_id = $questao_texto_apoio_id");
@@ -145,8 +148,9 @@
 																while ($questao_texto_apoio = $questoes_texto_apoio->fetch_assoc()) {
 																	$questao_check = array_search($questao_id, $questoes_impressas);
 																	if ($questao_check === false) {
-																	    array_push($questoes_impressas, $questao_id);
-																        include 'templates/simulado_questao.php';
+																		array_push($questoes_impressas, $questao_id);
+																		$conn->query("INSERT INTO sim_detalhes (simulado_id, tipo, elemento_id) VALUES ($simulado_id, 'questao', $questao_id)");
+																		include 'templates/simulado_questao.php';
 																	}
 																}
 															}
@@ -154,6 +158,7 @@
 													}
 												} else {
 													array_push($questoes_impressas, $questao_id);
+													$conn->query("INSERT INTO sim_detalhes (simulado_id, tipo, elemento_id) VALUES ($simulado_id, 'questao', $questao_id)");
 													include 'templates/simulado_questao.php';
 												}
 											}
@@ -163,23 +168,24 @@
 							}
 						}
 						if ($simulado_id != false) {
-						    $template_id = 'ver_resultados';
-						    $template_titulo = 'Finalizar';
-						    $template_botoes = false;
-						    $template_conteudo = false;
-						    $template_conteudo .= "
+							$template_id = 'ver_resultados';
+							$template_titulo = 'Finalizar';
+							$template_botoes = false;
+							$template_conteudo = false;
+							$template_conteudo .= "
 						        <p>Ao pressionar o botão abaixo, você verá os resultados de todas as questões com respostas registradas. As questões não-registradas serão completamente ignoradas: não contarão como 'em branco' nem serão consideradas na análise.</p>
+						        <p><strong>Não se esqueça de enviar as respostas de todas as questões!</strong></p>
 						    ";
-						    $template_conteudo .= "
+							$template_conteudo .= "
 						        <div class='row d-flex justify-content-center'>
 						            <a href='resultados.php?simulado_id=$simulado_id'>
 						                <button type='button' class='$button_classes_red'>Finalizar simulado e ver resultados</button>
 						            </a>
                                 </div>
 						    ";
-						    include 'templates/page_element.php';
-                        }
-
+							include 'templates/page_element.php';
+						}
+					
 					?>
         </div>
     </div>
