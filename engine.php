@@ -474,6 +474,44 @@
 		return false;
 	}
 	
+	function return_concurso_titulo_id($find_concurso_id)
+	{
+		$servername = "localhost";
+		$username = "grupoubique";
+		$password = "ubique patriae memor";
+		$dbname = "Ubwiki";
+		$conn = new mysqli($servername, $username, $password, $dbname);
+		mysqli_set_charset($conn, "utf8");
+		$find_concursos = $conn->query("SELECT titulo FROM Concursos WHERE id = $find_concurso_id");
+		if ($find_concursos->num_rows > 0) {
+			while ($find_concurso = $find_concursos->fetch_assoc()) {
+				$find_concurso_titulo = $find_concurso['titulo'];
+			}
+			return $find_concurso_titulo;
+		}
+		return false;
+	}
+	
+	function return_simulado_info($find_simulado_id)
+	{
+		$servername = "localhost";
+		$username = "grupoubique";
+		$password = "ubique patriae memor";
+		$dbname = "Ubwiki";
+		$conn = new mysqli($servername, $username, $password, $dbname);
+		mysqli_set_charset($conn, "utf8");
+		$find_simulados = $conn->query("SELECT criacao, tipo FROM sim_gerados WHERE id = $find_simulado_id");
+		if ($find_simulados->num_rows > 0) {
+			while ($find_simulado = $find_simulados->fetch_assoc()) {
+				$find_simulado_criacao = $find_simulado['criacao'];
+				$find_simulado_tipo = $find_simulado['tipo'];
+				$find_simulado_result = array($find_simulado_criacao, $find_simulado_tipo);
+				return $find_simulado_result;
+			}
+		}
+		return false;
+	}
+	
 	function return_concurso_id_materia($materia_id)
 	{
 		$servername = "localhost";
@@ -656,7 +694,7 @@
 	function convert_gabarito_cor($gabarito)
 	{
 		if ($gabarito == 0) {
-			return 'list-group-item-warning';
+			return 'list-group-item-light';
 		} elseif ($gabarito == 1) {
 			return 'list-group-item-success';
 		} elseif ($gabarito == 2) {
@@ -679,6 +717,7 @@
 		
 		if ($questao_tipo == 1) {
 			$user_id = $_POST['user_id'];
+			$concurso_id = $_POST['concurso_id'];
 			$questao_id = $_POST['questao_id'];
 			$questao_numero = $_POST['questao_numero'];
 			$item1_resposta = $_POST['item1'];
@@ -686,13 +725,13 @@
 			$item3_resposta = $_POST['item3'];
 			$item4_resposta = $_POST['item4'];
 			$item5_resposta = $_POST['item5'];
-			$conn->query("INSERT INTO sim_respostas (user_id, simulado_id, questao_id, questao_numero, item1, item2, item3, item4, item5) VALUES ($user_id, $simulado_id, $questao_id, $questao_numero, $item1_resposta, $item2_resposta, $item3_resposta, $item4_resposta, $item5_resposta)");
+			$conn->query("INSERT INTO sim_respostas (user_id, concurso_id, simulado_id, questao_id, questao_numero, item1, item2, item3, item4, item5) VALUES ($user_id, $concurso_id, $simulado_id, $questao_id, $questao_numero, $item1_resposta, $item2_resposta, $item3_resposta, $item4_resposta, $item5_resposta)");
 		} elseif ($questao_tipo == 2) {
 			$user_id = $_POST['user_id'];
 			$questao_id = $_POST['questao_id'];
 			$resposta = $_POST['resposta'];
 			
-			$conn->query("INSERT INTO sim_respostas (user_id, simulado_id, questao_id, multipla) VALUES ($user_id, $simulado_id, $questao_id, $resposta)");
+			$conn->query("INSERT INTO sim_respostas (user_id, concurso_id, simulado_id, questao_id, multipla) VALUES ($user_id, $concurso_id, $simulado_id, $questao_id, $resposta)");
 		}
 		echo true;
 	}

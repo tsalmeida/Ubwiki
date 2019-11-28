@@ -111,7 +111,6 @@
 							while ($row = $result->fetch_assoc()) {
 								$bookmark_topico_id = $row['topico_id'];
 								$infotopicos = mysqli_query($conn, "SELECT materia_id, id FROM Topicos WHERE id = $bookmark_topico_id");
-								error_log(serialize($infotopicos));
 								while ($row = $infotopicos->fetch_assoc()) {
 									$bookmark_materia_id = $row['materia_id'];
 									$bookmark_topico_id = $row['id'];
@@ -231,6 +230,38 @@
 							$template_load_invisible = true;
 						}
 						include 'templates/page_element.php';
+						
+						$respostas = $conn->query("SELECT DISTINCT concurso_id FROM sim_respostas WHERE user_id = $user_id");
+						if ($respostas->num_rows > 0) {
+							$template_id = 'user_simulados';
+							$template_titulo = 'Seus simulados';
+							$template_conteudo = false;
+							while ($resposta = $respostas->fetch_assoc()) {
+								$resposta_concurso_id = $resposta['concurso_id'];
+								$resposta_concurso_titulo = return_concurso_titulo_id($resposta_concurso_id);
+								$template_conteudo .= "<h2>$resposta_concurso_titulo</h2>";
+								$respostas2 = $conn->query("SELECT DISTINCT simulado_id FROM sim_respostas WHERE concurso_id = $resposta_concurso_id AND user_id = $user_id");
+								if ($respostas2->num_rows > 0) {
+									$template_conteudo .= "<ul class='list-group'>";
+									while ($resposta2 = $respostas2->fetch_assoc()) {
+										$resposta_simulado_id = $resposta2['simulado_id'];
+										$resposta_simulado_info = return_simulado_info($resposta_simulado_id);
+										$resposta_simulado_criacao = $resposta_simulado_info[0];
+										$resposta_simulado_tipo = $resposta_simulado_info[1];
+										$template_conteudo .= "
+						                    <a href='resultados.php?simulado_id=$resposta_simulado_id' target='_blank'><li class='list-group-item list-group-item-action'>
+						                        $resposta_simulado_criacao: $resposta_simulado_tipo
+                                            </li></a>
+						                ";
+									}
+									$template_conteudo .= "</ul>";
+								}
+							}
+							if ($respostas->num_rows > 10) {
+								$template_load_invisible = true;
+							}
+							include 'templates/page_element.php';
+						}
 					
 					
 					?>

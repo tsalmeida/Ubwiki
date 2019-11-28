@@ -69,7 +69,7 @@
 						$template_conteudo = false;
 						$template_conteudo .= "<p>Este simulado foi gerado em $simulado_criacao</p>";
 						$template_conteudo .= "<p>Tipo de simulado: $simulado_tipo</p>";
-						$template_conteudo .= "<p>No documento abaixo, os items que você acertou aparecem em verde, enquanto os que errou, em vermelho e os items que deixou em branco, em amarelo</p>";
+						$template_conteudo .= "<p>No documento abaixo, os items que você acertou aparecem em verde, enquanto os que errou, em vermelho e os items que deixou em branco, em cinza.</p>";
 						
 						if ($questoes_count == 0) {
 							$template_conteudo .= "<p>Não há questão com resposta registrada para este simulado.</p>";
@@ -87,6 +87,11 @@
 									$prova_edicao_ano = $prova_info[2];
 									$template_id = "prova_{$simulado_elemento_id}";
 									$template_titulo = "Prova de $prova_edicao_ano: $prova_titulo";
+									$template_botoes = "
+                                        <span id='pagina_prova_{$simulado_elemento_id}' title='Página da prova'>
+                                            <a href='prova.php?prova_id=$simulado_elemento_id' target='_blank'><i class='fal fa-external-link-square fa-fw'></i></a>
+                                        </span>
+                                    ";
 									include 'templates/page_element.php';
 								} elseif ($simulado_elemento_tipo == 'materia') {
 									$materia_titulo = return_materia_titulo_id($simulado_elemento_id);
@@ -104,6 +109,11 @@
 											$template_id = "simulado_texto_apoio_{$simulado_elemento_id}";
 											$template_titulo = "Texto de apoio: $texto_apoio_titulo";
 											$template_titulo_heading = 'h3';
+											$template_botoes = "
+                                                <span id='pagina_texto_apoio_{$simulado_elemento_id}' title='Página do texto de apoio'>
+                                                    <a href='textoapoio.php?texto_apoio_id=$simulado_elemento_id' target='_blank'><i class='fal fa-external-link-square fa-fw'></i></a>
+                                                </span>
+                                            ";
 											$template_conteudo = false;
 											$template_conteudo .= "<p>$texto_apoio_enunciado</p>";
 											include 'templates/page_element.php';
@@ -187,6 +197,11 @@
 														}
 													}
 													$template_titulo_heading = 'h4';
+													$template_botoes = "
+                                                        <span id='pagina_questao_{$questao_id}' title='Página do texto de apoio'>
+                                                            <a href='questao.php?questao_id=$questao_id' target='_blank'><i class='fal fa-external-link-square fa-fw'></i></a>
+                                                        </span>
+                                                    ";
 													include 'templates/page_element.php';
 												}
 											}

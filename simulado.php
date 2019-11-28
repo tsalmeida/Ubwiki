@@ -83,6 +83,11 @@
 								$prova_edicao_titulo = $prova[4];
 								
 								$template_id = 'prova_dados';
+								$template_botoes = "
+                                    <span id='pagina_prova_{$prova_id}' title='Página da prova'>
+                                        <a href='prova.php?prova_id=$prova_id' target='_blank'><i class='fal fa-external-link-square fa-fw'></i></a>
+                                    </span>
+                                ";
 								$template_titulo = "Prova de $prova_edicao_ano: $prova_titulo";
 								$conn->query("INSERT INTO sim_detalhes (simulado_id, tipo, elemento_id) VALUES ($simulado_id, 'prova',
 $prova_id)");

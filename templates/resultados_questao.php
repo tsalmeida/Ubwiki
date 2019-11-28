@@ -14,7 +14,7 @@
 		$item_cor = 'list-group-item-danger';
 	}
 	if ($questao_item_string == 'em branco') {
-		$item_cor = 'list-group-item-warning';
+		$item_cor = 'list-group-item-secondary';
 	}
 	$template_conteudo .= "<li class='list-group-item $item_cor rounded mt-1'>$template_dado_questao_item</li>";
 ?>

@@ -212,7 +212,7 @@
 					} else {
 					    var item5_resposta = 'null';
 					}
-					$.post('engine.php', {'user_id': {$user_id}, 'questao_id': {$questao_id}, 'questao_numero': {$questao_numero}, 'questao_tipo': {$questao_tipo}, 'simulado_id': {$simulado_id}, 'item1': item1_resposta, 'item2': item2_resposta, 'item3': item3_resposta, 'item4': item4_resposta, 'item5': item5_resposta}, function(data) {
+					$.post('engine.php', {'user_id': {$user_id}, 'concurso_id': {$concurso_id}, 'questao_id': {$questao_id}, 'questao_numero': {$questao_numero}, 'questao_tipo': {$questao_tipo}, 'simulado_id': {$simulado_id}, 'item1': item1_resposta, 'item2': item2_resposta, 'item3': item3_resposta, 'item4': item4_resposta, 'item5': item5_resposta}, function(data) {
 					    if (data != 0) {
 								$('#enviar_respostas_{$questao_id}').prop('disabled', true);
 					    }
@@ -250,7 +250,7 @@
 					else if (item5_resposta !== undefined) {
 					    var item_resposta = 5;
 					}
-					$.post('engine.php', {'user_id': {$user_id}, 'questao_id': {$questao_id}, 'questao_numero': {$questao_numero}, 'questao_tipo': {$questao_tipo}, 'simulado_id': {$simulado_id}, 'resposta': item_resposta}, function(data) {
+					$.post('engine.php', {'user_id': {$user_id}, 'concurso_id': {$concurso_id}, 'questao_id': {$questao_id}, 'questao_numero': {$questao_numero}, 'questao_tipo': {$questao_tipo}, 'simulado_id': {$simulado_id}, 'resposta': item_resposta}, function(data) {
 					    if (data != 0) {
 								$('#enviar_respostas_{$questao_id}').prop('disabled', true);
 					    }
