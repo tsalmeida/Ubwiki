@@ -1,6 +1,7 @@
 <?php
 	
 	include 'engine.php';
+	$html_head_template_quill = true;
 	include 'templates/html_head.php';
 	
 	if (!isset($concurso_id)) {
@@ -14,7 +15,7 @@
 		}
 		if (isset($_POST['nova_edicao_titulo'])) {
 			$nova_edicao_titulo = $_POST['nova_edicao_titulo'];
-			$nova_edicao_titulo = escape_quotes($nova_edicao_titulo);
+			$nova_edicao_titulo = mysqli_real_escape_string($conn, $nova_edicao_titulo);
 		}
 		if (($nova_edicao_ano != false) && ($nova_edicao_titulo != false)) {
 			$conn->query("INSERT INTO sim_edicoes (concurso_id, ano, titulo, user_id) VALUES ($concurso_id, $nova_edicao_ano, '$nova_edicao_titulo', $user_id)");
@@ -24,7 +25,7 @@
 	if (isset($_POST['nova_etapa_trigger'])) {
 		if (isset($_POST['nova_etapa_titulo'])) {
 			$nova_etapa_titulo = $_POST['nova_etapa_titulo'];
-			$nova_etapa_titulo = escape_quotes($nova_etapa_titulo);
+			$nova_etapa_titulo = mysqli_real_escape_string($conn, $nova_etapa_titulo);
 		}
 		if (isset($_POST['nova_etapa_edicao'])) {
 			$nova_etapa_edicao = $_POST['nova_etapa_edicao'];
@@ -40,7 +41,7 @@
 		}
 		if (isset($_POST['nova_prova_titulo'])) {
 			$nova_prova_titulo = $_POST['nova_prova_titulo'];
-			$nova_prova_titulo = escape_quotes($nova_prova_titulo);
+			$nova_prova_titulo = mysqli_real_escape_string($conn, $nova_prova_titulo);
 		}
 		if (isset($_POST['nova_prova_tipo'])) {
 			$nova_prova_tipo = $_POST['nova_prova_tipo'];
@@ -61,14 +62,27 @@
 		}
 		if (isset($_POST['novo_texto_apoio_titulo'])) {
 			$novo_texto_apoio_titulo = $_POST['novo_texto_apoio_titulo'];
-			$novo_texto_apoio_prova = escape_quotes($novo_texto_apoio_prova);
+			$novo_texto_apoio_prova = mysqli_real_escape_string($conn, $novo_texto_apoio_prova);
 		}
 		if (isset($_POST['novo_texto_apoio_enunciado'])) {
 			$novo_texto_apoio_enunciado = $_POST['novo_texto_apoio_enunciado'];
-			$novo_texto_apoio_enunciado = escape_quotes($novo_texto_apoio_enunciado);
+			$novo_texto_apoio_enunciado = mysqli_real_escape_string($conn, $novo_texto_apoio_enunciado);
 		}
+		if (isset($_POST['quill_novo_texto_apoio_html'])) {
+		    $novo_texto_apoio_html = $_POST['quill_novo_texto_apoio_html'];
+		    $novo_texto_apoio_html = mysqli_real_escape_string($conn, $novo_texto_apoio_html);
+        }
+		if (isset($_POST['quill_novo_texto_apoio_text'])) {
+		    $novo_texto_apoio_text = $_POST['quill_novo_texto_apoio_text'];
+		    $novo_texto_apoio_text = mysqli_real_escape_string($conn, $novo_texto_apoio_text);
+        }
+		if (isset($_POST['quill_novo_texto_apoio_content'])) {
+		    $novo_texto_apoio_content = $_POST['quill_novo_texto_apoio_content'];
+		    $novo_texto_apoio_content = mysqli_real_escape_string($conn, $novo_texto_apoio_content);
+        }
+		
 		if (($novo_texto_apoio_origem != false) && ($novo_texto_apoio_prova != false) && ($novo_texto_apoio_titulo != false) && ($novo_texto_apoio_enunciado != false)) {
-			$conn->query("INSERT INTO sim_textos_apoio (concurso_id, origem, prova_id, titulo, enunciado, user_id) VALUES ($concurso_id, $novo_texto_apoio_origem, $novo_texto_apoio_prova, '$novo_texto_apoio_titulo', '$novo_texto_apoio_enunciado', $user_id)");
+			$conn->query("INSERT INTO sim_textos_apoio (concurso_id, origem, prova_id, titulo, enunciado, texto_apoio_html, texto_apoio_text, texto_apoio_content, user_id) VALUES ($concurso_id, $novo_texto_apoio_origem, $novo_texto_apoio_prova, '$novo_texto_apoio_titulo', '$novo_texto_apoio_enunciado', '$novo_texto_apoio_html', '$novo_texto_apoio_text', '$novo_texto_apoio_content', $user_id)");
 		}
 	}
 	
@@ -357,7 +371,7 @@
 			$template_modal_titulo = 'Adicionar texto de apoio';
 			$template_modal_body_conteudo = false;
 			$template_modal_body_conteudo .= "
-                            <div class='form-check pl-0'>
+                            <div id='novo_texto_apoio_form' class='form-check pl-0'>
                                 <input id='novo_texto_apoio_origem' name='novo_texto_apoio_origem' type='checkbox' class='form-check-input' checked>
                                 <label class='form-check-label' for='novo_texto_apoio_origem'>Texto de apoio oficial do concurso.</label>
                             </div>
@@ -398,7 +412,57 @@
                               <label for='novo_texto_apoio_enunciado'>Enunciado do texto de apoio</label>
                             </div>
 						";
-			//QUILL VAI AQUI
+			$template_modal_body_conteudo .= "<h3 class='text-center'>Texto de apoio:</h3>";
+			$template_modal_body_conteudo .= "
+			        <input name='quill_novo_texto_apoio_html' type='hidden'>
+                    <input name='quill_novo_texto_apoio_text' type='hidden'>
+                    <input name='quill_novo_texto_apoio_content' type='hidden'>
+                    <div class='row'>
+                        <div class='container col-12'>
+                            <div id='quill_container_novo_texto_apoio'>
+                                <div id='quill_editor_novo_texto_apoio' class='quill_editor_height border border-light'>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script type='text/javascript'>
+                        var formatWhitelist_novo_ta = ['italic', 'bold', 'script', 'blockquote', 'list', 'header', 'image'];
+                        var toolbarOptions_novo_ta = [
+                            [{'header': [2, 3, false]}],
+                            ['italic'],
+                            ['bold'],
+                            [{'script': 'super'}],
+                            ['blockquote'],
+                            [{'list': 'ordered'}, {'list': 'bullet'}],
+                            ['image'],
+                            ['clean'],
+                        ];
+                        var quill_texto_apoio = new Quill('#quill_editor_novo_texto_apoio', {
+                            theme: 'snow',
+                            formats: formatWhitelist_novo_ta,
+                            modules: {
+                                toolbar: {
+                                    container: toolbarOptions_novo_ta
+                                }
+                            }
+                        });
+                        var form_texto_apoio = document.querySelector('#novo_texto_apoio_form');
+                        form_texto_apoio.onsubmit = function() {
+                            var quill_novo_texto_apoio_html = document.querySelector('input[name=quill_novo_texto_apoio_html]');
+                            quill_novo_texto_apoio_html.value = quill_editor_novo_texto_apoio.root.innerHTML;
+                            
+                            var quill_novo_texto_apoio_text = document.querySelector('input[name=quill_novo_texto_apoio_text]');
+                            quill_novo_texto_apoio_text.value = quill_editor_novo_texto_apoio.getText();
+                            
+                            var quill_novo_texto_apoio_content = document.querySelector('input[name=quill_novo_texto_apoio_content]');
+                            quill_novo_texto_apoio_content_var = quill_editor_novo_texto_apoio.getContents();
+                            quill_novo_texto_apoio_content_var = JSON.stringify(quill_novo_texto_apoio_content_var);
+                            quill_novo_texto_apoio_content.value = quill_novo_texto_apoio_content_var;
+                        }
+                        
+                    </script>
+			";
+			
 			$template_modal_submit_name = 'novo_texto_apoio_trigger';
 			include 'templates/modal.php';
 			
