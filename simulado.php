@@ -127,11 +127,12 @@ $prova_id)");
 												$questao_item4_gabarito = $questao['item4_gabarito'];
 												$questao_item5_gabarito = $questao['item5_gabarito'];
 												if ($questao_texto_apoio_id != false) {
-													$textos_apoio = $conn->query("SELECT titulo, enunciado FROM sim_textos_apoio WHERE id = $questao_texto_apoio_id");
+													$textos_apoio = $conn->query("SELECT titulo, enunciado, texto_apoio_html FROM sim_textos_apoio WHERE id = $questao_texto_apoio_id");
 													if ($textos_apoio->num_rows > 0) {
 														while ($texto_apoio = $textos_apoio->fetch_assoc()) {
 															$texto_apoio_titulo = $texto_apoio['titulo'];
 															$texto_apoio_enunciado = $texto_apoio['enunciado'];
+															$texto_apoio_html = $texto_apoio['texto_apoio_html'];
 															$template_id = "texto_apoio_{$questao_texto_apoio_id}";
 															$template_titulo = "Texto de Apoio: $texto_apoio_titulo";
 															$template_titulo_heading = 'h3';
@@ -142,6 +143,7 @@ $prova_id)");
                                                             ";
 															$template_conteudo = false;
 															$template_conteudo .= "<p>$texto_apoio_enunciado</p>";
+															$template_conteudo .= "$texto_apoio_html";
 															$texto_apoio_check = array_search($questao_texto_apoio_id, $textos_apoio_impressos);
 															if ($texto_apoio_check === false) {
 																array_push($textos_apoio_impressos, $questao_texto_apoio_id);

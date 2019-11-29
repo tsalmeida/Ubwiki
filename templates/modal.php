@@ -12,12 +12,15 @@
 	if (!isset($template_modal_submit_name)) {
 		$template_modal_submit_name = 'modal_form_submit';
 	}
+	if (!isset($template_modal_form_id)) {
+		$template_modal_form_id = "form_$template_modal_div_id";
+	}
 	
 	echo "
 	<div class='modal fade' id='$template_modal_div_id' role='dialog' tabindex='-1'>
     <div class='modal-dialog modal-lg' role='document'>
         <div class='modal-content'>
-            <form method='post'>
+            <form id='$template_modal_form_id' method='post'>
                 <div class='modal-header text-center'>
                     <h2 class='h2-responsive modal-title w-100' > $template_modal_titulo </h2>
                     <button type='button' class='close' data-dismiss='modal'>

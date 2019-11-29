@@ -371,7 +371,7 @@
 			$template_modal_titulo = 'Adicionar texto de apoio';
 			$template_modal_body_conteudo = false;
 			$template_modal_body_conteudo .= "
-                            <div id='novo_texto_apoio_form' class='form-check pl-0'>
+                            <div class='form-check pl-0'>
                                 <input id='novo_texto_apoio_origem' name='novo_texto_apoio_origem' type='checkbox' class='form-check-input' checked>
                                 <label class='form-check-label' for='novo_texto_apoio_origem'>Texto de apoio oficial do concurso.</label>
                             </div>
@@ -448,22 +448,23 @@
                         });
                         var form_texto_apoio = document.querySelector('#novo_texto_apoio_form');
                         form_texto_apoio.onsubmit = function() {
+                            alert('this happened');
                             var quill_novo_texto_apoio_html = document.querySelector('input[name=quill_novo_texto_apoio_html]');
-                            quill_novo_texto_apoio_html.value = quill_editor_novo_texto_apoio.root.innerHTML;
+                            quill_novo_texto_apoio_html.value = quill_texto_apoio.root.innerHTML;
                             
                             var quill_novo_texto_apoio_text = document.querySelector('input[name=quill_novo_texto_apoio_text]');
-                            quill_novo_texto_apoio_text.value = quill_editor_novo_texto_apoio.getText();
+                            quill_novo_texto_apoio_text.value = quill_texto_apoio.getText();
                             
                             var quill_novo_texto_apoio_content = document.querySelector('input[name=quill_novo_texto_apoio_content]');
-                            quill_novo_texto_apoio_content_var = quill_editor_novo_texto_apoio.getContents();
+                            quill_novo_texto_apoio_content_var = quill_texto_apoio.getContents();
                             quill_novo_texto_apoio_content_var = JSON.stringify(quill_novo_texto_apoio_content_var);
                             quill_novo_texto_apoio_content.value = quill_novo_texto_apoio_content_var;
                         }
-                        
                     </script>
 			";
 			
 			$template_modal_submit_name = 'novo_texto_apoio_trigger';
+			$template_modal_form_id = 'novo_texto_apoio_form';
 			include 'templates/modal.php';
 			
 			$template_modal_div_id = 'modal_adicionar_questao';

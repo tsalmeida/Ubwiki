@@ -40,14 +40,15 @@
 			echo "<script src='https://cdn.quilljs.com/1.3.6/quill.js'></script>";
 			echo "
             <script type='text/javascript'>
-	  	        var formatWhitelist_general = ['italic', 'script', 'link', 'blockquote', 'list', 'header', 'image'];
-	  	        var formatWhitelist_anotacoes = ['italic', 'script', 'link', 'blockquote', 'list', 'header', 'image', 'bold', 'background', 'color', 'strike', 'underline', 'align', 'link', 'video', 'image'];
+	  	        var formatWhitelist_general = ['italic', 'script', 'link', 'blockquote', 'list', 'header', 'image', 'indent'];
+	  	        var formatWhitelist_anotacoes = ['italic', 'script', 'link', 'blockquote', 'list', 'header', 'image', 'bold', 'background', 'color', 'strike', 'underline', 'align', 'link', 'video', 'image', 'indent'];
                 var toolbarOptions_general = [
                     [{'header': [2, 3, false]}],
                     ['italic'],
                     [{'script': 'super'}],
                     ['blockquote'],
                     [{'list': 'ordered'}, {'list': 'bullet'}],
+                    [{ 'indent': '-1'}, { 'indent': '+1' }],
                     ['image'],
                     ['clean'],
                 ];
@@ -62,6 +63,7 @@
                     [{'script': 'super'}],
                     ['blockquote'],
                     [{'list': 'ordered'}, {'list': 'bullet'}],
+                    [{ 'indent': '-1'}, { 'indent': '+1' }],
                     [{'align': []}],
                     ['link'],
                     ['video'],
