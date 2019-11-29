@@ -398,6 +398,7 @@
                               <label for='novo_texto_apoio_enunciado'>Enunciado do texto de apoio</label>
                             </div>
 						";
+			//QUILL VAI AQUI
 			$template_modal_submit_name = 'novo_texto_apoio_trigger';
 			include 'templates/modal.php';
 			
