@@ -46,18 +46,23 @@
 	if ($nivel_1_materia != false) {
 		if (isset($_POST['primeiro_nivel_1'])) {
 			$primeiro_nivel_1 = $_POST['primeiro_nivel_1'];
+			$primeiro_nivel_1 = mysqli_real_escape_string($conn, $primeiro_nivel_1);
 		}
 		if (isset($_POST['primeiro_nivel_2'])) {
 			$primeiro_nivel_2 = $_POST['primeiro_nivel_2'];
+			$primeiro_nivel_2 = mysqli_real_escape_string($conn, $primeiro_nivel_2);
 		}
 		if (isset($_POST['primeiro_nivel_3'])) {
 			$primeiro_nivel_3 = $_POST['primeiro_nivel_3'];
+			$primeiro_nivel_3 = mysqli_real_escape_string($conn, $primeiro_nivel_3);
 		}
 		if (isset($_POST['primeiro_nivel_4'])) {
 			$primeiro_nivel_4 = $_POST['primeiro_nivel_4'];
+			$primeiro_nivel_4 = mysqli_real_escape_string($conn, $primeiro_nivel_4);
 		}
 		if (isset($_POST['primeiro_nivel_5'])) {
 			$primeiro_nivel_5 = $_POST['primeiro_nivel_5'];
+			$primeiro_nivel_5 = mysqli_real_escape_string($conn, $primeiro_nivel_5);
 		}
 		
 		if ($primeiro_nivel_1 != '') {
