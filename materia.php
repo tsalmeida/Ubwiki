@@ -5,9 +5,9 @@
 	if (isset($_GET['materia_id'])) {
 		$materia_id = $_GET['materia_id'];
 	}
-	if (!isset($concurso_id)) {
-		$concurso_id = return_concurso_id_topico($topico_id);
-	}
+	else {
+	    header('Location:index.php');
+    }
 	$materia_titulo = false;
 	$found = false;
 	$result = $conn->query("SELECT titulo FROM Materias WHERE concurso_id = '$concurso_id' AND estado = 1 AND id = '$materia_id' ORDER BY ordem");
@@ -32,7 +32,9 @@
 	    </style>
 	";
 	
+	$html_head_template_quill = true;
 	include 'templates/html_head.php';
+	include 'templates/imagehandler.php';
 	
 	$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $materia_id, 'materia')");
 
@@ -181,17 +183,44 @@
                                     ";
 								}
 							}
+							unset($topico_id);
 						}
-						$conn->close();
 						$template_conteudo .= "</ul>";
 						include 'templates/page_element.php';
 					?>
         </div>
     </div>
+    <div class="row justify-content-around mt-5">
+        <div id="coluna_esquerda" class="<?php echo $coluna_classes; ?>">
+					<?php
+						$template_id = 'verbete_materia';
+						$template_titulo = 'Verbete';
+						$template_quill_empty_content = "<p id='verbete_vazio_{$template_id}'>Seja o primeiro a contribuir para a construção deste verbete.</p>";
+						$template_botoes = false;
+						$template_conteudo = include 'templates/template_quill.php';
+						include 'templates/page_element.php';
+					?>
+        </div>
+        <div id="coluna_direita" class="<?php echo $coluna_classes; ?>">
+					<?php
+						$template_id = 'anotacoes_materia';
+						$template_titulo = 'Anotações privadas';
+						$template_quill_empty_content = "<p id='verbete_vazio_{$template_id}'>Você ainda não fez anotações sobre este curso.</p>";
+						$template_botoes = false;
+						$template_conteudo = include 'templates/template_quill.php';
+						include 'templates/page_element.php';
+					?>
+        </div>
+    </div>
+    <button id='mostrar_coluna_direita' class='btn btn-md elegant-color text-white p-2 m-1' tabindex='-1'><i
+                class='fas fa-pen-alt fa-fw'></i></button>
 </div>
 </body>
 <?php
 	include 'templates/footer.html';
 	include 'templates/html_bottom.php';
+	$anotacoes_id = 'anotacoes_materia';
+	include 'templates/esconder_anotacoes.php';
+	$conn->close();
 ?>
 </html>

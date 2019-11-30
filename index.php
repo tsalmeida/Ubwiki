@@ -5,8 +5,9 @@
 	if ($concurso_id == false) {
 		header('Location:cursos.php');
 	}
-	
+	$html_head_template_quill = true;
 	include 'templates/html_head.php';
+	include 'templates/imagehandler.php';
 	
 	$conn->query("INSERT INTO Visualizacoes (user_id, tipo_pagina) VALUES ($user_id, 'index')");
 
@@ -80,6 +81,7 @@
 											$count = 0;
 										}
 									}
+									unset($materia_id);
 								}
 							?>
             </div>
@@ -88,7 +90,7 @@
 </div>
 <div class="container-fluid">
     <div class="row justify-content-around">
-        <div id='coluna_esquerda' class='<?php echo $coluna_maior_classes; ?>'>
+        <div id='coluna_central' class='<?php echo $coluna_maior_classes; ?>'>
 					<?php
 						$template_id = 'paginas_recentes';
 						$template_titulo = 'Verbetes recentemente modificados';
@@ -138,21 +140,45 @@
 									}
 								}
 							}
+							unset($topico_id);
 							$template_conteudo .= "</ol>";
 						}
 						
 						include 'templates/page_element.php';
-					
-					
 					?>
         </div>
     </div>
-
+    <div class="row justify-content-around mt-5">
+        <div id="coluna_esquerda" class="<?php echo $coluna_classes; ?>">
+          <?php
+	          $template_id = 'verbete_curso';
+	          $template_titulo = 'Verbete';
+	          $template_quill_empty_content = "<p id='verbete_vazio_{$template_id}'>Seja o primeiro a contribuir para a construção deste verbete.</p>";
+	          $template_botoes = false;
+	          $template_conteudo = include 'templates/template_quill.php';
+	          include 'templates/page_element.php';
+          ?>
+        </div>
+        <div id="coluna_direita" class="<?php echo $coluna_classes; ?>">
+          <?php
+	
+	          $template_id = 'anotacoes_curso';
+	          $template_titulo = 'Anotações privadas';
+	          $template_quill_empty_content = "<p id='verbete_vazio_{$template_id}'>Você ainda não fez anotações sobre este curso.</p>";
+	          $template_botoes = false;
+	          $template_conteudo = include 'templates/template_quill.php';
+	          include 'templates/page_element.php';
+          ?>
+        </div>
+    </div>
+    <button id='mostrar_coluna_direita' class='btn btn-md elegant-color text-white p-2 m-1' tabindex='-1'><i class='fas fa-pen-alt fa-fw'></i></button>
 </div>
 </body>
 <?php
 	include 'templates/footer.html';
 	include 'templates/searchbar.html';
+	$anotacoes_id = 'anotacoes_curso';
+	include 'templates/esconder_anotacoes.php';
 	include 'templates/html_bottom.php';
 	$conn->close();
 ?>

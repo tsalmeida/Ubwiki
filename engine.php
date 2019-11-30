@@ -609,7 +609,7 @@
 				$edicao_ano_e_titulo = return_etapa_edicao_ano_e_titulo($prova_etapa_id);
 				$edicao_ano = $edicao_ano_e_titulo[0];
 				$edicao_titulo = $edicao_ano_e_titulo[1];
-				$result = array($prova_titulo, $prova_tipo, $edicao_ano, $edicao_titulo);
+				$result = array($prova_titulo, $prova_tipo, $edicao_ano, $edicao_titulo, $prova_etapa_id);
 				return $result;
 			}
 		}

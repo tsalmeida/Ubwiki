@@ -1,9 +1,5 @@
 <?php
 	include 'engine.php';
-	$html_head_template_quill = true;
-	$html_head_template_quill_sim = true;
-	include 'templates/html_head.php';
-	include 'templates/imagehandler.php';
 	
 	if (isset($_GET['questao_id'])) {
 		$questao_id = $_GET['questao_id'];
@@ -248,6 +244,11 @@
 	$textos_apoio = $conn->query("SELECT id, origem, prova_id, titulo FROM sim_textos_apoio WHERE concurso_id = $concurso_id ORDER BY id DESC");
 	$provas = $conn->query("SELECT id, etapa_id, titulo, tipo FROM sim_provas WHERE concurso_id = $concurso_id ORDER BY id DESC");
 	$materias = $conn->query("SELECT id, titulo FROM Materias WHERE concurso_id = $concurso_id ORDER BY ordem");
+
+	$html_head_template_quill = true;
+	$html_head_template_quill_sim = true;
+	include 'templates/html_head.php';
+	include 'templates/imagehandler.php';
 ?>
 <body>
 <?php
@@ -255,7 +256,7 @@
 ?>
 <div class="container-fluid">
 	<?php
-		$template_titulo = "$concurso_sigla $edicao_ano: $prova_titulo ($prova_tipo_string) Questão $questao_numero";
+		$template_titulo = "$concurso_sigla $edicao_ano: $prova_titulo ($prova_tipo_string): Questão $questao_numero";
 		$template_titulo_context = true;
 		$template_titulo_no_nav = true;
 		include 'templates/titulo.php';
@@ -348,6 +349,27 @@
 						
 						$template_conteudo .= "</ul>";
 						include 'templates/page_element.php';
+						
+						if ($questao_texto_apoio_id != false) {
+							$template_id = 'questao_texto_apoio';
+							$template_titulo = 'Texto de apoio';
+							$template_botoes = "
+                                        <span id='pagina_texto_apoio' title='Página do texto de apoio'>
+                                            <a href='textoapoio.php?texto_apoio_id=$questao_texto_apoio_id' target='_blank'><i class='fal fa-external-link-square fa-fw'></i></a>
+                                        </span>
+                                    ";
+							$template_conteudo = false;
+							$textos_apoio2 = $conn->query("SELECT texto_apoio_html FROM sim_textos_apoio WHERE id = $questao_texto_apoio_id");
+							if ($textos_apoio2->num_rows > 0) {
+								while ($texto_apoio2 = $textos_apoio2->fetch_assoc()) {
+									$texto_apoio2_html = $texto_apoio2['texto_apoio_html'];
+									$template_conteudo .= $texto_apoio2_html;
+								}
+							}
+							include 'templates/page_element.php';
+						}
+					
+					
 					?>
         </div>
         <div id="coluna_direita" class="<?php echo $coluna_classes; ?>">

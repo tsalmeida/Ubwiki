@@ -10,7 +10,7 @@
 	if (!isset($template_quill_empty_content)) {
 		$template_quill_empty_content = false;
 	}
-	if (($template_id == 'anotacoes') || ($template_id == 'anotacoes_user') || ($template_id == 'anotacoes_admin') || ($template_id == 'anotacoes_elemento') || ($template_id == 'anotacoes_prova') || ($template_id == 'anotacoes_questao') || ($template_id == 'anotacoes_texto_apoio')) {
+	if (($template_id == 'anotacoes') || ($template_id == 'anotacoes_user') || ($template_id == 'anotacoes_admin') || ($template_id == 'anotacoes_elemento') || ($template_id == 'anotacoes_prova') || ($template_id == 'anotacoes_questao') || ($template_id == 'anotacoes_texto_apoio') || ($template_id == 'anotacoes_curso') || ($template_id == 'anotacoes_materia')) {
 		$template_quill_meta_tipo = 'anotacoes';
 		$template_quill_toolbar_and_whitelist = 'anotacoes';
 		$template_quill_initial_state = 'edicao';
@@ -41,6 +41,10 @@
 			$template_quill_page_id = $prova_id;
 		}	elseif (isset($texto_apoio_id)) {
 			$template_quill_page_id = $texto_apoio_id;
+		} elseif (isset($materia_id)) {
+			$template_quill_page_id = $materia_id;
+		} elseif (isset($concurso_id)) {
+			$template_quill_page_id = $concurso_id;
 		}
 		else {
 			$template_quill_page_id = false;
@@ -67,9 +71,9 @@
 	}
 	
 	if ($template_quill_public == true) {
-		$result = $conn->query("SELECT verbete_content, id FROM Textos WHERE page_id = '$template_quill_page_id' AND tipo = '$template_id'");
+		$result = $conn->query("SELECT verbete_content, id FROM Textos WHERE page_id = $template_quill_page_id AND tipo = '$template_id'");
 	} else {
-		$result = $conn->query("SELECT verbete_content, id FROM Textos WHERE page_id = '$template_quill_page_id' AND tipo = '$template_id' AND user_id = $user_id");
+		$result = $conn->query("SELECT verbete_content, id FROM Textos WHERE page_id = $template_quill_page_id AND tipo = '$template_id' AND user_id = $user_id");
 	}
 	$quill_verbete_content = false; // o conteúdo final, é determinado ao final ou permanece vazio.
 	if ($result->num_rows > 0) {
@@ -101,7 +105,7 @@
 			$result = $conn->query("SELECT id FROM Textos WHERE page_id = $template_quill_page_id AND tipo = '$template_id' AND user_id = $user_id");
 		}
 		if ($verbete_exists == true) {
-			$conn->query("UPDATE Textos SET verbete_html = '$novo_verbete_html', verbete_§t = '$novo_verbete_text', verbete_content = '$novo_verbete_content' WHERE id = $quill_texto_id");
+			$conn->query("UPDATE Textos SET verbete_html = '$novo_verbete_html', verbete_text = '$novo_verbete_text', verbete_content = '$novo_verbete_content' WHERE id = $quill_texto_id");
 			$conn->query("INSERT INTO Textos_arquivo (tipo, page_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('$template_id', $template_quill_page_id, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
 		} else {
 			$conn->query("INSERT INTO Textos (tipo, page_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('$template_id', $template_quill_page_id, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");

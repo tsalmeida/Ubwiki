@@ -112,22 +112,22 @@
 	}
 	
 	if (isset($_POST['reiniciar_ciclo'])) {
-		$result = $conn->query("UPDATE Topicos SET ciclo_revisao = 0 WHERE concurso_id = $concurso_id");
+		$conn->query("UPDATE Topicos SET ciclo_revisao = 0 WHERE concurso_id = $concurso_id");
 	}
 	
 	if (isset($_POST['finalizar_ciclo'])) {
-		$result = $conn->query("UPDATE Topicos SET ciclo_revisao = 1 WHERE concurso_id = $concurso_id");
+		$conn->query("UPDATE Topicos SET ciclo_revisao = 1 WHERE concurso_id = $concurso_id");
 	}
 	
 	if (isset($_POST['ciclo_materia_adicionar'])) {
 		$materia_revisao_id = $_POST['ciclo_materia'];
-		$result = $conn->query("UPDATE Topicos SET ciclo_revisao = 0 WHERE concurso_id = $concurso_id AND materia_id = '$materia_revisao_id'");
+		 $conn->query("UPDATE Topicos SET ciclo_revisao = 0 WHERE concurso_id = $concurso_id AND materia_id = '$materia_revisao_id'");
 	}
 	
 	if (isset($_POST['ciclo_materia_remover'])) {
 		if (isset($_POST['ciclo_materia'])) {
 			$materia_revisao_id = $_POST['ciclo_materia'];
-			$result = $conn->query("UPDATE Topicos SET ciclo_revisao = 1 WHERE concurso_id = $concurso_id AND materia_id = '$materia_revisao_id'");
+			$conn->query("UPDATE Topicos SET ciclo_revisao = 1 WHERE concurso_id = $concurso_id AND materia_id = '$materia_revisao_id'");
 		}
 	}
 	
@@ -135,7 +135,7 @@
 		$remover_ciclo = $_POST['remover_ciclo'];
 		$form_topico_id = $_POST['form_topico_id'];
 		if ($remover_ciclo == true) {
-			$result = $conn->query("UPDATE Topicos SET ciclo_revisao = 1 WHERE id = '$form_topico_id'");
+			$conn->query("UPDATE Topicos SET ciclo_revisao = 1 WHERE id = '$form_topico_id'");
 		}
 	}
 	
@@ -168,7 +168,7 @@
 	
 	if ((isset($_POST['topico_novo_titulo'])) && ($_POST['topico_novo_titulo'] != "")) {
 		$topico_novo_titulo = $_POST['topico_novo_titulo'];
-		$update = $conn->query("UPDATE Topicos SET $coluna_nivel = '$topico_novo_titulo' WHERE $coluna_nivel = '$antigo_titulo' AND concurso_id = '$novo_titulo_concurso' AND materia_id = '$novo_titulo_materia_id'");
+		$conn->query("UPDATE Topicos SET $coluna_nivel = '$topico_novo_titulo' WHERE $coluna_nivel = '$antigo_titulo' AND concurso_id = '$novo_titulo_concurso' AND materia_id = '$novo_titulo_materia_id'");
 	}
 	
 	include 'engine_criar_subtopicos.php';
@@ -206,7 +206,7 @@
 			$revisao = true;
 			break;
 		}
-		$result = $conn->query("SELECT titulo FROM Materias WHERE concurso_id = $concurso_id AND id = $materia_id");
+		$conn->query("SELECT titulo FROM Materias WHERE concurso_id = $concurso_id AND id = $materia_id");
 		if ($result->num_rows > 0) {
 			while ($row = $result->fetch_assoc()) {
 				$materia_titulo = $row["titulo"];

@@ -1,13 +1,27 @@
 <?php
 	include 'engine.php';
-	$html_head_template_quill = true;
-	include 'templates/html_head.php';
-	include 'templates/imagehandler.php';
 	
 	if (isset($_GET['prova_id'])) {
 		$prova_id = $_GET['prova_id'];
 	} else {
 		header('Location:index.php');
+	}
+	
+	if (isset($_POST['nova_prova_trigger'])) {
+		if (isset($_POST['nova_prova_etapa'])) {
+			$nova_prova_etapa = $_POST['nova_prova_etapa'];
+		}
+		if (isset($_POST['nova_prova_titulo'])) {
+			$nova_prova_titulo = $_POST['nova_prova_titulo'];
+			$nova_prova_titulo = mysqli_real_escape_string($conn, $nova_prova_titulo);
+		}
+		if (isset($_POST['nova_prova_tipo'])) {
+			$nova_prova_tipo = $_POST['nova_prova_tipo'];
+		}
+		if (($nova_prova_etapa != false) && ($nova_prova_titulo != false) && ($nova_prova_tipo != false)) {
+			$conn->query("INSERT INTO sim_provas_arquivo (concurso_id, etapa_id, titulo, tipo, user_id) VALUES ($concurso_id, $nova_prova_etapa, '$nova_prova_titulo', $nova_prova_tipo, $user_id)");
+			$conn->query("UPDATE sim_provas SET etapa_id = $nova_prova_etapa, titulo = '$nova_prova_titulo', tipo = $nova_prova_tipo, user_id = $user_id WHERE id = $prova_id");
+		}
 	}
 	
 	$prova_info = return_info_prova_id($prova_id);
@@ -16,6 +30,14 @@
 	$prova_tipo_string = convert_prova_tipo($prova_tipo);
 	$edicao_ano = $prova_info[2];
 	$edicao_titulo = $prova_info[3];
+	$prova_etapa_id = $prova_info[4];
+	
+	$html_head_template_quill = true;
+	include 'templates/html_head.php';
+	include 'templates/imagehandler.php';
+	
+	$edicoes = $conn->query("SELECT id, ano, titulo FROM sim_edicoes WHERE concurso_id = $concurso_id ORDER BY id DESC");
+	$etapas = $conn->query("SELECT id, edicao_id, titulo FROM sim_etapas WHERE concurso_id = $concurso_id ORDER BY id DESC");
 
 ?>
 <body>
@@ -32,26 +54,97 @@
     <div class="row d-flex justify-content-around">
         <div id="coluna_esquerda" class="<?php echo $coluna_classes; ?>">
 					<?php
-                        $template_id = 'verbete_prova';
-                        $template_titulo = 'Verbete';
-                        $template_quill_empty_content = "<p id='verbete_vazio_{$template_id}'>Seja o primeiro a contribuir para a construção deste verbete.</p>";
-                        $template_botoes = false;
-                        $template_conteudo = include 'templates/template_quill.php';
-                        include 'templates/page_element.php';
+						$template_id = 'verbete_prova';
+						$template_titulo = 'Verbete';
+						$template_quill_empty_content = "<p id='verbete_vazio_{$template_id}'>Seja o primeiro a contribuir para a construção deste verbete.</p>";
+						$template_botoes = false;
+						$template_conteudo = include 'templates/template_quill.php';
+						include 'templates/page_element.php';
+						
+						$template_id = 'dados_prova';
+						$template_titulo = 'Dados da prova';
+						$template_botoes = "
+						    <a data-toggle='modal' data-target='#modal_prova_form' href=''>
+                                <i class='fal fa-pen-square fa-fw'></i>
+                            </a>
+						";
+						$template_conteudo = false;
+						$template_conteudo .= "<ul class='list-group'>";
+						$template_conteudo .= "<li class='list-group-item'><strong>Ano: </strong>$edicao_ano</li>";
+						$template_conteudo .= "<li class='list-group-item'><strong>Título: </strong>$prova_titulo</li>";
+						$template_conteudo .= "<li class='list-group-item'><strong>Tipo: </strong>$prova_tipo_string</li>";
+						$template_conteudo .= "<li class='list-group-item'><strong>Edição: </strong>$edicao_titulo</li>";
+						$template_conteudo .= "</ul>";
+						include 'templates/page_element.php';
+					
 					?>
         </div>
-	    <div id="coluna_esquerda" class="<?php echo $coluna_classes; ?>">
-			    <?php
-				    $template_id = 'anotacoes_prova';
-				    $template_titulo = 'Anotações privadas';
-				    $template_quill_empty_content = "<p id='verbete_vazio_{$template_id}'>Você ainda não fez anotaçõees sobre esta prova.</p>";
-				    $template_botoes = false;
-				    $template_conteudo = include 'templates/template_quill.php';
-				    include 'templates/page_element.php';
-			    ?>
-	    </div>
+        <div id="coluna_esquerda" class="<?php echo $coluna_classes; ?>">
+					<?php
+						$template_id = 'anotacoes_prova';
+						$template_titulo = 'Anotações privadas';
+						$template_quill_empty_content = "<p id='verbete_vazio_{$template_id}'>Você ainda não fez anotações sobre esta prova.</p>";
+						$template_botoes = false;
+						$template_conteudo = include 'templates/template_quill.php';
+						include 'templates/page_element.php';
+					?>
+        </div>
     </div>
-    <button id='mostrar_coluna_direita' class='btn btn-md elegant-color text-white p-2 m-1' tabindex='-1'><i class='fas fa-pen-alt fa-fw'></i></button>
+    <button id='mostrar_coluna_direita' class='btn btn-md elegant-color text-white p-2 m-1' tabindex='-1'><i
+                class='fas fa-pen-alt fa-fw'></i></button>
+	<?php
+		$template_modal_div_id = 'modal_prova_form';
+		$template_modal_titulo = 'Adicionar prova da etapa';
+		$template_modal_body_conteudo = false;
+		$template_modal_body_conteudo .= "
+                            <select class='$select_classes' name='nova_prova_etapa' required>
+                                  <option value='' disabled selected>Etapa do concurso:</option>";
+		while ($etapa = $etapas->fetch_assoc()) {
+			$etapa_id = $etapa['id'];
+			$etapa_titulo = $etapa['titulo'];
+			$etapa_edicao_id = $etapa['edicao_id'];
+			$edicoes = $conn->query("SELECT ano, titulo FROM sim_edicoes WHERE id = $etapa_edicao_id");
+			while ($edicao = $edicoes->fetch_assoc()) {
+				$edicao_ano = $edicao['ano'];
+				$edicao_titulo = $edicao['titulo'];
+			}
+			$selected = false;
+			if ($etapa_id = $prova_etapa_id) {
+				$selected = 'selected';
+			}
+			$template_modal_body_conteudo .= "<option value='$etapa_id' $selected>$edicao_ano: $edicao_titulo: $etapa_titulo</option>";
+		}
+		$template_modal_body_conteudo .= "</select>";
+		$tipo_objetiva = false;
+		$tipo_discursiva = false;
+		$tipo_oral = false;
+		$tipo_fisica = false;
+		if ($prova_tipo == 1) {
+			$tipo_objetiva = 'selected';
+		} elseif ($prova_tipo == 2) {
+			$tipo_discursiva = 'selected';
+		} elseif ($prova_tipo == 3) {
+			$tipo_oral = 'selected';
+		} elseif ($prova_tipo == 4) {
+			$tipo_fisica = 'selected';
+		}
+		$template_modal_body_conteudo .= "
+                            <div class='md-form'>
+                              <input type='text' class='form-control' name='nova_prova_titulo' id='nova_prova_titulo' value='$prova_titulo' required>
+                              <label for='nova_prova_titulo'>Título da prova</label>
+                            </div>
+                            <select class='$select_classes' name='nova_prova_tipo' required>
+                              <option value='' disabled selected>Tipo de prova:</option>
+                              <option value='1' $tipo_objetiva>Objetiva</option>
+                              <option value='2' $tipo_discursiva>Discursiva</option>
+                              <option value='3' $tipo_oral>Oral</option>
+                              <option value='4' $tipo_fisica>Física</option>
+                            </select>
+                        ";
+		$template_modal_submit_name = 'nova_prova_trigger';
+		include 'templates/modal.php';
+	?>
+
 </div>
 </body>
 
