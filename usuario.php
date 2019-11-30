@@ -80,7 +80,7 @@
 						$template_botoes = false;
 						$template_quill_page_id = 0;
 						$template_quill_public = false;
-						$template_conteudo = include 'templates/quill_form.php';
+						$template_conteudo = include 'templates/template_quill.php';
 						include 'templates/page_element.php';
 						
 						$template_id = 'dados_conta';
@@ -274,7 +274,7 @@
 						$template_titulo = 'Anotações privadas';
 						$template_quill_page_id = 0;
 						$template_quill_public = false;
-						$template_conteudo = include 'templates/quill_form.php';
+						$template_conteudo = include 'templates/template_quill.php';
 						include 'templates/page_element.php';
 					
 					

@@ -1,7 +1,7 @@
 <?php
 	
 	include 'engine.php';
-	$html_head_template_quill = true;
+	$html_head_template_quill_sim = true;
 	include 'templates/html_head.php';
 	
 	if (!isset($concurso_id)) {
@@ -64,25 +64,32 @@
 			$novo_texto_apoio_titulo = $_POST['novo_texto_apoio_titulo'];
 			$novo_texto_apoio_prova = mysqli_real_escape_string($conn, $novo_texto_apoio_prova);
 		}
-		if (isset($_POST['novo_texto_apoio_enunciado'])) {
-			$novo_texto_apoio_enunciado = $_POST['novo_texto_apoio_enunciado'];
-			$novo_texto_apoio_enunciado = mysqli_real_escape_string($conn, $novo_texto_apoio_enunciado);
+		$quill_novo_texto_apoio_enunciado_html = false;
+		$quill_novo_texto_apoio_enunciado_text = false;
+		$quill_novo_texto_apoio_enunciado_content = false;
+		$quill_novo_texto_apoio_html = false;
+		$quill_novo_texto_apoio_text = false;
+		$quill_novo_texto_apoio_content = false;
+		
+		if (isset($_POST['quill_novo_texto_apoio_enunciado_html'])) {
+			$novo_texto_apoio_enunciado_html = $_POST['quill_novo_texto_apoio_enunciado_html'];
+			$novo_texto_apoio_enunciado_html = mysqli_real_escape_string($conn, $novo_texto_apoio_enunciado_html);
+			$novo_texto_apoio_enunciado_text = $_POST['quill_novo_texto_apoio_enunciado_text'];
+			$novo_texto_apoio_enunciado_text = mysqli_real_escape_string($conn, $novo_texto_apoio_enunciado_text);
+			$novo_texto_apoio_enunciado_content = $_POST['quill_novo_texto_apoio_enunciado_content'];
+			$novo_texto_apoio_enunciado_content = mysqli_real_escape_string($conn, $novo_texto_apoio_enunciado_content);
 		}
 		if (isset($_POST['quill_novo_texto_apoio_html'])) {
-		    $novo_texto_apoio_html = $_POST['quill_novo_texto_apoio_html'];
-		    $novo_texto_apoio_html = mysqli_real_escape_string($conn, $novo_texto_apoio_html);
-        }
-		if (isset($_POST['quill_novo_texto_apoio_text'])) {
-		    $novo_texto_apoio_text = $_POST['quill_novo_texto_apoio_text'];
-		    $novo_texto_apoio_text = mysqli_real_escape_string($conn, $novo_texto_apoio_text);
-        }
-		if (isset($_POST['quill_novo_texto_apoio_content'])) {
-		    $novo_texto_apoio_content = $_POST['quill_novo_texto_apoio_content'];
-		    $novo_texto_apoio_content = mysqli_real_escape_string($conn, $novo_texto_apoio_content);
-        }
+			$novo_texto_apoio_html = $_POST['quill_novo_texto_apoio_html'];
+			$novo_texto_apoio_html = mysqli_real_escape_string($conn, $novo_texto_apoio_html);
+			$novo_texto_apoio_text = $_POST['quill_novo_texto_apoio_text'];
+			$novo_texto_apoio_text = mysqli_real_escape_string($conn, $novo_texto_apoio_text);
+			$novo_texto_apoio_content = $_POST['quill_novo_texto_apoio_content'];
+			$novo_texto_apoio_content = mysqli_real_escape_string($conn, $novo_texto_apoio_content);
+		}
 		
-		if (($novo_texto_apoio_origem != false) && ($novo_texto_apoio_prova != false) && ($novo_texto_apoio_titulo != false) && ($novo_texto_apoio_enunciado != false)) {
-			$conn->query("INSERT INTO sim_textos_apoio (concurso_id, origem, prova_id, titulo, enunciado, texto_apoio_html, texto_apoio_text, texto_apoio_content, user_id) VALUES ($concurso_id, $novo_texto_apoio_origem, $novo_texto_apoio_prova, '$novo_texto_apoio_titulo', '$novo_texto_apoio_enunciado', '$novo_texto_apoio_html', '$novo_texto_apoio_text', '$novo_texto_apoio_content', $user_id)");
+		if (($novo_texto_apoio_origem != false) && ($novo_texto_apoio_prova != false) && ($novo_texto_apoio_titulo != false) && ($novo_texto_apoio_enunciado_html != false) && ($novo_texto_apoio_html != false)) {
+			$conn->query("INSERT INTO sim_textos_apoio (concurso_id, origem, prova_id, titulo, enunciado_html, enunciado_text, enunciado_content, texto_apoio_html, texto_apoio_text, texto_apoio_content, user_id) VALUES ($concurso_id, $novo_texto_apoio_origem, $novo_texto_apoio_prova, '$novo_texto_apoio_titulo', '$novo_texto_apoio_enunciado_html', '$novo_texto_apoio_enunciado_text', '$novo_texto_apoio_enunciado_content', '$novo_texto_apoio_html', '$novo_texto_apoio_text', '$novo_texto_apoio_content', $user_id)");
 		}
 	}
 	
@@ -106,12 +113,6 @@
 				$nova_questao_prova = false;
 			}
 		}
-		if (isset($_POST['nova_questao_enunciado'])) {
-			$nova_questao_enunciado = $_POST['nova_questao_enunciado'];
-			$nova_questao_enunciado = escape_quotes($nova_questao_enunciado);
-		} else {
-			$nova_questao_enunciado = false;
-		}
 		if (isset($_POST['nova_questao_numero'])) {
 			$nova_questao_numero = $_POST['nova_questao_numero'];
 		} else {
@@ -127,46 +128,143 @@
 		} else {
 			$nova_questao_tipo = false;
 		}
-		if ($_POST['nova_questao_item1_texto'] != '') {
-			$nova_questao_item1_texto = $_POST['nova_questao_item1_texto'];
-			$nova_questao_item1_texto = escape_quotes($nova_questao_item1_texto);
-			$nova_questao_item1_texto = "'$nova_questao_item1_texto'";
+		// ENUNCIADO
+		if (isset($_POST['quill_novo_questao_enunciado_html'])) {
+			$quill_novo_questao_enunciado_html = $_POST['quill_novo_questao_enunciado_html'];
+			$quill_novo_questao_enunciado_html = mysqli_real_escape_string($conn, $quill_novo_questao_enunciado_html);
 		} else {
-			$nova_questao_item1_texto = "NULL";
+			$quill_novo_questao_enunciado_html = false;
 		}
-		if ($_POST['nova_questao_item2_texto'] != '') {
-			$nova_questao_item2_texto = $_POST['nova_questao_item2_texto'];
-			$nova_questao_item2_texto = escape_quotes($nova_questao_item2_texto);
-			$nova_questao_item2_texto = "'$nova_questao_item2_texto'";
+		if (isset($_POST['quill_novo_questao_enunciado_text'])) {
+			$quill_novo_questao_enunciado_text = $_POST['quill_novo_questao_enunciado_text'];
+			$quill_novo_questao_enunciado_text = mysqli_real_escape_string($conn, $quill_novo_questao_enunciado_text);
 		} else {
-			$nova_questao_item2_texto = "NULL";
+			$quill_novo_questao_enunciado_text = false;
 		}
-		if ($_POST['nova_questao_item3_texto'] != '') {
-			$nova_questao_item3_texto = $_POST['nova_questao_item3_texto'];
-			$nova_questao_item3_texto = escape_quotes($nova_questao_item3_texto);
-			$nova_questao_item3_texto = "'$nova_questao_item3_texto'";
+		if (isset($_POST['quill_novo_questao_enunciado_content'])) {
+			$quill_novo_questao_enunciado_content = $_POST['quill_novo_questao_enunciado_content'];
+			$quill_novo_questao_enunciado_content = mysqli_real_escape_string($conn, $quill_novo_questao_enunciado_content);
 		} else {
-			$nova_questao_item3_texto = "NULL";
+			$quill_novo_questao_enunciado_content = false;
 		}
-		if ($_POST['nova_questao_item4_texto'] != '') {
-			$nova_questao_item4_texto = $_POST['nova_questao_item4_texto'];
-			$nova_questao_item4_texto = escape_quotes($nova_questao_item4_texto);
-			$nova_questao_item4_texto = "'$nova_questao_item4_texto'";
-		} else {
-			$nova_questao_item4_texto = "NULL";
-		}
-		if ($_POST['nova_questao_item5_texto'] != '') {
-			$nova_questao_item5_texto = $_POST['nova_questao_item5_texto'];
-			$nova_questao_item5_texto = escape_quotes($nova_questao_item5_texto);
-			$nova_questao_item5_texto = "'$nova_questao_item5_texto'";
-		} else {
-			$nova_questao_item5_texto = "NULL";
-		}
+		// ITEM 1
+		$quill_novo_questao_item1_html = false;
+		$quill_novo_questao_item1_text = false;
+		$quill_novo_questao_item1_content = false;
+		$quill_novo_questao_item2_html = false;
+		$quill_novo_questao_item2_text = false;
+		$quill_novo_questao_item2_content = false;
+		$quill_novo_questao_item3_html = false;
+		$quill_novo_questao_item3_text = false;
+		$quill_novo_questao_item3_content = false;
+		$quill_novo_questao_item4_html = false;
+		$quill_novo_questao_item4_text = false;
+		$quill_novo_questao_item4_content = false;
+		$quill_novo_questao_item5_html = false;
+		$quill_novo_questao_item5_text = false;
+		$quill_novo_questao_item5_content = false;
+		// ITEM 1
 		if (isset($_POST['nova_questao_item1_gabarito'])) {
 			$nova_questao_item1_gabarito = $_POST['nova_questao_item1_gabarito'];
-		} else {
-			$nova_questao_item1_gabarito = "NULL";
+			if (isset($_POST['quill_novo_questao_item1_html'])) {
+				$quill_novo_questao_item1_html = $_POST['quill_novo_questao_item1_html'];
+				$quill_novo_questao_item1_html = mysqli_real_escape_string($conn, $quill_novo_questao_item1_html);
+				$quill_novo_questao_item1_html = "'$quill_novo_questao_item1_html'";
+				$quill_novo_questao_item1_text = $_POST['quill_novo_questao_item1_text'];
+				$quill_novo_questao_item1_text = mysqli_real_escape_string($conn, $quill_novo_questao_item1_text);
+				$quill_novo_questao_item1_text = "'$quill_novo_questao_item1_text'";
+				$quill_novo_questao_item1_content = $_POST['quill_novo_questao_item1_content'];
+				$quill_novo_questao_item1_content = mysqli_real_escape_string($conn, $quill_novo_questao_item1_content);
+				$quill_novo_questao_item1_content = "'$quill_novo_questao_item1_content'";
+			}
 		}
+		if ($quill_novo_questao_item1_html == false) {
+			$quill_novo_questao_item1_html = "NULL";
+			$quill_novo_questao_item1_text = "NULL";
+			$quill_novo_questao_item1_content = "NULL";
+		}
+		// ITEM 2
+		if (isset($_POST['nova_questao_item2_gabarito'])) {
+			$nova_questao_item2_gabarito = $_POST['nova_questao_item2_gabarito'];
+			if (isset($_POST['quill_novo_questao_item2_html'])) {
+				$quill_novo_questao_item2_html = $_POST['quill_novo_questao_item2_html'];
+				$quill_novo_questao_item2_html = mysqli_real_escape_string($conn, $quill_novo_questao_item2_html);
+				$quill_novo_questao_item2_html = "'$quill_novo_questao_item2_html'";
+				$quill_novo_questao_item2_text = $_POST['quill_novo_questao_item2_text'];
+				$quill_novo_questao_item2_text = mysqli_real_escape_string($conn, $quill_novo_questao_item2_text);
+				$quill_novo_questao_item2_text = "'$quill_novo_questao_item2_text'";
+				$quill_novo_questao_item2_content = $_POST['quill_novo_questao_item2_content'];
+				$quill_novo_questao_item2_content = mysqli_real_escape_string($conn, $quill_novo_questao_item2_content);
+				$quill_novo_questao_item2_content = "'$quill_novo_questao_item2_content'";
+			}
+		}
+		if ($quill_novo_questao_item2_html == false) {
+			$quill_novo_questao_item2_html = "NULL";
+			$quill_novo_questao_item2_text = "NULL";
+			$quill_novo_questao_item2_content = "NULL";
+		}
+		// ITEM 3
+		if (isset($_POST['nova_questao_item3_gabarito'])) {
+			$nova_questao_item3_gabarito = $_POST['nova_questao_item3_gabarito'];
+			if (isset($_POST['quill_novo_questao_item3_html'])) {
+				$quill_novo_questao_item3_html = $_POST['quill_novo_questao_item3_html'];
+				$quill_novo_questao_item3_html = mysqli_real_escape_string($conn, $quill_novo_questao_item3_html);
+				$quill_novo_questao_item3_html = "'$quill_novo_questao_item3_html'";
+				$quill_novo_questao_item3_text = $_POST['quill_novo_questao_item3_text'];
+				$quill_novo_questao_item3_text = mysqli_real_escape_string($conn, $quill_novo_questao_item3_text);
+				$quill_novo_questao_item3_text = "'$quill_novo_questao_item3_text'";
+				$quill_novo_questao_item3_content = $_POST['quill_novo_questao_item3_content'];
+				$quill_novo_questao_item3_content = mysqli_real_escape_string($conn, $quill_novo_questao_item3_content);
+				$quill_novo_questao_item3_content = "'$quill_novo_questao_item3_content'";
+			}
+		}
+		if ($quill_novo_questao_item3_html == false) {
+			$quill_novo_questao_item3_html = "NULL";
+			$quill_novo_questao_item3_text = "NULL";
+			$quill_novo_questao_item3_content = "NULL";
+		}
+		// ITEM 4
+		if (isset($_POST['nova_questao_item4_gabarito'])) {
+			$nova_questao_item4_gabarito = $_POST['nova_questao_item4_gabarito'];
+			if (isset($_POST['quill_novo_questao_item4_html'])) {
+				$quill_novo_questao_item4_html = $_POST['quill_novo_questao_item4_html'];
+				$quill_novo_questao_item4_html = mysqli_real_escape_string($conn, $quill_novo_questao_item4_html);
+				$quill_novo_questao_item4_html = "'$quill_novo_questao_item4_html'";
+				$quill_novo_questao_item4_text = $_POST['quill_novo_questao_item4_text'];
+				$quill_novo_questao_item4_text = mysqli_real_escape_string($conn, $quill_novo_questao_item4_text);
+				$quill_novo_questao_item4_text = "'$quill_novo_questao_item4_text'";
+				$quill_novo_questao_item4_content = $_POST['quill_novo_questao_item4_content'];
+				$quill_novo_questao_item4_content = mysqli_real_escape_string($conn, $quill_novo_questao_item4_content);
+				$quill_novo_questao_item4_content = "'$quill_novo_questao_item4_content'";
+			}
+		}
+		if ($quill_novo_questao_item4_html == false) {
+			$quill_novo_questao_item4_html = "NULL";
+			$quill_novo_questao_item4_text = "NULL";
+			$quill_novo_questao_item4_content = "NULL";
+		}
+		// ITEM 5
+		if (isset($_POST['nova_questao_item5_gabarito'])) {
+			$nova_questao_item5_gabarito = $_POST['nova_questao_item5_gabarito'];
+			if (isset($_POST['quill_novo_questao_item5_html'])) {
+				$quill_novo_questao_item5_html = $_POST['quill_novo_questao_item5_html'];
+				$quill_novo_questao_item5_html = mysqli_real_escape_string($conn, $quill_novo_questao_item5_html);
+				$quill_novo_questao_item5_html = "'$quill_novo_questao_item5_html'";
+				$quill_novo_questao_item5_text = $_POST['quill_novo_questao_item5_text'];
+				$quill_novo_questao_item5_text = mysqli_real_escape_string($conn, $quill_novo_questao_item5_text);
+				$quill_novo_questao_item5_text = "'$quill_novo_questao_item5_text'";
+				$quill_novo_questao_item5_content = $_POST['quill_novo_questao_item5_content'];
+				$quill_novo_questao_item5_content = mysqli_real_escape_string($conn, $quill_novo_questao_item5_content);
+				$quill_novo_questao_item5_content = "'$quill_novo_questao_item5_content'";
+			}
+		}
+		if ($quill_novo_questao_item5_html == false) {
+			$quill_novo_questao_item5_html = "NULL";
+			$quill_novo_questao_item5_text = "NULL";
+			$quill_novo_questao_item5_content = "NULL";
+		}
+		
+		// GABARITOS
 		if (isset($_POST['nova_questao_item2_gabarito'])) {
 			$nova_questao_item2_gabarito = $_POST['nova_questao_item2_gabarito'];
 		} else {
@@ -187,7 +285,7 @@
 		} else {
 			$nova_questao_item5_gabarito = "NULL";
 		}
-		$conn->query("INSERT INTO sim_questoes (origem, concurso_id, texto_apoio_id, prova_id, enunciado, numero, materia, tipo, item1, item2, item3, item4, item5, item1_gabarito, item2_gabarito, item3_gabarito, item4_gabarito, item5_gabarito, user_id) VALUES ($nova_questao_origem, $concurso_id, $nova_questao_texto_apoio, $nova_questao_prova, '$nova_questao_enunciado', $nova_questao_numero, $nova_questao_materia, $nova_questao_tipo, $nova_questao_item1_texto, $nova_questao_item2_texto, $nova_questao_item3_texto, $nova_questao_item4_texto, $nova_questao_item5_texto, $nova_questao_item1_gabarito, $nova_questao_item2_gabarito, $nova_questao_item3_gabarito, $nova_questao_item4_gabarito, $nova_questao_item5_gabarito, $user_id)");
+		$conn->query("INSERT INTO sim_questoes (origem, concurso_id, texto_apoio_id, prova_id, enunciado_html, enunciado_text, enunciado_content, numero, materia, tipo, item1_html, item1_text, item1_content, item2_html, item2_text, item2_content, item3_html, item3_text, item3_content, item4_html, item4_text, item4_content, item5_html, item5_text, item5_content, item1_gabarito, item2_gabarito, item3_gabarito, item4_gabarito, item5_gabarito, user_id) VALUES ($nova_questao_origem, $concurso_id, $nova_questao_texto_apoio, $nova_questao_prova, '$quill_novo_questao_enunciado_html', '$quill_novo_questao_enunciado_text', '$quill_novo_questao_enunciado_content', $nova_questao_numero, $nova_questao_materia, $nova_questao_tipo, $quill_novo_questao_item1_html, $quill_novo_questao_item1_text, $quill_novo_questao_item1_content, $quill_novo_questao_item2_html, $quill_novo_questao_item2_text, $quill_novo_questao_item2_content, $quill_novo_questao_item3_html, $quill_novo_questao_item3_text, $quill_novo_questao_item3_content, $quill_novo_questao_item4_html, $quill_novo_questao_item4_text, $quill_novo_questao_item4_content, $quill_novo_questao_item5_html, $quill_novo_questao_item5_text, $quill_novo_questao_item5_content, $nova_questao_item1_gabarito, $nova_questao_item2_gabarito, $nova_questao_item3_gabarito, $nova_questao_item4_gabarito, $nova_questao_item5_gabarito, $user_id)");
 	}
 	
 	if (isset($_POST['novo_simulado_trigger'])) {
@@ -406,70 +504,28 @@
                               <label for='novo_texto_apoio_titulo'>Título do texto de apoio</label>
                             </div>
 						";
-			$template_modal_body_conteudo .= "
-                            <div class='md-form'>
-                              <textarea id='novo_texto_apoio_enunciado' name='novo_texto_apoio_enunciado' class='md-textarea form-control' rows='3' required></textarea>
-                              <label for='novo_texto_apoio_enunciado'>Enunciado do texto de apoio</label>
-                            </div>
-						";
+					
+            $template_modal_form_id = 'form_novo_texto_apoio';
+			$template_modal_body_conteudo .= "<h3 class='text-center'>Enunciado:</h3>";
+			$sim_quill_id = 'texto_apoio_enunciado';
+			$sim_quill_form = include('templates/sim_quill.php');
+			$template_modal_body_conteudo .= $sim_quill_form;
+			
 			$template_modal_body_conteudo .= "<h3 class='text-center'>Texto de apoio:</h3>";
-			$template_modal_body_conteudo .= "
-			        <input name='quill_novo_texto_apoio_html' type='hidden'>
-                    <input name='quill_novo_texto_apoio_text' type='hidden'>
-                    <input name='quill_novo_texto_apoio_content' type='hidden'>
-                    <div class='row'>
-                        <div class='container col-12'>
-                            <div id='quill_container_novo_texto_apoio'>
-                                <div id='quill_editor_novo_texto_apoio' class='quill_editor_height border border-light'>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <script type='text/javascript'>
-                        var formatWhitelist_novo_ta = ['italic', 'bold', 'script', 'blockquote', 'list', 'header', 'image'];
-                        var toolbarOptions_novo_ta = [
-                            [{'header': [2, 3, false]}],
-                            ['italic'],
-                            ['bold'],
-                            [{'script': 'super'}],
-                            ['blockquote'],
-                            [{'list': 'ordered'}, {'list': 'bullet'}],
-                            ['image'],
-                            ['clean'],
-                        ];
-                        var quill_texto_apoio = new Quill('#quill_editor_novo_texto_apoio', {
-                            theme: 'snow',
-                            formats: formatWhitelist_novo_ta,
-                            modules: {
-                                toolbar: {
-                                    container: toolbarOptions_novo_ta
-                                }
-                            }
-                        });
-                        var form_texto_apoio = document.querySelector('#novo_texto_apoio_form');
-                        form_texto_apoio.onsubmit = function() {
-                            alert('this happened');
-                            var quill_novo_texto_apoio_html = document.querySelector('input[name=quill_novo_texto_apoio_html]');
-                            quill_novo_texto_apoio_html.value = quill_texto_apoio.root.innerHTML;
-                            
-                            var quill_novo_texto_apoio_text = document.querySelector('input[name=quill_novo_texto_apoio_text]');
-                            quill_novo_texto_apoio_text.value = quill_texto_apoio.getText();
-                            
-                            var quill_novo_texto_apoio_content = document.querySelector('input[name=quill_novo_texto_apoio_content]');
-                            quill_novo_texto_apoio_content_var = quill_texto_apoio.getContents();
-                            quill_novo_texto_apoio_content_var = JSON.stringify(quill_novo_texto_apoio_content_var);
-                            quill_novo_texto_apoio_content.value = quill_novo_texto_apoio_content_var;
-                        }
-                    </script>
-			";
+			$sim_quill_id = 'texto_apoio';
+			$sim_quill_form = include('templates/sim_quill.php');
+			$template_modal_body_conteudo .= $sim_quill_form;
 			
 			$template_modal_submit_name = 'novo_texto_apoio_trigger';
-			$template_modal_form_id = 'novo_texto_apoio_form';
 			include 'templates/modal.php';
 			
 			$template_modal_div_id = 'modal_adicionar_questao';
 			$template_modal_titulo = 'Adicionar questão';
+			$template_modal_form_id = 'form_nova_questao';
 			$template_modal_body_conteudo = false;
+			$template_modal_body_conteudo .= "
+                <h3>Dados gerais</h3>
+            ";
 			$template_modal_body_conteudo .= "
 						<div class='form-check pl-0'>
                             <input id='nova_questao_origem' name='nova_questao_origem' type='checkbox' class='form-check-input' checked>
@@ -498,7 +554,7 @@
 					$prova_tipo_string = convert_prova_tipo($prova_tipo);
 					$prova_edicao_ano = $find_prova_info[2];
 					$prova_edicao_titulo = $find_prova_info[3];
-					$template_modal_body_conteudo .= "<option value='$texto_apoio_id'>$prova_edicao_ano: ($texto_apoio_origem_string) ($prova_tipo_string) $prova_edicao_titulo: $prova_titulo : $texto_apoio_titulo</option>";
+					$template_modal_body_conteudo .= "<option value='$texto_apoio_id'>$prova_edicao_ano: $texto_apoio_titulo</option>";
 				}
 			}
 			$template_modal_body_conteudo .= "</select>";
@@ -529,18 +585,7 @@
 				}
 			}
 			$template_modal_body_conteudo .= "</select>";
-			$template_modal_body_conteudo .= "
-                            <div class='md-form'>
-                              <textarea id='nova_questao_enunciado' name='nova_questao_enunciado' class='md-textarea form-control' rows='3' required></textarea>
-                              <label for='nova_questao_enunciado'>Enunciado da questão</label>
-                            </div>
-						";
-			$template_modal_body_conteudo .= "
-                            <div class='md-form'>
-                              <input type='number' class='form-control' name='nova_questao_numero' id='nova_questao_numero' required>
-                              <label for='nova_questao_numero'>Número da questão</label>
-                            </div>
-						";
+			
 			$template_modal_body_conteudo .= "
                             <select class='$select_classes' name='nova_questao_materia' required>
                               <option value='' disabled selected>Selecione a matéria:</option>
@@ -554,14 +599,24 @@
 			}
 			$template_modal_body_conteudo .= "</select>";
 			$template_modal_body_conteudo .= "
-                            <select class='mdb-select md-form' name='nova_questao_tipo' required>
-                              <option value='' disabled selected>Selecione o tipo da questão:</option>
-                              <option value='1'>Certo e errado</option>
-                              <option value='2'>Múltipla escolha</option>
-                              <option value='3'>Dissertativa</option>
-                            </select>
+                            <div class='md-form'>
+                              <input type='number' class='form-control' name='nova_questao_numero' id='nova_questao_numero' required>
+                              <label for='nova_questao_numero'>Número da questão</label>
+                            </div>
 						";
-			$template_modal_body_conteudo .= "<h2 class='mt-2'>Itens</h2>";
+			$template_modal_body_conteudo .= "
+                <select class='mdb-select md-form' name='nova_questao_tipo' required>
+                  <option value='' disabled selected>Selecione o tipo da questão:</option>
+                  <option value='1'>Certo e errado</option>
+                  <option value='2'>Múltipla escolha</option>
+                  <option value='3'>Dissertativa</option>
+                </select>
+            ";
+			$template_modal_body_conteudo .= "<h3>Enunciado</h3>";
+			$sim_quill_id = 'questao_enunciado';
+			$sim_quill_form = include('templates/sim_quill.php');
+			$template_modal_body_conteudo .= $sim_quill_form;
+			$template_modal_body_conteudo .= "<h3 class='mt-3'>Item 1</h3>";
 			$template_modal_body_conteudo .= "
                             <select class='mdb-select md-form' name='nova_questao_item1_gabarito'>
                                 <option value='' disabled selected>Selecione o gabarito do primeiro item</option>
@@ -570,12 +625,10 @@
                                 <option value='0'>Anulado</option>
                             </select>
 						";
-			$template_modal_body_conteudo .= "
-                            <div class='md-form'>
-                              <textarea id='nova_questao_item1_texto' name='nova_questao_item1_texto' class='md-textarea form-control' rows='3'></textarea>
-                              <label for='nova_questao_item1_texto'>Enunciado do primeiro item</label>
-                            </div>
-						";
+			$sim_quill_id = 'questao_item1';
+			$sim_quill_form = include('templates/sim_quill.php');
+			$template_modal_body_conteudo .= $sim_quill_form;
+			$template_modal_body_conteudo .= "<h3 class='mt-3'>Item 2</h3>";
 			$template_modal_body_conteudo .= "
                             <select class='mdb-select md-form' name='nova_questao_item2_gabarito'>
                                 <option value='' disabled selected>Selecione o gabarito do segundo item</option>
@@ -584,12 +637,10 @@
                                 <option value='0'>Anulado</option>
                             </select>
 						";
-			$template_modal_body_conteudo .= "
-                            <div class='md-form'>
-                              <textarea id='nova_questao_item2_texto' name='nova_questao_item2_texto' class='md-textarea form-control' rows='3'></textarea>
-                              <label for='nova_questao_item2_texto'>Enunciado do segundo item</label>
-                            </div>
-						";
+			$sim_quill_id = 'questao_item2';
+			$sim_quill_form = include('templates/sim_quill.php');
+			$template_modal_body_conteudo .= $sim_quill_form;
+			$template_modal_body_conteudo .= "<h3 class='mt-3'>Item 3</h3>";
 			$template_modal_body_conteudo .= "
                             <select class='mdb-select md-form' name='nova_questao_item3_gabarito'>
                                 <option value='' disabled selected>Selecione o gabarito do terceiro item</option>
@@ -598,12 +649,10 @@
                                 <option value='0'>Anulado</option>
                             </select>
 						";
-			$template_modal_body_conteudo .= "
-                            <div class='md-form'>
-                              <textarea id='nova_questao_item3_texto' name='nova_questao_item3_texto' class='md-textarea form-control' rows='3'></textarea>
-                              <label for='nova_questao_item3_texto'>Enunciado do terceiro item</label>
-                            </div>
-						";
+			$sim_quill_id = 'questao_item3';
+			$sim_quill_form = include('templates/sim_quill.php');
+			$template_modal_body_conteudo .= $sim_quill_form;
+			$template_modal_body_conteudo .= "<h3 class='mt-3'>Item 4</h3>";
 			$template_modal_body_conteudo .= "
                             <select class='mdb-select md-form' name='nova_questao_item4_gabarito'>
                                 <option value='' disabled selected>Selecione o gabarito do quarto item</option>
@@ -612,12 +661,10 @@
                                 <option value='0'>Anulado</option>
                             </select>
 						";
-			$template_modal_body_conteudo .= "
-                            <div class='md-form'>
-                              <textarea id='nova_questao_item4_texto' name='nova_questao_item4_texto' class='md-textarea form-control' rows='3'></textarea>
-                              <label for='nova_questao_item4_texto'>Enunciado do quarto item</label>
-                            </div>
-						";
+			$sim_quill_id = 'questao_item4';
+			$sim_quill_form = include('templates/sim_quill.php');
+			$template_modal_body_conteudo .= $sim_quill_form;
+			$template_modal_body_conteudo .= "<h3 class='mt-3'>Item 5</h3>";
 			$template_modal_body_conteudo .= "
                             <select class='mdb-select md-form' name='nova_questao_item5_gabarito'>
                                 <option value='' disabled selected>Selecione o gabarito do quinto item</option>
@@ -626,12 +673,9 @@
                                 <option value='0'>Anulado</option>
                             </select>
 						";
-			$template_modal_body_conteudo .= "
-                            <div class='md-form'>
-                              <textarea id='nova_questao_item5_texto' name='nova_questao_item5_texto' class='md-textarea form-control' rows='3'></textarea>
-                              <label for='nova_questao_item5_texto'>Enunciado do quinto item</label>
-                            </div>
-						";
+			$sim_quill_id = 'questao_item5';
+			$sim_quill_form = include('templates/sim_quill.php');
+			$template_modal_body_conteudo .= $sim_quill_form;
 			$template_modal_submit_name = 'nova_questao_trigger';
 			include 'templates/modal.php';
 		

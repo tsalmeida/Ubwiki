@@ -25,7 +25,7 @@
 		include 'templates/titulo.php';
 	?>
     <div class="row d-flex justify-content-around">
-        <div id="coluna_esquerda" class="<?php echo $coluna_classes; ?>">
+        <div id="coluna_esquerda" class="<?php echo $coluna_pouco_maior_classes; ?>">
 					<?php
 						$template_id = 'simulado_metodo';
 						$template_titulo = 'Método';
@@ -107,31 +107,31 @@ $prova_id)");
 										$template_conteudo = false;
 										$conn->query("INSERT INTO sim_detalhes (simulado_id, tipo, elemento_id) VALUES ($simulado_id, 'materia', $unique_materia_id)");
 										include 'templates/page_element.php';
-										$questoes = $conn->query("SELECT id, texto_apoio_id, numero, enunciado, materia, tipo, item1, item2, item3, item4, item5, item1_gabarito, item2_gabarito, item3_gabarito, item4_gabarito, item5_gabarito FROM sim_questoes WHERE prova_id = $prova_id AND materia = $unique_materia_id ORDER BY numero");
+										$questoes = $conn->query("SELECT id, texto_apoio_id, numero, enunciado_html, materia, tipo, item1_html, item2_html, item3_html, item4_html, item5_html, item1_gabarito, item2_gabarito, item3_gabarito, item4_gabarito, item5_gabarito FROM sim_questoes WHERE prova_id = $prova_id AND materia = $unique_materia_id ORDER BY numero");
 										if ($questoes->num_rows > 0) {
 											while ($questao = $questoes->fetch_assoc()) {
 												$questao_id = $questao['id'];
 												$questao_texto_apoio_id = $questao['texto_apoio_id'];
-												$questao_enunciado = $questao['enunciado'];
+												$questao_enunciado = $questao['enunciado_html'];
 												$questao_numero = $questao['numero'];
 												$questao_materia = $questao['materia'];
 												$questao_tipo = $questao['tipo'];
-												$questao_item1 = $questao['item1'];
-												$questao_item2 = $questao['item2'];
-												$questao_item3 = $questao['item3'];
-												$questao_item4 = $questao['item4'];
-												$questao_item5 = $questao['item5'];
+												$questao_item1 = $questao['item1_html'];
+												$questao_item2 = $questao['item2_html'];
+												$questao_item3 = $questao['item3_html'];
+												$questao_item4 = $questao['item4_html'];
+												$questao_item5 = $questao['item5_html'];
 												$questao_item1_gabarito = $questao['item1_gabarito'];
 												$questao_item2_gabarito = $questao['item2_gabarito'];
 												$questao_item3_gabarito = $questao['item3_gabarito'];
 												$questao_item4_gabarito = $questao['item4_gabarito'];
 												$questao_item5_gabarito = $questao['item5_gabarito'];
 												if ($questao_texto_apoio_id != false) {
-													$textos_apoio = $conn->query("SELECT titulo, enunciado, texto_apoio_html FROM sim_textos_apoio WHERE id = $questao_texto_apoio_id");
+													$textos_apoio = $conn->query("SELECT titulo, enunciado_html, texto_apoio_html FROM sim_textos_apoio WHERE id = $questao_texto_apoio_id");
 													if ($textos_apoio->num_rows > 0) {
 														while ($texto_apoio = $textos_apoio->fetch_assoc()) {
 															$texto_apoio_titulo = $texto_apoio['titulo'];
-															$texto_apoio_enunciado = $texto_apoio['enunciado'];
+															$texto_apoio_enunciado = $texto_apoio['enunciado_html'];
 															$texto_apoio_html = $texto_apoio['texto_apoio_html'];
 															$template_id = "texto_apoio_{$questao_texto_apoio_id}";
 															$template_titulo = "Texto de Apoio: $texto_apoio_titulo";
@@ -142,8 +142,8 @@ $prova_id)");
                                                                 </span>
                                                             ";
 															$template_conteudo = false;
-															$template_conteudo .= "<p>$texto_apoio_enunciado</p>";
-															$template_conteudo .= "$texto_apoio_html";
+															$template_conteudo .= $texto_apoio_enunciado;
+															$template_conteudo .= $texto_apoio_html;
 															$texto_apoio_check = array_search($questao_texto_apoio_id, $textos_apoio_impressos);
 															if ($texto_apoio_check === false) {
 																array_push($textos_apoio_impressos, $questao_texto_apoio_id);
@@ -157,7 +157,7 @@ $prova_id)");
 																	if ($questao_check === false) {
 																		array_push($questoes_impressas, $questao_id);
 																		$conn->query("INSERT INTO sim_detalhes (simulado_id, tipo, elemento_id) VALUES ($simulado_id, 'questao', $questao_id)");
-																		include 'templates/simulado_questao.php';
+																		include 'templates/sim_questao.php';
 																	}
 																}
 															}
@@ -166,7 +166,7 @@ $prova_id)");
 												} else {
 													array_push($questoes_impressas, $questao_id);
 													$conn->query("INSERT INTO sim_detalhes (simulado_id, tipo, elemento_id) VALUES ($simulado_id, 'questao', $questao_id)");
-													include 'templates/simulado_questao.php';
+													include 'templates/sim_questao.php';
 												}
 											}
 										}

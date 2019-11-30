@@ -42,9 +42,6 @@
 				$textos_apoio_count++;
 			}
 		}
-		error_log($questoes_count);
-		error_log($materias_count);
-		error_log($textos_apoio_count);
 	}
 
 ?>
@@ -61,7 +58,7 @@
 		include 'templates/titulo.php';
 	?>
     <div class="row d-flex justify-content-around">
-        <div id="coluna_esquerda" class="<?php echo $coluna_classes; ?>">
+        <div id="coluna_esquerda" class="<?php echo $coluna_pouco_maior_classes; ?>">
 					<?php
 						$template_id = 'simulado_dados';
 						$template_titulo = 'Dados';
@@ -69,7 +66,7 @@
 						$template_conteudo = false;
 						$template_conteudo .= "<p>Este simulado foi gerado em $simulado_criacao</p>";
 						$template_conteudo .= "<p>Tipo de simulado: $simulado_tipo</p>";
-						$template_conteudo .= "<p>No documento abaixo, os items que você acertou aparecem em verde, enquanto os que errou, em vermelho e os items que deixou em branco, em cinza.</p>";
+						$template_conteudo .= "<p>No documento abaixo, os itens que você acertou aparecem em verde, enquanto os que errou, em vermelho e os items que deixou em branco, em cinza. Itens anulados aparecem em amarelo.</p>";
 						
 						if ($questoes_count == 0) {
 							$template_conteudo .= "<p>Não há questão com resposta registrada para este simulado.</p>";
@@ -101,11 +98,12 @@
 									include 'templates/page_element.php';
 								} elseif ($simulado_elemento_tipo == 'texto_apoio') {
 									
-									$textos_apoio = $conn->query("SELECT titulo, enunciado FROM sim_textos_apoio WHERE id = $simulado_elemento_id");
+									$textos_apoio = $conn->query("SELECT titulo, enunciado_html, texto_apoio_html FROM sim_textos_apoio WHERE id = $simulado_elemento_id");
 									if ($textos_apoio->num_rows > 0) {
 										while ($texto_apoio = $textos_apoio->fetch_assoc()) {
 											$texto_apoio_titulo = $texto_apoio['titulo'];
-											$texto_apoio_enunciado = $texto_apoio['enunciado'];
+											$texto_apoio_enunciado = $texto_apoio['enunciado_html'];
+											$texto_apoio_html = $texto_apoio['texto_apoio_html'];
 											$template_id = "simulado_texto_apoio_{$simulado_elemento_id}";
 											$template_titulo = "Texto de apoio: $texto_apoio_titulo";
 											$template_titulo_heading = 'h3';
@@ -115,7 +113,8 @@
                                                 </span>
                                             ";
 											$template_conteudo = false;
-											$template_conteudo .= "<p>$texto_apoio_enunciado</p>";
+											$template_conteudo .= $texto_apoio_enunciado;
+											$template_conteudo .= $texto_apoio_html;
 											include 'templates/page_element.php';
 											break;
 										}
@@ -134,15 +133,15 @@
 											$questao_multipla = $questao['multipla'];
 											$questao_redacao = $questao['redacao'];
 											
-											$dados_questoes = $conn->query("SELECT enunciado, item1, item2, item3, item4, item5, item1_gabarito, item2_gabarito, item3_gabarito, item4_gabarito, item5_gabarito FROM sim_questoes WHERE id = $questao_id");
+											$dados_questoes = $conn->query("SELECT enunciado_html, item1_html, item2_html, item3_html, item4_html, item5_html, item1_gabarito, item2_gabarito, item3_gabarito, item4_gabarito, item5_gabarito FROM sim_questoes WHERE id = $questao_id");
 											if ($dados_questoes->num_rows > 0) {
 												while ($dado_questao = $dados_questoes->fetch_assoc()) {
-													$dado_questao_enunciado = $dado_questao['enunciado'];
-													$dado_questao_item1 = $dado_questao['item1'];
-													$dado_questao_item2 = $dado_questao['item2'];
-													$dado_questao_item3 = $dado_questao['item3'];
-													$dado_questao_item4 = $dado_questao['item4'];
-													$dado_questao_item5 = $dado_questao['item5'];
+													$dado_questao_enunciado = $dado_questao['enunciado_html'];
+													$dado_questao_item1 = $dado_questao['item1_html'];
+													$dado_questao_item2 = $dado_questao['item2_html'];
+													$dado_questao_item3 = $dado_questao['item3_html'];
+													$dado_questao_item4 = $dado_questao['item4_html'];
+													$dado_questao_item5 = $dado_questao['item5_html'];
 													$dado_questao_item1_gabarito = $dado_questao['item1_gabarito'];
 													$dado_questao_item2_gabarito = $dado_questao['item2_gabarito'];
 													$dado_questao_item3_gabarito = $dado_questao['item3_gabarito'];
@@ -161,35 +160,35 @@
 																$template_questao_item = $questao_item1;
 																$template_dado_questao_item_gabarito = $dado_questao_item1_gabarito;
 																$template_dado_questao_item = $dado_questao_item1;
-																include 'templates/resultados_questao.php';
+																include 'templates/sim_resultados_questao.php';
 															}
 															if ($dado_questao_item2 != false) {
 																$template_questao_item_nome = 'Item 2';
 																$template_questao_item = $questao_item2;
 																$template_dado_questao_item_gabarito = $dado_questao_item2_gabarito;
 																$template_dado_questao_item = $dado_questao_item2;
-																include 'templates/resultados_questao.php';
+																include 'templates/sim_resultados_questao.php';
 															}
 															if ($dado_questao_item3 != false) {
 																$template_questao_item_nome = 'Item 3';
 																$template_questao_item = $questao_item3;
 																$template_dado_questao_item_gabarito = $dado_questao_item3_gabarito;
 																$template_dado_questao_item = $dado_questao_item3;
-																include 'templates/resultados_questao.php';
+																include 'templates/sim_resultados_questao.php';
 															}
 															if ($dado_questao_item4 != false) {
 																$template_questao_item_nome = 'Item 4';
 																$template_questao_item = $questao_item4;
 																$template_dado_questao_item_gabarito = $dado_questao_item4_gabarito;
 																$template_dado_questao_item = $dado_questao_item4;
-																include 'templates/resultados_questao.php';
+																include 'templates/sim_resultados_questao.php';
 															}
 															if ($dado_questao_item5 != false) {
 																$template_questao_item_nome = 'Item 5';
 																$template_questao_item = $questao_item5;
 																$template_dado_questao_item_gabarito = $dado_questao_item5_gabarito;
 																$template_dado_questao_item = $dado_questao_item5;
-																include 'templates/resultados_questao.php';
+																include 'templates/sim_resultados_questao.php';
 															}
 															$template_conteudo .= "</ul>";
 														} else {

@@ -47,5 +47,6 @@
 	unset($template_modal_titulo);
 	unset($template_modal_body_conteudo);
 	unset($template_modal_submit_name);
+	unset($template_modal_form_id);
 
 ?>

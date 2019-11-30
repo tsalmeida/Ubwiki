@@ -199,7 +199,7 @@
 						$template_id = 'anotacoes_admin';
 						$template_titulo = 'Anotações';
 						$template_quill_page_id = 0;
-						$template_conteudo = include 'templates/quill_form.php';
+						$template_conteudo = include 'templates/template_quill.php';
 						include 'templates/page_element.php';
 					
 					?>

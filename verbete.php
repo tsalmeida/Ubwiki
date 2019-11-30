@@ -459,7 +459,7 @@
 						$template_botoes = "
 											    <a href='historico_verbete.php?topico_id=$topico_id' target='_blank'><i class='fal fa-history fa-fw'></i></a>
 											";
-						$template_conteudo = include 'templates/quill_form.php';
+						$template_conteudo = include 'templates/template_quill.php';
 						include 'templates/page_element.php';
 						
 						//VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS VIDEOS
@@ -641,7 +641,7 @@
 					<?php
 						$template_id = 'anotacoes';
 						$template_titulo = 'Anotações privadas';
-						$template_conteudo = include 'templates/quill_form.php';
+						$template_conteudo = include 'templates/template_quill.php';
 						include 'templates/page_element.php';
 					?>
         </div>

@@ -694,7 +694,7 @@
 	function convert_gabarito_cor($gabarito)
 	{
 		if ($gabarito == 0) {
-			return 'list-group-item-light';
+			return 'list-group-item-warning';
 		} elseif ($gabarito == 1) {
 			return 'list-group-item-success';
 		} elseif ($gabarito == 2) {
@@ -736,14 +736,19 @@
 		echo true;
 	}
 	
-	function converter_respostas($resposta)
+	function converter_respostas($tipo, $resposta)
 	{
 		if ($resposta == 1) {
 			return 'certo';
 		} elseif ($resposta == 2) {
 			return 'errado';
 		} elseif ($resposta == 0) {
-			return 'em branco';
+			if ($tipo == 'resposta') {
+				return 'em branco';
+			}
+			elseif ($tipo == 'gabarito') {
+				return 'anulado';
+			}
 		} else {
 			return false;
 		}
@@ -758,5 +763,6 @@
 	$coluna_classes = "col-lg-5 col-md-10 col-sm-11";
 	$coluna_maior_classes = "col-lg-9 col-md-10 col-sm-11";
 	$coluna_media_classes = "col-lg-7 col-md-10 col-sm-11";
+	$coluna_pouco_maior_classes = "col-lg-6 col-md-10 col-sm-11";
 
 ?>

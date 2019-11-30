@@ -11,6 +11,9 @@
 	if (!isset($html_head_template_conteudo)) {
 		$html_head_template_conteudo = false;
 	}
+	if (!isset($html_head_template_quill_sim)) {
+	    $html_head_template_quill_sim = false;
+    }
 
 ?>
 
@@ -35,9 +38,11 @@
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
     <title>Ubwiki</title>
 	<?php
+        if (($html_head_template_quill == true) || ($html_head_template_quill_sim == true)) {
+	        echo "<link href='css/quill.snow.css' rel='stylesheet'>";
+	        echo "<script src='https://cdn.quilljs.com/1.3.6/quill.js'></script>";
+        }
 		if ($html_head_template_quill == true) {
-			echo "<link href='css/quill.snow.css' rel='stylesheet'>";
-			echo "<script src='https://cdn.quilljs.com/1.3.6/quill.js'></script>";
 			echo "
             <script type='text/javascript'>
 	  	        var formatWhitelist_general = ['italic', 'script', 'link', 'blockquote', 'list', 'header', 'image', 'indent'];
@@ -77,6 +82,22 @@
 		}
 		if ($html_head_template_conteudo != false) {
 			echo "$html_head_template_conteudo";
+		}
+		if ($html_head_template_quill_sim == true) {
+			echo "
+		        <script type='text/javascript'>
+		        var formatWhitelist_simulados = ['italic', 'bold', 'script', 'list', 'indent', 'image'];
+                var toolbarOptions_simulados = [
+                    ['italic'],
+                    ['bold'],
+                    [{'script': 'super'}],
+                    [{'list': 'ordered'}, {'list': 'bullet'}],
+                    [{ 'indent': '-1'}, { 'indent': '+1' }],
+                    ['image'],
+                    ['clean'],
+                ];
+		        </script>
+		    ";
 		}
 	?>
 </head>

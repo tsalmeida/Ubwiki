@@ -19,33 +19,33 @@
     </span>
 											    ";
 	$template_conteudo = false;
-	$template_conteudo .= "<p>$questao_enunciado</p>";
+	$template_conteudo .= $questao_enunciado;
 	if ($questao_tipo == 1) {
 		$template_conteudo .= "<ol class='list-group'>";
 		if ($questao_item1 != false) {
 			$template_questao_item = '1';
-			$template_conteudo .= include('templates/questao_item.php');
-			$template_conteudo .= "<p class='mt-2'>$questao_item1</p>";
+			$template_conteudo .= include('templates/sim_questao_item.php');
+			$template_conteudo .= $questao_item1;
 		}
 		if ($questao_item2 != false) {
 			$template_questao_item = '2';
-			$template_conteudo .= include('templates/questao_item.php');
-			$template_conteudo .= "<p class='mt-2'>$questao_item2</p>";
+			$template_conteudo .= include('templates/sim_questao_item.php');
+			$template_conteudo .= $questao_item2;
 		}
 		if ($questao_item3 != false) {
 			$template_questao_item = '3';
-			$template_conteudo .= include('templates/questao_item.php');
-			$template_conteudo .= "<p class='mt-2'>$questao_item3</p>";
+			$template_conteudo .= include('templates/sim_questao_item.php');
+			$template_conteudo .= $questao_item3;
 		}
 		if ($questao_item4 != false) {
 			$template_questao_item = '4';
-			$template_conteudo .= include('templates/questao_item.php');
-			$template_conteudo .= "<p class='mt-2'>$questao_item4</p>";
+			$template_conteudo .= include('templates/sim_questao_item.php');
+			$template_conteudo .= $questao_item4;
 		}
 		if ($questao_item5 != false) {
 			$template_questao_item = '5';
-			$template_conteudo .= include('templates/questao_item.php');
-			$template_conteudo .= "<p class='mt-2'>$questao_item5</p>";
+			$template_conteudo .= include('templates/sim_questao_item.php');
+			$template_conteudo .= $questao_item5;
 		}
 		
 		$template_conteudo .= "</ol>";
