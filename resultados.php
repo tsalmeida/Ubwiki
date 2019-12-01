@@ -114,7 +114,7 @@
                                             ";
 											$template_conteudo = false;
 											$template_conteudo .= $texto_apoio_enunciado;
-											$template_conteudo .= $texto_apoio_html;
+											$template_conteudo .= "<div id='special_li'>$texto_apoio_html</div>";
 											include 'templates/page_element.php';
 											break;
 										}
@@ -153,7 +153,7 @@
 													$template_conteudo = false;
 													if ($questao_redacao == false) {
 														if ($questao_multipla == false) {
-															$template_conteudo .= "<p>$dado_questao_enunciado</p>";
+															$template_conteudo .= "<div id='special_li'>$dado_questao_enunciado</div>";
 															$template_conteudo .= "<ul class='list-group'>";
 															if ($dado_questao_item1 != false) {
 																$template_questao_item_nome = 'Item 1';

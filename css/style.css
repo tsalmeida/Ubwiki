@@ -240,4 +240,17 @@ h1, h2, h3, h4, h5, h6 {
   min-height: 100vh;
 }
 
+#special_li li {
+  list-style: none;
+  list-style-position: outside;
+  padding-left: 2ch;
+  white-space: pre;
+}
+
+#special_li li:nth-child(5n) {
+  list-style: decimal;
+  background-color: #fafafa;
+  border-radius: 2px;
+}
+
 /*# sourceMappingURL=style.css.map */

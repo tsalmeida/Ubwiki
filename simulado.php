@@ -143,7 +143,7 @@ $prova_id)");
                                                             ";
 															$template_conteudo = false;
 															$template_conteudo .= $texto_apoio_enunciado;
-															$template_conteudo .= $texto_apoio_html;
+															$template_conteudo .= "<div id='special_li'>$texto_apoio_html</div>";
 															$texto_apoio_check = array_search($questao_texto_apoio_id, $textos_apoio_impressos);
 															if ($texto_apoio_check === false) {
 																array_push($textos_apoio_impressos, $questao_texto_apoio_id);

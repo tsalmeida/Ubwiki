@@ -76,6 +76,40 @@
 						$template_conteudo .= "<li class='list-group-item'><strong>Edição: </strong>$edicao_titulo</li>";
 						$template_conteudo .= "</ul>";
 						include 'templates/page_element.php';
+						
+						$template_id = 'questoes_prova';
+						$template_titulo = 'Questões e textos de apoio registrados';
+						$template_conteudo = false;
+						
+						$questoes = $conn->query("SELECT id, numero, materia FROM sim_questoes WHERE prova_id = $prova_id");
+						if ($questoes->num_rows > 0) {
+							$template_conteudo .= "<h2>Questões</h2>";
+							$template_conteudo .= "<ul class='list-group'>";
+							while ($questao = $questoes->fetch_assoc()) {
+								$questao_id = $questao['id'];
+								$questao_numero = $questao['numero'];
+								$questao_materia_id = $questao['materia'];
+								$questao_materia_titulo = return_materia_titulo_id($questao_materia_id);
+								$template_conteudo .= "<a href='questao.php?questao_id=$questao_id' target='_blank'><li class='list-group-item list-group-item-action'>$questao_materia_titulo: Questão $questao_numero</li></a>";
+							}
+							$template_conteudo .= "</ul>";
+						}
+						
+						$textos_apoio = $conn->query("SELECT id, titulo FROM sim_textos_apoio WHERE prova_id = $prova_id");
+						if ($textos_apoio->num_rows > 0) {
+						    $template_conteudo .= "<h2>Textos de apoio</h2>";
+						    $template_conteudo .= "<ul class='list-group'>";
+						    while ($texto_apoio = $textos_apoio->fetch_assoc()) {
+						        $texto_apoio_id = $texto_apoio['id'];
+						        $texto_apoio_titulo = $texto_apoio['titulo'];
+						        $template_conteudo .= "<a href='textoapoio.php?texto_apoio_id=$texto_apoio_id' target='_blank'><li class='list-group-item list-group-item-action'>$texto_apoio_titulo</li></a>";
+                            }
+						    $template_conteudo .= "</ul>";
+                        }
+						
+						
+						include 'templates/page_element.php';
+					
 					
 					?>
         </div>

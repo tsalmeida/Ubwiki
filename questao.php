@@ -298,7 +298,7 @@
                             </span>
                         ";
 						$template_conteudo = false;
-						$template_conteudo .= $questao_enunciado;
+						$template_conteudo .= "<div id='special_li'>$questao_enunciado</div>";
 						$template_conteudo .= "<ul class='list-group'>";
 						$mask_cor = 'list-group-item-light';
 						if ($questao_item1 != false) {
@@ -363,7 +363,7 @@
 							if ($textos_apoio2->num_rows > 0) {
 								while ($texto_apoio2 = $textos_apoio2->fetch_assoc()) {
 									$texto_apoio2_html = $texto_apoio2['texto_apoio_html'];
-									$template_conteudo .= $texto_apoio2_html;
+									$template_conteudo .= "<div id='special_li'>$texto_apoio2_html</div>";
 								}
 							}
 							include 'templates/page_element.php';
@@ -376,7 +376,7 @@
 					<?php
 						$template_id = 'anotacoes_questao';
 						$template_titulo = 'Anotações privadas';
-						$template_quill_empty_content = "<p id='verbete_vazio_{$template_id}'>Você ainda não fez anotaçõees sobre esta questão.</p>";
+						$template_quill_empty_content = "<p id='verbete_vazio_{$template_id}'>Você ainda não fez anotações sobre esta questão.</p>";
 						$template_botoes = false;
 						$template_conteudo = include 'templates/template_quill.php';
 						include 'templates/page_element.php';

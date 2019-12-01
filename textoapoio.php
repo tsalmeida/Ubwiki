@@ -107,8 +107,15 @@
                                 ";
 								$template_conteudo = false;
 								$template_conteudo .= $texto_apoio_enunciado;
-								$template_conteudo .= $texto_apoio_html;
+								$template_conteudo .= "<div id='special_li'>$texto_apoio_html</div>";
 								include 'templates/page_element.php';
+								
+								$template_id = 'texto_apoio_questoes';
+								$template_titulo = 'Questões deste texto de apoio';
+								$template_conteudo = false;
+								$questoes = $conn->query("SELECT ");
+								
+								
 							?>
             </div>
             <div id="coluna_direita" class="<?php echo $coluna_classes; ?>">

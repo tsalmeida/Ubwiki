@@ -19,7 +19,7 @@
     </span>
 											    ";
 	$template_conteudo = false;
-	$template_conteudo .= $questao_enunciado;
+	$template_conteudo .= "<div id='special_li'>$questao_enunciado</div>";
 	if ($questao_tipo == 1) {
 		$template_conteudo .= "<ol class='list-group'>";
 		if ($questao_item1 != false) {
