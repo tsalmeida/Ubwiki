@@ -326,7 +326,6 @@
 		$page_id = $args[2];
 		$user_id = $args[3];
 		$contexto = $args[4];
-		error_log($contexto);
 		$servername = "localhost";
 		$username = "grupoubique";
 		$password = "ubique patriae memor";

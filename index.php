@@ -9,7 +9,7 @@
 	include 'templates/html_head.php';
 	include 'templates/imagehandler.php';
 	
-	$conn->query("INSERT INTO Visualizacoes (user_id, tipo_pagina) VALUES ($user_id, 'index')");
+	$conn->query("INSERT INTO Visualizacoes (user_id, tipo_pagina, extra) VALUES ($user_id, 'index', $concurso_id)");
 
 ?>
 <body>
@@ -20,7 +20,7 @@
 	?>
     <div class="row justify-content-center">
         <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mt-5">
-            <img class="img-fluid logo" src="/../imagens/ubiquelogo.png"></img>
+            <img class="img-fluid logo" src="/../imagens/ubiquelogo.png">
         </div>
     </div>
     <div class="row justify-content-center">
@@ -64,22 +64,29 @@
 								}
 								if ($result->num_rows > 0) {
 									$count = 0;
+									$count2 = 0;
+									$count3 = 0;
 									while ($row = $result->fetch_assoc()) {
 										if ($count == 0) {
+											$count2++;
 											echo "<div class='col-xl col-lg-6 col-md-6 col-sm-12'>";
 										}
 										$count++;
 										$materia_titulo = $row['titulo'];
 										$materia_id = $row["id"];
 										echo "
-                      <div href='materia.php?materia_id=$materia_id' class='rounded cardmateria grey lighten-4 text-break text-center align-middle mb-3 py-2'>
-                        <span class='text-muted text-uppercase'>$materia_titulo</span>
-                      </div>
-                    ";
+                                          <div href='materia.php?materia_id=$materia_id' class='rounded cardmateria grey lighten-4 text-break text-center align-middle mb-3 py-2'>
+                                            <span class='text-muted text-uppercase'>$materia_titulo</span>
+                                          </div>
+                                        ";
 										if ($count == $row_items) {
+											$count3++;
 											echo "</div>";
 											$count = 0;
 										}
+									}
+									if ($count2 != $count3) {
+										echo "</div>";
 									}
 									unset($materia_id);
 								}
@@ -150,28 +157,29 @@
     </div>
     <div class="row justify-content-around mt-5">
         <div id="coluna_esquerda" class="<?php echo $coluna_classes; ?>">
-          <?php
-	          $template_id = 'verbete_curso';
-	          $template_titulo = 'Verbete';
-	          $template_quill_empty_content = "<p id='verbete_vazio_{$template_id}'>Seja o primeiro a contribuir para a construção deste verbete.</p>";
-	          $template_botoes = false;
-	          $template_conteudo = include 'templates/template_quill.php';
-	          include 'templates/page_element.php';
-          ?>
+					<?php
+						$template_id = 'verbete_curso';
+						$template_titulo = 'Verbete';
+						$template_quill_empty_content = "<p id='verbete_vazio_{$template_id}'>Seja o primeiro a contribuir para a construção deste verbete.</p>";
+						$template_botoes = false;
+						$template_conteudo = include 'templates/template_quill.php';
+						include 'templates/page_element.php';
+					?>
         </div>
         <div id="coluna_direita" class="<?php echo $coluna_classes; ?>">
-          <?php
-	
-	          $template_id = 'anotacoes_curso';
-	          $template_titulo = 'Anotações privadas';
-	          $template_quill_empty_content = "<p id='verbete_vazio_{$template_id}'>Você ainda não fez anotações sobre este curso.</p>";
-	          $template_botoes = false;
-	          $template_conteudo = include 'templates/template_quill.php';
-	          include 'templates/page_element.php';
-          ?>
+					<?php
+						
+						$template_id = 'anotacoes_curso';
+						$template_titulo = 'Anotações privadas';
+						$template_quill_empty_content = "<p id='verbete_vazio_{$template_id}'>Você ainda não fez anotações sobre este curso.</p>";
+						$template_botoes = false;
+						$template_conteudo = include 'templates/template_quill.php';
+						include 'templates/page_element.php';
+					?>
         </div>
     </div>
-    <button id='mostrar_coluna_direita' class='btn btn-md elegant-color text-white p-2 m-1' tabindex='-1'><i class='fas fa-pen-alt fa-fw'></i></button>
+    <button id='mostrar_coluna_direita' class='btn btn-md elegant-color text-white p-2 m-1' tabindex='-1'><i
+                class='fas fa-pen-alt fa-fw'></i></button>
 </div>
 </body>
 <?php
