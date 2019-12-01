@@ -570,7 +570,7 @@
 						$template_botoes = "<a data-toggle='modal' data-target='#modal_imagens_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>";
 						$template_conteudo = false;
 						
-						$result = $conn->query("SELECT elemento_id FROM Verbetes_elementos WHERE topico_id = $topico_id AND tipo = 'imagem'");
+						$result = $conn->query("SELECT DISTINCT elemento_id FROM Verbetes_elementos WHERE topico_id = $topico_id AND tipo = 'imagem'");
 						$count = 0;
 						if ($result->num_rows > 0) {
 							$active = 'active';

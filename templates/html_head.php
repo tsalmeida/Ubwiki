@@ -67,7 +67,7 @@
                     [{'background': [false, 'red', 'orange', 'yellow', 'green', 'blue', 'purple']}],
                     [{'script': 'super'}],
                     ['blockquote'],
-                    [{'list': 'ordered'}, {'list': 'bullet'}],
+                    [{'list': 'ordered'}, {'list': 'bullet'}, {'list': 'check'}],
                     [{ 'indent': '-1'}, { 'indent': '+1' }],
                     [{'align': []}],
                     ['link'],
