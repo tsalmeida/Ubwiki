@@ -39,14 +39,13 @@
 			$template_quill_page_id = $questao_id;
 		} elseif (isset($prova_id)) {
 			$template_quill_page_id = $prova_id;
-		}	elseif (isset($texto_apoio_id)) {
+		} elseif (isset($texto_apoio_id)) {
 			$template_quill_page_id = $texto_apoio_id;
 		} elseif (isset($materia_id)) {
 			$template_quill_page_id = $materia_id;
 		} elseif (isset($concurso_id)) {
 			$template_quill_page_id = $concurso_id;
-		}
-		else {
+		} else {
 			$template_quill_page_id = false;
 		}
 	}
@@ -168,7 +167,6 @@
     var {$template_id}_editor = new Quill('#quill_editor_{$template_id}', {
         theme: 'snow',
         formats: $template_quill_whitelist,
-        placeholder: 'Escreva aqui...',
         modules: {
             toolbar: {
                 container: $template_quill_toolbar,
