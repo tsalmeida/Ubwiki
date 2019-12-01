@@ -85,14 +85,14 @@
 			if ($result2->num_rows > 0) {
 				while ($row = $result2->fetch_assoc()) {
 					$nova_referencia_id = $row['id'];
-					$conn->query("INSERT INTO Verbetes_elementos (topico_id, elemento_id, tipo, user_id) VALUES ($topico_id, $nova_referencia_id, 'referencia', $user_id)");
+					$conn->query("INSERT INTO Verbetes_elementos (page_id, tipo_pagina, elemento_id, tipo, user_id) VALUES ($topico_id, 'verbete', $nova_referencia_id, 'referencia', $user_id)");
 					break;
 				}
 			}
 		} else {
 			while ($row = $result->fetch_assoc()) {
 				$nova_referencia_id = $row['id'];
-				$conn->query("INSERT INTO Verbetes_elementos (topico_id, elemento_id, tipo, user_id) VALUES ($topico_id, $nova_referencia_id, 'referencia', $user_id)");
+				$conn->query("INSERT INTO Verbetes_elementos (page_id, tipo_pagina, elemento_id, tipo, user_id) VALUES ($topico_id, 'verbete', $nova_referencia_id, 'referencia', $user_id)");
 				break;
 			}
 		}
@@ -118,7 +118,7 @@
 		if ($result->num_rows > 0) {
 			while ($row = $result->fetch_assoc()) {
 				$id_video_preexistente = $row['id'];
-				$insert = $conn->query("INSERT INTO Verbetes_elementos (topico_id, elemento_id, tipo, user_id) VALUES ($topico_id, $id_video_preexistente, 'youtube', $user_id)");
+				$insert = $conn->query("INSERT INTO Verbetes_elementos (topico_id, tipo_pagina, elemento_id, tipo, user_id) VALUES ($topico_id, 'verbete', $id_video_preexistente, 'youtube', $user_id)");
 				break;
 			}
 		} else {
@@ -128,7 +128,7 @@
 			if ($result->num_rows > 0) {
 				while ($row = $result->fetch_assoc()) {
 					$novo_video_id = $row['id'];
-					$insert = $conn->query("INSERT INTO Verbetes_elementos (topico_id, elemento_id, tipo, user_id) VALUES ($topico_id, $novo_video_id, 'video', $user_id)");
+					$insert = $conn->query("INSERT INTO Verbetes_elementos (topico_id, tipo_pagina, elemento_id, tipo, user_id) VALUES ($topico_id, 'verbete', $novo_video_id, 'video', $user_id)");
 					break;
 				}
 			} else {
@@ -473,7 +473,7 @@
                         ";
 						$template_conteudo = false;
 						
-						$result = $conn->query("SELECT elemento_id FROM Verbetes_elementos WHERE topico_id = $topico_id AND tipo = 'video'");
+						$result = $conn->query("SELECT elemento_id FROM Verbetes_elementos WHERE page_id = $topico_id AND tipo = 'video' AND tipo_pagina = 'verbete'");
 						$count = 0;
 						if ($result->num_rows > 0) {
 							$template_conteudo .= "
@@ -532,7 +532,7 @@
 						$template_botoes = "<a data-toggle='modal' data-target='#modal_referencia_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>";
 						$template_conteudo = false;
 						
-						$result = $conn->query("SELECT DISTINCT elemento_id FROM Verbetes_elementos WHERE topico_id = $topico_id AND tipo = 'referencia' ORDER BY id");
+						$result = $conn->query("SELECT DISTINCT elemento_id FROM Verbetes_elementos WHERE page_id = $topico_id AND tipo = 'referencia' AND tipo_pagina = 'verbete' ORDER BY id");
 						if ($result->num_rows > 0) {
 							$template_conteudo .= "<ul class='list-group'>";
 							while ($row = $result->fetch_assoc()) {
@@ -570,7 +570,7 @@
 						$template_botoes = "<a data-toggle='modal' data-target='#modal_imagens_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>";
 						$template_conteudo = false;
 						
-						$result = $conn->query("SELECT DISTINCT elemento_id FROM Verbetes_elementos WHERE topico_id = $topico_id AND tipo = 'imagem'");
+						$result = $conn->query("SELECT DISTINCT elemento_id FROM Verbetes_elementos WHERE page_id = $topico_id AND tipo = 'imagem' AND tipo_pagina = 'verbete'");
 						$count = 0;
 						if ($result->num_rows > 0) {
 							$active = 'active';

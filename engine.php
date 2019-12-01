@@ -326,11 +326,7 @@
 		$page_id = $args[2];
 		$user_id = $args[3];
 		$contexto = $args[4];
-		if ($contexto == 'verbete') {
-			$contexto_column = 'topico_id';
-		} elseif ($contexto == 'elemento') {
-			$contexto_column = 'elemento_page_id';
-		}
+		error_log($contexto);
 		$servername = "localhost";
 		$username = "grupoubique";
 		$password = "ubique patriae memor";
@@ -358,7 +354,7 @@
 					$nova_imagem_id = $row['id'];
 					$result3 = $conn->query("SELECT id FROM Verbetes_elementos WHERE elemento_id = $nova_imagem_id");
 					if ($result3->num_rows == 0) {
-						$conn->query("INSERT INTO Verbetes_elementos ($contexto_column, elemento_id, tipo, user_id) VALUES ($page_id, $nova_imagem_id, 'imagem', $user_id)");
+						$conn->query("INSERT INTO Verbetes_elementos (page_id, tipo_pagina, elemento_id, tipo, user_id) VALUES ($page_id, '$contexto', $nova_imagem_id, 'imagem', $user_id)");
 					}
 					break;
 				}
@@ -366,7 +362,7 @@
 		} else {
 			while ($row = $result->fetch_assoc()) {
 				$nova_imagem_id = $row['id'];
-				$conn->query("INSERT INTO Verbetes_elementos ($contexto_column, elemento_id, tipo, user_id) VALUES ($page_id, $nova_imagem_id, 'imagem', $user_id)");
+				$conn->query("INSERT INTO Verbetes_elementos (page_id, tipo_pagina, elemento_id, tipo, user_id) VALUES ($page_id, '$contexto', $nova_imagem_id, 'imagem', $user_id)");
 				break;
 			}
 		}
