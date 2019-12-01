@@ -3,17 +3,26 @@
 	include 'engine.php';
 	
 	if (isset($_POST['funcoes_gerais'])) {
-        $results = $conn->query("SELECT id, verbete_content FROM Textos_arquivo WHERE verbete_content IS NOT NULL");
-        if ($results->num_rows > 0) {
-            while ($result = $results->fetch_assoc()) {
-                $id = $result['id'];
-                $verbete_content = $result['verbete_content'];
-                $verbete_content = urldecode($verbete_content);
-                $verbete_content = mysqli_real_escape_string($conn, $verbete_content);
-                $conn->query("UPDATE Textos_arquivo SET verbete_content = '$verbete_content' WHERE id = $id");
-            }
-        }
-    }
+		$conn->query("TRUNCATE `Ubwiki`.`sim_detalhes`");
+		$conn->query("TRUNCATE `Ubwiki`.`sim_edicoes`");
+		$conn->query("TRUNCATE `Ubwiki`.`sim_edicoes_arquivo`");
+		$conn->query("TRUNCATE `Ubwiki`.`sim_etapas`");
+		$conn->query("TRUNCATE `Ubwiki`.`sim_etapas_arquivo`");
+		$conn->query("TRUNCATE `Ubwiki`.`sim_gerados`");
+		$conn->query("TRUNCATE `Ubwiki`.`sim_provas`");
+		$conn->query("TRUNCATE `Ubwiki`.`sim_provas_arquivo`");
+		$conn->query("TRUNCATE `Ubwiki`.`sim_questoes`");
+		$conn->query("TRUNCATE `Ubwiki`.`sim_questoes_arquivo`");
+		$conn->query("TRUNCATE `Ubwiki`.`sim_respostas`");
+		$conn->query("TRUNCATE `Ubwiki`.`sim_textos_apoio`");
+		$conn->query("TRUNCATE `Ubwiki`.`sim_textos_apoio_arquivo`");
+	}
+	
+	if (isset($_POST['funcoes_gerais2'])) {
+		$conn->query("TRUNCATE `Ubwiki`.`sim_detalhes`");
+		$conn->query("TRUNCATE `Ubwiki`.`sim_gerados`");
+		$conn->query("TRUNCATE `Ubwiki`.`sim_respostas`");
+	}
 	
 	if (isset($_POST['reconstruir_busca'])) {
 		$reconstruir_concurso_id = $_POST['reconstruir_concurso'];
@@ -129,7 +138,7 @@
 						$template_conteudo .= "</select>";
 						$template_conteudo .= "<button class='$button_classes'>Acessar ferramenta</button></form>";
 						include 'templates/page_element.php';
-
+						
 						$template_id = 'acrescentar_concurso';
 						$template_titulo = 'Acrescentar concurso';
 						$template_botoes = false;
@@ -177,19 +186,23 @@
             </form>
                         ";
 						include 'templates/page_element.php';
-					
+						
 						$template_id = 'funcoes_gerais';
 						$template_titulo = 'Funções gerais';
 						$template_botoes = false;
 						$template_conteudo = false;
 						$template_conteudo .= "
 						    <form method='post'>
-						        <p>desfazer URI.</p>
-						        <button class='$button_classes' type='submit' name='funcoes_gerais'>Ativar função</button>
+						        <p>Simulados.</p>
+						        <button class='$button_classes_red' type='submit' name='funcoes_gerais'>Apagar todos os dados sobre simulados</button>
+						    </form>
+						    <form method='post'>
+						        <p>Simulados/usuários.</p>
+						        <button class='$button_classes' type='submit' name='funcoes_gerais2'>Apagar dados de regitro em simulados</button>
 						    </form>
 						";
 						include 'templates/page_element.php';
-						
+					
 					?>
 
         </div>
