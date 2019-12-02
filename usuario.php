@@ -40,7 +40,7 @@
 ?>
 
 
-<div class='container-fluid bg-white'>
+<div class='container-fluid'>
     <div class='row'>
         <div class='col-lg-4 col-sm-12'>
         </div>
@@ -73,10 +73,20 @@
         <div id='coluna_esquerda' class="<?php echo $coluna_classes; ?>">
 					<?php
 						
+						$template_id = 'artefatos_usuario';
+						$template_titulo = 'Seus artefatos';
+						$template_conteudo = false;
+						$template_conteudo .= "
+							<p>Em sua página de artefatos, você tem acesso a todos os textos que produziu na Ubwiki, assim como a imagens privadas.</p>
+							<div class='row justify-content-center'>
+								<a href='artefatos.php?user_id=$user_id' target='_blank'><button class='$button_classes'>Acessar artefatos</button></a>
+							</div>
+						";
+						include 'templates/page_element.php';
+						
 						$template_id = 'verbete_user';
 						$template_titulo = 'Perfil público';
 						$template_quill_empty_content = "<p id='verbete_vazio_{$template_id}'>Tudo que você escrever neste campo será visível em sua página pública, que outros usuários verão ao clicar em seu apelido.</p>";
-						$template_botoes = false;
 						$template_quill_page_id = 0;
 						$template_quill_public = false;
 						$template_conteudo = include 'templates/template_quill.php';
@@ -129,13 +139,13 @@
 						
 						include 'templates/page_element.php';
 						
-						$template_id = 'lista_leitura_elementos';
-						$template_titulo = 'Lista de leitura: elementos';
-						$template_botoes = false;
-						$template_conteudo = false;
-						
+						$carregar_leitura_elementos = false;
 						$result = $conn->query("SELECT elemento_id FROM Bookmarks WHERE user_id = $user_id AND bookmark = 1 AND elemento_id IS NOT NULL AND active = 1 ORDER BY id DESC");
 						if ($result->num_rows > 0) {
+							$template_id = 'lista_leitura_elementos';
+							$template_titulo = 'Lista de leitura: elementos';
+							$template_botoes = false;
+							$template_conteudo = false;
 							$template_conteudo .= "<ul class='list-group'>";
 							while ($row = $result->fetch_assoc()) {
 								$elemento_id = $row['elemento_id'];
@@ -148,14 +158,15 @@
 								}
 							}
 							$template_conteudo .= "</ul>";
-						} else {
+							$carregar_leitura_elementos = true;
 							$template_load_invisible = true;
-							$template_conteudo .= "<p>Você ainda não acrescentou nenhum elemento de página (imagens, vídeos, referências bibliográficas) à sua lista de leitura.</p>";
 						}
 						if ($result->num_rows > 10) {
 							$template_load_invisible = true;
 						}
-						include 'templates/page_element.php';
+						if ($carregar_leitura_elementos == true) {
+							include 'templates/page_element.php';
+						}
 						
 						$template_id = 'lista_comentarios';
 						$template_titulo = 'Participações no fórum';

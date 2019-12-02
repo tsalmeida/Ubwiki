@@ -132,7 +132,7 @@ h1, h2, h3, h4, h5, h6 {
 .ql-editor-active {
   padding: 12px 15px;
   border: 1px solid #ccc;
-  max-height: 70vh;
+  max-height: 50vh;
   overflow-y: auto;
 }
 
@@ -255,6 +255,10 @@ h1, h2, h3, h4, h5, h6 {
 
 #materia_background {
   min-height: 40vh;
+}
+
+.artefato {
+  min-height: 25vh;
 }
 
 /*# sourceMappingURL=style.css.map */

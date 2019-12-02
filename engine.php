@@ -335,7 +335,7 @@
 		mysqli_set_charset($conn, "utf8");
 		$result = $conn->query("SELECT id FROM Elementos WHERE link = '$nova_imagem_link'");
 		if ($result->num_rows == 0) {
-			$randomfilename = generateRandomString(12);
+			$randomfilename = generateRandomString(16);
 			$ultimo_ponto = strripos($nova_imagem_link, ".");
 			$extensao = substr($nova_imagem_link, $ultimo_ponto);
 			$nova_imagem_arquivo = "$randomfilename$extensao";
@@ -371,7 +371,7 @@
 			}
 		}
 		if (isset($nova_imagem_arquivo)) {
-			return "https://www.ubwiki.com.br/imagens/verbetes/$nova_imagem_arquivo";
+			return "https://ubwiki.com.br/imagens/verbetes/$nova_imagem_arquivo";
 		} else {
 			return false;
 		}
