@@ -65,7 +65,7 @@
 	if ((isset($_POST['nova_imagem_link'])) && ($_POST['nova_imagem_link'] != false)) {
 		$nova_imagem_link = $_POST['nova_imagem_link'];
 		$nova_imagem_link = base64_encode($nova_imagem_link);
-		adicionar_imagem($nova_imagem_link, $nova_imagem_titulo, $topico_id, $user_id, 'verbete');
+		adicionar_imagem($nova_imagem_link, $nova_imagem_titulo, $topico_id, $user_id, 'verbete', 'link');
 	} else {
 		$upload_ok = false;
 		if (isset($_FILES['nova_imagem_upload'])) {
@@ -87,7 +87,7 @@
 			if ($upload_ok != false) {
 				move_uploaded_file($_FILES['nova_imagem_upload']['tmp_name'], $target_file);
 				$target_file = base64_encode($target_file);
-				adicionar_imagem($target_file, $nova_imagem_titulo, $topico_id, $user_id, 'verbete');
+				adicionar_imagem($target_file, $nova_imagem_titulo, $topico_id, $user_id, 'verbete', 'upload');
 			}
 		}
 	}
