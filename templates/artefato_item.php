@@ -28,7 +28,7 @@
 	}
 	
 	echo "
-     <div class='col-lg-3 col-md-4 col-sm-6 col-xs-12 px-3 pb-5 artefato' title='Criado em: $artefato_criacao'>
+     <div class='col-lg-2 col-md-3 col-sm-4 col-xs-12 py-3 artefato' title='Criado em: $artefato_criacao'>
         <span class='row justify-content-center text-center'><a href='$artefato_link' target='_blank'><i class='fad $fa_icone fa-6x fa-fw fa-swap-opacity d-block' style='--fa-primary-color: $fa_primary_color; --fa-secondary-color: $fa_secondary_color; --fa-secondary-opacity:  1.0'></i></a></span>
         <span class='row justify-content-center text-center mt-2'>$artefato_titulo</span>
         <span class='row justify-content-center text-center text-muted'>$artefato_page_id_titulo</span>
