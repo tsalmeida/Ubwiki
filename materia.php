@@ -28,6 +28,7 @@
                 $background_image
 	            background-size: cover;
 	            background-position: center center;
+	            min-height: 40vh;
             }
 	    </style>
 	";
