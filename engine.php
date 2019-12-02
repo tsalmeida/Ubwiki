@@ -349,7 +349,7 @@
 			$nova_imagem_resolucao_original = $dados_da_imagem[0];
 			$nova_imagem_orientacao = $dados_da_imagem[1];
 			if ($origem == 'upload') {
-				$nova_imagem_link = "https://www.ubwiki.com.br/imagens/verbetes/$nova_imagem_arquivo";
+				$nova_imagem_link = "https://ubwiki.com.br/imagens/verbetes/$nova_imagem_arquivo";
 			}
 			$conn->query("INSERT INTO Elementos (tipo, titulo, link, arquivo, resolucao, orientacao, user_id) VALUES ('imagem', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_arquivo', '$nova_imagem_resolucao_original', '$nova_imagem_orientacao', $user_id)");
 			$result2 = $conn->query("SELECT id FROM Elementos WHERE link = '$nova_imagem_link'");
