@@ -87,7 +87,6 @@
         </script>
     ";
 	include 'templates/html_head.php';
-	include 'templates/imagehandler.php';
 	if ($nao_contar == false) {
 		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $elemento_id, 'elemento')");
 	}
@@ -173,9 +172,10 @@
 						}
 
 						$dados_elemento = false;
-						$dados_elemento .= "<ul class='list-group'>";
-						$dados_elemento .= "<li class='list-group-item'><strong>Criado em:</strong> $criacao_elemento</li>";
-						$dados_elemento .= "<li class='list-group-item'><strong>Estado de publicação:</strong> $estado_elemento_visivel</li>";
+						$dados_elemento .= "
+                            <ul class='list-group'>
+						        <li class='list-group-item'><strong>Criado em:</strong> $criacao_elemento</li>
+						        <li class='list-group-item'><strong>Estado de publicação:</strong> $estado_elemento_visivel</li>";
 						if ($titulo_elemento != false) {
 							$dados_elemento .= "<li class='list-group-item'><strong>Título:</strong> $titulo_elemento</li>";
 						}
@@ -201,10 +201,8 @@
                                     <i class='fal fa-edit fa-fw'></i>
                                   </a>
                             ";
-						$template_conteudo = $dados_elemento;
-						if ($titulo_elemento != 'Não há título registrado') {
-							$template_load_invisible = true;
-						}
+						$template_conteudo = false;
+						$template_conteudo .= $dados_elemento;
 						include 'templates/page_element.php';
 
 						//VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE
@@ -245,30 +243,32 @@
 	if ($estado_elemento == true) {
 		$estado_elemento_checkbox = 'checked';
 	}
-	$template_modal_body_conteudo .= "<div class='form-check pl-0'>";
-	$template_modal_body_conteudo .= "<input type='checkbox' class='form-check-input' id='elemento_mudanca_estado' name='elemento_mudanca_estado' $estado_elemento_checkbox>";
-	$template_modal_body_conteudo .= "<label class='form-check-label' for='elemento_mudanca_estado'>Adequado para publicação</label>";
-	$template_modal_body_conteudo .= "</div>";
-
-	$template_modal_body_conteudo .= "<div class='md-form mb-2'>";
-	$template_modal_body_conteudo .= "<input type='text' id='elemento_novo_titulo' name='elemento_novo_titulo' class='form-control' value='$titulo_elemento'>";
-	$template_modal_body_conteudo .= "<label for='elemento_novo_titulo'>Título</label>";
-	$template_modal_body_conteudo .= "</div>";
-
-	$template_modal_body_conteudo .= "<div class='md-form mb-2'>";
-	$template_modal_body_conteudo .= "<input type='text' id='elemento_novo_autor' name='elemento_novo_autor' class='form-control' value='$autor_elemento'>";
-	$template_modal_body_conteudo .= "<label for='elemento_novo_autor'>Autor</label>";
-	$template_modal_body_conteudo .= "</div>";
-
-	$template_modal_body_conteudo .= "<div class='md-form mb-2'>";
-	$template_modal_body_conteudo .= "<input type='text' id='elemento_novo_capitulo' name='elemento_novo_capitulo' class='form-control' value='$capitulo_elemento'>";
-	$template_modal_body_conteudo .= "<label for='elemento_novo_capitulo'>Capítulo</label>";
-	$template_modal_body_conteudo .= "</div>";
-
-	$template_modal_body_conteudo .= "<div class='md-form mb-2'>";
-	$template_modal_body_conteudo .= "<input type='number' id='elemento_novo_ano' name='elemento_novo_ano' class='form-control' value='$ano_elemento'>";
-	$template_modal_body_conteudo .= "<label for='elemento_novo_ano'>Ano</label>";
-	$template_modal_body_conteudo .= "</div>";
+	$template_modal_body_conteudo .= "
+        <div class='form-check pl-0'>
+            <input type='checkbox' class='form-check-input' id='elemento_mudanca_estado' name='elemento_mudanca_estado' $estado_elemento_checkbox>
+            <label class='form-check-label' for='elemento_mudanca_estado'>Adequado para publicação</label>
+        </div>
+    
+        <div class='md-form mb-2'>
+            <input type='text' id='elemento_novo_titulo' name='elemento_novo_titulo' class='form-control' value='$titulo_elemento'>
+            <label for='elemento_novo_titulo'>Título</label>
+        </div>
+    
+        <div class='md-form mb-2'>
+            <input type='text' id='elemento_novo_autor' name='elemento_novo_autor' class='form-control' value='$autor_elemento'>
+            <label for='elemento_novo_autor'>Autor</label>
+        </div>
+    
+        <div class='md-form mb-2'>
+            <input type='text' id='elemento_novo_capitulo' name='elemento_novo_capitulo' class='form-control' value='$capitulo_elemento'>
+            <label for='elemento_novo_capitulo'>Capítulo</label>
+        </div>
+    
+        <div class='md-form mb-2'>
+            <input type='number' id='elemento_novo_ano' name='elemento_novo_ano' class='form-control' value='$ano_elemento'>
+            <label for='elemento_novo_ano'>Ano</label>
+        </div>
+	";
 
 	$template_modal_submit_name = 'submit_elemento_dados';
 

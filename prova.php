@@ -34,7 +34,6 @@
 	
 	$html_head_template_quill = true;
 	include 'templates/html_head.php';
-	include 'templates/imagehandler.php';
 	
 	$edicoes = $conn->query("SELECT id, ano, titulo FROM sim_edicoes WHERE concurso_id = $concurso_id ORDER BY id DESC");
 	$etapas = $conn->query("SELECT id, edicao_id, titulo FROM sim_etapas WHERE concurso_id = $concurso_id ORDER BY id DESC");

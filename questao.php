@@ -248,7 +248,6 @@
 	$html_head_template_quill = true;
 	$html_head_template_quill_sim = true;
 	include 'templates/html_head.php';
-	include 'templates/imagehandler.php';
 ?>
 <body>
 <?php

@@ -2,7 +2,6 @@
 	include 'engine.php';
 	$html_head_template_quill = true;
 	include 'templates/html_head.php';
-	include 'templates/imagehandler.php';
 	
 	$simulado_id = false;
 	if (isset($_GET['simulado_id'])) {

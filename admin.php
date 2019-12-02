@@ -100,7 +100,6 @@
         </script>
     ";
 	include 'templates/html_head.php';
-	include 'templates/imagehandler.php';
 
 ?>
 <body>

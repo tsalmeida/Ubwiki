@@ -34,7 +34,6 @@
 	
 	$html_head_template_quill = true;
 	include 'templates/html_head.php';
-	include 'templates/imagehandler.php';
 	
 	$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $materia_id, 'materia')");
 
