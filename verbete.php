@@ -65,6 +65,36 @@
 		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $topico_id, 'topico_imagem')");
 	}
 	
+	if (isset($_FILES['nova_imagem_upload'])) {
+		$nova_imagem_upload = $_FILES['nova_imagem_upload'];
+		$upload_ok = false;
+		$target_dir = '../imagens/uploads/';
+		$target_file = $target_dir . basename($_FILES['nova_imagem_upload']['name']);
+		$image_filetype = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+		// check if file is actually an image
+	}
+	
+	if (isset($_POST('trigger_upload_imagem'))) {
+		$check = getimagesize($_FILES['nova_imagem_upload']['tmp_name']);
+		if ($check !== false) {
+			$upload_ok = true;
+		}
+	}
+	// only allow certain extensions
+	
+	if ($upload_ok == true) {
+		if ($imageFileType != 'jpg' && $imageFileType != 'png' && $imageFileType != 'jpeg'
+			&& $imageFileType != 'gif') {
+			$upload_ok = false;
+		}
+	}
+	
+	if ($upload_ok != false) {
+	    move_uploaded_file($_FILES['nova_imagem_upload']['tmp_name'], $target_file);
+    }
+	
+	// agora preciso lançar a função normal e apagar a versão que foi salva aqui.
+	
 	// REFERENCIA REFERENCIA REFERENCIA REFERENCIA REFERENCIA REFERENCIA REFERENCIA REFERENCIA
 	
 	if (isset($_POST['nova_referencia_titulo'])) {
@@ -75,7 +105,9 @@
 		$nova_referencia_capitulo = $_POST['nova_referencia_capitulo'];
 		$nova_referencia_capitulo = mysqli_real_escape_string($conn, $nova_referencia_capitulo);
 		$nova_referencia_ano = $_POST['nova_referencia_ano'];
-		if ($nova_referencia_ano == false) { $nova_referencia_ano = 0; }
+		if ($nova_referencia_ano == false) {
+			$nova_referencia_ano = 0;
+		}
 		$nova_referencia_link = $_POST['nova_referencia_link'];
 		$nova_referencia_link = mysqli_real_escape_string($conn, $nova_referencia_link);
 		$result = $conn->query("SELECT id FROM Elementos WHERE titulo = '$nova_referencia_titulo'");
@@ -567,7 +599,10 @@
 						
 						$template_id = 'imagens';
 						$template_titulo = 'Imagens';
-						$template_botoes = "<a data-toggle='modal' data-target='#modal_imagens_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>";
+						$template_botoes = "
+                            <a data-toggle='modal' data-target='#modal_upload_imagens_form' href=''><i class='fal fa-upload fa-fw'></i></a>
+                            <a data-toggle='modal' data-target='#modal_imagens_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
+                        ";
 						$template_conteudo = false;
 						
 						$result = $conn->query("SELECT DISTINCT elemento_id FROM Verbetes_elementos WHERE page_id = $topico_id AND tipo = 'imagem' AND tipo_pagina = 'verbete'");
@@ -667,6 +702,27 @@
                    class='form-control validate' required>
             <label data-error='inválido' data-success='válido'
                    for='nova_imagem_titulo'>Título da imagem</label>
+        </div>
+    ";
+	include 'templates/modal.php';
+	
+	// IMAGENS UPLOAD MODAL IMAGENS UPLOAD MODAL IMAGENS UPLOAD MODAL IMAGENS UPLOAD MODAL IMAGENS UPLOAD MODAL IMAGENS UPLOAD MODAL
+	
+	$template_modal_div_id = 'modal_upload_imagens_form';
+	$template_modal_titulo = 'Upload de imagens';
+	$template_modal_enctype = "enctype='multipart/form-data'";
+	$template_modal_submit_name = 'trigger_upload_imagem';
+	$template_modal_body_conteudo = "
+
+        <div class='md-form'>
+            <div class='file-field'>
+                <div class='btn btn-primary btn-sm float-left'>
+                <span>Selecione o arquivo</span>
+                <input type='file' name='nova_imagem_upload'>
+            </div>
+            <div class='file-path-wrapper'>
+                <input class='file-path validate' type='text' placeholder='Faça upload da sua imagem'>
+            </div>
         </div>
     ";
 	include 'templates/modal.php';

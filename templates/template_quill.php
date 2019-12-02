@@ -173,27 +173,20 @@
                 handlers: {
                     image: function() {
                         var range = this.quill.getSelection();
-								        var tipo = confirm('Adicionar a imagem por link? Cancele para enviar diretamente do seu computador.');
-								        if (tipo == true) {
-									        var link = prompt('Qual o endereço da imagem?');
-								          var titulo = prompt('Título da imagem:');
-									        var value64 = btoa(link);
-									        if (link) {
-									            $.post('engine.php', {
-									                    'nova_imagem': value64,
-									                    'user_id': $user_id,
-									                    'page_id': $template_quill_page_id,
-									                    'nova_imagem_titulo': titulo,
-									                    'contexto': '$template_id'
-									                },
-									                function (data) {
-									                });
-									            this.quill.insertEmbed(range.index, 'image', link, Quill.sources.USER);
-									        }
-								        }
-								        else {
-								            prompt('teste de caneta');
-										        var titulo = prompt('Título da imagem:');
+								        var link = prompt('Qual o endereço da imagem?');
+							          var titulo = prompt('Título da imagem:');
+								        var value64 = btoa(link);
+								        if (link) {
+								            $.post('engine.php', {
+								                    'nova_imagem': value64,
+								                    'user_id': $user_id,
+								                    'page_id': $template_quill_page_id,
+								                    'nova_imagem_titulo': titulo,
+								                    'contexto': '$template_id'
+								                },
+								                function (data) {
+								                });
+								            this.quill.insertEmbed(range.index, 'image', link, Quill.sources.USER);
 								        }
                     }
                 }
