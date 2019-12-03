@@ -17,7 +17,7 @@
 			$elemento_novo_titulo = $_POST['elemento_novo_titulo'];
 			$elemento_novo_titulo = mysqli_real_escape_string($conn, $elemento_novo_titulo);
 			if ($elemento_novo_titulo == '') {
-				$elemento_novo_titulo = "'NULL'";
+				$elemento_novo_titulo = "NULL";
 			}
 			else {
 				$elemento_novo_titulo = "'$elemento_novo_titulo'";
@@ -27,7 +27,7 @@
 			$elemento_novo_autor = $_POST['elemento_novo_autor'];
 			$elemento_novo_autor = mysqli_real_escape_string($conn, $elemento_novo_autor);
 			if ($elemento_novo_autor == '') {
-				$elemento_novo_autor = "'NULL'";
+				$elemento_novo_autor = "NULL";
 			}
 			else {
 				$elemento_novo_autor = "'$elemento_novo_autor'";
@@ -37,7 +37,7 @@
 			$elemento_novo_capitulo = $_POST['elemento_novo_capitulo'];
 			$elemento_novo_capitulo = mysqli_real_escape_string($conn, $elemento_novo_capitulo);
 			if ($elemento_novo_capitulo == '') {
-				$elemento_novo_capitulo = "'NULL'";
+				$elemento_novo_capitulo = "NULL";
 			}
 			else {
 				$elemento_novo_capitulo = "'$elemento_novo_capitulo'";
