@@ -154,21 +154,19 @@
 					$prova_etapa_id = $prova['etapa_id'];
 					$prova_titulo = $prova['titulo'];
 					$prova_tipo = $prova['tipo'];
-					if ($prova_tipo == 1) {
-						$prova_etapa_titulo = return_etapa_titulo_id($prova_etapa_id);
-						$prova_etapa_edicao_ano_e_titulo = return_etapa_edicao_ano_e_titulo($prova_etapa_id);
-						if ($prova_etapa_edicao_ano_e_titulo != false) {
-							$prova_etapa_edicao_ano = $prova_etapa_edicao_ano_e_titulo[0];
-							$prova_etapa_edicao_titulo = $prova_etapa_edicao_ano_e_titulo[1];
-						} else {
-							break;
-						}
-						$selected = false;
-						if ($prova_id == $texto_apoio_prova_id) {
-							$selected = 'selected';
-						}
-						$template_modal_body_conteudo .= "<option value='$prova_id' $selected>$prova_etapa_edicao_ano: $prova_etapa_edicao_titulo: $prova_etapa_titulo: $prova_titulo</option>";
+					$prova_etapa_titulo = return_etapa_titulo_id($prova_etapa_id);
+					$prova_etapa_edicao_ano_e_titulo = return_etapa_edicao_ano_e_titulo($prova_etapa_id);
+					if ($prova_etapa_edicao_ano_e_titulo != false) {
+						$prova_etapa_edicao_ano = $prova_etapa_edicao_ano_e_titulo[0];
+						$prova_etapa_edicao_titulo = $prova_etapa_edicao_ano_e_titulo[1];
+					} else {
+						break;
 					}
+					$selected = false;
+					if ($prova_id == $texto_apoio_prova_id) {
+						$selected = 'selected';
+					}
+					$template_modal_body_conteudo .= "<option value='$prova_id' $selected>$prova_etapa_edicao_ano: $prova_etapa_edicao_titulo: $prova_etapa_titulo: $prova_titulo</option>";
 				}
 			}
 			$template_modal_body_conteudo .= "</select>";

@@ -117,6 +117,9 @@
 				$nova_questao_prova = false;
 			}
 		}
+		$nova_questao_prova_info = return_info_prova_id($nova_questao_prova);
+		$nova_questao_edicao_ano = $nova_questao_prova_info[2];
+		$nova_questao_etapa_id = $nova_questao_prova_info[4];
 		if (isset($_POST['nova_questao_numero'])) {
 			$nova_questao_numero = $_POST['nova_questao_numero'];
 		} else {
@@ -167,6 +170,12 @@
 		$quill_novo_questao_item5_html = false;
 		$quill_novo_questao_item5_text = false;
 		$quill_novo_questao_item5_content = false;
+		$nova_questao_item1_gabarito = "NULL";
+		$nova_questao_item2_gabarito = "NULL";
+		$nova_questao_item3_gabarito = "NULL";
+		$nova_questao_item4_gabarito = "NULL";
+		$nova_questao_item5_gabarito = "NULL";
+		
 		// ITEM 1
 		if (isset($_POST['nova_questao_item1_gabarito'])) {
 			$nova_questao_item1_gabarito = $_POST['nova_questao_item1_gabarito'];
@@ -289,8 +298,8 @@
 		} else {
 			$nova_questao_item5_gabarito = "NULL";
 		}
-		$conn->query("INSERT INTO sim_questoes (origem, concurso_id, texto_apoio_id, prova_id, enunciado_html, enunciado_text, enunciado_content, numero, materia, tipo, item1_html, item1_text, item1_content, item2_html, item2_text, item2_content, item3_html, item3_text, item3_content, item4_html, item4_text, item4_content, item5_html, item5_text, item5_content, item1_gabarito, item2_gabarito, item3_gabarito, item4_gabarito, item5_gabarito, user_id) VALUES ($nova_questao_origem, $concurso_id, $nova_questao_texto_apoio, $nova_questao_prova, '$quill_novo_questao_enunciado_html', '$quill_novo_questao_enunciado_text', '$quill_novo_questao_enunciado_content', $nova_questao_numero, $nova_questao_materia, $nova_questao_tipo, $quill_novo_questao_item1_html, $quill_novo_questao_item1_text, $quill_novo_questao_item1_content, $quill_novo_questao_item2_html, $quill_novo_questao_item2_text, $quill_novo_questao_item2_content, $quill_novo_questao_item3_html, $quill_novo_questao_item3_text, $quill_novo_questao_item3_content, $quill_novo_questao_item4_html, $quill_novo_questao_item4_text, $quill_novo_questao_item4_content, $quill_novo_questao_item5_html, $quill_novo_questao_item5_text, $quill_novo_questao_item5_content, $nova_questao_item1_gabarito, $nova_questao_item2_gabarito, $nova_questao_item3_gabarito, $nova_questao_item4_gabarito, $nova_questao_item5_gabarito, $user_id)");
-		$conn->query("INSERT INTO sim_questoes_arquivo (origem, concurso_id, texto_apoio_id, prova_id, enunciado_html, enunciado_text, enunciado_content, numero, materia, tipo, item1_html, item1_text, item1_content, item2_html, item2_text, item2_content, item3_html, item3_text, item3_content, item4_html, item4_text, item4_content, item5_html, item5_text, item5_content, item1_gabarito, item2_gabarito, item3_gabarito, item4_gabarito, item5_gabarito, user_id) VALUES ($nova_questao_origem, $concurso_id, $nova_questao_texto_apoio, $nova_questao_prova, '$quill_novo_questao_enunciado_html', '$quill_novo_questao_enunciado_text', '$quill_novo_questao_enunciado_content', $nova_questao_numero, $nova_questao_materia, $nova_questao_tipo, $quill_novo_questao_item1_html, $quill_novo_questao_item1_text, $quill_novo_questao_item1_content, $quill_novo_questao_item2_html, $quill_novo_questao_item2_text, $quill_novo_questao_item2_content, $quill_novo_questao_item3_html, $quill_novo_questao_item3_text, $quill_novo_questao_item3_content, $quill_novo_questao_item4_html, $quill_novo_questao_item4_text, $quill_novo_questao_item4_content, $quill_novo_questao_item5_html, $quill_novo_questao_item5_text, $quill_novo_questao_item5_content, $nova_questao_item1_gabarito, $nova_questao_item2_gabarito, $nova_questao_item3_gabarito, $nova_questao_item4_gabarito, $nova_questao_item5_gabarito, $user_id)");
+		$conn->query("INSERT INTO sim_questoes (origem, concurso_id, edicao_ano, texto_apoio_id, etapa_id, prova_id, enunciado_html, enunciado_text, enunciado_content, numero, materia, tipo, item1_html, item1_text, item1_content, item2_html, item2_text, item2_content, item3_html, item3_text, item3_content, item4_html, item4_text, item4_content, item5_html, item5_text, item5_content, item1_gabarito, item2_gabarito, item3_gabarito, item4_gabarito, item5_gabarito, user_id) VALUES ($nova_questao_origem, $concurso_id, $nova_questao_edicao_ano, $nova_questao_texto_apoio, $nova_questao_etapa_id, $nova_questao_prova, '$quill_novo_questao_enunciado_html', '$quill_novo_questao_enunciado_text', '$quill_novo_questao_enunciado_content', $nova_questao_numero, $nova_questao_materia, $nova_questao_tipo, $quill_novo_questao_item1_html, $quill_novo_questao_item1_text, $quill_novo_questao_item1_content, $quill_novo_questao_item2_html, $quill_novo_questao_item2_text, $quill_novo_questao_item2_content, $quill_novo_questao_item3_html, $quill_novo_questao_item3_text, $quill_novo_questao_item3_content, $quill_novo_questao_item4_html, $quill_novo_questao_item4_text, $quill_novo_questao_item4_content, $quill_novo_questao_item5_html, $quill_novo_questao_item5_text, $quill_novo_questao_item5_content, $nova_questao_item1_gabarito, $nova_questao_item2_gabarito, $nova_questao_item3_gabarito, $nova_questao_item4_gabarito, $nova_questao_item5_gabarito, $user_id)");
+		$conn->query("INSERT INTO sim_questoes_arquivo (origem, concurso_id, edicao_ano, texto_apoio_id, etapa_id, prova_id, enunciado_html, enunciado_text, enunciado_content, numero, materia, tipo, item1_html, item1_text, item1_content, item2_html, item2_text, item2_content, item3_html, item3_text, item3_content, item4_html, item4_text, item4_content, item5_html, item5_text, item5_content, item1_gabarito, item2_gabarito, item3_gabarito, item4_gabarito, item5_gabarito, user_id) VALUES ($nova_questao_origem, $concurso_id, $nova_questao_edicao_ano, $nova_questao_texto_apoio, $nova_questao_etapa_id, $nova_questao_prova, '$quill_novo_questao_enunciado_html', '$quill_novo_questao_enunciado_text', '$quill_novo_questao_enunciado_content', $nova_questao_numero, $nova_questao_materia, $nova_questao_tipo, $quill_novo_questao_item1_html, $quill_novo_questao_item1_text, $quill_novo_questao_item1_content, $quill_novo_questao_item2_html, $quill_novo_questao_item2_text, $quill_novo_questao_item2_content, $quill_novo_questao_item3_html, $quill_novo_questao_item3_text, $quill_novo_questao_item3_content, $quill_novo_questao_item4_html, $quill_novo_questao_item4_text, $quill_novo_questao_item4_content, $quill_novo_questao_item5_html, $quill_novo_questao_item5_text, $quill_novo_questao_item5_content, $nova_questao_item1_gabarito, $nova_questao_item2_gabarito, $nova_questao_item3_gabarito, $nova_questao_item4_gabarito, $nova_questao_item5_gabarito, $user_id)");
 	}
 	
 	if (isset($_POST['novo_simulado_trigger'])) {
@@ -375,6 +384,7 @@
                             <select class='$select_classes' name='novo_simulado_tipo' required>
                                   <option value='' disabled selected>Tipo:</option>
                                   <option value='todas_objetivas_oficiais'>Todas as questões objetivas oficiais</option>
+                                  <option value='todas_dissertativas_oficiais'>Todas as questões dissertativas oficiais</option>
                                   <option value='todas_objetivas_inoficiais'>Todas as questões objetivas não-oficiais</option>
                                   <option value='inteligente'>Criado por nosso algoritmo</option>
                                   <option value='questao_errou'>Apenas questões em que você errou pelo menos um item</option>
@@ -462,7 +472,7 @@
                             <select class='$select_classes' name='nova_prova_tipo' required>
                               <option value='' disabled selected>Tipo de prova:</option>
                               <option value='1'>Objetiva</option>
-                              <option value='2'>Discursiva</option>
+                              <option value='2'>Dissertativa</option>
                               <option value='3'>Oral</option>
                               <option value='4'>Física</option>
                             </select>
@@ -489,17 +499,15 @@
 					$prova_etapa_id = $prova['etapa_id'];
 					$prova_titulo = $prova['titulo'];
 					$prova_tipo = $prova['tipo'];
-					if ($prova_tipo == 1) {
-						$prova_etapa_titulo = return_etapa_titulo_id($prova_etapa_id);
-						$prova_etapa_edicao_ano_e_titulo = return_etapa_edicao_ano_e_titulo($prova_etapa_id);
-						if ($prova_etapa_edicao_ano_e_titulo != false) {
-							$prova_etapa_edicao_ano = $prova_etapa_edicao_ano_e_titulo[0];
-							$prova_etapa_edicao_titulo = $prova_etapa_edicao_ano_e_titulo[1];
-						} else {
-							break;
-						}
-						$template_modal_body_conteudo .= "<option value='$prova_id'>$prova_etapa_edicao_ano: $prova_etapa_edicao_titulo: $prova_etapa_titulo: $prova_titulo</option>";
+					$prova_etapa_titulo = return_etapa_titulo_id($prova_etapa_id);
+					$prova_etapa_edicao_ano_e_titulo = return_etapa_edicao_ano_e_titulo($prova_etapa_id);
+					if ($prova_etapa_edicao_ano_e_titulo != false) {
+						$prova_etapa_edicao_ano = $prova_etapa_edicao_ano_e_titulo[0];
+						$prova_etapa_edicao_titulo = $prova_etapa_edicao_ano_e_titulo[1];
+					} else {
+						break;
 					}
+					$template_modal_body_conteudo .= "<option value='$prova_id'>$prova_etapa_edicao_ano: $prova_etapa_edicao_titulo: $prova_etapa_titulo: $prova_titulo</option>";
 				}
 			}
 			$template_modal_body_conteudo .= "</select>";
@@ -576,17 +584,15 @@
 					$prova_etapa_id = $prova['etapa_id'];
 					$prova_titulo = $prova['titulo'];
 					$prova_tipo = $prova['tipo'];
-					if ($prova_tipo == 1) {
-						$prova_etapa_titulo = return_etapa_titulo_id($prova_etapa_id);
-						$prova_etapa_edicao_ano_e_titulo = return_etapa_edicao_ano_e_titulo($prova_etapa_id);
-						if ($prova_etapa_edicao_ano_e_titulo != false) {
-							$prova_etapa_edicao_ano = $prova_etapa_edicao_ano_e_titulo[0];
-							$prova_etapa_edicao_titulo = $prova_etapa_edicao_ano_e_titulo[1];
-						} else {
-							break;
-						}
-						$template_modal_body_conteudo .= "<option value='$prova_id'>$prova_etapa_edicao_ano: $prova_etapa_edicao_titulo: $prova_etapa_titulo: $prova_titulo</option>";
+					$prova_etapa_titulo = return_etapa_titulo_id($prova_etapa_id);
+					$prova_etapa_edicao_ano_e_titulo = return_etapa_edicao_ano_e_titulo($prova_etapa_id);
+					if ($prova_etapa_edicao_ano_e_titulo != false) {
+						$prova_etapa_edicao_ano = $prova_etapa_edicao_ano_e_titulo[0];
+						$prova_etapa_edicao_titulo = $prova_etapa_edicao_ano_e_titulo[1];
+					} else {
+						break;
 					}
+					$template_modal_body_conteudo .= "<option value='$prova_id'>$prova_etapa_edicao_ano: $prova_etapa_edicao_titulo: $prova_etapa_titulo: $prova_titulo</option>";
 				}
 			}
 			$template_modal_body_conteudo .= "</select>";
@@ -621,6 +627,7 @@
 			$sim_quill_id = 'questao_enunciado';
 			$sim_quill_form = include('templates/sim_quill.php');
 			$template_modal_body_conteudo .= $sim_quill_form;
+			
 			$template_modal_body_conteudo .= "<h3 class='mt-3'>Item 1</h3>";
 			$template_modal_body_conteudo .= "
                             <select class='mdb-select md-form' name='nova_questao_item1_gabarito'>

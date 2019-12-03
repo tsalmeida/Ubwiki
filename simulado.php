@@ -31,18 +31,30 @@
 						$template_titulo = 'Método';
 						$template_conteudo = false;
 						$template_conteudo .= "<p>As suas respostas no simulado abaixo serão gravadas e influenciarão simulados gerados no futuro. Para que esse sistema funcione corretamente, recomendamos que você preencha as questões em condições próximas às reais por que você passará.</p>";
-						$template_conteudo .= "<p>No entanto, sabemos que muitas pessoas usam simulados como uma forma de aprender o conteúdo e, portanto, podem preferir ter acesso a informações adicionais. Por esse motivo, nosso sistema inclui links para páginas sobre cada questão, assim como para páginas sobre os tópicos relacionados.</p>";
-						$template_conteudo .= "<p>Nesses casos, recomendamos que você preencha o item de acordo com seu conhecimento, deixando para fazer sua pesquisa apenas posteriormente, sem que afete suas respostas iniciais. Dessa maneira, a análise posterior dos resultados não será influenciada.</p>";
+						$template_conteudo .= "<p>No entanto, sabemos que muitas pessoas usam simulados como uma forma de aprender o conteúdo e, portanto, podem preferir ter acesso a informações adicionais. Por esse motivo, nosso sistema inclui links para páginas sobre cada prova, texto de apoio e questão, assim como para páginas sobre os tópicos relacionados.</p>";
+						$template_conteudo .= "<p>Nesses casos, recomendamos que você responda as questões com seu conhecimento, deixando para fazer sua pesquisa apenas posteriormente, sem que afete suas respostas iniciais. Dessa maneira, a análise posterior dos resultados não será influenciada.</p>";
 						include 'templates/page_element.php';
 						
 						$template_id = 'simulado_dados';
 						$template_titulo = 'Sobre este simulado';
 						$template_conteudo = false;
 						if ($simulado_tipo == 'todas_objetivas_oficiais') {
-							$template_conteudo .= "<p>Este simulado inclui todas as questões oficiais deste curso de que dispomos em nosso banco de dados.</p>";
-							$questoes = $conn->query("SELECT DISTINCT prova_id FROM sim_questoes WHERE concurso_id = $concurso_id AND origem = 1");
+							$simulado_tipo_string = 'todas as questões objetivas oficiais';
+						    $simulado_tipo_origem = 1;
+						    $simulado_tipo_questao_tipo = 1;
+						    $simulado_tipo_questao_tipo_2 = 2;
+                        }
+						if ($simulado_tipo == 'todas_dissertativas_oficiais') {
+							$simulado_tipo_string = 'todas as questões dissertativas oficiais';
+							$simulado_tipo_origem = 1;
+							$simulado_tipo_questao_tipo = 3;
+							$simulado_tipo_questao_tipo_2 = 0;
+						}
+						if ($simulado_tipo != false) {
+							$template_conteudo .= "<p>Este simulado inclui $simulado_tipo_string deste curso de que dispomos em nosso banco de dados.</p>";
+							$questoes = $conn->query("SELECT DISTINCT prova_id FROM sim_questoes WHERE concurso_id = $concurso_id AND origem = $simulado_tipo_origem AND (tipo = $simulado_tipo_questao_tipo OR tipo = $simulado_tipo_questao_tipo_2)");
 							if ($questoes->num_rows > 0) {
-								$template_conteudo .= "<p>Provas oficiais registradas para este curso:
+								$template_conteudo .= "<p>Provas oficiais registradas para este curso, segundo os critérios determinados:
 </p>";
 								$template_conteudo .= "<ul class='list-group'>";
 								$todas_as_provas = array();
@@ -107,7 +119,7 @@ $prova_id)");
 										$template_conteudo = false;
 										$conn->query("INSERT INTO sim_detalhes (simulado_id, tipo, elemento_id) VALUES ($simulado_id, 'materia', $unique_materia_id)");
 										include 'templates/page_element.php';
-										$questoes = $conn->query("SELECT id, texto_apoio_id, numero, enunciado_html, materia, tipo, item1_html, item2_html, item3_html, item4_html, item5_html, item1_gabarito, item2_gabarito, item3_gabarito, item4_gabarito, item5_gabarito FROM sim_questoes WHERE prova_id = $prova_id AND materia = $unique_materia_id ORDER BY numero");
+										$questoes = $conn->query("SELECT id, texto_apoio_id, numero, enunciado_html, materia, tipo, item1_html, item2_html, item3_html, item4_html, item5_html, item1_gabarito, item2_gabarito, item3_gabarito, item4_gabarito, item5_gabarito FROM sim_questoes WHERE prova_id = $prova_id AND materia = $unique_materia_id AND (tipo = $simulado_tipo_questao_tipo OR tipo = $simulado_tipo_questao_tipo_2) ORDER BY numero");
 										if ($questoes->num_rows > 0) {
 											while ($questao = $questoes->fetch_assoc()) {
 												$questao_id = $questao['id'];
