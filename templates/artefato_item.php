@@ -25,6 +25,10 @@
 		$fa_icone = 'fa-file-check';
 		$fa_primary_color = '#b39ddb';
 		$fa_secondary_color = '#673ab7';
+	} elseif (($artefato_tipo == 'anotacao_prova') || ($artefato_tipo == 'anotacao_texto_apoio') || ($artefato_tipo == 'anotacao_questao')) {
+		$fa_icone = $fa_icone_anotacao;
+		$fa_primary_color = '#b39ddb';
+		$fa_secondary_color = $fa_secondary_color_anotacao;
 	}
 	
 	if (!isset($artefato_page_id_titulo)) {

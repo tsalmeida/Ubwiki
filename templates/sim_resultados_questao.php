@@ -2,7 +2,7 @@
 	$questao_item_string = converter_respostas('resposta', $template_questao_item);
 	$questao_item_gabarito_string = converter_respostas('gabarito', $template_dado_questao_item_gabarito);
 	$template_conteudo .= "
-													    <div class='form-check-inline border border-light respostas_box justify-content-around grey lighten-5 rounded mt-1'>
+													    <div class='form-check-inline border border-light respostas_box justify-content-between grey lighten-5 rounded mt-1 px-3'>
 													        <span><strong>$template_questao_item_nome</strong></span>
 													        <span><strong>Sua resposta:</strong> $questao_item_string</span>
                                 	<span><strong>Gabarito:</strong> $questao_item_gabarito_string</span>

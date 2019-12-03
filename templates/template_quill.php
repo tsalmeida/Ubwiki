@@ -37,8 +37,6 @@
 			$template_quill_page_id = $elemento_id;
 		} elseif (isset($questao_id)) {
 			$template_quill_page_id = $questao_id;
-		} elseif (isset($prova_id)) {
-			$template_quill_page_id = $prova_id;
 		} elseif (isset($texto_apoio_id)) {
 			$template_quill_page_id = $texto_apoio_id;
 		} elseif (isset($materia_id)) {

@@ -113,6 +113,7 @@
                                             ";
 											$template_conteudo = false;
 											$template_conteudo .= $texto_apoio_enunciado;
+											$template_load_invisible = true;
 											$template_conteudo .= "<div id='special_li'>$texto_apoio_html</div>";
 											include 'templates/page_element.php';
 											break;
@@ -213,3 +214,7 @@
     </div>
 </div>
 </body>
+<?php
+    include 'templates/footer.html';
+    include 'templates/html_bottom.php';
+  ?>

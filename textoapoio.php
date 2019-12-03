@@ -45,7 +45,7 @@
 		}
 		
 		if (($novo_texto_apoio_origem != false) && ($novo_texto_apoio_prova != false) && ($novo_texto_apoio_titulo != false) && ($novo_texto_apoio_enunciado_html != false) && ($novo_texto_apoio_html != false)) {
-            $conn->query("INSERT INTO sim_textos_apoio_arquivo (concurso_id, origem, prova_id, titulo, enunciado_html, enunciado_text, enunciado_content, texto_apoio_html, texto_apoio_text, texto_apoio_content, user_id) VALUES ($concurso_id, $novo_texto_apoio_origem, $novo_texto_apoio_prova, '$novo_texto_apoio_titulo', '$novo_texto_apoio_enunciado_html', '$novo_texto_apoio_enunciado_text', '$novo_texto_apoio_enunciado_content', '$novo_texto_apoio_html', '$novo_texto_apoio_text', '$novo_texto_apoio_content', $user_id)");
+			$conn->query("INSERT INTO sim_textos_apoio_arquivo (concurso_id, origem, prova_id, titulo, enunciado_html, enunciado_text, enunciado_content, texto_apoio_html, texto_apoio_text, texto_apoio_content, user_id) VALUES ($concurso_id, $novo_texto_apoio_origem, $novo_texto_apoio_prova, '$novo_texto_apoio_titulo', '$novo_texto_apoio_enunciado_html', '$novo_texto_apoio_enunciado_text', '$novo_texto_apoio_enunciado_content', '$novo_texto_apoio_html', '$novo_texto_apoio_text', '$novo_texto_apoio_content', $user_id)");
 			$conn->query("UPDATE sim_textos_apoio SET origem = $novo_texto_apoio_origem, prova_id = $novo_texto_apoio_prova, titulo = '$novo_texto_apoio_titulo', enunciado_html = '$novo_texto_apoio_enunciado_html', enunciado_text = '$novo_texto_apoio_enunciado_text', enunciado_content = '$novo_texto_apoio_enunciado_content', texto_apoio_html = '$novo_texto_apoio_html', texto_apoio_text = '$novo_texto_apoio_text', texto_apoio_content = '$novo_texto_apoio_content', user_id = $user_id WHERE id = $texto_apoio_id");
 		}
 	}
@@ -93,6 +93,7 @@
 								$template_id = 'verbete_texto_apoio';
 								$template_titulo = 'Verbete';
 								$template_quill_empty_content = "<p id='verbete_vazio_{$template_id}'>Seja o primeiro a contribuir para a construção deste verbete.</p>";
+								$template_quill_page_id = $texto_apoio_id;
 								$template_botoes = false;
 								$template_conteudo = include 'templates/template_quill.php';
 								include 'templates/page_element.php';
@@ -113,8 +114,8 @@
 								$template_titulo = 'Questões deste texto de apoio';
 								$template_conteudo = false;
 								$questoes = $conn->query("SELECT ");
-								
-								
+							
+							
 							?>
             </div>
             <div id="coluna_direita" class="<?php echo $coluna_classes; ?>">
@@ -122,6 +123,7 @@
 								$template_id = 'anotacoes_texto_apoio';
 								$template_titulo = 'Anotações privadas';
 								$template_quill_empty_content = "<p id='verbete_vazio_{$template_id}'>Você ainda não fez anotações sobre este texto de apoio.</p>";
+								$template_quill_page_id = $texto_apoio_id;
 								$template_botoes = false;
 								$template_conteudo = include 'templates/template_quill.php';
 								include 'templates/page_element.php';

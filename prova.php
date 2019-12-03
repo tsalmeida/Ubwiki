@@ -56,6 +56,7 @@
 						$template_id = 'verbete_prova';
 						$template_titulo = 'Verbete';
 						$template_quill_empty_content = "<p id='verbete_vazio_{$template_id}'>Seja o primeiro a contribuir para a construção deste verbete.</p>";
+						$template_quill_page_id = $prova_id;
 						$template_botoes = false;
 						$template_conteudo = include 'templates/template_quill.php';
 						include 'templates/page_element.php';
@@ -116,6 +117,7 @@
 					<?php
 						$template_id = 'anotacoes_prova';
 						$template_titulo = 'Anotações privadas';
+						$template_quill_page_id = $prova_id;
 						$template_quill_empty_content = "<p id='verbete_vazio_{$template_id}'>Você ainda não fez anotações sobre esta prova.</p>";
 						$template_botoes = false;
 						$template_conteudo = include 'templates/template_quill.php';
