@@ -8,7 +8,7 @@
 ?>
 
 <div class="container-fluid">
-
+	
 	<?php
 		$template_titulo = 'Seus artefatos';
 		$template_titulo_context = true;
@@ -20,8 +20,9 @@
 					<?php
 						$template_id = 'anotacoes_privadas';
 						$template_titulo = 'Anotações privadas';
-						$template_conteudo = false;
 						$template_conteudo_class = 'justify-content-start';
+						$template_conteudo_no_col = true;
+						$template_conteudo = false;
 						$anotacoes_cursos = $conn->query("SELECT id, page_id, titulo, criacao FROM Textos WHERE tipo = 'anotacoes_curso' AND user_id = $user_id ORDER BY id DESC");
 						if ($anotacoes_cursos->num_rows > 0) {
 							$template_conteudo = false;
@@ -75,11 +76,13 @@
 							}
 						}
 						include 'templates/page_element.php';
-
+						
 						$imagens_publicas = $conn->query("SELECT id, criacao, titulo, arquivo FROM Elementos WHERE user_id = $user_id AND tipo = 'imagem' ORDER BY id DESC");
 						if ($imagens_publicas->num_rows > 0) {
 							$template_id = 'imagens_publicas';
 							$template_titulo = 'Imagens públicas';
+							$template_conteudo_class = 'justify-content-start';
+							$template_conteudo_no_col = true;
 							$template_conteudo = false;
 							while ($imagem_publica = $imagens_publicas->fetch_assoc()) {
 								$artefato_id = $imagem_publica['id'];
@@ -92,12 +95,14 @@
 							}
 							include 'templates/page_element.php';
 						}
-
-
+						
+						
 						$respostas = $conn->query("SELECT DISTINCT simulado_id FROM sim_respostas WHERE user_id = $user_id");
 						if ($respostas->num_rows > 0) {
 							$template_id = 'simulados';
 							$template_titulo = 'Simulados';
+							$template_conteudo_class = 'justify-content-start';
+							$template_conteudo_no_col = true;
 							$template_conteudo = false;
 							while ($resposta = $respostas->fetch_assoc()) {
 								$artefato_id = $resposta['simulado_id'];

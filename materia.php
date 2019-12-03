@@ -65,6 +65,7 @@
 						$template_id = 'lista_topicos';
 						$template_titulo = 'Tópicos';
 						$template_conteudo = false;
+						$template_conteudo_no_col = true;
 						if ($materia_titulo == false) {
 							$template_conteudo .= "<h4>Página não-encontrada</h4>
           <p>Clique <a href='index.php'>aqui</a> para retornar.</p>
@@ -137,7 +138,7 @@
                                     }
 									$cor_badge = 'bg-white';
 									$icone_badge = "
-									    <span class='badge $cor_badge $estado_cor badge-pill z-depth-0'>
+									    <span class='ml-3 badge $cor_badge $estado_cor badge-pill z-depth-0'>
                                             <i class='fa $icone_estado fa-fw'></i>
                                         </span>
 									";

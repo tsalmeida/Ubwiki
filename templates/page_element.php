@@ -21,6 +21,15 @@
 	if (!isset($template_classes)) {
 		$template_classes = false;
 	}
+	
+	$template_conteudo_no_col1 = false;
+	$template_conteudo_no_col2 = false;
+	
+	if (!isset($template_conteudo_no_col)) {
+		$template_conteudo_no_col = false;
+		$template_conteudo_no_col1 = "<div class='col'>";
+		$template_conteudo_no_col2 = "</div>";
+	}
 
 	$template_collapse = $template_id . "_collapse";
 	$template_esconder = "esconder_" . $template_id;
@@ -46,7 +55,7 @@
 	if (!isset($template_titulo_heading)) {
 		$template_titulo_heading = 'h1';
 	}
-
+	
 	echo "
 <div id='$template_id' class='row show mb-2 border-top border-light pt-4 $template_classes'>
 	<div class='col'>
@@ -63,9 +72,9 @@
     </div>
         
     <div class='row $template_collapse collapse $show $template_conteudo_class'>
-    	<div class='col'>
+    	$template_conteudo_no_col1
       	$template_conteudo
-      </div>
+      $template_conteudo_no_col2
     </div>
   </div>
 </div>
@@ -93,16 +102,9 @@
 	unset($template_classes);
 	unset($template_botoes_padrao);
 	unset($template_titulo_heading);
-
-	unset($template_quill_form_id);
-	unset($template_quill_conteudo_html);
-	unset($template_quill_conteudo_text);
-	unset($template_quill_conteudo_content);
-	unset($template_quill_container_id);
-	unset($template_quill_editor_id);
-	unset($template_quill_editor_classes);
-	unset($template_quill_conteudo_opcional);
-	unset($template_quill_botoes_collapse_stuff);
+	unset($template_conteudo_no_col);
+	unset($template_conteudo_no_col1);
+	unset($template_conteudo_no_col2);
 
 
 ?>
