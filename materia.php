@@ -10,7 +10,7 @@
     }
 	$materia_titulo = false;
 	$found = false;
-	$result = $conn->query("SELECT titulo FROM Materias WHERE concurso_id = '$concurso_id' AND estado = 1 AND id = '$materia_id' ORDER BY ordem");
+	$result = $conn->query("SELECT titulo FROM Materias WHERE estado = 1 AND id = '$materia_id' ORDER BY ordem");
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
 			$materia_titulo = $row["titulo"];
@@ -73,7 +73,7 @@
 						}
 						$template_conteudo .= "<ul class='list-group'>";
 						
-						$result = $conn->query("SELECT DISTINCT nivel FROM Topicos WHERE concurso_id = '$concurso_id' AND materia_id = '$materia_id'");
+						$result = $conn->query("SELECT DISTINCT nivel FROM Topicos WHERE materia_id = '$materia_id'");
 						$nivel_count = 0;
 						while ($row = mysqli_fetch_array($result)) {
 							$nivel_count++;
@@ -115,7 +115,7 @@
 						$spacing4 = "style='padding-left: 15ch'";
 						$spacing5 = "style='padding-left: 20ch'";
 						
-						$result = $conn->query("SELECT id, estado_pagina, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Topicos WHERE concurso_id = '$concurso_id' AND materia_id = '$materia_id' ORDER BY ordem");
+						$result = $conn->query("SELECT id, estado_pagina, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Topicos WHERE materia_id = '$materia_id' ORDER BY ordem");
 						if ($result->num_rows > 0) {
 							while ($row = $result->fetch_assoc()) {
 								$topico_id = $row["id"];

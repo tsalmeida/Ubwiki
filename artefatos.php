@@ -26,8 +26,11 @@
 						$artefato_page_id = $anotacao_cursos['page_id'];
 						$artefato_titulo = $anotacao_cursos['titulo'];
 						$artefato_criacao = $anotacao_cursos['criacao'];
-						$artefato_tipo = 'Anotação de tópico';
 						$artefato_page_id_titulo = return_concurso_titulo_id($artefato_page_id);
+						if ($artefato_titulo == false) {
+							$artefato_titulo = $artefato_page_id_titulo;
+							$artefato_page_id_titulo = false;
+						}
 						$artefato_tipo = 'anotacao_curso';
 						$artefato_link = false;
 						include 'templates/artefato_item.php';
@@ -40,8 +43,11 @@
 						$artefato_page_id = $anotacao_materias['page_id'];
 						$artefato_titulo = $anotacao_materias['titulo'];
 						$artefato_criacao = $anotacao_materias['criacao'];
-						$artefato_tipo = 'Anotação de tópico';
 						$artefato_page_id_titulo = return_materia_titulo_id($artefato_page_id);
+						if ($artefato_titulo == false) {
+							$artefato_titulo = $artefato_page_id_titulo;
+							$artefato_page_id_titulo = false;
+						}
 						$artefato_tipo = 'anotacao_materia';
 						$artefato_link = "materia.php?materia_id=$artefato_page_id";
 						include 'templates/artefato_item.php';
@@ -54,8 +60,11 @@
 						$artefato_page_id = $anotacao_topicos['page_id'];
 						$artefato_titulo = $anotacao_topicos['titulo'];
 						$artefato_criacao = $anotacao_topicos['criacao'];
-						$artefato_tipo = 'Anotação de tópico';
 						$artefato_page_id_titulo = return_titulo_topico($artefato_page_id);
+						if ($artefato_titulo == false) {
+							$artefato_titulo = $artefato_page_id_titulo;
+							$artefato_page_id_titulo = false;
+						}
 						$artefato_tipo = 'anotacao_topico';
 						$artefato_link = "verbete.php?topico_id=$artefato_page_id";
 						include 'templates/artefato_item.php';
