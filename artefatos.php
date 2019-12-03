@@ -129,25 +129,26 @@
 						}
 						include 'templates/page_element.php';
 						
-						$imagens_publicas = $conn->query("SELECT id, criacao, titulo, arquivo FROM Elementos WHERE user_id = $user_id AND tipo = 'imagem' ORDER BY id DESC");
+						$imagens_publicas = $conn->query("SELECT id, criacao, titulo, arquivo, estado FROM Elementos WHERE user_id = $user_id AND tipo = 'imagem' ORDER BY id DESC");
 						if ($imagens_publicas->num_rows > 0) {
 							$template_id = 'imagens_publicas';
 							$template_titulo = 'Imagens públicas';
 							$template_conteudo_class = 'justify-content-start';
 							$template_conteudo_no_col = true;
 							$template_conteudo = false;
+							
 							while ($imagem_publica = $imagens_publicas->fetch_assoc()) {
 								$artefato_id = $imagem_publica['id'];
 								$artefato_criacao = $imagem_publica['criacao'];
 								$artefato_titulo = $imagem_publica['titulo'];
 								$artefato_imagem_arquivo = $imagem_publica['arquivo'];
+								$artefato_estado = $imagem_publica['estado'];
 								$artefato_link = "elemento.php?id=$artefato_id";
 								$artefato_tipo = 'imagem_publica';
 								$template_conteudo .= include 'templates/artefato_item.php';
 							}
 							include 'templates/page_element.php';
 						}
-						
 						
 						$respostas = $conn->query("SELECT DISTINCT simulado_id FROM sim_respostas WHERE user_id = $user_id");
 						if ($respostas->num_rows > 0) {
