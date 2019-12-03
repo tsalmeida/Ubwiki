@@ -96,6 +96,8 @@
 														</div>
 													";
 		}
+	} elseif ($questao_tipo == 3) {
+		$template_conteudo .= "<p>QUILL AQUI</p>";
 	}
 	$template_conteudo .= "
 			<div class='row d-flex justify-content-center'>

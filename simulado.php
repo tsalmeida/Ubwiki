@@ -52,7 +52,8 @@
 						}
 						if ($simulado_tipo != false) {
 							$template_conteudo .= "<p>Este simulado inclui $simulado_tipo_string deste curso de que dispomos em nosso banco de dados.</p>";
-							$questoes = $conn->query("SELECT DISTINCT prova_id FROM sim_questoes WHERE concurso_id = $concurso_id AND origem = $simulado_tipo_origem AND (tipo = $simulado_tipo_questao_tipo OR tipo = $simulado_tipo_questao_tipo_2)");
+							
+							$questoes = $conn->query("SELECT DISTINCT prova_id, edicao_ano, etapa_id FROM sim_questoes WHERE concurso_id = $concurso_id AND origem = $simulado_tipo_origem AND (tipo = $simulado_tipo_questao_tipo OR tipo = $simulado_tipo_questao_tipo_2) ORDER BY edicao_ano, etapa_id");
 							if ($questoes->num_rows > 0) {
 								$template_conteudo .= "<p>Provas oficiais registradas para este curso, segundo os critérios determinados:
 </p>";
