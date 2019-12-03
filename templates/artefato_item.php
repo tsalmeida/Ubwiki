@@ -21,6 +21,10 @@
 		$fa_icone = $fa_icone_imagem;
 		$fa_primary_color = $fa_primary_color_imagem;
 		$fa_secondary_color = $fa_secondary_color_imagem;
+	} elseif ($artefato_tipo == 'simulado') {
+		$fa_icone = 'fa-file-check';
+		$fa_primary_color = '#b39ddb';
+		$fa_secondary_color = '#673ab7';
 	}
 	
 	if (!isset($artefato_page_id_titulo)) {

@@ -77,7 +77,20 @@
 					}
 				}
 			?>
-
+			<?php
+				$respostas = $conn->query("SELECT DISTINCT simulado_id FROM sim_respostas WHERE user_id = $user_id");
+				if ($respostas->num_rows > 0) {
+					echo "<h2 class='col-12 text-center mb-5'>Simulados</h2>";
+					while ($resposta = $respostas->fetch_assoc()) {
+						$artefato_id = $resposta['simulado_id'];
+						$artefato_criacao = false;
+						$artefato_titulo = 'Simulado';
+						$artefato_link = "resultados.php?simulado_id=$artefato_id";
+						$artefato_tipo = 'simulado';
+						include 'templates/artefato_item.php';
+					}
+				}
+			?>
 
     </div>
 </div>

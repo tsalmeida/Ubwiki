@@ -87,9 +87,12 @@
 		header('Location:cursos.php');
 	} else {
 		$concurso_id = $_SESSION['concurso_id'];
-		if ($concurso_id != false) {
-			$concurso_sigla = return_concurso_sigla($concurso_id);
-		}
+	}
+	if (isset($_GET['concurso_id'])) {
+		$concurso_id = $_GET['concurso_id'];
+	}
+	if ($concurso_id != false) {
+		$concurso_sigla = return_concurso_sigla($concurso_id);
 	}
 	
 	function extract_gdoc($url)
