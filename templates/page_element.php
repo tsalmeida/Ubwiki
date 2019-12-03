@@ -13,7 +13,7 @@
 		$template_conteudo = false;
 	}
 	if (!isset($template_conteudo_class)) {
-		$template_conteudo_class = false;
+		$template_conteudo_class = 'justify-content-center';
 	}
 	if (!isset($template_load_invisible)) {
 		$template_load_invisible = false;
@@ -48,7 +48,8 @@
 	}
 
 	echo "
-<div id='$template_id' class='show mb-2 border-top border-light pt-4 $template_classes'>
+<div id='$template_id' class='row show mb-2 border-top border-light pt-4 $template_classes'>
+	<div class='col'>
     <div class='row d-flex justify-content-between'>
       <div class='col-lg-9 col-md-8'>
         <$template_titulo_heading class='{$template_titulo_heading}-responsive'>$template_titulo</$template_titulo_heading>
@@ -61,11 +62,12 @@
       </div>
     </div>
         
-    <div class='row py-3 $template_collapse collapse $show'>
-        <div class='col-12 $template_conteudo_class'>
-            $template_conteudo
-        </div>
+    <div class='row $template_collapse collapse $show $template_conteudo_class'>
+    	<div class='col'>
+      	$template_conteudo
+      </div>
     </div>
+  </div>
 </div>
 <script type='text/javascript'>
 		$('#$template_esconder').click(function(){

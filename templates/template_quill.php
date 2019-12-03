@@ -146,7 +146,7 @@
         <input name='$quill_novo_verbete_text' type='hidden'>
         <pre><input name='$quill_novo_verbete_content' type='hidden'></pre>
         <div class='row'>
-            <div class='container col-12'>
+            <div class='container col'>
                 <div id='quill_container_{$template_id}'>
                     <div id='quill_editor_{$template_id}' class='$template_quill_editor_classes'>
                     </div>

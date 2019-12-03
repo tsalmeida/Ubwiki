@@ -30,15 +30,16 @@
 	if (!isset($artefato_page_id_titulo)) {
 		$artefato_page_id_titulo = false;
 	}
-	
-	echo "
+
+	$artefato_template_result = false;
+	$artefato_template_result .= "
      <div class='col-lg-2 col-md-3 col-sm-4 col-xs-12 py-3 artefato' title='Criado em: $artefato_criacao'>
         <span class='row justify-content-center text-center'><a href='$artefato_link' target='_blank'><i class='fad $fa_icone fa-6x fa-fw fa-swap-opacity d-block' style='--fa-primary-color: $fa_primary_color; --fa-secondary-color: $fa_secondary_color; --fa-secondary-opacity:  1.0'></i></a></span>
         <span class='row justify-content-center text-center mt-2'>$artefato_titulo</span>
         <span class='row justify-content-center text-center text-muted'>$artefato_page_id_titulo</span>
     </div>
 	";
-	
+
 	unset($artefato_criacao);
 	unset($artefato_link);
 	unset($fa_icone);
@@ -46,4 +47,7 @@
 	unset($fa_secondary_color);
 	unset($artefato_titulo);
 	unset($artefato_page_id_titulo);
+
+	return $artefato_template_result;
+
 ?>
