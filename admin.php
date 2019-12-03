@@ -4,10 +4,6 @@
 	
 	if(isset($_POST['trigger_atualizacao'])) {
 	    $data_atualizacao = $_POST['trigger_atualizacao'];
-	    $conn->query("CREATE TABLE `Ubwiki`.`Atualizacoes` ( `id` INT NOT NULL AUTO_INCREMENT , `criacao` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `data` INT(11) NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
-	    $conn->query("INSERT INTO Atualizacoes (data) VALUES ($data_atualizacao)");
-	    $conn->query("ALTER TABLE `sim_questoes` ADD `edicao_ano` INT(11) NULL DEFAULT NULL AFTER `concurso_id`;");
-      $conn_query("ALTER TABLE `sim_questoes` ADD `etapa_id` INT(11) NULL DEFAULT NULL AFTER `texto_apoio_id`;");
         $questoes = $conn->query("SELECT id, prova_id FROM sim_questoes WHERE edicao_ano IS NULL");
         if ($questoes->num_rows > 0) {
             while($questao = $questoes->fetch_assoc()) {
@@ -18,16 +14,6 @@
                 $conn->query("UPDATE sim_questoes SET edicao_ano = $edicao_ano WHERE ID = $questao_id");
             }
         }
-		$questoes = $conn->query("SELECT id, prova_id FROM sim_questoes WHERE etapa_id IS NULL");
-		if ($questoes->num_rows > 0) {
-			while($questao = $questoes->fetch_assoc()) {
-				$questao_id = $questao['id'];
-				$questao_prova_id = $questao['prova_id'];
-				$prova_info = return_info_prova_id($questao_prova_id);
-				$etapa_id = $prova_info[4];
-				$conn->query("UPDATE sim_questoes SET etapa_id = $etapa_id WHERE ID = $questao_id");
-			}
-		}
 	}
 	
 	if (isset($_POST['funcoes_gerais'])) {
