@@ -4,12 +4,6 @@
 	
 	if(isset($_POST['trigger_atualizacao'])) {
 	    $data_atualizacao = $_POST['trigger_atualizacao'];
-        $conn->query("ALTER TABLE `sim_respostas` ADD `redacao_text` LONGTEXT NULL DEFAULT NULL AFTER `redacao`, ADD `redacao_content` LONGTEXT NULL DEFAULT NULL AFTER `redacao_text`;");
-        $conn->query("ALTER TABLE `sim_respostas` CHANGE `redacao` `redacao_html` LONGTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL;");
-        $conn->query("ALTER TABLE `Forum` CHANGE `topico_id` `page_id` INT(11) NULL DEFAULT NULL;");
-        $conn->query("ALTER TABLE `Forum` ADD `page_tipo` VARCHAR(255) NULL DEFAULT NULL AFTER `page_id`;");
-        $conn->query("UPDATE `Forum` SET `page_tipo` = 'topico' WHERE `Forum`.`id` = 1;");
-        $conn->query("UPDATE `Forum` SET `page_tipo` = 'topico' WHERE `Forum`.`id` = 2;");
 	}
 	
 	if (isset($_POST['funcoes_gerais'])) {
@@ -145,7 +139,11 @@
 							$template_conteudo .= "<option value='$um_concurso[0]'>$um_concurso[1] / $estado_concurso</option>";
 						}
 						$template_conteudo .= "</select>";
-						$template_conteudo .= "<button class='$button_classes'>Acessar ferramenta</button></form>";
+						$template_conteudo .= "
+							<div class='row justify-content-center'>
+								<button class='$button_classes'>Acessar ferramenta</button></form>
+							</div>
+					    ";
 						include 'templates/page_element.php';
 						
 						$template_id = 'acrescentar_concurso';
@@ -154,18 +152,16 @@
 						$template_conteudo = false;
 						$template_conteudo .= "<form method='post' formaction='edicao_topicos.php'>";
 						$template_conteudo .= "
-                <p>Cada concurso tem um título completo e uma sigla. Este é o primeiro passo no processo de inclusão de novos concursos.</p>
-              <div class='row'>
-                <input type='text' id='novo_concurso_titulo' name='novo_concurso_titulo' class='form-control validate' required>
-                <label data-error='inválido' data-successd='válido' for='novo_concurso_titulo'>Título do concurso</label>
-              </div>
-              <div class='row'>
-                <input type='text' id='novo_concurso_sigla' name='novo_concurso_sigla' class='form-control validate' required>
-                <label data-error='inválido' data-successd='válido' for='novo_concurso_sigla'>Sigla do concurso</label>
-              </div>
-            <button class='$button_classes' type='submit'>Acrescentar concurso</button>
-            </form>
-              ";
+                            <p>Cada concurso tem um título completo e uma sigla. Este é o primeiro passo no processo de inclusão de novos concursos.</p>
+                            <input type='text' id='novo_concurso_titulo' name='novo_concurso_titulo' class='form-control validate' required>
+                            <label data-error='inválido' data-successd='válido' for='novo_concurso_titulo'>Título do concurso</label>
+                            <input type='text' id='novo_concurso_sigla' name='novo_concurso_sigla' class='form-control validate' required>
+                            <label data-error='inválido' data-successd='válido' for='novo_concurso_sigla'>Sigla do concurso</label>
+                            <div class='row justify-content-center'>
+                            	<button class='$button_classes' type='submit'>Acrescentar concurso</button>
+                            </div>
+                            </form>
+                          ";
 						include 'templates/page_element.php';
 						
 						$template_id = 'barra_busca';
@@ -174,9 +170,9 @@
 						$template_conteudo = false;
 						$template_conteudo .= "
                             <form method='post'>
-                <p>Reconstruir tabela de opções da barra de busca.</p>
-                    <label for='editar_topicos_concurso'>Concurso</label>
-                    <select class='form-control' name='reconstruir_concurso' id='reconstruir_concurso'>
+                			<p>Reconstruir tabela de opções da barra de busca.</p>
+                    		<label for='editar_topicos_concurso'>Concurso</label>
+                    		<select class='form-control' name='reconstruir_concurso' id='reconstruir_concurso'>
                         ";
 						
 						foreach ($lista_concursos as $um_concurso) {
@@ -189,10 +185,12 @@
 						}
 						
 						$template_conteudo .= "
-                                            </select>
-                <button class='$button_classes' type='submit' name='reconstruir_busca'>Reconstruir
-                </button>
-            </form>
+                              </select>
+                              <div class='row justify-content-center'>
+                              	<button class='$button_classes' type='submit' name='reconstruir_busca'>Reconstruir
+                              </div>
+                              </button>
+                          </form>
                         ";
 						include 'templates/page_element.php';
 						
@@ -203,11 +201,15 @@
 						$template_conteudo .= "
 						    <form method='post'>
 						        <p>Simulados.</p>
-						        <button class='$button_classes_red' type='submit' name='funcoes_gerais'>Apagar todos os dados sobre simulados</button>
+						        <div class='row justify-content-center'>
+						        	<button class='$button_classes_red' type='submit' name='funcoes_gerais'>Apagar todos os dados sobre simulados</button>
+						        </div>
 						    </form>
 						    <form method='post'>
 						        <p>Simulados/usuários.</p>
-						        <button class='$button_classes' type='submit' name='funcoes_gerais2'>Apagar dados de regitro em simulados</button>
+						        <div class='row justify-content-center'>
+						        	<button class='$button_classes' type='submit' name='funcoes_gerais2'>Apagar dados de regitro em simulados</button>
+						        </div>
 						    </form>
 						";
 						include 'templates/page_element.php';
@@ -219,7 +221,9 @@
 						$template_conteudo .= "
 						    <form method='post'>
 						        <p>Atualização desde 20191204</p>
-						        <button class='$button_classes' type='submit' name='trigger_atualizacao' value='20191204'>Atualizar página</button>
+						        <div class='row justify-content-center'>
+						        	<button class='$button_classes' type='submit' name='trigger_atualizacao' value='20191204'>Atualizar página</button>
+				                </div>
 						    </form>
 						";
 						include 'templates/page_element.php';

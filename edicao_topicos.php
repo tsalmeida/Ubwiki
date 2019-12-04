@@ -206,10 +206,10 @@
 			$revisao = true;
 			break;
 		}
-		$conn->query("SELECT titulo FROM Materias WHERE concurso_id = $concurso_id AND id = $materia_id");
-		if ($result->num_rows > 0) {
-			while ($row = $result->fetch_assoc()) {
-				$materia_titulo = $row["titulo"];
+		$materias = $conn->query("SELECT titulo FROM Materias WHERE concurso_id = $concurso_id AND id = $materia_id");
+		if ($materias->num_rows > 0) {
+			while ($materia = $materias->fetch_assoc()) {
+				$materia_titulo = $materia["titulo"];
 			}
 		}
 	} else {
@@ -395,20 +395,15 @@
 						$template_conteudo = false;
 						$template_conteudo .= "
                         <form method='post'>
-                <p>A ordem em que as matérias forem acrescentadas será a ordem em que serão apresentadas na página. Por
-                    favor, tire um instante para pensar nas conexões naturais entre as matérias, assim como em sua
-                    progressão natural, seja de importância ou de complexidade, para que sua ordem de apresentação seja
-                    minimamente significativa.</p>
-                    <div class='row'>
-                        <input type='text' id='nova_materia_titulo' name='nova_materia_titulo'
-                               class='form-control validate' required>
-                        <label data-error='inválido' data-successd='válido'
-                               for='nova_materia_titulo'>Título da matéria</label>
-                    </div>
-                <div class='row justify-content-center'>
-                    <button type='submit' class='$button_classes'>Incluir matéria</button>
-                </div>
-            </form>
+                            <p>A ordem em que as matérias forem acrescentadas será a ordem em que serão apresentadas na página. Por favor, tire um instante para pensar nas conexões naturais entre as matérias, assim como em sua progressão natural, seja de importância ou de complexidade, para que sua ordem de apresentação seja minimamente significativa.</p>
+                            <input type='text' id='nova_materia_titulo' name='nova_materia_titulo'
+                                   class='form-control validate' required>
+                            <label data-error='inválido' data-successd='válido'
+                                   for='nova_materia_titulo'>Título da matéria</label>
+                            <div class='row justify-content-center'>
+                                <button type='submit' class='$button_classes'>Incluir matéria</button>
+                            </div>
+                        </form>
                         
                         ";
 						

@@ -385,11 +385,11 @@
                                   <option value='' disabled selected>Tipo:</option>
                                   <option value='todas_objetivas_oficiais'>Todas as questões objetivas oficiais</option>
                                   <option value='todas_dissertativas_oficiais'>Todas as questões dissertativas oficiais</option>
-                                  <option value='todas_objetivas_inoficiais'>Todas as questões objetivas não-oficiais</option>
-                                  <option value='inteligente'>Criado por nosso algoritmo</option>
-                                  <option value='questao_errou'>Apenas questões em que você errou pelo menos um item</option>
-                                  <option value='itens_errou'>Apenas itens que você errou no passado</option>
-                                  <option value='questoes_estudados'>Apenas questões de tópicos que você marcou como estudados</option>
+                                  <option value='todas_objetivas_inoficiais' disabled>Todas as questões objetivas não-oficiais</option>
+                                  <option value='inteligente' disabled>Criado por nosso algoritmo</option>
+                                  <option value='questao_errou' disabled>Apenas questões em que você errou pelo menos um item</option>
+                                  <option value='itens_errou' disabled>Apenas itens que você errou no passado</option>
+                                  <option value='questoes_estudados' disabled>Apenas questões de tópicos que você marcou como estudados</option>
                                 </select>
                         ";
 								$template_conteudo .= "
