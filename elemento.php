@@ -13,6 +13,10 @@
 		if (isset($_POST['elemento_mudanca_estado'])) {
 			$elemento_mudanca_estado = 1;
 		}
+		$elemento_novo_titulo = "NULL";
+		$elemento_novo_autor = "NULL";
+		$elemento_novo_capitulo = "NULL";
+		$elemento_novo_ano = "NULL";
 		if (isset($_POST['elemento_novo_titulo'])) {
 			$elemento_novo_titulo = $_POST['elemento_novo_titulo'];
 			$elemento_novo_titulo = mysqli_real_escape_string($conn, $elemento_novo_titulo);
