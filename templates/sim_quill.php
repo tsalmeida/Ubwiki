@@ -2,10 +2,19 @@
 	if (!isset($sim_quill_id)) {
 		return false;
 	}
+	if (!isset($sim_quill_context)) {
+		$sim_quill_context = 'form'; // two options: 'form' or 'button'.
+	}
 	if (!isset($template_modal_form_id)) {
+		$template_modal_form_id = false;
+	}
+	if (!isset($sim_quill_trigger)) {
+		$sim_quill_trigger = false;
+	}
+	if (($template_modal_form_id == false) && ($sim_quill_trigger == false)) {
 		return false;
 	}
-	
+
 	$quill_sim_result = false;
 	$quill_sim_result = "
     <input name='quill_novo_{$sim_quill_id}_html' type='hidden'>
@@ -29,8 +38,18 @@
                 }
             }
         });
-        $('body').on('submit', '#{$template_modal_form_id}', function() {
-            var form_{$sim_quill_id} = document.querySelector('#{$template_modal_form_id}');
+  ";
+	if ($sim_quill_context == 'form') {
+		$quill_sim_result .= "
+	        $('body').on('submit', '#{$template_modal_form_id}', function() {
+	  ";
+	} elseif ($sim_quill_context == 'button') {
+		$quill_sim_result .= "
+	        $('body').on('click', '#{$sim_quill_trigger}', function() {
+	  ";
+	}
+
+	$quill_sim_result .= "
             var quill_novo_{$sim_quill_id}_html = document.querySelector('input[name=quill_novo_{$sim_quill_id}_html]');
             quill_novo_{$sim_quill_id}_html.value = quill_{$sim_quill_id}.root.innerHTML;
             
@@ -44,8 +63,8 @@
         });
     </script>
 	";
-	
+
 	unset($sim_quill_id);
-	
+
 	return $quill_sim_result;
 ?>

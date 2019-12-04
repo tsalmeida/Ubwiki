@@ -53,7 +53,7 @@
                     [{'script': 'super'}],
                     ['blockquote'],
                     [{'list': 'ordered'}, {'list': 'bullet'}],
-                    [{ 'indent': '-1'}, { 'indent': '+1' }],
+                    [{'indent': '-1'}, { 'indent': '+1' }],
                     ['image'],
                     ['clean'],
                 ];
@@ -86,10 +86,11 @@
 		if ($html_head_template_quill_sim == true) {
 			echo "
 		        <script type='text/javascript'>
-		        var formatWhitelist_simulados = ['italic', 'bold', 'script', 'list', 'indent', 'image'];
+		        var formatWhitelist_simulados = ['italic', 'bold', 'underline', 'script', 'list', 'indent', 'image'];
                 var toolbarOptions_simulados = [
-                    ['italic'],
                     ['bold'],
+                    ['italic'],
+                    ['underline'],
                     [{'script': 'super'}],
                     [{'list': 'ordered'}, {'list': 'bullet'}],
                     [{ 'indent': '-1'}, { 'indent': '+1' }],

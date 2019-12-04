@@ -1,12 +1,12 @@
 <?php
-	
+
 	// para criar uma nova instance do quill, as seguintes variáveis devem ser set:
 	// $template_quill_initial_state ('edicao' ou 'leitura')
 	// $template_quill_page_id (em alguns casos, determinada automaticamente, exceto em admin ou userpage)
 	// $template_quill_empty_content (em anotações, não é necessário)
 	// $quill_visualizacoes_tipo (para a tabela de visualizacoes, registra que o usuário mudou o texto desse elemento)
 	// $template_quill_public (boolean, determina se o query buscará o id do usuario ou não, default é true)
-	
+
 	if (!isset($template_quill_empty_content)) {
 		$template_quill_empty_content = false;
 	}
@@ -24,7 +24,7 @@
 	}
 	$template_quill_whitelist = "formatWhitelist_{$template_quill_toolbar_and_whitelist}";
 	$template_quill_toolbar = "toolbarOptions_{$template_quill_toolbar_and_whitelist}";
-	
+
 	if ($template_quill_initial_state == 'edicao') {
 		$template_quill_editor_classes = 'quill_editor_height quill_editor_height_leitura';
 	} else {
@@ -54,9 +54,9 @@
 	$quill_novo_verbete_text = "quill_novo_{$template_id}_text";
 	$quill_novo_verbete_content = "quill_novo_{$template_id}_content";
 	$quill_trigger_button = "quill_trigger_{$template_id}";
-	
+
 	$verbete_exists = false; // essa variável muda se é encontrado conteúdo prévio.
-	
+
 	if (!isset($template_quill_public)) {
 		$template_quill_public = true;
 		if ($template_quill_meta_tipo == 'anotacoes') {
@@ -66,7 +66,7 @@
 	if (!isset($template_botoes)) {
 		$template_botoes = false;
 	}
-	
+
 	if ($template_quill_public == true) {
 		$result = $conn->query("SELECT verbete_content, id FROM Textos WHERE page_id = $template_quill_page_id AND tipo = '$template_id'");
 	} else {
@@ -86,7 +86,7 @@
 			$template_vazio = true;
 		}
 	}
-	
+
 	if (isset($_POST[$quill_trigger_button])) {
 		$novo_verbete_html = $_POST[$quill_novo_verbete_html];
 		$novo_verbete_html = mysqli_real_escape_string($conn, $novo_verbete_html);
@@ -111,13 +111,13 @@
 		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $template_quill_page_id, '$quill_visualizacoes_tipo')");
 		$nao_contar = true;
 	}
-	
+
 	$quill_result = false;
-	
+
 	if ($quill_verbete_content == false) {
 		$quill_result .= $template_quill_empty_content;
 	}
-	
+
 	if ($template_quill_meta_tipo == 'anotacoes') {
 		$template_botoes .= "
 		<span id='esconder_coluna_esquerda' title='expandir'>
@@ -128,7 +128,7 @@
   	</span>
 		";
 	}
-	
+
 	$template_botoes .= "
 		<span id='travar_{$template_id}' title='travar para edição'>
     	<a href='javascript:void(0);'><i class='fal fa-pen-square fa-fw'></i></a>
@@ -137,7 +137,7 @@
 			<a href='javascript:void(0);'><span class='text-muted'><i class='fas fa-pen-square fa-fw'></i></span></a>
   	</span>
 	";
-	
+
 	$quill_result .= "
     <form id='quill_{$template_id}_form' method='post'>
         <input name='$quill_novo_verbete_html' type='hidden'>
@@ -205,7 +205,7 @@
         quill_{$template_id}_content = JSON.stringify(quill_{$template_id}_content);
         quill_novo_{$template_id}_content.value = quill_{$template_id}_content;
     };
-		
+   
 	  {$template_id}_editor.setContents($quill_verbete_content);
 
 	  $('#travar_{$template_id}').click(function () {
@@ -229,7 +229,7 @@
 
 	</script>
 	";
-	
+
 	if ($template_quill_initial_state == 'leitura') {
 		$quill_result .= "
 			<script type='text/javascript'>
@@ -251,7 +251,7 @@
 				{$template_id}_editor.enable();
 			</script>";
 	}
-	
+
 	unset($template_quill_initial_state);
 	unset($template_quill_editor_classes);
 	unset($template_quill_toolbar_and_whitelist);
@@ -262,5 +262,5 @@
 	unset($template_quill_empty_content);
 	unset($verbete_exists);
 	unset($template_quill_meta_tipo);
-	
+
 	return $quill_result;
