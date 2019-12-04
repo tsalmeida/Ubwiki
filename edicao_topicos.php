@@ -8,8 +8,8 @@
 		header('Location:login.php');
 	}
 	
-	if (isset($_GET['concurso_id'])) {
-		$concurso_id = $_GET['concurso_id'];
+	if (isset($_GET['concurso_editar'])) {
+		$concurso_id = $_GET['concurso_editar'];
 	}
 	
 	$result = $conn->query("SELECT sigla, estado, titulo FROM Concursos WHERE id = $concurso_id");
@@ -175,7 +175,13 @@
 	
 	$revisao = false;
 	
-	$result = $conn->query("SELECT id, materia_id, nivel, ordem, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Topicos WHERE concurso_id = $concurso_id AND ciclo_revisao = 0 ORDER BY ordem");
+	if (isset($_GET['topico_id'])) {
+		$topico_id = $_GET['topico_id'];
+		$result = $conn->query("SELECT id, materia_id, nivel, ordem, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Topicos WHERE id = $topico_id");
+	} else {
+		$result = $conn->query("SELECT id, materia_id, nivel, ordem, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Topicos WHERE concurso_id = $concurso_id AND ciclo_revisao = 0 ORDER BY ordem");
+	}
+	
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
 			$active1 = false;
@@ -331,7 +337,7 @@
 							}
 							$template_conteudo .= "
                 <div class='row justify-content-center'>
-                <button name='form_topico_id' type='submit' class='btn btn-primary' value='$topico_id'>Registrar mudanças</button>";
+                <button name='form_topico_id' type='submit' class='$button_classes' value='$topico_id'>Registrar mudanças</button>";
 							if ($concurso_estado == 0) {
 								$template_conteudo .= "<button name='apagar_topico_id' type='submit' class='$button_classes btn-danger' value='$topico_id'>Apagar tópico e subtópicos</button>";
 							}
@@ -440,29 +446,21 @@
                                 ";
 							}
 							
-							$template_conteudo .= "<fieldset class='form-group'>
-                                <div class='row'>
+							$template_conteudo .= "
+							<fieldset class='form-group'>
                                     <input type='text' id='primeiro_nivel_1' name='primeiro_nivel_1' class='form-control validate'
                                            required>
                                     <label data-error='inválido' data-successd='válido'
                                            for='primeiro_nivel_1'>Tópico de primeiro nível</label>
-                                </div>
-                                <div class='row'>
                                     <input type='text' id='primeiro_nivel_2' name='primeiro_nivel_2' class='form-control validate'>
                                     <label data-error='inválido' data-successd='válido'
                                            for='primeiro_nivel_2'>Tópico de primeiro nível</label>
-                                </div>
-                                <div class='row'>
                                     <input type='text' id='primeiro_nivel_3' name='primeiro_nivel_3' class='form-control validate'>
                                     <label data-error='inválido' data-successd='válido'
                                            for='primeiro_nivel_3'>Tópico de primeiro nível</label>
-                                </div>
-                                <div class='row'>
                                     <input type='text' id='primeiro_nivel_4' name='primeiro_nivel_4' class='form-control validate'>
                                     <label data-error='inválido' data-successd='válido'
                                            for='primeiro_nivel_4'>Tópico de primeiro nível</label>
-                                </div>
-                                <div class='row'>
                                     <input type='text' id='primeiro_nivel_5' name='primeiro_nivel_5' class='form-control validate'>
                                     <label data-error='inválido' data-successd='válido'
                                            for='primeiro_nivel_5'>Tópico de primeiro nível</label>
@@ -525,6 +523,7 @@
 					$template_id = 'lista_topicos';
 					$template_titulo = "Tópicos de $materia_titulo";
 					$template_conteudo = false;
+					$template_conteudo .= "<p>Selecione o tópico abaixo para editá-lo.</p>";
 					$template_conteudo .= "
 							    <ul class='list-group'>
 							";
@@ -550,15 +549,15 @@
 							$nivel4 = $row['nivel4'];
 							$nivel5 = $row['nivel5'];
 							if ($nivel5 != false) {
-								$template_conteudo .= "<li class='list-group-item $color'><em><span style='margin-left: 13ch'><i class='fal fa-chevron-double-right'></i><i class='fal fa-chevron-double-right'></i> $nivel5</span></em></li>";
+								$template_conteudo .= "<a href='edicao_topicos.php?concurso_id=$concurso_id&topico_id=$id_lista'><li class='list-group-item list-group-item-action $color'><em><span style='margin-left: 13ch'><i class='fal fa-chevron-double-right'></i><i class='fal fa-chevron-double-right'></i> $nivel5</span></em></li></a>";
 							} elseif ($nivel4 != false) {
-								$template_conteudo .= "<li class='list-group-item $color'><em><span style='margin-left: 8ch'><i class='fal fa-chevron-double-right'></i><i class='fal fa-chevron-right'></i> $nivel4</span></em></li>";
+								$template_conteudo .= "<a href='edicao_topicos.php?concurso_id=$concurso_id&topico_id=$id_lista'><li class='list-group-item list-group-item-action $color'><em><span style='margin-left: 8ch'><i class='fal fa-chevron-double-right'></i><i class='fal fa-chevron-right'></i> $nivel4</span></em></li></a>";
 							} elseif ($nivel3 != false) {
-								$template_conteudo .= "<li class='list-group-item $color'><span style='margin-left: 5ch'><i class='fal fa-chevron-double-right'></i> $nivel3</span></li>";
+								$template_conteudo .= "<a href='edicao_topicos.php?concurso_id=$concurso_id&topico_id=$id_lista'><li class='list-group-item list-group-item-action $color'><span style='margin-left: 5ch'><i class='fal fa-chevron-double-right'></i> $nivel3</span></li></a>";
 							} elseif ($nivel2 != false) {
-								$template_conteudo .= "<li class='list-group-item $color'><span style='margin-left: 3ch'><i class='fal fa-chevron-right'></i> $nivel2</span></li>";
+								$template_conteudo .= "<a href='edicao_topicos.php?concurso_id=$concurso_id&topico_id=$id_lista'><li class='list-group-item list-group-item-action $color'><span style='margin-left: 3ch'><i class='fal fa-chevron-right'></i> $nivel2</span></li></a>";
 							} elseif ($nivel1 != false) {
-								$template_conteudo .= "<li class='list-group-item $color'><strong>$nivel1</strong></li>";
+								$template_conteudo .= "<a href='edicao_topicos.php?concurso_id=$concurso_id&topico_id=$id_lista'><li class='list-group-item list-group-item-action $color'><strong>$nivel1</strong></li></a>";
 							}
 						}
 					}
