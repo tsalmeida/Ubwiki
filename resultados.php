@@ -25,6 +25,13 @@
 		header('Location:index.php');
 	}
 	
+	if ($simulado_tipo == 'todas_objetivas_oficiais') {
+	   $simulado_tipo_questoes = 'objetivas';
+    }
+	elseif ($simulado_tipo == 'todas_dissertativas_oficiais') {
+		$simulado_tipo_questoes = 'dissertativas';
+	}
+	
 	$simulados_elementos = $conn->query("SELECT tipo, elemento_id FROM sim_detalhes WHERE simulado_id = $simulado_id");
 	if ($simulados_elementos->num_rows > 0) {
 		$questoes_count = 0;
@@ -65,7 +72,12 @@
 						$template_conteudo = false;
 						$template_conteudo .= "<p>Este simulado foi gerado em $simulado_criacao</p>";
 						$template_conteudo .= "<p>Tipo de simulado: $simulado_tipo</p>";
-						$template_conteudo .= "<p>No documento abaixo, os itens que você acertou aparecem em verde, enquanto os que errou, em vermelho e os items que deixou em branco, em cinza. Itens anulados aparecem em amarelo.</p>";
+						if ($simulado_tipo_questoes == 'objetivas') {
+							$template_conteudo .= "<p>No documento abaixo, os itens que você acertou aparecem em verde, enquanto os que errou, em vermelho e os items que deixou em branco, em cinza. Itens anulados aparecem em amarelo.</p>";
+						}
+						elseif ($simulado_tipo_questoes == 'dissertativas') {
+							$template_conteudo .= "<p>No documento abaixo, você encontrará as dissertações que escreveu em resposta às questões deste simulado.</p>";
+						}
 						
 						if ($questoes_count == 0) {
 							$template_conteudo .= "<p>Não há questão com resposta registrada para este simulado.</p>";
@@ -120,7 +132,7 @@
 										}
 									}
 								} elseif ($simulado_elemento_tipo == 'questao') {
-									$questoes = $conn->query("SELECT questao_numero, item1, item2, item3, item4, item5, multipla, redacao FROM sim_respostas WHERE questao_id = $simulado_elemento_id AND simulado_id = $simulado_id");
+									$questoes = $conn->query("SELECT questao_numero, item1, item2, item3, item4, item5, multipla, redacao_html, redacao_text FROM sim_respostas WHERE questao_id = $simulado_elemento_id AND simulado_id = $simulado_id");
 									if ($questoes->num_rows > 0) {
 										while ($questao = $questoes->fetch_assoc()) {
 											$questao_id = $simulado_elemento_id;
@@ -131,7 +143,8 @@
 											$questao_item4 = $questao['item4'];
 											$questao_item5 = $questao['item5'];
 											$questao_multipla = $questao['multipla'];
-											$questao_redacao = $questao['redacao'];
+											$questao_redacao_html = $questao['redacao_html'];
+											$questao_redacao_text = $questao['redacao_text'];
 											
 											$dados_questoes = $conn->query("SELECT enunciado_html, item1_html, item2_html, item3_html, item4_html, item5_html, item1_gabarito, item2_gabarito, item3_gabarito, item4_gabarito, item5_gabarito FROM sim_questoes WHERE id = $questao_id");
 											if ($dados_questoes->num_rows > 0) {
@@ -151,7 +164,7 @@
 													$template_titulo = "Questão $questao_numero";
 													$template_botoes = false;
 													$template_conteudo = false;
-													if ($questao_redacao == false) {
+													if ($questao_redacao_html == false) {
 														if ($questao_multipla == false) {
 															$template_conteudo .= "<div id='special_li'>$dado_questao_enunciado</div>";
 															$template_conteudo .= "<ul class='list-group'>";
@@ -194,6 +207,16 @@
 														} else {
 															$template_conteudo .= "<p>Você escolheu o item $questao_multipla.</p>";
 														}
+													} else {
+														$template_conteudo .= $dado_questao_enunciado;
+														$questao_redacao_wordcount = str_word_count($questao_redacao_text);
+														$template_conteudo .= "<h5 class='mt-5'>Sua resposta:</h5>";
+														$template_conteudo .= "
+															<ul class='list-group mb-3'>
+																<li class='list-group-item'><strong>Quantidade de palavras:</strong> $questao_redacao_wordcount</li>
+															</ul>
+														";
+														$template_conteudo .= $questao_redacao_html;
 													}
 													$template_titulo_heading = 'h4';
 													$template_botoes = "

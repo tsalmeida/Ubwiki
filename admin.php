@@ -4,16 +4,8 @@
 	
 	if(isset($_POST['trigger_atualizacao'])) {
 	    $data_atualizacao = $_POST['trigger_atualizacao'];
-        $questoes = $conn->query("SELECT id, prova_id FROM sim_questoes WHERE edicao_ano IS NULL");
-        if ($questoes->num_rows > 0) {
-            while($questao = $questoes->fetch_assoc()) {
-                $questao_id = $questao['id'];
-                $questao_prova_id = $questao['prova_id'];
-                $prova_info = return_info_prova_id($questao_prova_id);
-                $edicao_ano = $prova_info[2];
-                $conn->query("UPDATE sim_questoes SET edicao_ano = $edicao_ano WHERE ID = $questao_id");
-            }
-        }
+        $conn->query("ALTER TABLE `sim_respostas` ADD `redacao_text` LONGTEXT NULL DEFAULT NULL AFTER `redacao`, ADD `redacao_content` LONGTEXT NULL DEFAULT NULL AFTER `redacao_text`;");
+        $conn->query("ALTER TABLE `sim_respostas` CHANGE `redacao` `redacao_html` LONGTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL;");
 	}
 	
 	if (isset($_POST['funcoes_gerais'])) {
@@ -222,8 +214,8 @@
 						$template_conteudo = false;
 						$template_conteudo .= "
 						    <form method='post'>
-						        <p>Atualização desde 20191203</p>
-						        <button class='$button_classes' type='submit' name='trigger_atualizacao' value='20191203'>Atualizar página</button>
+						        <p>Atualização desde 20191204</p>
+						        <button class='$button_classes' type='submit' name='trigger_atualizacao' value='20191204'>Atualizar página</button>
 						    </form>
 						";
 						include 'templates/page_element.php';

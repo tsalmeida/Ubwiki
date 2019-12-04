@@ -125,7 +125,7 @@
 		echo "
       </div>
     </div>
-";
+		";
 	}
 	
 	if (isset($_POST['bookmark_change'])) {
@@ -343,7 +343,6 @@
 			$extensao = substr($nova_imagem_link, $ultimo_ponto);
 			$nova_imagem_arquivo = "$randomfilename$extensao";
 			$nova_imagem_diretorio = "../imagens/verbetes/$randomfilename$extensao";
-			error_log($nova_imagem_link);
 			file_put_contents($nova_imagem_diretorio, fopen($nova_imagem_link, 'r'));
 			$dados_da_imagem = make_thumb($nova_imagem_arquivo);
 			if ($dados_da_imagem == false) {
@@ -722,25 +721,34 @@
 		$conn = new mysqli($servername, $username, $password, $dbname);
 		mysqli_set_charset($conn, "utf8");
 		
+		$user_id = $_POST['user_id'];
+		$concurso_id = $_POST['concurso_id'];
+		$questao_id = $_POST['questao_id'];
+		$questao_numero = $_POST['questao_numero'];
+		
 		if ($questao_tipo == 1) {
-			$user_id = $_POST['user_id'];
-			$concurso_id = $_POST['concurso_id'];
-			$questao_id = $_POST['questao_id'];
-			$questao_numero = $_POST['questao_numero'];
 			$item1_resposta = $_POST['item1'];
 			$item2_resposta = $_POST['item2'];
 			$item3_resposta = $_POST['item3'];
 			$item4_resposta = $_POST['item4'];
 			$item5_resposta = $_POST['item5'];
 			$conn->query("INSERT INTO sim_respostas (user_id, concurso_id, simulado_id, questao_id, questao_numero, item1, item2, item3, item4, item5) VALUES ($user_id, $concurso_id, $simulado_id, $questao_id, $questao_numero, $item1_resposta, $item2_resposta, $item3_resposta, $item4_resposta, $item5_resposta)");
+			echo true;
 		} elseif ($questao_tipo == 2) {
-			$user_id = $_POST['user_id'];
-			$questao_id = $_POST['questao_id'];
 			$resposta = $_POST['resposta'];
-			
-			$conn->query("INSERT INTO sim_respostas (user_id, concurso_id, simulado_id, questao_id, multipla) VALUES ($user_id, $concurso_id, $simulado_id, $questao_id, $resposta)");
+			$conn->query("INSERT INTO sim_respostas (user_id, concurso_id, simulado_id, questao_id, questao_numero, multipla) VALUES ($user_id, $concurso_id, $simulado_id, $questao_id, $questao_numero, $resposta)");
+			echo true;
+		} elseif ($questao_tipo == 3) {
+			$redacao_html = $_POST['redacao_html'];
+			$redacao_text = $_POST['redacao_text'];
+			$redacao_content = $_POST['redacao_content'];
+			$redacao_html = mysqli_real_escape_string($conn, $redacao_html);
+			$redacao_text = mysqli_real_escape_string($conn, $redacao_text);
+			$redacao_content = mysqli_real_escape_string($conn, $redacao_content);
+			$conn->query("INSERT INTO sim_respostas (user_id, concurso_id, simulado_id, questao_id, questao_numero, redacao_html, redacao_text, redacao_content) VALUES ($user_id, $concurso_id, $simulado_id, $questao_id, $questao_numero, '$redacao_html', '$redacao_text', '$redacao_content')");
+			echo true;
 		}
-		echo true;
+		echo false;
 	}
 	
 	function converter_respostas($tipo, $resposta)

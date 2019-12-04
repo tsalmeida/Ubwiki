@@ -97,13 +97,13 @@
 													";
 		}
 	} elseif ($questao_tipo == 3) {
-
+		
 		$sim_quill_id = "dissertativa_{$questao_id}";
 		$sim_quill_trigger = "enviar_respostas_{$questao_id}";
-		$sim_quill_context = 'button';
+		$sim_quill_context = 'simulado_dissertativa';
 		$sim_quill_result = include 'templates/sim_quill.php';
 		$template_conteudo .= $sim_quill_result;
-
+		
 	}
 	$template_conteudo .= "
 			<div class='row d-flex justify-content-center'>
@@ -270,10 +270,29 @@
 	} elseif ($questao_tipo == 3) {
 		$template_conteudo .= "
 			<script type='text/javascript'>
-				$(document).ready(function(){
-					$('#enviar_respostas_{$questao_id}').click(function () {
-						alert('this happened');
-					});
+				$('body').on('click', '#enviar_respostas_{$questao_id}', function() {
+	        var quill_novo_dissertativa_{$questao_id}_html = quill_dissertativa_{$questao_id}.root.innerHTML;
+	        
+	        var quill_novo_dissertativa_{$questao_id}_text = quill_dissertativa_{$questao_id}.getText();
+	        
+	        var quill_novo_dissertativa_{$questao_id}_content = quill_dissertativa_{$questao_id}.getContents();
+	        quill_novo_dissertativa_{$questao_id}_content = JSON.stringify(quill_novo_dissertativa_{$questao_id}_content);
+
+	        $.post('engine.php', {
+	            'user_id': {$user_id},
+	            'concurso_id': {$concurso_id},
+	            'questao_id': {$questao_id},
+	            'questao_numero': {$questao_numero},
+	            'questao_tipo': {$questao_tipo},
+	            'simulado_id': {$simulado_id},
+	            'redacao_html': quill_novo_dissertativa_{$questao_id}_html,
+	            'redacao_text': quill_novo_dissertativa_{$questao_id}_text,
+	            'redacao_content': quill_novo_dissertativa_{$questao_id}_content
+	        }, function(data) {
+	            if (data != 0) {
+	                $('#enviar_respostas_{$questao_id}').prop('disabled', true)
+	            }
+	        });
 				});
 			</script>
 		";

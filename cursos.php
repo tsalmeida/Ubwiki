@@ -49,7 +49,7 @@
 						        $curso_do_usuario_id = $curso_do_usuario['id'];
 						        $curso_do_usuario_sigla = $curso_do_usuario['sigla'];
 						        $curso_do_usuario_titulo = $curso_do_usuario['titulo'];
-						        $template_conteudo .= "<option value='$curso_do_usuario_id'>$curso_do_usuario_sigla: $curso_do_usuario_titulo</option>";
+						        $template_conteudo .= "<option value='$curso_do_usuario_id'>$curso_do_usuario_titulo ($curso_do_usuario_sigla)</option>";
                             }
                         }
 						$template_conteudo .= "</select>";
