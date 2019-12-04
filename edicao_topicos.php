@@ -389,8 +389,8 @@
 						}
 						$template_conteudo .= "
                             <div class='row justify-content-center'>
-                              <button name='ciclo_materia_adicionar' type='submit' class='btn btn-primary' value='$concurso_id'>Marcar para revisão</button>
-                              <button name='ciclo_materia_remover' type='submit' class='btn btn-primary' value='$concurso_id'>Remover do ciclo de revisão</button>
+                              <button name='ciclo_materia_adicionar' type='submit' class='$button_classes' value='$concurso_id'>Marcar para revisão</button>
+                              <button name='ciclo_materia_remover' type='submit' class='$button_classes' value='$concurso_id'>Remover do ciclo de revisão</button>
                             </div>
                         </form>
                         ";
@@ -540,7 +540,7 @@
 							if ($id_lista == $topico_id) {
 								$color = "list-group-item-primary";
 							} else {
-								$color = false;
+								$color = "list-group-item-action";
 							}
 							$nivel = $row['nivel'];
 							$nivel1 = $row['nivel1'];
@@ -549,15 +549,15 @@
 							$nivel4 = $row['nivel4'];
 							$nivel5 = $row['nivel5'];
 							if ($nivel5 != false) {
-								$template_conteudo .= "<a href='edicao_topicos.php?concurso_id=$concurso_id&topico_id=$id_lista'><li class='list-group-item list-group-item-action $color'><em><span style='margin-left: 13ch'><i class='fal fa-chevron-double-right'></i><i class='fal fa-chevron-double-right'></i> $nivel5</span></em></li></a>";
+								$template_conteudo .= "<a href='edicao_topicos.php?concurso_id=$concurso_id&topico_id=$id_lista'><li class='list-group-item $color'><em><span style='margin-left: 13ch'><i class='fal fa-chevron-double-right'></i><i class='fal fa-chevron-double-right'></i> $nivel5</span></em></li></a>";
 							} elseif ($nivel4 != false) {
-								$template_conteudo .= "<a href='edicao_topicos.php?concurso_id=$concurso_id&topico_id=$id_lista'><li class='list-group-item list-group-item-action $color'><em><span style='margin-left: 8ch'><i class='fal fa-chevron-double-right'></i><i class='fal fa-chevron-right'></i> $nivel4</span></em></li></a>";
+								$template_conteudo .= "<a href='edicao_topicos.php?concurso_id=$concurso_id&topico_id=$id_lista'><li class='list-group-item $color'><em><span style='margin-left: 8ch'><i class='fal fa-chevron-double-right'></i><i class='fal fa-chevron-right'></i> $nivel4</span></em></li></a>";
 							} elseif ($nivel3 != false) {
-								$template_conteudo .= "<a href='edicao_topicos.php?concurso_id=$concurso_id&topico_id=$id_lista'><li class='list-group-item list-group-item-action $color'><span style='margin-left: 5ch'><i class='fal fa-chevron-double-right'></i> $nivel3</span></li></a>";
+								$template_conteudo .= "<a href='edicao_topicos.php?concurso_id=$concurso_id&topico_id=$id_lista'><li class='list-group-item $color'><span style='margin-left: 5ch'><i class='fal fa-chevron-double-right'></i> $nivel3</span></li></a>";
 							} elseif ($nivel2 != false) {
-								$template_conteudo .= "<a href='edicao_topicos.php?concurso_id=$concurso_id&topico_id=$id_lista'><li class='list-group-item list-group-item-action $color'><span style='margin-left: 3ch'><i class='fal fa-chevron-right'></i> $nivel2</span></li></a>";
+								$template_conteudo .= "<a href='edicao_topicos.php?concurso_id=$concurso_id&topico_id=$id_lista'><li class='list-group-item $color'><span style='margin-left: 3ch'><i class='fal fa-chevron-right'></i> $nivel2</span></li></a>";
 							} elseif ($nivel1 != false) {
-								$template_conteudo .= "<a href='edicao_topicos.php?concurso_id=$concurso_id&topico_id=$id_lista'><li class='list-group-item list-group-item-action $color'><strong>$nivel1</strong></li></a>";
+								$template_conteudo .= "<a href='edicao_topicos.php?concurso_id=$concurso_id&topico_id=$id_lista'><li class='list-group-item $color'><strong>$nivel1</strong></li></a>";
 							}
 						}
 					}
