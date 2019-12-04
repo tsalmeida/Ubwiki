@@ -102,6 +102,7 @@
 						$template_titulo = 'Verbetes recentemente modificados';
 						$template_botoes = false;
 						$template_conteudo = false;
+						$template_conteudo_no_col = true;
 						
 						$paginas = $conn->query("SELECT DISTINCT page_id FROM (SELECT id, page_id FROM Textos_arquivo WHERE tipo = 'verbete' GROUP BY id ORDER BY id DESC) t");
 						if ($paginas->num_rows > 0) {
@@ -127,7 +128,7 @@
 										}
 										$cor_badge = 'grey lighten-3';
 										$icone_badge = "
-                                            <span class='badge $cor_badge $estado_cor badge-pill z-depth-0'>
+                                            <span class='badge $cor_badge $estado_cor badge-pill z-depth-0 ml-3'>
                                                 <i class='fa $icone_estado fa-fw'></i>
                                             </span>
 										";
