@@ -426,6 +426,24 @@
 		return false;
 	}
 	
+	function return_titulo_elemento($elemento_id)
+	{
+		$servername = "localhost";
+		$username = "grupoubique";
+		$password = "ubique patriae memor";
+		$dbname = "Ubwiki";
+		$conn = new mysqli($servername, $username, $password, $dbname);
+		mysqli_set_charset($conn, "utf8");
+		$elementos = $conn->query("SELECT titulo FROM Elementos WHERE id = $elemento_id");
+		if ($elementos->num_rows > 0) {
+			while ($elemento = $elementos->fetch_assoc()) {
+				$elemento_titulo = $elemento['titulo'];
+				return $elemento_titulo;
+			}
+		}
+		return false;
+	}
+	
 	function return_concurso_id_topico($topico_id)
 	{
 		$servername = "localhost";
@@ -506,12 +524,13 @@
 		$dbname = "Ubwiki";
 		$conn = new mysqli($servername, $username, $password, $dbname);
 		mysqli_set_charset($conn, "utf8");
-		$find_simulados = $conn->query("SELECT criacao, tipo FROM sim_gerados WHERE id = $find_simulado_id");
+		$find_simulados = $conn->query("SELECT criacao, tipo, concurso_id FROM sim_gerados WHERE id = $find_simulado_id");
 		if ($find_simulados->num_rows > 0) {
 			while ($find_simulado = $find_simulados->fetch_assoc()) {
 				$find_simulado_criacao = $find_simulado['criacao'];
 				$find_simulado_tipo = $find_simulado['tipo'];
-				$find_simulado_result = array($find_simulado_criacao, $find_simulado_tipo);
+				$find_simulado_concurso_id = $find_simulado['concurso_id'];
+				$find_simulado_result = array($find_simulado_criacao, $find_simulado_tipo, $find_simulado_concurso_id);
 				return $find_simulado_result;
 			}
 		}
@@ -732,11 +751,11 @@
 			$item3_resposta = $_POST['item3'];
 			$item4_resposta = $_POST['item4'];
 			$item5_resposta = $_POST['item5'];
-			$conn->query("INSERT INTO sim_respostas (user_id, concurso_id, simulado_id, questao_id, questao_numero, item1, item2, item3, item4, item5) VALUES ($user_id, $concurso_id, $simulado_id, $questao_id, $questao_numero, $item1_resposta, $item2_resposta, $item3_resposta, $item4_resposta, $item5_resposta)");
+			$conn->query("INSERT INTO sim_respostas (user_id, concurso_id, simulado_id, questao_id, questao_tipo, questao_numero, item1, item2, item3, item4, item5) VALUES ($user_id, $concurso_id, $simulado_id, $questao_id, $questao_tipo, $questao_numero, $item1_resposta, $item2_resposta, $item3_resposta, $item4_resposta, $item5_resposta)");
 			echo true;
 		} elseif ($questao_tipo == 2) {
 			$resposta = $_POST['resposta'];
-			$conn->query("INSERT INTO sim_respostas (user_id, concurso_id, simulado_id, questao_id, questao_numero, multipla) VALUES ($user_id, $concurso_id, $simulado_id, $questao_id, $questao_numero, $resposta)");
+			$conn->query("INSERT INTO sim_respostas (user_id, concurso_id, simulado_id, questao_id, questao_tipo, questao_numero, multipla) VALUES ($user_id, $concurso_id, $simulado_id, $questao_id, $questao_tipo, $questao_numero, $resposta)");
 			echo true;
 		} elseif ($questao_tipo == 3) {
 			$redacao_html = $_POST['redacao_html'];
@@ -745,7 +764,7 @@
 			$redacao_html = mysqli_real_escape_string($conn, $redacao_html);
 			$redacao_text = mysqli_real_escape_string($conn, $redacao_text);
 			$redacao_content = mysqli_real_escape_string($conn, $redacao_content);
-			$conn->query("INSERT INTO sim_respostas (user_id, concurso_id, simulado_id, questao_id, questao_numero, redacao_html, redacao_text, redacao_content) VALUES ($user_id, $concurso_id, $simulado_id, $questao_id, $questao_numero, '$redacao_html', '$redacao_text', '$redacao_content')");
+			$conn->query("INSERT INTO sim_respostas (user_id, concurso_id, simulado_id, questao_id, questao_tipo, questao_numero, redacao_html, redacao_text, redacao_content) VALUES ($user_id, $concurso_id, $simulado_id, $questao_id, $questao_tipo, $questao_numero, '$redacao_html', '$redacao_text', '$redacao_content')");
 			echo true;
 		}
 		echo false;
@@ -765,6 +784,15 @@
 			}
 		} else {
 			return false;
+		}
+	}
+	
+	function converter_simulado_tipo($simulado_tipo)
+	{
+		if ($simulado_tipo == 'todas_objetivas_oficiais') {
+			return 'Todas as questões objetivas oficiais';
+		} elseif ($simulado_tipo == 'todas_dissertativas_oficiais') {
+			return 'Todas as questões dissertativas oficiais';
 		}
 	}
 	

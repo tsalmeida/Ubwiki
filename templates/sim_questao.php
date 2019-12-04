@@ -1,14 +1,4 @@
 <?php
-	// Variáveis que devem ser registradas:
-	// $questao_numero
-	// $prova_id
-	// $questao_enunciado
-	// $questao_tipo
-	// $questao_item1
-	// $questao_item2
-	// $questao_item3
-	// $questao_item4
-	// $questao_item5
 	
 	$template_id = "questao_{$questao_numero}_{$prova_id}";
 	$template_titulo = "Questão $questao_numero";

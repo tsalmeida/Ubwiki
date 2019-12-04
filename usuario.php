@@ -172,13 +172,20 @@
 						$template_titulo = 'Participações no fórum';
 						$template_botoes = false;
 						$template_conteudo = false;
-						$result = $conn->query("SELECT DISTINCT topico_id FROM Forum WHERE user_id = $user_id AND topico_id IS NOT NULL");
+						$result = $conn->query("SELECT DISTINCT page_id, page_tipo FROM Forum WHERE user_id = $user_id");
 						if ($result->num_rows > 0) {
 							$template_conteudo .= "<ul class='list-group'>";
 							while ($row = $result->fetch_assoc()) {
-								$forum_topico_id = $row['topico_id'];
-								$forum_topico_titulo = return_titulo_topico($forum_topico_id);
-								$template_conteudo .= "<a href='verbete.php?topico_id=$forum_topico_id'><li class='list-group-item list-group-item-action'>$forum_topico_titulo</li></a>";
+								$forum_page_id = $row['page_id'];
+								$forum_page_tipo = $row['page_tipo'];
+								if ($forum_page_tipo == 'topico') {
+									$forum_topico_titulo = return_titulo_topico($forum_page_id);
+									$template_conteudo .= "<a href='verbete.php?topico_id=$forum_page_id' target='_blank'><li class='list-group-item list-group-item-action'><strong>Tópico:</strong> $forum_topico_titulo</li></a>";
+								}
+								elseif ($forum_page_tipo == 'elemento') {
+									$forum_elemento_titulo = return_titulo_elemento($forum_page_id);
+									$template_conteudo .= "<a href='elemento.php?id=$forum_page_id' target='_blank'><li class='list-group-item list-group-item-action'><strong>Elemento:</strong> $forum_elemento_titulo</li></a>";
+								}
 							}
 							$template_conteudo .= "</ul>";
 						} else {
@@ -240,39 +247,6 @@
 							$template_load_invisible = true;
 						}
 						include 'templates/page_element.php';
-						
-						$respostas = $conn->query("SELECT DISTINCT concurso_id FROM sim_respostas WHERE user_id = $user_id");
-						if ($respostas->num_rows > 0) {
-							$template_id = 'user_simulados';
-							$template_titulo = 'Seus simulados';
-							$template_conteudo = false;
-							while ($resposta = $respostas->fetch_assoc()) {
-								$resposta_concurso_id = $resposta['concurso_id'];
-								$resposta_concurso_titulo = return_concurso_titulo_id($resposta_concurso_id);
-								$template_conteudo .= "<h2>$resposta_concurso_titulo</h2>";
-								$respostas2 = $conn->query("SELECT DISTINCT simulado_id FROM sim_respostas WHERE concurso_id = $resposta_concurso_id AND user_id = $user_id");
-								if ($respostas2->num_rows > 0) {
-									$template_conteudo .= "<ul class='list-group'>";
-									while ($resposta2 = $respostas2->fetch_assoc()) {
-										$resposta_simulado_id = $resposta2['simulado_id'];
-										$resposta_simulado_info = return_simulado_info($resposta_simulado_id);
-										$resposta_simulado_criacao = $resposta_simulado_info[0];
-										$resposta_simulado_tipo = $resposta_simulado_info[1];
-										$template_conteudo .= "
-						                    <a href='resultados.php?simulado_id=$resposta_simulado_id' target='_blank'><li class='list-group-item list-group-item-action'>
-						                        $resposta_simulado_criacao: $resposta_simulado_tipo
-                                            </li></a>
-						                ";
-									}
-									$template_conteudo .= "</ul>";
-								}
-							}
-							if ($respostas->num_rows > 10) {
-								$template_load_invisible = true;
-							}
-							include 'templates/page_element.php';
-						}
-					
 					
 					?>
         </div>

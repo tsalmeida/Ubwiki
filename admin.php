@@ -6,6 +6,10 @@
 	    $data_atualizacao = $_POST['trigger_atualizacao'];
         $conn->query("ALTER TABLE `sim_respostas` ADD `redacao_text` LONGTEXT NULL DEFAULT NULL AFTER `redacao`, ADD `redacao_content` LONGTEXT NULL DEFAULT NULL AFTER `redacao_text`;");
         $conn->query("ALTER TABLE `sim_respostas` CHANGE `redacao` `redacao_html` LONGTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL;");
+        $conn->query("ALTER TABLE `Forum` CHANGE `topico_id` `page_id` INT(11) NULL DEFAULT NULL;");
+        $conn->query("ALTER TABLE `Forum` ADD `page_tipo` VARCHAR(255) NULL DEFAULT NULL AFTER `page_id`;");
+        $conn->query("UPDATE `Forum` SET `page_tipo` = 'topico' WHERE `Forum`.`id` = 1;");
+        $conn->query("UPDATE `Forum` SET `page_tipo` = 'topico' WHERE `Forum`.`id` = 2;");
 	}
 	
 	if (isset($_POST['funcoes_gerais'])) {

@@ -213,7 +213,7 @@
 														$template_conteudo .= "<h5 class='mt-5'>Sua resposta:</h5>";
 														$template_conteudo .= "
 															<ul class='list-group mb-3'>
-																<li class='list-group-item'><strong>Quantidade de palavras:</strong> $questao_redacao_wordcount</li>
+																<li class='list-group-item list-group-item-secondary'><strong>Quantidade de palavras:</strong> $questao_redacao_wordcount</li>
 															</ul>
 														";
 														$template_conteudo .= $questao_redacao_html;

@@ -171,7 +171,7 @@
 	if (isset($_POST['novo_comentario'])) {
 		$novo_comentario = $_POST['novo_comentario'];
 		$novo_comentario = mysqli_real_escape_string($conn, $novo_comentario);
-		$conn->query("INSERT INTO Forum (user_id, topico_id, comentario)  VALUES ($user_id, $topico_id, '$novo_comentario')");
+		$conn->query("INSERT INTO Forum (user_id, page_id, page_tipo, comentario)  VALUES ($user_id, $topico_id, 'topico', '$novo_comentario')");
 		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $topico_id, 'topico_forum')");
 	}
 
@@ -411,7 +411,7 @@
                                 class='fal fa-check-double fa-fw'></i></a></span>-->
                 <span id='forum' title='Fórum' data-toggle='modal' data-target='#modal_forum'>
                     <?php
-	                    $comments = $conn->query("SELECT timestamp, comentario, user_id FROM Forum WHERE topico_id = $topico_id");
+	                    $comments = $conn->query("SELECT timestamp, comentario, user_id FROM Forum WHERE page_id = $topico_id AND page_tipo = 'topico'");
 	                    if ($comments->num_rows == 0) {
 		                    echo "
                                 <a href='javascript:void(0);'>

@@ -11,6 +11,9 @@
 	if (!isset($artefato_template_thumb)) {
 		$artefato_template_thumb = false;
 	}
+	if (!isset($artefato_icone)) {
+		$artefato_icone = false;
+	}
 	
 	if ($artefato_tipo == 'anotacao_topico') {
 		$fa_icone = $fa_icone_anotacao;
@@ -39,6 +42,10 @@
 		$fa_secondary_color = $fa_secondary_color_imagem;
 	}
 
+	if ($artefato_icone != false) {
+		$fa_icone = $artefato_icone;
+	}
+	
 	if (!isset($artefato_page_id_titulo)) {
 		$artefato_page_id_titulo = false;
 	}
@@ -66,6 +73,7 @@
 	unset($artefato_titulo);
 	unset($artefato_page_id_titulo);
 	unset($artefato_estado);
+	unset($artefato_icone);
 
 	return $artefato_template_result;
 

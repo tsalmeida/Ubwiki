@@ -150,7 +150,7 @@
 							include 'templates/page_element.php';
 						}
 						
-						$respostas = $conn->query("SELECT DISTINCT simulado_id FROM sim_respostas WHERE user_id = $user_id");
+						$respostas = $conn->query("SELECT DISTINCT simulado_id, questao_tipo FROM sim_respostas WHERE user_id = $user_id ORDER BY id DESC");
 						if ($respostas->num_rows > 0) {
 							$template_id = 'simulados';
 							$template_titulo = 'Simulados';
@@ -159,10 +159,20 @@
 							$template_conteudo = false;
 							while ($resposta = $respostas->fetch_assoc()) {
 								$artefato_id = $resposta['simulado_id'];
-								$artefato_criacao = false;
-								$artefato_titulo = 'Simulado';
+								$artefato_questao_tipo = $resposta['questao_tipo'];
+								$simulado_info = return_simulado_info($artefato_id);
+								$simulado_criacao = $simulado_info[0];
+								$simulado_tipo = $simulado_info[1];
+								$simulado_tipo_string = converter_simulado_tipo($simulado_tipo);
+								$simulado_concurso_id = $simulado_info[2];
+								$simulado_concurso_sigla = return_concurso_sigla($simulado_concurso_id);
+								$artefato_criacao = $simulado_criacao;
+								$artefato_titulo = "$simulado_concurso_sigla: $simulado_tipo_string";
 								$artefato_link = "resultados.php?simulado_id=$artefato_id";
 								$artefato_tipo = 'simulado';
+								if ($artefato_questao_tipo == 3) {
+								    $artefato_icone = 'fa-file-edit';
+								}
 								$template_conteudo .= include 'templates/artefato_item.php';
 							}
 							include 'templates/page_element.php';
