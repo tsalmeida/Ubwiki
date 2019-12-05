@@ -79,7 +79,6 @@
 						while ($row = mysqli_fetch_array($result)) {
 							$nivel_count++;
 						}
-						$cor_badge = false;
 						$cor_nivel1 = false;
 						$cor_nivel2 = false;
 						$cor_nivel3 = false;
@@ -87,26 +86,22 @@
 						$cor_nivel5 = false;
 						
 						if ($nivel_count == 5) {
-							$cor_badge = 'grey';
 							$cor_nivel1 = 'grey lighten-1';
 							$cor_nivel2 = 'grey lighten-2';
 							$cor_nivel3 = 'grey lighten-3';
 							$cor_nivel4 = 'grey lighten-4';
 							$cor_nivel5 = 'grey lighten-5';
 						} elseif ($nivel_count == 4) {
-							$cor_badge = 'grey lighten-1';
 							$cor_nivel1 = 'grey lighten-2';
 							$cor_nivel2 = 'grey lighten-3';
 							$cor_nivel3 = 'grey lighten-4';
 							$cor_nivel4 = 'grey lighten-5';
 						} elseif ($nivel_count == 3) {
-							$cor_badge = 'grey lighten-1';
 							$cor_nivel1 = 'grey lighten-2';
-							$cor_nivel2 = 'grey lighten-4';
+							$cor_nivel2 = 'grey lighten-3';
 							$cor_nivel3 = 'grey lighten-5';
 						} elseif ($nivel_count == 2) {
-							$cor_badge = 'grey lighten-2';
-							$cor_nivel1 = 'grey lighten-4';
+							$cor_nivel1 = 'grey lighten-3';
 							$cor_nivel2 = 'grey lighten-5';
 						}
 						
