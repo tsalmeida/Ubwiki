@@ -26,7 +26,7 @@
         <div class="col-lg-6 col-sm-12 mb-5">
             <form id="searchform" action="" method="post">
                 <div id="searchDiv">
-                    <input id="searchBar" list="searchlist" type="text" class="searchBar text-muted"
+                    <input id="barra_busca" list="searchlist" type="text" class="barra_busca text-muted"
                            name="searchBar" rows="1" autocomplete="off" spellcheck="false"
                            placeholder="O que você vai aprender hoje?" required>
                     <datalist id="searchlist">
@@ -41,7 +41,7 @@
 											?>
                     </datalist>
 									<?php
-										echo "<input id='searchBarGo' name='searchBarGo' value='$concurso_id' type='submit' style='position: absolute; left: -9999px; width: 1px; height: 1px;' tabindex='-1' />";
+										echo "<input name='trigger_busca' value='$concurso_id' type='submit' style='position: absolute; left: -9999px; width: 1px; height: 1px;' tabindex='-1' />";
 									?>
                 </div>
             </form>
@@ -74,9 +74,9 @@
 										$materia_titulo = $row['titulo'];
 										$materia_id = $row["id"];
 										echo "
-                                          <div href='materia.php?materia_id=$materia_id' class='rounded cardmateria grey lighten-4 text-break text-center align-middle mb-3 py-2'>
-                                            <span class='text-muted text-uppercase'>$materia_titulo</span>
-                                          </div>
+                                          <a href='materia.php?materia_id=$materia_id'><div class='btn btn-block btn-light rounded oswald btn-md text-center grey lighten-3 text-muted mb-3'>
+                                            <span class=''>$materia_titulo</span>
+                                          </div></a>
                                         ";
 										if ($count == $row_items) {
 											$count3++;
@@ -159,7 +159,7 @@
         <div id="coluna_esquerda" class="<?php echo $coluna_classes; ?>">
 					<?php
 						$template_id = 'verbete_curso';
-						$template_titulo = 'Verbete';
+						$template_titulo = 'Apresentação';
 						$template_quill_empty_content = "<p id='verbete_vazio_{$template_id}'>Seja o primeiro a contribuir para a construção deste verbete.</p>";
 						$template_botoes = false;
 						$template_conteudo = include 'templates/template_quill.php';

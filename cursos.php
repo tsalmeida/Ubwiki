@@ -20,7 +20,7 @@
 
 <div class="container-fluid">
 	<?php
-		$template_titulo = 'Trocar curso';
+		$template_titulo = 'Alterar curso';
 		$template_titulo_context = true;
 		$template_titulo_no_nav = true;
 		include 'templates/titulo.php';
@@ -30,6 +30,7 @@
 					<?php
 						$template_id = 'selecao_curso';
 						$template_titulo = 'Selecione um curso';
+						$template_botoes_padrao = false;
 						$template_conteudo = false;
 						$template_conteudo .= "<form method='post'>";
 						$template_conteudo .= "<select class='mdb-select md-form' name='trocar_concurso'>
@@ -41,7 +42,7 @@
 							else { $selected = false; }
 						    $curso_titulo = $curso['titulo'];
 							$curso_sigla = $curso['sigla'];
-							$template_conteudo .= "<option value='$curso_id' $selected>$curso_sigla: $curso_titulo</option>";
+							$template_conteudo .= "<option value='$curso_id' $selected>$curso_titulo ($curso_sigla)</option>";
 						}
 						if ($cursos_do_usuario->num_rows > 0) {
 						    $template_conteudo .= "<option disabled>Seus cursos:</option>";

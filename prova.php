@@ -151,13 +151,13 @@
 		}
 		$template_modal_body_conteudo .= "</select>";
 		$tipo_objetiva = false;
-		$tipo_discursiva = false;
+		$tipo_dissertativa = false;
 		$tipo_oral = false;
 		$tipo_fisica = false;
 		if ($prova_tipo == 1) {
 			$tipo_objetiva = 'selected';
 		} elseif ($prova_tipo == 2) {
-			$tipo_discursiva = 'selected';
+			$tipo_dissertativa = 'selected';
 		} elseif ($prova_tipo == 3) {
 			$tipo_oral = 'selected';
 		} elseif ($prova_tipo == 4) {
@@ -171,7 +171,7 @@
                             <select class='$select_classes' name='nova_prova_tipo' required>
                               <option value='' disabled selected>Tipo de prova:</option>
                               <option value='1' $tipo_objetiva>Objetiva</option>
-                              <option value='2' $tipo_discursiva>Discursiva</option>
+                              <option value='2' $tipo_dissertativa>Dissertativa</option>
                               <option value='3' $tipo_oral>Oral</option>
                               <option value='4' $tipo_fisica>Física</option>
                             </select>

@@ -190,7 +190,7 @@
         <div id="coluna_esquerda" class="<?php echo $coluna_classes; ?>">
 					<?php
 						$template_id = 'verbete_materia';
-						$template_titulo = 'Verbete';
+						$template_titulo = 'Introdução';
 						$template_quill_empty_content = "<p id='verbete_vazio_{$template_id}'>Seja o primeiro a contribuir para a construção deste verbete.</p>";
 						$template_botoes = false;
 						$template_conteudo = include 'templates/template_quill.php';

@@ -1,13 +1,13 @@
 <?php
-	
+
 	include 'engine.php';
-	
+
 	if (isset($_GET['id'])) {
 		$elemento_id = $_GET['id'];
 	}
-	
+
 	$nao_contar = false;
-	
+
 	if (isset($_POST['submit_elemento_dados'])) {
 		$elemento_mudanca_estado = 0;
 		if (isset($_POST['elemento_mudanca_estado'])) {
@@ -54,7 +54,7 @@
 		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $elemento_id, 'elemento_dados')");
 		$nao_contar = true;
 	}
-	
+
 	$result = $conn->query("SELECT estado, criacao, tipo, titulo, autor, capitulo, ano, link, iframe, arquivo, resolucao, orientacao, comentario, trecho, user_id FROM Elementos WHERE id = $elemento_id");
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
@@ -80,7 +80,7 @@
 			break;
 		}
 	}
-	
+
 	$elemento_bookmark = false;
 	$bookmark = $conn->query("SELECT bookmark FROM Bookmarks WHERE user_id = $user_id AND elemento_id = $elemento_id AND active = 1");
 	if ($bookmark->num_rows > 0) {
@@ -89,9 +89,9 @@
 			break;
 		}
 	}
-	
+
 	// FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM
-	
+
 	if (isset($_POST['novo_comentario'])) {
 		$novo_comentario = $_POST['novo_comentario'];
 		$novo_comentario = mysqli_real_escape_string($conn, $novo_comentario);
@@ -99,7 +99,7 @@
 		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $elemento_id, 'elemento_forum')");
 		$nao_contar = true;
 	}
-	
+
 	$html_head_template_quill = true;
 	$html_head_template_conteudo = "
         <script type='text/javascript'>
@@ -186,13 +186,13 @@
 							$template_conteudo_class = 'text-center';
 							include 'templates/page_element.php';
 						}
-						
+
 						if ($estado_elemento == true) {
 							$estado_elemento_visivel = 'publicado';
 						} else {
 							$estado_elemento_visivel = 'removido';
 						}
-						
+
 						$dados_elemento = false;
 						$dados_elemento .= "
                             <ul class='list-group'>
@@ -215,7 +215,20 @@
 						}
 						$dados_elemento .= "<li class='list-group-item'>Adicionado pelo usuário <strong><a href='perfil.php?pub_user_id=$user_elemento_id' target='_blank'>$user_apelido_elemento</a></strong></li>";
 						$dados_elemento .= "</ul>";
-						
+
+						$template_id = 'verbete_elemento';
+						if ($tipo_elemento == 'imagem') {
+							$template_titulo = 'Análise';
+                            $template_quill_empty_content = "<p id='verbete_vazio_{$template_id}'>Seja o primeiro a contribuir para a análise desta imagem.</p>";
+						} else {
+							$template_titulo = 'Verbete';
+                            $template_quill_empty_content = "<p id='verbete_vazio_{$template_id}'>Seja o primeiro a contribuir para a construção deste verbete.</p>";
+						}
+						$template_load_invisible = true;
+						$template_botoes = false;
+						$template_conteudo = include 'templates/template_quill.php';
+						include 'templates/page_element.php';
+
 						$template_id = 'dados_elemento_div';
 						$template_titulo = 'Dados';
 						$template_botoes = "
@@ -226,27 +239,20 @@
 						$template_conteudo = false;
 						$template_conteudo .= $dados_elemento;
 						include 'templates/page_element.php';
-						
+
 						//VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE
-						
-						$template_id = 'verbete_elemento';
-						$template_titulo = 'Verbete';
-						$template_quill_empty_content = "<p id='verbete_vazio_{$template_id}'>Seja o primeiro a contribuir para a construção deste verbete.</p>";
-						$template_botoes = false;
-						$template_conteudo = include 'templates/template_quill.php';
-						include 'templates/page_element.php';
-					
+
 					?>
         </div>
         <div id='coluna_direita' class='<?php echo $coluna_classes; ?> anotacoes_collapse collapse show'>
-					
+
 					<?php
-						
+
 						$template_id = 'anotacoes_elemento';
 						$template_titulo = 'Anotações privadas';
 						$template_conteudo = include 'templates/template_quill.php';
 						include 'templates/page_element.php';
-					
+
 					?>
 
         </div>
@@ -260,7 +266,7 @@
 	$template_modal_div_id = 'modal_elemento_form';
 	$template_modal_titulo = 'Alterar dados do elemento';
 	$template_modal_body_conteudo = false;
-	
+
 	$estado_elemento_checkbox = false;
 	if ($estado_elemento == true) {
 		$estado_elemento_checkbox = 'checked';
@@ -292,15 +298,15 @@
             <label for='elemento_novo_ano'>Ano</label>
         </div>
 	";
-	
+
 	$template_modal_submit_name = 'submit_elemento_dados';
-	
+
 	include 'templates/modal.php';
-	
+
 	$template_modal_div_id = 'modal_forum';
 	$template_modal_titulo = 'Fórum';
 	$template_modal_body_conteudo = false;
-	
+
 	if ($comments->num_rows > 0) {
 		$template_modal_body_conteudo .= "<ul class='list-group'>";
 		while ($row = $comments->fetch_assoc()) {
@@ -332,7 +338,7 @@
 	} else {
 		$template_modal_body_conteudo .= "<p class='mt-3'><strong>Para adicionar um comentário, você precisará definir seu apelido em sua <a href='usuario.php' target='_blank'>página de usuário</a>.</strong></p>";
 	}
-	
+
 	include 'templates/modal.php';
 
 

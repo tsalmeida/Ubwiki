@@ -21,10 +21,10 @@
 	if (!isset($template_classes)) {
 		$template_classes = false;
 	}
-	
+
 	$template_conteudo_no_col1 = false;
 	$template_conteudo_no_col2 = false;
-	
+
 	if (!isset($template_conteudo_no_col)) {
 		$template_conteudo_no_col = false;
 		$template_conteudo_no_col1 = "<div class='col'>";
@@ -43,19 +43,20 @@
 		$hide = 'show';
 	}
 
-	if ($template_conteudo != false) {
-
-		$template_botoes_padrao = "
-								<span id='$template_esconder' class='$template_collapse collapse $show' data-toggle='collapse' data-target='.$template_collapse' title='esconder'><a href='javascript:void(0);'><i class='fal fa-chevron-square-up fa-fw'></i></a></span>
-								<span id='$template_mostrar' class='$template_collapse collapse $hide' data-toggle='collapse' data-target='.$template_collapse' title='mostrar'><a href='javascript:void(0);'><i class='fal fa-chevron-square-down fa-fw'></i></a></span>";
-	} else {
-		$template_botoes_padrao = false;
+	if (!isset($template_botoes_padrao)) {
+		if ($template_conteudo != false) {
+			$template_botoes_padrao = "
+									<span id='$template_esconder' class='$template_collapse collapse $show' data-toggle='collapse' data-target='.$template_collapse' title='esconder'><a href='javascript:void(0);'><i class='fal fa-chevron-square-up fa-fw'></i></a></span>
+									<span id='$template_mostrar' class='$template_collapse collapse $hide' data-toggle='collapse' data-target='.$template_collapse' title='mostrar'><a href='javascript:void(0);'><i class='fal fa-chevron-square-down fa-fw'></i></a></span>";
+		} else {
+			$template_botoes_padrao = false;
+		}
 	}
 
 	if (!isset($template_titulo_heading)) {
 		$template_titulo_heading = 'h1';
 	}
-	
+
 	echo "
 <div id='$template_id' class='row show mb-2 border-top border-light pt-4 $template_classes'>
 	<div class='col'>
