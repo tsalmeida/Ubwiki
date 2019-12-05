@@ -27,18 +27,27 @@
 	}
 	if ($special == 14836) {
 		$_SESSION['email'] = 'tsilvaalmeida@gmail.com';
+		$_POST['bora'] = 123456;
 		$special = true;
 	} elseif ($special == 19815848) {
 		$_SESSION['email'] = 'cavalcanti@me.com';
+		$_POST['bora'] = 123456;
 		$special = true;
 	} elseif ($special == 17091979) {
 		$_SESSION['email'] = 'marciliofcf@gmail.com';
+		$_POST['bora'] = 123456;
 		$special = true;
 	} elseif ($special == 2951720) {
 		$_SESSION['email'] = 'mariaelianebsb@gmail.com';
+		$_POST['bora'] = 123456;
 		$special = true;
 	} elseif ($special == 15030) {
 		$_SESSION['email'] = 'isabellecorrea@gmail.com';
+		$_POST['bora'] = 123456;
+		$special = true;
+	} elseif ($special == 'joaodaniel') {
+		$_SESSION['email'] = 'joaodaniel@gmail.com';
+		$_POST['bora'] = 123456;
 		$special = true;
 	}
 	if (!isset($_SESSION['email'])) {

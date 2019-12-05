@@ -220,7 +220,7 @@
 													}
 													$template_titulo_heading = 'h4';
 													$template_botoes = "
-                                                        <span id='pagina_questao_{$questao_id}' title='Página do texto de apoio'>
+                                                        <span id='pagina_questao_{$questao_id}' title='Página da questão'>
                                                             <a href='questao.php?questao_id=$questao_id' target='_blank'><i class='fal fa-external-link-square fa-fw'></i></a>
                                                         </span>
                                                     ";

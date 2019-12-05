@@ -94,6 +94,7 @@
 								$template_titulo = 'Verbete';
 								$template_quill_empty_content = "<p id='verbete_vazio_{$template_id}'>Seja o primeiro a contribuir para a construção deste verbete.</p>";
 								$template_quill_page_id = $texto_apoio_id;
+								$template_load_invisible = true;
 								$template_botoes = false;
 								$template_conteudo = include 'templates/template_quill.php';
 								include 'templates/page_element.php';

@@ -27,7 +27,7 @@
         </a>
         <div class='dropdown-menu dropdown-menu-right z-depth-0'>
           <a class='dropdown-item navlink z-depth-0' href='usuario.php'>Sua página</a>
-          <a class='dropdown-item navlink z-depth-0' href='cursos.php'>Trocar curso</a>
+          <a class='dropdown-item navlink z-depth-0' href='cursos.php'>Alterar curso</a>
           <a class='dropdown-item navlink z-depth-0' href='logout.php'>Logout</a>
       </li>
     </ul>
