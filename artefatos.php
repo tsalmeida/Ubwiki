@@ -96,10 +96,8 @@
 								$artefato_titulo = $anotacao_privada['titulo'];
 								$artefato_criacao = $anotacao_privada['criacao'];
 								$artefato_criacao = "Criado em $artefato_criacao";
-								$artefato_page_id_titulo = return_concurso_titulo_id($artefato_page_id);
 								if ($artefato_titulo == false) {
-									$artefato_titulo = $artefato_page_id_titulo;
-									$artefato_page_id_titulo = false;
+									$artefato_titulo = 'Anotação privada';
 								}
 								$artefato_tipo = 'anotacao_privada';
 								$artefato_link = "edicao_textos.php?texto_id=$artefato_id";
