@@ -248,6 +248,11 @@
 		return;
 	}
 	
+	if ((isset($_POST['novo_texto_titulo'])) && (isset($_POST['novo_texto_titulo_id']))) {
+		error_log('this happened');
+		echo true;
+	}
+	
 	function generateRandomString()
 	{
 		$length = func_get_args();

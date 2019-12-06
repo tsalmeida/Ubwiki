@@ -389,7 +389,7 @@
                                   <option value='inteligente' disabled>Criado por nosso algoritmo</option>
                                   <option value='questao_errou' disabled>Apenas questões em que você errou pelo menos um item</option>
                                   <option value='itens_errou' disabled>Apenas itens que você errou no passado</option>
-                                  <option value='questoes_estudados' disabled>Apenas questões de tópicos que você marcou como estudados</option>
+                                  <option value='questoes_estudados' disabled´>Apenas questões de tópicos que você marcou como estudados</option>
                                 </select>
                         ";
 								$template_conteudo .= "

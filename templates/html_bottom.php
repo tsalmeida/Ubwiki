@@ -9,6 +9,9 @@
 	if (!isset($gabarito)) {
 		$gabarito = false;
 	}
+	if (!isset($mudar_anotacao_titulo)) {
+		$mudar_anotacao_titulo = false;
+	}
 	
 	echo "
     <!-- Bootstrap tooltips -->
@@ -38,15 +41,33 @@
 			</script>
 		";
 	}
-
+	
 	if ($gabarito == true) {
 		echo "
-		<script type='text/javascript'>
-			$('#mostrar_gabarito').click(function () {
-				$('.list-group-item').removeClass('list-group-item-light');
-				$('#mostrar_gabarito').hide();
-	    });
-		</script>
+			<script type='text/javascript'>
+				$('#mostrar_gabarito').click(function () {
+					$('.list-group-item').removeClass('list-group-item-light');
+					$('#mostrar_gabarito').hide();
+		    });
+			</script>
 		";
 	}
+	if ($mudar_anotacao_titulo == true) {
+		echo "
+			<script type='text/javascript'>
+				$('input[name=novo_texto_titulo]').change(function() {
+					var novo_texto_titulo = $('input[name=novo_texto_titulo').val();
+					$.post('engine.php', {
+						'novo_texto_titulo': novo_texto_titulo,
+						'novo_texto_titulo_id': $texto_id
+					}, function(data) {
+					    if (data != 0) {
+					    	$('#texto_titulo').text(novo_texto_titulo);
+					    }
+						})
+				});
+			</script>
+			";
+	}
+?>
 	

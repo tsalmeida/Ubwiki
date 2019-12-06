@@ -7,7 +7,7 @@
 	} else {
 		header('Location:index.php');
 	}
-	
+	$texto_anotacao = false;
 	if ($texto_id == 0) {
 		$texto_tipo = 'anotacao_privada';
 		$texto_titulo = false;
@@ -27,6 +27,7 @@
 				$texto_user_id = $texto['user_id'];
 				$check = false;
 				if (strpos($texto_tipo, 'anotac') !== false) {
+					$texto_anotacao = true;
 					if ($texto_user_id != $user_id) {
 						header('Location:index.php');
 					}
@@ -49,6 +50,17 @@
     <div class="row">
         <div id="coluna_unica" class="col">
             <div id='quill_pagina_edicao' class="row justify-content-center">
+	            <?php
+		            if ($texto_anotacao == true) {
+		            	$mudar_anotacao_titulo = true;
+		            	echo "<div class='w-100 md-form'>
+                                  <input type='text' class='form-control' name='novo_texto_titulo' id='novo_texto_titulo' maxlength='60' required>
+                                  <label for='nova_prova_titulo'>Título</label>
+                              </div>";
+		            }
+		            echo "<h1 id='texto_titulo'>$texto_titulo</h1>";
+	            ?>
+	            
 							<?php
 								$template_id = $texto_tipo;
 								$template_quill_initial_state = 'edicao';
