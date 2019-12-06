@@ -88,9 +88,26 @@
 						$template_conteudo_class = 'justify-content-start';
 						$template_conteudo_no_col = true;
 						$template_conteudo = false;
+						$anotacoes_privadas = $conn->query("SELECT id, page_id, titulo, criacao FROM Textos WHERE tipo = 'anotacao_privada' AND user_id = $user_id ORDER BY id DESC");
+						if ($anotacoes_privadas->num_rows > 0) {
+							while ($anotacao_privada = $anotacoes_privadas->fetch_assoc()) {
+								$artefato_id = $anotacao_privada['id'];
+								$artefato_page_id = $anotacao_privada['page_id'];
+								$artefato_titulo = $anotacao_privada['titulo'];
+								$artefato_criacao = $anotacao_privada['criacao'];
+								$artefato_criacao = "Criado em $artefato_criacao";
+								$artefato_page_id_titulo = return_concurso_titulo_id($artefato_page_id);
+								if ($artefato_titulo == false) {
+									$artefato_titulo = $artefato_page_id_titulo;
+									$artefato_page_id_titulo = false;
+								}
+								$artefato_tipo = 'anotacao_privada';
+								$artefato_link = "edicao_textos.php?texto_id=$artefato_id";
+								$template_conteudo .= include 'templates/artefato_item.php';
+							}
+						}
 						$anotacoes_cursos = $conn->query("SELECT id, page_id, titulo, criacao FROM Textos WHERE tipo = 'anotacoes_curso' AND user_id = $user_id ORDER BY id DESC");
 						if ($anotacoes_cursos->num_rows > 0) {
-							$template_conteudo = false;
 							while ($anotacao_cursos = $anotacoes_cursos->fetch_assoc()) {
 								$artefato_id = $anotacao_cursos['id'];
 								$artefato_page_id = $anotacao_cursos['page_id'];

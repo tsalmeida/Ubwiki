@@ -17,15 +17,15 @@
 	
 	if ($artefato_tipo == 'anotacao_topico') {
 		$fa_icone = $fa_icone_anotacao;
-		$fa_primary_color = '#90caf9';
+		$fa_primary_color = '#a5d6a7';
 		$fa_secondary_color = $fa_secondary_color_anotacao;
 	} elseif ($artefato_tipo == 'anotacao_materia') {
 		$fa_icone = $fa_icone_anotacao;
-		$fa_primary_color = '#a5d6a7';
+		$fa_primary_color = '#ffcc80';
 		$fa_secondary_color = $fa_secondary_color_anotacao;
 	} elseif ($artefato_tipo == 'anotacao_curso') {
 		$fa_icone = $fa_icone_anotacao;
-		$fa_primary_color = '#ffcc80';
+		$fa_primary_color = '#bcaaa4';
 		$fa_secondary_color = $fa_secondary_color_anotacao;
 	} elseif ($artefato_tipo == 'simulado') {
 		$fa_icone = 'fa-file-check';
@@ -48,6 +48,10 @@
 		$fa_icone = 'fa-file-plus';
 		$fa_primary_color = $fa_primary_color_imagem;
 		$fa_secondary_color = $fa_secondary_color_imagem;
+	} elseif ($artefato_tipo == 'anotacao_privada') {
+		$fa_icone = $fa_icone_anotacao;
+		$fa_primary_color = '#90caf9';
+		$fa_secondary_color = $fa_secondary_color_anotacao;
 	}
 
 	if ($artefato_icone != false) {

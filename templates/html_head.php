@@ -45,10 +45,11 @@
 		if ($html_head_template_quill == true) {
 			echo "
             <script type='text/javascript'>
-	  	        var formatWhitelist_general = ['italic', 'script', 'link', 'blockquote', 'list', 'header', 'image', 'indent'];
+	  	        var formatWhitelist_general = ['italic', 'script', 'link', 'blockquote', 'list', 'header', 'image', 'indent', 'bold'];
 	  	        var formatWhitelist_anotacoes = ['italic', 'script', 'link', 'blockquote', 'list', 'header', 'image', 'bold', 'background', 'color', 'strike', 'underline', 'align', 'link', 'video', 'image', 'indent'];
                 var toolbarOptions_general = [
                     [{'header': [2, 3, false]}],
+                    ['bold'],
                     ['italic'],
                     [{'script': 'super'}],
                     ['blockquote'],
