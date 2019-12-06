@@ -62,7 +62,7 @@
 						'novo_texto_titulo_id': $texto_id
 					}, function(data) {
 					    if (data != 0) {
-					    	$('#texto_titulo').text(novo_texto_titulo);
+					    	$('#novo_texto_titulo').text(novo_texto_titulo);
 					    }
 						})
 				});

@@ -6,9 +6,6 @@
 	if (!isset($template_quill_pagina_de_edicao)) {
 		$template_quill_pagina_de_edicao = false;
 	}
-	if (!isset($texto_id)) {
-		$texto_id = false;
-	}
 	if (strpos($template_id, 'anotac') !== false) {
 		$template_quill_meta_tipo = 'anotacoes';
 		$template_quill_toolbar_and_whitelist = 'anotacoes';
@@ -91,12 +88,6 @@
 		}
 	}
 	
-	if (($texto_id == 0) && ($template_id == 'anotacao_privada')) {
-		$quill_verbete_content = false;
-		$quill_texto_id = false;
-		$verbete_exists = false;
-	}
-	
 	if (isset($_POST[$quill_trigger_button])) {
 		$novo_verbete_html = $_POST[$quill_novo_verbete_html];
 		$novo_verbete_html = mysqli_real_escape_string($conn, $novo_verbete_html);
@@ -116,12 +107,7 @@
 			$conn->query("INSERT INTO Textos_arquivo (tipo, page_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('$template_id', $template_quill_page_id, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
 		} else {
 			$conn->query("INSERT INTO Textos_arquivo (tipo, page_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('$template_id' , $template_quill_page_id, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
-			if ($conn->query("INSERT INTO Textos (tipo, page_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('$template_id', $template_quill_page_id, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)") === true) {
-				$new_id = $conn->insert_id;
-				if ($template_quill_pagina_de_edicao == true) {
-					header("Location:edicao_textos.php?texto_id=$new_id");
-				}
-			}
+			$conn->query("INSERT INTO Textos (tipo, page_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('$template_id', $template_quill_page_id, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
 		}
 		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $template_quill_page_id, '$quill_visualizacoes_tipo')");
 		$nao_contar = true;
@@ -160,7 +146,7 @@
         <pre><input name='$quill_novo_verbete_content' type='hidden'></pre>
         <div class='row'>
             <div class='container col'>
-                <div id='quill_container_{$template_id}'>
+                <div id='quill_container_{$template_id}' class='bg-white'>
                     <div id='quill_editor_{$template_id}' class='$template_quill_editor_classes'>
                     </div>
                 </div>

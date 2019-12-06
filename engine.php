@@ -249,7 +249,18 @@
 	}
 	
 	if ((isset($_POST['novo_texto_titulo'])) && (isset($_POST['novo_texto_titulo_id']))) {
-		error_log('this happened');
+		$servername = "localhost";
+		$username = "grupoubique";
+		$password = "ubique patriae memor";
+		$dbname = "Ubwiki";
+		$conn = new mysqli($servername, $username, $password, $dbname);
+		mysqli_set_charset($conn, "utf8");
+
+		$novo_texto_titulo = $_POST['novo_texto_titulo'];
+		$novo_texto_titulo = mysqli_real_escape_string($conn, $novo_texto_titulo);
+		$novo_texto_titulo_id = $_POST['novo_texto_titulo_id'];
+
+		$conn->query("UPDATE Textos SET titulo = '$novo_texto_titulo' WHERE id = $novo_texto_titulo_id");
 		echo true;
 	}
 	
