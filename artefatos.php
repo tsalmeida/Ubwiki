@@ -81,6 +81,39 @@
 						$artefato_link = false;
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
+						$artefato_id = 0;
+						$artefato_page_id = false;
+						$artefato_titulo = 'Novo curso';
+						$artefato_criacao = 'Pressione para criar nova curso';
+						$artefato_tipo = 'novo_curso';
+						$artefato_link = false;
+						$template_conteudo .= include 'templates/artefato_item.php';
+						
+						$artefato_id = 0;
+						$artefato_page_id = false;
+						$artefato_titulo = 'Nova matéria';
+						$artefato_criacao = 'Pressione para criar nova matéria de estudo';
+						$artefato_tipo = 'nova_materia_estudo';
+						$artefato_link = false;
+						$template_conteudo .= include 'templates/artefato_item.php';
+						
+						$artefato_id = 0;
+						$artefato_page_id = false;
+						$artefato_titulo = 'Novo tópico';
+						$artefato_criacao = 'Pressione para criar novo tópico de estudo';
+						$artefato_tipo = 'novo_topico_estudo';
+						$artefato_link = false;
+						$template_conteudo .= include 'templates/artefato_item.php';
+						
+						$artefato_id = 0;
+						$artefato_page_id = false;
+						$artefato_titulo = 'Nova obra';
+						$artefato_criacao = 'Pressione para criar nova obra de estudo';
+						$artefato_tipo = 'nova_obra_estudo';
+						$artefato_link = false;
+						$template_conteudo .= include 'templates/artefato_item.php';
+						
+						
 						include 'templates/page_element.php';
 						
 						$template_id = 'anotacoes_privadas';

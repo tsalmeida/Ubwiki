@@ -52,6 +52,22 @@
 		$fa_icone = $fa_icone_anotacao;
 		$fa_primary_color = '#90caf9';
 		$fa_secondary_color = $fa_secondary_color_anotacao;
+	} elseif ($artefato_tipo == 'novo_topico_estudo') {
+		$fa_icone = 'fa-file-plus';
+		$fa_primary_color = '#a5d6a7';
+		$fa_secondary_color = '#4caf50';
+	} elseif ($artefato_tipo == 'nova_obra_estudo') {
+		$fa_icone = 'fa-file-plus';
+		$fa_primary_color = '#b0bec5';
+		$fa_secondary_color = '#607d8b';
+	} elseif ($artefato_tipo == 'nova_materia_estudo') {
+		$fa_icone = 'fa-file-plus';
+		$fa_primary_color = '#ffe082';
+		$fa_secondary_color = '#ffc107';
+	} elseif ($artefato_tipo == 'novo_curso') {
+		$fa_icone = 'fa-file-plus';
+		$fa_primary_color = '#bcaaa4';
+		$fa_secondary_color = '#795548';
 	}
 
 	if ($artefato_icone != false) {

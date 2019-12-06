@@ -1,18 +1,19 @@
 <?php
-
+	
 	include 'engine.php';
-
+	
 	if (isset($_GET['texto_id'])) {
 		$texto_id = $_GET['texto_id'];
+		$texto_id = (int)$texto_id;
 	} else {
 		header('Location:index.php');
 	}
 	$texto_anotacao = false;
 	if ($texto_id == 0) {
-	    if ($conn->query("INSERT INTO Textos (tipo, page_id, user_id) VALUES ('anotacao_privada', 0, $user_id)") === TRUE) {
-	        $new_texto_id = $conn->insert_id;
-	        header("Location:edicao_textos.php?texto_id=$new_texto_id");
-        }
+		if ($conn->query("INSERT INTO Textos (tipo, page_id, user_id, verbete_html, verbete_text, verbete_content) VALUES ('anotacao_privada', 0, $user_id, FALSE, FALSE, FALSE)") === true) {
+			$new_texto_id = $conn->insert_id;
+			header("Location:edicao_textos.php?texto_id=$new_texto_id");
+		}
 	} else {
 		$textos = $conn->query("SELECT tipo, titulo, page_id, criacao, verbete_content, user_id FROM Textos WHERE id = $texto_id");
 		if ($textos->num_rows > 0) {
@@ -53,7 +54,7 @@
 									$mudar_anotacao_titulo = true;
 									echo "<h1 id='texto_titulo' class='w-100 mt-4 grey lighten-5'><input type='text' name='novo_texto_titulo' maxlength='80' value='$texto_titulo' placeholder='Digite aqui um título para esta anotação' class='border-0 text-center w-100 grey lighten-5'></h1>";
 								}
-
+								
 								$template_id = $texto_tipo;
 								$template_quill_initial_state = 'edicao';
 								$template_quill_page_id = $texto_page_id;
