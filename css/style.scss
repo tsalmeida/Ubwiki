@@ -134,6 +134,22 @@ h1, h2, h3, h4, h5, h6 {
   overflow-y: auto;
 }
 
+.quill_pagina_de_edicao {
+  height: initial !important;
+  max-height: initial !important;
+  width: 70ch;
+  overflow-y: auto !important;
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  margin-top: 0 !important;
+}
+
+#quill_pagina_edicao {
+  max-width: 70ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .footer.page-footer .footer-copyright {
  position: absolute;
  bottom: 0;

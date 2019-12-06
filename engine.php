@@ -187,6 +187,15 @@
 		$conn->query("INSERT INTO Completed (user_id, topico_id, estado, active) VALUES ($completed_user_id, $completed_page_id, $completed_change, 1)");
 	}
 	
+	$opcao_texto_justificado_value = false;
+	$opcoes = $conn->query("SELECT opcao FROM Opcoes WHERE opcao_tipo = 'texto_justificado' AND user_id = $user_id ORDER BY id DESC");
+	if ($opcoes->num_rows > 0) {
+		while ($opcao = $opcoes->fetch_assoc()) {
+			$opcao_texto_justificado_value = $opcao['opcao'];
+			break;
+		}
+	}
+	
 	if (isset($_POST['sbcommand'])) {
 		$concurso_id = base64_decode($_POST['sbconcurso']);
 		$command = base64_decode($_POST['sbcommand']);
@@ -339,6 +348,11 @@
 		$user_id = $args[3];
 		$contexto = $args[4];
 		$origem = $args[5];
+		if ($contexto != 'privada') {
+			$nova_imagem_tipo = 'imagem';
+		} else {
+			$nova_imagem_tipo = 'imagem_privada';
+		}
 		$servername = "localhost";
 		$username = "grupoubique";
 		$password = "ubique patriae memor";
@@ -346,7 +360,7 @@
 		$conn = new mysqli($servername, $username, $password, $dbname);
 		mysqli_set_charset($conn, "utf8");
 		$result = $conn->query("SELECT id FROM Elementos WHERE link = '$nova_imagem_link'");
-		if ($result->num_rows == 0) {
+		if (($result->num_rows == 0) || ($nova_imagem_tipo == 'imagem_privada')) {
 			$randomfilename = generateRandomString(16);
 			$ultimo_ponto = strripos($nova_imagem_link, ".");
 			$extensao = substr($nova_imagem_link, $ultimo_ponto);
@@ -362,23 +376,29 @@
 			if ($origem == 'upload') {
 				$nova_imagem_link = "https://ubwiki.com.br/imagens/verbetes/$nova_imagem_arquivo";
 			}
-			$conn->query("INSERT INTO Elementos (tipo, titulo, link, arquivo, resolucao, orientacao, user_id) VALUES ('imagem', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_arquivo', '$nova_imagem_resolucao_original', '$nova_imagem_orientacao', $user_id)");
-			$result2 = $conn->query("SELECT id FROM Elementos WHERE link = '$nova_imagem_link'");
-			if ($result2->num_rows > 0) {
-				while ($row = $result2->fetch_assoc()) {
-					$nova_imagem_id = $row['id'];
-					$result3 = $conn->query("SELECT id FROM Verbetes_elementos WHERE elemento_id = $nova_imagem_id");
-					if ($result3->num_rows == 0) {
-						$conn->query("INSERT INTO Verbetes_elementos (page_id, tipo_pagina, elemento_id, tipo, user_id) VALUES ($page_id, '$contexto', $nova_imagem_id, 'imagem', $user_id)");
+			if ($nova_imagem_tipo == 'imagem_privada') {
+				$conn->query("INSERT INTO Elementos (tipo, titulo, link, arquivo, resolucao, orientacao, user_id) VALUES ('$nova_imagem_tipo', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_arquivo', '$nova_imagem_resolucao_original', '$nova_imagem_orientacao', $user_id)");
+			}
+			if ($page_id != 0) {
+				// aqui deveria checar para ver se é duplicada.
+				$conn->query("INSERT INTO Elementos (tipo, titulo, link, arquivo, resolucao, orientacao, user_id) VALUES ('$nova_imagem_tipo', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_arquivo', '$nova_imagem_resolucao_original', '$nova_imagem_orientacao', $user_id)");
+				$result2 = $conn->query("SELECT id FROM Elementos WHERE link = '$nova_imagem_link'");
+				if ($result2->num_rows > 0) {
+					while ($row = $result2->fetch_assoc()) {
+						$nova_imagem_id = $row['id'];
+						$result3 = $conn->query("SELECT id FROM Verbetes_elementos WHERE elemento_id = $nova_imagem_id");
+						if ($result3->num_rows == 0) {
+							$conn->query("INSERT INTO Verbetes_elementos (page_id, tipo_pagina, elemento_id, tipo, user_id) VALUES ($page_id, '$contexto', $nova_imagem_id, '$nova_imagem_tipo', $user_id)");
+						}
+						break;
 					}
+				}
+			} else {
+				while ($row = $result->fetch_assoc()) {
+					$nova_imagem_id = $row['id'];
+					$conn->query("INSERT INTO Verbetes_elementos (page_id, tipo_pagina, elemento_id, tipo, user_id) VALUES ($page_id, '$contexto', $nova_imagem_id, '$nova_imagem_tipo', $user_id)");
 					break;
 				}
-			}
-		} else {
-			while ($row = $result->fetch_assoc()) {
-				$nova_imagem_id = $row['id'];
-				$conn->query("INSERT INTO Verbetes_elementos (page_id, tipo_pagina, elemento_id, tipo, user_id) VALUES ($page_id, '$contexto', $nova_imagem_id, 'imagem', $user_id)");
-				break;
 			}
 		}
 		if (isset($nova_imagem_arquivo)) {

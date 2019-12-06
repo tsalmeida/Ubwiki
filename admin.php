@@ -4,6 +4,9 @@
 	
 	if(isset($_POST['trigger_atualizacao'])) {
 	    $data_atualizacao = $_POST['trigger_atualizacao'];
+	    $conn->query("CREATE TABLE `Ubwiki`.`Opcoes` ( `id` INT(11) NULL DEFAULT NULL , `criacao` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP , `user_id` INT(11) NULL DEFAULT NULL , `opcao_tipo` INT(11) NULL DEFAULT NULL , `opcao` BOOLEAN NULL DEFAULT NULL ) ENGINE = InnoDB;");
+	    $conn->query("ALTER TABLE `Opcoes` CHANGE `opcao_tipo` `opcao_tipo` VARCHAR(255) NULL DEFAULT NULL;");
+	    $conn->query("ALTER TABLE `Opcoes` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT;");
 	}
 	
 	if (isset($_POST['funcoes_gerais'])) {

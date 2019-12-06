@@ -19,6 +19,13 @@
 		$user_sobrenome = $_POST['novo_sobrenome'];
 		$user_apelido = $_POST['novo_apelido'];
 		$result = $conn->query("UPDATE Usuarios SET nome = '$user_nome', sobrenome = '$user_sobrenome', apelido = '$user_apelido' WHERE id = $user_id");
+		if (isset($_POST['opcao_texto_justificado'])) {
+			$conn->query("INSERT INTO Opcoes (user_id, opcao_tipo, opcao) VALUES ($user_id, 'texto_justificado', 1)");
+			$opcao_texto_justificado_value = true;
+		} else {
+			$conn->query("INSERT INTO Opcoes (user_id, opcao_tipo, opcao) VALUES ($user_id, 'texto_justificado', 0)");
+			$opcao_texto_justificado_value = false;
+		}
 	}
 	
 	$html_head_template_quill = true;
@@ -79,7 +86,7 @@
 						$template_conteudo .= "
 							<p>Em sua página de artefatos, você tem acesso a todos os textos que produziu na Ubwiki, assim como a imagens privadas.</p>
 							<div class='row justify-content-center'>
-								<a href='artefatos.php?user_id=$user_id' target='_blank'><button class='$button_classes'>Acessar artefatos</button></a>
+								<a href='artefatos.php' target='_blank'><button class='$button_classes'>Acessar artefatos</button></a>
 							</div>
 						";
 						include 'templates/page_element.php';
@@ -93,7 +100,7 @@
 						include 'templates/page_element.php';
 						
 						$template_id = 'dados_conta';
-						$template_titulo = 'Dados da sua conta';
+						$template_titulo = 'Dados e opções da sua conta';
 						$template_botoes = "<a data-toggle='modal' data-target='#modal_editar_dados' href=''><i class='fal fa-edit'></i></a>";
 						$template_conteudo = false;
 						$template_conteudo .= "<ul class='list-group'>";
@@ -273,8 +280,14 @@
 <?php
 	
 	$template_modal_div_id = 'modal_editar_dados';
-	$template_modal_titulo = 'Alterar dados';
+	$template_modal_titulo = 'Alterar dados e opções';
+	if ($opcao_texto_justificado_value == true) {
+		$texto_justificado_checked = 'checked';
+	} else {
+		$texto_justificado_checked = false;
+	}
 	$template_modal_body_conteudo = "
+		<h3>Dados da sua conta:</h3>
         <p>Você é identificado por seu apelido em todas as circunstâncias da página em que sua
             participação ou contribuição sejam tornadas públicas.</p>
         <div class='md-form md-2'><input type='text' name='novo_apelido' id='novo_apelido' class='form-control validate' value='$user_apelido' pattern='([A-z0-9À-ž\s]){2,14}' required></input>
@@ -292,6 +305,11 @@
 
             <label data-error='inválido' data-successd='válido' for='novo_sobrenome' pattern='([A-z0-9À-ž\s]){2,}' required>Sobrenome</label>
         </div>
+        <h3>Opções:</h3>
+        <div class='md-form md-2'>
+        	<input type='checkbox' class='form-check-input' id='opcao_texto_justificado' name='opcao_texto_justificado' $texto_justificado_checked>
+        	<label class='form-check-label' for='opcao_texto_justificado'>Mostrar verbetes com texto justificado.</label>
+		</div>
     ";
 	include 'templates/modal.php';
 

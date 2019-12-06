@@ -12,8 +12,8 @@
 		$html_head_template_conteudo = false;
 	}
 	if (!isset($html_head_template_quill_sim)) {
-	    $html_head_template_quill_sim = false;
-    }
+		$html_head_template_quill_sim = false;
+	}
 
 ?>
 
@@ -38,10 +38,10 @@
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
     <title>Ubwiki</title>
 	<?php
-        if (($html_head_template_quill == true) || ($html_head_template_quill_sim == true)) {
-	        echo "<link href='css/quill.snow.css' rel='stylesheet'>";
-	        echo "<script src='https://cdn.quilljs.com/1.3.6/quill.js'></script>";
-        }
+		if (($html_head_template_quill == true) || ($html_head_template_quill_sim == true)) {
+			echo "<link href='css/quill.snow.css' rel='stylesheet'>";
+			echo "<script src='https://cdn.quilljs.com/1.3.6/quill.js'></script>";
+		}
 		if ($html_head_template_quill == true) {
 			echo "
             <script type='text/javascript'>
@@ -98,6 +98,15 @@
                     ['clean'],
                 ];
 		        </script>
+		    ";
+		}
+		if ($opcao_texto_justificado_value == true) {
+			echo "
+		      	<style>
+		      		.ql-editor {
+		      			text-align: justify;
+		      		}
+				</style>
 		    ";
 		}
 	?>
