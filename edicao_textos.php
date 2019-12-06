@@ -25,8 +25,11 @@
 				$texto_criacao = $texto['criacao'];
 				$texto_verbete_content = $texto['verbete_content'];
 				$texto_user_id = $texto['user_id'];
-				if (($texto_tipo == 'anotacao_privada') && ($texto_user_id != $user_id)) {
-					header('Location:index.php');
+				$check = false;
+				if (strpos($texto_tipo, 'anotac') !== false) {
+					if ($texto_user_id != $user_id) {
+						header('Location:index.php');
+					}
 				}
 			}
 		}

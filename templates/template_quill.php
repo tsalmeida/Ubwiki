@@ -6,7 +6,10 @@
 	if (!isset($template_quill_pagina_de_edicao)) {
 		$template_quill_pagina_de_edicao = false;
 	}
-	if (($template_id == 'anotacoes') || ($template_id == 'anotacoes_user') || ($template_id == 'anotacoes_admin') || ($template_id == 'anotacoes_elemento') || ($template_id == 'anotacoes_prova') || ($template_id == 'anotacoes_questao') || ($template_id == 'anotacoes_texto_apoio') || ($template_id == 'anotacoes_curso') || ($template_id == 'anotacoes_materia') || ($template_id == 'anotacao_privada')) {
+	if (!isset($texto_id)) {
+		$texto_id = false;
+	}
+	if (strpos($template_id, 'anotac') !== false) {
 		$template_quill_meta_tipo = 'anotacoes';
 		$template_quill_toolbar_and_whitelist = 'anotacoes';
 		$template_quill_initial_state = 'edicao';
@@ -88,6 +91,12 @@
 		}
 	}
 	
+	if (($texto_id == 0) && ($template_id == 'anotacao_privada')) {
+		$quill_verbete_content = false;
+		$quill_texto_id = false;
+		$verbete_exists = false;
+	}
+	
 	if (isset($_POST[$quill_trigger_button])) {
 		$novo_verbete_html = $_POST[$quill_novo_verbete_html];
 		$novo_verbete_html = mysqli_real_escape_string($conn, $novo_verbete_html);
@@ -109,7 +118,6 @@
 			$conn->query("INSERT INTO Textos_arquivo (tipo, page_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('$template_id' , $template_quill_page_id, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
 			if ($conn->query("INSERT INTO Textos (tipo, page_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('$template_id', $template_quill_page_id, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)") === true) {
 				$new_id = $conn->insert_id;
-				error_log($new_id);
 				if ($template_quill_pagina_de_edicao == true) {
 					header("Location:edicao_textos.php?texto_id=$new_id");
 				}
