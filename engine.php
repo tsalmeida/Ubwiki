@@ -200,9 +200,9 @@
 		$concurso_id = base64_decode($_POST['sbconcurso']);
 		$command = base64_decode($_POST['sbcommand']);
 		$command = utf8_encode($command);
+		error_log($command);
 		$found = false;
-		include 'templates/criar_conn.php';
-		$result = $conn->query("SELECT page_id, tipo FROM Searchbar WHERE concurso_id = '$concurso_id' AND chave = '$command' ORDER BY ordem");
+		$result = $conn->query("SELECT page_id, tipo FROM Searchbar WHERE concurso_id = $concurso_id AND chave = '$command' ORDER BY ordem");
 		if ($result->num_rows > 0) {
 			while ($row = $result->fetch_assoc()) {
 				$page_id = $row["page_id"];

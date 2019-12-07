@@ -2,12 +2,12 @@
     $(document).ready(function () {
         $('#barra_busca').focus();
         $('#trigger_busca').click(function () {
-            var command = $('#searchBar').val();
+            var command = $('#barra_busca').val();
             var command = btoa(command);
-            var concurso = $('#searchBarGo').val();
+            var concurso = $('#trigger_busca').val();
             var concurso = btoa(concurso);
             $.post('engine.php', {'sbcommand': command, 'sbconcurso': concurso}, function (data) {
-                $('#searchBar').val('');
+                $('#barra_busca').val('');
                 if (data != 0) {
                     var pw = data.substring(0, 16);
                     var pw2 = data.substring(16);
