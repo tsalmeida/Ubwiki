@@ -11,12 +11,7 @@
 		session_start();
 	}
 	
-	$servername = "localhost";
-	$username = "grupoubique";
-	$password = "ubique patriae memor";
-	$dbname = "Ubwiki";
-	$conn = new mysqli($servername, $username, $password, $dbname);
-	mysqli_set_charset($conn, "utf8");
+	include 'templates/criar_conn.php';
 	
 	$user_email = false;
 	$newuser = false;
@@ -104,6 +99,21 @@
 		$concurso_sigla = return_concurso_sigla($concurso_id);
 	}
 	
+	$all_buttons_classes = "btn rounded btn-md mt-4 text-center";
+	$button_classes = "$all_buttons_classes btn-primary";
+	$button_classes_light = "$all_buttons_classes btn-light";
+	$button_classes_info = "$all_buttons_classes btn-info";
+	$button_classes_red = "$all_buttons_classes btn-danger";
+	$select_classes = "browser-default custom-select mt-2";
+	$coluna_classes = "col-lg-5 col-md-10 col-sm-11";
+	$coluna_maior_classes = "col-lg-9 col-md-10 col-sm-11";
+	$coluna_media_classes = "col-lg-7 col-md-10 col-sm-11";
+	$coluna_pouco_maior_classes = "col-lg-6 col-md-10 col-sm-11";
+	
+	$tag_ativa_classes = 'text-dark m-1 p-2 lighten-4 rounded remover_tag';
+	$tag_inativa_classes = 'text-dark m-1 p-2 lighten-4 rounded adicionar_tag';
+	$tag_neutra_classes = 'text-dark m-1 p-2 lighten-4 rounded';
+	
 	function extract_gdoc($url)
 	{
 		$ch = curl_init();
@@ -147,12 +157,7 @@
 		} elseif ($bookmark_contexto == 'elemento') {
 			$coluna_relevante = 'elemento_id';
 		}
-		$servername = "localhost";
-		$username = "grupoubique";
-		$password = "ubique patriae memor";
-		$dbname = "Ubwiki";
-		$conn = new mysqli($servername, $username, $password, $dbname);
-		mysqli_set_charset($conn, "utf8");
+		include 'templates/criar_conn.php';
 		$result = $conn->query("SELECT id FROM Bookmarks WHERE user_id = $bookmark_user_id AND $coluna_relevante = $bookmark_page_id AND active = 1");
 		if ($result->num_rows > 0) {
 			while ($row = $result->fetch_assoc()) {
@@ -169,12 +174,7 @@
 		$completed_change = $_POST['completed_change'];
 		$completed_page_id = $_POST['completed_page_id'];
 		$completed_user_id = $_POST['completed_user_id'];
-		$servername = "localhost";
-		$username = "grupoubique";
-		$password = "ubique patriae memor";
-		$dbname = "Ubwiki";
-		$conn = new mysqli($servername, $username, $password, $dbname);
-		mysqli_set_charset($conn, "utf8");
+		include 'templates/criar_conn.php';
 		$result = $conn->query("SELECT id FROM Completed WHERE user_id = $completed_user_id AND topico_id = $completed_page_id AND active = 1");
 		if ($result->num_rows > 0) {
 			while ($row = $result->fetch_assoc()) {
@@ -200,13 +200,8 @@
 		$concurso_id = base64_decode($_POST['sbconcurso']);
 		$command = base64_decode($_POST['sbcommand']);
 		$command = utf8_encode($command);
-		$servername = "localhost";
-		$username = "grupoubique";
-		$password = "ubique patriae memor";
-		$dbname = "Ubwiki";
 		$found = false;
-		$conn = new mysqli($servername, $username, $password, $dbname);
-		mysqli_set_charset($conn, "utf8");
+		include 'templates/criar_conn.php';
 		$result = $conn->query("SELECT page_id, tipo FROM Searchbar WHERE concurso_id = '$concurso_id' AND chave = '$command' ORDER BY ordem");
 		if ($result->num_rows > 0) {
 			while ($row = $result->fetch_assoc()) {
@@ -249,17 +244,12 @@
 	}
 	
 	if ((isset($_POST['novo_texto_titulo'])) && (isset($_POST['novo_texto_titulo_id']))) {
-		$servername = "localhost";
-		$username = "grupoubique";
-		$password = "ubique patriae memor";
-		$dbname = "Ubwiki";
-		$conn = new mysqli($servername, $username, $password, $dbname);
-		mysqli_set_charset($conn, "utf8");
-
+		include 'templates/criar_conn.php';
+		
 		$novo_texto_titulo = $_POST['novo_texto_titulo'];
 		$novo_texto_titulo = mysqli_real_escape_string($conn, $novo_texto_titulo);
 		$novo_texto_titulo_id = $_POST['novo_texto_titulo_id'];
-
+		
 		$conn->query("UPDATE Textos SET titulo = '$novo_texto_titulo' WHERE id = $novo_texto_titulo_id");
 		echo true;
 	}
@@ -341,7 +331,7 @@
 		$user_id = $_POST['user_id'];
 		$page_id = $_POST['page_id'];
 		$contexto = $_POST['contexto'];
-		$nossa_copia = adicionar_imagem($nova_imagem_link, $nova_imagem_titulo, $page_id, $user_id, $contexto);
+		$nossa_copia = adicionar_imagem($nova_imagem_link, $nova_imagem_titulo, $page_id, $user_id, $contexto, $concurso_id);
 	}
 	
 	function adicionar_thumbnail_youtube($youtube_thumbnail_original)
@@ -364,17 +354,13 @@
 		$user_id = $args[3];
 		$contexto = $args[4];
 		$origem = $args[5];
+		$concurso_id = $args[6];
 		if ($contexto != 'privada') {
 			$nova_imagem_tipo = 'imagem';
 		} else {
 			$nova_imagem_tipo = 'imagem_privada';
 		}
-		$servername = "localhost";
-		$username = "grupoubique";
-		$password = "ubique patriae memor";
-		$dbname = "Ubwiki";
-		$conn = new mysqli($servername, $username, $password, $dbname);
-		mysqli_set_charset($conn, "utf8");
+		include 'templates/criar_conn.php';
 		$result = $conn->query("SELECT id FROM Elementos WHERE link = '$nova_imagem_link'");
 		if (($result->num_rows == 0) || ($nova_imagem_tipo == 'imagem_privada')) {
 			$randomfilename = generateRandomString(16);
@@ -393,18 +379,22 @@
 				$nova_imagem_link = "https://ubwiki.com.br/imagens/verbetes/$nova_imagem_arquivo";
 			}
 			if ($nova_imagem_tipo == 'imagem_privada') {
-				$conn->query("INSERT INTO Elementos (tipo, titulo, link, arquivo, resolucao, orientacao, user_id) VALUES ('$nova_imagem_tipo', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_arquivo', '$nova_imagem_resolucao_original', '$nova_imagem_orientacao', $user_id)");
+				$conn->query("INSERT INTO Etiquetas (tipo, titulo, user_id) VALUES ('$nova_imagem_tipo', '$nova_imagem_titulo', $user_id)");
+				$nova_imagem_etiqueta_id = $conn->insert_id;
+				$conn->query("INSERT INTO Elementos (etiqueta_id, tipo, titulo, link, arquivo, resolucao, orientacao, user_id) VALUES ($nova_imagem_etiqueta_id, '$nova_imagem_tipo', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_arquivo', '$nova_imagem_resolucao_original', '$nova_imagem_orientacao', $user_id)");
 			}
 			if ($page_id != 0) {
-				// aqui deveria checar para ver se é duplicada.
-				$conn->query("INSERT INTO Elementos (tipo, titulo, link, arquivo, resolucao, orientacao, user_id) VALUES ('$nova_imagem_tipo', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_arquivo', '$nova_imagem_resolucao_original', '$nova_imagem_orientacao', $user_id)");
+				//em algum momento antes deste, está checando para ver se é duplicada. Onde? Está tudo certo com isso?
+				$conn->query("INSERT INTO Etiquetas (tipo, titulo, user_id) VALUES ('$nova_imagem_tipo', '$nova_imagem_titulo', $user_id)");
+				$nova_imagem_etiqueta_id = $conn->insert_id;
+				$conn->query("INSERT INTO Elementos (etiqueta_id, tipo, titulo, link, arquivo, resolucao, orientacao, user_id) VALUES ($nova_imagem_etiqueta_id, '$nova_imagem_tipo', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_arquivo', '$nova_imagem_resolucao_original', '$nova_imagem_orientacao', $user_id)");
 				$result2 = $conn->query("SELECT id FROM Elementos WHERE link = '$nova_imagem_link'");
 				if ($result2->num_rows > 0) {
 					while ($row = $result2->fetch_assoc()) {
 						$nova_imagem_id = $row['id'];
 						$result3 = $conn->query("SELECT id FROM Verbetes_elementos WHERE elemento_id = $nova_imagem_id");
 						if ($result3->num_rows == 0) {
-							$conn->query("INSERT INTO Verbetes_elementos (page_id, tipo_pagina, elemento_id, tipo, user_id) VALUES ($page_id, '$contexto', $nova_imagem_id, '$nova_imagem_tipo', $user_id)");
+							$conn->query("INSERT INTO Verbetes_elementos (page_id, concurso_id, tipo_pagina, elemento_id, tipo, user_id) VALUES ($page_id, $concurso_id, '$contexto', $nova_imagem_id, '$nova_imagem_tipo', $user_id)");
 						}
 						break;
 					}
@@ -412,7 +402,7 @@
 			} else {
 				while ($row = $result->fetch_assoc()) {
 					$nova_imagem_id = $row['id'];
-					$conn->query("INSERT INTO Verbetes_elementos (page_id, tipo_pagina, elemento_id, tipo, user_id) VALUES ($page_id, '$contexto', $nova_imagem_id, '$nova_imagem_tipo', $user_id)");
+					$conn->query("INSERT INTO Verbetes_elementos (page_id, tipo_pagina, concurso_id, elemento_id, tipo, user_id) VALUES ($page_id, '$contexto', $concurso_id, $nova_imagem_id, '$nova_imagem_tipo', $user_id)");
 					break;
 				}
 			}
@@ -444,12 +434,7 @@
 	
 	function return_titulo_topico($topico_id)
 	{
-		$servername = "localhost";
-		$username = "grupoubique";
-		$password = "ubique patriae memor";
-		$dbname = "Ubwiki";
-		$conn = new mysqli($servername, $username, $password, $dbname);
-		mysqli_set_charset($conn, "utf8");
+		include 'templates/criar_conn.php';
 		$result_find_topico = $conn->query("SELECT nivel, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Topicos WHERE id = $topico_id");
 		if ($result_find_topico->num_rows > 0) {
 			while ($row_find = $result_find_topico->fetch_assoc()) {
@@ -473,12 +458,7 @@
 	
 	function return_titulo_elemento($elemento_id)
 	{
-		$servername = "localhost";
-		$username = "grupoubique";
-		$password = "ubique patriae memor";
-		$dbname = "Ubwiki";
-		$conn = new mysqli($servername, $username, $password, $dbname);
-		mysqli_set_charset($conn, "utf8");
+		include 'templates/criar_conn.php';
 		$elementos = $conn->query("SELECT titulo FROM Elementos WHERE id = $elemento_id");
 		if ($elementos->num_rows > 0) {
 			while ($elemento = $elementos->fetch_assoc()) {
@@ -491,12 +471,7 @@
 	
 	function return_concurso_id_topico($topico_id)
 	{
-		$servername = "localhost";
-		$username = "grupoubique";
-		$password = "ubique patriae memor";
-		$dbname = "Ubwiki";
-		$conn = new mysqli($servername, $username, $password, $dbname);
-		mysqli_set_charset($conn, "utf8");
+		include 'templates/criar_conn.php';
 		$result_find_concurso = $conn->query("SELECT concurso_id FROM Topicos WHERE id = $topico_id");
 		if ($result_find_concurso->num_rows > 0) {
 			while ($row_find_concurso = $result_find_concurso->fetch_assoc()) {
@@ -509,12 +484,7 @@
 	
 	function return_materia_id_topico($topico_id)
 	{
-		$servername = "localhost";
-		$username = "grupoubique";
-		$password = "ubique patriae memor";
-		$dbname = "Ubwiki";
-		$conn = new mysqli($servername, $username, $password, $dbname);
-		mysqli_set_charset($conn, "utf8");
+		include 'templates/criar_conn.php';
 		$materias = $conn->query("SELECT materia_id FROM Topicos WHERE id = $topico_id");
 		if ($materias->num_rows > 0) {
 			while ($materia = $materias->fetch_assoc()) {
@@ -527,12 +497,7 @@
 	
 	function return_concurso_sigla($concurso_id)
 	{
-		$servername = "localhost";
-		$username = "grupoubique";
-		$password = "ubique patriae memor";
-		$dbname = "Ubwiki";
-		$conn = new mysqli($servername, $username, $password, $dbname);
-		mysqli_set_charset($conn, "utf8");
+		include 'templates/criar_conn.php';
 		$result_find_concurso_sigla = $conn->query("SELECT sigla FROM Concursos WHERE id = $concurso_id");
 		if ($result_find_concurso_sigla->num_rows > 0) {
 			while ($row_find_concurso_sigla = $result_find_concurso_sigla->fetch_assoc()) {
@@ -545,12 +510,7 @@
 	
 	function return_concurso_titulo_id($find_concurso_id)
 	{
-		$servername = "localhost";
-		$username = "grupoubique";
-		$password = "ubique patriae memor";
-		$dbname = "Ubwiki";
-		$conn = new mysqli($servername, $username, $password, $dbname);
-		mysqli_set_charset($conn, "utf8");
+		include 'templates/criar_conn.php';
 		$find_concursos = $conn->query("SELECT titulo FROM Concursos WHERE id = $find_concurso_id");
 		if ($find_concursos->num_rows > 0) {
 			while ($find_concurso = $find_concursos->fetch_assoc()) {
@@ -563,12 +523,7 @@
 	
 	function return_simulado_info($find_simulado_id)
 	{
-		$servername = "localhost";
-		$username = "grupoubique";
-		$password = "ubique patriae memor";
-		$dbname = "Ubwiki";
-		$conn = new mysqli($servername, $username, $password, $dbname);
-		mysqli_set_charset($conn, "utf8");
+		include 'templates/criar_conn.php';
 		$find_simulados = $conn->query("SELECT criacao, tipo, concurso_id FROM sim_gerados WHERE id = $find_simulado_id");
 		if ($find_simulados->num_rows > 0) {
 			while ($find_simulado = $find_simulados->fetch_assoc()) {
@@ -584,12 +539,7 @@
 	
 	function return_concurso_id_materia($materia_id)
 	{
-		$servername = "localhost";
-		$username = "grupoubique";
-		$password = "ubique patriae memor";
-		$dbname = "Ubwiki";
-		$conn = new mysqli($servername, $username, $password, $dbname);
-		mysqli_set_charset($conn, "utf8");
+		include 'templates/criar_conn.php';
 		$result_find_concurso_id = $conn->query("SELECT concurso_id FROM Materias WHERE id = $materia_id");
 		if ($result_find_concurso_id->num_rows > 0) {
 			while ($row_find_concurso_id = $result_find_concurso_id->fetch_assoc()) {
@@ -602,12 +552,7 @@
 	
 	function return_apelido_user_id($find_user_id)
 	{
-		$servername = "localhost";
-		$username = "grupoubique";
-		$password = "ubique patriae memor";
-		$dbname = "Ubwiki";
-		$conn = new mysqli($servername, $username, $password, $dbname);
-		mysqli_set_charset($conn, "utf8");
+		include 'templates/criar_conn.php';
 		$result_find_apelido = $conn->query("SELECT apelido FROM Usuarios WHERE id = $find_user_id");
 		if ($result_find_apelido->num_rows > 0) {
 			while ($row_find_apelido = $result_find_apelido->fetch_assoc()) {
@@ -620,12 +565,7 @@
 	
 	function return_etapa_titulo_id($etapa_id)
 	{
-		$servername = "localhost";
-		$username = "grupoubique";
-		$password = "ubique patriae memor";
-		$dbname = "Ubwiki";
-		$conn = new mysqli($servername, $username, $password, $dbname);
-		mysqli_set_charset($conn, "utf8");
+		include 'templates/criar_conn.php';
 		$result_find_titulo = $conn->query("SELECT titulo FROM sim_etapas WHERE id = $etapa_id");
 		if ($result_find_titulo->num_rows > 0) {
 			while ($row_find_titulo = $result_find_titulo->fetch_assoc()) {
@@ -638,12 +578,7 @@
 	
 	function return_etapa_edicao_ano_e_titulo($etapa_id)
 	{
-		$servername = "localhost";
-		$username = "grupoubique";
-		$password = "ubique patriae memor";
-		$dbname = "Ubwiki";
-		$conn = new mysqli($servername, $username, $password, $dbname);
-		mysqli_set_charset($conn, "utf8");
+		include 'templates/criar_conn.php';
 		$result = $conn->query("SELECT edicao_id FROM sim_etapas WHERE id = $etapa_id");
 		if ($result->num_rows > 0) {
 			while ($row = $result->fetch_assoc()) {
@@ -664,12 +599,7 @@
 	
 	function return_info_prova_id($prova_id)
 	{
-		$servername = "localhost";
-		$username = "grupoubique";
-		$password = "ubique patriae memor";
-		$dbname = "Ubwiki";
-		$conn = new mysqli($servername, $username, $password, $dbname);
-		mysqli_set_charset($conn, "utf8");
+		include 'templates/criar_conn.php';
 		$provas = $conn->query("SELECT etapa_id, titulo, tipo FROM sim_provas WHERE id = $prova_id");
 		if ($provas->num_rows > 0) {
 			while ($prova = $provas->fetch_assoc()) {
@@ -688,12 +618,7 @@
 	
 	function return_texto_apoio_prova_id($texto_apoio_id)
 	{
-		$servername = "localhost";
-		$username = "grupoubique";
-		$password = "ubique patriae memor";
-		$dbname = "Ubwiki";
-		$conn = new mysqli($servername, $username, $password, $dbname);
-		mysqli_set_charset($conn, "utf8");
+		include 'templates/criar_conn.php';
 		$textos_apoio = $conn->query("SELECT prova_id FROM sim_textos_apoio WHERE id = $texto_apoio_id");
 		if ($textos_apoio->num_rows > 0) {
 			while ($texto_apoio = $textos_apoio->fetch_assoc()) {
@@ -706,12 +631,7 @@
 	
 	function return_materia_titulo_id($materia_id)
 	{
-		$servername = "localhost";
-		$username = "grupoubique";
-		$password = "ubique patriae memor";
-		$dbname = "Ubwiki";
-		$conn = new mysqli($servername, $username, $password, $dbname);
-		mysqli_set_charset($conn, "utf8");
+		include 'templates/criar_conn.php';
 		$materias = $conn->query("SELECT titulo FROM Materias WHERE id = $materia_id");
 		if ($materias->num_rows > 0) {
 			while ($materia = $materias->fetch_assoc()) {
@@ -778,13 +698,6 @@
 		$questao_tipo = $_POST['questao_tipo'];
 		$simulado_id = $_POST['simulado_id'];
 		
-		$servername = "localhost";
-		$username = "grupoubique";
-		$password = "ubique patriae memor";
-		$dbname = "Ubwiki";
-		$conn = new mysqli($servername, $username, $password, $dbname);
-		mysqli_set_charset($conn, "utf8");
-		
 		$user_id = $_POST['user_id'];
 		$concurso_id = $_POST['concurso_id'];
 		$questao_id = $_POST['questao_id'];
@@ -815,6 +728,141 @@
 		echo false;
 	}
 	
+	if (isset($_POST['busca_etiquetas'])) {
+		if (isset($_POST['busca_etiquetas_sem_link'])) {
+			$busca_etiquetas_sem_link = $_POST['busca_etiquetas_sem_link'];
+			error_log('this happened');
+		}
+		else {
+			$busca_etiquetas_sem_link = false;
+		}
+		$busca_etiquetas = $_POST['busca_etiquetas'];
+		$busca_resultados = false;
+		$etiqueta_exata = $conn->query("SELECT id FROM Etiquetas WHERE titulo = '$busca_etiquetas'");
+		if ($etiqueta_exata->num_rows == 0) {
+			$busca_resultados .= "<div class='col-12'><button type='button' id='criar_etiqueta' name='criar_etiqueta' class='btn rounded btn-md text-center btn-primary btn-sm m-0 mb-2' value='$busca_etiquetas'>Criar etiqueta \"$busca_etiquetas\"</button></div>";
+		}
+		
+		$etiquetas = $conn->query("SELECT id, tipo, titulo FROM Etiquetas WHERE titulo LIKE '%{$busca_etiquetas}%'");
+		if ($etiquetas->num_rows > 0) {
+			while ($etiqueta = $etiquetas->fetch_assoc()) {
+				$etiqueta_id = $etiqueta['id'];
+				$etiqueta_tipo = $etiqueta['tipo'];
+				$etiqueta_titulo = $etiqueta['titulo'];
+				
+				$etiqueta_cor = return_etiqueta_cor($etiqueta_tipo);
+				
+				if ($etiqueta_cor != false) {
+					if ($busca_etiquetas_sem_link == true) {
+						$busca_resultados .= "<span href='javascript:void(0);' class='$tag_neutra_classes $etiqueta_cor'><i class='far fa-tag fa-fw'></i> $etiqueta_titulo</span>";
+					}
+					else {
+						$busca_resultados .= "<a href='javascript:void(0);' class='$tag_inativa_classes $etiqueta_cor' value='$etiqueta_id'><i class='far fa-tag fa-fw'></i> $etiqueta_titulo</a>";
+					}
+				}
+			}
+		} else {
+			$busca_resultados .= "<p><em>Nenhuma etiqueta encontrada.</em></p>";
+		}
+		echo "$busca_resultados";
+	}
+	
+	if (isset($_POST['nova_etiqueta_id'])) {
+		$nova_etiqueta_id = $_POST['nova_etiqueta_id'];
+		$nova_etiqueta_page_id = $_POST['nova_etiqueta_page_id'];
+		$nova_etiqueta_page_tipo = $_POST['nova_etiqueta_page_tipo'];
+		
+		$conn->query("INSERT INTO Etiquetados (etiqueta_id, page_id, page_tipo, user_id) VALUES ($nova_etiqueta_id, $nova_etiqueta_page_id, '$nova_etiqueta_page_tipo', $user_id)");
+		
+		$nova_etiqueta_info = return_etiqueta_info($nova_etiqueta_id);
+		$nova_etiqueta_tipo = $nova_etiqueta_info[1];
+		$nova_etiqueta_titulo = $nova_etiqueta_info[2];
+		$nova_etiqueta_cor = return_etiqueta_cor($nova_etiqueta_tipo);
+		
+		echo "<a href='javascript:void(0);' class='$tag_ativa_classes $nova_etiqueta_cor' value='$nova_etiqueta_id'><i class='far fa-tag fa-fw'></i> $nova_etiqueta_titulo</a>";
+	}
+	
+	if (isset($_POST['remover_etiqueta_id'])) {
+		$remover_etiqueta_id = $_POST['remover_etiqueta_id'];
+		$remover_etiqueta_page_id = $_POST['remover_etiqueta_page_id'];
+		$remover_etiqueta_page_tipo = $_POST['remover_etiqueta_page_tipo'];
+		
+		if ($conn->query("UPDATE Etiquetados SET estado = 0 WHERE etiqueta_id = $remover_etiqueta_id AND page_id = $remover_etiqueta_page_id AND page_tipo = '$remover_etiqueta_page_tipo'")
+			===
+			true) {
+			echo true;
+		} else {
+			echo false;
+		}
+	}
+	
+	if (isset($_POST['criar_etiqueta_titulo'])) {
+		$criar_etiqueta_titulo = $_POST['criar_etiqueta_titulo'];
+		$criar_etiqueta_user_id = $_POST['criar_etiqueta_user_id'];
+		$criar_etiqueta_page_id = $_POST['criar_etiqueta_page_id'];
+		$criar_etiqueta_page_tipo = $_POST['criar_etiqueta_page_tipo'];
+		if ($conn->query("INSERT INTO Etiquetas (tipo, titulo, user_id) VALUES ('topico', '$criar_etiqueta_titulo', $criar_etiqueta_user_id)") === true) {
+			$nova_etiqueta_id = $conn->insert_id;
+			$conn->query("INSERT INTO Etiquetados (etiqueta_id, page_id, page_tipo, user_id) VALUES ($nova_etiqueta_id, $criar_etiqueta_page_id, '$criar_etiqueta_page_tipo', $user_id)");
+			if (isset($criar_etiqueta_page_id)) {
+				echo "<a href='javascript:void(0);' class='$tag_ativa_classes amber' value='$nova_etiqueta_id'><i class='far fa-tag fa-fw'></i> $criar_etiqueta_titulo</a>";
+			}
+			else {
+				echo "<span href='javascript:void(0);' class='$tag_neutra_classes amber'><i class='far fa-tag fa-fw'></i> $criar_etiqueta_titulo</span>";
+			}
+		} else {
+			echo false;
+		}
+	}
+	
+	function return_etiqueta_info($etiqueta_id)
+	{
+		include 'templates/criar_conn.php';
+		$etiquetas = $conn->query("SELECT criacao, tipo, titulo, user_id FROM Etiquetas WHERE id = $etiqueta_id");
+		if ($etiquetas->num_rows > 0) {
+			while ($etiqueta = $etiquetas->fetch_assoc()) {
+				$etiqueta_criacao = $etiqueta['criacao'];
+				$etiqueta_tipo = $etiqueta['tipo'];
+				$etiqueta_titulo = $etiqueta['titulo'];
+				$etiqueta_user_id = $etiqueta['user_id'];
+				$etiqueta_info = array($etiqueta_criacao, $etiqueta_tipo, $etiqueta_titulo, $etiqueta_user_id);
+				return $etiqueta_info;
+			}
+		}
+	}
+	
+	function return_etiqueta_cor($etiqueta_tipo)
+	{
+		if ($etiqueta_tipo == 'curso') {
+			$etiqueta_cor = 'blue-grey';
+		} elseif ($etiqueta_tipo == 'anotacao_publica') {
+			$etiqueta_cor = 'blue';
+		} elseif ($etiqueta_tipo == 'topico') {
+			$etiqueta_cor = 'amber';
+		} elseif ($etiqueta_tipo == 'imagem') {
+			$etiqueta_cor = 'red';
+		} elseif ($etiqueta_tipo == 'referencia') {
+			$etiqueta_cor = 'green';
+		} elseif ($etiqueta_tipo == 'video') {
+			$etiqueta_cor = 'brown';
+		} else {
+			return false;
+		}
+		return $etiqueta_cor;
+	}
+	
+	function return_elemento_etiqueta_id($elemento_id) {
+		include 'templates/criar_conn.php';
+		$etiquetas = $conn->query("SELECT etiqueta_id FROM Elementos WHERE id = $elemento_id");
+		if ($etiquetas->num_rows > 0) {
+			while ($etiqueta = $etiquetas->fetch_assoc()) {
+				$etiqueta_id = $etiqueta['etiqueta_id'];
+				return $etiqueta_id;
+			}
+		}
+		return false;
+	}
+	
 	function converter_respostas($tipo, $resposta)
 	{
 		if ($resposta == 1) {
@@ -840,16 +888,5 @@
 			return 'Todas as questões dissertativas oficiais';
 		}
 	}
-	
-	$all_buttons_classes = "btn rounded btn-md mt-4 text-center";
-	$button_classes = "$all_buttons_classes btn-primary";
-	$button_classes_light = "$all_buttons_classes btn-light";
-	$button_classes_info = "$all_buttons_classes btn-info";
-	$button_classes_red = "$all_buttons_classes btn-danger";
-	$select_classes = "browser-default custom-select mt-2";
-	$coluna_classes = "col-lg-5 col-md-10 col-sm-11";
-	$coluna_maior_classes = "col-lg-9 col-md-10 col-sm-11";
-	$coluna_media_classes = "col-lg-7 col-md-10 col-sm-11";
-	$coluna_pouco_maior_classes = "col-lg-6 col-md-10 col-sm-11";
 
 ?>

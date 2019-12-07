@@ -6,6 +6,9 @@
 		$page_id = $elemento_id;
 		$bookmark_contexto = 'elemento';
 	}
+	if (!isset($user_id)) {
+		$user_id = false;
+	}
 	
 	echo "
         <script type='text/javascript'>

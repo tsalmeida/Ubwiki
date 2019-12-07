@@ -6,6 +6,9 @@
 	if (!isset($template_quill_pagina_de_edicao)) {
 		$template_quill_pagina_de_edicao = false;
 	}
+	if (!isset($template_quill_load_button)) {
+		$template_quill_load_button = true;
+	}
 	if (strpos($template_id, 'anotac') !== false) {
 		$template_quill_meta_tipo = 'anotacoes';
 		$template_quill_toolbar_and_whitelist = 'anotacoes';
@@ -71,7 +74,11 @@
 	if ($template_quill_public == true) {
 		$result = $conn->query("SELECT verbete_content, id FROM Textos WHERE page_id = $template_quill_page_id AND tipo = '$template_id'");
 	} else {
-		$result = $conn->query("SELECT verbete_content, id FROM Textos WHERE page_id = $template_quill_page_id AND tipo = '$template_id' AND user_id = $user_id");
+		if (isset($texto_id)) {
+			$result = $conn->query("SELECT verbete_content, id FROM Textos WHERE id = $texto_id");
+		} else {
+			$result = $conn->query("SELECT verbete_content, id FROM Textos WHERE page_id = $template_quill_page_id AND tipo = '$template_id' AND user_id = $user_id");
+		}
 	}
 	$quill_verbete_content = false; // o conteúdo final, é determinado ao final ou permanece vazio.
 	if ($result->num_rows > 0) {
@@ -151,12 +158,17 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div id='botoes_salvar_{$template_id}' class='row justify-content-center mt-3'>
+        </div>";
+	$invisible_button = false;
+	if ($template_quill_load_button == false) {
+		$invisible_button = 'd-none';
+	}
+	$quill_result .= "
+        <div id='botoes_salvar_{$template_id}' class='row justify-content-center mt-3 $invisible_button'>
         		<!--<button type='button' class='btn btn-light btn-sm'>
         			<i class='fal fa-times-circle fa-fw'></i> Cancelar
             </button>!-->
-            <button type='submit' class='$button_classes' name='$quill_trigger_button'>
+            <button type='submit' id='$quill_trigger_button' class='$button_classes' name='$quill_trigger_button'>
             	<i class='fal fa-check fa-fw'></i> Salvar
             </button>
         </div>

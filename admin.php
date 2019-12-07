@@ -2,11 +2,29 @@
 	
 	include 'engine.php';
 	
-	if(isset($_POST['trigger_atualizacao'])) {
-	    $data_atualizacao = $_POST['trigger_atualizacao'];
-	    $conn->query("CREATE TABLE `Ubwiki`.`Opcoes` ( `id` INT(11) NULL DEFAULT NULL , `criacao` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP , `user_id` INT(11) NULL DEFAULT NULL , `opcao_tipo` INT(11) NULL DEFAULT NULL , `opcao` BOOLEAN NULL DEFAULT NULL ) ENGINE = InnoDB;");
-	    $conn->query("ALTER TABLE `Opcoes` CHANGE `opcao_tipo` `opcao_tipo` VARCHAR(255) NULL DEFAULT NULL;");
-	    $conn->query("ALTER TABLE `Opcoes` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT;");
+	if (isset($_POST['trigger_atualizacao'])) {
+		$data_atualizacao = $_POST['trigger_atualizacao'];
+		$conn->query("CREATE TABLE `Ubwiki`.`Etiquetas` ( `id` INT NOT NULL AUTO_INCREMENT , `criacao` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `tipo` VARCHAR(255) NULL DEFAULT NULL , `titulo` VARCHAR(255) NULL DEFAULT NULL , `user_id` INT(11) NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
+		$conn->query("ALTER TABLE `Etiquetas` ADD `id_original` INT(11) NULL DEFAULT NULL AFTER `criacao`;");
+		$conn->query("ALTER TABLE `Etiquetas` ADD `user_original` INT(11) NULL DEFAULT NULL AFTER `titulo`;");
+		$conn->query("ALTER TABLE `Topicos` ADD `user_id` INT(11) NULL DEFAULT NULL AFTER `nivel5`;");
+		$conn->query("ALTER TABLE `Materias` ADD `user_id` INT(11) NULL DEFAULT NULL AFTER `estado`;");
+		$conn->query("CREATE TABLE `Ubwiki`.`Etiquetados` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `criacao` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `page_id` INT(11) NULL DEFAULT NULL , `page_tipo` VARCHAR(255) NULL DEFAULT NULL , `user_id` INT(11) NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
+		$conn->query("ALTER TABLE `Etiquetados` ADD `etiqueta_id` INT(11) NULL DEFAULT NULL AFTER `criacao`;");
+		$conn->query("ALTER TABLE `Etiquetados` ADD `estado` BOOLEAN NULL DEFAULT TRUE AFTER `criacao`;");
+		$conn->query("TRUNCATE `Ubwiki`.`Opcoes`");
+		$conn->query("ALTER TABLE `Opcoes` ADD PRIMARY KEY( `id`);");
+		$conn->query("ALTER TABLE `Opcoes` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT;");
+		$conn->query("ALTER TABLE `Topicos` ADD `etiqueta_id` INT(11) NULL DEFAULT NULL AFTER `materia_id`;");
+		$conn->query("ALTER TABLE `Materias` ADD `criacao` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `id`;");
+		$conn->query("ALTER TABLE `Materias` ADD `etiqueta_id` INT(11) NULL DEFAULT NULL AFTER `criacao`;");
+		$conn->query("ALTER TABLE `Elementos` ADD `etiqueta_id` INT(11) NULL DEFAULT NULL AFTER `estado`;");
+		$conn->query("ALTER TABLE `Etiquetas` DROP `id_original`;");
+		$conn->query("ALTER TABLE `Verbetes_elementos` ADD `criacao` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `id`, ADD `concurso_id` INT(11) NULL DEFAULT NULL AFTER `criacao`;");
+		$conn->query("ALTER TABLE `Textos` ADD `concurso_id` INT(11) NULL DEFAULT NULL AFTER `id`;");
+		$conn->query("ALTER TABLE `Topicos` ADD `criacao` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `id`;");
+		$conn->query("ALTER TABLE `Etiquetados` ADD `concurso_id` INT(11) NULL DEFAULT NULL AFTER `criacao`;");
+		
 	}
 	
 	if (isset($_POST['funcoes_gerais'])) {
@@ -29,6 +47,100 @@
 		$conn->query("TRUNCATE `Ubwiki`.`sim_detalhes`");
 		$conn->query("TRUNCATE `Ubwiki`.`sim_gerados`");
 		$conn->query("TRUNCATE `Ubwiki`.`sim_respostas`");
+	}
+	
+	if (isset($_POST['funcoes_gerais3'])) {
+		$conn->query("TRUNCATE `Ubwiki`.`Etiquetas`");
+		$conn->query("TRUNCATE `Ubwiki`.`Etiquetados`");
+		
+		$cursos = $conn->query("SELECT id, titulo, user_id FROM Concursos WHERE titulo IS NOT NULL ORDER BY id");
+		if ($cursos->num_rows > 0) {
+			while ($curso = $cursos->fetch_assoc()) {
+				$curso_id = $curso['id'];
+				$curso_titulo = $curso['titulo'];
+				$curso_user_id = $curso['user_id'];
+				$conn->query("INSERT INTO Etiquetas (tipo, titulo, user_original, user_id) VALUES ('curso', '$curso_titulo', $curso_user_id, $user_id)");
+			}
+		}
+		$materias = $conn->query("SELECT id, titulo, user_id FROM Materias WHERE titulo IS NOT NULL ORDER BY id");
+		if ($materias->num_rows > 0) {
+			while ($materia = $materias->fetch_assoc()) {
+				$materia_id = $materia['id'];
+				$materia_titulo = $materia['titulo'];
+				$materia_user_id = $materia['user_id'];
+				if ($materia_user_id == false) {
+					$materia_user_id = "NULL";
+				}
+				if ($conn->query("INSERT INTO Etiquetas (tipo, titulo, user_original, user_id) VALUES ('topico', '$materia_titulo', $materia_user_id, $user_id)") === true) {
+					$materia_new_id = $conn->insert_id;
+					$conn->query("UPDATE Materias SET etiqueta_id = $materia_new_id WHERE id = $materia_id");
+				}
+			}
+		}
+		$topicos = $conn->query("SELECT id, nivel, nivel1, nivel2, nivel3, nivel4, nivel5, user_id FROM Topicos WHERE nivel IS NOT NULL ORDER BY id");
+		if ($topicos->num_rows > 0) {
+			while ($topico = $topicos->fetch_assoc()) {
+				$topico_id = $topico['id'];
+				$topico_nivel = $topico['nivel'];
+				$topico_nivel1 = $topico['nivel1'];
+				$topico_nivel2 = $topico['nivel2'];
+				$topico_nivel3 = $topico['nivel3'];
+				$topico_nivel4 = $topico['nivel4'];
+				$topico_nivel5 = $topico['nivel5'];
+				$topico_user_id = $topico['user_id'];
+				if ($topico_user_id == false) {
+					$topico_user_id = "NULL";
+				}
+				if ($topico_nivel == 1) {
+					$conn->query("INSERT INTO Etiquetas (tipo, titulo, user_original, user_id) VALUES ('topico', '$topico_nivel1', $topico_user_id, $user_id)");
+				} elseif ($topico_nivel == 2) {
+					$conn->query("INSERT INTO Etiquetas (tipo, titulo, user_original, user_id) VALUES ('topico', '$topico_nivel2', $topico_user_id, $user_id)");
+				} elseif ($topico_nivel == 3) {
+					$conn->query("INSERT INTO Etiquetas (tipo, titulo, user_original, user_id) VALUES ('topico', '$topico_nivel3', $topico_user_id, $user_id)");
+				} elseif ($topico_nivel == 4) {
+					$conn->query("INSERT INTO Etiquetas (tipo, titulo, user_original, user_id) VALUES ('topico', '$topico_nivel4', $topico_user_id, $user_id)");
+				} elseif ($topico_nivel == 5) {
+					$conn->query("INSERT INTO Etiquetas (tipo, titulo, user_original, user_id) VALUES ('topico', '$topico_nivel5', $topico_user_id, $user_id)");
+				}
+				$nova_etiqueta_id = $conn->insert_id;
+				$conn->query("UPDATE Topicos SET etiqueta_id = $nova_etiqueta_id WHERE id = $topico_id");
+			}
+		}
+		$elementos = $conn->query("SELECT id, tipo, titulo, autor, user_id FROM Elementos WHERE estado = 1");
+		if ($elementos->num_rows > 0) {
+			while ($elemento = $elementos->fetch_assoc()) {
+				$elemento_id = $elemento['id'];
+				$elemento_tipo = $elemento['tipo'];
+				$elemento_titulo = $elemento['titulo'];
+				$elemento_autor = $elemento['autor'];
+				$elemento_user_id = $elemento['user_id'];
+				if ($elemento_autor != false) {
+					$nova_tag = "$elemento_titulo / $elemento_autor";
+				} else {
+					$nova_tag = $elemento_titulo;
+				}
+				$nova_tag = mysqli_real_escape_string($conn, $nova_tag);
+				$conn->query("INSERT INTO Etiquetas (tipo, titulo, user_original, user_id) VALUES ('$elemento_tipo', '$nova_tag', $elemento_user_id, $user_id)");
+				$novo_elemento_id = $conn->insert_id;
+				$conn->query("UPDATE Elementos SET etiqueta_id = $novo_elemento_id WHERE id = $elemento_id");
+			}
+		}
+		
+		$verbetes_elementos = $conn->query("SELECT id, page_id, tipo_pagina, elemento_id, tipo, user_id FROM Verbetes_elementos");
+		if ($verbetes_elementos->num_rows > 0) {
+			while ($verbete_elemento = $verbetes_elementos->fetch_assoc()) {
+				$verbete_elementos_id = $verbete_elemento['id'];
+				$verbete_elemento_page_id = $verbete_elemento['page_id'];
+				$verbete_elemento_tipo_pagina = $verbete_elemento['tipo_pagina'];
+				$verbete_elemento_id = $verbete_elemento['elemento_id'];
+				$verbete_elemento_tipo = $verbete_elemento['tipo'];
+				$verbete_elemento_user_id = $verbete_elemento['user_id'];
+				$verbete_elemento_concurso = return_concurso_id_topico($verbete_elemento_page_id);
+				$conn->query("UPDATE Verbetes_elementos SET concurso_id = $verbete_elemento_concurso WHERE id = $verbete_elementos_id");
+				$verbete_elemento_etiqueta_id = return_elemento_etiqueta_id($verbete_elementos_id);
+				$conn->query("INSERT INTO Etiquetados (concurso_id, etiqueta_id, page_id, page_tipo, user_id) VALUES ($verbete_elemento_concurso, $verbete_elemento_etiqueta_id, $verbete_elemento_page_id, '$verbete_elemento_tipo', $verbete_elemento_page_id)");
+			}
+		}
 	}
 	
 	if (isset($_POST['reconstruir_busca'])) {
@@ -214,9 +326,15 @@
 						        	<button class='$button_classes' type='submit' name='funcoes_gerais2'>Apagar dados de regitro em simulados</button>
 						        </div>
 						    </form>
+						    <form method='post'>
+						        <p>Criar etiquetas.</p>
+						        <div class='row justify-content-center'>
+						        	<button class='$button_classes' type='submit' name='funcoes_gerais3'>Criar etiquetas</button>
+						        </div>
+						    </form>
 						";
 						include 'templates/page_element.php';
-					
+						
 						$template_id = 'atualizacao';
 						$template_titulo = 'Atualização';
 						$template_botoes = false;
@@ -230,7 +348,7 @@
 						    </form>
 						";
 						include 'templates/page_element.php';
-						
+					
 					?>
 
         </div>

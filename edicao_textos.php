@@ -45,7 +45,30 @@
 ?>
 
 <div class="container bg-white">
-
+    <div class="row grey lighten-5">
+        <div class="col">
+			<span id="salvar_anotacao" class="ml-1" title="Salvar anotação">
+				<a href='javascript:void(0);'>
+					<i class='fal fa-save fa-fw'></i>
+				</a>
+			</span>
+            <span id="anotacao_salva" class="ml-1 text-success" title="Salvar anotação">
+	            <i class='fas fa-save fa-fw'></i>
+			</span>
+            <span id="adicionar_etiqueta" class="ml-1" title="Adicionar etiqueta" data-toggle="modal"
+                  data-target="#modal_gerenciar_etiquetas">
+				<a href='javascript:void(0);'>
+					<i class='fal fa-tags fa-fw'></i>
+				</a>
+			</span>
+            <!--<span id="compartilhar_anotacao" class="ml-1" title="Editar compartilhamento desta anotação"
+                     data-toggle="modal" data-target="#modal_compartilhar_anotacao">
+                <a href="javascript:void(0);">
+                    <i class="fal fa-share-alt fa-fw"></i>
+                </a>
+            </span>!-->
+        </div>
+    </div>
     <div class="row">
         <div id="coluna_unica" class="col grey lighten-5">
             <div id='quill_pagina_edicao' class="row justify-content-center grey lighten-5">
@@ -59,19 +82,34 @@
 								$template_quill_initial_state = 'edicao';
 								$template_quill_page_id = $texto_page_id;
 								$template_quill_pagina_de_edicao = true;
+								$template_quill_load_button = false;
 								$quill_instance = include 'templates/template_quill.php';
 								echo $quill_instance;
 							?>
             </div>
         </div>
     </div>
-
+	<?php
+        include 'templates/etiquetas_modal.php';
+        
+        $template_modal_div_id = 'modal_compartilhar_anotacao';
+        $template_modal_titulo = 'Compartilhamento';
+        $template_modal_body_conteudo = false;
+        $template_modal_body_conteudo .= "
+            <p>Compartilhar com outros usuários da Ubwiki</p>
+            <p>Tornar anotação pública</p>
+        ";
+        include 'templates/modal.php';
+        
+	?>
 </div>
 
 </body>
 
 <?php
+	
 	include 'templates/footer.html';
+	$etiquetas_bottom = true;
 	$mdb_select = true;
 	include 'templates/html_bottom.php';
 ?>

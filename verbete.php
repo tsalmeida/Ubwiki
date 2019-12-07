@@ -65,7 +65,7 @@
 	if ((isset($_POST['nova_imagem_link'])) && ($_POST['nova_imagem_link'] != false)) {
 		$nova_imagem_link = $_POST['nova_imagem_link'];
 		$nova_imagem_link = base64_encode($nova_imagem_link);
-		adicionar_imagem($nova_imagem_link, $nova_imagem_titulo, $topico_id, $user_id, 'verbete', 'link');
+		adicionar_imagem($nova_imagem_link, $nova_imagem_titulo, $topico_id, $user_id, 'verbete', 'link', $concurso_id);
 	} else {
 		$upload_ok = false;
 		if (isset($_FILES['nova_imagem_upload'])) {
@@ -87,7 +87,7 @@
 			if ($upload_ok != false) {
 				move_uploaded_file($_FILES['nova_imagem_upload']['tmp_name'], $target_file);
 				$target_file = base64_encode($target_file);
-				adicionar_imagem($target_file, $nova_imagem_titulo, $topico_id, $user_id, 'verbete', 'upload');
+				adicionar_imagem($target_file, $nova_imagem_titulo, $topico_id, $user_id, 'verbete', 'upload', $concurso_id);
 			}
 		}
 	}
@@ -109,19 +109,21 @@
 		$nova_referencia_link = mysqli_real_escape_string($conn, $nova_referencia_link);
 		$result = $conn->query("SELECT id FROM Elementos WHERE titulo = '$nova_referencia_titulo'");
 		if ($result->num_rows == 0) {
-			$conn->query("INSERT INTO Elementos (tipo, titulo, autor, capitulo, link, ano, user_id) VALUES ('referencia', '$nova_referencia_titulo', '$nova_referencia_autor', NULLIF('$nova_referencia_capitulo',''), NULLIF('$nova_referencia_link',''), NULLIF($nova_referencia_ano,0), $user_id)");
+		    $conn->query("INSERT INTO Etiquetas (tipo, titulo, user_id) VALUES ('referencia', '$nova_referencia_titulo', $user_id)");
+		    $nova_referencia_etiqueta_id = $conn->insert_id;
+			$conn->query("INSERT INTO Elementos (etiqueta_id, tipo, titulo, autor, capitulo, link, ano, user_id) VALUES ($nova_referencia_etiqueta_id, 'referencia', '$nova_referencia_titulo', '$nova_referencia_autor', NULLIF('$nova_referencia_capitulo',''), NULLIF('$nova_referencia_link',''), NULLIF($nova_referencia_ano,0), $user_id)");
 			$result2 = $conn->query("SELECT id FROM Elementos WHERE titulo = '$nova_referencia_titulo'");
 			if ($result2->num_rows > 0) {
 				while ($row = $result2->fetch_assoc()) {
 					$nova_referencia_id = $row['id'];
-					$conn->query("INSERT INTO Verbetes_elementos (page_id, tipo_pagina, elemento_id, tipo, user_id) VALUES ($topico_id, 'verbete', $nova_referencia_id, 'referencia', $user_id)");
+					$conn->query("INSERT INTO Verbetes_elementos (page_id, concurso_id, tipo_pagina, elemento_id, tipo, user_id) VALUES ($topico_id, $concurso_id, 'verbete', $nova_referencia_id, 'referencia', $user_id)");
 					break;
 				}
 			}
 		} else {
 			while ($row = $result->fetch_assoc()) {
 				$nova_referencia_id = $row['id'];
-				$conn->query("INSERT INTO Verbetes_elementos (page_id, tipo_pagina, elemento_id, tipo, user_id) VALUES ($topico_id, 'verbete', $nova_referencia_id, 'referencia', $user_id)");
+				$conn->query("INSERT INTO Verbetes_elementos (page_id, concurso_id, tipo_pagina, elemento_id, tipo, user_id) VALUES ($topico_id, $concurso_id, 'verbete', $nova_referencia_id, 'referencia', $user_id)");
 				break;
 			}
 		}
@@ -147,17 +149,19 @@
 		if ($result->num_rows > 0) {
 			while ($row = $result->fetch_assoc()) {
 				$id_video_preexistente = $row['id'];
-				$insert = $conn->query("INSERT INTO Verbetes_elementos (topico_id, tipo_pagina, elemento_id, tipo, user_id) VALUES ($topico_id, 'verbete', $id_video_preexistente, 'youtube', $user_id)");
+				$insert = $conn->query("INSERT INTO Verbetes_elementos (topico_id, concurso_id, tipo_pagina, elemento_id, tipo, user_id) VALUES ($topico_id, $concurso_id, 'verbete', $id_video_preexistente, 'youtube', $user_id)");
 				break;
 			}
 		} else {
 			$novo_youtube_thumbnail = adicionar_thumbnail_youtube($novo_video_thumbnail);
-			$insert = $conn->query("INSERT INTO Elementos (tipo, titulo, autor, link, iframe, arquivo, user_id) VALUES ('video', '$novo_video_titulo', '$novo_video_autor', '$novo_video_link', '$novo_video_iframe', '$novo_youtube_thumbnail', $user_id)");
+			$conn->query("INSERT INTO Etiquetas (tipo, titulo, user_id) VALUES ('video', '$novo_video_titulo', $user_id)");
+			$novo_video_etiqueta_id = $conn->insert_id;
+			$conn->query("INSERT INTO Elementos (etiqueta_id, tipo, titulo, autor, link, iframe, arquivo, user_id) VALUES ($novo_video_etiqueta_id, 'video', '$novo_video_titulo', '$novo_video_autor', '$novo_video_link', '$novo_video_iframe', '$novo_youtube_thumbnail', $user_id)");
 			$result = $conn->query("SELECT id FROM Elementos WHERE link = '$novo_video_link'");
 			if ($result->num_rows > 0) {
 				while ($row = $result->fetch_assoc()) {
 					$novo_video_id = $row['id'];
-					$insert = $conn->query("INSERT INTO Verbetes_elementos (topico_id, tipo_pagina, elemento_id, tipo, user_id) VALUES ($topico_id, 'verbete', $novo_video_id, 'video', $user_id)");
+					$insert = $conn->query("INSERT INTO Verbetes_elementos (topico_id, concurso_id, tipo_pagina, elemento_id, tipo, user_id) VALUES ($topico_id, $concurso_id, 'verbete', $novo_video_id, 'video', $user_id)");
 					break;
 				}
 			} else {
@@ -501,7 +505,7 @@
                         ";
 						$template_conteudo = false;
 
-						$result = $conn->query("SELECT elemento_id FROM Verbetes_elementos WHERE page_id = $topico_id AND tipo = 'video' AND tipo_pagina = 'verbete'");
+						$result = $conn->query("SELECT elemento_id FROM Verbetes_elementos WHERE page_id = $topico_id AND tipo = 'video' AND tipo_pagina = 'verbete' AND concurso_id = $concurso_id");
 						$count = 0;
 						if ($result->num_rows > 0) {
 							$template_conteudo .= "
@@ -560,7 +564,7 @@
 						$template_botoes = "<a data-toggle='modal' data-target='#modal_referencia_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>";
 						$template_conteudo = false;
 
-						$result = $conn->query("SELECT DISTINCT elemento_id FROM Verbetes_elementos WHERE page_id = $topico_id AND tipo = 'referencia' AND tipo_pagina = 'verbete' ORDER BY id");
+						$result = $conn->query("SELECT DISTINCT elemento_id FROM Verbetes_elementos WHERE page_id = $topico_id AND tipo = 'referencia' AND tipo_pagina = 'verbete' AND concurso_id = $concurso_id ORDER BY id");
 						if ($result->num_rows > 0) {
 							$template_conteudo .= "<ul class='list-group'>";
 							while ($row = $result->fetch_assoc()) {
@@ -600,7 +604,7 @@
                         ";
 						$template_conteudo = false;
 
-						$result = $conn->query("SELECT DISTINCT elemento_id FROM Verbetes_elementos WHERE page_id = $topico_id AND tipo = 'imagem' AND tipo_pagina = 'verbete'");
+						$result = $conn->query("SELECT DISTINCT elemento_id FROM Verbetes_elementos WHERE page_id = $topico_id AND tipo = 'imagem' AND tipo_pagina = 'verbete' AND concurso_id = $concurso_id");
 						$count = 0;
 						if ($result->num_rows > 0) {
 							$active = 'active';

@@ -4,10 +4,9 @@
 	
 	if (isset($_GET['materia_id'])) {
 		$materia_id = $_GET['materia_id'];
+	} else {
+		header('Location:index.php');
 	}
-	else {
-	    header('Location:index.php');
-    }
 	$materia_titulo = false;
 	$found = false;
 	$result = $conn->query("SELECT titulo FROM Materias WHERE estado = 1 AND id = '$materia_id' ORDER BY ordem");
@@ -17,27 +16,27 @@
 		}
 	}
 	$html_head_template_conteudo = false;
+	$background_image = false;
 	if (file_exists("../imagens/materias/$materia_id.jpg")) {
 		$background_image = "background-image: url('../imagens/materias/$materia_id.jpg');";
-	} else {
-		$background_image = false;
 	}
-	$html_head_template_conteudo .= "
-	    <style>
-	        #materia_background {
-                $background_image
-	            background-size: cover;
-	            background-position: center center;
-	            min-height: 40vh;
-            }
-	    </style>
-	";
+	if ($background_image != false) {
+		$html_head_template_conteudo .= "
+            <style>
+                #materia_background {
+                    $background_image
+                    background-size: cover;
+                    background-position: center center;
+                    min-height: 40vh;
+                }
+            </style>
+        ";
+	}
 	
 	$html_head_template_quill = true;
 	include 'templates/html_head.php';
 	
 	$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $materia_id, 'materia')");
-
 ?>
 
 <body>
@@ -67,9 +66,10 @@
 						$template_conteudo = false;
 						$template_conteudo_no_col = true;
 						if ($materia_titulo == false) {
-							$template_conteudo .= "<h4>Página não-encontrada</h4>
-          <p>Clique <a href='index.php'>aqui</a> para retornar.</p>
-          ";
+							$template_conteudo .= "
+					          <h4>Página não-encontrada</h4>
+                              <p>Clique <a href='index.php'>aqui</a> para retornar.</p>
+                            ";
 							return;
 						}
 						$template_conteudo .= "<ul class='list-group'>";
@@ -127,20 +127,18 @@
 									$icone_estado = return_estado_icone($estado_pagina, 'materia');
 									if ($estado_pagina > 3) {
 										$estado_cor = 'text-warning';
+									} else {
+										$estado_cor = 'text-dark';
 									}
-									else {
-									    $estado_cor = 'text-dark';
-                                    }
 									$cor_badge = 'bg-white';
 									$icone_badge = "
-									    <span class='ml-3 badge $cor_badge $estado_cor badge-pill z-depth-0'>
+				                        <span class='ml-3 badge $cor_badge $estado_cor badge-pill z-depth-0'>
                                             <i class='fa $icone_estado fa-fw'></i>
                                         </span>
-									";
+				                    ";
+								} else {
+									$icone_badge = false;
 								}
-								else {
-								    $icone_badge = false;
-                                }
 								
 								if ($nivel5 != false) {
 									$template_conteudo .= "
@@ -208,8 +206,7 @@
 					?>
         </div>
     </div>
-    <button id='mostrar_coluna_direita' class='btn btn-md elegant-color text-white p-2 m-1' tabindex='-1'><i
-                class='fas fa-pen-alt fa-fw'></i></button>
+    <button id='mostrar_coluna_direita' class='btn btn-md elegant-color text-white p-2 m-1' tabindex='-1'><i class='fas fa-pen-alt fa-fw'></i></button>
 </div>
 </body>
 <?php

@@ -12,6 +12,12 @@
 	if (!isset($mudar_anotacao_titulo)) {
 		$mudar_anotacao_titulo = false;
 	}
+	if (!isset($etiquetas_bottom)) {
+		$etiquetas_bottom = false;
+	}
+	if (!isset($etiquetas_bottom_adicionar)) {
+		$etiquetas_bottom_adicionar = false;
+	}
 	
 	echo "
     <!-- Bootstrap tooltips -->
@@ -69,5 +75,101 @@
 			</script>
 			";
 	}
+	if ($etiquetas_bottom == true) {
+		echo "
+      <script type='text/javascript'>
+	      $(document).ready(function() {
+	          $('#anotacao_salva').hide();
+	          $('#salvar_anotacao a').click(function() {
+	            $('#salvar_anotacao').hide();
+	            $('#anotacao_salva').show();
+	              $('#quill_trigger_{$texto_tipo}').click();
+	          });
+	      });
+			  $('#buscar_etiquetas').keyup(function() {
+			      var busca_etiquetas = $('#buscar_etiquetas').val();
+			      var busca_etiquetas_length = $('#buscar_etiquetas').val().length;
+			      if (busca_etiquetas_length > 2) {
+			          $.post('engine.php', {
+			              'busca_etiquetas': busca_etiquetas
+			          }, function(data) {
+			            if (data != 0) {
+			                $('#etiquetas_disponiveis').empty();
+			                $('#etiquetas_disponiveis').append(data);
+			            }
+			          });
+			      }
+			  });
+			  $(document).on('click', '.adicionar_tag', function() {
+			      var this_id = $(this).attr('value');
+			      $(this).hide();
+			      $.post('engine.php', {
+			         'nova_etiqueta_id': this_id,
+			         'nova_etiqueta_page_id': {$texto_id},
+			         'nova_etiqueta_page_tipo': '{$texto_tipo}'
+			      }, function(data) {
+			         if (data != 0) {
+			             $('#etiquetas_ativas').append(data);
+			         }
+			      });
+			  });
+			  $(document).on('click', '.remover_tag', function() {
+			      var this_id = $(this).attr('value');
+	              $(this).hide();
+			      $.post('engine.php', {
+			         'remover_etiqueta_id': this_id,
+			         'remover_etiqueta_page_id': {$texto_id},
+			         'remover_etiqueta_page_tipo': '{$texto_tipo}'
+			      });
+			  });
+			  $(document).on('click', '#criar_etiqueta', function() {
+		      var new_tag = $(this).attr('value');
+		      $(this).hide();
+		      $.post('engine.php', {
+		         'criar_etiqueta_titulo': new_tag,
+		         'criar_etiqueta_user_id': {$user_id},
+		         'criar_etiqueta_page_id': {$texto_id},
+		         'criar_etiqueta_page_tipo': '{$texto_tipo}'
+		      }, function(data) {
+		         if (data != 0) {
+		             $('#etiquetas_ativas').append(data);
+		         }
+		      });
+		  });
+      </script>
+	";
+	}
+	if ($etiquetas_bottom_adicionar == true) {
+		echo "
+		<script type='text/javascript'>
+			$('#buscar_etiquetas').keyup(function() {
+				var busca_etiquetas = $('#buscar_etiquetas').val();
+				var busca_etiquetas_length = $('#buscar_etiquetas').val().length;
+				if (busca_etiquetas_length > 2) {
+					$.post('engine.php', {
+			              'busca_etiquetas': busca_etiquetas,
+			              'busca_etiquetas_sem_link': true
+			          }, function(data) {
+						if (data != 0) {
+							$('#etiquetas_disponiveis').empty();
+							$('#etiquetas_disponiveis').append(data);
+						}
+					});
+	      }
+			});
+			$(document).on('click', '#criar_etiqueta', function() {
+		      var new_tag = $(this).attr('value');
+		      $(this).hide();
+		      $.post('engine.php', {
+		         'criar_etiqueta_titulo': new_tag,
+		         'criar_etiqueta_user_id': {$user_id},
+		      }, function(data) {
+		         if (data != 0) {
+		             $('#etiquetas_disponiveis').prepend(data);
+		         }
+		      });
+		  });
+		</script>
+	";
+	}
 ?>
-	

@@ -274,3 +274,15 @@ h1, h2, h3, h4, h5, h6 {
 .artefato {
   min-height: 30vh;
 }
+
+.remover_tag:hover {
+  opacity: 0.5;
+}
+
+.adicionar_tag {
+  opacity: 0.8;
+}
+
+.adicionar_tag:hover {
+  opacity: 1;
+}

@@ -13,7 +13,7 @@
 	if ((isset($_POST['nova_imagem_link'])) && ($_POST['nova_imagem_link'] != false)) {
 		$nova_imagem_link = $_POST['nova_imagem_link'];
 		$nova_imagem_link = base64_encode($nova_imagem_link);
-		adicionar_imagem($nova_imagem_link, $nova_imagem_titulo, 0, $user_id, 'privada', 'link');
+		adicionar_imagem($nova_imagem_link, $nova_imagem_titulo, 0, $user_id, 'privada', 'link', 0);
 	} else {
 		$upload_ok = false;
 		if (isset($_FILES['nova_imagem_upload'])) {
@@ -35,7 +35,7 @@
 			if ($upload_ok != false) {
 				move_uploaded_file($_FILES['nova_imagem_upload']['tmp_name'], $target_file);
 				$target_file = base64_encode($target_file);
-				adicionar_imagem($target_file, $nova_imagem_titulo, 0, $user_id, 'privada', 'upload');
+				adicionar_imagem($target_file, $nova_imagem_titulo, 0, $user_id, 'privada', 'upload', 0);
 			}
 		}
 	}
@@ -60,14 +60,14 @@
 					<?php
 						
 						$template_id = 'novo_artefato';
-						$template_titulo = 'Criar novo artefato privado';
+						$template_titulo = 'Criar novo artefato';
 						$template_conteudo_class = 'justify-content-start';
 						$template_conteudo_no_col = false;
 						$template_conteudo = false;
 						
 						$artefato_id = 0;
 						$artefato_page_id = false;
-						$artefato_titulo = 'Nova anotação';
+						$artefato_titulo = 'Nova anotação privada';
 						$artefato_criacao = 'Pressione para criar uma nova anotação';
 						$artefato_tipo = 'nova_anotacao';
 						$artefato_link = 'edicao_textos.php?texto_id=0';
@@ -75,44 +75,43 @@
 						
 						$artefato_id = 0;
 						$artefato_page_id = false;
-						$artefato_titulo = 'Nova imagem';
-						$artefato_criacao = 'Pressione para enviar nova imagem privada';
+						$artefato_titulo = 'Nova imagem privada';
+						$artefato_criacao = 'Pressione para enviar uma nova imagem privada';
 						$artefato_tipo = 'nova_imagem';
 						$artefato_link = false;
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
-						$artefato_id = 0;
-						$artefato_page_id = false;
-						$artefato_titulo = 'Novo curso';
-						$artefato_criacao = 'Pressione para criar nova curso';
-						$artefato_tipo = 'novo_curso';
-						$artefato_link = false;
-						$template_conteudo .= include 'templates/artefato_item.php';
+//						$artefato_id = 0;
+//						$artefato_page_id = false;
+//						$artefato_titulo = 'Nova referência';
+//						$artefato_criacao = 'Pressione para criaruma nova referência';
+//						$artefato_tipo = 'nova_referencia';
+//						$artefato_link = false;
+//						$template_conteudo .= include 'templates/artefato_item.php';
 						
-						$artefato_id = 0;
-						$artefato_page_id = false;
-						$artefato_titulo = 'Nova matéria';
-						$artefato_criacao = 'Pressione para criar nova matéria de estudo';
-						$artefato_tipo = 'nova_materia_estudo';
-						$artefato_link = false;
-						$template_conteudo .= include 'templates/artefato_item.php';
+//						$artefato_id = 0;
+//						$artefato_page_id = false;
+//						$artefato_titulo = 'Novo tópico';
+//						$artefato_criacao = 'Pressione para criar um novo tópico';
+//						$artefato_tipo = 'novo_topico';
+//						$artefato_link = false;
+//						$template_conteudo .= include 'templates/artefato_item.php';
 						
-						$artefato_id = 0;
-						$artefato_page_id = false;
-						$artefato_titulo = 'Novo tópico';
-						$artefato_criacao = 'Pressione para criar novo tópico de estudo';
-						$artefato_tipo = 'novo_topico_estudo';
-						$artefato_link = false;
-						$template_conteudo .= include 'templates/artefato_item.php';
+//						$artefato_id = 0;
+//						$artefato_page_id = false;
+//						$artefato_titulo = 'Novo simulado';
+//						$artefato_criacao = 'Pressione para criar um novo simulado';
+//						$artefato_tipo = 'novo_simulado';
+//						$artefato_link = 'simulados.php';
+//						$template_conteudo .= include 'templates/artefato_item.php';
 						
-						$artefato_id = 0;
-						$artefato_page_id = false;
-						$artefato_titulo = 'Nova obra';
-						$artefato_criacao = 'Pressione para criar nova obra de estudo';
-						$artefato_tipo = 'nova_obra_estudo';
-						$artefato_link = false;
-						$template_conteudo .= include 'templates/artefato_item.php';
-						
+//						$artefato_id = 0;
+//						$artefato_page_id = false;
+//						$artefato_titulo = 'Novo curso';
+//						$artefato_criacao = 'Pressione para criar um novo curso';
+//						$artefato_tipo = 'novo_curso';
+//						$artefato_link = false;
+//						$template_conteudo .= include 'templates/artefato_item.php';
 						
 						include 'templates/page_element.php';
 						
@@ -137,21 +136,19 @@
 								$template_conteudo .= include 'templates/artefato_item.php';
 							}
 						}
-						$anotacoes_cursos = $conn->query("SELECT id, page_id, titulo, criacao FROM Textos WHERE tipo = 'anotacoes_curso' AND user_id = $user_id ORDER BY id DESC");
-						if ($anotacoes_cursos->num_rows > 0) {
-							while ($anotacao_cursos = $anotacoes_cursos->fetch_assoc()) {
-								$artefato_id = $anotacao_cursos['id'];
-								$artefato_page_id = $anotacao_cursos['page_id'];
-								$artefato_titulo = $anotacao_cursos['titulo'];
-								$artefato_criacao = $anotacao_cursos['criacao'];
+						$anotacoes_elementos = $conn->query("SELECT id, page_id, titulo, criacao FROM Textos WHERE tipo = 'anotacoes_elemento' AND user_id = $user_id ORDER BY id DESC");
+						if ($anotacoes_elementos->num_rows > 0) {
+							while ($anotacao_elemento = $anotacoes_elementos->fetch_assoc()) {
+								$artefato_id = $anotacao_elemento['id'];
+								$artefato_page_id = $anotacao_elemento['page_id'];
+								$artefato_titulo = $anotacao_elemento['titulo'];
+								$artefato_criacao = $anotacao_elemento['criacao'];
 								$artefato_criacao = "Criado em $artefato_criacao";
-								$artefato_page_id_titulo = return_concurso_titulo_id($artefato_page_id);
 								if ($artefato_titulo == false) {
-									$artefato_titulo = $artefato_page_id_titulo;
-									$artefato_page_id_titulo = false;
+									$artefato_titulo = 'Anotação de referência';
 								}
-								$artefato_tipo = 'anotacao_curso';
-								$artefato_link = false;
+								$artefato_tipo = 'anotacoes_elemento';
+								$artefato_link = "elemento.php?id=$artefato_id";
 								$template_conteudo .= include 'templates/artefato_item.php';
 							}
 						}
@@ -243,6 +240,24 @@
 								}
 								$artefato_tipo = 'anotacao_questao';
 								$artefato_link = "questao.php?questao_id=$artefato_page_id";
+								$template_conteudo .= include 'templates/artefato_item.php';
+							}
+						}
+						$anotacoes_cursos = $conn->query("SELECT id, page_id, titulo, criacao FROM Textos WHERE tipo = 'anotacoes_curso' AND user_id = $user_id ORDER BY id DESC");
+						if ($anotacoes_cursos->num_rows > 0) {
+							while ($anotacao_cursos = $anotacoes_cursos->fetch_assoc()) {
+								$artefato_id = $anotacao_cursos['id'];
+								$artefato_page_id = $anotacao_cursos['page_id'];
+								$artefato_titulo = $anotacao_cursos['titulo'];
+								$artefato_criacao = $anotacao_cursos['criacao'];
+								$artefato_criacao = "Criado em $artefato_criacao";
+								$artefato_page_id_titulo = return_concurso_titulo_id($artefato_page_id);
+								if ($artefato_titulo == false) {
+									$artefato_titulo = $artefato_page_id_titulo;
+									$artefato_page_id_titulo = false;
+								}
+								$artefato_tipo = 'anotacao_curso';
+								$artefato_link = false;
 								$template_conteudo .= include 'templates/artefato_item.php';
 							}
 						}
@@ -353,10 +368,15 @@
             </div>
 		";
 		include 'templates/modal.php';
+		$template_modal_div_id = 'modal_novo_topico';
+		$template_modal_titulo = 'Adicionar tópico';
+		$etiquetas_carregar_remover = false;
+		include 'templates/etiquetas_modal.php';
 	?>
 </div>
 </body>
 <?php
 	include 'templates/footer.html';
+	$etiquetas_bottom_adicionar = true;
 	include 'templates/html_bottom.php';
 ?>
