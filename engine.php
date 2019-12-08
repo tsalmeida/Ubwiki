@@ -848,8 +848,7 @@
 		}
 		if (isset($_POST['busca_etiquetas_tipo'])) {
 			$busca_etiquetas_tipo = $_POST['busca_etiquetas_tipo'];
-		}
-		else {
+		} else {
 			$busca_etiquetas_tipo = 'all';
 		}
 		$busca_etiquetas = $_POST['busca_etiquetas'];
@@ -895,8 +894,11 @@
 		$nova_etiqueta_id = $_POST['nova_etiqueta_id'];
 		$nova_etiqueta_page_id = $_POST['nova_etiqueta_page_id'];
 		$nova_etiqueta_page_tipo = $_POST['nova_etiqueta_page_tipo'];
-		
-		$conn->query("INSERT INTO Etiquetados (etiqueta_id, page_id, page_tipo, user_id) VALUES ($nova_etiqueta_id, $nova_etiqueta_page_id, '$nova_etiqueta_page_tipo', $user_id)");
+		if ($nova_etiqueta_page_tipo != 'acervo') {
+			$conn->query("INSERT INTO Etiquetados (etiqueta_id, page_id, page_tipo, user_id) VALUES ($nova_etiqueta_id, $nova_etiqueta_page_id, '$nova_etiqueta_page_tipo', $user_id)");
+		} else {
+			$conn->query("INSERT INTO Acervo (etiqueta_id, etiqueta_tipo, user_id) VALUES ($nova_etiqueta_id, 'topico', $user_id)");
+		}
 		
 		$nova_etiqueta_info = return_etiqueta_info($nova_etiqueta_id);
 		$nova_etiqueta_tipo = $nova_etiqueta_info[1];

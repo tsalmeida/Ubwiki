@@ -330,7 +330,7 @@
 							include 'templates/page_element.php';
 						}
 						
-						$topicos_acervo = $conn->query("SELECT etiqueta_id FROM Acervo WHERE user_id = $user_id AND etiqueta_tipo = 'topico' ORDER BY id DESC");
+						$topicos_acervo = $conn->query("SELECT DISTINCT etiqueta_id FROM Acervo WHERE user_id = $user_id AND etiqueta_tipo = 'topico' ORDER BY id DESC");
 						if ($topicos_acervo->num_rows > 0) {
 							if ($topicos_acervo->num_rows > 5) {
 								$template_load_invisible = true;
@@ -491,9 +491,9 @@
 </body>
 <?php
 	include 'templates/footer.html';
-	$etiquetas_bottom_adicionar = true;
 	$texto_id = 0;
 	$texto_tipo = 'acervo';
+	$etiquetas_bottom_adicionar = true;
 	$biblioteca_bottom_adicionar = true;
 	$mdb_select = true;
 	include 'templates/html_bottom.php';

@@ -174,6 +174,19 @@
 		         }
 		      });
 		  });
+			$(document).on('click', '.adicionar_tag', function() {
+			      var this_id = $(this).attr('value');
+			      $(this).hide();
+			      $.post('engine.php', {
+			         'nova_etiqueta_id': this_id,
+			         'nova_etiqueta_page_id': {$texto_id},
+			         'nova_etiqueta_page_tipo': '{$texto_tipo}'
+			      }, function(data) {
+			         if (data != 0) {
+			             $('#etiquetas_ativas').append(data);
+			         }
+			      });
+			  });
 		</script>
 	";
 	}
