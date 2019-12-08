@@ -23,11 +23,13 @@
 				$etiqueta_ativa_info = return_etiqueta_info($etiqueta_ativa_id);
 				$etiqueta_ativa_tipo = $etiqueta_ativa_info[1];
 				$etiqueta_ativa_titulo = $etiqueta_ativa_info[2];
-				$etiqueta_ativa_cor = return_etiqueta_cor($etiqueta_ativa_tipo);
-				$template_modal_body_conteudo .= "<a href='javascript:void(0);' class='$tag_ativa_classes $etiqueta_ativa_cor' value='$etiqueta_ativa_id'><i class='far fa-tag fa-fw'></i> $etiqueta_ativa_titulo</a>";
+				$etiqueta_ativa_cor_icone = return_etiqueta_cor_icone($etiqueta_ativa_tipo);
+				$etiqueta_ativa_cor = $etiqueta_ativa_cor_icone[0];
+				$etiqueta_ativa_icone = $etiqueta_ativa_cor_icone[1];
+				$template_modal_body_conteudo .= "<a href='javascript:void(0);' class='$tag_ativa_classes $etiqueta_ativa_cor' value='$etiqueta_ativa_id'><i class='far $etiqueta_ativa_icone fa-fw'></i> $etiqueta_ativa_titulo</a>";
 			}
 		}
-	$template_modal_body_conteudo .= "
+		$template_modal_body_conteudo .= "
 			</div>
 	    ";
 	}

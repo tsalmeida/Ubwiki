@@ -18,6 +18,9 @@
 	if (!isset($etiquetas_bottom_adicionar)) {
 		$etiquetas_bottom_adicionar = false;
 	}
+	if (!isset($biblioteca_bottom_adicionar)) {
+		$biblioteca_bottom_adicionar = false;
+	}
 	
 	echo "
     <!-- Bootstrap tooltips -->
@@ -91,7 +94,8 @@
 			      var busca_etiquetas_length = $('#buscar_etiquetas').val().length;
 			      if (busca_etiquetas_length > 2) {
 			          $.post('engine.php', {
-			              'busca_etiquetas': busca_etiquetas
+			              'busca_etiquetas': busca_etiquetas,
+			              'busca_etiquetas_tipo': 'all'
 			          }, function(data) {
 			            if (data != 0) {
 			                $('#etiquetas_disponiveis').empty();
@@ -127,7 +131,6 @@
 		      $(this).hide();
 		      $.post('engine.php', {
 		         'criar_etiqueta_titulo': new_tag,
-		         'criar_etiqueta_user_id': {$user_id},
 		         'criar_etiqueta_page_id': {$texto_id},
 		         'criar_etiqueta_page_tipo': '{$texto_tipo}'
 		      }, function(data) {
@@ -148,7 +151,8 @@
 				if (busca_etiquetas_length > 2) {
 					$.post('engine.php', {
 			              'busca_etiquetas': busca_etiquetas,
-			              'busca_etiquetas_sem_link': true
+			              'busca_etiquetas_tipo': 'topico',
+			              'busca_etiquetas_sem_link': 0
 			          }, function(data) {
 						if (data != 0) {
 							$('#etiquetas_disponiveis').empty();
@@ -162,7 +166,8 @@
 		      $(this).hide();
 		      $.post('engine.php', {
 		         'criar_etiqueta_titulo': new_tag,
-		         'criar_etiqueta_user_id': {$user_id},
+		         'criar_etiqueta_page_id': {$texto_id},
+		         'criar_etiqueta_page_tipo': '{$texto_tipo}'
 		      }, function(data) {
 		         if (data != 0) {
 		             $('#etiquetas_disponiveis').prepend(data);
@@ -171,5 +176,88 @@
 		  });
 		</script>
 	";
+	}
+	if ($biblioteca_bottom_adicionar == true) {
+		echo "
+			<script type='text/javascript'>
+				$('#criar_referencia_form').hide();
+				$('#busca_referencias').keyup(function() {
+				   var busca_referencias = $('#busca_referencias').val();
+				   var busca_referencias_length = $('#busca_referencias').val().length;
+				   if (busca_referencias_length > 2) {
+				       $.post('engine.php', {
+				           'busca_referencias': busca_referencias
+				       }, function(data) {
+				          if (data != 0) {
+				              $('#referencias_disponiveis').show();
+				              $('#criar_referencia_form').hide();
+				              $('#referencias_disponiveis').empty();
+				              $('#referencias_disponiveis').append(data);
+				          }
+				       });
+				   }
+				});
+				$('#criar_referencia_autor').keyup(function() {
+				    var criar_referencia_autor = $('#criar_referencia_autor').val();
+				    var criar_referencia_autor_length = $('#criar_referencia_autor').val().length;
+				    if (criar_referencia_autor_length > 2) {
+							$.post('engine.php', {
+							    'busca_autores': criar_referencia_autor
+							}, function(data) {
+					        $('#autores_disponiveis').empty();
+							    if (data != 0) {
+							        $('#autores_disponiveis').show();
+							        $('#autores_disponiveis').append(data);
+							    } else {
+							        $('#autores_disponiveis').hide();
+							    }
+							})
+				    }
+				})
+				$(document).on('click', '#criar_referencia', function() {
+				    var nova_referencia = $(this).attr('value');
+				    $(this).hide();
+				    $('#referencias_disponiveis').hide();
+				    $('#criar_referencia_form').show();
+				})
+				$(document).on('click', '.acrescentar_referencia_bibliografia', function() {
+					var acrescentar_referencia = $(this).attr('value');
+					$(this).hide();
+					$.post('engine.php', {
+					   'acrescentar_referencia_id': acrescentar_referencia
+					}, function(data) {
+						if (data != false) {
+						    alert('sucesso');
+						} else {
+						    alert('insucesso');
+						}
+			   	});
+				});
+				$(document).on('click', '.adicionar_autor', function() {
+				    var adicionar_autor = $(this).attr('value');
+				    $(this).hide();
+				    $('#criar_referencia_autor').val(adicionar_autor);
+				    $('#autores_disponiveis').hide();
+				})
+				$(document).on('click', '#trigger_adicionar_referencia', function() {
+				    var adicionar_referencia_titulo = $('#criar_referencia_titulo').val();
+				    var adicionar_referencia_autor = $('#criar_referencia_autor').val();
+				    var adicionar_referencia_tipo = $('#criar_referencia_tipo').val();
+				    if ((adicionar_referencia_titulo != false) && (adicionar_referencia_autor != false) && (adicionar_referencia_tipo != false)) {
+				        $.post('engine.php', {
+				           'adicionar_referencia_titulo': adicionar_referencia_titulo,
+				           'adicionar_referencia_autor': adicionar_referencia_autor,
+				           'adicionar_referencia_tipo': adicionar_referencia_tipo
+				        }, function(data) {
+				            if (data != false) {
+				                alert('Referência criada e adicionada a seu acervo.')
+				            }
+				        });
+				    } else {
+				        alert('Por favor, preencha todos os campos necessários.')
+				    }
+				});
+			</script>
+		";
 	}
 ?>

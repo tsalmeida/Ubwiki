@@ -81,12 +81,15 @@
 					<?php
 						
 						$template_id = 'artefatos_usuario';
-						$template_titulo = 'Seus artefatos';
+						$template_titulo = 'Seu acervo';
 						$template_conteudo = false;
 						$template_conteudo .= "
-							<p>Em sua página de artefatos, você tem acesso a todos os textos que produziu na Ubwiki, assim como a imagens privadas.</p>
+							<p>Em seu acervo, ficam registradas suas anotações, tanto públicas quanto privadas, imagens que adicionou à Ubwiki, seus tópicos, livros, imagens e material em áudio de interesse.</p>
 							<div class='row justify-content-center'>
-								<a href='artefatos.php' target='_blank'><button class='$button_classes'>Acessar artefatos</button></a>
+								<a href='acervo.php' class='text-succes'><i class='fad fa-books fa-swap-opacity fa-fw fa-6x'></i></a>
+							</div>
+							<div class='row justify-content-center'>
+								<span class='text-muted'><em>Acessar acervo</em></span>
 							</div>
 						";
 						include 'templates/page_element.php';

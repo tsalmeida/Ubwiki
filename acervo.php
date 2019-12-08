@@ -50,7 +50,7 @@
 <div class="container">
 	
 	<?php
-		$template_titulo = 'Seus artefatos';
+		$template_titulo = 'Seu acervo';
 		$template_titulo_context = true;
 		$template_titulo_no_nav = true;
 		include 'templates/titulo.php';
@@ -60,7 +60,7 @@
 					<?php
 						
 						$template_id = 'novo_artefato';
-						$template_titulo = 'Criar novo artefato';
+						$template_titulo = 'Adicionar item';
 						$template_conteudo_class = 'justify-content-start';
 						$template_conteudo_no_col = false;
 						$template_conteudo = false;
@@ -81,38 +81,67 @@
 						$artefato_link = false;
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
-//						$artefato_id = 0;
-//						$artefato_page_id = false;
-//						$artefato_titulo = 'Nova referência';
-//						$artefato_criacao = 'Pressione para criaruma nova referência';
-//						$artefato_tipo = 'nova_referencia';
-//						$artefato_link = false;
-//						$template_conteudo .= include 'templates/artefato_item.php';
+						$artefato_id = 0;
+						$artefato_page_id = false;
+						$artefato_titulo = 'Incluir material de estudo';
+						$artefato_criacao = 'Pressione para acrescentar uma obra à sua biblioteca virtual';
+						$artefato_tipo = 'nova_referencia';
+						$artefato_link = false;
+						$template_conteudo .= include 'templates/artefato_item.php';
 						
-//						$artefato_id = 0;
-//						$artefato_page_id = false;
-//						$artefato_titulo = 'Novo tópico';
-//						$artefato_criacao = 'Pressione para criar um novo tópico';
-//						$artefato_tipo = 'novo_topico';
-//						$artefato_link = false;
-//						$template_conteudo .= include 'templates/artefato_item.php';
+						$artefato_id = 0;
+						$artefato_page_id = false;
+						$artefato_titulo = 'Adicionar área de interesse';
+						$artefato_criacao = 'Pressione para adicionar uma área de interesse';
+						$artefato_tipo = 'novo_topico';
+						$artefato_link = false;
+						$template_conteudo .= include 'templates/artefato_item.php';
 						
-//						$artefato_id = 0;
-//						$artefato_page_id = false;
-//						$artefato_titulo = 'Novo simulado';
-//						$artefato_criacao = 'Pressione para criar um novo simulado';
-//						$artefato_tipo = 'novo_simulado';
-//						$artefato_link = 'simulados.php';
-//						$template_conteudo .= include 'templates/artefato_item.php';
+						//						$artefato_id = 0;
+						//						$artefato_page_id = false;
+						//						$artefato_titulo = 'Novo simulado';
+						//						$artefato_criacao = 'Pressione para criar um novo simulado';
+						//						$artefato_tipo = 'novo_simulado';
+						//						$artefato_link = 'simulados.php';
+						//						$template_conteudo .= include 'templates/artefato_item.php';
 						
-//						$artefato_id = 0;
-//						$artefato_page_id = false;
-//						$artefato_titulo = 'Novo curso';
-//						$artefato_criacao = 'Pressione para criar um novo curso';
-//						$artefato_tipo = 'novo_curso';
-//						$artefato_link = false;
-//						$template_conteudo .= include 'templates/artefato_item.php';
+						//						$artefato_id = 0;
+						//						$artefato_page_id = false;
+						//						$artefato_titulo = 'Novo curso';
+						//						$artefato_criacao = 'Pressione para criar um novo curso';
+						//						$artefato_tipo = 'novo_curso';
+						//						$artefato_link = false;
+						//						$template_conteudo .= include 'templates/artefato_item.php';
 						
+						include 'templates/page_element.php';
+						
+						$template_id = 'acervo_virtual';
+						$template_titulo = 'Material de estudo';
+						$template_conteudo_class = 'justify-content-start';
+						$template_conteudo_no_col = true;
+						$template_conteudo = false;
+						$acervo = $conn->query("SELECT criacao, etiqueta_id, etiqueta_tipo, elemento_id FROM Acervo WHERE user_id = $user_id AND estado = 1 AND etiqueta_tipo NOT IN ('topico') ORDER BY id DESC");
+						if ($acervo->num_rows > 0) {
+							while ($acervo_item = $acervo->fetch_assoc()) {
+								$acervo_item_criacao = $acervo_item['criacao'];
+								$acervo_item_etiqueta_id = $acervo_item['etiqueta_id'];
+								$acervo_item_etiqueta_tipo = $acervo_item['etiqueta_tipo'];
+								$acervo_item_elemento_id = $acervo_item['elemento_id'];
+								$acervo_item_info = return_etiqueta_info($acervo_item_etiqueta_id);
+								$acervo_item_tipo = $acervo_item_info[1];
+								$acervo_item_titulo = $acervo_item_info[2];
+								
+								$artefato_id = $acervo_item_etiqueta_id;
+								$artefato_page_id = $acervo_item_elemento_id;
+								$artefato_titulo = $acervo_item_titulo;
+								$artefato_criacao = $acervo_item_criacao;
+								$artefato_criacao = "Adicionado em $artefato_criacao";
+								$artefato_tipo = $acervo_item_etiqueta_tipo;
+								$artefato_link = "elemento.php?id=$acervo_item_elemento_id";
+								
+								$template_conteudo .= include 'templates/artefato_item.php';
+							}
+						}
 						include 'templates/page_element.php';
 						
 						$template_id = 'anotacoes_privadas';
@@ -120,9 +149,11 @@
 						$template_conteudo_class = 'justify-content-start';
 						$template_conteudo_no_col = true;
 						$template_conteudo = false;
+						$count_anotacoes = 0;
 						$anotacoes_privadas = $conn->query("SELECT id, page_id, titulo, criacao FROM Textos WHERE tipo = 'anotacao_privada' AND user_id = $user_id ORDER BY id DESC");
 						if ($anotacoes_privadas->num_rows > 0) {
 							while ($anotacao_privada = $anotacoes_privadas->fetch_assoc()) {
+								$count_anotacoes++;
 								$artefato_id = $anotacao_privada['id'];
 								$artefato_page_id = $anotacao_privada['page_id'];
 								$artefato_titulo = $anotacao_privada['titulo'];
@@ -139,22 +170,25 @@
 						$anotacoes_elementos = $conn->query("SELECT id, page_id, titulo, criacao FROM Textos WHERE tipo = 'anotacoes_elemento' AND user_id = $user_id ORDER BY id DESC");
 						if ($anotacoes_elementos->num_rows > 0) {
 							while ($anotacao_elemento = $anotacoes_elementos->fetch_assoc()) {
+								$count_anotacoes++;
 								$artefato_id = $anotacao_elemento['id'];
 								$artefato_page_id = $anotacao_elemento['page_id'];
 								$artefato_titulo = $anotacao_elemento['titulo'];
 								$artefato_criacao = $anotacao_elemento['criacao'];
 								$artefato_criacao = "Criado em $artefato_criacao";
+								$artefato_titulo = return_titulo_elemento($artefato_page_id);
 								if ($artefato_titulo == false) {
 									$artefato_titulo = 'Anotação de referência';
 								}
 								$artefato_tipo = 'anotacoes_elemento';
-								$artefato_link = "elemento.php?id=$artefato_id";
+								$artefato_link = "elemento.php?id=$artefato_page_id";
 								$template_conteudo .= include 'templates/artefato_item.php';
 							}
 						}
 						$anotacoes_materias = $conn->query("SELECT id, page_id, titulo, criacao FROM Textos WHERE tipo = 'anotacoes_materia' AND user_id = $user_id ORDER BY id DESC");
 						if ($anotacoes_materias->num_rows > 0) {
 							while ($anotacao_materias = $anotacoes_materias->fetch_assoc()) {
+								$count_anotacoes++;
 								$artefato_id = $anotacao_materias['id'];
 								$artefato_page_id = $anotacao_materias['page_id'];
 								$artefato_titulo = $anotacao_materias['titulo'];
@@ -173,6 +207,7 @@
 						$anotacoes_topicos = $conn->query("SELECT id, page_id, titulo, criacao FROM Textos WHERE tipo = 'anotacoes' AND user_id = $user_id ORDER BY id DESC");
 						if ($anotacoes_topicos->num_rows > 0) {
 							while ($anotacao_topicos = $anotacoes_topicos->fetch_assoc()) {
+								$count_anotacoes++;
 								$artefato_id = $anotacao_topicos['id'];
 								$artefato_page_id = $anotacao_topicos['page_id'];
 								$artefato_titulo = $anotacao_topicos['titulo'];
@@ -191,6 +226,7 @@
 						$anotacoes_provas = $conn->query("SELECT id, page_id, titulo, criacao FROM Textos WHERE tipo = 'anotacoes_prova' AND user_id = $user_id ORDER BY id DESC");
 						if ($anotacoes_provas->num_rows > 0) {
 							while ($anotacao_provas = $anotacoes_provas->fetch_assoc()) {
+								$count_anotacoes++;
 								$artefato_id = $anotacao_provas['id'];
 								$artefato_page_id = $anotacao_provas['page_id'];
 								$artefato_titulo = $anotacao_provas['titulo'];
@@ -210,6 +246,7 @@
 						$anotacoes_textos_apoio = $conn->query("SELECT id, page_id, titulo, criacao FROM Textos WHERE tipo = 'anotacoes_texto_apoio' AND user_id = $user_id ORDER BY id DESC");
 						if ($anotacoes_textos_apoio->num_rows > 0) {
 							while ($anotacao_textos_apoio = $anotacoes_textos_apoio->fetch_assoc()) {
+								$count_anotacoes++;
 								$artefato_id = $anotacao_textos_apoio['id'];
 								$artefato_page_id = $anotacao_textos_apoio['page_id'];
 								$artefato_titulo = $anotacao_textos_apoio['titulo'];
@@ -228,6 +265,7 @@
 						$anotacoes_questao = $conn->query("SELECT id, page_id, titulo, criacao FROM Textos WHERE tipo = 'anotacoes_questao' AND user_id = $user_id ORDER BY id DESC");
 						if ($anotacoes_questao->num_rows > 0) {
 							while ($anotacao_questao = $anotacoes_questao->fetch_assoc()) {
+								$count_anotacoes++;
 								$artefato_id = $anotacao_questao['id'];
 								$artefato_page_id = $anotacao_questao['page_id'];
 								$artefato_titulo = $anotacao_questao['titulo'];
@@ -246,6 +284,7 @@
 						$anotacoes_cursos = $conn->query("SELECT id, page_id, titulo, criacao FROM Textos WHERE tipo = 'anotacoes_curso' AND user_id = $user_id ORDER BY id DESC");
 						if ($anotacoes_cursos->num_rows > 0) {
 							while ($anotacao_cursos = $anotacoes_cursos->fetch_assoc()) {
+								$count_anotacoes++;
 								$artefato_id = $anotacao_cursos['id'];
 								$artefato_page_id = $anotacao_cursos['page_id'];
 								$artefato_titulo = $anotacao_cursos['titulo'];
@@ -261,23 +300,29 @@
 								$template_conteudo .= include 'templates/artefato_item.php';
 							}
 						}
+						if ($count_anotacoes > 10) {
+							$template_load_invisible = true;
+						}
 						include 'templates/page_element.php';
 						
-						$imagens_publicas = $conn->query("SELECT id, criacao, titulo, arquivo, estado FROM Elementos WHERE user_id = $user_id AND tipo = 'imagem_privada' AND user_id = $user_id ORDER BY id DESC");
-						if ($imagens_publicas->num_rows > 0) {
+						$imagens_privadas = $conn->query("SELECT id, criacao, titulo, arquivo, estado FROM Elementos WHERE user_id = $user_id AND tipo = 'imagem_privada' AND user_id = $user_id ORDER BY id DESC");
+						if ($imagens_privadas->num_rows > 0) {
+							if ($imagens_privadas->num_rows > 5) {
+								$template_load_invisible = true;
+							}
 							$template_id = 'imagens_privadas';
 							$template_titulo = 'Imagens privadas';
 							$template_conteudo_class = 'justify-content-start';
 							$template_conteudo_no_col = true;
 							$template_conteudo = false;
 							
-							while ($imagem_publica = $imagens_publicas->fetch_assoc()) {
-								$artefato_id = $imagem_publica['id'];
-								$artefato_criacao = $imagem_publica['criacao'];
+							while ($imagem_privada = $imagens_privadas->fetch_assoc()) {
+								$artefato_id = $imagem_privada['id'];
+								$artefato_criacao = $imagem_privada['criacao'];
 								$artefato_criacao = "Criado em $artefato_criacao";
-								$artefato_titulo = $imagem_publica['titulo'];
-								$artefato_imagem_arquivo = $imagem_publica['arquivo'];
-								$artefato_estado = $imagem_publica['estado'];
+								$artefato_titulo = $imagem_privada['titulo'];
+								$artefato_imagem_arquivo = $imagem_privada['arquivo'];
+								$artefato_estado = $imagem_privada['estado'];
 								$artefato_link = "elemento.php?id=$artefato_id";
 								$artefato_tipo = 'imagem_publica';
 								$template_conteudo .= include 'templates/artefato_item.php';
@@ -285,8 +330,34 @@
 							include 'templates/page_element.php';
 						}
 						
+						$topicos_acervo = $conn->query("SELECT etiqueta_id FROM Acervo WHERE user_id = $user_id AND etiqueta_tipo = 'topico' ORDER BY id DESC");
+						if ($topicos_acervo->num_rows > 0) {
+							if ($topicos_acervo->num_rows > 5) {
+								$template_load_invisible = true;
+							}
+							$template_id = 'topicos_interesse';
+							$template_titulo = 'Áreas de interesse';
+							$template_conteudo_class = 'justify-content-start';
+							$template_conteudo_no_col = true;
+							$template_conteudo = false;
+							
+							while ($topico_acervo = $topicos_acervo->fetch_assoc()) {
+								$topico_acervo_etiqueta_id = $topico_acervo['etiqueta_id'];
+								$topico_acervo_etiqueta_info = return_etiqueta_info($topico_acervo_etiqueta_id);
+								$artefato_criacao = $topico_acervo_etiqueta_info[0];
+								$artefato_titulo = $topico_acervo_etiqueta_info[2];
+								$artefato_link = false;
+								$artefato_tipo = 'topico_interesse';
+								$template_conteudo .= include 'templates/artefato_item.php';
+							}
+							include 'templates/page_element.php';
+						}
+						
 						$imagens_publicas = $conn->query("SELECT id, criacao, titulo, arquivo, estado FROM Elementos WHERE user_id = $user_id AND tipo = 'imagem' ORDER BY id DESC");
 						if ($imagens_publicas->num_rows > 0) {
+							if ($imagens_publicas->num_rows > 5) {
+								$template_load_invisible = true;
+							}
 							$template_id = 'imagens_publicas';
 							$template_titulo = 'Imagens públicas';
 							$template_conteudo_class = 'justify-content-start';
@@ -368,6 +439,49 @@
             </div>
 		";
 		include 'templates/modal.php';
+		
+		$template_modal_div_id = 'modal_nova_referencia';
+		$template_modal_titulo = 'Adicionar item à sua biblioteca virtual';
+		$template_modal_body_conteudo = false;
+		$template_modal_body_conteudo .= "
+	        <h4 class='mt-3'>Biblioteca virtual</h4>
+	        <p>Acrescente à sua biblioteca virtual livros que você tem, quer ter, pretende emprestar de um amigo, assim como artigos que quer ler, revistas, até mesmo álbuns de música ou filmes.</p>
+	        <p>Uma vez que seu item tenha sido adicionado, será possível marcar capítulos e escrever fichamentos específicos, assim como resenhas e resumos. Cada anotação será inicialmente privada, podendo ser tornada pública se você assim desejar.</p>
+		    <div class='md-form'>
+			    <input type='text' class='form-control' name='busca_referencias' id='busca_referencias' required>
+			    <label for='busca_referencias'>Buscar item para adicionar à sua biblioteca virtual, por título ou autor.</label>
+		    </div>
+		    <div class='row' id='referencias_disponiveis'>
+		    
+		    </div>
+		    <div class='row' id='criar_referencia_form'>
+		        <div class='col-12'>
+                    <div class='md-form'>
+                        <input type='text' class='form-control' name='criar_referencia_titulo' id='criar_referencia_titulo' required>
+                        <label for='criar_referencia_titulo'>Título da nova referência</label>
+                    </div>
+                    <div class='md-form'>
+                        <input type='text' class='form-control' name='criar_referencia_autor' id='criar_referencia_autor' required>
+                        <label for='criar_referencia_autor'>Autor da nova referência</label>
+                    </div>
+                    <div class='row' id='autores_disponiveis'>
+                    
+                    </div>
+                    <select class='mdb-select md-form' name='criar_referencia_tipo' id='criar_referencia_tipo'>
+                        <option value='' disabled selected>Tipo do novo item:</option>
+                        <option value='referencia'>Materia de leitura: livros, artigos etc.</option>
+                        <option value='video'>Material videográfico: vídeos virtuais, filmes etc.</option>
+                        <option value='album_musica'>Material em áudio: álbuns de música, podcasts</option>
+                    </select>
+                    <div class='row justify-content-center'>
+                    	<button type='button' class='$button_classes' id='trigger_adicionar_referencia'>Cadastrar esta referência e acrescentá-la a seu acervo</button>
+					</div>
+                </div>
+            </div>
+		";
+		$template_modal_show_buttons = false;
+		include 'templates/modal.php';
+		
 		$template_modal_div_id = 'modal_novo_topico';
 		$template_modal_titulo = 'Adicionar tópico';
 		$etiquetas_carregar_remover = false;
@@ -378,5 +492,9 @@
 <?php
 	include 'templates/footer.html';
 	$etiquetas_bottom_adicionar = true;
+	$texto_id = 0;
+	$texto_tipo = 'acervo';
+	$biblioteca_bottom_adicionar = true;
+	$mdb_select = true;
 	include 'templates/html_bottom.php';
 ?>

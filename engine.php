@@ -728,43 +728,167 @@
 		echo false;
 	}
 	
+	if (isset($_POST['busca_referencias'])) {
+		$busca_referencias = $_POST['busca_referencias'];
+		$busca_resultados = false;
+		$referencia_exata = $conn->query("SELECT titulo FROM Elementos WHERE titulo = '$busca_referencias' AND (tipo = 'referencia' OR tipo = 'video' OR tipo = 'album_musica')");
+		if ($referencia_exata->num_rows == 0) {
+			$busca_resultados .= "<div class='col-12'><button type='button' id='criar_referencia' name='criar_referencia' class='btn rounded btn-md text-center btn-primary btn-sm m-0 mb-2' value='$busca_referencias'>Referência não encontrada, criar nova?</button></div>";
+		}
+		$elementos = $conn->query("SELECT id, etiqueta_id, titulo, autor, tipo FROM Elementos WHERE titulo LIKE '%{$busca_referencias}%'");
+		if ($elementos->num_rows > 0) {
+			while ($elemento = $elementos->fetch_assoc()) {
+				$elemento_id = $elemento['id'];
+				$elemento_etiqueta_id = $elemento['etiqueta_id'];
+				$elemento_titulo = $elemento['titulo'];
+				$elemento_autor = $elemento['autor'];
+				$elemento_tipo = $elemento['tipo'];
+				$elemento_cor_icone = return_etiqueta_cor_icone($elemento_tipo);
+				$elemento_cor = $elemento_cor_icone[0];
+				$elemento_icone = $elemento_cor_icone[1];
+				$busca_resultados .= "<a href='javascript:void(0)' class='$tag_inativa_classes $elemento_cor lighten-4 acrescentar_referencia_bibliografia' value='$elemento_etiqueta_id'><i class='far $elemento_icone fa-fw'></i> $elemento_titulo</a>";
+			}
+		}
+		echo $busca_resultados;
+	}
+	
+	if (isset($_POST['adicionar_referencia_titulo'])) {
+		$adicionar_referencia_titulo = $_POST['adicionar_referencia_titulo'];
+		$adicionar_referencia_titulo = mysqli_real_escape_string($conn, $adicionar_referencia_titulo);
+		$adicionar_referencia_autor = $_POST['adicionar_referencia_autor'];
+		$adicionar_referencia_autor = mysqli_real_escape_string($conn, $adicionar_referencia_autor);
+		$adicionar_referencia_tipo = $_POST['adicionar_referencia_tipo'];
+		$adicionar_referencia_etiqueta_titulo = "$adicionar_referencia_titulo / $adicionar_referencia_autor";
+		$adicionar_referencia_etiqueta_titulo = mysqli_real_escape_string($conn, $adicionar_referencia_etiqueta_titulo);
+		
+		$autores = $conn->query("SELECT id FROM Etiquetas WHERE tipo = 'autor' AND titulo = '$adicionar_referencia_autor'");
+		if ($autores->num_rows > 0) {
+			while ($autor = $autores->fetch_assoc()) {
+				$adicionar_referencia_autor_etiqueta_id = $autor['id'];
+			}
+		} else {
+			if ($conn->query("INSERT INTO Etiquetas (titulo, tipo, user_id) VALUES ('$adicionar_referencia_autor', 'autor', $user_id)") === true) {
+				$adicionar_referencia_autor_etiqueta_id = $conn->insert_id;
+			}
+		}
+		if ($adicionar_referencia_autor_etiqueta_id != false) {
+			if ($conn->query("INSERT INTO Etiquetas (titulo, tipo, user_id) VALUES ('$adicionar_referencia_etiqueta_titulo', '$adicionar_referencia_tipo', $user_id)") === true) {
+				
+				$adicionar_referencia_etiqueta_id = $conn->insert_id;
+				
+				if ($conn->query("INSERT INTO Elementos (etiqueta_id, titulo, autor_etiqueta_id, autor, tipo, user_id) VALUES ($adicionar_referencia_etiqueta_id, '$adicionar_referencia_titulo', $adicionar_referencia_autor_etiqueta_id, '$adicionar_referencia_autor', '$adicionar_referencia_tipo', $user_id)") === true) {
+					
+					$adicionar_referencia_elemento_id = $conn->insert_id;
+				}
+				
+				$conn->query("INSERT INTO Acervo (user_id, etiqueta_id, etiqueta_tipo, elemento_id) VALUES ($user_id, $adicionar_referencia_etiqueta_id, '$adicionar_referencia_tipo', $adicionar_referencia_elemento_id)");
+				
+			}
+		}
+		echo true;
+	}
+	
+	if (isset($_POST['acrescentar_referencia_id'])) {
+		$acrescentar_referencia_id = $_POST['acrescentar_referencia_id'];
+		$acrescentar_referencia_info = return_etiqueta_info($acrescentar_referencia_id);
+		$acrescentar_referencia_tipo = $acrescentar_referencia_info[1];
+		$acrescentar_referencia_elemento_id = return_etiqueta_elemento_id($acrescentar_referencia_id);
+		if ($conn->query("INSERT INTO Acervo (user_id, etiqueta_id, etiqueta_tipo, elemento_id) VALUES ($user_id, $acrescentar_referencia_id, '$acrescentar_referencia_tipo', $acrescentar_referencia_elemento_id)") === true) {
+			echo true;
+		} else {
+			echo false;
+		}
+	}
+	
+	function return_etiqueta_elemento_id($etiqueta_id)
+	{
+		include 'templates/criar_conn.php';
+		$elementos = $conn->query("SELECT id FROM Elementos WHERE etiqueta_id = $etiqueta_id");
+		if ($elementos->num_rows > 0) {
+			while ($elemento = $elementos->fetch_assoc()) {
+				$found_elemento_id = $elemento['id'];
+				return $found_elemento_id;
+			}
+		}
+	}
+	
+	function return_elemento_icone($elemento_tipo)
+	{
+		if ($elemento_tipo == 'referencia') {
+			return 'fa-bookmark';
+		} elseif ($elemento_tipo == 'video') {
+			return 'fa-video';
+		} elseif ($elemento_tipo == 'imagem') {
+			return 'fa-image';
+		} else {
+			return false;
+		}
+	}
+	
+	if (isset($_POST['busca_autores'])) {
+		$busca_autores = $_POST['busca_autores'];
+		$busca_resultados = false;
+		$autores = $conn->query("SELECT DISTINCT titulo FROM Etiquetas WHERE tipo = 'autor' AND titulo LIKE '%{$busca_autores}%'");
+		if ($autores->num_rows > 0) {
+			while ($autor = $autores->fetch_assoc()) {
+				$busca_autor = $autor['titulo'];
+				$busca_resultados .= "<a href='javascript:void(0)' class='$tag_inativa_classes blue-grey adicionar_autor' value='$busca_autor'>$busca_autor</a>";
+			}
+		} else {
+			return false;
+		}
+		echo $busca_resultados;
+	}
+	
 	if (isset($_POST['busca_etiquetas'])) {
 		if (isset($_POST['busca_etiquetas_sem_link'])) {
 			$busca_etiquetas_sem_link = $_POST['busca_etiquetas_sem_link'];
-			error_log('this happened');
+		} else {
+			$busca_etiquetas_sem_link = false;
+		}
+		if (isset($_POST['busca_etiquetas_tipo'])) {
+			$busca_etiquetas_tipo = $_POST['busca_etiquetas_tipo'];
 		}
 		else {
-			$busca_etiquetas_sem_link = false;
+			$busca_etiquetas_tipo = 'all';
 		}
 		$busca_etiquetas = $_POST['busca_etiquetas'];
 		$busca_resultados = false;
-		$etiqueta_exata = $conn->query("SELECT id FROM Etiquetas WHERE titulo = '$busca_etiquetas'");
+		if ($busca_etiquetas_tipo == 'all') {
+			$etiqueta_exata = $conn->query("SELECT id FROM Etiquetas WHERE titulo = '$busca_etiquetas'");
+		} else {
+			$etiqueta_exata = $conn->query("SELECT id FROM Etiquetas WHERE titulo = '$busca_etiquetas' AND tipo = '$busca_etiquetas_tipo'");
+		}
 		if ($etiqueta_exata->num_rows == 0) {
 			$busca_resultados .= "<div class='col-12'><button type='button' id='criar_etiqueta' name='criar_etiqueta' class='btn rounded btn-md text-center btn-primary btn-sm m-0 mb-2' value='$busca_etiquetas'>Criar etiqueta \"$busca_etiquetas\"</button></div>";
 		}
-		
-		$etiquetas = $conn->query("SELECT id, tipo, titulo FROM Etiquetas WHERE titulo LIKE '%{$busca_etiquetas}%'");
+		if ($busca_etiquetas_tipo == 'all') {
+			$etiquetas = $conn->query("SELECT id, tipo, titulo FROM Etiquetas WHERE titulo LIKE '%{$busca_etiquetas}%'");
+		} else {
+			$etiquetas = $conn->query("SELECT id, tipo, titulo FROM Etiquetas WHERE titulo LIKE '%{$busca_etiquetas}%' AND tipo = '$busca_etiquetas_tipo'");
+		}
 		if ($etiquetas->num_rows > 0) {
 			while ($etiqueta = $etiquetas->fetch_assoc()) {
 				$etiqueta_id = $etiqueta['id'];
 				$etiqueta_tipo = $etiqueta['tipo'];
 				$etiqueta_titulo = $etiqueta['titulo'];
 				
-				$etiqueta_cor = return_etiqueta_cor($etiqueta_tipo);
+				$etiqueta_cor_icone = return_etiqueta_cor_icone($etiqueta_tipo);
+				$etiqueta_cor = $etiqueta_cor_icone[0];
+				$etiqueta_icone = $etiqueta_cor_icone[1];
 				
 				if ($etiqueta_cor != false) {
 					if ($busca_etiquetas_sem_link == true) {
-						$busca_resultados .= "<span href='javascript:void(0);' class='$tag_neutra_classes $etiqueta_cor'><i class='far fa-tag fa-fw'></i> $etiqueta_titulo</span>";
-					}
-					else {
-						$busca_resultados .= "<a href='javascript:void(0);' class='$tag_inativa_classes $etiqueta_cor' value='$etiqueta_id'><i class='far fa-tag fa-fw'></i> $etiqueta_titulo</a>";
+						$busca_resultados .= "<span href='javascript:void(0);' class='$tag_neutra_classes $etiqueta_cor'><i class='far $etiqueta_icone fa-fw'></i> $etiqueta_titulo</span>";
+					} else {
+						$busca_resultados .= "<a href='javascript:void(0);' class='$tag_inativa_classes $etiqueta_cor' value='$etiqueta_id'><i class='far $etiqueta_icone fa-fw'></i> $etiqueta_titulo</a>";
 					}
 				}
 			}
 		} else {
 			$busca_resultados .= "<p><em>Nenhuma etiqueta encontrada.</em></p>";
 		}
-		echo "$busca_resultados";
+		echo $busca_resultados;
 	}
 	
 	if (isset($_POST['nova_etiqueta_id'])) {
@@ -777,9 +901,12 @@
 		$nova_etiqueta_info = return_etiqueta_info($nova_etiqueta_id);
 		$nova_etiqueta_tipo = $nova_etiqueta_info[1];
 		$nova_etiqueta_titulo = $nova_etiqueta_info[2];
-		$nova_etiqueta_cor = return_etiqueta_cor($nova_etiqueta_tipo);
+		$nova_etiqueta_cor_icone = return_etiqueta_cor_icone($nova_etiqueta_tipo);
+		$nova_etiqueta_cor = $nova_etiqueta_cor_icone[0];
+		$nova_etiqueta_icone = $nova_etiqueta_cor_icone[1];
 		
-		echo "<a href='javascript:void(0);' class='$tag_ativa_classes $nova_etiqueta_cor' value='$nova_etiqueta_id'><i class='far fa-tag fa-fw'></i> $nova_etiqueta_titulo</a>";
+		
+		echo "<a href='javascript:void(0);' class='$tag_ativa_classes $nova_etiqueta_cor' value='$nova_etiqueta_id'><i class='far $nova_etiqueta_icone fa-fw'></i> $nova_etiqueta_titulo</a>";
 	}
 	
 	if (isset($_POST['remover_etiqueta_id'])) {
@@ -798,17 +925,23 @@
 	
 	if (isset($_POST['criar_etiqueta_titulo'])) {
 		$criar_etiqueta_titulo = $_POST['criar_etiqueta_titulo'];
-		$criar_etiqueta_user_id = $_POST['criar_etiqueta_user_id'];
 		$criar_etiqueta_page_id = $_POST['criar_etiqueta_page_id'];
 		$criar_etiqueta_page_tipo = $_POST['criar_etiqueta_page_tipo'];
-		if ($conn->query("INSERT INTO Etiquetas (tipo, titulo, user_id) VALUES ('topico', '$criar_etiqueta_titulo', $criar_etiqueta_user_id)") === true) {
+		
+		$criar_etiqueta_cor_icone = return_etiqueta_cor_icone('topico');
+		$criar_etiqueta_cor = $criar_etiqueta_cor_icone[0];
+		$criar_etiqueta_icone = $criar_etiqueta_cor_icone[1];
+		
+		if ($conn->query("INSERT INTO Etiquetas (tipo, titulo, user_id) VALUES ('topico', '$criar_etiqueta_titulo', $user_id)") === true) {
 			$nova_etiqueta_id = $conn->insert_id;
-			$conn->query("INSERT INTO Etiquetados (etiqueta_id, page_id, page_tipo, user_id) VALUES ($nova_etiqueta_id, $criar_etiqueta_page_id, '$criar_etiqueta_page_tipo', $user_id)");
-			if (isset($criar_etiqueta_page_id)) {
-				echo "<a href='javascript:void(0);' class='$tag_ativa_classes amber' value='$nova_etiqueta_id'><i class='far fa-tag fa-fw'></i> $criar_etiqueta_titulo</a>";
+			$conn->query("INSERT INTO Acervo (user_id, etiqueta_id, etiqueta_tipo, elemento_id) VALUES ($user_id, $nova_etiqueta_id, 'topico', 0)");
+			if ($criar_etiqueta_page_tipo != 'acervo') {
+				$conn->query("INSERT INTO Etiquetados (etiqueta_id, page_id, page_tipo, user_id) VALUES ($nova_etiqueta_id, $criar_etiqueta_page_id, '$criar_etiqueta_page_tipo', $user_id)");
 			}
-			else {
-				echo "<span href='javascript:void(0);' class='$tag_neutra_classes amber'><i class='far fa-tag fa-fw'></i> $criar_etiqueta_titulo</span>";
+			if (isset($criar_etiqueta_page_id)) {
+				echo "<a href='javascript:void(0);' class='$tag_ativa_classes $criar_etiqueta_cor' value='$nova_etiqueta_id'><i class='far $criar_etiqueta_icone fa-fw'></i> $criar_etiqueta_titulo</a>";
+			} else {
+				echo "<span href='javascript:void(0);' class='$tag_neutra_classes $criar_etiqueta_cor'><i class='far $criar_etiqueta_icone fa-fw'></i> $criar_etiqueta_titulo</span>";
 			}
 		} else {
 			echo false;
@@ -831,27 +964,40 @@
 		}
 	}
 	
-	function return_etiqueta_cor($etiqueta_tipo)
+	function return_etiqueta_cor_icone($etiqueta_tipo)
 	{
 		if ($etiqueta_tipo == 'curso') {
+			$etiqueta_icone = 'fa-books';
 			$etiqueta_cor = 'blue-grey';
 		} elseif ($etiqueta_tipo == 'anotacao_publica') {
+			$etiqueta_icone = 'fa-file';
 			$etiqueta_cor = 'blue';
 		} elseif ($etiqueta_tipo == 'topico') {
+			$etiqueta_icone = 'fa-tag';
 			$etiqueta_cor = 'amber';
 		} elseif ($etiqueta_tipo == 'imagem') {
+			$etiqueta_icone = 'fa-image';
 			$etiqueta_cor = 'red';
 		} elseif ($etiqueta_tipo == 'referencia') {
+			$etiqueta_icone = 'fa-book';
 			$etiqueta_cor = 'green';
+		} elseif ($etiqueta_tipo == 'autor') {
+			$etiqueta_icone = 'fa-user';
+			$etiqueta_cor = 'light-green';
 		} elseif ($etiqueta_tipo == 'video') {
-			$etiqueta_cor = 'brown';
+			$etiqueta_icone = 'fa-video';
+			$etiqueta_cor = 'lime';
+		} elseif ($etiqueta_tipo == 'album_musica') {
+			$etiqueta_icone = 'fa-compact-disk';
+			$etiqueta_cor = 'teal';
 		} else {
 			return false;
 		}
-		return $etiqueta_cor;
+		return array($etiqueta_cor, $etiqueta_icone);
 	}
 	
-	function return_elemento_etiqueta_id($elemento_id) {
+	function return_elemento_etiqueta_id($elemento_id)
+	{
 		include 'templates/criar_conn.php';
 		$etiquetas = $conn->query("SELECT etiqueta_id FROM Elementos WHERE id = $elemento_id");
 		if ($etiquetas->num_rows > 0) {
@@ -887,6 +1033,86 @@
 		} elseif ($simulado_tipo == 'todas_dissertativas_oficiais') {
 			return 'Todas as questões dissertativas oficiais';
 		}
+	}
+	
+	$fa_secondary_color_anotacao = '#2196f3';
+	$fa_icone_anotacao = 'fa-file-alt';
+	$fa_secondary_color_imagem = "#ff5722";
+	$fa_primary_color_imagem = "#ffab91";
+	$fa_icone_imagem = 'fa-file-image';
+	
+	function convert_artefato_icone_cores($artefato_tipo)
+	{
+		
+		$fa_icone_anotacao = 'fa-file-alt fa-swap-opacity';
+		$fa_icone_imagem = 'fa-file-image fa-swap-opacity';
+		$fa_icone_plus = 'fa-file-plus fa-swap-opacity';
+		
+		$fa_icone = 'fa-circle-notch';
+		$fa_primary_color = 'text-muted';
+		
+		if ($artefato_tipo == 'anotacao_topico') {
+			$fa_icone = $fa_icone_anotacao;
+			$fa_primary_color = 'text-warning';
+		} elseif ($artefato_tipo == 'anotacao_materia') {
+			$fa_icone = $fa_icone_anotacao;
+			$fa_primary_color = 'text-warning';
+		} elseif ($artefato_tipo == 'anotacoes_elemento') {
+			$fa_icone = $fa_icone_anotacao;
+			$fa_primary_color = 'text-success';
+		} elseif ($artefato_tipo == 'anotacao_curso') {
+			$fa_icone = $fa_icone_anotacao;
+			$fa_primary_color = 'text-default';
+		} elseif ($artefato_tipo == 'simulado') {
+			$fa_icone = 'fa-file-check';
+			$fa_primary_color = 'text-secondary';
+		} elseif (($artefato_tipo == 'anotacao_prova') || ($artefato_tipo == 'anotacao_texto_apoio') || ($artefato_tipo == 'anotacao_questao')) {
+			$fa_icone = $fa_icone_anotacao;
+			$fa_primary_color = 'text-secondary';
+		} elseif ($artefato_tipo == 'imagem_publica') {
+			$fa_icone = $fa_icone_imagem;
+			$fa_primary_color = 'text-danger';
+		} elseif ($artefato_tipo == 'nova_anotacao') {
+			$fa_icone = $fa_icone_plus;
+			$fa_primary_color = 'text-primary';
+		} elseif ($artefato_tipo == 'nova_imagem') {
+			$fa_icone = $fa_icone_plus;
+			$fa_primary_color = 'text-danger';
+		} elseif ($artefato_tipo == 'anotacao_privada') {
+			$fa_icone = $fa_icone_anotacao;
+			$fa_primary_color = 'text-primary';
+		} elseif ($artefato_tipo == 'novo_topico') {
+			$fa_icone = $fa_icone_plus;
+			$fa_primary_color = 'text-warning';
+		} elseif ($artefato_tipo == 'nova_referencia') {
+			$fa_icone = $fa_icone_plus;
+			$fa_primary_color = 'text-success';
+		} elseif ($artefato_tipo == 'nova_materia') {
+			$fa_icone = $fa_icone_plus;
+			$fa_primary_color = 'text-warning';
+		} elseif ($artefato_tipo == 'novo_curso') {
+			$fa_icone = $fa_icone_plus;
+			$fa_primary_color = 'text-default';
+		} elseif ($artefato_tipo == 'novo_simulado') {
+			$fa_icone = $fa_icone_plus;
+			$fa_primary_color = 'text-secondary';
+		} elseif ($artefato_tipo == 'referencia') {
+			$fa_icone = 'fa-book';
+			$fa_primary_color = 'text-success';
+		} elseif ($artefato_tipo == 'album_musica') {
+			$fa_icone = 'fa-record-vinyl';
+			$fa_primary_color = 'text-dark';
+		} elseif ($artefato_tipo == 'video') {
+			$fa_icone = 'fa-video';
+			$fa_primary_color = 'text-info';
+		} elseif ($artefato_tipo == 'imagem') {
+			$fa_icone = 'fa-image';
+			$fa_primary_color = 'text-danger';
+		} elseif ($artefato_tipo == 'topico_interesse') {
+			$fa_icone = 'fa-books';
+			$fa_primary_color = 'text-warning';
+		}
+		return array($fa_icone, $fa_primary_color);
 	}
 
 ?>
