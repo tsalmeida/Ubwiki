@@ -1,15 +1,15 @@
 <?php
 	include 'engine.php';
 	include 'templates/html_head.php';
-	
+
 	// IMAGEM IMAGEM IMAGEM IMAGEM IMAGEM IMAGEM IMAGEM IMAGEM IMAGEM IMAGEM IMAGEM IMAGEM
-	
+
 	if (isset($_POST['nova_imagem_titulo'])) {
 		$nova_imagem_titulo = $_POST['nova_imagem_titulo'];
 		$nova_imagem_titulo = mysqli_real_escape_string($conn, $nova_imagem_titulo);
 		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, 0, 'nova_imagem_privada')");
 	}
-	
+
 	if ((isset($_POST['nova_imagem_link'])) && ($_POST['nova_imagem_link'] != false)) {
 		$nova_imagem_link = $_POST['nova_imagem_link'];
 		$nova_imagem_link = base64_encode($nova_imagem_link);
@@ -48,7 +48,7 @@
 ?>
 
 <div class="container">
-	
+
 	<?php
 		$template_titulo = 'Seu acervo';
 		$template_titulo_context = true;
@@ -58,13 +58,13 @@
     <div class="row">
         <div id="coluna_unica" class="col">
 					<?php
-						
+
 						$template_id = 'novo_artefato';
 						$template_titulo = 'Adicionar item';
 						$template_conteudo_class = 'justify-content-start';
 						$template_conteudo_no_col = false;
 						$template_conteudo = false;
-						
+
 						$artefato_id = 0;
 						$artefato_page_id = false;
 						$artefato_titulo = 'Nova anotação privada';
@@ -72,7 +72,7 @@
 						$artefato_tipo = 'nova_anotacao';
 						$artefato_link = 'edicao_textos.php?texto_id=0';
 						$template_conteudo .= include 'templates/artefato_item.php';
-						
+
 						$artefato_id = 0;
 						$artefato_page_id = false;
 						$artefato_titulo = 'Nova imagem privada';
@@ -80,7 +80,7 @@
 						$artefato_tipo = 'nova_imagem';
 						$artefato_link = false;
 						$template_conteudo .= include 'templates/artefato_item.php';
-						
+
 						$artefato_id = 0;
 						$artefato_page_id = false;
 						$artefato_titulo = 'Incluir material de estudo';
@@ -88,7 +88,7 @@
 						$artefato_tipo = 'nova_referencia';
 						$artefato_link = false;
 						$template_conteudo .= include 'templates/artefato_item.php';
-						
+
 						$artefato_id = 0;
 						$artefato_page_id = false;
 						$artefato_titulo = 'Adicionar área de interesse';
@@ -96,25 +96,25 @@
 						$artefato_tipo = 'novo_topico';
 						$artefato_link = false;
 						$template_conteudo .= include 'templates/artefato_item.php';
-						
-                        $artefato_id = 0;
-                        $artefato_page_id = false;
-                        $artefato_titulo = 'Novo simulado';
-                        $artefato_criacao = 'Pressione para criar um novo simulado';
-                        $artefato_tipo = 'novo_simulado';
-                        $artefato_link = 'simulados.php';
-                        $template_conteudo .= include 'templates/artefato_item.php';
-						
-						//						$artefato_id = 0;
-						//						$artefato_page_id = false;
-						//						$artefato_titulo = 'Novo curso';
-						//						$artefato_criacao = 'Pressione para criar um novo curso';
-						//						$artefato_tipo = 'novo_curso';
-						//						$artefato_link = false;
-						//						$template_conteudo .= include 'templates/artefato_item.php';
-						
+
+/*						$artefato_id = 0;
+						$artefato_page_id = false;
+						$artefato_titulo = 'Novo simulado';
+						$artefato_criacao = 'Pressione para criar um novo simulado';
+						$artefato_tipo = 'novo_simulado';
+						$artefato_link = 'simulados.php';
+						$template_conteudo .= include 'templates/artefato_item.php';
+
+						$artefato_id = 0;
+						$artefato_page_id = false;
+						$artefato_titulo = 'Novo curso';
+						$artefato_criacao = 'Pressione para criar um novo curso';
+						$artefato_tipo = 'novo_curso';
+						$artefato_link = false;
+						$template_conteudo .= include 'templates/artefato_item.php';*/
+
 						include 'templates/page_element.php';
-						
+
 						$template_id = 'acervo_virtual';
 						$template_titulo = 'Material de estudo';
 						$template_conteudo_class = 'justify-content-start';
@@ -130,7 +130,7 @@
 								$acervo_item_info = return_etiqueta_info($acervo_item_etiqueta_id);
 								$acervo_item_tipo = $acervo_item_info[1];
 								$acervo_item_titulo = $acervo_item_info[2];
-								
+
 								$artefato_id = $acervo_item_etiqueta_id;
 								$artefato_page_id = $acervo_item_elemento_id;
 								$artefato_titulo = $acervo_item_titulo;
@@ -138,12 +138,12 @@
 								$artefato_criacao = "Adicionado em $artefato_criacao";
 								$artefato_tipo = $acervo_item_etiqueta_tipo;
 								$artefato_link = "elemento.php?id=$acervo_item_elemento_id";
-								
+
 								$template_conteudo .= include 'templates/artefato_item.php';
 							}
 						}
 						include 'templates/page_element.php';
-						
+
 						$template_id = 'anotacoes_privadas';
 						$template_titulo = 'Anotações privadas';
 						$template_conteudo_class = 'justify-content-start';
@@ -304,7 +304,7 @@
 							$template_load_invisible = true;
 						}
 						include 'templates/page_element.php';
-						
+
 						$imagens_privadas = $conn->query("SELECT id, criacao, titulo, arquivo, estado FROM Elementos WHERE user_id = $user_id AND tipo = 'imagem_privada' AND user_id = $user_id ORDER BY id DESC");
 						if ($imagens_privadas->num_rows > 0) {
 							if ($imagens_privadas->num_rows > 5) {
@@ -315,7 +315,7 @@
 							$template_conteudo_class = 'justify-content-start';
 							$template_conteudo_no_col = true;
 							$template_conteudo = false;
-							
+
 							while ($imagem_privada = $imagens_privadas->fetch_assoc()) {
 								$artefato_id = $imagem_privada['id'];
 								$artefato_criacao = $imagem_privada['criacao'];
@@ -329,7 +329,7 @@
 							}
 							include 'templates/page_element.php';
 						}
-						
+
 						$topicos_acervo = $conn->query("SELECT DISTINCT etiqueta_id FROM Acervo WHERE user_id = $user_id AND etiqueta_tipo = 'topico' ORDER BY id DESC");
 						if ($topicos_acervo->num_rows > 0) {
 							if ($topicos_acervo->num_rows > 5) {
@@ -340,7 +340,7 @@
 							$template_conteudo_class = 'justify-content-start';
 							$template_conteudo_no_col = true;
 							$template_conteudo = false;
-							
+
 							while ($topico_acervo = $topicos_acervo->fetch_assoc()) {
 								$topico_acervo_etiqueta_id = $topico_acervo['etiqueta_id'];
 								$topico_acervo_etiqueta_info = return_etiqueta_info($topico_acervo_etiqueta_id);
@@ -352,7 +352,7 @@
 							}
 							include 'templates/page_element.php';
 						}
-						
+
 						$imagens_publicas = $conn->query("SELECT id, criacao, titulo, arquivo, estado FROM Elementos WHERE user_id = $user_id AND tipo = 'imagem' ORDER BY id DESC");
 						if ($imagens_publicas->num_rows > 0) {
 							if ($imagens_publicas->num_rows > 5) {
@@ -363,7 +363,7 @@
 							$template_conteudo_class = 'justify-content-start';
 							$template_conteudo_no_col = true;
 							$template_conteudo = false;
-							
+
 							while ($imagem_publica = $imagens_publicas->fetch_assoc()) {
 								$artefato_id = $imagem_publica['id'];
 								$artefato_criacao = $imagem_publica['criacao'];
@@ -377,7 +377,7 @@
 							}
 							include 'templates/page_element.php';
 						}
-						
+
 						$respostas = $conn->query("SELECT DISTINCT simulado_id, questao_tipo FROM sim_respostas WHERE user_id = $user_id ORDER BY id DESC");
 						if ($respostas->num_rows > 0) {
 							$template_id = 'simulados';
@@ -439,7 +439,7 @@
             </div>
 		";
 		include 'templates/modal.php';
-		
+
 		$template_modal_div_id = 'modal_nova_referencia';
 		$template_modal_titulo = 'Adicionar item à sua biblioteca virtual';
 		$template_modal_body_conteudo = false;
@@ -481,7 +481,7 @@
 		";
 		$template_modal_show_buttons = false;
 		include 'templates/modal.php';
-		
+
 		$template_modal_div_id = 'modal_novo_topico';
 		$template_modal_titulo = 'Adicionar tópico';
 		$etiquetas_carregar_remover = false;
