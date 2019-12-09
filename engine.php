@@ -787,8 +787,8 @@
 		}
 		echo true;
 	}
-	
-	if (isset($_POST['acrescentar_referencia_id'])) {
+
+/*	if (isset($_POST['acrescentar_referencia_id'])) {
 		$acrescentar_referencia_id = $_POST['acrescentar_referencia_id'];
 		$acrescentar_referencia_info = return_etiqueta_info($acrescentar_referencia_id);
 		$acrescentar_referencia_tipo = $acrescentar_referencia_info[1];
@@ -798,8 +798,8 @@
 		} else {
 			echo false;
 		}
-	}
-	
+	}*/
+
 	function return_etiqueta_elemento_id($etiqueta_id)
 	{
 		include 'templates/criar_conn.php';
@@ -897,7 +897,9 @@
 		if ($nova_etiqueta_page_tipo != 'acervo') {
 			$conn->query("INSERT INTO Etiquetados (etiqueta_id, page_id, page_tipo, user_id) VALUES ($nova_etiqueta_id, $nova_etiqueta_page_id, '$nova_etiqueta_page_tipo', $user_id)");
 		} else {
-			$conn->query("INSERT INTO Acervo (etiqueta_id, etiqueta_tipo, user_id) VALUES ($nova_etiqueta_id, 'topico', $user_id)");
+			$nova_etiqueta_info = return_etiqueta_info($nova_etiqueta_id);
+			$nova_etiqueta_tipo = $nova_etiqueta_info[1];
+			$conn->query("INSERT INTO Acervo (etiqueta_id, etiqueta_tipo, user_id) VALUES ($nova_etiqueta_id, '$nova_etiqueta_tipo', $user_id)");
 		}
 		
 		$nova_etiqueta_info = return_etiqueta_info($nova_etiqueta_id);
@@ -1127,7 +1129,7 @@
 				$elemento_tipo = $elemento['tipo'];
 				$elemento_titulo = $elemento['titulo'];
 				$elemento_autor = $elemento['autor'];
-				$autores = $conn->query("SELECT id FROM Etiquetas WHERE autor = '$elemento_autor_etiqueta_id'")
+				$autores = $conn->query("SELECT id FROM Etiquetas WHERE autor = '$elemento_autor_etiqueta_id'");
 			}
 		}
 	}

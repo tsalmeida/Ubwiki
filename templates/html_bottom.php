@@ -233,7 +233,7 @@
 				    $('#referencias_disponiveis').hide();
 				    $('#criar_referencia_form').show();
 				})
-				$(document).on('click', '.acrescentar_referencia_bibliografia', function() {
+/*				$(document).on('click', '.acrescentar_referencia_bibliografia', function() {
 					var acrescentar_referencia = $(this).attr('value');
 					$(this).hide();
 					$.post('engine.php', {
@@ -245,7 +245,7 @@
 						    alert('insucesso');
 						}
 			   	});
-				});
+				});*/
 				$(document).on('click', '.adicionar_autor', function() {
 				    var adicionar_autor = $(this).attr('value');
 				    $(this).hide();

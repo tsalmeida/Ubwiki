@@ -97,13 +97,13 @@
 						$artefato_link = false;
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
-						//						$artefato_id = 0;
-						//						$artefato_page_id = false;
-						//						$artefato_titulo = 'Novo simulado';
-						//						$artefato_criacao = 'Pressione para criar um novo simulado';
-						//						$artefato_tipo = 'novo_simulado';
-						//						$artefato_link = 'simulados.php';
-						//						$template_conteudo .= include 'templates/artefato_item.php';
+                        $artefato_id = 0;
+                        $artefato_page_id = false;
+                        $artefato_titulo = 'Novo simulado';
+                        $artefato_criacao = 'Pressione para criar um novo simulado';
+                        $artefato_tipo = 'novo_simulado';
+                        $artefato_link = 'simulados.php';
+                        $template_conteudo .= include 'templates/artefato_item.php';
 						
 						//						$artefato_id = 0;
 						//						$artefato_page_id = false;
