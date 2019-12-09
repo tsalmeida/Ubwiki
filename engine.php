@@ -1055,22 +1055,25 @@
 		$fa_icone = 'fa-circle-notch';
 		$fa_primary_color = 'text-muted';
 		
-		if ($artefato_tipo == 'anotacao_topico') {
+		if ($artefato_tipo == 'anotacoes') {
 			$fa_icone = $fa_icone_anotacao;
 			$fa_primary_color = 'text-warning';
-		} elseif ($artefato_tipo == 'anotacao_materia') {
+		} elseif ($artefato_tipo == 'anotacoes_materia') {
 			$fa_icone = $fa_icone_anotacao;
 			$fa_primary_color = 'text-warning';
 		} elseif ($artefato_tipo == 'anotacoes_elemento') {
 			$fa_icone = $fa_icone_anotacao;
 			$fa_primary_color = 'text-success';
-		} elseif ($artefato_tipo == 'anotacao_curso') {
+		} elseif ($artefato_tipo == 'anotacoes_user') {
+			$fa_icone = $fa_icone_anotacao;
+			$fa_primary_color = 'text-info';
+		} elseif ($artefato_tipo == 'anotacoes_curso') {
 			$fa_icone = $fa_icone_anotacao;
 			$fa_primary_color = 'text-default';
 		} elseif ($artefato_tipo == 'simulado') {
-			$fa_icone = 'fa-file-check';
+			$fa_icone = 'fa-file-check fa-swap-opacity';
 			$fa_primary_color = 'text-secondary';
-		} elseif (($artefato_tipo == 'anotacao_prova') || ($artefato_tipo == 'anotacao_texto_apoio') || ($artefato_tipo == 'anotacao_questao')) {
+		} elseif (($artefato_tipo == 'anotacoes_prova') || ($artefato_tipo == 'anotacoes_texto_apoio') || ($artefato_tipo == 'anotacoes_questao')) {
 			$fa_icone = $fa_icone_anotacao;
 			$fa_primary_color = 'text-secondary';
 		} elseif ($artefato_tipo == 'imagem_publica') {
@@ -1115,6 +1118,9 @@
 		} elseif ($artefato_tipo == 'topico_interesse') {
 			$fa_icone = 'fa-books';
 			$fa_primary_color = 'text-warning';
+		} elseif ($artefato_tipo == 'anotacoes_admin') {
+			$fa_icone = $fa_icone_anotacao;
+			$fa_primary_color = 'text-light';
 		}
 		return array($fa_icone, $fa_primary_color);
 	}

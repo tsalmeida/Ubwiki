@@ -97,21 +97,21 @@
 						$artefato_link = false;
 						$template_conteudo .= include 'templates/artefato_item.php';
 
-/*						$artefato_id = 0;
-						$artefato_page_id = false;
-						$artefato_titulo = 'Novo simulado';
-						$artefato_criacao = 'Pressione para criar um novo simulado';
-						$artefato_tipo = 'novo_simulado';
-						$artefato_link = 'simulados.php';
-						$template_conteudo .= include 'templates/artefato_item.php';
+						/*						$artefato_id = 0;
+																		$artefato_page_id = false;
+																		$artefato_titulo = 'Novo simulado';
+																		$artefato_criacao = 'Pressione para criar um novo simulado';
+																		$artefato_tipo = 'novo_simulado';
+																		$artefato_link = 'simulados.php';
+																		$template_conteudo .= include 'templates/artefato_item.php';
 
-						$artefato_id = 0;
-						$artefato_page_id = false;
-						$artefato_titulo = 'Novo curso';
-						$artefato_criacao = 'Pressione para criar um novo curso';
-						$artefato_tipo = 'novo_curso';
-						$artefato_link = false;
-						$template_conteudo .= include 'templates/artefato_item.php';*/
+																		$artefato_id = 0;
+																		$artefato_page_id = false;
+																		$artefato_titulo = 'Novo curso';
+																		$artefato_criacao = 'Pressione para criar um novo curso';
+																		$artefato_tipo = 'novo_curso';
+																		$artefato_link = false;
+																		$template_conteudo .= include 'templates/artefato_item.php';*/
 
 						include 'templates/page_element.php';
 
@@ -144,166 +144,59 @@
 						}
 						include 'templates/page_element.php';
 
-						$template_id = 'anotacoes_privadas';
-						$template_titulo = 'Anotações privadas';
-						$template_conteudo_class = 'justify-content-start';
-						$template_conteudo_no_col = true;
-						$template_conteudo = false;
-						$count_anotacoes = 0;
-						$anotacoes_privadas = $conn->query("SELECT id, page_id, titulo, criacao FROM Textos WHERE tipo = 'anotacao_privada' AND user_id = $user_id ORDER BY id DESC");
-						if ($anotacoes_privadas->num_rows > 0) {
-							while ($anotacao_privada = $anotacoes_privadas->fetch_assoc()) {
-								$count_anotacoes++;
-								$artefato_id = $anotacao_privada['id'];
-								$artefato_page_id = $anotacao_privada['page_id'];
-								$artefato_titulo = $anotacao_privada['titulo'];
-								$artefato_criacao = $anotacao_privada['criacao'];
-								$artefato_criacao = "Criado em $artefato_criacao";
-								if ($artefato_titulo == false) {
-									$artefato_titulo = 'Anotação privada';
-								}
-								$artefato_tipo = 'anotacao_privada';
-								$artefato_link = "edicao_textos.php?texto_id=$artefato_id";
-								$template_conteudo .= include 'templates/artefato_item.php';
-							}
+
+						$anotacoes = $conn->query("SELECT id, page_id, titulo, criacao, tipo FROM Textos WHERE tipo LIKE '%anotac%' AND user_id = $user_id ORDER BY id DESC");
+						if ($anotacoes->num_rows > 0) {
+						    if ($anotacoes->num_rows > 10) {
+						        $template_load_invisible = true;
+                            }
+							$template_id = 'anotacoes_privadas';
+							$template_titulo = 'Anotações privadas';
+							$template_conteudo_class = 'justify-content-start';
+							$template_conteudo_no_col = true;
+							$template_conteudo = false;
+                            while ($anotacao = $anotacoes->fetch_assoc()) {
+                                $artefato_id = $anotacao['id'];
+                                $artefato_page_id = $anotacao['page_id'];
+                                $artefato_titulo = $anotacao['titulo'];
+                                $artefato_criacao = $anotacao['criacao'];
+                                $artefato_tipo = $anotacao['tipo'];
+                                if ($artefato_tipo == 'anotacoes_elemento') {
+                                    $artefato_etiqueta_id = return_elemento_etiqueta_id($artefato_id);
+                                    $artefato_etiqueta_info = return_etiqueta_info($artefato_etiqueta_id);
+                                    $artefato_titulo = $artefato_etiqueta_info[2];
+                                    $artefato_link = "elemento.php?id=$artefato_id";
+                                }
+                                else {
+	                                $artefato_link = "edicao_textos.php?texto_id=$artefato_id";
+                                }
+                                if ($artefato_titulo == false) {
+                                    if ($artefato_tipo == 'anotacoes_user') {
+                                        $artefato_subtitulo = 'Página do usuário';
+                                    } elseif ($artefato_tipo == 'anotacao_privada') {
+                                        $artefato_subtitulo = 'Anotação privada sem título';
+                                    } elseif ($artefato_tipo == 'anotacoes_elemento') {
+                                        $artefato_subtitulo = 'Anotação de referência';
+                                    } elseif ($artefato_tipo == 'anotacoes_prova') {
+                                        $artefato_subtitulo = 'Anotação de prova';
+                                    } elseif ($artefato_tipo == 'anotacoes_texto_apoio') {
+                                        $artefato_subtitulo = 'Anotação de texto de apoio';
+                                    } elseif ($artefato_tipo == 'anotacoes_questao') {
+                                        $artefato_subtitulo = 'Anotação de questão';
+                                    } elseif ($artefato_tipo == 'anotacoes_materia') {
+                                        $artefato_subtitulo = 'Anotação de matéria';
+                                    } elseif ($artefato_tipo == 'anotacoes') {
+                                        $artefato_subtitulo = 'Anotação de tópico';
+                                    } elseif ($artefato_tipo == 'anotacoes_admin') {
+                                        $artefato_subtitulo = 'Notas dos administradores';
+                                    } else {
+                                        $artefato_subtitulo = $artefato_tipo;
+                                    }
+                                }
+                                $template_conteudo .= include 'templates/artefato_item.php';
+                            }
+                            include 'templates/page_element.php';
 						}
-						$anotacoes_elementos = $conn->query("SELECT id, page_id, titulo, criacao FROM Textos WHERE tipo = 'anotacoes_elemento' AND user_id = $user_id ORDER BY id DESC");
-						if ($anotacoes_elementos->num_rows > 0) {
-							while ($anotacao_elemento = $anotacoes_elementos->fetch_assoc()) {
-								$count_anotacoes++;
-								$artefato_id = $anotacao_elemento['id'];
-								$artefato_page_id = $anotacao_elemento['page_id'];
-								$artefato_titulo = $anotacao_elemento['titulo'];
-								$artefato_criacao = $anotacao_elemento['criacao'];
-								$artefato_criacao = "Criado em $artefato_criacao";
-								$artefato_titulo = return_titulo_elemento($artefato_page_id);
-								if ($artefato_titulo == false) {
-									$artefato_titulo = 'Anotação de referência';
-								}
-								$artefato_tipo = 'anotacoes_elemento';
-								$artefato_link = "elemento.php?id=$artefato_page_id";
-								$template_conteudo .= include 'templates/artefato_item.php';
-							}
-						}
-						$anotacoes_materias = $conn->query("SELECT id, page_id, titulo, criacao FROM Textos WHERE tipo = 'anotacoes_materia' AND user_id = $user_id ORDER BY id DESC");
-						if ($anotacoes_materias->num_rows > 0) {
-							while ($anotacao_materias = $anotacoes_materias->fetch_assoc()) {
-								$count_anotacoes++;
-								$artefato_id = $anotacao_materias['id'];
-								$artefato_page_id = $anotacao_materias['page_id'];
-								$artefato_titulo = $anotacao_materias['titulo'];
-								$artefato_criacao = $anotacao_materias['criacao'];
-								$artefato_criacao = "Criado em $artefato_criacao";
-								$artefato_page_id_titulo = return_materia_titulo_id($artefato_page_id);
-								if ($artefato_titulo == false) {
-									$artefato_titulo = $artefato_page_id_titulo;
-									$artefato_page_id_titulo = false;
-								}
-								$artefato_tipo = 'anotacao_materia';
-								$artefato_link = "materia.php?materia_id=$artefato_page_id";
-								$template_conteudo .= include 'templates/artefato_item.php';
-							}
-						}
-						$anotacoes_topicos = $conn->query("SELECT id, page_id, titulo, criacao FROM Textos WHERE tipo = 'anotacoes' AND user_id = $user_id ORDER BY id DESC");
-						if ($anotacoes_topicos->num_rows > 0) {
-							while ($anotacao_topicos = $anotacoes_topicos->fetch_assoc()) {
-								$count_anotacoes++;
-								$artefato_id = $anotacao_topicos['id'];
-								$artefato_page_id = $anotacao_topicos['page_id'];
-								$artefato_titulo = $anotacao_topicos['titulo'];
-								$artefato_criacao = $anotacao_topicos['criacao'];
-								$artefato_criacao = "Criado em $artefato_criacao";
-								$artefato_page_id_titulo = return_titulo_topico($artefato_page_id);
-								if ($artefato_titulo == false) {
-									$artefato_titulo = $artefato_page_id_titulo;
-									$artefato_page_id_titulo = false;
-								}
-								$artefato_tipo = 'anotacao_topico';
-								$artefato_link = "verbete.php?topico_id=$artefato_page_id";
-								$template_conteudo .= include 'templates/artefato_item.php';
-							}
-						}
-						$anotacoes_provas = $conn->query("SELECT id, page_id, titulo, criacao FROM Textos WHERE tipo = 'anotacoes_prova' AND user_id = $user_id ORDER BY id DESC");
-						if ($anotacoes_provas->num_rows > 0) {
-							while ($anotacao_provas = $anotacoes_provas->fetch_assoc()) {
-								$count_anotacoes++;
-								$artefato_id = $anotacao_provas['id'];
-								$artefato_page_id = $anotacao_provas['page_id'];
-								$artefato_titulo = $anotacao_provas['titulo'];
-								$artefato_criacao = $anotacao_provas['criacao'];
-								$artefato_criacao = "Criado em $artefato_criacao";
-								$artefato_page_id_info = return_info_prova_id($artefato_page_id);
-								$artefato_page_id_titulo = "$artefato_page_id_info[3]: $artefato_page_id_info[0]";
-								if ($artefato_titulo == false) {
-									$artefato_titulo = $artefato_page_id_titulo;
-									$artefato_page_id_titulo = false;
-								}
-								$artefato_tipo = 'anotacao_prova';
-								$artefato_link = "prova.php?prova_id=$artefato_page_id";
-								$template_conteudo .= include 'templates/artefato_item.php';
-							}
-						}
-						$anotacoes_textos_apoio = $conn->query("SELECT id, page_id, titulo, criacao FROM Textos WHERE tipo = 'anotacoes_texto_apoio' AND user_id = $user_id ORDER BY id DESC");
-						if ($anotacoes_textos_apoio->num_rows > 0) {
-							while ($anotacao_textos_apoio = $anotacoes_textos_apoio->fetch_assoc()) {
-								$count_anotacoes++;
-								$artefato_id = $anotacao_textos_apoio['id'];
-								$artefato_page_id = $anotacao_textos_apoio['page_id'];
-								$artefato_titulo = $anotacao_textos_apoio['titulo'];
-								$artefato_criacao = $anotacao_textos_apoio['criacao'];
-								$artefato_criacao = "Criado em $artefato_criacao";
-								$artefato_page_id_titulo = "Texto de apoio";
-								if ($artefato_titulo == false) {
-									$artefato_titulo = $artefato_page_id_titulo;
-									$artefato_page_id_titulo = false;
-								}
-								$artefato_tipo = 'anotacao_texto_apoio';
-								$artefato_link = "textoapoio.php?texto_apoio_id=$artefato_page_id";
-								$template_conteudo .= include 'templates/artefato_item.php';
-							}
-						}
-						$anotacoes_questao = $conn->query("SELECT id, page_id, titulo, criacao FROM Textos WHERE tipo = 'anotacoes_questao' AND user_id = $user_id ORDER BY id DESC");
-						if ($anotacoes_questao->num_rows > 0) {
-							while ($anotacao_questao = $anotacoes_questao->fetch_assoc()) {
-								$count_anotacoes++;
-								$artefato_id = $anotacao_questao['id'];
-								$artefato_page_id = $anotacao_questao['page_id'];
-								$artefato_titulo = $anotacao_questao['titulo'];
-								$artefato_criacao = $anotacao_questao['criacao'];
-								$artefato_criacao = "Criado em $artefato_criacao";
-								$artefato_page_id_titulo = "Questão";
-								if ($artefato_titulo == false) {
-									$artefato_titulo = $artefato_page_id_titulo;
-									$artefato_page_id_titulo = false;
-								}
-								$artefato_tipo = 'anotacao_questao';
-								$artefato_link = "questao.php?questao_id=$artefato_page_id";
-								$template_conteudo .= include 'templates/artefato_item.php';
-							}
-						}
-						$anotacoes_cursos = $conn->query("SELECT id, page_id, titulo, criacao FROM Textos WHERE tipo = 'anotacoes_curso' AND user_id = $user_id ORDER BY id DESC");
-						if ($anotacoes_cursos->num_rows > 0) {
-							while ($anotacao_cursos = $anotacoes_cursos->fetch_assoc()) {
-								$count_anotacoes++;
-								$artefato_id = $anotacao_cursos['id'];
-								$artefato_page_id = $anotacao_cursos['page_id'];
-								$artefato_titulo = $anotacao_cursos['titulo'];
-								$artefato_criacao = $anotacao_cursos['criacao'];
-								$artefato_criacao = "Criado em $artefato_criacao";
-								$artefato_page_id_titulo = return_concurso_titulo_id($artefato_page_id);
-								if ($artefato_titulo == false) {
-									$artefato_titulo = $artefato_page_id_titulo;
-									$artefato_page_id_titulo = false;
-								}
-								$artefato_tipo = 'anotacao_curso';
-								$artefato_link = false;
-								$template_conteudo .= include 'templates/artefato_item.php';
-							}
-						}
-						if ($count_anotacoes > 10) {
-							$template_load_invisible = true;
-						}
-						include 'templates/page_element.php';
 
 						$imagens_privadas = $conn->query("SELECT id, criacao, titulo, arquivo, estado FROM Elementos WHERE user_id = $user_id AND tipo = 'imagem_privada' AND user_id = $user_id ORDER BY id DESC");
 						if ($imagens_privadas->num_rows > 0) {
@@ -400,7 +293,7 @@
 								$artefato_link = "resultados.php?simulado_id=$artefato_id";
 								$artefato_tipo = 'simulado';
 								if ($artefato_questao_tipo == 3) {
-									$artefato_icone = 'fa-file-edit';
+									$artefato_icone = 'fa-file-edit fa-swap-opacity';
 								}
 								$template_conteudo .= include 'templates/artefato_item.php';
 							}
