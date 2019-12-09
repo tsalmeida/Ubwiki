@@ -1117,4 +1117,20 @@
 		return array($fa_icone, $fa_primary_color);
 	}
 
+	function update_etiqueta_elemento($elemento_id) {
+		include 'templates/criar_conn.php';
+		$elementos = $conn->query("SELECT etiqueta_id, autor_etiqueta_id, tipo, titulo, autor FROM Elementos WHERE id = $elemento_id");
+		if ($elementos->num_rows > 0) {
+			while ($elemento = $elementos->fetch_assoc()) {
+				$elemento_etiqueta_id = $elemento['etiqueta_id'];
+				$elemento_autor_etiqueta_id = $elemento['autor_etiqueta_id'];
+				$elemento_tipo = $elemento['tipo'];
+				$elemento_titulo = $elemento['titulo'];
+				$elemento_autor = $elemento['autor'];
+				$autores = $conn->query("SELECT id FROM Etiquetas WHERE autor = '$elemento_autor_etiqueta_id'")
+			}
+		}
+	}
+	
+	
 ?>

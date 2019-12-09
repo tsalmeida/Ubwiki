@@ -51,6 +51,7 @@
 			}
 		}
 		$update = $conn->query("UPDATE Elementos SET estado = $elemento_mudanca_estado, titulo = $elemento_novo_titulo, autor = $elemento_novo_autor, capitulo = $elemento_novo_capitulo, ano = $elemento_novo_ano WHERE id = $elemento_id");
+		update_etiqueta_elemento($elemento_id);
 		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $elemento_id, 'elemento_dados')");
 		$nao_contar = true;
 	}
@@ -222,19 +223,6 @@
 						$dados_elemento .= "<li class='list-group-item'>Adicionado pelo usuário <strong><a href='perfil.php?pub_user_id=$user_elemento_id' target='_blank'>$user_apelido_elemento</a></strong></li>";
 						$dados_elemento .= "</ul>";
 						
-						$template_id = 'verbete_elemento';
-						if ($tipo_elemento == 'imagem') {
-							$template_titulo = 'Análise';
-							$template_quill_empty_content = "<p id='verbete_vazio_{$template_id}'>Seja o primeiro a contribuir para a análise desta imagem.</p>";
-						} else {
-							$template_titulo = 'Verbete';
-							$template_quill_empty_content = "<p id='verbete_vazio_{$template_id}'>Seja o primeiro a contribuir para a construção deste verbete.</p>";
-						}
-						$template_load_invisible = true;
-						$template_botoes = false;
-						$template_conteudo = include 'templates/template_quill.php';
-						include 'templates/page_element.php';
-						
 						$template_id = 'dados_elemento_div';
 						$template_titulo = 'Dados';
 						$template_botoes = "
@@ -244,6 +232,18 @@
                             ";
 						$template_conteudo = false;
 						$template_conteudo .= $dados_elemento;
+						include 'templates/page_element.php';
+						
+						$template_id = 'verbete_elemento';
+						if ($tipo_elemento == 'imagem') {
+							$template_titulo = 'Análise';
+							$template_quill_empty_content = "<p id='verbete_vazio_{$template_id}'>Seja o primeiro a contribuir para a análise desta imagem.</p>";
+						} else {
+							$template_titulo = 'Verbete';
+							$template_quill_empty_content = "<p id='verbete_vazio_{$template_id}'>Seja o primeiro a contribuir para a construção deste verbete.</p>";
+						}
+						$template_botoes = false;
+						$template_conteudo = include 'templates/template_quill.php';
 						include 'templates/page_element.php';
 						
 						//VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE
