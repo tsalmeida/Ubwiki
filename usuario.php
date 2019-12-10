@@ -143,7 +143,7 @@
 						$artefato_id = 0;
 						$artefato_page_id = false;
 						$artefato_titulo = 'Nova anotação privada';
-						$artefato_criacao = 'Pressione para criar uma nova anotação';
+						$artefato_criacao = 'Pressione para criar uma anotação';
 						$artefato_tipo = 'nova_anotacao';
 						$artefato_link = 'edicao_textos.php?texto_id=0';
 						$template_conteudo .= include 'templates/artefato_item.php';
@@ -151,22 +151,22 @@
 						$artefato_id = 0;
 						$artefato_page_id = false;
 						$artefato_titulo = 'Nova imagem privada';
-						$artefato_criacao = 'Pressione para enviar uma nova imagem privada';
+						$artefato_criacao = 'Pressione para adicionar uma imagem privada';
 						$artefato_tipo = 'nova_imagem';
 						$artefato_link = false;
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
 						$artefato_id = 0;
 						$artefato_page_id = false;
-						$artefato_titulo = 'Incluir material de estudo';
-						$artefato_criacao = 'Pressione para acrescentar uma obra à sua biblioteca virtual';
+						$artefato_titulo = 'Adicionar item ao acervo';
+						$artefato_criacao = 'Pressione para adicionar um item a seu acervo';
 						$artefato_tipo = 'nova_referencia';
 						$artefato_link = false;
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
 						$artefato_id = 0;
 						$artefato_page_id = false;
-						$artefato_titulo = 'Adicionar área de interesse';
+						$artefato_titulo = 'Incluir área de interesse';
 						$artefato_criacao = 'Pressione para adicionar uma área de interesse';
 						$artefato_tipo = 'novo_topico';
 						$artefato_link = false;
@@ -191,7 +191,7 @@
 						include 'templates/page_element.php';
 						
 						$template_id = 'acervo_virtual';
-						$template_titulo = 'Material de estudo';
+						$template_titulo = 'Acervo';
 						$template_conteudo_class = 'justify-content-start';
 						$template_conteudo_no_col = true;
 						$template_conteudo = false;
@@ -436,22 +436,7 @@
 	}
 	include 'templates/modal.php';
 	
-	
-	$template_modal_div_id = 'modal_opcoes';
-	$template_modal_titulo = 'Dados e opções da sua conta';
-	$template_modal_body_conteudo = false;
-	$template_modal_body_conteudo = "<a data-toggle='modal' data-target='#modal_editar_dados' href=''><i class='fal fa-edit'></i></a>";
-	$template_modal_body_conteudo .= "<ul class='list-group'>";
-	$template_modal_body_conteudo .= "<li class='list-group-item'><strong>Conta criada em:</strong> $user_criacao</li>";
-	$template_modal_body_conteudo .= "<li class='list-group-item'><strong>Apelido:</strong> $user_apelido</li>";
-	$template_modal_body_conteudo .= "<li class='list-group-item'><strong>Nome:</strong> $user_nome</li>";
-	$template_modal_body_conteudo .= "<li class='list-group-item'><strong>Sobrenome:</strong> $user_sobrenome</li>";
-	$template_modal_body_conteudo .= "<li class='list-group-item'><strong>Email:</strong> $user_email</li>";
-	$template_modal_body_conteudo .= "</ul>";
-	$template_modal_show_buttons = false;
-	include 'templates/modal.php';
-	
-	
+
 	$template_modal_div_id = 'modal_forum';
 	$template_modal_titulo = 'Suas participações no fórum';
 	$template_modal_body_conteudo = false;
@@ -515,21 +500,47 @@
 	$template_modal_div_id = 'modal_apresentacao';
 	$template_modal_titulo = 'Perfil público';
 	$template_modal_body_conteudo = false;
-	$template_modal_body_conteudo .= "<p>O conteúdo de seu perfil é visível em sua página pública, que outros usuários verão ao clicar em seu apelido.";
+	$template_modal_body_conteudo .= "<p>O conteúdo de seu perfil é visível em sua página pública, que outros usuários verão ao clicar em seu apelido. Seu apelido somente é visível como identificação de suas atividades públicas na Ubwiki.";
+
+	error_log("SELECT id FROM Textos WHERE tipo = 'verbete_user' AND user_id = $user_id");
+	$perfis_publicos = $conn->query("SELECT id FROM Textos WHERE tipo = 'verbete_user' AND user_id = $user_id");
+	if ($perfis_publicos->num_rows > 0) {
+		while ($perfil_publico = $perfis_publicos->fetch_assoc()) {
+			$perfil_publico_id = $perfil_publico['id'];
+		}
+	} else {
+		if ($conn->query("INSERT INTO Textos (tipo, user_id, titulo) VALUES ('verbete_user', $user_id, 'Perfil público')") === true) {
+			$perfil_publico_id = $conn->insert_id;
+		}
+	}
+	if ($perfil_publico_id != false) {
+	  $template_modal_body_conteudo .= "
+		  <div class='row justify-content-center'>
+			  <a href='edicao_textos.php?texto_id=$perfil_publico_id'><button type='button' class='$button_classes'>Editar seu perfil público</button></a>
+		  </div>
+	  ";
+	}
 	include 'templates/modal.php';
 	
 	
-	$template_modal_div_id = 'modal_editar_dados';
+	$template_modal_div_id = 'modal_opcoes';
 	$template_modal_titulo = 'Alterar dados e opções';
 	if ($opcao_texto_justificado_value == true) {
 		$texto_justificado_checked = 'checked';
 	} else {
 		$texto_justificado_checked = false;
 	}
-	$template_modal_body_conteudo = "
-		<h3>Dados da sua conta:</h3>
-        <p>Você é identificado por seu apelido em todas as circunstâncias da página em que sua
-            participação ou contribuição sejam tornadas públicas.</p>
+	$template_modal_body_conteudo = false;
+	$template_modal_body_conteudo .= "
+        <h3>Dados fixos</h3>
+        <ul class='list-group'>
+            <li class='list-group-item'><strong>Conta criada em:</strong> $user_criacao</li>
+            <li class='list-group-item'><strong>Email:</strong> $user_email</li>
+        </ul>
+	";
+	$template_modal_body_conteudo .= "
+		<h3 class='mt-3'>Dados editáveis</h3>
+        <p>Você é identificado por seu apelido em todas as suas atividades públicas.</p>
         <div class='md-form md-2'><input type='text' name='novo_apelido' id='novo_apelido' class='form-control validate' value='$user_apelido' pattern='([A-z0-9À-ž\s]){2,14}' required></input>
             <label data-error='inválido' data-successd='válido' for='novo_apelido' required>Apelido</label>
         </div>
@@ -545,7 +556,7 @@
 
             <label data-error='inválido' data-successd='válido' for='novo_sobrenome' pattern='([A-z0-9À-ž\s]){2,}' required>Sobrenome</label>
         </div>
-        <h3>Opções:</h3>
+        <h3>Opções</h3>
         <div class='md-form md-2'>
         	<input type='checkbox' class='form-check-input' id='opcao_texto_justificado' name='opcao_texto_justificado' $texto_justificado_checked>
         	<label class='form-check-label' for='opcao_texto_justificado'>Mostrar verbetes com texto justificado.</label>
@@ -584,11 +595,11 @@
 	include 'templates/modal.php';
 	
 	$template_modal_div_id = 'modal_nova_referencia';
-	$template_modal_titulo = 'Adicionar item à sua biblioteca virtual';
+	$template_modal_titulo = 'Adicionar item ao acervo';
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "
-	        <h4 class='mt-3'>Biblioteca virtual</h4>
-	        <p>Acrescente à sua biblioteca virtual livros que você tem, quer ter, pretende emprestar de um amigo, assim como artigos que quer ler, revistas, até mesmo álbuns de música ou filmes.</p>
+	        <h4 class='mt-3'>Acervo virtual</h4>
+	        <p>Acrescente a seu acervo virtual livros que você tem, quer ter, pretende emprestar de um amigo, assim como artigos que quer ler, revistas, até mesmo álbuns de música ou filmes.</p>
 	        <p>Uma vez que seu item tenha sido adicionado, será possível marcar capítulos e escrever fichamentos específicos, assim como resenhas e resumos. Cada anotação será inicialmente privada, podendo ser tornada pública se você assim desejar.</p>
 		    <div class='md-form'>
 			    <input type='text' class='form-control' name='busca_referencias' id='busca_referencias' required>
@@ -626,7 +637,7 @@
 	include 'templates/modal.php';
 	
 	$template_modal_div_id = 'modal_novo_topico';
-	$template_modal_titulo = 'Adicionar área de interesse';
+	$template_modal_titulo = 'Incluir área de interesse';
 	$etiquetas_carregar_remover = false;
 	include 'templates/etiquetas_modal.php';
 	
