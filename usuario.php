@@ -199,7 +199,6 @@
 			                                    $artefato_link = false;
 			                                    $template_conteudo .= include 'templates/artefato_item.php';*/
 						
-						include 'templates/page_element.php';
 						
 						$template_id = 'acervo_virtual';
 						$template_titulo = 'Acervo';
