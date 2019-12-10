@@ -103,10 +103,10 @@
 				
 				echo "
                     <div class='row' class='justify-content-center'>
-                    <a id='mostrar_textos' href='javascript:void(0);' class='p-2 rounded text-primary artefato'><i class='fad fa-typewriter fa-4x fa-fw'></i></a>
-                    <a id='mostrar_imagens' href='javascript:void(0);' class='p-2 rounded text-danger artefato'><i class='fad fa-images fa-4x fa-fw'></i></a>
-                    <a id='mostrar_acervo' href='javascript:void(0);' class='p-2 rounded text-success artefato'><i class='fad fa-books fa-4x fa-fw'></i></a>
-                    <a id='mostrar_tags' href='javascript:void(0);' class='p-2 rounded text-warning artefato'><i class='fad fa-tags fa-4x fa-fw'></i></a>
+                    <a id='mostrar_textos' href='javascript:void(0);' class='p-2 rounded text-primary artefato' title='Pressione para ver seus textos e notas privadas'><i class='fad fa-typewriter fa-4x fa-fw'></i></a>
+                    <a id='mostrar_imagens' href='javascript:void(0);' class='p-2 rounded text-danger artefato' title='Pressione para ver suas imagens privadas e públicas'><i class='fad fa-images fa-4x fa-fw'></i></a>
+                    <a id='mostrar_acervo' href='javascript:void(0);' class='p-2 rounded text-success artefato' title='Pressione para ver seu acervo virtual'><i class='fad fa-books fa-4x fa-fw'></i></a>
+                    <a id='mostrar_tags' href='javascript:void(0);' class='p-2 rounded text-warning artefato' title='Pressione para ver suas áreas de interesse'><i class='fad fa-tags fa-4x fa-fw'></i></a>
                     </div>
                 ";
 				
