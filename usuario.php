@@ -157,33 +157,31 @@
 						include 'templates/page_element.php';
 						
 						$topicos_acervo = $conn->query("SELECT DISTINCT etiqueta_id FROM Acervo WHERE user_id = $user_id AND etiqueta_tipo = 'topico' ORDER BY id DESC");
-						if ($topicos_acervo->num_rows > 0) {
-							$template_id = 'topicos_interesse';
-							$template_titulo = 'Áreas de interesse';
-							$template_classes = 'esconder_sessao';
-							$template_conteudo_class = 'justify-content-start';
-							$template_conteudo_no_col = true;
-							$template_conteudo = false;
-							
-							$artefato_id = 0;
-							$artefato_page_id = false;
-							$artefato_titulo = 'Incluir área de interesse';
-							$artefato_criacao = 'Pressione para adicionar uma área de interesse';
-							$artefato_tipo = 'novo_topico';
+						$template_id = 'topicos_interesse';
+						$template_titulo = 'Áreas de interesse';
+						$template_classes = 'esconder_sessao';
+						$template_conteudo_class = 'justify-content-start';
+						$template_conteudo_no_col = true;
+						$template_conteudo = false;
+						
+						$artefato_id = 0;
+						$artefato_page_id = false;
+						$artefato_titulo = 'Incluir área de interesse';
+						$artefato_criacao = 'Pressione para adicionar uma área de interesse';
+						$artefato_tipo = 'novo_topico';
+						$artefato_link = false;
+						$template_conteudo .= include 'templates/artefato_item.php';
+						
+						while ($topico_acervo = $topicos_acervo->fetch_assoc()) {
+							$topico_acervo_etiqueta_id = $topico_acervo['etiqueta_id'];
+							$topico_acervo_etiqueta_info = return_etiqueta_info($topico_acervo_etiqueta_id);
+							$artefato_criacao = $topico_acervo_etiqueta_info[0];
+							$artefato_titulo = $topico_acervo_etiqueta_info[2];
 							$artefato_link = false;
+							$artefato_tipo = 'topico_interesse';
 							$template_conteudo .= include 'templates/artefato_item.php';
-							
-							while ($topico_acervo = $topicos_acervo->fetch_assoc()) {
-								$topico_acervo_etiqueta_id = $topico_acervo['etiqueta_id'];
-								$topico_acervo_etiqueta_info = return_etiqueta_info($topico_acervo_etiqueta_id);
-								$artefato_criacao = $topico_acervo_etiqueta_info[0];
-								$artefato_titulo = $topico_acervo_etiqueta_info[2];
-								$artefato_link = false;
-								$artefato_tipo = 'topico_interesse';
-								$template_conteudo .= include 'templates/artefato_item.php';
-							}
-							include 'templates/page_element.php';
 						}
+						include 'templates/page_element.php';
 						
 						/*						$artefato_id = 0;
 			                                    $artefato_page_id = false;
@@ -219,147 +217,141 @@
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
 						$acervo = $conn->query("SELECT criacao, etiqueta_id, etiqueta_tipo, elemento_id FROM Acervo WHERE user_id = $user_id AND estado = 1 AND etiqueta_tipo NOT IN ('topico') ORDER BY id DESC");
-						if ($acervo->num_rows > 0) {
-							while ($acervo_item = $acervo->fetch_assoc()) {
-								$acervo_item_criacao = $acervo_item['criacao'];
-								$acervo_item_etiqueta_id = $acervo_item['etiqueta_id'];
-								$acervo_item_etiqueta_tipo = $acervo_item['etiqueta_tipo'];
-								$acervo_item_elemento_id = $acervo_item['elemento_id'];
-								if ($acervo_item_elemento_id == false) {
-									$acervo_item_elemento_id = return_etiqueta_elemento_id($acervo_item_etiqueta_id);
-								}
-								$acervo_item_elemento_info = return_elemento_info($acervo_item_elemento_id);
-								$acervo_item_elemento_titulo = $acervo_item_elemento_info[4];
-								$acervo_item_elemento_autor = $acervo_item_elemento_info[5];
-								
-								$artefato_id = $acervo_item_etiqueta_id;
-								$artefato_page_id = $acervo_item_elemento_id;
-								$artefato_titulo = $acervo_item_elemento_titulo;
-								$artefato_subtitulo = $acervo_item_elemento_autor;
-								$artefato_criacao = $acervo_item_criacao;
-								$artefato_criacao = "Adicionado em $artefato_criacao";
-								$artefato_tipo = $acervo_item_etiqueta_tipo;
-								$artefato_link = "elemento.php?id=$acervo_item_elemento_id";
-								
-								$template_conteudo .= include 'templates/artefato_item.php';
+						while ($acervo_item = $acervo->fetch_assoc()) {
+							$acervo_item_criacao = $acervo_item['criacao'];
+							$acervo_item_etiqueta_id = $acervo_item['etiqueta_id'];
+							$acervo_item_etiqueta_tipo = $acervo_item['etiqueta_tipo'];
+							$acervo_item_elemento_id = $acervo_item['elemento_id'];
+							if ($acervo_item_elemento_id == false) {
+								$acervo_item_elemento_id = return_etiqueta_elemento_id($acervo_item_etiqueta_id);
 							}
+							$acervo_item_elemento_info = return_elemento_info($acervo_item_elemento_id);
+							$acervo_item_elemento_titulo = $acervo_item_elemento_info[4];
+							$acervo_item_elemento_autor = $acervo_item_elemento_info[5];
+							
+							$artefato_id = $acervo_item_etiqueta_id;
+							$artefato_page_id = $acervo_item_elemento_id;
+							$artefato_titulo = $acervo_item_elemento_titulo;
+							$artefato_subtitulo = $acervo_item_elemento_autor;
+							$artefato_criacao = $acervo_item_criacao;
+							$artefato_criacao = "Adicionado em $artefato_criacao";
+							$artefato_tipo = $acervo_item_etiqueta_tipo;
+							$artefato_link = "elemento.php?id=$acervo_item_elemento_id";
+							
+							$template_conteudo .= include 'templates/artefato_item.php';
 						}
 						include 'templates/page_element.php';
 						
 						
 						$anotacoes = $conn->query("SELECT id, page_id, titulo, criacao, tipo FROM Textos WHERE tipo LIKE '%anotac%' AND user_id = $user_id ORDER BY id DESC");
-						if ($anotacoes->num_rows > 0) {
-							$template_id = 'anotacoes_privadas';
-							$template_titulo = 'Textos e notas de estudo';
-							$template_classes = 'esconder_sessao';
-							$template_conteudo_class = 'justify-content-start';
-							$template_conteudo_no_col = true;
-							$template_conteudo = false;
-							
-							$artefato_id = 0;
-							$artefato_page_id = false;
-							$artefato_titulo = 'Novo texto privado';
-							$artefato_criacao = 'Pressione para criar texto privado';
-							$artefato_tipo = 'nova_anotacao';
-							$artefato_link = 'edicao_textos.php?texto_id=0';
-							$template_conteudo .= include 'templates/artefato_item.php';
-							
-							while ($anotacao = $anotacoes->fetch_assoc()) {
-								$artefato_id = $anotacao['id'];
-								$artefato_page_id = $anotacao['page_id'];
-								$artefato_titulo = $anotacao['titulo'];
-								$artefato_criacao = $anotacao['criacao'];
-								$artefato_tipo = $anotacao['tipo'];
-								if ($artefato_tipo == 'anotacoes_elemento') {
-									$artefato_elemento_info = return_elemento_info($artefato_page_id);
-									$artefato_elemento_titulo = $artefato_elemento_info[4];
-									$artefato_elemento_autor = $artefato_elemento_info[5];
-									$artefato_elemento_tipo = $artefato_elemento_info[3];
-									$artefato_titulo = $artefato_elemento_titulo;
-									if ($artefato_elemento_autor != false) {
-										$artefato_subtitulo = $artefato_elemento_autor;
-									} else {
-										$artefato_subtitulo = $artefato_elemento_tipo;
-									}
-									$artefato_subtipo = $artefato_elemento_tipo;
-									$artefato_link = "elemento.php?id=$artefato_page_id";
-								} elseif ($artefato_tipo == 'anotacoes_curso') {
-									//TODO: Colocar no update título automático de anotações_curso;
-									$artefato_titulo = return_concurso_titulo_id($artefato_page_id);
-								} elseif ($artefato_tipo == 'anotacoes') {
-									$artefato_titulo = return_titulo_topico($artefato_page_id);
-									$artefato_topico_concurso_id = return_concurso_id_topico($artefato_page_id);
-									$artefato_topico_concurso_sigla = return_concurso_sigla($artefato_topico_concurso_id);
-									$artefato_subtitulo = $artefato_topico_concurso_sigla;
-									$artefato_link = "verbete.php?topico_id=$artefato_page_id";
-								} elseif ($artefato_tipo == 'anotacoes_materia') {
-									$artefato_materia_titulo = return_materia_titulo_id($artefato_page_id);
-									$artefato_materia_concurso_id = return_concurso_id_materia($artefato_page_id);
-									$artefato_materia_concurso_sigla = return_concurso_sigla($artefato_materia_concurso_id);
-									$artefato_titulo = $artefato_materia_titulo;
-									$artefato_subtitulo = $artefato_materia_concurso_sigla;
+						$template_id = 'anotacoes_privadas';
+						$template_titulo = 'Textos e notas de estudo';
+						$template_classes = 'esconder_sessao';
+						$template_conteudo_class = 'justify-content-start';
+						$template_conteudo_no_col = true;
+						$template_conteudo = false;
+						
+						$artefato_id = 0;
+						$artefato_page_id = false;
+						$artefato_titulo = 'Novo texto privado';
+						$artefato_criacao = 'Pressione para criar texto privado';
+						$artefato_tipo = 'nova_anotacao';
+						$artefato_link = 'edicao_textos.php?texto_id=0';
+						$template_conteudo .= include 'templates/artefato_item.php';
+						
+						while ($anotacao = $anotacoes->fetch_assoc()) {
+							$artefato_id = $anotacao['id'];
+							$artefato_page_id = $anotacao['page_id'];
+							$artefato_titulo = $anotacao['titulo'];
+							$artefato_criacao = $anotacao['criacao'];
+							$artefato_tipo = $anotacao['tipo'];
+							if ($artefato_tipo == 'anotacoes_elemento') {
+								$artefato_elemento_info = return_elemento_info($artefato_page_id);
+								$artefato_elemento_titulo = $artefato_elemento_info[4];
+								$artefato_elemento_autor = $artefato_elemento_info[5];
+								$artefato_elemento_tipo = $artefato_elemento_info[3];
+								$artefato_titulo = $artefato_elemento_titulo;
+								if ($artefato_elemento_autor != false) {
+									$artefato_subtitulo = $artefato_elemento_autor;
+								} else {
+									$artefato_subtitulo = $artefato_elemento_tipo;
 								}
-								if (!isset($artefato_link)) {
-									$artefato_link = "edicao_textos.php?texto_id=$artefato_id";
-								}
-								if ($artefato_titulo == false) {
-									if ($artefato_tipo == 'anotacoes_user') {
-										$artefato_subtitulo = 'Página do usuário';
-									} elseif ($artefato_tipo == 'anotacao_privada') {
-										$artefato_subtitulo = 'Texto sem título';
-									} elseif ($artefato_tipo == 'anotacoes_elemento') {
-										$artefato_subtitulo = 'Nota de referência';
-									} elseif ($artefato_tipo == 'anotacoes_prova') {
-										$artefato_subtitulo = 'Nota de prova';
-									} elseif ($artefato_tipo == 'anotacoes_texto_apoio') {
-										$artefato_subtitulo = 'Nota de texto de apoio';
-									} elseif ($artefato_tipo == 'anotacoes_questao') {
-										$artefato_subtitulo = 'Nota de questão';
-									} elseif ($artefato_tipo == 'anotacoes_materia') {
-										$artefato_subtitulo = 'Nota de estudos';
-									} elseif ($artefato_tipo == 'anotacoes') {
-										$artefato_subtitulo = 'Nota de estudos';
-									} elseif ($artefato_tipo == 'anotacoes_admin') {
-										$artefato_subtitulo = 'Notas dos administradores';
-									} else {
-										$artefato_subtitulo = $artefato_tipo;
-									}
-								}
-								$template_conteudo .= include 'templates/artefato_item.php';
+								$artefato_subtipo = $artefato_elemento_tipo;
+								$artefato_link = "elemento.php?id=$artefato_page_id";
+							} elseif ($artefato_tipo == 'anotacoes_curso') {
+								//TODO: Colocar no update título automático de anotações_curso;
+								$artefato_titulo = return_concurso_titulo_id($artefato_page_id);
+							} elseif ($artefato_tipo == 'anotacoes') {
+								$artefato_titulo = return_titulo_topico($artefato_page_id);
+								$artefato_topico_concurso_id = return_concurso_id_topico($artefato_page_id);
+								$artefato_topico_concurso_sigla = return_concurso_sigla($artefato_topico_concurso_id);
+								$artefato_subtitulo = $artefato_topico_concurso_sigla;
+								$artefato_link = "verbete.php?topico_id=$artefato_page_id";
+							} elseif ($artefato_tipo == 'anotacoes_materia') {
+								$artefato_materia_titulo = return_materia_titulo_id($artefato_page_id);
+								$artefato_materia_concurso_id = return_concurso_id_materia($artefato_page_id);
+								$artefato_materia_concurso_sigla = return_concurso_sigla($artefato_materia_concurso_id);
+								$artefato_titulo = $artefato_materia_titulo;
+								$artefato_subtitulo = $artefato_materia_concurso_sigla;
 							}
-							include 'templates/page_element.php';
+							if (!isset($artefato_link)) {
+								$artefato_link = "edicao_textos.php?texto_id=$artefato_id";
+							}
+							if ($artefato_titulo == false) {
+								if ($artefato_tipo == 'anotacoes_user') {
+									$artefato_subtitulo = 'Página do usuário';
+								} elseif ($artefato_tipo == 'anotacao_privada') {
+									$artefato_subtitulo = 'Texto sem título';
+								} elseif ($artefato_tipo == 'anotacoes_elemento') {
+									$artefato_subtitulo = 'Nota de referência';
+								} elseif ($artefato_tipo == 'anotacoes_prova') {
+									$artefato_subtitulo = 'Nota de prova';
+								} elseif ($artefato_tipo == 'anotacoes_texto_apoio') {
+									$artefato_subtitulo = 'Nota de texto de apoio';
+								} elseif ($artefato_tipo == 'anotacoes_questao') {
+									$artefato_subtitulo = 'Nota de questão';
+								} elseif ($artefato_tipo == 'anotacoes_materia') {
+									$artefato_subtitulo = 'Nota de estudos';
+								} elseif ($artefato_tipo == 'anotacoes') {
+									$artefato_subtitulo = 'Nota de estudos';
+								} elseif ($artefato_tipo == 'anotacoes_admin') {
+									$artefato_subtitulo = 'Notas dos administradores';
+								} else {
+									$artefato_subtitulo = $artefato_tipo;
+								}
+							}
+							$template_conteudo .= include 'templates/artefato_item.php';
 						}
+						include 'templates/page_element.php';
 						
 						$imagens_privadas = $conn->query("SELECT id, criacao, titulo, arquivo, estado FROM Elementos WHERE user_id = $user_id AND tipo = 'imagem_privada' AND user_id = $user_id ORDER BY id DESC");
-						if ($imagens_privadas->num_rows > 0) {
-							$template_id = 'imagens_privadas';
-							$template_titulo = 'Imagens privadas';
-							$template_classes = 'esconder_sessao';
-							$template_conteudo_class = 'justify-content-start';
-							$template_conteudo_no_col = true;
-							$template_conteudo = false;
-							
-							$artefato_id = 0;
-							$artefato_page_id = false;
-							$artefato_titulo = 'Nova imagem privada';
-							$artefato_criacao = 'Pressione para adicionar uma imagem privada';
-							$artefato_tipo = 'nova_imagem';
-							$artefato_link = false;
+						$template_id = 'imagens_privadas';
+						$template_titulo = 'Imagens privadas';
+						$template_classes = 'esconder_sessao';
+						$template_conteudo_class = 'justify-content-start';
+						$template_conteudo_no_col = true;
+						$template_conteudo = false;
+						
+						$artefato_id = 0;
+						$artefato_page_id = false;
+						$artefato_titulo = 'Nova imagem privada';
+						$artefato_criacao = 'Pressione para adicionar uma imagem privada';
+						$artefato_tipo = 'nova_imagem';
+						$artefato_link = false;
+						$template_conteudo .= include 'templates/artefato_item.php';
+						
+						while ($imagem_privada = $imagens_privadas->fetch_assoc()) {
+							$artefato_id = $imagem_privada['id'];
+							$artefato_criacao = $imagem_privada['criacao'];
+							$artefato_criacao = "Criado em $artefato_criacao";
+							$artefato_titulo = $imagem_privada['titulo'];
+							$artefato_imagem_arquivo = $imagem_privada['arquivo'];
+							$artefato_estado = $imagem_privada['estado'];
+							$artefato_link = "elemento.php?id=$artefato_id";
+							$artefato_tipo = 'imagem_publica';
 							$template_conteudo .= include 'templates/artefato_item.php';
-							
-							while ($imagem_privada = $imagens_privadas->fetch_assoc()) {
-								$artefato_id = $imagem_privada['id'];
-								$artefato_criacao = $imagem_privada['criacao'];
-								$artefato_criacao = "Criado em $artefato_criacao";
-								$artefato_titulo = $imagem_privada['titulo'];
-								$artefato_imagem_arquivo = $imagem_privada['arquivo'];
-								$artefato_estado = $imagem_privada['estado'];
-								$artefato_link = "elemento.php?id=$artefato_id";
-								$artefato_tipo = 'imagem_publica';
-								$template_conteudo .= include 'templates/artefato_item.php';
-							}
-							include 'templates/page_element.php';
 						}
+						include 'templates/page_element.php';
 						
 						$imagens_publicas = $conn->query("SELECT id, criacao, titulo, arquivo, estado FROM Elementos WHERE user_id = $user_id AND tipo = 'imagem' ORDER BY id DESC");
 						if ($imagens_publicas->num_rows > 0) {
