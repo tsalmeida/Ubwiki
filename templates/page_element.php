@@ -57,6 +57,9 @@
 		$template_titulo_heading = 'h1';
 	}
 
+	error_log($template_id);
+	error_log($template_classes);
+	
 	echo "
 <div id='$template_id' class='row show mb-2 border-top border-light pt-4 $template_classes'>
 	<div class='col'>

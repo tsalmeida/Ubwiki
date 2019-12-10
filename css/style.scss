@@ -302,3 +302,7 @@ blockquote + * {
 .adicionar_tag:hover {
   opacity: 1;
 }
+
+.p-limit {
+  max-width: 70ch;
+}

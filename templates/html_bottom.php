@@ -21,6 +21,9 @@
 	if (!isset($biblioteca_bottom_adicionar)) {
 		$biblioteca_bottom_adicionar = false;
 	}
+	if (!isset($esconder_introducao)) {
+		$esconder_introducao = false;
+	}
 	
 	echo "
     <!-- Bootstrap tooltips -->
@@ -270,6 +273,34 @@
 				        alert('Por favor, preencha todos os campos necessários.')
 				    }
 				});
+			</script>
+		";
+	}
+	if ($esconder_introducao == true) {
+		echo "
+			<script type='text/javascript'>
+				$(document).ready(function() {
+				    $('.esconder_sessao').hide();
+            $('#pagina_usuario_informacoes').show();
+				});
+				$(document).on('click', '#mostrar_textos', function() {
+				    $('.esconder_sessao').hide();
+				    $('#anotacoes_privadas').show();
+				});
+				$(document).on('click', '#mostrar_imagens', function() {
+				    $('.esconder_sessao').hide();
+				    $('#imagens_privadas').show();
+				    $('#imagens_publicas').show();
+				});
+				$(document).on('click', '#mostrar_acervo', function() {
+				    $('.esconder_sessao').hide();
+				    $('#acervo_virtual').show();
+				});
+				$(document).on('click', '#mostrar_tags', function() {
+				    $('.esconder_sessao').hide();
+				    $('#topicos_interesse').show();
+				});
+				
 			</script>
 		";
 	}

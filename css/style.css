@@ -305,4 +305,8 @@ blockquote + * {
   opacity: 1;
 }
 
+.p-limit {
+  max-width: 70ch;
+}
+
 /*# sourceMappingURL=style.css.map */
