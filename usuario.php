@@ -80,7 +80,7 @@
 	$bookmarks_elementos = $conn->query("SELECT elemento_id FROM Bookmarks WHERE user_id = $user_id AND bookmark = 1 AND elemento_id IS NOT NULL AND active = 1 ORDER BY id DESC");
 	$comentarios = $conn->query("SELECT DISTINCT page_id, page_tipo FROM Forum WHERE user_id = $user_id");
 	$completados = $conn->query("SELECT topico_id FROM Completed WHERE user_id = $user_id AND estado = 1 AND active = 1");
-	$verbetes_escritos = $conn->query("SELECT DISTINCT page_id FROM Textos_arquivo WHERE user_id = $user_id AND tipo = 'verbete' ORDER BY id DESC");
+	$verbetes_escritos = $conn->query("SELECT DISTINCT page_id, tipo FROM Textos_arquivo WHERE user_id = $user_id AND (tipo = 'verbete' OR tipo = 'verbete_elemento') ORDER BY id DESC");
 
 ?>
 <body>
@@ -418,8 +418,15 @@
 		$template_modal_body_conteudo .= "<ul class='list-group'>";
 		while ($row_verbete = $verbetes_escritos->fetch_assoc()) {
 			$page_id = $row_verbete['page_id'];
-			$topico_titulo = return_titulo_topico($page_id);
-			$template_modal_body_conteudo .= "<a href='verbete.php?topico_id=$page_id' target='_blank'><li class='list-group-item list-group-item-action'>$topico_titulo</li></a>";
+			$page_tipo = $row_verbete['tipo'];
+			if ($page_tipo == 'verbete') {
+                $topico_titulo = return_titulo_topico($page_id);
+			    $template_modal_body_conteudo .= "<a href='verbete.php?topico_id=$page_id' target='_blank'><li class='list-group-item list-group-item-action'>$topico_titulo</li></a>";
+			} elseif ($page_tipo == 'verbete_elemento') {
+			    $topico_info = return_elemento_info($page_id);
+			    $topico_titulo = $topico_info[4];
+                $template_modal_body_conteudo .= "<a href='elemento.php?id=$page_id' target='_blank'><li class='list-group-item list-group-item-action'>$topico_titulo</li></a>";
+            }
 		}
 		$template_modal_body_conteudo .= "</ul>";
 	}
