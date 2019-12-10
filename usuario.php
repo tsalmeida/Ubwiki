@@ -151,7 +151,7 @@
 						$template_classes = 'esconder_sessao';
 						$template_conteudo = false;
 						$template_conteudo .= "
-			          <p class='p-limit'>Nesta página, você encontrará seus artefatos de estudo organizados de acordo com seus interesses e objetivos. Quanto mais artefatos você criar, sejam itens em seu acervo virtual, anotações, imagens, indicações de progresso ou outras atividades desempenhadas, mais completos são seus estudos, mais você se aproxima de seus objetivos.</p>
+			          <p class='p-limit'>Nesta página, você encontrará seus artefatos de estudo, organizados de acordo com seus interesses e objetivos. Quanto mais artefatos você criar, sejam itens em seu acervo virtual, anotações, imagens, indicações de progresso ou outras atividades desempenhadas, mais completos são seus estudos, mais você se aproxima de seus objetivos.</p>
 			          <p><strong>Pressione os botões acima para navegar.</strong></p>
 			        ";
 						include 'templates/page_element.php';
