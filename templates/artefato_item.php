@@ -49,12 +49,18 @@
 		$artefato_link_1 = "<span id='novo_$artefato_tipo' data-toggle='modal' data-target='#modal_$artefato_tipo' title='$artefato_criacao'><a href='javascript:void(0);' class='$fa_color'>";
 		$artefato_link_2 = "</a></span>";
 	}
-	
-	
+
+	if (!isset($fa_size)) {
+		$fa_size = 'fa-4x';
+	}
+	if ($fa_icone == 'fa-tag') {
+		$fa_size = 'fa-3x';
+	}
+
 	$artefato_template_result = false;
 	$artefato_template_result .= "
      <div class='col-lg-2 col-md-3 col-sm-4 col-xs-12 py-3 artefato rounded' $artefato_template_thumb>
-        $artefato_link_1<span class='row justify-content-center text-center'><i class='fad $fa_icone fa-5x fa-fw d-block'></i></span>
+        $artefato_link_1<span class='row justify-content-center text-center'><i class='fad $fa_icone $fa_size fa-fw d-block'></i></span>
         <span class='row justify-content-center text-center mt-2 text-dark'>$artefato_titulo</span>
         <span class='row justify-content-center text-center text-muted'><em>$artefato_subtitulo</em></span>$artefato_link_2
     </div>
@@ -72,6 +78,7 @@
 	unset($artefato_subtitulo);
 	unset($artefato_subtipo);
 	unset($artefato_tipo);
+	unset($fa_size);
 	
 	return $artefato_template_result;
 

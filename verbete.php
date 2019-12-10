@@ -674,7 +674,7 @@
 
 					<?php
 						$template_id = 'anotacoes';
-						$template_titulo = 'Anotações privadas';
+						$template_titulo = 'Notas de estudo';
 						$template_conteudo = include 'templates/template_quill.php';
 						include 'templates/page_element.php';
 					?>

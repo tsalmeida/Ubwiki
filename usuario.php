@@ -1,7 +1,7 @@
 <?php
-	
+
 	include 'engine.php';
-	
+
 	$dados_usuario = $conn->query("SELECT id, tipo, criacao, apelido, nome, sobrenome FROM Usuarios WHERE email = '$user_email'");
 	if ($dados_usuario->num_rows > 0) {
 		while ($row = $dados_usuario->fetch_assoc()) {
@@ -13,7 +13,7 @@
 			$user_sobrenome = $row['sobrenome'];
 		}
 	}
-	
+
 	if (isset($_POST['novo_nome'])) {
 		$user_nome = $_POST['novo_nome'];
 		$user_sobrenome = $_POST['novo_sobrenome'];
@@ -27,13 +27,13 @@
 			$opcao_texto_justificado_value = false;
 		}
 	}
-	
+
 	if (isset($_POST['nova_imagem_titulo'])) {
 		$nova_imagem_titulo = $_POST['nova_imagem_titulo'];
 		$nova_imagem_titulo = mysqli_real_escape_string($conn, $nova_imagem_titulo);
 		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, 0, 'nova_imagem_privada')");
 	}
-	
+
 	if ((isset($_POST['nova_imagem_link'])) && ($_POST['nova_imagem_link'] != false)) {
 		$nova_imagem_link = $_POST['nova_imagem_link'];
 		$nova_imagem_link = base64_encode($nova_imagem_link);
@@ -63,7 +63,7 @@
 			}
 		}
 	}
-	
+
 	$html_head_template_quill = true;
 	$html_head_template_conteudo = "
         <script type='text/javascript'>
@@ -71,11 +71,11 @@
           var user_email='$user_email';
         </script>
     ";
-	
+
 	include 'templates/html_head.php';
-	
+
 	$conn->query("INSERT INTO Visualizacoes (user_id, tipo_pagina) VALUES ($user_id, 'userpage')");
-	
+
 	$bookmarks = $conn->query("SELECT DISTINCT topico_id FROM Bookmarks WHERE user_id = $user_id AND topico_id IS NOT NULL AND bookmark = 1 AND active = 1 ORDER BY id DESC");
 	$bookmarks_elementos = $conn->query("SELECT elemento_id FROM Bookmarks WHERE user_id = $user_id AND bookmark = 1 AND elemento_id IS NOT NULL AND active = 1 ORDER BY id DESC");
 	$comentarios = $conn->query("SELECT DISTINCT page_id, page_tipo FROM Forum WHERE user_id = $user_id");
@@ -92,14 +92,24 @@
 <div class='container-fluid'>
     <div class='row justify-content-between px-2 pt-2'>
 			<?php
-				echo "<span>";
-				  echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_opcoes' class='mr-1 text-info'><i class='fad fa-user-cog fa-2x fa-fw'></i></a>";
-				  echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_apresentacao' class='ml-1 text-info'><i class='fad fa-user-edit fa-2x fa-fw'></i></a>";
-				  if ($user_tipo == 'admin') {
-					  echo "<a href='admin.php' class='mr-1 text-info'><i class='fad fa-user-crown fa-2x fa-fw'></i></a>";
-				  }
-				echo "</span>";
-				echo "<span>";
+				echo "<div class='col-3'><div class='row justify-content-start'>";
+				echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_opcoes' class='mr-1 text-info'><i class='fad fa-user-cog fa-2x fa-fw'></i></a>";
+				echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_apresentacao' class='ml-1 text-info'><i class='fad fa-file-signature fa-swap-opacity fa-2x fa-fw'></i></a>";
+				if ($user_tipo == 'admin') {
+					echo "<a href='admin.php' class='mr-1 text-info'><i class='fad fa-user-crown fa-2x fa-fw'></i></a>";
+				}
+				echo "</div></div>";
+				echo "<div class='col-6'><div class='row justify-content-center'>";
+
+				echo "
+                    <a href='javascript:void(0);' class='p-2 rounded text-primary artefato'><i class='fad fa-typewriter fa-4x fa-fw'></i>Textos</a>
+                    <a href='javascript:void(0);' class='p-2 rounded text-danger artefato'><i class='fad fa-images fa-4x fa-fw'></i>Imagens</a>
+                    <a href='javascript:void(0);' class='p-2 rounded text-success artefato'><i class='fad fa-album-collection fa-4x fa-fw'></i>Acervo</a>
+                    <a href='javascript:void(0);' class='p-2 rounded text-warning artefato'><i class='fad fa-tags fa-4x fa-fw'></i>Interesses</a>
+                ";
+
+				echo "</div></div>";
+				echo "<div class='col-3'><div class='row justify-content-end'>";
 				if ($comentarios->num_rows > 0) {
 					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_forum' class='ml-1 text-secondary'><i class='fad fa-comments-alt fa-2x fa-fw'></i></a>";
 				}
@@ -112,7 +122,7 @@
 				if ($verbetes_escritos->num_rows > 0) {
 					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_verbetes' class='ml-1 text-warning'><i class='fad fa-seedling fa-2x fa-fw'></i></a>";
 				}
-				echo "</span>";
+				echo "</div></div>";
 			?>
     </div>
 </div>
@@ -128,26 +138,26 @@
 		$template_titulo_context = true;
 		$template_titulo_no_nav = true;
 		include 'templates/titulo.php'
-	
+
 	?>
     <div class="row d-flex justify-content-around">
         <div id="coluna_unica" class="col">
 					<?php
-						
+
 						$template_id = 'novo_artefato';
 						$template_titulo = 'Adicionar item';
 						$template_conteudo_class = 'justify-content-start';
 						$template_conteudo_no_col = false;
 						$template_conteudo = false;
-						
+
 						$artefato_id = 0;
 						$artefato_page_id = false;
-						$artefato_titulo = 'Nova anotação privada';
-						$artefato_criacao = 'Pressione para criar uma anotação';
+						$artefato_titulo = 'Novo texto privado';
+						$artefato_criacao = 'Pressione para criar texto privado';
 						$artefato_tipo = 'nova_anotacao';
 						$artefato_link = 'edicao_textos.php?texto_id=0';
 						$template_conteudo .= include 'templates/artefato_item.php';
-						
+
 						$artefato_id = 0;
 						$artefato_page_id = false;
 						$artefato_titulo = 'Nova imagem privada';
@@ -155,7 +165,7 @@
 						$artefato_tipo = 'nova_imagem';
 						$artefato_link = false;
 						$template_conteudo .= include 'templates/artefato_item.php';
-						
+
 						$artefato_id = 0;
 						$artefato_page_id = false;
 						$artefato_titulo = 'Adicionar item ao acervo';
@@ -163,7 +173,7 @@
 						$artefato_tipo = 'nova_referencia';
 						$artefato_link = false;
 						$template_conteudo .= include 'templates/artefato_item.php';
-						
+
 						$artefato_id = 0;
 						$artefato_page_id = false;
 						$artefato_titulo = 'Incluir área de interesse';
@@ -171,7 +181,7 @@
 						$artefato_tipo = 'novo_topico';
 						$artefato_link = false;
 						$template_conteudo .= include 'templates/artefato_item.php';
-						
+
 						/*						$artefato_id = 0;
 			                                    $artefato_page_id = false;
 			                                    $artefato_titulo = 'Novo simulado';
@@ -187,9 +197,9 @@
 			                                    $artefato_tipo = 'novo_curso';
 			                                    $artefato_link = false;
 			                                    $template_conteudo .= include 'templates/artefato_item.php';*/
-						
+
 						include 'templates/page_element.php';
-						
+
 						$template_id = 'acervo_virtual';
 						$template_titulo = 'Acervo';
 						$template_conteudo_class = 'justify-content-start';
@@ -202,10 +212,13 @@
 								$acervo_item_etiqueta_id = $acervo_item['etiqueta_id'];
 								$acervo_item_etiqueta_tipo = $acervo_item['etiqueta_tipo'];
 								$acervo_item_elemento_id = $acervo_item['elemento_id'];
+								if ($acervo_item_elemento_id == false) {
+									$acervo_item_elemento_id = return_etiqueta_elemento_id($acervo_item_etiqueta_id);
+								}
 								$acervo_item_elemento_info = return_elemento_info($acervo_item_elemento_id);
 								$acervo_item_elemento_titulo = $acervo_item_elemento_info[4];
 								$acervo_item_elemento_autor = $acervo_item_elemento_info[5];
-								
+
 								$artefato_id = $acervo_item_etiqueta_id;
 								$artefato_page_id = $acervo_item_elemento_id;
 								$artefato_titulo = $acervo_item_elemento_titulo;
@@ -214,20 +227,20 @@
 								$artefato_criacao = "Adicionado em $artefato_criacao";
 								$artefato_tipo = $acervo_item_etiqueta_tipo;
 								$artefato_link = "elemento.php?id=$acervo_item_elemento_id";
-								
+
 								$template_conteudo .= include 'templates/artefato_item.php';
 							}
 						}
 						include 'templates/page_element.php';
-						
-						
+
+
 						$anotacoes = $conn->query("SELECT id, page_id, titulo, criacao, tipo FROM Textos WHERE tipo LIKE '%anotac%' AND user_id = $user_id ORDER BY id DESC");
 						if ($anotacoes->num_rows > 0) {
 							if ($anotacoes->num_rows > 10) {
 								$template_load_invisible = true;
 							}
 							$template_id = 'anotacoes_privadas';
-							$template_titulo = 'Anotações privadas';
+							$template_titulo = 'Textos e notas de estudo';
 							$template_conteudo_class = 'justify-content-start';
 							$template_conteudo_no_col = true;
 							$template_conteudo = false;
@@ -238,13 +251,17 @@
 								$artefato_criacao = $anotacao['criacao'];
 								$artefato_tipo = $anotacao['tipo'];
 								if ($artefato_tipo == 'anotacoes_elemento') {
-								    $artefato_elemento_info = return_elemento_info($artefato_page_id);
-								    $artefato_elemento_titulo = $artefato_elemento_info[4];
-								    $artefato_elemento_autor = $artefato_elemento_info[5];
-								    $artefato_elemento_tipo = $artefato_elemento_info[3];
-								    $artefato_titulo = $artefato_elemento_titulo;
-								    $artefato_subtitulo = $artefato_elemento_autor;
-								    $artefato_subtipo = $artefato_elemento_tipo;
+									$artefato_elemento_info = return_elemento_info($artefato_page_id);
+									$artefato_elemento_titulo = $artefato_elemento_info[4];
+									$artefato_elemento_autor = $artefato_elemento_info[5];
+									$artefato_elemento_tipo = $artefato_elemento_info[3];
+									$artefato_titulo = $artefato_elemento_titulo;
+									if ($artefato_elemento_autor != false) {
+										$artefato_subtitulo = $artefato_elemento_autor;
+									} else {
+										$artefato_subtitulo = $artefato_elemento_tipo;
+									}
+									$artefato_subtipo = $artefato_elemento_tipo;
 									$artefato_link = "elemento.php?id=$artefato_page_id";
 								} elseif ($artefato_tipo == 'anotacoes_curso') {
 									//TODO: Colocar no update título automático de anotações_curso;
@@ -254,6 +271,7 @@
 									$artefato_topico_concurso_id = return_concurso_id_topico($artefato_page_id);
 									$artefato_topico_concurso_sigla = return_concurso_sigla($artefato_topico_concurso_id);
 									$artefato_subtitulo = $artefato_topico_concurso_sigla;
+									$artefato_link = "verbete.php?topico_id=$artefato_page_id";
 								} elseif ($artefato_tipo == 'anotacoes_materia') {
 									$artefato_materia_titulo = return_materia_titulo_id($artefato_page_id);
 									$artefato_materia_concurso_id = return_concurso_id_materia($artefato_page_id);
@@ -268,19 +286,19 @@
 									if ($artefato_tipo == 'anotacoes_user') {
 										$artefato_subtitulo = 'Página do usuário';
 									} elseif ($artefato_tipo == 'anotacao_privada') {
-										$artefato_subtitulo = 'Anotação privada sem título';
+										$artefato_subtitulo = 'Texto sem título';
 									} elseif ($artefato_tipo == 'anotacoes_elemento') {
-										$artefato_subtitulo = 'Anotação de referência';
+										$artefato_subtitulo = 'Nota de referência';
 									} elseif ($artefato_tipo == 'anotacoes_prova') {
-										$artefato_subtitulo = 'Anotação de prova';
+										$artefato_subtitulo = 'Nota de prova';
 									} elseif ($artefato_tipo == 'anotacoes_texto_apoio') {
-										$artefato_subtitulo = 'Anotação de texto de apoio';
+										$artefato_subtitulo = 'Nota de texto de apoio';
 									} elseif ($artefato_tipo == 'anotacoes_questao') {
-										$artefato_subtitulo = 'Anotação de questão';
+										$artefato_subtitulo = 'Nota de questão';
 									} elseif ($artefato_tipo == 'anotacoes_materia') {
-										$artefato_subtitulo = 'Anotação de matéria';
+										$artefato_subtitulo = 'Nota de estudos';
 									} elseif ($artefato_tipo == 'anotacoes') {
-										$artefato_subtitulo = 'Anotação de tópico';
+										$artefato_subtitulo = 'Nota de estudos';
 									} elseif ($artefato_tipo == 'anotacoes_admin') {
 										$artefato_subtitulo = 'Notas dos administradores';
 									} else {
@@ -291,7 +309,7 @@
 							}
 							include 'templates/page_element.php';
 						}
-						
+
 						$imagens_privadas = $conn->query("SELECT id, criacao, titulo, arquivo, estado FROM Elementos WHERE user_id = $user_id AND tipo = 'imagem_privada' AND user_id = $user_id ORDER BY id DESC");
 						if ($imagens_privadas->num_rows > 0) {
 							if ($imagens_privadas->num_rows > 5) {
@@ -302,7 +320,7 @@
 							$template_conteudo_class = 'justify-content-start';
 							$template_conteudo_no_col = true;
 							$template_conteudo = false;
-							
+
 							while ($imagem_privada = $imagens_privadas->fetch_assoc()) {
 								$artefato_id = $imagem_privada['id'];
 								$artefato_criacao = $imagem_privada['criacao'];
@@ -316,7 +334,7 @@
 							}
 							include 'templates/page_element.php';
 						}
-						
+
 						$topicos_acervo = $conn->query("SELECT DISTINCT etiqueta_id FROM Acervo WHERE user_id = $user_id AND etiqueta_tipo = 'topico' ORDER BY id DESC");
 						if ($topicos_acervo->num_rows > 0) {
 							if ($topicos_acervo->num_rows > 5) {
@@ -327,7 +345,7 @@
 							$template_conteudo_class = 'justify-content-start';
 							$template_conteudo_no_col = true;
 							$template_conteudo = false;
-							
+
 							while ($topico_acervo = $topicos_acervo->fetch_assoc()) {
 								$topico_acervo_etiqueta_id = $topico_acervo['etiqueta_id'];
 								$topico_acervo_etiqueta_info = return_etiqueta_info($topico_acervo_etiqueta_id);
@@ -339,7 +357,7 @@
 							}
 							include 'templates/page_element.php';
 						}
-						
+
 						$imagens_publicas = $conn->query("SELECT id, criacao, titulo, arquivo, estado FROM Elementos WHERE user_id = $user_id AND tipo = 'imagem' ORDER BY id DESC");
 						if ($imagens_publicas->num_rows > 0) {
 							if ($imagens_publicas->num_rows > 5) {
@@ -350,7 +368,7 @@
 							$template_conteudo_class = 'justify-content-start';
 							$template_conteudo_no_col = true;
 							$template_conteudo = false;
-							
+
 							while ($imagem_publica = $imagens_publicas->fetch_assoc()) {
 								$artefato_id = $imagem_publica['id'];
 								$artefato_criacao = $imagem_publica['criacao'];
@@ -364,7 +382,7 @@
 							}
 							include 'templates/page_element.php';
 						}
-						
+
 						$respostas = $conn->query("SELECT DISTINCT simulado_id, questao_tipo FROM sim_respostas WHERE user_id = $user_id ORDER BY id DESC");
 						if ($respostas->num_rows > 0) {
 							$template_id = 'simulados';
@@ -399,7 +417,7 @@
 </div>
 
 <?php
-	
+
 	$template_modal_div_id = 'modal_verbetes';
 	$template_modal_titulo = 'Verbetes escritos';
 	$template_modal_body_conteudo = false;
@@ -414,7 +432,7 @@
 	}
 	$template_modal_show_buttons = false;
 	include 'templates/modal.php';
-	
+
 	$template_modal_div_id = 'modal_completados';
 	$template_modal_titulo = 'Tópicos estudados';
 	$template_modal_body_conteudo = false;
@@ -437,7 +455,7 @@
 	}
 	$template_modal_show_buttons = false;
 	include 'templates/modal.php';
-	
+
 
 	$template_modal_div_id = 'modal_forum';
 	$template_modal_titulo = 'Suas participações no fórum';
@@ -459,8 +477,8 @@
 	}
 	$template_modal_show_buttons = false;
 	include 'templates/modal.php';
-	
-	
+
+
 	$template_modal_div_id = 'modal_bookmarks';
 	$template_modal_titulo = 'Lista de leitura';
 	$template_modal_body_conteudo = false;
@@ -497,8 +515,8 @@
 	}
 	$template_modal_show_buttons = false;
 	include 'templates/modal.php';
-	
-	
+
+
 	$template_modal_div_id = 'modal_apresentacao';
 	$template_modal_titulo = 'Perfil público';
 	$template_modal_body_conteudo = false;
@@ -516,7 +534,7 @@
 		}
 	}
 	if ($perfil_publico_id != false) {
-	  $template_modal_body_conteudo .= "
+		$template_modal_body_conteudo .= "
 		  <div class='row justify-content-center'>
 			  <a href='edicao_textos.php?texto_id=$perfil_publico_id'><button type='button' class='$button_classes'>Editar seu perfil público</button></a>
 		  </div>
@@ -524,8 +542,8 @@
 	}
 	$template_modal_show_buttons = false;
 	include 'templates/modal.php';
-	
-	
+
+
 	$template_modal_div_id = 'modal_opcoes';
 	$template_modal_titulo = 'Alterar dados e opções';
 	if ($opcao_texto_justificado_value == true) {
@@ -535,14 +553,14 @@
 	}
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "
-        <h3>Dados fixos</h3>
+        <h3>Dados de cadastro</h3>
         <ul class='list-group'>
             <li class='list-group-item'><strong>Conta criada em:</strong> $user_criacao</li>
             <li class='list-group-item'><strong>Email:</strong> $user_email</li>
         </ul>
 	";
 	$template_modal_body_conteudo .= "
-		<h3 class='mt-3'>Dados editáveis</h3>
+		<h3 class='mt-3'>Perfil</h3>
         <p>Você é identificado por seu apelido em todas as suas atividades públicas.</p>
         <div class='md-form md-2'><input type='text' name='novo_apelido' id='novo_apelido' class='form-control validate' value='$user_apelido' pattern='([A-z0-9À-ž\s]){2,14}' required></input>
             <label data-error='inválido' data-successd='válido' for='novo_apelido' required>Apelido</label>
@@ -566,7 +584,7 @@
 		</div>
     ";
 	include 'templates/modal.php';
-	
+
 	$template_modal_div_id = 'modal_nova_imagem';
 	$template_modal_titulo = 'Nova imagem privada';
 	$template_modal_enctype = "enctype='multipart/form-data'";
@@ -596,7 +614,7 @@
             </div>
 		";
 	include 'templates/modal.php';
-	
+
 	$template_modal_div_id = 'modal_nova_referencia';
 	$template_modal_titulo = 'Adicionar item ao acervo';
 	$template_modal_body_conteudo = false;
@@ -638,17 +656,17 @@
 		";
 	$template_modal_show_buttons = false;
 	include 'templates/modal.php';
-	
+
 	$template_modal_div_id = 'modal_novo_topico';
 	$template_modal_titulo = 'Incluir área de interesse';
 	$etiquetas_carregar_remover = false;
 	include 'templates/etiquetas_modal.php';
-	
+
 ?>
 
 </body>
 <?php
-	
+
 	include 'templates/footer.html';
 	$texto_id = 0;
 	$texto_tipo = 'acervo';
@@ -656,6 +674,6 @@
 	$biblioteca_bottom_adicionar = true;
 	$mdb_select = true;
 	include 'templates/html_bottom.php';
-	
+
 ?>
 </html>

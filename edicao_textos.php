@@ -75,7 +75,7 @@
 							<?php
 								if ($texto_anotacao == true) {
 									$mudar_anotacao_titulo = true;
-									echo "<h1 id='texto_titulo' class='w-100 mt-4 grey lighten-5'><input type='text' name='novo_texto_titulo' maxlength='80' value='$texto_titulo' placeholder='Digite aqui um título para esta anotação' class='border-0 text-center w-100 grey lighten-5'></h1>";
+									echo "<h1 id='texto_titulo' class='w-100 mt-4 grey lighten-5'><input type='text' name='novo_texto_titulo' maxlength='80' value='$texto_titulo' placeholder='Escreva aqui o título' class='border-0 text-center w-100 grey lighten-5'></h1>";
 								}
 								
 								$template_id = $texto_tipo;
