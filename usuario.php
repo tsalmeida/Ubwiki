@@ -503,13 +503,14 @@
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "<p>O conteúdo de seu perfil é visível em sua página pública, que outros usuários verão ao clicar em seu apelido. Seu apelido somente é visível como identificação de suas atividades públicas na Ubwiki.";
 
+	$perfil_publico_id = false;
 	$perfis_publicos = $conn->query("SELECT id FROM Textos WHERE tipo = 'verbete_user' AND user_id = $user_id");
 	if ($perfis_publicos->num_rows > 0) {
 		while ($perfil_publico = $perfis_publicos->fetch_assoc()) {
 			$perfil_publico_id = $perfil_publico['id'];
 		}
 	} else {
-		if ($conn->query("INSERT INTO Textos (tipo, user_id, titulo) VALUES ('verbete_user', $user_id, 'Perfil público')") === true) {
+		if ($conn->query("INSERT INTO Textos (tipo, user_id, titulo, verbete_html, verbete_text, verbete_content) VALUES ('verbete_user', $user_id, 'Perfil público', 0, 0, 0)") === true) {
 			$perfil_publico_id = $conn->insert_id;
 		}
 	}
