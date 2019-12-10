@@ -434,6 +434,7 @@
 		$template_load_invisible = true;
 		$template_modal_body_conteudo .= '<p>Você ainda não marcou nenhum tópico como estudado.</p>';
 	}
+	$template_modal_show_buttons = false;
 	include 'templates/modal.php';
 	
 
@@ -519,6 +520,7 @@
 		  </div>
 	  ";
 	}
+	$template_modal_show_buttons = false;
 	include 'templates/modal.php';
 	
 	
