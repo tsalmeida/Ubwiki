@@ -9,7 +9,7 @@
 	if (!isset($template_quill_load_button)) {
 		$template_quill_load_button = true;
 	}
-	if (strpos($template_id, 'anotac') !== false) {
+	if ((strpos($template_id, 'anotac') !== false) || ($template_id == 'verbete_user')) {
 		$template_quill_meta_tipo = 'anotacoes';
 		$template_quill_toolbar_and_whitelist = 'anotacoes';
 		$template_quill_initial_state = 'edicao';

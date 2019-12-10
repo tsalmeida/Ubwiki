@@ -3,23 +3,7 @@
 	include 'engine.php';
 	
 	if (isset($_POST['trigger_atualizacao'])) {
-		$data_atualizacao = $_POST['trigger_atualizacao'];
-		$conn->query("UPDATE Elementos SET autor = NULL where autor = ''");
-		$conn->query("CREATE TABLE `Ubwiki`.`Acervo` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `criacao` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `user_id` INT(11) NULL DEFAULT NULL , `etiqueta_id` INT(11) NULL DEFAULT NULL , `etiqueta_tipo` VARCHAR(255) NULL DEFAULT NULL , `elemento_id` INT(11) NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
-		$conn->query("ALTER TABLE `Elementos` ADD `autor_etiqueta_id` INT(11) NULL DEFAULT NULL AFTER `autor`;");
-		
-		$autores = $conn->query("SELECT DISTINCT autor FROM Elementos WHERE autor IS NOT NULL");
-		if ($autores->num_rows > 0) {
-			while ($autor = $autores->fetch_assoc()) {
-				$autor_nome = $autor['autor'];
-				$autor_nome = mysqli_real_escape_string($conn, $autor_nome);
-				if ($conn->query("INSERT INTO Etiquetas (titulo, tipo, user_id) VALUES ('$autor_nome', 'autor', $user_id)") === true) {
-					$novo_autor_etiqueta_id = $conn->insert_id;
-					$conn->query("UPDATE Elementos SET autor_etiqueta_id = $novo_autor_etiqueta_id WHERE autor = '$autor_nome'");
-				}
-			}
-		}
-		$conn->query("ALTER TABLE `Acervo` ADD `estado` BOOLEAN NOT NULL DEFAULT TRUE AFTER `criacao`;");
+
 	}
 	
 	if (isset($_POST['funcoes_gerais'])) {
@@ -231,9 +215,9 @@
 						        </div>
 						    </form>
 						    <form method='post'>
-						        <p>Criar etiquetas.</p>
+						        <p>Função geral de atualização.</p>
 						        <div class='row justify-content-center'>
-						        	<button class='$button_classes' type='submit' name='funcoes_gerais3'>Criar etiquetas</button>
+						        	<button class='$button_classes' type='submit' name='funcoes_gerais3'>Função geral de atualização</button>
 						        </div>
 						    </form>
 						";
@@ -247,7 +231,7 @@
 						    <form method='post'>
 						        <p>Atualização desde 20191204</p>
 						        <div class='row justify-content-center'>
-						        	<button class='$button_classes' type='submit' name='trigger_atualizacao' value='20191204'>Atualizar página</button>
+						        	<button class='$button_classes' type='submit' name='trigger_atualizacao' value='20191210'>Atualizar página</button>
 				                </div>
 						    </form>
 						";

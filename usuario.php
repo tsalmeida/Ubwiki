@@ -502,7 +502,6 @@
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "<p>O conteúdo de seu perfil é visível em sua página pública, que outros usuários verão ao clicar em seu apelido. Seu apelido somente é visível como identificação de suas atividades públicas na Ubwiki.";
 
-	error_log("SELECT id FROM Textos WHERE tipo = 'verbete_user' AND user_id = $user_id");
 	$perfis_publicos = $conn->query("SELECT id FROM Textos WHERE tipo = 'verbete_user' AND user_id = $user_id");
 	if ($perfis_publicos->num_rows > 0) {
 		while ($perfil_publico = $perfis_publicos->fetch_assoc()) {
