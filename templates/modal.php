@@ -28,15 +28,16 @@
         <div class='modal-content'>";
 	if ($template_modal_show_buttons == true) {
 	echo "
-            <form id='$template_modal_form_id' method='post' $template_modal_enctype>";
+          <form id='$template_modal_form_id' method='post' $template_modal_enctype>";
 	}
-	echo "              <div class='modal-header text-center'>
-                    <h2 class='h2-responsive modal-title w-100' > $template_modal_titulo </h2>
-                    <button type='button' class='close' data-dismiss='modal'>
-                        <i class='fal fa-times-circle' ></i>
-                    </button >
-                </div>
-                <div class='modal-body mx-3'>
+			echo "
+          <div class='modal-header justify-content-around'>
+	            <h2 class='h2-responsive modal-title w-100' > $template_modal_titulo </h2>
+	            <button type='button' class='close' data-dismiss='modal'>
+	                <i class='fal fa-times-circle' ></i>
+	            </button >
+          </div>
+          <div class='modal-body mx-3'>
   ";
 	echo "								$template_modal_body_conteudo
                 </div>

@@ -787,19 +787,19 @@
 		}
 		echo true;
 	}
-
-/*	if (isset($_POST['acrescentar_referencia_id'])) {
-		$acrescentar_referencia_id = $_POST['acrescentar_referencia_id'];
-		$acrescentar_referencia_info = return_etiqueta_info($acrescentar_referencia_id);
-		$acrescentar_referencia_tipo = $acrescentar_referencia_info[1];
-		$acrescentar_referencia_elemento_id = return_etiqueta_elemento_id($acrescentar_referencia_id);
-		if ($conn->query("INSERT INTO Acervo (user_id, etiqueta_id, etiqueta_tipo, elemento_id) VALUES ($user_id, $acrescentar_referencia_id, '$acrescentar_referencia_tipo', $acrescentar_referencia_elemento_id)") === true) {
-			echo true;
-		} else {
-			echo false;
-		}
-	}*/
-
+	
+	/*	if (isset($_POST['acrescentar_referencia_id'])) {
+			$acrescentar_referencia_id = $_POST['acrescentar_referencia_id'];
+			$acrescentar_referencia_info = return_etiqueta_info($acrescentar_referencia_id);
+			$acrescentar_referencia_tipo = $acrescentar_referencia_info[1];
+			$acrescentar_referencia_elemento_id = return_etiqueta_elemento_id($acrescentar_referencia_id);
+			if ($conn->query("INSERT INTO Acervo (user_id, etiqueta_id, etiqueta_tipo, elemento_id) VALUES ($user_id, $acrescentar_referencia_id, '$acrescentar_referencia_tipo', $acrescentar_referencia_elemento_id)") === true) {
+				echo true;
+			} else {
+				echo false;
+			}
+		}*/
+	
 	function return_etiqueta_elemento_id($etiqueta_id)
 	{
 		include 'templates/criar_conn.php';
@@ -1124,21 +1124,71 @@
 		}
 		return array($fa_icone, $fa_primary_color);
 	}
-
-	function update_etiqueta_elemento($elemento_id) {
+	
+	function update_etiqueta_elemento($elemento_id, $user_id)
+	{
 		include 'templates/criar_conn.php';
 		$elementos = $conn->query("SELECT etiqueta_id, autor_etiqueta_id, tipo, titulo, autor FROM Elementos WHERE id = $elemento_id");
 		if ($elementos->num_rows > 0) {
 			while ($elemento = $elementos->fetch_assoc()) {
 				$elemento_etiqueta_id = $elemento['etiqueta_id'];
 				$elemento_autor_etiqueta_id = $elemento['autor_etiqueta_id'];
-				$elemento_tipo = $elemento['tipo'];
 				$elemento_titulo = $elemento['titulo'];
 				$elemento_autor = $elemento['autor'];
-				$autores = $conn->query("SELECT id FROM Etiquetas WHERE autor = '$elemento_autor_etiqueta_id'");
+				if ($elemento_autor != false) {
+					$elemento_etiqueta_novo_titulo = "$elemento_titulo / $elemento_autor";
+					if ($elemento_autor_etiqueta_id != false) {
+						$autores = $conn->query("SELECT id FROM Etiquetas WHERE id = $elemento_autor_etiqueta_id AND titulo = '$elemento_autor'");
+						if ($autores->num_rows == 0) {
+							if ($conn->query("INSERT INTO Etiquetas (tipo, titulo, user_id) VALUES ('autor', '$elemento_autor', $user_id)") === true) {
+								$novo_autor_id = $conn->insert_id;
+								$conn->query("UPDATE Elementos SET autor_etiqueta_id = $novo_autor_id WHERE id = $elemento_id");
+							}
+						}
+					}
+					else {
+						if ($conn->query("INSERT INTO Etiquetas (tipo, titulo, user_id) VALUES ('autor', '$elemento_autor', $user_id)") === true) {
+							$novo_autor_id = $conn->insert_id;
+							$conn->query("UPDATE Elementos SET autor_etiqueta_id = $novo_autor_id WHERE id = $elemento_id");
+						}
+					}
+				} else {
+					$elemento_etiqueta_novo_titulo = $elemento_titulo;
+				}
+				$conn->query("UPDATE Etiquetas SET titulo = '$elemento_etiqueta_novo_titulo' WHERE id = $elemento_etiqueta_id");
+				
 			}
 		}
 	}
 	
-	
+	function return_elemento_info($elemento_id)
+	{
+		include 'templates/criar_conn.php';
+		$elementos = $conn->query("SELECT estado, etiqueta_id, criacao, tipo, titulo, autor, autor_etiqueta_id, capitulo, ano, link, iframe, arquivo, resolucao, orientacao, comentario, trecho, user_id FROM Elementos WHERE id = $elemento_id");
+		if ($elementos->num_rows > 0) {
+			while ($elemento = $elementos->fetch_assoc()) {
+				$elemento_estado = $elemento['estado']; // 0
+				$elemento_etiqueta_id = $elemento['etiqueta_id']; // 1
+				$elemento_criacao = $elemento['criacao']; // 2
+				$elemento_tipo = $elemento['tipo']; // 3
+				$elemento_titulo = $elemento['titulo']; // 4
+				$elemento_autor = $elemento['autor']; // 5
+				$elemento_autor_etiqueta_id = $elemento['autor_etiqueta_id']; // 6
+				$elemento_capitulo = $elemento['capitulo']; // 7
+				$elemento_ano = $elemento['ano']; // 8
+				$elemento_link = $elemento['link']; // 9
+				$elemento_iframe = $elemento['iframe']; // 10
+				$elemento_arquivo = $elemento['arquivo']; // 11
+				$elemento_resolucao = $elemento['resolucao']; // 12
+				$elemento_orientacao = $elemento['orientacao']; // 13
+				$elemento_comentario = $elemento['comentario']; // 14
+				$elemento_trecho = $elemento['trecho']; // 15
+				$elemento_user_id = $elemento['user_id']; // 16
+				$result = array($elemento_estado, $elemento_etiqueta_id, $elemento_criacao, $elemento_tipo, $elemento_titulo, $elemento_autor, $elemento_autor_etiqueta_id, $elemento_capitulo, $elemento_ano, $elemento_ano, $elemento_link, $elemento_iframe, $elemento_arquivo, $elemento_resolucao, $elemento_orientacao, $elemento_comentario, $elemento_trecho, $elemento_user_id);
+				return $result;
+			}
+		}
+		return false;
+	}
+
 ?>
