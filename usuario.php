@@ -202,13 +202,14 @@
 								$acervo_item_etiqueta_id = $acervo_item['etiqueta_id'];
 								$acervo_item_etiqueta_tipo = $acervo_item['etiqueta_tipo'];
 								$acervo_item_elemento_id = $acervo_item['elemento_id'];
-								$acervo_item_info = return_etiqueta_info($acervo_item_etiqueta_id);
-								$acervo_item_tipo = $acervo_item_info[1];
-								$acervo_item_titulo = $acervo_item_info[2];
+								$acervo_item_elemento_info = return_elemento_info($acervo_item_elemento_id);
+								$acervo_item_elemento_titulo = $acervo_item_elemento_info[4];
+								$acervo_item_elemento_autor = $acervo_item_elemento_info[5];
 								
 								$artefato_id = $acervo_item_etiqueta_id;
 								$artefato_page_id = $acervo_item_elemento_id;
-								$artefato_titulo = $acervo_item_titulo;
+								$artefato_titulo = $acervo_item_elemento_titulo;
+								$artefato_subtitulo = $acervo_item_elemento_autor;
 								$artefato_criacao = $acervo_item_criacao;
 								$artefato_criacao = "Adicionado em $artefato_criacao";
 								$artefato_tipo = $acervo_item_etiqueta_tipo;
