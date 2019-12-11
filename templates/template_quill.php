@@ -104,7 +104,7 @@
 		$novo_verbete_content = $_POST[$quill_novo_verbete_content];
 		$quill_verbete_content = $novo_verbete_content;
 		$novo_verbete_content = mysqli_real_escape_string($conn, $novo_verbete_content);
-		$novo_verbete_html = strip_tags($novo_verbete_html, '<p><li><ul><ol><h2><h3><blockquote><em><sup><img><u><b><a>');
+		$novo_verbete_html = strip_tags($novo_verbete_html, '<p><li><ul><ol><h2><h3><blockquote><em><sup><img><u><b><a><s>');
 		if ($template_quill_public == true) {
 			$result = $conn->query("SELECT id FROM Textos WHERE page_id = $template_quill_page_id AND tipo = '$template_id'");
 		} else {
