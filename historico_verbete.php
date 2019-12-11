@@ -17,7 +17,14 @@
 	$texto_titulo = $texto_info[2];
 	$texto_tipo = $texto_info[1];
 	$texto_page_id = $texto_info[3];
-
+	$texto_user_id = $texto_info[8];
+ 
+	if ((strpos($texto_tipo, 'anotac') !== false) || ($texto_tipo == 'verbete_user')) {
+	   if ($texto_user_id != $user_id) {
+	   	  header('Location:index.php');
+	   }
+    }
+	
 	// HTML HEAD HTML HEAD HTML HEAD HTML HEAD HTML HEAD HTML HEAD HTML HEAD HTML HTML HEAD HTML HEAD HTML HEAD
  
 	$html_head_template_conteudo = "

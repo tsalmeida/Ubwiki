@@ -61,10 +61,10 @@
 <div id='$template_id' class='row show mb-2 border-top border-light pt-4 $template_classes'>
 	<div class='col'>
     <div class='row d-flex justify-content-between'>
-      <div class='col-lg-9 col-md-8'>
+      <div class='col-lg-8 col-md-8'>
         <$template_titulo_heading class='{$template_titulo_heading}-responsive'>$template_titulo</$template_titulo_heading>
       </div>
-      <div class='col-lg-3 d-flex justify-content-end'>
+      <div class='col-lg-4 d-flex justify-content-end'>
 	        <span class='h5'>
 	            $template_botoes
 	            $template_botoes_padrao

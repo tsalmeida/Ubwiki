@@ -3,7 +3,7 @@
 	include 'engine.php';
 	
 	if (isset($_POST['trigger_atualizacao'])) {
-        $conn->query("$conn->query(ALTER TABLE `textos_arquivo` ADD `concurso_id` INT(11) NULL DEFAULT NULL AFTER `id`;)");
+        $conn->query("ALTER TABLE `textos_arquivo` ADD `concurso_id` INT(11) NULL DEFAULT NULL AFTER `id`;");
 	}
 	
 	if (isset($_POST['funcoes_gerais'])) {

@@ -80,6 +80,7 @@
 			$result = $conn->query("SELECT verbete_content, id FROM Textos WHERE page_id = $template_quill_page_id AND tipo = '$template_id' AND user_id = $user_id");
 		}
 	}
+	$quill_texto_id = false;
 	$quill_verbete_content = false; // o conteúdo final, é determinado ao final ou permanece vazio.
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
@@ -125,6 +126,12 @@
 	
 	if ($quill_verbete_content == false) {
 		$quill_result .= $template_quill_empty_content;
+	}
+	if ($quill_texto_id != false) {
+		$template_botoes .= "
+			<a href='historico_verbete.php?texto_id=$quill_texto_id' target='_blank'><i class='fal fa-history fa-fw'></i></a>
+			<a href='edicao_textos.php?texto_id=$quill_texto_id' target='_blank'><i class='fal fa-external-link-square fa-fw'></i></a>
+		";
 	}
 	
 	if ($template_quill_meta_tipo == 'anotacoes') {
@@ -284,5 +291,6 @@
 	unset($verbete_exists);
 	unset($template_quill_meta_tipo);
 	unset($template_quill_pagina_de_edicao);
+	unset($quill_texto_id);
 	
 	return $quill_result;
