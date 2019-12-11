@@ -3,7 +3,6 @@
 	include 'engine.php';
 	
 	if (isset($_POST['trigger_atualizacao'])) {
-        $conn->query("ALTER TABLE `textos_arquivo` ADD `concurso_id` INT(11) NULL DEFAULT NULL AFTER `id`;");
 	}
 	
 	if (isset($_POST['funcoes_gerais'])) {
@@ -29,33 +28,7 @@
 	}
 	
 	if (isset($_POST['funcoes_gerais3'])) {
-	    $textos = $conn->query("SELECT id, page_id FROM Textos WHERE concurso_id IS NULL AND tipo = 'verbete'");
-	    if ($textos->num_rows > 0) {
-	        while ($texto = $textos->fetch_assoc()) {
-	        	$texto_id = $texto['id'];
-	        	$texto_page_id = $texto['page_id'];
-	        	$topico_concurso_id = return_concurso_id_topico($texto_page_id);
-	        	$conn->query("UPDATE Textos SET concurso_id = $topico_concurso_id WHERE id = $texto_id");
-	        }
-        }
-		$textos = $conn->query("SELECT id, page_id FROM Textos WHERE concurso_id IS NULL AND tipo = 'verbete_materia'");
-		if ($textos->num_rows > 0) {
-			while ($texto = $textos->fetch_assoc()) {
-				$texto_id = $texto['id'];
-				$texto_page_id = $texto['page_id'];
-				$topico_concurso_id = return_concurso_id_materia($texto_page_id);
-				$conn->query("UPDATE Textos SET concurso_id = $topico_concurso_id WHERE id = $texto_id");
-			}
-		}
-		$textos = $conn->query("SELECT id, page_id FROM Textos WHERE tipo ='verbete'");
-		if ($textos->num_rows > 0) {
-		    while ($texto = $textos->fetch_assoc()) {
-		        $texto_id = $texto['id'];
-		    	$texto_page_id = $texto['page_id'];
-		    	$texto_topico_titulo = return_titulo_topico($texto_page_id);
-		    	$conn->query("UPDATE Textos SET titulo = '$texto_topico_titulo' WHERE id = $texto_id");
-		    }
-        }
+
 	}
 	
 	if (isset($_POST['reconstruir_busca'])) {
