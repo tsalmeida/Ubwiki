@@ -46,8 +46,8 @@
 	if (!isset($template_botoes_padrao)) {
 		if ($template_conteudo != false) {
 			$template_botoes_padrao = "
-									<span id='$template_esconder' class='$template_collapse collapse $show' data-toggle='collapse' data-target='.$template_collapse' title='esconder'><a href='javascript:void(0);'><i class='fal fa-chevron-square-up fa-fw'></i></a></span>
-									<span id='$template_mostrar' class='$template_collapse collapse $hide' data-toggle='collapse' data-target='.$template_collapse' title='mostrar'><a href='javascript:void(0);' class='text-muted'><i class='fas fa-chevron-square-down fa-fw'></i></a></span>";
+					<span id='$template_esconder' class='$template_collapse collapse $show' data-toggle='collapse' data-target='.$template_collapse' title='esconder'><a href='javascript:void(0);'><i class='fal fa-chevron-square-up fa-fw'></i></a></span>
+					<span id='$template_mostrar' class='$template_collapse collapse $hide' data-toggle='collapse' data-target='.$template_collapse' title='mostrar'><a href='javascript:void(0);' class='text-muted'><i class='fas fa-chevron-square-down fa-fw'></i></a></span>";
 		} else {
 			$template_botoes_padrao = false;
 		}
@@ -67,7 +67,9 @@
       </span>
     </div>
     <div class='row d-flex justify-content-start'>
+    	<div class='col'>
         <$template_titulo_heading class='{$template_titulo_heading}-responsive'>$template_titulo</$template_titulo_heading>
+    	</div>
     </div>
     <div class='row $template_collapse collapse $show $template_conteudo_class'>
     	$template_conteudo_no_col1
