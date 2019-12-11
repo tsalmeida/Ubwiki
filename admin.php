@@ -3,7 +3,7 @@
 	include 'engine.php';
 	
 	if (isset($_POST['trigger_atualizacao'])) {
- 
+        $conn->query("$conn->query(ALTER TABLE `textos_arquivo` ADD `concurso_id` INT(11) NULL DEFAULT NULL AFTER `id`;)");
 	}
 	
 	if (isset($_POST['funcoes_gerais'])) {
@@ -48,10 +48,12 @@
 			}
 		}
 		$textos = $conn->query("SELECT id, page_id FROM Textos WHERE tipo ='verbete'");
-		if ($topicos->num_rows > 0) {
-		    while ($topico = $topicos->fetch_assoc()) {
-		    	$topico_page_id = $topico['id'];
-		    	$topico_titulo = return_titulo_topico($texto_page_id)
+		if ($textos->num_rows > 0) {
+		    while ($texto = $textos->fetch_assoc()) {
+		        $texto_id = $texto['id'];
+		    	$texto_page_id = $texto['page_id'];
+		    	$texto_topico_titulo = return_titulo_topico($texto_page_id);
+		    	$conn->query("UPDATE Textos SET titulo = '$texto_topico_titulo' WHERE id = $texto_id");
 		    }
         }
 	}

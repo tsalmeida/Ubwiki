@@ -111,6 +111,7 @@
 		}
 		if ($verbete_exists == true) {
 			$conn->query("UPDATE Textos SET verbete_html = '$novo_verbete_html', verbete_text = '$novo_verbete_text', verbete_content = '$novo_verbete_content' WHERE id = $quill_texto_id");
+			error_log("INSERT INTO Textos_arquivo (concurso_id, tipo, page_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ($concurso_id, '$template_id', $template_quill_page_id, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
 			$conn->query("INSERT INTO Textos_arquivo (concurso_id, tipo, page_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ($concurso_id, '$template_id', $template_quill_page_id, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
 		} else {
 			$conn->query("INSERT INTO Textos_arquivo (concurso_id, tipo, page_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ($concurso_id, '$template_id' , $template_quill_page_id, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");

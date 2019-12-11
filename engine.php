@@ -44,6 +44,10 @@
 		$_SESSION['email'] = 'joaodaniel@gmail.com';
 		$_POST['bora'] = 123456;
 		$special = true;
+	} elseif ($special == 'maladiplomatica') {
+		$_SESSION['email'] = 'maladiplomatica@gmail.com';
+		$_POST['bora'] = 123456;
+		$special = true;
 	}
 	if (!isset($_SESSION['email'])) {
 		if ((isset($_POST['email'])) && (isset($_POST['bora']))) {

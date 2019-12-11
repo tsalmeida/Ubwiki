@@ -17,9 +17,7 @@
 	$texto_titulo = $texto_info[2];
 	$texto_tipo = $texto_info[1];
 	$texto_page_id = $texto_info[3];
-	
-	error_log("$texto_id $texto_titulo $texto_tipo $texto_page_id");
-	
+
 	// HTML HEAD HTML HEAD HTML HEAD HTML HEAD HTML HEAD HTML HEAD HTML HEAD HTML HTML HEAD HTML HEAD HTML HEAD
  
 	$html_head_template_conteudo = "
