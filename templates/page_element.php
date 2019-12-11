@@ -1,5 +1,5 @@
 <?php
-
+	
 	if (!isset($template_id)) {
 		$template_id = false;
 	}
@@ -21,20 +21,20 @@
 	if (!isset($template_classes)) {
 		$template_classes = false;
 	}
-
+	
 	$template_conteudo_no_col1 = false;
 	$template_conteudo_no_col2 = false;
-
+	
 	if (!isset($template_conteudo_no_col)) {
 		$template_conteudo_no_col = false;
 		$template_conteudo_no_col1 = "<div class='col'>";
 		$template_conteudo_no_col2 = "</div>";
 	}
-
+	
 	$template_collapse = $template_id . "_collapse";
 	$template_esconder = "esconder_" . $template_id;
 	$template_mostrar = "mostrar_" . $template_id;
-
+	
 	$show = false;
 	$hide = false;
 	if ($template_load_invisible == false) {
@@ -42,7 +42,7 @@
 	} else {
 		$hide = 'show';
 	}
-
+	
 	if (!isset($template_botoes_padrao)) {
 		if ($template_conteudo != false) {
 			$template_botoes_padrao = "
@@ -52,26 +52,23 @@
 			$template_botoes_padrao = false;
 		}
 	}
-
+	
 	if (!isset($template_titulo_heading)) {
 		$template_titulo_heading = 'h1';
 	}
-
+	
 	echo "
-<div id='$template_id' class='row show mb-2 border-top border-light pt-4 $template_classes'>
+<div id='$template_id' class='row show mb-2 border-top border-light pt-1 $template_classes'>
 	<div class='col'>
-    <div class='row d-flex justify-content-between'>
-      <div class='col-lg-8 col-md-8'>
-        <$template_titulo_heading class='{$template_titulo_heading}-responsive'>$template_titulo</$template_titulo_heading>
-      </div>
-      <div class='col-lg-4 d-flex justify-content-end'>
-	        <span class='h5'>
-	            $template_botoes
-	            $template_botoes_padrao
-	        </span>
-      </div>
+    <div class='row d-flex justify-content-end'>
+      <span class='h5 mb-0'>
+          $template_botoes
+          $template_botoes_padrao
+      </span>
     </div>
-        
+    <div class='row d-flex justify-content-start'>
+        <$template_titulo_heading class='{$template_titulo_heading}-responsive'>$template_titulo</$template_titulo_heading>
+    </div>
     <div class='row $template_collapse collapse $show $template_conteudo_class'>
     	$template_conteudo_no_col1
       	$template_conteudo
@@ -90,7 +87,7 @@
  		});
 </script>
 ";
-
+	
 	unset($template_id);
 	unset($template_titulo);
 	unset($template_botoes);
