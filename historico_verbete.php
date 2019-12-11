@@ -18,11 +18,14 @@
 	$texto_tipo = $texto_info[1];
 	$texto_page_id = $texto_info[3];
 	$texto_user_id = $texto_info[8];
- 
+
 	if ((strpos($texto_tipo, 'anotac') !== false) || ($texto_tipo == 'verbete_user')) {
 	   if ($texto_user_id != $user_id) {
 	   	  header('Location:index.php');
 	   }
+	   $texto_restrito = true;
+    } else {
+	    $texto_restrito = false;
     }
 	
 	// HTML HEAD HTML HEAD HTML HEAD HTML HEAD HTML HEAD HTML HEAD HTML HEAD HTML HTML HEAD HTML HEAD HTML HEAD
@@ -58,8 +61,11 @@
 						$template_conteudo = false;
 						
 						$template_conteudo .= "<p>Para visualizar as mais recentes versões salvas deste texto, clique em um dos botões abaixo.</p>";
-						error_log("SELECT criacao, id, user_id FROM Textos_arquivo WHERE page_id = $texto_page_id AND tipo = '$texto_tipo' ORDER BY id DESC");
-						$result = $conn->query("SELECT criacao, id, user_id FROM Textos_arquivo WHERE page_id = $texto_page_id AND tipo = '$texto_tipo' ORDER BY id DESC");
+						if ($texto_restrito == false) {
+						    $result = $conn->query("SELECT criacao, id, user_id FROM Textos_arquivo WHERE page_id = $texto_page_id AND tipo = '$texto_tipo' ORDER BY id DESC");
+						} else {
+                            $result = $conn->query("SELECT criacao, id, user_id FROM Textos_arquivo WHERE page_id = $texto_page_id AND tipo = '$texto_tipo' AND user_id = $user_id ORDER BY id DESC");
+                        }
 						if ($result->num_rows > 0) {
 							$template_conteudo .= "<ul class='list-group'>";
 							$count = 0;
