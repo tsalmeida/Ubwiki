@@ -200,7 +200,6 @@
 		$concurso_id = base64_decode($_POST['sbconcurso']);
 		$command = base64_decode($_POST['sbcommand']);
 		$command = utf8_encode($command);
-		error_log($command);
 		$found = false;
 		$result = $conn->query("SELECT page_id, tipo FROM Searchbar WHERE concurso_id = $concurso_id AND chave = '$command' ORDER BY ordem");
 		if ($result->num_rows > 0) {
@@ -1186,6 +1185,40 @@
 				$elemento_user_id = $elemento['user_id']; // 16
 				$result = array($elemento_estado, $elemento_etiqueta_id, $elemento_criacao, $elemento_tipo, $elemento_titulo, $elemento_autor, $elemento_autor_etiqueta_id, $elemento_capitulo, $elemento_ano, $elemento_ano, $elemento_link, $elemento_iframe, $elemento_arquivo, $elemento_resolucao, $elemento_orientacao, $elemento_comentario, $elemento_trecho, $elemento_user_id);
 				return $result;
+			}
+		}
+		return false;
+	}
+	
+	function return_texto_info($texto_id) {
+		include 'templates/criar_conn.php';
+		if($texto_id == false) { return false; }
+		$textos = $conn->query("SELECT concurso_id, tipo, titulo, page_id, criacao, verbete_html, verbete_text, verbete_content, user_id FROM Textos WHERE id = $texto_id");
+		if ($textos->num_rows > 0) {
+			while ($texto = $textos->fetch_assoc()) {
+				$texto_concurso_id = $texto['concurso_id']; // 0
+				$texto_tipo = $texto['tipo']; // 1
+				$texto_titulo = $texto['titulo']; // 2
+				$texto_page_id = $texto['page_id']; // 3
+				$texto_criacao = $texto['criacao']; // 4
+				$texto_verbete_html = $texto['verbete_html']; // 5
+				$texto_verbete_text = $texto['verbete_text']; // 6
+				$texto_verbete_content = $texto['verbete_content']; // 7
+				$texto_user_id = $texto['user_id']; // 8
+				$texto_results = array($texto_concurso_id, $texto_tipo, $texto_titulo, $texto_page_id, $texto_criacao, $texto_verbete_html, $texto_verbete_text, $texto_verbete_content, $texto_user_id);
+				return $texto_results;
+			}
+		}
+		return false;
+	}
+	
+	function return_text_id($concurso_id, $topico_id) {
+		include 'templates/criar_conn.php';
+		$textos = $conn->query("SELECT id FROM Textos WHERE concurso_id = $concurso_id AND page_id = $topico_id");
+		if ($textos->num_rows > 0) {
+			while ($texto = $textos->fetch_assoc()) {
+				$texto_id = $texto['id'];
+				return $texto_id;
 			}
 		}
 		return false;

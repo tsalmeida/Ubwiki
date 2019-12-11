@@ -61,10 +61,19 @@
 					<i class='fal fa-tags fa-fw'></i>
 				</a>
 			</span>
+            <span>
+                <?php
+	                echo "
+                      <a href='historico_verbete.php?texto_id=$texto_id'>
+                        <i class='fal fa-history fa-fw'></i>
+                      </a>
+                    ";
+                ?>
+            </span>
             <!--<span id="compartilhar_anotacao" class="ml-1" title="Editar compartilhamento desta anotação"
                      data-toggle="modal" data-target="#modal_compartilhar_anotacao">
                 <a href="javascript:void(0);">
-                    <i class="fal fa-share-alt fa-fw"></i>
+                    <i class="fal fa-share-alt fa-2x fa-fw"></i>
                 </a>
             </span>!-->
         </div>
@@ -90,17 +99,17 @@
         </div>
     </div>
 	<?php
-        include 'templates/etiquetas_modal.php';
-        
-        $template_modal_div_id = 'modal_compartilhar_anotacao';
-        $template_modal_titulo = 'Compartilhamento';
-        $template_modal_body_conteudo = false;
-        $template_modal_body_conteudo .= "
+		include 'templates/etiquetas_modal.php';
+		
+		$template_modal_div_id = 'modal_compartilhar_anotacao';
+		$template_modal_titulo = 'Compartilhamento';
+		$template_modal_body_conteudo = false;
+		$template_modal_body_conteudo .= "
             <p>Compartilhar com outros usuários da Ubwiki</p>
             <p>Tornar anotação pública</p>
         ";
-        include 'templates/modal.php';
-        
+		include 'templates/modal.php';
+	
 	?>
 </div>
 

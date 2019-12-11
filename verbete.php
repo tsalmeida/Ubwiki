@@ -11,6 +11,8 @@
 	}
 	$concurso_sigla = return_concurso_sigla($concurso_id);
 
+	$texto_id = return_text_id($concurso_id, $topico_id);
+	
 	$nao_contar = false;
 
 	$result = $conn->query("SELECT estado_pagina, materia_id, nivel, ordem, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Topicos WHERE concurso_id = '$concurso_id' AND id = $topico_id");
@@ -489,7 +491,7 @@
 						$template_titulo = 'Verbete';
 						$template_quill_empty_content = "<p id='verbete_vazio_{$template_id}'>Seja o primeiro a contribuir para a construção deste verbete.</p>";
 						$template_botoes = "
-											    <a href='historico_verbete.php?topico_id=$topico_id' target='_blank'><i class='fal fa-history fa-fw'></i></a>
+											    <a href='historico_verbete.php?texto_id=$texto_id' target='_blank'><i class='fal fa-history fa-fw'></i></a>
 											";
 						$template_conteudo = include 'templates/template_quill.php';
 						include 'templates/page_element.php';

@@ -111,10 +111,10 @@
 		}
 		if ($verbete_exists == true) {
 			$conn->query("UPDATE Textos SET verbete_html = '$novo_verbete_html', verbete_text = '$novo_verbete_text', verbete_content = '$novo_verbete_content' WHERE id = $quill_texto_id");
-			$conn->query("INSERT INTO Textos_arquivo (tipo, page_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('$template_id', $template_quill_page_id, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
+			$conn->query("INSERT INTO Textos_arquivo (concurso_id, tipo, page_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ($concurso_id, '$template_id', $template_quill_page_id, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
 		} else {
-			$conn->query("INSERT INTO Textos_arquivo (tipo, page_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('$template_id' , $template_quill_page_id, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
-			$conn->query("INSERT INTO Textos (tipo, page_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('$template_id', $template_quill_page_id, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
+			$conn->query("INSERT INTO Textos_arquivo (concurso_id, tipo, page_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ($concurso_id, '$template_id' , $template_quill_page_id, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
+			$conn->query("INSERT INTO Textos (concurso_id, tipo, page_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ($concurso_id, '$template_id', $template_quill_page_id, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
 		}
 		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $template_quill_page_id, '$quill_visualizacoes_tipo')");
 		$nao_contar = true;

@@ -2,8 +2,8 @@
 	
 	include 'engine.php';
 	
-	if (isset($_GET['topico_id'])) {
-		$topico_id = $_GET['topico_id'];
+	if (isset($_GET['texto_id'])) {
+		$texto_id = $_GET['texto_id'];
 	}
 	
 	$visualizar_historico_id = false;
@@ -11,7 +11,14 @@
 		$visualizar_historico_id = $_POST['visualizar_historico'];
 	}
 	
-	$topico_titulo = return_titulo_topico($topico_id);
+	
+	$texto_info = return_texto_info($texto_id);
+	
+	$texto_titulo = $texto_info[2];
+	$texto_tipo = $texto_info[1];
+	$texto_page_id = $texto_info[3];
+	
+	error_log("$texto_id $texto_titulo $texto_tipo $texto_page_id");
 	
 	// HTML HEAD HTML HEAD HTML HEAD HTML HEAD HTML HEAD HTML HEAD HTML HEAD HTML HTML HEAD HTML HEAD HTML HEAD
  
@@ -34,7 +41,7 @@
 	<?php
 		$template_titulo_context = true;
 		$template_titulo_no_nav = true;
-		$template_titulo = "Histórico: $topico_titulo";
+		$template_titulo = "Histórico: $texto_titulo";
 		include 'templates/titulo.php';
 	?>
     <div class="row justify-content-around">
@@ -45,8 +52,9 @@
 						$template_botoes = false;
 						$template_conteudo = false;
 						
-						$template_conteudo .= "<p>Para visualizar as mais recentes versões salvas deste verbete, clique em um dos botões abaixo.</p>";
-						$result = $conn->query("SELECT criacao, id, user_id FROM Textos_arquivo WHERE page_id = $topico_id AND tipo = 'verbete' ORDER BY id DESC");
+						$template_conteudo .= "<p>Para visualizar as mais recentes versões salvas deste texto, clique em um dos botões abaixo.</p>";
+						error_log("SELECT criacao, id, user_id FROM Textos_arquivo WHERE page_id = $texto_page_id AND tipo = '$texto_tipo' ORDER BY id DESC");
+						$result = $conn->query("SELECT criacao, id, user_id FROM Textos_arquivo WHERE page_id = $texto_page_id AND tipo = '$texto_tipo' ORDER BY id DESC");
 						if ($result->num_rows > 0) {
 							$template_conteudo .= "<ul class='list-group'>";
 							$count = 0;

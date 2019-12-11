@@ -412,7 +412,7 @@
 <?php
 	
 	$template_modal_div_id = 'modal_verbetes';
-	$template_modal_titulo = 'Verbetes escritos';
+	$template_modal_titulo = 'Verbetes em que contribuiu';
 	$template_modal_body_conteudo = false;
 	if ($verbetes_escritos->num_rows > 0) {
 		$template_modal_body_conteudo .= "<ul class='list-group'>";
