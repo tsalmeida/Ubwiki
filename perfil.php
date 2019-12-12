@@ -41,7 +41,7 @@
         <div id="coluna_esquerda" class="<?php echo $coluna_classes; ?>">
 					<?php
 						$template_id = 'perfil_publico';
-						$template_titulo = 'Perfil público';
+						$template_titulo = 'Apresentação';
 						$template_conteudo = false;
 						if ($pub_user_id == false) {
 							$template_conteudo .= "<p>Usuário não encontrado.</p>";

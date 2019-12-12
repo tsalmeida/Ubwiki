@@ -1106,6 +1106,9 @@
 		} elseif ($artefato_tipo == 'novo_simulado') {
 			$fa_icone = $fa_icone_plus;
 			$fa_primary_color = 'text-secondary';
+		} elseif ($artefato_tipo == 'adicionar_simulado') {
+			$fa_icone = 'fa-plus-octagon';
+			$fa_primary_color = 'text-secondary';
 		} elseif ($artefato_tipo == 'referencia') {
 			$fa_icone = 'fa-book';
 			$fa_primary_color = 'text-success';

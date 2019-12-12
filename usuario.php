@@ -13,7 +13,12 @@
 			$user_sobrenome = $row['sobrenome'];
 		}
 	}
-	
+
+	if (isset($_POST['novo_simulado_trigger'])) {
+		$novo_simulado_tipo = $_POST['novo_simulado_tipo'];
+		header("Location:simulado.php?simulado_tipo=$novo_simulado_tipo");
+	}
+
 	if (isset($_POST['novo_nome'])) {
 		$user_nome = $_POST['novo_nome'];
 		$user_sobrenome = $_POST['novo_sobrenome'];
@@ -75,7 +80,7 @@
 	include 'templates/html_head.php';
 	
 	$conn->query("INSERT INTO Visualizacoes (user_id, tipo_pagina) VALUES ($user_id, 'userpage')");
-	
+
 	$bookmarks = $conn->query("SELECT DISTINCT topico_id FROM Bookmarks WHERE user_id = $user_id AND topico_id IS NOT NULL AND bookmark = 1 AND active = 1 ORDER BY id DESC");
 	$bookmarks_elementos = $conn->query("SELECT elemento_id FROM Bookmarks WHERE user_id = $user_id AND bookmark = 1 AND elemento_id IS NOT NULL AND active = 1 ORDER BY id DESC");
 	$comentarios = $conn->query("SELECT DISTINCT page_id, page_tipo FROM Forum WHERE user_id = $user_id");
@@ -103,11 +108,11 @@
 				
 				echo "
                     <div class='row' class='justify-content-center'>
-                      <a id='mostrar_textos' href='javascript:void(0);' class='p-2 rounded text-primary artefato' title='Pressione para ver seus textos e notas privadas'><i class='fad fa-typewriter fa-4x fa-fw'></i></a>
-                      <a id='mostrar_imagens' href='javascript:void(0);' class='p-2 rounded text-danger artefato' title='Pressione para ver suas imagens privadas e públicas'><i class='fad fa-images fa-4x fa-fw'></i></a>
-                      <a id='mostrar_acervo' href='javascript:void(0);' class='p-2 rounded text-success artefato' title='Pressione para ver seu acervo virtual'><i class='fad fa-books fa-4x fa-fw'></i></a>
-                      <a id='mostrar_tags' href='javascript:void(0);' class='p-2 rounded text-warning artefato' title='Pressione para ver suas áreas de interesse'><i class='fad fa-tags fa-4x fa-fw'></i></a>
-                      <a id='mostrar_simulados' href='javascript:void(0);' class='p-2 rounded text-secondary artefato' title='Pressione para ver seus simulados'><i class='fad fa-clipboard-list-check fa-4x fa-fw'></i></a>
+                      <a id='mostrar_textos' href='javascript:void(0);' class='p-2 rounded text-primary artefato' title='Pressione para ver seus textos e notas privadas'><i class='fad fa-typewriter fa-3x fa-fw'></i></a>
+                      <a id='mostrar_imagens' href='javascript:void(0);' class='p-2 rounded text-danger artefato' title='Pressione para ver suas imagens privadas e públicas'><i class='fad fa-images fa-3x fa-fw'></i></a>
+                      <a id='mostrar_acervo' href='javascript:void(0);' class='p-2 rounded text-success artefato' title='Pressione para ver seu acervo virtual'><i class='fad fa-books fa-3x fa-fw'></i></a>
+                      <a id='mostrar_tags' href='javascript:void(0);' class='p-2 rounded text-warning artefato' title='Pressione para ver suas áreas de interesse'><i class='fad fa-tags fa-3x fa-fw'></i></a>
+                      <a id='icone_simulados' href='javascript:void(0);' class='p-2 rounded text-secondary artefato' title='Pressione para ver seus simulados'><i class='fad fa-clipboard-list-check fa-3x fa-fw'></i></a>
                     </div>
                 ";
 				
@@ -184,7 +189,7 @@
 						}
 						include 'templates/page_element.php';
 						
-						$template_id = 'simulados';
+						$template_id = 'sessao_simulados';
 						$template_titulo = 'Simulados';
 						$template_classes = 'esconder_sessao';
 						$template_conteudo_class = 'justify-content-start';
@@ -193,19 +198,27 @@
 						
 						$artefato_id = 0;
 						$artefato_page_id = false;
-						$artefato_titulo = 'Novo simulado';
-						$artefato_criacao = 'Pressione para criar um novo simulado';
-						$artefato_tipo = 'novo_simulado';
+						$artefato_titulo = 'Lançar dados de simulados';
+						$artefato_criacao = 'Pressione para lançar dados de simulados';
+						$artefato_tipo = 'adicionar_simulado';
 						$artefato_link = 'simulados.php';
 						$template_conteudo .= include 'templates/artefato_item.php';
+
+                        $artefato_id = 0;
+                        $artefato_page_id = false;
+                        $artefato_titulo = 'Novo simulado';
+                        $artefato_criacao = 'Pressione para criar um novo simulado';
+                        $artefato_tipo = 'novo_simulado';
+                        $artefato_link = false;
+                        $template_conteudo .= include 'templates/artefato_item.php';
 						
-						$artefato_id = 0;
+/*						$artefato_id = 0;
 						$artefato_page_id = false;
 						$artefato_titulo = 'Novo curso';
 						$artefato_criacao = 'Pressione para criar um novo curso';
 						$artefato_tipo = 'novo_curso';
 						$artefato_link = false;
-						$template_conteudo .= include 'templates/artefato_item.php';
+						$template_conteudo .= include 'templates/artefato_item.php';*/
 						
 						include 'templates/page_element.php';
 						
@@ -668,6 +681,38 @@
 	$template_modal_titulo = 'Incluir área de interesse';
 	$etiquetas_carregar_remover = false;
 	include 'templates/etiquetas_modal.php';
+
+	$template_modal_div_id = 'modal_novo_simulado';
+	$template_modal_titulo = 'Gerar novo simulado';
+	$template_modal_show_buttons = false;
+	$template_modal_body_conteudo = false;
+	$template_modal_body_conteudo .= "
+	    <p>Fazer simulados é muito importante, mas é necessário algum cuidado para que realmente ajude a trazer você mais próximo de seus objetivos. Fazer provas é uma habilidade que pode e deve ser desenvolvida pela prática, esse é seu objetivo principal ao fazer simulados, e não necessariamente o aprendizado do conteúdo.</p>
+	    <p>Somente recomendamos que você comece a fazer simulados após haver estudado todo o conteúdo do seu concurso pelo menos uma vez, mesmo que em um primeiro nível introdutório e superficial.</p>
+	";
+
+	$template_modal_body_conteudo .= "
+        <form method='post'>
+        <select class='$select_classes' name='novo_simulado_tipo' required>
+              <option value='' disabled selected>Tipo:</option>
+              <option value='todas_objetivas_oficiais'>Todas as questões objetivas oficiais</option>
+              <option value='todas_dissertativas_oficiais'>Todas as questões dissertativas oficiais</option>
+              <option value='todas_dissertativas_nao_oficiais'>Todas as questões dissertativas não-oficiais</option>
+              <option value='todas_objetivas_inoficiais' disabled>Todas as questões objetivas não-oficiais</option>
+              <option value='inteligente' disabled>Criado por nosso algoritmo</option>
+              <option value='questao_errou' disabled>Apenas questões em que você errou pelo menos um item</option>
+              <option value='itens_errou' disabled>Apenas itens que você errou no passado</option>
+              <option value='questoes_estudados' disabled>Apenas questões de tópicos que você marcou como estudados</option>
+            </select>
+    ";
+	$template_modal_body_conteudo .= "
+        <div class='row justify-content-center'>
+            <button name='novo_simulado_trigger' class='$button_classes'>Gerar simulado</button>
+        </div>
+        </form>
+    ";
+	include 'templates/modal.php';
+
 
 ?>
 

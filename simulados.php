@@ -119,7 +119,11 @@
 		}
 		$nova_questao_prova_info = return_info_prova_id($nova_questao_prova);
 		$nova_questao_edicao_ano = $nova_questao_prova_info[2];
-		$nova_questao_etapa_id = $nova_questao_prova_info[4];
+		if ($nova_questao_edicao_ano == false) {
+		    $nova_questao_edicao_ano = "NULL";
+        }
+		$nova_questao_etapa_id = (int) $nova_questao_prova_info[4];
+
 		if (isset($_POST['nova_questao_numero'])) {
 			$nova_questao_numero = $_POST['nova_questao_numero'];
 		} else {
@@ -298,13 +302,9 @@
 		} else {
 			$nova_questao_item5_gabarito = "NULL";
 		}
+		error_log("INSERT INTO sim_questoes (origem, concurso_id, edicao_ano, texto_apoio_id, etapa_id, prova_id, enunciado_html, enunciado_text, enunciado_content, numero, materia, tipo, item1_html, item1_text, item1_content, item2_html, item2_text, item2_content, item3_html, item3_text, item3_content, item4_html, item4_text, item4_content, item5_html, item5_text, item5_content, item1_gabarito, item2_gabarito, item3_gabarito, item4_gabarito, item5_gabarito, user_id) VALUES ($nova_questao_origem, $concurso_id, $nova_questao_edicao_ano, $nova_questao_texto_apoio, $nova_questao_etapa_id, $nova_questao_prova, '$quill_novo_questao_enunciado_html', '$quill_novo_questao_enunciado_text', '$quill_novo_questao_enunciado_content', $nova_questao_numero, $nova_questao_materia, $nova_questao_tipo, $quill_novo_questao_item1_html, $quill_novo_questao_item1_text, $quill_novo_questao_item1_content, $quill_novo_questao_item2_html, $quill_novo_questao_item2_text, $quill_novo_questao_item2_content, $quill_novo_questao_item3_html, $quill_novo_questao_item3_text, $quill_novo_questao_item3_content, $quill_novo_questao_item4_html, $quill_novo_questao_item4_text, $quill_novo_questao_item4_content, $quill_novo_questao_item5_html, $quill_novo_questao_item5_text, $quill_novo_questao_item5_content, $nova_questao_item1_gabarito, $nova_questao_item2_gabarito, $nova_questao_item3_gabarito, $nova_questao_item4_gabarito, $nova_questao_item5_gabarito, $user_id)");
 		$conn->query("INSERT INTO sim_questoes (origem, concurso_id, edicao_ano, texto_apoio_id, etapa_id, prova_id, enunciado_html, enunciado_text, enunciado_content, numero, materia, tipo, item1_html, item1_text, item1_content, item2_html, item2_text, item2_content, item3_html, item3_text, item3_content, item4_html, item4_text, item4_content, item5_html, item5_text, item5_content, item1_gabarito, item2_gabarito, item3_gabarito, item4_gabarito, item5_gabarito, user_id) VALUES ($nova_questao_origem, $concurso_id, $nova_questao_edicao_ano, $nova_questao_texto_apoio, $nova_questao_etapa_id, $nova_questao_prova, '$quill_novo_questao_enunciado_html', '$quill_novo_questao_enunciado_text', '$quill_novo_questao_enunciado_content', $nova_questao_numero, $nova_questao_materia, $nova_questao_tipo, $quill_novo_questao_item1_html, $quill_novo_questao_item1_text, $quill_novo_questao_item1_content, $quill_novo_questao_item2_html, $quill_novo_questao_item2_text, $quill_novo_questao_item2_content, $quill_novo_questao_item3_html, $quill_novo_questao_item3_text, $quill_novo_questao_item3_content, $quill_novo_questao_item4_html, $quill_novo_questao_item4_text, $quill_novo_questao_item4_content, $quill_novo_questao_item5_html, $quill_novo_questao_item5_text, $quill_novo_questao_item5_content, $nova_questao_item1_gabarito, $nova_questao_item2_gabarito, $nova_questao_item3_gabarito, $nova_questao_item4_gabarito, $nova_questao_item5_gabarito, $user_id)");
 		$conn->query("INSERT INTO sim_questoes_arquivo (origem, concurso_id, edicao_ano, texto_apoio_id, etapa_id, prova_id, enunciado_html, enunciado_text, enunciado_content, numero, materia, tipo, item1_html, item1_text, item1_content, item2_html, item2_text, item2_content, item3_html, item3_text, item3_content, item4_html, item4_text, item4_content, item5_html, item5_text, item5_content, item1_gabarito, item2_gabarito, item3_gabarito, item4_gabarito, item5_gabarito, user_id) VALUES ($nova_questao_origem, $concurso_id, $nova_questao_edicao_ano, $nova_questao_texto_apoio, $nova_questao_etapa_id, $nova_questao_prova, '$quill_novo_questao_enunciado_html', '$quill_novo_questao_enunciado_text', '$quill_novo_questao_enunciado_content', $nova_questao_numero, $nova_questao_materia, $nova_questao_tipo, $quill_novo_questao_item1_html, $quill_novo_questao_item1_text, $quill_novo_questao_item1_content, $quill_novo_questao_item2_html, $quill_novo_questao_item2_text, $quill_novo_questao_item2_content, $quill_novo_questao_item3_html, $quill_novo_questao_item3_text, $quill_novo_questao_item3_content, $quill_novo_questao_item4_html, $quill_novo_questao_item4_text, $quill_novo_questao_item4_content, $quill_novo_questao_item5_html, $quill_novo_questao_item5_text, $quill_novo_questao_item5_content, $nova_questao_item1_gabarito, $nova_questao_item2_gabarito, $nova_questao_item3_gabarito, $nova_questao_item4_gabarito, $nova_questao_item5_gabarito, $user_id)");
-	}
-	
-	if (isset($_POST['novo_simulado_trigger'])) {
-		$novo_simulado_tipo = $_POST['novo_simulado_tipo'];
-		header("Location:simulado.php?simulado_tipo=$novo_simulado_tipo");
 	}
 	
 	$edicoes = $conn->query("SELECT id, ano, titulo FROM sim_edicoes WHERE concurso_id = $concurso_id ORDER BY id DESC");
@@ -342,8 +342,8 @@
                                 <li>A etapa da edição</li>
                                 <li>A prova da etapa</li>
                             </ol>
-                            <p>Caso a questão possua um texto de apoio, será também necessário registrá-lo primeiro.</p>
-                            <p>É importante prestar atenção para que todos as questões não-oficiais sejam devidamente identificadas como tal. É possível criar textos de apoio não oficiais, mas também criar questões com os textos de apoio de edições passadas do concurso.</p>
+                            <p>Caso a questão possua um texto de apoio, será também necessário registrá-lo anteriormente.</p>
+                            <p>É importante prestar atenção para que todos as questões não-oficiais sejam devidamente identificadas como tal. É possível criar textos de apoio não oficiais, mas também criar questões não-oficiais com os textos de apoio de edições passadas do concurso.</p>
                             <p>Selecione a opção abaixo para acessar os sistemas que permitem acrescentar provas anteriores do concurso:</p>
                         ";
 								$template_conteudo .= "
@@ -368,37 +368,6 @@
 								
 								include 'templates/page_element.php';
 							
-							?>
-            </div>
-            <div id="coluna_direita" class="<?php echo $coluna_classes; ?>">
-							<?php
-								$template_id = 'gerar_simulado';
-								$template_titulo = 'Gerar simulado';
-								$template_conteudo = false;
-								$template_conteudo .= "
-						    <p>Fazer simulados é muito importante, mas é necessário algum cuidado para que realmente ajude a trazer você mais próximo de seus objetivos. Fazer provas é uma habilidade que pode e deve ser desenvolvida pela prática, esse é seu objetivo principal ao fazer simulados, e não necessariamente o aprendizado do conteúdo.</p>
-						    <p>Somente recomendamos que você comece a fazer simulados após haver estudado todo o conteúdo do seu concurso pelo menos uma vez, mesmo que em um primeiro nível introdutório e superficial.</p>
-						";
-								$template_conteudo .= "
-                            <form method='post'>
-                            <select class='$select_classes' name='novo_simulado_tipo' required>
-                                  <option value='' disabled selected>Tipo:</option>
-                                  <option value='todas_objetivas_oficiais'>Todas as questões objetivas oficiais</option>
-                                  <option value='todas_dissertativas_oficiais'>Todas as questões dissertativas oficiais</option>
-                                  <option value='todas_objetivas_inoficiais' disabled>Todas as questões objetivas não-oficiais</option>
-                                  <option value='inteligente' disabled>Criado por nosso algoritmo</option>
-                                  <option value='questao_errou' disabled>Apenas questões em que você errou pelo menos um item</option>
-                                  <option value='itens_errou' disabled>Apenas itens que você errou no passado</option>
-                                  <option value='questoes_estudados' disabled´>Apenas questões de tópicos que você marcou como estudados</option>
-                                </select>
-                        ";
-								$template_conteudo .= "
-						    <div class='row justify-content-center'>
-						        <button name='novo_simulado_trigger' class='$button_classes'>Gerar simulado</button>
-						    </div>
-						    </form>
-						";
-								include 'templates/page_element.php';
 							?>
             </div>
         </div>
