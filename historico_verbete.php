@@ -81,7 +81,7 @@
 								$template_conteudo .= "
                         <form method='post'>
                             <li class='list-group-item'>
-                                <button type='submit' value='$historico_verbete_id' name='visualizar_historico' class='btn btn-primary btn-sm'>Visualizar</button>
+                                <button type='submit' value='$historico_verbete_id' name='visualizar_historico' class='btn btn-primary btn-sm' title='Visite o escritório deste usuário'>Visualizar</button>
                                 $historico_verbete_criacao : <a href='perfil.php?pub_user_id=$historico_verbete_user_id' target='_blank'>$historico_verbete_user_apelido</a></li>
                         </form>
                       ";

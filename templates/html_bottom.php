@@ -303,6 +303,14 @@
 				$(document).on('click', '#icone_simulados', function() {
 				    $('.esconder_sessao').hide();
 				    $('#sessao_simulados').show();
+				    $('#sessao_plataforma_simulados').hide();
+				});
+				$(document).on('click', '#icone_simulados', function() {
+				    $('.esconder_sessao').hide();
+				    $('#sessao_simulados').show();
+				});
+				$(document).on('click', '#novo_adicionar_simulado', function() {
+				    $('#sessao_plataforma_simulados').show();
 				});
 				
 			</script>
