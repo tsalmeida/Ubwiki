@@ -20,7 +20,7 @@
 
 <div class="container-fluid">
 	<?php
-		$template_titulo = 'Alterar curso';
+		$template_titulo = 'Escolher curso';
 		$template_titulo_context = true;
 		$template_titulo_no_nav = true;
 		include 'templates/titulo.php';
@@ -29,7 +29,7 @@
         <div id="coluna_esquerda" class="col-lg-5 col-sm-12">
 					<?php
 						$template_id = 'selecao_curso';
-						$template_titulo = 'Selecione um curso';
+						$template_titulo = 'Selecione abaixo';
 						$template_botoes_padrao = false;
 						$template_conteudo = false;
 						$template_conteudo .= "<form method='post'>";

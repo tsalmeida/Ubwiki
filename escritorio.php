@@ -389,9 +389,7 @@
 	$comentarios = $conn->query("SELECT DISTINCT page_id, page_tipo FROM Forum WHERE user_id = $user_id");
 	$completados = $conn->query("SELECT topico_id FROM Completed WHERE user_id = $user_id AND estado = 1 AND active = 1");
 	$verbetes_escritos = $conn->query("SELECT DISTINCT page_id, tipo FROM Textos_arquivo WHERE user_id = $user_id AND (tipo = 'verbete' OR tipo = 'verbete_elemento') ORDER BY id DESC");
-	$visualizacoes = $conn->query("
-	    SELECT page_id, extra, tipo_pagina FROM (SELECT DISTINCT id, page_id, extra, tipo_pagina FROM Visualizacoes WHERE (tipo_pagina = 'elemento' OR tipo_pagina = 'topico') AND user_id = $user_id GROUP BY id) t ORDER BY id DESC
-	");
+	$visualizacoes = $conn->query("SELECT DISTINCT page_id, extra, tipo_pagina FROM (SELECT id, page_id, extra, tipo_pagina FROM Visualizacoes WHERE (tipo_pagina = 'elemento' OR tipo_pagina = 'topico') AND user_id = $user_id GROUP BY id) t ORDER BY id DESC");
 
 ?>
 <body>
