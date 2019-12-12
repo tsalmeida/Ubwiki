@@ -443,11 +443,11 @@
 	<?php
 		if ($user_apelido != false) {
 			$template_titulo = $user_apelido;
+			$template_titulo_escritorio = true;
 		} else {
-			$template_titulo = "Sua Página";
+			$template_titulo = "Seu escritório";
 		}
 		$template_titulo_context = true;
-		$template_titulo_escritorio = true;
 		include 'templates/titulo.php'
 	
 	?>
