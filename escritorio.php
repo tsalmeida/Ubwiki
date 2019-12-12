@@ -1,7 +1,7 @@
 <?php
-	
+
 	include 'engine.php';
-	
+
 	$dados_usuario = $conn->query("SELECT id, tipo, criacao, apelido, nome, sobrenome FROM Usuarios WHERE email = '$user_email'");
 	if ($dados_usuario->num_rows > 0) {
 		while ($row = $dados_usuario->fetch_assoc()) {
@@ -13,7 +13,7 @@
 			$user_sobrenome = $row['sobrenome'];
 		}
 	}
-	
+
 	if (isset($_POST['nova_edicao_trigger'])) {
 		if (isset($_POST['nova_edicao_ano'])) {
 			$nova_edicao_ano = $_POST['nova_edicao_ano'];
@@ -27,7 +27,7 @@
 			$conn->query("INSERT INTO sim_edicoes_arquivo (concurso_id, ano, titulo, user_id) VALUES ($concurso_id, $nova_edicao_ano, '$nova_edicao_titulo', $user_id)");
 		}
 	}
-	
+
 	if (isset($_POST['nova_etapa_trigger'])) {
 		if (isset($_POST['nova_etapa_titulo'])) {
 			$nova_etapa_titulo = $_POST['nova_etapa_titulo'];
@@ -41,7 +41,7 @@
 			$conn->query("INSERT INTO sim_etapas_arquivo (concurso_id, edicao_id, titulo, user_id) VALUES ($concurso_id, $nova_etapa_edicao, '$nova_etapa_titulo', $user_id)");
 		}
 	}
-	
+
 	if (isset($_POST['nova_prova_trigger'])) {
 		if (isset($_POST['nova_prova_etapa'])) {
 			$nova_prova_etapa = $_POST['nova_prova_etapa'];
@@ -58,7 +58,7 @@
 			$conn->query("INSERT INTO sim_provas_arquivo (concurso_id, etapa_id, titulo, tipo, user_id) VALUES ($concurso_id, $nova_prova_etapa, '$nova_prova_titulo', $nova_prova_tipo, $user_id)");
 		}
 	}
-	
+
 	if (isset($_POST['novo_texto_apoio_trigger'])) {
 		if (isset($_POST['novo_texto_apoio_origem'])) {
 			$novo_texto_apoio_origem = true;
@@ -78,7 +78,7 @@
 		$quill_novo_texto_apoio_html = false;
 		$quill_novo_texto_apoio_text = false;
 		$quill_novo_texto_apoio_content = false;
-		
+
 		if (isset($_POST['quill_novo_texto_apoio_enunciado_html'])) {
 			$novo_texto_apoio_enunciado_html = $_POST['quill_novo_texto_apoio_enunciado_html'];
 			$novo_texto_apoio_enunciado_html = mysqli_real_escape_string($conn, $novo_texto_apoio_enunciado_html);
@@ -95,18 +95,18 @@
 			$novo_texto_apoio_content = $_POST['quill_novo_texto_apoio_content'];
 			$novo_texto_apoio_content = mysqli_real_escape_string($conn, $novo_texto_apoio_content);
 		}
-		
+
 		if (($novo_texto_apoio_origem != false) && ($novo_texto_apoio_prova != false) && ($novo_texto_apoio_titulo != false) && ($novo_texto_apoio_enunciado_html != false) && ($novo_texto_apoio_html != false)) {
 			$conn->query("INSERT INTO sim_textos_apoio (concurso_id, origem, prova_id, titulo, enunciado_html, enunciado_text, enunciado_content, texto_apoio_html, texto_apoio_text, texto_apoio_content, user_id) VALUES ($concurso_id, $novo_texto_apoio_origem, $novo_texto_apoio_prova, '$novo_texto_apoio_titulo', '$novo_texto_apoio_enunciado_html', '$novo_texto_apoio_enunciado_text', '$novo_texto_apoio_enunciado_content', '$novo_texto_apoio_html', '$novo_texto_apoio_text', '$novo_texto_apoio_content', $user_id)");
 			$conn->query("INSERT INTO sim_textos_apoio_arquivo (concurso_id, origem, prova_id, titulo, enunciado_html, enunciado_text, enunciado_content, texto_apoio_html, texto_apoio_text, texto_apoio_content, user_id) VALUES ($concurso_id, $novo_texto_apoio_origem, $novo_texto_apoio_prova, '$novo_texto_apoio_titulo', '$novo_texto_apoio_enunciado_html', '$novo_texto_apoio_enunciado_text', '$novo_texto_apoio_enunciado_content', '$novo_texto_apoio_html', '$novo_texto_apoio_text', '$novo_texto_apoio_content', $user_id)");
 		}
 	}
-	
+
 	if (isset($_POST['nova_questao_trigger'])) {
 		if (isset($_POST['nova_questao_origem'])) {
 			$nova_questao_origem = true;
 		} else {
-			$nova_questao_origem = (int) false;
+			$nova_questao_origem = (int)false;
 		}
 		if (isset($_POST['nova_questao_texto_apoio'])) {
 			$nova_questao_texto_apoio = $_POST['nova_questao_texto_apoio'];
@@ -127,8 +127,8 @@
 		if ($nova_questao_edicao_ano == false) {
 			$nova_questao_edicao_ano = "NULL";
 		}
-		$nova_questao_etapa_id = (int) $nova_questao_prova_info[4];
-		
+		$nova_questao_etapa_id = (int)$nova_questao_prova_info[4];
+
 		if (isset($_POST['nova_questao_numero'])) {
 			$nova_questao_numero = $_POST['nova_questao_numero'];
 		} else {
@@ -184,7 +184,7 @@
 		$nova_questao_item3_gabarito = "NULL";
 		$nova_questao_item4_gabarito = "NULL";
 		$nova_questao_item5_gabarito = "NULL";
-		
+
 		// ITEM 1
 		if (isset($_POST['nova_questao_item1_gabarito'])) {
 			$nova_questao_item1_gabarito = $_POST['nova_questao_item1_gabarito'];
@@ -285,7 +285,7 @@
 			$quill_novo_questao_item5_text = "NULL";
 			$quill_novo_questao_item5_content = "NULL";
 		}
-		
+
 		// GABARITOS
 		if (isset($_POST['nova_questao_item2_gabarito'])) {
 			$nova_questao_item2_gabarito = $_POST['nova_questao_item2_gabarito'];
@@ -310,12 +310,12 @@
 		$conn->query("INSERT INTO sim_questoes (origem, concurso_id, edicao_ano, texto_apoio_id, etapa_id, prova_id, enunciado_html, enunciado_text, enunciado_content, numero, materia, tipo, item1_html, item1_text, item1_content, item2_html, item2_text, item2_content, item3_html, item3_text, item3_content, item4_html, item4_text, item4_content, item5_html, item5_text, item5_content, item1_gabarito, item2_gabarito, item3_gabarito, item4_gabarito, item5_gabarito, user_id) VALUES ($nova_questao_origem, $concurso_id, $nova_questao_edicao_ano, $nova_questao_texto_apoio, $nova_questao_etapa_id, $nova_questao_prova, '$quill_novo_questao_enunciado_html', '$quill_novo_questao_enunciado_text', '$quill_novo_questao_enunciado_content', $nova_questao_numero, $nova_questao_materia, $nova_questao_tipo, $quill_novo_questao_item1_html, $quill_novo_questao_item1_text, $quill_novo_questao_item1_content, $quill_novo_questao_item2_html, $quill_novo_questao_item2_text, $quill_novo_questao_item2_content, $quill_novo_questao_item3_html, $quill_novo_questao_item3_text, $quill_novo_questao_item3_content, $quill_novo_questao_item4_html, $quill_novo_questao_item4_text, $quill_novo_questao_item4_content, $quill_novo_questao_item5_html, $quill_novo_questao_item5_text, $quill_novo_questao_item5_content, $nova_questao_item1_gabarito, $nova_questao_item2_gabarito, $nova_questao_item3_gabarito, $nova_questao_item4_gabarito, $nova_questao_item5_gabarito, $user_id)");
 		$conn->query("INSERT INTO sim_questoes_arquivo (origem, concurso_id, edicao_ano, texto_apoio_id, etapa_id, prova_id, enunciado_html, enunciado_text, enunciado_content, numero, materia, tipo, item1_html, item1_text, item1_content, item2_html, item2_text, item2_content, item3_html, item3_text, item3_content, item4_html, item4_text, item4_content, item5_html, item5_text, item5_content, item1_gabarito, item2_gabarito, item3_gabarito, item4_gabarito, item5_gabarito, user_id) VALUES ($nova_questao_origem, $concurso_id, $nova_questao_edicao_ano, $nova_questao_texto_apoio, $nova_questao_etapa_id, $nova_questao_prova, '$quill_novo_questao_enunciado_html', '$quill_novo_questao_enunciado_text', '$quill_novo_questao_enunciado_content', $nova_questao_numero, $nova_questao_materia, $nova_questao_tipo, $quill_novo_questao_item1_html, $quill_novo_questao_item1_text, $quill_novo_questao_item1_content, $quill_novo_questao_item2_html, $quill_novo_questao_item2_text, $quill_novo_questao_item2_content, $quill_novo_questao_item3_html, $quill_novo_questao_item3_text, $quill_novo_questao_item3_content, $quill_novo_questao_item4_html, $quill_novo_questao_item4_text, $quill_novo_questao_item4_content, $quill_novo_questao_item5_html, $quill_novo_questao_item5_text, $quill_novo_questao_item5_content, $nova_questao_item1_gabarito, $nova_questao_item2_gabarito, $nova_questao_item3_gabarito, $nova_questao_item4_gabarito, $nova_questao_item5_gabarito, $user_id)");
 	}
-	
+
 	if (isset($_POST['novo_simulado_trigger'])) {
 		$novo_simulado_tipo = $_POST['novo_simulado_tipo'];
 		header("Location:simulado.php?simulado_tipo=$novo_simulado_tipo");
 	}
-	
+
 	if (isset($_POST['novo_nome'])) {
 		$user_nome = $_POST['novo_nome'];
 		$user_sobrenome = $_POST['novo_sobrenome'];
@@ -329,13 +329,13 @@
 			$opcao_texto_justificado_value = false;
 		}
 	}
-	
+
 	if (isset($_POST['nova_imagem_titulo'])) {
 		$nova_imagem_titulo = $_POST['nova_imagem_titulo'];
 		$nova_imagem_titulo = mysqli_real_escape_string($conn, $nova_imagem_titulo);
 		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, 0, 'nova_imagem_privada')");
 	}
-	
+
 	if ((isset($_POST['nova_imagem_link'])) && ($_POST['nova_imagem_link'] != false)) {
 		$nova_imagem_link = $_POST['nova_imagem_link'];
 		$nova_imagem_link = base64_encode($nova_imagem_link);
@@ -365,7 +365,7 @@
 			}
 		}
 	}
-	
+
 	$html_head_template_quill = true;
 	$html_head_template_conteudo = "
         <script type='text/javascript'>
@@ -373,12 +373,12 @@
           var user_email='$user_email';
         </script>
     ";
-	
+
 	$html_head_template_quill_sim = true;
 	include 'templates/html_head.php';
-	
+
 	$conn->query("INSERT INTO Visualizacoes (user_id, tipo_pagina) VALUES ($user_id, 'userpage')");
-	
+
 	$edicoes = $conn->query("SELECT id, ano, titulo FROM sim_edicoes WHERE concurso_id = $concurso_id ORDER BY id DESC");
 	$etapas = $conn->query("SELECT id, edicao_id, titulo FROM sim_etapas WHERE concurso_id = $concurso_id ORDER BY id DESC");
 	$provas = $conn->query("SELECT id, etapa_id, titulo, tipo FROM sim_provas WHERE concurso_id = $concurso_id ORDER BY id DESC");
@@ -389,6 +389,9 @@
 	$comentarios = $conn->query("SELECT DISTINCT page_id, page_tipo FROM Forum WHERE user_id = $user_id");
 	$completados = $conn->query("SELECT topico_id FROM Completed WHERE user_id = $user_id AND estado = 1 AND active = 1");
 	$verbetes_escritos = $conn->query("SELECT DISTINCT page_id, tipo FROM Textos_arquivo WHERE user_id = $user_id AND (tipo = 'verbete' OR tipo = 'verbete_elemento') ORDER BY id DESC");
+	$visualizacoes = $conn->query("
+	    SELECT page_id, extra, tipo_pagina FROM (SELECT DISTINCT id, page_id, extra, tipo_pagina FROM Visualizacoes WHERE (tipo_pagina = 'elemento' OR tipo_pagina = 'topico') AND user_id = $user_id GROUP BY id) t ORDER BY id DESC
+	");
 
 ?>
 <body>
@@ -398,9 +401,9 @@
 
 
 <div class='container-fluid'>
-    <div class='row justify-content-between px-2 pt-2'>
+    <div class='row justify-content-between px-2'>
 			<?php
-				echo "<div class='col-3'><div class='row justify-content-start'>";
+				echo "<div class='col-3 mt-3'><div class='row justify-content-start'>";
 				echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_opcoes' class='mr-1 text-info'><i class='fad fa-user-cog fa-2x fa-fw'></i></a>";
 				echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_apresentacao' class='ml-1 text-info'><i class='fad fa-file-signature fa-swap-opacity fa-2x fa-fw'></i></a>";
 				if ($user_tipo == 'admin') {
@@ -408,9 +411,10 @@
 				}
 				echo "</div></div>";
 				echo "<div class='col-6'><div class='row justify-content-center'>";
-				
+
 				echo "
                     <div class='row' class='justify-content-center'>
+                      <a id='escritorio_home' href='javascript:void(0);' class='p-2 rounded text-muted artefato' title='Retornar à página inicial'><i class='fad fa-lamp-desk fa-3x fa-fw'></i></a>
                       <a id='mostrar_textos' href='javascript:void(0);' class='p-2 rounded text-primary artefato' title='Pressione para ver seus textos e notas privadas'><i class='fad fa-typewriter fa-3x fa-fw'></i></a>
                       <a id='mostrar_imagens' href='javascript:void(0);' class='p-2 rounded text-danger artefato' title='Pressione para ver suas imagens privadas e públicas'><i class='fad fa-images fa-3x fa-fw'></i></a>
                       <a id='mostrar_acervo' href='javascript:void(0);' class='p-2 rounded text-success artefato' title='Pressione para ver seu acervo virtual'><i class='fad fa-books fa-3x fa-fw'></i></a>
@@ -418,9 +422,9 @@
                       <!--<a id='icone_simulados' href='javascript:void(0);' class='p-2 rounded text-secondary artefato' title='Pressione para ver seus simulados'><i class='fad fa-clipboard-list-check fa-3x fa-fw'></i></a>-->
                     </div>
                 ";
-				
+
 				echo "</div></div>";
-				echo "<div class='col-3'><div class='row justify-content-end'>";
+				echo "<div class='col-3 mt-3'><div class='row justify-content-end'>";
 				if ($comentarios->num_rows > 0) {
 					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_forum' class='ml-1 text-secondary'><i class='fad fa-comments-alt fa-2x fa-fw'></i></a>";
 				}
@@ -449,23 +453,67 @@
 		}
 		$template_titulo_context = true;
 		include 'templates/titulo.php'
-	
+
 	?>
     <div class="row d-flex justify-content-center">
 
         <div id="coluna_unica" class="col">
 					<?php
-						
+
 						$template_id = 'pagina_usuario_informacoes';
-						$template_titulo = 'Seus artefatos';
+						$template_titulo = 'Seu escritório';
 						$template_classes = 'esconder_sessao';
+						$template_conteudo_class = 'p-limit';
 						$template_conteudo = false;
 						$template_conteudo .= "
-			          <p class='p-limit'>Nesta página, você encontrará seus artefatos de estudo, organizados de acordo com seus interesses e objetivos. Quanto mais artefatos você criar, sejam itens em seu acervo virtual, anotações, imagens, indicações de progresso ou outras atividades desempenhadas, mais completos são seus estudos, mais você se aproxima de seus objetivos.</p>
-			          <p><strong>Pressione os botões acima para navegar.</strong></p>
-			        ";
+			                <p>No seu escritório, você encontrará seus artefatos de estudo, organizados de acordo com seus interesses e objetivos. Quanto mais artefatos você criar, sejam itens em seu acervo virtual, anotações, imagens, indicações de progresso ou outras atividades desempenhadas, mais completos são seus estudos, mais você se aproxima de seus objetivos.</p>
+			                <p><strong>Pressione os botões acima para navegar.</strong></p>
+			            ";
 						include 'templates/page_element.php';
-						
+
+						$template_id = 'ultimas_visualizacoes';
+						$template_titulo = 'Estudos recentes';
+						$template_classes = 'esconder_sessao';
+						$template_conteudo_class = 'justify-content-start';
+						$template_conteudo_no_col = true;
+						$template_conteudo = false;
+						$count = 0;
+						if ($visualizacoes->num_rows > 0) {
+							while ($visulizacao = $visualizacoes->fetch_assoc()) {
+								$count++;
+								if ($count == 13) {
+									break;
+								}
+								$visualizacao_page_id = $visulizacao['page_id'];
+								$visualizacao_extra = $visulizacao['extra'];
+								$visualizacao_tipo_pagina = $visulizacao['tipo_pagina'];
+								if ($visualizacao_tipo_pagina == 'elemento') {
+									$visualizacao_elemento_info = return_elemento_info($visualizacao_page_id);
+									$artefato_titulo = $visualizacao_elemento_info[4];
+									$artefato_subtitulo = $visualizacao_elemento_info[5];
+									$artefato_link = "elemento.php?id=$visualizacao_page_id";
+									$artefato_tipo = $visualizacao_elemento_info[3];
+								} elseif (($visualizacao_tipo_pagina == 'topico') || ($visualizacao_tipo_pagina == 'verbete')) {
+									$artefato_titulo = return_titulo_topico($visualizacao_page_id);
+									$artefato_subtitulo_concurso_id = return_concurso_id_topico($visualizacao_page_id);
+									$artefato_subtitulo_materia_id = return_materia_id_topico($visualizacao_page_id);
+									$artefato_subtitulo_concurso_titulo = return_concurso_sigla($artefato_subtitulo_concurso_id);
+									$artefato_subtitulo_materia_titulo = return_materia_titulo_id($artefato_subtitulo_materia_id);
+									$artefato_subtitulo = "$artefato_subtitulo_concurso_titulo / $artefato_subtitulo_materia_titulo";
+									$artefato_link = "verbete.php?topico_id=$visualizacao_page_id";
+									$artefato_tipo = 'verbete';
+								}
+								$artefato_id = 0;
+								$artefato_page_id = false;
+								$artefato_criacao = false;
+								$template_conteudo .= include 'templates/artefato_item.php';
+
+							}
+						}
+
+
+						include 'templates/page_element.php';
+
 						$topicos_acervo = $conn->query("SELECT DISTINCT etiqueta_id FROM Acervo WHERE user_id = $user_id AND etiqueta_tipo = 'topico' ORDER BY id DESC");
 						$template_id = 'topicos_interesse';
 						$template_titulo = 'Áreas de interesse';
@@ -473,7 +521,7 @@
 						$template_conteudo_class = 'justify-content-start';
 						$template_conteudo_no_col = true;
 						$template_conteudo = false;
-						
+
 						$artefato_id = 0;
 						$artefato_page_id = false;
 						$artefato_titulo = 'Incluir área de interesse';
@@ -481,7 +529,7 @@
 						$artefato_tipo = 'novo_topico';
 						$artefato_link = false;
 						$template_conteudo .= include 'templates/artefato_item.php';
-						
+
 						while ($topico_acervo = $topicos_acervo->fetch_assoc()) {
 							$topico_acervo_etiqueta_id = $topico_acervo['etiqueta_id'];
 							$topico_acervo_etiqueta_info = return_etiqueta_info($topico_acervo_etiqueta_id);
@@ -492,40 +540,48 @@
 							$template_conteudo .= include 'templates/artefato_item.php';
 						}
 						include 'templates/page_element.php';
-						
+
 						$template_id = 'sessao_simulados';
 						$template_titulo = 'Simulados';
 						$template_classes = 'esconder_sessao';
 						$template_conteudo_class = 'justify-content-start';
 						$template_conteudo_no_col = true;
 						$template_conteudo = false;
-						
+
 						$artefato_id = 0;
 						$artefato_page_id = false;
-						$artefato_titulo = 'Lançar dados de simulados';
+						$artefato_titulo = 'Adicionar dados de provas e questões';
 						$artefato_criacao = 'Pressione para lançar dados de simulados';
 						$artefato_tipo = 'adicionar_simulado';
 						$artefato_link = false;
 						$template_conteudo .= include 'templates/artefato_item.php';
-						
+
 						$artefato_id = 0;
 						$artefato_page_id = false;
-						$artefato_titulo = 'Novo simulado';
-						$artefato_criacao = 'Pressione para criar um novo simulado';
+						$artefato_titulo = 'Criar um simulado';
+						$artefato_criacao = 'Pressione para criar um simulados';
+						$artefato_tipo = 'criar_simulado';
+						$artefato_link = false;
+						$template_conteudo .= include 'templates/artefato_item.php';
+
+						$artefato_id = 0;
+						$artefato_page_id = false;
+						$artefato_titulo = 'Fazer simulado';
+						$artefato_criacao = 'Pressione para fazer um simulado';
 						$artefato_tipo = 'novo_simulado';
 						$artefato_link = false;
 						$template_conteudo .= include 'templates/artefato_item.php';
-						
+
 						include 'templates/page_element.php';
-						
+
 						$template_id = 'sessao_plataforma_simulados';
 						$template_titulo = 'Plataforma de simulados';
 						$template_classes = 'esconder_sessao';
 						$template_conteudo_class = 'justify-content-start p-limit';
 						$template_conteudo_no_col = true;
 						$template_conteudo = false;
-											
-	                    $template_conteudo .= "
+
+						$template_conteudo .= "
                             <p>A plataforma de simulados é populada por questões oficiais de concursos e por questões criadas pelos usuários da página.</p>
                             <p>Para acrescentar questões de edições passadas do concurso, é necessário registrar algumas informações prévias:</p>
                             <ol>
@@ -537,44 +593,44 @@
                             <p>É importante prestar atenção para que todos as questões não-oficiais sejam devidamente identificadas como tal. É possível criar textos de apoio não oficiais, mas também criar questões não-oficiais com os textos de apoio de edições passadas do concurso.</p>
                             <p>Selecione a opção abaixo para acessar os sistemas que permitem acrescentar provas anteriores do concurso:</p>
                         ";
-											$template_conteudo .= "
+						$template_conteudo .= "
                             <button type='button' class='$button_classes_info btn-block' data-toggle='modal' data-target='#modal_adicionar_edicao'>Adicionar edição do concurso</button>
                         ";
-											if ($edicoes->num_rows > 0) {
-												$template_conteudo .= "
+						if ($edicoes->num_rows > 0) {
+							$template_conteudo .= "
                                 <button type='button' class='$button_classes_info btn-block' data-toggle='modal' data-target='#modal_adicionar_etapa'>Adicionar etapa da edição</button>
                             ";
-											}
-											if ($etapas->num_rows > 0) {
-												$template_conteudo .= "
+						}
+						if ($etapas->num_rows > 0) {
+							$template_conteudo .= "
                                 <button type='button' class='$button_classes_info btn-block' data-toggle='modal' data-target='#modal_adicionar_prova'>Adicionar prova da etapa</button>
                             ";
-											}
-											$template_conteudo .= "
+						}
+						$template_conteudo .= "
                             <button type='button' class='$button_classes btn-block' data-toggle='modal' data-target='#modal_adicionar_texto_apoio'>Adicionar texto de apoio</button>
                         ";
-											$template_conteudo .= "
+						$template_conteudo .= "
                             <button type='button' class='$button_classes btn-block' data-toggle='modal' data-target='#modal_adicionar_questao'>Adicionar questão</button>
                         ";
-											
-	                    include 'templates/page_element.php';
-											
-											
-											/*						$artefato_id = 0;
-																$artefato_page_id = false;
-																$artefato_titulo = 'Novo curso';
-																$artefato_criacao = 'Pressione para criar um novo curso';
-																$artefato_tipo = 'novo_curso';
-																$artefato_link = false;
-																$template_conteudo .= include 'templates/artefato_item.php';*/
-						
+
+						include 'templates/page_element.php';
+
+
+						/*						$artefato_id = 0;
+						$artefato_page_id = false;
+						$artefato_titulo = 'Novo curso';
+						$artefato_criacao = 'Pressione para criar um novo curso';
+						$artefato_tipo = 'novo_curso';
+						$artefato_link = false;
+						$template_conteudo .= include 'templates/artefato_item.php';*/
+
 						$template_id = 'acervo_virtual';
 						$template_titulo = 'Acervo';
 						$template_classes = 'esconder_sessao';
 						$template_conteudo_class = 'justify-content-start';
 						$template_conteudo_no_col = true;
 						$template_conteudo = false;
-						
+
 						$artefato_id = 0;
 						$artefato_page_id = false;
 						$artefato_titulo = 'Adicionar item';
@@ -582,7 +638,7 @@
 						$artefato_tipo = 'nova_referencia';
 						$artefato_link = false;
 						$template_conteudo .= include 'templates/artefato_item.php';
-						
+
 						$acervo = $conn->query("SELECT criacao, etiqueta_id, etiqueta_tipo, elemento_id FROM Acervo WHERE user_id = $user_id AND estado = 1 AND etiqueta_tipo NOT IN ('topico') ORDER BY id DESC");
 						while ($acervo_item = $acervo->fetch_assoc()) {
 							$acervo_item_criacao = $acervo_item['criacao'];
@@ -595,7 +651,7 @@
 							$acervo_item_elemento_info = return_elemento_info($acervo_item_elemento_id);
 							$acervo_item_elemento_titulo = $acervo_item_elemento_info[4];
 							$acervo_item_elemento_autor = $acervo_item_elemento_info[5];
-							
+
 							$artefato_id = $acervo_item_etiqueta_id;
 							$artefato_page_id = $acervo_item_elemento_id;
 							$artefato_titulo = $acervo_item_elemento_titulo;
@@ -604,12 +660,12 @@
 							$artefato_criacao = "Adicionado em $artefato_criacao";
 							$artefato_tipo = $acervo_item_etiqueta_tipo;
 							$artefato_link = "elemento.php?id=$acervo_item_elemento_id";
-							
+
 							$template_conteudo .= include 'templates/artefato_item.php';
 						}
 						include 'templates/page_element.php';
-						
-						
+
+
 						$anotacoes = $conn->query("SELECT id, page_id, titulo, criacao, tipo FROM Textos WHERE tipo LIKE '%anotac%' AND user_id = $user_id ORDER BY id DESC");
 						$template_id = 'anotacoes_privadas';
 						$template_titulo = 'Textos e notas de estudo';
@@ -617,7 +673,7 @@
 						$template_conteudo_class = 'justify-content-start';
 						$template_conteudo_no_col = true;
 						$template_conteudo = false;
-						
+
 						$artefato_id = 0;
 						$artefato_page_id = false;
 						$artefato_titulo = 'Novo texto privado';
@@ -625,7 +681,7 @@
 						$artefato_tipo = 'nova_anotacao';
 						$artefato_link = 'edicao_textos.php?texto_id=0';
 						$template_conteudo .= include 'templates/artefato_item.php';
-						
+
 						while ($anotacao = $anotacoes->fetch_assoc()) {
 							$artefato_id = $anotacao['id'];
 							$artefato_page_id = $anotacao['page_id'];
@@ -690,7 +746,7 @@
 							$template_conteudo .= include 'templates/artefato_item.php';
 						}
 						include 'templates/page_element.php';
-						
+
 						$imagens_privadas = $conn->query("SELECT id, criacao, titulo, arquivo, estado FROM Elementos WHERE user_id = $user_id AND tipo = 'imagem_privada' AND user_id = $user_id ORDER BY id DESC");
 						$template_id = 'imagens_privadas';
 						$template_titulo = 'Imagens privadas';
@@ -698,7 +754,7 @@
 						$template_conteudo_class = 'justify-content-start';
 						$template_conteudo_no_col = true;
 						$template_conteudo = false;
-						
+
 						$artefato_id = 0;
 						$artefato_page_id = false;
 						$artefato_titulo = 'Nova imagem privada';
@@ -706,7 +762,7 @@
 						$artefato_tipo = 'nova_imagem';
 						$artefato_link = false;
 						$template_conteudo .= include 'templates/artefato_item.php';
-						
+
 						while ($imagem_privada = $imagens_privadas->fetch_assoc()) {
 							$artefato_id = $imagem_privada['id'];
 							$artefato_criacao = $imagem_privada['criacao'];
@@ -719,7 +775,7 @@
 							$template_conteudo .= include 'templates/artefato_item.php';
 						}
 						include 'templates/page_element.php';
-						
+
 						$imagens_publicas = $conn->query("SELECT id, criacao, titulo, arquivo, estado FROM Elementos WHERE user_id = $user_id AND tipo = 'imagem' ORDER BY id DESC");
 						if ($imagens_publicas->num_rows > 0) {
 							$template_id = 'imagens_publicas';
@@ -728,7 +784,7 @@
 							$template_conteudo_class = 'justify-content-start';
 							$template_conteudo_no_col = true;
 							$template_conteudo = false;
-							
+
 							while ($imagem_publica = $imagens_publicas->fetch_assoc()) {
 								$artefato_id = $imagem_publica['id'];
 								$artefato_criacao = $imagem_publica['criacao'];
@@ -742,7 +798,7 @@
 							}
 							include 'templates/page_element.php';
 						}
-						
+
 						$respostas = $conn->query("SELECT DISTINCT simulado_id, questao_tipo FROM sim_respostas WHERE user_id = $user_id ORDER BY id DESC");
 						if ($respostas->num_rows > 0) {
 							$template_id = 'simulados';
@@ -778,7 +834,7 @@
 </div>
 
 <?php
-	
+
 	$template_modal_div_id = 'modal_verbetes';
 	$template_modal_titulo = 'Verbetes em que contribuiu';
 	$template_modal_body_conteudo = false;
@@ -800,7 +856,7 @@
 	}
 	$template_modal_show_buttons = false;
 	include 'templates/modal.php';
-	
+
 	$template_modal_div_id = 'modal_completados';
 	$template_modal_titulo = 'Tópicos estudados';
 	$template_modal_body_conteudo = false;
@@ -820,8 +876,8 @@
 	}
 	$template_modal_show_buttons = false;
 	include 'templates/modal.php';
-	
-	
+
+
 	$template_modal_div_id = 'modal_forum';
 	$template_modal_titulo = 'Suas participações no fórum';
 	$template_modal_body_conteudo = false;
@@ -842,8 +898,8 @@
 	}
 	$template_modal_show_buttons = false;
 	include 'templates/modal.php';
-	
-	
+
+
 	$template_modal_div_id = 'modal_bookmarks';
 	$template_modal_titulo = 'Lista de leitura';
 	$template_modal_body_conteudo = false;
@@ -880,13 +936,13 @@
 	}
 	$template_modal_show_buttons = false;
 	include 'templates/modal.php';
-	
-	
+
+
 	$template_modal_div_id = 'modal_apresentacao';
 	$template_modal_titulo = 'Apresentação';
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "<p>Sua apresentação é visível a outros usuários, que poderão visitar seu escritório ao clicar em seu apelido. Seu apelido somente é visível como identificação de suas atividades públicas na Ubwiki.";
-	
+
 	$perfil_publico_id = false;
 	$perfis_publicos = $conn->query("SELECT id FROM Textos WHERE tipo = 'verbete_user' AND user_id = $user_id");
 	if ($perfis_publicos->num_rows > 0) {
@@ -907,8 +963,8 @@
 	}
 	$template_modal_show_buttons = false;
 	include 'templates/modal.php';
-	
-	
+
+
 	$template_modal_div_id = 'modal_opcoes';
 	$template_modal_titulo = 'Alterar dados e opções';
 	if ($opcao_texto_justificado_value == true) {
@@ -949,7 +1005,7 @@
 		</div>
     ";
 	include 'templates/modal.php';
-	
+
 	$template_modal_div_id = 'modal_nova_imagem';
 	$template_modal_titulo = 'Nova imagem privada';
 	$template_modal_enctype = "enctype='multipart/form-data'";
@@ -979,7 +1035,7 @@
             </div>
 		";
 	include 'templates/modal.php';
-	
+
 	$template_modal_div_id = 'modal_nova_referencia';
 	$template_modal_titulo = 'Adicionar item ao acervo';
 	$template_modal_body_conteudo = false;
@@ -1021,12 +1077,12 @@
 		";
 	$template_modal_show_buttons = false;
 	include 'templates/modal.php';
-	
+
 	$template_modal_div_id = 'modal_novo_topico';
 	$template_modal_titulo = 'Incluir área de interesse';
 	$etiquetas_carregar_remover = false;
 	include 'templates/etiquetas_modal.php';
-	
+
 	$template_modal_div_id = 'modal_novo_simulado';
 	$template_modal_titulo = 'Gerar novo simulado';
 	$template_modal_show_buttons = false;
@@ -1035,7 +1091,7 @@
 	    <p>Fazer simulados é muito importante, mas é necessário algum cuidado para que realmente ajude a trazer você mais próximo de seus objetivos. Fazer provas é uma habilidade que pode e deve ser desenvolvida pela prática, esse é seu objetivo principal ao fazer simulados, e não necessariamente o aprendizado do conteúdo.</p>
 	    <p>Somente recomendamos que você comece a fazer simulados após haver estudado todo o conteúdo do seu concurso pelo menos uma vez, mesmo que em um primeiro nível introdutório e superficial.</p>
 	";
-	
+
 	$template_modal_body_conteudo .= "
         <form method='post'>
         <select class='$select_classes' name='novo_simulado_tipo' required>
@@ -1057,7 +1113,7 @@
         </form>
     ";
 	include 'templates/modal.php';
-	
+
 	$template_modal_div_id = 'modal_adicionar_edicao';
 	$template_modal_titulo = 'Adicionar edição do concurso';
 	$template_modal_body_conteudo = false;
@@ -1073,11 +1129,11 @@
 						";
 	$template_modal_submit_name = 'nova_edicao_trigger';
 	include 'templates/modal.php';
-	
+
 	$template_modal_div_id = 'modal_adicionar_etapa';
 	$template_modal_titulo = 'Adicionar etapa da edição';
 	$template_modal_body_conteudo = false;
-	
+
 	$template_modal_body_conteudo .= "
                                 <select class='$select_classes' name='nova_etapa_edicao' required>
                                       <option value='' disabled selected>Edição do concurso:</option>
@@ -1097,7 +1153,7 @@
                             ";
 	$template_modal_submit_name = 'nova_etapa_trigger';
 	include 'templates/modal.php';
-	
+
 	$template_modal_div_id = 'modal_adicionar_prova';
 	$template_modal_titulo = 'Adicionar prova da etapa';
 	$template_modal_body_conteudo = false;
@@ -1131,7 +1187,7 @@
                         ";
 	$template_modal_submit_name = 'nova_prova_trigger';
 	include 'templates/modal.php';
-	
+
 	$template_modal_div_id = 'modal_adicionar_texto_apoio';
 	$template_modal_titulo = 'Adicionar texto de apoio';
 	$template_modal_body_conteudo = false;
@@ -1169,21 +1225,21 @@
                               <label for='novo_texto_apoio_titulo'>Título do texto de apoio</label>
                             </div>
 						";
-	
+
 	$template_modal_form_id = 'form_novo_texto_apoio';
 	$template_modal_body_conteudo .= "<h3 class='text-center'>Enunciado:</h3>";
 	$sim_quill_id = 'texto_apoio_enunciado';
 	$sim_quill_form = include('templates/sim_quill.php');
 	$template_modal_body_conteudo .= $sim_quill_form;
-	
+
 	$template_modal_body_conteudo .= "<h3 class='text-center'>Texto de apoio:</h3>";
 	$sim_quill_id = 'texto_apoio';
 	$sim_quill_form = include('templates/sim_quill.php');
 	$template_modal_body_conteudo .= $sim_quill_form;
-	
+
 	$template_modal_submit_name = 'novo_texto_apoio_trigger';
 	include 'templates/modal.php';
-	
+
 	$template_modal_div_id = 'modal_adicionar_questao';
 	$template_modal_titulo = 'Adicionar questão';
 	$template_modal_form_id = 'form_nova_questao';
@@ -1248,7 +1304,7 @@
 		}
 	}
 	$template_modal_body_conteudo .= "</select>";
-	
+
 	$template_modal_body_conteudo .= "
                             <select class='$select_classes' name='nova_questao_materia' required>
                               <option value='' disabled selected>Selecione a matéria:</option>
@@ -1279,7 +1335,7 @@
 	$sim_quill_id = 'questao_enunciado';
 	$sim_quill_form = include('templates/sim_quill.php');
 	$template_modal_body_conteudo .= $sim_quill_form;
-	
+
 	$template_modal_body_conteudo .= "<h3 class='mt-3'>Item 1</h3>";
 	$template_modal_body_conteudo .= "
                             <select class='mdb-select md-form' name='nova_questao_item1_gabarito'>
@@ -1348,7 +1404,7 @@
 
 </body>
 <?php
-	
+
 	include 'templates/footer.html';
 	$texto_id = 0;
 	$texto_tipo = 'acervo';

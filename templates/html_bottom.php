@@ -279,9 +279,17 @@
 	if ($esconder_introducao == true) {
 		echo "
 			<script type='text/javascript'>
-				$(document).ready(function() {
+				function escritorio_initial() {
 				    $('.esconder_sessao').hide();
             $('#pagina_usuario_informacoes').show();
+            $('#ultimas_visualizacoes').show();
+				}
+				$(document).ready(function() {
+				    escritorio_initial();
+				});
+				$(document).on('click', '#escritorio_home', function() {
+				    escritorio_initial();
+				    $('#pagina_usuario_informacoes').hide();
 				});
 				$(document).on('click', '#mostrar_textos', function() {
 				    $('.esconder_sessao').hide();

@@ -3,6 +3,7 @@
 	include 'engine.php';
 	
 	if (isset($_POST['trigger_atualizacao'])) {
+	    $conn->query("ALTER TABLE `visualizacoes` CHANGE `timestamp` `criacao` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;");
 	}
 	
 	if (isset($_POST['funcoes_gerais'])) {

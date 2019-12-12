@@ -733,6 +733,7 @@
 
 	if (isset($_POST['busca_referencias'])) {
 		$busca_referencias = $_POST['busca_referencias'];
+		$busca_referencias = mysqli_real_escape_string($conn, $busca_referencias);
 		$busca_resultados = false;
 		$referencia_exata = $conn->query("SELECT titulo FROM Elementos WHERE titulo = '$busca_referencias' AND (tipo = 'referencia' OR tipo = 'video' OR tipo = 'album_musica')");
 		if ($referencia_exata->num_rows == 0) {
@@ -812,19 +813,6 @@
 				$found_elemento_id = $elemento['id'];
 				return $found_elemento_id;
 			}
-		}
-	}
-
-	function return_elemento_icone($elemento_tipo)
-	{
-		if ($elemento_tipo == 'referencia') {
-			return 'fa-bookmark';
-		} elseif ($elemento_tipo == 'video') {
-			return 'fa-video';
-		} elseif ($elemento_tipo == 'imagem') {
-			return 'fa-image';
-		} else {
-			return false;
 		}
 	}
 
@@ -983,7 +971,7 @@
 			$etiqueta_icone = 'fa-tag';
 			$etiqueta_cor = 'amber';
 		} elseif ($etiqueta_tipo == 'imagem') {
-			$etiqueta_icone = 'fa-image';
+			$etiqueta_icone = 'fa-image-polaroid';
 			$etiqueta_cor = 'red';
 		} elseif ($etiqueta_tipo == 'referencia') {
 			$etiqueta_icone = 'fa-book';
@@ -992,10 +980,10 @@
 			$etiqueta_icone = 'fa-user';
 			$etiqueta_cor = 'light-green';
 		} elseif ($etiqueta_tipo == 'video') {
-			$etiqueta_icone = 'fa-video';
+			$etiqueta_icone = 'fa-film';
 			$etiqueta_cor = 'lime';
 		} elseif ($etiqueta_tipo == 'album_musica') {
-			$etiqueta_icone = 'fa-compact-disk';
+			$etiqueta_icone = 'fa-microphone';
 			$etiqueta_cor = 'teal';
 		} else {
 			return false;
@@ -1107,6 +1095,9 @@
 			$fa_icone = $fa_icone_plus;
 			$fa_primary_color = 'text-secondary';
 		} elseif ($artefato_tipo == 'adicionar_simulado') {
+			$fa_icone = 'fa-plus-hexagon';
+			$fa_primary_color = 'text-secondary';
+		} elseif ($artefato_tipo == 'criar_simulado') {
 			$fa_icone = 'fa-plus-octagon';
 			$fa_primary_color = 'text-secondary';
 		} elseif ($artefato_tipo == 'referencia') {
@@ -1118,9 +1109,12 @@
 		} elseif ($artefato_tipo == 'video') {
 			$fa_icone = 'fa-film';
 			$fa_primary_color = 'text-info';
-		} elseif ($artefato_tipo == 'imagem') {
+		} elseif (($artefato_tipo == 'imagem') || ($artefato_tipo == 'imagem_privada')) {
 			$fa_icone = 'fa-image-polaroid';
 			$fa_primary_color = 'text-danger';
+		} elseif (($artefato_tipo == 'verbete') || ($artefato_tipo == 'topico')) {
+			$fa_icone = 'fa-tag';
+			$fa_primary_color = 'text-warning';
 		} elseif ($artefato_tipo == 'topico_interesse') {
 			$fa_icone = 'fa-tag';
 			$fa_primary_color = 'text-warning';
