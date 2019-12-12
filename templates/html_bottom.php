@@ -300,6 +300,10 @@
 				    $('.esconder_sessao').hide();
 				    $('#topicos_interesse').show();
 				});
+				$(document).on('click', '#mostrar_simulados', function() {
+				    $('.esconder_sessao').hide();
+				    $('#simulados').show();
+				});
 				
 			</script>
 		";
