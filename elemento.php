@@ -114,7 +114,7 @@
     ";
 	include 'templates/html_head.php';
 	if ($nao_contar == false) {
-		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $elemento_id, 'elemento')");
+		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina, extra) VALUES ($user_id, $elemento_id, 'elemento', '$tipo_elemento')");
 	}
 ?>
 <body>

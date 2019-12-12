@@ -1,7 +1,7 @@
 <?php
 	
 	include 'engine.php';
-	
+
 	if (isset($_GET['texto_id'])) {
 		$texto_id = $_GET['texto_id'];
 		$texto_id = (int)$texto_id;
@@ -36,6 +36,9 @@
 		}
 	}
 	$html_head_template_quill = true;
+
+	$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina, extra) VALUES ($user_id, $texto_id, 'texto', '$texto_tipo')");
+
 	include 'templates/html_head.php';
 
 ?>
