@@ -1225,4 +1225,30 @@
 		return false;
 	}
 
+	function return_artefato_subtitulo($artefato_tipo) {
+		if ($artefato_tipo == 'anotacoes_user') {
+			$artefato_subtitulo = 'Página do usuário';
+		} elseif ($artefato_tipo == 'anotacao_privada') {
+			$artefato_subtitulo = 'Texto sem título';
+		} elseif ($artefato_tipo == 'anotacoes_elemento') {
+			$artefato_subtitulo = 'Nota de referência';
+		} elseif ($artefato_tipo == 'anotacoes_prova') {
+			$artefato_subtitulo = 'Nota de prova';
+		} elseif ($artefato_tipo == 'anotacoes_texto_apoio') {
+			$artefato_subtitulo = 'Nota de texto de apoio';
+		} elseif ($artefato_tipo == 'anotacoes_questao') {
+			$artefato_subtitulo = 'Nota de questão';
+		} elseif ($artefato_tipo == 'anotacoes_materia') {
+			$artefato_subtitulo = 'Nota de estudos';
+		} elseif ($artefato_tipo == 'anotacoes') {
+			$artefato_subtitulo = 'Nota de estudos';
+		} elseif ($artefato_tipo == 'anotacoes_admin') {
+			$artefato_subtitulo = 'Notas dos administradores';
+		} else {
+			$artefato_subtitulo = $artefato_tipo;
+		}
+		return $artefato_subtitulo;
+	}
+	
+	
 ?>

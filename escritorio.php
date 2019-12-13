@@ -418,7 +418,7 @@
                       <a id='mostrar_acervo' href='javascript:void(0);' class='p-2 rounded text-success artefato' title='Pressione para ver seu acervo virtual'><i class='fad fa-books fa-3x fa-fw'></i></a>
                       <a id='mostrar_tags' href='javascript:void(0);' class='p-2 rounded text-warning artefato' title='Pressione para ver suas áreas de interesse'><i class='fad fa-tags fa-3x fa-fw'></i></a>";
 				if ($user_tipo == 'admin') {
-				  echo "<a id='icone_simulados' href='javascript:void(0);' class='p-2 rounded text-secondary artefato' title='Pressione para ver seus simulados'><i class='fad fa-clipboard-list-check fa-3x fa-fw'></i></a>
+					echo "<a id='icone_simulados' href='javascript:void(0);' class='p-2 rounded text-secondary artefato' title='Pressione para ver seus simulados'><i class='fad fa-clipboard-list-check fa-3x fa-fw'></i></a>
                   ";
 				}
 				
@@ -503,6 +503,14 @@
 									$artefato_subtitulo = "$artefato_subtitulo_concurso_titulo / $artefato_subtitulo_materia_titulo";
 									$artefato_link = "verbete.php?topico_id=$visualizacao_page_id";
 									$artefato_tipo = 'verbete';
+								} elseif ($visualizacao_tipo_pagina == 'texto') {
+									$artefato_texto_info = return_texto_info($visualizacao_page_id);
+									$artefato_titulo = $artefato_texto_info[2];
+									$artefato_tipo = $artefato_texto_info[1];
+									$artefato_link = "edicao_texto.php?texto_id=$visualizacao_page_id";
+									if ($artefato_titulo == false) {
+										$artefato_subtitulo = return_artefato_subtitulo($artefato_tipo);
+									}
 								} else {
 									continue;
 								}
@@ -727,28 +735,8 @@
 								$artefato_link = "edicao_textos.php?texto_id=$artefato_id";
 							}
 							if ($artefato_titulo == false) {
-								if ($artefato_tipo == 'anotacoes_user') {
-									$artefato_subtitulo = 'Página do usuário';
-								} elseif ($artefato_tipo == 'anotacao_privada') {
-									$artefato_subtitulo = 'Texto sem título';
-								} elseif ($artefato_tipo == 'anotacoes_elemento') {
-									$artefato_subtitulo = 'Nota de referência';
-								} elseif ($artefato_tipo == 'anotacoes_prova') {
-									$artefato_subtitulo = 'Nota de prova';
-								} elseif ($artefato_tipo == 'anotacoes_texto_apoio') {
-									$artefato_subtitulo = 'Nota de texto de apoio';
-								} elseif ($artefato_tipo == 'anotacoes_questao') {
-									$artefato_subtitulo = 'Nota de questão';
-								} elseif ($artefato_tipo == 'anotacoes_materia') {
-									$artefato_subtitulo = 'Nota de estudos';
-								} elseif ($artefato_tipo == 'anotacoes') {
-									$artefato_subtitulo = 'Nota de estudos';
-								} elseif ($artefato_tipo == 'anotacoes_admin') {
-									$artefato_subtitulo = 'Notas dos administradores';
-								} else {
-									$artefato_subtitulo = $artefato_tipo;
-								}
-							}
+								$artefato_subtitulo = return_artefato_subtitulo($artefato_tipo);
+						    }
 							$template_conteudo .= include 'templates/artefato_item.php';
 						}
 						include 'templates/page_element.php';
@@ -1488,7 +1476,7 @@
 	$sim_quill_id = 'questao_item5';
 	$sim_quill_form = include('templates/sim_quill.php');
 	$template_modal_body_conteudo .= $sim_quill_form;
-
+	
 	$questoes = $conn->query("SELECT edicao_ano, numero, materia, tipo FROM sim_questoes WHERE concurso_id = $concurso_id AND origem = 1");
 	if ($questoes->num_rows > 0) {
 		$template_modal_body_conteudo .= "
@@ -1508,7 +1496,7 @@
 	
 	$template_modal_submit_name = 'nova_questao_trigger';
 	include 'templates/modal.php';
-
+	
 	$template_modal_div_id = 'modal_criar_simulado';
 	$template_modal_titulo = 'Criar simulado';
 	$template_modal_body_conteudo = false;
@@ -1516,7 +1504,7 @@
 		<p>Para criar um simulado é preciso determinar um título e as questões que farão parte dele. Você pode fazer mudanças em seu simulado até que decida publicá-lo. Após sua publicação, não será possível alterá-lo, nem desfazer sua publicação. Caso seu simulado inclua questões dissertativas, alunos poderão pagar uma taxa, por você determinada, para que você corrija suas respostas.</p>
 	";
 	include 'templates/modal.php';
-	
+
 
 ?>
 

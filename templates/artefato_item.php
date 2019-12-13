@@ -53,9 +53,6 @@
 	if (!isset($fa_size)) {
 		$fa_size = 'fa-4x';
 	}
-	if ($fa_icone == 'fa-tag') {
-		$fa_size = 'fa-3x';
-	}
 
 	$artefato_template_result = false;
 	$artefato_template_result .= "
