@@ -564,7 +564,7 @@
 						
 						$artefato_id = 0;
 						$artefato_page_id = false;
-						$artefato_titulo = 'Criar um simulado';
+						$artefato_titulo = 'Criar simulado';
 						$artefato_criacao = 'Pressione para criar um simulados';
 						$artefato_tipo = 'criar_simulado';
 						$artefato_link = false;
@@ -583,8 +583,7 @@
 						$template_id = 'sessao_plataforma_simulados';
 						$template_titulo = 'Plataforma de simulados';
 						$template_classes = 'esconder_sessao';
-						$template_conteudo_class = 'justify-content-start p-limit';
-						$template_conteudo_no_col = true;
+						$template_conteudo_class = 'p-limit';
 						$template_conteudo = false;
 						
 						$template_conteudo .= "
@@ -1133,6 +1132,22 @@
                               <label for='nova_edicao_titulo'>Título</label>
                             </div>
 						";
+	if ($edicoes->num_rows > 0) {
+		$template_modal_body_conteudo .= "
+			<h3>Edições registradas para o $concurso_sigla:</h3>
+			<ul class='list-group'>
+		";
+		while ($edicao = $edicoes->fetch_assoc()) {
+			$edicao_ano = $edicao['ano'];
+			$edicao_titulo = $edicao['titulo'];
+			$template_modal_body_conteudo .= "
+				<li class='list-group-item'>$edicao_ano: $edicao_titulo</li>
+			";
+		}
+		$template_modal_body_conteudo .= "
+			</ul>
+		";
+	}
 	$template_modal_submit_name = 'nova_edicao_trigger';
 	include 'templates/modal.php';
 	
@@ -1144,6 +1159,7 @@
                                 <select class='$select_classes' name='nova_etapa_edicao' required>
                                       <option value='' disabled selected>Edição do concurso:</option>
                                 ";
+	mysqli_data_seek($edicoes, 0);
 	while ($edicao = $edicoes->fetch_assoc()) {
 		$edicao_id = $edicao['id'];
 		$edicao_ano = $edicao['ano'];
@@ -1157,6 +1173,23 @@
                                   <label for='nova_etapa_titulo'>Título da etapa</label>
                                 </div>
                             ";
+	if ($etapas->num_rows > 0) {
+		$template_modal_body_conteudo .= "
+			<h3>Etapas registradas para o $concurso_sigla:</h3>
+			<ul class='list-group'>
+		";
+		while ($etapa = $etapas->fetch_assoc()) {
+			$etapa_titulo = $etapa['titulo'];
+			$etapa_edicao_id = $etapa['edicao_id'];
+			$edicoes = $conn->query("SELECT ano, titulo FROM sim_edicoes WHERE id = $etapa_edicao_id");
+			while ($edicao = $edicoes->fetch_assoc()) {
+				$edicao_ano = $edicao['ano'];
+				$edicao_titulo = $edicao['titulo'];
+			}
+			$template_modal_body_conteudo .= "<li class='list-group-item'>$edicao_ano: $edicao_titulo: $etapa_titulo</li>";
+		}
+		$template_modal_body_conteudo .= "</ul>";
+	}
 	$template_modal_submit_name = 'nova_etapa_trigger';
 	include 'templates/modal.php';
 	
@@ -1166,10 +1199,12 @@
 	$template_modal_body_conteudo .= "
                             <select class='$select_classes' name='nova_prova_etapa' required>
                                   <option value='' disabled selected>Etapa do concurso:</option>";
+	mysqli_data_seek($etapas, 0);
 	while ($etapa = $etapas->fetch_assoc()) {
 		$etapa_id = $etapa['id'];
 		$etapa_titulo = $etapa['titulo'];
 		$etapa_edicao_id = $etapa['edicao_id'];
+		mysqli_data_seek($edicoes, 0);
 		$edicoes = $conn->query("SELECT ano, titulo FROM sim_edicoes WHERE id = $etapa_edicao_id");
 		while ($edicao = $edicoes->fetch_assoc()) {
 			$edicao_ano = $edicao['ano'];
@@ -1179,10 +1214,6 @@
 	}
 	$template_modal_body_conteudo .= "</select>";
 	$template_modal_body_conteudo .= "
-                            <div class='md-form'>
-                              <input type='text' class='form-control' name='nova_prova_titulo' id='nova_prova_titulo' required>
-                              <label for='nova_prova_titulo'>Título da prova</label>
-                            </div>
                             <select class='$select_classes' name='nova_prova_tipo' required>
                               <option value='' disabled selected>Tipo de prova:</option>
                               <option value='1'>Objetiva</option>
@@ -1190,7 +1221,33 @@
                               <option value='3'>Oral</option>
                               <option value='4'>Física</option>
                             </select>
+                            <div class='md-form'>
+                              <input type='text' class='form-control' name='nova_prova_titulo' id='nova_prova_titulo' required>
+                              <label for='nova_prova_titulo'>Título da prova</label>
+                            </div>
                         ";
+	if ($provas->num_rows > 0) {
+		$template_modal_body_conteudo .= "
+			<h3>Provas registradas para o $concurso_sigla</h3>
+			<ul class='list-group'>
+		";
+		while ($prova = $provas->fetch_assoc()) {
+			$prova_etapa_id = $prova['etapa_id'];
+			$prova_titulo = $prova['titulo'];
+			$prova_tipo = $prova['tipo'];
+			$prova_tipo_string = convert_prova_tipo($prova_tipo);
+			$prova_etapa_titulo = return_etapa_titulo_id($prova_etapa_id);
+			$prova_etapa_edicao_ano_e_titulo = return_etapa_edicao_ano_e_titulo($prova_etapa_id);
+			if ($prova_etapa_edicao_ano_e_titulo != false) {
+				$prova_etapa_edicao_ano = $prova_etapa_edicao_ano_e_titulo[0];
+				$prova_etapa_edicao_titulo = $prova_etapa_edicao_ano_e_titulo[1];
+			} else {
+				break;
+			}
+			$template_modal_body_conteudo .= "<li class='list-group-item'>$prova_etapa_edicao_ano: $prova_etapa_edicao_titulo: $prova_etapa_titulo: $prova_titulo ($prova_tipo_string)</li>";
+		}
+		$template_modal_body_conteudo .= "</ul>";
+	}
 	$template_modal_submit_name = 'nova_prova_trigger';
 	include 'templates/modal.php';
 	
@@ -1233,15 +1290,42 @@
 						";
 	
 	$template_modal_form_id = 'form_novo_texto_apoio';
-	$template_modal_body_conteudo .= "<h3 class='text-center'>Enunciado:</h3>";
+	$template_modal_body_conteudo .= "<h3>Enunciado:</h3>";
 	$sim_quill_id = 'texto_apoio_enunciado';
 	$sim_quill_form = include('templates/sim_quill.php');
 	$template_modal_body_conteudo .= $sim_quill_form;
 	
-	$template_modal_body_conteudo .= "<h3 class='text-center'>Texto de apoio:</h3>";
+	$template_modal_body_conteudo .= "<h3 class='mt-3'>Texto de apoio:</h3>";
 	$sim_quill_id = 'texto_apoio';
 	$sim_quill_form = include('templates/sim_quill.php');
 	$template_modal_body_conteudo .= $sim_quill_form;
+	
+	if ($textos_apoio->num_rows > 0) {
+		$template_modal_body_conteudo .= "
+			<h3 class='mt-3'>Textos de apoio registrados para o $concurso_sigla:</h3>
+			<ul class='list-group'>
+		";
+		while ($texto_apoio = $textos_apoio->fetch_assoc()) {
+			$texto_apoio_id = $texto_apoio['id'];
+			$texto_apoio_origem = $texto_apoio['origem'];
+			if ($texto_apoio_origem == 1) {
+				$texto_apoio_origem_string = 'oficial';
+			} else {
+				$texto_apoio_origem_string = 'não-oficial';
+			}
+			$texto_apoio_prova_id = $texto_apoio['prova_id'];
+			$texto_apoio_titulo = $texto_apoio['titulo'];
+			$find_prova_info = return_info_prova_id($texto_apoio_prova_id);
+			$prova_titulo = $find_prova_info[0];
+			$prova_tipo = $find_prova_info[1];
+			$prova_tipo_string = convert_prova_tipo($prova_tipo);
+			$prova_edicao_ano = $find_prova_info[2];
+			$prova_edicao_titulo = $find_prova_info[3];
+			$template_modal_body_conteudo .= "<li class='list-group-item'>$prova_edicao_ano: $prova_edicao_titulo: $texto_apoio_titulo</li>";
+		}
+		$template_modal_body_conteudo .= "</ul>";
+	}
+	
 	
 	$template_modal_submit_name = 'novo_texto_apoio_trigger';
 	include 'templates/modal.php';
@@ -1264,6 +1348,7 @@
                               <option value='' disabled selected>Selecione o texto de apoio:</option>
                               <option value='0'>Questão não tem texto de apoio</option>
                               ";
+	mysqli_data_seek($textos_apoio, 0);
 	if ($textos_apoio->num_rows > 0) {
 		while ($texto_apoio = $textos_apoio->fetch_assoc()) {
 			$texto_apoio_id = $texto_apoio['id'];
@@ -1402,9 +1487,35 @@
 	$sim_quill_id = 'questao_item5';
 	$sim_quill_form = include('templates/sim_quill.php');
 	$template_modal_body_conteudo .= $sim_quill_form;
+
+	$questoes = $conn->query("SELECT edicao_ano, numero, materia, tipo FROM sim_questoes WHERE concurso_id = $concurso_id AND origem = 1");
+	if ($questoes->num_rows > 0) {
+		$template_modal_body_conteudo .= "
+			<h3 class='mt-3'>Questões registradas para o $concurso_sigla</h3>
+			<ul class='list-group'>
+		";
+		while ($questao = $questoes->fetch_assoc()) {
+			$questao_edicao_ano = $questao['edicao_ano'];
+			$questao_numero = $questao['numero'];
+			$questao_materia = $questao['materia'];
+			$questao_materia_titulo = return_materia_titulo_id($questao_materia);
+			$questao_tipo = $questao['tipo'];
+			$template_modal_body_conteudo .= "<li>$questao_edicao_ano: $questao_materia_titulo: Questão $questao_numero</li>";
+		}
+		$template_modal_body_conteudo .= "</ul>";
+	}
+	
 	$template_modal_submit_name = 'nova_questao_trigger';
 	include 'templates/modal.php';
 
+	$template_modal_div_id = 'modal_criar_simulado';
+	$template_modal_titulo = 'Criar simulado';
+	$template_modal_body_conteudo = false;
+	$template_modal_body_conteudo .= "
+		<p>Para criar um simulado é preciso determinar um título e as questões que farão parte dele. Você pode fazer mudanças em seu simulado até que decida publicá-lo. Após sua publicação, não será possível alterá-lo, nem desfazer sua publicação. Caso seu simulado inclua questões dissertativas, alunos poderão pagar uma taxa, por você determinada, para que você corrija suas respostas.</p>
+	";
+	include 'templates/modal.php';
+	
 
 ?>
 
