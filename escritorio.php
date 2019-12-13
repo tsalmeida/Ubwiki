@@ -419,11 +419,10 @@
                       <a id='mostrar_tags' href='javascript:void(0);' class='p-2 rounded text-warning artefato' title='Pressione para ver suas áreas de interesse'><i class='fad fa-tags fa-3x fa-fw'></i></a>";
 				if ($user_tipo == 'admin') {
 				  echo "<a id='icone_simulados' href='javascript:void(0);' class='p-2 rounded text-secondary artefato' title='Pressione para ver seus simulados'><i class='fad fa-clipboard-list-check fa-3x fa-fw'></i></a>
-                      </div>
                   ";
 				}
 				
-				echo "</div></div>";
+				echo "</div></div></div>";
 				echo "<div class='col-3 mt-3'><div class='row justify-content-end'>";
 				if ($comentarios->num_rows > 0) {
 					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_forum' class='ml-1 text-secondary'><i class='fad fa-comments-alt fa-2x fa-fw'></i></a>";
