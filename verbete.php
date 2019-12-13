@@ -12,6 +12,8 @@
 	$concurso_sigla = return_concurso_sigla($concurso_id);
 
 	$nao_contar = false;
+	$topico_anterior = false;
+	$topico_proximo = false;
 
 	$result = $conn->query("SELECT estado_pagina, materia_id, nivel, ordem, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Topicos WHERE concurso_id = '$concurso_id' AND id = $topico_id");
 	if ($result->num_rows > 0) {
@@ -400,19 +402,20 @@
 
 ?>
 <div class='container-fluid'>
-    <div class='row'>
-        <div class='col-lg-8 col-sm-12'>
-            <div id='collapse_breadcrumbs' class='flex-column collapse'>
-							<?php echo $breadcrumbs; ?>
+    <div class='row justify-content-between'>
+            <div class='py-2 mx-2 text-left'>
+<?php
+		if ($topico_anterior != false) {
+          echo "<span id='verbete_anterior' class='mx-1' title='Verbete anterior'><a href='javascript:void(0);'><i class='fal 	fa-arrow-left fa-fw'></i></a></span>";
+		}
+        echo "<span id='verbetes_relacionados' class='mx-1' title='Verbetes relacionados' data-toggle='modal' href='#modal_verbetes_relacionados'><a href='javascript:void(0);'><i class='fal fa-project-diagram fa-fw'></i></a></span>";
+		if ($topico_proximo != false) {
+          echo "<span id='verbete_proximo' class='mx-1' title='Próximo verbete'><a href='javascript:void(0);'><i class='fal fa-arrow-right fa-fw'></i></a></span>";
+		}
+  
+?>
             </div>
-        </div>
-        <div class='col-lg-4 col-sm-12'>
-            <div class='text-right py-2'>
-                <span id='verbetes_relacionados' class='mx-1' title='Verbetes relacionados' data-toggle='collapse'
-                      href='#collapse_breadcrumbs'><a href='javascript:void(0);'><i
-                                class='fal fa-chart-network fa-fw'></i></a></span>
-                <!--<span id='simulados' class='mx-1' title='Simulados'><a href='javascript:void(0);'><i
-                                class='fal fa-check-double fa-fw'></i></a></span>-->
+            <div class='py-2 mx-2 text-right'>
                 <span id='forum' title='Fórum' data-toggle='modal' data-target='#modal_forum'>
                     <?php
 	                    $comments = $conn->query("SELECT timestamp, comentario, user_id FROM Forum WHERE page_id = $topico_id AND page_tipo = 'topico'");
@@ -470,7 +473,6 @@
 								}
 							?>
             </div>
-        </div>
     </div>
 </div>
 
@@ -848,6 +850,12 @@
 		$template_modal_body_conteudo .= "<p class='mt-3'><strong>Para adicionar um comentário, você precisará definir seu apelido em <a href='escritorio.php'>seu escritório</a>.</strong></p>";
 	}
 
+	include 'templates/modal.php';
+	
+	$template_modal_div_id = 'modal_verbetes_relacionados';
+	$template_modal_titulo = 'Verbetes relacionados';
+	$template_modal_show_buttons = false;
+	$template_modal_body_conteudo = $breadcrumbs;
 	include 'templates/modal.php';
 
 ?>

@@ -667,6 +667,7 @@
 		$icone4 = 'fas fa-leaf fa-fw';
 
 		if ($contexto == 'verbete') {
+			$icone0 = 'fas fa-empty-set fa-fw';
 			$icone1 = 'fas fa-acorn fa-fw';
 			$icone2 = 'fas fa-seedling fa-fw';
 		}

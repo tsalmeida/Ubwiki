@@ -11,22 +11,23 @@
     }
 	$texto_anotacao = false;
 	if ($texto_id == 0) {
-		if ($conn->query("INSERT INTO Textos (tipo, page_id, user_id, verbete_html, verbete_text, verbete_content) VALUES ('anotacao_privada', 0, $user_id, FALSE, FALSE, FALSE)") === true) {
+		if ($conn->query("INSERT INTO Textos (tipo, page_id, user_id, estado_texto, verbete_html, verbete_text, verbete_content) VALUES ('anotacao_privada', 0, $user_id, FALSE, FALSE, FALSE)") === true) {
 			$new_texto_id = $conn->insert_id;
 			header("Location:edicao_textos.php?texto_id=$new_texto_id");
 		}
 	} else {
-		$textos = $conn->query("SELECT tipo, titulo, page_id, criacao, verbete_content, user_id FROM Textos WHERE id = $texto_id");
+		$textos = $conn->query("SELECT tipo, titulo, page_id, estado_texto, criacao, verbete_content, user_id FROM Textos WHERE id = $texto_id");
 		if ($textos->num_rows > 0) {
 			while ($texto = $textos->fetch_assoc()) {
 				$texto_tipo = $texto['tipo'];
 				$texto_titulo = $texto['titulo'];
 				$texto_page_id = $texto['page_id'];
 				$texto_criacao = $texto['criacao'];
+				$texto_estado = $texto['estado_texto'];
 				$texto_verbete_content = $texto['verbete_content'];
 				$texto_user_id = $texto['user_id'];
 				$check = false;
-				if ((strpos($texto_tipo, 'anotac') !== false) || ($texto_tipo == 'verbete_user')) {
+				if ((strpos($texto_tipo, 'anotac') != false) || ($texto_tipo == 'verbete_user')) {
 					$texto_anotacao = true;
 					if ($texto_user_id != $user_id) {
 						header('Location:index.php');

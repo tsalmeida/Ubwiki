@@ -1,13 +1,13 @@
 <?php
-
+	
 	include 'engine.php';
-
+	
 	if (isset($_GET['id'])) {
 		$elemento_id = $_GET['id'];
 	}
-
+	
 	$nao_contar = false;
-
+	
 	if (isset($_POST['submit_elemento_dados'])) {
 		$elemento_mudanca_estado = 0;
 		if (isset($_POST['elemento_mudanca_estado'])) {
@@ -55,7 +55,7 @@
 		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $elemento_id, 'elemento_dados')");
 		$nao_contar = true;
 	}
-
+	
 	$result = $conn->query("SELECT estado, criacao, tipo, titulo, autor, capitulo, ano, link, iframe, arquivo, resolucao, orientacao, comentario, trecho, user_id FROM Elementos WHERE id = $elemento_id");
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
@@ -84,7 +84,7 @@
 			break;
 		}
 	}
-
+	
 	$elemento_bookmark = false;
 	$bookmark = $conn->query("SELECT bookmark FROM Bookmarks WHERE user_id = $user_id AND elemento_id = $elemento_id AND active = 1");
 	if ($bookmark->num_rows > 0) {
@@ -93,9 +93,9 @@
 			break;
 		}
 	}
-
+	
 	// FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM FORUM
-
+	
 	if (isset($_POST['novo_comentario'])) {
 		$novo_comentario = $_POST['novo_comentario'];
 		$novo_comentario = mysqli_real_escape_string($conn, $novo_comentario);
@@ -103,7 +103,24 @@
 		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $elemento_id, 'elemento_forum')");
 		$nao_contar = true;
 	}
-
+	
+	// SEÇÕES SEÇÕES SEÇÕES SEÇÕES SEÇÕES SEÇÕES SEÇÕES SEÇÕES SEÇÕES SEÇÕES SEÇÕES SEÇÕES SEÇÕES
+	
+	if (isset($_POST['trigger_nova_secao'])) {
+		$nova_secao_titulo = $_POST['elemento_nova_secao'];
+		$nova_secao_titulo = mysqli_real_escape_string($conn, $nova_secao_titulo);
+		$nova_secao_ordem = (int)$_POST['elemento_nova_secao_ordem'];
+		if ($conn->query("INSERT INTO Textos (tipo, titulo, page_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ('secao_elemento', '$nova_secao_titulo', $elemento_id, FALSE, FALSE, FALSE, $user_id)") === true) {
+			$nova_secao_texto_id = $conn->insert_id;
+			$conn->query("INSERT INTO Secoes (elemento_id, titulo, ordem, user_id, texto_id) VALUES ($elemento_id, '$nova_secao_titulo', $nova_secao_ordem, $user_id, $nova_secao_texto_id)");
+			$nova_etiqueta_titulo = "$titulo_elemento // $nova_secao_titulo";
+			$nova_etiqueta_titulo = mysqli_real_escape_string($conn, $nova_etiqueta_titulo);
+			$conn->query("INSERT INTO Etiquetas (tipo, titulo, user_id) VALUES ('secao', '$nova_etiqueta_titulo', $user_id)");
+		}
+		$nao_contar = true;
+	}
+	$secoes = $conn->query("SELECT ordem, titulo, texto_id, estado_texto FROM Secoes WHERE elemento_id = $elemento_id ORDER BY ordem");
+	
 	$html_head_template_quill = true;
 	$html_head_template_conteudo = "
         <script type='text/javascript'>
@@ -113,9 +130,11 @@
         </script>
     ";
 	include 'templates/html_head.php';
+	
 	if ($nao_contar == false) {
 		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina, extra) VALUES ($user_id, $elemento_id, 'elemento', '$tipo_elemento')");
 	}
+
 ?>
 <body>
 <?php
@@ -188,13 +207,13 @@
 							$template_conteudo_class = 'text-center';
 							include 'templates/page_element.php';
 						}
-
+						
 						if ($estado_elemento == true) {
 							$estado_elemento_visivel = 'publicado';
 						} else {
 							$estado_elemento_visivel = 'removido';
 						}
-
+						
 						$dados_elemento = false;
 						if ($tipo_elemento == 'imagem_privada') {
 							$dados_elemento .= "<p>Esta imagem é privada e não pode ser vista por outros usuários.</p>";
@@ -222,7 +241,7 @@
 						}
 						$dados_elemento .= "<li class='list-group-item'>Adicionado pelo usuário <strong><a href='perfil.php?pub_user_id=$user_elemento_id' target='_blank'>$user_apelido_elemento</a></strong></li>";
 						$dados_elemento .= "</ul>";
-
+						
 						$template_id = 'dados_elemento_div';
 						$template_titulo = 'Dados';
 						$template_botoes = "
@@ -233,27 +252,57 @@
 						$template_conteudo = false;
 						$template_conteudo .= $dados_elemento;
 						include 'templates/page_element.php';
-
+						
 						$template_id = 'verbete_elemento';
 						$template_titulo = 'Apresentação';
 						$template_quill_empty_content = "<p id='verbete_vazio_{$template_id}'>Seja o primeiro a contribuir para escrever a apresentação deste item.</p>";
 						$template_botoes = false;
 						$template_conteudo = include 'templates/template_quill.php';
 						include 'templates/page_element.php';
-
-						//VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE VERBETE
-
+						
+						$template_div = 'partes_elemento';
+						$template_titulo = 'Seções';
+						$template_botoes = "
+                            <a data-toggle='modal' data-target='#modal_partes_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
+                        ";
+						$template_conteudo = false;
+						
+						if ($secoes->num_rows > 0) {
+							$template_conteudo .= "<p>Seções identificadas deste elemento e seus textos correspondentes:</p>";
+							$template_conteudo .= "<ul class='list-group'>";
+							while ($secao = $secoes->fetch_assoc()) {
+								$secao_titulo = $secao['titulo'];
+								$secao_texto_id = $secao['texto_id'];
+								$secao_estado_texto = $secao['estado_texto'];
+								$secao_estado_icone = return_estado_icone($secao_estado_texto, 'elemento');
+								$template_conteudo .=
+							    "
+								  <a href='edicao_textos.php?texto_id=$secao_texto_id' target='_blank' class='list-group-item list-group-item-action d-flex justify-content-between align-items-center'>
+							          $secao_titulo
+									  <span class='ml-3 badge grey lighten-3 text-dark badge-pill z-depth-0'>
+                                          <i class='fa $secao_estado_icone'></i>
+                                      </span>
+							      </a>
+						        ";
+							}
+							$template_conteudo .= "</ul>";
+						} else {
+							$template_conteudo .= "<p>Não há seções identificadas deste elemento.</p>";
+						}
+						
+						include 'templates/page_element.php';
+					
 					?>
         </div>
         <div id='coluna_direita' class='<?php echo $coluna_classes; ?> anotacoes_collapse collapse show'>
-
+					
 					<?php
-
+						
 						$template_id = 'anotacoes_elemento';
 						$template_titulo = 'Nota de estudos';
 						$template_conteudo = include 'templates/template_quill.php';
 						include 'templates/page_element.php';
-
+					
 					?>
 
         </div>
@@ -267,7 +316,7 @@
 	$template_modal_div_id = 'modal_elemento_form';
 	$template_modal_titulo = 'Alterar dados do elemento';
 	$template_modal_body_conteudo = false;
-
+	
 	$estado_elemento_checkbox = false;
 	if ($estado_elemento == true) {
 		$estado_elemento_checkbox = 'checked';
@@ -283,7 +332,7 @@
 			<input type='hidden' name='elemento_mudanca_estado' value='true'>
 		";
 	}
-
+	
 	$template_modal_body_conteudo .= "
 		<div class='md-form mb-2'>
             <input type='text' id='elemento_novo_titulo' name='elemento_novo_titulo' class='form-control' value='$titulo_elemento'>
@@ -294,27 +343,21 @@
             <input type='text' id='elemento_novo_autor' name='elemento_novo_autor' class='form-control' value='$autor_elemento'>
             <label for='elemento_novo_autor'>Autor</label>
         </div>";
-	if ($tipo_elemento == 'referencia') {
-		$template_modal_body_conteudo .= "<div class='md-form mb-2'>
-            <input type='text' id='elemento_novo_capitulo' name='elemento_novo_capitulo' class='form-control' value='$capitulo_elemento'>
-            <label for='elemento_novo_capitulo'>Capítulo</label>
-        </div>";
-	}
 	$template_modal_body_conteudo .= "
-		<div class='md-form mb-2'>
-            <input type='number' id='elemento_novo_ano' name='elemento_novo_ano' class='form-control' value='$ano_elemento'>
-            <label for='elemento_novo_ano'>Ano</label>
-        </div>
-	";
-
+		  <div class='md-form mb-2'>
+              <input type='number' id='elemento_novo_ano' name='elemento_novo_ano' class='form-control' value='$ano_elemento'>
+              <label for='elemento_novo_ano'>Ano</label>
+          </div>
+	  ";
+	
 	$template_modal_submit_name = 'submit_elemento_dados';
-
+	
 	include 'templates/modal.php';
-
+	
 	$template_modal_div_id = 'modal_forum';
 	$template_modal_titulo = 'Fórum';
 	$template_modal_body_conteudo = false;
-
+	
 	if ($comments->num_rows > 0) {
 		$template_modal_body_conteudo .= "<ul class='list-group'>";
 		while ($row = $comments->fetch_assoc()) {
@@ -346,9 +389,40 @@
 	} else {
 		$template_modal_body_conteudo .= "<p class='mt-3'><strong>Para adicionar um comentário, você precisará definir seu apelido em <a href='escritorio.php'>seu escritório</a>.</strong></p>";
 	}
-
 	include 'templates/modal.php';
-
+	
+	$template_modal_div_id = 'modal_partes_form';
+	$template_modal_titulo = 'Adicionar seção';
+	$template_modal_submit_name = 'trigger_nova_secao';
+	$template_modal_body_conteudo = "
+		<p>Por favor, tome cuidado para que não haja duplicidade. Se possível, é preferencial que todas as seções sejam acrescentadas na ordem em que aparecem na edição de que você dispõe. Ao inserir a ordem da nova seção, por favor considere Introdução, Prefácio etc. Se houver mais de um prefácio, considere a possibilidade de consolidá-los em apenas uma seção, por exemplo, no caso de prefácios a edições que somente mencionam adições ou correções realizadas. Seções de agradecimento, caso nada incluam de especialmente relevante, podem ser ignoradas, assim como tabelas de referência, listas de anexos, glossários e seções afim.</p>
+		<p>Exemplos de seções adequadas: \"Capítulo 1\", \"Capítulo 2: Título do Capítulo\", \"Parte 1: As Origens\", \"Introdução\".</p>
+		<p>É possível determinar a ordem como \"0\". É preferível usar essa opção para elementos anteriores ao primeiro capítulo, como Introdução e Prefácio, pois o primeiro capítulo terá a ordem \"1\", o segundo a ordem \"2\" etc.</p>
+		<div class='md-form mb-2'>
+			<input type='text' id='elemento_nova_secao' name='elemento_nova_secao' class='form-control'>
+            <label for='elemento_nova_secao'>Título da nova seção</label>
+		</div>
+		<div class='md-form mb-2'>
+			<input type='number' id='elemento_nova_secao_ordem' name='elemento_nova_secao_ordem' class='form-control'>
+            <label for='elemento_nova_secao_ordem'>Posição da nova seção</label>
+		</div>
+	";
+	
+	mysqli_data_seek($secoes, 0);
+	if ($secoes->num_rows > 0) {
+		$template_modal_body_conteudo .= "
+		<h3>Seções registradas para este elemento:</h3>
+		<ul class='list-group'>
+    ";
+		while ($secao = $secoes->fetch_assoc()) {
+			$secao_ordem = $secao['ordem'];
+			$secao_titulo = $secao['titulo'];
+			$secao_texto_id = $secao['texto_id'];
+			$template_modal_body_conteudo .= "<a href='edicao_textos.php?texto_id=$secao_texto_id' target='_blank'><li class='list-group-item list-group-item-action'>$secao_ordem: $secao_titulo</li></a>";
+		}
+		$template_modal_body_conteudo .= "</ul>";
+	}
+	include 'templates/modal.php';
 
 ?>
 </body>

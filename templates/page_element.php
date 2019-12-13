@@ -58,9 +58,9 @@
 	}
 	
 	echo "
-<div id='$template_id' class='row show mb-2 border-top border-light pt-1 $template_classes'>
+<div id='$template_id' class='row show mb-2 mt-3 pt-1 $template_classes'>
 	<div class='col'>
-    <div class='row d-flex justify-content-end'>
+    <div class='row d-flex justify-content-end grey lighten-5 rounded p-1'>
       <span class='h5 mb-0'>
           $template_botoes
           $template_botoes_padrao

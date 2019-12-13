@@ -133,7 +133,7 @@
 									$cor_badge = 'bg-white';
 									$icone_badge = "
 				                        <span class='ml-3 badge $cor_badge $estado_cor badge-pill z-depth-0'>
-                                            <i class='fa $icone_estado fa-fw'></i>
+                                            <i class='fa $icone_estado'></i>
                                         </span>
 				                    ";
 								} else {
