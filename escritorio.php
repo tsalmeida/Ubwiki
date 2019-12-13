@@ -507,7 +507,7 @@
 									$artefato_texto_info = return_texto_info($visualizacao_page_id);
 									$artefato_titulo = $artefato_texto_info[2];
 									$artefato_tipo = $artefato_texto_info[1];
-									$artefato_link = "edicao_texto.php?texto_id=$visualizacao_page_id";
+									$artefato_link = "edicao_textos.php?texto_id=$visualizacao_page_id";
 									if ($artefato_titulo == false) {
 										$artefato_subtitulo = return_artefato_subtitulo($artefato_tipo);
 									}
