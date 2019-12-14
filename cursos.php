@@ -29,7 +29,7 @@
         <div id="coluna_esquerda" class="col-lg-5 col-sm-12">
 					<?php
 						$template_id = 'selecao_curso';
-						$template_titulo = 'Selecione abaixo';
+						$template_titulo = 'Cursos disponíveis:';
 						$template_botoes_padrao = false;
 						$template_conteudo = false;
 						$template_conteudo .= "<form method='post'>";

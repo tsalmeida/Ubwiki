@@ -3,7 +3,7 @@
 	include 'engine.php';
 	
 	if (isset($_POST['trigger_atualizacao'])) {
-        $conn->query("ALTER TABLE `Opcoes` CHANGE `opcao` `opcao` INT(11) NULL DEFAULT NULL;");
+	
 	}
 	
 	if (isset($_POST['funcoes_gerais'])) {

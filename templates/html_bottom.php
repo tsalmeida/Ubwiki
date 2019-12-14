@@ -27,6 +27,9 @@
 	if (!isset($sticky_toolbar)) {
 		$sticky_toolbar = false;
 	}
+	if (!isset($hide_add_elements)) {
+		$hide_add_elements = false;
+	}
 	
 	echo "
     <!-- Bootstrap tooltips -->
