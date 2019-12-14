@@ -3,6 +3,7 @@
 	if (!isset($template_titulo_context)) { $template_titulo_context = false; }
 	if (!isset($template_titulo_no_nav)) { $template_titulo_no_nav = false; }
 	if (!isset($template_titulo_escritorio)) { $template_titulo_escritorio = false; }
+	if (!isset($template_subtitulo)) { $template_subtitulo = false; }
 	
 	$titulo_length = strlen($template_titulo);
 	$display_level = false;
@@ -40,6 +41,11 @@
 	else {
 		echo "<h1 class='h1-responsive'>$template_titulo</h1>";
 	}
+	if ($template_subtitulo != false) {
+		echo "
+			<span class='text-muted d-block mt-3'><h4>$template_subtitulo</h4></span>
+		";
+	}
 	if ($template_titulo_context == true) {
 		echo "
 				</div>
@@ -50,3 +56,4 @@
 	unset($template_titulo);
 	unset($template_titulo_context);
 	unset($template_titulo_no_nav);
+	unset($template_subtitulo);

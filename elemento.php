@@ -185,6 +185,7 @@
 <div id='page_height' class='container-fluid'>
 	<?php
 		$template_titulo = $titulo_elemento;
+		$template_subtitulo = $autor_elemento;
 		$template_titulo_context = true;
 		$template_titulo_no_nav = false;
 		include 'templates/titulo.php'

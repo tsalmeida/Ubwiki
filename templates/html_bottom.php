@@ -323,15 +323,16 @@
 				$(document).on('click', '#novo_adicionar_simulado', function() {
 				    $('#sessao_plataforma_simulados').show();
 				});
-				
 			</script>
 		";
 	}
 	if ($sticky_toolbar == true) {
-		echo "<script type='text/javascript'>
+		echo "
+		<script type='text/javascript'>
 			$(document).ready(function() {
 				$('.ql-toolbar').addClass('sticky-top bg-white');
 	    });
-		</script>";
+		</script>
+		";
 	}
 ?>
