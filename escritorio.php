@@ -488,6 +488,13 @@
 								}
 								$visualizacao_extra = $visualizacao['extra'];
 								$visualizacao_tipo_pagina = $visualizacao['tipo_pagina'];
+								if ($visualizacao_extra == 'secao_elemento') {
+								    continue;
+                                } elseif ($visualizacao_extra == 'verbete') {
+									continue;
+								} elseif ($visualizacao_extra == 'verbete_elemento') {
+									continue;
+								}
 								if ($visualizacao_tipo_pagina == 'elemento') {
 									$visualizacao_elemento_info = return_elemento_info($visualizacao_page_id);
 									$artefato_titulo = $visualizacao_elemento_info[4];
@@ -517,6 +524,7 @@
 								$artefato_id = 0;
 								$artefato_page_id = false;
 								$artefato_criacao = false;
+								error_log("$visualizacao_page_id $visualizacao_extra $visualizacao_tipo_pagina");
 								$template_conteudo .= include 'templates/artefato_item.php';
 								$count++;
 								if ($count == 12) {

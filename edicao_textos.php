@@ -49,9 +49,9 @@
 	include 'templates/navbar.php';
 ?>
 
-<div class="container bg-white">
+<div class="container-fluid bg-white">
     <div class="row grey lighten-5 sticky-top">
-        <div class="col">
+        <div class="col pl-1 pt-1">
 			<span id="salvar_anotacao" class="ml-1" title="Salvar anotação">
 				<a href='javascript:void(0);'>
 					<i class='fal fa-save fa-fw'></i>
