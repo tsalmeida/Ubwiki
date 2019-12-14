@@ -284,8 +284,7 @@
 			<script type='text/javascript'>
 				function escritorio_initial() {
 				    $('.esconder_sessao').hide();
-            $('#pagina_usuario_informacoes').show();
-            $('#ultimas_visualizacoes').show();
+				    $('.mostrar_sessao').show();
 				}
 				$(document).ready(function() {
 				    escritorio_initial();
@@ -333,6 +332,19 @@
 				$('.ql-toolbar').addClass('sticky-top bg-white');
 	    });
 		</script>
+		";
+	}
+	if ($hide_add_elements == true) {
+		echo "
+			<script type='text/javascript'>
+				$(document).ready(function() {
+				    $('.add_elements').hide();
+		    });
+				$(document).on('click', '#show_add_elements', function() {
+				    $('#show_add_elements').hide();
+				    $('.add_elements').show();
+				});
+			</script>
 		";
 	}
 ?>

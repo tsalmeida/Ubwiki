@@ -254,9 +254,10 @@
 					?>
         </div>
         <div class="py-2 text-center col">
-            <span class="mx-1" title="" data-toggle="modal" data-target="#modal_referencia_form"><a href="javascript:void(0);" class="text-success"><i class="fad fa-book fa-fw"></i></a></span>
-            <span class="mx-1" title="" data-toggle="modal" data-target="#modal_videos_form"><a href="javascript:void(0);" class="text-info"><i class="fad fa-film fa-fw"></i></a></span>
-            <span class="mx-1" title="" data-toggle="modal" data-target="#modal_imagens_form"><a href="javascript:void(0);" class="text-danger"><i class="fad fa-image fa-fw"></i></a></span>
+            <span id="show_add_elements" class="mx-1" title="" ><a href="javascript:void(0)"><i class="fad fa-2x fa-plus-circle fa-fw"></i></a></span>
+            <span class="mx-1 add_elements" title="" data-toggle="modal" data-target="#modal_referencia_form"><a href="javascript:void(0);" class="text-success"><i class="fad fa-book fa-2x fa-fw"></i></a></span>
+            <span class="mx-1 add_elements" title="" data-toggle="modal" data-target="#modal_videos_form"><a href="javascript:void(0);" class="text-info"><i class="fad fa-film fa-2x fa-fw"></i></a></span>
+            <span class="mx-1 add_elements" title="" data-toggle="modal" data-target="#modal_imagens_form"><a href="javascript:void(0);" class="text-danger"><i class="fad fa-image fa-2x fa-fw"></i></a></span>
             <!--<span id="" class="mx-1" title="" data-toggle="modal" data-target="#modal_audio_form"><a href="javascript:void(0);"><i class="fad fa-microphone fa-fw"></i></a></span>-->
         </div>
         <div class='py-2 text-right col'>
@@ -691,6 +692,7 @@
 <?php
 	include 'templates/footer.html';
 	$mdb_select = true;
+	$hide_add_elements = true;
 	include 'templates/html_bottom.php';
 	include 'templates/esconder_anotacoes.php';
 	include 'templates/bookmarks.php';

@@ -3,10 +3,7 @@
 	include 'engine.php';
 	
 	if (isset($_POST['trigger_atualizacao'])) {
-        $conn->query("CREATE TABLE `Ubwiki`.`Secoes` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `criacao` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `elemento_id` INT(11) NULL DEFAULT NULL , `titulo` VARCHAR(255) NULL DEFAULT NULL , `ordem` INT(11) NULL DEFAULT NULL , `user_id` INT(11) NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
-        $conn->query("ALTER TABLE `Secoes` ADD `texto_id` INT(11) NULL DEFAULT NULL AFTER `ordem`;");
-        $conn->query("ALTER TABLE `Textos` ADD `estado_texto` TINYINT NULL DEFAULT NULL AFTER `page_id`;");
-        $conn->query("ALTER TABLE `Secoes` ADD `estado_texto` TINYINT NULL DEFAULT NULL AFTER `texto_id`;");
+        $conn->query("ALTER TABLE `Opcoes` CHANGE `opcao` `opcao` INT(11) NULL DEFAULT NULL;");
 	}
 	
 	if (isset($_POST['funcoes_gerais'])) {

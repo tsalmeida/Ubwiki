@@ -366,6 +366,11 @@
 		}
 	}
 	
+	if (isset($_POST['aderir_novo_curso'])) {
+		$aderir_novo_curso = $_POST['aderir_novo_curso'];
+		$conn->query("INSERT INTO Opcoes (user_id, opcao_tipo, opcao) VALUES ($user_id, 'curso', $aderir_novo_curso)");
+	}
+	
 	$html_head_template_quill = true;
 	$html_head_template_conteudo = "
         <script type='text/javascript'>
@@ -461,7 +466,7 @@
 						
 						$template_id = 'pagina_usuario_informacoes';
 						$template_titulo = 'Seu escritório';
-						$template_classes = 'esconder_sessao';
+						$template_classes = 'mostrar_sessao esconder_sessao';
 						$template_conteudo_class = 'p-limit';
 						$template_conteudo = false;
 						$template_conteudo .= "
@@ -470,9 +475,50 @@
 			            ";
 						include 'templates/page_element.php';
 						
+						$template_id = 'escolha_cursos';
+						$template_titulo = 'Seus cursos';
+						$template_classes = 'mostrar_sessao esconder_sessao';
+						$template_conteudo_class = 'p-limit';
+						$template_conteudo = false;
+						$template_conteudo .= "<p>Você pode usar a Ubwiki como uma plataforma de estudos geral para registros de suas leituras pessoais, mas torna-se ainda mais efetiva quando você participa de comunidades em torno de seus interesses. Essa é a função dos cursos listados abaixo.</p>";
+						$usuario_cursos = $conn->query("SELECT opcao FROM Opcoes WHERE opcao_tipo = 'curso' AND user_id = $user_id");
+						if ($usuario_cursos->num_rows > 0) {
+							$template_conteudo .= "<h2>Cursos em que você está inscrito</h2>";
+							$template_conteudo .= "<ul class='list-group'>";
+							while ($usuario_curso = $usuario_cursos->fetch_assoc()) {
+								$usuario_curso_id = $usuario_curso['opcao'];
+								$usuario_curso_titulo = return_concurso_titulo_id($usuario_curso_id);
+								$template_conteudo .= "<a href='index.php?curso_id=$usuario_curso_id'><li class='list-group-item list-group-item-action'>$usuario_curso_titulo</li></a>";
+							}
+							$template_conteudo .= "</ul>";
+						} else {
+							$template_conteudo .= "<p><strong>Você ainda não aderiu a nenhum curso.</strong></p>";
+						}
+						$template_conteudo .= "<h2 class='mt-3'>Cursos disponíveis</h2>";
+						$template_conteudo .= "
+							<form method='post'>
+                                <select class='$select_classes' name='aderir_novo_curso' id='aderir_novo_curso' required>
+                                      <option value='' disabled selected>Selecione um curso</option>
+                        ";
+						$cursos_disponiveis = $conn->query("SELECT id, titulo FROM Concursos WHERE estado = 1");
+						while ($curso_disponivel = $cursos_disponiveis->fetch_assoc()) {
+							$curso_disponivel_id = $curso_disponivel['id'];
+							$curso_disponivel_titulo = $curso_disponivel['titulo'];
+							$template_conteudo .= "<option value='$curso_disponivel_id'>$curso_disponivel_titulo</option>";
+						}
+						$template_conteudo .= "</select>";
+						$template_conteudo .= "
+							<div class='row justify-content-center'>
+								<button name='trigger_adicionar_curso' class='$button_classes'>Aderir</button>
+							</div>
+							</form>
+						";
+						
+						include 'templates/page_element.php';
+						
 						$template_id = 'ultimas_visualizacoes';
 						$template_titulo = 'Estudos recentes';
-						$template_classes = 'esconder_sessao';
+						$template_classes = 'mostrar_sessao esconder_sessao';
 						$template_conteudo_class = 'justify-content-start';
 						$template_conteudo_no_col = true;
 						$template_conteudo = false;
@@ -524,7 +570,6 @@
 								$artefato_id = 0;
 								$artefato_page_id = false;
 								$artefato_criacao = false;
-								error_log("$visualizacao_page_id $visualizacao_extra $visualizacao_tipo_pagina");
 								$template_conteudo .= include 'templates/artefato_item.php';
 								$count++;
 								if ($count == 12) {
