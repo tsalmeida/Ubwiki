@@ -531,7 +531,7 @@
         </div>
         <div class='md-form mb-2'>
             <div class='file-field'>
-                <div class='btn btn-primary btn-sm float-left'>
+                <div class='btn btn-primary btn-sm float-left m-0'>
                     <span>Selecione o arquivo</span>
                     <input type='file' name='nova_imagem_upload'>
                 </div>
