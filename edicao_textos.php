@@ -50,7 +50,7 @@
 ?>
 
 <div class="container bg-white">
-    <div class="row grey lighten-5">
+    <div class="row grey lighten-5 sticky-top">
         <div class="col">
 			<span id="salvar_anotacao" class="ml-1" title="Salvar anotação">
 				<a href='javascript:void(0);'>
@@ -123,5 +123,6 @@
 	
 	$etiquetas_bottom = true;
 	$mdb_select = true;
+	$sticky_toolbar = true;
 	include 'templates/html_bottom.php';
 ?>

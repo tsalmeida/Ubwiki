@@ -415,9 +415,9 @@
 											continue;
 										}
 										if ($referencia_capitulo == false) {
-											$template_conteudo .= "<a href='elemento.php?id=$elemento_id' target='_blank'><li class='list-group-item'>$referencia_titulo : $referencia_autor</li></a>";
+											$template_conteudo .= "<a href='elemento.php?id=$elemento_id' target='_blank'><li class='list-group-item'>$referencia_titulo / $referencia_autor</li></a>";
 										} else {
-											$template_conteudo .= "<a href='elemento.php?id=$elemento_id' target='_blank'><li class='list-group-item'>$referencia_titulo : $referencia_autor : $referencia_capitulo</li></a>";
+											$template_conteudo .= "<a href='elemento.php?id=$elemento_id' target='_blank'><li class='list-group-item'>$referencia_titulo / $referencia_autor // $referencia_capitulo</li></a>";
 										}
 									}
 								}

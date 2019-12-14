@@ -24,6 +24,9 @@
 	if (!isset($esconder_introducao)) {
 		$esconder_introducao = false;
 	}
+	if (!isset($sticky_toolbar)) {
+		$sticky_toolbar = false;
+	}
 	
 	echo "
     <!-- Bootstrap tooltips -->
@@ -323,5 +326,12 @@
 				
 			</script>
 		";
+	}
+	if ($sticky_toolbar == true) {
+		echo "<script type='text/javascript'>
+			$(document).ready(function() {
+				$('.ql-toolbar').addClass('sticky-top bg-white');
+	    });
+		</script>";
 	}
 ?>
