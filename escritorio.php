@@ -1059,7 +1059,7 @@
                     </div>
                     <select class='mdb-select md-form' name='criar_referencia_tipo' id='criar_referencia_tipo'>
                         <option value='' disabled selected>Tipo do novo item:</option>
-                        <option value='referencia'>Materia de leitura: livros, artigos etc.</option>
+                        <option value='referencia'>Materia de leitura: livros, artigos, páginas virtuais etc.</option>
                         <option value='video'>Material videográfico: vídeos virtuais, filmes etc.</option>
                         <option value='album_musica'>Material em áudio: álbuns de música, podcasts</option>
                     </select>

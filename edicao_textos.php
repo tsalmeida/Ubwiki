@@ -121,7 +121,6 @@
 
 <?php
 	
-	include 'templates/footer.html';
 	$etiquetas_bottom = true;
 	$mdb_select = true;
 	include 'templates/html_bottom.php';
