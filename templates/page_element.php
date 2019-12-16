@@ -21,6 +21,9 @@
 	if (!isset($template_classes)) {
 		$template_classes = false;
 	}
+	if (!isset($template_col_value)) {
+		$template_col_value = 'col-12';
+	}
 	
 	$template_conteudo_no_col1 = false;
 	$template_conteudo_no_col2 = false;
@@ -59,14 +62,14 @@
 	
 	echo "
 <div id='$template_id' class='row show mb-2 mt-3 pt-1 $template_classes'>
-	<div class='col'>
+	<div class='$template_col_value'>
     <div class='row d-flex justify-content-end grey lighten-5 rounded p-1'>
       <span class='h5 mb-0'>
           $template_botoes
           $template_botoes_padrao
       </span>
     </div>
-    <div class='row d-flex justify-content-start'>
+    <div class='row'>
     	<div class='col'>
         <$template_titulo_heading class='{$template_titulo_heading}-responsive'>$template_titulo</$template_titulo_heading>
     	</div>
@@ -105,6 +108,6 @@
 	unset($template_conteudo_no_col);
 	unset($template_conteudo_no_col1);
 	unset($template_conteudo_no_col2);
-
+	unset($template_col_value)
 
 ?>

@@ -278,6 +278,7 @@
 						$template_titulo = 'Verbete';
 						$template_quill_empty_content = "<p id='verbete_vazio_{$template_id}'>Seja o primeiro a contribuir para a construção deste verbete.</p>";
 						$template_botoes = false;
+						$template_load_invisible = true;
 						$template_conteudo = include 'templates/template_quill.php';
 						include 'templates/page_element.php';
 						
@@ -300,12 +301,17 @@
 						include 'templates/page_element.php';
 						
 						$template_id = 'gabarito_questao';
-						$template_titulo = 'Itens e gabarito';
-						$template_botoes = "
-                            <span id='mostrar_gabarito' title='Mostrar gabarito'>
-                                <a href='javascript:void(0);'><i class='fal fa-eye fa-fw'></i></a>
-                            </span>
-                        ";
+						if (($questao_tipo == 1) || ($questao_tipo == 2)) {
+							$template_botoes = "
+                                <span id='mostrar_gabarito' title='Mostrar gabarito'>
+                                    <a href='javascript:void(0);'><i class='fal fa-eye fa-fw'></i></a>
+                                </span>
+                            ";
+							$template_titulo = 'Itens e gabarito';
+						} else {
+						    $template_botoes = false;
+						    $template_titulo = 'Enunciado';
+                        }
 						$template_conteudo = false;
 						$template_conteudo .= "<div id='special_li'>$questao_enunciado</div>";
 						$template_conteudo .= "<ul class='list-group'>";
@@ -436,10 +442,9 @@
 			if ($count == 1) {
 				if ($questao_texto_apoio_id == false) {
 					$template_modal_body_conteudo .= "<option value='0' selected>Questão não tem texto de apoio</option>";
+				} else {
+					$template_modal_body_conteudo .= "<option value='0'>Questão não tem texto de apoio</option>";
 				}
-				else {
-                    $template_modal_body_conteudo .= "<option value='0'>Questão não tem texto de apoio</option>";
-                }
 			}
 			if ($texto_apoio_id == $questao_texto_apoio_id) {
 				$template_modal_body_conteudo .= "<option value='$texto_apoio_id' selected>$prova_edicao_ano: $texto_apoio_titulo</option>";

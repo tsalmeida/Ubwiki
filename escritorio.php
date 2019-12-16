@@ -464,67 +464,15 @@
         <div id="coluna_unica" class="col">
 					<?php
 						
-						$template_id = 'pagina_usuario_informacoes';
-						$template_titulo = 'Seu escritório';
-						$template_classes = 'mostrar_sessao esconder_sessao';
-						$template_conteudo_class = 'p-limit';
-						$template_conteudo = false;
-						$template_conteudo .= "
-			                <p>No seu escritório, você encontrará seus artefatos de estudo, organizados de acordo com seus interesses e objetivos. Quanto mais artefatos você criar, sejam itens em seu acervo virtual, anotações, imagens, indicações de progresso ou outras atividades desempenhadas, mais completos são seus estudos, mais você se aproxima de seus objetivos.</p>
-			                <p><strong>Pressione os botões acima para navegar.</strong></p>
-			            ";
-						include 'templates/page_element.php';
-						
-						$template_id = 'escolha_cursos';
-						$template_titulo = 'Seus cursos';
-						$template_classes = 'mostrar_sessao esconder_sessao';
-						$template_conteudo_class = 'p-limit';
-						$template_conteudo = false;
-						$template_conteudo .= "<p>Você pode usar a Ubwiki como uma plataforma de estudos geral para registros de suas leituras pessoais, mas torna-se ainda mais efetiva quando você participa de comunidades em torno de seus interesses. Essa é a função dos cursos listados abaixo.</p>";
-						$usuario_cursos = $conn->query("SELECT opcao FROM Opcoes WHERE opcao_tipo = 'curso' AND user_id = $user_id");
-						if ($usuario_cursos->num_rows > 0) {
-							$template_conteudo .= "<h2>Cursos em que você está inscrito</h2>";
-							$template_conteudo .= "<ul class='list-group'>";
-							while ($usuario_curso = $usuario_cursos->fetch_assoc()) {
-								$usuario_curso_id = $usuario_curso['opcao'];
-								$usuario_curso_titulo = return_concurso_titulo_id($usuario_curso_id);
-								$template_conteudo .= "<a href='index.php?curso_id=$usuario_curso_id'><li class='list-group-item list-group-item-action'>$usuario_curso_titulo</li></a>";
-							}
-							$template_conteudo .= "</ul>";
-						} else {
-							$template_conteudo .= "<p><strong>Você ainda não aderiu a nenhum curso.</strong></p>";
-						}
-						$template_conteudo .= "<h2 class='mt-3'>Cursos disponíveis</h2>";
-						$template_conteudo .= "
-							<form method='post'>
-                                <select class='$select_classes' name='aderir_novo_curso' id='aderir_novo_curso' required>
-                                      <option value='' disabled selected>Selecione um curso</option>
-                        ";
-						$cursos_disponiveis = $conn->query("SELECT id, titulo FROM Concursos WHERE estado = 1");
-						while ($curso_disponivel = $cursos_disponiveis->fetch_assoc()) {
-							$curso_disponivel_id = $curso_disponivel['id'];
-							$curso_disponivel_titulo = $curso_disponivel['titulo'];
-							$template_conteudo .= "<option value='$curso_disponivel_id'>$curso_disponivel_titulo</option>";
-						}
-						$template_conteudo .= "</select>";
-						$template_conteudo .= "
-							<div class='row justify-content-center'>
-								<button name='trigger_adicionar_curso' class='$button_classes'>Aderir</button>
-							</div>
-							</form>
-						";
-						
-						include 'templates/page_element.php';
-						
-						$template_id = 'ultimas_visualizacoes';
-						$template_titulo = 'Estudos recentes';
-						$template_classes = 'mostrar_sessao esconder_sessao';
-						$template_conteudo_class = 'justify-content-start';
-						$template_conteudo_no_col = true;
-						$template_conteudo = false;
-						$count = 0;
-						$resultados = array();
 						if ($visualizacoes->num_rows > 0) {
+							$template_id = 'ultimas_visualizacoes';
+							$template_titulo = 'Estudos recentes';
+							$template_classes = 'mostrar_sessao esconder_sessao';
+							$template_conteudo_class = 'justify-content-start';
+							$template_conteudo_no_col = true;
+							$template_conteudo = false;
+							$count = 0;
+							$resultados = array();
 							while ($visualizacao = $visualizacoes->fetch_assoc()) {
 								$visualizacao_page_id = $visualizacao['page_id'];
 								if (array_search($visualizacao_page_id, $resultados) !== false) {
@@ -535,8 +483,8 @@
 								$visualizacao_extra = $visualizacao['extra'];
 								$visualizacao_tipo_pagina = $visualizacao['tipo_pagina'];
 								if ($visualizacao_extra == 'secao_elemento') {
-								    continue;
-                                } elseif ($visualizacao_extra == 'verbete') {
+									continue;
+								} elseif ($visualizacao_extra == 'verbete') {
 									continue;
 								} elseif ($visualizacao_extra == 'verbete_elemento') {
 									continue;
@@ -575,10 +523,58 @@
 								if ($count == 12) {
 									break;
 								}
-								
 							}
+							include 'templates/page_element.php';
 						}
 						
+						$template_id = 'pagina_usuario_informacoes';
+						$template_titulo = 'Seu escritório';
+						$template_classes = 'mostrar_sessao esconder_sessao justify-content-center';
+						$template_col_value = 'col-lg-8 col-md-10 col-sm-12';
+						$template_conteudo = false;
+						$template_conteudo .= "
+			                <p>No seu escritório, você encontrará seus artefatos de estudo, organizados de acordo com seus interesses e objetivos. Quanto mais artefatos você criar, sejam itens em seu acervo virtual, anotações, imagens, indicações de progresso ou outras atividades desempenhadas, mais completos serão seus estudos, mais você se aproximará de seus objetivos.</p>
+			            ";
+						include 'templates/page_element.php';
+						
+						$template_id = 'escolha_cursos';
+						$template_titulo = 'Seus cursos';
+						$template_classes = 'mostrar_sessao esconder_sessao justify-content-center';
+						$template_col_value = 'col-lg-8 col-md-10 col-sm-12';
+						$template_conteudo = false;
+						$template_conteudo .= "<p>Você pode usar a Ubwiki como uma plataforma de estudos geral para registros de suas leituras pessoais, mas torna-se ainda mais efetiva quando você participa de comunidades em torno de seus interesses. Essa é a função dos cursos listados abaixo.</p>";
+						$usuario_cursos = $conn->query("SELECT opcao FROM Opcoes WHERE opcao_tipo = 'curso' AND user_id = $user_id");
+						if ($usuario_cursos->num_rows > 0) {
+							$template_conteudo .= "<h2>Cursos em que você está inscrito</h2>";
+							$template_conteudo .= "<ul class='list-group'>";
+							while ($usuario_curso = $usuario_cursos->fetch_assoc()) {
+								$usuario_curso_id = $usuario_curso['opcao'];
+								$usuario_curso_titulo = return_concurso_titulo_id($usuario_curso_id);
+								$template_conteudo .= "<a href='index.php?curso_id=$usuario_curso_id'><li class='list-group-item list-group-item-action'>$usuario_curso_titulo</li></a>";
+							}
+							$template_conteudo .= "</ul>";
+						} else {
+							$template_conteudo .= "<p><strong>Você ainda não aderiu a nenhum curso.</strong></p>";
+						}
+						$template_conteudo .= "<h2 class='mt-3'>Cursos disponíveis</h2>";
+						$template_conteudo .= "
+							<form method='post'>
+                                <select class='$select_classes' name='aderir_novo_curso' id='aderir_novo_curso' required>
+                                      <option value='' disabled selected>Selecione um curso</option>
+                        ";
+						$cursos_disponiveis = $conn->query("SELECT id, titulo FROM Concursos WHERE estado = 1");
+						while ($curso_disponivel = $cursos_disponiveis->fetch_assoc()) {
+							$curso_disponivel_id = $curso_disponivel['id'];
+							$curso_disponivel_titulo = $curso_disponivel['titulo'];
+							$template_conteudo .= "<option value='$curso_disponivel_id'>$curso_disponivel_titulo</option>";
+						}
+						$template_conteudo .= "</select>";
+						$template_conteudo .= "
+							<div class='row justify-content-center'>
+								<button name='trigger_adicionar_curso' class='$button_classes'>Aderir</button>
+							</div>
+							</form>
+						";
 						
 						include 'templates/page_element.php';
 						
@@ -682,6 +678,36 @@
 						
 						include 'templates/page_element.php';
 						
+						$respostas = $conn->query("SELECT DISTINCT simulado_id, questao_tipo FROM sim_respostas WHERE user_id = $user_id ORDER BY id DESC");
+						if ($respostas->num_rows > 0) {
+							$template_id = 'respostas_usuario';
+							$template_titulo = 'Simulados feitos';
+							$template_classes = 'esconder_sessao';
+							$template_conteudo_class = 'justify-content-start';
+							$template_conteudo_no_col = true;
+							$template_conteudo = false;
+							while ($resposta = $respostas->fetch_assoc()) {
+								$artefato_id = $resposta['simulado_id'];
+								$artefato_questao_tipo = $resposta['questao_tipo'];
+								$simulado_info = return_simulado_info($artefato_id);
+								$simulado_criacao = $simulado_info[0];
+								$simulado_tipo = $simulado_info[1];
+								$simulado_tipo_string = converter_simulado_tipo($simulado_tipo);
+								$simulado_concurso_id = $simulado_info[2];
+								$simulado_concurso_sigla = return_concurso_sigla($simulado_concurso_id);
+								$artefato_criacao = $simulado_criacao;
+								$artefato_criacao = "Criado em $artefato_criacao";
+								$artefato_titulo = "$simulado_concurso_sigla: $simulado_tipo_string";
+								$artefato_link = "resultados.php?simulado_id=$artefato_id";
+								$artefato_tipo = 'simulado';
+								if ($artefato_questao_tipo == 3) {
+									$artefato_icone = 'fa-file-edit fa-swap-opacity';
+								}
+								$template_conteudo .= include 'templates/artefato_item.php';
+							}
+							include 'templates/page_element.php';
+						}
+						
 						
 						/*						$artefato_id = 0;
 						$artefato_page_id = false;
@@ -746,7 +772,7 @@
 						$artefato_titulo = 'Novo texto privado';
 						$artefato_criacao = 'Pressione para criar texto privado';
 						$artefato_tipo = 'nova_anotacao';
-						$artefato_link = 'edicao_textos.php?texto_id=0';
+						$artefato_link = 'edicao_textos.php?texto_id=new';
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
 						while ($anotacao = $anotacoes->fetch_assoc()) {
@@ -789,7 +815,7 @@
 							}
 							if ($artefato_titulo == false) {
 								$artefato_subtitulo = return_artefato_subtitulo($artefato_tipo);
-						    }
+							}
 							$template_conteudo .= include 'templates/artefato_item.php';
 						}
 						include 'templates/page_element.php';
@@ -846,35 +872,6 @@
 							include 'templates/page_element.php';
 						}
 						
-						$respostas = $conn->query("SELECT DISTINCT simulado_id, questao_tipo FROM sim_respostas WHERE user_id = $user_id ORDER BY id DESC");
-						if ($respostas->num_rows > 0) {
-							$template_id = 'simulados';
-							$template_titulo = 'Simulados';
-							$template_classes = 'esconder_sessao';
-							$template_conteudo_class = 'justify-content-start';
-							$template_conteudo_no_col = true;
-							$template_conteudo = false;
-							while ($resposta = $respostas->fetch_assoc()) {
-								$artefato_id = $resposta['simulado_id'];
-								$artefato_questao_tipo = $resposta['questao_tipo'];
-								$simulado_info = return_simulado_info($artefato_id);
-								$simulado_criacao = $simulado_info[0];
-								$simulado_tipo = $simulado_info[1];
-								$simulado_tipo_string = converter_simulado_tipo($simulado_tipo);
-								$simulado_concurso_id = $simulado_info[2];
-								$simulado_concurso_sigla = return_concurso_sigla($simulado_concurso_id);
-								$artefato_criacao = $simulado_criacao;
-								$artefato_criacao = "Criado em $artefato_criacao";
-								$artefato_titulo = "$simulado_concurso_sigla: $simulado_tipo_string";
-								$artefato_link = "resultados.php?simulado_id=$artefato_id";
-								$artefato_tipo = 'simulado';
-								if ($artefato_questao_tipo == 3) {
-									$artefato_icone = 'fa-file-edit fa-swap-opacity';
-								}
-								$template_conteudo .= include 'templates/artefato_item.php';
-							}
-							include 'templates/page_element.php';
-						}
 					?>
         </div>
     </div>
