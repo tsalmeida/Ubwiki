@@ -38,6 +38,9 @@
 				}
 			}
 		}
+		else {
+			header('Location:index.php');
+		}
 	}
 	$html_head_template_quill = true;
 
@@ -92,6 +95,11 @@
 							<?php
 								if ($texto_editar_titulo == true) {
 									echo "<h1 id='texto_titulo' class='w-100 mt-4 grey lighten-5'><input type='text' name='novo_texto_titulo' maxlength='80' value='$texto_titulo' placeholder='Escreva aqui o título' class='border-0 text-center w-100 grey lighten-5'></h1>";
+								}
+								else {
+									if ($texto_titulo != false) {
+										echo "<h1 class='w-100 mt-4 grey lighten-5 text-center'>$texto_titulo</h1>";
+									}
 								}
 								$template_id = $texto_tipo;
 								$template_quill_initial_state = 'edicao';
