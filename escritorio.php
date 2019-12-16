@@ -1539,7 +1539,7 @@
 			$questao_materia = $questao['materia'];
 			$questao_materia_titulo = return_materia_titulo_id($questao_materia);
 			$questao_tipo = $questao['tipo'];
-			$template_modal_body_conteudo .= "<li>$questao_edicao_ano: $questao_materia_titulo: Questão $questao_numero</li>";
+			$template_modal_body_conteudo .= "<li class='list-group-item'>$questao_edicao_ano: $questao_materia_titulo: Questão $questao_numero</li>";
 		}
 		$template_modal_body_conteudo .= "</ul>";
 	}

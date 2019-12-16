@@ -9,6 +9,7 @@
 	    header("Location:index.php");
     }
 	$texto_anotacao = false;
+	$texto_editar_titulo = false;
 	if ($texto_id == 'new') {
 		if ($conn->query("INSERT INTO Textos (tipo, page_id, user_id, verbete_html, verbete_text, verbete_content) VALUES ('anotacao_privada', 0, $user_id, FALSE, FALSE, FALSE)") === true) {
 			$new_texto_id = $conn->insert_id;
@@ -26,11 +27,14 @@
 				$texto_verbete_content = $texto['verbete_content'];
 				$texto_user_id = $texto['user_id'];
 				$check = false;
-				if ((strpos($texto_tipo, 'anotac') != false) || ($texto_tipo == 'verbete_user')) {
+				if ((strpos($texto_tipo, 'anotac') !== false) || ($texto_tipo == 'verbete_user')) {
 					$texto_anotacao = true;
 					if ($texto_user_id != $user_id) {
 						header('Location:index.php');
 					}
+				}
+				if ($texto_tipo == 'anotacao_privada') {
+					$texto_editar_titulo = true;
 				}
 			}
 		}
@@ -86,8 +90,7 @@
         <div id="coluna_unica" class="col grey lighten-5">
             <div id='quill_pagina_edicao' class="row justify-content-center grey lighten-5">
 							<?php
-								if ($texto_anotacao == true) {
-									$mudar_anotacao_titulo = true;
+								if ($texto_editar_titulo == true) {
 									echo "<h1 id='texto_titulo' class='w-100 mt-4 grey lighten-5'><input type='text' name='novo_texto_titulo' maxlength='80' value='$texto_titulo' placeholder='Escreva aqui o título' class='border-0 text-center w-100 grey lighten-5'></h1>";
 								}
 								$template_id = $texto_tipo;

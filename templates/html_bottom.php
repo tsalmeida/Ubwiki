@@ -9,8 +9,8 @@
 	if (!isset($gabarito)) {
 		$gabarito = false;
 	}
-	if (!isset($mudar_anotacao_titulo)) {
-		$mudar_anotacao_titulo = false;
+	if (!isset($texto_editar_titulo)) {
+		$texto_editar_titulo = false;
 	}
 	if (!isset($etiquetas_bottom)) {
 		$etiquetas_bottom = false;
@@ -70,7 +70,7 @@
 			</script>
 		";
 	}
-	if ($mudar_anotacao_titulo == true) {
+	if ($texto_editar_titulo == true) {
 		echo "
 			<script type='text/javascript'>
 				$('input[name=novo_texto_titulo]').change(function() {
