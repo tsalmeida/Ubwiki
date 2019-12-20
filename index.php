@@ -114,7 +114,7 @@
 								$topico_materia_titulo = return_materia_titulo_id($topico_materia_id);
 								$topico_titulo = return_titulo_topico($topico_id);
 								$topicos = $conn->query("SELECT estado_pagina FROM Topicos WHERE id = $topico_id AND concurso_id = $concurso_id");
-								if ($count == 10) {
+								if ($count == 15) {
 									break;
 								}
 								if ($topicos->num_rows > 0) {
