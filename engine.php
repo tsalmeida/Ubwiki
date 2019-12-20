@@ -110,10 +110,12 @@
 	$button_classes_info = "$all_buttons_classes btn-info";
 	$button_classes_red = "$all_buttons_classes btn-danger";
 	$select_classes = "browser-default custom-select mt-2";
-	$coluna_classes = "col-lg-5 col-md-10 col-sm-11";
-	$coluna_maior_classes = "col-lg-9 col-md-10 col-sm-11";
-	$coluna_media_classes = "col-lg-7 col-md-10 col-sm-11";
-	$coluna_pouco_maior_classes = "col-lg-6 col-md-10 col-sm-11";
+	$coluna_todas = false;
+	$coluna_classes = "col-lg-6 col-md-10 col-sm-11 px-lg-4 $coluna_todas";
+	$coluna_maior_classes = "col-lg-9 col-md-10 col-sm-11 $coluna_todas";
+	$coluna_media_classes = "col-lg-7 col-md-10 col-sm-11 $coluna_todas";
+	$coluna_pouco_maior_classes = "col-lg-6 col-md-10 col-sm-11 $coluna_todas";
+	$row_classes = "pt-3 pb-5";
 
 	$tag_ativa_classes = 'text-dark m-1 p-2 lighten-4 rounded remover_tag';
 	$tag_inativa_classes = 'text-dark m-1 p-2 lighten-4 rounded adicionar_tag';
@@ -154,42 +156,32 @@
 
 	if (isset($_POST['bookmark_change'])) {
 		$bookmark_change = $_POST['bookmark_change'];
-		$bookmark_page_id = $_POST['bookmark_page_id'];
-		$bookmark_user_id = $_POST['bookmark_user_id'];
-		$bookmark_contexto = $_POST['bookmark_contexto'];
-		if ($bookmark_contexto == 'verbete') {
-			$coluna_relevante = 'topico_id';
-		} elseif ($bookmark_contexto == 'elemento') {
-			$coluna_relevante = 'elemento_id';
-		}
-		include 'templates/criar_conn.php';
-		$result = $conn->query("SELECT id FROM Bookmarks WHERE user_id = $bookmark_user_id AND $coluna_relevante = $bookmark_page_id AND active = 1");
-		if ($result->num_rows > 0) {
-			while ($row = $result->fetch_assoc()) {
-				$bookmark_id = $row['id'];
+		$bookmark_pagina_id = $_POST['bookmark_pagina_id'];
+		$bookmarks = $conn->query("SELECT id FROM Bookmarks WHERE user_id = $user_id AND pagina_id = $bookmark_pagina_id AND active = 1");
+		if ($bookmarks->num_rows > 0) {
+			while ($bookmark = $bookmarks->fetch_assoc()) {
+				$bookmark_id = $bookmark['id'];
 				$conn->query("UPDATE Bookmarks SET active = 0 WHERE id = $bookmark_id");
 				break;
 			}
 		}
-		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina, extra) VALUES ($bookmark_user_id, $bookmark_page_id, 'bookmark', $bookmark_change)");
-		$conn->query("INSERT INTO Bookmarks (user_id, $coluna_relevante, bookmark, active) VALUES ($bookmark_user_id, $bookmark_page_id, $bookmark_change, 1)");
+		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina, extra) VALUES ($user_id, $bookmark_pagina_id, 'bookmark', $bookmark_change)");
+		$conn->query("INSERT INTO Bookmarks (user_id, pagina_id, bookmark, active) VALUES ($user_id, $bookmark_pagina_id, $bookmark_change, 1)");
 	}
 
 	if (isset($_POST['completed_change'])) {
 		$completed_change = $_POST['completed_change'];
-		$completed_page_id = $_POST['completed_page_id'];
-		$completed_user_id = $_POST['completed_user_id'];
-		include 'templates/criar_conn.php';
-		$result = $conn->query("SELECT id FROM Completed WHERE user_id = $completed_user_id AND topico_id = $completed_page_id AND active = 1");
-		if ($result->num_rows > 0) {
-			while ($row = $result->fetch_assoc()) {
-				$completed_id = $row['id'];
+		$completed_pagina_id = $_POST['completed_pagina_id'];
+		$completos = $conn->query("SELECT id FROM Completed WHERE user_id = $user_id AND pagina_id = $completed_pagina_id AND active = 1");
+		if ($completos->num_rows > 0) {
+			while ($completo = $completos->fetch_assoc()) {
+				$completed_id = $completo['id'];
 				$conn->query("UPDATE Completed SET active = 0 WHERE id = $completed_id");
 				break;
 			}
 		}
-		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina, extra) VALUES ($completed_user_id, $completed_page_id, 'completed', $completed_change)");
-		$conn->query("INSERT INTO Completed (user_id, topico_id, estado, active) VALUES ($completed_user_id, $completed_page_id, $completed_change, 1)");
+		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina, extra) VALUES ($user_id, $completed_pagina_id, 'completed', $completed_change)");
+		$conn->query("INSERT INTO Completed (user_id, pagina_id, estado, active) VALUES ($user_id, $completed_pagina_id, $completed_change, 1)");
 	}
 
 	$opcao_texto_justificado_value = false;
@@ -667,7 +659,7 @@
 		$icone3 = 'fas fa-leaf fa-fw';
 		$icone4 = 'fas fa-leaf fa-fw';
 
-		if ($contexto == 'verbete') {
+		if ($contexto == 'pagina') {
 			$icone0 = 'fas fa-empty-set fa-fw';
 			$icone1 = 'fas fa-acorn fa-fw';
 			$icone2 = 'fas fa-seedling fa-fw';
@@ -1302,6 +1294,20 @@
 		
 		return array($usuario_avatar, $usuario_avatar_cor);
 		
+	}
+	
+	function return_pagina_id($item_id, $pagina_tipo) {
+		if ($pagina_tipo == 'verbete') {
+		
+		}
+	}
+	
+	function return_quill_initial_state($template_id) {
+		if ($template_id == 'verbete') {
+			return 'leitura';
+		} elseif ($template_id == 'anotacoes') {
+			return 'edicao';
+		}
 	}
 	
 	

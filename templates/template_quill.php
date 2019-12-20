@@ -9,16 +9,29 @@
 	if (!isset($texto_tipo)) {
 		$texto_tipo = $template_id;
 	}
-	if ((strpos($template_id, 'anotac') !== false) || ($template_id == 'verbete_user')) {
-		$template_quill_meta_tipo = 'anotacoes';
-		$template_quill_toolbar_and_whitelist = 'anotacoes';
-		$template_quill_initial_state = 'edicao';
-		$template_classes = 'anotacoes_sticky';
-	} else {
-		$template_quill_meta_tipo = 'verbete';
-		$template_quill_toolbar_and_whitelist = 'general';
+	if (isset($pagina_tipo)) {
+		$template_quill_meta_tipo = "{$template_id}_{$pagina_tipo}";
+		$template_quill_toolbar_and_whitelist = $template_id;
+		$template_quill_vazio = 'Seja o primeiro a escrever sobre este assunto.';
 		if (!isset($template_quill_initial_state)) {
-			$template_quill_initial_state = 'leitura';
+			$template_quill_initial_state = return_quill_initial_state($template_id);
+		}
+		if ($template_id == 'anotacoes') {
+			$template_classes = 'anotacoes_sticky';
+			$template_quill_vazio = 'Não há notas de estudos suas sobre este assunto.';
+		}
+	} else {
+		if ((strpos($template_id, 'anotac') !== false) || ($template_id == 'verbete_user')) {
+			$template_quill_meta_tipo = 'anotacoes';
+			$template_quill_toolbar_and_whitelist = 'anotacoes';
+			$template_quill_initial_state = 'edicao';
+			$template_classes = 'anotacoes_sticky';
+		} else {
+			$template_quill_meta_tipo = 'verbete';
+			$template_quill_toolbar_and_whitelist = 'general';
+			if (!isset($template_quill_initial_state)) {
+				$template_quill_initial_state = 'leitura';
+			}
 		}
 	}
 	$template_quill_whitelist = "formatWhitelist_{$template_quill_toolbar_and_whitelist}";
@@ -32,27 +45,32 @@
 	if ($template_quill_pagina_de_edicao == true) {
 		$template_quill_editor_classes = 'quill_pagina_de_edicao';
 	}
-	if (!isset($template_quill_page_id)) {
-		if (isset($topico_id)) {
-			$template_quill_page_id = $topico_id;
-		} elseif (isset($elemento_id)) {
-			$template_quill_page_id = $elemento_id;
-		} elseif (isset($questao_id)) {
-			$template_quill_page_id = $questao_id;
-		} elseif (isset($texto_apoio_id)) {
-			$template_quill_page_id = $texto_apoio_id;
-		} elseif (isset($materia_id)) {
-			$template_quill_page_id = $materia_id;
-		} elseif (isset($concurso_id)) {
-			$template_quill_page_id = $concurso_id;
-		} else {
-			$template_quill_page_id = false;
+	
+	if (isset($pagina_id)) {
+		$template_quill_page_id = $pagina_id;
+	} else {
+		if (!isset($template_quill_page_id)) {
+			if (isset($topico_id)) {
+				$template_quill_page_id = $topico_id;
+			} elseif (isset($elemento_id)) {
+				$template_quill_page_id = $elemento_id;
+			} elseif (isset($questao_id)) {
+				$template_quill_page_id = $questao_id;
+			} elseif (isset($texto_apoio_id)) {
+				$template_quill_page_id = $texto_apoio_id;
+			} elseif (isset($materia_id)) {
+				$template_quill_page_id = $materia_id;
+			} elseif (isset($concurso_id)) {
+				$template_quill_page_id = $concurso_id;
+			} else {
+				$template_quill_page_id = false;
+			}
 		}
 	}
 	$template_quill_page_id = (int)$template_quill_page_id;
 	
-	if (!isset($quill_visualizacoes_tipo)) {
-		$quill_visualizacoes_tipo = 'verbete_mudanca';
+	if (isset($pagina_id)) {
+		$quill_visualizacoes_tipo = $pagina_tipo;
 	}
 	$quill_novo_verbete_html = "quill_novo_{$template_id}_html";
 	$quill_novo_verbete_text = "quill_novo_{$template_id}_text";
@@ -130,7 +148,9 @@
 			}
 		}
 		
-		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $template_quill_page_id, '$quill_visualizacoes_tipo')");
+		if (isset($quill_visualizacoes_tipo)) {
+			$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina, extra) VALUES ($user_id, $pagina_id, '$quill_visualizacoes_tipo', 'edicao')");
+		}
 		$nao_contar = true;
 	}
 	
@@ -195,6 +215,7 @@
     <script>
     var {$template_id}_editor = new Quill('#quill_editor_{$template_id}', {
         theme: 'snow',
+        placeholder: '{$template_quill_vazio}',
         formats: $template_quill_whitelist,
         modules: {
             toolbar: {
