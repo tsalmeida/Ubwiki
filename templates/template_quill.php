@@ -6,8 +6,8 @@
 	if (!isset($template_quill_pagina_de_edicao)) {
 		$template_quill_pagina_de_edicao = false;
 	}
-	if (!isset($template_quill_load_button)) {
-		$template_quill_load_button = true;
+	if (!isset($texto_tipo)) {
+		$texto_tipo = $template_id;
 	}
 	if ((strpos($template_id, 'anotac') !== false) || ($template_id == 'verbete_user')) {
 		$template_quill_meta_tipo = 'anotacoes';
@@ -71,6 +71,11 @@
 		$template_botoes = false;
 	}
 	
+	if (isset($texto_id)) {
+		$quill_texto_id = $texto_id;
+	} else {
+		$quill_texto_id = false;
+	}
 	if ($template_quill_public == true) {
 		if (isset($texto_id)) {
 			$result = $conn->query("SELECT verbete_content, estado_texto, id FROM Textos WHERE id = $texto_id");
@@ -84,7 +89,6 @@
 			$result = $conn->query("SELECT verbete_content, estado_texto, id FROM Textos WHERE page_id = $template_quill_page_id AND tipo = '$template_id' AND user_id = $user_id");
 		}
 	}
-	$quill_texto_id = false;
 	$quill_verbete_content = false; // o conteúdo final, é determinado ao final ou permanece vazio.
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
@@ -110,24 +114,19 @@
 		$quill_verbete_content = $novo_verbete_content;
 		$novo_verbete_content = mysqli_real_escape_string($conn, $novo_verbete_content);
 		$novo_verbete_html = strip_tags($novo_verbete_html, '<p><li><ul><ol><h2><h3><blockquote><em><sup><img><u><b><a><s>');
-		if ($template_quill_public == true) {
-			$result = $conn->query("SELECT id FROM Textos WHERE page_id = $template_quill_page_id AND tipo = '$template_id'");
-		} else {
-			$result = $conn->query("SELECT id FROM Textos WHERE page_id = $template_quill_page_id AND tipo = '$template_id' AND user_id = $user_id");
-		}
 		if ($verbete_exists == true) {
 			$conn->query("UPDATE Textos SET verbete_html = '$novo_verbete_html', verbete_text = '$novo_verbete_text', verbete_content = '$novo_verbete_content' WHERE id = $quill_texto_id");
-			error_log("INSERT INTO Textos_arquivo (concurso_id, tipo, page_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ($concurso_id, '$template_id', $template_quill_page_id, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
 			$conn->query("INSERT INTO Textos_arquivo (concurso_id, tipo, page_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ($concurso_id, '$template_id', $template_quill_page_id, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
 		} else {
-			$conn->query("INSERT INTO Textos_arquivo (concurso_id, tipo, page_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ($concurso_id, '$template_id' , $template_quill_page_id, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
-			$conn->query("INSERT INTO Textos (concurso_id, tipo, page_id, verbete_html, verbete_text, verbete_content, user_id) VALUES ($concurso_id, '$template_id', $template_quill_page_id, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
+			$conn->query("INSERT INTO Textos_arquivo (concurso_id, tipo, page_id, estado_texto, verbete_html, verbete_text, verbete_content, user_id) VALUES ($concurso_id, '$template_id' , $template_quill_page_id, 1, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
+			$conn->query("INSERT INTO Textos (concurso_id, tipo, page_id, estado_texto, verbete_html, verbete_text, verbete_content, user_id) VALUES ($concurso_id, '$template_id', $template_quill_page_id, 1, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
+			$quill_estado_texto = 1;
 		}
 		
 		if ((is_null($quill_estado_texto)) && ($novo_verbete_content != false)) {
-			$conn->query("UPDATE Textos SET estado_texto = 1 WHERE id = $texto_id");
+			$conn->query("UPDATE Textos SET estado_texto = 1 WHERE id = $quill_texto_id");
 			if ($texto_tipo == 'secao_elemento') {
-				$conn->query("UPDATE Secoes SET estado_texto = 1 WHERE texto_id = $texto_id");
+				$conn->query("UPDATE Secoes SET estado_texto = 1 WHERE texto_id = $quill_texto_id");
 			}
 		}
 		
@@ -140,6 +139,11 @@
 	if ($quill_verbete_content == false) {
 		$quill_result .= $template_quill_empty_content;
 	}
+	
+	$template_botoes .= "
+		<a href='javascript:void(0)' id='{$template_id}_trigger_save'><i class='fal fa-save fa-fw'></i></a>
+	";
+	
 	if ($quill_texto_id != false) {
 		$template_botoes .= "
 			<a href='historico_verbete.php?texto_id=$quill_texto_id' target='_blank'><i class='fal fa-history fa-fw'></i></a>
@@ -163,7 +167,7 @@
     	<a href='javascript:void(0);'><i class='fal fa-pen-square fa-fw'></i></a>
   	</span>
     <span id='destravar_{$template_id}' title='permitir edição'>
-			<a href='javascript:void(0);'><span class='text-muted'><i class='fas fa-pen-square fa-fw'></i></span></a>
+			<a href='javascript:void(0);'><span class='text-muted'><i class='fad fa-pen-square fa-fw'></i></span></a>
   	</span>
 	";
 	
@@ -180,15 +184,8 @@
                 </div>
             </div>
         </div>";
-	$invisible_button = false;
-	if ($template_quill_load_button == false) {
-		$invisible_button = 'd-none';
-	}
 	$quill_result .= "
-        <div id='botoes_salvar_{$template_id}' class='row justify-content-center mt-3 $invisible_button'>
-        		<!--<button type='button' class='btn btn-light btn-sm'>
-        			<i class='fal fa-times-circle fa-fw'></i> Cancelar
-            </button>!-->
+        <div id='botoes_salvar_{$template_id}' class='row justify-content-center mt-3 d-none'>
             <button type='submit' id='$quill_trigger_button' class='$button_classes' name='$quill_trigger_button'>
             	<i class='fal fa-check fa-fw'></i> Salvar
             </button>
@@ -260,7 +257,9 @@
         $('#quill_editor_{$template_id}').children(':first').addClass('ql-editor-active');
         $('#verbete_vazio_{$template_id}').hide();
     });
-
+		$('#{$template_id}_trigger_save').click(function () {
+			$('#{$quill_trigger_button}').click();
+		});
 	</script>
 	";
 	

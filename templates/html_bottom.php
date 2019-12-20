@@ -90,14 +90,6 @@
 	if ($etiquetas_bottom == true) {
 		echo "
       <script type='text/javascript'>
-	      $(document).ready(function() {
-	          $('#anotacao_salva').hide();
-	          $('#salvar_anotacao a').click(function() {
-	            $('#salvar_anotacao').hide();
-	            $('#anotacao_salva').show();
-	              $('#quill_trigger_{$texto_tipo}').click();
-	          });
-	      });
 			  $('#buscar_etiquetas').keyup(function() {
 			      var busca_etiquetas = $('#buscar_etiquetas').val();
 			      var busca_etiquetas_length = $('#buscar_etiquetas').val().length;
@@ -319,6 +311,13 @@
 				    $('#respostas_usuario').show();
 				    $('#sessao_plataforma_simulados').hide();
 				});
+				$(document).on('click', '#mostrar_grupos', function() {
+				    $('.esconder_sessao').hide();
+				    $('#convidar_grupo').show();
+				    $('#convites_ativos').show();
+				    $('#criar_grupo').show();
+				    $('#grupos_usuario_membro').show();
+				});
 				$(document).on('click', '#novo_adicionar_simulado', function() {
 				    $('#sessao_plataforma_simulados').show();
 				});
@@ -344,6 +343,22 @@
 				    $('#show_add_elements').hide();
 				    $('.add_elements').show();
 				});
+			</script>
+		";
+	}
+	if (isset($quill_extra_buttons)) {
+		echo "
+			<script type='text/javascript'>
+			 $(document).ready(function() {
+					var extra_buttons = \"$quill_extra_buttons\";
+					$('.ql-toolbar').prepend(extra_buttons);
+					$('#anotacao_salva').hide();
+					$('#salvar_anotacao').click(function() {
+					  $('#salvar_anotacao').hide();
+					  $('#anotacao_salva').show();
+					    $('#quill_trigger_{$texto_tipo}').click();
+					});
+	      });
 			</script>
 		";
 	}

@@ -16,12 +16,11 @@
 		$artefato_tipo = false;
 	}
 	
-	$artefato_icone_cores = convert_artefato_icone_cores($artefato_tipo);
-	$fa_icone = $artefato_icone_cores[0];
-	$fa_color = $artefato_icone_cores[1];
-	
-	
-	
+	if (!isset($fa_icone)) {
+		$artefato_icone_cores = convert_artefato_icone_cores($artefato_tipo);
+		$fa_icone = $artefato_icone_cores[0];
+		$fa_color = $artefato_icone_cores[1];
+	}
 	if ($artefato_icone != false) {
 		$fa_icone = $artefato_icone;
 	}
@@ -66,8 +65,7 @@
 	unset($artefato_criacao);
 	unset($artefato_link);
 	unset($fa_icone);
-	unset($fa_primary_color);
-	unset($fa_secondary_color);
+	unset($fa_color);
 	unset($artefato_titulo);
 	unset($artefato_page_id_titulo);
 	unset($artefato_estado);

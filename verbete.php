@@ -323,6 +323,7 @@
 
 <div id='page_height' class='container-fluid'>
 	<?php
+  
 		$template_titulo_context = true;
 		$template_titulo = $topico_titulo;
 		include 'templates/titulo.php';

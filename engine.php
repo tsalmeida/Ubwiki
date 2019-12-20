@@ -1123,6 +1123,9 @@
 		} elseif ($artefato_tipo == 'anotacoes_admin') {
 			$fa_icone = $fa_icone_anotacao;
 			$fa_primary_color = 'text-light';
+		} elseif ($artefato_tipo == 'membro') {
+			$fa_icone = 'fa-user-tie';
+			$fa_primary_color = 'text-success';
 		}
 		return array($fa_icone, $fa_primary_color);
 	}
@@ -1226,6 +1229,18 @@
 		}
 		return false;
 	}
+	
+	function return_grupo_titulo_id($grupo_id) {
+		include 'templates/criar_conn.php';
+		$grupos = $conn->query("SELECT titulo FROM Grupos WHERE id = $grupo_id");
+		if ($grupos->num_rows > 0) {
+			while ($grupo = $grupos->fetch_assoc()) {
+				$grupo_titulo = $grupo['titulo'];
+				return $grupo_titulo;
+			}
+		}
+		return false;
+	}
 
 	function return_artefato_subtitulo($artefato_tipo) {
 		if ($artefato_tipo == 'anotacoes_user') {
@@ -1250,6 +1265,43 @@
 			$artefato_subtitulo = $artefato_tipo;
 		}
 		return $artefato_subtitulo;
+	}
+	
+	function check_membro_grupo($membro_user_id, $grupo_id) {
+		include 'templates/criar_conn.php';
+		$grupos = $conn->query("SELECT id FROM Membros WHERE grupo_id = $grupo_id AND membro_user_id = $membro_user_id AND estado = 1");
+		if ($grupos->num_rows > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	function return_avatar($user_id) {
+		
+		include 'templates/criar_conn.php';
+		
+		$usuario_avatar = 'fa-user-tie';
+		$usuario_avatar_cor = false;
+		
+		$opcoes_avatar = $conn->query("SELECT opcao_string FROM Opcoes WHERE user_id = $user_id AND opcao_tipo = 'avatar' ORDER BY id DESC");
+		if ($opcoes_avatar->num_rows > 0) {
+			while ($opcao_avatar = $opcoes_avatar->fetch_assoc()) {
+				$usuario_avatar = $opcao_avatar['opcao_string'];
+				break;
+			}
+		}
+		
+		$opcoes_cor = $conn->query("SELECT opcao_string FROM Opcoes WHERE user_id = $user_id AND opcao_tipo = 'avatar_cor' ORDER BY id DESC");
+		if ($opcoes_cor->num_rows > 0) {
+			while ($opcao_cor = $opcoes_cor->fetch_assoc()) {
+				$usuario_avatar_cor = $opcao_cor['opcao_string'];
+				break;
+			}
+		}
+		
+		return array($usuario_avatar, $usuario_avatar_cor);
+		
 	}
 	
 	

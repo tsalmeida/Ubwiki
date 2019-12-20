@@ -3,7 +3,19 @@
 	include 'engine.php';
 	
 	if (isset($_POST['trigger_atualizacao'])) {
-	
+	    $conn->query("CREATE TABLE `Ubwiki`.`Grupos` ( `id` INT NOT NULL AUTO_INCREMENT , `criacao` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `user_id` INT(11) NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
+	    $conn->query("CREATE TABLE `Ubwiki`.`Membros` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `criacao` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP , `membro_user_id` INT(11) NULL DEFAULT NULL , `user_id` INT(11) NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
+	    $conn->query("ALTER TABLE `Grupos` ADD `titulo` VARCHAR(255) NULL DEFAULT NULL AFTER `criacao`;");
+	    $conn->query("ALTER TABLE `Membros` ADD `grupo_id` INT(11) NULL DEFAULT NULL AFTER `criacao`;");
+	    $conn->query("ALTER TABLE `Membros` ADD `estado` BOOLEAN NULL DEFAULT TRUE AFTER `membro_user_id`;");
+	    $conn->query("ALTER TABLE `Grupos` ADD `estado` BOOLEAN NOT NULL DEFAULT TRUE AFTER `titulo`;");
+	    $conn->query("ALTER TABLE `Membros` CHANGE `estado` `estado` TINYINT(1) NULL DEFAULT NULL;");
+	    $conn->query("ALTER TABLE `Textos_arquivo` ADD `estado_texto` TINYINT NULL DEFAULT NULL AFTER `page_id`;");
+	    $conn->query("CREATE TABLE `Ubwiki`.`Paginas` ( `id` INT NOT NULL AUTO_INCREMENT , `criacao` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `page_id` INT(11) NULL DEFAULT NULL , `tipo` VARCHAR(255) NOT NULL , `user_id` INT(11) NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
+        $conn->query("ALTER TABLE `Textos` ADD `compartilhamento` VARCHAR(255) NULL DEFAULT NULL AFTER `estado_texto`;");
+        $conn->query("ALTER TABLE `Textos_arquivo` ADD `compartilhamento` VARCHAR(255) NULL DEFAULT NULL AFTER `estado_texto`;");
+	    $conn->query("CREATE TABLE `Ubwiki`.`Compartilhamento` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `criacao` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `user_id` INT(11) NULL DEFAULT NULL , `item_id` INT(11) NULL DEFAULT NULL , `item_tipo` VARCHAR(255) NULL DEFAULT NULL , `compartilhamento` VARCHAR(255) NULL DEFAULT NULL , `recipiente_id` INT(11) NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
+	    $conn->query("ALTER TABLE `Opcoes` ADD `opcao_string` VARCHAR(255) NULL DEFAULT NULL AFTER `opcao`;");
 	}
 	
 	if (isset($_POST['funcoes_gerais'])) {
@@ -29,7 +41,6 @@
 	}
 	
 	if (isset($_POST['funcoes_gerais3'])) {
-
 	}
 	
 	if (isset($_POST['reconstruir_busca'])) {
