@@ -119,7 +119,7 @@
 			$template_modal_titulo = 'Compartilhamento';
 			$template_modal_body_conteudo = false;
 			$template_modal_body_conteudo .= "
-			  <p>Apenas você, como criador original desta anotação, poderá alterar suas opções de compartilhamento. Por favor, analise cuidadosamente as opções abaixo. Versões anteriores do documento estarão sempre disponíveis no histórico (para todos os que tenham acesso à sua versão atual) Todo usuário que tem acesso à anotação poderá alterar suas etiquetas.</p>
+			  <p>Apenas você, como criador original desta anotação, poderá alterar suas opções de compartilhamento. Por favor, analise cuidadosamente as opções abaixo. Versões anteriores do documento estarão sempre disponíveis no histórico (para todos os que tenham acesso à sua versão atual) Todo usuário com acesso à anotação poderá alterar suas etiquetas.</p>
 			  <h3>Compartilhar com grupo de estudos</h3>
 			  ";
             if ($grupos_do_usuario->num_rows > 0) {
@@ -144,7 +144,7 @@
                 $template_modal_body_conteudo .= "<p class='text-muted'><em>Você não faz parte de nenhum grupo de estudos.</em></p>";
             }
             
-            $template_modal_body_conteudo .= "
+            /*$template_modal_body_conteudo .= "
               <form>
               <h3>Compartilhar com outro usuário</h3>
                 <select name='compartilhar_usuario' class='$select_classes'>
@@ -158,7 +158,7 @@
               <p>Todo usuário da Ubwiki poderá ler sua anotação, mas não poderá editá-la.</p>
               <h3>Tornar pública e aberta.</h3>
               <p>Todo usuário da Ubwiki poderá ler e editar sua anotação.</p>
-          ";
+          ";*/
 			include 'templates/modal.php';
 			
 			$template_modal_div_id = 'modal_apagar_anotacao';
