@@ -117,6 +117,7 @@
 			
 			$template_modal_div_id = 'modal_compartilhar_anotacao';
 			$template_modal_titulo = 'Compartilhamento';
+			$template_modal_show_buttons = false;
 			$template_modal_body_conteudo = false;
 			$template_modal_body_conteudo .= "
 			  <p>Apenas você, como criador original desta anotação, poderá alterar suas opções de compartilhamento. Por favor, analise cuidadosamente as opções abaixo. Versões anteriores do documento estarão sempre disponíveis no histórico (para todos os que tenham acesso à sua versão atual) Todo usuário com acesso à anotação poderá alterar suas etiquetas.</p>
@@ -159,6 +160,7 @@
               <h3>Tornar pública e aberta.</h3>
               <p>Todo usuário da Ubwiki poderá ler e editar sua anotação.</p>
           ";*/
+
 			include 'templates/modal.php';
 			
 			$template_modal_div_id = 'modal_apagar_anotacao';
