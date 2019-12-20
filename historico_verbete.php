@@ -18,18 +18,18 @@
 	$texto_tipo = $texto_info[1];
 	$texto_page_id = $texto_info[3];
 	$texto_user_id = $texto_info[8];
-
+	
 	if ((strpos($texto_tipo, 'anotac') !== false) || ($texto_tipo == 'verbete_user')) {
-	   if ($texto_user_id != $user_id) {
-	   	  header('Location:index.php');
-	   }
-	   $texto_restrito = true;
-    } else {
-	    $texto_restrito = false;
-    }
+		if ($texto_user_id != $user_id) {
+			header('Location:index.php');
+		}
+		$texto_restrito = true;
+	} else {
+		$texto_restrito = false;
+	}
 	
 	// HTML HEAD HTML HEAD HTML HEAD HTML HEAD HTML HEAD HTML HEAD HTML HEAD HTML HTML HEAD HTML HEAD HTML HEAD
- 
+	
 	$html_head_template_conteudo = "
         <script type='text/javascript'>
           var user_id=$user_id;
@@ -62,10 +62,10 @@
 						
 						$template_conteudo .= "<p>Para visualizar as mais recentes versões salvas deste texto, clique em um dos botões abaixo.</p>";
 						if ($texto_restrito == false) {
-						    $result = $conn->query("SELECT criacao, id, user_id FROM Textos_arquivo WHERE page_id = $texto_page_id AND tipo = '$texto_tipo' ORDER BY id DESC");
+							$result = $conn->query("SELECT criacao, id, user_id FROM Textos_arquivo WHERE page_id = $texto_page_id AND tipo = '$texto_tipo' ORDER BY id DESC");
 						} else {
-                            $result = $conn->query("SELECT criacao, id, user_id FROM Textos_arquivo WHERE page_id = $texto_page_id AND tipo = '$texto_tipo' AND user_id = $user_id ORDER BY id DESC");
-                        }
+							$result = $conn->query("SELECT criacao, id, user_id FROM Textos_arquivo WHERE page_id = $texto_page_id AND tipo = '$texto_tipo' AND user_id = $user_id ORDER BY id DESC");
+						}
 						if ($result->num_rows > 0) {
 							$template_conteudo .= "<ul class='list-group'>";
 							$count = 0;
@@ -79,12 +79,22 @@
 								$historico_verbete_user_id = $row['user_id'];
 								$historico_verbete_user_apelido = return_apelido_user_id($historico_verbete_user_id);
 								$template_conteudo .= "
-                        <form method='post'>
-                            <li class='list-group-item'>
-                                <button type='submit' value='$historico_verbete_id' name='visualizar_historico' class='btn btn-primary btn-sm' title='Visite o escritório deste usuário'>Visualizar</button>
-                                $historico_verbete_criacao : <a href='perfil.php?pub_user_id=$historico_verbete_user_id' target='_blank'>$historico_verbete_user_apelido</a></li>
-                        </form>
-                      ";
+									<form method='post'>
+                                       <li class='list-group-item'>
+	                                      <button type='submit' value='$historico_verbete_id' name='visualizar_historico' class='btn btn-primary btn-sm'>Visualizar</button>
+                                          Em <em><small class='text-muted'>$historico_verbete_criacao</small></em>, por
+								";
+								if ($historico_verbete_user_apelido == false) {
+									$template_conteudo .= "anônimo.";
+								} else {
+									$template_conteudo .= "
+									  <a href='perfil.php?pub_user_id=$historico_verbete_user_id' target='_blank' title='Visite o escritório deste usuário'>$historico_verbete_user_apelido</a>
+                                  	";
+								}
+								$template_conteudo .= "
+                                      </li>
+                                    </form>
+                                ";
 							}
 							$template_conteudo .= "</ul>";
 						}
