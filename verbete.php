@@ -254,10 +254,10 @@
 					?>
         </div>
         <div class="py-2 text-center col">
-            <span id="show_add_elements" class="mx-1" title="" ><a href="javascript:void(0)"><i class="fad fa-2x fa-plus-circle fa-fw"></i></a></span>
-            <span class="mx-1 add_elements" title="" data-toggle="modal" data-target="#modal_referencia_form"><a href="javascript:void(0);" class="text-success"><i class="fad fa-book fa-2x fa-fw"></i></a></span>
-            <span class="mx-1 add_elements" title="" data-toggle="modal" data-target="#modal_videos_form"><a href="javascript:void(0);" class="text-info"><i class="fad fa-film fa-2x fa-fw"></i></a></span>
-            <span class="mx-1 add_elements" title="" data-toggle="modal" data-target="#modal_imagens_form"><a href="javascript:void(0);" class="text-danger"><i class="fad fa-image fa-2x fa-fw"></i></a></span>
+            <span id="show_add_elements" class="mx-1" title="" ><a href="javascript:void(0)" title="Adicionar elemento"><i class="fad fa-2x fa-plus-circle fa-fw"></i></a></span>
+            <span class="mx-1 add_elements" title="" data-toggle="modal" data-target="#modal_referencia_form" title="Adicionar referência de leitura"><a href="javascript:void(0);" class="text-success"><i class="fad fa-book fa-2x fa-fw"></i></a></span>
+            <span class="mx-1 add_elements" title="" data-toggle="modal" data-target="#modal_videos_form" title="Adicionar conteúdo em vídeo"><a href="javascript:void(0);" class="text-info"><i class="fad fa-film fa-2x fa-fw"></i></a></span>
+            <span class="mx-1 add_elements" title="" data-toggle="modal" data-target="#modal_imagens_form" title="Adicionar imagem"><a href="javascript:void(0);" class="text-danger"><i class="fad fa-image fa-2x fa-fw"></i></a></span>
             <!--<span id="" class="mx-1" title="" data-toggle="modal" data-target="#modal_audio_form"><a href="javascript:void(0);"><i class="fad fa-microphone fa-fw"></i></a></span>-->
         </div>
         <div class='py-2 text-right col'>
