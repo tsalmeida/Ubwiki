@@ -17,17 +17,18 @@
 	$texto_anotacao = false;
 	$texto_editar_titulo = false;
 	if ($texto_id == 'new') {
-		if ($conn->query("INSERT INTO Textos (tipo, page_id, user_id, verbete_html, verbete_text, verbete_content) VALUES ('anotacao_privada', 0, $user_id, FALSE, FALSE, FALSE)") === true) {
+		if ($conn->query("INSERT INTO Textos (tipo, page_id, pagina_id, user_id, verbete_html, verbete_text, verbete_content) VALUES ('anotacao_privada', 0, 0, $user_id, FALSE, FALSE, FALSE)") === true) {
 			$new_texto_id = $conn->insert_id;
 			header("Location:edicao_textos.php?texto_id=$new_texto_id");
 		}
 	} else {
-		$textos = $conn->query("SELECT tipo, titulo, page_id, estado_texto, compartilhamento, criacao, verbete_content, user_id FROM Textos WHERE id = $texto_id");
+		$textos = $conn->query("SELECT tipo, titulo, page_id, pagina_id, estado_texto, compartilhamento, criacao, verbete_content, user_id FROM Textos WHERE id = $texto_id");
 		if ($textos->num_rows > 0) {
 			while ($texto = $textos->fetch_assoc()) {
 				$texto_tipo = $texto['tipo'];
 				$texto_titulo = $texto['titulo'];
 				$texto_page_id = $texto['page_id'];
+				$texto_pagina_id = $texto['pagina_id'];
 				$texto_criacao = $texto['criacao'];
 				$texto_estado = $texto['estado_texto'];
 				$texto_compartilhamento = $texto['compartilhamento'];
@@ -95,6 +96,7 @@
 								$template_id = $texto_tipo;
 								$template_quill_initial_state = 'edicao';
 								$template_quill_page_id = $texto_page_id;
+								$template_quill_pagina_id = $texto_pagina_id;
 								$template_quill_pagina_de_edicao = true;
 								$quill_instance = include 'templates/template_quill.php';
 								echo $quill_instance;

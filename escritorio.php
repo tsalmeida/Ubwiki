@@ -2,6 +2,9 @@
 	
 	include 'engine.php';
 	
+	$pagina_id = $user_id;
+	$pagina_tipo = 'escritorio';
+	
 	$dados_usuario = $conn->query("SELECT id, tipo, criacao, apelido, nome, sobrenome FROM Usuarios WHERE email = '$user_email'");
 	if ($dados_usuario->num_rows > 0) {
 		while ($row = $dados_usuario->fetch_assoc()) {
@@ -23,8 +26,8 @@
 			$nova_edicao_titulo = mysqli_real_escape_string($conn, $nova_edicao_titulo);
 		}
 		if (($nova_edicao_ano != false) && ($nova_edicao_titulo != false)) {
-			$conn->query("INSERT INTO sim_edicoes (concurso_id, ano, titulo, user_id) VALUES ($concurso_id, $nova_edicao_ano, '$nova_edicao_titulo', $user_id)");
-			$conn->query("INSERT INTO sim_edicoes_arquivo (concurso_id, ano, titulo, user_id) VALUES ($concurso_id, $nova_edicao_ano, '$nova_edicao_titulo', $user_id)");
+			$conn->query("INSERT INTO sim_edicoes (curso_id, ano, titulo, user_id) VALUES ($curso_id, $nova_edicao_ano, '$nova_edicao_titulo', $user_id)");
+			$conn->query("INSERT INTO sim_edicoes_arquivo (curso_id, ano, titulo, user_id) VALUES ($curso_id, $nova_edicao_ano, '$nova_edicao_titulo', $user_id)");
 		}
 	}
 	
@@ -37,8 +40,8 @@
 			$nova_etapa_edicao = $_POST['nova_etapa_edicao'];
 		}
 		if (($nova_etapa_titulo != false) && ($nova_etapa_edicao != false)) {
-			$conn->query("INSERT INTO sim_etapas (concurso_id, edicao_id, titulo, user_id) VALUES ($concurso_id, $nova_etapa_edicao, '$nova_etapa_titulo', $user_id)");
-			$conn->query("INSERT INTO sim_etapas_arquivo (concurso_id, edicao_id, titulo, user_id) VALUES ($concurso_id, $nova_etapa_edicao, '$nova_etapa_titulo', $user_id)");
+			$conn->query("INSERT INTO sim_etapas (curso_id, edicao_id, titulo, user_id) VALUES ($curso_id, $nova_etapa_edicao, '$nova_etapa_titulo', $user_id)");
+			$conn->query("INSERT INTO sim_etapas_arquivo (curso_id, edicao_id, titulo, user_id) VALUES ($curso_id, $nova_etapa_edicao, '$nova_etapa_titulo', $user_id)");
 		}
 	}
 	
@@ -54,8 +57,8 @@
 			$nova_prova_tipo = $_POST['nova_prova_tipo'];
 		}
 		if (($nova_prova_etapa != false) && ($nova_prova_titulo != false) && ($nova_prova_tipo != false)) {
-			$conn->query("INSERT INTO sim_provas (concurso_id, etapa_id, titulo, tipo, user_id) VALUES ($concurso_id, $nova_prova_etapa, '$nova_prova_titulo', $nova_prova_tipo, $user_id)");
-			$conn->query("INSERT INTO sim_provas_arquivo (concurso_id, etapa_id, titulo, tipo, user_id) VALUES ($concurso_id, $nova_prova_etapa, '$nova_prova_titulo', $nova_prova_tipo, $user_id)");
+			$conn->query("INSERT INTO sim_provas (curso_id, etapa_id, titulo, tipo, user_id) VALUES ($curso_id, $nova_prova_etapa, '$nova_prova_titulo', $nova_prova_tipo, $user_id)");
+			$conn->query("INSERT INTO sim_provas_arquivo (curso_id, etapa_id, titulo, tipo, user_id) VALUES ($curso_id, $nova_prova_etapa, '$nova_prova_titulo', $nova_prova_tipo, $user_id)");
 		}
 	}
 	
@@ -97,8 +100,8 @@
 		}
 		
 		if (($novo_texto_apoio_origem != false) && ($novo_texto_apoio_prova != false) && ($novo_texto_apoio_titulo != false) && ($novo_texto_apoio_enunciado_html != false) && ($novo_texto_apoio_html != false)) {
-			$conn->query("INSERT INTO sim_textos_apoio (concurso_id, origem, prova_id, titulo, enunciado_html, enunciado_text, enunciado_content, texto_apoio_html, texto_apoio_text, texto_apoio_content, user_id) VALUES ($concurso_id, $novo_texto_apoio_origem, $novo_texto_apoio_prova, '$novo_texto_apoio_titulo', '$novo_texto_apoio_enunciado_html', '$novo_texto_apoio_enunciado_text', '$novo_texto_apoio_enunciado_content', '$novo_texto_apoio_html', '$novo_texto_apoio_text', '$novo_texto_apoio_content', $user_id)");
-			$conn->query("INSERT INTO sim_textos_apoio_arquivo (concurso_id, origem, prova_id, titulo, enunciado_html, enunciado_text, enunciado_content, texto_apoio_html, texto_apoio_text, texto_apoio_content, user_id) VALUES ($concurso_id, $novo_texto_apoio_origem, $novo_texto_apoio_prova, '$novo_texto_apoio_titulo', '$novo_texto_apoio_enunciado_html', '$novo_texto_apoio_enunciado_text', '$novo_texto_apoio_enunciado_content', '$novo_texto_apoio_html', '$novo_texto_apoio_text', '$novo_texto_apoio_content', $user_id)");
+			$conn->query("INSERT INTO sim_textos_apoio (curso_id, origem, prova_id, titulo, enunciado_html, enunciado_text, enunciado_content, texto_apoio_html, texto_apoio_text, texto_apoio_content, user_id) VALUES ($curso_id, $novo_texto_apoio_origem, $novo_texto_apoio_prova, '$novo_texto_apoio_titulo', '$novo_texto_apoio_enunciado_html', '$novo_texto_apoio_enunciado_text', '$novo_texto_apoio_enunciado_content', '$novo_texto_apoio_html', '$novo_texto_apoio_text', '$novo_texto_apoio_content', $user_id)");
+			$conn->query("INSERT INTO sim_textos_apoio_arquivo (curso_id, origem, prova_id, titulo, enunciado_html, enunciado_text, enunciado_content, texto_apoio_html, texto_apoio_text, texto_apoio_content, user_id) VALUES ($curso_id, $novo_texto_apoio_origem, $novo_texto_apoio_prova, '$novo_texto_apoio_titulo', '$novo_texto_apoio_enunciado_html', '$novo_texto_apoio_enunciado_text', '$novo_texto_apoio_enunciado_content', '$novo_texto_apoio_html', '$novo_texto_apoio_text', '$novo_texto_apoio_content', $user_id)");
 		}
 	}
 	
@@ -307,8 +310,8 @@
 		} else {
 			$nova_questao_item5_gabarito = "NULL";
 		}
-		$conn->query("INSERT INTO sim_questoes (origem, concurso_id, edicao_ano, texto_apoio_id, etapa_id, prova_id, enunciado_html, enunciado_text, enunciado_content, numero, materia, tipo, item1_html, item1_text, item1_content, item2_html, item2_text, item2_content, item3_html, item3_text, item3_content, item4_html, item4_text, item4_content, item5_html, item5_text, item5_content, item1_gabarito, item2_gabarito, item3_gabarito, item4_gabarito, item5_gabarito, user_id) VALUES ($nova_questao_origem, $concurso_id, $nova_questao_edicao_ano, $nova_questao_texto_apoio, $nova_questao_etapa_id, $nova_questao_prova, '$quill_novo_questao_enunciado_html', '$quill_novo_questao_enunciado_text', '$quill_novo_questao_enunciado_content', $nova_questao_numero, $nova_questao_materia, $nova_questao_tipo, $quill_novo_questao_item1_html, $quill_novo_questao_item1_text, $quill_novo_questao_item1_content, $quill_novo_questao_item2_html, $quill_novo_questao_item2_text, $quill_novo_questao_item2_content, $quill_novo_questao_item3_html, $quill_novo_questao_item3_text, $quill_novo_questao_item3_content, $quill_novo_questao_item4_html, $quill_novo_questao_item4_text, $quill_novo_questao_item4_content, $quill_novo_questao_item5_html, $quill_novo_questao_item5_text, $quill_novo_questao_item5_content, $nova_questao_item1_gabarito, $nova_questao_item2_gabarito, $nova_questao_item3_gabarito, $nova_questao_item4_gabarito, $nova_questao_item5_gabarito, $user_id)");
-		$conn->query("INSERT INTO sim_questoes_arquivo (origem, concurso_id, edicao_ano, texto_apoio_id, etapa_id, prova_id, enunciado_html, enunciado_text, enunciado_content, numero, materia, tipo, item1_html, item1_text, item1_content, item2_html, item2_text, item2_content, item3_html, item3_text, item3_content, item4_html, item4_text, item4_content, item5_html, item5_text, item5_content, item1_gabarito, item2_gabarito, item3_gabarito, item4_gabarito, item5_gabarito, user_id) VALUES ($nova_questao_origem, $concurso_id, $nova_questao_edicao_ano, $nova_questao_texto_apoio, $nova_questao_etapa_id, $nova_questao_prova, '$quill_novo_questao_enunciado_html', '$quill_novo_questao_enunciado_text', '$quill_novo_questao_enunciado_content', $nova_questao_numero, $nova_questao_materia, $nova_questao_tipo, $quill_novo_questao_item1_html, $quill_novo_questao_item1_text, $quill_novo_questao_item1_content, $quill_novo_questao_item2_html, $quill_novo_questao_item2_text, $quill_novo_questao_item2_content, $quill_novo_questao_item3_html, $quill_novo_questao_item3_text, $quill_novo_questao_item3_content, $quill_novo_questao_item4_html, $quill_novo_questao_item4_text, $quill_novo_questao_item4_content, $quill_novo_questao_item5_html, $quill_novo_questao_item5_text, $quill_novo_questao_item5_content, $nova_questao_item1_gabarito, $nova_questao_item2_gabarito, $nova_questao_item3_gabarito, $nova_questao_item4_gabarito, $nova_questao_item5_gabarito, $user_id)");
+		$conn->query("INSERT INTO sim_questoes (origem, curso_id, edicao_ano, texto_apoio_id, etapa_id, prova_id, enunciado_html, enunciado_text, enunciado_content, numero, materia, tipo, item1_html, item1_text, item1_content, item2_html, item2_text, item2_content, item3_html, item3_text, item3_content, item4_html, item4_text, item4_content, item5_html, item5_text, item5_content, item1_gabarito, item2_gabarito, item3_gabarito, item4_gabarito, item5_gabarito, user_id) VALUES ($nova_questao_origem, $curso_id, $nova_questao_edicao_ano, $nova_questao_texto_apoio, $nova_questao_etapa_id, $nova_questao_prova, '$quill_novo_questao_enunciado_html', '$quill_novo_questao_enunciado_text', '$quill_novo_questao_enunciado_content', $nova_questao_numero, $nova_questao_materia, $nova_questao_tipo, $quill_novo_questao_item1_html, $quill_novo_questao_item1_text, $quill_novo_questao_item1_content, $quill_novo_questao_item2_html, $quill_novo_questao_item2_text, $quill_novo_questao_item2_content, $quill_novo_questao_item3_html, $quill_novo_questao_item3_text, $quill_novo_questao_item3_content, $quill_novo_questao_item4_html, $quill_novo_questao_item4_text, $quill_novo_questao_item4_content, $quill_novo_questao_item5_html, $quill_novo_questao_item5_text, $quill_novo_questao_item5_content, $nova_questao_item1_gabarito, $nova_questao_item2_gabarito, $nova_questao_item3_gabarito, $nova_questao_item4_gabarito, $nova_questao_item5_gabarito, $user_id)");
+		$conn->query("INSERT INTO sim_questoes_arquivo (origem, curso_id, edicao_ano, texto_apoio_id, etapa_id, prova_id, enunciado_html, enunciado_text, enunciado_content, numero, materia, tipo, item1_html, item1_text, item1_content, item2_html, item2_text, item2_content, item3_html, item3_text, item3_content, item4_html, item4_text, item4_content, item5_html, item5_text, item5_content, item1_gabarito, item2_gabarito, item3_gabarito, item4_gabarito, item5_gabarito, user_id) VALUES ($nova_questao_origem, $curso_id, $nova_questao_edicao_ano, $nova_questao_texto_apoio, $nova_questao_etapa_id, $nova_questao_prova, '$quill_novo_questao_enunciado_html', '$quill_novo_questao_enunciado_text', '$quill_novo_questao_enunciado_content', $nova_questao_numero, $nova_questao_materia, $nova_questao_tipo, $quill_novo_questao_item1_html, $quill_novo_questao_item1_text, $quill_novo_questao_item1_content, $quill_novo_questao_item2_html, $quill_novo_questao_item2_text, $quill_novo_questao_item2_content, $quill_novo_questao_item3_html, $quill_novo_questao_item3_text, $quill_novo_questao_item3_content, $quill_novo_questao_item4_html, $quill_novo_questao_item4_text, $quill_novo_questao_item4_content, $quill_novo_questao_item5_html, $quill_novo_questao_item5_text, $quill_novo_questao_item5_content, $nova_questao_item1_gabarito, $nova_questao_item2_gabarito, $nova_questao_item3_gabarito, $nova_questao_item4_gabarito, $nova_questao_item5_gabarito, $user_id)");
 	}
 	
 	if (isset($_POST['novo_simulado_trigger'])) {
@@ -414,20 +417,19 @@
 	$grupos_do_usuario = $conn->query("SELECT id, titulo FROM Grupos WHERE user_id = $user_id AND estado = 1");
 	$convites_do_usuario = $conn->query("SELECT criacao, grupo_id, membro_user_id FROM Membros WHERE user_id = $user_id AND estado IS NULL");
 	$convites_ativos = $conn->query("SELECT DISTINCT grupo_id FROM Membros WHERE membro_user_id = $user_id AND estado IS NULL");
-	$edicoes = $conn->query("SELECT id, ano, titulo FROM sim_edicoes WHERE concurso_id = $concurso_id ORDER BY id DESC");
-	$etapas = $conn->query("SELECT id, edicao_id, titulo FROM sim_etapas WHERE concurso_id = $concurso_id ORDER BY id DESC");
-	$provas = $conn->query("SELECT id, etapa_id, titulo, tipo FROM sim_provas WHERE concurso_id = $concurso_id ORDER BY id DESC");
-	$textos_apoio = $conn->query("SELECT id, origem, prova_id, titulo FROM sim_textos_apoio WHERE concurso_id = $concurso_id ORDER BY id DESC");
-	$materias = $conn->query("SELECT id, titulo FROM Materias WHERE concurso_id = $concurso_id ORDER BY ordem");
-	$bookmarks = $conn->query("SELECT DISTINCT topico_id FROM Bookmarks WHERE user_id = $user_id AND topico_id IS NOT NULL AND bookmark = 1 AND active = 1 ORDER BY id DESC");
-	$bookmarks_elementos = $conn->query("SELECT elemento_id FROM Bookmarks WHERE user_id = $user_id AND bookmark = 1 AND elemento_id IS NOT NULL AND active = 1 ORDER BY id DESC");
-	$comentarios = $conn->query("SELECT DISTINCT page_id, page_tipo FROM Forum WHERE user_id = $user_id");
-	$completados = $conn->query("SELECT topico_id FROM Completed WHERE user_id = $user_id AND estado = 1 AND active = 1");
+	$edicoes = $conn->query("SELECT id, ano, titulo FROM sim_edicoes WHERE curso_id = $curso_id ORDER BY id DESC");
+	$etapas = $conn->query("SELECT id, edicao_id, titulo FROM sim_etapas WHERE curso_id = $curso_id ORDER BY id DESC");
+	$provas = $conn->query("SELECT id, etapa_id, titulo, tipo FROM sim_provas WHERE curso_id = $curso_id ORDER BY id DESC");
+	$textos_apoio = $conn->query("SELECT id, origem, prova_id, titulo FROM sim_textos_apoio WHERE curso_id = $curso_id ORDER BY id DESC");
+	$materias = $conn->query("SELECT id, titulo FROM Materias WHERE curso_id = $curso_id ORDER BY ordem");
+	$bookmarks = $conn->query("SELECT pagina_id FROM Bookmarks WHERE user_id = $user_id AND bookmark = 1 AND active = 1 ORDER BY id DESC");
+	$comentarios = $conn->query("SELECT DISTINCT pagina_id, pagina_tipo FROM Forum WHERE user_id = $user_id");
+	$completados = $conn->query("SELECT pagina_id FROM Completed WHERE user_id = $user_id AND estado = 1 AND active = 1");
 	$verbetes_escritos = $conn->query("SELECT DISTINCT page_id, tipo FROM Textos_arquivo WHERE user_id = $user_id AND (tipo = 'verbete' OR tipo = 'verbete_elemento') ORDER BY id DESC");
 	$visualizacoes = $conn->query("SELECT DISTINCT page_id, criacao, tipo_pagina, extra FROM Visualizacoes WHERE (tipo_pagina <> 'userpage' AND tipo_pagina <> 'index' AND tipo_pagina <> 'verbete_mudanca') AND user_id = $user_id ORDER BY id DESC");
 
 ?>
-<body>
+<body class="carrara">
 <?php
 	include 'templates/navbar.php';
 ?>
@@ -527,16 +529,16 @@
 									$visualizacao_elemento_info = return_elemento_info($visualizacao_page_id);
 									$artefato_titulo = $visualizacao_elemento_info[4];
 									$artefato_subtitulo = $visualizacao_elemento_info[5];
-									$artefato_link = "elemento.php?id=$visualizacao_page_id";
+									$artefato_link = "pagina.php?elemento_id=$visualizacao_page_id";
 									$artefato_tipo = $visualizacao_elemento_info[3];
 								} elseif (($visualizacao_tipo_pagina == 'topico') || ($visualizacao_tipo_pagina == 'verbete')) {
 									$artefato_titulo = return_titulo_topico($visualizacao_page_id);
-									$artefato_subtitulo_concurso_id = return_concurso_id_topico($visualizacao_page_id);
+									$artefato_subtitulo_curso_id = return_curso_id_topico($visualizacao_page_id);
 									$artefato_subtitulo_materia_id = return_materia_id_topico($visualizacao_page_id);
-									$artefato_subtitulo_concurso_titulo = return_concurso_sigla($artefato_subtitulo_concurso_id);
+									$artefato_subtitulo_curso_titulo = return_curso_sigla($artefato_subtitulo_curso_id);
 									$artefato_subtitulo_materia_titulo = return_materia_titulo_id($artefato_subtitulo_materia_id);
-									$artefato_subtitulo = "$artefato_subtitulo_concurso_titulo / $artefato_subtitulo_materia_titulo";
-									$artefato_link = "verbete.php?topico_id=$visualizacao_page_id";
+									$artefato_subtitulo = "$artefato_subtitulo_curso_titulo / $artefato_subtitulo_materia_titulo";
+									$artefato_link = "pagina.php?topico_id=$visualizacao_page_id";
 									$artefato_tipo = 'verbete';
 								} elseif ($visualizacao_tipo_pagina == 'texto') {
 									$artefato_texto_info = return_texto_info($visualizacao_page_id);
@@ -634,7 +636,7 @@
 							$template_col_value = 'col-lg-8 col-md-10 col-sm-12';
 							$template_conteudo = false;
 							$template_conteudo .=
-                            "
+								"
 							<form method='post'>
 								<div class='md-form mb-2'>
 									<select class='$select_classes' name='convidar_apelido' id='convidar_apelido' required>
@@ -726,8 +728,8 @@
 							$template_conteudo .= "<ul class='list-group'>";
 							while ($usuario_curso = $usuario_cursos->fetch_assoc()) {
 								$usuario_curso_id = $usuario_curso['opcao'];
-								$usuario_curso_titulo = return_concurso_titulo_id($usuario_curso_id);
-								$template_conteudo .= "<a href='index.php?curso_id=$usuario_curso_id'><li class='list-group-item list-group-item-action'>$usuario_curso_titulo</li></a>";
+								$usuario_curso_titulo = return_curso_titulo_id($usuario_curso_id);
+								$template_conteudo .= "<a href='pagina.php?curso_id=$usuario_curso_id'><li class='list-group-item list-group-item-action'>$usuario_curso_titulo</li></a>";
 							}
 							$template_conteudo .= "</ul>";
 						} else {
@@ -739,7 +741,7 @@
                                 <select class='$select_classes' name='aderir_novo_curso' id='aderir_novo_curso' required>
                                       <option value='' disabled selected>Selecione um curso</option>
                         ";
-						$cursos_disponiveis = $conn->query("SELECT id, titulo FROM Concursos WHERE estado = 1");
+						$cursos_disponiveis = $conn->query("SELECT id, titulo FROM cursos WHERE estado = 1");
 						while ($curso_disponivel = $cursos_disponiveis->fetch_assoc()) {
 							$curso_disponivel_id = $curso_disponivel['id'];
 							$curso_disponivel_titulo = $curso_disponivel['titulo'];
@@ -870,11 +872,11 @@
 								$simulado_criacao = $simulado_info[0];
 								$simulado_tipo = $simulado_info[1];
 								$simulado_tipo_string = converter_simulado_tipo($simulado_tipo);
-								$simulado_concurso_id = $simulado_info[2];
-								$simulado_concurso_sigla = return_concurso_sigla($simulado_concurso_id);
+								$simulado_curso_id = $simulado_info[2];
+								$simulado_curso_sigla = return_curso_sigla($simulado_curso_id);
 								$artefato_criacao = $simulado_criacao;
 								$artefato_criacao = "Criado em $artefato_criacao";
-								$artefato_titulo = "$simulado_concurso_sigla: $simulado_tipo_string";
+								$artefato_titulo = "$simulado_curso_sigla: $simulado_tipo_string";
 								$artefato_link = "resultados.php?simulado_id=$artefato_id";
 								$artefato_tipo = 'simulado';
 								if ($artefato_questao_tipo == 3) {
@@ -929,7 +931,7 @@
 							$artefato_criacao = $acervo_item_criacao;
 							$artefato_criacao = "Adicionado em $artefato_criacao";
 							$artefato_tipo = $acervo_item_etiqueta_tipo;
-							$artefato_link = "elemento.php?id=$acervo_item_elemento_id";
+							$artefato_link = "pagina.php?elemento_id=$acervo_item_elemento_id";
 							
 							$template_conteudo .= include 'templates/artefato_item.php';
 						}
@@ -970,22 +972,21 @@
 									$artefato_subtitulo = $artefato_elemento_tipo;
 								}
 								$artefato_subtipo = $artefato_elemento_tipo;
-								$artefato_link = "elemento.php?id=$artefato_page_id";
+								$artefato_link = "pagina.php?elemento_id=$artefato_page_id";
 							} elseif ($artefato_tipo == 'anotacoes_curso') {
-								//TODO: Colocar no update título automático de anotações_curso;
-								$artefato_titulo = return_concurso_titulo_id($artefato_page_id);
+								$artefato_titulo = return_curso_titulo_id($artefato_page_id);
 							} elseif ($artefato_tipo == 'anotacoes') {
 								$artefato_titulo = return_titulo_topico($artefato_page_id);
-								$artefato_topico_concurso_id = return_concurso_id_topico($artefato_page_id);
-								$artefato_topico_concurso_sigla = return_concurso_sigla($artefato_topico_concurso_id);
-								$artefato_subtitulo = $artefato_topico_concurso_sigla;
-								$artefato_link = "verbete.php?topico_id=$artefato_page_id";
+								$artefato_topico_curso_id = return_curso_id_topico($artefato_page_id);
+								$artefato_topico_curso_sigla = return_curso_sigla($artefato_topico_curso_id);
+								$artefato_subtitulo = $artefato_topico_curso_sigla;
+								$artefato_link = "pagina.php?topico_id=$artefato_page_id";
 							} elseif ($artefato_tipo == 'anotacoes_materia') {
 								$artefato_materia_titulo = return_materia_titulo_id($artefato_page_id);
-								$artefato_materia_concurso_id = return_concurso_id_materia($artefato_page_id);
-								$artefato_materia_concurso_sigla = return_concurso_sigla($artefato_materia_concurso_id);
+								$artefato_materia_curso_id = return_curso_id_materia($artefato_page_id);
+								$artefato_materia_curso_sigla = return_curso_sigla($artefato_materia_curso_id);
 								$artefato_titulo = $artefato_materia_titulo;
-								$artefato_subtitulo = $artefato_materia_concurso_sigla;
+								$artefato_subtitulo = $artefato_materia_curso_sigla;
 							}
 							if (!isset($artefato_link)) {
 								$artefato_link = "edicao_textos.php?texto_id=$artefato_id";
@@ -1020,7 +1021,7 @@
 							$artefato_titulo = $imagem_privada['titulo'];
 							$artefato_imagem_arquivo = $imagem_privada['arquivo'];
 							$artefato_estado = $imagem_privada['estado'];
-							$artefato_link = "elemento.php?id=$artefato_id";
+							$artefato_link = "pagina.php?elemento_id=$artefato_id";
 							$artefato_tipo = 'imagem_publica';
 							$template_conteudo .= include 'templates/artefato_item.php';
 						}
@@ -1042,7 +1043,7 @@
 								$artefato_titulo = $imagem_publica['titulo'];
 								$artefato_imagem_arquivo = $imagem_publica['arquivo'];
 								$artefato_estado = $imagem_publica['estado'];
-								$artefato_link = "elemento.php?id=$artefato_id";
+								$artefato_link = "pagina.php?elemento_id=$artefato_id";
 								$artefato_tipo = 'imagem_publica';
 								$template_conteudo .= include 'templates/artefato_item.php';
 							}
@@ -1066,11 +1067,11 @@
 			$page_tipo = $row_verbete['tipo'];
 			if ($page_tipo == 'verbete') {
 				$topico_titulo = return_titulo_topico($page_id);
-				$template_modal_body_conteudo .= "<a href='verbete.php?topico_id=$page_id' target='_blank'><li class='list-group-item list-group-item-action'>$topico_titulo</li></a>";
+				$template_modal_body_conteudo .= "<a href='pagina.php?topico_id=$page_id' target='_blank'><li class='list-group-item list-group-item-action'>$topico_titulo</li></a>";
 			} elseif ($page_tipo == 'verbete_elemento') {
 				$topico_info = return_elemento_info($page_id);
 				$topico_titulo = $topico_info[4];
-				$template_modal_body_conteudo .= "<a href='elemento.php?id=$page_id' target='_blank'><li class='list-group-item list-group-item-action'>$topico_titulo</li></a>";
+				$template_modal_body_conteudo .= "<a href='pagina.php?elemento_id=$page_id' target='_blank'><li class='list-group-item list-group-item-action'>$topico_titulo</li></a>";
 			}
 		}
 		$template_modal_body_conteudo .= "</ul>";
@@ -1079,25 +1080,19 @@
 	include 'templates/modal.php';
 	
 	$template_modal_div_id = 'modal_completados';
-	$template_modal_titulo = 'Tópicos estudados';
+	$template_modal_titulo = 'Assuntos estudados';
 	$template_modal_body_conteudo = false;
 	if ($completados->num_rows > 0) {
 		$template_modal_body_conteudo .= "<ul class='list-group'>";
 		while ($row = $completados->fetch_assoc()) {
-			$topico_id = $row['topico_id'];
-			$infotopicos = mysqli_query($conn, "SELECT id FROM Topicos WHERE id = $topico_id");
-			while ($row = $infotopicos->fetch_assoc()) {
-				$completed_topico_id = $row['id'];
-				$completed_topico_titulo = return_titulo_topico($completed_topico_id);
-				$template_modal_body_conteudo .= "<a href='verbete.php?topico_id=$completed_topico_id' target='_blank'><li class='list-group-item list-group-item-action'>$completed_topico_titulo</li></a>";
-				break;
-			}
+			$completed_pagina_id = $row['pagina_id'];
+			$completed_titulo = return_pagina_titulo($completed_pagina_id);
+			$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$completed_pagina_id' target='_blank'><li class='list-group-item list-group-item-action'>$completed_titulo</li></a>";
 		}
 		$template_modal_body_conteudo .= "</ul>";
 	}
 	$template_modal_show_buttons = false;
 	include 'templates/modal.php';
-	
 	
 	$template_modal_div_id = 'modal_forum';
 	$template_modal_titulo = 'Suas participações no fórum';
@@ -1105,14 +1100,16 @@
 	if ($comentarios->num_rows > 0) {
 		$template_modal_body_conteudo .= "<ul class='list-group'>";
 		while ($row = $comentarios->fetch_assoc()) {
-			$forum_page_id = $row['page_id'];
-			$forum_page_tipo = $row['page_tipo'];
-			if ($forum_page_tipo == 'topico') {
-				$forum_topico_titulo = return_titulo_topico($forum_page_id);
-				$template_modal_body_conteudo .= "<a href='verbete.php?topico_id=$forum_page_id' target='_blank'><li class='list-group-item list-group-item-action'><strong>Tópico:</strong> $forum_topico_titulo</li></a>";
-			} elseif ($forum_page_tipo == 'elemento') {
-				$forum_elemento_titulo = return_titulo_elemento($forum_page_id);
-				$template_modal_body_conteudo .= "<a href='elemento.php?id=$forum_page_id' target='_blank'><li class='list-group-item list-group-item-action'><strong>Elemento:</strong> $forum_elemento_titulo</li></a>";
+			$forum_pagina_id = $row['pagina_id'];
+			$forum_pagina_tipo = $row['pagina_tipo'];
+			if ($forum_pagina_tipo == 'topico') {
+				$forum_topico_id = return_topico_id_pagina_id($forum_pagina_id);
+				$forum_topico_titulo = return_titulo_topico($forum_topico_id);
+				$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$forum_pagina_id' target='_blank'><li class='list-group-item list-group-item-action'><strong>Tópico:</strong> $forum_topico_titulo</li></a>";
+			} elseif ($forum_pagina_tipo == 'elemento') {
+				$forum_elemento_id = return_elemento_id_pagina_id($forum_pagina_id);
+				$forum_elemento_titulo = return_titulo_elemento($forum_elemento_id);
+				$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$forum_pagina_id' target='_blank'><li class='list-group-item list-group-item-action'><strong>Elemento:</strong> $forum_elemento_titulo</li></a>";
 			}
 		}
 		$template_modal_body_conteudo .= "</ul>";
@@ -1120,44 +1117,20 @@
 	$template_modal_show_buttons = false;
 	include 'templates/modal.php';
 	
-	
-	$template_modal_div_id = 'modal_bookmarks';
-	$template_modal_titulo = 'Lista de leitura';
-	$template_modal_body_conteudo = false;
 	if ($bookmarks->num_rows > 0) {
-		$template_modal_body_conteudo .= "<h3>Verbetes</h3>";
+		$template_modal_div_id = 'modal_bookmarks';
+		$template_modal_titulo = 'Lista de leitura';
+		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "<ul class='list-group'>";
-		while ($row = $bookmarks->fetch_assoc()) {
-			$bookmark_topico_id = $row['topico_id'];
-			$infotopicos = mysqli_query($conn, "SELECT materia_id, id FROM Topicos WHERE id = $bookmark_topico_id");
-			while ($row = $infotopicos->fetch_assoc()) {
-				$bookmark_materia_id = $row['materia_id'];
-				$bookmark_topico_id = $row['id'];
-				$bookmark_titulo = return_titulo_topico($bookmark_topico_id);
-				$template_modal_body_conteudo .= "<a href='verbete.php?topico_id=$bookmark_topico_id' target='_blank'><li class='list-group-item list-group-item-action'>$bookmark_titulo</li></a>";
-				break;
-			}
+		while ($bookmark = $bookmarks->fetch_assoc()) {
+			$bookmark_pagina_id = $bookmark['pagina_id'];
+			$bookmark_titulo = return_pagina_titulo($bookmark_pagina_id);
+			$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$bookmark_pagina_id' target='_blank'><li class='list-group-item list-group-item-action'>$bookmark_titulo</li></a>";
 		}
 		$template_modal_body_conteudo .= "</ul>";
+		$template_modal_show_buttons = false;
+		include 'templates/modal.php';
 	}
-	if ($bookmarks_elementos->num_rows > 0) {
-		$template_modal_body_conteudo .= "<h3 class='mt-3'>Elementos</h3>";
-		$template_modal_body_conteudo .= "<ul class='list-group'>";
-		while ($row = $bookmarks_elementos->fetch_assoc()) {
-			$elemento_id = $row['elemento_id'];
-			$info_elementos = $conn->query("SELECT titulo FROM Elementos WHERE id = $elemento_id");
-			if ($info_elementos->num_rows > 0) {
-				while ($row = $info_elementos->fetch_assoc()) {
-					$titulo_elemento = $row['titulo'];
-					$template_modal_body_conteudo .= "<a href='elemento.php?id=$elemento_id' target='_blank'><li class='list-group-item list-group-item-action'>$titulo_elemento</li></a>";
-				}
-			}
-		}
-		$template_modal_body_conteudo .= "</ul>";
-	}
-	$template_modal_show_buttons = false;
-	include 'templates/modal.php';
-	
 	
 	$template_modal_div_id = 'modal_apresentacao';
 	$template_modal_titulo = 'Apresentação';
@@ -1311,38 +1284,10 @@
 	        <h4 class='mt-3'>Acervo virtual</h4>
 	        <p>Acrescente a seu acervo virtual livros que você tem, quer ter, pretende emprestar de um amigo, assim como artigos que quer ler, revistas, até mesmo álbuns de música ou filmes.</p>
 	        <p>Uma vez que seu item tenha sido adicionado, será possível marcar capítulos e escrever fichamentos específicos, assim como resenhas e resumos. Cada anotação será inicialmente privada, podendo ser tornada pública se você assim desejar.</p>
-		    <div class='md-form'>
-			    <input type='text' class='form-control' name='busca_referencias' id='busca_referencias' required>
-			    <label for='busca_referencias'>Buscar item para adicionar à sua biblioteca virtual, por título ou autor.</label>
-		    </div>
-		    <div class='row' id='referencias_disponiveis'>
-		    
-		    </div>
-		    <div class='row' id='criar_referencia_form'>
-		        <div class='col-12'>
-                    <div class='md-form'>
-                        <input type='text' class='form-control' name='criar_referencia_titulo' id='criar_referencia_titulo' required>
-                        <label for='criar_referencia_titulo'>Título da nova referência</label>
-                    </div>
-                    <div class='md-form'>
-                        <input type='text' class='form-control' name='criar_referencia_autor' id='criar_referencia_autor' required>
-                        <label for='criar_referencia_autor'>Autor da nova referência</label>
-                    </div>
-                    <div class='row' id='autores_disponiveis'>
-                    
-                    </div>
-                    <select class='mdb-select md-form' name='criar_referencia_tipo' id='criar_referencia_tipo'>
-                        <option value='' disabled selected>Tipo do novo item:</option>
-                        <option value='referencia'>Materia de leitura: livros, artigos, páginas virtuais etc.</option>
-                        <option value='video'>Material videográfico: vídeos virtuais, filmes etc.</option>
-                        <option value='album_musica'>Material em áudio: álbuns de música, podcasts</option>
-                    </select>
-                    <div class='row justify-content-center'>
-                    	<button type='button' class='$button_classes' id='trigger_adicionar_referencia'>Cadastrar esta referência e acrescentá-la a seu acervo</button>
-					</div>
-                </div>
-            </div>
 		";
+	$adicionar_referencia_busca_texto = 'Buscar item para adicionar à sua biblioteca virtual, por título ou autor.';
+	$adicionar_referencia_form_botao = 'Cadastrar esta referência e acrescentá-la a seu acervo';
+	$template_modal_body_conteudo .= include 'templates/adicionar_referencia_form.php';
 	$template_modal_show_buttons = false;
 	include 'templates/modal.php';
 	
@@ -1383,7 +1328,7 @@
 	include 'templates/modal.php';
 	
 	$template_modal_div_id = 'modal_adicionar_edicao';
-	$template_modal_titulo = 'Adicionar edição do concurso';
+	$template_modal_titulo = 'Adicionar edição do curso';
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "
                             <div class='md-form'>
@@ -1397,7 +1342,7 @@
 						";
 	if ($edicoes->num_rows > 0) {
 		$template_modal_body_conteudo .= "
-			<h3>Edições registradas para o $concurso_sigla:</h3>
+			<h3>Edições registradas para o $curso_sigla:</h3>
 			<ul class='list-group'>
 		";
 		while ($edicao = $edicoes->fetch_assoc()) {
@@ -1438,7 +1383,7 @@
                             ";
 	if ($etapas->num_rows > 0) {
 		$template_modal_body_conteudo .= "
-			<h3>Etapas registradas para o $concurso_sigla:</h3>
+			<h3>Etapas registradas para o $curso_sigla:</h3>
 			<ul class='list-group'>
 		";
 		while ($etapa = $etapas->fetch_assoc()) {
@@ -1491,7 +1436,7 @@
                         ";
 	if ($provas->num_rows > 0) {
 		$template_modal_body_conteudo .= "
-			<h3>Provas registradas para o $concurso_sigla</h3>
+			<h3>Provas registradas para o $curso_sigla</h3>
 			<ul class='list-group'>
 		";
 		while ($prova = $provas->fetch_assoc()) {
@@ -1565,7 +1510,7 @@
 	
 	if ($textos_apoio->num_rows > 0) {
 		$template_modal_body_conteudo .= "
-			<h3 class='mt-3'>Textos de apoio registrados para o $concurso_sigla:</h3>
+			<h3 class='mt-3'>Textos de apoio registrados para o $curso_sigla:</h3>
 			<ul class='list-group'>
 		";
 		while ($texto_apoio = $textos_apoio->fetch_assoc()) {
@@ -1751,10 +1696,10 @@
 	$sim_quill_form = include('templates/sim_quill.php');
 	$template_modal_body_conteudo .= $sim_quill_form;
 	
-	$questoes = $conn->query("SELECT edicao_ano, numero, materia, tipo FROM sim_questoes WHERE concurso_id = $concurso_id AND origem = 1");
+	$questoes = $conn->query("SELECT edicao_ano, numero, materia, tipo FROM sim_questoes WHERE curso_id = $curso_id AND origem = 1");
 	if ($questoes->num_rows > 0) {
 		$template_modal_body_conteudo .= "
-			<h3 class='mt-3'>Questões registradas para o $concurso_sigla</h3>
+			<h3 class='mt-3'>Questões registradas para o $curso_sigla</h3>
 			<ul class='list-group'>
 		";
 		while ($questao = $questoes->fetch_assoc()) {

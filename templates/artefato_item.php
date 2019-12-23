@@ -53,9 +53,13 @@
 		$fa_size = 'fa-4x';
 	}
 
+	if (!isset($artefato_col_limit)) {
+		$artefato_col_limit = 'col-lg-2 col-md-3 col-sm-4 col-xs-12';
+	}
+	
 	$artefato_template_result = false;
 	$artefato_template_result .= "
-     <div class='col-lg-2 col-md-3 col-sm-4 col-xs-12 py-3 artefato rounded' $artefato_template_thumb>
+     <div class='$artefato_col_limit py-3 artefato rounded' $artefato_template_thumb>
         $artefato_link_1<span class='row justify-content-center text-center'><i class='fad $fa_icone $fa_size fa-fw d-block'></i></span>
         <span class='row justify-content-center text-center mt-2 text-dark'>$artefato_titulo</span>
         <span class='row justify-content-center text-center text-muted'><em>$artefato_subtitulo</em></span>$artefato_link_2
@@ -74,6 +78,7 @@
 	unset($artefato_subtipo);
 	unset($artefato_tipo);
 	unset($fa_size);
+	unset($col_limit);
 	
 	return $artefato_template_result;
 

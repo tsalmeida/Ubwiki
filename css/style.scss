@@ -2,7 +2,9 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Oswald:300&display=swap');
 
-$elegant-color: #2e3131;
+$outerspace: #2e3131;
+$mercury: #e8e8e8;
+$carrara: #f2f1ef;
 
 html {
   font-size: 1.2em;
@@ -30,9 +32,19 @@ blockquote + * {
   margin-top: 1em;
 }
 
-.elegant-color {
-  background-color: $elegant-color !important;
+//region Colors from flat ui color picker
+.outerspace {
+  background-color: $outerspace !important;
 }
+
+.mercury {
+  background-color: $mercury !important;
+}
+
+.carrara {
+  background-color: #f2f1ef !important;
+}
+//endregion
 
 .logo {
   width: 100%;
@@ -49,10 +61,10 @@ blockquote + * {
 }
 
 .navbar .btn-group .dropdown-menu a:hover {
-  background-color: $elegant-color !important;
+  background-color: $outerspace !important;
 }
 .navbar .btn-group .dropdown-menu a:active {
-  background-color: $elegant-color !important;
+  background-color: $outerspace !important;
 }
 
 .navbar { box-shadow: none !important; }
@@ -306,4 +318,13 @@ blockquote + * {
 
 .p-limit {
   max-width: 70ch;
+}
+
+.navlink:hover {
+  background-color: $outerspace !important;
+}
+
+.pagina_coluna {
+  padding-right: 2ch;
+  padding-left: 2ch;
 }

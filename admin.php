@@ -3,10 +3,83 @@
 	include 'engine.php';
 	
 	if (isset($_POST['trigger_atualizacao'])) {
-        $conn->query("ALTER TABLE `Paginas` ADD `estado` TINYINT NULL DEFAULT '0' AFTER `tipo`;");
-        $conn->query("ALTER TABLE `Bookmarks` CHANGE `topico_id` `pagina_id` INT(11) NULL DEFAULT NULL;");
-        $conn->query("ALTER TABLE `Completed` CHANGE `topico_id` `pagina_id` INT(11) NULL DEFAULT NULL;");
-        $conn->query("ALTER TABLE `Forum` CHANGE `page_id` `pagina_id` INT(11) NULL DEFAULT NULL;");
+		$conn->query("ALTER TABLE `Paginas` ADD `estado` TINYINT NULL DEFAULT '0' AFTER `tipo`;");
+		$conn->query("ALTER TABLE `Bookmarks` CHANGE `topico_id` `pagina_id` INT(11) NULL DEFAULT NULL;");
+		$conn->query("ALTER TABLE `Completed` CHANGE `topico_id` `pagina_id` INT(11) NULL DEFAULT NULL;");
+		$conn->query("ALTER TABLE `Forum` CHANGE `page_id` `pagina_id` INT(11) NULL DEFAULT NULL;");
+		$conn->query("ALTER TABLE `Paginas_elementos` CHANGE `page_id` `pagina_id` INT(11) NULL DEFAULT NULL;");
+		$conn->query("ALTER TABLE `Bookmarks` ADD `pagina_id` INT(11) NULL DEFAULT NULL AFTER `topico_id`;");
+		$conn->query("ALTER TABLE `Completed` ADD `pagina_id` INT(11) NULL DEFAULT NULL AFTER `topico_id`;");
+		$conn->query("ALTER TABLE `Forum` ADD `pagina_id` INT(11) NULL DEFAULT NULL AFTER `page_id`;");
+		$conn->query("ALTER TABLE `Topicos` ADD `pagina_id` INT(11) NULL DEFAULT NULL AFTER `etiqueta_id`;");
+		$conn->query("ALTER TABLE `Elementos` ADD `pagina_id` INT(11) NULL DEFAULT NULL AFTER `etiqueta_id`;");
+		$conn->query("ALTER TABLE `Textos` ADD `pagina_id` INT(11) NULL DEFAULT NULL AFTER `page_id`;");
+		$conn->query("ALTER TABLE `Textos_arquivo` ADD `pagina_id` INT(11) NULL DEFAULT NULL AFTER `page_id`;");
+		$conn->query("ALTER TABLE `Forum` CHANGE `page_tipo` `pagina_tipo` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NULL DEFAULT NULL;");
+		$conn->query("ALTER TABLE `Textos` ADD `pagina_tipo` VARCHAR(255) NULL DEFAULT NULL AFTER `pagina_id`;");
+		$conn->query("ALTER TABLE `Textos_arquivo` ADD `pagina_tipo` VARCHAR(255) NULL DEFAULT NULL AFTER `pagina_id`;");
+		$topicos = $conn->query("SELECT id, estado_pagina FROM Topicos WHERE pagina_id IS NULL ORDER BY id");
+		while ($topico = $topicos->fetch_assoc()) {
+			$topico_id = $topico['id'];
+			$topico_estado_pagina = $topico['estado_pagina'];
+			$conn->query("INSERT INTO Paginas (item_id, tipo, estado) VALUES ($topico_id, 'topico', $topico_estado_pagina)");
+			$nova_pagina_id = $conn->insert_id;
+			$conn->query("UPDATE Topicos SET pagina_id = $nova_pagina_id WHERE id = $topico_id");
+			$conn->query("UPDATE Textos SET pagina_id = $nova_pagina_id, pagina_tipo = 'topico' WHERE page_id = $topico_id AND (tipo = 'verbete' OR tipo = 'anotacoes')");
+			$conn->query("UPDATE Textos_arquivo SET pagina_id = $nova_pagina_id, pagina_tipo = 'topico' WHERE page_id = $topico_id AND (tipo = 'verbete' OR tipo = 'anotacoes')");
+			$elementos = $conn->query("SELECT elemento_id, tipo, user_id FROM Verbetes_elementos WHERE page_id = $topico_id AND tipo_pagina = 'verbete'");
+			$conn->query("UPDATE Forum SET pagina_id = $nova_pagina_id WHERE pagina_id = $topico_id AND pagina_tipo = 'topico'");
+			$conn->query("UPDATE Bookmarks SET pagina_id = $nova_pagina_id WHERE pagina_id = $topico_id");
+			$conn->query("UPDATE Completed SET pagina_id = $nova_pagina_id WHERE pagina_id = $topico_id");
+			if ($elementos->num_rows > 0) {
+				while ($elemento = $elementos->fetch_assoc()) {
+					$elemento_id = $elemento['elemento_id'];
+					$elemento_tipo = $elemento['tipo'];
+					$elemento_user_id = $elemento['user_id'];
+					$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, user_id) VALUES ($nova_pagina_id, 'topico', $elemento_id, '$elemento_tipo', $elemento_user_id)");
+				}
+			}
+		}
+		$elementos = $conn->query("SELECT id FROM Elementos WHERE pagina_id IS NULL ORDER BY id");
+		while ($elemento = $elementos->fetch_assoc()) {
+			$elemento_id = $elemento['id'];
+			$conn->query("INSERT INTO Paginas (item_id, tipo) VALUES ($elemento_id, 'elemento')");
+			$nova_pagina_id = $conn->insert_id;
+			$conn->query("UPDATE Elementos SET pagina_id = $nova_pagina_id WHERE id = $elemento_id");
+			$conn->query("UPDATE Textos SET pagina_id = $nova_pagina_id, pagina_tipo = 'elemento', tipo = 'verbete' WHERE page_id = $elemento_id AND tipo = 'verbete_elemento'");
+			$conn->query("UPDATE Textos_arquivo SET pagina_id = $nova_pagina_id, pagina_tipo = 'elemento', tipo = 'verbete' WHERE page_id = $elemento_id AND tipo = 'verbete_elemento'");
+			$conn->query("UPDATE Textos SET pagina_id = $nova_pagina_id, pagina_tipo = 'elemento', tipo = 'anotacoes' WHERE page_id = $elemento_id AND tipo = 'anotacoes_elemento'");
+			$conn->query("UPDATE Textos_arquivo SET pagina_id = $nova_pagina_id, pagina_tipo = 'elemento', tipo = 'anotacoes' WHERE page_id = $elemento_id AND tipo = 'anotacoes_elemento'");
+			$conn->query("UPDATE Bookmarks SET pagina_id = $nova_pagina_id WHERE elemento_id = $elemento_id");
+		}
+		$elementos = $conn->query("SELECT id, iframe FROM Elementos WHERE iframe IS NOT NULL");
+		if ($elementos->num_rows > 0) {
+			while ($elemento = $elementos->fetch_assoc()) {
+				$elemento_id = $elemento['id'];
+				$elemento_iframe = $elemento['iframe'];
+				$novo_elemento_iframe = base64_decode($elemento_iframe);
+				$novo_elemento_iframe = mysqli_real_escape_string($conn, $novo_elemento_iframe);
+				$conn->query("UPDATE Elementos SET iframe = '$novo_elemento_iframe' WHERE id = $elemento_id");
+			}
+		}
+		$conn->query("ALTER TABLE `Concursos` ADD `pagina_id` INT(11) NULL DEFAULT NULL AFTER `id`;");
+		$conn->query("RENAME TABLE `Ubwiki`.`Concursos` TO `Ubwiki`.`Cursos`;");
+		$conn->query("ALTER TABLE `Etiquetados` CHANGE `concurso_id` `curso_id` INT(11) NULL DEFAULT NULL;");
+		$conn->query("ALTER TABLE `Materias` CHANGE `concurso_id` `curso_id` INT(11) NULL DEFAULT NULL;");
+		$conn->query("ALTER TABLE `Searchbar` CHANGE `concurso_id` `curso_id` INT(11) NULL DEFAULT NULL;");
+		$conn->query("ALTER TABLE `sim_edicoes` CHANGE `concurso_id` `curso_id` INT(11) NULL DEFAULT NULL;");
+		$conn->query("ALTER TABLE `sim_etapas` CHANGE `concurso_id` `curso_id` INT(11) NULL DEFAULT NULL;");
+		$conn->query("ALTER TABLE `sim_gerados` CHANGE `concurso_id` `curso_id` INT(11) NULL DEFAULT NULL;");
+		$conn->query("ALTER TABLE `sim_provas` CHANGE `concurso_id` `curso_id` INT(11) NULL DEFAULT NULL;");
+		$conn->query("ALTER TABLE `sim_questoes` CHANGE `concurso_id` `curso_id` INT(11) NULL DEFAULT NULL;");
+		$conn->query("ALTER TABLE `sim_respostas` CHANGE `concurso_id` `curso_id` INT(11) NULL DEFAULT NULL;");
+		$conn->query("ALTER TABLE `sim_textos_apoio` CHANGE `concurso_id` `curso_id` INT(11) NULL DEFAULT NULL;");
+		$conn->query("ALTER TABLE `Textos` CHANGE `concurso_id` `curso_id` INT(11) NULL DEFAULT NULL;");
+		$conn->query("ALTER TABLE `Textos_arquivo` CHANGE `concurso_id` `curso_id` INT(11) NULL DEFAULT NULL;");
+		$conn->query("ALTER TABLE `Topicos` CHANGE `concurso_id` `curso_id` INT(11) NULL DEFAULT NULL;");
+		$conn->query("ALTER TABLE `Verbetes_elementos` CHANGE `concurso_id` `curso_id` INT(11) NULL DEFAULT NULL;");
+		$conn->query("ALTER TABLE `Materias` ADD `pagina_id` INT(11) NULL DEFAULT NULL AFTER `etiqueta_id`;");
+		
 	}
 	
 	if (isset($_POST['funcoes_gerais'])) {
@@ -32,22 +105,23 @@
 	}
 	
 	if (isset($_POST['funcoes_gerais3'])) {
+	
 	}
 	
 	if (isset($_POST['reconstruir_busca'])) {
-		$reconstruir_concurso_id = $_POST['reconstruir_concurso'];
+		$reconstruir_curso_id = $_POST['reconstruir_curso'];
 		$ordem = 0;
-		$conn->query("DELETE FROM Searchbar WHERE concurso_id = $reconstruir_concurso_id");
-		$result = $conn->query("SELECT id, titulo FROM Materias WHERE concurso_id = $reconstruir_concurso_id AND estado = 1 ORDER BY ordem");
+		$conn->query("DELETE FROM Searchbar WHERE curso_id = $reconstruir_curso_id");
+		$result = $conn->query("SELECT id, titulo FROM Materias WHERE curso_id = $reconstruir_curso_id AND estado = 1 ORDER BY ordem");
 		if ($result->num_rows > 0) {
 			while ($row = $result->fetch_assoc()) {
 				$reconstruir_materia_id = $row['id'];
 				$reconstruir_materia_titulo = $row["titulo"];
 				$ordem++;
-				$conn->query("INSERT INTO Searchbar (ordem, concurso_id, page_id, chave, tipo) VALUES ($ordem, $reconstruir_concurso_id, $reconstruir_materia_id , '$reconstruir_materia_titulo', 'materia')");
+				$conn->query("INSERT INTO Searchbar (ordem, curso_id, page_id, chave, tipo) VALUES ($ordem, $reconstruir_curso_id, $reconstruir_materia_id , '$reconstruir_materia_titulo', 'materia')");
 			}
 		}
-		$result = $conn->query("SELECT id, titulo FROM Materias WHERE concurso_id = $reconstruir_concurso_id AND estado = 1 ORDER BY ordem");
+		$result = $conn->query("SELECT id, titulo FROM Materias WHERE curso_id = $reconstruir_curso_id AND estado = 1 ORDER BY ordem");
 		while ($row = $result->fetch_assoc()) {
 			$reconstruir_materia_id = $row['id'];
 			$result2 = $conn->query("SELECT id, nivel, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Topicos WHERE materia_id = $reconstruir_materia_id ORDER BY ordem");
@@ -62,44 +136,46 @@
 					$reconstruir_topico_nivel5 = $row2["nivel5"];
 					$ordem++;
 					if ($reconstruir_topico_nivel == 1) {
-						$conn->query("INSERT INTO Searchbar (ordem, concurso_id, page_id, chave, tipo) VALUES ($ordem, $reconstruir_concurso_id, $reconstruir_topico_id, '$reconstruir_topico_nivel1', 'topico')");
+						$conn->query("INSERT INTO Searchbar (ordem, curso_id, page_id, chave, tipo) VALUES ($ordem, $reconstruir_curso_id, $reconstruir_topico_id, '$reconstruir_topico_nivel1', 'topico')");
 					} elseif ($reconstruir_topico_nivel == 2) {
-						$conn->query("INSERT INTO Searchbar (ordem, concurso_id, page_id, chave, tipo) VALUES ($ordem, $reconstruir_concurso_id, $reconstruir_topico_id, '$reconstruir_topico_nivel2', 'topico')");
+						$conn->query("INSERT INTO Searchbar (ordem, curso_id, page_id, chave, tipo) VALUES ($ordem, $reconstruir_curso_id, $reconstruir_topico_id, '$reconstruir_topico_nivel2', 'topico')");
 					} elseif ($reconstruir_topico_nivel == 3) {
-						$conn->query("INSERT INTO Searchbar (ordem, concurso_id, page_id, chave, tipo) VALUES ($ordem, $reconstruir_concurso_id, $reconstruir_topico_id, '$reconstruir_topico_nivel3', 'topico')");
+						$conn->query("INSERT INTO Searchbar (ordem, curso_id, page_id, chave, tipo) VALUES ($ordem, $reconstruir_curso_id, $reconstruir_topico_id, '$reconstruir_topico_nivel3', 'topico')");
 					} elseif ($reconstruir_topico_nivel == 4) {
-						$conn->query("INSERT INTO Searchbar (ordem, concurso_id, page_id, chave, tipo) VALUES ($ordem, $reconstruir_concurso_id, $reconstruir_topico_id, '$reconstruir_topico_nivel4', 'topico')");
+						$conn->query("INSERT INTO Searchbar (ordem, curso_id, page_id, chave, tipo) VALUES ($ordem, $reconstruir_curso_id, $reconstruir_topico_id, '$reconstruir_topico_nivel4', 'topico')");
 					} elseif ($reconstruir_topico_nivel == 5) {
-						$conn->query("INSERT INTO Searchbar (ordem, concurso_id, page_id, chave, tipo) VALUES ($ordem, $reconstruir_concurso_id, $reconstruir_topico_id, '$reconstruir_topico_nivel5', 'topico')");
+						$conn->query("INSERT INTO Searchbar (ordem, curso_id, page_id, chave, tipo) VALUES ($ordem, $reconstruir_curso_id, $reconstruir_topico_id, '$reconstruir_topico_nivel5', 'topico')");
 					}
 				}
 			}
 		}
 	}
 	
-	if (isset($_POST['editar_topicos_concurso'])) {
-		$concurso_editar = $_POST['editar_topicos_concurso'];
-		header("Location:edicao_topicos.php?concurso_id=$concurso_editar");
+	if (isset($_POST['editar_topicos_curso'])) {
+		$curso_editar = $_POST['editar_topicos_curso'];
+		header("Location:edicao_topicos.php?curso_id=$curso_editar");
 	}
 	
-	if (isset($_POST['novo_concurso_titulo'])) {
-		$novo_concurso_titulo = $_POST['novo_concurso_titulo'];
-		$novo_concurso_sigla = $_POST['novo_concurso_sigla'];
-		$result = $conn->query("SELECT titulo, sigla FROM Concursos WHERE sigla = '$novo_concurso_sigla' AND titulo = '$novo_concurso_titulo'");
+	if (isset($_POST['novo_curso_titulo'])) {
+		$novo_curso_titulo = $_POST['novo_curso_titulo'];
+		$novo_curso_sigla = $_POST['novo_curso_sigla'];
+		$result = $conn->query("SELECT titulo, sigla FROM cursos WHERE sigla = '$novo_curso_sigla' AND titulo = '$novo_curso_titulo'");
 		if ($result->num_rows == 0) {
-			$conn->query("INSERT INTO Concursos (titulo, sigla) VALUES ('$novo_concurso_titulo', '$novo_concurso_sigla')");
+			$conn->query("INSERT INTO cursos (titulo, sigla) VALUES ('$novo_curso_titulo', '$novo_curso_sigla')");
 		} else {
 			return false;
 		}
 	}
-	$lista_concursos = array();
-	$result = $conn->query("SELECT id, titulo, estado FROM Concursos");
-	while ($row = $result->fetch_assoc()) {
-		$concurso_id = $row['id'];
-		$concurso_titulo = $row['titulo'];
-		$concurso_estado = $row['estado'];
-		$um_concurso = array($concurso_id, $concurso_titulo, $concurso_estado);
-		array_push($lista_concursos, $um_concurso);
+	$lista_cursos = array();
+	$cursos = $conn->query("SELECT id, titulo, estado FROM cursos");
+	if ($cursos->num_rows > 0) {
+		while ($curso = $cursos->fetch_assoc()) {
+			$curso_id = $curso['id'];
+			$curso_titulo = $curso['titulo'];
+			$curso_estado = $curso['estado'];
+			$um_curso = array($curso_id, $curso_titulo, $curso_estado);
+			array_push($lista_cursos, $um_curso);
+		}
 	}
 	
 	$html_head_template_quill = true;
@@ -132,17 +208,17 @@
 						$template_conteudo = false;
 						$template_conteudo .= "
                 <form method='post' formaction='edicao_topicos.php'>
-                    <p>Com esta ferramenta, o administrador pode alterar a tabela de tópicos de um concurso. O objetivo é maximizar a utilidade do edital original para as atividades do estudante.</p>
-                     <label for='editar_topicos_concurso'>Concurso</label>
-                        <select class='form-control' name='editar_topicos_concurso'>
+                    <p>Com esta ferramenta, o administrador pode alterar a tabela de tópicos de um curso. O objetivo é maximizar a utilidade do edital original para as atividades do estudante.</p>
+                     <label for='editar_topicos_curso'>Curso</label>
+                        <select class='form-control' name='editar_topicos_curso'>
                         ";
-						foreach ($lista_concursos as $um_concurso) {
-							if ($um_concurso[2] == 0) {
-								$estado_concurso = '(desativado)';
+						foreach ($lista_cursos as $um_curso) {
+							if ($um_curso[2] == 0) {
+								$estado_curso = '(desativado)';
 							} else {
-								$estado_concurso = '(ativado)';
+								$estado_curso = '(ativado)';
 							}
-							$template_conteudo .= "<option value='$um_concurso[0]'>$um_concurso[1] / $estado_concurso</option>";
+							$template_conteudo .= "<option value='$um_curso[0]'>$um_curso[1] / $estado_curso</option>";
 						}
 						$template_conteudo .= "</select>";
 						$template_conteudo .= "
@@ -152,19 +228,19 @@
 					    ";
 						include 'templates/page_element.php';
 						
-						$template_id = 'acrescentar_concurso';
-						$template_titulo = 'Acrescentar concurso';
+						$template_id = 'acrescentar_curso';
+						$template_titulo = 'Acrescentar curso';
 						$template_botoes = false;
 						$template_conteudo = false;
 						$template_conteudo .= "<form method='post' formaction='edicao_topicos.php'>";
 						$template_conteudo .= "
-                            <p>Cada concurso tem um título completo e uma sigla. Este é o primeiro passo no processo de inclusão de novos concursos.</p>
-                            <input type='text' id='novo_concurso_titulo' name='novo_concurso_titulo' class='form-control validate' required>
-                            <label data-error='inválido' data-successd='válido' for='novo_concurso_titulo'>Título do concurso</label>
-                            <input type='text' id='novo_concurso_sigla' name='novo_concurso_sigla' class='form-control validate' required>
-                            <label data-error='inválido' data-successd='válido' for='novo_concurso_sigla'>Sigla do concurso</label>
+                            <p>Cada curso tem um título completo e uma sigla. Este é o primeiro passo no processo de inclusão de novos cursos.</p>
+                            <input type='text' id='novo_curso_titulo' name='novo_curso_titulo' class='form-control validate' required>
+                            <label data-error='inválido' data-successd='válido' for='novo_curso_titulo'>Título do curso</label>
+                            <input type='text' id='novo_curso_sigla' name='novo_curso_sigla' class='form-control validate' required>
+                            <label data-error='inválido' data-successd='válido' for='novo_curso_sigla'>Sigla do curso</label>
                             <div class='row justify-content-center'>
-                            	<button class='$button_classes' type='submit'>Acrescentar concurso</button>
+                            	<button class='$button_classes' type='submit'>Acrescentar curso</button>
                             </div>
                             </form>
                           ";
@@ -177,17 +253,17 @@
 						$template_conteudo .= "
                             <form method='post'>
                 			<p>Reconstruir tabela de opções da barra de busca.</p>
-                    		<label for='editar_topicos_concurso'>Concurso</label>
-                    		<select class='form-control' name='reconstruir_concurso' id='reconstruir_concurso'>
+                    		<label for='editar_topicos_curso'>Curso</label>
+                    		<select class='form-control' name='reconstruir_curso' id='reconstruir_curso'>
                         ";
 						
-						foreach ($lista_concursos as $um_concurso) {
-							if ($um_concurso[2] == 0) {
-								$estado_concurso = '(desativado)';
+						foreach ($lista_cursos as $um_curso) {
+							if ($um_curso[2] == 0) {
+								$estado_curso = '(desativado)';
 							} else {
-								$estado_concurso = '(ativado)';
+								$estado_curso = '(ativado)';
 							}
-							$template_conteudo .= "<option value='$um_concurso[0]'>$um_concurso[1] / $estado_concurso</option>";
+							$template_conteudo .= "<option value='$um_curso[0]'>$um_curso[1] / $estado_curso</option>";
 						}
 						
 						$template_conteudo .= "

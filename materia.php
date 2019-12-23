@@ -142,35 +142,35 @@
 								
 								if ($nivel5 != false) {
 									$template_conteudo .= "
-                                        <a class='list-group-item list-group-item-action $cor_nivel5 d-flex justify-content-between align-items-center' href='verbete.php?topico_id=$topico_id' $spacing5>
+                                        <a class='list-group-item list-group-item-action $cor_nivel5 d-flex justify-content-between align-items-center' href='pagina.php?topico_id=$topico_id' $spacing5>
                                             $nivel5
                                             $icone_badge
                                         </a>
                                     ";
 								} elseif ($nivel4 != false) {
 									$template_conteudo .= "
-                                        <a class='list-group-item list-group-item-action $cor_nivel4 d-flex justify-content-between align-items-center' href='verbete.php?topico_id=$topico_id' $spacing4>
+                                        <a class='list-group-item list-group-item-action $cor_nivel4 d-flex justify-content-between align-items-center' href='pagina.php?topico_id=$topico_id' $spacing4>
                                             $nivel4
                                             $icone_badge
                                         </a>
                                     ";
 								} elseif ($nivel3 != false) {
 									$template_conteudo .= "
-                                        <a class='list-group-item list-group-item-action $cor_nivel3 d-flex justify-content-between align-items-center' href='verbete.php?topico_id=$topico_id' $spacing3>
+                                        <a class='list-group-item list-group-item-action $cor_nivel3 d-flex justify-content-between align-items-center' href='pagina.php?topico_id=$topico_id' $spacing3>
                                             $nivel3
                                             $icone_badge
                                         </a>
                                     ";
 								} elseif ($nivel2 != false) {
 									$template_conteudo .= "
-                                        <a class='list-group-item list-group-item-action $cor_nivel2 d-flex justify-content-between align-items-center' href='verbete.php?topico_id=$topico_id' $spacing2>
+                                        <a class='list-group-item list-group-item-action $cor_nivel2 d-flex justify-content-between align-items-center' href='pagina.php?topico_id=$topico_id' $spacing2>
                                             $nivel2
                                             $icone_badge
                                         </a>
                                     ";
 								} elseif ($nivel1 != false) {
 									$template_conteudo .= "
-                                        <a class='list-group-item list-group-item-action $cor_nivel1 d-flex justify-content-between align-items-center' href='verbete.php?topico_id=$topico_id' $spacing1>
+                                        <a class='list-group-item list-group-item-action $cor_nivel1 d-flex justify-content-between align-items-center' href='pagina.php?topico_id=$topico_id' $spacing1>
                                             $nivel1
                                             $icone_badge
                                         </a>

@@ -1,10 +1,12 @@
 <?php
 	// VERBETES RELACIONADOS VERBETES RELACIONADOS VERBETES RELACIONADOS VERBETES RELACIONADOS
 	
+	$topico_anterior = false;
+	$topico_proximo = false;
 	
 	$breadcrumbs = "
-    <div class='d-block'><a href='index.php'>$concurso_sigla</a></div>
-    <div class='d-block spacing0'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='materia.php?materia_id=$topico_materia_id'>$topico_materia_titulo</a></div>
+    <div class='d-block'><a href='index.php'>$curso_sigla</a></div>
+    <div class='d-block spacing0'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='pagina.php?materia_id=$topico_materia_id'>$topico_materia_titulo</a></div>
   ";
 	
 	$result = $conn->query("SELECT id, nivel, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Topicos WHERE materia_id = $topico_materia_id ORDER BY ordem");
@@ -33,17 +35,17 @@
 						if ($count2 == 2) {
 							$fawesome = "<i class='fal fa-long-arrow-right fa-fw'></i>";
 						}
-						$breadcrumbs .= "<div class='spacing2'>$fawesome<a href='verbete.php?topico_id=$id_nivel2'>$titulo_nivel2</a></div>";
+						$breadcrumbs .= "<div class='spacing2'>$fawesome<a href='pagina.php?topico_id=$id_nivel2'>$titulo_nivel2</a></div>";
 					}
 				} else {
-					$breadcrumbs .= "<div class='spacing1'>$fawesome<a href='verbete.php?topico_id=$id_nivel1'>$titulo_nivel1</a></div>";
+					$breadcrumbs .= "<div class='spacing1'>$fawesome<a href='pagina.php?topico_id=$id_nivel1'>$titulo_nivel1</a></div>";
 				}
 			}
 		}
 	}
 	if ($topico_nivel > 1) {
 		$titulo_nivel1 = return_titulo_topico($topico_nivel1);
-		$breadcrumbs .= "<div class='spacing1'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?topico_id=$topico_nivel1'>$titulo_nivel1</a></div>";
+		$breadcrumbs .= "<div class='spacing1'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='pagina.php?topico_id=$topico_nivel1'>$titulo_nivel1</a></div>";
 	}
 	if ($topico_nivel == 2) {
 		$result2 = $conn->query("SELECT id, nivel2 FROM Topicos WHERE nivel1 = $topico_nivel1 AND nivel = 2 ORDER BY ordem");
@@ -68,16 +70,16 @@
 					if ($count == 2) {
 						$fawesome3 = "<i class='fal fa-long-arrow-right fa-fw'></i>";
 					}
-					$breadcrumbs .= "<div class='spacing3'>$fawesome3<a href='verbete.php?topico_id=$id_nivel3'>$titulo_nivel3</a></div>";
+					$breadcrumbs .= "<div class='spacing3'>$fawesome3<a href='pagina.php?topico_id=$id_nivel3'>$titulo_nivel3</a></div>";
 				}
 			} else {
-				$breadcrumbs .= "<div class='spacing2'>$fawesome<a href='verbete.php?topico_id=$id_nivel2'>$titulo_nivel2</a></div>";
+				$breadcrumbs .= "<div class='spacing2'>$fawesome<a href='pagina.php?topico_id=$id_nivel2'>$titulo_nivel2</a></div>";
 			}
 		}
 	}
 	if ($topico_nivel > 2) {
 		$titulo_nivel2 = return_titulo_topico($topico_nivel2);
-		$breadcrumbs .= "<div class='spacing2'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?topico_id=$topico_nivel2'>$titulo_nivel2</a></div>";
+		$breadcrumbs .= "<div class='spacing2'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='pagina.php?topico_id=$topico_nivel2'>$titulo_nivel2</a></div>";
 	}
 	if ($topico_nivel == 3) {
 		$result3 = $conn->query("SELECT id, nivel3 FROM Topicos WHERE nivel2 = $topico_nivel2 AND nivel = 3 ORDER BY ordem");
@@ -102,16 +104,16 @@
 					if ($count == 2) {
 						$fawesome4 = "<i class='fal fa-long-arrow-right fa-fw'></i>";
 					}
-					$breadcrumbs .= "<div class='spacing4'>$fawesome4<a href='verbete.php?topico_id=$id_nivel4'>$titulo_nivel4</a></div>";
+					$breadcrumbs .= "<div class='spacing4'>$fawesome4<a href='pagina.php?topico_id=$id_nivel4'>$titulo_nivel4</a></div>";
 				}
 			} else {
-				$breadcrumbs .= "<div class='spacing3'>$fawesome3<a href='verbete.php?topico_id=$id_nivel3'>$titulo_nivel3</a></div>";
+				$breadcrumbs .= "<div class='spacing3'>$fawesome3<a href='pagina.php?topico_id=$id_nivel3'>$titulo_nivel3</a></div>";
 			}
 		}
 	}
 	if ($topico_nivel > 3) {
 		$titulo_nivel3 = return_titulo_topico($topico_nivel3);
-		$breadcrumbs .= "<div class='spacing3'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?topico_id=$topico_nivel3'>$titulo_nivel3</a></div>";
+		$breadcrumbs .= "<div class='spacing3'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='pagina.php?topico_id=$topico_nivel3'>$titulo_nivel3</a></div>";
 	}
 	if ($topico_nivel == 4) {
 		$result4 = $conn->query("SELECT id, nivel4 FROM Topicos WHERE nivel3 = $topico_nivel3 AND nivel = 4 ORDER BY ordem");
@@ -136,16 +138,16 @@
 					if ($count == 2) {
 						$fawesome5 = "<i class='fal fa-long-arrow-right fa-fw'></i>";
 					}
-					$breadcrumbs .= "<div class='spacing5'>$fawesome5<a href='verbete.php?topico_id=$id_nivel5'>$titulo_nivel5</a></div>";
+					$breadcrumbs .= "<div class='spacing5'>$fawesome5<a href='pagina.php?topico_id=$id_nivel5'>$titulo_nivel5</a></div>";
 				}
 			} else {
-				$breadcrumbs .= "<div class='spacing4'>$fawesome4<a href='verbete.php?topico_id=$id_nivel4'>$titulo_nivel4</a></div>";
+				$breadcrumbs .= "<div class='spacing4'>$fawesome4<a href='pagina.php?topico_id=$id_nivel4'>$titulo_nivel4</a></div>";
 			}
 		}
 	}
 	if ($topico_nivel > 4) {
 		$titulo_nivel4 = return_titulo_topico($topico_nivel4);
-		$breadcrumbs .= "<div class='spacing4'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='verbete.php?topico_id=$topico_nivel4'>$titulo_nivel4</a></div>";
+		$breadcrumbs .= "<div class='spacing4'><i class='fal fa-level-up fa-rotate-90 fa-fw'></i><a href='pagina.php?topico_id=$topico_nivel4'>$titulo_nivel4</a></div>";
 	}
 	if ($topico_nivel == 5) {
 		$result5 = $conn->query("SELECT id, nivel5 FROM Topicos WHERE nivel4 = $nivel4 AND nivel = 5 ORDER BY ordem");
@@ -161,7 +163,7 @@
 			if ($titulo_nivel5 == $topico_nivel5) {
 				$breadcrumbs .= "<div class='spacing5'>$fawesome5$topico_nivel5</div>";
 			} else {
-				$breadcrumbs .= "<div class='spacing5'>$fawesome5<a href='verbete.php?topico_id=$id_nivel5'>$titulo_nivel5</a></div>";
+				$breadcrumbs .= "<div class='spacing5'>$fawesome5<a href='pagina.php?topico_id=$id_nivel5'>$titulo_nivel5</a></div>";
 			}
 		}
 	}

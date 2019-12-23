@@ -27,8 +27,16 @@ blockquote + * {
   margin-top: 1em;
 }
 
-.elegant-color {
+.outerspace {
   background-color: #2e3131 !important;
+}
+
+.mercury {
+  background-color: #e8e8e8 !important;
+}
+
+.carrara {
+  background-color: #f2f1ef !important;
 }
 
 .logo {
@@ -308,6 +316,15 @@ blockquote + * {
 
 .p-limit {
   max-width: 70ch;
+}
+
+.navlink:hover {
+  background-color: #2e3131 !important;
+}
+
+.pagina_coluna {
+  padding-right: 2ch;
+  padding-left: 2ch;
 }
 
 /*# sourceMappingURL=style.css.map */

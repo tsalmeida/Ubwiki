@@ -2,13 +2,13 @@
 	
 	include 'engine.php';
 	
-	if ($concurso_id == false) {
+	if ($curso_id == false) {
 		header('Location:cursos.php');
 	}
 	$html_head_template_quill = true;
 	include 'templates/html_head.php';
 	
-	$conn->query("INSERT INTO Visualizacoes (user_id, tipo_pagina, extra) VALUES ($user_id, 'index', $concurso_id)");
+	$conn->query("INSERT INTO Visualizacoes (user_id, tipo_pagina, extra) VALUES ($user_id, 'index', $curso_id)");
 
 ?>
 <body>
@@ -31,7 +31,7 @@
                            placeholder="O que você vai aprender hoje?" required>
                     <datalist id="searchlist">
 											<?php
-												$result = $conn->query("SELECT chave FROM Searchbar WHERE concurso_id = '$concurso_id' ORDER BY ordem");
+												$result = $conn->query("SELECT chave FROM Searchbar WHERE curso_id = '$curso_id' ORDER BY ordem");
 												if ($result->num_rows > 0) {
 													while ($row = $result->fetch_assoc()) {
 														$chave = $row['chave'];
@@ -41,7 +41,7 @@
 											?>
                     </datalist>
 									<?php
-										echo "<input id='trigger_busca' name='trigger_busca' value='$concurso_id' type='submit' style='position: absolute; left: -9999px; width: 1px; height: 1px;' tabindex='-1' />";
+										echo "<input id='trigger_busca' name='trigger_busca' value='$curso_id' type='submit' style='position: absolute; left: -9999px; width: 1px; height: 1px;' tabindex='-1' />";
 									?>
                 </div>
             </form>
@@ -52,7 +52,7 @@
             <div class='row'>
 							<?php
 								$row_items = 2;
-								$result = $conn->query("SELECT titulo, id FROM Materias WHERE concurso_id = '$concurso_id' AND estado = 1 ORDER BY ordem");
+								$result = $conn->query("SELECT titulo, id FROM Materias WHERE curso_id = '$curso_id' AND estado = 1 ORDER BY ordem");
 								$rowcount = mysqli_num_rows($result);
 								if ($rowcount > 8) {
 									$row_items = 3;
@@ -104,7 +104,7 @@
 						$template_conteudo = false;
 						$template_conteudo_no_col = true;
 						
-						$paginas = $conn->query("SELECT DISTINCT page_id FROM (SELECT id, page_id FROM Textos_arquivo WHERE tipo = 'verbete' GROUP BY id ORDER BY id DESC) t");
+						$paginas = $conn->query("SELECT DISTINCT page_id FROM (SELECT id, page_id FROM Textos_arquivo WHERE tipo = 'verbete' AND page_id IS NOT NULL GROUP BY id ORDER BY id DESC) t");
 						if ($paginas->num_rows > 0) {
 							$template_conteudo .= "<ol class='list-group'>";
 							$count = 0;
@@ -113,7 +113,7 @@
 								$topico_materia_id = return_materia_id_topico($topico_id);
 								$topico_materia_titulo = return_materia_titulo_id($topico_materia_id);
 								$topico_titulo = return_titulo_topico($topico_id);
-								$topicos = $conn->query("SELECT estado_pagina FROM Topicos WHERE id = $topico_id AND concurso_id = $concurso_id");
+								$topicos = $conn->query("SELECT estado_pagina FROM Topicos WHERE id = $topico_id AND curso_id = $curso_id");
 								if ($count == 15) {
 									break;
 								}
@@ -133,7 +133,7 @@
                                             </span>
 										";
 										$template_conteudo .= "
-                                            <a href='verbete.php?topico_id=$topico_id'>
+                                            <a href='pagina.php?topico_id=$topico_id'>
                                                 <li class='list-group-item list-group-item-action d-flex justify-content-between align-items-center'>
                                                     <span>
                                                         <strong>$topico_materia_titulo: </strong>
@@ -160,7 +160,6 @@
 					<?php
 						$template_id = 'verbete_curso';
 						$template_titulo = 'Apresentação';
-						$template_quill_empty_content = "<p id='verbete_vazio_{$template_id}'>Seja o primeiro a contribuir para a construção deste verbete.</p>";
 						$template_botoes = false;
 						$template_conteudo = include 'templates/template_quill.php';
 						include 'templates/page_element.php';
@@ -171,7 +170,6 @@
 						
 						$template_id = 'anotacoes_curso';
 						$template_titulo = 'Anotações privadas';
-						$template_quill_empty_content = "<p id='verbete_vazio_{$template_id}'>Você ainda não fez anotações sobre este curso.</p>";
 						$template_botoes = false;
 						$template_conteudo = include 'templates/template_quill.php';
 						include 'templates/page_element.php';

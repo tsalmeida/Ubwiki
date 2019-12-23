@@ -4,9 +4,9 @@
         $('#trigger_busca').click(function () {
             var command = $('#barra_busca').val();
             var command = btoa(command);
-            var concurso = $('#trigger_busca').val();
-            var concurso = btoa(concurso);
-            $.post('engine.php', {'sbcommand': command, 'sbconcurso': concurso}, function (data) {
+            var curso = $('#trigger_busca').val();
+            var curso = btoa(curso);
+            $.post('engine.php', {'sbcommand': command, 'sbcurso': curso}, function (data) {
                 $('#barra_busca').val('');
                 if (data != 0) {
                     var pw = data.substring(0, 16);

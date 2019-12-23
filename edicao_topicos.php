@@ -8,16 +8,16 @@
 		header('Location:login.php');
 	}
 	
-	if (isset($_GET['concurso_editar'])) {
-		$concurso_id = $_GET['concurso_editar'];
+	if (isset($_GET['curso_editar'])) {
+		$curso_id = $_GET['curso_editar'];
 	}
 	
-	$result = $conn->query("SELECT sigla, estado, titulo FROM Concursos WHERE id = $concurso_id");
+	$result = $conn->query("SELECT sigla, estado, titulo FROM cursos WHERE id = $curso_id");
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
-			$concurso_sigla = $row['sigla'];
-			$concurso_estado = $row['estado'];
-			$concurso_titulo = $row['titulo'];
+			$curso_sigla = $row['sigla'];
+			$curso_estado = $row['estado'];
+			$curso_titulo = $row['titulo'];
 		}
 	} else {
 		header('Location:index.php');
@@ -30,7 +30,7 @@
 	
 	if (isset($_POST['nova_materia_titulo'])) {
 		$nova_materia_titulo = $_POST['nova_materia_titulo'];
-		$conn->query("INSERT INTO Materias (titulo, concurso_id) VALUES ('$nova_materia_titulo', $concurso_id)");
+		$conn->query("INSERT INTO Materias (titulo, curso_id) VALUES ('$nova_materia_titulo', $curso_id)");
 	}
 	
 	$nivel_1_materia = false;
@@ -66,19 +66,19 @@
 		}
 		
 		if ($primeiro_nivel_1 != '') {
-			$conn->query("INSERT INTO Topicos (ciclo_revisao, concurso_id, materia_id, nivel, nivel1) values (0, $concurso_id, $nivel_1_materia, 1, '$primeiro_nivel_1')");
+			$conn->query("INSERT INTO Topicos (ciclo_revisao, curso_id, materia_id, nivel, nivel1) values (0, $curso_id, $nivel_1_materia, 1, '$primeiro_nivel_1')");
 		}
 		if ($primeiro_nivel_2 != '') {
-			$conn->query("INSERT INTO Topicos (ciclo_revisao, concurso_id, materia_id, nivel, nivel1) values (0, $concurso_id, $nivel_1_materia, 1, '$primeiro_nivel_2')");
+			$conn->query("INSERT INTO Topicos (ciclo_revisao, curso_id, materia_id, nivel, nivel1) values (0, $curso_id, $nivel_1_materia, 1, '$primeiro_nivel_2')");
 		}
 		if ($primeiro_nivel_3 != '') {
-			$conn->query("INSERT INTO Topicos (ciclo_revisao, concurso_id, materia_id, nivel, nivel1) values (0, $concurso_id, $nivel_1_materia, 1, '$primeiro_nivel_3')");
+			$conn->query("INSERT INTO Topicos (ciclo_revisao, curso_id, materia_id, nivel, nivel1) values (0, $curso_id, $nivel_1_materia, 1, '$primeiro_nivel_3')");
 		}
 		if ($primeiro_nivel_4 != '') {
-			$conn->query("INSERT INTO Topicos (ciclo_revisao, concurso_id, materia_id, nivel, nivel1) values (0, $concurso_id, $nivel_1_materia, 1, '$primeiro_nivel_4')");
+			$conn->query("INSERT INTO Topicos (ciclo_revisao, curso_id, materia_id, nivel, nivel1) values (0, $curso_id, $nivel_1_materia, 1, '$primeiro_nivel_4')");
 		}
 		if ($primeiro_nivel_5 != '') {
-			$conn->query("INSERT INTO Topicos (ciclo_revisao, concurso_id, materia_id, nivel, nivel1) values (0, $concurso_id, $nivel_1_materia, 1, '$primeiro_nivel_5')");
+			$conn->query("INSERT INTO Topicos (ciclo_revisao, curso_id, materia_id, nivel, nivel1) values (0, $curso_id, $nivel_1_materia, 1, '$primeiro_nivel_5')");
 		}
 	}
 	
@@ -112,22 +112,22 @@
 	}
 	
 	if (isset($_POST['reiniciar_ciclo'])) {
-		$conn->query("UPDATE Topicos SET ciclo_revisao = 0 WHERE concurso_id = $concurso_id");
+		$conn->query("UPDATE Topicos SET ciclo_revisao = 0 WHERE curso_id = $curso_id");
 	}
 	
 	if (isset($_POST['finalizar_ciclo'])) {
-		$conn->query("UPDATE Topicos SET ciclo_revisao = 1 WHERE concurso_id = $concurso_id");
+		$conn->query("UPDATE Topicos SET ciclo_revisao = 1 WHERE curso_id = $curso_id");
 	}
 	
 	if (isset($_POST['ciclo_materia_adicionar'])) {
 		$materia_revisao_id = $_POST['ciclo_materia'];
-		 $conn->query("UPDATE Topicos SET ciclo_revisao = 0 WHERE concurso_id = $concurso_id AND materia_id = '$materia_revisao_id'");
+		 $conn->query("UPDATE Topicos SET ciclo_revisao = 0 WHERE curso_id = $curso_id AND materia_id = '$materia_revisao_id'");
 	}
 	
 	if (isset($_POST['ciclo_materia_remover'])) {
 		if (isset($_POST['ciclo_materia'])) {
 			$materia_revisao_id = $_POST['ciclo_materia'];
-			$conn->query("UPDATE Topicos SET ciclo_revisao = 1 WHERE concurso_id = $concurso_id AND materia_id = '$materia_revisao_id'");
+			$conn->query("UPDATE Topicos SET ciclo_revisao = 1 WHERE curso_id = $curso_id AND materia_id = '$materia_revisao_id'");
 		}
 	}
 	
@@ -143,12 +143,12 @@
 	
 	if (isset($_POST['form_topico_id'])) {
 		$form_topico_id = $_POST['form_topico_id'];
-		$result = $conn->query("SELECT nivel, materia_id, concurso_id, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Topicos WHERE id = $form_topico_id");
+		$result = $conn->query("SELECT nivel, materia_id, curso_id, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Topicos WHERE id = $form_topico_id");
 		if ($result->num_rows > 0) {
 			while ($row = $result->fetch_assoc()) {
 				$nivel_relevante = $row['nivel'];
 				$novo_titulo_materia_id = $row['materia_id'];
-				$novo_titulo_concurso = $row['concurso_id'];
+				$novo_titulo_curso = $row['curso_id'];
 				if ($nivel_relevante == 1) {
 					$antigo_titulo = $row['nivel1'];
 				} elseif ($nivel_relevante == 2) {
@@ -168,7 +168,7 @@
 	
 	if ((isset($_POST['topico_novo_titulo'])) && ($_POST['topico_novo_titulo'] != "")) {
 		$topico_novo_titulo = $_POST['topico_novo_titulo'];
-		$conn->query("UPDATE Topicos SET $coluna_nivel = '$topico_novo_titulo' WHERE $coluna_nivel = '$antigo_titulo' AND concurso_id = '$novo_titulo_concurso' AND materia_id = '$novo_titulo_materia_id'");
+		$conn->query("UPDATE Topicos SET $coluna_nivel = '$topico_novo_titulo' WHERE $coluna_nivel = '$antigo_titulo' AND curso_id = '$novo_titulo_curso' AND materia_id = '$novo_titulo_materia_id'");
 	}
 	
 	include 'engine_criar_subtopicos.php';
@@ -179,7 +179,7 @@
 		$topico_id = $_GET['topico_id'];
 		$result = $conn->query("SELECT id, materia_id, nivel, ordem, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Topicos WHERE id = $topico_id");
 	} else {
-		$result = $conn->query("SELECT id, materia_id, nivel, ordem, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Topicos WHERE concurso_id = $concurso_id AND ciclo_revisao = 0 ORDER BY ordem");
+		$result = $conn->query("SELECT id, materia_id, nivel, ordem, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Topicos WHERE curso_id = $curso_id AND ciclo_revisao = 0 ORDER BY ordem");
 	}
 	
 	if ($result->num_rows > 0) {
@@ -212,7 +212,7 @@
 			$revisao = true;
 			break;
 		}
-		$materias = $conn->query("SELECT titulo FROM Materias WHERE concurso_id = $concurso_id AND id = $materia_id");
+		$materias = $conn->query("SELECT titulo FROM Materias WHERE curso_id = $curso_id AND id = $materia_id");
 		if ($materias->num_rows > 0) {
 			while ($materia = $materias->fetch_assoc()) {
 				$materia_titulo = $materia["titulo"];
@@ -233,7 +233,7 @@
     <div class='row d-flex justify-content-center'>
         <div class='col-lg-10 col-sm-12 text-center py-5'>
 					<?php
-						$template_titulo = "Alterar tópicos: $concurso_sigla";
+						$template_titulo = "Alterar tópicos: $curso_sigla";
 						include 'templates/titulo.php';
 					?>
         </div>
@@ -246,7 +246,7 @@
 						$template_conteudo = false;
 						if ($revisao != false) {
 							$template_conteudo .= "
-            <form method='post' action='edicao_topicos.php?concurso_id=$concurso_id#ferramenta'>
+            <form method='post' action='edicao_topicos.php?curso_id=$curso_id#ferramenta'>
               <input type='hidden' name='form_topico_id' value='$topico_id'>
               <input type='hidden' name='form_nivel' value='$nivel'>
               <input type='hidden' name='form_ordem' value='$ordem'>
@@ -338,7 +338,7 @@
 							$template_conteudo .= "
                 <div class='row justify-content-center'>
                 <button name='form_topico_id' type='submit' class='$button_classes' value='$topico_id'>Registrar mudanças</button>";
-							if ($concurso_estado == 0) {
+							if ($curso_estado == 0) {
 								$template_conteudo .= "<button name='apagar_topico_id' type='submit' class='$button_classes btn-danger' value='$topico_id'>Apagar tópico e subtópicos</button>";
 							}
 							$template_conteudo .= '</div>';
@@ -356,8 +356,8 @@
 						$template_conteudo .= "<form method='post'>";
 						$template_conteudo .= "<p>Ao pressionar 'reiniciar o ciclo de revisão', todos os tópicos serão marcadas para revisão. Ao pressionar 'finalizar o ciclo de revisão', todos serão removidos do ciclo de revisão.</p>";
 						$template_conteudo .= "<div class='row justify-content-center'>";
-						$template_conteudo .= "<button name='reiniciar_ciclo' type='submit' class='$button_classes' value='$concurso_id'>Reiniciar ciclo de revisão</button>";
-						$template_conteudo .= "<button name='finalizar_ciclo' type='submit' class='$button_classes' value='$concurso_id'>Finalizar ciclo de revisão</button>";
+						$template_conteudo .= "<button name='reiniciar_ciclo' type='submit' class='$button_classes' value='$curso_id'>Reiniciar ciclo de revisão</button>";
+						$template_conteudo .= "<button name='finalizar_ciclo' type='submit' class='$button_classes' value='$curso_id'>Finalizar ciclo de revisão</button>";
 						$template_conteudo .= "</div>";
 						include 'templates/page_element.php';
 						
@@ -366,7 +366,7 @@
 						$template_conteudo = false;
 						$template_conteudo .= "<p>Escolha abaixo uma matéria para acrescentar ao ciclo de revisão.</p>";
 						
-						$result = $conn->query("SELECT titulo, id, estado FROM Materias WHERE concurso_id = $concurso_id");
+						$result = $conn->query("SELECT titulo, id, estado FROM Materias WHERE curso_id = $curso_id");
 						if ($result->num_rows > 0) {
 							while ($row = $result->fetch_assoc()) {
 								$pick_materia_id = $row['id'];
@@ -389,8 +389,8 @@
 						}
 						$template_conteudo .= "
                             <div class='row justify-content-center'>
-                              <button name='ciclo_materia_adicionar' type='submit' class='$button_classes' value='$concurso_id'>Marcar para revisão</button>
-                              <button name='ciclo_materia_remover' type='submit' class='$button_classes' value='$concurso_id'>Remover do ciclo de revisão</button>
+                              <button name='ciclo_materia_adicionar' type='submit' class='$button_classes' value='$curso_id'>Marcar para revisão</button>
+                              <button name='ciclo_materia_remover' type='submit' class='$button_classes' value='$curso_id'>Remover do ciclo de revisão</button>
                             </div>
                         </form>
                         ";
@@ -425,7 +425,7 @@
                         
                         ";
 						
-						$result = $conn->query("SELECT id, titulo, estado FROM Materias WHERE concurso_id = $concurso_id ORDER BY ordem");
+						$result = $conn->query("SELECT id, titulo, estado FROM Materias WHERE curso_id = $curso_id ORDER BY ordem");
 						if ($result->num_rows > 0) {
 							while ($row = $result->fetch_assoc()) {
 								$pick_materia_id = $row['id'];
@@ -467,11 +467,11 @@
                             </fieldset>
             
                             <div class='row justify-content-center'>
-                                <button type='submit' class='$button_classes' name='nova_materia_concurso'>Incluir tópicos</button>
+                                <button type='submit' class='$button_classes' name='nova_materia_curso'>Incluir tópicos</button>
                             </div>
                         </form>";
 						} else {
-							$template_conteudo .= "<p><strong>Este concurso não possui matérias.</strong></p>";
+							$template_conteudo .= "<p><strong>Este curso não possui matérias.</strong></p>";
 						}
 						
 						include 'templates/page_element.php';
@@ -488,7 +488,7 @@
                             <p>Em suma, apenas ative uma matéria se tiver certeza que nenhum tópico precisará ser removido.</p>
                         ";
 						
-						$result = $conn->query("SELECT id, titulo, estado FROM Materias WHERE concurso_id = $concurso_id AND estado = 0");
+						$result = $conn->query("SELECT id, titulo, estado FROM Materias WHERE curso_id = $curso_id AND estado = 0");
 						if ($result->num_rows > 0) {
 							while ($row = $result->fetch_assoc()) {
 								$pick_materia_titulo = $row['titulo'];
@@ -503,7 +503,7 @@
                       ";
 							}
 						} else {
-							$template_conteudo .= "<p>Este concurso não possui matérias desativadas.</p>";
+							$template_conteudo .= "<p>Este curso não possui matérias desativadas.</p>";
 						}
 						$template_conteudo .= "<div class='row justify-content-center'>";
 						$template_conteudo .= "<button type='submit' class='$button_classes'>Ativar matéria</button>";
@@ -528,7 +528,7 @@
 							    <ul class='list-group'>
 							";
 					
-					$result = $conn->query("SELECT id, nivel, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Topicos WHERE concurso_id = $concurso_id AND materia_id = $materia_id ORDER BY ordem");
+					$result = $conn->query("SELECT id, nivel, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Topicos WHERE curso_id = $curso_id AND materia_id = $materia_id ORDER BY ordem");
 					if ($result->num_rows > 0) {
 						while ($row = $result->fetch_assoc()) {
 							$active1 = false;
@@ -549,15 +549,15 @@
 							$nivel4 = $row['nivel4'];
 							$nivel5 = $row['nivel5'];
 							if ($nivel5 != false) {
-								$template_conteudo .= "<a href='edicao_topicos.php?concurso_id=$concurso_id&topico_id=$id_lista'><li class='list-group-item $color'><em><span style='margin-left: 13ch'><i class='fal fa-chevron-double-right'></i><i class='fal fa-chevron-double-right'></i> $nivel5</span></em></li></a>";
+								$template_conteudo .= "<a href='edicao_topicos.php?curso_id=$curso_id&topico_id=$id_lista'><li class='list-group-item $color'><em><span style='margin-left: 13ch'><i class='fal fa-chevron-double-right'></i><i class='fal fa-chevron-double-right'></i> $nivel5</span></em></li></a>";
 							} elseif ($nivel4 != false) {
-								$template_conteudo .= "<a href='edicao_topicos.php?concurso_id=$concurso_id&topico_id=$id_lista'><li class='list-group-item $color'><em><span style='margin-left: 8ch'><i class='fal fa-chevron-double-right'></i><i class='fal fa-chevron-right'></i> $nivel4</span></em></li></a>";
+								$template_conteudo .= "<a href='edicao_topicos.php?curso_id=$curso_id&topico_id=$id_lista'><li class='list-group-item $color'><em><span style='margin-left: 8ch'><i class='fal fa-chevron-double-right'></i><i class='fal fa-chevron-right'></i> $nivel4</span></em></li></a>";
 							} elseif ($nivel3 != false) {
-								$template_conteudo .= "<a href='edicao_topicos.php?concurso_id=$concurso_id&topico_id=$id_lista'><li class='list-group-item $color'><span style='margin-left: 5ch'><i class='fal fa-chevron-double-right'></i> $nivel3</span></li></a>";
+								$template_conteudo .= "<a href='edicao_topicos.php?curso_id=$curso_id&topico_id=$id_lista'><li class='list-group-item $color'><span style='margin-left: 5ch'><i class='fal fa-chevron-double-right'></i> $nivel3</span></li></a>";
 							} elseif ($nivel2 != false) {
-								$template_conteudo .= "<a href='edicao_topicos.php?concurso_id=$concurso_id&topico_id=$id_lista'><li class='list-group-item $color'><span style='margin-left: 3ch'><i class='fal fa-chevron-right'></i> $nivel2</span></li></a>";
+								$template_conteudo .= "<a href='edicao_topicos.php?curso_id=$curso_id&topico_id=$id_lista'><li class='list-group-item $color'><span style='margin-left: 3ch'><i class='fal fa-chevron-right'></i> $nivel2</span></li></a>";
 							} elseif ($nivel1 != false) {
-								$template_conteudo .= "<a href='edicao_topicos.php?concurso_id=$concurso_id&topico_id=$id_lista'><li class='list-group-item $color'><strong>$nivel1</strong></li></a>";
+								$template_conteudo .= "<a href='edicao_topicos.php?curso_id=$curso_id&topico_id=$id_lista'><li class='list-group-item $color'><strong>$nivel1</strong></li></a>";
 							}
 						}
 					}
