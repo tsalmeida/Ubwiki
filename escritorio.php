@@ -5,18 +5,6 @@
 	$pagina_id = $user_id;
 	$pagina_tipo = 'escritorio';
 	
-	$dados_usuario = $conn->query("SELECT id, tipo, criacao, apelido, nome, sobrenome FROM Usuarios WHERE email = '$user_email'");
-	if ($dados_usuario->num_rows > 0) {
-		while ($row = $dados_usuario->fetch_assoc()) {
-			$user_id = $row['id'];
-			$user_tipo = $row['tipo'];
-			$user_criacao = $row['criacao'];
-			$user_apelido = $row['apelido'];
-			$user_nome = $row['nome'];
-			$user_sobrenome = $row['sobrenome'];
-		}
-	}
-	
 	if (isset($_POST['nova_edicao_trigger'])) {
 		if (isset($_POST['nova_edicao_ano'])) {
 			$nova_edicao_ano = $_POST['nova_edicao_ano'];
@@ -426,7 +414,6 @@
 	$comentarios = $conn->query("SELECT DISTINCT pagina_id, pagina_tipo FROM Forum WHERE user_id = $user_id");
 	$completados = $conn->query("SELECT pagina_id FROM Completed WHERE user_id = $user_id AND estado = 1 AND active = 1");
 	$verbetes_escritos = $conn->query("SELECT DISTINCT page_id, tipo FROM Textos_arquivo WHERE user_id = $user_id AND (tipo = 'verbete' OR tipo = 'verbete_elemento') ORDER BY id DESC");
-	$visualizacoes = $conn->query("SELECT DISTINCT page_id, criacao, tipo_pagina, extra FROM Visualizacoes WHERE (tipo_pagina <> 'userpage' AND tipo_pagina <> 'index' AND tipo_pagina <> 'verbete_mudanca') AND user_id = $user_id ORDER BY id DESC");
 
 ?>
 <body class="carrara">
@@ -454,7 +441,7 @@
                       <a id='mostrar_imagens' href='javascript:void(0);' class='p-2 rounded text-danger artefato' title='Pressione para ver suas imagens privadas e públicas'><i class='fad fa-images fa-3x fa-fw'></i></a>
                       <a id='mostrar_acervo' href='javascript:void(0);' class='p-2 rounded text-success artefato' title='Pressione para ver seu acervo virtual'><i class='fad fa-books fa-3x fa-fw'></i></a>
                       <a id='mostrar_tags' href='javascript:void(0);' class='p-2 rounded text-warning artefato' title='Pressione para ver suas áreas de interesse'><i class='fad fa-tags fa-3x fa-fw'></i></a>
-                      <a id='mostrar_grupos' href='javascript:void(0);' class='p-2 rounded text-info artefato'><i class='fad fa-users fa-3x fa-fw'></i></a>
+                      <a id='mostrar_grupos' href='javascript:void(0);' class='p-2 rounded text-default artefato'><i class='fad fa-users fa-3x fa-fw'></i></a>
                       ";
 				if ($user_tipo == 'admin') {
 					echo "<a id='icone_simulados' href='javascript:void(0);' class='p-2 rounded text-secondary artefato' title='Pressione para ver seus simulados'><i class='fad fa-clipboard-list-check fa-3x fa-fw'></i></a>
@@ -497,7 +484,7 @@
 
         <div id="coluna_unica" class="col">
 					<?php
-						
+						$visualizacoes = $conn->query("SELECT page_id, tipo_pagina FROM Visualizacoes WHERE user_id = $user_id AND extra2 = 'pagina' ORDER BY id DESC");
 						if ($visualizacoes->num_rows > 0) {
 							$template_id = 'ultimas_visualizacoes';
 							$template_titulo = 'Estudos recentes';
@@ -514,43 +501,48 @@
 								} else {
 									array_push($resultados, $visualizacao_page_id);
 								}
-								$visualizacao_extra = $visualizacao['extra'];
 								$visualizacao_tipo_pagina = $visualizacao['tipo_pagina'];
-								if ($visualizacao_extra == 'secao_elemento') {
-									continue;
-								} elseif ($visualizacao_extra == 'verbete') {
-									continue;
-								} elseif ($visualizacao_extra == 'verbete_elemento') {
-									continue;
-								} elseif ($visualizacao_extra == 'verbete_user') {
-									continue;
-								}
 								if ($visualizacao_tipo_pagina == 'elemento') {
-									$visualizacao_elemento_info = return_elemento_info($visualizacao_page_id);
+									$visualizacao_elemento_id = return_elemento_id_pagina_id($visualizacao_page_id);
+									$visualizacao_elemento_info = return_elemento_info($visualizacao_elemento_id);
 									$artefato_titulo = $visualizacao_elemento_info[4];
 									$artefato_subtitulo = $visualizacao_elemento_info[5];
-									$artefato_link = "pagina.php?elemento_id=$visualizacao_page_id";
+									$artefato_link = "pagina.php?pagina_id=$visualizacao_page_id";
 									$artefato_tipo = $visualizacao_elemento_info[3];
-								} elseif (($visualizacao_tipo_pagina == 'topico') || ($visualizacao_tipo_pagina == 'verbete')) {
-									$artefato_titulo = return_titulo_topico($visualizacao_page_id);
-									$artefato_subtitulo_curso_id = return_curso_id_topico($visualizacao_page_id);
-									$artefato_subtitulo_materia_id = return_materia_id_topico($visualizacao_page_id);
+								} elseif ($visualizacao_tipo_pagina == 'topico') {
+									$visualizacao_topico_id = return_topico_id_pagina_id($visualizacao_page_id);
+									$artefato_titulo = return_titulo_topico($visualizacao_topico_id);
+									$artefato_subtitulo_curso_id = return_curso_id_topico($visualizacao_topico_id);
+									$artefato_subtitulo_materia_id = return_materia_id_topico($visualizacao_topico_id);
 									$artefato_subtitulo_curso_titulo = return_curso_sigla($artefato_subtitulo_curso_id);
 									$artefato_subtitulo_materia_titulo = return_materia_titulo_id($artefato_subtitulo_materia_id);
 									$artefato_subtitulo = "$artefato_subtitulo_curso_titulo / $artefato_subtitulo_materia_titulo";
-									$artefato_link = "pagina.php?topico_id=$visualizacao_page_id";
+									$artefato_link = "pagina.php?pagina_id=$visualizacao_page_id";
 									$artefato_tipo = 'verbete';
-								} elseif ($visualizacao_tipo_pagina == 'texto') {
+									/*} elseif ($visualizacao_tipo_pagina == 'texto') {
 									$artefato_texto_info = return_texto_info($visualizacao_page_id);
 									if ($artefato_texto_info == false) {
 										continue;
 									}
 									$artefato_titulo = $artefato_texto_info[2];
 									$artefato_tipo = $artefato_texto_info[1];
-									$artefato_link = "edicao_textos.php?texto_id=$visualizacao_page_id";
+									$artefato_link = "edicao_textos.php?pagina_id=$visualizacao_page_id";
 									if ($artefato_titulo == false) {
 										$artefato_subtitulo = return_artefato_subtitulo($artefato_tipo);
-									}
+									}*/
+								} elseif ($visualizacao_tipo_pagina == 'pagina') {
+									$artefato_titulo = return_pagina_titulo($visualizacao_page_id);
+									$pagina_info = return_pagina_info($visualizacao_page_id);
+									$pagina_compartilhamento = $pagina_info[4];
+									if ($pagina_compartilhamento == 'privado') {
+									    $artefato_subtitulo = 'Página privada';
+                                    } elseif ($pagina_compartilhamento == 'publico') {
+									    $artefato_subtitulo = 'Página pública';
+                                    } else {
+									    $artefato_subtitulo = 'Página';
+                                    }
+									$artefato_tipo = 'pagina';
+									$artefato_link = "pagina.php?pagina_id=$visualizacao_page_id";
 								} else {
 									continue;
 								}
@@ -722,7 +714,7 @@
 						$template_col_value = 'col-lg-8 col-md-10 col-sm-12';
 						$template_conteudo = false;
 						$template_conteudo .= "<p>Você pode usar a Ubwiki como uma plataforma de estudos geral para registros de suas leituras pessoais, mas torna-se ainda mais efetiva quando você participa de comunidades em torno de seus interesses. Essa é a função dos cursos listados abaixo.</p>";
-						$usuario_cursos = $conn->query("SELECT opcao FROM Opcoes WHERE opcao_tipo = 'curso' AND user_id = $user_id");
+						$usuario_cursos = $conn->query("SELECT DISTINCT opcao FROM Opcoes WHERE opcao_tipo = 'curso' AND user_id = $user_id");
 						if ($usuario_cursos->num_rows > 0) {
 							$template_conteudo .= "<h2>Cursos em que você está inscrito</h2>";
 							$template_conteudo .= "<ul class='list-group'>";
@@ -937,10 +929,8 @@
 						}
 						include 'templates/page_element.php';
 						
-						
-						$anotacoes = $conn->query("SELECT id, page_id, titulo, criacao, tipo FROM Textos WHERE tipo LIKE '%anotac%' AND user_id = $user_id ORDER BY id DESC");
-						$template_id = 'anotacoes_privadas';
-						$template_titulo = 'Textos e notas de estudo';
+						$template_id = 'paginas_usuario';
+						$template_titulo = 'Suas páginas';
 						$template_classes = 'esconder_sessao';
 						$template_conteudo_class = 'justify-content-start';
 						$template_conteudo_no_col = true;
@@ -948,51 +938,100 @@
 						
 						$artefato_id = 0;
 						$artefato_page_id = false;
-						$artefato_titulo = 'Novo texto privado';
-						$artefato_criacao = 'Pressione para criar texto privado';
+						$artefato_titulo = 'Nova página privada';
+						$artefato_criacao = 'Pressione para criar uma página privada';
+						$artefato_tipo = 'nova_pagina';
+						$artefato_link = 'pagina.php?pagina_id=new';
+						$template_conteudo .= include 'templates/artefato_item.php';
+						
+						$paginas_usuario = $conn->query("SELECT id FROM Paginas WHERE tipo = 'pagina' AND user_id = $user_id");
+						if ($paginas_usuario->num_rows > 0) {
+							while ($pagina_usuario = $paginas_usuario->fetch_assoc()) {
+								$pagina_usuario_id = $pagina_usuario['id'];
+								$pagina_usuario_info = return_pagina_info($pagina_usuario_id);
+								$pagina_usuario_criacao = $pagina_usuario_info[0];
+								$pagina_usuario_compartilhamento = $pagina_usuario_info[4];
+								$pagina_usuario_titulo = $pagina_usuario_info[6];
+								
+								$artefato_id = $pagina_usuario_id;
+								$artefato_titulo = $pagina_usuario_titulo;
+								if ($pagina_usuario_compartilhamento == 'privado') {
+								    $artefato_subtitulo = 'Página privada';
+                                } elseif ($pagina_usuario_compartilhamento == 'publico') {
+								    $artefato_subtitulo = 'Página pública';
+                                } else {
+								    $artefato_subtitulo = 'Página';
+                                }
+								$artefato_tipo = 'pagina_usuario';
+								$artefato_link = "pagina.php?pagina_id=$pagina_usuario_id";
+								$artefato_criacao = $pagina_usuario_criacao;
+								
+								$template_conteudo .= include 'templates/artefato_item.php';
+							}
+						}
+						
+						include 'templates/page_element.php';
+						
+						$anotacoes = $conn->query("SELECT id, page_id, pagina_id, pagina_tipo, titulo, criacao, tipo FROM Textos WHERE tipo LIKE '%anotac%' AND user_id = $user_id ORDER BY id DESC");
+						$template_id = 'anotacoes_privadas';
+						$template_titulo = 'Notas de estudo';
+						$template_classes = 'esconder_sessao';
+						$template_conteudo_class = 'justify-content-start';
+						$template_conteudo_no_col = true;
+						$template_conteudo = false;
+						
+						$artefato_id = 0;
+						$artefato_page_id = false;
+						$artefato_titulo = 'Nova anotação privada';
+						$artefato_criacao = 'Pressione para criar uma anotação privada';
 						$artefato_tipo = 'nova_anotacao';
 						$artefato_link = 'edicao_textos.php?texto_id=new';
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
 						while ($anotacao = $anotacoes->fetch_assoc()) {
-							$artefato_id = $anotacao['id'];
-							$artefato_page_id = $anotacao['page_id'];
-							$artefato_titulo = $anotacao['titulo'];
-							$artefato_criacao = $anotacao['criacao'];
-							$artefato_tipo = $anotacao['tipo'];
-							if ($artefato_tipo == 'anotacoes_elemento') {
-								$artefato_elemento_info = return_elemento_info($artefato_page_id);
-								$artefato_elemento_titulo = $artefato_elemento_info[4];
-								$artefato_elemento_autor = $artefato_elemento_info[5];
-								$artefato_elemento_tipo = $artefato_elemento_info[3];
-								$artefato_titulo = $artefato_elemento_titulo;
-								if ($artefato_elemento_autor != false) {
-									$artefato_subtitulo = $artefato_elemento_autor;
-								} else {
-									$artefato_subtitulo = $artefato_elemento_tipo;
-								}
-								$artefato_subtipo = $artefato_elemento_tipo;
-								$artefato_link = "pagina.php?elemento_id=$artefato_page_id";
-							} elseif ($artefato_tipo == 'anotacoes_curso') {
-								$artefato_titulo = return_curso_titulo_id($artefato_page_id);
-							} elseif ($artefato_tipo == 'anotacoes') {
-								$artefato_titulo = return_titulo_topico($artefato_page_id);
-								$artefato_topico_curso_id = return_curso_id_topico($artefato_page_id);
-								$artefato_topico_curso_sigla = return_curso_sigla($artefato_topico_curso_id);
-								$artefato_subtitulo = $artefato_topico_curso_sigla;
-								$artefato_link = "pagina.php?topico_id=$artefato_page_id";
-							} elseif ($artefato_tipo == 'anotacoes_materia') {
-								$artefato_materia_titulo = return_materia_titulo_id($artefato_page_id);
-								$artefato_materia_curso_id = return_curso_id_materia($artefato_page_id);
-								$artefato_materia_curso_sigla = return_curso_sigla($artefato_materia_curso_id);
-								$artefato_titulo = $artefato_materia_titulo;
-								$artefato_subtitulo = $artefato_materia_curso_sigla;
+							$anotacao_id = $anotacao['id'];
+							$anotacao_page_id = $anotacao['page_id'];
+							$anotacao_pagina_id = $anotacao['pagina_id'];
+							if ($anotacao_pagina_id == false) {
+								$anotacao_pagina_id = return_pagina_id($anotacao_id, 'texto');
 							}
-							if (!isset($artefato_link)) {
-								$artefato_link = "edicao_textos.php?texto_id=$artefato_id";
+							$anotacao_pagina_tipo = $anotacao['pagina_tipo'];
+							$anotacao_titulo = $anotacao['titulo'];
+							$anotacao_criacao = $anotacao['criacao'];
+							$anotacao_tipo = $anotacao['tipo'];
+							
+							$artefato_tipo = $anotacao_tipo;
+							if ($anotacao_pagina_tipo != false) {
+								$artefato_tipo = "{$anotacao_tipo}_{$anotacao_pagina_tipo}";
 							}
+							if ($anotacao_titulo == false) {
+								$artefato_titulo = false;
+							} else {
+								$artefato_titulo = $anotacao_titulo;
+							}
+							if ($anotacao_pagina_tipo == 'topico') {
+								$artefato_titulo = return_titulo_topico($anotacao_page_id);
+								$anotacao_materia_id = return_materia_id_topico($anotacao_page_id);
+								$artefato_subtitulo = return_materia_titulo_id($anotacao_materia_id);
+							} elseif ($anotacao_pagina_tipo == 'pagina') {
+								$artefato_titulo = return_pagina_titulo($anotacao_pagina_id);
+								$artefato_subtitulo = 'Nota de página';
+							} elseif ($anotacao_pagina_tipo == 'elemento') {
+								$artefato_titulo = return_titulo_elemento($anotacao_page_id);
+								$artefato_subtitulo = 'Nota de elemento';
+							}
+							if ($anotacao_pagina_tipo == false) {
+								$artefato_link = "edicao_textos.php?texto_id=$anotacao_id";
+								$artefato_subtitulo = 'Anotação privada';
+							} else {
+								$artefato_link = "pagina.php?pagina_id=$anotacao_pagina_id";
+							}
+							if (!isset($artefato_subtitulo)) {
+								$artefato_subtitulo = false;
+							}
+							$artefato_criacao = false;
 							if ($artefato_titulo == false) {
-								$artefato_subtitulo = return_artefato_subtitulo($artefato_tipo);
+								$artefato_titulo = return_artefato_subtitulo($artefato_tipo);
 							}
 							$template_conteudo .= include 'templates/artefato_item.php';
 						}
@@ -1152,7 +1191,7 @@
 	if ($perfil_publico_id != false) {
 		$template_modal_body_conteudo .= "
 		  <div class='row justify-content-center'>
-			  <a href='edicao_textos.php?texto_id=$perfil_publico_id'><button type='button' class='$button_classes'>Editar sua apresentação</button></a>
+			  <a href='pagina.php?texto_id=$perfil_publico_id'><button type='button' class='$button_classes'>Editar sua apresentação</button></a>
 		  </div>
 	  ";
 	}
@@ -1341,6 +1380,7 @@
                             </div>
 						";
 	if ($edicoes->num_rows > 0) {
+		$curso_sigla = return_curso_sigla($curso_id);
 		$template_modal_body_conteudo .= "
 			<h3>Edições registradas para o $curso_sigla:</h3>
 			<ul class='list-group'>

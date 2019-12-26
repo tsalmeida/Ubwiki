@@ -17,7 +17,7 @@
 	if (isset($curso_id)) {
 		echo "<a class='navbar-brand playfair900 $template_navbar_text' href='pagina.php?curso_id=$curso_id'>Ubwiki</a>";
 	} else {
-		echo "<a class='navbar-brand playfair900 $template_navbar_text' href='cursos.php'>Ubwiki</a>";
+		echo "<a class='navbar-brand playfair900 $template_navbar_text' href='index.php'>Ubwiki</a>";
 	}
 	echo "<ul class='nav navbar-nav ml-auto nav-flex-icons'>";
 	echo "<li class='nav-item dropdown'>";

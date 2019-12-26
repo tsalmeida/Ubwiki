@@ -260,7 +260,8 @@
 				           'adicionar_referencia_titulo': adicionar_referencia_titulo,
 				           'adicionar_referencia_autor': adicionar_referencia_autor,
 				           'adicionar_referencia_tipo': adicionar_referencia_tipo,
-				           'adicionar_referencia_contexto': '$pagina_tipo'
+				           'adicionar_referencia_contexto': '$pagina_tipo',
+				           'adicionar_referencia_pagina_id': $pagina_id
 				        }, function(data) {
 				            if (data != false) {
 				                alert('Referência criada e adicionada.')
@@ -289,6 +290,7 @@
 				});
 				$(document).on('click', '#mostrar_textos', function() {
 				    $('.esconder_sessao').hide();
+				    $('#paginas_usuario').show();
 				    $('#anotacoes_privadas').show();
 				});
 				$(document).on('click', '#mostrar_imagens', function() {
@@ -345,6 +347,24 @@
 				    $('#quill_trigger_{$texto_tipo}').click();
 					});
 	      });
+			</script>
+		";
+	}
+	if (isset($adicionar_tag_pagina)) {
+		echo "
+			<script type='text/javascript'>
+				$(document).on('click', '.adicionar_tag', function() {
+			      var this_id = $(this).attr('value');
+			      $(this).hide();
+			      $.post('engine.php', {
+			         'pagina_nova_etiqueta_id': this_id,
+			         'nova_etiqueta_pagina_id': $pagina_id,
+			      }, function(data) {
+			         if (data != 0) {
+			             $('#etiquetas_ativas').append(data);
+			         }
+			      });
+			  });
 			</script>
 		";
 	}

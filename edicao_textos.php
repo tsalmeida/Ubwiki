@@ -6,7 +6,7 @@
 		$texto_id = $_GET['texto_id'];
 	}
 	if (($texto_id == false) || ($texto_id == '')) {
-		header("Location:escritorio.php");
+		header("Location:pagina.php?pagina_id=4");
 	}
 	
 	if (isset($_POST['destruir_anotacao'])) {
@@ -17,18 +17,19 @@
 	$texto_anotacao = false;
 	$texto_editar_titulo = false;
 	if ($texto_id == 'new') {
-		if ($conn->query("INSERT INTO Textos (tipo, page_id, pagina_id, user_id, verbete_html, verbete_text, verbete_content) VALUES ('anotacao_privada', 0, 0, $user_id, FALSE, FALSE, FALSE)") === true) {
+		if ($conn->query("INSERT INTO Textos (tipo, compartilhamento, page_id, pagina_id, user_id, verbete_html, verbete_text, verbete_content) VALUES ('anotacoes', 'privado', 0, 0, $user_id, FALSE, FALSE, FALSE)") === true) {
 			$new_texto_id = $conn->insert_id;
 			header("Location:edicao_textos.php?texto_id=$new_texto_id");
 		}
 	} else {
-		$textos = $conn->query("SELECT tipo, titulo, page_id, pagina_id, estado_texto, compartilhamento, criacao, verbete_content, user_id FROM Textos WHERE id = $texto_id");
+		$textos = $conn->query("SELECT tipo, titulo, page_id, pagina_id, pagina_tipo, estado_texto, compartilhamento, criacao, verbete_content, user_id FROM Textos WHERE id = $texto_id");
 		if ($textos->num_rows > 0) {
 			while ($texto = $textos->fetch_assoc()) {
 				$texto_tipo = $texto['tipo'];
 				$texto_titulo = $texto['titulo'];
 				$texto_page_id = $texto['page_id'];
 				$texto_pagina_id = $texto['pagina_id'];
+				$texto_pagina_tipo = $texto['pagina_tipo'];
 				$texto_criacao = $texto['criacao'];
 				$texto_estado = $texto['estado_texto'];
 				$texto_compartilhamento = $texto['compartilhamento'];
@@ -37,7 +38,7 @@
 				$check = false;
 				if ((strpos($texto_tipo, 'anotac') !== false) || ($texto_tipo == 'verbete_user')) {
 					$texto_anotacao = true;
-					if (($texto_compartilhamento != 'publico') && ($texto_user_id != $user_id)) {
+					if (($texto_compartilhamento != false) && ($texto_user_id != $user_id)) {
 					    $comps = $conn->query("SELECT recipiente_id, compartilhamento FROM Compartilhamento WHERE item_tipo = 'texto' AND item_id = $texto_id");
 					    if ($comps->num_rows > 0) {
 					        while ($comp = $comps->fetch_assoc()) {
@@ -46,37 +47,37 @@
 					                $item_grupo_id = $comp['recipiente_id'];
 					                $check_membro_grupo = check_membro_grupo($user_id, $item_grupo_id);
 					                if ($check_membro_grupo == false) {
-					                    header('Location:escritorio.php');
+					                    header('Location:pagina.php?pagina_id=4');
                                     }
                                 } elseif ($item_comp_compartilhamento == 'usuario') {
 					                $item_usuario_id = $comp['recipiente_id'];
 					                if ($item_usuario_id != $user_id) {
-					                    header('Location:escritorio.php');
+					                    header('Location:pagina.php?pagina_id=4');
                                     }
                                 }
                             }
                         } else {
-					        header('Location:escritorio.php');
+					        header('Location:pagina.php?pagina_id=3');
 					    }
 					}
 				}
-				if ($texto_tipo == 'anotacao_privada') {
+				if ($texto_page_id === 0) {
 					$texto_editar_titulo = true;
 				}
 			}
 		} else {
-			header('Location:escritorio.php');
+			header('Location:pagina.php?pagina_id=3');
 		}
 	}
 	$html_head_template_quill = true;
 	
-	$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina, extra) VALUES ($user_id, $texto_id, 'texto', '$texto_tipo')");
+	$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina, extra, extra2) VALUES ($user_id, $texto_id, 'texto', '$texto_tipo', 'edicao_textos')");
 	
 	include 'templates/html_head.php';
 
 ?>
 
-<body class="grey lighten-5">
+<body class="carrara">
 <?php
 	include 'templates/navbar.php';
 ?>

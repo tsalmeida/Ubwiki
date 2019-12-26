@@ -4,6 +4,16 @@
 	
 	if (isset($_POST['trigger_atualizacao'])) {
 		$conn->query("ALTER TABLE `Paginas` ADD `estado` TINYINT NULL DEFAULT '0' AFTER `tipo`;");
+		$conn->query("INSERT INTO Paginas (item_id, tipo, estado, user_id) VALUES (1, 'sistema', 1, 1)");
+		$conn->query("INSERT INTO Paginas (item_id, tipo, estado, user_id) VALUES (1, 'sistema', 1, 1)");
+		$conn->query("INSERT INTO Paginas (item_id, tipo, estado, user_id) VALUES (1, 'sistema', 1, 1)");
+		$conn->query("INSERT INTO Paginas (item_id, tipo, estado, user_id) VALUES (1, 'sistema', 1, 1)");
+		$conn->query("INSERT INTO Paginas (item_id, tipo, estado, user_id) VALUES (1, 'sistema', 1, 1)");
+		$conn->query("INSERT INTO Paginas (item_id, tipo, estado, user_id) VALUES (1, 'sistema', 1, 1)");
+		$conn->query("INSERT INTO Paginas (item_id, tipo, estado, user_id) VALUES (1, 'sistema', 1, 1)");
+		$conn->query("INSERT INTO Paginas (item_id, tipo, estado, user_id) VALUES (1, 'sistema', 1, 1)");
+		$conn->query("INSERT INTO Paginas (item_id, tipo, estado, user_id) VALUES (1, 'sistema', 1, 1)");
+		$conn->query("INSERT INTO Paginas (item_id, tipo, estado, user_id) VALUES (1, 'sistema', 1, 1)");
 		$conn->query("ALTER TABLE `Bookmarks` CHANGE `topico_id` `pagina_id` INT(11) NULL DEFAULT NULL;");
 		$conn->query("ALTER TABLE `Completed` CHANGE `topico_id` `pagina_id` INT(11) NULL DEFAULT NULL;");
 		$conn->query("ALTER TABLE `Forum` CHANGE `page_id` `pagina_id` INT(11) NULL DEFAULT NULL;");
@@ -79,7 +89,19 @@
 		$conn->query("ALTER TABLE `Topicos` CHANGE `concurso_id` `curso_id` INT(11) NULL DEFAULT NULL;");
 		$conn->query("ALTER TABLE `Verbetes_elementos` CHANGE `concurso_id` `curso_id` INT(11) NULL DEFAULT NULL;");
 		$conn->query("ALTER TABLE `Materias` ADD `pagina_id` INT(11) NULL DEFAULT NULL AFTER `etiqueta_id`;");
-		
+		$conn->query("ALTER TABLE `Visualizacoes` ADD `extra2` VARCHAR(255) NULL AFTER `extra`;");
+		$conn->query("ALTER TABLE `Paginas` ADD `compartilhamento` VARCHAR(255) NULL DEFAULT NULL AFTER `estado`;");
+		$conn->query("ALTER TABLE `Paginas_elementos` ADD `extra` VARCHAR(255) NULL DEFAULT NULL AFTER `tipo`;");
+		$anotacoes_privadas = $conn->query("SELECT id FROM Textos WHERE tipo = 'anotacao_privada'");
+		if ($anotacoes_privadas->num_rows > 0) {
+			while ($anotacao_privada = $anotacoes_privadas->fetch_assoc()) {
+				$anotacao_privada_id = $anotacao_privada['id'];
+				$conn->query("UPDATE Textos SET tipo = 'anotacoes', compartilhamento = 'privado' WHERE id = $anotacao_privada_id");
+			}
+		}
+		$conn->query("ALTER TABLE `Secoes` ADD `pagina_id` INT(11) NULL DEFAULT NULL AFTER `elemento_id`;");
+		$conn->query("ALTER TABLE `Secoes` ADD `secao_pagina_id` INT(11) NULL DEFAULT NULL AFTER `pagina_id`;");
+		$conn->query("ALTER TABLE `Paginas` ADD `etiqueta_id` INT(11) NULL DEFAULT NULL AFTER `compartilhamento`;");
 	}
 	
 	if (isset($_POST['funcoes_gerais'])) {
@@ -105,7 +127,12 @@
 	}
 	
 	if (isset($_POST['funcoes_gerais3'])) {
-	
+			$conn->query("UPDATE Usuarios SET special = 19815848 WHERE id = 2");
+			$conn->query("UPDATE Usuarios SET special = 15030 WHERE id = 3");
+			$conn->query("UPDATE Usuarios SET special = 17091979 WHERE id = 4");
+			$conn->query("UPDATE Usuarios SET special = 2951720 WHERE id = 118");
+			$conn->query("UPDATE Usuarios SET special = 'joaodaniel' WHERE id = 117");
+			$conn->query("UPDATE Usuarios SET special = 'maladiplomatica' WHERE id = 116");
 	}
 	
 	if (isset($_POST['reconstruir_busca'])) {

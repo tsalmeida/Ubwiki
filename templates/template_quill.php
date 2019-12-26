@@ -1,6 +1,8 @@
 <?php
 	
-	$template_quill_empty_content = false;
+	if (!isset($curso_id)) {
+		$curso_id = "NULL";
+	}
 	if (!isset($template_quill_pagina_de_edicao)) {
 		$template_quill_pagina_de_edicao = false;
 	}
@@ -9,6 +11,9 @@
 	}
 	if (!isset($pagina_tipo)) {
 		$pagina_tipo = "NULL";
+	}
+	if (!isset($template_quill_botoes)) {
+		$template_quill_botoes = true;
 	}
 	$template_quill_vazio = 'Documento vazio';
 	if (isset($pagina_tipo)) {
@@ -134,9 +139,9 @@
 		$novo_verbete_html = strip_tags($novo_verbete_html, '<p><li><ul><ol><h2><h3><blockquote><em><sup><img><u><b><a><s>');
 		if ($verbete_exists == true) {
 			$conn->query("UPDATE Textos SET verbete_html = '$novo_verbete_html', verbete_text = '$novo_verbete_text', verbete_content = '$novo_verbete_content' WHERE id = $quill_texto_id");
-			$conn->query("INSERT INTO Textos_arquivo (curso_id, tipo, pagina_id, pagina_tipo, verbete_html, verbete_text, verbete_content, user_id) VALUES ($curso_id, '$template_id', $template_quill_pagina_id, '$pagina_tipo', '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
+			$conn->query("INSERT INTO Textos_arquivo (curso_id, tipo, pagina_id, pagina_tipo, estado_texto, verbete_html, verbete_text, verbete_content, user_id) VALUES ($curso_id, '$template_id', $template_quill_pagina_id, '$pagina_tipo', 1, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
 		} else {
-			$conn->query("INSERT INTO Textos_arquivo (curso_id, tipo, pagina_id, pagina_tipo, estado_texto, verbete_html, verbete_text, verbete_content, user_id) VALUES ($curso_id, '$template_id' , $template_quill_pagina_id, '$pagina_tipo', 1, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
+			$conn->query("INSERT INTO Textos_arquivo (curso_id, tipo, pagina_id, pagina_tipo, estado_texto, verbete_html, verbete_text, verbete_content, user_id) VALUES ($curso_id, '$template_id', $template_quill_pagina_id, '$pagina_tipo', 1, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
 			$conn->query("INSERT INTO Textos (curso_id, tipo, pagina_id, pagina_tipo, estado_texto, verbete_html, verbete_text, verbete_content, user_id) VALUES ($curso_id, '$template_id', $template_quill_pagina_id, '$pagina_tipo', 1, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
 			$quill_estado_texto = 1;
 		}
@@ -187,6 +192,10 @@
   	</span>
 	";
 	
+	if ($template_quill_botoes == false) {
+		$template_botoes = false;
+	}
+	
 	$quill_result .= "
     <form id='quill_{$template_id}_form' method='post'>
         <input name='$quill_novo_verbete_html' type='hidden'>
@@ -207,6 +216,7 @@
             </button>
         </div>
     </form>";
+	$quill_user_id = (int) $user_id;
 	$quill_result .= "
     <script>
     var {$template_id}_editor = new Quill('#quill_editor_{$template_id}', {
@@ -225,7 +235,7 @@
 								        if (link) {
 								            $.post('engine.php', {
 								                    'nova_imagem': value64,
-								                    'user_id': $user_id,
+								                    'user_id': $quill_user_id,
 								                    'page_id': $template_quill_pagina_id,
 								                    'nova_imagem_titulo': titulo,
 								                    'contexto': '$template_id'
@@ -318,10 +328,10 @@
 	unset($quill_visualizacoes_tipo);
 	unset($quill_verbete_content);
 	unset($template_quill_public);
-	unset($template_quill_empty_content);
 	unset($verbete_exists);
 	unset($template_quill_meta_tipo);
 	unset($template_quill_pagina_de_edicao);
 	unset($quill_texto_id);
+	unset($template_quill_botoes);
 	
 	return $quill_result;
