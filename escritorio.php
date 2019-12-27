@@ -535,13 +535,18 @@
 									$pagina_info = return_pagina_info($visualizacao_page_id);
 									$pagina_compartilhamento = $pagina_info[4];
 									if ($pagina_compartilhamento == 'privado') {
-									    $artefato_subtitulo = 'Página privada';
-                                    } elseif ($pagina_compartilhamento == 'publico') {
-									    $artefato_subtitulo = 'Página pública';
-                                    } else {
-									    $artefato_subtitulo = 'Página';
-                                    }
+										$artefato_subtitulo = 'Página privada';
+									} elseif ($pagina_compartilhamento == 'publico') {
+										$artefato_subtitulo = 'Página pública';
+									} else {
+										$artefato_subtitulo = 'Página';
+									}
 									$artefato_tipo = 'pagina';
+									$artefato_link = "pagina.php?pagina_id=$visualizacao_page_id";
+								} elseif ($visualizacao_tipo_pagina == 'grupo') {
+									$artefato_titulo = return_pagina_titulo($visualizacao_page_id);
+									$artefato_subtitulo = 'Grupo de estudos';
+									$artefato_tipo = 'pagina_grupo';
 									$artefato_link = "pagina.php?pagina_id=$visualizacao_page_id";
 								} else {
 									continue;
@@ -614,7 +619,7 @@
 							while ($grupo_usuario_membro = $grupos_usuario_membro->fetch_assoc()) {
 								$grupo_usuario_membro_grupo_id = $grupo_usuario_membro['grupo_id'];
 								$grupo_usuario_membro_grupo_titulo = return_grupo_titulo_id($grupo_usuario_membro_grupo_id);
-								$template_conteudo .= "<a href='grupo.php?grupo_id=$grupo_usuario_membro_grupo_id' target='_blank'><li class='list-group-item list-group-item-action'>$grupo_usuario_membro_grupo_titulo</li></a>";
+								$template_conteudo .= "<a href='pagina.php?grupo_id=$grupo_usuario_membro_grupo_id' target='_blank'><li class='list-group-item list-group-item-action'>$grupo_usuario_membro_grupo_titulo</li></a>";
 							}
 							$template_conteudo .= "</ul>";
 							include 'templates/page_element.php';
@@ -956,12 +961,12 @@
 								$artefato_id = $pagina_usuario_id;
 								$artefato_titulo = $pagina_usuario_titulo;
 								if ($pagina_usuario_compartilhamento == 'privado') {
-								    $artefato_subtitulo = 'Página privada';
-                                } elseif ($pagina_usuario_compartilhamento == 'publico') {
-								    $artefato_subtitulo = 'Página pública';
-                                } else {
-								    $artefato_subtitulo = 'Página';
-                                }
+									$artefato_subtitulo = 'Página privada';
+								} elseif ($pagina_usuario_compartilhamento == 'publico') {
+									$artefato_subtitulo = 'Página pública';
+								} else {
+									$artefato_subtitulo = 'Página';
+								}
 								$artefato_tipo = 'pagina_usuario';
 								$artefato_link = "pagina.php?pagina_id=$pagina_usuario_id";
 								$artefato_criacao = $pagina_usuario_criacao;
@@ -974,7 +979,7 @@
 						
 						$anotacoes = $conn->query("SELECT id, page_id, pagina_id, pagina_tipo, titulo, criacao, tipo FROM Textos WHERE tipo LIKE '%anotac%' AND user_id = $user_id ORDER BY id DESC");
 						$template_id = 'anotacoes_privadas';
-						$template_titulo = 'Notas de estudo';
+						$template_titulo = 'Textos e notas de estudo';
 						$template_classes = 'esconder_sessao';
 						$template_conteudo_class = 'justify-content-start';
 						$template_conteudo_no_col = true;
@@ -1012,13 +1017,27 @@
 							if ($anotacao_pagina_tipo == 'topico') {
 								$artefato_titulo = return_titulo_topico($anotacao_page_id);
 								$anotacao_materia_id = return_materia_id_topico($anotacao_page_id);
-								$artefato_subtitulo = return_materia_titulo_id($anotacao_materia_id);
+								$anotacao_curso_id = return_curso_id_materia($anotacao_materia_id);
+								$anotacao_curso_sigla = return_curso_sigla($anotacao_curso_id);
+								$anotacao_materia_titulo = return_materia_titulo_id($anotacao_materia_id);
+								$artefato_subtitulo = "$anotacao_materia_titulo / $anotacao_curso_sigla";
 							} elseif ($anotacao_pagina_tipo == 'pagina') {
 								$artefato_titulo = return_pagina_titulo($anotacao_pagina_id);
-								$artefato_subtitulo = 'Nota de página';
+								$artefato_subtitulo = 'Nota / página';
 							} elseif ($anotacao_pagina_tipo == 'elemento') {
 								$artefato_titulo = return_titulo_elemento($anotacao_page_id);
-								$artefato_subtitulo = 'Nota de elemento';
+								$artefato_subtitulo = 'Nota / elemento';
+							} elseif ($anotacao_pagina_tipo == 'curso') {
+								$artefato_titulo = return_curso_titulo_id($anotacao_page_id);
+								$artefato_subtitulo = false;
+							} elseif ($anotacao_pagina_tipo == 'materia') {
+								$artefato_titulo = return_materia_titulo_id($anotacao_page_id);
+								$materia_curso_id = return_curso_id_materia($anotacao_page_id);
+								$materia_curso_sigla = return_curso_sigla($materia_curso_id);
+								$artefato_subtitulo = $materia_curso_sigla;
+							} elseif ($anotacao_pagina_tipo == 'grupo') {
+								$artefato_titulo = return_grupo_titulo_id($anotacao_page_id);
+								$artefato_subtitulo = 'Nota / Grupo de estudos';
 							}
 							if ($anotacao_pagina_tipo == false) {
 								$artefato_link = "edicao_textos.php?texto_id=$anotacao_id";

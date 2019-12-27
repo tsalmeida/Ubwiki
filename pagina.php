@@ -17,6 +17,9 @@
 		} elseif (isset($_GET['texto_id'])) {
 			$pagina_texto_id = $_GET['texto_id'];
 			$pagina_id = return_pagina_id($pagina_texto_id, 'texto');
+		} elseif (isset($_GET['grupo_id'])) {
+			$grupo_id = $_GET['grupo_id'];
+			$pagina_id = return_pagina_id($grupo_id, 'grupo');
 		} else {
 			header('Location:pagina.php?pagina_id=4');
 		}
@@ -89,8 +92,11 @@
 		$texto_criacao = $texto_info[4];
 		$texto_verbete_html = $texto_info[5];
 		$texto_user_id = $texto_info[8];
-	} elseif ($pagina_tipo == 'secao') {
-	
+	} elseif ($pagina_tipo == 'grupo') {
+	    $check_membro = check_membro_grupo($user_id, $grupo_id);
+	    if ($check_membro == false) {
+	        header('Location:pagina.php?pagina_id=3');
+        }
 	}
 	
 	if ($pagina_tipo == 'elemento') {
@@ -306,7 +312,9 @@
 								$topico_proximo_link = "pagina.php?topico_id=$topico_proximo";
 								echo "<span id='verbete_proximo' class='mx-1' title='Próximo verbete'><a href='$topico_proximo_link'><i class='fal fa-arrow-right fa-fw'></i></a></span>";
 							}
-						}
+						} elseif ($pagina_tipo == 'secao') {
+						    echo "<span id='secoes' class='mx-1' title='Página e seções' data-toggle='modal' data-target='#modal_paginas_relacionadas'><a href='javascript:void(0);'><i class='fal fa-project-diagram fa-fw'></i></a></span>";
+                        }
 					?>
         </div>
         <div class='py-2 text-right col'>
@@ -418,6 +426,9 @@
 			if ($pagina_original_compartilhamento == 'privado') {
 				$template_subtitulo = "$template_subtitulo (Página e seções privadas)";
 			}
+		} elseif ($pagina_tipo == 'grupo') {
+			$template_titulo = return_grupo_titulo_id($grupo_id);
+			$template_subtitulo = 'Grupo de estudos';
 		}
 		include 'templates/titulo.php';
 	?>
@@ -426,6 +437,11 @@
     <div class="row justify-content-around <?php echo $row_classes; ?>">
         <div id="coluna_unica" class="col-lg-10 col-md-12 pagina_coluna">
 					<?php
+						
+						if ($pagina_tipo == 'grupo') {
+							include 'pagina/grupo.php';
+						}
+						
 						if ($pagina_tipo == 'curso') {
 							include 'pagina/curso.php';
 							
@@ -883,6 +899,25 @@
         ";
 		include 'templates/modal.php';
 	}
+	
+	if ($pagina_tipo == 'secao') {
+		$template_modal_div_id = 'modal_paginas_relacionadas';
+		$template_modal_titulo = 'Página e seções';
+		$template_modal_body_conteudo = false;
+		$template_modal_body_conteudo .= "<ul class='list-group'>";
+		$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$pagina_item_id'><li class='list-group-item list-group-item-action list-group-item-primary'>$pagina_original_titulo</li></a>";
+		$parentes = $conn->query("SELECT id FROM Paginas WHERE tipo = 'secao' AND item_id = $pagina_item_id");
+		if ($parentes->num_rows > 0) {
+			while ($parente = $parentes->fetch_assoc()) {
+				$parente_id = $parente['id'];
+				$parente_titulo = return_pagina_titulo($parente_id);
+				$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$parente_id'><li class='list-group-item list-group-item-action'>$parente_titulo</li></a>";
+			}
+		}
+		$template_modal_body_conteudo .= "</ul>";
+		include 'templates/modal.php';
+	}
+	
 ?>
 
 </body>

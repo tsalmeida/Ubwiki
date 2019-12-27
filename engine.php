@@ -471,6 +471,9 @@
 	
 	function return_curso_titulo_id($find_curso_id)
 	{
+		if ($find_curso_id == false) {
+			return false;
+		}
 		include 'templates/criar_conn.php';
 		$find_cursos = $conn->query("SELECT titulo FROM cursos WHERE id = $find_curso_id");
 		if ($find_cursos->num_rows > 0) {
@@ -829,6 +832,7 @@
 				return $found_elemento_id;
 			}
 		}
+		return false;
 	}
 	
 	if (isset($_POST['busca_autores'])) {
@@ -1075,6 +1079,12 @@
 			$fa_primary_color = 'text-info';
 		} elseif ($artefato_tipo == 'anotacoes_curso') {
 			$fa_icone = $fa_icone_anotacao;
+			$fa_primary_color = 'text-warning';
+		} elseif ($artefato_tipo == 'anotacoes_grupo') {
+			$fa_icone = $fa_icone_anotacao;
+			$fa_primary_color = 'text-default';
+		} elseif ($artefato_tipo == 'pagina_grupo') {
+			$fa_icone = 'fa-columns';
 			$fa_primary_color = 'text-default';
 		} elseif ($artefato_tipo == 'simulado') {
 			$fa_icone = 'fa-file-check fa-swap-opacity';
@@ -1315,16 +1325,22 @@
 		return $artefato_subtitulo;
 	}
 	
-	function check_membro_grupo($membro_user_id, $grupo_id)
+	function check_membro_grupo($user_id, $grupo_id)
 	{
 		include 'templates/criar_conn.php';
-		$grupos = $conn->query("SELECT id FROM Membros WHERE grupo_id = $grupo_id AND membro_user_id = $membro_user_id AND estado = 1");
-		if ($grupos->num_rows > 0) {
-			return true;
-		} else {
+		if (($user_id == false) || ($grupo_id == false)) {
 			return false;
+		} else {
+			$grupos = $conn->query("SELECT * FROM Membros WHERE grupo_id = $grupo_id AND membro_user_id = $user_id AND estado = 1");
+			if ($grupos->num_rows > 0) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 	}
+	
+	
 	
 	function return_avatar($user_id)
 	{
@@ -1433,6 +1449,23 @@
 				$conn->query("UPDATE Materias SET pagina_id = $materia_pagina_id WHERE id = $item_id");
 				return $materia_pagina_id;
 			}
+		} elseif ($tipo == 'grupo') {
+			$grupo_titulo = return_grupo_titulo_id($item_id);
+			if ($grupo_titulo == false) {
+				return false;
+			}
+			$grupos = $conn->query("SELECT pagina_id FROM Grupos WHERE id = $item_id AND pagina_id IS NOT NULL");
+			if ($grupos->num_rows > 0) {
+				while ($grupo = $grupos->fetch_assoc()) {
+					$grupo_pagina_id = $grupo['pagina_id'];
+					return $grupo_pagina_id;
+				}
+			} else {
+				$conn->query("INSERT INTO Paginas (item_id, tipo, compartilhamento) VALUES ($item_id, 'grupo', 'grupo')");
+				$grupo_pagina_id = $conn->insert_id;
+				$conn->query("UPDATE Grupos SET pagina_id = $grupo_pagina_id WHERE id = $item_id");
+				return $grupo_pagina_id;
+			}
 		} elseif ($tipo == 'texto') {
 			$texto_info = return_texto_info($item_id);
 			if ($texto_info == false) {
@@ -1451,6 +1484,7 @@
 				return $texto_pagina_id;
 			}
 		}
+		return false;
 	}
 	
 	function return_topico_id_pagina_id($pagina_id)
@@ -1481,6 +1515,9 @@
 	{
 		include 'templates/criar_conn.php';
 		$pagina_titulo = false;
+		if ($pagina_id == false) {
+			return false;
+		}
 		$paginas = $conn->query("SELECT tipo, item_id FROM Paginas WHERE id = $pagina_id");
 		if ($paginas->num_rows > 0) {
 			while ($pagina = $paginas->fetch_assoc()) {
@@ -1494,6 +1531,8 @@
 					$pagina_titulo = return_materia_titulo_id($pagina_item_id);
 				} elseif ($pagina_tipo == 'curso') {
 					$pagina_titulo = return_curso_titulo_id($pagina_item_id);
+				} elseif ($pagina_tipo == 'grupo') {
+					$pagina_titulo = return_grupo_titulo_id($pagina_item_id);
 				} elseif (($pagina_tipo == 'sistema') || ($pagina_tipo == 'pagina') || ($pagina_tipo == 'secao')) {
 					$paginas_elementos = $conn->query("SELECT extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'titulo' ORDER BY id DESC");
 					if ($paginas_elementos->num_rows > 0) {
@@ -1510,6 +1549,9 @@
 	
 	function return_pagina_info($pagina_id)
 	{
+		if ($pagina_id == false) {
+			return false;
+		}
 		include 'templates/criar_conn.php';
 		$paginas = $conn->query("SELECT criacao, item_id, tipo, estado, compartilhamento, user_id, etiqueta_id FROM Paginas WHERE id = $pagina_id");
 		if ($paginas->num_rows > 0) {
@@ -1527,5 +1569,5 @@
 		}
 		return false;
 	}
-
+	
 ?>

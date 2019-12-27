@@ -102,6 +102,36 @@
 		$conn->query("ALTER TABLE `Secoes` ADD `pagina_id` INT(11) NULL DEFAULT NULL AFTER `elemento_id`;");
 		$conn->query("ALTER TABLE `Secoes` ADD `secao_pagina_id` INT(11) NULL DEFAULT NULL AFTER `pagina_id`;");
 		$conn->query("ALTER TABLE `Paginas` ADD `etiqueta_id` INT(11) NULL DEFAULT NULL AFTER `compartilhamento`;");
+		$conn->query("UPDATE Usuarios SET special = 19815848 WHERE id = 2");
+		$conn->query("UPDATE Usuarios SET special = 15030 WHERE id = 3");
+		$conn->query("UPDATE Usuarios SET special = 17091979 WHERE id = 4");
+		$conn->query("UPDATE Usuarios SET special = 2951720 WHERE id = 118");
+		$conn->query("UPDATE Usuarios SET special = 'joaodaniel' WHERE id = 117");
+		$conn->query("UPDATE Usuarios SET special = 'maladiplomatica' WHERE id = 116");
+		$conn->query("DELETE FROM Etiquetas WHERE tipo = 'secao'");
+		$elementos_secionados = $conn->query("SELECT DISTINCT id, elemento_id, user_id, titulo, texto_id FROM Secoes ORDER BY Ordem");
+		if ($elementos_secionados->num_rows > 0) {
+			while ($elemento_secionado = $elementos_secionados->fetch_assoc()) {
+				$elemento_secionado_id = $elemento_secionado['id'];
+				$elemento_secionado_elemento_id = $elemento_secionado['elemento_id'];
+				$elemento_secionado_user_id = $elemento_secionado['user_id'];
+				$elemento_secionado_titulo = $elemento_secionado['titulo'];
+				$elemento_secionado_texto_id = $elemento_secionado['texto_id'];
+				$elemento_secionado_pagina_id = return_pagina_id($elemento_secionado_elemento_id, 'elemento');
+				$conn->query("UPDATE Secoes SET pagina_id = $elemento_secionado_pagina_id WHERE elemento_id = $elemento_secionado_elemento_id");
+				$elemento_original_titulo = return_pagina_titulo($elemento_secionado_pagina_id);
+				$etiqueta_titulo = "$elemento_original_titulo // $elemento_secionado_titulo";
+				$etiqueta_titulo = mysqli_real_escape_string($conn, $etiqueta_titulo);
+				$conn->query("INSERT INTO Etiquetas (tipo, titulo, user_id) VALUES ('secao', '$etiqueta_titulo',$elemento_secionado_user_id)");
+				$nova_etiqueta_id = $conn->insert_id;
+				$conn->query("INSERT INTO Paginas (item_id, tipo, compartilhamento, etiqueta_id, user_id) VALUES ($elemento_secionado_pagina_id, 'secao', 'igual à página original', $nova_etiqueta_id, $elemento_secionado_user_id)");
+				$secao_nova_pagina_id = $conn->insert_id;
+				$conn->query("UPDATE Secoes SET secao_pagina_id = $secao_nova_pagina_id WHERE id = $elemento_secionado_id");
+				$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($secao_nova_pagina_id, 'secao', 'titulo', '$elemento_secionado_titulo', $elemento_secionado_user_id)");
+				$conn->query("UPDATE Textos SET pagina_id = $secao_nova_pagina_id, tipo = 'verbete', pagina_tipo = 'secao' WHERE id = $elemento_secionado_texto_id");
+			}
+		}
+		$conn->query("ALTER TABLE `Grupos` ADD `pagina_id` INT(11) NULL DEFAULT NULL AFTER `estado`;");
 	}
 	
 	if (isset($_POST['funcoes_gerais'])) {
@@ -127,12 +157,15 @@
 	}
 	
 	if (isset($_POST['funcoes_gerais3'])) {
-			$conn->query("UPDATE Usuarios SET special = 19815848 WHERE id = 2");
-			$conn->query("UPDATE Usuarios SET special = 15030 WHERE id = 3");
-			$conn->query("UPDATE Usuarios SET special = 17091979 WHERE id = 4");
-			$conn->query("UPDATE Usuarios SET special = 2951720 WHERE id = 118");
-			$conn->query("UPDATE Usuarios SET special = 'joaodaniel' WHERE id = 117");
-			$conn->query("UPDATE Usuarios SET special = 'maladiplomatica' WHERE id = 116");
+	    $topicos = $conn->query("SELECT id, estado_pagina, pagina_id FROM Topicos");
+	    if ($topicos->num_rows > 0) {
+	        while ($topico = $topicos->fetch_assoc()) {
+	            $topico_id = $topico['id'];
+	            $topico_estado_pagina = $topico['estado_pagina'];
+	            $topico_pagina_id = $topico['pagina_id'];
+	            $conn->query("UPDATE Paginas SET estado = $topico_estado_pagina WHERE id = $topico_id");
+            }
+        }
 	}
 	
 	if (isset($_POST['reconstruir_busca'])) {

@@ -17,7 +17,7 @@
 			$secao_estado_icone = return_estado_icone($secao_pagina_estado, 'elemento');
 			$template_conteudo .=
 				"
-		      <a href='pagina.php?pagina_id=$secao_pagina_id' target='_blank' class='list-group-item list-group-item-action d-flex justify-content-between align-items-center'>
+		      <a href='pagina.php?pagina_id=$secao_pagina_id' class='list-group-item list-group-item-action d-flex justify-content-between align-items-center'>
 	              $secao_pagina_titulo
 			      <span class='ml-3 badge grey lighten-3 text-dark badge-pill z-depth-0'>
 	                                <i class='fa $secao_estado_icone'></i>
