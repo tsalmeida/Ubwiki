@@ -1,4 +1,5 @@
 <?php
+
 	include 'engine.php';
 	$nao_contar = false;
 	if (!isset($_GET['pagina_id'])) {
@@ -325,7 +326,7 @@
 	}
 ?>
 <body class="carrara">
-<?
+<?php
 	include 'templates/navbar.php';
 ?>
 <div class="container-fluid">

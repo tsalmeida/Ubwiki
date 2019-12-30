@@ -12,7 +12,6 @@
 		$template_navbar_color = 'transparent';
 		$template_navbar_text = 'text-white';
 	}
-	
 	echo "<nav class='navbar navbar-expand-lg $template_navbar_color' id='inicio'>";
 	if (isset($curso_id)) {
 		echo "<a class='navbar-brand playfair900 $template_navbar_text' href='pagina.php?curso_id=$curso_id'>Ubwiki</a>";
@@ -27,6 +26,7 @@
         </a>
         <div class='dropdown-menu dropdown-menu-right z-depth-0'>
           <a class='dropdown-item navlink z-depth-0' href='escritorio.php'>Seu escritório</a>
+          <a class='dropdown-item navlink z-depth-0' href='pagina.php?curso_id=$curso_id'>$curso_sigla</a>
           <a class='dropdown-item navlink z-depth-0' href='logout.php'>Logout</a>
       </li>
     </ul>
