@@ -4,6 +4,7 @@
 	
 	if (isset($_GET['texto_id'])) {
 		$texto_id = $_GET['texto_id'];
+		$pagina_texto_id = $texto_id;
 	}
 	if (($texto_id == false) || ($texto_id == '')) {
 		header("Location:pagina.php?pagina_id=4");

@@ -69,7 +69,7 @@
         $artefato_link_1<span class='row justify-content-center text-center'><i class='fad $fa_icone $fa_size fa-fw d-block'></i></span>
         <span class='row justify-content-center text-center mt-2 text-dark $titulo_class'>$artefato_titulo</span>
         <span class='row justify-content-center text-center text-muted $titulo_class'><em>$artefato_subtitulo</em></span>$artefato_link_2
-    </div>
+      </div>
 	";
 	
 	unset($artefato_criacao);

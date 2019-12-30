@@ -132,6 +132,41 @@
 			}
 		}
 		$conn->query("ALTER TABLE `Grupos` ADD `pagina_id` INT(11) NULL DEFAULT NULL AFTER `estado`;");
+		$topicos = $conn->query("SELECT id, estado_pagina, pagina_id FROM Topicos");
+		if ($topicos->num_rows > 0) {
+			while ($topico = $topicos->fetch_assoc()) {
+				$topico_id = $topico['id'];
+				$topico_estado_pagina = $topico['estado_pagina'];
+				$topico_pagina_id = $topico['pagina_id'];
+				$conn->query("UPDATE Paginas SET estado = $topico_estado_pagina WHERE id = $topico_pagina_id");
+			}
+		}
+		$usuarios = $conn->query("SELECT id FROM Usuarios");
+		while ($usuario = $usuarios->fetch_assoc()) {
+			$ativo_usuario_id = $usuario['id'];
+			$conn->query("INSERT INTO Opcoes (opcao, opcao_tipo, user_id) VALUES (2, 'curso_ativo', $ativo_usuario_id)");
+		}
+		$conn->query("ALTER TABLE `Usuarios` ADD `pagina_id` INT(11) NULL DEFAULT NULL AFTER `apelido`;");
+		$usuarios = $conn->query("SELECT id FROM Usuarios WHERE pagina_id IS NULL");
+		if ($usuarios->num_rows > 0) {
+			while ($usuario = $usuarios->fetch_assoc()) {
+				$usuario_id = $usuario['id'];
+				return_pagina_id($usuario_id, 'escritorio');
+			}
+		}
+		$conn->query("ALTER TABLE `Paginas_elementos` ADD `estado` TINYINT(1) NOT NULL DEFAULT '1' AFTER `criacao`;");
+		$items_acervo = $conn->query("SELECT etiqueta_id, etiqueta_tipo, elemento_id, user_id FROM Acervo ORDER BY id");
+		if ($items_acervo->num_rows > 0) {
+			while ($item_acervo = $items_acervo->fetch_assoc()) {
+				$item_acervo_etiqueta_id = $item_acervo['etiqueta_id'];
+				$item_acervo_etiqueta_tipo = $item_acervo['etiqueta_tipo'];
+				$item_acervo_elemento_id = $item_acervo['elemento_id'];
+				$item_acervo_user_id = $item_acervo['user_id'];
+				$item_acervo_pagina_usuario = return_pagina_id($item_acervo_user_id, 'escritorio');
+				$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, extra, user_id) VALUES ($item_acervo_pagina_usuario, 'escritorio', $item_acervo_etiqueta_id, '$item_acervo_etiqueta_tipo', $item_acervo_elemento_id, $item_acervo_user_id)");
+			}
+		}
+		$conn->query("DROP TABLE `Ubwiki`.`Acervo`");
 	}
 	
 	if (isset($_POST['funcoes_gerais'])) {
@@ -157,15 +192,6 @@
 	}
 	
 	if (isset($_POST['funcoes_gerais3'])) {
-	    $topicos = $conn->query("SELECT id, estado_pagina, pagina_id FROM Topicos");
-	    if ($topicos->num_rows > 0) {
-	        while ($topico = $topicos->fetch_assoc()) {
-	            $topico_id = $topico['id'];
-	            $topico_estado_pagina = $topico['estado_pagina'];
-	            $topico_pagina_id = $topico['pagina_id'];
-	            $conn->query("UPDATE Paginas SET estado = $topico_estado_pagina WHERE id = $topico_id");
-            }
-        }
 	}
 	
 	if (isset($_POST['reconstruir_busca'])) {
@@ -230,10 +256,10 @@
 	$cursos = $conn->query("SELECT id, titulo, estado FROM cursos");
 	if ($cursos->num_rows > 0) {
 		while ($curso = $cursos->fetch_assoc()) {
-			$curso_id = $curso['id'];
+			$curso_id_list = $curso['id'];
 			$curso_titulo = $curso['titulo'];
 			$curso_estado = $curso['estado'];
-			$um_curso = array($curso_id, $curso_titulo, $curso_estado);
+			$um_curso = array($curso_id_list, $curso_titulo, $curso_estado);
 			array_push($lista_cursos, $um_curso);
 		}
 	}
@@ -248,7 +274,7 @@
 	include 'templates/html_head.php';
 
 ?>
-<body>
+<body class="carrara">
 <?php
 	include 'templates/navbar.php';
 ?>

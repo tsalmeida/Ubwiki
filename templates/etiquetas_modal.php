@@ -15,11 +15,10 @@
 				<p>Pressione para remover:</p>
 				<div class='row' id='etiquetas_ativas'>
 		";
-		
-		$etiquetados = $conn->query("SELECT DISTINCT etiqueta_id, page_id, page_tipo FROM Etiquetados WHERE page_tipo = '$texto_tipo' AND page_id = $texto_id AND estado = 1");
+		$etiquetados = $conn->query("SELECT DISTINCT extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'topico' AND estado = 1");
 		if ($etiquetados->num_rows > 0) {
-			while ($etiqueta = $etiquetados->fetch_assoc()) {
-				$etiqueta_ativa_id = $etiqueta['etiqueta_id'];
+			while ($etiquetado = $etiquetados->fetch_assoc()) {
+				$etiqueta_ativa_id = $etiquetado['extra'];
 				$etiqueta_ativa_info = return_etiqueta_info($etiqueta_ativa_id);
 				$etiqueta_ativa_tipo = $etiqueta_ativa_info[1];
 				$etiqueta_ativa_titulo = $etiqueta_ativa_info[2];

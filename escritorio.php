@@ -2,8 +2,8 @@
 	
 	include 'engine.php';
 	
-	$pagina_id = $user_id;
 	$pagina_tipo = 'escritorio';
+	$pagina_id = return_pagina_id($user_id, $pagina_tipo);
 	
 	if (isset($_POST['nova_edicao_trigger'])) {
 		if (isset($_POST['nova_edicao_ano'])) {
@@ -413,7 +413,7 @@
 	$bookmarks = $conn->query("SELECT pagina_id FROM Bookmarks WHERE user_id = $user_id AND bookmark = 1 AND active = 1 ORDER BY id DESC");
 	$comentarios = $conn->query("SELECT DISTINCT pagina_id, pagina_tipo FROM Forum WHERE user_id = $user_id");
 	$completados = $conn->query("SELECT pagina_id FROM Completed WHERE user_id = $user_id AND estado = 1 AND active = 1");
-	$verbetes_escritos = $conn->query("SELECT DISTINCT page_id, tipo FROM Textos_arquivo WHERE user_id = $user_id AND (tipo = 'verbete' OR tipo = 'verbete_elemento') ORDER BY id DESC");
+	$verbetes_escritos = $conn->query("SELECT DISTINCT pagina_id FROM Textos_arquivo WHERE tipo = 'verbete' AND user_id = $user_id ORDER BY id DESC");
 
 ?>
 <body class="carrara">
@@ -526,7 +526,7 @@
 									}
 									$artefato_titulo = $artefato_texto_info[2];
 									$artefato_tipo = $artefato_texto_info[1];
-									$artefato_link = "edicao_textos.php?pagina_id=$visualizacao_page_id";
+									$artefato_link = "pagina.php?pagina_id=$visualizacao_page_id";
 									if ($artefato_titulo == false) {
 										$artefato_subtitulo = return_artefato_subtitulo($artefato_tipo);
 									}*/
@@ -754,7 +754,6 @@
 						
 						include 'templates/page_element.php';
 						
-						$topicos_acervo = $conn->query("SELECT DISTINCT etiqueta_id FROM Acervo WHERE user_id = $user_id AND etiqueta_tipo = 'topico' ORDER BY id DESC");
 						$template_id = 'topicos_interesse';
 						$template_titulo = 'Áreas de interesse';
 						$template_classes = 'esconder_sessao';
@@ -770,8 +769,13 @@
 						$artefato_link = false;
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
-						while ($topico_acervo = $topicos_acervo->fetch_assoc()) {
-							$topico_acervo_etiqueta_id = $topico_acervo['etiqueta_id'];
+						$acervo = $conn->query("SELECT criacao, elemento_id, tipo, extra FROM Paginas_elementos WHERE pagina_id = $user_id AND pagina_tipo = 'escritorio' ORDER BY id DESC");
+						while ($item_acervo = $acervo->fetch_assoc()) {
+							$topico_acervo_etiqueta_id = $item_acervo['elemento_id'];
+							$topico_acervo_etiqueta_tipo = $item_acervo['tipo'];
+							if ($topico_acervo_etiqueta_tipo != 'topico') {
+								continue;
+							}
 							$topico_acervo_etiqueta_info = return_etiqueta_info($topico_acervo_etiqueta_id);
 							$artefato_criacao = $topico_acervo_etiqueta_info[0];
 							$artefato_titulo = $topico_acervo_etiqueta_info[2];
@@ -908,16 +912,22 @@
 						$artefato_link = false;
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
-						$acervo = $conn->query("SELECT criacao, etiqueta_id, etiqueta_tipo, elemento_id FROM Acervo WHERE user_id = $user_id AND estado = 1 AND etiqueta_tipo NOT IN ('topico') ORDER BY id DESC");
+						mysqli_data_seek($acervo, 0);
 						while ($acervo_item = $acervo->fetch_assoc()) {
 							$acervo_item_criacao = $acervo_item['criacao'];
-							$acervo_item_etiqueta_id = $acervo_item['etiqueta_id'];
-							$acervo_item_etiqueta_tipo = $acervo_item['etiqueta_tipo'];
-							$acervo_item_elemento_id = $acervo_item['elemento_id'];
+							$acervo_item_etiqueta_id = $acervo_item['elemento_id'];
+							$acervo_item_etiqueta_tipo = $acervo_item['tipo'];
+							$acervo_item_elemento_id = $acervo_item['extra'];
+							if ($acervo_item_etiqueta_tipo == 'topico') {
+								continue;
+							}
 							if ($acervo_item_elemento_id == false) {
 								$acervo_item_elemento_id = return_etiqueta_elemento_id($acervo_item_etiqueta_id);
 							}
 							$acervo_item_elemento_info = return_elemento_info($acervo_item_elemento_id);
+							if ($acervo_item_elemento_info == false) {
+								continue;
+							}
 							$acervo_item_elemento_titulo = $acervo_item_elemento_info[4];
 							$acervo_item_elemento_autor = $acervo_item_elemento_info[5];
 							
@@ -990,7 +1000,7 @@
 						$artefato_titulo = 'Nova anotação privada';
 						$artefato_criacao = 'Pressione para criar uma anotação privada';
 						$artefato_tipo = 'nova_anotacao';
-						$artefato_link = 'edicao_textos.php?texto_id=new';
+						$artefato_link = 'pagina.php?texto_id=new';
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
 						while ($anotacao = $anotacoes->fetch_assoc()) {
@@ -1040,7 +1050,7 @@
 								$artefato_subtitulo = 'Nota / Grupo de estudos';
 							}
 							if ($anotacao_pagina_tipo == false) {
-								$artefato_link = "edicao_textos.php?texto_id=$anotacao_id";
+								$artefato_link = "pagina.php?texto_id=$anotacao_id";
 								$artefato_subtitulo = 'Anotação privada';
 							} else {
 								$artefato_link = "pagina.php?pagina_id=$anotacao_pagina_id";
@@ -1120,17 +1130,17 @@
 	$template_modal_body_conteudo = false;
 	if ($verbetes_escritos->num_rows > 0) {
 		$template_modal_body_conteudo .= "<ul class='list-group'>";
-		while ($row_verbete = $verbetes_escritos->fetch_assoc()) {
-			$page_id = $row_verbete['page_id'];
-			$page_tipo = $row_verbete['tipo'];
-			if ($page_tipo == 'verbete') {
-				$topico_titulo = return_titulo_topico($page_id);
-				$template_modal_body_conteudo .= "<a href='pagina.php?topico_id=$page_id' target='_blank'><li class='list-group-item list-group-item-action'>$topico_titulo</li></a>";
-			} elseif ($page_tipo == 'verbete_elemento') {
-				$topico_info = return_elemento_info($page_id);
-				$topico_titulo = $topico_info[4];
-				$template_modal_body_conteudo .= "<a href='pagina.php?elemento_id=$page_id' target='_blank'><li class='list-group-item list-group-item-action'>$topico_titulo</li></a>";
+		while ($verbete_escrito = $verbetes_escritos->fetch_assoc()) {
+			$escrito_pagina_id = $verbete_escrito['pagina_id'];
+			$escrito_pagina_info = return_pagina_info($escrito_pagina_id);
+			$escrito_pagina_titulo = $escrito_pagina_info[6];
+			$escrito_pagina_tipo = $escrito_pagina_info[2];
+			$list_color = return_list_color_page_type($escrito_pagina_tipo);
+			if ($escrito_pagina_tipo == 'texto') {
+				continue;
 			}
+			$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$escrito_pagina_id' title='$escrito_pagina_tipo'><li class='list-group-item list-group-item-action $list_color'>$escrito_pagina_titulo</li></a>";
+			
 		}
 		$template_modal_body_conteudo .= "</ul>";
 	}
@@ -1144,8 +1154,11 @@
 		$template_modal_body_conteudo .= "<ul class='list-group'>";
 		while ($row = $completados->fetch_assoc()) {
 			$completed_pagina_id = $row['pagina_id'];
-			$completed_titulo = return_pagina_titulo($completed_pagina_id);
-			$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$completed_pagina_id' target='_blank'><li class='list-group-item list-group-item-action'>$completed_titulo</li></a>";
+			$completed_pagina_info = return_pagina_info($completed_pagina_id);
+			$completed_pagina_titulo = $completed_pagina_info[6];
+			$completed_pagina_tipo = $completed_pagina_info[2];
+			$list_color = return_list_color_page_type($completed_pagina_tipo);
+			$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$completed_pagina_id' title='$completed_pagina_tipo'><li class='list-group-item list-group-item-action $list_color'>$completed_pagina_titulo</li></a>";
 		}
 		$template_modal_body_conteudo .= "</ul>";
 	}
@@ -1160,15 +1173,11 @@
 		while ($row = $comentarios->fetch_assoc()) {
 			$forum_pagina_id = $row['pagina_id'];
 			$forum_pagina_tipo = $row['pagina_tipo'];
-			if ($forum_pagina_tipo == 'topico') {
-				$forum_topico_id = return_topico_id_pagina_id($forum_pagina_id);
-				$forum_topico_titulo = return_titulo_topico($forum_topico_id);
-				$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$forum_pagina_id' target='_blank'><li class='list-group-item list-group-item-action'><strong>Tópico:</strong> $forum_topico_titulo</li></a>";
-			} elseif ($forum_pagina_tipo == 'elemento') {
-				$forum_elemento_id = return_elemento_id_pagina_id($forum_pagina_id);
-				$forum_elemento_titulo = return_titulo_elemento($forum_elemento_id);
-				$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$forum_pagina_id' target='_blank'><li class='list-group-item list-group-item-action'><strong>Elemento:</strong> $forum_elemento_titulo</li></a>";
-			}
+			$forum_pagina_info = return_pagina_info($forum_pagina_id);
+			$forum_pagina_titulo = $forum_pagina_info[6];
+			$forum_pagina_tipo = $forum_pagina_info[2];
+			$list_color = return_list_color_page_type($forum_pagina_tipo);
+			$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$forum_pagina_id' title='$forum_pagina_tipo'><li class='list-group-item list-group-item-action $list_color'>$forum_pagina_titulo</li></a>";
 		}
 		$template_modal_body_conteudo .= "</ul>";
 	}
@@ -1182,8 +1191,11 @@
 		$template_modal_body_conteudo .= "<ul class='list-group'>";
 		while ($bookmark = $bookmarks->fetch_assoc()) {
 			$bookmark_pagina_id = $bookmark['pagina_id'];
-			$bookmark_titulo = return_pagina_titulo($bookmark_pagina_id);
-			$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$bookmark_pagina_id' target='_blank'><li class='list-group-item list-group-item-action'>$bookmark_titulo</li></a>";
+			$bookmark_info = return_pagina_info($bookmark_pagina_id);
+			$bookmark_titulo = $bookmark_info[6];
+			$bookmark_tipo = $bookmark_info[2];
+			$list_color = return_list_color_page_type($bookmark_tipo);
+			$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$bookmark_pagina_id' title='$bookmark_tipo'><li class='list-group-item list-group-item-action $list_color'>$bookmark_titulo</li></a>";
 		}
 		$template_modal_body_conteudo .= "</ul>";
 		$template_modal_show_buttons = false;
@@ -1779,7 +1791,7 @@
 	$template_modal_titulo = 'Criar simulado';
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "
-		<p>Para criar um simulado é preciso determinar um título e as questões que farão parte dele. Você pode fazer mudanças em seu simulado até que decida publicá-lo. Após sua publicação, não será possível alterá-lo, nem desfazer sua publicação. Caso seu simulado inclua questões dissertativas, alunos poderão pagar uma taxa, por você determinada, para que você corrija suas respostas.</p>
+		<p>Para criar um simulado é preciso determinar seu título e as questões que dele farão parte. Você pode fazer mudanças em seu simulado até que decida publicá-lo. Após sua publicação, não será possível alterá-lo, nem desfazer sua publicação. Caso seu simulado inclua questões dissertativas, alunos poderão pagar uma taxa, por você determinada, para que você corrija suas respostas.</p>
 	";
 	include 'templates/modal.php';
 
@@ -1790,8 +1802,6 @@
 <?php
 	
 	include 'templates/footer.html';
-	$texto_id = 0;
-	$texto_tipo = 'acervo';
 	$etiquetas_bottom_adicionar = true;
 	$biblioteca_bottom_adicionar = true;
 	$mdb_select = true;

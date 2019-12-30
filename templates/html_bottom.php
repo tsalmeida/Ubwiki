@@ -27,6 +27,12 @@
 	if (!isset($sticky_toolbar)) {
 		$sticky_toolbar = false;
 	}
+	if (!isset($sistema_etiquetas_elementos)) {
+		$sistema_etiquetas_elementos = false;
+	}
+	if (!isset($sistema_etiquetas_topicos)) {
+		$sistema_etiquetas_topicos = false;
+	}
 	
 	echo "
     <!-- Bootstrap tooltips -->
@@ -36,16 +42,6 @@
     <!-- MDB core JavaScript -->
     <script type='text/javascript' src='js/mdb.min.js'></script>
   ";
-	
-	if ($verbete_vazio == true) {
-		echo "
-		<script type='text/javascript'>
-			$('#destravar_verbete').click(function () {
-				$('#verbete_vazio').hide();
-	    });
-		</script>
-		";
-	}
 	
 	if ($mdb_select == true) {
 		echo "
@@ -67,7 +63,7 @@
 			</script>
 		";
 	}
-	if ($texto_editar_titulo == true) {
+	/*if ($texto_editar_titulo == true) {
 		echo "
 			<script type='text/javascript'>
 				$('input[name=novo_texto_titulo]').change(function() {
@@ -83,112 +79,34 @@
 				});
 			</script>
 			";
-	}
-	if ($etiquetas_bottom == true) {
+	}*/
+	// esse mecanismo precisa ser dinâmico o bastante para que funcione tanto para etiquetas de
+	// elementos quanto para etiquetas de tópicos
+	if (($sistema_etiquetas_topicos == true) || ($sistema_etiquetas_elementos == true)) {
 		echo "
-      <script type='text/javascript'>
-			  $('#buscar_etiquetas').keyup(function() {
-			      var busca_etiquetas = $('#buscar_etiquetas').val();
-			      var busca_etiquetas_length = $('#buscar_etiquetas').val().length;
-			      if (busca_etiquetas_length > 2) {
-			          $.post('engine.php', {
-			              'busca_etiquetas': busca_etiquetas,
-			              'busca_etiquetas_tipo': 'all'
-			          }, function(data) {
-			            if (data != 0) {
-			                $('#etiquetas_disponiveis').empty();
-			                $('#etiquetas_disponiveis').append(data);
-			            }
-			          });
-			      }
-			  });
-			  $(document).on('click', '.adicionar_tag', function() {
+			<script type='text/javascript'>
+				$(document).on('click', '.adicionar_tag', function() {
 			      var this_id = $(this).attr('value');
 			      $(this).hide();
 			      $.post('engine.php', {
 			         'nova_etiqueta_id': this_id,
-			         'nova_etiqueta_page_id': {$texto_id},
-			         'nova_etiqueta_page_tipo': '{$texto_tipo}'
+			         'nova_etiqueta_page_id': {$pagina_id},
+			         'nova_etiqueta_page_tipo': '{$pagina_tipo}'
 			      }, function(data) {
 			         if (data != 0) {
-			             $('#etiquetas_ativas').append(data);
+			             if (data == 1) {
+											alert('Elemento adicionado com sucesso');
+			             }
+			             else {
+				           		$('#etiquetas_ativas').append(data);
+			             }
 			         }
 			      });
 			  });
-			  $(document).on('click', '.remover_tag', function() {
-			      var this_id = $(this).attr('value');
-	              $(this).hide();
-			      $.post('engine.php', {
-			         'remover_etiqueta_id': this_id,
-			         'remover_etiqueta_page_id': {$texto_id},
-			         'remover_etiqueta_page_tipo': '{$texto_tipo}'
-			      });
-			  });
-			  $(document).on('click', '#criar_etiqueta', function() {
-		      var new_tag = $(this).attr('value');
-		      $(this).hide();
-		      $.post('engine.php', {
-		         'criar_etiqueta_titulo': new_tag,
-		         'criar_etiqueta_page_id': {$texto_id},
-		         'criar_etiqueta_page_tipo': '{$texto_tipo}'
-		      }, function(data) {
-		         if (data != 0) {
-		             $('#etiquetas_ativas').append(data);
-		         }
-		      });
-		  });
-      </script>
-	";
+			</script>
+		";
 	}
-	if ($etiquetas_bottom_adicionar == true) {
-		echo "
-		<script type='text/javascript'>
-			$('#buscar_etiquetas').keyup(function() {
-				var busca_etiquetas = $('#buscar_etiquetas').val();
-				var busca_etiquetas_length = $('#buscar_etiquetas').val().length;
-				if (busca_etiquetas_length > 2) {
-					$.post('engine.php', {
-			              'busca_etiquetas': busca_etiquetas,
-			              'busca_etiquetas_tipo': 'topico',
-			              'busca_etiquetas_sem_link': 0
-			          }, function(data) {
-						if (data != 0) {
-							$('#etiquetas_disponiveis').empty();
-							$('#etiquetas_disponiveis').append(data);
-						}
-					});
-	      }
-			});
-			$(document).on('click', '#criar_etiqueta', function() {
-		      var new_tag = $(this).attr('value');
-		      $(this).hide();
-		      $.post('engine.php', {
-		         'criar_etiqueta_titulo': new_tag,
-		         'criar_etiqueta_page_id': {$texto_id},
-		         'criar_etiqueta_page_tipo': '{$texto_tipo}'
-		      }, function(data) {
-		         if (data != 0) {
-		             $('#etiquetas_disponiveis').prepend(data);
-		         }
-		      });
-		  });
-			$(document).on('click', '.adicionar_tag', function() {
-			      var this_id = $(this).attr('value');
-			      $(this).hide();
-			      $.post('engine.php', {
-			         'nova_etiqueta_id': this_id,
-			         'nova_etiqueta_page_id': {$texto_id},
-			         'nova_etiqueta_page_tipo': '{$texto_tipo}'
-			      }, function(data) {
-			         if (data != 0) {
-			             $('#etiquetas_ativas').append(data);
-			         }
-			      });
-			  });
-		</script>
-	";
-	}
-	if ($biblioteca_bottom_adicionar == true) {
+	if ($sistema_etiquetas_elementos == true) {
 		echo "
 			<script type='text/javascript'>
 				$('#criar_referencia_form').hide();
@@ -214,7 +132,7 @@
 				    if (criar_referencia_autor_length > 2) {
 							$.post('engine.php', {
 							    'busca_autores': criar_referencia_autor
-							}, function(data) {
+									}, function(data) {
 					        $('#autores_disponiveis').empty();
 							    if (data != 0) {
 							        $('#autores_disponiveis').show();
@@ -274,6 +192,97 @@
 			</script>
 		";
 	}
+	if ($sistema_etiquetas_topicos == true) {
+		echo "
+      <script type='text/javascript'>
+			  $('#buscar_etiquetas').keyup(function() {
+			      var busca_etiquetas = $('#buscar_etiquetas').val();
+			      var busca_etiquetas_length = $('#buscar_etiquetas').val().length;
+			      if (busca_etiquetas_length > 2) {
+			          $.post('engine.php', {
+			              'busca_etiquetas': busca_etiquetas,
+			              'busca_etiquetas_tipo': 'topico'
+			          }, function(data) {
+			            if (data != 0) {
+			                $('#etiquetas_disponiveis').empty();
+			                $('#etiquetas_disponiveis').append(data);
+			            }
+			          });
+			      }
+			  });
+			  $(document).on('click', '.remover_tag', function() {
+			      var this_id = $(this).attr('value');
+	              $(this).hide();
+			      $.post('engine.php', {
+			         'remover_etiqueta_id': this_id,
+			         'remover_etiqueta_page_id': {$pagina_id},
+			         'remover_etiqueta_page_tipo': '{$pagina_tipo}'
+			      });
+			  });
+			  $(document).on('click', '#criar_etiqueta', function() {
+		      var new_tag = $(this).attr('value');
+		      $(this).hide();
+		      $.post('engine.php', {
+		         'criar_etiqueta_titulo': new_tag,
+		         'criar_etiqueta_page_id': {$pagina_id},
+		         'criar_etiqueta_page_tipo': '{$pagina_tipo}'
+		      }, function(data) {
+		         if (data != 0) {
+		             $('#etiquetas_ativas').append(data);
+		         }
+		      });
+		  });
+      </script>
+	";
+	}
+	if ($etiquetas_bottom_adicionar == true) {
+		echo "
+		<script type='text/javascript'>
+			$('#buscar_etiquetas').keyup(function() {
+				var busca_etiquetas = $('#buscar_etiquetas').val();
+				var busca_etiquetas_length = $('#buscar_etiquetas').val().length;
+				if (busca_etiquetas_length > 2) {
+					$.post('engine.php', {
+			              'busca_etiquetas': busca_etiquetas,
+			              'busca_etiquetas_tipo': 'topico',
+			              'busca_etiquetas_sem_link': 0
+			          }, function(data) {
+						if (data != 0) {
+							$('#etiquetas_disponiveis').empty();
+							$('#etiquetas_disponiveis').append(data);
+						}
+					});
+	      }
+			});
+			$(document).on('click', '#criar_etiqueta', function() {
+		      var new_tag = $(this).attr('value');
+		      $(this).hide();
+		      $.post('engine.php', {
+		         'criar_etiqueta_titulo': new_tag,
+		         'criar_etiqueta_page_id': {$pagina_id},
+		         'criar_etiqueta_page_tipo': '{$pagina_tipo}'
+		      }, function(data) {
+		         if (data != 0) {
+		             $('#etiquetas_disponiveis').prepend(data);
+		         }
+		      });
+		  });
+			$(document).on('click', '.adicionar_tag', function() {
+			      var this_id = $(this).attr('value');
+			      $(this).hide();
+			      $.post('engine.php', {
+			         'nova_etiqueta_id': this_id,
+			         'nova_etiqueta_page_id': {$pagina_id},
+			         'nova_etiqueta_page_tipo': '{$pagina_tipo}'
+			      }, function(data) {
+			         if (data != 0) {
+			             $('#etiquetas_ativas').append(data);
+			         }
+			      });
+			  });
+		</script>
+	";
+	}
 	if ($esconder_introducao == true) {
 		echo "
 			<script type='text/javascript'>
@@ -329,7 +338,7 @@
 		echo "
 			<script type='text/javascript'>
 				$(document).ready(function() {
-					$('.ql-toolbar').addClass('sticky-top bg-white');
+					$('.ql-toolbar').addClass('sticky-top bg-white p-limit');
 		    });
 			</script>
 		";

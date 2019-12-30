@@ -30,6 +30,10 @@
 	
 	if (!isset($template_conteudo_no_col)) {
 		$template_conteudo_no_col = false;
+	}
+	
+	if ($template_conteudo_no_col == false) {
+		$template_conteudo_no_col = false;
 		$template_conteudo_no_col1 = "<div class='col'>";
 		$template_conteudo_no_col2 = "</div>";
 	}

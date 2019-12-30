@@ -173,7 +173,7 @@
 	if ($quill_texto_id != false) {
 		$template_botoes .= "
 			<a href='historico_verbete.php?texto_id=$quill_texto_id' target='_blank' title='Histórico do documento'><i class='fal fa-history fa-fw'></i></a>
-			<a href='edicao_textos.php?texto_id=$quill_texto_id' target='_blank' title='Editar na página de edição'><i class='fal fa-external-link-square fa-fw'></i></a>
+			<a href='pagina.php?texto_id=$quill_texto_id' target='_blank' title='Editar na página de edição'><i class='fal fa-external-link-square fa-fw'></i></a>
 		";
 	}
 	
