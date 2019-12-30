@@ -1,5 +1,5 @@
 <?php
-
+	
 	include 'engine.php';
 	$nao_contar = false;
 	if (!isset($_GET['pagina_id'])) {
@@ -48,14 +48,19 @@
 		header('Location:pagina.php?pagina_id=4');
 	}
 	
+	if (isset($pagina_texto_id)) {
+		$pagina_tipo = 'texto';
+	}
+	
+	
 	if ($pagina_tipo == 'topico') {
 		$topico_id = $pagina_item_id;
-		$curso_id = return_curso_id_topico($topico_id);
-		$curso_sigla = return_curso_sigla($curso_id);
+		$topico_curso_id = return_curso_id_topico($topico_id);
+		$topico_curso_sigla = return_curso_sigla($topico_curso_id);
 	} elseif ($pagina_tipo == 'materia') {
 		$materia_id = $pagina_item_id;
-		$curso_id = return_curso_id_materia($materia_id);
-		$curso_sigla = return_curso_sigla($curso_id);
+		$materia_curso_id = return_curso_id_materia($materia_id);
+		$materia_curso_sigla = return_curso_sigla($materia_curso_id);
 	} elseif ($pagina_tipo == 'elemento') {
 		$elemento_id = $pagina_item_id;
 	} elseif ($pagina_tipo == 'grupo') {
@@ -83,8 +88,8 @@
 		$curso_titulo = return_curso_titulo_id($curso_id);
 	} elseif ($pagina_tipo == 'materia') {
 		$materia_titulo = return_materia_titulo_id($materia_id);
-		$curso_id = return_curso_id_materia($materia_id);
-		$curso_sigla = return_curso_sigla($curso_id);
+		$materia_curso_id = return_curso_id_materia($materia_id);
+		$materia_curso_sigla = return_curso_sigla($curso_id);
 	} elseif ($pagina_tipo == 'texto') {
 		$texto_info = return_texto_info($pagina_texto_id);
 		$texto_curso_id = $texto_info[0];
@@ -139,7 +144,7 @@
 	}
 	
 	if ($pagina_tipo == 'topico') {
-		$topicos = $conn->query("SELECT estado_pagina, materia_id, nivel, ordem, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Topicos WHERE curso_id = $curso_id AND id = $topico_id");
+		$topicos = $conn->query("SELECT estado_pagina, materia_id, nivel, ordem, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Topicos WHERE curso_id = $topico_curso_id AND id = $topico_id");
 		if ($topicos->num_rows > 0) {
 			while ($topico = $topicos->fetch_assoc()) {
 				$topico_materia_id = $topico['materia_id'];
@@ -324,6 +329,8 @@
 			$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina, extra, extra2) VALUES ($user_id, $pagina_id, '$pagina_tipo', '$visualizacao_extra', 'pagina')");
 		}
 	}
+	error_log("PAGINA ID: $pagina_id");
+	error_log("PAGINA TIPO: $pagina_tipo");
 ?>
 <body class="carrara">
 <?php
@@ -339,7 +346,7 @@
 						if ($pagina_tipo == 'elemento') {
 							echo "<span id='elemento_dados' class='mx-1'><a href='javascript:void(0);' data-toggle='modal' data-target='#modal_dados_elemento' class='text-info'><i class='fad fa-info-circle fa-fw fa-2x'></i></a></span>";
 						} elseif ((($pagina_tipo == 'sistema') && ($user_tipo == 'admin')) || (($pagina_tipo == 'pagina') && ($pagina_user_id == $user_id)) || (($pagina_tipo == 'texto') && ($pagina_user_id = $user_id))) {
-							echo "<span id='pagina_dados' class='mx-1'><a href='javascript:void(0);' data-toggle='modal' data-target='#modal_pagina_dados' class='text-info'><i class='fad fa-sign fa-fw fa-2x'></i></a></span>";
+							echo "<span id='pagina_dados' class='mx-1'><a href='javascript:void(0);' data-toggle='modal' data-target='#modal_pagina_dados' class='text-info'><i class='fad fa-info-circle fa-fw fa-2x'></i></a></span>";
 						}
 					?>
         </div>
@@ -436,22 +443,25 @@
 		$template_titulo_context = true;
 		if ($pagina_tipo == 'topico') {
 			$template_titulo = $topico_titulo;
-			$template_subtitulo = $curso_sigla;
+			$template_subtitulo = "$topico_materia_titulo / $topico_curso_sigla";
 		} elseif ($pagina_tipo == 'elemento') {
 			$template_titulo = $elemento_titulo;
 			$template_subtitulo = $elemento_autor;
 		} elseif ($pagina_tipo == 'curso') {
 			$template_titulo = $curso_titulo;
+			$template_subtitulo = 'Curso';
 		} elseif ($pagina_tipo == 'materia') {
 			$template_titulo = $materia_titulo;
-			$template_subtitulo = "Matéria / $curso_sigla";
+			$template_subtitulo = "$curso_sigla";
 		} elseif ($pagina_tipo == 'texto') {
 			if ($texto_titulo != false) {
 				$template_titulo = $texto_titulo;
 			} else {
 				$template_titulo = 'Texto sem título';
 			}
-			$template_subtitulo = 'Texto privado';
+			if ($texto_page_id == 0) {
+				$template_subtitulo = 'Texto privado';
+			}
 		} elseif ($pagina_tipo == 'sistema') {
 			$pagina_titulo = return_pagina_titulo($pagina_id);
 			$template_titulo = $pagina_titulo;

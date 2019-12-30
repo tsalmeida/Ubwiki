@@ -5,7 +5,6 @@
 		if (!isset($_SESSION['redirecao'])) {
 			$_SESSION['redirecao'] = true;
 			$redirecao = $_SESSION['redirecao'];
-			error_log('isso terá acontecido');
 			header('Location:pagina.php?pagina_id=2'); // página que explica a necessidade de fazer login no site da Ubique.
 		} else {
 			unset($_SESSION['redirecao']);
@@ -47,7 +46,6 @@
 			$conn->query("INSERT INTO Opcoes (opcao, opcao_tipo, user_id) VALUES ($curso_id, 'curso_ativo', $user_id)");
 		}
 	} else {
-		error_log("SELECT opcao FROM Opcoes WHERE user_id = $user_id AND opcao_tipo = 'curso_ativo'");
 		$cursos_ativos = $conn->query("SELECT opcao FROM Opcoes WHERE user_id = $user_id AND opcao_tipo = 'curso_ativo'");
 		if ($cursos_ativos->num_rows > 0) {
 			while ($curso_ativo = $cursos_ativos->fetch_assoc()) {

@@ -769,7 +769,7 @@
 						$artefato_link = false;
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
-						$acervo = $conn->query("SELECT criacao, elemento_id, tipo, extra FROM Paginas_elementos WHERE pagina_id = $user_id AND pagina_tipo = 'escritorio' ORDER BY id DESC");
+						$acervo = $conn->query("SELECT criacao, elemento_id, tipo, extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND pagina_tipo = 'escritorio' ORDER BY id DESC");
 						while ($item_acervo = $acervo->fetch_assoc()) {
 							$topico_acervo_etiqueta_id = $item_acervo['elemento_id'];
 							$topico_acervo_etiqueta_tipo = $item_acervo['tipo'];
@@ -930,7 +930,6 @@
 							}
 							$acervo_item_elemento_titulo = $acervo_item_elemento_info[4];
 							$acervo_item_elemento_autor = $acervo_item_elemento_info[5];
-							
 							$artefato_id = $acervo_item_etiqueta_id;
 							$artefato_page_id = $acervo_item_elemento_id;
 							$artefato_titulo = $acervo_item_elemento_titulo;

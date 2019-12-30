@@ -11,7 +11,6 @@
 		$visualizar_historico_id = $_POST['visualizar_historico'];
 	}
 	
-	
 	$texto_info = return_texto_info($texto_id);
 	
 	$texto_titulo = $texto_info[2];
