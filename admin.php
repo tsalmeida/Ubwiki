@@ -167,6 +167,7 @@
 			}
 		}
 		$conn->query("DROP TABLE `Ubwiki`.`Acervo`");
+		$conn->query("ALTER TABLE `Textos` ADD `texto_pagina_id` INT(11) NULL DEFAULT NULL AFTER `pagina_id`;");
 	}
 	
 	if (isset($_POST['funcoes_gerais'])) {

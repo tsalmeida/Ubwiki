@@ -18,6 +18,10 @@
 		} elseif (isset($_GET['texto_id'])) {
 			$texto_anotacao = false;
 			$pagina_texto_id = $_GET['texto_id'];
+			if ($pagina_texto_id == 'new') {
+				$conn->query("INSERT INTO Textos (tipo, compartilhamento, page_id, user_id, verbete_html, verbete_text, verbete_content) VALUES ('anotacoes', 'privado', 0, $user_id, FALSE, FALSE, FALSE)");
+				$pagina_texto_id = $conn->insert_id;
+			}
 			$pagina_id = return_pagina_id($pagina_texto_id, 'texto');
 		} elseif (isset($_GET['grupo_id'])) {
 			$grupo_id = $_GET['grupo_id'];
@@ -99,7 +103,10 @@
 		$texto_criacao = $texto_info[4];
 		$texto_verbete_html = $texto_info[5];
 		$texto_user_id = $texto_info[8];
+		$texto_pagina_id = $texto_info[9];
 		$texto_compartilhamento = $texto_info[11];
+		$texto_texto_pagina_id = $texto_info[12];
+		$pagina_id = $texto_texto_pagina_id;
 		if ((strpos($texto_tipo, 'anotac') !== false) || ($texto_tipo == 'verbete_user')) {
 			$texto_anotacao = true;
 			if (($texto_compartilhamento != false) && ($texto_user_id != $user_id)) {
@@ -173,103 +180,7 @@
 		include 'pagina/queries_elemento.php';
 	}
 	
-	if (isset($_POST['novo_comentario'])) {
-		$novo_comentario = $_POST['novo_comentario'];
-		$novo_comentario = mysqli_real_escape_string($conn, $novo_comentario);
-		$conn->query("INSERT INTO Forum (user_id, pagina_id, pagina_tipo, comentario)  VALUES ($user_id, $pagina_id, '$pagina_tipo', '$novo_comentario')");
-		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina, extra) VALUES ($user_id, $pagina_id, 'forum', $pagina_tipo)");
-		$nao_contar = true;
-	}
-	
-	if (isset($_POST['novo_estado_pagina'])) {
-		$novo_estado_pagina = $_POST['novo_estado_pagina'];
-		$conn->query("UPDATE Paginas SET estado = $novo_estado_pagina WHERE id = $pagina_id");
-		if ($pagina_tipo == 'topico') {
-			$conn->query("UPDATE Topicos SET estado_pagina = $novo_estado_pagina WHERE id = $topico_id");
-		}
-		$pagina_estado = $novo_estado_pagina;
-		$nao_contar = true;
-	}
-	
-	if (isset($_POST['nova_imagem_titulo'])) {
-		
-		$nova_imagem_titulo = $_POST['nova_imagem_titulo'];
-		$nova_imagem_titulo = mysqli_real_escape_string($conn, $nova_imagem_titulo);
-		
-		if ((isset($_POST['nova_imagem_link'])) && ($_POST['nova_imagem_link'] != false)) {
-			$nova_imagem_link = $_POST['nova_imagem_link'];
-			$nova_imagem_link = base64_encode($nova_imagem_link);
-			adicionar_imagem($nova_imagem_link, $nova_imagem_titulo, $pagina_id, $user_id, $pagina_tipo, 'link', $curso_id);
-		} else {
-			$upload_ok = false;
-			if (isset($_FILES['nova_imagem_upload'])) {
-				$nova_imagem_upload = $_FILES['nova_imagem_upload'];
-				$target_dir = '../imagens/uploads/';
-				$target_file = $target_dir . basename($_FILES['nova_imagem_upload']['name']);
-				$image_filetype = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-				// check if file is actually an image
-				$check = getimagesize($_FILES['nova_imagem_upload']['tmp_name']);
-				if ($check !== false) {
-					$upload_ok = true;
-				}
-				if ($upload_ok == true) {
-					if ($image_filetype != 'jpg' && $image_filetype != 'png' && $image_filetype != 'jpeg'
-						&& $image_filetype != 'gif') {
-						$upload_ok = false;
-					}
-				}
-				if ($upload_ok != false) {
-					move_uploaded_file($_FILES['nova_imagem_upload']['tmp_name'], $target_file);
-					$target_file = base64_encode($target_file);
-					adicionar_imagem($target_file, $nova_imagem_titulo, $pagina_id, $user_id, $pagina_tipo, 'upload', $curso_id);
-				}
-			}
-		}
-		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $pagina_id, '$pagina_tipo', 'adicionar_imagem')");
-		$nao_contar = true;
-	}
-	
-	if (isset($_POST['novo_video_link'])) {
-		$novo_video_link = $_POST['novo_video_link'];
-		$novo_video_data = get_youtube($novo_video_link);
-		if ($novo_video_data != false) {
-			$novo_video_titulo = $novo_video_data['title'];
-			$novo_video_autor = $novo_video_data['author_name'];
-			$novo_video_thumbnail = $novo_video_data['thumbnail_url'];
-			$novo_video_iframe = $novo_video_data['html'];
-			$videos = $conn->query("SELECT id FROM Elementos WHERE link = '$novo_video_link'");
-			if ($videos->num_rows > 0) {
-				while ($video = $videos->fetch_assoc()) {
-					$video_id = $video['id'];
-					$conn->query("INSERT INTO Paginas_elementos (pagina_id, elemento_id, tipo, user_id) VALUES ($pagina_id, $video_id, 'video', $user_id)");
-					$video_etiqueta_id = return_elemento_etiqueta_id($video_id);
-				}
-			} else {
-				$novo_youtube_thumbnail = adicionar_thumbnail_youtube($novo_video_thumbnail);
-				$novo_video_etiqueta = criar_etiqueta($novo_video_titulo, $novo_video_autor, 'video', $user_id, false);
-				$novo_video_titulo = mysqli_real_escape_string($conn, $novo_video_titulo);
-				$novo_video_autor = mysqli_real_escape_string($conn, $novo_video_autor);
-				$novo_video_iframe = mysqli_real_escape_string($conn, $novo_video_iframe);
-				$novo_video_etiqueta_id = $novo_video_etiqueta[0];
-				$conn->query("INSERT INTO Elementos (etiqueta_id, tipo, titulo, autor, link, iframe, arquivo, user_id) VALUES ($novo_video_etiqueta_id, 'video', '$novo_video_titulo', '$novo_video_autor', '$novo_video_link', '$novo_video_iframe', '$novo_youtube_thumbnail', $user_id)");
-				$novo_video_elemento_id = $conn->insert_id;
-				$conn->query("INSERT INTO Paginas_elementos (pagina_id, elemento_id, tipo, user_id) VALUES ($pagina_id, $novo_video_elemento_id, 'video', $user_id)");
-			}
-		}
-		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $pagina_id, '$pagina_tipo', 'adicionar_video')");
-		$nao_contar = true;
-	}
-	
-	if (isset($_POST['pagina_novo_titulo'])) {
-		$pagina_novo_titulo = $_POST['pagina_novo_titulo'];
-		$pagina_novo_titulo = mysqli_real_escape_string($conn, $pagina_novo_titulo);
-		if ($pagina_tipo == 'texto') {
-			$conn->query("UPDATE Textos SET titulo = '$pagina_novo_titulo' WHERE id = $pagina_texto_id");
-		} else {
-			$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($pagina_id, '$pagina_tipo', 'titulo', '$pagina_novo_titulo', $user_id)");
-		}
-		$pagina_titulo = $pagina_novo_titulo;
-	}
+	include 'pagina/shared_issets.php';
 	
 	if (($pagina_tipo == 'elemento') || ($pagina_tipo == 'pagina')) {
 		if (isset($_POST['trigger_nova_secao'])) {
@@ -329,8 +240,6 @@
 			$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina, extra, extra2) VALUES ($user_id, $pagina_id, '$pagina_tipo', '$visualizacao_extra', 'pagina')");
 		}
 	}
-	error_log("PAGINA ID: $pagina_id");
-	error_log("PAGINA TIPO: $pagina_tipo");
 ?>
 <body class="carrara">
 <?php
@@ -345,7 +254,7 @@
 						}
 						if ($pagina_tipo == 'elemento') {
 							echo "<span id='elemento_dados' class='mx-1'><a href='javascript:void(0);' data-toggle='modal' data-target='#modal_dados_elemento' class='text-info'><i class='fad fa-info-circle fa-fw fa-2x'></i></a></span>";
-						} elseif ((($pagina_tipo == 'sistema') && ($user_tipo == 'admin')) || (($pagina_tipo == 'pagina') && ($pagina_user_id == $user_id)) || (($pagina_tipo == 'texto') && ($pagina_user_id = $user_id))) {
+						} elseif ((($pagina_tipo == 'sistema') && ($user_tipo == 'admin')) || (($pagina_tipo == 'pagina') && ($pagina_user_id == $user_id)) || (($pagina_tipo == 'texto') && ($pagina_user_id = $user_id) && ($texto_page_id == 0))) {
 							echo "<span id='pagina_dados' class='mx-1'><a href='javascript:void(0);' data-toggle='modal' data-target='#modal_pagina_dados' class='text-info'><i class='fad fa-info-circle fa-fw fa-2x'></i></a></span>";
 						}
 					?>
@@ -454,12 +363,16 @@
 			$template_titulo = $materia_titulo;
 			$template_subtitulo = "$curso_sigla";
 		} elseif ($pagina_tipo == 'texto') {
-			if ($texto_titulo != false) {
-				$template_titulo = $texto_titulo;
-			} else {
-				$template_titulo = 'Texto sem título';
+			if ($texto_page_id != false) {
+				$template_titulo = return_pagina_titulo($texto_pagina_id);
 			}
+			$template_subtitulo = false;
 			if ($texto_page_id == 0) {
+				if ($texto_titulo != false) {
+					$template_titulo = $texto_titulo;
+				} else {
+					$template_titulo = 'Texto sem título';
+				}
 				$template_subtitulo = 'Texto privado';
 			}
 		} elseif ($pagina_tipo == 'sistema') {
@@ -523,6 +436,7 @@
         </div>
 			<?php
 				echo "<div id='coluna_esquerda' class='$coluna_classes pagina_coluna'>";
+				
 				if ($pagina_tipo == 'elemento') {
 					
 					if (($elemento_tipo == 'imagem') || ($elemento_tipo == 'imagem_privada')) {
@@ -550,193 +464,27 @@
 					}
 					$template_conteudo = include 'templates/template_quill.php';
 					include 'templates/page_element.php';
-				}
-				if (($pagina_tipo == 'elemento') || ($pagina_tipo == 'pagina')) {
-					include 'pagina/secoes_pagina.php';
-				}
-				
-				$result = $conn->query("SELECT DISTINCT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'referencia' AND estado = 1");
-				if ($result->num_rows > 0) {
-					$template_id = 'leia_mais';
-					$template_titulo = 'Leia mais';
-					$template_botoes = false;
-					$template_conteudo = false;
-					$template_conteudo .= "<ul class='list-group'>";
-					while ($row = $result->fetch_assoc()) {
-						$elemento_id = $row['elemento_id'];
-						$result2 = $conn->query("SELECT titulo, autor, capitulo, estado FROM Elementos WHERE id = $elemento_id");
-						if ($result2->num_rows > 0) {
-							while ($row = $result2->fetch_assoc()) {
-								$referencia_titulo = $row['titulo'];
-								$referencia_autor = $row['autor'];
-								$referencia_capitulo = $row['capitulo'];
-								$referencia_estado = $row['estado'];
-								if ($referencia_estado == false) {
-									continue;
-								}
-								if ($referencia_capitulo == false) {
-									$template_conteudo .= "<a href='pagina.php?elemento_id=$elemento_id' target='_blank'><li class='list-group-item list-group-item-action'>$referencia_titulo / $referencia_autor</li></a>";
-								} else {
-									$template_conteudo .= "<a href='pagina.php?elemento_id=$elemento_id' target='_blank'><li class='list-group-item list-group-item-action'>$referencia_titulo / $referencia_autor // $referencia_capitulo</li></a>";
-								}
-							}
-						}
+					if (($pagina_tipo == 'elemento') || ($pagina_tipo == 'pagina')) {
+						include 'pagina/secoes_pagina.php';
 					}
-					$template_conteudo .= "</ul>";
-					include 'templates/page_element.php';
+					
+					include 'pagina/leiamais.php';
+					
+					include 'pagina/videos.php';
+					
+					include 'pagina/imagens.php';
+					
+					include 'pagina/audio.php';
+					
 				}
 				
-				$videos = $conn->query("SELECT DISTINCT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'video' AND estado = 1");
-				$count = 0;
-				if ($videos->num_rows > 0) {
-					$template_id = 'videos';
-					$template_titulo = 'Vídeos';
-					$template_botoes = false;
-					$template_conteudo = false;
-					$template_conteudo .= "
-                                <div id='carousel-videos' class='carousel slide carousel-multi-item mb-0' data-ride='carousel'>
-                                <div class='carousel-inner' role='listbox'>
-                            ";
-					$active = 'active';
-					while ($video = $videos->fetch_assoc()) {
-						$elemento_id = $video['elemento_id'];
-						$elementos = $conn->query("SELECT titulo, autor, arquivo FROM Elementos WHERE id = $elemento_id");
-						if ($elementos->num_rows > 0) {
-							while ($elemento = $elementos->fetch_assoc()) {
-								$count++;
-								$video_titulo = $elemento['titulo'];
-								$video_autor = $elemento['autor'];
-								$video_arquivo = $elemento['arquivo'];
-								$template_conteudo .= "
-                                            <div class=' carousel-item $active text-center'>
-                                              <figure class='col-12'>
-                                                <a href='pagina.php?elemento_id=$elemento_id' target='_blank'>
-                                                  <img src='/../imagens/youthumb/$video_arquivo'
-                                                    class='img-fluid' style='height:300px'>
-                                                </a>
-                                        ";
-								$template_conteudo .= "
-                                            <figcaption>
-                                           <strong class='h5-responsive mt-2'>$video_titulo</strong>
-                                        ";
-								$template_conteudo .= "<p>$video_autor</p>";
-								$template_conteudo .= "</figcaption>";
-								$template_conteudo .= "</figure>
-                                            </div>
-                                        ";
-								$active = false;
-								break;
-							}
-						}
-					}
-					if ($count != 1) {
-						$template_conteudo .= "
-                            </div>
-                              <div class='controls-top'>
-                                <a class='btn btn-floating grey lighten-3 z-depth-0' href='#carousel-videos' data-slide='prev'><i style='transform: translateY(70%)' class='fas fa-chevron-left'></i></a>
-                                <a class='btn btn-floating grey lighten-3 z-depth-0' href='#carousel-videos' data-slide='next'><i style='transform: translateY(70%)' class='fas fa-chevron-right'></i></a>
-                            ";
-					}
-					$template_conteudo .= "</div></div>";
-					include 'templates/page_element.php';
-				}
-				
-				
-				$imagens = $conn->query("SELECT DISTINCT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'imagem' AND estado = 1");
-				$count = 0;
-				if ($imagens->num_rows > 0) {
-					$template_id = 'imagens';
-					$template_titulo = 'Imagens';
-					$template_botoes = false;
-					$template_conteudo = false;
-					$active = 'active';
-					while ($imagem = $imagens->fetch_assoc()) {
-						$elemento_id = $imagem['elemento_id'];
-						$elementos = $conn->query("SELECT titulo, arquivo, estado FROM Elementos WHERE id = $elemento_id");
-						if ($elementos->num_rows > 0) {
-							while ($elemento = $elementos->fetch_assoc()) {
-								$imagem_titulo = $elemento['titulo'];
-								$imagem_arquivo = $elemento['arquivo'];
-								$imagem_estado = $elemento['estado'];
-								if ($imagem_estado == false) {
-									continue;
-								} else {
-									$count++;
-								}
-								if ($count == 1) {
-									$template_conteudo .= "
-                                                <div id='carousel-imagens' class='carousel slide carousel-multi-item mb-0' data-ride='carousel'>
-                                                <div class='carousel-inner' role='listbox'>
-                                            ";
-								}
-								$template_conteudo .= "
-                                            <div class=' carousel-item $active text-center'>
-                                              <figure class='col-12'>
-                                                <a href='pagina.php?elemento_id=$elemento_id' target='_blank'>
-                                                  <img src='/../imagens/verbetes/thumbnails/$imagem_arquivo'
-                                                    class='img-fluid' style='height:300px'>
-                                                </a>
-                                        ";
-								$template_conteudo .= "<figcaption>
-                                           <strong class='h5-responsive mt-2'>$imagem_titulo</strong>";
-								$template_conteudo .= "</figcaption>";
-								$template_conteudo .= "</figure>";
-								$template_conteudo .= "</div>";
-								$active = false;
-								break;
-							}
-						}
-					}
-					if ($count != 0) {
-						$template_conteudo .= "</div>";
-					}
-					if ($count != 1) {
-						$template_conteudo .= "
-                                      <div class='controls-top'>
-                                        <a class='btn btn-floating grey lighten-3 z-depth-0' href='#carousel-imagens' data-slide='prev'><i style='transform: translateY(70%)' class='fas fa-chevron-left'></i></a>
-                                        <a class='btn btn-floating grey lighten-3 z-depth-0' href='#carousel-imagens' data-slide='next'><i style='transform: translateY(70%)' class='fas fa-chevron-right'></i></a>
-                                      </div>
-                                ";
-					}
-					if ($count != 0) {
-						$template_conteudo .= "</div>";
-					}
-					include 'templates/page_element.php';
-				}
-				
-				$audios = $conn->query("SELECT DISTINCT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'album_musica' AND estado = 1");
-				if ($audios->num_rows > 0) {
-					$template_id = 'material_audio';
-					$template_titulo = 'Áudio';
-					$template_botoes = false;
-					$template_conteudo = false;
-					$template_conteudo .= "
-								<ul class='list-group rounded'>
-							";
-					while ($audio = $audios->fetch_assoc()) {
-						$audio_elemento_id = $audio['elemento_id'];
-						$audio_elemento_info = return_elemento_info($audio_elemento_id);
-						$audio_elemento_titulo = $audio_elemento_info[4];
-						$audio_elemento_autor = $audio_elemento_info[5];
-						$template_conteudo .= "
-						    	  <a href='pagina.php?elemento_id=$audio_elemento_id' target='_blank'><li class='list-group-item list-group-item-action'>$audio_elemento_titulo / $audio_elemento_autor</li></a>
-						    	";
-					}
-					$template_conteudo .= "</ul>";
-					include 'templates/page_element.php';
-				}
 				echo "</div>";
 			?>
 			<?php
 				if (($pagina_tipo != 'sistema') && ($pagina_tipo != 'texto')) {
-					echo "<div id='coluna_direita' class='$coluna_classes pagina_coluna'>";
 					
-					$template_id = 'anotacoes';
-					$template_titulo = 'Notas de estudo';
-					$template_conteudo = include 'templates/template_quill.php';
-					include 'templates/page_element.php';
+					include 'pagina/coluna_direita_anotacoes.php';
 					
-					echo "</div>";
 				}
 			?>
     </div>

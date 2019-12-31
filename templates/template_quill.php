@@ -29,7 +29,7 @@
 			$template_quill_vazio = 'Não há notas de estudo suas sobre este assunto.';
 			$template_quill_public = false;
 		}
-	} else {
+	} /*else {
 		if ((strpos($template_id, 'anotac') !== false) || ($template_id == 'verbete_user')) {
 			$template_quill_meta_tipo = 'anotacoes';
 			$template_quill_toolbar_and_whitelist = 'anotacoes';
@@ -44,7 +44,7 @@
 				$template_quill_initial_state = 'leitura';
 			}
 		}
-	}
+	}*/
 	$template_quill_whitelist = "formatWhitelist_{$template_quill_toolbar_and_whitelist}";
 	$template_quill_toolbar = "toolbarOptions_{$template_quill_toolbar_and_whitelist}";
 	
@@ -59,7 +59,7 @@
 	
 	if (isset($pagina_id)) {
 		$template_quill_pagina_id = $pagina_id;
-	} else {
+	} /*else {
 		if (!isset($template_quill_pagina_id)) {
 			if (isset($topico_id)) {
 				$template_quill_pagina_id = $topico_id;
@@ -77,7 +77,7 @@
 				$template_quill_pagina_id = false;
 			}
 		}
-	}
+	}*/
 	$template_quill_pagina_id = (int)$template_quill_pagina_id;
 	
 	if (isset($pagina_id)) {
@@ -93,41 +93,28 @@
 	if (!isset($template_botoes)) {
 		$template_botoes = false;
 	}
-	
-	if (isset($texto_id)) {
-		$quill_texto_id = $texto_id;
+	if (!isset($pagina_texto_id)) {
+		$quill_texto_id = return_texto_id($pagina_tipo, $template_id, $pagina_id);
 	} else {
-		$quill_texto_id = false;
+		$quill_texto_id = $pagina_texto_id;
 	}
-	if ($template_quill_public == true) {
-		if (isset($texto_id)) {
-			$result = $conn->query("SELECT verbete_content, estado_texto, id FROM Textos WHERE id = $texto_id");
+	$quill_verbete_content = false;
+	if ($quill_texto_id != false) {
+		$quill_query = "SELECT verbete_content FROM Textos WHERE id = $quill_texto_id";
+		if ($template_quill_public != true) {
+			$quill_query .= " AND user_id = $user_id";
+		}
+		$quill_textos = $conn->query($quill_query);
+		
+		if ($quill_textos->num_rows > 0) {
+			while ($quill_texto = $quill_textos->fetch_assoc()) {
+				$quill_verbete_content = $quill_texto['verbete_content'];
+				$verbete_exists = true;
+			}
 		} else {
-			$result = $conn->query("SELECT verbete_content, estado_texto, id FROM Textos WHERE pagina_id = $template_quill_pagina_id AND tipo = '$template_id'");
-		}
-	} else {
-		if (isset($texto_id)) {
-			$result = $conn->query("SELECT verbete_content, estado_texto, id FROM Textos WHERE id = $texto_id AND user_id = $user_id");
-		} else {
-			$result = $conn->query("SELECT verbete_content, estado_texto, id FROM Textos WHERE pagina_id = $template_quill_pagina_id AND tipo = '$template_id' AND user_id = $user_id");
-		}
-	}
-	$quill_verbete_content = false; // o conteúdo final, é determinado ao final ou permanece vazio.
-	if ($result->num_rows > 0) {
-		while ($row = $result->fetch_assoc()) {
-			$quill_verbete_content = $row['verbete_content'];
-			$quill_texto_id = $row['id'];
-			$quill_estado_texto = $row['estado_texto'];
-			$verbete_exists = true;
-		}
-		if ($quill_verbete_content != false) {
-		}
-	} else {
-		if ($template_quill_meta_tipo == 'verbete') {
 			$template_vazio = true;
 		}
 	}
-	
 	if (isset($_POST[$quill_trigger_button])) {
 		$novo_verbete_html = $_POST[$quill_novo_verbete_html];
 		$novo_verbete_html = mysqli_real_escape_string($conn, $novo_verbete_html);
@@ -148,14 +135,6 @@
 		} else {
 			$conn->query("INSERT INTO Textos_arquivo (curso_id, tipo, page_id, pagina_id, pagina_tipo, estado_texto, verbete_html, verbete_text, verbete_content, user_id) VALUES ($curso_id, '$template_id', $texto_page_id, $template_quill_pagina_id, '$pagina_tipo', 1, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
 			$conn->query("INSERT INTO Textos (curso_id, tipo, page_id, pagina_id, pagina_tipo, estado_texto, verbete_html, verbete_text, verbete_content, user_id) VALUES ($curso_id, '$template_id', $texto_page_id, $template_quill_pagina_id, '$pagina_tipo', 1, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
-			$quill_estado_texto = 1;
-		}
-		
-		if ((is_null($quill_estado_texto)) && ($novo_verbete_content != false)) {
-			$conn->query("UPDATE Textos SET estado_texto = 1 WHERE id = $quill_texto_id");
-			if ($texto_tipo == 'secao_elemento') {
-				$conn->query("UPDATE Secoes SET estado_texto = 1 WHERE texto_id = $quill_texto_id");
-			}
 		}
 		
 		if (isset($quill_visualizacoes_tipo)) {
@@ -221,7 +200,7 @@
             </button>
         </div>
     </form>";
-	$quill_user_id = (int) $user_id;
+	$quill_user_id = (int)$user_id;
 	$quill_result .= "
     <script>
     var {$template_id}_editor = new Quill('#quill_editor_{$template_id}', {
