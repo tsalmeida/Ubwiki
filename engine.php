@@ -1,5 +1,12 @@
 <?php
 	include 'templates/criar_conn.php';
+
+	if (!isset($_SESSION['user_email'])) {
+		$sessionpath = getcwd();
+		$sessionpath .= '/../sessions';
+		session_save_path($sessionpath);
+		session_start();
+	}
 	
 	if (!isset($_SESSION['user_email'])) {
 		if (!isset($_SESSION['redirecao'])) {
@@ -479,7 +486,7 @@
 		if ($curso_id == false) {
 			return false;
 		}
-		$result_find_curso_sigla = $conn->query("SELECT sigla FROM cursos WHERE id = $curso_id");
+		$result_find_curso_sigla = $conn->query("SELECT sigla FROM Cursos WHERE id = $curso_id");
 		if ($result_find_curso_sigla->num_rows > 0) {
 			while ($row_find_curso_sigla = $result_find_curso_sigla->fetch_assoc()) {
 				$found_curso_sigla = $row_find_curso_sigla['sigla'];
@@ -495,7 +502,7 @@
 			return false;
 		}
 		include 'templates/criar_conn.php';
-		$find_cursos = $conn->query("SELECT titulo FROM cursos WHERE id = $find_curso_id");
+		$find_cursos = $conn->query("SELECT titulo FROM Cursos WHERE id = $find_curso_id");
 		if ($find_cursos->num_rows > 0) {
 			while ($find_curso = $find_cursos->fetch_assoc()) {
 				$find_curso_titulo = $find_curso['titulo'];
