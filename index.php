@@ -1,5 +1,4 @@
 <?php
-
 	if (!isset($_SESSION['user_email'])) {
 		$sessionpath = getcwd();
 		$sessionpath .= '/../sessions';

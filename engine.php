@@ -1,13 +1,13 @@
 <?php
-	include 'templates/criar_conn.php';
-
 	if (!isset($_SESSION['user_email'])) {
 		$sessionpath = getcwd();
 		$sessionpath .= '/../sessions';
 		session_save_path($sessionpath);
 		session_start();
 	}
-	
+
+	include 'templates/criar_conn.php';
+
 	if (!isset($_SESSION['user_email'])) {
 		if (!isset($_SESSION['redirecao'])) {
 			$_SESSION['redirecao'] = true;
