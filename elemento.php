@@ -240,7 +240,7 @@
 						if ($link_elemento != false) {
 							$dados_elemento .= "<li class='list-group-item'><a href='$link_elemento' target='_blank'>Link original</a></li>";
 						}
-						$dados_elemento .= "<li class='list-group-item'>Adicionado pelo usuário <strong><a href='perfil.php?pub_user_id=$user_elemento_id' target='_blank'>$user_apelido_elemento</a></strong></li>";
+						$dados_elemento .= "<li class='list-group-item'>Adicionado pelo usuário <strong><a href='pagina.php?user_id=$user_elemento_id' target='_blank'>$user_apelido_elemento</a></strong></li>";
 						$dados_elemento .= "</ul>";
 						
 						$template_id = 'dados_elemento_div';
@@ -371,7 +371,7 @@
 				break;
 			}
 			$template_modal_body_conteudo .= "<li class='list-group-item'>
-                                                <p><strong><a href='perfil.php?pub_user_id=$autor_comentario_id' target='_blank'>$autor_comentario_apelido</a></strong> <span class='text-muted'><small>escreveu em $timestamp_comentario</small></span></p>
+                                                <p><strong><a href='pagina.php?user_id=$autor_comentario_id' target='_blank'>$autor_comentario_apelido</a></strong> <span class='text-muted'><small>escreveu em $timestamp_comentario</small></span></p>
                                                 $texto_comentario
                                               </li>";
 		}

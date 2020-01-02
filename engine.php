@@ -6,6 +6,7 @@
 			$_SESSION['redirecao'] = true;
 			$redirecao = $_SESSION['redirecao'];
 			header('Location:pagina.php?pagina_id=2'); // página que explica a necessidade de fazer login no site da Ubique.
+			exit();
 		} else {
 			unset($_SESSION['redirecao']);
 		}
@@ -300,8 +301,8 @@
 		}
 		$user_id = $_POST['user_id'];
 		$page_id = $_POST['page_id'];
-		$contexto = $_POST['contexto'];
-		$nossa_copia = adicionar_imagem($nova_imagem_link, $nova_imagem_titulo, $page_id, $user_id, $contexto, $curso_id);
+		$pagina_tipo = $_POST['contexto'];
+		$nossa_copia = adicionar_imagem($nova_imagem_link, $nova_imagem_titulo, $page_id, $user_id, $pagina_tipo, $curso_id);
 	}
 	
 	function adicionar_thumbnail_youtube($youtube_thumbnail_original)
@@ -320,63 +321,60 @@
 		$nova_imagem_link = $args[0];
 		$nova_imagem_link = base64_decode($nova_imagem_link);
 		$nova_imagem_titulo = $args[1];
-		$page_id = $args[2];
+		$pagina_id = $args[2];
 		$user_id = $args[3];
-		$contexto = $args[4];
+		$pagina_tipo = $args[4];
 		$origem = $args[5];
-		//$curso_id = $args[6];
-		if ($contexto != 'privada') {
-			$nova_imagem_tipo = 'imagem';
-		} else {
-			$nova_imagem_tipo = 'imagem_privada';
-		}
+		
 		include 'templates/criar_conn.php';
-		$result = $conn->query("SELECT id FROM Elementos WHERE link = '$nova_imagem_link'");
-		if (($result->num_rows == 0) || ($nova_imagem_tipo == 'imagem_privada')) {
+		
+		$imagem_preexistente_id = false;
+		$imagem_criada = false;
+		$check_imagem_existe = $conn->query("SELECT id FROM Elementos WHERE link = '$nova_imagem_link' AND compartilhamento IS NULL");
+		if ($check_imagem_existe->num_rows > 0) {
+			while ($imagem_preexistente = $check_imagem_existe->fetch_assoc()) {
+				$imagem_preexistente_id = $imagem_preexistente['id'];
+				$nova_imagem_etiqueta_id = return_elemento_etiqueta_id($imagem_preexistente_id);
+			}
+		}
+		
+		if (($imagem_preexistente_id == false) || ($pagina_tipo == 'escritorio')) {
+			$imagem_criada = true;
 			$randomfilename = generateRandomString(16);
 			$ultimo_ponto = strripos($nova_imagem_link, ".");
 			$extensao = substr($nova_imagem_link, $ultimo_ponto);
 			$nova_imagem_arquivo = "$randomfilename$extensao";
-			$nova_imagem_diretorio = "../imagens/verbetes/$randomfilename$extensao";
+			$nova_imagem_diretorio = "../imagens/verbetes/$nova_imagem_arquivo";
 			file_put_contents($nova_imagem_diretorio, fopen($nova_imagem_link, 'r'));
 			$dados_da_imagem = make_thumb($nova_imagem_arquivo);
 			if ($dados_da_imagem == false) {
 				return false;
-			}
-			$nova_imagem_resolucao_original = $dados_da_imagem[0];
-			$nova_imagem_orientacao = $dados_da_imagem[1];
-			if ($origem == 'upload') {
-				$nova_imagem_link = "https://ubwiki.com.br/imagens/verbetes/$nova_imagem_arquivo";
-			}
-			if ($nova_imagem_tipo == 'imagem_privada') {
-				$nova_etiqueta = criar_etiqueta($nova_imagem_titulo, false, $nova_imagem_tipo, $user_id, false);
-				$nova_imagem_etiqueta_id = $nova_etiqueta[0];
-				$conn->query("INSERT INTO Elementos (etiqueta_id, tipo, titulo, link, arquivo, resolucao, orientacao, user_id) VALUES ($nova_imagem_etiqueta_id, '$nova_imagem_tipo', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_arquivo', '$nova_imagem_resolucao_original', '$nova_imagem_orientacao', $user_id)");
-			}
-			if ($page_id != 0) {
-				//em algum momento antes deste, está checando para ver se é duplicada. Onde? Está tudo certo com isso?
-				$nova_imagem_etiqueta_id = criar_etiqueta($nova_imagem_titulo, false, $nova_imagem_tipo, $user_id, false);
-				$nova_imagem_etiqueta_id = $nova_imagem_etiqueta_id[0];
-				$conn->query("INSERT INTO Elementos (etiqueta_id, tipo, titulo, link, arquivo, resolucao, orientacao, user_id) VALUES ($nova_imagem_etiqueta_id, '$nova_imagem_tipo', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_arquivo', '$nova_imagem_resolucao_original', '$nova_imagem_orientacao', $user_id)");
-				$result2 = $conn->query("SELECT id FROM Elementos WHERE link = '$nova_imagem_link'");
-				if ($result2->num_rows > 0) {
-					while ($row = $result2->fetch_assoc()) {
-						$nova_imagem_id = $row['id'];
-						$result3 = $conn->query("SELECT id FROM Paginas_elementos WHERE elemento_id = $nova_imagem_id");
-						if ($result3->num_rows == 0) {
-							$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, user_id) VALUES ($page_id, '$contexto', $nova_imagem_id, '$nova_imagem_tipo', $user_id)");
-						}
-						break;
-					}
-				}
 			} else {
-				while ($row = $result->fetch_assoc()) {
-					$nova_imagem_id = $row['id'];
-					$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, user_id) VALUES ($page_id, '$contexto', $nova_imagem_id, '$nova_imagem_tipo', $user_id)");
-					break;
+				$nova_imagem_resolucao_original = $dados_da_imagem[0];
+				$nova_imagem_orientacao = $dados_da_imagem[1];
+				if ($origem == 'upload') {
+					$nova_imagem_link = "https://ubwiki.com.br/imagens/verbetes/$nova_imagem_arquivo";
 				}
 			}
 		}
+		if ($pagina_tipo == 'escritorio') {
+			$nova_imagem_compartilhamento = "'privado'";
+			$nova_imagem_etiqueta_tipo = 'imagem_privada';
+		} else {
+			$nova_imagem_compartilhamento = "NULL";
+			$nova_imagem_etiqueta_tipo = 'imagem';
+		}
+		if ($imagem_criada == true) {
+			$nova_etiqueta = criar_etiqueta($nova_imagem_titulo, false, $nova_imagem_etiqueta_tipo, $user_id, false);
+			$nova_imagem_etiqueta_id = $nova_etiqueta[0];
+			$conn->query("INSERT INTO Elementos (etiqueta_id, compartilhamento, tipo, titulo, link, arquivo, resolucao, orientacao, user_id) VALUES ($nova_imagem_etiqueta_id, $nova_imagem_compartilhamento, 'imagem', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_arquivo', '$nova_imagem_resolucao_original', '$nova_imagem_orientacao', $user_id)");
+			$nova_imagem_id = $conn->insert_id;
+		} else {
+			$nova_imagem_id = $imagem_preexistente_id;
+		}
+		//antes de fazer isso, checar se o elemento já existe na página. Não é tão importante por que há
+		//um check de duplicatas na página, mas talvez não exista no escritório.
+		$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, extra, user_id) VALUES ($pagina_id, '$pagina_tipo', $nova_imagem_id, 'imagem', $nova_imagem_etiqueta_id, $user_id)");
 		if (isset($nova_imagem_arquivo)) {
 			return "https://ubwiki.com.br/imagens/verbetes/$nova_imagem_arquivo";
 		} else {
@@ -538,20 +536,24 @@
 	function return_apelido_user_id($find_user_id)
 	{
 		include 'templates/criar_conn.php';
-		if ($find_user_id != false) {
-			$result_find_apelido = $conn->query("SELECT apelido FROM Usuarios WHERE id = $find_user_id");
-			if ($result_find_apelido->num_rows > 0) {
-				while ($row_find_apelido = $result_find_apelido->fetch_assoc()) {
-					$found_apelido = $row_find_apelido['apelido'];
-				}
-				return $found_apelido;
+		if ($find_user_id == false) {
+			return false;
+		}
+		$result_find_apelido = $conn->query("SELECT apelido FROM Usuarios WHERE id = $find_user_id AND apelido IS NOT NULL");
+		if ($result_find_apelido->num_rows > 0) {
+			while ($row_find_apelido = $result_find_apelido->fetch_assoc()) {
+				$found_apelido = $row_find_apelido['apelido'];
 			}
+			return $found_apelido;
 		}
 		return false;
 	}
 	
 	function return_etapa_titulo_id($etapa_id)
 	{
+		if ($etapa_id == false) {
+			return false;
+		}
 		include 'templates/criar_conn.php';
 		$result_find_titulo = $conn->query("SELECT titulo FROM sim_etapas WHERE id = $etapa_id");
 		if ($result_find_titulo->num_rows > 0) {
@@ -565,6 +567,9 @@
 	
 	function return_etapa_edicao_ano_e_titulo($etapa_id)
 	{
+		if ($etapa_id == false) {
+			return false;
+		}
 		include 'templates/criar_conn.php';
 		$result = $conn->query("SELECT edicao_id FROM sim_etapas WHERE id = $etapa_id");
 		if ($result->num_rows > 0) {
@@ -946,10 +951,14 @@
 		$nova_etiqueta_info = return_etiqueta_info($nova_etiqueta_id);
 		$nova_etiqueta_tipo = $nova_etiqueta_info[1];
 		$nova_etiqueta_titulo = $nova_etiqueta_info[2];
+		$nova_etiqueta_elemento_id = false;
 		if ($nova_etiqueta_tipo == 'topico') {
 			$nova_etiqueta_elemento_id = return_etiqueta_topico_id($nova_etiqueta_id);
 		} else {
 			$nova_etiqueta_elemento_id = return_etiqueta_elemento_id($nova_etiqueta_id);
+		}
+		if ($nova_etiqueta_elemento_id == false) {
+			$nova_etiqueta_elemento_id = "NULL";
 		}
 		$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, extra, user_id) VALUES ($nova_etiqueta_page_id, '$nova_etiqueta_page_tipo', $nova_etiqueta_elemento_id, '$nova_etiqueta_tipo', $nova_etiqueta_id, $user_id)");
 		$nova_etiqueta_cor_icone = return_etiqueta_cor_icone($nova_etiqueta_tipo);
@@ -966,7 +975,7 @@
 		$remover_etiqueta_id = $_POST['remover_etiqueta_id'];
 		$remover_etiqueta_page_id = $_POST['remover_etiqueta_page_id'];
 		$remover_etiqueta_page_tipo = $_POST['remover_etiqueta_page_tipo'];
-		$conn->query("UPDATE Paginas_elementos SET estado = 0 WHERE extra = $remover_etiqueta_id AND pagina_id = $remover_etiqueta_page_id");
+		$conn->query("UPDATE Paginas_elementos SET estado = FALSE WHERE extra IN ('$remover_etiqueta_id') AND pagina_id = $remover_etiqueta_page_id");
 		
 		/*if ($conn->query("UPDATE Etiquetados SET estado = 0 WHERE etiqueta_id = $remover_etiqueta_id AND page_id = $remover_etiqueta_page_id AND page_tipo = '$remover_etiqueta_page_tipo'")
 			===
@@ -988,7 +997,9 @@
 		
 		$conn->query("INSERT INTO Etiquetas (tipo, titulo, user_id) VALUES ('topico', '$criar_etiqueta_titulo', $user_id)");
 		$nova_etiqueta_id = $conn->insert_id;
-		$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, user_id) VALUES ($criar_etiqueta_page_id, '$criar_etiqueta_page_tipo', $nova_etiqueta_id, 'topico', $user_id)");
+		
+		$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, extra, user_id) VALUES ($criar_etiqueta_page_id, '$criar_etiqueta_page_tipo', NULL, 'topico', $nova_etiqueta_id, $user_id)");
+		
 		echo "<a href='javascript:void(0);' class='$tag_ativa_classes $criar_etiqueta_cor' value='$nova_etiqueta_id'><i class='far $criar_etiqueta_icone fa-fw'></i> $criar_etiqueta_titulo</a>";
 		
 		
@@ -1126,12 +1137,21 @@
 		} elseif ($artefato_tipo == 'anotacoes_user') {
 			$fa_icone = $fa_icone_anotacao;
 			$fa_primary_color = 'text-info';
+		} elseif ($artefato_tipo == 'texto') {
+			$fa_icone = $fa_icone_anotacao;
+			$fa_primary_color = false;
+		} elseif ($artefato_tipo == 'elemento') {
+			$fa_icone = 'fa-file-invoice fa-swap-opacity';
+			$fa_primary_color = 'text-danger';
 		} elseif ($artefato_tipo == 'anotacoes_curso') {
 			$fa_icone = $fa_icone_anotacao;
 			$fa_primary_color = 'text-warning';
 		} elseif ($artefato_tipo == 'anotacoes_grupo') {
 			$fa_icone = $fa_icone_anotacao;
 			$fa_primary_color = 'text-default';
+		} elseif ($artefato_tipo == 'anotacoes_secao') {
+			$fa_icone = $fa_icone_anotacao;
+			$fa_primary_color = 'text-info';
 		} elseif ($artefato_tipo == 'pagina_grupo') {
 			$fa_icone = 'fa-columns';
 			$fa_primary_color = 'text-default';
@@ -1147,7 +1167,7 @@
 		} elseif ($artefato_tipo == 'nova_anotacao') {
 			$fa_icone = $fa_icone_plus;
 			$fa_primary_color = 'text-primary';
-		} elseif ($artefato_tipo == 'nova_imagem') {
+		} elseif ($artefato_tipo == 'adicionar_imagem_privada') {
 			$fa_icone = $fa_icone_plus;
 			$fa_primary_color = 'text-danger';
 		} elseif ($artefato_tipo == 'anotacoes_pagina') {
@@ -1525,6 +1545,13 @@
 			$texto_info = return_texto_info($item_id);
 			if ($texto_info == false) {
 				return false;
+			} else {
+				$texto_compartilhamento = $texto_info[11];
+				if (is_null($texto_compartilhamento)) {
+					$texto_compartilhamento = "NULL";
+				} else {
+					$texto_compartilhamento = "'$texto_compartilhamento'";
+				}
 			}
 			$textos = $conn->query("SELECT texto_pagina_id FROM Textos WHERE id = $item_id AND texto_pagina_id IS NOT NULL");
 			if ($textos->num_rows > 0) {
@@ -1533,7 +1560,7 @@
 					return $texto_pagina_id;
 				}
 			} else {
-				$conn->query("INSERT INTO Paginas (item_id, tipo) VALUES ($item_id, 'texto')");
+				$conn->query("INSERT INTO Paginas (item_id, tipo, compartilhamento) VALUES ($item_id, 'texto', $texto_compartilhamento)");
 				$texto_pagina_id = $conn->insert_id;
 				$conn->query("UPDATE Textos SET texto_pagina_id = $texto_pagina_id WHERE id = $item_id");
 				return $texto_pagina_id;
@@ -1665,8 +1692,8 @@
 	{
 		include 'templates/criar_conn.php';
 		if ($pagina_tipo == 'texto') {
-			$pagina_info = return_pagina_info($pagina_id);
-			$pagina_tipo = $pagina_info[2];
+			//$pagina_info = return_pagina_info($pagina_id);
+			//$pagina_tipo = $pagina_info[2];
 		} else {
 			$textos = $conn->query("SELECT id FROM Textos WHERE pagina_tipo = '$pagina_tipo' AND pagina_id = $pagina_id AND tipo = '$template_id'");
 		}
@@ -1675,6 +1702,46 @@
 				$texto_id = $texto['id'];
 				return $texto_id;
 			}
+		}
+		return false;
+	}
+	
+	function return_compartilhamento($item_id, $user_id)
+	{
+		include 'templates/criar_conn.php';
+		$membros = $conn->query("SELECT grupo_id FROM Membros WHERE membro_user_id = $user_id AND estado = 1");
+		if ($membros->num_rows > 0) {
+			while ($membro = $membros->fetch_assoc()) {
+				$membro_grupo_id = $membro['grupo_id'];
+				$compartilhamentos = $conn->query("SELECT id FROM Compartilhamento WHERE item_id = $item_id AND recipiente_id = $membro_grupo_id");
+				if ($compartilhamentos->num_rows > 0) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		} else {
+			return false;
+		}
+		return false;
+	}
+	
+	
+	function return_escritorio_id($usuario_id)
+	{
+		include 'templates/criar_conn.php';
+		$usuarios = $conn->query("SELECT escritorio_id FROM Usuarios WHERE id = $usuario_id AND escritorio_id IS NOT NULL");
+		if ($usuarios->num_rows > 0) {
+			while ($usuario = $usuarios->fetch_assoc()) {
+				$usuario_escritorio_id = $usuario['escritorio_id'];
+				return $usuario_escritorio_id;
+			}
+		} else {
+			$conn->query("INSERT INTO Paginas (item_id, tipo, compartilhamento, user_id) VALUES ($usuario_id, 'pagina', 'escritorio', $usuario_id)");
+			$usuario_escritorio_id = $conn->insert_id;
+			$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($usuario_escritorio_id, 'pagina', 'titulo', 'Sala de Visitas', $usuario_escritorio_id)");
+			$conn->query("UPDATE Usuarios SET escritorio_id = $usuario_escritorio_id WHERE id = $usuario_id");
+			return $usuario_escritorio_id;
 		}
 		return false;
 	}

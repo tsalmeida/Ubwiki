@@ -243,12 +243,12 @@
         <div class='py-2 text-left col'>
 					<?php
 						if ($topico_anterior != false) {
-							$topico_anterior_link = "verbete.php?topico_id=$topico_anterior";
+							$topico_anterior_link = "pagina.php?topico_id=$topico_anterior";
 							echo "<span id='verbete_anterior' class='mx-1' title='Verbete anterior'><a href='$topico_anterior_link'><i class='fal fa-arrow-left fa-fw'></i></a></span>";
 						}
 						echo "<span id='verbetes_relacionados' class='mx-1' title='Verbetes relacionados' data-toggle='modal' data-target='#modal_verbetes_relacionados'><a href='javascript:void(0);'><i class='fal fa-project-diagram fa-fw'></i></a></span>";
 						if ($topico_proximo != false) {
-							$topico_proximo_link = "verbete.php?topico_id=$topico_proximo";
+							$topico_proximo_link = "pagina.php?topico_id=$topico_proximo";
 							echo "<span id='verbete_proximo' class='mx-1' title='Próximo verbete'><a href='$topico_proximo_link'><i class='fal fa-arrow-right fa-fw'></i></a></span>";
 						}
 					?>
@@ -657,7 +657,7 @@
 				$autor_comentario_apelido = false;
 			}
 			$template_modal_body_conteudo .= "<li class='list-group-item'>
-                                                <p><strong><a href='perfil.php?pub_user_id=$autor_comentario_id' target='_blank'>$autor_comentario_apelido</a></strong> <span class='text-muted'><small>escreveu em $timestamp_comentario</small></span></p>
+                                                <p><strong><a href='pagina.php?user_id=$autor_comentario_id' target='_blank'>$autor_comentario_apelido</a></strong> <span class='text-muted'><small>escreveu em $timestamp_comentario</small></span></p>
                                                 $texto_comentario
                                               </li>";
 		}

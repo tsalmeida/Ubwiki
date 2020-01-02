@@ -39,13 +39,17 @@
 		$fa_color = 'text-danger';
 	}
 	
+	if (!isset($artefato_modal)) {
+		$artefato_modal = "#modal_{$artefato_tipo}";
+	}
+	
 	$artefato_link_1 = false;
 	$artefato_link_2 = false;
 	if ($artefato_link != false) {
 		$artefato_link_1 = "<a href='$artefato_link' class='$fa_class $fa_color' title='$artefato_criacao'>";
 		$artefato_link_2 = "</a>";
 	} else {
-		$artefato_link_1 = "<span id='novo_$artefato_tipo' data-toggle='modal' data-target='#modal_$artefato_tipo' title='$artefato_criacao'><a href='javascript:void(0);' class='$fa_color'>";
+		$artefato_link_1 = "<span id='novo_$artefato_tipo' data-toggle='modal' data-target='$artefato_modal' title='$artefato_criacao'><a href='javascript:void(0);' class='$fa_color'>";
 		$artefato_link_2 = "</a></span>";
 	}
 
@@ -86,6 +90,7 @@
 	unset($fa_size);
 	unset($col_limit);
 	unset($titulo_class);
+	unset($artefato_modal);
 	
 	return $artefato_template_result;
 

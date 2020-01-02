@@ -98,10 +98,16 @@
 	} else {
 		$quill_texto_id = $pagina_texto_id;
 	}
+	
+	$compartilhamento_check = false;
+	if ($quill_texto_id != false) {
+		$compartilhamento_check = return_compartilhamento($pagina_id, $user_id);
+	}
+	
 	$quill_verbete_content = false;
 	if ($quill_texto_id != false) {
 		$quill_query = "SELECT verbete_content FROM Textos WHERE id = $quill_texto_id";
-		if ($template_quill_public != true) {
+		if (($template_quill_public != true) && ($compartilhamento_check == false)){
 			$quill_query .= " AND user_id = $user_id";
 		}
 		$quill_textos = $conn->query($quill_query);
@@ -135,6 +141,10 @@
 		} else {
 			$conn->query("INSERT INTO Textos_arquivo (curso_id, tipo, page_id, pagina_id, pagina_tipo, estado_texto, verbete_html, verbete_text, verbete_content, user_id) VALUES ($curso_id, '$template_id', $texto_page_id, $template_quill_pagina_id, '$pagina_tipo', 1, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
 			$conn->query("INSERT INTO Textos (curso_id, tipo, page_id, pagina_id, pagina_tipo, estado_texto, verbete_html, verbete_text, verbete_content, user_id) VALUES ($curso_id, '$template_id', $texto_page_id, $template_quill_pagina_id, '$pagina_tipo', 1, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
+			if ($pagina_estado == 0) {
+				$conn->query("UPDATE Paginas SET estado = 1 WHERE id = $pagina_id");
+				$pagina_estado = 1;
+			}
 		}
 		
 		if (isset($quill_visualizacoes_tipo)) {
@@ -150,8 +160,12 @@
 	";
 	
 	if ($quill_texto_id != false) {
+		if ($pagina_tipo == 'texto') {
+			$template_botoes .= "
+				<a href='historico_verbete.php?texto_id=$quill_texto_id' target='_blank' title='Histórico do documento'><i class='fal fa-history fa-fw'></i></a>
+			";
+		}
 		$template_botoes .= "
-			<a href='historico_verbete.php?texto_id=$quill_texto_id' target='_blank' title='Histórico do documento'><i class='fal fa-history fa-fw'></i></a>
 			<a href='pagina.php?texto_id=$quill_texto_id' target='_blank' title='Editar na página de edição'><i class='fal fa-external-link-square fa-fw'></i></a>
 		";
 	}

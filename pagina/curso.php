@@ -2,6 +2,7 @@
 	$template_id = 'curso_busca';
 	$template_titulo = 'Busca';
 	$template_botoes = false;
+	$template_botoes_padrao = false;
 	$template_conteudo = false;
 	$template_conteudo .= "
                         <form id='searchform' action='' method='post'>
@@ -30,6 +31,7 @@
 	$template_titulo = 'Matérias';
 	$template_conteudo_no_col = true;
 	$template_botoes = false;
+	$template_botoes_padrao = false;
 	$template_conteudo = false;
 	
 	$row_items = 2;

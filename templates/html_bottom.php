@@ -304,8 +304,8 @@
 				});
 				$(document).on('click', '#mostrar_imagens', function() {
 				    $('.esconder_sessao').hide();
-				    $('#imagens_privadas').show();
 				    $('#imagens_publicas').show();
+				    $('#imagens_privadas').show();
 				});
 				$(document).on('click', '#mostrar_acervo', function() {
 				    $('.esconder_sessao').hide();
@@ -323,6 +323,7 @@
 				});
 				$(document).on('click', '#mostrar_grupos', function() {
 				    $('.esconder_sessao').hide();
+				    $('#grupos_estudos').show();
 				    $('#convidar_grupo').show();
 				    $('#convites_ativos').show();
 				    $('#criar_grupo').show();

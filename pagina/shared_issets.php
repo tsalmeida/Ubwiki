@@ -96,5 +96,9 @@
 		}
 		$pagina_titulo = $pagina_novo_titulo;
 		$texto_titulo = $pagina_novo_titulo;
+		$nao_contar = true;
 	}
-	?>
+	
+	$grupos_do_usuario = $conn->query("SELECT grupo_id FROM Membros WHERE membro_user_id = $user_id");
+
+?>

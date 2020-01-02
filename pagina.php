@@ -21,13 +21,27 @@
 			if ($pagina_texto_id == 'new') {
 				$conn->query("INSERT INTO Textos (tipo, compartilhamento, page_id, user_id, verbete_html, verbete_text, verbete_content) VALUES ('anotacoes', 'privado', 0, $user_id, FALSE, FALSE, FALSE)");
 				$pagina_texto_id = $conn->insert_id;
+				header("Location:pagina.php?texto_id=$pagina_texto_id");
+				exit();
 			}
 			$pagina_id = return_pagina_id($pagina_texto_id, 'texto');
 		} elseif (isset($_GET['grupo_id'])) {
 			$grupo_id = $_GET['grupo_id'];
 			$pagina_id = return_pagina_id($grupo_id, 'grupo');
+		} elseif (isset($_GET['user_id'])) {
+			$escritorio_user_id = $_GET['user_id'];
+			$escritorio_user_apelido = return_apelido_user_id($escritorio_user_id);
+			if ($escritorio_user_apelido == false) {
+				header("Location:pagina.php?pagina_id=6");
+				exit();
+			}
+			$escritorio_id = return_escritorio_id($escritorio_user_id);
+			$pagina_id = $escritorio_id;
+			header("Location:pagina.php?pagina_id=$escritorio_id");
+			exit();
 		} else {
 			header('Location:pagina.php?pagina_id=4');
+			exit();
 		}
 	} else {
 		$pagina_id = $_GET['pagina_id'];
@@ -35,6 +49,7 @@
 			$conn->query("INSERT INTO Paginas (tipo, compartilhamento, user_id) VALUES ('pagina', 'privado', $user_id)");
 			$pagina_id = $conn->insert_id;
 			header("Location:pagina.php?pagina_id=$pagina_id");
+			exit();
 		}
 	}
 	
@@ -50,12 +65,22 @@
 		$pagina_etiqueta_id = $pagina_info[7];
 	} else {
 		header('Location:pagina.php?pagina_id=4');
+		exit();
+	}
+	
+	if ($pagina_compartilhamento == 'privado') {
+		if ($pagina_user_id != $user_id) {
+			$check_compartilhamento = return_compartilhamento($pagina_id, $user_id);
+			if ($check_compartilhamento == false) {
+				header('Location:pagina.php?pagina_id=4');
+				exit();
+			}
+		}
 	}
 	
 	if (isset($pagina_texto_id)) {
 		$pagina_tipo = 'texto';
 	}
-	
 	
 	if ($pagina_tipo == 'topico') {
 		$topico_id = $pagina_item_id;
@@ -71,19 +96,17 @@
 		$grupo_id = $pagina_item_id;
 	} elseif ($pagina_tipo == 'texto') {
 		$pagina_texto_id = $pagina_item_id;
-	} elseif ($pagina_tipo == 'pagina') {
-		if ($pagina_compartilhamento == 'privado') {
-			if ($pagina_user_id != $user_id) {
-				header("Location:pagina.php?pagina_id=3");
-			}
-		}
 	} elseif ($pagina_tipo == 'secao') {
 		$pagina_original_info = return_pagina_info($pagina_item_id);
 		$pagina_original_compartilhamento = $pagina_original_info[4];
 		$pagina_compartilhamento = $pagina_original_compartilhamento;
 		$pagina_original_user_id = $pagina_original_info[5];
 		if (($pagina_original_user_id != $user_id) && ($pagina_original_compartilhamento == 'privado')) {
-			header("Location:pagina.php?pagina_id=3");
+			$check_compartilhamento = return_compartilhamento($pagina_item_id, $pagina_original_user_id);
+			if ($check_compartilhamento == false) {
+				header("Location:pagina.php?pagina_id=3");
+				exit();
+			}
 		}
 	}
 	
@@ -110,7 +133,7 @@
 		if ((strpos($texto_tipo, 'anotac') !== false) || ($texto_tipo == 'verbete_user')) {
 			$texto_anotacao = true;
 			if (($texto_compartilhamento != false) && ($texto_user_id != $user_id)) {
-				$comps = $conn->query("SELECT recipiente_id, compartilhamento FROM Compartilhamento WHERE item_tipo = 'texto' AND item_id = $texto_id");
+				$comps = $conn->query("SELECT recipiente_id, compartilhamento FROM Compartilhamento WHERE item_tipo = 'texto' AND item_id = $pagina_id");
 				if ($comps->num_rows > 0) {
 					while ($comp = $comps->fetch_assoc()) {
 						$item_comp_compartilhamento = $comp['compartilhamento'];
@@ -119,22 +142,26 @@
 							$check_membro_grupo = check_membro_grupo($user_id, $item_grupo_id);
 							if ($check_membro_grupo == false) {
 								header('Location:pagina.php?pagina_id=4');
+								exit();
 							}
 						} elseif ($item_comp_compartilhamento == 'usuario') {
 							$item_usuario_id = $comp['recipiente_id'];
 							if ($item_usuario_id != $user_id) {
 								header('Location:pagina.php?pagina_id=4');
+								exit();
 							}
 						}
 					}
 				} else {
 					header('Location:pagina.php?pagina_id=3');
+					exit();
 				}
 			}
 		}
 		if (isset($_POST['destruir_anotacao'])) {
 			$conn->query("DELETE FROM Textos WHERE id = $texto_id");
 			header('Location:pagina.php?pagina_id=5');
+			exit();
 		}
 		if ($texto_page_id === 0) {
 			$texto_editar_titulo = true;
@@ -143,6 +170,7 @@
 		$check_membro = check_membro_grupo($user_id, $grupo_id);
 		if ($check_membro == false) {
 			header('Location:pagina.php?pagina_id=3');
+			exit();
 		}
 	}
 	
@@ -240,6 +268,12 @@
 			$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina, extra, extra2) VALUES ($user_id, $pagina_id, '$pagina_tipo', '$visualizacao_extra', 'pagina')");
 		}
 	}
+	
+	if (isset($_POST['compartilhar_grupo_id'])) {
+		$compartilhar_grupo_id = $_POST['compartilhar_grupo_id'];
+		$conn->query("INSERT INTO Compartilhamento (user_id, item_id, item_tipo, compartilhamento, recipiente_id) VALUES ($user_id, $pagina_id, '$pagina_tipo', 'grupo', $compartilhar_grupo_id)");
+	}
+
 ?>
 <body class="carrara">
 <?php
@@ -249,7 +283,7 @@
     <div class="row justify-content-between">
         <div class='py-2 text-left col'>
 					<?php
-						if (($pagina_tipo != 'sistema') && ($pagina_tipo != 'texto')) {
+						if (($pagina_tipo != 'sistema') && ($pagina_tipo != 'texto') && ($pagina_compartilhamento != 'escritorio')) {
 							echo "<span id='add_elements' class='mx-1' title='' data-toggle='modal' data-target='#modal_add_elementos'><a href='javascript:void(0)' title='Adicionar elemento'><i     class='fad fa-2x fa-plus-circle fa-fw'></i></a></span>";
 						}
 						if ($pagina_tipo == 'elemento') {
@@ -278,9 +312,21 @@
 					?>
         </div>
         <div class='py-2 text-right col'>
-                <span id='forum' title='Fórum' data-toggle='modal' data-target='#modal_forum'>
+					<?php
+						if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id)) {
+							echo "
+	                          <span id='compartilhar_anotacao' class='ml-1' title='Editar compartilhamento desta anotação'
+                                 data-toggle='modal' data-target='#modal_compartilhar_anotacao'>
+                                <a href='javascript:void(0);'>
+                                    <i class='fal fa-users fa-fw'></i>
+                                </a>
+                              </span>
+	                        ";
+						}
+					?>
+            <span id='forum' title='Fórum' data-toggle='modal' data-target='#modal_forum'>
                     <?php
-	                    if (($user_id != false) && ($pagina_tipo != 'sistema')) {
+	                    if (($user_id != false) && ($pagina_tipo != 'sistema') && ($pagina_compartilhamento != 'escritorio')) {
 		                    $comments = $conn->query("SELECT timestamp, comentario, user_id FROM Forum WHERE pagina_id = $pagina_id");
 		                    if ($comments->num_rows == 0) {
 			                    echo "
@@ -301,7 +347,7 @@
                     ?>
                 </span>
 					<?php
-						if (($user_id != false) && ($pagina_tipo != 'sistema')) {
+						if (($user_id != false) && ($pagina_tipo != 'sistema') && ($pagina_compartilhamento != 'escritorio')) {
 							echo "
                               <span id='adicionar_etiqueta' class='ml-1' title='Adicionar etiqueta' data-toggle='modal'
                                     data-target='#modal_gerenciar_etiquetas'>
@@ -389,6 +435,9 @@
 				$template_subtitulo = 'Página privada';
 			} elseif ($pagina_compartilhamento == 'publico') {
 				$template_subtitulo = 'Página pública';
+			} elseif ($pagina_compartilhamento == 'escritorio') {
+				$pagina_user_apelido = return_apelido_user_id($pagina_user_id);
+				$template_subtitulo = "Escritório de $pagina_user_apelido";
 			} else {
 				$template_subtitulo = $pagina_compartilhamento;
 			}
@@ -439,7 +488,7 @@
 				
 				if ($pagina_tipo == 'elemento') {
 					
-					if (($elemento_tipo == 'imagem') || ($elemento_tipo == 'imagem_privada')) {
+					if ($elemento_tipo == 'imagem') {
 						$template_id = 'imagem_div';
 						$template_titulo = false;
 						$template_botoes = false;
@@ -457,14 +506,14 @@
 				if ($pagina_tipo != 'texto') {
 					$template_id = 'verbete';
 					$template_titulo = false;
-					if (($pagina_tipo == 'sistema') && ($user_tipo != 'admin')) {
+					if ((($pagina_tipo == 'sistema') && ($user_tipo != 'admin')) || (($pagina_tipo == 'escritorio') || ($pagina_user_id != $user_id))) {
 						$template_quill_initial_state = 'leitura';
 						$template_quill_botoes = false;
 						$template_botoes_padrao = false;
 					}
 					$template_conteudo = include 'templates/template_quill.php';
 					include 'templates/page_element.php';
-					if (($pagina_tipo == 'elemento') || ($pagina_tipo == 'pagina')) {
+					if ((($pagina_tipo == 'elemento') || ($pagina_tipo == 'pagina')) && ($pagina_compartilhamento != 'escritorio')) {
 						include 'pagina/secoes_pagina.php';
 					}
 					
@@ -481,7 +530,7 @@
 				echo "</div>";
 			?>
 			<?php
-				if (($pagina_tipo != 'sistema') && ($pagina_tipo != 'texto')) {
+				if (($pagina_tipo != 'sistema') && ($pagina_tipo != 'texto') && ($pagina_compartilhamento != 'escritorio')) {
 					
 					include 'pagina/coluna_direita_anotacoes.php';
 					
@@ -521,7 +570,7 @@
 				$autor_comentario_cor = $autor_comentario_avatar_info[1];
 				
 				$template_modal_body_conteudo .= "<li class='list-group-item'>
-                                                <p></span><strong><a href='perfil.php?pub_user_id=$autor_comentario_id' target='_blank'><span class='$autor_comentario_cor'><i class='fad $autor_comentario_avatar fa-fw fa-2x'></i></span>$autor_comentario_apelido</a></strong> <span class='text-muted'><small>escreveu em $timestamp_comentario</small></span></p>
+                                                <p></span><strong><a href='pagina.php?user_id=$autor_comentario_id' target='_blank'><span class='$autor_comentario_cor'><i class='fad $autor_comentario_avatar fa-fw fa-2x'></i></span>$autor_comentario_apelido</a></strong> <span class='text-muted'><small>escreveu em $timestamp_comentario</small></span></p>
                                                 $texto_comentario
                                               </li>";
 			}
@@ -590,36 +639,6 @@
 	
 	include 'templates/modal.php';
 	
-	$template_modal_div_id = 'modal_adicionar_imagem';
-	$template_modal_titulo = 'Adicionar imagem';
-	$template_modal_enctype = "enctype='multipart/form-data'";
-	$template_modal_body_conteudo = "
-        <div class='md-form mb-2'>
-            <input type='text' id='nova_imagem_titulo' name='nova_imagem_titulo'
-                   class='form-control validate' required>
-            <label data-error='inválido' data-success='válido'
-                   for='nova_imagem_titulo'>Título da imagem</label>
-        </div>
-        <div class='md-form mb-2'>
-        <input type='url' id='nova_imagem_link' name='nova_imagem_link'
-               class='form-control validate'>
-        <label data-error='inválido' data-success='válido'
-               for='nova_imagem_link'>Link para a imagem</label>
-        </div>
-        <div class='md-form mb-2'>
-            <div class='file-field'>
-                <div class='btn btn-primary btn-sm float-left m-0'>
-                    <span>Selecione o arquivo</span>
-                    <input type='file' name='nova_imagem_upload'>
-                </div>
-                <div class='file-path-wrapper'>
-                    <input class='file-path validate' type='text' placeholder='Faça upload da sua imagem'>
-                </div>
-            </div>
-        </div>
-    ";
-	include 'templates/modal.php';
-	
 	if ($pagina_tipo == 'elemento') {
 		include 'pagina/modals_elemento.php';
 	}
@@ -669,40 +688,9 @@
 		include 'templates/modal.php';
 	}
 	
-	$template_modal_div_id = 'modal_add_elementos';
-	$template_modal_titulo = 'Adicionar elemento';
-	$template_modal_show_buttons = false;
-	$template_modal_body_conteudo = false;
-	$template_modal_body_conteudo .= "
-		  	<span id='esconder_adicionar_elemento' data-toggle='modal' data-target='#modal_add_elementos' class='row justify-content-center'>";
+	include 'pagina/modal_add_elemento.php';
 	
-	$artefato_tipo = 'adicionar_youtube';
-	$artefato_titulo = 'Adicionar vídeo do Youtube';
-	$artefato_link = false;
-	$artefato_criacao = false;
-	$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-5';
-	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
-	
-	$artefato_tipo = 'adicionar_imagem';
-	$artefato_titulo = 'Adicionar imagem';
-	$artefato_link = false;
-	$artefato_criacao = false;
-	$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-5';
-	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
-	
-	$template_modal_body_conteudo .= "</span>
-	";
-	
-	$template_modal_body_conteudo .= "
-        <h2>Buscar elemento</h2>
-        <p>Antes de criar novo registro de elemento, por favor use o mecanismo de busca para que não haja duplicidade.</p>
-";
-	
-	$adicionar_referencia_busca_texto = "Digite aqui o título da nova referência";
-	$adicionar_referencia_form_botao = "Adicionar essa referência a esta página.";
-	$template_modal_body_conteudo .= include 'templates/adicionar_referencia_form.php';
-	
-	include 'templates/modal.php';
+	include 'pagina/modal_adicionar_imagem.php';
 	
 	if ((($pagina_tipo == 'sistema') && ($user_tipo == 'admin')) || (($pagina_tipo == 'pagina') && ($pagina_user_id == $user_id)) || (($pagina_tipo == 'texto') && ($pagina_user_id == $user_id))) {
 		if (($pagina_tipo == 'pagina') || ($pagina_tipo == 'sistema')) {
@@ -747,7 +735,54 @@
 	if ($pagina_tipo == 'texto') {
 		include 'pagina/modals_texto.php';
 	}
-
+	
+	$template_modal_div_id = 'modal_compartilhar_anotacao';
+	$template_modal_titulo = 'Compartilhamento';
+	$template_modal_show_buttons = false;
+	$template_modal_body_conteudo = false;
+	$template_modal_body_conteudo .= "
+			  <p>Apenas você, como criador original desta anotação, poderá alterar suas opções de compartilhamento. Por favor, analise cuidadosamente as opções abaixo. Versões anteriores do documento estarão sempre disponíveis no histórico (para todos os que tenham acesso à sua versão atual). Todo usuário com acesso à anotação poderá alterar suas etiquetas.</p>
+			  <h3>Compartilhar com grupo de estudos</h3>
+			  ";
+	if ($grupos_do_usuario->num_rows > 0) {
+		$template_modal_body_conteudo .= "
+                  <form method='post'>
+                    <select name='compartilhar_grupo_id' class='$select_classes'>
+                        <option value='' disabled selected>Selecione o grupo de estudos</option>
+                ";
+		while ($grupo_do_usuario = $grupos_do_usuario->fetch_assoc()) {
+			$grupo_do_usuario_id = $grupo_do_usuario['grupo_id'];
+			$grupo_do_usuario_titulo = return_grupo_titulo_id($grupo_do_usuario_id);
+			$template_modal_body_conteudo .= "<option value='$grupo_do_usuario_id'>$grupo_do_usuario_titulo</option>";
+		}
+		$template_modal_body_conteudo .= "
+                    </select>
+                    <div class='row justify-content-center'>
+                        <button class='$button_classes' name='trigger_compartilhar_grupo'>Compartilhar com grupo</button>
+                    </div>
+                  </form>
+                ";
+	} else {
+		$template_modal_body_conteudo .= "<p class='text-muted'><em>Você não faz parte de nenhum grupo de estudos. Visite seu escritório para participar.</em></p>";
+	}
+	
+	/*$template_modal_body_conteudo .= "
+	<form>
+	<h3>Compartilhar com outro usuário</h3>
+		<select name='compartilhar_usuario' class='$select_classes'>
+				<option value='' disabled selected>Selecione o usuário</option>
+		</select>
+		<div class='row justify-content-center'>
+				<button class='$button_classes' name='trigger_compartilhar_usuario'>Compartilhar com usuário</button>
+		</div>
+	</form>
+	<h3>Tornar anotação pública.</h3>
+	<p>Todo usuário da Ubwiki poderá ler sua anotação, mas não poderá editá-la.</p>
+	<h3>Tornar pública e aberta.</h3>
+	<p>Todo usuário da Ubwiki poderá ler e editar sua anotação.</p>
+	";*/
+	
+	include 'templates/modal.php';
 ?>
 
 </body>
@@ -779,12 +814,6 @@
 		if ($texto_user_id == $user_id) {
 			if (($texto_anotacao == true) && ($texto_tipo != 'verbete_user')) {
 				$quill_extra_buttons .= "
-                  <span id='compartilhar_anotacao' class='ml-1' title='Editar compartilhamento desta anotação'
-                           data-toggle='modal' data-target='#modal_compartilhar_anotacao'>
-                      <a href='javascript:void(0);'>
-                          <i class='fal fa-users fa-fw'></i>
-                      </a>
-                  </span>
                   <span id='apagar_anotacao' class='ml-1' title='Destruir anotação'
                            data-toggle='modal' data-target='#modal_apagar_anotacao'>
                       <a href='javascript:void(0);' class='text-danger'>

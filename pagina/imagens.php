@@ -9,7 +9,7 @@
 		$active = 'active';
 		while ($imagem = $imagens->fetch_assoc()) {
 			$elemento_id = $imagem['elemento_id'];
-			$elementos = $conn->query("SELECT titulo, arquivo, estado FROM Elementos WHERE id = $elemento_id");
+			$elementos = $conn->query("SELECT titulo, arquivo, estado FROM Elementos WHERE id = $elemento_id AND compartilhamento IS NULL");
 			if ($elementos->num_rows > 0) {
 				while ($elemento = $elementos->fetch_assoc()) {
 					$imagem_titulo = $elemento['titulo'];

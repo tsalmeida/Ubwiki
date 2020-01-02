@@ -22,6 +22,7 @@
 				$_SESSION['user_email'] = $usuario['email'];
 				$check1 = $_SESSION['user_id'];
 				header('Location:escritorio.php');
+				exit();
 			}
 		}
 	}
@@ -35,6 +36,7 @@
 					$_SESSION['user_id'] = $usuario['id'];
 					$_SESSION['user_email'] = $usuario_email;
 					header('Location:escritorio.php');
+					exit();
 				}
 			} else {
 				$conn->query("INSERT INTO Usuarios (email) VALUES ('$usuario_email')");
@@ -43,5 +45,6 @@
  			}
 		} else {
 			header('Location:pagina.php?pagina_id=2'); // página que explica a necessidade de fazer login no site da Ubique.
+			exit();
 		}
 	}

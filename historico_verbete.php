@@ -39,7 +39,7 @@
 	include 'templates/html_head.php';
 
 ?>
-<body>
+<body class="carrara">
 <?php
 	include 'templates/navbar.php';
 ?>
@@ -87,7 +87,7 @@
 									$template_conteudo .= "anônimo.";
 								} else {
 									$template_conteudo .= "
-									  <a href='perfil.php?pub_user_id=$historico_verbete_user_id' target='_blank' title='Visite o escritório deste usuário'>$historico_verbete_user_apelido</a>
+									  <a href='pagina.php?user_id=$historico_verbete_user_id' target='_blank' title='Visite o escritório deste usuário'>$historico_verbete_user_apelido</a>
                                   	";
 								}
 								$template_conteudo .= "

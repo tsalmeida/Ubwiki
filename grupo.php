@@ -52,7 +52,7 @@
 								
 								$artefato_tipo = 'membro';
 								$artefato_titulo = $membro_user_apelido;
-								$artefato_link = "perfil.php?pub_user_id=$membro_user_id";
+								$artefato_link = "perfil_abandonado.php?pub_user_id=$membro_user_id";
 								$artefato_criacao = false;
 								$avatar_info = return_avatar($membro_user_id);
 								$fa_icone = $avatar_info[0];

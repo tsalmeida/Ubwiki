@@ -30,7 +30,7 @@
 	if ($elemento_link != false) {
 		$dados_elemento .= "<li class='list-group-item'><a href='$elemento_link' target='_blank'>Link original</a></li>";
 	}
-	$dados_elemento .= "<li class='list-group-item'>Adicionado pelo usuário <strong><a href='perfil.php?pub_user_id=$elemento_user_id' target='_blank'>$elemento_user_apelido</a></strong></li>";
+	$dados_elemento .= "<li class='list-group-item'>Adicionado pelo usuário <strong><a href='pagina.php?user_id=$elemento_user_id' target='_blank'>$elemento_user_apelido</a></strong></li>";
 	$dados_elemento .= "</ul>";
 	
 	$template_modal_div_id = 'modal_dados_elemento';

@@ -99,6 +99,13 @@
 				$conn->query("UPDATE Textos SET tipo = 'anotacoes', compartilhamento = 'privado' WHERE id = $anotacao_privada_id");
 			}
 		}
+		$anotacoes_privadas = $conn->query("SELECT id FROM Textos_arquivo WHERE tipo = 'anotacao_privada'");
+		if ($anotacoes_privadas->num_rows > 0) {
+			while ($anotacao_privada = $anotacoes_privadas->fetch_assoc()) {
+				$anotacao_privada_id = $anotacao_privada['id'];
+				$conn->query("UPDATE Textos_arquivo SET tipo = 'anotacoes', compartilhamento = 'privado' WHERE id = $anotacao_privada_id");
+			}
+		}
 		$conn->query("ALTER TABLE `Secoes` ADD `pagina_id` INT(11) NULL DEFAULT NULL AFTER `elemento_id`;");
 		$conn->query("ALTER TABLE `Secoes` ADD `secao_pagina_id` INT(11) NULL DEFAULT NULL AFTER `pagina_id`;");
 		$conn->query("ALTER TABLE `Paginas` ADD `etiqueta_id` INT(11) NULL DEFAULT NULL AFTER `compartilhamento`;");
@@ -141,12 +148,22 @@
 				$conn->query("UPDATE Paginas SET estado = $topico_estado_pagina WHERE id = $topico_pagina_id");
 			}
 		}
+		$conn->query("ALTER TABLE `Usuarios` ADD `pagina_id` INT(11) NULL DEFAULT NULL AFTER `apelido`;");
+		$conn->query("ALTER TABLE `Usuarios` ADD `escritorio_id` INT(11) NULL DEFAULT NULL AFTER `pagina_id`;");
 		$usuarios = $conn->query("SELECT id FROM Usuarios");
 		while ($usuario = $usuarios->fetch_assoc()) {
 			$ativo_usuario_id = $usuario['id'];
 			$conn->query("INSERT INTO Opcoes (opcao, opcao_tipo, user_id) VALUES (2, 'curso_ativo', $ativo_usuario_id)");
+			$conn->query("INSERT INTO Opcoes (opcao, opcao_tipo, user_id) VALUES (2, 'curso', $ativo_usuario_id)");
+			$novo_escritorio_id = return_escritorio_id($ativo_usuario_id);
+			$textos = $conn->query("SELECT id FROM Textos WHERE tipo = 'verbete_user' AND user_id = $ativo_usuario_id");
+			if ($textos->num_rows > 0) {
+				while ($texto = $textos->fetch_assoc()) {
+					$texto_id = $texto['id'];
+					$conn->query("UPDATE Textos SET pagina_id = $novo_escritorio_id, pagina_tipo = 'pagina', page_id = $ativo_usuario_id, tipo = 'verbete' WHERE id = $texto_id");
+				}
+			}
 		}
-		$conn->query("ALTER TABLE `Usuarios` ADD `pagina_id` INT(11) NULL DEFAULT NULL AFTER `apelido`;");
 		$usuarios = $conn->query("SELECT id FROM Usuarios WHERE pagina_id IS NULL");
 		if ($usuarios->num_rows > 0) {
 			while ($usuario = $usuarios->fetch_assoc()) {
@@ -160,14 +177,28 @@
 			while ($item_acervo = $items_acervo->fetch_assoc()) {
 				$item_acervo_etiqueta_id = $item_acervo['etiqueta_id'];
 				$item_acervo_etiqueta_tipo = $item_acervo['etiqueta_tipo'];
-				$item_acervo_elemento_id = $item_acervo['elemento_id'];
+				$item_acervo_elemento_id = return_etiqueta_elemento_id($item_acervo_etiqueta_id);
+				if ($item_acervo_elemento_id == false) {
+				    $item_acervo_elemento_id = "NULL";
+                }
 				$item_acervo_user_id = $item_acervo['user_id'];
 				$item_acervo_pagina_usuario = return_pagina_id($item_acervo_user_id, 'escritorio');
-				$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, extra, user_id) VALUES ($item_acervo_pagina_usuario, 'escritorio', $item_acervo_etiqueta_id, '$item_acervo_etiqueta_tipo', $item_acervo_elemento_id, $item_acervo_user_id)");
+				$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, extra, user_id) VALUES ($item_acervo_pagina_usuario, 'escritorio', $item_acervo_elemento_id, '$item_acervo_etiqueta_tipo', $item_acervo_etiqueta_id, $item_acervo_user_id)");
 			}
 		}
 		$conn->query("DROP TABLE `Ubwiki`.`Acervo`");
 		$conn->query("ALTER TABLE `Textos` ADD `texto_pagina_id` INT(11) NULL DEFAULT NULL AFTER `pagina_id`;");
+		$conn->query("ALTER TABLE `Textos_arquivo` ADD `texto_pagina_id` INT(11) NULL DEFAULT NULL AFTER `pagina_id`;");
+		$conn->query("ALTER TABLE `Elementos` ADD `compartilhamento` VARCHAR(255) NULL DEFAULT NULL AFTER `pagina_id`;");
+		$elementos = $conn->query("SELECT id, pagina_id FROM Elementos WHERE tipo = 'imagem_privada'");
+		if ($elementos->num_rows > 0) {
+			while ($elemento = $elementos->fetch_assoc()) {
+				$elemento_id = $elemento['id'];
+				$elemento_pagina_id = $elemento['pagina_id'];
+				$conn->query("UPDATE Paginas SET compartilhamento = 'privado' WHERE id = $elemento_pagina_id");
+				$conn->query("UPDATE Elementos SET tipo = 'imagem', compartilhamento = 'privado' WHERE id = $elemento_id");
+			}
+		}
 	}
 	
 	if (isset($_POST['funcoes_gerais'])) {

@@ -5,7 +5,6 @@
 	$template_botoes = false;
 	$template_conteudo = false;
 	
-	
 	$template_conteudo .= "<ul class='list-group'>";
 	
 	$result = $conn->query("SELECT DISTINCT nivel FROM Topicos WHERE materia_id = '$materia_id'");
@@ -117,4 +116,4 @@
 	
 	
 	include 'templates/page_element.php';
-	?>
+?>

@@ -321,41 +321,7 @@
 		}
 	}
 	
-	if (isset($_POST['nova_imagem_titulo'])) {
-		$nova_imagem_titulo = $_POST['nova_imagem_titulo'];
-		$nova_imagem_titulo = mysqli_real_escape_string($conn, $nova_imagem_titulo);
-		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, 0, 'nova_imagem_privada')");
-	}
-	
-	if ((isset($_POST['nova_imagem_link'])) && ($_POST['nova_imagem_link'] != false)) {
-		$nova_imagem_link = $_POST['nova_imagem_link'];
-		$nova_imagem_link = base64_encode($nova_imagem_link);
-		adicionar_imagem($nova_imagem_link, $nova_imagem_titulo, 0, $user_id, 'privada', 'link', 0);
-	} else {
-		$upload_ok = false;
-		if (isset($_FILES['nova_imagem_upload'])) {
-			$nova_imagem_upload = $_FILES['nova_imagem_upload'];
-			$target_dir = '../imagens/uploads/';
-			$target_file = $target_dir . basename($_FILES['nova_imagem_upload']['name']);
-			$image_filetype = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-			// check if file is actually an image
-			$check = getimagesize($_FILES['nova_imagem_upload']['tmp_name']);
-			if ($check !== false) {
-				$upload_ok = true;
-			}
-			if ($upload_ok == true) {
-				if ($image_filetype != 'jpg' && $image_filetype != 'png' && $image_filetype != 'jpeg'
-					&& $image_filetype != 'gif') {
-					$upload_ok = false;
-				}
-			}
-			if ($upload_ok != false) {
-				move_uploaded_file($_FILES['nova_imagem_upload']['tmp_name'], $target_file);
-				$target_file = base64_encode($target_file);
-				adicionar_imagem($target_file, $nova_imagem_titulo, 0, $user_id, 'privada', 'upload', 0);
-			}
-		}
-	}
+    include 'pagina/shared_issets.php';
 	
 	if (isset($_POST['aderir_novo_curso'])) {
 		$aderir_novo_curso = $_POST['aderir_novo_curso'];
@@ -438,7 +404,7 @@
                     <div class='row' class='justify-content-center'>
                       <a id='escritorio_home' href='javascript:void(0);' class='p-2 rounded text-muted artefato' title='Retornar à página inicial'><i class='fad fa-lamp-desk fa-3x fa-fw'></i></a>
                       <a id='mostrar_textos' href='javascript:void(0);' class='p-2 rounded text-primary artefato' title='Pressione para ver seus textos e notas privadas'><i class='fad fa-typewriter fa-3x fa-fw'></i></a>
-                      <a id='mostrar_imagens' href='javascript:void(0);' class='p-2 rounded text-danger artefato' title='Pressione para ver suas imagens privadas e públicas'><i class='fad fa-images fa-3x fa-fw'></i></a>
+                      <a id='mostrar_imagens' href='javascript:void(0);' class='p-2 rounded text-danger artefato' title='Pressione para ver suas imagens públicas'><i class='fad fa-images fa-3x fa-fw'></i></a>
                       <a id='mostrar_acervo' href='javascript:void(0);' class='p-2 rounded text-success artefato' title='Pressione para ver seu acervo virtual'><i class='fad fa-books fa-3x fa-fw'></i></a>
                       <a id='mostrar_tags' href='javascript:void(0);' class='p-2 rounded text-warning artefato' title='Pressione para ver suas áreas de interesse'><i class='fad fa-tags fa-3x fa-fw'></i></a>
                       <a id='mostrar_grupos' href='javascript:void(0);' class='p-2 rounded text-default artefato'><i class='fad fa-users fa-3x fa-fw'></i></a>
@@ -580,127 +546,130 @@
 						$template_col_value = 'col-lg-8 col-md-10 col-sm-12';
 						$template_conteudo = false;
 						$template_conteudo .= "<p>Ao aderir a um grupo de estudos, você poderá compartilhar exclusivamente com outros membros. Para participar desta ferramenta, é necessário determinar um apelido. Somente o criador de um grupo de estudos pode acrescentar novos membros.</p>";
-						
-						if ($convites_ativos->num_rows > 0) {
-							$template_conteudo .= "
-								<h2>Você recebeu convite para participar de grupos de estudos:</h2>
-								<form method='post'>
-									<div class='md-form mb-2'>
-										<select class='$select_classes' name='responder_convite_grupo_id' id='responder_convite_grupo_id'>
-											<option value='' disabled selected>Selecione o grupo de estudos:</option>
-							";
-							while ($convite_ativo = $convites_ativos->fetch_assoc()) {
-								$convite_ativo_grupo_id = $convite_ativo['grupo_id'];
-								$convite_ativo_grupo_titulo = return_grupo_titulo_id($convite_ativo_grupo_id);
-								$template_conteudo .= "<option value='$convite_ativo_grupo_id'>$convite_ativo_grupo_titulo</option>";
+						if ($user_apelido == false) {
+						    $template_conteudo .= "<p><strong>Para participar de grupos de estudos, é necessário determinar um apelido. Você poderá fazê-lo ao pressionar este ícone, no campo superior esquerdo desta página: <span class='text-info'><i class='fad fa-user-cog'></i></span></strong></p>";
+                        }
+						else {
+							if ($convites_ativos->num_rows > 0) {
+								$template_conteudo .= "
+                                    <h2>Você recebeu convite para participar de grupos de estudos:</h2>
+                                    <form method='post'>
+                                        <div class='md-form mb-2'>
+                                            <select class='$select_classes' name='responder_convite_grupo_id' id='responder_convite_grupo_id'>
+                                                <option value='' disabled selected>Selecione o grupo de estudos:</option>
+                                ";
+								while ($convite_ativo = $convites_ativos->fetch_assoc()) {
+									$convite_ativo_grupo_id = $convite_ativo['grupo_id'];
+									$convite_ativo_grupo_titulo = return_grupo_titulo_id($convite_ativo_grupo_id);
+									$template_conteudo .= "<option value='$convite_ativo_grupo_id'>$convite_ativo_grupo_titulo</option>";
+								}
+								$template_conteudo .= "
+                                    </select>
+                                    </div>
+                                    <div class='row justify-content-center'>
+                                        <button name='trigger_aceitar_convite' class='$button_classes'>Aceitar convite</button>
+                                        <button name='trigger_rejeitar_convite' class='$button_classes_red'>Rejeitar convite</button>
+                                    </div>
+                                    </form>
+                                ";
 							}
-							$template_conteudo .= "
-						        </div>
-						        </select>
-						        <div class='row justify-content-center'>
-						            <button name='trigger_aceitar_convite' class='$button_classes'>Aceitar convite</button>
-						            <button name='trigger_rejeitar_convite' class='$button_classes_red'>Rejeitar convite</button>
-                                </div>
-                                </form>
-						    ";
 						}
-						
 						include 'templates/page_element.php';
 						
-						$grupos_usuario_membro = $conn->query("SELECT grupo_id FROM Membros WHERE membro_user_id = $user_id");
-						if ($grupos_usuario_membro->num_rows > 0) {
-							$template_id = 'grupos_usuario_membro';
-							$template_titulo = 'Grupos de que você faz parte';
-							$template_botoes = false;
-							$template_classes = 'esconder_sessao justify-content-center';
-							$template_col_value = 'col-lg-8 col-md-10 col-sm-12';
-							$template_conteudo = false;
-							$template_conteudo .= "<ul class='list-group'>";
-							while ($grupo_usuario_membro = $grupos_usuario_membro->fetch_assoc()) {
-								$grupo_usuario_membro_grupo_id = $grupo_usuario_membro['grupo_id'];
-								$grupo_usuario_membro_grupo_titulo = return_grupo_titulo_id($grupo_usuario_membro_grupo_id);
-								$template_conteudo .= "<a href='pagina.php?grupo_id=$grupo_usuario_membro_grupo_id' target='_blank'><li class='list-group-item list-group-item-action'>$grupo_usuario_membro_grupo_titulo</li></a>";
+						if ($user_apelido != false) {
+							$grupos_usuario_membro = $conn->query("SELECT grupo_id FROM Membros WHERE membro_user_id = $user_id AND estado IS NOT NULL");
+							if ($grupos_usuario_membro->num_rows > 0) {
+								$template_id = 'grupos_usuario_membro';
+								$template_titulo = 'Grupos de que você faz parte';
+								$template_botoes = false;
+								$template_classes = 'esconder_sessao justify-content-center';
+								$template_col_value = 'col-lg-8 col-md-10 col-sm-12';
+								$template_conteudo = false;
+								$template_conteudo .= "<ul class='list-group'>";
+								while ($grupo_usuario_membro = $grupos_usuario_membro->fetch_assoc()) {
+									$grupo_usuario_membro_grupo_id = $grupo_usuario_membro['grupo_id'];
+									$grupo_usuario_membro_grupo_titulo = return_grupo_titulo_id($grupo_usuario_membro_grupo_id);
+									$template_conteudo .= "<a href='pagina.php?grupo_id=$grupo_usuario_membro_grupo_id' target='_blank'><li class='list-group-item list-group-item-action'>$grupo_usuario_membro_grupo_titulo</li></a>";
+								}
+								$template_conteudo .= "</ul>";
+								include 'templates/page_element.php';
 							}
-							$template_conteudo .= "</ul>";
-							include 'templates/page_element.php';
-						}
-						
-						if ($grupos_do_usuario->num_rows > 0) {
-							$template_id = 'convidar_grupo';
-							$template_titulo = 'Convide alguém para seu grupo de estudos';
-							$template_botoes = false;
-							$template_classes = 'esconder_sessao justify-content-center';
-							$template_col_value = 'col-lg-8 col-md-10 col-sm-12';
-							$template_conteudo = false;
-							$template_conteudo .=
-								"
-							<form method='post'>
-								<div class='md-form mb-2'>
-									<select class='$select_classes' name='convidar_apelido' id='convidar_apelido' required>
-										<option value='' disabled selected>Apelido do convidado</option>
-				            ";
-							$usuarios = $conn->query("SELECT apelido, id FROM Usuarios WHERE apelido IS NOT NULL ORDER BY apelido");
-							while ($usuario = $usuarios->fetch_assoc()) {
-								$usuario_apelido = $usuario['apelido'];
-								$usuario_id = $usuario['id'];
-								$template_conteudo .= "<option value='$usuario_id'>$usuario_apelido</option>";
-							}
-							$template_conteudo .= "
-                            </select>
-                            </div>
-							";
 							
-							$template_conteudo .= "
-							<div class='md-form mb-2'>
-								<select class='$select_classes' name='convidar_grupo_id' id='convidar_grupo_id' required>
-									<option value='' disabled selected>Selecione o grupo de estudo</option>
-							";
-							while ($grupo_do_usuario = $grupos_do_usuario->fetch_assoc()) {
-								$grupo_do_usuario_id = $grupo_do_usuario['id'];
-								$grupo_do_usuario_titulo = $grupo_do_usuario['titulo'];
-								$template_conteudo .= "<option value='$grupo_do_usuario_id'>$grupo_do_usuario_titulo</option>";
+							if ($grupos_do_usuario->num_rows > 0) {
+								$template_id = 'convidar_grupo';
+								$template_titulo = 'Convide alguém para seu grupo de estudos';
+								$template_botoes = false;
+								$template_classes = 'esconder_sessao justify-content-center';
+								$template_col_value = 'col-lg-8 col-md-10 col-sm-12';
+								$template_conteudo = false;
+								$template_conteudo .=
+									"
+                                    <form method='post'>
+                                        <div class='md-form mb-2'>
+                                            <select class='$select_classes' name='convidar_apelido' id='convidar_apelido' required>
+                                                <option value='' disabled selected>Apelido do convidado</option>
+                                    ";
+								$usuarios = $conn->query("SELECT apelido, id FROM Usuarios WHERE apelido IS NOT NULL ORDER BY apelido");
+								while ($usuario = $usuarios->fetch_assoc()) {
+									$usuario_apelido = $usuario['apelido'];
+									$usuario_id = $usuario['id'];
+									$template_conteudo .= "<option value='$usuario_id'>$usuario_apelido</option>";
+								}
+								$template_conteudo .= "
+                                </select>
+                                </div>
+                                ";
+								
+								$template_conteudo .= "
+                                <div class='md-form mb-2'>
+                                    <select class='$select_classes' name='convidar_grupo_id' id='convidar_grupo_id' required>
+                                        <option value='' disabled selected>Selecione o grupo de estudo</option>
+                                ";
+								while ($grupo_do_usuario = $grupos_do_usuario->fetch_assoc()) {
+									$grupo_do_usuario_id = $grupo_do_usuario['id'];
+									$grupo_do_usuario_titulo = $grupo_do_usuario['titulo'];
+									$template_conteudo .= "<option value='$grupo_do_usuario_id'>$grupo_do_usuario_titulo</option>";
+								}
+								$template_conteudo .= "
+                                    </select>
+                                    </div>
+                                    <div class='row justify-content-center'>
+                                        <button name='trigger_convidar_grupo' class='$button_classes'>Enviar convite</button>
+                                    </div>
+                                    </form>
+							    ";
+								include 'templates/page_element.php';
 							}
-							$template_conteudo .= "
-                            </select>
-                            </div>
-                            <div class='row justify-content-center'>
-                            	<button name='trigger_convidar_grupo' class='$button_classes'>Enviar convite</button>
-							</div>
-							</form>
-							";
-							include 'templates/page_element.php';
-						}
-						
-						
-						if ($convites_do_usuario->num_rows > 0) {
-							$template_id = 'convites_ativos';
-							$template_titulo = 'Seus convites ativos';
+							
+							if ($convites_do_usuario->num_rows > 0) {
+								$template_id = 'convites_ativos';
+								$template_titulo = 'Seus convites ativos';
+								$template_botoes = false;
+								$template_classes = 'esconder_sessao justify-content-center';
+								$template_col_value = 'col-lg-8 col-md-10 col-sm-12';
+								$template_conteudo = false;
+								$template_conteudo .= "
+								<ul class='list-group'>
+							    ";
+								while ($convite_do_usuario = $convites_do_usuario->fetch_assoc()) {
+									$convite_timestamp = $convite_do_usuario['criacao'];
+									$convite_grupo_id = $convite_do_usuario['grupo_id'];
+									$convite_membro_user_id = $convite_do_usuario['membro_user_id'];
+									$convite_grupo_titulo = return_grupo_titulo_id($convite_grupo_id);
+									$convite_membro_user_apelido = return_apelido_user_id($convite_membro_user_id);
+									$template_conteudo .= "<li class='list-group-item'>$convite_timestamp: $convite_grupo_titulo // <a href='pagina.php?user_id=$convite_membro_user_id' target='_blank'>$convite_membro_user_apelido</a></li>";
+								}
+								$template_conteudo .= "</ul>";
+								include 'templates/page_element.php';
+							}
+							
+							$template_id = 'criar_grupo';
+							$template_titulo = 'Criar novo grupo de estudo';
 							$template_botoes = false;
 							$template_classes = 'esconder_sessao justify-content-center';
 							$template_col_value = 'col-lg-8 col-md-10 col-sm-12';
 							$template_conteudo = false;
 							$template_conteudo .= "
-								<ul class='list-group'>
-							";
-							while ($convite_do_usuario = $convites_do_usuario->fetch_assoc()) {
-								$convite_timestamp = $convite_do_usuario['criacao'];
-								$convite_grupo_id = $convite_do_usuario['grupo_id'];
-								$convite_membro_user_id = $convite_do_usuario['membro_user_id'];
-								$convite_grupo_titulo = return_grupo_titulo_id($convite_grupo_id);
-								$convite_membro_user_apelido = return_apelido_user_id($convite_membro_user_id);
-								$template_conteudo .= "<li class='list-group-item'>$convite_timestamp: $convite_grupo_titulo // <a href='perfil.php?pub_user_id=$convite_membro_user_id' target='_blank'>$convite_membro_user_apelido</a></li>";
-							}
-							$template_conteudo .= "</ul>";
-							include 'templates/page_element.php';
-						}
-						
-						$template_id = 'criar_grupo';
-						$template_titulo = 'Criar novo grupo de estudo';
-						$template_botoes = false;
-						$template_classes = 'esconder_sessao justify-content-center';
-						$template_col_value = 'col-lg-8 col-md-10 col-sm-12';
-						$template_conteudo = false;
-						$template_conteudo .= "
 							<form method='post'>
 								<div class='md-form mb-2'>
 									<input type='text' name='novo_grupo_titulo' id='novo_grupo_titulo' class='form-control validate mb-1' required>
@@ -710,8 +679,9 @@
 									<button name='trigger_novo_grupo' class='$button_classes'>Criar grupo de estudos</button>
 								</div>
 							</form>
-						";
-						include 'templates/page_element.php';
+						    ";
+							include 'templates/page_element.php';
+						}
 						
 						$template_id = 'escolha_cursos';
 						$template_titulo = 'Seus cursos';
@@ -766,12 +736,13 @@
 						$artefato_titulo = 'Incluir área de interesse';
 						$artefato_criacao = 'Pressione para adicionar uma área de interesse';
 						$artefato_tipo = 'novo_topico';
+						$artefato_modal = '#modal_gerenciar_etiquetas';
 						$artefato_link = false;
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
-						$acervo = $conn->query("SELECT criacao, elemento_id, tipo, extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND pagina_tipo = 'escritorio' ORDER BY id DESC");
+						$acervo = $conn->query("SELECT criacao, elemento_id, tipo, extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND estado = 1 ORDER BY id DESC");
 						while ($item_acervo = $acervo->fetch_assoc()) {
-							$topico_acervo_etiqueta_id = $item_acervo['elemento_id'];
+							$topico_acervo_etiqueta_id = $item_acervo['extra'];
 							$topico_acervo_etiqueta_tipo = $item_acervo['tipo'];
 							if ($topico_acervo_etiqueta_tipo != 'topico') {
 								continue;
@@ -909,23 +880,22 @@
 						$artefato_titulo = 'Adicionar item';
 						$artefato_criacao = 'Pressione para adicionar um item a seu acervo';
 						$artefato_tipo = 'nova_referencia';
+						$artefato_modal = '#modal_add_elementos';
 						$artefato_link = false;
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
 						mysqli_data_seek($acervo, 0);
 						while ($acervo_item = $acervo->fetch_assoc()) {
 							$acervo_item_criacao = $acervo_item['criacao'];
-							$acervo_item_etiqueta_id = $acervo_item['elemento_id'];
+							$acervo_item_elemento_id = $acervo_item['elemento_id'];
 							$acervo_item_etiqueta_tipo = $acervo_item['tipo'];
-							$acervo_item_elemento_id = $acervo_item['extra'];
+							$acervo_item_etiqueta_id = $acervo_item['extra'];
 							if ($acervo_item_etiqueta_tipo == 'topico') {
 								continue;
 							}
-							if ($acervo_item_elemento_id == false) {
-								$acervo_item_elemento_id = return_etiqueta_elemento_id($acervo_item_etiqueta_id);
-							}
 							$acervo_item_elemento_info = return_elemento_info($acervo_item_elemento_id);
 							if ($acervo_item_elemento_info == false) {
+								error_log("this happened: $acervo_item_elemento_id");
 								continue;
 							}
 							$acervo_item_elemento_titulo = $acervo_item_elemento_info[4];
@@ -1038,15 +1008,19 @@
 								$artefato_subtitulo = 'Nota / elemento';
 							} elseif ($anotacao_pagina_tipo == 'curso') {
 								$artefato_titulo = return_curso_titulo_id($anotacao_page_id);
-								$artefato_subtitulo = false;
+								$artefato_subtitulo = 'Nota / curso';
 							} elseif ($anotacao_pagina_tipo == 'materia') {
 								$artefato_titulo = return_materia_titulo_id($anotacao_page_id);
 								$materia_curso_id = return_curso_id_materia($anotacao_page_id);
 								$materia_curso_sigla = return_curso_sigla($materia_curso_id);
-								$artefato_subtitulo = $materia_curso_sigla;
+								$artefato_subtitulo = "Matéria / $materia_curso_sigla";
 							} elseif ($anotacao_pagina_tipo == 'grupo') {
 								$artefato_titulo = return_grupo_titulo_id($anotacao_page_id);
 								$artefato_subtitulo = 'Nota / Grupo de estudos';
+							} elseif ($anotacao_pagina_tipo == 'secao') {
+								$artefato_titulo = return_pagina_titulo($anotacao_pagina_id);
+								$artefato_parent_titulo = return_pagina_titulo($anotacao_page_id);
+								$artefato_subtitulo = "Seção de $artefato_parent_titulo";
 							}
 							if ($anotacao_pagina_tipo == false) {
 								$artefato_link = "pagina.php?texto_id=$anotacao_id";
@@ -1065,7 +1039,7 @@
 						}
 						include 'templates/page_element.php';
 						
-						$imagens_privadas = $conn->query("SELECT id, criacao, titulo, arquivo, estado FROM Elementos WHERE user_id = $user_id AND tipo = 'imagem_privada' AND user_id = $user_id ORDER BY id DESC");
+						$imagens_privadas = $conn->query("SELECT id, criacao, titulo, arquivo, estado FROM Elementos WHERE user_id = $user_id AND tipo = 'imagem' AND user_id = $user_id AND compartilhamento = 'privado' ORDER BY id DESC");
 						$template_id = 'imagens_privadas';
 						$template_titulo = 'Imagens privadas';
 						$template_classes = 'esconder_sessao';
@@ -1077,7 +1051,8 @@
 						$artefato_page_id = false;
 						$artefato_titulo = 'Nova imagem privada';
 						$artefato_criacao = 'Pressione para adicionar uma imagem privada';
-						$artefato_tipo = 'nova_imagem';
+						$artefato_tipo = 'adicionar_imagem_privada';
+						$artefato_modal = '#modal_adicionar_imagem';
 						$artefato_link = false;
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
@@ -1202,10 +1177,10 @@
 	}
 	
 	$template_modal_div_id = 'modal_apresentacao';
-	$template_modal_titulo = 'Apresentação';
+	$template_modal_titulo = 'Sala de visitas';
 	$template_modal_body_conteudo = false;
-	$template_modal_body_conteudo .= "<p>Sua apresentação é visível a outros usuários, que poderão visitar seu escritório ao clicar em seu apelido. Seu apelido somente é visível como identificação de suas atividades públicas na Ubwiki.</p>";
-	$template_modal_body_conteudo .= "<p>Apenas itens explicitamente tornados públicos serão visíveis a outros usuários. No momento, apenas sua apresentação será visível.</p>";
+	$template_modal_body_conteudo .= "<p>A sala de visitas de seu escritório é visível a outros usuários, que a visitarão ao clicar em seu apelido. Seu apelido somente é visível como identificação de suas atividades públicas na Ubwiki.</p>";
+	$template_modal_body_conteudo .= "<p>Apenas itens explicitamente tornados públicos por você serão visíveis a outros usuários. No momento, apenas sua apresentação pode ser visível.</p>";
 	
 	$perfil_publico_id = false;
 	$perfis_publicos = $conn->query("SELECT id FROM Textos WHERE tipo = 'verbete_user' AND user_id = $user_id");
@@ -1221,7 +1196,7 @@
 	if ($perfil_publico_id != false) {
 		$template_modal_body_conteudo .= "
 		  <div class='row justify-content-center'>
-			  <a href='pagina.php?texto_id=$perfil_publico_id'><button type='button' class='$button_classes'>Editar sua apresentação</button></a>
+			  <a href='pagina.php?user_id=$user_id'><button type='button' class='$button_classes'>Editar sua apresentação</button></a>
 		  </div>
 	  ";
 	}
@@ -1254,7 +1229,7 @@
 		<h3>Avatar</h3>
 		<p>Seu avatar atual:</p>
 		<div class='row justify-content-center'>
-			<a href='perfil.php?pub_user_id=$user_id' class='$usuario_avatar_cor'><i class='fad $usuario_avatar fa-3x fa-fw'></i></a>
+			<a href='pagina.php?user_id=$user_id' class='$usuario_avatar_cor'><i class='fad $usuario_avatar fa-3x fa-fw'></i></a>
 		</div>
 		<p>Alterar:</p>
 		<select name='selecionar_avatar' class='$select_classes'>
@@ -1316,53 +1291,12 @@
 	";
 	include 'templates/modal.php';
 	
-	$template_modal_div_id = 'modal_nova_imagem';
-	$template_modal_titulo = 'Nova imagem privada';
-	$template_modal_enctype = "enctype='multipart/form-data'";
-	$template_modal_body_conteudo = "
-			<div class='md-form mb-2'>
-            <input type='text' id='nova_imagem_titulo' name='nova_imagem_titulo'
-                   class='form-control validate' required>
-            <label data-error='inválido' data-success='válido'
-                   for='nova_imagem_titulo'>Título da imagem</label>
-            </div>
-            <div class='md-form mb-2'>
-            <input type='url' id='nova_imagem_link' name='nova_imagem_link'
-                   class='form-control validate'>
-            <label data-error='inválido' data-success='válido'
-                   for='nova_imagem_link'>Link para a imagem</label>
-            </div>
-            <div class='md-form mb-2'>
-                <div class='file-field'>
-                    <div class='btn btn-primary btn-sm float-left'>
-                        <span>Selecione o arquivo</span>
-                        <input type='file' name='nova_imagem_upload'>
-                    </div>
-                    <div class='file-path-wrapper'>
-                        <input class='file-path validate' type='text' placeholder='Faça upload da sua imagem'>
-                    </div>
-                </div>
-            </div>
-		";
-	include 'templates/modal.php';
+	include 'pagina/modal_adicionar_imagem.php';
 	
-	$template_modal_div_id = 'modal_nova_referencia';
-	$template_modal_titulo = 'Adicionar item ao acervo';
-	$template_modal_body_conteudo = false;
-	$template_modal_body_conteudo .= "
-	        <h4 class='mt-3'>Acervo virtual</h4>
-	        <p>Acrescente a seu acervo virtual livros que você tem, quer ter, pretende emprestar de um amigo, assim como artigos que quer ler, revistas, até mesmo álbuns de música ou filmes.</p>
-	        <p>Uma vez que seu item tenha sido adicionado, será possível marcar capítulos e escrever fichamentos específicos, assim como resenhas e resumos. Cada anotação será inicialmente privada, podendo ser tornada pública se você assim desejar.</p>
-		";
-	$adicionar_referencia_busca_texto = 'Buscar item para adicionar à sua biblioteca virtual, por título ou autor.';
-	$adicionar_referencia_form_botao = 'Cadastrar esta referência e acrescentá-la a seu acervo';
-	$template_modal_body_conteudo .= include 'templates/adicionar_referencia_form.php';
-	$template_modal_show_buttons = false;
-	include 'templates/modal.php';
+	include 'pagina/modal_add_elemento.php';
 	
-	$template_modal_div_id = 'modal_novo_topico';
+	$template_modal_div_id = 'modal_gerenciar_etiquetas';
 	$template_modal_titulo = 'Incluir área de interesse';
-	$etiquetas_carregar_remover = false;
 	include 'templates/etiquetas_modal.php';
 	
 	$template_modal_div_id = 'modal_novo_simulado';
@@ -1794,15 +1728,14 @@
 	";
 	include 'templates/modal.php';
 
-
 ?>
 
 </body>
 <?php
 	
 	include 'templates/footer.html';
-	$etiquetas_bottom_adicionar = true;
-	$biblioteca_bottom_adicionar = true;
+	$sistema_etiquetas_elementos = true;
+	$sistema_etiquetas_topicos = true;
 	$mdb_select = true;
 	$esconder_introducao = true;
 	include 'templates/html_bottom.php';
