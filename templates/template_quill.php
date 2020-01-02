@@ -156,7 +156,7 @@
 	$quill_result = false;
 	
 	$template_botoes .= "
-		<a href='javascript:void(0)' id='{$template_id}_trigger_save' title='Salvar mudanças'><i class='fal fa-save fa-fw'></i></a>
+		<a href='javascript:void(0)' id='{$template_id}_trigger_save' title='Salvar mudanças' class='text-success'><i class='fad fa-save fa-fw'></i></a>
 	";
 	
 	if ($quill_texto_id != false) {

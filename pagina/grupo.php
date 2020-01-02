@@ -27,7 +27,7 @@
 	include 'templates/page_element.php';
 	
 	$template_id = 'acervo_grupo';
-	$template_titulo = 'Textos compartilhados';
+	$template_titulo = 'Acervo compartilhado';
 	$template_conteudo = false;
 	$template_conteudo_class = 'justify-content-start';
 	$template_conteudo_no_col = true;

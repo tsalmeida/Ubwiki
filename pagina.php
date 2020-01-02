@@ -102,7 +102,7 @@
 		$pagina_compartilhamento = $pagina_original_compartilhamento;
 		$pagina_original_user_id = $pagina_original_info[5];
 		if (($pagina_original_user_id != $user_id) && ($pagina_original_compartilhamento == 'privado')) {
-			$check_compartilhamento = return_compartilhamento($pagina_item_id, $pagina_original_user_id);
+			$check_compartilhamento = return_compartilhamento($pagina_item_id, $user_id);
 			if ($check_compartilhamento == false) {
 				header("Location:pagina.php?pagina_id=3");
 				exit();
@@ -756,7 +756,7 @@
 			  <p>Apenas você, como criador original desta anotação, poderá alterar suas opções de compartilhamento. Por favor, analise cuidadosamente as opções abaixo. Versões anteriores do documento estarão sempre disponíveis no histórico (para todos os que tenham acesso à sua versão atual). Todo usuário com acesso à anotação poderá alterar suas etiquetas.</p>
 			  <h3>Compartilhar com grupo de estudos</h3>
 			  ";
-		$grupos_do_usuario = $conn->query("SELECT id, titulo FROM Grupos WHERE user_id = $user_id AND estado = 1");
+		$grupos_do_usuario = $conn->query("SELECT grupo_id FROM Membros WHERE membro_user_id = $user_id AND estado = 1");
 		if ($grupos_do_usuario->num_rows > 0) {
 			$template_modal_body_conteudo .= "
                   <form method='post'>
