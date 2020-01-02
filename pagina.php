@@ -506,9 +506,19 @@
 				if ($pagina_tipo != 'texto') {
 					$template_id = 'verbete';
 					$template_titulo = false;
-					if ((($pagina_tipo == 'sistema') && ($user_tipo != 'admin')) || (($pagina_tipo == 'escritorio') || ($pagina_user_id != $user_id))) {
-						$template_quill_initial_state = 'leitura';
+					if (($pagina_tipo == 'sistema') && ($user_tipo != 'admin')) {
 						$template_quill_botoes = false;
+						$template_quill_initial_state = 'leitura';
+						$template_botoes_padrao = false;
+					}
+					if (($pagina_compartilhamento == 'escritorio') && ($user_id != $pagina_user_id)) {
+						$template_quill_botoes = false;
+						$template_quill_initial_state = 'leitura';
+						$template_botoes_padrao = false;
+					}
+					if (($pagina_compartilhamento == 'privado') && ($user_id != $pagina_user_id)) {
+						$template_quill_botoes = false;
+						$template_quill_initial_state = 'leitura';
 						$template_botoes_padrao = false;
 					}
 					$template_conteudo = include 'templates/template_quill.php';
