@@ -1254,7 +1254,7 @@
 			$fa_icone = $fa_icone_plus;
 			$fa_primary_color = 'text-info';
 		} elseif ($artefato_tipo == 'curso') {
-			$fa_icone = 'fa-head-side-brain';
+			$fa_icone = 'fa-diploma';
 			$fa_primary_color = 'text-info';
 		}
 		return array($fa_icone, $fa_primary_color);
