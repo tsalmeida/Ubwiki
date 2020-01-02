@@ -486,7 +486,7 @@
 		if ($curso_id == false) {
 			return false;
 		}
-		$result_find_curso_sigla = $conn->query("SELECT sigla FROM cursos WHERE id = $curso_id");
+		$result_find_curso_sigla = $conn->query("SELECT sigla FROM Cursos WHERE id = $curso_id");
 		if ($result_find_curso_sigla->num_rows > 0) {
 			while ($row_find_curso_sigla = $result_find_curso_sigla->fetch_assoc()) {
 				$found_curso_sigla = $row_find_curso_sigla['sigla'];
@@ -502,7 +502,7 @@
 			return false;
 		}
 		include 'templates/criar_conn.php';
-		$find_cursos = $conn->query("SELECT titulo FROM cursos WHERE id = $find_curso_id");
+		$find_cursos = $conn->query("SELECT titulo FROM Cursos WHERE id = $find_curso_id");
 		if ($find_cursos->num_rows > 0) {
 			while ($find_curso = $find_cursos->fetch_assoc()) {
 				$find_curso_titulo = $find_curso['titulo'];
@@ -1503,11 +1503,9 @@
 			}
 		} elseif ($tipo == 'curso') {
 			$curso_sigla = return_curso_sigla($item_id);
-			error_log($curso_sigla);
 			if ($curso_sigla == false) {
 				return false;
 			}
-			error_log("SELECT pagina_id FROM Cursos WHERE id = $item_id AND pagina_id IS NOT NULL");
 			$cursos = $conn->query("SELECT pagina_id FROM Cursos WHERE id = $item_id AND pagina_id IS NOT NULL");
 			if ($cursos->num_rows > 0) {
 				while ($curso = $cursos->fetch_assoc()) {
@@ -1515,10 +1513,8 @@
 					return $curso_pagina_id;
 				}
 			} else {
-				error_log("INSERT INTO Paginas (item_id, tipo) VALUES ($item_id, 'curso')");
 				$conn->query("INSERT INTO Paginas (item_id, tipo) VALUES ($item_id, 'curso')");
 				$curso_pagina_id = $conn->insert_id;
-				error_log("UPDATE Cursos SET pagina_id = $curso_pagina_id WHERE id = $item_id");
 				$conn->query("UPDATE Cursos SET pagina_id = $curso_pagina_id WHERE id = $item_id");
 				return $curso_pagina_id;
 			}
