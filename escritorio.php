@@ -714,7 +714,7 @@
                                 <select class='$select_classes' name='aderir_novo_curso' id='aderir_novo_curso' required>
                                       <option value='' disabled selected>Selecione um curso</option>
                         ";
-						$cursos_disponiveis = $conn->query("SELECT id, titulo FROM cursos WHERE estado = 1");
+						$cursos_disponiveis = $conn->query("SELECT id, titulo FROM Cursos WHERE estado = 1");
 						while ($curso_disponivel = $cursos_disponiveis->fetch_assoc()) {
 							$curso_disponivel_id = $curso_disponivel['id'];
 							$curso_disponivel_titulo = $curso_disponivel['titulo'];
