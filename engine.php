@@ -1255,7 +1255,7 @@
 			$fa_primary_color = 'text-info';
 		} elseif ($artefato_tipo == 'curso') {
 			$fa_icone = 'fa-diploma';
-			$fa_primary_color = 'text-info';
+			$fa_primary_color = 'text-default';
 		}
 		return array($fa_icone, $fa_primary_color);
 	}
@@ -1721,15 +1721,15 @@
 	function return_compartilhamento($item_id, $user_id)
 	{
 		include 'templates/criar_conn.php';
+		error_log("SELECT grupo_id FROM Membros WHERE membro_user_id = $user_id AND estado = 1");
 		$membros = $conn->query("SELECT grupo_id FROM Membros WHERE membro_user_id = $user_id AND estado = 1");
 		if ($membros->num_rows > 0) {
 			while ($membro = $membros->fetch_assoc()) {
 				$membro_grupo_id = $membro['grupo_id'];
+				error_log("SELECT id FROM Compartilhamento WHERE item_id = $item_id AND recipiente_id = $membro_grupo_id");
 				$compartilhamentos = $conn->query("SELECT id FROM Compartilhamento WHERE item_id = $item_id AND recipiente_id = $membro_grupo_id");
 				if ($compartilhamentos->num_rows > 0) {
 					return true;
-				} else {
-					return false;
 				}
 			}
 		} else {
