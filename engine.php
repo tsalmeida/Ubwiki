@@ -1496,7 +1496,19 @@
 					return $elemento_pagina_id;
 				}
 			} else {
-				$conn->query("INSERT INTO Paginas (item_id, tipo) VALUES ($item_id, 'elemento')");
+				$elementos = $conn->query("SELECT compartilhamento, user_id FROM Elementos WHERE id = $item_id");
+				if ($elementos->num_rows > 0) {
+					while ($elemento = $elementos->fetch_assoc()) {
+						$elemento_compartilhamento = $elemento['compartilhamento'];
+						$elemento_user_id = $elemento['user_id'];
+					}
+				}
+				if (is_null($elemento_compartilhamento)) {
+					$elemento_compartilhamento = "'$elemento_compartilhamento'";
+				} else {
+					$elemento_compartilhamento = "NULL";
+				}
+				$conn->query("INSERT INTO Paginas (item_id, tipo, compartilhamento, user_id) VALUES ($item_id, 'elemento', $elemento_compartilhamento, $elemento_user_id)");
 				$elemento_pagina_id = $conn->insert_id;
 				$conn->query("UPDATE Elementos SET pagina_id = $elemento_pagina_id WHERE id= $item_id");
 				return $elemento_pagina_id;
