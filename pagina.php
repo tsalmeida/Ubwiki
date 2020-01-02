@@ -1,5 +1,5 @@
 <?php
-	
+
 	include 'engine.php';
 	$nao_contar = false;
 	if (!isset($_GET['pagina_id'])) {
@@ -52,7 +52,7 @@
 			exit();
 		}
 	}
-	
+
 	$pagina_info = return_pagina_info($pagina_id);
 	if ($pagina_info != false) {
 		$pagina_criacao = $pagina_info[0];
@@ -67,7 +67,7 @@
 		header('Location:pagina.php?pagina_id=4');
 		exit();
 	}
-	
+
 	if ($pagina_compartilhamento == 'privado') {
 		if ($pagina_user_id != $user_id) {
 			$check_compartilhamento = return_compartilhamento($pagina_id, $user_id);
@@ -77,11 +77,11 @@
 			}
 		}
 	}
-	
+
 	if (isset($pagina_texto_id)) {
 		$pagina_tipo = 'texto';
 	}
-	
+
 	if ($pagina_tipo == 'topico') {
 		$topico_id = $pagina_item_id;
 		$topico_curso_id = return_curso_id_topico($topico_id);
@@ -109,7 +109,7 @@
 			}
 		}
 	}
-	
+
 	if ($pagina_tipo == 'curso') {
 		$curso_sigla = return_curso_sigla($curso_id);
 		$curso_titulo = return_curso_titulo_id($curso_id);
@@ -173,11 +173,11 @@
 			exit();
 		}
 	}
-	
+
 	if ($pagina_tipo == 'elemento') {
 		include 'pagina/isset_elemento.php';
 	}
-	
+
 	if ($pagina_tipo == 'topico') {
 		$topicos = $conn->query("SELECT estado_pagina, materia_id, nivel, ordem, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Topicos WHERE curso_id = $topico_curso_id AND id = $topico_id");
 		if ($topicos->num_rows > 0) {
@@ -207,9 +207,9 @@
 	} elseif ($pagina_tipo == 'elemento') {
 		include 'pagina/queries_elemento.php';
 	}
-	
+
 	include 'pagina/shared_issets.php';
-	
+
 	if (($pagina_tipo == 'elemento') || ($pagina_tipo == 'pagina')) {
 		if (isset($_POST['trigger_nova_secao'])) {
 			$nova_secao_titulo = $_POST['elemento_nova_secao'];
@@ -229,7 +229,7 @@
 			$nao_contar = true;
 		}
 	}
-	
+
 	if ($pagina_tipo != 'sistema') {
 		$pagina_bookmark = false;
 		$bookmarks = $conn->query("SELECT bookmark FROM Bookmarks WHERE user_id = $user_id AND pagina_id = $pagina_id AND active = 1 ORDER BY id DESC");
@@ -239,7 +239,7 @@
 				break;
 			}
 		}
-		
+
 		$estado_estudo = false;
 		$estudos = $conn->query("SELECT estado FROM Completed WHERE user_id = $user_id AND pagina_id = $pagina_id AND active = 1 ORDER BY id DESC");
 		if ($estudos->num_rows > 0) {
@@ -268,7 +268,7 @@
 			$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina, extra, extra2) VALUES ($user_id, $pagina_id, '$pagina_tipo', '$visualizacao_extra', 'pagina')");
 		}
 	}
-	
+
 	if (isset($_POST['compartilhar_grupo_id'])) {
 		$compartilhar_grupo_id = $_POST['compartilhar_grupo_id'];
 		$conn->query("INSERT INTO Compartilhamento (user_id, item_id, item_tipo, compartilhamento, recipiente_id) VALUES ($user_id, $pagina_id, '$pagina_tipo', 'grupo', $compartilhar_grupo_id)");
@@ -465,7 +465,7 @@
 							include 'pagina/grupo.php';
 						} elseif ($pagina_tipo == 'curso') {
 							include 'pagina/curso.php';
-							
+
 						} elseif ($pagina_tipo == 'materia') {
 							include 'pagina/materia.php';
 						} elseif ($pagina_tipo == 'texto') {
@@ -485,9 +485,9 @@
         </div>
 			<?php
 				echo "<div id='coluna_esquerda' class='$coluna_classes pagina_coluna'>";
-				
+
 				if ($pagina_tipo == 'elemento') {
-					
+
 					if ($elemento_tipo == 'imagem') {
 						$template_id = 'imagem_div';
 						$template_titulo = false;
@@ -516,24 +516,24 @@
 					if ((($pagina_tipo == 'elemento') || ($pagina_tipo == 'pagina')) && ($pagina_compartilhamento != 'escritorio')) {
 						include 'pagina/secoes_pagina.php';
 					}
-					
+
 					include 'pagina/leiamais.php';
-					
+
 					include 'pagina/videos.php';
-					
+
 					include 'pagina/imagens.php';
-					
+
 					include 'pagina/audio.php';
-					
+
 				}
-				
+
 				echo "</div>";
 			?>
 			<?php
 				if (($pagina_tipo != 'sistema') && ($pagina_tipo != 'texto') && ($pagina_compartilhamento != 'escritorio')) {
-					
+
 					include 'pagina/coluna_direita_anotacoes.php';
-					
+
 				}
 			?>
     </div>
@@ -552,11 +552,11 @@
 		$template_modal_body_conteudo = $breadcrumbs;
 		include 'templates/modal.php';
 	}
-	
+
 	$template_modal_div_id = 'modal_forum';
 	$template_modal_titulo = 'Fórum';
 	$template_modal_body_conteudo = false;
-	
+
 	if (isset($comments)) {
 		if ($comments->num_rows > 0) {
 			$template_modal_body_conteudo .= "<ul class='list-group'>";
@@ -568,7 +568,7 @@
 				$autor_comentario_avatar_info = return_avatar($autor_comentario_id);
 				$autor_comentario_avatar = $autor_comentario_avatar_info[0];
 				$autor_comentario_cor = $autor_comentario_avatar_info[1];
-				
+
 				$template_modal_body_conteudo .= "<li class='list-group-item'>
                                                 <p></span><strong><a href='pagina.php?user_id=$autor_comentario_id' target='_blank'><span class='$autor_comentario_cor'><i class='fad $autor_comentario_avatar fa-fw fa-2x'></i></span>$autor_comentario_apelido</a></strong> <span class='text-muted'><small>escreveu em $timestamp_comentario</small></span></p>
                                                 $texto_comentario
@@ -579,7 +579,7 @@
 			$template_modal_body_conteudo .= "<p><strong>Não há comentários sobre este tópico.</strong></p>";
 		}
 	}
-	
+
 	if ($user_apelido != false) {
 		$template_modal_body_conteudo .= "
                 <div class='md-form mb-2'>
@@ -591,8 +591,8 @@
 		$template_modal_body_conteudo .= "<p class='mt-3'><strong>Para adicionar um comentário, você precisará definir seu apelido em <a href='escritorio.php'>seu escritório</a>.</strong></p>";
 	}
 	include 'templates/modal.php';
-	
-	
+
+
 	$active1 = false;
 	$active2 = false;
 	$active3 = false;
@@ -625,7 +625,7 @@
         </div>
     ";
 	include 'templates/modal.php';
-	
+
 	$template_modal_div_id = 'modal_adicionar_youtube';
 	$template_modal_titulo = 'Adicionar vídeo do Youtube';
 	$template_modal_body_conteudo = "
@@ -636,13 +636,13 @@
                                for='novo_video_link'>Link para o vídeo (Youtube)</label>
                     </div>
 	";
-	
+
 	include 'templates/modal.php';
-	
+
 	if ($pagina_tipo == 'elemento') {
 		include 'pagina/modals_elemento.php';
 	}
-	
+
 	if (($pagina_tipo == 'pagina') || ($pagina_tipo == 'elemento')) {
 		$template_modal_div_id = 'modal_partes_form';
 		$template_modal_titulo = 'Adicionar seção';
@@ -669,7 +669,7 @@
               <label for='elemento_nova_secao_ordem'>Posição da nova seção</label>
           </div>
         ";
-		
+
 		$secoes = $conn->query("SELECT secao_pagina_id, ordem FROM Secoes WHERE pagina_id = $pagina_id");
 		if ($secoes->num_rows > 0) {
 			$template_modal_body_conteudo .= "
@@ -687,11 +687,11 @@
 		}
 		include 'templates/modal.php';
 	}
-	
+
 	include 'pagina/modal_add_elemento.php';
-	
+
 	include 'pagina/modal_adicionar_imagem.php';
-	
+
 	if ((($pagina_tipo == 'sistema') && ($user_tipo == 'admin')) || (($pagina_tipo == 'pagina') && ($pagina_user_id == $user_id)) || (($pagina_tipo == 'texto') && ($pagina_user_id == $user_id))) {
 		if (($pagina_tipo == 'pagina') || ($pagina_tipo == 'sistema')) {
 			$mudar_titulo_texto = 'da página';
@@ -711,9 +711,9 @@
         ";
 		include 'templates/modal.php';
 	}
-	
+
 	include 'templates/etiquetas_modal.php';
-	
+
 	if ($pagina_tipo == 'secao') {
 		$template_modal_div_id = 'modal_paginas_relacionadas';
 		$template_modal_titulo = 'Página e seções';
@@ -731,58 +731,63 @@
 		$template_modal_body_conteudo .= "</ul>";
 		include 'templates/modal.php';
 	}
-	
+
 	if ($pagina_tipo == 'texto') {
 		include 'pagina/modals_texto.php';
 	}
-	
-	$template_modal_div_id = 'modal_compartilhar_anotacao';
-	$template_modal_titulo = 'Compartilhamento';
-	$template_modal_show_buttons = false;
-	$template_modal_body_conteudo = false;
-	$template_modal_body_conteudo .= "
+
+	if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id)) {
+
+		$template_modal_div_id = 'modal_compartilhar_anotacao';
+		$template_modal_titulo = 'Compartilhamento';
+		$template_modal_show_buttons = false;
+		$template_modal_body_conteudo = false;
+		$template_modal_body_conteudo .= "
 			  <p>Apenas você, como criador original desta anotação, poderá alterar suas opções de compartilhamento. Por favor, analise cuidadosamente as opções abaixo. Versões anteriores do documento estarão sempre disponíveis no histórico (para todos os que tenham acesso à sua versão atual). Todo usuário com acesso à anotação poderá alterar suas etiquetas.</p>
 			  <h3>Compartilhar com grupo de estudos</h3>
 			  ";
-	if ($grupos_do_usuario->num_rows > 0) {
-		$template_modal_body_conteudo .= "
+		$grupos_do_usuario = $conn->query("SELECT id, titulo FROM Grupos WHERE user_id = $user_id AND estado = 1");
+		if ($grupos_do_usuario->num_rows > 0) {
+			$template_modal_body_conteudo .= "
                   <form method='post'>
                     <select name='compartilhar_grupo_id' class='$select_classes'>
                         <option value='' disabled selected>Selecione o grupo de estudos</option>
                 ";
-		while ($grupo_do_usuario = $grupos_do_usuario->fetch_assoc()) {
-			$grupo_do_usuario_id = $grupo_do_usuario['grupo_id'];
-			$grupo_do_usuario_titulo = return_grupo_titulo_id($grupo_do_usuario_id);
-			$template_modal_body_conteudo .= "<option value='$grupo_do_usuario_id'>$grupo_do_usuario_titulo</option>";
-		}
-		$template_modal_body_conteudo .= "
+			while ($grupo_do_usuario = $grupos_do_usuario->fetch_assoc()) {
+				$grupo_do_usuario_id = $grupo_do_usuario['grupo_id'];
+				$grupo_do_usuario_titulo = return_grupo_titulo_id($grupo_do_usuario_id);
+				$template_modal_body_conteudo .= "<option value='$grupo_do_usuario_id'>$grupo_do_usuario_titulo</option>";
+			}
+			$template_modal_body_conteudo .= "
                     </select>
                     <div class='row justify-content-center'>
                         <button class='$button_classes' name='trigger_compartilhar_grupo'>Compartilhar com grupo</button>
                     </div>
                   </form>
                 ";
-	} else {
-		$template_modal_body_conteudo .= "<p class='text-muted'><em>Você não faz parte de nenhum grupo de estudos. Visite seu escritório para participar.</em></p>";
+		} else {
+			$template_modal_body_conteudo .= "<p class='text-muted'><em>Você não faz parte de nenhum grupo de estudos. Visite seu escritório para participar.</em></p>";
+		}
+
+		/*$template_modal_body_conteudo .= "
+			<form>
+			<h3>Compartilhar com outro usuário</h3>
+				<select name='compartilhar_usuario' class='$select_classes'>
+						<option value='' disabled selected>Selecione o usuário</option>
+				</select>
+				<div class='row justify-content-center'>
+						<button class='$button_classes' name='trigger_compartilhar_usuario'>Compartilhar com usuário</button>
+				</div>
+			</form>
+			<h3>Tornar anotação pública.</h3>
+			<p>Todo usuário da Ubwiki poderá ler sua anotação, mas não poderá editá-la.</p>
+			<h3>Tornar pública e aberta.</h3>
+			<p>Todo usuário da Ubwiki poderá ler e editar sua anotação.</p>
+			";*/
+
+		include 'templates/modal.php';
+
 	}
-	
-	/*$template_modal_body_conteudo .= "
-	<form>
-	<h3>Compartilhar com outro usuário</h3>
-		<select name='compartilhar_usuario' class='$select_classes'>
-				<option value='' disabled selected>Selecione o usuário</option>
-		</select>
-		<div class='row justify-content-center'>
-				<button class='$button_classes' name='trigger_compartilhar_usuario'>Compartilhar com usuário</button>
-		</div>
-	</form>
-	<h3>Tornar anotação pública.</h3>
-	<p>Todo usuário da Ubwiki poderá ler sua anotação, mas não poderá editá-la.</p>
-	<h3>Tornar pública e aberta.</h3>
-	<p>Todo usuário da Ubwiki poderá ler e editar sua anotação.</p>
-	";*/
-	
-	include 'templates/modal.php';
 ?>
 
 </body>
