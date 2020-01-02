@@ -1,4 +1,5 @@
 <?php
+	
 	$template_id = 'curso_busca';
 	$template_titulo = 'Busca';
 	$template_botoes = false;

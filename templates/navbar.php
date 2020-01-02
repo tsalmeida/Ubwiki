@@ -26,7 +26,13 @@
 		        <i class='fas fa-user-tie fa-lg fa-fw'></i>
 		        </a>
 		        <div class='dropdown-menu dropdown-menu-right z-depth-0'>
-		          <a class='dropdown-item navlink z-depth-0' href='escritorio.php'>Seu escritório</a>
+		          <a class='dropdown-item navlink z-depth-0' href='escritorio.php'>Seu escritório</a>";
+		if ($user_tipo == 'admin') {
+			echo "
+							<a class='dropdown-item navlink z-depth-0' href='admin.php'>Página de administradores</a>
+			";
+		}
+		echo "
 		          <a class='dropdown-item navlink z-depth-0' href='pagina.php?curso_id=$curso_id'>$curso_sigla</a>
 		          <a class='dropdown-item navlink z-depth-0' href='logout.php'>Logout</a>
 		      </li>

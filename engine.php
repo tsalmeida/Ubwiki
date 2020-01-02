@@ -75,6 +75,7 @@
 	}
 	if (isset($curso_id)) {
 		$curso_sigla = return_curso_sigla($curso_id);
+		$curso_titulo = return_curso_titulo_id($curso_id);
 	}
 	
 	$all_buttons_classes = "btn rounded btn-md mt-4 text-center";
@@ -1245,6 +1246,9 @@
 		} elseif ($artefato_tipo == 'nova_pagina') {
 			$fa_icone = $fa_icone_plus;
 			$fa_primary_color = 'text-info';
+		} elseif ($artefato_tipo == 'curso') {
+			$fa_icone = 'fa-head-side-brain';
+			$fa_primary_color = 'text-info';
 		}
 		return array($fa_icone, $fa_primary_color);
 	}
@@ -1560,7 +1564,8 @@
 					return $texto_pagina_id;
 				}
 			} else {
-				$conn->query("INSERT INTO Paginas (item_id, tipo, compartilhamento) VALUES ($item_id, 'texto', $texto_compartilhamento)");
+				$texto_user_id = $texto_info[8];
+				$conn->query("INSERT INTO Paginas (item_id, tipo, compartilhamento, user_id) VALUES ($item_id, 'texto', $texto_compartilhamento, $texto_user_id)");
 				$texto_pagina_id = $conn->insert_id;
 				$conn->query("UPDATE Textos SET texto_pagina_id = $texto_pagina_id WHERE id = $item_id");
 				return $texto_pagina_id;

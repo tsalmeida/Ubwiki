@@ -393,10 +393,7 @@
 			<?php
 				echo "<div class='col-3 mt-3'><div class='row justify-content-start'>";
 				echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_opcoes' class='mr-1 text-info'><i class='fad fa-user-cog fa-2x fa-fw'></i></a>";
-				echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_apresentacao' class='ml-1 text-info'><i class='fad fa-file-signature fa-swap-opacity fa-2x fa-fw'></i></a>";
-				if ($user_tipo == 'admin') {
-					echo "<a href='admin.php' class='mr-1 text-info'><i class='fad fa-user-crown fa-2x fa-fw'></i></a>";
-				}
+				echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_apresentacao' class='ml-1 text-info'><i class='fad fa-door-closed fa-swap-opacity fa-2x fa-fw'></i></a>";
 				echo "</div></div>";
 				echo "<div class='col-6'><div class='row justify-content-center'>";
 				
@@ -450,6 +447,7 @@
 
         <div id="coluna_unica" class="col">
 					<?php
+						
 						$visualizacoes = $conn->query("SELECT page_id, tipo_pagina FROM Visualizacoes WHERE user_id = $user_id AND extra2 = 'pagina' ORDER BY id DESC");
 						if ($visualizacoes->num_rows > 0) {
 							$template_id = 'ultimas_visualizacoes';
@@ -460,6 +458,14 @@
 							$template_conteudo = false;
 							$count = 0;
 							$resultados = array();
+							
+							$artefato_titulo = $curso_titulo;
+							$artefato_subtitulo = 'Curso ativo';
+							$artefato_link = "pagina.php?curso_id=$curso_id";
+							$artefato_tipo = 'curso';
+							$artefato_criacao = false;
+							$template_conteudo .= include 'templates/artefato_item.php';
+
 							while ($visualizacao = $visualizacoes->fetch_assoc()) {
 								$visualizacao_page_id = $visualizacao['page_id'];
 								if (array_search($visualizacao_page_id, $resultados) !== false) {
@@ -1196,7 +1202,7 @@
 	if ($perfil_publico_id != false) {
 		$template_modal_body_conteudo .= "
 		  <div class='row justify-content-center'>
-			  <a href='pagina.php?user_id=$user_id'><button type='button' class='$button_classes'>Editar sua apresentação</button></a>
+			  <a href='pagina.php?user_id=$user_id'><button type='button' class='$button_classes'>Editar sua sala de visitas</button></a>
 		  </div>
 	  ";
 	}
