@@ -1503,9 +1503,11 @@
 			}
 		} elseif ($tipo == 'curso') {
 			$curso_sigla = return_curso_sigla($item_id);
+			error_log($curso_sigla);
 			if ($curso_sigla == false) {
 				return false;
 			}
+			error_log("SELECT pagina_id FROM Cursos WHERE id = $item_id AND pagina_id IS NOT NULL");
 			$cursos = $conn->query("SELECT pagina_id FROM Cursos WHERE id = $item_id AND pagina_id IS NOT NULL");
 			if ($cursos->num_rows > 0) {
 				while ($curso = $cursos->fetch_assoc()) {
@@ -1513,8 +1515,10 @@
 					return $curso_pagina_id;
 				}
 			} else {
+				error_log("INSERT INTO Paginas (item_id, tipo) VALUES ($item_id, 'curso')");
 				$conn->query("INSERT INTO Paginas (item_id, tipo) VALUES ($item_id, 'curso')");
 				$curso_pagina_id = $conn->insert_id;
+				error_log("UPDATE Cursos SET pagina_id = $curso_pagina_id WHERE id = $item_id");
 				$conn->query("UPDATE Cursos SET pagina_id = $curso_pagina_id WHERE id = $item_id");
 				return $curso_pagina_id;
 			}
