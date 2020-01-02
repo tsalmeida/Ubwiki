@@ -528,7 +528,7 @@
 								$artefato_criacao = false;
 								$template_conteudo .= include 'templates/artefato_item.php';
 								$count++;
-								if ($count == 12) {
+								if ($count == 11) {
 									break;
 								}
 							}
