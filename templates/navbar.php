@@ -12,6 +12,13 @@
 		$template_navbar_color = 'transparent';
 		$template_navbar_text = 'text-white';
 	}
+	if (isset($user_id)) {
+		$user_avatar_info = return_avatar($user_id);
+		$navbar_avatar = $user_avatar_info[0];
+	}
+	if (!isset($navbar_avatar)) {
+		$navbar_avatar = 'fa-user-tie';
+	}
 	if (isset($curso_id)) {
 		echo "<nav class='navbar navbar-expand-lg $template_navbar_color' id='inicio'>";
 		if (isset($curso_id)) {
@@ -23,7 +30,7 @@
 		echo "<li class='nav-item dropdown'>";
 		echo "<a class='navlink dropdown-toggle waves-effect waves-light $template_navbar_text' id='user_dropdown' data-toggle='dropdown' href='javascript:void(0);'>";
 		echo "
-		        <i class='fas fa-user-tie fa-lg fa-fw'></i>
+		        <i class='fas $navbar_avatar fa-lg fa-fw'></i>
 		        </a>
 		        <div class='dropdown-menu dropdown-menu-right z-depth-0'>
 		          <a class='dropdown-item navlink z-depth-0' href='escritorio.php'>Seu escritório</a>";
