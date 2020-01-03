@@ -720,6 +720,15 @@
 							$curso_disponivel_titulo = $curso_disponivel['titulo'];
 							$template_conteudo .= "<option value='$curso_disponivel_id'>$curso_disponivel_titulo</option>";
 						}
+						$cursos_do_usuario = $conn->query("SELECT id, titulo FROM Cursos WHERE estado = 0 AND user_id = $user_id");
+						if ($cursos_do_usuario->num_rows > 0) {
+						    $template_conteudo .= "<option disabled>Seus cursos:</option>";
+						    while ($curso_do_usuario = $cursos_do_usuario->fetch_assoc()) {
+						        $curso_do_usuario_id = $curso_do_usuario['id'];
+						        $curso_do_usuario_titulo = $curso_do_usuario['titulo'];
+						        $template_conteudo .= "<option value='$curso_do_usuario_id'>$curso_do_usuario_titulo</option>";
+                            }
+                        }
 						$template_conteudo .= "</select>";
 						$template_conteudo .= "
 							<div class='row justify-content-center'>
