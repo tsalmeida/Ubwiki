@@ -130,7 +130,7 @@
 		$texto_compartilhamento = $texto_info[11];
 		$texto_texto_pagina_id = $texto_info[12];
 		$pagina_id = $texto_texto_pagina_id;
-		if ((strpos($texto_tipo, 'anotac') !== false) || ($texto_tipo == 'verbete_user')) {
+		/*if ((strpos($texto_tipo, 'anotac') !== false) || ($texto_tipo == 'verbete_user')) {
 			$texto_anotacao = true;
 			if (($texto_compartilhamento != false) && ($texto_user_id != $user_id)) {
 				$comps = $conn->query("SELECT recipiente_id, compartilhamento FROM Compartilhamento WHERE item_tipo = 'texto' AND item_id = $pagina_id");
@@ -157,7 +157,7 @@
 					exit();
 				}
 			}
-		}
+		}*/
 		if (isset($_POST['destruir_anotacao'])) {
 			$conn->query("DELETE FROM Textos WHERE id = $texto_id");
 			header('Location:pagina.php?pagina_id=5');

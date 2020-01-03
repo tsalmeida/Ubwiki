@@ -107,7 +107,7 @@
 	$quill_verbete_content = false;
 	if ($quill_texto_id != false) {
 		$quill_query = "SELECT verbete_content FROM Textos WHERE id = $quill_texto_id";
-		if (($template_quill_public != true) && ($compartilhamento_check == false)){
+		if (($template_quill_public != true) && ($compartilhamento_check == false)) {
 			$quill_query .= " AND user_id = $user_id";
 		}
 		$quill_textos = $conn->query($quill_query);
@@ -217,10 +217,6 @@
 	$quill_user_id = (int)$user_id;
 	$quill_result .= "
     <script type='text/javascript'>
-    var new_link = 'teste';
-    function callback(response) {
-        new_link = response;
-    }
     var {$template_id}_editor = new Quill('#quill_editor_{$template_id}', {
         theme: 'snow',
         placeholder: '{$template_quill_vazio}',
@@ -232,7 +228,7 @@
                     image: function() {
                         var range = this.quill.getSelection();
 								        var link = prompt('Qual o endereço da imagem?');
-							          var titulo = prompt('Título da imagem:');
+						            var titulo = prompt('Título da imagem:');
 								        var value64 = btoa(link);
 								        if (link) {
 								            $.post('engine.php', {
@@ -241,13 +237,9 @@
 								                    'page_id': $template_quill_pagina_id,
 								                    'nova_imagem_titulo': titulo,
 								                    'contexto': '$template_id'
-								                },
-								                function(data) {
-								                	callback(data);
-								                	alert('this happened');
-								            		}
-						                );
-								            alert(new_link);
+						                },
+						                function(data) {
+						                });
 								            this.quill.insertEmbed(range.index, 'image', link, Quill.sources.USER);
 								        }
                     }
