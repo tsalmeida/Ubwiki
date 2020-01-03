@@ -311,6 +311,7 @@
 		$page_id = $_POST['page_id'];
 		$pagina_tipo = $_POST['contexto'];
 		$nossa_copia = adicionar_imagem($nova_imagem_link, $nova_imagem_titulo, $page_id, $user_id, $pagina_tipo, $curso_id);
+		echo $nossa_copia;
 	}
 	
 	function adicionar_thumbnail_youtube($youtube_thumbnail_original)

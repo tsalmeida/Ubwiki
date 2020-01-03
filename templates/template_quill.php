@@ -216,7 +216,11 @@
     </form>";
 	$quill_user_id = (int)$user_id;
 	$quill_result .= "
-    <script>
+    <script type='text/javascript'>
+    var new_link = 'teste';
+    function callback(response) {
+        new_link = response;
+    }
     var {$template_id}_editor = new Quill('#quill_editor_{$template_id}', {
         theme: 'snow',
         placeholder: '{$template_quill_vazio}',
@@ -238,8 +242,12 @@
 								                    'nova_imagem_titulo': titulo,
 								                    'contexto': '$template_id'
 								                },
-								                function (data) {
-								                });
+								                function(data) {
+								                	callback(data);
+								                	alert('this happened');
+								            		}
+						                );
+								            alert(new_link);
 								            this.quill.insertEmbed(range.index, 'image', link, Quill.sources.USER);
 								        }
                     }
