@@ -15,36 +15,30 @@
 	if (!isset($template_quill_botoes)) {
 		$template_quill_botoes = true;
 	}
-	$template_quill_vazio = 'Documento vazio';
+	
 	if (isset($pagina_tipo)) {
 		$template_quill_meta_tipo = $template_id;
 		$template_quill_toolbar_and_whitelist = $template_id;
-		$template_quill_vazio = 'Seja o primeiro a escrever sobre este assunto.';
+		if (!isset($template_quill_vazio)) {
+			$template_quill_vazio = 'Seja o primeiro a escrever sobre este assunto.';
+		}
 		$template_quill_public = true;
 		if (!isset($template_quill_initial_state)) {
 			$template_quill_initial_state = return_quill_initial_state($template_id);
 		}
 		if ($template_id == 'anotacoes') {
 			$template_classes = 'anotacoes_sticky';
-			$template_quill_vazio = 'Não há notas de estudo suas sobre este assunto.';
-			$template_quill_public = false;
-		}
-	} /*else {
-		if ((strpos($template_id, 'anotac') !== false) || ($template_id == 'verbete_user')) {
-			$template_quill_meta_tipo = 'anotacoes';
-			$template_quill_toolbar_and_whitelist = 'anotacoes';
-			$template_quill_initial_state = 'edicao';
-			$template_classes = 'anotacoes_sticky';
-			$template_quill_public = false;
-		} else {
-			$template_quill_meta_tipo = 'verbete';
-			$template_quill_public = true;
-			$template_quill_toolbar_and_whitelist = 'general';
-			if (!isset($template_quill_initial_state)) {
-				$template_quill_initial_state = 'leitura';
+			if (!isset($template_quill_vazio)) {
+				$template_quill_vazio = 'Não há notas de estudo suas sobre este assunto.';
 			}
+			$template_quill_public = false;
 		}
-	}*/
+	}
+	
+	if (!isset($template_quill_vazio)) {
+		$template_quill_vazio = 'Documento vazio';
+	}
+	
 	$template_quill_whitelist = "formatWhitelist_{$template_quill_toolbar_and_whitelist}";
 	$template_quill_toolbar = "toolbarOptions_{$template_quill_toolbar_and_whitelist}";
 	
@@ -59,25 +53,7 @@
 	
 	if (isset($pagina_id)) {
 		$template_quill_pagina_id = $pagina_id;
-	} /*else {
-		if (!isset($template_quill_pagina_id)) {
-			if (isset($topico_id)) {
-				$template_quill_pagina_id = $topico_id;
-			} elseif (isset($elemento_id)) {
-				$template_quill_pagina_id = $elemento_id;
-			} elseif (isset($questao_id)) {
-				$template_quill_pagina_id = $questao_id;
-			} elseif (isset($texto_apoio_id)) {
-				$template_quill_pagina_id = $texto_apoio_id;
-			} elseif (isset($materia_id)) {
-				$template_quill_pagina_id = $materia_id;
-			} elseif (isset($curso_id)) {
-				$template_quill_pagina_id = $curso_id;
-			} else {
-				$template_quill_pagina_id = false;
-			}
-		}
-	}*/
+	}
 	$template_quill_pagina_id = (int)$template_quill_pagina_id;
 	
 	if (isset($pagina_id)) {

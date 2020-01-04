@@ -1428,6 +1428,11 @@
 	
 	function return_avatar($user_id)
 	{
+		
+		if ($user_id == false) {
+			return false;
+		}
+		
 		include 'templates/criar_conn.php';
 		
 		$usuario_avatar = 'fa-user-tie';
@@ -1653,7 +1658,12 @@
 					$pagina_titulo = return_curso_titulo_id($pagina_item_id);
 				} elseif ($pagina_tipo == 'grupo') {
 					$pagina_titulo = return_grupo_titulo_id($pagina_item_id);
-				} elseif (($pagina_tipo == 'sistema') || ($pagina_tipo == 'pagina') || ($pagina_tipo == 'secao')) {
+				} elseif ($pagina_tipo == 'texto') {
+					$pagina_texto_info = return_texto_info($pagina_item_id);
+					$pagina_titulo = $pagina_texto_info[2];
+					return $pagina_titulo;
+				}
+				else {
 					$paginas_elementos = $conn->query("SELECT extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'titulo' ORDER BY id DESC");
 					if ($paginas_elementos->num_rows > 0) {
 						while ($pagina_elemento = $paginas_elementos->fetch_assoc()) {
@@ -1661,10 +1671,6 @@
 							return $pagina_titulo;
 						}
 					}
-				} elseif ($pagina_tipo == 'texto') {
-					$pagina_texto_info = return_texto_info($pagina_item_id);
-					$pagina_titulo = $pagina_texto_info[2];
-					return $pagina_titulo;
 				}
 			}
 		}
@@ -1717,8 +1723,7 @@
 	{
 		include 'templates/criar_conn.php';
 		if ($pagina_tipo == 'texto') {
-			//$pagina_info = return_pagina_info($pagina_id);
-			//$pagina_tipo = $pagina_info[2];
+			$textos = $conn->query("SELECT id FROM Textos WHERE pagina_tipo IS NULL AND texto_pagina_id = $pagina_id AND tipo = '$template_id'");
 		} else {
 			$textos = $conn->query("SELECT id FROM Textos WHERE pagina_tipo = '$pagina_tipo' AND pagina_id = $pagina_id AND tipo = '$template_id'");
 		}

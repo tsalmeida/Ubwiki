@@ -1,6 +1,7 @@
 <?php
-
+	
 	include 'engine.php';
+	
 	$nao_contar = false;
 	if (!isset($_GET['pagina_id'])) {
 		if (isset($_GET['topico_id'])) {
@@ -25,6 +26,7 @@
 				exit();
 			}
 			$pagina_id = return_pagina_id($pagina_texto_id, 'texto');
+			$pagina_tipo = 'texto';
 		} elseif (isset($_GET['grupo_id'])) {
 			$grupo_id = $_GET['grupo_id'];
 			$pagina_id = return_pagina_id($grupo_id, 'grupo');
@@ -39,6 +41,20 @@
 			$pagina_id = $escritorio_id;
 			header("Location:pagina.php?pagina_id=$escritorio_id");
 			exit();
+		} elseif (isset($_GET['original_id'])) {
+			$original_id = $_GET['original_id'];
+			if (isset($_GET['resposta_id'])) {
+				if (isset($_GET['resposta_id'])) {
+					$resposta_id = $_GET['resposta_id'];
+					if ($resposta_id == 'new') {
+						$conn->query("INSERT INTO Paginas (item_id, tipo, compartilhamento, user_id) VALUES ($original_id, 'resposta', 'igual à página original', $user_id)");
+						$nova_resposta_id = $conn->insert_id;
+						$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, user_id) VALUES ($original_id, 'texto', $nova_resposta_id, 'resposta', $user_id)");
+						header("Location:pagina.php?pagina_id=$nova_resposta_id");
+						exit();
+					}
+				}
+			}
 		} else {
 			header('Location:pagina.php?pagina_id=4');
 			exit();
@@ -52,7 +68,7 @@
 			exit();
 		}
 	}
-
+	
 	$pagina_info = return_pagina_info($pagina_id);
 	if ($pagina_info != false) {
 		$pagina_criacao = $pagina_info[0];
@@ -67,7 +83,7 @@
 		header('Location:pagina.php?pagina_id=4');
 		exit();
 	}
-
+	
 	if ($pagina_compartilhamento == 'privado') {
 		if ($pagina_user_id != $user_id) {
 			$check_compartilhamento = return_compartilhamento($pagina_id, $user_id);
@@ -77,12 +93,11 @@
 			}
 		}
 	}
-
-	if (isset($pagina_texto_id)) {
-		$pagina_tipo = 'texto';
-	}
-
-	if ($pagina_tipo == 'topico') {
+	
+	if ($pagina_tipo == 'curso') {
+		$curso_sigla = return_curso_sigla($curso_id);
+		$curso_titulo = return_curso_titulo_id($curso_id);
+	} elseif ($pagina_tipo == 'topico') {
 		$topico_id = $pagina_item_id;
 		$topico_curso_id = return_curso_id_topico($topico_id);
 		$topico_curso_sigla = return_curso_sigla($topico_curso_id);
@@ -90,34 +105,18 @@
 		$materia_id = $pagina_item_id;
 		$materia_curso_id = return_curso_id_materia($materia_id);
 		$materia_curso_sigla = return_curso_sigla($materia_curso_id);
+		$materia_titulo = return_materia_titulo_id($materia_id);
 	} elseif ($pagina_tipo == 'elemento') {
 		$elemento_id = $pagina_item_id;
 	} elseif ($pagina_tipo == 'grupo') {
 		$grupo_id = $pagina_item_id;
+		$check_membro = check_membro_grupo($user_id, $grupo_id);
+		if ($check_membro == false) {
+			header('Location:pagina.php?pagina_id=3');
+			exit();
+		}
 	} elseif ($pagina_tipo == 'texto') {
 		$pagina_texto_id = $pagina_item_id;
-	} elseif ($pagina_tipo == 'secao') {
-		$pagina_original_info = return_pagina_info($pagina_item_id);
-		$pagina_original_compartilhamento = $pagina_original_info[4];
-		$pagina_compartilhamento = $pagina_original_compartilhamento;
-		$pagina_original_user_id = $pagina_original_info[5];
-		if (($pagina_original_user_id != $user_id) && ($pagina_original_compartilhamento == 'privado')) {
-			$check_compartilhamento = return_compartilhamento($pagina_item_id, $user_id);
-			if ($check_compartilhamento == false) {
-				header("Location:pagina.php?pagina_id=3");
-				exit();
-			}
-		}
-	}
-
-	if ($pagina_tipo == 'curso') {
-		$curso_sigla = return_curso_sigla($curso_id);
-		$curso_titulo = return_curso_titulo_id($curso_id);
-	} elseif ($pagina_tipo == 'materia') {
-		$materia_titulo = return_materia_titulo_id($materia_id);
-		$materia_curso_id = return_curso_id_materia($materia_id);
-		$materia_curso_sigla = return_curso_sigla($curso_id);
-	} elseif ($pagina_tipo == 'texto') {
 		$texto_info = return_texto_info($pagina_texto_id);
 		$texto_curso_id = $texto_info[0];
 		$texto_tipo = $texto_info[1];
@@ -138,18 +137,41 @@
 		if ($texto_page_id === 0) {
 			$texto_editar_titulo = true;
 		}
-	} elseif ($pagina_tipo == 'grupo') {
-		$check_membro = check_membro_grupo($user_id, $grupo_id);
-		if ($check_membro == false) {
-			header('Location:pagina.php?pagina_id=3');
-			exit();
+	} elseif ($pagina_tipo == 'secao') {
+		$pagina_original_info = return_pagina_info($pagina_item_id);
+		$pagina_original_compartilhamento = $pagina_original_info[4];
+		$pagina_compartilhamento = $pagina_original_compartilhamento;
+		$pagina_original_user_id = $pagina_original_info[5];
+		if (($pagina_original_user_id != $user_id) && ($pagina_original_compartilhamento == 'privado')) {
+			$check_compartilhamento = return_compartilhamento($pagina_item_id, $user_id);
+			if ($check_compartilhamento == false) {
+				header("Location:pagina.php?pagina_id=3");
+				exit();
+			}
 		}
+	} elseif ($pagina_tipo == 'resposta') {
+		$resposta_id = $pagina_id;
+		$resposta_info = return_pagina_info($pagina_id);
+		$original_id = $resposta_info[1];
+		$original_info = return_pagina_info($original_id);
+		$original_user_id = $original_info[5];
+		if ($original_user_id != $user_id) {
+			$check_compartilhamento = return_compartilhamento($original_id, $user_id);
+			if ($check_compartilhamento == false) {
+				header("Location:pagina.php?pagina_id=3");
+				exit();
+			}
+		}
+		$original_titulo = $original_info[6];
+		$original_texto_id = return_texto_id('texto', 'anotacoes', $original_id);
+		$original_texto_info = return_texto_info($original_texto_id);
+		$original_texto_html = $original_texto_info[5];
 	}
-
+	
 	if ($pagina_tipo == 'elemento') {
 		include 'pagina/isset_elemento.php';
 	}
-
+	
 	if ($pagina_tipo == 'topico') {
 		$topicos = $conn->query("SELECT estado_pagina, materia_id, nivel, ordem, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Topicos WHERE curso_id = $topico_curso_id AND id = $topico_id");
 		if ($topicos->num_rows > 0) {
@@ -179,9 +201,9 @@
 	} elseif ($pagina_tipo == 'elemento') {
 		include 'pagina/queries_elemento.php';
 	}
-
+	
 	include 'pagina/shared_issets.php';
-
+	
 	if (($pagina_tipo == 'elemento') || ($pagina_tipo == 'pagina')) {
 		if (isset($_POST['trigger_nova_secao'])) {
 			$nova_secao_titulo = $_POST['elemento_nova_secao'];
@@ -201,7 +223,7 @@
 			$nao_contar = true;
 		}
 	}
-
+	
 	if ($pagina_tipo != 'sistema') {
 		$pagina_bookmark = false;
 		$bookmarks = $conn->query("SELECT bookmark FROM Bookmarks WHERE user_id = $user_id AND pagina_id = $pagina_id AND active = 1 ORDER BY id DESC");
@@ -211,7 +233,7 @@
 				break;
 			}
 		}
-
+		
 		$estado_estudo = false;
 		$estudos = $conn->query("SELECT estado FROM Completed WHERE user_id = $user_id AND pagina_id = $pagina_id AND active = 1 ORDER BY id DESC");
 		if ($estudos->num_rows > 0) {
@@ -240,7 +262,7 @@
 			$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina, extra, extra2) VALUES ($user_id, $pagina_id, '$pagina_tipo', '$visualizacao_extra', 'pagina')");
 		}
 	}
-
+	
 	if (isset($_POST['compartilhar_grupo_id'])) {
 		$compartilhar_grupo_id = $_POST['compartilhar_grupo_id'];
 		$conn->query("INSERT INTO Compartilhamento (user_id, item_id, item_tipo, compartilhamento, recipiente_id) VALUES ($user_id, $pagina_id, '$pagina_tipo', 'grupo', $compartilhar_grupo_id)");
@@ -256,12 +278,18 @@
         <div class='py-2 text-left col'>
 					<?php
 						if (($pagina_tipo != 'sistema') && ($pagina_tipo != 'texto') && ($pagina_compartilhamento != 'escritorio')) {
-							echo "<span id='add_elements' class='mx-1' title='' data-toggle='modal' data-target='#modal_add_elementos'><a href='javascript:void(0)' title='Adicionar elemento'><i     class='fad fa-2x fa-plus-circle fa-fw'></i></a></span>";
+							echo "<span id='add_elements' class='mx-1' title='Adicionar elementos' data-toggle='modal' data-target='#modal_add_elementos'><a href='javascript:void(0)' title='Adicionar elemento'><i     class='fad fa-2x fa-plus-circle fa-fw'></i></a></span>";
 						}
 						if ($pagina_tipo == 'elemento') {
-							echo "<span id='elemento_dados' class='mx-1'><a href='javascript:void(0);' data-toggle='modal' data-target='#modal_dados_elemento' class='text-info'><i class='fad fa-info-circle fa-fw fa-2x'></i></a></span>";
-						} elseif ((($pagina_tipo == 'sistema') && ($user_tipo == 'admin')) || (($pagina_tipo == 'pagina') && ($pagina_user_id == $user_id)) || (($pagina_tipo == 'texto') && ($pagina_user_id = $user_id) && ($texto_page_id == 0))) {
-							echo "<span id='pagina_dados' class='mx-1'><a href='javascript:void(0);' data-toggle='modal' data-target='#modal_pagina_dados' class='text-info'><i class='fad fa-info-circle fa-fw fa-2x'></i></a></span>";
+							echo "<span id='elemento_dados' class='mx-1' title='Editar dados'><a href='javascript:void(0);' data-toggle='modal' data-target='#modal_dados_elemento' class='text-info'><i class='fad fa-info-circle fa-fw fa-2x'></i></a></span>";
+						}
+						$modal_pagina_dados = false;
+						if ((($pagina_tipo == 'sistema') && ($user_tipo == 'admin')) || (($pagina_tipo == 'pagina') && ($pagina_user_id == $user_id)) || (($pagina_tipo == 'texto') && ($pagina_user_id = $user_id) && ($texto_page_id == 0)) || (($pagina_tipo == 'resposta') && ($pagina_user_id == $user_id))) {
+							$modal_pagina_dados = true;
+							echo "<span id='pagina_dados' class='mx-1' title='Editar dados'><a href='javascript:void(0);' data-toggle='modal' data-target='#modal_pagina_dados' class='text-info'><i class='fad fa-info-circle fa-fw fa-2x'></i></a></span>";
+						}
+						if ($pagina_tipo == 'texto') {
+							echo "<span id='add_reply' class='mx-1' title='Adicionar resposta'><a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_reply' class='text-success'><i class='fad fa-comment-lines fa-fw fa-2x'></i></a></span>";
 						}
 					?>
         </div>
@@ -394,10 +422,8 @@
 				$template_subtitulo = 'Texto privado';
 			}
 		} elseif ($pagina_tipo == 'sistema') {
-			$pagina_titulo = return_pagina_titulo($pagina_id);
 			$template_titulo = $pagina_titulo;
 		} elseif ($pagina_tipo == 'pagina') {
-			$pagina_titulo = return_pagina_titulo($pagina_id);
 			if ($pagina_titulo == false) {
 				$template_titulo = 'Página sem título';
 			} else {
@@ -425,6 +451,13 @@
 		} elseif ($pagina_tipo == 'grupo') {
 			$template_titulo = return_grupo_titulo_id($grupo_id);
 			$template_subtitulo = 'Grupo de estudos';
+		} elseif ($pagina_tipo == 'resposta') {
+			if ($pagina_titulo == false) {
+				$template_titulo = 'Resposta sem título';
+		    } else {
+				$template_titulo = $pagina_titulo;
+			}
+			$template_subtitulo = "Referente ao texto \"$original_titulo\"";
 		}
 		include 'templates/titulo.php';
 	?>
@@ -437,7 +470,7 @@
 							include 'pagina/grupo.php';
 						} elseif ($pagina_tipo == 'curso') {
 							include 'pagina/curso.php';
-
+							
 						} elseif ($pagina_tipo == 'materia') {
 							include 'pagina/materia.php';
 						} elseif ($pagina_tipo == 'texto') {
@@ -456,10 +489,21 @@
 					?>
         </div>
 			<?php
+				
+				if ($pagina_tipo == 'resposta') {
+					echo "
+						<div id='coluna_original' class='$coluna_classes pagina_coluna'>";
+							$template_div = 'texto_original';
+							$template_titulo = $original_titulo;
+							$template_conteudo = $original_texto_html;
+							include 'templates/page_element.php';
+					echo "</div>";
+				}
+				
 				echo "<div id='coluna_esquerda' class='$coluna_classes pagina_coluna'>";
-
+				
 				if ($pagina_tipo == 'elemento') {
-
+					
 					if ($elemento_tipo == 'imagem') {
 						$template_id = 'imagem_div';
 						$template_titulo = false;
@@ -493,29 +537,33 @@
 						$template_quill_initial_state = 'leitura';
 						$template_botoes_padrao = false;
 					}
+					if ($pagina_tipo == 'resposta') {
+						$template_classes = 'sticky-top';
+						$template_quill_vazio = 'Escreva aqui sua resposta.';
+					}
 					$template_conteudo = include 'templates/template_quill.php';
 					include 'templates/page_element.php';
 					if ((($pagina_tipo == 'elemento') || ($pagina_tipo == 'pagina')) && ($pagina_compartilhamento != 'escritorio')) {
 						include 'pagina/secoes_pagina.php';
 					}
-
+					
 					include 'pagina/leiamais.php';
-
+					
 					include 'pagina/videos.php';
-
+					
 					include 'pagina/imagens.php';
-
+					
 					include 'pagina/audio.php';
-
+					
 				}
-
+				
 				echo "</div>";
 			?>
 			<?php
-				if (($pagina_tipo != 'sistema') && ($pagina_tipo != 'texto') && ($pagina_compartilhamento != 'escritorio')) {
-
+				if (($pagina_tipo != 'sistema') && ($pagina_tipo != 'texto') && ($pagina_compartilhamento != 'escritorio') && ($pagina_tipo != 'resposta')) {
+					
 					include 'pagina/coluna_direita_anotacoes.php';
-
+					
 				}
 			?>
     </div>
@@ -534,11 +582,11 @@
 		$template_modal_body_conteudo = $breadcrumbs;
 		include 'templates/modal.php';
 	}
-
+	
 	$template_modal_div_id = 'modal_forum';
 	$template_modal_titulo = 'Fórum';
 	$template_modal_body_conteudo = false;
-
+	
 	if (isset($comments)) {
 		if ($comments->num_rows > 0) {
 			$template_modal_body_conteudo .= "<ul class='list-group'>";
@@ -550,7 +598,7 @@
 				$autor_comentario_avatar_info = return_avatar($autor_comentario_id);
 				$autor_comentario_avatar = $autor_comentario_avatar_info[0];
 				$autor_comentario_cor = $autor_comentario_avatar_info[1];
-
+				
 				$template_modal_body_conteudo .= "<li class='list-group-item'>
                                                 <p></span><strong><a href='pagina.php?user_id=$autor_comentario_id' target='_blank'><span class='$autor_comentario_cor'><i class='fad $autor_comentario_avatar fa-fw fa-2x'></i></span>$autor_comentario_apelido</a></strong> <span class='text-muted'><small>escreveu em $timestamp_comentario</small></span></p>
                                                 $texto_comentario
@@ -561,7 +609,7 @@
 			$template_modal_body_conteudo .= "<p><strong>Não há comentários sobre este tópico.</strong></p>";
 		}
 	}
-
+	
 	if ($user_apelido != false) {
 		$template_modal_body_conteudo .= "
                 <div class='md-form mb-2'>
@@ -573,8 +621,8 @@
 		$template_modal_body_conteudo .= "<p class='mt-3'><strong>Para adicionar um comentário, você precisará definir seu apelido em <a href='escritorio.php'>seu escritório</a>.</strong></p>";
 	}
 	include 'templates/modal.php';
-
-
+	
+	
 	$active1 = false;
 	$active2 = false;
 	$active3 = false;
@@ -607,7 +655,7 @@
         </div>
     ";
 	include 'templates/modal.php';
-
+	
 	$template_modal_div_id = 'modal_adicionar_youtube';
 	$template_modal_titulo = 'Adicionar vídeo do Youtube';
 	$template_modal_body_conteudo = "
@@ -618,13 +666,13 @@
                                for='novo_video_link'>Link para o vídeo (Youtube)</label>
                     </div>
 	";
-
+	
 	include 'templates/modal.php';
-
+	
 	if ($pagina_tipo == 'elemento') {
 		include 'pagina/modals_elemento.php';
 	}
-
+	
 	if (($pagina_tipo == 'pagina') || ($pagina_tipo == 'elemento')) {
 		$template_modal_div_id = 'modal_partes_form';
 		$template_modal_titulo = 'Adicionar seção';
@@ -651,7 +699,7 @@
               <label for='elemento_nova_secao_ordem'>Posição da nova seção</label>
           </div>
         ";
-
+		
 		$secoes = $conn->query("SELECT secao_pagina_id, ordem FROM Secoes WHERE pagina_id = $pagina_id");
 		if ($secoes->num_rows > 0) {
 			$template_modal_body_conteudo .= "
@@ -669,15 +717,15 @@
 		}
 		include 'templates/modal.php';
 	}
-
+	
 	include 'pagina/modal_add_elemento.php';
-
+	
 	include 'pagina/modal_adicionar_imagem.php';
-
-	if ((($pagina_tipo == 'sistema') && ($user_tipo == 'admin')) || (($pagina_tipo == 'pagina') && ($pagina_user_id == $user_id)) || (($pagina_tipo == 'texto') && ($pagina_user_id == $user_id))) {
+	
+	if ($modal_pagina_dados == true) {
 		if (($pagina_tipo == 'pagina') || ($pagina_tipo == 'sistema')) {
 			$mudar_titulo_texto = 'da página';
-		} elseif ($pagina_tipo == 'texto') {
+		} elseif (($pagina_tipo == 'texto') || ($pagina_tipo == 'resposta')) {
 			$mudar_titulo_texto = 'do texto';
 		}
 		$template_modal_div_id = 'modal_pagina_dados';
@@ -693,9 +741,9 @@
         ";
 		include 'templates/modal.php';
 	}
-
+	
 	include 'templates/etiquetas_modal.php';
-
+	
 	if ($pagina_tipo == 'secao') {
 		$template_modal_div_id = 'modal_paginas_relacionadas';
 		$template_modal_titulo = 'Página e seções';
@@ -713,13 +761,13 @@
 		$template_modal_body_conteudo .= "</ul>";
 		include 'templates/modal.php';
 	}
-
+	
 	if ($pagina_tipo == 'texto') {
 		include 'pagina/modals_texto.php';
 	}
-
+	
 	if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id)) {
-
+		
 		$template_modal_div_id = 'modal_compartilhar_anotacao';
 		$template_modal_titulo = 'Compartilhamento';
 		$template_modal_show_buttons = false;
@@ -750,7 +798,7 @@
 		} else {
 			$template_modal_body_conteudo .= "<p class='text-muted'><em>Você não faz parte de nenhum grupo de estudos. Visite seu escritório para participar.</em></p>";
 		}
-
+		
 		/*$template_modal_body_conteudo .= "
 			<form>
 			<h3>Compartilhar com outro usuário</h3>
@@ -766,9 +814,39 @@
 			<h3>Tornar pública e aberta.</h3>
 			<p>Todo usuário da Ubwiki poderá ler e editar sua anotação.</p>
 			";*/
-
+		
 		include 'templates/modal.php';
-
+		
+	}
+	if ($pagina_tipo == 'texto') {
+		$template_modal_div_id = 'modal_add_reply';
+		$template_modal_titulo = 'Escrever texto em resposta';
+		$template_modal_show_buttons = false;
+		$template_modal_body_conteudo = false;
+		$template_modal_body_conteudo .= "
+			<p>Pressione o botão abaixo para escrever um texto em resposta a este. Seu texto será visível a todos que possam acessar este texto.</p>
+			<div class='row justify-content-center'>
+				<a href='pagina.php?original_id=$pagina_id&resposta_id=new'><button class='$button_classes'>Escrever resposta</button></a>
+			</div>
+		";
+		$template_modal_body_conteudo .= "<h2>Respostas enviadas:</h2>";
+		$respostas = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'resposta'");
+		if ($respostas->num_rows > 0) {
+			while ($resposta = $respostas->fetch_assoc()) {
+				$resposta_pagina_id = $resposta['elemento_id'];
+				$resposta_pagina_info = return_pagina_info($resposta_pagina_id);
+				$resposta_pagina_titulo = $resposta_pagina_info[6];
+				$resposta_user_id = $resposta_pagina_info[5];
+				$resposta_avatar_info = return_avatar($resposta_user_id);
+				$resposta_avatar_icone = $resposta_avatar_info[0];
+				$resposta_avatar_cor = $resposta_avatar_info[1];
+				$resposta_user_apelido = return_apelido_user_id($resposta_user_id);
+				if ($resposta_pagina_titulo != false) {
+					$template_modal_body_conteudo .= "<li class='list-group-item d-flex justify-content-between'><a href='pagina.php?user_id=$resposta_user_id' class='$resposta_avatar_cor'><i class='fa $resposta_avatar_icone fa-fw fa-2x'></i> $resposta_user_apelido</a> <a href='pagina.php?pagina_id=$resposta_pagina_id'>$resposta_pagina_titulo</a></li>";
+				}
+			}
+		}
+		include 'templates/modal.php';
 	}
 ?>
 

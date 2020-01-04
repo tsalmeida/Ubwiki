@@ -27,4 +27,42 @@
 			}
 		}
 	}*/
+	
+	/*else {
+		if ((strpos($template_id, 'anotac') !== false) || ($template_id == 'verbete_user')) {
+			$template_quill_meta_tipo = 'anotacoes';
+			$template_quill_toolbar_and_whitelist = 'anotacoes';
+			$template_quill_initial_state = 'edicao';
+			$template_classes = 'anotacoes_sticky';
+			$template_quill_public = false;
+		} else {
+			$template_quill_meta_tipo = 'verbete';
+			$template_quill_public = true;
+			$template_quill_toolbar_and_whitelist = 'general';
+			if (!isset($template_quill_initial_state)) {
+				$template_quill_initial_state = 'leitura';
+			}
+		}
+	}*/
+	
+	/*else {
+		if (!isset($template_quill_pagina_id)) {
+			if (isset($topico_id)) {
+				$template_quill_pagina_id = $topico_id;
+			} elseif (isset($elemento_id)) {
+				$template_quill_pagina_id = $elemento_id;
+			} elseif (isset($questao_id)) {
+				$template_quill_pagina_id = $questao_id;
+			} elseif (isset($texto_apoio_id)) {
+				$template_quill_pagina_id = $texto_apoio_id;
+			} elseif (isset($materia_id)) {
+				$template_quill_pagina_id = $materia_id;
+			} elseif (isset($curso_id)) {
+				$template_quill_pagina_id = $curso_id;
+			} else {
+				$template_quill_pagina_id = false;
+			}
+		}
+	}*/
+	
 ?>
