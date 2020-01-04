@@ -829,7 +829,7 @@
 				<a href='pagina.php?original_id=$pagina_id&resposta_id=new'><button class='$button_classes'>Escrever resposta</button></a>
 			</div>
 		";
-		$template_modal_body_conteudo .= "<h2>Respostas enviadas:</h2>";
+		$template_modal_body_conteudo .= "<h2>Respostas a este texto</h2>";
 		$respostas = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'resposta'");
 		if ($respostas->num_rows > 0) {
 			while ($resposta = $respostas->fetch_assoc()) {
