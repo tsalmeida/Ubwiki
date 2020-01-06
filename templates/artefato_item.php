@@ -61,8 +61,10 @@
 		$artefato_col_limit = 'col-lg-2 col-md-3 col-sm-4 col-xs-12';
 	}
 	
+	$length_check = "$artefato_titulo $artefato_subtitulo";
+	
 	$titulo_class = false;
-	$titulo_length = strlen($artefato_titulo);
+	$titulo_length = strlen($length_check);
 	if ($titulo_length > 60) {
 		$titulo_class = 'small';
 	}
@@ -91,6 +93,7 @@
 	unset($col_limit);
 	unset($titulo_class);
 	unset($artefato_modal);
+	unset($length_check);
 	
 	return $artefato_template_result;
 

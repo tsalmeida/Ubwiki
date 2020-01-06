@@ -427,6 +427,21 @@
 		return false;
 	}
 	
+	function return_pagina_item_id($pagina_id) {
+		if ($pagina_id == false) {
+			return false;
+		}
+		include 'templates/criar_conn.php';
+		$paginas = $conn->query("SELECT item_id FROM Paginas WHERE id = $pagina_id");
+		if ($paginas->num_rows > 0) {
+			while ($pagina = $paginas->fetch_assoc()) {
+				$pagina_item_id = $pagina['item_id'];
+				return $pagina_item_id;
+			}
+		}
+		return false;
+	}
+	
 	function return_curso_id_topico($topico_id)
 	{
 		/*include 'templates/criar_conn.php';

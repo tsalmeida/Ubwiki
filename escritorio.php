@@ -394,7 +394,7 @@
 			<?php
 				echo "<div class='col-3 mt-3'><div class='row justify-content-start'>";
 				echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_opcoes' class='mr-1 text-info'><i class='fad fa-user-cog fa-2x fa-fw'></i></a>";
-				echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_apresentacao' class='ml-1 text-info'><i class='fad fa-door-open fa-2x fa-fw'></i></a>";
+				echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_apresentacao' class='ml-1 text-info'><i class='fad fa-door-closed fa-2x fa-fw'></i></a>";
 				echo "</div></div>";
 				echo "<div class='col-6'><div class='row justify-content-center'>";
 				echo "
@@ -482,13 +482,14 @@
 									$artefato_link = "pagina.php?pagina_id=$visualizacao_page_id";
 									$artefato_tipo = $visualizacao_elemento_info[3];
 								} elseif ($visualizacao_tipo_pagina == 'topico') {
-									$visualizacao_topico_id = return_topico_id_pagina_id($visualizacao_page_id);
-									$artefato_titulo = return_titulo_topico($visualizacao_topico_id);
-									$artefato_subtitulo_curso_id = return_curso_id_topico($visualizacao_topico_id);
-									$artefato_subtitulo_materia_id = return_materia_id_topico($visualizacao_topico_id);
-									$artefato_subtitulo_curso_titulo = return_curso_sigla($artefato_subtitulo_curso_id);
-									$artefato_subtitulo_materia_titulo = return_materia_titulo_id($artefato_subtitulo_materia_id);
-									$artefato_subtitulo = "$artefato_subtitulo_curso_titulo / $artefato_subtitulo_materia_titulo";
+								    $visualizacao_pagina_info = return_familia($visualizacao_page_id);
+								    $artefato_titulo = return_pagina_titulo($visualizacao_page_id);
+								    $artefato_curso_pagina_id = $visualizacao_pagina_info[1];
+								    $artefato_curso_id = return_pagina_item_id($artefato_curso_pagina_id);
+								    $artefato_curso_sigla = return_curso_sigla($artefato_curso_id);
+								    $artefato_materia_pagina_id = $visualizacao_pagina_info[2];
+								    $artefato_subtitulo_materia_titulo = return_pagina_titulo($artefato_materia_pagina_id);
+									$artefato_subtitulo = "$artefato_curso_sigla / $artefato_subtitulo_materia_titulo";
 									$artefato_link = "pagina.php?pagina_id=$visualizacao_page_id";
 									$artefato_tipo = 'verbete';
 									/*} elseif ($visualizacao_tipo_pagina == 'texto') {
@@ -528,7 +529,7 @@
 								$artefato_criacao = false;
 								$template_conteudo .= include 'templates/artefato_item.php';
 								$count++;
-								if ($count == 11) {
+								if ($count == 17) {
 									break;
 								}
 							}
@@ -1009,12 +1010,14 @@
 								$artefato_titulo = $anotacao_titulo;
 							}
 							if ($anotacao_pagina_tipo == 'topico') {
-								$artefato_titulo = return_titulo_topico($anotacao_page_id);
-								$anotacao_materia_id = return_materia_id_topico($anotacao_page_id);
-								$anotacao_curso_id = return_curso_id_materia($anotacao_materia_id);
-								$anotacao_curso_sigla = return_curso_sigla($anotacao_curso_id);
-								$anotacao_materia_titulo = return_materia_titulo_id($anotacao_materia_id);
-								$artefato_subtitulo = "$anotacao_materia_titulo / $anotacao_curso_sigla";
+								$artefato_titulo = return_pagina_titulo($anotacao_pagina_id);
+								$artefato_familia = return_familia($anotacao_pagina_id);
+								$artefato_curso_pagina_id = $artefato_familia[1];
+								$artefato_materia_pagina_id = $artefato_familia[2];
+								$artefato_materia_titulo = return_pagina_titulo($artefato_materia_pagina_id);
+								$artefato_curso_id = return_pagina_item_id($artefato_curso_pagina_id);
+								$artefato_curso_sigla = return_curso_sigla($artefato_curso_id);
+								$artefato_subtitulo = "$artefato_materia_titulo / $artefato_curso_sigla";
 							} elseif ($anotacao_pagina_tipo == 'pagina') {
 								$artefato_titulo = return_pagina_titulo($anotacao_pagina_id);
 								$artefato_subtitulo = 'Nota / página';
@@ -1025,10 +1028,12 @@
 								$artefato_titulo = return_curso_titulo_id($anotacao_page_id);
 								$artefato_subtitulo = 'Nota / curso';
 							} elseif ($anotacao_pagina_tipo == 'materia') {
-								$artefato_titulo = return_materia_titulo_id($anotacao_page_id);
-								$materia_curso_id = return_curso_id_materia($anotacao_page_id);
-								$materia_curso_sigla = return_curso_sigla($materia_curso_id);
-								$artefato_subtitulo = "Matéria / $materia_curso_sigla";
+								$artefato_titulo = return_pagina_titulo($anotacao_pagina_id);
+								$artefato_info = return_familia($anotacao_pagina_id);
+								$artefato_curso_pagina_id = $artefato_info[1];
+								$artefato_curso_id = return_pagina_item_id($artefato_curso_pagina_id);
+								$artefato_curso_sigla = return_curso_sigla($artefato_curso_id);
+								$artefato_subtitulo = "Matéria / $artefato_curso_sigla";
 							} elseif ($anotacao_pagina_tipo == 'grupo') {
 								$artefato_titulo = return_grupo_titulo_id($anotacao_page_id);
 								$artefato_subtitulo = 'Nota / Grupo de estudos';
