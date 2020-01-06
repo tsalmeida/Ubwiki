@@ -65,4 +65,197 @@
 		}
 	}*/
 	
+	/*if ($conn->query("INSERT INTO Etiquetas (tipo, titulo, user_id) VALUES ('topico', '$criar_etiqueta_titulo', $user_id)") === true) {
+	$nova_etiqueta_id = $conn->insert_id;
+	$conn->query("INSERT INTO Acervo (user_id, etiqueta_id, etiqueta_tipo, elemento_id) VALUES ($user_id, $nova_etiqueta_id, 'topico', 0)");
+	if ($criar_etiqueta_page_tipo != 'acervo') {
+		$conn->query("INSERT INTO Etiquetados (etiqueta_id, page_id, page_tipo, user_id) VALUES ($nova_etiqueta_id, $criar_etiqueta_page_id, '$criar_etiqueta_page_tipo', $user_id)");
+	}
+	if (isset($criar_etiqueta_page_id)) {
+		echo "<a href='javascript:void(0);' class='$tag_ativa_classes $criar_etiqueta_cor' value='$nova_etiqueta_id'><i class='far $criar_etiqueta_icone fa-fw'></i> $criar_etiqueta_titulo</a>";
+	} else {
+		echo "<span href='javascript:void(0);' class='$tag_neutra_classes $criar_etiqueta_cor'><i class='far $criar_etiqueta_icone fa-fw'></i> $criar_etiqueta_titulo</span>";
+	}
+} else {
+	echo false;
+}*/
+	
+	/*if ($conn->query("UPDATE Etiquetados SET estado = 0 WHERE etiqueta_id = $remover_etiqueta_id AND page_id = $remover_etiqueta_page_id AND page_tipo = '$remover_etiqueta_page_tipo'")
+	===
+	true) {
+	echo true;
+} else {
+	echo false;
+}*/
+	
+	/*
+	$topico_anterior = false;
+	$topico_proximo = false;
+	
+	$breadcrumbs = "
+    <div class='d-block'><a href='index.php'>$curso_sigla</a></div>
+    <div class='d-block spacing0'><i class='fad fa-level-up fa-rotate-90 fa-fw'></i><a href='pagina.php?materia_id=$topico_materia_id'>$topico_materia_titulo</a></div>
+  ";
+	
+	$result = $conn->query("SELECT id, nivel, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Topicos WHERE materia_id = $topico_materia_id ORDER BY ordem");
+	
+	if ($topico_nivel == 1) {
+		$count = 0;
+		$fawesome = "<i class='fad fa-level-up fa-rotate-90 fa-fw'></i>";
+		while ($row = $result->fetch_assoc()) {
+			$count++;
+			if ($count == 2) {
+				$fawesome = "<i class='fad fa-long-arrow-right fa-fw'></i>";
+			}
+			$id_nivel1 = $row['id'];
+			$titulo_nivel1 = $row['nivel1'];
+			$nivel_nivel1 = $row['nivel'];
+			if ($nivel_nivel1 == 1) {
+				if ($titulo_nivel1 == $topico_nivel1) {
+					$breadcrumbs .= "<div class='spacing1'>$fawesome$titulo_nivel1</div>";
+					$count2 = 0;
+					$fawesome = "<i class='fad fa-level-up fa-rotate-90 fa-fw'></i>";
+					$result2 = $conn->query("SELECT id, nivel2 FROM Topicos WHERE nivel1 = '$id_nivel1' AND nivel = 2 ORDER BY ordem");
+					while ($row2 = $result2->fetch_assoc()) {
+						$id_nivel2 = $row2['id'];
+						$titulo_nivel2 = $row2['nivel2'];
+						$count2++;
+						if ($count2 == 2) {
+							$fawesome = "<i class='fad fa-long-arrow-right fa-fw'></i>";
+						}
+						$breadcrumbs .= "<div class='spacing2'>$fawesome<a href='pagina.php?topico_id=$id_nivel2'>$titulo_nivel2</a></div>";
+					}
+				} else {
+					$breadcrumbs .= "<div class='spacing1'>$fawesome<a href='pagina.php?topico_id=$id_nivel1'>$titulo_nivel1</a></div>";
+				}
+			}
+		}
+	}
+	if ($topico_nivel > 1) {
+		$titulo_nivel1 = return_titulo_topico($topico_nivel1);
+		$breadcrumbs .= "<div class='spacing1'><i class='fad fa-level-up fa-rotate-90 fa-fw'></i><a href='pagina.php?topico_id=$topico_nivel1'>$titulo_nivel1</a></div>";
+	}
+	if ($topico_nivel == 2) {
+		$result2 = $conn->query("SELECT id, nivel2 FROM Topicos WHERE nivel1 = $topico_nivel1 AND nivel = 2 ORDER BY ordem");
+		$count = 0;
+		$fawesome = "<i class='fad fa-level-up fa-rotate-90 fa-fw'></i>";
+		while ($row2 = $result2->fetch_assoc()) {
+			$count++;
+			if ($count == 2) {
+				$fawesome = "<i class='fad fa-long-arrow-right fa-fw'></i>";
+			}
+			$id_nivel2 = $row2['id'];
+			$titulo_nivel2 = $row2['nivel2'];
+			if ($titulo_nivel2 == $topico_nivel2) {
+				$breadcrumbs .= "<div class='spacing2'>$fawesome$topico_nivel2</div>";
+				$result3 = $conn->query("SELECT id, nivel3 FROM Topicos WHERE materia_id = $topico_materia_id AND nivel = 3 AND nivel2 = $id_nivel2 ORDER BY ordem");
+				$count = 0;
+				$fawesome3 = "<i class='fad fa-level-up fa-rotate-90 fa-fw'></i>";
+				while ($row3 = $result3->fetch_assoc()) {
+					$id_nivel3 = $row3['id'];
+					$titulo_nivel3 = $row3['nivel3'];
+					$count++;
+					if ($count == 2) {
+						$fawesome3 = "<i class='fad fa-long-arrow-right fa-fw'></i>";
+					}
+					$breadcrumbs .= "<div class='spacing3'>$fawesome3<a href='pagina.php?topico_id=$id_nivel3'>$titulo_nivel3</a></div>";
+				}
+			} else {
+				$breadcrumbs .= "<div class='spacing2'>$fawesome<a href='pagina.php?topico_id=$id_nivel2'>$titulo_nivel2</a></div>";
+			}
+		}
+	}
+	if ($topico_nivel > 2) {
+		$titulo_nivel2 = return_titulo_topico($topico_nivel2);
+		$breadcrumbs .= "<div class='spacing2'><i class='fad fa-level-up fa-rotate-90 fa-fw'></i><a href='pagina.php?topico_id=$topico_nivel2'>$titulo_nivel2</a></div>";
+	}
+	if ($topico_nivel == 3) {
+		$result3 = $conn->query("SELECT id, nivel3 FROM Topicos WHERE nivel2 = $topico_nivel2 AND nivel = 3 ORDER BY ordem");
+		$count = 0;
+		$fawesome3 = "<i class='fad fa-level-up fa-rotate-90 fa-fw'></i>";
+		while ($row3 = $result3->fetch_assoc()) {
+			$count++;
+			if ($count == 2) {
+				$fawesome3 = "<i class='fad fa-long-arrow-right fa-fw'></i>";
+			};
+			$id_nivel3 = $row3['id'];
+			$titulo_nivel3 = $row3['nivel3'];
+			if ($titulo_nivel3 == $topico_nivel3) {
+				$breadcrumbs .= "<div class='spacing3'>$fawesome3$topico_nivel3</div>";
+				$result4 = $conn->query("SELECT id, nivel4 FROM Topicos WHERE materia_id = $topico_materia_id AND nivel = 4 AND nivel3 = $id_nivel3 ORDER BY ordem");
+				$count = 0;
+				$fawesome4 = "<i class='fad fa-level-up fa-rotate-90 fa-fw'></i>";
+				while ($row4 = $result4->fetch_assoc()) {
+					$id_nivel4 = $row4['id'];
+					$titulo_nivel4 = $row4['nivel4'];
+					$count++;
+					if ($count == 2) {
+						$fawesome4 = "<i class='fad fa-long-arrow-right fa-fw'></i>";
+					}
+					$breadcrumbs .= "<div class='spacing4'>$fawesome4<a href='pagina.php?topico_id=$id_nivel4'>$titulo_nivel4</a></div>";
+				}
+			} else {
+				$breadcrumbs .= "<div class='spacing3'>$fawesome3<a href='pagina.php?topico_id=$id_nivel3'>$titulo_nivel3</a></div>";
+			}
+		}
+	}
+	if ($topico_nivel > 3) {
+		$titulo_nivel3 = return_titulo_topico($topico_nivel3);
+		$breadcrumbs .= "<div class='spacing3'><i class='fad fa-level-up fa-rotate-90 fa-fw'></i><a href='pagina.php?topico_id=$topico_nivel3'>$titulo_nivel3</a></div>";
+	}
+	if ($topico_nivel == 4) {
+		$result4 = $conn->query("SELECT id, nivel4 FROM Topicos WHERE nivel3 = $topico_nivel3 AND nivel = 4 ORDER BY ordem");
+		$count = 0;
+		$fawesome4 = "<i class='fad fa-level-up fa-rotate-90 fa-fw'></i>";
+		while ($row4 = $result4->fetch_assoc()) {
+			$count++;
+			if ($count == 2) {
+				$fawesome4 = "<i class='fad fa-long-arrow-right fa-fw'></i>";
+			};
+			$id_nivel4 = $row4['id'];
+			$titulo_nivel4 = $row4['nivel4'];
+			if ($titulo_nivel4 == $topico_nivel4) {
+				$breadcrumbs .= "<div class='spacing4'>$fawesome4$topico_nivel4</div>";
+				$result5 = $conn->query("SELECT id, nivel5 FROM Topicos WHERE materia_id = $topico_materia_id AND nivel = 5 AND nivel4 = $id_nivel4 ORDER BY ordem");
+				$count = 0;
+				$fawesome5 = "<i class='fad fa-level-up fa-rotate-90 fa-fw'></i>";
+				while ($row5 = $result5->fetch_assoc()) {
+					$id_nivel5 = $row5['id'];
+					$titulo_nivel5 = $row5['nivel5'];
+					$count++;
+					if ($count == 2) {
+						$fawesome5 = "<i class='fad fa-long-arrow-right fa-fw'></i>";
+					}
+					$breadcrumbs .= "<div class='spacing5'>$fawesome5<a href='pagina.php?topico_id=$id_nivel5'>$titulo_nivel5</a></div>";
+				}
+			} else {
+				$breadcrumbs .= "<div class='spacing4'>$fawesome4<a href='pagina.php?topico_id=$id_nivel4'>$titulo_nivel4</a></div>";
+			}
+		}
+	}
+	if ($topico_nivel > 4) {
+		$titulo_nivel4 = return_titulo_topico($topico_nivel4);
+		$breadcrumbs .= "<div class='spacing4'><i class='fad fa-level-up fa-rotate-90 fa-fw'></i><a href='pagina.php?topico_id=$topico_nivel4'>$titulo_nivel4</a></div>";
+	}
+	if ($topico_nivel == 5) {
+		$result5 = $conn->query("SELECT id, nivel5 FROM Topicos WHERE nivel4 = $nivel4 AND nivel = 5 ORDER BY ordem");
+		$count = 0;
+		$fawesome5 = "<i class='fad fa-level-up fa-rotate-90 fa-fw'></i>";
+		while ($row5 = $result5->fetch_assoc()) {
+			$count++;
+			if ($count == 2) {
+				$fawesome5 = "<i class='fad fa-long-arrow-right fa-fw'></i>";
+			};
+			$id_nivel5 = $row5['id'];
+			$titulo_nivel5 = $row5['nivel5'];
+			if ($titulo_nivel5 == $topico_nivel5) {
+				$breadcrumbs .= "<div class='spacing5'>$fawesome5$topico_nivel5</div>";
+			} else {
+				$breadcrumbs .= "<div class='spacing5'>$fawesome5<a href='pagina.php?topico_id=$id_nivel5'>$titulo_nivel5</a></div>";
+			}
+		}
+	}
+	 */
+	
+	
 ?>

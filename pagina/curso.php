@@ -36,7 +36,8 @@
 	$template_conteudo = false;
 	
 	$row_items = 2;
-	$materias = $conn->query("SELECT titulo, id FROM Materias WHERE curso_id = '$curso_id' AND estado = 1 ORDER BY ordem");
+	$materias = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE tipo = 'materia' AND pagina_id = $pagina_id");
+	
 	$rowcount = mysqli_num_rows($materias);
 	if ($rowcount > 8) {
 		$row_items = 3;
@@ -55,11 +56,11 @@
 				$template_conteudo .= "<div class='col-xl col-lg-6 col-md-6 col-sm-12'>";
 			}
 			$count++;
-			$materia_titulo = $materia['titulo'];
-			$materia_id = $materia["id"];
+			$materia_pagina_id = $materia['elemento_id'];
+			$materia_pagina_titulo = return_pagina_titulo($materia_pagina_id);
 			$template_conteudo .= "
-                                          <a href='pagina.php?materia_id=$materia_id'><div class='btn btn-block btn-light rounded oswald btn-md text-center grey lighten-3 text-muted mb-3'>
-                                            <span class=''>$materia_titulo</span>
+                                          <a href='pagina.php?pagina_id=$materia_pagina_id'><div class='btn btn-block btn-light rounded oswald btn-md text-center grey lighten-3 text-muted mb-3'>
+                                            <span class=''>$materia_pagina_titulo</span>
                                           </div></a>
                                         ";
 			if ($count == $row_items) {
@@ -81,22 +82,23 @@
 	$template_botoes = false;
 	$template_conteudo = false;
 	$template_conteudo_no_col = true;
-	$paginas = $conn->query("SELECT DISTINCT page_id FROM (SELECT id, page_id FROM Textos_arquivo WHERE tipo = 'verbete' AND page_id IS NOT NULL GROUP BY id ORDER BY id DESC) t");
+	$paginas = $conn->query("SELECT DISTINCT pagina_id FROM (SELECT pagina_id FROM Textos_arquivo WHERE tipo = 'verbete' AND curso_id = $curso_id AND pagina_tipo = 'topico' GROUP BY id ORDER BY id DESC) t");
 	if ($paginas->num_rows > 0) {
 		$template_conteudo .= "<ul class='list-group rounded'>";
 		$count = 0;
 		while ($pagina = $paginas->fetch_assoc()) {
-			$topico_id = $pagina['page_id'];
-			$topico_materia_id = return_materia_id_topico($topico_id);
-			$topico_materia_titulo = return_materia_titulo_id($topico_materia_id);
-			$topico_titulo = return_titulo_topico($topico_id);
-			$topicos = $conn->query("SELECT estado_pagina FROM Topicos WHERE id = $topico_id AND curso_id = $curso_id");
+			$topico_pagina_id = $pagina['pagina_id'];
+			$topico_titulo = return_pagina_titulo($topico_pagina_id);
+			$topico_familia = return_familia($topico_pagina_id);
+			$topico_materia_pagina_id = $topico_familia[2];
+			$topico_materia_pagina_titulo = return_pagina_titulo($topico_materia_pagina_id);
+			$topicos = $conn->query("SELECT estado FROM Paginas WHERE id = $topico_pagina_id");
 			if ($count == 15) {
 				break;
 			}
 			if ($topicos->num_rows > 0) {
 				while ($topico = $topicos->fetch_assoc()) {
-					$topico_estado_pagina = $topico['estado_pagina'];
+					$topico_estado_pagina = $topico['estado'];
 					$icone_estado = return_estado_icone($topico_estado_pagina, 'materia');
 					if ($topico_estado_pagina > 3) {
 						$estado_cor = 'text-warning';
@@ -110,10 +112,10 @@
                                             </span>
 											";
 					$template_conteudo .= "
-                                            <a href='pagina.php?topico_id=$topico_id'>
+                                            <a href='pagina.php?pagina_id=$topico_pagina_id'>
                                                 <li class='list-group-item list-group-item-action d-flex justify-content-between align-items-center'>
                                                     <span>
-                                                        <strong>$topico_materia_titulo: </strong>
+                                                        <strong>$topico_materia_pagina_titulo: </strong>
                                                         $topico_titulo
                                                     </span>
                                                     $icone_badge
@@ -124,7 +126,7 @@
 				}
 			}
 		}
-		unset($topico_id);
+		unset($topico_pagina_id);
 		$template_conteudo .= "</ul>";
 	}
 	include 'templates/page_element.php';

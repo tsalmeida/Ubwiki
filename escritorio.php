@@ -375,7 +375,8 @@
 	$etapas = $conn->query("SELECT id, edicao_id, titulo FROM sim_etapas WHERE curso_id = $curso_id ORDER BY id DESC");
 	$provas = $conn->query("SELECT id, etapa_id, titulo, tipo FROM sim_provas WHERE curso_id = $curso_id ORDER BY id DESC");
 	$textos_apoio = $conn->query("SELECT id, origem, prova_id, titulo FROM sim_textos_apoio WHERE curso_id = $curso_id ORDER BY id DESC");
-	$materias = $conn->query("SELECT id, titulo FROM Materias WHERE curso_id = $curso_id ORDER BY ordem");
+	$materias = false;
+	//$materias = $conn->query("SELECT id, titulo FROM Materias WHERE curso_id = $curso_id ORDER BY ordem");
 	$bookmarks = $conn->query("SELECT pagina_id FROM Bookmarks WHERE user_id = $user_id AND bookmark = 1 AND active = 1 ORDER BY id DESC");
 	$comentarios = $conn->query("SELECT DISTINCT pagina_id, pagina_tipo FROM Forum WHERE user_id = $user_id");
 	$completados = $conn->query("SELECT pagina_id FROM Completed WHERE user_id = $user_id AND estado = 1 AND active = 1");
@@ -393,10 +394,9 @@
 			<?php
 				echo "<div class='col-3 mt-3'><div class='row justify-content-start'>";
 				echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_opcoes' class='mr-1 text-info'><i class='fad fa-user-cog fa-2x fa-fw'></i></a>";
-				echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_apresentacao' class='ml-1 text-info'><i class='fad fa-door-closed fa-swap-opacity fa-2x fa-fw'></i></a>";
+				echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_apresentacao' class='ml-1 text-info'><i class='fad fa-door-open fa-2x fa-fw'></i></a>";
 				echo "</div></div>";
 				echo "<div class='col-6'><div class='row justify-content-center'>";
-				
 				echo "
                     <div class='row' class='justify-content-center'>
                       <a id='escritorio_home' href='javascript:void(0);' class='p-2 rounded text-muted artefato' title='Retornar à página inicial'><i class='fad fa-lamp-desk fa-3x fa-fw'></i></a>
@@ -586,7 +586,7 @@
 							$grupos_usuario_membro = $conn->query("SELECT grupo_id FROM Membros WHERE membro_user_id = $user_id AND estado IS NOT NULL");
 							if ($grupos_usuario_membro->num_rows > 0) {
 								$template_id = 'grupos_usuario_membro';
-								$template_titulo = 'Grupos de que você faz parte';
+								$template_titulo = 'Seus grupos';
 								$template_botoes = false;
 								$template_classes = 'esconder_sessao justify-content-center';
 								$template_col_value = 'col-lg-8 col-md-10 col-sm-12';
@@ -1123,6 +1123,9 @@
 			$escrito_pagina_id = $verbete_escrito['pagina_id'];
 			$escrito_pagina_info = return_pagina_info($escrito_pagina_id);
 			$escrito_pagina_titulo = $escrito_pagina_info[6];
+			if ($escrito_pagina_titulo == false) {
+			    $escrito_pagina_titulo = 'Não há título registrado';
+            }
 			$escrito_pagina_tipo = $escrito_pagina_info[2];
 			$list_color = return_list_color_page_type($escrito_pagina_tipo);
 			if ($escrito_pagina_tipo == 'texto') {

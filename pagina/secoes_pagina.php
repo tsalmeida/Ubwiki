@@ -2,10 +2,9 @@
 	$template_div = 'partes_elemento';
 	$template_titulo = 'Seções';
 	$template_botoes = "
-                            	<a data-toggle='modal' data-target='#modal_partes_form' href=''><i class='fal fa-plus-square fa-fw'></i></a>
+                            	<a data-toggle='modal' data-target='#modal_partes_form' href='javascript:void(0);' class='text-success'><i class='fad fa-plus-square fa-fw'></i></a>
                             ";
 	$template_conteudo = false;
-	$secoes = $conn->query("SELECT secao_pagina_id FROM Secoes WHERE pagina_id = $pagina_id ORDER BY ordem");
 	if ($secoes->num_rows > 0) {
 		$template_conteudo .= "<p>Seções identificadas desta página:</p>";
 		$template_conteudo .= "<ul class='list-group'>";
@@ -20,7 +19,7 @@
 		      <a href='pagina.php?pagina_id=$secao_pagina_id' class='list-group-item list-group-item-action d-flex justify-content-between align-items-center'>
 	              $secao_pagina_titulo
 			      <span class='ml-3 badge grey lighten-3 text-dark badge-pill z-depth-0'>
-	                                <i class='fa $secao_estado_icone'></i>
+	                                <i class='fad $secao_estado_icone'></i>
 	                            </span>
 	          </a>
         ";

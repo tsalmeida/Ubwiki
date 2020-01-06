@@ -117,12 +117,14 @@
 		} else {
 			$conn->query("INSERT INTO Textos_arquivo (curso_id, tipo, page_id, pagina_id, pagina_tipo, estado_texto, verbete_html, verbete_text, verbete_content, user_id) VALUES ($curso_id, '$template_id', $texto_page_id, $template_quill_pagina_id, '$pagina_tipo', 1, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
 			$conn->query("INSERT INTO Textos (curso_id, tipo, page_id, pagina_id, pagina_tipo, estado_texto, verbete_html, verbete_text, verbete_content, user_id) VALUES ($curso_id, '$template_id', $texto_page_id, $template_quill_pagina_id, '$pagina_tipo', 1, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
+			error_log($pagina_estado);
 			if ($pagina_estado == 0) {
+				error_log('this happened');
+				error_log("UPDATE Paginas SET estado = 1 WHERE id = $pagina_id");
 				$conn->query("UPDATE Paginas SET estado = 1 WHERE id = $pagina_id");
 				$pagina_estado = 1;
 			}
 		}
-		
 		if (isset($quill_visualizacoes_tipo)) {
 			$conn->query("INSERT INTO Visualizacoes (user_id, pagina_id, tipo_pagina, extra) VALUES ($user_id, $pagina_id, '$quill_visualizacoes_tipo', 'edicao')");
 		}
@@ -138,28 +140,28 @@
 	if ($quill_texto_id != false) {
 		if ($pagina_tipo == 'texto') {
 			$template_botoes .= "
-				<a href='historico_verbete.php?texto_id=$quill_texto_id' target='_blank' title='Histórico do documento'><i class='fal fa-history fa-fw'></i></a>
+				<a href='historico_verbete.php?texto_id=$quill_texto_id' target='_blank' title='Histórico do documento'><i class='fad fa-history fa-fw'></i></a>
 			";
 		}
 		$template_botoes .= "
-			<a href='pagina.php?texto_id=$quill_texto_id' target='_blank' title='Editar na página de edição'><i class='fal fa-external-link-square fa-fw'></i></a>
+			<a href='pagina.php?texto_id=$quill_texto_id' target='_blank' title='Editar na página de edição'><i class='fad fa-external-link-square fa-fw'></i></a>
 		";
 	}
 	
 	if ($template_quill_meta_tipo == 'anotacoes') {
 		$template_botoes .= "
 		<span id='esconder_coluna_esquerda' title='expandir'>
-			<a href='javascript:void(0);'><i class='fal fa-chevron-square-left fa-fw'></i></a>
+			<a href='javascript:void(0);'><i class='fad fa-chevron-square-left fa-fw'></i></a>
   	</span>
     <span id='mostrar_coluna_esquerda' title='comprimir'>
-    	<a href='javascript:void(0);'><i class='fal fa-chevron-square-right fa-fw'></i></a>
+    	<a href='javascript:void(0);'><i class='fad fa-chevron-square-right fa-fw'></i></a>
   	</span>
 		";
 	}
 	
 	$template_botoes .= "
 		<span id='travar_{$template_id}' title='travar para edição'>
-    	<a href='javascript:void(0);'><i class='fal fa-pen-square fa-fw'></i></a>
+    	<a href='javascript:void(0);'><i class='fad fa-pen-square fa-fw'></i></a>
   	</span>
     <span id='destravar_{$template_id}' title='permitir edição'>
 			<a href='javascript:void(0);'><span class='text-muted'><i class='fad fa-pen-square fa-fw'></i></span></a>
@@ -186,7 +188,7 @@
 	$quill_result .= "
         <div id='botoes_salvar_{$template_id}' class='row justify-content-center mt-3 d-none'>
             <button type='submit' id='$quill_trigger_button' class='$button_classes' name='$quill_trigger_button'>
-            	<i class='fal fa-check fa-fw'></i> Salvar
+            	<i class='fad fa-check fa-fw'></i> Salvar
             </button>
         </div>
     </form>";

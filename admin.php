@@ -3,6 +3,93 @@
 	include 'engine.php';
 	
 	if (isset($_POST['trigger_atualizacao'])) {
+		$conn->query("UPDATE Materias SET user_id = 1 WHERE curso_id = 1");
+		$conn->query("UPDATE Materias SET user_id = 1 WHERE curso_id = 2");
+		$conn->query("UPDATE Materias SET user_id = 1 WHERE curso_id = 4");
+		$conn->query("UPDATE Materias SET user_id = 4 WHERE curso_id = 5");
+		$cursos = $conn->query("SELECT id, pagina_id, titulo, user_id FROM Cursos");
+		if ($cursos->num_rows > 0) {
+			while ($curso = $cursos->fetch_assoc()) {
+				$curso_id = $curso['id'];
+				$curso_pagina_id = $curso['pagina_id'];
+				$curso_titulo = $curso['titulo'];
+				$curso_user_id = $curso['user_id'];
+				$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, extra, user_id) VALUES ($curso_pagina_id, 'curso', NULL, 'titulo', '$curso_titulo', $curso_user_id)");
+			}
+		}
+		$cursos = $conn->query("SELECT pagina_id, id FROM Cursos");
+		if ($cursos->num_rows > 0) {
+			while ($curso = $cursos->fetch_assoc()) {
+				$curso_id = $curso['id'];
+				$curso_pagina_id = $curso['pagina_id'];
+				$materias = $conn->query("SELECT pagina_id, titulo, user_id FROM Materias WHERE curso_id = $curso_id");
+				if ($materias->num_rows > 0) {
+					while ($materia = $materias->fetch_assoc()) {
+						$materia_pagina_id = $materia['pagina_id'];
+						$materia_titulo = $materia['titulo'];
+						$materia_user_id = $materia['user_id'];
+						$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo) VALUES ($curso_pagina_id, 'curso', $materia_pagina_id, 'materia')");
+						$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra) VALUES ($materia_pagina_id, 'pagina', 'titulo', '$materia_titulo')");
+						$conn->query("UPDATE Paginas SET item_id = $curso_pagina_id, user_id = $materia_user_id WHERE id = $materia_pagina_id");
+					}
+				}
+			}
+		}
+		$materias = $conn->query("SELECT id, pagina_id, user_id FROM Materias");
+		if ($materias->num_rows > 0) {
+			while ($materia = $materias->fetch_assoc()) {
+				$materia_id = $materia['id'];
+				$materia_pagina_id = $materia['pagina_id'];
+				$materia_user_id = $materia['user_id'];
+				$topicos1 = $conn->query("SELECT pagina_id, nivel1, id FROM Topicos WHERE materia_id = $materia_id AND nivel = 1");
+				if ($topicos1->num_rows > 0) {
+					while ($topico1 = $topicos1->fetch_assoc()) {
+						$topico1_pagina_id = $topico1['pagina_id'];
+						$topico1_titulo = $topico1['nivel1'];
+						$topico1_id = $topico1['id'];
+						$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra) VALUES ($topico1_pagina_id, 'pagina', 'titulo', '$topico1_titulo')");
+						$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo) VALUES ($materia_pagina_id, 'materia', $topico1_pagina_id, 'topico')");
+						$conn->query("UPDATE Paginas SET item_id = $materia_pagina_id, user_id = $materia_user_id WHERE id = $topico1_pagina_id");
+						
+						$topicos2 = $conn->query("SELECT pagina_id, nivel2, id FROM Topicos WHERE nivel1 = $topico1_id AND nivel = 2");
+						if ($topicos2->num_rows > 0) {
+							while ($topico2 = $topicos2->fetch_assoc()) {
+								$topico2_pagina_id = $topico2['pagina_id'];
+								$topico2_titulo = $topico2['nivel2'];
+								$topico2_id = $topico2['id'];
+								$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra) VALUES ($topico2_pagina_id, 'pagina', 'titulo', '$topico2_titulo')");
+								$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo) VALUES ($topico1_pagina_id, 'topico', $topico2_pagina_id, 'subtopico')");
+								$conn->query("UPDATE Paginas SET item_id = $topico1_pagina_id, user_id = $materia_user_id WHERE id = $topico2_pagina_id");
+								
+								$topicos3 = $conn->query("SELECT pagina_id, nivel3, id FROM Topicos WHERE nivel2 = $topico2_id AND nivel = 3");
+								if ($topicos3->num_rows > 0) {
+									while ($topico3 = $topicos3->fetch_assoc()) {
+										$topico3_pagina_id = $topico3['pagina_id'];
+										$topico3_titulo = $topico3['nivel3'];
+										$topico3_id = $topico3['id'];
+										$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra) VALUES ($topico3_pagina_id, 'pagina', 'titulo', '$topico3_titulo')");
+										$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo) VALUES ($topico2_pagina_id, 'topico', $topico3_pagina_id, 'subtopico')");
+										$conn->query("UPDATE Paginas SET item_id = $topico2_pagina_id, user_id = $materia_user_id WHERE id = $topico3_pagina_id");
+										
+										$topicos4 = $conn->query("SELECT pagina_id, nivel4, id FROM Topicos WHERE nivel3 = $topico3_id AND nivel = 4");
+										if ($topicos4->num_rows > 0) {
+											while ($topico4 = $topicos4->fetch_assoc()) {
+												$topico4_pagina_id = $topico4['pagina_id'];
+												$topico4_titulo = $topico4['nivel4'];
+												$topico4_id = $topico4['id'];
+												$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra) VALUES ($topico4_pagina_id, 'pagina', 'titulo', '$topico4_titulo')");
+												$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo) VALUES ($topico3_pagina_id, 'topico', $topico4_pagina_id, 'subtopico')");
+												$conn->query("UPDATE Paginas SET item_id = $topico3_pagina_id, user_id = $materia_user_id WHERE id = $topico4_pagina_id");
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	if (isset($_POST['funcoes_gerais'])) {
@@ -28,85 +115,10 @@
 	}
 	
 	if (isset($_POST['funcoes_gerais3'])) {
+	
 	}
 	
-	if (isset($_POST['reconstruir_busca'])) {
-		$reconstruir_curso_id = $_POST['reconstruir_curso'];
-		$ordem = 0;
-		$conn->query("DELETE FROM Searchbar WHERE curso_id = $reconstruir_curso_id");
-		$result = $conn->query("SELECT id, titulo FROM Materias WHERE curso_id = $reconstruir_curso_id AND estado = 1 ORDER BY ordem");
-		if ($result->num_rows > 0) {
-			while ($row = $result->fetch_assoc()) {
-				$reconstruir_materia_id = $row['id'];
-				$reconstruir_materia_titulo = $row["titulo"];
-				$ordem++;
-				$conn->query("INSERT INTO Searchbar (ordem, curso_id, page_id, chave, tipo) VALUES ($ordem, $reconstruir_curso_id, $reconstruir_materia_id , '$reconstruir_materia_titulo', 'materia')");
-			}
-		}
-		$result = $conn->query("SELECT id, titulo FROM Materias WHERE curso_id = $reconstruir_curso_id AND estado = 1 ORDER BY ordem");
-		while ($row = $result->fetch_assoc()) {
-			$reconstruir_materia_id = $row['id'];
-			$result2 = $conn->query("SELECT id, nivel, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Topicos WHERE materia_id = $reconstruir_materia_id ORDER BY ordem");
-			if ($result2->num_rows > 0) {
-				while ($row2 = $result2->fetch_assoc()) {
-					$reconstruir_topico_id = $row2["id"];
-					$reconstruir_topico_nivel = $row2['nivel'];
-					$reconstruir_topico_nivel1 = $row2["nivel1"];
-					$reconstruir_topico_nivel2 = $row2["nivel2"];
-					$reconstruir_topico_nivel3 = $row2["nivel3"];
-					$reconstruir_topico_nivel4 = $row2["nivel4"];
-					$reconstruir_topico_nivel5 = $row2["nivel5"];
-					$ordem++;
-					if ($reconstruir_topico_nivel == 1) {
-						$conn->query("INSERT INTO Searchbar (ordem, curso_id, page_id, chave, tipo) VALUES ($ordem, $reconstruir_curso_id, $reconstruir_topico_id, '$reconstruir_topico_nivel1', 'topico')");
-					} elseif ($reconstruir_topico_nivel == 2) {
-						$conn->query("INSERT INTO Searchbar (ordem, curso_id, page_id, chave, tipo) VALUES ($ordem, $reconstruir_curso_id, $reconstruir_topico_id, '$reconstruir_topico_nivel2', 'topico')");
-					} elseif ($reconstruir_topico_nivel == 3) {
-						$conn->query("INSERT INTO Searchbar (ordem, curso_id, page_id, chave, tipo) VALUES ($ordem, $reconstruir_curso_id, $reconstruir_topico_id, '$reconstruir_topico_nivel3', 'topico')");
-					} elseif ($reconstruir_topico_nivel == 4) {
-						$conn->query("INSERT INTO Searchbar (ordem, curso_id, page_id, chave, tipo) VALUES ($ordem, $reconstruir_curso_id, $reconstruir_topico_id, '$reconstruir_topico_nivel4', 'topico')");
-					} elseif ($reconstruir_topico_nivel == 5) {
-						$conn->query("INSERT INTO Searchbar (ordem, curso_id, page_id, chave, tipo) VALUES ($ordem, $reconstruir_curso_id, $reconstruir_topico_id, '$reconstruir_topico_nivel5', 'topico')");
-					}
-				}
-			}
-		}
-	}
 	
-	if (isset($_POST['editar_topicos_curso'])) {
-		$curso_editar = $_POST['editar_topicos_curso'];
-		header("Location:edicao_topicos.php?curso_id=$curso_editar");
-	}
-	
-	if (isset($_POST['novo_curso_titulo'])) {
-		$novo_curso_titulo = $_POST['novo_curso_titulo'];
-		$novo_curso_sigla = $_POST['novo_curso_sigla'];
-		$result = $conn->query("SELECT titulo, sigla FROM cursos WHERE sigla = '$novo_curso_sigla' AND titulo = '$novo_curso_titulo'");
-		if ($result->num_rows == 0) {
-			$conn->query("INSERT INTO cursos (titulo, sigla) VALUES ('$novo_curso_titulo', '$novo_curso_sigla')");
-		} else {
-			return false;
-		}
-	}
-	$lista_cursos = array();
-	$cursos = $conn->query("SELECT id, titulo, estado FROM cursos");
-	if ($cursos->num_rows > 0) {
-		while ($curso = $cursos->fetch_assoc()) {
-			$curso_id_list = $curso['id'];
-			$curso_titulo = $curso['titulo'];
-			$curso_estado = $curso['estado'];
-			$um_curso = array($curso_id_list, $curso_titulo, $curso_estado);
-			array_push($lista_cursos, $um_curso);
-		}
-	}
-	
-	$html_head_template_quill = true;
-	$html_head_template_conteudo = "
-        <script type='text/javascript'>
-          var user_id=$user_id;
-          var user_email='$user_email';
-        </script>
-    ";
 	include 'templates/html_head.php';
 
 ?>
@@ -124,79 +136,6 @@
     <div class="row justify-content-around">
         <div id='coluna_esquerda' class="<?php echo $coluna_classes; ?>">
 					<?php
-						$template_id = 'editar_topicos';
-						$template_titulo = 'Editar tópicos';
-						$template_botoes = false;
-						$template_conteudo = false;
-						$template_conteudo .= "
-                <form method='post' formaction='edicao_topicos.php'>
-                    <p>Com esta ferramenta, o administrador pode alterar a tabela de tópicos de um curso. O objetivo é maximizar a utilidade do edital original para as atividades do estudante.</p>
-                     <label for='editar_topicos_curso'>Curso</label>
-                        <select class='form-control' name='editar_topicos_curso'>
-                        ";
-						foreach ($lista_cursos as $um_curso) {
-							if ($um_curso[2] == 0) {
-								$estado_curso = '(desativado)';
-							} else {
-								$estado_curso = '(ativado)';
-							}
-							$template_conteudo .= "<option value='$um_curso[0]'>$um_curso[1] / $estado_curso</option>";
-						}
-						$template_conteudo .= "</select>";
-						$template_conteudo .= "
-							<div class='row justify-content-center'>
-								<button class='$button_classes'>Acessar ferramenta</button></form>
-							</div>
-					    ";
-						include 'templates/page_element.php';
-						
-						$template_id = 'acrescentar_curso';
-						$template_titulo = 'Acrescentar curso';
-						$template_botoes = false;
-						$template_conteudo = false;
-						$template_conteudo .= "<form method='post' formaction='edicao_topicos.php'>";
-						$template_conteudo .= "
-                            <p>Cada curso tem um título completo e uma sigla. Este é o primeiro passo no processo de inclusão de novos cursos.</p>
-                            <input type='text' id='novo_curso_titulo' name='novo_curso_titulo' class='form-control validate' required>
-                            <label data-error='inválido' data-successd='válido' for='novo_curso_titulo'>Título do curso</label>
-                            <input type='text' id='novo_curso_sigla' name='novo_curso_sigla' class='form-control validate' required>
-                            <label data-error='inválido' data-successd='válido' for='novo_curso_sigla'>Sigla do curso</label>
-                            <div class='row justify-content-center'>
-                            	<button class='$button_classes' type='submit'>Acrescentar curso</button>
-                            </div>
-                            </form>
-                          ";
-						include 'templates/page_element.php';
-						
-						$template_id = 'barra_busca';
-						$template_titulo = 'Barra de busca';
-						$template_botoes = false;
-						$template_conteudo = false;
-						$template_conteudo .= "
-                            <form method='post'>
-                			<p>Reconstruir tabela de opções da barra de busca.</p>
-                    		<label for='editar_topicos_curso'>Curso</label>
-                    		<select class='form-control' name='reconstruir_curso' id='reconstruir_curso'>
-                        ";
-						
-						foreach ($lista_cursos as $um_curso) {
-							if ($um_curso[2] == 0) {
-								$estado_curso = '(desativado)';
-							} else {
-								$estado_curso = '(ativado)';
-							}
-							$template_conteudo .= "<option value='$um_curso[0]'>$um_curso[1] / $estado_curso</option>";
-						}
-						
-						$template_conteudo .= "
-                              </select>
-                              <div class='row justify-content-center'>
-                              	<button class='$button_classes' type='submit' name='reconstruir_busca'>Reconstruir
-                              </div>
-                              </button>
-                          </form>
-                        ";
-						include 'templates/page_element.php';
 						
 						$template_id = 'funcoes_gerais';
 						$template_titulo = 'Funções gerais';
@@ -241,20 +180,7 @@
 					?>
 
         </div>
-        <div id='coluna_direita' class='<?php echo $coluna_classes; ?>'>
-					<?php
-						
-						$template_id = 'anotacoes_admin';
-						$template_titulo = 'Anotações';
-						$template_quill_page_id = 0;
-						$template_conteudo = include 'templates/template_quill.php';
-						include 'templates/page_element.php';
-					
-					?>
-        </div>
     </div>
-    <button id='mostrar_coluna_direita' class='btn btn-md elegant-color text-white p-2 m-1' tabindex='-1'><i
-                class='fas fa-pen-alt fa-fw'></i></button>
 </div>
 </body>
 <?php

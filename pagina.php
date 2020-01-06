@@ -1,8 +1,11 @@
 <?php
 	
 	include 'engine.php';
-	
+	$modal_novo_curso = false;
 	$nao_contar = false;
+	$carregar_adicionar_materia = false;
+	$carregar_adicionar_topico = false;
+	$carregar_adicionar_subtopico = false;
 	if (!isset($_GET['pagina_id'])) {
 		if (isset($_GET['topico_id'])) {
 			$topico_id = $_GET['topico_id'];
@@ -84,6 +87,15 @@
 		exit();
 	}
 	
+	if (isset($_POST['novo_curso'])) {
+		$novo_curso_sigla = $_POST['novo_curso_sigla'];
+		$conn->query("INSERT INTO Cursos (pagina_id, titulo, sigla, user_id) VALUES ($pagina_id, '$pagina_titulo', '$novo_curso_sigla', $user_id)");
+		$novo_curso_id = $conn->insert_id;
+		$conn->query("UPDATE Paginas SET item_id = $novo_curso_id, tipo = 'curso' WHERE id = $pagina_id");
+		header("Location:pagina.php?curso_id=$novo_curso_id");
+		exit();
+	}
+	
 	if ($pagina_compartilhamento == 'privado') {
 		if ($pagina_user_id != $user_id) {
 			$check_compartilhamento = return_compartilhamento($pagina_id, $user_id);
@@ -95,17 +107,17 @@
 	}
 	
 	if ($pagina_tipo == 'curso') {
-		$curso_sigla = return_curso_sigla($curso_id);
-		$curso_titulo = return_curso_titulo_id($curso_id);
-	} elseif ($pagina_tipo == 'topico') {
-		$topico_id = $pagina_item_id;
-		$topico_curso_id = return_curso_id_topico($topico_id);
-		$topico_curso_sigla = return_curso_sigla($topico_curso_id);
+		$curso_info = return_curso_info($curso_id);
+		$curso_sigla = $curso_info[2];
+		$curso_titulo = $curso_info[3];
+		$curso_user_id = $curso_info[4];
 	} elseif ($pagina_tipo == 'materia') {
 		$materia_id = $pagina_item_id;
-		$materia_curso_id = return_curso_id_materia($materia_id);
+		$materia_curso_id = false;
 		$materia_curso_sigla = return_curso_sigla($materia_curso_id);
-		$materia_titulo = return_materia_titulo_id($materia_id);
+		$materia_titulo = $pagina_titulo;
+	} elseif ($pagina_tipo == 'topico') {
+		include 'templates/verbetes_relacionados.php';
 	} elseif ($pagina_tipo == 'elemento') {
 		$elemento_id = $pagina_item_id;
 	} elseif ($pagina_tipo == 'grupo') {
@@ -170,34 +182,6 @@
 	
 	if ($pagina_tipo == 'elemento') {
 		include 'pagina/isset_elemento.php';
-	}
-	
-	if ($pagina_tipo == 'topico') {
-		$topicos = $conn->query("SELECT estado_pagina, materia_id, nivel, ordem, nivel1, nivel2, nivel3, nivel4, nivel5 FROM Topicos WHERE curso_id = $topico_curso_id AND id = $topico_id");
-		if ($topicos->num_rows > 0) {
-			while ($topico = $topicos->fetch_assoc()) {
-				$topico_materia_id = $topico['materia_id'];
-				$topico_nivel = $topico['nivel'];
-				$topico_ordem = $topico['ordem'];
-				$topico_nivel1 = $topico['nivel1'];
-				$topico_nivel2 = $topico['nivel2'];
-				$topico_nivel3 = $topico['nivel3'];
-				$topico_nivel4 = $topico['nivel4'];
-				$topico_nivel5 = $topico['nivel5'];
-				$topico_materia_titulo = return_materia_titulo_id($topico_materia_id);
-				if ($topico_nivel == 2) {
-					$topico_titulo = $topico_nivel2;
-				} elseif ($topico_nivel == 1) {
-					$topico_titulo = $topico_nivel1;
-				} elseif ($topico_nivel == 3) {
-					$topico_titulo = $topico_nivel3;
-				} elseif ($topico_nivel == 4) {
-					$topico_titulo = $topico_nivel4;
-				} elseif ($topico_nivel == 5) {
-					$topico_titulo = $topico_nivel5;
-				}
-			}
-		}
 	} elseif ($pagina_tipo == 'elemento') {
 		include 'pagina/queries_elemento.php';
 	}
@@ -267,6 +251,17 @@
 		$compartilhar_grupo_id = $_POST['compartilhar_grupo_id'];
 		$conn->query("INSERT INTO Compartilhamento (user_id, item_id, item_tipo, compartilhamento, recipiente_id) VALUES ($user_id, $pagina_id, '$pagina_tipo', 'grupo', $compartilhar_grupo_id)");
 	}
+	
+	if ((($pagina_tipo == 'elemento') || ($pagina_tipo == 'pagina')) && ($pagina_compartilhamento != 'escritorio')) {
+		$carregar_secoes = true;
+	} else {
+		$carregar_secoes = false;
+	}
+	
+	if ($carregar_secoes == true) {
+		$secoes = $conn->query("SELECT secao_pagina_id FROM Secoes WHERE pagina_id = $pagina_id ORDER BY ordem");
+	}
+
 
 ?>
 <body class="carrara">
@@ -278,7 +273,7 @@
         <div class='py-2 text-left col'>
 					<?php
 						if (($pagina_tipo != 'sistema') && ($pagina_tipo != 'texto') && ($pagina_compartilhamento != 'escritorio')) {
-							echo "<span id='add_elements' class='mx-1' title='Adicionar elementos' data-toggle='modal' data-target='#modal_add_elementos'><a href='javascript:void(0)' title='Adicionar elemento'><i     class='fad fa-2x fa-plus-circle fa-fw'></i></a></span>";
+							echo "<span id='add_elements' class='mx-1' title='Adicionar elementos' data-toggle='modal' data-target='#modal_add_elementos'><a href='javascript:void(0)' title='Adicionar elemento' class='text-info'><i     class='fad fa-2x fa-plus-circle fa-fw'></i></a></span>";
 						}
 						if ($pagina_tipo == 'elemento') {
 							echo "<span id='elemento_dados' class='mx-1' title='Editar dados'><a href='javascript:void(0);' data-toggle='modal' data-target='#modal_dados_elemento' class='text-info'><i class='fad fa-info-circle fa-fw fa-2x'></i></a></span>";
@@ -291,23 +286,34 @@
 						if ($pagina_tipo == 'texto') {
 							echo "<span id='add_reply' class='mx-1' title='Adicionar resposta'><a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_reply' class='text-success'><i class='fad fa-comment-lines fa-fw fa-2x'></i></a></span>";
 						}
+						if (($pagina_tipo == 'curso') && ($curso_user_id == $user_id)) {
+							$carregar_adicionar_materia = true;
+							echo "<span id='add_materia' class='mx-1' title='Adicionar matéria'><a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_materia' class='text-success'><i class='fad fa-plus-circle fa-2x fa-fw'></i></a></span>";
+						}
+						if (($pagina_tipo == 'materia') && ($pagina_user_id == $user_id)) {
+							$carregar_adicionar_topico = true;
+							echo "<span id='add_topico' class='mx-1' title='Adicionar tópico'><a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_topico' class='text-success'><i class='fad fa-plus-circle fa-2x fa-fw'></i></a></span>";
+						}
+						if (($pagina_tipo == 'topico') && ($pagina_user_id == $user_id) && ($topico_nivel < 5)) {
+							$carregar_adicionar_subtopico = true;
+							echo "<span id='add_subtopico' class='mx-1' title='Adicionar subtópico'><a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_subtopico' class='text-success'><i class='fad fa-plus-circle fa-2x fa-fw'></i></a></span>";
+						}
 					?>
         </div>
         <div class="py-2 text-center col">
 					<?php
 						if ($pagina_tipo == 'topico') {
-							include 'templates/verbetes_relacionados.php';
 							if ($topico_anterior != false) {
 								$topico_anterior_link = "pagina.php?topico_id=$topico_anterior";
-								echo "<span id='verbete_anterior' class='mx-1' title='Verbete anterior'><a href='$topico_anterior_link'><i class='fal fa-arrow-left fa-fw'></i></a></span>";
+								echo "<span id='verbete_anterior' class='mx-1' title='Verbete anterior'><a href='$topico_anterior_link'><i class='fad fa-arrow-left fa-fw'></i></a></span>";
 							}
-							echo "<span id='verbetes_relacionados' class='mx-1' title='Verbetes relacionados' data-toggle='modal' data-target='#modal_verbetes_relacionados'><a href='javascript:void(0);'><i class='fal fa-project-diagram fa-fw'></i></a></span>";
+							echo "<span id='verbetes_relacionados' class='mx-1' title='Verbetes relacionados' data-toggle='modal' data-target='#modal_verbetes_relacionados'><a href='javascript:void(0);' class='text-dark'><i class='fad fa-project-diagram fa-fw'></i></a></span>";
 							if ($topico_proximo != false) {
 								$topico_proximo_link = "pagina.php?topico_id=$topico_proximo";
-								echo "<span id='verbete_proximo' class='mx-1' title='Próximo verbete'><a href='$topico_proximo_link'><i class='fal fa-arrow-right fa-fw'></i></a></span>";
+								echo "<span id='verbete_proximo' class='mx-1' title='Próximo verbete'><a href='$topico_proximo_link'><i class='fad fa-arrow-right fa-fw'></i></a></span>";
 							}
 						} elseif ($pagina_tipo == 'secao') {
-							echo "<span id='secoes' class='mx-1' title='Página e seções' data-toggle='modal' data-target='#modal_paginas_relacionadas'><a href='javascript:void(0);'><i class='fal fa-project-diagram fa-fw'></i></a></span>";
+							echo "<span id='secoes' class='mx-1' title='Página e seções' data-toggle='modal' data-target='#modal_paginas_relacionadas'><a href='javascript:void(0);'><i class='fad fa-project-diagram fa-fw'></i></a></span>";
 						}
 					?>
         </div>
@@ -317,8 +323,8 @@
 							echo "
 	                          <span id='compartilhar_anotacao' class='ml-1' title='Editar compartilhamento desta anotação'
                                  data-toggle='modal' data-target='#modal_compartilhar_anotacao'>
-                                <a href='javascript:void(0);'>
-                                    <i class='fal fa-users fa-fw'></i>
+                                <a href='javascript:void(0);' class='text-default'>
+                                    <i class='fad fa-users fa-fw'></i>
                                 </a>
                               </span>
 	                        ";
@@ -331,14 +337,14 @@
 		                    if ($comments->num_rows == 0) {
 			                    echo "
                                 <a href='javascript:void(0);'>
-                                    <i class='fal fa-comments-alt fa-fw'></i>
+                                    <i class='fad fa-comments-alt fa-fw'></i>
                                 </a>
                             ";
 		                    } else {
 			                    echo "
                                 <a href='javascript:void(0);'>
 		                            <span class='text-secondary'>
-                                        <i class='fas fa-comments-alt fa-fw'></i>
+                                        <i class='fad fa-comments-alt fa-fw'></i>
                                     </span>
                                 </a>
 		                    ";
@@ -351,33 +357,34 @@
 							echo "
                               <span id='adicionar_etiqueta' class='ml-1' title='Adicionar etiqueta' data-toggle='modal'
                                     data-target='#modal_gerenciar_etiquetas'>
-                                  <a href='javascript:void(0);'>
-                                      <i class='fal fa-tags fa-fw'></i>
+                                  <a href='javascript:void(0);' class='text-warning'>
+                                      <i class='fad fa-tags fa-fw'></i>
                                   </a>
                               </span>
                             ";
-							if ($estado_estudo == false) {
-								echo "
-                              <span id='add_completed' class='ml-1' title='Estudo completo' value='$pagina_id'><a href='javascript:void(0);'><i class='fal fa-check-circle fa-fw'></i></a></span>
-                              <span id='remove_completed' class='ml-1 collapse' title='Desmarcar como completo' value='$pagina_id'><a href='javascript:void(0);'><span class='text-success'><i class='fas fa-check-circle fa-fw'></i></span></span></a></span>
-                            ";
+							if ($estado_estudo == true) {
+								$marcar_completo = 'collapse';
+								$marcar_incompleto = false;
 							} else {
-								echo "
-                              <span id='add_completed' class='ml-1 collapse' title='Estudo completo' value='$pagina_id'><a href='javascript:void(0);'><i class='fal fa-check-circle fa-fw'></i></a></span>
-                              <span id='remove_completed' class='ml-1' title='Desmarcar como completo' value='$pagina_id'><a href='javascript:void(0);'><span class='text-success'><i class='fas fa-check-circle fa-fw'></i></span></span></a></span>
-                            ";
+								$marcar_completo = false;
+								$marcar_incompleto = 'collapse';
 							}
-							if ($pagina_bookmark == false) {
-								echo "
-                              <span id='add_bookmark' class='ml-1' title='Marcar para leitura' value='$pagina_id'><a href='javascript:void(0);'><i class='fal fa-bookmark fa-fw'></i></a></span>
-                              <span id='remove_bookmark' class='ml-1 collapse' title='Remover da lista de leitura' value='$pagina_id'><a href='javascript:void(0);'><span class='text-danger'><i class='fas fa-bookmark fa-fw'></i></span></span></a></span>
+							echo "
+                              <span id='add_completed' class='ml-1 $marcar_completo' title='Estudo completo' value='$pagina_id'><a href='javascript:void(0);'><i class='fad fa-check-circle fa-fw'></i></a></span>
+                              <span id='remove_completed' class='ml-1 $marcar_incompleto' title='Desmarcar como completo' value='$pagina_id'><a href='javascript:void(0);'><span class='text-success'><i class='fad fa-check-circle fa-fw'></i></span></span></a></span>
                             ";
+							if ($pagina_bookmark == true) {
+								$marcar_bookmark = 'collapse';
+								$desmarcar_bookmark = false;
 							} else {
-								echo "
-                              <span id='add_bookmark' class='ml-1 collapse' title='Marcar para leitura' value='$pagina_id'><a href='javascript:void(0);'><i class='fal fa-bookmark fa-fw'></i></a></span>
-                              <span id='remove_bookmark' class='ml-1' title='Remover da lista de leitura' value='$pagina_id'><a href='javascript:void(0);'><span class='text-danger'><i class='fas fa-bookmark fa-fw'></i></span></span></a></span>
-                            ";
+								$marcar_bookmark = false;
+								$desmarcar_bookmark = 'collapse';
 							}
+							echo "
+                              <span id='add_bookmark' class='ml-1 $marcar_bookmark' title='Marcar para leitura' value='$pagina_id'><a href='javascript:void(0);'><i class='fad fa-bookmark fa-fw'></i></a></span>
+                              <span id='remove_bookmark' class='ml-1 $desmarcar_bookmark' title='Remover da lista de leitura' value='$pagina_id'><a href='javascript:void(0);'><span class='text-danger'><i class='fad fa-bookmark fa-fw'></i></span></span></a></span>
+                            ";
+							
 							$estado_cor = false;
 							$estado_icone = return_estado_icone($pagina_estado, 'pagina');
 							if ($pagina_estado > 3) {
@@ -397,17 +404,17 @@
 	<?php
 		$template_titulo_context = true;
 		if ($pagina_tipo == 'topico') {
-			$template_titulo = $topico_titulo;
-			$template_subtitulo = "$topico_materia_titulo / $topico_curso_sigla";
+			$template_titulo = $pagina_titulo;
+			$template_subtitulo = "<a href='pagina.php?pagina_id=$topico_materia_id' title='Matéria'>$topico_materia_titulo</a> / <a href='pagina.php?pagina_id=$topico_curso_id' title='Curso'>$topico_curso_titulo</a>";
 		} elseif ($pagina_tipo == 'elemento') {
 			$template_titulo = $elemento_titulo;
 			$template_subtitulo = $elemento_autor;
 		} elseif ($pagina_tipo == 'curso') {
-			$template_titulo = $curso_titulo;
+			$template_titulo = $pagina_titulo;
 			$template_subtitulo = 'Curso';
 		} elseif ($pagina_tipo == 'materia') {
-			$template_titulo = $materia_titulo;
-			$template_subtitulo = "$curso_sigla";
+			$template_titulo = $pagina_titulo;
+			$template_subtitulo = "Matéria / <a href='pagina.php?pagina_id=$pagina_item_id'>$curso_sigla</a>";
 		} elseif ($pagina_tipo == 'texto') {
 			if ($texto_page_id != false) {
 				$template_titulo = return_pagina_titulo($texto_pagina_id);
@@ -454,7 +461,7 @@
 		} elseif ($pagina_tipo == 'resposta') {
 			if ($pagina_titulo == false) {
 				$template_titulo = 'Resposta sem título';
-		    } else {
+			} else {
 				$template_titulo = $pagina_titulo;
 			}
 			$template_subtitulo = "Referente ao texto \"$original_titulo\"";
@@ -493,17 +500,15 @@
 				if ($pagina_tipo == 'resposta') {
 					echo "
 						<div id='coluna_original' class='$coluna_classes pagina_coluna'>";
-							$template_div = 'texto_original';
-							$template_titulo = $original_titulo;
-							$template_conteudo = $original_texto_html;
-							include 'templates/page_element.php';
+					$template_div = 'texto_original';
+					$template_titulo = $original_titulo;
+					$template_conteudo = $original_texto_html;
+					include 'templates/page_element.php';
 					echo "</div>";
 				}
 				
 				echo "<div id='coluna_esquerda' class='$coluna_classes pagina_coluna'>";
-				
 				if ($pagina_tipo == 'elemento') {
-					
 					if ($elemento_tipo == 'imagem') {
 						$template_id = 'imagem_div';
 						$template_titulo = false;
@@ -543,7 +548,7 @@
 					}
 					$template_conteudo = include 'templates/template_quill.php';
 					include 'templates/page_element.php';
-					if ((($pagina_tipo == 'elemento') || ($pagina_tipo == 'pagina')) && ($pagina_compartilhamento != 'escritorio')) {
+					if ($carregar_secoes == true) {
 						include 'pagina/secoes_pagina.php';
 					}
 					
@@ -739,6 +744,31 @@
                        for='pagina_novo_titulo'>Novo título</label>
             </div>
         ";
+		if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id) && ($secoes->num_rows == 0) && ($pagina_titulo != false)) {
+			$modal_novo_curso = true;
+			$template_modal_body_conteudo .= "
+		        <span data-toggle='modal' data-target='#modal_pagina_dados'>
+                    <div class='row justify-content-center'>
+                        <button type='button' class='$button_classes' data-toggle='modal' data-target='#modal_novo_curso'>Transformar em página inicial de curso</button>
+                    </div>
+                </span>
+		    ";
+		}
+		include 'templates/modal.php';
+	}
+	
+	if ($modal_novo_curso == true) {
+		$template_modal_div_id = 'modal_novo_curso';
+		$template_modal_titulo = 'Transformar esta página em um curso';
+		$template_modal_submit_name = 'novo_curso';
+		$template_modal_body_conteudo = false;
+		$template_modal_body_conteudo .= "
+	        <p>Ao pressionar o botão de confirmação abaixo, esta página será transformada na página inicial de um curso. Em seguida, será possível acrescentar matérias e, às páginas das matérias, tópicos.</p>
+	        <div class='md-form mb-2'>
+	            <input type='text' id='novo_curso_sigla' name='novo_curso_sigla' class='form-control validade' required>
+	            <label data-error='inválido' data-success='válido' for='pagina_novo_titulo'>Novo título</label>
+            </div>
+	    ";
 		include 'templates/modal.php';
 	}
 	
@@ -845,9 +875,60 @@
 					$template_modal_body_conteudo .= "<li class='list-group-item d-flex justify-content-between'><a href='pagina.php?user_id=$resposta_user_id' class='$resposta_avatar_cor'><i class='fa $resposta_avatar_icone fa-fw fa-2x'></i> $resposta_user_apelido</a> <a href='pagina.php?pagina_id=$resposta_pagina_id'>$resposta_pagina_titulo</a></li>";
 				}
 			}
+		} else {
+			$template_modal_body_conteudo .= "<p><span class='text-muted'>Não há respostas a este texto.</span></p>";
 		}
 		include 'templates/modal.php';
 	}
+	
+	if ($carregar_adicionar_materia == true) {
+		$template_modal_div_id = 'modal_add_materia';
+		$template_modal_titulo = 'Adicionar matéria';
+		$template_modal_body_conteudo = false;
+		$template_modal_body_conteudo .= "<p>Pesquise a nova matéria abaixo</p>";
+		$template_modal_body_conteudo .= "
+			<div class='md-form'>
+				<input type='text' class='form-control' name='buscar_materias' id='buscar_materias' required>
+				<label for='buscar_materias'>Buscar matéria</label>
+			</div>
+			<div class='row' id='materias_disponiveis'></div>
+		";
+		$template_modal_show_buttons = false;
+		include 'templates/modal.php';
+	}
+	
+	if ($carregar_adicionar_topico == true) {
+		$template_modal_div_id = 'modal_add_topico';
+		$template_modal_titulo = 'Adicionar tópico';
+		$template_modal_body_conteudo = false;
+		$template_modal_body_conteudo .= "<p>Pesquise o novo tópico abaixo</p>";
+		$template_modal_body_conteudo .= "
+			<div class='md-form'>
+				<input type='text' class='form-control' name='buscar_topicos' id='buscar_topicos' required>
+				<label for='buscar_topicos'>Buscar tópico</label>
+			</div>
+			<div class='row' id='topicos_disponiveis'></div>
+		";
+		$template_modal_show_buttons = false;
+		include 'templates/modal.php';
+	}
+	
+	if ($carregar_adicionar_subtopico == true) {
+		$template_modal_div_id = 'modal_add_subtopico';
+		$template_modal_titulo = 'Adicionar subtópico';
+		$template_modal_body_conteudo = false;
+		$template_modal_body_conteudo .= "<p>Pesquise o novo subtópico abaixo</p>";
+		$template_modal_body_conteudo .= "
+			<div class='md-form'>
+				<input type='text' class='form-control' name='buscar_subtopicos' id='buscar_subtopicos' required>
+				<label for='buscar_topicos'>Buscar subtópico</label>
+			</div>
+			<div class='row' id='subtopicos_disponiveis'></div>
+		";
+		$template_modal_show_buttons = false;
+		include 'templates/modal.php';
+	}
+
 ?>
 
 </body>
@@ -862,7 +943,7 @@
 		$quill_extra_buttons = "
               <span id='salvar_anotacao' class='ml-1' title='Salvar anotação'>
 				  <a href='javascript:void(0);'>
-					  <i class='fal fa-save fa-fw'></i>
+					  <i class='fad fa-save fa-fw'></i>
 				  </a>
 			  </span>
               <span id='anotacao_salva' class='ml-1 text-success' title='Salvar anotação'>
@@ -872,7 +953,7 @@
 		$quill_extra_buttons .= "
               <span class='ml-1' title='Ver histórico'>
                 <a href='historico_verbete.php?texto_id=$pagina_texto_id'>
-                  <i class='fal fa-history fa-fw'></i>
+                  <i class='fad fa-history fa-fw'></i>
                 </a>
               </span>
     	";
@@ -882,7 +963,7 @@
                   <span id='apagar_anotacao' class='ml-1' title='Destruir anotação'
                            data-toggle='modal' data-target='#modal_apagar_anotacao'>
                       <a href='javascript:void(0);' class='text-danger'>
-                          <i class='fal fa-shredder fa-fw'></i>
+                          <i class='fad fa-shredder fa-fw'></i>
                       </a>
                   </span>
                 ";

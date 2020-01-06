@@ -33,6 +33,15 @@
 	if (!isset($sistema_etiquetas_topicos)) {
 		$sistema_etiquetas_topicos = false;
 	}
+	if (!isset($carregar_adicionar_materia)) {
+		$carregar_adicionar_materia = false;
+	}
+	if (!isset($carregar_adicionar_topico)) {
+		$carregar_adicionar_topico = false;
+	}
+	if (!isset($carregar_adicionar_subtopico)) {
+		$carregar_adicionar_subtopico = false;
+	}
 	
 	echo "
     <!-- Bootstrap tooltips -->
@@ -192,6 +201,153 @@
 			</script>
 		";
 	}
+	if ($carregar_adicionar_materia == true) {
+		echo "
+			<script type='text/javascript'>
+				$('#buscar_materias').keyup(function() {
+				   var busca_materias = $('#buscar_materias').val();
+				   var busca_materias_length = $('#buscar_materias').val().length;
+				   if (busca_materias_length > 2) {
+				       $.post('engine.php', {
+				       		'busca_etiquetas': busca_materias,
+				       		'busca_etiquetas_tipo': 'topico',
+				       		'busca_etiquetas_contexto': 'curso'
+				       }, function(data) {
+				          if (data != 0) {
+				              $('#materias_disponiveis').empty();
+				              $('#materias_disponiveis').append(data);
+				          }
+				       });
+				   }
+				});
+				$(document).on('click', '.adicionar_materia', function() {
+			      var this_id = $(this).attr('value');
+			      $(this).hide();
+			      $.post('engine.php', {
+			         'curso_nova_materia_id': this_id,
+			         'curso_nova_materia_pagina_id': $pagina_id,
+			         'curso_nova_materia_user_id': $user_id
+			      }, function(data) {
+			         if (data != 0) {
+	                 alert('Matéria adicionada, recarregue a página para atualizar');
+			         }
+			      });
+			  });
+				$(document).on('click', '#criar_materia', function() {
+		      var new_tag = $(this).attr('value');
+		      $(this).hide();
+		      $.post('engine.php', {
+		         'criar_materia_titulo': new_tag,
+		         'criar_materia_page_id': {$pagina_id},
+		         'criar_materia_page_tipo': '{$pagina_tipo}'
+		      }, function(data) {
+		         if (data != 0) {
+		             alert('Matéria adicionada, recarregue a página para atualizar');
+		         }
+		      });
+		  	});
+			</script>
+			
+		";
+	}
+	if ($carregar_adicionar_topico == true) {
+		echo "
+			<script type='text/javascript'>
+				$('#buscar_topicos').keyup(function() {
+				   var busca_topicos = $('#buscar_topicos').val();
+				   var busca_topicos_length = $('#buscar_topicos').val().length;
+				   if (busca_topicos_length > 2) {
+				       $.post('engine.php', {
+				       		'busca_etiquetas': busca_topicos,
+				       		'busca_etiquetas_tipo': 'topico',
+				       		'busca_etiquetas_contexto': 'materia'
+				       }, function(data) {
+				          if (data != 0) {
+				              $('#topicos_disponiveis').empty();
+				              $('#topicos_disponiveis').append(data);
+				          }
+				       });
+				   }
+				});
+				$(document).on('click', '.adicionar_topico', function() {
+			      var this_id = $(this).attr('value');
+			      $(this).hide();
+			      $.post('engine.php', {
+			         'curso_novo_topico_id': this_id,
+			         'curso_novo_topico_pagina_id': $pagina_id,
+			         'curso_novo_topico_user_id': $user_id
+			      }, function(data) {
+			         if (data != 0) {
+	                 alert('Matéria adicionada, recarregue a página para atualizar');
+			         }
+			      });
+			  });
+				$(document).on('click', '#criar_topico', function() {
+		      var new_tag = $(this).attr('value');
+		      $(this).hide();
+		      $.post('engine.php', {
+		         'criar_topico_titulo': new_tag,
+		         'criar_topico_page_id': {$pagina_id},
+		         'criar_topico_page_tipo': '{$pagina_tipo}'
+		      }, function(data) {
+		         if (data != 0) {
+		             alert('Matéria adicionada, recarregue a página para atualizar');
+		         }
+		      });
+		  	});
+			</script>
+			
+		";
+	}
+	if ($carregar_adicionar_subtopico == true) {
+		echo "
+			<script type='text/javascript'>
+				$('#buscar_subtopicos').keyup(function() {
+				   var busca_subtopicos = $('#buscar_subtopicos').val();
+				   var busca_subtopicos_length = $('#buscar_subtopicos').val().length;
+				   if (busca_subtopicos_length > 2) {
+				       $.post('engine.php', {
+				       		'busca_etiquetas': busca_subtopicos,
+				       		'busca_etiquetas_tipo': 'topico',
+				       		'busca_etiquetas_contexto': 'topico'
+				       }, function(data) {
+				          if (data != 0) {
+				              $('#subtopicos_disponiveis').empty();
+				              $('#subtopicos_disponiveis').append(data);
+				          }
+				       });
+				   }
+				});
+				$(document).on('click', '.adicionar_subtopico', function() {
+			      var this_id = $(this).attr('value');
+			      $(this).hide();
+			      $.post('engine.php', {
+			         'curso_novo_subtopico_id': this_id,
+			         'curso_novo_subtopico_pagina_id': $pagina_id,
+			         'curso_novo_subtopico_user_id': $user_id
+			      }, function(data) {
+			         if (data != 0) {
+	                 alert('Matéria adicionada, recarregue a página para atualizar');
+			         }
+			      });
+			  });
+				$(document).on('click', '#criar_subtopico', function() {
+		      var new_tag = $(this).attr('value');
+		      $(this).hide();
+		      $.post('engine.php', {
+		         'criar_subtopico_titulo': new_tag,
+		         'criar_subtopico_page_id': {$pagina_id},
+		         'criar_subtopico_page_tipo': '{$pagina_tipo}'
+		      }, function(data) {
+		         if (data != 0) {
+		             alert('Matéria adicionada, recarregue a página para atualizar');
+		         }
+		      });
+		  	});
+			</script>
+			
+		";
+	}
 	if ($sistema_etiquetas_topicos == true) {
 		echo "
       <script type='text/javascript'>
@@ -201,7 +357,8 @@
 			      if (busca_etiquetas_length > 2) {
 			          $.post('engine.php', {
 			              'busca_etiquetas': busca_etiquetas,
-			              'busca_etiquetas_tipo': 'topico'
+			              'busca_etiquetas_tipo': 'topico',
+			              'busca_etiquetas_contexto': 'pagina'
 			          }, function(data) {
 			            if (data != 0) {
 			                $('#etiquetas_disponiveis').empty();
@@ -231,7 +388,7 @@
 		             $('#etiquetas_ativas').append(data);
 		         }
 		      });
-		  });
+		  	});
       </script>
 	";
 	}
