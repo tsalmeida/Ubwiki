@@ -10,12 +10,18 @@
 		$template_conteudo .= "<ul class='list-group w-100 px-3'>";
 		while ($topico = $topicos->fetch_assoc()) {
 			$topico_pagina_id = $topico['elemento_id'];
+			if ($topico_pagina_id == false) {
+				continue;
+			}
 			$topico_pagina_info = return_pagina_info($topico_pagina_id);
 			$topico_pagina_estado = $topico_pagina_info[3];
 			$topico_pagina_titulo = $topico_pagina_info[6];
-			$topico_pagina_estado_icone = return_estado_icone($topico_pagina_estado, 'materia');
-			$template_conteudo .= "<a href='pagina.php?pagina_id=$topico_pagina_id'><li class='list-group-item list-group-item-action list-group-item-primary d-flex justify-content-between'><span>$topico_pagina_titulo</span><span><i class='$topico_pagina_estado_icone'></i></span></li></a>";
-			
+			if ($topico_pagina_estado != 0) {
+				$topico_pagina_estado_icone = return_estado_icone($topico_pagina_estado, 'materia');
+			} else {
+				$topico_pagina_estado_icone = false;
+			}
+			$template_conteudo .= "<a href='pagina.php?pagina_id=$topico_pagina_id'><li class='list-group-item list-group-item-action list-group-item-primary active d-flex justify-content-between mt-3'><span>$topico_pagina_titulo</span><span><i class='$topico_pagina_estado_icone'></i></span></li></a>";
 			$subtopicos = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $topico_pagina_id AND tipo = 'subtopico'");
 			if ($subtopicos->num_rows > 0) {
 				while ($subtopico = $subtopicos->fetch_assoc()) {
@@ -23,7 +29,11 @@
 					$subtopico_pagina_info = return_pagina_info($subtopico_pagina_id);
 					$subtopico_pagina_estado = $subtopico_pagina_info[3];
 					$subtopico_pagina_titulo = $subtopico_pagina_info[6];
-					$subtopico_pagina_estado_icone = return_estado_icone($subtopico_pagina_estado, 'materia');
+					if ($subtopico_pagina_estado != false) {
+						$subtopico_pagina_estado_icone = return_estado_icone($subtopico_pagina_estado, 'materia');
+					} else {
+						$subtopico_pagina_estado_icone = false;
+					}
 					$template_conteudo .= "<a href='pagina.php?pagina_id=$subtopico_pagina_id'><li class='list-group-item list-group-item-action list-group-item-secondary d-flex justify-content-between'><span>$subtopico_pagina_titulo</span><span><i class='$subtopico_pagina_estado_icone'></i></span></li></a>";
 					
 					$subsubtopicos = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $subtopico_pagina_id AND tipo = 'subtopico'");
@@ -33,8 +43,12 @@
 							$subsubtopico_pagina_info = return_pagina_info($subsubtopico_pagina_id);
 							$subsubtopico_pagina_estado = $subsubtopico_pagina_info[3];
 							$subsubtopico_pagina_titulo = $subsubtopico_pagina_info[6];
-							$subsubtopico_pagina_estado_icone = return_estado_icone($subsubtopico_pagina_estado, 'materia');
-							$template_conteudo .= "<a href='pagina.php?pagina_id=$subsubtopico_pagina_id'><li class='list-group-item list-group-item-action d-flex justify-content-between'><span>$subsubtopico_pagina_titulo</span><span><i class='$subsubtopico_pagina_estado_icone'></i></span></li></a>";
+							if ($subsubtopico_pagina_estado != false) {
+								$subsubtopico_pagina_estado_icone = return_estado_icone($subsubtopico_pagina_estado, 'materia');
+							} else {
+								$subsubtopico_pagina_estado_icone = false;
+							}
+							$template_conteudo .= "<a href='pagina.php?pagina_id=$subsubtopico_pagina_id' class='spacing1'><li class='list-group-item list-group-item-action d-flex justify-content-between'><span>$subsubtopico_pagina_titulo</span><span><i class='$subsubtopico_pagina_estado_icone'></i></span></li></a>";
 							
 							$subsubsubtopicos = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $subsubtopico_pagina_id AND tipo = 'subtopico'");
 							if ($subsubsubtopicos->num_rows > 0) {
@@ -43,8 +57,12 @@
 									$subsubsubtopico_pagina_info = return_pagina_info($subsubsubtopico_pagina_id);
 									$subsubsubtopico_pagina_estado = $subsubsubtopico_pagina_info[3];
 									$subsubsubtopico_pagina_titulo = $subsubsubtopico_pagina_info[6];
-									$subsubsubtopico_pagina_estado_icone = return_estado_icone($subsubsubtopico_pagina_estado, 'materia');
-									$template_conteudo .= "<a href='pagina.php?pagina_id=$subsubsubtopico_pagina_id' class='spacing1'><li class='list-group-item list-group-item-action d-flex justify-content-between'><span>$subsubsubtopico_pagina_titulo</span><span><i class='$subsubsubtopico_pagina_estado_icone'></i></span></li></a>";
+									if ($subsubsubtopico_pagina_estado != false) {
+										$subsubsubtopico_pagina_estado_icone = return_estado_icone($subsubsubtopico_pagina_estado, 'materia');
+									} else {
+										$subsubsubtopico_pagina_estado_icone = false;
+									}
+									$template_conteudo .= "<a href='pagina.php?pagina_id=$subsubsubtopico_pagina_id' class='spacing2'><li class='list-group-item list-group-item-action d-flex justify-content-between'><span>$subsubsubtopico_pagina_titulo</span><span><i class='$subsubsubtopico_pagina_estado_icone'></i></span></li></a>";
 									
 									$subsubsubsubtopicos = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $subsubsubtopico_pagina_id AND tipo = 'subtopico'");
 									if ($subsubsubsubtopicos->num_rows > 0) {
@@ -53,8 +71,12 @@
 											$subsubsubsubtopico_pagina_info = return_pagina_info($subsubsubsubtopico_pagina_id);
 											$subsubsubsubtopico_pagina_estado = $subsubsubsubtopico_pagina_info[3];
 											$subsubsubsubtopico_pagina_titulo = $subsubsubsubtopico_pagina_info[6];
-											$subsubsubsubtopico_pagina_estado_icone = return_estado_icone($subsubsubsubtopico_pagina_estado, 'materia');
-											$template_conteudo .= "<a href='pagina.php?pagina_id=$subsubsubsubtopico_pagina_id' class='spacing2'><li class='list-group-item list-group-item-action d-flex justify-content-between'><span>$subsubsubsubtopico_pagina_titulo</span><span><i class='$subsubsubsubtopico_pagina_estado_icone'></i></span></li></a>";
+											if ($subsubsubsubtopico_pagina_estado != false) {
+												$subsubsubsubtopico_pagina_estado_icone = return_estado_icone($subsubsubsubtopico_pagina_estado, 'materia');
+											} else {
+												$subsubsubsubtopico_pagina_estado_icone = false;
+											}
+											$template_conteudo .= "<a href='pagina.php?pagina_id=$subsubsubsubtopico_pagina_id' class='spacing3'><li class='list-group-item list-group-item-action d-flex justify-content-between'><span>$subsubsubsubtopico_pagina_titulo</span><span><i class='$subsubsubsubtopico_pagina_estado_icone'></i></span></li></a>";
 										}
 									}
 								}

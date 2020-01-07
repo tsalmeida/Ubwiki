@@ -427,7 +427,8 @@
 		return false;
 	}
 	
-	function return_pagina_item_id($pagina_id) {
+	function return_pagina_item_id($pagina_id)
+	{
 		if ($pagina_id == false) {
 			return false;
 		}
@@ -620,18 +621,18 @@
 	
 	function return_estado_icone($estado_pagina, $contexto)
 	{
-		$icone0 = 'fal fa-empty-set fa-fw';
-		$icone1 = 'fal fa-acorn fa-fw';
-		$icone2 = 'fal fa-seedling fa-fw';
-		$icone3 = 'fas fa-leaf fa-fw';
-		$icone4 = 'fas fa-leaf fa-fw';
-		
+		$icone0 = 'fad fa-empty-set fa-fw';
+		$icone1 = 'fad fa-acorn fa-fw';
+		$icone2 = 'fad fa-seedling fa-fw';
+		$icone3 = 'fad fa-leaf fa-fw';
+		$icone4 = 'fad fa-spa fa-fw';
+		/*
 		if ($contexto == 'pagina') {
 			$icone0 = 'fal fa-empty-set fa-fw';
 			$icone1 = 'fas fa-acorn fa-fw';
 			$icone2 = 'fas fa-seedling fa-fw';
 		}
-		
+		*/
 		if ($estado_pagina == 0) {
 			return $icone0;
 		} elseif ($estado_pagina == 1) {
@@ -984,6 +985,8 @@
 		} elseif ($busca_etiquetas_contexto == 'topico') {
 			$acao_etiqueta_criar = 'criar_subtopico';
 			$tag_inativa_classes = str_replace('adicionar_tag', 'adicionar_subtopico', $tag_inativa_classes);
+		} else {
+			$acao_etiqueta_criar = 'criar_etiqueta';
 		}
 		/*else {
 			$tag_ativa_classes = str_replace('remover_tag', 'remover_materia', $tag_ativa_classes);
@@ -1682,7 +1685,8 @@
 		return false;
 	}
 	
-	function return_curso_id_materia($materia_id) {
+	function return_curso_id_materia($materia_id)
+	{
 		return false;
 	}
 	
@@ -1921,5 +1925,78 @@
 			return false;
 		}
 	}
+	
+	function return_curso_paginas($curso_id, $tipo)
+	{
+		include 'templates/criar_conn.php';
+		if ($curso_id == false) {
+			return false;
+		}
+		$curso_info = return_curso_info($curso_id);
+		$curso_pagina_id = $curso_info[0];
+		$result_all = array();
+		$result_materias = array();
+		$result_topicos = array();
+		$result_subtopicos = array();
+		$result_subsubtopicos = array();
+		$result_subsubsubtopicos = array();
+		$result_subsubsubsubtopicos = array();
+		$materias = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $curso_pagina_id AND tipo = 'materia'");
+		if ($materias->num_rows > 0) {
+			while ($materia = $materias->fetch_assoc()) {
+				$materia_pagina_id = $materia['elemento_id'];
+				array_push($result_materias, $materia_pagina_id);
+				array_push($result_all, $materia_pagina_id);
+				$topicos = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $materia_pagina_id AND tipo = 'topico'");
+				if ($topicos->num_rows > 0) {
+					while ($topico = $topicos->fetch_assoc()) {
+						$topico_pagina_id = $topico['elemento_id'];
+						array_push($result_topicos, $topico_pagina_id);
+						array_push($result_all, $topico_pagina_id);
+						$subtopicos = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $topico_pagina_id AND tipo = 'subtopico'");
+						if ($subtopicos->num_rows > 0) {
+							while ($subtopico = $subtopicos->fetch_assoc()) {
+								$subtopico_pagina_id = $subtopico['elemento_id'];
+								array_push($result_subtopicos, $subtopico_pagina_id);
+								array_push($result_all, $subtopico_pagina_id);
+								$subsubtopicos = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $subtopico_pagina_id AND tipo = 'subtopico'");
+								if ($subsubtopicos->num_rows > 0) {
+									while ($subsubtopico = $subsubtopicos->fetch_assoc()) {
+										$subsubtopico_pagina_id = $subsubtopico['elemento_id'];
+										array_push($result_subsubtopicos, $subsubtopico_pagina_id);
+										array_push($result_all, $subsubtopico_pagina_id);
+										$subsubsubtopicos = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $subsubtopico_pagina_id AND tipo = 'subtopico'");
+										if ($subsubsubtopicos->num_rows > 0) {
+											while ($subsubsubtopico = $subsubsubtopicos->fetch_assoc()) {
+												$subsubsubtopico_pagina_id = $subsubsubtopico['elemento_id'];
+												array_push($result_subsubsubtopicos, $subsubsubtopico_pagina_id);
+												array_push($result_all, $subsubsubtopico_pagina_id);
+												$subsubsubsubtopicos = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $subsubsubtopico_pagina_id AND tipo = 'subtopico'");
+												if ($subsubsubsubtopicos->num_rows > 0) {
+													while ($subsubsubsubtopico = $subsubsubsubtopicos->fetch_assoc()) {
+														$subsubsubsubtopico_pagina_id = $subsubsubsubtopico['elemento_id'];
+														array_push($result_subsubsubsubtopicos, $subsubsubsubtopico_pagina_id);
+														array_push($result_all, $subsubsubsubtopico_pagina_id);
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		if ($tipo == 'all') {
+			return $result_all;
+		} else {
+			$result = array();
+			array_push($result, $result_materias, $result_topicos, $result_subtopicos, $result_subsubtopicos, $result_subsubsubtopicos, $result_subsubsubsubtopicos);
+			return $result;
+		}
+	}
+
 
 ?>

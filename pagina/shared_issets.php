@@ -10,9 +10,6 @@
 	if (isset($_POST['novo_estado_pagina'])) {
 		$novo_estado_pagina = $_POST['novo_estado_pagina'];
 		$conn->query("UPDATE Paginas SET estado = $novo_estado_pagina WHERE id = $pagina_id");
-		if ($pagina_tipo == 'topico') {
-			$conn->query("UPDATE Topicos SET estado_pagina = $novo_estado_pagina WHERE id = $topico_id");
-		}
 		$pagina_estado = $novo_estado_pagina;
 		$nao_contar = true;
 	}

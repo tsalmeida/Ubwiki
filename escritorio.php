@@ -381,6 +381,8 @@
 	$comentarios = $conn->query("SELECT DISTINCT pagina_id, pagina_tipo FROM Forum WHERE user_id = $user_id");
 	$completados = $conn->query("SELECT pagina_id FROM Completed WHERE user_id = $user_id AND estado = 1 AND active = 1");
 	$verbetes_escritos = $conn->query("SELECT DISTINCT pagina_id FROM Textos_arquivo WHERE tipo = 'verbete' AND user_id = $user_id ORDER BY id DESC");
+	$etiquetados = $conn->query("SELECT DISTINCT extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'topico' AND estado = 1");
+
 
 ?>
 <body class="carrara">
@@ -423,7 +425,7 @@
 					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_bookmarks' class='ml-1 text-danger'><i class='fad fa-bookmark fa-2x fa-fw'></i></a>";
 				}
 				if ($verbetes_escritos->num_rows > 0) {
-					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_verbetes' class='ml-1 text-warning'><i class='fad fa-seedling fa-2x fa-fw'></i></a>";
+					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_verbetes' class='ml-1 text-warning'><i class='fad fa-spa fa-2x fa-fw'></i></a>";
 				}
 				echo "</div></div>";
 			?>
@@ -529,7 +531,7 @@
 								$artefato_criacao = false;
 								$template_conteudo .= include 'templates/artefato_item.php';
 								$count++;
-								if ($count == 17) {
+								if ($count == 11) {
 									break;
 								}
 							}

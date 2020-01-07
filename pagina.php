@@ -261,7 +261,7 @@
 	if ($carregar_secoes == true) {
 		$secoes = $conn->query("SELECT secao_pagina_id FROM Secoes WHERE pagina_id = $pagina_id ORDER BY ordem");
 	}
-
+	$etiquetados = $conn->query("SELECT DISTINCT extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'topico' AND estado = 1");
 
 ?>
 <body class="carrara">
@@ -354,14 +354,25 @@
                 </span>
 					<?php
 						if (($user_id != false) && ($pagina_tipo != 'sistema') && ($pagina_compartilhamento != 'escritorio')) {
-							echo "
-                              <span id='adicionar_etiqueta' class='ml-1' title='Adicionar etiqueta' data-toggle='modal'
-                                    data-target='#modal_gerenciar_etiquetas'>
-                                  <a href='javascript:void(0);' class='text-warning'>
-                                      <i class='fad fa-tags fa-fw'></i>
-                                  </a>
-                              </span>
-                            ";
+							if ($etiquetados->num_rows > 0) {
+								echo "
+                                  <span id='adicionar_etiqueta' class='ml-1' title='Adicionar etiqueta' data-toggle='modal'
+                                        data-target='#modal_gerenciar_etiquetas'>
+                                      <a href='javascript:void(0);' class='text-warning'>
+                                          <i class='fad fa-tags fa-fw'></i>
+                                      </a>
+                                  </span>
+                                ";
+							} else {
+								echo "
+                                  <span id='adicionar_etiqueta' class='ml-1' title='Adicionar etiqueta' data-toggle='modal'
+                                        data-target='#modal_gerenciar_etiquetas'>
+                                      <a href='javascript:void(0);'>
+                                          <i class='fad fa-tags fa-fw'></i>
+                                      </a>
+                                  </span>
+                                ";
+							}
 							if ($estado_estudo == true) {
 								$marcar_completo = 'collapse';
 								$marcar_incompleto = false;
@@ -387,14 +398,16 @@
 							
 							$estado_cor = false;
 							$estado_icone = return_estado_icone($pagina_estado, 'pagina');
-							if ($pagina_estado > 3) {
+							if ($pagina_estado == 4) {
 								$estado_cor = 'text-warning';
 							} else {
 								$estado_cor = 'text-info';
 							}
-							echo "
+							if ($pagina_estado != 0) {
+								echo "
                                 <span id='change_estado_pagina' class='ml-1' title='Estado da página' data-toggle='modal' data-target='#modal_estado'><a href='javascript:void(0);'><span class='$estado_cor'><i class='$estado_icone fa-fw'></i></span></a></span>
-                            ";
+                                ";
+							}
 						}
 					?>
         </div>

@@ -229,23 +229,23 @@ blockquote + * {
 }
 
 .spacing1 {
-  margin-left: 3ch;
+  margin-left: 5ch;
 }
 
 .spacing2 {
-  margin-left: 6ch;
+  margin-left: 10ch;
 }
 
 .spacing3 {
-  margin-left: 9ch;
+  margin-left: 15ch;
 }
 
 .spacing4 {
-  margin-left: 12ch;
+  margin-left: 20ch;
 }
 
 .spacing5 {
-  margin-left: 15ch;
+  margin-left: 25ch;
 }
 
 #mostrar_coluna_direita {

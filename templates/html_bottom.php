@@ -211,7 +211,7 @@
 				       $.post('engine.php', {
 				       		'busca_etiquetas': busca_materias,
 				       		'busca_etiquetas_tipo': 'topico',
-				       		'busca_etiquetas_contexto': 'curso'
+				       		'busca_etiquetas_contexto': '$pagina_tipo'
 				       }, function(data) {
 				          if (data != 0) {
 				              $('#materias_disponiveis').empty();
@@ -392,10 +392,12 @@
       </script>
 	";
 	}
+	/*
 	if ($etiquetas_bottom_adicionar == true) {
 		echo "
 		<script type='text/javascript'>
 			$('#buscar_etiquetas').keyup(function() {
+        error_log('this happened');
 				var busca_etiquetas = $('#buscar_etiquetas').val();
 				var busca_etiquetas_length = $('#buscar_etiquetas').val().length;
 				if (busca_etiquetas_length > 2) {
@@ -439,7 +441,7 @@
 			  });
 		</script>
 	";
-	}
+	}*/
 	if ($esconder_introducao == true) {
 		echo "
 			<script type='text/javascript'>

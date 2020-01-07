@@ -15,7 +15,6 @@
 				<p>Pressione para remover:</p>
 				<div class='row' id='etiquetas_ativas'>
 		";
-		$etiquetados = $conn->query("SELECT DISTINCT extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'topico' AND estado = 1");
 		if ($etiquetados->num_rows > 0) {
 			while ($etiquetado = $etiquetados->fetch_assoc()) {
 				$etiqueta_ativa_id = $etiquetado['extra'];
