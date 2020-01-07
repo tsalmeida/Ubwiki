@@ -197,6 +197,7 @@
     <script type='text/javascript'>
     var {$template_id}_editor = new Quill('#quill_editor_{$template_id}', {
         theme: 'snow',
+        scrollingContainer: 'html',
         placeholder: '{$template_quill_vazio}',
         formats: $template_quill_whitelist,
         modules: {
