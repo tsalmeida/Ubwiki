@@ -193,7 +193,6 @@
 		$winner = 0;
 		$result = $conn->query("SELECT chave FROM Searchbar WHERE curso_id = $busca_curso_id AND CHAR_LENGTH(chave) < 150 ORDER BY ordem");
 		$commandlow = mb_strtolower($command);
-		error_log($commandlow);
 		if ($result->num_rows > 0) {
 			while ($row = $result->fetch_assoc()) {
 				$chave = $row["chave"];
@@ -203,8 +202,6 @@
 					echo "notfoundnotfound$chave";
 					return;
 				} elseif ($check < $index) {
-					error_log($chavelow);
-					error_log($check);
 					$index = $check;
 					$winner = $chave;
 				}
