@@ -191,28 +191,33 @@
 		}
 		$index = 500;
 		$winner = 0;
-		$result = $conn->query("SELECT chave FROM Searchbar WHERE curso_id = $curso_id AND CHAR_LENGTH(chave) < 150 ORDER BY ordem");
+		$result = $conn->query("SELECT chave FROM Searchbar WHERE curso_id = $busca_curso_id AND CHAR_LENGTH(chave) < 150 ORDER BY ordem");
+		$commandlow = mb_strtolower($command);
+		error_log($commandlow);
 		if ($result->num_rows > 0) {
 			while ($row = $result->fetch_assoc()) {
 				$chave = $row["chave"];
 				$chavelow = mb_strtolower($chave);
-				$commandlow = mb_strtolower($command);
 				$check = levenshtein($chavelow, $commandlow, 1, 1, 1);
 				if (strpos($chavelow, $commandlow) !== false) {
 					echo "notfoundnotfound$chave";
 					return;
 				} elseif ($check < $index) {
+					error_log($chavelow);
+					error_log($check);
 					$index = $check;
 					$winner = $chave;
 				}
 			}
-			$length = strlen($command);
+			$length = strlen($winner);
+			$length = $length / 3;
 			if ($index < $length) {
 				echo "notfoundnotfound$winner";
 				return;
+			} else {
+				echo "foundfoundfoundfbusca.php?busca=$command";
 			}
 		}
-		echo "Nada foi encontrado";
 		return;
 	}
 	
