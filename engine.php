@@ -181,23 +181,17 @@
 		$command = base64_decode($_POST['sbcommand']);
 		$command = utf8_encode($command);
 		$found = false;
-		$result = $conn->query("SELECT page_id, tipo FROM Searchbar WHERE curso_id = $busca_curso_id AND chave = '$command' ORDER BY ordem");
+		$result = $conn->query("SELECT pagina_id FROM Searchbar WHERE curso_id = $busca_curso_id AND chave = '$command' ORDER BY ordem");
 		if ($result->num_rows > 0) {
 			while ($row = $result->fetch_assoc()) {
-				$page_id = $row["page_id"];
-				$tipo = $row["tipo"];
-				if ($tipo == "materia") {
-					echo "foundfoundfoundfpagina.php?materia_id=$page_id";
-					return;
-				} elseif ($tipo == "topico") {
-					echo "foundfoundfoundfpagina.php?topico_id=$page_id";
-					return;
-				}
+				$pagina_id = $row["pagina_id"];
+				echo "foundfoundfoundfpagina.php?pagina_id=$pagina_id";
+				return;
 			}
 		}
 		$index = 500;
 		$winner = 0;
-		$result = $conn->query("SELECT chave FROM Searchbar WHERE curso_id = '$curso_id' AND CHAR_LENGTH(chave) < 150 ORDER BY ordem");
+		$result = $conn->query("SELECT chave FROM Searchbar WHERE curso_id = $curso_id AND CHAR_LENGTH(chave) < 150 ORDER BY ordem");
 		if ($result->num_rows > 0) {
 			while ($row = $result->fetch_assoc()) {
 				$chave = $row["chave"];
@@ -1995,6 +1989,23 @@
 			$result = array();
 			array_push($result, $result_materias, $result_topicos, $result_subtopicos, $result_subsubtopicos, $result_subsubsubtopicos, $result_subsubsubsubtopicos);
 			return $result;
+		}
+	}
+	
+	function reconstruir_busca($curso_id) {
+		include 'templates/criar_conn.php';
+		if ($curso_id == false) {
+			return false;
+		}
+		$conn->query("DELETE FROM Searchbar WHERE curso_id = $curso_id");
+		$curso_paginas = return_curso_paginas($curso_id, 'all');
+		$ordem = 0;
+		foreach ($curso_paginas as $curso_pagina) {
+			$ordem++;
+			$curso_pagina_titulo = return_pagina_titulo($curso_pagina);
+			if ($curso_pagina_titulo != false) {
+				$conn->query("INSERT INTO Searchbar (ordem, curso_id, pagina_id, chave) VALUES ($ordem, $curso_id, $curso_pagina, '$curso_pagina_titulo')");
+			}
 		}
 	}
 

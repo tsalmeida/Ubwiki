@@ -3,7 +3,8 @@
 	include 'engine.php';
 	
 	if (isset($_POST['trigger_atualizacao'])) {
-	
+		$conn->query("ALTER TABLE `Searchbar` CHANGE `page_id` `pagina_id` INT(11) NULL DEFAULT NULL;");
+		$conn->query("ALTER TABLE `Searchbar` DROP `tipo`;");
 	}
 	
 	if (isset($_POST['funcoes_gerais'])) {
@@ -29,7 +30,13 @@
 	}
 	
 	if (isset($_POST['funcoes_gerais3'])) {
-	
+		$cursos = $conn->query("SELECT id FROM Cursos");
+		if ($cursos->num_rows > 0) {
+			while ($curso = $cursos->fetch_assoc()) {
+				$find_curso_id = $curso['id'];
+				reconstruir_busca($find_curso_id);
+			}
+		}
 	}
 	
 	
