@@ -106,6 +106,7 @@
 		      	<style>
 		      		.ql-editor {
 		      			text-align: justify;
+		      			white-space: normal;
 		      		}
 				</style>
 		    ";

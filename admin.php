@@ -2,6 +2,10 @@
 	
 	include 'engine.php';
 	
+	if ($user_tipo != 'admin') {
+	    header("Location:escritorio.php");
+    }
+	
 	if (isset($_POST['trigger_atualizacao'])) {
 		$conn->query("ALTER TABLE `Searchbar` CHANGE `page_id` `pagina_id` INT(11) NULL DEFAULT NULL;");
 		$conn->query("ALTER TABLE `Searchbar` DROP `tipo`;");
@@ -76,9 +80,9 @@
 						        </div>
 						    </form>
 						    <form method='post'>
-						        <p>Função geral de atualização.</p>
+						        <p>Reconstruir busca.</p>
 						        <div class='row justify-content-center'>
-						        	<button class='$button_classes' type='submit' name='funcoes_gerais3'>Função geral de atualização</button>
+						        	<button class='$button_classes' type='submit' name='funcoes_gerais3'>Reconstruir busca</button>
 						        </div>
 						    </form>
 						";

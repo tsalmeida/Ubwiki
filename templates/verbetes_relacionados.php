@@ -18,7 +18,7 @@
 	$breadcrumbs .= "<h4>Tópicos:</h4>";
 	
 	if ($topico_nivel == 1) {
-		$breadcrumbs .= "<p><span class='spacing1'>$pagina_titulo</span></p>";
+		/*$breadcrumbs .= "<p><span class='spacing1'>$pagina_titulo</span></p>";*/
 	}
 	if ($topico_nivel > 1) {
 		$topico_nivel1_titulo = return_pagina_titulo($familia_info[3]);
