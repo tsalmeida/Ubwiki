@@ -65,7 +65,7 @@
 	
 	$titulo_class = false;
 	$titulo_length = strlen($length_check);
-	if ($titulo_length > 80) {
+	if ($titulo_length > 70) {
 		$titulo_class = 'small';
 	}
 	

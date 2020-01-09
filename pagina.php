@@ -77,7 +77,7 @@
 		$pagina_criacao = $pagina_info[0];
 		$pagina_item_id = (int)$pagina_info[1];
 		$pagina_tipo = $pagina_info[2];
-		$pagina_estado = $pagina_info[3];
+		$pagina_estado = (int)$pagina_info[3];
 		$pagina_compartilhamento = $pagina_info[4];
 		$pagina_user_id = $pagina_info[5];
 		$pagina_titulo = $pagina_info[6];
@@ -260,7 +260,7 @@
 	if ($carregar_secoes == true) {
 		$secoes = $conn->query("SELECT secao_pagina_id FROM Secoes WHERE pagina_id = $pagina_id ORDER BY ordem");
 	}
-	$etiquetados = $conn->query("SELECT DISTINCT extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'topico' AND estado = 1");
+	$etiquetados = $conn->query("SELECT DISTINCT extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'topico' AND estado = 1 AND extra IS NOT NULL");
 
 ?>
 <body class="carrara">
@@ -278,7 +278,7 @@
 							echo "<span id='elemento_dados' class='mx-1' title='Editar dados'><a href='javascript:void(0);' data-toggle='modal' data-target='#modal_dados_elemento' class='text-info'><i class='fad fa-info-circle fa-fw fa-2x'></i></a></span>";
 						}
 						$modal_pagina_dados = false;
-						if ((($pagina_tipo == 'sistema') && ($user_tipo == 'admin')) || (($pagina_tipo == 'pagina') && ($pagina_user_id == $user_id)) || (($pagina_tipo == 'texto') && ($pagina_user_id = $user_id) && ($texto_page_id == 0)) || (($pagina_tipo == 'resposta') && ($pagina_user_id == $user_id))) {
+						if ((($pagina_tipo == 'sistema') && ($user_tipo == 'admin')) ||(($pagina_tipo == 'pagina') && ($pagina_user_id == $user_id)) || (($pagina_tipo == 'texto') && ($pagina_user_id = $user_id) && ($texto_page_id == 0)) || (($pagina_tipo == 'resposta') && ($pagina_user_id == $user_id)) || (($pagina_tipo == 'secao') && ($pagina_user_id == $user_id))) {
 							$modal_pagina_dados = true;
 							echo "<span id='pagina_dados' class='mx-1' title='Editar dados'><a href='javascript:void(0);' data-toggle='modal' data-target='#modal_pagina_dados' class='text-info'><i class='fad fa-info-circle fa-fw fa-2x'></i></a></span>";
 						}
@@ -756,7 +756,7 @@
                        for='pagina_novo_titulo'>Novo título</label>
             </div>
         ";
-		if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id) && ($secoes->num_rows == 0) && ($pagina_titulo != false)) {
+		if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id) && ($secoes->num_rows == 0) && ($pagina_tipo == 'pagina') && ($pagina_titulo != false)) {
 			$modal_novo_curso = true;
 			$template_modal_body_conteudo .= "
 		        <span data-toggle='modal' data-target='#modal_pagina_dados'>
