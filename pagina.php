@@ -251,7 +251,7 @@
 		$conn->query("INSERT INTO Compartilhamento (user_id, item_id, item_tipo, compartilhamento, recipiente_id) VALUES ($user_id, $pagina_id, '$pagina_tipo', 'grupo', $compartilhar_grupo_id)");
 	}
 	
-	if ((($pagina_tipo == 'elemento') || ($pagina_tipo == 'pagina')) && ($pagina_compartilhamento != 'escritorio')) {
+	if ((($pagina_tipo == 'elemento') || ($pagina_tipo == 'pagina')) && ($pagina_compartilhamento != 'escritorio') || ($pagina_tipo == 'grupo')) {
 		$carregar_secoes = true;
 	} else {
 		$carregar_secoes = false;
@@ -690,7 +690,7 @@
 		include 'pagina/modals_elemento.php';
 	}
 	
-	if (($pagina_tipo == 'pagina') || ($pagina_tipo == 'elemento')) {
+	if ($carregar_secoes == true) {
 		$template_modal_div_id = 'modal_partes_form';
 		$template_modal_titulo = 'Adicionar seção';
 		$template_modal_submit_name = 'trigger_nova_secao';
@@ -701,7 +701,7 @@
 		        <p>Exemplos de seções adequadas: \"Capítulo 1\", \"Capítulo 2: Título do Capítulo\", \"Parte 1: As Origens\", \"Introdução\".</p>
 		        <p>É possível determinar a ordem como \"0\". É preferível usar essa opção para elementos anteriores ao primeiro capítulo, como Introdução e Prefácio, pois dessa forma o primeiro capítulo terá a ordem \"1\", o segundo a ordem \"2\" etc.</p>
 	          ";
-		} elseif ($pagina_tipo == 'pagina') {
+		} else {
 			$template_modal_body_conteudo .= "
 				<p>Você pode criar seções de sua página, mas recomenda-se cuidado para que não haja duplicidade. Preferencialmente, as seções devem ser adicionadas na ordem final de sua preferência. Nesse caso, é possível ignorar o campo 'ordem' completamente.</p>
 			";
