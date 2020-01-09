@@ -2010,6 +2010,30 @@
 			}
 		}
 	}
+	
+	if (isset($_POST['quill_novo_verbete_html'])) {
+		$quill_novo_verbete_html = $_POST['quill_novo_verbete_html'];
+		$quill_novo_verbete_html = mysqli_real_escape_string($conn, $quill_novo_verbete_html);
+		$quill_novo_verbete_html = strip_tags($quill_novo_verbete_html, '<p><li><ul><ol><h2><h3><blockquote><em><sup><img><u><b><a><s>');
+		$quill_novo_verbete_text = $_POST['quill_novo_verbete_text'];
+		$quill_novo_verbete_text = mysqli_real_escape_string($conn, $quill_novo_verbete_text);
+		$quill_novo_verbete_content = $_POST['quill_novo_verbete_content'];
+		$quill_novo_verbete_content = mysqli_real_escape_string($conn, $quill_novo_verbete_content);
+		$quill_pagina_id = $_POST['quill_pagina_id'];
+		$quill_texto_tipo = $_POST['quill_texto_tipo'];
+		$quill_texto_id = $_POST['quill_texto_id'];
+		$quill_texto_page_id = $_POST['quill_texto_page_id'];
+		$quill_pagina_tipo = $_POST['quill_pagina_tipo'];
+		if ($quill_texto_id != 0) {
+			$conn->query("UPDATE Textos SET verbete_html = '$quill_novo_verbete_html', verbete_text = '$quill_novo_verbete_text', verbete_content = '$quill_novo_verbete_content' WHERE id = $quill_texto_id");
+			$conn->query("INSERT INTO Textos_arquivo (curso_id, tipo, page_id, pagina_id, pagina_tipo, estado_texto, verbete_html, verbete_text, verbete_content, user_id) VALUES ($curso_id, '$quill_texto_tipo', $quill_texto_page_id, $quill_pagina_id, '$quill_pagina_tipo', 1, '$quill_novo_verbete_html', '$quill_novo_verbete_text', '$quill_novo_verbete_content', $user_id)");
+		} else {
+			$conn->query("INSERT INTO Textos (curso_id, tipo, page_id, pagina_id, pagina_tipo, estado_texto, verbete_html, verbete_text, verbete_content, user_id) VALUES ($curso_id, '$quill_texto_tipo', $quill_texto_page_id, $quill_pagina_id, '$quill_pagina_tipo', 1, '$quill_novo_verbete_html', '$quill_novo_verbete_text', '$quill_novo_verbete_content', $user_id)");
+			$conn->query("INSERT INTO Textos_arquivo (curso_id, tipo, page_id, pagina_id, pagina_tipo, estado_texto, verbete_html, verbete_text, verbete_content, user_id) VALUES ($curso_id, '$quill_texto_tipo', $quill_texto_page_id, $quill_pagina_id, '$quill_pagina_tipo', 1, '$quill_novo_verbete_html', '$quill_novo_verbete_text', '$quill_novo_verbete_content', $user_id)");
+			$conn->query("UPDATE Paginas SET estado = 1 WHERE id = $quill_pagina_id");
+		}
+	}
+	
 
 
 ?>

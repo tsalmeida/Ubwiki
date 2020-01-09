@@ -514,6 +514,10 @@
 					  $('#salvar_anotacao').hide();
 					  $('#anotacao_salva').show();
 				    $('#quill_trigger_{$texto_tipo}').click();
+				    setTimeout(function(){
+	            $('#anotacao_salva').hide();
+              $('#salvar_anotacao').show();
+				    }, 1000);
 					});
 	      });
 			</script>

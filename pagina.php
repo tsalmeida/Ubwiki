@@ -182,7 +182,6 @@
 	
 	if ($pagina_tipo == 'elemento') {
 		include 'pagina/isset_elemento.php';
-	} elseif ($pagina_tipo == 'elemento') {
 		include 'pagina/queries_elemento.php';
 	}
 	
@@ -960,7 +959,7 @@
 				  </a>
 			  </span>
               <span id='anotacao_salva' class='ml-1 text-success' title='Salvar anotação'>
-	              <i class='fas fa-save fa-fw'></i>
+	              <i class='fad fa-check-square fa-fw'></i>
 			  </span>
         ";
 		$quill_extra_buttons .= "

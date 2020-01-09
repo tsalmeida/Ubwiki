@@ -69,6 +69,7 @@
 	if (!isset($template_botoes)) {
 		$template_botoes = false;
 	}
+	
 	if (!isset($pagina_texto_id)) {
 		$quill_texto_id = return_texto_id($pagina_tipo, $template_id, $pagina_id);
 	} else {
@@ -97,44 +98,16 @@
 			$template_vazio = true;
 		}
 	}
-	if (isset($_POST[$quill_trigger_button])) {
-		$novo_verbete_html = $_POST[$quill_novo_verbete_html];
-		$novo_verbete_html = mysqli_real_escape_string($conn, $novo_verbete_html);
-		$novo_verbete_text = $_POST[$quill_novo_verbete_text];
-		$novo_verbete_text = mysqli_real_escape_string($conn, $novo_verbete_text);
-		$novo_verbete_content = $_POST[$quill_novo_verbete_content];
-		$quill_verbete_content = $novo_verbete_content;
-		$novo_verbete_content = mysqli_real_escape_string($conn, $novo_verbete_content);
-		$novo_verbete_html = strip_tags($novo_verbete_html, '<p><li><ul><ol><h2><h3><blockquote><em><sup><img><u><b><a><s>');
-		if (isset($pagina_item_id)) {
-			$texto_page_id = $pagina_item_id;
-		} else {
-			$texto_page_id = "NULL";
-		}
-		if ($verbete_exists == true) {
-			$conn->query("UPDATE Textos SET verbete_html = '$novo_verbete_html', verbete_text = '$novo_verbete_text', verbete_content = '$novo_verbete_content' WHERE id = $quill_texto_id");
-			$conn->query("INSERT INTO Textos_arquivo (curso_id, tipo, page_id, pagina_id, pagina_tipo, estado_texto, verbete_html, verbete_text, verbete_content, user_id) VALUES ($curso_id, '$template_id', $texto_page_id, $template_quill_pagina_id, '$pagina_tipo', 1, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
-		} else {
-			$conn->query("INSERT INTO Textos_arquivo (curso_id, tipo, page_id, pagina_id, pagina_tipo, estado_texto, verbete_html, verbete_text, verbete_content, user_id) VALUES ($curso_id, '$template_id', $texto_page_id, $template_quill_pagina_id, '$pagina_tipo', 1, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
-			$conn->query("INSERT INTO Textos (curso_id, tipo, page_id, pagina_id, pagina_tipo, estado_texto, verbete_html, verbete_text, verbete_content, user_id) VALUES ($curso_id, '$template_id', $texto_page_id, $template_quill_pagina_id, '$pagina_tipo', 1, '$novo_verbete_html', '$novo_verbete_text', '$novo_verbete_content', $user_id)");
-			error_log($pagina_estado);
-			if ($pagina_estado == 0) {
-				error_log('this happened');
-				error_log("UPDATE Paginas SET estado = 1 WHERE id = $pagina_id");
-				$conn->query("UPDATE Paginas SET estado = 1 WHERE id = $pagina_id");
-				$pagina_estado = 1;
-			}
-		}
-		if (isset($quill_visualizacoes_tipo)) {
-			$conn->query("INSERT INTO Visualizacoes (user_id, pagina_id, tipo_pagina, extra) VALUES ($user_id, $pagina_id, '$quill_visualizacoes_tipo', 'edicao')");
-		}
-		$nao_contar = true;
+	
+	if ($quill_texto_id == false) {
+		$quill_texto_id = (int)0;
 	}
 	
 	$quill_result = false;
 	
 	$template_botoes .= "
-		<a href='javascript:void(0)' id='{$template_id}_trigger_save' title='Salvar mudanças' class='text-success'><i class='fad fa-save fa-fw'></i></a>
+		<a href='javascript:void(0)' id='{$template_id}_trigger_save' title='Salvar mudanças'><i class='fad fa-save fa-fw'></i></a>
+		<a href='javascript:void(0)' id='{$template_id}_trigger_save_success' title='Salvar mudanças' class='text-success collapse'><i class='fad fa-check-square fa-fw'></i></a>
 	";
 	
 	if ($quill_texto_id != false) {
@@ -228,7 +201,9 @@
     });
 
     var form_{$template_id} = document.querySelector('#quill_{$template_id}_form');
-    form_{$template_id}.onsubmit = function () {
+    form_{$template_id}.onsubmit = function (e) {
+        e.preventDefault();
+
         var quill_novo_{$template_id}_html = document.querySelector('input[name=quill_novo_{$template_id}_html]');
         quill_novo_{$template_id}_html.value = {$template_id}_editor.root.innerHTML;
 
@@ -239,6 +214,17 @@
         var quill_{$template_id}_content = {$template_id}_editor.getContents();
         quill_{$template_id}_content = JSON.stringify(quill_{$template_id}_content);
         quill_novo_{$template_id}_content.value = quill_{$template_id}_content;
+        
+        $.post('engine.php', {
+            'quill_novo_verbete_html': {$template_id}_editor.root.innerHTML,
+            'quill_novo_verbete_text': {$template_id}_editor.getText(),
+            'quill_novo_verbete_content': quill_{$template_id}_content,
+            'quill_pagina_id': {$pagina_id},
+            'quill_texto_tipo': '{$template_id}',
+            'quill_texto_id': {$quill_texto_id},
+            'quill_texto_page_id': {$pagina_item_id},
+            'quill_pagina_tipo': '{$pagina_tipo}'
+        });
     };
    
 	  {$template_id}_editor.setContents($quill_verbete_content);
@@ -262,7 +248,13 @@
         $('#quill_editor_{$template_id}').children(':first').addClass('ql-editor-active');
     });
 		$('#{$template_id}_trigger_save').click(function () {
+			$('#{$template_id}_trigger_save').hide();
+			$('#{$template_id}_trigger_save_success').show();
 			$('#{$quill_trigger_button}').click();
+			setTimeout(function(){
+				$('#{$template_id}_trigger_save').show();
+				$('#{$template_id}_trigger_save_success').hide();
+	    }, 1000);
 		});
 	</script>
 	";
