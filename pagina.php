@@ -278,7 +278,7 @@
 							echo "<span id='elemento_dados' class='mx-1' title='Editar dados'><a href='javascript:void(0);' data-toggle='modal' data-target='#modal_dados_elemento' class='text-info'><i class='fad fa-info-circle fa-fw fa-2x'></i></a></span>";
 						}
 						$modal_pagina_dados = false;
-						if ((($pagina_tipo == 'sistema') && ($user_tipo == 'admin')) ||(($pagina_tipo == 'pagina') && ($pagina_user_id == $user_id)) || (($pagina_tipo == 'texto') && ($pagina_user_id = $user_id) && ($texto_page_id == 0)) || (($pagina_tipo == 'resposta') && ($pagina_user_id == $user_id)) || (($pagina_tipo == 'secao') && ($pagina_user_id == $user_id))) {
+						if ((($pagina_tipo == 'sistema') && ($user_tipo == 'admin')) || (($pagina_tipo == 'pagina') && ($pagina_user_id == $user_id)) || (($pagina_tipo == 'texto') && ($pagina_user_id = $user_id) && ($texto_page_id == 0)) || (($pagina_tipo == 'resposta') && ($pagina_user_id == $user_id)) || (($pagina_tipo == 'secao') && ($pagina_user_id == $user_id))) {
 							$modal_pagina_dados = true;
 							echo "<span id='pagina_dados' class='mx-1' title='Editar dados'><a href='javascript:void(0);' data-toggle='modal' data-target='#modal_pagina_dados' class='text-info'><i class='fad fa-info-circle fa-fw fa-2x'></i></a></span>";
 						}
@@ -902,8 +902,9 @@
 			<div class='md-form'>
 				<input type='text' class='form-control' name='buscar_materias' id='buscar_materias' required>
 				<label for='buscar_materias'>Buscar matéria</label>
+                <button type='button' class='$button_classes' id='trigger_buscar_materias'>Buscar</button>
 			</div>
-			<div class='row' id='materias_disponiveis'></div>
+			<div class='row border p-2' id='materias_disponiveis'></div>
 		";
 		$template_modal_show_buttons = false;
 		include 'templates/modal.php';
@@ -918,8 +919,9 @@
 			<div class='md-form'>
 				<input type='text' class='form-control' name='buscar_topicos' id='buscar_topicos' required>
 				<label for='buscar_topicos'>Buscar tópico</label>
+                <button type='button' class='$button_classes' id='trigger_buscar_topicos'>Buscar</button>
 			</div>
-			<div class='row' id='topicos_disponiveis'></div>
+			<div class='row border p-2' id='topicos_disponiveis'></div>
 		";
 		$template_modal_show_buttons = false;
 		include 'templates/modal.php';
@@ -934,8 +936,9 @@
 			<div class='md-form'>
 				<input type='text' class='form-control' name='buscar_subtopicos' id='buscar_subtopicos' required>
 				<label for='buscar_topicos'>Buscar subtópico</label>
+				<button type='button' class='$button_classes' id='trigger_buscar_subtopicos'>Buscar</button>
 			</div>
-			<div class='row' id='subtopicos_disponiveis'></div>
+			<div class='row border p-2' id='subtopicos_disponiveis'></div>
 		";
 		$template_modal_show_buttons = false;
 		include 'templates/modal.php';

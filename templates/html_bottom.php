@@ -119,7 +119,7 @@
 		echo "
 			<script type='text/javascript'>
 				$('#criar_referencia_form').hide();
-				$('#busca_referencias').keyup(function() {
+					$('#trigger_buscar_referencias').click(function() {
 				   var busca_referencias = $('#busca_referencias').val();
 				   var busca_referencias_length = $('#busca_referencias').val().length;
 				   if (busca_referencias_length > 2) {
@@ -135,7 +135,7 @@
 				       });
 				   }
 				}),
-				$('#criar_referencia_autor').keyup(function() {
+					$('#trigger_buscar_autores').click(function() {
 				    var criar_referencia_autor = $('#criar_referencia_autor').val();
 				    var criar_referencia_autor_length = $('#criar_referencia_autor').val().length;
 				    if (criar_referencia_autor_length > 2) {
@@ -153,25 +153,10 @@
 				    }
 				}),
 				$(document).on('click', '#criar_referencia', function() {
-				    /*var nova_referencia = $(this).attr('value');
-				    $('#criar_referencia_titulo').val(nova_referencia);*/
 				    $(this).hide();
 				    $('#referencias_disponiveis').hide();
 				    $('#criar_referencia_form').show();
 				}),
-/*				$(document).on('click', '.acrescentar_referencia_bibliografia', function() {
-					var acrescentar_referencia = $(this).attr('value');
-					$(this).hide();
-					$.post('engine.php', {
-					   'acrescentar_referencia_id': acrescentar_referencia
-					}, function(data) {
-						if (data != false) {
-						    alert('sucesso');
-						} else {
-						    alert('insucesso');
-						}
-			   	});
-				});*/
 				$(document).on('click', '.adicionar_autor', function() {
 				    var adicionar_autor = $(this).attr('value');
 				    $(this).hide();
@@ -204,7 +189,7 @@
 	if ($carregar_adicionar_materia == true) {
 		echo "
 			<script type='text/javascript'>
-				$('#buscar_materias').keyup(function() {
+				$('#trigger_buscar_materias').click(function() {
 				   var busca_materias = $('#buscar_materias').val();
 				   var busca_materias_length = $('#buscar_materias').val().length;
 				   if (busca_materias_length > 2) {
@@ -253,7 +238,7 @@
 	if ($carregar_adicionar_topico == true) {
 		echo "
 			<script type='text/javascript'>
-				$('#buscar_topicos').keyup(function() {
+				$('#trigger_buscar_topicos').click(function() {
 				   var busca_topicos = $('#buscar_topicos').val();
 				   var busca_topicos_length = $('#buscar_topicos').val().length;
 				   if (busca_topicos_length > 2) {
@@ -302,7 +287,7 @@
 	if ($carregar_adicionar_subtopico == true) {
 		echo "
 			<script type='text/javascript'>
-				$('#buscar_subtopicos').keyup(function() {
+				$('#trigger_buscar_subtopicos').click(function() {
 				   var busca_subtopicos = $('#buscar_subtopicos').val();
 				   var busca_subtopicos_length = $('#buscar_subtopicos').val().length;
 				   if (busca_subtopicos_length > 2) {
@@ -351,7 +336,7 @@
 	if ($sistema_etiquetas_topicos == true) {
 		echo "
       <script type='text/javascript'>
-			  $('#buscar_etiquetas').keyup(function() {
+				$('#trigger_buscar_etiquetas').click(function() {
 			      var busca_etiquetas = $('#buscar_etiquetas').val();
 			      var busca_etiquetas_length = $('#buscar_etiquetas').val().length;
 			      if (busca_etiquetas_length > 2) {

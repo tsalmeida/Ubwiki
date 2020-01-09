@@ -3,6 +3,7 @@
 		<div class='md-form'>
 	    <input type='text' class='form-control' name='busca_referencias' id='busca_referencias' required>
 	    <label for='busca_referencias'>$adicionar_referencia_busca_texto</label>
+      <button type='button' class='$button_classes' id='trigger_buscar_referencias'>Buscar</button>
     </div>
     <div class='row' id='referencias_disponiveis'>
     </div>
@@ -15,6 +16,7 @@
         <div class='md-form'>
           <input type='text' class='form-control' name='criar_referencia_autor' id='criar_referencia_autor' required>
           <label for='criar_referencia_autor'>Autor da nova referência</label>
+          <button type='button' class='$button_classes' id='trigger_buscar_autores'>Buscar</button>
         </div>
         <div class='row' id='autores_disponiveis'>
         </div>
