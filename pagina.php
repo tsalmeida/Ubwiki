@@ -75,7 +75,7 @@
 	$pagina_info = return_pagina_info($pagina_id);
 	if ($pagina_info != false) {
 		$pagina_criacao = $pagina_info[0];
-		$pagina_item_id = $pagina_info[1];
+		$pagina_item_id = (int)$pagina_info[1];
 		$pagina_tipo = $pagina_info[2];
 		$pagina_estado = $pagina_info[3];
 		$pagina_compartilhamento = $pagina_info[4];
