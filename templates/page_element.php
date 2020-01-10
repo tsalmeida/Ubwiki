@@ -34,7 +34,7 @@
 	
 	if ($template_conteudo_no_col == false) {
 		$template_conteudo_no_col = false;
-		$template_conteudo_no_col1 = "<div class='col'>";
+		$template_conteudo_no_col1 = "<div class='col p-limit'>";
 		$template_conteudo_no_col2 = "</div>";
 	}
 	

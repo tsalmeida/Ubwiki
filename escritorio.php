@@ -541,7 +541,7 @@
 						$template_id = 'pagina_usuario_informacoes';
 						$template_titulo = 'Seu escritório';
 						$template_classes = 'mostrar_sessao esconder_sessao justify-content-center';
-						$template_col_value = 'col-lg-8 col-md-10 col-sm-12';
+						//$template_col_value = 'col-lg-8 col-md-10 col-sm-12';
 						$template_conteudo = false;
 						$template_conteudo .= "
 			                <p>No seu escritório, você encontrará seus artefatos de estudo, organizados de acordo com seus interesses e objetivos. Quanto mais artefatos você criar, sejam itens em seu acervo virtual, anotações, imagens, indicações de progresso ou outras atividades desempenhadas, mais completos serão seus estudos, mais você se aproximará de seus objetivos.</p>
@@ -552,7 +552,7 @@
 						$template_titulo = 'Grupos de Estudos';
 						$template_botoes = false;
 						$template_classes = 'esconder_sessao justify-content-center';
-						$template_col_value = 'col-lg-8 col-md-10 col-sm-12';
+						//$template_col_value = 'col-lg-8 col-md-10 col-sm-12';
 						$template_conteudo = false;
 						$template_conteudo .= "<p>Ao aderir a um grupo de estudos, você poderá compartilhar exclusivamente com outros membros. Para participar desta ferramenta, é necessário determinar um apelido. Somente o criador de um grupo de estudos pode acrescentar novos membros.</p>";
 						if ($user_apelido == false) {
@@ -592,7 +592,7 @@
 								$template_titulo = 'Seus grupos';
 								$template_botoes = false;
 								$template_classes = 'esconder_sessao justify-content-center';
-								$template_col_value = 'col-lg-8 col-md-10 col-sm-12';
+								//$template_col_value = 'col-lg-8 col-md-10 col-sm-12';
 								$template_conteudo = false;
 								$template_conteudo .= "<ul class='list-group'>";
 								while ($grupo_usuario_membro = $grupos_usuario_membro->fetch_assoc()) {
@@ -609,7 +609,7 @@
 								$template_titulo = 'Convide alguém para seu grupo de estudos';
 								$template_botoes = false;
 								$template_classes = 'esconder_sessao justify-content-center';
-								$template_col_value = 'col-lg-8 col-md-10 col-sm-12';
+								//$template_col_value = 'col-lg-8 col-md-10 col-sm-12';
 								$template_conteudo = false;
 								$template_conteudo .=
 									"
@@ -655,7 +655,7 @@
 								$template_titulo = 'Seus convites ativos';
 								$template_botoes = false;
 								$template_classes = 'esconder_sessao justify-content-center';
-								$template_col_value = 'col-lg-8 col-md-10 col-sm-12';
+								//$template_col_value = 'col-lg-8 col-md-10 col-sm-12';
 								$template_conteudo = false;
 								$template_conteudo .= "
 								<ul class='list-group'>
@@ -676,7 +676,7 @@
 							$template_titulo = 'Criar novo grupo de estudo';
 							$template_botoes = false;
 							$template_classes = 'esconder_sessao justify-content-center';
-							$template_col_value = 'col-lg-8 col-md-10 col-sm-12';
+							//$template_col_value = 'col-lg-8 col-md-10 col-sm-12';
 							$template_conteudo = false;
 							$template_conteudo .= "
 							<form method='post'>
@@ -695,7 +695,7 @@
 						$template_id = 'escolha_cursos';
 						$template_titulo = 'Seus cursos';
 						$template_classes = 'mostrar_sessao esconder_sessao justify-content-center';
-						$template_col_value = 'col-lg-8 col-md-10 col-sm-12';
+						//$template_col_value = 'col-lg-8 col-md-10 col-sm-12';
 						$template_conteudo = false;
 						$template_conteudo .= "<p>Você pode usar a Ubwiki como uma plataforma de estudos geral para registros de suas leituras pessoais, mas torna-se ainda mais efetiva quando você participa de comunidades em torno de seus interesses. Essa é a função dos cursos listados abaixo.</p>";
 						$usuario_cursos = $conn->query("SELECT DISTINCT opcao FROM Opcoes WHERE opcao_tipo = 'curso' AND user_id = $user_id");
@@ -810,7 +810,6 @@
 						$template_id = 'sessao_plataforma_simulados';
 						$template_titulo = 'Plataforma de simulados';
 						$template_classes = 'esconder_sessao';
-						$template_conteudo_class = 'p-limit';
 						$template_conteudo = false;
 						
 						$template_conteudo .= "
@@ -913,7 +912,6 @@
 							}
 							$acervo_item_elemento_info = return_elemento_info($acervo_item_elemento_id);
 							if ($acervo_item_elemento_info == false) {
-								error_log("this happened: $acervo_item_elemento_id");
 								continue;
 							}
 							$acervo_item_elemento_titulo = $acervo_item_elemento_info[4];
