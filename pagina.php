@@ -511,7 +511,7 @@
 							$template_quill_pagina_de_edicao = true;
 							$template_quill_botoes = false;
 							$template_botoes_padrao = false;
-							$template_classes = 'carrara';
+							$template_background = 'carrara';
 							$template_conteudo = include 'templates/template_quill.php';
 							include 'templates/page_element.php';
 						}

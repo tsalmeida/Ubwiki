@@ -19,10 +19,13 @@
 		$template_load_invisible = false;
 	}
 	if (!isset($template_classes)) {
-		$template_classes = 'bg-white';
+		$template_classes = false;
 	}
 	if (!isset($template_col_value)) {
 		$template_col_value = 'col-12';
+	}
+	if (!isset($template_background)) {
+		$template_background = 'bg-white';
 	}
 	
 	$template_conteudo_no_col1 = false;
@@ -65,7 +68,7 @@
 	}
 	
 	echo "
-<div id='$template_id' class='row show $template_classes p-2 pb-4 mb-2 rounded'>
+<div id='$template_id' class='row show $template_classes $template_background p-2 pb-4 mb-2 rounded'>
 	<div class='$template_col_value'>
     <div class='row d-flex justify-content-end'>
       <span class='h5 mb-0'>
@@ -112,6 +115,7 @@
 	unset($template_conteudo_no_col);
 	unset($template_conteudo_no_col1);
 	unset($template_conteudo_no_col2);
-	unset($template_col_value)
+	unset($template_col_value);
+	unset($template_background);
 
 ?>
