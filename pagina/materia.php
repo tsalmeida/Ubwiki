@@ -4,7 +4,7 @@
 	$template_botoes = false;
 	$template_conteudo = false;
 	$template_conteudo_no_col = true;
-
+	
 	$planos_estudos = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'plano de estudos'");
 	if ($planos_estudos->num_rows > 0) {
 		while ($plano_estudos = $planos_estudos->fetch_assoc()) {
@@ -12,13 +12,20 @@
 			break;
 		}
 	} else {
-		$conn->query("INSERT INTO Paginas (tipo, subtipo, etiqueta_id) VALUES ('pagina', 'Plano de estudos', $pagina_id)");
+		$conn->query("INSERT INTO Paginas (tipo, subtipo, item_id) VALUES ('pagina', 'Plano de estudos', $pagina_id)");
 		$plano_estudos_pagina_id = $conn->insert_id;
 		$conn->query("INSERT INTO Paginas_elementos (pagina_id, elemento_id, tipo) VALUES ($pagina_id, $plano_estudos_pagina_id, 'plano de estudos')");
 	}
 	
-	$template_conteudo .= "<ul class='list-group list-group-flush w-75 px-3'>";
-	$template_conteudo .= "<a href='pagina.php?pagina_id=$plano_estudos_pagina_id' class=''><li class='list-group-item list-group-item-action list-group-item-success d-flex justify-content-between'>Plano de estudos</li></a>";
+	$plano_estudos_pagina_info = return_pagina_info($plano_estudos_pagina_id);
+	$plano_estudos_pagina_estado = $plano_estudos_pagina_info[3];
+	if ($plano_estudos_pagina_estado != 0) {
+		$plano_estudos_pagina_estado_icone = return_estado_icone($plano_estudos_pagina_estado, 'materia');
+	} else {
+		$plano_estudos_pagina_estado_icone = false;
+	}
+	$template_conteudo .= "<ul class='list-group list-group-flush w-75 px-3 mb-1'>";
+	$template_conteudo .= "<a href='pagina.php?pagina_id=$plano_estudos_pagina_id' class=''><li class='list-group-item list-group-item-action list-group-item-success d-flex justify-content-between'><span>Plano de estudos</span><i class='$plano_estudos_pagina_estado_icone'></i></li></a>";
 	$template_conteudo .= "</ul>";
 	
 	$topicos = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'topico'");
@@ -106,6 +113,6 @@
 	} else {
 		$template_conteudo .= "<p class='text-muted'>Não há tópicos registrados nesta matéria.</p>";
 	}
-
+	
 	include 'templates/page_element.php';
 ?>

@@ -43,12 +43,12 @@
 	$template_quill_toolbar = "toolbarOptions_{$template_quill_toolbar_and_whitelist}";
 	
 	if ($template_quill_initial_state == 'edicao') {
-		$template_quill_editor_classes = 'quill_editor_height quill_editor_height_leitura';
+		$template_quill_editor_classes = 'quill_editor_height quill_editor_height_leitura p-limit';
 	} else {
-		$template_quill_editor_classes = 'quill_editor_height';
+		$template_quill_editor_classes = 'quill_editor_height p-limit';
 	}
 	if ($template_quill_pagina_de_edicao == true) {
-		$template_quill_editor_classes = 'quill_pagina_de_edicao';
+		$template_quill_editor_classes = 'quill_pagina_de_edicao p-limit';
 	}
 	
 	if (isset($pagina_id)) {

@@ -82,6 +82,7 @@
 		$pagina_user_id = $pagina_info[5];
 		$pagina_titulo = $pagina_info[6];
 		$pagina_etiqueta_id = $pagina_info[7];
+		$pagina_subtipo = $pagina_info[8];
 	} else {
 		header('Location:pagina.php?pagina_id=4');
 		exit();
@@ -458,6 +459,14 @@
 			} else {
 				$template_subtitulo = $pagina_compartilhamento;
 			}
+			if ($pagina_subtipo == 'Plano de estudos') {
+                $pagina_original_info = return_pagina_info($pagina_item_id);
+                $pagina_original_titulo = $pagina_original_info[6];
+                $pagina_original_concurso_pagina_id = $pagina_original_info[1];
+                $pagina_original_concurso_titulo = return_pagina_titulo($pagina_original_concurso_pagina_id);
+			    $template_titulo = "Plano de estudos: $pagina_original_titulo";
+			    $template_subtitulo = "<a href='pagina.php?pagina_id=$pagina_item_id'>$pagina_original_titulo</a> / <a href='pagina.php?pagina_id=$pagina_original_concurso_pagina_id'>$pagina_original_concurso_titulo</a>";
+            }
 		} elseif ($pagina_tipo == 'secao') {
 			$template_titulo = $pagina_titulo;
 			$paginal_original_info = return_pagina_info($pagina_item_id);
@@ -502,6 +511,7 @@
 							$template_quill_pagina_de_edicao = true;
 							$template_quill_botoes = false;
 							$template_botoes_padrao = false;
+							$template_classes = 'carrara';
 							$template_conteudo = include 'templates/template_quill.php';
 							include 'templates/page_element.php';
 						}

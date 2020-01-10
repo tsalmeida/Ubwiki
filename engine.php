@@ -1806,7 +1806,7 @@
 			return false;
 		}
 		include 'templates/criar_conn.php';
-		$paginas = $conn->query("SELECT criacao, item_id, tipo, estado, compartilhamento, user_id, etiqueta_id FROM Paginas WHERE id = $pagina_id");
+		$paginas = $conn->query("SELECT criacao, item_id, tipo, estado, compartilhamento, user_id, etiqueta_id, subtipo FROM Paginas WHERE id = $pagina_id");
 		if ($paginas->num_rows > 0) {
 			while ($pagina = $paginas->fetch_assoc()) {
 				$pagina_criacao = $pagina['criacao']; // 0
@@ -1817,7 +1817,8 @@
 				$pagina_user_id = $pagina['user_id']; // 5
 				$pagina_titulo = return_pagina_titulo($pagina_id); // 6
 				$pagina_etiqueta_id = $pagina['etiqueta_id']; // 7
-				return array($pagina_criacao, $pagina_item_id, $pagina_tipo, $pagina_estado, $pagina_compartilhamento, $pagina_user_id, $pagina_titulo, $pagina_etiqueta_id);
+				$pagina_extra = $pagina['subtipo']; // 8
+				return array($pagina_criacao, $pagina_item_id, $pagina_tipo, $pagina_estado, $pagina_compartilhamento, $pagina_user_id, $pagina_titulo, $pagina_etiqueta_id, $pagina_extra);
 			}
 		}
 		return false;
