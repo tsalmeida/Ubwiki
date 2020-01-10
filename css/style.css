@@ -274,10 +274,6 @@ blockquote + * {
   width: 100% !important;
 }
 
-.list-group-item-light {
-  color: black !important;
-}
-
 .onepage {
   min-height: 100vh;
 }

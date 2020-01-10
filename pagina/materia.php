@@ -24,13 +24,11 @@
 	} else {
 		$plano_estudos_pagina_estado_icone = false;
 	}
-	$template_conteudo .= "<ul class='list-group list-group-flush w-75 px-3 mb-1'>";
-	$template_conteudo .= "<a href='pagina.php?pagina_id=$plano_estudos_pagina_id' class=''><li class='list-group-item list-group-item-action list-group-item-success d-flex justify-content-between'><span>Plano de estudos</span><i class='$plano_estudos_pagina_estado_icone'></i></li></a>";
-	$template_conteudo .= "</ul>";
 	
 	$topicos = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'topico'");
 	if ($topicos->num_rows > 0) {
-		$template_conteudo .= "<ul class='list-group list-group-flush w-75 px-3'>";
+		$template_conteudo .= "<ul class='list-group list-group-flush'>";
+		$template_conteudo .= "<a href='pagina.php?pagina_id=$plano_estudos_pagina_id'><li class='list-group-item list-group-item-action list-group-item-success d-flex justify-content-between'><span class='mr-5'>Plano de estudos</span><i class='$plano_estudos_pagina_estado_icone'></i></li></a>";
 		while ($topico = $topicos->fetch_assoc()) {
 			$topico_pagina_id = $topico['elemento_id'];
 			if ($topico_pagina_id == false) {
@@ -44,7 +42,7 @@
 			} else {
 				$topico_pagina_estado_icone = false;
 			}
-			$template_conteudo .= "<a href='pagina.php?pagina_id=$topico_pagina_id' class='mt-3'><li class='list-group-item list-group-item-action list-group-item-primary d-flex justify-content-between'><span>$topico_pagina_titulo</span><span><i class='$topico_pagina_estado_icone'></i></span></li></a>";
+			$template_conteudo .= "<a href='pagina.php?pagina_id=$topico_pagina_id' class='mt-3'><li class='list-group-item list-group-item-action list-group-item-primary d-flex justify-content-between'><span class='mr-5'>$topico_pagina_titulo</span><i class='$topico_pagina_estado_icone'></i></li></a>";
 			$subtopicos = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $topico_pagina_id AND tipo = 'subtopico'");
 			if ($subtopicos->num_rows > 0) {
 				while ($subtopico = $subtopicos->fetch_assoc()) {
@@ -57,7 +55,7 @@
 					} else {
 						$subtopico_pagina_estado_icone = false;
 					}
-					$template_conteudo .= "<a href='pagina.php?pagina_id=$subtopico_pagina_id' class='mt-1'><li class='list-group-item list-group-item-action list-group-item-secondary d-flex justify-content-between'><span>$subtopico_pagina_titulo</span><span><i class='$subtopico_pagina_estado_icone'></i></span></li></a>";
+					$template_conteudo .= "<a href='pagina.php?pagina_id=$subtopico_pagina_id' class='mt-1'><li class='list-group-item list-group-item-action list-group-item-secondary d-flex justify-content-between'><span class='mr-5'>$subtopico_pagina_titulo</span><span><i class='$subtopico_pagina_estado_icone'></i></span></li></a>";
 					
 					$subsubtopicos = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $subtopico_pagina_id AND tipo = 'subtopico'");
 					if ($subsubtopicos->num_rows > 0) {
@@ -71,7 +69,7 @@
 							} else {
 								$subsubtopico_pagina_estado_icone = false;
 							}
-							$template_conteudo .= "<a href='pagina.php?pagina_id=$subsubtopico_pagina_id' class='mt-1'><li class='list-group-item list-group-item-action list-group-item-light d-flex justify-content-between'><span>$subsubtopico_pagina_titulo</span><span><i class='$subsubtopico_pagina_estado_icone'></i></span></li></a>";
+							$template_conteudo .= "<a href='pagina.php?pagina_id=$subsubtopico_pagina_id' class='mt-1'><li class='list-group-item list-group-item-action d-flex justify-content-between'><span class='mr-5'>$subsubtopico_pagina_titulo</span><span><i class='$subsubtopico_pagina_estado_icone'></i></span></li></a>";
 							
 							$subsubsubtopicos = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $subsubtopico_pagina_id AND tipo = 'subtopico'");
 							if ($subsubsubtopicos->num_rows > 0) {
@@ -85,7 +83,7 @@
 									} else {
 										$subsubsubtopico_pagina_estado_icone = false;
 									}
-									$template_conteudo .= "<a href='pagina.php?pagina_id=$subsubsubtopico_pagina_id' class='spacing1 mt-1'><li class='list-group-item list-group-item-action d-flex justify-content-between'><em>$subsubsubtopico_pagina_titulo</em><span><i class='$subsubsubtopico_pagina_estado_icone'></i></span></li></a>";
+									$template_conteudo .= "<a href='pagina.php?pagina_id=$subsubsubtopico_pagina_id' class='spacing1 mt-1'><li class='list-group-item list-group-item-action list-group-item-light d-flex justify-content-between'><em class='mr-5'>$subsubsubtopico_pagina_titulo</em><span><i class='$subsubsubtopico_pagina_estado_icone'></i></span></li></a>";
 									
 									$subsubsubsubtopicos = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $subsubsubtopico_pagina_id AND tipo = 'subtopico'");
 									if ($subsubsubsubtopicos->num_rows > 0) {
@@ -99,7 +97,7 @@
 											} else {
 												$subsubsubsubtopico_pagina_estado_icone = false;
 											}
-											$template_conteudo .= "<a href='pagina.php?pagina_id=$subsubsubsubtopico_pagina_id' class='spacing2 mt-1'><li class='list-group-item list-group-item-action d-flex justify-content-between'><em>$subsubsubsubtopico_pagina_titulo</em><span><i class='$subsubsubsubtopico_pagina_estado_icone'></i></span></li></a>";
+											$template_conteudo .= "<a href='pagina.php?pagina_id=$subsubsubsubtopico_pagina_id' class='spacing2 mt-1'><li class='list-group-item list-group-item-action list-group-item-light d-flex justify-content-between'><em class='mr-5'>$subsubsubsubtopico_pagina_titulo</em><span><i class='$subsubsubsubtopico_pagina_estado_icone'></i></span></li></a>";
 										}
 									}
 								}

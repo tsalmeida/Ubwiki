@@ -93,34 +93,24 @@
 			$topico_materia_pagina_id = $topico_familia[2];
 			$topico_materia_pagina_titulo = return_pagina_titulo($topico_materia_pagina_id);
 			$topicos = $conn->query("SELECT estado FROM Paginas WHERE id = $topico_pagina_id");
-			if ($count == 15) {
+			if ($count == 10) {
 				break;
 			}
 			if ($topicos->num_rows > 0) {
 				while ($topico = $topicos->fetch_assoc()) {
 					$topico_estado_pagina = $topico['estado'];
 					$icone_estado = return_estado_icone($topico_estado_pagina, 'materia');
-					if ($topico_estado_pagina > 3) {
-						$estado_cor = 'text-warning';
-					} else {
-						$estado_cor = 'text-dark';
-					}
-					$cor_badge = 'grey lighten-3';
-					$icone_badge = "
-                                            <span class='badge $cor_badge $estado_cor badge-pill z-depth-0 ml-3'>
-                                                <i class='fa $icone_estado fa-fw'></i>
-                                            </span>
-											";
 					$template_conteudo .= "
-                                            <a href='pagina.php?pagina_id=$topico_pagina_id'>
-                                                <li class='list-group-item list-group-item-action d-flex justify-content-between align-items-center'>
-                                                    <span>
-                                                        <strong>$topico_materia_pagina_titulo: </strong>
-                                                        $topico_titulo
-                                                    </span>
-                                                    $icone_badge
-                                                </li>
-                                            </a>";
+                      <a href='pagina.php?pagina_id=$topico_pagina_id'>
+                          <li class='list-group-item list-group-item-action d-flex justify-content-between mt-1 border-top'>
+                              <span class='mr-5'>
+                                  <strong>$topico_materia_pagina_titulo: </strong>
+                                  $topico_titulo
+                              </span>
+                              <i class='fad $icone_estado fa-fw'></i>
+                          </li>
+                      </a>
+          ";
 					$count++;
 					break;
 				}
@@ -130,4 +120,4 @@
 		$template_conteudo .= "</ul>";
 	}
 	include 'templates/page_element.php';
-	?>
+?>

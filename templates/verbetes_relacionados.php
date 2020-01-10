@@ -17,7 +17,7 @@
 	
 	if ($topico_nivel == 1) {
 		$breadcrumbs .= "<h4>Tópicos:</h4>";
-		$fam_niveis1 = $conn->query("SELECT id FROM Paginas WHERE item_id = $pagina_item_id");
+		$fam_niveis1 = $conn->query("SELECT id FROM Paginas WHERE item_id = $pagina_item_id AND tipo = 'topico'");
 		if ($fam_niveis1->num_rows > 0) {
 			$breadcrumbs .= "<ol>";
 			while ($fam_nivel1 = $fam_niveis1->fetch_assoc()) {
@@ -27,7 +27,7 @@
 					$breadcrumbs .= "<li><span><a href='pagina.php?pagina_id=$fam_nivel1_pagina_id'>$fam_nivel1_titulo</a></span></li>";
 				} else {
 					$breadcrumbs .= "<li>$pagina_titulo</li>";
-					$fam_niveis2 = $conn->query("SELECT id FROM Paginas WHERE item_id = $pagina_id");
+					$fam_niveis2 = $conn->query("SELECT id FROM Paginas WHERE item_id = $pagina_id AND tipo = 'topico'");
 					if ($fam_niveis2->num_rows > 0) {
 						$breadcrumbs .= "<ol>";
 						while ($fam_nivel2 = $fam_niveis2->fetch_assoc()) {

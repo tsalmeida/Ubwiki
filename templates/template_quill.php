@@ -107,7 +107,8 @@
 	
 	$template_botoes .= "
 		<a href='javascript:void(0)' id='{$template_id}_trigger_save' title='Salvar mudanças'><i class='fad fa-save fa-fw'></i></a>
-		<a href='javascript:void(0)' id='{$template_id}_trigger_save_success' title='Salvar mudanças' class='text-success collapse'><i class='fad fa-check-square fa-fw'></i></a>
+		<a href='javascript:void(0)' id='{$template_id}_trigger_save_success' title='Edições salvas' class='text-success collapse'><i class='fad fa-check-square fa-fw'></i></a>
+		<a href='javascript:void(0)' id='{$template_id}_trigger_save_failure' title='Suas edições não foram salvas' class='text-danger collapse'><i class='fad fa-times-square fa-fw'></i></a>
 	";
 	
 	if ($quill_texto_id != false) {
@@ -134,10 +135,10 @@
 	
 	$template_botoes .= "
 		<span id='travar_{$template_id}' title='travar para edição'>
-    	<a href='javascript:void(0);'><i class='fad fa-pen-square fa-fw'></i></a>
+    	<a href='javascript:void(0);' class='text-success'><i class='fad fa-pen-square fa-fw'></i></a>
   	</span>
     <span id='destravar_{$template_id}' title='permitir edição'>
-			<a href='javascript:void(0);'><span class='text-muted'><i class='fad fa-pen-square fa-fw'></i></span></a>
+			<a href='javascript:void(0);' class='text-muted'><i class='fad fa-pen-square fa-fw'></i></a>
   	</span>
 	";
 	
@@ -224,6 +225,22 @@
             'quill_texto_id': {$quill_texto_id},
             'quill_texto_page_id': {$pagina_item_id},
             'quill_pagina_tipo': '{$pagina_tipo}'
+        }, function(data) {
+            if (data != false) {
+                $('#{$template_id}_trigger_save').hide();
+								$('#{$template_id}_trigger_save_success').show();
+								setTimeout(function(){
+									$('#{$template_id}_trigger_save').show();
+									$('#{$template_id}_trigger_save_success').hide();
+						    }, 2000);
+            } else {
+                $('#{$template_id}_trigger_save').hide();
+								$('#{$template_id}_trigger_save_failure').show();
+								setTimeout(function(){
+									$('#{$template_id}_trigger_save').show();
+									$('#{$template_id}_trigger_save_failure').hide();
+						    }, 5000);
+            }
         });
     };
    
@@ -248,13 +265,7 @@
         $('#quill_editor_{$template_id}').children(':first').addClass('ql-editor-active');
     });
 		$('#{$template_id}_trigger_save').click(function () {
-			$('#{$template_id}_trigger_save').hide();
-			$('#{$template_id}_trigger_save_success').show();
 			$('#{$quill_trigger_button}').click();
-			setTimeout(function(){
-				$('#{$template_id}_trigger_save').show();
-				$('#{$template_id}_trigger_save_success').hide();
-	    }, 1000);
 		});
 	</script>
 	";
