@@ -1994,7 +1994,8 @@
 		}
 	}
 	
-	function reconstruir_busca($curso_id) {
+	function reconstruir_busca($curso_id)
+	{
 		include 'templates/criar_conn.php';
 		if ($curso_id == false) {
 			return false;
@@ -2033,7 +2034,6 @@
 			$conn->query("UPDATE Paginas SET estado = 1 WHERE id = $quill_pagina_id");
 		}
 	}
-	
 
 
 ?>
