@@ -19,7 +19,7 @@
 		$template_load_invisible = false;
 	}
 	if (!isset($template_classes)) {
-		$template_classes = false;
+		$template_classes = 'bg-white';
 	}
 	if (!isset($template_col_value)) {
 		$template_col_value = 'col-12';
@@ -65,7 +65,7 @@
 	}
 	
 	echo "
-<div id='$template_id' class='row show $template_classes p-2 pb-4 mb-2 bg-white rounded'>
+<div id='$template_id' class='row show $template_classes p-2 pb-4 mb-2 rounded'>
 	<div class='$template_col_value'>
     <div class='row d-flex justify-content-end'>
       <span class='h5 mb-0'>
