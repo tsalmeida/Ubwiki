@@ -7,8 +7,7 @@
     }
 	
 	if (isset($_POST['trigger_atualizacao'])) {
-		$conn->query("ALTER TABLE `Searchbar` CHANGE `page_id` `pagina_id` INT(11) NULL DEFAULT NULL;");
-		$conn->query("ALTER TABLE `Searchbar` DROP `tipo`;");
+		$conn->query("ALTER TABLE `Paginas` ADD `subtipo` VARCHAR(255) NULL DEFAULT NULL AFTER `tipo`;");
 	}
 	
 	if (isset($_POST['funcoes_gerais'])) {

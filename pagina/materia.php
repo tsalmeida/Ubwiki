@@ -5,6 +5,22 @@
 	$template_botoes = false;
 	$template_conteudo = false;
 	
+	$planos_estudos = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'plano de estudos'");
+	if ($planos_estudos->num_rows > 0) {
+		while ($plano_estudos = $planos_estudos->fetch_assoc()) {
+			$plano_estudos_pagina_id = $plano_estudos['elemento_id'];
+			break;
+		}
+	} else {
+		$conn->query("INSERT INTO Paginas (tipo, subtipo, etiqueta_id) VALUES ('pagina', 'Plano de estudos', $pagina_id)");
+		$plano_estudos_pagina_id = $conn->insert_id;
+		$conn->query("INSERT INTO Paginas_elementos (pagina_id, elemento_id, tipo) VALUES ($pagina_id, $plano_estudos_pagina_id, 'plano de estudos')");
+	}
+	
+	$template_conteudo .= "<ul class='list-group list-group-flush w-100 px-3'>";
+	$template_conteudo .= "<a href='pagina.php?pagina_id=$plano_estudos_pagina_id' class=''><li class='list-group-item list-group-item-action list-group-item-success d-flex justify-content-between'>Plano de estudos</li></a>";
+	$template_conteudo .= "</ul>";
+	
 	$topicos = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'topico'");
 	if ($topicos->num_rows > 0) {
 		$template_conteudo .= "<ul class='list-group list-group-flush w-100 px-3'>";
