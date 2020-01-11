@@ -4,14 +4,6 @@
 	$topico_proximo = false;
 	$breadcrumbs = false;
 	
-	$familia_info = return_familia($pagina_id);
-	
-	$topico_nivel = $familia_info[0];
-	$topico_curso_id = $familia_info[1];
-	$topico_curso_titulo = return_pagina_titulo($topico_curso_id);
-	$topico_materia_id = $familia_info[2];
-	$topico_materia_titulo = return_pagina_titulo($topico_materia_id);
-	
 	$breadcrumbs .= "<h4><strong>Curso:</strong> <a href='pagina.php?pagina_id=$topico_curso_id'>$topico_curso_titulo</a></h4>";
 	$breadcrumbs .= "<h4><strong>Matéria:</strong> <a href='pagina.php?pagina_id=$topico_materia_id'>$topico_materia_titulo</a></h4>";
 	

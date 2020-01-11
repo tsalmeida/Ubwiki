@@ -4,6 +4,7 @@
 	}
 	echo "
 <script type='text/javascript'>
+
     $('#mostrar_coluna_direita').hide();
     $('#mostrar_coluna_esquerda').hide();
     $('#esconder_{$anotacoes_id}').click(function () {

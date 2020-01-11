@@ -88,6 +88,23 @@
 		header('Location:pagina.php?pagina_id=4');
 		exit();
 	}
+
+	if ($pagina_tipo == 'topico') {
+		$familia_info = return_familia($pagina_id);
+		$topico_nivel = $familia_info[0];
+		$topico_curso_id = $familia_info[1];
+		$pagina_curso_id = $topico_curso_id;
+		$topico_curso_titulo = return_pagina_titulo($topico_curso_id);
+		$topico_materia_id = $familia_info[2];
+		$topico_materia_titulo = return_pagina_titulo($topico_materia_id);
+	} elseif (($pagina_tipo == 'materia') || ($pagina_tipo == 'curso')) {
+		$familia_info = return_familia($pagina_id);
+		$pagina_curso_pagina_id = $familia_info[1];
+		$pagina_curso_info = return_pagina_info($pagina_curso_pagina_id);
+		$pagina_curso_id = $pagina_curso_info[1];
+		$pagina_curso_info = return_curso_info($pagina_curso_id);
+		$pagina_curso_user_id = $pagina_curso_info[4];
+	}
 	
 	if (isset($_POST['novo_curso'])) {
 		$novo_curso_sigla = $_POST['novo_curso_sigla'];
@@ -280,7 +297,7 @@
 							echo "<span id='elemento_dados' class='mx-1' title='Editar dados'><a href='javascript:void(0);' data-toggle='modal' data-target='#modal_dados_elemento' class='text-info'><i class='fad fa-info-circle fa-fw fa-2x'></i></a></span>";
 						}
 						$modal_pagina_dados = false;
-						if ((($pagina_tipo == 'sistema') && ($user_tipo == 'admin')) || (($pagina_tipo == 'pagina') && ($pagina_user_id == $user_id)) || (($pagina_tipo == 'texto') && ($pagina_user_id = $user_id) && ($texto_page_id == 0)) || (($pagina_tipo == 'resposta') && ($pagina_user_id == $user_id)) || (($pagina_tipo == 'secao') && ($pagina_user_id == $user_id))) {
+						if ((($pagina_tipo == 'sistema') && ($user_tipo == 'admin')) || (($pagina_tipo == 'pagina') || ($pagina_user_id == $user_id)) || ((($pagina_tipo == 'curso') || ($pagina_tipo == 'materia') || ($pagina_tipo == 'topico')) && ($pagina_curso_user_id == $user_id)) || (($pagina_tipo == 'texto') && ($pagina_user_id = $user_id) && ($texto_page_id == 0)) || (($pagina_tipo == 'resposta') && ($pagina_user_id == $user_id)) || (($pagina_tipo == 'secao') && ($pagina_user_id == $user_id))) {
 							$modal_pagina_dados = true;
 							echo "<span id='pagina_dados' class='mx-1' title='Editar dados'><a href='javascript:void(0);' data-toggle='modal' data-target='#modal_pagina_dados' class='text-info'><i class='fad fa-info-circle fa-fw fa-2x'></i></a></span>";
 						}
@@ -461,14 +478,14 @@
 				$template_subtitulo = $pagina_compartilhamento;
 			}
 			if ($pagina_subtipo == 'Plano de estudos') {
-			    $template_titulo = return_pagina_titulo($pagina_id);
-                $pagina_original_info = return_pagina_info($pagina_item_id);
-                $pagina_original_titulo = $pagina_original_info[6];
-                $pagina_original_concurso_pagina_id = $pagina_original_info[1];
-                $pagina_original_concurso_titulo = return_pagina_titulo($pagina_original_concurso_pagina_id);
-			    $template_titulo = "Plano de estudos: $pagina_original_titulo";
-			    $template_subtitulo = "<a href='pagina.php?pagina_id=$pagina_item_id'>$pagina_original_titulo</a> / <a href='pagina.php?pagina_id=$pagina_original_concurso_pagina_id'>$pagina_original_concurso_titulo</a>";
-            }
+				$template_titulo = return_pagina_titulo($pagina_id);
+				$pagina_original_info = return_pagina_info($pagina_item_id);
+				$pagina_original_titulo = $pagina_original_info[6];
+				$pagina_original_concurso_pagina_id = $pagina_original_info[1];
+				$pagina_original_concurso_titulo = return_pagina_titulo($pagina_original_concurso_pagina_id);
+				$template_titulo = "Plano de estudos: $pagina_original_titulo";
+				$template_subtitulo = "<a href='pagina.php?pagina_id=$pagina_item_id'>$pagina_original_titulo</a> / <a href='pagina.php?pagina_id=$pagina_original_concurso_pagina_id'>$pagina_original_concurso_titulo</a>";
+			}
 		} elseif ($pagina_tipo == 'secao') {
 			$template_titulo = $pagina_titulo;
 			$paginal_original_info = return_pagina_info($pagina_item_id);
@@ -753,9 +770,15 @@
 	
 	if ($modal_pagina_dados == true) {
 		if (($pagina_tipo == 'pagina') || ($pagina_tipo == 'sistema')) {
-			$mudar_titulo_texto = 'da página';
+			$mudar_titulo_texto = 'desta página';
 		} elseif (($pagina_tipo == 'texto') || ($pagina_tipo == 'resposta')) {
-			$mudar_titulo_texto = 'do texto';
+			$mudar_titulo_texto = 'deste texto';
+		} elseif ($pagina_tipo == 'curso') {
+			$mudar_titulo_texto = 'deste curso';
+		} elseif ($pagina_tipo == 'materia') {
+			$mudar_titulo_texto = 'desta matéria';
+		} elseif ($pagina_tipo == 'topico') {
+			$mudar_titulo_texto = 'deste tópico';
 		}
 		$template_modal_div_id = 'modal_pagina_dados';
 		$template_modal_titulo = "Alterar dados $mudar_titulo_texto";
@@ -768,17 +791,19 @@
                        for='pagina_novo_titulo'>Novo título</label>
             </div>
         ";
-		if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id) && ($secoes->num_rows == 0) && ($pagina_tipo == 'pagina') && ($pagina_titulo != false)) {
-			$modal_novo_curso = true;
-			$template_modal_body_conteudo .= "
+		if (isset($secoes)) {
+			if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id) && ($secoes->num_rows == 0) && ($pagina_tipo == 'pagina') && ($pagina_titulo != false)) {
+				$modal_novo_curso = true;
+				$template_modal_body_conteudo .= "
 		        <span data-toggle='modal' data-target='#modal_pagina_dados'>
                     <div class='row justify-content-center'>
                         <button type='button' class='$button_classes' data-toggle='modal' data-target='#modal_novo_curso'>Transformar em página inicial de curso</button>
                     </div>
                 </span>
 		    ";
+			}
+			include 'templates/modal.php';
 		}
-		include 'templates/modal.php';
 	}
 	
 	if ($modal_novo_curso == true) {
@@ -960,7 +985,7 @@
 </body>
 
 <?php
-
+	
 	$mdb_select = true;
 	if ($pagina_tipo == 'curso') {
 		include 'templates/searchbar.html';
