@@ -88,7 +88,7 @@
 		header('Location:pagina.php?pagina_id=4');
 		exit();
 	}
-
+	
 	if ($pagina_tipo == 'topico') {
 		$familia_info = return_familia($pagina_id);
 		$topico_nivel = $familia_info[0];
@@ -780,17 +780,21 @@
 		} elseif ($pagina_tipo == 'topico') {
 			$mudar_titulo_texto = 'deste tópico';
 		}
-		$template_modal_div_id = 'modal_pagina_dados';
-		$template_modal_titulo = "Alterar dados $mudar_titulo_texto";
-		$template_modal_body_conteudo = false;
-		$template_modal_body_conteudo .= "
+		if ($modal_pagina_dados == true) {
+			$template_modal_div_id = 'modal_pagina_dados';
+			$template_modal_titulo = "Alterar dados $mudar_titulo_texto";
+			$template_modal_body_conteudo = false;
+			$template_modal_body_conteudo .= "
             <div class='md-form mb-2'>
                 <input type='text' id='pagina_novo_titulo' name='pagina_novo_titulo'
                        class='form-control validate' value='$pagina_titulo' required>
                 <label data-error='inválido' data-success='válido'
                        for='pagina_novo_titulo'>Novo título</label>
             </div>
-        ";
+        	";
+			include 'templates/modal.php';
+		}
+		
 		if (isset($secoes)) {
 			if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id) && ($secoes->num_rows == 0) && ($pagina_tipo == 'pagina') && ($pagina_titulo != false)) {
 				$modal_novo_curso = true;
