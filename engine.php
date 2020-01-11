@@ -1709,11 +1709,19 @@
 			return false;
 		}
 		$buscar_pagina = false;
-		$paginas = $conn->query("SELECT tipo, item_id FROM Paginas WHERE id = $pagina_id");
+		$paginas = $conn->query("SELECT tipo, subtipo, item_id FROM Paginas WHERE id = $pagina_id");
 		if ($paginas->num_rows > 0) {
 			while ($pagina = $paginas->fetch_assoc()) {
 				$pagina_tipo = $pagina['tipo'];
 				$pagina_item_id = $pagina['item_id'];
+				$pagina_subtipo = $pagina['subtipo'];
+				if ($pagina_subtipo == 'Plano de estudos') {
+					$parent_pagina_id = $pagina_item_id;
+					$parent_pagina_titulo = return_pagina_titulo($parent_pagina_id);
+					$pagina_titulo = "Plano de estudos: $parent_pagina_titulo";
+					error_log('this happened');
+					return $pagina_titulo;
+				}
 				if ($pagina_tipo == 'topico') {
 					$buscar_pagina = true;
 				} elseif ($pagina_tipo == 'elemento') {

@@ -7,7 +7,6 @@
     }
 	
 	if (isset($_POST['trigger_atualizacao'])) {
-		$conn->query("ALTER TABLE `sim_edicoes` ADD INDEX( `id`);");
 	}
 	
 	if (isset($_POST['funcoes_gerais'])) {
