@@ -1719,7 +1719,6 @@
 					$parent_pagina_id = $pagina_item_id;
 					$parent_pagina_titulo = return_pagina_titulo($parent_pagina_id);
 					$pagina_titulo = "Plano de estudos: $parent_pagina_titulo";
-					error_log('this happened');
 					return $pagina_titulo;
 				}
 				if ($pagina_tipo == 'topico') {

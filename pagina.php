@@ -428,7 +428,7 @@
 			$template_subtitulo = 'Curso';
 		} elseif ($pagina_tipo == 'materia') {
 			$template_titulo = $pagina_titulo;
-			$template_subtitulo = "Matéria / <a href='pagina.php?pagina_id=$pagina_item_id'>$curso_sigla</a>";
+			$template_subtitulo = "Matéria / <a href='pagina.php?pagina_id=$pagina_item_id'>$curso_titulo</a>";
 		} elseif ($pagina_tipo == 'texto') {
 			if ($texto_page_id != false) {
 				$template_titulo = return_pagina_titulo($texto_pagina_id);
@@ -461,6 +461,7 @@
 				$template_subtitulo = $pagina_compartilhamento;
 			}
 			if ($pagina_subtipo == 'Plano de estudos') {
+			    $template_titulo = return_pagina_titulo($pagina_id);
                 $pagina_original_info = return_pagina_info($pagina_item_id);
                 $pagina_original_titulo = $pagina_original_info[6];
                 $pagina_original_concurso_pagina_id = $pagina_original_info[1];
