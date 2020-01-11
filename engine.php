@@ -1321,6 +1321,9 @@
 		} elseif ($artefato_tipo == 'curso') {
 			$fa_icone = 'fa-diploma';
 			$fa_primary_color = 'text-default';
+		} elseif ($artefato_tipo == 'adicionar_dados_provas') {
+			$fa_icone = 'fa-ballot-check';
+			$fa_primary_color = 'text-secondary';
 		}
 		return array($fa_icone, $fa_primary_color);
 	}

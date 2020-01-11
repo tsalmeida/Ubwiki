@@ -27,7 +27,7 @@
 	
 	$topicos = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'topico'");
 	if ($topicos->num_rows > 0) {
-		$template_conteudo .= "<ul class='list-group list-group-flush'>";
+		$template_conteudo .= "<ul class='list-group list-group-flush mt-2'>";
 		$template_conteudo .= "<a href='pagina.php?pagina_id=$plano_estudos_pagina_id'><li class='list-group-item list-group-item-action list-group-item-success d-flex justify-content-between'><span class='mr-5'>Plano de estudos</span><i class='$plano_estudos_pagina_estado_icone'></i></li></a>";
 		while ($topico = $topicos->fetch_assoc()) {
 			$topico_pagina_id = $topico['elemento_id'];
@@ -42,7 +42,8 @@
 			} else {
 				$topico_pagina_estado_icone = false;
 			}
-			$template_conteudo .= "<a href='pagina.php?pagina_id=$topico_pagina_id' class='mt-3'><li class='list-group-item list-group-item-action list-group-item-primary d-flex justify-content-between'><span class='mr-5'>$topico_pagina_titulo</span><i class='$topico_pagina_estado_icone'></i></li></a>";
+			$template_conteudo .= "<ul class='list-group grey lighten-4 rounded p-2 mt-4'>";
+			$template_conteudo .= "<a href='pagina.php?pagina_id=$topico_pagina_id'><li class='list-group-item list-group-item-action list-group-item-primary d-flex justify-content-between'><span class='mr-5'>$topico_pagina_titulo</span><i class='$topico_pagina_estado_icone'></i></li></a>";
 			$subtopicos = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $topico_pagina_id AND tipo = 'subtopico'");
 			if ($subtopicos->num_rows > 0) {
 				while ($subtopico = $subtopicos->fetch_assoc()) {
@@ -106,6 +107,7 @@
 					}
 				}
 			}
+			$template_conteudo .= "</ul>";
 		}
 		$template_conteudo .= "</ul>";
 	} else {

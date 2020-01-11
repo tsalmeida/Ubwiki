@@ -6,6 +6,7 @@
 	$carregar_adicionar_materia = false;
 	$carregar_adicionar_topico = false;
 	$carregar_adicionar_subtopico = false;
+	$carregar_questoes_topico = false;
 	if (!isset($_GET['pagina_id'])) {
 		if (isset($_GET['topico_id'])) {
 			$topico_id = $_GET['topico_id'];
@@ -684,7 +685,7 @@
 	include 'templates/modal.php';
 	
 	$template_modal_div_id = 'modal_adicionar_youtube';
-	$template_modal_titulo = 'Adicionar vídeo do Youtube';
+	$template_modal_titulo = 'Adicionar vídeo do YouTube';
 	$template_modal_body_conteudo = "
                     <div class='md-form mb-2'>
                         <input type='url' id='novo_video_link' name='novo_video_link' class='form-control validate'
@@ -953,12 +954,12 @@
 		$template_modal_show_buttons = false;
 		include 'templates/modal.php';
 	}
-
 ?>
 
 </body>
 
 <?php
+
 	$mdb_select = true;
 	if ($pagina_tipo == 'curso') {
 		include 'templates/searchbar.html';
