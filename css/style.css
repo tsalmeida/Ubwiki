@@ -332,4 +332,8 @@ blockquote + * {
   min-width: 70%;
 }
 
+.materia_hover:hover {
+  color: black !important;
+}
+
 /*# sourceMappingURL=style.css.map */

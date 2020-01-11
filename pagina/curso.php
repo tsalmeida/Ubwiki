@@ -34,43 +34,19 @@
 	$template_botoes = false;
 	$template_botoes_padrao = false;
 	$template_conteudo = false;
+	$template_conteudo_class = 'justify-content-start';
 	
 	$row_items = 2;
 	$materias = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE tipo = 'materia' AND pagina_id = $pagina_id");
 	
 	$rowcount = mysqli_num_rows($materias);
-	if ($rowcount > 8) {
-		$row_items = 3;
-	} elseif ($rowcount > 4) {
-		$row_items = 2;
-	} elseif ($rowcount < 5) {
-		$row_items = 1;
-	}
 	if ($materias->num_rows > 0) {
-		$count = 0;
-		$count2 = 0;
-		$count3 = 0;
 		while ($materia = $materias->fetch_assoc()) {
-			if ($count == 0) {
-				$count2++;
-				$template_conteudo .= "<div class='col-xl col-lg-6 col-md-6 col-sm-12'>";
-			}
-			$count++;
 			$materia_pagina_id = $materia['elemento_id'];
 			$materia_pagina_titulo = return_pagina_titulo($materia_pagina_id);
 			$template_conteudo .= "
-                                          <a href='pagina.php?pagina_id=$materia_pagina_id'><div class='btn btn-block btn-light rounded oswald btn-md text-center grey lighten-3 text-muted mb-3'>
-                                            <span class=''>$materia_pagina_titulo</span>
-                                          </div></a>
-                                        ";
-			if ($count == $row_items) {
-				$count3++;
-				$template_conteudo .= "</div>";
-				$count = 0;
-			}
-		}
-		if ($count2 != $count3) {
-			$template_conteudo .= "</div>";
+	                            <a href='pagina.php?pagina_id=$materia_pagina_id' class='col-lg-4 col-md-6 pl-0'><button type='button' class='btn btn-light oswald col-12 carrara text-muted rounded materia_hover'>$materia_pagina_titulo</button></a>
+                            ";
 		}
 		unset($materia_id);
 	}
