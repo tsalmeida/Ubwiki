@@ -45,7 +45,7 @@
 			$materia_pagina_id = $materia['elemento_id'];
 			$materia_pagina_titulo = return_pagina_titulo($materia_pagina_id);
 			$template_conteudo .= "
-	                            <a href='pagina.php?pagina_id=$materia_pagina_id' class='col-lg-4 col-md-6 pl-0'><button type='button' class='btn btn-light oswald col-12 carrara text-muted rounded materia_hover'>$materia_pagina_titulo</button></a>
+	                            <span class='col-lg-4 col-md-6'><a href='pagina.php?pagina_id=$materia_pagina_id'><button type='button' class='btn btn-light oswald col-12 carrara text-muted rounded materia_hover mx-0 px-0'>$materia_pagina_titulo</button></a></span>
                             ";
 		}
 		unset($materia_id);
