@@ -483,7 +483,7 @@
 		echo "
 			<script type='text/javascript'>
 				$(document).ready(function() {
-					$('.ql-toolbar').addClass('sticky-top bg-white p-limit');
+					$('.ql-toolbar').addClass('sticky-top bg-white');
 		    });
 			</script>
 		";

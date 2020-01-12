@@ -524,7 +524,8 @@
 						} elseif ($pagina_tipo == 'texto') {
 							$template_id = $texto_tipo;
 							$template_titulo = false;
-							$template_conteudo_no_col = false;
+							$template_conteudo_no_col = true;
+							$template_p_limit = false;
 							$template_quill_initial_state = 'edicao';
 							$template_quill_page_id = $texto_page_id;
 							$template_quill_pagina_id = $pagina_id;
@@ -590,6 +591,7 @@
 					}
 					$template_conteudo = include 'templates/template_quill.php';
 					include 'templates/page_element.php';
+					
 					if ($carregar_secoes == true) {
 						include 'pagina/secoes_pagina.php';
 					}

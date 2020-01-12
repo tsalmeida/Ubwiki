@@ -13,7 +13,7 @@
 		$template_conteudo = false;
 	}
 	if (!isset($template_conteudo_class)) {
-		$template_conteudo_class = 'justify-content-center';
+		$template_conteudo_class = 'd-flex justify-content-center';
 	}
 	if (!isset($template_load_invisible)) {
 		$template_load_invisible = false;
@@ -35,10 +35,8 @@
 		$template_conteudo_no_col = false;
 	}
 	
-	if ($template_conteudo_no_col == false) {
-		$template_conteudo_no_col = false;
-		$template_conteudo_no_col1 = "<div class='col p-limit'>";
-		$template_conteudo_no_col2 = "</div>";
+	if (!isset($template_p_limit)) {
+		$template_p_limit = 'p-limit';
 	}
 	
 	$template_collapse = $template_id . "_collapse";
@@ -51,6 +49,12 @@
 		$show = 'show';
 	} else {
 		$hide = 'show';
+	}
+	
+	if ($template_conteudo_no_col == false) {
+		$template_conteudo_no_col = false;
+		$template_conteudo_no_col1 = "<div class='col $template_p_limit $template_collapse collapse show'>";
+		$template_conteudo_no_col2 = "</div>";
 	}
 	
 	if (!isset($template_botoes_padrao)) {
@@ -75,13 +79,18 @@
           $template_botoes
           $template_botoes_padrao
       </span>
-    </div>
+    </div>";
+	if ($template_titulo != false) {
+		echo "
     <div class='row'>
     	<div class='col'>
         <$template_titulo_heading class='{$template_titulo_heading}-responsive'>$template_titulo</$template_titulo_heading>
     	</div>
     </div>
-    <div class='row $template_collapse collapse $show $template_conteudo_class'>
+    ";
+	}
+	echo "
+		<div class='row $template_collapse collapse $show $template_conteudo_class'>
     	$template_conteudo_no_col1
       	$template_conteudo
       $template_conteudo_no_col2
@@ -117,5 +126,6 @@
 	unset($template_conteudo_no_col2);
 	unset($template_col_value);
 	unset($template_background);
+	unset($template_p_limit);
 
 ?>

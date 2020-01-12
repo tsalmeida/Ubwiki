@@ -10,6 +10,7 @@
     $('#esconder_{$anotacoes_id}').click(function () {
         $('#coluna_direita').hide();
         $('#mostrar_coluna_direita').show();
+        $('#coluna_esquerda').show();
         $('#coluna_esquerda').addClass('col-lg-7');
         $('#coluna_esquerda').removeClass('col-lg-6');
     });
@@ -39,6 +40,7 @@
         $('#coluna_direita').addClass('col-lg-7');
         $('#coluna_direita').removeClass('col-lg-6');
     })
+    $('#esconder_{$anotacoes_id}').click();
 </script>
 ";
 ?>
