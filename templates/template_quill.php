@@ -28,9 +28,7 @@
 		}
 		if ($template_id == 'anotacoes') {
 			$template_classes = 'anotacoes_sticky';
-			if (!isset($template_quill_vazio)) {
-				$template_quill_vazio = 'Não há notas de estudo suas sobre este assunto.';
-			}
+			$template_quill_vazio = 'Não há notas de estudo suas sobre este assunto.';
 			$template_quill_public = false;
 		}
 	}
