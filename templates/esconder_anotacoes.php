@@ -2,6 +2,14 @@
 	if (!isset($anotacoes_id)) {
 		$anotacoes_id = 'anotacoes';
 	}
+	if (!isset($pagina_tipo)) {
+		$pagina_tipo = false;
+	}
+	if (($pagina_tipo != 'curso') && ($pagina_tipo != 'materia')) {
+		$default_esconder = "$('#esconder_{$anotacoes_id}').click();";
+	} else {
+		$default_esconder = false;
+	}
 	echo "
 <script type='text/javascript'>
 
@@ -40,7 +48,7 @@
         $('#coluna_direita').addClass('col-lg-7');
         $('#coluna_direita').removeClass('col-lg-6');
     })
-    $('#esconder_{$anotacoes_id}').click();
+    $default_esconder
 </script>
 ";
 ?>
