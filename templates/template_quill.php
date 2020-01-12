@@ -150,8 +150,8 @@
     <form id='quill_{$template_id}_form' method='post'>
         <div class='row mt-3'>
             <div class='container'>
-                <div id='quill_container_{$template_id}' class='grey lighten-5'>
-                    <div id='quill_editor_{$template_id}' class='$template_quill_editor_classes bg-white'>
+                <div id='quill_container_{$template_id}' class='bg-white'>
+                    <div id='quill_editor_{$template_id}' class='$template_quill_editor_classes'>
                     </div>
                 </div>
             </div>

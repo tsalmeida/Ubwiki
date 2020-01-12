@@ -280,6 +280,9 @@
 		$secoes = $conn->query("SELECT secao_pagina_id FROM Secoes WHERE pagina_id = $pagina_id ORDER BY ordem");
 	}
 	$etiquetados = $conn->query("SELECT DISTINCT extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'topico' AND estado = 1 AND extra IS NOT NULL");
+	if ($pagina_tipo == 'texto') {
+		$respostas = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'resposta'");
+	}
 
 ?>
 <body class="grey lighten-5">
@@ -302,7 +305,11 @@
 							echo "<span id='pagina_dados' class='mx-1' title='Editar dados'><a href='javascript:void(0);' data-toggle='modal' data-target='#modal_pagina_dados' class='text-success'><i class='fad fa-info-circle fa-fw fa-2x'></i></a></span>";
 						}
 						if ($pagina_tipo == 'texto') {
-							echo "<span id='add_reply' class='mx-1' title='Adicionar resposta'><a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_reply' class='text-success'><i class='fad fa-comment-lines fa-fw fa-2x'></i></a></span>";
+							if ($respostas->num_rows > 0) {
+								echo "<span id='add_reply' class='mx-1' title='Adicionar resposta'><a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_reply' class='text-success'><i class='fad fa-comment-lines fa-fw fa-2x'></i></a></span>";
+							} else {
+								echo "<span id='add_reply' class='mx-1' title='Adicionar resposta'><a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_reply'><i class='fad fa-comment-lines fa-fw fa-2x'></i></a></span>";
+							}
 						}
 						if (($pagina_tipo == 'curso') && ($curso_user_id == $user_id)) {
 							$carregar_adicionar_materia = true;
@@ -916,7 +923,6 @@
 			</div>
 		";
 		$template_modal_body_conteudo .= "<h2>Respostas a este texto</h2>";
-		$respostas = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'resposta'");
 		if ($respostas->num_rows > 0) {
 			while ($resposta = $respostas->fetch_assoc()) {
 				$resposta_pagina_id = $resposta['elemento_id'];
