@@ -156,6 +156,7 @@ blockquote + * {
   padding: 4ch 4ch;
   border: 1px solid #ccc;
   margin-top: 0 !important;
+  max-width: 75ch;
 }
 
 #quill_pagina_edicao {

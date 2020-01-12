@@ -148,10 +148,10 @@
 	
 	$quill_result .= "
     <form id='quill_{$template_id}_form' method='post'>
-        <div class='row'>
-            <div class='container col'>
-                <div id='quill_container_{$template_id}' class='bg-white'>
-                    <div id='quill_editor_{$template_id}' class='$template_quill_editor_classes'>
+        <div class='row mt-3'>
+            <div class='container'>
+                <div id='quill_container_{$template_id}' class='grey lighten-5'>
+                    <div id='quill_editor_{$template_id}' class='$template_quill_editor_classes bg-white'>
                     </div>
                 </div>
             </div>
@@ -159,7 +159,7 @@
 	$quill_result .= "
         <div id='botoes_salvar_{$template_id}' class='row justify-content-center mt-3 d-none'>
             <button type='submit' id='$quill_trigger_button' class='$button_classes' name='$quill_trigger_button'>
-            	<i class='fad fa-check fa-fw'></i> Salvar
+            	Salvar
             </button>
         </div>
     </form>";
