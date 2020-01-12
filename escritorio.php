@@ -78,7 +78,7 @@
 
 
 ?>
-<body class="carrara">
+<body class="grey lighten-5">
 <?php
 	include 'templates/navbar.php';
 ?>
@@ -189,15 +189,7 @@
 									$artefato_link = "pagina.php?pagina_id=$visualizacao_page_id";
 									$artefato_tipo = 'verbete';
 									/*} elseif ($visualizacao_tipo_pagina == 'texto') {
-									$artefato_texto_info = return_texto_info($visualizacao_page_id);
-									if ($artefato_texto_info == false) {
-										continue;
-									}
-									$artefato_titulo = $artefato_texto_info[2];
-									$artefato_tipo = $artefato_texto_info[1];
-									$artefato_link = "pagina.php?pagina_id=$visualizacao_page_id";
-									if ($artefato_titulo == false) {
-										$artefato_subtitulo = return_artefato_subtitulo($artefato_tipo);
+									
 									}*/
 								} elseif ($visualizacao_tipo_pagina == 'pagina') {
 									$artefato_titulo = return_pagina_titulo($visualizacao_page_id);

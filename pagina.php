@@ -282,7 +282,7 @@
 	$etiquetados = $conn->query("SELECT DISTINCT extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'topico' AND estado = 1 AND extra IS NOT NULL");
 
 ?>
-<body class="carrara">
+<body class="grey lighten-5">
 <?php
 	include 'templates/navbar.php';
 ?>
@@ -531,7 +531,7 @@
 							$template_quill_pagina_de_edicao = true;
 							$template_quill_botoes = false;
 							$template_botoes_padrao = false;
-							$template_background = 'carrara';
+							$template_background = 'grey lighten-5';
 							$template_conteudo = include 'templates/template_quill.php';
 							include 'templates/page_element.php';
 						}

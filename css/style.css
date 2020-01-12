@@ -27,18 +27,6 @@ blockquote + * {
   margin-top: 1em;
 }
 
-.outerspace {
-  background-color: #2e3131 !important;
-}
-
-.mercury {
-  background-color: #e8e8e8 !important;
-}
-
-.carrara {
-  background-color: #f2f1ef !important;
-}
-
 .logo {
   width: 100%;
 }
@@ -59,11 +47,11 @@ blockquote + * {
 }
 
 .navbar .btn-group .dropdown-menu a:hover {
-  background-color: #2e3131 !important;
+  background-color: #212121 !important;
 }
 
 .navbar .btn-group .dropdown-menu a:active {
-  background-color: #2e3131 !important;
+  background-color: #212121 !important;
 }
 
 .navbar {
@@ -319,7 +307,7 @@ blockquote + * {
 }
 
 .navlink:hover {
-  background-color: #2e3131 !important;
+  background-color: #212121 !important;
 }
 
 .pagina_coluna {
@@ -333,6 +321,7 @@ blockquote + * {
 
 .materia_hover:hover {
   color: black !important;
+  background-color: #e0e0e0 !important;
 }
 
 /*# sourceMappingURL=style.css.map */

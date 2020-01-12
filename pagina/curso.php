@@ -45,7 +45,7 @@
 			$materia_pagina_id = $materia['elemento_id'];
 			$materia_pagina_titulo = return_pagina_titulo($materia_pagina_id);
 			$template_conteudo .= "
-	                            <span class='col-lg-4 col-md-6'><a href='pagina.php?pagina_id=$materia_pagina_id'><button type='button' class='btn btn-light oswald col-12 carrara text-muted rounded materia_hover mx-0 px-0'>$materia_pagina_titulo</button></a></span>
+	                            <span class='col-lg-4 col-md-6'><a href='pagina.php?pagina_id=$materia_pagina_id'><button type='button' class='btn btn-light oswald col-12 grey lighten-3 text-muted rounded materia_hover mx-0 px-0'>$materia_pagina_titulo</button></a></span>
                             ";
 		}
 		unset($materia_id);
@@ -83,7 +83,7 @@
                                   <strong>$topico_materia_pagina_titulo: </strong>
                                   $topico_titulo
                               </span>
-                              <i class='fad $icone_estado fa-fw'></i>
+                              <span><i class='fad $icone_estado fa-fw'></i></span>
                           </li>
                       </a>
           ";
