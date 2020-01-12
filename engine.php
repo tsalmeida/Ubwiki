@@ -1020,6 +1020,10 @@
 				$etiqueta_tipo = $etiqueta['tipo'];
 				$etiqueta_titulo = $etiqueta['titulo'];
 				
+				if ($etiqueta_tipo == 'imagem_privada') {
+					continue;
+				}
+				
 				$etiqueta_cor_icone = return_etiqueta_cor_icone($etiqueta_tipo);
 				$etiqueta_cor = $etiqueta_cor_icone[0];
 				$etiqueta_icone = $etiqueta_cor_icone[1];
