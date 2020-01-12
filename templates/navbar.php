@@ -3,7 +3,7 @@
 		$template_navbar_mode = 'dark';
 	}
 	if ($template_navbar_mode == 'dark') {
-		$template_navbar_color = 'elegant-color';
+		$template_navbar_color = 'grey darken-4';
 		$template_navbar_text = 'text-white';
 	} elseif ($template_navbar_mode == 'light') {
 		$template_navbar_color = 'bg-white';
@@ -28,7 +28,7 @@
 		}
 		echo "<ul class='nav navbar-nav ml-auto nav-flex-icons'>";
 		echo "<li class='nav-item dropdown'>";
-		echo "<a class='navlink dropdown-toggle waves-effect waves-light $template_navbar_text' id='user_dropdown' data-toggle='dropdown' href='javascript:void(0);'>";
+		echo "<a class='navlink dropdown-toggle waves-effect waves-light rounded $template_navbar_text' id='user_dropdown' data-toggle='dropdown' href='javascript:void(0);'>";
 		echo "
 		        <i class='fas fa-2x $navbar_avatar fa-lg fa-fw'></i>
 		        </a>
