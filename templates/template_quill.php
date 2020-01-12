@@ -148,9 +148,6 @@
 	
 	$quill_result .= "
     <form id='quill_{$template_id}_form' method='post'>
-        <input name='$quill_novo_verbete_html' type='hidden'>
-        <input name='$quill_novo_verbete_text' type='hidden'>
-        <pre><input name='$quill_novo_verbete_content' type='hidden'></pre>
         <div class='row'>
             <div class='container col'>
                 <div id='quill_container_{$template_id}' class='bg-white'>
@@ -205,16 +202,8 @@
     form_{$template_id}.onsubmit = function (e) {
         e.preventDefault();
 
-        var quill_novo_{$template_id}_html = document.querySelector('input[name=quill_novo_{$template_id}_html]');
-        quill_novo_{$template_id}_html.value = {$template_id}_editor.root.innerHTML;
-
-        var quill_novo_{$template_id}_text = document.querySelector('input[name=quill_novo_{$template_id}_text]');
-        quill_novo_{$template_id}_text.value = {$template_id}_editor.getText();
-
-        var quill_novo_{$template_id}_content = document.querySelector('input[name=quill_novo_{$template_id}_content]');
         var quill_{$template_id}_content = {$template_id}_editor.getContents();
         quill_{$template_id}_content = JSON.stringify(quill_{$template_id}_content);
-        quill_novo_{$template_id}_content.value = quill_{$template_id}_content;
         
         $.post('engine.php', {
             'quill_novo_verbete_html': {$template_id}_editor.root.innerHTML,

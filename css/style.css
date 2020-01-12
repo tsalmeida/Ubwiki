@@ -164,16 +164,15 @@ blockquote + * {
 .quill_pagina_de_edicao {
   height: initial !important;
   max-height: initial !important;
-  width: 70ch;
   overflow-y: auto !important;
   padding: 12px 15px;
   border: 1px solid #ccc;
   margin-top: 0 !important;
-  max-width: 100vw;
+  max-width: 65ch !important;
 }
 
 #quill_pagina_edicao {
-  max-width: 70ch;
+  min-width: 70ch;
   margin-left: auto;
   margin-right: auto;
 }

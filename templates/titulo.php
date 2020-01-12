@@ -18,6 +18,11 @@
 	} else {
 		$display_level = false;
 	}
+	if (isset($pagina_tipo)) {
+		if ($pagina_tipo == 'texto') {
+			$display_level = false;
+		}
+	}
 	if ($template_titulo_no_nav == true) { $spacing = 'my-3'; }
 	else { $spacing = 'mb-3'; }
 	

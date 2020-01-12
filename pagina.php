@@ -459,6 +459,7 @@
 				}
 				$template_subtitulo = 'Texto privado';
 			}
+			$template_titulo_no_nav = false;
 		} elseif ($pagina_tipo == 'sistema') {
 			$template_titulo = $pagina_titulo;
 		} elseif ($pagina_tipo == 'pagina') {
@@ -510,7 +511,7 @@
 	?>
 </div>
 <div class="container-fluid">
-    <div class="row justify-content-around <?php echo $row_classes; ?>">
+    <div class="row justify-content-around">
         <div id="coluna_unica" class="col-lg-10 col-md-12 pagina_coluna">
 					<?php
 						if ($pagina_tipo == 'grupo') {
@@ -523,7 +524,7 @@
 						} elseif ($pagina_tipo == 'texto') {
 							$template_id = $texto_tipo;
 							$template_titulo = false;
-							$template_conteudo_no_col = true;
+							$template_conteudo_no_col = false;
 							$template_quill_initial_state = 'edicao';
 							$template_quill_page_id = $texto_page_id;
 							$template_quill_pagina_id = $pagina_id;
