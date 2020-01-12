@@ -697,7 +697,7 @@
 		if ($referencia_exata->num_rows == 0) {
 			$busca_resultados .= "<div class='col-12'><button type='button' id='criar_referencia' name='criar_referencia' class='btn rounded btn-md text-center btn-primary btn-sm m-0 mb-2' value='$busca_referencias'>Referência não encontrada, criar nova?</button></div>";
 		}
-		$elementos = $conn->query("SELECT id, etiqueta_id, titulo, autor, tipo FROM Elementos WHERE titulo LIKE '%{$busca_referencias}%'");
+		$elementos = $conn->query("SELECT id, etiqueta_id, compartilhamento, titulo, autor, tipo, user_id FROM Elementos WHERE titulo LIKE '%{$busca_referencias}%'");
 		if ($elementos->num_rows > 0) {
 			while ($elemento = $elementos->fetch_assoc()) {
 				$elemento_id = $elemento['id'];
@@ -705,6 +705,13 @@
 				$elemento_titulo = $elemento['titulo'];
 				$elemento_autor = $elemento['autor'];
 				$elemento_tipo = $elemento['tipo'];
+				$elemento_user_id = $elemento['user_id'];
+				$elemento_compartilhamento = $elemento['compartilhamento'];
+				if ($elemento_compartilhamento == 'privado') {
+					if ($elemento_user_id != $user_id) {
+						continue;
+					}
+				}
 				$elemento_cor_icone = return_etiqueta_cor_icone($elemento_tipo);
 				$elemento_cor = $elemento_cor_icone[0];
 				$elemento_icone = $elemento_cor_icone[1];
@@ -1019,10 +1026,6 @@
 				$etiqueta_id = $etiqueta['id'];
 				$etiqueta_tipo = $etiqueta['tipo'];
 				$etiqueta_titulo = $etiqueta['titulo'];
-				
-				if ($etiqueta_tipo == 'imagem_privada') {
-					continue;
-				}
 				
 				$etiqueta_cor_icone = return_etiqueta_cor_icone($etiqueta_tipo);
 				$etiqueta_cor = $etiqueta_cor_icone[0];
