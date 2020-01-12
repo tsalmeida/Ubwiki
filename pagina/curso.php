@@ -60,7 +60,7 @@
 	$template_conteudo_no_col = true;
 	$paginas = $conn->query("SELECT DISTINCT pagina_id FROM (SELECT pagina_id FROM Textos_arquivo WHERE tipo = 'verbete' AND curso_id = $curso_id AND pagina_tipo = 'topico' GROUP BY id ORDER BY id DESC) t");
 	if ($paginas->num_rows > 0) {
-		$template_conteudo .= "<ul class='list-group list-group-flush'>";
+		$template_conteudo .= "<ul class='list-group list-group-flush paginas_recentes_collapse collapse show'>";
 		$count = 0;
 		while ($pagina = $paginas->fetch_assoc()) {
 			$topico_pagina_id = $pagina['pagina_id'];

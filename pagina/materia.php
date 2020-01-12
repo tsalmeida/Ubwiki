@@ -27,7 +27,7 @@
 	
 	$topicos = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'topico'");
 	if ($topicos->num_rows > 0) {
-		$template_conteudo .= "<ul class='list-group list-group-flush mt-2 min-w70'>";
+		$template_conteudo .= "<ul class='list-group list-group-flush mt-2 min-w70 topicos_collapse collapse show'>";
 		$template_conteudo .= "<a href='pagina.php?pagina_id=$plano_estudos_pagina_id' class='mx-2'><li class='list-group-item list-group-item-action list-group-item-success d-flex justify-content-between'><span class='mr-5'>Plano de estudos</span><span><i class='$plano_estudos_pagina_estado_icone'></i></span></li></a>";
 		while ($topico = $topicos->fetch_assoc()) {
 			$topico_pagina_id = $topico['elemento_id'];
