@@ -1005,31 +1005,24 @@
 	if ($pagina_tipo == 'texto') {
 		$sticky_toolbar = true;
 		$quill_extra_buttons = "
-              <span id='salvar_anotacao' class='ml-1' title='Salvar anotação'>
-				  <a href='javascript:void(0);'>
-					  <i class='fad fa-save fa-fw'></i>
-				  </a>
-			  </span>
+		      <a id='salvar_anotacao' class='ml-1' title='Salvar anotação' href='javascript:void(0);'>
+			      <i class='fad fa-save fa-fw'></i>
+		      </a>
               <span id='anotacao_salva' class='ml-1 text-success' title='Salvar anotação'>
 	              <i class='fad fa-check-square fa-fw'></i>
 			  </span>
         ";
 		$quill_extra_buttons .= "
-              <span class='ml-1' title='Ver histórico'>
-                <a href='historico_verbete.php?texto_id=$pagina_texto_id'>
-                  <i class='fad fa-history fa-fw'></i>
-                </a>
-              </span>
+              <a class='ml-1' title='Ver histórico' href='historico_verbete.php?texto_id=$pagina_texto_id'>
+                <i class='fad fa-history fa-fw'></i>
+              </a>
     	";
 		if ($texto_user_id == $user_id) {
 			if ($pagina_compartilhamento == 'privado') {
 				$quill_extra_buttons .= "
-                  <span id='apagar_anotacao' class='ml-1' title='Destruir anotação'
-                           data-toggle='modal' data-target='#modal_apagar_anotacao'>
-                      <a href='javascript:void(0);' class='text-danger'>
-                          <i class='fad fa-shredder fa-fw'></i>
-                      </a>
-                  </span>
+                  <a id='apagar_anotacao' class='ml-1' title='Destruir anotação' data-toggle='modal' data-target='#modal_apagar_anotacao' href='javascript:void(0);' class='text-danger'>
+                      <i class='fad fa-shredder fa-fw'></i>
+                  </a>
                 ";
 			}
 		}
