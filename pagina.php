@@ -1020,7 +1020,7 @@
 		if ($texto_user_id == $user_id) {
 			if ($pagina_compartilhamento == 'privado') {
 				$quill_extra_buttons .= "
-                  <a id='apagar_anotacao' class='ml-1' title='Destruir anotação' data-toggle='modal' data-target='#modal_apagar_anotacao' href='javascript:void(0);' class='text-danger'>
+                  <a id='apagar_anotacao' class='ml-1 text-danger' title='Destruir anotação' data-toggle='modal' data-target='#modal_apagar_anotacao' href='javascript:void(0);'>
                       <i class='fad fa-shredder fa-fw'></i>
                   </a>
                 ";
