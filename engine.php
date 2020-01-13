@@ -1056,22 +1056,39 @@
 		$nova_etiqueta_tipo = $nova_etiqueta_info[1];
 		$nova_etiqueta_titulo = $nova_etiqueta_info[2];
 		$nova_etiqueta_elemento_id = false;
+		$halt = false;
 		if ($nova_etiqueta_tipo == 'topico') {
 			$nova_etiqueta_elemento_id = return_etiqueta_topico_id($nova_etiqueta_id);
 		} else {
 			$nova_etiqueta_elemento_id = return_etiqueta_elemento_id($nova_etiqueta_id);
+			$nova_etiqueta_elemento_info = return_elemento_info($nova_etiqueta_elemento_id);
+			$nova_etiqueta_elemento_user_id = $nova_etiqueta_elemento_info[16];
+			$nova_etiqueta_elemento_compartilhamento = $nova_etiqueta_elemento_info[17];
+			if ($nova_etiqueta_elemento_compartilhamento == 'privado') {
+				if ($user_id != $nova_etiqueta_elemento_user_id) {
+					$halt = true;
+				} else {
+					if ($nova_etiqueta_tipo == 'imagem_privada') {
+						$nova_etiqueta_tipo = 'imagem';
+					}
+				}
+			}
 		}
 		if ($nova_etiqueta_elemento_id == false) {
 			$nova_etiqueta_elemento_id = "NULL";
 		}
-		$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, extra, user_id) VALUES ($nova_etiqueta_page_id, '$nova_etiqueta_page_tipo', $nova_etiqueta_elemento_id, '$nova_etiqueta_tipo', $nova_etiqueta_id, $user_id)");
-		$nova_etiqueta_cor_icone = return_etiqueta_cor_icone($nova_etiqueta_tipo);
-		$nova_etiqueta_cor = $nova_etiqueta_cor_icone[0];
-		$nova_etiqueta_icone = $nova_etiqueta_cor_icone[1];
-		if ($nova_etiqueta_tipo == 'topico') {
-			echo "<a href='javascript:void(0);' class='$tag_ativa_classes $nova_etiqueta_cor' value='$nova_etiqueta_id'><i class='far $nova_etiqueta_icone fa-fw'></i> $nova_etiqueta_titulo</a>";
+		if ($halt == false) {
+			$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, extra, user_id) VALUES ($nova_etiqueta_page_id, '$nova_etiqueta_page_tipo', $nova_etiqueta_elemento_id, '$nova_etiqueta_tipo', $nova_etiqueta_id, $user_id)");
+			$nova_etiqueta_cor_icone = return_etiqueta_cor_icone($nova_etiqueta_tipo);
+			$nova_etiqueta_cor = $nova_etiqueta_cor_icone[0];
+			$nova_etiqueta_icone = $nova_etiqueta_cor_icone[1];
+			if ($nova_etiqueta_tipo == 'topico') {
+				echo "<a href='javascript:void(0);' class='$tag_ativa_classes $nova_etiqueta_cor' value='$nova_etiqueta_id'><i class='far $nova_etiqueta_icone fa-fw'></i> $nova_etiqueta_titulo</a>";
+			} else {
+				echo true;
+			}
 		} else {
-			echo true;
+			echo false;
 		}
 	}
 	
@@ -1375,7 +1392,7 @@
 		if ($elemento_id == false) {
 			return false;
 		}
-		$elementos = $conn->query("SELECT estado, etiqueta_id, criacao, tipo, titulo, autor, autor_etiqueta_id, capitulo, ano, link, iframe, arquivo, resolucao, orientacao, comentario, trecho, user_id FROM Elementos WHERE id = $elemento_id");
+		$elementos = $conn->query("SELECT estado, etiqueta_id, criacao, tipo, titulo, autor, autor_etiqueta_id, capitulo, ano, link, iframe, arquivo, resolucao, orientacao, comentario, trecho, user_id, compartilhamento FROM Elementos WHERE id = $elemento_id");
 		if ($elementos->num_rows > 0) {
 			while ($elemento = $elementos->fetch_assoc()) {
 				$elemento_estado = $elemento['estado']; // 0
@@ -1395,7 +1412,8 @@
 				$elemento_comentario = $elemento['comentario']; // 14
 				$elemento_trecho = $elemento['trecho']; // 15
 				$elemento_user_id = $elemento['user_id']; // 16
-				$result = array($elemento_estado, $elemento_etiqueta_id, $elemento_criacao, $elemento_tipo, $elemento_titulo, $elemento_autor, $elemento_autor_etiqueta_id, $elemento_capitulo, $elemento_ano, $elemento_ano, $elemento_link, $elemento_iframe, $elemento_arquivo, $elemento_resolucao, $elemento_orientacao, $elemento_comentario, $elemento_trecho, $elemento_user_id);
+				$elemento_compartilhamento = $elemento['compartilhamento']; // 17
+				$result = array($elemento_estado, $elemento_etiqueta_id, $elemento_criacao, $elemento_tipo, $elemento_titulo, $elemento_autor, $elemento_autor_etiqueta_id, $elemento_capitulo, $elemento_ano, $elemento_link, $elemento_iframe, $elemento_arquivo, $elemento_resolucao, $elemento_orientacao, $elemento_comentario, $elemento_trecho, $elemento_user_id, $elemento_compartilhamento);
 				return $result;
 			}
 		}

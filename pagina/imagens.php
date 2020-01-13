@@ -9,12 +9,19 @@
 		$active = 'active';
 		while ($imagem = $imagens->fetch_assoc()) {
 			$elemento_id = $imagem['elemento_id'];
-			$elementos = $conn->query("SELECT titulo, arquivo, estado FROM Elementos WHERE id = $elemento_id AND compartilhamento IS NULL");
+			$elementos = $conn->query("SELECT titulo, arquivo, estado, compartilhamento, user_id FROM Elementos WHERE id = $elemento_id");
 			if ($elementos->num_rows > 0) {
 				while ($elemento = $elementos->fetch_assoc()) {
 					$imagem_titulo = $elemento['titulo'];
 					$imagem_arquivo = $elemento['arquivo'];
 					$imagem_estado = $elemento['estado'];
+					$imagem_compartilhamento = $elemento['compartilhamento'];
+					$imagem_user_id = $elemento['user_id'];
+					if ($imagem_compartilhamento == 'privado') {
+						if ($imagem_user_id != $user_id) {
+							continue;
+						}
+					}
 					if ($imagem_estado == false) {
 						continue;
 					} else {
