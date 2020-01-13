@@ -68,7 +68,7 @@
 	}
 	
 	if (!isset($template_titulo_heading)) {
-		$template_titulo_heading = 'h1';
+		$template_titulo_heading = 'h2';
 	}
 	
 	echo "
