@@ -805,7 +805,6 @@
 		}
 		
 		if (isset($secoes)) {
-		    error_log('this happened');
 			if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id) && ($secoes->num_rows == 0) && ($pagina_tipo == 'pagina') && ($pagina_titulo != false)) {
 				$modal_novo_curso = true;
 				$template_modal_body_conteudo .= "
