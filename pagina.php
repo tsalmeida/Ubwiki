@@ -802,10 +802,10 @@
                        for='pagina_novo_titulo'>Novo título</label>
             </div>
         	";
-			include 'templates/modal.php';
 		}
 		
 		if (isset($secoes)) {
+		    error_log('this happened');
 			if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id) && ($secoes->num_rows == 0) && ($pagina_tipo == 'pagina') && ($pagina_titulo != false)) {
 				$modal_novo_curso = true;
 				$template_modal_body_conteudo .= "
@@ -816,8 +816,8 @@
                 </span>
 		    ";
 			}
-			include 'templates/modal.php';
 		}
+	    include 'templates/modal.php';
 	}
 	
 	if ($modal_novo_curso == true) {
