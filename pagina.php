@@ -1,5 +1,5 @@
 <?php
-
+	
 	include 'engine.php';
 	$modal_novo_curso = false;
 	$nao_contar = false;
@@ -73,7 +73,7 @@
 			exit();
 		}
 	}
-
+	
 	$pagina_info = return_pagina_info($pagina_id);
 	if ($pagina_info != false) {
 		$pagina_criacao = $pagina_info[0];
@@ -89,7 +89,7 @@
 		header('Location:pagina.php?pagina_id=4');
 		exit();
 	}
-
+	
 	if ($pagina_tipo == 'topico') {
 		$familia_info = return_familia($pagina_id);
 		$topico_nivel = $familia_info[0];
@@ -106,7 +106,7 @@
 		$pagina_curso_info = return_curso_info($pagina_curso_id);
 		$pagina_curso_user_id = $pagina_curso_info[4];
 	}
-
+	
 	if (isset($_POST['novo_curso'])) {
 		$novo_curso_sigla = $_POST['novo_curso_sigla'];
 		$conn->query("INSERT INTO Cursos (pagina_id, titulo, sigla, user_id) VALUES ($pagina_id, '$pagina_titulo', '$novo_curso_sigla', $user_id)");
@@ -115,7 +115,7 @@
 		header("Location:pagina.php?curso_id=$novo_curso_id");
 		exit();
 	}
-
+	
 	if ($pagina_compartilhamento == 'privado') {
 		if ($pagina_user_id != $user_id) {
 			$check_compartilhamento = return_compartilhamento($pagina_id, $user_id);
@@ -125,7 +125,7 @@
 			}
 		}
 	}
-
+	
 	if ($pagina_tipo == 'curso') {
 		$curso_info = return_curso_info($curso_id);
 		$curso_sigla = $curso_info[2];
@@ -199,14 +199,14 @@
 		$original_texto_info = return_texto_info($original_texto_id);
 		$original_texto_html = $original_texto_info[5];
 	}
-
+	
 	if ($pagina_tipo == 'elemento') {
 		include 'pagina/isset_elemento.php';
 		include 'pagina/queries_elemento.php';
 	}
-
+	
 	include 'pagina/shared_issets.php';
-
+	
 	if (($pagina_tipo == 'elemento') || ($pagina_tipo == 'pagina')) {
 		if (isset($_POST['trigger_nova_secao'])) {
 			$nova_secao_titulo = $_POST['elemento_nova_secao'];
@@ -226,7 +226,7 @@
 			$nao_contar = true;
 		}
 	}
-
+	
 	if ($pagina_tipo != 'sistema') {
 		$pagina_bookmark = false;
 		$bookmarks = $conn->query("SELECT bookmark FROM Bookmarks WHERE user_id = $user_id AND pagina_id = $pagina_id AND active = 1 ORDER BY id DESC");
@@ -236,7 +236,7 @@
 				break;
 			}
 		}
-
+		
 		$estado_estudo = false;
 		$estudos = $conn->query("SELECT estado FROM Completed WHERE user_id = $user_id AND pagina_id = $pagina_id AND active = 1 ORDER BY id DESC");
 		if ($estudos->num_rows > 0) {
@@ -265,18 +265,18 @@
 			$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina, extra, extra2) VALUES ($user_id, $pagina_id, '$pagina_tipo', '$visualizacao_extra', 'pagina')");
 		}
 	}
-
+	
 	if (isset($_POST['compartilhar_grupo_id'])) {
 		$compartilhar_grupo_id = $_POST['compartilhar_grupo_id'];
 		$conn->query("INSERT INTO Compartilhamento (user_id, item_id, item_tipo, compartilhamento, recipiente_id) VALUES ($user_id, $pagina_id, '$pagina_tipo', 'grupo', $compartilhar_grupo_id)");
 	}
-
+	
 	if ((($pagina_tipo == 'elemento') || ($pagina_tipo == 'pagina')) && ($pagina_compartilhamento != 'escritorio') || ($pagina_tipo == 'grupo')) {
 		$carregar_secoes = true;
 	} else {
 		$carregar_secoes = false;
 	}
-
+	
 	if ($carregar_secoes == true) {
 		$secoes = $conn->query("SELECT secao_pagina_id FROM Secoes WHERE pagina_id = $pagina_id ORDER BY ordem");
 	}
@@ -328,6 +328,28 @@
         </div>
         <div class="py-2 text-center col">
 					<?php
+						if ($pagina_tipo == 'curso') {
+							echo "
+                        <form id='searchform' action='' method='post'>
+                        <div id='searchDiv'>
+                            <input id='barra_busca' list='searchlist' type='text' class='barra_busca grey lighten-5 w-100'
+                                   name='searchBar' rows='1' autocomplete='off' spellcheck='false'
+                                   placeholder='O que você vai aprender hoje?' required>
+                            <datalist id='searchlist'>";
+							$result = $conn->query("SELECT chave FROM Searchbar WHERE curso_id = '$curso_id' ORDER BY ordem");
+							if ($result->num_rows > 0) {
+								while ($row = $result->fetch_assoc()) {
+									$chave = $row['chave'];
+									echo "<option>$chave</option>";
+								}
+							}
+							echo "
+                            </datalist>";
+							echo "<input id='trigger_busca' name='trigger_busca' value='$curso_id' type='submit' style='position: absolute; left: -9999px; width: 1px; height: 1px;' tabindex='-1' />";
+							echo "
+						</div>
+            			</form>";
+						}
 						if ($pagina_tipo == 'topico') {
 							if ($topico_anterior != false) {
 								$topico_anterior_link = "pagina.php?topico_id=$topico_anterior";
@@ -421,7 +443,7 @@
                               <span id='add_bookmark' class='ml-1 $marcar_bookmark' title='Marcar para leitura' value='$pagina_id'><a href='javascript:void(0);'><i class='fad fa-bookmark fa-fw'></i></a></span>
                               <span id='remove_bookmark' class='ml-1 $desmarcar_bookmark' title='Remover da lista de leitura' value='$pagina_id'><a href='javascript:void(0);'><span class='text-danger'><i class='fad fa-bookmark fa-fw'></i></span></span></a></span>
                             ";
-
+							
 							$estado_cor = false;
 							$estado_icone = return_estado_icone($pagina_estado, 'pagina');
 							if ($pagina_estado == 4) {
@@ -450,7 +472,7 @@
 			$template_subtitulo = $elemento_autor;
 		} elseif ($pagina_tipo == 'curso') {
 			$template_titulo = $pagina_titulo;
-			$template_subtitulo = 'Curso';
+			$template_subtitulo = 'Projeto comunitário';
 		} elseif ($pagina_tipo == 'materia') {
 			$template_titulo = $pagina_titulo;
 			$template_subtitulo = "Matéria / <a href='pagina.php?pagina_id=$pagina_item_id'>$curso_titulo</a>";
@@ -524,8 +546,6 @@
 					<?php
 						if ($pagina_tipo == 'grupo') {
 							include 'pagina/grupo.php';
-						} elseif ($pagina_tipo == 'curso') {
-							include 'pagina/curso.php';
 						} elseif ($pagina_tipo == 'materia') {
 							include 'pagina/materia.php';
 						} elseif ($pagina_tipo == 'texto') {
@@ -546,7 +566,7 @@
 					?>
         </div>
 			<?php
-
+				
 				if ($pagina_tipo == 'resposta') {
 					echo "
 						<div id='coluna_original' class='$coluna_classes pagina_coluna'>";
@@ -556,7 +576,7 @@
 					include 'templates/page_element.php';
 					echo "</div>";
 				}
-
+				
 				echo "<div id='coluna_esquerda' class='$coluna_classes pagina_coluna'>";
 				if ($pagina_tipo == 'elemento') {
 					if ($elemento_tipo == 'imagem') {
@@ -576,7 +596,11 @@
 				}
 				if (($pagina_tipo != 'texto') && ($pagina_tipo != 'materia')) {
 					$template_id = 'verbete';
-					$template_titulo = 'Verbete';
+					if ($pagina_tipo == 'curso') {
+						$template_titulo = 'Apresentação';
+					} else {
+						$template_titulo = 'Verbete';
+					}
 					if (($pagina_tipo == 'sistema') && ($user_tipo != 'admin')) {
 						$template_quill_botoes = false;
 						$template_quill_initial_state = 'leitura';
@@ -598,28 +622,63 @@
 					}
 					$template_conteudo = include 'templates/template_quill.php';
 					include 'templates/page_element.php';
-
+					
 					if ($carregar_secoes == true) {
 						include 'pagina/secoes_pagina.php';
 					}
-
+					
 					include 'pagina/leiamais.php';
-
+					
 					include 'pagina/videos.php';
-
+					
 					include 'pagina/imagens.php';
-
+					
 					include 'pagina/audio.php';
-
+					
 				}
-
+				
 				echo "</div>";
 			?>
 			<?php
-				if (($pagina_tipo != 'sistema') && ($pagina_tipo != 'texto') && ($pagina_compartilhamento != 'escritorio') && ($pagina_tipo != 'resposta') && ($pagina_tipo != 'materia')) {
-
+				if (($pagina_tipo != 'sistema') && ($pagina_tipo != 'texto') && ($pagina_compartilhamento != 'escritorio') && ($pagina_tipo != 'resposta') && ($pagina_tipo != 'materia') && ($pagina_tipo != 'curso')) {
 					include 'pagina/coluna_direita_anotacoes.php';
-
+				} elseif ($pagina_tipo == 'curso') {
+					
+					echo "<div id='coluna_direita' class='$coluna_classes pagina_coluna'>";
+					
+					$template_id = 'modulos';
+					$template_titulo = 'Módulos';
+					$template_conteudo_no_col = true;
+					$template_botoes = false;
+					$template_botoes_padrao = false;
+					$template_conteudo = false;
+					$template_conteudo_class = 'justify-content-start';
+					
+					$row_items = 2;
+					$materias = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE tipo = 'materia' AND pagina_id = $pagina_id");
+					
+					$rowcount = mysqli_num_rows($materias);
+					if ($materias->num_rows > 0) {
+						while ($materia = $materias->fetch_assoc()) {
+							$materia_pagina_id = $materia['elemento_id'];
+							$materia_pagina_titulo = return_pagina_titulo($materia_pagina_id);
+							$template_conteudo .= "
+	                            <span class='col-lg-6 col-md-12'><a href='pagina.php?pagina_id=$materia_pagina_id'><button type='button' class='btn btn-light oswald col-12 grey lighten-3 text-muted rounded materia_hover mx-0 px-0'>$materia_pagina_titulo</button></a></span>
+                            ";
+						}
+						unset($materia_id);
+					}
+					
+					include 'templates/page_element.php';
+					
+					echo "</div>";
+					
+				}
+				
+				if ($pagina_tipo == 'curso') {
+					echo '<div id="coluna_unica" class="col-lg-10 col-md-12 pagina_coluna">';
+	                  include 'pagina/curso.php';
+					echo '</div>';
 				}
 			?>
     </div>
@@ -638,11 +697,11 @@
 		$template_modal_body_conteudo = $breadcrumbs;
 		include 'templates/modal.php';
 	}
-
+	
 	$template_modal_div_id = 'modal_forum';
 	$template_modal_titulo = 'Fórum';
 	$template_modal_body_conteudo = false;
-
+	
 	if (isset($comments)) {
 		if ($comments->num_rows > 0) {
 			$template_modal_body_conteudo .= "<ul class='list-group'>";
@@ -654,7 +713,7 @@
 				$autor_comentario_avatar_info = return_avatar($autor_comentario_id);
 				$autor_comentario_avatar = $autor_comentario_avatar_info[0];
 				$autor_comentario_cor = $autor_comentario_avatar_info[1];
-
+				
 				$template_modal_body_conteudo .= "<li class='list-group-item'>
                                                 <p></span><strong><a href='pagina.php?user_id=$autor_comentario_id' target='_blank'><span class='$autor_comentario_cor'><i class='fad $autor_comentario_avatar fa-fw fa-2x'></i></span>$autor_comentario_apelido</a></strong> <span class='text-muted'><small>escreveu em $timestamp_comentario</small></span></p>
                                                 $texto_comentario
@@ -665,7 +724,7 @@
 			$template_modal_body_conteudo .= "<p><strong>Não há comentários sobre este tópico.</strong></p>";
 		}
 	}
-
+	
 	if ($user_apelido != false) {
 		$template_modal_body_conteudo .= "
                 <div class='md-form mb-2'>
@@ -677,8 +736,8 @@
 		$template_modal_body_conteudo .= "<p class='mt-3'><strong>Para adicionar um comentário, você precisará definir seu apelido em <a href='escritorio.php'>seu escritório</a>.</strong></p>";
 	}
 	include 'templates/modal.php';
-
-
+	
+	
 	$active1 = false;
 	$active2 = false;
 	$active3 = false;
@@ -711,7 +770,7 @@
         </div>
     ";
 	include 'templates/modal.php';
-
+	
 	$template_modal_div_id = 'modal_adicionar_youtube';
 	$template_modal_titulo = 'Adicionar vídeo do YouTube';
 	$template_modal_body_conteudo = "
@@ -722,13 +781,13 @@
                                for='novo_video_link'>Link para o vídeo (Youtube)</label>
                     </div>
 	";
-
+	
 	include 'templates/modal.php';
-
+	
 	if ($pagina_tipo == 'elemento') {
 		include 'pagina/modals_elemento.php';
 	}
-
+	
 	if ($carregar_secoes == true) {
 		$template_modal_div_id = 'modal_partes_form';
 		$template_modal_titulo = 'Adicionar seção';
@@ -755,7 +814,7 @@
               <label for='elemento_nova_secao_ordem'>Posição da nova seção</label>
           </div>
         ";
-
+		
 		$secoes = $conn->query("SELECT secao_pagina_id, ordem FROM Secoes WHERE pagina_id = $pagina_id");
 		if ($secoes->num_rows > 0) {
 			$template_modal_body_conteudo .= "
@@ -773,11 +832,11 @@
 		}
 		include 'templates/modal.php';
 	}
-
+	
 	include 'pagina/modal_add_elemento.php';
-
+	
 	include 'pagina/modal_adicionar_imagem.php';
-
+	
 	if ($modal_pagina_dados == true) {
 		if (($pagina_tipo == 'pagina') || ($pagina_tipo == 'sistema')) {
 			$mudar_titulo_texto = 'desta página';
@@ -803,7 +862,7 @@
             </div>
         	";
 		}
-
+		
 		if (isset($secoes)) {
 			if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id) && ($secoes->num_rows == 0) && ($pagina_tipo == 'pagina') && ($pagina_titulo != false)) {
 				$modal_novo_curso = true;
@@ -818,7 +877,7 @@
 		}
 		include 'templates/modal.php';
 	}
-
+	
 	if ($modal_novo_curso == true) {
 		$template_modal_div_id = 'modal_novo_curso';
 		$template_modal_titulo = 'Transformar esta página em um curso';
@@ -833,9 +892,9 @@
 	    ";
 		include 'templates/modal.php';
 	}
-
+	
 	include 'templates/etiquetas_modal.php';
-
+	
 	if ($pagina_tipo == 'secao') {
 		$template_modal_div_id = 'modal_paginas_relacionadas';
 		$template_modal_titulo = 'Página e seções';
@@ -853,13 +912,13 @@
 		$template_modal_body_conteudo .= "</ul>";
 		include 'templates/modal.php';
 	}
-
+	
 	if ($pagina_tipo == 'texto') {
 		include 'pagina/modals_texto.php';
 	}
-
+	
 	if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id)) {
-
+		
 		$template_modal_div_id = 'modal_compartilhar_anotacao';
 		$template_modal_titulo = 'Compartilhamento';
 		$template_modal_show_buttons = false;
@@ -890,7 +949,7 @@
 		} else {
 			$template_modal_body_conteudo .= "<p class='text-muted'><em>Você não faz parte de nenhum grupo de estudos. Visite seu escritório para participar.</em></p>";
 		}
-
+		
 		/*$template_modal_body_conteudo .= "
 			<form>
 			<h3>Compartilhar com outro usuário</h3>
@@ -906,9 +965,9 @@
 			<h3>Tornar pública e aberta.</h3>
 			<p>Todo usuário da Ubwiki poderá ler e editar sua anotação.</p>
 			";*/
-
+		
 		include 'templates/modal.php';
-
+		
 	}
 	if ($pagina_tipo == 'texto') {
 		$template_modal_div_id = 'modal_add_reply';
@@ -941,7 +1000,7 @@
 		}
 		include 'templates/modal.php';
 	}
-
+	
 	if ($carregar_adicionar_materia == true) {
 		$template_modal_div_id = 'modal_add_materia';
 		$template_modal_titulo = 'Adicionar matéria';
@@ -958,7 +1017,7 @@
 		$template_modal_show_buttons = false;
 		include 'templates/modal.php';
 	}
-
+	
 	if ($carregar_adicionar_topico == true) {
 		$template_modal_div_id = 'modal_add_topico';
 		$template_modal_titulo = 'Adicionar tópico';
@@ -975,7 +1034,7 @@
 		$template_modal_show_buttons = false;
 		include 'templates/modal.php';
 	}
-
+	
 	if ($carregar_adicionar_subtopico == true) {
 		$template_modal_div_id = 'modal_add_subtopico';
 		$template_modal_titulo = 'Adicionar subtópico';
@@ -997,7 +1056,7 @@
 </body>
 
 <?php
-
+	
 	$mdb_select = true;
 	if ($pagina_tipo == 'curso') {
 		include 'templates/searchbar.html';

@@ -97,15 +97,10 @@ blockquote + * {
 }
 
 .barra_busca {
-  background-color: white;
   border: 0;
   border-bottom: 2px;
   border-style: solid;
   border-color: black;
-  width: 100%;
-  height: 3.5rem;
-  font-size: 1.5rem;
-  margin-top: 3vh;
   resize: none;
   padding-left: 1ch;
   padding-right: 1ch;
@@ -113,8 +108,6 @@ blockquote + * {
 	-webkit-box-flex: 1;
 	-webkit-appearance: none;
   text-align: center;
-  font-family: 'Oswald', sans-serif;
-  font-weight: 300;
 }
 
 .quill_container {
