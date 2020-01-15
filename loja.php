@@ -30,7 +30,7 @@
 
     </div>
 
-    <div class="container">
+    <div class="container-fluid">
 			<?php
 				$template_titulo = 'Loja virtual';
 				$template_subtitulo = false;
@@ -49,7 +49,7 @@
 								$template_conteudo .= "
 					<div class='container-fluid'>
 						<div class='row justify-content-start'>
-							<div class='col d-flex justify-content-center'>
+							<div class='col'>
 							<p class='p-limit'>Os cursos do Espaço Zeitgeist são ministrados pelo professor Rômulo e voltados a estudantes do CACD. Incluem conteúdo de História do Brasil, História Mundial e História da Política Exterior Brasileira.</p>
 							</div>
 						</div>
