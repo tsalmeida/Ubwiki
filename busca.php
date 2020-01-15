@@ -54,18 +54,18 @@
 		$template_conteudo = false;
 		$verbetes_resultados_materias = false;
 		$verbetes_resultados_topicos = false;
-		$verbetes = $conn->query("SELECT pagina_tipo, pagina_id, verbete_text FROM Textos WHERE verbete_text LIKE '%$busca%' AND curso_id = $curso_id ORDER BY pagina_tipo");
+		$verbetes = $conn->query("SELECT pagina_tipo, pagina_id, verbete_text FROM Textos WHERE verbete_text LIKE '%$busca%' AND curso_id = $curso_id AND tipo = 'verbete' ORDER BY pagina_tipo");
 		if ($verbetes->num_rows > 0) {
 			while ($verbete = $verbetes->fetch_assoc()) {
 				$verbete_texto_pagina_id = $verbete['pagina_id'];
 				$verbete_texto_pagina_titulo = return_pagina_titulo($verbete_texto_pagina_id);
 				$verbete_texto_pagina_tipo = $verbete['pagina_tipo'];
 				$verbete_text = $verbete['verbete_text'];
-				$verbete_text = substr($verbete_text, 0, 200);
+				$verbete_text = crop_text($verbete_text, 200);
 				if ($verbete_texto_pagina_tipo == 'topico') {
-					$verbetes_resultados_topicos .= "<a href='pagina.php?pagina_id=$verbete_texto_pagina_id'><li class='list-group-item list-group-item-action p-limit'><strong class='d-block'>$verbete_texto_pagina_titulo</strong> $verbete_text...</li></a>";
+					$verbetes_resultados_topicos .= "<a href='pagina.php?pagina_id=$verbete_texto_pagina_id'><li class='list-group-item list-group-item-action p-limit'><strong class='d-block'>$verbete_texto_pagina_titulo</strong> $verbete_text</li></a>";
 				} elseif ($verbete_texto_pagina_tipo == 'materia') {
-					$verbetes_resultados_materias .= "<a href='pagina.php?pagina_id=$verbete_texto_pagina_id'><li class='list-group-item list-group-item-action p-limit'><strong class='d-block'>$verbete_texto_pagina_titulo</strong> $verbete_text...</li></a>";
+					$verbetes_resultados_materias .= "<a href='pagina.php?pagina_id=$verbete_texto_pagina_id'><li class='list-group-item list-group-item-action p-limit'><strong class='d-block'>$verbete_texto_pagina_titulo</strong> $verbete_text</li></a>";
 				}
 			}
 		}
