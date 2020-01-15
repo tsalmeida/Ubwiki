@@ -729,7 +729,7 @@
 		$template_modal_body_conteudo .= "
                 <div class='md-form mb-2'>
                     <textarea id='novo_comentario' name='novo_comentario' class='md-textarea form-control' rows='3' required></textarea>
-                    <label for='novo_comentario'>Adicione seu comentário:</label>
+                    <label for='novo_comentario'>Escreva seu comentário:</label>
                 </div>
             ";
 	} else {

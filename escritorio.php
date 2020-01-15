@@ -90,6 +90,9 @@
 				echo "<div class='col-3 mt-3'><div class='row justify-content-start'>";
 				echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_opcoes' class='mr-1 text-info'><i class='fad fa-user-cog fa-2x fa-fw'></i></a>";
 				echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_apresentacao' class='ml-1 text-info'><i class='fad fa-door-closed fa-2x fa-fw'></i></a>";
+				if ($user_tipo == 'admin') {
+				    echo "<a href='loja.php' class='ml-2 text-info'><i class='fad fa-bags-shopping fa-2x fa-fw'></i></a>";
+				}
 				echo "</div></div>";
 				echo "<div class='col-6'><div class='row justify-content-center'>";
 				echo "
@@ -737,7 +740,7 @@
 	$template_modal_titulo = 'Verbetes em que contribuiu';
 	$template_modal_body_conteudo = false;
 	if ($verbetes_escritos->num_rows > 0) {
-		$template_modal_body_conteudo .= "<ul class='list-group'>";
+		$template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
 		while ($verbete_escrito = $verbetes_escritos->fetch_assoc()) {
 			$escrito_pagina_id = $verbete_escrito['pagina_id'];
 			$escrito_pagina_info = return_pagina_info($escrito_pagina_id);
@@ -750,7 +753,7 @@
 			if ($escrito_pagina_tipo == 'texto') {
 				continue;
 			}
-			$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$escrito_pagina_id' title='$escrito_pagina_tipo'><li class='list-group-item list-group-item-action $list_color'>$escrito_pagina_titulo</li></a>";
+			$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$escrito_pagina_id' title='$escrito_pagina_tipo' class='mt-1'><li class='list-group-item list-group-item-action $list_color'>$escrito_pagina_titulo</li></a>";
 			
 		}
 		$template_modal_body_conteudo .= "</ul>";
@@ -762,14 +765,14 @@
 	$template_modal_titulo = 'Assuntos estudados';
 	$template_modal_body_conteudo = false;
 	if ($completados->num_rows > 0) {
-		$template_modal_body_conteudo .= "<ul class='list-group'>";
+		$template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
 		while ($row = $completados->fetch_assoc()) {
 			$completed_pagina_id = $row['pagina_id'];
 			$completed_pagina_info = return_pagina_info($completed_pagina_id);
 			$completed_pagina_titulo = $completed_pagina_info[6];
 			$completed_pagina_tipo = $completed_pagina_info[2];
 			$list_color = return_list_color_page_type($completed_pagina_tipo);
-			$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$completed_pagina_id' title='$completed_pagina_tipo'><li class='list-group-item list-group-item-action $list_color'>$completed_pagina_titulo</li></a>";
+			$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$completed_pagina_id' title='$completed_pagina_tipo' class='mt-1'><li class='list-group-item list-group-item-action $list_color'>$completed_pagina_titulo</li></a>";
 		}
 		$template_modal_body_conteudo .= "</ul>";
 	}
@@ -780,7 +783,7 @@
 	$template_modal_titulo = 'Suas participações no fórum';
 	$template_modal_body_conteudo = false;
 	if ($comentarios->num_rows > 0) {
-		$template_modal_body_conteudo .= "<ul class='list-group'>";
+		$template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
 		while ($row = $comentarios->fetch_assoc()) {
 			$forum_pagina_id = $row['pagina_id'];
 			$forum_pagina_tipo = $row['pagina_tipo'];
@@ -788,7 +791,7 @@
 			$forum_pagina_titulo = $forum_pagina_info[6];
 			$forum_pagina_tipo = $forum_pagina_info[2];
 			$list_color = return_list_color_page_type($forum_pagina_tipo);
-			$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$forum_pagina_id' title='$forum_pagina_tipo'><li class='list-group-item list-group-item-action $list_color'>$forum_pagina_titulo</li></a>";
+			$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$forum_pagina_id' title='$forum_pagina_tipo' class='mt-1'><li class='list-group-item list-group-item-action $list_color'>$forum_pagina_titulo</li></a>";
 		}
 		$template_modal_body_conteudo .= "</ul>";
 	}
@@ -799,14 +802,14 @@
 		$template_modal_div_id = 'modal_bookmarks';
 		$template_modal_titulo = 'Lista de leitura';
 		$template_modal_body_conteudo = false;
-		$template_modal_body_conteudo .= "<ul class='list-group'>";
+		$template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
 		while ($bookmark = $bookmarks->fetch_assoc()) {
 			$bookmark_pagina_id = $bookmark['pagina_id'];
 			$bookmark_info = return_pagina_info($bookmark_pagina_id);
 			$bookmark_titulo = $bookmark_info[6];
 			$bookmark_tipo = $bookmark_info[2];
 			$list_color = return_list_color_page_type($bookmark_tipo);
-			$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$bookmark_pagina_id' title='$bookmark_tipo'><li class='list-group-item list-group-item-action $list_color'>$bookmark_titulo</li></a>";
+			$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$bookmark_pagina_id' title='$bookmark_tipo' class='mt-1'><li class='list-group-item list-group-item-action $list_color'>$bookmark_titulo</li></a>";
 		}
 		$template_modal_body_conteudo .= "</ul>";
 		$template_modal_show_buttons = false;

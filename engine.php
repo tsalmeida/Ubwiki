@@ -2076,5 +2076,13 @@
 		}
 	}
 
+	function crop_text($text, $ch_limit) {
+		$first_section = substr($text, 0, $ch_limit);
+		$last_space_position = strrpos($first_section, ' ');
+		$cropped = substr($first_section, 0, $last_space_position);
+		$cropped .= '...';
+		return $cropped;
+	}
+	
 
 ?>

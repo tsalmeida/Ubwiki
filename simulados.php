@@ -332,7 +332,7 @@
 
 ?>
 
-<body class="carrara">
+<body class="grey lighten-5">
 <?php
 	include 'templates/navbar.php';
 ?>
@@ -355,7 +355,6 @@
 					<?php
 						$template_id = 'sessao_simulados';
 						$template_titulo = 'Plataforma de simulados';
-						$template_classes = 'esconder_sessao';
 						$template_conteudo_class = 'justify-content-start';
 						$template_conteudo_no_col = true;
 						$template_conteudo = false;

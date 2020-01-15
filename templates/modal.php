@@ -21,10 +21,16 @@
 	if (!isset($template_modal_show_buttons)) {
 		$template_modal_show_buttons = true;
 	}
+	if (!isset($modal_scrollable)) {
+		$modal_scrollable = false;
+	}
+	if ($modal_scrollable == true) {
+		$modal_scrollable = 'modal-dialog-scrollable';
+	}
 	
 	echo "<div class='modal fade' id='$template_modal_div_id' role='dialog' tabindex='-1'>";
 	echo "
-    <div class='modal-dialog modal-dialog-scrollable modal-lg min-w70' role='document'>";
+    <div class='modal-dialog $modal_scrollable modal-lg' role='document'>";
 	
 	if ($template_modal_show_buttons == true) {
 		echo "
