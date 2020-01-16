@@ -195,7 +195,7 @@
 			}
 		}
 		$original_titulo = $original_info[6];
-		$original_texto_id = return_texto_id('texto', 'anotacoes', $original_id);
+		$original_texto_id = return_texto_id('texto', 'anotacoes', $original_id, $user_id);
 		$original_texto_info = return_texto_info($original_texto_id);
 		$original_texto_html = $original_texto_info[5];
 	}
