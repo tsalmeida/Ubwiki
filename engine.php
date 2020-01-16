@@ -2084,5 +2084,48 @@
 		return $cropped;
 	}
 	
+	function return_produto_info($pagina_id) {
+		include 'templates/criar_conn.php';
+		if ($pagina_id == false) {
+			return false;
+		}
+		$verbete_texto = false;
+		$pagina_titulo = return_pagina_titulo($pagina_id);
+		$textos = $conn->query("SELECT verbete_text FROM Textos WHERE pagina_id = $pagina_id");
+		if ($textos->num_rows > 0) {
+			while ($texto = $textos->fetch_assoc()) {
+				$verbete_texto = $texto['verbete_text'];
+				break;
+			}
+		}
+		if ($pagina_titulo != false) {
+			return array($pagina_titulo, $verbete_texto);
+		} else {
+			return false;
+		}
+	}
+	
+	function return_produto_imagem($pagina_id) {
+		include 'templates/criar_conn.php';
+		$imagens = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'imagem' ORDER BY id DESC");
+		if ($imagens->num_rows > 0) {
+			while ($imagem = $imagens->fetch_assoc()) {
+				$imagem_elemento_id = $imagem['elemento_id'];
+				return $imagem_elemento_id;
+			}
+		}
+		return false;
+	}
+	
+	function return_imagem_arquivo($elemento_id) {
+		$elemento_info = return_elemento_info($elemento_id);
+		if ($elemento_info == false) {
+			return false;
+		} else {
+			$elemento_arquivo = $elemento_info[11];
+			return $elemento_arquivo;
+		}
+		return false;
+	}
 
 ?>

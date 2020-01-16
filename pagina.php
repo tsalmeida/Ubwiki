@@ -271,6 +271,11 @@
 		$conn->query("INSERT INTO Compartilhamento (user_id, item_id, item_tipo, compartilhamento, recipiente_id) VALUES ($user_id, $pagina_id, '$pagina_tipo', 'grupo', $compartilhar_grupo_id)");
 	}
 	
+	if (isset($_POST['produto_nova_imagem'])) {
+		$produto_nova_imagem_elemento_id = $_POST['produto_nova_imagem'];
+		$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo) VALUES ($pagina_id, 'produto', $produto_nova_imagem_elemento_id, 'imagem')");
+	}
+	
 	if ((($pagina_tipo == 'elemento') || ($pagina_tipo == 'pagina')) && ($pagina_compartilhamento != 'escritorio') || ($pagina_tipo == 'grupo')) {
 		$carregar_secoes = true;
 	} else {
@@ -304,6 +309,9 @@
 						if ((($pagina_tipo == 'sistema') && ($user_tipo == 'admin')) || (($pagina_tipo == 'pagina') || ($pagina_user_id == $user_id)) || ((($pagina_tipo == 'curso') || ($pagina_tipo == 'materia') || ($pagina_tipo == 'topico')) && ($pagina_curso_user_id == $user_id)) || (($pagina_tipo == 'texto') && ($pagina_user_id = $user_id) && ($texto_page_id == 0)) || (($pagina_tipo == 'resposta') && ($pagina_user_id == $user_id)) || (($pagina_tipo == 'secao') && ($pagina_user_id == $user_id))) {
 							$modal_pagina_dados = true;
 							echo "<span id='pagina_dados' class='mx-1' title='Editar dados'><a href='javascript:void(0);' data-toggle='modal' data-target='#modal_pagina_dados' class='text-success'><i class='fad fa-info-circle fa-fw fa-2x'></i></a></span>";
+							if ($pagina_subtipo == 'produto') {
+								echo "<span id='produto_imagem' class='mx-1' title='Imagem do produto'><a href='javascript:void(0)' data-toggle='modal' data-target='#modal_produto_nova_imagem' class='text-danger'><i class='fad fa-image-polaroid fa-fw fa-2x'></i></a></span>";
+							}
 						}
 						if ($pagina_tipo == 'texto') {
 							if ($respostas->num_rows > 0) {
@@ -677,7 +685,7 @@
 				
 				if ($pagina_tipo == 'curso') {
 					echo '<div id="coluna_unica" class="col-lg-10 col-md-12 pagina_coluna">';
-	                  include 'pagina/curso.php';
+					include 'pagina/curso.php';
 					echo '</div>';
 				}
 			?>
@@ -849,22 +857,20 @@
 		} elseif ($pagina_tipo == 'topico') {
 			$mudar_titulo_texto = 'deste tópico';
 		}
-		if ($modal_pagina_dados == true) {
-			$template_modal_div_id = 'modal_pagina_dados';
-			$template_modal_titulo = "Alterar dados $mudar_titulo_texto";
-			$template_modal_body_conteudo = false;
-			$template_modal_body_conteudo .= "
-            <div class='md-form mb-2'>
-                <input type='text' id='pagina_novo_titulo' name='pagina_novo_titulo'
-                       class='form-control validate' value='$pagina_titulo' required>
-                <label data-error='inválido' data-success='válido'
-                       for='pagina_novo_titulo'>Novo título</label>
-            </div>
-        	";
-		}
+		$template_modal_div_id = 'modal_pagina_dados';
+		$template_modal_titulo = "Alterar dados $mudar_titulo_texto";
+		$template_modal_body_conteudo = false;
+		$template_modal_body_conteudo .= "
+        <div class='md-form mb-2'>
+            <input type='text' id='pagina_novo_titulo' name='pagina_novo_titulo'
+                   class='form-control validate' value='$pagina_titulo' required>
+            <label data-error='inválido' data-success='válido'
+                   for='pagina_novo_titulo'>Novo título</label>
+        </div>
+        ";
 		
 		if (isset($secoes)) {
-			if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id) && ($secoes->num_rows == 0) && ($pagina_tipo == 'pagina') && ($pagina_titulo != false)) {
+			if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id) && ($secoes->num_rows == 0) && ($pagina_tipo == 'pagina') && ($pagina_titulo != false) && ($pagina_subtipo != 'produto')) {
 				$modal_novo_curso = true;
 				$template_modal_body_conteudo .= "
 		        <span data-toggle='modal' data-target='#modal_pagina_dados'>
@@ -890,6 +896,28 @@
 	            <label data-error='inválido' data-success='válido' for='pagina_novo_titulo'>Novo título</label>
             </div>
 	    ";
+		include 'templates/modal.php';
+	}
+	
+	if ($pagina_subtipo == 'produto') {
+		$template_modal_div_id = 'modal_produto_nova_imagem';
+		$template_modal_titulo = 'Determinar imagem para o cartão do produto';
+		$template_modal_body_conteudo = false;
+		$template_modal_body_conteudo .= "
+            <div class='md-form mb-2'>
+				<p>Selecione uma entre as imagens desta página para fazer parte do cartão de oferta deste produto na Loja Virtual:</p>
+            	<select class='$select_classes' name='produto_nova_imagem'>
+            	<option value='' disabled selected>Selecione uma imagem:</option>
+           ";
+		foreach($imagem_opcoes as $imagem_opcao) {
+			$imagem_opcao_id = $imagem_opcao[0];
+			$imagem_opcao_titulo = $imagem_opcao[1];
+			$template_modal_body_conteudo .= "<option value='$imagem_opcao_id'>$imagem_opcao_titulo</option>";
+		}
+		$template_modal_body_conteudo .= "
+            </select>
+            </div>
+           ";
 		include 'templates/modal.php';
 	}
 	

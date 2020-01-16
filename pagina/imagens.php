@@ -7,11 +7,15 @@
 		$template_botoes = false;
 		$template_conteudo = false;
 		$active = 'active';
+		if ($pagina_subtipo == 'produto') {
+			$imagem_opcoes = array();
+		}
 		while ($imagem = $imagens->fetch_assoc()) {
 			$elemento_id = $imagem['elemento_id'];
-			$elementos = $conn->query("SELECT titulo, arquivo, estado, compartilhamento, user_id FROM Elementos WHERE id = $elemento_id");
+			$elementos = $conn->query("SELECT titulo, arquivo, estado, compartilhamento, user_id, id FROM Elementos WHERE id = $elemento_id");
 			if ($elementos->num_rows > 0) {
 				while ($elemento = $elementos->fetch_assoc()) {
+					$imagem_elemento_id = $elemento['id'];
 					$imagem_titulo = $elemento['titulo'];
 					$imagem_arquivo = $elemento['arquivo'];
 					$imagem_estado = $elemento['estado'];
@@ -26,6 +30,10 @@
 						continue;
 					} else {
 						$count++;
+					}
+					if (isset($imagem_opcoes)) {
+						$imagem_opcao = array($imagem_elemento_id, $imagem_titulo);
+						array_push($imagem_opcoes, $imagem_opcao);
 					}
 					if ($count == 1) {
 						$template_conteudo .= "
@@ -67,5 +75,5 @@
 		}
 		include 'templates/page_element.php';
 	}
-
+	
 	?>
