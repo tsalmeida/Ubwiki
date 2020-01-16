@@ -81,23 +81,6 @@
 									include 'templates/page_element.php';
 									
 								}
-								$template_id = 'espaco_zeitgeist';
-								$template_titulo = 'Espaço Zeitgeist';
-								$template_conteudo_class = 'justify-content-start';
-								$template_conteudo_no_col = true;
-								$template_conteudo = false;
-								
-								$template_conteudo .= "
-									<div class='container-fluid'>
-										<div class='row justify-content-start'>
-											<div class='col'>
-											<p class='p-limit'>Os cursos do Espaço Zeitgeist são ministrados pelo professor Rômulo e voltados a estudantes do CACD. Incluem conteúdo de História do Brasil, História Mundial e História da Política Exterior Brasileira.</p>
-											</div>
-										</div>
-									</div>
-								";
-								
-								include 'templates/page_element.php';
 							?>
             </div>
         </div>
