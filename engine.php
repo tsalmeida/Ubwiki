@@ -1880,19 +1880,26 @@
 		}
 	}
 	
-	function return_texto_id($pagina_tipo, $template_id, $pagina_id)
+	function return_texto_id($pagina_tipo, $template_id, $pagina_id, $user_id)
 	{
 		include 'templates/criar_conn.php';
 		if ($pagina_tipo == 'texto') {
 			$textos = $conn->query("SELECT id FROM Textos WHERE pagina_tipo IS NULL AND texto_pagina_id = $pagina_id AND tipo = '$template_id'");
 		} else {
-			$textos = $conn->query("SELECT id FROM Textos WHERE pagina_tipo = '$pagina_tipo' AND pagina_id = $pagina_id AND tipo = '$template_id'");
+			if ($template_id == 'anotacoes') {
+				$query_extra = " AND user_id = $user_id";
+			} else {
+				$query_extra = false;
+			}
+			$textos = $conn->query("SELECT id FROM Textos WHERE pagina_tipo = '$pagina_tipo' AND pagina_id = $pagina_id AND tipo = '$template_id'$query_extra");
 		}
 		if ($textos->num_rows > 0) {
 			while ($texto = $textos->fetch_assoc()) {
 				$texto_id = $texto['id'];
 				return $texto_id;
 			}
+		} else {
+			return false;
 		}
 		return false;
 	}
@@ -2062,9 +2069,12 @@
 		$quill_texto_page_id = $_POST['quill_texto_page_id'];
 		$quill_pagina_tipo = $_POST['quill_pagina_tipo'];
 		if ($quill_texto_id != 0) {
+			error_log('this happened');
+			error_log("UPDATE Textos SET verbete_html = '$quill_novo_verbete_html', verbete_text = '$quill_novo_verbete_text', verbete_content = '$quill_novo_verbete_content' WHERE id = $quill_texto_id");
 			$check = $conn->query("UPDATE Textos SET verbete_html = '$quill_novo_verbete_html', verbete_text = '$quill_novo_verbete_text', verbete_content = '$quill_novo_verbete_content' WHERE id = $quill_texto_id");
 			$conn->query("INSERT INTO Textos_arquivo (curso_id, tipo, page_id, pagina_id, pagina_tipo, estado_texto, verbete_html, verbete_text, verbete_content, user_id) VALUES ($curso_id, '$quill_texto_tipo', $quill_texto_page_id, $quill_pagina_id, '$quill_pagina_tipo', 1, '$quill_novo_verbete_html', '$quill_novo_verbete_text', '$quill_novo_verbete_content', $user_id)");
 		} else {
+			error_log('or this happened');
 			$conn->query("UPDATE Paginas SET estado = 1 WHERE id = $quill_pagina_id");
 			$check = $conn->query("INSERT INTO Textos (curso_id, tipo, page_id, pagina_id, pagina_tipo, estado_texto, verbete_html, verbete_text, verbete_content, user_id) VALUES ($curso_id, '$quill_texto_tipo', $quill_texto_page_id, $quill_pagina_id, '$quill_pagina_tipo', 1, '$quill_novo_verbete_html', '$quill_novo_verbete_text', '$quill_novo_verbete_content', $user_id)");
 			$conn->query("INSERT INTO Textos_arquivo (curso_id, tipo, page_id, pagina_id, pagina_tipo, estado_texto, verbete_html, verbete_text, verbete_content, user_id) VALUES ($curso_id, '$quill_texto_tipo', $quill_texto_page_id, $quill_pagina_id, '$quill_pagina_tipo', 1, '$quill_novo_verbete_html', '$quill_novo_verbete_text', '$quill_novo_verbete_content', $user_id)");

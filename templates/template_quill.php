@@ -69,7 +69,7 @@
 	}
 	
 	if (!isset($pagina_texto_id)) {
-		$quill_texto_id = return_texto_id($pagina_tipo, $template_id, $pagina_id);
+		$quill_texto_id = return_texto_id($pagina_tipo, $template_id, $pagina_id, $user_id);
 	} else {
 		$quill_texto_id = $pagina_texto_id;
 	}
