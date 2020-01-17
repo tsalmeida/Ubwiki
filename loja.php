@@ -66,6 +66,7 @@
 										$produto_nao_publicado_do_usuario_pagina_id = $produto_nao_publicados_do_usuario['id'];
 										$produto_nao_publicado_do_usuario_pagina_info = return_produto_info($produto_nao_publicado_do_usuario_pagina_id);
 										$produto_nao_publicado_do_usuario_titulo = $produto_nao_publicado_do_usuario_pagina_info[0];
+										$produto_nao_publicado_do_usuario_preco = $produto_nao_publicado_do_usuario_pagina_info[2];
 										$produto_nao_publicado_do_usuario_imagem = return_produto_imagem($produto_nao_publicado_do_usuario_pagina_id);
 										$produto_nao_publicado_do_usuario_imagem = return_imagem_arquivo($produto_nao_publicado_do_usuario_imagem);
 										$produto_nao_publicado_do_usuario_imagem = "../imagens/verbetes/thumbnails/$produto_nao_publicado_do_usuario_imagem";
@@ -75,6 +76,7 @@
 										$produto_titulo = $produto_nao_publicado_do_usuario_titulo;
 										$produto_apresentacao = $produto_nao_publicado_do_usuario_apresentacao;
 										$produto_imagem = $produto_nao_publicado_do_usuario_imagem;
+										$produto_preco = $produto_nao_publicado_do_usuario_preco;
 										$template_conteudo .= include 'templates/produto.php';
 									}
 									

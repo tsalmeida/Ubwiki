@@ -198,6 +198,7 @@
 		$original_texto_id = return_texto_id('texto', 'anotacoes', $original_id, $user_id);
 		$original_texto_info = return_texto_info($original_texto_id);
 		$original_texto_html = $original_texto_info[5];
+		error_log($original_texto_id);
 	}
 	
 	if ($pagina_tipo == 'elemento') {
@@ -273,7 +274,12 @@
 	
 	if (isset($_POST['produto_nova_imagem'])) {
 		$produto_nova_imagem_elemento_id = $_POST['produto_nova_imagem'];
-		$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo) VALUES ($pagina_id, 'produto', $produto_nova_imagem_elemento_id, 'imagem')");
+		$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, user_id) VALUES ($pagina_id, 'produto', $produto_nova_imagem_elemento_id, 'imagem', $user_id)");
+	}
+	
+	if (isset($_POST['novo_produto_preco'])) {
+		$novo_produto_preco = $_POST['novo_produto_preco'];
+		$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($pagina_id, 'produto', 'preco', $novo_produto_preco, $user_id)");
 	}
 	
 	if ((($pagina_tipo == 'elemento') || ($pagina_tipo == 'pagina')) && ($pagina_compartilhamento != 'escritorio') || ($pagina_tipo == 'grupo')) {
@@ -309,8 +315,11 @@
 						if ((($pagina_tipo == 'sistema') && ($user_tipo == 'admin')) || (($pagina_tipo == 'pagina') || ($pagina_user_id == $user_id)) || ((($pagina_tipo == 'curso') || ($pagina_tipo == 'materia') || ($pagina_tipo == 'topico')) && ($pagina_curso_user_id == $user_id)) || (($pagina_tipo == 'texto') && ($pagina_user_id = $user_id) && ($texto_page_id == 0)) || (($pagina_tipo == 'resposta') && ($pagina_user_id == $user_id)) || (($pagina_tipo == 'secao') && ($pagina_user_id == $user_id))) {
 							$modal_pagina_dados = true;
 							echo "<span id='pagina_dados' class='mx-1' title='Editar dados'><a href='javascript:void(0);' data-toggle='modal' data-target='#modal_pagina_dados' class='text-success'><i class='fad fa-info-circle fa-fw fa-2x'></i></a></span>";
+							$carregar_produto_setup = false;
 							if ($pagina_subtipo == 'produto') {
+								$carregar_produto_setup = true;
 								echo "<span id='produto_imagem' class='mx-1' title='Imagem do produto'><a href='javascript:void(0)' data-toggle='modal' data-target='#modal_produto_nova_imagem' class='text-danger'><i class='fad fa-image-polaroid fa-fw fa-2x'></i></a></span>";
+								echo "<span id='produto_preco' class='mx-1' title='Preço do produto'><a href='javascript:void(0);' data-toggle='modal' data-target='#modal_produto_preco' class='text-warning'><i class='fad fa-usd-circle fa-fw fa-2x'></i></a></span>";
 							}
 						}
 						if ($pagina_tipo == 'texto') {
@@ -371,6 +380,9 @@
 						} elseif ($pagina_tipo == 'secao') {
 							echo "<span id='secoes' class='mx-1' title='Página e seções' data-toggle='modal' data-target='#modal_paginas_relacionadas'><a href='javascript:void(0);'><i class='fad fa-project-diagram fa-fw'></i></a></span>";
 						}
+						if ($pagina_subtipo == 'produto') {
+						    echo "<span id='adicionar_carrinho' class='mx-1' title='Adicionar este produto a seu carrinho'><a href='javascript:void(0);' class='text-success'><i class='fad fa-cart-plus fa-fw fa-2x'></i></a></span>";
+                        }
 					?>
         </div>
         <div class='py-2 text-right col'>
@@ -558,7 +570,7 @@
 							include 'pagina/materia.php';
 						} elseif ($pagina_tipo == 'texto') {
 							$template_id = $texto_tipo;
-							$template_titulo = $pagina_titulo;
+							$template_titulo = false;
 							$template_conteudo_no_col = true;
 							$template_p_limit = false;
 							$template_quill_initial_state = 'edicao';
@@ -856,7 +868,9 @@
 			$mudar_titulo_texto = 'desta matéria';
 		} elseif ($pagina_tipo == 'topico') {
 			$mudar_titulo_texto = 'deste tópico';
-		}
+		} else {
+		    $mudar_titulo_texto = 'deste documento';
+        }
 		$template_modal_div_id = 'modal_pagina_dados';
 		$template_modal_titulo = "Alterar dados $mudar_titulo_texto";
 		$template_modal_body_conteudo = false;
@@ -899,7 +913,7 @@
 		include 'templates/modal.php';
 	}
 	
-	if ($pagina_subtipo == 'produto') {
+	if (($pagina_subtipo == 'produto') && ($carregar_produto_setup == true)) {
 		$template_modal_div_id = 'modal_produto_nova_imagem';
 		$template_modal_titulo = 'Determinar imagem para o cartão do produto';
 		$template_modal_body_conteudo = false;
@@ -919,6 +933,18 @@
             </div>
            ";
 		include 'templates/modal.php';
+		
+		$template_modal_div_id = 'modal_produto_preco';
+		$template_modal_titulo = 'Determinar preço deste produto';
+		$template_modal_body_conteudo = false;
+		$template_modal_body_conteudo .= "
+			<div class='md-form mb-2'>
+				<p>Escreva abaixo o preço deste produto em Reais brasileiros (BRL).</p>
+				<input type='number' name='novo_produto_preco' id='novo_produto_preco'>
+			</div>
+		";
+		include 'templates/modal.php';
+		
 	}
 	
 	include 'templates/etiquetas_modal.php';

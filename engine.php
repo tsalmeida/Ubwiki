@@ -2069,12 +2069,9 @@
 		$quill_texto_page_id = $_POST['quill_texto_page_id'];
 		$quill_pagina_tipo = $_POST['quill_pagina_tipo'];
 		if ($quill_texto_id != 0) {
-			error_log('this happened');
-			error_log("UPDATE Textos SET verbete_html = '$quill_novo_verbete_html', verbete_text = '$quill_novo_verbete_text', verbete_content = '$quill_novo_verbete_content' WHERE id = $quill_texto_id");
 			$check = $conn->query("UPDATE Textos SET verbete_html = '$quill_novo_verbete_html', verbete_text = '$quill_novo_verbete_text', verbete_content = '$quill_novo_verbete_content' WHERE id = $quill_texto_id");
 			$conn->query("INSERT INTO Textos_arquivo (curso_id, tipo, page_id, pagina_id, pagina_tipo, estado_texto, verbete_html, verbete_text, verbete_content, user_id) VALUES ($curso_id, '$quill_texto_tipo', $quill_texto_page_id, $quill_pagina_id, '$quill_pagina_tipo', 1, '$quill_novo_verbete_html', '$quill_novo_verbete_text', '$quill_novo_verbete_content', $user_id)");
 		} else {
-			error_log('or this happened');
 			$conn->query("UPDATE Paginas SET estado = 1 WHERE id = $quill_pagina_id");
 			$check = $conn->query("INSERT INTO Textos (curso_id, tipo, page_id, pagina_id, pagina_tipo, estado_texto, verbete_html, verbete_text, verbete_content, user_id) VALUES ($curso_id, '$quill_texto_tipo', $quill_texto_page_id, $quill_pagina_id, '$quill_pagina_tipo', 1, '$quill_novo_verbete_html', '$quill_novo_verbete_text', '$quill_novo_verbete_content', $user_id)");
 			$conn->query("INSERT INTO Textos_arquivo (curso_id, tipo, page_id, pagina_id, pagina_tipo, estado_texto, verbete_html, verbete_text, verbete_content, user_id) VALUES ($curso_id, '$quill_texto_tipo', $quill_texto_page_id, $quill_pagina_id, '$quill_pagina_tipo', 1, '$quill_novo_verbete_html', '$quill_novo_verbete_text', '$quill_novo_verbete_content', $user_id)");
@@ -2108,8 +2105,16 @@
 				break;
 			}
 		}
+		$produto_preco = false;
+		$precos = $conn->query("SELECT extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'preco'");
+		if ($precos->num_rows > 0) {
+			while ($preco = $precos->fetch_assoc()) {
+				$produto_preco = $preco['extra'];
+				break;
+			}
+		}
 		if ($pagina_titulo != false) {
-			return array($pagina_titulo, $verbete_texto);
+			return array($pagina_titulo, $verbete_texto, $produto_preco);
 		} else {
 			return false;
 		}

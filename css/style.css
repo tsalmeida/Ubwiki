@@ -326,4 +326,12 @@ blockquote + * {
   background-size: cover;
 }
 
+.produto-preco {
+  width: fit-content;
+}
+
+.line-height-1 {
+  line-height: 1 !important;
+}
+
 /*# sourceMappingURL=style.css.map */
