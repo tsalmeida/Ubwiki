@@ -21,7 +21,7 @@
 		$user_email = $_SESSION['user_email'];
 	}
 	if (!isset($user_email)) {
-		error_log('user email not set, set to false')
+		error_log('user email not set, set to false');
 		$user_email = false;
 	}
 	if (($user_email == false) && ($pagina_tipo != 'logout') && ($pagina_tipo != 'login') && ($pagina_tipo != 'index')) {
