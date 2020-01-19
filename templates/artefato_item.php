@@ -54,7 +54,7 @@
 	}
 
 	if (!isset($fa_size)) {
-		$fa_size = 'fa-4x';
+		$fa_size = 'fa-5x';
 	}
 
 	if (!isset($artefato_col_limit)) {
