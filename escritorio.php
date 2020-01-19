@@ -93,16 +93,15 @@
 <div class='container-fluid'>
     <div class='row justify-content-between px-2'>
 			<?php
-				echo "<div class='col-3 mt-3'><div class='row justify-content-start'>";
-				echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_opcoes' class='mr-1 text-info'><i class='fad fa-user-cog fa-2x fa-fw'></i></a>";
-				echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_apresentacao' class='ml-1 text-info'><i class='fad fa-door-closed fa-2x fa-fw'></i></a>";
+				echo "<div class='col-3'><div class='row justify-content-start'>";
+				echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_opcoes' class='p-1 text-info rounded artefato'><i class='fad fa-user-cog fa-2x fa-fw'></i></a>";
+				echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_apresentacao' class='p-1 text-info rounded artefato'><i class='fad fa-door-closed fa-2x fa-fw'></i></a>";
 				if ($user_tipo == 'admin') {
-				    echo "<a href='loja.php' class='ml-2 text-info'><i class='fad fa-bags-shopping fa-2x fa-fw'></i></a>";
+				    echo "<a href='loja.php' class='p-1 text-info rounded artefato'><i class='fad fa-bags-shopping fa-2x fa-fw'></i></a>";
 				}
 				echo "</div></div>";
-				echo "<div class='col-6 mt-3'><div class='row justify-content-center'>";
+				echo "<div class='col-6'><div class='row justify-content-center'>";
 				echo "
-                    <div class='row' class='justify-content-center'>
                       <a id='escritorio_home' href='javascript:void(0);' class='p-1 rounded text-muted artefato' title='Retornar à página inicial'><i class='fad fa-lamp-desk fa-2x fa-fw'></i></a>
                       <a id='mostrar_textos' href='javascript:void(0);' class='p-1 rounded text-primary artefato' title='Pressione para ver seus textos e notas privadas'><i class='fad fa-typewriter fa-2x fa-fw'></i></a>
                       <a id='mostrar_imagens' href='javascript:void(0);' class='p-1 rounded text-danger artefato' title='Pressione para ver suas imagens públicas'><i class='fad fa-images fa-2x fa-fw'></i></a>
@@ -115,19 +114,19 @@
                   ";
 				}
 				
-				echo "</div></div></div>";
-				echo "<div class='col-3 mt-3'><div class='row justify-content-end'>";
+				echo "</div></div>";
+				echo "<div class='col-3'><div class='row justify-content-end'>";
 				if ($comentarios->num_rows > 0) {
-					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_forum' class='ml-1 text-secondary'><i class='fad fa-comments-alt fa-2x fa-fw'></i></a>";
+					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_forum' class='p-1 text-secondary rounded artefato'><i class='fad fa-comments-alt fa-2x fa-fw'></i></a>";
 				}
 				if ($completados->num_rows > 0) {
-					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_completados' class='ml-1 text-success'><i class='fad fa-check-circle fa-2x fa-fw'></i></a>";
+					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_completados' class='p-1 text-success rounded artefato'><i class='fad fa-check-circle fa-2x fa-fw'></i></a>";
 				}
 				if ($bookmarks->num_rows > 0) {
-					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_bookmarks' class='ml-1 text-danger'><i class='fad fa-bookmark fa-2x fa-fw'></i></a>";
+					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_bookmarks' class='p-1 text-danger rounded artefato'><i class='fad fa-bookmark fa-2x fa-fw'></i></a>";
 				}
 				if ($verbetes_escritos->num_rows > 0) {
-					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_verbetes' class='ml-1 text-warning'><i class='fad fa-spa fa-2x fa-fw'></i></a>";
+					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_verbetes' class='p-1 text-warning rounded artefato'><i class='fad fa-spa fa-2x fa-fw'></i></a>";
 				}
 				echo "</div></div>";
 			?>

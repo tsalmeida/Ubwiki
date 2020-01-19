@@ -1438,7 +1438,7 @@
 			$fa_icone = $fa_icone_plus;
 			$fa_primary_color = 'text-info';
 		} elseif ($artefato_tipo == 'curso') {
-			$fa_icone = 'fa-diploma';
+			$fa_icone = 'fa-book-reader';
 			$fa_primary_color = 'text-default';
 		} elseif ($artefato_tipo == 'adicionar_dados_provas') {
 			$fa_icone = 'fa-ballot-check';

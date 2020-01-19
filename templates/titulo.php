@@ -34,7 +34,7 @@
 	}
 	if ($template_titulo_escritorio == true) {
 		echo "
-			<span class='text-muted d-block mt-3'><em><h4>Escritório de</h4></em></span>
+			<span class='text-muted d-block mt-3'><em><h4 class='mb-0'>Escritório de</h4></em></span>
 		";
 	}
 	if ($display_level != false) {
