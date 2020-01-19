@@ -31,6 +31,7 @@
 						$template_classes = 'justify-content-center';
 						$template_conteudo .= "
                             <form method='post' name='form_login' id='form_login'>
+                                <p id='thinkific_transfer' class='collapse'>Não é mais necessário passar pela página do Grupo Ubique para acessar a Ubwiki. Crie uma senha abaixo.</p>
                                 <p id='thinkific_senha_existe' class='collapse'>Porque você já criou uma senha, não é mais necessário passar pela página do Grupo Ubique para acessar a Ubwiki. Digite sua senha abaixo.</p>
                                 <p id='thinkific_senha_incorreta' class='collapse'>Senha incorreta. Trata-se da senha que você criou na Ubwiki, não da sua senha na página do Grupo Ubique.</p>
                                 <p id='login_mensagem_basica' class='collapse'>Para acessar ou criar uma conta, digite seu email abaixo.</p>
