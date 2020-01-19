@@ -91,7 +91,7 @@
 			}
 		}
 	}
-	if (isset($user_email)) {
+	if ($user_email != false) {
 		$usuarios = $conn->query("SELECT id, tipo, criacao, apelido, nome, sobrenome FROM Usuarios WHERE email = '$user_email'");
 		if ($usuarios->num_rows > 0) {
 			while ($usuario = $usuarios->fetch_assoc()) {
