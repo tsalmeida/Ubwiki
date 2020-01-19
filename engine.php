@@ -26,13 +26,14 @@
 		error_log('user email not set, set to false');
 		$user_email = false;
 	}
-	if ((!isset($_POST['login_email'])) && (!isset($_POST['thinkific_login']))) {
-		if (($user_email == false) && ($pagina_tipo != 'logout') && ($pagina_tipo != 'login') && ($pagina_tipo != 'index')) {
-			error_log('a bunch of conditionals, redirected to logout.php');
-			header('Location:logout.php');
+	if (!isset($_SESSION['user_email'])) {
+		if ((!isset($_POST['login_email'])) && (!isset($_POST['thinkific_login']))) {
+			if (($user_email == false) && ($pagina_tipo != 'logout') && ($pagina_tipo != 'login') && ($pagina_tipo != 'index')) {
+				error_log('a bunch of conditionals, redirected to logout.php');
+				header('Location:logout.php');
+			}
 		}
 	}
-	
 	include 'templates/criar_conn.php';
 	
 	if (isset($_POST['thinkific_login'])) {
