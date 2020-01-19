@@ -13,11 +13,12 @@
 		session_start();
 	}
 	
+	/*
 	if ($pagina_tipo != 'login') {
 		if ((!isset($_POST['thinkific_log'])) && (!isset($_POST['login_email']))) {
 			header('Location:login.php');
 		}
-	}
+	}*/
 	
 	if (!isset($user_email)) {
 		error_log('user email not set, set to false');
@@ -114,12 +115,14 @@
 	}
 	if ($user_email != false) {
 		error_log('user email not false');
+		error_log("user email: $user_email");
 		$usuarios = $conn->query("SELECT id, tipo, criacao, apelido, nome, sobrenome FROM Usuarios WHERE email = '$user_email'");
 		if ($usuarios->num_rows > 0) {
 			while ($usuario = $usuarios->fetch_assoc()) {
 				$user_id = $usuario['id'];
 				$user_tipo = $usuario['tipo'];
 				$user_criacao = $usuario['criacao'];
+				error_log('Dados do usuário foram encontrados');
 				$user_apelido = $usuario['apelido'];
 				$user_nome = $usuario['nome'];
 				$user_sobrenome = $usuario['sobrenome'];
