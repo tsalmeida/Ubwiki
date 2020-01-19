@@ -20,7 +20,7 @@
 		$user_email = $_SESSION['user_email'];
 	}
 	
-	if ($user_email == false) {
+	if (($user_email == false) && ($pagina_tipo != 'logout')) {
 		header('Location:logout.php');
 	}
 	
