@@ -20,6 +20,10 @@
 		$user_email = $_SESSION['user_email'];
 	}
 	
+	if ($user_email == false) {
+		header('Location:logout.php');
+	}
+	
 	include 'templates/criar_conn.php';
 	
 	if (isset($_POST['thinkific_login'])) {

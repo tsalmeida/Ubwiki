@@ -5,7 +5,7 @@
 	$pagina_tipo = 'escritorio';
 	$pagina_id = return_pagina_id($user_id, $pagina_tipo);
 	
-	if ($user_email == false) {
+	if (!isset($user_email)) {
 	    header('Location:login.php');
     }
 	
