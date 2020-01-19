@@ -201,6 +201,7 @@
 			echo "
                 <script type='text/javascript'>
                     $('#secao_login_thinkific_email').show();
+                    $('#thinkific_transfer').show();
                     $('#login_thinkific_email').val('$thinkific_email');
                     $('#secao_login_senha').show();
                     $('#secao_login_confirmacao').show();
