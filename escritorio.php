@@ -1,5 +1,7 @@
 <?php
 	
+    ERROR_LOG('ESCRITORIO.PHP COMECA A CARREGAR');
+    
 	include 'engine.php';
 	
 	$pagina_tipo = 'escritorio';

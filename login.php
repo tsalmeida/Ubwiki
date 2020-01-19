@@ -1,5 +1,7 @@
 <?php
 	
+    error_log('LOGIN.PHP COMECA A CARREGAR');
+	
 	$pagina_tipo = 'login';
 	$pagina_id = false;
 	error_log('engine sera incluido dentro do login.php');

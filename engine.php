@@ -1,4 +1,6 @@
 <?php
+	
+	error_log('ENGINE.PHP COMECA A CARREGAR');
 
 	if (!isset($pagina_tipo)) {
 		$pagina_tipo = false;

@@ -1,4 +1,5 @@
 <?php
+	error_log('index.php COMECA A CARREGAR');
 	if (!isset($_SESSION['user_email'])) {
 		$sessionpath = getcwd();
 		$sessionpath .= '/../sessions';
