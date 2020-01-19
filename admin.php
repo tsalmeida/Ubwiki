@@ -7,6 +7,9 @@
     }
 	
 	if (isset($_POST['trigger_atualizacao'])) {
+	    $conn->query("ALTER TABLE `Usuarios` ADD `senha` VARCHAR(255) NULL DEFAULT NULL AFTER `email`;");
+	    $conn->query("ALTER TABLE `Usuarios` ADD `origem` VARCHAR(255) NULL DEFAULT NULL AFTER `criacao`;");
+	    $conn->query("UPDATE Usuarios SET origem = 'thinkific'");
 	}
 	
 	if (isset($_POST['funcoes_gerais'])) {

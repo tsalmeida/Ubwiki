@@ -1,26 +1,90 @@
 <?php
+
+	if (!isset($pagina_tipo)) {
+		$pagina_tipo = false;
+	}
+	
 	if (!isset($_SESSION['user_email'])) {
 		$sessionpath = getcwd();
 		$sessionpath .= '/../sessions';
 		session_save_path($sessionpath);
-		session_start();
-	}
-	
-	include 'templates/criar_conn.php';
-	
-	if (!isset($_SESSION['user_email'])) {
-		if (!isset($_SESSION['redirecao'])) {
-			$_SESSION['redirecao'] = true;
-			$redirecao = $_SESSION['redirecao'];
-			header('Location:pagina.php?pagina_id=2'); // página que explica a necessidade de fazer login no site da Ubique.
-			exit();
-		} else {
-			unset($_SESSION['redirecao']);
+		if (session_status() == PHP_SESSION_NONE) {
+			session_start();
+		}
+		if ($pagina_tipo != 'login') {
+			if ((!isset($_POST['thinkific_log'])) && (!isset($_POST['login_email']))) {
+				header('Location:login.php');
+			}
 		}
 	} else {
 		$user_email = $_SESSION['user_email'];
 	}
 	
+	include 'templates/criar_conn.php';
+	
+	if (isset($_POST['thinkific_login'])) {
+		$thinkific_login = $_POST['thinkific_login'];
+		$thinkific_senha = $_POST['thinkific_senha'];
+		$encrypted = password_hash($thinkific_senha, PASSWORD_DEFAULT);
+		$set_password = $conn->query("UPDATE Usuarios SET senha = '$encrypted' WHERE email = '$thinkific_login'");
+		if ($set_password == true) {
+			echo true;
+		} else {
+			echo false;
+		}
+	}
+	
+	if (isset($_POST['login_email'])) {
+		$login_email = $_POST['login_email'];
+		$login_senha = $_POST['login_senha'];
+		$login_senha2 = false;
+		if (isset($_POST['login_senha2'])) {
+			$login_senha2 = $_POST['login_senha2'];
+		}
+		if ($login_senha2 == false) {
+			$login_origem = $_POST['login_origem'];
+			$hashes = $conn->query("SELECT senha, origem FROM Usuarios WHERE email = '$login_email'");
+			if ($hashes->num_rows > 0) {
+				while ($hash = $hashes->fetch_assoc()) {
+					$hash_senha = $hash['senha'];
+					$hash_origem = $hash['origem'];
+					$check = password_verify($login_senha, $hash_senha);
+					if ($check == true) {
+						$_SESSION['user_email'] = $login_email;
+						echo true;
+					} elseif (($hash_origem == 'thinkific') && (is_null($hash_senha))) {
+						echo 'thinkific';
+					} else {
+						echo false;
+					}
+				}
+			} else {
+				echo 'novo_usuario';
+			}
+		} else {
+			$encrypted = password_hash($login_senha, PASSWORD_DEFAULT);
+			$check = $conn->query("INSERT INTO Usuarios (tipo, email, senha) VALUES ('estudante', '$login_email', '$encrypted')");
+			if ($check == true) {
+				$_SESSION['user_email'] = $login_email;
+				echo true;
+			} else {
+				echo false;
+			}
+		}
+	}
+	
+	if (($pagina_tipo != 'login') && ($pagina_tipo != false)) {
+		if (!isset($_SESSION['user_email'])) {
+			if (!isset($_SESSION['redirecao'])) {
+				$_SESSION['redirecao'] = true;
+				$redirecao = $_SESSION['redirecao'];
+				header('Location:pagina.php?pagina_id=2'); // página que explica a necessidade de fazer login no site da Ubique.
+				exit();
+			} else {
+				unset($_SESSION['redirecao']);
+			}
+		}
+	}
 	if (isset($user_email)) {
 		$usuarios = $conn->query("SELECT id, tipo, criacao, apelido, nome, sobrenome FROM Usuarios WHERE email = '$user_email'");
 		if ($usuarios->num_rows > 0) {
@@ -1906,6 +1970,9 @@
 	
 	function return_compartilhamento($item_id, $user_id)
 	{
+		if (($item_id == false) || ($user_id == false)) {
+			return false;
+		}
 		include 'templates/criar_conn.php';
 		$membros = $conn->query("SELECT grupo_id FROM Membros WHERE membro_user_id = $user_id AND estado = 1");
 		if ($membros->num_rows > 0) {
@@ -2082,8 +2149,9 @@
 			echo true;
 		}
 	}
-
-	function crop_text($text, $ch_limit) {
+	
+	function crop_text($text, $ch_limit)
+	{
 		$first_section = substr($text, 0, $ch_limit);
 		$last_space_position = strrpos($first_section, ' ');
 		$cropped = substr($first_section, 0, $last_space_position);
@@ -2091,7 +2159,8 @@
 		return $cropped;
 	}
 	
-	function return_produto_info($pagina_id) {
+	function return_produto_info($pagina_id)
+	{
 		include 'templates/criar_conn.php';
 		if ($pagina_id == false) {
 			return false;
@@ -2120,7 +2189,8 @@
 		}
 	}
 	
-	function return_produto_imagem($pagina_id) {
+	function return_produto_imagem($pagina_id)
+	{
 		include 'templates/criar_conn.php';
 		$imagens = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'imagem' ORDER BY id DESC");
 		if ($imagens->num_rows > 0) {
@@ -2132,13 +2202,31 @@
 		return false;
 	}
 	
-	function return_imagem_arquivo($elemento_id) {
+	function return_imagem_arquivo($elemento_id)
+	{
 		$elemento_info = return_elemento_info($elemento_id);
 		if ($elemento_info == false) {
 			return false;
 		} else {
 			$elemento_arquivo = $elemento_info[11];
 			return $elemento_arquivo;
+		}
+		return false;
+	}
+	
+	function return_verbete_html($texto_id)
+	{
+		if ($texto_id == false) {
+			return false;
+		}
+		include 'templates/criar_conn.php';
+		$textos = $conn->query("SELECT verbete_html FROM Textos WHERE id = $texto_id");
+		if ($textos->num_rows > 0) {
+			while ($texto = $textos->fetch_assoc()) {
+				$texto_verbete_html = $texto['verbete_html'];
+				return $texto_verbete_html;
+				break;
+			}
 		}
 		return false;
 	}
