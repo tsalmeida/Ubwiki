@@ -19,7 +19,9 @@
 	} else {
 		$user_email = $_SESSION['user_email'];
 	}
-	
+	if (!isset($user_email)) {
+		$user_email = false;
+	}
 	if (($user_email == false) && ($pagina_tipo != 'logout') && ($pagina_tipo != 'login') && ($pagina_tipo != 'index')) {
 		header('Location:logout.php');
 	}
