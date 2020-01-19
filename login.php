@@ -4,9 +4,10 @@
 	$pagina_id = false;
 	include 'engine.php';
 	include 'templates/html_head.php';
-	if (isset($_POST['email'])) {
-		$thinkific_email = $_SESSION['email'];
-		$thinkific_bora = $_SESSION['bora'];
+	if (isset($_POST['thinkific_email'])) {
+		$thinkific_email = $_SESSION['thinkific_email'];
+		$thinkific_bora = $_SESSION['thinkific_bora'];
+		error_log("this happened: $thinkific_email $thinkific_bora");
 	}
 ?>
 
