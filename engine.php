@@ -56,6 +56,7 @@
 		if ($login_senha2 == false) {
 			error_log('login senha2 is false');
 			$login_origem = $_POST['login_origem'];
+			error_log("SELECT senha, origem FROM Usuarios WHERE email = '$login_email'");
 			$hashes = $conn->query("SELECT senha, origem FROM Usuarios WHERE email = '$login_email'");
 			if ($hashes->num_rows > 0) {
 				while ($hash = $hashes->fetch_assoc()) {
@@ -63,11 +64,14 @@
 					$hash_origem = $hash['origem'];
 					$check = password_verify($login_senha, $hash_senha);
 					if ($check == true) {
+						error_log('check was true, session user email is set.');
 						$_SESSION['user_email'] = $login_email;
 						echo true;
 					} elseif (($hash_origem == 'thinkific') && (is_null($hash_senha))) {
+						error_log('hash origem thinkific, hash senha is null, echo thinkific');
 						echo 'thinkific';
 					} else {
+						error_log('else echo false');
 						echo false;
 					}
 				}
