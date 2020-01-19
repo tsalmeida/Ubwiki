@@ -32,6 +32,8 @@
 				header('Location:logout.php');
 			}
 		}
+	} else {
+		$user_email = $_SESSION['user_email'];
 	}
 	include 'templates/criar_conn.php';
 	
