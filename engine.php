@@ -6,27 +6,26 @@
 		$pagina_tipo = false;
 	}
 	
-	if (!isset($_SESSION['user_email'])) {
-		error_log('session user email not set');
-		$sessionpath = getcwd();
-		$sessionpath .= '/../sessions';
-		session_save_path($sessionpath);
-		if (session_status() == PHP_SESSION_NONE) {
-			session_start();
-		}
-		if ($pagina_tipo != 'login') {
-			if ((!isset($_POST['thinkific_log'])) && (!isset($_POST['login_email']))) {
-				header('Location:login.php');
-			}
-		}
-	} else {
-		$user_email = $_SESSION['user_email'];
+	$sessionpath = getcwd();
+	$sessionpath .= '/../sessions';
+	session_save_path($sessionpath);
+	if (session_status() == PHP_SESSION_NONE) {
+		session_start();
 	}
+	
+	if ($pagina_tipo != 'login') {
+		if ((!isset($_POST['thinkific_log'])) && (!isset($_POST['login_email']))) {
+			header('Location:login.php');
+		}
+	}
+	
 	if (!isset($user_email)) {
 		error_log('user email not set, set to false');
 		$user_email = false;
 	}
 	if (!isset($_SESSION['user_email'])) {
+		error_log('session user email not set, variable user email set to false');
+		$user_email = false;
 		if ((!isset($_POST['login_email'])) && (!isset($_POST['thinkific_login']))) {
 			if (($user_email == false) && ($pagina_tipo != 'logout') && ($pagina_tipo != 'login') && ($pagina_tipo != 'index')) {
 				error_log('a bunch of conditionals, redirected to logout.php');
