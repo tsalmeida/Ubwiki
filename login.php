@@ -1,18 +1,13 @@
 <?php
 	
-    error_log('LOGIN.PHP COMECA A CARREGAR');
 	
 	$pagina_tipo = 'login';
 	$pagina_id = false;
-	error_log('engine sera incluido dentro do login.php');
 	include 'engine.php';
-	error_log('engine foi incluido dentro do login.php');
 	include 'templates/html_head.php';
 	if (isset($_SESSION['thinkific_email'])) {
-		error_log('thinkific email e thinkific bora are set. Or are they? Lets see');
 		$thinkific_email = $_SESSION['thinkific_email'];
 		$thinkific_bora = $_SESSION['thinkific_bora'];
-		error_log("$thinkific_email $thinkific_bora");
 
 	}
 ?>
@@ -82,7 +77,6 @@
 </body>
 <?php
 	if (!isset($thinkific_email)) {
-		error_log('thinkific email not set');
 		echo "
 			<script type='text/javascript'>
 				function isEmail(email) {
@@ -169,10 +163,8 @@
 			</script>
 		";
 	} else {
-		error_log('thinkific email set');
 		$usuarios = $conn->query("SELECT id FROM Usuarios WHERE email = '$thinkific_email' AND senha IS NULL");
 		if ($usuarios->num_rows == 0) {
-			error_log('usuario nao encontrado com senha null');
 			echo "
 	            <script type='text/javascript'>
 	               $('#thinkific_senha_existe').show();
@@ -208,7 +200,6 @@
                 </script>
 	        ";
 		} else {
-			error_log('usuario encontrado com senha null');
 			echo "
                 <script type='text/javascript'>
                     $('#secao_login_thinkific_email').show();

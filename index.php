@@ -18,7 +18,6 @@
 	$user_id = false;
 	
 	if (isset($_GET['special'])) {
-		error_log('special identified');
 		$special = $_GET['special'];
 		$usuarios = $conn->query("SELECT id, email, apelido FROM Usuarios WHERE special = '$special'");
 		if ($usuarios->num_rows > 0) {
@@ -33,7 +32,6 @@
 	}
 	
 	if (!isset($_SESSION['user_email'])) {
-		error_log('session user email not set');
 		if ((isset($_POST['email'])) && (isset($_POST['bora']))) {
 			$_SESSION['thinkific_email'] = $_POST['email'];
 			$_SESSION['thinkific_bora'] = $_POST['bora'];

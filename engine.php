@@ -1,7 +1,5 @@
 <?php
 	
-	error_log('ENGINE.PHP COMECA A CARREGAR');
-	
 	if (!isset($pagina_tipo)) {
 		$pagina_tipo = false;
 	}
@@ -21,15 +19,12 @@
 	}*/
 	
 	if (!isset($user_email)) {
-		error_log('user email not set, set to false');
 		$user_email = false;
 	}
 	if (!isset($_SESSION['user_email'])) {
-		error_log('session user email not set, variable user email set to false');
 		$user_email = false;
 		if ((!isset($_POST['login_email'])) && (!isset($_POST['thinkific_login']))) {
 			if (($user_email == false) && ($pagina_tipo != 'logout') && ($pagina_tipo != 'login') && ($pagina_tipo != 'index')) {
-				error_log('a bunch of conditionals, redirected to logout.php');
 				header('Location:logout.php');
 			}
 		}
@@ -39,10 +34,8 @@
 	include 'templates/criar_conn.php';
 	
 	if (isset($_POST['thinkific_login'])) {
-		error_log('post thinkific login was set. Dit it work? Lets see:');
 		$thinkific_login = $_POST['thinkific_login'];
 		$thinkific_senha = $_POST['thinkific_senha'];
-		error_log("$thinkific_login $thinkific_senha");
 		$encrypted = password_hash($thinkific_senha, PASSWORD_DEFAULT);
 		$set_password = $conn->query("UPDATE Usuarios SET senha = '$encrypted' WHERE email = '$thinkific_login'");
 		if ($set_password == true) {
@@ -53,7 +46,6 @@
 	}
 	
 	if (isset($_POST['login_email'])) {
-		error_log('post login email was set');
 		$login_email = $_POST['login_email'];
 		$login_senha = $_POST['login_senha'];
 		$login_senha2 = false;
@@ -61,9 +53,7 @@
 			$login_senha2 = $_POST['login_senha2'];
 		}
 		if ($login_senha2 == false) {
-			error_log('login senha2 is false');
 			$login_origem = $_POST['login_origem'];
-			error_log("SELECT senha, origem FROM Usuarios WHERE email = '$login_email'");
 			$hashes = $conn->query("SELECT senha, origem FROM Usuarios WHERE email = '$login_email'");
 			if ($hashes->num_rows > 0) {
 				while ($hash = $hashes->fetch_assoc()) {
@@ -71,31 +61,24 @@
 					$hash_origem = $hash['origem'];
 					$check = password_verify($login_senha, $hash_senha);
 					if ($check == true) {
-						error_log('check was true, session user email is set.');
 						$_SESSION['user_email'] = $login_email;
 						echo true;
 					} elseif (($hash_origem == 'thinkific') && (is_null($hash_senha))) {
-						error_log('hash origem thinkific, hash senha is null, echo thinkific');
 						echo 'thinkific';
 					} else {
-						error_log('else echo false');
 						echo false;
 					}
 				}
 			} else {
-				error_log('novo usuario, echo');
 				echo 'novo_usuario';
 			}
 		} else {
-			error_log('login_senha2 nao eh falso, segue em frente');
 			$encrypted = password_hash($login_senha, PASSWORD_DEFAULT);
 			$check = $conn->query("INSERT INTO Usuarios (tipo, email, senha) VALUES ('estudante', '$login_email', '$encrypted')");
 			if ($check == true) {
-				error_log('esse check foi true');
 				$_SESSION['user_email'] = $login_email;
 				echo true;
 			} else {
-				error_log('esse check foi falso');
 				echo false;
 			}
 		}
@@ -114,15 +97,12 @@
 		}
 	}
 	if ($user_email != false) {
-		error_log('user email not false');
-		error_log("user email: $user_email");
 		$usuarios = $conn->query("SELECT id, tipo, criacao, apelido, nome, sobrenome FROM Usuarios WHERE email = '$user_email'");
 		if ($usuarios->num_rows > 0) {
 			while ($usuario = $usuarios->fetch_assoc()) {
 				$user_id = $usuario['id'];
 				$user_tipo = $usuario['tipo'];
 				$user_criacao = $usuario['criacao'];
-				error_log('Dados do usuário foram encontrados');
 				$user_apelido = $usuario['apelido'];
 				$user_nome = $usuario['nome'];
 				$user_sobrenome = $usuario['sobrenome'];
