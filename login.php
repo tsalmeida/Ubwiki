@@ -1,6 +1,5 @@
 <?php
-	
-	
+
 	$pagina_tipo = 'login';
 	$pagina_id = false;
 	include 'engine.php';
@@ -30,11 +29,10 @@
 				$template_conteudo = false;
 				$template_botoes_padrao = false;
 				$template_background = 'grey lighten-5';
-				$template_classes = 'justify-content-center';
 				$template_conteudo_no_col = true;
 				$logo_ubwiki = 'https://ubwiki.com.br/imagens/logo.png';
 				$template_conteudo .= "
-						        <div class='logo_ubwiki rounded' style='background-image: url($logo_ubwiki)'>
+						        <div class='logo_ubwiki rounded m-1' style='background-image: url($logo_ubwiki)'>
                                 </div>
 						    ";
 				include 'templates/page_element.php';

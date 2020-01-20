@@ -1,12 +1,10 @@
 <?php
-	error_log('index.php COMECA A CARREGAR');
-	if (!isset($_SESSION['user_email'])) {
+
+	if (session_status() == PHP_SESSION_NONE) {
 		$sessionpath = getcwd();
 		$sessionpath .= '/../sessions';
 		session_save_path($sessionpath);
-		if (session_status() == PHP_SESSION_NONE) {
-			session_start();
-		}
+		session_start();
 	}
 
 	include 'templates/criar_conn.php';
