@@ -95,7 +95,12 @@
 		$topico_nivel = $familia_info[0];
 		$topico_curso_id = $familia_info[1];
 		$pagina_curso_id = $topico_curso_id;
-		$topico_curso_titulo = return_pagina_titulo($topico_curso_id);
+		$topico_curso_info = return_curso_info($topico_curso_id);
+		$topico_curso_pagina_id = $topico_curso_info[0];
+		$topico_curso_pagina_info = return_pagina_info($topico_curso_pagina_id);
+		$topico_curso_titulo = $topico_curso_pagina_info[6]; // isso não está funcionando
+		$pagina_curso_user_id = $topico_curso_pagina_info[5]; // nem isso
+		$pagina_curso_compartilhamento = $topico_curso_pagina_info[4]; // nem isso
 		$topico_materia_id = $familia_info[2];
 		$topico_materia_titulo = return_pagina_titulo($topico_materia_id);
 	} elseif (($pagina_tipo == 'materia') || ($pagina_tipo == 'curso')) {
@@ -103,8 +108,8 @@
 		$pagina_curso_pagina_id = $familia_info[1];
 		$pagina_curso_info = return_pagina_info($pagina_curso_pagina_id);
 		$pagina_curso_id = $pagina_curso_info[1];
-		$pagina_curso_info = return_curso_info($pagina_curso_id);
-		$pagina_curso_user_id = $pagina_curso_info[4];
+		$pagina_curso_user_id = $pagina_curso_info[5];
+		$pagina_curso_compartilhamento = $pagina_curso_info[4];
 	}
 	
 	if (isset($_POST['novo_curso'])) {
@@ -380,8 +385,8 @@
 							echo "<span id='secoes' class='mx-1' title='Página e seções' data-toggle='modal' data-target='#modal_paginas_relacionadas'><a href='javascript:void(0);'><i class='fad fa-project-diagram fa-fw'></i></a></span>";
 						}
 						if ($pagina_subtipo == 'produto') {
-						    echo "<span id='adicionar_carrinho' class='mx-1' title='Adicionar este produto a seu carrinho'><a href='javascript:void(0);' class='text-success'><i class='fad fa-cart-plus fa-fw fa-2x'></i></a></span>";
-                        }
+							echo "<span id='adicionar_carrinho' class='mx-1' title='Adicionar este produto a seu carrinho'><a href='javascript:void(0);' class='text-success'><i class='fad fa-cart-plus fa-fw fa-2x'></i></a></span>";
+						}
 					?>
         </div>
         <div class='py-2 text-right col'>
@@ -485,7 +490,7 @@
 		$template_titulo_context = true;
 		if ($pagina_tipo == 'topico') {
 			$template_titulo = $pagina_titulo;
-			$template_subtitulo = "<a href='pagina.php?pagina_id=$topico_materia_id' title='Matéria'>$topico_materia_titulo</a> / <a href='pagina.php?pagina_id=$topico_curso_id' title='Curso'>$topico_curso_titulo</a>";
+			$template_subtitulo = "<a href='pagina.php?pagina_id=$topico_materia_id' title='Matéria'>$topico_materia_titulo</a> / <a href='pagina.php?pagina_id=$topico_curso_id' title='Curso'>$curso_titulo</a>";
 		} elseif ($pagina_tipo == 'elemento') {
 			$template_titulo = $elemento_titulo;
 			$template_subtitulo = $elemento_autor;
@@ -554,7 +559,11 @@
 			} else {
 				$template_titulo = $pagina_titulo;
 			}
-			$template_subtitulo = "Referente ao texto \"$original_titulo\"";
+			if ($original_titulo != false) {
+				$template_subtitulo = "Referente ao texto \"$original_titulo\"";
+			} else {
+				$template_subtitulo = 'Referente a texto sem título';
+			}
 		}
 		include 'templates/titulo.php';
 	?>
@@ -590,8 +599,14 @@
 					echo "
 						<div id='coluna_original' class='$coluna_classes pagina_coluna'>";
 					$template_div = 'texto_original';
-					$template_titulo = $original_titulo;
-					$template_conteudo = $original_texto_html;
+					if ($original_titulo != false) {
+						$template_titulo = $original_titulo;
+					} else {
+						$template_titulo = 'Texto original';
+					}
+					$template_conteudo = false;
+					$template_conteudo = '<p class="mt-4"></p>';
+					$template_conteudo .= $original_texto_html;
 					include 'templates/page_element.php';
 					echo "</div>";
 				}
@@ -636,6 +651,7 @@
 						$template_botoes_padrao = false;
 					}
 					if ($pagina_tipo == 'resposta') {
+						$template_titulo = 'Resposta';
 						$template_classes = 'sticky-top';
 						$template_quill_vazio = 'Escreva aqui sua resposta.';
 					}
@@ -868,8 +884,8 @@
 		} elseif ($pagina_tipo == 'topico') {
 			$mudar_titulo_texto = 'deste tópico';
 		} else {
-		    $mudar_titulo_texto = 'deste documento';
-        }
+			$mudar_titulo_texto = 'deste documento';
+		}
 		$template_modal_div_id = 'modal_pagina_dados';
 		$template_modal_titulo = "Alterar dados $mudar_titulo_texto";
 		$template_modal_body_conteudo = false;
@@ -922,7 +938,7 @@
             	<select class='$select_classes' name='produto_nova_imagem'>
             	<option value='' disabled selected>Selecione uma imagem:</option>
            ";
-		foreach($imagem_opcoes as $imagem_opcao) {
+		foreach ($imagem_opcoes as $imagem_opcao) {
 			$imagem_opcao_id = $imagem_opcao[0];
 			$imagem_opcao_titulo = $imagem_opcao[1];
 			$template_modal_body_conteudo .= "<option value='$imagem_opcao_id'>$imagem_opcao_titulo</option>";

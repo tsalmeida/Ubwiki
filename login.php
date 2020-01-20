@@ -22,9 +22,9 @@
 				include 'templates/titulo.php';
 			?>
 		</div>
-		<div class="col">
+		<!--<div class="col">
 			<?php
-				$template_id = 'logo_ubwiki';
+				/*$template_id = 'logo_ubwiki';
 				$template_titulo = false;
 				$template_conteudo = false;
 				$template_botoes_padrao = false;
@@ -35,9 +35,9 @@
 						        <div class='logo_ubwiki rounded m-1' style='background-image: url($logo_ubwiki)'>
                                 </div>
 						    ";
-				include 'templates/page_element.php';
+				include 'templates/page_element.php';*/
 			?>
-		</div>
+		</div>-->
 	</div>
 </div>
 <div class="container">

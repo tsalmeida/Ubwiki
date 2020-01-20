@@ -40,6 +40,11 @@
 	$template_quill_whitelist = "formatWhitelist_{$template_quill_toolbar_and_whitelist}";
 	$template_quill_toolbar = "toolbarOptions_{$template_quill_toolbar_and_whitelist}";
 	
+	if (($pagina_tipo == 'resposta') && (($user_tipo == 'admin') || ($user_tipo == 'professor'))) {
+		$template_quill_whitelist = "formatWhitelist_anotacoes";
+		$template_quill_toolbar = "toolbarOptions_anotacoes";
+	}
+	
 	if ($template_quill_initial_state == 'edicao') {
 		$template_quill_editor_classes = 'quill_editor_height quill_editor_height_leitura';
 	} else {
