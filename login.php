@@ -8,23 +8,45 @@
 	if (isset($_SESSION['thinkific_email'])) {
 		$thinkific_email = $_SESSION['thinkific_email'];
 		$thinkific_bora = $_SESSION['thinkific_bora'];
-
+		
 	}
 ?>
 
 <body class="grey lighten-5">
-<div clas="container-fluid">
-	<?php
-		$template_titulo = 'Ubwiki';
-		$template_subtitulo = 'O que você vai aprender hoje?';
-		$template_titulo_context = true;
-		include 'templates/titulo.php';
-	?>
+<div class="container">
+	<div class="row d-flex justify-content-center mt-5">
+		<div class="col">
+			<?php
+				$template_titulo = 'Ubwiki';
+				$template_subtitulo = 'O que você vai aprender hoje?';
+				$template_titulo_context = true;
+				include 'templates/titulo.php';
+			?>
+		</div>
+		<div class="col">
+			<?php
+				$template_id = 'logo_ubwiki';
+				$template_titulo = false;
+				$template_conteudo = false;
+				$template_botoes_padrao = false;
+				$template_background = 'grey lighten-5';
+				$template_classes = 'justify-content-center';
+				$template_conteudo_no_col = true;
+				$logo_ubwiki = 'https://ubwiki.com.br/imagens/logo.png';
+				$template_conteudo .= "
+						        <div class='logo_ubwiki rounded' style='background-image: url($logo_ubwiki)'>
+                                </div>
+						    ";
+				include 'templates/page_element.php';
+			?>
+		</div>
+	</div>
 </div>
 <div class="container">
     <div class="row d-flex justify-content-center">
         <div id="coluna_unica" class="col">
 					<?php
+						
 						$template_id = 'formulario_login';
 						$template_titulo = 'Acessar';
 						$template_botoes = false;
@@ -34,9 +56,9 @@
 						$template_conteudo .= "
                             <form method='post' name='form_login' id='form_login'>
                                 <p id='thinkific_transfer' class='collapse'>Não é mais necessário passar pela página do Grupo Ubique para acessar a Ubwiki. Crie uma senha abaixo.</p>
-                                <p id='thinkific_senha_existe' class='collapse'>Porque você já criou uma senha, não é mais necessário passar pela página do Grupo Ubique para acessar a Ubwiki. Digite sua senha abaixo.</p>
+                                <p id='thinkific_senha_existe' class='collapse'>Porque você já criou uma senha, não é mais necessário passar pela página do Grupo Ubique para acessar a Ubwiki. Insira sua senha abaixo.</p>
                                 <p id='thinkific_senha_incorreta' class='collapse'>Senha incorreta. Trata-se da senha que você criou na Ubwiki, não da sua senha na página do Grupo Ubique.</p>
-                                <p id='login_mensagem_basica' class='collapse'>Para acessar ou criar uma conta, digite seu email abaixo.</p>
+                                <p id='login_mensagem_basica' class='collapse'>Para acessar ou criar uma conta, insire seu email abaixo.</p>
                                 <p id='login_senha_incorreta' class='collapse'>Senha incorreta.</p>
                                 <p id='login_novo_usuario' class='collapse'>Não existe conta registrada para este email. Continue para criar uma conta.</p>
                                 <p id='login_thinkific_registro' class='collapse'>Para acessar a Ubwiki diretamente e criar uma nova senha, você precisará, uma última vez, passar pela <a href='https://www.grupoubique.com.br/'>página do Grupo Ubique</a>.</p>
@@ -244,7 +266,6 @@
             ";
 		}
 	}
-	
 	include 'templates/html_bottom.php';
 	include 'templates/footer.html';
 ?>

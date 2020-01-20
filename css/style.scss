@@ -322,6 +322,15 @@ blockquote + * {
   background-size: cover;
 }
 
+.logo_ubwiki {
+  height: 25vh;
+  width: 25vh;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
 .produto-preco {
   width: fit-content;
 }
