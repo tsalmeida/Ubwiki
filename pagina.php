@@ -713,14 +713,10 @@
 					
 					include 'templates/page_element.php';
 					
+					include 'pagina/curso.php';
+					
 					echo "</div>";
 					
-				}
-				
-				if ($pagina_tipo == 'curso') {
-					echo '<div id="coluna_unica" class="col-lg-10 col-md-12 pagina_coluna">';
-					include 'pagina/curso.php';
-					echo '</div>';
 				}
 			?>
     </div>
