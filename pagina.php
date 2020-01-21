@@ -415,16 +415,14 @@
 		                    $comments = $conn->query("SELECT timestamp, comentario, user_id FROM Forum WHERE pagina_id = $pagina_id");
 		                    if ($comments->num_rows == 0) {
 			                    echo "
-                                <a href='javascript:void(0);'>
+                                <a href='javascript:void(0);' class='text-muted'>
                                     <i class='fad fa-comments-alt fa-fw'></i>
                                 </a>
                             ";
 		                    } else {
 			                    echo "
-                                <a href='javascript:void(0);'>
-		                            <span class='text-secondary'>
+                                <a href='javascript:void(0);' class='text-secondary'>
                                         <i class='fad fa-comments-alt fa-fw'></i>
-                                    </span>
                                 </a>
 		                    ";
 		                    }
@@ -446,7 +444,7 @@
 								echo "
                                   <span id='adicionar_etiqueta' class='ml-1' title='Adicionar etiqueta' data-toggle='modal'
                                         data-target='#modal_gerenciar_etiquetas'>
-                                      <a href='javascript:void(0);'>
+                                      <a href='javascript:void(0);' class='text-muted'>
                                           <i class='fad fa-tags fa-fw'></i>
                                       </a>
                                   </span>
@@ -460,7 +458,7 @@
 								$marcar_incompleto = 'collapse';
 							}
 							echo "
-                              <span id='add_completed' class='ml-1 $marcar_completo' title='Estudo completo' value='$pagina_id'><a href='javascript:void(0);'><i class='fad fa-check-circle fa-fw'></i></a></span>
+                              <span id='add_completed' class='ml-1 $marcar_completo' title='Estudo completo' value='$pagina_id'><a href='javascript:void(0);' class='text-muted'><i class='fad fa-check-circle fa-fw'></i></a></span>
                               <span id='remove_completed' class='ml-1 $marcar_incompleto' title='Desmarcar como completo' value='$pagina_id'><a href='javascript:void(0);'><span class='text-success'><i class='fad fa-check-circle fa-fw'></i></span></span></a></span>
                             ";
 							if ($pagina_bookmark == true) {
@@ -471,7 +469,7 @@
 								$desmarcar_bookmark = 'collapse';
 							}
 							echo "
-                              <span id='add_bookmark' class='ml-1 $marcar_bookmark' title='Marcar para leitura' value='$pagina_id'><a href='javascript:void(0);'><i class='fad fa-bookmark fa-fw'></i></a></span>
+                              <span id='add_bookmark' class='ml-1 $marcar_bookmark' title='Marcar para leitura' value='$pagina_id'><a href='javascript:void(0);' class='text-muted'><i class='fad fa-bookmark fa-fw'></i></a></span>
                               <span id='remove_bookmark' class='ml-1 $desmarcar_bookmark' title='Remover da lista de leitura' value='$pagina_id'><a href='javascript:void(0);'><span class='text-danger'><i class='fad fa-bookmark fa-fw'></i></span></span></a></span>
                             ";
 							
@@ -692,7 +690,6 @@
 					$template_titulo = 'Módulos';
 					$template_conteudo_no_col = true;
 					$template_botoes = false;
-					$template_botoes_padrao = false;
 					$template_conteudo = false;
 					$template_conteudo_class = 'justify-content-start';
 					

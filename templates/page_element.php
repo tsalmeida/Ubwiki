@@ -1,5 +1,5 @@
 <?php
-	
+
 	if (!isset($template_id)) {
 		$template_id = false;
 	}
@@ -27,22 +27,22 @@
 	if (!isset($template_background)) {
 		$template_background = 'bg-white';
 	}
-	
+
 	$template_conteudo_no_col1 = false;
 	$template_conteudo_no_col2 = false;
-	
+
 	if (!isset($template_conteudo_no_col)) {
 		$template_conteudo_no_col = false;
 	}
-	
+
 	if (!isset($template_p_limit)) {
 		$template_p_limit = 'p-limit';
 	}
-	
+
 	$template_collapse = $template_id . "_collapse";
 	$template_esconder = "esconder_" . $template_id;
 	$template_mostrar = "mostrar_" . $template_id;
-	
+
 	$show = false;
 	$hide = false;
 	if ($template_load_invisible == false) {
@@ -50,27 +50,28 @@
 	} else {
 		$hide = 'show';
 	}
-	
+
 	if ($template_conteudo_no_col == false) {
 		$template_conteudo_no_col = false;
 		$template_conteudo_no_col1 = "<div class='col $template_p_limit $template_collapse collapse show'>";
 		$template_conteudo_no_col2 = "</div>";
 	}
-	
+
 	if (!isset($template_botoes_padrao)) {
-		if ($template_conteudo != false) {
-			$template_botoes_padrao = "
+		$template_botoes_padrao = false;
+	}
+
+	if ($template_botoes_padrao == true) {
+		$template_botoes_padrao = "
 					<span id='$template_esconder' class='$template_collapse collapse $show' data-toggle='collapse' data-target='.$template_collapse' title='esconder'><a href='javascript:void(0);'><i class='fad fa-chevron-square-up fa-fw'></i></a></span>
 					<span id='$template_mostrar' class='$template_collapse collapse $hide' data-toggle='collapse' data-target='.$template_collapse' title='mostrar'><a href='javascript:void(0);' class='text-muted'><i class='fad fa-chevron-square-down fa-fw'></i></a></span>";
-		} else {
-			$template_botoes_padrao = false;
-		}
 	}
-	
+
+
 	if (!isset($template_titulo_heading)) {
 		$template_titulo_heading = 'h2';
 	}
-	
+
 	echo "
 <div id='$template_id' class='row show $template_classes $template_background p-2 pb-4 mb-2 rounded'>
 	<div class='$template_col_value'>
@@ -96,8 +97,10 @@
       $template_conteudo_no_col2
     </div>
   </div>
-</div>
-<script type='text/javascript'>
+</div>";
+	if ($template_botoes_padrao == true) {
+		echo "
+		<script type='text/javascript'>
 		$('#$template_esconder').click(function(){
 	    $('#$template_esconder').hide();
 	    $('#$template_mostrar').show();
@@ -108,7 +111,8 @@
  		});
 </script>
 ";
-	
+	}
+
 	unset($template_id);
 	unset($template_titulo);
 	unset($template_botoes);

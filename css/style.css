@@ -15,6 +15,10 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 300;
 }
 
+h3 {
+  text-align: center;
+}
+
 blockquote {
   margin-bottom: 0 !important;
   margin-top: 0 !important;
@@ -340,6 +344,10 @@ blockquote + * {
 
 .line-height-1 {
   line-height: 1 !important;
+}
+
+a.text-muted:hover {
+  color: #424242 !important;
 }
 
 /*# sourceMappingURL=style.css.map */
