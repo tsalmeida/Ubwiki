@@ -43,6 +43,10 @@
 		$carregar_adicionar_subtopico = false;
 	}
 	
+	if (!isset($carregar_convite)) {
+		$carregar_convite = false;
+	}
+	
 	echo "
     <!-- Bootstrap tooltips -->
     <script type='text/javascript' src='js/popper.min.js'></script>
@@ -526,4 +530,37 @@
 			</script>
 		";
 	}
+	
+	if ($carregar_convite == true) {
+		echo "
+			<script type='text/javascript'>
+				$(document).on('click', '#trigger_buscar_convidado', function() {
+				    convidado_busca = $('#apelido_convidado').val();
+				    convidado_grupo_id = '$grupo_id';
+				    $.post('engine.php', {
+				    	'busca_apelido': convidado_busca,
+				    	'busca_grupo_id': convidado_grupo_id
+				    }, function(data) {
+				       if (data != 0) {
+				       		$('#convite_resultados').empty();
+				       		$('#convite_resultados').append(data);
+				       	}
+				    });
+				});
+				$(document).on('click', '.convite_usuario', function() {
+				    var usuario_id = $(this).attr('value');
+            $(this).hide();
+				    $.post('engine.php', {
+				       'convidar_usuario_id': usuario_id,
+				       'convidar_grupo_id': $grupo_id
+				    }, function(data) {
+				        if (data != 0) {
+				            alert('Convite enviado');
+				        }
+				    });
+				});
+			</script>
+		";
+	}
+
 ?>

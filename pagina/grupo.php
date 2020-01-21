@@ -6,10 +6,20 @@
 	$template_conteudo_class = 'justify-content-start';
 	$template_conteudo_no_col = true;
 	
-	$membros = $conn->query("SELECT membro_user_id FROM Membros WHERE grupo_id = $grupo_id AND estado = 1");
+	if ($pagina_user_id == $user_id) {
+		$carregar_convite = true;
+		$artefato_tipo = 'novo_membro';
+		$artefato_titulo = 'Convidar novo membro';
+		$artefato_link = false;
+		$artefato_criacao = false;
+		$template_conteudo .= include 'templates/artefato_item.php';
+	}
+	
+	$membros = $conn->query("SELECT membro_user_id, estado FROM Membros WHERE grupo_id = $grupo_id");
 	if ($membros->num_rows > 0) {
 		while ($membro = $membros->fetch_assoc()) {
 			$membro_user_id = $membro['membro_user_id'];
+			$membro_estado = $membro['estado'];
 			$membro_user_apelido = return_apelido_user_id($membro_user_id);
 			
 			$artefato_tipo = 'membro';
@@ -20,8 +30,16 @@
 			$fa_icone = $avatar_info[0];
 			$fa_color = $avatar_info[1];
 			
-			$artefato_resultado = include 'templates/artefato_item.php';
-			$template_conteudo .= $artefato_resultado;
+			if (is_null($membro_estado)) {
+				$fa_color = 'text-light';
+				$artefato_subtitulo = 'Convite enviado';
+			}
+			
+			if ($pagina_user_id == $membro_user_id) {
+				$artefato_subtitulo = 'Fundador';
+			}
+			
+			$template_conteudo .= include 'templates/artefato_item.php';
 		}
 	}
 	include 'templates/page_element.php';

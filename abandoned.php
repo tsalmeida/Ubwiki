@@ -257,5 +257,50 @@
 	}
 	 */
 	
+	if ($grupos_do_usuario->num_rows > 0) {
+		$template_id = 'convidar_grupo';
+		$template_titulo = 'Convide alguém para seu grupo de estudos';
+		$template_botoes = false;
+		$template_classes = 'esconder_sessao justify-content-center';
+		$template_conteudo = false;
+		$template_conteudo .=
+			"
+        <form method='post'>
+            <div class='md-form mb-2'>
+                <select class='$select_classes' name='convidar_apelido' id='convidar_apelido' required>
+                    <option value='' disabled selected>Apelido do convidado</option>
+                                    ";
+		$usuarios = $conn->query("SELECT apelido, id FROM Usuarios WHERE apelido IS NOT NULL ORDER BY apelido");
+		while ($usuario = $usuarios->fetch_assoc()) {
+			$usuario_apelido = $usuario['apelido'];
+			$usuario_id = $usuario['id'];
+			$template_conteudo .= "<option value='$usuario_id'>$usuario_apelido</option>";
+		}
+		$template_conteudo .= "
+                                </select>
+                                </div>
+                                ";
+		
+		$template_conteudo .= "
+                                <div class='md-form mb-2'>
+                                    <select class='$select_classes' name='convidar_grupo_id' id='convidar_grupo_id' required>
+                                        <option value='' disabled selected>Selecione o grupo de estudo</option>
+                                ";
+		while ($grupo_do_usuario = $grupos_do_usuario->fetch_assoc()) {
+			$grupo_do_usuario_id = $grupo_do_usuario['id'];
+			$grupo_do_usuario_titulo = $grupo_do_usuario['titulo'];
+			$template_conteudo .= "<option value='$grupo_do_usuario_id'>$grupo_do_usuario_titulo</option>";
+		}
+		$template_conteudo .= "
+                                    </select>
+                                    </div>
+                                    <div class='row justify-content-center'>
+                                        <button name='trigger_convidar_grupo' class='$button_classes'>Enviar convite</button>
+                                    </div>
+                                    </form>
+							    ";
+		include 'templates/page_element.php';
+	}
+	
 	
 ?>

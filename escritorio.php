@@ -48,13 +48,10 @@
 		if ($conn->query("INSERT INTO Grupos (titulo, user_id) VALUES ('$novo_grupo_titulo', $user_id)") === true) {
 			$novo_grupo_id = $conn->insert_id;
 			$conn->query("INSERT INTO Membros (membro_user_id, grupo_id, estado, user_id) VALUES ($user_id, $novo_grupo_id, 1, $user_id)");
+			$conn->query("INSERT INTO Paginas (item_id, tipo, compartilhamento, user_id) VALUES ($novo_grupo_id, 'grupo', 'grupo', $user_id)");
+			$novo_grupo_pagina_id = $conn->insert_id;
+			$conn->query("UPDATE Grupos SET pagina_id = $novo_grupo_pagina_id WHERE id = $novo_grupo_id");
 		}
-	}
-	
-	if (isset($_POST['trigger_convidar_grupo'])) {
-		$convite_user_id = $_POST['convidar_apelido'];
-		$convite_grupo_id = $_POST['convidar_grupo_id'];
-		$conn->query("INSERT INTO Membros (grupo_id, membro_user_id, user_id) VALUES ($convite_grupo_id, $convite_user_id, $user_id)");
 	}
 	
 	if (isset($_POST['responder_convite_grupo_id'])) {
@@ -291,74 +288,6 @@
 									$grupo_usuario_membro_grupo_id = $grupo_usuario_membro['grupo_id'];
 									$grupo_usuario_membro_grupo_titulo = return_grupo_titulo_id($grupo_usuario_membro_grupo_id);
 									$template_conteudo .= "<a href='pagina.php?grupo_id=$grupo_usuario_membro_grupo_id' target='_blank'><li class='list-group-item list-group-item-action border-top'>$grupo_usuario_membro_grupo_titulo</li></a>";
-								}
-								$template_conteudo .= "</ul>";
-								include 'templates/page_element.php';
-							}
-							
-							if ($grupos_do_usuario->num_rows > 0) {
-								$template_id = 'convidar_grupo';
-								$template_titulo = 'Convide alguém para seu grupo de estudos';
-								$template_botoes = false;
-								$template_classes = 'esconder_sessao justify-content-center';
-								//$template_col_value = 'col-lg-8 col-md-10 col-sm-12';
-								$template_conteudo = false;
-								$template_conteudo .=
-									"
-                                    <form method='post'>
-                                        <div class='md-form mb-2'>
-                                            <select class='$select_classes' name='convidar_apelido' id='convidar_apelido' required>
-                                                <option value='' disabled selected>Apelido do convidado</option>
-                                    ";
-								$usuarios = $conn->query("SELECT apelido, id FROM Usuarios WHERE apelido IS NOT NULL ORDER BY apelido");
-								while ($usuario = $usuarios->fetch_assoc()) {
-									$usuario_apelido = $usuario['apelido'];
-									$usuario_id = $usuario['id'];
-									$template_conteudo .= "<option value='$usuario_id'>$usuario_apelido</option>";
-								}
-								$template_conteudo .= "
-                                </select>
-                                </div>
-                                ";
-								
-								$template_conteudo .= "
-                                <div class='md-form mb-2'>
-                                    <select class='$select_classes' name='convidar_grupo_id' id='convidar_grupo_id' required>
-                                        <option value='' disabled selected>Selecione o grupo de estudo</option>
-                                ";
-								while ($grupo_do_usuario = $grupos_do_usuario->fetch_assoc()) {
-									$grupo_do_usuario_id = $grupo_do_usuario['id'];
-									$grupo_do_usuario_titulo = $grupo_do_usuario['titulo'];
-									$template_conteudo .= "<option value='$grupo_do_usuario_id'>$grupo_do_usuario_titulo</option>";
-								}
-								$template_conteudo .= "
-                                    </select>
-                                    </div>
-                                    <div class='row justify-content-center'>
-                                        <button name='trigger_convidar_grupo' class='$button_classes'>Enviar convite</button>
-                                    </div>
-                                    </form>
-							    ";
-								include 'templates/page_element.php';
-							}
-							
-							if ($convites_do_usuario->num_rows > 0) {
-								$template_id = 'convites_ativos';
-								$template_titulo = 'Seus convites ativos';
-								$template_botoes = false;
-								$template_classes = 'esconder_sessao justify-content-center';
-								//$template_col_value = 'col-lg-8 col-md-10 col-sm-12';
-								$template_conteudo = false;
-								$template_conteudo .= "
-								<ul class='list-group'>
-							    ";
-								while ($convite_do_usuario = $convites_do_usuario->fetch_assoc()) {
-									$convite_timestamp = $convite_do_usuario['criacao'];
-									$convite_grupo_id = $convite_do_usuario['grupo_id'];
-									$convite_membro_user_id = $convite_do_usuario['membro_user_id'];
-									$convite_grupo_titulo = return_grupo_titulo_id($convite_grupo_id);
-									$convite_membro_user_apelido = return_apelido_user_id($convite_membro_user_id);
-									$template_conteudo .= "<li class='list-group-item'>$convite_timestamp: $convite_grupo_titulo // <a href='pagina.php?user_id=$convite_membro_user_id' target='_blank'>$convite_membro_user_apelido</a></li>";
 								}
 								$template_conteudo .= "</ul>";
 								include 'templates/page_element.php';

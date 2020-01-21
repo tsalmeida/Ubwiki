@@ -162,7 +162,7 @@
 		$curso_titulo = return_curso_titulo_id($curso_id);
 	}
 	
-	$all_buttons_classes = "btn rounded btn-md mt-4 text-center";
+	$all_buttons_classes = "btn rounded btn-md text-center";
 	$button_classes = "$all_buttons_classes btn-primary";
 	$button_classes_light = "$all_buttons_classes btn-light";
 	$button_classes_info = "$all_buttons_classes btn-info";
@@ -1425,6 +1425,9 @@
 		} elseif ($artefato_tipo == 'adicionar_dados_provas') {
 			$fa_icone = 'fa-ballot-check';
 			$fa_primary_color = 'text-secondary';
+		} elseif ($artefato_tipo == 'novo_membro') {
+			$fa_icone = 'fa-plus-circle';
+			$fa_primary_color = 'text-info';
 		}
 		return array($fa_icone, $fa_primary_color);
 	}
@@ -2244,4 +2247,28 @@
 		return false;
 	}
 
+	if (isset($_POST['busca_apelido'])) {
+		$busca_apelido = $_POST['busca_apelido'];
+		$busca_grupo_id = $_POST['busca_grupo_id'];
+		$usuarios = $conn->query("SELECT apelido, id FROM Usuarios WHERE apelido LIKE '%$busca_apelido%' ORDER BY apelido");
+		if ($usuarios->num_rows > 0) {
+			while ($usuario = $usuarios->fetch_assoc()) {
+				$usuario_apelido = $usuario['apelido'];
+				$usuario_id = $usuario['id'];
+				$usuario_avatar = return_avatar($usuario_id);
+				$usuario_avatar_icone = $usuario_avatar[0];
+				$usuario_avatar_cor = $usuario_avatar[1];
+				echo "<a value='$usuario_id' class='border p-1 mr-2 mb-2 rounded convite_usuario'><span class='$usuario_avatar_cor'><i class='fad $usuario_avatar_icone fa-fw fa-2x'></i></span> $usuario_apelido</a></a>";
+			}
+		} else {
+			echo "<span class='text-muted'>Nenhum usuário encontrado.</span>";
+		}
+	}
+	
+	if (isset($_POST['convidar_usuario_id'])) {
+		$convidar_usuario_id = $_POST['convidar_usuario_id'];
+		$convidar_grupo_id = $_POST['convidar_grupo_id'];
+		$conn->query("INSERT INTO Membros (grupo_id, membro_user_id, user_id) VALUES ($convidar_grupo_id, $convidar_usuario_id, $user_id)");
+	}
+	
 ?>

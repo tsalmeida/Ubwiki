@@ -1120,6 +1120,25 @@
 		$template_modal_show_buttons = false;
 		include 'templates/modal.php';
 	}
+
+	if ($carregar_convite == true) {
+	    $template_modal_div_id = 'modal_novo_membro';
+	    $template_modal_titulo = 'Convidar novo membro';
+	    $template_modal_body_conteudo = false;
+	    $template_modal_body_conteudo .= "
+            <p>Pesquise o convidado por seu apelido:</p>
+	        <div class='md-form'>
+	        	<input type='text' class='form-control' id='apelido_convidado' novo='apelido_convidado'>
+	        	<label for='apelido_convidado'>Apelido do convidado</label>
+	        </div>
+	        <div class='md-form my-1'>
+	            <button type='button' id='trigger_buscar_convidado' name='trigger_buscar_convidado' class='$button_classes btn-sm m-0'>Buscar</button>
+            </div>
+            <div id='convite_resultados' class='row border p-2'>
+			</div>
+	    ";
+	    include 'templates/modal.php';
+    }
 ?>
 
 </body>

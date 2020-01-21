@@ -73,7 +73,7 @@ blockquote + * {
 
 .playfair900 {
   font-family: "Playfair Display", serif !important;
-  font-weight: 900 !important;
+  font-weight: 700 !important;
 }
 
 .left-nav-item {
@@ -348,6 +348,10 @@ blockquote + * {
 
 a.text-muted:hover {
   color: #424242 !important;
+}
+
+.convite_usuario:hover {
+  background: #f5f5f5 !important;
 }
 
 /*# sourceMappingURL=style.css.map */

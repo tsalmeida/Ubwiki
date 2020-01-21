@@ -3,11 +3,18 @@
 	include 'engine.php';
 	
 	if ($user_tipo != 'admin') {
-	    header("Location:escritorio.php");
-    }
+		header("Location:escritorio.php");
+	}
 	
 	if (isset($_POST['trigger_atualizacao'])) {
-	    
+		$grupos = $conn->query("SELECT pagina_id, user_id FROM Grupos");
+		if ($grupos->num_rows > 0) {
+			while ($grupo = $grupos->fetch_assoc()) {
+				$grupo_pagina_id = $grupo['pagina_id'];
+				$grupo_user_id = $grupo['user_id'];
+				$conn->query("UPDATE Paginas SET user_id = $grupo_user_id WHERE id = $grupo_pagina_id");
+			}
+		}
 	}
 	
 	if (isset($_POST['funcoes_gerais'])) {
