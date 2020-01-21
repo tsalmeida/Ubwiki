@@ -15,6 +15,7 @@
 	if ($pagina_tipo != 'login') {
 		if ((!isset($_POST['thinkific_log'])) && (!isset($_POST['login_email']))) {
 			header('Location:login.php');
+			exit();
 		}
 	}*/
 	
@@ -26,6 +27,7 @@
 		if ((!isset($_POST['login_email'])) && (!isset($_POST['thinkific_login']))) {
 			if (($user_email == false) && ($pagina_tipo != 'logout') && ($pagina_tipo != 'login') && ($pagina_tipo != 'index')) {
 				header('Location:logout.php');
+				exit();
 			}
 		}
 	} else {

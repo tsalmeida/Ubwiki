@@ -4,8 +4,8 @@
 	$topico_proximo = false;
 	$breadcrumbs = false;
 	
-	$breadcrumbs .= "<h4><strong>Curso:</strong> <a href='pagina.php?pagina_id=$topico_curso_id'>$topico_curso_titulo</a></h4>";
-	$breadcrumbs .= "<h4><strong>Matéria:</strong> <a href='pagina.php?pagina_id=$topico_materia_id'>$topico_materia_titulo</a></h4>";
+	$breadcrumbs .= "<h4><strong>Curso:</strong> <a href='pagina.php?pagina_id=$topico_curso_pagina_id'>$topico_curso_titulo</a></h4>";
+	$breadcrumbs .= "<h4><strong>Matéria:</strong> <a href='pagina.php?pagina_id=$topico_materia_pagina_id'>$topico_materia_titulo</a></h4>";
 	
 	if ($topico_nivel == 1) {
 		$breadcrumbs .= "<h4>Tópicos:</h4>";

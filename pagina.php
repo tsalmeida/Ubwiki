@@ -93,16 +93,14 @@
 	if ($pagina_tipo == 'topico') {
 		$familia_info = return_familia($pagina_id);
 		$topico_nivel = $familia_info[0];
-		$topico_curso_id = $familia_info[1];
-		$pagina_curso_id = $topico_curso_id;
-		$topico_curso_info = return_curso_info($topico_curso_id);
-		$topico_curso_pagina_id = $topico_curso_info[0];
+		$topico_curso_pagina_id = $familia_info[1];
 		$topico_curso_pagina_info = return_pagina_info($topico_curso_pagina_id);
-		$topico_curso_titulo = $topico_curso_pagina_info[6]; // isso não está funcionando
-		$pagina_curso_user_id = $topico_curso_pagina_info[5]; // nem isso
-		$pagina_curso_compartilhamento = $topico_curso_pagina_info[4]; // nem isso
-		$topico_materia_id = $familia_info[2];
-		$topico_materia_titulo = return_pagina_titulo($topico_materia_id);
+		$topico_curso_titulo = $topico_curso_pagina_info[6];
+		$pagina_curso_pagina_id = $topico_curso_pagina_id;
+		$pagina_curso_user_id = $topico_curso_pagina_info[5];
+		$pagina_curso_compartilhamento = $topico_curso_pagina_info[4];
+		$topico_materia_pagina_id = $familia_info[2];
+		$topico_materia_titulo = return_pagina_titulo($topico_materia_pagina_id);
 	} elseif (($pagina_tipo == 'materia') || ($pagina_tipo == 'curso')) {
 		$familia_info = return_familia($pagina_id);
 		$pagina_curso_pagina_id = $familia_info[1];
@@ -121,9 +119,18 @@
 		exit();
 	}
 	
+	if (($pagina_tipo == 'topico') || $pagina_tipo == 'materia') {
+		$pagina_compartilhamento = $pagina_curso_compartilhamento;
+		$pagina_user_id = $pagina_curso_user_id;
+	}
+	
 	if ($pagina_compartilhamento == 'privado') {
 		if ($pagina_user_id != $user_id) {
-			$check_compartilhamento = return_compartilhamento($pagina_id, $user_id);
+			if (($pagina_tipo == 'topico') || ($pagina_tipo == 'materia')) {
+				$check_compartilhamento = return_compartilhamento($pagina_curso_pagina_id, $user_id);
+			} else {
+				$check_compartilhamento = return_compartilhamento($pagina_id, $user_id);
+			}
 			if ($check_compartilhamento == false) {
 				header('Location:pagina.php?pagina_id=4');
 				exit();
@@ -490,7 +497,7 @@
 		$template_titulo_context = true;
 		if ($pagina_tipo == 'topico') {
 			$template_titulo = $pagina_titulo;
-			$template_subtitulo = "<a href='pagina.php?pagina_id=$topico_materia_id' title='Matéria'>$topico_materia_titulo</a> / <a href='pagina.php?pagina_id=$topico_curso_id' title='Curso'>$curso_titulo</a>";
+			$template_subtitulo = "<a href='pagina.php?pagina_id=$topico_materia_pagina_id' title='Matéria'>$topico_materia_titulo</a> / <a href='pagina.php?pagina_id=$topico_curso_pagina_id' title='Curso'>$topico_curso_titulo</a>";
 		} elseif ($pagina_tipo == 'elemento') {
 			$template_titulo = $elemento_titulo;
 			$template_subtitulo = $elemento_autor;
