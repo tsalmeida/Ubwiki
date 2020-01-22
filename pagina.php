@@ -360,7 +360,7 @@
 							if ($respostas->num_rows > 0) {
 								echo "<span id='add_reply' class='mx-1' title='Adicionar resposta'><a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_reply' class='text-success'><i class='fad fa-comment-alt-edit fa-fw fa-2x'></i></a></span>";
 							} else {
-								echo "<span id='add_reply' class='mx-1' title='Adicionar resposta'><a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_reply'><i class='fad fa-comment-alt-edit fa-fw fa-2x'></i></a></span>";
+								echo "<span id='add_reply' class='mx-1' title='Adicionar resposta'><a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_reply' class='text-muted'><i class='fad fa-comment-alt-edit fa-fw fa-2x'></i></a></span>";
 							}
 						}
 						if (($pagina_tipo == 'curso') && ($curso_user_id == $user_id)) {
