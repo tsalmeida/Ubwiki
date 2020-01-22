@@ -283,7 +283,7 @@ blockquote + * {
 }
 
 .artefato:hover {
-  background-color: #f5f5f5;
+  background-color: #f5f5f5 !important;
 }
 
 .remover_tag:hover, .remover_materia:hover, .remover_topico:hover {
