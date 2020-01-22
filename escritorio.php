@@ -162,6 +162,7 @@
 							$artefato_subtitulo = 'Curso ativo';
 							$artefato_link = "pagina.php?curso_id=$curso_id";
 							$artefato_tipo = 'curso';
+							$artefato_background = 'teal lighten-5';
 							$artefato_criacao = false;
 							$template_conteudo .= include 'templates/artefato_item.php';
 
@@ -818,6 +819,10 @@
 			<option value='fa-user-cowboy'>Cowboy</option>
 			<option value='fa-user-astronaut'>Astronauta</option>
 			<option value='fa-user-alien'>Alienígena</option>
+			<option value='fa-cat'>Gato</option>
+			<option value='fa-cat-space'>Gato astronauta</option>
+			<option value='fa-dog'>Cachorro</option>
+			<option value='fa-ghost'>Fantasma</option>
 		</select>
 		<select name='selecionar_cor' class='$select_classes'>
 			<option disabled selected value=''>Cor do seu avatar</option>

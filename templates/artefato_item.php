@@ -69,9 +69,13 @@
 		$titulo_class = 'small';
 	}
 	
+	if(!isset($artefato_background)) {
+		$artefato_background = false;
+	}
+	
 	$artefato_template_result = false;
 	$artefato_template_result .= "
-     <div class='$artefato_col_limit py-3 artefato rounded' $artefato_template_thumb>
+     <div class='$artefato_col_limit py-3 artefato rounded $artefato_background' $artefato_template_thumb>
         $artefato_link_1<span class='row justify-content-center text-center'><i class='fad $fa_icone $fa_size fa-fw d-block'></i></span>
         <span class='row justify-content-center text-center mt-2 text-dark $titulo_class'>$artefato_titulo</span>
         <span class='row justify-content-center text-center text-muted $titulo_class'><em>$artefato_subtitulo</em></span>$artefato_link_2
@@ -94,6 +98,7 @@
 	unset($titulo_class);
 	unset($artefato_modal);
 	unset($length_check);
+	unset($artefato_background);
 	
 	return $artefato_template_result;
 

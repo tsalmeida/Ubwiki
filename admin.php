@@ -7,15 +7,6 @@
 	}
 	
 	if (isset($_POST['trigger_atualizacao'])) {
-		$grupos = $conn->query("SELECT pagina_id, user_id FROM Grupos");
-		if ($grupos->num_rows > 0) {
-			while ($grupo = $grupos->fetch_assoc()) {
-				$grupo_pagina_id = $grupo['pagina_id'];
-				$grupo_user_id = $grupo['user_id'];
-				$conn->query("UPDATE Paginas SET user_id = $grupo_user_id WHERE id = $grupo_pagina_id");
-			}
-		}
-		$conn->query("CREATE TABLE `Ubwiki`.`Carrinho` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `user_id` INT(11) NULL DEFAULT NULL , `produto_pagina_id` INT(11) NULL DEFAULT NULL , `estado` BINARY(1) NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
 	}
 	
 	if (isset($_POST['funcoes_gerais'])) {
