@@ -752,8 +752,8 @@
 	$template_modal_div_id = 'modal_apresentacao';
 	$template_modal_titulo = 'Sala de visitas';
 	$template_modal_body_conteudo = false;
-	$template_modal_body_conteudo .= "<p>A sala de visitas de seu escritório é visível a outros usuários, que a visitarão ao clicar em seu apelido. Seu apelido somente é visível como identificação de suas atividades públicas na Ubwiki.</p>";
-	$template_modal_body_conteudo .= "<p>Apenas itens explicitamente tornados públicos por você serão visíveis a outros usuários. No momento, apenas sua apresentação pode ser visível.</p>";
+	$template_modal_body_conteudo .= "<p>A sala de visitas de seu escritório é visível a outros usuários, que a visitarão ao clicar em seu apelido. Seu apelido é a única informação que o identifica em suas atividades públicas na Ubwiki.</p>";
+	$template_modal_body_conteudo .= "<p>Apenas itens explicitamente tornados públicos por você serão incluídos em sua sala de visitas. No momento, somente é possível escrever um texto de apresentação.</p>";
 	
 	$perfil_publico_id = false;
 	$perfis_publicos = $conn->query("SELECT id FROM Textos WHERE tipo = 'verbete_user' AND user_id = $user_id");

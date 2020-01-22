@@ -7,13 +7,13 @@
 	
 	$titulo_length = strlen($template_titulo);
 	$display_level = false;
-	if ($titulo_length < 15) {
+	if ($titulo_length < 20) {
 		$display_level = 'display-1';
-	} elseif ($titulo_length < 25) {
+	} elseif ($titulo_length < 30) {
 		$display_level = 'display-2';
-	} elseif ($titulo_length < 45) {
+	} elseif ($titulo_length < 50) {
 		$display_level = 'display-3';
-	} elseif ($titulo_length < 60) {
+	} elseif ($titulo_length < 65) {
 		$display_level = 'display-4';
 	} else {
 		$display_level = false;

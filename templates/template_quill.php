@@ -15,6 +15,7 @@
 	if (!isset($template_quill_botoes)) {
 		$template_quill_botoes = true;
 	}
+	$template_botoes_padrao = '';
 	
 	if (isset($pagina_tipo)) {
 		$template_quill_meta_tipo = $template_id;

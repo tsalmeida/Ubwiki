@@ -616,7 +616,6 @@
 							$template_quill_pagina_id = $pagina_id;
 							$template_quill_pagina_de_edicao = true;
 							$template_quill_botoes = false;
-							$template_botoes_padrao = false;
 							$template_background = 'grey lighten-5';
 							$template_conteudo = include 'templates/template_quill.php';
 							include 'templates/page_element.php';
@@ -668,17 +667,14 @@
 					if (($pagina_tipo == 'sistema') && ($user_tipo != 'admin')) {
 						$template_quill_botoes = false;
 						$template_quill_initial_state = 'leitura';
-						$template_botoes_padrao = false;
 					}
 					if (($pagina_compartilhamento == 'escritorio') && ($user_id != $pagina_user_id)) {
 						$template_quill_botoes = false;
 						$template_quill_initial_state = 'leitura';
-						$template_botoes_padrao = false;
 					}
 					if (($pagina_compartilhamento == 'privado') && ($user_id != $pagina_user_id)) {
 						$template_quill_botoes = false;
 						$template_quill_initial_state = 'leitura';
-						$template_botoes_padrao = false;
 					}
 					if ($pagina_tipo == 'resposta') {
 						$template_titulo = 'Resposta';
