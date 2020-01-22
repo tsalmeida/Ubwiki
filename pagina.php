@@ -526,7 +526,7 @@
 			$template_subtitulo = $elemento_autor;
 		} elseif ($pagina_tipo == 'curso') {
 			$template_titulo = $pagina_titulo;
-			$template_subtitulo = 'Projeto comunitário';
+			$template_subtitulo = 'Curso';
 		} elseif ($pagina_tipo == 'materia') {
 			$template_titulo = $pagina_titulo;
 			$template_subtitulo = "Matéria / <a href='pagina.php?pagina_id=$pagina_item_id'>$curso_titulo</a>";
