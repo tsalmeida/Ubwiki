@@ -118,6 +118,15 @@
 		$user_sobrenome = false;
 	}
 	
+	if ($user_id != false) {
+		$produtos = $conn->query("SELECT id FROM Carrinho WHERE user_id = $user_id AND estado = 1");
+		if ($produtos->num_rows > 0) {
+			$carregar_carrinho = true;
+		} else {
+			$carregar_carrinho = false;
+		}
+	}
+	
 	if (isset($_SESSION['curso_id'])) {
 		$curso_id = $_SESSION['curso_id'];
 	}
@@ -2191,15 +2200,23 @@
 			}
 		}
 		$produto_preco = false;
-		$precos = $conn->query("SELECT extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'preco'");
+		$precos = $conn->query("SELECT extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'preco' ORDER BY id DESC");
 		if ($precos->num_rows > 0) {
 			while ($preco = $precos->fetch_assoc()) {
 				$produto_preco = $preco['extra'];
 				break;
 			}
 		}
+		$produto_autor = false;
+		$autores = $conn->query("SELECT extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'autor' ORDER BY id DESC");
+		if ($autores->num_rows > 0) {
+			while ($autor = $autores->fetch_assoc()) {
+				$produto_autor = $autor['extra'];
+				break;
+			}
+		}
 		if ($pagina_titulo != false) {
-			return array($pagina_titulo, $verbete_texto, $produto_preco);
+			return array($pagina_titulo, $verbete_texto, $produto_preco, $produto_autor);
 		} else {
 			return false;
 		}
@@ -2269,6 +2286,13 @@
 		$convidar_usuario_id = $_POST['convidar_usuario_id'];
 		$convidar_grupo_id = $_POST['convidar_grupo_id'];
 		$conn->query("INSERT INTO Membros (grupo_id, membro_user_id, user_id) VALUES ($convidar_grupo_id, $convidar_usuario_id, $user_id)");
+	}
+	
+	if (isset($_POST['remover_carrinho_pagina_id'])) {
+		$remover_carrinho_pagina_id = $_POST['remover_carrinho_pagina_id'];
+		error_log("UPDATE Carrinho SET estado = 0 WHERE produto_pagina_id = $remover_carrinho_pagina_id AND user_id = $user_id");
+		$check = $conn->query("UPDATE Carrinho SET estado = 0 WHERE produto_pagina_id = $remover_carrinho_pagina_id AND user_id = $user_id");
+		return $check;
 	}
 	
 ?>

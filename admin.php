@@ -15,6 +15,7 @@
 				$conn->query("UPDATE Paginas SET user_id = $grupo_user_id WHERE id = $grupo_pagina_id");
 			}
 		}
+		$conn->query("CREATE TABLE `Ubwiki`.`Carrinho` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `user_id` INT(11) NULL DEFAULT NULL , `produto_pagina_id` INT(11) NULL DEFAULT NULL , `estado` BINARY(1) NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
 	}
 	
 	if (isset($_POST['funcoes_gerais'])) {
@@ -48,12 +49,10 @@
 			}
 		}
 	}
-	
-	
 	include 'templates/html_head.php';
 
 ?>
-<body class="carrara">
+<body class="grey lighten-5">
 <?php
 	include 'templates/navbar.php';
 ?>
@@ -109,7 +108,6 @@
 						include 'templates/page_element.php';
 					
 					?>
-
         </div>
     </div>
 </div>

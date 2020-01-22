@@ -89,39 +89,39 @@
     <div class='row justify-content-between px-2'>
 			<?php
 				echo "<div class='col-3'><div class='row justify-content-start'>";
-				echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_opcoes' class='p-1 text-info rounded artefato'><i class='fad fa-user-cog fa-2x fa-fw'></i></a>";
-				echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_apresentacao' class='p-1 text-info rounded artefato'><i class='fad fa-door-closed fa-2x fa-fw'></i></a>";
+				echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_opcoes' class='p-2 text-info rounded artefato'><i class='fad fa-user-cog fa-2x fa-fw'></i></a>";
+				echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_apresentacao' class='p-2 text-info rounded artefato'><i class='fad fa-mug-tea fa-2x fa-fw'></i></a>";
 				if ($user_tipo == 'admin') {
-				    echo "<a href='loja.php' class='p-1 text-info rounded artefato'><i class='fad fa-bags-shopping fa-2x fa-fw'></i></a>";
+				    echo "<a href='loja.php' class='p-2 text-info rounded artefato'><i class='fad fa-bags-shopping fa-2x fa-fw'></i></a>";
 				}
 				echo "</div></div>";
 				echo "<div class='col-6'><div class='row justify-content-center'>";
 				echo "
-                      <a id='escritorio_home' href='javascript:void(0);' class='p-1 rounded text-muted artefato' title='Retornar à página inicial'><i class='fad fa-lamp-desk fa-2x fa-fw'></i></a>
-                      <a id='mostrar_textos' href='javascript:void(0);' class='p-1 rounded text-primary artefato' title='Pressione para ver seus textos e notas privadas'><i class='fad fa-typewriter fa-2x fa-fw'></i></a>
-                      <a id='mostrar_imagens' href='javascript:void(0);' class='p-1 rounded text-danger artefato' title='Pressione para ver suas imagens públicas'><i class='fad fa-images fa-2x fa-fw'></i></a>
-                      <a id='mostrar_acervo' href='javascript:void(0);' class='p-1 rounded text-success artefato' title='Pressione para ver seu acervo virtual'><i class='fad fa-books fa-2x fa-fw'></i></a>
-                      <a id='mostrar_tags' href='javascript:void(0);' class='p-1 rounded text-warning artefato' title='Pressione para ver suas áreas de interesse'><i class='fad fa-tags fa-2x fa-fw'></i></a>
-                      <a id='mostrar_grupos' href='javascript:void(0);' class='p-1 rounded text-default artefato'><i class='fad fa-users fa-2x fa-fw'></i></a>
+                      <a id='escritorio_home' href='javascript:void(0);' class='p-2 rounded text-muted artefato' title='Retornar à página inicial'><i class='fad fa-lamp-desk fa-2x fa-fw'></i></a>
+                      <a id='mostrar_textos' href='javascript:void(0);' class='p-2 rounded text-primary artefato' title='Pressione para ver seus textos e notas privadas'><i class='fad fa-typewriter fa-2x fa-fw'></i></a>
+                      <a id='mostrar_imagens' href='javascript:void(0);' class='p-2 rounded text-danger artefato' title='Pressione para ver suas imagens públicas'><i class='fad fa-images fa-2x fa-fw'></i></a>
+                      <a id='mostrar_acervo' href='javascript:void(0);' class='p-2 rounded text-success artefato' title='Pressione para ver seu acervo virtual'><i class='fad fa-books fa-2x fa-fw'></i></a>
+                      <a id='mostrar_tags' href='javascript:void(0);' class='p-2 rounded text-warning artefato' title='Pressione para ver suas áreas de interesse'><i class='fad fa-tags fa-2x fa-fw'></i></a>
+                      <a id='mostrar_grupos' href='javascript:void(0);' class='p-2 rounded text-default artefato'><i class='fad fa-users fa-2x fa-fw'></i></a>
                       ";
 				if ($user_tipo == 'admin') {
-					echo "<a id='icone_simulados' href='javascript:void(0);' class='p-1 rounded text-secondary artefato' title='Pressione para ver seus simulados'><i class='fad fa-clipboard-list-check fa-2x fa-fw'></i></a>
+					echo "<a id='icone_simulados' href='javascript:void(0);' class='p-2 rounded text-secondary artefato' title='Pressione para ver seus simulados'><i class='fad fa-clipboard-list-check fa-2x fa-fw'></i></a>
                   ";
 				}
 				
 				echo "</div></div>";
 				echo "<div class='col-3'><div class='row justify-content-end'>";
 				if ($comentarios->num_rows > 0) {
-					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_forum' class='p-1 text-secondary rounded artefato'><i class='fad fa-comments-alt fa-2x fa-fw'></i></a>";
+					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_forum' class='p-2 text-secondary rounded artefato'><i class='fad fa-comments-alt fa-2x fa-fw'></i></a>";
 				}
 				if ($completados->num_rows > 0) {
-					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_completados' class='p-1 text-success rounded artefato'><i class='fad fa-check-circle fa-2x fa-fw'></i></a>";
+					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_completados' class='p-2 text-success rounded artefato'><i class='fad fa-check-circle fa-2x fa-fw'></i></a>";
 				}
 				if ($bookmarks->num_rows > 0) {
-					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_bookmarks' class='p-1 text-danger rounded artefato'><i class='fad fa-bookmark fa-2x fa-fw'></i></a>";
+					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_bookmarks' class='p-2 text-danger rounded artefato'><i class='fad fa-bookmark fa-2x fa-fw'></i></a>";
 				}
 				if ($verbetes_escritos->num_rows > 0) {
-					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_verbetes' class='p-1 text-warning rounded artefato'><i class='fad fa-spa fa-2x fa-fw'></i></a>";
+					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_verbetes' class='p-2 text-warning rounded artefato'><i class='fad fa-spa fa-2x fa-fw'></i></a>";
 				}
 				echo "</div></div>";
 			?>
@@ -287,7 +287,7 @@
 								while ($grupo_usuario_membro = $grupos_usuario_membro->fetch_assoc()) {
 									$grupo_usuario_membro_grupo_id = $grupo_usuario_membro['grupo_id'];
 									$grupo_usuario_membro_grupo_titulo = return_grupo_titulo_id($grupo_usuario_membro_grupo_id);
-									$template_conteudo .= "<a href='pagina.php?grupo_id=$grupo_usuario_membro_grupo_id' target='_blank'><li class='list-group-item list-group-item-action border-top'>$grupo_usuario_membro_grupo_titulo</li></a>";
+									$template_conteudo .= "<a href='pagina.php?grupo_id=$grupo_usuario_membro_grupo_id' ><li class='list-group-item list-group-item-action border-top'>$grupo_usuario_membro_grupo_titulo</li></a>";
 								}
 								$template_conteudo .= "</ul>";
 								include 'templates/page_element.php';
@@ -799,7 +799,6 @@
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "
 		<h3>Avatar</h3>
-		<p>Seu avatar atual:</p>
 		<div class='row justify-content-center'>
 			<a href='pagina.php?user_id=$user_id' class='$usuario_avatar_cor'><i class='fad $usuario_avatar fa-3x fa-fw'></i></a>
 		</div>

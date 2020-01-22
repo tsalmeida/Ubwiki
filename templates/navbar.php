@@ -21,10 +21,14 @@
 	}
 	if (isset($curso_id)) {
 		echo "<nav class='navbar navbar-expand-lg $template_navbar_color' id='inicio'>";
-		if (isset($curso_id)) {
-			echo "<a class='navbar-brand playfair900 $template_navbar_text' href='pagina.php?curso_id=$curso_id'>Ubwiki</a>";
+		if ($pagina_tipo == 'curso') {
+			echo "<span class='navbar-brand navbar-brand-pointer playfair900 $template_navbar_text'>Ubwiki</span>";
 		} else {
-			echo "<a class='navbar-brand playfair900 $template_navbar_text' href='index.php'>Ubwiki</a>";
+			if (isset($curso_id)) {
+				echo "<a class='navbar-brand playfair900 $template_navbar_text' href='pagina.php?curso_id=$curso_id'>Ubwiki</a>";
+			} else {
+				echo "<a class='navbar-brand playfair900 $template_navbar_text' href='index.php'>Ubwiki</a>";
+			}
 		}
 		echo "<ul class='nav navbar-nav ml-auto nav-flex-icons'>";
 		echo "<li class='nav-item dropdown'>";
@@ -34,6 +38,9 @@
 		        </a>
 		        <div class='dropdown-menu dropdown-menu-right z-depth-0'>
 		          <a class='dropdown-item navlink z-depth-0' href='escritorio.php'>Seu escritório</a>";
+		if ($carregar_carrinho == true) {
+			echo "<a class='dropdown-item navlink z-depth-0' href='carrinho.php'>Seu carrinho</a>";
+		}
 		if ($user_tipo == 'admin') {
 			echo "
 							<a class='dropdown-item navlink z-depth-0' href='admin.php'>Página de administradores</a>

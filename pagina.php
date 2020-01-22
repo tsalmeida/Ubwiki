@@ -109,6 +109,12 @@
 		$pagina_curso_id = $pagina_curso_info[1];
 		$pagina_curso_user_id = $pagina_curso_info[5];
 		$pagina_curso_compartilhamento = $pagina_curso_info[4];
+	} elseif ($pagina_subtipo == 'produto') {
+		$produto_preco = false;
+		$produto_autor = false;
+		$produto_info = return_produto_info($pagina_id);
+		$produto_preco = $produto_info[2];
+		$produto_autor = $produto_info[3];
 	}
 	
 	if (isset($_POST['novo_curso'])) {
@@ -187,17 +193,13 @@
 		$pagina_original_compartilhamento = $pagina_original_info[4];
 		$pagina_compartilhamento = $pagina_original_compartilhamento;
 		$pagina_original_user_id = $pagina_original_info[5];
-		if ($pagina_original_user_id != $user_id) {
-		    if ($pagina_original_compartilhamento == 'privado') {
-			    $check_compartilhamento = return_compartilhamento($pagina_item_id, $user_id);
-			    if ($check_compartilhamento == false) {
-				    header("Location:pagina.php?pagina_id=3");
-				    exit();
-			    }
-		    } elseif ($pagina_original_compartilhamento == 'grupo') {
-		    	error_log('this happened');
-		    }
-        }
+		if (($pagina_original_user_id != $user_id) && ($pagina_original_compartilhamento == 'privado')) {
+			$check_compartilhamento = return_compartilhamento($pagina_item_id, $user_id);
+			if ($check_compartilhamento == false) {
+				header("Location:pagina.php?pagina_id=3");
+				exit();
+			}
+		}
 	} elseif ($pagina_tipo == 'resposta') {
 		$resposta_id = $pagina_id;
 		$resposta_info = return_pagina_info($pagina_id);
@@ -296,9 +298,25 @@
 	if (isset($_POST['novo_produto_preco'])) {
 		$novo_produto_preco = $_POST['novo_produto_preco'];
 		$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($pagina_id, 'produto', 'preco', $novo_produto_preco, $user_id)");
+		$produto_preco = $novo_produto_preco;
 	}
 	
-	if ((($pagina_tipo == 'elemento') || ($pagina_tipo == 'pagina')) && ($pagina_compartilhamento != 'escritorio') || ($pagina_tipo == 'grupo')) {
+	if ($pagina_subtipo == 'produto') {
+		$carrinho = $conn->query("SELECT id FROM Carrinho WHERE user_id = $user_id AND produto_pagina_id = $pagina_id AND estado = 1");
+		if ($carrinho->num_rows > 0) {
+			$produto_no_carrinho = true;
+		} else {
+			$produto_no_carrinho = false;
+		}
+	}
+	
+	if (isset($_POST['adicionar_produto_pagina_id'])) {
+		$adicionar_produto_pagina_id = $_POST['adicionar_produto_pagina_id'];
+		$conn->query("INSERT INTO Carrinho (user_id, produto_pagina_id, estado) VALUES ($user_id, $pagina_id, 1)");
+		$produto_no_carrinho = true;
+	}
+	
+	if (($pagina_tipo == 'elemento') || (($pagina_tipo == 'pagina') && (($pagina_compartilhamento != 'escritorio') && ($pagina_tipo == 'grupo') && ($pagina_subtipo != 'produto')))) {
 		$carregar_secoes = true;
 	} else {
 		$carregar_secoes = false;
@@ -397,7 +415,9 @@
 							echo "<span id='secoes' class='mx-1' title='Página e seções' data-toggle='modal' data-target='#modal_paginas_relacionadas'><a href='javascript:void(0);' class='text-dark'><i class='fad fa-project-diagram fa-fw'></i></a></span>";
 						}
 						if ($pagina_subtipo == 'produto') {
-							echo "<span id='adicionar_carrinho' class='mx-1' title='Adicionar este produto a seu carrinho'><a href='javascript:void(0);' class='text-success'><i class='fad fa-cart-plus fa-fw fa-2x'></i></a></span>";
+							if ($produto_no_carrinho == false) {
+								echo "<span id='adicionar_carrinho' class='mx-1' title='Adicionar este produto a seu carrinho'><a href='javascript:void(0);' data-toggle='modal' data-target='#modal_adicionar_carrinho' class='text-success'><i class='fad fa-cart-plus fa-fw fa-2x'></i></a></span>";
+							}
 						}
 					?>
         </div>
@@ -627,7 +647,7 @@
 						$template_id = 'imagem_div';
 						$template_titulo = false;
 						$template_botoes = false;
-						$template_conteudo = "<a href='../imagens/verbetes/$elemento_arquivo' target='_blank'><img class='imagem_pagina border' src='../imagens/verbetes/$elemento_arquivo'></img></a>";
+						$template_conteudo = "<a href='../imagens/verbetes/$elemento_arquivo' ><img class='imagem_pagina border' src='../imagens/verbetes/$elemento_arquivo'></img></a>";
 						include 'templates/page_element.php';
 					} elseif (($elemento_tipo == 'video') && ($elemento_iframe != false)) {
 						$template_div = 'video_div';
@@ -755,7 +775,7 @@
 				$autor_comentario_cor = $autor_comentario_avatar_info[1];
 				
 				$template_modal_body_conteudo .= "<li class='list-group-item'>
-                                                <p></span><strong><a href='pagina.php?user_id=$autor_comentario_id' target='_blank'><span class='$autor_comentario_cor'><i class='fad $autor_comentario_avatar fa-fw fa-2x'></i></span>$autor_comentario_apelido</a></strong> <span class='text-muted'><small>escreveu em $timestamp_comentario</small></span></p>
+                                                <p></span><strong><a href='pagina.php?user_id=$autor_comentario_id' ><span class='$autor_comentario_cor'><i class='fad $autor_comentario_avatar fa-fw fa-2x'></i></span>$autor_comentario_apelido</a></strong> <span class='text-muted'><small>escreveu em $timestamp_comentario</small></span></p>
                                                 $texto_comentario
                                               </li>";
 			}
@@ -866,7 +886,7 @@
 				$secao_pagina_id = $secao['secao_pagina_id'];
 				$secao_info = return_pagina_info($secao_pagina_id);
 				$secao_titulo = $secao_info[6];
-				$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$secao_pagina_id' target='_blank'><li class='list-group-item list-group-item-action'>$secao_ordem: $secao_titulo</li></a>";
+				$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$secao_pagina_id'><li class='list-group-item list-group-item-action'>$secao_ordem: $secao_titulo</li></a>";
 			}
 			$template_modal_body_conteudo .= "</ul>";
 		}
@@ -960,7 +980,7 @@
 		$template_modal_body_conteudo .= "
 			<div class='md-form mb-2'>
 				<p>Escreva abaixo o preço deste produto em Reais brasileiros (BRL).</p>
-				<input type='number' name='novo_produto_preco' id='novo_produto_preco'>
+				<input type='number' name='novo_produto_preco' id='novo_produto_preco' value='$produto_preco'>
 			</div>
 		";
 		include 'templates/modal.php';
@@ -1125,16 +1145,16 @@
 		$template_modal_show_buttons = false;
 		include 'templates/modal.php';
 	}
-
+	
 	if ($carregar_convite == true) {
-	    $template_modal_div_id = 'modal_novo_membro';
-	    $template_modal_titulo = 'Convidar novo membro';
-	    $template_modal_body_conteudo = false;
-	    $template_modal_body_conteudo .= "
+		$template_modal_div_id = 'modal_novo_membro';
+		$template_modal_titulo = 'Convidar novo membro';
+		$template_modal_body_conteudo = false;
+		$template_modal_body_conteudo .= "
             <p>Pesquise o convidado por seu apelido:</p>
 	        <div class='md-form'>
 	        	<input type='text' class='form-control' id='apelido_convidado' novo='apelido_convidado'>
-	        	<label for='apelido_convidado'>Apelido do convidado</label>
+	        	<label for='apelido_convidado'>Apelido</label>
 	        </div>
 	        <div class='md-form my-1'>
 	            <button type='button' id='trigger_buscar_convidado' name='trigger_buscar_convidado' class='$button_classes btn-sm m-0'>Buscar</button>
@@ -1142,8 +1162,23 @@
             <div id='convite_resultados' class='row border p-2'>
 			</div>
 	    ";
-	    include 'templates/modal.php';
-    }
+		include 'templates/modal.php';
+	}
+	
+	if ($pagina_subtipo == 'produto') {
+		$template_modal_div_id = 'modal_adicionar_carrinho';
+		$template_modal_titulo = 'Adicionar este produto a seu carrinho';
+		$template_modal_body_conteudo = false;
+		$template_modal_body_conteudo .= "
+            <input type='hidden' value='$pagina_id' name='adicionar_produto_pagina_id'>
+			<p>Confirma adicionar este produto a seu carrinho?</p>
+			<p>Produto: $pagina_titulo</p>
+			<p>Autor: $produto_autor</p>
+			<p>Preço: R$ $produto_preco</p>
+		";
+		include 'templates/modal.php';
+	}
+
 ?>
 
 </body>

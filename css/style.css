@@ -354,4 +354,12 @@ a.text-muted:hover {
   background: #f5f5f5 !important;
 }
 
+.remover-carrinho:hover {
+  background-color: #ff4444 !important;
+}
+
+.navbar-brand-pointer {
+  cursor: default;
+}
+
 /*# sourceMappingURL=style.css.map */
