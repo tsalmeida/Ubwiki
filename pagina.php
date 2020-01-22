@@ -515,7 +515,7 @@
         </div>
     </div>
 </div>
-<div class="container-fluid">
+<div class="container">
 	<?php
 		$template_titulo_context = true;
 		if ($pagina_tipo == 'topico') {
