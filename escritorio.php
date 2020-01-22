@@ -162,7 +162,7 @@
 							$artefato_subtitulo = 'Curso ativo';
 							$artefato_link = "pagina.php?curso_id=$curso_id";
 							$artefato_tipo = 'curso';
-							$artefato_background = 'teal lighten-5';
+							$artefato_background = 'grey lighten-5';
 							$artefato_criacao = false;
 							$template_conteudo .= include 'templates/artefato_item.php';
 
