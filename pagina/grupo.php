@@ -15,7 +15,7 @@
 		$template_conteudo .= include 'templates/artefato_item.php';
 	}
 	
-	$membros = $conn->query("SELECT membro_user_id, estado FROM Membros WHERE grupo_id = $grupo_id");
+	$membros = $conn->query("SELECT DISTINCT membro_user_id, estado FROM Membros WHERE grupo_id = $grupo_id");
 	if ($membros->num_rows > 0) {
 		while ($membro = $membros->fetch_assoc()) {
 			$membro_user_id = $membro['membro_user_id'];
