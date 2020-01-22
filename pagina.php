@@ -8,6 +8,7 @@
 	$carregar_adicionar_topico = false;
 	$carregar_adicionar_subtopico = false;
 	$carregar_questoes_topico = false;
+	$carregar_convite = false;
 	if (!isset($_GET['pagina_id'])) {
 		if (isset($_GET['topico_id'])) {
 			$topico_id = $_GET['topico_id'];
@@ -186,13 +187,17 @@
 		$pagina_original_compartilhamento = $pagina_original_info[4];
 		$pagina_compartilhamento = $pagina_original_compartilhamento;
 		$pagina_original_user_id = $pagina_original_info[5];
-		if (($pagina_original_user_id != $user_id) && ($pagina_original_compartilhamento == 'privado')) {
-			$check_compartilhamento = return_compartilhamento($pagina_item_id, $user_id);
-			if ($check_compartilhamento == false) {
-				header("Location:pagina.php?pagina_id=3");
-				exit();
-			}
-		}
+		if ($pagina_original_user_id != $user_id) {
+		    if ($pagina_original_compartilhamento == 'privado') {
+			    $check_compartilhamento = return_compartilhamento($pagina_item_id, $user_id);
+			    if ($check_compartilhamento == false) {
+				    header("Location:pagina.php?pagina_id=3");
+				    exit();
+			    }
+		    } elseif ($pagina_original_compartilhamento == 'grupo') {
+		    	error_log('this happened');
+		    }
+        }
 	} elseif ($pagina_tipo == 'resposta') {
 		$resposta_id = $pagina_id;
 		$resposta_info = return_pagina_info($pagina_id);
@@ -219,7 +224,7 @@
 	
 	include 'pagina/shared_issets.php';
 	
-	if (($pagina_tipo == 'elemento') || ($pagina_tipo == 'pagina')) {
+	if (($pagina_tipo == 'elemento') || ($pagina_tipo == 'pagina') || ($pagina_tipo == 'grupo')) {
 		if (isset($_POST['trigger_nova_secao'])) {
 			$nova_secao_titulo = $_POST['elemento_nova_secao'];
 			$nova_secao_titulo = mysqli_real_escape_string($conn, $nova_secao_titulo);
@@ -389,7 +394,7 @@
 								echo "<span id='verbete_proximo' class='mx-1' title='Próximo verbete'><a href='$topico_proximo_link'><i class='fad fa-arrow-right fa-fw'></i></a></span>";
 							}
 						} elseif ($pagina_tipo == 'secao') {
-							echo "<span id='secoes' class='mx-1' title='Página e seções' data-toggle='modal' data-target='#modal_paginas_relacionadas'><a href='javascript:void(0);'><i class='fad fa-project-diagram fa-fw'></i></a></span>";
+							echo "<span id='secoes' class='mx-1' title='Página e seções' data-toggle='modal' data-target='#modal_paginas_relacionadas'><a href='javascript:void(0);' class='text-dark'><i class='fad fa-project-diagram fa-fw'></i></a></span>";
 						}
 						if ($pagina_subtipo == 'produto') {
 							echo "<span id='adicionar_carrinho' class='mx-1' title='Adicionar este produto a seu carrinho'><a href='javascript:void(0);' class='text-success'><i class='fad fa-cart-plus fa-fw fa-2x'></i></a></span>";
