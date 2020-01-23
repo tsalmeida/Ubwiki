@@ -1564,6 +1564,23 @@
 		return false;
 	}
 	
+	function return_grupo_info($grupo_id) {
+		include 'templates/criar_conn.php';
+		$grupos = $conn->query("SELECT criacao, titulo, estado, pagina_id, user_id FROM Grupos WHERE id = $grupo_id");
+		if ($grupos->num_rows > 0) {
+			while ($grupo = $grupos->fetch_assoc()) {
+				$grupo_criacao = $grupo['criacao']; // 0
+				$grupo_titulo = $grupo['titulo']; // 1
+				$grupo_estado = $grupo['estado']; // 2
+				$grupo_pagina_id = $grupo['pagina_id']; // 3
+				$grupo_user_id = $grupo['user_id']; // 4
+				$result = array($grupo_criacao, $grupo_titulo, $grupo_estado, $grupo_pagina_id, $grupo_user_id);
+				return $result;
+			}
+		}
+		return false;
+	}
+	
 	function return_artefato_subtitulo($artefato_tipo)
 	{
 		if ($artefato_tipo == 'anotacoes_user') {

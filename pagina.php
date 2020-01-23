@@ -1040,8 +1040,19 @@
 		} else {
 			$template_modal_body_conteudo .= "<p class='text-muted'><em>Você não faz parte de nenhum grupo de estudos. Visite seu escritório para participar.</em></p>";
 		}
-		
-		$pagina_compartilhada = $conn->query("SELECT grupo_id FROM Compartilhamento WHERE item_id = $pagina_id");
+		$comp_grupos = $conn->query("SELECT recipiente_id FROM Compartilhamento WHERE item_id = $pagina_id");
+		if ($comp_grupos->num_rows > 0) {
+			$template_modal_body_conteudo .= "<h3>Compartilhado com:</h3>";
+			$template_modal_body_conteudo .= "<ul class='list-group'>";
+			while ($comp_grupo = $comp_grupos->fetch_assoc()) {
+				$comp_grupo_id = $comp_grupo['recipiente_id'];
+				$comp_grupo_info = return_grupo_info($comp_grupo_id);
+				$comp_grupo_titulo = $comp_grupo_info[1];
+				$comp_grupo_pagina_id = $comp_grupo_info[3];
+				$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$comp_grupo_pagina_id' class='mt-1'><li class='list-group-item list-group-item-info list-group-item-action'>$comp_grupo_titulo</li></a>";
+			}
+			$template_modal_body_conteudo .= "</ul>";
+		}
 		
 		//TODO: CONTINUAR AQUI, LISTA DE COMPARTILHAMENTO DESTA PÁGINA
 		
