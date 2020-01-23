@@ -117,11 +117,11 @@
 	if ($quill_texto_id != false) {
 		if ($pagina_tipo == 'texto') {
 			$template_botoes .= "
-				<a href='historico_verbete.php?texto_id=$quill_texto_id' target='_blank' title='Histórico do documento'><i class='fad fa-history fa-fw'></i></a>
+				<a href='historico_verbete.php?texto_id=$quill_texto_id' title='Histórico do documento'><i class='fad fa-history fa-fw'></i></a>
 			";
 		}
 		$template_botoes .= "
-			<a href='pagina.php?texto_id=$quill_texto_id' target='_blank' title='Editar na página de edição'><i class='fad fa-external-link-square fa-fw'></i></a>
+			<a href='pagina.php?texto_id=$quill_texto_id' title='Editar na página de edição'><i class='fad fa-external-link-square fa-fw'></i></a>
 		";
 	}
 	

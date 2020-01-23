@@ -1232,6 +1232,7 @@
 		$sistema_etiquetas_elementos = true;
 	}
 	$sistema_etiquetas_topicos = true;
+	$sticky_toolbar = true;
 	include 'templates/html_bottom.php';
 	if ($pagina_tipo != 'texto') {
 		include 'templates/footer.html';
