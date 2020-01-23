@@ -1041,6 +1041,10 @@
 			$template_modal_body_conteudo .= "<p class='text-muted'><em>Você não faz parte de nenhum grupo de estudos. Visite seu escritório para participar.</em></p>";
 		}
 		
+		$pagina_compartilhada = $conn->query("SELECT grupo_id FROM Compartilhamento WHERE item_id = $pagina_id");
+		
+		//TODO: CONTINUAR AQUI, LISTA DE COMPARTILHAMENTO DESTA PÁGINA
+		
 		/*$template_modal_body_conteudo .= "
 			<form>
 			<h3>Compartilhar com outro usuário</h3>
