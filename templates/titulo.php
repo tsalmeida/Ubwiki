@@ -23,8 +23,8 @@
 			$display_level = false;
 		}
 	}
-	if ($template_titulo_no_nav == true) { $spacing = 'my-3'; }
-	else { $spacing = 'mb-3'; }
+	if ($template_titulo_no_nav == true) { $spacing = 'my-2'; }
+	else { $spacing = 'mb-2'; }
 	
 	if ($template_titulo_context == true) {
 		echo "
