@@ -487,7 +487,7 @@
 		echo "
 			<script type='text/javascript'>
 				$(document).ready(function() {
-					$('.ql-toolbar').addClass('sticky-top bg-white');
+					$('.ql-toolbar').addClass('sticky-top bg-white border rounded border-dark mt-1');
 		    });
 			</script>
 		";
