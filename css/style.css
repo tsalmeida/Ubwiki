@@ -362,4 +362,8 @@ a.text-muted:hover {
   cursor: default;
 }
 
+.tighten {
+  line-height: 0.8 !important;
+}
+
 /*# sourceMappingURL=style.css.map */
