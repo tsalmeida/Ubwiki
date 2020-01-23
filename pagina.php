@@ -11,20 +11,20 @@
 	$carregar_convite = false;
 	if (!isset($_GET['pagina_id'])) {
 		if (isset($_GET['topico_id'])) {
-			$topico_id = $_GET['topico_id'];
+			$topico_id = (int)$_GET['topico_id'];
 			$pagina_id = return_pagina_id($topico_id, 'topico');
 		} elseif (isset($_GET['elemento_id'])) {
-			$elemento_id = $_GET['elemento_id'];
+			$elemento_id = (int)$_GET['elemento_id'];
 			$pagina_id = return_pagina_id($elemento_id, 'elemento');
 		} elseif (isset($_GET['curso_id'])) {
-			$curso_id = $_GET['curso_id'];
+			$curso_id = (int)$_GET['curso_id'];
 			$pagina_id = return_pagina_id($curso_id, 'curso');
 		} elseif (isset($_GET['materia_id'])) {
-			$materia_id = $_GET['materia_id'];
+			$materia_id = (int)$_GET['materia_id'];
 			$pagina_id = return_pagina_id($materia_id, 'materia');
 		} elseif (isset($_GET['texto_id'])) {
 			$texto_anotacao = false;
-			$pagina_texto_id = $_GET['texto_id'];
+			$pagina_texto_id = (int)$_GET['texto_id'];
 			if ($pagina_texto_id == 'new') {
 				$conn->query("INSERT INTO Textos (tipo, compartilhamento, page_id, user_id, verbete_html, verbete_text, verbete_content) VALUES ('anotacoes', 'privado', 0, $user_id, FALSE, FALSE, FALSE)");
 				$pagina_texto_id = $conn->insert_id;
@@ -34,10 +34,10 @@
 			$pagina_id = return_pagina_id($pagina_texto_id, 'texto');
 			$pagina_tipo = 'texto';
 		} elseif (isset($_GET['grupo_id'])) {
-			$grupo_id = $_GET['grupo_id'];
+			$grupo_id = (int)$_GET['grupo_id'];
 			$pagina_id = return_pagina_id($grupo_id, 'grupo');
 		} elseif (isset($_GET['user_id'])) {
-			$escritorio_user_id = $_GET['user_id'];
+			$escritorio_user_id = (int)$_GET['user_id'];
 			$escritorio_user_apelido = return_apelido_user_id($escritorio_user_id);
 			if ($escritorio_user_apelido == false) {
 				header("Location:pagina.php?pagina_id=6");
@@ -48,10 +48,10 @@
 			header("Location:pagina.php?pagina_id=$escritorio_id");
 			exit();
 		} elseif (isset($_GET['original_id'])) {
-			$original_id = $_GET['original_id'];
+			$original_id = (int)$_GET['original_id'];
 			if (isset($_GET['resposta_id'])) {
 				if (isset($_GET['resposta_id'])) {
-					$resposta_id = $_GET['resposta_id'];
+					$resposta_id = (int)$_GET['resposta_id'];
 					if ($resposta_id == 'new') {
 						$conn->query("INSERT INTO Paginas (item_id, tipo, compartilhamento, user_id) VALUES ($original_id, 'resposta', 'igual à página original', $user_id)");
 						$nova_resposta_id = $conn->insert_id;
@@ -82,9 +82,9 @@
 		$pagina_tipo = $pagina_info[2];
 		$pagina_estado = (int)$pagina_info[3];
 		$pagina_compartilhamento = $pagina_info[4];
-		$pagina_user_id = $pagina_info[5];
+		$pagina_user_id = (int)$pagina_info[5];
 		$pagina_titulo = $pagina_info[6];
-		$pagina_etiqueta_id = $pagina_info[7];
+		$pagina_etiqueta_id = (int)$pagina_info[7];
 		$pagina_subtipo = $pagina_info[8];
 	} else {
 		header('Location:pagina.php?pagina_id=4');
@@ -94,20 +94,20 @@
 	if ($pagina_tipo == 'topico') {
 		$familia_info = return_familia($pagina_id);
 		$topico_nivel = $familia_info[0];
-		$topico_curso_pagina_id = $familia_info[1];
+		$topico_curso_pagina_id = (int)$familia_info[1];
 		$topico_curso_pagina_info = return_pagina_info($topico_curso_pagina_id);
 		$topico_curso_titulo = $topico_curso_pagina_info[6];
-		$pagina_curso_pagina_id = $topico_curso_pagina_id;
-		$pagina_curso_user_id = $topico_curso_pagina_info[5];
+		$pagina_curso_pagina_id = (int)$topico_curso_pagina_id;
+		$pagina_curso_user_id = (int)$topico_curso_pagina_info[5];
 		$pagina_curso_compartilhamento = $topico_curso_pagina_info[4];
-		$topico_materia_pagina_id = $familia_info[2];
+		$topico_materia_pagina_id = (int)$familia_info[2];
 		$topico_materia_titulo = return_pagina_titulo($topico_materia_pagina_id);
 	} elseif (($pagina_tipo == 'materia') || ($pagina_tipo == 'curso')) {
 		$familia_info = return_familia($pagina_id);
-		$pagina_curso_pagina_id = $familia_info[1];
+		$pagina_curso_pagina_id = (int)$familia_info[1];
 		$pagina_curso_info = return_pagina_info($pagina_curso_pagina_id);
-		$pagina_curso_id = $pagina_curso_info[1];
-		$pagina_curso_user_id = $pagina_curso_info[5];
+		$pagina_curso_id = (int)$pagina_curso_info[1];
+		$pagina_curso_user_id = (int)$pagina_curso_info[5];
 		$pagina_curso_compartilhamento = $pagina_curso_info[4];
 	} elseif ($pagina_subtipo == 'produto') {
 		$produto_preco = false;
