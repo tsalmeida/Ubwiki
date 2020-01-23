@@ -27,6 +27,10 @@
 	if (!isset($template_background)) {
 		$template_background = 'bg-white';
 	}
+	
+	if (!isset($template_no_spacer)) {
+		$template_no_spacer = false;
+	}
 
 	$template_conteudo_no_col1 = false;
 	$template_conteudo_no_col2 = false;
@@ -68,9 +72,11 @@
 	}
 	
 	if (($template_botoes_padrao == false) && ($template_botoes == false)) {
-		$template_botoes_padrao = "
-			<span class='spacer text-white'><i class='fad fa-bookmark fa-fw'></i></span>
-		";
+		if ($template_no_spacer == true) {
+			$template_botoes_padrao = "
+				<span class='spacer text-white'><i class='fad fa-bookmark fa-fw'></i></span>
+			";
+		}
 	}
 
 	if (!isset($template_titulo_heading)) {
@@ -136,5 +142,6 @@
 	unset($template_col_value);
 	unset($template_background);
 	unset($template_p_limit);
+	unset($template_no_spacer);
 
 ?>

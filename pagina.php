@@ -610,6 +610,7 @@
 							$template_id = $texto_tipo;
 							$template_titulo = false;
 							$template_conteudo_no_col = true;
+							$template_no_spacer = true;
 							$template_p_limit = false;
 							$template_quill_initial_state = 'edicao';
 							$template_quill_page_id = $texto_page_id;
