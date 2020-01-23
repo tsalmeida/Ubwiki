@@ -1082,7 +1082,7 @@
 				$resposta_avatar_cor = $resposta_avatar_info[1];
 				$resposta_user_apelido = return_apelido_user_id($resposta_user_id);
 				if ($resposta_pagina_titulo != false) {
-					$template_modal_body_conteudo .= "<li class='list-group-item d-flex justify-content-between'><a href='pagina.php?user_id=$resposta_user_id' class='$resposta_avatar_cor'><i class='fa $resposta_avatar_icone fa-fw fa-2x'></i> $resposta_user_apelido</a> <a href='pagina.php?pagina_id=$resposta_pagina_id'>$resposta_pagina_titulo</a></li>";
+					$template_modal_body_conteudo .= "<li class='list-group-item d-flex justify-content-between'><a href='pagina.php?user_id=$resposta_user_id' class='$resposta_avatar_cor'><i class='fa $resposta_avatar_icone fa-fw fa-2x'></i> <span class='text-dark'>$resposta_user_apelido</span></a> <a href='pagina.php?pagina_id=$resposta_pagina_id'>$resposta_pagina_titulo</a></li>";
 				}
 			}
 		} else {
