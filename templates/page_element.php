@@ -72,7 +72,7 @@
 	}
 	
 	if (($template_botoes_padrao == false) && ($template_botoes == false)) {
-		if ($template_no_spacer == true) {
+		if ($template_no_spacer == false) {
 			$template_botoes_padrao = "
 				<span class='spacer text-white'><i class='fad fa-bookmark fa-fw'></i></span>
 			";

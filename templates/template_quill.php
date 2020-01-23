@@ -145,6 +145,8 @@
   	</span>
 	";
 	
+	$template_no_spacer = true;
+	
 	if ($template_quill_botoes == false) {
 		$template_botoes = false;
 	}
