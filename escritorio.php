@@ -316,7 +316,7 @@
 							while ($usuario_curso = $usuario_cursos->fetch_assoc()) {
 								$usuario_curso_id = $usuario_curso['opcao'];
 								$usuario_curso_titulo = return_curso_titulo_id($usuario_curso_id);
-								$template_conteudo .= "<a href='pagina.php?curso_id=$usuario_curso_id'><li class='list-group-item list-group-item-action list-group-item-success mt-1 border-top'>$usuario_curso_titulo</li></a>";
+								$template_conteudo .= "<a href='pagina.php?curso_id=$usuario_curso_id'><li class='list-group-item list-group-item-action list-group-item-success mt-1 border-top text-center'>$usuario_curso_titulo</li></a>";
 							}
 							$template_conteudo .= "</ul>";
 						} else {
