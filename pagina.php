@@ -1225,7 +1225,6 @@
                 ";
 			}
 		}
-		$quill_extra_buttons .= "<br>";
 		$quill_extra_buttons = mysqli_real_escape_string($conn, $quill_extra_buttons);
 	}
 	if ($pagina_tipo != 'texto') {

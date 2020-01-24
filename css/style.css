@@ -152,7 +152,7 @@ blockquote + * {
   max-height: initial !important;
   overflow-y: auto !important;
   padding: 4ch 4ch;
-  border: 1px solid #ccc;
+  /*border: 1px solid #ccc;*/
   margin-top: 0 !important;
   max-width: 75ch;
 }
