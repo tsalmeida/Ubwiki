@@ -319,10 +319,10 @@
 						$template_classes = 'mostrar_sessao esconder_sessao justify-content-center';
 						//$template_col_value = 'col-lg-8 col-md-10 col-sm-12';
 						$template_conteudo = false;
-						$template_conteudo .= "<p>Você pode usar a Ubwiki como uma plataforma de estudos geral para registros de suas leituras pessoais, mas torna-se ainda mais efetiva quando você participa de comunidades em torno de seus interesses. Essa é a função dos cursos listados abaixo.</p>";
+						$template_conteudo .= "<p>Você pode usar a Ubwiki como uma ferramenta para registros de suas leituras pessoais, mas torna-se mais efetiva como um ambiente de estudos em que você participa de comunidades em torno de seus interesses. Essa é a função dos cursos listados abaixo.</p>";
 						$usuario_cursos = $conn->query("SELECT DISTINCT opcao FROM Opcoes WHERE opcao_tipo = 'curso' AND user_id = $user_id");
 						if ($usuario_cursos->num_rows > 0) {
-							$template_conteudo .= "<h2>Cursos em que você está inscrito</h2>";
+							$template_conteudo .= "<h2>Seus cursos:</h2>";
 							$template_conteudo .= "<ul class='list-group list-group-flush'>";
 							while ($usuario_curso = $usuario_cursos->fetch_assoc()) {
 								$usuario_curso_id = $usuario_curso['opcao'];
