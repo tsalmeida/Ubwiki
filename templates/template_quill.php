@@ -120,9 +120,9 @@
 				<a href='historico_verbete.php?texto_id=$quill_texto_id' title='Histórico do documento'><i class='fad fa-history fa-fw'></i></a>
 			";
 		}
-		$template_botoes .= "
+		/*$template_botoes .= "
 			<a href='pagina.php?texto_id=$quill_texto_id' title='Editar na página de edição'><i class='fad fa-external-link-square fa-fw'></i></a>
-		";
+		";*/
 	}
 	
 	if ($template_quill_meta_tipo == 'anotacoes') {
