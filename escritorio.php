@@ -311,7 +311,7 @@
 						$template_conteudo .= "<p>A Ubwiki é mais efetiva como um ambiente de estudos para comunidades unidas em torno de interesses comuns. Selecione um curso abaixo para participar de uma comunidade.</p>";
 						$usuario_cursos = $conn->query("SELECT DISTINCT opcao FROM Opcoes WHERE opcao_tipo = 'curso' AND user_id = $user_id");
 						if ($usuario_cursos->num_rows > 0) {
-							$template_conteudo .= "<h2>Seus cursos:</h2>";
+							$template_conteudo .= "<h2>Seus cursos</h2>";
 							$template_conteudo .= "<ul class='list-group list-group-flush'>";
 							while ($usuario_curso = $usuario_cursos->fetch_assoc()) {
 								$usuario_curso_id = $usuario_curso['opcao'];
