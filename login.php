@@ -7,7 +7,6 @@
 	if (isset($_SESSION['thinkific_email'])) {
 		$thinkific_email = $_SESSION['thinkific_email'];
 		$thinkific_bora = $_SESSION['thinkific_bora'];
-		
 	}
 ?>
 
@@ -143,7 +142,7 @@
                             'login_senha': senha,
                             'login_origem': 'desconhecido'
                         }, function(data) {
-                            if (data == 1) {
+                            if ((data == 1) || (data == 11)) {
                                 window.location.replace('index.php');
                             } else if (data == 0) {
                                 $('#login_mensagem_basica').addClass('text-muted');
