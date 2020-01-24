@@ -228,16 +228,6 @@
 							include 'templates/page_element.php';
 						}
 						
-						$template_id = 'pagina_usuario_informacoes';
-						$template_titulo = 'Seu escritório';
-						$template_classes = 'mostrar_sessao esconder_sessao justify-content-center';
-						//$template_col_value = 'col-lg-8 col-md-10 col-sm-12';
-						$template_conteudo = false;
-						$template_conteudo .= "
-			                <p>No seu escritório, você encontrará seus artefatos de estudo, organizados de acordo com seus interesses e objetivos. Quanto mais artefatos você criar, sejam itens em seu acervo virtual, anotações, imagens, indicações de progresso ou outras atividades desempenhadas, mais completos serão seus estudos, mais você se aproximará de seus objetivos.</p>
-			            ";
-						include 'templates/page_element.php';
-						
 						$template_id = 'grupos_estudos';
 						$template_titulo = 'Grupos de Estudos';
 						$template_botoes = false;
@@ -315,11 +305,10 @@
 						}
 						
 						$template_id = 'escolha_cursos';
-						$template_titulo = 'Seus cursos';
+						$template_titulo = 'Cursos';
 						$template_classes = 'mostrar_sessao esconder_sessao justify-content-center';
-						//$template_col_value = 'col-lg-8 col-md-10 col-sm-12';
 						$template_conteudo = false;
-						$template_conteudo .= "<p>Você pode usar a Ubwiki como uma ferramenta para registros de suas leituras pessoais, mas torna-se mais efetiva como um ambiente de estudos em que você participa de comunidades em torno de seus interesses. Essa é a função dos cursos listados abaixo.</p>";
+						$template_conteudo .= "<p>A Ubwiki é mais efetiva como um ambiente de estudos para comunidades unidas em torno de interesses comuns. Selecione um curso abaixo para participar de uma comunidade.</p>";
 						$usuario_cursos = $conn->query("SELECT DISTINCT opcao FROM Opcoes WHERE opcao_tipo = 'curso' AND user_id = $user_id");
 						if ($usuario_cursos->num_rows > 0) {
 							$template_conteudo .= "<h2>Seus cursos:</h2>";
@@ -327,7 +316,7 @@
 							while ($usuario_curso = $usuario_cursos->fetch_assoc()) {
 								$usuario_curso_id = $usuario_curso['opcao'];
 								$usuario_curso_titulo = return_curso_titulo_id($usuario_curso_id);
-								$template_conteudo .= "<a href='pagina.php?curso_id=$usuario_curso_id'><li class='list-group-item list-group-item-action border-top'>$usuario_curso_titulo</li></a>";
+								$template_conteudo .= "<a href='pagina.php?curso_id=$usuario_curso_id'><li class='list-group-item list-group-item-action list-group-item-success mt-1 border-top'>$usuario_curso_titulo</li></a>";
 							}
 							$template_conteudo .= "</ul>";
 						} else {
