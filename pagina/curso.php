@@ -1,12 +1,12 @@
 <?php
 	
-	$template_id = 'paginas_recentes';
-	$template_titulo = 'Verbetes recentemente modificados';
-	$template_botoes = false;
-	$template_conteudo = false;
-	$template_conteudo_no_col = true;
 	$paginas = $conn->query("SELECT DISTINCT pagina_id FROM (SELECT pagina_id FROM Textos_arquivo WHERE tipo = 'verbete' AND curso_id = $curso_id AND pagina_tipo = 'topico' GROUP BY id ORDER BY id DESC) t");
 	if ($paginas->num_rows > 0) {
+		$template_id = 'paginas_recentes';
+		$template_titulo = 'Verbetes recentemente modificados';
+		$template_botoes = false;
+		$template_conteudo = false;
+		$template_conteudo_no_col = true;
 		$template_conteudo .= "<ul class='list-group list-group-flush paginas_recentes_collapse collapse show'>";
 		$count = 0;
 		while ($pagina = $paginas->fetch_assoc()) {
@@ -41,6 +41,6 @@
 		}
 		unset($topico_pagina_id);
 		$template_conteudo .= "</ul>";
+		include 'templates/page_element.php';
 	}
-	include 'templates/page_element.php';
 ?>

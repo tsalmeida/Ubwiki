@@ -8,6 +8,23 @@
 	
 	if (isset($_POST['trigger_atualizacao'])) {
 	    $conn->query("ALTER TABLE `Etiquetas` ADD `pagina_id` INT(11) NULL DEFAULT NULL AFTER `titulo`;");
+	    $topicos = $conn->query("SELECT id FROM Paginas WHERE etiqueta_id IS NULL");
+	    if ($topicos->num_rows > 0) {
+	        while ($topico = $topicos->fetch_assoc()) {
+	        	$topico_pagina_id = $topico['id'];
+	        	$topico_titulo = return_pagina_titulo($topico_pagina_id);
+	        	error_log("SELECT id FROM Etiquetas WHERE titulo = '$topico_titulo'");
+	        	$etiquetas = $conn->query("SELECT id FROM Etiquetas WHERE titulo = '$topico_titulo'");
+	        	if ($etiquetas->num_rows > 0) {
+	        		while ($etiqueta = $etiquetas->fetch_assoc()) {
+	        			$etiqueta_id = $etiqueta['id'];
+	        			error_log("UPDATE Paginas SET etiqueta_id = $etiqueta_id WHERE id = $topico_pagina_id");
+	        			$conn->query("UPDATE Paginas SET etiqueta_id = $etiqueta_id WHERE id = $topico_pagina_id");
+	        			break;
+			        }
+		        }
+	        }
+        }
 	}
 	
 	if (isset($_POST['funcoes_gerais'])) {

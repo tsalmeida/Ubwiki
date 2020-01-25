@@ -6,8 +6,8 @@
 	$pagina_id = return_pagina_id($user_id, $pagina_tipo);
 	
 	if (!isset($user_email)) {
-	    header('Location:login.php');
-    }
+		header('Location:login.php');
+	}
 	
 	if (isset($_POST['novo_nome'])) {
 		$user_nome = $_POST['novo_nome'];
@@ -23,7 +23,7 @@
 		}
 	}
 	
-    include 'pagina/shared_issets.php';
+	include 'pagina/shared_issets.php';
 	
 	if (isset($_POST['aderir_novo_curso'])) {
 		$aderir_novo_curso = $_POST['aderir_novo_curso'];
@@ -92,17 +92,17 @@
 				echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_opcoes' class='p-2 text-info rounded artefato'><i class='fad fa-user-cog fa-2x fa-fw'></i></a>";
 				echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_apresentacao' class='p-2 text-info rounded artefato'><i class='fad fa-mug-tea fa-2x fa-fw'></i></a>";
 				if ($user_tipo == 'admin') {
-				    echo "<a href='loja.php' class='p-2 text-info rounded artefato'><i class='fad fa-bags-shopping fa-2x fa-fw'></i></a>";
+					echo "<a href='loja.php' class='p-2 text-info rounded artefato'><i class='fad fa-bags-shopping fa-2x fa-fw'></i></a>";
 				}
 				echo "</div></div>";
 				echo "<div class='col-6'><div class='row justify-content-center'>";
 				echo "
                       <a id='escritorio_home' href='javascript:void(0);' class='p-2 rounded text-muted artefato' title='Retornar à página inicial'><i class='fad fa-lamp-desk fa-2x fa-fw'></i></a>
                       <a id='mostrar_textos' href='javascript:void(0);' class='p-2 rounded text-primary artefato' title='Pressione para ver seus textos e notas privadas'><i class='fad fa-typewriter fa-2x fa-fw'></i></a>
-                      <a id='mostrar_imagens' href='javascript:void(0);' class='p-2 rounded text-danger artefato' title='Pressione para ver suas imagens públicas'><i class='fad fa-images fa-2x fa-fw'></i></a>
-                      <a id='mostrar_acervo' href='javascript:void(0);' class='p-2 rounded text-success artefato' title='Pressione para ver seu acervo virtual'><i class='fad fa-books fa-2x fa-fw'></i></a>
                       <a id='mostrar_tags' href='javascript:void(0);' class='p-2 rounded text-warning artefato' title='Pressione para ver suas áreas de interesse'><i class='fad fa-tags fa-2x fa-fw'></i></a>
+                      <a id='mostrar_acervo' href='javascript:void(0);' class='p-2 rounded text-success artefato' title='Pressione para ver seu acervo virtual'><i class='fad fa-books fa-2x fa-fw'></i></a>
                       <a id='mostrar_grupos' href='javascript:void(0);' class='p-2 rounded text-default artefato'><i class='fad fa-users fa-2x fa-fw'></i></a>
+                      <a id='mostrar_imagens' href='javascript:void(0);' class='p-2 rounded text-danger artefato' title='Pressione para ver suas imagens públicas'><i class='fad fa-images fa-2x fa-fw'></i></a>
                       ";
 				if ($user_tipo == 'admin') {
 					echo "<a id='icone_simulados' href='javascript:void(0);' class='p-2 rounded text-secondary artefato' title='Pressione para ver seus simulados'><i class='fad fa-clipboard-list-check fa-2x fa-fw'></i></a>
@@ -141,7 +141,7 @@
 		include 'templates/titulo.php'
 	
 	?>
-	
+
     <div class="row d-flex justify-content-center">
 
         <div id="coluna_unica" class="col">
@@ -165,7 +165,7 @@
 							$artefato_background = 'grey lighten-5';
 							$artefato_criacao = false;
 							$template_conteudo .= include 'templates/artefato_item.php';
-
+							
 							while ($visualizacao = $visualizacoes->fetch_assoc()) {
 								$visualizacao_page_id = $visualizacao['page_id'];
 								if (array_search($visualizacao_page_id, $resultados) !== false) {
@@ -182,13 +182,13 @@
 									$artefato_link = "pagina.php?pagina_id=$visualizacao_page_id";
 									$artefato_tipo = $visualizacao_elemento_info[3];
 								} elseif ($visualizacao_tipo_pagina == 'topico') {
-								    $visualizacao_pagina_info = return_familia($visualizacao_page_id);
-								    $artefato_titulo = return_pagina_titulo($visualizacao_page_id);
-								    $artefato_curso_pagina_id = $visualizacao_pagina_info[1];
-								    $artefato_curso_id = return_pagina_item_id($artefato_curso_pagina_id);
-								    $artefato_curso_sigla = return_curso_sigla($artefato_curso_id);
-								    $artefato_materia_pagina_id = $visualizacao_pagina_info[2];
-								    $artefato_subtitulo_materia_titulo = return_pagina_titulo($artefato_materia_pagina_id);
+									$visualizacao_pagina_info = return_familia($visualizacao_page_id);
+									$artefato_titulo = return_pagina_titulo($visualizacao_page_id);
+									$artefato_curso_pagina_id = $visualizacao_pagina_info[1];
+									$artefato_curso_id = return_pagina_item_id($artefato_curso_pagina_id);
+									$artefato_curso_sigla = return_curso_sigla($artefato_curso_id);
+									$artefato_materia_pagina_id = $visualizacao_pagina_info[2];
+									$artefato_subtitulo_materia_titulo = return_pagina_titulo($artefato_materia_pagina_id);
 									$artefato_subtitulo = "$artefato_curso_sigla / $artefato_subtitulo_materia_titulo";
 									$artefato_link = "pagina.php?pagina_id=$visualizacao_page_id";
 									$artefato_tipo = 'verbete';
@@ -236,9 +236,8 @@
 						$template_conteudo = false;
 						$template_conteudo .= "<p>Ao aderir a um grupo de estudos, você poderá compartilhar exclusivamente com outros membros. Para participar desta ferramenta, é necessário determinar um apelido. Somente o criador de um grupo de estudos pode acrescentar novos membros.</p>";
 						if ($user_apelido == false) {
-						    $template_conteudo .= "<p><strong>Para participar de grupos de estudos, é necessário determinar um apelido. Você poderá fazê-lo ao pressionar este ícone, no campo superior esquerdo desta página: <span class='text-info'><i class='fad fa-user-cog'></i></span></strong></p>";
-                        }
-						else {
+							$template_conteudo .= "<p><strong>Para participar de grupos de estudos, é necessário determinar um apelido. Você poderá fazê-lo ao pressionar este ícone, no campo superior esquerdo desta página: <span class='text-info'><i class='fad fa-user-cog'></i></span></strong></p>";
+						} else {
 							if ($convites_ativos->num_rows > 0) {
 								$template_conteudo .= "
                                     <h2>Você recebeu convite para participar de grupos de estudos:</h2>
@@ -336,13 +335,13 @@
 						}
 						$cursos_do_usuario = $conn->query("SELECT id, titulo FROM Cursos WHERE estado = 0 AND user_id = $user_id");
 						if ($cursos_do_usuario->num_rows > 0) {
-						    $template_conteudo .= "<option disabled>Seus cursos:</option>";
-						    while ($curso_do_usuario = $cursos_do_usuario->fetch_assoc()) {
-						        $curso_do_usuario_id = $curso_do_usuario['id'];
-						        $curso_do_usuario_titulo = $curso_do_usuario['titulo'];
-						        $template_conteudo .= "<option value='$curso_do_usuario_id'>$curso_do_usuario_titulo</option>";
-                            }
-                        }
+							$template_conteudo .= "<option disabled>Seus cursos:</option>";
+							while ($curso_do_usuario = $cursos_do_usuario->fetch_assoc()) {
+								$curso_do_usuario_id = $curso_do_usuario['id'];
+								$curso_do_usuario_titulo = $curso_do_usuario['titulo'];
+								$template_conteudo .= "<option value='$curso_do_usuario_id'>$curso_do_usuario_titulo</option>";
+							}
+						}
 						$template_conteudo .= "</select>";
 						$template_conteudo .= "
 							<div class='row justify-content-center'>
@@ -674,8 +673,8 @@
 			$escrito_pagina_info = return_pagina_info($escrito_pagina_id);
 			$escrito_pagina_titulo = $escrito_pagina_info[6];
 			if ($escrito_pagina_titulo == false) {
-			    $escrito_pagina_titulo = 'Não há título registrado';
-            }
+				$escrito_pagina_titulo = 'Não há título registrado';
+			}
 			$escrito_pagina_tipo = $escrito_pagina_info[2];
 			$list_color = return_list_color_page_type($escrito_pagina_tipo);
 			if ($escrito_pagina_tipo == 'texto') {
@@ -869,7 +868,7 @@
 	$template_modal_div_id = 'modal_gerenciar_etiquetas';
 	$template_modal_titulo = 'Incluir área de interesse';
 	include 'templates/etiquetas_modal.php';
-	
+
 ?>
 
 </body>
