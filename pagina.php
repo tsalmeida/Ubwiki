@@ -119,8 +119,8 @@
 		$produto_preco = $produto_info[2];
 		$produto_autor = $produto_info[3];
 	} elseif ($pagina_subtipo == 'etiqueta') {
-	    $pagina_etiqueta_id = $pagina_item_id;
-    }
+		$pagina_etiqueta_id = $pagina_item_id;
+	}
 	
 	if (isset($_POST['novo_curso'])) {
 		$novo_curso_sigla = $_POST['novo_curso_sigla'];
@@ -611,20 +611,6 @@
 							include 'pagina/grupo.php';
 						} elseif ($pagina_tipo == 'materia') {
 							include 'pagina/materia.php';
-						} elseif ($pagina_tipo == 'texto') {
-							$template_id = $texto_tipo;
-							$template_titulo = false;
-							$template_conteudo_no_col = true;
-							$template_no_spacer = true;
-							$template_p_limit = false;
-							$template_quill_initial_state = 'edicao';
-							$template_quill_page_id = $texto_page_id;
-							$template_quill_pagina_id = $pagina_id;
-							$template_quill_pagina_de_edicao = true;
-							$template_quill_botoes = false;
-							$template_background = 'grey lighten-5';
-							$template_conteudo = include 'templates/template_quill.php';
-							include 'templates/page_element.php';
 						}
 					?>
         </div>
@@ -662,6 +648,20 @@
 						$template_conteudo_class = 'text-center';
 						include 'templates/page_element.php';
 					}
+				} elseif ($pagina_tipo == 'texto') {
+					$template_id = $texto_tipo;
+					$template_titulo = false;
+					$template_conteudo_no_col = true;
+					$template_no_spacer = true;
+					$template_p_limit = false;
+					$template_quill_initial_state = 'edicao';
+					$template_quill_page_id = $texto_page_id;
+					$template_quill_pagina_id = $pagina_id;
+					$template_quill_pagina_de_edicao = true;
+					$template_quill_botoes = false;
+					$template_background = 'grey lighten-3';
+					$template_conteudo = include 'templates/template_quill.php';
+					include 'templates/page_element.php';
 				}
 				
 				if (($pagina_tipo != 'texto') && ($pagina_tipo != 'materia')) {
@@ -692,8 +692,8 @@
 					include 'templates/page_element.php';
 					
 					if ($pagina_subtipo == 'etiqueta') {
-					    include 'pagina/paginas_etiqueta.php';
-                    }
+						include 'pagina/paginas_etiqueta.php';
+					}
 					
 					if ($carregar_secoes == true) {
 						include 'pagina/secoes_pagina.php';
@@ -1219,10 +1219,9 @@
 	if ($pagina_tipo == 'texto') {
 		$sticky_toolbar = true;
 		$quill_extra_buttons = false;
-		$quill_extra_buttons .= "<a class='ml-1' title='Ver histórico' href='historico_verbete.php?texto_id=$pagina_texto_id'><i class='fad fa-history fa-fw'></i></a>";
 		if ($texto_user_id == $user_id) {
 			if ($pagina_compartilhamento == 'privado') {
-				$quill_extra_buttons .= "<a id='apagar_anotacao' class='ml-1 text-danger' title='Destruir anotação' data-toggle='modal' data-target='#modal_apagar_anotacao' href='javascript:void(0);'><i class='fad fa-shredder fa-fw'></i></a>";
+				$quill_extra_buttons .= "<a id='apagar_anotacao' class='mx-2 text-danger' title='Destruir anotação' data-toggle='modal' data-target='#modal_apagar_anotacao' href='javascript:void(0);'><i class='fad fa-shredder fa-fw'></i></a>";
 			}
 		}
 		$quill_extra_buttons = mysqli_real_escape_string($conn, $quill_extra_buttons);

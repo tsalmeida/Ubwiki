@@ -13,18 +13,17 @@
 	        while ($topico = $topicos->fetch_assoc()) {
 	        	$topico_pagina_id = $topico['id'];
 	        	$topico_titulo = return_pagina_titulo($topico_pagina_id);
-	        	error_log("SELECT id FROM Etiquetas WHERE titulo = '$topico_titulo'");
 	        	$etiquetas = $conn->query("SELECT id FROM Etiquetas WHERE titulo = '$topico_titulo'");
 	        	if ($etiquetas->num_rows > 0) {
 	        		while ($etiqueta = $etiquetas->fetch_assoc()) {
 	        			$etiqueta_id = $etiqueta['id'];
-	        			error_log("UPDATE Paginas SET etiqueta_id = $etiqueta_id WHERE id = $topico_pagina_id");
 	        			$conn->query("UPDATE Paginas SET etiqueta_id = $etiqueta_id WHERE id = $topico_pagina_id");
 	        			break;
 			        }
 		        }
 	        }
         }
+	    $conn->query("ALTER TABLE `Textos_arquivo` ADD `texto_id` INT(11) NULL DEFAULT NULL FIRST;");
 	}
 	
 	if (isset($_POST['funcoes_gerais'])) {
@@ -58,6 +57,81 @@
 			}
 		}
 	}
+	
+	if (isset($_POST['funcoes_gerais4'])) {
+		
+		$textos = $conn->query("SELECT * FROM Textos");
+		if ($textos->num_rows > 0) {
+			while ($texto = $textos->fetch_assoc()) {
+				$texto_id = $texto['id'];
+				$texto_tipo = $texto['tipo'];
+				$texto_titulo = $texto['titulo'];
+				$texto_page_id = $texto['page_id'];
+				$texto_pagina_id = $texto['pagina_id'];
+				$texto_texto_pagina_id = $texto['texto_pagina_id'];
+				$texto_pagina_tipo = $texto['pagina_tipo'];
+				$textos_arquivo = $conn->query("SELECT * FROM Textos_arquivo");
+				if ($textos_arquivo->num_rows > 0) {
+					while ($texto_arquivo = $textos_arquivo->fetch_assoc()) {
+						$texto_arquivo_id = $texto_arquivo['id'];
+						$texto_arquivo_tipo = $texto_arquivo['tipo'];
+						$texto_arquivo_titulo = $texto_arquivo['titulo'];
+						$texto_arquivo_page_id = $texto_arquivo['page_id'];
+						$texto_arquivo_pagina_id = $texto_arquivo['pagina_id'];
+						$texto_arquivo_texto_pagina_id = $texto_arquivo['texto_pagina_id'];
+						$texto_arquivo_pagina_tipo = $texto_arquivo['pagina_tipo'];
+						if (($texto_tipo == $texto_arquivo_tipo) && ($texto_page_id == $texto_arquivo_page_id) && ($texto_pagina_id == $texto_arquivo_pagina_id) && ($texto_texto_pagina_id == $texto_arquivo_texto_pagina_id) && ($texto_pagina_tipo == $texto_arquivo_pagina_tipo)) {
+							$check = $conn->query("UPDATE Textos_arquivo SET texto_id = $texto_id WHERE id = $texto_arquivo_id");
+							$check = (int)$check;
+							error_log($check);
+							error_log("UPDATE Textos_arquivo SET texto_id = $texto_id WHERE id = $texto_arquivo_id");
+						}
+					}
+				}
+			}
+		}
+		$textos_arquivo = $conn->query("SELECT id, tipo, page_id, pagina_id, pagina_tipo FROM Textos_arquivo WHERE texto_id IS NULL");
+		if ($textos_arquivo->num_rows > 0) {
+			while ($texto_arquivo = $textos_arquivo->fetch_assoc()) {
+				$texto_arquivo_id = $texto_arquivo['id'];
+				$texto_arquivo_tipo = $texto_arquivo['tipo'];
+				$texto_arquivo_page_id = $texto_arquivo['page_id'];
+				$texto_arquivo_pagina_id = $texto_arquivo['pagina_id'];
+				$texto_arquivo_pagina_tipo = $texto_arquivo['pagina_tipo'];
+				error_log("SELECT id FROM Textos WHERE tipo = '$texto_arquivo_tipo' AND page_id = $texto_arquivo_page_id AND pagina_id = $texto_arquivo_pagina_id AND pagina_tipo = '$texto_arquivo_pagina_tipo'");
+				$textos = $conn->query("SELECT id FROM Textos WHERE tipo = '$texto_arquivo_tipo' AND page_id = $texto_arquivo_page_id AND pagina_id = $texto_arquivo_pagina_id AND pagina_tipo = '$texto_arquivo_pagina_tipo'");
+				if ($textos->num_rows > 0) {
+					while ($texto = $textos->fetch_assoc()) {
+						$texto_id = $texto['id'];
+						$check = $conn->query("UPDATE Textos_arquivo SET texto_id = $texto_id WHERE id = $texto_arquivo_id");
+						error_log($check);
+						error_log("UPDATE Textos_arquivo SET texto_id = $texto_id WHERE id = $texto_arquivo_id");
+					}
+				}
+			}
+		}
+		$textos_arquivo = $conn->query("SELECT id, tipo, page_id, pagina_id, pagina_tipo FROM Textos_arquivo WHERE texto_id IS NULL");
+		if ($textos_arquivo->num_rows > 0) {
+			while ($texto_arquivo = $textos_arquivo->fetch_assoc()) {
+				$texto_arquivo_id = $texto_arquivo['id'];
+				$texto_arquivo_tipo = $texto_arquivo['tipo'];
+				$texto_arquivo_page_id = $texto_arquivo['page_id'];
+				$texto_arquivo_pagina_id = $texto_arquivo['pagina_id'];
+				$texto_arquivo_pagina_tipo = $texto_arquivo['pagina_tipo'];
+				error_log("SELECT id FROM Textos WHERE tipo = '$texto_arquivo_tipo' AND page_id = $texto_arquivo_page_id AND pagina_id = $texto_arquivo_pagina_id AND pagina_tipo = '$texto_arquivo_pagina_tipo'");
+				$textos = $conn->query("SELECT id FROM Textos WHERE tipo = '$texto_arquivo_tipo' AND page_id = $texto_arquivo_page_id AND pagina_id = $texto_arquivo_pagina_id AND pagina_tipo = '$texto_arquivo_pagina_tipo'");
+				if ($textos->num_rows > 0) {
+					while ($texto = $textos->fetch_assoc()) {
+						$texto_id = $texto['id'];
+						$check = $conn->query("UPDATE Textos_arquivo SET texto_id = $texto_id WHERE id = $texto_arquivo_id");
+						error_log($check);
+						error_log("UPDATE Textos_arquivo SET texto_id = $texto_id WHERE id = $texto_arquivo_id");
+					}
+				}
+			}
+		}
+    }
+	
 	include 'templates/html_head.php';
 
 ?>
@@ -97,6 +171,12 @@
 						        <p>Reconstruir busca.</p>
 						        <div class='row justify-content-center'>
 						        	<button class='$button_classes' type='submit' name='funcoes_gerais3'>Reconstruir busca</button>
+						        </div>
+						    </form>
+						    <form method='post'>
+						        <p>Função geral de atualização.</p>
+						        <div class='row justify-content-center'>
+						        	<button class='$button_classes' type='submit' name='funcoes_gerais4'>Executar função de atualização</button>
 						        </div>
 						    </form>
 						";

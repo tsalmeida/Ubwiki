@@ -1,6 +1,5 @@
 <?php
 	
-	
 	$template_id = 'secao_etiquetas';
 	$template_titulo = 'Áreas de interesse relacionadas';
 	$template_botoes = false;

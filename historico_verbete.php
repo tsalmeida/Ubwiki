@@ -61,9 +61,9 @@
 						
 						$template_conteudo .= "<p>Para visualizar as mais recentes versões salvas deste texto, clique em um dos botões abaixo.</p>";
 						if ($texto_restrito == false) {
-							$result = $conn->query("SELECT criacao, id, user_id FROM Textos_arquivo WHERE page_id = $texto_page_id AND tipo = '$texto_tipo' ORDER BY id DESC");
+							$result = $conn->query("SELECT criacao, id, user_id FROM Textos_arquivo WHERE texto_id = $texto_id ORDER BY id DESC");
 						} else {
-							$result = $conn->query("SELECT criacao, id, user_id FROM Textos_arquivo WHERE page_id = $texto_page_id AND tipo = '$texto_tipo' AND user_id = $user_id ORDER BY id DESC");
+							$result = $conn->query("SELECT criacao, id, user_id FROM Textos_arquivo WHERE texto_id = $texto_id AND user_id = $user_id ORDER BY id DESC");
 						}
 						if ($result->num_rows > 0) {
 							$template_conteudo .= "<ul class='list-group'>";
