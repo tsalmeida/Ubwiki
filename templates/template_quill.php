@@ -108,11 +108,8 @@
 	
 	$quill_result = false;
 	
-	$template_botoes .= "
-		<a href='javascript:void(0)' id='{$template_id}_trigger_save' title='Salvar mudanças'><i class='fad fa-save fa-fw'></i></a>
-		<a href='javascript:void(0)' id='{$template_id}_trigger_save_success' title='Edições salvas' class='text-success collapse'><i class='fad fa-check-square fa-fw'></i></a>
-		<a href='javascript:void(0)' id='{$template_id}_trigger_save_failure' title='Suas edições não foram salvas' class='text-danger collapse'><i class='fad fa-times-square fa-fw'></i></a>
-	";
+	$template_botoes_salvar = "<a href='javascript:void(0)' id='{$template_id}_trigger_save' title='Salvar mudanças' class='ml-1 mr-3'><i class='fad fa-save fa-fw'></i></a><a href='javascript:void(0)' id='{$template_id}_trigger_save_success' title='Edições salvas' class='text-success collapse ml-1 mr-3'><i class='fad fa-check-square fa-fw'></i></a><a href='javascript:void(0)' id='{$template_id}_trigger_save_failure' title='Suas edições não foram salvas' class='text-danger collapse ml-1 mr-3'><i class='fad fa-times-square fa-fw'></i></a>";
+	$template_botoes_salvar = mysqli_real_escape_string($conn, $template_botoes_salvar);
 	
 	if ($quill_texto_id != false) {
 		if ($pagina_tipo == 'texto') {
@@ -258,9 +255,12 @@
         $('#{$template_id}_trigger_save').show();
         $('#quill_editor_{$template_id}').children(':first').addClass('ql-editor-active');
     });
+		var template_botoes_salvar = \"$template_botoes_salvar\";
+		$('#quill_container_{$template_id} > .ql-toolbar').prepend(template_botoes_salvar);
 		$('#{$template_id}_trigger_save').click(function () {
 			$('#{$quill_trigger_button}').click();
 		});
+		
 	</script>
 	";
 	

@@ -321,7 +321,7 @@
 		$produto_no_carrinho = true;
 	}
 	
-	if (($pagina_tipo == 'elemento') || (($pagina_tipo == 'pagina') && (($pagina_compartilhamento != 'escritorio') && ($pagina_tipo == 'grupo') && ($pagina_subtipo != 'produto')))) {
+	if (($pagina_tipo == 'elemento') || ($pagina_tipo == 'grupo') || (($pagina_tipo == 'pagina') && (($pagina_compartilhamento != 'escritorio') && ($pagina_subtipo != 'produto')))) {
 		$carregar_secoes = true;
 	} else {
 		$carregar_secoes = false;
@@ -1218,26 +1218,11 @@
 	}
 	if ($pagina_tipo == 'texto') {
 		$sticky_toolbar = true;
-		$quill_extra_buttons = "
-		      <a id='salvar_anotacao' class='ml-1' title='Salvar anotação' href='javascript:void(0);'>
-			      <i class='fad fa-save fa-fw'></i>
-		      </a>
-              <span id='anotacao_salva' class='ml-1 text-success' title='Salvar anotação'>
-	              <i class='fad fa-check-square fa-fw'></i>
-			  </span>
-        ";
-		$quill_extra_buttons .= "
-              <a class='ml-1' title='Ver histórico' href='historico_verbete.php?texto_id=$pagina_texto_id'>
-                <i class='fad fa-history fa-fw'></i>
-              </a>
-    	";
+		$quill_extra_buttons = false;
+		$quill_extra_buttons .= "<a class='ml-1' title='Ver histórico' href='historico_verbete.php?texto_id=$pagina_texto_id'><i class='fad fa-history fa-fw'></i></a>";
 		if ($texto_user_id == $user_id) {
 			if ($pagina_compartilhamento == 'privado') {
-				$quill_extra_buttons .= "
-                  <a id='apagar_anotacao' class='ml-1 text-danger' title='Destruir anotação' data-toggle='modal' data-target='#modal_apagar_anotacao' href='javascript:void(0);'>
-                      <i class='fad fa-shredder fa-fw'></i>
-                  </a>
-                ";
+				$quill_extra_buttons .= "<a id='apagar_anotacao' class='ml-1 text-danger' title='Destruir anotação' data-toggle='modal' data-target='#modal_apagar_anotacao' href='javascript:void(0);'><i class='fad fa-shredder fa-fw'></i></a>";
 			}
 		}
 		$quill_extra_buttons = mysqli_real_escape_string($conn, $quill_extra_buttons);
