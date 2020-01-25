@@ -7,6 +7,7 @@
 	}
 	
 	if (isset($_POST['trigger_atualizacao'])) {
+	    $conn->query("ALTER TABLE `Etiquetas` ADD `pagina_id` INT(11) NULL DEFAULT NULL AFTER `titulo`;");
 	}
 	
 	if (isset($_POST['funcoes_gerais'])) {

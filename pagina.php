@@ -61,6 +61,9 @@
 					}
 				}
 			}
+		} elseif (isset($_GET['etiqueta_id'])) {
+			$pagina_etiqueta_id = $_GET['etiqueta_id'];
+			$pagina_id = return_pagina_id($pagina_etiqueta_id, 'etiqueta');
 		} else {
 			header('Location:pagina.php?pagina_id=4');
 			exit();
@@ -115,7 +118,9 @@
 		$produto_info = return_produto_info($pagina_id);
 		$produto_preco = $produto_info[2];
 		$produto_autor = $produto_info[3];
-	}
+	} elseif ($pagina_subtipo == 'etiqueta') {
+	    $pagina_etiqueta_id = $pagina_item_id;
+    }
 	
 	if (isset($_POST['novo_curso'])) {
 		$novo_curso_sigla = $_POST['novo_curso_sigla'];
@@ -658,6 +663,7 @@
 						include 'templates/page_element.php';
 					}
 				}
+				
 				if (($pagina_tipo != 'texto') && ($pagina_tipo != 'materia')) {
 					$template_id = 'verbete';
 					if ($pagina_tipo == 'curso') {
@@ -685,9 +691,15 @@
 					$template_conteudo = include 'templates/template_quill.php';
 					include 'templates/page_element.php';
 					
+					if ($pagina_subtipo == 'etiqueta') {
+					    include 'pagina/paginas_etiqueta.php';
+                    }
+					
 					if ($carregar_secoes == true) {
 						include 'pagina/secoes_pagina.php';
 					}
+					
+					include 'pagina/usos_etiqueta.php';
 					
 					include 'pagina/leiamais.php';
 					
@@ -696,6 +708,8 @@
 					include 'pagina/imagens.php';
 					
 					include 'pagina/audio.php';
+					
+					include 'pagina/etiquetas.php';
 					
 				}
 				
@@ -737,6 +751,7 @@
 					echo "</div>";
 					
 				}
+			
 			?>
     </div>
 </div>

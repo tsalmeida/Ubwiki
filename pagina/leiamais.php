@@ -5,7 +5,7 @@
 		$template_titulo = 'Leia mais';
 		$template_botoes = false;
 		$template_conteudo = false;
-		$template_conteudo .= "<ul class='list-group'>";
+		$template_conteudo .= "<ul class='list-group list-group-flush rounded'>";
 		while ($row = $result->fetch_assoc()) {
 			$elemento_id = $row['elemento_id'];
 			$result2 = $conn->query("SELECT titulo, autor, capitulo, estado FROM Elementos WHERE id = $elemento_id");
@@ -19,9 +19,9 @@
 						continue;
 					}
 					if ($referencia_capitulo == false) {
-						$template_conteudo .= "<a href='pagina.php?elemento_id=$elemento_id' target='_blank'><li class='list-group-item list-group-item-action'>$referencia_titulo / $referencia_autor</li></a>";
+						$template_conteudo .= "<a href='pagina.php?elemento_id=$elemento_id' target='_blank'><li class='list-group-item list-group-item-action mt-1 border-top'>$referencia_titulo / $referencia_autor</li></a>";
 					} else {
-						$template_conteudo .= "<a href='pagina.php?elemento_id=$elemento_id' target='_blank'><li class='list-group-item list-group-item-action'>$referencia_titulo / $referencia_autor // $referencia_capitulo</li></a>";
+						$template_conteudo .= "<a href='pagina.php?elemento_id=$elemento_id' target='_blank'><li class='list-group-item list-group-item-action mt-1 border-top'>$referencia_titulo / $referencia_autor // $referencia_capitulo</li></a>";
 					}
 				}
 			}

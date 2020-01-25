@@ -378,8 +378,14 @@
 							}
 							$topico_acervo_etiqueta_info = return_etiqueta_info($topico_acervo_etiqueta_id);
 							$artefato_criacao = $topico_acervo_etiqueta_info[0];
-							$artefato_titulo = $topico_acervo_etiqueta_info[2];
-							$artefato_link = false;
+							$topico_acervo_pagina_id = $topico_acervo_etiqueta_info[4];
+							$topico_acervo_pagina_info = return_pagina_info($topico_acervo_pagina_id);
+							$topico_acervo_pagina_estado = $topico_acervo_pagina_info[3];
+							$topico_acervo_pagina_estado_icone = return_estado_icone($topico_acervo_pagina_estado, 'curso');
+							$artefato_badge = $topico_acervo_pagina_estado_icone;
+							$topico_acervo_titulo = $topico_acervo_etiqueta_info[2];
+							$artefato_titulo = "$topico_acervo_titulo";
+							$artefato_link = "pagina.php?etiqueta_id=$topico_acervo_etiqueta_id";
 							$artefato_tipo = 'topico_interesse';
 							$template_conteudo .= include 'templates/artefato_item.php';
 						}
