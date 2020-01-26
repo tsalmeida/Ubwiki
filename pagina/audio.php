@@ -7,7 +7,7 @@
 		$template_botoes = false;
 		$template_conteudo = false;
 		$template_conteudo .= "
-								<ul class='list-group rounded'>
+								<ul class='list-group list-group-flush'>
 							";
 		while ($audio = $audios->fetch_assoc()) {
 			$audio_elemento_id = $audio['elemento_id'];
@@ -15,7 +15,7 @@
 			$audio_elemento_titulo = $audio_elemento_info[4];
 			$audio_elemento_autor = $audio_elemento_info[5];
 			$template_conteudo .= "
-						    	  <a href='pagina.php?elemento_id=$audio_elemento_id' target='_blank'><li class='list-group-item list-group-item-action'>$audio_elemento_titulo / $audio_elemento_autor</li></a>
+						    	  <a href='pagina.php?elemento_id=$audio_elemento_id' target='_blank'><li class='list-group-item list-group-item-action mt-1 border-top'>$audio_elemento_titulo / $audio_elemento_autor</li></a>
 						    	";
 		}
 		$template_conteudo .= "</ul>";
