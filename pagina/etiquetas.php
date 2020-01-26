@@ -6,7 +6,7 @@
 	$template_conteudo = false;
 	$template_conteudo .= "<ul class='list-group list-group-flush rounded'>";
 	$carregar_areas_relacionadas = false;
-	if (($pagina_etiqueta_id != false) && ($pagina_subtipo != 'etiqueta')) {
+	if (($pagina_etiqueta_id != false) && ($pagina_subtipo != 'etiqueta') && ($pagina_tipo != 'curso') && ($pagina_tipo != 'materia') && ($pagina_tipo != 'topico')) {
 		$carregar_areas_relacionadas = true;
 		$pagina_etiqueta_info = return_etiqueta_info($pagina_etiqueta_id);
 		$pagina_etiqueta_titulo = $pagina_etiqueta_info[2];

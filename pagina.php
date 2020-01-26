@@ -691,15 +691,9 @@
 					$template_conteudo = include 'templates/template_quill.php';
 					include 'templates/page_element.php';
 					
-					if ($pagina_subtipo == 'etiqueta') {
-						include 'pagina/paginas_etiqueta.php';
-					}
-					
 					if ($carregar_secoes == true) {
 						include 'pagina/secoes_pagina.php';
 					}
-					
-					include 'pagina/usos_etiqueta.php';
 					
 					include 'pagina/leiamais.php';
 					
@@ -708,6 +702,12 @@
 					include 'pagina/imagens.php';
 					
 					include 'pagina/audio.php';
+					
+					if ($pagina_subtipo == 'etiqueta') {
+						include 'pagina/paginas_etiqueta.php';
+					}
+					
+					include 'pagina/usos_etiqueta.php';
 					
 					include 'pagina/etiquetas.php';
 					
