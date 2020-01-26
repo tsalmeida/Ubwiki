@@ -386,26 +386,7 @@
         <div class="py-2 text-center col">
 					<?php
 						if ($pagina_tipo == 'curso') {
-							echo "
-                        <form id='searchform' action='' method='post'>
-                        <div id='searchDiv'>
-                            <input id='barra_busca' list='searchlist' type='text' class='barra_busca grey lighten-5 w-100'
-                                   name='searchBar' rows='1' autocomplete='off' spellcheck='false'
-                                   placeholder='O que você vai aprender hoje?' required>
-                            <datalist id='searchlist'>";
-							$result = $conn->query("SELECT chave FROM Searchbar WHERE curso_id = '$curso_id' ORDER BY ordem");
-							if ($result->num_rows > 0) {
-								while ($row = $result->fetch_assoc()) {
-									$chave = $row['chave'];
-									echo "<option>$chave</option>";
-								}
-							}
-							echo "
-                            </datalist>";
-							echo "<input id='trigger_busca' name='trigger_busca' value='$curso_id' type='submit' style='position: absolute; left: -9999px; width: 1px; height: 1px;' tabindex='-1' />";
-							echo "
-						</div>
-            			</form>";
+							echo "<a href='javascript:void(0)' data-toggle='modal' data-target='#modal_busca' class='text-dark'><i class='fad fa-search fa-fw'></i></a>";
 						}
 						if ($pagina_tipo == 'topico') {
 							if ($topico_anterior != false) {
@@ -577,8 +558,8 @@
 				$template_titulo = "Plano de estudos: $pagina_original_titulo";
 				$template_subtitulo = "<a href='pagina.php?pagina_id=$pagina_item_id'>$pagina_original_titulo</a> / <a href='pagina.php?pagina_id=$pagina_original_concurso_pagina_id'>$pagina_original_concurso_titulo</a>";
 			} elseif ($pagina_subtipo == 'etiqueta') {
-			    $template_subtitulo = 'Página livre';
-            }
+				$template_subtitulo = 'Página livre';
+			}
 		} elseif ($pagina_tipo == 'secao') {
 			$template_titulo = $pagina_titulo;
 			$paginal_original_info = return_pagina_info($pagina_item_id);
@@ -1208,6 +1189,36 @@
 		";
 		include 'templates/modal.php';
 	}
+	
+	if ($pagina_tipo == 'curso') {
+		$template_modal_div_id = 'modal_busca';
+		$template_modal_titulo = 'O que você vai aprender hoje?';
+		$template_modal_body_conteudo = false;
+		$template_modal_show_buttons = false;
+		$template_modal_body_conteudo .= "
+            <form id='searchform' action='' method='post'>
+            <div id='searchDiv'>
+                <input id='barra_busca' list='searchlist' type='text' class='barra_busca w-100'
+                       name='searchBar' rows='1' autocomplete='off' spellcheck='false'
+                       placeholder='O que você vai aprender hoje?' required>
+                <datalist id='searchlist'>
+        ";
+		$result = $conn->query("SELECT chave FROM Searchbar WHERE curso_id = '$curso_id' ORDER BY ordem");
+		if ($result->num_rows > 0) {
+			while ($row = $result->fetch_assoc()) {
+				$chave = $row['chave'];
+				$template_modal_body_conteudo .= "<option>$chave</option>";
+			}
+		}
+		$template_modal_body_conteudo .= "
+                            </datalist>";
+		$template_modal_body_conteudo .= "<input id='trigger_busca' name='trigger_busca' value='$curso_id' type='submit' style='position: absolute; left: -9999px; width: 1px; height: 1px;' tabindex='-1' />";
+		$template_modal_body_conteudo .= "
+        </div>
+        </form>";
+		include 'templates/modal.php';
+	}
+
 
 ?>
 
