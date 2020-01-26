@@ -575,7 +575,9 @@
 				$pagina_original_concurso_titulo = return_pagina_titulo($pagina_original_concurso_pagina_id);
 				$template_titulo = "Plano de estudos: $pagina_original_titulo";
 				$template_subtitulo = "<a href='pagina.php?pagina_id=$pagina_item_id'>$pagina_original_titulo</a> / <a href='pagina.php?pagina_id=$pagina_original_concurso_pagina_id'>$pagina_original_concurso_titulo</a>";
-			}
+			} elseif ($pagina_subtipo == 'etiqueta') {
+			    $template_subtitulo = 'Página livre';
+            }
 		} elseif ($pagina_tipo == 'secao') {
 			$template_titulo = $pagina_titulo;
 			$paginal_original_info = return_pagina_info($pagina_item_id);

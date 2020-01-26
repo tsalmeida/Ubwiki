@@ -10,6 +10,7 @@
 		while ($pagina_etiqueta = $paginas_etiqueta->fetch_assoc()) {
 			$pagina_etiqueta_id = $pagina_etiqueta['id'];
 			$pagina_etiqueta_info = return_pagina_info($pagina_etiqueta_id);
+			$pagina_etiqueta_tipo = $pagina_etiqueta_info[2]; // preciso terminar isso, para diferenciar os diversos tipos de página e como aparecerão na lista.
 			$pagina_etiqueta_titulo = $pagina_etiqueta_info[6];
 			$pagina_etiqueta_estado = $pagina_etiqueta_info[3];
 			$pagina_etiqueta_estado_icone = return_estado_icone($pagina_etiqueta_estado, 'curso');
