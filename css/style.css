@@ -38,28 +38,25 @@
   src: url("../CHtypeface/CooperHewitt-MediumItalic.woff") format("woff");
   font-style: italic;
 }
-html {
-  font-size: 1.2em;
-}
-
 .fontstack-subtitle {
-  font-family: "Oswald", Arial, serif;
+  font-family: "Oswald", Arial, serif !important;
 }
 
 html, body, p, li {
-  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  font-size: 1.1rem;
+  font-family: Lato, Arial, Helvetica, sans-serif !important;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Oswald", Arial, serif;
+  font-family: "Oswald", Arial, serif !important;
 }
 
 .lead {
-  font-family: "Oswald", Arial, serif;
+  font-family: "Oswald", Arial, serif !important;
 }
 
 .display-1, .display-2, .display-3, .display-4 {
-  font-family: "Oswald", Arial, serif;
+  font-family: "Oswald", Arial, serif !important;
 }
 
 body {

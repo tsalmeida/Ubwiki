@@ -45,32 +45,29 @@
   font-style: italic;
 }
 
-html {
-  font-size: 1.2em;
-}
-
-$fontstack-body: 'Roboto', Arial, Helvetica, sans-serif;
+$fontstack-body: Lato, Arial, Helvetica, sans-serif;
 $fontstack-title: 'Oswald', Arial, serif;
 $fontstack-subtitle: 'Oswald', Arial, serif;
 
 .fontstack-subtitle {
-  font-family: $fontstack-subtitle;
+  font-family: $fontstack-subtitle !important;
 }
 
 html, body, p, li {
-  font-family: $fontstack-body;
+  font-size: 1.1rem;
+  font-family: $fontstack-body !important;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: $fontstack-subtitle;
+  font-family: $fontstack-subtitle !important;
 }
 
 .lead {
-  font-family: $fontstack-subtitle;
+  font-family: $fontstack-subtitle !important;
 }
 
 .display-1, .display-2, .display-3, .display-4 {
-  font-family: $fontstack-title;
+  font-family: $fontstack-title !important;
 }
 
 body {

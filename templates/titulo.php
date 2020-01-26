@@ -39,7 +39,7 @@
 	}
 	if ($display_level != false) {
 		echo "
-			<h1><span class='$display_level playfair400 d-none d-md-inline m-0 tighten'>$template_titulo</span></h1>
+			<h1><span class='$display_level d-none d-md-inline m-0 tighten'>$template_titulo</span></h1>
 			<h1 class='h1-responsive d-sm-inline d-md-none m-0'>$template_titulo</h1>
 		";
 	}
