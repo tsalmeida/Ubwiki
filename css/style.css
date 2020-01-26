@@ -42,9 +42,13 @@
   font-family: "Oswald", Arial, serif !important;
 }
 
-html, body, p, li {
+.navbar-brand {
+  font-family: "Oswald", Arial, serif !important;
+}
+
+html, body, p, li, select {
   font-size: 1.1rem;
-  font-family: Lato, Arial, Helvetica, sans-serif !important;
+  font-family: "Lato", Arial, Helvetica, sans-serif !important;
 }
 
 h1, h2, h3, h4, h5, h6 {
