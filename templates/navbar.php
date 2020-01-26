@@ -22,12 +22,12 @@
 	if (isset($curso_id)) {
 		echo "<nav class='navbar navbar-expand-lg $template_navbar_color' id='inicio'>";
 		if ($pagina_tipo == 'curso') {
-			echo "<span class='navbar-brand navbar-brand-pointer playfair900 $template_navbar_text'>Ubwiki</span>";
+			echo "<span class='navbar-brand navbar-brand-pointer $template_navbar_text'>Ubwiki</span>";
 		} else {
 			if (isset($curso_id)) {
-				echo "<a class='navbar-brand playfair900 $template_navbar_text' href='pagina.php?curso_id=$curso_id'>Ubwiki</a>";
+				echo "<a class='navbar-brand $template_navbar_text' href='pagina.php?curso_id=$curso_id'>Ubwiki</a>";
 			} else {
-				echo "<a class='navbar-brand playfair900 $template_navbar_text' href='index.php'>Ubwiki</a>";
+				echo "<a class='navbar-brand $template_navbar_text' href='index.php'>Ubwiki</a>";
 			}
 		}
 		echo "<ul class='nav navbar-nav ml-auto nav-flex-icons'>";

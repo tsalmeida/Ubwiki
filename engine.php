@@ -209,11 +209,11 @@
       <div class='jumbotron col-12 mb-0 elegant-color text-white'>
 		";
 		if ($link == false) {
-			echo "<h1 class='h1-responsive playfair400 logo-jumbotron d-sm-inline d-md-none'>$titulo</h1>";
-			echo "<span class='display-2 playfair400 logo-jumbotron d-none d-md-inline'>$titulo</span>";
+			echo "<h1 class='h1-responsive logo-jumbotron d-sm-inline d-md-none'>$titulo</h1>";
+			echo "<span class='display-2 logo-jumbotron d-none d-md-inline'>$titulo</span>";
 		} else {
-			echo "<a href='$link'><h1 class='h1-responsive playfair400 logo-jumbotron d-sm-inline d-md-none'>$titulo</h1></a>";
-			echo "<a href='$link'><span class='display-2 playfair400 logo-jumbotron d-none d-md-inline'>$titulo</span></a>";
+			echo "<a href='$link'><h1 class='h1-responsive logo-jumbotron d-sm-inline d-md-none'>$titulo</h1></a>";
+			echo "<a href='$link'><span class='display-2 logo-jumbotron d-none d-md-inline'>$titulo</span></a>";
 		}
 		echo "
       </div>
