@@ -652,6 +652,8 @@
 					$template_id = 'verbete';
 					if ($pagina_tipo == 'curso') {
 						$template_titulo = 'Apresentação';
+					} elseif ($pagina_tipo == 'sistema') {
+						$template_titulo = 'Aviso';
 					} else {
 						$template_titulo = 'Verbete';
 					}
@@ -922,6 +924,7 @@
 		if (isset($secoes)) {
 			if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id) && ($secoes->num_rows == 0) && ($pagina_tipo == 'pagina') && ($pagina_titulo != false) && ($pagina_subtipo != 'produto')) {
 				$modal_novo_curso = true;
+				$template_modal_show_buttons = false;
 				$template_modal_body_conteudo .= "
 		        <span data-toggle='modal' data-target='#modal_pagina_dados'>
                     <div class='row justify-content-center'>

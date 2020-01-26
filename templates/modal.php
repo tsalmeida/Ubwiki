@@ -42,7 +42,7 @@
           <div class='modal-header justify-content-around'>
 	            <h2 class='h2-responsive modal-title w-100' > $template_modal_titulo </h2>
 	            <button type='button' class='close' data-dismiss='modal'>
-	                <i class='fal fa-times-circle' ></i>
+	                <i class='fad fa-times-circle' ></i>
 	            </button >
           </div>";
 	echo "
@@ -55,8 +55,8 @@
 	if ($template_modal_show_buttons == true) {
 		echo "
 	          <div class='modal-footer d-flex justify-content-center'>
-	              <button type='button' class='$button_classes_light' data-dismiss='modal' ><i class='fal fa-times-circle'></i > Cancelar</button>
-	              <button type='submit' class='$button_classes' name='$template_modal_submit_name'><i class='fal fa-check'></i > Salvar</button>
+	              <button type='button' class='$button_classes_light' data-dismiss='modal' ><i class='far fa-times-circle fa-fw'></i> Cancelar</button>
+	              <button type='submit' class='$button_classes' name='$template_modal_submit_name'><i class='far fa-check fa-fw'></i > Salvar</button>
 	          </div>
 		";
 	}
