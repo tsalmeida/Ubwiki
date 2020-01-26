@@ -10,7 +10,7 @@
 	$curso_paginas = return_curso_paginas($curso_id, 'all');
 
 ?>
-<body class="carrara">
+<body class="grey lighten-5">
 <?php
 	include 'templates/navbar.php';
 ?>
@@ -31,15 +31,19 @@
 		$template_conteudo = false;
 		
 		$busca_titulos = false;
-		foreach ($curso_paginas as $curso_pagina_id) {
-			$curso_pagina_info = return_pagina_info($curso_pagina_id);
-			$curso_pagina_titulo = $curso_pagina_info[6];
-			$curso_pagina_estado = $curso_pagina_info[3];
-			$curso_pagina_icone = return_estado_icone($curso_pagina_estado, 'materia');
-			if (stripos($curso_pagina_titulo, $busca) !== false) {
-				$busca_titulos = true;
-				$template_conteudo .= "<a href='pagina.php?pagina_id=$curso_pagina_id'><li class='list-group-item list-group-item-action d-flex justify-content-between'><span>$curso_pagina_titulo</span><span><i class='$curso_pagina_icone'></i></span></li></a>";
+		if ($curso_paginas != false) {
+			$template_conteudo .= "<ul class='list-group list-group-flush'>";
+			foreach ($curso_paginas as $curso_pagina_id) {
+				$curso_pagina_info = return_pagina_info($curso_pagina_id);
+				$curso_pagina_titulo = $curso_pagina_info[6];
+				$curso_pagina_estado = $curso_pagina_info[3];
+				$curso_pagina_icone = return_estado_icone($curso_pagina_estado, 'materia');
+				if (stripos($curso_pagina_titulo, $busca) !== false) {
+					$busca_titulos = true;
+					$template_conteudo .= "<a href='pagina.php?pagina_id=$curso_pagina_id'><li class='list-group-item list-group-item-action border-top mt-1 d-flex justify-content-between'><span>$curso_pagina_titulo</span><span><i class='$curso_pagina_icone'></i></span></li></a>";
+				}
 			}
+			$template_conteudo .= "</ul>";
 		}
 		if ($busca_titulos == false) {
 			$template_conteudo .= "<p><span class='text-muted'>Nenhum resultado encontrado.</span></p>";
@@ -63,21 +67,25 @@
 				$verbete_text = $verbete['verbete_text'];
 				$verbete_text = crop_text($verbete_text, 200);
 				if ($verbete_texto_pagina_tipo == 'topico') {
-					$verbetes_resultados_topicos .= "<a href='pagina.php?pagina_id=$verbete_texto_pagina_id'><li class='list-group-item list-group-item-action p-limit'><strong class='d-block'>$verbete_texto_pagina_titulo</strong> $verbete_text</li></a>";
+					$verbetes_resultados_topicos .= "<a href='pagina.php?pagina_id=$verbete_texto_pagina_id'><li class='list-group-item list-group-item-action border-top mt-1 p-limit'><strong class='d-block'>$verbete_texto_pagina_titulo</strong> $verbete_text</li></a>";
 				} elseif ($verbete_texto_pagina_tipo == 'materia') {
-					$verbetes_resultados_materias .= "<a href='pagina.php?pagina_id=$verbete_texto_pagina_id'><li class='list-group-item list-group-item-action p-limit'><strong class='d-block'>$verbete_texto_pagina_titulo</strong> $verbete_text</li></a>";
+					$verbetes_resultados_materias .= "<a href='pagina.php?pagina_id=$verbete_texto_pagina_id'><li class='list-group-item list-group-item-action border-top mt-1 p-limit'><strong class='d-block'>$verbete_texto_pagina_titulo</strong> $verbete_text</li></a>";
 				}
 			}
 		}
 		$template_conteudo .= "<h2>Matérias</h2>";
 		if ($verbetes_resultados_materias != false) {
+			$template_conteudo .= "<ul class='list-group list-group-flush'>";
 			$template_conteudo .= $verbetes_resultados_materias;
+			$template_conteudo .= "</ul>";
 		} else {
 			$template_conteudo .= "<p><span class='text-muted'>Nenhum resultado encontrado.</span></p>";
 		}
 		$template_conteudo .= "<h2 class='mt-3'>Tópicos</h2>";
 		if ($verbetes_resultados_topicos != false) {
+			$template_conteudo .= "<ul class='list-group list-group-flush'>";
 			$template_conteudo .= $verbetes_resultados_topicos;
+			$template_conteudo .= "</ul>";
 		} else {
 			$template_conteudo .= "<p><span class='text-muted'>Nenhum resultado encontrado.</span></p>";
 		}
