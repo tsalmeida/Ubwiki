@@ -100,6 +100,7 @@
 		$topico_curso_pagina_id = (int)$familia_info[1];
 		$topico_curso_pagina_info = return_pagina_info($topico_curso_pagina_id);
 		$topico_curso_titulo = $topico_curso_pagina_info[6];
+		$pagina_curso_id = $topico_curso_pagina_info[1];
 		$pagina_curso_pagina_id = (int)$topico_curso_pagina_id;
 		$pagina_curso_user_id = (int)$topico_curso_pagina_info[5];
 		$pagina_curso_compartilhamento = $topico_curso_pagina_info[4];

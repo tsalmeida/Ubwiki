@@ -12,6 +12,9 @@
 	if (!isset($pagina_tipo)) {
 		$pagina_tipo = "NULL";
 	}
+	if (!isset($pagina_curso_id)) {
+		$pagina_curso_id = "NULL";
+	}
 	if (!isset($template_quill_botoes)) {
 		$template_quill_botoes = true;
 	}
@@ -212,7 +215,8 @@
             'quill_texto_tipo': '{$template_id}',
             'quill_texto_id': {$quill_texto_id},
             'quill_texto_page_id': {$pagina_item_id},
-            'quill_pagina_tipo': '{$pagina_tipo}'
+            'quill_pagina_tipo': '{$pagina_tipo}',
+            'quill_curso_id': '{$pagina_curso_id}'
         }, function(data) {
             if (data != false) {
                 $('#{$template_id}_trigger_save').hide();
