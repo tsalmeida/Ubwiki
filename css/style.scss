@@ -74,16 +74,17 @@ h1, h2, h3, h4, h5, h6 {
   font-family: $fontstack-title !important;
 }
 
+.btn {
+  font-size: 0.85rem !important;
+  font-family: $fontstack-subtitle;
+}
+
 body {
   font-weight: 400;
 }
 
 .navbar .dropdown-menu a {
   font-weight: 400;
-}
-
-.btn {
-  font-size: 0.9rem !important;
 }
 
 strong {
