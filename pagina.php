@@ -386,7 +386,7 @@
         <div class="py-2 text-center col">
 					<?php
 						if ($pagina_tipo == 'curso') {
-							echo "<a href='javascript:void(0)' data-toggle='modal' data-target='#modal_busca' class='text-dark'><i class='fad fa-search fa-fw'></i></a>";
+							echo "<a href='javascript:void(0)' data-toggle='modal' data-target='#modal_busca' class='text-dark' title='Busca'><i class='fad fa-search fa-fw'></i></a>";
 						}
 						if ($pagina_tipo == 'topico') {
 							if ($topico_anterior != false) {
@@ -1200,7 +1200,7 @@
             <div id='searchDiv'>
                 <input id='barra_busca' list='searchlist' type='text' class='barra_busca w-100'
                        name='searchBar' rows='1' autocomplete='off' spellcheck='false'
-                       placeholder='O que você vai aprender hoje?' required>
+                       placeholder='Busca de páginas deste curso' required>
                 <datalist id='searchlist'>
         ";
 		$result = $conn->query("SELECT chave FROM Searchbar WHERE curso_id = '$curso_id' ORDER BY ordem");
