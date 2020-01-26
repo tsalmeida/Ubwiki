@@ -6,7 +6,7 @@
 		$template_titulo = 'Verbetes recentemente modificados';
 		$template_botoes = false;
 		$template_conteudo = false;
-		$template_conteudo_no_col = true;
+		$template_conteudo_no_col = false;
 		$template_conteudo .= "<ul class='list-group list-group-flush paginas_recentes_collapse collapse show'>";
 		$count = 0;
 		while ($pagina = $paginas->fetch_assoc()) {
