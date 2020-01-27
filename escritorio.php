@@ -88,14 +88,14 @@
 <div class='container-fluid'>
     <div class='row justify-content-between px-2'>
 			<?php
-				echo "<div class='col-3'><div class='row justify-content-start'>";
+				echo "<div class='col-md-3 col-sm-12'><div class='row justify-content-start'>";
 				echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_opcoes' class='p-2 text-info rounded artefato'><i class='fad fa-user-cog fa-2x fa-fw'></i></a>";
 				echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_apresentacao' class='p-2 text-info rounded artefato'><i class='fad fa-mug-tea fa-2x fa-fw'></i></a>";
 				if ($user_tipo == 'admin') {
 					echo "<a href='loja.php' class='p-2 text-info rounded artefato'><i class='fad fa-bags-shopping fa-2x fa-fw'></i></a>";
 				}
 				echo "</div></div>";
-				echo "<div class='col-6'><div class='row justify-content-center'>";
+				echo "<div class='col-md-6 col-sm-12'><div class='row justify-content-center'>";
 				echo "
                       <a id='escritorio_home' href='javascript:void(0);' class='p-2 rounded text-muted artefato' title='Retornar à página inicial'><i class='fad fa-lamp-desk fa-2x fa-fw'></i></a>
                       <a id='mostrar_textos' href='javascript:void(0);' class='p-2 rounded text-primary artefato' title='Pressione para ver seus textos e notas privadas'><i class='fad fa-typewriter fa-2x fa-fw'></i></a>
@@ -110,7 +110,7 @@
 				}
 				
 				echo "</div></div>";
-				echo "<div class='col-3'><div class='row justify-content-end'>";
+				echo "<div class='col-md-3 col-sm-12'><div class='row justify-content-end'>";
 				if ($comentarios->num_rows > 0) {
 					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_forum' class='p-2 text-secondary rounded artefato'><i class='fad fa-comments-alt fa-2x fa-fw'></i></a>";
 				}
