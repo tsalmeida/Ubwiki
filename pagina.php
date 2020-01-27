@@ -343,7 +343,7 @@
 ?>
 <div class="container-fluid">
     <div class="row justify-content-between">
-        <div class='py-2 text-left col'>
+        <div class='py-2 text-left col-md-4 col-sm-12'>
 					<?php
 						if (($pagina_tipo != 'sistema') && ($pagina_tipo != 'texto') && ($pagina_compartilhamento != 'escritorio') && ($pagina_tipo != 'materia')) {
 							echo "<span id='add_elements' class='mx-1' title='Adicionar elementos' data-toggle='modal' data-target='#modal_add_elementos'><a href='javascript:void(0)' class='text-info'><i class='fad fa-2x fa-plus-circle fa-fw'></i></a></span>";
@@ -383,7 +383,7 @@
 						}
 					?>
         </div>
-        <div class="py-2 text-center col">
+        <div class="py-2 text-center col-md-4 col-sm-12">
 					<?php
 						if ($pagina_tipo == 'curso') {
 							echo "<a href='javascript:void(0)' data-toggle='modal' data-target='#modal_busca' class='text-dark' title='Busca'><i class='fad fa-search fa-fw'></i></a>";
@@ -408,7 +408,7 @@
 						}
 					?>
         </div>
-        <div class='py-2 text-right col'>
+        <div class='py-2 text-right col-md-4 col-sm-12'>
 					<?php
 						if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id)) {
 							echo "
