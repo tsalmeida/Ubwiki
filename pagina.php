@@ -1200,7 +1200,7 @@
 		$template_modal_show_buttons = false;
 		$template_modal_body_conteudo .= "
             <form id='searchform' action='' method='post'>
-            <div id='searchDiv'>
+            <div id='searchDiv' class='mt-5'>
                 <input id='barra_busca' list='searchlist' type='text' class='barra_busca w-100'
                        name='searchBar' rows='1' autocomplete='off' spellcheck='false'
                        placeholder='Busca de páginas deste curso' required>
@@ -1218,6 +1218,14 @@
 		$template_modal_body_conteudo .= "<input id='trigger_busca' name='trigger_busca' value='$curso_id' type='submit' style='position: absolute; left: -9999px; width: 1px; height: 1px;' tabindex='-1' />";
 		$template_modal_body_conteudo .= "
         </div>
+        </form>";
+		$template_modal_body_conteudo .= "
+            <form id='searchform' action='' method='post'>
+            <div id='searchDiv_geral' class='mt-5'>
+                <input id='barra_busca_geral' type='text' class='barra_busca w-100' name='searchBar_geral' rows='1' autocomplete='off' spellcheck='false' placeholder='Busca geral' required>";
+		$template_modal_body_conteudo .= "<input id='trigger_busca_geral' name='trigger_busca' value='$curso_id' type='submit' style='position: absolute; left: -9999px; width: 1px; height: 1px;' tabindex='-1' />";
+		$template_modal_body_conteudo .= "
+        	</div>
         </form>";
 		include 'templates/modal.php';
 	}

@@ -1,6 +1,5 @@
 <script type='text/javascript'>
     $(document).ready(function () {
-        $('#barra_busca').focus();
         $('#trigger_busca').click(function () {
             var command = $('#barra_busca').val();
             var command = btoa(command);
@@ -19,6 +18,14 @@
                 }
             });
             return false;
+        });
+    });
+    $(document).ready(function () {
+        $('#trigger_busca_geral').click(function () {
+            event.preventDefault();
+            var busca_geral = $('#barra_busca_geral').val();
+            busca_geral = "busca.php?busca=" + busca_geral;
+            window.open(busca_geral, '_self');
         });
     });
 </script>

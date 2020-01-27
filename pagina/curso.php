@@ -30,7 +30,7 @@
                                   <strong>$topico_materia_pagina_titulo: </strong>
                                   $topico_titulo
                               </span>
-                              <span><i class='fad $icone_estado fa-fw'></i></span>
+                              <span class='text-muted'><i class='fad $icone_estado fa-fw'></i></span>
                           </li>
                       </a>
           ";

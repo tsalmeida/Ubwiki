@@ -76,7 +76,7 @@
 	if (!isset($artefato_badge)) {
 		$artefato_badge = false;
 	} else {
-		$artefato_badge = "<span class='badge badge-pill grey lighten-3 text-dark artefato-badge position-absolute z-depth-0'><i class='fad $artefato_badge fa-fw'></i></span>";
+		$artefato_badge = "<span class='badge badge-pill grey lighten-5 text-dark artefato-badge position-absolute z-depth-0'><i class='fad $artefato_badge fa-fw'></i></span>";
 	}
 	
 	$artefato_template_result = false;
