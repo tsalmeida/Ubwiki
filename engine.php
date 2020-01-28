@@ -545,39 +545,9 @@
 	{
 		return false;
 	}
-	
-	function return_curso_sigla($curso_id)
-	{
-		include 'templates/criar_conn.php';
-		if ($curso_id == false) {
-			return false;
-		}
-		$result_find_curso_sigla = $conn->query("SELECT sigla FROM Cursos WHERE id = $curso_id");
-		if ($result_find_curso_sigla->num_rows > 0) {
-			while ($row_find_curso_sigla = $result_find_curso_sigla->fetch_assoc()) {
-				$found_curso_sigla = $row_find_curso_sigla['sigla'];
-			}
-			return $found_curso_sigla;
-		}
-		return false;
-	}
-	
-	function return_curso_titulo_id($find_curso_id)
-	{
-		if ($find_curso_id == false) {
-			return false;
-		}
-		include 'templates/criar_conn.php';
-		$find_cursos = $conn->query("SELECT titulo FROM Cursos WHERE id = $find_curso_id");
-		if ($find_cursos->num_rows > 0) {
-			while ($find_curso = $find_cursos->fetch_assoc()) {
-				$find_curso_titulo = $find_curso['titulo'];
-			}
-			return $find_curso_titulo;
-		}
-		return false;
-	}
-	
+
+
+
 	function return_simulado_info($find_simulado_id)
 	{
 		include 'templates/criar_conn.php';
@@ -2069,7 +2039,19 @@
 		}
 		return false;
 	}
-	
+
+	function return_curso_sigla($curso_id)
+	{
+		$curso_info = return_curso_info($curso_id);
+		return $curso_info[2];
+	}
+
+	function return_curso_titulo_id($find_curso_id)
+	{
+		$curso_info = return_curso_info($find_curso_id);
+		return $curso_info[3];
+	}
+
 	function return_curso_info($curso_id)
 	{
 		if ($curso_id == false) {
@@ -2082,7 +2064,7 @@
 				$curso_pagina_id = $curso['pagina_id']; // 0
 				$curso_estado = $curso['estado']; // 1
 				$curso_sigla = $curso['sigla']; // 2
-				$curso_titulo = $curso['titulo']; // 3
+				$curso_titulo = return_pagina_titulo($curso_pagina_id); // 3
 				$curso_user_id = $curso['user_id']; // 4
 				$curso_criacao = $curso['criacao']; // 5
 				$curso_result = array($curso_pagina_id, $curso_estado, $curso_sigla, $curso_titulo, $curso_user_id, $curso_criacao);
