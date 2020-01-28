@@ -116,6 +116,9 @@
 		}
 		$conn->query("INSERT INTO Textos (curso_id, tipo, page_id, pagina_id, pagina_tipo, estado_texto, verbete_html, verbete_text, verbete_content, user_id) VALUES ($pagina_curso_id, '$template_id', $pagina_item_id, $pagina_id, '$pagina_tipo', 1, FALSE, FALSE, FALSE, $user_id)");
 		$quill_texto_id = $conn->insert_id;
+		if ($template_id == 'verbete') {
+			$conn->query("UPDATE Paginas SET estado = 1 WHERE id = $pagina_id");
+		}
 	}
 	
 	
