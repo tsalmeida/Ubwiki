@@ -931,11 +931,10 @@
 		if (isset($secoes)) {
 			if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id) && ($secoes->num_rows == 0) && ($pagina_tipo == 'pagina') && ($pagina_titulo != false) && ($pagina_subtipo != 'produto')) {
 				$modal_novo_curso = true;
-				$template_modal_show_buttons = false;
 				$template_modal_body_conteudo .= "
 		        <span data-toggle='modal' data-target='#modal_pagina_dados'>
                     <div class='row justify-content-center'>
-                        <button type='button' class='$button_classes' data-toggle='modal' data-target='#modal_novo_curso'>Transformar em página inicial de curso</button>
+                        <button type='button' class='$button_classes btn-info' data-toggle='modal' data-target='#modal_novo_curso'>Transformar em página inicial de curso</button>
                     </div>
                 </span>
 		    ";
