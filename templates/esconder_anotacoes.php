@@ -51,4 +51,13 @@
     $default_esconder
 </script>
 ";
+	if ($pagina_tipo == 'texto') {
+		echo "
+			<script type='text/javascript'>
+        $('#coluna_esquerda').addClass('col-lg-7');
+        $('#coluna_esquerda').removeClass('col-lg-6');
+			</script>
+		";
+	}
+	
 ?>

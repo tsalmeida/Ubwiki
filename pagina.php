@@ -642,15 +642,15 @@
 				} elseif ($pagina_tipo == 'texto') {
 					$template_id = $texto_tipo;
 					$template_titulo = false;
-					$template_conteudo_no_col = true;
-					$template_no_spacer = true;
-					$template_p_limit = false;
-					$template_quill_initial_state = 'edicao';
+					//$template_conteudo_no_col = true;
+					//$template_no_spacer = true;
+					//$template_p_limit = false;
+					//$template_quill_initial_state = 'edicao';
 					$template_quill_page_id = $texto_page_id;
 					$template_quill_pagina_id = $pagina_id;
-					$template_quill_pagina_de_edicao = true;
+					//$template_quill_pagina_de_edicao = true;
 					$template_quill_botoes = false;
-					$template_background = 'grey lighten-3';
+					//$template_background = 'grey lighten-3';
 					$template_conteudo = include 'templates/template_quill.php';
 					include 'templates/page_element.php';
 				}
