@@ -94,6 +94,13 @@
 		exit();
 	}
 	
+	if ($pagina_subtipo == 'Plano de estudos') {
+		$pagina_materia_familia = return_familia($pagina_item_id);
+		$pagina_curso_pagina_id = $pagina_materia_familia[1];
+		$pagina_curso_pagina_info = return_pagina_info($pagina_curso_pagina_id);
+		$pagina_compartilhamento = $pagina_curso_pagina_info[4];
+	}
+	
 	if ($pagina_tipo == 'topico') {
 		$familia_info = return_familia($pagina_id);
 		$topico_nivel = $familia_info[0];
@@ -113,6 +120,7 @@
 		$pagina_curso_id = (int)$pagina_curso_info[1];
 		$pagina_curso_user_id = (int)$pagina_curso_info[5];
 		$pagina_curso_compartilhamento = $pagina_curso_info[4];
+		$pagina_curso_titulo = $pagina_curso_info[6];
 	} elseif ($pagina_subtipo == 'produto') {
 		$produto_preco = false;
 		$produto_autor = false;
@@ -121,6 +129,10 @@
 		$produto_autor = $produto_info[3];
 	} elseif ($pagina_subtipo == 'etiqueta') {
 		$pagina_etiqueta_id = $pagina_item_id;
+	}
+	
+	if ($pagina_tipo == 'curso') {
+		$conn->query("UPDATE Opcoes SET opcao = $pagina_curso_id WHERE user_id = $user_id AND opcao_tipo = 'curso_ativo'");
 	}
 	
 	if (isset($_POST['novo_curso'])) {
@@ -139,7 +151,7 @@
 	
 	if ($pagina_compartilhamento == 'privado') {
 		if ($pagina_user_id != $user_id) {
-			if (($pagina_tipo == 'topico') || ($pagina_tipo == 'materia')) {
+			if (($pagina_tipo == 'topico') || ($pagina_tipo == 'materia') || ($pagina_subtipo == 'Plano de estudos')) {
 				$check_compartilhamento = return_compartilhamento($pagina_curso_pagina_id, $user_id);
 			} else {
 				$check_compartilhamento = return_compartilhamento($pagina_id, $user_id);
@@ -523,7 +535,7 @@
 			$template_subtitulo = 'Curso';
 		} elseif ($pagina_tipo == 'materia') {
 			$template_titulo = $pagina_titulo;
-			$template_subtitulo = "Matéria / <a href='pagina.php?pagina_id=$pagina_item_id'>$curso_titulo</a>";
+			$template_subtitulo = "Matéria / <a href='pagina.php?pagina_id=$pagina_curso_id'>$pagina_curso_titulo</a>";
 		} elseif ($pagina_tipo == 'texto') {
 			if ($texto_page_id != false) {
 				$template_titulo = return_pagina_titulo($texto_pagina_id);
@@ -645,12 +657,12 @@
 					//$template_conteudo_no_col = true;
 					//$template_no_spacer = true;
 					//$template_p_limit = false;
-					//$template_quill_initial_state = 'edicao';
+					$template_quill_initial_state = 'edicao';
 					$template_quill_page_id = $texto_page_id;
 					$template_quill_pagina_id = $pagina_id;
 					//$template_quill_pagina_de_edicao = true;
 					$template_quill_botoes = false;
-					//$template_background = 'grey lighten-3';
+					//$template_background = false;
 					$template_conteudo = include 'templates/template_quill.php';
 					include 'templates/page_element.php';
 				}
@@ -672,7 +684,10 @@
 						$template_quill_botoes = false;
 						$template_quill_initial_state = 'leitura';
 					}
-					if (($pagina_compartilhamento == 'privado') && ($user_id != $pagina_user_id)) {
+					if (
+						(($pagina_compartilhamento == 'privado') && ($user_id != $pagina_user_id)) &&
+						($check_compartilhamento == false)
+						) {
 						$template_quill_botoes = false;
 						$template_quill_initial_state = 'leitura';
 					}
@@ -1019,12 +1034,44 @@
 	if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id)) {
 		
 		$template_modal_div_id = 'modal_compartilhar_anotacao';
+		$template_modal_titulo = 'Compartilhar com...';
+		$template_modal_show_buttons = false;
+		$template_modal_body_conteudo = false;
+		$template_modal_body_conteudo .= "<span id='esconder_modal_compartilhar_anotacao' data-toggle='modal' data-target='#modal_compartilhar_anotacao' class='row justify-content-center'>";
+		
+		$artefato_tipo = 'compartilhar_grupo';
+		$artefato_titulo = 'Grupo de estudos';
+		$artefato_link = false;
+		$artefato_criacao = false;
+		$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-5';
+		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+		/*
+		$artefato_tipo = 'compartilhar_publicar';
+		$artefato_titulo = 'Público';
+		$artefato_link = false;
+		$artefato_criacao = false;
+		$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-5';
+		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+		
+		$artefato_tipo = 'compartilhar_usuario';
+		$artefato_titulo = 'Uma pessoa';
+		$artefato_link = false;
+		$artefato_criacao = false;
+		$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-5';
+		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+		*/
+		
+		$template_modal_body_conteudo .= "</span>";
+		include 'templates/modal.php';
+		
+		$template_modal_div_id = 'modal_compartilhar_grupo';
 		$template_modal_titulo = 'Compartilhamento';
 		$template_modal_show_buttons = false;
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
 			  <p>Apenas você, como criador original desta anotação, poderá alterar suas opções de compartilhamento. Por favor, analise cuidadosamente as opções abaixo. Versões anteriores do documento estarão sempre disponíveis no histórico (para todos os que tenham acesso à sua versão atual). Todo usuário com acesso à anotação poderá alterar suas etiquetas.</p>
-			  <h3>Compartilhar com grupo de estudos</h3>
+			  <p><strong>Membros de grupos de estudos com quem você compartilhar este documento poderão editá-lo.</strong></p>
+			  <h3>Grupos de estudos de que você faz parte</h3>
 			  ";
 		$grupos_do_usuario = $conn->query("SELECT grupo_id FROM Membros WHERE membro_user_id = $user_id AND estado = 1");
 		if ($grupos_do_usuario->num_rows > 0) {
@@ -1061,25 +1108,36 @@
 			}
 			$template_modal_body_conteudo .= "</ul>";
 		}
+		include 'templates/modal.php';
 		
-		//TODO: CONTINUAR AQUI, LISTA DE COMPARTILHAMENTO DESTA PÁGINA
+        $template_modal_div_id = 'modal_compartilhar_publicar';
+		$template_modal_titulo = 'Publicar';
+		$template_modal_body_conteudo = false;
+		$template_modal_body_conteudo .= "
+			<div class='form-check'>
+				<input type='checkbox' class='form-check-input' name='checkbox_publicar_ubwiki' id='checkbox_publicar_ubwiki'>
+				<label class='form-check-label' for='checkbox_publicar_ubwiki'>Publicar para outros usuários da Ubwiki</label>
+			</div>
+			<div class='form-check'>
+				<input type='checkbox' class='form-check-input' name='checkbox_publicar_geral' id='checkbox_publicar_geral'>
+				<label class='form-check-label' for='checkbox_publicar_geral'>Publicar para qualquer pessoa</label>
+			</div>
+			";
 		
-		/*$template_modal_body_conteudo .= "
-			<form>
-			<h3>Compartilhar com outro usuário</h3>
-				<select name='compartilhar_usuario' class='$select_classes'>
-						<option value='' disabled selected>Selecione o usuário</option>
-				</select>
-				<div class='row justify-content-center'>
-						<button class='$button_classes' name='trigger_compartilhar_usuario'>Compartilhar com usuário</button>
-				</div>
-			</form>
-			<h3>Tornar anotação pública.</h3>
-			<p>Todo usuário da Ubwiki poderá ler sua anotação, mas não poderá editá-la.</p>
-			<h3>Tornar pública e aberta.</h3>
-			<p>Todo usuário da Ubwiki poderá ler e editar sua anotação.</p>
-			";*/
+		include 'templates/modal.php';
 		
+		$template_modal_div_id = 'modal_compartilhar_usuario';
+		$template_modal_titulo = 'Compartilhar com usuário da Ubwiki';
+		$template_modal_body_conteudo = false;
+		$template_modal_body_conteudo .= "
+			<p><strong>O usuário da Ubwiki com quem você compartilhar este documento poderá editá-lo.</strong></p>
+		";
+		$template_modal_body_conteudo .= "
+			<div class='md-form'>
+				<input type='text' name='compartilhar_usuario' id='compartilhar_usuario' class='form-control'>
+				<label for='compartilhar_usuario'>Compartilhar com usuário da Ubwiki.</label>
+			</div>
+		";
 		include 'templates/modal.php';
 		
 	}

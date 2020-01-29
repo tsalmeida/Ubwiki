@@ -1408,6 +1408,15 @@
 		} elseif ($artefato_tipo == 'novo_membro') {
 			$fa_icone = 'fa-plus-circle';
 			$fa_primary_color = 'text-info';
+		} elseif ($artefato_tipo == 'compartilhar_grupo') {
+			$fa_icone = 'fa-users';
+			$fa_primary_color = 'text-default';
+		} elseif ($artefato_tipo == 'compartilhar_publicar') {
+			$fa_icone = 'fa-users-class';
+			$fa_primary_color = 'text-secondary';
+		} elseif ($artefato_tipo == 'compartilhar_usuario') {
+			$fa_icone = 'fa-handshake';
+			$fa_primary_color = 'text-primary';
 		}
 		return array($fa_icone, $fa_primary_color);
 	}
