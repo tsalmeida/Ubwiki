@@ -10,7 +10,7 @@
 	$artefato_titulo = 'Adicionar vídeo do YouTube';
 	$artefato_link = false;
 	$artefato_criacao = false;
-	$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-5';
+	$artefato_col_limit = 'col';
 	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	
 	if ($pagina_tipo != 'escritorio') {
@@ -18,7 +18,7 @@
 		$artefato_titulo = 'Adicionar imagem';
 		$artefato_link = false;
 		$artefato_criacao = false;
-		$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-5';
+		$artefato_col_limit = 'col';
 		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	}
 	if ($user_tipo == 'admin') {
@@ -27,7 +27,7 @@
 			$artefato_titulo = 'Adicionar questão de prova';
 			$artefato_link = false;
 			$artefato_criacao = false;
-			$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-5';
+			$artefato_col_limit = 'col';
 			$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 		}
 	}

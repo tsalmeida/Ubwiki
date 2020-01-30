@@ -10,7 +10,7 @@
 		$template_modal_body_conteudo = false;
 	}
 	if (!isset($template_modal_submit_name)) {
-		$template_modal_submit_name = 'modal_form_submit';
+		$template_modal_submit_name = "trigger_{$template_modal_div_id}";
 	}
 	if (!isset($template_modal_form_id)) {
 		$template_modal_form_id = "form_$template_modal_div_id";
@@ -34,7 +34,7 @@
 	
 	if ($template_modal_show_buttons == true) {
 		echo "
-          <form id='$template_modal_form_id' method='post' $template_modal_enctype>
+          <form id='$template_modal_form_id' name='$template_modal_form_id' method='post' $template_modal_enctype>
     ";
 	}
         echo "<div class='modal-content'>";

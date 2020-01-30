@@ -309,11 +309,13 @@
 						$template_conteudo = false;
 						$template_conteudo .= "<p>A Ubwiki é mais efetiva como um ambiente de estudos para comunidades unidas em torno de interesses comuns. Selecione um curso abaixo para participar de uma comunidade.</p>";
 						$usuario_cursos = $conn->query("SELECT DISTINCT opcao FROM Opcoes WHERE opcao_tipo = 'curso' AND user_id = $user_id");
+						$cursos_inscrito = array();
 						if ($usuario_cursos->num_rows > 0) {
 							$template_conteudo .= "<h2>Seus cursos</h2>";
 							$template_conteudo .= "<ul class='list-group list-group-flush' class='grey lighten-5'>";
 							while ($usuario_curso = $usuario_cursos->fetch_assoc()) {
 								$usuario_curso_id = $usuario_curso['opcao'];
+	                            array_push($cursos_inscrito, $usuario_curso_id);
 								$usuario_curso_titulo = return_curso_titulo_id($usuario_curso_id);
 								$template_conteudo .= "<a href='pagina.php?curso_id=$usuario_curso_id'><li class='list-group-item list-group-item-action mt-1 border-top border-bottom-0 text-center'>$usuario_curso_titulo</li></a>";
 							}

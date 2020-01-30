@@ -7,23 +7,8 @@
 	}
 	
 	if (isset($_POST['trigger_atualizacao'])) {
-	    $conn->query("ALTER TABLE `Etiquetas` ADD `pagina_id` INT(11) NULL DEFAULT NULL AFTER `titulo`;");
-	    $topicos = $conn->query("SELECT id FROM Paginas WHERE etiqueta_id IS NULL");
-	    if ($topicos->num_rows > 0) {
-	        while ($topico = $topicos->fetch_assoc()) {
-	        	$topico_pagina_id = $topico['id'];
-	        	$topico_titulo = return_pagina_titulo($topico_pagina_id);
-	        	$etiquetas = $conn->query("SELECT id FROM Etiquetas WHERE titulo = '$topico_titulo'");
-	        	if ($etiquetas->num_rows > 0) {
-	        		while ($etiqueta = $etiquetas->fetch_assoc()) {
-	        			$etiqueta_id = $etiqueta['id'];
-	        			$conn->query("UPDATE Paginas SET etiqueta_id = $etiqueta_id WHERE id = $topico_pagina_id");
-	        			break;
-			        }
-		        }
-	        }
-        }
-	    $conn->query("ALTER TABLE `Textos_arquivo` ADD `texto_id` INT(11) NULL DEFAULT NULL FIRST;");
+	    $conn->query("ALTER TABLE `Compartilhamento` ADD `tipo` VARCHAR(255) NULL DEFAULT NULL AFTER `criacao`;");
+	    $conn->query("ALTER TABLE `Compartilhamento` ADD `estado` BOOLEAN NOT NULL DEFAULT TRUE AFTER `tipo`;");
 	}
 	
 	if (isset($_POST['funcoes_gerais'])) {

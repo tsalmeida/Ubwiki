@@ -89,6 +89,7 @@
 		$pagina_titulo = $pagina_info[6];
 		$pagina_etiqueta_id = (int)$pagina_info[7];
 		$pagina_subtipo = $pagina_info[8];
+		$pagina_publicacao = $pagina_info[9];
 	} else {
 		header('Location:pagina.php?pagina_id=4');
 		exit();
@@ -1043,23 +1044,20 @@
 		$artefato_titulo = 'Grupo de estudos';
 		$artefato_link = false;
 		$artefato_criacao = false;
-		$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-5';
 		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
-		/*
+		
 		$artefato_tipo = 'compartilhar_publicar';
 		$artefato_titulo = 'Público';
 		$artefato_link = false;
 		$artefato_criacao = false;
-		$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-5';
 		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 		
 		$artefato_tipo = 'compartilhar_usuario';
 		$artefato_titulo = 'Uma pessoa';
 		$artefato_link = false;
 		$artefato_criacao = false;
-		$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-5';
+		//$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-5';
 		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
-		*/
 		
 		$template_modal_body_conteudo .= "</span>";
 		include 'templates/modal.php';
@@ -1095,7 +1093,7 @@
 		} else {
 			$template_modal_body_conteudo .= "<p class='text-muted'><em>Você não faz parte de nenhum grupo de estudos. Visite seu escritório para participar.</em></p>";
 		}
-		$comp_grupos = $conn->query("SELECT recipiente_id FROM Compartilhamento WHERE item_id = $pagina_id");
+		$comp_grupos = $conn->query("SELECT recipiente_id FROM Compartilhamento WHERE item_id = $pagina_id AND tipo IS NULL");
 		if ($comp_grupos->num_rows > 0) {
 			$template_modal_body_conteudo .= "<h3>Compartilhado com:</h3>";
 			$template_modal_body_conteudo .= "<ul class='list-group'>";
@@ -1110,21 +1108,48 @@
 		}
 		include 'templates/modal.php';
 		
+		if (isset($_POST['radio_publicar_opcao'])) {
+		    $radio_publicar_opcao = $_POST['radio_publicar_opcao'];
+		    $query_cmd = "INSERT INTO Compartilhamento (tipo, user_id, item_id, item_tipo, compartilhamento, recipiente_id) VALUES ('publicacao', $user_id, $pagina_id, '$pagina_tipo', '$radio_publicar_opcao', NULL)";
+		    $conn->query($query_cmd);
+		    $pagina_publicacao = $radio_publicar_opcao;
+        }
+		
+		$radio_privado = false;
+		$radio_ubwiki = false;
+		$radio_internet = false;
+		$radio_active = 'checked disabled';
+		if ($pagina_publicacao == 'privado') {
+		    $radio_privado = $radio_active;
+        } elseif ($pagina_publicacao == 'ubwiki') {
+			$radio_ubwiki = $radio_active;
+		} elseif ($pagina_publicacao == 'internet') {
+			$radio_internet = $radio_active;
+		}
+		
         $template_modal_div_id = 'modal_compartilhar_publicar';
-		$template_modal_titulo = 'Publicar';
+		$template_modal_titulo = 'Opções de publicação';
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
 			<div class='form-check'>
-				<input type='checkbox' class='form-check-input' name='checkbox_publicar_ubwiki' id='checkbox_publicar_ubwiki'>
-				<label class='form-check-label' for='checkbox_publicar_ubwiki'>Publicar para outros usuários da Ubwiki</label>
+				<input type='radio' class='form-check-input' name='radio_publicar_opcao' id='checkbox_publicar_privado' value='privado' $radio_privado>
+				<label class='form-check-label' for='checkbox_publicar_privado'>Privado.</label>
 			</div>
 			<div class='form-check'>
-				<input type='checkbox' class='form-check-input' name='checkbox_publicar_geral' id='checkbox_publicar_geral'>
-				<label class='form-check-label' for='checkbox_publicar_geral'>Publicar para qualquer pessoa</label>
+				<input type='radio' class='form-check-input' name='radio_publicar_opcao' id='checkbox_publicar_ubwiki' value='ubwiki' $radio_ubwiki>
+				<label class='form-check-label' for='checkbox_publicar_ubwiki'>Publicado na Ubwiki.</label>
+			</div>
+			<div class='form-check'>
+				<input type='radio' class='form-check-input' name='radio_publicar_opcao' id='checkbox_publicar_geral' value='internet' $radio_internet>
+				<label class='form-check-label' for='checkbox_publicar_geral'>Publicado na Internet.</label>
 			</div>
 			";
 		
 		include 'templates/modal.php';
+		
+		if (isset($_POST['compartilhar_usuario'])) {
+		    $compartilhar_usuario = $_POST['compartilhar_usuario'];
+        }
 		
 		$template_modal_div_id = 'modal_compartilhar_usuario';
 		$template_modal_titulo = 'Compartilhar com usuário da Ubwiki';

@@ -1546,6 +1546,9 @@
 	
 	function return_grupo_info($grupo_id)
 	{
+		if ($grupo_id == false) {
+			return false;
+		}
 		include 'templates/criar_conn.php';
 		$grupos = $conn->query("SELECT criacao, titulo, estado, pagina_id, user_id FROM Grupos WHERE id = $grupo_id");
 		if ($grupos->num_rows > 0) {
@@ -1957,7 +1960,8 @@
 				$pagina_titulo = return_pagina_titulo($pagina_id); // 6
 				$pagina_etiqueta_id = $pagina['etiqueta_id']; // 7
 				$pagina_extra = $pagina['subtipo']; // 8
-				return array($pagina_criacao, $pagina_item_id, $pagina_tipo, $pagina_estado, $pagina_compartilhamento, $pagina_user_id, $pagina_titulo, $pagina_etiqueta_id, $pagina_extra);
+				$pagina_publicacao = return_publicacao($pagina_id);
+				return array($pagina_criacao, $pagina_item_id, $pagina_tipo, $pagina_estado, $pagina_compartilhamento, $pagina_user_id, $pagina_titulo, $pagina_etiqueta_id, $pagina_extra, $pagina_publicacao);
 			}
 		}
 		return false;
@@ -2018,7 +2022,7 @@
 		if ($membros->num_rows > 0) {
 			while ($membro = $membros->fetch_assoc()) {
 				$membro_grupo_id = $membro['grupo_id'];
-				$compartilhamentos = $conn->query("SELECT id FROM Compartilhamento WHERE item_id = $item_id AND recipiente_id = $membro_grupo_id");
+				$compartilhamentos = $conn->query("SELECT id FROM Compartilhamento WHERE item_id = $item_id AND recipiente_id = $membro_grupo_id AND estado = 1");
 				if ($compartilhamentos->num_rows > 0) {
 					return true;
 				}
@@ -2027,6 +2031,23 @@
 			return false;
 		}
 		return false;
+	}
+	
+	function return_publicacao($item_id) {
+		if ($item_id == false) {
+			return false;
+		}
+		include 'templates/criar_conn.php';
+		$publicacao = $conn->query("SELECT compartilhamento FROM Compartilhamento WHERE tipo = 'publicacao' AND estado = 1 ORDER BY id DESC");
+		if ($publicacao->num_rows > 0) {
+			while ($publicacao_tipo = $publicacao->fetch_assoc()) {
+				$publicacao_ativa = $publicacao_tipo['compartilhamento'];
+				return $publicacao_ativa;
+			}
+		} {
+			return 'privado';
+		}
+		return 'privado';
 	}
 	
 	
