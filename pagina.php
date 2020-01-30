@@ -1139,10 +1139,10 @@
 				<input type='radio' class='form-check-input' name='radio_publicar_opcao' id='checkbox_publicar_ubwiki' value='ubwiki' $radio_ubwiki>
 				<label class='form-check-label' for='checkbox_publicar_ubwiki'>Publicado na Ubwiki.</label>
 			</div>
-			<div class='form-check'>
+			<!--<div class='form-check'>
 				<input type='radio' class='form-check-input' name='radio_publicar_opcao' id='checkbox_publicar_geral' value='internet' $radio_internet>
 				<label class='form-check-label' for='checkbox_publicar_geral'>Publicado na Internet.</label>
-			</div>
+			</div>-->
 			";
 		
 		include 'templates/modal.php';
@@ -1151,18 +1151,43 @@
 		    $compartilhar_usuario = $_POST['compartilhar_usuario'];
         }
 		
+		$bottom_compartilhar_usuario = true;
 		$template_modal_div_id = 'modal_compartilhar_usuario';
 		$template_modal_titulo = 'Compartilhar com usuário da Ubwiki';
+		$modal_scrollable = true;
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
 			<p><strong>O usuário da Ubwiki com quem você compartilhar este documento poderá editá-lo.</strong></p>
 		";
 		$template_modal_body_conteudo .= "
-			<div class='md-form'>
-				<input type='text' name='compartilhar_usuario' id='compartilhar_usuario' class='form-control'>
-				<label for='compartilhar_usuario'>Compartilhar com usuário da Ubwiki.</label>
+			<p>Pesquise o convidado por seu apelido:</p>
+	        <div class='md-form'>
+	        	<input type='text' class='form-control' id='apelido_convidado_compartilhamento' novo='apelido_convidado_compartilhamento'>
+	        	<label for='apelido_convidado_compartilhamento'>Apelido</label>
+	        </div>
+	        <div class='md-form my-1'>
+	            <button type='button' id='trigger_buscar_convidado_compartilhamento' name='trigger_buscar_convidado_compartilhamento' class='$button_classes btn-sm m-0'>Buscar</button>
+            </div>
+            <div id='convite_resultados_compartilhamento' class='row border p-2 rounded mt-4'>
 			</div>
 		";
+		$template_modal_body_conteudo .= "
+		    <p class='mt-3'>Atualmente compartilhado com os usuários listados abaixo:</p>
+		    <p><strong>Pressione para remover.</strong></p>
+		    <ul class='list-group list-group-flush'>
+		";
+		$usuarios_comp = $conn->query("SELECT recipiente_id FROM Compartilhamento WHERE estado = 1 AND item_id = $pagina_id AND compartilhamento = 'usuario'");
+		if ($usuarios_comp->num_rows > 0) {
+		    while ($usuario_comp = $usuarios_comp->fetch_assoc()) {
+		        $usuario_comp_id = $usuario_comp['recipiente_id'];
+		        $usuario_comp_avatar_info = return_avatar($usuario_comp_id);
+		        $usuario_comp_avatar_icone = $usuario_comp_avatar_info[0];
+		        $usuario_comp_avatar_cor = $usuario_comp_avatar_info[1];
+		        $usuario_comp_apelido = return_apelido_user_id($usuario_comp_id);
+		        $template_modal_body_conteudo .= "<a href='javascript:void(0)' class='remover_compartilhamento_usuario' value='$usuario_comp_id'><li class='list-group-item list-group-item-action mt-1 border-top'><span class='$usuario_comp_avatar_cor'><i class='fad $usuario_comp_avatar_icone fa-fw'></i></span> $usuario_comp_apelido</li></a>";
+            }
+        }
+		$template_modal_body_conteudo .= "</ul>";
 		include 'templates/modal.php';
 		
 	}

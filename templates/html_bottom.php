@@ -47,6 +47,10 @@
 		$carregar_convite = false;
 	}
 	
+	if (!isset($bottom_compartilhar_usuario)) {
+		$bottom_compartilhar_usuario = false;
+	}
+	
 	echo "
     <!-- Bootstrap tooltips -->
     <script type='text/javascript' src='js/popper.min.js'></script>
@@ -552,5 +556,48 @@
 			</script>
 		";
 	}
-
+	
+	if ($bottom_compartilhar_usuario == true) {
+		echo "
+		<script type='text/javascript'>
+		$(document).on('click', '#trigger_buscar_convidado_compartilhamento', function() {
+			convidado_busca_compartilhamento = $('#apelido_convidado_compartilhamento').val();
+			convidado_pagina_id = '$pagina_id';
+			$.post('engine.php', {
+				    	'busca_apelido': convidado_busca_compartilhamento,
+				    	'busca_pagina_id': convidado_pagina_id
+				    }, function(data) {
+				if (data != 0) {
+					$('#convite_resultados_compartilhamento').empty();
+					$('#convite_resultados_compartilhamento').append(data);
+				}
+			});
+				});
+		$(document).on('click', '.compartilhar_usuario', function() {
+			var usuario_id = $(this).attr('value');
+			$(this).hide();
+			$.post('engine.php', {
+				       'compartilhar_usuario_id': usuario_id,
+				       'compartilhar_pagina_id': {$pagina_id}
+				    }, function(data) {
+				if (data != 0) {
+					alert('Compartilhamento efetuado');
+				}
+			});
+		});
+		$(document).on('click', '.remover_compartilhamento_usuario', function() {
+		    remover_compartilhamento_usuario = $(this).attr('value');
+		    $(this).hide();
+		    $.post('engine.php', {
+		        'remover_compartilhamento_usuario': remover_compartilhamento_usuario,
+		        'remover_compartilhamento_usuario_pagina': {$pagina_id}
+		    }, function(data) {
+		        if (data != 0) {
+		            alert('O acesso do usuário a este documento foi revogado.');
+		        }
+		    });
+		});
+	</script>
+	";
+	}
 ?>

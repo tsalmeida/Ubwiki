@@ -545,9 +545,8 @@
 	{
 		return false;
 	}
-
-
-
+	
+	
 	function return_simulado_info($find_simulado_id)
 	{
 		include 'templates/criar_conn.php';
@@ -2017,6 +2016,11 @@
 		if (($item_id == false) || ($user_id == false)) {
 			return false;
 		}
+		
+		$check_publicacao = return_publicacao($item_id);
+		if (($check_publicacao == 'internet') || ($check_publicacao == 'ubwiki')) {
+			return true;
+		}
 		include 'templates/criar_conn.php';
 		$membros = $conn->query("SELECT grupo_id FROM Membros WHERE membro_user_id = $user_id AND estado = 1");
 		if ($membros->num_rows > 0) {
@@ -2027,13 +2031,17 @@
 					return true;
 				}
 			}
-		} else {
-			return false;
+		}
+		
+		$compartilhamentos = $conn->query("SELECT id FROM Compartilhamento WHERE item_id = $item_id AND recipiente_id = $user_id AND estado = 1 AND compartilhamento = 'usuario'");
+		if ($compartilhamentos->num_rows > 0) {
+			return true;
 		}
 		return false;
 	}
 	
-	function return_publicacao($item_id) {
+	function return_publicacao($item_id)
+	{
 		if ($item_id == false) {
 			return false;
 		}
@@ -2044,7 +2052,8 @@
 				$publicacao_ativa = $publicacao_tipo['compartilhamento'];
 				return $publicacao_ativa;
 			}
-		} {
+		}
+		{
 			return 'privado';
 		}
 		return 'privado';
@@ -2069,19 +2078,19 @@
 		}
 		return false;
 	}
-
+	
 	function return_curso_sigla($curso_id)
 	{
 		$curso_info = return_curso_info($curso_id);
 		return $curso_info[2];
 	}
-
+	
 	function return_curso_titulo_id($find_curso_id)
 	{
 		$curso_info = return_curso_info($find_curso_id);
 		return $curso_info[3];
 	}
-
+	
 	function return_curso_info($curso_id)
 	{
 		if ($curso_id == false) {
@@ -2317,20 +2326,41 @@
 	
 	if (isset($_POST['busca_apelido'])) {
 		$busca_apelido = $_POST['busca_apelido'];
-		$busca_grupo_id = $_POST['busca_grupo_id'];
-		$usuarios = $conn->query("SELECT apelido, id FROM Usuarios WHERE apelido LIKE '%$busca_apelido%' ORDER BY apelido");
-		if ($usuarios->num_rows > 0) {
-			while ($usuario = $usuarios->fetch_assoc()) {
-				$usuario_apelido = $usuario['apelido'];
-				$usuario_id = $usuario['id'];
-				$usuario_avatar = return_avatar($usuario_id);
-				$usuario_avatar_icone = $usuario_avatar[0];
-				$usuario_avatar_cor = $usuario_avatar[1];
-				echo "<a value='$usuario_id' class='border p-1 mr-2 mb-2 rounded convite_usuario'><span class='$usuario_avatar_cor'><i class='fad $usuario_avatar_icone fa-fw fa-2x'></i></span> $usuario_apelido</a></a>";
+		$busca_apelido_continuar = false;
+		$busca_grupo_id = false;
+		$busca_pagina_id = false;
+		if (isset($_POST['busca_grupo_id'])) {
+			$busca_apelido_continuar = true;
+			$busca_grupo_id = $_POST['busca_grupo_id'];
+			$convite_tipo = 'convite_usuario';
+		} elseif (isset($_POST['busca_pagina_id'])) {
+			$busca_apelido_continuar = true;
+			$busca_pagina_id = $_POST['busca_pagina_id'];
+			$convite_tipo = 'compartilhar_usuario';
+		}
+		if ($busca_apelido_continuar == true) {
+			$usuarios = $conn->query("SELECT apelido, id FROM Usuarios WHERE apelido LIKE '%$busca_apelido%' ORDER BY apelido");
+			if ($usuarios->num_rows > 0) {
+				while ($usuario = $usuarios->fetch_assoc()) {
+					$usuario_apelido = $usuario['apelido'];
+					$usuario_id = $usuario['id'];
+					$usuario_avatar = return_avatar($usuario_id);
+					$usuario_avatar_icone = $usuario_avatar[0];
+					$usuario_avatar_cor = $usuario_avatar[1];
+					echo "<a value='$usuario_id' class='border p-1 mr-2 mb-2 rounded $convite_tipo'><span class='$usuario_avatar_cor'><i class='fad $usuario_avatar_icone fa-fw fa-2x'></i></span> $usuario_apelido</a></a>";
+				}
+			} else {
+				echo "<span class='text-muted'>Nenhum usuário encontrado.</span>";
 			}
 		} else {
-			echo "<span class='text-muted'>Nenhum usuário encontrado.</span>";
+			echo false;
 		}
+	}
+	
+	if (isset($_POST['compartilhar_usuario_id'])) {
+		$compartilhar_usuario_id = $_POST['compartilhar_usuario_id'];
+		$compartilhar_pagina_id = $_POST['compartilhar_pagina_id'];
+		$conn->query("INSERT INTO Compartilhamento (user_id, item_id, item_tipo, compartilhamento, recipiente_id) VALUES ($user_id, $compartilhar_pagina_id, 'pagina', 'usuario', $compartilhar_usuario_id)");
 	}
 	
 	if (isset($_POST['convidar_usuario_id'])) {
@@ -2341,9 +2371,19 @@
 	
 	if (isset($_POST['remover_carrinho_pagina_id'])) {
 		$remover_carrinho_pagina_id = $_POST['remover_carrinho_pagina_id'];
-		error_log("UPDATE Carrinho SET estado = 0 WHERE produto_pagina_id = $remover_carrinho_pagina_id AND user_id = $user_id");
 		$check = $conn->query("UPDATE Carrinho SET estado = 0 WHERE produto_pagina_id = $remover_carrinho_pagina_id AND user_id = $user_id");
 		return $check;
+	}
+	
+	if (isset($_POST['remover_compartilhamento_usuario'])) {
+		$remover_compartilhamento_usuario = $_POST['remover_compartilhamento_usuario'];
+		$remover_compartilhamento_usuario_pagina = $_POST['remover_compartilhamento_usuario_pagina'];
+		$check_remocao_compartilhamento = $conn->query("UPDATE Compartilhamento SET estado = 0 WHERE item_id = $remover_compartilhamento_usuario_pagina AND recipiente_id = $remover_compartilhamento_usuario AND compartilhamento = 'usuario'");
+		if ($check_remocao_compartilhamento == true) {
+			echo true;
+		} else {
+			echo false;
+		}
 	}
 
 ?>
