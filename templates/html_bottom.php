@@ -51,6 +51,10 @@
 		$bottom_compartilhar_usuario = false;
 	}
 	
+	if (!isset($esconder_botao_determinar_acesso)) {
+		$esconder_botao_determinar_acesso = false;
+	}
+	
 	echo "
     <!-- Bootstrap tooltips -->
     <script type='text/javascript' src='js/popper.min.js'></script>
@@ -597,7 +601,51 @@
 		        }
 		    });
 		});
+		$(document).on('click', '.remover_acesso_grupo', function() {
+		    remover_acesso_grupo = $(this).attr('value');
+		    $(this).hide();
+		    $.post('engine.php', {
+		       'remover_acesso_grupo': remover_acesso_grupo,
+		       'remover_acesso_grupo_pagina_id': {$pagina_id}
+		    }, function(data) {
+		        if (data != 0) {
+		            alert('O acesso desse grupo de estudo a este documento foi revogado.');
+		        }
+		    });
+		})
+		$(document).on('click', '.radio_publicar_opcao', function() {
+			publicar_opcao = $(this).val();
+			if (publicar_opcao == 'ubwiki') {
+			    $('.botao_determinar_acesso').hide();
+			} else {
+			    $('.botao_determinar_acesso').show();
+			}
+		});
+		$(document).on('click', '.colaboracao_opcao', function() {
+			colaboracao_opcao = $(this).val();
+			if (colaboracao_opcao == 'selecionada') {
+			    $('.botao_determinar_colaboracao').show();
+			} else {
+			    $('.botao_determinar_colaboracao').hide();
+			}
+		});
 	</script>
 	";
+	}
+	if (isset($pagina_colaboracao)) {
+		if ($pagina_colaboracao != 'selecionada') {
+			echo "
+			<script type='text/javascript'>
+				$('.botao_determinar_colaboracao').hide();
+			</script>
+		";
+		}
+	}
+	if ($esconder_botao_determinar_acesso == true) {
+		echo "
+			<script type='text/javascript'>
+				$('.botao_determinar_acesso').hide();
+			</script>
+		";
 	}
 ?>

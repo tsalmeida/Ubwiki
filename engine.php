@@ -1012,6 +1012,7 @@
 	if (isset($_POST['criar_materia_titulo'])) {
 		$criar_materia_titulo = $_POST['criar_materia_titulo'];
 		$criar_materia_page_id = $_POST['criar_materia_page_id'];
+		$criar_materia_page_id = $_POST['criar_materia_page_id'];
 		$criar_materia_page_tipo = $_POST['criar_materia_page_tipo'];
 		
 		$criar_etiqueta_cor_icone = return_etiqueta_cor_icone('topico');
@@ -1960,7 +1961,8 @@
 				$pagina_etiqueta_id = $pagina['etiqueta_id']; // 7
 				$pagina_extra = $pagina['subtipo']; // 8
 				$pagina_publicacao = return_publicacao($pagina_id);
-				return array($pagina_criacao, $pagina_item_id, $pagina_tipo, $pagina_estado, $pagina_compartilhamento, $pagina_user_id, $pagina_titulo, $pagina_etiqueta_id, $pagina_extra, $pagina_publicacao);
+				$pagina_colaboracao = return_colaboracao($pagina_id);
+				return array($pagina_criacao, $pagina_item_id, $pagina_tipo, $pagina_estado, $pagina_compartilhamento, $pagina_user_id, $pagina_titulo, $pagina_etiqueta_id, $pagina_extra, $pagina_publicacao, $pagina_colaboracao);
 			}
 		}
 		return false;
@@ -2011,6 +2013,46 @@
 		return false;
 	}
 	
+	function return_privilegio_edicao($item_id, $user_id)
+	{
+		if (($item_id == false) || ($user_id == false)) {
+			return false;
+		}
+		$pagina_colaboracao = return_colaboracao($item_id);
+		if ($pagina_colaboracao == 'aberta') {
+			return true;
+		} else {
+			if (($pagina_colaboracao == 'exclusiva') || ($pagina_colaboracao == 'selecionada')) {
+				$pagina_info = return_pagina_info($item_id);
+				$pagina_user_id = $pagina_info[5];
+				if ($user_id == $pagina_user_id) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+			if ($pagina_colaboracao == 'selecionada') {
+				include 'templates/criar_conn.php';
+				$membros = $conn->query("SELECT grupo_id FROM Membros WHERE membro_user_id = $user_id AND estado = 1");
+				if ($membros->num_rows > 0) {
+					while ($membro = $membros->fetch_assoc()) {
+						$membro_grupo_id = $membro['grupo_id'];
+						$compartilhamentos = $conn->query("SELECT id FROM Compartilhamentos WHERE tipo = 'colaborador' AND recipiente_id = $membro_grupo_id AND estado = 1");
+						if ($compartilhamentos->num_rows > 0) {
+							return true;
+						}
+					}
+				}
+				$compartilhamentos = $conn->query("SELECT id FROM Compartilhamentos WHERE tipo = 'colaborador' AND recipiente_id = $user_id AND estado = 1");
+				if ($compartilhamentos->num_rows > 0) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		}
+	}
+	
 	function return_compartilhamento($item_id, $user_id)
 	{
 		if (($item_id == false) || ($user_id == false)) {
@@ -2026,14 +2068,14 @@
 		if ($membros->num_rows > 0) {
 			while ($membro = $membros->fetch_assoc()) {
 				$membro_grupo_id = $membro['grupo_id'];
-				$compartilhamentos = $conn->query("SELECT id FROM Compartilhamento WHERE item_id = $item_id AND recipiente_id = $membro_grupo_id AND estado = 1");
+				$compartilhamentos = $conn->query("SELECT id FROM Compartilhamento WHERE tipo = 'acesso' AND item_id = $item_id AND recipiente_id = $membro_grupo_id AND estado = 1");
 				if ($compartilhamentos->num_rows > 0) {
 					return true;
 				}
 			}
 		}
 		
-		$compartilhamentos = $conn->query("SELECT id FROM Compartilhamento WHERE item_id = $item_id AND recipiente_id = $user_id AND estado = 1 AND compartilhamento = 'usuario'");
+		$compartilhamentos = $conn->query("SELECT id FROM Compartilhamento WHERE tipo = 'acesso' AND item_id = $item_id AND recipiente_id = $user_id AND estado = 1 AND compartilhamento = 'usuario'");
 		if ($compartilhamentos->num_rows > 0) {
 			return true;
 		}
@@ -2052,11 +2094,28 @@
 				$publicacao_ativa = $publicacao_tipo['compartilhamento'];
 				return $publicacao_ativa;
 			}
-		}
-		{
+		} else {
 			return 'privado';
 		}
 		return 'privado';
+	}
+	
+	function return_colaboracao($item_id)
+	{
+		if ($item_id == false) {
+			return false;
+		}
+		include 'templates/criar_conn.php';
+		$colaboracao = $conn->query("SELECT compartilhamento FROM Compartilhamento WHERE tipo = 'colaboracao' AND estado = 1 ORDER BY id DESC");
+		if ($colaboracao->num_rows > 0) {
+			while ($colaboracao_tipo = $colaboracao->fetch_assoc()) {
+				$colaboracao_ativa = $colaboracao_tipo['compartilhamento'];
+				return $colaboracao_ativa;
+			}
+		} else {
+			return 'aberta';
+		}
+		return 'aberta';
 	}
 	
 	
@@ -2360,7 +2419,7 @@
 	if (isset($_POST['compartilhar_usuario_id'])) {
 		$compartilhar_usuario_id = $_POST['compartilhar_usuario_id'];
 		$compartilhar_pagina_id = $_POST['compartilhar_pagina_id'];
-		$conn->query("INSERT INTO Compartilhamento (user_id, item_id, item_tipo, compartilhamento, recipiente_id) VALUES ($user_id, $compartilhar_pagina_id, 'pagina', 'usuario', $compartilhar_usuario_id)");
+		$conn->query("INSERT INTO Compartilhamento (tipo, user_id, item_id, item_tipo, compartilhamento, recipiente_id) VALUES ('acesso', $user_id, $compartilhar_pagina_id, 'pagina', 'usuario', $compartilhar_usuario_id)");
 	}
 	
 	if (isset($_POST['convidar_usuario_id'])) {
@@ -2378,7 +2437,18 @@
 	if (isset($_POST['remover_compartilhamento_usuario'])) {
 		$remover_compartilhamento_usuario = $_POST['remover_compartilhamento_usuario'];
 		$remover_compartilhamento_usuario_pagina = $_POST['remover_compartilhamento_usuario_pagina'];
-		$check_remocao_compartilhamento = $conn->query("UPDATE Compartilhamento SET estado = 0 WHERE item_id = $remover_compartilhamento_usuario_pagina AND recipiente_id = $remover_compartilhamento_usuario AND compartilhamento = 'usuario'");
+		$check_remocao_compartilhamento = $conn->query("UPDATE Compartilhamento SET estado = 0 WHERE tipo = 'acesso' AND item_id = $remover_compartilhamento_usuario_pagina AND recipiente_id = $remover_compartilhamento_usuario AND compartilhamento = 'usuario'");
+		if ($check_remocao_compartilhamento == true) {
+			echo true;
+		} else {
+			echo false;
+		}
+	}
+	
+	if (isset($_POST['remover_acesso_grupo'])) {
+		$remover_acesso_grupo = $_POST['remover_acesso_grupo'];
+		$remover_acesso_grupo_pagina_id = $_POST['remover_acesso_grupo_pagina_id'];
+		$check_remocao_acesso_grupo = $conn->query("UPDATE Compartilhamento SET estado = 0 WHERE tipo = 'acesso' AND item_id = $remover_acesso_grupo_pagina_id AND recipiente_id = $remover_acesso_grupo AND compartilhamento = 'grupo'");
 		if ($check_remocao_compartilhamento == true) {
 			echo true;
 		} else {

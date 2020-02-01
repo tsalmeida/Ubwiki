@@ -9,6 +9,7 @@
 	if (isset($_POST['trigger_atualizacao'])) {
 	    $conn->query("ALTER TABLE `Compartilhamento` ADD `tipo` VARCHAR(255) NULL DEFAULT NULL AFTER `criacao`;");
 	    $conn->query("ALTER TABLE `Compartilhamento` ADD `estado` BOOLEAN NOT NULL DEFAULT TRUE AFTER `tipo`;");
+	    $conn->query("UPDATE Compartilhamento SET tipo = 'acesso' WHERE tipo IS NULL");
 	}
 	
 	if (isset($_POST['funcoes_gerais'])) {

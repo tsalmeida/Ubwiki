@@ -90,6 +90,7 @@
 		$pagina_etiqueta_id = (int)$pagina_info[7];
 		$pagina_subtipo = $pagina_info[8];
 		$pagina_publicacao = $pagina_info[9];
+		$pagina_colaboracao = $pagina_info[10];
 	} else {
 		header('Location:pagina.php?pagina_id=4');
 		exit();
@@ -163,6 +164,8 @@
 			}
 		}
 	}
+	
+	
 	
 	if ($pagina_tipo == 'curso') {
 		$curso_info = return_curso_info($curso_id);
@@ -306,7 +309,7 @@
 	
 	if (isset($_POST['compartilhar_grupo_id'])) {
 		$compartilhar_grupo_id = $_POST['compartilhar_grupo_id'];
-		$conn->query("INSERT INTO Compartilhamento (user_id, item_id, item_tipo, compartilhamento, recipiente_id) VALUES ($user_id, $pagina_id, '$pagina_tipo', 'grupo', $compartilhar_grupo_id)");
+		$conn->query("INSERT INTO Compartilhamento (tipo, user_id, item_id, item_tipo, compartilhamento, recipiente_id) VALUES ('acesso', $user_id, $pagina_id, '$pagina_tipo', 'grupo', $compartilhar_grupo_id)");
 	}
 	
 	if (isset($_POST['produto_nova_imagem'])) {
@@ -366,12 +369,12 @@
 						}
 						$modal_pagina_dados = false;
 						if (
-						        (($pagina_tipo == 'sistema') && ($user_tipo == 'admin')) ||
-                                (($pagina_tipo == 'pagina') && ($pagina_user_id == $user_id)) ||
-						        ((($pagina_tipo == 'curso') || ($pagina_tipo == 'materia') || ($pagina_tipo == 'topico')) && ($pagina_curso_user_id == $user_id)) ||
-						        (($pagina_tipo == 'texto') && ($pagina_user_id = $user_id) && ($texto_page_id == 0)) ||
-						        (($pagina_tipo == 'resposta') && ($pagina_user_id == $user_id)) ||
-						        (($pagina_tipo == 'secao') && ($pagina_user_id == $user_id))
+							(($pagina_tipo == 'sistema') && ($user_tipo == 'admin')) ||
+							(($pagina_tipo == 'pagina') && ($pagina_user_id == $user_id)) ||
+							((($pagina_tipo == 'curso') || ($pagina_tipo == 'materia') || ($pagina_tipo == 'topico')) && ($pagina_curso_user_id == $user_id)) ||
+							(($pagina_tipo == 'texto') && ($pagina_user_id = $user_id) && ($texto_page_id == 0)) ||
+							(($pagina_tipo == 'resposta') && ($pagina_user_id == $user_id)) ||
+							(($pagina_tipo == 'secao') && ($pagina_user_id == $user_id))
 						) {
 							$modal_pagina_dados = true;
 							echo "<span id='pagina_dados' class='mx-1' title='Editar dados'><a href='javascript:void(0);' data-toggle='modal' data-target='#modal_pagina_dados' class='text-success'><i class='fad fa-info-circle fa-fw fa-2x'></i></a></span>";
@@ -432,10 +435,10 @@
 					<?php
 						if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id)) {
 							echo "
-	                          <span id='compartilhar_anotacao' class='ml-1' title='Editar compartilhamento desta anotação'
+	                          <span id='compartilhar_anotacao' class='ml-1' title='Colaboração e publicação'
                                  data-toggle='modal' data-target='#modal_compartilhar_anotacao'>
                                 <a href='javascript:void(0);' class='text-default'>
-                                    <i class='fad fa-users fa-fw'></i>
+                                    <i class='fad fa-user-friends fa-fw'></i>
                                 </a>
                               </span>
 	                        ";
@@ -688,7 +691,7 @@
 					if (
 						(($pagina_compartilhamento == 'privado') && ($user_id != $pagina_user_id)) &&
 						($check_compartilhamento == false)
-						) {
+					) {
 						$template_quill_botoes = false;
 						$template_quill_initial_state = 'leitura';
 					}
@@ -1035,40 +1038,118 @@
 	if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id)) {
 		
 		$template_modal_div_id = 'modal_compartilhar_anotacao';
-		$template_modal_titulo = 'Compartilhar com...';
+		$template_modal_titulo = 'Colaboração e acesso';
+		$template_modal_body_conteudo = false;
+		$template_modal_body_conteudo .= "<h3>Acesso</h3>";
+		if (isset($_POST['radio_publicar_opcao'])) {
+			$radio_publicar_opcao = $_POST['radio_publicar_opcao'];
+			$query_cmd = "INSERT INTO Compartilhamento (tipo, user_id, item_id, item_tipo, compartilhamento, recipiente_id) VALUES ('publicacao', $user_id, $pagina_id, '$pagina_tipo', '$radio_publicar_opcao', NULL)";
+			$conn->query($query_cmd);
+			$pagina_publicacao = $radio_publicar_opcao;
+		}
+		
+		$radio_privado = false;
+		$radio_ubwiki = false;
+		$radio_internet = false;
+		$radio_active = 'checked';
+		if ($pagina_publicacao == 'privado') {
+			$radio_privado = $radio_active;
+		} elseif ($pagina_publicacao == 'ubwiki') {
+			$radio_ubwiki = $radio_active;
+			$esconder_botao_determinar_acesso = true;
+		} elseif ($pagina_publicacao == 'internet') {
+			$radio_internet = $radio_active;
+		}
+		
+		$template_modal_body_conteudo .= "
+			<div class='form-check'>
+				<input type='radio' class='form-check-input radio_publicar_opcao' name='radio_publicar_opcao' id='checkbox_publicar_ubwiki' value='ubwiki' $radio_ubwiki>
+				<label class='form-check-label' for='checkbox_publicar_ubwiki'>Acesso livre a usuários da Ubwiki.</label>
+			</div>
+			<div class='form-check'>
+				<input type='radio' class='form-check-input radio_publicar_opcao' name='radio_publicar_opcao' id='checkbox_publicar_privado' value='privado' $radio_privado>
+				<label class='form-check-label' for='checkbox_publicar_privado'>Seletivo. <span class='text-muted'><em>Você determina quem tem acesso</em></span>.</label>
+			</div>
+			<div id='botao_determinar_acesso' class='row d-flex justify-content-center botao_determinar_acesso'>
+				<span data-toggle='modal' data-target='#modal_compartilhar_anotacao'><a data-toggle='modal' data-target='#modal_outorgar_acesso'><button class='$button_classes botao_determinar_acesso btn-info' type='button'>Outorgar acesso</button></a></span>
+			</div>
+			<!--<div class='form-check'>
+				<input type='radio' class='form-check-input' name='radio_publicar_opcao' id='checkbox_publicar_geral' value='internet' $radio_internet>
+				<label class='form-check-label' for='checkbox_publicar_geral'>Publicado na Internet.</label>
+			</div>-->
+			";
+		$template_modal_body_conteudo .= "<h3 class='mt-3'>Colaboração</h3>";
+		if (isset($_POST['colaboracao_opcao'])) {
+		    $colaboracao_opcao = $_POST['colaboracao_opcao'];
+		    $conn->query("INSERT INTO Compartilhamento (tipo, user_id, item_id, item_tipo, compartilhamento) VALUES ('colaboracao', $user_id, $pagina_id, '$pagina_tipo', '$colaboracao_opcao')");
+		    $pagina_colaboracao = $colaboracao_opcao;
+        }
+		
+		$radio_colaboracao_exclusiva = false;
+		$radio_colaboracao_aberta = false;
+		$radio_colaboracao_selecionada = false;
+		$radio_colaboracao_active = 'checked';
+		if ($pagina_colaboracao == 'exclusiva') {
+		    $radio_colaboracao_exclusiva = $radio_colaboracao_active;
+        } elseif ($pagina_colaboracao == 'aberta') {
+		    $radio_colaboracao_aberta = $radio_colaboracao_active;
+        } elseif ($pagina_colaboracao == 'selecionada') {
+		    $radio_colaboracao_selecionada = $radio_colaboracao_active;
+        }
+		
+		$template_modal_body_conteudo .= "
+			<div class='form-check'>
+				<input type='radio' class='form-check-input colaboracao_opcao' name='colaboracao_opcao' id='colaboracao_aberta' value='aberta' $radio_colaboracao_aberta>
+				<label class='form-check-label' for='colaboracao_aberta'>Livre. <span class='text-muted'><em>Todos os grupos e indivíduos com acesso a esta página poderão editá-la.</em></span></label>
+			</div>
+			<div class='form-check'>
+				<input type='radio' class='form-check-input colaboracao_opcao' name='colaboracao_opcao' id='colaboracao_exclusiva' value='exclusiva' $radio_colaboracao_exclusiva>
+				<label class='form-check-label' for='colaboracao_exclusiva'>Autoral. <span class='text-muted'><em>Apenas você poderá editar o conteúdo desta página.</em></span></label>
+			</div>
+			<div class='form-check'>
+				<input type='radio' class='form-check-input colaboracao_opcao' name='colaboracao_opcao' id='colaboracao_selecionada' value='selecionada' $radio_colaboracao_selecionada>
+				<label class='form-check-label' for='colaboracao_selecionada'>Seletiva. <span class='text-muted'><em>Apenas grupos e indivíduos selecionados poderão editar o conteúdo desta página.</em></span></label>
+			</div>
+			<div class='row d-flex justify-content-center botao_determinar_colaboracao'>
+				<span data-toggle='modal' data-target='#modal_compartilhar_anotacao'><a data-toggle='modal' data-target='#modal_determinar_colaboracao'><button class='$button_classes botao_determinar_colaboracao btn-info'>Adicionar colaboradores</button></a></span>
+			</div>
+		";
+		
+		include 'templates/modal.php';
+		
+		$template_modal_div_id = 'modal_outorgar_acesso';
+		$template_modal_titulo = 'Outorgar acesso';
 		$template_modal_show_buttons = false;
 		$template_modal_body_conteudo = false;
-		$template_modal_body_conteudo .= "<span id='esconder_modal_compartilhar_anotacao' data-toggle='modal' data-target='#modal_compartilhar_anotacao' class='row justify-content-center'>";
+		
+		$template_modal_body_conteudo .= "
+        <p class='detalhes_acesso'>Adicione pessoas e grupos de estudo abaixo para que tenham acesso à sua página. Apenas você, como criador original desta página, poderá alterar suas opções de compartilhamento.</p>
+        <span id='esconder_modal_compartilhar_anotacao' data-toggle='modal' data-target='#modal_outorgar_acesso' class='row justify-content-center detalhes_acesso'>";
 		
 		$artefato_tipo = 'compartilhar_grupo';
 		$artefato_titulo = 'Grupo de estudos';
 		$artefato_link = false;
 		$artefato_criacao = false;
-		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
-		
-		$artefato_tipo = 'compartilhar_publicar';
-		$artefato_titulo = 'Público';
-		$artefato_link = false;
-		$artefato_criacao = false;
+		$fa_size = 'fa-3x';
+		$artefato_col_limit = 'col-lg-4 col-md-5';
 		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 		
 		$artefato_tipo = 'compartilhar_usuario';
-		$artefato_titulo = 'Uma pessoa';
+		$artefato_titulo = 'Colega';
 		$artefato_link = false;
 		$artefato_criacao = false;
-		//$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-5';
+		$fa_size = 'fa-3x';
+		$artefato_col_limit = 'col-lg-4 col-md-5';
 		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 		
 		$template_modal_body_conteudo .= "</span>";
 		include 'templates/modal.php';
 		
 		$template_modal_div_id = 'modal_compartilhar_grupo';
-		$template_modal_titulo = 'Compartilhamento';
+		$template_modal_titulo = 'Outorgar acesso a grupos de estudos';
 		$template_modal_show_buttons = false;
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
-			  <p>Apenas você, como criador original desta anotação, poderá alterar suas opções de compartilhamento. Por favor, analise cuidadosamente as opções abaixo. Versões anteriores do documento estarão sempre disponíveis no histórico (para todos os que tenham acesso à sua versão atual). Todo usuário com acesso à anotação poderá alterar suas etiquetas.</p>
-			  <p><strong>Membros de grupos de estudos com quem você compartilhar este documento poderão editá-lo.</strong></p>
 			  <h3>Grupos de estudos de que você faz parte</h3>
 			  ";
 		$grupos_do_usuario = $conn->query("SELECT grupo_id FROM Membros WHERE membro_user_id = $user_id AND estado = 1");
@@ -1086,78 +1167,40 @@
 			$template_modal_body_conteudo .= "
                     </select>
                     <div class='row justify-content-center'>
-                        <button class='$button_classes' name='trigger_compartilhar_grupo'>Compartilhar com grupo</button>
+                        <button class='$button_classes mt-3' name='trigger_compartilhar_grupo'>Compartilhar com grupo</button>
                     </div>
                   </form>
                 ";
 		} else {
 			$template_modal_body_conteudo .= "<p class='text-muted'><em>Você não faz parte de nenhum grupo de estudos. Visite seu escritório para participar.</em></p>";
 		}
-		$comp_grupos = $conn->query("SELECT recipiente_id FROM Compartilhamento WHERE item_id = $pagina_id AND tipo IS NULL");
+		$comp_grupos = $conn->query("SELECT recipiente_id FROM Compartilhamento WHERE item_id = $pagina_id AND compartilhamento = 'grupo'");
 		if ($comp_grupos->num_rows > 0) {
-			$template_modal_body_conteudo .= "<h3>Compartilhado com:</h3>";
+			$template_modal_body_conteudo .= "<h3 class='mt-5'>Grupos de estudos com acesso:</h3>";
 			$template_modal_body_conteudo .= "<ul class='list-group'>";
 			while ($comp_grupo = $comp_grupos->fetch_assoc()) {
 				$comp_grupo_id = $comp_grupo['recipiente_id'];
 				$comp_grupo_info = return_grupo_info($comp_grupo_id);
 				$comp_grupo_titulo = $comp_grupo_info[1];
 				$comp_grupo_pagina_id = $comp_grupo_info[3];
-				$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$comp_grupo_pagina_id' class='mt-1'><li class='list-group-item list-group-item-info list-group-item-action'>$comp_grupo_titulo</li></a>";
+				$template_modal_body_conteudo .= "<a href='javascript:void(0)' class='mt-1 remover_acesso_grupo' value='$comp_grupo_id'><li class='list-group-item list-group-item-info list-group-item-action'>$comp_grupo_titulo</li></a>";
 			}
 			$template_modal_body_conteudo .= "</ul>";
 		}
 		include 'templates/modal.php';
 		
-		if (isset($_POST['radio_publicar_opcao'])) {
-		    $radio_publicar_opcao = $_POST['radio_publicar_opcao'];
-		    $query_cmd = "INSERT INTO Compartilhamento (tipo, user_id, item_id, item_tipo, compartilhamento, recipiente_id) VALUES ('publicacao', $user_id, $pagina_id, '$pagina_tipo', '$radio_publicar_opcao', NULL)";
-		    $conn->query($query_cmd);
-		    $pagina_publicacao = $radio_publicar_opcao;
-        }
-		
-		$radio_privado = false;
-		$radio_ubwiki = false;
-		$radio_internet = false;
-		$radio_active = 'checked disabled';
-		if ($pagina_publicacao == 'privado') {
-		    $radio_privado = $radio_active;
-        } elseif ($pagina_publicacao == 'ubwiki') {
-			$radio_ubwiki = $radio_active;
-		} elseif ($pagina_publicacao == 'internet') {
-			$radio_internet = $radio_active;
-		}
-		
-        $template_modal_div_id = 'modal_compartilhar_publicar';
-		$template_modal_titulo = 'Opções de publicação';
-		$template_modal_body_conteudo = false;
-		$template_modal_body_conteudo .= "
-			<div class='form-check'>
-				<input type='radio' class='form-check-input' name='radio_publicar_opcao' id='checkbox_publicar_privado' value='privado' $radio_privado>
-				<label class='form-check-label' for='checkbox_publicar_privado'>Privado.</label>
-			</div>
-			<div class='form-check'>
-				<input type='radio' class='form-check-input' name='radio_publicar_opcao' id='checkbox_publicar_ubwiki' value='ubwiki' $radio_ubwiki>
-				<label class='form-check-label' for='checkbox_publicar_ubwiki'>Publicado na Ubwiki.</label>
-			</div>
-			<!--<div class='form-check'>
-				<input type='radio' class='form-check-input' name='radio_publicar_opcao' id='checkbox_publicar_geral' value='internet' $radio_internet>
-				<label class='form-check-label' for='checkbox_publicar_geral'>Publicado na Internet.</label>
-			</div>-->
-			";
-		
-		include 'templates/modal.php';
-		
 		if (isset($_POST['compartilhar_usuario'])) {
-		    $compartilhar_usuario = $_POST['compartilhar_usuario'];
-        }
+			$compartilhar_usuario = $_POST['compartilhar_usuario'];
+		}
 		
 		$bottom_compartilhar_usuario = true;
 		$template_modal_div_id = 'modal_compartilhar_usuario';
-		$template_modal_titulo = 'Compartilhar com usuário da Ubwiki';
+		$template_modal_titulo = 'Colaborar com usuário da Ubwiki';
 		$modal_scrollable = true;
+		$template_modal_show_buttons = false;
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
-			<p><strong>O usuário da Ubwiki com quem você compartilhar este documento poderá editá-lo.</strong></p>
+			<p><strong>Colaboradores adicionados abaixo poderão alterar o conteúdo de sua página.</strong></p>
 		";
 		$template_modal_body_conteudo .= "
 			<p>Pesquise o convidado por seu apelido:</p>
@@ -1178,15 +1221,15 @@
 		";
 		$usuarios_comp = $conn->query("SELECT recipiente_id FROM Compartilhamento WHERE estado = 1 AND item_id = $pagina_id AND compartilhamento = 'usuario'");
 		if ($usuarios_comp->num_rows > 0) {
-		    while ($usuario_comp = $usuarios_comp->fetch_assoc()) {
-		        $usuario_comp_id = $usuario_comp['recipiente_id'];
-		        $usuario_comp_avatar_info = return_avatar($usuario_comp_id);
-		        $usuario_comp_avatar_icone = $usuario_comp_avatar_info[0];
-		        $usuario_comp_avatar_cor = $usuario_comp_avatar_info[1];
-		        $usuario_comp_apelido = return_apelido_user_id($usuario_comp_id);
-		        $template_modal_body_conteudo .= "<a href='javascript:void(0)' class='remover_compartilhamento_usuario' value='$usuario_comp_id'><li class='list-group-item list-group-item-action mt-1 border-top'><span class='$usuario_comp_avatar_cor'><i class='fad $usuario_comp_avatar_icone fa-fw'></i></span> $usuario_comp_apelido</li></a>";
-            }
-        }
+			while ($usuario_comp = $usuarios_comp->fetch_assoc()) {
+				$usuario_comp_id = $usuario_comp['recipiente_id'];
+				$usuario_comp_avatar_info = return_avatar($usuario_comp_id);
+				$usuario_comp_avatar_icone = $usuario_comp_avatar_info[0];
+				$usuario_comp_avatar_cor = $usuario_comp_avatar_info[1];
+				$usuario_comp_apelido = return_apelido_user_id($usuario_comp_id);
+				$template_modal_body_conteudo .= "<a href='javascript:void(0)' class='remover_compartilhamento_usuario' value='$usuario_comp_id'><li class='list-group-item list-group-item-action mt-1 border-top'><span class='$usuario_comp_avatar_cor'><i class='fad $usuario_comp_avatar_icone fa-fw'></i></span> $usuario_comp_apelido</li></a>";
+			}
+		}
 		$template_modal_body_conteudo .= "</ul>";
 		include 'templates/modal.php';
 		
