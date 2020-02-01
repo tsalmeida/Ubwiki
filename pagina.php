@@ -436,7 +436,7 @@
 						if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id)) {
 							echo "
 	                          <span id='compartilhar_anotacao' class='ml-1' title='Colaboração e publicação'
-                                 data-toggle='modal' data-target='#modal_compartilhar_anotacao'>
+                                 data-toggle='modal' data-target='#modal_compartilhar_pagina'>
                                 <a href='javascript:void(0);' class='text-default'>
                                     <i class='fad fa-user-friends fa-fw'></i>
                                 </a>
@@ -1037,10 +1037,14 @@
 	
 	if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id)) {
 		
-		$template_modal_div_id = 'modal_compartilhar_anotacao';
+		$template_modal_div_id = 'modal_compartilhar_pagina';
 		$template_modal_titulo = 'Colaboração e acesso';
+		$template_modal_show_buttons = false;
 		$template_modal_body_conteudo = false;
-		$template_modal_body_conteudo .= "<h3>Acesso</h3>";
+		$template_modal_body_conteudo .= "
+			<form method='post' id='form_modal_compartilhar_pagina'>
+			<h3>Acesso</h3>
+	    ";
 		if (isset($_POST['radio_publicar_opcao'])) {
 			$radio_publicar_opcao = $_POST['radio_publicar_opcao'];
 			$query_cmd = "INSERT INTO Compartilhamento (tipo, user_id, item_id, item_tipo, compartilhamento, recipiente_id) VALUES ('publicacao', $user_id, $pagina_id, '$pagina_tipo', '$radio_publicar_opcao', NULL)";
@@ -1071,7 +1075,7 @@
 				<label class='form-check-label' for='checkbox_publicar_privado'>Seletivo. <span class='text-muted'><em>Você determina quem tem acesso</em></span>.</label>
 			</div>
 			<div id='botao_determinar_acesso' class='row d-flex justify-content-center botao_determinar_acesso'>
-				<span data-toggle='modal' data-target='#modal_compartilhar_anotacao'><a data-toggle='modal' data-target='#modal_outorgar_acesso'><button class='$button_classes botao_determinar_acesso btn-info' type='button'>Outorgar acesso</button></a></span>
+				<span data-toggle='modal' data-target='#modal_compartilhar_pagina'><a data-toggle='modal' data-target='#modal_outorgar_acesso'><button class='$button_classes botao_determinar_acesso btn-info' type='button'>Outorgar acesso</button></a></span>
 			</div>
 			<!--<div class='form-check'>
 				<input type='radio' class='form-check-input' name='radio_publicar_opcao' id='checkbox_publicar_geral' value='internet' $radio_internet>
@@ -1106,14 +1110,16 @@
 				<input type='radio' class='form-check-input colaboracao_opcao' name='colaboracao_opcao' id='colaboracao_exclusiva' value='exclusiva' $radio_colaboracao_exclusiva>
 				<label class='form-check-label' for='colaboracao_exclusiva'>Autoral. <span class='text-muted'><em>Apenas você poderá editar o conteúdo desta página.</em></span></label>
 			</div>
-			<div class='form-check'>
+			<!--<div class='form-check'>
 				<input type='radio' class='form-check-input colaboracao_opcao' name='colaboracao_opcao' id='colaboracao_selecionada' value='selecionada' $radio_colaboracao_selecionada>
 				<label class='form-check-label' for='colaboracao_selecionada'>Seletiva. <span class='text-muted'><em>Apenas grupos e indivíduos selecionados poderão editar o conteúdo desta página.</em></span></label>
 			</div>
 			<div class='row d-flex justify-content-center botao_determinar_colaboracao'>
-				<span data-toggle='modal' data-target='#modal_compartilhar_anotacao'><a data-toggle='modal' data-target='#modal_determinar_colaboracao'><button class='$button_classes botao_determinar_colaboracao btn-info'>Adicionar colaboradores</button></a></span>
-			</div>
+				<span data-toggle='modal' data-target='#modal_compartilhar_pagina'><a data-toggle='modal' data-target='#modal_determinar_colaboracao'><button class='$button_classes botao_determinar_colaboracao btn-info'>Adicionar colaboradores</button></a></span>
+			</div>-->
 		";
+		
+		$template_modal_body_conteudo .= "</form>";
 		
 		include 'templates/modal.php';
 		
@@ -1124,7 +1130,7 @@
 		
 		$template_modal_body_conteudo .= "
         <p class='detalhes_acesso'>Adicione pessoas e grupos de estudo abaixo para que tenham acesso à sua página. Apenas você, como criador original desta página, poderá alterar suas opções de compartilhamento.</p>
-        <span id='esconder_modal_compartilhar_anotacao' data-toggle='modal' data-target='#modal_outorgar_acesso' class='row justify-content-center detalhes_acesso'>";
+        <span id='esconder_modal_compartilhar_pagina' data-toggle='modal' data-target='#modal_outorgar_acesso' class='row justify-content-center detalhes_acesso'>";
 		
 		$artefato_tipo = 'compartilhar_grupo';
 		$artefato_titulo = 'Grupo de estudos';

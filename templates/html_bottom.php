@@ -620,6 +620,7 @@
 			} else {
 			    $('.botao_determinar_acesso').show();
 			}
+	    $('#form_modal_compartilhar_pagina').submit();
 		});
 		$(document).on('click', '.colaboracao_opcao', function() {
 			colaboracao_opcao = $(this).val();
@@ -628,6 +629,7 @@
 			} else {
 			    $('.botao_determinar_colaboracao').hide();
 			}
+      $('#form_modal_compartilhar_pagina').submit();
 		});
 	</script>
 	";
