@@ -470,21 +470,15 @@
 						if (($user_id != false) && ($pagina_tipo != 'sistema') && ($pagina_compartilhamento != 'escritorio')) {
 							if ($etiquetados->num_rows > 0) {
 								echo "
-                                  <span id='adicionar_etiqueta' class='ml-1' title='Adicionar etiqueta' data-toggle='modal'
-                                        data-target='#modal_gerenciar_etiquetas'>
-                                      <a href='javascript:void(0);' class='text-warning'>
+                                  <a href='javascript:void(0);' id='adicionar_etiqueta' class='ml-1 text-warning' title='Adicionar etiqueta' data-toggle='modal' data-target='#modal_gerenciar_etiquetas'>
                                           <i class='fad fa-tags fa-fw'></i>
-                                      </a>
-                                  </span>
+                                  </a>
                                 ";
 							} else {
 								echo "
-                                  <span id='adicionar_etiqueta' class='ml-1' title='Adicionar etiqueta' data-toggle='modal'
-                                        data-target='#modal_gerenciar_etiquetas'>
-                                      <a href='javascript:void(0);' class='text-muted'>
+                                  <a href='javascript:void(0);' id='adicionar_etiqueta' class='ml-1 text-muted' title='Adicionar etiqueta' data-toggle='modal' data-target='#modal_gerenciar_etiquetas'>
                                           <i class='fad fa-tags fa-fw'></i>
-                                      </a>
-                                  </span>
+                                  </a>
                                 ";
 							}
 							if ($estado_estudo == true) {
