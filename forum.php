@@ -3,7 +3,7 @@
 	include 'engine.php';
 	
 	if (isset($_GET['pagina_id'])) {
-		$pagina_id = (int) $_GET['pagina_id'];
+		$pagina_id = (int)$_GET['pagina_id'];
 		$pagina_info = return_pagina_info($pagina_id);
 		if ($pagina_info != false) {
 			$pagina_criacao = $pagina_info[0];
@@ -30,6 +30,7 @@
 		$forum_topico_id = false;
 		$forum_topico_titulo = 'Debate geral';
 		$topico_user_apelido = '.';
+		$topico_user_id = false;
 	}
 	
 	if (isset($_POST['novo_comentario'])) {
@@ -37,10 +38,10 @@
 		$novo_comentario = mysqli_real_escape_string($conn, $novo_comentario);
 		$novo_comentario = strip_tags($novo_comentario, false);
 		if ($forum_topico_id == false) {
-		    $forum_topico_id_novo = "NULL";
-        } else {
-		    $forum_topico_id_novo = $forum_topico_id;
-        }
+			$forum_topico_id_novo = "NULL";
+		} else {
+			$forum_topico_id_novo = $forum_topico_id;
+		}
 		$conn->query("INSERT INTO Forum (user_id, pagina_id, pagina_tipo, topico_id, tipo, comentario_text) VALUES ($user_id, $pagina_id, '$pagina_tipo', $forum_topico_id_novo, 'comentario', '$novo_comentario')");
 		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina, extra) VALUES ($user_id, $pagina_id, 'forum', $pagina_tipo)");
 		$nao_contar = true;
@@ -57,6 +58,8 @@
 			$novo_topico_comentario = mysqli_real_escape_string($conn, $novo_topico_comentario);
 			$novo_topico_comentario = strip_tags($novo_topico_comentario, false);
 			$conn->query("INSERT INTO Forum (user_id, pagina_id, pagina_tipo, tipo, topico_id, comentario_text) VALUES ($user_id, $pagina_id, '$pagina_tipo', 'comentario', $novo_topico_id, '$novo_topico_comentario')");
+		} else {
+			$conn->query("INSERT INTO Forum (user_id, pagina_id, pagina_tipo, tipo, topico_id, comentario_text) VALUES ($user_id, $pagina_id, '$pagina_tipo', 'comentario', $novo_topico_id, FALSE)");
 		}
 		header("Location:forum.php?pagina_id=$pagina_id&topico_id=$novo_topico_id");
 	}
@@ -95,16 +98,36 @@
 						        <span data-toggle='modal' data-target='#modal_novo_topico'><button class='$button_classes btn-info'>Novo tópico de debate</button></span>
 					        </div>
 				        ";
+						if ($forum_topico_id == false) {
+							$lista_active = 'list-group-item-info';
+						} else {
+							$lista_active = false;
+						}
 						
-						$template_conteudo .= "<a href='forum.php?pagina_id=$pagina_id' class='$item_classes list-group-item-info'>Debate geral</a>";
-						$topicos = $conn->query("SELECT id, comentario_text, user_id FROM Forum WHERE tipo = 'topico' AND pagina_id = $pagina_id ORDER BY id DESC");
-						if ($topicos->num_rows > 0) {
-							while ($topico = $topicos->fetch_assoc()) {
-								$topico_id = $topico['id'];
-								$topico_titulo = $topico['comentario_text'];
-								$topico_user_id = $topico['user_id'];
-								$topico_user_apelido = return_apelido_user_id($topico_user_id);
-								$template_conteudo .= "<a href='forum.php?pagina_id=$pagina_id&topico_id=$topico_id' class='$item_classes'>$topico_titulo</a>";
+						$template_conteudo .= "<a href='forum.php?pagina_id=$pagina_id' class='$item_classes $lista_active'><strong>Debate geral</strong></a>";
+						$query = "SELECT DISTINCT topico_id FROM Forum WHERE pagina_id = $pagina_id AND topico_id IS NOT NULL";
+						$debates_recentes = $conn->query($query);
+						error_log($query);
+						if ($debates_recentes->num_rows > 0) {
+							while ($debate_recente = $debates_recentes->fetch_assoc()) {
+								$debate_id = $debate_recente['topico_id'];
+								$debates = $conn->query("SELECT id, comentario_text, user_id FROM Forum WHERE id = $debate_id");
+								if ($debates->num_rows > 0) {
+									while ($debate = $debates->fetch_assoc()) {
+										$lista_debate_id = $debate['id'];
+										$lista_debate_titulo = $debate['comentario_text'];
+										$lista_debate_user_id = $debate['user_id'];
+										$lista_debate_user_apelido = return_apelido_user_id($lista_debate_user_id);
+										if ($lista_debate_id == $forum_topico_id) {
+											$topico_user_id = $lista_debate_user_id;
+											$topico_user_apelido = $lista_debate_user_apelido;
+											$lista_active = 'list-group-item-info';
+										} else {
+											$lista_active = false;
+										}
+										$template_conteudo .= "<a href='forum.php?pagina_id=$pagina_id&topico_id=$lista_debate_id' class='$item_classes $lista_active'>$lista_debate_titulo</a>";
+									}
+								}
 							}
 						}
 						
@@ -114,16 +137,16 @@
         <div id="coluna_direita" class="col-lg-7 px-3">
 					<?php
 						$template_id = 'comentarios';
-						$template_titulo = 'Comentários';
+						$template_titulo = false;
 						$template_conteudo = false;
 						
 						if ($forum_topico_id != false) {
-							$comments = $conn->query("SELECT timestamp, comentario_text, user_id FROM Forum WHERE pagina_id = $pagina_id AND topico_id = $forum_topico_id");
+							$comments = $conn->query("SELECT timestamp, comentario_text, user_id FROM Forum WHERE pagina_id = $pagina_id AND topico_id = $forum_topico_id AND tipo = 'comentario'");
 						} else {
-							$comments = $conn->query("SELECT timestamp, comentario_text, user_id FROM Forum WHERE pagina_id = $pagina_id AND topico_id IS NULL");
+							$comments = $conn->query("SELECT timestamp, comentario_text, user_id FROM Forum WHERE pagina_id = $pagina_id AND topico_id IS NULL AND tipo = 'comentario'");
 						}
 						
-                        $template_conteudo .= "
+						$template_conteudo .= "
                             <div class='row grey lighten-4 rounded p-2 mt-1'>
                                 <div class='col'>
                                 	<div class='row justify-content-start'><a href='pagina.php?user_id=$topico_user_id' class='text-light'>$topico_user_apelido</a></div>
@@ -139,6 +162,9 @@
 							while ($comment = $comments->fetch_assoc()) {
 								$timestamp_comentario = $comment['timestamp'];
 								$texto_comentario = $comment['comentario_text'];
+								if ($texto_comentario == false) {
+									continue;
+								}
 								$autor_comentario_id = $comment['user_id'];
 								$autor_comentario_apelido = return_apelido_user_id($autor_comentario_id);
 								$autor_comentario_avatar_info = return_avatar($autor_comentario_id);
@@ -170,7 +196,7 @@
 						
 						if ($user_apelido != false) {
 							$template_conteudo .=
-						    "
+								"
 	                            <form method='post'>
 	                            <div class='md-form mb-2 row px-0'>
 	                                <textarea id='novo_comentario' name='novo_comentario' class='form-control border rounded p-2 row' rows='3' placeholder='Escreva aqui seu comentário' required></textarea>
@@ -194,7 +220,7 @@
 	$template_modal_titulo = 'Iniciar nova discussão';
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .=
-    "
+		"
 		<div class='md-form'>
 			<input type='text' name='novo_topico_titulo' id='novo_topico_titulo' class='form-control' required>
 			<label for='novo_topico_titulo'>Título</label>
