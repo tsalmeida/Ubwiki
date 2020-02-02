@@ -179,7 +179,7 @@
                                               <a href='pagina.php?user_id=$autor_comentario_id' class='ml-1'>
                                                 <span class='$autor_comentario_cor'>
                                                 <i class='fad $autor_comentario_avatar'></i>
-                                                <span class='text-info'>$autor_comentario_apelido</span>
+                                                <span class='text-primary'>$autor_comentario_apelido</span>
                                               </a>
                                               <span class='text-light comentario-timestamp'>
                                                   <em><small>$timestamp_comentario</small></em>
