@@ -105,12 +105,17 @@
 						}
 						
 						$template_conteudo .= "<a href='forum.php?pagina_id=$pagina_id' class='$item_classes $lista_active'><strong>Debate geral</strong></a>";
-						$query = "SELECT DISTINCT topico_id FROM Forum WHERE pagina_id = $pagina_id AND topico_id IS NOT NULL";
+						$query = "SELECT topico_id FROM Forum WHERE pagina_id = $pagina_id AND topico_id IS NOT NULL ORDER BY id DESC";
 						$debates_recentes = $conn->query($query);
-						error_log($query);
+						$debates_lista = array();
 						if ($debates_recentes->num_rows > 0) {
 							while ($debate_recente = $debates_recentes->fetch_assoc()) {
 								$debate_id = $debate_recente['topico_id'];
+								if (in_array($debate_id, $debates_lista)) {
+									continue;
+								} else {
+									array_push($debates_lista, $debate_id);
+								}
 								$debates = $conn->query("SELECT id, comentario_text, user_id FROM Forum WHERE id = $debate_id");
 								if ($debates->num_rows > 0) {
 									while ($debate = $debates->fetch_assoc()) {
