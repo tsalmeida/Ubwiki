@@ -50,13 +50,14 @@
 		$novo_topico_titulo = mysqli_real_escape_string($conn, $novo_topico_titulo);
 		$novo_topico_titulo = strip_tags($novo_topico_titulo, false);
 		$conn->query("INSERT INTO Forum (user_id, pagina_id, pagina_tipo, tipo, comentario_text) VALUES ($user_id, $pagina_id, '$pagina_tipo', 'topico', '$novo_topico_titulo')");
-		if (isset($_POST['novo_topico_texto'])) {
-			$novo_topico_id = $conn->insert_id;
+		$novo_topico_id = $conn->insert_id;
+		if ($_POST['novo_topico_texto'] != false) {
 			$novo_topico_comentario = $_POST['novo_topico_texto'];
 			$novo_topico_comentario = mysqli_real_escape_string($conn, $novo_topico_comentario);
 			$novo_topico_comentario = strip_tags($novo_topico_comentario, false);
 			$conn->query("INSERT INTO Forum (user_id, pagina_id, pagina_tipo, tipo, topico_id, comentario_text) VALUES ($user_id, $pagina_id, '$pagina_tipo', 'comentario', $novo_topico_id, '$novo_topico_comentario')");
 		}
+		header("Location:forum.php?pagina_id=$pagina_id&topico_id=$novo_topico_id");
 	}
 	
 	$pagina_tipo = 'forum';
