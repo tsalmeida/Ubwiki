@@ -34,10 +34,13 @@
 	if (isset($_POST['novo_comentario'])) {
 		$novo_comentario = $_POST['novo_comentario'];
 		$novo_comentario = mysqli_real_escape_string($conn, $novo_comentario);
+		$novo_comentario = strip_tags($novo_comentario, false);
 		if ($forum_topico_id == false) {
-		    $forum_topico_id = "NULL";
+		    $forum_topico_id_novo = "NULL";
+        } else {
+		    $forum_topico_id_novo = $forum_topico_id;
         }
-		$conn->query("INSERT INTO Forum (user_id, pagina_id, pagina_tipo, topico_id, tipo, comentario_text) VALUES ($user_id, $pagina_id, '$pagina_tipo', $forum_topico_id, 'comentario', '$novo_comentario')");
+		$conn->query("INSERT INTO Forum (user_id, pagina_id, pagina_tipo, topico_id, tipo, comentario_text) VALUES ($user_id, $pagina_id, '$pagina_tipo', $forum_topico_id_novo, 'comentario', '$novo_comentario')");
 		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina, extra) VALUES ($user_id, $pagina_id, 'forum', $pagina_tipo)");
 		$nao_contar = true;
 	}
@@ -45,11 +48,13 @@
 	if (isset($_POST['novo_topico_titulo'])) {
 		$novo_topico_titulo = $_POST['novo_topico_titulo'];
 		$novo_topico_titulo = mysqli_real_escape_string($conn, $novo_topico_titulo);
+		$novo_topico_titulo = strip_tags($novo_topico_titulo, false);
 		$conn->query("INSERT INTO Forum (user_id, pagina_id, pagina_tipo, tipo, comentario_text) VALUES ($user_id, $pagina_id, '$pagina_tipo', 'topico', '$novo_topico_titulo')");
 		if (isset($_POST['novo_topico_texto'])) {
 			$novo_topico_id = $conn->insert_id;
 			$novo_topico_comentario = $_POST['novo_topico_texto'];
 			$novo_topico_comentario = mysqli_real_escape_string($conn, $novo_topico_comentario);
+			$novo_topico_comentario = strip_tags($novo_topico_comentario, false);
 			$conn->query("INSERT INTO Forum (user_id, pagina_id, pagina_tipo, tipo, topico_id, comentario_text) VALUES ($user_id, $pagina_id, '$pagina_tipo', 'comentario', $novo_topico_id, '$novo_topico_comentario')");
 		}
 	}
@@ -187,7 +192,7 @@
 			<label for='novo_topico_titulo'>Título</label>
 		</div>
 		<div class='md-form'>
-			<textarea class='form-control border rounded p-2 row' rows='3' placeholder='Escreva aqui seu comentário (opcional)' name='novo_topico_texto' id='novo_topico_texto'></textarea>
+			<input type='paragraph' class='form-control border rounded p-2 row' rows='3' placeholder='Escreva aqui seu comentário (opcional)' name='novo_topico_texto' id='novo_topico_texto'>
 		</div>
 	";
 	include 'templates/modal.php';
