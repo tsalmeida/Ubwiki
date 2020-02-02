@@ -96,6 +96,8 @@
 		exit();
 	}
 	
+	$privilegio_edicao = return_privilegio_edicao($pagina_id, $user_id);
+	
 	if ($pagina_subtipo == 'Plano de estudos') {
 		$pagina_materia_familia = return_familia($pagina_item_id);
 		$pagina_curso_pagina_id = $pagina_materia_familia[1];
@@ -164,7 +166,6 @@
 			}
 		}
 	}
-	
 	
 	
 	if ($pagina_tipo == 'curso') {
@@ -362,7 +363,9 @@
         <div class='py-2 text-left col-md-4 col-sm-12'>
 					<?php
 						if (($pagina_tipo != 'sistema') && ($pagina_tipo != 'texto') && ($pagina_compartilhamento != 'escritorio') && ($pagina_tipo != 'materia')) {
-							echo "<span id='add_elements' class='mx-1' title='Adicionar elementos' data-toggle='modal' data-target='#modal_add_elementos'><a href='javascript:void(0)' class='text-info'><i class='fad fa-2x fa-plus-circle fa-fw'></i></a></span>";
+							if ($privilegio_edicao == true) {
+								echo "<span id='add_elements' class='mx-1' title='Adicionar elementos' data-toggle='modal' data-target='#modal_add_elementos'><a href='javascript:void(0)' class='text-info'><i class='fad fa-2x fa-plus-circle fa-fw'></i></a></span>";
+							}
 						}
 						if ($pagina_tipo == 'elemento') {
 							echo "<span id='elemento_dados' class='mx-1' title='Editar dados'><a href='javascript:void(0);' data-toggle='modal' data-target='#modal_dados_elemento' class='text-info'><i class='fad fa-info-circle fa-fw fa-2x'></i></a></span>";
@@ -872,7 +875,7 @@
 		include 'pagina/modals_elemento.php';
 	}
 	
-	if ($carregar_secoes == true) {
+	if (($carregar_secoes == true) && ($privilegio_edicao == true)) {
 		$template_modal_div_id = 'modal_partes_form';
 		$template_modal_titulo = 'Adicionar seção';
 		$template_modal_submit_name = 'trigger_nova_secao';
@@ -902,9 +905,9 @@
 		$secoes = $conn->query("SELECT secao_pagina_id, ordem FROM Secoes WHERE pagina_id = $pagina_id");
 		if ($secoes->num_rows > 0) {
 			$template_modal_body_conteudo .= "
-		<h3>Seções registradas desta página:</h3>
-		<ul class='list-group'>
-    ";
+		      <h3>Seções registradas desta página:</h3>
+		      <ul class='list-group'>
+    		";
 			while ($secao = $secoes->fetch_assoc()) {
 				$secao_ordem = $secao['ordem'];
 				$secao_pagina_id = $secao['secao_pagina_id'];
@@ -917,10 +920,10 @@
 		include 'templates/modal.php';
 	}
 	
-	include 'pagina/modal_add_elemento.php';
-	
-	include 'pagina/modal_adicionar_imagem.php';
-	
+	if ($privilegio_edicao == true) {
+		include 'pagina/modal_add_elemento.php';
+		include 'pagina/modal_adicionar_imagem.php';
+	}
 	if ($modal_pagina_dados == true) {
 		if (($pagina_tipo == 'pagina') || ($pagina_tipo == 'sistema')) {
 			$mudar_titulo_texto = 'desta página';
@@ -961,23 +964,23 @@
 		}
 		include 'templates/modal.php';
 	}
-	
-	if ($modal_novo_curso == true) {
-		$template_modal_div_id = 'modal_novo_curso';
-		$template_modal_titulo = 'Transformar esta página em um curso';
-		$template_modal_submit_name = 'novo_curso';
-		$template_modal_body_conteudo = false;
-		$template_modal_body_conteudo .= "
-	        <p>Ao pressionar o botão de confirmação abaixo, esta página será transformada na página inicial de um curso. Em seguida, será possível acrescentar matérias e, às páginas das matérias, tópicos.</p>
-	        <div class='md-form mb-2'>
-	            <input type='text' id='novo_curso_sigla' name='novo_curso_sigla' class='form-control validade' required>
-	            <label data-error='inválido' data-success='válido' for='pagina_novo_titulo'>Novo título</label>
-            </div>
-	    ";
-		include 'templates/modal.php';
+	if ($privilegio_edicao == true) {
+		if ($modal_novo_curso == true) {
+			$template_modal_div_id = 'modal_novo_curso';
+			$template_modal_titulo = 'Transformar esta página em um curso';
+			$template_modal_submit_name = 'novo_curso';
+			$template_modal_body_conteudo = false;
+			$template_modal_body_conteudo .= "
+	            <p>Ao pressionar o botão de confirmação abaixo, esta página será transformada na página inicial de um curso. Em seguida, será possível acrescentar matérias e, às páginas das matérias, tópicos.</p>
+	            <div class='md-form mb-2'>
+	                <input type='text' id='novo_curso_sigla' name='novo_curso_sigla' class='form-control validade' required>
+	                <label data-error='inválido' data-success='válido' for='pagina_novo_titulo'>Novo título</label>
+                </div>
+	        ";
+			include 'templates/modal.php';
+		}
 	}
-	
-	if (($pagina_subtipo == 'produto') && ($carregar_produto_setup == true)) {
+	if (($pagina_subtipo == 'produto') && ($carregar_produto_setup == true) && ($privilegio_edicao == true)) {
 		$template_modal_div_id = 'modal_produto_nova_imagem';
 		$template_modal_titulo = 'Determinar imagem para o cartão do produto';
 		$template_modal_body_conteudo = false;
@@ -1084,22 +1087,22 @@
 			";
 		$template_modal_body_conteudo .= "<h3 class='mt-3'>Colaboração</h3>";
 		if (isset($_POST['colaboracao_opcao'])) {
-		    $colaboracao_opcao = $_POST['colaboracao_opcao'];
-		    $conn->query("INSERT INTO Compartilhamento (tipo, user_id, item_id, item_tipo, compartilhamento) VALUES ('colaboracao', $user_id, $pagina_id, '$pagina_tipo', '$colaboracao_opcao')");
-		    $pagina_colaboracao = $colaboracao_opcao;
-        }
+			$colaboracao_opcao = $_POST['colaboracao_opcao'];
+			$conn->query("INSERT INTO Compartilhamento (tipo, user_id, item_id, item_tipo, compartilhamento) VALUES ('colaboracao', $user_id, $pagina_id, '$pagina_tipo', '$colaboracao_opcao')");
+			$pagina_colaboracao = $colaboracao_opcao;
+		}
 		
 		$radio_colaboracao_exclusiva = false;
 		$radio_colaboracao_aberta = false;
 		$radio_colaboracao_selecionada = false;
 		$radio_colaboracao_active = 'checked';
 		if ($pagina_colaboracao == 'exclusiva') {
-		    $radio_colaboracao_exclusiva = $radio_colaboracao_active;
-        } elseif ($pagina_colaboracao == 'aberta') {
-		    $radio_colaboracao_aberta = $radio_colaboracao_active;
-        } elseif ($pagina_colaboracao == 'selecionada') {
-		    $radio_colaboracao_selecionada = $radio_colaboracao_active;
-        }
+			$radio_colaboracao_exclusiva = $radio_colaboracao_active;
+		} elseif ($pagina_colaboracao == 'aberta') {
+			$radio_colaboracao_aberta = $radio_colaboracao_active;
+		} elseif ($pagina_colaboracao == 'selecionada') {
+			$radio_colaboracao_selecionada = $radio_colaboracao_active;
+		}
 		
 		$template_modal_body_conteudo .= "
 			<div class='form-check'>

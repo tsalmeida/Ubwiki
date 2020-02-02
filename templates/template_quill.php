@@ -106,7 +106,6 @@
 	}
 	
 	
-	
 	if ($quill_texto_id == false) {
 		if (!isset($pagina_curso_id)) {
 			$pagina_curso_id = "NULL";
@@ -124,10 +123,13 @@
 	
 	$quill_result = false;
 	
-	$template_botoes_salvar = "<a href='javascript:void(0)' id='{$template_id}_trigger_save' title='Salvar mudanças' class='mx-2 text-primary'><i class='fad fa-save fa-fw'></i></a><a href='javascript:void(0)' id='{$template_id}_trigger_save_success' title='Edições salvas' class='text-success collapse mx-2'><i class='fad fa-check-square fa-fw'></i></a><a href='javascript:void(0)' id='{$template_id}_trigger_save_failure' title='Suas edições não foram salvas' class='text-danger collapse mx-2'><i class='fad fa-times-square fa-fw'></i></a>";
+	$template_botoes_salvar = false;
 	
+	if ((($template_id == 'verbete') && ($privilegio_edicao == true)) || ($template_id != 'verbete')) {
+		$template_botoes_salvar .= "<a href='javascript:void(0)' id='{$template_id}_trigger_save' title='Salvar mudanças' class='mx-2 text-primary'><i class='fad fa-save fa-fw'></i></a><a href='javascript:void(0)' id='{$template_id}_trigger_save_success' title='Edições salvas' class='text-success collapse mx-2'><i class='fad fa-check-square fa-fw'></i></a><a href='javascript:void(0)' id='{$template_id}_trigger_save_failure' title='Suas edições não foram salvas' class='text-danger collapse mx-2'><i class='fad fa-times-square fa-fw'></i></a>";
+	}
 	if ($quill_texto_id != false) {
-			$template_botoes_salvar .= "<a href='historico_verbete.php?texto_id=$quill_texto_id' title='Histórico do documento' class='mx-2 text-default'><i class='fad fa-history fa-fw'></i></a>";
+		$template_botoes_salvar .= "<a href='historico_verbete.php?texto_id=$quill_texto_id' title='Histórico do documento' class='mx-2 text-default'><i class='fad fa-history fa-fw'></i></a>";
 		/*$template_botoes .= "
 			<a href='pagina.php?texto_id=$quill_texto_id' title='Editar na página de edição'><i class='fad fa-external-link-square fa-fw'></i></a>
 		";*/
@@ -138,23 +140,23 @@
 	if ($template_quill_meta_tipo == 'anotacoes') {
 		$template_botoes .= "
 		<span id='esconder_coluna_esquerda' title='expandir'>
-			<a href='javascript:void(0);'><i class='fad fa-chevron-square-left fa-fw'></i></a>
+			<a href='javascript:void(0);'><i class='fas fa-expand-wide fa-fw'></i></a>
   	</span>
     <span id='mostrar_coluna_esquerda' title='comprimir'>
-    	<a href='javascript:void(0);'><i class='fad fa-chevron-square-right fa-fw'></i></a>
+    	<a href='javascript:void(0);'><i class='fas fa-compress-wide fa-fw'></i></a>
   	</span>
 		";
 	}
-	
-	$template_botoes .= "
-		<span id='travar_{$template_id}' title='travar para edição'>
-    	<a href='javascript:void(0);' class='text-success'><i class='fad fa-pen-square fa-fw'></i></a>
-  	</span>
-    <span id='destravar_{$template_id}' title='permitir edição'>
-			<a href='javascript:void(0);' class='text-muted'><i class='fad fa-pen-square fa-fw'></i></a>
-  	</span>
-	";
-	
+	if ((($template_id == 'verbete') && ($privilegio_edicao == true)) || ($template_id != 'verbete')) {
+		$template_botoes .= "
+			<span id='travar_{$template_id}' title='travar para edição'>
+	      <a href='javascript:void(0);'><i class='fad fa-pen-square fa-fw'></i></a>
+	    </span>
+	    <span id='destravar_{$template_id}' title='permitir edição'>
+				<a href='javascript:void(0);' class='text-muted'><i class='fad fa-pen-square fa-fw'></i></a>
+	    </span>
+		";
+	}
 	$template_no_spacer = true;
 	
 	if ($template_quill_botoes == false) {

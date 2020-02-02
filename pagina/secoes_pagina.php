@@ -1,9 +1,9 @@
 <?php
 	$template_div = 'partes_elemento';
 	$template_titulo = 'Seções';
-	$template_botoes = "
-                            	<a data-toggle='modal' data-target='#modal_partes_form' href='javascript:void(0);' class='text-success'><i class='fad fa-plus-square fa-fw'></i></a>
-                            ";
+	if ($privilegio_edicao == true) {
+		$template_botoes = "<a data-toggle='modal' data-target='#modal_partes_form' href='javascript:void(0);' class='text-success' title='Adicionar seção'><i class='fad fa-plus-square fa-fw'></i></a>";
+	}
 	$template_conteudo = false;
 	if ($secoes->num_rows > 0) {
 		$template_conteudo .= "<ul class='list-group list-group-flush'>";
