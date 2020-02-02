@@ -29,6 +29,7 @@
 	} else {
 		$forum_topico_id = false;
 		$forum_topico_titulo = 'Debate geral';
+		$topico_user_apelido = '.';
 	}
 	
 	if (isset($_POST['novo_comentario'])) {
@@ -96,11 +97,13 @@
 				        ";
 						
 						$template_conteudo .= "<a href='forum.php?pagina_id=$pagina_id' class='$item_classes list-group-item-info'>Debate geral</a>";
-						$topicos = $conn->query("SELECT id, comentario_text FROM Forum WHERE tipo = 'topico' AND pagina_id = $pagina_id ORDER BY id DESC");
+						$topicos = $conn->query("SELECT id, comentario_text, user_id FROM Forum WHERE tipo = 'topico' AND pagina_id = $pagina_id ORDER BY id DESC");
 						if ($topicos->num_rows > 0) {
 							while ($topico = $topicos->fetch_assoc()) {
 								$topico_id = $topico['id'];
 								$topico_titulo = $topico['comentario_text'];
+								$topico_user_id = $topico['user_id'];
+								$topico_user_apelido = return_apelido_user_id($topico_user_id);
 								$template_conteudo .= "<a href='forum.php?pagina_id=$pagina_id&topico_id=$topico_id' class='$item_classes'>$topico_titulo</a>";
 							}
 						}
@@ -119,11 +122,15 @@
 						} else {
 							$comments = $conn->query("SELECT timestamp, comentario_text, user_id FROM Forum WHERE pagina_id = $pagina_id AND topico_id IS NULL");
 						}
-											
+						
                         $template_conteudo .= "
                             <div class='row grey lighten-4 rounded p-2 mt-1'>
                                 <div class='col'>
-                                    <h3 class='my-3'>$forum_topico_titulo</h3>
+                                	<div class='row justify-content-start'><a href='pagina.php?user_id=$topico_user_id' class='text-light'>$topico_user_apelido</a></div>
+                                    <div class='row'>
+                                    	<h3 class='col m-0'>$forum_topico_titulo</h3>
+                                    </div>
+                                    <div class='row text-light'>.</div>
                                 </div>
                             </div>
                         ";
