@@ -2455,5 +2455,20 @@
 			echo false;
 		}
 	}
+	
+	function return_forum_topico_titulo($topico_id) {
+		if ($topico_id == false) {
+			return false;
+		}
+		include 'templates/criar_conn.php';
+		$topicos = $conn->query("SELECT comentario_text FROM Forum WHERE id = $topico_id AND tipo = 'topico'");
+		if ($topicos->num_rows > 0) {
+			while ($topico = $topicos->fetch_assoc()) {
+				$topico_titulo = $topico['comentario_text'];
+				return $topico_titulo;
+			}
+		}
+		return false;
+	}
 
 ?>

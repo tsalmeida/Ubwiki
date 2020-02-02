@@ -1,12 +1,5 @@
 <?php
-	if (isset($_POST['novo_comentario'])) {
-		$novo_comentario = $_POST['novo_comentario'];
-		$novo_comentario = mysqli_real_escape_string($conn, $novo_comentario);
-		$conn->query("INSERT INTO Forum (user_id, pagina_id, pagina_tipo, comentario)  VALUES ($user_id, $pagina_id, '$pagina_tipo', '$novo_comentario')");
-		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina, extra) VALUES ($user_id, $pagina_id, 'forum', $pagina_tipo)");
-		$nao_contar = true;
-	}
-	
+
 	if (isset($_POST['novo_estado_pagina'])) {
 		$novo_estado_pagina = $_POST['novo_estado_pagina'];
 		$conn->query("UPDATE Paginas SET estado = $novo_estado_pagina WHERE id = $pagina_id");

@@ -57,8 +57,8 @@ $fontstack-subtitle: 'Oswald', Arial, serif;
   font-family: $fontstack-subtitle !important;
 }
 
-html, body, p, li, select {
-  font-size: 1.1rem;
+html, body, p, li, select, md-form, textarea, input {
+  font-size: 1.1rem !important;
   font-family: $fontstack-body !important;
 }
 
@@ -420,4 +420,10 @@ a.text-muted:hover {
 
 .artefato-badge {
   right: 5ch;
+}
+
+.comentario-timestamp:hover {
+  color: #191919 !important;
+  cursor: default;
+  font-size: inherit !important;
 }

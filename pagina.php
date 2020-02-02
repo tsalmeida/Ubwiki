@@ -447,27 +447,26 @@
 	                        ";
 						}
 					?>
-            <span id='forum' title='Fórum' data-toggle='modal' data-target='#modal_forum'>
+            
                     <?php
 	                    if (($user_id != false) && ($pagina_tipo != 'sistema') && ($pagina_compartilhamento != 'escritorio')) {
-		                    $comments = $conn->query("SELECT timestamp, comentario, user_id FROM Forum WHERE pagina_id = $pagina_id");
+	                    	echo "<a href='forum.php?pagina_id=$pagina_id' title='Fórum'>";
+		                    $comments = $conn->query("SELECT timestamp, comentario_text, user_id FROM Forum WHERE pagina_id = $pagina_id");
 		                    if ($comments->num_rows == 0) {
 			                    echo "
-                                <a href='javascript:void(0);' class='text-muted'>
+                                <span class='text-muted'>
                                     <i class='fad fa-comments-alt fa-fw'></i>
-                                </a>
+                                </span>
                             ";
 		                    } else {
 			                    echo "
-                                <a href='javascript:void(0);' class='text-secondary'>
+                                <span class='text-secondary'>
                                         <i class='fad fa-comments-alt fa-fw'></i>
-                                </a>
+                                </span>
 		                    ";
 		                    }
+		                    echo "</span>";
 	                    }
-                    ?>
-                </span>
-					<?php
 						if (($user_id != false) && ($pagina_tipo != 'sistema') && ($pagina_compartilhamento != 'escritorio')) {
 							if ($etiquetados->num_rows > 0) {
 								echo "
@@ -784,46 +783,6 @@
 		$template_modal_body_conteudo = $breadcrumbs;
 		include 'templates/modal.php';
 	}
-	
-	$template_modal_div_id = 'modal_forum';
-	$template_modal_titulo = 'Fórum';
-	$template_modal_body_conteudo = false;
-	
-	if (isset($comments)) {
-		if ($comments->num_rows > 0) {
-			$template_modal_body_conteudo .= "<ul class='list-group'>";
-			while ($comment = $comments->fetch_assoc()) {
-				$timestamp_comentario = $comment['timestamp'];
-				$texto_comentario = $comment['comentario'];
-				$autor_comentario_id = $comment['user_id'];
-				$autor_comentario_apelido = return_apelido_user_id($autor_comentario_id);
-				$autor_comentario_avatar_info = return_avatar($autor_comentario_id);
-				$autor_comentario_avatar = $autor_comentario_avatar_info[0];
-				$autor_comentario_cor = $autor_comentario_avatar_info[1];
-				
-				$template_modal_body_conteudo .= "<li class='list-group-item'>
-                                                <p></span><strong><a href='pagina.php?user_id=$autor_comentario_id' ><span class='$autor_comentario_cor'><i class='fad $autor_comentario_avatar fa-fw fa-2x'></i></span>$autor_comentario_apelido</a></strong> <span class='text-muted'><small>escreveu em $timestamp_comentario</small></span></p>
-                                                $texto_comentario
-                                              </li>";
-			}
-			$template_modal_body_conteudo .= "</ul>";
-		} else {
-			$template_modal_body_conteudo .= "<p><strong>Não há comentários sobre este tópico.</strong></p>";
-		}
-	}
-	
-	if ($user_apelido != false) {
-		$template_modal_body_conteudo .= "
-                <div class='md-form mb-2'>
-                    <textarea id='novo_comentario' name='novo_comentario' class='md-textarea form-control' rows='3' required></textarea>
-                    <label for='novo_comentario'>Escreva seu comentário:</label>
-                </div>
-            ";
-	} else {
-		$template_modal_body_conteudo .= "<p class='mt-3'><strong>Para adicionar um comentário, você precisará definir seu apelido em <a href='escritorio.php'>seu escritório</a>.</strong></p>";
-	}
-	include 'templates/modal.php';
-	
 	
 	$active1 = false;
 	$active2 = false;
@@ -1329,6 +1288,7 @@
 	if ($carregar_convite == true) {
 		$template_modal_div_id = 'modal_novo_membro';
 		$template_modal_titulo = 'Convidar novo membro';
+		$template_modal_show_buttons = false;
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
             <p>Pesquise o convidado por seu apelido:</p>

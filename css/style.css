@@ -46,8 +46,8 @@
   font-family: "Oswald", Arial, serif !important;
 }
 
-html, body, p, li, select {
-  font-size: 1.1rem;
+html, body, p, li, select, md-form, textarea, input {
+  font-size: 1.1rem !important;
   font-family: "Lato", Arial, Helvetica, sans-serif !important;
 }
 
@@ -414,6 +414,12 @@ a.text-muted:hover {
 
 .artefato-badge {
   right: 5ch;
+}
+
+.comentario-timestamp:hover {
+  color: #191919 !important;
+  cursor: default;
+  font-size: inherit !important;
 }
 
 /*# sourceMappingURL=style.css.map */

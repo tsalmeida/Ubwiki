@@ -10,6 +10,12 @@
 	    $conn->query("ALTER TABLE `Compartilhamento` ADD `tipo` VARCHAR(255) NULL DEFAULT NULL AFTER `criacao`;");
 	    $conn->query("ALTER TABLE `Compartilhamento` ADD `estado` BOOLEAN NOT NULL DEFAULT TRUE AFTER `tipo`;");
 	    $conn->query("UPDATE Compartilhamento SET tipo = 'acesso' WHERE tipo IS NULL");
+	    $conn->query("ALTER TABLE `Forum` ADD `tipo` VARCHAR(255) NULL DEFAULT NULL AFTER `pagina_tipo`;");
+	    $conn->query("ALTER TABLE `Forum` ADD `topico_id` INT(11) NULL DEFAULT NULL AFTER `pagina_tipo`;");
+	    $conn->query("ALTER TABLE `Forum` ADD `comentario_html` TEXT NULL DEFAULT NULL AFTER `comentario`, ADD `comentario_content` TEXT NULL DEFAULT NULL AFTER `comentario_html`;
+");
+	    $conn->query("ALTER TABLE `Forum` CHANGE `comentario` `comentario_text` TEXT CHARACTER SET utf8 COLLATE utf8_spanish2_ci NULL DEFAULT NULL;");
+	    $conn->query("UPDATE Forum SET tipo = 'comentario' WHERE tipo IS NULL");
 	}
 	
 	if (isset($_POST['funcoes_gerais'])) {
