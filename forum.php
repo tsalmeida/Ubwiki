@@ -146,9 +146,9 @@
 						$template_conteudo = false;
 						
 						if ($forum_topico_id != false) {
-							$comments = $conn->query("SELECT timestamp, comentario_text, user_id FROM Forum WHERE pagina_id = $pagina_id AND topico_id = $forum_topico_id AND tipo = 'comentario'");
+							$comments = $conn->query("SELECT timestamp, comentario_text, user_id FROM Forum WHERE pagina_id = $pagina_id AND topico_id = $forum_topico_id AND tipo = 'comentario' ORDER BY id");
 						} else {
-							$comments = $conn->query("SELECT timestamp, comentario_text, user_id FROM Forum WHERE pagina_id = $pagina_id AND topico_id IS NULL AND tipo = 'comentario'");
+							$comments = $conn->query("SELECT timestamp, comentario_text, user_id FROM Forum WHERE pagina_id = $pagina_id AND topico_id IS NULL AND tipo = 'comentario' ORDER BY id");
 						}
 						
 						$template_conteudo .= "
