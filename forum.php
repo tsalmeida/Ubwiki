@@ -83,18 +83,18 @@
         <div id="coluna_esquerda" class="col-lg-5 px-3">
 					<?php
 						$template_id = 'forum_pagina';
-						$template_titulo = 'Discussões';
+						$template_titulo = 'Debates';
 						$template_conteudo = false;
 						
 						$item_classes = 'row border m-0 mt-1 p-2 list-group-item-action rounded';
 						
 						$template_conteudo .= "
 					        <div class='row d-flex justify-content-center mb-3'>
-						        <span data-toggle='modal' data-target='#modal_novo_topico'><button class='$button_classes btn-info'>Nova discussão</button></span>
+						        <span data-toggle='modal' data-target='#modal_novo_topico'><button class='$button_classes btn-info'>Novo tópico de debate</button></span>
 					        </div>
 				        ";
 						
-						$template_conteudo .= "<a href='forum.php?pagina_id=$pagina_id' class='$item_classes list-group-item-info'>Discussão geral</a>";
+						$template_conteudo .= "<a href='forum.php?pagina_id=$pagina_id' class='$item_classes list-group-item-info'>Debate geral</a>";
 						$topicos = $conn->query("SELECT id, comentario_text FROM Forum WHERE tipo = 'topico' AND pagina_id = $pagina_id ORDER BY id DESC");
 						if ($topicos->num_rows > 0) {
 							while ($topico = $topicos->fetch_assoc()) {
@@ -192,7 +192,7 @@
 			<label for='novo_topico_titulo'>Título</label>
 		</div>
 		<div class='md-form'>
-			<input type='paragraph' class='form-control border rounded p-2 row' rows='3' placeholder='Escreva aqui seu comentário (opcional)' name='novo_topico_texto' id='novo_topico_texto'>
+			<textarea class='form-control border rounded p-2 row' rows='3' placeholder='Escreva aqui seu comentário (opcional)' name='novo_topico_texto' id='novo_topico_texto'></textarea>
 		</div>
 	";
 	include 'templates/modal.php';
