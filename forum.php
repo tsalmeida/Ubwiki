@@ -151,7 +151,7 @@
                                 <div class='col'>
                                 	<div class='row justify-content-start'><a href='pagina.php?user_id=$topico_user_id' class='text-light'>$topico_user_apelido</a></div>
                                     <div class='row'>
-                                    	<h3 class='col m-0'>$forum_topico_titulo</h3>
+                                    	<h2 class='col m-0 text-center'>$forum_topico_titulo</h2>
                                     </div>
                                     <div class='row text-light'>.</div>
                                 </div>
