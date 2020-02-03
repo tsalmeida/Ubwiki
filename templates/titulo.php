@@ -28,7 +28,7 @@
 	
 	if ($template_titulo_context == true) {
 		echo "
-    	<div class='row d-flex justify-content-center'>
+    	<div class='row d-flex justify-content-center my-3'>
         <div class='col-lg-11 col-sm-12 text-center $spacing'>
 		";
 	}
@@ -39,7 +39,7 @@
 	}
 	if ($display_level != false) {
 		echo "
-			<h1 class='$display_level d-none d-md-inline m-0 tighten'>$template_titulo</h1>
+			<h1 class='$display_level d-none d-md-inline m-0'>$template_titulo</h1>
 			<h1 class='h1-responsive d-sm-inline d-md-none m-0'>$template_titulo</h1>
 		";
 	}

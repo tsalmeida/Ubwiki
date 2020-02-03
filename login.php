@@ -72,7 +72,7 @@
                                     <label for='login_senha'>Sua senha</label>
                                 </div>
                                 <div id='secao_login_confirmacao' class='md-form collapse'>
-                                    <input type='password' id='login_senha_confirmacao' name='login_senha_confirmacao' class='form-control'>
+                                    <input type='password' id='login_senha_confirmacao' name='login_senha_confirmacao' class='form-control' disabled>
                                     <label for='login_senha_confirmacao'>Confirme sua senha</label>
                                 </div>
                                 <div id='secao_login_enviar' class='md-form d-flex justify-content-center'>
@@ -151,6 +151,7 @@
                                 $('#login_mensagem_basica').addClass('text-muted');
                                 $('#login_novo_usuario').show();
                                 $('#secao_login_confirmacao').show();
+                                $('#login_senha_confirmacao').prop('disabled', false);
                                 $('#login_email').prop('disabled', true);
                                 $('#login_senha').prop('disabled', true);
                                 $('#botao_login').prop('disabled', true);
