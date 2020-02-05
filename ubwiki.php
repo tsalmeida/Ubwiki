@@ -77,7 +77,7 @@
 								$artefato_criacao = false;
 								$template_conteudo .= include 'templates/artefato_item.php';
 								
-								$artefato_titulo = 'Áreas de interesse';
+								$artefato_titulo = 'Páginas livres';
 								//$artefato_link = 'ubwiki.php#sobre_areas_interesse';
 								$artefato_tipo = 'areas_interesse';
 								$artefato_criacao = false;
@@ -87,8 +87,8 @@
 								$artefato_class = 'icone_sobre_stuff';
 								$template_conteudo .= include 'templates/artefato_item.php';
 								
-								$artefato_titulo = 'Ver áreas de interesse';
-								$artefato_link = 'areas_interesse.php';
+								$artefato_titulo = 'Ver páginas livres';
+								$artefato_link = 'paginas_livres.php';
 								$artefato_tipo = 'areas_interesse_link';
 								$fa_icone = 'fa-tags';
 								$fa_color = 'text-white';
@@ -188,11 +188,13 @@
 								include 'templates/page_element.php';
 								
 								$template_id = 'sobre_areas_interesse';
-								$template_titulo = 'Sobre as áreas de interesse';
+								$template_titulo = 'Sobre as páginas livres';
 								$template_classes = 'sobre_stuff';
 								$template_conteudo = false;
 								$template_conteudo .= "
-									<p>As áreas de interesse formam algo como uma enciclopédia virtual, reunindo informações que podem ser utilizadas pelos diversos cursos.</p>
+									<p>As páginas livres formam uma rede de tópicos e comunidades, reunindo informações que podem ser re-utilizadas pelos cursos. Dessa forma, formam algo semelhante a uma enciclopédia virtual, com espaço para que se forme uma comunidade em torno de cada área de interesse imaginável.</p>
+									<p>São, ainda, 'etiquetas' que reúnem informações de outra forma desconexas por toda a Ubwiki.</p>
+									<p>Recmenda-se aos usuários acrescentem as páginas livres de seu interesse particular e acompanhem seu desenvolvimento, assim como o debate no fórum de cada uma.</p>
 								";
 								include 'templates/page_element.php';
 								
@@ -201,7 +203,8 @@
 								$template_classes = 'sobre_stuff';
 								$template_conteudo = false;
 								$template_conteudo .= "
-									<p>A biblioteca reúne páginas sobre obras de diversos tipos, como livros, filmes, álbums de música etc.</p>
+									<p>A biblioteca reúne páginas sobre obras de diversos tipos, como livros, filmes, álbums de música etc. Items da biblioteca acrescentados ao seu escritório fazem parte de seu 'acervo'.</p>
+									<p>Recomenda-se que os usuários escrevam, em especial, sobre livros que lêem, como um método de firmar conhecimento.</p>
 								";
 								include 'templates/page_element.php';
 								

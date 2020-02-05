@@ -101,7 +101,7 @@
 				echo "
                       <a id='escritorio_home' href='javascript:void(0);' class='p-2 rounded text-muted artefato' title='Retornar à página inicial'><i class='fad fa-lamp-desk fa-2x fa-fw'></i></a>
                       <a id='mostrar_textos' href='javascript:void(0);' class='p-2 rounded text-primary artefato' title='Pressione para ver seus textos e notas privadas'><i class='fad fa-typewriter fa-2x fa-fw'></i></a>
-                      <a id='mostrar_tags' href='javascript:void(0);' class='p-2 rounded text-warning artefato' title='Pressione para ver suas áreas de interesse'><i class='fad fa-tags fa-2x fa-fw'></i></a>
+                      <a id='mostrar_tags' href='javascript:void(0);' class='p-2 rounded text-warning artefato' title='Pressione para ver suas páginas livres'><i class='fad fa-tags fa-2x fa-fw'></i></a>
                       <a id='mostrar_acervo' href='javascript:void(0);' class='p-2 rounded text-success artefato' title='Pressione para ver seu acervo virtual'><i class='fad fa-books fa-2x fa-fw'></i></a>
                       <a id='mostrar_grupos' href='javascript:void(0);' class='p-2 rounded text-default artefato'><i class='fad fa-users fa-2x fa-fw'></i></a>
                       <a id='mostrar_imagens' href='javascript:void(0);' class='p-2 rounded text-danger artefato' title='Pressione para ver suas imagens públicas'><i class='fad fa-images fa-2x fa-fw'></i></a>
@@ -357,7 +357,7 @@
 						include 'templates/page_element.php';
 						
 						$template_id = 'topicos_interesse';
-						$template_titulo = 'Áreas de interesse';
+						$template_titulo = 'Páginas livres';
 						$template_classes = 'esconder_sessao';
 						$template_conteudo_class = 'justify-content-start';
 						$template_conteudo_no_col = true;
@@ -365,7 +365,7 @@
 						
 						$artefato_id = 0;
 						$artefato_page_id = false;
-						$artefato_titulo = 'Incluir área de interesse';
+						$artefato_titulo = 'Incluir tópico';
 						$artefato_criacao = 'Pressione para adicionar uma área de interesse';
 						$artefato_tipo = 'novo_topico';
 						$artefato_modal = '#modal_gerenciar_etiquetas';

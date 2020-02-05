@@ -7,15 +7,17 @@
 	}
 	
 	if (isset($_POST['trigger_atualizacao'])) {
-	    $conn->query("ALTER TABLE `Compartilhamento` ADD `tipo` VARCHAR(255) NULL DEFAULT NULL AFTER `criacao`;");
-	    $conn->query("ALTER TABLE `Compartilhamento` ADD `estado` BOOLEAN NOT NULL DEFAULT TRUE AFTER `tipo`;");
-	    $conn->query("UPDATE Compartilhamento SET tipo = 'acesso' WHERE tipo IS NULL");
-	    $conn->query("ALTER TABLE `Forum` ADD `tipo` VARCHAR(255) NULL DEFAULT NULL AFTER `pagina_tipo`;");
-	    $conn->query("ALTER TABLE `Forum` ADD `topico_id` INT(11) NULL DEFAULT NULL AFTER `pagina_tipo`;");
-	    $conn->query("ALTER TABLE `Forum` ADD `comentario_html` TEXT NULL DEFAULT NULL AFTER `comentario`, ADD `comentario_content` TEXT NULL DEFAULT NULL AFTER `comentario_html`;
-");
-	    $conn->query("ALTER TABLE `Forum` CHANGE `comentario` `comentario_text` TEXT CHARACTER SET utf8 COLLATE utf8_spanish2_ci NULL DEFAULT NULL;");
-	    $conn->query("UPDATE Forum SET tipo = 'comentario' WHERE tipo IS NULL");
+	    $conn->query("ALTER TABLE `Textos_arquivo` ADD `pagina_subtipo` VARCHAR(255) NULL DEFAULT NULL AFTER `pagina_id`;");
+	    $conn->query("ALTER TABLE `Textos` ADD `pagina_subtipo` VARCHAR(255) NULL DEFAULT NULL AFTER `pagina_id`;");
+	    $paginas_subtipo = $conn->query("SELECT subtipo, id FROM Paginas WHERE subtipo IS NOT NULL");
+	    if ($paginas_subtipo->num_rows > 0) {
+	        while ($pagina_subtipo = $paginas_subtipo->fetch_assoc()) {
+	            $pagina_subtipo_subtipo = $pagina_subtipo['subtipo'];
+	            $pagina_subtipo_id = $pagina_subtipo['id'];
+	            $conn->query("UPDATE Textos SET pagina_subtipo = '$pagina_subtipo_subtipo' WHERE pagina_id = $pagina_subtipo_id");
+	            $conn->query("UPDATE Textos_arquivo set pagina_subtipo = '$pagina_subtipo_subtipo' WHERE pagina_id = $pagina_subtipo_id");
+            }
+        }
 	}
 	
 	if (isset($_POST['funcoes_gerais'])) {
