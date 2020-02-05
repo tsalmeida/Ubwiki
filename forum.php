@@ -203,13 +203,27 @@
 							$template_conteudo .=
 								"
 	                            <form method='post'>
-	                            <div class='md-form mb-2 row px-0'>
-	                                <textarea id='novo_comentario' name='novo_comentario' class='form-control border rounded p-2 row' rows='3' placeholder='Escreva aqui seu comentário' required></textarea>
-	                            </div>
-	                            <div class='row d-flex justify-content-center'>
-	                                <button class='$button_classes btn-info'>Enviar comentário</button>
-	                            </div>
-	                            </form>
+                                    <div class='md-form mb-2 row px-0'>
+                                        <textarea id='novo_comentario' name='novo_comentario' class='form-control border rounded p-2 row' rows='3' placeholder='Escreva aqui seu comentário' required></textarea>
+                                    </div>
+                                    <div class='row d-flex justify-content-center'>
+                                        <button class='$button_classes btn-info'>Enviar comentário</button>
+                                    </div>
+                                </form><!--
+                                <div class='row d-flex justify-content-center'>
+	                                <canvas class='visualizer rounded mb-1' height='60px'></canvas>
+								</div>
+                                <div class='row d-flex justify-content-center rounded border'>
+                                    <section class='main-controls'>
+                                        <div id='buttons'>
+                                            <button class='$button_classes btn-success record'>Gravar áudio</button>
+                                            <button class='$button_classes btn-danger stop'>Interromper gravação</button>
+                                        </div>
+                                    </section>
+                                </div>
+                                <div class='row rounded border grey lighten-5 mt-1 p-1'>
+                                    <section class='sound-clips'></section>
+                                </div>-->
 	                        ";
 						} else {
 							$template_conteudo .= "<p class='mt-3'><strong>Para adicionar um comentário, você precisará definir seu apelido em <a href='escritorio.php'>seu escritório</a>.</strong></p>";

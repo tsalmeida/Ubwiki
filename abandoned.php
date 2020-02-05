@@ -302,5 +302,4 @@
 		include 'templates/page_element.php';
 	}
 	
-	
 ?>

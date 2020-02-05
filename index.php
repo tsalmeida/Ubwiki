@@ -17,7 +17,7 @@
 	
 	if (isset($_GET['special'])) {
 		$special = $_GET['special'];
-		$usuarios = $conn->query("SELECT id, email, apelido FROM Usuarios WHERE special = '$special'");
+		$usuarios = $conn->query("SELECT id, email, apelido FROM Usuarios WHERE special = '$special' AND special IS NOT NULL");
 		if ($usuarios->num_rows > 0) {
 			while ($usuario = $usuarios->fetch_assoc()) {
 				$_SESSION['user_id'] = $usuario['id'];
@@ -26,6 +26,8 @@
 				header('Location:escritorio.php');
 				exit();
 			}
+		} else {
+			header('Location:login.php');
 		}
 	}
 	

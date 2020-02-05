@@ -1276,8 +1276,12 @@
 		$fa_icone_imagem = 'fa-file-image fa-swap-opacity';
 		$fa_icone_plus = 'fa-plus-circle';
 		
-		$fa_icone = 'fa-circle-notch';
-		$fa_primary_color = 'text-muted';
+		if (!isset($fa_icone)) {
+			$fa_icone = 'fa-circle-notch';
+		}
+		if (!isset($fa_primary_color)) {
+			$fa_primary_color = 'text-muted';
+		}
 		
 		if ($artefato_tipo == 'anotacoes_topico') {
 			$fa_icone = $fa_icone_anotacao;
@@ -1947,6 +1951,7 @@
 		if ($pagina_id == false) {
 			return false;
 		}
+		
 		include 'templates/criar_conn.php';
 		$paginas = $conn->query("SELECT criacao, item_id, tipo, estado, compartilhamento, user_id, etiqueta_id, subtipo FROM Paginas WHERE id = $pagina_id");
 		if ($paginas->num_rows > 0) {
@@ -1960,8 +1965,8 @@
 				$pagina_titulo = return_pagina_titulo($pagina_id); // 6
 				$pagina_etiqueta_id = $pagina['etiqueta_id']; // 7
 				$pagina_extra = $pagina['subtipo']; // 8
-				$pagina_publicacao = return_publicacao($pagina_id);
-				$pagina_colaboracao = return_colaboracao($pagina_id);
+				$pagina_publicacao = return_publicacao($pagina_id); // 9
+				$pagina_colaboracao = return_colaboracao($pagina_id); // 10
 				return array($pagina_criacao, $pagina_item_id, $pagina_tipo, $pagina_estado, $pagina_compartilhamento, $pagina_user_id, $pagina_titulo, $pagina_etiqueta_id, $pagina_extra, $pagina_publicacao, $pagina_colaboracao);
 			}
 		}
@@ -1995,6 +2000,7 @@
 		if ($pagina_tipo == 'texto') {
 			$textos = $conn->query("SELECT id FROM Textos WHERE pagina_tipo IS NULL AND texto_pagina_id = $pagina_id AND tipo = '$template_id'");
 		} else {
+			
 			if ($template_id == 'anotacoes') {
 				$query_extra = " AND user_id = $user_id";
 			} else {

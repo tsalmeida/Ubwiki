@@ -1,6 +1,6 @@
 <?php
 	if (!isset($template_titulo)) { return false; }
-	if (!isset($template_titulo_context)) { $template_titulo_context = false; }
+	if (!isset($template_titulo_context)) { $template_titulo_context = true; }
 	if (!isset($template_titulo_no_nav)) { $template_titulo_no_nav = false; }
 	if (!isset($template_titulo_escritorio)) { $template_titulo_escritorio = false; }
 	if (!isset($template_subtitulo)) { $template_subtitulo = false; }
