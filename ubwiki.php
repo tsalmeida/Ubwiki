@@ -20,7 +20,7 @@
             <div id='coluna_unica' class="col">
 							<?php
 								$template_id = 'apresentacao';
-								$template_titulo = 'Nexus';
+								$template_titulo = 'Ambientes';
 								$template_conteudo_no_col = true;
 								$template_conteudo_class = 'justify-content-center';
 								$template_conteudo = false;

@@ -18,10 +18,13 @@
 			$pagina_publicacao = $pagina_info[9];
 			$pagina_colaboracao = $pagina_info[10];
 		} else {
-			header('Location:pagina.php?pagina_id=4');
+            header('Location:ubwiki.php');
 			exit();
 		}
-	}
+	} else {
+	    $pagina_id = 1;
+	    $pagina_titulo = 'Fórum geral';
+    }
 	
 	if (isset($_GET['topico_id'])) {
 		$forum_topico_id = $_GET['topico_id'];
@@ -77,7 +80,11 @@
 <div class="container">
 	<?php
 		$template_titulo = $pagina_titulo;
-		$template_subtitulo = "Fórum / <a href='pagina.php?pagina_id=$pagina_id'>Página</a>";
+		if ($pagina_id != 1) {
+		    $template_subtitulo = "Fórum / <a href='pagina.php?pagina_id=$pagina_id'>Página</a>";
+		} else {
+		    $template_subtitulo = "Fórum / <a href='ubwiki.php'>Ubwiki</a>";
+        }
 		$template_titulo_context = true;
 		$template_titulo_no_nav = true;
 		include 'templates/titulo.php';
@@ -91,13 +98,10 @@
 						$template_titulo = 'Debates';
 						$template_conteudo = false;
 						
-						$item_classes = 'row border m-0 mt-1 p-2 list-group-item-action rounded';
-						
-						$template_conteudo .= "
-					        <div class='row d-flex justify-content-center mb-3'>
-						        <span data-toggle='modal' data-target='#modal_novo_topico'><button class='$button_classes btn-info'>Novo tópico de debate</button></span>
-					        </div>
-				        ";
+						$item_classes = 'row b-0 border-top m-0 mt-1 p-2 list-group-item-action';
+
+						$template_conteudo .= "<p>Selecione um tópico para participar do debate.</p>";
+
 						if ($forum_topico_id == false) {
 							$lista_active = 'list-group-item-info';
 						} else {
@@ -135,7 +139,13 @@
 								}
 							}
 						}
-						
+                        $template_botoes = "<span data-toggle='modal' data-target='#modal_novo_topico' title='Novo tópico de debate'><a href='javascript:void(0);' class='text-info'><i class='fad fa-plus-square fa-fw'></i></a></span>";
+                        $template_conteudo .= "
+					        <div class='row d-flex justify-content-center mt-3'>
+						        <span data-toggle='modal' data-target='#modal_novo_topico'><button class='$button_classes btn-info btn-sm'>Novo tópico de debate</button></span>
+					        </div>
+				        ";
+
 						include 'templates/page_element.php';
 					?>
         </div>
@@ -203,11 +213,11 @@
 							$template_conteudo .=
 								"
 	                            <form method='post'>
-                                    <div class='md-form mb-2 row px-0'>
+                                    <div class='md-form row px-0 mt-2 mb-0'>
                                         <textarea id='novo_comentario' name='novo_comentario' class='form-control border rounded p-2 row' rows='3' placeholder='Escreva aqui seu comentário' required></textarea>
                                     </div>
                                     <div class='row d-flex justify-content-center'>
-                                        <button class='$button_classes btn-info'>Enviar comentário</button>
+                                        <button class='$button_classes btn-info btn-sm mt-0'>Enviar comentário</button>
                                     </div>
                                 </form><!--
                                 <div class='row d-flex justify-content-center'>

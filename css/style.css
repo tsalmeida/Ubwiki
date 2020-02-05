@@ -221,6 +221,7 @@ blockquote + * {
   border-right-color: #eeeeee;
   font-family: "Oswald", Arial, serif;
   font-size: 0.9rem;
+  font-size: 0.9rem;
 }
 
 .bc-icons .breadcrumb-item + .breadcrumb-item::before {
