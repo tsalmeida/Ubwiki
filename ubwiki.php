@@ -26,10 +26,10 @@
 								$template_conteudo = false;
 								
 								$template_conteudo .= "
-						<div class='col-12'>
-						<p>Que área da Ubwiki você deseja visitar? <strong>Pressione uma vez para ler mais, duas para visitar.</strong></p>
-						</div>
-				";
+                                    <div class='col-12'>
+                                    <p>Pressione uma vez para ler mais sobre cada ambiente. <strong>Para visitá-lo, clique novamente.</strong></p>
+                                    </div>
+				                ";
 								
 								$artefato_icone_background_link = 'icone-link primary-color text-white';
 								
