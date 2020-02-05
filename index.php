@@ -23,7 +23,7 @@
 				$_SESSION['user_id'] = $usuario['id'];
 				$_SESSION['user_email'] = $usuario['email'];
 				$check1 = $_SESSION['user_id'];
-				header('Location:escritorio.php');
+				header('Location:ubwiki.php');
 				exit();
 			}
 		} else {
@@ -39,7 +39,7 @@
 			exit();
 		}
 	} else {
-		header('Location:escritorio.php');
+		header('Location:ubwiki.php');
 		exit();
 	}
 	
