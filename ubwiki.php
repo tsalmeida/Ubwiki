@@ -25,9 +25,11 @@
 								$template_conteudo_class = 'justify-content-center';
 								$template_conteudo = false;
 								
+								$texto_ambiente = return_verbete_html(1218);
+								
 								$template_conteudo .= "
                                     <div class='col-12'>
-                                    <p>Pressione uma vez para ler mais sobre cada ambiente. <strong>Para visitá-lo, clique novamente.</strong></p>
+                                    $texto_ambiente
                                     </div>
 				                ";
 								
@@ -173,57 +175,42 @@
 								$template_titulo = 'Sobre o escritório';
 								$template_classes = 'sobre_stuff';
 								$template_conteudo = false;
-								$template_conteudo .= "
-									<p>Seu escritório reúne os artefatos resultantes de seus estudos em outras áreas da Ubwiki.</p>
-								";
+								$template_conteudo .= return_verbete_html(1220);
 								include 'templates/page_element.php';
 								
 								$template_id = 'sobre_cursos';
 								$template_titulo = 'Sobre os cursos';
 								$template_classes = 'sobre_stuff';
 								$template_conteudo = false;
-								$template_conteudo .= "
-									<p>Os cursos são estruturas que organizam e moldam as informações contidas na Ubwiki.</p>
-								";
+								$template_conteudo .= return_verbete_html(1222);
 								include 'templates/page_element.php';
 								
 								$template_id = 'sobre_areas_interesse';
 								$template_titulo = 'Sobre as páginas livres';
 								$template_classes = 'sobre_stuff';
 								$template_conteudo = false;
-								$template_conteudo .= "
-									<p>As páginas livres formam uma rede de tópicos e comunidades, reunindo informações que podem ser re-utilizadas pelos cursos. Dessa forma, formam algo semelhante a uma enciclopédia virtual, com espaço para que se forme uma comunidade em torno de cada área de interesse imaginável.</p>
-									<p>São, ainda, 'etiquetas' que reúnem informações de outra forma desconexas por toda a Ubwiki.</p>
-									<p>Recmenda-se aos usuários acrescentem as páginas livres de seu interesse particular e acompanhem seu desenvolvimento, assim como o debate no fórum de cada uma.</p>
-								";
+								$template_conteudo .= return_verbete_html(1224);
 								include 'templates/page_element.php';
 								
 								$template_id = 'sobre_biblioteca';
 								$template_titulo = 'Sobre a Biblioteca';
 								$template_classes = 'sobre_stuff';
 								$template_conteudo = false;
-								$template_conteudo .= "
-									<p>A biblioteca reúne páginas sobre obras de diversos tipos, como livros, filmes, álbums de música etc. Items da biblioteca acrescentados ao seu escritório fazem parte de seu 'acervo'.</p>
-									<p>Recomenda-se que os usuários escrevam, em especial, sobre livros que lêem, como um método de firmar conhecimento.</p>
-								";
+								$template_conteudo .= return_verbete_html(1226);
 								include 'templates/page_element.php';
 								
 								$template_id = 'sobre_forum';
 								$template_titulo = 'Sobre o fórum';
 								$template_classes = 'sobre_stuff';
 								$template_conteudo = false;
-								$template_conteudo .= "
-									<p>A plataforma de fórum está presente na maioria das páginas da Ubwiki. Cada página da Ubwiki é uma comunidade virtual.</p>
-								";
+								$template_conteudo .= return_verbete_html(1228);
 								include 'templates/page_element.php';
 								
 								$template_id = 'sobre_loja';
 								$template_titulo = 'Sobre a loja';
 								$template_classes = 'sobre_stuff';
 								$template_conteudo = false;
-								$template_conteudo .= "
-									<p>A loja é uma espécie de classificados para produtos e serviços voltados a estudantes dos diversos temas presentes na Ubwiki.</p>
-								";
+								$template_conteudo .= return_verbete_html(1230);
 								include 'templates/page_element.php';
 							
 							?>
