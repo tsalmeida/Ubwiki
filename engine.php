@@ -2272,7 +2272,7 @@
 	if (isset($_POST['quill_novo_verbete_html'])) {
 		$quill_novo_verbete_html = $_POST['quill_novo_verbete_html'];
 		$quill_novo_verbete_html = mysqli_real_escape_string($conn, $quill_novo_verbete_html);
-		$quill_novo_verbete_html = strip_tags($quill_novo_verbete_html, '<p><li><ul><ol><h2><h3><blockquote><em><sup><img><u><b><a><s>');
+		$quill_novo_verbete_html = strip_tags($quill_novo_verbete_html, '<strong><p><li><ul><ol><h2><h3><blockquote><em><sup><img><u><b><a><s>');
 		$quill_novo_verbete_text = $_POST['quill_novo_verbete_text'];
 		$quill_novo_verbete_text = mysqli_real_escape_string($conn, $quill_novo_verbete_text);
 		$quill_novo_verbete_content = $_POST['quill_novo_verbete_content'];
