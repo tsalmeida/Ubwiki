@@ -1,12 +1,14 @@
 <?php
 	
 	$template_id = 'secao_etiquetas';
-	$template_titulo = 'Áreas de interesse relacionadas';
+	$template_titulo = 'Páginas livres relacionadas';
 	$template_botoes = false;
 	$template_conteudo = false;
 	$template_conteudo .= "<ul class='list-group list-group-flush rounded'>";
 	$carregar_areas_relacionadas = false;
-	if (($pagina_etiqueta_id != false) && ($pagina_subtipo != 'etiqueta') && ($pagina_tipo != 'curso') && ($pagina_tipo != 'materia') && ($pagina_tipo != 'topico')) {
+	//if (($pagina_etiqueta_id != false) && ($pagina_subtipo != 'etiqueta') && ($pagina_tipo != 'curso') && ($pagina_tipo != 'materia') && ($pagina_tipo != 'topico')) {
+	if (($pagina_etiqueta_id != false) && ($pagina_subtipo != 'etiqueta')) {
+
 		$carregar_areas_relacionadas = true;
 		$pagina_etiqueta_info = return_etiqueta_info($pagina_etiqueta_id);
 		$pagina_etiqueta_titulo = $pagina_etiqueta_info[2];

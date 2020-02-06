@@ -718,7 +718,6 @@
 					include 'pagina/usos_etiqueta.php';
 					
 					include 'pagina/etiquetas.php';
-					
 				}
 				
 				echo "</div>";
