@@ -5072,7 +5072,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
   $('body').on('shown.bs.modal', '.modal', function() {
     if(!$('.modal-backdrop').length) {
 
-      $modal_dialog = $(this).children('.modal-dialog')
+      $modal_dialog = $(this).children('.modal-dialog');
 
       if($modal_dialog.hasClass('modal-side')) {
         $(this).addClass('modal-scrolling');

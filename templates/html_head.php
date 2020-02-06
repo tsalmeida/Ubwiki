@@ -3,11 +3,9 @@
 	if (!isset($html_head_template_quill)) {
 		$html_head_template_quill = false;
 	}
-	
 	if (!isset($html_head_template_one_page)) {
 		$html_head_template_one_page = false;
 	}
-	
 	if (!isset($html_head_template_conteudo)) {
 		$html_head_template_conteudo = false;
 	}

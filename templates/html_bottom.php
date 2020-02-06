@@ -148,7 +148,8 @@
 				   }
 				}),
 					$('#trigger_buscar_autores').click(function() {
-				    var criar_referencia_autor = $('#criar_referencia_autor').val();
+				    var criar_referencia_autor
+				     = $('#criar_referencia_autor').val();
 				    var criar_referencia_autor_length = $('#criar_referencia_autor').val().length;
 				    if (criar_referencia_autor_length > 2) {
 							$.post('engine.php', {
@@ -650,132 +651,8 @@
 			</script>
 		";
 	}
-	if ($pagina_tipo == 'forum-') {
-		echo "
-			<script type='text/javascript'>
-				$('.stop').hide();
-				$('.visualizer').hide();
-				(function() {
-				
-					var promisifiedOldGUM = function(constraints, successCallback, errorCallback) {
-				
-						// First get ahold of getUserMedia, if present
-						var getUserMedia = (navigator.getUserMedia ||
-								navigator.webkitGetUserMedia ||
-								navigator.mozGetUserMedia ||
-								navigator.msGetUserMedia);
-				
-						// Some browsers just don't implement it - return a rejected promise with an error
-						// to keep a consistent interface
-						if(!getUserMedia) {
-							return Promise.reject(new Error('getUserMedia is not implemented in this browser'));
-						}
-				
-						// Otherwise, wrap the call to the old navigator.getUserMedia with a Promise
-						return new Promise(function(successCallback, errorCallback) {
-							getUserMedia.call(navigator, constraints, successCallback, errorCallback);
-						});
-						
-					}
-				
-					// Older browsers might not implement mediaDevices at all, so we set an empty object first
-					if(navigator.mediaDevices === undefined) {
-						navigator.mediaDevices = {};
-					}
-				
-					// Some browsers partially implement mediaDevices. We can't just assign an object
-					// with getUserMedia as it would overwrite existing properties.
-					// Here, we will just add the getUserMedia property if it's missing.
-					if(navigator.mediaDevices.getUserMedia === undefined) {
-						navigator.mediaDevices.getUserMedia = promisifiedOldGUM;
-					}
-					
-				})();
-				
-				
-				const record = document.querySelector('.record');
-				const stop = document.querySelector('.stop');
-				const soundClips = document.querySelector('.sound-clips');
-				const canvas = document.querySelector('.visualizer');
-				const mainSection = document.querySelector('.main-controls');
-				
-				// disable stop button while not recording
-				
-				stop.disabled = true;
-				
-				// visualiser setup - create web audio api context and canvas
-				
-				let audioCtx;
-				const canvasCtx = canvas.getContext(\"2d\");
-				
-				//main block for doing the audio recording
-				
-				if (navigator.mediaDevices.getUserMedia) {
-				  console.log('getUserMedia supported.');
-				
-				  const constraints = { audio: true };
-				  let chunks = [];
-				
-				  let onSuccess = function(stream) {
-				    const mediaRecorder = new MediaRecorder(stream);
-				
-				    visualize(stream);
-				
-				    record.onclick = function() {
-							$('.stop').show();
-							$('.visualizer').show();
-							$('.record').hide();
-				      mediaRecorder.start();
-				      console.log(mediaRecorder.state);
-				      console.log(\"recorder started\");
-				      record.style.background = \"red\";
-				
-				      stop.disabled = false;
-				      record.disabled = true;
-				    }
-				
-				    stop.onclick = function() {
-              $('.record').show();
-							$('.stop').hide();
-							$('.visualizer').hide();
-				      mediaRecorder.stop();
-				      console.log(mediaRecorder.state);
-				      console.log(\"recorder stopped\");
-				      record.style.background = \"\";
-				      record.style.color = \"\";
-				      // mediaRecorder.requestData();
-				
-				      stop.disabled = true;
-				      record.disabled = false;
-				    }
-				
-				    mediaRecorder.onstop = function(e) {
-				      console.log(\"data available after MediaRecorder.stop() called.\");
-				
-				      const clipName = 'Mensagem de voz';
-				      const clipContainer = document.createElement('article');
-				      const clipLabel = document.createElement('p');
-				      const audio = document.createElement('audio');
-				      const deleteButton = document.createElement('button');
-				
-				      clipContainer.classList.add('clip');
-				      audio.setAttribute('controls', '');
-				      deleteButton.textContent = 'Delete';
-				      deleteButton.className = 'delete';
-
-			        clipLabel.textContent = clipName;
-				
-				      clipContainer.appendChild(audio);
-				      clipContainer.appendChild(clipLabel);
-				      clipContainer.appendChild(deleteButton);
-				      soundClips.appendChild(clipContainer);
-				
-				      audio.controls = true;
-				      const blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
-				      chunks = [];
-				      const audioURL = window.URL.createObjectURL(blob);
-				      audio.src = audioURL;
-				      console.log(\"recorder stopped\");
+	if ($pagina_tipo == 'forum') {
+		echo ");
 				
 				      deleteButton.onclick = function(e) {
 				        evtTgt = e.target;
@@ -867,7 +744,7 @@
 				
 				window.onresize = function() {
 				  canvas.width = mainSection.offsetWidth;
-				}
+				};
 				
 				window.onresize();
 				

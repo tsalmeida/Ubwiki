@@ -7,9 +7,9 @@
 		$template_botoes = false;
 		$template_conteudo = false;
 		$template_conteudo .= "
-                                <div id='carousel-videos' class='carousel slide carousel-multi-item mb-0' data-ride='carousel'>
-                                <div class='carousel-inner' role='listbox'>
-                            ";
+                          <div id='carousel-videos' class='carousel slide carousel-multi-item mb-0' data-ride='carousel'>
+                          <div class='carousel-inner' role='listbox'>
+                          ";
 		$active = 'active';
 		while ($video = $videos->fetch_assoc()) {
 			$elemento_id = $video['elemento_id'];
@@ -21,22 +21,22 @@
 					$video_autor = $elemento['autor'];
 					$video_arquivo = $elemento['arquivo'];
 					$template_conteudo .= "
-                                            <div class=' carousel-item $active text-center'>
-                                              <figure class='col-12'>
-                                                <a href='pagina.php?elemento_id=$elemento_id' target='_blank'>
-                                                  <img src='/../imagens/youthumb/$video_arquivo'
-                                                    class='img-fluid' style='height:300px'>
-                                                </a>
-                                        ";
+                                <div class=' carousel-item $active text-center'>
+                                  <figure class='col-12'>
+                                    <a href='pagina.php?elemento_id=$elemento_id' target='_blank'>
+                                      <img src='/../imagens/youthumb/$video_arquivo'
+                                        class='img-fluid' style='height:300px'>
+                                    </a>
+                                ";
 					$template_conteudo .= "
-                                            <figcaption>
-                                           <strong class='h5-responsive mt-2'>$video_titulo</strong>
-                                        ";
+                                    <figcaption>
+                                   <strong class='h5-responsive mt-2'>$video_titulo</strong>
+                                ";
 					$template_conteudo .= "<p>$video_autor</p>";
 					$template_conteudo .= "</figcaption>";
 					$template_conteudo .= "</figure>
-                                            </div>
-                                        ";
+                                </div>
+                                ";
 					$active = false;
 					break;
 				}

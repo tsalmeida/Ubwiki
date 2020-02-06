@@ -14,8 +14,12 @@
           <label for='criar_referencia_titulo'>Título da nova referência</label>
         </div>
         <div class='md-form'>
-          <input type='text' class='form-control' name='criar_referencia_autor' id='criar_referencia_autor' required>
-          <label for='criar_referencia_autor'>Autor da nova referência</label>
+        	<input type='text' class='form-control' name='criar_referencia_link' id='criar_referencia_link'>
+        	<label for='criar_referencia_link'>Link da nova referência (opcional)</label>
+				</div>
+        <div class='md-form'>
+          <input type='text' class='form-control' name='criar_referencia_autor' id='criar_referencia_autor'>
+          <label for='criar_referencia_autor'>Autor da nova referência (opcional)</label>
           <button type='button' class='$button_classes' id='trigger_buscar_autores'>Buscar</button>
         </div>
         <div class='row' id='autores_disponiveis'>

@@ -94,7 +94,11 @@
 							$elementos_contados = array();
 							$modificados = $conn->query("SELECT pagina_id, verbete_html FROM Textos_arquivo WHERE pagina_tipo = 'elemento' ORDER BY id DESC");
 							if ($modificados->num_rows > 0) {
+								$count = 0;
 								while ($modificado = $modificados->fetch_assoc()) {
+									if ($count == 18) {
+										break;
+									}
 									$modificado_pagina_id = $modificado['pagina_id'];
 									$modificado_verbete = $modificado['verbete_html'];
 									if ($modificado_verbete == false) {
@@ -105,6 +109,7 @@
 									}
 									else {
 										array_push($elementos_contados, $modificado_pagina_id);
+										$count++;
 									}
 									$pagina_info = return_pagina_info($modificado_pagina_id);
 									$modificado_pagina_titulo = $pagina_info[6];
