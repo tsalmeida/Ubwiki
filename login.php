@@ -227,6 +227,7 @@
                     $('#login_thinkific_email').val('$thinkific_email');
                     $('#secao_login_senha').show();
                     $('#secao_login_confirmacao').show();
+                    $('#login_senha_confirmacao').prop('disabled', false);
                     $('#login_senha_confirmacao').keyup(function() {
                        var senha1 = $('#login_senha').val();
                        var senha2 = $('#login_senha_confirmacao').val();
