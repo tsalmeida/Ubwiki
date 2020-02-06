@@ -86,18 +86,18 @@
 							}
 							include 'templates/page_element.php';
 						} else {
-							/*$template_id = 'biblioteca_mudancas_recentes';
+							$template_id = 'biblioteca_mudancas_recentes';
 							$template_titulo = 'Recentemente modificados';
 							$template_conteudo_class = 'justify-content-start';
 							$template_conteudo_no_col = true;
 							$template_conteudo = false;
 							$elementos_contados = array();
-							$modificados = $conn->query("SELECT pagina_id, verbete_content FROM Textos_arquivo WHERE pagina_subtipo = 'elemento' ORDER BY id DESC");
+							$modificados = $conn->query("SELECT pagina_id, verbete_html FROM Textos_arquivo WHERE pagina_tipo = 'elemento' ORDER BY id DESC");
 							if ($modificados->num_rows > 0) {
 								while ($modificado = $modificados->fetch_assoc()) {
 									$modificado_pagina_id = $modificado['pagina_id'];
-									$modificado_verbete = $modificado['verbete_content'];
-									if ($verbete_content == false) {
+									$modificado_verbete = $modificado['verbete_html'];
+									if ($modificado_verbete == false) {
 										continue;
 									}
 									if (in_array($modificado_pagina_id, $elementos_contados)) {
@@ -106,9 +106,23 @@
 									else {
 										array_push($elementos_contados, $modificado_pagina_id);
 									}
-									$elemento_info = return_elemento_info($);
+									$pagina_info = return_pagina_info($modificado_pagina_id);
+									$modificado_pagina_titulo = $pagina_info[6];
+									$modificado_elemento_id = $pagina_info[1];
+									$modificado_elemento_info = return_elemento_info($modificado_elemento_id);
+									$modificado_elemento_tipo = $modificado_elemento_info[3];
+									$modificado_elemento_autor = $modificado_elemento_info[5];
+									
+									$artefato_id = "elemento_$modificado_elemento_id";
+									$artefato_titulo = $modificado_pagina_titulo;
+									$artefato_subtitulo = $modificado_elemento_autor;
+									$artefato_tipo = $modificado_elemento_tipo;
+									$artefato_link = "pagina.php?pagina_id=$modificado_pagina_id";
+									$template_conteudo .= include 'templates/artefato_item.php';
+									
 								}
-							}*/
+							include 'templates/page_element.php';
+							}
 						}
 					?>
         </div>
