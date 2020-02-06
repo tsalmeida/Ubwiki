@@ -67,7 +67,6 @@
 									$fa_size = 'fa-4x';
 									$artefato_link = "pagina.php?pagina_id=$etiqueta_pagina_id";
 									$template_conteudo .= include 'templates/artefato_item.php';
-									
 								}
 							}
 							include 'templates/page_element.php';
