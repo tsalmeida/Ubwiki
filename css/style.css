@@ -42,6 +42,10 @@
   font-family: "Oswald", Arial, serif !important;
 }
 
+.fontstack-mono {
+  font-family: "Lucida Console", Monaco, monospace !important;
+}
+
 .navbar-brand {
   font-family: "Oswald", Arial, serif !important;
 }
@@ -220,7 +224,6 @@ blockquote + * {
   border-right-width: 0.2rem;
   border-right-color: #eeeeee;
   font-family: "Oswald", Arial, serif;
-  font-size: 0.9rem;
   font-size: 0.9rem;
 }
 

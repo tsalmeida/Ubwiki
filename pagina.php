@@ -644,13 +644,22 @@
 						$template_conteudo = "<a href='../imagens/verbetes/$elemento_arquivo' ><img class='imagem_pagina border' src='../imagens/verbetes/$elemento_arquivo'></img></a>";
 						include 'templates/page_element.php';
 					} elseif (($elemento_tipo == 'video') && ($elemento_iframe != false)) {
-						$template_div = 'video_div';
+						$template_id = 'video_div';
 						$template_titulo = false;
 						$template_botoes = false;
 						$template_conteudo = $elemento_iframe;
 						$template_conteudo_class = 'text-center';
 						include 'templates/page_element.php';
-					}
+					} elseif (($elemento_tipo == 'referencia') && ($elemento_link != false)) {
+					    $template_id = 'referencia_link';
+					    $template_titulo = false;
+					    $template_conteudo = false;
+					    $template_conteudo_no_col = true;
+					    $template_conteudo .= "
+					      <a href='$elemento_link' target='_blank' class='fontstack-mono'><i class='fad fa-external-link fa-fw'></i> $elemento_link</a>
+					    ";
+					    include 'templates/page_element.php';
+                    }
 				} elseif ($pagina_tipo == 'texto') {
 					$template_id = $texto_tipo;
 					$template_titulo = false;

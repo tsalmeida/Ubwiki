@@ -520,7 +520,7 @@
 						
 						include 'templates/page_element.php';
 						
-						$anotacoes = $conn->query("SELECT id, page_id, pagina_id, pagina_tipo, titulo, criacao, tipo FROM Textos WHERE tipo LIKE '%anotac%' AND user_id = $user_id ORDER BY id DESC");
+						$anotacoes = $conn->query("SELECT id, page_id, pagina_id, pagina_tipo, titulo, criacao, tipo, verbete_content FROM Textos WHERE tipo LIKE '%anotac%' AND user_id = $user_id ORDER BY id DESC");
 						$template_id = 'anotacoes_privadas';
 						$template_titulo = 'Textos e notas de estudo';
 						$template_classes = 'esconder_sessao';
@@ -537,6 +537,10 @@
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
 						while ($anotacao = $anotacoes->fetch_assoc()) {
+						    $anotacao_content = $anotacao['verbete_content'];
+						    if ($anotacao_content == false) {
+						        continue;
+                            }
 							$anotacao_id = $anotacao['id'];
 							$anotacao_page_id = $anotacao['page_id'];
 							$anotacao_pagina_id = $anotacao['pagina_id'];

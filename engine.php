@@ -779,11 +779,12 @@
 	if (isset($_POST['adicionar_referencia_titulo'])) {
 		$adicionar_referencia_titulo = $_POST['adicionar_referencia_titulo'];
 		$adicionar_referencia_autor = $_POST['adicionar_referencia_autor'];
+		$adicionar_referencia_link = $_POST['adicionar_referencia_link'];
 		$adicionar_referencia_tipo = $_POST['adicionar_referencia_tipo'];
 		$adicionar_referencia_contexto = $_POST['adicionar_referencia_contexto'];
 		$adicionar_referencia_pagina_id = $_POST['adicionar_referencia_pagina_id'];
 		
-		$nova_etiqueta = criar_etiqueta($adicionar_referencia_titulo, $adicionar_referencia_autor, $adicionar_referencia_tipo, $user_id, true);
+		$nova_etiqueta = criar_etiqueta($adicionar_referencia_titulo, $adicionar_referencia_autor, $adicionar_referencia_tipo, $user_id, true, $adicionar_referencia_link);
 		$nova_etiqueta_id = $nova_etiqueta[0];
 		$nova_etiqueta_autor_id = $nova_etiqueta[1];
 		$nova_etiqueta_elemento_id = $nova_etiqueta[2];
@@ -801,8 +802,34 @@
 		echo true;
 	}
 	
-	function criar_etiqueta($titulo, $autor, $tipo, $user_id, $criar_elemento)
+	function fix_link($link) {
+		include 'templates/criar_conn.php';
+		if  ( $ret = parse_url($link) ) {
+			
+			if ( !isset($ret["scheme"]) )
+			{
+				$link = "http://{$link}";
+			}
+		}
+		$link = mysqli_real_escape_string($conn, $link);
+		return $link;
+	}
+	
+	function criar_etiqueta()
 	{
+		$args = func_get_args();
+		$titulo = $args[0];
+		$autor = $args[1];
+		$tipo = $args[2];
+		$user_id = $args[3];
+		$criar_elemento = $args[4];
+		$link = $args[5];
+		if ($link == false) {
+			$link = "NULL";
+		} else {
+			$link = fix_link($link);
+			$link = "'$link'";
+		}
 		include 'templates/criar_conn.php';
 		$nova_etiqueta_id = false;
 		$nova_etiqueta_autor_id = false;
@@ -849,7 +876,7 @@
 		}
 		if ($criar_elemento == true) {
 			if ($nova_etiqueta_criada == true) {
-				$conn->query("INSERT INTO Elementos (etiqueta_id, tipo, titulo, autor, autor_etiqueta_id, user_id) VALUES ($nova_etiqueta_id, '$tipo', '$titulo', '$autor', $nova_etiqueta_autor_id, $user_id)");
+				$conn->query("INSERT INTO Elementos (etiqueta_id, tipo, titulo, autor, autor_etiqueta_id, user_id, link) VALUES ($nova_etiqueta_id, '$tipo', '$titulo', '$autor', $nova_etiqueta_autor_id, $user_id, $link)");
 				$novo_elemento_id = $conn->insert_id;
 				$novo_elemento_criado = true;
 			} else {

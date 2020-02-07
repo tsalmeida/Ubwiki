@@ -178,6 +178,7 @@
 				}),
 				$(document).on('click', '#trigger_adicionar_referencia', function() {
 				    var adicionar_referencia_titulo = $('#criar_referencia_titulo').val();
+				    var adicionar_referencia_link = $('#criar_referencia_link').val();
 				    var adicionar_referencia_autor = $('#criar_referencia_autor').val();
 				    var adicionar_referencia_tipo = $('#criar_referencia_tipo').val();
 				    if ((adicionar_referencia_titulo != false) && (adicionar_referencia_autor != false) && (adicionar_referencia_tipo != false)) {
@@ -185,6 +186,7 @@
 				           'adicionar_referencia_titulo': adicionar_referencia_titulo,
 				           'adicionar_referencia_autor': adicionar_referencia_autor,
 				           'adicionar_referencia_tipo': adicionar_referencia_tipo,
+				           'adicionar_referencia_link': adicionar_referencia_link,
 				           'adicionar_referencia_contexto': '$pagina_tipo',
 				           'adicionar_referencia_pagina_id': $pagina_id
 				        }, function(data) {

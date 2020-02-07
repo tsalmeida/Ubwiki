@@ -45,12 +45,17 @@
   font-style: italic;
 }
 
+$fontstack-mono: "Lucida Console", Monaco, monospace;
 $fontstack-body: 'Lato', Arial, Helvetica, sans-serif;
 $fontstack-title: 'Oswald', Arial, serif;
 $fontstack-subtitle: 'Oswald', Arial, serif;
 
 .fontstack-subtitle {
   font-family: $fontstack-subtitle !important;
+}
+
+.fontstack-mono {
+  font-family: $fontstack-mono !important;
 }
 
 .navbar-brand {
