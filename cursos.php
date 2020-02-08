@@ -15,8 +15,7 @@
 	?>
 </div>
 <div class="container">
-	<div class="row d-flex justify-content-center">
-		<div id="coluna_unica" class="col">
+	<div class="row d-flex justify-content-between">
 			<?php
 				$cursos = $conn->query("SELECT pagina_id, sigla FROM Cursos WHERE estado = 1 ORDER BY id");
 				if ($cursos->num_rows > 0) {
@@ -34,31 +33,36 @@
 						
 						$template_id = "curso_$lista_curso_sigla";
 						$template_titulo = "<a href='pagina.php?pagina_id=$lista_curso_pagina_id'>$lista_curso_pagina_titulo</a>";
+						$template_classes = 'col-lg-6 col-sm-12';
 						$template_conteudo = false;
 						$template_conteudo .= $lista_curso_verbete_html;
 						include 'templates/page_element.php';
 					}
 				}
+				echo "</div>";
 				$cursos_usuario = return_usuario_cursos($user_id);
 				if ($cursos_usuario != false) {
 				    echo "<h1 class='my-5 text-center'>Cursos privados a que você tem acesso</h1>";
+				    echo "<div class='row d-flex justify-content-between'>";
 				    foreach ($cursos_usuario as $curso_usuario) {
 				        $curso_usuario_pagina_id = $curso_usuario;
 				        $curso_usuario_titulo = return_pagina_titulo($curso_usuario_pagina_id);
 				        $curso_usuario_texto_id = return_texto_id('curso', 'verbete', $curso_usuario_pagina_id, false);
                         $curso_usuario_verbete = return_verbete_html($curso_usuario_texto_id);
+                        $curso_usuario_verbete = crop_text($curso_usuario_verbete, 300);
 				        
 				        $template_id = "curso_$curso_usuario_pagina_id";
 				        $template_titulo = "<a href='pagina.php?pagina_id=$curso_usuario_pagina_id'>$curso_usuario_titulo</a>";
+				        $template_classes = 'col-lg-6 col-sm-12';
 				        $template_conteudo = false;
 				        if ($curso_usuario_verbete != false) {
 				            $template_conteudo .= $curso_usuario_verbete;
                         }
 				        include 'templates/page_element.php';
                     }
+				    echo "</div>";
                 }
 			?>
-		</div>
 	</div>
 </div>
 </body>
