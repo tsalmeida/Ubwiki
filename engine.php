@@ -2030,6 +2030,9 @@
 	
 	function return_texto_id($pagina_tipo, $template_id, $pagina_id, $user_id)
 	{
+		if (($pagina_tipo == false) || ($template_id == false) || ($pagina_id == false)) {
+			return false;
+		}
 		include 'templates/criar_conn.php';
 		if ($pagina_tipo == 'texto') {
 			$textos = $conn->query("SELECT id FROM Textos WHERE pagina_tipo IS NULL AND texto_pagina_id = $pagina_id AND tipo = '$template_id'");
