@@ -1987,6 +1987,13 @@
 				$pagina_item_id = $pagina['item_id']; // 1
 				$pagina_tipo = $pagina['tipo']; // 2
 				$pagina_estado = $pagina['estado']; // 3
+				if ($pagina_estado == 1) {
+					$pagina_texto_id = return_texto_id($pagina_tipo, 'verbete', $pagina_item_id, false);
+					$pagina_verbete = return_verbete_html($pagina_texto_id);
+					if ($pagina_verbete == false) {
+						$pagina_estado = false;
+					}
+				}
 				$pagina_compartilhamento = $pagina['compartilhamento']; // 4
 				$pagina_user_id = $pagina['user_id']; // 5
 				$pagina_titulo = return_pagina_titulo($pagina_id); // 6
