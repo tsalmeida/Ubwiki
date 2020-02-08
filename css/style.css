@@ -430,6 +430,7 @@ ul {
 }
 
 .ql-editor ul[data-checked=true] li {
+  text-decoration: line-through !important;
   list-style-type: none;
 }
 
