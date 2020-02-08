@@ -2098,9 +2098,13 @@
 		if (($item_id == false) || ($user_id == false)) {
 			return false;
 		}
-		
 		$check_publicacao = return_publicacao($item_id);
 		if (($check_publicacao == 'internet') || ($check_publicacao == 'ubwiki')) {
+			return true;
+		}
+		$item_pagina_info = return_pagina_info($item_id);
+		$item_pagina_user_id = $item_pagina_info[5];
+		if ($user_id == $item_pagina_user_id) {
 			return true;
 		}
 		include 'templates/criar_conn.php';
@@ -2510,6 +2514,25 @@
 			}
 		}
 		return false;
+	}
+	
+	function return_usuario_cursos($user_id) {
+		if ($user_id == false) {
+			return false;
+		}
+		$results = array();
+		include 'templates/criar_conn.php';
+		$cursos = $conn->query("SELECT pagina_id FROM Cursos WHERE estado = 0");
+		if ($cursos->num_rows > 0) {
+			while ($curso = $cursos->fetch_assoc()) {
+				$list_curso_pagina_id = $curso['pagina_id'];
+				$curso_compartilhamento = return_compartilhamento($list_curso_pagina_id, $user_id);
+				if ($curso_compartilhamento == true) {
+					array_push($results, $list_curso_pagina_id);
+				}
+			}
+		}
+		return $results;
 	}
 
 ?>

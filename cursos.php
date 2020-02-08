@@ -39,6 +39,24 @@
 						include 'templates/page_element.php';
 					}
 				}
+				$cursos_usuario = return_usuario_cursos($user_id);
+				if ($cursos_usuario != false) {
+				    echo "<h1 class='my-5 text-center'>Cursos privados a que você tem acesso</h1>";
+				    foreach ($cursos_usuario as $curso_usuario) {
+				        $curso_usuario_pagina_id = $curso_usuario;
+				        $curso_usuario_titulo = return_pagina_titulo($curso_usuario_pagina_id);
+				        $curso_usuario_texto_id = return_texto_id('curso', 'verbete', $curso_usuario_pagina_id, false);
+                        $curso_usuario_verbete = return_verbete_html($curso_usuario_texto_id);
+				        
+				        $template_id = "curso_$curso_usuario_pagina_id";
+				        $template_titulo = "<a href='pagina.php?pagina_id=$curso_usuario_pagina_id'>$curso_usuario_titulo</a>";
+				        $template_conteudo = false;
+				        if ($curso_usuario_verbete != false) {
+				            $template_conteudo .= $curso_usuario_verbete;
+                        }
+				        include 'templates/page_element.php';
+                    }
+                }
 			?>
 		</div>
 	</div>
