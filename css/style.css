@@ -102,6 +102,10 @@ blockquote + * {
   margin-top: 1em;
 }
 
+ul + p {
+  margin-top: 1em;
+}
+
 .logo {
   width: 100%;
 }
