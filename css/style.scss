@@ -285,6 +285,11 @@ ul + p {
   bottom: 60%;
 }
 
+#coluna_direita {
+  max-height: 100vh !important;
+  overflow-y: scroll;
+}
+
 .controls-top {
   margin-bottom: 0 !important;
 }
