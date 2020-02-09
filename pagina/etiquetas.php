@@ -1,9 +1,9 @@
 <?php
-	$template_id = 'secao_etiquetas';
-	$template_titulo = 'Páginas livres relacionadas';
-	$template_botoes = false;
-	$template_conteudo = false;
-	$template_conteudo .= "<ul class='list-group list-group-flush rounded'>";
+	$template_modal_div_id = 'modal_secao_etiquetas';
+	$template_modal_titulo = 'Páginas livres relacionadas';
+	$template_modal_show_buttons = false;
+	$template_modal_body_conteudo = false;
+	$template_modal_body_conteudo .= "<ul class='list-group list-group-flush rounded'>";
 	$carregar_areas_relacionadas = false;
 	//if (($pagina_etiqueta_id != false) && ($pagina_subtipo != 'etiqueta') && ($pagina_tipo != 'curso') && ($pagina_tipo != 'materia') && ($pagina_tipo != 'topico')) {
 	if (($pagina_etiqueta_id != false) && ($pagina_subtipo != 'etiqueta')) {
@@ -16,7 +16,7 @@
 			$pagina_etiqueta_pagina_info = return_pagina_info($pagina_etiqueta_pagina_id);
 			$pagina_etiqueta_pagina_estado = $pagina_etiqueta_pagina_info[3];
 			$pagina_etiqueta_pagina_estado_icone = return_estado_icone($pagina_etiqueta_pagina_estado, 'curso');
-			$template_conteudo .= "<a href='pagina.php?etiqueta_id=$pagina_etiqueta_id'><li class='list-group-item border-top list-group-item-action d-flex justify-content-between mt-1 list-group-item-warning'><span><span class='text-warning'><i class='fad fa-tag fa-fw'></i><span></span></span> $pagina_etiqueta_titulo</span><span><i class='fad $pagina_etiqueta_pagina_estado_icone fa-fw'></i></span></li></a>";
+			$template_modal_body_conteudo .= "<a href='pagina.php?etiqueta_id=$pagina_etiqueta_id'><li class='list-group-item border-top list-group-item-action d-flex justify-content-between mt-1 list-group-item-warning'><span><span class='text-warning'><i class='fad fa-tag fa-fw'></i><span></span></span> $pagina_etiqueta_titulo</span><span><i class='fad $pagina_etiqueta_pagina_estado_icone fa-fw'></i></span></li></a>";
 		}
 	}
 	
@@ -31,11 +31,14 @@
 			$etiqueta_pagina_info = return_pagina_info($etiqueta_pagina_id);
 			$etiqueta_pagina_estado = $etiqueta_pagina_info[3];
 			$etiqueta_pagina_estado_icone = return_estado_icone($etiqueta_pagina_estado, 'curso');
-			$template_conteudo .= "<a href='pagina.php?etiqueta_id=$etiqueta_id'><li class='list-group-item border-top list-group-item-action d-flex justify-content-between mt-1'><span><span class='text-warning'><i class='fad fa-tag fa-fw'></i></span> $etiqueta_titulo</span><span><i class='fad $etiqueta_pagina_estado_icone fa-fw'></i></span></li></a>";
+			if ($etiqueta_id == false) {
+				continue;
+			}
+			$template_modal_body_conteudo .= "<a href='pagina.php?etiqueta_id=$etiqueta_id'><li class='list-group-item border-top list-group-item-action d-flex justify-content-between mt-1'><span><span class='text-warning'><i class='fad fa-tag fa-fw'></i></span> $etiqueta_titulo</span><span><i class='fad $etiqueta_pagina_estado_icone fa-fw'></i></span></li></a>";
 		}
 	}
-	$template_conteudo .= "</ul>";
+	$template_modal_body_conteudo .= "</ul>";
 	if ($carregar_areas_relacionadas == true) {
-		include 'templates/page_element.php';
+		include 'templates/modal.php';
 	}
 ?>

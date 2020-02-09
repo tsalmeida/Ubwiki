@@ -38,7 +38,7 @@
 		$fa_icone = $artefato_icone;
 	}
 	
-	if ($fa_icone == 'fa-youtube-square') {
+	if (($fa_icone == 'fa-youtube-square') || ($fa_icone == 'fa-wikipedia-w')) {
 		$fa_icone = "fab $fa_icone";
 	} else {
 		$fa_icone = "fad $fa_icone";

@@ -89,6 +89,13 @@
 		$nao_contar = true;
 	}
 	
+	if (isset($_POST['wikipedia_url'])) {
+		$novo_wikipedia_url = $_POST['wikipedia_url'];
+		$novo_wikipedia_titulo = $_POST['wikipedia_titulo'];
+		$conn->query("INSERT INTO Elementos (tipo, titulo, autor, autor_etiqueta_id) VALUES ('wikipedia', '$novo_wikipedia_titulo', 'Wikipedia', 807)");
+		$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, extra) VALUES ($pagina_id, '$pagina_tipo', )");
+	}
+	
 	$grupos_do_usuario = $conn->query("SELECT grupo_id FROM Membros WHERE membro_user_id = $user_id");
 
 ?>

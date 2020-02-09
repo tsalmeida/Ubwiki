@@ -802,12 +802,12 @@
 		echo true;
 	}
 	
-	function fix_link($link) {
+	function fix_link($link)
+	{
 		include 'templates/criar_conn.php';
-		if  ( $ret = parse_url($link) ) {
+		if ($ret = parse_url($link)) {
 			
-			if ( !isset($ret["scheme"]) )
-			{
+			if (!isset($ret["scheme"])) {
 				$link = "http://{$link}";
 			}
 		}
@@ -823,7 +823,10 @@
 		$tipo = $args[2];
 		$user_id = $args[3];
 		$criar_elemento = $args[4];
-		$link = $args[5];
+		$link = false;
+		if (isset($args[5])) {
+			$link = $args[5];
+		}
 		if ($link == false) {
 			$link = "NULL";
 		} else {
@@ -876,6 +879,9 @@
 		}
 		if ($criar_elemento == true) {
 			if ($nova_etiqueta_criada == true) {
+				if ($tipo == false) {
+					$tipo = 'referencia';
+				}
 				$conn->query("INSERT INTO Elementos (etiqueta_id, tipo, titulo, autor, autor_etiqueta_id, user_id, link) VALUES ($nova_etiqueta_id, '$tipo', '$titulo', '$autor', $nova_etiqueta_autor_id, $user_id, $link)");
 				$novo_elemento_id = $conn->insert_id;
 				$novo_elemento_criado = true;
@@ -2507,7 +2513,8 @@
 		}
 	}
 	
-	function return_forum_topico_titulo($topico_id) {
+	function return_forum_topico_titulo($topico_id)
+	{
 		if ($topico_id == false) {
 			return false;
 		}
@@ -2522,7 +2529,8 @@
 		return false;
 	}
 	
-	function return_usuario_cursos($user_id) {
+	function return_usuario_cursos($user_id)
+	{
 		if ($user_id == false) {
 			return false;
 		}

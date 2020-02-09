@@ -3,7 +3,7 @@
 	$paginas_etiqueta = $conn->query("SELECT id FROM Paginas WHERE etiqueta_id = $pagina_etiqueta_id");
 	if ($paginas_etiqueta->num_rows > 0) {
 		$template_id = 'paginas_etiqueta';
-		$template_titulo = 'Este assunto em cursos';
+		$template_titulo = 'Este tópico em páginas';
 		$template_botoes = false;
 		$template_conteudo = false;
 		$template_conteudo .= "<ul class='list-group list-group-flush'>";

@@ -36,7 +36,7 @@
 		    <div class='md-form'>
 			    <input type='text' class='form-control' name='buscar_etiquetas' id='buscar_etiquetas' required>
 			    <label for='buscar_etiquetas'>Buscar etiqueta</label>
-          <button type='button' class='$button_classes' id='trigger_buscar_etiquetas'>Buscar</button>
+          <button type='button' class='$button_classes btn-info' id='trigger_buscar_etiquetas'>Buscar</button>
 		    </div>
 		    <div class='row border p-2' id='etiquetas_disponiveis'>
 		    	

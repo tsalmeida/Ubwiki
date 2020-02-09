@@ -474,7 +474,7 @@
 						if (($user_id != false) && ($pagina_tipo != 'sistema') && ($pagina_compartilhamento != 'escritorio')) {
 							if ($etiquetados->num_rows > 0) {
 								echo "
-                                  <a href='javascript:void(0);' id='adicionar_etiqueta' class='ml-1 text-warning' title='Adicionar etiqueta' data-toggle='modal' data-target='#modal_gerenciar_etiquetas'>
+                                  <a href='javascript:void(0);' id='adicionar_etiqueta' class='ml-1 text-warning' title='Adicionar etiqueta' data-toggle='modal' data-target='#modal_secao_etiquetas'>
                                           <i class='fad fa-tags fa-fw'></i>
                                   </a>
                                 ";
@@ -730,8 +730,9 @@
 					
 					include 'pagina/usos_etiqueta.php';
 					
-					include 'pagina/etiquetas.php';
 				}
+    
+				include 'pagina/etiquetas.php';
 				
 				echo "</div>";
 			?>
@@ -823,18 +824,7 @@
     ";
 	include 'templates/modal.php';
 	
-	$template_modal_div_id = 'modal_adicionar_youtube';
-	$template_modal_titulo = 'Adicionar vídeo do YouTube';
-	$template_modal_body_conteudo = "
-                    <div class='md-form mb-2'>
-                        <input type='url' id='novo_video_link' name='novo_video_link' class='form-control validate'
-                               required>
-                        <label data-error='inválido' data-success='válido'
-                               for='novo_video_link'>Link para o vídeo (Youtube)</label>
-                    </div>
-	";
-	
-	include 'templates/modal.php';
+	include 'pagina/youtube.php';
 	
 	if ($pagina_tipo == 'elemento') {
 		include 'pagina/modals_elemento.php';

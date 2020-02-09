@@ -23,9 +23,7 @@
 
     <div class="row d-flex justify-content-between p-1">
         <div class="col"></div>
-        <div class="col d-flex justify-content-center"><a href="javascript:void(0);" data-toggle="modal"
-                                                          data-target="#modal_busca" class="text-dark"><i
-                        class="fad fa-search fa-fw"></i></a></div>
+        <div class="col d-flex justify-content-center"><a href="javascript:void(0);" data-toggle="modal" data-target="#modal_busca" class="text-dark"><i class="fad fa-search fa-fw"></i></a></div>
 			<?php
 				echo "<div class='col d-flex justify-content-end'><form method='post'><button name='listar_todas' id='listar_todas' value='!all' class='$button_classes btn-info btn-sm m-0'>Listar todos</button></form></div>";
 			?>
@@ -42,16 +40,6 @@
     <div class="row d-flex justify-content-center">
         <div id="coluna_unica" class="col">
 					<?php
-						/*
-						$artefato_id = 0;
-						$artefato_page_id = false;
-						$artefato_titulo = 'Adicionar item';
-						$artefato_criacao = 'Pressione para adicionar um item a seu acervo';
-						$artefato_tipo = 'nova_referencia';
-						$artefato_modal = '#modal_add_elementos';
-						$artefato_link = false;
-						$template_conteudo .= include 'templates/artefato_item.php';
-						*/
 						
 						if ($busca == false) {
 							$acervo = false;
@@ -184,7 +172,8 @@
 	include 'templates/modal.php';
 	
 	include 'pagina/modal_add_elemento.php';
-
+    include 'pagina/modal_adicionar_imagem.php';
+    include 'pagina/youtube.php';
 ?>
 </body>
 <?php

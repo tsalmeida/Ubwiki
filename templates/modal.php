@@ -74,5 +74,6 @@
 	unset($template_modal_form_id);
 	unset($template_modal_enctype);
 	unset($template_modal_show_buttons);
+	unset($modal_scrollable);
 
 ?>

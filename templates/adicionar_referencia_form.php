@@ -1,5 +1,12 @@
 <?php
-	return "
+	if (!isset($adicionar_referencia_busca_texto)) {
+		$adicionar_referencia_busca_texto = 'Preencha com o título da referência';
+	}
+	if (!isset($adicionar_referencia_form_botao)) {
+		$adicionar_referencia_form_botao = 'Adicionar referência';
+	}
+	$form_return =  "
+		<p>Antes de criar uma referência, é necessário usar a ferramenta de busca, para garantir que não haja duplicidade na Ubwiki.</p>
 		<div class='md-form'>
 	    <input type='text' class='form-control' name='busca_referencias' id='busca_referencias' required>
 	    <label for='busca_referencias'>$adicionar_referencia_busca_texto</label>
@@ -36,3 +43,6 @@
       </div>
     </div>
   ";
+	unset($adicionar_referencia_form_botao);
+	unset($adicionar_referencia_busca_texto);
+	return $form_return;
