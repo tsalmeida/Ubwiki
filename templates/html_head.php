@@ -38,7 +38,7 @@
 	
 		if (($html_head_template_quill == true) || ($html_head_template_quill_sim == true)) {
 			echo "<link href='css/quill.snow.css' rel='stylesheet'>";
-			echo "<script src='http://cdn.quilljs.com/1.3.6/quill.js'></script>";
+			echo "<script src='quill.js'></script>";
 		}
 		if ($html_head_template_quill == true) {
 			echo "
