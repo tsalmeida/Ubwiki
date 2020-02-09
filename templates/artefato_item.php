@@ -38,6 +38,12 @@
 		$fa_icone = $artefato_icone;
 	}
 	
+	if ($fa_icone == 'fa-youtube-square') {
+		$fa_icone = "fab $fa_icone";
+	} else {
+		$fa_icone = "fad $fa_icone";
+	}
+	
 	if (!isset($artefato_subtitulo)) {
 		$artefato_subtitulo = false;
 	}
@@ -110,7 +116,7 @@
      <div id='artefato_$artefato_tipo' class='$artefato_col_limit py-3 artefato rounded $artefato_background $artefato_class' $artefato_template_thumb>
         $artefato_link_1
         $artefato_badge
-        <span class='row justify-content-center text-center p-1 mx-1 rounded $artefato_icone_background'><i class='fad $fa_icone $fa_size fa-fw $fa_invert d-block'></i></span>
+        <span class='row justify-content-center text-center p-1 mx-1 rounded $artefato_icone_background'><i class='$fa_icone $fa_size fa-fw $fa_invert d-block'></i></span>
         <span class='row justify-content-center text-center mt-2 text-dark p-1 $titulo_class'>$artefato_titulo</span>
         <span class='row justify-content-center text-center text-muted p-1 $titulo_class'><em>$artefato_subtitulo</em></span>
         $artefato_link_2

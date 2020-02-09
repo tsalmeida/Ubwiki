@@ -78,6 +78,10 @@
 		}
 	}
 	
+	if ($pagina_id == 1) {
+	    header('Location:ubwiki.php');
+    }
+	
 	$pagina_info = return_pagina_info($pagina_id);
 	if ($pagina_info != false) {
 		$pagina_criacao = $pagina_info[0];

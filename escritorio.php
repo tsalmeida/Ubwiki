@@ -441,7 +441,6 @@
 						$template_conteudo = false;
 						
 						$artefato_id = 0;
-						$artefato_page_id = false;
 						$artefato_titulo = 'Adicionar item';
 						$artefato_criacao = 'Pressione para adicionar um item a seu acervo';
 						$artefato_tipo = 'nova_referencia';

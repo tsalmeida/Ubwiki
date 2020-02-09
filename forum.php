@@ -26,7 +26,10 @@
 	    $pagina_titulo = 'Fórum geral';
     }
 	
-	$check_compartilhamento = check_compartilhamento($pagina_id, $user_id);
+	$check_compartilhamento = return_compartilhamento($pagina_id, $user_id);
+	if ($check_compartilhamento == false) {
+	    header('Location:pagina.php?pagina_id=4');
+    }
 	
 	if (isset($_GET['topico_id'])) {
 		$forum_topico_id = $_GET['topico_id'];

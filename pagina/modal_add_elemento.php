@@ -32,8 +32,7 @@
 		}
 	}
 	
-	$template_modal_body_conteudo .= "</span>
-	";
+	$template_modal_body_conteudo .= "</span>";
 	
 	if ($pagina_tipo == 'escritorio') {
 		$template_modal_body_conteudo .= "
@@ -49,7 +48,7 @@
 ";
 	
 	$adicionar_referencia_busca_texto = "Digite aqui o título da nova referência";
-	$adicionar_referencia_form_botao = "Adicionar essa referência a esta página.";
+	$adicionar_referencia_form_botao = "Adicionar referência";
 	$template_modal_body_conteudo .= include 'templates/adicionar_referencia_form.php';
 	
 	include 'templates/modal.php';
