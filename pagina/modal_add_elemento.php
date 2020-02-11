@@ -49,7 +49,7 @@
 		$artefato_col_limit = $add_elemento_artefato_col;
 		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	}
-	if ($pagina_tipo != 'materia') {
+	if (($pagina_tipo != 'curso') && ($pagina_tipo != 'materia')) {
 		$artefato_tipo = 'adicionar_wikipedia';
 		$artefato_titulo = 'Vincular a artigo da Wikipédia';
 		$artefato_link = false;
@@ -80,7 +80,7 @@
 	$template_modal_body_conteudo .= include 'templates/adicionar_referencia_form.php';
 	include 'templates/modal.php';
 	
-	if ($pagina_tipo != 'materia') {
+	if (($pagina_tipo != 'curso') && ($pagina_tipo != 'materia')) {
 		$template_modal_div_id = 'modal_adicionar_wikipedia';
 		$template_modal_titulo = 'Vincular a artigo da Wikipédia';
 		$template_modal_body_conteudo = false;
