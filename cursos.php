@@ -42,7 +42,7 @@
 				echo "</div>";
 				$cursos_usuario = return_usuario_cursos($user_id);
 				if ($cursos_usuario != false) {
-				    echo "<h1 class='my-5 text-center'>Cursos privados a que você tem acesso</h1>";
+				    echo "<h1 class='my-5 text-center'>Cursos privados</h1>";
 				    echo "<div class='row d-flex justify-content-between'>";
 				    foreach ($cursos_usuario as $curso_usuario) {
 				        $curso_usuario_pagina_id = $curso_usuario;
