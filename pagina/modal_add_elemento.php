@@ -49,15 +49,16 @@
 		$artefato_col_limit = $add_elemento_artefato_col;
 		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	}
-	
-	$artefato_tipo = 'adicionar_wikipedia';
-	$artefato_titulo = 'Vincular a artigo da Wikipédia';
-	$artefato_link = false;
-	$artefato_criacao = false;
-	$artefato_col_limit = $add_elemento_artefato_col;
-	$fa_icone = 'fa-wikipedia-w';
-	$fa_color = 'text-dark';
-	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+	if (($pagina_tipo != 'curso') && ($pagina_tipo != 'materia')) {
+		$artefato_tipo = 'adicionar_wikipedia';
+		$artefato_titulo = 'Vincular a artigo da Wikipédia';
+		$artefato_link = false;
+		$artefato_criacao = false;
+		$artefato_col_limit = $add_elemento_artefato_col;
+		$fa_icone = 'fa-wikipedia-w';
+		$fa_color = 'text-dark';
+		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+	}
 	
 	$template_modal_body_conteudo .= "</span>";
 	
@@ -94,5 +95,5 @@
 			<label for='wikipedia_titulo'>Título do artigo na Wikipedia</label>
 		</div>
 	";
-	include 'templates/modal.php';
+		include 'templates/modal.php';
 	}
