@@ -8,6 +8,7 @@
 	$carregar_adicionar_topico = false;
 	$carregar_adicionar_subtopico = false;
 	$carregar_questoes_topico = false;
+	$carregar_modal_wikipedia = false;
 	$carregar_convite = false;
 	if (!isset($_GET['pagina_id'])) {
 		if (isset($_GET['topico_id'])) {
@@ -79,8 +80,8 @@
 	}
 	
 	if ($pagina_id == 1) {
-	    header('Location:ubwiki.php');
-    }
+		header('Location:ubwiki.php');
+	}
 	
 	$pagina_info = return_pagina_info($pagina_id);
 	if ($pagina_info != false) {
@@ -98,6 +99,12 @@
 	} else {
 		header('Location:pagina.php?pagina_id=4');
 		exit();
+	}
+	
+	if (isset($_GET['wiki_id'])) {
+		$wiki_id = (int)$_GET['wiki_id'];
+	} else {
+		$wiki_id = false;
 	}
 	
 	$privilegio_edicao = return_privilegio_edicao($pagina_id, $user_id);
@@ -450,27 +457,27 @@
                               </span>
 	                        ";
 						}
-					?>
-            
-                    <?php
-	                    if (($user_id != false) && ($pagina_tipo != 'sistema') && ($pagina_compartilhamento != 'escritorio')) {
-	                    	echo "<a href='forum.php?pagina_id=$pagina_id' title='Fórum'>";
-		                    $comments = $conn->query("SELECT timestamp, comentario_text, user_id FROM Forum WHERE pagina_id = $pagina_id");
-		                    if ($comments->num_rows == 0) {
-			                    echo "
-                                <span class='text-muted'>
+						$vinculos_wikipedia = $conn->query("SELECT elemento_id, extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'wikipedia'");
+						if ($vinculos_wikipedia->num_rows > 0) {
+							$carregar_modal_wikipedia = true;
+							echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_vinculos_wikipedia' class='text-dark ml-1'><i class='fab fa-wikipedia-w fa-fw'></i></a>";
+						}
+						if (($pagina_tipo != 'sistema') && ($pagina_compartilhamento != 'escritorio')) {
+							$comments = $conn->query("SELECT timestamp, comentario_text, user_id FROM Forum WHERE pagina_id = $pagina_id");
+							if ($comments->num_rows == 0) {
+								echo "
+									<a href='forum.php?pagina_id=$pagina_id' title='Fórum' class='text-muted ml-1'>
                                     <i class='fad fa-comments-alt fa-fw'></i>
-                                </span>
-                            ";
-		                    } else {
-			                    echo "
-                                <span class='text-secondary'>
-                                        <i class='fad fa-comments-alt fa-fw'></i>
-                                </span>
-		                    ";
-		                    }
-		                    echo "</span>";
-	                    }
+                                    </a>
+                            	";
+							} else {
+								echo "
+									<a href='forum.php?pagina_id=$pagina_id' title='Fórum' class='text-secondary ml-1'>
+                                    <i class='fad fa-comments-alt fa-fw'></i>
+                                    </a>
+		                    	";
+							}
+						}
 						if (($user_id != false) && ($pagina_tipo != 'sistema') && ($pagina_compartilhamento != 'escritorio')) {
 							if ($etiquetados->num_rows > 0) {
 								echo "
@@ -655,15 +662,15 @@
 						$template_conteudo_class = 'text-center';
 						include 'templates/page_element.php';
 					} elseif (($elemento_tipo == 'referencia') && ($elemento_link != false)) {
-					    $template_id = 'referencia_link';
-					    $template_titulo = false;
-					    $template_conteudo = false;
-					    $template_conteudo_no_col = true;
-					    $template_conteudo .= "
+						$template_id = 'referencia_link';
+						$template_titulo = false;
+						$template_conteudo = false;
+						$template_conteudo_no_col = true;
+						$template_conteudo .= "
 					      <a href='$elemento_link' target='_blank' class='fontstack-mono'><i class='fad fa-external-link fa-fw'></i> $elemento_link</a>
 					    ";
-					    include 'templates/page_element.php';
-                    }
+						include 'templates/page_element.php';
+					}
 				} elseif ($pagina_tipo == 'texto') {
 					$template_id = $texto_tipo;
 					$template_titulo = false;
@@ -682,35 +689,46 @@
 				
 				if (($pagina_tipo != 'texto') && ($pagina_tipo != 'materia')) {
 					$template_id = 'verbete';
-					if ($pagina_tipo == 'curso') {
-						$template_titulo = 'Apresentação';
-					} elseif ($pagina_tipo == 'sistema') {
-						$template_titulo = 'Aviso';
+					if ($wiki_id == false) {
+						if ($pagina_tipo == 'curso') {
+							$template_titulo = 'Apresentação';
+						} elseif ($pagina_tipo == 'sistema') {
+							$template_titulo = 'Aviso';
+						} else {
+							$template_titulo = 'Verbete';
+						}
+						if (($pagina_tipo == 'sistema') && ($user_tipo != 'admin')) {
+							$template_quill_botoes = false;
+							$template_quill_initial_state = 'leitura';
+						}
+						if (($pagina_compartilhamento == 'escritorio') && ($user_id != $pagina_user_id)) {
+							$template_quill_botoes = false;
+							$template_quill_initial_state = 'leitura';
+						}
+						if (
+							(($pagina_compartilhamento == 'privado') && ($user_id != $pagina_user_id)) &&
+							($check_compartilhamento == false)
+						) {
+							$template_quill_botoes = false;
+							$template_quill_initial_state = 'leitura';
+						}
+						if ($pagina_tipo == 'resposta') {
+							$template_titulo = 'Resposta';
+							$template_classes = 'sticky-top';
+							$template_quill_vazio = 'Escreva aqui sua resposta.';
+						}
+						$template_conteudo = include 'templates/template_quill.php';
+						include 'templates/page_element.php';
 					} else {
-						$template_titulo = 'Verbete';
+						$template_id = 'verbete_wiki';
+						$wiki_info = return_elemento_info($wiki_id);
+						$wiki_titulo = $wiki_info[4];
+						$wiki_url = $wiki_info[9];
+						$wiki_conteudo = extract_wikipedia($wiki_url);
+						$template_conteudo = false;
+						$template_conteudo .= $wiki_conteudo;
+						include 'templates/page_element.php';
 					}
-					if (($pagina_tipo == 'sistema') && ($user_tipo != 'admin')) {
-						$template_quill_botoes = false;
-						$template_quill_initial_state = 'leitura';
-					}
-					if (($pagina_compartilhamento == 'escritorio') && ($user_id != $pagina_user_id)) {
-						$template_quill_botoes = false;
-						$template_quill_initial_state = 'leitura';
-					}
-					if (
-						(($pagina_compartilhamento == 'privado') && ($user_id != $pagina_user_id)) &&
-						($check_compartilhamento == false)
-					) {
-						$template_quill_botoes = false;
-						$template_quill_initial_state = 'leitura';
-					}
-					if ($pagina_tipo == 'resposta') {
-						$template_titulo = 'Resposta';
-						$template_classes = 'sticky-top';
-						$template_quill_vazio = 'Escreva aqui sua resposta.';
-					}
-					$template_conteudo = include 'templates/template_quill.php';
-					include 'templates/page_element.php';
 					
 					if ($carregar_secoes == true) {
 						include 'pagina/secoes_pagina.php';
@@ -731,7 +749,7 @@
 					include 'pagina/usos_etiqueta.php';
 					
 				}
-    
+				
 				include 'pagina/etiquetas.php';
 				
 				echo "</div>";
@@ -1351,8 +1369,24 @@
         </form>";
 		include 'templates/modal.php';
 	}
-
-
+	
+	if ($carregar_modal_wikipedia == true) {
+		$template_modal_div_id = 'modal_vinculos_wikipedia';
+		$template_modal_titulo = 'Verbetes da Wikipédia relacionados';
+		$template_modal_show_button = false;
+		$template_modal_body_conteudo = false;
+		$template_modal_body_conteudo .= "
+		<p>Pressione para carregar artigo da Wikipédia:</p>
+		<ul class='list-group list-group-flush'>
+	";
+		while ($vinculo_wikipedia = $vinculos_wikipedia->fetch_assoc()) {
+			$vinculo_wikipedia_elemento_id = $vinculo_wikipedia['elemento_id'];
+			$vinculo_wikipedia_titulo = $vinculo_wikipedia['extra'];
+			$template_modal_body_conteudo .= "<a class='list-group-item list-group-item-action mt-1 border-top' href='pagina.php?pagina_id=$pagina_id&wiki_id=$vinculo_wikipedia_elemento_id'>$vinculo_wikipedia_titulo</a>";
+		}
+		$template_modal_body_conteudo .= "</ul>";
+		include 'templates/modal.php';
+	}
 ?>
 
 </body>

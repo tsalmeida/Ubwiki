@@ -93,9 +93,6 @@
 				echo "<div class='col-md-3 col-sm-12'><div class='row justify-content-start'>";
 				echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_opcoes' class='p-2 text-info rounded artefato'><i class='fad fa-user-cog fa-2x fa-fw'></i></a>";
 				echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_apresentacao' class='p-2 text-info rounded artefato'><i class='fad fa-mug-tea fa-2x fa-fw'></i></a>";
-				if ($user_tipo == 'admin') {
-					echo "<a href='loja.php' class='p-2 text-info rounded artefato'><i class='fad fa-bags-shopping fa-2x fa-fw'></i></a>";
-				}
 				echo "</div></div>";
 				echo "<div class='col-md-6 col-sm-12'><div class='row justify-content-center'>";
 				echo "

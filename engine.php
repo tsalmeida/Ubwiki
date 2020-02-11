@@ -2548,5 +2548,18 @@
 		}
 		return $results;
 	}
+	
+	function extract_wikipedia($url) {
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_HEADER, 0);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$output = curl_exec($ch);
+		$position = strpos($output, "<body");
+		$body = substr($output, $position);
+		$body = str_replace("</html>", "", $body);
+		curl_close($ch);
+		return $body;
+	}
 
 ?>
