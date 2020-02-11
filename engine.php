@@ -2550,6 +2550,7 @@
 	}
 	
 	function extract_wikipedia($url) {
+		$url = "$url?printable=yes";
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -2559,6 +2560,7 @@
 		$body = substr($output, $position);
 		$body = str_replace("</html>", "", $body);
 		curl_close($ch);
+		//$body = strip_tags($body, '<p><ul><li><h1><h2><h3><table><img>');
 		return $body;
 	}
 
