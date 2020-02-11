@@ -107,7 +107,7 @@ blockquote + * {
   margin-top: 1em !important;
 }
 
-ul + * {
+ul + p {
   margin-top: 1em !important;
 }
 
@@ -467,6 +467,14 @@ ul {
   text-align: center;
   padding-left: 10%;
   padding-right: 10%;
+}
+
+#toc {
+  margin-bottom: 1em;
+  background-color: #fafafa;
+  border-radius: 5px;
+  padding: 1em;
+  width: 100%;
 }
 
 .strip_wikipedia {
