@@ -469,4 +469,12 @@ ul {
   padding-right: 10%;
 }
 
+.strip_wikipedia a {
+  color: #0d47a1 !important;
+}
+.strip_wikipedia a:hover {
+  color: #2979ff !important;
+  text-decoration: underline !important;
+}
+
 /*# sourceMappingURL=style.css.map */

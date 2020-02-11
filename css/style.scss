@@ -468,3 +468,13 @@ ul {
   padding-left: 10%;
   padding-right: 10%;
 }
+
+.strip_wikipedia {
+  a {
+    color: #0d47a1 !important;
+  }
+  a:hover {
+    color: #2979ff !important;
+    text-decoration: underline !important;
+  }
+}
