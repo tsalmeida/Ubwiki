@@ -725,7 +725,7 @@
 					} else {
 						$template_id = 'verbete_wiki';
 						$wiki_info = return_elemento_info($wiki_id);
-						//$wiki_titulo = $wiki_info[4];
+						$wiki_titulo = 'Artigo da Wikipédia';
 						$wiki_url = $wiki_info[9];
 						$wiki_conteudo = extract_wikipedia($wiki_url);
 						$template_conteudo = false;
