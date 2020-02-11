@@ -508,5 +508,8 @@ ul {
 #toc a {
   color: #4285F4 !important;
 }
+#toc li {
+  list-style-type: none !important;
+}
 
 /*# sourceMappingURL=style.css.map */
