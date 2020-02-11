@@ -452,4 +452,17 @@ ul {
   font-size: 1.5rem;
 }
 
+.noprint, .mw-jump-link, .vertical-navbox, .hatnote, .box-Unreferenced_section, .sistersitebox, .navbox, #mw-head, .portal, #mw-navigation, #footer, #mw-hidden-catlinks, #catlinks, .printfooter {
+  display: none;
+}
+
+.thumbinner {
+  width: 100% !important;
+  font-size: 1rem;
+  margin-bottom: 1em;
+  padding: 1em;
+  background-color: #fafafa;
+  border-radius: 5px;
+}
+
 /*# sourceMappingURL=style.css.map */

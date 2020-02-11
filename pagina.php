@@ -729,7 +729,7 @@
 						$wiki_url = $wiki_info[9];
 						$wiki_conteudo = extract_wikipedia($wiki_url);
 						$template_conteudo = false;
-						$template_conteudo .= $wiki_conteudo;
+						$template_conteudo .= "<span class='strip_wikipedia'>$wiki_conteudo</span>";
 						include 'templates/page_element.php';
 					}
 					
