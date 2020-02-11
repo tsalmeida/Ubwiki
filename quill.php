@@ -1,1 +1,0 @@
-<ul data-checked="false"><li>Teste de caneta</li></ul><ul data-checked="true"><li>Teste de caneta</li></ul><ul data-checked="false"><li>Teste de caneta</li></ul><ul data-checked="true"><li>Teste de caneta.</li></ul>

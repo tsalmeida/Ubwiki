@@ -236,6 +236,7 @@
             'quill_texto_page_id': {$pagina_item_id},
             'quill_pagina_tipo': '{$pagina_tipo}',
             'quill_pagina_subtipo': '{$pagina_subtipo}',
+            'quill_pagina_estado': {$pagina_estado},
             'quill_curso_id': '{$pagina_curso_id}'
         }, function(data) {
             if (data != false) {

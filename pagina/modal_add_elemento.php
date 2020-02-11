@@ -51,7 +51,7 @@
 			$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 		}
 	}
-	/*
+	
 	$artefato_tipo = 'adicionar_wikipedia';
 	$artefato_titulo = 'Vincular a artigo da Wikipédia';
 	$artefato_link = false;
@@ -59,7 +59,7 @@
 	$artefato_col_limit = $add_elemento_artefato_col;
 	$fa_icone = 'fa-wikipedia-w';
 	$fa_color = 'text-dark';
-	$template_modal_body_conteudo .= include 'templates/artefato_item.php';*/
+	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	
 	$template_modal_body_conteudo .= "</span>";
 	
@@ -80,20 +80,21 @@
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= include 'templates/adicionar_referencia_form.php';
 	include 'templates/modal.php';
-	
-	$template_modal_div_id = 'modal_adicionar_wikipedia';
-	$template_modal_titulo = 'Vincular a artigo da Wikipédia';
-	$template_modal_show_buttons = false;
-	$template_modal_body_conteudo = false;
-	$template_modal_body_conteudo .= "
-		<p>Adicione abaixo apenas verbetes da Wikipédia sobre o exato tópico desta página. Verbetes apenas relacionados devem ser acrescentados à seção \"Leia Mais\".</p>
-		<div class='md-form'>
-			<input type='url' class='form-control' name='wikipedia_url' id='wikipedia_url' required>
-			<label for='wikipedia_url'>Endereço do artigo na Wikipédia</label>
-		</div>
-		<div class='md-form'>
-			<input type='text' class='form-control' name='wikipedia_titulo' id='wikipedia_titulo' required>
-			<label for='wikipedia_titulo'>Título do artigo na Wikipedia</label>
-		</div>
-	";
+	if ($user_tipo == 'admin') {
+		$template_modal_div_id = 'modal_adicionar_wikipedia';
+		$template_modal_titulo = 'Vincular a artigo da Wikipédia';
+		$template_modal_show_buttons = false;
+		$template_modal_body_conteudo = false;
+		$template_modal_body_conteudo .= "
+			<p>Adicione abaixo apenas verbetes da Wikipédia sobre o exato tópico desta página. Verbetes apenas relacionados devem ser acrescentados à seção \"Leia Mais\".</p>
+			<div class='md-form'>
+				<input type='url' class='form-control' name='wikipedia_url' id='wikipedia_url' required>
+				<label for='wikipedia_url'>Endereço do artigo na Wikipédia</label>
+			</div>
+			<div class='md-form'>
+				<input type='text' class='form-control' name='wikipedia_titulo' id='wikipedia_titulo' required>
+				<label for='wikipedia_titulo'>Título do artigo na Wikipedia</label>
+			</div>
+		";
+	}
 	include 'templates/modal.php';
