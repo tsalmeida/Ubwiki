@@ -500,4 +500,9 @@ ul {
   margin-bottom: 1em;
 }
 
+.infobox_v2 table {
+  width: 100%;
+  padding: 1em;
+}
+
 /*# sourceMappingURL=style.css.map */
