@@ -79,10 +79,11 @@
 	$template_modal_body_conteudo .= include 'templates/adicionar_referencia_form.php';
 	include 'templates/modal.php';
 	
-	$template_modal_div_id = 'modal_adicionar_wikipedia';
-	$template_modal_titulo = 'Vincular a artigo da Wikipédia';
-	$template_modal_body_conteudo = false;
-	$template_modal_body_conteudo .= "
+	if (($pagina_tipo != 'curso') && ($pagina_tipo != 'materia')) {
+		$template_modal_div_id = 'modal_adicionar_wikipedia';
+		$template_modal_titulo = 'Vincular a artigo da Wikipédia';
+		$template_modal_body_conteudo = false;
+		$template_modal_body_conteudo .= "
 		<p>Adicione abaixo apenas verbetes da Wikipédia sobre o exato tópico desta página. Verbetes apenas relacionados devem ser acrescentados à seção \"Leia Mais\".</p>
 		<div class='md-form'>
 			<input type='url' class='form-control' name='wikipedia_url' id='wikipedia_url' required>
@@ -94,3 +95,4 @@
 		</div>
 	";
 	include 'templates/modal.php';
+	}

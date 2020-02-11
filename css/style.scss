@@ -452,8 +452,8 @@ ul {
   font-size: 1.5rem;
 }
 
-.noprint, .mw-jump-link, .vertical-navbox, .hatnote, .box-Unreferenced_section, .sistersitebox, .navbox, #mw-head, .portal, #mw-navigation, #footer, #mw-hidden-catlinks, #catlinks, .printfooter {
-  display: none;
+.noprint, .mw-jump-link, .vertical-navbox, .hatnote, .box-Unreferenced_section, .sistersitebox, .navbox, #mw-head, .portal, #mw-navigation, #footer, #mw-hidden-catlinks, #catlinks, .printfooter, .toccolours, #siteNotice {
+  display: none !important;
 }
 
 .thumbinner {
@@ -479,10 +479,25 @@ ul {
 
 .strip_wikipedia {
   a {
-    color: #0d47a1 !important;
+    color: #212529 !important;
   }
   a:hover {
     color: #2979ff !important;
     text-decoration: underline !important;
   }
+}
+
+.infobox_v2 {
+  width: 100% !important;
+  margin: 0;
+  padding: 1em;
+  background-color: #fafafa;
+  border-radius: 5px;
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  font-size: 1em;
+  margin-top: 1em;
+  margin-bottom: 1em;
 }

@@ -2550,9 +2550,11 @@
 	}
 	
 	function extract_wikipedia($url) {
-		$url = "$url?printable=yes";
 		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, $url);
+		$url_host = parse_url($url);
+		$url_host = $url_host['host'];
+		error_log($url_host);
+		curl_setopt($ch, CURLOPT_URL, "$url?printable=yes");
 		curl_setopt($ch, CURLOPT_HEADER, 0);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		$output = curl_exec($ch);
@@ -2561,6 +2563,7 @@
 		$body = str_replace("</html>", "", $body);
 		curl_close($ch);
 		//$body = strip_tags($body, '<p><ul><li><h1><h2><h3><table><img>');
+		$body = str_replace('/wiki/', "https://$url_host/wiki/", $body);
 		return $body;
 	}
 
