@@ -7,17 +7,7 @@
 	}
 	
 	if (isset($_POST['trigger_atualizacao'])) {
-	    $conn->query("ALTER TABLE `Textos_arquivo` ADD `pagina_subtipo` VARCHAR(255) NULL DEFAULT NULL AFTER `pagina_id`;");
-	    $conn->query("ALTER TABLE `Textos` ADD `pagina_subtipo` VARCHAR(255) NULL DEFAULT NULL AFTER `pagina_id`;");
-	    $paginas_subtipo = $conn->query("SELECT subtipo, id FROM Paginas WHERE subtipo IS NOT NULL");
-	    if ($paginas_subtipo->num_rows > 0) {
-	        while ($pagina_subtipo = $paginas_subtipo->fetch_assoc()) {
-	            $pagina_subtipo_subtipo = $pagina_subtipo['subtipo'];
-	            $pagina_subtipo_id = $pagina_subtipo['id'];
-	            $conn->query("UPDATE Textos SET pagina_subtipo = '$pagina_subtipo_subtipo' WHERE pagina_id = $pagina_subtipo_id");
-	            $conn->query("UPDATE Textos_arquivo set pagina_subtipo = '$pagina_subtipo_subtipo' WHERE pagina_id = $pagina_subtipo_id");
-            }
-        }
+
 	}
 	
 	if (isset($_POST['funcoes_gerais'])) {
