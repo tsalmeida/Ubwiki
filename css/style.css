@@ -456,6 +456,13 @@ ul {
   display: none !important;
 }
 
+.wikitable {
+  background-color: #fafafa;
+  border-radius: 5px;
+  padding: 1em;
+  width: 100%;
+}
+
 .thumbinner {
   width: 100% !important;
   font-size: 1rem;
