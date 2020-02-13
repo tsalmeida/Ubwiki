@@ -302,4 +302,13 @@
 		include 'templates/page_element.php';
 	}
 	
+	echo "
+        <select class='mdb-select md-form' name='criar_referencia_tipo' id='criar_referencia_tipo' required>
+          <option value='' disabled selected>Tipo da nova referência:</option>
+          <option value='referencia'>Materia de leitura: livros, artigos, páginas virtuais etc.</option>
+          <option value='video'>Material videográfico: vídeos virtuais, filmes etc.</option>
+          <option value='album_musica'>Material em áudio: álbuns de música, podcasts</option>
+        </select>
+	";
+	
 ?>

@@ -57,9 +57,22 @@
 			$item_user_id = $item['user_id'];
 			$item_id = $item['item_id'];
 			$item_tipo = $item['item_tipo'];
+			$item_user_apelido = return_apelido_user_id($item_user_id);
 			
 			$artefato_tipo = $item_tipo;
-			$artefato_titulo = return_pagina_titulo($item_id);
+			$artefato_pagina_info = return_pagina_info($item_id);
+			$artefato_titulo = $artefato_pagina_info[6];
+			if ($artefato_titulo == false) {
+				if ($item_tipo == 'texto') {
+					$nota_texto_id = $artefato_pagina_info[1];
+					$nota_texto_info = return_texto_info($nota_texto_id);
+					$nota_texto_page_id = $nota_texto_info[3];
+					$artefato_titulo = return_pagina_titulo($nota_texto_page_id);
+					$artefato_titulo = $artefato_titulo;
+					$fa_color = 'text-warning';
+				}
+			}
+			$artefato_subtitulo = $item_user_apelido;
 			$artefato_link = "pagina.php?pagina_id=$item_id";
 			$artefato_criacao = $item_criacao;
 			$artefato_resultado = include 'templates/artefato_item.php';

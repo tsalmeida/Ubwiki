@@ -8,13 +8,34 @@
 	
 	$add_elemento_artefato_col = 'col-lg-3 col-sm-5';
 	
-	$artefato_tipo = 'buscar_elemento';
-	$artefato_titulo = 'Referência';
+	$artefato_tipo = 'adicionar_livro';
+	$artefato_titulo = 'Livro, página etc.';
 	$artefato_link = false;
 	$artefato_criacao = false;
+	$artefato_modal = '#modal_buscar_elemento';
 	$artefato_col_limit = $add_elemento_artefato_col;
-	$fa_icone = 'fa-search-plus';
+	$fa_icone = 'fa-book';
 	$fa_color = 'text-success';
+	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+	
+	$artefato_tipo = 'adicionar_video';
+	$artefato_titulo = 'Filme, vídeo etc.';
+	$artefato_link = false;
+	$artefato_criacao = false;
+	$artefato_modal = '#modal_buscar_elemento';
+	$artefato_col_limit = $add_elemento_artefato_col;
+	$fa_icone = 'fa-film';
+	$fa_color = 'text-info';
+	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+	
+	$artefato_tipo = 'adicionar_audio';
+	$artefato_titulo = 'Audio-book, álbum de música, podcast etc.';
+	$artefato_link = false;
+	$artefato_criacao = false;
+	$artefato_modal = '#modal_buscar_elemento';
+	$artefato_col_limit = $add_elemento_artefato_col;
+	$fa_icone = 'fa-microphone-alt';
+	$fa_color = 'text-default';
 	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	
 	$artefato_tipo = 'gerenciar_etiquetas';
@@ -28,6 +49,8 @@
 	
 	$artefato_tipo = 'adicionar_youtube';
 	$artefato_titulo = 'Vídeo do YouTube';
+	$fa_icone = 'fa-youtube';
+	$fa_color = 'text-danger';
 	$artefato_link = false;
 	$artefato_criacao = false;
 	$artefato_col_limit = $add_elemento_artefato_col;

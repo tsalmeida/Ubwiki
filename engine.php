@@ -1547,6 +1547,9 @@
 				$texto_pagina_id = $texto['pagina_id']; // 9
 				$texto_pagina_tipo = $texto['pagina_tipo']; // 10
 				$texto_compartilhamento = $texto['compartilhamento']; // 11
+				if ($texto_tipo == 'anotacoes') {
+					$texto_compartilhamento = 'privado';
+				}
 				$texto_texto_pagina_id = $texto['texto_pagina_id']; // 12
 				$texto_results = array($texto_curso_id, $texto_tipo, $texto_titulo, $texto_page_id, $texto_criacao, $texto_verbete_html, $texto_verbete_text, $texto_verbete_content, $texto_user_id, $texto_pagina_id, $texto_pagina_tipo, $texto_compartilhamento, $texto_texto_pagina_id);
 				return $texto_results;
@@ -2553,7 +2556,6 @@
 		$ch = curl_init();
 		$url_host = parse_url($url);
 		$url_host = $url_host['host'];
-		error_log($url_host);
 		curl_setopt($ch, CURLOPT_URL, "$url?printable=yes");
 		curl_setopt($ch, CURLOPT_HEADER, 0);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

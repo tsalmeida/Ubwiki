@@ -13,7 +13,7 @@
 		$artefato_subtipo = false;
 	}
 	if (!isset($artefato_tipo)) {
-		$artefato_tipo = false;
+		$artefato_tipo = 'artefato';
 	}
 	if (!isset($artefato_class)) {
 		$artefato_class = false;
@@ -29,16 +29,24 @@
 		$fa_invert = 'fa-swap-opacity';
 	}
 	
+	$fa_color_talvez = 'text-primary';
 	if (!isset($fa_icone)) {
 		$artefato_icone_cores = convert_artefato_icone_cores($artefato_tipo);
 		$fa_icone = $artefato_icone_cores[0];
-		$fa_color = $artefato_icone_cores[1];
+		$fa_color_talvez = $artefato_icone_cores[1];
+	}
+	if (!isset($fa_color)) {
+		$fa_color = $fa_color_talvez;
+	}
+	
+	if (!isset($fa_icone)) {
+	
 	}
 	if ($artefato_icone != false) {
 		$fa_icone = $artefato_icone;
 	}
 	
-	if (($fa_icone == 'fa-youtube-square') || ($fa_icone == 'fa-wikipedia-w')) {
+	if (($fa_icone == 'fa-youtube-square') || ($fa_icone == 'fa-wikipedia-w') || ($fa_icone == 'fa-youtube')) {
 		$fa_icone = "fab $fa_icone";
 	} else {
 		$fa_icone = "fad $fa_icone";
@@ -80,7 +88,7 @@
 		$artefato_link_1 = "<a id='link_$artefato_tipo' href='$artefato_link' class='$fa_class $fa_color' title='$artefato_criacao'>";
 		$artefato_link_2 = "</a>";
 	} else {
-		$artefato_link_1 = "<span data-toggle='modal' data-target='$artefato_modal' title='$artefato_criacao'><a href='javascript:void(0);' class='$fa_color'>";
+		$artefato_link_1 = "<span id='$artefato_tipo' data-toggle='modal' data-target='$artefato_modal' title='$artefato_criacao'><a href='javascript:void(0);' class='$fa_color'>";
 		$artefato_link_2 = "</a></span>";
 	}
 
@@ -93,6 +101,7 @@
 	}
 	
 	$length_check = "$artefato_titulo $artefato_subtitulo";
+	$length_check = strip_tags($length_check, false);
 	
 	$titulo_class = false;
 	$titulo_length = strlen($length_check);

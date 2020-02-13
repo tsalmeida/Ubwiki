@@ -96,7 +96,7 @@
 		$novo_wikipedia_titulo = $_POST['wikipedia_titulo'];
 		$conn->query("INSERT INTO Elementos (tipo, titulo, autor, autor_etiqueta_id, link, user_id) VALUES ('wikipedia', '$novo_wikipedia_titulo', 'Wikipedia', 807, '$novo_wikipedia_url', $user_id)");
 		$novo_wiki_id = $conn->insert_id;
-		$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, extra) VALUES ($pagina_id, '$pagina_tipo', $novo_wiki_id, 'wikipedia', '$novo_wikipedia_titulo')");
+		$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, extra, user_id) VALUES ($pagina_id, '$pagina_tipo', $novo_wiki_id, 'wikipedia', '$novo_wikipedia_titulo', $user_id)");
 	}
 	
 	$grupos_do_usuario = $conn->query("SELECT grupo_id FROM Membros WHERE membro_user_id = $user_id");

@@ -7,17 +7,18 @@
 	}
 	
 	if (isset($_POST['trigger_atualizacao'])) {
-	    $conn->query("ALTER TABLE `Textos_arquivo` ADD `pagina_subtipo` VARCHAR(255) NULL DEFAULT NULL AFTER `pagina_id`;");
-	    $conn->query("ALTER TABLE `Textos` ADD `pagina_subtipo` VARCHAR(255) NULL DEFAULT NULL AFTER `pagina_id`;");
-	    $paginas_subtipo = $conn->query("SELECT subtipo, id FROM Paginas WHERE subtipo IS NOT NULL");
-	    if ($paginas_subtipo->num_rows > 0) {
-	        while ($pagina_subtipo = $paginas_subtipo->fetch_assoc()) {
-	            $pagina_subtipo_subtipo = $pagina_subtipo['subtipo'];
-	            $pagina_subtipo_id = $pagina_subtipo['id'];
-	            $conn->query("UPDATE Textos SET pagina_subtipo = '$pagina_subtipo_subtipo' WHERE pagina_id = $pagina_subtipo_id");
-	            $conn->query("UPDATE Textos_arquivo set pagina_subtipo = '$pagina_subtipo_subtipo' WHERE pagina_id = $pagina_subtipo_id");
-            }
-        }
+		$find_paginas = $conn->query("SELECT id, item_id FROM Paginas WHERE tipo = 'texto'");
+		if ($find_paginas->num_rows > 0) {
+			while ($find_pagina = $find_paginas->fetch_assoc()) {
+				$find_pagina_id = $find_pagina['id'];
+				$find_pagina_item_id = $find_pagina['item_id'];
+				$find_texto_info = return_texto_info($find_pagina_item_id);
+				$find_texto_tipo = $find_texto_info[1];
+				if ($find_texto_tipo == 'anotacoes') {
+					$conn->query("UPDATE Paginas SET compartilhamento = 'privado' WHERE id = $find_pagina_id");
+				}
+			}
+		}
 	}
 	
 	if (isset($_POST['funcoes_gerais'])) {
@@ -124,7 +125,7 @@
 				}
 			}
 		}
-    }
+	}
 	
 	include 'templates/html_head.php';
 

@@ -143,20 +143,17 @@
 	
 	if ($template_quill_meta_tipo == 'anotacoes') {
 		$template_botoes .= "
-		<span id='esconder_coluna_esquerda' title='expandir'>
-			<a href='javascript:void(0);'><i class='fas fa-expand-wide fa-fw'></i></a>
-  	</span>
-    <span id='mostrar_coluna_esquerda' title='comprimir'>
-    	<a href='javascript:void(0);'><i class='fas fa-compress-wide fa-fw'></i></a>
-  	</span>
+			<a href='javascript:void(0);' id='esconder_coluna_esquerda' title='Expandir'><i class='fas fa-expand-wide fa-fw'></i></a>
+    	<a href='javascript:void(0);' id='mostrar_coluna_esquerda' title='Comprimir'><i class='fas fa-compress-wide fa-fw'></i></a>
+			<a href='pagina.php?texto_id=$quill_texto_id' id='compartilhar_anotacao' title='Página deste documento' class='text-info'><i class='fad fa-columns fa-fw'></i></a>
 		";
 	}
 	if ((($template_id == 'verbete') && ($privilegio_edicao == true)) || ($template_id != 'verbete')) {
 		$template_botoes .= "
-			<span id='travar_{$template_id}' title='travar para edição'>
+			<span id='travar_{$template_id}' title='Travar para edição'>
 	      <a href='javascript:void(0);'><i class='fad fa-pen-square fa-fw'></i></a>
 	    </span>
-	    <span id='destravar_{$template_id}' title='permitir edição'>
+	    <span id='destravar_{$template_id}' title='Permitir edição'>
 				<a href='javascript:void(0);' class='text-muted'><i class='fad fa-pen-square fa-fw'></i></a>
 	    </span>
 		";

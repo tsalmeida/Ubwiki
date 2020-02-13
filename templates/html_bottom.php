@@ -130,7 +130,16 @@
 	if ($sistema_etiquetas_elementos == true) {
 		echo "
 			<script type='text/javascript'>
-				$('#criar_referencia_form').hide();
+					$('#criar_referencia_form').hide();
+					$('#adicionar_video').click(function() {
+						$('#criar_referencia_tipo').val('video');
+					})
+					$('#adicionar_livro').click(function() {
+						$('#criar_referencia_tipo').val('referencia');
+					})
+					$('#adicionar_audio').click(function() {
+						$('#criar_referencia_tipo').val('album_musica');
+					})
 					$('#trigger_buscar_referencias').click(function() {
 				   var busca_referencias = $('#busca_referencias').val();
 				   var busca_referencias_length = $('#busca_referencias').val().length;
@@ -146,10 +155,9 @@
 				          }
 				       });
 				   }
-				}),
+					}),
 					$('#trigger_buscar_autores').click(function() {
-				    var criar_referencia_autor
-				     = $('#criar_referencia_autor').val();
+				    var criar_referencia_autor = $('#criar_referencia_autor').val();
 				    var criar_referencia_autor_length = $('#criar_referencia_autor').val().length;
 				    if (criar_referencia_autor_length > 2) {
 							$.post('engine.php', {
@@ -397,7 +405,6 @@
 		echo "
 		<script type='text/javascript'>
 			$('#buscar_etiquetas').keyup(function() {
-        error_log('this happened');
 				var busca_etiquetas = $('#buscar_etiquetas').val();
 				var busca_etiquetas_length = $('#buscar_etiquetas').val().length;
 				if (busca_etiquetas_length > 2) {
