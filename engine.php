@@ -2118,6 +2118,10 @@
 		}
 		$item_pagina_info = return_pagina_info($item_id);
 		$item_pagina_user_id = $item_pagina_info[5];
+		$item_pagina_compartilhamento = $item_pagina_info[3];
+		if ($item_pagina_compartilhamento != 'privado') {
+			return true;
+		}
 		if ($user_id == $item_pagina_user_id) {
 			return true;
 		}
@@ -2137,6 +2141,7 @@
 		if ($compartilhamentos->num_rows > 0) {
 			return true;
 		}
+		error_log('this happened');
 		return false;
 	}
 	
