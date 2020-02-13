@@ -676,26 +676,26 @@
 						include 'templates/page_element.php';
 					}
 				} elseif ($pagina_tipo == 'texto') {
-				    if ($privilegio_edicao == false) {
-				        $template_id = 'texto_privado';
-				        $template_titulo = $pagina_titulo;
-				        $template_conteudo = return_verbete_html($pagina_item_id);
-				        include 'templates/page_element.php';
-                    } else {
-                        $template_id = $texto_tipo;
-                        $template_titulo = false;
-                        //$template_conteudo_no_col = true;
-                        //$template_no_spacer = true;
-                        //$template_p_limit = false;
-                        $template_quill_initial_state = 'edicao';
-                        $template_quill_page_id = $texto_page_id;
-                        $template_quill_pagina_id = $pagina_id;
-                        //$template_quill_pagina_de_edicao = true;
-                        $template_quill_botoes = false;
-                        //$template_background = false;
-                        $template_conteudo = include 'templates/template_quill.php';
-                        include 'templates/page_element.php';
-				    }
+					if ($privilegio_edicao == false) {
+						$template_id = 'texto_privado';
+						$template_titulo = $pagina_titulo;
+						$template_conteudo = return_verbete_html($pagina_item_id);
+						include 'templates/page_element.php';
+					} else {
+						$template_id = $texto_tipo;
+						$template_titulo = false;
+						//$template_conteudo_no_col = true;
+						//$template_no_spacer = true;
+						//$template_p_limit = false;
+						$template_quill_initial_state = 'edicao';
+						$template_quill_page_id = $texto_page_id;
+						$template_quill_pagina_id = $pagina_id;
+						//$template_quill_pagina_de_edicao = true;
+						$template_quill_botoes = false;
+						//$template_background = false;
+						$template_conteudo = include 'templates/template_quill.php';
+						include 'templates/page_element.php';
+					}
 				}
 				
 				if (($pagina_tipo != 'texto') && ($pagina_tipo != 'materia')) {
@@ -807,8 +807,7 @@
     </div>
 </div>
 <?php
-	echo "<button id='mostrar_coluna_direita' class='btn btn-md elegant-color text-white p-2 m-1' tabindex='-1'><i
-            class='fas fa-pen-alt fa-fw'></i></button>";
+	echo "<a id='mostrar_coluna_direita' class='text-primary rgba-grey-light rounded m-1 p-0' tabindex='-1' title='Notas privadas'><i class='fad fa-pen-alt fa-fw'></i></a>";
 ?>
 </div>
 

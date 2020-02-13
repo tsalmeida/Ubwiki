@@ -48,7 +48,7 @@
   font-family: "Oswald", Arial, serif !important;
 }
 
-html, body, p, li, select, md-form, textarea, input {
+html, body, p, li, select, md-form, textarea, input, a, i {
   font-size: 1.1rem !important;
   font-family: "Lato", Arial, Helvetica, sans-serif !important;
 }
