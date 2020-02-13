@@ -1,26 +1,15 @@
 <?php
-	
+
 	include 'engine.php';
-	
+
 	if ($user_tipo != 'admin') {
 		header("Location:escritorio.php");
 	}
-	
+
 	if (isset($_POST['trigger_atualizacao'])) {
-		$find_paginas = $conn->query("SELECT id, item_id FROM Paginas WHERE tipo = 'texto'");
-		if ($find_paginas->num_rows > 0) {
-			while ($find_pagina = $find_paginas->fetch_assoc()) {
-				$find_pagina_id = $find_pagina['id'];
-				$find_pagina_item_id = $find_pagina['item_id'];
-				$find_texto_info = return_texto_info($find_pagina_item_id);
-				$find_texto_tipo = $find_texto_info[1];
-				if ($find_texto_tipo == 'anotacoes') {
-					$conn->query("UPDATE Paginas SET compartilhamento = 'privado' WHERE id = $find_pagina_id");
-				}
-			}
-		}
+
 	}
-	
+
 	if (isset($_POST['funcoes_gerais'])) {
 		$conn->query("TRUNCATE `Ubwiki`.`sim_detalhes`");
 		$conn->query("TRUNCATE `Ubwiki`.`sim_edicoes`");
@@ -36,13 +25,13 @@
 		$conn->query("TRUNCATE `Ubwiki`.`sim_textos_apoio`");
 		$conn->query("TRUNCATE `Ubwiki`.`sim_textos_apoio_arquivo`");
 	}
-	
+
 	if (isset($_POST['funcoes_gerais2'])) {
 		$conn->query("TRUNCATE `Ubwiki`.`sim_detalhes`");
 		$conn->query("TRUNCATE `Ubwiki`.`sim_gerados`");
 		$conn->query("TRUNCATE `Ubwiki`.`sim_respostas`");
 	}
-	
+
 	if (isset($_POST['funcoes_gerais3'])) {
 		$cursos = $conn->query("SELECT id FROM Cursos");
 		if ($cursos->num_rows > 0) {
@@ -52,9 +41,9 @@
 			}
 		}
 	}
-	
+
 	if (isset($_POST['funcoes_gerais4'])) {
-		
+
 		$textos = $conn->query("SELECT * FROM Textos");
 		if ($textos->num_rows > 0) {
 			while ($texto = $textos->fetch_assoc()) {
@@ -126,7 +115,7 @@
 			}
 		}
 	}
-	
+
 	include 'templates/html_head.php';
 
 ?>
@@ -144,7 +133,7 @@
     <div class="row justify-content-around">
         <div id='coluna_esquerda' class="<?php echo $coluna_classes; ?>">
 					<?php
-						
+
 						$template_id = 'funcoes_gerais';
 						$template_titulo = 'Funções gerais';
 						$template_botoes = false;
@@ -176,7 +165,7 @@
 						    </form>
 						";
 						include 'templates/page_element.php';
-						
+
 						$template_id = 'atualizacao';
 						$template_titulo = 'Atualização';
 						$template_botoes = false;
@@ -190,7 +179,7 @@
 						    </form>
 						";
 						include 'templates/page_element.php';
-					
+
 					?>
         </div>
     </div>

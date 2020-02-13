@@ -452,8 +452,15 @@ ul {
   font-size: 1.5rem;
 }
 
-.noprint, .mw-jump-link, .vertical-navbox, .hatnote, .box-Unreferenced_section, .sistersitebox, .navbox, #mw-head, .portal, #mw-navigation, #footer, #mw-hidden-catlinks, #catlinks, .printfooter, .toccolours, #siteNotice {
+.noprint, .mw-jump-link, .vertical-navbox, .hatnote, .box-Unreferenced_section, .sistersitebox, .navbox, #mw-head, .portal, #mw-navigation, #footer, #mw-hidden-catlinks, #catlinks, .printfooter, .toccolours, #siteNotice, .ambox {
   display: none !important;
+}
+
+.wikitable {
+  background-color: #fafafa;
+  border-radius: 5px;
+  padding: 1em;
+  width: 100%;
 }
 
 .thumbinner {
