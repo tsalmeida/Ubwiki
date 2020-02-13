@@ -807,7 +807,7 @@
     </div>
 </div>
 <?php
-	echo "<a id='mostrar_coluna_direita' class='text-primary rgba-grey-light rounded m-1 p-0' tabindex='-1' title='Notas privadas'><i class='fad fa-pen-alt fa-fw'></i></a>";
+	echo "<a id='mostrar_coluna_direita' class='text-primary rgba-grey-light rounded m-1 p-1' tabindex='-1' title='Notas privadas'><i class='fad fa-pen-alt fa-fw'></i></a>";
 ?>
 </div>
 
