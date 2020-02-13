@@ -48,7 +48,7 @@
   font-family: "Oswald", Arial, serif !important;
 }
 
-html, body, p, li, select, md-form, textarea, input, a, i {
+html, body, p, li, select, .md-form, textarea, input {
   font-size: 1.1rem !important;
   font-family: "Lato", Arial, Helvetica, sans-serif !important;
 }
@@ -282,7 +282,12 @@ ul + p {
 #mostrar_coluna_direita {
   position: fixed;
   right: 0;
-  bottom: 60%;
+  bottom: 50%;
+  font-size: 1.5rem;
+}
+
+.page-element-botoes {
+  font-size: 1.5rem;
 }
 
 .controls-top {

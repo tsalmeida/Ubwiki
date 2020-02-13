@@ -86,11 +86,9 @@
 	echo "
 <div id='$template_id' class='row show $template_classes $template_background p-2 pb-4 mb-2 rounded'>
 	<div class='$template_col_value'>
-    <div class='row d-flex justify-content-end'>
-      <span class='mb-0'>
-          $template_botoes
-          $template_botoes_padrao
-      </span>
+    <div class='row d-flex justify-content-end page-element-botoes'>
+      $template_botoes
+      $template_botoes_padrao
     </div>";
 	if ($template_titulo != false) {
 		echo "
