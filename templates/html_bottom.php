@@ -141,11 +141,13 @@
 						$('#criar_referencia_tipo').val('album_musica');
 					})
 					$('#trigger_buscar_referencias').click(function() {
-				   var busca_referencias = $('#busca_referencias').val();
+				   var busca_referencias_tipo = $('#criar_referencia_tipo').val();
+					 var busca_referencias = $('#busca_referencias').val();
 				   var busca_referencias_length = $('#busca_referencias').val().length;
 				   if (busca_referencias_length > 2) {
 				       $.post('engine.php', {
-				           'busca_referencias': busca_referencias
+				           'busca_referencias': busca_referencias,
+				           'busca_referencias_tipo': busca_referencias_tipo
 				       }, function(data) {
 				          if (data != 0) {
 				              $('#referencias_disponiveis').show();

@@ -746,13 +746,26 @@
 	
 	if (isset($_POST['busca_referencias'])) {
 		$busca_referencias = $_POST['busca_referencias'];
+		if (isset($_POST['busca_referencias_tipo'])) {
+			$busca_referencias_tipo = $_POST['busca_referencias_tipo'];
+		} else {
+			$busca_referencias_tipo = false;
+		}
 		$busca_referencias = mysqli_real_escape_string($conn, $busca_referencias);
 		$busca_resultados = false;
-		$referencia_exata = $conn->query("SELECT titulo FROM Elementos WHERE titulo = '$busca_referencias' AND (tipo = 'referencia' OR tipo = 'video' OR tipo = 'album_musica')");
+		if ($busca_referencias_tipo == false) {
+			$referencia_exata = $conn->query("SELECT titulo FROM Elementos WHERE titulo = '$busca_referencias' AND (tipo = 'referencia' OR tipo = 'video' OR tipo = 'album_musica')");
+		} else {
+			$referencia_exata = $conn->query("SELECT titulo FROM Elementos WHERE titulo = '$busca_referencias' AND tipo = '$busca_referencias_tipo'");
+		}
 		if ($referencia_exata->num_rows == 0) {
 			$busca_resultados .= "<div class='col-12'><button type='button' id='criar_referencia' name='criar_referencia' class='btn rounded btn-md text-center btn-info btn-sm m-0 mb-2' value='$busca_referencias'>Referência não encontrada, criar nova?</button></div>";
 		}
-		$elementos = $conn->query("SELECT id, etiqueta_id, compartilhamento, titulo, autor, tipo, user_id FROM Elementos WHERE titulo LIKE '%{$busca_referencias}%'");
+		if ($busca_referencias_tipo == false) {
+			$elementos = $conn->query("SELECT id, etiqueta_id, compartilhamento, titulo, autor, tipo, user_id FROM Elementos WHERE titulo LIKE '%{$busca_referencias}%'");
+		} else {
+			$elementos = $conn->query("SELECT id, etiqueta_id, compartilhamento, titulo, autor, tipo, user_id FROM Elementos WHERE titulo LIKE '%{$busca_referencias}%' AND tipo = '$busca_referencias_tipo'");
+		}
 		if ($elementos->num_rows > 0) {
 			while ($elemento = $elementos->fetch_assoc()) {
 				$elemento_id = $elemento['id'];
@@ -2141,7 +2154,6 @@
 		if ($compartilhamentos->num_rows > 0) {
 			return true;
 		}
-		error_log('this happened');
 		return false;
 	}
 	
@@ -2557,7 +2569,8 @@
 		return $results;
 	}
 	
-	function extract_wikipedia($url) {
+	function extract_wikipedia($url)
+	{
 		$ch = curl_init();
 		$url_host = parse_url($url);
 		$url_host = $url_host['host'];
