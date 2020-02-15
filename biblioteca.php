@@ -22,9 +22,15 @@
 <div class="container-fluid">
     <div class="row d-flex justify-content-between p-1">
         <div class="col">
-          <a data-toggle='modal' data-target='#modal_add_elementos' class='text-success ml-1' title='Adicionar item à biblioteca' href='javascript:void(0);'><i class='fad fa-plus-circle fa-2x fa-fw'></i></a>
+            <div class="row d-flex justify-content-start">
+                <a data-toggle='modal' data-target='#modal_add_elementos' class='text-success ml-1'
+                   title='Adicionar item à biblioteca' href='javascript:void(0);'><i
+                            class='fad fa-plus-circle fa-2x fa-fw'></i></a>
+            </div>
         </div>
-        <div class="col d-flex justify-content-center"><a href="javascript:void(0);" data-toggle="modal" data-target="#modal_busca" class="text-dark"><i class="fad fa-search fa-fw"></i></a></div>
+        <div class="col d-flex justify-content-center"><a href="javascript:void(0);" data-toggle="modal"
+                                                          data-target="#modal_busca" class="text-dark"><i
+                        class="fad fa-search fa-fw"></i></a></div>
 			<?php
 				echo "<div class='col d-flex justify-content-end'><form method='post'><button name='listar_todas' id='listar_todas' value='!all' class='$button_classes btn-info btn-sm m-0'>Listar todos</button></form></div>";
 			?>
@@ -218,8 +224,8 @@
 	include 'templates/modal.php';
 	
 	include 'pagina/modal_add_elemento.php';
-    include 'pagina/modal_adicionar_imagem.php';
-    include 'pagina/youtube.php';
+	include 'pagina/modal_adicionar_imagem.php';
+	include 'pagina/youtube.php';
 ?>
 </body>
 <?php

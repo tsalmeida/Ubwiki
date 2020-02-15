@@ -4,6 +4,17 @@
 	$pagina_id = 1;
 	include 'templates/html_head.php';
 	$busca = false;
+	
+	if (isset($_POST['nova_pagina_livre'])) {
+		$nova_pagina_livre = $_POST['nova_pagina_livre'];
+		$check_etiquetas = $conn->query("SELECT pagina_id FROM Etiquetas WHERE titulo = '$nova_pagina_livre'");
+		if ($check_etiquetas->num_rows == 0) {
+			$conn->query("INSERT INTO Etiquetas (tipo, titulo, user_id) VALUES ('topico', '$nova_pagina_livre', $user_id)");
+		} else {
+			$busca = $nova_pagina_livre;
+		}
+	}
+	
 	if (isset($_POST['termos_busca'])) {
 		$busca = $_POST['termos_busca'];
 	}
@@ -18,7 +29,13 @@
 <div class="container-fluid">
 	
 	<div class="row d-flex justify-content-between p-1">
-		<div class="col"></div>
+		<div class="col">
+			<div class="row d-flex justify-content-start">
+				<a data-toggle="modal" data-target="#adicionar_pagina_livre" class="text-success ml-1" title="Criar nova página livre" href="javascript:void(0);">
+					<i class="fad fa-plus-circle fa-2x fa-fw"></i>
+				</a>
+			</div>
+		</div>
 		<div class="col d-flex justify-content-center"><a href="javascript:void(0);" data-toggle="modal" data-target="#modal_busca" class="text-dark"><i
 					class="fad fa-search fa-fw"></i></a></div>
 		<?php
@@ -44,12 +61,14 @@
 							$etiquetas = $conn->query("SELECT id, titulo, pagina_id FROM Etiquetas WHERE tipo = 'topico' ORDER BY id DESC");
 						} else {
 							$etiquetas = $conn->query("SELECT id, titulo, pagina_id FROM Etiquetas WHERE tipo = 'topico' AND titulo LIKE '%$busca%'");
-							
 						}
 						if ($etiquetas != false) {
 							$template_id = 'etiquetas';
 							$template_titulo = 'Tópicos';
 							$template_conteudo_no_col = true;
+							$template_botoes = "
+								  <a data-toggle='modal' data-target='#adicionar_pagina_livre' class='text-success ml-1' title='Adicionar página livre' href='javascript:void(0);'><i class='fad fa-plus-square fa-fw'></i></a>
+								";
 							$template_conteudo = false;
 							if ($etiquetas->num_rows > 0) {
 								while ($etiqueta = $etiquetas->fetch_assoc()) {
@@ -76,6 +95,9 @@
 							$template_id = 'etiquetas_adicionadas';
 							$template_titulo = 'Recentemente adicionadas';
 							$template_conteudo_no_col = true;
+							$template_botoes = "
+								  <a data-toggle='modal' data-target='#adicionar_pagina_livre' class='text-success ml-1' title='Adicionar página livre' href='javascript:void(0);'><i class='fad fa-plus-square fa-fw'></i></a>
+								";
 							$template_conteudo = false;
 							$etiquetas = $conn->query("SELECT id  FROM Etiquetas WHERE tipo = 'topico' ORDER BY id DESC");
 							if ($etiquetas->num_rows > 0) {
@@ -102,6 +124,9 @@
 							$template_id = 'etiquetas_recentes';
 							$template_titulo = 'Recentemente modificadas';
 							$template_conteudo_no_col = true;
+							$template_botoes = "
+								  <a data-toggle='modal' data-target='#adicionar_pagina_livre' class='text-success ml-1' title='Adicionar página livre' href='javascript:void(0);'><i class='fad fa-plus-square fa-fw'></i></a>
+								";
 							$template_conteudo = false;
 							$paginas_contadas = array();
 							$etiquetas = $conn->query("SELECT pagina_id, verbete_content FROM Textos_arquivo WHERE pagina_subtipo = 'etiqueta' ORDER BY id DESC");
@@ -147,6 +172,17 @@
 		<div class='md-form'>
 			<input type='text' id='termos_busca' name='termos_busca' class='form-control'>
 			<label for='termos_busca'>Termos de busca</label>
+		</div>
+	";
+	include 'templates/modal.php';
+	
+	$template_modal_div_id = 'adicionar_pagina_livre';
+	$template_modal_titulo = 'Criar página livre';
+	$template_modal_body_conteudo = false;
+	$template_modal_body_conteudo .= "
+		<div class='md-form'>
+			<input type='text' id='nova_pagina_livre' name='nova_pagina_livre' class='form-control'>
+			<label for='nova_pagina_livre'>Título da nova página livre</label>
 		</div>
 	";
 	include 'templates/modal.php';
