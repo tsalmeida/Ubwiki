@@ -7,17 +7,18 @@
 	}
 
 	if (isset($_POST['trigger_atualizacao'])) {
-		$conn->query("ALTER TABLE `Textos` ADD `size` INT(11) NULL DEFAULT NULL AFTER `verbete_content`;");
-		$conn->query("ALTER TABLE `Textos_arquivo` ADD `size` INT(11) NULL DEFAULT NULL AFTER `verbete_content`;");
-        $textos = $conn->query("SELECT id, verbete_content FROM Textos");
-        if ($textos->num_rows > 0) {
-        	while ($texto = $textos->fetch_assoc()) {
-        		$texto_id = $texto['id'];
-        		$texto_verbete_content = $texto['verbete_content'];
-        		$verbete_value = strlen($texto_verbete_content);
-        		$conn->query("UPDATE Textos SET size = $verbete_value WHERE id = $texto_id");
-	        }
-        }
+	}
+
+	if (isset($_POST['trigger_atualizar_textos_size'])) {
+		$textos = $conn->query("SELECT id, verbete_content FROM Textos");
+		if ($textos->num_rows > 0) {
+			while ($texto = $textos->fetch_assoc()) {
+				$texto_id = $texto['id'];
+				$texto_verbete_content = $texto['verbete_content'];
+				$verbete_value = strlen($texto_verbete_content);
+				$conn->query("UPDATE Textos SET size = $verbete_value WHERE id = $texto_id");
+			}
+		}
 		$textos = $conn->query("SELECT id, verbete_content FROM Textos_arquivo");
 		if ($textos->num_rows > 0) {
 			while ($texto = $textos->fetch_assoc()) {
@@ -27,8 +28,8 @@
 				$conn->query("UPDATE Textos_arquivo SET size = $verbete_value WHERE id = $texto_id");
 			}
 		}
-	}
-
+    }
+	
 	if (isset($_POST['funcoes_gerais'])) {
 		$conn->query("TRUNCATE `Ubwiki`.`sim_detalhes`");
 		$conn->query("TRUNCATE `Ubwiki`.`sim_edicoes`");

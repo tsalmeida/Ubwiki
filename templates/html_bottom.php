@@ -57,6 +57,9 @@
 	if (!isset($carregar_toggle_paginas_livres)) {
 		$carregar_toggle_paginas_livres = false;
 	}
+	if (!isset($area_interesse_ativa)) {
+		$area_interesse_ativa = false;
+	}
 	
 	echo "
     <!-- Bootstrap tooltips -->
