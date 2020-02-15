@@ -10,7 +10,10 @@
 	$carregar_questoes_topico = false;
 	$carregar_modal_wikipedia = false;
 	$carregar_quill_anotacoes = false;
+	$carregar_modal_destruir_pagina = false;
+	$carregar_toggle_acervo = false;
 	$carregar_convite = false;
+	$item_no_acervo = false;
 	if (!isset($_GET['pagina_id'])) {
 		if (isset($_GET['topico_id'])) {
 			$topico_id = (int)$_GET['topico_id'];
@@ -100,6 +103,11 @@
 	} else {
 		header('Location:pagina.php?pagina_id=4');
 		exit();
+	}
+	
+	if (isset($_POST['trigger_apagar_pagina'])) {
+		$conn->query("DELETE FROM Paginas WHERE id = $pagina_id");
+		header('Location:pagina.php?pagina_id=6');
 	}
 	
 	if (isset($_GET['wiki_id'])) {
@@ -216,7 +224,8 @@
 		$texto_texto_pagina_id = $texto_info[12];
 		$pagina_id = $texto_texto_pagina_id;
 		if (isset($_POST['destruir_anotacao'])) {
-			$conn->query("DELETE FROM Textos WHERE id = $texto_id");
+			$conn->query("DELETE FROM Textos WHERE id = $pagina_texto_id");
+			$conn->query("DELETE FROM Paginas WHERE id = $pagina_id");
 			header('Location:pagina.php?pagina_id=5');
 			exit();
 		}
@@ -448,14 +457,30 @@
         </div>
         <div class='py-2 text-right col-md-4 col-sm-12'>
 					<?php
-						if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id)) {
+						if ($pagina_tipo == 'elemento') {
+							$carregar_toggle_acervo = true;
+							$elemento_no_acervo = $conn->query("SELECT id FROM Paginas_elementos WHERE pagina_tipo = 'escritorio' AND user_id = $user_id AND elemento_id = $pagina_item_id AND estado = 1");
+							if ($elemento_no_acervo->num_rows > 0) {
+								$item_no_acervo = true;
+							}
 							echo "
-	                          <span id='compartilhar_anotacao' class='ml-1' title='Colaboração e publicação'
-                                 data-toggle='modal' data-target='#modal_compartilhar_pagina'>
-                                <a href='javascript:void(0);' class='text-default'>
-                                    <i class='fad fa-user-friends fa-fw'></i>
-                                </a>
-                              </span>
+								  <a id='remover_acervo' href='javascript:void(0);' class='ml-1 text-success' title='Remover do seu acervo'>
+									  <i class='fad fa-books fa-fw'></i>
+								  </a>
+								  <a id='adicionar_acervo' href='javascript:void(0);' class='ml-1 text-muted' title='Adicionar a seu acervo'>
+									  <i class='fad fa-books fa-fw'></i>
+								  </a>
+						        ";
+						}
+						if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id)) {
+							$carregar_modal_destruir_pagina = true;
+							echo "
+                            <a href='javascript:void(0);' class='text-default ml-1' id='compartilhar_anotacao' title='Colaboração e publicação' data-toggle='modal' data-target='#modal_compartilhar_pagina'>
+                                <i class='fad fa-user-friends fa-fw'></i>
+                            </a>
+                            <a href='javascript:void(0);' class='text-danger ml-1' id='destruir_pagina' title='Destruir esta página' data-toggle='modal' data-target='#modal_destruir_pagina'>
+                                <i class='fad fa-shredder fa-fw'></i>
+                            </a>
 	                        ";
 						}
 						$vinculos_wikipedia = $conn->query("SELECT elemento_id, extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'wikipedia'");
@@ -1398,6 +1423,23 @@
 		$template_modal_body_conteudo .= "</ul>";
 		include 'templates/modal.php';
 	}
+	
+	if ($carregar_modal_destruir_pagina == true) {
+		$template_modal_div_id = 'modal_destruir_pagina';
+		$template_modal_titulo = 'Destruir esta página';
+		$template_modal_show_buttons = false;
+		$template_modal_body_conteudo = false;
+		$template_modal_body_conteudo .= "
+			<p>Pressione para destruir esta página. Esse ato não pode ser desfeito.</p>
+			<form method='post'>
+			  <div class='md-form d-flex justify-content-center'>
+				  <button class='$button_classes_red' name='trigger_apagar_pagina' id='trigger_apagar_pagina'>Apagar página</button>
+			  </div>
+			</form>
+		";
+		include 'templates/modal.php';
+	}
+
 ?>
 
 </body>

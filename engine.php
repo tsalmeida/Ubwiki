@@ -2586,5 +2586,27 @@
 		$body = str_replace('/wiki/', "https://$url_host/wiki/", $body);
 		return $body;
 	}
+	
+	if (isset($_POST['adicionar_item_acervo'])) {
+		$adicionar_item_acervo = $_POST['adicionar_item_acervo'];
+		$user_escritorio_pagina_id = return_pagina_id($user_id, 'escritorio');
+		$adicionar_item_pagina_id = return_pagina_id($adicionar_item_acervo, 'elemento');
+		$check_acervo = $conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, extra, user_id) VALUES ($user_escritorio_pagina_id, 'escritorio', $adicionar_item_acervo, 'referencia', $adicionar_item_pagina_id, $user_id)");
+		if ($check_acervo == true) {
+			echo true;
+		} else {
+			echo false;
+		}
+	}
+	
+	if (isset($_POST['remover_item_acervo'])) {
+		$remover_item_acervo = $_POST['remover_item_acervo'];
+		$check_acervo = $conn->query("UPDATE Paginas_elementos SET estado = 0 WHERE pagina_tipo = 'escritorio' AND user_id = $user_id AND elemento_id = $remover_item_acervo");
+		if ($check_acervo == true) {
+			echo true;
+		} else {
+			echo false;
+		}
+	}
 
 ?>

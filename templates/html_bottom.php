@@ -42,17 +42,17 @@
 	if (!isset($carregar_adicionar_subtopico)) {
 		$carregar_adicionar_subtopico = false;
 	}
-	
 	if (!isset($carregar_convite)) {
 		$carregar_convite = false;
 	}
-	
 	if (!isset($bottom_compartilhar_usuario)) {
 		$bottom_compartilhar_usuario = false;
 	}
-	
 	if (!isset($esconder_botao_determinar_acesso)) {
 		$esconder_botao_determinar_acesso = false;
+	}
+	if (!isset($carregar_toggle_acervo)) {
+		$carregar_toggle_acervo = false;
 	}
 	
 	echo "
@@ -116,7 +116,7 @@
 			      }, function(data) {
 			         if (data != 0) {
 			             if (data == 1) {
-											alert('Elemento adicionado com sucesso');
+											window.location.reload(true);
 			             }
 			             else {
 				           		$('#etiquetas_ativas').append(data);
@@ -201,7 +201,7 @@
 				           'adicionar_referencia_pagina_id': $pagina_id
 				        }, function(data) {
 				            if (data != false) {
-				                alert('Referência criada e adicionada.')
+				                window.location.reload(true);
 				            }
 				        });
 				    } else {
@@ -239,7 +239,7 @@
 			         'curso_nova_materia_user_id': $user_id
 			      }, function(data) {
 			         if (data != 0) {
-	                 alert('Matéria adicionada, recarregue a página para atualizar');
+	                 window.location.reload(true);
 			         }
 			      });
 			  });
@@ -252,7 +252,7 @@
 		         'criar_materia_page_tipo': '{$pagina_tipo}'
 		      }, function(data) {
 		         if (data != 0) {
-		             alert('Matéria adicionada, recarregue a página para atualizar');
+		             window.location.reload(true);
 		         }
 		      });
 		  	});
@@ -288,7 +288,7 @@
 			         'curso_novo_topico_user_id': $user_id
 			      }, function(data) {
 			         if (data != 0) {
-	                 alert('Matéria adicionada, recarregue a página para atualizar');
+	                 window.location.reload(true);
 			         }
 			      });
 			  });
@@ -301,7 +301,7 @@
 		         'criar_topico_page_tipo': '{$pagina_tipo}'
 		      }, function(data) {
 		         if (data != 0) {
-		             alert('Matéria adicionada, recarregue a página para atualizar');
+		             window.location.reload(true);
 		         }
 		      });
 		  	});
@@ -337,7 +337,7 @@
 			         'curso_novo_subtopico_user_id': $user_id
 			      }, function(data) {
 			         if (data != 0) {
-	                 alert('Matéria adicionada, recarregue a página para atualizar');
+	                 window.location.reload(true);
 			         }
 			      });
 			  });
@@ -350,7 +350,7 @@
 		         'criar_subtopico_page_tipo': '{$pagina_tipo}'
 		      }, function(data) {
 		         if (data != 0) {
-		             alert('Matéria adicionada, recarregue a página para atualizar');
+		             window.location.reload(true);
 		         }
 		      });
 		  	});
@@ -662,7 +662,39 @@
 			</script>
 		";
 	}
-	if ($pagina_tipo == 'forum') {
-		echo "";
+	if ($carregar_toggle_acervo == true) {
+		if ($item_no_acervo == true) {
+			$apagar_acervo_icone = "$('#adicionar_acervo').hide();";
+		} else {
+			$apagar_acervo_icone = "$('#remover_acervo').hide();";
+		}
+		echo "
+			<script type='text/javascript'>
+				$apagar_acervo_icone
+				acervo_item = $pagina_item_id;
+				$('#adicionar_acervo').click(function() {
+				    $.post('engine.php', {
+			        'adicionar_item_acervo': acervo_item
+				    }, function(data) {
+				       if (data != 0) {
+						    	$('#adicionar_acervo').hide();
+						    	$('#remover_acervo').show();
+				       	}
+				    });
+		    });
+				$('#remover_acervo').click(function() {
+				    $.post('engine.php', {
+				        'remover_item_acervo': acervo_item
+				    }, function(data) {
+				        if (data != 0) {
+							    $('#adicionar_acervo').show();
+							    $('#remover_acervo').hide();
+				        }
+				    });
+				});
+			</script>
+		";
 	}
 ?>
+
+
