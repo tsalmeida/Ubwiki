@@ -465,12 +465,27 @@
 							}
 							echo "
 								  <a id='remover_acervo' href='javascript:void(0);' class='ml-1 text-success' title='Remover do seu acervo'>
-									  <i class='fad fa-books fa-fw'></i>
+									  <i class='fad fa-lamp-desk fa-fw'></i>
 								  </a>
 								  <a id='adicionar_acervo' href='javascript:void(0);' class='ml-1 text-muted' title='Adicionar a seu acervo'>
-									  <i class='fad fa-books fa-fw'></i>
+									  <i class='fad fa-lamp-desk fa-fw'></i>
 								  </a>
 						        ";
+						}
+						if ($pagina_subtipo == 'etiqueta') {
+							$carregar_toggle_paginas_livres = true;
+							$area_interesse = $conn->query("SELECT id FROM Paginas_elementos WHERE pagina_tipo = 'escritorio' AND user_id = $user_id AND tipo = 'topico' AND extra = $pagina_item_id AND estado = 1");
+							if ($area_interesse->num_rows > 0) {
+								$area_interesse_ativa = true;
+							}
+							echo "
+						      <a id='remover_area_interesse' href='javascript:void(0);' class='ml-1 text-warning' title='Remover como áreas de interesse'>
+						      	<i class='fad fa-lamp-desk fa-fw'></i>
+							  </a>
+						      <a id='adicionar_area_interesse' href='javascript:void(0);' class='ml-1 text-muted' title='Adicionar como áreas de interesse'>
+						      	<i class='fad fa-lamp-desk fa-fw'></i>
+							  </a>
+						    ";
 						}
 						if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id)) {
 							$carregar_modal_destruir_pagina = true;

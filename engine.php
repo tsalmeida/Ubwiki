@@ -2614,4 +2614,26 @@
 		}
 	}
 
+	if (isset($_POST['adicionar_area_interesse'])) {
+		$adicionar_area_interesse = $_POST['adicionar_area_interesse'];
+		$user_escritorio_pagina_id = return_pagina_id($user_id, 'escritorio');
+		$check_adicionar = $conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($user_escritorio_pagina_id, 'escritorio', 'topico', $adicionar_area_interesse, $user_id)");
+		if ($check_adicionar == true) {
+			echo true;
+		} else {
+			echo false;
+		}
+	}
+	
+	if (isset($_POST['remover_area_interesse'])) {
+		$remover_area_interesse = $_POST['remover_area_interesse'];
+		$check_remover = $conn->query("UPDATE Paginas_elementos SET estado = 0 WHERE pagina_tipo = 'escritorio' AND user_id = $user_id AND tipo = 'topico' AND extra = $remover_area_interesse");
+		if ($check_remover == true) {
+			echo true;
+		} else {
+			echo false;
+		}
+	}
+	
+	
 ?>

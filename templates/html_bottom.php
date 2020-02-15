@@ -54,6 +54,9 @@
 	if (!isset($carregar_toggle_acervo)) {
 		$carregar_toggle_acervo = false;
 	}
+	if (!isset($carregar_toggle_paginas_livres)) {
+		$carregar_toggle_paginas_livres = false;
+	}
 	
 	echo "
     <!-- Bootstrap tooltips -->
@@ -694,6 +697,40 @@
 				});
 			</script>
 		";
+	}
+	if ($carregar_toggle_paginas_livres == true) {
+		if ($area_interesse_ativa == true) {
+			$apagar_area_interesse_icone = "$('#adicionar_area_interesse').hide();";
+		} else {
+			$apagar_area_interesse_icone = "$('#remover_area_interesse').hide();";
+		}
+		echo "
+			<script type='text/javascript'>
+			$apagar_area_interesse_icone
+			area_interesse_item = $pagina_item_id;
+			$('#adicionar_area_interesse').click(function() {
+			    $.post('engine.php', {
+			       'adicionar_area_interesse': area_interesse_item
+			    }, function(data) {
+			        if (data != 0) {
+			            $('#adicionar_area_interesse').hide();
+			            $('#remover_area_interesse').show();
+			        }
+			    });
+			});
+			$('#remover_area_interesse').click(function() {
+			    $.post('engine.php', {
+			        'remover_area_interesse': area_interesse_item
+			    }, function(data) {
+			        if (data != 0) {
+			            $('#adicionar_area_interesse').show();
+			            $('#remover_area_interesse').hide();
+			        }
+			    });
+			});
+			</script>
+		";
+		
 	}
 ?>
 
