@@ -903,6 +903,7 @@
 		$template_modal_div_id = 'modal_partes_form';
 		$template_modal_titulo = 'Adicionar seção';
 		$template_modal_submit_name = 'trigger_nova_secao';
+		$modal_scrollable = true;
 		$template_modal_body_conteudo = false;
 		if ($pagina_tipo == 'elemento') {
 			$template_modal_body_conteudo .= "

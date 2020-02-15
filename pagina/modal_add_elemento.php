@@ -83,6 +83,18 @@
 		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	}
 	
+	if (($carregar_secoes == true) && ($privilegio_edicao == true)) {
+		$artefato_tipo = 'adicionar_secao';
+		$artefato_titulo = 'Seção';
+		$artefato_link = false;
+		$artefato_criado = false;
+		$artefato_col_limit = $add_elemento_artefato_col;
+		$artefato_modal = '#modal_partes_form';
+		$fa_icone = 'fa-sitemap';
+		$fa_color = 'text-default';
+		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+	}
+	
 	$template_modal_body_conteudo .= "</span>";
 	
 	if ($pagina_tipo == 'escritorio') {
