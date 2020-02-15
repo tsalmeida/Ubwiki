@@ -2136,7 +2136,7 @@
 		}
 		$item_pagina_info = return_pagina_info($item_id);
 		$item_pagina_user_id = $item_pagina_info[5];
-		$item_pagina_compartilhamento = $item_pagina_info[3];
+		$item_pagina_compartilhamento = $item_pagina_info[4];
 		if ($item_pagina_compartilhamento != 'privado') {
 			return true;
 		}
