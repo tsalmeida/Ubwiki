@@ -41,7 +41,7 @@
 						if ($busca == false) {
 							$etiquetas = false;
 						} elseif ($busca == '!all') {
-							$etiquetas = $conn->query("SELECT id, titulo, pagina_id FROM Etiquetas WHERE tipo = 'topico'");
+							$etiquetas = $conn->query("SELECT id, titulo, pagina_id FROM Etiquetas WHERE tipo = 'topico' ORDER BY id DESC");
 						} else {
 							$etiquetas = $conn->query("SELECT id, titulo, pagina_id FROM Etiquetas WHERE tipo = 'topico' AND titulo LIKE '%$busca%'");
 							
