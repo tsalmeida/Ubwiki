@@ -1232,6 +1232,9 @@
 				$etiqueta_titulo = $etiqueta['titulo']; // 2
 				$etiqueta_user_id = $etiqueta['user_id']; // 3
 				$etiqueta_pagina_id = $etiqueta['pagina_id']; // 4
+				if (is_null($etiqueta_pagina_id)) {
+					$etiqueta_pagina_id = return_pagina_id($etiqueta_id, 'etiqueta');
+				}
 				$etiqueta_info = array($etiqueta_criacao, $etiqueta_tipo, $etiqueta_titulo, $etiqueta_user_id, $etiqueta_pagina_id);
 				return $etiqueta_info;
 			}
@@ -1831,20 +1834,22 @@
 				return $texto_pagina_id;
 			}
 		} elseif ($tipo == 'etiqueta') {
-			$etiqueta_info = return_etiqueta_info($item_id);
-			if ($etiqueta_info == false) {
+			$etiquetas = $conn->query("SELECT titulo, pagina_id FROM Etiquetas WHERE id = $item_id");
+			if ($etiquetas->num_rows == 0) {
 				return false;
 			} else {
-				$etiqueta_pagina_id = $etiqueta_info[4];
-				$etiqueta_titulo = $etiqueta_info[2];
-				if (is_null($etiqueta_pagina_id)) {
-					$conn->query("INSERT INTO Paginas (item_id, tipo, subtipo) VALUES ($item_id, 'pagina', 'etiqueta')");
-					$etiqueta_pagina_id = $conn->insert_id;
-					$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra) VALUES ($etiqueta_pagina_id, 'pagina', 'titulo', '$etiqueta_titulo')");
-					$conn->query("UPDATE Etiquetas SET pagina_id = $etiqueta_pagina_id WHERE id = $item_id");
-					return $etiqueta_pagina_id;
-				} else {
-					return $etiqueta_pagina_id;
+				while ($etiqueta = $etiquetas->fetch_assoc()) {
+					$etiqueta_titulo = $etiqueta['titulo'];
+					$etiqueta_pagina_id = $etiqueta['pagina_id'];
+					if (is_null($etiqueta_pagina_id)) {
+						$conn->query("INSERT INTO Paginas (item_id, tipo, subtipo) VALUES ($item_id, 'pagina', 'etiqueta')");
+						$etiqueta_pagina_id = $conn->insert_id;
+						$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra) VALUES ($etiqueta_pagina_id, 'pagina', 'titulo', '$etiqueta_titulo')");
+						$conn->query("UPDATE Etiquetas SET pagina_id = $etiqueta_pagina_id WHERE id = $item_id");
+						return $etiqueta_pagina_id;
+					} else {
+						return $etiqueta_pagina_id;
+					}
 				}
 			}
 		} elseif ($tipo == 'escritorio') {

@@ -37,18 +37,17 @@
 		        <i class='fas fa-2x $navbar_avatar fa-lg fa-fw'></i>
 		        </a>
 		        <div class='dropdown-menu dropdown-menu-right z-depth-0'>
-		          <a class='dropdown-item navlink z-depth-0' href='escritorio.php'>Seu escritório</a>";
+		        	<a class='dropdown-item navlink z-depth-0' href='ubwiki.php'><i class='fad fa-door-open fa-fw'></i> Ambientes</a>
+		          <a class='dropdown-item navlink z-depth-0' href='escritorio.php'><i class='fad fa-lamp-desk fa-fw'></i> Seu escritório</a>";
 		if ($carregar_carrinho == true) {
-			echo "<a class='dropdown-item navlink z-depth-0' href='carrinho.php'>Seu carrinho</a>";
+			echo "<a class='dropdown-item navlink z-depth-0' href='carrinho.php'><i class='fad fa-shopping-cart fa-fw'></i> Seu carrinho</a>";
 		}
 		if ($user_tipo == 'admin') {
-			echo "
-							<a class='dropdown-item navlink z-depth-0' href='admin.php'>Página de administradores</a>
-			";
+			echo "<a class='dropdown-item navlink z-depth-0' href='admin.php'><i class='fad fa-cogs fa-fw'></i> Página de administradores</a>";
 		}
 		echo "
-		          <a class='dropdown-item navlink z-depth-0' href='pagina.php?curso_id=$curso_id'>$curso_sigla</a>
-		          <a class='dropdown-item navlink z-depth-0' href='logout.php'>Logout</a>
+		          <a class='dropdown-item navlink z-depth-0' href='pagina.php?curso_id=$curso_id'><i class='fad fa-book-reader fa-fw'></i> $curso_sigla</a>
+		          <a class='dropdown-item navlink z-depth-0' href='logout.php'><i class='fad fa-portal-exit fa-fw'></i> Logout</a>
 		      </li>
 		    </ul>
 		  </nav>

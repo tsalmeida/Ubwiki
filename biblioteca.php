@@ -20,9 +20,10 @@
 	include 'templates/navbar.php';
 ?>
 <div class="container-fluid">
-
     <div class="row d-flex justify-content-between p-1">
-        <div class="col"></div>
+        <div class="col">
+          <a data-toggle='modal' data-target='#modal_add_elementos' class='text-success ml-1' title='Adicionar item à biblioteca' href='javascript:void(0);'><i class='fad fa-plus-circle fa-2x fa-fw'></i></a>
+        </div>
         <div class="col d-flex justify-content-center"><a href="javascript:void(0);" data-toggle="modal" data-target="#modal_busca" class="text-dark"><i class="fad fa-search fa-fw"></i></a></div>
 			<?php
 				echo "<div class='col d-flex justify-content-end'><form method='post'><button name='listar_todas' id='listar_todas' value='!all' class='$button_classes btn-info btn-sm m-0'>Listar todos</button></form></div>";
@@ -96,26 +97,71 @@
 							}
 							include 'templates/page_element.php';
 						} else {
+							
+							$template_id = 'recentemente_adicionados';
+							$template_titulo = 'Recentemente adicionados';
+							$template_conteudo_class = 'justify-content-start';
+							$template_botoes = "
+								  <a data-toggle='modal' data-target='#modal_add_elementos' class='text-success ml-1' title='Adicionar item à biblioteca' href='javascript:void(0);'><i class='fad fa-plus-square fa-fw'></i></a>
+								";
+							$template_conteudo_no_col = true;
+							$template_conteudo = false;
+							
+							$criados = $conn->query("SELECT pagina_id, titulo, autor, tipo, iframe FROM Elementos ORDER BY id DESC");
+							if ($criados->num_rows > 0) {
+								$count = 0;
+								while ($criado = $criados->fetch_assoc()) {
+									$criado_pagina_id = $criado['pagina_id'];
+									$criado_titulo = $criado['titulo'];
+									$criado_autor = $criado['autor'];
+									$criado_tipo = $criado['tipo'];
+									$criado_iframe = $criado['iframe'];
+									
+									
+									if ($criado_tipo == 'wikipedia') {
+										continue;
+									}
+									$count++;
+									if ($count > 12) {
+										break;
+									}
+									$artefato_id = "elemento_$criado_pagina_id";
+									$artefato_titulo = $criado_titulo;
+									$artefato_subtitulo = $criado_autor;
+									$artefato_tipo = $criado_tipo;
+									if ($criado_iframe != false) {
+										$fa_icone = 'fa-youtube-square';
+										$fa_color = 'text-danger';
+									}
+									$artefato_link = "pagina.php?pagina_id=$criado_pagina_id";
+									$template_conteudo .= include 'templates/artefato_item.php';
+								}
+								include 'templates/page_element.php';
+							}
+							
 							$template_id = 'biblioteca_mudancas_recentes';
 							$template_titulo = 'Recentemente modificados';
 							$template_conteudo_class = 'justify-content-start';
 							$template_conteudo_no_col = true;
 							$template_conteudo = false;
-							
+							$template_botoes = "
+								<a data-toggle='modal' data-target='#modal_add_elementos' class='text-success ml-1' title='Adicionar item à biblioteca' href='javascript:void(0);'><i class='fad fa-plus-square fa-fw'></i></a>
+							";
+							/*
 							$artefato_id = 'adicionar_item_biblioteca';
 							$artefato_titulo = 'Adicionar item';
 							$artefato_criacao = 'Pressione para adicionar um item à biblioteca';
 							$artefato_tipo = 'nova_referencia';
 							$artefato_modal = '#modal_add_elementos';
 							$artefato_link = false;
-							$template_conteudo .= include 'templates/artefato_item.php';
+							$template_conteudo .= include 'templates/artefato_item.php';*/
 							
 							$elementos_contados = array();
 							$modificados = $conn->query("SELECT pagina_id, verbete_html FROM Textos_arquivo WHERE pagina_tipo = 'elemento' ORDER BY id DESC");
 							if ($modificados->num_rows > 0) {
 								$count = 0;
 								while ($modificado = $modificados->fetch_assoc()) {
-									if ($count == 17) {
+									if ($count == 12) {
 										break;
 									}
 									$modificado_pagina_id = $modificado['pagina_id'];

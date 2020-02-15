@@ -72,12 +72,40 @@
 							}
 							include 'templates/page_element.php';
 						} else {
+							
+							$template_id = 'etiquetas_adicionadas';
+							$template_titulo = 'Recentemente adicionadas';
+							$template_conteudo_no_col = true;
+							$template_conteudo = false;
+							$etiquetas = $conn->query("SELECT id  FROM Etiquetas WHERE tipo = 'topico' ORDER BY id DESC");
+							if ($etiquetas->num_rows > 0) {
+								$count = 0;
+								while ($etiqueta = $etiquetas->fetch_assoc()) {
+									$list_etiqueta_id = $etiqueta['id'];
+									$list_etiqueta_info = return_etiqueta_info($list_etiqueta_id);
+									$list_etiqueta_pagina_id = $list_etiqueta_info[4];
+									$list_etiqueta_titulo = $list_etiqueta_info[2];
+									$count++;
+									if ($count > 12) {
+										break;
+									}
+									$artefato_titulo = $list_etiqueta_titulo;
+									$fa_icone = 'fa-tag';
+									$fa_color = 'text-warning';
+									$fa_size = 'fa-4x';
+									$artefato_link = "pagina.php?pagina_id=$list_etiqueta_pagina_id";
+									$template_conteudo .= include 'templates/artefato_item.php';
+								}
+								include 'templates/page_element.php';
+							}
+							
 							$template_id = 'etiquetas_recentes';
 							$template_titulo = 'Recentemente modificadas';
 							$template_conteudo_no_col = true;
 							$template_conteudo = false;
 							$paginas_contadas = array();
 							$etiquetas = $conn->query("SELECT pagina_id, verbete_content FROM Textos_arquivo WHERE pagina_subtipo = 'etiqueta' ORDER BY id DESC");
+							$count = 0;
 							if ($etiquetas->num_rows > 0) {
 								while ($etiqueta = $etiquetas->fetch_assoc()) {
 									$etiqueta_pagina_id = $etiqueta['pagina_id'];
@@ -90,6 +118,12 @@
 									if ($etiqueta_pagina_verbete_content == false) {
 										continue;
 									}
+									
+									$count++;
+									if ($count > 12) {
+									    break;
+                                    }
+									
 									$etiqueta_titulo = return_pagina_titulo($etiqueta_pagina_id);
 									$artefato_titulo = $etiqueta_titulo;
 									$fa_icone = 'fa-tag';
