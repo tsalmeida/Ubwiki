@@ -72,7 +72,7 @@
 		$artefato_col_limit = $add_elemento_artefato_col;
 		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	}
-	if (($pagina_tipo != 'curso') && ($pagina_tipo != 'materia')) {
+	if (($pagina_tipo != 'curso') && ($pagina_tipo != 'materia') && ($pagina_tipo != 'escritorio')) {
 		$artefato_tipo = 'adicionar_wikipedia';
 		$artefato_titulo = 'Vincular a artigo da Wikipédia';
 		$artefato_link = false;
