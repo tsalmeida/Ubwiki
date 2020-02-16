@@ -2378,11 +2378,16 @@
 		if ($text == false) {
 			return false;
 		}
-		$first_section = substr($text, 0, $ch_limit);
-		$last_space_position = strrpos($first_section, ' ');
-		$cropped = substr($first_section, 0, $last_space_position);
-		$cropped .= '...';
-		return $cropped;
+		$text_length = strlen($text);
+		if ($text_length > $ch_limit) {
+			$first_section = substr($text, 0, $ch_limit);
+			$last_space_position = strrpos($first_section, ' ');
+			$cropped = substr($first_section, 0, $last_space_position);
+			$cropped .= '...';
+			return $cropped;
+		} else {
+			return $text;
+		}
 	}
 	
 	function return_produto_info($pagina_id)
@@ -2613,7 +2618,7 @@
 			echo false;
 		}
 	}
-
+	
 	if (isset($_POST['adicionar_area_interesse'])) {
 		$adicionar_area_interesse = $_POST['adicionar_area_interesse'];
 		$user_escritorio_pagina_id = return_pagina_id($user_id, 'escritorio');
@@ -2634,6 +2639,6 @@
 			echo false;
 		}
 	}
-	
-	
+
+
 ?>
