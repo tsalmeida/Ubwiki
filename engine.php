@@ -2640,5 +2640,13 @@
 		}
 	}
 
-
+	if (isset($_POST['remover_membro_grupo_id'])) {
+		$remover_membro_grupo_id = $_POST['remover_membro_grupo_id'];
+		$remover_membro_user_id = $_POST['remover_membro_user_id'];
+		$remover_membro_check = $conn->query("UPDATE Membros SET estado = 0 WHERE grupo_id = $remover_membro_grupo_id AND membro_user_id = $remover_membro_user_id");
+		if ($remover_membro_check == true) {
+			echo true;
+		}
+	}
+	
 ?>

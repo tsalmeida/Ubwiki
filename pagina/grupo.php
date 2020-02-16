@@ -9,13 +9,15 @@
 	if ($pagina_user_id == $user_id) {
 		$carregar_convite = true;
 		$artefato_tipo = 'novo_membro';
-		$artefato_titulo = 'Convidar novo membro';
+		$artefato_titulo = 'Gerenciar membros';
+		$artefato_modal = '#modal_convidar_ou_remover';
+		$fa_icone = 'fa-users-cog';
+		$fa_color = 'text-default';
 		$artefato_link = false;
 		$artefato_criacao = false;
 		$template_conteudo .= include 'templates/artefato_item.php';
 	}
 	
-	$membros = $conn->query("SELECT DISTINCT membro_user_id, estado FROM Membros WHERE grupo_id = $grupo_id");
 	if ($membros->num_rows > 0) {
 		while ($membro = $membros->fetch_assoc()) {
 			$membro_user_id = $membro['membro_user_id'];

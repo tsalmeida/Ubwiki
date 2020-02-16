@@ -264,7 +264,7 @@
 						include 'templates/page_element.php';
 						
 						if ($user_apelido != false) {
-							$grupos_usuario_membro = $conn->query("SELECT grupo_id FROM Membros WHERE membro_user_id = $user_id AND estado IS NOT NULL");
+							$grupos_usuario_membro = $conn->query("SELECT grupo_id FROM Membros WHERE membro_user_id = $user_id AND estado = 1");
 							if ($grupos_usuario_membro->num_rows > 0) {
 								$template_id = 'grupos_usuario_membro';
 								$template_titulo = 'Seus grupos';

@@ -1,4 +1,5 @@
 <?php
+	
 	$template_modal_div_id = 'modal_add_elementos';
 	$template_modal_titulo = 'Adicionar elemento';
 	$template_modal_show_buttons = false;
@@ -72,7 +73,7 @@
 		$artefato_col_limit = $add_elemento_artefato_col;
 		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	}
-	if (($pagina_tipo != 'curso') && ($pagina_tipo != 'materia') && ($pagina_tipo != 'escritorio')) {
+	if (($pagina_tipo != 'curso') && ($pagina_tipo != 'materia') && ($pagina_tipo != 'escritorio') && ($pagina_tipo != 'grupo')) {
 		$artefato_tipo = 'adicionar_wikipedia';
 		$artefato_titulo = 'Vincular a artigo da Wikipédia';
 		$artefato_link = false;
@@ -82,17 +83,18 @@
 		$fa_color = 'text-dark';
 		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	}
-	
-	if (($carregar_secoes == true) && ($privilegio_edicao == true)) {
-		$artefato_tipo = 'adicionar_secao';
-		$artefato_titulo = 'Seção';
-		$artefato_link = false;
-		$artefato_criado = false;
-		$artefato_col_limit = $add_elemento_artefato_col;
-		$artefato_modal = '#modal_partes_form';
-		$fa_icone = 'fa-sitemap';
-		$fa_color = 'text-default';
-		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+	if (isset($carregar_secoes)) {
+		if (($carregar_secoes == true) && ($privilegio_edicao == true)) {
+			$artefato_tipo = 'adicionar_secao';
+			$artefato_titulo = 'Seção';
+			$artefato_link = false;
+			$artefato_criado = false;
+			$artefato_col_limit = $add_elemento_artefato_col;
+			$artefato_modal = '#modal_partes_form';
+			$fa_icone = 'fa-sitemap';
+			$fa_color = 'text-default';
+			$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+		}
 	}
 	
 	$template_modal_body_conteudo .= "</span>";

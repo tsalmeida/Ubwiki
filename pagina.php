@@ -373,6 +373,9 @@
 	if ($pagina_tipo == 'texto') {
 		$respostas = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'resposta'");
 	}
+	if ($pagina_tipo == 'grupo') {
+		$membros = $conn->query("SELECT DISTINCT membro_user_id, estado FROM Membros WHERE grupo_id = $grupo_id AND estado = 1 OR estado IS NULL");
+	}
 
 ?>
 <body class="grey lighten-5">
@@ -1228,6 +1231,7 @@
 		}
 		
 		$bottom_compartilhar_usuario = true;
+		
 		$template_modal_div_id = 'modal_compartilhar_usuario';
 		$template_modal_titulo = 'Colaborar com usuário da Ubwiki';
 		$modal_scrollable = true;
@@ -1352,6 +1356,30 @@
 	}
 	
 	if ($carregar_convite == true) {
+		
+		$template_modal_div_id = 'modal_convidar_ou_remover';
+		$template_modal_titulo = 'Gerenciar membros';
+		$template_modal_show_buttons = false;
+		$template_modal_body_conteudo = false;
+		
+		$template_modal_body_conteudo .= "<span class='row d-flex justify-content-around' data-target='#modal_convidar_ou_remover' data-toggle='modal'>";
+		
+		$artefato_titulo = 'Convidar novos membros';
+		$fa_color = 'text-success';
+		$fa_icone = 'fa-user-plus';
+		$artefato_modal = '#modal_novo_membro';
+		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+		
+		$artefato_titulo = 'Remover membros';
+		$fa_color = 'text-danger';
+		$fa_icone = 'fa-user-minus';
+		$artefato_modal = '#modal_remover_membro';
+		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+		
+		$template_modal_body_conteudo .= "</span>";
+		
+		include 'templates/modal.php';
+		
 		$template_modal_div_id = 'modal_novo_membro';
 		$template_modal_titulo = 'Convidar novo membro';
 		$template_modal_show_buttons = false;
@@ -1368,6 +1396,37 @@
             <div id='convite_resultados' class='row border p-2'>
 			</div>
 	    ";
+		include 'templates/modal.php';
+		
+		$carregar_remover_usuarios = true;
+		$template_modal_div_id = 'modal_remover_membro';
+		$template_modal_titulo = 'Remover membro deste grupo';
+		$modal_scrollable = true;
+		$template_modal_body_conteudo = false;
+		$template_modal_show_buttons = false;
+		if ($membros->num_rows > 1) {
+			$template_modal_body_conteudo .= "
+				<p class='mt-3'>Selecione um membro abaixo para removê-lo do grupo ou cancelar seu convite.</p>
+				<ul class='list-group list-group-flush'>
+				<input type='hidden' id='remover_membro_grupo_id' value='$pagina_item_id'>
+			";
+			mysqli_data_seek($membros, 0);
+			while ($membro = $membros->fetch_assoc()) {
+				$membro_user_id = $membro['membro_user_id'];
+				if ($membro_user_id == $user_id) {
+					continue;
+				}
+				$membro_estado = $membro['estado'];
+				$membro_user_apelido = return_apelido_user_id($membro_user_id);
+				$avatar_info = return_avatar($membro_user_id);
+				$fa_icone = $avatar_info[0];
+				$fa_color = $avatar_info[1];
+				$template_modal_body_conteudo .= "
+					<a href='javascript:void(0);' class='remover_membro_grupo' value='$membro_user_id'><li class='list-group-item list-group-item-action border-0 border-top'><span class='$fa_color'><i class='fad $fa_icone'></i></span> $membro_user_apelido</li></a>
+				";
+			}
+			$template_modal_body_conteudo .= "</ul>";
+		}
 		include 'templates/modal.php';
 	}
 	
@@ -1425,7 +1484,7 @@
 	if ($carregar_modal_wikipedia == true) {
 		$template_modal_div_id = 'modal_vinculos_wikipedia';
 		$template_modal_titulo = 'Verbetes da Wikipédia relacionados';
-		$template_modal_show_button = false;
+		$template_modal_show_buttons = false;
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
 		<p>Pressione para carregar artigo da Wikipédia:</p>

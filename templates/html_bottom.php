@@ -60,6 +60,9 @@
 	if (!isset($area_interesse_ativa)) {
 		$area_interesse_ativa = false;
 	}
+	if (!isset($carregar_remover_usuarios)) {
+		$carregar_remover_usuarios = false;
+	}
 	
 	echo "
     <!-- Bootstrap tooltips -->
@@ -733,7 +736,27 @@
 			});
 			</script>
 		";
-		
+	}
+	if ($carregar_remover_usuarios == true) {
+		echo "
+			<script type='text/javascript'>
+				$(document).on('click', '.remover_membro_grupo', function() {
+					var membro_remover = $(this).attr('value');
+					var grupo_remover = $('#remover_membro_grupo_id').val();
+					$.post('engine.php', {
+					   'remover_membro_grupo_id': grupo_remover,
+					   'remover_membro_user_id': membro_remover
+					}, function(data) {
+					    if (data != 0) {
+					        alert('Membro removido.');
+					        $(this).hide();
+					    } else {
+					        alert('Ocorreu algum problema');
+					    }
+					});
+				});
+			</script>
+		";
 	}
 ?>
 
