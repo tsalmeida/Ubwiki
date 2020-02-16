@@ -2168,7 +2168,7 @@
 			return false;
 		}
 		include 'templates/criar_conn.php';
-		$publicacao = $conn->query("SELECT compartilhamento FROM Compartilhamento WHERE tipo = 'publicacao' AND estado = 1 ORDER BY id DESC");
+		$publicacao = $conn->query("SELECT compartilhamento FROM Compartilhamento WHERE item_id = $item_id AND tipo = 'publicacao' AND estado = 1 ORDER BY id DESC");
 		if ($publicacao->num_rows > 0) {
 			while ($publicacao_tipo = $publicacao->fetch_assoc()) {
 				$publicacao_ativa = $publicacao_tipo['compartilhamento'];

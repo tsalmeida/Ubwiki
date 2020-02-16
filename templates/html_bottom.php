@@ -615,7 +615,7 @@
 		        'remover_compartilhamento_usuario_pagina': {$pagina_id}
 		    }, function(data) {
 		        if (data != 0) {
-		            alert('O acesso do usuário a este documento foi revogado.');
+		            alert('O acesso do usuário a esta página foi revogado.');
 		        }
 		    });
 		});
@@ -627,7 +627,7 @@
 		       'remover_acesso_grupo_pagina_id': {$pagina_id}
 		    }, function(data) {
 		        if (data != 0) {
-		            alert('O acesso desse grupo de estudo a este documento foi revogado.');
+		            alert('O acesso desse grupo de estudos a esta página foi revogado.');
 		        }
 		    });
 		})
