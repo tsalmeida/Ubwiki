@@ -6,6 +6,7 @@
 	$template_titulo = 'Notas de estudo';
 	$template_botoes_padrao = true;
 	$template_conteudo = include 'templates/template_quill.php';
+	$template_classes = 'elemento-anotacoes sticky-top';
 	include 'templates/page_element.php';
 	
 	echo "</div>";

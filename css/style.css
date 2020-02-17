@@ -524,4 +524,9 @@ ul {
   list-style-type: none !important;
 }
 
+.elemento-anotacoes {
+  max-height: 100vh;
+  overflow-y: auto;
+}
+
 /*# sourceMappingURL=style.css.map */
