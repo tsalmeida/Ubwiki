@@ -536,17 +536,19 @@
                                   </a>
                                 ";
 							}
-							if ($estado_estudo == true) {
-								$marcar_completo = 'collapse';
-								$marcar_incompleto = false;
-							} else {
-								$marcar_completo = false;
-								$marcar_incompleto = 'collapse';
-							}
-							echo "
+							if ($pagina_tipo == 'topico') {
+								if ($estado_estudo == true) {
+									$marcar_completo = 'collapse';
+									$marcar_incompleto = false;
+								} else {
+									$marcar_completo = false;
+									$marcar_incompleto = 'collapse';
+								}
+								echo "
                               <span id='add_completed' class='ml-1 $marcar_completo' title='Estudo completo' value='$pagina_id'><a href='javascript:void(0);' class='text-muted'><i class='fad fa-check-circle fa-fw'></i></a></span>
                               <span id='remove_completed' class='ml-1 $marcar_incompleto' title='Desmarcar como completo' value='$pagina_id'><a href='javascript:void(0);'><span class='text-success'><i class='fad fa-check-circle fa-fw'></i></span></span></a></span>
                             ";
+							}
 							if ($pagina_bookmark == true) {
 								$marcar_bookmark = 'collapse';
 								$desmarcar_bookmark = false;

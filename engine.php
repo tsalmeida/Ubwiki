@@ -2014,13 +2014,17 @@
 				$pagina_item_id = $pagina['item_id']; // 1
 				$pagina_tipo = $pagina['tipo']; // 2
 				$pagina_estado = $pagina['estado']; // 3
-				if ($pagina_estado == 1) {
-					$pagina_texto_id = return_texto_id($pagina_tipo, 'verbete', $pagina_item_id, false);
+				if ((($pagina_estado == 1) || ($pagina_estado == 0)) && ($pagina_tipo != 'materia')) {
+					$pagina_texto_id = return_texto_id($pagina_tipo, 'verbete', $pagina_id, false);
 					if ($pagina_texto_id != false) {
 						$pagina_verbete = return_verbete_html($pagina_texto_id);
 						if ($pagina_verbete == false) {
-							$pagina_estado = false;
+							$conn->query("UPDATE Paginas SET estado = 0 WHERE id = $pagina_id");
+							$pagina_estado = 0;
 						}
+					} else {
+						$conn->query("UPDATE Paginas SET estado = 0 WHERE id = $pagina_id");
+						$pagina_estado = 0;
 					}
 				}
 				$pagina_compartilhamento = $pagina['compartilhamento']; // 4
@@ -2066,7 +2070,6 @@
 		if ($pagina_tipo == 'texto') {
 			$textos = $conn->query("SELECT id FROM Textos WHERE pagina_tipo IS NULL AND texto_pagina_id = $pagina_id AND tipo = '$template_id'");
 		} else {
-			
 			if ($template_id == 'anotacoes') {
 				$query_extra = " AND user_id = $user_id";
 			} else {

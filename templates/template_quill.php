@@ -109,6 +109,13 @@
 		}
 	}
 	
+	if ($template_id == 'verbete') {
+		if ($quill_verbete_content != false) {
+			if ($pagina_estado == 0) {
+				$conn->query("UPDATE Paginas SET estado = 1 WHERE id = $pagina_id");
+			}
+		}
+	}
 	
 	if ($quill_texto_id == false) {
 		if (!isset($pagina_curso_id)) {
@@ -123,7 +130,6 @@
 			$conn->query("UPDATE Paginas SET estado = 1 WHERE id = $pagina_id");
 		}
 	}
-	
 	
 	$quill_result = false;
 	

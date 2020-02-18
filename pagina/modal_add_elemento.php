@@ -10,7 +10,7 @@
 	$add_elemento_artefato_col = 'col-lg-3 col-sm-5';
 	
 	$artefato_tipo = 'adicionar_livro';
-	$artefato_titulo = 'Livro, página etc.';
+	$artefato_titulo = 'Material de leitura';
 	$artefato_link = false;
 	$artefato_criacao = false;
 	$artefato_modal = '#modal_buscar_elemento';
@@ -20,7 +20,7 @@
 	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	
 	$artefato_tipo = 'adicionar_video';
-	$artefato_titulo = 'Filme, vídeo etc.';
+	$artefato_titulo = 'Material videográfico';
 	$artefato_link = false;
 	$artefato_criacao = false;
 	$artefato_modal = '#modal_buscar_elemento';
@@ -30,7 +30,7 @@
 	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	
 	$artefato_tipo = 'adicionar_audio';
-	$artefato_titulo = 'Audio-book, álbum de música, podcast etc.';
+	$artefato_titulo = 'Material em áudio';
 	$artefato_link = false;
 	$artefato_criacao = false;
 	$artefato_modal = '#modal_buscar_elemento';

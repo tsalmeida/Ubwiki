@@ -2,11 +2,26 @@
 
 	include 'engine.php';
 
+	$pagina_tipo = 'admin';
+	
 	if ($user_tipo != 'admin') {
 		header("Location:escritorio.php");
 	}
 
 	if (isset($_POST['trigger_atualizacao'])) {
+	    $paginas = $conn->query("SELECT id, estado, tipo FROM Paginas WHERE estado = 0");
+	    if ($paginas->num_rows > 0) {
+	        while ($pagina = $paginas->fetch_assoc()) {
+	          $pagina_id = $pagina['id'];
+	          $pagina_estado = $pagina['estado'];
+	          $pagina_tipo = $pagina['tipo'];
+	          $pagina_texto_id = return_texto_id($pagina_tipo, 'verbete', $pagina_id, false);
+	          $pagina_verbete = return_verbete_html($pagina_texto_id);
+	          if ($pagina_verbete != false) {
+	          	$conn->query("UPDATE Paginas SET estado = 1 WHERE id = $pagina_id");
+	          }
+	        }
+        }
 	}
 
 	if (isset($_POST['trigger_atualizar_textos_size'])) {
