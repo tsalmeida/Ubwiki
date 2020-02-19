@@ -46,7 +46,7 @@
 	            </button >
           </div>";
 	echo "
-          <div class='modal-body mx-3'>
+          <div id='body_$template_modal_div_id' class='modal-body mx-3'>
   ";
 	echo "
 					$template_modal_body_conteudo

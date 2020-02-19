@@ -443,7 +443,7 @@
 								$topico_anterior_link = "pagina.php?topico_id=$topico_anterior";
 								echo "<span id='verbete_anterior' class='mx-1' title='Verbete anterior'><a href='$topico_anterior_link'><i class='fad fa-arrow-left fa-fw'></i></a></span>";
 							}
-							echo "<span id='verbetes_relacionados' class='mx-1' title='Verbetes relacionados' data-toggle='modal' data-target='#modal_verbetes_relacionados'><a href='javascript:void(0);' class='text-muted'><i class='fad fa-map-signs fa-2x fa-fw'></i></a></span>";
+							echo "<span id='verbetes_relacionados' class='mx-1' title='Navegação' data-toggle='modal' data-target='#modal_verbetes_relacionados'><a href='javascript:void(0);' class='text-light'><i class='fad fa-location-circle fa-2x fa-fw'></i></a></span>";
 							if ($topico_proximo != false) {
 								$topico_proximo_link = "pagina.php?topico_id=$topico_proximo";
 								echo "<span id='verbete_proximo' class='mx-1' title='Próximo verbete'><a href='$topico_proximo_link'><i class='fad fa-arrow-right fa-fw'></i></a></span>";
@@ -859,7 +859,7 @@
 <?php
 	if ($pagina_tipo == 'topico') {
 		$template_modal_div_id = 'modal_verbetes_relacionados';
-		$template_modal_titulo = 'Verbetes relacionados';
+		$template_modal_titulo = 'Navegação';
 		$template_modal_show_buttons = false;
 		$template_modal_body_conteudo = $breadcrumbs;
 		include 'templates/modal.php';
@@ -953,6 +953,9 @@
 	if ($privilegio_edicao == true) {
 		include 'pagina/modal_add_elemento.php';
 		include 'pagina/modal_adicionar_imagem.php';
+		if ($pagina_tipo == 'topico') {
+		    include 'pagina/modals_questoes.php';
+        }
 	}
 	if ($modal_pagina_dados == true) {
 		if (($pagina_tipo == 'pagina') || ($pagina_tipo == 'sistema')) {

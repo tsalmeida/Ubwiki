@@ -71,6 +71,7 @@
 		$artefato_link = false;
 		$artefato_criacao = false;
 		$artefato_col_limit = $add_elemento_artefato_col;
+		$artefato_modal = '#modal_adicionar_simulado';
 		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	}
 	if (($pagina_tipo != 'curso') && ($pagina_tipo != 'materia') && ($pagina_tipo != 'escritorio') && ($pagina_tipo != 'grupo')) {

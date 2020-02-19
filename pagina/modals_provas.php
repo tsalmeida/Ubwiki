@@ -92,7 +92,7 @@
 	$template_modal_body_conteudo .= "
                                 <div class='md-form'>
                                   <input type='text' class='form-control' name='nova_etapa_titulo' id='nova_etapa_titulo' required>
-                                  <label for='nova_etapa_titulo'>Título da etapa</label>
+                                  <label for='nova_etapa_titulo'>Título da nova etapa</label>
                                 </div>
                             ";
 	if ($etapas->num_rows > 0) {
