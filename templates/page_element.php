@@ -25,7 +25,7 @@
 		$template_col_value = 'col-12';
 	}
 	if (!isset($template_background)) {
-		$template_background = 'rgba-white-strong border border-light';
+		$template_background = 'bg-white border border-light';
 	}
 	
 	if (!isset($template_no_spacer)) {
