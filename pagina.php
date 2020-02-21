@@ -69,7 +69,11 @@
 		} elseif (isset($_GET['etiqueta_id'])) {
 			$pagina_etiqueta_id = $_GET['etiqueta_id'];
 			$pagina_id = return_pagina_id($pagina_etiqueta_id, 'etiqueta');
-		} else {
+		} elseif (isset($_GET['questao_id'])) {
+		    $pagina_questao_id = $_GET['questao_id'];
+		    $pagina_id = return_pagina_id($pagina_questao_id, 'questao');
+        }
+		else {
 			header('Location:pagina.php?pagina_id=4');
 			exit();
 		}
@@ -137,7 +141,31 @@
 		$pagina_curso_compartilhamento = $topico_curso_pagina_info[4];
 		$topico_materia_pagina_id = (int)$familia_info[2];
 		$topico_materia_titulo = return_pagina_titulo($topico_materia_pagina_id);
-	} elseif (($pagina_tipo == 'materia') || ($pagina_tipo == 'curso')) {
+	} elseif ($pagina_tipo == 'questao') {
+	    $pagina_questao_info = return_questao_info($pagina_questao_id);
+	    $pagina_questao_origem = $pagina_questao_info[0];
+	    $pagina_questao_curso_id = $pagina_questao_info[1];
+	    $pagina_questao_edicao_ano = $pagina_questao_info[2];
+	    $pagina_questao_etapa_id = $pagina_questao_info[3];
+	    $pagina_questao_texto_apoio = $pagina_questao_info[4];
+	    $pagina_questao_texto_apoio_id = $pagina_questao_info[5];
+	    $pagina_questao_prova_id = $pagina_questao_info[6];
+	    $pagina_questao_numero = $pagina_questao_info[7];
+	    $pagina_questao_materia = $pagina_questao_info[8];
+	    $pagina_questao_tipo = $pagina_questao_info[9];
+	    $pagina_questao_enunciado_html = $pagina_questao_info[10];
+	    $pagina_questao_item1_html = $pagina_questao_info[13];
+	    $pagina_questao_item2_html = $pagina_questao_info[14];
+	    $pagina_questao_item3_html = $pagina_questao_info[15];
+	    $pagina_questao_item4_html = $pagina_questao_info[16];
+	    $pagina_questao_item5_html = $pagina_questao_info[17];
+	    $pagina_questao_item1_gabarito = $pagina_questao_info[28];
+	    $pagina_questao_item2_gabarito = $pagina_questao_info[29];
+	    $pagina_questao_item3_gabarito = $pagina_questao_info[30];
+	    $pagina_questao_item4_gabarito = $pagina_questao_info[31];
+	    $pagina_questao_item5_gabarito = $pagina_questao_info[32];
+    }
+	elseif (($pagina_tipo == 'materia') || ($pagina_tipo == 'curso')) {
 		$familia_info = return_familia($pagina_id);
 		$pagina_curso_pagina_id = (int)$familia_info[1];
 		$pagina_curso_info = return_pagina_info($pagina_curso_pagina_id);
@@ -659,6 +687,11 @@
 			} else {
 				$template_subtitulo = 'Referente a texto sem título';
 			}
+		} elseif ($pagina_tipo == 'questao') {
+			$template_titulo = "Questão $pagina_questao_numero";
+			$pagina_questao_curso_titulo = return_curso_titulo_id($pagina_questao_curso_id);
+			$pagina_questao_materia_titulo = return_pagina_titulo($pagina_questao_materia);
+			$template_subtitulo = "<a href='pagina.php?pagina_id=$pagina_questao_materia'>$pagina_questao_materia_titulo</a> / <a href='pagina.php?curso_id=$pagina_questao_curso_id'>$pagina_questao_curso_titulo</a> / Edição de $pagina_questao_edicao_ano";
 		}
 		if ($wiki_id != false) {
 			$template_subtitulo = "<a href='pagina.php?pagina_id=$pagina_id'>Retornar ao verbete da página</a>";
@@ -807,6 +840,31 @@
 				}
 				
 				include 'pagina/etiquetas.php';
+				
+				if ($pagina_tipo == 'topico') {
+					$list_pagina_questoes = $conn->query("SELECT elemento_id, extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'questao'");
+					if ($list_pagina_questoes->num_rows > 0) {
+						$template_id = 'pagina_questoes';
+						$template_titulo = 'Questões sobre este tópico';
+						$template_conteudo = false;
+						$template_conteudo .= "<ul class='list-group list-group-flush'>";
+						while ($list_pagina_questao = $list_pagina_questoes->fetch_assoc()) {
+							$list_pagina_questao_id = $list_pagina_questao['elemento_id'];
+							$list_pagina_questao_info = return_questao_info($list_pagina_questao_id);
+							$list_pagina_questao_origem = $list_pagina_questao_info[0];
+							$list_pagina_questao_edicao_ano = $list_pagina_questao_info[2];
+							$list_pagina_questao_prova_id = $list_pagina_questao_info[6];
+							$list_pagina_questao_numero = $list_pagina_questao_info[7];
+							$list_pagina_questao_tipo = $list_pagina_questao_info[9];
+							$list_pagina_questao_prova_info = return_info_prova_id($list_pagina_questao_prova_id);
+							$list_pagina_questao_prova_titulo = $list_pagina_questao_prova_info[0];
+							
+							$template_conteudo .= "<a href='pagina.php?questao_id=$list_pagina_questao_id' class='mt-1'><li class='list-group-item list-group-item-action border-top'>$list_pagina_questao_edicao_ano: Prova \"$list_pagina_questao_prova_titulo\", questão $list_pagina_questao_numero.</li></a>";
+						}
+						$template_conteudo .= "</ul>";
+						include 'templates/page_element.php';
+					}
+				}
 				
 				echo "</div>";
 			?>

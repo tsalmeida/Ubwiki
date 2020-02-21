@@ -10,6 +10,7 @@
 
 	if (isset($_POST['trigger_atualizacao'])) {
 	    $conn->query("ALTER TABLE `sim_questoes` ADD `texto_apoio` BOOLEAN NOT NULL DEFAULT FALSE AFTER `etapa_id`;");
+	    $conn->query("ALTER TABLE `sim_questoes` ADD `pagina_id` INT(11) NULL DEFAULT NULL AFTER `id`;");
 	}
 
 	if (isset($_POST['trigger_atualizar_textos_size'])) {
