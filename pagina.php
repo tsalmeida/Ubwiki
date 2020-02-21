@@ -443,7 +443,7 @@
 								$topico_anterior_link = "pagina.php?topico_id=$topico_anterior";
 								echo "<span id='verbete_anterior' class='mx-1' title='Verbete anterior'><a href='$topico_anterior_link'><i class='fad fa-arrow-left fa-fw'></i></a></span>";
 							}
-							echo "<span id='verbetes_relacionados' class='mx-1' title='Navegação' data-toggle='modal' data-target='#modal_verbetes_relacionados'><a href='javascript:void(0);' class='text-light'><i class='fad fa-location-circle fa-2x fa-fw'></i></a></span>";
+							echo "<span id='verbetes_relacionados' class='mx-1' title='Navegação' data-toggle='modal' data-target='#modal_verbetes_relacionados'><a href='javascript:void(0);' class='text-muted'><i class='fad fa-location-circle fa-2x fa-fw'></i></a></span>";
 							if ($topico_proximo != false) {
 								$topico_proximo_link = "pagina.php?topico_id=$topico_proximo";
 								echo "<span id='verbete_proximo' class='mx-1' title='Próximo verbete'><a href='$topico_proximo_link'><i class='fad fa-arrow-right fa-fw'></i></a></span>";
@@ -852,7 +852,7 @@
     </div>
 </div>
 <?php
-	echo "<a id='mostrar_coluna_direita' class='text-white rgba-black-strong rounded m-1 p-1' tabindex='-1' title='Notas privadas'><i class='fas fa-pen-alt fa-fw'></i></a>";
+	echo "<a id='mostrar_coluna_direita' class='text-light rgba-black-strong rounded m-1 p-1' tabindex='-1' title='Notas privadas'><i class='fas fa-pen-alt fa-fw'></i></a>";
 ?>
 </div>
 

@@ -8,6 +8,33 @@
 		$thinkific_email = $_SESSION['thinkific_email'];
 		$thinkific_bora = $_SESSION['thinkific_bora'];
 	}
+	
+	if (isset($_GET['confirmacao'])) {
+		$confirmacao = $_GET['confirmacao'];
+		$conn->query("UPDATE Usuarios SET origem = 'confirmado' WHERE origem = '$confirmacao'");
+	}
+	
+	function send_nova_senha($email, $confirmacao) {
+		$msg = "Sua senha na Ubwiki foi alterada.\nCaso você não tenha conta na Ubwiki, uma nova conta terá sido criada para seu endereço de email.\nPara ativá-la, siga este link:\nhttps://www.ubwiki.com.br/login.php?confirmacao=$confirmacao";
+		mail($email, 'Nova senha na Ubwiki', $msg);
+	}
+	
+	if (isset($_POST['nova_senha'])) {
+		$nova_senha = $_POST['nova_senha'];
+		$nova_senha_email = $_POST['nova_senha_email'];
+		$nova_senha_encrypted = password_hash($nova_senha, PASSWORD_DEFAULT);
+		$confirmacao = generateRandomString(12);
+		send_nova_senha($nova_senha_email, $confirmacao);
+		$usuarios = $conn->query("SELECT id FROM Usuarios WHERE email = '$nova_senha_email'");
+		if ($usuarios->num_rows > 0) {
+			while ($usuario = $usuarios->fetch_assoc()) {
+				$usuario_id = $usuario['id'];
+				$conn->query("UPDATE Usuarios SET senha = '$nova_senha_encrypted', origem = '$confirmacao' WHERE id = $usuario_id");
+			}
+		} else {
+			$conn->query("INSERT INTO Usuarios (email, origem, senha) VALUES ('$nova_senha_email', '$confirmacao', '$nova_senha_encrypted')");
+		}
+	}
 ?>
 
 <body class="grey lighten-5">
@@ -46,7 +73,7 @@
 						
 						$template_id = 'formulario_login';
 						$template_titulo = 'Acessar';
-						$template_botoes = false;
+						$template_botoes = "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_nova_senha' class='text-primary' title='Perdeu sua senha?'><i class='fad fa-unlock-alt'></i></a>";
 						$template_botoes_padrao = false;
 						$template_conteudo = false;
 						$template_classes = 'justify-content-center';
@@ -58,7 +85,7 @@
                                 <p id='login_mensagem_basica' class='collapse'>Para acessar ou criar uma conta, insira seu email abaixo.</p>
                                 <p id='login_senha_incorreta' class='collapse'>Senha incorreta.</p>
                                 <p id='login_novo_usuario' class='collapse'>Não existe conta registrada para este email. Continue para criar uma conta.</p>
-                                <p id='login_thinkific_registro' class='collapse'>Para acessar a Ubwiki diretamente e criar uma nova senha, você precisará, uma última vez, passar pela <a href='https://www.grupoubique.com.br/'>página do Grupo Ubique</a>.</p>
+                                <p id='login_thinkific_registro' class='collapse'>Para acessar a Ubwiki diretamente e criar uma nova senha, você precisará, uma última vez, passar pela <a href='https://www.grupoubique.com.br/'>página do Grupo Ubique</a>. Alternativamente, você pode pressionar o cadeado azul no canto superior direito e receber um código de confirmação por email.</p>
                                 <div id='secao_login_email' class='md-form mt-3 collapse'>
                                     <input type='email' id='login_email' name='login_email' class='form-control'>
                                     <label for='login_email'>Seu email</label>
@@ -93,6 +120,23 @@
         </div>
     </div>
 </div>
+<?php
+	$template_modal_div_id = 'modal_nova_senha';
+	$template_modal_titulo = 'Enviar nova senha por email';
+	$template_modal_body_conteudo = false;
+	$template_modal_body_conteudo .= "
+		<p>Esqueceu sua senha? Crie abaixo sua nova senha, ela será ativada quando você seguir um link que será enviado ao seu email. Não se esqueça de procurá-la na pasta de mensagens bloqueadas.</p>
+		<div class='md-form'>
+			<input type='text' class='form-control' name='nova_senha_email' id='nova_senha_email'>
+			<label for='nova_senha_email'>Seu email</label>
+		</div>
+		<div class='md-form'>
+			<input type='password' class='form-control' name='nova_senha' id='nova_senha'>
+			<label for='nova_senha'>Sua nova senha</label>
+		</div>
+	";
+	include 'templates/modal.php';
+?>
 </body>
 <?php
 	if (!isset($thinkific_email)) {

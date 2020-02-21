@@ -88,7 +88,7 @@
 		$artefato_link_1 = "<a id='link_$artefato_tipo' href='$artefato_link' class='$fa_class $fa_color' title='$artefato_criacao'>";
 		$artefato_link_2 = "</a>";
 	} else {
-		$artefato_link_1 = "<span id='$artefato_tipo' data-toggle='modal' data-target='$artefato_modal' title='$artefato_criacao'><a href='javascript:void(0);' class='$fa_color'>";
+		$artefato_link_1 = "<span data-toggle='modal' data-target='$artefato_modal' title='$artefato_criacao'><a id='trigger_$artefato_tipo' href='javascript:void(0);' class='$fa_color'>";
 		$artefato_link_2 = "</a></span>";
 	}
 

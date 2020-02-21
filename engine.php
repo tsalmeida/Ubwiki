@@ -2657,13 +2657,13 @@
 		$etapas = $conn->query("SELECT id, titulo FROM sim_etapas WHERE edicao_id = $carregar_edicao");
 		$etapas_resultado = false;
 		if ($etapas->num_rows > 0) {
-			$etapas_resultado .= "<ul class='list-group list-group-flush'><span data-toggle='modal' data-target='#modal_vazio_edicoes'>";
+			$etapas_resultado .= "<ul class='list-group list-group-flush'><span data-toggle='modal' data-target='#modal_vazio_edicoes'><span data-toggle='modal' data-target='#modal_vazio_provas'>";
 			while ($etapa = $etapas->fetch_assoc()) {
 				$etapa_id = $etapa['id'];
 				$etapa_titulo = $etapa['titulo'];
 				$etapas_resultado .= "<a href='javascript:void(0);' class='mt-1 carregar_etapa' value='$etapa_id'><li class='list-group-item list-group-item-action border-top'>$etapa_titulo</li></a>";
 			}
-			$etapas_resultado .= "</span></ul>";
+			$etapas_resultado .= "</span></span></ul>";
 		}
 		echo $etapas_resultado;
 	}
@@ -2673,6 +2673,53 @@
 		$nova_etapa_curso_id = $_POST['nova_etapa_curso_id'];
 		$nova_etapa_titulo = $_POST['nova_etapa_titulo'];
 		$conn->query("INSERT INTO sim_etapas (curso_id, edicao_id, titulo, user_id) VALUES ($nova_etapa_curso_id, $nova_etapa_edicao_id, '$nova_etapa_titulo', $user_id)");
+	}
+	
+	if (isset($_POST['carregar_etapa'])) {
+		$carregar_etapa = $_POST['carregar_etapa'];
+		$provas = $conn->query("SELECT id, titulo, tipo FROM sim_provas WHERE etapa_id = $carregar_etapa");
+		$provas_resultado = false;
+		if ($provas->num_rows > 0) {
+			$provas_resultado .= "<ul class='list-group list-group-flush'><span data-toggle='modal' data-target='#modal_vazio_provas'><span data-toggle='modal' data-target='#modal_vazio_questoes'>";
+			while ($prova = $provas->fetch_assoc()) {
+				$prova_id = $prova['id'];
+				$prova_titulo = $prova['titulo'];
+				$prova_tipo = $prova['tipo'];
+				$prova_tipo_string = convert_prova_tipo($prova_tipo);
+				$provas_resultado .= "<a href='javascript:void(0);' class='mt-1 carregar_prova' value='$prova_id'><li class='list-group-item list-group-item-action border-top'>$prova_titulo <strong>($prova_tipo_string)</strong></li></a>";
+			}
+			$provas_resultado .= "</span></span></ul>";
+		}
+		echo $provas_resultado;
+	}
+	
+	if (isset($_POST['nova_prova_etapa_id'])) {
+		$nova_prova_etapa_id = $_POST['nova_prova_etapa_id'];
+		$nova_prova_curso_id = $_POST['nova_prova_curso_id'];
+		$nova_prova_tipo = $_POST['nova_prova_tipo'];
+		$nova_prova_titulo = $_POST['nova_prova_titulo'];
+		$conn->query("INSERT INTO sim_provas (curso_id, etapa_id, titulo, tipo) VALUES ($nova_prova_curso_id, $nova_prova_etapa_id, '$nova_prova_titulo', $nova_prova_tipo)");
+	}
+	
+	if (isset($_POST['trigger_nova_questao'])) {
+		$nova_questao_curso_id = $_POST['nova_questao_curso_id'];
+		$nova_questao_pagina_id = $_POST['nova_questao_pagina_id'];
+		$nova_questao_etapa_id = $_POST['nova_questao_etapa_id'];
+		$nova_questao_prova_id = $_POST['nova_questao_prova_id'];
+		$nova_questao_edicao_id = $_POST['nova_questao_edicao_id'];
+		$nova_questao_origem = $_POST['nova_questao_origem'];
+		$nova_questao_texto_apoio = $_POST['nova_questao_texto_apoio'];
+		$nova_questao_tipo = $_POST['nova_questao_tipo'];
+		$nova_questao_numero = $_POST['nova_questao_numero'];
+		
+		$nova_questao_etapa_info = return_etapa_edicao_ano_e_titulo($nova_questao_etapa_id);
+		$nova_questao_edicao_ano = $nova_questao_etapa_info[0];
+		
+		$nova_questao_pagina_familia = return_familia($nova_questao_pagina_id);
+		$nova_questao_materia_id = $nova_questao_pagina_familia[2];
+		
+		error_log("INSERT INTO sim_questoes (origem, curso_id, edicao_ano, etapa_id, texto_apoio, prova_id, numero, materia, tipo, enunciado_html, enunciado_text, enunciado_content, user_id) VALUES ($nova_questao_origem, $nova_questao_curso_id, $nova_questao_edicao_ano, $nova_questao_etapa_id, $nova_questao_texto_apoio, $nova_questao_prova_id, $nova_questao_numero, $nova_questao_materia_id, $nova_questao_tipo, false, false, false, $user_id)");
+		$conn->query("INSERT INTO sim_questoes (origem, curso_id, edicao_ano, etapa_id, texto_apoio, prova_id, numero, materia, tipo, enunciado_html, enunciado_text, enunciado_content, user_id) VALUES ($nova_questao_origem, $nova_questao_curso_id, $nova_questao_edicao_ano, $nova_questao_etapa_id, $nova_questao_texto_apoio, $nova_questao_prova_id, $nova_questao_numero, $nova_questao_materia_id, $nova_questao_tipo, false, false, false, $user_id)");
 	}
 	
 ?>
