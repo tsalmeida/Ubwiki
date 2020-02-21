@@ -63,8 +63,12 @@
 					$hash_origem = $hash['origem'];
 					$check = password_verify($login_senha, $hash_senha);
 					if ($check == true) {
-						$_SESSION['user_email'] = $login_email;
-						echo true;
+						if (($hash_origem == false) || ($hash_origem == 'confirmado') || ($hash_origem == 'thinkific')) {
+							$_SESSION['user_email'] = $login_email;
+							echo true;
+						} else {
+							echo 'confirmacao';
+						}
 					} elseif (($hash_origem == 'thinkific') && (is_null($hash_senha))) {
 						echo 'thinkific';
 					} else {
@@ -2642,7 +2646,7 @@
 			echo false;
 		}
 	}
-
+	
 	if (isset($_POST['remover_membro_grupo_id'])) {
 		$remover_membro_grupo_id = $_POST['remover_membro_grupo_id'];
 		$remover_membro_user_id = $_POST['remover_membro_user_id'];
@@ -2718,8 +2722,7 @@
 		$nova_questao_pagina_familia = return_familia($nova_questao_pagina_id);
 		$nova_questao_materia_id = $nova_questao_pagina_familia[2];
 		
-		error_log("INSERT INTO sim_questoes (origem, curso_id, edicao_ano, etapa_id, texto_apoio, prova_id, numero, materia, tipo, enunciado_html, enunciado_text, enunciado_content, user_id) VALUES ($nova_questao_origem, $nova_questao_curso_id, $nova_questao_edicao_ano, $nova_questao_etapa_id, $nova_questao_texto_apoio, $nova_questao_prova_id, $nova_questao_numero, $nova_questao_materia_id, $nova_questao_tipo, false, false, false, $user_id)");
 		$conn->query("INSERT INTO sim_questoes (origem, curso_id, edicao_ano, etapa_id, texto_apoio, prova_id, numero, materia, tipo, enunciado_html, enunciado_text, enunciado_content, user_id) VALUES ($nova_questao_origem, $nova_questao_curso_id, $nova_questao_edicao_ano, $nova_questao_etapa_id, $nova_questao_texto_apoio, $nova_questao_prova_id, $nova_questao_numero, $nova_questao_materia_id, $nova_questao_tipo, false, false, false, $user_id)");
 	}
-	
+
 ?>

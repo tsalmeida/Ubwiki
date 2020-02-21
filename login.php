@@ -16,8 +16,7 @@
 	
 	function send_nova_senha($email, $confirmacao) {
 		$msg = "Sua senha na Ubwiki foi alterada.\nCaso você não tenha conta na Ubwiki, uma nova conta terá sido criada para seu endereço de email.\nPara ativá-la, siga este link:\nhttps://www.ubwiki.com.br/ubwiki/login.php?confirmacao=$confirmacao";
-		$mail_check = mail($email, 'Nova senha na Ubwiki', $msg, null, '-fwebmaster@ubwiki.com.br');
-		error_log("mail result: $mail_check");
+		mail($email, 'Nova senha na Ubwiki', $msg, null, '-fwebmaster@ubwiki.com.br');
 	}
 	
 	if (isset($_POST['nova_senha'])) {
@@ -82,9 +81,10 @@
                             <form method='post' name='form_login' id='form_login'>
                                 <p id='thinkific_transfer' class='collapse'>Não é mais necessário passar pela página do Grupo Ubique para acessar a Ubwiki. Crie uma senha abaixo.</p>
                                 <p id='thinkific_senha_existe' class='collapse'>Porque você já criou uma senha, não é mais necessário passar pela página do Grupo Ubique para acessar a Ubwiki. Insira sua senha abaixo.</p>
-                                <p id='thinkific_senha_incorreta' class='collapse'>Senha incorreta. Trata-se da senha que você criou na Ubwiki, não da sua senha na página do Grupo Ubique.</p>
+                                <p id='thinkific_senha_incorreta' class='collapse text-danger'>Senha incorreta. Trata-se da senha que você criou na Ubwiki, não da sua senha na página do Grupo Ubique.</p>
                                 <p id='login_mensagem_basica' class='collapse'>Para acessar ou criar uma conta, insira seu email abaixo.</p>
-                                <p id='login_senha_incorreta' class='collapse'>Senha incorreta.</p>
+                                <p id='login_senha_confirmar' class='collapse'>Senha correta. No entanto, antes que essa conta possa ser acessada com a nova senha, será necessário seguir o link enviado ao seu email.</p>
+                                <p id='login_senha_incorreta' class='collapse text-danger'>Senha incorreta.</p>
                                 <p id='login_novo_usuario' class='collapse'>Não existe conta registrada para este email. Continue para criar uma conta.</p>
                                 <p id='login_thinkific_registro' class='collapse'>Para acessar a Ubwiki diretamente e criar uma nova senha, você precisará, uma última vez, passar pela <a href='https://www.grupoubique.com.br/'>página do Grupo Ubique</a>. Alternativamente, você pode pressionar o cadeado azul no canto superior direito e receber um código de confirmação por email.</p>
                                 <div id='secao_login_email' class='md-form mt-3 collapse'>
@@ -197,6 +197,7 @@
                                 $('#login_novo_usuario').show();
                                 $('#secao_login_confirmacao').show();
                                 $('#login_senha_confirmacao').prop('disabled', false);
+                                $('#login_senha_incorreta').hide();
                                 $('#login_email').prop('disabled', true);
                                 $('#login_senha').prop('disabled', true);
                                 $('#botao_login').prop('disabled', true);
@@ -205,6 +206,9 @@
                                 $('#login_mensagem_basica').addClass('text-muted');
                                 $('#login_email').prop('disabled', true);
                                 $('#login_senha').prop('disabled', true);
+                            } else if (data == 'confirmacao') {
+                                $('#login_senha_confirmar').show();
+                                $('#login_senha_incorreta').hide();
                             }
                         });
                       } else {
