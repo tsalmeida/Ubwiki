@@ -73,7 +73,7 @@
 						
 						$template_id = 'formulario_login';
 						$template_titulo = 'Acessar';
-						$template_botoes = "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_nova_senha' class='text-primary' title='Perdeu sua senha?'><i class='fad fa-unlock-alt'></i></a>";
+						$template_botoes = "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_nova_senha' class='text-primary' title='Perdeu sua senha?'><i class='fad fa-unlock-alt fa-fw'></i></a>";
 						$template_botoes_padrao = false;
 						$template_conteudo = false;
 						$template_classes = 'justify-content-center';
