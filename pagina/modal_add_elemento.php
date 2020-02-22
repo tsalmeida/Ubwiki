@@ -74,7 +74,7 @@
 		$artefato_modal = '#modal_adicionar_simulado';
 		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	}
-	if (($pagina_tipo != 'curso') && ($pagina_tipo != 'materia') && ($pagina_tipo != 'escritorio') && ($pagina_tipo != 'grupo')) {
+	if (($pagina_tipo != 'curso') && ($pagina_tipo != 'materia') && ($pagina_tipo != 'escritorio') && ($pagina_tipo != 'grupo') && ($pagina_tipo != 'questao')) {
 		$artefato_tipo = 'adicionar_wikipedia';
 		$artefato_titulo = 'Vincular a artigo da Wikipédia';
 		$artefato_link = false;

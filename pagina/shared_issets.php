@@ -1,5 +1,5 @@
 <?php
-
+	
 	if (isset($_POST['novo_estado_pagina'])) {
 		$novo_estado_pagina = $_POST['novo_estado_pagina'];
 		$conn->query("UPDATE Paginas SET estado = $novo_estado_pagina WHERE id = $pagina_id");
@@ -100,5 +100,17 @@
 	}
 	
 	$grupos_do_usuario = $conn->query("SELECT grupo_id FROM Membros WHERE membro_user_id = $user_id");
-
+	
+	
+	if (isset($_POST['nova_questao_texto_de_apoio_id'])) {
+		$nova_questao_texto_de_apoio_id = $_POST['nova_questao_texto_de_apoio_id'];
+		if ($nova_questao_texto_de_apoio_id == 'novo') {
+			$conn->query("INSERT INTO sim_textos_apoio (origem, curso_id, prova_id, titulo, enunciado_html, enunciado_text, enunciado_content, texto_apoio_html, texto_apoio_text, texto_apoio_content, user_id) VALUES ($pagina_questao_origem, $pagina_questao_curso_id, $pagina_questao_prova_id, 'Texto de apoio da questão $pagina_questao_numero', false, false, false, false, false, false, $user_id)");
+			$novo_texto_apoio_id = $conn->insert_id;
+			$conn->query("UPDATE sim_questoes SET texto_apoio_id = $novo_texto_apoio_id WHERE id = $pagina_questao_id");
+		}
+	} else {
+		$nova_questao_texto_de_apoio_id = "NULL";
+	}
+	
 ?>

@@ -29,7 +29,7 @@
         </div>
     </div>
     <script type='text/javascript'>
-        var quill_;{$sim_quill_id} = new Quill('#quill_editor_novo_{$sim_quill_id}', {
+        var quill_{$sim_quill_id} = new Quill('#quill_editor_novo_{$sim_quill_id}', {
             theme: 'snow',
             formats: formatWhitelist_simulados,
             modules: {

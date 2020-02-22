@@ -67,7 +67,7 @@
 
 	if ($template_botoes_padrao == true) {
 		$template_botoes_padrao = "
-					<span id='$template_esconder' class='$template_collapse collapse $show' data-toggle='collapse' data-target='.$template_collapse' title='esconder'><a href='javascript:void(0);'><i class='fad fa-chevron-square-up fa-fw'></i></a></span>
+					<span id='$template_esconder' class='$template_collapse collapse $show' data-toggle='collapse' data-target='.$template_collapse' title='Esconder'><a href='javascript:void(0);' class='text-primary'><i class='fad fa-times-square fa-fw'></i></a></span>
 					<span id='$template_mostrar' class='$template_collapse collapse $hide' data-toggle='collapse' data-target='.$template_collapse' title='mostrar'><a href='javascript:void(0);' class='text-muted'><i class='fad fa-chevron-square-down fa-fw'></i></a></span>";
 	}
 	

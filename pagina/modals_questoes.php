@@ -12,10 +12,10 @@
 	$template_modal_body_conteudo = false;
 	$modal_scrollable = true;
 	$edicoes = $conn->query("SELECT id, ano, titulo FROM sim_edicoes WHERE curso_id = $pagina_curso_id ORDER BY ano");
-	if ($edicoes->num_rows == 0) {
-		$template_modal_body_conteudo .= "<p>Não há edições registradas deste concurso.</p>";
-	} else {
-		$template_modal_body_conteudo .= "
+	$template_modal_body_conteudo .= "
+		<ul class='list-group list-group-flush mb-3'>
+			<a id='carregar_formulario_adicionar_edicao' href='javascript:void(0);'><li class='list-group-item list-group-item-action list-group-item-info d-flex justify-content-center'>Adicionar edição</li></a>
+		</ul>
 		<form method='post' id='esconder_formulario_adicionar_edicao' class='border rounded p-3 m-1 mb-3 grey lighten-5'>
 			<p>Adicionar edição do concurso:</p>
       <div class='md-form'>
@@ -30,8 +30,13 @@
       	<button type='submit' class='$button_classes'>Adicionar seção</button>
 			</div>
 		</form>
+	";
+	if ($edicoes->num_rows == 0) {
+		$template_modal_body_conteudo .= "<p>Não há edições registradas deste concurso.</p>";
+	} else {
+		$template_modal_body_conteudo .= "
+		<p>Edições registradas:</p>
 		<ul class='list-group list-group-flush'>
-		<a id='carregar_formulario_adicionar_edicao' href='javascript:void(0);'><li class='list-group-item list-group-item-action list-group-item-info d-flex justify-content-center'>Adicionar edição</li></a>
 		<span data-toggle='modal' data-target='#modal_adicionar_simulado'>
 		<span data-toggle='modal' data-target='#modal_vazio_edicoes'>
 		";
