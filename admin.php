@@ -189,9 +189,15 @@
 						        </div>
 						    </form>
 						    <form method='post'>
-						        <p>Função geral de atualização.</p>
+						        <p>Função não-operacional que atualiza o Textos_arquivo.</p>
 						        <div class='row justify-content-center'>
 						        	<button class='$button_classes' type='submit' name='funcoes_gerais4'>Executar função de atualização</button>
+						        </div>
+						    </form>
+						    <form method='post'>
+						        <p>Atualizar tamanhos dos textos.</p>
+						        <div class='row justify-content-center'>
+						        	<button class='$button_classes' type='submit' name='trigger_atualizar_textos_size'>Tamanhos dos textos</button>
 						        </div>
 						    </form>
 						";
