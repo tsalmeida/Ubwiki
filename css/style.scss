@@ -314,16 +314,30 @@ ul + p {
   min-height: 100vh;
 }
 
-#special_li li {
-  list-style: none;
-  list-style-position: outside;
-  padding-left: 2ch ;
-  white-space: pre;
+.special-li ol {
+  padding-top: 1em;
+  padding-bottom: 1em;
+  padding-right: 1ch !important;
+  padding-left: 1ch !important;
+  width: fit-content !important;
+  margin: auto;
 }
 
-#special_li li:nth-child(5n) {
+.special-li li {
+  list-style: none;
+  list-style-position: outside;
+  white-space: pre;
+  padding-right: 1ch;
+  padding-left: 1ch;
+  margin-left: 0;
+  max-width: none !important;
+  font-size: 1rem !important;
+}
+
+.special-li li:nth-child(5n) {
   list-style: decimal;
-  background-color: #fafafa;
+  //width: fit-content;
+  background-color: #eeeeee;
   border-radius: 2px;
 }
 

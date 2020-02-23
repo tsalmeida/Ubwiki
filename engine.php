@@ -632,10 +632,13 @@
 				$prova_titulo = $prova['titulo']; // 0
 				$prova_tipo = $prova['tipo']; // 1
 				$prova_etapa_id = $prova['etapa_id']; // 4
+				$prova_etapa_info = return_etapa_edicao_ano_e_titulo($prova_etapa_id);
+				$prova_etapa_ano = $prova_etapa_info[0]; // 5
+				$prova_etapa_titulo = $prova_etapa_info[1]; // 6
 				$edicao_ano_e_titulo = return_etapa_edicao_ano_e_titulo($prova_etapa_id);
 				$edicao_ano = $edicao_ano_e_titulo[0]; // 2
 				$edicao_titulo = $edicao_ano_e_titulo[1]; // 3
-				$result = array($prova_titulo, $prova_tipo, $edicao_ano, $edicao_titulo, $prova_etapa_id);
+				$result = array($prova_titulo, $prova_tipo, $edicao_ano, $edicao_titulo, $prova_etapa_id, $prova_etapa_ano, $prova_etapa_titulo);
 				return $result;
 			}
 		}
@@ -703,7 +706,7 @@
 	
 	function convert_gabarito_cor($gabarito)
 	{
-		if ($gabarito == 0) {
+		if ($gabarito == 3) {
 			return 'list-group-item-warning';
 		} elseif ($gabarito == 1) {
 			return 'list-group-item-success';
@@ -1850,10 +1853,8 @@
 						$etiqueta_pagina_id = $conn->insert_id;
 						$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra) VALUES ($etiqueta_pagina_id, 'pagina', 'titulo', '$etiqueta_titulo')");
 						$conn->query("UPDATE Etiquetas SET pagina_id = $etiqueta_pagina_id WHERE id = $item_id");
-						return $etiqueta_pagina_id;
-					} else {
-						return $etiqueta_pagina_id;
 					}
+					return $etiqueta_pagina_id;
 				}
 			}
 		} elseif ($tipo == 'escritorio') {
@@ -1861,14 +1862,13 @@
 			if ($usuarios->num_rows > 0) {
 				while ($usuario = $usuarios->fetch_assoc()) {
 					$usuario_pagina_id = $usuario['pagina_id'];
-					return $usuario_pagina_id;
 				}
 			} else {
 				$conn->query("INSERT INTO Paginas (item_id, tipo) VALUES ($item_id, 'escritorio')");
 				$usuario_pagina_id = $conn->insert_id;
 				$conn->query("UPDATE Usuarios SET pagina_id = $usuario_pagina_id WHERE id = $item_id");
-				return $usuario_pagina_id;
 			}
+			return $usuario_pagina_id;
 		} elseif ($tipo == 'questao') {
 			$questoes = $conn->query("SELECT pagina_id FROM sim_questoes WHERE id = $item_id");
 			if ($questoes->num_rows > 0) {
@@ -1877,10 +1877,20 @@
 					if ($questao_pagina_id == false) {
 						$conn->query("INSERT INTO Paginas (item_id, tipo) VALUES ($item_id, 'questao')");
 						$questao_pagina_id = $conn->insert_id;
-						return $questao_pagina_id;
-					} else {
-						return $questao_pagina_id;
 					}
+					return $questao_pagina_id;
+				}
+			}
+		} elseif ($tipo == 'texto_apoio') {
+			$textos_apoio = $conn->query("SELECT pagina_id FROM sim_textos_apoio WHERE id = $item_id");
+			if ($textos_apoio->num_rows > 0) {
+				while ($texto_apoio = $textos_apoio->fetch_assoc()) {
+					$texto_apoio_pagina_id = $texto_apoio['pagina_id'];
+					if ($texto_apoio_pagina_id == false) {
+						$conn->query("INSERT INTO Paginas (item_id, tipo) VALUES ($item_id, 'texto_apoio')");
+						$texto_apoio_pagina_id = $conn->insert_id;
+					}
+					return $texto_apoio_pagina_id;
 				}
 			}
 		}
@@ -2711,6 +2721,43 @@
 		echo $provas_resultado;
 	}
 	
+	function convert_questao_tipo($questao_tipo) {
+		if ($questao_tipo == false) {
+			return false;
+		}
+		if ($questao_tipo == 1) {
+			return 'certo ou errado';
+		} elseif ($questao_tipo == 2) {
+			return 'múltipla escolha';
+		} elseif ($questao_tipo == 3) {
+			return 'dissertativa';
+		} else {
+			return false;
+		}
+	}
+	
+	if (isset($_POST['carregar_prova'])) {
+		$carregar_prova = $_POST['carregar_prova'];
+		$list_questoes = $conn->query("SELECT id, pagina_id, origem, numero, tipo FROM sim_questoes WHERE prova_id = $carregar_prova ORDER BY numero");
+		$list_questoes_resultado = false;
+		if ($list_questoes->num_rows > 0) {
+			while ($list_questao = $list_questoes->fetch_assoc()) {
+				$list_questao_id = $list_questao['id'];
+				$list_questao_origem = $list_questao['origem'];
+				if ($list_questao_origem == 1) {
+					$list_questao_origem_string = 'oficial';
+				} elseif ($list_questao_origem == 0) {
+					$list_questao_origem_string = 'não-oficial';
+				}
+				$list_questao_numero = $list_questao['numero'];
+				$list_questao_tipo = $list_questao['tipo'];
+				$list_questao_tipo_string = convert_questao_tipo($list_questao_tipo);
+				$list_questoes_resultado .= "<a href='pagina.php?questao_id=$list_questao_id' class='mt-1'><li class='list-group-item list-group-item-action border-top'>Questão $list_questao_numero ($list_questao_tipo_string, $list_questao_origem_string)</li></a>";
+			}
+		}
+		echo $list_questoes_resultado;
+	}
+	
 	if (isset($_POST['nova_prova_etapa_id'])) {
 		$nova_prova_etapa_id = $_POST['nova_prova_etapa_id'];
 		$nova_prova_curso_id = $_POST['nova_prova_curso_id'];
@@ -2785,6 +2832,34 @@
 				$questao_item5_gabarito = $questao['item5_gabarito']; // 32
 				$questao_user_id = $questao['user_id']; // 33
 				$results = array($questao_origem, $questao_curso_id, $questao_edicao_ano, $questao_etapa_id, $questao_texto_apoio, $questao_texto_apoio_id, $questao_prova_id, $questao_numero, $questao_materia, $questao_tipo, $questao_enunciado_html, $questao_enunciado_text, $questao_enunciado_content, $questao_item1_text, $questao_item2_text, $questao_item3_text, $questao_item4_text, $questao_item5_text, $questao_item1_html, $questao_item2_html, $questao_item3_html, $questao_item4_html, $questao_item5_html, $questao_item1_content, $questao_item2_content, $questao_item3_content, $questao_item4_content, $questao_item5_content, $questao_item1_gabarito, $questao_item2_gabarito, $questao_item3_gabarito, $questao_item4_gabarito, $questao_item5_gabarito, $questao_user_id);
+			}
+		}
+		return $results;
+	}
+	
+	function return_texto_apoio_info($texto_apoio_id) {
+		if ($texto_apoio_id == false) {
+			return false;
+		}
+		include 'templates/criar_conn.php';
+		$textos_apoio = $conn->query("SELECT criacao, pagina_id, origem, curso_id, prova_id, titulo, enunciado_html, enunciado_text, enunciado_content, texto_apoio_html, texto_apoio_text, texto_apoio_content, user_id FROM sim_textos_apoio WHERE id = $texto_apoio_id");
+		$results = false;
+		if ($textos_apoio->num_rows > 0) {
+			while ($texto_apoio = $textos_apoio->fetch_assoc()) {
+				$texto_apoio_criacao = $texto_apoio['criacao']; // 0
+				$texto_apoio_pagina_id = $texto_apoio['pagina_id']; // 1
+				$texto_apoio_origem = $texto_apoio['origem']; // 2
+				$texto_apoio_curso_id = $texto_apoio['curso_id']; // 3
+				$texto_apoio_prova_id = $texto_apoio['prova_id']; // 4
+				$texto_apoio_titulo = $texto_apoio['titulo']; // 5
+				$texto_apoio_enunciado_html = $texto_apoio['enunciado_html']; // 6
+				$texto_apoio_enunciado_text = $texto_apoio['enunciado_text']; // 7
+				$texto_apoio_enunciado_content = $texto_apoio['enunciado_content']; // 8
+				$texto_apoio_texto_apoio_html = $texto_apoio['texto_apoio_html']; // 9
+				$texto_apoio_texto_apoio_text = $texto_apoio['texto_apoio_text']; // 10
+				$texto_apoio_texto_apoio_content = $texto_apoio['texto_apoio_content']; // 11
+				$texto_apoio_user_id = $texto_apoio['user_id']; // 12
+				$results = array($texto_apoio_criacao, $texto_apoio_pagina_id, $texto_apoio_origem, $texto_apoio_curso_id, $texto_apoio_prova_id, $texto_apoio_titulo, $texto_apoio_enunciado_html, $texto_apoio_enunciado_text, $texto_apoio_enunciado_content, $texto_apoio_texto_apoio_html, $texto_apoio_texto_apoio_text, $texto_apoio_texto_apoio_content, $texto_apoio_user_id);
 			}
 		}
 		return $results;

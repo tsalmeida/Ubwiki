@@ -11,6 +11,13 @@
 	if (isset($_POST['trigger_atualizacao'])) {
 	    $conn->query("ALTER TABLE `sim_questoes` ADD `texto_apoio` BOOLEAN NOT NULL DEFAULT FALSE AFTER `etapa_id`;");
 	    $conn->query("ALTER TABLE `sim_questoes` ADD `pagina_id` INT(11) NULL DEFAULT NULL AFTER `id`;");
+	    $conn->query("ALTER TABLE `sim_textos_apoio` ADD `pagina_id` INT(11) NULL DEFAULT NULL AFTER `criacao`;");
+	    $conn->query("DROP TABLE `Ubwiki`.`sim_textos_apoio_arquivo`");
+	    $conn->query("DROP TABLE `Ubwiki`.`sim_etapas_arquivo`");
+	    $conn->query("DROP TABLE `Ubwiki`.`sim_edicoes_arquivo`");
+	    $conn->query("DROP TABLE `Ubwiki`.`sim_provas_arquivo`");
+	    $conn->query("DROP TABLE `Ubwiki`.`sim_questoes_arquivo`");
+	    $conn->query("DROP TABLE `Ubwiki`.`Topicos`");
 	}
 
 	if (isset($_POST['trigger_atualizar_textos_size'])) {

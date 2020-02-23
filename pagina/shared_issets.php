@@ -101,16 +101,258 @@
 	
 	$grupos_do_usuario = $conn->query("SELECT grupo_id FROM Membros WHERE membro_user_id = $user_id");
 	
-	
-	if (isset($_POST['nova_questao_texto_de_apoio_id'])) {
-		$nova_questao_texto_de_apoio_id = $_POST['nova_questao_texto_de_apoio_id'];
-		if ($nova_questao_texto_de_apoio_id == 'novo') {
-			$conn->query("INSERT INTO sim_textos_apoio (origem, curso_id, prova_id, titulo, enunciado_html, enunciado_text, enunciado_content, texto_apoio_html, texto_apoio_text, texto_apoio_content, user_id) VALUES ($pagina_questao_origem, $pagina_questao_curso_id, $pagina_questao_prova_id, 'Texto de apoio da questão $pagina_questao_numero', false, false, false, false, false, false, $user_id)");
-			$novo_texto_apoio_id = $conn->insert_id;
-			$conn->query("UPDATE sim_questoes SET texto_apoio_id = $novo_texto_apoio_id WHERE id = $pagina_questao_id");
+	if ($pagina_tipo == 'questao') {
+		// ENUNCIADO
+		
+		if (isset($_POST['quill_novo_questao_enunciado_html'])) {
+			$quill_novo_questao_enunciado_html = $_POST['quill_novo_questao_enunciado_html'];
+			$pagina_questao_enunciado_html = $_POST['quill_novo_questao_enunciado_html'];
+			$quill_novo_questao_enunciado_html = mysqli_real_escape_string($conn, $quill_novo_questao_enunciado_html);
+		} else {
+			$quill_novo_questao_enunciado_html = false;
 		}
-	} else {
-		$nova_questao_texto_de_apoio_id = "NULL";
+		if (isset($_POST['quill_novo_questao_enunciado_text'])) {
+			$quill_novo_questao_enunciado_text = $_POST['quill_novo_questao_enunciado_text'];
+			$quill_novo_questao_enunciado_text = mysqli_real_escape_string($conn, $quill_novo_questao_enunciado_text);
+		} else {
+			$quill_novo_questao_enunciado_text = false;
+		}
+		if (isset($_POST['quill_novo_questao_enunciado_content'])) {
+			$quill_novo_questao_enunciado_content = $_POST['quill_novo_questao_enunciado_content'];
+			$quill_novo_questao_enunciado_content = mysqli_real_escape_string($conn, $quill_novo_questao_enunciado_content);
+			$pagina_questao_enunciado_content = $_POST['quill_novo_questao_enunciado_content'];
+		} else {
+			$quill_novo_questao_enunciado_content = false;
+		}
+		// ITEM 1
+		$quill_novo_questao_item1_html = false;
+		$quill_novo_questao_item1_text = false;
+		$quill_novo_questao_item1_content = false;
+		$quill_novo_questao_item2_html = false;
+		$quill_novo_questao_item2_text = false;
+		$quill_novo_questao_item2_content = false;
+		$quill_novo_questao_item3_html = false;
+		$quill_novo_questao_item3_text = false;
+		$quill_novo_questao_item3_content = false;
+		$quill_novo_questao_item4_html = false;
+		$quill_novo_questao_item4_text = false;
+		$quill_novo_questao_item4_content = false;
+		$quill_novo_questao_item5_html = false;
+		$quill_novo_questao_item5_text = false;
+		$quill_novo_questao_item5_content = false;
+		$nova_questao_item1_gabarito = "NULL";
+		$nova_questao_item2_gabarito = "NULL";
+		$nova_questao_item3_gabarito = "NULL";
+		$nova_questao_item4_gabarito = "NULL";
+		$nova_questao_item5_gabarito = "NULL";
+		
+		// ITEM 1
+		if (isset($_POST['nova_questao_item1_gabarito'])) {
+			$nova_questao_item1_gabarito = $_POST['nova_questao_item1_gabarito'];
+			$pagina_questao_item1_gabarito = $nova_questao_item1_gabarito;
+			if (isset($_POST['quill_novo_questao_item1_html'])) {
+				$quill_novo_questao_item1_html = $_POST['quill_novo_questao_item1_html'];
+				$quill_novo_questao_item1_html = mysqli_real_escape_string($conn, $quill_novo_questao_item1_html);
+				$quill_novo_questao_item1_html = "'$quill_novo_questao_item1_html'";
+				$pagina_questao_item1_html = $_POST['quill_novo_questao_item1_html'];
+				$quill_novo_questao_item1_text = $_POST['quill_novo_questao_item1_text'];
+				$quill_novo_questao_item1_text = mysqli_real_escape_string($conn, $quill_novo_questao_item1_text);
+				$quill_novo_questao_item1_text = "'$quill_novo_questao_item1_text'";
+				$quill_novo_questao_item1_content = $_POST['quill_novo_questao_item1_content'];
+				$quill_novo_questao_item1_content = mysqli_real_escape_string($conn, $quill_novo_questao_item1_content);
+				$quill_novo_questao_item1_content = "'$quill_novo_questao_item1_content'";
+				$pagina_questao_item1_content = $_POST['quill_novo_questao_item1_content'];
+			}
+		} else {
+			$nova_questao_item1_gabarito = "NULL";
+		}
+		if ($quill_novo_questao_item1_html == false) {
+			$quill_novo_questao_item1_html = "NULL";
+			$quill_novo_questao_item1_text = "NULL";
+			$quill_novo_questao_item1_content = "NULL";
+		}
+		// ITEM 2
+		if (isset($_POST['nova_questao_item2_gabarito'])) {
+			$nova_questao_item2_gabarito = $_POST['nova_questao_item2_gabarito'];
+			$pagina_questao_item2_gabarito = $nova_questao_item2_gabarito;
+			if (isset($_POST['quill_novo_questao_item2_html'])) {
+				$quill_novo_questao_item2_html = $_POST['quill_novo_questao_item2_html'];
+				$quill_novo_questao_item2_html = mysqli_real_escape_string($conn, $quill_novo_questao_item2_html);
+				$quill_novo_questao_item2_html = "'$quill_novo_questao_item2_html'";
+				$pagina_questao_item2_html = $_POST['quill_novo_questao_item2_html'];
+				$quill_novo_questao_item2_text = $_POST['quill_novo_questao_item2_text'];
+				$quill_novo_questao_item2_text = mysqli_real_escape_string($conn, $quill_novo_questao_item2_text);
+				$quill_novo_questao_item2_text = "'$quill_novo_questao_item2_text'";
+				$quill_novo_questao_item2_content = $_POST['quill_novo_questao_item2_content'];
+				$quill_novo_questao_item2_content = mysqli_real_escape_string($conn, $quill_novo_questao_item2_content);
+				$quill_novo_questao_item2_content = "'$quill_novo_questao_item2_content'";
+				$pagina_questao_item2_content = $_POST['quill_novo_questao_item2_content'];
+			}
+		} else {
+			$nova_questao_item2_gabarito = "NULL";
+		}
+		if ($quill_novo_questao_item2_html == false) {
+			$quill_novo_questao_item2_html = "NULL";
+			$quill_novo_questao_item2_text = "NULL";
+			$quill_novo_questao_item2_content = "NULL";
+		}
+		// ITEM 3
+		if (isset($_POST['nova_questao_item3_gabarito'])) {
+			$nova_questao_item3_gabarito = $_POST['nova_questao_item3_gabarito'];
+			$pagina_questao_item3_gabarito = $nova_questao_item3_gabarito;
+			if (isset($_POST['quill_novo_questao_item3_html'])) {
+				$quill_novo_questao_item3_html = $_POST['quill_novo_questao_item3_html'];
+				$quill_novo_questao_item3_html = mysqli_real_escape_string($conn, $quill_novo_questao_item3_html);
+				$quill_novo_questao_item3_html = "'$quill_novo_questao_item3_html'";
+				$pagina_questao_item3_html = $_POST['quill_novo_questao_item3_html'];
+				$quill_novo_questao_item3_text = $_POST['quill_novo_questao_item3_text'];
+				$quill_novo_questao_item3_text = mysqli_real_escape_string($conn, $quill_novo_questao_item3_text);
+				$quill_novo_questao_item3_text = "'$quill_novo_questao_item3_text'";
+				$quill_novo_questao_item3_content = $_POST['quill_novo_questao_item3_content'];
+				$quill_novo_questao_item3_content = mysqli_real_escape_string($conn, $quill_novo_questao_item3_content);
+				$quill_novo_questao_item3_content = "'$quill_novo_questao_item3_content'";
+				$pagina_questao_item3_content = $_POST['quill_novo_questao_item3_content'];
+			}
+		} else {
+			$nova_questao_item3_gabarito = "NULL";
+		}
+		if ($quill_novo_questao_item3_html == false) {
+			$quill_novo_questao_item3_html = "NULL";
+			$quill_novo_questao_item3_text = "NULL";
+			$quill_novo_questao_item3_content = "NULL";
+		}
+		// ITEM 4
+		if (isset($_POST['nova_questao_item4_gabarito'])) {
+			$nova_questao_item4_gabarito = $_POST['nova_questao_item4_gabarito'];
+			$pagina_questao_item4_gabarito = $nova_questao_item4_gabarito;
+			if (isset($_POST['quill_novo_questao_item4_html'])) {
+				$quill_novo_questao_item4_html = $_POST['quill_novo_questao_item4_html'];
+				$quill_novo_questao_item4_html = mysqli_real_escape_string($conn, $quill_novo_questao_item4_html);
+				$quill_novo_questao_item4_html = "'$quill_novo_questao_item4_html'";
+				$pagina_questao_item4_html = $_POST['quill_novo_questao_item4_html'];
+				$quill_novo_questao_item4_text = $_POST['quill_novo_questao_item4_text'];
+				$quill_novo_questao_item4_text = mysqli_real_escape_string($conn, $quill_novo_questao_item4_text);
+				$quill_novo_questao_item4_text = "'$quill_novo_questao_item4_text'";
+				$quill_novo_questao_item4_content = $_POST['quill_novo_questao_item4_content'];
+				$quill_novo_questao_item4_content = mysqli_real_escape_string($conn, $quill_novo_questao_item4_content);
+				$quill_novo_questao_item4_content = "'$quill_novo_questao_item4_content'";
+				$pagina_questao_item4_content = $_POST['quill_novo_questao_item4_content'];
+			}
+		} else {
+			$nova_questao_item4_gabarito = "NULL";
+		}
+		if ($quill_novo_questao_item4_html == false) {
+			$quill_novo_questao_item4_html = "NULL";
+			$quill_novo_questao_item4_text = "NULL";
+			$quill_novo_questao_item4_content = "NULL";
+		}
+		// ITEM 5
+		if (isset($_POST['nova_questao_item5_gabarito'])) {
+			$nova_questao_item5_gabarito = $_POST['nova_questao_item5_gabarito'];
+			$pagina_questao_item5_gabarito = $nova_questao_item5_gabarito;
+			if (isset($_POST['quill_novo_questao_item5_html'])) {
+				$quill_novo_questao_item5_html = $_POST['quill_novo_questao_item5_html'];
+				$quill_novo_questao_item5_html = mysqli_real_escape_string($conn, $quill_novo_questao_item5_html);
+				$quill_novo_questao_item5_html = "'$quill_novo_questao_item5_html'";
+				$pagina_questao_item5_html = $_POST['quill_novo_questao_item5_html'];
+				$quill_novo_questao_item5_text = $_POST['quill_novo_questao_item5_text'];
+				$quill_novo_questao_item5_text = mysqli_real_escape_string($conn, $quill_novo_questao_item5_text);
+				$quill_novo_questao_item5_text = "'$quill_novo_questao_item5_text'";
+				$quill_novo_questao_item5_content = $_POST['quill_novo_questao_item5_content'];
+				$quill_novo_questao_item5_content = mysqli_real_escape_string($conn, $quill_novo_questao_item5_content);
+				$quill_novo_questao_item5_content = "'$quill_novo_questao_item5_content'";
+				$pagina_questao_item5_content = $_POST['quill_novo_questao_item5_content'];
+			}
+		} else {
+			$nova_questao_item5_gabarito = "NULL";
+		}
+		if ($quill_novo_questao_item5_html == false) {
+			$quill_novo_questao_item5_html = "NULL";
+			$quill_novo_questao_item5_text = "NULL";
+			$quill_novo_questao_item5_content = "NULL";
+		}
+		
+		// GABARITOS
+		/*if (isset($_POST['nova_questao_item2_gabarito'])) {
+			$nova_questao_item2_gabarito = $_POST['nova_questao_item2_gabarito'];
+		} else {
+			$nova_questao_item2_gabarito = "NULL";
+		}
+		if (isset($_POST['nova_questao_item3_gabarito'])) {
+			$nova_questao_item3_gabarito = $_POST['nova_questao_item3_gabarito'];
+		} else {
+			$nova_questao_item3_gabarito = "NULL";
+		}
+		if (isset($_POST['nova_questao_item4_gabarito'])) {
+			$nova_questao_item4_gabarito = $_POST['nova_questao_item4_gabarito'];
+		} else {
+			$nova_questao_item4_gabarito = "NULL";
+		}
+		if (isset($_POST['nova_questao_item5_gabarito'])) {
+			$nova_questao_item5_gabarito = $_POST['nova_questao_item5_gabarito'];
+		} else {
+			$nova_questao_item5_gabarito = "NULL";
+		}*/
+		
+		if (isset($_POST['trigger_modal_questao_dados'])) {
+			$conn->query("UPDATE sim_questoes SET enunciado_html = '$quill_novo_questao_enunciado_html', enunciado_text = '$quill_novo_questao_enunciado_text', enunciado_content = '$quill_novo_questao_enunciado_content', item1_html = $quill_novo_questao_item1_html, item1_text = $quill_novo_questao_item1_text, item1_content = $quill_novo_questao_item1_content, item2_html = $quill_novo_questao_item2_html, item2_text = $quill_novo_questao_item2_text, item2_content = $quill_novo_questao_item2_content, item3_html = $quill_novo_questao_item3_html, item3_text = $quill_novo_questao_item3_text, item3_content = $quill_novo_questao_item3_content, item4_html = $quill_novo_questao_item4_html, item4_text = $quill_novo_questao_item4_text, item4_content = $quill_novo_questao_item4_content, item5_html = $quill_novo_questao_item5_html, item5_text = $quill_novo_questao_item5_text, item5_content = $quill_novo_questao_item5_content, item1_gabarito = $nova_questao_item1_gabarito, item2_gabarito = $nova_questao_item2_gabarito, item3_gabarito = $nova_questao_item3_gabarito, item4_gabarito = $nova_questao_item4_gabarito, item5_gabarito = $nova_questao_item5_gabarito WHERE id = $pagina_item_id");
+		}
+		
+		if (isset($_POST['nova_questao_texto_de_apoio_id'])) {
+			$nova_questao_texto_de_apoio_id = $_POST['nova_questao_texto_de_apoio_id'];
+			if ($nova_questao_texto_de_apoio_id == 'novo') {
+				$novo_texto_apoio_titulo = "Texto de apoio da questão $pagina_questao_numero";
+				$conn->query("INSERT INTO sim_textos_apoio (origem, curso_id, prova_id, titulo, enunciado_html, enunciado_text, enunciado_content, texto_apoio_html, texto_apoio_text, texto_apoio_content, user_id) VALUES ($pagina_questao_origem, $pagina_questao_curso_id, $pagina_questao_prova_id, '$novo_texto_apoio_titulo', false, false, false, false, false, false, $user_id)");
+				$novo_texto_apoio_id = $conn->insert_id;
+				$conn->query("UPDATE sim_questoes SET texto_apoio_id = $novo_texto_apoio_id WHERE id = $pagina_item_id");
+				$conn->query("INSERT INTO Paginas (tipo, item_id) VALUES ('texto_apoio', $novo_texto_apoio_id)");
+				$novo_texto_apoio_pagina_id = $conn->insert_id;
+				$conn->query("UPDATE sim_textos_apoio SET pagina_id = $novo_texto_apoio_pagina_id WHERE id = $novo_texto_apoio_id");
+				$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($novo_texto_apoio_pagina_id, 'texto_apoio', 'titulo', '$novo_texto_apoio_titulo', $user_id)");
+				
+				$pagina_questao_texto_apoio_id = $novo_texto_apoio_id;
+				$pagina_questao_texto_apoio_pagina_id = $novo_texto_apoio_pagina_id;
+			}
+		}
 	}
 	
+	if ($pagina_tipo == 'texto_apoio') {
+		
+		$novo_texto_apoio_titulo = $pagina_texto_apoio_titulo;
+		
+		if (isset($_POST['novo_texto_apoio_titulo'])) {
+			$novo_texto_apoio_titulo = $_POST['novo_texto_apoio_titulo'];
+			$pagina_texto_apoio_titulo = $novo_texto_apoio_titulo;
+			
+			$quill_novo_texto_apoio_enunciado_html = false;
+			$quill_novo_texto_apoio_enunciado_text = false;
+			$quill_novo_texto_apoio_enunciado_content = false;
+			$quill_novo_texto_apoio_html = false;
+			$quill_novo_texto_apoio_text = false;
+			$quill_novo_texto_apoio_content = false;
+			
+			if (isset($_POST['quill_novo_texto_apoio_enunciado_html'])) {
+				$novo_texto_apoio_enunciado_html = $_POST['quill_novo_texto_apoio_enunciado_html'];
+				$novo_texto_apoio_enunciado_html = mysqli_real_escape_string($conn, $novo_texto_apoio_enunciado_html);
+				$novo_texto_apoio_enunciado_text = $_POST['quill_novo_texto_apoio_enunciado_text'];
+				$novo_texto_apoio_enunciado_text = mysqli_real_escape_string($conn, $novo_texto_apoio_enunciado_text);
+				$novo_texto_apoio_enunciado_content = $_POST['quill_novo_texto_apoio_enunciado_content'];
+				$novo_texto_apoio_enunciado_content = mysqli_real_escape_string($conn, $novo_texto_apoio_enunciado_content);
+				$pagina_texto_apoio_enunciado_content = $_POST['quill_novo_texto_apoio_enunciado_content'];
+			}
+			if (isset($_POST['quill_novo_texto_apoio_html'])) {
+				$novo_texto_apoio_html = $_POST['quill_novo_texto_apoio_html'];
+				$novo_texto_apoio_html = mysqli_real_escape_string($conn, $novo_texto_apoio_html);
+				$novo_texto_apoio_text = $_POST['quill_novo_texto_apoio_text'];
+				$novo_texto_apoio_text = mysqli_real_escape_string($conn, $novo_texto_apoio_text);
+				$novo_texto_apoio_content = $_POST['quill_novo_texto_apoio_content'];
+				$novo_texto_apoio_content = mysqli_real_escape_string($conn, $novo_texto_apoio_content);
+				$pagina_texto_apoio_content = $_POST['quill_novo_texto_apoio_content'];
+			}
+			
+			$conn->query("UPDATE sim_textos_apoio SET titulo = '$novo_texto_apoio_titulo', enunciado_html = '$novo_texto_apoio_enunciado_html', enunciado_text = '$novo_texto_apoio_enunciado_text', enunciado_content = '$novo_texto_apoio_enunciado_content', texto_apoio_html = '$novo_texto_apoio_html', texto_apoio_text = '$novo_texto_apoio_text', texto_apoio_content = '$novo_texto_apoio_content' WHERE id = $pagina_item_id");
+			
+		}
+	}
+
 ?>

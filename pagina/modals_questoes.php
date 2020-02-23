@@ -70,6 +70,7 @@
         <ul class='list-group list-group-flush'>
         	<a href='javascript:void(0);' id='carregar_formulario_adicionar_etapa'><li class='list-group-item list-group-item-action list-group-item-info'>Adicionar etapa desta edição do concurso</li></a>
 				</ul>
+				<p>Etapas registradas:</p>
         <div id='etapas_popular'>
 				</div>
 	";
@@ -102,6 +103,7 @@
 		<ul class='list-group list-group-flush'>
 			<a href='javascript:void(0);' id='carregar_formulario_adicionar_prova'><li class='list-group-item list-group-item-action list-group-item-info'>Adicionar prova desta etapa do concurso.</li></a>
 		</ul>
+		<p>Provas registradas:</p>
 		<div id='provas_popular'>
 		</div>
 	";
@@ -198,6 +200,7 @@
 		<ul class='list-group list-group-flush'>
 			<a href='javascript:void(0)' id='carregar_formulario_adicionar_questao'><li class='list-group-item list-group-item-action list-group-item-info'>Adicionar questão desta prova do concurso.</li></a>
 		</ul>
+		<p>Questões desta prova registradas (pressione para visitar a página da questão):</p>
 		<div id='questoes_popular'>
 		</div>
 	";

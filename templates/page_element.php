@@ -28,10 +28,6 @@
 		$template_background = 'bg-white border border-light';
 	}
 	
-	if (!isset($template_no_spacer)) {
-		$template_no_spacer = false;
-	}
-
 	$template_conteudo_no_col1 = false;
 	$template_conteudo_no_col2 = false;
 
@@ -71,14 +67,6 @@
 					<span id='$template_mostrar' class='$template_collapse collapse $hide' data-toggle='collapse' data-target='.$template_collapse' title='mostrar'><a href='javascript:void(0);' class='text-muted'><i class='fad fa-chevron-square-down fa-fw'></i></a></span>";
 	}
 	
-	if (($template_botoes_padrao == false) && ($template_botoes == false)) {
-		if ($template_no_spacer == false) {
-			$template_botoes_padrao = "
-				<span class='spacer text-white'><i class='fad fa-bookmark fa-fw'></i></span>
-			";
-		}
-	}
-
 	if (!isset($template_titulo_heading)) {
 		$template_titulo_heading = 'h2';
 	}
@@ -87,6 +75,7 @@
 <div id='$template_id' class='row show $template_classes $template_background p-2 pb-4 mb-2 rounded'>
 	<div class='$template_col_value'>
     <div class='row d-flex justify-content-end page-element-botoes'>
+    	<span class='spacer text-white'><i class='fad fa-bookmark fa-fw'></i></span>
       $template_botoes
       $template_botoes_padrao
     </div>";
@@ -140,6 +129,5 @@
 	unset($template_col_value);
 	unset($template_background);
 	unset($template_p_limit);
-	unset($template_no_spacer);
 
 ?>

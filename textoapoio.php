@@ -45,7 +45,7 @@
 		}
 		
 		if (($novo_texto_apoio_origem != false) && ($novo_texto_apoio_prova != false) && ($novo_texto_apoio_titulo != false) && ($novo_texto_apoio_enunciado_html != false) && ($novo_texto_apoio_html != false)) {
-			$conn->query("INSERT INTO sim_textos_apoio_arquivo (concurso_id, origem, prova_id, titulo, enunciado_html, enunciado_text, enunciado_content, texto_apoio_html, texto_apoio_text, texto_apoio_content, user_id) VALUES ($concurso_id, $novo_texto_apoio_origem, $novo_texto_apoio_prova, '$novo_texto_apoio_titulo', '$novo_texto_apoio_enunciado_html', '$novo_texto_apoio_enunciado_text', '$novo_texto_apoio_enunciado_content', '$novo_texto_apoio_html', '$novo_texto_apoio_text', '$novo_texto_apoio_content', $user_id)");
+			//$conn->query("INSERT INTO sim_textos_apoio_arquivo (concurso_id, origem, prova_id, titulo, enunciado_html, enunciado_text, enunciado_content, texto_apoio_html, texto_apoio_text, texto_apoio_content, user_id) VALUES ($concurso_id, $novo_texto_apoio_origem, $novo_texto_apoio_prova, '$novo_texto_apoio_titulo', '$novo_texto_apoio_enunciado_html', '$novo_texto_apoio_enunciado_text', '$novo_texto_apoio_enunciado_content', '$novo_texto_apoio_html', '$novo_texto_apoio_text', '$novo_texto_apoio_content', $user_id)");
 			$conn->query("UPDATE sim_textos_apoio SET origem = $novo_texto_apoio_origem, prova_id = $novo_texto_apoio_prova, titulo = '$novo_texto_apoio_titulo', enunciado_html = '$novo_texto_apoio_enunciado_html', enunciado_text = '$novo_texto_apoio_enunciado_text', enunciado_content = '$novo_texto_apoio_enunciado_content', texto_apoio_html = '$novo_texto_apoio_html', texto_apoio_text = '$novo_texto_apoio_text', texto_apoio_content = '$novo_texto_apoio_content', user_id = $user_id WHERE id = $texto_apoio_id");
 		}
 	}

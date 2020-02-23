@@ -72,6 +72,9 @@
 		} elseif (isset($_GET['questao_id'])) {
 			$pagina_questao_id = $_GET['questao_id'];
 			$pagina_id = return_pagina_id($pagina_questao_id, 'questao');
+		} elseif (isset($_GET['texto_apoio_id'])) {
+			$pagina_texto_apoio_id = $_GET['texto_apoio_id'];
+			$pagina_id = return_pagina_id($pagina_texto_apoio_id, 'texto_apoio');
 		} else {
 			header('Location:pagina.php?pagina_id=4');
 			exit();
@@ -141,8 +144,7 @@
 		$topico_materia_pagina_id = (int)$familia_info[2];
 		$topico_materia_titulo = return_pagina_titulo($topico_materia_pagina_id);
 	} elseif ($pagina_tipo == 'questao') {
-		include 'pagina/questao_issets.php';
-		$pagina_questao_info = return_questao_info($pagina_questao_id);
+		$pagina_questao_info = return_questao_info($pagina_item_id);
 		$pagina_questao_origem = $pagina_questao_info[0];
 		$pagina_questao_curso_id = $pagina_questao_info[1];
 		$pagina_questao_edicao_ano = $pagina_questao_info[2];
@@ -152,6 +154,17 @@
 		$pagina_questao_etapa_titulo = $pagina_questao_etapa_info[1];
 		$pagina_questao_texto_apoio = $pagina_questao_info[4];
 		$pagina_questao_texto_apoio_id = $pagina_questao_info[5];
+		if ($pagina_questao_texto_apoio_id != false) {
+			$pagina_questao_texto_apoio_info = return_texto_apoio_info($pagina_questao_texto_apoio_id);
+			$pagina_questao_texto_apoio_pagina_id = $pagina_questao_texto_apoio_info[1];
+			$pagina_questao_texto_apoio_enunciado_html = $pagina_questao_texto_apoio_info[6];
+			$pagina_questao_texto_apoio_html = $pagina_questao_texto_apoio_info[9];
+			$pagina_questao_texto_apoio_titulo = $pagina_questao_texto_apoio_info[5];
+		} else {
+			$pagina_questao_texto_apoio_pagina_id = false;
+			$pagina_questao_texto_apoio_html = false;
+			$pagina_questao_texto_apoio_titulo = false;
+		}
 		$pagina_questao_prova_id = $pagina_questao_info[6];
 		$pagina_questao_prova_info = return_info_prova_id($pagina_questao_prova_id);
 		$pagina_questao_prova_titulo = $pagina_questao_prova_info[0];
@@ -175,6 +188,21 @@
 		$pagina_questao_item3_gabarito = $pagina_questao_info[30];
 		$pagina_questao_item4_gabarito = $pagina_questao_info[31];
 		$pagina_questao_item5_gabarito = $pagina_questao_info[32];
+	} elseif ($pagina_tipo == 'texto_apoio') {
+		$pagina_texto_apoio_info = return_texto_apoio_info($pagina_item_id);
+		$pagina_texto_apoio_origem = $pagina_texto_apoio_info[2];
+		$pagina_texto_apoio_curso_id = $pagina_texto_apoio_info[3];
+		$pagina_texto_apoio_curso_titulo = return_curso_titulo_id($pagina_texto_apoio_curso_id);
+		$pagina_texto_apoio_prova_id = $pagina_texto_apoio_info[4];
+		$pagina_texto_apoio_prova_info = return_info_prova_id($pagina_texto_apoio_prova_id);
+		$pagina_texto_apoio_edicao_ano = $pagina_texto_apoio_prova_info[2];
+		$pagina_texto_apoio_etapa_titulo = $pagina_texto_apoio_prova_info[6];
+		$pagina_texto_apoio_prova_titulo = $pagina_texto_apoio_prova_info[0];
+		$pagina_texto_apoio_titulo = $pagina_texto_apoio_info[5];
+		$pagina_texto_apoio_enunciado_html = $pagina_texto_apoio_info[6];
+		$pagina_texto_apoio_enunciado_content = $pagina_texto_apoio_info[8];
+		$pagina_texto_apoio_html = $pagina_texto_apoio_info[9];
+		$pagina_texto_apoio_content = $pagina_texto_apoio_info[11];
 	} elseif (($pagina_tipo == 'materia') || ($pagina_tipo == 'curso')) {
 		$familia_info = return_familia($pagina_id);
 		$pagina_curso_pagina_id = (int)$familia_info[1];
@@ -351,7 +379,7 @@
 		$estado_estudo = false;
 	}
 	$html_head_template_quill = true;
-	if ($pagina_tipo == 'questao') {
+	if (($pagina_tipo == 'questao') || ($pagina_tipo == 'texto_apoio')) {
 		$html_head_template_quill_sim = true;
 	}
 	include 'templates/html_head.php';
@@ -474,6 +502,8 @@
 						}
 						if ($pagina_tipo == 'questao') {
 							echo "<span class='mx-1' title='Dados da questão'><a href='javascript:void(0);' data-toggle='modal' data-target='#modal_questao_dados' class='text-secondary'><i class='fad fa-check-circle fa-fw fa-2x'></i></a></span>";
+						} elseif ($pagina_tipo == 'texto_apoio') {
+							echo "<span class='mx-1' title='Dados do texto de apoio'><a href='javascript:void(0)' data-toggle='modal' data-target='#modal_texto_apoio_dados' class='text-secondary'><i class='fad fa-check-circle fa-fw fa-2x'></i></a></span>";
 						}
 					?>
         </div>
@@ -708,6 +738,9 @@
 			$pagina_questao_curso_titulo = return_curso_titulo_id($pagina_questao_curso_id);
 			$pagina_questao_materia_titulo = return_pagina_titulo($pagina_questao_materia);
 			$template_subtitulo = "<a href='pagina.php?pagina_id=$pagina_questao_materia'>$pagina_questao_materia_titulo</a> / <a href='pagina.php?curso_id=$pagina_questao_curso_id'>$pagina_questao_curso_titulo</a> / Edição de $pagina_questao_edicao_ano";
+		} elseif ($pagina_tipo == 'texto_apoio') {
+			$template_titulo = $pagina_texto_apoio_titulo;
+			$template_subtitulo = "Texto de apoio / <a href='pagina.php?curso_id=$pagina_texto_apoio_curso_id'>$pagina_texto_apoio_curso_titulo</a>";
 		}
 		if ($wiki_id != false) {
 			$template_subtitulo = "<a href='pagina.php?pagina_id=$pagina_id'>Retornar ao verbete da página</a>";
@@ -792,7 +825,7 @@
 					}
 				}
 				
-				if (($pagina_tipo != 'texto') && ($pagina_tipo != 'materia')) {
+				if (($pagina_tipo != 'texto') && ($pagina_tipo != 'materia') && ($pagina_tipo != 'questao') && ($pagina_tipo != 'texto_apoio')) {
 					$template_id = 'verbete';
 					if ($wiki_id == false) {
 						if ($pagina_tipo == 'curso') {
@@ -885,11 +918,53 @@
 					}
 				}
 				
-				if (($pagina_tipo == 'questao') && ($pagina_questao_texto_apoio == true)) {
-				
+				if ($pagina_tipo == 'texto_apoio') {
+					$template_id = 'conteudo_texto_apoio';
+					$template_titulo = false;
+					$template_conteudo = false;
+					if ($pagina_texto_apoio_html != false) {
+						$template_conteudo .= "
+							<h2 class='h2-responsive d-flex justify-content-center'>$pagina_texto_apoio_titulo</h2>
+                            <div class='special-li'>
+                              $pagina_texto_apoio_enunciado_html
+                              $pagina_texto_apoio_html
+                            </div>
+			            ";
+					} else {
+						$template_conteudo .= "<p class='text-muted'><em>O conteúdo deste texto de apoio ainda não foi adicionado.</em></p>";
+					}
+					include 'templates/page_element.php';
 				}
 				
 				if (($pagina_tipo == 'questao') && ($pagina_questao_enunciado_html != false)) {
+					
+					if ($pagina_questao_texto_apoio == 1) {
+						$template_id = 'questao_texto_apoio';
+						$template_titulo = "Texto de apoio";
+						if ($pagina_questao_texto_apoio_pagina_id != false) {
+							$template_botoes = "
+							<a href='pagina.php?pagina_id=$pagina_questao_texto_apoio_pagina_id' title='Página deste texto de apoio' class='text-secondary'><li class='fad fa-external-link-square fa-fw'></li></a>
+							";
+						}
+						$template_conteudo = false;
+						$template_conteudo .= "<h3 class='h3-responsive'>$pagina_questao_texto_apoio_titulo</h3>";
+						if ($pagina_questao_texto_apoio_id == false) {
+							$template_conteudo .= "<p class='text-muted'><em>Esta questão depende de texto de apoio, mas seu texto de apoio ainda não foi identificado ou criado. Você poderá fazê-lo nas configurações da questão (canto superior esquerdo desta página).</em></p>";
+						} else {
+							if ($pagina_questao_texto_apoio_html != false) {
+								$template_conteudo .= "
+									<div class='special-li'>
+									$pagina_questao_texto_apoio_enunciado_html
+									$pagina_questao_texto_apoio_html
+									</div>
+								";
+							} else {
+								$template_conteudo .= "<p class='text-muted'><em>O conteúdo deste texto de apoio ainda não foi adicionado. Você poderá fazê-lo na <a href='pagina.php?pagina_id=$pagina_questao_texto_apoio_pagina_id'>na página deste texto de apoio</a>.</em></p>";
+							}
+						}
+						include 'templates/page_element.php';
+					}
+					
 					$template_id = 'gabarito_questao';
 					if (($pagina_questao_tipo == 1) || ($pagina_questao_tipo == 2)) {
 						$gabarito = true;
@@ -910,7 +985,7 @@
 					if ($pagina_questao_item1_html != false) {
 						$gabarito_cor = convert_gabarito_cor($pagina_questao_item1_gabarito);
 						$template_conteudo .= "
-							    <li class='list-group-item list-group-item-secondary py-1 mt-2 mb-1'><strong>Item 1:</strong></li>
+							    <li class='list-group-item list-group-item-secondary py-1 mt-2 mb-1 d-flex justify-content-center'><strong>Item 1</strong></li>
 							";
 						$template_conteudo .= "<li class='list-group-item $gabarito_cor $mask_cor'>
                                     $pagina_questao_item1_html
@@ -919,7 +994,7 @@
 					if ($pagina_questao_item2_html != false) {
 						$gabarito_cor = convert_gabarito_cor($pagina_questao_item2_gabarito);
 						$template_conteudo .= "
-							    <li class='list-group-item list-group-item-secondary py-1 mt-2 mb-1'><strong>Item 2:</strong></li>
+							    <li class='list-group-item list-group-item-secondary py-1 mt-2 mb-1 d-flex justify-content-center'><strong>Item 2</strong></li>
 							";
 						$template_conteudo .= "<li class='list-group-item $gabarito_cor $mask_cor'>
                                     $pagina_questao_item2_html
@@ -928,7 +1003,7 @@
 					if ($pagina_questao_item3_html != false) {
 						$gabarito_cor = convert_gabarito_cor($pagina_questao_item3_gabarito);
 						$template_conteudo .= "
-							    <li class='list-group-item list-group-item-secondary py-1 mt-2 mb-1'><strong>Item 3:</strong></li>
+							    <li class='list-group-item list-group-item-secondary py-1 mt-2 mb-1 d-flex justify-content-center'><strong>Item 3</strong></li>
 							";
 						$template_conteudo .= "<li class='list-group-item $gabarito_cor $mask_cor'>
                                     $pagina_questao_item3_html
@@ -937,7 +1012,7 @@
 					if ($pagina_questao_item4_html != false) {
 						$gabarito_cor = convert_gabarito_cor($pagina_questao_item4_gabarito);
 						$template_conteudo .= "
-							    <li class='list-group-item list-group-item-secondary py-1 mt-2 mb-1'><strong>Item 4:</strong></li>
+							    <li class='list-group-item list-group-item-secondary py-1 mt-2 mb-1 d-flex justify-content-center'><strong>Item 4</strong></li>
 							";
 						$template_conteudo .= "<li class='list-group-item $gabarito_cor $mask_cor'>
                                     $pagina_questao_item4_html
@@ -946,7 +1021,7 @@
 					if ($pagina_questao_item5_html != false) {
 						$gabarito_cor = convert_gabarito_cor($pagina_questao_item5_gabarito);
 						$template_conteudo .= "
-							    <li class='list-group-item list-group-item-secondary py-1 mt-2 mb-1'><strong>Item 5:</strong></li>
+							    <li class='list-group-item list-group-item-secondary py-1 mt-2 mb-1 d-flex justify-content-center'><strong>Item 5</strong></li>
 							";
 						$template_conteudo .= "<li class='list-group-item $gabarito_cor $mask_cor'>
                                     $pagina_questao_item5_html
@@ -1669,13 +1744,58 @@
 		include 'templates/modal.php';
 	}
 	
+	if ($pagina_tipo == 'texto_apoio') {
+		$template_modal_div_id = 'modal_texto_apoio_dados';
+		$template_modal_titulo = 'Dados deste texto de apoio';
+		$template_modal_form_id = 'form_texto_apoio_alterar_dados';
+		$template_modal_body_conteudo = false;
+		$template_modal_body_conteudo .= "
+			<ul class='list-grou mb-3 w-responsive m-auto pb-3'>
+				<li class='list-group-item list-group-item-info d-flex justify-content-center'>Dados fixos</li>
+				<li class='list-group-item list-group-item-light'><strong>Concurso:</strong> $pagina_texto_apoio_curso_titulo</li>
+				<li class='list-group-item list-group-item-light'><strong>Edição:</strong> $pagina_texto_apoio_edicao_ano</li>
+				<li class='list-group-item list-group-item-light'><strong>Etapa:</strong> $pagina_texto_apoio_etapa_titulo</li>
+				<li class='list-group-item list-group-item-light'><strong>Prova:</strong> $pagina_texto_apoio_prova_titulo</li>
+		";
+		if ($pagina_texto_apoio_origem == 1) {
+			$template_modal_body_conteudo .= "<li class='list-group-item list-group-item-light'><strong>Origem:</strong> Oficial do concurso.</li>";
+		} elseif ($pagina_texto_apoio_origem == 0) {
+			$template_modal_body_conteudo .= "<li class='list-group-item list-group-item-light'><strong>Origem:</strong> Não-oficial.</li>";
+		}
+		$template_modal_body_conteudo .= "</ul>";
+		$template_modal_body_conteudo .= "
+							<h3>Título</h3>
+                            <div class='md-form'>
+                              <input type='text' class='form-control' name='novo_texto_apoio_titulo' id='novo_texto_apoio_titulo' value='$pagina_texto_apoio_titulo' required>
+                              <label for='novo_texto_apoio_titulo'>Título do texto de apoio</label>
+                            </div>
+						";
+		
+		$template_modal_form_id = 'form_novo_texto_apoio';
+		$template_modal_body_conteudo .= "<h3 class='text-center'>Enunciado:</h3>";
+		$sim_quill_id = 'texto_apoio_enunciado';
+		$sim_quill_form = include('templates/sim_quill.php');
+		$template_modal_body_conteudo .= $sim_quill_form;
+		
+		$template_modal_body_conteudo .= "
+			<h3 class='text-center mt-3'>Texto</h3>
+			<p>Textos com linhas numeradas devem ser adicionados linha por linha, em uma lista numerada.</p>
+	    ";
+		$sim_quill_id = 'texto_apoio';
+		$sim_quill_form = include('templates/sim_quill.php');
+		$template_modal_body_conteudo .= $sim_quill_form;
+		
+		$template_modal_submit_name = 'novo_texto_apoio_trigger';
+		include 'templates/modal.php';
+	}
+	
 	if ($pagina_tipo == 'questao') {
 		$template_modal_div_id = 'modal_questao_dados';
 		$template_modal_titulo = 'Dados desta questão';
 		$template_modal_form_id = 'form_questao_alterar_dados';
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
-            <ul class='list-group mb-3'>
+            <ul class='list-group mb-3 w-responsive m-auto pb-3'>
                 <li class='list-group-item list-group-item-info d-flex justify-content-center'>Dados fixos</li>
                 <li class='list-group-item list-group-item-light'><strong>Concurso:</strong> $pagina_questao_curso_titulo.</li>
                 <li class='list-group-item list-group-item-light'><strong>Edição:</strong> $pagina_questao_edicao_ano.</li>
@@ -1747,13 +1867,81 @@
 		$sim_quill_form = include 'templates/sim_quill.php';
 		$template_modal_body_conteudo .= $sim_quill_form;
 		if (($pagina_questao_tipo == 1) || ($pagina_questao_tipo == 2)) {
+			
+			$item1_certo = false;
+			$item1_errado = false;
+			$item1_anulado = false;
+			$item1_none = false;
+			$item2_certo = false;
+			$item2_errado = false;
+			$item2_anulado = false;
+			$item2_none = false;
+			$item3_certo = false;
+			$item3_errado = false;
+			$item3_anulado = false;
+			$item3_none = false;
+			$item4_certo = false;
+			$item4_errado = false;
+			$item4_anulado = false;
+			$item4_none = false;
+			$item5_certo = false;
+			$item5_errado = false;
+			$item5_anulado = false;
+			$item5_none = false;
+			
+			if ($pagina_questao_item1_gabarito == 1) {
+				$item1_certo = 'selected';
+			} elseif ($pagina_questao_item1_gabarito == 2) {
+				$item1_errado = 'selected';
+			} elseif ($pagina_questao_item1_gabarito == 3) {
+				$item1_anulado = 'selected';
+			} else {
+				$item1_none = 'selected';
+			}
+			if ($pagina_questao_item2_gabarito == 1) {
+				$item2_certo = 'selected';
+			} elseif ($pagina_questao_item2_gabarito == 2) {
+				$item2_errado = 'selected';
+			} elseif ($pagina_questao_item2_gabarito == 3) {
+				$item2_anulado = 'selected';
+			} else {
+				$item2_none = 'selected';
+			}
+			if ($pagina_questao_item3_gabarito == 1) {
+				$item3_certo = 'selected';
+			} elseif ($pagina_questao_item3_gabarito == 2) {
+				$item3_errado = 'selected';
+			} elseif ($pagina_questao_item3_gabarito == 3) {
+				$item3_anulado = 'selected';
+			} else {
+				$item3_none = 'selected';
+			}
+			if ($pagina_questao_item4_gabarito == 1) {
+				$item4_certo = 'selected';
+			} elseif ($pagina_questao_item4_gabarito == 2) {
+				$item4_errado = 'selected';
+			} elseif ($pagina_questao_item4_gabarito == 3) {
+				$item4_anulado = 'selected';
+			} else {
+				$item4_none = 'selected';
+			}
+			if ($pagina_questao_item5_gabarito == 1) {
+				$item5_certo = 'selected';
+			} elseif ($pagina_questao_item5_gabarito == 2) {
+				$item5_errado = 'selected';
+			} elseif ($pagina_questao_item5_gabarito == 3) {
+				$item5_anulado = 'selected';
+			} else {
+				$item5_none = 'selected';
+			}
+			
 			$template_modal_body_conteudo .= "<h3 class='mt-3'>Item 1</h3>";
 			$template_modal_body_conteudo .= "
                             <select class='mdb-select md-form' name='nova_questao_item1_gabarito'>
-                                <option value='' disabled selected>Selecione o gabarito do primeiro item</option>
-                                <option value='1'>Certo</option>
-                                <option value='2'>Errado</option>
-                                <option value='0'>Anulado</option>
+                                <option value='' disabled $item1_none>Selecione o gabarito do primeiro item</option>
+                                <option value='1' $item1_certo>Certo</option>
+                                <option value='2' $item1_errado>Errado</option>
+                                <option value='3' $item1_anulado>Anulado</option>
                             </select>
 						";
 			$sim_quill_id = 'questao_item1';
@@ -1762,10 +1950,10 @@
 			$template_modal_body_conteudo .= "<h3 class='mt-3'>Item 2</h3>";
 			$template_modal_body_conteudo .= "
                             <select class='mdb-select md-form' name='nova_questao_item2_gabarito'>
-                                <option value='' disabled selected>Selecione o gabarito do segundo item</option>
-                                <option value='1'>Certo</option>
-                                <option value='2'>Errado</option>
-                                <option value='0'>Anulado</option>
+                                <option value='' disabled $item2_none>Selecione o gabarito do segundo item</option>
+                                <option value='1' $item2_certo>Certo</option>
+                                <option value='2' $item2_errado>Errado</option>
+                                <option value='3' $item2_anulado>Anulado</option>
                             </select>
 						";
 			$sim_quill_id = 'questao_item2';
@@ -1774,10 +1962,10 @@
 			$template_modal_body_conteudo .= "<h3 class='mt-3'>Item 3</h3>";
 			$template_modal_body_conteudo .= "
                             <select class='mdb-select md-form' name='nova_questao_item3_gabarito'>
-                                <option value='' disabled selected>Selecione o gabarito do terceiro item</option>
-                                <option value='1'>Certo</option>
-                                <option value='2'>Errado</option>
-                                <option value='0'>Anulado</option>
+                                <option value='' disabled $item3_none>Selecione o gabarito do terceiro item</option>
+                                <option value='1' $item3_certo>Certo</option>
+                                <option value='2' $item3_errado>Errado</option>
+                                <option value='3' $item3_anulado>Anulado</option>
                             </select>
 						";
 			$sim_quill_id = 'questao_item3';
@@ -1786,10 +1974,10 @@
 			$template_modal_body_conteudo .= "<h3 class='mt-3'>Item 4</h3>";
 			$template_modal_body_conteudo .= "
                             <select class='mdb-select md-form' name='nova_questao_item4_gabarito'>
-                                <option value='' disabled selected>Selecione o gabarito do quarto item</option>
-                                <option value='1'>Certo</option>
-                                <option value='2'>Errado</option>
-                                <option value='0'>Anulado</option>
+                                <option value='' disabled $item4_none>Selecione o gabarito do quarto item</option>
+                                <option value='1' $item4_certo>Certo</option>
+                                <option value='2' $item4_errado>Errado</option>
+                                <option value='3' $item4_anulado>Anulado</option>
                             </select>
 						";
 			$sim_quill_id = 'questao_item4';
@@ -1798,10 +1986,10 @@
 			$template_modal_body_conteudo .= "<h3 class='mt-3'>Item 5</h3>";
 			$template_modal_body_conteudo .= "
                             <select class='mdb-select md-form' name='nova_questao_item5_gabarito'>
-                                <option value='' disabled selected>Selecione o gabarito do quinto item</option>
-                                <option value='1'>Certo</option>
-                                <option value='2'>Errado</option>
-                                <option value='0'>Anulado</option>
+                                <option value='' disabled $item5_none>Selecione o gabarito do quinto item</option>
+                                <option value='1' $item5_certo>Certo</option>
+                                <option value='2' $item5_errado>Errado</option>
+                                <option value='3' $item5_anulado>Anulado</option>
                             </select>
 						";
 			$sim_quill_id = 'questao_item5';
@@ -1851,7 +2039,15 @@
             quill_questao_item5.setContents($pagina_questao_item5_content);
         </script>
     ";
+	} elseif ($pagina_tipo == 'texto_apoio') {
+		echo "
+        <script type='text/javascript'>
+            quill_texto_apoio_enunciado.setContents($pagina_texto_apoio_enunciado_content);
+            quill_texto_apoio.setContents($pagina_texto_apoio_content);
+        </script>
+    	";
 	}
+	
 	include 'templates/esconder_anotacoes.php';
 	include 'templates/bookmarks.php';
 	include 'templates/completed.php';
