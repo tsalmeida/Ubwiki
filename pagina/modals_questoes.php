@@ -200,7 +200,7 @@
 		<ul class='list-group list-group-flush'>
 			<a href='javascript:void(0)' id='carregar_formulario_adicionar_questao'><li class='list-group-item list-group-item-action list-group-item-info'>Adicionar questão desta prova do concurso.</li></a>
 		</ul>
-		<p>Questões desta prova registradas (pressione para visitar a página da questão):</p>
+		<p>Questões desta prova registradas (pressione para adicionar à página deste tópico):</p>
 		<div id='questoes_popular'>
 		</div>
 	";
@@ -277,10 +277,23 @@
 			           $('#questoes_popular').append(data);
 			       } else {
 			           $('#questoes_popular').empty();
-			           $('#questoes_popular').append('<p>Não há questões registradas desta prova do concurso.</p>');
+			           $('#questoes_popular').append('<p class=\'text-muted\'><em>Não há questões desta prova registradas.<em></p>');
 			       }
 			   });
+			});$(document).on('click', '.adicionar_questao', function() {
+			    adicionar_questao_id = $(this).attr('value');
+			    $.post('engine.php', {
+			        'adicionar_questao_id': adicionar_questao_id,
+			        'adicionar_questao_pagina_id': {$pagina_id}
+			    }, function(data) {
+			        if (data != 0) {
+			            window.location.reload(true);
+			        } else {
+			            alert('Ocorreu algum problema, a questão não foi adicionada.');
+			        }
+			    });
 			});
+			
 			$(document).on('click', '#trigger_nova_questao_oficial', function() {
 			    $('#nova_questao_origem').val(1);
 			    $('#artefato_nova_questao_nao_oficial').hide();

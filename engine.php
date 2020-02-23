@@ -2392,7 +2392,7 @@
 		$quill_curso_id = $_POST['quill_curso_id'];
 		
 		$check = $conn->query("UPDATE Textos SET verbete_html = '$quill_novo_verbete_html', verbete_text = '$quill_novo_verbete_text', verbete_content = '$quill_novo_verbete_content' WHERE id = $quill_texto_id");
-		$check2 = $conn->query("INSERT INTO Textos_arquivo (texto_id, curso_id, tipo, page_id, pagina_id, pagina_tipo, pagina_subtipo, estado_texto, verbete_html, verbete_text, verbete_content, user_id) VALUES ($quill_texto_id, $quill_curso_id, '$quill_texto_tipo', $quill_texto_page_id, $quill_pagina_id, '$quill_pagina_tipo', '$quill_pagina_subtipo', 1, '$quill_novo_verbete_html', '$quill_novo_verbete_text', '$quill_novo_verbete_content', $user_id)");
+		$check2 = $conn->query("INSERT INTO Textos_arquivo (texto_id, curso_id, tipo, page_id, pagina_id, pagina_tipo, pagina_subtipo, estado_texto, verbete_html, verbete_text, verbete_content, user_id) VALUES ($quill_texto_id, $quill_curso_id, '$quill_texto_tipo', $quill_texto_page_id, $quill_pagina_id, '$quill_pagina_tipo', '$quill_pagina_subtipo', 1, '$quill_novo_verbete_html', FALSE, '$quill_novo_verbete_content', $user_id)");
 		
 		if (($quill_pagina_estado == false) && ($quill_novo_verbete_text != false)) {
 			$conn->query("UPDATE Paginas SET estado = 1 WHERE id = $quill_pagina_id");
@@ -2752,7 +2752,7 @@
 				$list_questao_numero = $list_questao['numero'];
 				$list_questao_tipo = $list_questao['tipo'];
 				$list_questao_tipo_string = convert_questao_tipo($list_questao_tipo);
-				$list_questoes_resultado .= "<a href='pagina.php?questao_id=$list_questao_id' class='mt-1'><li class='list-group-item list-group-item-action border-top'>Questão $list_questao_numero ($list_questao_tipo_string, $list_questao_origem_string)</li></a>";
+				$list_questoes_resultado .= "<a href='javascript:void(0);' class='mt-1 adicionar_questao' value='$list_questao_id'><li class='list-group-item list-group-item-action border-top'>Questão $list_questao_numero ($list_questao_tipo_string, $list_questao_origem_string)</li></a>";
 			}
 		}
 		echo $list_questoes_resultado;
@@ -2863,6 +2863,15 @@
 			}
 		}
 		return $results;
+	}
+	
+	if (isset($_POST['adicionar_questao_id'])) {
+		$adicionar_questao_id = $_POST['adicionar_questao_id'];
+		$adicionar_questao_info = return_questao_info($adicionar_questao_id);
+		$adicionar_questao_origem = $adicionar_questao_info[0];
+		$adicionar_questao_pagina_id = $_POST['adicionar_questao_pagina_id'];
+		$adicionar_questao_check = $conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, extra, user_id) VALUES ($adicionar_questao_pagina_id, 'topico', $adicionar_questao_id, 'questao', $adicionar_questao_origem, $user_id)");
+		echo $adicionar_questao_check;
 	}
 
 ?>

@@ -191,7 +191,7 @@
 						    <form method='post'>
 						        <p>Função não-operacional que atualiza o Textos_arquivo.</p>
 						        <div class='row justify-content-center'>
-						        	<button class='$button_classes' type='submit' name='funcoes_gerais4'>Executar função de atualização</button>
+						        	<button class='$button_classes' type='submit' name='funcoes_gerais4'>Atualizar textos_arquivo</button>
 						        </div>
 						    </form>
 						    <form method='post'>

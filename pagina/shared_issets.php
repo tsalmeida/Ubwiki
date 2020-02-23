@@ -339,6 +339,7 @@
 				$novo_texto_apoio_enunciado_content = $_POST['quill_novo_texto_apoio_enunciado_content'];
 				$novo_texto_apoio_enunciado_content = mysqli_real_escape_string($conn, $novo_texto_apoio_enunciado_content);
 				$pagina_texto_apoio_enunciado_content = $_POST['quill_novo_texto_apoio_enunciado_content'];
+				$pagina_texto_apoio_enunciado_html = $_POST['quill_novo_texto_apoio_enunciado_html'];
 			}
 			if (isset($_POST['quill_novo_texto_apoio_html'])) {
 				$novo_texto_apoio_html = $_POST['quill_novo_texto_apoio_html'];
@@ -348,6 +349,7 @@
 				$novo_texto_apoio_content = $_POST['quill_novo_texto_apoio_content'];
 				$novo_texto_apoio_content = mysqli_real_escape_string($conn, $novo_texto_apoio_content);
 				$pagina_texto_apoio_content = $_POST['quill_novo_texto_apoio_content'];
+				$pagina_texto_apoio_html = $_POST['quill_novo_texto_apoio_html'];
 			}
 			
 			$conn->query("UPDATE sim_textos_apoio SET titulo = '$novo_texto_apoio_titulo', enunciado_html = '$novo_texto_apoio_enunciado_html', enunciado_text = '$novo_texto_apoio_enunciado_text', enunciado_content = '$novo_texto_apoio_enunciado_content', texto_apoio_html = '$novo_texto_apoio_html', texto_apoio_text = '$novo_texto_apoio_text', texto_apoio_content = '$novo_texto_apoio_content' WHERE id = $pagina_item_id");

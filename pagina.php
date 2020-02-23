@@ -1801,6 +1801,7 @@
                 <li class='list-group-item list-group-item-light'><strong>Edição:</strong> $pagina_questao_edicao_ano.</li>
                 <li class='list-group-item list-group-item-light'><strong>Etapa:</strong> $pagina_questao_etapa_titulo.</li>
                 <li class='list-group-item list-group-item-light'><strong>Prova:</strong> $pagina_questao_prova_titulo.</li>
+                <li class='list-group-item list-group-item-light'><strong>Matéria:</strong> <a href='pagina.php?pagina_id=$pagina_questao_materia'>$pagina_questao_materia_titulo</a></li>
         ";
 		
 		$template_modal_body_conteudo .= "<li class='list-group-item list-group-item-light'><strong>Número:</strong> $pagina_questao_numero.</li>";
@@ -2028,6 +2029,7 @@
 	if ($pagina_tipo != 'texto') {
 		include 'templates/footer.html';
 	}
+	
 	if ($pagina_tipo == 'questao') {
 		echo "
         <script type='text/javascript'>
