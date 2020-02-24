@@ -2874,4 +2874,40 @@
 		echo $adicionar_questao_check;
 	}
 
+	function return_notificacao($pagina_id, $user_id) {
+		if (($pagina_id == false) || ($user_id == false)) {
+			return false;
+		}
+		include 'templates/criar_conn.php';
+		$notificacoes = $conn->query("SELECT tipo FROM Notificacoes WHERE user_id = $user_id AND pagina_id = $pagina_id AND estado = 1");
+		if ($notificacoes->num_rows > 0) {
+			while ($notificacao = $notificacoes->fetch_assoc()) {
+				$notificacao_tipo = $notificacao['tipo'];
+				if ($notificacao_tipo == 'normal') {
+					return array(1,0);
+				} elseif ($notificacao_tipo == 'email') {
+					return array(1,1);
+				}
+			}
+		} else {
+			return array(0,0);
+		}
+	}
+	
+	if (isset($_POST['notificacao_pagina_id'])) {
+		$notificacao_pagina_id = $_POST['notificacao_pagina_id'];
+		$notificacao_ativa = $_POST['notificacao_ativa'];
+		$notificacao_email = $_POST['notificacao_email'];
+		$notificacao_tipo = false;
+		if ($notificacao_email == true) {
+			$notificacao_tipo = 'email';
+		} elseif ($notificacao_ativa == true) {
+			$notificacao_tipo = 'normal';
+		}
+		$conn->query("UPDATE Notificacoes SET estado = 0 WHERE user_id = $user_id AND pagina_id = $notificacao_pagina_id");
+		if ($notificacao_tipo != false) {
+			$conn->query("INSERT INTO Notificacoes (user_id, pagina_id, tipo) VALUES ($user_id, $notificacao_pagina_id, '$notificacao_tipo')");
+		}
+	}
+	
 ?>

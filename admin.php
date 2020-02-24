@@ -9,6 +9,7 @@
 	}
 
 	if (isset($_POST['trigger_atualizacao'])) {
+	    $conn->query("CREATE TABLE `Ubwiki`.`Notificacoes` ( `id` INT(11) NULL DEFAULT NULL AUTO_INCREMENT , `user_id` INT(11) NULL DEFAULT NULL , `pagina_id` INT(11) NULL DEFAULT NULL , `tipo` VARCHAR(255) NULL DEFAULT NULL , `estado` TINYINT(1) NOT NULL DEFAULT '1' , `criacao` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
 
 	}
 

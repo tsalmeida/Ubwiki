@@ -18,18 +18,18 @@
 			$pagina_publicacao = $pagina_info[9];
 			$pagina_colaboracao = $pagina_info[10];
 		} else {
-            header('Location:ubwiki.php');
+			header('Location:ubwiki.php');
 			exit();
 		}
 	} else {
-	    $pagina_id = 1;
-	    $pagina_titulo = 'Fórum geral';
-    }
+		$pagina_id = 1;
+		$pagina_titulo = 'Fórum geral';
+	}
 	
 	$check_compartilhamento = return_compartilhamento($pagina_id, $user_id);
 	if ($check_compartilhamento == false) {
-	    header('Location:pagina.php?pagina_id=4');
-    }
+		header('Location:pagina.php?pagina_id=4');
+	}
 	
 	if (isset($_GET['topico_id'])) {
 		$forum_topico_id = $_GET['topico_id'];
@@ -81,15 +81,25 @@
 <body class="grey lighten-5">
 <?php
 	include 'templates/navbar.php';
+	
+	include 'pagina/queries_notificacoes.php';
+	
 ?>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col col-12 d-flex justify-content-end p-1">
+            <a href="javascript:void(0);" class="<?php echo $notificacao_cor; ?> ml-1" data-toggle="modal" data-target="#modal_notificacoes"><i class="fad <?php echo $notificacao_icone; ?> fa-fw"></i></a>
+        </div>
+    </div>
+</div>
 <div class="container">
 	<?php
 		$template_titulo = $pagina_titulo;
 		if ($pagina_id != 1) {
-		    $template_subtitulo = "Fórum / <a href='pagina.php?pagina_id=$pagina_id'>Página</a>";
+			$template_subtitulo = "Fórum / <a href='pagina.php?pagina_id=$pagina_id'>Página</a>";
 		} else {
-		    $template_subtitulo = "Fórum / <a href='ubwiki.php'>Ubwiki</a>";
-        }
+			$template_subtitulo = "Fórum / <a href='ubwiki.php'>Ubwiki</a>";
+		}
 		$template_titulo_context = true;
 		$template_titulo_no_nav = true;
 		include 'templates/titulo.php';
@@ -104,9 +114,9 @@
 						$template_conteudo = false;
 						
 						$item_classes = 'row b-0 border-top m-0 mt-1 p-2 list-group-item-action';
-
+						
 						$template_conteudo .= "<p>Selecione um tópico para participar do debate.</p>";
-
+						
 						if ($forum_topico_id == false) {
 							$lista_active = 'list-group-item-info';
 						} else {
@@ -144,13 +154,13 @@
 								}
 							}
 						}
-                        $template_botoes = "<span data-toggle='modal' data-target='#modal_novo_topico' title='Novo tópico de debate'><a href='javascript:void(0);' class='text-info'><i class='fad fa-plus-square fa-fw'></i></a></span>";
-                        $template_conteudo .= "
+						$template_botoes = "<span data-toggle='modal' data-target='#modal_novo_topico' title='Novo tópico de debate'><a href='javascript:void(0);' class='text-info'><i class='fad fa-plus-square fa-fw'></i></a></span>";
+						$template_conteudo .= "
 					        <div class='row d-flex justify-content-center mt-3'>
 						        <span data-toggle='modal' data-target='#modal_novo_topico'><button class='$button_classes btn-info btn-sm'>Novo tópico de debate</button></span>
 					        </div>
 				        ";
-
+						
 						include 'templates/page_element.php';
 					?>
         </div>
@@ -264,6 +274,9 @@
 		</div>
 	";
 	include 'templates/modal.php';
+	
+	include 'pagina/modal_notificacoes.php';
+
 ?>
 
 </body>
