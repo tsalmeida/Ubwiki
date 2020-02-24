@@ -27,7 +27,7 @@
         <label for='nova_edicao_titulo'>Título da nova edição</label>
       </div>
       <div class='row d-flex justify-content-center'>
-      	<button type='submit' class='$button_classes'>Adicionar seção</button>
+      	<button type='submit' class='$button_classes'>Adicionar edição</button>
 			</div>
 		</form>
 	";
