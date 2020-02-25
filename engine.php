@@ -573,10 +573,13 @@
 		if ($find_user_id == false) {
 			return false;
 		}
-		$result_find_apelido = $conn->query("SELECT apelido FROM Usuarios WHERE id = $find_user_id AND apelido IS NOT NULL");
+		$result_find_apelido = $conn->query("SELECT apelido FROM Usuarios WHERE id = $find_user_id");
 		if ($result_find_apelido->num_rows > 0) {
 			while ($row_find_apelido = $result_find_apelido->fetch_assoc()) {
 				$found_apelido = $row_find_apelido['apelido'];
+			}
+			if ($found_apelido == false) {
+				$found_apelido = 'anônimo';
 			}
 			return $found_apelido;
 		}
@@ -2924,6 +2927,8 @@
 		include 'templates/criar_conn.php';
 		$recente_criacao = false;
 		$comentario_timestamp = false;
+		$comentario_user_id = false;
+		$recente_user_id = false;
 		$recentes = $conn->query("SELECT criacao, user_id FROM Textos_arquivo WHERE pagina_id = $pagina_id ORDER BY id DESC");
 		if ($recentes->num_rows > 0) {
 			while ($recente = $recentes->fetch_assoc()) {
@@ -2944,12 +2949,21 @@
 			return false;
 		} else {
 			if ($recente_criacao > $comentario_timestamp) {
-				return array($recente_criacao, $recente_user_id, 'verbete');
+				return array($recente_criacao, $recente_user_id, 'verbete', $comentario_timestamp, $comentario_user_id, 'forum');
 			} else {
-				return array($comentario_timestamp, $comentario_user_id, 'forum');
+				return array($comentario_timestamp, $comentario_user_id, 'forum', $recente_criacao, $recente_user_id, 'verbete');
 			}
 		}
 		return false;
+	}
+	
+	function format_data($data) {
+		if ($data == false) {
+			return false;
+		}
+		$data = DateTime::createFromFormat('Y-m-d H:i:s', $data);
+		$data = $data->format('Y/m/d');
+		return $data;
 	}
 	
 ?>

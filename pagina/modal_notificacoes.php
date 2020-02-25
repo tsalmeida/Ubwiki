@@ -44,6 +44,7 @@
 		$artefato_col_limit = 'col-4';
 		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	}
+	
 	$template_modal_body_conteudo .= "</div>";
 	
 	include 'templates/modal.php';

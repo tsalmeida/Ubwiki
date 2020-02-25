@@ -882,22 +882,29 @@
 			$notificacao_pagina_titulo = return_pagina_titulo($notificacao_pagina_id);
 			$alteracao_recente = return_alteracao_recente($notificacao_pagina_id);
 			$alteracao_recente_data = $alteracao_recente[0];
-			$alteracao_recente_data = DateTime::createFromFormat('Y-m-d H:i:s', $alteracao_recente_data);
-			$alteracao_recente_data = $alteracao_recente_data->format('Y/m/d');
+			$alteracao_recente_data = format_data($alteracao_recente_data);
 			$alteracao_recente_usuario = $alteracao_recente[1];
 			$alteracao_recente_usuario_apelido = return_apelido_user_id($alteracao_recente_usuario);
-			if ($alteracao_recente_usuario_apelido != false) {
-				$alteracao_recente_usuario_apelido = "($alteracao_recente_usuario_apelido)";
-			} else {
-				$alteracao_recente_usuario_apelido = "(anônimo)";
-			}
 			$alteracao_recente_tipo = $alteracao_recente[2];
 			if ($alteracao_recente_tipo == 'verbete') {
 				$alteracao_recente_tipo_icone = 'fa-edit';
 			} elseif ($alteracao_recente_tipo == 'forum') {
 				$alteracao_recente_tipo_icone = 'fa-comments-alt';
 			}
-			$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$notificacao_pagina_id' class='mt-1'><li class='list-group-item list-group-item-action border-top d-flex justify-content-between'><span><i class='fad $alteracao_recente_tipo_icone fa-fw'></i> $notificacao_pagina_titulo</span><span class='text-muted'><em>$alteracao_recente_usuario_apelido $alteracao_recente_data</em></span></li></a>";
+			$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$notificacao_pagina_id' class='mt-1'><li class='list-group-item list-group-item-action border-top d-flex justify-content-between'><span><i class='fad $alteracao_recente_tipo_icone fa-fw'></i> $notificacao_pagina_titulo</span><span class='text-muted'><em>($alteracao_recente_usuario_apelido) $alteracao_recente_data</em></span></li></a>";
+            $segunda_alteracao_recente_data = $alteracao_recente[3];
+			if ($segunda_alteracao_recente_data != false) {
+			    $segunda_alteracao_recente_data = format_data($segunda_alteracao_recente_data);
+                $segunda_alteracao_recente_tipo = $alteracao_recente[5];
+			    if ($segunda_alteracao_recente_tipo == 'verbete') {
+			        $segunda_alteracao_recente_tipo_icone = 'fa-edit';
+                } elseif ($segunda_alteracao_recente_tipo == 'forum') {
+			        $segunda_alteracao_recente_tipo_icone = 'fa-comments-alt';
+                }
+			    $segunda_alteracao_recente_usuario = $alteracao_recente[4];
+			    $segunda_alteracao_recente_usuario_apelido = return_apelido_user_id($segunda_alteracao_recente_usuario);
+			    $template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$notificacao_pagina_id' class='mt-1'><li class='list-group-item list-group-item-action border-top d-flex justify-content-between'><span class='ml-3'><i class='fad $segunda_alteracao_recente_tipo_icone fa-fw'></i> $notificacao_pagina_titulo</span><span class='text-muted'><em>($segunda_alteracao_recente_usuario_apelido) $segunda_alteracao_recente_data</em></span></li></a>";
+            }
 		}
 		$template_modal_body_conteudo .= "</ul>";
 	}
