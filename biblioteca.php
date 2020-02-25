@@ -113,11 +113,15 @@
 							$template_conteudo_no_col = true;
 							$template_conteudo = false;
 							
-							$criados = $conn->query("SELECT pagina_id, titulo, autor, tipo, iframe FROM Elementos ORDER BY id DESC");
+							$criados = $conn->query("SELECT id, pagina_id, titulo, autor, tipo, iframe FROM Elementos ORDER BY id DESC");
 							if ($criados->num_rows > 0) {
 								$count = 0;
 								while ($criado = $criados->fetch_assoc()) {
+								    $criado_id = $criado['id'];
 									$criado_pagina_id = $criado['pagina_id'];
+                                    if ($criado_pagina_id == false) {
+                                        $criado_pagina_id = return_pagina_id($criado_id, 'elemento');
+                                    }
 									$criado_titulo = $criado['titulo'];
 									$criado_autor = $criado['autor'];
 									$criado_tipo = $criado['tipo'];
