@@ -186,6 +186,7 @@ ul + p {
   height: auto !important;
   max-height: none;
   overflow-y: initial;
+  margin-top: 0 !important;
 }
 
 .ql-editor-active {
@@ -540,6 +541,10 @@ ul {
 .elemento-anotacoes {
   max-height: 100vh;
   overflow-y: auto;
+}
+
+.ql-toolbar {
+  margin-bottom: 1em !important;
 }
 
 /*# sourceMappingURL=style.css.map */

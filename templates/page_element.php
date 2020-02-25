@@ -74,16 +74,16 @@
 	echo "
 <div id='$template_id' class='row show $template_classes $template_background p-2 pb-4 mb-2 rounded'>
 	<div class='$template_col_value'>
-    <div class='row d-flex justify-content-end page-element-botoes'>
+    <div class='row d-flex justify-content-end page-element-botoes mb-1'>
     	<span class='spacer text-white'><i class='fad fa-bookmark fa-fw'></i></span>
       $template_botoes
       $template_botoes_padrao
     </div>";
 	if ($template_titulo != false) {
 		echo "
-    <div class='row'>
+    <div class='row mb-4'>
     	<div class='col'>
-        <$template_titulo_heading class='{$template_titulo_heading}-responsive'>$template_titulo</$template_titulo_heading>
+        <$template_titulo_heading class='{$template_titulo_heading}-responsive m-0 text-center text-black-50 pb-2'>$template_titulo</$template_titulo_heading>
     	</div>
     </div>
     ";

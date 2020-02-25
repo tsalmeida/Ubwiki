@@ -8,6 +8,6 @@
 		$notificacao_cor = 'text-muted';
 		$notificacao_icone = 'fa-bell-slash';
 	} else {
-		$notificacao_cor = 'text-warning';
-		$notificacao_icone = 'fa-bell';
+		$notificacao_cor = 'text-default';
+		$notificacao_icone = 'fa-bell fa-swap-opacity';
 	}

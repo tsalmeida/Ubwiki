@@ -78,7 +78,7 @@
 	$completados = $conn->query("SELECT pagina_id FROM Completed WHERE user_id = $user_id AND estado = 1 AND active = 1");
 	$verbetes_escritos = $conn->query("SELECT DISTINCT pagina_id FROM Textos_arquivo WHERE tipo = 'verbete' AND user_id = $user_id ORDER BY id DESC");
 	$etiquetados = $conn->query("SELECT DISTINCT extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'topico' AND estado = 1");
-
+	$notificacoes = $conn->query("SELECT pagina_id FROM Notificacoes WHERE user_id = $user_id AND estado = 1 ORDER BY id DESC");
 
 ?>
 <body class="grey lighten-5">
@@ -110,6 +110,9 @@
 				
 				echo "</div></div>";
 				echo "<div class='col-md-3 col-sm-12'><div class='row justify-content-end'>";
+				if ($notificacoes->num_rows > 0) {
+					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_notificacoes' class='p-2 text-default rounded artefato'><i class='fad fa-bell fa-swap-opacity fa-2x fa-fw'></i></a>";
+				}
 				if ($comentarios->num_rows > 0) {
 					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_forum' class='p-2 text-secondary rounded artefato'><i class='fad fa-comments-alt fa-2x fa-fw'></i></a>";
 				}
@@ -533,10 +536,10 @@
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
 						while ($anotacao = $anotacoes->fetch_assoc()) {
-						    $anotacao_content = $anotacao['verbete_content'];
-						    if ($anotacao_content == false) {
-						        continue;
-                            }
+							$anotacao_content = $anotacao['verbete_content'];
+							if ($anotacao_content == false) {
+								continue;
+							}
 							$anotacao_id = $anotacao['id'];
 							$anotacao_page_id = $anotacao['page_id'];
 							$anotacao_pagina_id = $anotacao['pagina_id'];
@@ -863,6 +866,41 @@
             <li class='list-group-item'><strong>Email:</strong> $user_email</li>
         </ul>
 	";
+	include 'templates/modal.php';
+	
+	$template_modal_div_id = 'modal_notificacoes';
+	$template_modal_titulo = "Notificações";
+	$template_modal_show_buttons = false;
+	$template_modal_body_conteudo = false;
+	if ($notificacoes->num_rows > 0) {
+		$template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
+		if ($user_tipo == 'admin') {
+			//$template_modal_body_conteudo .= "<a href='notificacoes.php' class='mt-1'><li class='list-group-item list-group-item-action list-group-item-info d-flex justify-content-center'>Página de notificações</li></a>";
+		}
+		while ($notificacao = $notificacoes->fetch_assoc()) {
+			$notificacao_pagina_id = $notificacao['pagina_id'];
+			$notificacao_pagina_titulo = return_pagina_titulo($notificacao_pagina_id);
+			$alteracao_recente = return_alteracao_recente($notificacao_pagina_id);
+			$alteracao_recente_data = $alteracao_recente[0];
+			$alteracao_recente_data = DateTime::createFromFormat('Y-m-d H:i:s', $alteracao_recente_data);
+			$alteracao_recente_data = $alteracao_recente_data->format('Y/m/d');
+			$alteracao_recente_usuario = $alteracao_recente[1];
+			$alteracao_recente_usuario_apelido = return_apelido_user_id($alteracao_recente_usuario);
+			if ($alteracao_recente_usuario_apelido != false) {
+				$alteracao_recente_usuario_apelido = "($alteracao_recente_usuario_apelido)";
+			} else {
+				$alteracao_recente_usuario_apelido = "(anônimo)";
+			}
+			$alteracao_recente_tipo = $alteracao_recente[2];
+			if ($alteracao_recente_tipo == 'verbete') {
+				$alteracao_recente_tipo_icone = 'fa-edit';
+			} elseif ($alteracao_recente_tipo == 'forum') {
+				$alteracao_recente_tipo_icone = 'fa-comments-alt';
+			}
+			$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$notificacao_pagina_id' class='mt-1'><li class='list-group-item list-group-item-action border-top d-flex justify-content-between'><span><i class='fad $alteracao_recente_tipo_icone fa-fw'></i> $notificacao_pagina_titulo</span><span class='text-muted'><em>$alteracao_recente_usuario_apelido $alteracao_recente_data</em></span></li></a>";
+		}
+		$template_modal_body_conteudo .= "</ul>";
+	}
 	include 'templates/modal.php';
 	
 	include 'pagina/modal_adicionar_imagem.php';

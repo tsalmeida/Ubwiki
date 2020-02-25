@@ -36,7 +36,6 @@
 								$artefato_icone_background_link = 'icone-link primary-color text-white';
 								
 								$artefato_titulo = 'Seu escritório';
-								//$artefato_link = 'ubwiki.php#sobre_escritorio';
 								$artefato_tipo = 'escritorio';
 								$fa_icone = 'fa-lamp-desk';
 								$fa_color = 'text-info';
@@ -58,7 +57,6 @@
 								$template_conteudo .= include 'templates/artefato_item.php';
 								
 								$artefato_titulo = 'Cursos';
-								//$artefato_link = 'ubwiki.php#sobre_cursos';
 								$artefato_tipo = 'cursos';
 								$fa_icone = 'fa-book-reader';
 								$fa_color = 'text-default';
@@ -72,7 +70,7 @@
 								$artefato_tipo = 'cursos_link';
 								$fa_icone = 'fa-book-reader';
 								$fa_color = 'text-white';
-								$artefato_icone_background = 'icone-link default-color';
+								$artefato_icone_background = 'icone-link rgba-teal-strong';
 								$fa_size = 'fa-4x';
 								$fa_invert = true;
 								$artefato_class = 'icones_links';
@@ -80,7 +78,6 @@
 								$template_conteudo .= include 'templates/artefato_item.php';
 								
 								$artefato_titulo = 'Páginas livres';
-								//$artefato_link = 'ubwiki.php#sobre_areas_interesse';
 								$artefato_tipo = 'areas_interesse';
 								$artefato_criacao = false;
 								$fa_icone = 'fa-tags';
@@ -94,7 +91,7 @@
 								$artefato_tipo = 'areas_interesse_link';
 								$fa_icone = 'fa-tags';
 								$fa_color = 'text-white';
-								$artefato_icone_background = 'icone-link warning-color';
+								$artefato_icone_background = 'icone-link rgba-orange-strong';
 								$fa_size = 'fa-4x';
 								$fa_invert = true;
 								$artefato_class = 'icones_links';
@@ -102,7 +99,6 @@
 								$template_conteudo .= include 'templates/artefato_item.php';
 								
 								$artefato_titulo = 'Biblioteca';
-								//$artefato_link = 'ubwiki.php#sobre_biblioteca';
 								$artefato_tipo = 'biblioteca';
 								$fa_icone = 'fa-books';
 								$fa_color = 'text-success';
@@ -116,7 +112,7 @@
 								$artefato_tipo = 'biblioteca_link';
 								$fa_icone = 'fa-books';
 								$fa_color = 'text-white';
-								$artefato_icone_background = 'icone-link success-color';
+								$artefato_icone_background = 'icone-link rgba-green-strong';
 								$fa_size = 'fa-4x';
 								$fa_invert = true;
 								$artefato_class = 'icones_links';
@@ -124,7 +120,6 @@
 								$template_conteudo .= include 'templates/artefato_item.php';
 								
 								$artefato_titulo = 'Fórum';
-								//$artefato_link = 'ubwiki.php#sobre_forum';
 								$artefato_tipo = 'forum';
 								$fa_icone = 'fa-comments-alt';
 								$fa_color = 'text-secondary';
@@ -138,7 +133,7 @@
 								$artefato_tipo = 'forum_link';
 								$fa_icone = 'fa-comments-alt';
 								$fa_color = 'text-white';
-								$artefato_icone_background = 'icone-link secondary-color';
+								$artefato_icone_background = 'icone-link rgba-purple-strong';
 								$fa_size = 'fa-4x';
 								$fa_invert = true;
 								$artefato_class = 'icones_links';
@@ -147,7 +142,6 @@
 								
 								if ($user_tipo == 'admin') {
 									$artefato_titulo = 'Loja';
-									//$artefato_link = 'ubwiki.php#sobre_loja';
 									$artefato_tipo = 'loja';
 									$fa_icone = 'fa-bags-shopping';
 									$fa_color = 'text-danger';
@@ -161,7 +155,7 @@
 									$artefato_tipo = 'loja_link';
 									$fa_icone = 'fa-bags-shopping';
 									$fa_color = 'text-white';
-									$artefato_icone_background = 'icone-link danger-color';
+									$artefato_icone_background = 'icone-link rgba-red-strong';
 									$fa_size = 'fa-4x';
 									$fa_invert = true;
 									$artefato_class = 'icones_links';
@@ -237,7 +231,7 @@
             $('#sobre_cursos').show();
             $('#artefato_cursos').hide();
         });
-				$('#artefato_areas_interesse').click(function () {
+        $('#artefato_areas_interesse').click(function () {
             $('.icone_sobre_stuff').show();
             $('.icones_links').hide();
             $('#artefato_areas_interesse_link').show();
@@ -245,7 +239,7 @@
             $('#sobre_areas_interesse').show();
             $('#artefato_areas_interesse').hide();
         });
-				$('#artefato_biblioteca').click(function () {
+        $('#artefato_biblioteca').click(function () {
             $('.icone_sobre_stuff').show();
             $('.icones_links').hide();
             $('#artefato_biblioteca_link').show();
@@ -253,7 +247,7 @@
             $('#sobre_biblioteca').show();
             $('#artefato_biblioteca').hide();
         });
-				$('#artefato_forum').click(function () {
+        $('#artefato_forum').click(function () {
             $('.icone_sobre_stuff').show();
             $('.icones_links').hide();
             $('#artefato_forum_link').show();
@@ -261,7 +255,7 @@
             $('#sobre_forum').show();
             $('#artefato_forum').hide();
         });
-				$('#artefato_loja').click(function () {
+        $('#artefato_loja').click(function () {
             $('.icone_sobre_stuff').show();
             $('.icones_links').hide();
             $('#artefato_loja_link').show();
@@ -269,7 +263,7 @@
             $('#sobre_loja').show();
             $('#artefato_loja').hide();
         });
-				
+
     </script>
 <?php
 	include 'templates/footer.html';

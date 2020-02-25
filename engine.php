@@ -2910,4 +2910,46 @@
 		}
 	}
 	
+	if (isset($_POST['novo_estado_pagina'])) {
+		$novo_estado_pagina = $_POST['novo_estado_pagina'];
+		$novo_estado_pagina_id = $_POST['novo_estado_pagina_id'];
+		$conn->query("UPDATE Paginas SET estado = $novo_estado_pagina WHERE id = $novo_estado_pagina_id");
+		$pagina_estado = $novo_estado_pagina;
+	}
+	
+	function return_alteracao_recente($pagina_id) {
+		if ($pagina_id == false) {
+			return false;
+		}
+		include 'templates/criar_conn.php';
+		$recente_criacao = false;
+		$comentario_timestamp = false;
+		$recentes = $conn->query("SELECT criacao, user_id FROM Textos_arquivo WHERE pagina_id = $pagina_id ORDER BY id DESC");
+		if ($recentes->num_rows > 0) {
+			while ($recente = $recentes->fetch_assoc()) {
+				$recente_criacao = $recente['criacao'];
+				$recente_user_id = $recente['user_id'];
+				break;
+			}
+		}
+		$comentarios = $conn->query("SELECT timestamp, user_id FROM Forum WHERE pagina_id = $pagina_id ORDER BY id DESC");
+		if ($comentarios->num_rows > 0) {
+			while ($comentario = $comentarios->fetch_assoc()) {
+				$comentario_timestamp = $comentario['timestamp'];
+				$comentario_user_id = $comentario['user_id'];
+				break;
+			}
+		}
+		if (($recente_criacao == false) && ($comentario_timestamp == false)) {
+			return false;
+		} else {
+			if ($recente_criacao > $comentario_timestamp) {
+				return array($recente_criacao, $recente_user_id, 'verbete');
+			} else {
+				return array($comentario_timestamp, $comentario_user_id, 'forum');
+			}
+		}
+		return false;
+	}
+	
 ?>

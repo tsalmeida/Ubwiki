@@ -459,11 +459,11 @@
 					<?php
 						if (($pagina_tipo != 'sistema') && ($pagina_tipo != 'texto') && ($pagina_compartilhamento != 'escritorio') && ($pagina_tipo != 'materia')) {
 							if ($privilegio_edicao == true) {
-								echo "<a href='javascript:void(0)' class='text-info' id='add_elements' class='mx-1' title='Adicionar elementos' data-toggle='modal' data-target='#modal_add_elementos'><i class='fad fa-2x fa-plus-circle fa-fw'></i></a>";
+								echo "<a href='javascript:void(0)' class='text-info mr-1' id='add_elements' title='Adicionar elementos' data-toggle='modal' data-target='#modal_add_elementos'><i class='fad fa-2x fa-plus-circle fa-fw'></i></a>";
 							}
 						}
 						if ($pagina_tipo == 'elemento') {
-							echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_dados_elemento' class='text-info' id='elemento_dados' class='mx-1' title='Editar dados'><i class='fad fa-info-circle fa-fw fa-2x'></i></a>";
+							echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_dados_elemento' class='text-info' id='elemento_dados' class='mr-1' title='Editar dados'><i class='fad fa-info-circle fa-fw fa-2x'></i></a>";
 						}
 						$modal_pagina_dados = false;
 						if (
@@ -475,37 +475,37 @@
 							(($pagina_tipo == 'secao') && ($pagina_user_id == $user_id))
 						) {
 							$modal_pagina_dados = true;
-							echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_pagina_dados' class='text-success mx-1' id='pagina_dados' title='Editar dados'><i class='fad fa-info-circle fa-fw fa-2x'></i></a>";
+							echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_pagina_dados' class='text-success mr-1' id='pagina_dados' title='Editar dados'><i class='fad fa-info-circle fa-fw fa-2x'></i></a>";
 							$carregar_produto_setup = false;
 							if ($pagina_subtipo == 'produto') {
 								$carregar_produto_setup = true;
-								echo "<a href='javascript:void(0)' data-toggle='modal' data-target='#modal_produto_nova_imagem' class='text-danger mx-1' id='produto_imagem' title='Imagem do produto'><i class='fad fa-image-polaroid fa-fw fa-2x'></i></a>";
-								echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_produto_preco' class='text-warning mx-1' id='produto_preco' title='Preço do produto'><i class='fad fa-usd-circle fa-fw fa-2x'></i></a>";
+								echo "<a href='javascript:void(0)' data-toggle='modal' data-target='#modal_produto_nova_imagem' class='text-danger mr-1' id='produto_imagem' title='Imagem do produto'><i class='fad fa-image-polaroid fa-fw fa-2x'></i></a>";
+								echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_produto_preco' class='text-warning mr-1' id='produto_preco' title='Preço do produto'><i class='fad fa-usd-circle fa-fw fa-2x'></i></a>";
 							}
 						}
 						if ($pagina_tipo == 'texto') {
 							if ($respostas->num_rows > 0) {
-								echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_reply' class='text-success mx-1' id='add_reply' title='Adicionar resposta'><i class='fad fa-comment-alt-edit fa-fw fa-2x'></i></a>";
+								echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_reply' class='text-success mr-1' id='add_reply' title='Adicionar resposta'><i class='fad fa-comment-alt-edit fa-fw fa-2x'></i></a>";
 							} else {
-								echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_reply' class='text-muted mx-1' id='add_reply' title='Adicionar resposta'><i class='fad fa-comment-alt-edit fa-fw fa-2x'></i></a>";
+								echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_reply' class='text-muted mr-1' id='add_reply' title='Adicionar resposta'><i class='fad fa-comment-alt-edit fa-fw fa-2x'></i></a>";
 							}
 						}
 						if (($pagina_tipo == 'curso') && ($curso_user_id == $user_id)) {
 							$carregar_adicionar_materia = true;
-							echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_materia' class='text-success mx-1' id='add_materia' title='Adicionar matéria'><i class='fad fa-plus-circle fa-2x fa-fw'></i></a>";
+							echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_materia' class='text-success mr-1' id='add_materia' title='Adicionar matéria'><i class='fad fa-plus-circle fa-2x fa-fw'></i></a>";
 						}
 						if (($pagina_tipo == 'materia') && ($pagina_user_id == $user_id)) {
 							$carregar_adicionar_topico = true;
-							echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_topico' class='text-success mx-1' id='add_topico' title='Adicionar tópico'><i class='fad fa-plus-circle fa-2x fa-fw'></i></a>";
+							echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_topico' class='text-success mr-1' id='add_topico' title='Adicionar tópico'><i class='fad fa-plus-circle fa-2x fa-fw'></i></a>";
 						}
 						if (($pagina_tipo == 'topico') && ($pagina_user_id == $user_id) && ($topico_nivel < 5)) {
 							$carregar_adicionar_subtopico = true;
-							echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_subtopico' class='text-success mx-1' id='add_subtopico' title='Adicionar subtópico'><i class='fad fa-plus-circle fa-2x fa-fw'></i></a>";
+							echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_subtopico' class='text-success mr-1' id='add_subtopico' title='Adicionar subtópico'><i class='fad fa-plus-circle fa-2x fa-fw'></i></a>";
 						}
 						if ($pagina_tipo == 'questao') {
-							echo "<a href='javascript:void(0);' class='mx-1 text-secondary' title='Dados da questão' data-toggle='modal' data-target='#modal_questao_dados'><i class='fad fa-check-circle fa-fw fa-2x'></i></a>";
+							echo "<a href='javascript:void(0);' class='mr-1 text-secondary' title='Dados da questão' data-toggle='modal' data-target='#modal_questao_dados'><i class='fad fa-check-circle fa-fw fa-2x'></i></a>";
 						} elseif ($pagina_tipo == 'texto_apoio') {
-							echo "<a href='javascript:void(0)' data-toggle='modal' data-target='#modal_texto_apoio_dados' class='text-secondary mx-1' title='Dados do texto de apoio'><i class='fad fa-check-circle fa-fw fa-2x'></i></a>";
+							echo "<a href='javascript:void(0)' data-toggle='modal' data-target='#modal_texto_apoio_dados' class='text-secondary mr-1' title='Dados do texto de apoio'><i class='fad fa-check-circle fa-fw fa-2x'></i></a>";
 						}
 					?>
         </div>
@@ -535,7 +535,6 @@
 					?>
         </div>
         <div class='py-2 text-right col-md-4 col-sm-12'>
-	        <a href="javascript:void(0);" class="<?php echo $notificacao_cor; ?> ml-1" data-toggle="modal" data-target="#modal_notificacoes"><i class="fad <?php echo $notificacao_icone; ?> fa-fw"></i></a>
 					<?php
                       if ($pagina_tipo == 'elemento') {
 							$carregar_toggle_acervo = true;
@@ -583,6 +582,7 @@
 							$carregar_modal_wikipedia = true;
 							echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_vinculos_wikipedia' class='text-dark ml-1'><i class='fab fa-wikipedia-w fa-fw'></i></a>";
 						}
+						echo "<a href='javascript:void(0);' class='$notificacao_cor ml-1' data-toggle='modal' data-target='#modal_notificacoes'><i class='fad $notificacao_icone fa-fw'></i></a>";
 						if (($pagina_tipo != 'sistema') && ($pagina_compartilhamento != 'escritorio')) {
 							$comments = $conn->query("SELECT timestamp, comentario_text, user_id FROM Forum WHERE pagina_id = $pagina_id");
 							if ($comments->num_rows == 0) {
@@ -1092,36 +1092,65 @@
 		include 'templates/modal.php';
 	}
 	
-	$active1 = false;
-	$active2 = false;
-	$active3 = false;
-	$active4 = false;
-	$inactive = false;
-	if ($pagina_estado == 1) {
-		$active1 = 'selected';
-	} elseif ($pagina_estado == 2) {
-		$active2 = 'selected';
-	} elseif ($pagina_estado == 3) {
-		$active3 = 'selected';
-	} elseif ($pagina_estado == 4) {
-		$active4 = 'selected';
-	} else {
-		$inactive = 'selected';
-	}
+	$carregar_controle_estado = true;
 	$template_modal_div_id = 'modal_estado';
 	$template_modal_titulo = 'Qualidade da página';
+	$template_modal_show_buttons= false;
 	$template_modal_body_conteudo = "
-        <p>Por favor, determine abaixo sua avaliação sobre o estado atual desta página:</p>
-        <div class='md-form mb-2'>
-            <span>Estado</span>
-            <select class='mdb-select' name='novo_estado_pagina'>
-                <option value='' disabled $inactive>Escolha uma opção</option>
-                <option value='1' $active1>Rascunho</option>
-                <option value='2' $active2>Aceitável</option>
-                <option value='3' $active3>Desejável</option>
-                <option value='4' $active4>Excepcional</option>
-            </select>
-        </div>
+        <p>Qual das categorias abaixo melhor descreve o estado atual desta página?</p>
+        <input type='hidden' value='$pagina_estado' name='novo_estado_pagina' id='novo_estado_pagina'>
+        <div class='row justify-content-around'>";
+	
+	$artefato_tipo = 'estado_rascunho';
+	$artefato_titulo = 'Rascunho';
+	$fa_icone = 'fa-acorn';
+	$fa_color = 'text-info';
+	if ($pagina_estado == 1) {
+        $fa_color = 'text-white';
+	    $artefato_icone_background = 'rgba-cyan-strong';
+	}
+	$artefato_class = 'artefato_opcao_estado';
+	$artefato_col_limit = 'col-3';
+	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+	
+	$artefato_tipo = 'estado_aceitavel';
+	$artefato_titulo = 'Aceitável';
+	$fa_icone = 'fa-seedling';
+	$fa_color = 'text-danger';
+	if ($pagina_estado == 2) {
+        $fa_color = 'text-white';
+	    $artefato_icone_background = 'rgba-red-strong';
+	}
+	$artefato_class = 'artefato_opcao_estado';
+	$artefato_col_limit = 'col-3';
+	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+	
+	$artefato_tipo = 'estado_desejavel';
+	$artefato_titulo = 'Desejável';
+	$fa_icone = 'fa-leaf';
+	$fa_color = 'text-success';
+	if ($pagina_estado == 3) {
+        $fa_color = 'text-white';
+	    $artefato_icone_background = 'rgba-green-strong';
+	}
+	$artefato_class = 'artefato_opcao_estado';
+	$artefato_col_limit = 'col-3';
+	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+	
+	$artefato_tipo = 'estado_excepcional';
+	$artefato_titulo = 'Excepcional';
+	$fa_icone = 'fa-spa';
+	$fa_color = 'text-warning';
+	if ($pagina_estado == 4) {
+        $fa_color = 'text-white';
+	    $artefato_icone_background = 'rgba-orange-strong';
+	}
+	$artefato_class = 'artefato_opcao_estado';
+	$artefato_col_limit = 'col-3';
+	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+	
+	$template_modal_body_conteudo .= "
+		</div>
     ";
 	include 'templates/modal.php';
 	

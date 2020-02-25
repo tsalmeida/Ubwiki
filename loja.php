@@ -29,7 +29,7 @@
             <div class="py-2 text-left col">
 							<?php
 								if (($user_tipo == 'admin') || ($user_tipo == 'professor')) {
-									echo "<span id='add_produto' class='mx-1' title='Adicionar produto' data-toggle='modal' data-target='#modal_add_produto'><a href='javascript:void(0);' class='text-info'><i class='fad fa-plus-circle fa-2x fa-2x'></i></a></span>";
+									echo "<span id='add_produto' class='mr-1' title='Adicionar produto' data-toggle='modal' data-target='#modal_add_produto'><a href='javascript:void(0);' class='text-info'><i class='fad fa-plus-circle fa-2x fa-2x'></i></a></span>";
 								}
 							?>
             </div>

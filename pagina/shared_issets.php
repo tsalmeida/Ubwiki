@@ -1,12 +1,5 @@
 <?php
 	
-	if (isset($_POST['novo_estado_pagina'])) {
-		$novo_estado_pagina = $_POST['novo_estado_pagina'];
-		$conn->query("UPDATE Paginas SET estado = $novo_estado_pagina WHERE id = $pagina_id");
-		$pagina_estado = $novo_estado_pagina;
-		$nao_contar = true;
-	}
-	
 	if (isset($_POST['nova_imagem_titulo'])) {
 		
 		$nova_imagem_titulo = $_POST['nova_imagem_titulo'];
