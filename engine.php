@@ -905,6 +905,9 @@
 				if ($tipo == false) {
 					$tipo = 'referencia';
 				}
+				if ($nova_etiqueta_autor_id == false) {
+					$nova_etiqueta_autor_id = "NULL";
+				}
 				$conn->query("INSERT INTO Elementos (etiqueta_id, tipo, titulo, autor, autor_etiqueta_id, user_id, link) VALUES ($nova_etiqueta_id, '$tipo', '$titulo', '$autor', $nova_etiqueta_autor_id, $user_id, $link)");
 				$novo_elemento_id = $conn->insert_id;
 				$novo_elemento_criado = true;
