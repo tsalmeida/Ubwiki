@@ -146,13 +146,13 @@
 		echo "
 			<script type='text/javascript'>
 					$('#criar_referencia_form').hide();
-					$('#adicionar_video').click(function() {
+					$('#trigger_adicionar_video').click(function() {
 						$('#criar_referencia_tipo').val('video');
 					})
-					$('#adicionar_livro').click(function() {
+					$('#trigger_adicionar_livro').click(function() {
 						$('#criar_referencia_tipo').val('referencia');
 					})
-					$('#adicionar_audio').click(function() {
+					$('#trigger_adicionar_audio').click(function() {
 						$('#criar_referencia_tipo').val('album_musica');
 					})
 					$('#trigger_buscar_referencias').click(function() {
