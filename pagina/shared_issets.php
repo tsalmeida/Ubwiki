@@ -60,7 +60,7 @@
 				$novo_video_autor = mysqli_real_escape_string($conn, $novo_video_autor);
 				$novo_video_iframe = mysqli_real_escape_string($conn, $novo_video_iframe);
 				$novo_video_etiqueta_id = $novo_video_etiqueta[0];
-				$conn->query("INSERT INTO Elementos (etiqueta_id, tipo, titulo, autor, link, iframe, arquivo, user_id) VALUES ($novo_video_etiqueta_id, 'video', '$novo_video_titulo', '$novo_video_autor', '$novo_video_link', '$novo_video_iframe', '$novo_youtube_thumbnail', $user_id)");
+				$conn->query("INSERT INTO Elementos (etiqueta_id, tipo, subtipo, titulo, autor, link, iframe, arquivo, user_id) VALUES ($novo_video_etiqueta_id, 'video', 'youtube', '$novo_video_titulo', '$novo_video_autor', '$novo_video_link', '$novo_video_iframe', '$novo_youtube_thumbnail', $user_id)");
 				$novo_video_elemento_id = $conn->insert_id;
 				$conn->query("INSERT INTO Paginas_elementos (pagina_id, elemento_id, tipo, user_id) VALUES ($pagina_id, $novo_video_elemento_id, 'video', $user_id)");
 			}

@@ -9,8 +9,14 @@
 	}
 
 	if (isset($_POST['trigger_atualizacao'])) {
-	    $conn->query("CREATE TABLE `Ubwiki`.`Notificacoes` ( `id` INT(11) NULL DEFAULT NULL AUTO_INCREMENT , `user_id` INT(11) NULL DEFAULT NULL , `pagina_id` INT(11) NULL DEFAULT NULL , `tipo` VARCHAR(255) NULL DEFAULT NULL , `estado` TINYINT(1) NOT NULL DEFAULT '1' , `criacao` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
-
+	    $conn->query("ALTER TABLE `Elementos` ADD `subtipo` VARCHAR(255) NULL DEFAULT NULL AFTER `tipo`;");
+	    $elementos = $conn->query("SELECT id FROM Elementos WHERE tipo = 'video' AND iframe IS NOT NULL");
+	    if ($elementos->num_rows > 0) {
+	        while ($elemento = $elementos->fetch_assoc()) {
+	            $elemento_id = $elemento['id'];
+	            $conn->query("UPDATE Elementos SET subtipo = 'youtube' WHERE id = $elemento_id");
+            }
+        }
 	}
 
 	if (isset($_POST['trigger_atualizar_textos_size'])) {

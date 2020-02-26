@@ -141,7 +141,7 @@
 								$template_conteudo .= include 'templates/artefato_item.php';
 								
 								if ($user_tipo == 'admin') {
-									$artefato_titulo = 'Loja';
+									$artefato_titulo = 'Mercado';
 									$artefato_tipo = 'loja';
 									$fa_icone = 'fa-bags-shopping';
 									$fa_color = 'text-danger';
@@ -150,8 +150,8 @@
 									$artefato_class = 'icone_sobre_stuff';
 									$template_conteudo .= include 'templates/artefato_item.php';
 									
-									$artefato_titulo = 'Ver loja';
-									$artefato_link = 'loja.php';
+									$artefato_titulo = 'Ver mercado';
+									$artefato_link = 'mercado.php';
 									$artefato_tipo = 'loja_link';
 									$fa_icone = 'fa-bags-shopping';
 									$fa_color = 'text-white';
@@ -201,7 +201,7 @@
 								include 'templates/page_element.php';
 								
 								$template_id = 'sobre_loja';
-								$template_titulo = 'Sobre a loja';
+								$template_titulo = 'Sobre o mercado';
 								$template_classes = 'sobre_stuff';
 								$template_conteudo = false;
 								$template_conteudo .= return_verbete_html(1230);
@@ -213,55 +213,55 @@
     </div>
     </body>
     <script type="text/javascript">
-        $('.sobre_stuff').hide();
-        $('.icones_links').hide();
+        $('.sobre_stuff').addClass('hidden');
+        $('.icones_links').addClass('hidden');
         $('#artefato_escritorio').click(function () {
-            $('.icone_sobre_stuff').show();
-            $('.icones_links').hide();
-            $('#artefato_escritorio_link').show();
-            $('.sobre_stuff').hide();
-            $('#sobre_escritorio').show();
-            $('#artefato_escritorio').hide();
+            $('.icone_sobre_stuff').removeClass('hidden');
+            $('.icones_links').addClass('hidden');
+            $('#artefato_escritorio_link').removeClass('hidden');
+            $('.sobre_stuff').addClass('hidden');
+            $('#sobre_escritorio').removeClass('hidden');
+            $('#artefato_escritorio').addClass('hidden');
         });
         $('#artefato_cursos').click(function () {
-            $('.icone_sobre_stuff').show();
-            $('.icones_links').hide();
-            $('#artefato_cursos_link').show();
-            $('.sobre_stuff').hide();
-            $('#sobre_cursos').show();
-            $('#artefato_cursos').hide();
+            $('.icone_sobre_stuff').removeClass('hidden');
+            $('.icones_links').addClass('hidden');
+            $('#artefato_cursos_link').removeClass('hidden');
+            $('.sobre_stuff').addClass('hidden');
+            $('#sobre_cursos').removeClass('hidden');
+            $('#artefato_cursos').addClass('hidden');
         });
         $('#artefato_areas_interesse').click(function () {
-            $('.icone_sobre_stuff').show();
-            $('.icones_links').hide();
-            $('#artefato_areas_interesse_link').show();
-            $('.sobre_stuff').hide();
-            $('#sobre_areas_interesse').show();
-            $('#artefato_areas_interesse').hide();
+            $('.icone_sobre_stuff').removeClass('hidden');
+            $('.icones_links').addClass('hidden');
+            $('#artefato_areas_interesse_link').removeClass('hidden');
+            $('.sobre_stuff').addClass('hidden');
+            $('#sobre_areas_interesse').removeClass('hidden');
+            $('#artefato_areas_interesse').addClass('hidden');
         });
         $('#artefato_biblioteca').click(function () {
-            $('.icone_sobre_stuff').show();
-            $('.icones_links').hide();
-            $('#artefato_biblioteca_link').show();
-            $('.sobre_stuff').hide();
-            $('#sobre_biblioteca').show();
-            $('#artefato_biblioteca').hide();
+            $('.icone_sobre_stuff').removeClass('hidden');
+            $('.icones_links').addClass('hidden');
+            $('#artefato_biblioteca_link').removeClass('hidden');
+            $('.sobre_stuff').addClass('hidden');
+            $('#sobre_biblioteca').removeClass('hidden');
+            $('#artefato_biblioteca').addClass('hidden');
         });
         $('#artefato_forum').click(function () {
-            $('.icone_sobre_stuff').show();
-            $('.icones_links').hide();
-            $('#artefato_forum_link').show();
-            $('.sobre_stuff').hide();
-            $('#sobre_forum').show();
-            $('#artefato_forum').hide();
+            $('.icone_sobre_stuff').removeClass('hidden');
+            $('.icones_links').addClass('hidden');
+            $('#artefato_forum_link').removeClass('hidden');
+            $('.sobre_stuff').addClass('hidden');
+            $('#sobre_forum').removeClass('hidden');
+            $('#artefato_forum').addClass('hidden');
         });
         $('#artefato_loja').click(function () {
-            $('.icone_sobre_stuff').show();
-            $('.icones_links').hide();
-            $('#artefato_loja_link').show();
-            $('.sobre_stuff').hide();
-            $('#sobre_loja').show();
-            $('#artefato_loja').hide();
+            $('.icone_sobre_stuff').removeClass('hidden');
+            $('.icones_links').addClass('hidden');
+            $('#artefato_loja_link').removeClass('hidden');
+            $('.sobre_stuff').addClass('hidden');
+            $('#sobre_loja').removeClass('hidden');
+            $('#artefato_loja').addClass('hidden');
         });
 
     </script>

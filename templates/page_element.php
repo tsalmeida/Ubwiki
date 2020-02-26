@@ -34,6 +34,10 @@
 	if (!isset($template_conteudo_no_col)) {
 		$template_conteudo_no_col = false;
 	}
+	
+	if (!isset($template_col_classes)) {
+		$template_col_classes = false;
+	}
 
 	if (!isset($template_p_limit)) {
 		$template_p_limit = 'p-limit';
@@ -53,7 +57,7 @@
 
 	if ($template_conteudo_no_col == false) {
 		$template_conteudo_no_col = false;
-		$template_conteudo_no_col1 = "<div class='col $template_p_limit $template_collapse collapse show'>";
+		$template_conteudo_no_col1 = "<div class='col $template_p_limit $template_col_classes $template_collapse collapse show'>";
 		$template_conteudo_no_col2 = "</div>";
 	}
 
@@ -129,5 +133,6 @@
 	unset($template_col_value);
 	unset($template_background);
 	unset($template_p_limit);
+	unset($template_col_classes);
 
 ?>

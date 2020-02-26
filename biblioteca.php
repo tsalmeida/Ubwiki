@@ -8,8 +8,8 @@
 	if (isset($_POST['termos_busca'])) {
 		$busca = $_POST['termos_busca'];
 	}
-	if (isset($_POST['listar_todas'])) {
-		$busca = $_POST['listar_todas'];
+	if (isset($_POST['trigger_listar_todas'])) {
+		$busca = $_POST['trigger_listar_todas'];
 	}
 	
 	include 'pagina/shared_issets.php';
@@ -28,12 +28,13 @@
                             class='fad fa-plus-circle fa-2x fa-fw'></i></a>
             </div>
         </div>
-        <div class="col d-flex justify-content-center"><a href="javascript:void(0);" data-toggle="modal"
-                                                          data-target="#modal_busca" class="text-dark"><i
+        <div class="col d-flex justify-content-center">
+            <a href="javascript:void(0);" data-toggle="modal" data-target="#modal_busca" class="text-dark"><i
                         class="fad fa-search fa-fw"></i></a></div>
-			<?php
-				echo "<div class='col d-flex justify-content-end'><form method='post'><button name='listar_todas' id='listar_todas' value='!all' class='$button_classes btn-info btn-sm m-0'>Listar todos</button></form></div>";
-			?>
+        <div class='col d-flex justify-content-end'>
+            <a href='javascript:void(0);' data-toggle='modal' data-target='#modal_listar_itens'
+               class='ml-1 text-info'><i class='fad fa-eye fa-2x fa-fw'></i></a>
+        </div>
     </div>
 </div>
 <div class="container">
@@ -47,7 +48,6 @@
     <div class="row d-flex justify-content-center">
         <div id="coluna_unica" class="col">
 					<?php
-						
 						if ($busca == false) {
 							$acervo = false;
 						} elseif ($busca == '!all') {
@@ -81,7 +81,11 @@
 								
 								if ($acervo_item_tipo == 'topico') {
 									continue;
-								} elseif ($acervo_item_tipo == false) {
+								}
+								elseif ($acervo_item_tipo == 'wikipedia') {
+								    continue;
+                                }
+								elseif ($acervo_item_tipo == false) {
 									continue;
 								}
 								if ($acervo_item_pagina_id == false) {
@@ -117,11 +121,11 @@
 							if ($criados->num_rows > 0) {
 								$count = 0;
 								while ($criado = $criados->fetch_assoc()) {
-								    $criado_id = $criado['id'];
+									$criado_id = $criado['id'];
 									$criado_pagina_id = $criado['pagina_id'];
-                                    if ($criado_pagina_id == false) {
-                                        $criado_pagina_id = return_pagina_id($criado_id, 'elemento');
-                                    }
+									if ($criado_pagina_id == false) {
+										$criado_pagina_id = return_pagina_id($criado_id, 'elemento');
+									}
 									$criado_titulo = $criado['titulo'];
 									$criado_autor = $criado['autor'];
 									$criado_tipo = $criado['tipo'];
@@ -227,11 +231,155 @@
 	";
 	include 'templates/modal.php';
 	
+	
+	$template_modal_div_id = 'modal_listar_itens';
+	$template_modal_titulo = 'Listar itens';
+	$lista_col_limit = 'col-lg-3 col-md-4 col-sm-6';
+	$template_modal_show_buttons = false;
+	$template_modal_body_conteudo = false;
+	
+	$template_modal_body_conteudo .= "<form method='post' class='row d-flex justify-content-center'>";
+	
+	$artefato_tipo = 'listar_todas';
+	$artefato_titulo = "Todos os itens";
+	$artefato_col_limit = $lista_col_limit;
+	$artefato_button = '!all';
+	$fa_icone = 'fa-asterisk';
+	$fa_color = 'text-secondary';
+	$fa_size = 'fa-3x';
+	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+	
+	$template_modal_body_conteudo .= "</form>";
+	
+	$template_modal_body_conteudo .= "<div class='row d-flex justify-content-start rounded grey lighten-5 mb-3'>";
+	
+	$artefato_tipo = 'listar_referencias';
+	$artefato_titulo = 'Material de leitura';
+	$artefato_class = 'selecionar_listar';
+	$artefato_col_limit = $lista_col_limit;
+	$fa_icone = 'fa-glasses';
+	$fa_color = 'text-success';
+	$fa_size = 'fa-3x';
+	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+	
+	$artefato_tipo = 'ativo_listar_referencias';
+	$artefato_titulo = 'Material de leitura';
+	$artefato_class = 'ativo_listar hidden';
+	$artefato_col_limit = $lista_col_limit;
+	$fa_icone = 'fa-glasses';
+	$artefato_icone_background = 'rgba-green-strong';
+	$fa_color = 'text-white';
+	$fa_size = 'fa-3x';
+	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+	
+	$artefato_tipo = 'listar_audio';
+	$artefato_titulo = 'Áudio';
+	$artefato_class = 'selecionar_listar';
+	$artefato_col_limit = $lista_col_limit;
+	$fa_icone = 'fa-volume-up';
+	$fa_color = 'text-warning';
+	$fa_size = 'fa-3x';
+	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+	
+	$artefato_tipo = 'ativo_listar_audio';
+	$artefato_titulo = 'Áudio';
+	$artefato_class = 'ativo_listar hidden';
+	$artefato_col_limit = $lista_col_limit;
+	$fa_icone = 'fa-volume-up';
+	$artefato_icone_background = 'rgba-orange-strong';
+	$fa_color = 'text-white';
+	$fa_size = 'fa-3x';
+	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+	
+	$artefato_tipo = 'listar_imagens';
+	$artefato_titulo = 'Imagens';
+	$artefato_class = 'selecionar_listar';
+	$artefato_col_limit = $lista_col_limit;
+	$fa_icone = 'fa-images';
+	$fa_color = 'text-danger';
+	$fa_size = 'fa-3x';
+	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+	
+	$artefato_tipo = 'ativo_listar_imagens';
+	$artefato_titulo = 'Imagens';
+	$artefato_class = 'ativo_listar hidden';
+	$artefato_col_limit = $lista_col_limit;
+	$fa_icone = 'fa-images';
+	$artefato_icone_background = 'rgba-red-strong';
+	$fa_color = 'text-white';
+	$fa_size = 'fa-3x';
+	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+	
+	$artefato_tipo = 'listar_video';
+	$artefato_titulo = 'Vídeo';
+	$artefato_class = 'selecionar_listar';
+	$artefato_col_limit = $lista_col_limit;
+	$fa_icone = 'fa-play-circle';
+	$fa_color = 'text-info';
+	$fa_size = 'fa-3x';
+	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+	
+	$artefato_tipo = 'ativo_listar_video';
+	$artefato_titulo = 'Vídeo';
+	$artefato_class = 'ativo_listar hidden';
+	$artefato_col_limit = $lista_col_limit;
+	$fa_icone = 'fa-play-circle';
+	$artefato_icone_background = 'rgba-cyan-strong';
+	$fa_color = 'text-white';
+	$fa_size = 'fa-3x';
+	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+	
+	$template_modal_body_conteudo .= "</div>";
+	
+	$template_modal_body_conteudo .= "<div class='row d-flex justify-content-center border'>";
+	
+	include 'pagina/elemento_subtipos.php';
+	
+	$template_modal_body_conteudo .= "</div>";
+	
+	include 'templates/modal.php';
+	
 	include 'pagina/modal_add_elemento.php';
 	include 'pagina/modal_adicionar_imagem.php';
 	include 'pagina/youtube.php';
 ?>
 </body>
+<script type="text/javascript">
+    $('.subcategorias').addClass('hidden');
+    $(document).on('click', '#trigger_listar_referencias', function() {
+        $('.ativo_listar').addClass('hidden');
+        $('.selecionar_listar').removeClass('hidden');
+        $('#artefato_listar_referencias').addClass('hidden');
+        $('#artefato_ativo_listar_referencias').removeClass('hidden');
+        $('.subcategorias').addClass('hidden');
+        $('.subcategoria_leitura').removeClass('hidden');
+    });
+    $(document).on('click', '#trigger_listar_audio', function() {
+        $('.ativo_listar').addClass('hidden');
+        $('.selecionar_listar').removeClass('hidden');
+        $('#artefato_listar_audio').addClass('hidden');
+        $('#artefato_ativo_listar_audio').removeClass('hidden');
+        $('.subcategorias').addClass('hidden');
+        $('.subcategoria_audio').removeClass('hidden');
+    });
+    $(document).on('click', '#trigger_listar_imagens', function() {
+        $('.ativo_listar').addClass('hidden');
+        $('.selecionar_listar').removeClass('hidden');
+        $('#artefato_listar_imagens').addClass('hidden');
+        $('#artefato_ativo_listar_imagens').removeClass('hidden');
+        $('.subcategorias').addClass('hidden');
+        $('.subcategoria_imagens').removeClass('hidden');
+    });
+    $(document).on('click', '#trigger_listar_video', function() {
+        $('.ativo_listar').addClass('hidden');
+        $('.selecionar_listar').removeClass('hidden');
+        $('#artefato_listar_video').addClass('hidden');
+        $('#artefato_ativo_listar_video').removeClass('hidden');
+        $('.subcategorias').addClass('hidden');
+        $('.subcategoria_video').removeClass('hidden');
+    });
+    
+</script>
 <?php
 	include 'templates/footer.html';
 	$mdb_select = true;

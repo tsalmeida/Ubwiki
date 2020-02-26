@@ -463,7 +463,10 @@
 							}
 						}
 						if ($pagina_tipo == 'elemento') {
-							echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_dados_elemento' class='text-info' id='elemento_dados' class='mr-1' title='Editar dados'><i class='fad fa-info-circle fa-fw fa-2x'></i></a>";
+							echo "
+                            <a href='javascript:void(0);' data-toggle='modal' data-target='#modal_dados_elemento' class='text-info' id='elemento_dados' class='mr-1' title='Editar dados'><i class='fad fa-info-circle fa-fw fa-2x'></i></a>
+                            <a href='javascript:void(0);' data-toggle='modal' data-target='#modal_elemento_subtipo' class='text-info' id='elemento_subtipo' class='mr-1' title='Determinar subcategoria'><i class='fad fa-sort-circle fa-fw fa-2x'></i></a>
+                            ";
 						}
 						$modal_pagina_dados = false;
 						if (
@@ -698,7 +701,10 @@
 				$template_subtitulo = 'Página pública';
 			} elseif ($pagina_compartilhamento == 'escritorio') {
 				$pagina_user_apelido = return_apelido_user_id($pagina_user_id);
-				$template_subtitulo = "Escritório de $pagina_user_apelido";
+				$pagina_user_avatar = return_avatar($pagina_user_id);
+				$pagina_user_avatar_icone = $pagina_user_avatar[0];
+				$pagina_user_avatar_cor = $pagina_user_avatar[1];
+				$template_subtitulo = "Escritório de <span class='$pagina_user_avatar_cor'><i class='fad $pagina_user_avatar_icone fa-fw'></i></span> $pagina_user_apelido";
 			} else {
 				$template_subtitulo = $pagina_compartilhamento;
 			}
@@ -785,19 +791,21 @@
 					if ($elemento_tipo == 'imagem') {
 						$template_id = 'imagem_div';
 						$template_titulo = false;
+						$template_col_classes = 'd-flex justify-content-center';
 						$template_botoes = false;
 						$template_conteudo = "<a href='../imagens/verbetes/$elemento_arquivo' ><img class='imagem_pagina border' src='../imagens/verbetes/$elemento_arquivo'></img></a>";
 						include 'templates/page_element.php';
 					} elseif (($elemento_tipo == 'video') && ($elemento_iframe != false)) {
 						$template_id = 'video_div';
 						$template_titulo = false;
+	                    $template_col_classes = 'd-flex justify-content-center';
 						$template_botoes = false;
 						$template_conteudo = $elemento_iframe;
-						$template_conteudo_class = 'text-center';
 						include 'templates/page_element.php';
 					} elseif (($elemento_tipo == 'referencia') && ($elemento_link != false)) {
 						$template_id = 'referencia_link';
 						$template_titulo = false;
+						$template_col_classes = 'd-flex justify-content-center';
 						$template_conteudo = false;
 						$template_conteudo_no_col = true;
 						$template_conteudo .= "

@@ -770,45 +770,45 @@
 			$(document).ready(function() {
 			";
 		if ($notificacao_ativa == true) {
-			echo "$('#artefato_notificar_inativo').hide();";
+			echo "$('#artefato_notificar_inativo').addClass('hidden');";
 		} else {
-			echo "$('#artefato_notificar_ativo').hide();";
+			echo "$('#artefato_notificar_ativo').addClass('hidden');";
 		}
 		if ($notificacao_email == true) {
-			echo "$('#artefato_nao_notificar_email').hide();";
+			echo "$('#artefato_nao_notificar_email').addClass('hidden');";
 		} else {
-			echo "$('#artefato_notificar_email').hide();";
+			echo "$('#artefato_notificar_email').addClass('hidden');";
 		}
 		echo "
 				});
 				$(document).on('click', '#trigger_notificar_ativo', function() {
 				    $('#notificacao_ativa').val(0);
 				    $('#notificacao_email').val(0);
-				    $('#artefato_notificar_inativo').show();
-				    $('#artefato_notificar_ativo').hide();
-				    $('#artefato_notificar_email').hide();
-				    $('#artefato_nao_notificar_email').show();
+				    $('#artefato_notificar_inativo').removeClass('hidden');
+				    $('#artefato_notificar_ativo').addClass('hidden');
+				    $('#artefato_notificar_email').addClass('hidden');
+				    $('#artefato_nao_notificar_email').removeClass('hidden');
 				})
 				$(document).on('click', '#trigger_notificar_inativo', function() {
 				    $('#notificacao_ativa').val(1);
 				    $('#notificacao_email').val(0);
-				    $('#artefato_notificar_inativo').hide();
-				    $('#artefato_notificar_ativo').show();
-				    $('#artefato_notificar_email').hide();
-				    $('#artefato_nao_notificar_email').show();
+				    $('#artefato_notificar_inativo').addClass('hidden');
+				    $('#artefato_notificar_ativo').removeClass('hidden');
+				    $('#artefato_notificar_email').addClass('hidden');
+				    $('#artefato_nao_notificar_email').removeClass('hidden');
 				})
 				$(document).on('click', '#trigger_notificar_email', function() {
 				    $('#notificacao_email').val(0);
-				    $('#artefato_notificar_email').hide();
-				    $('#artefato_nao_notificar_email').show();
+				    $('#artefato_notificar_email').addClass('hidden');
+				    $('#artefato_nao_notificar_email').removeClass('hidden');
 				})
 				$(document).on('click', '#trigger_nao_notificar_email', function() {
 				    $('#notificacao_ativa').val(1);
 				    $('#notificacao_email').val(1);
-				    $('#artefato_notificar_inativo').hide();
-				    $('#artefato_notificar_ativo').show();
-				    $('#artefato_notificar_email').show();
-				    $('#artefato_nao_notificar_email').hide();
+				    $('#artefato_notificar_inativo').addClass('hidden');
+				    $('#artefato_notificar_ativo').removeClass('hidden');
+				    $('#artefato_notificar_email').removeClass('hidden');
+				    $('#artefato_nao_notificar_email').addClass('hidden');
 				})
 				
 			</script>

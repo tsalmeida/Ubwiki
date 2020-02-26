@@ -354,6 +354,10 @@ ul + p {
   background-color: #f5f5f5 !important;
 }
 
+.artefato:hover button {
+  background-color: #f5f5f5 !important;
+}
+
 .remover_tag:hover, .remover_materia:hover, .remover_topico:hover {
   opacity: 0.5;
 }
@@ -367,7 +371,7 @@ ul + p {
 }
 
 .p-limit {
-  max-width: 62ch;
+  max-width: 60ch;
 }
 
 .navlink:hover {
@@ -552,4 +556,8 @@ ul {
 
 .ql-toolbar {
   margin-bottom: 1em !important;
+}
+
+.hidden {
+  display: none !important;
 }

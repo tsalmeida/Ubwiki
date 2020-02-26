@@ -6,7 +6,7 @@
 		header('Location:pagina.php?pagina_id=4');
 	}
 	
-	$pagina_tipo = 'loja';
+	$pagina_tipo = 'mercado';
 	
 	if (isset($_POST['novo_produto_titulo'])) {
 		$novo_produto_titulo = $_POST['novo_produto_titulo'];
@@ -39,7 +39,7 @@
 
     <div class="container-fluid">
 			<?php
-				$template_titulo = 'Loja virtual';
+				$template_titulo = 'Mercado virtual';
 				$template_subtitulo = false;
 				$template_titulo_context = true;
 				include 'templates/titulo.php';

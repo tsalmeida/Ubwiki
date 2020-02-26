@@ -82,16 +82,10 @@
 		$artefato_criacao = false;
 	}
 	
-	$artefato_link_1 = false;
-	$artefato_link_2 = false;
-	if ($artefato_link != false) {
-		$artefato_link_1 = "<a id='link_$artefato_tipo' href='$artefato_link' class='$fa_class $fa_color' title='$artefato_criacao'>";
-		$artefato_link_2 = "</a>";
-	} else {
-		$artefato_link_1 = "<span data-toggle='modal' data-target='$artefato_modal' title='$artefato_criacao'><a id='trigger_$artefato_tipo' href='javascript:void(0);' class='$fa_color'>";
-		$artefato_link_2 = "</a></span>";
+	if (!isset($artefato_button)) {
+		$artefato_button = false;
 	}
-
+	
 	if (!isset($fa_size)) {
 		$fa_size = 'fa-5x';
 	}
@@ -119,17 +113,32 @@
 		$artefato_badge = "<span class='badge badge-pill grey lighten-5 text-dark artefato-badge position-absolute z-depth-0'><i class='fad $artefato_badge fa-fw'></i></span>";
 	}
 	
+	$artefato_classes = "$artefato_col_limit py-1 artefato rounded $artefato_background $artefato_class d-flex justify-content-center";
+	
+	$artefato_link_1 = false;
+	$artefato_link_2 = false;
+	if ($artefato_button != false) {
+		$artefato_link_1 = "<div id='artefato_$artefato_tipo' class='$artefato_classes'><button class='$fa_color transparent border-0' name='trigger_$artefato_tipo' id='trigger_$artefato_tipo' value='$artefato_button' $artefato_template_thumb>";
+		$artefato_link_2 = "</button></div>";
+	} else {
+		if ($artefato_link != false) {
+			$artefato_link_1 = "<div class='$artefato_classes' id='artefato_$artefato_tipo'><a id='link_$artefato_tipo' href='$artefato_link' class='$fa_class $fa_color' title='$artefato_criacao' $artefato_template_thumb>";
+			$artefato_link_2 = "</a></div>";
+		} else {
+			$artefato_link_1 = "<span id='artefato_$artefato_tipo' data-toggle='modal' data-target='$artefato_modal' title='$artefato_criacao' class='$artefato_classes'><a id='trigger_$artefato_tipo' href='javascript:void(0);' class='$fa_color w-100' $artefato_template_thumb>";
+			$artefato_link_2 = "</a></span>";
+		}
+	}
+	
 	$artefato_template_result = false;
 	
 	$artefato_template_result .= "
-     <div id='artefato_$artefato_tipo' class='$artefato_col_limit py-3 artefato rounded $artefato_background $artefato_class' $artefato_template_thumb>
         $artefato_link_1
         $artefato_badge
         <span class='row justify-content-center text-center p-1 mx-1 rounded $artefato_icone_background'><i class='$fa_icone $fa_size fa-fw $fa_invert d-block'></i></span>
         <span class='row justify-content-center text-center mt-2 text-dark p-1 $titulo_class'>$artefato_titulo</span>
         <span class='row justify-content-center text-center text-muted p-1 $titulo_class'><em>$artefato_subtitulo</em></span>
         $artefato_link_2
-      </div>
 	";
 	
 	unset($artefato_icone_background);
@@ -137,6 +146,7 @@
 	unset($artefato_link);
 	unset($fa_icone);
 	unset($fa_color);
+	unset($artefato_button);
 	unset($artefato_titulo);
 	unset($artefato_page_id_titulo);
 	unset($artefato_estado);
@@ -145,7 +155,7 @@
 	unset($artefato_subtipo);
 	unset($artefato_tipo);
 	unset($fa_size);
-	unset($col_limit);
+	unset($artefato_col_limit);
 	unset($titulo_class);
 	unset($artefato_modal);
 	unset($length_check);

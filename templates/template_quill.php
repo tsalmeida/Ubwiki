@@ -171,7 +171,7 @@
 	}
 	
 	$quill_result .= "
-    <form id='quill_{$template_id}_form' method='post'>
+    <form id='quill_{$template_id}_form' method='post' class='w-100'>
         <div class='row'>
             <div class='container'>
                 <div id='quill_container_{$template_id}' class='bg-white'>

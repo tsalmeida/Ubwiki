@@ -89,4 +89,13 @@
 	$template_modal_submit_name = 'submit_elemento_dados';
 	
 	include 'templates/modal.php';
+	
+	$template_modal_div_id = 'modal_elemento_subtipo';
+	$template_modal_titulo = "Classificar subtipo";
+	$template_modal_body_conteudo = false;
+
+	
+	
+	include 'templates/modal.php';
+	
 	?>
