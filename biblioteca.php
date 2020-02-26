@@ -244,6 +244,7 @@
 	$artefato_titulo = "Todos os itens";
 	$artefato_col_limit = $lista_col_limit;
 	$artefato_button = '!all';
+	$artefato_name = 'trigger_listar_todas';
 	$fa_icone = 'fa-asterisk';
 	$fa_color = 'text-secondary';
 	$fa_size = 'fa-3x';
