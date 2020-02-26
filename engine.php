@@ -1527,7 +1527,7 @@
 		if ($elemento_id == false) {
 			return false;
 		}
-		$elementos = $conn->query("SELECT estado, etiqueta_id, criacao, tipo, titulo, autor, autor_etiqueta_id, capitulo, ano, link, iframe, arquivo, resolucao, orientacao, comentario, trecho, user_id, compartilhamento FROM Elementos WHERE id = $elemento_id");
+		$elementos = $conn->query("SELECT estado, etiqueta_id, criacao, tipo, subtipo, titulo, autor, autor_etiqueta_id, capitulo, ano, link, iframe, arquivo, resolucao, orientacao, comentario, trecho, user_id, compartilhamento FROM Elementos WHERE id = $elemento_id");
 		if ($elementos->num_rows > 0) {
 			while ($elemento = $elementos->fetch_assoc()) {
 				$elemento_estado = $elemento['estado']; // 0
@@ -1548,7 +1548,8 @@
 				$elemento_trecho = $elemento['trecho']; // 15
 				$elemento_user_id = $elemento['user_id']; // 16
 				$elemento_compartilhamento = $elemento['compartilhamento']; // 17
-				$result = array($elemento_estado, $elemento_etiqueta_id, $elemento_criacao, $elemento_tipo, $elemento_titulo, $elemento_autor, $elemento_autor_etiqueta_id, $elemento_capitulo, $elemento_ano, $elemento_link, $elemento_iframe, $elemento_arquivo, $elemento_resolucao, $elemento_orientacao, $elemento_comentario, $elemento_trecho, $elemento_user_id, $elemento_compartilhamento);
+				$elemento_subtipo = $elemento['subtipo']; // 18
+				$result = array($elemento_estado, $elemento_etiqueta_id, $elemento_criacao, $elemento_tipo, $elemento_titulo, $elemento_autor, $elemento_autor_etiqueta_id, $elemento_capitulo, $elemento_ano, $elemento_link, $elemento_iframe, $elemento_arquivo, $elemento_resolucao, $elemento_orientacao, $elemento_comentario, $elemento_trecho, $elemento_user_id, $elemento_compartilhamento, $elemento_subtipo);
 				return $result;
 			}
 		}
@@ -2967,6 +2968,74 @@
 		$data = DateTime::createFromFormat('Y-m-d H:i:s', $data);
 		$data = $data->format('Y/m/d');
 		return $data;
+	}
+	
+	function return_icone_subtipo($subtipo) {
+		switch ($subtipo) {
+			case 'livro':
+				return array('fa-book', 'text-success', 'rgba-green-strong');
+				break;
+			case 'pagina':
+				return array('fa-browser', 'text-primary', 'rgba-blue-strong');
+				break;
+			case 'artigo':
+				return array('fa-newspaper', 'text-muted', 'rgba-black-strong');
+				break;
+			case 'wikipedia':
+				return array('fa-wikipedia-w', 'text-dark', 'rgba-black-strong');
+				break;
+			case 'musica':
+				return array('fa-record-vinyl', 'text-dark', 'rgba-black-strong');
+				break;
+			case 'podcast':
+				return array('fa-podcast', 'text-secondary', 'rgba-purple-strong');
+				break;
+			case 'audiobook':
+				return array('fa-book-reader', 'text-success', 'rgba-green-strong');
+				break;
+			case 'mapasatelite':
+				return array('fa-globe-americas', 'text-default', 'rgba-teal-strong');
+				break;
+			case 'retrato':
+				return array('fa-portrait', 'text-danger', 'rgba-red-strong');
+				break;
+			case 'arte':
+				return array('fa-paint-brush', 'text-secondary', 'rgba-purple-strong');
+				break;
+			case 'grafico':
+				return array('fa-chart-pie', 'text-warning', 'rgba-orange-strong');
+				break;
+			case 'paisagem':
+				return array('fa-mountain', 'text-info', 'rgba-cyan-strong');
+				break;
+			case 'objeto':
+				return array('fa-cube', 'text-success', 'rgba-green-strong');
+				break;
+			case 'arquitetura':
+				return array('fa-university', 'text-warning', 'rgba-orange-strong');
+				break;
+			case 'planta':
+				return array('fa-flower-daffodil', 'text-danger', 'rgba-red-strong');
+				break;
+			case 'animais':
+				return array('fa-rabbit', 'text-info', 'rgba-cyan-strong');
+				break;
+			case 'outras':
+				return array('fa-camera-alt', 'text-dark', 'rgba-black-strong');
+				break;
+			case 'youtube':
+				return array('fa-youtube-square', 'text-danger', 'rgba-red-strong');
+				break;
+			case 'filme':
+				return array('fa-film', 'text-info', 'rgba-cyan-strong');
+				break;
+			case 'aula':
+				return array('fa-chalkboard-teacher', 'text-default', 'rgba-teal-strong');
+				break;
+			default:
+				return array('fa-circle-notch', 'text-danger', 'rgba-red-strong');
+			
+		}
 	}
 	
 ?>

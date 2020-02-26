@@ -90,12 +90,16 @@
 	
 	include 'templates/modal.php';
 	
-	if ($user_tipo == 'admin') {
-		
-		$template_modal_div_id = 'modal_elemento_subtipo';
-		$template_modal_titulo = "Classificar subtipo";
-		$template_modal_body_conteudo = false;
-		
-		include 'templates/modal.php';
-	}
+	$template_modal_div_id = 'modal_elemento_subtipo';
+	$template_modal_titulo = "Classificar subtipo";
+	$template_modal_show_buttons = false;
+	$template_modal_body_conteudo = false;
+	
+	$template_modal_body_conteudo .= "<form method='post'><div class='row d-flex justify-content-center'>";
+	
+	include 'pagina/elemento_subtipos.php';
+	
+	$template_modal_body_conteudo .= "</form></div>";
+	
+	include 'templates/modal.php';
 ?>

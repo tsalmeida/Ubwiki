@@ -89,6 +89,10 @@
 	if (!isset($fa_size)) {
 		$fa_size = 'fa-5x';
 	}
+	
+	if (!isset($artefato_name)) {
+		$artefato_name = "trigger_$artefato_tipo";
+	}
 
 	if (!isset($artefato_col_limit)) {
 		$artefato_col_limit = 'col-lg-2 col-md-3 col-sm-3 col-xs-3';
@@ -118,7 +122,7 @@
 	$artefato_link_1 = false;
 	$artefato_link_2 = false;
 	if ($artefato_button != false) {
-		$artefato_link_1 = "<div id='artefato_$artefato_tipo' class='$artefato_classes'><button class='$fa_color transparent border-0' name='trigger_$artefato_tipo' id='trigger_$artefato_tipo' value='$artefato_button' $artefato_template_thumb>";
+		$artefato_link_1 = "<div id='artefato_$artefato_tipo' class='$artefato_classes'><button class='$fa_color transparent border-0' name='$artefato_name' id='$artefato_name' value='$artefato_button' $artefato_template_thumb>";
 		$artefato_link_2 = "</button></div>";
 	} else {
 		if ($artefato_link != false) {

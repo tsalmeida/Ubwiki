@@ -1,11 +1,12 @@
 <?php
-	$elementos = $conn->query("SELECT estado, compartilhamento, criacao, tipo, titulo, autor, capitulo, ano, link, iframe, arquivo, resolucao, orientacao, comentario, trecho, user_id FROM Elementos WHERE id = $elemento_id");
+	$elementos = $conn->query("SELECT estado, compartilhamento, criacao, tipo, subtipo, titulo, autor, capitulo, ano, link, iframe, arquivo, resolucao, orientacao, comentario, trecho, user_id FROM Elementos WHERE id = $elemento_id");
 	if ($elementos->num_rows > 0) {
 		while ($elemento = $elementos->fetch_assoc()) {
 			$elemento_estado = $elemento['estado'];
 			$elemento_compartilhamento = $elemento['compartilhamento'];
 			$elemento_criacao = $elemento['criacao'];
 			$elemento_tipo = $elemento['tipo'];
+			$elemento_subtipo = $elemento['subtipo'];
 			$elemento_titulo = $elemento['titulo'];
 			$elemento_autor = $elemento['autor'];
 			$elemento_capitulo = $elemento['capitulo'];
