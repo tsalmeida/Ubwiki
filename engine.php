@@ -2728,7 +2728,8 @@
 		echo $provas_resultado;
 	}
 	
-	function convert_questao_tipo($questao_tipo) {
+	function convert_questao_tipo($questao_tipo)
+	{
 		if ($questao_tipo == false) {
 			return false;
 		}
@@ -2795,7 +2796,8 @@
 		$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, extra, user_id) VALUES ($nova_questao_pagina_id, 'topico', $nova_questao_id, 'questao', $nova_questao_origem, $user_id)");
 	}
 	
-	function return_questao_info($questao_id) {
+	function return_questao_info($questao_id)
+	{
 		if ($questao_id == false) {
 			return false;
 		}
@@ -2844,7 +2846,8 @@
 		return $results;
 	}
 	
-	function return_texto_apoio_info($texto_apoio_id) {
+	function return_texto_apoio_info($texto_apoio_id)
+	{
 		if ($texto_apoio_id == false) {
 			return false;
 		}
@@ -2880,8 +2883,9 @@
 		$adicionar_questao_check = $conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, extra, user_id) VALUES ($adicionar_questao_pagina_id, 'topico', $adicionar_questao_id, 'questao', $adicionar_questao_origem, $user_id)");
 		echo $adicionar_questao_check;
 	}
-
-	function return_notificacao($pagina_id, $user_id) {
+	
+	function return_notificacao($pagina_id, $user_id)
+	{
 		if (($pagina_id == false) || ($user_id == false)) {
 			return false;
 		}
@@ -2891,13 +2895,13 @@
 			while ($notificacao = $notificacoes->fetch_assoc()) {
 				$notificacao_tipo = $notificacao['tipo'];
 				if ($notificacao_tipo == 'normal') {
-					return array(1,0);
+					return array(1, 0);
 				} elseif ($notificacao_tipo == 'email') {
-					return array(1,1);
+					return array(1, 1);
 				}
 			}
 		} else {
-			return array(0,0);
+			return array(0, 0);
 		}
 	}
 	
@@ -2924,7 +2928,8 @@
 		$pagina_estado = $novo_estado_pagina;
 	}
 	
-	function return_alteracao_recente($pagina_id) {
+	function return_alteracao_recente($pagina_id)
+	{
 		if ($pagina_id == false) {
 			return false;
 		}
@@ -2961,7 +2966,8 @@
 		return false;
 	}
 	
-	function format_data($data) {
+	function format_data($data)
+	{
 		if ($data == false) {
 			return false;
 		}
@@ -2970,7 +2976,8 @@
 		return $data;
 	}
 	
-	function return_icone_subtipo($subtipo) {
+	function return_icone_subtipo($subtipo)
+	{
 		switch ($subtipo) {
 			case 'livro':
 				return array('fa-book', 'text-success', 'rgba-green-strong');
@@ -3032,10 +3039,13 @@
 			case 'aula':
 				return array('fa-chalkboard-teacher', 'text-default', 'rgba-teal-strong');
 				break;
+			case 'equacao':
+				return array('fa-greater-than-equal', 'text-info', 'rgba-cyan-strong');
+				break;
 			default:
 				return array('fa-circle-notch', 'text-danger', 'rgba-red-strong');
 			
 		}
 	}
-	
+
 ?>

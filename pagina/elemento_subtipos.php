@@ -147,6 +147,21 @@
 		}
 		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 		
+		$artefato_tipo = 'listar_graficos';
+		$artefato_titulo = "Equações";
+		$artefato_col_limit = $lista_col_limit;
+		$artefato_class = 'subcategoria_imagens subcategorias';
+		$artefato_button = 'equacao';
+		$artefato_name = 'trigger_subcategoria';
+		$artefato_info = return_icone_subtipo($artefato_button);
+		$fa_icone = $artefato_info[0];
+		$fa_color = $artefato_info[1];
+		if (isset($elemento_subtipo) && ($elemento_subtipo == $artefato_button)) {
+			$artefato_icone_background = $artefato_info[2];
+			$fa_color = 'text-white';
+		}
+		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+		
 		$artefato_tipo = 'listar_retratos';
 		$artefato_titulo = "Retratos";
 		$artefato_col_limit = $lista_col_limit;
