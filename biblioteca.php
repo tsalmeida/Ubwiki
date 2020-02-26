@@ -65,6 +65,8 @@
 							
 							$artefato_id = 'adicionar_item_biblioteca';
 							$artefato_titulo = 'Adicionar item';
+							$fa_icone = 'fa-plus-circle';
+							$fa_color = 'text-info';
 							$artefato_criacao = 'Pressione para adicionar um item à biblioteca';
 							$artefato_tipo = 'nova_referencia';
 							$artefato_modal = '#modal_add_elementos';
