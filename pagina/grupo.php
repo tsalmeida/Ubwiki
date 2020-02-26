@@ -64,16 +64,24 @@
 			$artefato_tipo = $item_tipo;
 			$artefato_pagina_info = return_pagina_info($item_id);
 			$artefato_titulo = $artefato_pagina_info[6];
-			if ($artefato_titulo == false) {
+			$artefato_pagina_tipo = $artefato_pagina_info[2];
+			$artefato_pagina_subtipo = $artefato_pagina_info[8];
+			if ($artefato_pagina_tipo == 'texto') {
+				$fa_icone = 'fa-file-alt fa-swap-opacity';
+			} else {
+				$artefato_info = return_pagina_icone_cor($artefato_pagina_tipo, $artefato_pagina_subtipo);
+				$fa_icone = $artefato_info[0];
+				$fa_color = $artefato_info[1];
+			}
+			/*if ($artefato_titulo == false) {
 				if ($item_tipo == 'texto') {
 					$nota_texto_id = $artefato_pagina_info[1];
 					$nota_texto_info = return_texto_info($nota_texto_id);
 					$nota_texto_page_id = $nota_texto_info[3];
 					$artefato_titulo = return_pagina_titulo($nota_texto_page_id);
 					$artefato_titulo = $artefato_titulo;
-					$fa_color = 'text-warning';
 				}
-			}
+			}*/
 			$artefato_subtitulo = $item_user_apelido;
 			$artefato_link = "pagina.php?pagina_id=$item_id";
 			$artefato_criacao = $item_criacao;

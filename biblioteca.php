@@ -51,9 +51,9 @@
 						if ($busca == false) {
 							$acervo = false;
 						} elseif ($busca == '!all') {
-							$acervo = $conn->query("SELECT id, pagina_id, tipo, titulo, autor, iframe FROM Elementos WHERE compartilhamento IS NULL AND estado = 1 ORDER BY titulo");
+							$acervo = $conn->query("SELECT id, pagina_id, tipo, subtipo, titulo, autor, iframe FROM Elementos WHERE compartilhamento IS NULL AND estado = 1 ORDER BY titulo");
 						} else {
-							$acervo = $conn->query("SELECT id, pagina_id, tipo, titulo, autor, iframe FROM Elementos WHERE compartilhamento IS NULL AND estado = 1 AND titulo LIKE '%$busca%' ORDER BY titulo");
+							$acervo = $conn->query("SELECT id, pagina_id, tipo, subtipo, titulo, autor, iframe FROM Elementos WHERE compartilhamento IS NULL AND estado = 1 AND titulo LIKE '%$busca%' ORDER BY titulo");
 						}
 						
 						if ($acervo != false) {
@@ -75,6 +75,7 @@
 								$acervo_item_id = $acervo_item['id'];
 								$acervo_item_pagina_id = $acervo_item['pagina_id'];
 								$acervo_item_tipo = $acervo_item['tipo'];
+								$acervo_item_subtipo = $acervo_item['subtipo'];
 								$acervo_item_titulo = $acervo_item['titulo'];
 								$acervo_item_autor = $acervo_item['autor'];
 								$acervo_item_iframe = $acervo_item['iframe'];
@@ -95,13 +96,12 @@
 								$artefato_id = "elemento_$acervo_item_pagina_id";
 								$artefato_titulo = $acervo_item_titulo;
 								$artefato_subtitulo = $acervo_item_autor;
-								$artefato_tipo = $acervo_item_tipo;
-								$artefato_link = "pagina.php?pagina_id=$acervo_item_pagina_id";
+								$artefato_tipo = 'acervo_item';
+								$artefato_info = return_icone_subtipo($acervo_item_tipo, $acervo_item_subtipo);
+								$fa_icone = $artefato_info[0];
+								$fa_color = $artefato_info[1];
 								
-								if ($acervo_item_iframe != false) {
-									$fa_icone = 'fa-youtube-square';
-									$fa_color = 'text-danger';
-								}
+								$artefato_link = "pagina.php?pagina_id=$acervo_item_pagina_id";
 								
 								$template_conteudo .= include 'templates/artefato_item.php';
 							}
@@ -117,7 +117,7 @@
 							$template_conteudo_no_col = true;
 							$template_conteudo = false;
 							
-							$criados = $conn->query("SELECT id, pagina_id, titulo, autor, tipo, iframe FROM Elementos ORDER BY id DESC");
+							$criados = $conn->query("SELECT id, pagina_id, titulo, autor, tipo, subtipo FROM Elementos ORDER BY id DESC");
 							if ($criados->num_rows > 0) {
 								$count = 0;
 								while ($criado = $criados->fetch_assoc()) {
@@ -129,8 +129,7 @@
 									$criado_titulo = $criado['titulo'];
 									$criado_autor = $criado['autor'];
 									$criado_tipo = $criado['tipo'];
-									$criado_iframe = $criado['iframe'];
-									
+									$criado_subtipo = $criado['subtipo'];
 									
 									if ($criado_tipo == 'wikipedia') {
 										continue;
@@ -143,10 +142,11 @@
 									$artefato_titulo = $criado_titulo;
 									$artefato_subtitulo = $criado_autor;
 									$artefato_tipo = $criado_tipo;
-									if ($criado_iframe != false) {
-										$fa_icone = 'fa-youtube-square';
-										$fa_color = 'text-danger';
-									}
+									
+									$artefato_info = return_icone_subtipo($criado_tipo, $criado_subtipo);
+									$fa_icone = $artefato_info[0];
+									$fa_color = $artefato_info[1];
+									
 									$artefato_link = "pagina.php?pagina_id=$criado_pagina_id";
 									$template_conteudo .= include 'templates/artefato_item.php';
 								}
@@ -194,11 +194,12 @@
 									$modificado_elemento_id = $pagina_info[1];
 									$modificado_elemento_info = return_elemento_info($modificado_elemento_id);
 									$modificado_elemento_tipo = $modificado_elemento_info[3];
-									$modificado_elemento_iframe = $modificado_elemento_info[10];
-									if ($modificado_elemento_iframe != false) {
-										$fa_icone = 'fa-youtube-square';
-										$fa_color = 'text-danger';
-									}
+									$modificado_elemento_subtipo = $modificado_elemento_info[18];
+									
+									$artefato_info = return_icone_subtipo($modificado_elemento_tipo, $modificado_elemento_subtipo);
+									$fa_icone = $artefato_info[0];
+									$fa_color = $artefato_info[1];
+									
 									if ($modificado_elemento_tipo == false) {
 										continue;
 									}

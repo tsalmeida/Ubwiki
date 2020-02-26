@@ -15,47 +15,44 @@
 	$artefato_criacao = false;
 	$artefato_modal = '#modal_buscar_elemento';
 	$artefato_col_limit = $add_elemento_artefato_col;
-	$fa_icone = 'fa-book';
-	$fa_color = 'text-success';
+	$artefato_info = return_icone_subtipo('referencia', 'generico');
+	$fa_icone = $artefato_info[0];
+	$fa_color = $artefato_info[1];
 	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	
 	$artefato_tipo = 'adicionar_video';
-	$artefato_titulo = 'Material videográfico';
+	$artefato_titulo = 'Vídeo';
 	$artefato_link = false;
 	$artefato_criacao = false;
 	$artefato_modal = '#modal_buscar_elemento';
 	$artefato_col_limit = $add_elemento_artefato_col;
-	$fa_icone = 'fa-film';
-	$fa_color = 'text-info';
+	$artefato_info = return_icone_subtipo('video', 'generico');
+	$fa_icone = $artefato_info[0];
+	$fa_color = $artefato_info[1];
 	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	
 	$artefato_tipo = 'adicionar_audio';
-	$artefato_titulo = 'Material em áudio';
+	$artefato_titulo = 'Áudio';
 	$artefato_link = false;
 	$artefato_criacao = false;
 	$artefato_modal = '#modal_buscar_elemento';
 	$artefato_col_limit = $add_elemento_artefato_col;
-	$fa_icone = 'fa-microphone-alt';
-	$fa_color = 'text-default';
+	$artefato_info = return_icone_subtipo('album_musica', 'generico');
+	$fa_icone = $artefato_info[0];
+	$fa_color = $artefato_info[1];
 	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	
-	$artefato_tipo = 'gerenciar_etiquetas';
-	$artefato_titulo = 'Página livre';
-	$artefato_link = false;
-	$artefato_criacao = false;
-	$artefato_col_limit = $add_elemento_artefato_col;
-	$fa_icone = 'fa-tag';
-	$fa_color = 'text-warning';
-	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
-	
-	$artefato_tipo = 'adicionar_youtube';
-	$artefato_titulo = 'Vídeo do YouTube';
-	$fa_icone = 'fa-youtube';
-	$fa_color = 'text-danger';
-	$artefato_link = false;
-	$artefato_criacao = false;
-	$artefato_col_limit = $add_elemento_artefato_col;
-	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+	if ($pagina_tipo != 'biblioteca') {
+		$artefato_tipo = 'gerenciar_etiquetas';
+		$artefato_titulo = 'Página livre';
+		$artefato_link = false;
+		$artefato_criacao = false;
+		$artefato_col_limit = $add_elemento_artefato_col;
+		$artefato_info = return_pagina_icone_cor('pagina', 'etiqueta');
+		$fa_icone = $artefato_info[0];
+		$fa_color = $artefato_info[1];
+		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+	}
 	
 	if ($pagina_tipo != 'escritorio') {
 		$artefato_tipo = 'adicionar_imagem';
@@ -63,8 +60,22 @@
 		$artefato_link = false;
 		$artefato_criacao = false;
 		$artefato_col_limit = $add_elemento_artefato_col;
+		$artefato_info = return_icone_subtipo('imagem', 'generico');
+		$fa_icone = $artefato_info[0];
+		$fa_color = $artefato_info[1];
 		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	}
+	
+	$artefato_tipo = 'adicionar_youtube';
+	$artefato_titulo = 'Vídeo do YouTube';
+	$artefato_info = return_icone_subtipo('video', 'youtube');
+	$fa_icone = $artefato_info[0];
+	$fa_color = $artefato_info[1];
+	$artefato_link = false;
+	$artefato_criacao = false;
+	$artefato_col_limit = $add_elemento_artefato_col;
+	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+	
 	if ($pagina_tipo == 'topico') {
 		$artefato_tipo = 'adicionar_dados_provas';
 		$artefato_titulo = 'Questão de prova';
@@ -72,16 +83,20 @@
 		$artefato_criacao = false;
 		$artefato_col_limit = $add_elemento_artefato_col;
 		$artefato_modal = '#modal_adicionar_simulado';
+		$artefato_info = return_icone_subtipo('questao', false);
+		$fa_icone = $artefato_info[0];
+		$fa_color = $artefato_info[1];
 		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	}
-	if (($pagina_tipo != 'curso') && ($pagina_tipo != 'materia') && ($pagina_tipo != 'escritorio') && ($pagina_tipo != 'grupo') && ($pagina_tipo != 'questao')) {
+	if (($pagina_tipo != 'curso') && ($pagina_tipo != 'materia') && ($pagina_tipo != 'escritorio') && ($pagina_tipo != 'grupo') && ($pagina_tipo != 'questao') && ($pagina_tipo != 'biblioteca')) {
 		$artefato_tipo = 'adicionar_wikipedia';
 		$artefato_titulo = 'Vincular a artigo da Wikipédia';
 		$artefato_link = false;
 		$artefato_criacao = false;
 		$artefato_col_limit = $add_elemento_artefato_col;
-		$fa_icone = 'fa-wikipedia-w';
-		$fa_color = 'text-dark';
+		$artefato_info = return_icone_subtipo('referencia', 'wikipedia');
+		$fa_icone = $artefato_info[0];
+		$fa_color = $artefato_info[1];
 		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	}
 	if (isset($carregar_secoes)) {
@@ -92,8 +107,9 @@
 			$artefato_criado = false;
 			$artefato_col_limit = $add_elemento_artefato_col;
 			$artefato_modal = '#modal_partes_form';
-			$fa_icone = 'fa-sitemap';
-			$fa_color = 'text-default';
+			$artefato_info = return_icone_subtipo('secao', false);
+			$fa_icone = $artefato_info[0];
+			$fa_color = $artefato_info[1];
 			$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 		}
 	}

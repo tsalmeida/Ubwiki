@@ -1334,6 +1334,8 @@
 	function convert_artefato_icone_cores($artefato_tipo)
 	{
 		
+		return array(false, false);
+		
 		$fa_icone_anotacao = 'fa-file-alt fa-swap-opacity';
 		$fa_icone_imagem = 'fa-file-image fa-swap-opacity';
 		$fa_icone_plus = 'fa-plus-circle';
@@ -2066,10 +2068,10 @@
 				$pagina_user_id = $pagina['user_id']; // 5
 				$pagina_titulo = return_pagina_titulo($pagina_id); // 6
 				$pagina_etiqueta_id = $pagina['etiqueta_id']; // 7
-				$pagina_extra = $pagina['subtipo']; // 8
+				$pagina_subtipo = $pagina['subtipo']; // 8
 				$pagina_publicacao = return_publicacao($pagina_id); // 9
 				$pagina_colaboracao = return_colaboracao($pagina_id); // 10
-				return array($pagina_criacao, $pagina_item_id, $pagina_tipo, $pagina_estado, $pagina_compartilhamento, $pagina_user_id, $pagina_titulo, $pagina_etiqueta_id, $pagina_extra, $pagina_publicacao, $pagina_colaboracao);
+				return array($pagina_criacao, $pagina_item_id, $pagina_tipo, $pagina_estado, $pagina_compartilhamento, $pagina_user_id, $pagina_titulo, $pagina_etiqueta_id, $pagina_subtipo, $pagina_publicacao, $pagina_colaboracao);
 			}
 		}
 		return false;
@@ -2976,8 +2978,11 @@
 		return $data;
 	}
 	
-	function return_icone_subtipo($subtipo)
+	function return_icone_subtipo($tipo, $subtipo)
 	{
+		if (($tipo == false) && ($subtipo == false)) {
+			return array(false, false, false);
+		}
 		switch ($subtipo) {
 			case 'livro':
 				return array('fa-book', 'text-success', 'rgba-green-strong');
@@ -3043,8 +3048,73 @@
 				return array('fa-greater-than-equal', 'text-info', 'rgba-cyan-strong');
 				break;
 			default:
-				return array('fa-circle-notch', 'text-danger', 'rgba-red-strong');
-			
+				switch ($tipo) {
+					case 'imagem':
+						if ($subtipo == 'generico') {
+							return array('fa-image', 'text-danger', 'rgba-red-strong');
+						} else {
+							return array('fa-file-image', 'text-muted', 'rgba-grey-strong');
+						}
+						break;
+					case 'video':
+						if ($subtipo == 'generico') {
+							return array('fa-play-circle', 'text-info', 'rgba-blue-strong');
+						} else {
+							return array('fa-file-video', 'text-muted', 'rgba-grey-strong');
+						}
+						break;
+					case 'album_musica':
+						if ($subtipo == 'generico') {
+							return array('fa-volume-up', 'text-warning', 'rgba-orange-strong');
+						} else {
+							return array('fa-file-audio', 'text-muted', 'rgba-grey-strong');
+						}
+						break;
+					case 'referencia':
+						if ($subtipo == 'generico') {
+							return array('fa-book-alt', 'text-success', 'rgba-green-strong');
+						} else {
+							return array('fa-file-alt', 'text-muted', 'rgba-grey-strong');
+						}
+						break;
+					case 'questao':
+						return array('fa-ballot-check', 'text-secondary', 'rgba-purple-strong');
+						break;
+					default:
+						return array('fa-circle-notch fa-spin', 'text-danger', 'rgba-red-strong');
+				}
+		}
+	}
+	
+	function return_pagina_icone_cor($anotacao_pagina_tipo, $anotacao_pagina_subtipo)
+	{
+		switch ($anotacao_pagina_subtipo) {
+			case 'etiqueta':
+				return array('fa-tag', 'text-warning', 'rgba-orange-strong');
+				break;
+			default:
+				switch ($anotacao_pagina_tipo) {
+					case 'elemento':
+						return array('fa-columns', 'text-success', 'rgba-green-strong');
+						break;
+					case 'topico':
+						return array('fa-columns', 'text-warning', 'rgba-orange-strong');
+						break;
+					case 'curso':
+						return array('fa-book-reader', 'text-default', 'rgba-teal-strong');
+						break;
+					case 'pagina':
+						return array('fa-columns', 'text-info', 'rgba-cyan-strong');
+						break;
+					case 'texto':
+						return array('fa-file-alt', 'text-primary', 'rgba-blue-strong');
+						break;
+					case false:
+						return array('fa-columns', 'text-muted', 'rgba-grey-strong');
+						break;
+					default:
+						return array('fa-circle-notch fa-spin', 'text-muted', 'rgba-grey-strong');
+				}
 		}
 	}
 

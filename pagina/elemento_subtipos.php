@@ -10,7 +10,7 @@
 		$artefato_class = 'subcategoria_leitura subcategorias';
 		$artefato_button = 'livro';
 		$artefato_name = 'trigger_subcategoria';
-		$artefato_info = return_icone_subtipo($artefato_button);
+		$artefato_info = return_icone_subtipo('referencia', $artefato_button);
 		$fa_icone = $artefato_info[0];
 		$fa_color = $artefato_info[1];
 		if (isset($elemento_subtipo) && ($elemento_subtipo == $artefato_button)) {
@@ -25,7 +25,7 @@
 		$artefato_class = 'subcategoria_leitura subcategorias';
 		$artefato_button = 'pagina';
 		$artefato_name = 'trigger_subcategoria';
-		$artefato_info = return_icone_subtipo($artefato_button);
+		$artefato_info = return_icone_subtipo('referencia', $artefato_button);
 		$fa_icone = $artefato_info[0];
 		$fa_color = $artefato_info[1];
 		if (isset($elemento_subtipo) && ($elemento_subtipo == $artefato_button)) {
@@ -40,7 +40,7 @@
 		$artefato_class = 'subcategoria_leitura subcategorias';
 		$artefato_button = 'artigo';
 		$artefato_name = 'trigger_subcategoria';
-		$artefato_info = return_icone_subtipo($artefato_button);
+		$artefato_info = return_icone_subtipo('referencia', $artefato_button);
 		$fa_icone = $artefato_info[0];
 		$fa_color = $artefato_info[1];
 		if (isset($elemento_subtipo) && ($elemento_subtipo == $artefato_button)) {
@@ -55,7 +55,7 @@
 		$artefato_class = 'subcategoria_leitura subcategorias';
 		$artefato_button = 'wikipedia';
 		$artefato_name = 'trigger_subcategoria';
-		$artefato_info = return_icone_subtipo($artefato_button);
+		$artefato_info = return_icone_subtipo('referencia', $artefato_button);
 		$fa_icone = $artefato_info[0];
 		$fa_color = $artefato_info[1];
 		if (isset($elemento_subtipo) && ($elemento_subtipo == $artefato_button)) {
@@ -74,7 +74,7 @@
 		$artefato_class = 'subcategoria_audio subcategorias';
 		$artefato_button = 'musica';
 		$artefato_name = 'trigger_subcategoria';
-		$artefato_info = return_icone_subtipo($artefato_button);
+		$artefato_info = return_icone_subtipo('album_musica', $artefato_button);
 		$fa_icone = $artefato_info[0];
 		$fa_color = $artefato_info[1];
 		if (isset($elemento_subtipo) && ($elemento_subtipo == $artefato_button)) {
@@ -89,7 +89,7 @@
 		$artefato_class = 'subcategoria_audio subcategorias';
 		$artefato_button = 'podcast';
 		$artefato_name = 'trigger_subcategoria';
-		$artefato_info = return_icone_subtipo($artefato_button);
+		$artefato_info = return_icone_subtipo('album_musica', $artefato_button);
 		$fa_icone = $artefato_info[0];
 		$fa_color = $artefato_info[1];
 		if (isset($elemento_subtipo) && ($elemento_subtipo == $artefato_button)) {
@@ -104,7 +104,7 @@
 		$artefato_class = 'subcategoria_audio subcategorias';
 		$artefato_button = 'audiobook';
 		$artefato_name = 'trigger_subcategoria';
-		$artefato_info = return_icone_subtipo($artefato_button);
+		$artefato_info = return_icone_subtipo('album_musica', $artefato_button);
 		$fa_icone = $artefato_info[0];
 		$fa_color = $artefato_info[1];
 		if (isset($elemento_subtipo) && ($elemento_subtipo == $artefato_button)) {
@@ -123,7 +123,7 @@
 		$artefato_class = 'subcategoria_imagens subcategorias';
 		$artefato_button = 'mapasatelite';
 		$artefato_name = 'trigger_subcategoria';
-		$artefato_info = return_icone_subtipo($artefato_button);
+		$artefato_info = return_icone_subtipo('imagem', $artefato_button);
 		$fa_icone = $artefato_info[0];
 		$fa_color = $artefato_info[1];
 		if (isset($elemento_subtipo) && ($elemento_subtipo == $artefato_button)) {
@@ -138,7 +138,7 @@
 		$artefato_class = 'subcategoria_imagens subcategorias';
 		$artefato_button = 'grafico';
 		$artefato_name = 'trigger_subcategoria';
-		$artefato_info = return_icone_subtipo($artefato_button);
+		$artefato_info = return_icone_subtipo('imagem', $artefato_button);
 		$fa_icone = $artefato_info[0];
 		$fa_color = $artefato_info[1];
 		if (isset($elemento_subtipo) && ($elemento_subtipo == $artefato_button)) {
@@ -153,7 +153,7 @@
 		$artefato_class = 'subcategoria_imagens subcategorias';
 		$artefato_button = 'equacao';
 		$artefato_name = 'trigger_subcategoria';
-		$artefato_info = return_icone_subtipo($artefato_button);
+		$artefato_info = return_icone_subtipo('imagem', $artefato_button);
 		$fa_icone = $artefato_info[0];
 		$fa_color = $artefato_info[1];
 		if (isset($elemento_subtipo) && ($elemento_subtipo == $artefato_button)) {
@@ -168,7 +168,7 @@
 		$artefato_class = 'subcategoria_imagens subcategorias';
 		$artefato_button = 'retrato';
 		$artefato_name = 'trigger_subcategoria';
-		$artefato_info = return_icone_subtipo($artefato_button);
+		$artefato_info = return_icone_subtipo('imagem', $artefato_button);
 		$fa_icone = $artefato_info[0];
 		$fa_color = $artefato_info[1];
 		if (isset($elemento_subtipo) && ($elemento_subtipo == $artefato_button)) {
@@ -183,7 +183,7 @@
 		$artefato_class = 'subcategoria_imagens subcategorias';
 		$artefato_button = 'arte';
 		$artefato_name = 'trigger_subcategoria';
-		$artefato_info = return_icone_subtipo($artefato_button);
+		$artefato_info = return_icone_subtipo('imagem', $artefato_button);
 		$fa_icone = $artefato_info[0];
 		$fa_color = $artefato_info[1];
 		if (isset($elemento_subtipo) && ($elemento_subtipo == $artefato_button)) {
@@ -198,7 +198,7 @@
 		$artefato_class = 'subcategoria_imagens subcategorias';
 		$artefato_button = 'paisagem';
 		$artefato_name = 'trigger_subcategoria';
-		$artefato_info = return_icone_subtipo($artefato_button);
+		$artefato_info = return_icone_subtipo('imagem', $artefato_button);
 		$fa_icone = $artefato_info[0];
 		$fa_color = $artefato_info[1];
 		if (isset($elemento_subtipo) && ($elemento_subtipo == $artefato_button)) {
@@ -213,7 +213,7 @@
 		$artefato_class = 'subcategoria_imagens subcategorias';
 		$artefato_button = 'objeto';
 		$artefato_name = 'trigger_subcategoria';
-		$artefato_info = return_icone_subtipo($artefato_button);
+		$artefato_info = return_icone_subtipo('imagem', $artefato_button);
 		$fa_icone = $artefato_info[0];
 		$fa_color = $artefato_info[1];
 		if (isset($elemento_subtipo) && ($elemento_subtipo == $artefato_button)) {
@@ -228,7 +228,7 @@
 		$artefato_class = 'subcategoria_imagens subcategorias';
 		$artefato_button = 'arquitetura';
 		$artefato_name = 'trigger_subcategoria';
-		$artefato_info = return_icone_subtipo($artefato_button);
+		$artefato_info = return_icone_subtipo('imagem', $artefato_button);
 		$fa_icone = $artefato_info[0];
 		$fa_color = $artefato_info[1];
 		if (isset($elemento_subtipo) && ($elemento_subtipo == $artefato_button)) {
@@ -243,7 +243,7 @@
 		$artefato_class = 'subcategoria_imagens subcategorias';
 		$artefato_button = 'planta';
 		$artefato_name = 'trigger_subcategoria';
-		$artefato_info = return_icone_subtipo($artefato_button);
+		$artefato_info = return_icone_subtipo('imagem', $artefato_button);
 		$fa_icone = $artefato_info[0];
 		$fa_color = $artefato_info[1];
 		if (isset($elemento_subtipo) && ($elemento_subtipo == $artefato_button)) {
@@ -258,7 +258,7 @@
 		$artefato_class = 'subcategoria_imagens subcategorias';
 		$artefato_button = 'animais';
 		$artefato_name = 'trigger_subcategoria';
-		$artefato_info = return_icone_subtipo($artefato_button);
+		$artefato_info = return_icone_subtipo('imagem', $artefato_button);
 		$fa_icone = $artefato_info[0];
 		$fa_color = $artefato_info[1];
 		if (isset($elemento_subtipo) && ($elemento_subtipo == $artefato_button)) {
@@ -273,7 +273,7 @@
 		$artefato_class = 'subcategoria_imagens subcategorias';
 		$artefato_button = 'outras';
 		$artefato_name = 'trigger_subcategoria';
-		$artefato_info = return_icone_subtipo($artefato_button);
+		$artefato_info = return_icone_subtipo('imagem', $artefato_button);
 		$fa_icone = $artefato_info[0];
 		$fa_color = $artefato_info[1];
 		if (isset($elemento_subtipo) && ($elemento_subtipo == $artefato_button)) {
@@ -292,7 +292,7 @@
 		$artefato_class = 'subcategoria_video subcategorias';
 		$artefato_button = 'youtube';
 		$artefato_name = 'trigger_subcategoria';
-		$artefato_info = return_icone_subtipo($artefato_button);
+		$artefato_info = return_icone_subtipo('video', $artefato_button);
 		$fa_icone = $artefato_info[0];
 		$fa_color = $artefato_info[1];
 		if (isset($elemento_subtipo) && ($elemento_subtipo == $artefato_button)) {
@@ -307,7 +307,7 @@
 		$artefato_class = 'subcategoria_video subcategorias';
 		$artefato_button = 'filme';
 		$artefato_name = 'trigger_subcategoria';
-		$artefato_info = return_icone_subtipo($artefato_button);
+		$artefato_info = return_icone_subtipo('video', $artefato_button);
 		$fa_icone = $artefato_info[0];
 		$fa_color = $artefato_info[1];
 		if (isset($elemento_subtipo) && ($elemento_subtipo == $artefato_button)) {
@@ -322,7 +322,7 @@
 		$artefato_class = 'subcategoria_video subcategorias';
 		$artefato_button = 'aula';
 		$artefato_name = 'trigger_subcategoria';
-		$artefato_info = return_icone_subtipo($artefato_button);
+		$artefato_info = return_icone_subtipo('video', $artefato_button);
 		$fa_icone = $artefato_info[0];
 		$fa_color = $artefato_info[1];
 		if (isset($elemento_subtipo) && ($elemento_subtipo == $artefato_button)) {
