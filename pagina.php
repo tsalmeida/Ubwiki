@@ -443,7 +443,7 @@
 		$respostas = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'resposta'");
 	}
 	if ($pagina_tipo == 'grupo') {
-		$membros = $conn->query("SELECT DISTINCT membro_user_id, estado FROM Membros WHERE grupo_id = $grupo_id AND estado = 1 OR estado IS NULL");
+		$membros = $conn->query("SELECT DISTINCT membro_user_id, estado FROM Membros WHERE grupo_id = $grupo_id AND (estado = 1 OR estado IS NULL)");
 	}
 	
 	include 'pagina/queries_notificacoes.php';

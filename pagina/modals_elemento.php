@@ -90,12 +90,12 @@
 	
 	include 'templates/modal.php';
 	
-	$template_modal_div_id = 'modal_elemento_subtipo';
-	$template_modal_titulo = "Classificar subtipo";
-	$template_modal_body_conteudo = false;
-
-	
-	
-	include 'templates/modal.php';
-	
-	?>
+	if ($user_tipo == 'admin') {
+		
+		$template_modal_div_id = 'modal_elemento_subtipo';
+		$template_modal_titulo = "Classificar subtipo";
+		$template_modal_body_conteudo = false;
+		
+		include 'templates/modal.php';
+	}
+?>
