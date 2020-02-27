@@ -539,7 +539,7 @@
         </div>
         <div class='py-2 text-right col-md-4 col-sm-12'>
 					<?php
-                      if ($pagina_tipo == 'elemento') {
+						if ($pagina_tipo == 'elemento') {
 							$carregar_toggle_acervo = true;
 							$elemento_no_acervo = $conn->query("SELECT id FROM Paginas_elementos WHERE pagina_tipo = 'escritorio' AND user_id = $user_id AND elemento_id = $pagina_item_id AND estado = 1");
 							if ($elemento_no_acervo->num_rows > 0) {
@@ -798,7 +798,7 @@
 					} elseif (($elemento_tipo == 'video') && ($elemento_iframe != false)) {
 						$template_id = 'video_div';
 						$template_titulo = false;
-	                    $template_col_classes = 'd-flex justify-content-center';
+						$template_col_classes = 'd-flex justify-content-center';
 						$template_botoes = false;
 						$template_conteudo = $elemento_iframe;
 						include 'templates/page_element.php';
@@ -1103,7 +1103,7 @@
 	$carregar_controle_estado = true;
 	$template_modal_div_id = 'modal_estado';
 	$template_modal_titulo = 'Qualidade da página';
-	$template_modal_show_buttons= false;
+	$template_modal_show_buttons = false;
 	$template_modal_body_conteudo = "
         <p>Qual das categorias abaixo melhor descreve o estado atual desta página?</p>
         <input type='hidden' value='$pagina_estado' name='novo_estado_pagina' id='novo_estado_pagina'>
@@ -1114,8 +1114,8 @@
 	$fa_icone = 'fa-acorn';
 	$fa_color = 'text-info';
 	if ($pagina_estado == 1) {
-        $fa_color = 'text-white';
-	    $artefato_icone_background = 'rgba-cyan-strong';
+		$fa_color = 'text-white';
+		$artefato_icone_background = 'rgba-cyan-strong';
 	}
 	$artefato_class = 'artefato_opcao_estado';
 	$artefato_col_limit = 'col-3';
@@ -1126,8 +1126,8 @@
 	$fa_icone = 'fa-seedling';
 	$fa_color = 'text-danger';
 	if ($pagina_estado == 2) {
-        $fa_color = 'text-white';
-	    $artefato_icone_background = 'rgba-red-strong';
+		$fa_color = 'text-white';
+		$artefato_icone_background = 'rgba-red-strong';
 	}
 	$artefato_class = 'artefato_opcao_estado';
 	$artefato_col_limit = 'col-3';
@@ -1138,8 +1138,8 @@
 	$fa_icone = 'fa-leaf';
 	$fa_color = 'text-success';
 	if ($pagina_estado == 3) {
-        $fa_color = 'text-white';
-	    $artefato_icone_background = 'rgba-green-strong';
+		$fa_color = 'text-white';
+		$artefato_icone_background = 'rgba-green-strong';
 	}
 	$artefato_class = 'artefato_opcao_estado';
 	$artefato_col_limit = 'col-3';
@@ -1150,8 +1150,8 @@
 	$fa_icone = 'fa-spa';
 	$fa_color = 'text-warning';
 	if ($pagina_estado == 4) {
-        $fa_color = 'text-white';
-	    $artefato_icone_background = 'rgba-orange-strong';
+		$fa_color = 'text-white';
+		$artefato_icone_background = 'rgba-orange-strong';
 	}
 	$artefato_class = 'artefato_opcao_estado';
 	$artefato_col_limit = 'col-3';
@@ -1170,29 +1170,63 @@
 	
 	if (($carregar_secoes == true) && ($privilegio_edicao == true)) {
 		$template_modal_div_id = 'modal_partes_form';
-		$template_modal_titulo = 'Adicionar seção';
+		if ($pagina_tipo == 'elemento') {
+			if ($elemento_subtipo == 'podcast') {
+				$template_modal_titulo = 'Adicionar episódio';
+			} elseif ($elemento_subtipo == 'livro') {
+				$template_modal_titulo = 'Adicionar capítulo';
+			}
+		}
+		if (!isset($template_modal_titulo)) {
+			$template_modal_titulo = 'Adicionar seção';
+		}
 		$template_modal_submit_name = 'trigger_nova_secao';
 		$modal_scrollable = true;
 		$template_modal_body_conteudo = false;
+		$secoes_sem_texto = true;
 		if ($pagina_tipo == 'elemento') {
-			$template_modal_body_conteudo .= "
+			if ($elemento_subtipo == 'podcast') {
+				$template_modal_body_conteudo .= "
+					<p>Adicione episódios abaixo de acordo com seu número.</p>
+				";
+				$secoes_sem_texto = false;
+			} else {
+				$template_modal_body_conteudo .= "
 		        <p>Por favor, tome cuidado para que não haja duplicidade. Se possível, é preferencial que todas as seções sejam acrescentadas na ordem em que aparecem na edição de que você dispõe. Ao inserir a ordem da nova seção, por favor considere Introdução, Prefácio etc. Se houver mais de um prefácio, considere a possibilidade de consolidá-los em apenas uma seção, por exemplo, no caso de prefácios a edições que somente mencionam adições ou correções realizadas. Seções de agradecimento, caso nada incluam de especialmente relevante, podem ser ignoradas, assim como tabelas de referência, listas de anexos, glossários e seções afim.</p>
 		        <p>Exemplos de seções adequadas: \"Capítulo 1\", \"Capítulo 2: Título do Capítulo\", \"Parte 1: As Origens\", \"Introdução\".</p>
 		        <p>É possível determinar a ordem como \"0\". É preferível usar essa opção para elementos anteriores ao primeiro capítulo, como Introdução e Prefácio, pois dessa forma o primeiro capítulo terá a ordem \"1\", o segundo a ordem \"2\" etc.</p>
+		        $secoes_sem_texto = false;
 	          ";
+			}
 		} else {
+			$secoes_sem_texto = true;
+		}
+		if ($secoes_sem_texto == true) {
 			$template_modal_body_conteudo .= "
 				<p>Você pode criar seções de sua página, mas recomenda-se cuidado para que não haja duplicidade. Preferencialmente, as seções devem ser adicionadas na ordem final de sua preferência. Nesse caso, é possível ignorar o campo 'ordem' completamente.</p>
 			";
 		}
+		if ($pagina_tipo == 'elemento') {
+			if ($elemento_subtipo == 'podcast') {
+				$nova_secao_titulo = 'Título do episódio';
+				$nova_secao_numero = 'Número do episódio';
+			} elseif ($elemento_subtipo == 'livro') {
+				$nova_secao_titulo = 'Título do capítulo';
+				$nova_secao_numero = 'Ordem do capítulo';
+			}
+		}
+		if (!isset($nova_secao_titulo)) {
+			$nova_secao_titulo = 'Título da nova seção';
+			$nova_secao_numero = 'Posição da nova seção';
+		}
 		$template_modal_body_conteudo .= "
           <div class='md-form mb-2'>
               <input type='text' id='elemento_nova_secao' name='elemento_nova_secao' class='form-control'>
-              <label for='elemento_nova_secao'>Título da nova seção</label>
+              <label for='elemento_nova_secao'>$nova_secao_titulo</label>
           </div>
           <div class='md-form mb-2'>
               <input type='number' id='elemento_nova_secao_ordem' name='elemento_nova_secao_ordem' class='form-control'>
-              <label for='elemento_nova_secao_ordem'>Posição da nova seção</label>
+              <label for='elemento_nova_secao_ordem'>$nova_secao_numero</label>
           </div>
         ";
 		

@@ -1,6 +1,15 @@
 <?php
 	$template_div = 'partes_elemento';
-	$template_titulo = 'Seções';
+	if ($pagina_tipo == 'elemento') {
+		if ($elemento_subtipo == 'podcast') {
+			$template_titulo = 'Episódios';
+		} elseif ($elemento_subtipo == 'livro') {
+			$template_titulo = 'Capítulos';
+		}
+	}
+	if (!isset($template_titulo)) {
+		$template_titulo = 'Seções';
+	}
 	if ($privilegio_edicao == true) {
 		$template_botoes = "<a data-toggle='modal' data-target='#modal_partes_form' href='javascript:void(0);' class='text-default' title='Adicionar seção'><i class='fad fa-plus-square fa-fw'></i></a>";
 	}
@@ -25,8 +34,18 @@
 		}
 		$template_conteudo .= "</ul>";
 	} else {
-		$template_conteudo .= "<p>Não há seções identificadas desta página.</p>";
+		if ($pagina_tipo == 'elemento') {
+			if ($elemento_subtipo == 'podcast') {
+				$template_conteudo .= "<p>Não há episódios registrados deste podcast.</p>";
+			} elseif ($elemento_subtipo == 'livro') {
+				$template_conteudo .= "<p>Não há capítulos registrados deste livro.</p>";
+			} else {
+				$template_conteudo .= "<p>Não há seções identificadas deste item.</p>";
+			}
+		} else {
+			$template_conteudo .= "<p>Não há seções identificadas desta página.</p>";
+		}
 	}
 	
 	include 'templates/page_element.php';
-	?>
+?>
