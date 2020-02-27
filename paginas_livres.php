@@ -75,6 +75,8 @@
 									$etiqueta_id = $etiqueta['id'];
 									$etiqueta_titulo = $etiqueta['titulo'];
 									$etiqueta_pagina_id = $etiqueta['pagina_id'];
+									$etiqueta_pagina_info = return_pagina_info($etiqueta_pagina_id);
+									$etiqueta_pagina_estado = $etiqueta_pagina_info[3];
 									/*if ($etiqueta_pagina_id == false) {
 													$etiqueta_pagina_id = return_pagina_id($etiqueta_id, 'etiqueta');
 												}
@@ -83,7 +85,12 @@
 									
 									$artefato_titulo = $etiqueta_titulo;
 									$fa_icone = 'fa-tag';
-									$fa_color = 'text-warning';
+									if ($etiqueta_pagina_estado != 0) {
+									    $fa_color = 'text-warning';
+										$artefato_badge = return_estado_icone($etiqueta_pagina_estado, 'curso');
+									} else {
+									    $fa_color = 'text-light';
+                                    }
 									$fa_size = 'fa-4x';
 									$artefato_link = "pagina.php?pagina_id=$etiqueta_pagina_id";
 									$template_conteudo .= include 'templates/artefato_item.php';
@@ -107,13 +114,20 @@
 									$list_etiqueta_info = return_etiqueta_info($list_etiqueta_id);
 									$list_etiqueta_pagina_id = $list_etiqueta_info[4];
 									$list_etiqueta_titulo = $list_etiqueta_info[2];
+									$list_etiqueta_pagina_info = return_pagina_info($list_etiqueta_pagina_id);
+									$list_etiqueta_pagina_estado = $list_etiqueta_pagina_info[3];
 									$count++;
 									if ($count > 12) {
 										break;
 									}
 									$artefato_titulo = $list_etiqueta_titulo;
 									$fa_icone = 'fa-tag';
-									$fa_color = 'text-warning';
+									if ($list_etiqueta_pagina_estado != 0) {
+										$fa_color = 'text-warning';
+										$artefato_badge = return_estado_icone($list_etiqueta_pagina_estado, 'curso');
+									} else {
+										$fa_color = 'text-light';
+									}
 									$fa_size = 'fa-4x';
 									$artefato_link = "pagina.php?pagina_id=$list_etiqueta_pagina_id";
 									$template_conteudo .= include 'templates/artefato_item.php';
@@ -143,16 +157,21 @@
 									if ($etiqueta_pagina_verbete_content == false) {
 										continue;
 									}
-									
 									$count++;
 									if ($count > 12) {
 									    break;
                                     }
-									
 									$etiqueta_titulo = return_pagina_titulo($etiqueta_pagina_id);
 									$artefato_titulo = $etiqueta_titulo;
+									$etiqueta_pagina_info = return_pagina_info($etiqueta_pagina_id);
+									$etiqueta_pagina_estado = $etiqueta_pagina_info[3];
 									$fa_icone = 'fa-tag';
-									$fa_color = 'text-warning';
+									if ($etiqueta_pagina_estado != 0) {
+										$fa_color = 'text-warning';
+										$artefato_badge = return_estado_icone($etiqueta_pagina_estado, 'curso');
+									} else {
+										$fa_color = 'text-light';
+									}
 									$fa_size = 'fa-4x';
 									$artefato_link = "pagina.php?pagina_id=$etiqueta_pagina_id";
 									$template_conteudo .= include 'templates/artefato_item.php';
