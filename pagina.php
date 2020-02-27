@@ -301,18 +301,14 @@
 	} elseif ($pagina_tipo == 'secao') {
 		$pagina_original_info = return_pagina_info($pagina_item_id);
 		$pagina_original_compartilhamento = $pagina_original_info[4];
-		if ($pagina_original_compartilhamento != false) {
-			$pagina_compartilhamento = $pagina_original_compartilhamento;
-			$pagina_original_user_id = $pagina_original_info[5];
-			if (($pagina_original_user_id != $user_id) && ($pagina_original_compartilhamento == 'privado')) {
-				$check_compartilhamento = return_compartilhamento($pagina_item_id, $user_id);
-				if ($check_compartilhamento == false) {
-					header("Location:pagina.php?pagina_id=3");
-					exit();
-				}
+		$pagina_compartilhamento = $pagina_original_compartilhamento;
+		$pagina_original_user_id = $pagina_original_info[5];
+		if (($pagina_original_user_id != $user_id) && ($pagina_original_compartilhamento == 'privado')) {
+			$check_compartilhamento = return_compartilhamento($pagina_item_id, $user_id);
+			if ($check_compartilhamento == false) {
+				header("Location:pagina.php?pagina_id=3");
+				exit();
 			}
-		} else {
-			$check_compartilhamento = true;
 		}
 	} elseif ($pagina_tipo == 'resposta') {
 		$resposta_id = $pagina_id;

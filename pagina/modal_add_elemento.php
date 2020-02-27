@@ -102,7 +102,17 @@
 	if (isset($carregar_secoes)) {
 		if (($carregar_secoes == true) && ($privilegio_edicao == true)) {
 			$artefato_tipo = 'adicionar_secao';
-			$artefato_titulo = 'Seção';
+			if ($pagina_tipo == 'elemento') {
+				if ($elemento_subtipo == 'podcast') {
+					$artefato_titulo = 'Episódio';
+				} elseif ($elemento_subtipo == 'livro') {
+					$artefato_titulo = 'Capítulo';
+				} else {
+					$artefato_titulo = 'Seção';
+				}
+			} else {
+				$artefato_titulo = 'Seção';
+			}
 			$artefato_link = false;
 			$artefato_criado = false;
 			$artefato_col_limit = $add_elemento_artefato_col;
