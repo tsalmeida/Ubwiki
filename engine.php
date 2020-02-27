@@ -3081,7 +3081,7 @@
 						return array('fa-ballot-check', 'text-secondary', 'rgba-purple-strong');
 						break;
 					case 'secao':
-					    return array('fa-sitemap', 'text-info', 'rgba-cyan-strong');
+					    return array('fa-th-list', 'text-info', 'rgba-cyan-strong');
 					    break;
 					default:
 						return array('fa-circle-notch fa-spin', 'text-danger', 'rgba-red-strong');

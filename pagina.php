@@ -301,14 +301,18 @@
 	} elseif ($pagina_tipo == 'secao') {
 		$pagina_original_info = return_pagina_info($pagina_item_id);
 		$pagina_original_compartilhamento = $pagina_original_info[4];
-		$pagina_compartilhamento = $pagina_original_compartilhamento;
-		$pagina_original_user_id = $pagina_original_info[5];
-		if (($pagina_original_user_id != $user_id) && ($pagina_original_compartilhamento == 'privado')) {
-			$check_compartilhamento = return_compartilhamento($pagina_item_id, $user_id);
-			if ($check_compartilhamento == false) {
-				header("Location:pagina.php?pagina_id=3");
-				exit();
+		if ($pagina_original_compartilhamento != false) {
+			$pagina_compartilhamento = $pagina_original_compartilhamento;
+			$pagina_original_user_id = $pagina_original_info[5];
+			if (($pagina_original_user_id != $user_id) && ($pagina_original_compartilhamento == 'privado')) {
+				$check_compartilhamento = return_compartilhamento($pagina_item_id, $user_id);
+				if ($check_compartilhamento == false) {
+					header("Location:pagina.php?pagina_id=3");
+					exit();
+				}
 			}
+		} else {
+			$check_compartilhamento = true;
 		}
 	} elseif ($pagina_tipo == 'resposta') {
 		$resposta_id = $pagina_id;
@@ -475,7 +479,7 @@
 							((($pagina_tipo == 'curso') || ($pagina_tipo == 'materia') || ($pagina_tipo == 'topico')) && ($pagina_curso_user_id == $user_id)) ||
 							(($pagina_tipo == 'texto') && ($pagina_user_id == $user_id) && ($texto_page_id == 0)) ||
 							(($pagina_tipo == 'resposta') && ($pagina_user_id == $user_id)) ||
-							(($pagina_tipo == 'secao') && ($pagina_user_id == $user_id))
+							(($pagina_tipo == 'secao') && (($pagina_user_id == $user_id) || $pagina_original_compartilhamento == false))
 						) {
 							$modal_pagina_dados = true;
 							echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_pagina_dados' class='text-success mr-1' id='pagina_dados' title='Editar dados'><i class='fad fa-info-circle fa-fw fa-2x'></i></a>";
