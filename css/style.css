@@ -370,7 +370,7 @@ ul + p {
 }
 
 .p-limit {
-  max-width: 70ch;
+  max-width: 65ch;
 }
 
 .navlink:hover {
