@@ -11,6 +11,10 @@
 	if (isset($_POST['trigger_listar_todas'])) {
 		$busca = $_POST['trigger_listar_todas'];
 	}
+	$trigger_subcategoria = false;
+	if (isset($_POST['trigger_subcategoria'])) {
+		$trigger_subcategoria = $_POST['trigger_subcategoria'];
+	}
 	
 	include 'pagina/shared_issets.php';
 
@@ -48,14 +52,14 @@
     <div class="row d-flex justify-content-center">
         <div id="coluna_unica" class="col">
 					<?php
-						if ($busca == false) {
-							$acervo = false;
-						} elseif ($busca == '!all') {
+						$acervo = false;
+						if ($busca == '!all') {
 							$acervo = $conn->query("SELECT id, pagina_id, tipo, subtipo, titulo, autor, iframe FROM Elementos WHERE compartilhamento IS NULL AND estado = 1 ORDER BY titulo");
-						} else {
+						} elseif ($trigger_subcategoria != false) {
+							$acervo = $conn->query("SELECT id, pagina_id, tipo, subtipo, titulo, autor, iframe FROM Elementos WHERE compartilhamento IS NULL AND estado = 1 AND subtipo = '$trigger_subcategoria' ORDER BY titulo");
+						} elseif ($busca != false) {
 							$acervo = $conn->query("SELECT id, pagina_id, tipo, subtipo, titulo, autor, iframe FROM Elementos WHERE compartilhamento IS NULL AND estado = 1 AND titulo LIKE '%$busca%' ORDER BY titulo");
 						}
-						
 						if ($acervo != false) {
 							$template_id = 'biblioteca_virtual';
 							$template_titulo = 'Biblioteca';
@@ -84,11 +88,9 @@
 								
 								if ($acervo_item_tipo == 'topico') {
 									continue;
-								}
-								elseif ($acervo_item_tipo == 'wikipedia') {
-								    continue;
-                                }
-								elseif ($acervo_item_tipo == false) {
+								} elseif ($acervo_item_tipo == 'wikipedia') {
+									continue;
+								} elseif ($acervo_item_tipo == false) {
 									continue;
 								}
 								if ($acervo_item_pagina_id == false) {
@@ -256,93 +258,92 @@
 	$template_modal_body_conteudo .= "</form>";
 	
 	if ($user_tipo == 'admin') {
-			
-			$template_modal_body_conteudo .= "<div class='row d-flex justify-content-start rounded grey lighten-5 mb-3'>";
-			
-			$artefato_tipo = 'listar_referencias';
-			$artefato_titulo = 'Material de leitura';
-			$artefato_class = 'selecionar_listar';
-			$artefato_col_limit = $lista_col_limit;
-			$fa_icone = 'fa-glasses';
-			$fa_color = 'text-success';
-			$fa_size = 'fa-3x';
-			$template_modal_body_conteudo .= include 'templates/artefato_item.php';
-			
-			$artefato_tipo = 'ativo_listar_referencias';
-			$artefato_titulo = 'Material de leitura';
-			$artefato_class = 'ativo_listar hidden';
-			$artefato_col_limit = $lista_col_limit;
-			$fa_icone = 'fa-glasses';
-			$artefato_icone_background = 'rgba-green-strong';
-			$fa_color = 'text-white';
-			$fa_size = 'fa-3x';
-			$template_modal_body_conteudo .= include 'templates/artefato_item.php';
-			
-			$artefato_tipo = 'listar_audio';
-			$artefato_titulo = 'Áudio';
-			$artefato_class = 'selecionar_listar';
-			$artefato_col_limit = $lista_col_limit;
-			$fa_icone = 'fa-volume-up';
-			$fa_color = 'text-warning';
-			$fa_size = 'fa-3x';
-			$template_modal_body_conteudo .= include 'templates/artefato_item.php';
-			
-			$artefato_tipo = 'ativo_listar_audio';
-			$artefato_titulo = 'Áudio';
-			$artefato_class = 'ativo_listar hidden';
-			$artefato_col_limit = $lista_col_limit;
-			$fa_icone = 'fa-volume-up';
-			$artefato_icone_background = 'rgba-orange-strong';
-			$fa_color = 'text-white';
-			$fa_size = 'fa-3x';
-			$template_modal_body_conteudo .= include 'templates/artefato_item.php';
-			
-			$artefato_tipo = 'listar_imagens';
-			$artefato_titulo = 'Imagens';
-			$artefato_class = 'selecionar_listar';
-			$artefato_col_limit = $lista_col_limit;
-			$fa_icone = 'fa-images';
-			$fa_color = 'text-danger';
-			$fa_size = 'fa-3x';
-			$template_modal_body_conteudo .= include 'templates/artefato_item.php';
-			
-			$artefato_tipo = 'ativo_listar_imagens';
-			$artefato_titulo = 'Imagens';
-			$artefato_class = 'ativo_listar hidden';
-			$artefato_col_limit = $lista_col_limit;
-			$fa_icone = 'fa-images';
-			$artefato_icone_background = 'rgba-red-strong';
-			$fa_color = 'text-white';
-			$fa_size = 'fa-3x';
-			$template_modal_body_conteudo .= include 'templates/artefato_item.php';
-			
-			$artefato_tipo = 'listar_video';
-			$artefato_titulo = 'Vídeo';
-			$artefato_class = 'selecionar_listar';
-			$artefato_col_limit = $lista_col_limit;
-			$fa_icone = 'fa-play-circle';
-			$fa_color = 'text-info';
-			$fa_size = 'fa-3x';
-			$template_modal_body_conteudo .= include 'templates/artefato_item.php';
-			
-			$artefato_tipo = 'ativo_listar_video';
-			$artefato_titulo = 'Vídeo';
-			$artefato_class = 'ativo_listar hidden';
-			$artefato_col_limit = $lista_col_limit;
-			$fa_icone = 'fa-play-circle';
-			$artefato_icone_background = 'rgba-cyan-strong';
-			$fa_color = 'text-white';
-			$fa_size = 'fa-3x';
-			$template_modal_body_conteudo .= include 'templates/artefato_item.php';
-			
-			$template_modal_body_conteudo .= "</div>";
-			
-			$template_modal_body_conteudo .= "<div class='row d-flex justify-content-center border'>";
-			
-			include 'pagina/elemento_subtipos.php';
-			
-			$template_modal_body_conteudo .= "</div>";
-		}
+		
+		$template_modal_body_conteudo .= "<div class='row d-flex justify-content-start rounded grey lighten-5 mb-3'>";
+		
+		$artefato_tipo = 'listar_referencias';
+		$artefato_titulo = 'Material de leitura';
+		$artefato_class = 'selecionar_listar';
+		$artefato_col_limit = $lista_col_limit;
+		$fa_icone = 'fa-glasses';
+		$fa_color = 'text-success';
+		$fa_size = 'fa-3x';
+		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+		
+		$artefato_tipo = 'ativo_listar_referencias';
+		$artefato_titulo = 'Material de leitura';
+		$artefato_class = 'ativo_listar hidden';
+		$artefato_col_limit = $lista_col_limit;
+		$fa_icone = 'fa-glasses';
+		$artefato_icone_background = 'rgba-green-strong';
+		$fa_color = 'text-white';
+		$fa_size = 'fa-3x';
+		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+		
+		$artefato_tipo = 'listar_audio';
+		$artefato_titulo = 'Áudio';
+		$artefato_class = 'selecionar_listar';
+		$artefato_col_limit = $lista_col_limit;
+		$fa_icone = 'fa-volume-up';
+		$fa_color = 'text-warning';
+		$fa_size = 'fa-3x';
+		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+		
+		$artefato_tipo = 'ativo_listar_audio';
+		$artefato_titulo = 'Áudio';
+		$artefato_class = 'ativo_listar hidden';
+		$artefato_col_limit = $lista_col_limit;
+		$fa_icone = 'fa-volume-up';
+		$artefato_icone_background = 'rgba-orange-strong';
+		$fa_color = 'text-white';
+		$fa_size = 'fa-3x';
+		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+		
+		$artefato_tipo = 'listar_imagens';
+		$artefato_titulo = 'Imagens';
+		$artefato_class = 'selecionar_listar';
+		$artefato_col_limit = $lista_col_limit;
+		$fa_icone = 'fa-images';
+		$fa_color = 'text-danger';
+		$fa_size = 'fa-3x';
+		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+		
+		$artefato_tipo = 'ativo_listar_imagens';
+		$artefato_titulo = 'Imagens';
+		$artefato_class = 'ativo_listar hidden';
+		$artefato_col_limit = $lista_col_limit;
+		$fa_icone = 'fa-images';
+		$artefato_icone_background = 'rgba-red-strong';
+		$fa_color = 'text-white';
+		$fa_size = 'fa-3x';
+		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+		
+		$artefato_tipo = 'listar_video';
+		$artefato_titulo = 'Vídeo';
+		$artefato_class = 'selecionar_listar';
+		$artefato_col_limit = $lista_col_limit;
+		$fa_icone = 'fa-play-circle';
+		$fa_color = 'text-info';
+		$fa_size = 'fa-3x';
+		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+		
+		$artefato_tipo = 'ativo_listar_video';
+		$artefato_titulo = 'Vídeo';
+		$artefato_class = 'ativo_listar hidden';
+		$artefato_col_limit = $lista_col_limit;
+		$fa_icone = 'fa-play-circle';
+		$artefato_icone_background = 'rgba-cyan-strong';
+		$fa_color = 'text-white';
+		$fa_size = 'fa-3x';
+		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+		
+		$template_modal_body_conteudo .= "</div>";
+		
+		$template_modal_body_conteudo .= "<form method='post' class='row d-flex justify-content-center border'>";
+		include 'pagina/elemento_subtipos.php';
+		$template_modal_body_conteudo .= "</form>";
+	}
+	
 	include 'templates/modal.php';
 	
 	include 'pagina/modal_add_elemento.php';
@@ -352,7 +353,7 @@
 </body>
 <script type="text/javascript">
     $('.subcategorias').addClass('hidden');
-    $(document).on('click', '#trigger_listar_referencias', function() {
+    $(document).on('click', '#trigger_listar_referencias', function () {
         $('.ativo_listar').addClass('hidden');
         $('.selecionar_listar').removeClass('hidden');
         $('#artefato_listar_referencias').addClass('hidden');
@@ -360,7 +361,7 @@
         $('.subcategorias').addClass('hidden');
         $('.subcategoria_leitura').removeClass('hidden');
     });
-    $(document).on('click', '#trigger_listar_audio', function() {
+    $(document).on('click', '#trigger_listar_audio', function () {
         $('.ativo_listar').addClass('hidden');
         $('.selecionar_listar').removeClass('hidden');
         $('#artefato_listar_audio').addClass('hidden');
@@ -368,7 +369,7 @@
         $('.subcategorias').addClass('hidden');
         $('.subcategoria_audio').removeClass('hidden');
     });
-    $(document).on('click', '#trigger_listar_imagens', function() {
+    $(document).on('click', '#trigger_listar_imagens', function () {
         $('.ativo_listar').addClass('hidden');
         $('.selecionar_listar').removeClass('hidden');
         $('#artefato_listar_imagens').addClass('hidden');
@@ -376,7 +377,7 @@
         $('.subcategorias').addClass('hidden');
         $('.subcategoria_imagens').removeClass('hidden');
     });
-    $(document).on('click', '#trigger_listar_video', function() {
+    $(document).on('click', '#trigger_listar_video', function () {
         $('.ativo_listar').addClass('hidden');
         $('.selecionar_listar').removeClass('hidden');
         $('#artefato_listar_video').addClass('hidden');
@@ -384,7 +385,7 @@
         $('.subcategorias').addClass('hidden');
         $('.subcategoria_video').removeClass('hidden');
     });
-    
+
 </script>
 <?php
 	include 'templates/footer.html';
