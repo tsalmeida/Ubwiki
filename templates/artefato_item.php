@@ -136,7 +136,7 @@
 		$artefato_link_2 = "</button></div>";
 	} else {
 		if ($artefato_link != false) {
-			$artefato_link_1 = "<div class='$artefato_classes' id='artefato_$artefato_tipo'><a id='link_$artefato_tipo' href='$artefato_link' class='$fa_class $fa_color $artefato_link_classes' title='$artefato_criacao' $artefato_template_thumb>";
+			$artefato_link_1 = "<div class='$artefato_classes' id='artefato_$artefato_tipo'><a id='link_$artefato_tipo' href='$artefato_link' class='$fa_class $fa_color $artefato_link_classes' title='$artefato_criacao' $artefato_value $artefato_template_thumb>";
 			$artefato_link_2 = "</a></div>";
 		} else {
 			$artefato_link_1 = "<span id='artefato_$artefato_tipo' data-toggle='modal' data-target='$artefato_modal' title='$artefato_criacao' class='$artefato_classes'><a id='trigger_$artefato_tipo' href='javascript:void(0);' class='$fa_color w-100 $artefato_link_classes' $artefato_value $artefato_template_thumb>";

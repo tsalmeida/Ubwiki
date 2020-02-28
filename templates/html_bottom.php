@@ -236,6 +236,22 @@
 					   var subcategoria_value = $(this).attr('value');
 					   $('#criar_referencia_subtipo').val(subcategoria_value);
 					});
+					$(document).on('click', '.selecionar_categoria', function() {
+					    var categoria_value = $(this).attr('value');
+					    $('.subcategorias').addClass('hidden');
+					    if (categoria_value == 'imagem') {
+					        $('.subcategoria_imagem').removeClass('hidden');
+					    } else if (categoria_value == 'video') {
+					        $('.subcategoria_video').removeClass('hidden');
+					    } else if (categoria_value == 'referencia') {
+					        $('.subcategoria_referencia').removeClass('hidden');
+					    } else if (categoria_value == 'album_musica') {
+					        $('.subcategoria_album_music').removeClass('hidden');
+					    }
+					});
+					$(document).on('click', '#add_elements', function() {
+					   $('.subcategorias').removeClass('hidden');
+					});
 			</script>
 		";
 	}

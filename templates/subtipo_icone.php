@@ -15,17 +15,30 @@
 	if (!isset($subtipo_artefato_modal)) {
 		$subtipo_artefato_modal = false;
 	}
-	
-	$artefato_tipo = "listar_$template_subtipo";
+	if (!isset($artefato_tipo)) {
+		$artefato_tipo = "listar_$template_subtipo";
+	}
 	if (!isset($artefato_titulo)) {
 		$artefato_titulo = $template_subtipo_titulo;
 	}
+	if (!isset($subtipo_artefato_link_classes)) {
+		$subtipo_artefato_link_classes = 'selecionar_subcategoria';
+	}
+	
+	$subtipo_artefato_link_classes_2 = $subtipo_artefato_link_classes;
+	$subtipo_artefato_link_classes_2 .= "_$template_subtipo_tipo";
+	
 	$artefato_class = "subcategoria_$template_subtipo_tipo subcategorias";
+	$artefato_link_classes = "$subtipo_artefato_link_classes $subtipo_artefato_link_classes_2";
+	if ($template_subtipo == 'generico') {
+		$artefato_value = $template_subtipo_tipo;
+	} else {
+		$artefato_value = $template_subtipo;
+	}
+	
 	if (!isset($artefato_modal)) {
 		if ($subtipo_artefato_modal != false) {
 			$artefato_modal = $subtipo_artefato_modal;
-			$artefato_value = $template_subtipo;
-			$artefato_link_classes = " selecionar_subcategoria selecionar_subcategoria_$template_subtipo_tipo";
 		} else {
 			$artefato_button = $template_subtipo;
 			$artefato_name = 'trigger_subcategoria';
@@ -43,3 +56,4 @@
 	unset($template_subtipo);
 	unset($template_subtipo_tipo);
 	unset($template_subtipo_titulo);
+	unset($subtipo_artefato_link_classes);

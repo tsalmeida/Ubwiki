@@ -38,7 +38,7 @@
         <div class='row border p-1' id='autores_disponiveis'>
         </div>
         <input type='hidden' id='criar_referencia_tipo' name='criar_referencia_tipo' value='referencia'>
-        <inpot type='hidden' id='criar_referencia_subtipo' name='criar_referencia_subtipo' value='livro'></inpot>
+        <input type='hidden' id='criar_referencia_subtipo' name='criar_referencia_subtipo' value='livro'></input>
         <div class='row justify-content-center'>
           <button type='button' class='$button_classes' id='trigger_adicionar_referencia'>$adicionar_referencia_form_botao</button>
 				</div>

@@ -8,6 +8,7 @@
 	if (!isset($etiquetas_carregar_remover)) {
 		$etiquetas_carregar_remover = true;
 	}
+	$modal_scrollable = true;
 	$template_modal_body_conteudo = false;
 	if ($etiquetas_carregar_remover == true) {
 		$template_modal_body_conteudo .= "

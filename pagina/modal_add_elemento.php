@@ -7,39 +7,45 @@
 	$template_modal_body_conteudo .= "
 		  	<span id='esconder_adicionar_elemento' data-toggle='modal' data-target='#modal_add_elementos' class='row justify-content-center'>";
 	
-	$add_elemento_artefato_col = 'col-lg-3 col-sm-5';
-	
+	$artefato_tipo = 'adicionar_livro';
 	$template_subtipo = 'generico';
 	$template_subtipo_tipo = 'referencia';
 	$template_subtipo_titulo = 'Material de leitura';
 	$artefato_modal = '#modal_selecionar_subtipo';
+	$subtipo_artefato_link_classes = 'selecionar_categoria';
 	include 'templates/subtipo_icone.php';
 	
+	$artefato_tipo = 'adicionar_video';
 	$template_subtipo = 'generico';
 	$template_subtipo_tipo = 'video';
 	$template_subtipo_titulo = 'Vídeo';
 	$artefato_modal = '#modal_selecionar_subtipo';
+	$subtipo_artefato_link_classes = 'selecionar_categoria';
 	include 'templates/subtipo_icone.php';
 	
+	$artefato_tipo = 'adicionar_audio';
 	$template_subtipo = 'generico';
 	$template_subtipo_tipo = 'album_musica';
 	$template_subtipo_titulo = 'Áudio';
 	$artefato_modal = '#modal_selecionar_subtipo';
+	$subtipo_artefato_link_classes = 'selecionar_categoria';
 	include 'templates/subtipo_icone.php';
+	
+	if ($pagina_tipo != 'escritorio') {
+		$artefato_tipo = 'adicionar_imagem';
+		$template_subtipo = 'generico';
+		$template_subtipo_tipo = 'imagem';
+		$template_subtipo_titulo = 'Imagem';
+		$artefato_modal = '#modal_selecionar_subtipo';
+		$subtipo_artefato_link_classes = 'selecionar_categoria';
+		include 'templates/subtipo_icone.php';
+	}
 	
 	$template_subtipo = 'etiqueta';
 	$template_subtipo_tipo = 'pagina';
 	$template_subtipo_titulo = 'Página livre';
 	$artefato_modal = '#modal_gerenciar_etiquetas';
 	include 'templates/subtipo_icone.php';
-	
-	if ($pagina_tipo != 'escritorio') {
-		$template_subtipo = 'generico';
-		$template_subtipo_tipo = 'imagem';
-		$template_subtipo_titulo = 'Imagem';
-		$artefato_modal = '#modal_selecionar_subtipo';
-		include 'templates/subtipo_icone.php';
-	}
 	
 	if ($pagina_tipo == 'topico') {
 		$template_subtipo = false;
@@ -83,6 +89,7 @@
 			$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 		}
 	}
+	unset ($subtipo_artefato_link_classes);
 	$template_modal_body_conteudo .= "</span>";
 	if ($pagina_tipo == 'escritorio') {
 		$template_modal_body_conteudo .= "
