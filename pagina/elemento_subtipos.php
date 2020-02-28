@@ -122,3 +122,7 @@
 		include 'templates/subtipo_icone.php';
 		
 	}
+	
+	if (isset($subtipo_artefato_modal)) {
+		unset($subtipo_artefato_modal);
+	}

@@ -232,6 +232,10 @@
 				        alert('Por favor, preencha todos os campos necessários.')
 				    }
 				});
+					$(document).on('click', '.selecionar_subcategoria', function() {
+					   var subcategoria_value = $(this).attr('value');
+					   $('#criar_referencia_subtipo').val(subcategoria_value);
+					});
 			</script>
 		";
 	}

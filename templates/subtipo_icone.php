@@ -3,22 +3,33 @@
 	if (!isset($template_subtipo)) {
 		$template_subtipo = 'livro';
 	}
-	
 	if (!isset($template_subtipo_tipo)) {
 		$template_subtipo_tipo = 'referencia';
 	}
-	
 	if (!isset($template_subtipo_titulo)) {
 		$template_subtipo_titulo = 'Livros';
 	}
+	if (!isset($artefato_col_limit)) {
+		$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-6';
+	}
+	if (!isset($subtipo_artefato_modal)) {
+		$subtipo_artefato_modal = false;
+	}
 	
 	$artefato_tipo = "listar_$template_subtipo";
-	$artefato_titulo = $template_subtipo_titulo;
-	$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-6';
+	if (!isset($artefato_titulo)) {
+		$artefato_titulo = $template_subtipo_titulo;
+	}
 	$artefato_class = "subcategoria_$template_subtipo_tipo subcategorias";
-	if (!isset($contexto_subtipos)) {
-		$artefato_button = $template_subtipo;
-		$artefato_name = 'trigger_subcategoria';
+	if (!isset($artefato_modal)) {
+		if ($subtipo_artefato_modal != false) {
+			$artefato_modal = $subtipo_artefato_modal;
+			$artefato_value = $template_subtipo;
+			$artefato_link_classes = " selecionar_subcategoria selecionar_subcategoria_$template_subtipo_tipo";
+		} else {
+			$artefato_button = $template_subtipo;
+			$artefato_name = 'trigger_subcategoria';
+		}
 	}
 	$artefato_info = return_icone_subtipo($template_subtipo_tipo, $template_subtipo);
 	$fa_icone = $artefato_info[0];

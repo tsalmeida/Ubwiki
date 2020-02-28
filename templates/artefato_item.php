@@ -86,6 +86,12 @@
 		$artefato_button = false;
 	}
 	
+	if (!isset($artefato_value)) {
+		$artefato_value = false;
+	} else {
+		$artefato_value = "value='$artefato_value'";
+	}
+	
 	if (!isset($fa_size)) {
 		$fa_size = 'fa-5x';
 	}
@@ -96,6 +102,10 @@
 
 	if (!isset($artefato_col_limit)) {
 		$artefato_col_limit = 'col-lg-2 col-md-3 col-sm-3 col-xs-3';
+	}
+	
+	if (!isset($artefato_link_classes)) {
+		$artefato_link_classes = false;
 	}
 	
 	$length_check = "$artefato_titulo $artefato_subtitulo";
@@ -126,10 +136,10 @@
 		$artefato_link_2 = "</button></div>";
 	} else {
 		if ($artefato_link != false) {
-			$artefato_link_1 = "<div class='$artefato_classes' id='artefato_$artefato_tipo'><a id='link_$artefato_tipo' href='$artefato_link' class='$fa_class $fa_color' title='$artefato_criacao' $artefato_template_thumb>";
+			$artefato_link_1 = "<div class='$artefato_classes' id='artefato_$artefato_tipo'><a id='link_$artefato_tipo' href='$artefato_link' class='$fa_class $fa_color $artefato_link_classes' title='$artefato_criacao' $artefato_template_thumb>";
 			$artefato_link_2 = "</a></div>";
 		} else {
-			$artefato_link_1 = "<span id='artefato_$artefato_tipo' data-toggle='modal' data-target='$artefato_modal' title='$artefato_criacao' class='$artefato_classes'><a id='trigger_$artefato_tipo' href='javascript:void(0);' class='$fa_color w-100' $artefato_template_thumb>";
+			$artefato_link_1 = "<span id='artefato_$artefato_tipo' data-toggle='modal' data-target='$artefato_modal' title='$artefato_criacao' class='$artefato_classes'><a id='trigger_$artefato_tipo' href='javascript:void(0);' class='$fa_color w-100 $artefato_link_classes' $artefato_value $artefato_template_thumb>";
 			$artefato_link_2 = "</a></span>";
 		}
 	}
@@ -167,5 +177,7 @@
 	unset($artefato_badge);
 	unset($artefato_class);
 	unset($fa_invert);
+	unset($artefato_value);
+	unset($artefato_link_classes);
 
 	return $artefato_template_result;

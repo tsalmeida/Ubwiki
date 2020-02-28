@@ -3047,6 +3047,9 @@
 			case 'equacao':
 				return array('fa-greater-than-equal', 'text-info', 'rgba-cyan-strong');
 				break;
+			case 'etiqueta':
+				return array('fa-tag', 'text-warning', 'rgba-orange-strong');
+				break;
 			default:
 				switch ($tipo) {
 					case 'imagem':
