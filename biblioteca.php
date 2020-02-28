@@ -356,7 +356,7 @@
         $('#artefato_listar_referencias').addClass('hidden');
         $('#artefato_ativo_listar_referencias').removeClass('hidden');
         $('.subcategorias').addClass('hidden');
-        $('.subcategoria_leitura').removeClass('hidden');
+        $('.subcategoria_referencia').removeClass('hidden');
     });
     $(document).on('click', '#trigger_listar_audio', function () {
         $('.ativo_listar').addClass('hidden');
@@ -364,7 +364,7 @@
         $('#artefato_listar_audio').addClass('hidden');
         $('#artefato_ativo_listar_audio').removeClass('hidden');
         $('.subcategorias').addClass('hidden');
-        $('.subcategoria_audio').removeClass('hidden');
+        $('.subcategoria_album_musica').removeClass('hidden');
     });
     $(document).on('click', '#trigger_listar_imagens', function () {
         $('.ativo_listar').addClass('hidden');
@@ -372,7 +372,7 @@
         $('#artefato_listar_imagens').addClass('hidden');
         $('#artefato_ativo_listar_imagens').removeClass('hidden');
         $('.subcategorias').addClass('hidden');
-        $('.subcategoria_imagens').removeClass('hidden');
+        $('.subcategoria_imagem').removeClass('hidden');
     });
     $(document).on('click', '#trigger_listar_video', function () {
         $('.ativo_listar').addClass('hidden');

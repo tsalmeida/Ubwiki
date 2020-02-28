@@ -482,7 +482,9 @@
 							$carregar_produto_setup = false;
 							if ($pagina_subtipo == 'produto') {
 								$carregar_produto_setup = true;
-								echo "<a href='javascript:void(0)' data-toggle='modal' data-target='#modal_produto_nova_imagem' class='text-danger mr-1' id='produto_imagem' title='Imagem do produto'><i class='fad fa-image-polaroid fa-fw fa-2x'></i></a>";
+								if (isset($imagem_opcoes)) {
+									echo "<a href='javascript:void(0)' data-toggle='modal' data-target='#modal_produto_nova_imagem' class='text-danger mr-1' id='produto_imagem' title='Imagem do produto'><i class='fad fa-image-polaroid fa-fw fa-2x'></i></a>";
+								}
 								echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_produto_preco' class='text-warning mr-1' id='produto_preco' title='Preço do produto'><i class='fad fa-usd-circle fa-fw fa-2x'></i></a>";
 							}
 						}
@@ -1311,7 +1313,7 @@
 			include 'templates/modal.php';
 		}
 	}
-	if (($pagina_subtipo == 'produto') && ($carregar_produto_setup == true) && ($privilegio_edicao == true)) {
+	if (($pagina_subtipo == 'produto') && ($carregar_produto_setup == true) && ($privilegio_edicao == true) && (isset($imagem_opcoes))) {
 		$template_modal_div_id = 'modal_produto_nova_imagem';
 		$template_modal_titulo = 'Determinar imagem para o cartão do produto';
 		$template_modal_body_conteudo = false;

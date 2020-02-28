@@ -24,6 +24,9 @@
 	if ($apresentacao_length > $apresentacao_limite) {
 		$produto_apresentacao = crop_text($produto_apresentacao, $apresentacao_limite);
 	}
+	if ($produto_apresentacao == 0) {
+		$produto_apresentacao = false;
+	}
 	
 	$produto_return = "
 					<div class='col-lg-3 col-md-4 col-sm-6 p-0 pr-2 pb-2'>

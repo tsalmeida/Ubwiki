@@ -5,14 +5,20 @@
 	if (!isset($adicionar_referencia_form_botao)) {
 		$adicionar_referencia_form_botao = 'Adicionar referência';
 	}
-	$form_return =  "
+	$form_return = false;
+	
+	$form_return .=  "
 		<p>Antes de criar uma referência, é necessário usar a ferramenta de busca, para garantir que não haja duplicidade em nosso banco de dados.</p>
 		<div class='md-form'>
 	    <input type='text' class='form-control' name='busca_referencias' id='busca_referencias' required>
 	    <label for='busca_referencias'>$adicionar_referencia_busca_texto</label>
-      <button type='button' class='$button_classes btn-info' id='trigger_buscar_referencias'>Buscar</button>
     </div>
-    <div class='row border p-1' id='referencias_disponiveis'>
+    <div class='row d-flex justify-content-start'>
+    	<div class='col'>
+	    <button type='button' class='$button_classes btn-info ml-0' id='trigger_buscar_referencias'>Buscar</button>
+	    </div>
+		</div>
+    <div class='row border p-1 mt-1' id='referencias_disponiveis'>
     </div>
     <div class='row' id='criar_referencia_form'>
       <div class='col-12'>

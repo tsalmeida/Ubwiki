@@ -13,7 +13,7 @@
 	$artefato_titulo = 'Material de leitura';
 	$artefato_link = false;
 	$artefato_criacao = false;
-	$artefato_modal = '#modal_buscar_elemento';
+	$artefato_modal = '#modal_selecionar_subtipo';
 	$artefato_col_limit = $add_elemento_artefato_col;
 	$artefato_info = return_icone_subtipo('referencia', 'generico');
 	$fa_icone = $artefato_info[0];
@@ -24,18 +24,28 @@
 	$artefato_titulo = 'Vídeo';
 	$artefato_link = false;
 	$artefato_criacao = false;
-	$artefato_modal = '#modal_buscar_elemento';
+	$artefato_modal = '#modal_selecionar_subtipo';
 	$artefato_col_limit = $add_elemento_artefato_col;
 	$artefato_info = return_icone_subtipo('video', 'generico');
 	$fa_icone = $artefato_info[0];
 	$fa_color = $artefato_info[1];
 	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	
+	$artefato_tipo = 'adicionar_youtube';
+	$artefato_titulo = 'Vídeo do YouTube';
+	$artefato_info = return_icone_subtipo('video', 'youtube');
+	$fa_icone = $artefato_info[0];
+	$fa_color = $artefato_info[1];
+	$artefato_link = false;
+	$artefato_criacao = false;
+	$artefato_col_limit = $add_elemento_artefato_col;
+	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+	
 	$artefato_tipo = 'adicionar_audio';
 	$artefato_titulo = 'Áudio';
 	$artefato_link = false;
 	$artefato_criacao = false;
-	$artefato_modal = '#modal_buscar_elemento';
+	$artefato_modal = '#modal_selecionar_subtipo';
 	$artefato_col_limit = $add_elemento_artefato_col;
 	$artefato_info = return_icone_subtipo('album_musica', 'generico');
 	$fa_icone = $artefato_info[0];
@@ -58,6 +68,7 @@
 		$artefato_tipo = 'adicionar_imagem';
 		$artefato_titulo = 'Imagem';
 		$artefato_link = false;
+		$artefato_modal = '#modal_selecionar_subtipo';
 		$artefato_criacao = false;
 		$artefato_col_limit = $add_elemento_artefato_col;
 		$artefato_info = return_icone_subtipo('imagem', 'generico');
@@ -65,16 +76,6 @@
 		$fa_color = $artefato_info[1];
 		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	}
-	
-	$artefato_tipo = 'adicionar_youtube';
-	$artefato_titulo = 'Vídeo do YouTube';
-	$artefato_info = return_icone_subtipo('video', 'youtube');
-	$fa_icone = $artefato_info[0];
-	$fa_color = $artefato_info[1];
-	$artefato_link = false;
-	$artefato_criacao = false;
-	$artefato_col_limit = $add_elemento_artefato_col;
-	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	
 	if ($pagina_tipo == 'topico') {
 		$artefato_tipo = 'adicionar_dados_provas';
@@ -123,9 +124,7 @@
 			$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 		}
 	}
-	
 	$template_modal_body_conteudo .= "</span>";
-	
 	if ($pagina_tipo == 'escritorio') {
 		$template_modal_body_conteudo .= "
 	        <h3 class='mt-3'>Acervo virtual</h3>
@@ -133,7 +132,6 @@
 	        <p>Uma vez que seu item tenha sido adicionado, será possível marcar capítulos e escrever fichamentos específicos, assim como resenhas e resumos. Cada anotação será inicialmente privada, podendo ser tornada pública se você assim desejar.</p>
 		";
 	}
-	
 	include 'templates/modal.php';
 	
 	$template_modal_div_id = 'modal_buscar_elemento';
@@ -142,6 +140,17 @@
 	$modal_scrollable = true;
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= include 'templates/adicionar_referencia_form.php';
+	include 'templates/modal.php';
+	
+	$template_modal_div_id = 'modal_selecionar_subtipo';
+	$template_modal_titulo = 'Selecionar subtipo';
+	$modal_scrollable = true;
+	$template_modal_body_conteudo = false;
+	$template_modal_body_conteudo .= "<div class='row d-flex justify-content-center'>";
+	$contexto_subtipos = true;
+	include 'pagina/elemento_subtipos.php';
+	unset($contexto_subtipos);
+	$template_modal_body_conteudo .= "</div>";
 	include 'templates/modal.php';
 	
 	if (($pagina_tipo != 'curso') && ($pagina_tipo != 'materia')) {

@@ -155,6 +155,9 @@
 					$('#trigger_adicionar_audio').click(function() {
 						$('#criar_referencia_tipo').val('album_musica');
 					})
+					$('#trigger_adicionar_imagem').click(function() {
+					    $('#criar_referencia_tipo').val('imagem');
+					})
 					$('#trigger_buscar_referencias').click(function() {
 				   var busca_referencias_tipo = $('#criar_referencia_tipo').val();
 					 var busca_referencias = $('#busca_referencias').val();
@@ -191,9 +194,15 @@
 				    }
 				}),
 				$(document).on('click', '#criar_referencia', function() {
-				    $(this).hide();
-				    $('#referencias_disponiveis').hide();
-				    $('#criar_referencia_form').show();
+				    var criar_referencia_tipo = $('#criar_referencia_tipo').val();
+				    if (criar_referencia_tipo != 'imagem') {
+				    	$(this).hide();
+				    	$('#referencias_disponiveis').hide();
+				    	$('#criar_referencia_form').show();
+				    } else {
+				        $('#modal_buscar_elemento').modal('toggle');
+				        $('#modal_adicionar_imagem').modal('toggle');
+				    }
 				}),
 				$(document).on('click', '.adicionar_autor', function() {
 				    var adicionar_autor = $(this).attr('value');

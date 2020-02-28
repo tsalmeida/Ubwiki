@@ -137,13 +137,13 @@
 	$artefato_template_result = false;
 	
 	$artefato_template_result .= "
-        $artefato_link_1
+				$artefato_link_1
         $artefato_badge
         <span class='row justify-content-center text-center p-1 mx-1 rounded $artefato_icone_background'><i class='$fa_icone $fa_size fa-fw $fa_invert d-block'></i></span>
         <span class='row justify-content-center text-center mt-2 text-dark p-1 $titulo_class'>$artefato_titulo</span>
         <span class='row justify-content-center text-center text-muted p-1 $titulo_class'><em>$artefato_subtitulo</em></span>
         $artefato_link_2
-	";
+  ";
 	
 	unset($artefato_icone_background);
 	unset($artefato_criacao);
@@ -167,7 +167,5 @@
 	unset($artefato_badge);
 	unset($artefato_class);
 	unset($fa_invert);
-	
-	return $artefato_template_result;
 
-?>
+	return $artefato_template_result;

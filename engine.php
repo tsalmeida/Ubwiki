@@ -769,7 +769,7 @@
 			$referencia_exata = $conn->query("SELECT titulo FROM Elementos WHERE titulo = '$busca_referencias' AND tipo = '$busca_referencias_tipo'");
 		}
 		if ($referencia_exata->num_rows == 0) {
-			$busca_resultados .= "<div class='col-12'><button type='button' id='criar_referencia' name='criar_referencia' class='btn rounded btn-md text-center btn-info btn-sm m-0 mb-2' value='$busca_referencias'>Referência não encontrada, criar nova?</button></div>";
+			$busca_resultados .= "<div class='col-12 pl-0'><button type='button' id='criar_referencia' name='criar_referencia' class='btn rounded btn-md text-center btn-info btn-sm mb-2' value='$busca_referencias'>Referência não encontrada, criar nova?</button></div>";
 		}
 		if ($busca_referencias_tipo == false) {
 			$elementos = $conn->query("SELECT id, etiqueta_id, compartilhamento, titulo, autor, tipo, user_id FROM Elementos WHERE titulo LIKE '%{$busca_referencias}%'");
@@ -3081,7 +3081,7 @@
 						return array('fa-ballot-check', 'text-secondary', 'rgba-purple-strong');
 						break;
 					case 'secao':
-					    return array('fa-th-list', 'text-info', 'rgba-cyan-strong');
+					    return array('fa-list-ol', 'text-info', 'rgba-cyan-strong');
 					    break;
 					default:
 						return array('fa-circle-notch fa-spin', 'text-danger', 'rgba-red-strong');
