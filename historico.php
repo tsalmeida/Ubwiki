@@ -68,6 +68,10 @@
 	if (isset($_GET['r'])) {
 		$edicao_coluna_direita = (int)$_GET['r'];
 		$edicao_coluna_direita_html = return_texto_historico_html($edicao_coluna_direita);
+		require_once('HtmlDiff.php');
+		$diff = new HtmlDiff($edicao_coluna_esquerda_html, $edicao_coluna_direita_html);
+		$diff->build();
+		$edicao_coluna_direita_html = $diff->getDifference();
 	}
 	
 	include 'templates/html_head.php';
@@ -239,18 +243,18 @@
 		
 		?>
     </body>
-  <script type="text/javascript">
-      $(document).on('click', '.delete_edit', function() {
-          delete_this_edit = $(this).attr('value');
-          $.post('engine.php', {
-             'delete_this_edit': delete_this_edit
-          }, function(data) {
-            if (data == true) {
-                $('.edicao_' + delete_this_edit).addClass('hidden');
-            }
-          });
-      })
-  </script>
+    <script type="text/javascript">
+        $(document).on('click', '.delete_edit', function () {
+            delete_this_edit = $(this).attr('value');
+            $.post('engine.php', {
+                'delete_this_edit': delete_this_edit
+            }, function (data) {
+                if (data == true) {
+                    $('.edicao_' + delete_this_edit).addClass('hidden');
+                }
+            });
+        })
+    </script>
 <?php
 	include 'templates/footer.html';
 	include 'templates/html_bottom.php';
