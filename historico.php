@@ -111,6 +111,7 @@
 								} else {
 									$template_titulo = 'Versão mais antiga';
 								}
+                                $template_classes = 'elemento-anotacoes';
 								$template_botoes = "<a class='text-info' data-toggle='modal' data-target='#modal_edicao_esquerda' ><i class='fad fa-archive fa-fw'></i></a>";
 								$template_conteudo = false;
 								if ($edicao_coluna_esquerda_html != false) {
@@ -129,6 +130,7 @@
 							
 							$template_id = 'historico_direita';
 							$template_titulo = 'Versão mais recente';
+							$template_classes = 'elemento-anotacoes';
 							$template_conteudo = false;
 							if ($edicao_coluna_esquerda != false) {
 								$template_botoes = "<a class='text-success' data-toggle='modal' data-target='#modal_edicao_direita' ><i class='fad fa-archive fa-fw'></i></a>";
