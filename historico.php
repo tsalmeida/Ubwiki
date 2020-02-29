@@ -103,7 +103,7 @@
     </div>
     <div class="container-fluid">
         <div class="row d-flex justify-content-around">
-            <div id="coluna_esquerda" class="col-lg-5">
+            <div id="coluna_esquerda_historico" class="col-lg-6 px-5">
 							<?php
 								$template_id = 'historico_esquerda';
 								if ($edicao_coluna_esquerda == false) {
@@ -126,7 +126,7 @@
             </div>
 					<?php
 						if ($edicao_coluna_esquerda != false) {
-							echo "<div id='coluna_direita' class='col-lg-5'>";
+							echo "<div id='coluna_direita_historico' class='col-lg-6 px-5'>";
 							
 							$template_id = 'historico_direita';
 							$template_titulo = 'Versão mais recente';
