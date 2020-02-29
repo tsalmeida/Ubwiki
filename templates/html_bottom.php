@@ -252,6 +252,9 @@
 					$(document).on('click', '#add_elements', function() {
 					   $('.subcategorias').removeClass('hidden');
 					});
+					$(document).on('click', '#trigger_listar_youtube', function() {
+					    $('#modal_adicionar_youtube').toggle();
+					});
 			</script>
 		";
 	}

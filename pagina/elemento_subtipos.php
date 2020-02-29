@@ -109,6 +109,7 @@
 		$template_subtipo = 'youtube';
 		$template_subtipo_tipo = 'video';
 		$template_subtipo_titulo = 'Vídeos do YouTube';
+		$artefato_modal = '#modal_adicionar_youtube';
 		include 'templates/subtipo_icone.php';
 		
 		$template_subtipo = 'filme';
