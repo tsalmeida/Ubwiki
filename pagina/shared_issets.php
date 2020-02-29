@@ -1,14 +1,15 @@
 <?php
 	
 	if (isset($_POST['nova_imagem_titulo'])) {
-		
+		error_log('this happened also');
 		$nova_imagem_titulo = $_POST['nova_imagem_titulo'];
+		$nova_imagem_subtipo = $_POST['nova_imagem_subtipo'];
 		$nova_imagem_titulo = mysqli_real_escape_string($conn, $nova_imagem_titulo);
 		
 		if ((isset($_POST['nova_imagem_link'])) && ($_POST['nova_imagem_link'] != false)) {
 			$nova_imagem_link = $_POST['nova_imagem_link'];
 			$nova_imagem_link = base64_encode($nova_imagem_link);
-			adicionar_imagem($nova_imagem_link, $nova_imagem_titulo, $pagina_id, $user_id, $pagina_tipo, 'link', $curso_id);
+			adicionar_imagem($nova_imagem_link, $nova_imagem_titulo, $pagina_id, $user_id, $pagina_tipo, 'link', $nova_imagem_subtipo);
 		} else {
 			$upload_ok = false;
 			if (isset($_FILES['nova_imagem_upload'])) {
@@ -30,7 +31,7 @@
 				if ($upload_ok != false) {
 					move_uploaded_file($_FILES['nova_imagem_upload']['tmp_name'], $target_file);
 					$target_file = base64_encode($target_file);
-					adicionar_imagem($target_file, $nova_imagem_titulo, $pagina_id, $user_id, $pagina_tipo, 'upload', $curso_id);
+					adicionar_imagem($target_file, $nova_imagem_titulo, $pagina_id, $user_id, $pagina_tipo, 'upload', false);
 				}
 			}
 		}

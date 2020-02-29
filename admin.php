@@ -9,14 +9,7 @@
 	}
 
 	if (isset($_POST['trigger_atualizacao'])) {
-	    $conn->query("ALTER TABLE `Elementos` ADD `subtipo` VARCHAR(255) NULL DEFAULT NULL AFTER `tipo`;");
-	    $elementos = $conn->query("SELECT id FROM Elementos WHERE tipo = 'video' AND iframe IS NOT NULL");
-	    if ($elementos->num_rows > 0) {
-	        while ($elemento = $elementos->fetch_assoc()) {
-	            $elemento_id = $elemento['id'];
-	            $conn->query("UPDATE Elementos SET subtipo = 'youtube' WHERE id = $elemento_id");
-            }
-        }
+	    $conn->query("ALTER TABLE `Paginas_elementos` ADD `subtipo` VARCHAR(255) NULL DEFAULT NULL AFTER `tipo`;");
 	}
 
 	if (isset($_POST['trigger_atualizar_textos_size'])) {

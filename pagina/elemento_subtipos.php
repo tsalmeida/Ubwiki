@@ -1,6 +1,6 @@
 <?php
 	
-	if ((($pagina_tipo == 'elemento') && ($elemento_tipo == 'referencia')) || ($pagina_tipo != 'elemento')) {
+	if ((($pagina_tipo == 'elemento') && ($elemento_tipo == 'referencia')) || ($pagina_tipo != 'elemento') || ($template_modal_div_id == 'modal_selecionar_subtipo')) {
 		
 		$template_subtipo = 'livro';
 		$template_subtipo_tipo = 'referencia';
@@ -24,14 +24,12 @@
 		
 	}
 	
-	if ((($pagina_tipo == 'elemento') && ($elemento_tipo == 'album_musica')) || ($pagina_tipo != 'elemento')) {
-		
+	if ((($pagina_tipo == 'elemento') && ($elemento_tipo == 'album_musica')) || ($pagina_tipo != 'elemento') || ($template_modal_div_id == 'modal_selecionar_subtipo')) {
 		
 		$template_subtipo = 'musica';
 		$template_subtipo_tipo = 'album_musica';
 		$template_subtipo_titulo = 'Música';
 		include 'templates/subtipo_icone.php';
-		
 		
 		$template_subtipo = 'podcast';
 		$template_subtipo_tipo = 'album_musica';
@@ -45,7 +43,7 @@
 		
 	}
 	
-	if ((($pagina_tipo == 'elemento') && ($elemento_tipo == 'imagem')) || ($pagina_tipo != 'elemento')) {
+	if ((($pagina_tipo == 'elemento') && ($elemento_tipo == 'imagem')) || ($pagina_tipo != 'elemento') || ($template_modal_div_id == 'modal_selecionar_subtipo')) {
 		
 		$template_subtipo = 'mapasatelite';
 		$template_subtipo_tipo = 'imagem';
@@ -104,7 +102,7 @@
 		
 	}
 	
-	if ((($pagina_tipo == 'elemento') && ($elemento_tipo == 'video')) || ($pagina_tipo != 'elemento')) {
+	if ((($pagina_tipo == 'elemento') && ($elemento_tipo == 'video')) || ($pagina_tipo != 'elemento') || ($template_modal_div_id == 'modal_selecionar_subtipo')) {
 		
 		$template_subtipo = 'youtube';
 		$template_subtipo_tipo = 'video';

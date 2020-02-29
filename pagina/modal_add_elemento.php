@@ -23,7 +23,7 @@
 	$subtipo_artefato_link_classes = 'selecionar_categoria';
 	include 'templates/subtipo_icone.php';
 	
-	$artefato_tipo = 'adicionar_audio';
+	$artefato_tipo = 'adicionar_album_musica';
 	$template_subtipo = 'generico';
 	$template_subtipo_tipo = 'album_musica';
 	$template_subtipo_titulo = 'Áudio';
@@ -81,7 +81,6 @@
 			}
 			$artefato_link = false;
 			$artefato_criado = false;
-			$artefato_col_limit = $add_elemento_artefato_col;
 			$artefato_modal = '#modal_partes_form';
 			$artefato_info = return_icone_subtipo('secao', false);
 			$fa_icone = $artefato_info[0];

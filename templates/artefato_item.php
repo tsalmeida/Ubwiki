@@ -101,7 +101,7 @@
 	}
 
 	if (!isset($artefato_col_limit)) {
-		$artefato_col_limit = 'col-lg-2 col-md-3 col-sm-3 col-xs-3';
+		$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-6';
 	}
 	
 	if (!isset($artefato_link_classes)) {

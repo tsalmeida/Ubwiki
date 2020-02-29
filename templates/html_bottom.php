@@ -152,7 +152,7 @@
 					$('#trigger_adicionar_livro').click(function() {
 						$('#criar_referencia_tipo').val('referencia');
 					})
-					$('#trigger_adicionar_audio').click(function() {
+					$('#trigger_adicionar_album_musica').click(function() {
 						$('#criar_referencia_tipo').val('album_musica');
 					})
 					$('#trigger_adicionar_imagem').click(function() {
@@ -215,12 +215,14 @@
 				    var adicionar_referencia_link = $('#criar_referencia_link').val();
 				    var adicionar_referencia_autor = $('#criar_referencia_autor').val();
 				    var adicionar_referencia_tipo = $('#criar_referencia_tipo').val();
+				    var adicionar_referencia_subtipo = $('criar_referencia_subtipo').val();
 				    if ((adicionar_referencia_titulo != false) && (adicionar_referencia_tipo != false)) {
 				        $.post('engine.php', {
 				           'adicionar_referencia_titulo': adicionar_referencia_titulo,
 				           'adicionar_referencia_autor': adicionar_referencia_autor,
 				           'adicionar_referencia_tipo': adicionar_referencia_tipo,
 				           'adicionar_referencia_link': adicionar_referencia_link,
+				           'adicionar_referencia_subtipo': adicionar_referencia_subtipo,
 				           'adicionar_referencia_contexto': '$pagina_tipo',
 				           'adicionar_referencia_pagina_id': $pagina_id
 				        }, function(data) {
@@ -235,6 +237,7 @@
 					$(document).on('click', '.selecionar_subcategoria', function() {
 					   var subcategoria_value = $(this).attr('value');
 					   $('#criar_referencia_subtipo').val(subcategoria_value);
+					   $('#nova_imagem_subtipo').val(subcategoria_value);
 					});
 					$(document).on('click', '.selecionar_categoria', function() {
 					    var categoria_value = $(this).attr('value');
@@ -246,7 +249,7 @@
 					    } else if (categoria_value == 'referencia') {
 					        $('.subcategoria_referencia').removeClass('hidden');
 					    } else if (categoria_value == 'album_musica') {
-					        $('.subcategoria_album_music').removeClass('hidden');
+					        $('.subcategoria_album_musica').removeClass('hidden');
 					    }
 					});
 					$(document).on('click', '#add_elements', function() {
@@ -254,6 +257,9 @@
 					});
 					$(document).on('click', '#trigger_listar_youtube', function() {
 					    $('#modal_adicionar_youtube').toggle();
+					});
+					$(document).on('click', '#elemento_subtipo', function() {
+					   $('.subcategorias').removeClass('hidden');
 					});
 			</script>
 		";

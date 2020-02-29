@@ -24,6 +24,9 @@
 	if (!isset($subtipo_artefato_link_classes)) {
 		$subtipo_artefato_link_classes = 'selecionar_subcategoria';
 	}
+	if (!isset($artefato_button)) {
+		$artefato_button = false;
+	}
 	
 	$subtipo_artefato_link_classes_2 = $subtipo_artefato_link_classes;
 	$subtipo_artefato_link_classes_2 .= "_$template_subtipo_tipo";

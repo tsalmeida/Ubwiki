@@ -388,15 +388,17 @@
 	}
 	
 	if (isset($_POST['nova_imagem'])) {
+		error_log('does this ever happen?');
 		$nova_imagem_link = $_POST['nova_imagem'];
 		$nova_imagem_titulo = $_POST['nova_imagem_titulo'];
+		$nova_imagem_subtipo = $_POST['nova_imagem_subtipo'];
 		if ($nova_imagem_titulo == false) {
 			$nova_imagem_titulo = 'Não há título registrado';
 		}
 		$user_id = $_POST['user_id'];
 		$page_id = $_POST['page_id'];
 		$pagina_tipo = $_POST['contexto'];
-		$nossa_copia = adicionar_imagem($nova_imagem_link, $nova_imagem_titulo, $page_id, $user_id, $pagina_tipo, $curso_id);
+		$nossa_copia = adicionar_imagem($nova_imagem_link, $nova_imagem_titulo, $page_id, $user_id, $pagina_tipo, $curso_id, false);
 		echo $nossa_copia;
 	}
 	
@@ -420,6 +422,7 @@
 		$user_id = $args[3];
 		$pagina_tipo = $args[4];
 		$origem = $args[5];
+		$nova_imagem_subtipo = $args[6];
 		
 		include 'templates/criar_conn.php';
 		
@@ -460,16 +463,16 @@
 			$nova_imagem_etiqueta_tipo = 'imagem';
 		}
 		if ($imagem_criada == true) {
-			$nova_etiqueta = criar_etiqueta($nova_imagem_titulo, false, $nova_imagem_etiqueta_tipo, $user_id, false);
+			$nova_etiqueta = criar_etiqueta($nova_imagem_titulo, false, $nova_imagem_etiqueta_tipo, $user_id, false, false, $nova_imagem_subtipo);
 			$nova_imagem_etiqueta_id = $nova_etiqueta[0];
-			$conn->query("INSERT INTO Elementos (etiqueta_id, compartilhamento, tipo, titulo, link, arquivo, resolucao, orientacao, user_id) VALUES ($nova_imagem_etiqueta_id, $nova_imagem_compartilhamento, 'imagem', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_arquivo', '$nova_imagem_resolucao_original', '$nova_imagem_orientacao', $user_id)");
+			$conn->query("INSERT INTO Elementos (etiqueta_id, compartilhamento, tipo, subtipo, titulo, link, arquivo, resolucao, orientacao, user_id) VALUES ($nova_imagem_etiqueta_id, $nova_imagem_compartilhamento, 'imagem', '$nova_imagem_subtipo', '$nova_imagem_titulo', '$nova_imagem_link', '$nova_imagem_arquivo', '$nova_imagem_resolucao_original', '$nova_imagem_orientacao', $user_id)");
 			$nova_imagem_id = $conn->insert_id;
 		} else {
 			$nova_imagem_id = $imagem_preexistente_id;
 		}
 		//antes de fazer isso, checar se o elemento já existe na página. Não é tão importante por que há
 		//um check de duplicatas na página, mas talvez não exista no escritório.
-		$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, extra, user_id) VALUES ($pagina_id, '$pagina_tipo', $nova_imagem_id, 'imagem', $nova_imagem_etiqueta_id, $user_id)");
+		$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, subtipo, extra, user_id) VALUES ($pagina_id, '$pagina_tipo', $nova_imagem_id, 'imagem', '$nova_imagem_subtipo', $nova_imagem_etiqueta_id, $user_id)");
 		if (isset($nova_imagem_arquivo)) {
 			return "https://ubwiki.com.br/imagens/verbetes/$nova_imagem_arquivo";
 		} else {
@@ -804,14 +807,15 @@
 		$adicionar_referencia_autor = $_POST['adicionar_referencia_autor'];
 		$adicionar_referencia_link = $_POST['adicionar_referencia_link'];
 		$adicionar_referencia_tipo = $_POST['adicionar_referencia_tipo'];
+		$adicionar_referencia_subtipo = $_POST['adicionar_referencia_subtipo'];
 		$adicionar_referencia_contexto = $_POST['adicionar_referencia_contexto'];
 		$adicionar_referencia_pagina_id = $_POST['adicionar_referencia_pagina_id'];
 		
-		$nova_etiqueta = criar_etiqueta($adicionar_referencia_titulo, $adicionar_referencia_autor, $adicionar_referencia_tipo, $user_id, true, $adicionar_referencia_link);
+		$nova_etiqueta = criar_etiqueta($adicionar_referencia_titulo, $adicionar_referencia_autor, $adicionar_referencia_tipo, $user_id, true, $adicionar_referencia_link, $adicionar_referencia_subtipo);
 		$nova_etiqueta_id = $nova_etiqueta[0];
 		$nova_etiqueta_autor_id = $nova_etiqueta[1];
 		$nova_etiqueta_elemento_id = $nova_etiqueta[2];
-		$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, user_id) VALUES ($adicionar_referencia_pagina_id, '$adicionar_referencia_contexto', $nova_etiqueta_elemento_id, '$adicionar_referencia_tipo', $user_id)");
+		$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, extra, user_id) VALUES ($adicionar_referencia_pagina_id, '$adicionar_referencia_contexto', $nova_etiqueta_elemento_id, '$adicionar_referencia_tipo', '$adicionar_referencia_subtipo', $user_id)");
 		echo true;
 	}
 	
@@ -856,6 +860,7 @@
 			$link = fix_link($link);
 			$link = "'$link'";
 		}
+		$subtipo = $args[6];
 		include 'templates/criar_conn.php';
 		$nova_etiqueta_id = false;
 		$nova_etiqueta_autor_id = false;
@@ -908,7 +913,7 @@
 				if ($nova_etiqueta_autor_id == false) {
 					$nova_etiqueta_autor_id = "NULL";
 				}
-				$conn->query("INSERT INTO Elementos (etiqueta_id, tipo, titulo, autor, autor_etiqueta_id, user_id, link) VALUES ($nova_etiqueta_id, '$tipo', '$titulo', '$autor', $nova_etiqueta_autor_id, $user_id, $link)");
+				$conn->query("INSERT INTO Elementos (etiqueta_id, tipo, subtipo, titulo, autor, autor_etiqueta_id, user_id, link) VALUES ($nova_etiqueta_id, '$tipo', '$subtipo', '$titulo', '$autor', $nova_etiqueta_autor_id, $user_id, $link)");
 				$novo_elemento_id = $conn->insert_id;
 				$novo_elemento_criado = true;
 			} else {

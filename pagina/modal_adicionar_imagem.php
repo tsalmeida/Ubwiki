@@ -3,6 +3,7 @@
 	$template_modal_titulo = 'Adicionar imagem';
 	$template_modal_enctype = "enctype='multipart/form-data'";
 	$template_modal_body_conteudo = "
+				<input type='hidden' name='nova_imagem_subtipo' id='nova_imagem_subtipo'>
         <div class='md-form mb-2'>
             <input type='text' id='nova_imagem_titulo' name='nova_imagem_titulo'
                    class='form-control validate' required>
