@@ -242,16 +242,13 @@
   <script type="text/javascript">
       $(document).on('click', '.delete_edit', function() {
           delete_this_edit = $(this).attr('value');
-          var sure = confirm('Deseja, de fato, apagar esta edição?');
-          if (sure == true) {
-              $.post('engine.php', {
-                 'delete_this_edit': delete_this_edit
-              }, function(data) {
-                if (data == true) {
-                    $(this).hide();
-                }
-              });
-          }
+          $.post('engine.php', {
+             'delete_this_edit': delete_this_edit
+          }, function(data) {
+            if (data == true) {
+                $('.edicao_' + delete_this_edit).addClass('hidden');
+            }
+          });
       })
   </script>
 <?php
