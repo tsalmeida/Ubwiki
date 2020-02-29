@@ -3138,5 +3138,11 @@
 				}
 		}
 	}
+	
+	if (isset($_POST['delete_this_edit'])) {
+		$delete_this_edit = (int)$_POST['delete_this_edit'];
+		$delete_edit_check = $conn->query("DELETE FROM Textos_arquivo WHERE id = $delete_this_edit AND user_id = $user_id");
+		echo $delete_edit_check;
+	}
 
 ?>

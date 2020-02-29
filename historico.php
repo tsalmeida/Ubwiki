@@ -153,7 +153,7 @@
                 <p>Para comparação, esta edição é necessariamente <strong>mais antiga</strong> do que a versão da coluna direita.</p>
                 <p>Selecione, por exemplo, sua edição mais recente. Em seguida, você poderá a versão mais recente do texto, que será carregada na coluna direita.</p>
             ";
-            $list_edicoes = $conn->query("SELECT id, criacao, user_id FROM Textos_arquivo WHERE texto_id = $texto_id ORDER BY id DESC");
+			$list_edicoes = $conn->query("SELECT id, criacao, user_id FROM Textos_arquivo WHERE texto_id = $texto_id ORDER BY id DESC");
 			if ($list_edicoes->num_rows > 0) {
 				$template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
 				while ($list_edicao = $list_edicoes->fetch_assoc()) {
@@ -164,23 +164,28 @@
 					$list_edicao_user_id_avatar_icone = $list_edicao_user_id_avatar_info[0];
 					$list_edicao_user_id_avatar_cor = $list_edicao_user_id_avatar_info[1];
 					$list_edicao_user_apelido = return_apelido_user_id($list_edicao_user_id);
+					
+					if ($list_edicao_user_id == $user_id) {
+						$option_to_delete = "<a href='javascript:void(0);' class='text-danger delete_edit force-size' value='$list_edicao_id' title='Apagar esta edição'><i class='fad fa-times-hexagon fa-fw'></i></a>";
+					} else {
+						$option_to_delete = "<span class='text-white force-size'><i class='fad fa-times-hexagon fa-fw'></i></span>";
+					}
+					
 					$template_modal_body_conteudo .= "
-						<li class='list-group-item list-group-item-light mt-1 d-flex justify-content-between p-1 border-bottom-0'>
-                          <a class='text-info force-size' name='edicao_coluna_esquerda' href='historico.php?texto_id=$texto_id&l=$list_edicao_id'>
-                              <i class='fad fa-eye fa-fw'></i>
-                          </a>
-                          <a href='pagina.php?user_id=$list_edicao_user_id' class='border rounded p-1 ml-3'>
-                              <span class='$list_edicao_user_id_avatar_cor'>
-                                  <i class='fad $list_edicao_user_id_avatar_icone fa-fw'></i>
-                              </span> $list_edicao_user_apelido
-                          </a>
-                          <small class='fontstack-mono mt-2'>$list_edicao_criacao</small>
+						<li class='list-group-item list-group-item-light d-flex justify-content-between p-1 border-bottom-0 edicao_$list_edicao_id'>
+                            <a class='text-info force-size' name='edicao_coluna_esquerda' href='historico.php?texto_id=$texto_id&l=$list_edicao_id'>
+                                <i class='fad fa-eye fa-fw'></i>
+                            </a>
+                            <a href='pagina.php?user_id=$list_edicao_user_id' class='border rounded p-1 $list_edicao_user_id_avatar_cor'>
+                                <i class='fad $list_edicao_user_id_avatar_icone fa-fw'></i> <span class='text-primary'>$list_edicao_user_apelido</span>
+                            </a>
+                            <span class='fontstack-mono'><small>$list_edicao_criacao</small> $option_to_delete</span>
                         </li>";
 				}
 				$template_modal_body_conteudo .= "</ul>";
 			} else {
-			    $template_modal_body_conteudo .= "<p class='text-muted'><em>Não há versões registradas deste texto.</em></p>";
-            }
+				$template_modal_body_conteudo .= "<p class='text-muted'><em>Não há versões registradas deste texto.</em></p>";
+			}
 			include 'templates/modal.php';
 			
 			if ($edicao_coluna_esquerda != false) {
@@ -207,8 +212,9 @@
 						$list_edicao_user_id_avatar_cor = $list_edicao_user_id_avatar_info[1];
 						$list_edicao_user_apelido = return_apelido_user_id($list_edicao_user_id);
 						$edicao_recente_presente = true;
+						
 						$template_modal_body_conteudo .= "
-                            <li class='list-group-item list-group-item-light mt-1 d-flex justify-content-between p-1 border-bottom-0'>
+                            <li class='list-group-item list-group-item-light mt-1 d-flex justify-content-between p-1 border-bottom-0 edicao_$list_edicao_id'>
                               <a class='text-success force-size' name='edicao_coluna_esquerda' href='historico.php?texto_id=$texto_id&l=$edicao_coluna_esquerda&r=$list_edicao_id'>
                                   <i class='fad fa-eye fa-fw'></i>
                               </a>
@@ -233,6 +239,21 @@
 		
 		?>
     </body>
+  <script type="text/javascript">
+      $(document).on('click', '.delete_edit', function() {
+          delete_this_edit = $(this).attr('value');
+          var sure = confirm('Deseja, de fato, apagar esta edição?');
+          if (sure == true) {
+              $.post('engine.php', {
+                 'delete_this_edit': delete_this_edit
+              }, function(data) {
+                if (data == true) {
+                    $(this).hide();
+                }
+              });
+          }
+      })
+  </script>
 <?php
 	include 'templates/footer.html';
 	include 'templates/html_bottom.php';
