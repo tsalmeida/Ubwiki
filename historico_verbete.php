@@ -15,7 +15,7 @@
 	
 	$texto_titulo = $texto_info[2];
 	$texto_tipo = $texto_info[1];
-	$texto_page_id = $texto_info[3];
+	$texto_page_id = $texto_info[9];
 	$texto_user_id = $texto_info[8];
 	
 	if ((strpos($texto_tipo, 'anotac') !== false) || ($texto_tipo == 'verbete_user')) {

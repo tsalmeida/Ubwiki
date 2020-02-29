@@ -22,6 +22,7 @@
 	if (!isset($user_email)) {
 		$user_email = false;
 	}
+	
 	if (!isset($_SESSION['user_email'])) {
 		$user_email = false;
 		if ((!isset($_POST['login_email'])) && (!isset($_POST['thinkific_login']))) {
@@ -177,6 +178,7 @@
 	
 	$all_buttons_classes = "btn rounded btn-md text-center";
 	$button_classes = "$all_buttons_classes btn-primary";
+	$button_small = 'brn rounded btn-sm text-center';
 	$button_classes_light = "$all_buttons_classes btn-light";
 	$button_classes_info = "$all_buttons_classes btn-info";
 	$button_classes_red = "$all_buttons_classes btn-danger";
@@ -1582,27 +1584,20 @@
 				$texto_verbete_content = $texto['verbete_content']; // 7
 				$texto_user_id = $texto['user_id']; // 8
 				$texto_pagina_id = $texto['pagina_id']; // 9
+				if ($texto_titulo == false) {
+					$texto_titulo = return_pagina_titulo($texto_pagina_id);
+				}
 				$texto_pagina_tipo = $texto['pagina_tipo']; // 10
 				$texto_compartilhamento = $texto['compartilhamento']; // 11
 				if ($texto_tipo == 'anotacoes') {
 					$texto_compartilhamento = 'privado';
 				}
 				$texto_texto_pagina_id = $texto['texto_pagina_id']; // 12
+				if ($texto_texto_pagina_id == false) {
+					$texto_texto_pagina_id = return_pagina_id($texto_id, 'texto');
+				}
 				$texto_results = array($texto_curso_id, $texto_tipo, $texto_titulo, $texto_page_id, $texto_criacao, $texto_verbete_html, $texto_verbete_text, $texto_verbete_content, $texto_user_id, $texto_pagina_id, $texto_pagina_tipo, $texto_compartilhamento, $texto_texto_pagina_id);
 				return $texto_results;
-			}
-		}
-		return false;
-	}
-	
-	function return_text_id($curso_id, $topico_id)
-	{
-		include 'templates/criar_conn.php';
-		$textos = $conn->query("SELECT id FROM Textos WHERE curso_id = $curso_id AND page_id = $topico_id");
-		if ($textos->num_rows > 0) {
-			while ($texto = $textos->fetch_assoc()) {
-				$texto_id = $texto['id'];
-				return $texto_id;
 			}
 		}
 		return false;
@@ -1935,11 +1930,11 @@
 	
 	function return_pagina_titulo($pagina_id)
 	{
-		include 'templates/criar_conn.php';
-		$pagina_titulo = false;
 		if ($pagina_id == false) {
 			return false;
 		}
+		include 'templates/criar_conn.php';
+		$pagina_titulo = false;
 		$buscar_pagina = false;
 		$paginas = $conn->query("SELECT tipo, subtipo, item_id FROM Paginas WHERE id = $pagina_id");
 		if ($paginas->num_rows > 0) {
@@ -2509,7 +2504,22 @@
 			while ($texto = $textos->fetch_assoc()) {
 				$texto_verbete_html = $texto['verbete_html'];
 				return $texto_verbete_html;
-				break;
+			}
+		}
+		return false;
+	}
+	
+	function return_texto_historico_html($texto_id)
+	{
+		if ($texto_id == false) {
+			return false;
+		}
+		include 'templates/criar_conn.php';
+		$textos = $conn->query("SELECT verbete_html FROM Textos_arquivo WHERE id = $texto_id");
+		if ($textos->num_rows > 0) {
+			while ($texto = $textos->fetch_assoc()) {
+				$texto_verbete_html = $texto['verbete_html'];
+				return $texto_verbete_html;
 			}
 		}
 		return false;
@@ -3089,8 +3099,8 @@
 						return array('fa-ballot-check', 'text-secondary', 'rgba-purple-strong');
 						break;
 					case 'secao':
-					    return array('fa-list-ol', 'text-info', 'rgba-cyan-strong');
-					    break;
+						return array('fa-list-ol', 'text-info', 'rgba-cyan-strong');
+						break;
 					default:
 						return array('fa-circle-notch fa-spin', 'text-danger', 'rgba-red-strong');
 				}

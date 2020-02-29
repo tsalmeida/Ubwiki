@@ -53,6 +53,11 @@ $fontstack-subtitle: 'Oswald', Arial, serif;
   font-family: $fontstack-subtitle !important;
 }
 
+
+.force-size {
+  font-size: 1.5rem !important;
+}
+
 html, body, p, li, select, .md-form, textarea, input {
   font-size: 1.1rem !important;
   font-family: $fontstack-body !important;

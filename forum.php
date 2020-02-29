@@ -81,7 +81,6 @@
 <body class="grey lighten-5">
 <?php
 	include 'templates/navbar.php';
-	
 	include 'pagina/queries_notificacoes.php';
 	
 ?>
