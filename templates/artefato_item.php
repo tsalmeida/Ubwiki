@@ -38,24 +38,20 @@
 	if (!isset($fa_color)) {
 		$fa_color = $fa_color_talvez;
 	}
-	
 	if (!isset($fa_icone)) {
-	
+		$fa_icone = 'fa-circle-notch fa-spin';
 	}
 	if ($artefato_icone != false) {
 		$fa_icone = $artefato_icone;
 	}
-	
 	if (($fa_icone == 'fa-youtube-square') || ($fa_icone == 'fa-wikipedia-w') || ($fa_icone == 'fa-youtube')) {
 		$fa_icone = "fab $fa_icone";
 	} else {
 		$fa_icone = "fad $fa_icone";
 	}
-	
 	if (!isset($artefato_subtitulo)) {
 		$artefato_subtitulo = false;
 	}
-	
 	if (isset($artefato_estado)) {
 		if ($artefato_estado == false) {
 			$fa_color = 'text-light';
@@ -85,25 +81,20 @@
 	if (!isset($artefato_button)) {
 		$artefato_button = false;
 	}
-	
 	if (!isset($artefato_value)) {
 		$artefato_value = false;
 	} else {
 		$artefato_value = "value='$artefato_value'";
 	}
-	
 	if (!isset($fa_size)) {
 		$fa_size = 'fa-5x';
 	}
-	
 	if (!isset($artefato_name)) {
 		$artefato_name = "trigger_$artefato_tipo";
 	}
-
 	if (!isset($artefato_col_limit)) {
-		$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-6';
+		$artefato_col_limit = 'col-lg-2 col-md-4 col-sm-6';
 	}
-	
 	if (!isset($artefato_link_classes)) {
 		$artefato_link_classes = false;
 	}
@@ -116,11 +107,9 @@
 	if ($titulo_length > 70) {
 		$titulo_class = 'small';
 	}
-	
 	if(!isset($artefato_background)) {
 		$artefato_background = false;
 	}
-	
 	if (!isset($artefato_badge)) {
 		$artefato_badge = false;
 	} else {
