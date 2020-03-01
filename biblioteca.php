@@ -121,7 +121,7 @@
 							$template_conteudo_no_col = true;
 							$template_conteudo = false;
 							
-							$criados = $conn->query("SELECT id, pagina_id, titulo, autor, tipo, subtipo FROM Elementos ORDER BY id DESC");
+							$criados = $conn->query("SELECT id, pagina_id, titulo, autor, tipo, subtipo FROM Elementos WHERE compartilhamento IS NULL ORDER BY id DESC");
 							if ($criados->num_rows > 0) {
 								$count = 0;
 								while ($criado = $criados->fetch_assoc()) {
@@ -175,7 +175,7 @@
 							$template_conteudo .= include 'templates/artefato_item.php';*/
 							
 							$elementos_contados = array();
-							$modificados = $conn->query("SELECT pagina_id, verbete_html FROM Textos_arquivo WHERE pagina_tipo = 'elemento' ORDER BY id DESC");
+							$modificados = $conn->query("SELECT pagina_id, verbete_html FROM Textos_arquivo WHERE pagina_tipo = 'elemento' AND compartilhamento IS NULL ORDER BY id DESC");
 							if ($modificados->num_rows > 0) {
 								$count = 0;
 								while ($modificado = $modificados->fetch_assoc()) {

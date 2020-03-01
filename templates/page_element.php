@@ -75,11 +75,15 @@
 		$template_titulo_heading = 'h2';
 	}
 
+	if (!isset($template_spacer)) {
+		$template_spacer = "<span class='spacer text-white'><i class='fad fa-bookmark fa-fw'></i></span>";
+	}
+	
 	echo "
 <div id='$template_id' class='row show $template_classes $template_background p-2 pb-4 mb-2 rounded'>
 	<div class='$template_col_value'>
     <div class='row d-flex justify-content-end page-element-botoes mb-1'>
-    	<span class='spacer text-white'><i class='fad fa-bookmark fa-fw'></i></span>
+    	$template_spacer
       $template_botoes
       $template_botoes_padrao
     </div>";
@@ -134,5 +138,6 @@
 	unset($template_background);
 	unset($template_p_limit);
 	unset($template_col_classes);
+	unset($template_spacer);
 
 ?>

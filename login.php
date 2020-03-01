@@ -48,22 +48,23 @@
 				include 'templates/titulo.php';
 			?>
 		</div>
-		<!--<div class="col">
+		<div class="col">
 			<?php
-				/*$template_id = 'logo_ubwiki';
+				$template_id = 'logo_ubwiki';
 				$template_titulo = false;
 				$template_conteudo = false;
+				$template_spacer = false;
 				$template_botoes_padrao = false;
 				$template_background = 'grey lighten-5';
 				$template_conteudo_no_col = true;
-				$logo_ubwiki = 'https://ubwiki.com.br/imagens/logo.png';
+				$logo_ubwiki = 'https://ubwiki.com.br/imagens/verbetes/IA4flR71rqCSFuUJ.png';
 				$template_conteudo .= "
 						        <div class='logo_ubwiki rounded m-1' style='background-image: url($logo_ubwiki)'>
                                 </div>
 						    ";
-				include 'templates/page_element.php';*/
+				include 'templates/page_element.php';
 			?>
-		</div>-->
+		</div>
 	</div>
 </div>
 <div class="container">

@@ -1353,14 +1353,14 @@
 		$template_modal_div_id = 'modal_paginas_relacionadas';
 		$template_modal_titulo = 'Página e seções';
 		$template_modal_body_conteudo = false;
-		$template_modal_body_conteudo .= "<ul class='list-group'>";
+		$template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
 		$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$pagina_item_id'><li class='list-group-item list-group-item-action list-group-item-primary'>$pagina_original_titulo</li></a>";
 		$parentes = $conn->query("SELECT id FROM Paginas WHERE tipo = 'secao' AND item_id = $pagina_item_id");
 		if ($parentes->num_rows > 0) {
 			while ($parente = $parentes->fetch_assoc()) {
 				$parente_id = $parente['id'];
 				$parente_titulo = return_pagina_titulo($parente_id);
-				$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$parente_id'><li class='list-group-item list-group-item-action'>$parente_titulo</li></a>";
+				$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$parente_id' class='mt-1'><li class='list-group-item list-group-item-action border-top'>$parente_titulo</li></a>";
 			}
 		}
 		$template_modal_body_conteudo .= "</ul>";
