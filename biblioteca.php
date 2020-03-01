@@ -27,7 +27,7 @@
     <div class="row d-flex justify-content-between p-1">
         <div class="col">
             <div class="row d-flex justify-content-start">
-                <a data-toggle='modal' data-target='#modal_add_elementos' class='text-success ml-1'
+                <a data-toggle='modal' data-target='#modal_add_elementos' class='text-success ml-1 mostrar_categorias'
                    title='Adicionar item à biblioteca' href='javascript:void(0);'><i
                             class='fad fa-plus-circle fa-2x fa-fw'></i></a>
             </div>
@@ -116,7 +116,7 @@
 							$template_titulo = 'Recentemente adicionados';
 							$template_conteudo_class = 'justify-content-start';
 							$template_botoes = "
-								  <a data-toggle='modal' data-target='#modal_add_elementos' class='text-success ml-1' title='Adicionar item à biblioteca' href='javascript:void(0);'><i class='fad fa-plus-square fa-fw'></i></a>
+								  <a data-toggle='modal' data-target='#modal_add_elementos' class='text-success ml-1 mostrar_categorias' title='Adicionar item à biblioteca' href='javascript:void(0);'><i class='fad fa-plus-square fa-fw'></i></a>
 								";
 							$template_conteudo_no_col = true;
 							$template_conteudo = false;
@@ -163,7 +163,7 @@
 							$template_conteudo_no_col = true;
 							$template_conteudo = false;
 							$template_botoes = "
-								<a data-toggle='modal' data-target='#modal_add_elementos' class='text-success ml-1' title='Adicionar item à biblioteca' href='javascript:void(0);'><i class='fad fa-plus-square fa-fw'></i></a>
+								<a data-toggle='modal' data-target='#modal_add_elementos' class='text-success ml-1 mostrar_categorias' title='Adicionar item à biblioteca' href='javascript:void(0);'><i class='fad fa-plus-square fa-fw'></i></a>
 							";
 							/*
 							$artefato_id = 'adicionar_item_biblioteca';
@@ -350,6 +350,9 @@
 </body>
 <script type="text/javascript">
     $('.subcategorias').addClass('hidden');
+    $(document).on('click', '.mostrar_categorias', function() {
+        $('.subcategorias').removeClass('hidden');
+    })
     $(document).on('click', '#trigger_listar_referencias', function () {
         $('.ativo_listar').addClass('hidden');
         $('.selecionar_listar').removeClass('hidden');
