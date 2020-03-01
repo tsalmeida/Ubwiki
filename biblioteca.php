@@ -37,7 +37,7 @@
                         class="fad fa-search fa-fw"></i></a></div>
         <div class='col d-flex justify-content-end'>
             <a href='javascript:void(0);' data-toggle='modal' data-target='#modal_listar_itens'
-               class='ml-1 text-info'><i class='fad fa-eye fa-2x fa-fw'></i></a>
+               class='ml-1 text-info esconder_subcategorias'><i class='fad fa-eye fa-2x fa-fw'></i></a>
         </div>
     </div>
 </div>
@@ -250,6 +250,7 @@
 	$artefato_col_limit = $lista_col_limit;
 	$artefato_button = '!all';
 	$artefato_name = 'trigger_listar_todas';
+	$artefato_class = 'mb-1';
 	$fa_icone = 'fa-asterisk';
 	$fa_color = 'text-secondary';
 	$fa_size = 'fa-3x';
@@ -337,7 +338,7 @@
 	
 	$template_modal_body_conteudo .= "</div>";
 	
-	$template_modal_body_conteudo .= "<form method='post' class='row d-flex justify-content-center border'>";
+	$template_modal_body_conteudo .= "<form method='post' class='row d-flex justify-content-center border p-1'>";
 	include 'pagina/elemento_subtipos.php';
 	$template_modal_body_conteudo .= "</form>";
 	
@@ -352,6 +353,9 @@
     $('.subcategorias').addClass('hidden');
     $(document).on('click', '.mostrar_categorias', function() {
         $('.subcategorias').removeClass('hidden');
+    })
+    $(document).on('click', '.esconder_subcategorias', function() {
+        $('.subcategorias').addClass('hidden');
     })
     $(document).on('click', '#trigger_listar_referencias', function () {
         $('.ativo_listar').addClass('hidden');

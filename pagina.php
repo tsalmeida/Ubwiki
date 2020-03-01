@@ -1472,6 +1472,8 @@
 		$artefato_titulo = 'Grupo de estudos';
 		$artefato_link = false;
 		$artefato_criacao = false;
+		$fa_icone = 'fa-users';
+		$fa_color = 'text-default';
 		$fa_size = 'fa-3x';
 		$artefato_col_limit = 'col-lg-4 col-md-5';
 		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
@@ -1480,6 +1482,8 @@
 		$artefato_titulo = 'Colega';
 		$artefato_link = false;
 		$artefato_criacao = false;
+		$fa_icone = 'fa-user-friends';
+		$fa_color = 'text-info';
 		$fa_size = 'fa-3x';
 		$artefato_col_limit = 'col-lg-4 col-md-5';
 		$template_modal_body_conteudo .= include 'templates/artefato_item.php';

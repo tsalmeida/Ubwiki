@@ -116,7 +116,7 @@
 		$artefato_badge = "<span class='badge badge-pill grey lighten-5 text-dark artefato-badge position-absolute z-depth-0'><i class='fad $artefato_badge fa-fw'></i></span>";
 	}
 	
-	$artefato_classes = "$artefato_col_limit py-1 artefato rounded $artefato_background $artefato_class d-flex justify-content-center";
+	$artefato_classes = "$artefato_col_limit py-1 artefato rounded $artefato_background $artefato_class d-flex justify-content-center border border-white mt-1";
 	
 	$artefato_link_1 = false;
 	$artefato_link_2 = false;
