@@ -1,5 +1,5 @@
 <?php
-
+	
 	$pagina_tipo = 'login';
 	$pagina_id = false;
 	include 'engine.php';
@@ -14,7 +14,8 @@
 		$conn->query("UPDATE Usuarios SET origem = 'confirmado' WHERE origem = '$confirmacao'");
 	}
 	
-	function send_nova_senha($email, $confirmacao) {
+	function send_nova_senha($email, $confirmacao)
+	{
 		$msg = "Sua senha na Ubwiki foi alterada.\nCaso você não tenha conta na Ubwiki, uma nova conta terá sido criada para seu endereço de email.\nPara ativá-la, siga este link:\nhttps://www.ubwiki.com.br/ubwiki/login.php?confirmacao=$confirmacao";
 		mail($email, 'Nova senha na Ubwiki', $msg, null, '-fwebmaster@ubwiki.com.br');
 	}
@@ -39,33 +40,34 @@
 
 <body class="grey lighten-5">
 <div class="container">
-	<div class="row d-flex justify-content-center mt-5">
-		<div class="col">
+    <div class="row d-flex justify-content-center mt-5">
+        <div class="col">
+					<?php
+						$template_titulo = 'Ubwiki';
+						$template_subtitulo = 'O que você vai aprender hoje?';
+						$template_titulo_context = true;
+						include 'templates/titulo.php';
+					?>
+        </div>
 			<?php
-				$template_titulo = 'Ubwiki';
-				$template_subtitulo = 'O que você vai aprender hoje?';
-				$template_titulo_context = true;
-				include 'templates/titulo.php';
+				if ($user_tipo == 'admin') {
+					echo "<div class='col'>";
+					$template_id = 'logo_ubwiki';
+					$template_titulo = false;
+					$template_conteudo = false;
+					$template_spacer = false;
+					$template_botoes_padrao = false;
+					$template_background = 'grey lighten-5';
+					$template_conteudo_no_col = true;
+					$logo_ubwiki = 'https://ubwiki.com.br/imagens/verbetes/IA4flR71rqCSFuUJ.png';
+					$template_conteudo .= "
+                    	<div class='logo_ubwiki rounded m-1' style='background-image: url($logo_ubwiki)'></div>
+                    ";
+					include 'templates/page_element.php';
+					echo "</div>";
+				}
 			?>
-		</div>
-		<div class="col">
-			<?php
-				$template_id = 'logo_ubwiki';
-				$template_titulo = false;
-				$template_conteudo = false;
-				$template_spacer = false;
-				$template_botoes_padrao = false;
-				$template_background = 'grey lighten-5';
-				$template_conteudo_no_col = true;
-				$logo_ubwiki = 'https://ubwiki.com.br/imagens/verbetes/IA4flR71rqCSFuUJ.png';
-				$template_conteudo .= "
-						        <div class='logo_ubwiki rounded m-1' style='background-image: url($logo_ubwiki)'>
-                                </div>
-						    ";
-				include 'templates/page_element.php';
-			?>
-		</div>
-	</div>
+    </div>
 </div>
 <div class="container">
     <div class="row d-flex justify-content-center">
