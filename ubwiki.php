@@ -1,6 +1,6 @@
 <?php
+	$pagina_tipo = 'ubwiki';
 	include 'engine.php';
-	$page_tipo = 'ubwiki';
 	include 'templates/html_head.php';
 ?>
     <body class='grey lighten-5'>
@@ -20,12 +20,13 @@
             <div id='coluna_unica' class="col">
 							<?php
 								$template_id = 'apresentacao';
-								$template_titulo = 'Ambientes';
+								$template_titulo = $common_strings['environments'];
 								$template_conteudo_no_col = true;
 								$template_conteudo_class = 'justify-content-center';
 								$template_conteudo = false;
 								
-								$texto_ambiente = return_verbete_html(1218);
+								$texto_ambiente_id = return_texto_ambientes('ambientes', $user_language);
+								$texto_ambiente = return_verbete_html($texto_ambiente_id);
 								
 								$template_conteudo .= "
                                     <div class='col-12'>
@@ -35,7 +36,7 @@
 								
 								$artefato_icone_background_link = 'icone-link primary-color text-white';
 								
-								$artefato_titulo = 'Seu escritório';
+								$artefato_titulo = $common_strings['office'];
 								$artefato_tipo = 'escritorio';
 								$fa_icone = 'fa-lamp-desk';
 								$fa_color = 'text-info';
@@ -44,7 +45,7 @@
 								$artefato_class = 'icone_sobre_stuff';
 								$template_conteudo .= include 'templates/artefato_item.php';
 								
-								$artefato_titulo = 'Ver escritório';
+								$artefato_titulo = $pagina_translated['visit_office'];
 								$artefato_link = 'escritorio.php';
 								$artefato_tipo = 'escritorio_link';
 								$fa_icone = 'fa-lamp-desk';
@@ -56,7 +57,7 @@
 								$artefato_criacao = false;
 								$template_conteudo .= include 'templates/artefato_item.php';
 								
-								$artefato_titulo = 'Cursos';
+								$artefato_titulo = $common_strings['courses'];
 								$artefato_tipo = 'cursos';
 								$fa_icone = 'fa-book-reader';
 								$fa_color = 'text-default';
@@ -65,7 +66,7 @@
 								$artefato_class = 'icone_sobre_stuff';
 								$template_conteudo .= include 'templates/artefato_item.php';
 								
-								$artefato_titulo = 'Ver cursos';
+								$artefato_titulo = $pagina_translated['visit_courses'];;
 								$artefato_link = 'cursos.php';
 								$artefato_tipo = 'cursos_link';
 								$fa_icone = 'fa-book-reader';
@@ -77,7 +78,7 @@
 								$artefato_criacao = false;
 								$template_conteudo .= include 'templates/artefato_item.php';
 								
-								$artefato_titulo = 'Páginas livres';
+								$artefato_titulo = $common_strings['freepages'];
 								$artefato_tipo = 'areas_interesse';
 								$artefato_criacao = false;
 								$fa_icone = 'fa-tags';
@@ -86,7 +87,7 @@
 								$artefato_class = 'icone_sobre_stuff';
 								$template_conteudo .= include 'templates/artefato_item.php';
 								
-								$artefato_titulo = 'Ver páginas livres';
+								$artefato_titulo = $pagina_translated['visit_free_pages'];
 								$artefato_link = 'paginas_livres.php';
 								$artefato_tipo = 'areas_interesse_link';
 								$fa_icone = 'fa-tags';
@@ -98,7 +99,7 @@
 								$artefato_criacao = false;
 								$template_conteudo .= include 'templates/artefato_item.php';
 								
-								$artefato_titulo = 'Biblioteca';
+								$artefato_titulo = $common_strings['library'];
 								$artefato_tipo = 'biblioteca';
 								$fa_icone = 'fa-books';
 								$fa_color = 'text-success';
@@ -107,7 +108,7 @@
 								$artefato_class = 'icone_sobre_stuff';
 								$template_conteudo .= include 'templates/artefato_item.php';
 								
-								$artefato_titulo = 'Ver biblioteca';
+								$artefato_titulo = $pagina_translated['visit_library'];;
 								$artefato_link = 'biblioteca.php';
 								$artefato_tipo = 'biblioteca_link';
 								$fa_icone = 'fa-books';
@@ -119,7 +120,7 @@
 								$artefato_criacao = false;
 								$template_conteudo .= include 'templates/artefato_item.php';
 								
-								$artefato_titulo = 'Fórum';
+								$artefato_titulo = $common_strings['forum'];
 								$artefato_tipo = 'forum';
 								$fa_icone = 'fa-comments-alt';
 								$fa_color = 'text-secondary';
@@ -128,7 +129,7 @@
 								$artefato_class = 'icone_sobre_stuff';
 								$template_conteudo .= include 'templates/artefato_item.php';
 								
-								$artefato_titulo = 'Ver fórum';
+								$artefato_titulo = $pagina_translated['visit_forum'];
 								$artefato_link = 'forum.php';
 								$artefato_tipo = 'forum_link';
 								$fa_icone = 'fa-comments-alt';
@@ -141,7 +142,7 @@
 								$template_conteudo .= include 'templates/artefato_item.php';
 								
 								if ($user_tipo == 'admin') {
-									$artefato_titulo = 'Mercado';
+									$artefato_titulo = $common_strings['market'];
 									$artefato_tipo = 'loja';
 									$fa_icone = 'fa-bags-shopping';
 									$fa_color = 'text-danger';
@@ -150,7 +151,7 @@
 									$artefato_class = 'icone_sobre_stuff';
 									$template_conteudo .= include 'templates/artefato_item.php';
 									
-									$artefato_titulo = 'Ver mercado';
+									$artefato_titulo = $pagina_translated['visit_market'];
 									$artefato_link = 'mercado.php';
 									$artefato_tipo = 'loja_link';
 									$fa_icone = 'fa-bags-shopping';
@@ -166,45 +167,51 @@
 								include 'templates/page_element.php';
 								
 								$template_id = 'sobre_escritorio';
-								$template_titulo = 'Sobre o escritório';
+								$template_titulo = $pagina_translated['about_office'];
 								$template_classes = 'sobre_stuff';
 								$template_conteudo = false;
-								$template_conteudo .= return_verbete_html(1220);
+								$texto_ambiente_id = return_texto_ambientes('escritorio', $user_language);
+								$template_conteudo .= return_verbete_html($texto_ambiente_id);
 								include 'templates/page_element.php';
 								
 								$template_id = 'sobre_cursos';
-								$template_titulo = 'Sobre os cursos';
+								$template_titulo = $pagina_translated['about_courses'];
 								$template_classes = 'sobre_stuff';
 								$template_conteudo = false;
-								$template_conteudo .= return_verbete_html(1222);
+								$texto_ambiente_id = return_texto_ambientes('cursos', $user_language);
+								$template_conteudo .= return_verbete_html($texto_ambiente_id);
 								include 'templates/page_element.php';
 								
 								$template_id = 'sobre_areas_interesse';
-								$template_titulo = 'Sobre as páginas livres';
+								$template_titulo = $pagina_translated['about_free_pages'];
 								$template_classes = 'sobre_stuff';
 								$template_conteudo = false;
-								$template_conteudo .= return_verbete_html(1224);
+								$texto_ambiente_id = return_texto_ambientes('paginaslivres', $user_language);
+								$template_conteudo .= return_verbete_html($texto_ambiente_id);
 								include 'templates/page_element.php';
 								
 								$template_id = 'sobre_biblioteca';
-								$template_titulo = 'Sobre a Biblioteca';
+								$template_titulo = $pagina_translated['about_library'];
 								$template_classes = 'sobre_stuff';
 								$template_conteudo = false;
-								$template_conteudo .= return_verbete_html(1226);
+								$texto_ambiente_id = return_texto_ambientes('biblioteca', $user_language);
+								$template_conteudo .= return_verbete_html($texto_ambiente_id);
 								include 'templates/page_element.php';
 								
 								$template_id = 'sobre_forum';
-								$template_titulo = 'Sobre o fórum';
+								$template_titulo = $pagina_translated['about_forum'];
 								$template_classes = 'sobre_stuff';
 								$template_conteudo = false;
-								$template_conteudo .= return_verbete_html(1228);
+								$texto_ambiente_id = return_texto_ambientes('forum', $user_language);
+								$template_conteudo .= return_verbete_html($texto_ambiente_id);
 								include 'templates/page_element.php';
 								
 								$template_id = 'sobre_loja';
-								$template_titulo = 'Sobre o mercado';
+								$template_titulo = $pagina_translated['about_market'];
 								$template_classes = 'sobre_stuff';
 								$template_conteudo = false;
-								$template_conteudo .= return_verbete_html(1230);
+								$texto_ambiente_id = return_texto_ambientes('mercado', $user_language);
+								$template_conteudo .= return_verbete_html($texto_ambiente_id);
 								include 'templates/page_element.php';
 							
 							?>

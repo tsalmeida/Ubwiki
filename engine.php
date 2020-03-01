@@ -11,14 +11,6 @@
 		session_start();
 	}
 	
-	/*
-	if ($pagina_tipo != 'login') {
-		if ((!isset($_POST['thinkific_log'])) && (!isset($_POST['login_email']))) {
-			header('Location:login.php');
-			exit();
-		}
-	}*/
-	
 	if (!isset($user_email)) {
 		$user_email = false;
 	}
@@ -131,6 +123,9 @@
 			$carregar_carrinho = false;
 		}
 	}
+	
+	include 'templates/translation.php';
+	$pagina_translated = translate_pagina($pagina_tipo, $user_language);
 	
 	if (isset($_SESSION['curso_id'])) {
 		$curso_id = $_SESSION['curso_id'];
@@ -3139,10 +3134,28 @@
 		}
 	}
 	
+	function convert_language($browser_lang)
+	{
+		switch ($browser_lang) {
+			case 'pt':
+				return 'Português';
+				break;
+			case 'en':
+				return 'English';
+				break;
+			case 'es':
+				return 'Español';
+				break;
+			default:
+				return false;
+				break;
+		}
+	}
+	
 	if (isset($_POST['delete_this_edit'])) {
 		$delete_this_edit = (int)$_POST['delete_this_edit'];
 		$delete_edit_check = $conn->query("DELETE FROM Textos_arquivo WHERE id = $delete_this_edit AND user_id = $user_id");
 		echo $delete_edit_check;
 	}
-
+	
 ?>

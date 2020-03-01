@@ -1,9 +1,9 @@
 <?php
 	
-	include 'engine.php';
-	
 	$pagina_tipo = 'escritorio';
+	include 'engine.php';
 	$pagina_id = return_pagina_id($user_id, $pagina_tipo);
+
 	if (!isset($user_email)) {
 		header('Location:login.php');
 	}
@@ -135,9 +135,9 @@
 	<?php
 		if ($user_apelido != false) {
 			$template_titulo = $user_apelido;
-			$template_titulo_escritorio = true;
+			$template_titulo_above = $pagina_translated['user_office'];
 		} else {
-			$template_titulo = "Seu escritório";
+			$template_titulo = $pagina_translated['your_office'];
 		}
 		$template_titulo_context = true;
 		include 'templates/titulo.php'
@@ -152,7 +152,7 @@
 						$visualizacoes = $conn->query("SELECT page_id, tipo_pagina FROM Visualizacoes WHERE user_id = $user_id AND extra2 = 'pagina' ORDER BY id DESC");
 						if ($visualizacoes->num_rows > 0) {
 							$template_id = 'ultimas_visualizacoes';
-							$template_titulo = 'Estudos recentes';
+							$template_titulo = $pagina_translated['recent_visits'];
 							$template_classes = 'mostrar_sessao esconder_sessao';
 							$template_conteudo_class = 'justify-content-start';
 							$template_conteudo_no_col = true;
@@ -248,12 +248,12 @@
 						}
 						
 						$template_id = 'grupos_estudos';
-						$template_titulo = 'Grupos de Estudos';
+						$template_titulo = $common_strings['study groups'];
 						$template_botoes = false;
 						$template_classes = 'esconder_sessao justify-content-center';
 						//$template_col_value = 'col-lg-8 col-md-10 col-sm-12';
 						$template_conteudo = false;
-						$template_conteudo .= "<p>Ao aderir a um grupo de estudos, você poderá compartilhar exclusivamente com outros membros. Para participar desta ferramenta, é necessário determinar um apelido. Somente o criador de um grupo de estudos pode acrescentar novos membros.</p>";
+						$template_conteudo .= "<p>{$pagina_translated['joining study group explanation']}</p>";
 						if ($user_apelido == false) {
 							$template_conteudo .= "<p><strong>Para participar de grupos de estudos, é necessário determinar um apelido. Você poderá fazê-lo ao pressionar este ícone, no campo superior esquerdo desta página: <span class='text-info'><i class='fad fa-user-cog'></i></span></strong></p>";
 						} else {
@@ -287,7 +287,7 @@
 							$grupos_usuario_membro = $conn->query("SELECT grupo_id FROM Membros WHERE membro_user_id = $user_id AND estado = 1");
 							if ($grupos_usuario_membro->num_rows > 0) {
 								$template_id = 'grupos_usuario_membro';
-								$template_titulo = 'Seus grupos';
+								$template_titulo = $pagina_translated['your study groups'];
 								$template_botoes = false;
 								$template_classes = 'esconder_sessao justify-content-center';
 								//$template_col_value = 'col-lg-8 col-md-10 col-sm-12';
@@ -303,7 +303,7 @@
 							}
 							
 							$template_id = 'criar_grupo';
-							$template_titulo = 'Criar novo grupo de estudo';
+							$template_titulo = $pagina_translated['create new study group'];
 							$template_botoes = false;
 							$template_classes = 'esconder_sessao justify-content-center';
 							//$template_col_value = 'col-lg-8 col-md-10 col-sm-12';
@@ -323,14 +323,14 @@
 						}
 						
 						$template_id = 'escolha_cursos';
-						$template_titulo = 'Cursos';
+						$template_titulo = $common_strings['courses'];
 						$template_classes = 'mostrar_sessao esconder_sessao justify-content-center';
 						$template_conteudo = false;
-						$template_conteudo .= "<p>A Ubwiki é mais efetiva como um ambiente de estudos para comunidades unidas em torno de interesses comuns. Selecione um curso abaixo para participar de uma comunidade.</p>";
+						$template_conteudo .= "<p>{$pagina_translated['most effective']}</p>";
 						$usuario_cursos = $conn->query("SELECT DISTINCT opcao FROM Opcoes WHERE opcao_tipo = 'curso' AND user_id = $user_id");
 						$cursos_inscrito = array();
 						if ($usuario_cursos->num_rows > 0) {
-							$template_conteudo .= "<h2>Seus cursos</h2>";
+							$template_conteudo .= "<h2>{$pagina_translated['your courses']}</h2>";
 							$template_conteudo .= "<ul class='list-group list-group-flush' class='grey lighten-5'>";
 							while ($usuario_curso = $usuario_cursos->fetch_assoc()) {
 								$usuario_curso_id = $usuario_curso['opcao'];
@@ -342,7 +342,7 @@
 						} else {
 							$template_conteudo .= "<p><strong>Você ainda não aderiu a nenhum curso.</strong></p>";
 						}
-						$template_conteudo .= "<h2 class='mt-3'>Cursos disponíveis</h2>";
+						$template_conteudo .= "<h2 class='mt-3'>{$pagina_translated['available courses']}</h2>";
 						$template_conteudo .= "
 							<form method='post'>
                                 <select class='$select_classes' name='aderir_novo_curso' id='aderir_novo_curso' required>
@@ -374,7 +374,7 @@
 						include 'templates/page_element.php';
 						
 						$template_id = 'topicos_interesse';
-						$template_titulo = 'Páginas livres';
+						$template_titulo = $common_strings['freepages'];
 						$template_classes = 'esconder_sessao';
 						$template_conteudo_class = 'justify-content-start';
 						$template_conteudo_no_col = true;
@@ -461,7 +461,7 @@
 						*/
 						
 						$template_id = 'acervo_virtual';
-						$template_titulo = 'Acervo';
+						$template_titulo = $common_strings['your collection'];
 						$template_classes = 'esconder_sessao';
 						$template_conteudo_class = 'justify-content-start';
 						$template_conteudo_no_col = true;
@@ -469,7 +469,7 @@
 						
 						$artefato_id = 0;
 						$artefato_titulo = 'Adicionar item';
-						$artefato_criacao = 'Pressione para adicionar um item a seu acervo';
+						$artefato_criacao = $pagina_translated['press add collection'];
 						$artefato_tipo = 'nova_referencia';
 						$fa_icone = 'fa-plus-circle';
 						$fa_color = 'text-info';
@@ -512,7 +512,7 @@
 						include 'templates/page_element.php';
 						
 						$template_id = 'paginas_usuario';
-						$template_titulo = 'Suas páginas';
+						$template_titulo = $pagina_translated['your_pages'];
 						$template_classes = 'esconder_sessao';
 						$template_conteudo_class = 'justify-content-start';
 						$template_conteudo_no_col = true;
@@ -520,7 +520,7 @@
 						
 						$artefato_id = 0;
 						$artefato_page_id = false;
-						$artefato_titulo = 'Nova página privada';
+						$artefato_titulo = $pagina_translated['new_private_page'];
 						$artefato_criacao = 'Pressione para criar uma página privada';
 						$fa_icone = 'fa-plus-circle';
 						$fa_color = 'text-info';
@@ -560,7 +560,7 @@
 						
 						$anotacoes = $conn->query("SELECT id, page_id, pagina_id, pagina_tipo, pagina_subtipo, titulo, criacao, tipo, verbete_content FROM Textos WHERE tipo LIKE '%anotac%' AND user_id = $user_id ORDER BY id DESC");
 						$template_id = 'anotacoes_privadas';
-						$template_titulo = 'Textos e notas de estudo';
+						$template_titulo = $pagina_translated['texts and study notes'];
 						$template_classes = 'esconder_sessao';
 						$template_conteudo_class = 'justify-content-start';
 						$template_conteudo_no_col = true;
@@ -658,7 +658,7 @@
 						
 						$imagens_privadas = $conn->query("SELECT subtipo, id, criacao, titulo, arquivo, estado FROM Elementos WHERE user_id = $user_id AND tipo = 'imagem' AND user_id = $user_id AND compartilhamento = 'privado' ORDER BY id DESC");
 						$template_id = 'imagens_privadas';
-						$template_titulo = 'Imagens privadas';
+						$template_titulo = $pagina_translated['private images'];
 						$template_classes = 'esconder_sessao';
 						$template_conteudo_class = 'justify-content-start';
 						$template_conteudo_no_col = true;
@@ -695,7 +695,7 @@
 						$imagens_publicas = $conn->query("SELECT subtipo, id, criacao, titulo, arquivo, estado FROM Elementos WHERE user_id = $user_id AND tipo = 'imagem' AND compartilhamento IS NULL ORDER BY id DESC");
 						if ($imagens_publicas->num_rows > 0) {
 							$template_id = 'imagens_publicas';
-							$template_titulo = 'Imagens públicas';
+							$template_titulo = $pagina_translated['public images'];
 							$template_classes = 'esconder_sessao';
 							$template_conteudo_class = 'justify-content-start';
 							$template_conteudo_no_col = true;
@@ -790,7 +790,7 @@
 	
 	if ($bookmarks->num_rows > 0) {
 		$template_modal_div_id = 'modal_bookmarks';
-		$template_modal_titulo = 'Lista de leitura';
+		$template_modal_titulo = $common_strings['bookmarks'];
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
 		while ($bookmark = $bookmarks->fetch_assoc()) {
@@ -807,10 +807,10 @@
 	}
 	
 	$template_modal_div_id = 'modal_apresentacao';
-	$template_modal_titulo = 'Sala de visitas';
+	$template_modal_titulo = $common_strings['your office lounge'];
 	$template_modal_body_conteudo = false;
-	$template_modal_body_conteudo .= "<p>A sala de visitas de seu escritório é visível a outros usuários, que a visitarão ao clicar em seu apelido. Seu apelido é a única informação que o identifica em suas atividades públicas na Ubwiki.</p>";
-	$template_modal_body_conteudo .= "<p>Apenas itens explicitamente tornados públicos por você serão incluídos em sua sala de visitas. No momento, somente é possível escrever um texto de apresentação.</p>";
+	$template_modal_body_conteudo .= "<p>{$pagina_translated['lounge room explanation 1']}</p>";
+	$template_modal_body_conteudo .= "<p>{$pagina_translated['lounge room explanation 2']}</p>";
 	
 	$perfil_publico_id = false;
 	$perfis_publicos = $conn->query("SELECT id FROM Textos WHERE tipo = 'verbete_user' AND user_id = $user_id");
@@ -826,7 +826,7 @@
 	if ($perfil_publico_id != false) {
 		$template_modal_body_conteudo .= "
 		  <div class='row justify-content-center'>
-			  <a href='pagina.php?user_id=$user_id'><button type='button' class='$button_classes'>Editar sua sala de visitas</button></a>
+			  <a href='pagina.php?user_id=$user_id'><button type='button' class='$button_classes'>{$pagina_translated['edit lounge']}</button></a>
 		  </div>
 	  ";
 	}
@@ -848,7 +848,7 @@
 	$usuario_avatar_cor = $usuario_avatar_info[1];
 	
 	$template_modal_div_id = 'modal_opcoes';
-	$template_modal_titulo = 'Alterar dados e opções';
+	$template_modal_titulo = $pagina_translated['user settings'];
 	if ($opcao_texto_justificado_value == true) {
 		$texto_justificado_checked = 'checked';
 	} else {
@@ -925,7 +925,7 @@
 	include 'templates/modal.php';
 	
 	$template_modal_div_id = 'modal_notificacoes';
-	$template_modal_titulo = "Notificações";
+	$template_modal_titulo = $common_strings['notifications'];
 	$template_modal_show_buttons = false;
 	$template_modal_body_conteudo = false;
 	if ($notificacoes->num_rows > 0) {

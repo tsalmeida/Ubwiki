@@ -40,11 +40,20 @@
 
 <body class="grey lighten-5">
 <div class="container">
-    <div class="row d-flex justify-content-center mt-5">
+	<?php
+		if ($user_tipo == 'admin') {
+			echo "
+                <div class='row d-flex justify-content-end p-1'>
+                    <a data-toggle='modal' data-target='#modal_languages' class='text-primary'><i class='fad fa-language fa-fw fa-2x'></i></a>
+                </div>
+            ";
+		}
+	?>
+    <div class="row d-flex justify-content-center mt-2">
         <div class="col">
 					<?php
 						$template_titulo = 'Ubwiki';
-						$template_subtitulo = 'O que você vai aprender hoje?';
+						$template_subtitulo = $pagina_translated['slogan'];
 						$template_titulo_context = true;
 						include 'templates/titulo.php';
 					?>
@@ -75,7 +84,7 @@
 					<?php
 						
 						$template_id = 'formulario_login';
-						$template_titulo = 'Acessar';
+						$template_titulo = $pagina_translated['access'];
 						$template_botoes = "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_nova_senha' class='text-primary' title='Perdeu sua senha?'><i class='fad fa-unlock-alt fa-fw'></i></a>";
 						$template_botoes_padrao = false;
 						$template_conteudo = false;
@@ -85,14 +94,14 @@
                                 <p id='thinkific_transfer' class='collapse'>Não é mais necessário passar pela página do Grupo Ubique para acessar a Ubwiki. Crie uma senha abaixo.</p>
                                 <p id='thinkific_senha_existe' class='collapse'>Porque você já criou uma senha, não é mais necessário passar pela página do Grupo Ubique para acessar a Ubwiki. Insira sua senha abaixo.</p>
                                 <p id='thinkific_senha_incorreta' class='collapse text-danger'>Senha incorreta. Trata-se da senha que você criou na Ubwiki, não da sua senha na página do Grupo Ubique.</p>
-                                <p id='login_mensagem_basica' class='collapse'>Para acessar ou criar uma conta, insira seu email abaixo.</p>
-                                <p id='login_senha_confirmar' class='collapse'>Senha correta. No entanto, antes que essa conta possa ser acessada com a nova senha, será necessário seguir o link enviado ao seu email.</p>
+                                <p id='login_mensagem_basica' class='collapse'>{$pagina_translated['access_message']}</p>
+                                <p id='login_senha_confirmar' class='collapse'>{$pagina_translated['correct_password_but']}</p>
                                 <p id='login_senha_incorreta' class='collapse text-danger'>Senha incorreta.</p>
                                 <p id='login_novo_usuario' class='collapse'>Não existe conta registrada para este email. Continue para criar uma conta.</p>
                                 <p id='login_thinkific_registro' class='collapse'>Para acessar a Ubwiki diretamente e criar uma nova senha, você precisará, uma última vez, passar pela <a href='https://www.grupoubique.com.br/'>página do Grupo Ubique</a>. Alternativamente, você pode pressionar o cadeado azul no canto superior direito e receber um código de confirmação por email.</p>
                                 <div id='secao_login_email' class='md-form mt-3 collapse'>
                                     <input type='email' id='login_email' name='login_email' class='form-control'>
-                                    <label for='login_email'>Seu email</label>
+                                    <label for='login_email'>{$pagina_translated['your_email']}</label>
                                 </div>
                                 <div id='secao_login_thinkific_email' class='md-form collapse'>
                                     <input type='email' id='login_thinkific_email' name='login_thinkific_email' class='form-control' disabled>
@@ -100,25 +109,26 @@
                                 </div>
                                 <div id='secao_login_senha' class='md-form collapse'>
                                     <input type='password' id='login_senha' name='login_senha' class='form-control'>
-                                    <label for='login_senha'>Sua senha</label>
+                                    <label for='login_senha'>{$pagina_translated['your_password']}</label>
                                 </div>
                                 <div id='secao_login_confirmacao' class='md-form collapse'>
                                     <input type='password' id='login_senha_confirmacao' name='login_senha_confirmacao' class='form-control' disabled>
                                     <label for='login_senha_confirmacao'>Confirme sua senha</label>
                                 </div>
                                 <div id='secao_login_enviar' class='md-form d-flex justify-content-center'>
-                                    <button id='botao_login' name='botao_login' type='button' class='$button_classes w-50' disabled>Continuar</button>
+                                    <button id='botao_login' name='botao_login' type='button' class='$button_classes w-50' disabled>{$pagina_translated['continue']}</button>
                                 </div>
                             </form>
                         ";
 						include 'templates/page_element.php';
 						
 						$template_id = 'sobre_ubwiki';
-						$template_titulo = 'Sobre a Ubwiki';
+						$template_titulo = $pagina_translated['about_ubwiki'];
 						$template_botoes = false;
 						$template_botoes_padrao = false;
 						$template_conteudo = false;
-						$template_conteudo .= return_verbete_html(548);
+						$texto_pagina_login = return_texto_pagina_login($user_language);
+						$template_conteudo .= return_verbete_html($texto_pagina_login);
 						include 'templates/page_element.php';
 					?>
         </div>
@@ -126,20 +136,71 @@
 </div>
 <?php
 	$template_modal_div_id = 'modal_nova_senha';
-	$template_modal_titulo = 'Enviar nova senha por email';
+	$template_modal_titulo = $pagina_translated['send_by_email'];
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "
-		<p>Esqueceu sua senha? Crie abaixo sua nova senha, ela será ativada quando você seguir um link que será enviado ao seu email. Não se esqueça de procurá-la na pasta de mensagens bloqueadas.</p>
+		<p>{$pagina_translated['forgot_your_password']}</p>
 		<div class='md-form'>
 			<input type='text' class='form-control' name='nova_senha_email' id='nova_senha_email'>
-			<label for='nova_senha_email'>Seu email</label>
+			<label for='nova_senha_email'>{$pagina_translated['your_email']}</label>
 		</div>
 		<div class='md-form'>
 			<input type='password' class='form-control' name='nova_senha' id='nova_senha'>
-			<label for='nova_senha'>Sua nova senha</label>
+			<label for='nova_senha'>{$pagina_translated['your_new_password']}</label>
 		</div>
 	";
 	include 'templates/modal.php';
+	
+	$template_modal_div_id = 'modal_languages';
+	$template_modal_titulo = $pagina_translated['languages'];
+	$template_modal_show_buttons = false;
+	$template_modal_body_conteudo = false;
+	
+	$template_modal_body_conteudo .= "<div method='post' class='row d-flex justify-content-center'>";
+	
+	$artefato_titulo = 'Português';
+	$artefato_tipo = 'lg_pt';
+	$artefato_link = 'login.php?lg=pt';
+	$artefato_class = 'language_choose';
+	$fa_icone = 'fa-globe';
+	$fa_color = 'text-success';
+	if ($user_language == 'pt') {
+		$artefato_icone_background = 'rgba-green-strong';
+		$fa_color = 'text-white';
+	}
+	$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-6';
+	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+	
+	$artefato_titulo = 'English';
+	$artefato_tipo = 'lg_en';
+	$artefato_link = 'login.php?lg=en';
+	$artefato_class = 'language_choose';
+	$fa_icone = 'fa-globe';
+	$fa_color = 'text-primary';
+	if ($user_language == 'en') {
+		$artefato_icone_background = 'rgba-blue-strong';
+		$fa_color = 'text-white';
+	}
+	$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-6';
+	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+	
+	$artefato_titulo = 'Español';
+	$artefato_tipo = 'lg_es';
+	$artefato_link = 'login.php?lg=es';
+	$artefato_class = 'language_choose';
+	$fa_icone = 'fa-globe';
+	$fa_color = 'text-danger';
+	if ($user_language == 'es') {
+		$artefato_icone_background = 'rgba-red-strong';
+		$fa_color = 'text-white';
+	}
+	$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-6';
+	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+	
+	$template_modal_body_conteudo .= "</div>";
+	
+	include 'templates/modal.php';
+
 ?>
 </body>
 <?php

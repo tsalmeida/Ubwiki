@@ -2,7 +2,7 @@
 	if (!isset($template_titulo)) { return false; }
 	if (!isset($template_titulo_context)) { $template_titulo_context = true; }
 	if (!isset($template_titulo_no_nav)) { $template_titulo_no_nav = false; }
-	if (!isset($template_titulo_escritorio)) { $template_titulo_escritorio = false; }
+	if (!isset($template_titulo_above)) { $template_titulo_above = false; }
 	if (!isset($template_subtitulo)) { $template_subtitulo = false; }
 	
 	$titulo_length = strlen($template_titulo);
@@ -32,9 +32,9 @@
         <div class='col-lg-11 col-sm-12 text-center $spacing'>
 		";
 	}
-	if ($template_titulo_escritorio == true) {
+	if ($template_titulo_above != false) {
 		echo "
-			<span class='text-muted d-block mt-3'><em><h4 class='mb-0'>Escritório de</h4></em></span>
+			<span class='text-muted d-block mt-3'><em><h4 class='mb-0'>$template_titulo_above</h4></em></span>
 		";
 	}
 	if ($display_level != false) {
@@ -62,3 +62,4 @@
 	unset($template_titulo_context);
 	unset($template_titulo_no_nav);
 	unset($template_subtitulo);
+	unset($template_titulo_above);

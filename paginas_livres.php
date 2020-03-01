@@ -1,6 +1,6 @@
 <?php
 	include 'engine.php';
-	$page_tipo = 'areas_interesse';
+	$pagina_tipo = 'areas_interesse';
 	$pagina_id = 1;
 	include 'templates/html_head.php';
 	$busca = false;
