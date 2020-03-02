@@ -137,7 +137,7 @@
 			$template_titulo = $user_apelido;
 			$template_titulo_above = $pagina_translated['user_office'];
 		} else {
-			$template_titulo = $pagina_translated['your_office'];
+			$template_titulo = $pagina_translated['user_office'];
 		}
 		$template_titulo_context = true;
 		include 'templates/titulo.php'
@@ -213,13 +213,13 @@
 									$fa_icone = 'fa-columns';
 									$pagina_compartilhamento = $pagina_info[4];
 									if ($pagina_compartilhamento == 'privado') {
-										$artefato_subtitulo = 'Página privada';
+										$artefato_subtitulo = $pagina_translated['private page'];
 										$fa_color = 'text-info';
 									} elseif ($pagina_compartilhamento == 'publico') {
-										$artefato_subtitulo = 'Página pública';
+										$artefato_subtitulo = $pagina_translated['public page'];
 										$fa_color = 'text-primary';
 									} else {
-										$artefato_subtitulo = 'Página livre';
+										$artefato_subtitulo = $pagina_translated['free page'];
 										$fa_icone = 'fa-tag';
 										$fa_color = 'text-warning';
 									}
@@ -227,7 +227,7 @@
 									$artefato_link = "pagina.php?pagina_id=$visualizacao_page_id";
 								} elseif ($visualizacao_tipo_pagina == 'grupo') {
 									$artefato_titulo = return_pagina_titulo($visualizacao_page_id);
-									$artefato_subtitulo = 'Grupo de estudos';
+									$artefato_subtitulo = $pagina_translated['study group'];
 									$fa_icone = 'fa-users';
 									$fa_color = 'text-default';
 									$artefato_tipo = 'pagina_grupo';
@@ -263,7 +263,7 @@
                                     <form method='post'>
                                         <div class='md-form mb-2'>
                                             <select class='$select_classes' name='responder_convite_grupo_id' id='responder_convite_grupo_id'>
-                                                <option value='' disabled selected>Selecione o grupo de estudos:</option>
+                                                <option value='' disabled selected>{$pagina_translated['Selecione o grupo de estudos']}:</option>
                                 ";
 								while ($convite_ativo = $convites_ativos->fetch_assoc()) {
 									$convite_ativo_grupo_id = $convite_ativo['grupo_id'];
@@ -274,8 +274,8 @@
                                     </select>
                                     </div>
                                     <div class='row justify-content-center'>
-                                        <button name='trigger_aceitar_convite' class='$button_classes'>Aceitar convite</button>
-                                        <button name='trigger_rejeitar_convite' class='$button_classes_red'>Rejeitar convite</button>
+                                        <button name='trigger_aceitar_convite' class='$button_classes'>{$pagina_translated['Aceitar convite']}</button>
+                                        <button name='trigger_rejeitar_convite' class='$button_classes_red'>{$pagina_translated['Rejeitar convite']}</button>
                                     </div>
                                     </form>
                                 ";
@@ -312,10 +312,10 @@
 							<form method='post'>
 								<div class='md-form mb-2'>
 									<input type='text' name='novo_grupo_titulo' id='novo_grupo_titulo' class='form-control validate mb-1' required>
-									<label data-error='inválido' data-success='válido' for='novo_grupo_titulo'>Nome do novo grupo de estudos</label>
+									<label data-error='inválido' data-success='válido' for='novo_grupo_titulo'>{$pagina_translated['Nome do novo grupo de estudos']}</label>
 								</div>
 								<div class='row justify-content-center'>
-									<button name='trigger_novo_grupo' class='$button_classes'>Criar grupo de estudos</button>
+									<button name='trigger_novo_grupo' class='$button_classes'>{$pagina_translated['Criar grupo de estudos']}</button>
 								</div>
 							</form>
 						    ";
@@ -340,13 +340,13 @@
 							}
 							$template_conteudo .= "</ul>";
 						} else {
-							$template_conteudo .= "<p><strong>Você ainda não aderiu a nenhum curso.</strong></p>";
+							$template_conteudo .= "<p><strong>{$pagina_translated['Você ainda não aderiu a nenhum curso.']}</strong></p>";
 						}
 						$template_conteudo .= "<h2 class='mt-3'>{$pagina_translated['available courses']}</h2>";
 						$template_conteudo .= "
 							<form method='post'>
                                 <select class='$select_classes' name='aderir_novo_curso' id='aderir_novo_curso' required>
-                                      <option value='' disabled selected>Selecione um curso</option>
+                                      <option value='' disabled selected>{$pagina_translated['Selecione um curso']}</option>
                         ";
 						$cursos_disponiveis = $conn->query("SELECT id, titulo FROM Cursos WHERE estado = 1");
 						while ($curso_disponivel = $cursos_disponiveis->fetch_assoc()) {
@@ -356,7 +356,7 @@
 						}
 						$cursos_do_usuario = $conn->query("SELECT id, titulo FROM Cursos WHERE estado = 0 AND user_id = $user_id");
 						if ($cursos_do_usuario->num_rows > 0) {
-							$template_conteudo .= "<option disabled>Seus cursos:</option>";
+							$template_conteudo .= "<option disabled>{$pagina_translated['Seus cursos']}:</option>";
 							while ($curso_do_usuario = $cursos_do_usuario->fetch_assoc()) {
 								$curso_do_usuario_id = $curso_do_usuario['id'];
 								$curso_do_usuario_titulo = $curso_do_usuario['titulo'];
@@ -366,7 +366,7 @@
 						$template_conteudo .= "</select>";
 						$template_conteudo .= "
 							<div class='row justify-content-center'>
-								<button name='trigger_adicionar_curso' class='$button_classes'>Aderir</button>
+								<button name='trigger_adicionar_curso' class='$button_classes'>{$pagina_translated['Aderir']}</button>
 							</div>
 							</form>
 						";
@@ -521,7 +521,7 @@
 						$artefato_id = 0;
 						$artefato_page_id = false;
 						$artefato_titulo = $pagina_translated['new_private_page'];
-						$artefato_criacao = 'Pressione para criar uma página privada';
+						$artefato_criacao = $pagina_translated['Pressione para criar uma página privada'];
 						$fa_icone = 'fa-plus-circle';
 						$fa_color = 'text-info';
 						$artefato_tipo = 'nova_pagina';
@@ -540,11 +540,11 @@
 								$artefato_id = $pagina_usuario_id;
 								$artefato_titulo = $pagina_usuario_titulo;
 								if ($pagina_usuario_compartilhamento == 'privado') {
-									$artefato_subtitulo = 'Página privada';
+									$artefato_subtitulo = $pagina_translated['private page'];
 								} elseif ($pagina_usuario_compartilhamento == 'publico') {
-									$artefato_subtitulo = 'Página pública';
+									$artefato_subtitulo = $pagina_translated['public page'];
 								} else {
-									$artefato_subtitulo = 'Página';
+									$artefato_subtitulo = $pagina_translated['Página'];
 								}
 								$artefato_tipo = 'pagina_usuario';
 								$fa_icone = 'fa-columns';
@@ -568,8 +568,8 @@
 						
 						$artefato_id = 0;
 						$artefato_page_id = false;
-						$artefato_titulo = 'Nova anotação privada';
-						$artefato_criacao = 'Pressione para criar uma anotação privada';
+						$artefato_titulo = $pagina_translated['Nova anotação privada'];
+						$artefato_criacao = $pagina_translated['Pressione para criar uma anotação privada'];
 						$artefato_tipo = 'nova_anotacao';
 						$fa_icone = 'fa-plus-circle';
 						$fa_color = 'text-info';
@@ -666,8 +666,8 @@
 						
 						$artefato_id = 0;
 						$artefato_page_id = false;
-						$artefato_titulo = 'Nova imagem privada';
-						$artefato_criacao = 'Pressione para adicionar uma imagem privada';
+						$artefato_titulo = $pagina_translated['Nova imagem privada'];
+						$artefato_criacao = $pagina_translated['Pressione para adicionar uma imagem privada'];
 						$artefato_tipo = 'adicionar_imagem_privada';
 						$fa_icone = 'fa-plus-circle';
 						$fa_color = 'text-info';
@@ -727,7 +727,7 @@
 <?php
 	
 	$template_modal_div_id = 'modal_verbetes';
-	$template_modal_titulo = 'Verbetes em que contribuiu';
+	$template_modal_titulo = $pagina_translated['Verbetes em que contribuiu'];
 	$template_modal_body_conteudo = false;
 	if ($verbetes_escritos->num_rows > 0) {
 		$template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
@@ -736,7 +736,7 @@
 			$escrito_pagina_info = return_pagina_info($escrito_pagina_id);
 			$escrito_pagina_titulo = $escrito_pagina_info[6];
 			if ($escrito_pagina_titulo == false) {
-				$escrito_pagina_titulo = 'Não há título registrado';
+				$escrito_pagina_titulo = $pagina_translated['Não há título registrado'];
 			}
 			$escrito_pagina_tipo = $escrito_pagina_info[2];
 			$list_color = return_list_color_page_type($escrito_pagina_tipo);
@@ -752,7 +752,7 @@
 	include 'templates/modal.php';
 	
 	$template_modal_div_id = 'modal_completados';
-	$template_modal_titulo = 'Assuntos estudados';
+	$template_modal_titulo = $pagina_translated['Assuntos estudados'];
 	$template_modal_body_conteudo = false;
 	if ($completados->num_rows > 0) {
 		$template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
@@ -770,7 +770,7 @@
 	include 'templates/modal.php';
 	
 	$template_modal_div_id = 'modal_forum';
-	$template_modal_titulo = 'Suas participações no fórum';
+	$template_modal_titulo = $pagina_translated['Suas participações no fórum'];
 	$template_modal_body_conteudo = false;
 	if ($comentarios->num_rows > 0) {
 		$template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
@@ -862,64 +862,64 @@
 		</div>
 		<p>Alterar:</p>
 		<select name='selecionar_avatar' class='$select_classes'>
-			<option disabled selected value=''>Selecione seu avatar</option>
-			<option value='fa-user'>Padrão</option>
-			<option value='fa-user-tie'>De terno</option>
-			<option value='fa-user-secret'>Espião</option>
-			<option value='fa-user-robot'>Robô</option>
-			<option value='fa-user-ninja'>Ninja</option>
-			<option value='fa-user-md'>Médico</option>
-			<option value='fa-user-injured'>Machucado</option>
-			<option value='fa-user-hard-hat'>Capacete de segurança</option>
-			<option value='fa-user-graduate'>Formatura</option>
-			<option value='fa-user-crown'>Rei</option>
-			<option value='fa-user-cowboy'>Cowboy</option>
-			<option value='fa-user-astronaut'>Astronauta</option>
-			<option value='fa-user-alien'>Alienígena</option>
-			<option value='fa-cat'>Gato</option>
-			<option value='fa-cat-space'>Gato astronauta</option>
-			<option value='fa-dog'>Cachorro</option>
-			<option value='fa-ghost'>Fantasma</option>
+			<option disabled selected value=''>{$pagina_translated['Selecione seu avatar']}</option>
+			<option value='fa-user'>{$pagina_translated['Padrão']}</option>
+			<option value='fa-user-tie'>{$pagina_translated['De terno']}</option>
+			<option value='fa-user-secret'>{$pagina_translated['Espião']}</option>
+			<option value='fa-user-robot'>{$pagina_translated['Robô']}</option>
+			<option value='fa-user-ninja'>{$pagina_translated['Ninja']}</option>
+			<option value='fa-user-md'>{$pagina_translated['Médico']}</option>
+			<option value='fa-user-injured'>{$pagina_translated['Machucado']}</option>
+			<option value='fa-user-hard-hat'>{$pagina_translated['Capacete de segurança']}</option>
+			<option value='fa-user-graduate'>{$pagina_translated['Formatura']}</option>
+			<option value='fa-user-crown'>{$pagina_translated['Rei']}</option>
+			<option value='fa-user-cowboy'>{$pagina_translated['Cowboy']}</option>
+			<option value='fa-user-astronaut'>{$pagina_translated['Astronauta']}</option>
+			<option value='fa-user-alien'>{$pagina_translated['Alienígena']}</option>
+			<option value='fa-cat'>{$pagina_translated['Gato']}</option>
+			<option value='fa-cat-space'>{$pagina_translated['Gato astronauta']}</option>
+			<option value='fa-dog'>{$pagina_translated['Cachorro']}</option>
+			<option value='fa-ghost'>{$pagina_translated['Fantasma']}</option>
 		</select>
 		<select name='selecionar_cor' class='$select_classes'>
-			<option disabled selected value=''>Cor do seu avatar</option>
-			<option value='text-primary'>Azul</option>
-			<option value='text-danger'>Vermelho</option>
-			<option value='text-success'>Verde</option>
-			<option value='text-warning'>Amarelo</option>
-			<option value='text-secondary'>Roxo</option>
-			<option value='text-info'>Azul-claro</option>
-			<option value='text-default'>Verde-azulado</option>
-			<option value='text-dark'>Preto</option>
+			<option disabled selected value=''>{$pagina_translated['Cor do seu avatar']}</option>
+			<option value='text-primary'>{$pagina_translated['Azul']}</option>
+			<option value='text-danger'>{$pagina_translated['Vermelho']}</option>
+			<option value='text-success'>{$pagina_translated['Verde']}</option>
+			<option value='text-warning'>{$pagina_translated['Amarelo']}</option>
+			<option value='text-secondary'>{$pagina_translated['Roxo']}</option>
+			<option value='text-info'>{$pagina_translated['Azul-claro']}</option>
+			<option value='text-default'>{$pagina_translated['Verde-azulado']}</option>
+			<option value='text-dark'>{$pagina_translated['Preto']}</option>
 		</select>
-		<h3 class='mt-3'>Perfil</h3>
-        <p>Você é identificado exclusivamente por seu apelido em todas as suas atividades públicas.</p>
-        <div class='md-form md-2'><input type='text' name='novo_apelido' id='novo_apelido' class='form-control validate' value='$user_apelido' pattern='([A-z0-9À-ž\s]){2,14}' required></input>
-            <label data-error='inválido' data-successd='válido' for='novo_apelido' required>Apelido</label>
+		<h3 class='mt-3'>{$pagina_translated['Perfil']}</h3>
+        <p>{$pagina_translated['Você é identificado exclusivamente por seu apelido em todas as suas atividades públicas.']}</p>
+        <div class='md-form md-2'><input type='text' name='novo_apelido' id='novo_apelido' class='form-control validate' value='$user_apelido' pattern='([A-z0-9À-ž\s]){2,14}' required>
+            <label data-error='inválido' data-successd='válido' for='novo_apelido' required>{$pagina_translated['Apelido']}</label>
         </div>
-        <p>Seu nome e seu sobrenome não serão divulgados em nenhuma seção pública da página.</p>
+        <p>{$pagina_translated['Seu nome e seu sobrenome não serão divulgados em nenhuma seção pública da página.']}</p>
         <div class='md-form md-2'>
                <input type='text' name='novo_nome' id='novo_nome' class='form-control validate' value='$user_nome' pattern='([A-z0-9À-ž\s]){2,}' required></input>
 
             <label data-error='inválido' data-successd='válido'
-                   for='novo_nome'>Nome</label>
+                   for='novo_nome'>{$pagina_translated['Nome']}</label>
         </div>
         <div class='md-form md-2'>
-            <input type='text' name='novo_sobrenome' id='novo_sobrenome' class='form-control validate' value='$user_sobrenome' required></input>
+            <input type='text' name='novo_sobrenome' id='novo_sobrenome' class='form-control validate' value='$user_sobrenome' required>
 
-            <label data-error='inválido' data-successd='válido' for='novo_sobrenome' pattern='([A-z0-9À-ž\s]){2,}' required>Sobrenome</label>
+            <label data-error='inválido' data-successd='válido' for='novo_sobrenome' pattern='([A-z0-9À-ž\s]){2,}' required>{$pagina_translated['Sobrenome']}</label>
         </div>
         <h3>Opções</h3>
         <div class='md-form md-2'>
         	<input type='checkbox' class='form-check-input' id='opcao_texto_justificado' name='opcao_texto_justificado' $texto_justificado_checked>
-        	<label class='form-check-label' for='opcao_texto_justificado'>Mostrar verbetes com texto justificado.</label>
+        	<label class='form-check-label' for='opcao_texto_justificado'>{$pagina_translated['Mostrar verbetes com texto justificado']}</label>
 		</div>
     ";
 	$template_modal_body_conteudo .= "
-        <h3>Dados de cadastro</h3>
+        <h3>{$pagina_translated['Dados de cadastro']}</h3>
         <ul class='list-group'>
-            <li class='list-group-item'><strong>Conta criada em:</strong> $user_criacao</li>
-            <li class='list-group-item'><strong>Email:</strong> $user_email</li>
+            <li class='list-group-item'><strong>{$pagina_translated['Conta criada em']}:</strong> $user_criacao</li>
+            <li class='list-group-item'><strong>{$pagina_translated['Email']}:</strong> $user_email</li>
         </ul>
 	";
 	include 'templates/modal.php';
@@ -971,7 +971,7 @@
 	include 'pagina/modal_add_elemento.php';
 	
 	$template_modal_div_id = 'modal_gerenciar_etiquetas';
-	$template_modal_titulo = 'Incluir área de interesse';
+	$template_modal_titulo = $pagina_translated['Incluir área de interesse'];
 	include 'templates/etiquetas_modal.php';
 
 ?>

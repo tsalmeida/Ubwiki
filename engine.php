@@ -3194,5 +3194,18 @@
 			echo false;
 		}
 	}
+	
+	if (isset($_POST['return_chave_codigo'])) {
+		$return_chave_codigo = $_POST['return_chave_codigo'];
+		$codigos = $conn->query("SELECT chave FROM Translation_chaves WHERE id = $return_chave_codigo");
+		if ($codigos->num_rows > 0) {
+			while ($codigo = $codigos->fetch_assoc()) {
+				$codigo_chave = $codigo['chave'];
+				echo "<span>$codigo_chave</span>";
+			}
+		} else {
+			echo false;
+		}
+	}
 
 ?>
