@@ -37,17 +37,17 @@
 		        <i class='fas fa-2x $navbar_avatar fa-lg fa-fw'></i>
 		        </a>
 		        <div class='dropdown-menu dropdown-menu-right z-depth-0'>
-		          <a class='dropdown-item navlink z-depth-0' href='escritorio.php'><i class='fad fa-lamp-desk fa-fw'></i> {$common_strings['office']}</a>
-		          <a class='dropdown-item navlink z-depth-0' href='ubwiki.php'><i class='fad fa-portal-enter fa-fw'></i> {$common_strings['environments']}</a>";
+		          <a class='dropdown-item navlink z-depth-0' href='escritorio.php'><i class='fad fa-lamp-desk fa-fw'></i> {$pagina_translated['office']}</a>
+		          <a class='dropdown-item navlink z-depth-0' href='ubwiki.php'><i class='fad fa-portal-enter fa-fw'></i> {$pagina_translated['environments']}</a>";
 		if ($carregar_carrinho == true) {
-			echo "<a class='dropdown-item navlink z-depth-0' href='carrinho.php'><i class='fad fa-shopping-cart fa-fw'></i> {$common_strings['your cart']}</a>";
+			echo "<a class='dropdown-item navlink z-depth-0' href='carrinho.php'><i class='fad fa-shopping-cart fa-fw'></i> {$pagina_translated['your cart']}</a>";
 		}
 		if ($user_tipo == 'admin') {
-			echo "<a class='dropdown-item navlink z-depth-0' href='admin.php'><i class='fad fa-cogs fa-fw'></i> {$common_strings['administrators page']}</a>";
+			echo "<a class='dropdown-item navlink z-depth-0' href='admin.php'><i class='fad fa-cogs fa-fw'></i> {$pagina_translated['administrators page']}</a>";
 		}
 		echo "
 		          <a class='dropdown-item navlink z-depth-0' href='pagina.php?curso_id=$curso_id'><i class='fad fa-book-reader fa-fw'></i> $curso_sigla</a>
-		          <a class='dropdown-item navlink z-depth-0' href='logout.php'><i class='fad fa-portal-exit fa-fw'></i> {$common_strings['logout']}</a>
+		          <a class='dropdown-item navlink z-depth-0' href='logout.php'><i class='fad fa-portal-exit fa-fw'></i> {$pagina_translated['logout']}</a>
 		      </li>
 		    </ul>
 		  </nav>
