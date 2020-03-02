@@ -248,7 +248,7 @@
 						}
 						
 						$template_id = 'grupos_estudos';
-						$template_titulo = $common_strings['study groups'];
+						$template_titulo = $pagina_translated['study groups'];
 						$template_botoes = false;
 						$template_classes = 'esconder_sessao justify-content-center';
 						//$template_col_value = 'col-lg-8 col-md-10 col-sm-12';
@@ -323,7 +323,7 @@
 						}
 						
 						$template_id = 'escolha_cursos';
-						$template_titulo = $common_strings['courses'];
+						$template_titulo = $pagina_translated['courses'];
 						$template_classes = 'mostrar_sessao esconder_sessao justify-content-center';
 						$template_conteudo = false;
 						$template_conteudo .= "<p>{$pagina_translated['most effective']}</p>";
@@ -374,7 +374,7 @@
 						include 'templates/page_element.php';
 						
 						$template_id = 'topicos_interesse';
-						$template_titulo = $common_strings['freepages'];
+						$template_titulo = $pagina_translated['freepages'];
 						$template_classes = 'esconder_sessao';
 						$template_conteudo_class = 'justify-content-start';
 						$template_conteudo_no_col = true;
@@ -461,7 +461,7 @@
 						*/
 						
 						$template_id = 'acervo_virtual';
-						$template_titulo = $common_strings['your collection'];
+						$template_titulo = $pagina_translated['your collection'];
 						$template_classes = 'esconder_sessao';
 						$template_conteudo_class = 'justify-content-start';
 						$template_conteudo_no_col = true;
@@ -790,7 +790,7 @@
 	
 	if ($bookmarks->num_rows > 0) {
 		$template_modal_div_id = 'modal_bookmarks';
-		$template_modal_titulo = $common_strings['bookmarks'];
+		$template_modal_titulo = $pagina_translated['bookmarks'];
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
 		while ($bookmark = $bookmarks->fetch_assoc()) {
@@ -807,7 +807,7 @@
 	}
 	
 	$template_modal_div_id = 'modal_apresentacao';
-	$template_modal_titulo = $common_strings['your office lounge'];
+	$template_modal_titulo = $pagina_translated['your office lounge'];
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "<p>{$pagina_translated['lounge room explanation 1']}</p>";
 	$template_modal_body_conteudo .= "<p>{$pagina_translated['lounge room explanation 2']}</p>";
@@ -925,7 +925,7 @@
 	include 'templates/modal.php';
 	
 	$template_modal_div_id = 'modal_notificacoes';
-	$template_modal_titulo = $common_strings['notifications'];
+	$template_modal_titulo = $pagina_translated['notifications'];
 	$template_modal_show_buttons = false;
 	$template_modal_body_conteudo = false;
 	if ($notificacoes->num_rows > 0) {

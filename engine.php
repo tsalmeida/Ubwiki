@@ -125,7 +125,7 @@
 	}
 	
 	include 'templates/translation.php';
-	$pagina_translated = translate_pagina($pagina_tipo, $user_language);
+	$pagina_translated = translate_pagina($user_language);
 	
 	if (isset($_SESSION['curso_id'])) {
 		$curso_id = $_SESSION['curso_id'];
@@ -3158,4 +3158,41 @@
 		echo $delete_edit_check;
 	}
 	
+	if (isset($_POST['popular_traducao_chave_pt'])) {
+		$popular_traducao_chave_pt = $_POST['popular_traducao_chave_pt'];
+		$chaves_pt = $conn->query("SELECT traducao FROM Chaves_traduzidas WHERE chave_id = $popular_traducao_chave_pt AND lingua = 'pt'");
+		if ($chaves_pt->num_rows > 0) {
+			while ($chave_pt = $chaves_pt->fetch_assoc()) {
+				$chave_pt_string = $chave_pt['traducao'];
+				echo "<span><strong>Português</strong>: <em>$chave_pt_string</em></span>";
+			}
+		} else {
+			echo false;
+		}
+	}
+	if (isset($_POST['popular_traducao_chave_en'])) {
+		$popular_traducao_chave_en = $_POST['popular_traducao_chave_en'];
+		$chaves_en = $conn->query("SELECT traducao FROM Chaves_traduzidas WHERE chave_id = $popular_traducao_chave_en AND lingua = 'en'");
+		if ($chaves_en->num_rows > 0) {
+			while ($chave_en = $chaves_en->fetch_assoc()) {
+				$chave_en_string = $chave_en['traducao'];
+				echo "<span><strong>English</strong>: <em>$chave_en_string</em></span>";
+			}
+		} else {
+			echo false;
+		}
+	}
+	if (isset($_POST['popular_traducao_chave_es'])) {
+		$popular_traducao_chave_es = $_POST['popular_traducao_chave_es'];
+		$chaves_es = $conn->query("SELECT traducao FROM Chaves_traduzidas WHERE chave_id = $popular_traducao_chave_es AND lingua = 'es'");
+		if ($chaves_es->num_rows > 0) {
+			while ($chave_es = $chaves_es->fetch_assoc()) {
+				$chave_es_string = $chave_es['traducao'];
+				echo "<span><strong>Español</strong>: <em>$chave_es_string</em></span>";
+			}
+		} else {
+			echo false;
+		}
+	}
+
 ?>

@@ -55,8 +55,8 @@
 	if ($template_modal_show_buttons == true) {
 		echo "
 	          <div class='modal-footer d-flex justify-content-center'>
-	              <button type='button' class='$button_classes_light' data-dismiss='modal' ><i class='far fa-times-circle fa-fw'></i> {$common_strings['cancel']}</button>
-	              <button type='submit' class='$button_classes' name='$template_modal_submit_name'><i class='far fa-check fa-fw'></i > {$common_strings['save']}</button>
+	              <button type='button' class='$button_classes_light' data-dismiss='modal' ><i class='far fa-times-circle fa-fw'></i> {$pagina_translated['cancel']}</button>
+	              <button type='submit' class='$button_classes' name='$template_modal_submit_name'><i class='far fa-check fa-fw'></i > {$pagina_translated['save']}</button>
 	          </div>
 		";
 	}

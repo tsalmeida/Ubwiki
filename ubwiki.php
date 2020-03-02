@@ -20,7 +20,7 @@
             <div id='coluna_unica' class="col">
 							<?php
 								$template_id = 'apresentacao';
-								$template_titulo = $common_strings['environments'];
+								$template_titulo = $pagina_translated['environments'];
 								$template_conteudo_no_col = true;
 								$template_conteudo_class = 'justify-content-center';
 								$template_conteudo = false;
@@ -36,7 +36,7 @@
 								
 								$artefato_icone_background_link = 'icone-link primary-color text-white';
 								
-								$artefato_titulo = $common_strings['office'];
+								$artefato_titulo = $pagina_translated['office'];
 								$artefato_tipo = 'escritorio';
 								$fa_icone = 'fa-lamp-desk';
 								$fa_color = 'text-info';
@@ -57,7 +57,7 @@
 								$artefato_criacao = false;
 								$template_conteudo .= include 'templates/artefato_item.php';
 								
-								$artefato_titulo = $common_strings['courses'];
+								$artefato_titulo = $pagina_translated['courses'];
 								$artefato_tipo = 'cursos';
 								$fa_icone = 'fa-book-reader';
 								$fa_color = 'text-default';
@@ -78,7 +78,7 @@
 								$artefato_criacao = false;
 								$template_conteudo .= include 'templates/artefato_item.php';
 								
-								$artefato_titulo = $common_strings['freepages'];
+								$artefato_titulo = $pagina_translated['freepages'];
 								$artefato_tipo = 'areas_interesse';
 								$artefato_criacao = false;
 								$fa_icone = 'fa-tags';
@@ -99,7 +99,7 @@
 								$artefato_criacao = false;
 								$template_conteudo .= include 'templates/artefato_item.php';
 								
-								$artefato_titulo = $common_strings['library'];
+								$artefato_titulo = $pagina_translated['library'];
 								$artefato_tipo = 'biblioteca';
 								$fa_icone = 'fa-books';
 								$fa_color = 'text-success';
@@ -120,7 +120,7 @@
 								$artefato_criacao = false;
 								$template_conteudo .= include 'templates/artefato_item.php';
 								
-								$artefato_titulo = $common_strings['forum'];
+								$artefato_titulo = $pagina_translated['forum'];
 								$artefato_tipo = 'forum';
 								$fa_icone = 'fa-comments-alt';
 								$fa_color = 'text-secondary';
@@ -142,7 +142,7 @@
 								$template_conteudo .= include 'templates/artefato_item.php';
 								
 								if ($user_tipo == 'admin') {
-									$artefato_titulo = $common_strings['market'];
+									$artefato_titulo = $pagina_translated['market'];
 									$artefato_tipo = 'loja';
 									$fa_icone = 'fa-bags-shopping';
 									$fa_color = 'text-danger';

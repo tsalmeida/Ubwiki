@@ -10,6 +10,9 @@
 
 	if (isset($_POST['trigger_atualizacao'])) {
 	    $conn->query("ALTER TABLE `Paginas_elementos` ADD `subtipo` VARCHAR(255) NULL DEFAULT NULL AFTER `tipo`;");
+	    $conn->query("CREATE TABLE `Ubwiki`.`Translation_chaves` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `criacao` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `user_id` INT(11) NULL DEFAULT NULL , `chave` VARCHAR(255) NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
+	    $conn->query("CREATE TABLE `Ubwiki`.`Chaves_traduzidas` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `criacao` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `user_id` INT(11) NULL DEFAULT NULL , `chave_id` INT(11) NULL DEFAULT NULL , `lingua` VARCHAR(2) NULL DEFAULT NULL , `traducao` TEXT NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
+	    $conn->query("ALTER TABLE `Chaves_traduzidas` ADD `chave_string` VARCHAR(255) NULL DEFAULT NULL AFTER `chave_id`;");
 	}
 
 	if (isset($_POST['trigger_atualizar_textos_size'])) {
@@ -195,6 +198,22 @@
 						";
 						include 'templates/page_element.php';
 
+						$template_id = 'traducoes';
+						$template_titulo = 'Traduções';
+						$template_conteudo = false;
+						$template_conteudo .= "<div class='row d-flex justify-content-center'>";
+						
+						$artefato_tipo = 'acesso_traducoes';
+						$artefato_titulo = 'Acessar página de traduções';
+						$artefato_col_limit = 'col-lg-4';
+						$artefato_link = 'traducoes.php';
+						$fa_icone = 'fa-language';
+						$fa_color = 'text-primary';
+						$template_conteudo .= include 'templates/artefato_item.php';
+						
+						$template_conteudo .= "</div>";
+						include 'templates/page_element.php';
+						
 						$template_id = 'atualizacao';
 						$template_titulo = 'Atualização';
 						$template_botoes = false;
