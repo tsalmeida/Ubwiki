@@ -31,9 +31,8 @@
 	
 	$fa_color_talvez = 'text-primary';
 	if (!isset($fa_icone)) {
-		$artefato_icone_cores = convert_artefato_icone_cores($artefato_tipo);
-		$fa_icone = $artefato_icone_cores[0];
-		$fa_color_talvez = $artefato_icone_cores[1];
+		$fa_icone = 'fa-circle-notch fa-spin';
+		$fa_color_talvez = 'text-danger';
 	}
 	if (!isset($fa_color)) {
 		$fa_color = $fa_color_talvez;
@@ -58,16 +57,8 @@
 		}
 	}
 	
-	if (($artefato_subtipo == 'imagem') || ($artefato_subtipo == 'imagem_privada')) {
-		$fa_color = 'text-danger';
-	}
-	
 	if (!isset($artefato_modal)) {
 		$artefato_modal = "#modal_{$artefato_tipo}";
-	}
-	
-	if (!isset($fa_color)) {
-		$fa_color = 'text-primary';
 	}
 	
 	if (!isset($artefato_link)) {

@@ -462,6 +462,11 @@
 								echo "<a href='javascript:void(0)' class='text-info mr-1' id='add_elements' title='Adicionar elementos' data-toggle='modal' data-target='#modal_add_elementos'><i class='fad fa-2x fa-plus-circle fa-fw'></i></a>";
 							}
 						}
+						if ($user_tipo == 'admin') {
+							if ($pagina_subtipo != 'produto') {
+								echo "<a href='mercado.php?pagina_id=$pagina_id' class='text-danger mr-1' title='Visitar mercado'><i class='fad fa-bags-shopping fa-2x fa-fw'></i></a>";
+							}
+						}
 						if ($pagina_tipo == 'elemento') {
 							echo "
                             <a href='javascript:void(0);' data-toggle='modal' data-target='#modal_dados_elemento' class='text-info' id='elemento_dados' class='mr-1' title='Editar dados'><i class='fad fa-info-circle fa-fw fa-2x'></i></a>
