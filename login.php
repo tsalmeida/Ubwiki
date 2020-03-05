@@ -85,7 +85,7 @@
 						
 						$template_id = 'formulario_login';
 						$template_titulo = $pagina_translated['access'];
-						$template_botoes = "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_nova_senha' class='text-primary' title='Perdeu sua senha?'><i class='fad fa-unlock-alt fa-fw'></i></a>";
+						$template_botoes = "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_nova_senha' class='text-primary' title='{$pagina_translated['lost password?']}'><i class='fad fa-unlock-alt fa-fw'></i></a>";
 						$template_botoes_padrao = false;
 						$template_conteudo = false;
 						$template_classes = 'justify-content-center';
@@ -94,7 +94,7 @@
                                 <p id='thinkific_transfer' class='collapse'>Não é mais necessário passar pela página do Grupo Ubique para acessar a Ubwiki. Crie uma senha abaixo.</p>
                                 <p id='thinkific_senha_existe' class='collapse'>Porque você já criou uma senha, não é mais necessário passar pela página do Grupo Ubique para acessar a Ubwiki. Insira sua senha abaixo.</p>
                                 <p id='thinkific_senha_incorreta' class='collapse text-danger'>Senha incorreta. Trata-se da senha que você criou na Ubwiki, não da sua senha na página do Grupo Ubique.</p>
-                                <p id='login_mensagem_basica' class='collapse'>{$pagina_translated['access_message']}</p>
+                                <p id='login_mensagem_basica' class='collapse'>{$pagina_translated['access_message']} <a href='javascript:void(0);' data-toggle='modal' data-target='#modal_nova_senha'>{$pagina_translated['lost password?']}</a></p>
                                 <p id='login_senha_confirmar' class='collapse'>{$pagina_translated['correct_password_but']}</p>
                                 <p id='login_senha_incorreta' class='collapse text-danger'>Senha incorreta.</p>
                                 <p id='login_novo_usuario' class='collapse'>Não existe conta registrada para este email. Continue para criar uma conta.</p>

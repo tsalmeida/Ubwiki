@@ -2938,6 +2938,8 @@
 					case 'secao':
 						return array('fa-list-ol', 'text-info', 'rgba-cyan-strong');
 						break;
+					case 'resposta':
+						return array('fa-comment-alt-edit', 'text-success', 'rgba-cyan-strong');
 					default:
 						return array('fa-circle-notch fa-spin', 'text-danger', 'rgba-red-strong');
 				}

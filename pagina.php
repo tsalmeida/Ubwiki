@@ -457,20 +457,15 @@
     <div class="row justify-content-between">
         <div class='py-2 text-left col-md-4 col-sm-12'>
 					<?php
-						if (($pagina_tipo != 'sistema') && ($pagina_tipo != 'texto') && ($pagina_compartilhamento != 'escritorio') && ($pagina_tipo != 'materia')) {
+						if (($pagina_tipo != 'sistema') && ($pagina_compartilhamento != 'escritorio') && ($pagina_tipo != 'materia')) {
 							if ($privilegio_edicao == true) {
 								echo "<a href='javascript:void(0)' class='text-info mr-1' id='add_elements' title='Adicionar elementos' data-toggle='modal' data-target='#modal_add_elementos'><i class='fad fa-2x fa-plus-circle fa-fw'></i></a>";
 							}
 						}
-						if ($user_tipo == 'admin') {
-							if ($pagina_subtipo != 'produto') {
-								echo "<a href='mercado.php?pagina_id=$pagina_id' class='text-danger mr-1' title='Visitar mercado'><i class='fad fa-bags-shopping fa-2x fa-fw'></i></a>";
-							}
-						}
 						if ($pagina_tipo == 'elemento') {
 							echo "
-                            <a href='javascript:void(0);' data-toggle='modal' data-target='#modal_dados_elemento' class='text-info' id='elemento_dados' class='mr-1' title='Editar dados'><i class='fad fa-info-circle fa-fw fa-2x'></i></a>
-                            <a href='javascript:void(0);' data-toggle='modal' data-target='#modal_elemento_subtipo' class='text-info' id='elemento_subtipo' class='mr-1' title='Determinar subcategoria'><i class='fad fa-sort-circle fa-fw fa-2x'></i></a>
+                            <a href='javascript:void(0);' data-toggle='modal' data-target='#modal_dados_elemento' class='text-info mr-1' id='elemento_dados' class='mr-1' title='Editar dados'><i class='fad fa-info-circle fa-fw fa-2x'></i></a>
+                            <a href='javascript:void(0);' data-toggle='modal' data-target='#modal_elemento_subtipo' class='text-info mr-1' id='elemento_subtipo' class='mr-1' title='Determinar subcategoria'><i class='fad fa-sort-circle fa-fw fa-2x'></i></a>
                             ";
 						}
 						$modal_pagina_dados = false;
@@ -493,13 +488,6 @@
 								echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_produto_preco' class='text-warning mr-1' id='produto_preco' title='Preço do produto'><i class='fad fa-usd-circle fa-fw fa-2x'></i></a>";
 							}
 						}
-						if ($pagina_tipo == 'texto') {
-							if ($respostas->num_rows > 0) {
-								echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_reply' class='text-success mr-1' id='add_reply' title='Adicionar resposta'><i class='fad fa-comment-alt-edit fa-fw fa-2x'></i></a>";
-							} else {
-								echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_reply' class='text-muted mr-1' id='add_reply' title='Adicionar resposta'><i class='fad fa-comment-alt-edit fa-fw fa-2x'></i></a>";
-							}
-						}
 						if (($pagina_tipo == 'curso') && ($curso_user_id == $user_id)) {
 							$carregar_adicionar_materia = true;
 							echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_materia' class='text-success mr-1' id='add_materia' title='Adicionar matéria'><i class='fad fa-plus-circle fa-2x fa-fw'></i></a>";
@@ -516,6 +504,41 @@
 							echo "<a href='javascript:void(0);' class='mr-1 text-secondary' title='Dados da questão' data-toggle='modal' data-target='#modal_questao_dados'><i class='fad fa-check-circle fa-fw fa-2x'></i></a>";
 						} elseif ($pagina_tipo == 'texto_apoio') {
 							echo "<a href='javascript:void(0)' data-toggle='modal' data-target='#modal_texto_apoio_dados' class='text-secondary mr-1' title='Dados do texto de apoio'><i class='fad fa-check-circle fa-fw fa-2x'></i></a>";
+						}
+						if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id)) {
+							$carregar_modal_destruir_pagina = true;
+							echo "
+                            <a href='javascript:void(0);' class='text-default mr-1' id='compartilhar_anotacao' title='Colaboração e publicação' data-toggle='modal' data-target='#modal_compartilhar_pagina'>
+                                <i class='fad fa-user-friends fa-fw fa-2x'></i>
+                            </a>
+                            <a href='javascript:void(0);' class='text-danger mr-1' id='destruir_pagina' title='Destruir esta página' data-toggle='modal' data-target='#modal_destruir_pagina'>
+                                <i class='fad fa-shredder fa-fw fa-2x'></i>
+                            </a>
+	                        ";
+						}
+						if ($user_tipo == 'admin') {
+							if ($pagina_subtipo != 'produto') {
+								$existe_produto = false;
+								if ($existe_produto == true) {
+									$produto_color = 'text-danger';
+								} else {
+									$produto_color = 'text-muted';
+								}
+								echo "<a href='mercado.php?pagina_id=$pagina_id' class='$produto_color mr-1' title='Visitar mercado'><i class='fad fa-bags-shopping fa-2x fa-fw'></i></a>";
+							}
+						}
+						if (($pagina_tipo != 'sistema') && ($pagina_compartilhamento != 'escritorio')) {
+							$comments = $conn->query("SELECT timestamp, comentario_text, user_id FROM Forum WHERE pagina_id = $pagina_id");
+							if ($comments->num_rows == 0) {
+								$forum_color = 'text-muted';
+							} else {
+								$forum_color = 'text-secondary';
+							}
+							echo "
+                                <a href='forum.php?pagina_id=$pagina_id' title='Fórum' class='$forum_color mr-1'>
+                                <i class='fad fa-comments-alt fa-2x fa-fw'></i>
+                                </a>
+                            ";
 						}
 					?>
         </div>
@@ -576,39 +599,12 @@
 							  </a>
 						    ";
 						}
-						if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id)) {
-							$carregar_modal_destruir_pagina = true;
-							echo "
-                            <a href='javascript:void(0);' class='text-default ml-1' id='compartilhar_anotacao' title='Colaboração e publicação' data-toggle='modal' data-target='#modal_compartilhar_pagina'>
-                                <i class='fad fa-user-friends fa-fw'></i>
-                            </a>
-                            <a href='javascript:void(0);' class='text-danger ml-1' id='destruir_pagina' title='Destruir esta página' data-toggle='modal' data-target='#modal_destruir_pagina'>
-                                <i class='fad fa-shredder fa-fw'></i>
-                            </a>
-	                        ";
-						}
 						$vinculos_wikipedia = $conn->query("SELECT elemento_id, extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'wikipedia'");
 						if ($vinculos_wikipedia->num_rows > 0) {
 							$carregar_modal_wikipedia = true;
 							echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_vinculos_wikipedia' class='text-dark ml-1'><i class='fab fa-wikipedia-w fa-fw'></i></a>";
 						}
 						echo "<a href='javascript:void(0);' class='$notificacao_cor ml-1' data-toggle='modal' data-target='#modal_notificacoes'><i class='fad $notificacao_icone fa-fw'></i></a>";
-						if (($pagina_tipo != 'sistema') && ($pagina_compartilhamento != 'escritorio')) {
-							$comments = $conn->query("SELECT timestamp, comentario_text, user_id FROM Forum WHERE pagina_id = $pagina_id");
-							if ($comments->num_rows == 0) {
-								echo "
-									<a href='forum.php?pagina_id=$pagina_id' title='Fórum' class='text-muted ml-1'>
-                                    <i class='fad fa-comments-alt fa-fw'></i>
-                                    </a>
-                            	";
-							} else {
-								echo "
-									<a href='forum.php?pagina_id=$pagina_id' title='Fórum' class='text-secondary ml-1'>
-                                    <i class='fad fa-comments-alt fa-fw'></i>
-                                    </a>
-		                    	";
-							}
-						}
 						if (($user_id != false) && ($pagina_tipo != 'sistema') && ($pagina_compartilhamento != 'escritorio')) {
 							if ($etiquetados->num_rows > 0) {
 								echo "
@@ -1592,12 +1588,12 @@
 		$template_modal_show_buttons = false;
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
-			<p>Pressione o botão abaixo para escrever um texto em resposta a este. Seu texto será visível a todos que possam acessar este texto.</p>
+			<p>Pressione o botão abaixo para escrever um texto em resposta a este. Seu texto será visível a todos que possam acessar este texto, mas somente será listado abaixo após lhe seja indicado um título.</p>
 			<div class='row justify-content-center'>
 				<a href='pagina.php?original_id=$pagina_id&resposta_id=new'><button class='$button_classes'>Escrever resposta</button></a>
 			</div>
 		";
-		$template_modal_body_conteudo .= "<h2>Respostas a este texto</h2>";
+		$template_modal_body_conteudo .= "<h3 class='mt-3'>Respostas a este texto</h3>";
 		if ($respostas->num_rows > 0) {
 			while ($resposta = $respostas->fetch_assoc()) {
 				$resposta_pagina_id = $resposta['elemento_id'];
@@ -1609,7 +1605,15 @@
 				$resposta_avatar_cor = $resposta_avatar_info[1];
 				$resposta_user_apelido = return_apelido_user_id($resposta_user_id);
 				if ($resposta_pagina_titulo != false) {
-					$template_modal_body_conteudo .= "<li class='list-group-item d-flex justify-content-between'><a href='pagina.php?user_id=$resposta_user_id' class='$resposta_avatar_cor'><i class='fa $resposta_avatar_icone fa-fw fa-2x'></i> <span class='text-dark'>$resposta_user_apelido</span></a> <a href='pagina.php?pagina_id=$resposta_pagina_id'>$resposta_pagina_titulo</a></li>";
+					$template_modal_body_conteudo .= "
+                        <li class='list-group-item d-flex justify-content-start'>
+                            <a href='pagina.php?user_id=$resposta_user_id' class='$resposta_avatar_cor'>
+                                <i class='fa $resposta_avatar_icone fa-fw'></i>
+                                <span class='text-primary'>$resposta_user_apelido</span>
+                            </a>:
+                            \"<a href='pagina.php?pagina_id=$resposta_pagina_id'>$resposta_pagina_titulo</a>\"
+                        </li>
+                    ";
 				}
 			}
 		} else {
@@ -2102,7 +2106,7 @@
 		$quill_extra_buttons = false;
 		if ($texto_user_id == $user_id) {
 			if ($pagina_compartilhamento == 'privado') {
-				$quill_extra_buttons .= "<a id='apagar_anotacao' class='mx-2 text-danger' title='Destruir anotação' data-toggle='modal' data-target='#modal_apagar_anotacao' href='javascript:void(0);'><i class='fad fa-shredder fa-fw'></i></a>";
+				$quill_extra_buttons = "<a id='apagar_anotacao' class='mr-2 text-danger' title='Destruir anotação' data-toggle='modal' data-target='#modal_apagar_anotacao' href='javascript:void(0);'><i class='fad fa-shredder fa-fw'></i></a>";
 			}
 		}
 		$quill_extra_buttons = mysqli_real_escape_string($conn, $quill_extra_buttons);
