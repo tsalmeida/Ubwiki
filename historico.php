@@ -107,9 +107,9 @@
 							<?php
 								$template_id = 'historico_esquerda';
 								if ($edicao_coluna_esquerda == false) {
-									$template_titulo = 'Carregar versão';
+									$template_titulo = 'Carregar versão de referência';
 								} else {
-									$template_titulo = 'Versão mais antiga';
+									$template_titulo = 'Versão de referência';
 								}
                                 $template_classes = 'elemento-anotacoes';
 								$template_botoes = "<a class='text-info' data-toggle='modal' data-target='#modal_edicao_esquerda' ><i class='fad fa-archive fa-fw'></i></a>";
