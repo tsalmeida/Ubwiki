@@ -2106,7 +2106,7 @@
 		$quill_extra_buttons = false;
 		if ($texto_user_id == $user_id) {
 			if ($pagina_compartilhamento == 'privado') {
-				$quill_extra_buttons = "<a id='apagar_anotacao' class='mr-2 text-danger' title='Destruir anotação' data-toggle='modal' data-target='#modal_apagar_anotacao' href='javascript:void(0);'><i class='fad fa-shredder fa-fw'></i></a>";
+				$quill_extra_buttons = "<a id='apagar_anotacao' class='text-danger ql-formats' title='Destruir anotação' data-toggle='modal' data-target='#modal_apagar_anotacao' href='javascript:void(0);'><i class='fad fa-shredder fa-fw'></i></a>";
 			}
 		}
 		$quill_extra_buttons = mysqli_real_escape_string($conn, $quill_extra_buttons);

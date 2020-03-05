@@ -570,7 +570,7 @@
 			<script type='text/javascript'>
 			 $(document).ready(function() {
 					var extra_buttons = \"$quill_extra_buttons\";
-					$('.ql-toolbar').prepend(extra_buttons);
+					$('.ql-toolbar').append(extra_buttons);
 	      });
 			</script>
 		";
