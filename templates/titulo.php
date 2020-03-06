@@ -1,9 +1,22 @@
 <?php
-	if (!isset($template_titulo)) { return false; }
-	if (!isset($template_titulo_context)) { $template_titulo_context = true; }
-	if (!isset($template_titulo_no_nav)) { $template_titulo_no_nav = false; }
-	if (!isset($template_titulo_above)) { $template_titulo_above = false; }
-	if (!isset($template_subtitulo)) { $template_subtitulo = false; }
+	if (!isset($template_titulo)) {
+		return false;
+	}
+	if (!isset($template_titulo_context)) {
+		$template_titulo_context = true;
+	}
+	if (!isset($template_titulo_no_nav)) {
+		$template_titulo_no_nav = false;
+	}
+	if (!isset($template_titulo_above)) {
+		$template_titulo_above = false;
+	}
+	if (!isset($template_subtitulo)) {
+		$template_subtitulo = false;
+	}
+	if (!isset($template_subtitulo_size)) {
+		$template_subtitulo_size = 'h4';
+	}
 	
 	$titulo_length = strlen($template_titulo);
 	$display_level = false;
@@ -23,8 +36,11 @@
 			$display_level = false;
 		}
 	}
-	if ($template_titulo_no_nav == true) { $spacing = 'my-2'; }
-	else { $spacing = 'mb-2'; }
+	if ($template_titulo_no_nav == true) {
+		$spacing = 'my-2';
+	} else {
+		$spacing = 'mb-2';
+	}
 	
 	if ($template_titulo_context == true) {
 		echo "
@@ -42,13 +58,12 @@
 			<h1 class='$display_level d-none d-md-inline m-0'>$template_titulo</h1>
 			<h1 class='h1-responsive d-sm-inline d-md-none m-0'>$template_titulo</h1>
 		";
-	}
-	else {
+	} else {
 		echo "<h1 class='h1-responsive'>$template_titulo</h1>";
 	}
 	if ($template_subtitulo != false) {
 		echo "
-			<span class='text-muted d-block mt-3'><h4>$template_subtitulo</h4></span>
+			<span class='text-muted d-block mt-3'><$template_subtitulo_size>$template_subtitulo</$template_subtitulo_size></span>
 		";
 	}
 	if ($template_titulo_context == true) {
@@ -63,3 +78,4 @@
 	unset($template_titulo_no_nav);
 	unset($template_subtitulo);
 	unset($template_titulo_above);
+	unset ($template_subtitulo_size);

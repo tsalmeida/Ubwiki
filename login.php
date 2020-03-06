@@ -24,8 +24,9 @@
     <div class="row d-flex justify-content-center mt-2">
         <div class="col">
 					<?php
-						$template_titulo = 'Ubwiki';
-						$template_subtitulo = "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_login' class='text-primary'>{$pagina_translated['slogan']}</a>";
+						$template_titulo = "Ubwiki";
+						$template_subtitulo = "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_login' class='text-primary'><i class='fad fa-sign-in-alt fa-fw'></i> {$pagina_translated['slogan']}</a>";
+						$template_subtitulo_size = 'h2';
 						$template_titulo_context = true;
 						include 'templates/titulo.php';
 					?>
