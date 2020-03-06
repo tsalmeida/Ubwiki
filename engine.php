@@ -15,12 +15,19 @@
 		$user_email = false;
 	}
 	
+	$user_logged_out = false;
+	
 	if (!isset($_SESSION['user_email'])) {
 		$user_email = false;
 		if ((!isset($_POST['login_email'])) && (!isset($_POST['thinkific_login']))) {
 			if (($user_email == false) && ($pagina_tipo != 'logout') && ($pagina_tipo != 'login') && ($pagina_tipo != 'index')) {
-				header('Location:logout.php');
-				exit();
+				$user_logged_out = true;
+				$user_id = false;
+				$user_tipo = 'visitante';
+				$user_email = false;
+				$curso_id = 1;
+//				header('Location:logout.php');
+//				exit();
 			}
 		}
 	} else {
@@ -88,7 +95,7 @@
 			if (!isset($_SESSION['redirecao'])) {
 				$_SESSION['redirecao'] = true;
 				$redirecao = $_SESSION['redirecao'];
-				header('Location:pagina.php?pagina_id=2'); // página que explica a necessidade de fazer login no site da Ubique.
+				header('Location:ubwiki.php');
 				exit();
 			} else {
 				unset($_SESSION['redirecao']);
@@ -131,13 +138,15 @@
 		$curso_id = $_SESSION['curso_id'];
 	}
 	if (isset($_GET['curso_id'])) {
-		$curso_id = $_GET['curso_id'];
-		$_SESSION['curso_id'] = $curso_id;
-		$cursos_ativos = $conn->query("SELECT opcao FROM Opcoes WHERE user_id = $user_id AND opcao_tipo = 'curso_ativo'");
-		if ($cursos_ativos->num_rows > 0) {
-			$conn->query("UPDATE Opcoes SET opcao = $curso_id WHERE user_id = $user_id AND opcao_tipo = 'curso_ativo'");
-		} else {
-			$conn->query("INSERT INTO Opcoes (opcao, opcao_tipo, user_id) VALUES ($curso_id, 'curso_ativo', $user_id)");
+		if ($user_id != false) {
+			$curso_id = $_GET['curso_id'];
+			$_SESSION['curso_id'] = $curso_id;
+			$cursos_ativos = $conn->query("SELECT opcao FROM Opcoes WHERE user_id = $user_id AND opcao_tipo = 'curso_ativo'");
+			if ($cursos_ativos->num_rows > 0) {
+				$conn->query("UPDATE Opcoes SET opcao = $curso_id WHERE user_id = $user_id AND opcao_tipo = 'curso_ativo'");
+			} else {
+				$conn->query("INSERT INTO Opcoes (opcao, opcao_tipo, user_id) VALUES ($curso_id, 'curso_ativo', $user_id)");
+			}
 		}
 	} else {
 		if ($user_id != false) {
@@ -2004,7 +2013,7 @@
 	
 	function return_compartilhamento($item_id, $user_id)
 	{
-		if (($item_id == false) || ($user_id == false)) {
+		if ($item_id == false) {
 			return false;
 		}
 		$check_publicacao = return_publicacao($item_id);
@@ -2019,6 +2028,9 @@
 		}
 		if ($user_id == $item_pagina_user_id) {
 			return true;
+		}
+		if ($user_id == false) {
+			return false;
 		}
 		include 'templates/criar_conn.php';
 		$membros = $conn->query("SELECT grupo_id FROM Membros WHERE membro_user_id = $user_id AND estado = 1");
@@ -3051,5 +3063,33 @@
 			echo false;
 		}
 	}
-
+	
+	if (isset($_GET['confirmacao'])) {
+		$confirmacao = $_GET['confirmacao'];
+		$conn->query("UPDATE Usuarios SET origem = 'confirmado' WHERE origem = '$confirmacao'");
+	}
+	
+	function send_nova_senha($email, $confirmacao)
+	{
+		$msg = "Sua senha na Ubwiki foi alterada.\nCaso você não tenha conta na Ubwiki, uma nova conta terá sido criada para seu endereço de email.\nPara ativá-la, siga este link:\nhttps://www.ubwiki.com.br/ubwiki/login.php?confirmacao=$confirmacao";
+		mail($email, 'Nova senha na Ubwiki', $msg, null, '-fwebmaster@ubwiki.com.br');
+	}
+	
+	if (isset($_POST['nova_senha'])) {
+		$nova_senha = $_POST['nova_senha'];
+		$nova_senha_email = $_POST['nova_senha_email'];
+		$nova_senha_encrypted = password_hash($nova_senha, PASSWORD_DEFAULT);
+		$confirmacao = generateRandomString(12);
+		send_nova_senha($nova_senha_email, $confirmacao);
+		$usuarios = $conn->query("SELECT id FROM Usuarios WHERE email = '$nova_senha_email'");
+		if ($usuarios->num_rows > 0) {
+			while ($usuario = $usuarios->fetch_assoc()) {
+				$usuario_id = $usuario['id'];
+				$conn->query("UPDATE Usuarios SET senha = '$nova_senha_encrypted', origem = '$confirmacao' WHERE id = $usuario_id");
+			}
+		} else {
+			$conn->query("INSERT INTO Usuarios (email, origem, senha) VALUES ('$nova_senha_email', '$confirmacao', '$nova_senha_encrypted')");
+		}
+	}
+	
 ?>

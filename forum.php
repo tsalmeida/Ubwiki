@@ -275,6 +275,11 @@
 	include 'templates/modal.php';
 	
 	include 'pagina/modal_notificacoes.php';
+	
+	if ($user_id == false) {
+		$carregar_modal_login = true;
+		include 'pagina/modal_login.php';
+	}
 
 ?>
 

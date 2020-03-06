@@ -973,7 +973,12 @@
 	$template_modal_div_id = 'modal_gerenciar_etiquetas';
 	$template_modal_titulo = $pagina_translated['Incluir área de interesse'];
 	include 'templates/etiquetas_modal.php';
-
+	
+	if ($user_id == false) {
+		$carregar_modal_login = true;
+		include 'pagina/modal_login.php';
+	}
+	
 ?>
 
 </body>

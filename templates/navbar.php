@@ -30,28 +30,36 @@
 				echo "<a class='navbar-brand $template_navbar_text' href='ubwiki.php' title='Retornar ao nexus.'>Ubwiki</a>";
 			}
 		}
-		echo "<ul class='nav navbar-nav ml-auto nav-flex-icons'>";
-		echo "<li class='nav-item dropdown'>";
-		echo "<a class='navlink dropdown-toggle waves-effect waves-light rounded $template_navbar_text' id='user_dropdown' data-toggle='dropdown' href='javascript:void(0);'>";
-		echo "
+		if ($user_id != false) {
+			echo "<ul class='nav navbar-nav ml-auto nav-flex-icons'>";
+			echo "<li class='nav-item dropdown'>";
+			echo "<a class='navlink dropdown-toggle waves-effect waves-light rounded $template_navbar_text' id='user_dropdown' data-toggle='dropdown' href='javascript:void(0);'>
 		        <i class='fas fa-2x $navbar_avatar fa-lg fa-fw'></i>
 		        </a>
 		        <div class='dropdown-menu dropdown-menu-right z-depth-0'>
 		          <a class='dropdown-item navlink z-depth-0' href='escritorio.php'><i class='fad fa-lamp-desk fa-fw'></i> {$pagina_translated['office']}</a>
 		          <a class='dropdown-item navlink z-depth-0' href='ubwiki.php'><i class='fad fa-portal-enter fa-fw'></i> {$pagina_translated['environments']}</a>";
-		if ($carregar_carrinho == true) {
-			echo "<a class='dropdown-item navlink z-depth-0' href='carrinho.php'><i class='fad fa-shopping-cart fa-fw'></i> {$pagina_translated['your cart']}</a>";
-		}
-		if ($user_tipo == 'admin') {
-			echo "<a class='dropdown-item navlink z-depth-0' href='admin.php'><i class='fad fa-cogs fa-fw'></i> {$pagina_translated['administrators page']}</a>";
-		}
-		echo "
+			if ($carregar_carrinho == true) {
+				echo "<a class='dropdown-item navlink z-depth-0' href='carrinho.php'><i class='fad fa-shopping-cart fa-fw'></i> {$pagina_translated['your cart']}</a>";
+			}
+			if ($user_tipo == 'admin') {
+				echo "<a class='dropdown-item navlink z-depth-0' href='admin.php'><i class='fad fa-cogs fa-fw'></i> {$pagina_translated['administrators page']}</a>";
+			}
+			echo "
 		          <a class='dropdown-item navlink z-depth-0' href='pagina.php?curso_id=$curso_id'><i class='fad fa-book-reader fa-fw'></i> $curso_sigla</a>
 		          <a class='dropdown-item navlink z-depth-0' href='logout.php'><i class='fad fa-portal-exit fa-fw'></i> {$pagina_translated['logout']}</a>
 		      </li>
 		    </ul>
-		  </nav>
   	";
+		} else {
+			$carregar_modal_login = true;
+			echo "
+							<a class='ml-auto waves-effect waves-light rounded text-white' data-toggle='modal' data-target='#modal_login'>
+								<i class='fas fa-2x fa-user-tie fa-fw'></i>
+							</a>
+						";
+		}
+		echo "</nav>";
 	}
 	unset($template_navbar_mode);
 	unset($template_navbar_color);

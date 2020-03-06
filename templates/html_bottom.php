@@ -69,6 +69,12 @@
 	if (!isset($carregar_controle_estado)) {
 		$carregar_controle_estado = false;
 	}
+	if (!isset($carregar_modal_login)) {
+		$carregar_modal_login = false;
+	}
+	if ($user_id == false) {
+		$carregar_modal_login = true;
+	}
 	
 	echo "
     <!-- Bootstrap tooltips -->
@@ -886,6 +892,188 @@
 			</script>
 		";
 	}
+	if ($carregar_modal_login == true) {
+		$redirect = "window.location.replace('index.php');";
+		if ($pagina_tipo != 'login') {
+			$redirect = "window.location.reload(true);";
+		}
+		if (!isset($thinkific_email)) {
+			echo "
+			<script type='text/javascript'>
+				function isEmail(email) {
+                  var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                  return regex.test(email);
+                }
+				$('#secao_login_email').show();
+				$('#login_mensagem_basica').show();
+				$('#login_email').keyup(function() {
+				    email = $('#login_email').val();
+				    email_check = isEmail(email);
+				    if (email_check == true) {
+				        $('#secao_login_senha').show();
+				    } else {
+				        $('#secao_login_senha').hide();
+				    }
+				});
+				$('#login_senha').keyup(function() {
+                    var senha = $('#login_senha').val();
+                    var senha_length = senha.length;
+                    if (senha_length > 5) {
+                        $('#botao_login').prop('disabled', false)
+                    } else {
+                        $('#botao_login').prop('disabled', true)
+                    }
+                 });
+				$('#login_senha_confirmacao').keyup(function() {
+                    var senha = $('#login_senha').val();
+   				    var senha2 = $('#login_senha_confirmacao').val();
+                    if (senha == senha2) {
+                        $('#botao_login').prop('disabled', false)
+                    } else {
+                        $('#botao_login').prop('disabled', true)
+                    }
+                 });
+				
+                  $(document).on('click', '#botao_login', function() {
+                      var login = $('#login_email').val();
+                      var senha = $('#login_senha').val();
+                      var senha2 = $('#login_senha_confirmacao').val();
+                      if (senha2 == false) {
+                        $.post('engine.php', {
+                            'login_email': login,
+                            'login_senha': senha,
+                            'login_origem': 'desconhecido'
+                        }, function(data) {
+                            if ((data == 1) || (data == 11)) {
+                                $redirect
+                            } else if (data == 0) {
+                                $('#login_mensagem_basica').addClass('text-muted');
+                                $('#login_senha_incorreta').show();
+                            } else if (data == 'novo_usuario') {
+                                $('#login_mensagem_basica').addClass('text-muted');
+                                $('#login_novo_usuario').show();
+                                $('#secao_login_confirmacao').show();
+                                $('#login_senha_confirmacao').prop('disabled', false);
+                                $('#login_senha_incorreta').hide();
+                                $('#login_email').prop('disabled', true);
+                                $('#login_senha').prop('disabled', true);
+                                $('#botao_login').prop('disabled', true);
+                            } else if (data == 'thinkific') {
+                                $('#login_thinkific_registro').show();
+                                $('#login_mensagem_basica').addClass('text-muted');
+                                $('#login_email').prop('disabled', true);
+                                $('#login_senha').prop('disabled', true);
+                            } else if (data == 'confirmacao') {
+                                $('#login_senha_confirmar').show();
+                                $('#login_senha_incorreta').hide();
+                            }
+                        });
+                      } else {
+                          if (senha != senha2) {
+                              alert('Senhas não conferem.');
+                          } else {
+                              $.post('engine.php', {
+                                 'login_email': login,
+                                 'login_senha': senha,
+                                 'login_senha2': senha2,
+                              }, function(data) {
+                                  if (data == 1) {
+                                      $redirect
+                                  } else {
+                                      alert('Ocorreu algum problema, sua conta não foi criada.');
+                                  }
+                              });
+                          }
+                      }
+                  });
+			</script>
+		";
+		} else {
+			$usuarios = $conn->query("SELECT id FROM Usuarios WHERE email = '$thinkific_email' AND senha IS NULL");
+			if ($usuarios->num_rows == 0) {
+				echo "
+	            <script type='text/javascript'>
+	               $('#thinkific_senha_existe').show();
+	               $('#login_thinkific_email').val('$thinkific_email');
+	               $('#secao_login_thinkific_email').show();
+	               $('#secao_login_senha').show();
+	               $('#secao_login_confirmacao').hide();
+	               $('#login_senha').keyup(function() {
+	                    var senha = $('#login_senha').val();
+	                    var senha_length = senha.length;
+	                    if (senha_length > 5) {
+	                        $('#botao_login').prop('disabled', false)
+	                    } else {
+	                        $('#botao_login').prop('disabled', true)
+	                    }
+	               });
+	               $(document).on('click', '#botao_login', function() {
+	                    var login = '$thinkific_email';
+	                    var senha = $('#login_senha').val();
+	                    $.post('engine.php', {
+	                        'login_email': login,
+	                        'login_senha': senha,
+	                        'login_origem': 'thinkific'
+	                    }, function(data) {
+	                        if (data != 0) {
+	                            $redirect
+	                        } else {
+	                            $('#thinkific_senha_existe').addClass('text-muted');
+	                            $('#thinkific_senha_incorreta').show();
+	                        }
+	                    });
+	               });
+                </script>
+	        ";
+			} else {
+				echo "
+                <script type='text/javascript'>
+                    $('#secao_login_thinkific_email').show();
+                    $('#thinkific_transfer').show();
+                    $('#login_thinkific_email').val('$thinkific_email');
+                    $('#secao_login_senha').show();
+                    $('#secao_login_confirmacao').show();
+                    $('#login_senha_confirmacao').prop('disabled', false);
+                    $('#login_senha_confirmacao').keyup(function() {
+                       var senha1 = $('#login_senha').val();
+                       var senha2 = $('#login_senha_confirmacao').val();
+                       var senha_length = senha2.length;
+                       if (senha_length > 5) {
+                           if (senha2 != '') {
+                               if (senha1 == senha2) {
+                                   $('#botao_login').prop('disabled', false)
+                               }
+                           } else {
+                               $('#botao_login').prop('disabled', true)
+                           }
+                       } else {
+                          $('#botao_login').prop('disabled', true)
+                       }
+                       if (senha1 != senha2) {
+                          $('#botao_login').prop('disabled', true)
+                       }
+                    });
+                    $(document).on('click', '#botao_login', function() {
+                       var login = '$thinkific_email';
+                       var senha1 = $('#login_senha').val();
+                        $.post('engine.php', {
+                            'thinkific_login': login,
+                            'thinkific_senha': senha1,
+                        }, function(data) {
+                            if (data != 0) {
+                                $redirect
+                            } else {
+                                alert('Senha incorreta.');
+                            }
+                        });
+                    });
+                </script>
+            ";
+			}
+		}
+	}
 ?>
+
+
 
 

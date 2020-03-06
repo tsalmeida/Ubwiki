@@ -1,5 +1,5 @@
 <?php
-
+	
 	$template_id = 'topicos';
 	$template_titulo = 'Tópicos';
 	$template_botoes = false;
@@ -27,13 +27,18 @@
 		$plano_estudos_pagina_estado_icone = false;
 	}
 	
-	$completos = $conn->query("SELECT pagina_id FROM Completed WHERE user_id = $user_id AND estado = 1");
-	$usuario_completos = array();
-	if ($completos->num_rows > 0) {
-		while ($completo = $completos->fetch_assoc()) {
-			$completo_pagina_id = $completo['pagina_id'];
-			array_push($usuario_completos, $completo_pagina_id);
+	if ($user_id != false) {
+		$completos = $conn->query("SELECT pagina_id FROM Completed WHERE user_id = $user_id AND estado = 1");
+		$usuario_completos = array();
+		if ($completos->num_rows > 0) {
+			while ($completo = $completos->fetch_assoc()) {
+				$completo_pagina_id = $completo['pagina_id'];
+				array_push($usuario_completos, $completo_pagina_id);
+			}
 		}
+	} else {
+		$completos = false;
+		$usuario_completos = array();
 	}
 	
 	$completo_efeito = 'border border-success green-text';

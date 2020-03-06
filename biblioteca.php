@@ -347,6 +347,12 @@
 	include 'pagina/modal_add_elemento.php';
 	include 'pagina/modal_adicionar_imagem.php';
 	include 'pagina/youtube.php';
+	
+	if ($user_id == false) {
+		$carregar_modal_login = true;
+		include 'pagina/modal_login.php';
+	}
+	
 ?>
 </body>
 <script type="text/javascript">

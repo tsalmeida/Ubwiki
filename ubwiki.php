@@ -46,7 +46,11 @@
 								$template_conteudo .= include 'templates/artefato_item.php';
 								
 								$artefato_titulo = $pagina_translated['visit_office'];
-								$artefato_link = 'escritorio.php';
+								if ($user_id == false) {
+									$artefato_modal = '#modal_login';
+								} else {
+									$artefato_link = 'escritorio.php';
+								}
 								$artefato_tipo = 'escritorio_link';
 								$fa_icone = 'fa-lamp-desk';
 								$fa_color = 'text-white';
@@ -218,6 +222,12 @@
             </div>
         </div>
     </div>
+		<?php
+			if ($user_id == false) {
+				$carregar_modal_login = true;
+				include 'pagina/modal_login.php';
+			}
+		?>
     </body>
     <script type="text/javascript">
         $('.sobre_stuff').addClass('hidden');

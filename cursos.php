@@ -65,6 +65,12 @@
 			?>
 	</div>
 </div>
+<?php
+	if ($user_id == false) {
+		$carregar_modal_login = true;
+		include 'pagina/modal_login.php';
+	}
+?>
 </body>
 <?php
 	include 'templates/footer.html';
