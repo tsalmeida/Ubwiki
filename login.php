@@ -57,7 +57,8 @@
 					<?php
 						
 						$template_id = 'sobre_ubwiki';
-						$template_titulo = $pagina_translated['about_ubwiki'];
+						//$template_titulo = $pagina_translated['about_ubwiki'];
+						$template_titulo = false;
 						$template_botoes = false;
 						$template_botoes_padrao = false;
 						$template_conteudo = false;
