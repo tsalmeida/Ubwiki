@@ -289,7 +289,7 @@
 	
 	$artefato_titulo = 'Português';
 	$artefato_tipo = 'lg_pt';
-	$artefato_link = 'login.php?lg=pt';
+	$artefato_link = 'ubwiki.php?lg=pt';
 	$artefato_class = 'language_choose';
 	$fa_icone = 'fa-globe';
 	$fa_color = 'text-success';
@@ -302,7 +302,7 @@
 	
 	$artefato_titulo = 'English';
 	$artefato_tipo = 'lg_en';
-	$artefato_link = 'login.php?lg=en';
+	$artefato_link = 'ubwiki.php?lg=en';
 	$artefato_class = 'language_choose';
 	$fa_icone = 'fa-globe';
 	$fa_color = 'text-primary';
@@ -315,7 +315,7 @@
 	
 	$artefato_titulo = 'Español';
 	$artefato_tipo = 'lg_es';
-	$artefato_link = 'login.php?lg=es';
+	$artefato_link = 'ubwiki.php?lg=es';
 	$artefato_class = 'language_choose';
 	$fa_icone = 'fa-globe';
 	$fa_color = 'text-danger';
