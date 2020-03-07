@@ -585,12 +585,13 @@
         <div class='py-2 text-right col-md-4 col-sm-12'>
 					<?php
 						if ($pagina_tipo == 'elemento') {
-							$carregar_toggle_acervo = true;
-							$elemento_no_acervo = $conn->query("SELECT id FROM Paginas_elementos WHERE pagina_tipo = 'escritorio' AND user_id = $user_id AND elemento_id = $pagina_item_id AND estado = 1");
-							if ($elemento_no_acervo->num_rows > 0) {
-								$item_no_acervo = true;
-							}
-							echo "
+							if ($user_id != false) {
+								$carregar_toggle_acervo = true;
+								$elemento_no_acervo = $conn->query("SELECT id FROM Paginas_elementos WHERE pagina_tipo = 'escritorio' AND user_id = $user_id AND elemento_id = $pagina_item_id AND estado = 1");
+								if ($elemento_no_acervo->num_rows > 0) {
+									$item_no_acervo = true;
+								}
+								echo "
 								  <a id='remover_acervo' href='javascript:void(0);' class='ml-1 text-success' title='Remover do seu acervo'>
 									  <i class='fad fa-lamp-desk fa-fw'></i>
 								  </a>
@@ -598,6 +599,9 @@
 									  <i class='fad fa-lamp-desk fa-fw'></i>
 								  </a>
 						        ";
+							} else {
+								echo "<a href='javascript:void(9);' class='ml-1 text-success' title='Adicionar a seu acervo' data-toggle='modal' data-target='#modal_login'><i class='fad fa-lamp-desk fa-fw'></i></a>";
+							}
 						}
 						if ($pagina_subtipo == 'etiqueta') {
 							$carregar_toggle_paginas_livres = true;
