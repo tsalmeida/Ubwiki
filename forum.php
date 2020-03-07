@@ -75,6 +75,12 @@
 	$pagina_tipo = 'forum';
 	
 	include 'templates/html_head.php';
+	
+	if ($user_id != false) {
+	    $modal_novo_topico = '#modal_novo_topico';
+    } else {
+		$modal_novo_topico = '#modal_login';
+	}
 
 ?>
 
@@ -153,10 +159,10 @@
 								}
 							}
 						}
-						$template_botoes = "<span data-toggle='modal' data-target='#modal_novo_topico' title='Novo tópico de debate'><a href='javascript:void(0);' class='text-info'><i class='fad fa-plus-square fa-fw'></i></a></span>";
+						$template_botoes = "<span data-toggle='modal' data-target='$modal_novo_topico' title='Novo tópico de debate'><a href='javascript:void(0);' class='text-info'><i class='fad fa-plus-square fa-fw'></i></a></span>";
 						$template_conteudo .= "
 					        <div class='row d-flex justify-content-center mt-3'>
-						        <span data-toggle='modal' data-target='#modal_novo_topico'><button class='$button_classes btn-info btn-sm'>Novo tópico de debate</button></span>
+						        <span data-toggle='modal' data-target='$modal_novo_topico'><button class='$button_classes btn-info btn-sm'>Novo tópico de debate</button></span>
 					        </div>
 				        ";
 						

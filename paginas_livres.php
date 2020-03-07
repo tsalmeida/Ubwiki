@@ -25,13 +25,20 @@
 <body class="grey lighten-5">
 <?php
 	include 'templates/navbar.php';
+	
+	if ($user_id != false) {
+	    $adicionar_pagina_livre = '#adicionar_pagina_livre';
+    } else {
+		$adicionar_pagina_livre = '#modal_login';
+	}
+	
 ?>
 <div class="container-fluid">
 	
 	<div class="row d-flex justify-content-between p-1">
 		<div class="col">
 			<div class="row d-flex justify-content-start">
-				<a data-toggle="modal" data-target="#adicionar_pagina_livre" class="text-success ml-1" title="Criar nova página livre" href="javascript:void(0);">
+				<a data-toggle="modal" data-target="<?php echo $adicionar_pagina_livre; ?>" class="text-success ml-1" title="Criar nova página livre" href="javascript:void(0);">
 					<i class="fad fa-plus-circle fa-2x fa-fw"></i>
 				</a>
 			</div>
@@ -67,7 +74,7 @@
 							$template_titulo = 'Tópicos';
 							$template_conteudo_no_col = true;
 							$template_botoes = "
-								  <a data-toggle='modal' data-target='#adicionar_pagina_livre' class='text-success ml-1' title='Adicionar página livre' href='javascript:void(0);'><i class='fad fa-plus-square fa-fw'></i></a>
+								  <a data-toggle='modal' data-target='$adicionar_pagina_livre' class='text-success ml-1' title='Adicionar página livre' href='javascript:void(0);'><i class='fad fa-plus-square fa-fw'></i></a>
 								";
 							$template_conteudo = false;
 							if ($etiquetas->num_rows > 0) {
@@ -103,7 +110,7 @@
 							$template_titulo = 'Recentemente adicionadas';
 							$template_conteudo_no_col = true;
 							$template_botoes = "
-								  <a data-toggle='modal' data-target='#adicionar_pagina_livre' class='text-success ml-1' title='Adicionar página livre' href='javascript:void(0);'><i class='fad fa-plus-square fa-fw'></i></a>
+								  <a data-toggle='modal' data-target='$adicionar_pagina_livre' class='text-success ml-1' title='Adicionar página livre' href='javascript:void(0);'><i class='fad fa-plus-square fa-fw'></i></a>
 								";
 							$template_conteudo = false;
 							$etiquetas = $conn->query("SELECT id  FROM Etiquetas WHERE tipo = 'topico' ORDER BY id DESC");
@@ -139,7 +146,7 @@
 							$template_titulo = 'Recentemente modificadas';
 							$template_conteudo_no_col = true;
 							$template_botoes = "
-								  <a data-toggle='modal' data-target='#adicionar_pagina_livre' class='text-success ml-1' title='Adicionar página livre' href='javascript:void(0);'><i class='fad fa-plus-square fa-fw'></i></a>
+								  <a data-toggle='modal' data-target='$adicionar_pagina_livre' class='text-success ml-1' title='Adicionar página livre' href='javascript:void(0);'><i class='fad fa-plus-square fa-fw'></i></a>
 								";
 							$template_conteudo = false;
 							$paginas_contadas = array();

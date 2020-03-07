@@ -22,12 +22,17 @@
 <body class="grey lighten-5">
 <?php
 	include 'templates/navbar.php';
+	if ($user_id != false) {
+	    $modal_add_elementos = '#modal_add_elementos';
+    } else {
+	    $modal_add_elementos = '#modal_login';
+    }
 ?>
 <div class="container-fluid">
     <div class="row d-flex justify-content-between p-1">
         <div class="col">
             <div class="row d-flex justify-content-start">
-                <a data-toggle='modal' data-target='#modal_add_elementos' class='text-success ml-1 mostrar_categorias'
+                <a data-toggle='modal' data-target='<?php echo $modal_add_elementos; ?>' class='text-success ml-1 mostrar_categorias'
                    title='Adicionar item à biblioteca' href='javascript:void(0);'><i
                             class='fad fa-plus-circle fa-2x fa-fw'></i></a>
             </div>
@@ -73,7 +78,7 @@
 							$fa_color = 'text-info';
 							$artefato_criacao = 'Pressione para adicionar um item à biblioteca';
 							$artefato_tipo = 'nova_referencia';
-							$artefato_modal = '#modal_add_elementos';
+							$artefato_modal = $modal_add_elementos;
 							$artefato_link = false;
 							$template_conteudo .= include 'templates/artefato_item.php';
 							
@@ -116,7 +121,7 @@
 							$template_titulo = 'Recentemente adicionados';
 							$template_conteudo_class = 'justify-content-start';
 							$template_botoes = "
-								  <a data-toggle='modal' data-target='#modal_add_elementos' class='text-success ml-1 mostrar_categorias' title='Adicionar item à biblioteca' href='javascript:void(0);'><i class='fad fa-plus-square fa-fw'></i></a>
+								  <a data-toggle='modal' data-target='$modal_add_elementos' class='text-success ml-1 mostrar_categorias' title='Adicionar item à biblioteca' href='javascript:void(0);'><i class='fad fa-plus-square fa-fw'></i></a>
 								";
 							$template_conteudo_no_col = true;
 							$template_conteudo = false;
@@ -163,7 +168,7 @@
 							$template_conteudo_no_col = true;
 							$template_conteudo = false;
 							$template_botoes = "
-								<a data-toggle='modal' data-target='#modal_add_elementos' class='text-success ml-1 mostrar_categorias' title='Adicionar item à biblioteca' href='javascript:void(0);'><i class='fad fa-plus-square fa-fw'></i></a>
+								<a data-toggle='modal' data-target='$modal_add_elementos' class='text-success ml-1 mostrar_categorias' title='Adicionar item à biblioteca' href='javascript:void(0);'><i class='fad fa-plus-square fa-fw'></i></a>
 							";
 							/*
 							$artefato_id = 'adicionar_item_biblioteca';
