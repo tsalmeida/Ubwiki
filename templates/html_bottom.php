@@ -1072,6 +1072,63 @@
 			}
 		}
 	}
+	if (($pagina_tipo == 'ubwiki') || ($pagina_tipo == 'login')) {
+		echo "
+		<script type=\"text/javascript\">
+        $('.sobre_stuff').addClass('hidden');
+        $('.icones_links').addClass('hidden');
+        $('#artefato_escritorio').click(function () {
+            $('.icone_sobre_stuff').removeClass('hidden');
+            $('.icones_links').addClass('hidden');
+            $('#artefato_escritorio_link').removeClass('hidden');
+            $('.sobre_stuff').addClass('hidden');
+            $('#sobre_escritorio').removeClass('hidden');
+            $('#artefato_escritorio').addClass('hidden');
+        });
+        $('#artefato_cursos').click(function () {
+            $('.icone_sobre_stuff').removeClass('hidden');
+            $('.icones_links').addClass('hidden');
+            $('#artefato_cursos_link').removeClass('hidden');
+            $('.sobre_stuff').addClass('hidden');
+            $('#sobre_cursos').removeClass('hidden');
+            $('#artefato_cursos').addClass('hidden');
+        });
+        $('#artefato_areas_interesse').click(function () {
+            $('.icone_sobre_stuff').removeClass('hidden');
+            $('.icones_links').addClass('hidden');
+            $('#artefato_areas_interesse_link').removeClass('hidden');
+            $('.sobre_stuff').addClass('hidden');
+            $('#sobre_areas_interesse').removeClass('hidden');
+            $('#artefato_areas_interesse').addClass('hidden');
+        });
+        $('#artefato_biblioteca').click(function () {
+            $('.icone_sobre_stuff').removeClass('hidden');
+            $('.icones_links').addClass('hidden');
+            $('#artefato_biblioteca_link').removeClass('hidden');
+            $('.sobre_stuff').addClass('hidden');
+            $('#sobre_biblioteca').removeClass('hidden');
+            $('#artefato_biblioteca').addClass('hidden');
+        });
+        $('#artefato_forum').click(function () {
+            $('.icone_sobre_stuff').removeClass('hidden');
+            $('.icones_links').addClass('hidden');
+            $('#artefato_forum_link').removeClass('hidden');
+            $('.sobre_stuff').addClass('hidden');
+            $('#sobre_forum').removeClass('hidden');
+            $('#artefato_forum').addClass('hidden');
+        });
+        $('#artefato_loja').click(function () {
+            $('.icone_sobre_stuff').removeClass('hidden');
+            $('.icones_links').addClass('hidden');
+            $('#artefato_loja_link').removeClass('hidden');
+            $('.sobre_stuff').addClass('hidden');
+            $('#sobre_loja').removeClass('hidden');
+            $('#artefato_loja').addClass('hidden');
+        });
+
+    </script>
+		";
+	}
 ?>
 
 
