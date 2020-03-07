@@ -893,10 +893,6 @@
 		";
 	}
 	if ($carregar_modal_login == true) {
-		$redirect = "window.location.replace('index.php');";
-		if ($pagina_tipo != 'login') {
-			$redirect = "window.location.reload(true);";
-		}
 		if (!isset($thinkific_email)) {
 			echo "
 			<script type='text/javascript'>
@@ -945,7 +941,7 @@
                             'login_origem': 'desconhecido'
                         }, function(data) {
                             if ((data == 1) || (data == 11)) {
-                                $redirect
+                                window.location.reload(true);
                             } else if (data == 0) {
                                 $('#login_mensagem_basica').addClass('text-muted');
                                 $('#login_senha_incorreta').show();
@@ -978,7 +974,7 @@
                                  'login_senha2': senha2,
                               }, function(data) {
                                   if (data == 1) {
-                                      $redirect
+                                      window.location.reload(true);
                                   } else {
                                       alert('Ocorreu algum problema, sua conta não foi criada.');
                                   }
@@ -1016,7 +1012,7 @@
 	                        'login_origem': 'thinkific'
 	                    }, function(data) {
 	                        if (data != 0) {
-	                            $redirect
+	                            window.location.reload(true);
 	                        } else {
 	                            $('#thinkific_senha_existe').addClass('text-muted');
 	                            $('#thinkific_senha_incorreta').show();
@@ -1061,7 +1057,7 @@
                             'thinkific_senha': senha1,
                         }, function(data) {
                             if (data != 0) {
-                                $redirect
+                                window.location.reload(true);
                             } else {
                                 alert('Senha incorreta.');
                             }

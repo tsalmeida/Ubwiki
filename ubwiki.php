@@ -87,7 +87,7 @@
 						
 						$template_conteudo .= "
                                     <div class='col-12 d-flex justify-content-center'>
-                                    <p class='text-center'>$texto_ambiente</p>
+                                    	<p class='text-center'>$texto_ambiente</p>
                                     </div>
 				                ";
 						
