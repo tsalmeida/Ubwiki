@@ -2418,7 +2418,12 @@
 	if (isset($_POST['convidar_usuario_id'])) {
 		$convidar_usuario_id = $_POST['convidar_usuario_id'];
 		$convidar_grupo_id = $_POST['convidar_grupo_id'];
-		$conn->query("INSERT INTO Membros (grupo_id, membro_user_id, user_id) VALUES ($convidar_grupo_id, $convidar_usuario_id, $user_id)");
+		$check = $conn->query("INSERT INTO Membros (grupo_id, membro_user_id, user_id) VALUES ($convidar_grupo_id, $convidar_usuario_id, $user_id)");
+		if ($check == true) {
+			echo true;
+		} else {
+			echo false;
+		}
 	}
 	
 	if (isset($_POST['remover_carrinho_pagina_id'])) {
