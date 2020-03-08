@@ -2,22 +2,29 @@
 	
 	if (isset($_GET['lg'])) {
 		$user_language = $_GET['lg'];
+		$_SESSION['lg'] = $user_language;
+		$user_language_titulo = convert_language($user_language);
+	}
+	
+	if (isset($_SESSION['lg'])) {
+		$user_language = $_SESSION['lg'];
 		$user_language_titulo = convert_language($user_language);
 	} else {
 		$user_language = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
 		$user_language_titulo = convert_language($user_language);
 	}
 	if ($user_language_titulo == false) {
-		$user_language = 'pt';
+		$user_language = 'en';
 		$user_language_titulo = convert_language($user_language);
 	}
-	
 	if ($user_tipo != 'admin') {
+		$_SESSION['lg'] = 'pt';
 		$user_language = 'pt';
 		$user_language_titulo = convert_language($user_language);
 	}
 	
-	function return_chave_titulo($chave_id) {
+	function return_chave_titulo($chave_id)
+	{
 		if ($chave_id == false) {
 			return false;
 		}
@@ -49,13 +56,14 @@
 					$chave_traduzida_string = return_chave_titulo($chave_traduzida_id);
 					$conn->query("UPDATE Chaves_traduzidas SET chave_string = '$chave_traduzida_string' WHERE id = $chave_traduzida_traducao_id");
 				}
-				$resultados[$chave_traduzida_string]=$chave_traduzida_traducao;
+				$resultados[$chave_traduzida_string] = $chave_traduzida_traducao;
 			}
 		}
 		return $resultados;
 	}
 	
-	function return_traducao($chave_id, $language) {
+	function return_traducao($chave_id, $language)
+	{
 		if (($chave_id == false) || ($language == false)) {
 			return false;
 		}

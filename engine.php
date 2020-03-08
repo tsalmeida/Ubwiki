@@ -25,7 +25,9 @@
 				$user_id = false;
 				$user_tipo = 'visitante';
 				$user_email = false;
-				$curso_id = 1;
+				if (!isset($_SESSION['curso_id'])) {
+					$_SESSION['curso_id'] = 1;
+				}
 //				header('Location:logout.php');
 //				exit();
 			}

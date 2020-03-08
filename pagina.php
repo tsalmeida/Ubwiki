@@ -227,7 +227,10 @@
 	}
 	
 	if ($pagina_tipo == 'curso') {
-		$conn->query("UPDATE Opcoes SET opcao = $pagina_curso_id WHERE user_id = $user_id AND opcao_tipo = 'curso_ativo'");
+		if ($user_id != false) {
+			$conn->query("UPDATE Opcoes SET opcao = $pagina_curso_id WHERE user_id = $user_id AND opcao_tipo = 'curso_ativo'");
+		}
+		$_SESSION['curso_id'] = $pagina_curso_id;
 	}
 	
 	if (isset($_POST['novo_curso'])) {
@@ -260,10 +263,10 @@
 	
 	
 	if ($pagina_tipo == 'curso') {
-		$curso_info = return_curso_info($curso_id);
-		$curso_sigla = $curso_info[2];
-		$curso_titulo = $curso_info[3];
-		$curso_user_id = $curso_info[4];
+		$pagina_curso_info = return_curso_info($pagina_curso_id);
+		$pagina_curso_sigla = $pagina_curso_info[2];
+		$pagina_curso_titulo = $pagina_curso_info[3];
+		$pagina_curso_user_id = $pagina_curso_info[4];
 	} elseif ($pagina_tipo == 'materia') {
 		$materia_id = $pagina_item_id;
 		$materia_curso_id = false;
@@ -497,7 +500,7 @@
 								echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_produto_preco' class='text-warning mr-1' id='produto_preco' title='Preço do produto'><i class='fad fa-usd-circle fa-fw fa-2x'></i></a>";
 							}
 						}
-						if (($pagina_tipo == 'curso') && ($curso_user_id == $user_id)) {
+						if (($pagina_tipo == 'curso') && ($pagina_curso_user_id == $user_id)) {
 							$carregar_adicionar_materia = true;
 							echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_materia' class='text-success mr-1' id='add_materia' title='Adicionar matéria'><i class='fad fa-plus-circle fa-2x fa-fw'></i></a>";
 						}
@@ -604,19 +607,23 @@
 							}
 						}
 						if ($pagina_subtipo == 'etiqueta') {
-							$carregar_toggle_paginas_livres = true;
-							$area_interesse = $conn->query("SELECT id FROM Paginas_elementos WHERE pagina_tipo = 'escritorio' AND user_id = $user_id AND tipo = 'topico' AND extra = $pagina_item_id AND estado = 1");
-							if ($area_interesse->num_rows > 0) {
-								$area_interesse_ativa = true;
-							}
-							echo "
-						      <a id='remover_area_interesse' href='javascript:void(0);' class='ml-1 text-warning' title='Remover como áreas de interesse'>
+							if ($user_id != false) {
+								$carregar_toggle_paginas_livres = true;
+								$area_interesse = $conn->query("SELECT id FROM Paginas_elementos WHERE pagina_tipo = 'escritorio' AND user_id = $user_id AND tipo = 'topico' AND extra = $pagina_item_id AND estado = 1");
+								if ($area_interesse->num_rows > 0) {
+									$area_interesse_ativa = true;
+								}
+								echo "
+						      <a id='remover_area_interesse' href='javascript:void(0);' class='ml-1 text-warning' title='Remover como área de interesse'>
 						      	<i class='fad fa-lamp-desk fa-fw'></i>
 							  </a>
-						      <a id='adicionar_area_interesse' href='javascript:void(0);' class='ml-1 text-muted' title='Adicionar como áreas de interesse'>
+						      <a id='adicionar_area_interesse' href='javascript:void(0);' class='ml-1 text-muted' title='Adicionar como área de interesse'>
 						      	<i class='fad fa-lamp-desk fa-fw'></i>
 							  </a>
 						    ";
+							} else {
+								echo "<a title='Adicionar como área de interesse' href='javascript:void(0);' class='ml-1 text-warning' data-toggle='modal' data-target='#modal_login'><i class='fad fa-lamp-desk fa-fw'></i></a>";
+							}
 						}
 						$vinculos_wikipedia = $conn->query("SELECT elemento_id, extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'wikipedia'");
 						if ($vinculos_wikipedia->num_rows > 0) {
