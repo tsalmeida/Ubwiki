@@ -891,7 +891,7 @@
 					}
 				}
 				
-				if (($pagina_tipo != 'texto') && ($pagina_tipo != 'materia') && ($pagina_tipo != 'questao') && ($pagina_tipo != 'texto_apoio')) {
+				if (($pagina_tipo != 'texto') && ($pagina_tipo != 'materia') && ($pagina_tipo != 'questao') && ($pagina_tipo != 'texto_apoio') && ($pagina_tipo != 'grupo')) {
 					$template_id = 'verbete';
 					if ($wiki_id == false) {
 						if ($pagina_tipo == 'curso') {
