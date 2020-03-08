@@ -1071,8 +1071,14 @@
 	if (($pagina_tipo == 'ubwiki') || ($pagina_tipo == 'login')) {
 		echo "
 		<script type=\"text/javascript\">
-        $('.sobre_stuff').addClass('hidden');
+		
+        $('.icone_sobre_stuff').removeClass('hidden');
         $('.icones_links').addClass('hidden');
+        $('#artefato_escritorio_link').removeClass('hidden');
+        $('.sobre_stuff').addClass('hidden');
+        $('#sobre_escritorio').removeClass('hidden');
+        $('#artefato_escritorio').addClass('hidden');
+        
         $('#artefato_escritorio').click(function () {
             $('.icone_sobre_stuff').removeClass('hidden');
             $('.icones_links').addClass('hidden');
