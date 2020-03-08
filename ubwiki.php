@@ -23,6 +23,7 @@
 			echo "<a data-toggle='modal' data-target='#modal_languages' class='text-primary mx-1'><i class='fad fa-language fa-fw fa-2x'></i></a>";
 		}
 		if ($user_id == false) {
+		    echo "<a href='#apresentacao' class='text-success ml-1'><i class='fad fa-portal-enter fa-fw fa-2x'></i></a>";
 			echo "<a data-toggle='modal' data-target='#modal_login' class='text-primary mx-1'><i class='fad fa-user-circle fa-fw fa-2x'></i></a>";
 		}
 		echo "</div>";
