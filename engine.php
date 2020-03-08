@@ -3091,5 +3091,5 @@
 			$conn->query("INSERT INTO Usuarios (email, origem, senha) VALUES ('$nova_senha_email', '$confirmacao', '$nova_senha_encrypted')");
 		}
 	}
-	
+
 ?>

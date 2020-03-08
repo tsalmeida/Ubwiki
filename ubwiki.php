@@ -18,13 +18,14 @@
 ?>
 <div class="container">
 	<?php
+		echo "<div class='row d-flex justify-content-end p-1 mt-1'>";
 		if ($user_tipo == 'admin') {
-			echo "
-                <div class='row d-flex justify-content-end p-1'>
-                    <a data-toggle='modal' data-target='#modal_languages' class='text-primary'><i class='fad fa-language fa-fw fa-2x'></i></a>
-                </div>
-            ";
+			echo "<a data-toggle='modal' data-target='#modal_languages' class='text-primary mx-1'><i class='fad fa-language fa-fw fa-2x'></i></a>";
 		}
+		if ($user_id == false) {
+			echo "<a data-toggle='modal' data-target='#modal_login' class='text-primary mx-1'><i class='fad fa-user-circle fa-fw fa-2x'></i></a>";
+		}
+		echo "</div>";
 	?>
     <div class="row d-flex justify-content-center mt-2">
         <div class="col">

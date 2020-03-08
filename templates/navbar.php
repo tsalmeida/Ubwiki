@@ -55,7 +55,7 @@
 			$carregar_modal_login = true;
 			echo "
 							<a class='ml-auto waves-effect waves-light rounded text-white' data-toggle='modal' data-target='#modal_login'>
-								<i class='fas fa-2x fa-user-tie fa-fw'></i>
+								<i class='fas fa-2x fa-user-circle fa-fw'></i>
 							</a>
 						";
 		}
