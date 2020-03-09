@@ -267,7 +267,6 @@
 		$pagina_curso_info = return_curso_info($pagina_curso_id);
 		$pagina_curso_sigla = $pagina_curso_info[2];
 		$pagina_curso_titulo = $pagina_curso_info[3];
-		$pagina_curso_user_id = $pagina_curso_info[4];
 	} elseif ($pagina_tipo == 'materia') {
 		$materia_id = $pagina_item_id;
 		$materia_curso_id = false;
