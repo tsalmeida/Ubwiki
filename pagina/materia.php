@@ -57,6 +57,9 @@
 				$topico_completo = $completo_efeito;
 			}
 			$topico_pagina_info = return_pagina_info($topico_pagina_id);
+			if ($topico_pagina_info == false) {
+				continue;
+			}
 			$topico_pagina_estado = $topico_pagina_info[3];
 			$topico_pagina_titulo = $topico_pagina_info[6];
 			if ($topico_pagina_estado != 0) {
