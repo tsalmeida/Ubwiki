@@ -1112,16 +1112,14 @@
 					
 					$template_id = 'modulos';
 					$template_titulo = 'Módulos';
-					$template_conteudo_no_col = true;
 					$template_botoes = false;
 					$template_conteudo = false;
-					$template_conteudo_class = 'justify-content-start';
 					
-					$row_items = 2;
 					$materias = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE tipo = 'materia' AND pagina_id = $pagina_id");
 					
 					$rowcount = mysqli_num_rows($materias);
 					if ($materias->num_rows > 0) {
+						$template_conteudo .= "<ul class='list-group list-group-flush'>";
 						while ($materia = $materias->fetch_assoc()) {
 							$materia_pagina_id = $materia['elemento_id'];
 							$materia_pagina_titulo = return_pagina_titulo($materia_pagina_id);
@@ -1129,9 +1127,10 @@
 								continue;
 							}
 							$template_conteudo .= "
-	                            <span class='col-lg-6 col-md-12'><a href='pagina.php?pagina_id=$materia_pagina_id'><button type='button' class='btn btn-light fontstack-subtitle col-12 grey lighten-3 text-muted rounded materia_hover mx-0 px-0'>$materia_pagina_titulo</button></a></span>
+	                            <a href='pagina.php?pagina_id=$materia_pagina_id' class='mt-1'><li class='list-group-item list-group-item-action list-group-item-light border-top text-center fontstack-subtitle'>$materia_pagina_titulo</li></a>
                             ";
 						}
+						$template_conteudo .= "</ul>";
 						unset($materia_id);
 					}
 					
