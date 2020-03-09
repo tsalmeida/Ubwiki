@@ -19,12 +19,12 @@
 <div class="container">
 	<?php
 		echo "<div class='row d-flex justify-content-end p-1 mt-1'>";
-		if ($user_tipo == 'admin') {
-			echo "<a data-toggle='modal' data-target='#modal_languages' class='text-primary mx-1'><i class='fad fa-language fa-fw fa-2x'></i></a>";
-		}
 		if ($user_id == false) {
-		    echo "<a href='#apresentacao' class='text-success ml-1'><i class='fad fa-portal-enter fa-fw fa-2x'></i></a>";
-			echo "<a data-toggle='modal' data-target='#modal_login' class='text-primary mx-1'><i class='fad fa-user-circle fa-fw fa-2x'></i></a>";
+			echo "<a href='#apresentacao' class='text-success mx-2'><i class='fad fa-portal-enter fa-fw fa-2x'></i></a>";
+		}
+		echo "<a data-toggle='modal' data-target='#modal_languages' class='text-info mx-2'><i class='fad fa-language fa-fw fa-2x'></i></a>";
+		if ($user_id == false) {
+			echo "<a data-toggle='modal' data-target='#modal_login' class='text-primary mx-2'><i class='fad fa-user-circle fa-fw fa-2x'></i></a>";
 		}
 		echo "</div>";
 	?>
@@ -281,56 +281,6 @@
     </div>
 </div>
 <?php
-	
-	$template_modal_div_id = 'modal_languages';
-	$template_modal_titulo = $pagina_translated['languages'];
-	$template_modal_show_buttons = false;
-	$template_modal_body_conteudo = false;
-	
-	$template_modal_body_conteudo .= "<div method='post' class='row d-flex justify-content-center'>";
-	
-	$artefato_titulo = 'Português';
-	$artefato_tipo = 'lg_pt';
-	$artefato_link = 'ubwiki.php?lg=pt';
-	$artefato_class = 'language_choose';
-	$fa_icone = 'fa-globe';
-	$fa_color = 'text-success';
-	if ($user_language == 'pt') {
-		$artefato_icone_background = 'rgba-green-strong';
-		$fa_color = 'text-white';
-	}
-	$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-6';
-	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
-	
-	$artefato_titulo = 'English';
-	$artefato_tipo = 'lg_en';
-	$artefato_link = 'ubwiki.php?lg=en';
-	$artefato_class = 'language_choose';
-	$fa_icone = 'fa-globe';
-	$fa_color = 'text-primary';
-	if ($user_language == 'en') {
-		$artefato_icone_background = 'rgba-blue-strong';
-		$fa_color = 'text-white';
-	}
-	$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-6';
-	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
-	
-	$artefato_titulo = 'Español';
-	$artefato_tipo = 'lg_es';
-	$artefato_link = 'ubwiki.php?lg=es';
-	$artefato_class = 'language_choose';
-	$fa_icone = 'fa-globe';
-	$fa_color = 'text-danger';
-	if ($user_language == 'es') {
-		$artefato_icone_background = 'rgba-red-strong';
-		$fa_color = 'text-white';
-	}
-	$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-6';
-	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
-	
-	$template_modal_body_conteudo .= "</div>";
-	
-	include 'templates/modal.php';
 	
 	include 'pagina/modal_login.php';
 

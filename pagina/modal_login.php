@@ -53,3 +53,54 @@
 		</div>
 	";
 	include 'templates/modal.php';
+	
+	
+	$template_modal_div_id = 'modal_languages';
+	$template_modal_titulo = $pagina_translated['languages'];
+	$template_modal_show_buttons = false;
+	$template_modal_body_conteudo = false;
+	
+	$template_modal_body_conteudo .= "<div method='post' class='row d-flex justify-content-center'>";
+	
+	$artefato_titulo = 'Português';
+	$artefato_tipo = 'lg_pt';
+	$artefato_link = 'ubwiki.php?lg=pt';
+	$artefato_class = 'language_choose';
+	$fa_icone = 'fa-globe';
+	$fa_color = 'text-success';
+	if ($user_language == 'pt') {
+		$artefato_icone_background = 'rgba-green-strong';
+		$fa_color = 'text-white';
+	}
+	$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-6';
+	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+	
+	$artefato_titulo = 'English';
+	$artefato_tipo = 'lg_en';
+	$artefato_link = 'ubwiki.php?lg=en';
+	$artefato_class = 'language_choose';
+	$fa_icone = 'fa-globe';
+	$fa_color = 'text-primary';
+	if ($user_language == 'en') {
+		$artefato_icone_background = 'rgba-blue-strong';
+		$fa_color = 'text-white';
+	}
+	$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-6';
+	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+	
+	$artefato_titulo = 'Español';
+	$artefato_tipo = 'lg_es';
+	$artefato_link = 'ubwiki.php?lg=es';
+	$artefato_class = 'language_choose';
+	$fa_icone = 'fa-globe';
+	$fa_color = 'text-danger';
+	if ($user_language == 'es') {
+		$artefato_icone_background = 'rgba-red-strong';
+		$fa_color = 'text-white';
+	}
+	$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-6';
+	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+	
+	$template_modal_body_conteudo .= "</div>";
+	
+	include 'templates/modal.php';

@@ -1,6 +1,6 @@
 <?php
 	$template_modal_div_id = 'modal_secao_etiquetas';
-	$template_modal_titulo = 'Páginas livres relacionadas';
+	$template_modal_titulo = 'Etiquetas';
 	$template_modal_show_buttons = false;
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "<ul class='list-group list-group-flush rounded'>";
@@ -37,6 +37,7 @@
 			$template_modal_body_conteudo .= "<a href='pagina.php?etiqueta_id=$etiqueta_id'><li class='list-group-item border-top list-group-item-action d-flex justify-content-between mt-1'><span><span class='text-warning'><i class='fad fa-tag fa-fw'></i></span> $etiqueta_titulo</span><span><i class='fad $etiqueta_pagina_estado_icone fa-fw'></i></span></li></a>";
 		}
 	}
+	$template_modal_body_conteudo .= "<span data-toggle='modal' data-target='#modal_secao_etiquetas' class='mt-1'><a href='javascript:void(0);' data-toggle='modal' data-target='#modal_gerenciar_etiquetas'><li class='list-group-item list-group-item-action list-group-item-warning text-center border-top'><i class='fad fa-plus-square fa-fw'></i> Adicionar etiqueta</li></a></span>";
 	$template_modal_body_conteudo .= "</ul>";
 	if ($carregar_areas_relacionadas == true) {
 		include 'templates/modal.php';
