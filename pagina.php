@@ -1125,6 +1125,9 @@
 						while ($materia = $materias->fetch_assoc()) {
 							$materia_pagina_id = $materia['elemento_id'];
 							$materia_pagina_titulo = return_pagina_titulo($materia_pagina_id);
+							if ($materia_pagina_titulo == false) {
+								continue;
+							}
 							$template_conteudo .= "
 	                            <span class='col-lg-6 col-md-12'><a href='pagina.php?pagina_id=$materia_pagina_id'><button type='button' class='btn btn-light fontstack-subtitle col-12 grey lighten-3 text-muted rounded materia_hover mx-0 px-0'>$materia_pagina_titulo</button></a></span>
                             ";
