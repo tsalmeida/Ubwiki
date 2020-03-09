@@ -227,6 +227,7 @@
 	}
 	
 	if ($pagina_tipo == 'curso') {
+		$pagina_curso_user_id = $pagina_user_id;
 		if ($user_id != false) {
 			$conn->query("UPDATE Opcoes SET opcao = $pagina_curso_id WHERE user_id = $user_id AND opcao_tipo = 'curso_ativo'");
 		}
