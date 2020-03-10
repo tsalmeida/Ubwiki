@@ -92,18 +92,6 @@
 		}
 	}
 	
-	if (($pagina_tipo != 'login') && ($pagina_tipo != false)) {
-		if (!isset($_SESSION['user_email'])) {
-			if (!isset($_SESSION['redirecao'])) {
-				$_SESSION['redirecao'] = true;
-				$redirecao = $_SESSION['redirecao'];
-				header('Location:ubwiki.php');
-				exit();
-			} else {
-				unset($_SESSION['redirecao']);
-			}
-		}
-	}
 	if ($user_email != false) {
 		$usuarios = $conn->query("SELECT id, tipo, criacao, apelido, nome, sobrenome, language FROM Usuarios WHERE email = '$user_email'");
 		if ($usuarios->num_rows > 0) {

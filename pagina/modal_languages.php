@@ -47,7 +47,7 @@
 	$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-6';
 	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	
-	$template_modal_body_conteudo .= "</div>";
+	$template_modal_body_conteudo .= "</form>";
 	
 	unset($artefato_name);
 	

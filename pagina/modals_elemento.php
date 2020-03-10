@@ -28,7 +28,7 @@
 		$dados_elemento .= "<li class='list-group-item'><strong>{$pagina_translated['Ano']}:</strong> $elemento_ano</li>";
 	}
 	if ($elemento_link != false) {
-		$dados_elemento .= "<li class='list-group-item'><a href='$elemento_link' target='_blank'>{$pagina_translated['Original link']}</a></li>";
+		$dados_elemento .= "<li class='list-group-item'><a href='$elemento_link' target='_blank'>{$pagina_translated['Link original']}</a></li>";
 	}
 	$dados_elemento .= "<li class='list-group-item'>{$pagina_translated['Adicionado por']} <strong><a href='pagina.php?user_id=$elemento_user_id' target='_blank'>$elemento_user_apelido</a></strong></li>";
 	$dados_elemento .= "</ul>";
