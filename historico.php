@@ -111,7 +111,7 @@
 								} else {
 									$template_titulo = $pagina_translated['Versão de referência'];
 								}
-                                $template_classes = 'elemento-anotacoes';
+								$template_classes = 'elemento-anotacoes';
 								$template_botoes = "<a class='text-info' data-toggle='modal' data-target='#modal_edicao_esquerda' ><i class='fad fa-archive fa-fw'></i></a>";
 								$template_conteudo = false;
 								if ($edicao_coluna_esquerda_html != false) {
@@ -242,6 +242,12 @@
 			}
 			
 			include 'pagina/modal_notificacoes.php';
+			
+			if ($user_id == false) {
+				$carregar_modal_login = true;
+				include 'pagina/modal_login.php';
+			}
+			include 'pagina/modal_languages.php';
 		
 		?>
     </body>
