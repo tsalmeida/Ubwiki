@@ -92,19 +92,19 @@
 			<?php
 				echo "<div class='col-md-3 col-sm-12'><div class='row justify-content-start'>";
 				echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_opcoes' class='p-2 text-info rounded artefato'><i class='fad fa-user-cog fa-2x fa-fw'></i></a>";
-				echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_apresentacao' class='p-2 text-info rounded artefato'><i class='fad fa-mug-tea fa-2x fa-fw'></i></a>";
+				echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_apresentacao' class='p-2 text-info rounded artefato' title='{$pagina_translated['edit lounge']}'><i class='fad fa-mug-tea fa-2x fa-fw'></i></a>";
 				echo "</div></div>";
 				echo "<div class='col-md-6 col-sm-12'><div class='row justify-content-center'>";
 				echo "
-                      <a id='escritorio_home' href='javascript:void(0);' class='p-2 rounded text-muted artefato' title='Retornar à página inicial'><i class='fad fa-lamp-desk fa-2x fa-fw'></i></a>
-                      <a id='mostrar_textos' href='javascript:void(0);' class='p-2 rounded text-primary artefato' title='Pressione para ver seus textos e notas privadas'><i class='fad fa-typewriter fa-2x fa-fw'></i></a>
-                      <a id='mostrar_tags' href='javascript:void(0);' class='p-2 rounded text-warning artefato' title='Pressione para ver suas páginas livres'><i class='fad fa-tags fa-2x fa-fw'></i></a>
-                      <a id='mostrar_acervo' href='javascript:void(0);' class='p-2 rounded text-success artefato' title='Pressione para ver seu acervo virtual'><i class='fad fa-books fa-2x fa-fw'></i></a>
-                      <a id='mostrar_grupos' href='javascript:void(0);' class='p-2 rounded text-default artefato'><i class='fad fa-users fa-2x fa-fw'></i></a>
-                      <a id='mostrar_imagens' href='javascript:void(0);' class='p-2 rounded text-danger artefato' title='Pressione para ver suas imagens públicas'><i class='fad fa-images fa-2x fa-fw'></i></a>
+                      <a id='escritorio_home' href='javascript:void(0);' class='p-2 rounded text-muted artefato' title='{$pagina_translated['Retornar à página inicial']}'><i class='fad fa-lamp-desk fa-2x fa-fw'></i></a>
+                      <a id='mostrar_textos' href='javascript:void(0);' class='p-2 rounded text-primary artefato' title='{$pagina_translated['Pressione para ver seus textos e notas privadas']}'><i class='fad fa-typewriter fa-2x fa-fw'></i></a>
+                      <a id='mostrar_tags' href='javascript:void(0);' class='p-2 rounded text-warning artefato' title='{$pagina_translated['Pressione para ver suas páginas livres']}'><i class='fad fa-tags fa-2x fa-fw'></i></a>
+                      <a id='mostrar_acervo' href='javascript:void(0);' class='p-2 rounded text-success artefato' title='{$pagina_translated['Pressione para ver seu acervo virtual']}'><i class='fad fa-books fa-2x fa-fw'></i></a>
+                      <a id='mostrar_grupos' href='javascript:void(0);' class='p-2 rounded text-default artefato' title='{$pagina_translated['Pressione para ver seus grupos de estudos']}'><i class='fad fa-users fa-2x fa-fw'></i></a>
+                      <a id='mostrar_imagens' href='javascript:void(0);' class='p-2 rounded text-danger artefato' title='{$pagina_translated['Pressione para ver suas imagens públicas e privadas']}'><i class='fad fa-images fa-2x fa-fw'></i></a>
                       ";
 				if ($user_tipo == 'admin') {
-					echo "<a id='icone_simulados' href='javascript:void(0);' class='p-2 rounded text-secondary artefato' title='Pressione para ver seus simulados'><i class='fad fa-clipboard-list-check fa-2x fa-fw'></i></a>
+					echo "<a id='icone_simulados' href='javascript:void(0);' class='p-2 rounded text-secondary artefato' title='{$pagina_translated['Pressione para ver seus simulados']}'><i class='fad fa-clipboard-list-check fa-2x fa-fw'></i></a>
                   ";
 				}
 				
@@ -255,11 +255,11 @@
 						$template_conteudo = false;
 						$template_conteudo .= "<p>{$pagina_translated['joining study group explanation']}</p>";
 						if ($user_apelido == false) {
-							$template_conteudo .= "<p><strong>Para participar de grupos de estudos, é necessário determinar um apelido. Você poderá fazê-lo ao pressionar este ícone, no campo superior esquerdo desta página: <span class='text-info'><i class='fad fa-user-cog'></i></span></strong></p>";
+							$template_conteudo .= "<p><strong>{$pagina_translated['study groups need for nickname']} <span class='text-info'><i class='fad fa-user-cog'></i></span></strong></p>";
 						} else {
 							if ($convites_ativos->num_rows > 0) {
 								$template_conteudo .= "
-                                    <h2>Você recebeu convite para participar de grupos de estudos:</h2>
+                                    <h2>{$pagina_translated['Você recebeu convite para participar de grupos de estudos:']}</h2>
                                     <form method='post'>
                                         <div class='md-form mb-2'>
                                             <select class='$select_classes' name='responder_convite_grupo_id' id='responder_convite_grupo_id'>
@@ -423,7 +423,7 @@
 						$respostas = $conn->query("SELECT DISTINCT simulado_id, questao_tipo FROM sim_respostas WHERE user_id = $user_id ORDER BY id DESC");
 						if ($respostas->num_rows > 0) {
 							$template_id = 'respostas_usuario';
-							$template_titulo = 'Simulados feitos';
+							$template_titulo = $pagina_translated['Simulados feitos'];
 							$template_classes = 'esconder_sessao';
 							$template_conteudo_class = 'justify-content-start';
 							$template_conteudo_no_col = true;
@@ -978,7 +978,8 @@
 		$carregar_modal_login = true;
 		include 'pagina/modal_login.php';
 	}
-	
+	include 'pagina/modal_languages.php';
+
 ?>
 
 </body>

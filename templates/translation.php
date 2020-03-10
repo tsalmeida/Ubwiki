@@ -1,9 +1,12 @@
 <?php
 	
-	if (isset($_GET['lg'])) {
-		$user_language = $_GET['lg'];
+	if (isset($_POST['select_language'])) {
+		$user_language = $_POST['select_language'];
 		$_SESSION['lg'] = $user_language;
 		$user_language_titulo = convert_language($user_language);
+		if ($user_id != false) {
+			$conn->query("UPDATE Usuarios SET language = '$user_language' WHERE id = $user_id");
+		}
 	}
 	
 	if (isset($_SESSION['lg'])) {
@@ -15,11 +18,6 @@
 	}
 	if ($user_language_titulo == false) {
 		$user_language = 'en';
-		$user_language_titulo = convert_language($user_language);
-	}
-	if ($user_tipo != 'admin') {
-		$_SESSION['lg'] = 'pt';
-		$user_language = 'pt';
 		$user_language_titulo = convert_language($user_language);
 	}
 	

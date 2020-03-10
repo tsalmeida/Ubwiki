@@ -217,7 +217,9 @@
 		$carregar_modal_login = true;
 		include 'pagina/modal_login.php';
 	}
-	
+	include 'pagina/modal_languages.php';
+
+
 ?>
 </body>
 <?php

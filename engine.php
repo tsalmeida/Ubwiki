@@ -105,7 +105,7 @@
 		}
 	}
 	if ($user_email != false) {
-		$usuarios = $conn->query("SELECT id, tipo, criacao, apelido, nome, sobrenome FROM Usuarios WHERE email = '$user_email'");
+		$usuarios = $conn->query("SELECT id, tipo, criacao, apelido, nome, sobrenome, language FROM Usuarios WHERE email = '$user_email'");
 		if ($usuarios->num_rows > 0) {
 			while ($usuario = $usuarios->fetch_assoc()) {
 				$user_id = $usuario['id'];
@@ -114,6 +114,10 @@
 				$user_apelido = $usuario['apelido'];
 				$user_nome = $usuario['nome'];
 				$user_sobrenome = $usuario['sobrenome'];
+				$user_language = $usuario['language'];
+				if ($user_language != false) {
+					$_SESSION['lg'] = $user_language;
+				}
 			}
 		}
 	} else {

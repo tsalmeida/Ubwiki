@@ -9,10 +9,7 @@
 	}
 
 	if (isset($_POST['trigger_atualizacao'])) {
-	    $conn->query("ALTER TABLE `Paginas_elementos` ADD `subtipo` VARCHAR(255) NULL DEFAULT NULL AFTER `tipo`;");
-	    $conn->query("CREATE TABLE `Ubwiki`.`Translation_chaves` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `criacao` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `user_id` INT(11) NULL DEFAULT NULL , `chave` VARCHAR(255) NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
-	    $conn->query("CREATE TABLE `Ubwiki`.`Chaves_traduzidas` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `criacao` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `user_id` INT(11) NULL DEFAULT NULL , `chave_id` INT(11) NULL DEFAULT NULL , `lingua` VARCHAR(2) NULL DEFAULT NULL , `traducao` TEXT NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
-	    $conn->query("ALTER TABLE `Chaves_traduzidas` ADD `chave_string` VARCHAR(255) NULL DEFAULT NULL AFTER `chave_id`;");
+        $conn->query("ALTER TABLE `Usuarios` ADD `language` VARCHAR(4) NULL DEFAULT NULL AFTER `origem`;");
 	}
 
 	if (isset($_POST['trigger_atualizar_textos_size'])) {

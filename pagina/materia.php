@@ -1,7 +1,7 @@
 <?php
 	
 	$template_id = 'topicos';
-	$template_titulo = 'Tópicos';
+	$template_titulo = $pagina_translated['Tópicos'];
 	$template_botoes = false;
 	$template_botoes_padrao = false;
 	$template_conteudo = false;
@@ -46,7 +46,7 @@
 	$topicos = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'topico'");
 	if ($topicos->num_rows > 0) {
 		$template_conteudo .= "<ul class='list-group list-group-flush mt-2 min-w70 topicos_collapse collapse show'>";
-		$template_conteudo .= "<a href='pagina.php?pagina_id=$plano_estudos_pagina_id' class='mx-2'><li class='list-group-item list-group-item-action list-group-item-success d-flex justify-content-between'><span class='mr-5'>Plano de estudos: $pagina_titulo</span><span><i class='$plano_estudos_pagina_estado_icone'></i></span></li></a>";
+		$template_conteudo .= "<a href='pagina.php?pagina_id=$plano_estudos_pagina_id' class='mx-2'><li class='list-group-item list-group-item-action list-group-item-success d-flex justify-content-between'><span class='mr-5'>{$pagina_translated['Plano de estudos']}: $pagina_titulo</span><span><i class='$plano_estudos_pagina_estado_icone'></i></span></li></a>";
 		while ($topico = $topicos->fetch_assoc()) {
 			$topico_pagina_id = $topico['elemento_id'];
 			if ($topico_pagina_id == false) {
@@ -152,7 +152,7 @@
 		}
 		$template_conteudo .= "</ul>";
 	} else {
-		$template_conteudo .= "<p class='text-muted'>Não há tópicos registrados nesta matéria.</p>";
+		$template_conteudo .= "<p class='text-muted'>{$pagina_translated['Não há tópicos registrados neste módulo.']}</p>";
 	}
 	
 	include 'templates/page_element.php';

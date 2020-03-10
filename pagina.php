@@ -471,13 +471,13 @@
 					<?php
 						if (($pagina_tipo != 'sistema') && ($pagina_compartilhamento != 'escritorio') && ($pagina_tipo != 'materia')) {
 							if ($privilegio_edicao == true) {
-								echo "<a href='javascript:void(0)' class='text-info mr-1' id='add_elements' title='Adicionar elementos' data-toggle='modal' data-target='#modal_add_elementos'><i class='fad fa-2x fa-plus-circle fa-fw'></i></a>";
+								echo "<a href='javascript:void(0)' class='text-info mr-1' id='add_elements' title='{$pagina_translated['Adicionar elementos']}' data-toggle='modal' data-target='#modal_add_elementos'><i class='fad fa-2x fa-plus-circle fa-fw'></i></a>";
 							}
 						}
 						if ($pagina_tipo == 'elemento') {
 							echo "
-                            <a href='javascript:void(0);' data-toggle='modal' data-target='#modal_dados_elemento' class='text-info mr-1' id='elemento_dados' class='mr-1' title='Editar dados'><i class='fad fa-info-circle fa-fw fa-2x'></i></a>
-                            <a href='javascript:void(0);' data-toggle='modal' data-target='#modal_elemento_subtipo' class='text-info mr-1' id='elemento_subtipo' class='mr-1' title='Determinar subcategoria'><i class='fad fa-sort-circle fa-fw fa-2x'></i></a>
+                            <a href='javascript:void(0);' data-toggle='modal' data-target='#modal_dados_elemento' class='text-info mr-1' id='elemento_dados' class='mr-1' title='{$pagina_translated['Editar dados']}'><i class='fad fa-info-circle fa-fw fa-2x'></i></a>
+                            <a href='javascript:void(0);' data-toggle='modal' data-target='#modal_elemento_subtipo' class='text-info mr-1' id='elemento_subtipo' class='mr-1' title='{$pagina_translated['Determinar subcategoria']}'><i class='fad fa-sort-circle fa-fw fa-2x'></i></a>
                             ";
 						}
 						$modal_pagina_dados = false;
@@ -490,40 +490,40 @@
 							(($pagina_tipo == 'secao') && (($pagina_user_id == $user_id) || $pagina_original_compartilhamento == false))
 						) {
 							$modal_pagina_dados = true;
-							echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_pagina_dados' class='text-success mr-1' id='pagina_dados' title='Editar dados'><i class='fad fa-info-circle fa-fw fa-2x'></i></a>";
+							echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_pagina_dados' class='text-success mr-1' id='pagina_dados' title='{$pagina_translated['Editar dados']}'><i class='fad fa-info-circle fa-fw fa-2x'></i></a>";
 							$carregar_produto_setup = false;
 							if ($pagina_subtipo == 'produto') {
 								$carregar_produto_setup = true;
 								if (isset($imagem_opcoes)) {
-									echo "<a href='javascript:void(0)' data-toggle='modal' data-target='#modal_produto_nova_imagem' class='text-danger mr-1' id='produto_imagem' title='Imagem do produto'><i class='fad fa-image-polaroid fa-fw fa-2x'></i></a>";
+									echo "<a href='javascript:void(0)' data-toggle='modal' data-target='#modal_produto_nova_imagem' class='text-danger mr-1' id='produto_imagem' title='{$pagina_translated['Imagem do produto']}'><i class='fad fa-image-polaroid fa-fw fa-2x'></i></a>";
 								}
-								echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_produto_preco' class='text-warning mr-1' id='produto_preco' title='Preço do produto'><i class='fad fa-usd-circle fa-fw fa-2x'></i></a>";
+								echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_produto_preco' class='text-warning mr-1' id='produto_preco' title='{$pagina_translated['Preço do produto']}'><i class='fad fa-usd-circle fa-fw fa-2x'></i></a>";
 							}
 						}
 						if (($pagina_tipo == 'curso') && ($pagina_curso_user_id == $user_id)) {
 							$carregar_adicionar_materia = true;
-							echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_materia' class='text-success mr-1' id='add_materia' title='Adicionar matéria'><i class='fad fa-plus-circle fa-2x fa-fw'></i></a>";
+							echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_materia' class='text-success mr-1' id='add_materia' title='{$pagina_translated['Adicionar matéria']}'><i class='fad fa-plus-circle fa-2x fa-fw'></i></a>";
 						}
 						if (($pagina_tipo == 'materia') && ($pagina_user_id == $user_id)) {
 							$carregar_adicionar_topico = true;
-							echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_topico' class='text-success mr-1' id='add_topico' title='Adicionar tópico'><i class='fad fa-plus-circle fa-2x fa-fw'></i></a>";
+							echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_topico' class='text-success mr-1' id='add_topico' title='{$pagina_translated['Adicionar tópico']}'><i class='fad fa-plus-circle fa-2x fa-fw'></i></a>";
 						}
 						if (($pagina_tipo == 'topico') && ($pagina_user_id == $user_id) && ($topico_nivel < 5)) {
 							$carregar_adicionar_subtopico = true;
-							echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_subtopico' class='text-success mr-1' id='add_subtopico' title='Adicionar subtópico'><i class='fad fa-plus-circle fa-2x fa-fw'></i></a>";
+							echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_subtopico' class='text-success mr-1' id='add_subtopico' title='{$pagina_translated['Adicionar subtópico']}'><i class='fad fa-plus-circle fa-2x fa-fw'></i></a>";
 						}
 						if ($pagina_tipo == 'questao') {
-							echo "<a href='javascript:void(0);' class='mr-1 text-secondary' title='Dados da questão' data-toggle='modal' data-target='#modal_questao_dados'><i class='fad fa-check-circle fa-fw fa-2x'></i></a>";
+							echo "<a href='javascript:void(0);' class='mr-1 text-secondary' title='{$pagina_translated['Dados da questão']}' data-toggle='modal' data-target='#modal_questao_dados'><i class='fad fa-check-circle fa-fw fa-2x'></i></a>";
 						} elseif ($pagina_tipo == 'texto_apoio') {
-							echo "<a href='javascript:void(0)' data-toggle='modal' data-target='#modal_texto_apoio_dados' class='text-secondary mr-1' title='Dados do texto de apoio'><i class='fad fa-check-circle fa-fw fa-2x'></i></a>";
+							echo "<a href='javascript:void(0)' data-toggle='modal' data-target='#modal_texto_apoio_dados' class='text-secondary mr-1' title='{$pagina_translated['Dados do texto de apoio']}'><i class='fad fa-check-circle fa-fw fa-2x'></i></a>";
 						}
 						if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id) && ($pagina_subtipo != 'Plano de estudos')) {
 							$carregar_modal_destruir_pagina = true;
 							echo "
-                            <a href='javascript:void(0);' class='text-default mr-1 align-top' id='compartilhar_anotacao' title='Colaboração e publicação' data-toggle='modal' data-target='#modal_compartilhar_pagina'>
+                            <a href='javascript:void(0);' class='text-default mr-1 align-top' id='compartilhar_anotacao' title='{$pagina_translated['Colaboração e publicação']}' data-toggle='modal' data-target='#modal_compartilhar_pagina'>
                                 <i class='fad fa-user-friends fa-fw'></i>
                             </a>
-                            <a href='javascript:void(0);' class='text-danger mr-1 align-top' id='destruir_pagina' title='Destruir esta página' data-toggle='modal' data-target='#modal_destruir_pagina'>
+                            <a href='javascript:void(0);' class='text-danger mr-1 align-top' id='destruir_pagina' title='{$pagina_translated['Destruir esta página']}' data-toggle='modal' data-target='#modal_destruir_pagina'>
                                 <i class='fad fa-trash-alt fa-fw'></i>
                             </a>
 	                        ";
@@ -536,7 +536,7 @@
 								} else {
 									$produto_color = 'text-muted';
 								}
-								echo "<a href='mercado.php?pagina_id=$pagina_id' class='$produto_color mr-1 align-top' title='Visitar mercado'><i class='fad fa-bags-shopping fa-fw'></i></a>";
+								echo "<a href='mercado.php?pagina_id=$pagina_id' class='$produto_color mr-1 align-top' title='{$pagina_translated['visit_market']}'><i class='fad fa-bags-shopping fa-fw'></i></a>";
 							}
 						}
 						if (($pagina_tipo != 'sistema') && ($pagina_compartilhamento != 'escritorio')) {
@@ -554,7 +554,7 @@
                             ";
 							} else {
 								echo "
-									<a href='javascript:void(0);' title='Fórum' class='text-secondary mr-1 align-top' data-toggle='modal' data-target='#modal_login'><i class='fad fa-comments-alt fa-fw'></i></a>
+									<a href='javascript:void(0);' title='Fórum' class='text-secondary mr-1 align-top' data-toggle='modal' data-target='#modal_login'><i class='fad fa-comments-alt fa-fw' title='{$pagina_translated['Login']}'></i></a>
 								";
 							}
 						}
@@ -563,24 +563,24 @@
         <div class="py-2 text-center col-md-4 col-sm-12">
 					<?php
 						if ($pagina_tipo == 'curso') {
-							echo "<a href='javascript:void(0)' data-toggle='modal' data-target='#modal_busca' class='text-dark' title='Busca'><i class='fad fa-search fa-fw'></i></a>";
+							echo "<a href='javascript:void(0)' data-toggle='modal' data-target='#modal_busca' class='text-dark' title='{$pagina_translated['Busca']}'><i class='fad fa-search fa-fw'></i></a>";
 						}
 						if ($pagina_tipo == 'topico') {
 							if ($topico_anterior != false) {
 								$topico_anterior_link = "pagina.php?topico_id=$topico_anterior";
-								echo "<a href='$topico_anterior_link' id='verbete_anterior' class='mx-1' title='Verbete anterior'><i class='fad fa-arrow-left fa-fw'></i></a>";
+								echo "<a href='$topico_anterior_link' id='verbete_anterior' class='mx-1' title='{$pagina_translated['Verbete anterior']}'><i class='fad fa-arrow-left fa-fw'></i></a>";
 							}
-							echo "<a href='javascript:void(0);' id='verbetes_relacionados' class='text-muted mx-1' title='Navegação' data-toggle='modal' data-target='#modal_verbetes_relacionados'><i class='fad fa-location-circle fa-2x fa-fw'></i></a>";
+							echo "<a href='javascript:void(0);' id='verbetes_relacionados' class='text-muted mx-1' title='{$pagina_translated['Navegação']}' data-toggle='modal' data-target='#modal_verbetes_relacionados'><i class='fad fa-location-circle fa-2x fa-fw'></i></a>";
 							if ($topico_proximo != false) {
 								$topico_proximo_link = "pagina.php?topico_id=$topico_proximo";
-								echo "<a href='$topico_proximo_link' id='verbete_proximo' class='mx-1' title='Próximo verbete'><i class='fad fa-arrow-right fa-fw'></i></a>";
+								echo "<a href='$topico_proximo_link' id='verbete_proximo' class='mx-1' title='{$pagina_translated['Próximo verbete']}'><i class='fad fa-arrow-right fa-fw'></i></a>";
 							}
 						} elseif ($pagina_tipo == 'secao') {
 							echo "<a href='javascript:void(0);' id='secoes' class='mx-1 text-muted' title='Página e seções' data-toggle='modal' data-target='#modal_paginas_relacionadas'><i class='fad fa-map-signs fa-2x fa-fw'></i></a>";
 						}
 						if ($pagina_subtipo == 'produto') {
 							if ($produto_no_carrinho == false) {
-								echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_adicionar_carrinho' id='adicionar_carrinho' class='text-success mx-1' title='Adicionar este produto a seu carrinho'><i class='fad fa-cart-plus fa-fw fa-2x'></i></a>";
+								echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_adicionar_carrinho' id='adicionar_carrinho' class='text-success mx-1' title='{$pagina_translated['Adicionar este produto a seu carrinho']}'><i class='fad fa-cart-plus fa-fw fa-2x'></i></a>";
 							}
 						}
 					?>
@@ -595,15 +595,15 @@
 									$item_no_acervo = true;
 								}
 								echo "
-								  <a id='remover_acervo' href='javascript:void(0);' class='ml-1 text-success' title='Remover do seu acervo'>
+								  <a id='remover_acervo' href='javascript:void(0);' class='ml-1 text-success' title='{$pagina_translated['Remover do seu acervo']}'>
 									  <i class='fad fa-lamp-desk fa-fw'></i>
 								  </a>
-								  <a id='adicionar_acervo' href='javascript:void(0);' class='ml-1 text-muted' title='Adicionar a seu acervo'>
+								  <a id='adicionar_acervo' href='javascript:void(0);' class='ml-1 text-muted' title='{$pagina_translated['Adicionar a seu acervo']}'>
 									  <i class='fad fa-lamp-desk fa-fw'></i>
 								  </a>
 						        ";
 							} else {
-								echo "<a href='javascript:void(9);' class='ml-1 text-success' title='Adicionar a seu acervo' data-toggle='modal' data-target='#modal_login'><i class='fad fa-lamp-desk fa-fw'></i></a>";
+								echo "<a href='javascript:void(9);' class='ml-1 text-success' title='{$pagina_translated['Adicionar a seu acervo']}' data-toggle='modal' data-target='#modal_login'><i class='fad fa-lamp-desk fa-fw'></i></a>";
 							}
 						}
 						if ($pagina_subtipo == 'etiqueta') {
@@ -614,21 +614,21 @@
 									$area_interesse_ativa = true;
 								}
 								echo "
-						      <a id='remover_area_interesse' href='javascript:void(0);' class='ml-1 text-warning' title='Remover como área de interesse'>
+						      <a id='remover_area_interesse' href='javascript:void(0);' class='ml-1 text-warning' title='{$pagina_translated['Remover como área de interesse']}'>
 						      	<i class='fad fa-lamp-desk fa-fw'></i>
 							  </a>
-						      <a id='adicionar_area_interesse' href='javascript:void(0);' class='ml-1 text-muted' title='Adicionar como área de interesse'>
+						      <a id='adicionar_area_interesse' href='javascript:void(0);' class='ml-1 text-muted' title='{$pagina_translated['Adicionar como área de interesse']}'>
 						      	<i class='fad fa-lamp-desk fa-fw'></i>
 							  </a>
 						    ";
 							} else {
-								echo "<a title='Adicionar como área de interesse' href='javascript:void(0);' class='ml-1 text-warning' data-toggle='modal' data-target='#modal_login'><i class='fad fa-lamp-desk fa-fw'></i></a>";
+								echo "<a title='{$pagina_translated['Adicionar como área de interesse']}' href='javascript:void(0);' class='ml-1 text-warning' data-toggle='modal' data-target='#modal_login'><i class='fad fa-lamp-desk fa-fw'></i></a>";
 							}
 						}
 						$vinculos_wikipedia = $conn->query("SELECT elemento_id, extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'wikipedia'");
 						if ($vinculos_wikipedia->num_rows > 0) {
 							$carregar_modal_wikipedia = true;
-							echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_vinculos_wikipedia' class='text-dark ml-1'><i class='fab fa-wikipedia-w fa-fw'></i></a>";
+							echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_vinculos_wikipedia' class='text-dark ml-1' title='{$pagina_translated['Ver artigos da Wikipédia vinculados']}'><i class='fab fa-wikipedia-w fa-fw'></i></a>";
 						}
 						if ($user_id != false) {
 							$notificacao_modal = '#modal_notificacoes';
@@ -651,7 +651,7 @@
 								$etiquetas_color = 'text-warning';
 							}
 							echo "
-                                  <a href='javascript:void(0);' id='adicionar_etiqueta' class='ml-1 $etiquetas_color' title='Adicionar etiqueta' data-toggle='modal' data-target='$etiquetas_modal'>
+                                  <a href='javascript:void(0);' id='adicionar_etiqueta' class='ml-1 $etiquetas_color' title='{$pagina_translated['Adicionar etiqueta']}' data-toggle='modal' data-target='$etiquetas_modal'>
                                           <i class='fad fa-tags fa-fw'></i>
                                   </a>
                                 ";
@@ -665,12 +665,12 @@
 										$marcar_incompleto = 'collapse';
 									}
 									echo "
-                                  <a id='add_completed' href='javascript:void(0);' class='text-muted ml-1 $marcar_completo' title='Marcar estudo completo' value='$pagina_id'><i class='fad fa-check-circle fa-fw'></i></a>
-                                  <a id='remove_completed' href='javascript:void(0);' class='ml-1 $marcar_incompleto text-success' title='Desmarcar como completo' value='$pagina_id'><i class='fad fa-check-circle fa-fw'></i></a>
+                                  <a id='add_completed' href='javascript:void(0);' class='text-muted ml-1 $marcar_completo' title='{$pagina_translated['Marcar estudo completo']}' value='$pagina_id'><i class='fad fa-check-circle fa-fw'></i></a>
+                                  <a id='remove_completed' href='javascript:void(0);' class='ml-1 $marcar_incompleto text-success' title='{$pagina_translated['Desmarcar como completo']}' value='$pagina_id'><i class='fad fa-check-circle fa-fw'></i></a>
                                 ";
 								} else {
 									echo "
-								        <a href='javascript:void(0);' class='text-success ml-1' title='Marcar estudo completo' data-toggle='modal' data-target='#modal_login'><i class='fad fa-check-circle fa-fw'></i></a>
+								        <a href='javascript:void(0);' class='text-success ml-1' title='{$pagina_translated['Marcar estudo completo']}' data-toggle='modal' data-target='#modal_login'><i class='fad fa-check-circle fa-fw'></i></a>
 								    ";
 								}
 							}
@@ -683,12 +683,12 @@
 							}
 							if ($user_id != false) {
 								echo "
-                                  <a href='javascript:void(0);' id='add_bookmark' class='text-muted ml-1 $marcar_bookmark' title='Marcar para leitura' value='$pagina_id'><i class='fad fa-bookmark fa-fw'></i></a>
-                                  <a href='javascript:void(0);' id='remove_bookmark' class='text-danger ml-1 $desmarcar_bookmark' title='Remover da lista de leitura' value='$pagina_id'><i class='fad fa-bookmark fa-fw'></i></a>
+                                  <a href='javascript:void(0);' id='add_bookmark' class='text-muted ml-1 $marcar_bookmark' title='{$pagina_translated['Marcar para leitura']}' value='$pagina_id'><i class='fad fa-bookmark fa-fw'></i></a>
+                                  <a href='javascript:void(0);' id='remove_bookmark' class='text-danger ml-1 $desmarcar_bookmark' title='{$pagina_translated['Remover da lista de leitura']}' value='$pagina_id'><i class='fad fa-bookmark fa-fw'></i></a>
                                 ";
 							} else {
 								echo "
-                                    <a href='javascript:void(0);' id='login_bookmark' class='text-danger ml-1' title='Marcar para leitura' data-toggle='modal' data-target='#modal_login'><i class='fad fa-bookmark fa-fw'></i></a>
+                                    <a href='javascript:void(0);' id='login_bookmark' class='text-danger ml-1' title='{$pagina_translated['Marcar para leitura']}' data-toggle='modal' data-target='#modal_login'><i class='fad fa-bookmark fa-fw'></i></a>
                                 ";
 							}
 							$estado_cor = false;
@@ -705,7 +705,7 @@
 									$estado_modal = '#modal_login';
 								}
 								echo "
-                                        <a href='javascript:void(0);' id='change_estado_pagina' class='ml-1 $estado_cor' title='Estado da página' data-toggle='modal' data-target='$estado_modal'><i class='$estado_icone fa-fw'></i></a>
+                                        <a href='javascript:void(0);' id='change_estado_pagina' class='ml-1 $estado_cor' title='{$pagina_translated['Estado da página']}' data-toggle='modal' data-target='$estado_modal'><i class='$estado_icone fa-fw'></i></a>
                                     ";
 							}
 						}
@@ -718,16 +718,16 @@
 		$template_titulo_context = true;
 		if ($pagina_tipo == 'topico') {
 			$template_titulo = $pagina_titulo;
-			$template_subtitulo = "<a href='pagina.php?pagina_id=$topico_materia_pagina_id' title='Matéria'>$topico_materia_titulo</a> / <a href='pagina.php?pagina_id=$topico_curso_pagina_id' title='Curso'>$topico_curso_titulo</a>";
+			$template_subtitulo = "<a href='pagina.php?pagina_id=$topico_materia_pagina_id' title='{$pagina_translated['Matéria']}'>$topico_materia_titulo</a> / <a href='pagina.php?pagina_id=$topico_curso_pagina_id' title='Curso'>$topico_curso_titulo</a>";
 		} elseif ($pagina_tipo == 'elemento') {
 			$template_titulo = $elemento_titulo;
 			$template_subtitulo = $elemento_autor;
 		} elseif ($pagina_tipo == 'curso') {
 			$template_titulo = $pagina_titulo;
-			$template_subtitulo = 'Curso';
+			$template_subtitulo = $pagina_translated['Curso'];
 		} elseif ($pagina_tipo == 'materia') {
 			$template_titulo = $pagina_titulo;
-			$template_subtitulo = "Matéria / <a href='pagina.php?pagina_id=$pagina_curso_id'>$pagina_curso_titulo</a>";
+			$template_subtitulo = "{$pagina_translated['Matéria']} / <a href='pagina.php?pagina_id=$pagina_curso_id'>$pagina_curso_titulo</a>";
 		} elseif ($pagina_tipo == 'texto') {
 			if ($texto_page_id != false) {
 				$template_titulo = return_pagina_titulo($texto_pagina_id);
@@ -737,29 +737,29 @@
 				if ($texto_titulo != false) {
 					$template_titulo = $texto_titulo;
 				} else {
-					$template_titulo = 'Texto sem título';
+					$template_titulo = $pagina_translated['Texto sem título'];
 				}
-				$template_subtitulo = 'Texto privado';
+				$template_subtitulo = $pagina_translated['Texto privado'];
 			}
 			$template_titulo_no_nav = false;
 		} elseif ($pagina_tipo == 'sistema') {
 			$template_titulo = $pagina_titulo;
 		} elseif ($pagina_tipo == 'pagina') {
 			if ($pagina_titulo == false) {
-				$template_titulo = 'Página sem título';
+				$template_titulo = $pagina_translated['Página sem título'];
 			} else {
 				$template_titulo = $pagina_titulo;
 			}
 			if ($pagina_compartilhamento == 'privado') {
-				$template_subtitulo = 'Página privada';
+				$template_subtitulo = $pagina_translated['private page'];
 			} elseif ($pagina_compartilhamento == 'publico') {
-				$template_subtitulo = 'Página pública';
+				$template_subtitulo = $pagina_translated['public page'];
 			} elseif ($pagina_compartilhamento == 'escritorio') {
 				$pagina_user_apelido = return_apelido_user_id($pagina_user_id);
 				$pagina_user_avatar = return_avatar($pagina_user_id);
 				$pagina_user_avatar_icone = $pagina_user_avatar[0];
 				$pagina_user_avatar_cor = $pagina_user_avatar[1];
-				$template_subtitulo = "Escritório de <span class='$pagina_user_avatar_cor'><i class='fad $pagina_user_avatar_icone fa-fw'></i></span> $pagina_user_apelido";
+				$template_subtitulo = "{$pagina_translated['Escritório de']} <span class='$pagina_user_avatar_cor'><i class='fad $pagina_user_avatar_icone fa-fw'></i></span> $pagina_user_apelido";
 			} else {
 				$template_subtitulo = $pagina_compartilhamento;
 			}
@@ -769,45 +769,45 @@
 				$pagina_original_titulo = $pagina_original_info[6];
 				$pagina_original_concurso_pagina_id = $pagina_original_info[1];
 				$pagina_original_concurso_titulo = return_pagina_titulo($pagina_original_concurso_pagina_id);
-				$template_titulo = "Plano de estudos: $pagina_original_titulo";
+				$template_titulo = "{$pagina_translated['Plano de estudos']}: $pagina_original_titulo";
 				$template_subtitulo = "<a href='pagina.php?pagina_id=$pagina_item_id'>$pagina_original_titulo</a> / <a href='pagina.php?pagina_id=$pagina_original_concurso_pagina_id'>$pagina_original_concurso_titulo</a>";
 			} elseif ($pagina_subtipo == 'etiqueta') {
-				$template_subtitulo = 'Página livre';
+				$template_subtitulo = $pagina_translated['free page'];
 			}
 		} elseif ($pagina_tipo == 'secao') {
 			$template_titulo = $pagina_titulo;
 			$paginal_original_info = return_pagina_info($pagina_item_id);
 			$pagina_original_titulo = $pagina_original_info[6];
 			$pagina_original_compartilhamento = $pagina_original_info[4];
-			$template_subtitulo = "Seção de \"$pagina_original_titulo\"";
+			$template_subtitulo = "{$pagina_translated['Seção de']} \"$pagina_original_titulo\"";
 			if ($pagina_original_compartilhamento == 'privado') {
-				$template_subtitulo = "$template_subtitulo (Página e seções privadas)";
+				$template_subtitulo = "$template_subtitulo ({$pagina_translated['Página e seções privadas']})";
 			}
 		} elseif ($pagina_tipo == 'grupo') {
 			$template_titulo = return_grupo_titulo_id($grupo_id);
-			$template_subtitulo = 'Grupo de estudos';
+			$template_subtitulo = $pagina_translated['study group'];
 		} elseif ($pagina_tipo == 'resposta') {
 			if ($pagina_titulo == false) {
-				$template_titulo = 'Resposta sem título';
+				$template_titulo = $pagina_translated['Resposta sem título'];
 			} else {
 				$template_titulo = $pagina_titulo;
 			}
 			if ($original_titulo != false) {
-				$template_subtitulo = "Referente ao texto \"$original_titulo\"";
+				$template_subtitulo = "{$pagina_translated['Referente ao texto']} \"$original_titulo\"";
 			} else {
-				$template_subtitulo = 'Referente a texto sem título';
+				$template_subtitulo = $pagina_translated['Referente a texto sem título'];
 			}
 		} elseif ($pagina_tipo == 'questao') {
-			$template_titulo = "Questão $pagina_questao_numero";
+			$template_titulo = "{$pagina_translated['Questão']} $pagina_questao_numero";
 			$pagina_questao_curso_titulo = return_curso_titulo_id($pagina_questao_curso_id);
 			$pagina_questao_materia_titulo = return_pagina_titulo($pagina_questao_materia);
-			$template_subtitulo = "<a href='pagina.php?pagina_id=$pagina_questao_materia'>$pagina_questao_materia_titulo</a> / <a href='pagina.php?curso_id=$pagina_questao_curso_id'>$pagina_questao_curso_titulo</a> / Edição de $pagina_questao_edicao_ano";
+			$template_subtitulo = "<a href='pagina.php?pagina_id=$pagina_questao_materia'>$pagina_questao_materia_titulo</a> / <a href='pagina.php?curso_id=$pagina_questao_curso_id'>$pagina_questao_curso_titulo</a> / {$pagina_translated['Edição de']} $pagina_questao_edicao_ano";
 		} elseif ($pagina_tipo == 'texto_apoio') {
 			$template_titulo = $pagina_texto_apoio_titulo;
-			$template_subtitulo = "Texto de apoio / <a href='pagina.php?curso_id=$pagina_texto_apoio_curso_id'>$pagina_texto_apoio_curso_titulo</a>";
+			$template_subtitulo = "{$pagina_translated['Texto de apoio']} / <a href='pagina.php?curso_id=$pagina_texto_apoio_curso_id'>$pagina_texto_apoio_curso_titulo</a>";
 		}
 		if ($wiki_id != false) {
-			$template_subtitulo = "<a href='pagina.php?pagina_id=$pagina_id'>Retornar ao verbete da página</a>";
+			$template_subtitulo = "<a href='pagina.php?pagina_id=$pagina_id'>{$pagina_translated['Retornar ao verbete da página']}</a>";
 		}
 		include 'templates/titulo.php';
 	?>
@@ -832,7 +832,7 @@
 					if ($original_titulo != false) {
 						$template_titulo = $original_titulo;
 					} else {
-						$template_titulo = 'Texto original';
+						$template_titulo = $pagina_translated['Texto original'];
 					}
 					$template_conteudo = false;
 					$template_conteudo = '<p class="mt-4"></p>';
@@ -895,11 +895,11 @@
 					$template_id = 'verbete';
 					if ($wiki_id == false) {
 						if ($pagina_tipo == 'curso') {
-							$template_titulo = 'Apresentação';
+							$template_titulo = $pagina_translated['Apresentação'];
 						} elseif ($pagina_tipo == 'sistema') {
-							$template_titulo = 'Aviso';
+							$template_titulo = $pagina_translated['Aviso'];
 						} else {
-							$template_titulo = 'Verbete';
+							$template_titulo = $pagina_translated['Verbete'];
 						}
 						if (($pagina_tipo == 'sistema') && ($user_tipo != 'admin')) {
 							$template_quill_botoes = false;
@@ -917,7 +917,7 @@
 							$template_quill_initial_state = 'leitura';
 						}
 						if ($pagina_tipo == 'resposta') {
-							$template_titulo = 'Resposta';
+							$template_titulo = $pagina_translated['Resposta'];
 							$template_classes = 'sticky-top';
 							$template_quill_vazio = 'Escreva aqui sua resposta.';
 						}
@@ -925,7 +925,7 @@
 						include 'templates/page_element.php';
 					} else {
 						$template_id = 'verbete_wiki';
-						$template_titulo = 'Artigo da Wikipédia';
+						$template_titulo = $pagina_translated['Artigo da Wikipédia'];
 						$wiki_info = return_elemento_info($wiki_id);
 						$wiki_url = $wiki_info[9];
 						$wiki_conteudo = extract_wikipedia($wiki_url);
@@ -960,7 +960,7 @@
 					$list_pagina_questoes = $conn->query("SELECT elemento_id, extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'questao'");
 					if ($list_pagina_questoes->num_rows > 0) {
 						$template_id = 'pagina_questoes';
-						$template_titulo = 'Questões sobre este tópico';
+						$template_titulo = $pagina_translated['Questões sobre este tópico'];
 						$template_conteudo = false;
 						$template_conteudo .= "<ul class='list-group list-group-flush'>";
 						while ($list_pagina_questao = $list_pagina_questoes->fetch_assoc()) {
@@ -997,7 +997,7 @@
                             </div>
 			            ";
 					} else {
-						$template_conteudo .= "<p class='text-muted'><em>O conteúdo deste texto de apoio ainda não foi adicionado.</em></p>";
+						$template_conteudo .= "<p class='text-muted'><em>{$pagina_translated['O conteúdo deste texto de apoio ainda não foi adicionado.']}</em></p>";
 					}
 					include 'templates/page_element.php';
 				}
@@ -1006,16 +1006,16 @@
 					
 					if ($pagina_questao_texto_apoio == 1) {
 						$template_id = 'questao_texto_apoio';
-						$template_titulo = "Texto de apoio";
+						$template_titulo = $pagina_translated['Texto de apoio'];
 						if ($pagina_questao_texto_apoio_pagina_id != false) {
 							$template_botoes = "
-							<a href='pagina.php?pagina_id=$pagina_questao_texto_apoio_pagina_id' title='Página deste texto de apoio' class='text-secondary'><li class='fad fa-external-link-square fa-fw'></li></a>
+							<a href='pagina.php?pagina_id=$pagina_questao_texto_apoio_pagina_id' title='{$pagina_translated['Página deste texto de apoio']}' class='text-secondary'><li class='fad fa-external-link-square fa-fw'></li></a>
 							";
 						}
 						$template_conteudo = false;
 						$template_conteudo .= "<h3 class='h3-responsive'>$pagina_questao_texto_apoio_titulo</h3>";
 						if ($pagina_questao_texto_apoio_id == false) {
-							$template_conteudo .= "<p class='text-muted'><em>Esta questão depende de texto de apoio, mas seu texto de apoio ainda não foi identificado ou criado. Você poderá fazê-lo nas configurações da questão (canto superior esquerdo desta página).</em></p>";
+							$template_conteudo .= "<p class='text-muted'><em>{$pagina_translated['depende texto apoio mas']}</em></p>";
 						} else {
 							if ($pagina_questao_texto_apoio_html != false) {
 								$template_conteudo .= "
@@ -1025,7 +1025,7 @@
 									</div>
 								";
 							} else {
-								$template_conteudo .= "<p class='text-muted'><em>O conteúdo deste texto de apoio ainda não foi adicionado. Você poderá fazê-lo na <a href='pagina.php?pagina_id=$pagina_questao_texto_apoio_pagina_id'>na página deste texto de apoio</a>.</em></p>";
+								$template_conteudo .= "<p class='text-muted'><em>{$pagina_translated['O conteúdo deste texto de apoio ainda não foi adicionado. Você poderá fazê-lo']} <a href='pagina.php?pagina_id=$pagina_questao_texto_apoio_pagina_id'>{$pagina_translated['na página deste texto de apoio']}</a>.</em></p>";
 							}
 						}
 						include 'templates/page_element.php';
@@ -1035,14 +1035,14 @@
 					if (($pagina_questao_tipo == 1) || ($pagina_questao_tipo == 2)) {
 						$gabarito = true;
 						$template_botoes = "
-                                <span id='mostrar_gabarito' title='Mostrar gabarito'>
+                                <span id='mostrar_gabarito' title='{$pagina_translated['Mostrar gabarito']}'>
                                     <a href='javascript:void(0);' class='text-primary'><i class='fad fa-eye fa-fw'></i></a>
                                 </span>
                             ";
-						$template_titulo = 'Itens e gabarito';
+						$template_titulo = $pagina_translated['Itens e gabarito'];
 					} else {
 						$template_botoes = false;
-						$template_titulo = 'Enunciado';
+						$template_titulo = $pagina_translated['Enunciado'];
 					}
 					$template_conteudo = false;
 					$template_conteudo .= "<div id='special_li'>$pagina_questao_enunciado_html</div>";
@@ -1051,7 +1051,7 @@
 					if ($pagina_questao_item1_html != false) {
 						$gabarito_cor = convert_gabarito_cor($pagina_questao_item1_gabarito);
 						$template_conteudo .= "
-							    <li class='list-group-item list-group-item-secondary py-1 mt-2 mb-1 d-flex justify-content-center'><strong>Item 1</strong></li>
+							    <li class='list-group-item list-group-item-secondary py-1 mt-2 mb-1 d-flex justify-content-center'><strong>{$pagina_translated['Item']} 1</strong></li>
 							";
 						$template_conteudo .= "<li class='list-group-item $gabarito_cor $mask_cor'>
                                     $pagina_questao_item1_html
@@ -1060,7 +1060,7 @@
 					if ($pagina_questao_item2_html != false) {
 						$gabarito_cor = convert_gabarito_cor($pagina_questao_item2_gabarito);
 						$template_conteudo .= "
-							    <li class='list-group-item list-group-item-secondary py-1 mt-2 mb-1 d-flex justify-content-center'><strong>Item 2</strong></li>
+							    <li class='list-group-item list-group-item-secondary py-1 mt-2 mb-1 d-flex justify-content-center'><strong>{$pagina_translated['Item']} 2</strong></li>
 							";
 						$template_conteudo .= "<li class='list-group-item $gabarito_cor $mask_cor'>
                                     $pagina_questao_item2_html
@@ -1069,7 +1069,7 @@
 					if ($pagina_questao_item3_html != false) {
 						$gabarito_cor = convert_gabarito_cor($pagina_questao_item3_gabarito);
 						$template_conteudo .= "
-							    <li class='list-group-item list-group-item-secondary py-1 mt-2 mb-1 d-flex justify-content-center'><strong>Item 3</strong></li>
+							    <li class='list-group-item list-group-item-secondary py-1 mt-2 mb-1 d-flex justify-content-center'><strong>{$pagina_translated['Item']} 3</strong></li>
 							";
 						$template_conteudo .= "<li class='list-group-item $gabarito_cor $mask_cor'>
                                     $pagina_questao_item3_html
@@ -1078,7 +1078,7 @@
 					if ($pagina_questao_item4_html != false) {
 						$gabarito_cor = convert_gabarito_cor($pagina_questao_item4_gabarito);
 						$template_conteudo .= "
-							    <li class='list-group-item list-group-item-secondary py-1 mt-2 mb-1 d-flex justify-content-center'><strong>Item 4</strong></li>
+							    <li class='list-group-item list-group-item-secondary py-1 mt-2 mb-1 d-flex justify-content-center'><strong>{$pagina_translated['Item']} 4</strong></li>
 							";
 						$template_conteudo .= "<li class='list-group-item $gabarito_cor $mask_cor'>
                                     $pagina_questao_item4_html
@@ -1087,7 +1087,7 @@
 					if ($pagina_questao_item5_html != false) {
 						$gabarito_cor = convert_gabarito_cor($pagina_questao_item5_gabarito);
 						$template_conteudo .= "
-							    <li class='list-group-item list-group-item-secondary py-1 mt-2 mb-1 d-flex justify-content-center'><strong>Item 5</strong></li>
+							    <li class='list-group-item list-group-item-secondary py-1 mt-2 mb-1 d-flex justify-content-center'><strong>{$pagina_translated['Item']} 5</strong></li>
 							";
 						$template_conteudo .= "<li class='list-group-item $gabarito_cor $mask_cor'>
                                     $pagina_questao_item5_html
@@ -1111,7 +1111,7 @@
 					echo "<div id='coluna_direita' class='$coluna_classes pagina_coluna'>";
 					
 					$template_id = 'modulos';
-					$template_titulo = 'Módulos';
+					$template_titulo = $pagina_translated['Módulos'];
 					$template_botoes = false;
 					$template_conteudo = false;
 					
@@ -1146,14 +1146,14 @@
     </div>
 </div>
 <?php
-	echo "<a id='mostrar_coluna_direita' class='text-light rgba-black-strong rounded m-1 p-1' tabindex='-1' title='Notas privadas'><i class='fas fa-pen-alt fa-fw'></i></a>";
+	echo "<a id='mostrar_coluna_direita' class='text-light rgba-black-strong rounded m-1 p-1' tabindex='-1' title='{$pagina_translated['Notas privadas']}'><i class='fas fa-pen-alt fa-fw'></i></a>";
 ?>
 </div>
 
 <?php
 	if ($pagina_tipo == 'topico') {
 		$template_modal_div_id = 'modal_verbetes_relacionados';
-		$template_modal_titulo = 'Navegação';
+		$template_modal_titulo = $pagina_translated['Navegação'];
 		$template_modal_show_buttons = false;
 		$template_modal_body_conteudo = $breadcrumbs;
 		include 'templates/modal.php';
@@ -1161,15 +1161,15 @@
 	
 	$carregar_controle_estado = true;
 	$template_modal_div_id = 'modal_estado';
-	$template_modal_titulo = 'Qualidade da página';
+	$template_modal_titulo = $pagina_translated['Estado da página'];
 	$template_modal_show_buttons = false;
 	$template_modal_body_conteudo = "
-        <p>Qual das categorias abaixo melhor descreve o estado atual desta página?</p>
+        <p>{$pagina_translated['Qual das categorias abaixo melhor descreve o estado atual desta página?']}</p>
         <input type='hidden' value='$pagina_estado' name='novo_estado_pagina' id='novo_estado_pagina'>
         <div class='row justify-content-around'>";
 	
 	$artefato_tipo = 'estado_rascunho';
-	$artefato_titulo = 'Rascunho';
+	$artefato_titulo = $pagina_translated['Rascunho'];
 	$fa_icone = 'fa-acorn';
 	$fa_color = 'text-info';
 	if ($pagina_estado == 1) {
@@ -1181,7 +1181,7 @@
 	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	
 	$artefato_tipo = 'estado_aceitavel';
-	$artefato_titulo = 'Aceitável';
+	$artefato_titulo = $pagina_translated['Aceitável'];
 	$fa_icone = 'fa-seedling';
 	$fa_color = 'text-danger';
 	if ($pagina_estado == 2) {
@@ -1193,7 +1193,7 @@
 	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	
 	$artefato_tipo = 'estado_desejavel';
-	$artefato_titulo = 'Desejável';
+	$artefato_titulo = $pagina_translated['Desejável'];
 	$fa_icone = 'fa-leaf';
 	$fa_color = 'text-success';
 	if ($pagina_estado == 3) {
@@ -1205,7 +1205,7 @@
 	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	
 	$artefato_tipo = 'estado_excepcional';
-	$artefato_titulo = 'Excepcional';
+	$artefato_titulo = $pagina_translated['Excepcional'];
 	$fa_icone = 'fa-spa';
 	$fa_color = 'text-warning';
 	if ($pagina_estado == 4) {
@@ -1231,13 +1231,13 @@
 		$template_modal_div_id = 'modal_partes_form';
 		if ($pagina_tipo == 'elemento') {
 			if ($elemento_subtipo == 'podcast') {
-				$template_modal_titulo = 'Adicionar episódio';
+				$template_modal_titulo = $pagina_translated['Adicionar episódio'];
 			} elseif ($elemento_subtipo == 'livro') {
-				$template_modal_titulo = 'Adicionar capítulo';
+				$template_modal_titulo = $pagina_translated['Adicionar capítulo'];
 			}
 		}
 		if (!isset($template_modal_titulo)) {
-			$template_modal_titulo = 'Adicionar seção';
+			$template_modal_titulo = $pagina_translated['Adicionar seção'];
 		}
 		$template_modal_submit_name = 'trigger_nova_secao';
 		$modal_scrollable = true;
@@ -1246,14 +1246,14 @@
 		if ($pagina_tipo == 'elemento') {
 			if ($elemento_subtipo == 'podcast') {
 				$template_modal_body_conteudo .= "
-					<p>Adicione episódios abaixo de acordo com seu número.</p>
+					<p>{$pagina_translated['podcast add episode number']}</p>
 				";
 				$secoes_sem_texto = false;
 			} else {
 				$template_modal_body_conteudo .= "
-		        <p>Por favor, tome cuidado para que não haja duplicidade. Se possível, é preferencial que todas as seções sejam acrescentadas na ordem em que aparecem na edição de que você dispõe. Ao inserir a ordem da nova seção, por favor considere Introdução, Prefácio etc. Se houver mais de um prefácio, considere a possibilidade de consolidá-los em apenas uma seção, por exemplo, no caso de prefácios a edições que somente mencionam adições ou correções realizadas. Seções de agradecimento, caso nada incluam de especialmente relevante, podem ser ignoradas, assim como tabelas de referência, listas de anexos, glossários e seções afim.</p>
-		        <p>Exemplos de seções adequadas: \"Capítulo 1\", \"Capítulo 2: Título do Capítulo\", \"Parte 1: As Origens\", \"Introdução\".</p>
-		        <p>É possível determinar a ordem como \"0\". É preferível usar essa opção para elementos anteriores ao primeiro capítulo, como Introdução e Prefácio, pois dessa forma o primeiro capítulo terá a ordem \"1\", o segundo a ordem \"2\" etc.</p>
+		        <p>{$pagina_translated['please care add chapter']}</p>
+		        <p>{$pagina_translated['section examples']}</p>
+		        <p>{$pagina_translated['order details']}</p>
 		        $secoes_sem_texto = false;
 	          ";
 			}
@@ -1262,7 +1262,7 @@
 		}
 		if ($secoes_sem_texto == true) {
 			$template_modal_body_conteudo .= "
-				<p>Você pode criar seções de sua página, mas recomenda-se cuidado para que não haja duplicidade. Preferencialmente, as seções devem ser adicionadas na ordem final de sua preferência. Nesse caso, é possível ignorar o campo 'ordem' completamente.</p>
+				<p>{$pagina_translated['you can sections']}</p>
 			";
 		}
 		if ($pagina_tipo == 'elemento') {
@@ -1292,7 +1292,7 @@
 		$secoes = $conn->query("SELECT secao_pagina_id, ordem FROM Secoes WHERE pagina_id = $pagina_id");
 		if ($secoes->num_rows > 0) {
 			$template_modal_body_conteudo .= "
-		      <h3>Seções registradas desta página:</h3>
+		      <h3>{$pagina_translated['Seções registradas desta página']}:</h3>
 		      <ul class='list-group'>
     		";
 			while ($secao = $secoes->fetch_assoc()) {
@@ -1316,27 +1316,27 @@
 	}
 	if ($modal_pagina_dados == true) {
 		if (($pagina_tipo == 'pagina') || ($pagina_tipo == 'sistema')) {
-			$mudar_titulo_texto = 'desta página';
+			$mudar_titulo_texto = $pagina_translated['desta página'];
 		} elseif (($pagina_tipo == 'texto') || ($pagina_tipo == 'resposta')) {
-			$mudar_titulo_texto = 'deste texto';
+			$mudar_titulo_texto = $pagina_translated['deste texto'];
 		} elseif ($pagina_tipo == 'curso') {
-			$mudar_titulo_texto = 'deste curso';
+			$mudar_titulo_texto = $pagina_translated['deste curso'];
 		} elseif ($pagina_tipo == 'materia') {
-			$mudar_titulo_texto = 'desta matéria';
+			$mudar_titulo_texto = $pagina_translated['desta matéria'];
 		} elseif ($pagina_tipo == 'topico') {
 			$mudar_titulo_texto = 'deste tópico';
 		} else {
-			$mudar_titulo_texto = 'deste documento';
+			$mudar_titulo_texto = $pagina_translated['deste documento'];
 		}
 		$template_modal_div_id = 'modal_pagina_dados';
-		$template_modal_titulo = "Alterar dados $mudar_titulo_texto";
+		$template_modal_titulo = "{$pagina_translated['Alterar dados']} $mudar_titulo_texto";
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
         <div class='md-form mb-2'>
             <input type='text' id='pagina_novo_titulo' name='pagina_novo_titulo'
                    class='form-control validate' value='$pagina_titulo' required>
             <label data-error='inválido' data-success='válido'
-                   for='pagina_novo_titulo'>Novo título</label>
+                   for='pagina_novo_titulo'>{$pagina_translated['Novo título']}</label>
         </div>
         ";
 		
@@ -1346,7 +1346,7 @@
 				$template_modal_body_conteudo .= "
 		        <span data-toggle='modal' data-target='#modal_pagina_dados'>
                     <div class='row justify-content-center'>
-                        <button type='button' class='$button_classes btn-info' data-toggle='modal' data-target='#modal_novo_curso'>Transformar em página inicial de curso</button>
+                        <button type='button' class='$button_classes btn-info' data-toggle='modal' data-target='#modal_novo_curso'>{$pagina_translated['Transformar em página inicial de curso']}</button>
                     </div>
                 </span>
 		    ";
@@ -1357,14 +1357,14 @@
 	if ($privilegio_edicao == true) {
 		if ($modal_novo_curso == true) {
 			$template_modal_div_id = 'modal_novo_curso';
-			$template_modal_titulo = 'Transformar esta página em um curso';
+			$template_modal_titulo = $pagina_translated['Transformar em página inicial de curso'];
 			$template_modal_submit_name = 'novo_curso';
 			$template_modal_body_conteudo = false;
 			$template_modal_body_conteudo .= "
-	            <p>Ao pressionar o botão de confirmação abaixo, esta página será transformada na página inicial de um curso. Em seguida, será possível acrescentar matérias e, às páginas das matérias, tópicos.</p>
+	            <p>{$pagina_translated['new course explanation']}</p>
 	            <div class='md-form mb-2'>
 	                <input type='text' id='novo_curso_sigla' name='novo_curso_sigla' class='form-control validade' required>
-	                <label data-error='inválido' data-success='válido' for='pagina_novo_titulo'>Novo título</label>
+	                <label data-error='inválido' data-success='válido' for='pagina_novo_titulo'>{$pagina_translated['Novo título']}</label>
                 </div>
 	        ";
 			include 'templates/modal.php';
@@ -1372,13 +1372,13 @@
 	}
 	if (($pagina_subtipo == 'produto') && ($carregar_produto_setup == true) && ($privilegio_edicao == true) && (isset($imagem_opcoes))) {
 		$template_modal_div_id = 'modal_produto_nova_imagem';
-		$template_modal_titulo = 'Determinar imagem para o cartão do produto';
+		$template_modal_titulo = $pagina_translated['Determinar imagem para o cartão do produto'];
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
             <div class='md-form mb-2'>
-				<p>Selecione uma entre as imagens desta página para fazer parte do cartão de oferta deste produto na Loja Virtual:</p>
+				<p>{$pagina_translated['Selecione uma entre as imagens desta página para fazer parte do cartão de oferta deste produto na Loja Virtual:']}</p>
             	<select class='$select_classes' name='produto_nova_imagem'>
-            	<option value='' disabled selected>Selecione uma imagem:</option>
+            	<option value='' disabled selected>{$pagina_translated['Selecione uma imagem:']}</option>
            ";
 		foreach ($imagem_opcoes as $imagem_opcao) {
 			$imagem_opcao_id = $imagem_opcao[0];
@@ -1392,11 +1392,11 @@
 		include 'templates/modal.php';
 		
 		$template_modal_div_id = 'modal_produto_preco';
-		$template_modal_titulo = 'Determinar preço deste produto';
+		$template_modal_titulo = $pagina_translated['Determinar preço deste produto'];
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
 			<div class='md-form mb-2'>
-				<p>Escreva abaixo o preço deste produto em Reais brasileiros (BRL).</p>
+				<p>{$pagina_translated['Escreva abaixo o preço deste produto em Reais brasileiros (BRL).']}</p>
 				<input type='number' name='novo_produto_preco' id='novo_produto_preco' value='$produto_preco'>
 			</div>
 		";
@@ -1408,7 +1408,7 @@
 	
 	if ($pagina_tipo == 'secao') {
 		$template_modal_div_id = 'modal_paginas_relacionadas';
-		$template_modal_titulo = 'Página e seções';
+		$template_modal_titulo = $pagina_translated['Página e seções'];
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
 		$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$pagina_item_id'><li class='list-group-item list-group-item-action list-group-item-primary'>$pagina_original_titulo</li></a>";
@@ -1431,7 +1431,7 @@
 	if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id)) {
 		
 		$template_modal_div_id = 'modal_compartilhar_pagina';
-		$template_modal_titulo = 'Colaboração e acesso';
+		$template_modal_titulo = $pagina_translated['Colaboração e acesso'];
 		$template_modal_show_buttons = false;
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
@@ -1461,21 +1461,17 @@
 		$template_modal_body_conteudo .= "
 			<div class='form-check'>
 				<input type='radio' class='form-check-input radio_publicar_opcao' name='radio_publicar_opcao' id='checkbox_publicar_ubwiki' value='ubwiki' $radio_ubwiki>
-				<label class='form-check-label' for='checkbox_publicar_ubwiki'>Acesso livre a usuários da Ubwiki.</label>
+				<label class='form-check-label' for='checkbox_publicar_ubwiki'>{$pagina_translated['Acesso livre.']}</label>
 			</div>
 			<div class='form-check'>
 				<input type='radio' class='form-check-input radio_publicar_opcao' name='radio_publicar_opcao' id='checkbox_publicar_privado' value='privado' $radio_privado>
-				<label class='form-check-label' for='checkbox_publicar_privado'>Seletivo. <span class='text-muted'><em>Você determina quem tem acesso</em></span>.</label>
+				<label class='form-check-label' for='checkbox_publicar_privado'>{$pagina_translated['Seletivo.']} <span class='text-muted'><em>{$pagina_translated['Você determina quem tem acesso']}</em></span>.</label>
 			</div>
 			<div id='botao_determinar_acesso' class='row d-flex justify-content-center botao_determinar_acesso'>
-				<span data-toggle='modal' data-target='#modal_compartilhar_pagina'><a data-toggle='modal' data-target='#modal_outorgar_acesso'><button class='$button_classes botao_determinar_acesso btn-info' type='button'>Outorgar acesso</button></a></span>
+				<span data-toggle='modal' data-target='#modal_compartilhar_pagina'><a data-toggle='modal' data-target='#modal_outorgar_acesso'><button class='$button_classes botao_determinar_acesso btn-info' type='button'>{$pagina_translated['Dar acesso']}</button></a></span>
 			</div>
-			<!--<div class='form-check'>
-				<input type='radio' class='form-check-input' name='radio_publicar_opcao' id='checkbox_publicar_geral' value='internet' $radio_internet>
-				<label class='form-check-label' for='checkbox_publicar_geral'>Publicado na Internet.</label>
-			</div>-->
 			";
-		$template_modal_body_conteudo .= "<h3 class='mt-3'>Colaboração</h3>";
+		$template_modal_body_conteudo .= "<h3 class='mt-3'>{$pagina_translated['Colaboração']}</h3>";
 		if (isset($_POST['colaboracao_opcao'])) {
 			$colaboracao_opcao = $_POST['colaboracao_opcao'];
 			$conn->query("INSERT INTO Compartilhamento (tipo, user_id, item_id, item_tipo, compartilhamento) VALUES ('colaboracao', $user_id, $pagina_id, '$pagina_tipo', '$colaboracao_opcao')");
@@ -1497,11 +1493,11 @@
 		$template_modal_body_conteudo .= "
 			<div class='form-check'>
 				<input type='radio' class='form-check-input colaboracao_opcao' name='colaboracao_opcao' id='colaboracao_aberta' value='aberta' $radio_colaboracao_aberta>
-				<label class='form-check-label' for='colaboracao_aberta'>Livre. <span class='text-muted'><em>Todos os grupos e indivíduos com acesso a esta página poderão editá-la.</em></span></label>
+				<label class='form-check-label' for='colaboracao_aberta'>{$pagina_translated['Livre.']} <span class='text-muted'><em>{$pagina_translated['Todos os grupos e indivíduos com acesso a esta página poderão editá-la.']}</em></span></label>
 			</div>
 			<div class='form-check'>
 				<input type='radio' class='form-check-input colaboracao_opcao' name='colaboracao_opcao' id='colaboracao_exclusiva' value='exclusiva' $radio_colaboracao_exclusiva>
-				<label class='form-check-label' for='colaboracao_exclusiva'>Autoral. <span class='text-muted'><em>Apenas você poderá editar o conteúdo desta página.</em></span></label>
+				<label class='form-check-label' for='colaboracao_exclusiva'>{$pagina_translated['Autoral.']} <span class='text-muted'><em>{$pagina_translated['Apenas você poderá editar o conteúdo desta página.']}</em></span></label>
 			</div>
 			<!--<div class='form-check'>
 				<input type='radio' class='form-check-input colaboracao_opcao' name='colaboracao_opcao' id='colaboracao_selecionada' value='selecionada' $radio_colaboracao_selecionada>
@@ -1522,11 +1518,11 @@
 		$template_modal_body_conteudo = false;
 		
 		$template_modal_body_conteudo .= "
-        <p class='detalhes_acesso'>Adicione pessoas e grupos de estudo abaixo para que tenham acesso à sua página. Apenas você, como criador original desta página, poderá alterar suas opções de compartilhamento.</p>
+        <p class='detalhes_acesso'>{$pagina_translated['Adicione pessoas e grupos de estudo abaixo para que tenham acesso à sua página. Apenas você, como criador original desta página, poderá alterar suas opções de compartilhamento.']}</p>
         <span id='esconder_modal_compartilhar_pagina' data-toggle='modal' data-target='#modal_outorgar_acesso' class='row justify-content-center detalhes_acesso'>";
 		
 		$artefato_tipo = 'compartilhar_grupo';
-		$artefato_titulo = 'Grupo de estudos';
+		$artefato_titulo = $pagina_translated['study groups'];
 		$artefato_link = false;
 		$artefato_criacao = false;
 		$fa_icone = 'fa-users';
@@ -1536,7 +1532,7 @@
 		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 		
 		$artefato_tipo = 'compartilhar_usuario';
-		$artefato_titulo = 'Colega';
+		$artefato_titulo = $pagina_translated['Colega'];
 		$artefato_link = false;
 		$artefato_criacao = false;
 		$fa_icone = 'fa-user-friends';
@@ -1549,11 +1545,11 @@
 		include 'templates/modal.php';
 		
 		$template_modal_div_id = 'modal_compartilhar_grupo';
-		$template_modal_titulo = 'Outorgar acesso a grupos de estudos';
+		$template_modal_titulo = $pagina_translated['Dar acesso a grupos de estudos'];
 		$template_modal_show_buttons = false;
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
-			  <h3>Grupos de estudos de que você faz parte</h3>
+			  <h3>{$pagina_translated['Grupos de estudos de que você faz parte']}</h3>
 			  ";
 		if ($user_id != false) {
 			$grupos_do_usuario = $conn->query("SELECT grupo_id FROM Membros WHERE membro_user_id = $user_id AND estado = 1");
@@ -1561,7 +1557,7 @@
 				$template_modal_body_conteudo .= "
                   <form method='post'>
                     <select name='compartilhar_grupo_id' class='$select_classes'>
-                        <option value='' disabled selected>Selecione o grupo de estudos</option>
+                        <option value='' disabled selected>{$pagina_translated['Selecione o grupo de estudos']}</option>
                 ";
 				while ($grupo_do_usuario = $grupos_do_usuario->fetch_assoc()) {
 					$grupo_do_usuario_id = $grupo_do_usuario['grupo_id'];
@@ -1571,17 +1567,17 @@
 				$template_modal_body_conteudo .= "
                     </select>
                     <div class='row justify-content-center'>
-                        <button class='$button_classes mt-3' name='trigger_compartilhar_grupo'>Compartilhar com grupo</button>
+                        <button class='$button_classes mt-3' name='trigger_compartilhar_grupo'>{$pagina_translated['Compartilhar com grupo']}</button>
                     </div>
                   </form>
                 ";
 			} else {
-				$template_modal_body_conteudo .= "<p class='text-muted'><em>Você não faz parte de nenhum grupo de estudos. Visite seu escritório para participar.</em></p>";
+				$template_modal_body_conteudo .= "<p class='text-muted'><em>{$pagina_translated['Você não faz parte de nenhum grupo de estudos. Visite seu escritório para participar.']}</em></p>";
 			}
 		}
 		$comp_grupos = $conn->query("SELECT recipiente_id FROM Compartilhamento WHERE item_id = $pagina_id AND compartilhamento = 'grupo'");
 		if ($comp_grupos->num_rows > 0) {
-			$template_modal_body_conteudo .= "<h3 class='mt-5'>Grupos de estudos com acesso:</h3>";
+			$template_modal_body_conteudo .= "<h3 class='mt-5'>{$pagina_translated['Grupos de estudos com acesso:']}</h3>";
 			$template_modal_body_conteudo .= "<ul class='list-group'>";
 			while ($comp_grupo = $comp_grupos->fetch_assoc()) {
 				$comp_grupo_id = $comp_grupo['recipiente_id'];
@@ -1606,23 +1602,23 @@
 		$template_modal_show_buttons = false;
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
-			<p><strong>Colaboradores adicionados abaixo poderão alterar o conteúdo de sua página.</strong></p>
+			<p><strong>{$pagina_translated['Colaboradores adicionados abaixo poderão alterar o conteúdo de sua página.']}</strong></p>
 		";
 		$template_modal_body_conteudo .= "
-			<p>Pesquise o convidado por seu apelido:</p>
+			<p>{$pagina_translated['Pesquise o convidado por seu apelido:']}</p>
 	        <div class='md-form'>
 	        	<input type='text' class='form-control' id='apelido_convidado_compartilhamento' novo='apelido_convidado_compartilhamento'>
-	        	<label for='apelido_convidado_compartilhamento'>Apelido</label>
+	        	<label for='apelido_convidado_compartilhamento'>{$pagina_translated['Apelido']}</label>
 	        </div>
 	        <div class='md-form my-1'>
-	            <button type='button' id='trigger_buscar_convidado_compartilhamento' name='trigger_buscar_convidado_compartilhamento' class='$button_classes btn-sm m-0'>Buscar</button>
+	            <button type='button' id='trigger_buscar_convidado_compartilhamento' name='trigger_buscar_convidado_compartilhamento' class='$button_classes btn-sm m-0'>{$pagina_translated['Buscar']}</button>
             </div>
             <div id='convite_resultados_compartilhamento' class='row border p-2 rounded mt-4'>
 			</div>
 		";
 		$template_modal_body_conteudo .= "
-		    <p class='mt-3'>Atualmente compartilhado com os usuários listados abaixo:</p>
-		    <p><strong>Pressione para remover.</strong></p>
+		    <p class='mt-3'>{$pagina_translated['Atualmente compartilhado com os usuários listados abaixo:']}</p>
+		    <p><strong>{$pagina_translated['Pressione para remover.']}</strong></p>
 		    <ul class='list-group list-group-flush'>
 		";
 		$usuarios_comp = $conn->query("SELECT recipiente_id FROM Compartilhamento WHERE estado = 1 AND item_id = $pagina_id AND compartilhamento = 'usuario'");
@@ -1646,12 +1642,12 @@
 		$template_modal_show_buttons = false;
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
-			<p>Pressione o botão abaixo para escrever um texto em resposta a este. Seu texto será visível a todos que possam acessar este texto, mas somente será listado abaixo após lhe seja indicado um título.</p>
+			<p>{$pagina_translated['pressione resposta']}</p>
 			<div class='row justify-content-center'>
-				<a href='pagina.php?original_id=$pagina_id&resposta_id=new'><button class='$button_classes'>Escrever resposta</button></a>
+				<a href='pagina.php?original_id=$pagina_id&resposta_id=new'><button class='$button_classes'>{$pagina_translated['Escrever resposta']}</button></a>
 			</div>
 		";
-		$template_modal_body_conteudo .= "<h3 class='mt-3'>Respostas a este texto</h3>";
+		$template_modal_body_conteudo .= "<h3 class='mt-3'>{$pagina_translated['Respostas a este texto']}</h3>";
 		if ($respostas->num_rows > 0) {
 			while ($resposta = $respostas->fetch_assoc()) {
 				$resposta_pagina_id = $resposta['elemento_id'];
@@ -1675,21 +1671,21 @@
 				}
 			}
 		} else {
-			$template_modal_body_conteudo .= "<p><span class='text-muted'>Não há respostas a este texto.</span></p>";
+			$template_modal_body_conteudo .= "<p><span class='text-muted'>{$pagina_translated['Não há respostas a este texto.']}</span></p>";
 		}
 		include 'templates/modal.php';
 	}
 	
 	if ($carregar_adicionar_materia == true) {
 		$template_modal_div_id = 'modal_add_materia';
-		$template_modal_titulo = 'Adicionar matéria';
+		$template_modal_titulo = $pagina_translated['Adicionar matéria'];
 		$template_modal_body_conteudo = false;
-		$template_modal_body_conteudo .= "<p>Pesquise a nova matéria abaixo</p>";
+		$template_modal_body_conteudo .= "<p>{$pagina_translated['Pesquise a nova matéria abaixo']}</p>";
 		$template_modal_body_conteudo .= "
 			<div class='md-form'>
 				<input type='text' class='form-control' name='buscar_materias' id='buscar_materias' required>
-				<label for='buscar_materias'>Buscar matéria</label>
-                <button type='button' class='$button_classes' id='trigger_buscar_materias'>Buscar</button>
+				<label for='buscar_materias'>{$pagina_translated['Buscar matéria']}</label>
+                <button type='button' class='$button_classes' id='trigger_buscar_materias'>{$pagina_translated['Buscar']}</button>
 			</div>
 			<div class='row border p-2' id='materias_disponiveis'></div>
 		";
@@ -1699,14 +1695,14 @@
 	
 	if ($carregar_adicionar_topico == true) {
 		$template_modal_div_id = 'modal_add_topico';
-		$template_modal_titulo = 'Adicionar tópico';
+		$template_modal_titulo = $pagina_translated['Adicionar tópico'];
 		$template_modal_body_conteudo = false;
-		$template_modal_body_conteudo .= "<p>Pesquise o novo tópico abaixo</p>";
+		$template_modal_body_conteudo .= "<p>{$pagina_translated['Pesquise o novo tópico abaixo']}</p>";
 		$template_modal_body_conteudo .= "
 			<div class='md-form'>
 				<input type='text' class='form-control' name='buscar_topicos' id='buscar_topicos' required>
-				<label for='buscar_topicos'>Buscar tópico</label>
-                <button type='button' class='$button_classes' id='trigger_buscar_topicos'>Buscar</button>
+				<label for='buscar_topicos'>{$pagina_translated['Buscar tópico']}</label>
+                <button type='button' class='$button_classes' id='trigger_buscar_topicos'>{$pagina_translated['Buscar']}</button>
 			</div>
 			<div class='row border p-2' id='topicos_disponiveis'></div>
 		";
@@ -1716,14 +1712,14 @@
 	
 	if ($carregar_adicionar_subtopico == true) {
 		$template_modal_div_id = 'modal_add_subtopico';
-		$template_modal_titulo = 'Adicionar subtópico';
+		$template_modal_titulo = $pagina_translated['Adicionar subtópico'];
 		$template_modal_body_conteudo = false;
-		$template_modal_body_conteudo .= "<p>Pesquise o novo subtópico abaixo</p>";
+		$template_modal_body_conteudo .= "<p>{$pagina_translated['Pesquise o novo subtópico abaixo']}</p>";
 		$template_modal_body_conteudo .= "
 			<div class='md-form'>
 				<input type='text' class='form-control' name='buscar_subtopicos' id='buscar_subtopicos' required>
-				<label for='buscar_topicos'>Buscar subtópico</label>
-				<button type='button' class='$button_classes' id='trigger_buscar_subtopicos'>Buscar</button>
+				<label for='buscar_topicos'>{$pagina_translated['Buscar subtópico']}</label>
+				<button type='button' class='$button_classes' id='trigger_buscar_subtopicos'>{$pagina_translated['Buscar']}</button>
 			</div>
 			<div class='row border p-2' id='subtopicos_disponiveis'></div>
 		";
@@ -1734,19 +1730,19 @@
 	if ($carregar_convite == true) {
 		
 		$template_modal_div_id = 'modal_convidar_ou_remover';
-		$template_modal_titulo = 'Gerenciar membros';
+		$template_modal_titulo = $pagina_translated['Gerenciar membros'];
 		$template_modal_show_buttons = false;
 		$template_modal_body_conteudo = false;
 		
 		$template_modal_body_conteudo .= "<span class='row d-flex justify-content-around' data-target='#modal_convidar_ou_remover' data-toggle='modal'>";
 		
-		$artefato_titulo = 'Convidar novos membros';
+		$artefato_titulo = $pagina_translated['Convidar novos membros'];
 		$fa_color = 'text-success';
 		$fa_icone = 'fa-user-plus';
 		$artefato_modal = '#modal_novo_membro';
 		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 		
-		$artefato_titulo = 'Remover membros';
+		$artefato_titulo = $pagina_translated['Remover membros'];
 		$fa_color = 'text-danger';
 		$fa_icone = 'fa-user-minus';
 		$artefato_modal = '#modal_remover_membro';
@@ -1757,17 +1753,17 @@
 		include 'templates/modal.php';
 		
 		$template_modal_div_id = 'modal_novo_membro';
-		$template_modal_titulo = 'Convidar novo membro';
+		$template_modal_titulo = $pagina_translated['Convidar novo membro'];
 		$template_modal_show_buttons = false;
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
-            <p>Pesquise o convidado por seu apelido:</p>
+            <p>{$pagina_translated['Pesquise o convidado por seu apelido:']}</p>
 	        <div class='md-form'>
 	        	<input type='text' class='form-control' id='apelido_convidado' novo='apelido_convidado'>
-	        	<label for='apelido_convidado'>Apelido</label>
+	        	<label for='apelido_convidado'>{$pagina_translated['Apelido']}</label>
 	        </div>
 	        <div class='md-form my-1'>
-	            <button type='button' id='trigger_buscar_convidado' name='trigger_buscar_convidado' class='$button_classes btn-sm m-0'>Buscar</button>
+	            <button type='button' id='trigger_buscar_convidado' name='trigger_buscar_convidado' class='$button_classes btn-sm m-0'>{$pagina_translated['Buscar']}</button>
             </div>
             <div id='convite_resultados' class='row border p-2'>
 			</div>
@@ -1776,13 +1772,13 @@
 		
 		$carregar_remover_usuarios = true;
 		$template_modal_div_id = 'modal_remover_membro';
-		$template_modal_titulo = 'Remover membro deste grupo';
+		$template_modal_titulo = $pagina_translated['Remover membro deste grupo'];
 		$modal_scrollable = true;
 		$template_modal_body_conteudo = false;
 		$template_modal_show_buttons = false;
 		if ($membros->num_rows > 1) {
 			$template_modal_body_conteudo .= "
-				<p class='mt-3'>Selecione um membro abaixo para removê-lo do grupo ou cancelar seu convite.</p>
+				<p class='mt-3'>{$pagina_translated['Selecione um membro abaixo para removê-lo do grupo ou cancelar seu convite.']}</p>
 				<ul class='list-group list-group-flush'>
 				<input type='hidden' id='remover_membro_grupo_id' value='$pagina_item_id'>
 			";
@@ -1808,21 +1804,21 @@
 	
 	if ($pagina_subtipo == 'produto') {
 		$template_modal_div_id = 'modal_adicionar_carrinho';
-		$template_modal_titulo = 'Adicionar este produto a seu carrinho';
+		$template_modal_titulo = $pagina_translated['Adicionar este produto a seu carrinho'];
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
             <input type='hidden' value='$pagina_id' name='adicionar_produto_pagina_id'>
-			<p>Confirma adicionar este produto a seu carrinho?</p>
-			<p>Produto: $pagina_titulo</p>
-			<p>Autor: $produto_autor</p>
-			<p>Preço: R$ $produto_preco</p>
+			<p>{$pagina_translated['Confirma adicionar este produto a seu carrinho?']}</p>
+			<p>{$pagina_translated['Produto:']} $pagina_titulo</p>
+			<p>{$pagina_translated['Autor:']} $produto_autor</p>
+			<p>{$pagina_translated['Preço:']} $produto_preco</p>
 		";
 		include 'templates/modal.php';
 	}
 	
 	if ($pagina_tipo == 'curso') {
 		$template_modal_div_id = 'modal_busca';
-		$template_modal_titulo = 'O que você vai aprender hoje?';
+		$template_modal_titulo = $pagina_translated['slogan'];
 		$template_modal_body_conteudo = false;
 		$template_modal_show_buttons = false;
 		$template_modal_body_conteudo .= "
@@ -1859,11 +1855,11 @@
 	
 	if ($carregar_modal_wikipedia == true) {
 		$template_modal_div_id = 'modal_vinculos_wikipedia';
-		$template_modal_titulo = 'Verbetes da Wikipédia relacionados';
+		$template_modal_titulo = $pagina_translated['Verbetes da Wikipédia relacionados'];
 		$template_modal_show_buttons = false;
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
-		<p>Pressione para carregar artigo da Wikipédia:</p>
+		<p>{$pagina_translated['Pressione para carregar artigo da Wikipédia:']}</p>
 		<ul class='list-group list-group-flush'>
 	";
 		while ($vinculo_wikipedia = $vinculos_wikipedia->fetch_assoc()) {
@@ -1881,10 +1877,10 @@
 		$template_modal_show_buttons = false;
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
-			<p>Pressione para destruir esta página. Esse ato não pode ser desfeito.</p>
+			<p>{$pagina_translated['Pressione para destruir esta página. Esse ato não pode ser desfeito.']}</p>
 			<form method='post'>
 			  <div class='md-form d-flex justify-content-center'>
-				  <button class='$button_classes_red' name='trigger_apagar_pagina' id='trigger_apagar_pagina'>Apagar página</button>
+				  <button class='$button_classes_red' name='trigger_apagar_pagina' id='trigger_apagar_pagina'>{$pagina_translated['Destruir esta página']}</button>
 			  </div>
 			</form>
 		";
@@ -1893,40 +1889,40 @@
 	
 	if ($pagina_tipo == 'texto_apoio') {
 		$template_modal_div_id = 'modal_texto_apoio_dados';
-		$template_modal_titulo = 'Dados deste texto de apoio';
+		$template_modal_titulo = $pagina_translated['Dados deste texto de apoio'];
 		$template_modal_form_id = 'form_texto_apoio_alterar_dados';
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
 			<ul class='list-grou mb-3 w-responsive m-auto pb-3'>
-				<li class='list-group-item list-group-item-info d-flex justify-content-center'>Dados fixos</li>
-				<li class='list-group-item list-group-item-light'><strong>Concurso:</strong> $pagina_texto_apoio_curso_titulo</li>
-				<li class='list-group-item list-group-item-light'><strong>Edição:</strong> $pagina_texto_apoio_edicao_ano</li>
-				<li class='list-group-item list-group-item-light'><strong>Etapa:</strong> $pagina_texto_apoio_etapa_titulo</li>
-				<li class='list-group-item list-group-item-light'><strong>Prova:</strong> $pagina_texto_apoio_prova_titulo</li>
+				<li class='list-group-item list-group-item-info d-flex justify-content-center'>{$pagina_translated['Dados fixos']}</li>
+				<li class='list-group-item list-group-item-light'><strong>{$pagina_translated['Concurso']}:</strong> $pagina_texto_apoio_curso_titulo</li>
+				<li class='list-group-item list-group-item-light'><strong>{$pagina_translated['Edição']}:</strong> $pagina_texto_apoio_edicao_ano</li>
+				<li class='list-group-item list-group-item-light'><strong>{$pagina_translated['Etapa']}:</strong> $pagina_texto_apoio_etapa_titulo</li>
+				<li class='list-group-item list-group-item-light'><strong>{$pagina_translated['Prova']}:</strong> $pagina_texto_apoio_prova_titulo</li>
 		";
 		if ($pagina_texto_apoio_origem == 1) {
-			$template_modal_body_conteudo .= "<li class='list-group-item list-group-item-light'><strong>Origem:</strong> Oficial do concurso.</li>";
+			$template_modal_body_conteudo .= "<li class='list-group-item list-group-item-light'><strong>{$pagina_translated['Origem']}:</strong> {$pagina_translated['Oficial do concurso']}.</li>";
 		} elseif ($pagina_texto_apoio_origem == 0) {
-			$template_modal_body_conteudo .= "<li class='list-group-item list-group-item-light'><strong>Origem:</strong> Não-oficial.</li>";
+			$template_modal_body_conteudo .= "<li class='list-group-item list-group-item-light'><strong>{$pagina_translated['Origem']}:</strong> {$pagina_translated['Não-oficial']}.</li>";
 		}
 		$template_modal_body_conteudo .= "</ul>";
 		$template_modal_body_conteudo .= "
 							<h3>Título</h3>
                             <div class='md-form'>
                               <input type='text' class='form-control' name='novo_texto_apoio_titulo' id='novo_texto_apoio_titulo' value='$pagina_texto_apoio_titulo' required>
-                              <label for='novo_texto_apoio_titulo'>Título do texto de apoio</label>
+                              <label for='novo_texto_apoio_titulo'>{$pagina_translated['Título do texto de apoio']}</label>
                             </div>
 						";
 		
 		$template_modal_form_id = 'form_novo_texto_apoio';
-		$template_modal_body_conteudo .= "<h3 class='text-center'>Enunciado:</h3>";
+		$template_modal_body_conteudo .= "<h3 class='text-center'>{$pagina_translated['Enunciado']}:</h3>";
 		$sim_quill_id = 'texto_apoio_enunciado';
 		$sim_quill_form = include('templates/sim_quill.php');
 		$template_modal_body_conteudo .= $sim_quill_form;
 		
 		$template_modal_body_conteudo .= "
-			<h3 class='text-center mt-3'>Texto</h3>
-			<p>Textos com linhas numeradas devem ser adicionados linha por linha, em uma lista numerada.</p>
+			<h3 class='text-center mt-3'>{$pagina_translated['Texto de apoio']}</h3>
+			<p>{$pagina_translated['Textos com linhas numeradas devem ser adicionados linha por linha, em uma lista numerada.']}</p>
 	    ";
 		$sim_quill_id = 'texto_apoio';
 		$sim_quill_form = include('templates/sim_quill.php');
@@ -1938,36 +1934,36 @@
 	
 	if ($pagina_tipo == 'questao') {
 		$template_modal_div_id = 'modal_questao_dados';
-		$template_modal_titulo = 'Dados desta questão';
+		$template_modal_titulo = $pagina_translated['Dados desta questão'];
 		$template_modal_form_id = 'form_questao_alterar_dados';
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
             <ul class='list-group mb-3 w-responsive m-auto pb-3'>
-                <li class='list-group-item list-group-item-info d-flex justify-content-center'>Dados fixos</li>
-                <li class='list-group-item list-group-item-light'><strong>Concurso:</strong> $pagina_questao_curso_titulo.</li>
-                <li class='list-group-item list-group-item-light'><strong>Edição:</strong> $pagina_questao_edicao_ano.</li>
-                <li class='list-group-item list-group-item-light'><strong>Etapa:</strong> $pagina_questao_etapa_titulo.</li>
-                <li class='list-group-item list-group-item-light'><strong>Prova:</strong> $pagina_questao_prova_titulo.</li>
-                <li class='list-group-item list-group-item-light'><strong>Matéria:</strong> <a href='pagina.php?pagina_id=$pagina_questao_materia'>$pagina_questao_materia_titulo</a></li>
+                <li class='list-group-item list-group-item-info d-flex justify-content-center'>{$pagina_translated['Dados fixos']}</li>
+                <li class='list-group-item list-group-item-light'><strong>{$pagina_translated['Concurso']}:</strong> $pagina_questao_curso_titulo.</li>
+                <li class='list-group-item list-group-item-light'><strong>{$pagina_translated['Edição']}:</strong> $pagina_questao_edicao_ano.</li>
+                <li class='list-group-item list-group-item-light'><strong>{$pagina_translated['Etapa']}:</strong> $pagina_questao_etapa_titulo.</li>
+                <li class='list-group-item list-group-item-light'><strong>{$pagina_translated['Prova']}:</strong> $pagina_questao_prova_titulo.</li>
+                <li class='list-group-item list-group-item-light'><strong>{$pagina_translated['Matéria']}:</strong> <a href='pagina.php?pagina_id=$pagina_questao_materia'>$pagina_questao_materia_titulo</a></li>
         ";
 		
-		$template_modal_body_conteudo .= "<li class='list-group-item list-group-item-light'><strong>Número:</strong> $pagina_questao_numero.</li>";
+		$template_modal_body_conteudo .= "<li class='list-group-item list-group-item-light'><strong>{$pagina_translated['Número']}:</strong> $pagina_questao_numero.</li>";
 		if ($pagina_questao_origem == 1) {
-			$template_modal_body_conteudo .= "<li class='list-group-item list-group-item-light'><strong>Origem:</strong> Oficial do concurso.</li>";
+			$template_modal_body_conteudo .= "<li class='list-group-item list-group-item-light'><strong>{$pagina_translated['Origem']}:</strong> {$pagina_translated['Oficial do concurso']}.</li>";
 		} elseif ($pagina_questao_origem == 0) {
-			$template_modal_body_conteudo .= "<li class='list-group-item list-group-item-light'><strong>Tipo:</strong> Não-oficial.</li>";
+			$template_modal_body_conteudo .= "<li class='list-group-item list-group-item-light'><strong>{$pagina_translated['Tipo:']}</strong> {$pagina_translated['Não-oficial']}.</li>";
 		}
 		if ($pagina_questao_texto_apoio == 1) {
-			$template_modal_body_conteudo .= "<li class='list-group-item list-group-item-light'><strong>Texto de apoio:</strong> sim.</li>";
+			$template_modal_body_conteudo .= "<li class='list-group-item list-group-item-light'><strong>{$pagina_translated['Texto de apoio']}:</strong> {$pagina_translated['sim']}.</li>";
 		} elseif ($pagina_questao_texto_apoio == 0) {
-			$template_modal_body_conteudo .= "<li class='list-group-item list-group-item-light'><strong>Texto de apoio:</strong> não.</li>";
+			$template_modal_body_conteudo .= "<li class='list-group-item list-group-item-light'><strong>{$pagina_translated['Texto de apoio']}:</strong> {$pagina_translated['não']}.</li>";
 		}
 		if ($pagina_questao_tipo == 1) {
-			$template_modal_body_conteudo .= "<li class='list-group-item list-group-item-light'><strong>Tipo:</strong> \"certo ou errado\"</li>";
+			$template_modal_body_conteudo .= "<li class='list-group-item list-group-item-light'><strong>{$pagina_translated['Tipo:']}</strong> {$pagina_translated['certo errado']}</li>";
 		} elseif ($pagina_questao_tipo == 2) {
-			$template_modal_body_conteudo .= "<li class='list-group-item list-group-item-light'><strong>Tipo:</strong> múltipla escolha</li>";
+			$template_modal_body_conteudo .= "<li class='list-group-item list-group-item-light'><strong>{$pagina_translated['Tipo:']}</strong> {$pagina_translated['múltipla escolha']}</li>";
 		} elseif ($pagina_questao_tipo == 3) {
-			$template_modal_body_conteudo .= "<li class='list-group-item list-group-item-light'><strong>Tipo:</strong> dissertativa.</li>";
+			$template_modal_body_conteudo .= "<li class='list-group-item list-group-item-light'><strong>{$pagina_translated['Tipo:']}</strong> {$pagina_translated['dissertativa']}.</li>";
 		}
 		$template_modal_body_conteudo .= "</ul>";
 		
@@ -1981,10 +1977,10 @@
 			$template_modal_body_conteudo .= "
 					<h3>Texto de apoio</h3>
 					<select class='$select_classes' name='nova_questao_texto_de_apoio_id'>
-					<option value='' disabled $selected>Selecione o texto de apoio:</option>";
+					<option value='' disabled $selected>{$pagina_transalated['Selecione o texto de apoio:']}</option>";
 			if ($pagina_questao_texto_apoio_id == false) {
 				$template_modal_body_conteudo .= "
-					<option value='novo'>Texto de apoio não-registrado</option>
+					<option value='novo'>{$pagina_translated['Texto de apoio não-registrado']}</option>
 				";
 			}
 			$textos_apoio = $conn->query("SELECT id, origem, titulo FROM sim_textos_apoio WHERE prova_id = $pagina_questao_prova_id");
@@ -2010,7 +2006,7 @@
 		}
 		$template_modal_body_conteudo .= "</select>";
 		
-		$template_modal_body_conteudo .= "<h3 class='mt-3'>Enunciado</h3>";
+		$template_modal_body_conteudo .= "<h3 class='mt-3'>{$pagina_translated['Enunciado']}</h3>";
 		$sim_quill_id = 'questao_enunciado';
 		$sim_quill_form = include 'templates/sim_quill.php';
 		$template_modal_body_conteudo .= $sim_quill_form;
@@ -2083,61 +2079,61 @@
 				$item5_none = 'selected';
 			}
 			
-			$template_modal_body_conteudo .= "<h3 class='mt-3'>Item 1</h3>";
+			$template_modal_body_conteudo .= "<h3 class='mt-3'>{$pagina_translated['Item']} 1</h3>";
 			$template_modal_body_conteudo .= "
                             <select class='mdb-select md-form' name='nova_questao_item1_gabarito'>
-                                <option value='' disabled $item1_none>Selecione o gabarito do primeiro item</option>
-                                <option value='1' $item1_certo>Certo</option>
-                                <option value='2' $item1_errado>Errado</option>
-                                <option value='3' $item1_anulado>Anulado</option>
+                                <option value='' disabled $item1_none>{$pagina_translated['Selecione o gabarito do primeiro item']}</option>
+                                <option value='1' $item1_certo>{$pagina_translated['Certo']}</option>
+                                <option value='2' $item1_errado>{$pagina_translated['Errado']}</option>
+                                <option value='3' $item1_anulado>{$pagina_translated['Anulado']}</option>
                             </select>
 						";
 			$sim_quill_id = 'questao_item1';
 			$sim_quill_form = include('templates/sim_quill.php');
 			$template_modal_body_conteudo .= $sim_quill_form;
-			$template_modal_body_conteudo .= "<h3 class='mt-3'>Item 2</h3>";
+			$template_modal_body_conteudo .= "<h3 class='mt-3'>{$pagina_translated['Item']} 2</h3>";
 			$template_modal_body_conteudo .= "
                             <select class='mdb-select md-form' name='nova_questao_item2_gabarito'>
-                                <option value='' disabled $item2_none>Selecione o gabarito do segundo item</option>
-                                <option value='1' $item2_certo>Certo</option>
-                                <option value='2' $item2_errado>Errado</option>
-                                <option value='3' $item2_anulado>Anulado</option>
+                                <option value='' disabled $item2_none>{$pagina_translated['Selecione o gabarito do segundo item']}</option>
+                                <option value='1' $item2_certo>{$pagina_translated['Certo']}</option>
+                                <option value='2' $item2_errado>{$pagina_translated['Errado']}</option>
+                                <option value='3' $item2_anulado>{$pagina_translated['Anulado']}</option>
                             </select>
 						";
 			$sim_quill_id = 'questao_item2';
 			$sim_quill_form = include('templates/sim_quill.php');
 			$template_modal_body_conteudo .= $sim_quill_form;
-			$template_modal_body_conteudo .= "<h3 class='mt-3'>Item 3</h3>";
+			$template_modal_body_conteudo .= "<h3 class='mt-3'>{$pagina_translated['Item']} 3</h3>";
 			$template_modal_body_conteudo .= "
                             <select class='mdb-select md-form' name='nova_questao_item3_gabarito'>
-                                <option value='' disabled $item3_none>Selecione o gabarito do terceiro item</option>
-                                <option value='1' $item3_certo>Certo</option>
-                                <option value='2' $item3_errado>Errado</option>
-                                <option value='3' $item3_anulado>Anulado</option>
+                                <option value='' disabled $item3_none>{$pagina_translated['Selecione o gabarito do terceiro item']}</option>
+                                <option value='1' $item3_certo>{$pagina_translated['Certo']}</option>
+                                <option value='2' $item3_errado>{$pagina_translated['Errado']}</option>
+                                <option value='3' $item3_anulado>{$pagina_translated['Anulado']}</option>
                             </select>
 						";
 			$sim_quill_id = 'questao_item3';
 			$sim_quill_form = include('templates/sim_quill.php');
 			$template_modal_body_conteudo .= $sim_quill_form;
-			$template_modal_body_conteudo .= "<h3 class='mt-3'>Item 4</h3>";
+			$template_modal_body_conteudo .= "<h3 class='mt-3'>{$pagina_translated['Item']} 4</h3>";
 			$template_modal_body_conteudo .= "
                             <select class='mdb-select md-form' name='nova_questao_item4_gabarito'>
-                                <option value='' disabled $item4_none>Selecione o gabarito do quarto item</option>
-                                <option value='1' $item4_certo>Certo</option>
-                                <option value='2' $item4_errado>Errado</option>
-                                <option value='3' $item4_anulado>Anulado</option>
+                                <option value='' disabled $item4_none>{$pagina_translated['Selecione o gabarito do quarto item']}</option>
+                                <option value='1' $item4_certo>{$pagina_translated['Certo']}</option>
+                                <option value='2' $item4_errado>{$pagina_translated['Errado']}</option>
+                                <option value='3' $item4_anulado>{$pagina_translated['Anulado']}</option>
                             </select>
 						";
 			$sim_quill_id = 'questao_item4';
 			$sim_quill_form = include('templates/sim_quill.php');
 			$template_modal_body_conteudo .= $sim_quill_form;
-			$template_modal_body_conteudo .= "<h3 class='mt-3'>Item 5</h3>";
+			$template_modal_body_conteudo .= "<h3 class='mt-3'>{$pagina_translated['Item']} 5</h3>";
 			$template_modal_body_conteudo .= "
                             <select class='mdb-select md-form' name='nova_questao_item5_gabarito'>
-                                <option value='' disabled $item5_none>Selecione o gabarito do quinto item</option>
-                                <option value='1' $item5_certo>Certo</option>
-                                <option value='2' $item5_errado>Errado</option>
-                                <option value='3' $item5_anulado>Anulado</option>
+                                <option value='' disabled $item5_none>{$pagina_translated['Selecione o gabarito do quinto item']}</option>
+                                <option value='1' $item5_certo>{$pagina_translated['Certo']}</option>
+                                <option value='2' $item5_errado>{$pagina_translated['Errado']}</option>
+                                <option value='3' $item5_anulado>{$pagina_translated['Anulado']}</option>
                             </select>
 						";
 			$sim_quill_id = 'questao_item5';
@@ -2153,6 +2149,9 @@
 		$carregar_modal_login = true;
 		include 'pagina/modal_login.php';
 	}
+	
+	include 'pagina/modal_languages.php';
+	
 ?>
 
 </body>

@@ -3,7 +3,7 @@
 	$paginas = $conn->query("SELECT DISTINCT pagina_id FROM (SELECT pagina_id FROM Textos_arquivo WHERE tipo = 'verbete' AND curso_id = $pagina_curso_id AND pagina_tipo = 'topico' GROUP BY id ORDER BY id DESC) t");
 	if ($paginas->num_rows > 0) {
 		$template_id = 'paginas_recentes';
-		$template_titulo = 'Verbetes recentemente modificados';
+		$template_titulo = $pagina_translated['Verbetes recentemente modificados'];
 		$template_botoes = false;
 		$template_conteudo = false;
 		$template_conteudo_no_col = false;

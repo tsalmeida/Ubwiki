@@ -152,6 +152,9 @@
 	";
 	include 'templates/modal.php';
 
+	include 'pagina/modal_languages.php';
+
+
 ?>
 </body>
 <script type="text/javascript">
