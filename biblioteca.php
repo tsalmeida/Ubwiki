@@ -33,7 +33,7 @@
         <div class="col">
             <div class="row d-flex justify-content-start">
                 <a data-toggle='modal' data-target='<?php echo $modal_add_elementos; ?>' class='text-success ml-1 mostrar_categorias'
-                   title='Adicionar item à biblioteca' href='javascript:void(0);'><i
+                   title='<?php echo $pagina_translated['Adicionar item à biblioteca']; ?>' href='javascript:void(0);'><i
                             class='fad fa-plus-circle fa-2x fa-fw'></i></a>
             </div>
         </div>
@@ -48,7 +48,7 @@
 </div>
 <div class="container">
 	<?php
-		$template_titulo = 'Biblioteca';
+		$template_titulo = $pagina_translated['library'];
 		$template_titulo_no_nav = true;
 		include 'templates/titulo.php';
 	?>
@@ -67,16 +67,16 @@
 						}
 						if ($acervo != false) {
 							$template_id = 'biblioteca_virtual';
-							$template_titulo = 'Biblioteca';
+							$template_titulo = $pagina_translated['library'];
 							$template_conteudo_class = 'justify-content-start';
 							$template_conteudo_no_col = true;
 							$template_conteudo = false;
 							
 							$artefato_id = 'adicionar_item_biblioteca';
-							$artefato_titulo = 'Adicionar item';
+							$artefato_titulo = $pagina_translated['Adicionar item'];
 							$fa_icone = 'fa-plus-circle';
 							$fa_color = 'text-info';
-							$artefato_criacao = 'Pressione para adicionar um item à biblioteca';
+							$artefato_criacao = $pagina_translated['Pressione para adicionar um item à biblioteca'];
 							$artefato_tipo = 'nova_referencia';
 							$artefato_modal = $modal_add_elementos;
 							$artefato_link = false;
@@ -118,10 +118,10 @@
 						} else {
 							
 							$template_id = 'recentemente_adicionados';
-							$template_titulo = 'Recentemente adicionados';
+							$template_titulo = $pagina_translated['Recentemente adicionados'];
 							$template_conteudo_class = 'justify-content-start';
 							$template_botoes = "
-								  <a data-toggle='modal' data-target='$modal_add_elementos' class='text-success ml-1 mostrar_categorias' title='Adicionar item à biblioteca' href='javascript:void(0);'><i class='fad fa-plus-square fa-fw'></i></a>
+								  <a data-toggle='modal' data-target='$modal_add_elementos' class='text-success ml-1 mostrar_categorias' title='{$pagina_translated['Adicionar item à biblioteca']}' href='javascript:void(0);'><i class='fad fa-plus-square fa-fw'></i></a>
 								";
 							$template_conteudo_no_col = true;
 							$template_conteudo = false;
@@ -163,7 +163,7 @@
 							}
 							
 							$template_id = 'biblioteca_mudancas_recentes';
-							$template_titulo = 'Recentemente modificados';
+							$template_titulo = $pagina_translated['Recentemente modificados'];
 							$template_conteudo_class = 'justify-content-start';
 							$template_conteudo_no_col = true;
 							$template_conteudo = false;
@@ -231,7 +231,7 @@
 </div>
 <?php
 	$template_modal_div_id = 'modal_busca';
-	$template_modal_titulo = 'Busca de referências';
+	$template_modal_titulo = $pagina_translated['Busca de referências'];
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "
 		<div class='md-form'>
@@ -243,7 +243,7 @@
 	
 	
 	$template_modal_div_id = 'modal_listar_itens';
-	$template_modal_titulo = 'Listar itens';
+	$template_modal_titulo = $pagina_translated['Listar itens'];
 	$lista_col_limit = 'col-lg-3 col-md-4 col-sm-6';
 	$template_modal_show_buttons = false;
 	$template_modal_body_conteudo = false;
@@ -251,7 +251,7 @@
 	$template_modal_body_conteudo .= "<form method='post' class='row d-flex justify-content-center'>";
 	
 	$artefato_tipo = 'listar_todas';
-	$artefato_titulo = "Todos os itens";
+	$artefato_titulo = $pagina_translated['Todos os itens'];
 	$artefato_col_limit = $lista_col_limit;
 	$artefato_button = '!all';
 	$artefato_name = 'trigger_listar_todas';
@@ -266,7 +266,7 @@
 	$template_modal_body_conteudo .= "<div class='row d-flex justify-content-start rounded grey lighten-5 mb-3'>";
 	
 	$artefato_tipo = 'listar_referencias';
-	$artefato_titulo = 'Material de leitura';
+	$artefato_titulo = $pagina_translated['Material de leitura'];
 	$artefato_class = 'selecionar_listar';
 	$artefato_col_limit = $lista_col_limit;
 	$fa_icone = 'fa-glasses';
@@ -275,7 +275,7 @@
 	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	
 	$artefato_tipo = 'ativo_listar_referencias';
-	$artefato_titulo = 'Material de leitura';
+	$artefato_titulo = $pagina_translated['Material de leitura'];
 	$artefato_class = 'ativo_listar hidden';
 	$artefato_col_limit = $lista_col_limit;
 	$fa_icone = 'fa-glasses';
@@ -285,7 +285,7 @@
 	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	
 	$artefato_tipo = 'listar_audio';
-	$artefato_titulo = 'Áudio';
+	$artefato_titulo = $pagina_translated['Áudio'];
 	$artefato_class = 'selecionar_listar';
 	$artefato_col_limit = $lista_col_limit;
 	$fa_icone = 'fa-volume-up';
@@ -294,7 +294,7 @@
 	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	
 	$artefato_tipo = 'ativo_listar_audio';
-	$artefato_titulo = 'Áudio';
+	$artefato_titulo = $pagina_translated['Áudio'];
 	$artefato_class = 'ativo_listar hidden';
 	$artefato_col_limit = $lista_col_limit;
 	$fa_icone = 'fa-volume-up';
@@ -304,7 +304,7 @@
 	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	
 	$artefato_tipo = 'listar_imagens';
-	$artefato_titulo = 'Imagens';
+	$artefato_titulo = $pagina_translated['Imagens'];
 	$artefato_class = 'selecionar_listar';
 	$artefato_col_limit = $lista_col_limit;
 	$fa_icone = 'fa-images';
@@ -313,7 +313,7 @@
 	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	
 	$artefato_tipo = 'ativo_listar_imagens';
-	$artefato_titulo = 'Imagens';
+	$artefato_titulo = $pagina_translated['Imagens'];
 	$artefato_class = 'ativo_listar hidden';
 	$artefato_col_limit = $lista_col_limit;
 	$fa_icone = 'fa-images';
@@ -323,7 +323,7 @@
 	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	
 	$artefato_tipo = 'listar_video';
-	$artefato_titulo = 'Vídeo';
+	$artefato_titulo = $pagina_translated['Vídeo'];
 	$artefato_class = 'selecionar_listar';
 	$artefato_col_limit = $lista_col_limit;
 	$fa_icone = 'fa-play-circle';
@@ -332,7 +332,7 @@
 	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	
 	$artefato_tipo = 'ativo_listar_video';
-	$artefato_titulo = 'Vídeo';
+	$artefato_titulo = $pagina_translated['Vídeo'];
 	$artefato_class = 'ativo_listar hidden';
 	$artefato_col_limit = $lista_col_limit;
 	$fa_icone = 'fa-play-circle';

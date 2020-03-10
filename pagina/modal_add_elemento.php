@@ -1,7 +1,7 @@
 <?php
 	
 	$template_modal_div_id = 'modal_add_elementos';
-	$template_modal_titulo = 'Adicionar elemento';
+	$template_modal_titulo = $pagina_translated['Adicionar elementos'];
 	$template_modal_show_buttons = false;
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "
@@ -12,7 +12,7 @@
 		$artefato_tipo = 'adicionar_livro';
 		$template_subtipo = 'generico';
 		$template_subtipo_tipo = 'referencia';
-		$template_subtipo_titulo = 'Material de leitura';
+		$template_subtipo_titulo = $pagina_translated['Material de leitura'];
 		$artefato_modal = '#modal_selecionar_subtipo';
 		$subtipo_artefato_link_classes = 'selecionar_categoria';
 		include 'templates/subtipo_icone.php';
@@ -20,7 +20,7 @@
 		$artefato_tipo = 'adicionar_video';
 		$template_subtipo = 'generico';
 		$template_subtipo_tipo = 'video';
-		$template_subtipo_titulo = 'Vídeo';
+		$template_subtipo_titulo = $pagina_translated['Vídeo'];
 		$artefato_modal = '#modal_selecionar_subtipo';
 		$subtipo_artefato_link_classes = 'selecionar_categoria';
 		include 'templates/subtipo_icone.php';
@@ -28,7 +28,7 @@
 		$artefato_tipo = 'adicionar_album_musica';
 		$template_subtipo = 'generico';
 		$template_subtipo_tipo = 'album_musica';
-		$template_subtipo_titulo = 'Áudio';
+		$template_subtipo_titulo = $pagina_translated['Áudio'];
 		$artefato_modal = '#modal_selecionar_subtipo';
 		$subtipo_artefato_link_classes = 'selecionar_categoria';
 		include 'templates/subtipo_icone.php';
@@ -37,7 +37,7 @@
 			$artefato_tipo = 'adicionar_imagem';
 			$template_subtipo = 'generico';
 			$template_subtipo_tipo = 'imagem';
-			$template_subtipo_titulo = 'Imagem';
+			$template_subtipo_titulo = $pagina_translated['Imagem'];
 			$artefato_modal = '#modal_selecionar_subtipo';
 			$subtipo_artefato_link_classes = 'selecionar_categoria';
 			include 'templates/subtipo_icone.php';
@@ -45,14 +45,14 @@
 		
 		$template_subtipo = 'etiqueta';
 		$template_subtipo_tipo = 'pagina';
-		$template_subtipo_titulo = 'Página livre';
+		$template_subtipo_titulo = $pagina_translated['free page'];
 		$artefato_modal = '#modal_gerenciar_etiquetas';
 		include 'templates/subtipo_icone.php';
 		
 		if ($pagina_tipo == 'topico') {
 			$template_subtipo = false;
 			$template_subtipo_tipo = 'questao';
-			$template_subtipo_titulo = 'Questão de prova';
+			$template_subtipo_titulo = $pagina_translated['Questão'];
 			$artefato_modal = '#modal_adicionar_simulado';
 			include 'templates/subtipo_icone.php';
 		}
@@ -62,7 +62,7 @@
 			$carregar_modal_vincular_wikipedia = true;
 			$template_subtipo = 'wikipedia';
 			$template_subtipo_tipo = 'referencia';
-			$template_subtipo_titulo = 'Vincular a verbete da Wikipédia';
+			$template_subtipo_titulo = $pagina_translated['Vincular a verbete da Wikipédia'];
 			$artefato_modal = '#modal_adicionar_wikipedia';
 			include 'templates/subtipo_icone.php';
 			
@@ -72,14 +72,14 @@
 				$artefato_tipo = 'adicionar_secao';
 				if ($pagina_tipo == 'elemento') {
 					if ($elemento_subtipo == 'podcast') {
-						$artefato_titulo = 'Episódio';
+						$artefato_titulo = $pagina_translated['Episódio'];
 					} elseif ($elemento_subtipo == 'livro') {
-						$artefato_titulo = 'Capítulo';
+						$artefato_titulo = $pagina_translated['Capítulo'];
 					} else {
-						$artefato_titulo = 'Seção';
+						$artefato_titulo = $pagina_translated['Seção'];
 					}
 				} else {
-					$artefato_titulo = 'Seção';
+					$artefato_titulo = $pagina_translated['Seção'];
 				}
 				$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-6';
 				$artefato_modal = '#modal_partes_form';
@@ -91,7 +91,7 @@
 		}
 	} else {
 		$artefato_tipo = 'escrever_resposta';
-		$artefato_titulo = 'Escrever texto em resposta';
+		$artefato_titulo = $pagina_translated['Escrever resposta'];
 		$artefato_modal = '#modal_add_reply';
 		$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-6';
 		$artefato_info = return_icone_subtipo('resposta', false);
@@ -107,9 +107,9 @@
 	$template_modal_body_conteudo .= "</span>";
 	if ($pagina_tipo == 'escritorio') {
 		$template_modal_body_conteudo .= "
-	        <h3 class='mt-3'>Acervo virtual</h3>
-	        <p>Acrescente a seu acervo virtual livros que você tem, quer ter, pretende emprestar de um amigo, assim como artigos que quer ler, revistas, até mesmo álbuns de música ou filmes.</p>
-	        <p>Uma vez que seu item tenha sido adicionado, será possível marcar capítulos e escrever fichamentos específicos, assim como resenhas e resumos. Cada anotação será inicialmente privada, podendo ser tornada pública se você assim desejar.</p>
+	        <h3 class='mt-3'>{$pagina_translated['your collection']}</h3>
+	        <p>{$pagina_translated['your collection explanation 1']}</p>
+	        <p>{$pagina_translated['your collection explanation 2']}</p>
 		";
 	}
 	include 'templates/modal.php';
@@ -117,7 +117,7 @@
 	if ($pagina_tipo != 'texto') {
 		
 		$template_modal_div_id = 'modal_buscar_elemento';
-		$template_modal_titulo = 'Buscar e adicionar referência';
+		$template_modal_titulo = $pagina_translated['Buscar e adicionar referência'];
 		$template_modal_show_buttons = false;
 		$modal_scrollable = true;
 		$template_modal_body_conteudo = false;
@@ -125,7 +125,7 @@
 		include 'templates/modal.php';
 		
 		$template_modal_div_id = 'modal_selecionar_subtipo';
-		$template_modal_titulo = 'Selecionar subtipo do novo elemento';
+		$template_modal_titulo = $pagina_translated['Selecionar subtipo do novo elemento'];
 		$modal_scrollable = true;
 		$template_modal_show_buttons = false;
 		$template_modal_body_conteudo = false;
@@ -137,17 +137,17 @@
 		
 		if ($carregar_modal_vincular_wikipedia == true) {
 			$template_modal_div_id = 'modal_adicionar_wikipedia';
-			$template_modal_titulo = 'Vincular a artigo da Wikipédia';
+			$template_modal_titulo = $pagina_translated['Vincular a verbete da Wikipédia'];
 			$template_modal_body_conteudo = false;
 			$template_modal_body_conteudo .= "
-				<p>Adicione abaixo apenas verbetes da Wikipédia sobre o exato tópico desta página. Verbetes apenas relacionados devem ser acrescentados à seção \"Leia Mais\".</p>
+				<p>{$pagina_translated['wikipedia article explanation']}</p>
 				<div class='md-form'>
 					<input type='url' class='form-control' name='wikipedia_url' id='wikipedia_url' required>
-					<label for='wikipedia_url'>Endereço do artigo na Wikipédia</label>
+					<label for='wikipedia_url'>{$pagina_translated['Endereço do artigo na Wikipédia']}</label>
 				</div>
 				<div class='md-form'>
 					<input type='text' class='form-control' name='wikipedia_titulo' id='wikipedia_titulo' required>
-					<label for='wikipedia_titulo'>Título do artigo na Wikipedia</label>
+					<label for='wikipedia_titulo'>{$pagina_translated['Título do artigo na Wikipedia']}</label>
 				</div>
 			";
 			include 'templates/modal.php';

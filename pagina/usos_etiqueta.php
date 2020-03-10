@@ -3,7 +3,7 @@
 	$usos_etiqueta = $conn->query("SELECT pagina_id, pagina_tipo FROM Paginas_elementos WHERE tipo = 'topico' AND extra = $pagina_item_id AND pagina_tipo <> 'escritorio'");
 	if ($usos_etiqueta->num_rows > 0) {
 		$template_id = 'usos_etiqueta';
-		$template_titulo = 'Páginas relacionadas';
+		$template_titulo = $pagina_translated['Páginas relacionadas'];
 		$template_botoes = false;
 		$template_conteudo = false;
 		$template_conteudo .= "<ul class='list-group list-group-flush'>";

@@ -25,7 +25,7 @@
 			echo "<a class='navbar-brand $template_navbar_text' href='ubwiki.php' title='Retornar ao nexus.'>Ubwiki</a>";
 		} else {
 			if (isset($curso_id)) {
-				echo "<a class='navbar-brand $template_navbar_text' href='pagina.php?curso_id=$curso_id' title='Retornar ao curso ativo.'>Ubwiki: $curso_sigla</a>";
+				echo "<a class='navbar-brand $template_navbar_text' href='pagina.php?curso_id=$curso_id' title='{$pagina_translated['Retornar ao curso ativo.']}'>Ubwiki: $curso_sigla</a>";
 			} else {
 				echo "<a class='navbar-brand $template_navbar_text' href='ubwiki.php' title='Retornar ao nexus.'>Ubwiki</a>";
 			}

@@ -4,8 +4,8 @@
 	$template_conteudo .= "
 													    <div class='form-check-inline border border-light respostas_box justify-content-between grey lighten-5 rounded mt-1 px-3'>
 													        <span><strong>$template_questao_item_nome</strong></span>
-													        <span><strong>Sua resposta:</strong> $questao_item_string</span>
-                                	<span><strong>Gabarito:</strong> $questao_item_gabarito_string</span>
+													        <span><strong>{$pagina_translated['Sua resposta']}:</strong> $questao_item_string</span>
+                                	<span><strong>{$pagina_translated['Gabarito']}:</strong> $questao_item_gabarito_string</span>
                               </div>
 													";
 	if ($questao_item_gabarito_string == 'anulado') {

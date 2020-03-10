@@ -3,7 +3,7 @@
 		$template_modal_div_id = 'modal_gerenciar_etiquetas';
 	}
 	if (!isset($template_modal_titulo)) {
-		$template_modal_titulo = 'Gerenciar etiquetas';
+		$template_modal_titulo = $pagina_translated['Gerenciar etiquetas'];
 	}
 	if (!isset($etiquetas_carregar_remover)) {
 		$etiquetas_carregar_remover = true;
@@ -12,8 +12,8 @@
 	$template_modal_body_conteudo = false;
 	if ($etiquetas_carregar_remover == true) {
 		$template_modal_body_conteudo .= "
-				<h4>Etiquetas ativas</h4>
-				<p>Pressione para remover:</p>
+				<h4>{$pagina_translated['Etiquetas ativas']}</h4>
+				<p>{$pagina_translated['Pressione para remover:']}</p>
 				<div class='row' id='etiquetas_ativas'>
 		";
 		if ($etiquetados->num_rows > 0) {
@@ -33,11 +33,11 @@
 	    ";
 	}
 	$template_modal_body_conteudo .= "
-			<h4 class='mt-3'>Adicionar etiquetas</h4>
+			<h4 class='mt-3'>{$pagina_translated['Adicionar etiquetas']}</h4>
 		    <div class='md-form'>
 			    <input type='text' class='form-control' name='buscar_etiquetas' id='buscar_etiquetas' required>
-			    <label for='buscar_etiquetas'>Buscar etiqueta</label>
-          <button type='button' class='$button_classes btn-info' id='trigger_buscar_etiquetas'>Buscar</button>
+			    <label for='buscar_etiquetas'>{$pagina_translated['Buscar etiqueta']}</label>
+          <button type='button' class='$button_classes btn-info' id='trigger_buscar_etiquetas'>{$pagina_translated['Buscar']}</button>
 		    </div>
 		    <div class='row border p-2' id='etiquetas_disponiveis'>
 		    	

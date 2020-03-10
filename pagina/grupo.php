@@ -1,7 +1,7 @@
 <?php
 	
 	$template_id = 'membros_grupo';
-	$template_titulo = 'Membros';
+	$template_titulo = $pagina_translated['Membros'];
 	$template_conteudo = false;
 	$template_conteudo_class = 'justify-content-start';
 	$template_conteudo_no_col = true;
@@ -9,7 +9,7 @@
 	if ($pagina_user_id == $user_id) {
 		$carregar_convite = true;
 		$artefato_tipo = 'novo_membro';
-		$artefato_titulo = 'Gerenciar membros';
+		$artefato_titulo = $pagina_translated['Gerenciar membros'];
 		$artefato_modal = '#modal_convidar_ou_remover';
 		$fa_icone = 'fa-users-cog';
 		$fa_color = 'text-default';
@@ -47,7 +47,7 @@
 	include 'templates/page_element.php';
 	
 	$template_id = 'acervo_grupo';
-	$template_titulo = 'Acervo compartilhado';
+	$template_titulo = $pagina_translated['Acervo compartilhado'];
 	$template_conteudo = false;
 	$template_conteudo_class = 'justify-content-start';
 	$template_conteudo_no_col = true;

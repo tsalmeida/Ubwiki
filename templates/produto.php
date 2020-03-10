@@ -13,9 +13,9 @@
 		return false;
 	}
 	if ($produto_preco == false) {
-		$produto_preco = 'Preço não-determinado';
+		$produto_preco = $pagina_translated['Preço não-determinado'];
 	} else {
-		$produto_preco = "R$ $produto_preco";
+		$produto_preco = "USD $produto_preco";
 	}
 	unset($produto_return);
 	

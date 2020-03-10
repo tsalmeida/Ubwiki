@@ -2406,7 +2406,7 @@
 					echo "<a value='$usuario_id' class='border p-1 mr-2 mb-2 rounded $convite_tipo'><span class='$usuario_avatar_cor'><i class='fad $usuario_avatar_icone fa-fw fa-2x'></i></span> $usuario_apelido</a></a>";
 				}
 			} else {
-				echo "<span class='text-muted'>Nenhum usuário encontrado.</span>";
+				echo "<span class='text-muted'>{$pagina_translated['Nenhum usuário encontrado.']}</span>";
 			}
 		} else {
 			echo false;

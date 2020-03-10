@@ -95,7 +95,7 @@
     <div class="container">
 			<?php
 				$template_titulo = $pagina_titulo;
-				$template_subtitulo = "Histórico / <a href='pagina.php?pagina_id=$pagina_id'>Página</a>";
+				$template_subtitulo = "{$pagina_translated['Histórico']} / <a href='pagina.php?pagina_id=$pagina_id'>{$pagina_translated['Página']}</a>";
 				$template_titulo_context = true;
 				$template_titulo_no_nav = false;
 				include 'templates/titulo.php';
@@ -107,9 +107,9 @@
 							<?php
 								$template_id = 'historico_esquerda';
 								if ($edicao_coluna_esquerda == false) {
-									$template_titulo = 'Carregar versão de referência';
+									$template_titulo = $pagina_translated['Carregar versão de referência'];
 								} else {
-									$template_titulo = 'Versão de referência';
+									$template_titulo = $pagina_translated['Versão de referência'];
 								}
                                 $template_classes = 'elemento-anotacoes';
 								$template_botoes = "<a class='text-info' data-toggle='modal' data-target='#modal_edicao_esquerda' ><i class='fad fa-archive fa-fw'></i></a>";
@@ -118,7 +118,7 @@
 									$template_conteudo .= $edicao_coluna_esquerda_html;
 								} else {
 									$template_conteudo .= "
-										<p>Para carregar uma versão deste texto, pressione o botão no canto superior direito desta seção.</p>
+										<p>{$pagina_translated['Para carregar uma versão deste texto, pressione o botão no canto superior direito desta seção.']}</p>
 									";
 								}
 								include 'templates/page_element.php'
@@ -129,7 +129,7 @@
 							echo "<div id='coluna_direita' class='col-lg-6 px-5'>";
 							
 							$template_id = 'historico_direita';
-							$template_titulo = 'Versão mais recente';
+							$template_titulo = $pagina_translated['Versão mais recente'];
 							$template_classes = 'elemento-anotacoes';
 							$template_conteudo = false;
 							if ($edicao_coluna_esquerda != false) {
@@ -139,7 +139,7 @@
 								$template_conteudo .= $edicao_coluna_direita_html;
 							} else {
 								$template_conteudo .= "
-							        <p>Para carregar uma versão mais recente deste texto, pressione o botão no campo superior direito desta seção.</p>
+							        <p>{$pagina_translated['Para carregar uma versão mais recente deste texto, pressione o botão no campo superior direito desta seção.']}</p>
 							    ";
 							}
 							include 'templates/page_element.php';
@@ -156,8 +156,8 @@
 			$template_modal_show_buttons = false;
 			$template_modal_body_conteudo = false;
 			$template_modal_body_conteudo .= "
-                <p>Para comparação, esta edição é necessariamente <strong>mais antiga</strong> do que a versão da coluna direita.</p>
-                <p>Selecione, por exemplo, sua edição mais recente. Em seguida, você poderá a versão mais recente do texto, que será carregada na coluna direita.</p>
+                <p>{$pagina_translated['Para comparação, esta edição é necessariamente mais antiga do que a versão da coluna direita.']}</p>
+                <p>{$pagina_translated['Selecione, por exemplo, sua edição mais recente. Em seguida, você poderá a versão mais recente do texto, que será carregada na coluna direita.']}</p>
             ";
 			$list_edicoes = $conn->query("SELECT id, criacao, user_id FROM Textos_arquivo WHERE texto_id = $texto_id ORDER BY id DESC");
 			if ($list_edicoes->num_rows > 0) {
@@ -190,7 +190,7 @@
 				}
 				$template_modal_body_conteudo .= "</ul>";
 			} else {
-				$template_modal_body_conteudo .= "<p class='text-muted'><em>Não há versões registradas deste texto.</em></p>";
+				$template_modal_body_conteudo .= "<p class='text-muted'><em>{$pagina_translated['Não há versões registradas deste texto.']}</em></p>";
 			}
 			include 'templates/modal.php';
 			
@@ -200,7 +200,7 @@
 				$template_modal_show_buttons = false;
 				$template_modal_body_conteudo = false;
 				$template_modal_body_conteudo .= "
-	                <p>Para comparação, esta edição é necessariamente <strong>mais recente</strong> do que a versão da coluna esquerda.</p>
+	                <p>{$pagina_translated['Para comparação, esta edição é necessariamente mais recente do que a versão da coluna esquerda.']}</p>
 	            ";
 				mysqli_data_seek($list_edicoes, 0);
 				if ($list_edicoes->num_rows > 0) {
@@ -235,7 +235,7 @@
 					}
 					$template_modal_body_conteudo .= "</ul>";
 					if ($edicao_recente_presente == false) {
-						$template_modal_body_conteudo .= "<p class='text-muted'><em>Não há edições mais recentes do que a atualmente selecionada para a coluna esquerda.</em></p>";
+						$template_modal_body_conteudo .= "<p class='text-muted'><em>{$pagina_translated['Não há edições mais recentes do que a atualmente selecionada para a coluna esquerda.']}</em></p>";
 					}
 				}
 				include 'templates/modal.php';

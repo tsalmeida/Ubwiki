@@ -135,7 +135,7 @@
 	include 'templates/modal.php';
 	
 	$template_modal_div_id = 'modal_traduzir_chave';
-	$template_modal_titulo = 'Traduzir chave';
+	$template_modal_titulo = $pagina_translated['Traduzir chave'];
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "
 		<input type='hidden' name='traduzir_chave_id' id='traduzir_chave_id'>
@@ -147,7 +147,7 @@
 		</ul>
 		<div class='md-form'>
 			<input type='text' class='form-control' name='traduzir_chave_string' id='traduzir_chave_string'>
-			<label for='traduzir_chave_string'>Tradução para a língua \"$traduzir\"</label>
+			<label for='traduzir_chave_string'>{$pagina_translated['Tradução para a língua']} \"$traduzir\"</label>
 		</div>
 	";
 	include 'templates/modal.php';

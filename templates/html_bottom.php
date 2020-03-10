@@ -668,7 +668,7 @@
 		        'remover_compartilhamento_usuario_pagina': {$pagina_id}
 		    }, function(data) {
 		        if (data != 0) {
-		            alert('O acesso do usuário a esta página foi revogado.');
+		            alert('{$pagina_translated['O acesso do usuário a esta página foi revogado.']}');
 		        }
 		    });
 		});
@@ -680,7 +680,7 @@
 		       'remover_acesso_grupo_pagina_id': {$pagina_id}
 		    }, function(data) {
 		        if (data != 0) {
-		            alert('O acesso desse grupo de estudos a esta página foi revogado.');
+		            alert('{$pagina_translated['O acesso desse grupo de estudos a esta página foi revogado.']}');
 		        }
 		    });
 		})
@@ -976,7 +976,7 @@
                                   if (data == 1) {
                                       window.location.reload(true);
                                   } else {
-                                      alert('Ocorreu algum problema, sua conta não foi criada.');
+                                      alert('{$pagina_translated['Ocorreu algum problema, sua conta não foi criada']}.');
                                   }
                               });
                           }

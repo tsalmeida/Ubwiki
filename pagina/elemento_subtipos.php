@@ -4,22 +4,22 @@
 		
 		$template_subtipo = 'livro';
 		$template_subtipo_tipo = 'referencia';
-		$template_subtipo_titulo = 'Livros';
+		$template_subtipo_titulo = $pagina_translated['Livros'];
 		include 'templates/subtipo_icone.php';
 		
 		$template_subtipo = 'pagina';
 		$template_subtipo_tipo = 'referencia';
-		$template_subtipo_titulo = 'Páginas virtuais';
+		$template_subtipo_titulo = $pagina_translated['Páginas virtuais'];
 		include 'templates/subtipo_icone.php';
 		
 		$template_subtipo = 'artigo';
 		$template_subtipo_tipo = 'referencia';
-		$template_subtipo_titulo = 'Artigos, colunas, notícias';
+		$template_subtipo_titulo = $pagina_translated['Artigos, colunas, notícias'];
 		include 'templates/subtipo_icone.php';
 		
 		$template_subtipo = 'wikipedia';
 		$template_subtipo_tipo = 'referencia';
-		$template_subtipo_titulo = 'Verbetes da Wikipédia';
+		$template_subtipo_titulo = $pagina_translated['Verbetes da Wikipédia'];
 		include 'templates/subtipo_icone.php';
 		
 	}
@@ -28,17 +28,17 @@
 		
 		$template_subtipo = 'musica';
 		$template_subtipo_tipo = 'album_musica';
-		$template_subtipo_titulo = 'Música';
+		$template_subtipo_titulo = $pagina_translated['Música'];
 		include 'templates/subtipo_icone.php';
 		
 		$template_subtipo = 'podcast';
 		$template_subtipo_tipo = 'album_musica';
-		$template_subtipo_titulo = 'Podcasts';
+		$template_subtipo_titulo = $pagina_translated['Podcasts'];
 		include 'templates/subtipo_icone.php';
 		
 		$template_subtipo = 'audiobook';
 		$template_subtipo_tipo = 'album_musica';
-		$template_subtipo_titulo = 'Livros em áudio';
+		$template_subtipo_titulo = $pagina_translated['Livros em áudio'];
 		include 'templates/subtipo_icone.php';
 		
 	}
@@ -47,57 +47,57 @@
 		
 		$template_subtipo = 'mapasatelite';
 		$template_subtipo_tipo = 'imagem';
-		$template_subtipo_titulo = 'Mapas e fotografias de satélite';
+		$template_subtipo_titulo = $pagina_translated['Mapas e fotografias de satélite'];
 		include 'templates/subtipo_icone.php';
 		
 		$template_subtipo = 'grafico';
 		$template_subtipo_tipo = 'imagem';
-		$template_subtipo_titulo = 'Gráficos';
+		$template_subtipo_titulo = $pagina_translated['Gráficos'];
 		include 'templates/subtipo_icone.php';
 		
 		$template_subtipo = 'equacao';
 		$template_subtipo_tipo = 'imagem';
-		$template_subtipo_titulo = 'Equações';
+		$template_subtipo_titulo = $pagina_translated['Equações'];
 		include 'templates/subtipo_icone.php';
 		
 		$template_subtipo = 'retrato';
 		$template_subtipo_tipo = 'imagem';
-		$template_subtipo_titulo = 'Retratos';
+		$template_subtipo_titulo = $pagina_translated['Retratos'];
 		include 'templates/subtipo_icone.php';
 		
 		$template_subtipo = 'arte';
 		$template_subtipo_tipo = 'imagem';
-		$template_subtipo_titulo = 'Obras de arte';
+		$template_subtipo_titulo = $pagina_translated['Obras de arte'];
 		include 'templates/subtipo_icone.php';
 		
 		$template_subtipo = 'paisagem';
 		$template_subtipo_tipo = 'imagem';
-		$template_subtipo_titulo = 'Paisagens';
+		$template_subtipo_titulo = $pagina_translated['Paisagens'];
 		include 'templates/subtipo_icone.php';
 		
 		$template_subtipo = 'objeto';
 		$template_subtipo_tipo = 'imagem';
-		$template_subtipo_titulo = 'Objetos';
+		$template_subtipo_titulo = $pagina_translated['Objetos'];
 		include 'templates/subtipo_icone.php';
 		
 		$template_subtipo = 'arquitetura';
 		$template_subtipo_tipo = 'imagem';
-		$template_subtipo_titulo = 'Arquitetura';
+		$template_subtipo_titulo = $pagina_translated['Arquitetura'];
 		include 'templates/subtipo_icone.php';
 		
 		$template_subtipo = 'planta';
 		$template_subtipo_tipo = 'imagem';
-		$template_subtipo_titulo = 'Plantas';
+		$template_subtipo_titulo = $pagina_translated['Plantas'];
 		include 'templates/subtipo_icone.php';
 		
 		$template_subtipo = 'animais';
 		$template_subtipo_tipo = 'imagem';
-		$template_subtipo_titulo = 'Animais';
+		$template_subtipo_titulo = $pagina_translated['Animais'];
 		include 'templates/subtipo_icone.php';
 		
 		$template_subtipo = 'outras';
 		$template_subtipo_tipo = 'imagem';
-		$template_subtipo_titulo = 'Outras';
+		$template_subtipo_titulo = $pagina_translated['Outras'];
 		include 'templates/subtipo_icone.php';
 		
 	}
@@ -106,18 +106,18 @@
 		
 		$template_subtipo = 'youtube';
 		$template_subtipo_tipo = 'video';
-		$template_subtipo_titulo = 'Vídeos do YouTube';
+		$template_subtipo_titulo = $pagina_translated['Vídeos do YouTube'];
 		$artefato_modal = '#modal_adicionar_youtube';
 		include 'templates/subtipo_icone.php';
 		
 		$template_subtipo = 'filme';
 		$template_subtipo_tipo = 'video';
-		$template_subtipo_titulo = 'Filmes';
+		$template_subtipo_titulo = $pagina_translated['Filmes'];
 		include 'templates/subtipo_icone.php';
 		
 		$template_subtipo = 'aula';
 		$template_subtipo_tipo = 'video';
-		$template_subtipo_titulo = 'Aulas e cursos';
+		$template_subtipo_titulo = $pagina_translated['Aulas e cursos'];
 		include 'templates/subtipo_icone.php';
 		
 	}

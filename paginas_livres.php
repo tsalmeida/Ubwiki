@@ -38,7 +38,7 @@
 	<div class="row d-flex justify-content-between p-1">
 		<div class="col">
 			<div class="row d-flex justify-content-start">
-				<a data-toggle="modal" data-target="<?php echo $adicionar_pagina_livre; ?>" class="text-success ml-1" title="Criar nova página livre" href="javascript:void(0);">
+				<a data-toggle="modal" data-target="<?php echo $adicionar_pagina_livre; ?>" class="text-success ml-1" title="<?php echo $pagina_translated['Criar nova página livre'] ?>" href="javascript:void(0);">
 					<i class="fad fa-plus-circle fa-2x fa-fw"></i>
 				</a>
 			</div>
@@ -46,13 +46,13 @@
 		<div class="col d-flex justify-content-center"><a href="javascript:void(0);" data-toggle="modal" data-target="#modal_busca" class="text-dark"><i
 					class="fad fa-search fa-fw"></i></a></div>
 		<?php
-			echo "<div class='col d-flex justify-content-end'><form method='post'><button name='listar_todas' id='listar_todas' value='!all' class='$button_classes btn-info btn-sm m-0'>Listar todas</button></form></div>";
+			echo "<div class='col d-flex justify-content-end'><form method='post'><button name='listar_todas' id='listar_todas' value='!all' class='$button_classes btn-info btn-sm m-0'>{$pagina_translated['Listar todas']}</button></form></div>";
 		?>
 	</div>
 </div>
 <div class="container">
 	<?php
-		$template_titulo = 'Páginas livres';
+		$template_titulo = $pagina_translated['freepages'];
 		$template_titulo_no_nav = true;
 		include 'templates/titulo.php';
 	?>
@@ -74,7 +74,7 @@
 							$template_titulo = 'Tópicos';
 							$template_conteudo_no_col = true;
 							$template_botoes = "
-								  <a data-toggle='modal' data-target='$adicionar_pagina_livre' class='text-success ml-1' title='Adicionar página livre' href='javascript:void(0);'><i class='fad fa-plus-square fa-fw'></i></a>
+								  <a data-toggle='modal' data-target='$adicionar_pagina_livre' class='text-success ml-1' title='{$pagina_translated['Adicionar página livre']}' href='javascript:void(0);'><i class='fad fa-plus-square fa-fw'></i></a>
 								";
 							$template_conteudo = false;
 							if ($etiquetas->num_rows > 0) {
@@ -107,10 +107,10 @@
 						} else {
 							
 							$template_id = 'etiquetas_adicionadas';
-							$template_titulo = 'Recentemente adicionadas';
+							$template_titulo = $pagina_translated['Recentemente adicionadas'];
 							$template_conteudo_no_col = true;
 							$template_botoes = "
-								  <a data-toggle='modal' data-target='$adicionar_pagina_livre' class='text-success ml-1' title='Adicionar página livre' href='javascript:void(0);'><i class='fad fa-plus-square fa-fw'></i></a>
+								  <a data-toggle='modal' data-target='$adicionar_pagina_livre' class='text-success ml-1' title='{$pagina_translated['Adicionar página livre']}' href='javascript:void(0);'><i class='fad fa-plus-square fa-fw'></i></a>
 								";
 							$template_conteudo = false;
 							$etiquetas = $conn->query("SELECT id  FROM Etiquetas WHERE tipo = 'topico' ORDER BY id DESC");
@@ -143,10 +143,10 @@
 							}
 							
 							$template_id = 'etiquetas_recentes';
-							$template_titulo = 'Recentemente modificadas';
+							$template_titulo = $pagina_translated['Recentemente modificadas'];
 							$template_conteudo_no_col = true;
 							$template_botoes = "
-								  <a data-toggle='modal' data-target='$adicionar_pagina_livre' class='text-success ml-1' title='Adicionar página livre' href='javascript:void(0);'><i class='fad fa-plus-square fa-fw'></i></a>
+								  <a data-toggle='modal' data-target='$adicionar_pagina_livre' class='text-success ml-1' title='{$pagina_translated['Adicionar página livre']}' href='javascript:void(0);'><i class='fad fa-plus-square fa-fw'></i></a>
 								";
 							$template_conteudo = false;
 							$paginas_contadas = array();
@@ -192,23 +192,23 @@
 </div>
 <?php
 	$template_modal_div_id = 'modal_busca';
-	$template_modal_titulo = 'Busca de páginas livres';
+	$template_modal_titulo = $pagina_translated['Busca de páginas livres'];
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "
 		<div class='md-form'>
 			<input type='text' id='termos_busca' name='termos_busca' class='form-control'>
-			<label for='termos_busca'>Termos de busca</label>
+			<label for='termos_busca'>{$pagina_translated['Termos de busca']}</label>
 		</div>
 	";
 	include 'templates/modal.php';
 	
 	$template_modal_div_id = 'adicionar_pagina_livre';
-	$template_modal_titulo = 'Criar página livre';
+	$template_modal_titulo = $pagina_translated['Criar página livre'];
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "
 		<div class='md-form'>
 			<input type='text' id='nova_pagina_livre' name='nova_pagina_livre' class='form-control'>
-			<label for='nova_pagina_livre'>Título da nova página livre</label>
+			<label for='nova_pagina_livre'>{$pagina_translated['Título da nova página livre']}</label>
 		</div>
 	";
 	include 'templates/modal.php';

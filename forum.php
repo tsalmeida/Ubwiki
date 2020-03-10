@@ -101,9 +101,9 @@
 	<?php
 		$template_titulo = $pagina_titulo;
 		if ($pagina_id != 1) {
-			$template_subtitulo = "Fórum / <a href='pagina.php?pagina_id=$pagina_id'>Página</a>";
+			$template_subtitulo = "{$pagina_translated['Fórum']} / <a href='pagina.php?pagina_id=$pagina_id'>{$pagina_translated['Página']}</a>";
 		} else {
-			$template_subtitulo = "Fórum / <a href='ubwiki.php'>Ubwiki</a>";
+			$template_subtitulo = "{$pagina_translated['Fórum']} / <a href='ubwiki.php'>Ubwiki</a>";
 		}
 		$template_titulo_context = true;
 		$template_titulo_no_nav = true;
@@ -120,7 +120,7 @@
 						
 						$item_classes = 'row b-0 border-top m-0 mt-1 p-2 list-group-item-action';
 						
-						$template_conteudo .= "<p>Selecione um tópico para participar do debate.</p>";
+						$template_conteudo .= "<p>{$pagina_translated['Selecione um tópico para participar do debate.']}</p>";
 						
 						if ($forum_topico_id == false) {
 							$lista_active = 'list-group-item-info';
@@ -128,7 +128,7 @@
 							$lista_active = false;
 						}
 						
-						$template_conteudo .= "<a href='forum.php?pagina_id=$pagina_id' class='$item_classes $lista_active'><strong>Debate geral</strong></a>";
+						$template_conteudo .= "<a href='forum.php?pagina_id=$pagina_id' class='$item_classes $lista_active'><strong>{$pagina_translated['Debate geral']}</strong></a>";
 						$query = "SELECT topico_id FROM Forum WHERE pagina_id = $pagina_id AND topico_id IS NOT NULL ORDER BY id DESC";
 						$debates_recentes = $conn->query($query);
 						$debates_lista = array();
@@ -162,7 +162,7 @@
 						$template_botoes = "<span data-toggle='modal' data-target='$modal_novo_topico' title='Novo tópico de debate'><a href='javascript:void(0);' class='text-info'><i class='fad fa-plus-square fa-fw'></i></a></span>";
 						$template_conteudo .= "
 					        <div class='row d-flex justify-content-center mt-3'>
-						        <span data-toggle='modal' data-target='$modal_novo_topico'><button class='$button_classes btn-info btn-sm'>Novo tópico de debate</button></span>
+						        <span data-toggle='modal' data-target='$modal_novo_topico'><button class='$button_classes btn-info btn-sm'>{$pagina_translated['Novo tópico de debate']}</button></span>
 					        </div>
 				        ";
 						
@@ -234,10 +234,10 @@
 								"
 	                            <form method='post'>
                                     <div class='md-form row px-0 mt-2 mb-0'>
-                                        <textarea id='novo_comentario' name='novo_comentario' class='form-control border rounded p-2 row' rows='3' placeholder='Escreva aqui seu comentário' required></textarea>
+                                        <textarea id='novo_comentario' name='novo_comentario' class='form-control border rounded p-2 row' rows='3' placeholder='{$pagina_translated['Escreva aqui seu comentário']}' required></textarea>
                                     </div>
                                     <div class='row d-flex justify-content-center'>
-                                        <button class='$button_classes btn-info btn-sm mt-0'>Enviar comentário</button>
+                                        <button class='$button_classes btn-info btn-sm mt-0'>{$pagina_translated['Enviar comentário']}</button>
                                     </div>
                                 </form><!--
                                 <div class='row d-flex justify-content-center'>
@@ -256,7 +256,7 @@
                                 </div>-->
 	                        ";
 						} else {
-							$template_conteudo .= "<p class='mt-3'><strong>Para adicionar um comentário, você precisará definir seu apelido em <a href='escritorio.php'>seu escritório</a>.</strong></p>";
+							$template_conteudo .= "<p class='mt-3'><strong>{$pagina_translated['Para adicionar um comentário, você precisará definir seu apelido em']} <a href='escritorio.php'>{$pagina_translated['seu escritório']}</a>.</strong></p>";
 						}
 						
 						include 'templates/page_element.php';
@@ -272,10 +272,10 @@
 		"
 		<div class='md-form'>
 			<input type='text' name='novo_topico_titulo' id='novo_topico_titulo' class='form-control' required>
-			<label for='novo_topico_titulo'>Título</label>
+			<label for='novo_topico_titulo'>{$pagina_translated['Título']}</label>
 		</div>
 		<div class='md-form'>
-			<textarea class='form-control border rounded p-2 row' rows='3' placeholder='Escreva aqui seu comentário (opcional)' name='novo_topico_texto' id='novo_topico_texto'></textarea>
+			<textarea class='form-control border rounded p-2 row' rows='3' placeholder='{$pagina_translated['Escreva aqui seu comentário (opcional)']}' name='novo_topico_texto' id='novo_topico_texto'></textarea>
 		</div>
 	";
 	include 'templates/modal.php';

@@ -7,48 +7,48 @@
 	
 	$dados_elemento = false;
 	if ($elemento_tipo == 'imagem_privada') {
-		$dados_elemento .= "<p>Esta imagem é privada e não pode ser vista por outros usuários.</p>";
+		$dados_elemento .= "<p>{$pagina_translated['Esta imagem é privada e não pode ser vista por outros usuários.']}</p>";
 	}
 	$dados_elemento .= "
                             <ul class='list-group'>
-						        <li class='list-group-item'><strong>Criado em:</strong> $elemento_criacao</li>";
+						        <li class='list-group-item'><strong>{$pagina_translated['Criado em']}:</strong> $elemento_criacao</li>";
 	if ($elemento_tipo != 'imagem_privada') {
-		$dados_elemento .= "<li class='list-group-item'><strong>Estado de publicação:</strong> $elemento_estado_visivel</li>";
+		$dados_elemento .= "<li class='list-group-item'><strong>{$pagina_translated['Estado de publicação']}:</strong> $elemento_estado_visivel</li>";
 	}
 	if ($elemento_titulo != false) {
-		$dados_elemento .= "<li class='list-group-item'><strong>Título:</strong> $elemento_titulo</li>";
+		$dados_elemento .= "<li class='list-group-item'><strong>{$pagina_translated['Título']}:</strong> $elemento_titulo</li>";
 	}
 	if ($elemento_autor != false) {
-		$dados_elemento .= "<li class='list-group-item'><strong>Autor:</strong> $elemento_autor</li>";
+		$dados_elemento .= "<li class='list-group-item'><strong>{$pagina_translated['Autor']}:</strong> $elemento_autor</li>";
 	}
 	if ($elemento_capitulo != false) {
-		$dados_elemento .= "<li class='list-group-item'><strong>Capítulo:</strong> $elemento_capitulo</li>";
+		$dados_elemento .= "<li class='list-group-item'><strong>{$pagina_traslated['Capítulo']}:</strong> $elemento_capitulo</li>";
 	}
 	if ($elemento_ano != 0) {
-		$dados_elemento .= "<li class='list-group-item'><strong>Ano:</strong> $elemento_ano</li>";
+		$dados_elemento .= "<li class='list-group-item'><strong>{$pagina_translated['Ano']}:</strong> $elemento_ano</li>";
 	}
 	if ($elemento_link != false) {
-		$dados_elemento .= "<li class='list-group-item'><a href='$elemento_link' target='_blank'>Link original</a></li>";
+		$dados_elemento .= "<li class='list-group-item'><a href='$elemento_link' target='_blank'>{$pagina_translated['Original link']}</a></li>";
 	}
-	$dados_elemento .= "<li class='list-group-item'>Adicionado pelo usuário <strong><a href='pagina.php?user_id=$elemento_user_id' target='_blank'>$elemento_user_apelido</a></strong></li>";
+	$dados_elemento .= "<li class='list-group-item'>{$pagina_translated['Adicionado por']} <strong><a href='pagina.php?user_id=$elemento_user_id' target='_blank'>$elemento_user_apelido</a></strong></li>";
 	$dados_elemento .= "</ul>";
 	
 	$template_modal_div_id = 'modal_dados_elemento';
-	$template_modal_titulo = 'Dados';
+	$template_modal_titulo = $pagina_translated['Dados'];
 	$template_modal_show_buttons = false;
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= $dados_elemento;
 	$template_modal_body_conteudo .= "
 				<div class='row justify-content-center'>
 					<span data-toggle='modal' data-target='#modal_dados_elemento'>
-						<button type='button' data-toggle='modal' data-target='#modal_elemento_form' class='$button_classes'>Editar</button>
+						<button type='button' data-toggle='modal' data-target='#modal_elemento_form' class='$button_classes'>{$pagina_translated['Editar']}</button>
 					</span>
 				</div>
 			";
 	include 'templates/modal.php';
 	
 	$template_modal_div_id = 'modal_elemento_form';
-	$template_modal_titulo = 'Alterar dados do elemento';
+	$template_modal_titulo = $pagina_translated['Alterar dados do elemento'];
 	$template_modal_body_conteudo = false;
 	
 	$estado_elemento_checkbox = false;
@@ -59,7 +59,7 @@
 		$template_modal_body_conteudo .= "
                   <div class='form-check pl-0'>
                       <input type='checkbox' class='form-check-input' id='elemento_mudanca_estado' name='elemento_mudanca_estado' $estado_elemento_checkbox>
-                      <label class='form-check-label' for='elemento_mudanca_estado'>Adequado para publicação</label>
+                      <label class='form-check-label' for='elemento_mudanca_estado'>{$pagina_translated['Adequado para publicação']}</label>
                   </div>
                 ";
 	} else {
@@ -71,18 +71,18 @@
 	$template_modal_body_conteudo .= "
 		      <div class='md-form mb-2'>
                   <input type='text' id='elemento_novo_titulo' name='elemento_novo_titulo' class='form-control' value='$elemento_titulo'>
-                  <label for='elemento_novo_titulo'>Título</label>
+                  <label for='elemento_novo_titulo'>{$pagina_translated['Título']}</label>
               </div>
           
               <div class='md-form mb-2'>
                   <input type='text' id='elemento_novo_autor' name='elemento_novo_autor' class='form-control' value='$elemento_autor'>
-                  <label for='elemento_novo_autor'>Autor</label>
+                  <label for='elemento_novo_autor'>{$pagina_translated['Autor']}</label>
               </div>
             ";
 	$template_modal_body_conteudo .= "
 		        <div class='md-form mb-2'>
                     <input type='number' id='elemento_novo_ano' name='elemento_novo_ano' class='form-control' value='$elemento_ano'>
-                    <label for='elemento_novo_ano'>Ano</label>
+                    <label for='elemento_novo_ano'>{$pagina_translated['Ano']}</label>
                 </div>
 	        ";
 	
@@ -91,7 +91,7 @@
 	include 'templates/modal.php';
 	
 	$template_modal_div_id = 'modal_elemento_subtipo';
-	$template_modal_titulo = "Classificar subtipo";
+	$template_modal_titulo = $pagina_translated['Classificar subtipo'];
 	$template_modal_show_buttons = false;
 	$template_modal_body_conteudo = false;
 	

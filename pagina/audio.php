@@ -3,7 +3,7 @@
 	$audios = $conn->query("SELECT DISTINCT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'album_musica' AND estado = 1");
 	if ($audios->num_rows > 0) {
 		$template_id = 'material_audio';
-		$template_titulo = 'Áudio';
+		$template_titulo = $pagina_translated['Áudio'];
 		$template_botoes = false;
 		$template_conteudo = false;
 		$template_conteudo .= "

@@ -127,21 +127,21 @@
 					<input type='text' class='form-control' name='novo_produto_titulo' id='novo_produto_titulo' required>
 					<label for='novo_produto_titulo'>{$pagina_translated['Título do novo produto']}</label>
 				</div>
-				<p>Pressione as opções abaixo de acordo com as características do produto:</p>
+				<p>{$pagina_translated['Pressione as opções abaixo de acordo com as características do produto:']}</p>
 				<div class='row d-flex justify-content-center border p-1 rounded'>
 			";
 			
 			$produto_col_limit = 'col-lg-4 col-md-6 col-sm-12';
 			
 			$artefato_tipo = 'produto_gratuito';
-			$artefato_titulo = 'Gratuito';
+			$artefato_titulo = $pagina_translated['Gratuito'];
 			$artefato_col_limit = $produto_col_limit;
 			$fa_icone = 'fa-usd-circle';
 			$fa_color = 'text-success';
 			$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 			
 			$artefato_tipo = 'produto_pago';
-			$artefato_titulo = 'Pago';
+			$artefato_titulo = $pagina_translated['Pago'];
 			$artefato_col_limit = $produto_col_limit;
 			$fa_icone = 'fa-usd-circle';
 			$fa_color = 'text-info';
@@ -153,21 +153,21 @@
 			";
 			
 			$artefato_tipo = 'curso_distancia';
-			$artefato_titulo = 'Curso à distância';
+			$artefato_titulo = $pagina_translated['Curso à distância'];
 			$artefato_col_limit = $produto_col_limit;
 			$fa_icone = 'fa-step-forward';
 			$fa_color = 'text-danger';
 			$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 			
 			$artefato_tipo = 'curso_presencial';
-			$artefato_titulo = 'Curso presencial';
+			$artefato_titulo = $pagina_translated['Curso presencial'];
 			$artefato_col_limit = $produto_col_limit;
 			$fa_icone = 'fa-chalkboard-teacher';
 			$fa_color = 'text-warning';
 			$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 			
 			$artefato_tipo = 'mentoria';
-			$artefato_titulo = 'Mentoria';
+			$artefato_titulo = $pagina_translated['Mentoria'];
 			$artefato_col_limit = $produto_col_limit;
 			$fa_icone = 'fa-whistle';
 			$fa_color = 'text-secondary';
@@ -177,25 +177,25 @@
 			
 			if (($user_tipo == 'admin') || ($user_tipo == 'professor')) {
 				$template_modal_body_conteudo .= "
-                    <p class='mt-2'>Porque você está registrado como professor, você poderá oferecer serviços dentro da Ubwiki:</p>
+                    <p class='mt-2'>{$pagina_translated['Porque você está registrado como professor, você poderá oferecer serviços dentro da Ubwiki:']}</p>
                     <div class='row d-flex justify-content-center border rounded my-1 p-1'>";
 				
 				$artefato_tipo = 'mentoria_ubwiki';
-				$artefato_titulo = 'Mentoria pela Ubwiki';
+				$artefato_titulo = $pagina_translated['Mentoria pela Ubwiki'];
 				$artefato_col_limit = $produto_col_limit;
 				$fa_icone = 'fa-handshake';
 				$fa_color = 'text-success';
 				$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 				
 				$artefato_tipo = 'curso_ubwiki';
-				$artefato_titulo = 'Acesso a curso Ubwiki';
+				$artefato_titulo = $pagina_translated['Acesso a curso Ubwiki'];
 				$artefato_col_limit = $produto_col_limit;
 				$fa_icone = 'fa-sitemap';
 				$fa_color = 'text-primary';
 				$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 				
 				$artefato_tipo = 'grupo_ubwiki';
-				$artefato_titulo = 'Acesso a grupo de estudos Ubwiki';
+				$artefato_titulo = $pagina_translated['Acesso a grupo de estudos Ubwiki'];
 				$artefato_col_limit = $produto_col_limit;
 				$fa_icone = 'fa-users';
 				$fa_color = 'text-warning';

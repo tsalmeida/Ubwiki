@@ -3,7 +3,7 @@
 	$count = 0;
 	if ($videos->num_rows > 0) {
 		$template_id = 'videos';
-		$template_titulo = 'Vídeos';
+		$template_titulo = $pagina_translated['Vídeos'];
 		$template_botoes = false;
 		$template_conteudo = false;
 		$template_conteudo .= "

@@ -23,13 +23,13 @@
 						echo "<div id='coluna_unica' class='$coluna_classes'>";
 						
 						$template_id = 'carrinho_conteudo';
-						$template_titulo = 'Conteúdo do seu carrinho';
+						$template_titulo = $pagina_translated['Conteúdo do seu carrinho'];
 						$template_conteudo_class = 'p-limit';
 						$template_conteudo = false;
 						
 						$produtos = $conn->query("SELECT produto_pagina_id FROM Carrinho WHERE user_id = $user_id AND estado = 1");
 						if ($produtos->num_rows > 0) {
-							$template_conteudo .= "<p>Conteúdo do seu carrinho:</p>";
+							$template_conteudo .= "<p>{$pagina_translated['Conteúdo do seu carrinho']}:</p>";
 							$template_conteudo .= "<ul class='list-group mb-3'>";
 							$soma = 0;
 							while ($produto = $produtos->fetch_assoc()) {
@@ -43,10 +43,10 @@
 							}
 							$template_conteudo .= "<li class='list-group-item list-group-item-info p-1'>Total: R$ $soma</li>";
 							$template_conteudo .= "</ul>";
-							$template_conteudo .= "<p>Para pagar, faça uma transferência do valor total para a conta abaixo e envie um comprovante para o e-mail <u>webmaster@ubwiki.com.br</u>:</p>";
+							$template_conteudo .= "<p>Instruções sobre como pagar:</p>";
 							$template_conteudo .= "<li class='list-group-item'>Dados da conta.</li>";
 						} else {
-							$template_conteudo .= "<p class='text-muted'><em>Não há produtos em seu carrinho.</em></p>";
+							$template_conteudo .= "<p class='text-muted'><em>{$pagina_translated['Não há produtos em seu carrinho.']}</em></p>";
 						}
 						
 						include 'templates/page_element.php';
@@ -68,7 +68,7 @@
 				   	if (data != 0) {
 				   	    window.location.replace('carrinho.php');
 				   	} else {
-				   	    alert('Aconteceu algum problema.');
+				   	    alert('{$pagina_translated['Aconteceu algum problema.']}');
 				   	}
 				});
 			});

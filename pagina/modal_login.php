@@ -12,8 +12,8 @@
         <p id='thinkific_senha_incorreta' class='collapse text-danger'>Senha incorreta. Trata-se da senha que você criou na Ubwiki, não da sua senha na página do Grupo Ubique.</p>
         <p id='login_mensagem_basica' class='collapse'>{$pagina_translated['access_message']} <span data-toggle='modal' data-target='#modal_login'><a href='javascript:void(0);' data-toggle='modal' data-target='#modal_nova_senha'>{$pagina_translated['lost password?']}</a></span></p>
         <p id='login_senha_confirmar' class='collapse'>{$pagina_translated['correct_password_but']}</p>
-        <p id='login_senha_incorreta' class='collapse text-danger'>Senha incorreta.</p>
-        <p id='login_novo_usuario' class='collapse'>Não existe conta registrada para este email. Continue para criar uma conta.</p>
+        <p id='login_senha_incorreta' class='collapse text-danger'>{$pagina_translated['Senha incorreta.']}</p>
+        <p id='login_novo_usuario' class='collapse'>{$pagina_translated['Não existe conta registrada para este email. Continue para criar uma conta.']}</p>
         <p id='login_thinkific_registro' class='collapse'>Para acessar a Ubwiki diretamente e criar uma nova senha, você precisará, uma última vez, passar pela <a href='https://www.grupoubique.com.br/'>página do Grupo Ubique</a>. Alternativamente, você pode pressionar o cadeado azul no canto superior direito e receber um código de confirmação por email.</p>
         <div id='secao_login_email' class='md-form mt-3 collapse'>
             <input type='email' id='login_email' name='login_email' class='form-control'>
@@ -29,7 +29,7 @@
         </div>
         <div id='secao_login_confirmacao' class='md-form collapse'>
             <input type='password' id='login_senha_confirmacao' name='login_senha_confirmacao' class='form-control' disabled>
-            <label for='login_senha_confirmacao'>Confirme sua senha</label>
+            <label for='login_senha_confirmacao'>{$pagina_translated['Confirme sua senha']}</label>
         </div>
         <div id='secao_login_enviar' class='md-form d-flex justify-content-center'>
             <button id='botao_login' name='botao_login' type='button' class='$button_classes w-50' disabled>{$pagina_translated['continue']}</button>

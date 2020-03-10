@@ -4,7 +4,7 @@
 	$template_titulo = "Questão $questao_numero";
 	$template_titulo_heading = 'h4';
 	$template_botoes = "
-    <span id='pagina_questao_{$questao_numero}' title='Página da questão'>
+    <span id='pagina_questao_{$questao_numero}' title='{$pagina_translated['Página da questão']}'>
         <a href='questao.php?questao_id=$questao_id' target='_blank'><i class='fal fa-external-link-square fa-fw'></i></a>
     </span>
 											    ";

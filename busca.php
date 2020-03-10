@@ -17,12 +17,12 @@
 <div class="container py-5">
 	<?php
 		$template_id = 'busca_titulo';
-		$template_titulo = 'Resultados de busca';
+		$template_titulo = $pagina_translated['Resultados de busca'];
 		$template_botoes = false;
 		$template_botoes_padrao = false;
 		$template_conteudo = false;
-		$template_conteudo .= "<h3>Termos de busca: \"$busca\"</h3>";
-		$template_conteudo .= "<h3>Curso: $curso_titulo</h3>";
+		$template_conteudo .= "<h3>{$pagina_translated['Termos de busca:']} \"$busca\"</h3>";
+		$template_conteudo .= "<h3>{$pagina_translated['Curso']}: $curso_titulo</h3>";
 		include 'templates/page_element.php';
 		
 		$template_id = 'busca_paginas';
@@ -52,7 +52,7 @@
 		include 'templates/page_element.php';
 		
 		$template_id = 'busca_verbetes';
-		$template_titulo = 'Busca em verbetes';
+		$template_titulo = $pagina_translated['Busca em verbetes'];
 		$template_botoes = false;
 		
 		$template_conteudo = false;
@@ -73,21 +73,21 @@
 				}
 			}
 		}
-		$template_conteudo .= "<h2>Matérias</h2>";
+		$template_conteudo .= "<h2>{$pagina_translated['Matérias']}</h2>";
 		if ($verbetes_resultados_materias != false) {
 			$template_conteudo .= "<ul class='list-group list-group-flush'>";
 			$template_conteudo .= $verbetes_resultados_materias;
 			$template_conteudo .= "</ul>";
 		} else {
-			$template_conteudo .= "<p><span class='text-muted'>Nenhum resultado encontrado.</span></p>";
+			$template_conteudo .= "<p><span class='text-muted'>{$pagina_translated['Nenhum resultado encontrado.']}</span></p>";
 		}
-		$template_conteudo .= "<h2 class='mt-3'>Tópicos</h2>";
+		$template_conteudo .= "<h2 class='mt-3'>{$pagina_translated['Tópicos']}</h2>";
 		if ($verbetes_resultados_topicos != false) {
 			$template_conteudo .= "<ul class='list-group list-group-flush'>";
 			$template_conteudo .= $verbetes_resultados_topicos;
 			$template_conteudo .= "</ul>";
 		} else {
-			$template_conteudo .= "<p><span class='text-muted'>Nenhum resultado encontrado.</span></p>";
+			$template_conteudo .= "<p><span class='text-muted'>{$pagina_translated['Nenhum resultado encontrado.']}</span></p>";
 		}
 		include 'templates/page_element.php';
 	

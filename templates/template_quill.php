@@ -27,7 +27,7 @@
 		$template_quill_meta_tipo = $template_id;
 		$template_quill_toolbar_and_whitelist = $template_id;
 		if (!isset($template_quill_vazio)) {
-			$template_quill_vazio = 'Seja o primeiro a escrever sobre este assunto.';
+			$template_quill_vazio = $pagina_translated['Seja o primeiro a escrever sobre este assunto.'];
 		}
 		$template_quill_public = true;
 		if (!isset($template_quill_initial_state)) {
@@ -35,7 +35,7 @@
 		}
 		if ($template_id == 'anotacoes') {
 			$template_classes = 'anotacoes_sticky';
-			$template_quill_vazio = 'Não há notas de estudo suas sobre este assunto.';
+			$template_quill_vazio = $pagina_translated['Não há notas de estudo suas sobre este assunto.'];
 			$template_quill_public = false;
 		}
 	}
@@ -136,10 +136,10 @@
 	$template_botoes_salvar = false;
 	
 	if ((($template_id == 'verbete') && ($privilegio_edicao == true)) || ($template_id != 'verbete')) {
-		$template_botoes_salvar .= "<a href='javascript:void(0)' id='{$template_id}_trigger_save' title='Salvar mudanças' class='mr-2 text-primary'><i class='fad fa-save fa-fw'></i></a><a href='javascript:void(0)' id='{$template_id}_trigger_save_success' title='Edições salvas' class='text-success collapse mr-2'><i class='fad fa-check-square fa-fw'></i></a><a href='javascript:void(0)' id='{$template_id}_trigger_save_failure' title='Suas edições não foram salvas' class='text-danger collapse mr-2'><i class='fad fa-times-square fa-fw'></i></a>";
+		$template_botoes_salvar .= "<a href='javascript:void(0)' id='{$template_id}_trigger_save' title='{$pagina_translated['Salvar mudanças']}' class='mr-2 text-primary'><i class='fad fa-save fa-fw'></i></a><a href='javascript:void(0)' id='{$template_id}_trigger_save_success' title='Edições salvas' class='text-success collapse mr-2'><i class='fad fa-check-square fa-fw'></i></a><a href='javascript:void(0)' id='{$template_id}_trigger_save_failure' title='{$pagina_translated['Suas edições não foram salvas']}' class='text-danger collapse mr-2'><i class='fad fa-times-square fa-fw'></i></a>";
 	}
 	if ($quill_texto_id != false) {
-		$template_botoes_salvar .= "<a href='historico.php?texto_id=$quill_texto_id' title='Histórico do documento' class='mr-2 text-default'><i class='fad fa-history fa-fw'></i></a>";
+		$template_botoes_salvar .= "<a href='historico.php?texto_id=$quill_texto_id' title='{$pagina_translated['Histórico do documento']}' class='mr-2 text-default'><i class='fad fa-history fa-fw'></i></a>";
 		/*$template_botoes .= "
 			<a href='pagina.php?texto_id=$quill_texto_id' title='Editar na página de edição'><i class='fad fa-external-link-square fa-fw'></i></a>
 		";*/
@@ -151,15 +151,15 @@
 		$template_botoes .= "
 			<a href='javascript:void(0);' id='esconder_coluna_esquerda' title='Expandir' class='text-primary'><i class='fad fa-arrow-alt-square-left fa-fw'></i></a>
     	<a href='javascript:void(0);' id='mostrar_coluna_esquerda' title='Comprimir' class='text-primary'><i class='fad fa-arrow-alt-square-right fa-fw'></i></a>
-			<a href='pagina.php?texto_id=$quill_texto_id' id='compartilhar_anotacao' title='Página deste documento' class='text-primary'><i class='fad fa-external-link-square fa-fw'></i></a>
+			<a href='pagina.php?texto_id=$quill_texto_id' id='compartilhar_anotacao' title='{$pagina_translated['Página deste documento']}' class='text-primary'><i class='fad fa-external-link-square fa-fw'></i></a>
 		";
 	}
 	if ((($template_id == 'verbete') && ($privilegio_edicao == true)) || ($template_id != 'verbete')) {
 		$template_botoes .= "
-			<span id='travar_{$template_id}' title='Travar para edição'>
+			<span id='travar_{$template_id}' title='{$pagina_translated['Travar para edição']}'>
 	      <a href='javascript:void(0);' class='text-primary'><i class='fad fa-pen-square fa-fw'></i></a>
 	    </span>
-	    <span id='destravar_{$template_id}' title='Permitir edição'>
+	    <span id='destravar_{$template_id}' title='{$pagina_translated['Permitir edição']}'>
 				<a href='javascript:void(0);' class='text-muted'><i class='fad fa-pen-square fa-fw'></i></a>
 	    </span>
 		";
@@ -206,8 +206,8 @@
                 handlers: {
                     image: function() {
                         var range = this.quill.getSelection();
-								        var link = prompt('Qual o endereço da imagem?');
-						            var titulo = prompt('Título da imagem:');
+								        var link = prompt('{$pagina_translated['Qual o endereço da imagem?']}');
+						            var titulo = prompt('{$pagina_translated['Título da imagem:']}');
 								        var value64 = btoa(link);
 								        if (link) {
 								            $.post('engine.php', {

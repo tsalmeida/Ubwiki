@@ -3,7 +3,7 @@
 	$count = 0;
 	if ($imagens->num_rows > 0) {
 		$template_id = 'imagens';
-		$template_titulo = 'Imagens';
+		$template_titulo = $pagina_translated['Imagens'];
 		$template_botoes = false;
 		$template_conteudo = false;
 		$active = 'active';
