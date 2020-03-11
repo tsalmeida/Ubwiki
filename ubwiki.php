@@ -20,7 +20,6 @@
 	<?php
 		echo "<div class='row d-flex justify-content-end p-1 mt-1'>";
 		if ($user_id == false) {
-			echo "<a href='#apresentacao' class='text-success mx-2'><i class='fad fa-portal-enter fa-fw fa-2x'></i></a>";
 			echo "<a data-toggle='modal' data-target='#modal_languages' class='text-info mx-2'><i class='fad fa-language fa-fw fa-2x'></i></a>";
 			echo "<a data-toggle='modal' data-target='#modal_login' class='text-primary mx-2'><i class='fad fa-user-circle fa-fw fa-2x'></i></a>";
 		}
@@ -236,7 +235,11 @@
 						$template_id = 'sobre_escritorio';
 						$template_titulo = $pagina_translated['about_office'];
 						$template_classes = 'sobre_stuff';
-						$template_botoes = '<a href="escritorio.php" class="text-primary"><i class="fad fa-external-link fa-fw fa-2x"></i></a>';
+						if ($user_id != false) {
+							$template_botoes = '<a href="escritorio.php" class="text-primary"><i class="fad fa-external-link fa-fw fa-2x"></i></a>';
+						} else {
+							$template_botoes = '<a data-toggle="modal" data-target="#modal_login" class="text-info"><i class="fad fa-user-circle fa-fw"></i></a>';
+						}
 						$template_conteudo = false;
 						$texto_ambiente_id = return_texto_ambientes('escritorio', $user_language);
 						$template_conteudo .= return_verbete_html($texto_ambiente_id);
