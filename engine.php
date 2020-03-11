@@ -3064,8 +3064,11 @@
 	}
 	
 	if (isset($_GET['confirmacao'])) {
+		error_log('this happenedjkjkjk');
 		$confirmacao = $_GET['confirmacao'];
-		$conn->query("UPDATE Usuarios SET origem = 'confirmado' WHERE origem = '$confirmacao'");
+		$check = $conn->query("UPDATE Usuarios SET origem = 'confirmado' WHERE origem = '$confirmacao'");
+		error_log($check);
+		error_log("UPDATE Usuarios SET origem = 'confirmado' WHERE origem = '$confirmacao'");
 	}
 	
 	function send_nova_senha($email, $confirmacao)
