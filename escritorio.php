@@ -663,6 +663,8 @@
 						$template_conteudo_class = 'justify-content-start';
 						$template_conteudo_no_col = true;
 						$template_conteudo = false;
+						$template_conteudo .= "<div class='col-12 d-flex justify-content-center'><p class='p-limit'>{$pagina_translated['about private images']}</p></div>";
+						$template_conteudo .= "<div class='col-12'><div class='row d-flex justify-content-start'>";
 						
 						$artefato_id = 0;
 						$artefato_page_id = false;
@@ -690,6 +692,9 @@
 							$artefato_tipo = 'imagem_publica';
 							$template_conteudo .= include 'templates/artefato_item.php';
 						}
+						
+						$template_conteudo .= "</div></div>";
+						
 						include 'templates/page_element.php';
 						
 						$imagens_publicas = $conn->query("SELECT subtipo, id, criacao, titulo, arquivo, estado FROM Elementos WHERE user_id = $user_id AND tipo = 'imagem' AND compartilhamento IS NULL ORDER BY id DESC");
