@@ -3064,28 +3064,23 @@
 	}
 	
 	if (isset($_GET['confirmacao'])) {
-		error_log('this happenedjkjkjk');
 		$confirmacao = $_GET['confirmacao'];
 		$check = $conn->query("UPDATE Usuarios SET origem = 'confirmado' WHERE origem = '$confirmacao'");
-		error_log($check);
-		error_log("UPDATE Usuarios SET origem = 'confirmado' WHERE origem = '$confirmacao'");
 	}
 	
 	function send_nova_senha($email, $confirmacao)
 	{
-		$msg = "Sua senha na Ubwiki foi alterada.\nCaso você não tenha conta na Ubwiki, uma nova conta terá sido criada para seu endereço de email.\nPara ativá-la, siga este link:\nhttps://www.ubwiki.com.br/ubwiki/login.php?confirmacao=$confirmacao";
+		$msg = "Sua senha na Ubwiki foi alterada.\nCaso você não tenha conta na Ubwiki, uma nova conta terá sido criada para seu endereço de email.\nPara ativá-la, siga este link:\nhttps://www.ubwiki.com.br/ubwiki/ubwiki.php?confirmacao=$confirmacao";
 		$check = mail($email, 'Nova senha na Ubwiki', $msg, null, '-fwebmaster@ubwiki.com.br');
 		return $check;
 	}
 	
 	if (isset($_POST['nova_senha'])) {
-		error_log('this happened');
 		$nova_senha = $_POST['nova_senha'];
 		$nova_senha_email = $_POST['nova_senha_email'];
 		$nova_senha_encrypted = password_hash($nova_senha, PASSWORD_DEFAULT);
 		$confirmacao = generateRandomString(12);
 		$check = send_nova_senha($nova_senha_email, $confirmacao);
-		error_log($check);
 		$usuarios = $conn->query("SELECT id FROM Usuarios WHERE email = '$nova_senha_email'");
 		if ($usuarios->num_rows > 0) {
 			while ($usuario = $usuarios->fetch_assoc()) {
