@@ -336,7 +336,7 @@
 		$check = strtolower($check);
 		
 		/* read the source image */
-		$original = "../../imagens/verbetes/$filename";
+		$original = "../imagens/verbetes/$filename";
 		if (($check == ".jpg") || ($check == "jpeg")) {
 			$source_image = imagecreatefromjpeg($original);
 		} elseif ($check == ".png") {
@@ -367,7 +367,7 @@
 		imagecopyresampled($virtual_image, $source_image, 0, 0, 0, 0, $desired_width, $desired_height, $width, $height);
 		
 		/* create the physical thumbnail image to its destination */
-		$prefix = "../../imagens/verbetes/thumbnails/";
+		$prefix = "../imagens/verbetes/thumbnails/";
 		$destination = "$prefix$filename";
 		if (($check == ".jpg") || ($check == "jpeg")) {
 			imagejpeg($virtual_image, "$destination");
@@ -407,7 +407,7 @@
 		$randomfilename = generateRandomString(12);
 		$randomfilename .= '.jpg';
 		$nova_imagem_arquivo = $randomfilename;
-		$nova_imagem_diretorio = "../../imagens/youthumb/$nova_imagem_arquivo";
+		$nova_imagem_diretorio = "../imagens/youthumb/$nova_imagem_arquivo";
 		file_put_contents($nova_imagem_diretorio, fopen($youtube_thumbnail_original, 'r'));
 		return $nova_imagem_arquivo;
 	}
@@ -442,7 +442,7 @@
 			$ultimo_ponto = strripos($nova_imagem_link, ".");
 			$extensao = substr($nova_imagem_link, $ultimo_ponto);
 			$nova_imagem_arquivo = "$randomfilename$extensao";
-			$nova_imagem_diretorio = "../../imagens/verbetes/$nova_imagem_arquivo";
+			$nova_imagem_diretorio = "../imagens/verbetes/$nova_imagem_arquivo";
 			file_put_contents($nova_imagem_diretorio, fopen($nova_imagem_link, 'r'));
 			$dados_da_imagem = make_thumb($nova_imagem_arquivo);
 			if ($dados_da_imagem == false) {
@@ -451,7 +451,7 @@
 				$nova_imagem_resolucao_original = $dados_da_imagem[0];
 				$nova_imagem_orientacao = $dados_da_imagem[1];
 				if ($origem == 'upload') {
-					$nova_imagem_link = "../../imagens/verbetes/$nova_imagem_arquivo";
+					$nova_imagem_link = "https://ubwiki.com.br/imagens/verbetes/$nova_imagem_arquivo";
 				}
 			}
 		}
@@ -474,7 +474,7 @@
 		//um check de duplicatas na página, mas talvez não exista no escritório.
 		$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, subtipo, extra, user_id) VALUES ($pagina_id, '$pagina_tipo', $nova_imagem_id, 'imagem', '$nova_imagem_subtipo', $nova_imagem_etiqueta_id, $user_id)");
 		if (isset($nova_imagem_arquivo)) {
-			return "../../imagens/verbetes/$nova_imagem_arquivo";
+			return "https://ubwiki.com.br/imagens/verbetes/$nova_imagem_arquivo";
 		} else {
 			return false;
 		}

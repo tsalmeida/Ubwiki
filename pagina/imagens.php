@@ -45,7 +45,7 @@
                                             <div class=' carousel-item $active text-center'>
                                               <figure class='col-12'>
                                                 <a href='pagina.php?elemento_id=$elemento_id' target='_blank'>
-                                                  <img src='/../../imagens/verbetes/thumbnails/$imagem_arquivo'
+                                                  <img src='/../imagens/verbetes/thumbnails/$imagem_arquivo'
                                                     class='img-fluid' style='height:300px'>
                                                 </a>
                                         ";
