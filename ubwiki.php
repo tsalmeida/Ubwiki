@@ -236,6 +236,7 @@
 						$template_id = 'sobre_escritorio';
 						$template_titulo = $pagina_translated['about_office'];
 						$template_classes = 'sobre_stuff';
+						$template_botoes = '<a href="escritorio.php" class="text-primary"><i class="fad fa-external-link fa-fw fa-2x"></i></a>';
 						$template_conteudo = false;
 						$texto_ambiente_id = return_texto_ambientes('escritorio', $user_language);
 						$template_conteudo .= return_verbete_html($texto_ambiente_id);
@@ -244,6 +245,7 @@
 						$template_id = 'sobre_cursos';
 						$template_titulo = $pagina_translated['about_courses'];
 						$template_classes = 'sobre_stuff';
+						$template_botoes = '<a href="cursos.php" class="text-primary"><i class="fad fa-external-link fa-fw fa-2x"></i></a>';
 						$template_conteudo = false;
 						$texto_ambiente_id = return_texto_ambientes('cursos', $user_language);
 						$template_conteudo .= return_verbete_html($texto_ambiente_id);
@@ -252,6 +254,7 @@
 						$template_id = 'sobre_areas_interesse';
 						$template_titulo = $pagina_translated['about_free_pages'];
 						$template_classes = 'sobre_stuff';
+						$template_botoes = '<a href="paginas_livres.php" class="text-primary"><i class="fad fa-external-link fa-fw fa-2x"></i></a>';
 						$template_conteudo = false;
 						$texto_ambiente_id = return_texto_ambientes('paginaslivres', $user_language);
 						$template_conteudo .= return_verbete_html($texto_ambiente_id);
@@ -260,6 +263,7 @@
 						$template_id = 'sobre_biblioteca';
 						$template_titulo = $pagina_translated['about_library'];
 						$template_classes = 'sobre_stuff';
+						$template_botoes = '<a href="biblioteca.php" class="text-primary"><i class="fad fa-external-link fa-fw fa-2x"></i></a>';
 						$template_conteudo = false;
 						$texto_ambiente_id = return_texto_ambientes('biblioteca', $user_language);
 						$template_conteudo .= return_verbete_html($texto_ambiente_id);
@@ -268,6 +272,7 @@
 						$template_id = 'sobre_forum';
 						$template_titulo = $pagina_translated['about_forum'];
 						$template_classes = 'sobre_stuff';
+						$template_botoes = '<a href="forum.php" class="text-primary"><i class="fad fa-external-link fa-fw fa-2x"></i></a>';
 						$template_conteudo = false;
 						$texto_ambiente_id = return_texto_ambientes('forum', $user_language);
 						$template_conteudo .= return_verbete_html($texto_ambiente_id);
@@ -276,6 +281,7 @@
 						$template_id = 'sobre_loja';
 						$template_titulo = $pagina_translated['about_market'];
 						$template_classes = 'sobre_stuff';
+						$template_botoes = '<a href="mercado.php" class="text-primary"><i class="fad fa-external-link fa-fw fa-2x"></i></a>';
 						$template_conteudo = false;
 						$texto_ambiente_id = return_texto_ambientes('mercado', $user_language);
 						$template_conteudo .= return_verbete_html($texto_ambiente_id);
