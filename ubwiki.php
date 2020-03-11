@@ -95,6 +95,7 @@
 						
 						$artefato_titulo = $pagina_translated['office'];
 						$artefato_tipo = 'escritorio';
+						$artefato_link = '#sobre_escritorio';
 						$fa_icone = 'fa-lamp-desk';
 						$fa_color = 'text-info';
 						$fa_size = 'fa-4x';
@@ -120,6 +121,7 @@
 						
 						$artefato_titulo = $pagina_translated['courses'];
 						$artefato_tipo = 'cursos';
+						$artefato_link = '#sobre_cursos';
 						$fa_icone = 'fa-book-reader';
 						$fa_color = 'text-default';
 						$fa_size = 'fa-4x';
@@ -141,6 +143,7 @@
 						
 						$artefato_titulo = $pagina_translated['freepages'];
 						$artefato_tipo = 'areas_interesse';
+						$artefato_link = '#sobre_areas_interesse';
 						$artefato_criacao = false;
 						$fa_icone = 'fa-tags';
 						$fa_color = 'text-warning';
@@ -162,6 +165,7 @@
 						
 						$artefato_titulo = $pagina_translated['library'];
 						$artefato_tipo = 'biblioteca';
+						$artefato_link = '#sobre_biblioteca';
 						$fa_icone = 'fa-books';
 						$fa_color = 'text-success';
 						$fa_size = 'fa-4x';
@@ -183,6 +187,7 @@
 						
 						$artefato_titulo = $pagina_translated['forum'];
 						$artefato_tipo = 'forum';
+						$artefato_link = '#sobre_forum';
 						$fa_icone = 'fa-comments-alt';
 						$fa_color = 'text-secondary';
 						$fa_size = 'fa-4x';
@@ -205,6 +210,7 @@
 						if ($user_tipo == 'admin') {
 							$artefato_titulo = $pagina_translated['market'];
 							$artefato_tipo = 'loja';
+							$artefato_link = '#sobre_loja';
 							$fa_icone = 'fa-bags-shopping';
 							$fa_color = 'text-danger';
 							$fa_size = 'fa-4x';
