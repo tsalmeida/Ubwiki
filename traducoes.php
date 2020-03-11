@@ -129,6 +129,7 @@
 								<a href='javascript:void(0);' value='pt' class='mt-1 selecionar_lingua'><li class='list-group-item list-group-item-action'>Português</li></a>
 								<a href='javascript:void(0);' value='en' class='mt-1 selecionar_lingua'><li class='list-group-item list-group-item-action'>English</li></a>
 								<a href='javascript:void(0);' value='es' class='mt-1 selecionar_lingua'><li class='list-group-item list-group-item-action'>Español</li></a>
+								<a href='javascript:void(0);' value='fr' class='mt-1 selecionar_lingua'><li class='list-group-item list-group-item-action'>Français</li></a>
 							</ul>
 	";
 	$template_modal_show_buttons = false;
@@ -144,6 +145,7 @@
 			<li class='list-group-item' id='chave_pt'></li>
 			<li class='list-group-item' id='chave_en'></li>
 			<li class='list-group-item' id='chave_es'></li>
+			<li class='list-group-item' id='chave_fr'></li>
 		</ul>
 		<div class='md-form'>
 			<input type='text' class='form-control' name='traduzir_chave_string' id='traduzir_chave_string'>
@@ -166,9 +168,11 @@
         var traduzir_chave_id = $(this).attr('value');
         $('#traduzir_chave_id').val(traduzir_chave_id);
         $('#modal_traduzir_chave').modal('toggle');
+        $('#chave_codigo').empty();
         $('#chave_pt').empty();
         $('#chave_en').empty();
         $('#chave_es').empty();
+        $('#chave_fr').empty();
         $.post('engine.php', {
             'return_chave_codigo': traduzir_chave_id,
         }, function (data) {
@@ -203,6 +207,15 @@
                 $(data).appendTo('#chave_es');
             } else {
                 $('<span><strong>Espanhol:</strong> <em class=\'text-muted\'>não há tradução registrada</em></span>').appendTo('#chave_es');
+            }
+        });
+        $.post('engine.php', {
+            'popular_traducao_chave_fr': traduzir_chave_id,
+        }, function (data) {
+            if (data != 0) {
+                $(data).appendTo('#chave_fr');
+            } else {
+                $('<span><strong>Français:</strong> <em class=\'text-muted\'>não há tradução registrada</em></span>').appendTo('#chave_fr');
             }
         });
     });

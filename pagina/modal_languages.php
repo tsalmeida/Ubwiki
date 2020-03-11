@@ -47,6 +47,18 @@
 	$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-6';
 	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	
+	$artefato_titulo = 'Français';
+	$artefato_button = 'fr';
+	$artefato_class = 'language_choose';
+	$fa_icone = 'fa-globe';
+	$fa_color = 'text-info';
+	if ($user_language == 'fr') {
+		$artefato_icone_background = 'rgba-cyan-strong';
+		$fa_color = 'text-white';
+	}
+	$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-6';
+	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+	
 	$template_modal_body_conteudo .= "</form>";
 	
 	unset($artefato_name);

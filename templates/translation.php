@@ -84,6 +84,8 @@
 			return 2635;
 		} elseif ($user_language == 'es') {
 			return 2636;
+		} elseif ($user_language == 'fr') {
+			return 548;
 		}
 	}
 	
@@ -98,6 +100,8 @@
 						return 1218;
 					case 'es':
 						return 2633;
+					case 'fr':
+						return 2631;
 				}
 			case 'escritorio':
 				switch ($user_language) {
@@ -107,6 +111,8 @@
 						return 1220;
 					case 'es':
 						return 2621;
+					case 'fr':
+						return 2607;
 				}
 			case 'cursos':
 				switch ($user_language) {
@@ -116,6 +122,8 @@
 						return 1222;
 					case 'es':
 						return 2623;
+					case 'fr':
+						return 2609;
 				}
 			case 'paginaslivres':
 				switch ($user_language) {
@@ -125,6 +133,8 @@
 						return 1224;
 					case 'es':
 						return 2625;
+					case 'fr':
+						return 2611;
 				}
 			case 'biblioteca':
 				switch ($user_language) {
@@ -134,6 +144,8 @@
 						return 1226;
 					case 'es':
 						return 2629;
+					case 'fr':
+						return 2613;
 				}
 			case 'forum':
 				switch ($user_language) {
@@ -143,6 +155,8 @@
 						return 1228;
 					case 'es':
 						return 2627;
+					case 'fr':
+						return 2605;
 				}
 			case 'mercado':
 				switch ($user_language) {
@@ -152,7 +166,8 @@
 						return 1230;
 					case 'es':
 						return 2619;
+					case 'fr':
+						return 2615;
 				}
-			
 		}
 	}

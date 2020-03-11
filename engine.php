@@ -3001,6 +3001,9 @@
 			case 'es':
 				return 'Español';
 				break;
+			case 'fr':
+				return 'Français';
+				break;
 			default:
 				return false;
 				break;
@@ -3044,6 +3047,18 @@
 			while ($chave_es = $chaves_es->fetch_assoc()) {
 				$chave_es_string = $chave_es['traducao'];
 				echo "<span><strong>Español</strong>: <em>$chave_es_string</em></span>";
+			}
+		} else {
+			echo false;
+		}
+	}
+	if (isset($_POST['popular_traducao_chave_fr'])) {
+		$popular_traducao_chave_fr = $_POST['popular_traducao_chave_fr'];
+		$chaves_fr = $conn->query("SELECT traducao FROM Chaves_traduzidas WHERE chave_id = $popular_traducao_chave_fr AND lingua = 'fr'");
+		if ($chaves_fr->num_rows > 0) {
+			while ($chave_fr = $chaves_fr->fetch_assoc()) {
+				$chave_fr_string = $chave_fr['traducao'];
+				echo "<span><strong>Français</strong>: <em>$chave_fr_string</em></span>";
 			}
 		} else {
 			echo false;
