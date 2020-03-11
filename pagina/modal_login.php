@@ -14,7 +14,7 @@
         <p id='login_senha_confirmar' class='collapse'>{$pagina_translated['correct_password_but']}</p>
         <p id='login_senha_incorreta' class='collapse text-danger'>{$pagina_translated['Senha incorreta.']}</p>
         <p id='login_novo_usuario' class='collapse'>{$pagina_translated['Não existe conta registrada para este email. Continue para criar uma conta.']}</p>
-        <p id='login_thinkific_registro' class='collapse'>Para acessar a Ubwiki diretamente e criar uma nova senha, você precisará, uma última vez, passar pela <a href='https://www.grupoubique.com.br/'>página do Grupo Ubique</a>. Alternativamente, você pode pressionar o cadeado azul no canto superior direito e receber um código de confirmação por email.</p>
+        <p id='login_thinkific_registro' class='collapse'>Para acessar a Ubwiki diretamente e criar uma nova senha, você precisará, uma última vez, passar pela <a href='https://www.grupoubique.com.br/'>página do Grupo Ubique</a>. Alternativamente, você pode escolher a opção \"Esqueceu sua senha?\" e receber uma nova senha por email.</p>
         <div id='secao_login_email' class='md-form mt-3 collapse'>
             <input type='email' id='login_email' name='login_email' class='form-control'>
             <label for='login_email'>{$pagina_translated['your_email']}</label>
