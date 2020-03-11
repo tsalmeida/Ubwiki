@@ -1,17 +1,17 @@
 <?php
-
+	
 	include 'engine.php';
-
+	
 	$pagina_tipo = 'admin';
 	
 	if ($user_tipo != 'admin') {
 		header("Location:ubwiki.php");
 	}
-
+	
 	if (isset($_POST['trigger_atualizacao'])) {
-        $conn->query("ALTER TABLE `Usuarios` ADD `language` VARCHAR(4) NULL DEFAULT NULL AFTER `origem`;");
+	
 	}
-
+	
 	if (isset($_POST['trigger_atualizar_textos_size'])) {
 		$textos = $conn->query("SELECT id, verbete_content FROM Textos");
 		if ($textos->num_rows > 0) {
@@ -31,7 +31,7 @@
 				$conn->query("UPDATE Textos_arquivo SET size = $verbete_value WHERE id = $texto_id");
 			}
 		}
-    }
+	}
 	
 	if (isset($_POST['funcoes_gerais'])) {
 		$conn->query("TRUNCATE `Ubwiki`.`sim_detalhes`");
@@ -48,13 +48,13 @@
 		$conn->query("TRUNCATE `Ubwiki`.`sim_textos_apoio`");
 		$conn->query("TRUNCATE `Ubwiki`.`sim_textos_apoio_arquivo`");
 	}
-
+	
 	if (isset($_POST['funcoes_gerais2'])) {
 		$conn->query("TRUNCATE `Ubwiki`.`sim_detalhes`");
 		$conn->query("TRUNCATE `Ubwiki`.`sim_gerados`");
 		$conn->query("TRUNCATE `Ubwiki`.`sim_respostas`");
 	}
-
+	
 	if (isset($_POST['funcoes_gerais3'])) {
 		$cursos = $conn->query("SELECT id FROM Cursos");
 		if ($cursos->num_rows > 0) {
@@ -64,81 +64,21 @@
 			}
 		}
 	}
-
+	
 	if (isset($_POST['funcoes_gerais4'])) {
-
-		$textos = $conn->query("SELECT * FROM Textos");
-		if ($textos->num_rows > 0) {
-			while ($texto = $textos->fetch_assoc()) {
-				$texto_id = $texto['id'];
-				$texto_tipo = $texto['tipo'];
-				$texto_titulo = $texto['titulo'];
-				$texto_page_id = $texto['page_id'];
-				$texto_pagina_id = $texto['pagina_id'];
-				$texto_texto_pagina_id = $texto['texto_pagina_id'];
-				$texto_pagina_tipo = $texto['pagina_tipo'];
-				$textos_arquivo = $conn->query("SELECT * FROM Textos_arquivo");
-				if ($textos_arquivo->num_rows > 0) {
-					while ($texto_arquivo = $textos_arquivo->fetch_assoc()) {
-						$texto_arquivo_id = $texto_arquivo['id'];
-						$texto_arquivo_tipo = $texto_arquivo['tipo'];
-						$texto_arquivo_titulo = $texto_arquivo['titulo'];
-						$texto_arquivo_page_id = $texto_arquivo['page_id'];
-						$texto_arquivo_pagina_id = $texto_arquivo['pagina_id'];
-						$texto_arquivo_texto_pagina_id = $texto_arquivo['texto_pagina_id'];
-						$texto_arquivo_pagina_tipo = $texto_arquivo['pagina_tipo'];
-						if (($texto_tipo == $texto_arquivo_tipo) && ($texto_page_id == $texto_arquivo_page_id) && ($texto_pagina_id == $texto_arquivo_pagina_id) && ($texto_texto_pagina_id == $texto_arquivo_texto_pagina_id) && ($texto_pagina_tipo == $texto_arquivo_pagina_tipo)) {
-							$check = $conn->query("UPDATE Textos_arquivo SET texto_id = $texto_id WHERE id = $texto_arquivo_id");
-							$check = (int)$check;
-							error_log($check);
-							error_log("UPDATE Textos_arquivo SET texto_id = $texto_id WHERE id = $texto_arquivo_id");
-						}
-					}
-				}
-			}
-		}
-		$textos_arquivo = $conn->query("SELECT id, tipo, page_id, pagina_id, pagina_tipo FROM Textos_arquivo WHERE texto_id IS NULL");
-		if ($textos_arquivo->num_rows > 0) {
-			while ($texto_arquivo = $textos_arquivo->fetch_assoc()) {
-				$texto_arquivo_id = $texto_arquivo['id'];
-				$texto_arquivo_tipo = $texto_arquivo['tipo'];
-				$texto_arquivo_page_id = $texto_arquivo['page_id'];
-				$texto_arquivo_pagina_id = $texto_arquivo['pagina_id'];
-				$texto_arquivo_pagina_tipo = $texto_arquivo['pagina_tipo'];
-				error_log("SELECT id FROM Textos WHERE tipo = '$texto_arquivo_tipo' AND page_id = $texto_arquivo_page_id AND pagina_id = $texto_arquivo_pagina_id AND pagina_tipo = '$texto_arquivo_pagina_tipo'");
-				$textos = $conn->query("SELECT id FROM Textos WHERE tipo = '$texto_arquivo_tipo' AND page_id = $texto_arquivo_page_id AND pagina_id = $texto_arquivo_pagina_id AND pagina_tipo = '$texto_arquivo_pagina_tipo'");
-				if ($textos->num_rows > 0) {
-					while ($texto = $textos->fetch_assoc()) {
-						$texto_id = $texto['id'];
-						$check = $conn->query("UPDATE Textos_arquivo SET texto_id = $texto_id WHERE id = $texto_arquivo_id");
-						error_log($check);
-						error_log("UPDATE Textos_arquivo SET texto_id = $texto_id WHERE id = $texto_arquivo_id");
-					}
-				}
-			}
-		}
-		$textos_arquivo = $conn->query("SELECT id, tipo, page_id, pagina_id, pagina_tipo FROM Textos_arquivo WHERE texto_id IS NULL");
-		if ($textos_arquivo->num_rows > 0) {
-			while ($texto_arquivo = $textos_arquivo->fetch_assoc()) {
-				$texto_arquivo_id = $texto_arquivo['id'];
-				$texto_arquivo_tipo = $texto_arquivo['tipo'];
-				$texto_arquivo_page_id = $texto_arquivo['page_id'];
-				$texto_arquivo_pagina_id = $texto_arquivo['pagina_id'];
-				$texto_arquivo_pagina_tipo = $texto_arquivo['pagina_tipo'];
-				error_log("SELECT id FROM Textos WHERE tipo = '$texto_arquivo_tipo' AND page_id = $texto_arquivo_page_id AND pagina_id = $texto_arquivo_pagina_id AND pagina_tipo = '$texto_arquivo_pagina_tipo'");
-				$textos = $conn->query("SELECT id FROM Textos WHERE tipo = '$texto_arquivo_tipo' AND page_id = $texto_arquivo_page_id AND pagina_id = $texto_arquivo_pagina_id AND pagina_tipo = '$texto_arquivo_pagina_tipo'");
-				if ($textos->num_rows > 0) {
-					while ($texto = $textos->fetch_assoc()) {
-						$texto_id = $texto['id'];
-						$check = $conn->query("UPDATE Textos_arquivo SET texto_id = $texto_id WHERE id = $texto_arquivo_id");
-						error_log($check);
-						error_log("UPDATE Textos_arquivo SET texto_id = $texto_id WHERE id = $texto_arquivo_id");
-					}
+		$textos_antigos = $conn->query("SELECT id, pagina_id FROM Textos_arquivo WHERE tipo = 'verbete' AND texto_id IS NULL");
+		if ($textos_antigos->num_rows > 0) {
+			while ($texto_antigo = $textos_antigos->fetch_assoc()) {
+				$texto_antigo_id = $texto_antigo['id'];
+				$texto_antigo_pagina_id = $texto_antigo['pagina_id'];
+				$texto_antigo_texto_id = return_texto_id('topico', 'verbete', $texto_antigo_pagina_id, false);
+				if ($texto_antigo_texto_id != false) {
+					$conn->query("UPDATE Textos_arquivo SET texto_id = $texto_antigo_texto_id WHERE id = $texto_antigo_id");
 				}
 			}
 		}
 	}
-
+	
 	include 'templates/html_head.php';
 
 ?>
@@ -156,7 +96,7 @@
     <div class="row justify-content-around">
         <div id='coluna_esquerda' class="<?php echo $coluna_classes; ?>">
 					<?php
-
+						
 						$template_id = 'funcoes_gerais';
 						$template_titulo = 'Funções gerais';
 						$template_botoes = false;
@@ -194,7 +134,7 @@
 						    </form>
 						";
 						include 'templates/page_element.php';
-
+						
 						$template_id = 'traducoes';
 						$template_titulo = 'Traduções';
 						$template_conteudo = false;
@@ -224,7 +164,7 @@
 						    </form>
 						";
 						include 'templates/page_element.php';
-
+					
 					?>
         </div>
     </div>
