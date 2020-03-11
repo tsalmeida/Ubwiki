@@ -3072,15 +3072,17 @@
 	{
 		$msg = "Sua senha na Ubwiki foi alterada.\nCaso você não tenha conta na Ubwiki, uma nova conta terá sido criada para seu endereço de email.\nPara ativá-la, siga este link:\nhttps://www.ubwiki.com.br/ubwiki/login.php?confirmacao=$confirmacao";
 		$check = mail($email, 'Nova senha na Ubwiki', $msg, null, '-fwebmaster@ubwiki.com.br');
-		error_log($check);
+		return $check;
 	}
 	
 	if (isset($_POST['nova_senha'])) {
+		error_log('this happened');
 		$nova_senha = $_POST['nova_senha'];
 		$nova_senha_email = $_POST['nova_senha_email'];
 		$nova_senha_encrypted = password_hash($nova_senha, PASSWORD_DEFAULT);
 		$confirmacao = generateRandomString(12);
-		send_nova_senha($nova_senha_email, $confirmacao);
+		$check = send_nova_senha($nova_senha_email, $confirmacao);
+		error_log($check);
 		$usuarios = $conn->query("SELECT id FROM Usuarios WHERE email = '$nova_senha_email'");
 		if ($usuarios->num_rows > 0) {
 			while ($usuario = $usuarios->fetch_assoc()) {
