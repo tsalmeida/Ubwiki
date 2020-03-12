@@ -101,7 +101,7 @@
 	
 	$titulo_class = false;
 	$titulo_length = strlen($length_check);
-	if ($titulo_length > 70) {
+	if ($titulo_length > 75) {
 		$titulo_class = 'small';
 	}
 	if(!isset($artefato_background)) {
