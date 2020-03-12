@@ -16,7 +16,7 @@
 	$fa_icone = 'fa-globe';
 	$fa_color = 'text-success';
 	if ($user_language == 'pt') {
-		$artefato_icone_background = 'rgba-green-strong';
+		$artefato_icone_background = 'success-color';
 		$fa_color = 'text-white';
 	}
 	$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-6';
@@ -29,7 +29,7 @@
 	$fa_icone = 'fa-globe';
 	$fa_color = 'text-primary';
 	if ($user_language == 'en') {
-		$artefato_icone_background = 'rgba-blue-strong';
+		$artefato_icone_background = 'primary-color';
 		$fa_color = 'text-white';
 	}
 	$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-6';
@@ -39,9 +39,9 @@
 	$artefato_button = 'es';
 	$artefato_class = 'language_choose';
 	$fa_icone = 'fa-globe';
-	$fa_color = 'text-danger';
+	$fa_color = 'text-warning';
 	if ($user_language == 'es') {
-		$artefato_icone_background = 'rgba-red-strong';
+		$artefato_icone_background = 'warning-color';
 		$fa_color = 'text-white';
 	}
 	$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-6';
@@ -51,9 +51,9 @@
 	$artefato_button = 'fr';
 	$artefato_class = 'language_choose';
 	$fa_icone = 'fa-globe';
-	$fa_color = 'text-info';
+	$fa_color = 'text-danger';
 	if ($user_language == 'fr') {
-		$artefato_icone_background = 'rgba-cyan-strong';
+		$artefato_icone_background = 'danger-color';
 		$fa_color = 'text-white';
 	}
 	$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-6';
