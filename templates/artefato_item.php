@@ -89,6 +89,12 @@
 	if (!isset($artefato_link_classes)) {
 		$artefato_link_classes = false;
 	}
+	if (!isset($artefato_titulo_class)) {
+		$artefato_titulo_class = 'text-dark';
+	}
+	if (!isset($artefato_subtitulo_class)) {
+		$artefato_subtitulo_class = 'text-muted';
+	}
 	
 	$length_check = "$artefato_titulo $artefato_subtitulo";
 	$length_check = strip_tags($length_check, false);
@@ -130,8 +136,8 @@
 				$artefato_link_1
         $artefato_badge
         <span class='row justify-content-center text-center p-1 mx-1 rounded $artefato_icone_background'><i class='$fa_icone $fa_size fa-fw $fa_invert d-block'></i></span>
-        <span class='row justify-content-center text-center mt-2 text-dark p-1 $titulo_class'>$artefato_titulo</span>
-        <span class='row justify-content-center text-center text-muted p-1 $titulo_class'><em>$artefato_subtitulo</em></span>
+        <span class='row justify-content-center text-center mt-2 p-1 $titulo_class $artefato_titulo_class'>$artefato_titulo</span>
+        <span class='row justify-content-center text-center p-1 $titulo_class $artefato_subtitulo_class'><em>$artefato_subtitulo</em></span>
         $artefato_link_2
   ";
 	
@@ -159,5 +165,7 @@
 	unset($fa_invert);
 	unset($artefato_value);
 	unset($artefato_link_classes);
+	unset($artefato_titulo_class);
+	unset($artefato_subtitulo_class);
 
 	return $artefato_template_result;

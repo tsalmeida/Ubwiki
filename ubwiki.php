@@ -94,7 +94,7 @@
 						
 						$artefato_titulo = $pagina_translated['office'];
 						$artefato_tipo = 'escritorio';
-						$artefato_link = '#sobre_escritorio';
+						//$artefato_link = '#sobre_escritorio';
 						$fa_icone = 'fa-lamp-desk';
 						$fa_color = 'text-info';
 						$fa_size = 'fa-4x';
@@ -102,13 +102,15 @@
 						$artefato_class = 'icone_sobre_stuff';
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
-						$artefato_titulo = $pagina_translated['visit_office'];
+						$artefato_titulo = $pagina_translated['office'];
 						if ($user_id == false) {
 							$artefato_modal = '#modal_login';
 						} else {
 							$artefato_link = 'escritorio.php';
 						}
 						$artefato_tipo = 'escritorio_link';
+						$artefato_subtitulo = $pagina_translated['Visitar'];
+						$artefato_titulo_class = 'text-primary';
 						$fa_icone = 'fa-lamp-desk';
 						$fa_color = 'text-white';
 						$artefato_icone_background = 'icone-link rgba-cyan-strong';
@@ -120,7 +122,7 @@
 						
 						$artefato_titulo = $pagina_translated['courses'];
 						$artefato_tipo = 'cursos';
-						$artefato_link = '#sobre_cursos';
+						//$artefato_link = '#sobre_cursos';
 						$fa_icone = 'fa-book-reader';
 						$fa_color = 'text-default';
 						$fa_size = 'fa-4x';
@@ -128,7 +130,9 @@
 						$artefato_class = 'icone_sobre_stuff';
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
-						$artefato_titulo = $pagina_translated['visit_courses'];;
+						$artefato_titulo = $pagina_translated['courses'];;
+						$artefato_subtitulo = $pagina_translated['Visitar'];
+						$artefato_titulo_class = 'text-primary';
 						$artefato_link = 'cursos.php';
 						$artefato_tipo = 'cursos_link';
 						$fa_icone = 'fa-book-reader';
@@ -142,7 +146,7 @@
 						
 						$artefato_titulo = $pagina_translated['freepages'];
 						$artefato_tipo = 'areas_interesse';
-						$artefato_link = '#sobre_areas_interesse';
+						//$artefato_link = '#sobre_areas_interesse';
 						$artefato_criacao = false;
 						$fa_icone = 'fa-tags';
 						$fa_color = 'text-warning';
@@ -150,7 +154,9 @@
 						$artefato_class = 'icone_sobre_stuff';
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
-						$artefato_titulo = $pagina_translated['visit_free_pages'];
+						$artefato_titulo = $pagina_translated['freepages'];
+						$artefato_subtitulo = $pagina_translated['Visitar'];
+						$artefato_titulo_class = 'text-primary';
 						$artefato_link = 'paginas_livres.php';
 						$artefato_tipo = 'areas_interesse_link';
 						$fa_icone = 'fa-tags';
@@ -164,7 +170,7 @@
 						
 						$artefato_titulo = $pagina_translated['library'];
 						$artefato_tipo = 'biblioteca';
-						$artefato_link = '#sobre_biblioteca';
+						//$artefato_link = '#sobre_biblioteca';
 						$fa_icone = 'fa-books';
 						$fa_color = 'text-success';
 						$fa_size = 'fa-4x';
@@ -172,7 +178,9 @@
 						$artefato_class = 'icone_sobre_stuff';
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
-						$artefato_titulo = $pagina_translated['visit_library'];;
+						$artefato_titulo = $pagina_translated['library'];;
+						$artefato_subtitulo = $pagina_translated['Visitar'];
+						$artefato_titulo_class = 'text-primary';
 						$artefato_link = 'biblioteca.php';
 						$artefato_tipo = 'biblioteca_link';
 						$fa_icone = 'fa-books';
@@ -186,7 +194,7 @@
 						
 						$artefato_titulo = $pagina_translated['forum'];
 						$artefato_tipo = 'forum';
-						$artefato_link = '#sobre_forum';
+						//$artefato_link = '#sobre_forum';
 						$fa_icone = 'fa-comments-alt';
 						$fa_color = 'text-secondary';
 						$fa_size = 'fa-4x';
@@ -194,7 +202,9 @@
 						$artefato_class = 'icone_sobre_stuff';
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
-						$artefato_titulo = $pagina_translated['visit_forum'];
+						$artefato_titulo = $pagina_translated['forum'];
+						$artefato_subtitulo = $pagina_translated['Visitar'];
+						$artefato_titulo_class = 'text-primary';
 						$artefato_link = 'forum.php';
 						$artefato_tipo = 'forum_link';
 						$fa_icone = 'fa-comments-alt';
@@ -209,7 +219,7 @@
 						if ($user_tipo == 'admin') {
 							$artefato_titulo = $pagina_translated['market'];
 							$artefato_tipo = 'loja';
-							$artefato_link = '#sobre_loja';
+							//$artefato_link = '#sobre_loja';
 							$fa_icone = 'fa-bags-shopping';
 							$fa_color = 'text-danger';
 							$fa_size = 'fa-4x';
@@ -217,7 +227,9 @@
 							$artefato_class = 'icone_sobre_stuff';
 							$template_conteudo .= include 'templates/artefato_item.php';
 							
-							$artefato_titulo = $pagina_translated['visit_market'];
+							$artefato_titulo = $pagina_translated['market'];
+							$artefato_subtitulo = $pagina_translated['Visitar'];
+							$artefato_titulo_class = 'text-primary';
 							$artefato_link = 'mercado.php';
 							$artefato_tipo = 'loja_link';
 							$fa_icone = 'fa-bags-shopping';
