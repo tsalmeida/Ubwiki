@@ -34,11 +34,11 @@
 			
 			if (is_null($membro_estado)) {
 				$fa_color = 'text-light';
-				$artefato_subtitulo = 'Convite enviado';
+				$artefato_subtitulo = $pagina_translated['Convite enviado'];
 			}
 			
 			if ($pagina_user_id == $membro_user_id) {
-				$artefato_subtitulo = 'Fundador';
+				$artefato_subtitulo = $pagina_translated['Fundador'];
 			}
 			
 			$template_conteudo .= include 'templates/artefato_item.php';
