@@ -38,6 +38,7 @@
 		        </a>
 		        <div class='dropdown-menu dropdown-menu-right z-depth-0'>
 		          <a class='dropdown-item navlink z-depth-0' href='escritorio.php'><i class='fad fa-lamp-desk fa-fw'></i> {$pagina_translated['office']}</a>
+		          <a class='dropdown-item navlink z-depth-0' href='settings.php'><i class='fad fa-cog fa-swap-opacity fa-fw'></i> {$pagina_translated['user settings']}</a>
 		          <a class='dropdown-item navlink z-depth-0' href='ubwiki.php'><i class='fad fa-portal-enter fa-fw'></i> {$pagina_translated['environments']}</a>";
 			if ($carregar_carrinho == true) {
 				echo "<a class='dropdown-item navlink z-depth-0' href='carrinho.php'><i class='fad fa-shopping-cart fa-fw'></i> {$pagina_translated['your cart']}</a>";

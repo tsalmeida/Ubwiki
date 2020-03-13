@@ -23,18 +23,6 @@
 
 ?>
 <body class="grey lighten-5">
-<div class="container-fluid">
-    <div class="row d-flex justify-content-between py-2">
-        <div class="col">
-            <a href="javascript:void(0);" data-toggle="modal" data-target="#modal_configuracoes_usuario"
-               class="text-info"><i class="fad fa-user-cog fa-fw fa-2x"></i></a>
-
-
-        </div>
-        <div class="col"></div>
-        <div class="col"></div>
-    </div>
-</div>
 <div class="container">
 	<?php
 		if ($user_apelido != false) {
@@ -69,18 +57,71 @@
 						}
 						
 						$artefato_id = 'visitas_recentes';
-						$artefato_titulo = 'Recentemente visitados';
-						$artefato_icone_background = 'cyan lighten-1';
+						$artefato_titulo = 'Estudos recentes';
 						$fa_icone = 'fa-history fa-swap-opacity';
-						$fa_color = 'text-white';
+						$fa_color = 'text-info';
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
 						$artefato_id = 'cursos';
-						$artefato_titulo = 'Cursos';
-						$artefato_icone_background = 'teal lighten-1';
+						$artefato_titulo = 'Seus cursos';
 						$fa_icone = 'fa-book-reader';
-						$fa_color = 'text-white';
+						$fa_color = 'text-success';
 						$template_conteudo .= include 'templates/artefato_item.php';
+						
+						$artefato_id = 'typewriter';
+						$artefato_titulo = 'Suas páginas e textos';
+						$fa_icone = 'fa-typewriter';
+						$fa_color = 'text-primary';
+						$template_conteudo .= include 'templates/artefato_item.php';
+						
+						$artefato_id = 'suas_paginas_livres';
+						$artefato_titulo = 'Páginas livres de seu interesse';
+						$fa_icone = 'fa-tags';
+						$fa_color = 'text-warning';
+						$template_conteudo .= include 'templates/artefato_item.php';
+						
+						$artefato_id = 'biblioteca_particular';
+						$artefato_titulo = 'Sua biblioteca particular';
+						$fa_icone = 'fa-books';
+						$fa_color = 'text-success';
+						$template_conteudo .= include 'templates/artefato_item.php';
+						
+						$artefato_id = 'seus_grupos_estudo';
+						$artefato_titulo = 'Seus grupos de estudo';
+						$fa_icone = 'fa-users';
+						$fa_color = 'text-default';
+						$template_conteudo .= include 'templates/artefato_item.php';
+						
+						$artefato_id = 'suas_notificacoes';
+						$artefato_titulo = 'Suas notificações';
+						$fa_icone = 'fa-bell fa-swap-opacity';
+						$fa_color = 'text-info';
+						$template_conteudo .= include 'templates/artefato_item.php';
+						
+						$artefato_id = 'seu_forum';
+						$artefato_titulo = 'Suas participações em fórum';
+						$fa_icone = 'fa-comments-alt';
+						$fa_color = 'text-secondary';
+						$template_conteudo .= include 'templates/artefato_item.php';
+						
+						$artefato_id = 'seus_bookmarks';
+						$artefato_titulo = 'Sua lista de leitura';
+						$fa_icone = 'fa-bookmark';
+						$fa_color = 'text-danger';
+						$template_conteudo .= include 'templates/artefato_item.php';
+						
+						$artefato_id = 'seu_artigos';
+						$artefato_titulo = 'Artigos que você ajudou a escrever';
+						$fa_icone = 'fa-spa';
+						$fa_color = 'text-warning';
+						$template_conteudo .= include 'templates/artefato_item.php';
+						
+						$artefato_id = 'sala_visitas';
+						$artefato_titulo = 'Sua sala de visitas';
+						$fa_icone = 'fa-mug-tea';
+						$fa_color = 'text-secondary';
+						$template_conteudo .= include "templates/artefato_item.php";
+						
 						
 						include 'templates/page_element.php';
 					?>

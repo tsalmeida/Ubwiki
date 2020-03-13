@@ -2464,12 +2464,9 @@
 	
 	function return_usuario_cursos($user_id)
 	{
-		if ($user_id == false) {
-			return false;
-		}
 		$results = array();
 		include 'templates/criar_conn.php';
-		$cursos = $conn->query("SELECT pagina_id FROM Cursos WHERE estado = 0");
+		$cursos = $conn->query("SELECT pagina_id FROM Cursos");
 		if ($cursos->num_rows > 0) {
 			while ($curso = $cursos->fetch_assoc()) {
 				$list_curso_pagina_id = $curso['pagina_id'];
