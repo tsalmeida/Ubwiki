@@ -11,7 +11,7 @@
 		$template_titulo = $pagina_translated['Seções'];
 	}
 	if ($privilegio_edicao == true) {
-		$template_botoes = "<a data-toggle='modal' data-target='#modal_partes_form' href='javascript:void(0);' class='text-default' title='Adicionar seção'><i class='fad fa-plus-square fa-fw'></i></a>";
+		$template_botoes = "<a data-toggle='modal' data-target='#modal_partes_form' href='javascript:void(0);' class='text-default' title='{$pagina_translated['Adicionar seção']}'><i class='fad fa-plus-square fa-fw'></i></a>";
 	}
 	$template_conteudo = false;
 	if ($secoes->num_rows > 0) {
