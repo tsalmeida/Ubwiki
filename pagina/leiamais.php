@@ -2,7 +2,7 @@
 	$result = $conn->query("SELECT DISTINCT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'referencia' AND estado = 1");
 	if ($result->num_rows > 0) {
 		$template_id = 'leia_mais';
-		$template_titulo = 'Leia mais';
+		$template_titulo = $pagina_translated['Leia mais'];
 		$template_botoes = false;
 		$template_conteudo = false;
 		$template_conteudo .= "<ul class='list-group list-group-flush rounded'>";

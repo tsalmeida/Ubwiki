@@ -221,7 +221,13 @@
 		$produto_autor = false;
 		$produto_info = return_produto_info($pagina_id);
 		$produto_preco = $produto_info[2];
+		if ($produto_preco == false) {
+			$produto_preco = $pagina_translated['Indeterminado'];
+		}
 		$produto_autor = $produto_info[3];
+		if ($produto_autor == false) {
+		    $produto_autor = $pagina_translated['Indeterminado'];
+        }
 	} elseif ($pagina_subtipo == 'etiqueta') {
 		$pagina_etiqueta_id = $pagina_item_id;
 	}

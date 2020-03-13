@@ -350,5 +350,40 @@
 			
 		}
 	}
-
+	
+	if ($pagina_tipo == 'escritorio') {
+		if (isset($_POST['aderir_novo_curso'])) {
+			$aderir_novo_curso = $_POST['aderir_novo_curso'];
+			$conn->query("INSERT INTO Opcoes (user_id, opcao_tipo, opcao) VALUES ($user_id, 'curso', $aderir_novo_curso)");
+		}
+		
+		if (isset($_POST['novo_grupo_titulo'])) {
+			$novo_grupo_titulo = $_POST['novo_grupo_titulo'];
+			$novo_grupo_titulo = mysqli_real_escape_string($conn, $novo_grupo_titulo);
+			if ($conn->query("INSERT INTO Grupos (titulo, user_id) VALUES ('$novo_grupo_titulo', $user_id)") === true) {
+				$novo_grupo_id = $conn->insert_id;
+				$conn->query("INSERT INTO Membros (membro_user_id, grupo_id, estado, user_id) VALUES ($user_id, $novo_grupo_id, 1, $user_id)");
+				$conn->query("INSERT INTO Paginas (item_id, tipo, compartilhamento, user_id) VALUES ($novo_grupo_id, 'grupo', 'grupo', $user_id)");
+				$novo_grupo_pagina_id = $conn->insert_id;
+				$conn->query("UPDATE Grupos SET pagina_id = $novo_grupo_pagina_id WHERE id = $novo_grupo_id");
+			}
+		}
+		
+		if (isset($_POST['responder_convite_grupo_id'])) {
+			$responder_convite_grupo_id = $_POST['responder_convite_grupo_id'];
+			$resposta_convite = false;
+			if (isset($_POST['trigger_aceitar_convite'])) {
+				$resposta_convite = 1;
+			}
+			if (isset($_POST['trigger_rejeitar_convite'])) {
+				$resposta_convite = (int)0;
+			}
+			$conn->query("UPDATE Membros SET estado = $resposta_convite WHERE grupo_id = $responder_convite_grupo_id AND membro_user_id = $user_id");
+		}
+		
+		
+	}
+	
+	
+	
 ?>
