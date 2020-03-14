@@ -101,9 +101,9 @@
 	<?php
 		$template_titulo = $pagina_titulo;
 		if ($pagina_id != 1) {
-			$template_subtitulo = "{$pagina_translated['Fórum']} / <a href='pagina.php?pagina_id=$pagina_id'>{$pagina_translated['Página']}</a>";
+			$template_subtitulo = "{$pagina_translated['forum']} / <a href='pagina.php?pagina_id=$pagina_id'>{$pagina_translated['Página']}</a>";
 		} else {
-			$template_subtitulo = "{$pagina_translated['Fórum']} / <a href='ubwiki.php'>Ubwiki</a>";
+			$template_subtitulo = "{$pagina_translated['forum']} / <a href='ubwiki.php'>Ubwiki</a>";
 		}
 		$template_titulo_context = true;
 		$template_titulo_no_nav = true;
