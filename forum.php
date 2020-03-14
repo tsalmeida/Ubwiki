@@ -115,7 +115,7 @@
         <div id="coluna_esquerda" class="col-lg-5 px-3">
 					<?php
 						$template_id = 'forum_pagina';
-						$template_titulo = 'Tópicos de debate';
+						$template_titulo = $pagina_translated['Tópicos de debate'];
 						$template_conteudo = false;
 						
 						$item_classes = 'row b-0 border-top m-0 mt-1 p-2 list-group-item-action';
