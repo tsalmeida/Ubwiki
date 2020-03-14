@@ -107,7 +107,9 @@
 		$template_subtipo = 'youtube';
 		$template_subtipo_tipo = 'video';
 		$template_subtipo_titulo = $pagina_translated['Vídeos do YouTube'];
-		$artefato_modal = '#modal_adicionar_youtube';
+		if ($template_modal_div_id != 'modal_elemento_subtipo') {
+			$artefato_modal = '#modal_adicionar_youtube';
+		}
 		include 'templates/subtipo_icone.php';
 		
 		$template_subtipo = 'filme';
