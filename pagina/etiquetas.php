@@ -39,7 +39,6 @@
 	}
 	$template_modal_body_conteudo .= "<span data-toggle='modal' data-target='#modal_secao_etiquetas' class='mt-1'><a href='javascript:void(0);' data-toggle='modal' data-target='#modal_gerenciar_etiquetas'><li class='list-group-item list-group-item-action list-group-item-warning text-center border-top'><i class='fad fa-plus-square fa-fw'></i> {$pagina_translated['Adicionar etiqueta']}</li></a></span>";
 	$template_modal_body_conteudo .= "</ul>";
-	if ($carregar_areas_relacionadas == true) {
-		include 'templates/modal.php';
-	}
+	
+	include 'templates/modal.php';
 ?>
