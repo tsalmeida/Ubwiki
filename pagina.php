@@ -226,8 +226,8 @@
 		}
 		$produto_autor = $produto_info[3];
 		if ($produto_autor == false) {
-		    $produto_autor = $pagina_translated['Indeterminado'];
-        }
+			$produto_autor = $pagina_translated['Indeterminado'];
+		}
 	} elseif ($pagina_subtipo == 'etiqueta') {
 		$pagina_etiqueta_id = $pagina_item_id;
 	}
@@ -1256,12 +1256,12 @@
 				";
 				$secoes_sem_texto = false;
 			} else {
+				$secoes_sem_texto = false;
 				$template_modal_body_conteudo .= "
-		        <p>{$pagina_translated['please care add chapter']}</p>
-		        <p>{$pagina_translated['section examples']}</p>
-		        <p>{$pagina_translated['order details']}</p>
-		        $secoes_sem_texto = false;
-	          ";
+		        	<p>{$pagina_translated['please care add chapter']}</p>
+		        	<p>{$pagina_translated['section examples']}</p>
+		        	<p>{$pagina_translated['order details']}</p>
+	          	";
 			}
 		} else {
 			$secoes_sem_texto = true;
@@ -2157,7 +2157,7 @@
 	}
 	
 	include 'pagina/modal_languages.php';
-	
+
 ?>
 
 </body>

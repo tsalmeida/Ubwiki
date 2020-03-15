@@ -1,4 +1,5 @@
 <?php
+	$imprimir_secoes = false;
 	$template_div = 'partes_elemento';
 	if ($pagina_tipo == 'elemento') {
 		if ($elemento_subtipo == 'podcast') {
@@ -15,6 +16,7 @@
 	}
 	$template_conteudo = false;
 	if ($secoes->num_rows > 0) {
+		$imprimir_secoes = true;
 		$template_conteudo .= "<ul class='list-group list-group-flush'>";
 		while ($secao = $secoes->fetch_assoc()) {
 			$secao_pagina_id = $secao['secao_pagina_id'];
@@ -46,6 +48,7 @@
 			$template_conteudo .= "<p>{$pagina_translated['Não há seções identificadas desta página.']}</p>";
 		}
 	}
-	
-	include 'templates/page_element.php';
+	if ($imprimir_secoes == true) {
+		include 'templates/page_element.php';
+	}
 ?>
