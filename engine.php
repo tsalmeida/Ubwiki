@@ -1789,7 +1789,7 @@
 					$parent_pagina_id = $pagina_item_id;
 					$parent_pagina_titulo = return_pagina_titulo($parent_pagina_id);
 					$pagina_titulo = "Plano de estudos: $parent_pagina_titulo";
-					return $pagina_titulo;
+					break;
 				}
 				if ($pagina_tipo == 'topico') {
 					$buscar_pagina = true;
@@ -1804,7 +1804,7 @@
 				} elseif ($pagina_tipo == 'texto') {
 					$pagina_texto_info = return_texto_info($pagina_item_id);
 					$pagina_titulo = $pagina_texto_info[2];
-					return $pagina_titulo;
+					break;
 				} else {
 					$buscar_pagina = true;
 				}
@@ -1815,7 +1815,7 @@
 			if ($paginas_elementos->num_rows > 0) {
 				while ($pagina_elemento = $paginas_elementos->fetch_assoc()) {
 					$pagina_titulo = $pagina_elemento['extra'];
-					return $pagina_titulo;
+					break;
 				}
 			}
 		}

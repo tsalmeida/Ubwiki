@@ -1340,7 +1340,7 @@
 		$template_modal_body_conteudo .= "
         <div class='md-form mb-2'>
             <input type='text' id='pagina_novo_titulo' name='pagina_novo_titulo'
-                   class='form-control validate' value='$pagina_titulo' required>
+                   class='form-control validate' value=\"$pagina_titulo\" required>
             <label data-error='inválido' data-success='válido'
                    for='pagina_novo_titulo'>{$pagina_translated['Novo título']}</label>
         </div>
