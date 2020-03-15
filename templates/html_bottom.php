@@ -237,13 +237,14 @@
 				            }
 				        });
 				    } else {
-				        alert('Por favor, preencha todos os campos necessários.')
+				        alert('{$pagina_translated['Por favor, preencha todos os campos necessários.']}')
 				    }
 				});
 					$(document).on('click', '.selecionar_subcategoria', function() {
-					   var subcategoria_value = $(this).attr('value');
-					   $('#criar_referencia_subtipo').val(subcategoria_value);
-					   $('#nova_imagem_subtipo').val(subcategoria_value);
+						alert('this happened');
+						var subcategoria_value = $(this).attr('value');
+						$('#criar_referencia_subtipo').val(subcategoria_value);
+						$('#nova_imagem_subtipo').val(subcategoria_value);
 					});
 					$(document).on('click', '.selecionar_categoria', function() {
 					    var categoria_value = $(this).attr('value');
