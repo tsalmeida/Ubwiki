@@ -977,7 +977,7 @@
 		if ($autores->num_rows > 0) {
 			while ($autor = $autores->fetch_assoc()) {
 				$busca_autor = $autor['titulo'];
-				$busca_resultados .= "<a href='javascript:void(0)' class='$tag_inativa_classes blue-grey adicionar_autor' value='$busca_autor'>$busca_autor</a>";
+				$busca_resultados .= "<a href='javascript:void(0);' class='$tag_inativa_classes blue-grey adicionar_autor' value='$busca_autor'>$busca_autor</a>";
 			}
 		} else {
 			return false;
