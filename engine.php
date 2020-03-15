@@ -191,6 +191,7 @@
 	$tag_ativa_classes = 'text-dark m-1 p-2 lighten-4 rounded remover_tag';
 	$tag_inativa_classes = 'text-dark m-1 p-2 lighten-4 rounded adicionar_tag';
 	$tag_neutra_classes = 'text-dark m-1 p-2 lighten-4 rounded';
+	$tag_invativa_classes2 = 'text-dark m-1 p-2 lighten-4 rounded';
 	
 	function extract_gdoc($url)
 	{
@@ -977,7 +978,7 @@
 		if ($autores->num_rows > 0) {
 			while ($autor = $autores->fetch_assoc()) {
 				$busca_autor = $autor['titulo'];
-				$busca_resultados .= "<a href='javascript:void(0);' class='$tag_inativa_classes blue-grey adicionar_autor' value='$busca_autor'>$busca_autor</a>";
+				$busca_resultados .= "<a href='javascript:void(0);' class='$tag_inativa_classes2 blue-grey adicionar_autor' value='$busca_autor'>$busca_autor</a>";
 			}
 		} else {
 			return false;
