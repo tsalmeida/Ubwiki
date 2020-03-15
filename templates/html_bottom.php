@@ -221,7 +221,7 @@
 				    var adicionar_referencia_link = $('#criar_referencia_link').val();
 				    var adicionar_referencia_autor = $('#criar_referencia_autor').val();
 				    var adicionar_referencia_tipo = $('#criar_referencia_tipo').val();
-				    var adicionar_referencia_subtipo = $('criar_referencia_subtipo').val();
+				    var adicionar_referencia_subtipo = $('#criar_referencia_subtipo').val();
 				    if ((adicionar_referencia_titulo != false) && (adicionar_referencia_tipo != false)) {
 				        $.post('engine.php', {
 				           'adicionar_referencia_titulo': adicionar_referencia_titulo,
@@ -241,9 +241,9 @@
 				    }
 				});
 					$(document).on('click', '.selecionar_subcategoria', function() {
-						var subcategoria_value = $(this).attr('value');
-						$('#criar_referencia_subtipo').val(subcategoria_value);
-						$('#nova_imagem_subtipo').val(subcategoria_value);
+							var subcategoria_value = $(this).attr('value');
+							$('#criar_referencia_subtipo').val(subcategoria_value);
+							$('#nova_imagem_subtipo').val(subcategoria_value);
 					});
 					$(document).on('click', '.selecionar_categoria', function() {
 					    var categoria_value = $(this).attr('value');
