@@ -804,8 +804,11 @@
 	
 	if (isset($_POST['adicionar_referencia_titulo'])) {
 		$adicionar_referencia_titulo = $_POST['adicionar_referencia_titulo'];
+		$adicionar_referencia_titulo = mysqli_real_escape_string($conn, $adicionar_referencia_titulo);
 		$adicionar_referencia_autor = $_POST['adicionar_referencia_autor'];
+		$adicionar_referencia_autor = mysqli_real_escape_string($conn, $adicionar_referencia_autor);
 		$adicionar_referencia_link = $_POST['adicionar_referencia_link'];
+		$adicionar_referencia_link = mysqli_real_escape_string($conn, $adicionar_referencia_link);
 		$adicionar_referencia_tipo = $_POST['adicionar_referencia_tipo'];
 		$adicionar_referencia_subtipo = $_POST['adicionar_referencia_subtipo'];
 		$adicionar_referencia_contexto = $_POST['adicionar_referencia_contexto'];

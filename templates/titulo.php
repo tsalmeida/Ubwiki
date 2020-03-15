@@ -1,6 +1,8 @@
 <?php
 	if (!isset($template_titulo)) {
 		return false;
+	} else {
+		$template_titulo = stripslashes($template_titulo);
 	}
 	if (!isset($template_titulo_context)) {
 		$template_titulo_context = true;
