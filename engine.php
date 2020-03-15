@@ -191,7 +191,7 @@
 	$tag_ativa_classes = 'text-dark m-1 p-2 lighten-4 rounded remover_tag';
 	$tag_inativa_classes = 'text-dark m-1 p-2 lighten-4 rounded adicionar_tag';
 	$tag_neutra_classes = 'text-dark m-1 p-2 lighten-4 rounded';
-	$tag_invativa_classes2 = 'text-dark m-1 p-2 lighten-4 rounded';
+	$tag_invativa_classes2 = 'text-dark m-1 p-2 lighten-4 rounded adicionar_tag2';
 	
 	function extract_gdoc($url)
 	{
