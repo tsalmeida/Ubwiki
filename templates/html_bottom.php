@@ -241,7 +241,6 @@
 				    }
 				});
 					$(document).on('click', '.selecionar_subcategoria', function() {
-						alert('this happened');
 						var subcategoria_value = $(this).attr('value');
 						$('#criar_referencia_subtipo').val(subcategoria_value);
 						$('#nova_imagem_subtipo').val(subcategoria_value);
