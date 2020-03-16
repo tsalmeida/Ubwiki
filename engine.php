@@ -885,6 +885,7 @@
 		}
 		if (($autor != false) && ($titulo != false)) {
 			$nova_etiqueta = "$titulo / $autor";
+			$nova_etiqueta = stripslashes($nova_etiqueta);
 			$nova_etiqueta = mysqli_real_escape_string($conn, $nova_etiqueta);
 			$etiquetas = $conn->query("SELECT id FROM Etiquetas WHERE titulo = '$nova_etiqueta' AND tipo = '$tipo'");
 			if ($etiquetas->num_rows == 0) {

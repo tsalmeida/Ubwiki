@@ -17,7 +17,7 @@
 <div class="container">
 	<div class="row d-flex justify-content-between">
 			<?php
-				$cursos = $conn->query("SELECT pagina_id, sigla FROM Cursos WHERE estado = 1 ORDER BY id");
+				/*$cursos = $conn->query("SELECT pagina_id, sigla FROM Cursos WHERE estado = 1 ORDER BY id");
 				if ($cursos->num_rows > 0) {
 					while ($curso = $cursos->fetch_assoc()) {
 						$lista_curso_pagina_id = $curso['pagina_id'];
@@ -39,11 +39,12 @@
 						include 'templates/page_element.php';
 					}
 				}
-				echo "</div>";
+				echo "</div>";*/
 				$cursos_usuario = return_usuario_cursos($user_id);
 				if ($cursos_usuario != false) {
-				    echo "<h1 class='my-5 text-center'>{$pagina_translated['Cursos privados']}</h1>";
-				    echo "<div class='row d-flex justify-content-between'>";
+				    //echo "<h1 class='my-5 text-center'>{$pagina_translated['Cursos privados']}</h1>";
+				  echo "<h2 class='text-muted'>{$pagina_translated['Cursos a que você tem acesso:']}</h2>";
+                  echo "<div class='row d-flex justify-content-between'>";
 				    foreach ($cursos_usuario as $curso_usuario) {
 				        $curso_usuario_pagina_id = $curso_usuario;
 				        $curso_usuario_titulo = return_pagina_titulo($curso_usuario_pagina_id);
