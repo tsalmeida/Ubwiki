@@ -61,6 +61,7 @@
 		if (($pagina_tipo != 'curso') && ($pagina_tipo != 'materia') && ($pagina_tipo != 'escritorio') && ($pagina_tipo != 'grupo') && ($pagina_tipo != 'questao') && ($pagina_tipo != 'biblioteca')) {
 			$carregar_modal_vincular_wikipedia = true;
 			$template_subtipo = 'wikipedia';
+			$fa_type = 'fab';
 			$template_subtipo_tipo = 'referencia';
 			$template_subtipo_titulo = $pagina_translated['Vincular a verbete da Wikipédia'];
 			$artefato_modal = '#modal_adicionar_wikipedia';

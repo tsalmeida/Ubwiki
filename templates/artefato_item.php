@@ -1,7 +1,10 @@
 <?php
-
+	
 	if (!isset($fa_class)) {
 		$fa_class = false;
+	}
+	if (!isset($artefato_titulo)) {
+		$artefato_titulo = false;
 	}
 	if (!isset($artefato_template_thumb)) {
 		$artefato_template_thumb = false;
@@ -13,7 +16,11 @@
 		$artefato_subtipo = false;
 	}
 	if (!isset($artefato_tipo)) {
-		$artefato_tipo = 'artefato';
+		if (isset($artefato_id)) {
+			$artefato_tipo = $artefato_id;
+		} else {
+			$artefato_tipo = generateRandomString(6);
+		}
 	}
 	if (!isset($artefato_class)) {
 		$artefato_class = false;
@@ -43,11 +50,13 @@
 	if ($artefato_icone != false) {
 		$fa_icone = $artefato_icone;
 	}
-	if (($fa_icone == 'fa-youtube-square') || ($fa_icone == 'fa-wikipedia-w') || ($fa_icone == 'fa-youtube')) {
-		$fa_icone = "fab $fa_icone";
-	} else {
-		$fa_icone = "fad $fa_icone";
+	if (!isset($fa_type)) {
+		$fa_type = 'fad';
 	}
+	if (!isset($fa_icone)) {
+		$fa_icone = 'fa-circle-notch';
+	}
+	
 	if (!isset($artefato_subtitulo)) {
 		$artefato_subtitulo = false;
 	}
@@ -104,13 +113,13 @@
 	if ($titulo_length > 75) {
 		$titulo_class = 'small';
 	}
-	if(!isset($artefato_background)) {
+	if (!isset($artefato_background)) {
 		$artefato_background = false;
 	}
 	if (!isset($artefato_badge)) {
 		$artefato_badge = false;
 	} else {
-		$artefato_badge = "<span class='badge badge-pill grey lighten-5 text-dark artefato-badge position-absolute z-depth-0'><i class='fad $artefato_badge fa-fw'></i></span>";
+		$artefato_badge = "<span class='badge badge-pill grey lighten-5 text-dark artefato-badge position-absolute z-depth-0 m-1'><i class='fad $artefato_badge fa-fw'></i></span>";
 	}
 	
 	$artefato_classes = "$artefato_col_limit py-1 artefato rounded $artefato_background $artefato_class d-flex justify-content-center border border-white mt-1";
@@ -135,8 +144,12 @@
 	$artefato_template_result .= "
 				$artefato_link_1
         $artefato_badge
-        <span class='row justify-content-center text-center p-1 mx-1 rounded $artefato_icone_background'><i class='$fa_icone $fa_size fa-fw $fa_invert d-block'></i></span>
-        <span class='row justify-content-center text-center mt-2 p-1 $titulo_class $artefato_titulo_class'>$artefato_titulo</span>
+        <span class='row justify-content-center text-center p-1 mx-1 rounded $artefato_icone_background'>
+        	<i class='$fa_type $fa_icone $fa_size fa-fw $fa_invert d-block'></i>
+        </span>
+        <span class='row justify-content-center text-center mt-2 p-1 $titulo_class $artefato_titulo_class'>
+        	$artefato_titulo
+        </span>
         <span class='row justify-content-center text-center p-1 $titulo_class $artefato_subtitulo_class'><em>$artefato_subtitulo</em></span>
         $artefato_link_2
   ";
@@ -146,6 +159,7 @@
 	unset($artefato_link);
 	unset($fa_icone);
 	unset($fa_color);
+	unset($fa_type);
 	unset($artefato_button);
 	unset($artefato_titulo);
 	unset($artefato_page_id_titulo);
@@ -167,5 +181,5 @@
 	unset($artefato_link_classes);
 	unset($artefato_titulo_class);
 	unset($artefato_subtitulo_class);
-
+	
 	return $artefato_template_result;

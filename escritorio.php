@@ -9,12 +9,15 @@
 	}
 	
 	if (isset($_POST['novo_nome'])) {
-		$user_nome = $_POST['novo_nome'];
-		$user_sobrenome = $_POST['novo_sobrenome'];
-		$apelidos = $conn->query("SELECT id FROM Usuarios WHERE apelido = '$user_apelido'");
+		$novo_user_nome = $_POST['novo_nome'];
+		$novo_user_sobrenome = $_POST['novo_sobrenome'];
+		$novo_user_apelido = $_POST['novo_apelido'];
+		$apelidos = $conn->query("SELECT id FROM Usuarios WHERE apelido = '$novo_user_apelido' AND id <> $user_id");
 		if ($apelidos->num_rows == 0) {
-			$user_apelido = $_POST['novo_apelido'];
-			$conn->query("UPDATE Usuarios SET nome = '$user_nome', sobrenome = '$user_sobrenome', apelido = '$user_apelido' WHERE id = $user_id");
+			$conn->query("UPDATE Usuarios SET nome = '$novo_user_nome', sobrenome = '$novo_user_sobrenome', apelido = '$novo_user_apelido' WHERE id = $user_id");
+			$user_nome = $novo_user_nome;
+			$user_sobrenome = $novo_user_sobrenome;
+			$user_apelido = $novo_user_apelido;
 			if (isset($_POST['opcao_texto_justificado'])) {
 				$conn->query("INSERT INTO Opcoes (user_id, opcao_tipo, opcao) VALUES ($user_id, 'texto_justificado', 1)");
 				$opcao_texto_justificado_value = true;

@@ -9,7 +9,7 @@
 	}
 	
 	if (isset($_POST['trigger_atualizacao'])) {
-	
+	    $conn->query("UPDATE Paginas SET subtipo = 'escritorio' WHERE compartilhamento = 'escritorio'");
 	}
 	
 	if (isset($_POST['trigger_atualizar_textos_size'])) {

@@ -2097,7 +2097,7 @@
 				return $usuario_escritorio_id;
 			}
 		} else {
-			$conn->query("INSERT INTO Paginas (item_id, tipo, compartilhamento, user_id) VALUES ($usuario_id, 'pagina', 'escritorio', $usuario_id)");
+			$conn->query("INSERT INTO Paginas (item_id, tipo, subtipo, compartilhamento, user_id) VALUES ($usuario_id, 'pagina', 'escritorio', 'escritorio', $usuario_id)");
 			$usuario_escritorio_id = $conn->insert_id;
 			$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($usuario_escritorio_id, 'pagina', 'titulo', 'Sala de Visitas', $usuario_escritorio_id)");
 			$conn->query("UPDATE Usuarios SET escritorio_id = $usuario_escritorio_id WHERE id = $usuario_id");
@@ -3113,6 +3113,101 @@
 		} else {
 			$conn->query("INSERT INTO Usuarios (email, origem, senha) VALUES ('$nova_senha_email', '$confirmacao', '$nova_senha_encrypted')");
 		}
+	}
+	
+	if (isset($_POST['list_estudos_recentes'])) {
+		$list_estudos_recentes = "<ul class='list-group list-group-flush'>";
+		$usuario_estudos_recentes = $conn->query("SELECT page_id, tipo_pagina, extra, extra2 FROM Visualizacoes WHERE user_id = $user_id ORDER BY id DESC");
+		if ($usuario_estudos_recentes->num_rows > 0) {
+			$count = 0;
+			$listados = array();
+			while ($usuario_estudo_recente = $usuario_estudos_recentes->fetch_assoc()) {
+				if ($count > 11) {
+					break;
+				}
+				$usuario_estudo_recente_page_id = $usuario_estudo_recente['page_id'];
+				if ($usuario_estudo_recente_page_id < 12) {
+					continue;
+				}
+				if (in_array($usuario_estudo_recente_page_id, $listados)) {
+					continue;
+				} else {
+					$count++;
+					array_push($listados, $usuario_estudo_recente_page_id);
+				}
+				$usuario_estudo_recente_tipo_pagina = $usuario_estudo_recente['tipo_pagina'];
+				$usuario_estudo_recente_extra = $usuario_estudo_recente['extra'];
+				$usuario_estudo_recente_extra2 = $usuario_estudo_recente['extra2'];
+				$usuario_estudo_recente_pagina_titulo = return_pagina_titulo($usuario_estudo_recente_page_id);
+				if ($usuario_estudo_recente_pagina_titulo == false) {
+					continue;
+				}
+				switch ($usuario_estudo_recente_tipo_pagina) {
+					case 'elemento':
+						$list_item_color = 'list-group-item-success';
+						$list_item_icon = 'fa-books';
+						break;
+					case 'topico':
+						$list_item_color = 'list-group-item-info';
+						$list_item_icon = 'fa-columns';
+						break;
+					case 'curso':
+						$list_item_color = 'list-group-item-primary';
+						$list_item_icon = 'fa-book-reader';
+						break;
+					case 'pagina':
+						$pagina_subtipo_info = return_pagina_info($usuario_estudo_recente_page_id);
+						$pagina_subtipo = $pagina_subtipo_info[8];
+						switch ($pagina_subtipo) {
+							case 'etiqueta':
+								$list_item_color = 'list-group-item-warning';
+								$list_item_icon = 'fa-tag';
+								break;
+							case 'escritorio':
+								$list_item_color = 'list-group-item-danger';
+								$list_item_icon = 'fa-user';
+								break;
+							default:
+								$list_item_color = 'list-group-item-secondary';
+								$list_item_icon = 'fa-circle-notch';
+						}
+						break;
+					default:
+						$list_item_color = false;
+						$list_item_icon = 'fa-external-link';
+				}
+				$list_estudos_recentes .= "<a href='pagina.php?pagina_id=$usuario_estudo_recente_page_id' class='mt-1'><li class='list-group-item list-group-item-action $list_item_color'><i class='fad $list_item_icon fa-fw'></i> $usuario_estudo_recente_pagina_titulo</li></a>";
+			}
+		}
+		$list_estudos_recentes .= "</ul>";
+		echo $list_estudos_recentes;
+	}
+	
+	if (isset($_POST['list_user_pages'])) {
+		$user_pages = $conn->query("SELECT id FROM Paginas WHERE tipo = 'pagina' AND user_id = $user_id ORDER BY id DESC");
+		$list_user_pages = false;
+		if ($user_pages->num_rows > 0) {
+			while ($user_page = $user_pages->fetch_assoc()) {
+				$user_page_id = $user_page['id'];
+				$user_page_titulo = return_pagina_titulo($user_page_id);
+				$list_user_pages .= "<a href='pagina.php?pagina_id=$user_page_id'><li class='list-group-item list-group-item-action list-group-item-info'>$user_page_titulo</li></a>";
+			}
+		}
+		echo $list_user_pages;
+	}
+	
+	if (isset($_POST['list_user_texts'])) {
+		$user_texts = $conn->query("SELECT id FROM Textos WHERE tipo = 'anotacoes' AND user_id = $user_id ORDER BY id DESC");
+		$list_user_texts = false;
+		if ($user_texts->num_rows > 0) {
+			while ($user_text = $user_texts->fetch_assoc()) {
+				$user_text_id = $user_text['id'];
+				$user_text_info = return_texto_info($user_text_id);
+				$user_text_titulo = $user_text_info[2];
+				$list_user_texts .= "<a href='pagina.php?texto_id=$user_text_id'><li class='list-group-item list-group-item-action list-group-item-primary'>$user_text_titulo</li></a>";
+			}
+		}
+		echo $list_user_texts;
 	}
 
 ?>
