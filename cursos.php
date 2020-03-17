@@ -2,7 +2,7 @@
 	include 'engine.php';
 	$page_tipo = 'cursos';
 	include 'templates/html_head.php';
-	?>
+?>
 <body class="grey lighten-5">
 <?php
 	include 'templates/navbar.php';
@@ -15,7 +15,8 @@
 	?>
 </div>
 <div class="container">
-	<div class="row d-flex justify-content-between">
+    <h2 class='text-muted'><?php echo $pagina_translated['Cursos a que você tem acesso:']; ?></h2>
+    <div class="col-12 d-flex justify-content-between">
 			<?php
 				/*$cursos = $conn->query("SELECT pagina_id, sigla FROM Cursos WHERE estado = 1 ORDER BY id");
 				if ($cursos->num_rows > 0) {
@@ -42,29 +43,27 @@
 				echo "</div>";*/
 				$cursos_usuario = return_usuario_cursos($user_id);
 				if ($cursos_usuario != false) {
-				    //echo "<h1 class='my-5 text-center'>{$pagina_translated['Cursos privados']}</h1>";
-				  echo "<h2 class='text-muted'>{$pagina_translated['Cursos a que você tem acesso:']}</h2>";
-                  echo "<div class='row d-flex justify-content-between'>";
-				    foreach ($cursos_usuario as $curso_usuario) {
-				        $curso_usuario_pagina_id = $curso_usuario;
-				        $curso_usuario_titulo = return_pagina_titulo($curso_usuario_pagina_id);
-				        $curso_usuario_texto_id = return_texto_id('curso', 'verbete', $curso_usuario_pagina_id, false);
-                        $curso_usuario_verbete = return_verbete_html($curso_usuario_texto_id);
-                        $curso_usuario_verbete = crop_text($curso_usuario_verbete, 300);
-				        
-				        $template_id = "curso_$curso_usuario_pagina_id";
-				        $template_titulo = "<a href='pagina.php?pagina_id=$curso_usuario_pagina_id'>$curso_usuario_titulo</a>";
-				        $template_classes = 'col-lg-6 col-sm-12';
-				        $template_conteudo = false;
-				        if ($curso_usuario_verbete != false) {
-				            $template_conteudo .= $curso_usuario_verbete;
-                        }
-				        include 'templates/page_element.php';
-                    }
-				    echo "</div>";
-                }
+					echo "<div class='row d-flex justify-content-between'>";
+					foreach ($cursos_usuario as $curso_usuario) {
+						$curso_usuario_pagina_id = $curso_usuario;
+						$curso_usuario_titulo = return_pagina_titulo($curso_usuario_pagina_id);
+						$curso_usuario_texto_id = return_texto_id('curso', 'verbete', $curso_usuario_pagina_id, false);
+						$curso_usuario_verbete = return_verbete_html($curso_usuario_texto_id);
+						$curso_usuario_verbete = crop_text($curso_usuario_verbete, 300);
+						
+						$template_id = "curso_$curso_usuario_pagina_id";
+						$template_titulo = "<a href='pagina.php?pagina_id=$curso_usuario_pagina_id'>$curso_usuario_titulo</a>";
+						$template_classes = 'col-lg-6 col-sm-12';
+						$template_conteudo = false;
+						if ($curso_usuario_verbete != false) {
+							$template_conteudo .= $curso_usuario_verbete;
+						}
+						include 'templates/page_element.php';
+					}
+					echo "</div>";
+				}
 			?>
-	</div>
+    </div>
 </div>
 <?php
 	if ($user_id == false) {
