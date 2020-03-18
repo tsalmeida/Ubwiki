@@ -523,47 +523,6 @@
 						} elseif ($pagina_tipo == 'texto_apoio') {
 							echo "<a href='javascript:void(0)' data-toggle='modal' data-target='#modal_texto_apoio_dados' class='text-secondary mr-1' title='{$pagina_translated['Dados do texto de apoio']}'><i class='fad fa-check-circle fa-fw fa-2x'></i></a>";
 						}
-						if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id) && ($pagina_subtipo != 'Plano de estudos')) {
-							$carregar_modal_destruir_pagina = true;
-							echo "
-                            <a href='javascript:void(0);' class='text-default mr-1 align-top' id='compartilhar_anotacao' title='{$pagina_translated['Colaboração e publicação']}' data-toggle='modal' data-target='#modal_compartilhar_pagina'>
-                                <i class='fad fa-user-friends fa-fw'></i>
-                            </a>
-                            <a href='javascript:void(0);' class='text-danger mr-1 align-top' id='destruir_pagina' title='{$pagina_translated['Destruir esta página']}' data-toggle='modal' data-target='#modal_destruir_pagina'>
-                                <i class='fad fa-trash-alt fa-fw'></i>
-                            </a>
-	                        ";
-						}
-						if ($user_tipo == 'admin') {
-							if ($pagina_subtipo != 'produto') {
-								$existe_produto = false;
-								if ($existe_produto == true) {
-									$produto_color = 'text-danger';
-								} else {
-									$produto_color = 'text-muted';
-								}
-								echo "<a href='mercado.php?pagina_id=$pagina_id' class='$produto_color mr-1 align-top' title='{$pagina_translated['visit_market']}'><i class='fad fa-bags-shopping fa-fw'></i></a>";
-							}
-						}
-						if (($pagina_tipo != 'sistema') && ($pagina_compartilhamento != 'escritorio')) {
-							$comments = $conn->query("SELECT timestamp, comentario_text, user_id FROM Forum WHERE pagina_id = $pagina_id");
-							if ($comments->num_rows == 0) {
-								$forum_color = 'text-muted';
-							} else {
-								$forum_color = 'text-secondary';
-							}
-							if ($user_id != false) {
-								echo "
-                                <a href='forum.php?pagina_id=$pagina_id' title='Fórum' class='$forum_color mr-1 align-top'>
-                                    <i class='fad fa-comments-alt fa-fw'></i>
-                                </a>
-                            ";
-							} else {
-								echo "
-									<a href='javascript:void(0);' title='Fórum' class='text-secondary mr-1 align-top' data-toggle='modal' data-target='#modal_login'><i class='fad fa-comments-alt fa-fw' title='{$pagina_translated['Login']}'></i></a>
-								";
-							}
-						}
 					?>
         </div>
         <div class="py-2 text-center col-md-4 col-sm-12">
@@ -593,6 +552,47 @@
         </div>
         <div class='py-2 text-right col-md-4 col-sm-12'>
 					<?php
+						if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id) && ($pagina_subtipo != 'Plano de estudos')) {
+							$carregar_modal_destruir_pagina = true;
+							echo "
+                            <a href='javascript:void(0);' class='text-default ml-1 align-top' id='compartilhar_anotacao' title='{$pagina_translated['Colaboração e publicação']}' data-toggle='modal' data-target='#modal_compartilhar_pagina'>
+                                <i class='fad fa-user-friends fa-fw'></i>
+                            </a>
+                            <a href='javascript:void(0);' class='text-danger ml-1 align-top' id='destruir_pagina' title='{$pagina_translated['Destruir esta página']}' data-toggle='modal' data-target='#modal_destruir_pagina'>
+                                <i class='fad fa-trash-alt fa-fw'></i>
+                            </a>
+	                        ";
+						}
+						if ($user_tipo == 'admin') {
+							if ($pagina_subtipo != 'produto') {
+								$existe_produto = false;
+								if ($existe_produto == true) {
+									$produto_color = 'text-danger';
+								} else {
+									$produto_color = 'text-muted';
+								}
+								echo "<a href='mercado.php?pagina_id=$pagina_id' class='$produto_color ml-1 align-top' title='{$pagina_translated['visit_market']}'><i class='fad fa-bags-shopping fa-fw'></i></a>";
+							}
+						}
+						if (($pagina_tipo != 'sistema') && ($pagina_compartilhamento != 'escritorio')) {
+							$comments = $conn->query("SELECT timestamp, comentario_text, user_id FROM Forum WHERE pagina_id = $pagina_id");
+							if ($comments->num_rows == 0) {
+								$forum_color = 'text-muted';
+							} else {
+								$forum_color = 'text-secondary';
+							}
+							if ($user_id != false) {
+								echo "
+                                <a href='forum.php?pagina_id=$pagina_id' title='Fórum' class='$forum_color ml-1 align-top'>
+                                    <i class='fad fa-comments-alt fa-fw'></i>
+                                </a>
+                            ";
+							} else {
+								echo "
+									<a href='javascript:void(0);' title='Fórum' class='text-secondary ml-1 align-top' data-toggle='modal' data-target='#modal_login'><i class='fad fa-comments-alt fa-fw' title='{$pagina_translated['Login']}'></i></a>
+								";
+							}
+						}
 						if ($pagina_tipo == 'elemento') {
 							if ($user_id != false) {
 								$carregar_toggle_acervo = true;
