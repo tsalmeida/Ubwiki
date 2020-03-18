@@ -553,15 +553,19 @@
         <div class='py-2 text-right col-md-4 col-sm-12'>
 					<?php
 						if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id) && ($pagina_subtipo != 'Plano de estudos')) {
+							if (($pagina_tipo != 'materia') && ($pagina_tipo != 'topico')) {
+								echo "
+                                  <a href='javascript:void(0);' class='text-default ml-1 align-top' id='compartilhar_anotacao' title='{$pagina_translated['Colaboração e publicação']}' data-toggle='modal' data-target='#modal_compartilhar_pagina'>
+                                      <i class='fad fa-user-friends fa-fw'></i>
+                                  </a>
+                                ";
+							}
 							$carregar_modal_destruir_pagina = true;
-							echo "
-                            <a href='javascript:void(0);' class='text-default ml-1 align-top' id='compartilhar_anotacao' title='{$pagina_translated['Colaboração e publicação']}' data-toggle='modal' data-target='#modal_compartilhar_pagina'>
-                                <i class='fad fa-user-friends fa-fw'></i>
-                            </a>
-                            <a href='javascript:void(0);' class='text-danger ml-1 align-top' id='destruir_pagina' title='{$pagina_translated['Destruir esta página']}' data-toggle='modal' data-target='#modal_destruir_pagina'>
-                                <i class='fad fa-trash-alt fa-fw'></i>
-                            </a>
-	                        ";
+							    echo "
+                                  <a href='javascript:void(0);' class='text-danger ml-1 align-top' id='destruir_pagina' title='{$pagina_translated['Destruir esta página']}' data-toggle='modal' data-target='#modal_destruir_pagina'>
+                                      <i class='fad fa-trash-alt fa-fw'></i>
+                                  </a>
+	                            ";
 						}
 						if ($user_tipo == 'admin') {
 							if ($pagina_subtipo != 'produto') {
