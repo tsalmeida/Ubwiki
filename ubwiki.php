@@ -192,6 +192,7 @@
 						$artefato_criacao = false;
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
+						/*
 						$artefato_titulo = $pagina_translated['forum'];
 						$artefato_tipo = 'forum';
 						//$artefato_link = '#sobre_forum';
@@ -215,6 +216,7 @@
 						$artefato_class = 'icones_links';
 						$artefato_criacao = false;
 						$template_conteudo .= include 'templates/artefato_item.php';
+						*/
 						
 						if ($user_tipo == 'admin') {
 							$artefato_titulo = $pagina_translated['market'];
@@ -283,7 +285,7 @@
 						$texto_ambiente_id = return_texto_ambientes('biblioteca', $user_language);
 						$template_conteudo .= return_verbete_html($texto_ambiente_id);
 						include 'templates/page_element.php';
-						
+						/*
 						$template_id = 'sobre_forum';
 						$template_titulo = $pagina_translated['about_forum'];
 						$template_classes = 'sobre_stuff';
@@ -292,7 +294,7 @@
 						$texto_ambiente_id = return_texto_ambientes('forum', $user_language);
 						$template_conteudo .= return_verbete_html($texto_ambiente_id);
 						include 'templates/page_element.php';
-						
+						*/
 						$template_id = 'sobre_loja';
 						$template_titulo = $pagina_translated['about_market'];
 						$template_classes = 'sobre_stuff';
