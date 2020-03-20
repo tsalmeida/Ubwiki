@@ -284,10 +284,33 @@
 		$elemento_id = $pagina_item_id;
 	} elseif ($pagina_tipo == 'grupo') {
 		$grupo_id = $pagina_item_id;
+		$link_compartilhamento_info = return_link_compartilhamento($pagina_id);
+		$link_compartilhamento_tipo = $link_compartilhamento_info[0];
+		$link_compartilhamento_codigo = $link_compartilhamento_info[1];
 		$check_membro = check_membro_grupo($user_id, $grupo_id);
 		if ($check_membro == false) {
-			header('Location:pagina.php?pagina_id=3');
-			exit();
+			if (isset($_GET['cd'])) {
+				$check_link_compartilhamento_codigo = (int)$_GET['cd'];
+				if ($check_link_compartilhamento_codigo == $link_compartilhamento_codigo) {
+					switch ($link_compartilhamento_tipo) {
+						case 'open':
+							$conn->query("INSERT INTO Membros (grupo_id, membro_user_id, estado, user_id) VALUES ($pagina_item_id, $user_id, 1, 0)");
+							break;
+						case 'onetimer':
+							$conn->query("UPDATE Paginas_elementos SET estado = 0 WHERE tipo = 'linkshare' AND pagina_id = $pagina_id");
+							$conn->query("INSERT INTO Membros (grupo_id, membro_user_id, estado, user_id) VALUES ($pagina_item_id, $user_id, 1, 0)");
+							$link_compartilhamento_tipo = 'disabled';
+							$link_compartilhamento_codigo = false;
+							break;
+					}
+				} else {
+					header('Location:pagina.php?pagina_id=3');
+					exit();
+				}
+			} else {
+				header('Location:pagina.php?pagina_id=3');
+				exit();
+			}
 		}
 	} elseif ($pagina_tipo == 'texto') {
 		$pagina_texto_id = $pagina_item_id;
@@ -561,7 +584,7 @@
                                 ";
 							}
 							$carregar_modal_destruir_pagina = true;
-							    echo "
+							echo "
                                   <a href='javascript:void(0);' class='text-danger ml-1 align-top' id='destruir_pagina' title='{$pagina_translated['Destruir esta página']}' data-toggle='modal' data-target='#modal_destruir_pagina'>
                                       <i class='fad fa-trash-alt fa-fw'></i>
                                   </a>
@@ -1739,6 +1762,67 @@
 	
 	if ($carregar_convite == true) {
 		
+		if ($link_compartilhamento_tipo == false) {
+			$link_compartilhamento_tipo = 'disabled';
+			$link_compartilhamento_codigo = generateRandomString(8, 'integers');
+			$conn->query("INSERT INTO Paginas_elementos (estado, pagina_id, pagina_tipo, tipo, subtipo, extra, user_id) VALUES (1, $pagina_id, '$pagina_tipo', 'linkshare', '$link_compartilhamento_tipo', '$link_compartilhamento_codigo', $user_id)");
+		}
+		
+		if (isset($_POST['link_compartilhamento_tipo'])) {
+			$link_compartilhamento_tipo = $_POST['link_compartilhamento_tipo'];
+			$link_compartilhamento_codigo = $_POST['link_compartilhamento_codigo'];
+			$conn->query("UPDATE Paginas_elementos SET estado = 0 WHERE estado = 1 AND pagina_id = $pagina_id AND tipo = 'linkshare'");
+			$conn->query("INSERT INTO Paginas_elementos (estado, pagina_id, pagina_tipo, tipo, subtipo, extra, user_id) VALUES (1, $pagina_id, '$pagina_tipo', 'linkshare', '$link_compartilhamento_tipo', '$link_compartilhamento_codigo', $user_id)");
+		}
+		
+		$link_compartilhamento_disabled = false;
+		$link_compartilhamento_open = false;
+		$link_compartilhamento_onetimer = false;
+		
+		switch ($link_compartilhamento_tipo) {
+			case false:
+				$link_compartilhamento_disabled = 'checked';
+				break;
+			case 'disabled':
+				$link_compartilhamento_disabled = 'checked';
+				$link_compartilhamento_codigo = generateRandomString(8, 'integers');
+				break;
+			case 'open':
+				$link_compartilhamento_open = 'checked';
+				break;
+			case 'onetimer':
+				$link_compartilhamento_onetimer = 'checked';
+				break;
+		}
+		
+		if (!isset($link_compartilhamento)) {
+			$link_compartilhamento = "https://www.ubwiki.com.br/ubwiki/pagina.php?grupo_id=$pagina_item_id&cd=$link_compartilhamento_codigo";
+		}
+		
+		$template_modal_div_id = 'modal_link_compartilhamento';
+		$template_modal_titulo = $pagina_translated['Criar link de convite'];
+		$template_modal_body_conteudo = false;
+		$template_modal_body_conteudo .= "
+			<input type='hidden' value='$link_compartilhamento_codigo' name='link_compartilhamento_codigo'>
+			<div class='md-form'>
+				<input id='link_compartilhamento' type='text' class='form-control' readonly value='$link_compartilhamento'>
+				<label>{$pagina_translated['Link de compartilhamento']}</label>
+			</div>
+			<div class='form-check'>
+				<input type='radio' class='form-check-input' id='link_compartilhamento_livre' name='link_compartilhamento_tipo' value='open' $link_compartilhamento_open>
+				<label class='form-check-label' for='link_compartilhamento_livre'>{$pagina_translated['Link não expira.']}</label>
+			</div>
+			<div class='form-check'>
+				<input type='radio' class='form-check-input' id='link_compartilhamento_unico' name='link_compartilhamento_tipo' value='onetimer' $link_compartilhamento_onetimer>
+				<label class='form-check-label' for='link_compartilhamento_unico'>{$pagina_translated['Link utilizável apenas uma vez.']}</label>
+			</div>
+			<div class='form-check'>
+				<input type='radio' class='form-check-input' id='link_compartilhamento_disabled' name='link_compartilhamento_tipo' value='disabled' $link_compartilhamento_disabled>
+				<label class='form-check-label' for='link_compartilhamento_disabled'>{$pagina_translated['Link desativado.']}</label>
+			</div>
+		";
+		include 'templates/modal.php';
+		
 		$template_modal_div_id = 'modal_convidar_ou_remover';
 		$template_modal_titulo = $pagina_translated['Gerenciar membros'];
 		$template_modal_show_buttons = false;
@@ -1746,16 +1830,25 @@
 		
 		$template_modal_body_conteudo .= "<span class='row d-flex justify-content-around' data-target='#modal_convidar_ou_remover' data-toggle='modal'>";
 		
+		$artefato_titulo = $pagina_translated['Criar link de convite'];
+		$fa_color = 'text-primary';
+		$fa_icone = 'fa-link';
+		$artefato_modal = '#modal_link_compartilhamento';
+		$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-6';
+		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+		
 		$artefato_titulo = $pagina_translated['Convidar novos membros'];
 		$fa_color = 'text-success';
 		$fa_icone = 'fa-user-plus';
 		$artefato_modal = '#modal_novo_membro';
+		$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-6';
 		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 		
 		$artefato_titulo = $pagina_translated['Remover membros'];
 		$fa_color = 'text-danger';
 		$fa_icone = 'fa-user-minus';
 		$artefato_modal = '#modal_remover_membro';
+		$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-6';
 		$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 		
 		$template_modal_body_conteudo .= "</span>";

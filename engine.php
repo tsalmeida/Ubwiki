@@ -322,12 +322,26 @@
 	
 	function generateRandomString()
 	{
-		$length = func_get_args();
-		if (!isset($length[0])) {
-			$length[0] = 8;
+		//options: 'integers', 'letters'; default is 'mixed'
+		$args = func_get_args();
+		$length = $args[0];
+		if (isset($args[1])) {
+			$type = $args[1];
+		} else {
+			$type = 'mixed';
 		}
-		return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length[0]);
+		if (!isset($length)) {
+			$length = 8;
+		}
+		if ($type == 'integers') {
+			return substr(str_shuffle("0123456789"), 0, $length);
+		} elseif ($type == 'letters') {
+			return substr(str_shuffle("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
+		} else {
+			return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
+		}
 	}
+	
 	
 	function make_thumb()
 	{
@@ -3208,6 +3222,24 @@
 			}
 		}
 		echo $list_user_texts;
+	}
+	
+	function return_link_compartilhamento($pagina_id) {
+		if ($pagina_id == false) {
+			return array(false, false);
+		}
+		include 'templates/criar_conn.php';
+		$dados = $conn->query("SELECT subtipo, extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'linkshare' AND estado = 1");
+		if ($dados->num_rows > 0) {
+			while ($dado = $dados->fetch_assoc()) {
+				$link_compartilhamento_tipo = $dado['subtipo'];
+				$link_compartilhamento_codigo = $dado['extra'];
+				return array($link_compartilhamento_tipo, $link_compartilhamento_codigo);
+			}
+		} else {
+			return array(false, false);
+		}
+		
 	}
 
 ?>
