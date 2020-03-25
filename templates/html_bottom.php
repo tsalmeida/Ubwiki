@@ -347,7 +347,7 @@
 			         'curso_novo_topico_user_id': $user_id
 			      }, function(data) {
 			         if (data != 0) {
-	                 window.location.reload(true);
+	                // also responsivo deve ser acrescentado aqui
 			         }
 			      });
 			  });

@@ -1736,7 +1736,7 @@
 			<div class='md-form'>
 				<input type='text' class='form-control' name='buscar_topicos' id='buscar_topicos' required>
 				<label for='buscar_topicos'>{$pagina_translated['Buscar tópico']}</label>
-                <button type='button' class='$button_classes' id='trigger_buscar_topicos'>{$pagina_translated['Buscar']}</button>
+                <button type='button' class='$button_classes btn-info' id='trigger_buscar_topicos'>{$pagina_translated['Buscar']}</button>
 			</div>
 			<div class='row border p-2' id='topicos_disponiveis'></div>
 		";
