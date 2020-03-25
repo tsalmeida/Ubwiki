@@ -760,7 +760,7 @@
 			$template_subtitulo = $pagina_translated['Curso'];
 		} elseif ($pagina_tipo == 'materia') {
 			$template_titulo = $pagina_titulo;
-			$template_subtitulo = "{$pagina_translated['Matéria']} / <a href='pagina.php?pagina_id=$pagina_curso_id'>$pagina_curso_titulo</a>";
+			$template_subtitulo = "{$pagina_translated['Matéria']} / <a href='pagina.php?curso_id=$pagina_curso_id'>$pagina_curso_titulo</a>";
 		} elseif ($pagina_tipo == 'texto') {
 			if ($texto_page_id != false) {
 				$template_titulo = return_pagina_titulo($texto_pagina_id);
@@ -1298,6 +1298,7 @@
 				<p>{$pagina_translated['you can sections']}</p>
 			";
 		}
+		unset($nova_secao_titulo);
 		if ($pagina_tipo == 'elemento') {
 			if ($elemento_subtipo == 'podcast') {
 				$nova_secao_titulo = 'Título do episódio';

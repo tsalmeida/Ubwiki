@@ -1851,30 +1851,30 @@
 		$nivel1_tipo = $nivel1_info[2];
 		$nivel2_id = $nivel1_info[1];
 		if ($nivel1_tipo == 'curso') {
-			$result = array('curso', $nivel1_id);
+			$result = array('curso', $nivel1_id, false, false, false, false, false, false);
 		} elseif ($nivel1_tipo == 'materia') {
-			$result = array('materia', $nivel2_id, $nivel1_id);
+			$result = array('materia', $nivel2_id, $nivel1_id, false, false, false, false, false);
 		} elseif ($nivel1_tipo == 'topico') {
 			// sabe-se que a página é um tópico, agora é necessário saber seu nível.
 			$nivel2_info = return_pagina_info($nivel2_id);
 			$nivel2_tipo = $nivel2_info[2];
 			$nivel3_id = $nivel2_info[1];
 			if ($nivel2_tipo == 'materia') {
-				$result = array(1, $nivel3_id, $nivel2_id, $nivel1_id);
+				$result = array(1, $nivel3_id, $nivel2_id, $nivel1_id, false, false, false, false);
 			} elseif ($nivel2_tipo == 'topico') {
 				//sabe-se que é um subtópico, a questão agora é, de que nível?
 				$nivel3_info = return_pagina_info($nivel3_id);
 				$nivel3_tipo = $nivel3_info[2];
 				$nivel4_id = $nivel3_info[1];
 				if ($nivel3_tipo == 'materia') {
-					$result = array(2, $nivel4_id, $nivel3_id, $nivel2_id);
+					$result = array(2, $nivel4_id, $nivel3_id, $nivel2_id, false, false, false, false);
 				} else {
 					// sabe-se que o item é subtópico de outro subtópico.
 					$nivel4_info = return_pagina_info($nivel4_id);
 					$nivel4_tipo = $nivel4_info[2];
 					$nivel5_id = $nivel4_info[1];
 					if ($nivel4_tipo == 'materia') {
-						$result = array(3, $nivel5_id, $nivel4_id, $nivel3_id, $nivel2_id, $nivel1_id);
+						$result = array(3, $nivel5_id, $nivel4_id, $nivel3_id, $nivel2_id, $nivel1_id, false, false);
 					} else {
 						// o item é subtópico de outro subtópico de outro subtópico
 						$nivel5_info = return_pagina_info($nivel5_id);
@@ -1882,7 +1882,7 @@
 						$nivel6_id = $nivel5_info[1];
 						if ($nivel5_tipo == 'materia') {
 							// subtópico nível 4
-							$result = array(4, $nivel6_id, $nivel5_id, $nivel4_id, $nivel3_id, $nivel2_id, $nivel1_id);
+							$result = array(4, $nivel6_id, $nivel5_id, $nivel4_id, $nivel3_id, $nivel2_id, $nivel1_id, false);
 						} else {
 							// subtópico nível 5
 							$nivel6_info = return_pagina_info($nivel6_id);
@@ -1892,6 +1892,11 @@
 					}
 				}
 			}
+		} elseif ($nivel1_tipo == 'secao') {
+			$pagina_secao_parent = $nivel1_info[1];
+			$result = array('secao', $pagina_secao_parent, false, false, false, false, false, false);
+		} else {
+			$result = array($nivel1_tipo, $pagina_id, false, false, false, false, false, false);
 		}
 		return $result;
 	}

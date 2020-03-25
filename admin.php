@@ -9,7 +9,49 @@
 	}
 	
 	if (isset($_POST['trigger_atualizacao'])) {
-	    $conn->query("UPDATE Paginas SET subtipo = 'escritorio' WHERE compartilhamento = 'escritorio'");
+		$conn->query("UPDATE Paginas SET subtipo = 'escritorio' WHERE compartilhamento = 'escritorio'");
+		$conn->query("ALTER TABLE `Forum` ADD `familia0` VARCHAR(255) NULL DEFAULT NULL AFTER `comentario_content`, ADD `familia1` INT(11) NULL DEFAULT NULL AFTER `familia0`, ADD `familia2` INT(11) NULL DEFAULT NULL AFTER `familia1`, ADD `familia3` INT(11) NULL DEFAULT NULL AFTER `familia2`, ADD `familia4` INT(11) NULL DEFAULT NULL AFTER `familia3`, ADD `familia5` INT(11) NULL DEFAULT NULL AFTER `familia4`, ADD `familia6` INT(11) NULL DEFAULT NULL AFTER `familia5`, ADD `familia7` INT(11) NULL DEFAULT NULL AFTER `familia6`;");
+		$forums = $conn->query("SELECT id, pagina_id FROM Forum");
+		if ($forums->num_rows > 0) {
+			while ($forum = $forums->fetch_assoc()) {
+				$forum_id = $forum['id'];
+				$forum_pagina_id = $forum['pagina_id'];
+				$familia = return_familia($forum_pagina_id);
+				$familia0 = $familia[0];
+				$familia1 = $familia[1];
+				$familia2 = $familia[2];
+				$familia3 = $familia[3];
+				$familia4 = $familia[4];
+				$familia5 = $familia[5];
+				$familia6 = $familia[6];
+				$familia7 = $familia[7];
+				if ($familia0 == false) {
+					$familia0 = "NULL";
+				}
+				if ($familia1 == false) {
+					$familia1 = "NULL";
+				}
+				if ($familia2 == false) {
+					$familia2 = "NULL";
+				}
+				if ($familia3 == false) {
+					$familia3 = "NULL";
+				}
+				if ($familia4 == false) {
+					$familia4 = "NULL";
+				}
+				if ($familia5 == false) {
+					$familia5 = "NULL";
+				}
+				if ($familia6 == false) {
+					$familia6 = "NULL";
+				}
+				if ($familia7 == false) {
+					$familia7 = "NULL";
+				}
+				$conn->query("UPDATE Forum SET familia0 = '$familia0', familia1 = $familia1, familia2 = $familia2, familia3 = $familia3, familia4 = $familia4, familia5 = $familia5, familia6 = $familia6, familia7 = $familia7 WHERE id = $forum_id");
+			}
+		}
 	}
 	
 	if (isset($_POST['trigger_atualizar_textos_size'])) {
