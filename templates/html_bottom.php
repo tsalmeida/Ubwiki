@@ -291,26 +291,32 @@
 				});
 				$(document).on('click', '.adicionar_materia', function() {
 			      var this_id = $(this).attr('value');
-			      $(this).hide();
+			      $(this).removeClass('amber');
+			      $(this).addClass('green');
 			      $.post('engine.php', {
 			         'curso_nova_materia_id': this_id,
 			         'curso_nova_materia_pagina_id': $pagina_id,
 			         'curso_nova_materia_user_id': $user_id
 			      }, function(data) {
 			         if (data != 0) {
+			             $('#buscar_materias').val('');
+			             $('#buscar_materias').focus();
 			         }
 			      });
 			  });
 				$(document).on('click', '#criar_materia', function() {
 		      var new_tag = $(this).attr('value');
-		      $(this).hide();
+		      $(this).removeClass('btn-success');
+		      $(this).addClass('btn-warning');
+		      $(this).prop('disabled', true);
 		      $.post('engine.php', {
 		         'criar_materia_titulo': new_tag,
 		         'criar_materia_page_id': {$pagina_id},
 		         'criar_materia_page_tipo': '{$pagina_tipo}'
 		      }, function(data) {
 		         if (data != 0) {
-		             window.location.reload(true);
+		             $('#buscar_materias').val('');
+		             $('#buscar_materias').focus();
 		         }
 		      });
 		  	});
@@ -339,27 +345,33 @@
 				});
 				$(document).on('click', '.adicionar_topico', function() {
 			      var this_id = $(this).attr('value');
-			      $(this).hide();
+			      $(this).removeClass('amber');
+			      $(this).addClass('green');
 			      $.post('engine.php', {
 			         'curso_novo_topico_id': this_id,
 			         'curso_novo_topico_pagina_id': $pagina_id,
 			         'curso_novo_topico_user_id': $user_id
 			      }, function(data) {
 			         if (data != 0) {
-	                // also responsivo deve ser acrescentado aqui
+		             $('#buscar_topicos').val('');
+		             $('#buscar_topicos').focus();
 			         }
 			      });
 			  });
 				$(document).on('click', '#criar_topico', function() {
 		      var new_tag = $(this).attr('value');
-		      $(this).hide();
+		      $(this).removeClass('btn-success');
+		      $(this).addClass('btn-warning');
+		      $(this).prop('disabled', true);
 		      $.post('engine.php', {
 		         'criar_topico_titulo': new_tag,
 		         'criar_topico_page_id': {$pagina_id},
 		         'criar_topico_page_tipo': '{$pagina_tipo}'
 		      }, function(data) {
 		         if (data != 0) {
-		             window.location.reload(true);
+		             $('#buscar_topicos').val('');
+		             $('#buscar_topicos').focus();
+		             $(this).hide();
 		         }
 		      });
 		  	});
@@ -388,20 +400,24 @@
 				});
 				$(document).on('click', '.adicionar_subtopico', function() {
 			      var this_id = $(this).attr('value');
-			      $(this).hide();
+			      $(this).removeClass('amber');
+			      $(this).addClass('green');
 			      $.post('engine.php', {
 			         'curso_novo_subtopico_id': this_id,
 			         'curso_novo_subtopico_pagina_id': $pagina_id,
 			         'curso_novo_subtopico_user_id': $user_id
 			      }, function(data) {
 			         if (data != 0) {
-	                 window.location.reload(true);
+		             $('#buscar_subtopicos').val('');
+		             $('#buscar_subtopicos').focus();
 			         }
 			      });
 			  });
 				$(document).on('click', '#criar_subtopico', function() {
 		      var new_tag = $(this).attr('value');
-		      $(this).hide();
+		      $(this).removeClass('btn-success');
+		      $(this).addClass('btn-warning');
+		      $(this).prop('disabled', true);
 		      $.post('engine.php', {
 		         'criar_subtopico_titulo': new_tag,
 		         'criar_subtopico_page_id': {$pagina_id},
@@ -437,7 +453,7 @@
 			  });
 			  $(document).on('click', '.remover_tag', function() {
 			      var this_id = $(this).attr('value');
-	              $(this).hide();
+			      $(this).addClass('hidden');
 			      $.post('engine.php', {
 			         'remover_etiqueta_id': this_id,
 			         'remover_etiqueta_page_id': {$pagina_id},
@@ -446,7 +462,9 @@
 			  });
 			  $(document).on('click', '#criar_etiqueta', function() {
 		      var new_tag = $(this).attr('value');
-		      $(this).hide();
+		      $(this).removeClass('btn-success');
+		      $(this).addClass('btn-warning');
+		      $(this).prop('disabled', true);
 		      $.post('engine.php', {
 		         'criar_etiqueta_titulo': new_tag,
 		         'criar_etiqueta_page_id': {$pagina_id},

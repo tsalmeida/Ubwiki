@@ -291,11 +291,11 @@
 	
 	$template_modal_body_conteudo .= "</div>";
 	
-	$template_modal_body_conteudo .= "<h3 id='user_pages_hide' class='hidden'>{$pagina_translated['your_pages']}</h3>";
+	$template_modal_body_conteudo .= "<h3 id='user_pages_hide' class='hidden mt-1'>{$pagina_translated['your_pages']}</h3>";
 	
 	$template_modal_body_conteudo .= "<ul id='user_pages' class='list-group list-group-flush'></ul>";
 	
-	$template_modal_body_conteudo .= "<h3 id='user_texts_hide' class='hidden'>{$pagina_translated['texts and study notes']}</h3>";
+	$template_modal_body_conteudo .= "<h3 id='user_texts_hide' class='hidden mt-3'>{$pagina_translated['texts and study notes']}</h3>";
 	
 	$template_modal_body_conteudo .= "<ul id='user_texts' class='list-group list-group-flush'></ul>";
 	

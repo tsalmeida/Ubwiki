@@ -1063,12 +1063,14 @@
 		$conn->query("INSERT INTO Etiquetas (tipo, titulo, user_id) VALUES ('topico', '$criar_topico_titulo', $user_id)");
 		$nova_etiqueta_id = $conn->insert_id;
 		
-		$conn->query("INSERT INTO Paginas (tipo, item_id, etiqueta_id, user_id) VALUES ('topico', $criar_topico_page_id, $nova_etiqueta_id, $user_id)");
+		$check = $conn->query("INSERT INTO Paginas (tipo, item_id, etiqueta_id, user_id) VALUES ('topico', $criar_topico_page_id, $nova_etiqueta_id, $user_id)");
 		$novo_topico_pagina_id = $conn->insert_id;
 		
 		$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, elemento_id, user_id) VALUES ($criar_topico_page_id, '$criar_topico_page_tipo', 'topico', $novo_topico_pagina_id, $user_id)");
 		
 		$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($novo_topico_pagina_id, 'pagina', 'titulo', '$criar_topico_titulo', $user_id)");
+		
+		echo $check;
 		
 	}
 	if (isset($_POST['criar_subtopico_titulo'])) {
@@ -1105,12 +1107,14 @@
 		$conn->query("INSERT INTO Etiquetas (tipo, titulo, user_id) VALUES ('topico', '$criar_materia_titulo', $user_id)");
 		$nova_etiqueta_id = $conn->insert_id;
 		
-		$conn->query("INSERT INTO Paginas (tipo, item_id, etiqueta_id, user_id) VALUES ('materia', $criar_materia_page_id, $nova_etiqueta_id, $user_id)");
+		$check = $conn->query("INSERT INTO Paginas (tipo, item_id, etiqueta_id, user_id) VALUES ('materia', $criar_materia_page_id, $nova_etiqueta_id, $user_id)");
 		$nova_materia_pagina_id = $conn->insert_id;
 		
 		$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, elemento_id, user_id) VALUES ($criar_materia_page_id, '$criar_materia_page_tipo', 'materia', $nova_materia_pagina_id, $user_id)");
 		
 		$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($nova_materia_pagina_id, 'pagina', 'titulo', '$criar_materia_titulo', $user_id)");
+		
+		echo $check;
 		
 	}
 	
@@ -3209,27 +3213,42 @@
 			while ($user_page = $user_pages->fetch_assoc()) {
 				$user_page_id = $user_page['id'];
 				$user_page_titulo = return_pagina_titulo($user_page_id);
-				$list_user_pages .= "<a href='pagina.php?pagina_id=$user_page_id'><li class='list-group-item list-group-item-action list-group-item-info'>$user_page_titulo</li></a>";
+				$list_user_pages .= "<a href='pagina.php?pagina_id=$user_page_id'><li class='list-group-item list-group-item-action'><span class='text-info mr-2 align-middle'><i class='fad fa-columns fa-2x fa-fw'></i></span> $user_page_titulo</li></a>";
 			}
 		}
 		echo $list_user_pages;
 	}
 	
 	if (isset($_POST['list_user_texts'])) {
-		$user_texts = $conn->query("SELECT id FROM Textos WHERE tipo = 'anotacoes' AND user_id = $user_id ORDER BY id DESC");
+		$user_texts = $conn->query("SELECT id, verbete_text, pagina_tipo FROM Textos WHERE tipo = 'anotacoes' AND user_id = $user_id ORDER BY id DESC");
 		$list_user_texts = false;
 		if ($user_texts->num_rows > 0) {
 			while ($user_text = $user_texts->fetch_assoc()) {
 				$user_text_id = $user_text['id'];
+				$user_text_verbete_text = $user_text['verbete_text'];
+				$user_text_pagina_tipo = $user_text['pagina_tipo'];
+				if (($user_text_verbete_text == false) || (is_null($user_text_verbete_text))) {
+					continue;
+				}
 				$user_text_info = return_texto_info($user_text_id);
 				$user_text_titulo = $user_text_info[2];
-				$list_user_texts .= "<a href='pagina.php?texto_id=$user_text_id'><li class='list-group-item list-group-item-action list-group-item-primary'>$user_text_titulo</li></a>";
+				if ($user_text_pagina_tipo == 'elemento') {
+					$icone_cor = 'text-success';
+				} elseif ($user_text_pagina_tipo == 'etiqueta') {
+					$icone_cor = 'text-warning';
+				} elseif ($user_text_pagina_tipo == 'topico') {
+					$icone_cor = 'text-info';
+				} else {
+					$icone_cor = 'text-primary';
+				}
+				$list_user_texts .= "<a href='pagina.php?texto_id=$user_text_id'><li class='list-group-item list-group-item-action'><span class='$icone_cor align-middle'><i class='fad fa-file-alt fa-swap-opacity fa-2x fa-fw'></i></span> $user_text_titulo</li></a>";
 			}
 		}
 		echo $list_user_texts;
 	}
 	
-	function return_link_compartilhamento($pagina_id) {
+	function return_link_compartilhamento($pagina_id)
+	{
 		if ($pagina_id == false) {
 			return array(false, false);
 		}
