@@ -171,7 +171,7 @@
 						if ($pagina_original_tipo == 'curso') {
 							$query = "SELECT topico_id, pagina_id FROM Forum WHERE familia1 = $pagina_id ORDER BY id DESC";
 						} else {
-							$query = "SELECT topico_id FROM Forum WHERE pagina_id = $pagina_id AND topico_id IS NOT NULL ORDER BY id DESC";
+							$query = "SELECT topico_id, pagina_id FROM Forum WHERE pagina_id = $pagina_id AND topico_id IS NOT NULL ORDER BY id DESC";
 						}
 						$debates_recentes = $conn->query($query);
 						$debates_lista = array();
