@@ -298,7 +298,6 @@
 			         'curso_nova_materia_user_id': $user_id
 			      }, function(data) {
 			         if (data != 0) {
-	                 window.location.reload(true);
 			         }
 			      });
 			  });
