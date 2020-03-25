@@ -1153,7 +1153,7 @@
 			$etiqueta_exata = $conn->query("SELECT id FROM Etiquetas WHERE titulo = '$busca_etiquetas' AND tipo = '$busca_etiquetas_tipo'");
 		}
 		if ($etiqueta_exata->num_rows == 0) {
-			$busca_resultados .= "<div class='col-12'><button type='button' id='$acao_etiqueta_criar' name='$acao_etiqueta_criar' class='btn rounded btn-md text-center btn-primary btn-sm m-0 mb-2' value='$busca_etiquetas'>{$pagina_translated['Criar etiqueta']} \"$busca_etiquetas\"</button></div>";
+			$busca_resultados .= "<div class='col-12'><div class='row d-flex justify-content-center'><button type='button' id='$acao_etiqueta_criar' name='$acao_etiqueta_criar' class='btn rounded btn-md text-center btn-success w-50 btn-sm m-0 mb-2' value='$busca_etiquetas'>{$pagina_translated['Criar etiqueta']} \"$busca_etiquetas\"</button></div></div>";
 		}
 		if ($busca_etiquetas_tipo == 'all') {
 			$etiquetas = $conn->query("SELECT id, tipo, titulo FROM Etiquetas WHERE titulo LIKE '%{$busca_etiquetas}%'");
