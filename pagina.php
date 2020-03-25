@@ -1160,7 +1160,7 @@
 								continue;
 							}
 							$template_conteudo .= "
-	                            <a href='pagina.php?pagina_id=$materia_pagina_id' class='mt-1'><li class='list-group-item list-group-item-action list-group-item-light border-top text-center fontstack-subtitle'>$materia_pagina_titulo</li></a>
+	                            <a href='pagina.php?pagina_id=$materia_pagina_id' class='mt-1'><li class='list-group-item list-group-item-action border-top text-center text-dark fontstack-subtitle'>$materia_pagina_titulo</li></a>
                             ";
 						}
 						$template_conteudo .= "</ul>";
