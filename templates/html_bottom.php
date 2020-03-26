@@ -307,7 +307,7 @@
 				$(document).on('click', '#criar_materia', function() {
 		      var new_tag = $(this).attr('value');
 		      $(this).removeClass('btn-success');
-		      $(this).addClass('btn-secondary');
+		      $(this).addClass('btn-light');
 		      $(this).prop('disabled', true);
 		      $.post('engine.php', {
 		         'criar_materia_titulo': new_tag,
@@ -361,7 +361,7 @@
 				$(document).on('click', '#criar_topico', function() {
 		      var new_tag = $(this).attr('value');
 		      $(this).removeClass('btn-success');
-		      $(this).addClass('btn-secondary');
+		      $(this).addClass('btn-light');
 		      $(this).prop('disabled', true);
 		      $.post('engine.php', {
 		         'criar_topico_titulo': new_tag,
@@ -415,7 +415,7 @@
 				$(document).on('click', '#criar_subtopico', function() {
 		      var new_tag = $(this).attr('value');
 		      $(this).removeClass('btn-success');
-		      $(this).addClass('btn-secondary');
+		      $(this).addClass('btn-light');
 		      $(this).prop('disabled', true);
 		      $.post('engine.php', {
 		         'criar_subtopico_titulo': new_tag,
