@@ -1398,7 +1398,7 @@
 	            <p>{$pagina_translated['new course explanation']}</p>
 	            <div class='md-form mb-2'>
 	                <input type='text' id='novo_curso_sigla' name='novo_curso_sigla' class='form-control validade' required>
-	                <label data-error='inválido' data-success='válido' for='pagina_novo_titulo'>{$pagina_translated['Novo título']}</label>
+	                <label data-error='inválido' data-success='válido' for='pagina_novo_titulo'>{$pagina_translated['Sigla do novo curso']}</label>
                 </div>
 	        ";
 			include 'templates/modal.php';
