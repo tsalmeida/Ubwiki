@@ -1039,15 +1039,14 @@
 			$curso_nova_materia_id = $_POST['curso_nova_materia_id'];
 			$curso_nova_materia_pagina_id = $_POST['curso_nova_materia_pagina_id'];
 			$curso_nova_materia_user_id = $_POST['curso_nova_materia_user_id'];
-			$conn->query("INSERT INTO Paginas (tipo, item_id, etiqueta_id, user_id) VALUES ('materia', $curso_nova_materia_pagina_id, $curso_nova_materia_id, $curso_nova_materia_user_id)");
+			$check = $conn->query("INSERT INTO Paginas (tipo, item_id, etiqueta_id, user_id) VALUES ('materia', $curso_nova_materia_pagina_id, $curso_nova_materia_id, $curso_nova_materia_user_id)");
 			$nova_materia_pagina_id = $conn->insert_id;
 			$nova_materia_etiqueta_info = return_etiqueta_info($curso_nova_materia_id);
 			$nova_materia_pagina_titulo = $nova_materia_etiqueta_info[2];
 			$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, user_id) VALUES ($curso_nova_materia_pagina_id, 'curso', $nova_materia_pagina_id, 'materia', $curso_nova_materia_user_id)");
 			$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($nova_materia_pagina_id, 'pagina', 'titulo', '$nova_materia_pagina_titulo', $curso_nova_materia_user_id)");
-			echo true;
-		} else {
-			echo false;
+
+			echo $check;
 		}
 	}
 	
@@ -1085,12 +1084,14 @@
 		$conn->query("INSERT INTO Etiquetas (tipo, titulo, user_id) VALUES ('topico', '$criar_subtopico_titulo', $user_id)");
 		$nova_etiqueta_id = $conn->insert_id;
 		
-		$conn->query("INSERT INTO Paginas (tipo, item_id, etiqueta_id, user_id) VALUES ('topico', $criar_subtopico_page_id, $nova_etiqueta_id, $user_id)");
+		$check = $conn->query("INSERT INTO Paginas (tipo, item_id, etiqueta_id, user_id) VALUES ('topico', $criar_subtopico_page_id, $nova_etiqueta_id, $user_id)");
 		$novo_subtopico_pagina_id = $conn->insert_id;
 		
 		$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, elemento_id, user_id) VALUES ($criar_subtopico_page_id, '$criar_subtopico_page_tipo', 'subtopico', $novo_subtopico_pagina_id, $user_id)");
 		
 		$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($novo_subtopico_pagina_id, 'pagina', 'titulo', '$criar_subtopico_titulo', $user_id)");
+		
+		echo $check;
 		
 	}
 	
@@ -3264,6 +3265,10 @@
 			return array(false, false);
 		}
 		
+	}
+	
+	function clean_titles($title) {
+	
 	}
 
 ?>

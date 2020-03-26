@@ -307,7 +307,7 @@
 				$(document).on('click', '#criar_materia', function() {
 		      var new_tag = $(this).attr('value');
 		      $(this).removeClass('btn-success');
-		      $(this).addClass('btn-warning');
+		      $(this).addClass('btn-secondary');
 		      $(this).prop('disabled', true);
 		      $.post('engine.php', {
 		         'criar_materia_titulo': new_tag,
@@ -361,7 +361,7 @@
 				$(document).on('click', '#criar_topico', function() {
 		      var new_tag = $(this).attr('value');
 		      $(this).removeClass('btn-success');
-		      $(this).addClass('btn-warning');
+		      $(this).addClass('btn-secondary');
 		      $(this).prop('disabled', true);
 		      $.post('engine.php', {
 		         'criar_topico_titulo': new_tag,
@@ -371,7 +371,6 @@
 		         if (data != 0) {
 		             $('#buscar_topicos').val('');
 		             $('#buscar_topicos').focus();
-		             $(this).hide();
 		         }
 		      });
 		  	});
@@ -416,7 +415,7 @@
 				$(document).on('click', '#criar_subtopico', function() {
 		      var new_tag = $(this).attr('value');
 		      $(this).removeClass('btn-success');
-		      $(this).addClass('btn-warning');
+		      $(this).addClass('btn-secondary');
 		      $(this).prop('disabled', true);
 		      $.post('engine.php', {
 		         'criar_subtopico_titulo': new_tag,
@@ -424,7 +423,8 @@
 		         'criar_subtopico_page_tipo': '{$pagina_tipo}'
 		      }, function(data) {
 		         if (data != 0) {
-		             window.location.reload(true);
+		             $('#buscar_subtopicos').val('');
+		             $('#buscar_subtopicos').focus();
 		         }
 		      });
 		  	});
