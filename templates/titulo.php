@@ -28,9 +28,20 @@
 		$display_level = 'display-3';
 	} elseif ($titulo_length < 65) {
 		$display_level = 'display-4';
-	} else {
-		$display_level = false;
 	}
+	
+	if ($titulo_length > 280) {
+		$titulo_header = 'h4';
+	} elseif ($titulo_length > 200) {
+		$titulo_header = 'h3';
+	} elseif ($titulo_length > 150) {
+		$titulo_header = 'h2';
+	}
+	
+	if (!isset($titulo_header)) {
+		$titulo_header = 'h1';
+	}
+	
 	if (isset($pagina_tipo)) {
 		if ($pagina_tipo == 'texto') {
 			$display_level = false;
@@ -55,11 +66,14 @@
 	}
 	if ($display_level != false) {
 		echo "
-			<h1 class='$display_level d-none d-md-inline m-0'>$template_titulo</h1>
-			<h1 class='h1-responsive d-sm-inline d-md-none m-0'>$template_titulo</h1>
+			<{$titulo_header} class='{$display_level} d-none d-md-inline m-0'>{$template_titulo}</{$titulo_header}>
+			<{$titulo_header} class='{$titulo_header}-responsive d-sm-inline d-md-none m-0'>{$template_titulo}</{$titulo_header}>
 		";
 	} else {
-		echo "<h1 class='h1-responsive'>$template_titulo</h1>";
+		echo "<{$titulo_header} class='{$titulo_header}-responsive'>$template_titulo</{$titulo_header}>";
+	}
+	if ($titulo_header != 'h1') {
+		echo "<h1 class='hidden'>$template_titulo</h1>";
 	}
 	if ($template_subtitulo != false) {
 		echo "
