@@ -270,6 +270,7 @@
 							while ($comment = $comments->fetch_assoc()) {
 								$timestamp_comentario = $comment['timestamp'];
 								$texto_comentario = $comment['comentario_text'];
+								$texto_comentario = nl2br($texto_comentario);
 								if ($texto_comentario == false) {
 									continue;
 								}
