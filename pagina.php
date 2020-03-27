@@ -983,8 +983,10 @@
 						include 'pagina/paginas_etiqueta.php';
 					}
 					
-					include 'pagina/usos_etiqueta.php';
-					
+                    // include 'pagina/usos_etiqueta.php';
+                    // not clear in which cases this should be used.
+                    // the idea is showing pages connected to the present page
+                    // does it need to exist though?
 				}
 				
 				include 'pagina/etiquetas.php';
