@@ -1,4 +1,6 @@
 <?php
+
+	$quill_was_loaded = true;
 	
 	if (!isset($curso_id)) {
 		$curso_id = "NULL";

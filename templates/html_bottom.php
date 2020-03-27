@@ -76,6 +76,10 @@
 		$carregar_modal_login = true;
 	}
 	
+	if (!isset($quill_was_loaded)) {
+		$quill_was_loaded = false;
+	}
+	
 	echo "
     <!-- Bootstrap tooltips -->
     <script type='text/javascript' src='js/popper.min.js'></script>
@@ -1148,6 +1152,48 @@
     </script>
 		";
 	}
+	
+	if ($quill_was_loaded == true) {
+		echo "
+			<script type='text/javascript'>
+				$('#quill_editor_anotacoes').keydown(function (e) {
+				    if (e.ctrlKey && e.keyCode == 13) {
+				        $('#anotacoes_trigger_save').click();
+  					}
+				    if (e.ctrlKey && e.keyCode == 83) {
+				        event.preventDefault();
+				        $('#anotacoes_trigger_save').click();
+  					}
+				    if (e.metaKey && e.keyCode == 13) {
+				        $('#anotacoes_trigger_save').click();
+  					}
+				    if (e.metaKey && e.keyCode == 83) {
+				        event.preventDefault();
+				        $('#anotacoes_trigger_save').click();
+  					}
+				   
+				});
+				$('#quill_editor_verbete').keydown(function (e) {
+				    if (e.ctrlKey && e.keyCode == 13) {
+				        $('#verbete_trigger_save').click();
+  					}
+				    if (e.ctrlKey && e.keyCode == 83) {
+				        event.preventDefault();
+				        $('#verbete_trigger_save').click();
+  					}
+				    if (e.metaKey && e.keyCode == 13) {
+				        $('#verbete_trigger_save').click();
+  					}
+				    if (e.metaKey && e.keyCode == 83) {
+				        event.preventDefault();
+				        $('#verbete_trigger_save').click();
+  					}
+				});
+				
+			</script>
+		";
+	}
+	
 ?>
 
 
