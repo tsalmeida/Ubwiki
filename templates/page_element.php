@@ -80,7 +80,7 @@
 	}
 	
 	echo "
-<div id='$template_id' class='row show $template_classes $template_background p-2 pb-4 mb-2 rounded'>
+<div id='$template_id' class='row show $template_classes $template_background p-2 pb-5 mb-2 rounded'>
 	<div class='$template_col_value'>
     <div class='row d-flex justify-content-end page-element-botoes mb-1'>
     	$template_spacer
