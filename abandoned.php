@@ -311,4 +311,40 @@
         </select>
 	";
 	
+	/*
+@font-face {
+  font-family: "Cooper-Hewitt-Book";
+  src: url('../CHtypeface/CooperHewitt-Book.woff') format('woff');
+}
+
+@font-face {
+  font-family: "Cooper-Hewitt-Book";
+  src: url('../CHtypeface/CooperHewitt-BookItalic.woff') format('woff');
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Cooper-Hewitt-Book";
+  src: url('../CHtypeface/CooperHewitt-Medium.woff') format('woff');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "Cooper-Hewitt-Book";
+  src: url('../CHtypeface/CooperHewitt-MediumItalic.woff') format('woff');
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Cooper-Hewitt-Medium";
+  src: url('../CHtypeface/CooperHewitt-Medium.woff') format('woff');
+}
+
+@font-face {
+  font-family: "Cooper-Hewitt-Medium";
+  src: url('../CHtypeface/CooperHewitt-MediumItalic.woff') format('woff');
+  font-style: italic;
+}*/
+
 ?>

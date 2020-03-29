@@ -1,47 +1,22 @@
 @charset "UTF-8";
 @import url("https://fonts.googleapis.com/css?family=Lato:400,400i,700,700i&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Oswald:300&display=swap");
-/*
-@font-face {
-  font-family: "Cooper-Hewitt-Book";
-  src: url('../CHtypeface/CooperHewitt-Book.woff') format('woff');
-}
-
-@font-face {
-  font-family: "Cooper-Hewitt-Book";
-  src: url('../CHtypeface/CooperHewitt-BookItalic.woff') format('woff');
-  font-style: italic;
-}
-
-@font-face {
-  font-family: "Cooper-Hewitt-Book";
-  src: url('../CHtypeface/CooperHewitt-Medium.woff') format('woff');
-  font-weight: bold;
-}
-
-@font-face {
-  font-family: "Cooper-Hewitt-Book";
-  src: url('../CHtypeface/CooperHewitt-MediumItalic.woff') format('woff');
-  font-weight: bold;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: "Cooper-Hewitt-Medium";
-  src: url('../CHtypeface/CooperHewitt-Medium.woff') format('woff');
-}
-
-@font-face {
-  font-family: "Cooper-Hewitt-Medium";
-  src: url('../CHtypeface/CooperHewitt-MediumItalic.woff') format('woff');
-  font-style: italic;
-}*/
+@import url("https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 .fontstack-subtitle {
   font-family: "Oswald", Arial, serif !important;
 }
 
 .fontstack-mono {
   font-family: "Lucida Console", Monaco, monospace !important;
+}
+
+.fontstack-body-serif {
+  font-family: "Lora", serif !important;
+}
+
+.fontstack-body {
+  font-family: "Lato", Arial, Helvetica, sans-serif !important;
 }
 
 .navbar-brand {
@@ -52,6 +27,19 @@
   font-size: 1.5rem !important;
 }
 
+.ql-editor h2 {
+  font-size: 2.2em;
+}
+.ql-editor h3 {
+  font-size: 1.7em;
+}
+
+/*
+.ql-editor {
+  p, li, blockquote {
+    font-family: $fontstack-body-serif !important;
+  }
+}*/
 html, body, p, li, select, .md-form, textarea, input {
   font-size: 1.1rem !important;
   font-family: "Lato", Arial, Helvetica, sans-serif !important;
@@ -88,10 +76,6 @@ strong {
 
 .navbar {
   font-weight: 400;
-}
-
-h3 {
-  text-align: center;
 }
 
 blockquote + * {
