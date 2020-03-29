@@ -72,6 +72,7 @@
 							$template_conteudo_no_col = true;
 							$template_conteudo = false;
 							
+							/*
 							$artefato_id = 'adicionar_item_biblioteca';
 							$artefato_titulo = $pagina_translated['Adicionar item'];
 							$fa_icone = 'fa-plus-circle';
@@ -80,7 +81,7 @@
 							$artefato_tipo = 'nova_referencia';
 							$artefato_modal = $modal_add_elementos;
 							$artefato_link = false;
-							$template_conteudo .= include 'templates/artefato_item.php';
+							$template_conteudo .= include 'templates/artefato_item.php';*/
 							
 							while ($acervo_item = $acervo->fetch_assoc()) {
 								$acervo_item_id = $acervo_item['id'];

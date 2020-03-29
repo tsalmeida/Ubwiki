@@ -10,12 +10,17 @@
 	}
 	$modal_scrollable = true;
 	$template_modal_body_conteudo = false;
+	$etiquetas_remover_results = false;
+	$hidden_class = false;
+	
 	if ($etiquetas_carregar_remover == true) {
-		$template_modal_body_conteudo .= "
-				<h4>{$pagina_translated['Etiquetas ativas']}</h4>
-				<p>{$pagina_translated['Pressione para remover:']}</p>
-				<div class='row' id='etiquetas_ativas'>
-		";
+		if ($etiquetados->num_rows == 0) {
+			$hidden_class = 'hidden';
+		}
+		
+		$etiquetas_remover_results .= "<h4 class='$hidden_class'>{$pagina_translated['Etiquetas ativas']}</h4>";
+		$etiquetas_remover_results .= "<p class='$hidden_class'>{$pagina_translated['Pressione para remover:']}</p>";
+		$etiquetas_remover_results .= "<div class='row $hidden_class' id='etiquetas_ativas'>";
 		if ($etiquetados->num_rows > 0) {
 			while ($etiquetado = $etiquetados->fetch_assoc()) {
 				$etiqueta_ativa_id = $etiquetado['extra'];
@@ -25,13 +30,13 @@
 				$etiqueta_ativa_cor_icone = return_etiqueta_cor_icone($etiqueta_ativa_tipo);
 				$etiqueta_ativa_cor = $etiqueta_ativa_cor_icone[0];
 				$etiqueta_ativa_icone = $etiqueta_ativa_cor_icone[1];
-				$template_modal_body_conteudo .= "<a href='javascript:void(0);' class='$tag_ativa_classes $etiqueta_ativa_cor' value='$etiqueta_ativa_id'><i class='far $etiqueta_ativa_icone fa-fw'></i> $etiqueta_ativa_titulo</a>";
+				$etiquetas_remover_results .= "<a href='javascript:void(0);' class='$tag_ativa_classes $etiqueta_ativa_cor' value='$etiqueta_ativa_id'><i class='far $etiqueta_ativa_icone fa-fw'></i> $etiqueta_ativa_titulo</a>";
 			}
 		}
-		$template_modal_body_conteudo .= "
-			</div>
-	    ";
+		$etiquetas_remover_results .= "</div>";
 	}
+	
+	$template_modal_body_conteudo .= $etiquetas_remover_results;
 	$template_modal_body_conteudo .= "
 			<h4 class='mt-3'>{$pagina_translated['Adicionar etiquetas']}</h4>
 		    <div class='md-form'>
