@@ -50,5 +50,7 @@
 	}
 	if ($imprimir_secoes == true) {
 		include 'templates/page_element.php';
+	} else {
+		unset($template_botoes);
 	}
 ?>
