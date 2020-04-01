@@ -156,6 +156,7 @@
 			<a href='pagina.php?texto_id=$quill_texto_id' id='compartilhar_anotacao' title='{$pagina_translated['Página deste documento']}' class='text-primary'><i class='fad fa-external-link-square fa-fw'></i></a>
 		";
 	}
+	
 	if ((($template_id == 'verbete') && ($privilegio_edicao == true)) || ($template_id != 'verbete')) {
 		$template_botoes .= "
 			<span id='travar_{$template_id}' title='{$pagina_translated['Travar para edição']}'>

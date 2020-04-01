@@ -12,6 +12,7 @@
 	$carregar_quill_anotacoes = false;
 	$carregar_modal_destruir_pagina = false;
 	$carregar_toggle_acervo = false;
+	$carregar_modal_correcao = false;
 	$carregar_carrinho = false;
 	$carregar_convite = false;
 	$item_no_acervo = false;
@@ -529,6 +530,10 @@
 								echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_produto_preco' class='text-warning mr-1' id='produto_preco' title='{$pagina_translated['Preço do produto']}'><i class='fad fa-usd-circle fa-fw fa-2x'></i></a>";
 							}
 						}
+						if (($pagina_tipo == 'texto') && ($pagina_user_id == $user_id)) {
+							$carregar_modal_correcao = true;
+							echo "<a href='javascript:void(0);' class='text-primary' data-toggle='modal' data-target='#modal_correcao' title='{$pagina_translated['Solicitar correção']}'><i class='fad fa-pencil-alt fa-fw fa-2x' style='--fa-secondary-color: #ff3547;'></i></a>";
+						}
 						if (($pagina_tipo == 'curso') && ($pagina_curso_user_id == $user_id)) {
 							$carregar_adicionar_materia = true;
 							echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_materia' class='text-success mr-1' id='add_materia' title='{$pagina_translated['Adicionar matéria']}'><i class='fad fa-plus-circle fa-2x fa-fw'></i></a>";
@@ -983,10 +988,10 @@
 						include 'pagina/paginas_etiqueta.php';
 					}
 					
-                    // include 'pagina/usos_etiqueta.php';
-                    // not clear in which cases this should be used.
-                    // the idea is showing pages connected to the present page
-                    // does it need to exist though?
+					// include 'pagina/usos_etiqueta.php';
+					// not clear in which cases this should be used.
+					// the idea is showing pages connected to the present page
+					// does it need to exist though?
 				}
 				
 				include 'pagina/etiquetas.php';
@@ -2246,6 +2251,24 @@
 			$sim_quill_form = include('templates/sim_quill.php');
 			$template_modal_body_conteudo .= $sim_quill_form;
 		}
+		include 'templates/modal.php';
+	}
+	
+	if ($carregar_modal_correcao == true) {
+		$template_modal_div_id = 'modal_correcao';
+		$template_modal_titulo = $pagina_translated['Solicitar correção'];
+		$template_modal_body_conteudo = false;
+		$pagina_texto_wordcount = 1500;
+		$revision_price = 300;
+		$user_credits = 2000;
+		$template_modal_body_conteudo .= "
+			<p>{$pagina_translated['revision_paragraph']}</p>
+			<ul class='list-group'>
+			    <li class='list-group-item'><strong>{$pagina_translated['Word count:']}</strong> $pagina_texto_wordcount</li>
+			    <li class='list-group-item'><strong>{$pagina_translated['Revision price:']}</strong> $revision_price</li>
+			    <li class='list-group-item'><strong>{$pagina_translated['Your credits:']}</strong> $user_credits</li>
+            </ul>
+	    ";
 		include 'templates/modal.php';
 	}
 	

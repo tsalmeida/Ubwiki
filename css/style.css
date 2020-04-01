@@ -34,12 +34,10 @@
   font-size: 1.7em;
 }
 
-/*
-.ql-editor {
-  p, li, blockquote {
-    font-family: $fontstack-body-serif !important;
-  }
-}*/
+.ql-editor p, .ql-editor li, .ql-editor blockquote {
+  font-family: "Lora", serif !important;
+}
+
 html, body, p, li, select, .md-form, textarea, input {
   font-size: 1.1rem !important;
   font-family: "Lato", Arial, Helvetica, sans-serif !important;
