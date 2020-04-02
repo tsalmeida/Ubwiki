@@ -9,11 +9,7 @@
 	
 	if (isset($_POST['nova_chave_titulo'])) {
 		$nova_chave_titulo = $_POST['nova_chave_titulo'];
-		$nova_chave_titulo = mysqli_real_escape_string($conn, $nova_chave_titulo);
-		$chaves = $conn->query("SELECT id FROM Translation_chaves WHERE chave = '$nova_chave_titulo'");
-		if ($chaves->num_rows == 0) {
-			$conn->query("INSERT INTO Translation_chaves (user_id, chave) VALUES ($user_id, '$nova_chave_titulo')");
-		}
+		adicionar_chave_traducao($nova_chave_titulo, $user_id);
 	}
 	
 	if (isset($_POST['traduzir_chave_id'])) {
@@ -26,6 +22,7 @@
 			$conn->query("INSERT INTO Chaves_traduzidas (user_id, chave_id, lingua, traducao) VALUES ($user_id, $traduzir_chave_id, '$traduzir', '$traduzir_chave_string')");
 		}
 	}
+	
 	$hide = 0;
 	$hide_opposite = 1;
 	if (isset($_GET['hide'])) {
@@ -89,8 +86,8 @@
 											$list_color = 'border-success border';
 											$list_content = $chaves_traduzidas[$chave_id];
 										} else {
-										    continue;
-                                        }
+											continue;
+										}
 									} else {
 										$list_color = 'list-group-item-light border';
 										$list_content = return_traducao($chave_id, 'pt');
@@ -153,7 +150,7 @@
 		</div>
 	";
 	include 'templates/modal.php';
-
+	
 	include 'pagina/modal_languages.php';
 
 

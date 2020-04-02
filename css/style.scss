@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
-$fontstack-mono: "Lucida Console", Monaco, monospace;
+$fontstack-mono: Monaco, Consolas, “Lucida Console”, monospace;
 $fontstack-body: 'Lato', Arial, Helvetica, sans-serif;
 $fontstack-body-serif: 'Lora', serif;
 $fontstack-title: 'Oswald', Arial, serif;
@@ -44,8 +44,14 @@ $fontstack-subtitle: 'Oswald', Arial, serif;
 
 
 .ql-editor {
+  /*
   p, li, blockquote {
     font-family: $fontstack-body-serif !important;
+  }
+  */
+  a {
+    font-family: $fontstack-mono !important;
+    font-size: 1rem;
   }
 }
 

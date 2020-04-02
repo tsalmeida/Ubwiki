@@ -80,6 +80,10 @@
 		$quill_was_loaded = false;
 	}
 	
+	if (!isset($hide_and_show_wallet_form)) {
+		$hide_and_show_wallet_form = false;
+	}
+	
 	echo "
     <!-- Bootstrap tooltips -->
     <script type='text/javascript' src='js/popper.min.js'></script>
@@ -1190,6 +1194,17 @@
   					}
 				});
 				
+			</script>
+		";
+	}
+	
+	if ($hide_and_show_wallet_form == true) {
+		echo "
+			<script type='text/javascript'>
+				$(document).on('click', '#trigger_add_credits', function() {
+				    $(this).addClass('hidden');
+				    $('#wallet_deposit_form_hidden').removeClass('hidden');
+				});
 			</script>
 		";
 	}

@@ -103,6 +103,7 @@
 				$user_nome = $usuario['nome'];
 				$user_sobrenome = $usuario['sobrenome'];
 				$user_language = $usuario['language'];
+				$user_wallet = (int)return_wallet_value($user_id);
 				if ($user_language != false) {
 					$_SESSION['lg'] = $user_language;
 				}
@@ -114,6 +115,7 @@
 		$user_criacao = false;
 		$user_apelido = false;
 		$user_sobrenome = false;
+		$user_wallet = false;
 	}
 	
 	if ($user_id != false) {
@@ -3264,11 +3266,43 @@
 		} else {
 			return array(false, false);
 		}
-		
 	}
 	
-	function clean_titles($title) {
-	
+	function return_wallet_value($user_id) {
+		if ($user_id == false) {
+			return false;
+		}
+		include 'templates/criar_conn.php';
+		$wallet_contents = $conn->query("SELECT endstate FROM Transactions WHERE user_id = $user_id ORDER BY id DESC");
+		if ($wallet_contents->num_rows > 0) {
+			while ($wallet_content = $wallet_contents->fetch_assoc()) {
+				$wallet_content_endstate = $wallet_content['endstate'];
+				return $wallet_content_endstate;
+			}
+		} else {
+			return false;
+		}
 	}
-
+	
+	if (isset($_POST['order_review_pagina_id'])) {
+		$order_review_pagina_id = $_POST['order_review_pagina_id'];
+		$check = $conn->query("INSERT INTO Orders (tipo, user_id, pagina_id) VALUES ('review', $user_id, $order_review_pagina_id)");
+		if ($check == true) {
+			$check = $conn->query("INSERT INTO Transactions () VALUES ()");
+		}
+	}
+	
+	function adicionar_chave_traducao($nova_chave_titulo, $user_id)
+	{
+		if (($nova_chave_titulo == false) || ($user_id == false)) {
+			return false;
+		}
+		include 'templates/criar_conn.php';
+		$nova_chave_titulo = mysqli_real_escape_string($conn, $nova_chave_titulo);
+		$chaves = $conn->query("SELECT id FROM Translation_chaves WHERE chave = '$nova_chave_titulo'");
+		if ($chaves->num_rows == 0) {
+			$conn->query("INSERT INTO Translation_chaves (user_id, chave) VALUES ($user_id, '$nova_chave_titulo')");
+		}
+	}
+	
 ?>

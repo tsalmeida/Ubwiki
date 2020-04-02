@@ -3,7 +3,7 @@
 	$pagina_tipo = 'escritorio';
 	include 'engine.php';
 	$pagina_id = return_pagina_id($user_id, $pagina_tipo);
-
+	
 	if (!isset($user_email)) {
 		header('Location:login.php');
 	}
@@ -67,6 +67,9 @@
 				echo "<div class='col-md-3 col-sm-12'><div class='row justify-content-start'>";
 				echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_opcoes' class='p-2 text-info rounded artefato'><i class='fad fa-user-cog fa-2x fa-fw'></i></a>";
 				echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_apresentacao' class='p-2 text-info rounded artefato' title='{$pagina_translated['edit lounge']}'><i class='fad fa-mug-tea fa-2x fa-fw'></i></a>";
+				if ($user_tipo == 'admin') {
+					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_wallet' class='p-2 text-success rounded artefato' title='{$pagina_translated['Your wallet']}'><i class='fad fa-wallet fa-2x fa-fw'></i></a>";
+				}
 				echo "</div></div>";
 				echo "<div class='col-md-6 col-sm-12'><div class='row justify-content-center'>";
 				echo "
@@ -568,7 +571,7 @@
 							$anotacao_subtipo = $anotacao['pagina_subtipo'];
 							$anotacao_info = return_pagina_icone_cor($anotacao_pagina_tipo, $anotacao_subtipo);
 							$fa_icone = 'fa-file-alt fa-swap-opacity';
-	                        $fa_color = $anotacao_info[1];
+							$fa_color = $anotacao_info[1];
 							
 							$artefato_tipo = $anotacao_tipo;
 							if ($anotacao_pagina_tipo != false) {
@@ -948,6 +951,56 @@
 	include 'pagina/modal_adicionar_imagem.php';
 	
 	include 'pagina/modal_add_elemento.php';
+	
+	if (isset($_POST['wallet_deposit_value'])) {
+		$wallet_deposit_value = (int)$_POST['wallet_deposit_value'];
+		$wallet_endstate = ($user_wallet + $wallet_deposit_value);
+		$wallet_endstate = (int)$wallet_endstate;
+		$wallet_check = $conn->query("INSERT INTO Transactions (user_id, direction, value, prevstate, endstate) VALUES ($user_id, 'positive', $wallet_deposit_value, $user_wallet, $wallet_endstate)");
+		if ($wallet_check == true) {
+			$user_wallet = $wallet_endstate;
+		}
+	}
+	
+	$template_modal_div_id = 'modal_wallet';
+	$template_modal_titulo = $pagina_translated['Your wallet'];
+	$template_modal_show_buttons = false;
+	$template_modal_body_conteudo = false;
+	if ($user_wallet != false) {
+		$template_modal_body_conteudo .= "
+	    <ul class='list-group'>
+	        <li class='list-group-item list-group-item-light'>{$pagina_translated['Credits in your wallet:']} $user_wallet</li>
+        </ul>
+	";
+	} else {
+		$template_modal_body_conteudo .= "
+			<p class='text-muted'><em>{$pagina_translated['Your wallet is empty.']}</em></p>
+		";
+	}
+	$template_modal_body_conteudo .= "
+		<form id='wallet_deposit_form_hidden' class='border p-3 hidden' method='post'>
+			<p class='pl-2 mb-2'>{$pagina_translated['Deposit value']}:</p>
+			<div class='md-form input-group mb-3'>
+              <div class='input-group-prepend'>
+                <span class='input-group-text md-addon'>$</span>
+              </div>
+              <input type='number' class='form-control' id='wallet_deposit_value' name='wallet_deposit_value'>
+              <div class='input-group-append'>
+                <span class='input-group-text md-addon'>.00</span>
+              </div>
+            </div>
+			<div class='row d-flex justify-content-center'>
+				<button class='$button_classes_info'>{$pagina_translated['Make deposit']}</button>
+			</div>
+		</form>
+	";
+	$template_modal_body_conteudo .= "
+        <div class='row d-flex justify-content-center'>
+        	<button type='button' class='$all_buttons_classes btn-success' id='trigger_add_credits'>{$pagina_translated['Add credits to your wallet']}</button>
+	    </div>
+	";
+	$hide_and_show_wallet_form = true;
+	include 'templates/modal.php';
 	
 	$template_modal_div_id = 'modal_gerenciar_etiquetas';
 	$template_modal_titulo = $pagina_translated['Incluir área de interesse'];

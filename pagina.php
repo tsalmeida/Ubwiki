@@ -322,6 +322,7 @@
 		$texto_page_id = $texto_info[3];
 		$texto_criacao = $texto_info[4];
 		$texto_verbete_html = $texto_info[5];
+		$texto_verbete_text = $texto_info[6];
 		$texto_user_id = $texto_info[8];
 		$texto_pagina_id = $texto_info[9];
 		$texto_compartilhamento = $texto_info[11];
@@ -530,9 +531,11 @@
 								echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_produto_preco' class='text-warning mr-1' id='produto_preco' title='{$pagina_translated['Preço do produto']}'><i class='fad fa-usd-circle fa-fw fa-2x'></i></a>";
 							}
 						}
-						if (($pagina_tipo == 'texto') && ($pagina_user_id == $user_id)) {
-							$carregar_modal_correcao = true;
-							echo "<a href='javascript:void(0);' class='text-primary' data-toggle='modal' data-target='#modal_correcao' title='{$pagina_translated['Solicitar correção']}'><i class='fad fa-pencil-alt fa-fw fa-2x' style='--fa-secondary-color: #ff3547;'></i></a>";
+						if ($user_tipo == 'admin') {
+							if (($pagina_tipo == 'texto') && ($pagina_user_id == $user_id)) {
+								$carregar_modal_correcao = true;
+								echo "<a href='javascript:void(0);' class='text-primary' data-toggle='modal' data-target='#modal_correcao' title='{$pagina_translated['Solicitar correção']}'><i class='fad fa-pencil-alt fa-fw fa-2x' style='--fa-secondary-color: #ff3547;'></i></a>";
+							}
 						}
 						if (($pagina_tipo == 'curso') && ($pagina_curso_user_id == $user_id)) {
 							$carregar_adicionar_materia = true;
@@ -556,20 +559,20 @@
         <div class="py-2 text-center col-md-4 col-sm-12">
 					<?php
 						if ($pagina_tipo == 'curso') {
-							echo "<a href='javascript:void(0)' data-toggle='modal' data-target='#modal_busca' class='text-dark' title='{$pagina_translated['Busca']}'><i class='fad fa-search fa-fw'></i></a>";
+							echo "<a href='javascript:void(0)' data-toggle='modal' data-target='#modal_busca' class='text-primary' title='{$pagina_translated['Busca']}'><i class='fad fa-search fa-fw'></i></a>";
 						}
 						if ($pagina_tipo == 'topico') {
 							if ($topico_anterior != false) {
 								$topico_anterior_link = "pagina.php?topico_id=$topico_anterior";
 								echo "<a href='$topico_anterior_link' id='verbete_anterior' class='mx-1' title='{$pagina_translated['Verbete anterior']}'><i class='fad fa-arrow-left fa-fw'></i></a>";
 							}
-							echo "<a href='javascript:void(0);' id='verbetes_relacionados' class='text-muted mx-1' title='{$pagina_translated['Navegação']}' data-toggle='modal' data-target='#modal_verbetes_relacionados'><i class='fad fa-location-circle fa-2x fa-fw'></i></a>";
+							echo "<a href='javascript:void(0);' id='verbetes_relacionados' class='text-dark mx-1' title='{$pagina_translated['Navegação']}' data-toggle='modal' data-target='#modal_verbetes_relacionados'><i class='fad fa-location-circle fa-2x fa-fw'></i></a>";
 							if ($topico_proximo != false) {
 								$topico_proximo_link = "pagina.php?topico_id=$topico_proximo";
 								echo "<a href='$topico_proximo_link' id='verbete_proximo' class='mx-1' title='{$pagina_translated['Próximo verbete']}'><i class='fad fa-arrow-right fa-fw'></i></a>";
 							}
 						} elseif ($pagina_tipo == 'secao') {
-							echo "<a href='javascript:void(0);' id='secoes' class='mx-1 text-muted' title='Página e seções' data-toggle='modal' data-target='#modal_paginas_relacionadas'><i class='fad fa-map-signs fa-2x fa-fw'></i></a>";
+							echo "<a href='javascript:void(0);' id='secoes' class='mx-1 text-dark' title='Página e seções' data-toggle='modal' data-target='#modal_paginas_relacionadas'><i class='fad fa-map-signs fa-2x fa-fw'></i></a>";
 						}
 						if ($pagina_subtipo == 'produto') {
 							if ($produto_no_carrinho == false) {
@@ -601,7 +604,7 @@
 								if ($existe_produto == true) {
 									$produto_color = 'text-danger';
 								} else {
-									$produto_color = 'text-muted';
+									$produto_color = 'text-dark';
 								}
 								echo "<a href='mercado.php?pagina_id=$pagina_id' class='$produto_color ml-1 align-top' title='{$pagina_translated['visit_market']}'><i class='fad fa-bags-shopping fa-fw'></i></a>";
 							}
@@ -609,7 +612,7 @@
 						if (($pagina_tipo != 'sistema') && ($pagina_compartilhamento != 'escritorio')) {
 							$comments = $conn->query("SELECT timestamp, comentario_text, user_id FROM Forum WHERE pagina_id = $pagina_id");
 							if ($comments->num_rows == 0) {
-								$forum_color = 'text-muted';
+								$forum_color = 'text-dark';
 							} else {
 								$forum_color = 'text-secondary';
 							}
@@ -636,7 +639,7 @@
 								  <a id='remover_acervo' href='javascript:void(0);' class='ml-1 text-success' title='{$pagina_translated['Remover do seu acervo']}'>
 									  <i class='fad fa-lamp-desk fa-fw'></i>
 								  </a>
-								  <a id='adicionar_acervo' href='javascript:void(0);' class='ml-1 text-muted' title='{$pagina_translated['Adicionar a seu acervo']}'>
+								  <a id='adicionar_acervo' href='javascript:void(0);' class='ml-1 text-dark' title='{$pagina_translated['Adicionar a seu acervo']}'>
 									  <i class='fad fa-lamp-desk fa-fw'></i>
 								  </a>
 						        ";
@@ -655,7 +658,7 @@
 						      <a id='remover_area_interesse' href='javascript:void(0);' class='ml-1 text-warning' title='{$pagina_translated['Remover como área de interesse']}'>
 						      	<i class='fad fa-lamp-desk fa-fw'></i>
 							  </a>
-						      <a id='adicionar_area_interesse' href='javascript:void(0);' class='ml-1 text-muted' title='{$pagina_translated['Adicionar como área de interesse']}'>
+						      <a id='adicionar_area_interesse' href='javascript:void(0);' class='ml-1 text-dark' title='{$pagina_translated['Adicionar como área de interesse']}'>
 						      	<i class='fad fa-lamp-desk fa-fw'></i>
 							  </a>
 						    ";
@@ -670,6 +673,7 @@
 						}
 						if ($user_id != false) {
 							$notificacao_modal = '#modal_notificacoes';
+							$notificacao_cor = 'text-dark';
 						} else {
 							$notificacao_modal = '#modal_login';
 							$notificacao_cor = 'text-default';
@@ -680,7 +684,7 @@
 							if ($etiquetados->num_rows > 0) {
 								$etiquetas_color = 'text-warning';
 							} else {
-								$etiquetas_color = 'text-muted';
+								$etiquetas_color = 'text-dark';
 							}
 							if ($user_id != false) {
 								$etiquetas_modal = '#modal_secao_etiquetas';
@@ -703,7 +707,7 @@
 										$marcar_incompleto = 'collapse';
 									}
 									echo "
-                                  <a id='add_completed' href='javascript:void(0);' class='text-muted ml-1 $marcar_completo' title='{$pagina_translated['Marcar estudo completo']}' value='$pagina_id'><i class='fad fa-check-circle fa-fw'></i></a>
+                                  <a id='add_completed' href='javascript:void(0);' class='text-dark ml-1 $marcar_completo' title='{$pagina_translated['Marcar estudo completo']}' value='$pagina_id'><i class='fad fa-check-circle fa-fw'></i></a>
                                   <a id='remove_completed' href='javascript:void(0);' class='ml-1 $marcar_incompleto text-success' title='{$pagina_translated['Desmarcar como completo']}' value='$pagina_id'><i class='fad fa-check-circle fa-fw'></i></a>
                                 ";
 								} else {
@@ -721,7 +725,7 @@
 							}
 							if ($user_id != false) {
 								echo "
-                                  <a href='javascript:void(0);' id='add_bookmark' class='text-muted ml-1 $marcar_bookmark' title='{$pagina_translated['Marcar para leitura']}' value='$pagina_id'><i class='fad fa-bookmark fa-fw'></i></a>
+                                  <a href='javascript:void(0);' id='add_bookmark' class='text-dark ml-1 $marcar_bookmark' title='{$pagina_translated['Marcar para leitura']}' value='$pagina_id'><i class='fad fa-bookmark fa-fw'></i></a>
                                   <a href='javascript:void(0);' id='remove_bookmark' class='text-danger ml-1 $desmarcar_bookmark' title='{$pagina_translated['Remover da lista de leitura']}' value='$pagina_id'><i class='fad fa-bookmark fa-fw'></i></a>
                                 ";
 							} else {
@@ -1506,7 +1510,7 @@
 			</div>
 			<div class='form-check'>
 				<input type='radio' class='form-check-input radio_publicar_opcao' name='radio_publicar_opcao' id='checkbox_publicar_privado' value='privado' $radio_privado>
-				<label class='form-check-label' for='checkbox_publicar_privado'>{$pagina_translated['Seletivo.']} <span class='text-muted'><em>{$pagina_translated['Você determina quem tem acesso']}</em></span>.</label>
+				<label class='form-check-label' for='checkbox_publicar_privado'>{$pagina_translated['Seletivo.']} <span class='text-dark'><em>{$pagina_translated['Você determina quem tem acesso']}</em></span>.</label>
 			</div>
 			<div id='botao_determinar_acesso' class='row d-flex justify-content-center botao_determinar_acesso'>
 				<span data-toggle='modal' data-target='#modal_compartilhar_pagina'><a data-toggle='modal' data-target='#modal_outorgar_acesso'><button class='$button_classes botao_determinar_acesso btn-info' type='button'>{$pagina_translated['Dar acesso']}</button></a></span>
@@ -2257,18 +2261,26 @@
 	if ($carregar_modal_correcao == true) {
 		$template_modal_div_id = 'modal_correcao';
 		$template_modal_titulo = $pagina_translated['Solicitar correção'];
+		$template_modal_show_buttons = false;
 		$template_modal_body_conteudo = false;
-		$pagina_texto_wordcount = 1500;
-		$revision_price = 300;
-		$user_credits = 2000;
+		$pagina_texto_wordcount = str_word_count($texto_verbete_text);
+		$revision_price = floor($pagina_texto_wordcount / 3);
 		$template_modal_body_conteudo .= "
 			<p>{$pagina_translated['revision_paragraph']}</p>
 			<ul class='list-group'>
-			    <li class='list-group-item'><strong>{$pagina_translated['Word count:']}</strong> $pagina_texto_wordcount</li>
+			    <li class='list-group-item'><strong>{$pagina_translated['Word count:']}</strong> $pagina_texto_wordcount <span class='text-muted'><em>({$pagina_translated['Reload page to refresh']})</em></span></li>
 			    <li class='list-group-item'><strong>{$pagina_translated['Revision price:']}</strong> $revision_price</li>
-			    <li class='list-group-item'><strong>{$pagina_translated['Your credits:']}</strong> $user_credits</li>
+			    <li class='list-group-item'><strong>{$pagina_translated['Your credits:']}</strong> $user_wallet</li>
             </ul>
 	    ";
+		$template_modal_body_conteudo .= "
+			<form method='post'>
+				<input type='hidden' name='order_review_pagina_id' value='$pagina_id'>
+				<div class='row d-flex justify-content-center'>
+					<button class='$button_classes_info'>{$pagina_translated['Place order']}</button>
+				</div>
+			</form>
+		";
 		include 'templates/modal.php';
 	}
 	

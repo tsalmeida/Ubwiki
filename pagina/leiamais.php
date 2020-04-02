@@ -19,9 +19,9 @@
 						continue;
 					}
 					if ($referencia_capitulo == false) {
-						$template_conteudo .= "<a href='pagina.php?elemento_id=$elemento_id' target='_blank'><li class='list-group-item list-group-item-action mt-1 border-top'>$referencia_titulo / $referencia_autor</li></a>";
+						$template_conteudo .= "<a href='pagina.php?elemento_id=$elemento_id' target='_blank'><li class='list-group-item list-group-item-action mt-1 border-top'>$referencia_titulo ($referencia_autor)</li></a>";
 					} else {
-						$template_conteudo .= "<a href='pagina.php?elemento_id=$elemento_id' target='_blank'><li class='list-group-item list-group-item-action mt-1 border-top'>$referencia_titulo / $referencia_autor // $referencia_capitulo</li></a>";
+						$template_conteudo .= "<a href='pagina.php?elemento_id=$elemento_id' target='_blank'><li class='list-group-item list-group-item-action mt-1 border-top'>$referencia_titulo ($referencia_autor): $referencia_capitulo</li></a>";
 					}
 				}
 			}

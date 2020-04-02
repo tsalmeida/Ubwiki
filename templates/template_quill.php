@@ -167,6 +167,11 @@
 	    </span>
 		";
 	}
+	if ($user_id == false) {
+		$template_botoes .= "
+			<a href='javascript:void(0);' class='text-primary' data-toggle='modal' data-target='#modal_login' title='{$pagina_translated['Permitir edição']}'><i class='fad fa-pen-square fa-fw'></i></a>
+		";
+	}
 	$template_no_spacer = true;
 	
 	if ($template_quill_botoes == false) {
