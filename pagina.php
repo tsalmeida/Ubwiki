@@ -1145,7 +1145,7 @@
 				echo "</div>";
 			?>
 			<?php
-				if (($pagina_tipo != 'sistema') && ($pagina_tipo != 'texto') && ($pagina_compartilhamento != 'escritorio') && ($pagina_tipo != 'resposta') && ($pagina_tipo != 'materia') && ($pagina_tipo != 'curso')) {
+				if (($pagina_tipo != 'sistema') && ($pagina_tipo != 'texto') && ($pagina_compartilhamento != 'escritorio') && ($pagina_tipo != 'resposta') && ($pagina_tipo != 'materia') && ($pagina_tipo != 'curso') && ($pagina_tipo != 'grupo')) {
 					if ($user_id != false) {
 						include 'pagina/coluna_direita_anotacoes.php';
 						$carregar_quill_anotacoes = true;
