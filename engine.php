@@ -871,8 +871,12 @@
 		$user_id = $args[3];
 		$criar_elemento = $args[4];
 		$link = false;
+		$subtipo = false;
 		if (isset($args[5])) {
 			$link = $args[5];
+		}
+		if (isset($args[6])) {
+			$subtipo = $args[6];
 		}
 		if ($link == false) {
 			$link = "NULL";
@@ -880,7 +884,6 @@
 			$link = fix_link($link);
 			$link = "'$link'";
 		}
-		$subtipo = $args[6];
 		include 'templates/criar_conn.php';
 		$nova_etiqueta_id = false;
 		$nova_etiqueta_autor_id = false;
@@ -1047,7 +1050,7 @@
 			$nova_materia_pagina_titulo = $nova_materia_etiqueta_info[2];
 			$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, user_id) VALUES ($curso_nova_materia_pagina_id, 'curso', $nova_materia_pagina_id, 'materia', $curso_nova_materia_user_id)");
 			$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($nova_materia_pagina_id, 'pagina', 'titulo', '$nova_materia_pagina_titulo', $curso_nova_materia_user_id)");
-
+			
 			echo $check;
 		}
 	}
@@ -3268,7 +3271,8 @@
 		}
 	}
 	
-	function return_wallet_value($user_id) {
+	function return_wallet_value($user_id)
+	{
 		if ($user_id == false) {
 			return false;
 		}
@@ -3289,6 +3293,7 @@
 		$check = $conn->query("INSERT INTO Orders (tipo, user_id, pagina_id) VALUES ('review', $user_id, $order_review_pagina_id)");
 		if ($check == true) {
 			$check = $conn->query("INSERT INTO Transactions () VALUES ()");
+			$conn->query("INSERT INTO Compartilhamento (tipo, user_id, item_id, item_tipo, compartilhamento, recipiente_id) VALUES ('revision', $user_id, $order_review_pagina_id, 'texto', 'grupo', 13)");
 		}
 	}
 	
@@ -3304,5 +3309,5 @@
 			$conn->query("INSERT INTO Translation_chaves (user_id, chave) VALUES ($user_id, '$nova_chave_titulo')");
 		}
 	}
-	
+
 ?>

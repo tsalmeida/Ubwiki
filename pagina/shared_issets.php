@@ -56,7 +56,7 @@
 				}
 			} else {
 				$novo_youtube_thumbnail = adicionar_thumbnail_youtube($novo_video_thumbnail);
-				$novo_video_etiqueta = criar_etiqueta($novo_video_titulo, $novo_video_autor, 'video', $user_id, false);
+				$novo_video_etiqueta = criar_etiqueta($novo_video_titulo, $novo_video_autor, 'video', $user_id, false, $novo_video_link, 'youtube');
 				$novo_video_titulo = mysqli_real_escape_string($conn, $novo_video_titulo);
 				$novo_video_autor = mysqli_real_escape_string($conn, $novo_video_autor);
 				$novo_video_iframe = mysqli_real_escape_string($conn, $novo_video_iframe);
