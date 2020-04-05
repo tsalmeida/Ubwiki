@@ -977,7 +977,8 @@
 			<p class='text-muted'><em>{$pagina_translated['Your wallet is empty.']}</em></p>
 		";
 	}
-	$template_modal_body_conteudo .= "
+	if ($user_tipo == 'admin') {
+		$template_modal_body_conteudo .= "
 		<form id='wallet_deposit_form_hidden' class='border p-3 hidden' method='post'>
 			<p class='pl-2 mb-2'>{$pagina_translated['Deposit value']}:</p>
 			<div class='md-form input-group mb-3'>
@@ -994,9 +995,14 @@
 			</div>
 		</form>
 	";
-	$template_modal_body_conteudo .= "
+		$template_modal_body_conteudo .= "
         <div class='row d-flex justify-content-center'>
         	<button type='button' class='$all_buttons_classes btn-success' id='trigger_add_credits'>{$pagina_translated['Add credits to your wallet']}</button>
+	    </div>";
+	}
+	$template_modal_body_conteudo .= "
+	    <div class='dow d-flex justify-content-center'>
+	    	<div id='product-component-1586018177842'></div>
 	    </div>
 	";
 	$hide_and_show_wallet_form = true;
