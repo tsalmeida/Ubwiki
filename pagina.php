@@ -479,7 +479,7 @@
 	}
 	
 	if ($carregar_secoes == true) {
-		$secoes = $conn->query("SELECT secao_pagina_id FROM Secoes WHERE pagina_id = $pagina_id ORDER BY ordem");
+		$secoes = $conn->query("SELECT secao_pagina_id FROM Secoes WHERE pagina_id = $pagina_id ORDER BY ordem, id");
 	}
 	$etiquetados = $conn->query("SELECT DISTINCT extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'topico' AND estado = 1 AND extra IS NOT NULL");
 	if ($pagina_tipo == 'texto') {

@@ -1,6 +1,6 @@
 <?php
 	$imprimir_secoes = false;
-	$template_div = 'partes_elemento';
+	$template_id = 'partes_elemento';
 	if ($pagina_tipo == 'elemento') {
 		if ($elemento_subtipo == 'podcast') {
 			$template_titulo = $pagina_translated['Episódios'];

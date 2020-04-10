@@ -700,7 +700,6 @@
 							}
 							include 'templates/page_element.php';
 						}
-					
 					?>
         </div>
     </div>
@@ -962,52 +961,6 @@
 		}
 	}
 	
-	$template_modal_div_id = 'modal_wallet';
-	$template_modal_titulo = $pagina_translated['Your wallet'];
-	$template_modal_show_buttons = false;
-	$template_modal_body_conteudo = false;
-	if ($user_wallet != false) {
-		$template_modal_body_conteudo .= "
-	    <ul class='list-group'>
-	        <li class='list-group-item list-group-item-light'>{$pagina_translated['Credits in your wallet:']} $user_wallet</li>
-        </ul>
-	";
-	} else {
-		$template_modal_body_conteudo .= "
-			<p class='text-muted'><em>{$pagina_translated['Your wallet is empty.']}</em></p>
-		";
-	}
-	if ($user_tipo == 'admin') {
-		$template_modal_body_conteudo .= "
-		<form id='wallet_deposit_form_hidden' class='border p-3 hidden' method='post'>
-			<p class='pl-2 mb-2'>{$pagina_translated['Deposit value']}:</p>
-			<div class='md-form input-group mb-3'>
-              <div class='input-group-prepend'>
-                <span class='input-group-text md-addon'>$</span>
-              </div>
-              <input type='number' class='form-control' id='wallet_deposit_value' name='wallet_deposit_value'>
-              <div class='input-group-append'>
-                <span class='input-group-text md-addon'>.00</span>
-              </div>
-            </div>
-			<div class='row d-flex justify-content-center'>
-				<button class='$button_classes_info'>{$pagina_translated['Make deposit']}</button>
-			</div>
-		</form>
-	";
-		$template_modal_body_conteudo .= "
-        <div class='row d-flex justify-content-center'>
-        	<button type='button' class='$all_buttons_classes btn-success' id='trigger_add_credits'>{$pagina_translated['Add credits to your wallet']}</button>
-	    </div>";
-	}
-	$template_modal_body_conteudo .= "
-	    <div class='dow d-flex justify-content-center'>
-	    	<div id='product-component-1586018177842'></div>
-	    </div>
-	";
-	$hide_and_show_wallet_form = true;
-	include 'templates/modal.php';
-	
 	$template_modal_div_id = 'modal_gerenciar_etiquetas';
 	$template_modal_titulo = $pagina_translated['Incluir área de interesse'];
 	include 'templates/etiquetas_modal.php';
@@ -1021,6 +974,7 @@
 ?>
 
 </body>
+
 <?php
 	
 	include 'templates/footer.html';
