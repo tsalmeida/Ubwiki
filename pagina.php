@@ -1461,8 +1461,12 @@
 		if ($parentes->num_rows > 0) {
 			while ($parente = $parentes->fetch_assoc()) {
 				$parente_id = $parente['id'];
+				$parente_highlight = false;
+				if ($parente_id == $pagina_id) {
+				    $parente_highlight = 'list-group-item-secondary';
+                }
 				$parente_titulo = return_pagina_titulo($parente_id);
-				$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$parente_id' class='mt-1'><li class='list-group-item list-group-item-action border-top'>$parente_titulo</li></a>";
+				$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$parente_id' class='mt-1'><li class='list-group-item list-group-item-action $parente_highlight border-top'>$parente_titulo</li></a>";
 			}
 		}
 		$template_modal_body_conteudo .= "</ul>";
