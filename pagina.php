@@ -558,19 +558,21 @@
         </div>
         <div class="py-2 text-center col-md-4 col-sm-12">
 					<?php
+						if (!isset($topico_anterior)) {
+							$topico_anterior = false;
+						}
+						if (!isset($topico_proximo)) {
+							$topico_proximo = false;
+						}
 						if ($pagina_tipo == 'curso') {
 							echo "<a href='javascript:void(0)' data-toggle='modal' data-target='#modal_busca' class='text-primary' title='{$pagina_translated['Busca']}'><i class='fad fa-search fa-fw'></i></a>";
 						}
+						if ($topico_anterior != false) {
+							$topico_anterior_link = "pagina.php?topico_id=$topico_anterior";
+							echo "<a href='$topico_anterior_link' id='verbete_anterior' class='mx-1' title='{$pagina_translated['Verbete anterior']}'><i class='fad fa-arrow-left fa-fw'></i></a>";
+						}
 						if ($pagina_tipo == 'topico') {
-							if ($topico_anterior != false) {
-								$topico_anterior_link = "pagina.php?topico_id=$topico_anterior";
-								echo "<a href='$topico_anterior_link' id='verbete_anterior' class='mx-1' title='{$pagina_translated['Verbete anterior']}'><i class='fad fa-arrow-left fa-fw'></i></a>";
-							}
 							echo "<a href='javascript:void(0);' id='verbetes_relacionados' class='text-dark mx-1' title='{$pagina_translated['Navegação']}' data-toggle='modal' data-target='#modal_verbetes_relacionados'><i class='fad fa-location-circle fa-2x fa-fw'></i></a>";
-							if ($topico_proximo != false) {
-								$topico_proximo_link = "pagina.php?topico_id=$topico_proximo";
-								echo "<a href='$topico_proximo_link' id='verbete_proximo' class='mx-1' title='{$pagina_translated['Próximo verbete']}'><i class='fad fa-arrow-right fa-fw'></i></a>";
-							}
 						} elseif ($pagina_tipo == 'secao') {
 							echo "<a href='javascript:void(0);' id='secoes' class='mx-1 text-dark' title='Página e seções' data-toggle='modal' data-target='#modal_paginas_relacionadas'><i class='fad fa-map-signs fa-2x fa-fw'></i></a>";
 						}
@@ -578,6 +580,10 @@
 							if ($produto_no_carrinho == false) {
 								echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_adicionar_carrinho' id='adicionar_carrinho' class='text-success mx-1' title='{$pagina_translated['Adicionar este produto a seu carrinho']}'><i class='fad fa-cart-plus fa-fw fa-2x'></i></a>";
 							}
+						}
+						if ($topico_proximo != false) {
+							$topico_proximo_link = "pagina.php?topico_id=$topico_proximo";
+							echo "<a href='$topico_proximo_link' id='verbete_proximo' class='mx-1' title='{$pagina_translated['Próximo verbete']}'><i class='fad fa-arrow-right fa-fw'></i></a>";
 						}
 					?>
         </div>
@@ -902,11 +908,11 @@
 					} elseif (($elemento_tipo == 'referencia') && ($elemento_link != false)) {
 						$template_id = 'referencia_link';
 						$template_titulo = false;
-						$template_col_classes = 'd-flex justify-content-center';
 						$template_conteudo = false;
 						$template_conteudo_no_col = true;
+						$elemento_link_host = parse_url($elemento_link, PHP_URL_HOST);
 						$template_conteudo .= "
-					      <a href='$elemento_link' target='_blank' class='fontstack-mono'><i class='fad fa-external-link fa-fw'></i> $elemento_link</a>
+					      <a href='$elemento_link' target='_blank' class='fontstack-mono' title='$elemento_link'><i class='fad fa-external-link fa-fw fa-2x'></i> {$elemento_link_host}/...</a>
 					    ";
 						include 'templates/page_element.php';
 					}
