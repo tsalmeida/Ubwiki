@@ -9,22 +9,22 @@
 	}
 	
 	if (isset($_POST['trigger_atualizacao'])) {
-	    $conn->query("CREATE TABLE `Ubwiki`.`Transactions` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `user_id` INT(11) NOT NULL , `direction` VARCHAR(255) NULL DEFAULT NULL , `value` INT(11) NOT NULL , `prevstate` INT(11) NOT NULL , `endstate` INT(11) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
-	    $conn->query("CREATE TABLE `Ubwiki`.`Orders` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `tipo` VARCHAR(255) NULL DEFAULT NULL , `user_id` INT(11) NULL DEFAULT NULL , `pagina_id` INT(11) NULL DEFAULT NULL , `criacao` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
-	    $conn->query("ALTER TABLE `Transactions` ADD `criacao` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `endstate`;");
-	    $conn->query("ALTER TABLE `Orders` ADD `estado` BOOLEAN NOT NULL DEFAULT TRUE AFTER `id`;");
-	    adicionar_chave_traducao('Place order', 1);
-	    adicionar_chave_traducao('Reload page to refresh', 1);
-	    adicionar_chave_traducao('Your credits:', 1);
-	    adicionar_chave_traducao('Revision price:', 1);
-	    adicionar_chave_traducao('Word count:', 1);
-	    adicionar_chave_traducao('Credits in your wallet:', 1);
-	    adicionar_chave_traducao('Make deposit', 1);
-	    adicionar_chave_traducao('Deposit value', 1);
-	    adicionar_chave_traducao('Add credits to your wallet', 1);
-	    adicionar_chave_traducao('Your wallet is empty.', 1);
-	    adicionar_chave_traducao('Your wallet', 1);
-	    adicionar_chave_traducao('revision_paragraph', 1);
+		$conn->query("CREATE TABLE `Ubwiki`.`Transactions` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `user_id` INT(11) NOT NULL , `direction` VARCHAR(255) NULL DEFAULT NULL , `value` INT(11) NOT NULL , `prevstate` INT(11) NOT NULL , `endstate` INT(11) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
+		$conn->query("CREATE TABLE `Ubwiki`.`Orders` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `tipo` VARCHAR(255) NULL DEFAULT NULL , `user_id` INT(11) NULL DEFAULT NULL , `pagina_id` INT(11) NULL DEFAULT NULL , `criacao` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
+		$conn->query("ALTER TABLE `Transactions` ADD `criacao` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `endstate`;");
+		$conn->query("ALTER TABLE `Orders` ADD `estado` BOOLEAN NOT NULL DEFAULT TRUE AFTER `id`;");
+		adicionar_chave_traducao('Place order', 1);
+		adicionar_chave_traducao('Reload page to refresh', 1);
+		adicionar_chave_traducao('Your credits:', 1);
+		adicionar_chave_traducao('Revision price:', 1);
+		adicionar_chave_traducao('Word count:', 1);
+		adicionar_chave_traducao('Credits in your wallet:', 1);
+		adicionar_chave_traducao('Make deposit', 1);
+		adicionar_chave_traducao('Deposit value', 1);
+		adicionar_chave_traducao('Add credits to your wallet', 1);
+		adicionar_chave_traducao('Your wallet is empty.', 1);
+		adicionar_chave_traducao('Your wallet', 1);
+		adicionar_chave_traducao('revision_paragraph', 1);
 	}
 	
 	if (isset($_POST['trigger_atualizar_textos_size'])) {
@@ -168,7 +168,6 @@
 						
 						$template_id = 'atualizacao';
 						$template_titulo = 'Atualização';
-						$template_botoes = false;
 						$template_conteudo = false;
 						$template_conteudo .= "
 						    <form method='post'>
@@ -179,12 +178,42 @@
 						    </form>
 						";
 						include 'templates/page_element.php';
+						
+						$template_id = 'emails_usuarios';
+						$template_titulo = 'Emails dos usuários';
+						$template_conteudo = false;
+						$template_conteudo .= "<div class='row d-flex justify-content-center'>";
+						
+						$artefato_tipo = 'emails_usuarios';
+						$artefato_titulo = 'Listar emails dos usuários';
+						$artefato_col_limit = 'col-lg-4';
+						$artefato_button = 'carregar_emails';
+						$fa_icone = 'fa-at';
+						$fa_color = 'text-danger';
+						$template_conteudo .= include 'templates/artefato_item.php';
+						
+						$template_conteudo .= "</div>";
+						$template_conteudo .= "<ul id='lista_usuarios_emails'></ul>";
+						
+						include 'templates/page_element.php';
 					
 					?>
         </div>
     </div>
 </div>
 </body>
+<script type="text/javascript">
+    $(document).on('click', '#trigger_emails_usuarios', function() {
+        $(this).hide();
+        $.post('engine.php', {
+            'listar_usuarios_emails': true,
+        }, function(data) {
+            if (data != 0) {
+                $('#lista_usuarios_emails').append(data);
+            }
+        });
+    });
+</script>
 <?php
 	include 'templates/footer.html';
 	$mdb_select = true;

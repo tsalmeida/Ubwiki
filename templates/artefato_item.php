@@ -156,6 +156,7 @@
         $artefato_link_2
   ";
 	
+	unset($artefato_name);
 	unset($artefato_icone_background);
 	unset($artefato_criacao);
 	unset($artefato_link);

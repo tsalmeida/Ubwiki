@@ -3309,5 +3309,19 @@
 			$conn->query("INSERT INTO Translation_chaves (user_id, chave) VALUES ($user_id, '$nova_chave_titulo')");
 		}
 	}
+	
+	if (isset($_POST['listar_usuarios_emails'])) {
+		$usuarios_emails_results = false;
+		if ($user_tipo == 'admin') {
+			$usuarios_emails = $conn->query("SELECT email FROM Usuarios");
+			if ($usuarios_emails->num_rows > 0) {
+				while ($usuario_email = $usuarios_emails->fetch_assoc()) {
+					$usuario_email_one = $usuario_email['email'];
+					$usuarios_emails_results .= "<li class='list-group-item'>$usuario_email_one</li>";
+				}
+			}
+		}
+		echo $usuarios_emails_results;
+	}
 
 ?>
