@@ -1463,10 +1463,10 @@
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
 		$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$pagina_item_id'><li class='list-group-item list-group-item-action list-group-item-primary'>$pagina_original_titulo</li></a>";
-		$parentes = $conn->query("SELECT id FROM Paginas WHERE tipo = 'secao' AND item_id = $pagina_item_id");
+		$parentes = $conn->query("SELECT secao_pagina_id FROM Secoes WHERE pagina_id = $pagina_item_id ORDER BY ordem, id");
 		if ($parentes->num_rows > 0) {
 			while ($parente = $parentes->fetch_assoc()) {
-				$parente_id = $parente['id'];
+				$parente_id = $parente['secao_pagina_id'];
 				$parente_highlight = false;
 				if ($parente_id == $pagina_id) {
 				    $parente_highlight = 'list-group-item-secondary';
