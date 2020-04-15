@@ -1340,7 +1340,7 @@
           </div>
         ";
 		
-		$secoes = $conn->query("SELECT secao_pagina_id, ordem FROM Secoes WHERE pagina_id = $pagina_id");
+		$secoes = $conn->query("SELECT secao_pagina_id, ordem FROM Secoes WHERE pagina_id = $pagina_id ORDER BY ordem, id");
 		if ($secoes->num_rows > 0) {
 			$template_modal_body_conteudo .= "
 		      <h3>{$pagina_translated['Seções registradas desta página']}:</h3>
