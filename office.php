@@ -108,7 +108,7 @@
 						$artefato_subtitulo = 'Seus cursos';
 						$fa_icone = 'fa-book-reader';
 						$fa_color = 'text-success';
-						$artefato_link = 'cursos.php';
+						$artefato_modal = '#modal_seus_cursos';
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
 						$artefato_id = 'typewriter';
@@ -122,6 +122,7 @@
 						$artefato_subtitulo = 'Páginas livres de seu interesse';
 						$fa_icone = 'fa-tags';
 						$fa_color = 'text-warning';
+						$artefato_modal = '#modal_areas_interesse';
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
 						$artefato_id = 'biblioteca_particular';
@@ -166,7 +167,6 @@
 						$fa_icone = 'fa-mug-tea';
 						$fa_color = 'text-secondary';
 						$template_conteudo .= include "templates/artefato_item.php";
-						
 						
 						include 'templates/page_element.php';
 					?>
@@ -265,6 +265,12 @@
 	$template_modal_show_buttons = false;
 	include 'templates/modal.php';
 	
+	$template_modal_div_id = 'modal_areas_interesse';
+	$template_modal_titulo = 'Páginas livres de seu interesse';
+	$template_modal_body_conteudo = false;
+	$template_modal_show_buttons = false;
+    include 'templates/modal.php';
+	
 	$template_modal_div_id = 'modal_paginas_textos';
 	$template_modal_titulo = $pagina_translated['Suas páginas e documentos de texto'];
 	$template_modal_show_buttons = false;
@@ -312,6 +318,16 @@
               if (data != 0) {
                   $('#body_modal_estudos_recentes').empty();
                   $('#body_modal_estudos_recentes').append(data);
+              }
+          });
+      });
+      $(document).on('click', '#artefato_suas_paginas_livres', function() {
+          $.post('engine.php', {
+              'list_areas_interesse': true
+          }, function(data) {
+              if (data != 0) {
+                  $('#body_modal_areas_interesse').empty();
+                  $('#body_modal_areas_interesse').append(data);
               }
           });
       });

@@ -109,6 +109,11 @@
 				</style>
 		    ";
 		}
+		if ($pagina_tipo == 'carrinho') {
+		    echo "
+		        <script src='https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js'></script>
+		    ";
+        }
 	?>
 </head>
 <?php

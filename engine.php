@@ -2930,7 +2930,7 @@
 				return array('fa-camera-alt', 'text-dark', 'rgba-black-strong');
 				break;
 			case 'youtube':
-				return array('fa-youtube-square', 'text-danger', 'rgba-red-strong');
+				return array('fa-youtube', 'text-danger', 'rgba-red-strong');
 				break;
 			case 'filme':
 				return array('fa-film', 'text-info', 'rgba-cyan-strong');
@@ -3144,6 +3144,20 @@
 		}
 	}
 	
+	if (isset($_POST['list_areas_interesse'])) {
+		$areas_interesse = $conn->query("SELECT extra FROM Paginas_elementos WHERE tipo = 'topico' AND pagina_id = $pagina_id AND estado = 1 ORDER BY id DESC");
+		$areas_interesse_result = false;
+		if ($areas_interesse->num_rows > 0) {
+			while ($area_interesse = $areas_interesse->fetch_assoc()) {
+				$area_interesse_etiqueta_id = $area_interesse['extra'];
+				$area_interesse_info = return_etiqueta_info($area_interesse_etiqueta_id);
+				$area_interesse_pagina_id = $area_interesse_info[4];
+				$areas_interesse_result .= return_list_item($area_interesse_pagina_id);
+			}
+		}
+		echo $areas_interesse_result;
+	}
+	
 	if (isset($_POST['list_estudos_recentes'])) {
 		$list_estudos_recentes = "<ul class='list-group list-group-flush'>";
 		$usuario_estudos_recentes = $conn->query("SELECT page_id, tipo_pagina, extra, extra2 FROM Visualizacoes WHERE user_id = $user_id ORDER BY id DESC");
@@ -3205,34 +3219,133 @@
 						$list_item_color = false;
 						$list_item_icon = 'fa-external-link';
 				}
-				$list_estudos_recentes .= "<a href='pagina.php?pagina_id=$usuario_estudo_recente_page_id' class='mt-1'><li class='list-group-item list-group-item-action $list_item_color'><i class='fad $list_item_icon fa-fw'></i> $usuario_estudo_recente_pagina_titulo</li></a>";
+				$list_estudos_recentes .= return_list_item($usuario_estudo_recente_page_id);
+				//$list_estudos_recentes .= "<a href='pagina.php?pagina_id=$usuario_estudo_recente_page_id' class='mt-1'><li class='list-group-item list-group-item-action $list_item_color'><i class='fad $list_item_icon fa-fw'></i> $usuario_estudo_recente_pagina_titulo</li></a>";
 			}
 		}
 		$list_estudos_recentes .= "</ul>";
 		echo $list_estudos_recentes;
 	}
 	
-	if (isset($_POST['list_user_pages'])) {
-		$user_pages = $conn->query("SELECT id FROM Paginas WHERE tipo = 'pagina' AND user_id = $user_id ORDER BY id DESC");
-		$list_user_pages = false;
-		if ($user_pages->num_rows > 0) {
-			while ($user_page = $user_pages->fetch_assoc()) {
-				$user_page_id = $user_page['id'];
-				$user_page_titulo = return_pagina_titulo($user_page_id);
-				$list_user_pages .= "<a href='pagina.php?pagina_id=$user_page_id'><li class='list-group-item list-group-item-action'><span class='text-info mr-2 align-middle'><i class='fad fa-columns fa-2x fa-fw'></i></span> $user_page_titulo</li></a>";
-			}
+	function return_list_item()
+	{
+		$args = func_get_args();
+		$pagina_id = $args[0];
+		if (isset($args[1])) {
+			$lista_tipo = $args[1];
+		} else {
+			$lista_tipo = false;
 		}
-		echo $list_user_pages;
+		if ($pagina_id == false) {
+			return false;
+		} else {
+			$pagina_info = return_pagina_info($pagina_id);
+			$pagina_tipo = $pagina_info[2];
+			$pagina_subtipo = $pagina_info[8];
+			$pagina_estado = $pagina_info[3];
+			$pagina_titulo = $pagina_info[6];
+			$pagina_item_id = $pagina_info[1];
+			$pagina_estado_icone = return_estado_icone($pagina_estado, false);
+		}
+		$pagina_icone = return_pagina_icone($pagina_tipo, $pagina_subtipo, $pagina_item_id);
+		$icone_principal = $pagina_icone[0];
+		$cor_icone_principal = $pagina_icone[1];
+		if ($pagina_tipo == 'texto') {
+			$lista_tipo = 'texto';
+		}
+		if ($lista_tipo == 'texto') {
+			$pagina_estado_icone = 'fad fa-file-alt fa-swap-opacity fa-fw';
+			if ($pagina_tipo == 'elemento') {
+				$pagina_estado_cor = 'text-success';
+			} elseif ($pagina_tipo == 'topico') {
+				$pagina_estado_cor = 'text-warning';
+			} else {
+				$pagina_estado_cor = 'text-primary';
+			}
+		} else {
+			$pagina_estado_cor = 'text-muted';
+		}
+		if ($icone_principal == 'fa-youtube') {
+			$icone_prefixo = 'fab';
+		} else {
+			$icone_prefixo = 'fad';
+		}
+		return "
+			<a href='pagina.php?pagina_id=$pagina_id' class='border-top'>
+				<li class='list-group-item list-group-item-action py-2 d-flex justify-content-between'>
+					<span>
+						<span class='$cor_icone_principal mr-2 align-middle'>
+							<i class='$icone_prefixo $icone_principal fa-fw fa-2x'></i>
+						</span>
+						$pagina_titulo
+					</span>
+					<span class='align-middle $pagina_estado_cor'>
+						<i class='$pagina_estado_icone'></i>
+					</span>
+				</li>
+			</a>";
+	}
+	
+	function return_pagina_icone($pagina_tipo, $pagina_subtipo, $pagina_item_id)
+	{
+		if ($pagina_tipo == false) {
+			return false;
+		}
+		switch ($pagina_tipo) {
+			case 'pagina':
+				switch ($pagina_subtipo) {
+					case 'escritorio':
+						return array('fa-lamp-desk', 'text-info');
+						break;
+					case 'etiqueta':
+						return array('fa-tag', 'text-warning');
+						break;
+					default:
+						return array('fa-columns', 'text-info');
+						break;
+				}
+			case 'secao':
+				return array('fa-bookmark', 'text-danger');
+				break;
+			case 'curso':
+				return array('fa-book-reader', 'text-default');
+				break;
+			case 'elemento':
+				$elemento_info = return_elemento_info($pagina_item_id);
+				$elemento_tipo = $elemento_info[3];
+				$elemento_subtipo = $elemento_info[18];
+				$elemento_subtipo_icone = return_icone_subtipo($elemento_tipo, $elemento_subtipo);
+				if ($elemento_subtipo_icone != false) {
+					return array($elemento_subtipo_icone[0], $elemento_subtipo_icone[1]);
+				} else {
+					return array('fa-circle-notch', 'text-success');
+				}
+				break;
+			case 'topico':
+				return array('fa-columns', 'text-warning');
+				break;
+			case 'sistema':
+				return array('fa-circle-notch', 'text-info');
+				break;
+			case 'texto':
+				return array('fa-file-alt fa-swap-opacity', 'text-primary');
+				break;
+			default:
+				return array('fa-circle-notch', 'text-light');
+				break;
+		}
 	}
 	
 	if (isset($_POST['list_user_texts'])) {
-		$user_texts = $conn->query("SELECT id, verbete_text, pagina_tipo FROM Textos WHERE tipo = 'anotacoes' AND user_id = $user_id ORDER BY id DESC");
+		$user_texts = $conn->query("SELECT id, verbete_text, pagina_id, pagina_tipo, pagina_subtipo FROM Textos WHERE tipo = 'anotacoes' AND user_id = $user_id ORDER BY id DESC");
 		$list_user_texts = false;
 		if ($user_texts->num_rows > 0) {
 			while ($user_text = $user_texts->fetch_assoc()) {
 				$user_text_id = $user_text['id'];
 				$user_text_verbete_text = $user_text['verbete_text'];
+				$user_text_pagina_id = $user_text['pagina_id'];
 				$user_text_pagina_tipo = $user_text['pagina_tipo'];
+				$user_text_pagina_subtipo = $user_text['pagina_subtipo'];
 				if (($user_text_verbete_text == false) || (is_null($user_text_verbete_text))) {
 					continue;
 				}
@@ -3247,10 +3360,26 @@
 				} else {
 					$icone_cor = 'text-primary';
 				}
-				$list_user_texts .= "<a href='pagina.php?texto_id=$user_text_id'><li class='list-group-item list-group-item-action'><span class='$icone_cor align-middle'><i class='fad fa-file-alt fa-swap-opacity fa-2x fa-fw'></i></span> $user_text_titulo</li></a>";
+				$list_user_texts .= return_list_item($user_text_pagina_id, 'texto');
+				//$list_user_texts .= "<a href='pagina.php?texto_id=$user_text_id'><li class='list-group-item list-group-item-action'><span class='$icone_cor align-middle'><i class='fad fa-file-alt fa-swap-opacity fa-2x fa-fw'></i></span> $user_text_titulo</li></a>";
 			}
 		}
 		echo $list_user_texts;
+	}
+	
+	if (isset($_POST['list_user_pages'])) {
+		$user_pages = $conn->query("SELECT id FROM Paginas WHERE tipo = 'pagina' AND user_id = $user_id ORDER BY id DESC");
+		$list_user_pages = false;
+		if ($user_pages->num_rows > 0) {
+			while ($user_page = $user_pages->fetch_assoc()) {
+				$user_page_id = $user_page['id'];
+				$user_page_titulo = return_pagina_titulo($user_page_id);
+				$list_user_pages .= return_list_item($user_page_id);
+				
+				//$list_user_pages .= "<a href='pagina.php?pagina_id=$user_page_id'><li class='list-group-item list-group-item-action'><span class='text-info mr-2 align-middle'><i class='fad fa-columns fa-2x fa-fw'></i></span> $user_page_titulo</li></a>";
+			}
+		}
+		echo $list_user_pages;
 	}
 	
 	function return_link_compartilhamento($pagina_id)

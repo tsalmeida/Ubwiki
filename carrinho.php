@@ -1,12 +1,16 @@
 <?php
+	
+	//Public key:TEST-ffcb8ddf-dd3d-42b5-aa04-aff72bfcc077
+    //Access token:TEST-5216550082263030-040313-0c3674cff483b90f9d02c7e51ac53825-509336387
+
 	include 'engine.php';
 	
 	$pagina_tipo = 'carrinho';
 	
+	
 	include 'templates/html_head.php';
 
 ?>
-
     <body class="grey lighten-5">
 		<?php
 			include 'templates/navbar.php';
@@ -61,14 +65,59 @@
                             </div>";
                           */
 						}
-						$template_conteudo .= "
-	                        <div class='row d-flex justify-content-center'>
-	                        	<p>Para comprar 250 créditos Ubwiki por R$200,00:</p>
-	                        </div>
-	                        <div class='row d-flex justify-content-center'>
-                                <div id='product-component-1586095949391'></div>
-							</div>
-	                    ";
+						$template_conteudo .= '
+<form action="/processar_pagamento" method="post" id="pay" name="pay" >
+    <fieldset>
+        <p>
+            <label for="description">Descrição</label>
+            <input type="text" name="description" id="description" value="Ítem selecionado"/>
+        </p>
+        <p>
+            <label for="transaction_amount">Valor a pagar</label>
+            <input name="transaction_amount" id="transaction_amount" value="100"/>
+        </p>
+        <p>
+            <label for="cardNumber">Número do cartão</label>
+            <input type="text" id="cardNumber" data-checkout="cardNumber" onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off />
+        </p>
+        <p>
+            <label for="cardholderName">Nome e sobrenome</label>
+            <input type="text" id="cardholderName" data-checkout="cardholderName" />
+        </p>
+        <p>
+            <label for="cardExpirationMonth">Mês de vencimento</label>
+            <input type="text" id="cardExpirationMonth" data-checkout="cardExpirationMonth" onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off />
+        </p>
+        <p>
+            <label for="cardExpirationYear">Ano de vencimento</label>
+            <input type="text" id="cardExpirationYear" data-checkout="cardExpirationYear" onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off />
+        </p>
+        <p>
+            <label for="securityCode">Código de segurança</label>
+            <input type="text" id="securityCode" data-checkout="securityCode" onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off />
+        </p>
+        <p>
+            <label for="installments">Parcelas</label>
+            <select id="installments" class="form-control" name="installments"></select>
+        </p>
+        <p>
+            <label for="docType">Tipo de documento</label>
+            <select id="docType" data-checkout="docType"></select>
+        </p>
+        <p>
+            <label for="docNumber">Número do documento</label>
+            <input type="text" id="docNumber" data-checkout="docNumber"/>
+        </p>
+        <p>
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" value="test@test.com"/>
+        </p>
+        <input type="hidden" name="payment_method_id" id="payment_method_id"/>
+        <input type="submit" value="Pagar"/>
+    </fieldset>
+</form>
+
+	                    ';
 						$hide_and_show_wallet_form = true;
 						
 						include 'templates/page_element.php';
@@ -106,199 +155,6 @@
         </div>
     </div>
     </body>
-	
-	<script type="text/javascript">
-      /*<![CDATA[*/
-      (function () {
-          var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
-          if (window.ShopifyBuy) {
-              if (window.ShopifyBuy.UI) {
-                  ShopifyBuyInit();
-              } else {
-                  loadScript();
-              }
-          } else {
-              loadScript();
-          }
-          function loadScript() {
-              var script = document.createElement('script');
-              script.async = true;
-              script.src = scriptURL;
-              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
-              script.onload = ShopifyBuyInit;
-          }
-          function ShopifyBuyInit() {
-              var client = ShopifyBuy.buildClient({
-                  domain: 'grupo-ubique.myshopify.com',
-                  storefrontAccessToken: '184e4b8b490f4fc2516ec8bac628e0e3',
-              });
-              ShopifyBuy.UI.onReady(client).then(function (ui) {
-                  ui.createComponent('product', {
-                      id: '4618505650262',
-                      node: document.getElementById('product-component-1586095949391'),
-                      moneyFormat: 'R%24%20%7B%7Bamount_with_comma_separator%7D%7D',
-                      options: {
-                          "product": {
-                              "styles": {
-                                  "product": {
-                                      "@media (min-width: 601px)": {
-                                          "max-width": "calc(25% - 20px)",
-                                          "margin-left": "20px",
-                                          "margin-bottom": "50px"
-                                      }
-                                  },
-                                  "button": {
-                                      "font-family": "Roboto, sans-serif",
-                                      "font-size": "18px",
-                                      "padding-top": "17px",
-                                      "padding-bottom": "17px",
-                                      ":hover": {
-                                          "background-color": "#589361"
-                                      },
-                                      "background-color": "#62a36c",
-                                      ":focus": {
-                                          "background-color": "#589361"
-                                      },
-                                      "padding-left": "80px",
-                                      "padding-right": "80px"
-                                  },
-                                  "quantityInput": {
-                                      "font-size": "18px",
-                                      "padding-top": "17px",
-                                      "padding-bottom": "17px"
-                                  },
-                                  "price": {
-                                      "font-family": "Lato, sans-serif"
-                                  },
-                                  "compareAt": {
-                                      "font-family": "Lato, sans-serif"
-                                  },
-                                  "unitPrice": {
-                                      "font-family": "Lato, sans-serif"
-                                  },
-                                  "description": {
-                                      "font-family": "Open Sans, sans-serif",
-                                      "font-size": "15px"
-                                  }
-                              },
-                              "buttonDestination": "checkout",
-                              "contents": {
-                                  "img": false,
-                                  "title": false,
-                                  "price": false
-                              },
-                              "text": {
-                                  "button": "Buy now"
-                              },
-                              "googleFonts": [
-                                  "Lato",
-                                  "Open Sans",
-                                  "Roboto"
-                              ]
-                          },
-                          "productSet": {
-                              "styles": {
-                                  "products": {
-                                      "@media (min-width: 601px)": {
-                                          "margin-left": "-20px"
-                                      }
-                                  }
-                              }
-                          },
-                          "modalProduct": {
-                              "contents": {
-                                  "img": false,
-                                  "imgWithCarousel": true,
-                                  "button": false,
-                                  "buttonWithQuantity": true
-                              },
-                              "styles": {
-                                  "product": {
-                                      "@media (min-width: 601px)": {
-                                          "max-width": "100%",
-                                          "margin-left": "0px",
-                                          "margin-bottom": "0px"
-                                      }
-                                  },
-                                  "button": {
-                                      "font-family": "Roboto, sans-serif",
-                                      "font-size": "18px",
-                                      "padding-top": "17px",
-                                      "padding-bottom": "17px",
-                                      ":hover": {
-                                          "background-color": "#589361"
-                                      },
-                                      "background-color": "#62a36c",
-                                      ":focus": {
-                                          "background-color": "#589361"
-                                      },
-                                      "padding-left": "80px",
-                                      "padding-right": "80px"
-                                  },
-                                  "quantityInput": {
-                                      "font-size": "18px",
-                                      "padding-top": "17px",
-                                      "padding-bottom": "17px"
-                                  }
-                              },
-                              "googleFonts": [
-                                  "Roboto"
-                              ],
-                              "text": {
-                                  "button": "Add to cart"
-                              }
-                          },
-                          "cart": {
-                              "styles": {
-                                  "button": {
-                                      "font-family": "Roboto, sans-serif",
-                                      "font-size": "18px",
-                                      "padding-top": "17px",
-                                      "padding-bottom": "17px",
-                                      ":hover": {
-                                          "background-color": "#589361"
-                                      },
-                                      "background-color": "#62a36c",
-                                      ":focus": {
-                                          "background-color": "#589361"
-                                      }
-                                  }
-                              },
-                              "text": {
-                                  "total": "Subtotal",
-                                  "button": "Checkout"
-                              },
-                              "googleFonts": [
-                                  "Roboto"
-                              ]
-                          },
-                          "toggle": {
-                              "styles": {
-                                  "toggle": {
-                                      "font-family": "Roboto, sans-serif",
-                                      "background-color": "#62a36c",
-                                      ":hover": {
-                                          "background-color": "#589361"
-                                      },
-                                      ":focus": {
-                                          "background-color": "#589361"
-                                      }
-                                  },
-                                  "count": {
-                                      "font-size": "18px"
-                                  }
-                              },
-                              "googleFonts": [
-                                  "Roboto"
-                              ]
-                          }
-                      },
-                  });
-              });
-          }
-      })();
-      /*]]>*/
-	</script>
 	
 <?php
 	
