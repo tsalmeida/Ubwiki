@@ -1,7 +1,7 @@
 <?php
 	
-	//Public key:TEST-ffcb8ddf-dd3d-42b5-aa04-aff72bfcc077
-    //Access token:TEST-5216550082263030-040313-0c3674cff483b90f9d02c7e51ac53825-509336387
+	//Public key (chave pública):TEST-ffcb8ddf-dd3d-42b5-aa04-aff72bfcc077
+    //Access token (chave privada):TEST-5216550082263030-040313-0c3674cff483b90f9d02c7e51ac53825-509336387
 
 	include 'engine.php';
 	
@@ -9,6 +9,28 @@
 	
 	
 	include 'templates/html_head.php';
+	
+	//MERCADO PAGO
+	
+	require_once 'vendor/autoload.php';
+	
+	MercadoPago\SDK::setAccessToken("ENV_ACCESS_TOKEN");
+	
+	$payment = new MercadoPago\Payment();
+	$payment->transaction_amount = 196;
+	$payment->token = "ff8080814c11e237014c1ff593b57b4d";
+	$payment->description = "Intelligent Steel Chair";
+	$payment->installments = 1;
+	$payment->payment_method_id = "visa";
+	$payment->payer = array(
+		"email" => "cordie@gmail.com"
+	);
+	
+	$payment->save();
+	
+	
+	echo $payment->status;
+
 
 ?>
     <body class="grey lighten-5">

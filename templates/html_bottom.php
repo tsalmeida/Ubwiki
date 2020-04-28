@@ -1223,7 +1223,7 @@
 	if ($pagina_tipo == 'carrinho') {
 		echo "
 		        <script type='text/javascript'>
-		            window.Mercadopago.setPublishableKey('ENV_PUBLIC_KEY');
+		            window.Mercadopago.setPublishableKey('TEST-ffcb8ddf-dd3d-42b5-aa04-aff72bfcc077');
                 window.Mercadopago.getIdentificationTypes();
                 
                 document.getElementById('cardNumber').addEventListener('keyup', guessPaymentMethod);
