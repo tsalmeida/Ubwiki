@@ -1219,7 +1219,7 @@
 			</script>
 		";
 	}
-
+	
 	if ($pagina_tipo == 'carrinho') {
 		echo "
 		        <script type='text/javascript'>
@@ -1299,6 +1299,24 @@
                         form.submit();
                     }
                 };
+                
+                MercadoPago.SDK.setAccessToken('TEST-ffcb8ddf-dd3d-42b5-aa04-aff72bfcc077');
+
+								Payment payment = new Payment();
+								payment.setTransactionAmount(196f)
+								       .setToken('TEST-ffcb8ddf-dd3d-42b5-aa04-aff72bfcc077')
+								       .setDescription('Intelligent Steel Chair')
+								       .setInstallments(1)
+								       .setPaymentMethodId('visa')
+								       .setPayer(new Payer()
+								         .setEmail('test@test.com'));
+								
+								payment.save();
+								
+								
+								System.out.println(payment.getStatus());
+								
+
 
               </script>
 		";
