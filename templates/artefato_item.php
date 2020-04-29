@@ -56,7 +56,7 @@
 	if (!isset($fa_icone)) {
 		$fa_icone = 'fa-circle-notch';
 	}
-	if ($fa_icone == 'fa-youtube-square') {
+	if ($fa_icone == 'fa-youtube') {
 		$fa_type = 'fab';
 	}
 	if (!isset($artefato_subtitulo)) {
