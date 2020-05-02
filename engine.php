@@ -3177,6 +3177,50 @@
 		echo $list_biblioteca_particular;
 	}
 	
+	if (isset($_POST['list_grupos_estudo'])) {
+		$grupos_estudo_usuario = $conn->query("SELECT DISTINCT grupo_id FROM Membros WHERE membro_user_id = $user_id AND estado = 1");
+		$list_grupos_estudo = false;
+		if ($grupos_estudo_usuario->num_rows > 0) {
+			$list_grupos_estudo .= "<ul class='list-group list-group-flush'>";
+			while ($grupo_estudo_usuario = $grupos_estudo_usuario->fetch_assoc()) {
+				$grupo_estudo_id = $grupo_estudo_usuario['grupo_id'];
+				$grupo_estudo_pagina_id = return_pagina_id($grupo_estudo_id, 'grupo');
+				$list_grupos_estudo .= return_list_item($grupo_estudo_pagina_id);
+			}
+		}
+		$list_grupos_estudo .= '</ul>';
+		echo $list_grupos_estudo;
+	}
+	
+	if (isset($_POST['list_bookmarks'])) {
+		$usuario_bookmarks = $conn->query("SELECT DISTINCT pagina_id FROM Bookmarks WHERE user_id = $user_id AND active = 1");
+		$list_bookmarks = false;
+		if ($usuario_bookmarks->num_rows > 0) {
+			$list_bookmarks .= "<ul class='list-group list-group-flush'>";
+			while ($usuario_bookmark = $usuario_bookmarks->fetch_assoc()) {
+				$usuario_bookmark_pagina_id = $usuario_bookmark['pagina_id'];
+				$list_bookmarks .= return_list_item($usuario_bookmark_pagina_id);
+			}
+		}
+		$list_bookmarks .= '</ul>';
+		echo $list_bookmarks;
+	}
+	
+	if (isset($_POST['list_cursos'])) {
+		$usuario_cursos = $conn->query("SELECT DISTINCT opcao FROM Opcoes WHERE user_id = $user_id AND opcao_tipo = 'curso'");
+		$list_cursos = false;
+		if ($usuario_cursos->num_rows > 0) {
+			$list_cursos .= '<ul class="list-group list-group-flush">';
+			while ($usuario_curso = $usuario_cursos->fetch_assoc()) {
+				$usuario_curso_id = $usuario_curso['opcao'];
+				$usuario_curso_pagina_id = return_pagina_id($usuario_curso_id, 'curso');
+				$list_cursos .= return_list_item($usuario_curso_pagina_id);
+			}
+		}
+		$list_cursos .= '</ul>';
+		echo $list_cursos;
+	}
+	
 	if (isset($_POST['list_estudos_recentes'])) {
 		$list_estudos_recentes = "<ul class='list-group list-group-flush'>";
 		$usuario_estudos_recentes = $conn->query("SELECT page_id, tipo_pagina, extra, extra2 FROM Visualizacoes WHERE user_id = $user_id ORDER BY id DESC");
@@ -3273,16 +3317,26 @@
 			$lista_tipo = 'texto';
 		}
 		if ($lista_tipo == 'texto') {
-			$pagina_estado_icone = 'fad fa-file-alt fa-swap-opacity fa-fw';
-			if ($pagina_tipo == 'elemento') {
-				$pagina_estado_cor = 'text-success';
-			} elseif ($pagina_tipo == 'topico') {
-				$pagina_estado_cor = 'text-warning';
+			$pagina_estado_cor = $cor_icone_principal;
+			if ($icone_principal == 'fa-youtube') {
+				$pagina_estado_icone = "fab $icone_principal";
 			} else {
-				$pagina_estado_cor = 'text-primary';
+				$pagina_estado_icone = "fad $icone_principal";
+			}
+			$icone_principal = 'fad fa-file-alt fa-swap-opacity fa-fw';
+			if ($pagina_tipo == 'elemento') {
+				//$pagina_estado_cor = 'text-success';
+				$cor_icone_principal = 'text-success';
+			} elseif ($pagina_tipo == 'topico') {
+				//$pagina_estado_cor = 'text-warning';
+				$cor_icone_principal = 'text-warning';
+			} else {
+				//$pagina_estado_cor = 'text-primary';
+				$cor_icone_principal = 'text-primary';
 			}
 		} else {
 			$pagina_estado_cor = 'text-muted';
+			//$cor_icone_principal = 'text-muted';
 		}
 		if ($icone_principal == 'fa-youtube') {
 			$icone_prefixo = 'fab';
@@ -3298,8 +3352,8 @@
 						</span>
 						$pagina_titulo
 					</span>
-					<span class='align-middle $pagina_estado_cor'>
-						<i class='$pagina_estado_icone'></i>
+					<span class='align-middle ml-2 $pagina_estado_cor'>
+						<i class='$pagina_estado_icone fa-fw'></i>
 					</span>
 				</li>
 			</a>";
@@ -3348,6 +3402,15 @@
 				break;
 			case 'texto':
 				return array('fa-file-alt fa-swap-opacity', 'text-primary');
+				break;
+			case 'grupo':
+				return array('fa-users', 'text-default');
+				break;
+			case 'materia':
+				return array('fa-columns', 'text-warning');
+				break;
+			case 'resposta':
+				return array('fa-reply', 'text-default');
 				break;
 			default:
 				return array('fa-circle-notch', 'text-light');
@@ -3472,23 +3535,5 @@
 		echo $usuarios_emails_results;
 	}
 	
-	function return_user_info($find_usuario_id) {
-		if ($find_usuario_id == false) {
-			return false;
-		}
-		include 'templates/criar_conn.php';
-		$usuarios = $conn->query("SELECT * FROM Usuarios2 WHERE id = $find_usuario_id");
-		//error_log("SELECT * FROM Usuarios2 WHERE id = $find_usuario_id");
-		if ($usuarios->num_rows > 0) {
-			while ($usuario = $usuarios->fetch_assoc()) {
-				$usuario_origem = $usuario['origem'];
-				$usuario_senha = $usuario['senha'];
-				//error_log("$usuario_origem $usuario_senha");
-				return array($usuario_origem, $usuario_senha);
-			}
-		} else {
-			return false;
-		}
-	}
 
 ?>

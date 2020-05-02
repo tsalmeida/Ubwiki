@@ -94,21 +94,21 @@
 						$fa_color = $usuario_avatar[1];
 						$artefato_modal = '#modal_opcoes';
 						$artefato_badge = 'fa-cog fa-swap-opacity';
-						$artefato_subtitulo = 'Suas configurações';
+						$artefato_subtitulo = $pagina_translated['user settings'];
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
 						$artefato_id = 'estudos_recentes';
-						$artefato_subtitulo = 'Estudos recentes';
+						$artefato_subtitulo = $pagina_translated['recent_visits'];
 						$artefato_modal = '#modal_estudos_recentes';
 						$fa_icone = 'fa-history fa-swap-opacity';
 						$fa_color = 'text-info';
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
 						$artefato_id = 'cursos';
-						$artefato_subtitulo = 'Seus cursos';
+						$artefato_subtitulo = $pagina_translated['Seus cursos'];
 						$fa_icone = 'fa-book-reader';
 						$fa_color = 'text-success';
-						$artefato_modal = '#modal_seus_cursos';
+						$artefato_modal = '#modal_cursos';
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
 						$artefato_id = 'typewriter';
@@ -119,51 +119,51 @@
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
 						$artefato_id = 'suas_paginas_livres';
-						$artefato_subtitulo = 'Páginas livres de seu interesse';
+						$artefato_subtitulo = $pagina_translated['your areas of interest'];
 						$fa_icone = 'fa-tags';
 						$fa_color = 'text-warning';
 						$artefato_modal = '#modal_areas_interesse';
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
 						$artefato_id = 'biblioteca_particular';
-						$artefato_subtitulo = 'Sua biblioteca particular';
+						$artefato_subtitulo = $pagina_translated['your collection'];
 						$fa_icone = 'fa-books';
 						$fa_color = 'text-success';
 						$artefato_modal = '#modal_biblioteca_particular';
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
-						$artefato_id = 'seus_grupos_estudo';
-						$artefato_subtitulo = 'Seus grupos de estudo';
+						$artefato_id = 'grupos_estudo';
+						$artefato_subtitulo = $pagina_translated['your study groups'];
 						$fa_icone = 'fa-users';
 						$fa_color = 'text-default';
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
 						$artefato_id = 'suas_notificacoes';
-						$artefato_subtitulo = 'Suas notificações';
+						$artefato_subtitulo = $pagina_translated['notifications'];
 						$fa_icone = 'fa-bell fa-swap-opacity';
 						$fa_color = 'text-info';
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
 						$artefato_id = 'seu_forum';
-						$artefato_subtitulo = 'Suas participações em fórum';
+						$artefato_subtitulo = $pagina_translated['Suas participações no fórum'];
 						$fa_icone = 'fa-comments-alt';
 						$fa_color = 'text-secondary';
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
-						$artefato_id = 'seus_bookmarks';
-						$artefato_subtitulo = 'Sua lista de leitura';
+						$artefato_id = 'bookmarks';
+						$artefato_subtitulo = $pagina_translated['bookmarks'];
 						$fa_icone = 'fa-bookmark';
 						$fa_color = 'text-danger';
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
 						$artefato_id = 'seu_artigos';
-						$artefato_subtitulo = 'Artigos que você ajudou a escrever';
+						$artefato_subtitulo = $pagina_translated['Verbetes em que contribuiu'];
 						$fa_icone = 'fa-spa';
 						$fa_color = 'text-warning';
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
 						$artefato_id = 'sala_visitas';
-						$artefato_subtitulo = 'Sua sala de visitas';
+						$artefato_subtitulo = $pagina_translated['your office lounge'];
 						$artefato_badge = 'fa-external-link';
 						$fa_icone = 'fa-mug-tea';
 						$fa_color = 'text-secondary';
@@ -272,6 +272,24 @@
 	$template_modal_show_buttons = false;
 	include 'templates/modal.php';
 	
+	$template_modal_div_id = 'modal_grupos_estudo';
+	$template_modal_titulo = $pagina_translated['your study groups'];
+	$template_modal_body_conteudo = false;
+	$template_modal_show_buttons = false;
+	include 'templates/modal.php';
+	
+	$template_modal_div_id = 'modal_bookmarks';
+	$template_modal_titulo = $pagina_translated['bookmarks'];
+	$template_modal_body_conteudo = false;
+	$template_modal_show_buttons = false;
+	include 'templates/modal.php';
+	
+	$template_modal_div_id = 'modal_cursos';
+	$template_modal_titulo = $pagina_translated['Seus cursos'];
+	$template_modal_body_conteudo = false;
+	$template_modal_show_buttons = false;
+	include 'templates/modal.php';
+	
 	$template_modal_div_id = 'modal_areas_interesse';
 	$template_modal_titulo = 'Páginas livres de seu interesse';
 	$template_modal_body_conteudo = false;
@@ -348,6 +366,36 @@
               }
           });
       });
+      $(document).on('click', '#artefato_grupos_estudo', function() {
+          $.post('engine.php', {
+              'list_grupos_estudo': true
+          }, function (data) {
+              if (data != 0) {
+                  $('#body_modal_grupos_estudo').empty();
+                  $('#body_modal_grupos_estudo').append(data);
+              }
+          })
+      })
+      $(document).on('click', '#artefato_bookmarks', function() {
+          $.post('engine.php', {
+              'list_bookmarks': true
+          }, function (data) {
+              if (data != 0) {
+                  $('#body_modal_bookmarks').empty();
+                  $('#body_modal_bookmarks').append(data);
+              }
+          })
+      })
+      $(document).on('click', '#artefato_cursos', function() {
+          $.post('engine.php', {
+              'list_cursos': true
+          }, function (data) {
+              if (data != 0) {
+                  $('#body_modal_cursos').empty();
+                  $('#body_modal_cursos').append(data);
+              }
+          })
+      })
       $(document).on('click', '#artefato_typewriter', function() {
           $.post('engine.php', {
               'list_user_pages': true

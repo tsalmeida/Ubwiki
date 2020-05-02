@@ -9,29 +9,6 @@
 	}
 	
 	if (isset($_POST['trigger_atualizacao'])) {
-		$usuarios_errados = $conn->query("SELECT id, email, pagina_id FROM Usuarios WHERE origem = 'NxXegQpBs4Td'");
-		if ($usuarios_errados->num_rows > 0) {
-			$usuarios_contados = array();
-			while ($usuario_errado = $usuarios_errados->fetch_assoc()) {
-				$usuario_errado_id = $usuario_errado['id'];
-				$usuario_errado_email = $usuario_errado['email'];
-				$usuario_errado_pagina_id = $usuario_errado['pagina_id'];
-				if (in_array($usuario_errado_email, $usuarios_contados)) {
-				    $conn->query("DELETE FROM Usuarios WHERE id = $usuario_errado_id");
-					//error_log("repetido: $usuario_errado_id // $usuario_errado_email // $usuario_errado_pagina_id");
-				    continue;
-				} else {
-					array_push($usuarios_contados, $usuario_errado_email);
-				}
-				$usuario_certo_dados = return_user_info($usuario_errado_id);
-				if ($usuario_certo_dados != false) {
-					$usuario_certo_origem = $usuario_certo_dados[0];
-					$usuario_certo_senha = $usuario_certo_dados[1];
-					//error_log("corrigir: $usuario_errado_id // $usuario_errado_email");
-					$conn->query("UPDATE Usuarios SET origem = '$usuario_certo_origem', senha = '$usuario_certo_senha' WHERE id = $usuario_errado_id");
-				}
-			}
-		}
 	}
 	
 	if (isset($_POST['trigger_atualizar_textos_size'])) {
