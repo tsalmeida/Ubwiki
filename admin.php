@@ -28,7 +28,7 @@
 					$usuario_certo_origem = $usuario_certo_dados[0];
 					$usuario_certo_senha = $usuario_certo_dados[1];
 					//error_log("corrigir: $usuario_errado_id // $usuario_errado_email");
-					//$conn->query("UPDATE Usuarios SET origem = '$usuario_certo_origem', senha = '$usuario_certo_senha' WHERE id = $usuario_errado_id");
+					$conn->query("UPDATE Usuarios SET origem = '$usuario_certo_origem', senha = '$usuario_certo_senha' WHERE id = $usuario_errado_id");
 				}
 			}
 		}
