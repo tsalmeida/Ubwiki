@@ -9,22 +9,29 @@
 	}
 	
 	if (isset($_POST['trigger_atualizacao'])) {
-		$conn->query("CREATE TABLE `Ubwiki`.`Transactions` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `user_id` INT(11) NOT NULL , `direction` VARCHAR(255) NULL DEFAULT NULL , `value` INT(11) NOT NULL , `prevstate` INT(11) NOT NULL , `endstate` INT(11) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
-		$conn->query("CREATE TABLE `Ubwiki`.`Orders` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `tipo` VARCHAR(255) NULL DEFAULT NULL , `user_id` INT(11) NULL DEFAULT NULL , `pagina_id` INT(11) NULL DEFAULT NULL , `criacao` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
-		$conn->query("ALTER TABLE `Transactions` ADD `criacao` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `endstate`;");
-		$conn->query("ALTER TABLE `Orders` ADD `estado` BOOLEAN NOT NULL DEFAULT TRUE AFTER `id`;");
-		adicionar_chave_traducao('Place order', 1);
-		adicionar_chave_traducao('Reload page to refresh', 1);
-		adicionar_chave_traducao('Your credits:', 1);
-		adicionar_chave_traducao('Revision price:', 1);
-		adicionar_chave_traducao('Word count:', 1);
-		adicionar_chave_traducao('Credits in your wallet:', 1);
-		adicionar_chave_traducao('Make deposit', 1);
-		adicionar_chave_traducao('Deposit value', 1);
-		adicionar_chave_traducao('Add credits to your wallet', 1);
-		adicionar_chave_traducao('Your wallet is empty.', 1);
-		adicionar_chave_traducao('Your wallet', 1);
-		adicionar_chave_traducao('revision_paragraph', 1);
+		$usuarios_errados = $conn->query("SELECT id, email, pagina_id FROM Usuarios WHERE origem = 'NxXegQpBs4Td'");
+		if ($usuarios_errados->num_rows > 0) {
+			$usuarios_contados = array();
+			while ($usuario_errado = $usuarios_errados->fetch_assoc()) {
+				$usuario_errado_id = $usuario_errado['id'];
+				$usuario_errado_email = $usuario_errado['email'];
+				$usuario_errado_pagina_id = $usuario_errado['pagina_id'];
+				if (in_array($usuario_errado_email, $usuarios_contados)) {
+				    $conn->query("DELETE FROM Usuarios WHERE id = $usuario_errado_id");
+					//error_log("repetido: $usuario_errado_id // $usuario_errado_email // $usuario_errado_pagina_id");
+				    continue;
+				} else {
+					array_push($usuarios_contados, $usuario_errado_email);
+				}
+				$usuario_certo_dados = return_user_info($usuario_errado_id);
+				if ($usuario_certo_dados != false) {
+					$usuario_certo_origem = $usuario_certo_dados[0];
+					$usuario_certo_senha = $usuario_certo_dados[1];
+					//error_log("corrigir: $usuario_errado_id // $usuario_errado_email");
+					//$conn->query("UPDATE Usuarios SET origem = '$usuario_certo_origem', senha = '$usuario_certo_senha' WHERE id = $usuario_errado_id");
+				}
+			}
+		}
 	}
 	
 	if (isset($_POST['trigger_atualizar_textos_size'])) {
@@ -203,11 +210,11 @@
 </div>
 </body>
 <script type="text/javascript">
-    $(document).on('click', '#trigger_emails_usuarios', function() {
+    $(document).on('click', '#trigger_emails_usuarios', function () {
         $(this).hide();
         $.post('engine.php', {
             'listar_usuarios_emails': true,
-        }, function(data) {
+        }, function (data) {
             if (data != 0) {
                 $('#lista_usuarios_emails').append(data);
             }

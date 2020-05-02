@@ -2128,7 +2128,7 @@
 		} else {
 			$conn->query("INSERT INTO Paginas (item_id, tipo, subtipo, compartilhamento, user_id) VALUES ($usuario_id, 'pagina', 'escritorio', 'escritorio', $usuario_id)");
 			$usuario_escritorio_id = $conn->insert_id;
-			$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($usuario_escritorio_id, 'pagina', 'titulo', 'Sala de Visitas', $usuario_escritorio_id)");
+			$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($usuario_escritorio_id, 'pagina', 'titulo', 'Sala de Visitas', $usuario_id)");
 			$conn->query("UPDATE Usuarios SET escritorio_id = $usuario_escritorio_id WHERE id = $usuario_id");
 			return $usuario_escritorio_id;
 		}
@@ -3145,8 +3145,10 @@
 	}
 	
 	if (isset($_POST['list_areas_interesse'])) {
-		$areas_interesse = $conn->query("SELECT extra FROM Paginas_elementos WHERE tipo = 'topico' AND pagina_id = $pagina_id AND estado = 1 ORDER BY id DESC");
+		$user_escritorio_pagina_id = return_pagina_id($user_id, 'escritorio');
 		$areas_interesse_result = false;
+		$areas_interesse_result = "<ul class='list-group list-group-flush'>";
+		$areas_interesse = $conn->query("SELECT extra FROM Paginas_elementos WHERE pagina_id = $user_escritorio_pagina_id AND tipo = 'topico' AND estado = 1 ORDER BY id DESC");
 		if ($areas_interesse->num_rows > 0) {
 			while ($area_interesse = $areas_interesse->fetch_assoc()) {
 				$area_interesse_etiqueta_id = $area_interesse['extra'];
@@ -3155,7 +3157,24 @@
 				$areas_interesse_result .= return_list_item($area_interesse_pagina_id);
 			}
 		}
+		$areas_interesse_result .= '</ul>';
 		echo $areas_interesse_result;
+	}
+	
+	if (isset($_POST['list_biblioteca_particular'])) {
+		$user_escritorio_pagina_id = return_pagina_id($user_id, 'escritorio');
+		$list_biblioteca_particular = false;
+		$list_biblioteca_particular .= "<ul class='list-group list-group-flush'>";
+		$biblioteca_particular = $conn->query("SELECT DISTINCT elemento_id FROM Paginas_elementos WHERE pagina_id = $user_escritorio_pagina_id AND estado = 1 AND elemento_id IS NOT NULL ORDER BY id DESC");
+		if ($biblioteca_particular->num_rows > 0) {
+			while ($item_biblioteca = $biblioteca_particular->fetch_assoc()) {
+				$item_biblioteca_elemento_id = $item_biblioteca['elemento_id'];
+				$item_biblioteca_pagina_id = return_pagina_id($item_biblioteca_elemento_id, 'elemento');
+				$list_biblioteca_particular .= return_list_item($item_biblioteca_pagina_id);
+			}
+		}
+		$list_biblioteca_particular .= '</ul>';
+		echo $list_biblioteca_particular;
 	}
 	
 	if (isset($_POST['list_estudos_recentes'])) {
@@ -3451,6 +3470,25 @@
 			}
 		}
 		echo $usuarios_emails_results;
+	}
+	
+	function return_user_info($find_usuario_id) {
+		if ($find_usuario_id == false) {
+			return false;
+		}
+		include 'templates/criar_conn.php';
+		$usuarios = $conn->query("SELECT * FROM Usuarios2 WHERE id = $find_usuario_id");
+		//error_log("SELECT * FROM Usuarios2 WHERE id = $find_usuario_id");
+		if ($usuarios->num_rows > 0) {
+			while ($usuario = $usuarios->fetch_assoc()) {
+				$usuario_origem = $usuario['origem'];
+				$usuario_senha = $usuario['senha'];
+				//error_log("$usuario_origem $usuario_senha");
+				return array($usuario_origem, $usuario_senha);
+			}
+		} else {
+			return false;
+		}
 	}
 
 ?>

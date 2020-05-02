@@ -129,6 +129,7 @@
 						$artefato_subtitulo = 'Sua biblioteca particular';
 						$fa_icone = 'fa-books';
 						$fa_color = 'text-success';
+						$artefato_modal = '#modal_biblioteca_particular';
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
 						$artefato_id = 'seus_grupos_estudo';
@@ -265,6 +266,12 @@
 	$template_modal_show_buttons = false;
 	include 'templates/modal.php';
 	
+	$template_modal_div_id = 'modal_biblioteca_particular';
+	$template_modal_titulo = $pagina_translated['your collection'];
+	$template_modal_body_conteudo = false;
+	$template_modal_show_buttons = false;
+	include 'templates/modal.php';
+	
 	$template_modal_div_id = 'modal_areas_interesse';
 	$template_modal_titulo = 'Páginas livres de seu interesse';
 	$template_modal_body_conteudo = false;
@@ -328,6 +335,16 @@
               if (data != 0) {
                   $('#body_modal_areas_interesse').empty();
                   $('#body_modal_areas_interesse').append(data);
+              }
+          });
+      });
+      $(document).on('click', '#artefato_biblioteca_particular', function() {
+          $.post('engine.php', {
+              'list_biblioteca_particular': true
+          }, function(data) {
+              if (data != 0) {
+                  $('#body_modal_biblioteca_particular').empty();
+                  $('#body_modal_biblioteca_particular').append(data);
               }
           });
       });
