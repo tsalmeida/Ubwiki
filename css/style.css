@@ -39,11 +39,11 @@
   p, li, blockquote {
     font-family: $fontstack-body-serif !important;
   }
-  */
-}
-.ql-editor a {
-  font-family: Monaco, Consolas, “Lucida Console”, monospace !important;
-  font-size: 1rem;
+
+  a {
+    font-family: $fontstack-mono !important;
+    font-size: 1rem;
+  }*/
 }
 
 html, body, p, li, select, .md-form, textarea, input {

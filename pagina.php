@@ -605,7 +605,7 @@
 	                            ";
 						}
 						if ($user_tipo == 'admin') {
-							if ($pagina_subtipo != 'produto') {
+							if ((($pagina_subtipo != 'produto') && ($pagina_tipo != 'escritorio')) || ($pagina_tipo == 'escritorio') && ($pagina_use_id = $user_id)) {
 								$existe_produto = false;
 								if ($existe_produto == true) {
 									$produto_color = 'text-danger';

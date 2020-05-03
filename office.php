@@ -3,6 +3,7 @@
 	$pagina_tipo = 'escritorio';
 	include 'engine.php';
 	$pagina_id = return_pagina_id($user_id, $pagina_tipo);
+	$lounge_id = return_escritorio_id($user_id);
 	
 	if (!isset($user_email)) {
 		header('Locatino:ubwiki.php');
@@ -138,13 +139,13 @@
 						$fa_color = 'text-default';
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
-						$artefato_id = 'suas_notificacoes';
+						$artefato_id = 'notificacoes';
 						$artefato_subtitulo = $pagina_translated['notifications'];
 						$fa_icone = 'fa-bell fa-swap-opacity';
 						$fa_color = 'text-info';
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
-						$artefato_id = 'seu_forum';
+						$artefato_id = 'comments';
 						$artefato_subtitulo = $pagina_translated['Suas participações no fórum'];
 						$fa_icone = 'fa-comments-alt';
 						$fa_color = 'text-secondary';
@@ -156,7 +157,7 @@
 						$fa_color = 'text-danger';
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
-						$artefato_id = 'seu_artigos';
+						$artefato_id = 'contribuicoes';
 						$artefato_subtitulo = $pagina_translated['Verbetes em que contribuiu'];
 						$fa_icone = 'fa-spa';
 						$fa_color = 'text-warning';
@@ -164,6 +165,7 @@
 						
 						$artefato_id = 'sala_visitas';
 						$artefato_subtitulo = $pagina_translated['your office lounge'];
+						$artefato_link = "pagina.php?pagina_id=$lounge_id";
 						$artefato_badge = 'fa-external-link';
 						$fa_icone = 'fa-mug-tea';
 						$fa_color = 'text-secondary';
@@ -278,6 +280,12 @@
 	$template_modal_show_buttons = false;
 	include 'templates/modal.php';
 	
+	$template_modal_div_id = 'modal_comments';
+	$template_modal_titulo = $pagina_translated['Suas participações no fórum'];
+	$template_modal_body_conteudo = false;
+	$template_modal_show_buttons = false;
+	include 'templates/modal.php';
+	
 	$template_modal_div_id = 'modal_bookmarks';
 	$template_modal_titulo = $pagina_translated['bookmarks'];
 	$template_modal_body_conteudo = false;
@@ -290,10 +298,22 @@
 	$template_modal_show_buttons = false;
 	include 'templates/modal.php';
 	
+	$template_modal_div_id = 'modal_notificacoes';
+	$template_modal_titulo = $pagina_translated['notifications'];
+	$template_modal_body_conteudo = false;
+	$template_modal_show_buttons = false;
+	include 'templates/modal.php';
+	
 	$template_modal_div_id = 'modal_areas_interesse';
 	$template_modal_titulo = 'Páginas livres de seu interesse';
 	$template_modal_body_conteudo = false;
 	$template_modal_show_buttons = false;
+    include 'templates/modal.php';
+    
+    $template_modal_div_id = 'modal_contribuicoes';
+    $template_modal_titulo = $pagina_translated['Verbetes em que contribuiu'];
+    $template_modal_body_conteudo = false;
+    $template_modal_show_buttons = false;
     include 'templates/modal.php';
 	
 	$template_modal_div_id = 'modal_paginas_textos';
@@ -366,6 +386,26 @@
               }
           });
       });
+      $(document).on('click', '#artefato_comments', function() {
+          $.post('engine.php', {
+              'list_comments': true
+          }, function(data) {
+              if (data != 0) {
+                  $('#body_modal_comments').empty();
+                  $('#body_modal_comments').append(data);
+              }
+          });
+      });
+      $(document).on('click', '#artefato_notificacoes', function() {
+          $.post('engine.php', {
+              'list_notificacoes': true
+          }, function(data) {
+              if (data != 0) {
+                  $('#body_modal_notificacoes').empty();
+                  $('#body_modal_notificacoes').append(data);
+              }
+          });
+      });
       $(document).on('click', '#artefato_grupos_estudo', function() {
           $.post('engine.php', {
               'list_grupos_estudo': true
@@ -383,6 +423,16 @@
               if (data != 0) {
                   $('#body_modal_bookmarks').empty();
                   $('#body_modal_bookmarks').append(data);
+              }
+          })
+      })
+      $(document).on('click', '#artefato_contribuicoes', function() {
+          $.post('engine.php', {
+              'list_contribuicoes': true
+          }, function (data) {
+              if (data != 0) {
+                  $('#body_modal_contribuicoes').empty();
+                  $('#body_modal_contribuicoes').append(data);
               }
           })
       })
