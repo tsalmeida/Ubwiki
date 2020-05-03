@@ -4,6 +4,7 @@
 	include 'engine.php';
 	$pagina_id = return_pagina_id($user_id, $pagina_tipo);
 	$lounge_id = return_escritorio_id($user_id);
+	$etiquetados = $conn->query("SELECT DISTINCT extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'topico' AND estado = 1");
 	
 	if (!isset($user_email)) {
 		header('Locatino:ubwiki.php');
@@ -305,7 +306,7 @@
 	include 'templates/modal.php';
 	
 	$template_modal_div_id = 'modal_areas_interesse';
-	$template_modal_titulo = 'Páginas livres de seu interesse';
+	$template_modal_titulo = $pagina_translated['Gerenciar etiquetas'];
 	$template_modal_body_conteudo = false;
 	$template_modal_show_buttons = false;
     include 'templates/modal.php';
@@ -351,6 +352,10 @@
 	$template_modal_body_conteudo .= "<ul id='user_texts' class='list-group list-group-flush'></ul>";
 	
 	include 'templates/modal.php';
+	
+	$template_modal_div_id = 'modal_gerenciar_etiquetas';
+	$template_modal_titulo = $pagina_translated['Incluir área de interesse'];
+	include 'templates/etiquetas_modal.php';
 	
 ?>
 </body>

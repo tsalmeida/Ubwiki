@@ -3147,7 +3147,14 @@
 	if (isset($_POST['list_areas_interesse'])) {
 		$user_escritorio_pagina_id = return_pagina_id($user_id, 'escritorio');
 		$areas_interesse_result = false;
-		$areas_interesse_result = "<ul class='list-group list-group-flush'>";
+		$areas_interesse_result .= "<ul class='list-group list-group-flush'>";
+		
+		$areas_interesse_result .= "<span data-toggle='modal' data-target='#modal_areas_interesse'>";
+		
+		$areas_interesse_result .= put_together_list_item('modal', '#modal_gerenciar_etiquetas', 'text-info', 'fad', 'fa-plus-circle', $pagina_translated['Gerenciar etiquetas'], 'text-light', 'fa-tags');
+		
+		$areas_interesse_result .= "</span>";
+		
 		$areas_interesse = $conn->query("SELECT extra FROM Paginas_elementos WHERE pagina_id = $user_escritorio_pagina_id AND tipo = 'topico' AND estado = 1 ORDER BY id DESC");
 		if ($areas_interesse->num_rows > 0) {
 			while ($area_interesse = $areas_interesse->fetch_assoc()) {
@@ -3253,7 +3260,7 @@
 		}
 		echo $list_cursos;
 	}
-	
+	/*
 	if (isset($_POST['list_notificacoes'])) {
 		$usuario_notificacoes = $conn->query("SELECT DISTINCT pagina_id FROM Notificacoes WHERE user_id = $user_id AND estado = 1 ORDER BY id DESC");
 		$list_notificacoes = false;
@@ -3266,6 +3273,48 @@
 			$list_notificacoes .= '</ul>';
 		}
 		echo $list_notificacoes;
+	}
+	*/
+	if (isset($_POST['list_notificacoes'])) {
+		$template_modal_body_conteudo = false;
+		$notificacoes = $conn->query("SELECT DISTINCT pagina_id FROM Notificacoes WHERE user_id = $user_id AND estado = 1 ORDER BY id DESC");
+		if ($notificacoes->num_rows > 0) {
+			$template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
+			if ($user_tipo == 'admin') {
+				//$template_modal_body_conteudo .= "<a href='notificacoes.php' class='mt-1'><li class='list-group-item list-group-item-action list-group-item-info d-flex justify-content-center'>Página de notificações</li></a>";
+			}
+			while ($notificacao = $notificacoes->fetch_assoc()) {
+				$notificacao_pagina_id = $notificacao['pagina_id'];
+				$notificacao_pagina_titulo = return_pagina_titulo($notificacao_pagina_id);
+				$alteracao_recente = return_alteracao_recente($notificacao_pagina_id);
+				$alteracao_recente_data = $alteracao_recente[0];
+				$alteracao_recente_data = format_data($alteracao_recente_data);
+				$alteracao_recente_usuario = $alteracao_recente[1];
+				$alteracao_recente_usuario_apelido = return_apelido_user_id($alteracao_recente_usuario);
+				$alteracao_recente_tipo = $alteracao_recente[2];
+				if ($alteracao_recente_tipo == 'verbete') {
+					$alteracao_recente_tipo_icone = 'fa-edit';
+				} elseif ($alteracao_recente_tipo == 'forum') {
+					$alteracao_recente_tipo_icone = 'fa-comments-alt';
+				}
+				$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$notificacao_pagina_id' class='mt-1'><li class='list-group-item list-group-item-action border-top d-flex justify-content-between'><span><i class='fad $alteracao_recente_tipo_icone fa-fw'></i> $notificacao_pagina_titulo</span><span class='text-muted'><em>($alteracao_recente_usuario_apelido) $alteracao_recente_data</em></span></li></a>";
+				$segunda_alteracao_recente_data = $alteracao_recente[3];
+				if ($segunda_alteracao_recente_data != false) {
+					$segunda_alteracao_recente_data = format_data($segunda_alteracao_recente_data);
+					$segunda_alteracao_recente_tipo = $alteracao_recente[5];
+					if ($segunda_alteracao_recente_tipo == 'verbete') {
+						$segunda_alteracao_recente_tipo_icone = 'fa-edit';
+					} elseif ($segunda_alteracao_recente_tipo == 'forum') {
+						$segunda_alteracao_recente_tipo_icone = 'fa-comments-alt';
+					}
+					$segunda_alteracao_recente_usuario = $alteracao_recente[4];
+					$segunda_alteracao_recente_usuario_apelido = return_apelido_user_id($segunda_alteracao_recente_usuario);
+					$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$notificacao_pagina_id' class='mt-1'><li class='list-group-item list-group-item-action border-top d-flex justify-content-between'><span class='ml-3'><i class='fad $segunda_alteracao_recente_tipo_icone fa-fw'></i> $notificacao_pagina_titulo</span><span class='text-muted'><em>($segunda_alteracao_recente_usuario_apelido) $segunda_alteracao_recente_data</em></span></li></a>";
+				}
+			}
+			$template_modal_body_conteudo .= "</ul>";
+		}
+		echo $template_modal_body_conteudo;
 	}
 	
 	if (isset($_POST['list_estudos_recentes'])) {
@@ -3398,7 +3447,22 @@
 		} else {
 			$icone_prefixo = 'fad';
 		}
-		return "
+		return put_together_list_item('link', $link, $cor_icone_principal, $icone_prefixo, $icone_principal, $pagina_titulo, $pagina_estado_cor, $pagina_estado_icone);
+	}
+	
+	function put_together_list_item()
+	{
+		$args = func_get_args();
+		$type = $args[0];
+		$link = $args[1];
+		$cor_icone_principal = $args[2];
+		$icone_prefixo = $args[3];
+		$icone_principal = $args[4];
+		$pagina_titulo = $args[5];
+		$pagina_estado_cor = $args[6];
+		$pagina_estado_icone = $args[7];
+		if ($type == 'link') {
+			return "
 			<a href='$link' class='border-top'>
 				<li class='list-group-item list-group-item-action py-2 d-flex justify-content-between'>
 					<span>
@@ -3412,6 +3476,23 @@
 					</span>
 				</li>
 			</a>";
+		}
+		elseif ($type == 'modal') {
+			return "
+			<a data-toggle='modal' data-target='$link' class='border-top'>
+				<li class='list-group-item list-group-item-action py-2 d-flex justify-content-between'>
+					<span>
+						<span class='$cor_icone_principal mr-2 align-middle'>
+							<i class='$icone_prefixo $icone_principal fa-fw fa-2x'></i>
+						</span>
+						$pagina_titulo
+					</span>
+					<span class='align-middle ml-2 $pagina_estado_cor'>
+						<i class='$pagina_estado_icone fa-fw'></i>
+					</span>
+				</li>
+			</a>";
+		}
 	}
 	
 	function return_pagina_icone($pagina_tipo, $pagina_subtipo, $pagina_item_id)
