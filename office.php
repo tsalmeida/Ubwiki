@@ -164,6 +164,12 @@
 						$fa_color = 'text-warning';
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
+						$artefato_id = 'referencias';
+						$artefato_subtitulo = $pagina_translated['sent references'];
+						$fa_icone = 'fa-photo-video';
+						$fa_color = 'text-danger';
+						$template_conteudo .= include 'templates/artefato_item.php';
+						
 						$artefato_id = 'sala_visitas';
 						$artefato_subtitulo = $pagina_translated['your office lounge'];
 						$artefato_link = "pagina.php?pagina_id=$lounge_id";
@@ -305,17 +311,23 @@
 	$template_modal_show_buttons = false;
 	include 'templates/modal.php';
 	
+	$template_modal_div_id = 'modal_referencias';
+	$template_modal_titulo = $pagina_translated['sent references'];
+	$template_modal_body_conteudo = false;
+	$template_modal_show_buttons = false;
+	include 'templates/modal.php';
+	
 	$template_modal_div_id = 'modal_areas_interesse';
 	$template_modal_titulo = $pagina_translated['Gerenciar etiquetas'];
 	$template_modal_body_conteudo = false;
 	$template_modal_show_buttons = false;
-    include 'templates/modal.php';
-    
-    $template_modal_div_id = 'modal_contribuicoes';
-    $template_modal_titulo = $pagina_translated['Verbetes em que contribuiu'];
-    $template_modal_body_conteudo = false;
-    $template_modal_show_buttons = false;
-    include 'templates/modal.php';
+	include 'templates/modal.php';
+	
+	$template_modal_div_id = 'modal_contribuicoes';
+	$template_modal_titulo = $pagina_translated['Verbetes em que contribuiu'];
+	$template_modal_body_conteudo = false;
+	$template_modal_show_buttons = false;
+	include 'templates/modal.php';
 	
 	$template_modal_div_id = 'modal_paginas_textos';
 	$template_modal_titulo = $pagina_translated['Suas páginas e documentos de texto'];
@@ -353,129 +365,196 @@
 	
 	include 'templates/modal.php';
 	
+	$template_modal_div_id = 'modal_criar_grupo';
+	$template_modal_titulo = $pagina_translated['Criar grupo de estudos'];
+	$template_modal_body_conteudo = false;
+	$template_modal_show_buttons = false;
+	
+	$template_modal_body_conteudo .= "
+							<form method='post'>
+								<div class='md-form mb-2'>
+									<input type='text' name='novo_grupo_titulo' id='novo_grupo_titulo' class='form-control validate mb-1' required>
+									<label data-error='inválido' data-success='válido' for='novo_grupo_titulo'>{$pagina_translated['Nome do novo grupo de estudos']}</label>
+								</div>
+								<div class='row justify-content-center'>
+									<button name='trigger_novo_grupo' class='$button_classes'>{$pagina_translated['Criar grupo de estudos']}</button>
+								</div>
+							</form>
+						    ";
+	
+	include 'templates/modal.php';
+	
+	$convites_ativos = $conn->query("SELECT DISTINCT grupo_id FROM Membros WHERE membro_user_id = $user_id AND estado IS NULL");
+	if ($convites_ativos->num_rows > 0) {
+		$template_modal_div_id = 'modal_reagir_convite';
+		$template_modal_titulo = $pagina_translated['Você recebeu convite para participar de grupos de estudos:'];
+		$template_modal_body_conteudo = false;
+		$template_modal_body_conteudo .= "<p>{$pagina_translated['joining study group explanation']}</p>";
+		
+		if ($user_apelido == false) {
+			$template_modal_body_conteudo .= "<p><strong>{$pagina_translated['study groups need for nickname']} <span class='text-info'><i class='fad fa-user-cog'></i></span></strong></p>";
+		} else {
+			if ($convites_ativos->num_rows > 0) {
+				$template_modal_body_conteudo .= "
+                                <h2>{$pagina_translated['Você recebeu convite para participar de grupos de estudos:']}</h2>
+                                <form method='post'>
+                                    <div class='md-form mb-2'>
+                                        <select class='$select_classes' name='responder_convite_grupo_id' id='responder_convite_grupo_id'>
+                                            <option value='' disabled selected>{$pagina_translated['Selecione o grupo de estudos']}:</option>
+                            ";
+				while ($convite_ativo = $convites_ativos->fetch_assoc()) {
+					$convite_ativo_grupo_id = $convite_ativo['grupo_id'];
+					$convite_ativo_grupo_titulo = return_grupo_titulo_id($convite_ativo_grupo_id);
+					$template_modal_body_conteudo .= "<option value='$convite_ativo_grupo_id'>$convite_ativo_grupo_titulo</option>";
+				}
+				$template_modal_body_conteudo .= "
+                                </select>
+                                </div>
+                                <div class='row justify-content-center'>
+                                    <button name='trigger_aceitar_convite' class='$button_classes'>{$pagina_translated['Aceitar convite']}</button>
+                                    <button name='trigger_rejeitar_convite' class='$button_classes_red'>{$pagina_translated['Rejeitar convite']}</button>
+                                </div>
+                                </form>
+                            ";
+			}
+		}
+		
+		$template_modal_show_buttons = false;
+		include 'templates/modal.php';
+	}
 	$template_modal_div_id = 'modal_gerenciar_etiquetas';
 	$template_modal_titulo = $pagina_translated['Incluir área de interesse'];
 	include 'templates/etiquetas_modal.php';
-	
+
 ?>
 </body>
 
-	<script type="text/javascript">
-      $(document).on('click', '#artefato_estudos_recentes', function() {
-          $.post('engine.php', {
-              'list_estudos_recentes': true
-          }, function(data) {
-              if (data != 0) {
-                  $('#body_modal_estudos_recentes').empty();
-                  $('#body_modal_estudos_recentes').append(data);
-              }
-          });
-      });
-      $(document).on('click', '#artefato_suas_paginas_livres', function() {
-          $.post('engine.php', {
-              'list_areas_interesse': true
-          }, function(data) {
-              if (data != 0) {
-                  $('#body_modal_areas_interesse').empty();
-                  $('#body_modal_areas_interesse').append(data);
-              }
-          });
-      });
-      $(document).on('click', '#artefato_biblioteca_particular', function() {
-          $.post('engine.php', {
-              'list_biblioteca_particular': true
-          }, function(data) {
-              if (data != 0) {
-                  $('#body_modal_biblioteca_particular').empty();
-                  $('#body_modal_biblioteca_particular').append(data);
-              }
-          });
-      });
-      $(document).on('click', '#artefato_comments', function() {
-          $.post('engine.php', {
-              'list_comments': true
-          }, function(data) {
-              if (data != 0) {
-                  $('#body_modal_comments').empty();
-                  $('#body_modal_comments').append(data);
-              }
-          });
-      });
-      $(document).on('click', '#artefato_notificacoes', function() {
-          $.post('engine.php', {
-              'list_notificacoes': true
-          }, function(data) {
-              if (data != 0) {
-                  $('#body_modal_notificacoes').empty();
-                  $('#body_modal_notificacoes').append(data);
-              }
-          });
-      });
-      $(document).on('click', '#artefato_grupos_estudo', function() {
-          $.post('engine.php', {
-              'list_grupos_estudo': true
-          }, function (data) {
-              if (data != 0) {
-                  $('#body_modal_grupos_estudo').empty();
-                  $('#body_modal_grupos_estudo').append(data);
-              }
-          })
-      })
-      $(document).on('click', '#artefato_bookmarks', function() {
-          $.post('engine.php', {
-              'list_bookmarks': true
-          }, function (data) {
-              if (data != 0) {
-                  $('#body_modal_bookmarks').empty();
-                  $('#body_modal_bookmarks').append(data);
-              }
-          })
-      })
-      $(document).on('click', '#artefato_contribuicoes', function() {
-          $.post('engine.php', {
-              'list_contribuicoes': true
-          }, function (data) {
-              if (data != 0) {
-                  $('#body_modal_contribuicoes').empty();
-                  $('#body_modal_contribuicoes').append(data);
-              }
-          })
-      })
-      $(document).on('click', '#artefato_cursos', function() {
-          $.post('engine.php', {
-              'list_cursos': true
-          }, function (data) {
-              if (data != 0) {
-                  $('#body_modal_cursos').empty();
-                  $('#body_modal_cursos').append(data);
-              }
-          })
-      })
-      $(document).on('click', '#artefato_typewriter', function() {
-          $.post('engine.php', {
-              'list_user_pages': true
-          }, function(data) {
-              if (data != 0) {
-                  $('#user_pages_hide').removeClass('hidden');
-                  $('#user_pages').empty();
-                  $('#user_pages').append(data);
-              } else {
-                  $('#user_pages_hide').addClass('hidden');
-              }
-          });
-          $.post('engine.php', {
-              'list_user_texts': true
-          }, function(data) {
-              if (data != 0) {
-                  $('#user_texts_hide').removeClass('hidden');
-                  $('#user_texts').empty();
-                  $('#user_texts').append(data);
-              } else {
-                  $('#user_texts_hide').addClass('hidden');
-              }
-          });
-      });
-	</script>
+<script type="text/javascript">
+    $(document).on('click', '#artefato_estudos_recentes', function () {
+        $.post('engine.php', {
+            'list_estudos_recentes': true
+        }, function (data) {
+            if (data != 0) {
+                $('#body_modal_estudos_recentes').empty();
+                $('#body_modal_estudos_recentes').append(data);
+            }
+        });
+    });
+    $(document).on('click', '#artefato_suas_paginas_livres', function () {
+        $.post('engine.php', {
+            'list_areas_interesse': true
+        }, function (data) {
+            if (data != 0) {
+                $('#body_modal_areas_interesse').empty();
+                $('#body_modal_areas_interesse').append(data);
+            }
+        });
+    });
+    $(document).on('click', '#artefato_biblioteca_particular', function () {
+        $.post('engine.php', {
+            'list_biblioteca_particular': true
+        }, function (data) {
+            if (data != 0) {
+                $('#body_modal_biblioteca_particular').empty();
+                $('#body_modal_biblioteca_particular').append(data);
+            }
+        });
+    });
+    $(document).on('click', '#artefato_comments', function () {
+        $.post('engine.php', {
+            'list_comments': true
+        }, function (data) {
+            if (data != 0) {
+                $('#body_modal_comments').empty();
+                $('#body_modal_comments').append(data);
+            }
+        });
+    });
+    $(document).on('click', '#artefato_notificacoes', function () {
+        $.post('engine.php', {
+            'list_notificacoes': true
+        }, function (data) {
+            if (data != 0) {
+                $('#body_modal_notificacoes').empty();
+                $('#body_modal_notificacoes').append(data);
+            }
+        });
+    });
+    $(document).on('click', '#artefato_grupos_estudo', function () {
+        $.post('engine.php', {
+            'list_grupos_estudo': true
+        }, function (data) {
+            if (data != 0) {
+                $('#body_modal_grupos_estudo').empty();
+                $('#body_modal_grupos_estudo').append(data);
+            }
+        })
+    })
+    $(document).on('click', '#artefato_referencias', function () {
+        $.post('engine.php', {
+            'list_referencias': true
+        }, function (data) {
+            if (data != 0) {
+                $('#body_modal_referencias').empty();
+                $('#body_modal_referencias').append(data);
+            }
+        })
+    })
+    $(document).on('click', '#artefato_bookmarks', function () {
+        $.post('engine.php', {
+            'list_bookmarks': true
+        }, function (data) {
+            if (data != 0) {
+                $('#body_modal_bookmarks').empty();
+                $('#body_modal_bookmarks').append(data);
+            }
+        })
+    })
+    $(document).on('click', '#artefato_contribuicoes', function () {
+        $.post('engine.php', {
+            'list_contribuicoes': true
+        }, function (data) {
+            if (data != 0) {
+                $('#body_modal_contribuicoes').empty();
+                $('#body_modal_contribuicoes').append(data);
+            }
+        })
+    })
+    $(document).on('click', '#artefato_cursos', function () {
+        $.post('engine.php', {
+            'list_cursos': true
+        }, function (data) {
+            if (data != 0) {
+                $('#body_modal_cursos').empty();
+                $('#body_modal_cursos').append(data);
+            }
+        })
+    })
+    $(document).on('click', '#artefato_typewriter', function () {
+        $.post('engine.php', {
+            'list_user_pages': true
+        }, function (data) {
+            if (data != 0) {
+                $('#user_pages_hide').removeClass('hidden');
+                $('#user_pages').empty();
+                $('#user_pages').append(data);
+            } else {
+                $('#user_pages_hide').addClass('hidden');
+            }
+        });
+        $.post('engine.php', {
+            'list_user_texts': true
+        }, function (data) {
+            if (data != 0) {
+                $('#user_texts_hide').removeClass('hidden');
+                $('#user_texts').empty();
+                $('#user_texts').append(data);
+            } else {
+                $('#user_texts_hide').addClass('hidden');
+            }
+        });
+    });
+</script>
 
 <?php
 	

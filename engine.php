@@ -2982,7 +2982,12 @@
 						break;
 					case 'resposta':
 						return array('fa-comment-alt-edit', 'text-success', 'rgba-cyan-strong');
+						break;
+					case 'wikipedia':
+						return array('fa-wikipedia-w', 'text-dark', 'rgba-grey-strong');
+						break;
 					default:
+						error_log($tipo);
 						return array('fa-circle-notch fa-spin', 'text-danger', 'rgba-red-strong');
 				}
 		}
@@ -3151,7 +3156,7 @@
 		
 		$areas_interesse_result .= "<span data-toggle='modal' data-target='#modal_areas_interesse'>";
 		
-		$areas_interesse_result .= put_together_list_item('modal', '#modal_gerenciar_etiquetas', 'text-info', 'fad', 'fa-plus-circle', $pagina_translated['Gerenciar etiquetas'], 'text-light', 'fa-tags');
+		$areas_interesse_result .= put_together_list_item('modal', '#modal_gerenciar_etiquetas', 'text-info', 'fad', 'fa-plus-circle', $pagina_translated['Gerenciar etiquetas'], 'text-muted', 'fad fa-tags');
 		
 		$areas_interesse_result .= "</span>";
 		
@@ -3184,16 +3189,41 @@
 		echo $list_biblioteca_particular;
 	}
 	
+	if (isset($_POST['list_referencias'])) {
+		$referencias_usuario = $conn->query("SELECT DISTINCT elemento_id FROM Paginas_elementos WHERE user_id = $user_id ORDER BY id DESC");
+		$list_referencias = false;
+		if ($referencias_usuario->num_rows > 0) {
+			$list_referencias .= '<ul class="list-group list-group-flush">';
+			while ($referencia_usuario = $referencias_usuario->fetch_assoc()) {
+				$referencia_usuario_elemento_id = $referencia_usuario['elemento_id'];
+				$referencia_usuario_pagina_id = return_pagina_id($referencia_usuario_elemento_id, 'elemento');
+				$list_referencias .= return_list_item($referencia_usuario_pagina_id);
+			}
+			$list_referencias .= '</ul>';
+		}
+		echo $list_referencias;
+	}
+	
 	if (isset($_POST['list_grupos_estudo'])) {
 		$grupos_estudo_usuario = $conn->query("SELECT DISTINCT grupo_id FROM Membros WHERE membro_user_id = $user_id AND estado = 1");
+		$convites_ativos = $conn->query("SELECT DISTINCT grupo_id FROM Membros WHERE membro_user_id = $user_id AND estado IS NULL");
 		$list_grupos_estudo = false;
+		$list_grupos_estudo .= "<ul class='list-group list-group-flush'>";
+		$list_grupos_estudo .= "<span data-toggle='modal' data-target='#modal_grupos_estudo'>";
+		if ($convites_ativos->num_rows > 0) {
+			$list_grupos_estudo .= put_together_list_item('modal', '#modal_reagir_convite', 'text-warning', 'fad', 'fa-exclamation-triangle', $pagina_translated['Você recebeu convite para participar de grupos de estudos:'], 'text-muted', 'fad fa-users');
+		}
+		$list_grupos_estudo .= put_together_list_item('modal', '#modal_criar_grupo', 'text-info', 'fad', 'fa-plus-circle', $pagina_translated['Criar grupo de estudos'], 'text-muted', 'fad fa-users');
+		$list_grupos_estudo .= "</span>";
+		
 		if ($grupos_estudo_usuario->num_rows > 0) {
-			$list_grupos_estudo .= "<ul class='list-group list-group-flush'>";
 			while ($grupo_estudo_usuario = $grupos_estudo_usuario->fetch_assoc()) {
 				$grupo_estudo_id = $grupo_estudo_usuario['grupo_id'];
 				$grupo_estudo_pagina_id = return_pagina_id($grupo_estudo_id, 'grupo');
 				$list_grupos_estudo .= return_list_item($grupo_estudo_pagina_id);
 			}
+		} else {
+		
 		}
 		$list_grupos_estudo .= '</ul>';
 		echo $list_grupos_estudo;
@@ -3463,8 +3493,8 @@
 		$pagina_estado_icone = $args[7];
 		if ($type == 'link') {
 			return "
-			<a href='$link' class='border-top'>
-				<li class='list-group-item list-group-item-action py-2 d-flex justify-content-between'>
+			<a href='$link'>
+				<li class='list-group-item list-group-item-action py-2 d-flex justify-content-between border-top'>
 					<span>
 						<span class='$cor_icone_principal mr-2 align-middle'>
 							<i class='$icone_prefixo $icone_principal fa-fw fa-2x'></i>
@@ -3479,8 +3509,8 @@
 		}
 		elseif ($type == 'modal') {
 			return "
-			<a data-toggle='modal' data-target='$link' class='border-top'>
-				<li class='list-group-item list-group-item-action py-2 d-flex justify-content-between'>
+			<a data-toggle='modal' data-target='$link'>
+				<li class='list-group-item list-group-item-action border-top py-2 d-flex justify-content-between'>
 					<span>
 						<span class='$cor_icone_principal mr-2 align-middle'>
 							<i class='$icone_prefixo $icone_principal fa-fw fa-2x'></i>
