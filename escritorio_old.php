@@ -442,7 +442,7 @@
 						$template_conteudo = false;
 						
 						$artefato_id = 0;
-						$artefato_titulo = 'Adicionar item';
+						$artefato_titulo = $pagina_translated['Adicionar item'];
 						$artefato_criacao = $pagina_translated['press add collection'];
 						$artefato_tipo = 'nova_referencia';
 						$fa_icone = 'fa-plus-circle';

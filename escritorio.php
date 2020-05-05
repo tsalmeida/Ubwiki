@@ -91,14 +91,6 @@
 							$template_conteudo .= include 'templates/artefato_item.php';
 						}
 						
-						$usuario_avatar = return_avatar($user_id);
-						$fa_icone = $usuario_avatar[0];
-						$fa_color = $usuario_avatar[1];
-						$artefato_modal = '#modal_opcoes';
-						$artefato_badge = 'fa-cog fa-swap-opacity';
-						$artefato_subtitulo = $pagina_translated['user settings'];
-						$template_conteudo .= include 'templates/artefato_item.php';
-						
 						$artefato_id = 'estudos_recentes';
 						$artefato_subtitulo = $pagina_translated['recent_visits'];
 						$artefato_modal = '#modal_estudos_recentes';
@@ -168,6 +160,14 @@
 						$artefato_subtitulo = $pagina_translated['sent references'];
 						$fa_icone = 'fa-photo-video';
 						$fa_color = 'text-danger';
+						$template_conteudo .= include 'templates/artefato_item.php';
+						
+						$usuario_avatar = return_avatar($user_id);
+						$fa_icone = $usuario_avatar[0];
+						$fa_color = $usuario_avatar[1];
+						$artefato_modal = '#modal_opcoes';
+						$artefato_badge = 'fa-cog fa-swap-opacity';
+						$artefato_subtitulo = $pagina_translated['user settings'];
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
 						$artefato_id = 'sala_visitas';
@@ -352,18 +352,14 @@
 	$fa_icone = 'fa-file-alt fa-swap-opacity';
 	$fa_color = 'text-primary';
 	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
-	
 	$template_modal_body_conteudo .= "</div>";
-	
 	$template_modal_body_conteudo .= "<h3 id='user_pages_hide' class='hidden mt-1'>{$pagina_translated['your_pages']}</h3>";
-	
 	$template_modal_body_conteudo .= "<ul id='user_pages' class='list-group list-group-flush'></ul>";
-	
 	$template_modal_body_conteudo .= "<h3 id='user_texts_hide' class='hidden mt-3'>{$pagina_translated['texts and study notes']}</h3>";
-	
 	$template_modal_body_conteudo .= "<ul id='user_texts' class='list-group list-group-flush'></ul>";
-	
 	include 'templates/modal.php';
+	
+	include 'pagina/modal_add_elemento.php';
 	
 	$template_modal_div_id = 'modal_criar_grupo';
 	$template_modal_titulo = $pagina_translated['Criar grupo de estudos'];

@@ -123,7 +123,7 @@
 						$artefato_titulo = $pagina_translated['courses'];
 						$artefato_tipo = 'cursos';
 						//$artefato_link = '#sobre_cursos';
-						$fa_icone = 'fa-book-reader';
+						$fa_icone = 'fa-graduation-cap';
 						$fa_color = 'text-default';
 						$fa_size = 'fa-4x';
 						$artefato_criacao = false;
@@ -135,7 +135,7 @@
 						$artefato_titulo_class = 'text-primary';
 						$artefato_link = 'cursos.php';
 						$artefato_tipo = 'cursos_link';
-						$fa_icone = 'fa-book-reader';
+						$fa_icone = 'fa-graduation-cap';
 						$fa_color = 'text-white';
 						$artefato_icone_background = 'icone-link rgba-teal-strong';
 						$fa_size = 'fa-4x';

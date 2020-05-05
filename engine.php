@@ -3176,6 +3176,9 @@
 		$user_escritorio_pagina_id = return_pagina_id($user_id, 'escritorio');
 		$list_biblioteca_particular = false;
 		$list_biblioteca_particular .= "<ul class='list-group list-group-flush'>";
+		$list_biblioteca_particular .= "<div data-toggle='modal' data-target='#modal_biblioteca_particular'>";
+		$list_biblioteca_particular .= put_together_list_item('modal', '#modal_add_elementos', 'text-info', 'fad', 'fa-plus-circle', $pagina_translated['press add collection'], 'text-muted', 'fad fa-cog');
+		$list_biblioteca_particular .= "</div>";
 		$biblioteca_particular = $conn->query("SELECT DISTINCT elemento_id FROM Paginas_elementos WHERE pagina_id = $user_escritorio_pagina_id AND estado = 1 AND elemento_id IS NOT NULL ORDER BY id DESC");
 		if ($biblioteca_particular->num_rows > 0) {
 			while ($item_biblioteca = $biblioteca_particular->fetch_assoc()) {
@@ -3186,6 +3189,22 @@
 		}
 		$list_biblioteca_particular .= '</ul>';
 		echo $list_biblioteca_particular;
+	}
+	
+	if (isset($_POST['list_cursos'])) {
+		$usuario_cursos = $conn->query("SELECT DISTINCT opcao FROM Opcoes WHERE user_id = $user_id AND opcao_tipo = 'curso' ORDER BY id DESC");
+		$list_cursos = false;
+		$list_cursos .= '<ul class="list-group list-group-flush">';
+		$list_cursos .= put_together_list_item('link', 'cursos.php', 'text-success', 'fad', 'fa-portal-enter', $pagina_translated['available courses'], 'text-primary', 'fad fa-external-link');
+		if ($usuario_cursos->num_rows > 0) {
+			while ($usuario_curso = $usuario_cursos->fetch_assoc()) {
+				$usuario_curso_id = $usuario_curso['opcao'];
+				$usuario_curso_pagina_id = return_pagina_id($usuario_curso_id, 'curso');
+				$list_cursos .= return_list_item($usuario_curso_pagina_id);
+			}
+			$list_cursos .= '</ul>';
+		}
+		echo $list_cursos;
 	}
 	
 	if (isset($_POST['list_referencias'])) {
@@ -3281,20 +3300,6 @@
 		echo $list_contribuicoes;
 	}
 	
-	if (isset($_POST['list_cursos'])) {
-		$usuario_cursos = $conn->query("SELECT DISTINCT opcao FROM Opcoes WHERE user_id = $user_id AND opcao_tipo = 'curso' ORDER BY id DESC");
-		$list_cursos = false;
-		if ($usuario_cursos->num_rows > 0) {
-			$list_cursos .= '<ul class="list-group list-group-flush">';
-			while ($usuario_curso = $usuario_cursos->fetch_assoc()) {
-				$usuario_curso_id = $usuario_curso['opcao'];
-				$usuario_curso_pagina_id = return_pagina_id($usuario_curso_id, 'curso');
-				$list_cursos .= return_list_item($usuario_curso_pagina_id);
-			}
-			$list_cursos .= '</ul>';
-		}
-		echo $list_cursos;
-	}
 	/*
 	if (isset($_POST['list_notificacoes'])) {
 		$usuario_notificacoes = $conn->query("SELECT DISTINCT pagina_id FROM Notificacoes WHERE user_id = $user_id AND estado = 1 ORDER BY id DESC");
@@ -3359,7 +3364,7 @@
 			$count = 0;
 			$listados = array();
 			while ($usuario_estudo_recente = $usuario_estudos_recentes->fetch_assoc()) {
-				if ($count > 11) {
+				if ($count > 20) {
 					break;
 				}
 				$usuario_estudo_recente_page_id = $usuario_estudo_recente['page_id'];
