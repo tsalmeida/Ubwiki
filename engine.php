@@ -3229,24 +3229,19 @@
 	}
 	
 	if (isset($_POST['list_bookmarks'])) {
-		$usuario_bookmarks = $conn->query("SELECT pagina_id, active FROM Bookmarks WHERE user_id = $user_id AND bookmark = 1 ORDER BY id DESC");
+		$usuario_bookmarks = $conn->query("SELECT pagina_id FROM Bookmarks WHERE user_id = $user_id AND bookmark = 1 AND active = 1 ORDER BY id DESC");
 		$list_bookmarks = false;
 		$counted_bookmarks = array();
 		if ($usuario_bookmarks->num_rows > 0) {
 			$list_bookmarks .= "<ul class='list-group list-group-flush'>";
 			while ($usuario_bookmark = $usuario_bookmarks->fetch_assoc()) {
 				$usuario_bookmark_pagina_id = $usuario_bookmark['pagina_id'];
-				$usuario_bookmark_active = $usuario_bookmark['active'];
 				if (in_array($usuario_bookmark_pagina_id, $counted_bookmarks)) {
 					continue;
 				} else {
 					array_push($counted_bookmarks, $usuario_bookmark_pagina_id);
 				}
-				if ($usuario_bookmark_active == true) {
-					$list_bookmarks .= return_list_item($usuario_bookmark_pagina_id);
-				} else {
-					continue;
-				}
+				$list_bookmarks .= return_list_item($usuario_bookmark_pagina_id);
 			}
 			$list_bookmarks .= '</ul>';
 		}
