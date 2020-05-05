@@ -3229,7 +3229,7 @@
 	}
 	
 	if (isset($_POST['list_bookmarks'])) {
-		$usuario_bookmarks = $conn->query("SELECT pagina_id, active FROM Bookmarks WHERE user_id = $user_id ORDER BY id DESC");
+		$usuario_bookmarks = $conn->query("SELECT pagina_id, active FROM Bookmarks WHERE user_id = $user_id AND bookmark = 1 ORDER BY id DESC");
 		$list_bookmarks = false;
 		$counted_bookmarks = array();
 		if ($usuario_bookmarks->num_rows > 0) {
