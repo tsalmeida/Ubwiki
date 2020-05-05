@@ -2987,7 +2987,6 @@
 						return array('fa-wikipedia-w', 'text-dark', 'rgba-grey-strong');
 						break;
 					default:
-						error_log($tipo);
 						return array('fa-circle-notch fa-spin', 'text-danger', 'rgba-red-strong');
 				}
 		}
@@ -3008,7 +3007,7 @@
 						return array('fa-columns', 'text-warning', 'rgba-orange-strong');
 						break;
 					case 'curso':
-						return array('fa-book-reader', 'text-default', 'rgba-teal-strong');
+						return array('fa-graduation-cap', 'text-default', 'rgba-teal-strong');
 						break;
 					case 'pagina':
 						return array('fa-columns', 'text-info', 'rgba-cyan-strong');
@@ -3230,13 +3229,24 @@
 	}
 	
 	if (isset($_POST['list_bookmarks'])) {
-		$usuario_bookmarks = $conn->query("SELECT DISTINCT pagina_id FROM Bookmarks WHERE user_id = $user_id AND active = 1");
+		$usuario_bookmarks = $conn->query("SELECT pagina_id, active FROM Bookmarks WHERE user_id = $user_id ORDER BY id DESC");
 		$list_bookmarks = false;
+		$counted_bookmarks = array();
 		if ($usuario_bookmarks->num_rows > 0) {
 			$list_bookmarks .= "<ul class='list-group list-group-flush'>";
 			while ($usuario_bookmark = $usuario_bookmarks->fetch_assoc()) {
 				$usuario_bookmark_pagina_id = $usuario_bookmark['pagina_id'];
-				$list_bookmarks .= return_list_item($usuario_bookmark_pagina_id);
+				$usuario_bookmark_active = $usuario_bookmark['active'];
+				if (in_array($usuario_bookmark_pagina_id, $counted_bookmarks)) {
+					continue;
+				} else {
+					array_push($counted_bookmarks, $usuario_bookmark_pagina_id);
+				}
+				if ($usuario_bookmark_active == true) {
+					$list_bookmarks .= return_list_item($usuario_bookmark_pagina_id);
+				} else {
+					continue;
+				}
 			}
 			$list_bookmarks .= '</ul>';
 		}
@@ -3385,7 +3395,7 @@
 						break;
 					case 'curso':
 						$list_item_color = 'list-group-item-primary';
-						$list_item_icon = 'fa-book-reader';
+						$list_item_icon = 'fa-graduation-cap';
 						break;
 					case 'pagina':
 						$pagina_subtipo_info = return_pagina_info($usuario_estudo_recente_page_id);
@@ -3506,8 +3516,7 @@
 					</span>
 				</li>
 			</a>";
-		}
-		elseif ($type == 'modal') {
+		} elseif ($type == 'modal') {
 			return "
 			<a data-toggle='modal' data-target='$link'>
 				<li class='list-group-item list-group-item-action border-top py-2 d-flex justify-content-between'>
@@ -3547,7 +3556,7 @@
 				return array('fa-bookmark', 'text-danger');
 				break;
 			case 'curso':
-				return array('fa-book-reader', 'text-default');
+				return array('fa-graduation-cap', 'text-default');
 				break;
 			case 'elemento':
 				$elemento_info = return_elemento_info($pagina_item_id);
@@ -3557,7 +3566,6 @@
 				if ($elemento_subtipo_icone != false) {
 					return array($elemento_subtipo_icone[0], $elemento_subtipo_icone[1]);
 				} else {
-					error_log($elemento_subtipo);
 					return array('fa-circle-notch', 'text-success');
 				}
 				break;
@@ -3580,7 +3588,6 @@
 				return array('fa-reply', 'text-default');
 				break;
 			default:
-				error_log($pagina_tipo);
 				return array('fa-circle-notch', 'text-light');
 				break;
 		}

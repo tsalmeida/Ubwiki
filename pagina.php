@@ -653,6 +653,12 @@
 								echo "<a href='javascript:void(9);' class='ml-1 text-success' title='{$pagina_translated['Adicionar a seu acervo']}' data-toggle='modal' data-target='#modal_login'><i class='fad fa-lamp-desk fa-fw'></i></a>";
 							}
 						}
+						if ($pagina_tipo == 'curso') {
+						    if ($user_id != false) {
+						    	$carregar_toggle_curso = true;
+						    	// criar aqui um mecanismo para adicionar um curso ao seu escritório.
+						    }
+                        }
 						if ($pagina_subtipo == 'etiqueta') {
 							if ($user_id != false) {
 								$carregar_toggle_paginas_livres = true;
