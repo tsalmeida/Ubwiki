@@ -60,6 +60,12 @@
 	$edicao_coluna_esquerda_html = false;
 	$edicao_coluna_direita_html = false;
 	
+	if (isset($_GET['c'])) {
+		$correction = $_GET['c'];
+	} else {
+		$correction = true;
+	}
+	
 	if (isset($_GET['l'])) {
 		$edicao_coluna_esquerda = (int)$_GET['l'];
 		$edicao_coluna_esquerda_html = return_texto_historico_html($edicao_coluna_esquerda);
@@ -68,10 +74,12 @@
 	if (isset($_GET['r'])) {
 		$edicao_coluna_direita = (int)$_GET['r'];
 		$edicao_coluna_direita_html = return_texto_historico_html($edicao_coluna_direita);
-		require_once('HtmlDiff.php');
-		$diff = new HtmlDiff($edicao_coluna_esquerda_html, $edicao_coluna_direita_html);
-		$diff->build();
-		$edicao_coluna_direita_html = $diff->getDifference();
+		if ($correction == true) {
+			require_once('HtmlDiff.php');
+			$diff = new HtmlDiff($edicao_coluna_esquerda_html, $edicao_coluna_direita_html);
+			$diff->build();
+			$edicao_coluna_direita_html = $diff->getDifference();
+		}
 	}
 	
 	include 'templates/html_head.php';
@@ -132,8 +140,15 @@
 							$template_titulo = $pagina_translated['Versão mais recente'];
 							$template_classes = 'elemento-anotacoes';
 							$template_conteudo = false;
+							$template_botoes = false;
 							if ($edicao_coluna_esquerda != false) {
-								$template_botoes = "<a class='text-success' data-toggle='modal' data-target='#modal_edicao_direita' ><i class='fad fa-archive fa-fw'></i></a>";
+								if ($correction == true) {
+									$template_botoes .= "<a class='text-danger ml-1' href='historico.php?texto_id=$texto_id&l=$edicao_coluna_esquerda&r=$edicao_coluna_direita&c=0'><i class='fad fa-highlighter fa-fw'></i></a>";
+								} else {
+									$template_botoes .= "<a class='text-warning ml-1' href='historico.php?texto_id=$texto_id&l=$edicao_coluna_esquerda&r=$edicao_coluna_direita&c=1'><i class='fad fa-highlighter fa-fw'></i></a>";
+									
+								}
+								$template_botoes .= "<a class='text-success' data-toggle='modal' data-target='#modal_edicao_direita' ><i class='fad fa-archive fa-fw'></i></a>";
 							}
 							if ($edicao_coluna_direita_html != false) {
 								$template_conteudo .= $edicao_coluna_direita_html;
@@ -152,7 +167,7 @@
     </div>
 		<?php
 			$template_modal_div_id = 'modal_edicao_esquerda';
-			$template_modal_titulo = "Edição a carregar na coluna esquerda";
+			$template_modal_titulo = $pagina_translated['carregar coluna esquerda'];
 			$template_modal_show_buttons = false;
 			$template_modal_body_conteudo = false;
 			$template_modal_body_conteudo .= "
@@ -196,7 +211,7 @@
 			
 			if ($edicao_coluna_esquerda != false) {
 				$template_modal_div_id = 'modal_edicao_direita';
-				$template_modal_titulo = "Edição a carregar na coluna direita";
+				$template_modal_titulo = $pagina_translated['carregar coluna direita'];
 				$template_modal_show_buttons = false;
 				$template_modal_body_conteudo = false;
 				$template_modal_body_conteudo .= "
