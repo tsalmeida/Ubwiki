@@ -654,11 +654,11 @@
 							}
 						}
 						if ($pagina_tipo == 'curso') {
-						    if ($user_id != false) {
-						    	$carregar_toggle_curso = true;
-						    	// criar aqui um mecanismo para adicionar um curso ao seu escritório.
-						    }
-                        }
+							if ($user_id != false) {
+								$carregar_toggle_curso = true;
+								// criar aqui um mecanismo para adicionar um curso ao seu escritório.
+							}
+						}
 						if ($pagina_subtipo == 'etiqueta') {
 							if ($user_id != false) {
 								$carregar_toggle_paginas_livres = true;
@@ -1157,12 +1157,13 @@
 				echo "</div>";
 			?>
 			<?php
-				if (($pagina_tipo != 'sistema') && ($pagina_tipo != 'texto') && ($pagina_compartilhamento != 'escritorio') && ($pagina_tipo != 'resposta') && ($pagina_tipo != 'materia') && ($pagina_tipo != 'curso') && ($pagina_tipo != 'grupo')) {
-					if ($user_id != false) {
-						include 'pagina/coluna_direita_anotacoes.php';
-						$carregar_quill_anotacoes = true;
-					}
-				} elseif ($pagina_tipo == 'curso') {
+				$paginas_sem_anotacoes = array('sistema', 'texto', 'resposta', 'materia', 'curso', 'grupo');
+				if (($user_id != false) && ($pagina_compartilhamento != 'escritorio') && (!in_array($pagina_tipo, $paginas_sem_anotacoes))) {
+					include 'pagina/coluna_direita_anotacoes.php';
+					$carregar_quill_anotacoes = true;
+					
+				}
+				if ($pagina_tipo == 'curso') {
 					
 					echo "<div id='coluna_direita' class='$coluna_classes pagina_coluna'>";
 					
@@ -1202,7 +1203,16 @@
     </div>
 </div>
 <?php
-	echo "<a id='mostrar_coluna_direita' class='text-light rgba-black-strong rounded m-1 p-1' tabindex='-1' title='{$pagina_translated['Notas privadas']}'><i class='fas fa-pen-alt fa-fw'></i></a>";
+	if (!isset($anotacoes_existem)) {
+		$anotacoes_existem = false;
+	}
+	if ($carregar_quill_anotacoes == true) {
+		if ($anotacoes_existem == true) {
+			echo "<a id='mostrar_coluna_direita' class='text-light rgba-black-strong rounded m-1 p-1' tabindex='-1' title='{$pagina_translated['Notas privadas']}'><i class='fad fa-pen-alt fa-fw' style='--fa-secondary-color: #4285f4; --fa-secondary-opacity: 1.0;'></i></a>";
+		} else {
+			echo "<a id='mostrar_coluna_direita' class='text-light rgba-black-strong rounded m-1 p-1' tabindex='-1' title='{$pagina_translated['Notas privadas']}'><i class='fad fa-pen-alt fa-fw'></i></a>";
+		}
+	}
 ?>
 </div>
 
@@ -1475,8 +1485,8 @@
 				$parente_id = $parente['secao_pagina_id'];
 				$parente_highlight = false;
 				if ($parente_id == $pagina_id) {
-				    $parente_highlight = 'list-group-item-secondary';
-                }
+					$parente_highlight = 'list-group-item-secondary';
+				}
 				$parente_titulo = return_pagina_titulo($parente_id);
 				$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$parente_id' class='mt-1'><li class='list-group-item list-group-item-action $parente_highlight border-top'>$parente_titulo</li></a>";
 			}

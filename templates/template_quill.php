@@ -1,5 +1,5 @@
 <?php
-
+	
 	$quill_was_loaded = true;
 	
 	if (!isset($curso_id)) {
@@ -93,6 +93,7 @@
 		$compartilhamento_check = return_compartilhamento($pagina_id, $user_id);
 	}
 	
+	$anotacoes_existem = false;
 	$quill_verbete_content = false;
 	if ($quill_texto_id != false) {
 		$quill_query = "SELECT verbete_content FROM Textos WHERE id = $quill_texto_id";
@@ -111,11 +112,13 @@
 		}
 	}
 	
-	if ($template_id == 'verbete') {
-		if ($quill_verbete_content != false) {
+	if ($quill_verbete_content != false) {
+		if ($template_id == 'verbete') {
 			if ($pagina_estado == 0) {
 				$conn->query("UPDATE Paginas SET estado = 1 WHERE id = $pagina_id");
 			}
+		} elseif ($template_id == 'anotacoes') {
+			$anotacoes_existem = true;
 		}
 	}
 	
