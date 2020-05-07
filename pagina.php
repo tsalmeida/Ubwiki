@@ -882,7 +882,7 @@
 				if ($pagina_tipo == 'resposta') {
 					echo "
 						<div id='coluna_original' class='$coluna_classes pagina_coluna'>";
-					$template_div = 'texto_original';
+					$template_id = 'texto_original';
 					if ($original_titulo != false) {
 						$template_titulo = $original_titulo;
 					} else {

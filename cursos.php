@@ -14,55 +14,59 @@
 		include 'templates/titulo.php';
 	?>
 </div>
-<div class="container">
-    <h2 class='text-muted'><?php echo $pagina_translated['Cursos a que você tem acesso:']; ?></h2>
-    <div class="col-12 d-flex justify-content-between">
-			<?php
-				/*$cursos = $conn->query("SELECT pagina_id, sigla FROM Cursos WHERE estado = 1 ORDER BY id");
-				if ($cursos->num_rows > 0) {
-					while ($curso = $cursos->fetch_assoc()) {
-						$lista_curso_pagina_id = $curso['pagina_id'];
-						$lista_curso_sigla = $curso['sigla'];
-						$lista_curso_pagina_info = return_pagina_info($lista_curso_pagina_id);
-						$lista_curso_pagina_estado = $lista_curso_pagina_info[3];
-						$lista_curso_pagina_user_id = $lista_curso_pagina_info[5];
-						$lista_curso_pagina_titulo = $lista_curso_pagina_info[6];
-						$lista_curso_pagina_publicacao = $lista_curso_pagina_info[9];
-						$lista_curso_pagina_colaboracao = $lista_curso_pagina_info[10];
-						$lista_curso_texto_id = return_texto_id('curso', 'verbete', $lista_curso_pagina_id, false);
-						$lista_curso_verbete_html = return_verbete_html($lista_curso_texto_id);
+<div class="container-fluid">
+    <div class="row d-flex justify-content-center">
+        <h2 class='text-muted mb-5'><?php echo $pagina_translated['Cursos em que você se inscreveu:']; ?></h2>
+        <div class="col-lg-10 col-md-12">
+					<?php
+						/*$cursos = $conn->query("SELECT pagina_id, sigla FROM Cursos WHERE estado = 1 ORDER BY id");
+								if ($cursos->num_rows > 0) {
+									while ($curso = $cursos->fetch_assoc()) {
+										$lista_curso_pagina_id = $curso['pagina_id'];
+										$lista_curso_sigla = $curso['sigla'];
+										$lista_curso_pagina_info = return_pagina_info($lista_curso_pagina_id);
+										$lista_curso_pagina_estado = $lista_curso_pagina_info[3];
+										$lista_curso_pagina_user_id = $lista_curso_pagina_info[5];
+										$lista_curso_pagina_titulo = $lista_curso_pagina_info[6];
+										$lista_curso_pagina_publicacao = $lista_curso_pagina_info[9];
+										$lista_curso_pagina_colaboracao = $lista_curso_pagina_info[10];
+										$lista_curso_texto_id = return_texto_id('curso', 'verbete', $lista_curso_pagina_id, false);
+										$lista_curso_verbete_html = return_verbete_html($lista_curso_texto_id);
+										
+										$template_id = "curso_$lista_curso_sigla";
+										$template_titulo = "<a href='pagina.php?pagina_id=$lista_curso_pagina_id'>$lista_curso_pagina_titulo</a>";
+										$template_classes = 'col-lg-6 col-sm-12';
+										$template_conteudo = false;
+										$template_conteudo .= $lista_curso_verbete_html;
+										include 'templates/page_element.php';
+									}
+								}
+								echo "</div>";*/
 						
-						$template_id = "curso_$lista_curso_sigla";
-						$template_titulo = "<a href='pagina.php?pagina_id=$lista_curso_pagina_id'>$lista_curso_pagina_titulo</a>";
-						$template_classes = 'col-lg-6 col-sm-12';
-						$template_conteudo = false;
-						$template_conteudo .= $lista_curso_verbete_html;
-						include 'templates/page_element.php';
-					}
-				}
-				echo "</div>";*/
-				$cursos_usuario = return_usuario_cursos($user_id);
-				if ($cursos_usuario != false) {
-					echo "<div class='row d-flex justify-content-between'>";
-					foreach ($cursos_usuario as $curso_usuario) {
-						$curso_usuario_pagina_id = $curso_usuario;
-						$curso_usuario_titulo = return_pagina_titulo($curso_usuario_pagina_id);
-						$curso_usuario_texto_id = return_texto_id('curso', 'verbete', $curso_usuario_pagina_id, false);
-						$curso_usuario_verbete = return_verbete_html($curso_usuario_texto_id);
-						$curso_usuario_verbete = crop_text($curso_usuario_verbete, 300);
+						$usuario_cursos_inscrito = return_usuario_cursos_inscrito($user_id);
+						$usuario_cursos_disponiveis = return_usuario_cursos($user_id);
+						$usuario_cursos_nao_inscrito_disponiveis = array_diff($usuario_cursos_disponiveis, $usuario_cursos_inscrito);
 						
-						$template_id = "curso_$curso_usuario_pagina_id";
-						$template_titulo = "<a href='pagina.php?pagina_id=$curso_usuario_pagina_id'>$curso_usuario_titulo</a>";
-						$template_classes = 'col-lg-6 col-sm-12';
-						$template_conteudo = false;
-						if ($curso_usuario_verbete != false) {
-							$template_conteudo .= $curso_usuario_verbete;
+						$list_cursos_cards = false;
+						if ($usuario_cursos_inscrito != false) {
+							foreach ($usuario_cursos_inscrito as $usuario_inscrito_curso_id) {
+								$list_cursos_cards = return_curso_card($usuario_inscrito_curso_id, 'inscrito');
+							}
 						}
-						include 'templates/page_element.php';
-					}
-					echo "</div>";
-				}
-			?>
+					?>
+        </div>
+        <h2 class='text-muted my-5'><?php echo $pagina_translated['Cursos a que você tem acesso:']; ?></h2>
+        <div class="col-lg-10 col-md-12">
+					
+					<?php
+						if ($usuario_cursos_nao_inscrito_disponiveis != false) {
+							foreach ($usuario_cursos_nao_inscrito_disponiveis as $list_cursos_disponiveis) {
+								error_log($list_cursos_disponiveis);
+								$list_cursos_cards = return_curso_card($list_cursos_disponiveis, 'disponivel');
+							}
+						}
+					?>
+        </div>
     </div>
 </div>
 <?php

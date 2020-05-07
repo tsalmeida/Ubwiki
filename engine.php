@@ -2498,7 +2498,7 @@
 	
 	function return_usuario_cursos($user_id)
 	{
-		$results = array();
+		$usuario_cursos_disponiveis = array();
 		include 'templates/criar_conn.php';
 		$cursos = $conn->query("SELECT pagina_id FROM Cursos");
 		if ($cursos->num_rows > 0) {
@@ -2506,11 +2506,29 @@
 				$list_curso_pagina_id = $curso['pagina_id'];
 				$curso_compartilhamento = return_compartilhamento($list_curso_pagina_id, $user_id);
 				if ($curso_compartilhamento == true) {
-					array_push($results, $list_curso_pagina_id);
+					array_push($usuario_cursos_disponiveis, $list_curso_pagina_id);
 				}
 			}
 		}
-		return $results;
+		return $usuario_cursos_disponiveis;
+	}
+	
+	function return_usuario_cursos_inscrito($user_id)
+	{
+		if ($user_id == false) {
+			return false;
+		}
+		include 'templates/criar_conn.php';
+		$usuario_cursos = $conn->query("SELECT DISTINCT opcao FROM Opcoes WHERE user_id = $user_id AND opcao_tipo = 'curso' ORDER BY id DESC");
+		$list_usuario_cursos = array();
+		if ($usuario_cursos->num_rows > 0) {
+			while ($usuario_curso = $usuario_cursos->fetch_assoc()) {
+				$usuario_curso_opcao = $usuario_curso['opcao'];
+				$usuario_curso_pagina_id = return_pagina_id($usuario_curso_opcao, 'curso');
+				array_push($list_usuario_cursos, $usuario_curso_pagina_id);
+			}
+		}
+		return $list_usuario_cursos;
 	}
 	
 	function extract_wikipedia($url)
@@ -3192,18 +3210,15 @@
 	}
 	
 	if (isset($_POST['list_cursos'])) {
-		$usuario_cursos = $conn->query("SELECT DISTINCT opcao FROM Opcoes WHERE user_id = $user_id AND opcao_tipo = 'curso' ORDER BY id DESC");
 		$list_cursos = false;
 		$list_cursos .= '<ul class="list-group list-group-flush">';
 		$list_cursos .= put_together_list_item('link', 'cursos.php', 'text-success', 'fad', 'fa-portal-enter', $pagina_translated['available courses'], 'text-primary', 'fad fa-external-link');
-		if ($usuario_cursos->num_rows > 0) {
-			while ($usuario_curso = $usuario_cursos->fetch_assoc()) {
-				$usuario_curso_id = $usuario_curso['opcao'];
-				$usuario_curso_pagina_id = return_pagina_id($usuario_curso_id, 'curso');
-				$list_cursos .= return_list_item($usuario_curso_pagina_id);
-			}
-			$list_cursos .= '</ul>';
+		$usuario_cursos = return_usuario_cursos_inscrito($user_id);
+		foreach ($usuario_cursos as $usuario_curso) {
+			$usuario_curso_pagina_id = return_pagina_id($usuario_curso, 'curso');
+			$list_cursos .= return_list_item($usuario_curso_pagina_id);
 		}
+		$list_cursos .= '</ul>';
 		echo $list_cursos;
 	}
 	
@@ -3709,6 +3724,37 @@
 		}
 		echo $usuarios_emails_results;
 	}
-
+	
+	function return_curso_card() {
+		$args = func_get_args();
+		$curso_pagina_id = $args[0];
+		$card_mode = $args[1];
+		
+		if ($curso_pagina_id == false) {
+			return false;
+		}
+		
+		$curso_titulo = return_pagina_titulo($curso_pagina_id);
+		$curso_texto_id = return_texto_id('curso', 'verbete', $curso_pagina_id, false);
+		$curso_verbete = return_verbete_html($curso_texto_id);
+		$curso_verbete = crop_text($curso_verbete, 400);
+		
+		$template_id = "curso_$curso_pagina_id";
+		$template_titulo = "<a href='pagina.php?pagina_id=$curso_pagina_id'>$curso_titulo</a>";
+		if ($card_mode == 'inscrito') {
+			$template_botoes = "<span class='text-success'><i class='fad fa-check-circle fa-fw'></i></span>";
+		} elseif ($card_mode == 'disponivel') {
+			$template_botoes = "<span class='text-info'><i class='fad fa-circle fa-fw'></i></span>";
+		}
+		$template_conteudo = false;
+		if ($curso_verbete != false) {
+			$template_conteudo .= $curso_verbete;
+		}
+		
+		$curso_card = include 'templates/page_element.php';
+		
+		return $curso_card;
+		
+	}
 
 ?>
