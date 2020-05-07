@@ -1967,7 +1967,7 @@
             <div id='searchDiv' class='mt-5'>
                 <input id='barra_busca' list='searchlist' type='text' class='barra_busca w-100'
                        name='searchBar' rows='1' autocomplete='off' spellcheck='false'
-                       placeholder='Busca de páginas deste curso' required>
+                       placeholder='{$pagina_translated['Busca de páginas deste curso']}' required>
                 <datalist id='searchlist'>
         ";
 		$result = $conn->query("SELECT chave FROM Searchbar WHERE curso_id = '$curso_id' ORDER BY ordem");
@@ -1986,7 +1986,7 @@
 		$template_modal_body_conteudo .= "
             <form id='searchform' action='' method='post'>
             <div id='searchDiv_geral' class='mt-5'>
-                <input id='barra_busca_geral' type='text' class='barra_busca w-100' name='searchBar_geral' rows='1' autocomplete='off' spellcheck='false' placeholder='Busca geral' required>";
+                <input id='barra_busca_geral' type='text' class='barra_busca w-100' name='searchBar_geral' rows='1' autocomplete='off' spellcheck='false' placeholder='{$pagina_translated['Busca geral']}' required>";
 		$template_modal_body_conteudo .= "<input id='trigger_busca_geral' name='trigger_busca' value='$curso_id' type='submit' style='position: absolute; left: -9999px; width: 1px; height: 1px;' tabindex='-1' />";
 		$template_modal_body_conteudo .= "
         	</div>
