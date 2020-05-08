@@ -3656,7 +3656,6 @@
 		$list_user_texts = false;
 		$query = "SELECT id, pagina_id FROM Textos WHERE tipo = 'anotacoes' AND user_id = $user_id AND verbete_text != '0' AND verbete_text != '' AND verbete_text != '\\n' ORDER BY id DESC";
 		$user_textos = $conn->query($query);
-		error_log($query);
 		if ($user_textos->num_rows > 0) {
 			while ($user_texto = $user_textos->fetch_assoc()) {
 				$user_texto_id = $user_texto['id'];
