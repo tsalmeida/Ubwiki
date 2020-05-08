@@ -3503,28 +3503,35 @@
 			$lista_tipo = 'texto';
 		}
 		if ($lista_tipo == 'texto') {
+			
 			$pagina_estado_cor = $cor_icone_principal;
+			$fa_prefixo = 'fad';
 			if ($icone_principal == 'fa-youtube') {
-				$pagina_estado_icone = "fab $icone_principal";
-			} else {
-				$pagina_estado_icone = "fad $icone_principal";
+				$fa_prefixo = 'fab';
 			}
+			$pagina_estado_icone = "$fa_prefixo $icone_principal";
 			$icone_principal = 'fad fa-file-alt fa-swap-opacity fa-fw';
-			if ($pagina_tipo == 'elemento') {
-				$cor_icone_principal = 'text-success';
-			} elseif ($pagina_tipo == 'topico') {
-				$cor_icone_principal = 'text-warning';
-			} elseif ($pagina_tipo == 'pagina') {
-				$cor_icone_principal = 'text-info';
-			} elseif ($pagina_tipo == 'texto') {
-				$cor_icone_principal = 'text-primary';
-				$pagina_estado_icone = false;
-				$pagina_estado_cor = false;
-			} elseif ($pagina_tipo == 'secao') {
-				$cor_icone_principal = 'text-danger';
-			}
-			else {
-				$cor_icone_principal = 'text-default';
+			
+			switch ($pagina_tipo) {
+				case 'elemento':
+					$cor_icone_principal = 'text-success';
+					break;
+				case 'topico':
+					$cor_icone_principal = 'text-warning';
+					break;
+				case 'pagina':
+					$cor_icone_principal = 'text-info';
+					break;
+				case 'texto':
+					$cor_icone_principal = 'text-primary';
+					$pagina_estado_icone = false;
+					$pagina_estado_cor = false;
+					break;
+				case 'secao':
+					$cor_icone_principal = 'text-info';
+					break;
+				default:
+					$cor_icone_principal = 'text-light';
 			}
 		} else {
 			$pagina_estado_cor = 'text-muted';
@@ -3647,20 +3654,17 @@
 	
 	if (isset($_POST['list_user_texts'])) {
 		$list_user_texts = false;
-		$user_textos = $conn->query("SELECT id, pagina_id, verbete_text FROM Textos WHERE tipo = 'anotacoes' AND user_id = $user_id ORDER BY id DESC");
+		$query = "SELECT id, pagina_id FROM Textos WHERE tipo = 'anotacoes' AND user_id = $user_id AND verbete_text != '0' AND verbete_text != '' AND verbete_text != '\\n' ORDER BY id DESC";
+		$user_textos = $conn->query($query);
+		error_log($query);
 		if ($user_textos->num_rows > 0) {
 			while ($user_texto = $user_textos->fetch_assoc()) {
 				$user_texto_id = $user_texto['id'];
 				$user_texto_pagina_id = $user_texto['pagina_id'];
-				$user_texto_verbete_text = $user_texto['verbete_text'];
-				if ($user_texto_verbete_text == false) {
-					continue;
-				} else {
-					if ($user_texto_pagina_id == false) {
-						$user_texto_pagina_id = return_pagina_id($user_texto_id, 'texto');
-					}
-					$list_user_texts .= return_list_item($user_texto_pagina_id, 'texto');
+				if ($user_texto_pagina_id == false) {
+					$user_texto_pagina_id = return_pagina_id($user_texto_id, 'texto');
 				}
+				$list_user_texts .= return_list_item($user_texto_pagina_id, 'texto');
 			}
 		}
 		echo $list_user_texts;
