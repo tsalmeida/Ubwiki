@@ -26,6 +26,10 @@
 		}
 	}
 	
+	if (isset($_GET['credito'])) {
+		$_SESSION['credito'] = $_GET['credito'];
+	}
+	
 	if (!isset($_SESSION['user_email'])) {
 		if ((isset($_POST['email'])) && (isset($_POST['bora']))) {
 			$_SESSION['thinkific_email'] = $_POST['email'];

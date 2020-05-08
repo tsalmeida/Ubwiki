@@ -118,6 +118,38 @@
 		$user_wallet = false;
 	}
 	
+	if (isset($_SESSION['credito'])) {
+		$novo_credito = $_SESSION['credito'];
+		$credit_state = check_credit($novo_credito);
+		if ($credit_state == false) {
+			return false;
+			unset($_SESSION['credito']);
+		} else {
+			$credit_result = add_credit($user_id, $credit_state);
+			if ($credit_result == true) {
+				unset($_SESSION['credito']);
+			}
+		}
+	}
+	
+	function check_credit($novo_credito)
+	{
+		if ($novo_credito == false) {
+			return false;
+		}
+		include 'templates/criar_conn.php';
+		$check_creditos = $conn->query("SELECT value FROM Creditos WHERE codigo = '$novo_credito' AND state = 1");
+		if ($check_creditos->num_rows > 0) {
+		
+		}
+		return true;
+	}
+	
+	function add_credit($user_id, $credit_value)
+	{
+		return true;
+	}
+	
 	if ($user_id != false) {
 		$produtos = $conn->query("SELECT id FROM Carrinho WHERE user_id = $user_id AND estado = 1");
 		if ($produtos->num_rows > 0) {
@@ -3479,18 +3511,23 @@
 			}
 			$icone_principal = 'fad fa-file-alt fa-swap-opacity fa-fw';
 			if ($pagina_tipo == 'elemento') {
-				//$pagina_estado_cor = 'text-success';
 				$cor_icone_principal = 'text-success';
 			} elseif ($pagina_tipo == 'topico') {
-				//$pagina_estado_cor = 'text-warning';
 				$cor_icone_principal = 'text-warning';
-			} else {
-				//$pagina_estado_cor = 'text-primary';
+			} elseif ($pagina_tipo == 'pagina') {
+				$cor_icone_principal = 'text-info';
+			} elseif ($pagina_tipo == 'texto') {
 				$cor_icone_principal = 'text-primary';
+				$pagina_estado_icone = false;
+				$pagina_estado_cor = false;
+			} elseif ($pagina_tipo == 'secao') {
+				$cor_icone_principal = 'text-danger';
+			}
+			else {
+				$cor_icone_principal = 'text-default';
 			}
 		} else {
 			$pagina_estado_cor = 'text-muted';
-			//$cor_icone_principal = 'text-muted';
 		}
 		if ($lista_tipo == 'forum') {
 			$link = "forum.php?pagina_id=$pagina_id";
@@ -3609,31 +3646,21 @@
 	}
 	
 	if (isset($_POST['list_user_texts'])) {
-		$user_texts = $conn->query("SELECT id, verbete_text, pagina_id, pagina_tipo, pagina_subtipo FROM Textos WHERE tipo = 'anotacoes' AND user_id = $user_id ORDER BY id DESC");
 		$list_user_texts = false;
-		if ($user_texts->num_rows > 0) {
-			while ($user_text = $user_texts->fetch_assoc()) {
-				$user_text_id = $user_text['id'];
-				$user_text_verbete_text = $user_text['verbete_text'];
-				$user_text_pagina_id = $user_text['pagina_id'];
-				$user_text_pagina_tipo = $user_text['pagina_tipo'];
-				$user_text_pagina_subtipo = $user_text['pagina_subtipo'];
-				if (($user_text_verbete_text == false) || (is_null($user_text_verbete_text))) {
+		$user_textos = $conn->query("SELECT id, pagina_id, verbete_text FROM Textos WHERE tipo = 'anotacoes' AND user_id = $user_id ORDER BY id DESC");
+		if ($user_textos->num_rows > 0) {
+			while ($user_texto = $user_textos->fetch_assoc()) {
+				$user_texto_id = $user_texto['id'];
+				$user_texto_pagina_id = $user_texto['pagina_id'];
+				$user_texto_verbete_text = $user_texto['verbete_text'];
+				if ($user_texto_verbete_text == false) {
 					continue;
-				}
-				$user_text_info = return_texto_info($user_text_id);
-				$user_text_titulo = $user_text_info[2];
-				if ($user_text_pagina_tipo == 'elemento') {
-					$icone_cor = 'text-success';
-				} elseif ($user_text_pagina_tipo == 'etiqueta') {
-					$icone_cor = 'text-warning';
-				} elseif ($user_text_pagina_tipo == 'topico') {
-					$icone_cor = 'text-info';
 				} else {
-					$icone_cor = 'text-primary';
+					if ($user_texto_pagina_id == false) {
+						$user_texto_pagina_id = return_pagina_id($user_texto_id, 'texto');
+					}
+					$list_user_texts .= return_list_item($user_texto_pagina_id, 'texto');
 				}
-				$list_user_texts .= return_list_item($user_text_pagina_id, 'texto');
-				//$list_user_texts .= "<a href='pagina.php?texto_id=$user_text_id'><li class='list-group-item list-group-item-action'><span class='$icone_cor align-middle'><i class='fad fa-file-alt fa-swap-opacity fa-2x fa-fw'></i></span> $user_text_titulo</li></a>";
 			}
 		}
 		echo $list_user_texts;
@@ -3725,7 +3752,8 @@
 		echo $usuarios_emails_results;
 	}
 	
-	function return_curso_card() {
+	function return_curso_card()
+	{
 		$args = func_get_args();
 		$curso_pagina_id = $args[0];
 		$card_mode = $args[1];
