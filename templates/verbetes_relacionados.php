@@ -37,7 +37,7 @@
 			while ($fam_nivel1 = $fam_niveis1->fetch_assoc()) {
 				$fam_nivel1_pagina_id = $fam_nivel1['id'];
 				if ($fam_nivel1_pagina_id != $pagina_id) {
-					$breadcrumbs .= return_list_item($fam_nivel1_pagina_id, 'link', false);
+					$breadcrumbs .= return_list_item($fam_nivel1_pagina_id, 'link', 'spacing2');
 				} else {
 					$breadcrumbs .= return_list_item($pagina_id, 'inactive', 'list-group-item-warning spacing2');
 					$fam_niveis2 = $conn->query("SELECT id FROM Paginas WHERE item_id = $pagina_id AND tipo = 'topico'");

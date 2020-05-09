@@ -3578,44 +3578,50 @@
 		if ($type == 'link') {
 			return "
 			<a href='$link'>
-				<li class='list-group-item list-group-item-action $item_classes border-top py-2 d-flex justify-content-between'>
+				<li class='list-group-item list-group-item-action $item_classes border-top p-1 py-2 d-flex justify-content-between'>
 					<span>
-						<span class='$cor_icone_principal mr-2 align-middle'>
-							<i class='$icone_prefixo $icone_principal fa-fw fa-2x'></i>
+						<span class='$cor_icone_principal align-middle icone-lista'>
+							<i class='$icone_prefixo $icone_principal fa-fw fa-lg'></i>
 						</span>
-						$pagina_titulo
+						<span class='lista-texto'>
+							$pagina_titulo
+						</span>
 					</span>
-					<span class='align-middle ml-2 $pagina_estado_cor'>
-						<i class='$pagina_estado_icone fa-fw'></i>
+					<span class='align-middle ml-2 icone-estado $pagina_estado_cor'>
+						<i class='$pagina_estado_icone fa-fw fa-sm'></i>
 					</span>
 				</li>
 			</a>";
 		} elseif ($type == 'modal') {
 			return "
 			<a data-toggle='modal' data-target='$link'>
-				<li class='list-group-item list-group-item-action $item_classes border-top py-2 d-flex justify-content-between'>
+				<li class='list-group-item list-group-item-action $item_classes border-top p-1 py-2 d-flex justify-content-between'>
 					<span>
-						<span class='$cor_icone_principal mr-2 align-middle'>
-							<i class='$icone_prefixo $icone_principal fa-fw fa-2x'></i>
+						<span class='$cor_icone_principal align-middle icone-lista'>
+							<i class='$icone_prefixo $icone_principal fa-fw fa-lg'></i>
 						</span>
-						$pagina_titulo
+						<span class='lista-texto'>
+							$pagina_titulo
+						</span>
 					</span>
-					<span class='align-middle ml-2 $pagina_estado_cor'>
-						<i class='$pagina_estado_icone fa-fw'></i>
+					<span class='align-middle ml-2 icone-estado $pagina_estado_cor'>
+						<i class='$pagina_estado_icone fa-fw fa-sm'></i>
 					</span>
 				</li>
 			</a>";
 		} elseif ($type == 'inactive') {
 			return "
-				<li class='list-group-item $item_classes border-top py-2 d-flex justify-content-between'>
+				<li class='list-group-item $item_classes border-top p-1 py-2 d-flex justify-content-between'>
 					<span>
-						<span class='$cor_icone_principal mr-2 align-middle'>
-							<i class='$icone_prefixo $icone_principal fa-fw fa-2x'></i>
+						<span class='$cor_icone_principal align-middle icone-lista'>
+							<i class='$icone_prefixo $icone_principal fa-fw fa-lg'></i>
 						</span>
-						$pagina_titulo
+						<span class='lista-texto'>
+							$pagina_titulo
+						</span>
 					</span>
-					<span class='align-middle ml-2 $pagina_estado_cor'>
-						<i class='$pagina_estado_icone fa-fw'></i>
+					<span class='align-middle ml-2 icone-estado $pagina_estado_cor'>
+						<i class='$pagina_estado_icone fa-fw fa-sm'></i>
 					</span>
 				</li>
 			";
