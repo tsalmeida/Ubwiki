@@ -9,6 +9,9 @@
 	}
 	
 	if (isset($_POST['trigger_atualizacao'])) {
+	    $conn->query("CREATE TABLE `Ubwiki`.`Creditos` ( `id` INT NOT NULL AUTO_INCREMENT , `codigo` VARCHAR(255) NULL DEFAULT NULL , `criacao` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `estado` BOOLEAN NOT NULL DEFAULT TRUE , `user_id` INT(11) NOT NULL , `data_uso` TIMESTAMP NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
+	    $conn->query("ALTER TABLE `Creditos` CHANGE `user_id` `user_id` INT(11) NULL DEFAULT NULL;");
+	    $conn->query("ALTER TABLE `Creditos` ADD `value` INT(11) NULL DEFAULT NULL AFTER `codigo`;");
 	}
 	
 	if (isset($_POST['trigger_atualizar_textos_size'])) {

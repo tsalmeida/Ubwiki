@@ -149,7 +149,7 @@
         <span class='row justify-content-center text-center p-1 mx-1 rounded $artefato_icone_background'>
         	<i class='$fa_type $fa_icone $fa_size fa-fw $fa_invert d-block'></i>
         </span>
-        <span class='row justify-content-center text-center mt-2 p-1 $titulo_class $artefato_titulo_class'>
+        <span class='row justify-content-center text-center mt-2 p-1 artefato-titulo $titulo_class $artefato_titulo_class'>
         	$artefato_titulo
         </span>
         <span class='row justify-content-center text-center p-1 $titulo_class $artefato_subtitulo_class'><em>$artefato_subtitulo</em></span>

@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:400,400i,700,700i&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Oswald:300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+//@import url('https://fonts.googleapis.com/css?family=Oswald:300&display=swap');
+//@import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;700&display=swap');
 
 $fontstack-mono: Monaco, Consolas, “Lucida Console”, monospace;
 $fontstack-body: 'Lato', Arial, Helvetica, sans-serif;
@@ -11,6 +12,13 @@ $fontstack-subtitle: 'Oswald', Arial, serif;
 
 .fontstack-subtitle {
   font-family: $fontstack-subtitle !important;
+  font-weight: 200 !important;
+}
+
+.artefato-titulo {
+  font-family: $fontstack-subtitle !important;
+  font-weight: 300 !important;
+  font-size: 1.15em !important;
 }
 
 .fontstack-mono {
@@ -27,6 +35,8 @@ $fontstack-subtitle: 'Oswald', Arial, serif;
 
 .navbar-brand {
   font-family: $fontstack-subtitle !important;
+  font-weight: 200 !important;
+  font-size: 1.3rem !important;
 }
 
 .force-size {
@@ -41,7 +51,6 @@ $fontstack-subtitle: 'Oswald', Arial, serif;
     font-size: 1.7em;
   }
 }
-
 
 .ql-editor {
   /*
@@ -62,6 +71,7 @@ html, body, p, li, select, .md-form, textarea, input {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: $fontstack-subtitle !important;
+  font-weight: 300 !important;
 }
 
 .lead {
@@ -70,11 +80,13 @@ h1, h2, h3, h4, h5, h6 {
 
 .display-1, .display-2, .display-3, .display-4 {
   font-family: $fontstack-title !important;
+  font-weight: 200 !important;
 }
 
 .btn {
-  font-size: 0.85rem !important;
+  font-size: 0.93rem !important;
   font-family: $fontstack-subtitle;
+  font-weight: 300 !important;
 }
 
 body {
@@ -255,27 +267,27 @@ ul + * {
 }
 
 .spacing0 {
-  margin-left: 0;
+  padding-left: 0;
 }
 
 .spacing1 {
-  margin-left: 2ch;
+  padding-left: 2ch;
 }
 
 .spacing2 {
-  margin-left: 4ch;
+  padding-left: 4ch;
 }
 
 .spacing3 {
-  margin-left: 6ch;
+  padding-left: 6ch;
 }
 
 .spacing4 {
-  margin-left: 8ch;
+  padding-left: 8ch;
 }
 
 .spacing5 {
-  margin-left: 10ch;
+  padding-left: 10ch;
 }
 
 #mostrar_coluna_direita {

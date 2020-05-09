@@ -3329,7 +3329,7 @@
 	}
 	
 	if (isset($_POST['list_contribuicoes'])) {
-		$usuario_contribuicoes = $conn->query("SELECT DISTINCT pagina_id FROM Textos_arquivo WHERE user_id = $user_id ORDER BY id DESC");
+		$usuario_contribuicoes = $conn->query("SELECT DISTINCT pagina_id FROM Textos_arquivo WHERE user_id = $user_id AND tipo = 'verbete' ORDER BY id DESC");
 		$list_contribuicoes = false;
 		if ($usuario_contribuicoes->num_rows > 0) {
 			$list_contribuicoes .= "<ul class='list-group list-group-flush'>";
@@ -3482,6 +3482,11 @@
 		} else {
 			$lista_tipo = false;
 		}
+		if (isset($args[2])) {
+			$item_classes = $args[2];
+		} else {
+			$item_classes = false;
+		}
 		if ($pagina_id == false) {
 			return false;
 		} else {
@@ -3538,6 +3543,8 @@
 		}
 		if ($lista_tipo == 'forum') {
 			$link = "forum.php?pagina_id=$pagina_id";
+		} elseif ($lista_tipo == 'inactive') {
+			$link = false;
 		} else {
 			$link = "pagina.php?pagina_id=$pagina_id";
 		}
@@ -3546,7 +3553,7 @@
 		} else {
 			$icone_prefixo = 'fad';
 		}
-		return put_together_list_item('link', $link, $cor_icone_principal, $icone_prefixo, $icone_principal, $pagina_titulo, $pagina_estado_cor, $pagina_estado_icone);
+		return put_together_list_item('link', $link, $cor_icone_principal, $icone_prefixo, $icone_principal, $pagina_titulo, $pagina_estado_cor, $pagina_estado_icone, $item_classes);
 	}
 	
 	function put_together_list_item()
@@ -3554,16 +3561,24 @@
 		$args = func_get_args();
 		$type = $args[0];
 		$link = $args[1];
+		if ($link == false) {
+			$type = 'inactive';
+		}
 		$cor_icone_principal = $args[2];
 		$icone_prefixo = $args[3];
 		$icone_principal = $args[4];
 		$pagina_titulo = $args[5];
 		$pagina_estado_cor = $args[6];
 		$pagina_estado_icone = $args[7];
+		if (isset($args[8])) {
+			$item_classes = $args[8];
+		} else {
+			$item_classes = false;
+		}
 		if ($type == 'link') {
 			return "
 			<a href='$link'>
-				<li class='list-group-item list-group-item-action py-2 d-flex justify-content-between border-top'>
+				<li class='list-group-item list-group-item-action $item_classes border-top py-2 d-flex justify-content-between'>
 					<span>
 						<span class='$cor_icone_principal mr-2 align-middle'>
 							<i class='$icone_prefixo $icone_principal fa-fw fa-2x'></i>
@@ -3578,7 +3593,7 @@
 		} elseif ($type == 'modal') {
 			return "
 			<a data-toggle='modal' data-target='$link'>
-				<li class='list-group-item list-group-item-action border-top py-2 d-flex justify-content-between'>
+				<li class='list-group-item list-group-item-action $item_classes border-top py-2 d-flex justify-content-between'>
 					<span>
 						<span class='$cor_icone_principal mr-2 align-middle'>
 							<i class='$icone_prefixo $icone_principal fa-fw fa-2x'></i>
@@ -3590,6 +3605,20 @@
 					</span>
 				</li>
 			</a>";
+		} elseif ($type == 'inactive') {
+			return "
+				<li class='list-group-item $item_classes border-top py-2 d-flex justify-content-between'>
+					<span>
+						<span class='$cor_icone_principal mr-2 align-middle'>
+							<i class='$icone_prefixo $icone_principal fa-fw fa-2x'></i>
+						</span>
+						$pagina_titulo
+					</span>
+					<span class='align-middle ml-2 $pagina_estado_cor'>
+						<i class='$pagina_estado_icone fa-fw'></i>
+					</span>
+				</li>
+			";
 		}
 	}
 	
