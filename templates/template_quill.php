@@ -98,7 +98,7 @@
 	if ($quill_texto_id != false) {
 		$quill_query = "SELECT verbete_content FROM Textos WHERE id = $quill_texto_id";
 		if (($template_quill_public != true) && ($compartilhamento_check == false)) {
-			$quill_query .= " AND user_id = $user_id";
+			$quill_query .= " AND user_id = $pagina_user_id";
 		}
 		$quill_textos = $conn->query($quill_query);
 		

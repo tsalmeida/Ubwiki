@@ -118,37 +118,25 @@
 		$user_wallet = false;
 	}
 	
-	if (isset($_SESSION['credito'])) {
-		$novo_credito = $_SESSION['credito'];
-		$credit_state = check_credit($novo_credito);
-		if ($credit_state == false) {
-			return false;
-			unset($_SESSION['credito']);
-		} else {
-			$credit_result = add_credit($user_id, $credit_state);
-			if ($credit_result == true) {
-				unset($_SESSION['credito']);
-			}
-		}
-	}
 	
-	function check_credit($novo_credito)
+	function return_wallet_value($user_id)
 	{
-		if ($novo_credito == false) {
+		if ($user_id == false) {
 			return false;
 		}
 		include 'templates/criar_conn.php';
-		$check_creditos = $conn->query("SELECT value FROM Creditos WHERE codigo = '$novo_credito' AND state = 1");
-		if ($check_creditos->num_rows > 0) {
-		
+		$wallet_contents = $conn->query("SELECT endstate FROM Transactions WHERE user_id = $user_id ORDER BY id DESC");
+		if ($wallet_contents->num_rows > 0) {
+			while ($wallet_content = $wallet_contents->fetch_assoc()) {
+				$wallet_content_endstate = $wallet_content['endstate'];
+				return $wallet_content_endstate;
+			}
+		} else {
+			return false;
 		}
-		return true;
 	}
 	
-	function add_credit($user_id, $credit_value)
-	{
-		return true;
-	}
+	include 'money_engine.php';
 	
 	if ($user_id != false) {
 		$produtos = $conn->query("SELECT id FROM Carrinho WHERE user_id = $user_id AND estado = 1");
@@ -3247,8 +3235,7 @@
 		$list_cursos .= put_together_list_item('link', 'cursos.php', 'text-success', 'fad', 'fa-portal-enter', $pagina_translated['available courses'], 'text-primary', 'fad fa-external-link');
 		$usuario_cursos = return_usuario_cursos_inscrito($user_id);
 		foreach ($usuario_cursos as $usuario_curso) {
-			$usuario_curso_pagina_id = return_pagina_id($usuario_curso, 'curso');
-			$list_cursos .= return_list_item($usuario_curso_pagina_id);
+			$list_cursos .= return_list_item($usuario_curso);
 		}
 		$list_cursos .= '</ul>';
 		echo $list_cursos;
@@ -3734,32 +3721,6 @@
 			}
 		} else {
 			return array(false, false);
-		}
-	}
-	
-	function return_wallet_value($user_id)
-	{
-		if ($user_id == false) {
-			return false;
-		}
-		include 'templates/criar_conn.php';
-		$wallet_contents = $conn->query("SELECT endstate FROM Transactions WHERE user_id = $user_id ORDER BY id DESC");
-		if ($wallet_contents->num_rows > 0) {
-			while ($wallet_content = $wallet_contents->fetch_assoc()) {
-				$wallet_content_endstate = $wallet_content['endstate'];
-				return $wallet_content_endstate;
-			}
-		} else {
-			return false;
-		}
-	}
-	
-	if (isset($_POST['order_review_pagina_id'])) {
-		$order_review_pagina_id = $_POST['order_review_pagina_id'];
-		$check = $conn->query("INSERT INTO Orders (tipo, user_id, pagina_id) VALUES ('review', $user_id, $order_review_pagina_id)");
-		if ($check == true) {
-			$check = $conn->query("INSERT INTO Transactions () VALUES ()");
-			$conn->query("INSERT INTO Compartilhamento (tipo, user_id, item_id, item_tipo, compartilhamento, recipiente_id) VALUES ('revision', $user_id, $order_review_pagina_id, 'texto', 'grupo', 13)");
 		}
 	}
 	

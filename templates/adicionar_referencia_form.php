@@ -1,9 +1,9 @@
 <?php
 	if (!isset($adicionar_referencia_busca_texto)) {
-		$adicionar_referencia_busca_texto = 'Preencha com o título da referência';
+		$adicionar_referencia_busca_texto = $pagina_translated['Preencha com o título da referência'];
 	}
 	if (!isset($adicionar_referencia_form_botao)) {
-		$adicionar_referencia_form_botao = 'Adicionar referência';
+		$adicionar_referencia_form_botao = $pagina_translated['Adicionar referência'];
 	}
 	$form_return = false;
 	

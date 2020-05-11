@@ -152,7 +152,7 @@
         <span class='row justify-content-center text-center mt-2 p-1 artefato-titulo $titulo_class $artefato_titulo_class'>
         	$artefato_titulo
         </span>
-        <span class='row justify-content-center text-center p-1 $titulo_class $artefato_subtitulo_class'><em>$artefato_subtitulo</em></span>
+        <span class='row justify-content-center text-center p-1 $titulo_class $artefato_subtitulo_class'><em class='artefato-subtitulo'>$artefato_subtitulo</em></span>
         $artefato_link_2
   ";
 	

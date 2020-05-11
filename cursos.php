@@ -61,7 +61,6 @@
 					<?php
 						if ($usuario_cursos_nao_inscrito_disponiveis != false) {
 							foreach ($usuario_cursos_nao_inscrito_disponiveis as $list_cursos_disponiveis) {
-								error_log($list_cursos_disponiveis);
 								$list_cursos_cards = return_curso_card($list_cursos_disponiveis, 'disponivel');
 							}
 						}

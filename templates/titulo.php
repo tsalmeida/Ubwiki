@@ -77,7 +77,7 @@
 	}
 	if ($template_subtitulo != false) {
 		echo "
-			<span class='text-muted d-block mt-3'><$template_subtitulo_size>$template_subtitulo</$template_subtitulo_size></span>
+			<span class='text-muted d-block mt-3'><$template_subtitulo_size class='fine-subtitulo'>$template_subtitulo</$template_subtitulo_size></span>
 		";
 	}
 	if ($template_titulo_context == true) {

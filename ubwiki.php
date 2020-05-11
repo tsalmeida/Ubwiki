@@ -96,7 +96,7 @@
 						$artefato_tipo = 'escritorio';
 						//$artefato_link = '#sobre_escritorio';
 						$fa_icone = 'fa-lamp-desk';
-						$fa_color = 'text-info';
+						$fa_color = 'deep-orange-darker-hover';
 						$fa_size = 'fa-4x';
 						$artefato_criacao = false;
 						$artefato_class = 'icone_sobre_stuff';
@@ -113,7 +113,7 @@
 						$artefato_titulo_class = 'text-primary';
 						$fa_icone = 'fa-lamp-desk';
 						$fa_color = 'text-white';
-						$artefato_icone_background = 'icone-link rgba-cyan-strong';
+						$artefato_icone_background = 'icone-link rgba-deep-orange-strong';
 						$fa_size = 'fa-4x';
 						$fa_invert = true;
 						$artefato_class = 'icones_links';
@@ -124,7 +124,7 @@
 						$artefato_tipo = 'cursos';
 						//$artefato_link = '#sobre_cursos';
 						$fa_icone = 'fa-graduation-cap';
-						$fa_color = 'text-default';
+						$fa_color = 'text-info';
 						$fa_size = 'fa-4x';
 						$artefato_criacao = false;
 						$artefato_class = 'icone_sobre_stuff';
@@ -137,7 +137,7 @@
 						$artefato_tipo = 'cursos_link';
 						$fa_icone = 'fa-graduation-cap';
 						$fa_color = 'text-white';
-						$artefato_icone_background = 'icone-link rgba-teal-strong';
+						$artefato_icone_background = 'icone-link rgba-cyan-strong';
 						$fa_size = 'fa-4x';
 						$fa_invert = true;
 						$artefato_class = 'icones_links';
@@ -217,7 +217,7 @@
 						$artefato_criacao = false;
 						$template_conteudo .= include 'templates/artefato_item.php';
 						*/
-						
+						/*
 						if ($user_tipo == 'admin') {
 							$artefato_titulo = $pagina_translated['market'];
 							$artefato_tipo = 'loja';
@@ -243,7 +243,7 @@
 							$artefato_criacao = false;
 							$template_conteudo .= include 'templates/artefato_item.php';
 						}
-						
+						*/
 						include 'templates/page_element.php';
 						
 						$template_id = 'sobre_escritorio';

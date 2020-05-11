@@ -96,6 +96,8 @@
 		exit();
 	}
 	
+	$texto_revisao_ativa = check_review_state($pagina_id);
+	
 	$pagina_info = return_pagina_info($pagina_id);
 	if ($pagina_info != false) {
 		$pagina_criacao = $pagina_info[0];
@@ -263,8 +265,17 @@
 				$check_compartilhamento = return_compartilhamento($pagina_id, $user_id);
 			}
 			if ($check_compartilhamento == false) {
-				header('Location:pagina.php?pagina_id=4');
-				exit();
+				switch ($texto_revisao_ativa) {
+					case true:
+						if (($user_tipo == 'admin') || ($user_tipo == 'revisor')) {
+							$privilegio_edicao = true;
+							$check_compartilhamento = true;
+							break;
+						}
+					default:
+						header('Location:pagina.php?pagina_id=4');
+						exit();
+				}
 			}
 		}
 	}
@@ -327,6 +338,9 @@
 		$texto_pagina_id = $texto_info[9];
 		$texto_compartilhamento = $texto_info[11];
 		$texto_texto_pagina_id = $texto_info[12];
+		if (($texto_revisao_ativa == 1) && (($user_tipo != 'admin') && ($user_tipo != 'revisor'))) {
+			$privilegio_edicao = false;
+		}
 		$pagina_id = $texto_texto_pagina_id;
 		if (isset($_POST['destruir_anotacao'])) {
 			$conn->query("DELETE FROM Textos WHERE id = $pagina_texto_id");
@@ -531,11 +545,16 @@
 								echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_produto_preco' class='text-warning mr-1' id='produto_preco' title='{$pagina_translated['Preço do produto']}'><i class='fad fa-usd-circle fa-fw fa-2x'></i></a>";
 							}
 						}
-						if ($user_tipo == 'admin') {
-							if (($pagina_tipo == 'texto') && ($pagina_user_id == $user_id)) {
-								$carregar_modal_correcao = true;
-								echo "<a href='javascript:void(0);' class='text-primary' data-toggle='modal' data-target='#modal_correcao' title='{$pagina_translated['Solicitar correção']}'><i class='fad fa-pencil-alt fa-fw fa-2x' style='--fa-secondary-color: #ff3547;'></i></a>";
+						if (($pagina_tipo == 'texto') && ($pagina_user_id == $user_id) && ($user_tipo == 'admin')) {
+							$carregar_modal_correcao = true;
+							if ($texto_revisao_ativa == true) {
+								$pencil_color1 = 'text-muted';
+								$pencil_color2 = false;
+							} else {
+								$pencil_color1 = 'text-primary';
+								$pencil_color2 = "style='--fa-secondary-color: #ff3547;'";
 							}
+							echo "<a href='javascript:void(0);' class='$pencil_color1' data-toggle='modal' data-target='#modal_correcao' title='{$pagina_translated['Solicitar correção']}'><i class='fad fa-pencil-alt fa-fw fa-2x' $pencil_color2></i></a>";
 						}
 						if (($pagina_tipo == 'curso') && ($pagina_curso_user_id == $user_id)) {
 							$carregar_adicionar_materia = true;
@@ -1476,19 +1495,25 @@
 	if ($pagina_tipo == 'secao') {
 		$template_modal_div_id = 'modal_paginas_relacionadas';
 		$template_modal_titulo = $pagina_translated['Página e seções'];
+		$template_modal_show_buttons = false;
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
-		$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$pagina_item_id'><li class='list-group-item list-group-item-action list-group-item-primary'>$pagina_original_titulo</li></a>";
+		$template_modal_body_conteudo .= return_list_item($pagina_item_id, 'link', 'list-group-item-success mb-1');
+		//$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$pagina_item_id'><li class='list-group-item
+      // list-group-item-action list-group-item-primary'>$pagina_original_titulo</li></a>";
 		$parentes = $conn->query("SELECT secao_pagina_id FROM Secoes WHERE pagina_id = $pagina_item_id ORDER BY ordem, id");
 		if ($parentes->num_rows > 0) {
 			while ($parente = $parentes->fetch_assoc()) {
 				$parente_id = $parente['secao_pagina_id'];
 				$parente_highlight = false;
 				if ($parente_id == $pagina_id) {
-					$parente_highlight = 'list-group-item-secondary';
-				}
-				$parente_titulo = return_pagina_titulo($parente_id);
-				$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$parente_id' class='mt-1'><li class='list-group-item list-group-item-action $parente_highlight border-top'>$parente_titulo</li></a>";
+					$lista_tipo = 'inactive';
+					$item_classes = 'list-group-item-secondary';
+				} else {
+				    $lista_tipo = false;
+				    $item_classes = false;
+                }
+				$template_modal_body_conteudo .= return_list_item($parente_id, $lista_tipo, $item_classes);
 			}
 		}
 		$template_modal_body_conteudo .= "</ul>";
@@ -2299,11 +2324,20 @@
 			    <li class='list-group-item'><strong>{$pagina_translated['Your credits:']}</strong> $user_wallet</li>
             </ul>
 	    ";
+		if ($user_wallet >= $revision_price) {
+		    $button_disabled = false;
+        } else {
+			$button_disabled = 'disabled';
+		}
 		$template_modal_body_conteudo .= "
 			<form method='post'>
 				<input type='hidden' name='order_review_pagina_id' value='$pagina_id'>
+				<div class='md-form'>
+					<textarea class='md-textarea form-control' id='new_review_comments' name='new_review_comments' rows='3' $button_disabled></textarea>
+					<label for='new_review_comments'>{$pagina_translated['Seus comentários']}</label>
+				</div>
 				<div class='row d-flex justify-content-center'>
-					<button class='$button_classes_info'>{$pagina_translated['Place order']}</button>
+					<button class='$button_classes_info' $button_disabled>{$pagina_translated['Place order']}</button>
 				</div>
 			</form>
 		";
