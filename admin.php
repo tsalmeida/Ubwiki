@@ -9,12 +9,12 @@
 	}
 	
 	if (isset($_POST['trigger_atualizacao'])) {
-	    $conn->query("ALTER TABLE `Orders` ADD `data_finalizado` TIMESTAMP NULL DEFAULT NULL AFTER `criacao`, ADD `corretor_user_id` INT(11) NULL DEFAULT NULL AFTER `data_finalizado`;");
-		registrar_credito('TPTLIBVHYEQ2', 150);
-		adicionar_chave_traducao('Solicitação recebida', 1);
-		adicionar_chave_traducao('Correção em andamento', 1);
-		adicionar_chave_traducao('Finalizar correção', 1);
-		adicionar_chave_traducao('Escrever texto em resposta', 1);
+        $count = 0;
+        while ($count > 50) {
+            $count++;
+            $novo_credito = generateRandomString(16);
+            registrar_credito($novo_credito, 200);
+        }
 	}
 	
 	if (isset($_POST['trigger_atualizar_textos_size'])) {
