@@ -9,10 +9,12 @@
 	}
 	
 	if (isset($_POST['trigger_atualizacao'])) {
-	    $conn->query("CREATE TABLE `Ubwiki`.`Creditos` ( `id` INT NOT NULL AUTO_INCREMENT , `codigo` VARCHAR(255) NULL DEFAULT NULL , `criacao` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `estado` BOOLEAN NOT NULL DEFAULT TRUE , `user_id` INT(11) NOT NULL , `data_uso` TIMESTAMP NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
-	    $conn->query("ALTER TABLE `Creditos` CHANGE `user_id` `user_id` INT(11) NULL DEFAULT NULL;");
-	    $conn->query("ALTER TABLE `Creditos` ADD `value` INT(11) NULL DEFAULT NULL AFTER `codigo`;");
-	    $conn->query("ALTER TABLE `Orders` ADD `comments` TEXT NULL DEFAULT NULL AFTER `pagina_id`;");
+	    $conn->query("ALTER TABLE `Orders` ADD `data_finalizado` TIMESTAMP NULL DEFAULT NULL AFTER `criacao`, ADD `corretor_user_id` INT(11) NULL DEFAULT NULL AFTER `data_finalizado`;");
+		registrar_credito('TPTLIBVHYEQ2', 150);
+		adicionar_chave_traducao('Solicitação recebida', 1);
+		adicionar_chave_traducao('Correção em andamento', 1);
+		adicionar_chave_traducao('Finalizar correção', 1);
+		adicionar_chave_traducao('Escrever texto em resposta', 1);
 	}
 	
 	if (isset($_POST['trigger_atualizar_textos_size'])) {

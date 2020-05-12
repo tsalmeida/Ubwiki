@@ -265,17 +265,8 @@
 				$check_compartilhamento = return_compartilhamento($pagina_id, $user_id);
 			}
 			if ($check_compartilhamento == false) {
-				switch ($texto_revisao_ativa) {
-					case true:
-						if (($user_tipo == 'admin') || ($user_tipo == 'revisor')) {
-							$privilegio_edicao = true;
-							$check_compartilhamento = true;
-							break;
-						}
-					default:
-						header('Location:pagina.php?pagina_id=4');
-						exit();
-				}
+				header('Location:pagina.php?pagina_id=4');
+				exit();
 			}
 		}
 	}
@@ -545,11 +536,16 @@
 								echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_produto_preco' class='text-warning mr-1' id='produto_preco' title='{$pagina_translated['Preço do produto']}'><i class='fad fa-usd-circle fa-fw fa-2x'></i></a>";
 							}
 						}
-						if (($pagina_tipo == 'texto') && ($pagina_user_id == $user_id) && ($user_tipo == 'admin')) {
+						if ((($pagina_tipo == 'texto') && ($pagina_user_id == $user_id)) || (($texto_revisao_ativa == true) && (($user_tipo == 'admin') || ($user_tipo == 'revisor')))) {
 							$carregar_modal_correcao = true;
 							if ($texto_revisao_ativa == true) {
-								$pencil_color1 = 'text-muted';
-								$pencil_color2 = false;
+								if (($user_tipo == 'admin') || ($user_tipo == 'revisor')) {
+									$pencil_color1 = 'text-success';
+									$pencil_color2 = "style='--fa-secondary-color: #ff3547;'";
+								} else {
+									$pencil_color1 = 'text-muted';
+									$pencil_color2 = false;
+								}
 							} else {
 								$pencil_color1 = 'text-primary';
 								$pencil_color2 = "style='--fa-secondary-color: #ff3547;'";
@@ -1500,7 +1496,7 @@
 		$template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
 		$template_modal_body_conteudo .= return_list_item($pagina_item_id, 'link', 'list-group-item-success mb-1');
 		//$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$pagina_item_id'><li class='list-group-item
-      // list-group-item-action list-group-item-primary'>$pagina_original_titulo</li></a>";
+		// list-group-item-action list-group-item-primary'>$pagina_original_titulo</li></a>";
 		$parentes = $conn->query("SELECT secao_pagina_id FROM Secoes WHERE pagina_id = $pagina_item_id ORDER BY ordem, id");
 		if ($parentes->num_rows > 0) {
 			while ($parente = $parentes->fetch_assoc()) {
@@ -1510,9 +1506,9 @@
 					$lista_tipo = 'inactive';
 					$item_classes = 'list-group-item-secondary';
 				} else {
-				    $lista_tipo = false;
-				    $item_classes = false;
-                }
+					$lista_tipo = false;
+					$item_classes = false;
+				}
 				$template_modal_body_conteudo .= return_list_item($parente_id, $lista_tipo, $item_classes);
 			}
 		}
@@ -1734,7 +1730,7 @@
 	}
 	if ($pagina_tipo == 'texto') {
 		$template_modal_div_id = 'modal_add_reply';
-		$template_modal_titulo = 'Escrever texto em resposta';
+		$template_modal_titulo = $pagina_translated['Escrever resposta'];
 		$template_modal_show_buttons = false;
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
@@ -2311,25 +2307,26 @@
 	
 	if ($carregar_modal_correcao == true) {
 		$template_modal_div_id = 'modal_correcao';
-		$template_modal_titulo = $pagina_translated['Solicitar correção'];
 		$template_modal_show_buttons = false;
 		$template_modal_body_conteudo = false;
-		$pagina_texto_wordcount = str_word_count($texto_verbete_text);
-		$revision_price = floor($pagina_texto_wordcount / 3);
-		$template_modal_body_conteudo .= "
+		if ($texto_revisao_ativa == false) {
+			$template_modal_titulo = $pagina_translated['Solicitar correção'];
+			$pagina_texto_wordcount = str_word_count($texto_verbete_text);
+			$revision_price = floor($pagina_texto_wordcount / 3);
+			$template_modal_body_conteudo .= "
 			<p>{$pagina_translated['revision_paragraph']}</p>
 			<ul class='list-group'>
 			    <li class='list-group-item'><strong>{$pagina_translated['Word count:']}</strong> $pagina_texto_wordcount <span class='text-muted'><em>({$pagina_translated['Reload page to refresh']})</em></span></li>
 			    <li class='list-group-item'><strong>{$pagina_translated['Revision price:']}</strong> $revision_price</li>
 			    <li class='list-group-item'><strong>{$pagina_translated['Your credits:']}</strong> $user_wallet</li>
             </ul>
-	    ";
-		if ($user_wallet >= $revision_price) {
-		    $button_disabled = false;
-        } else {
-			$button_disabled = 'disabled';
-		}
-		$template_modal_body_conteudo .= "
+    	    ";
+			if ($user_wallet >= $revision_price) {
+				$button_disabled = false;
+			} else {
+				$button_disabled = 'disabled';
+			}
+			$template_modal_body_conteudo .= "
 			<form method='post'>
 				<input type='hidden' name='order_review_pagina_id' value='$pagina_id'>
 				<div class='md-form'>
@@ -2341,6 +2338,20 @@
 				</div>
 			</form>
 		";
+		} else {
+			$template_modal_titulo = $pagina_translated['Correção em andamento'];
+			if (($user_tipo == 'admin') || ($user_tipo == 'revisor')) {
+				$template_modal_body_conteudo .= "
+			        <form method='post'>
+			            <div class='row d-flex justify-content-center'>
+			                <button name='finalizar_correcao' value='$pagina_id' class='$button_classes_info'>{$pagina_translated['Finalizar correção']}</button>
+                        </div>
+			        </form>
+			    ";
+			} else {
+				$template_modal_body_conteudo = $pagina_translated['Solicitação recebida'];
+			}
+		}
 		include 'templates/modal.php';
 	}
 	

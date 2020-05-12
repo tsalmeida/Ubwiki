@@ -1999,14 +1999,16 @@
 		}
 		include 'templates/criar_conn.php';
 		if ($pagina_tipo == 'texto') {
-			$textos = $conn->query("SELECT id FROM Textos WHERE pagina_tipo IS NULL AND texto_pagina_id = $pagina_id AND tipo = '$template_id'");
+			$query = "SELECT id FROM Textos WHERE pagina_tipo IS NULL AND texto_pagina_id = $pagina_id AND tipo = '$template_id'";
+			$textos = $conn->query($query);
 		} else {
 			if ($template_id == 'anotacoes') {
 				$query_extra = " AND user_id = $user_id";
 			} else {
 				$query_extra = false;
 			}
-			$textos = $conn->query("SELECT id FROM Textos WHERE pagina_tipo = '$pagina_tipo' AND pagina_id = $pagina_id AND tipo = '$template_id'$query_extra");
+			$query = "SELECT id FROM Textos WHERE pagina_tipo = '$pagina_tipo' AND pagina_id = $pagina_id AND tipo = '$template_id'$query_extra";
+			$textos = $conn->query($query);
 		}
 		if ($textos->num_rows > 0) {
 			while ($texto = $textos->fetch_assoc()) {
@@ -2071,6 +2073,17 @@
 		$item_pagina_info = return_pagina_info($item_id);
 		$item_pagina_user_id = $item_pagina_info[5];
 		$item_pagina_compartilhamento = $item_pagina_info[4];
+		$item_pagina_tipo = $item_pagina_info[2];
+		if ($item_pagina_tipo == 'texto') {
+			$item_pagina_revisao = check_review_state($item_id);
+			if ($item_pagina_revisao == true) {
+				$user_info = return_usuario_info($user_id);
+				$user_tipo = $user_info[0];
+				if (($user_tipo == 'admin') || ($user_tipo == 'revisor')) {
+					return true;
+				}
+			}
+		}
 		if ($item_pagina_compartilhamento != 'privado') {
 			return true;
 		}
@@ -2401,6 +2414,21 @@
 			while ($texto = $textos->fetch_assoc()) {
 				$texto_verbete_html = $texto['verbete_html'];
 				return $texto_verbete_html;
+			}
+		}
+		return false;
+	}
+	
+	function return_verbete_text($texto_id) {
+		if ($texto_id == false) {
+			return false;
+		}
+		include 'templates/criar_conn.php';
+		$textos = $conn->query("SELECT verbete_text FROM Textos WHERE id = $texto_id");
+		if ($textos->num_rows > 0) {
+			while ($texto = $textos->fetch_assoc()) {
+				$texto_verbete_text = $texto['verbete_text'];
+				return $texto_verbete_text;
 			}
 		}
 		return false;
@@ -3019,7 +3047,7 @@
 						return array('fa-list-ol', 'text-info', 'rgba-cyan-strong');
 						break;
 					case 'resposta':
-						return array('fa-comment-alt-edit', 'text-success', 'rgba-cyan-strong');
+						return array('fa-comment-alt-edit', 'text-default', 'rgba-cyan-strong');
 						break;
 					case 'wikipedia':
 						return array('fa-wikipedia-w', 'text-dark', 'rgba-grey-strong');
@@ -3783,5 +3811,42 @@
 		return $curso_card;
 		
 	}
+	
+	if (isset($_POST['finalizar_correcao'])) {
+		$finalizar_correcao_pagina_id = $_POST['finalizar_correcao'];
+		$conn->query("UPDATE Orders SET estado = 0, corretor_user_id = $user_id, data_finalizado = NOW() WHERE tipo = 'review' AND pagina_id = $finalizar_correcao_pagina_id AND estado = 1");
+	}
 
+	function return_usuario_info($usuario_id) {
+		if ($usuario_id == false) {
+			return false;
+		}
+		include 'templates/criar_conn.php';
+		$usuarios = $conn->query("SELECT * FROM Usuarios WHERE id = $usuario_id");
+		if ($usuarios->num_rows > 0) {
+			while ($usuario = $usuarios->fetch_assoc()) {
+				$usuario_tipo = $usuario['tipo']; // 01
+				$usuario_criacao = $usuario['criacao']; // 02
+				$usuario_origem = $usuario['origem']; // 03
+				$usuario_language = $usuario['language']; // 04
+				$usuario_email = $usuario['email']; // 05
+				$usuario_apelido = $usuario['apelido']; // 06
+				$usuario_pagina_id = $usuario['pagina_id']; // 07
+				if ($usuario_pagina_id == false) {
+					$usuario_pagina_id = return_pagina_id($usuario_id, 'escritorio');
+				}
+				$usuario_escritorio_id = $usuario['escritorio_id']; // 08
+				$usuario_nome = $usuario['nome']; // 09
+				$usuario_sobrenome = $usuario['sobrenome']; // 10
+				$usuario_concursos = $usuario['concursos']; // 11
+				$usuario_special = $usuario['special']; // 12
+				$result = array($usuario_tipo, $usuario_criacao, $usuario_origem, $usuario_language, $usuario_email,
+					$usuario_apelido, $usuario_pagina_id, $usuario_escritorio_id, $usuario_nome, $usuario_sobrenome,
+					$usuario_concursos, $usuario_special);
+				return $result;
+			}
+		}
+		return false;
+	}
+	
 ?>
