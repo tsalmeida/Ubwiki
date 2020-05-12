@@ -9,12 +9,12 @@
 	}
 	
 	if (isset($_POST['trigger_atualizacao'])) {
-        $count = 0;
-        while ($count < 50) {
-            $count++;
-            $novo_credito = generateRandomString(16);
-            registrar_credito($novo_credito, 200);
-        }
+		$count = 0;
+		while ($count < 300) {
+			$count++;
+			$novo_credito = generateRandomString(8, 'capsintegers');
+			registrar_credito($novo_credito, 50);
+		}
 	}
 	
 	if (isset($_POST['trigger_atualizar_textos_size'])) {
@@ -70,20 +70,6 @@
 		}
 	}
 	
-	if (isset($_POST['funcoes_gerais4'])) {
-		$textos_antigos = $conn->query("SELECT id, pagina_id FROM Textos_arquivo WHERE tipo = 'verbete' AND texto_id IS NULL");
-		if ($textos_antigos->num_rows > 0) {
-			while ($texto_antigo = $textos_antigos->fetch_assoc()) {
-				$texto_antigo_id = $texto_antigo['id'];
-				$texto_antigo_pagina_id = $texto_antigo['pagina_id'];
-				$texto_antigo_texto_id = return_texto_id('topico', 'verbete', $texto_antigo_pagina_id, false);
-				if ($texto_antigo_texto_id != false) {
-					$conn->query("UPDATE Textos_arquivo SET texto_id = $texto_antigo_texto_id WHERE id = $texto_antigo_id");
-				}
-			}
-		}
-	}
-	
 	include 'templates/html_head.php';
 
 ?>
@@ -99,8 +85,85 @@
 		include 'templates/titulo.php';
 	?>
     <div class="row justify-content-around">
-        <div id='coluna_esquerda' class="<?php echo $coluna_classes; ?>">
+        <div id='coluna_esquerda' class="<?php echo $coluna_media_classes; ?>">
 					<?php
+						
+						$template_id = 'traducoes';
+						$template_titulo = 'Traduções';
+						$template_conteudo = false;
+						$template_conteudo .= "<div class='row d-flex justify-content-center'>";
+						
+						$artefato_tipo = 'acesso_traducoes';
+						$artefato_titulo = 'Acessar página de traduções';
+						$artefato_col_limit = 'col-lg-4';
+						$artefato_link = 'traducoes.php';
+						$fa_icone = 'fa-language';
+						$fa_color = 'text-primary';
+						$template_conteudo .= include 'templates/artefato_item.php';
+						
+						$template_conteudo .= "</div>";
+						include 'templates/page_element.php';
+						
+						$template_id = 'emails_usuarios';
+						$template_titulo = 'Emails dos usuários';
+						$template_conteudo = false;
+						$template_conteudo .= "<div class='row d-flex justify-content-center'>";
+						
+						$artefato_tipo = 'emails_usuarios';
+						$artefato_titulo = 'Listar emails dos usuários';
+						$artefato_col_limit = 'col-lg-4';
+						$artefato_button = 'carregar_emails';
+						$fa_icone = 'fa-at';
+						$fa_color = 'text-danger';
+						$template_conteudo .= include 'templates/artefato_item.php';
+						
+						$template_conteudo .= "</div>";
+						$template_conteudo .= "<ul id='lista_usuarios_emails'></ul>";
+						include 'templates/page_element.php';
+						
+						$template_id = 'atualizacao';
+						$template_titulo = 'Atualização';
+						$template_conteudo = false;
+						$template_conteudo .= "
+						    <form method='post'>
+						        <div class='row justify-content-center'>";
+						
+						$artefato_tipo = 'atualizacao';
+						$artefato_titulo = 'Atualização';
+						$artefato_col_limit = 'col-lg-4';
+						$artefato_button = 'trigger_atualizacao';
+						$fa_icone = 'fa-calendar-check';
+						$fa_color = 'text-info';
+						
+						$template_conteudo .= include 'templates/artefato_item.php';
+						
+						$template_conteudo .= "
+				                </div>
+						    </form>
+						";
+						include 'templates/page_element.php';
+						
+						$template_id = 'credito_gratis';
+						$template_titulo = 'Links para créditos gratuitos';
+						$template_conteudo = false;
+						$template_conteudo .= "<p>Próximos cinco créditos gratuitos (total de 300 originalmente disponíveis, cada um valendo 50 créditos).</p>";
+						
+						$creditos = $conn->query("SELECT codigo FROM Creditos WHERE id < 301 AND estado = 1 ORDER BY id");
+						if ($creditos->num_rows > 0) {
+						    $template_conteudo .= "<ul class='list-group'>";
+							$count = 0;
+							while ($credito = $creditos->fetch_assoc()) {
+								$count++;
+								if ($count > 5) {
+									break;
+								}
+								$credito_codigo = $credito['codigo'];
+								$template_conteudo .= "<li class='list-group-item list-group-item-info fontstack-mono'><small>https://www.ubwiki.com.br/ubwiki/?credito={$credito_codigo}</small></li>";
+							}
+							$template_conteudo .= '</ul>';
+						}
+						
+						include 'templates/page_element.php';
 						
 						$template_id = 'funcoes_gerais';
 						$template_titulo = 'Funções gerais';
@@ -126,65 +189,12 @@
 						        </div>
 						    </form>
 						    <form method='post'>
-						        <p>Função não-operacional que atualiza o Textos_arquivo.</p>
-						        <div class='row justify-content-center'>
-						        	<button class='$button_classes' type='submit' name='funcoes_gerais4'>Atualizar textos_arquivo</button>
-						        </div>
-						    </form>
-						    <form method='post'>
 						        <p>Atualizar tamanhos dos textos.</p>
 						        <div class='row justify-content-center'>
 						        	<button class='$button_classes' type='submit' name='trigger_atualizar_textos_size'>Tamanhos dos textos</button>
 						        </div>
 						    </form>
 						";
-						include 'templates/page_element.php';
-						
-						$template_id = 'traducoes';
-						$template_titulo = 'Traduções';
-						$template_conteudo = false;
-						$template_conteudo .= "<div class='row d-flex justify-content-center'>";
-						
-						$artefato_tipo = 'acesso_traducoes';
-						$artefato_titulo = 'Acessar página de traduções';
-						$artefato_col_limit = 'col-lg-4';
-						$artefato_link = 'traducoes.php';
-						$fa_icone = 'fa-language';
-						$fa_color = 'text-primary';
-						$template_conteudo .= include 'templates/artefato_item.php';
-						
-						$template_conteudo .= "</div>";
-						include 'templates/page_element.php';
-						
-						$template_id = 'atualizacao';
-						$template_titulo = 'Atualização';
-						$template_conteudo = false;
-						$template_conteudo .= "
-						    <form method='post'>
-						        <p>Atualização desde 20191204</p>
-						        <div class='row justify-content-center'>
-						        	<button class='$button_classes' type='submit' name='trigger_atualizacao' value='20191210'>Atualizar página</button>
-				                </div>
-						    </form>
-						";
-						include 'templates/page_element.php';
-						
-						$template_id = 'emails_usuarios';
-						$template_titulo = 'Emails dos usuários';
-						$template_conteudo = false;
-						$template_conteudo .= "<div class='row d-flex justify-content-center'>";
-						
-						$artefato_tipo = 'emails_usuarios';
-						$artefato_titulo = 'Listar emails dos usuários';
-						$artefato_col_limit = 'col-lg-4';
-						$artefato_button = 'carregar_emails';
-						$fa_icone = 'fa-at';
-						$fa_color = 'text-danger';
-						$template_conteudo .= include 'templates/artefato_item.php';
-						
-						$template_conteudo .= "</div>";
-						$template_conteudo .= "<ul id='lista_usuarios_emails'></ul>";
-						
 						include 'templates/page_element.php';
 					
 					?>

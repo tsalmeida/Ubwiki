@@ -359,6 +359,8 @@
 			return substr(str_shuffle("0123456789"), 0, $length);
 		} elseif ($type == 'letters') {
 			return substr(str_shuffle("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
+		} elseif ($type == 'capsintegers') {
+			return substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789'), 0, $length);
 		} else {
 			return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
 		}
@@ -2419,7 +2421,8 @@
 		return false;
 	}
 	
-	function return_verbete_text($texto_id) {
+	function return_verbete_text($texto_id)
+	{
 		if ($texto_id == false) {
 			return false;
 		}
@@ -3816,8 +3819,9 @@
 		$finalizar_correcao_pagina_id = $_POST['finalizar_correcao'];
 		$conn->query("UPDATE Orders SET estado = 0, corretor_user_id = $user_id, data_finalizado = NOW() WHERE tipo = 'review' AND pagina_id = $finalizar_correcao_pagina_id AND estado = 1");
 	}
-
-	function return_usuario_info($usuario_id) {
+	
+	function return_usuario_info($usuario_id)
+	{
 		if ($usuario_id == false) {
 			return false;
 		}
@@ -3848,5 +3852,5 @@
 		}
 		return false;
 	}
-	
+
 ?>
