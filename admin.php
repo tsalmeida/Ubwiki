@@ -10,7 +10,7 @@
 	
 	if (isset($_POST['trigger_atualizacao'])) {
         $count = 0;
-        while ($count > 50) {
+        while ($count < 50) {
             $count++;
             $novo_credito = generateRandomString(16);
             registrar_credito($novo_credito, 200);
