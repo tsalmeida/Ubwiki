@@ -24,6 +24,23 @@
               $template_id = 'revisoes_disponiveis';
               $template_titulo = 'Revisões disponíveis';
               $template_conteudo = false;
+              
+              $orders = $conn->query("SELECT pagina_id, comments, user_id FROM Orders WHERE tipo = 'review' and estado = 1");
+              if ($orders->num_rows > 0) {
+                  while ($order = $orders->fetch_assoc()) {
+	                  $template_conteudo .= "<ul class='list-group list-group-flush border p-3 my-3'>";
+	                  $order_pagina_id = $order['pagina_id'];
+                      $order_comments = $order['comments'];
+                      $order_user_id = $order['user_id'];
+                      $order_user_apelido = return_apelido_user_id($order_user_id);
+                      $order_user_avatar = return_avatar($order_user_id);
+                      $template_conteudo .= "<li class='list-group-item d-flex justify-content-center'><span><span class='{$order_user_avatar[1]}'><i class='fad {$order_user_avatar[0]} fa-fw fa-2x'></i></span> <strong>$order_user_apelido</strong></span></li>";
+                      $template_conteudo .= "<li class='list-group-item'>$order_comments</li>";
+                      $template_conteudo .= return_list_item($order_pagina_id);
+	                  $template_conteudo .= "</ul>";
+                  }
+              }
+              
               include 'templates/page_element.php';
           ?>
         </div>
