@@ -9,6 +9,14 @@
 	}
 	
 	if (isset($_POST['trigger_atualizacao'])) {
+	    adicionar_chave_traducao('sua carteira', 1);
+	    adicionar_chave_traducao('creditos ubwiki', 1);
+	    adicionar_chave_traducao('Ubwiki credit current', 1);
+	    adicionar_chave_traducao('creditos visite', 1);
+	    adicionar_chave_traducao('review', 1);
+	}
+	
+	if (isset($_POST['novos_creditos'])) {
 		$count = 0;
 		while ($count < 300) {
 			$count++;
@@ -132,8 +140,8 @@
 						$artefato_titulo = 'Atualização';
 						$artefato_col_limit = 'col-lg-4';
 						$artefato_button = 'trigger_atualizacao';
-						$fa_icone = 'fa-calendar-check';
-						$fa_color = 'text-info';
+						$fa_icone = 'fab fa-github';
+						$fa_color = 'text-secondary';
 						
 						$template_conteudo .= include 'templates/artefato_item.php';
 						

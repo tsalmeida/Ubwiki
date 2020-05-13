@@ -8,6 +8,7 @@
 	
 	if ($user_email == false) {
 		header('Location:ubwiki.php');
+		exit();
 	}
 	
 	if (isset($_POST['novo_nome'])) {
@@ -178,6 +179,26 @@
 						$fa_color = 'text-secondary';
 						$template_conteudo .= include "templates/artefato_item.php";
 						
+						if ($user_wallet > 0) {
+							$artefato_id = 'wallet';
+							$artefato_titulo = $pagina_translated['sua carteira'];
+							$artefato_subtitulo = $pagina_translated['creditos ubwiki'];
+							$artefato_modal = '#modal_wallet';
+							$fa_icone = 'fa-wallet';
+							$fa_color = 'text-success';
+							$template_conteudo .= include 'templates/artefato_item.php';
+						}
+						
+						if (($user_tipo == 'admin') || ($user_tipo == 'revisor')) {
+							$artefato_id = 'review';
+							$artefato_titulo = $pagina_translated['review'];
+							$artefato_link = 'revisoes.php';
+							$artefato_badge = 'fa-external-link';
+							$fa_icone = 'fa-highlighter';
+							$fa_color = 'text-warning';
+							$template_conteudo .= include 'templates/artefato_item.php';
+						}
+						
 						include 'templates/page_element.php';
 					?>
         </div>
@@ -326,6 +347,19 @@
 	$template_modal_div_id = 'modal_contribuicoes';
 	$template_modal_titulo = $pagina_translated['Verbetes em que contribuiu'];
 	$template_modal_body_conteudo = false;
+	$template_modal_show_buttons = false;
+	include 'templates/modal.php';
+	
+	$template_modal_div_id = 'modal_wallet';
+	$template_modal_titulo = $pagina_translated['sua carteira'];
+	$template_modal_body_conteudo = false;
+	//$template_modal_body_conteudo .= "<p>{$pagina_translated['creditos visite']} <a href='https://www.grupoubique
+  //.com.br' target='_blank'>www.grupoubique.com.br</a></p>";
+	$template_modal_body_conteudo .= "
+	    <ul class='list-group list-group-flush'>
+	        <li class='list-group-item list-group-item-secondary'><strong>{$pagina_translated['Ubwiki credit current']} </strong>{$user_wallet}</li>
+        </ul>
+	";
 	$template_modal_show_buttons = false;
 	include 'templates/modal.php';
 	
