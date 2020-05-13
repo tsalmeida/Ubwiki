@@ -171,6 +171,16 @@
 						$artefato_subtitulo = $pagina_translated['user settings'];
 						$template_conteudo .= include 'templates/artefato_item.php';
 						
+						if ($user_tipo == 'admin') {
+							$artefato_id = 'administradores';
+							$artefato_subtitulo = $pagina_translated['administrators page'];
+							$artefato_link = 'admin.php';
+							$artefato_badge = 'fa-external-link';
+							$fa_icone = 'fa-user-crown';
+							$fa_color = 'text-primary';
+							$template_conteudo .= include 'templates/artefato_item.php';
+						}
+						
 						$artefato_id = 'sala_visitas';
 						$artefato_subtitulo = $pagina_translated['your office lounge'];
 						$artefato_link = "pagina.php?pagina_id=$lounge_id";
@@ -191,7 +201,7 @@
 						
 						if (($user_tipo == 'admin') || ($user_tipo == 'revisor')) {
 							$artefato_id = 'review';
-							$artefato_titulo = $pagina_translated['review'];
+							$artefato_subtitulo = $pagina_translated['review'];
 							$artefato_link = 'revisoes.php';
 							$artefato_badge = 'fa-external-link';
 							$fa_icone = 'fa-highlighter';
@@ -354,7 +364,7 @@
 	$template_modal_titulo = $pagina_translated['sua carteira'];
 	$template_modal_body_conteudo = false;
 	//$template_modal_body_conteudo .= "<p>{$pagina_translated['creditos visite']} <a href='https://www.grupoubique
-  //.com.br' target='_blank'>www.grupoubique.com.br</a></p>";
+	//.com.br' target='_blank'>www.grupoubique.com.br</a></p>";
 	$template_modal_body_conteudo .= "
 	    <ul class='list-group list-group-flush'>
 	        <li class='list-group-item list-group-item-secondary'><strong>{$pagina_translated['Ubwiki credit current']} </strong>{$user_wallet}</li>
