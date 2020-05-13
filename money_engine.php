@@ -55,6 +55,7 @@
 			$credit_result = add_credit($user_id, $novo_credito);
 			if ($credit_result == true) {
 				unset($_SESSION['credito']);
+				header('Location:pagina.php?pagina_id=6');
 			}
 		}
 	}
