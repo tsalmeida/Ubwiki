@@ -28,7 +28,7 @@
               $orders = $conn->query("SELECT pagina_id, comments, user_id FROM Orders WHERE tipo = 'review' and estado = 1");
               if ($orders->num_rows > 0) {
                   while ($order = $orders->fetch_assoc()) {
-	                  $template_conteudo .= "<ul class='list-group list-group-flush border p-3 my-3'>";
+	                  $template_conteudo .= "<ul class='list-group list-group-flush border p-3 my-3 primary-color rounded'>";
 	                  $order_pagina_id = $order['pagina_id'];
                       $order_comments = $order['comments'];
                       $order_user_id = $order['user_id'];
