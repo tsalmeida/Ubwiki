@@ -537,20 +537,22 @@
 							}
 						}
 						if ((($pagina_tipo == 'texto') && ($pagina_user_id == $user_id)) || (($texto_revisao_ativa == true) && (($user_tipo == 'admin') || ($user_tipo == 'revisor')))) {
-							$carregar_modal_correcao = true;
-							if ($texto_revisao_ativa == true) {
-								if (($user_tipo == 'admin') || ($user_tipo == 'revisor')) {
-									$pencil_color1 = 'text-success';
-									$pencil_color2 = "style='--fa-secondary-color: #ff3547;'";
+							if ($user_wallet > 0) {
+								$carregar_modal_correcao = true;
+								if ($texto_revisao_ativa == true) {
+									if (($user_tipo == 'admin') || ($user_tipo == 'revisor')) {
+										$pencil_color1 = 'text-success';
+										$pencil_color2 = "style='--fa-secondary-color: #ff3547;'";
+									} else {
+										$pencil_color1 = 'text-muted';
+										$pencil_color2 = false;
+									}
 								} else {
-									$pencil_color1 = 'text-muted';
-									$pencil_color2 = false;
+									$pencil_color1 = 'text-primary';
+									$pencil_color2 = "style='--fa-secondary-color: #ff3547;'";
 								}
-							} else {
-								$pencil_color1 = 'text-primary';
-								$pencil_color2 = "style='--fa-secondary-color: #ff3547;'";
+								echo "<a href='javascript:void(0);' class='$pencil_color1' data-toggle='modal' data-target='#modal_correcao' title='{$pagina_translated['Solicitar correção']}'><i class='fad fa-pencil-alt fa-fw fa-2x' $pencil_color2></i></a>";
 							}
-							echo "<a href='javascript:void(0);' class='$pencil_color1' data-toggle='modal' data-target='#modal_correcao' title='{$pagina_translated['Solicitar correção']}'><i class='fad fa-pencil-alt fa-fw fa-2x' $pencil_color2></i></a>";
 						}
 						if (($pagina_tipo == 'curso') && ($pagina_curso_user_id == $user_id)) {
 							$carregar_adicionar_materia = true;
