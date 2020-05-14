@@ -66,16 +66,17 @@
 	}
 
 	if ($template_botoes_padrao == true) {
+		$template_botoes_padrao = false;
 		if ($template_id == 'anotacoes') {
 			$fechar_icone = 'fa-times-square';
 			$fechar_cor = 'text-primary';
+			$template_botoes_padrao .= "
+					<span id='$template_esconder' class='$template_collapse collapse $show' data-toggle='collapse' data-target='.$template_collapse' title='{$pagina_translated['Esconder']}'><a href='javascript:void(0);' class='$fechar_cor'><i class='fad $fechar_icone fa-fw'></i></a></span>
+		";
 		} else {
 			$fechar_icone = 'fa-chevron-square-up';
 			$fechar_cor = 'text-primary';
 		}
-		$template_botoes_padrao = "
-					<span id='$template_esconder' class='$template_collapse collapse $show' data-toggle='collapse' data-target='.$template_collapse' title='{$pagina_translated['Esconder']}'><a href='javascript:void(0);' class='$fechar_cor'><i class='fad $fechar_icone fa-fw'></i></a></span>
-		";
 		$template_botoes_padrao .= "
 					<span id='$template_mostrar' class='$template_collapse collapse $hide' data-toggle='collapse' data-target='.$template_collapse' title='{$pagina_translated['Mostrar']}'><a href='javascript:void(0);' class='text-primary'><i class='fad fa-chevron-square-down fa-fw'></i></a></span>
 		";
