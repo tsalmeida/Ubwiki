@@ -9,11 +9,14 @@
 	}
 	
 	if (isset($_POST['trigger_atualizacao'])) {
-	    adicionar_chave_traducao('sua carteira', 1);
-	    adicionar_chave_traducao('creditos ubwiki', 1);
-	    adicionar_chave_traducao('Ubwiki credit current', 1);
-	    adicionar_chave_traducao('creditos visite', 1);
-	    adicionar_chave_traducao('review', 1);
+	    adicionar_chave_traducao('episodio titulo', 1);
+	    adicionar_chave_traducao('episodio numero', 1);
+	    adicionar_chave_traducao('capitulo titulo', 1);
+	    adicionar_chave_traducao('capitulo numero', 1);
+	    adicionar_chave_traducao('nova secao titulo', 1);
+	    adicionar_chave_traducao('nova secao posicao', 1);
+	    adicionar_chave_traducao('Esconder', 1);
+	    adicionar_chave_traducao('Mostrar', 1);
 	}
 	
 	if (isset($_POST['novos_creditos'])) {
@@ -162,7 +165,7 @@
 							$count = 0;
 							while ($credito = $creditos->fetch_assoc()) {
 								$count++;
-								if ($count > 5) {
+								if ($count > 15) {
 									break;
 								}
 								$credito_codigo = $credito['codigo'];

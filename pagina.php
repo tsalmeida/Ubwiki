@@ -967,6 +967,9 @@
 					if ($wiki_id == false) {
 						if ($pagina_tipo == 'curso') {
 							$template_titulo = $pagina_translated['Apresentação'];
+							$template_load_invisible = true;
+							$template_botoes_padrao = true;
+							$template_quill_initial_state = 'edicao';
 						} elseif ($pagina_tipo == 'sistema') {
 							$template_titulo = $pagina_translated['Aviso'];
 						} else {
@@ -1170,6 +1173,42 @@
 					$template_conteudo .= "</ul>";
 					include 'templates/page_element.php';
 				}
+							
+							if ($pagina_tipo == 'curso') {
+								
+								//echo "<div id='coluna_direita' class='$coluna_classes pagina_coluna'>";
+								
+								$template_id = 'modulos';
+								$template_titulo = $pagina_translated['Módulos'];
+								$template_botoes = false;
+								$template_conteudo = false;
+								
+								$materias = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE tipo = 'materia' AND pagina_id = $pagina_id");
+								
+								$rowcount = mysqli_num_rows($materias);
+								if ($materias->num_rows > 0) {
+									$template_conteudo .= "<ul class='list-group list-group-flush'>";
+									while ($materia = $materias->fetch_assoc()) {
+										$materia_pagina_id = $materia['elemento_id'];
+										$materia_pagina_titulo = return_pagina_titulo($materia_pagina_id);
+										if ($materia_pagina_titulo == false) {
+											continue;
+										}
+										$template_conteudo .= "
+	                            <a href='pagina.php?pagina_id=$materia_pagina_id' class='mt-1'><li class='list-group-item list-group-item-action border-top text-center'><em>$materia_pagina_titulo</em></li></a>
+                            ";
+									}
+									$template_conteudo .= "</ul>";
+									unset($materia_id);
+								}
+								
+								include 'templates/page_element.php';
+								
+								include 'pagina/curso.php';
+								
+								//echo "</div>";
+								
+							}
 				
 				echo "</div>";
 			?>
@@ -1180,42 +1219,6 @@
 					$carregar_quill_anotacoes = true;
 					
 				}
-				if ($pagina_tipo == 'curso') {
-					
-					echo "<div id='coluna_direita' class='$coluna_classes pagina_coluna'>";
-					
-					$template_id = 'modulos';
-					$template_titulo = $pagina_translated['Módulos'];
-					$template_botoes = false;
-					$template_conteudo = false;
-					
-					$materias = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE tipo = 'materia' AND pagina_id = $pagina_id");
-					
-					$rowcount = mysqli_num_rows($materias);
-					if ($materias->num_rows > 0) {
-						$template_conteudo .= "<ul class='list-group list-group-flush'>";
-						while ($materia = $materias->fetch_assoc()) {
-							$materia_pagina_id = $materia['elemento_id'];
-							$materia_pagina_titulo = return_pagina_titulo($materia_pagina_id);
-							if ($materia_pagina_titulo == false) {
-								continue;
-							}
-							$template_conteudo .= "
-	                            <a href='pagina.php?pagina_id=$materia_pagina_id' class='mt-1'><li class='list-group-item list-group-item-action border-top text-center'><em>$materia_pagina_titulo</em></li></a>
-                            ";
-						}
-						$template_conteudo .= "</ul>";
-						unset($materia_id);
-					}
-					
-					include 'templates/page_element.php';
-					
-					include 'pagina/curso.php';
-					
-					echo "</div>";
-					
-				}
-			
 			?>
     </div>
 </div>
@@ -1351,16 +1354,16 @@
 		unset($nova_secao_titulo);
 		if ($pagina_tipo == 'elemento') {
 			if ($elemento_subtipo == 'podcast') {
-				$nova_secao_titulo = 'Título do episódio';
-				$nova_secao_numero = 'Número do episódio';
+				$nova_secao_titulo = $pagina_translated['episodio titulo'];
+				$nova_secao_numero = $pagina_translated['episodio numero'];
 			} elseif ($elemento_subtipo == 'livro') {
-				$nova_secao_titulo = 'Título do capítulo';
-				$nova_secao_numero = 'Ordem do capítulo';
+				$nova_secao_titulo = $pagina_translated['capitulo titulo'];
+				$nova_secao_numero = $pagina_translated['capitulo ordem'];
 			}
 		}
 		if (!isset($nova_secao_titulo)) {
-			$nova_secao_titulo = 'Título da nova seção';
-			$nova_secao_numero = 'Posição da nova seção';
+			$nova_secao_titulo = $pagina_translated['nova secao titulo'];
+			$nova_secao_numero = $pagina_translated['nova secao posicao'];
 		}
 		$template_modal_body_conteudo .= "
           <div class='md-form mb-2'>

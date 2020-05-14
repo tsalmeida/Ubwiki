@@ -57,7 +57,7 @@
 
 	if ($template_conteudo_no_col == false) {
 		$template_conteudo_no_col = false;
-		$template_conteudo_no_col1 = "<div class='col $template_p_limit $template_col_classes $template_collapse collapse show'>";
+		$template_conteudo_no_col1 = "<div class='col $template_p_limit $template_col_classes $template_collapse collapse $show'>";
 		$template_conteudo_no_col2 = "</div>";
 	}
 
@@ -66,9 +66,19 @@
 	}
 
 	if ($template_botoes_padrao == true) {
+		if ($template_id == 'anotacoes') {
+			$fechar_icone = 'fa-times-square';
+			$fechar_cor = 'text-primary';
+		} else {
+			$fechar_icone = 'fa-chevron-square-up';
+			$fechar_cor = 'text-primary';
+		}
 		$template_botoes_padrao = "
-					<span id='$template_esconder' class='$template_collapse collapse $show' data-toggle='collapse' data-target='.$template_collapse' title='Esconder'><a href='javascript:void(0);' class='text-primary'><i class='fad fa-times-square fa-fw'></i></a></span>
-					<span id='$template_mostrar' class='$template_collapse collapse $hide' data-toggle='collapse' data-target='.$template_collapse' title='mostrar'><a href='javascript:void(0);' class='text-muted'><i class='fad fa-chevron-square-down fa-fw'></i></a></span>";
+					<span id='$template_esconder' class='$template_collapse collapse $show' data-toggle='collapse' data-target='.$template_collapse' title='{$pagina_translated['Esconder']}'><a href='javascript:void(0);' class='$fechar_cor'><i class='fad $fechar_icone fa-fw'></i></a></span>
+		";
+		$template_botoes_padrao .= "
+					<span id='$template_mostrar' class='$template_collapse collapse $hide' data-toggle='collapse' data-target='.$template_collapse' title='{$pagina_translated['Mostrar']}'><a href='javascript:void(0);' class='text-primary'><i class='fad fa-chevron-square-down fa-fw'></i></a></span>
+		";
 	}
 	
 	if (!isset($template_titulo_heading)) {

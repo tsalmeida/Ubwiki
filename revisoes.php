@@ -24,7 +24,6 @@
               $template_id = 'revisoes_disponiveis';
               $template_titulo = 'Revisões disponíveis';
               $template_conteudo = false;
-              
               $orders = $conn->query("SELECT pagina_id, comments, user_id FROM Orders WHERE tipo = 'review' and estado = 1");
               if ($orders->num_rows > 0) {
                   while ($order = $orders->fetch_assoc()) {
@@ -40,7 +39,6 @@
 	                  $template_conteudo .= "</ul>";
                   }
               }
-              
               include 'templates/page_element.php';
           ?>
         </div>

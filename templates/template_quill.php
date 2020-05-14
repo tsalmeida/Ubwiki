@@ -162,11 +162,11 @@
 	
 	if ((($template_id == 'verbete') && ($privilegio_edicao == true)) || ($template_id != 'verbete')) {
 		$template_botoes .= "
-			<span id='travar_{$template_id}' title='{$pagina_translated['Travar para edição']}'>
+			<!--<span id='travar_{$template_id}' title='{$pagina_translated['Travar para edição']}'>
 	      <a href='javascript:void(0);' class='text-primary'><i class='fad fa-pen-square fa-fw'></i></a>
-	    </span>
+	    </span>-->
 	    <span id='destravar_{$template_id}' title='{$pagina_translated['Permitir edição']}'>
-				<a href='javascript:void(0);' class='text-muted'><i class='fad fa-pen-square fa-fw'></i></a>
+				<a href='javascript:void(0);' class='text-primary'><i class='fad fa-pen-square fa-fw'></i></a>
 	    </span>
 		";
 	}
