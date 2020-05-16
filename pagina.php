@@ -2317,7 +2317,7 @@
 		if ($texto_revisao_ativa == false) {
 			$template_modal_titulo = $pagina_translated['Solicitar correção'];
 			$pagina_texto_wordcount = str_word_count($texto_verbete_text);
-			$revision_price = calculate_review_price($pagina_texto_wordcount, 'simplified', 'with_grade', 'chat_20');
+			$revision_price = calculate_review_price($pagina_texto_wordcount, 'simplified', 'with_grade', 'chat_20', 'revisor_diplomata');
 			if ($user_wallet >= $revision_price) {
 				$button_disabled = false;
 			} else {
@@ -2327,6 +2327,15 @@
 			$template_modal_body_conteudo .= "
 			<p>{$pagina_translated['revision_paragraph']}</p>
             <form method='post' class='border rounded mx-2 px-4 py-2'>
+                <p class='mb-1 mt-2'><strong>{$pagina_translated['Revisor:']}</strong></p>
+                <div class='form-check'>
+                    <input type='radio' id='revisor_diplomata' name='reviewer_choice' value='revisor_diplomata' class='form-check-input' checked>
+                    <label for='revisor_diplomata' class='form-check-label'>{$pagina_translated['revisor diplomata']}</label>
+                </div>
+                <div class='form-check'>
+                    <input type='radio' id='professor_especialista' name='reviewer_choice' value='professor_especialista' class='form-check-input' disabled>
+                    <label for='professor_especialista' class='form-check-label'>{$pagina_translated['professor especialista']}</label>
+                </div>
                 <p class='mb-1 mt-2'><strong>{$pagina_translated['Extensão da revisão:']}</strong></p>
                 <div class='form-check'>
                     <input type='radio' id='simplified' name='extension' value='simplified' class='form-check-input' checked>
@@ -2335,6 +2344,10 @@
                 <div class='form-check'>
                     <input type='radio' id='detailed' name='extension' value='detailed' class='form-check-input' disabled>
                     <label for='detailed' class='form-check-label'>{$pagina_translated['detailed review']}</label>
+                </div>
+                <div class='form-check'>
+                    <input type='radio' id='detailed' name='extension' value='full_rewrite' class='form-check-input' disabled>
+                    <label for='full_rewrite' class='form-check-label'>{$pagina_translated['full rewrite']}</label>
                 </div>
                 <p class='mb-1 mt-2'><strong>{$pagina_translated['Incluir uma nota aproximada?']}</strong></p>
                 <div class='form-check'>

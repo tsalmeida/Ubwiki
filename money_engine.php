@@ -116,25 +116,59 @@
 		$extension = $args[1];
 		$grade = $args[2];
 		$chat = $args[3];
+		$reviewer = $args[4];
 		
 		$sum = (int)0;
 		
 		if ($grade == 'with_grade') {
 			$sum = ($sum + 15);
 		}
+		switch ($reviewer) {
+			case 'professor_especialista':
+			case 'revisor_diplomata':
+				$simplified = 100;
+				$detailed = 200;
+				$rewrite = 300;
+				$chat_20 = 100;
+				$chat_40 = 200;
+				$chat_60 = 300;
+				break;
+			default:
+				$simplified = 60;
+				$detailed = 130;
+				$rewrite = 200;
+				$chat_20 = 50;
+				$chat_40 = 100;
+				$chat_60 = 150;
+		}
+		
+		switch ($extension) {
+			case 'simplified':
+			case 'detailed':
+				$extension_price = $detailed;
+				break;
+			case 'rewrite':
+				$extension_price = $rewrite;
+				break;
+			default:
+				$extension_price = $simplified;
+		}
+		
+		$sum = ($sum + $extension_price);
+		
 		if ($extension == 'simplified') {
-			$sum = ($sum + 100);
+			$sum = ($sum + $simplified);
 		} elseif ($extension == 'detailed') {
-			$sum = ($sum + 300);
+			$sum = ($sum + $detailed);
 		} else {
 			return false;
 		}
 		if ($chat == 'chat_20') {
-			$sum = ($sum + 100);
+			$sum = ($sum + $chat_20);
 		} elseif ($chat == 'chat_40') {
-			$sum = ($sum + 200);
+			$sum = ($sum + $chat_40);
 		} elseif ($chat == 'chat_60') {
-			$sum = ($sum + 300);
+			$sum = ($sum + $chat_60);
 		}
 		
 		$price = (int)($wordcount * $sum);
@@ -150,6 +184,7 @@
 		} else {
 			$review_grade = 'without_grade';
 		}
+		$reviewer_choice = $_POST['reviewer_choice'];
 		$reviewer_chat = $_POST['reviewer_chat'];
 		$new_review_comments = $_POST['new_review_comments'];
 		$new_review_comments = mysqli_real_escape_string($conn, $new_review_comments);
@@ -168,7 +203,7 @@
 			$pagina_correcao_verbete_text = return_verbete_text($pagina_correcao_texto_id);
 			$pagina_correcao_wordcount = str_word_count($pagina_correcao_verbete_text);
 			$review_price = calculate_review_price($pagina_correcao_wordcount, $extension, $review_grade,
-				$reviewer_chat);
+				$reviewer_chat, $reviewer_choice);
 			
 			$user_end_state = (int)($user_wallet - $review_price);
 			if ($user_end_state > 0) {
