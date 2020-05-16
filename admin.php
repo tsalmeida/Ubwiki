@@ -9,14 +9,21 @@
 	}
 	
 	if (isset($_POST['trigger_atualizacao'])) {
-	    adicionar_chave_traducao('episodio titulo', 1);
-	    adicionar_chave_traducao('episodio numero', 1);
-	    adicionar_chave_traducao('capitulo titulo', 1);
-	    adicionar_chave_traducao('capitulo numero', 1);
-	    adicionar_chave_traducao('nova secao titulo', 1);
-	    adicionar_chave_traducao('nova secao posicao', 1);
-	    adicionar_chave_traducao('Esconder', 1);
-	    adicionar_chave_traducao('Mostrar', 1);
+	    adicionar_chave_traducao('adicionar credito codigo', 1);
+	    adicionar_chave_traducao('send', 1);
+	    adicionar_chave_traducao('detailed review',1);
+	    adicionar_chave_traducao('simplified review',1);
+	    adicionar_chave_traducao('review grade',1);
+	    adicionar_chave_traducao('20 minutes',1);
+	    adicionar_chave_traducao('40 minutes',1);
+	    adicionar_chave_traducao('60 minutes',1);
+	    adicionar_chave_traducao('Extensão da revisão:', 1);
+	    adicionar_chave_traducao('Incluir uma nota aproximada?', 1);
+	    adicionar_chave_traducao('Incluir conversa com o revisor:', 1);
+	    adicionar_chave_traducao('Inclua seus comentários:', 1);
+	    adicionar_chave_traducao('none', 1);
+	    adicionar_chave_traducao('recalculate', 1);
+	    $conn->query("ALTER TABLE `Orders` ADD `option1` VARCHAR(255) NULL DEFAULT NULL AFTER `pagina_id`, ADD `option2` VARCHAR(255) NULL DEFAULT NULL AFTER `option1`, ADD `option3` VARCHAR(255) NULL DEFAULT NULL AFTER `option2`, ADD `option4` VARCHAR(255) NULL DEFAULT NULL AFTER `option3`, ADD `option5` VARCHAR(255) NULL DEFAULT NULL AFTER `option4`;");
 	}
 	
 	if (isset($_POST['novos_creditos'])) {

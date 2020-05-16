@@ -14,35 +14,12 @@
 		}
 	}
 	
-	if (isset($_POST['order_review_pagina_id'])) {
-		if (isset($_POST['new_review_comments'])) {
-			$new_review_comments = $_POST['new_review_comments'];
-			$new_review_comments = mysqli_real_escape_string($conn, $new_review_comments);
-		} else {
-			$new_review_comments = "NULL";
-		}
-		$order_review_pagina_id = $_POST['order_review_pagina_id'];
-		$user_wallet = return_wallet_value($user_id);
-		$pagina_correcao_info = return_pagina_info($order_review_pagina_id);
-		$pagina_correcao_tipo = $pagina_correcao_info[2];
-		if ($pagina_correcao_tipo == 'texto') {
-			$correcao_template_id = 'anotacoes';
-		} else {
-			$correcao_template_id = 'verbete';
-		}
-		$pagina_correcao_texto_id = $pagina_correcao_info[1];
-		if ($pagina_correcao_texto_id != false) {
-			$pagina_correcao_verbete_text = return_verbete_text($pagina_correcao_texto_id);
-			$pagina_correcao_wordcount = str_word_count($pagina_correcao_verbete_text);
-			$review_price = floor($pagina_correcao_wordcount / 3);
-			$user_end_state = (int)($user_wallet - $review_price);
-			if ($user_end_state > 0) {
-				$check = $conn->query("INSERT INTO Transactions (user_id, direction, value, prevstate, endstate) VALUES ($user_id, 'negative', $review_price, $user_wallet, $user_end_state)");
-				if ($check == true) {
-					$check = $conn->query("INSERT INTO Orders (tipo, user_id, pagina_id, comments) VALUES ('review', $user_id, $order_review_pagina_id, '$new_review_comments')");
-				}
-			}
-		}
+	if (isset($_GET['credito'])) {
+		$_SESSION['credito'] = $_GET['credito'];
+	}
+	
+	if (isset($_POST['adicionar_credito_codigo'])) {
+		$_SESSION['credito'] = $_POST['adicionar_credito_codigo'];
 	}
 	
 	if (isset($_SESSION['credito'])) {
@@ -132,5 +109,76 @@
 		}
 		return false;
 	}
+	
+	function calculate_review_price() {
+		$args = func_get_args();
+		$wordcount = $args[0];
+		$extension = $args[1];
+		$grade = $args[2];
+		$chat = $args[3];
+		
+		$sum = (int)0;
+		
+		if ($grade == 'with_grade') {
+			$sum = ($sum + 15);
+		}
+		if ($extension == 'simplified') {
+			$sum = ($sum + 100);
+		} elseif ($extension == 'detailed') {
+			$sum = ($sum + 300);
+		} else {
+			return false;
+		}
+		if ($chat == 'chat_20') {
+			$sum = ($sum + 100);
+		} elseif ($chat == 'chat_40') {
+			$sum = ($sum + 200);
+		} elseif ($chat == 'chat_60') {
+			$sum = ($sum + 300);
+		}
+		
+		$price = (int)($wordcount * $sum);
+		$price = (int)($price / 600);
+		$price = floor($price);
+		return $price;
+	}
+	
+	if (isset($_POST['trigger_review_send'])) {
+		$extension = $_POST['extension'];
+		if (isset($_POST['review_grade'])) {
+			$review_grade = 'with_grade';
+		} else {
+			$review_grade = 'without_grade';
+		}
+		$reviewer_chat = $_POST['reviewer_chat'];
+		$new_review_comments = $_POST['new_review_comments'];
+		$new_review_comments = mysqli_real_escape_string($conn, $new_review_comments);
+		
+		$order_review_pagina_id = $_POST['order_review_pagina_id'];
+		$pagina_correcao_info = return_pagina_info($order_review_pagina_id);
+		$pagina_correcao_texto_id = $pagina_correcao_info[1];
+		$pagina_correcao_tipo = $pagina_correcao_info[2];
+		if ($pagina_correcao_tipo == 'texto') {
+			$correcao_template_id = 'anotacoes';
+		} else {
+			$correcao_template_id = 'verbete';
+		}
+		
+		if ($pagina_correcao_texto_id != false) {
+			$pagina_correcao_verbete_text = return_verbete_text($pagina_correcao_texto_id);
+			$pagina_correcao_wordcount = str_word_count($pagina_correcao_verbete_text);
+			$review_price = calculate_review_price($pagina_correcao_wordcount, $extension, $review_grade,
+				$reviewer_chat);
+			
+			$user_end_state = (int)($user_wallet - $review_price);
+			if ($user_end_state > 0) {
+				$check = $conn->query("INSERT INTO Transactions (user_id, direction, value, prevstate, endstate) VALUES ($user_id, 'negative', $review_price, $user_wallet, $user_end_state)");
+				if ($check == true) {
+					$check = $conn->query("INSERT INTO Orders (tipo, user_id, pagina_id, comments) VALUES ('review', $user_id, $order_review_pagina_id, '$new_review_comments')");
+				}
+			}
+		}
+	}
+	
 
 ?>

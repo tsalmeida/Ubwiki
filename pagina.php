@@ -1173,42 +1173,42 @@
 					$template_conteudo .= "</ul>";
 					include 'templates/page_element.php';
 				}
-							
-							if ($pagina_tipo == 'curso') {
-								
-								//echo "<div id='coluna_direita' class='$coluna_classes pagina_coluna'>";
-								
-								$template_id = 'modulos';
-								$template_titulo = $pagina_translated['Módulos'];
-								$template_botoes = false;
-								$template_conteudo = false;
-								
-								$materias = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE tipo = 'materia' AND pagina_id = $pagina_id");
-								
-								$rowcount = mysqli_num_rows($materias);
-								if ($materias->num_rows > 0) {
-									$template_conteudo .= "<ul class='list-group list-group-flush'>";
-									while ($materia = $materias->fetch_assoc()) {
-										$materia_pagina_id = $materia['elemento_id'];
-										$materia_pagina_titulo = return_pagina_titulo($materia_pagina_id);
-										if ($materia_pagina_titulo == false) {
-											continue;
-										}
-										$template_conteudo .= "
+				
+				if ($pagina_tipo == 'curso') {
+					
+					//echo "<div id='coluna_direita' class='$coluna_classes pagina_coluna'>";
+					
+					$template_id = 'modulos';
+					$template_titulo = $pagina_translated['Módulos'];
+					$template_botoes = false;
+					$template_conteudo = false;
+					
+					$materias = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE tipo = 'materia' AND pagina_id = $pagina_id");
+					
+					$rowcount = mysqli_num_rows($materias);
+					if ($materias->num_rows > 0) {
+						$template_conteudo .= "<ul class='list-group list-group-flush'>";
+						while ($materia = $materias->fetch_assoc()) {
+							$materia_pagina_id = $materia['elemento_id'];
+							$materia_pagina_titulo = return_pagina_titulo($materia_pagina_id);
+							if ($materia_pagina_titulo == false) {
+								continue;
+							}
+							$template_conteudo .= "
 	                            <a href='pagina.php?pagina_id=$materia_pagina_id' class='mt-1'><li class='list-group-item list-group-item-action border-top text-center'><em>$materia_pagina_titulo</em></li></a>
                             ";
-									}
-									$template_conteudo .= "</ul>";
-									unset($materia_id);
-								}
-								
-								include 'templates/page_element.php';
-								
-								include 'pagina/curso.php';
-								
-								//echo "</div>";
-								
-							}
+						}
+						$template_conteudo .= "</ul>";
+						unset($materia_id);
+					}
+					
+					include 'templates/page_element.php';
+					
+					include 'pagina/curso.php';
+					
+					//echo "</div>";
+					
+				}
 				
 				echo "</div>";
 			?>
@@ -2317,32 +2317,63 @@
 		if ($texto_revisao_ativa == false) {
 			$template_modal_titulo = $pagina_translated['Solicitar correção'];
 			$pagina_texto_wordcount = str_word_count($texto_verbete_text);
-			$revision_price = floor($pagina_texto_wordcount / 3);
-			$template_modal_body_conteudo .= "
-			<p>{$pagina_translated['revision_paragraph']}</p>
-			<ul class='list-group'>
-			    <li class='list-group-item'><strong>{$pagina_translated['Word count:']}</strong> $pagina_texto_wordcount <span class='text-muted'><em>({$pagina_translated['Reload page to refresh']})</em></span></li>
-			    <li class='list-group-item'><strong>{$pagina_translated['Revision price:']}</strong> $revision_price</li>
-			    <li class='list-group-item'><strong>{$pagina_translated['Your credits:']}</strong> $user_wallet</li>
-            </ul>
-    	    ";
+			$revision_price = calculate_review_price($pagina_texto_wordcount, 'simplified', 'with_grade', 'chat_20');
 			if ($user_wallet >= $revision_price) {
 				$button_disabled = false;
 			} else {
 				$button_disabled = 'disabled';
 			}
+			
 			$template_modal_body_conteudo .= "
-			<form method='post'>
+			<p>{$pagina_translated['revision_paragraph']}</p>
+            <form method='post' class='border rounded mx-2 px-4 py-2'>
+                <p class='mb-1 mt-2'><strong>{$pagina_translated['Extensão da revisão:']}</strong></p>
+                <div class='form-check'>
+                    <input type='radio' id='simplified' name='extension' value='simplified' class='form-check-input' checked>
+                    <label for='simplified' class='form-check-label'>{$pagina_translated['simplified review']}</label>
+                </div>
+                <div class='form-check'>
+                    <input type='radio' id='detailed' name='extension' value='detailed' class='form-check-input' disabled>
+                    <label for='detailed' class='form-check-label'>{$pagina_translated['detailed review']}</label>
+                </div>
+                <p class='mb-1 mt-2'><strong>{$pagina_translated['Incluir uma nota aproximada?']}</strong></p>
+                <div class='form-check'>
+                    <input type='checkbox' id='review_grade' name='review_grade' value='grade' class='form-check-input' checked disabled>
+                    <label for='review_grade' class='form-check-label'>{$pagina_translated['review grade']}</label>
+                </div>
+                <p class='mb-1 mt-2'><strong>{$pagina_translated['Incluir conversa com o revisor:']}</strong></p>
+                <div class='form-check'>
+                    <input type='radio' name='reviewer_chat' value='no_chat' id='no_chat' class='form-check-input' checked>
+                    <label for='no_chat' class='form-check-label'>{$pagina_translated['none']}</label>
+                </div>
+                <div class='form-check'>
+                    <input type='radio' name='reviewer_chat' value='chat_20' id='chat_20' class='form-check-input' disabled>
+                    <label for='chat_20' class='form-check-label'>{$pagina_translated['20 minutes']}</label>
+                </div>
+                <div class='form-check'>
+                    <input type='radio' name='reviewer_chat' value='chat_40' id='chat_40' class='form-check-input' disabled>
+                    <label for='chat_40' class='form-check-label'>{$pagina_translated['40 minutes']}</label>
+                </div>
+                <div class='form-check'>
+                    <input type='radio' name='reviewer_chat' value='chat_60' id='chat_60' class='form-check-input' disabled>
+                    <label for='chat_60' class='form-check-label'>{$pagina_translated['60 minutes']}</label>
+                </div>
 				<input type='hidden' name='order_review_pagina_id' value='$pagina_id'>
+				<p class='mb-1 mt-2'><strong>{$pagina_translated['Inclua seus comentários:']}</strong></p>
 				<div class='md-form'>
-					<textarea class='md-textarea form-control' id='new_review_comments' name='new_review_comments' rows='3' $button_disabled></textarea>
+					<textarea class='md-textarea form-control' id='new_review_comments' name='new_review_comments' rows='3' $button_disabled required></textarea>
 					<label for='new_review_comments'>{$pagina_translated['Seus comentários']}</label>
 				</div>
+                <ul class='list-group'>
+                    <li class='list-group-item'><strong>{$pagina_translated['Word count:']}</strong> $pagina_texto_wordcount <span class='text-muted'><em>({$pagina_translated['Reload page to refresh']})</em></span></li>
+                    <li class='list-group-item list-group-item-warning'><strong>{$pagina_translated['Revision price:']}</strong> $revision_price</li>
+                    <li class='list-group-item'><strong>{$pagina_translated['Your credits:']}</strong> $user_wallet</li>
+                </ul>
 				<div class='row d-flex justify-content-center'>
-					<button class='$button_classes_info' $button_disabled>{$pagina_translated['Place order']}</button>
+					<button type='submit' class='$button_classes' name='trigger_review_send' id='trigger_review_send' $button_disabled>{$pagina_translated['Place order']}</button>
 				</div>
-			</form>
-		";
+            </form>
+    	    ";
 		} else {
 			$template_modal_titulo = $pagina_translated['Correção em andamento'];
 			if (($user_tipo == 'admin') || ($user_tipo == 'revisor')) {

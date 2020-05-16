@@ -1,5 +1,5 @@
 <?php
-	
+ 
 	$pagina_tipo = 'escritorio';
 	include 'engine.php';
 	$pagina_id = return_pagina_id($user_id, $pagina_tipo);
@@ -366,8 +366,17 @@
 	//$template_modal_body_conteudo .= "<p>{$pagina_translated['creditos visite']} <a href='https://www.grupoubique
 	//.com.br' target='_blank'>www.grupoubique.com.br</a></p>";
 	$template_modal_body_conteudo .= "
-	    <ul class='list-group list-group-flush'>
-	        <li class='list-group-item list-group-item-secondary'><strong>{$pagina_translated['Ubwiki credit current']} </strong>{$user_wallet}</li>
+        <form method='post' class='border rounded p-3 mb-2'>
+            <div class='md-form'>
+                <input type='text' class='form-control' id='adicionar_credito_codigo' name='adicionar_credito_codigo'>
+                <label for='adicionar_credito_codigo'>{$pagina_translated['adicionar credito codigo']}</label>
+                <div class='row d-flex justify-content-center'>
+                <button class='$button_classes'>{$pagina_translated['send']}</button>
+                </div>
+            </div>
+        </form>
+	    <ul class='list-group'>
+	        <li class='list-group-item list-group-item-info'><strong>{$pagina_translated['Ubwiki credit current']} </strong>{$user_wallet}</li>
         </ul>
 	";
 	$template_modal_show_buttons = false;
