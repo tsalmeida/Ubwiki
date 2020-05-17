@@ -795,7 +795,7 @@
 			$template_subtitulo = $elemento_autor;
 		} elseif ($pagina_tipo == 'curso') {
 			$template_titulo = $pagina_titulo;
-			$template_subtitulo = $pagina_translated['Curso'];
+			$template_subtitulo = "<a href='javascript:void(0);' id='reveal_introduction'>{$pagina_translated['Curso']}</a>";
 		} elseif ($pagina_tipo == 'materia') {
 			$template_titulo = $pagina_titulo;
 			$template_subtitulo = "{$pagina_translated['Matéria']} / <a href='pagina.php?curso_id=$pagina_curso_id'>$pagina_curso_titulo</a>";
@@ -962,14 +962,15 @@
 					}
 				}
 				
-				if (($pagina_tipo != 'texto') && ($pagina_tipo != 'materia') && ($pagina_tipo != 'questao') && ($pagina_tipo != 'texto_apoio') && ($pagina_tipo != 'grupo')) {
+				$paginas_sem_verbete = array('texto', 'materia', 'questao', 'texto_apoio', 'grupo');
+				if (!in_array($pagina_tipo, $paginas_sem_verbete)) {
 					$template_id = 'verbete';
 					if ($wiki_id == false) {
 						if ($pagina_tipo == 'curso') {
+						    $template_classes = 'hidden';
 							$template_titulo = $pagina_translated['Apresentação'];
-							$template_load_invisible = true;
 							$template_botoes_padrao = true;
-							$template_quill_initial_state = 'edicao';
+							$template_quill_initial_state = 'leitura';
 						} elseif ($pagina_tipo == 'sistema') {
 							$template_titulo = $pagina_translated['Aviso'];
 						} else {

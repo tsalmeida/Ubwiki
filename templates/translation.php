@@ -1,14 +1,11 @@
 <?php
 	
-	error_log('the languages file starts loading');
-	
 	if (isset($_POST['select_language'])) {
 		$user_language = $_POST['select_language'];
 		$_SESSION['lg'] = $user_language;
 		$user_language_titulo = convert_language($user_language);
 		if ($user_id != false) {
 			$query = "UPDATE Usuarios SET language = '$user_language' WHERE id = $user_id";
-			error_log($query);
 			$conn->query($query);
 		}
 	}

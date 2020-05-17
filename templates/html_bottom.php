@@ -1322,3 +1322,14 @@
 		";
 	}
 	
+	if ($pagina_tipo == 'curso') {
+		echo "
+			<script type='text/javascript'>
+				$(document).on('click', '#reveal_introduction', function() {
+				    $(this).addClass('hidden');
+				    $('#verbete').removeClass('hidden');
+				});
+			</script>
+		";
+	}
+	
