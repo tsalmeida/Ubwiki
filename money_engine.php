@@ -110,7 +110,8 @@
 		return false;
 	}
 	
-	function calculate_review_price() {
+	function calculate_review_price()
+	{
 		$args = func_get_args();
 		$wordcount = $args[0];
 		$extension = $args[1];
@@ -124,7 +125,7 @@
 			$sum = ($sum + 15);
 		}
 		switch ($reviewer) {
-			case 'professor_especialista':
+			//case 'professor_especialista':
 			case 'revisor_diplomata':
 				$simplified = 100;
 				$detailed = 200;
@@ -143,7 +144,7 @@
 		}
 		
 		switch ($extension) {
-			case 'simplified':
+			//case 'simplified':
 			case 'detailed':
 				$extension_price = $detailed;
 				break;
@@ -156,19 +157,30 @@
 		
 		$sum = ($sum + $extension_price);
 		
-		if ($extension == 'simplified') {
-			$sum = ($sum + $simplified);
-		} elseif ($extension == 'detailed') {
-			$sum = ($sum + $detailed);
-		} else {
-			return false;
+		switch ($extension) {
+			//case 'simplified':
+			case 'detailed':
+				$sum = ($sum + $detailed);
+				break;
+			case false:
+				return false;
+				break;
+			default:
+				$sum = ($sum + $simplified);
 		}
-		if ($chat == 'chat_20') {
-			$sum = ($sum + $chat_20);
-		} elseif ($chat == 'chat_40') {
-			$sum = ($sum + $chat_40);
-		} elseif ($chat == 'chat_60') {
-			$sum = ($sum + $chat_60);
+		
+		switch ($chat) {
+			case 'chat_20':
+				$sum = ($sum + $chat_20);
+				break;
+			case 'chat_40':
+				$sum = ($sum + $chat_40);
+				break;
+			case 'chat_60':
+				$sum = ($sum + $chat_60);
+				break;
+			default:
+				break;
 		}
 		
 		$price = (int)($wordcount * $sum);
@@ -214,6 +226,6 @@
 			}
 		}
 	}
-	
+
 
 ?>

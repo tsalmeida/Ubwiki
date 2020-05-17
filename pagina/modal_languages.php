@@ -9,6 +9,7 @@
 	
 	$artefato_name = 'select_language';
 	
+	$artefato_id = 'modal_portugues';
 	$artefato_titulo = 'Português';
 	$artefato_tipo = 'lg_pt';
 	$artefato_button = 'pt';
@@ -22,6 +23,9 @@
 	$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-6';
 	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	
+	$artefato_name = 'select_language';
+	
+	$artefato_id = 'modal_english';
 	$artefato_titulo = 'English';
 	$artefato_tipo = 'lg_en';
 	$artefato_button = 'en';
@@ -35,6 +39,9 @@
 	$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-6';
 	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	
+	$artefato_name = 'select_language';
+	
+	$artefato_id = 'modal_espanol';
 	$artefato_titulo = 'Español';
 	$artefato_button = 'es';
 	$artefato_class = 'language_choose';
@@ -47,6 +54,9 @@
 	$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-6';
 	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	
+	$artefato_name = 'select_language';
+	
+	$artefato_id = 'modal_francais';
 	$artefato_titulo = 'Français';
 	$artefato_button = 'fr';
 	$artefato_class = 'language_choose';
@@ -60,7 +70,5 @@
 	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	
 	$template_modal_body_conteudo .= "</form>";
-	
-	unset($artefato_name);
 	
 	include 'templates/modal.php';

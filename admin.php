@@ -9,10 +9,7 @@
 	}
 	
 	if (isset($_POST['trigger_atualizacao'])) {
-	    adicionar_chave_traducao('Revisor:', 1);
-	    adicionar_chave_traducao('professor especialista', 1);
-	    adicionar_chave_traducao('revisor diplomata', 1);
-	    adicionar_chave_traducao('full rewrite', 1);
+//	    adicionar_chave_traducao('Revisor:', 1);
 	}
 	
 	if (isset($_POST['novos_creditos'])) {

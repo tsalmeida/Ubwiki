@@ -44,10 +44,9 @@
 				echo "<a class='dropdown-item navlink z-depth-0' href='carrinho.php'><i class='fad fa-shopping-cart fa-fw'></i> {$pagina_translated['your cart']}</a>";
 			}
 			if ($user_tipo == 'admin') {
-				echo "<a class='dropdown-item navlink z-depth-0' href='admin.php'><i class='fad fa-cogs fa-fw'></i> {$pagina_translated['administrators page']}</a>";
+				echo "<a class='dropdown-item navlink z-depth-0' href='admin.php'><i class='fad fa-user-crown fa-fw'></i> {$pagina_translated['administrators page']}</a>";
 			}
 			echo "
-		          <a class='dropdown-item navlink z-depth-0' href='pagina.php?curso_id=$curso_id'><i class='fad fa-book-reader fa-fw'></i> $curso_sigla</a>
 		          <a class='dropdown-item navlink z-depth-0' href='javascript:void(0);' data-toggle='modal' data-target='#modal_languages'><i class='fad fa-language fa-fw'></i> $user_language_titulo</a>
 		          <a class='dropdown-item navlink z-depth-0' href='logout.php'><i class='fad fa-portal-exit fa-fw'></i> {$pagina_translated['logout']}</a>
 		      </li>
