@@ -585,6 +585,14 @@ ul {
   font-weight: 200 !important;
 }
 
+#hide_bars {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+
 .primary-lighter-hover {
   color: #4285F4;
   -webkit-transition: 0.4s;

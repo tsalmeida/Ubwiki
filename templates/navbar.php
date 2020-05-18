@@ -2,6 +2,9 @@
 	if (!isset($template_navbar_mode)) {
 		$template_navbar_mode = 'dark';
 	}
+	if (!isset($pagina_padrao)) {
+		$pagina_padrao = false;
+	}
 	if ($template_navbar_mode == 'dark') {
 		$template_navbar_color = 'grey darken-4';
 		$template_navbar_text = 'text-white';
@@ -20,15 +23,20 @@
 		$navbar_avatar = 'fa-user-tie';
 	}
 	if (isset($curso_id)) {
-		echo "<nav class='navbar navbar-expand-lg $template_navbar_color' id='inicio'>";
+		echo "<nav class='navbar navbar-expand-lg $template_navbar_color' id='navbar'>";
 		if ($pagina_tipo == 'curso') {
-			echo "<a class='navbar-brand $template_navbar_text' href='ubwiki.php' title='Retornar ao nexus.'>Ubwiki</a>";
+			echo "<a class='navbar-brand $template_navbar_text' href='ubwiki.php' title='{$pagina_translated['Retornar ao nexus']}'>Ubwiki</a>";
 		} else {
 			if (isset($curso_id)) {
 				echo "<a class='navbar-brand $template_navbar_text' href='pagina.php?curso_id=$curso_id' title='{$pagina_translated['Retornar ao curso ativo.']}'>Ubwiki: $curso_sigla</a>";
 			} else {
 				echo "<a class='navbar-brand $template_navbar_text' href='ubwiki.php' title='Retornar ao nexus.'>Ubwiki</a>";
 			}
+		}
+		if ($pagina_padrao == true) {
+			echo "
+				<a href='javascript:void(0);' class='text-black-50' id='hide_bars'><i class='fad fa-eye-slash fa-fw fa-sm'></i></a>
+			";
 		}
 		if ($user_id != false) {
 			echo "<ul class='nav navbar-nav ml-auto nav-flex-icons'>";
@@ -44,9 +52,10 @@
 				echo "<a class='dropdown-item navlink z-depth-0' href='carrinho.php'><i class='fad fa-shopping-cart fa-fw'></i> {$pagina_translated['your cart']}</a>";
 			}
 			if ($user_tipo == 'admin') {
-				echo "<a class='dropdown-item navlink z-depth-0' href='admin.php'><i class='fad fa-user-crown fa-fw'></i> {$pagina_translated['administrators page']}</a>";
+				echo "<a class='dropdown-item navlink z-depth-0' href='admin.php'><i class='fad fa-cogs fa-fw'></i> {$pagina_translated['administrators page']}</a>";
 			}
 			echo "
+		          <a class='dropdown-item navlink z-depth-0' href='pagina.php?curso_id=$curso_id'><i class='fad fa-book-reader fa-fw'></i> $curso_sigla</a>
 		          <a class='dropdown-item navlink z-depth-0' href='javascript:void(0);' data-toggle='modal' data-target='#modal_languages'><i class='fad fa-language fa-fw'></i> $user_language_titulo</a>
 		          <a class='dropdown-item navlink z-depth-0' href='logout.php'><i class='fad fa-portal-exit fa-fw'></i> {$pagina_translated['logout']}</a>
 		      </li>

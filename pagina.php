@@ -499,9 +499,10 @@
 ?>
 <body class="grey lighten-5">
 <?php
+    $pagina_padrao = true;
 	include 'templates/navbar.php';
 ?>
-<div class="container-fluid">
+<div class="container-fluid" id="buttonsbar">
     <div class="row justify-content-between">
         <div class='py-2 text-left col-md-4 col-sm-12'>
 					<?php
@@ -588,6 +589,7 @@
 							$topico_anterior_link = "pagina.php?topico_id=$topico_anterior";
 							echo "<a href='$topico_anterior_link' id='verbete_anterior' class='mx-1' title='{$pagina_translated['Verbete anterior']}'><i class='fad fa-arrow-left fa-fw'></i></a>";
 						}
+						echo "<a href='javascript:void(0);' class='hidden text-dark mx-2' id='show_bars'><i class='fad fa-eye fa-fw'></i></a>";
 						if ($pagina_tipo == 'topico') {
 							echo "<a href='javascript:void(0);' id='verbetes_relacionados' class='text-primary mx-1' title='{$pagina_translated['Navegação']}' data-toggle='modal' data-target='#modal_verbetes_relacionados'><i class='fad fa-location-circle fa-2x fa-fw'></i></a>";
 						} elseif ($pagina_tipo == 'secao') {
@@ -784,7 +786,7 @@
         </div>
     </div>
 </div>
-<div class="container">
+<div class="container" id="titlebar">
 	<?php
 		$template_titulo_context = true;
 		if ($pagina_tipo == 'topico') {
@@ -1359,7 +1361,7 @@
 				$nova_secao_numero = $pagina_translated['episodio numero'];
 			} elseif ($elemento_subtipo == 'livro') {
 				$nova_secao_titulo = $pagina_translated['capitulo titulo'];
-				$nova_secao_numero = $pagina_translated['capitulo ordem'];
+				$nova_secao_numero = $pagina_translated['capitulo numero'];
 			}
 		}
 		if (!isset($nova_secao_titulo)) {

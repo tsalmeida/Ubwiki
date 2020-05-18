@@ -107,6 +107,11 @@
 				if ($user_language != false) {
 					$_SESSION['lg'] = $user_language;
 				}
+				if ($user_id == 1) {
+					$user_hidden = true;
+				} else {
+					$user_hidden = false;
+				}
 			}
 		}
 	} else {
@@ -116,6 +121,7 @@
 		$user_apelido = false;
 		$user_sobrenome = false;
 		$user_wallet = false;
+		$user_hidden = false;
 	}
 	
 	

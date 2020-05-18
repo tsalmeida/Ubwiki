@@ -1333,3 +1333,28 @@
 		";
 	}
 	
+	//navbar titlebar functionsbar
+	if ($pagina_padrao == true) {
+		if ($user_hidden == true) {
+			$hide_bars = "$('#hide_bars').click();";
+		} else {
+			$hide_bars = false;
+		}
+		echo "
+			<script type='text/javascript'>
+				$(document).on('click', '#hide_bars', function() {
+				    $(this).addClass('hidden');
+				    $('#show_bars').removeClass('hidden');
+				    $('#navbar').addClass('hidden');
+				    $('#titlebar').addClass('hidden');
+				});
+				$(document).on('click', '#show_bars', function() {
+            $(this).addClass('hidden');
+            $('#hide_bars').removeClass('hidden');
+				    $('#navbar').removeClass('hidden');
+				    $('#titlebar').removeClass('hidden');
+				});
+				$hide_bars
+			</script>
+		";
+	}
