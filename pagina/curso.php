@@ -12,11 +12,10 @@
 		while ($pagina = $paginas->fetch_assoc()) {
 			$topico_pagina_id = $pagina['pagina_id'];
 			$count++;
-			if ($count == 12) {
+			if ($count > 12) {
 				break;
 			}
 			$template_conteudo .= return_list_item($topico_pagina_id, false, false, true, false);
-			
 			/*
 			$topico_titulo = return_pagina_titulo($topico_pagina_id);
 			$topico_familia = return_familia($topico_pagina_id);
