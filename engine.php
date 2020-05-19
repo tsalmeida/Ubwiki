@@ -107,11 +107,6 @@
 				if ($user_language != false) {
 					$_SESSION['lg'] = $user_language;
 				}
-				if ($user_id == 1) {
-					$user_hidden = true;
-				} else {
-					$user_hidden = false;
-				}
 			}
 		}
 	} else {
@@ -121,7 +116,6 @@
 		$user_apelido = false;
 		$user_sobrenome = false;
 		$user_wallet = false;
-		$user_hidden = false;
 	}
 	
 	
@@ -283,14 +277,23 @@
 		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina, extra) VALUES ($user_id, $completed_pagina_id, 'completed', $completed_change)");
 		$conn->query("INSERT INTO Completed (user_id, pagina_id, estado, active) VALUES ($user_id, $completed_pagina_id, $completed_change, 1)");
 	}
-	
+	$query = "SELECT opcao, opcao_tipo FROM Opcoes WHERE user_id = $user_id ORDER BY id DESC";
+	$user_opcoes = $conn->query($query);
 	$opcao_texto_justificado_value = false;
-	if ($user_id != false) {
-		$opcoes = $conn->query("SELECT opcao FROM Opcoes WHERE opcao_tipo = 'texto_justificado' AND user_id = $user_id ORDER BY id DESC");
-		if ($opcoes->num_rows > 0) {
-			while ($opcao = $opcoes->fetch_assoc()) {
-				$opcao_texto_justificado_value = $opcao['opcao'];
-				break;
+	$opcao_hide_navbar = false;
+	$opcoes_found = array();
+	if ($user_opcoes->num_rows > 0) {
+		while ($user_opcao = $user_opcoes->fetch_assoc()) {
+			$user_opcao_value = $user_opcao['opcao'];
+			$user_opcao_type = $user_opcao['opcao_tipo'];
+			if (!in_array($user_opcao_type, $opcoes_found)) {
+				if ($user_opcao_type == 'texto_justificado') {
+					$opcao_texto_justificado_value = $user_opcao_value;
+					array_push($opcoes_found, 'texto_justificado');
+				} elseif ($user_opcao_type == 'hide_navbar') {
+					$opcao_hide_navbar = $user_opcao_value;
+					array_push($opcoes_found, 'hide_navbar');
+				}
 			}
 		}
 	}

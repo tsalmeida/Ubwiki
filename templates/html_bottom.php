@@ -1335,7 +1335,10 @@
 	
 	//navbar titlebar functionsbar
 	if ($pagina_padrao == true) {
-		if ($user_hidden == true) {
+		if (!isset($opcao_hide_navbar)) {
+			$opcao_hide_navbar = false;
+		}
+		if ($opcao_hide_navbar == true) {
 			$hide_bars = "$('#hide_bars').click();";
 		} else {
 			$hide_bars = false;

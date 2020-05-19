@@ -1,5 +1,5 @@
 <?php
- 
+	
 	$pagina_tipo = 'escritorio';
 	include 'engine.php';
 	$pagina_id = return_pagina_id($user_id, $pagina_tipo);
@@ -28,17 +28,31 @@
 				$conn->query("INSERT INTO Opcoes (user_id, opcao_tipo, opcao) VALUES ($user_id, 'texto_justificado', 0)");
 				$opcao_texto_justificado_value = false;
 			}
+			if (isset($_POST['hide_navbar_option'])) {
+				error_log('this happened');
+				$conn->query("INSERT INTO Opcoes (user_id, opcao_tipo, opcao) VALUES ($user_id, 'hide_navbar', 1)");
+				$opcao_hide_navbar = true;
+			} else {
+				$conn->query("INSERT INTO Opcoes (user_id, opcao_tipo, opcao) VALUES ($user_id, 'hide_navbar', 0)");
+				$opcao_hide_navbar = false;
+			}
 		}
 	}
 	
 	if (isset($_POST['selecionar_avatar'])) {
+		$acceptable_avatars = array('fa-user', 'fa-user-tie', 'fa-user-secret', 'fa-user-robot', 'fa-user-ninja', 'fa-user-md', 'fa-user-injured', 'fa-user-hard-hat', 'fa-user-graduate', 'fa-user-crown', 'fa-user-cowboy', 'fa-user-astronaut', 'fa-user-alien', 'fa-cat', 'fa-cat-space', 'fa-dog', 'fa-ghost');
 		$novo_avatar = $_POST['selecionar_avatar'];
-		$conn->query("INSERT INTO Opcoes (user_id, opcao_tipo, opcao_string) VALUES ($user_id, 'avatar', '$novo_avatar')");
+		if (in_array($novo_avatar, $acceptable_avatars)) {
+			$conn->query("INSERT INTO Opcoes (user_id, opcao_tipo, opcao_string) VALUES ($user_id, 'avatar', '$novo_avatar')");
+		}
 	}
 	
 	if (isset($_POST['selecionar_cor'])) {
+		$acceptable_avatar_colors = array('text-primary', 'text-danger', 'text-success', 'text-warning', 'text-secondary', 'text-info', 'text-default', 'text-dark');
 		$nova_cor = $_POST['selecionar_cor'];
-		$conn->query("INSERT INTO Opcoes (user_id, opcao_tipo, opcao_string) VALUES ($user_id, 'avatar_cor', '$nova_cor')");
+		if (in_array($nova_cor, $acceptable_avatar_colors)) {
+			$conn->query("INSERT INTO Opcoes (user_id, opcao_tipo, opcao_string) VALUES ($user_id, 'avatar_cor', '$nova_cor')");
+		}
 	}
 	
 	include 'pagina/shared_issets.php';
@@ -225,10 +239,13 @@
 	
 	$template_modal_div_id = 'modal_opcoes';
 	$template_modal_titulo = $pagina_translated['user settings'];
+	$texto_justificado_checked = false;
 	if ($opcao_texto_justificado_value == true) {
 		$texto_justificado_checked = 'checked';
-	} else {
-		$texto_justificado_checked = false;
+	}
+	$hide_navbar_check = false;
+	if ($opcao_hide_navbar == true) {
+		$hide_navbar_checked = 'checked';
 	}
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "
@@ -270,23 +287,26 @@
 		</select>
 		<h3 class='mt-3'>{$pagina_translated['Perfil']}</h3>
         <p>{$pagina_translated['Você é identificado exclusivamente por seu apelido em todas as suas atividades públicas.']}</p>
-        <div class='md-form md-2'><input type='text' name='novo_apelido' id='novo_apelido' class='form-control validate' value='$user_apelido' pattern='([A-z0-9À-ž\s]){2,14}' required>
+        <div class='md-form'><input type='text' name='novo_apelido' id='novo_apelido' class='form-control validate' value='$user_apelido' pattern='([A-z0-9À-ž\s]){2,14}' required>
             <label data-error='inválido' data-successd='válido' for='novo_apelido' required>{$pagina_translated['Apelido']}</label>
         </div>
         <p>{$pagina_translated['Seu nome e seu sobrenome não serão divulgados em nenhuma seção pública da página.']}</p>
-        <div class='md-form md-2'>
+        <div class='md-form'>
                <input type='text' name='novo_nome' id='novo_nome' class='form-control validate' value='$user_nome' pattern='([A-z0-9À-ž\s]){2,}' required></input>
 
             <label data-error='inválido' data-successd='válido'
                    for='novo_nome'>{$pagina_translated['Nome']}</label>
         </div>
-        <div class='md-form md-2'>
+        <div class='md-form'>
             <input type='text' name='novo_sobrenome' id='novo_sobrenome' class='form-control validate' value='$user_sobrenome' required>
-
             <label data-error='inválido' data-successd='válido' for='novo_sobrenome' pattern='([A-z0-9À-ž\s]){2,}' required>{$pagina_translated['Sobrenome']}</label>
         </div>
         <h3>Opções</h3>
-        <div class='md-form md-2'>
+        <div class='md-form'>
+            <input type='checkbox' class='form-check-input' id='hide_navbar_option' name='hide_navbar_option' $hide_navbar_checked>
+            <label for='hide_navbar_option' class='form-check-label'>{$pagina_translated['Hide title and navbar']}</label>
+        </div>
+        <div class='md-form'>
         	<input type='checkbox' class='form-check-input' id='opcao_texto_justificado' name='opcao_texto_justificado' $texto_justificado_checked>
         	<label class='form-check-label' for='opcao_texto_justificado'>{$pagina_translated['Mostrar verbetes com texto justificado']}</label>
 		</div>
