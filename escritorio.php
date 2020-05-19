@@ -70,17 +70,18 @@
 
 ?>
 <body class="grey lighten-5">
-<div class="container">
+<div class="container mt-1">
 	<?php
-		if ($user_apelido != false) {
-			$template_titulo = $user_apelido;
-			$template_titulo_above = $pagina_translated['user_office'];
-		} else {
-			$template_titulo = $pagina_translated['user_office'];
+		if ($opcao_hide_navbar == false) {
+			if ($user_apelido != false) {
+				$template_titulo = $user_apelido;
+				$template_titulo_above = $pagina_translated['user_office'];
+			} else {
+				$template_titulo = $pagina_translated['user_office'];
+			}
+			$template_titulo_context = true;
+			include 'templates/titulo.php';
 		}
-		$template_titulo_context = true;
-		include 'templates/titulo.php'
-	
 	?>
 </div>
 <div class="container">
@@ -213,7 +214,7 @@
 							$template_conteudo .= include 'templates/artefato_item.php';
 						}
 						
-						if (($user_tipo == 'admin') || ($user_tipo == 'revisor')) {
+						if ($user_revisor == true) {
 							$artefato_id = 'review';
 							$artefato_subtitulo = $pagina_translated['review'];
 							$artefato_link = 'revisoes.php';
@@ -243,7 +244,7 @@
 	if ($opcao_texto_justificado_value == true) {
 		$texto_justificado_checked = 'checked';
 	}
-	$hide_navbar_check = false;
+	$hide_navbar_checked = false;
 	if ($opcao_hide_navbar == true) {
 		$hide_navbar_checked = 'checked';
 	}

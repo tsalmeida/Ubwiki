@@ -92,12 +92,14 @@
 		}
 	}
 	
+	$user_revisor = false;
 	if ($user_email != false) {
 		$usuarios = $conn->query("SELECT id, tipo, criacao, apelido, nome, sobrenome, language FROM Usuarios WHERE email = '$user_email'");
 		if ($usuarios->num_rows > 0) {
 			while ($usuario = $usuarios->fetch_assoc()) {
 				$user_id = $usuario['id'];
 				$user_tipo = $usuario['tipo'];
+				$user_revisor = check_revisor($user_tipo);
 				$user_criacao = $usuario['criacao'];
 				$user_apelido = $usuario['apelido'];
 				$user_nome = $usuario['nome'];
@@ -2090,7 +2092,8 @@
 			if ($item_pagina_revisao == true) {
 				$user_info = return_usuario_info($user_id);
 				$user_tipo = $user_info[0];
-				if (($user_tipo == 'admin') || ($user_tipo == 'revisor')) {
+				$user_revisor = check_revisor($user_tipo);
+				if ($user_revisor == true) {
 					return true;
 				}
 			}
@@ -3502,6 +3505,7 @@
 	
 	function return_list_item()
 	{
+		// ($pagina_id, $lista_tipo, $item_classes, $no_icon, $no_estado)
 		$args = func_get_args();
 		$pagina_id = $args[0];
 		if (isset($args[1])) {
@@ -3514,6 +3518,19 @@
 		} else {
 			$item_classes = false;
 		}
+		if (isset($args[3])) {
+			$no_icon = $args[3];
+		} else {
+			$no_icon = false;
+		}
+		if (isset($args[4])) {
+			$no_estado = $args[4];
+		} else {
+			$no_estado = false;
+		}
+		
+		error_log("$no_icon $no_estado");
+		
 		if ($pagina_id == false) {
 			return false;
 		} else {
@@ -3580,6 +3597,17 @@
 		} else {
 			$icone_prefixo = 'fad';
 		}
+		
+		if ($no_icon == true) {
+			$cor_icone_principal = false;
+			$icone_prefixo = false;
+			$icone_principal = false;
+		}
+		if ($no_estado == true) {
+			$pagina_estado_cor = false;
+			$pagina_estado_icone = false;
+		}
+		
 		return put_together_list_item('link', $link, $cor_icone_principal, $icone_prefixo, $icone_principal, $pagina_titulo, $pagina_estado_cor, $pagina_estado_icone, $item_classes);
 	}
 	
@@ -3597,6 +3625,11 @@
 		$pagina_titulo = $args[5];
 		$pagina_estado_cor = $args[6];
 		$pagina_estado_icone = $args[7];
+		if (($pagina_estado_icone == false) && ($icone_principal == false)) {
+			$dflex = false;
+		} else {
+			$dflex = 'd-flex justify-content-between';
+		}
 		if (isset($args[8])) {
 			$item_classes = $args[8];
 		} else {
@@ -3605,7 +3638,7 @@
 		if ($type == 'link') {
 			return "
 			<a href='$link'>
-				<li class='list-group-item list-group-item-action $item_classes border-top p-1 py-2 d-flex justify-content-between'>
+				<li class='list-group-item list-group-item-action $item_classes border-top p-1 py-2 $dflex'>
 					<span>
 						<span class='$cor_icone_principal align-middle icone-lista'>
 							<i class='$icone_prefixo $icone_principal fa-fw fa-lg'></i>
@@ -3622,7 +3655,7 @@
 		} elseif ($type == 'modal') {
 			return "
 			<a data-toggle='modal' data-target='$link'>
-				<li class='list-group-item list-group-item-action $item_classes border-top p-1 py-2 d-flex justify-content-between'>
+				<li class='list-group-item list-group-item-action $item_classes border-top p-1 py-2 $dflex'>
 					<span>
 						<span class='$cor_icone_principal align-middle icone-lista'>
 							<i class='$icone_prefixo $icone_principal fa-fw fa-lg'></i>
@@ -3638,7 +3671,7 @@
 			</a>";
 		} elseif ($type == 'inactive') {
 			return "
-				<li class='list-group-item $item_classes border-top p-1 py-2 d-flex justify-content-between'>
+				<li class='list-group-item $item_classes border-top p-1 py-2 $dflex'>
 					<span>
 						<span class='$cor_icone_principal align-middle icone-lista'>
 							<i class='$icone_prefixo $icone_principal fa-fw fa-lg'></i>
@@ -3861,5 +3894,21 @@
 		}
 		return false;
 	}
-
+	
+	function check_revisor($user_tipo) {
+		switch($user_tipo) {
+			case 'admin':
+				return true;
+				break;
+			case 'revisor':
+				return true;
+				break;
+			case 'diplomata':
+				return true;
+				break;
+			default:
+				return false;
+		}
+	}
+	
 ?>

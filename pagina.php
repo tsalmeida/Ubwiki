@@ -329,7 +329,7 @@
 		$texto_pagina_id = $texto_info[9];
 		$texto_compartilhamento = $texto_info[11];
 		$texto_texto_pagina_id = $texto_info[12];
-		if (($texto_revisao_ativa == 1) && (($user_tipo != 'admin') && ($user_tipo != 'revisor'))) {
+		if (($texto_revisao_ativa == 1) && ($user_revisor == false)) {
 			$privilegio_edicao = false;
 		}
 		$pagina_id = $texto_texto_pagina_id;
@@ -499,7 +499,7 @@
 ?>
 <body class="grey lighten-5">
 <?php
-    $pagina_padrao = true;
+	$pagina_padrao = true;
 	include 'templates/navbar.php';
 ?>
 <div class="container-fluid" id="buttonsbar">
@@ -537,23 +537,21 @@
 								echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_produto_preco' class='text-warning mr-1' id='produto_preco' title='{$pagina_translated['Preço do produto']}'><i class='fad fa-usd-circle fa-fw fa-2x'></i></a>";
 							}
 						}
-						if ((($pagina_tipo == 'texto') && ($pagina_user_id == $user_id)) || (($texto_revisao_ativa == true) && (($user_tipo == 'admin') || ($user_tipo == 'revisor')))) {
-							if ($user_wallet > 0) {
-								$carregar_modal_correcao = true;
-								if ($texto_revisao_ativa == true) {
-									if (($user_tipo == 'admin') || ($user_tipo == 'revisor')) {
-										$pencil_color1 = 'text-success';
-										$pencil_color2 = "style='--fa-secondary-color: #ff3547;'";
-									} else {
-										$pencil_color1 = 'text-muted';
-										$pencil_color2 = false;
-									}
-								} else {
-									$pencil_color1 = 'text-primary';
+						if ((($pagina_tipo == 'texto') && ($pagina_user_id == $user_id)) || (($texto_revisao_ativa == true) && ($user_revisor == true))) {
+							$carregar_modal_correcao = true;
+							if ($texto_revisao_ativa == true) {
+								if ($user_revisor == true) {
+									$pencil_color1 = 'text-success';
 									$pencil_color2 = "style='--fa-secondary-color: #ff3547;'";
+								} else {
+									$pencil_color1 = 'text-muted';
+									$pencil_color2 = false;
 								}
-								echo "<a href='javascript:void(0);' class='$pencil_color1' data-toggle='modal' data-target='#modal_correcao' title='{$pagina_translated['Solicitar correção']}'><i class='fad fa-pencil-alt fa-fw fa-2x' $pencil_color2></i></a>";
+							} else {
+								$pencil_color1 = 'text-primary';
+								$pencil_color2 = "style='--fa-secondary-color: #ff3547;'";
 							}
+							echo "<a href='javascript:void(0);' class='$pencil_color1' data-toggle='modal' data-target='#modal_correcao' title='{$pagina_translated['Solicitar correção']}'><i class='fad fa-pencil-alt fa-fw fa-2x' $pencil_color2></i></a>";
 						}
 						if (($pagina_tipo == 'curso') && ($pagina_curso_user_id == $user_id)) {
 							$carregar_adicionar_materia = true;
@@ -962,6 +960,27 @@
 						$template_conteudo = include 'templates/template_quill.php';
 						include 'templates/page_element.php';
 					}
+				} elseif ($pagina_tipo == 'curso') {
+					$template_id = 'modulos';
+					$template_titulo = $pagina_translated['Módulos'];
+					$template_botoes = false;
+					$template_conteudo = false;
+					
+					$materias = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE tipo = 'materia' AND pagina_id = $pagina_id");
+					
+					if ($materias->num_rows > 0) {
+						$template_conteudo .= "<ul class='list-group list-group-flush'>";
+						while ($materia = $materias->fetch_assoc()) {
+							$materia_pagina_id = $materia['elemento_id'];
+							$template_conteudo .= return_list_item($materia_pagina_id, false, 'text-center fontstack-subtitle force-size',
+                              true,
+                              true);
+						}
+						$template_conteudo .= "</ul>";
+						unset($materia_id);
+					}
+					
+					include 'templates/page_element.php';
 				}
 				
 				$paginas_sem_verbete = array('texto', 'materia', 'questao', 'texto_apoio', 'grupo');
@@ -969,7 +988,7 @@
 					$template_id = 'verbete';
 					if ($wiki_id == false) {
 						if ($pagina_tipo == 'curso') {
-						    $template_classes = 'hidden';
+							$template_classes = 'hidden';
 							$template_titulo = $pagina_translated['Apresentação'];
 							$template_botoes_padrao = true;
 							$template_quill_initial_state = 'leitura';
@@ -1179,37 +1198,12 @@
 				
 				if ($pagina_tipo == 'curso') {
 					
-					//echo "<div id='coluna_direita' class='$coluna_classes pagina_coluna'>";
-					
-					$template_id = 'modulos';
-					$template_titulo = $pagina_translated['Módulos'];
-					$template_botoes = false;
-					$template_conteudo = false;
-					
-					$materias = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE tipo = 'materia' AND pagina_id = $pagina_id");
-					
-					$rowcount = mysqli_num_rows($materias);
-					if ($materias->num_rows > 0) {
-						$template_conteudo .= "<ul class='list-group list-group-flush'>";
-						while ($materia = $materias->fetch_assoc()) {
-							$materia_pagina_id = $materia['elemento_id'];
-							$materia_pagina_titulo = return_pagina_titulo($materia_pagina_id);
-							if ($materia_pagina_titulo == false) {
-								continue;
-							}
-							$template_conteudo .= "
-	                            <a href='pagina.php?pagina_id=$materia_pagina_id' class='mt-1'><li class='list-group-item list-group-item-action border-top text-center'><em>$materia_pagina_titulo</em></li></a>
-                            ";
-						}
-						$template_conteudo .= "</ul>";
-						unset($materia_id);
-					}
-					
-					include 'templates/page_element.php';
+				    echo "</div>";
+					echo "<div id='coluna_direita' class='$coluna_classes pagina_coluna'>";
 					
 					include 'pagina/curso.php';
 					
-					//echo "</div>";
+                    echo "</div>";
 					
 				}
 				
@@ -2392,7 +2386,7 @@
     	    ";
 		} else {
 			$template_modal_titulo = $pagina_translated['Correção em andamento'];
-			if (($user_tipo == 'admin') || ($user_tipo == 'revisor')) {
+			if ($user_revisor == true) {
 				$template_modal_body_conteudo .= "
 			        <form method='post'>
 			            <div class='row d-flex justify-content-center'>
