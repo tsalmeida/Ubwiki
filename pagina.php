@@ -960,27 +960,6 @@
 						$template_conteudo = include 'templates/template_quill.php';
 						include 'templates/page_element.php';
 					}
-				} elseif ($pagina_tipo == 'curso') {
-					$template_id = 'modulos';
-					$template_titulo = $pagina_translated['Módulos'];
-					$template_botoes = false;
-					$template_conteudo = false;
-					
-					$materias = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE tipo = 'materia' AND pagina_id = $pagina_id");
-					
-					if ($materias->num_rows > 0) {
-						$template_conteudo .= "<ul class='list-group list-group-flush'>";
-						while ($materia = $materias->fetch_assoc()) {
-							$materia_pagina_id = $materia['elemento_id'];
-							$template_conteudo .= return_list_item($materia_pagina_id, false, 'text-center fontstack-subtitle force-size',
-                              true,
-                              true);
-						}
-						$template_conteudo .= "</ul>";
-						unset($materia_id);
-					}
-					
-					include 'templates/page_element.php';
 				}
 				
 				$paginas_sem_verbete = array('texto', 'materia', 'questao', 'texto_apoio', 'grupo');
@@ -1053,6 +1032,29 @@
 				}
 				
 				include 'pagina/etiquetas.php';
+				
+				if ($pagina_tipo == 'curso') {
+					$template_id = 'modulos';
+					$template_titulo = $pagina_translated['Módulos'];
+					$template_botoes = false;
+					$template_conteudo = false;
+					
+					$materias = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE tipo = 'materia' AND pagina_id = $pagina_id");
+					
+					if ($materias->num_rows > 0) {
+						$template_conteudo .= "<ul class='list-group list-group-flush'>";
+						while ($materia = $materias->fetch_assoc()) {
+							$materia_pagina_id = $materia['elemento_id'];
+							$template_conteudo .= return_list_item($materia_pagina_id, false, 'text-center fontstack-subtitle force-size',
+								true,
+								true);
+						}
+						$template_conteudo .= "</ul>";
+						unset($materia_id);
+					}
+					
+					include 'templates/page_element.php';
+				}
 				
 				if ($pagina_tipo == 'topico') {
 					$list_pagina_questoes = $conn->query("SELECT elemento_id, extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'questao'");
@@ -1198,12 +1200,12 @@
 				
 				if ($pagina_tipo == 'curso') {
 					
-				    echo "</div>";
+					echo "</div>";
 					echo "<div id='coluna_direita' class='$coluna_classes pagina_coluna'>";
 					
 					include 'pagina/curso.php';
 					
-                    echo "</div>";
+					echo "</div>";
 					
 				}
 				
