@@ -171,8 +171,11 @@
 				break;
 		}
 		
+		error_log($sum);
+		
 		$price = (int)($wordcount * $sum);
 		$price = (int)($price / 600);
+		
 		$price = floor($price);
 		return $price;
 	}

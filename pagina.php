@@ -2325,7 +2325,7 @@
 		if ($texto_revisao_ativa == false) {
 			$template_modal_titulo = $pagina_translated['Solicitar correção'];
 			$pagina_texto_wordcount = str_word_count($texto_verbete_text);
-			$revision_price = calculate_review_price($pagina_texto_wordcount, 'simplified', 'with_grade', 'chat_20', 'revisor_diplomata');
+			$revision_price = calculate_review_price($pagina_texto_wordcount, 'simplified', 'with_grade', false, 'revisor_diplomata');
 			if ($user_wallet >= $revision_price) {
 				$button_disabled = false;
 			} else {
