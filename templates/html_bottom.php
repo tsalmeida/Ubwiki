@@ -83,6 +83,12 @@
 	if (!isset($hide_and_show_wallet_form)) {
 		$hide_and_show_wallet_form = false;
 	}
+	if (!isset($carregar_toggle_curso)) {
+		$carregar_toggle_curso = false;
+	}
+	if (!isset($pagina_padrao)) {
+		$pagina_padrao = false;
+	}
 	
 	echo "
     <!-- Bootstrap tooltips -->
@@ -1198,130 +1204,6 @@
 		";
 	}
 	
-	if ($hide_and_show_wallet_form == true) {
-		echo "
-			<script type='text/javascript'>
-				$(document).on('click', '#trigger_add_credits', function() {
-				    $(this).addClass('hidden');
-				    $('#wallet_deposit_form_hidden').removeClass('hidden');
-				});
-			</script>
-		";
-	}
-	
-	if ($hide_and_show_wallet_form == true) {
-		echo "
-			<script type='text/javascript'>
-				$(document).on('click', '#trigger_add_credits', function() {
-				    $(this).addClass('hidden');
-				    $('#wallet_deposit_form_hidden').removeClass('hidden');
-				});
-			</script>
-		";
-	}
-	
-	if ($pagina_tipo == 'carrinho') {
-		echo "
-		        <script type='text/javascript'>
-		            window.Mercadopago.setPublishableKey('TEST-ffcb8ddf-dd3d-42b5-aa04-aff72bfcc077');
-                window.Mercadopago.getIdentificationTypes();
-                
-                document.getElementById('cardNumber').addEventListener('keyup', guessPaymentMethod);
-                document.getElementById('cardNumber').addEventListener('change', guessPaymentMethod);
-                
-                function guessPaymentMethod(event) {
-                    let cardnumber = document.getElementById('cardNumber').value;
-                
-                    if (cardnumber.length >= 6) {
-                        let bin = cardnumber.substring(0,6);
-                        window.Mercadopago.getPaymentMethod({
-                            'bin': bin
-                        }, setPaymentMethod);
-                    }
-                };
-                
-                function setPaymentMethod(status, response) {
-                    if (status == 200) {
-                        let paymentMethodId = response[0].id;
-                        let element = document.getElementById('payment_method_id');
-                        element.value = paymentMethodId;
-                        getInstallments();
-                    } else {
-                        alert(`payment method info error: \${response}`);
-                    }
-                }
-                
-                function getInstallments(){
-                    window.Mercadopago.getInstallments({
-                        'payment_method_id': document.getElementById('payment_method_id').value,
-                        'amount': parseFloat(document.getElementById('transaction_amount').value)
-                
-                    }, function (status, response) {
-                        if (status == 200) {
-                            document.getElementById('installments').options.length = 0;
-                            response[0].payer_costs.forEach( installment => {
-                                let opt = document.createElement('option');
-                                opt.text = installment.recommended_message;
-                                opt.value = installment.installments;
-                                document.getElementById('installments').appendChild(opt);
-                            });
-                        } else {
-                            alert(`installments method info error: \${response}`);
-                        }
-                    });
-                }
-
-                doSubmit = false;
-                document.querySelector('#pay').addEventListener('submit', doPay);
-                
-                function doPay(event){
-                    event.preventDefault();
-                    if(!doSubmit){
-                        var form = document.querySelector('#pay');
-                
-                        window.Mercadopago.createToken(form, sdkResponseHandler);
-                
-                        return false;
-                    }
-                };
-                
-                function sdkResponseHandler(status, response) {
-                    if (status != 200 && status != 201) {
-                        alert('verify filled data');
-                    }else{
-                        var form = document.querySelector('#pay');
-                        var card = document.createElement('input');
-                        card.setAttribute('name', 'token');
-                        card.setAttribute('type', 'hidden');
-                        card.setAttribute('value', response.id);
-                        form.appendChild(card);
-                        doSubmit=true;
-                        form.submit();
-                    }
-                };
-                
-                MercadoPago.SDK.setAccessToken('TEST-ffcb8ddf-dd3d-42b5-aa04-aff72bfcc077');
-
-								Payment payment = new Payment();
-								payment.setTransactionAmount(196f)
-								       .setToken('TEST-ffcb8ddf-dd3d-42b5-aa04-aff72bfcc077')
-								       .setDescription('Intelligent Steel Chair')
-								       .setInstallments(1)
-								       .setPaymentMethodId('visa')
-								       .setPayer(new Payer()
-								         .setEmail('test@test.com'));
-								
-								payment.save();
-								
-								
-								System.out.println(payment.getStatus());
-								
-
-
-              </script>
-		";
-	}
-	
 	if ($pagina_tipo == 'curso') {
 		echo "
 			<script type='text/javascript'>
@@ -1358,6 +1240,32 @@
 				    $('#titlebar').removeClass('hidden');
 				});
 				$hide_bars
+			</script>
+		";
+	}
+	if ($carregar_toggle_curso == true) {
+		echo "
+			<script type='text/javascript'>
+				$(document).on('click', '#curso_aderir', function() {
+				    $.post('engine.php', {
+				    	'curso_aderir': $pagina_curso_id
+				    }, function(data) {
+				        if (data != 0) {
+							    $('#curso_aderir').addClass('hidden');
+							    $('#curso_sair').removeClass('hidden');
+				        }
+				    })
+				});
+				$(document).on('click', '#curso_sair', function() {
+				    $.post('engine.php', {
+				        'curso_sair': $pagina_curso_id
+				    }, function (data) {
+				        if (data != 0) {
+							    $('#curso_sair').addClass('hidden');
+							    $('#curso_aderir').removeClass('hidden');
+				        }
+				    })
+				});
 			</script>
 		";
 	}

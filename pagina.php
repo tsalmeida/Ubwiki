@@ -606,6 +606,21 @@
         </div>
         <div class='py-2 text-right col-md-4 col-sm-12'>
 					<?php
+						if ($pagina_tipo == 'curso') {
+							if ($user_id != false) {
+								$carregar_toggle_curso = true;
+								$curso_aderir_hidden = false;
+								$curso_sair_hidden = false;
+								$return_usuario_cursos_inscrito = return_usuario_cursos_inscrito($user_id);
+								if (in_array($pagina_id, $return_usuario_cursos_inscrito)) {
+								    $curso_aderir_hidden = 'hidden';
+                                } else {
+								    $curso_sair_hidden = 'hidden';
+                                }
+								echo "<a href='javascript:void(0);' class='ml-1 text-primary $curso_aderir_hidden' title='{$pagina_translated['Aderir a este curso']}' id='curso_aderir'><i class='fad fa-lamp-desk fa-fw'></i></a>";
+								echo "<a href='javascript:void(0);' class='ml-1 text-success $curso_sair_hidden' title='{$pagina_translated['Sair deste curso']}' id='curso_sair'><i class='fad fa-lamp-desk fa-fw'></i></a>";
+							}
+						}
 						if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id) && ($pagina_subtipo != 'Plano de estudos')) {
 							if (($pagina_tipo != 'materia') && ($pagina_tipo != 'topico')) {
 								echo "
@@ -641,7 +656,7 @@
 							}
 							if ($user_id != false) {
 								echo "
-                                <a href='forum.php?pagina_id=$pagina_id' title='Fórum' class='$forum_color ml-1 align-top'>
+                                <a href='forum.php?pagina_id=$pagina_id' title='{$pagina_translated['forum']}' class='$forum_color ml-1 align-top'>
                                     <i class='fad fa-comments-alt fa-fw'></i>
                                 </a>
                             ";
@@ -667,13 +682,7 @@
 								  </a>
 						        ";
 							} else {
-								echo "<a href='javascript:void(9);' class='ml-1 text-success' title='{$pagina_translated['Adicionar a seu acervo']}' data-toggle='modal' data-target='#modal_login'><i class='fad fa-lamp-desk fa-fw'></i></a>";
-							}
-						}
-						if ($pagina_tipo == 'curso') {
-							if ($user_id != false) {
-								$carregar_toggle_curso = true;
-								// criar aqui um mecanismo para adicionar um curso ao seu escritório.
+								echo "<a href='javascript:void(0);' class='ml-1 text-success' title='{$pagina_translated['Adicionar a seu acervo']}' data-toggle='modal' data-target='#modal_login'><i class='fad fa-lamp-desk fa-fw'></i></a>";
 							}
 						}
 						if ($pagina_subtipo == 'etiqueta') {
