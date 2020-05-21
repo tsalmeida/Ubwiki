@@ -122,7 +122,7 @@
 		$sum = (int)0;
 		
 		if ($grade == 'with_grade') {
-			$sum = ($sum + 15);
+			$sum = ($sum + 10);
 		}
 		switch ($reviewer) {
 			//case 'professor_especialista':
@@ -174,7 +174,7 @@
 		error_log($sum);
 		
 		$price = (int)($wordcount * $sum);
-		$price = (int)($price / 600);
+		$price = (int)($price / 880);
 		
 		$price = floor($price);
 		return $price;
