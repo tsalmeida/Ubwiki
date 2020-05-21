@@ -204,15 +204,13 @@
 						$fa_color = 'text-secondary';
 						$template_conteudo .= include "templates/artefato_item.php";
 						
-						if ($user_wallet > 0) {
-							$artefato_id = 'wallet';
-							$artefato_titulo = $pagina_translated['sua carteira'];
-							$artefato_subtitulo = $pagina_translated['creditos ubwiki'];
-							$artefato_modal = '#modal_wallet';
-							$fa_icone = 'fa-wallet';
-							$fa_color = 'text-success';
-							$template_conteudo .= include 'templates/artefato_item.php';
-						}
+						$artefato_id = 'wallet';
+						$artefato_titulo = $pagina_translated['sua carteira'];
+						$artefato_subtitulo = $pagina_translated['creditos ubwiki'];
+						$artefato_modal = '#modal_wallet';
+						$fa_icone = 'fa-wallet';
+						$fa_color = 'text-success';
+						$template_conteudo .= include 'templates/artefato_item.php';
 						
 						if ($user_revisor == true) {
 							$artefato_id = 'review';
@@ -386,8 +384,9 @@
 	$template_modal_body_conteudo = false;
 	//$template_modal_body_conteudo .= "<p>{$pagina_translated['creditos visite']} <a href='https://www.grupoubique
 	//.com.br' target='_blank'>www.grupoubique.com.br</a></p>";
+	$template_modal_body_conteudo .= "<p><a href='javascript:void(0);' id='mostrar_formulario_codigo' class='text-info'>Você tem um código de créditos a adicionar à sua conta?</a></p>";
 	$template_modal_body_conteudo .= "
-        <form method='post' class='border rounded p-3 mb-2'>
+        <form id='formulario_codigo' method='post' class='border rounded p-3 mb-2 hidden'>
             <div class='md-form'>
                 <input type='text' class='form-control' id='adicionar_credito_codigo' name='adicionar_credito_codigo'>
                 <label for='adicionar_credito_codigo'>{$pagina_translated['adicionar credito codigo']}</label>
@@ -396,10 +395,18 @@
                 </div>
             </div>
         </form>
-	    <ul class='list-group'>
+	";
+	$template_modal_body_conteudo .= "<p>Para comprar créditos Ubwiki, siga um dos links abaixo:</p>";
+    $template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
+    $template_modal_body_conteudo .= "<a href='https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=N9U85AQL7RBF8' class='font-italic'><li class='list-group-item list-group-item-action'><span class='text-primary mr-2'><i class='fad fa-external-link fa-fw'></i></span> Comprar 100 Créditos Ubwiki</li></a>";
+    $template_modal_body_conteudo .= "<a href='https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=43NNZHEDD6278' class='font-italic'><li class='list-group-item list-group-item-action'><span class='text-primary mr-2'><i class='fad fa-external-link fa-fw'></i></span> Comprar 300 Créditos Ubwiki por 275 reais</li></a>";
+    $template_modal_body_conteudo .= "<a href='https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AN49TH77ETDY6' class='font-italic'><li class='list-group-item list-group-item-action'><span class='text-primary mr-2'><i class='fad fa-external-link fa-fw'></i></span> Comprar 600 Créditos Ubwiki for 550 reais</li></a>";
+    $template_modal_body_conteudo .= "</ul>";
+    $template_modal_body_conteudo .= "
+	    <ul class='list-group mt-3'>
 	        <li class='list-group-item list-group-item-info'><strong>{$pagina_translated['Ubwiki credit current']} </strong>{$user_wallet}</li>
         </ul>
-	";
+    ";
 	$template_modal_show_buttons = false;
 	include 'templates/modal.php';
 	

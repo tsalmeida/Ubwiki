@@ -9,59 +9,6 @@
 	}
 	
 	if (isset($_POST['trigger_atualizacao'])) {
-		adicionar_chave_traducao('Mais informações', 1);
-		adicionar_chave_traducao('Retornar ao nexus', 1);
-		adicionar_chave_traducao('Hide title and navbar', 1);
-		adicionar_chave_traducao('Aderir a este curso', 1);
-		adicionar_chave_traducao('Sair deste curso', 1);
-		
-		registrar_credito('574C5DBB', 100);
-		registrar_credito('44F89FC7', 100);
-		registrar_credito('1DD34F02', 100);
-		registrar_credito('083012D0', 100);
-		registrar_credito('FF444A56', 100);
-		registrar_credito('E31F1A61', 100);
-		registrar_credito('F74C39BF', 100);
-		registrar_credito('96537DF7', 100);
-		registrar_credito('47AD9DB0', 100);
-		registrar_credito('E72D20D4', 100);
-		registrar_credito('794FB2DA', 100);
-		registrar_credito('7008F485', 100);
-		registrar_credito('10C426E0', 100);
-		registrar_credito('C5AF93BC', 100);
-		registrar_credito('B83421CB', 100);
-		registrar_credito('656FE9A6', 100);
-		
-		registrar_credito('C86DA917', 300);
-		registrar_credito('02F090A3', 300);
-		registrar_credito('0ED69D6C', 300);
-		registrar_credito('6048C20D', 300);
-		registrar_credito('6E9AD892', 300);
-		registrar_credito('789C03F5', 300);
-		registrar_credito('4CBF314E', 300);
-		registrar_credito('6B81F0D3', 300);
-		registrar_credito('611B65D2', 300);
-		registrar_credito('E835C7D6', 300);
-		registrar_credito('95D932EB', 300);
-		registrar_credito('591F9CC1', 300);
-		registrar_credito('A4371B4A', 300);
-		registrar_credito('6D0356B5', 300);
-		registrar_credito('6C31A45E', 300);
-		
-		registrar_credito('E13FDA98', 600);
-		registrar_credito('F59E0952', 600);
-		registrar_credito('524B09A3', 600);
-		registrar_credito('386DAB5C', 600);
-		registrar_credito('EB3D7458', 600);
-		registrar_credito('5781C2DA', 600);
-		registrar_credito('CD0AEA3F', 600);
-		registrar_credito('C9EB1370', 600);
-		registrar_credito('10334394', 600);
-		registrar_credito('E9E9A998', 600);
-		registrar_credito('1A8912DA', 600);
-		registrar_credito('B3BCE395', 600);
-		registrar_credito('4C621785', 600);
-		
 	}
 	
 	if (isset($_POST['novos_creditos'])) {

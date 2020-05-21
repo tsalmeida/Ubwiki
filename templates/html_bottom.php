@@ -1269,3 +1269,14 @@
 			</script>
 		";
 	}
+	
+	if ($pagina_tipo == 'escritorio') {
+		echo "
+			<script type='text/javascript'>
+				$(document).on('click', '#mostrar_formulario_codigo', function() {
+				   $(this).addClass('hidden');
+				   $('#formulario_codigo').removeClass('hidden');
+				});
+			</script>
+		";
+	}
