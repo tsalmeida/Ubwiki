@@ -157,18 +157,6 @@
 		
 		$sum = ($sum + $extension_price);
 		
-		switch ($extension) {
-			//case 'simplified':
-			case 'detailed':
-				$sum = ($sum + $detailed);
-				break;
-			case false:
-				return false;
-				break;
-			default:
-				$sum = ($sum + $simplified);
-		}
-		
 		switch ($chat) {
 			case 'chat_20':
 				$sum = ($sum + $chat_20);
