@@ -3752,6 +3752,11 @@
 	
 	function put_together_list_item()
 	{
+		/*
+		put_together_list_item('link', $link, $cor_icone_principal, $icone_prefixo, $icone_principal, $pagina_titulo,
+			$pagina_estado_cor, $pagina_estado_icone, $item_classes);
+		*/
+		
 		$args = func_get_args();
 		$type = $args[0];
 		$link = $args[1];

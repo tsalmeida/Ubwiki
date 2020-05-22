@@ -398,9 +398,22 @@
 	";
 	$template_modal_body_conteudo .= "<p>Para comprar créditos Ubwiki, siga um dos links abaixo:</p>";
     $template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
-    $template_modal_body_conteudo .= "<a href='https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=N9U85AQL7RBF8' class='font-italic'><li class='list-group-item list-group-item-action'><span class='text-primary mr-2'><i class='fad fa-external-link fa-fw'></i></span> Comprar 100 Créditos Ubwiki por R$ 100</li></a>";
-    $template_modal_body_conteudo .= "<a href='https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=43NNZHEDD6278' class='font-italic'><li class='list-group-item list-group-item-action'><span class='text-primary mr-2'><i class='fad fa-external-link fa-fw'></i></span> Comprar 300 Créditos Ubwiki por R$ 275</li></a>";
-    $template_modal_body_conteudo .= "<a href='https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AN49TH77ETDY6' class='font-italic'><li class='list-group-item list-group-item-action'><span class='text-primary mr-2'><i class='fad fa-external-link fa-fw'></i></span> Comprar 600 Créditos Ubwiki for R$ 550</li></a>";
+    
+	$oferta_link = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=N9U85AQL7RBF8";
+	$oferta_texto = "Comprar 100 Créditos Ubwiki por R$ 100";
+	$template_modal_body_conteudo .= put_together_list_item('link', $oferta_link, 'text-primary', 'fad',
+      'fa-external-link', $oferta_texto, false, false, false);
+	
+	$oferta_link = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=43NNZHEDD6278";
+	$oferta_texto = "Comprar 300 Créditos Ubwiki por R$ 275";
+	$template_modal_body_conteudo .= put_together_list_item('link', $oferta_link, 'text-primary', 'fad',
+      'fa-external-link', $oferta_texto, false, false, false);
+	
+	$oferta_link = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AN49TH77ETDY6";
+	$oferta_texto = "Comprar 600 Créditos Ubwiki for R$ 550";
+	$template_modal_body_conteudo .= put_together_list_item('link', $oferta_link, 'text-primary', 'fad',
+      'fa-external-link', $oferta_texto, false, false, false);
+	
     $template_modal_body_conteudo .= "</ul>";
     $template_modal_body_conteudo .= "
 	    <ul class='list-group mt-3'>
