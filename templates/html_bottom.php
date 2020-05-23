@@ -122,23 +122,7 @@ if ($gabarito == true) {
 			</script>
 		";
 }
-/*if ($texto_editar_titulo == true) {
-    echo "
-        <script type='text/javascript'>
-            $('input[name=novo_texto_titulo]').change(function() {
-                var novo_texto_titulo = $('input[name=novo_texto_titulo').val();
-                $.post('engine.php', {
-                    'novo_texto_titulo': novo_texto_titulo,
-                    'novo_texto_titulo_id': $texto_id
-                }, function(data) {
-                    if (data != 0) {
-                        $('#novo_texto_titulo').text(novo_texto_titulo);
-                    }
-                    })
-            });
-        </script>
-        ";
-}*/
+
 // esse mecanismo precisa ser dinâmico o bastante para que funcione tanto para etiquetas de
 // elementos quanto para etiquetas de tópicos
 if (($sistema_etiquetas_topicos == true) || ($sistema_etiquetas_elementos == true)) {
@@ -495,55 +479,7 @@ if ($sistema_etiquetas_topicos == true) {
       </script>
 	";
 }
-/*
-if ($etiquetas_bottom_adicionar == true) {
-    echo "
-    <script type='text/javascript'>
-        $('#buscar_etiquetas').keyup(function() {
-            var busca_etiquetas = $('#buscar_etiquetas').val();
-            var busca_etiquetas_length = $('#buscar_etiquetas').val().length;
-            if (busca_etiquetas_length > 2) {
-                $.post('engine.php', {
-                      'busca_etiquetas': busca_etiquetas,
-                      'busca_etiquetas_tipo': 'topico',
-                      'busca_etiquetas_sem_link': 0
-                  }, function(data) {
-                    if (data != 0) {
-                        $('#etiquetas_disponiveis').empty();
-                        $('#etiquetas_disponiveis').append(data);
-                    }
-                });
-      }
-        });
-        $(document).on('click', '#criar_etiqueta', function() {
-          var new_tag = $(this).attr('value');
-          $(this).hide();
-          $.post('engine.php', {
-             'criar_etiqueta_titulo': new_tag,
-             'criar_etiqueta_page_id': {$pagina_id},
-             'criar_etiqueta_page_tipo': '{$pagina_tipo}'
-          }, function(data) {
-             if (data != 0) {
-                 $('#etiquetas_disponiveis').prepend(data);
-             }
-          });
-      });
-        $(document).on('click', '.adicionar_tag', function() {
-              var this_id = $(this).attr('value');
-              $(this).hide();
-              $.post('engine.php', {
-                 'nova_etiqueta_id': this_id,
-                 'nova_etiqueta_page_id': {$pagina_id},
-                 'nova_etiqueta_page_tipo': '{$pagina_tipo}'
-              }, function(data) {
-                 if (data != 0) {
-                     $('#etiquetas_ativas').append(data);
-                 }
-              });
-          });
-    </script>
-";
-}*/
+
 if ($esconder_introducao == true) {
     echo "
 			<script type='text/javascript'>

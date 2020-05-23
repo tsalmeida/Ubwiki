@@ -1,18 +1,11 @@
 <?php
+
+//APARENTEMENTE ESSE ARQUIVO NÃO ESTÁ MAIS SENDO USADO
+
 	$imprimir_secoes = false;
 	$template_id = 'partes_elemento';
-	if ($pagina_tipo == 'elemento') {
-		if ($elemento_subtipo == 'podcast') {
-			$template_titulo = $pagina_translated['Episódios'];
-		} elseif ($elemento_subtipo == 'livro') {
-			$template_titulo = $pagina_translated['Capítulos'];
-		}
-	}
-	if (!isset($template_titulo)) {
-		$template_titulo = $pagina_translated['Seções'];
-	}
 	if ($privilegio_edicao == true) {
-		$template_botoes = "<a data-toggle='modal' data-target='#modal_partes_form' href='javascript:void(0);' class='text-default' title='{$pagina_translated['Adicionar seção']}'><i class='fad fa-plus-square fa-fw'></i></a>";
+		$template_botoes = "<a data-toggle='modal' data-target='#modal_partes_form' href='javascript:void(0);' class='text-default' title='{}'><i class='fad fa-plus-square fa-fw'></i></a>";
 	}
 	$template_conteudo = false;
 	if ($secoes->num_rows > 0) {
@@ -20,6 +13,8 @@
 		$template_conteudo .= "<ul class='list-group list-group-flush'>";
 		while ($secao = $secoes->fetch_assoc()) {
 			$secao_pagina_id = $secao['secao_pagina_id'];
+			$template_conteudo .= return_list_item($secao_pagina_id);
+			/*
 			$secao_pagina_info = return_pagina_info($secao_pagina_id);
 			$secao_pagina_estado = $secao_pagina_info[3];
 			$secao_pagina_titulo = $secao_pagina_info[6];
@@ -32,7 +27,7 @@
 	          <span><i class='fad $secao_estado_icone'></i>
 	          </li></span>
           </a>
-        ";
+        ";*/
 		}
 		$template_conteudo .= "</ul>";
 	} else {

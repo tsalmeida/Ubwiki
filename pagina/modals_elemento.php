@@ -95,11 +95,11 @@
 	$template_modal_show_buttons = false;
 	$template_modal_body_conteudo = false;
 	
-	$template_modal_body_conteudo .= "<form method='post'><div class='row d-flex justify-content-center'>";
+	$template_modal_body_conteudo .= "<form method='post' class='row d-flex justify-content-center'>";
 	
 	include 'pagina/elemento_subtipos.php';
 	
-	$template_modal_body_conteudo .= "</form></div>";
+	$template_modal_body_conteudo .= "</form>";
 	
 	include 'templates/modal.php';
 ?>
