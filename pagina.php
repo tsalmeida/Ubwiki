@@ -854,7 +854,7 @@
 				}
 				$template_subtitulo = $pagina_translated['Texto privado'];
 			} else {
-			    $template_subtitulo = "<a href='pagina.php?pagina_id=$texto_page_id'>{$pagina_translated['Página']}</a>";
+			    $template_subtitulo = "<a href='pagina.php?pagina_id=$texto_pagina_id'>{$pagina_translated['Página']}</a>";
             }
 			$template_titulo_no_nav = false;
 		} elseif ($pagina_tipo == 'sistema') {
