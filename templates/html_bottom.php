@@ -1229,93 +1229,104 @@ if ($pagina_padrao == true) {
         $hide_bars = false;
     }
     echo "
-			<script type='text/javascript'>
-				$(document).on('click', '#hide_bars', function() {
-				    $(this).addClass('hidden');
-				    $('#show_bars').removeClass('hidden');
-				    $('#navbar').addClass('hidden');
-				    $('#titlebar').addClass('hidden');
-				});
-				$(document).on('click', '#show_bars', function() {
-            $(this).addClass('hidden');
-            $('#hide_bars').removeClass('hidden');
-				    $('#navbar').removeClass('hidden');
-				    $('#titlebar').removeClass('hidden');
-				});
-				$hide_bars
-			</script>
-		";
+        <script type='text/javascript'>
+            $(document).on('click', '#hide_bars', function() {
+                $(this).addClass('hidden');
+                $('#show_bars').removeClass('hidden');
+                $('#navbar').addClass('hidden');
+                $('#titlebar').addClass('hidden');
+            });
+            $(document).on('click', '#show_bars', function() {
+        $(this).addClass('hidden');
+        $('#hide_bars').removeClass('hidden');
+                $('#navbar').removeClass('hidden');
+                $('#titlebar').removeClass('hidden');
+            });
+            $hide_bars
+        </script>
+    ";
 }
 if ($carregar_toggle_curso == true) {
     echo "
-			<script type='text/javascript'>
-				$(document).on('click', '#curso_aderir', function() {
-				    $.post('engine.php', {
-				    	'curso_aderir': $pagina_curso_id
-				    }, function(data) {
-				        if (data != 0) {
-							    $('#curso_aderir').addClass('hidden');
-							    $('#curso_sair').removeClass('hidden');
-				        }
-				    })
-				});
-				$(document).on('click', '#curso_sair', function() {
-				    $.post('engine.php', {
-				        'curso_sair': $pagina_curso_id
-				    }, function (data) {
-				        if (data != 0) {
-							    $('#curso_sair').addClass('hidden');
-							    $('#curso_aderir').removeClass('hidden');
-				        }
-				    })
-				});
-			</script>
-		";
+        <script type='text/javascript'>
+            $(document).on('click', '#curso_aderir', function() {
+                $.post('engine.php', {
+                    'curso_aderir': $pagina_curso_id
+                }, function(data) {
+                    if (data != 0) {
+                            $('#curso_aderir').addClass('hidden');
+                            $('#curso_sair').removeClass('hidden');
+                    }
+                })
+            });
+            $(document).on('click', '#curso_sair', function() {
+                $.post('engine.php', {
+                    'curso_sair': $pagina_curso_id
+                }, function (data) {
+                    if (data != 0) {
+                            $('#curso_sair').addClass('hidden');
+                            $('#curso_aderir').removeClass('hidden');
+                    }
+                })
+            });
+        </script>
+    ";
 }
 
 if ($pagina_tipo == 'escritorio') {
     echo "
-			<script type='text/javascript'>
-				$(document).on('click', '#mostrar_formulario_codigo', function() {
-				   $(this).addClass('hidden');
-				   $('#formulario_codigo').removeClass('hidden');
-				});
-			</script>
-		";
+        <script type='text/javascript'>
+            $(document).on('click', '#mostrar_formulario_codigo', function() {
+               $(this).addClass('hidden');
+               $('#formulario_codigo').removeClass('hidden');
+            });
+        </script>
+    ";
 }
 if ($loaded_correcao_form == true) {
     echo "
-			<script type='text/javascript'>
-				$(document).on('click', '.disable_submit', function() {
-				    $('#trigger_review_recalc').removeClass('hidden');
-				    $('#trigger_review_send').addClass('hidden');
-				    $('#trigger_review_send').prop('disabled', true);
-				})
-				$(document).on('click', '#trigger_review_recalc', function() {
-				    $(this).addClass('hidden');
-				    $('#trigger_review_send').removeClass('hidden');
-                    $('#trigger_review_send').prop('disabled', false);
-                    if ($('#review_grade').is(':checked')) {
-                        review_grade = 'with_grade';
-                    } else {
-                        review_grade = false;
+        <script type='text/javascript'>
+            var disable_submit = function() {
+                $('#trigger_review_recalc').removeClass('hidden');
+                $('#trigger_review_send').addClass('hidden');
+                $('#trigger_review_send').prop('disabled', true);
+            }
+            $(document).on('click', '#carregar_modal_correcao', function() {
+                disable_submit();
+            })
+            $(document).on('click', '.disable_submit', function() {
+                disable_submit();
+            })
+            $(document).on('click', '#trigger_review_recalc', function() {
+                $(this).addClass('hidden');
+                $('#trigger_review_send').removeClass('hidden');
+                $('#trigger_review_send').prop('disabled', false);
+                if ($('#review_grade').is(':checked')) {
+                    review_grade = 'with_grade';
+                } else {
+                    review_grade = false;
+                }
+                reviewer_choice = 'revisor_diplomata';
+                extension = 'simplified';
+                reviewer_chat = 'no_chat';
+                $.post('engine.php', {
+                    'recalc_review_pagina_id': $pagina_id,
+                    'recalc_reviewer_choice': reviewer_choice,
+                    'recalc_extension': extension,
+                    'recalc_review_grade': review_grade,
+                    'recalc_reviewer_chat': reviewer_chat
+                }, function (data) {
+                    if (data != 0) {
+                        var results = JSON.parse(data);
+                        var new_price = results[0];
+                        var new_wordcount = results[1];
+                        $('#review_price').empty();
+                        $('#review_price').append(new_price);
+                        $('#review_wordcount').empty();
+                        $('#review_wordcount').append(new_wordcount);
                     }
-                    reviewer_choice = 'revisor_diplomata';
-                    extension = 'simplified';
-                    reviewer_chat = 'no_chat';
-                    $.post('engine.php', {
-                        'recalc_review_pagina_id': $pagina_id,
-                        'recalc_reviewer_choice': reviewer_choice,
-                        'recalc_extension': extension,
-                        'recalc_review_grade': review_grade,
-                        'recalc_reviewer_chat': reviewer_chat
-                    }, function (data) {
-                        if (data != 0) {
-                            alert(data);
-                        }
-                    })
-				})
-			</script>
-		";
-
+                })
+            })
+        </script>
+    ";
 }

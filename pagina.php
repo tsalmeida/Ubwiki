@@ -551,7 +551,7 @@
 								$pencil_color1 = 'text-primary';
 								$pencil_color2 = "style='--fa-secondary-color: #ff3547;'";
 							}
-							echo "<a href='javascript:void(0);' class='$pencil_color1' data-toggle='modal' data-target='#modal_correcao' title='{$pagina_translated['Solicitar correção']}'><i class='fad fa-pencil-alt fa-fw fa-2x' $pencil_color2></i></a>";
+							echo "<a id='carregar_modal_correcao' href='javascript:void(0);' class='$pencil_color1' data-toggle='modal' data-target='#modal_correcao' title='{$pagina_translated['Solicitar correção']}'><i class='fad fa-pencil-alt fa-fw fa-2x' $pencil_color2></i></a>";
 						}
 						if (($pagina_tipo == 'curso') && ($pagina_curso_user_id == $user_id)) {
 							$carregar_adicionar_materia = true;
@@ -2387,9 +2387,9 @@
 					<label for='new_review_comments'>{$pagina_translated['Seus comentários']}</label>
 				</div>
                 <ul class='list-group'>
-                    <li class='list-group-item'><strong>{$pagina_translated['Word count:']}</strong> <span id='review_wordcount'>$pagina_texto_wordcount</span> <span class='text-muted'><em>({$pagina_translated['Reload page to refresh']})</em></span></li>
-                    <li class='list-group-item list-group-item-warning'><strong>{$pagina_translated['Revision price:']}</strong> $revision_price</li>
-                    <li class='list-group-item'><strong>{$pagina_translated['Your credits:']}</strong> $user_wallet</li>
+                    <li class='list-group-item'><strong>{$pagina_translated['Word count:']}</strong> <span class='fontstack-mono' id='review_wordcount'>$pagina_texto_wordcount</span></li>
+                    <li class='list-group-item list-group-item-warning'><strong>{$pagina_translated['Revision price:']}</strong> <span class='fontstack-mono' id='review_price'>$revision_price</span></li>
+                    <li class='list-group-item'><strong>{$pagina_translated['Your credits:']}</strong> <span id='review_wallet' class='fontstack-mono'>$user_wallet</span></li>
                 </ul>
 				<div class='row d-flex justify-content-center'>
 				    <button type='button' class='$button_classes_info hidden' name='trigger_review_recalc' id='trigger_review_recalc'>{$pagina_translated['recalculate']}</button>

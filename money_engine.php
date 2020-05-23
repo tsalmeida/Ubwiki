@@ -127,7 +127,8 @@
 		$recalc_pagina_verbete_texto = return_verbete_text($recalc_pagina_texto_id);
 		$recalc_pagina_verbete_texto_word_count = str_word_count($recalc_pagina_verbete_texto);
 		$recalc_price = calculate_review_price($recalc_pagina_verbete_texto_word_count, $recalc_extension, $recalc_review_grade, $recalc_reviewer_chat, $recalc_reviewer_choice);
-		echo $recalc_price;
+		$result = array($recalc_price, $recalc_pagina_verbete_texto_word_count);
+		echo json_encode($result);
 	}
 	
 	function calculate_review_price()
