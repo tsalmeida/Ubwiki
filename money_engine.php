@@ -140,7 +140,7 @@
 		$chat = $args[3];
 		$reviewer = $args[4];
 
-		error_log("$wordcount $extension $grade $chat $reviewer");
+//		error_log("$wordcount $extension $grade $chat $reviewer");
 
 		$sum = (int)0;
 		
@@ -195,7 +195,7 @@
 		}
 		
 		$price = (int)($wordcount * $sum);
-		$price = (int)($price / 900);
+		$price = (int)($price / 800);
 		
 		$price = floor($price);
 		return $price;

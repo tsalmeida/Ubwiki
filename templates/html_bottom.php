@@ -1306,9 +1306,9 @@ if ($loaded_correcao_form == true) {
                 } else {
                     review_grade = false;
                 }
-                reviewer_choice = 'revisor_diplomata';
-                extension = 'simplified';
-                reviewer_chat = 'no_chat';
+                reviewer_choice = $('input[name=reviewer_choice]:checked', '#review_form').val();
+                extension = $('input[name=extension]:checked', '#review_form').val();
+                reviewer_chat = $('input[name=reviewer_chat]:checked', '#review_form').val();
                 $.post('engine.php', {
                     'recalc_review_pagina_id': $pagina_id,
                     'recalc_reviewer_choice': reviewer_choice,

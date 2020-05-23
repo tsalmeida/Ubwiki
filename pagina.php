@@ -2326,23 +2326,23 @@
 		if ($texto_revisao_ativa == false) {
 			$template_modal_titulo = $pagina_translated['Solicitar correção'];
 			$pagina_texto_wordcount = str_word_count($texto_verbete_text);
-			$revision_price = calculate_review_price($pagina_texto_wordcount, 'simplified', 'with_grade', 'no_chat', 'revisor_diplomata');
+			$revision_price = calculate_review_price($pagina_texto_wordcount, 'simplified', 'no_grade', 'no_chat', 'revisor_diplomata');
 			if ($user_wallet >= $revision_price) {
 				$button_disabled = false;
 			} else {
 				$button_disabled = 'disabled';
 			}
-			
+
 			$template_modal_body_conteudo .= "
 			<p>{$pagina_translated['revision_paragraph']}</p>
-            <form method='post' class='border rounded mx-2 px-4 py-2'>
+            <form id='review_form' method='post' class='border rounded mx-2 px-4 py-2'>
                 <p class='mb-1 mt-2'><strong>{$pagina_translated['Revisor:']}</strong></p>
                 <div class='form-check'>
                     <input type='radio' id='revisor_diplomata' name='reviewer_choice' value='revisor_diplomata' class='disable_submit form-check-input' checked>
                     <label for='revisor_diplomata' class='form-check-label'>{$pagina_translated['revisor diplomata']}</label>
                 </div>
                 <div class='form-check'>
-                    <input type='radio' id='professor_especialista' name='reviewer_choice' value='professor_especialista' class='disable_submit form-check-input' disabled>
+                    <input type='radio' id='professor_especialista' name='reviewer_choice' value='professor_especialista' class='disable_submit form-check-input'>
                     <label for='professor_especialista' class='form-check-label'>{$pagina_translated['professor especialista']}</label>
                 </div>
                 <p class='mb-1 mt-2'><strong>{$pagina_translated['Extensão da revisão:']}</strong></p>
@@ -2351,16 +2351,16 @@
                     <label for='simplified' class='form-check-label'>{$pagina_translated['simplified review']}</label>
                 </div>
                 <div class='form-check'>
-                    <input type='radio' id='detailed' name='extension' value='detailed' class='disable_submit form-check-input' disabled>
+                    <input type='radio' id='detailed' name='extension' value='detailed' class='disable_submit form-check-input'>
                     <label for='detailed' class='form-check-label'>{$pagina_translated['detailed review']}</label>
                 </div>
                 <div class='form-check'>
-                    <input type='radio' id='detailed' name='extension' value='full_rewrite' class='disable_submit form-check-input' disabled>
+                    <input type='radio' id='full_rewrite' name='extension' value='full_rewrite' class='disable_submit form-check-input'>
                     <label for='full_rewrite' class='form-check-label'>{$pagina_translated['full rewrite']}</label>
                 </div>
                 <p class='mb-1 mt-2'><strong>{$pagina_translated['Incluir uma nota aproximada?']}</strong></p>
                 <div class='form-check'>
-                    <input type='checkbox' id='review_grade' name='review_grade' value='grade' class='disable_submit form-check-input' checked disabled>
+                    <input type='checkbox' id='review_grade' name='review_grade' value='grade' class='disable_submit form-check-input'>
                     <label for='review_grade' class='form-check-label'>{$pagina_translated['review grade']}</label>
                 </div>
                 <p class='mb-1 mt-2'><strong>{$pagina_translated['Incluir conversa com o revisor:']}</strong></p>
@@ -2369,15 +2369,15 @@
                     <label for='no_chat' class='form-check-label'>{$pagina_translated['none']}</label>
                 </div>
                 <div class='form-check'>
-                    <input type='radio' name='reviewer_chat' value='chat_20' id='chat_20' class='disable_submit form-check-input' disabled>
+                    <input type='radio' name='reviewer_chat' value='chat_20' id='chat_20' class='disable_submit form-check-input'>
                     <label for='chat_20' class='form-check-label'>{$pagina_translated['20 minutes']}</label>
                 </div>
                 <div class='form-check'>
-                    <input type='radio' name='reviewer_chat' value='chat_40' id='chat_40' class='disable_submit form-check-input' disabled>
+                    <input type='radio' name='reviewer_chat' value='chat_40' id='chat_40' class='disable_submit form-check-input'>
                     <label for='chat_40' class='form-check-label'>{$pagina_translated['40 minutes']}</label>
                 </div>
                 <div class='form-check'>
-                    <input type='radio' name='reviewer_chat' value='chat_60' id='chat_60' class='disable_submit form-check-input' disabled>
+                    <input type='radio' name='reviewer_chat' value='chat_60' id='chat_60' class='disable_submit form-check-input'>
                     <label for='chat_60' class='form-check-label'>{$pagina_translated['60 minutes']}</label>
                 </div>
 				<input type='hidden' name='order_review_pagina_id' value='$pagina_id'>
