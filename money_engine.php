@@ -231,9 +231,11 @@
 			
 			$user_end_state = (int)($user_wallet - $review_price);
 			if ($user_end_state > 0) {
-				$check = $conn->query("INSERT INTO Transactions (user_id, direction, value, prevstate, endstate) VALUES ($user_id, 'negative', $review_price, $user_wallet, $user_end_state)");
+			    $query = prepare_query("INSERT INTO Transactions (user_id, direction, value, prevstate, endstate) VALUES ($user_id, 'negative', $review_price, $user_wallet, $user_end_state)");
+				$check = $conn->query($query);
 				if ($check == true) {
-					$check = $conn->query("INSERT INTO Orders (tipo, user_id, pagina_id, comments) VALUES ('review', $user_id, $order_review_pagina_id, '$new_review_comments')");
+				    $query = prepare_query("INSERT INTO Orders (tipo, user_id, pagina_id, comments) VALUES ('review', $user_id, $order_review_pagina_id, '$new_review_comments')");
+					$check = $conn->query($query);
 				}
 			}
 		}

@@ -129,11 +129,11 @@
 	$artefato_link_1 = false;
 	$artefato_link_2 = false;
 	if ($artefato_button != false) {
-		$artefato_link_1 = "<div id='artefato_$artefato_tipo' class='$artefato_classes'><button class='$fa_color transparent border-0' name='$artefato_name' id='$artefato_name' value='$artefato_button' $artefato_template_thumb>";
+		$artefato_link_1 = "<div id='artefato_$artefato_tipo' class='$artefato_classes'><button class='$fa_color transparent border-0 w-100' name='$artefato_name' id='$artefato_name' value='$artefato_button' $artefato_template_thumb>";
 		$artefato_link_2 = "</button></div>";
 	} else {
 		if ($artefato_link != false) {
-			$artefato_link_1 = "<div class='$artefato_classes' id='artefato_$artefato_tipo'><a id='link_$artefato_tipo' href='$artefato_link' class='$fa_class $fa_color $artefato_link_classes' title='$artefato_criacao' $artefato_value $artefato_template_thumb>";
+			$artefato_link_1 = "<div class='$artefato_classes' id='artefato_$artefato_tipo'><a id='link_$artefato_tipo' href='$artefato_link' class='$fa_class $fa_color $artefato_link_classes w-100' title='$artefato_criacao' $artefato_value $artefato_template_thumb>";
 			$artefato_link_2 = "</a></div>";
 		} else {
 			$artefato_link_1 = "<span id='artefato_$artefato_tipo' data-toggle='modal' data-target='$artefato_modal' title='$artefato_criacao' class='$artefato_classes'><a id='trigger_$artefato_tipo' href='javascript:void(0);' class='$fa_color w-100 $artefato_link_classes' $artefato_value $artefato_template_thumb>";
@@ -146,13 +146,15 @@
 	$artefato_template_result .= "
 				$artefato_link_1
         $artefato_badge
-        <span class='row justify-content-center text-center p-1 mx-1 rounded $artefato_icone_background'>
+        <span class='row justify-content-center d-flex text-center p-1 m-auto rounded w-100 $artefato_icone_background'>
         	<i class='$fa_type $fa_icone $fa_size fa-fw $fa_invert d-block'></i>
         </span>
-        <span class='row justify-content-center text-center mt-2 p-1 artefato-titulo $titulo_class $artefato_titulo_class'>
+        <span class='row justify-content-center d-flex text-center mt-2 p-1 artefato-titulo $titulo_class $artefato_titulo_class'>
         	$artefato_titulo
         </span>
-        <span class='row justify-content-center text-center p-1 $titulo_class $artefato_subtitulo_class'><em class='artefato-subtitulo'>$artefato_subtitulo</em></span>
+        <span class='m-0 row justify-content-center d-flex font-italic text-center p-1 $titulo_class $artefato_subtitulo_class'>
+            $artefato_subtitulo
+        </span>
         $artefato_link_2
   ";
 	
