@@ -2355,8 +2355,8 @@
                     <label for='detailed' class='form-check-label'>{$pagina_translated['detailed review']}</label>
                 </div>
                 <div class='form-check'>
-                    <input type='radio' id='full_rewrite' name='extension' value='full_rewrite' class='disable_submit form-check-input'>
-                    <label for='full_rewrite' class='form-check-label'>{$pagina_translated['full rewrite']}</label>
+                    <input type='radio' id='rewrite' name='extension' value='rewrite' class='disable_submit form-check-input'>
+                    <label for='rewrite' class='form-check-label'>{$pagina_translated['full rewrite']}</label>
                 </div>
                 <p class='mb-1 mt-2'><strong>{$pagina_translated['Incluir uma nota aproximada?']}</strong></p>
                 <div class='form-check'>

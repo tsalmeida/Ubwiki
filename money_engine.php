@@ -195,7 +195,7 @@
 		}
 		
 		$price = (int)($wordcount * $sum);
-		$price = (int)($price / 800);
+		$price = (int)($price / 600);
 		
 		$price = floor($price);
 		return $price;
