@@ -22,55 +22,56 @@
 	if (!isset($navbar_avatar)) {
 		$navbar_avatar = 'fa-user-tie';
 	}
-	if (isset($curso_id)) {
-		echo "<nav class='navbar navbar-expand-lg $template_navbar_color' id='navbar'>";
-		if ($pagina_tipo == 'curso') {
-			echo "<a class='navbar-brand $template_navbar_text' href='ubwiki.php' title='{$pagina_translated['Retornar ao nexus']}'>Ubwiki</a>";
+	echo "<nav class='navbar navbar-expand-lg $template_navbar_color' id='navbar'>";
+	if ($pagina_tipo == 'curso') {
+		echo "<a class='navbar-brand $template_navbar_text' href='ubwiki.php' title='{$pagina_translated['Retornar ao nexus']}'>Ubwiki</a>";
+	} else {
+		if (isset($curso_id)) {
+			echo "<a class='navbar-brand $template_navbar_text' href='pagina.php?curso_id=$curso_id' title='{$pagina_translated['Retornar ao curso ativo.']}'>Ubwiki: $curso_sigla</a>";
 		} else {
-			if (isset($curso_id)) {
-				echo "<a class='navbar-brand $template_navbar_text' href='pagina.php?curso_id=$curso_id' title='{$pagina_translated['Retornar ao curso ativo.']}'>Ubwiki: $curso_sigla</a>";
-			} else {
-				echo "<a class='navbar-brand $template_navbar_text' href='ubwiki.php' title='Retornar ao nexus.'>Ubwiki</a>";
-			}
+			echo "<a class='navbar-brand $template_navbar_text' href='ubwiki.php' title='Retornar ao nexus.'>Ubwiki</a>";
 		}
-		if ($pagina_padrao == true) {
-			echo "
+	}
+	if ($pagina_padrao == true) {
+		echo "
 				<a href='javascript:void(0);' class='text-black-50' id='hide_bars'><i class='fad fa-eye-slash fa-fw fa-sm'></i></a>
 			";
-		}
-		if ($user_id != false) {
-			echo "<ul class='nav navbar-nav ml-auto nav-flex-icons'>";
-			echo "<li class='nav-item dropdown'>";
-			echo "<a class='navlink dropdown-toggle waves-effect waves-light rounded $template_navbar_text' id='user_dropdown' data-toggle='dropdown' href='javascript:void(0);'>
+	}
+	if ($user_id != false) {
+		echo "<ul class='nav navbar-nav ml-auto nav-flex-icons'>";
+		echo "<li class='nav-item dropdown'>";
+		echo "<a class='navlink dropdown-toggle waves-effect waves-light rounded $template_navbar_text' id='user_dropdown' data-toggle='dropdown' href='javascript:void(0);'>
 		        <i class='fas fa-2x $navbar_avatar fa-lg fa-fw'></i>
 		        </a>
 		        <div class='dropdown-menu dropdown-menu-right z-depth-0'>
-		          <a class='dropdown-item navlink z-depth-0' href='escritorio.php'><i class='fad fa-lamp-desk fa-fw'></i> {$pagina_translated['office']}</a>
-		          <!--<a class='dropdown-item navlink z-depth-0' href='settings.php'><i class='fad fa-cog fa-swap-opacity fa-fw'></i> {$pagina_translated['user settings']}</a>-->
-		          <a class='dropdown-item navlink z-depth-0' href='ubwiki.php'><i class='fad fa-portal-enter fa-fw'></i> {$pagina_translated['environments']}</a>";
-			if ($carregar_carrinho == true) {
-				echo "<a class='dropdown-item navlink z-depth-0' href='carrinho.php'><i class='fad fa-shopping-cart fa-fw'></i> {$pagina_translated['your cart']}</a>";
-			}
-			if ($user_tipo == 'admin') {
-				echo "<a class='dropdown-item navlink z-depth-0' href='admin.php'><i class='fad fa-cogs fa-fw'></i> {$pagina_translated['administrators page']}</a>";
-			}
-			echo "
-		          <a class='dropdown-item navlink z-depth-0' href='pagina.php?curso_id=$curso_id'><i class='fad fa-book-reader fa-fw'></i> $curso_sigla</a>
-		          <a class='dropdown-item navlink z-depth-0' href='javascript:void(0);' data-toggle='modal' data-target='#modal_languages'><i class='fad fa-language fa-fw'></i> $user_language_titulo</a>
-		          <a class='dropdown-item navlink z-depth-0' href='logout.php'><i class='fad fa-portal-exit fa-fw'></i> {$pagina_translated['logout']}</a>
+		          <a class='dropdown-item navlink z-depth-0' href='escritorio.php'><i class='fad fa-lamp-desk fa-fw'></i> {$pagina_translated['office']}</a>";
+		if ($pagina_tipo != 'ubwiki') {
+			echo "<a class='dropdown-item navlink z-depth-0' href='ubwiki.php'><i class='fad fa-portal-enter fa-fw'></i> {$pagina_translated['environments']}</a>";
+		}
+		//echo "<a class='dropdown-item navlink z-depth-0' href='carrinho.php'><i class='fad fa-shopping-cart fa-fw'></i> {$pagina_translated['your cart']}</a>";
+		if ($user_tipo == 'admin') {
+			echo "<a class='dropdown-item navlink z-depth-0' href='admin.php'><i class='fad fa-cogs fa-fw'></i> {$pagina_translated['administrators page']}</a>";
+		}
+		if ($pagina_tipo != 'curso') {
+			echo "<a class='dropdown-item navlink z-depth-0' href='pagina.php?curso_id=$curso_id'><i class='fad fa-book-reader fa-fw'></i> $curso_sigla</a>";
+		}
+		echo "<a class='dropdown-item navlink z-depth-0' href='javascript:void(0);' data-toggle='modal' data-target='#modal_languages'><i class='fad fa-language fa-fw'></i> $user_language_titulo</a>";
+		if ($user_id != false) {
+			echo "<a class='dropdown-item navlink z-depth-0' href='logout.php'><i class='fad fa-portal-exit fa-fw'></i> {$pagina_translated['logout']}</a>";
+		}
+		echo "
 		      </li>
 		    </ul>
   	";
-		} else {
-			$carregar_modal_login = true;
-			echo "
+	} else {
+		$carregar_modal_login = true;
+		echo "
 							<a class='ml-auto waves-effect waves-light rounded text-white' data-toggle='modal' data-target='#modal_login'>
 								<i class='fas fa-2x fa-user-circle fa-fw'></i>
 							</a>
 						";
-		}
-		echo "</nav>";
 	}
+	echo "</nav>";
 	unset($template_navbar_mode);
 	unset($template_navbar_color);
 	unset($template_navbar_text);

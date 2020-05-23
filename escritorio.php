@@ -339,7 +339,7 @@
             <input type='text' name='novo_sobrenome' id='novo_sobrenome' class='form-control validate' value='$user_sobrenome' required>
             <label data-error='inválido' data-successd='válido' for='novo_sobrenome' pattern='([A-z0-9À-ž\s]){2,}' required>{$pagina_translated['Sobrenome']}</label>
         </div>
-        <h3>Opções</h3>
+        <h3>{$pagina_translated['options']}</h3>
         <div class='md-form'>
             <input type='checkbox' class='form-check-input' id='hide_navbar_option' name='hide_navbar_option' $hide_navbar_checked>
             <label for='hide_navbar_option' class='form-check-label'>{$pagina_translated['Hide title and navbar']}</label>

@@ -141,7 +141,7 @@
 		$user_criacao = $_SESSION['user_criacao'];
 		$user_apelido = $_SESSION['user_apelido'];
 		$user_nome = $_SESSION['user_nome'];
-		$user_sobrenome = $_SESSION['user_nome'];
+		$user_sobrenome = $_SESSION['user_sobrenome'];
 		$user_language = $_SESSION['user_language'];
 		$user_wallet = $_SESSION['user_wallet'];
 		if (!isset($_SESSION['lg'])) {

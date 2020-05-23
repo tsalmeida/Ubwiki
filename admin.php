@@ -10,6 +10,7 @@
 	
 	if (isset($_POST['trigger_atualizacao'])) {
 	    adicionar_chave_traducao('metodo bfranklin', 1);
+	    adicionar_chave_traducao('options', 1);
 	}
 	
 	if (isset($_POST['novos_creditos'])) {
