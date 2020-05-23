@@ -245,7 +245,7 @@
 						    $artefato_subtitulo = $pagina_translated['metodo bfranklin'];
 						    $artefato_link = 'bfranklin.php';
 						    $artefato_badge = 'fa-external-link';
-						    $artefato_icone_background = 'teal lighten-5';
+						    $artefato_icone_background = 'purple lighten-5';
 						    $fa_icone = 'fa-pen-nib';
 						    $fa_color = 'text-secondary';
 						    $template_conteudo .= include 'templates/artefato_item.php';
@@ -254,7 +254,7 @@
 						    $artefato_subtitulo = 'Homepage';
 						    $artefato_link = 'https://www.nexustation.com/';
 						    $artefato_badge = 'fa-external-link';
-						    $artefato_icone_background = 'teal lighten-5';
+						    $artefato_icone_background = 'red lighten-5';
 						    $fa_icone = 'fa-house-user';
 						    $fa_color = 'text-danger';
 						    $template_conteudo .= include 'templates/artefato_item.php';
