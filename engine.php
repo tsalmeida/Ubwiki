@@ -3753,8 +3753,7 @@
 	function put_together_list_item()
 	{
 		/*
-		put_together_list_item('link', $link, $cor_icone_principal, $icone_prefixo, $icone_principal, $pagina_titulo,
-			$pagina_estado_cor, $pagina_estado_icone, $item_classes);
+		put_together_list_item('link', $link, $cor_icone_principal, $icone_prefixo, $icone_principal, $pagina_titulo,	$pagina_estado_cor, $pagina_estado_icone, $item_classes);
 		*/
 		
 		$args = func_get_args();
@@ -3779,9 +3778,15 @@
 		} else {
 			$item_classes = false;
 		}
+		if ($type == 'link_blank') {
+			$type = 'link';
+			$target = "target='_blank'";
+		} else {
+			$target = false;
+		}
 		if ($type == 'link') {
 			return "
-			<a href='$link'>
+			<a href='$link' $target>
 				<li class='list-group-item list-group-item-action $item_classes border-top p-1 py-2 $dflex'>
 					<span>
 						<span class='$cor_icone_principal align-middle icone-lista'>

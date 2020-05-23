@@ -110,6 +110,26 @@
 		return false;
 	}
 	
+	if (isset($_POST['recalc_review_pagina_id'])) {
+		$recalc_review_pagina_id = $_POST['recalc_review_pagina_id'];
+		$recalc_reviewer_choice = $_POST['recalc_reviewer_choice'];
+		$recalc_extension = $_POST['recalc_extension'];
+		$recalc_review_grade = $_POST['recalc_review_grade'];
+		$recalc_reviewer_chat = $_POST['recalc_reviewer_chat'];
+		$recalc_pagina_info = return_pagina_info($recalc_review_pagina_id);
+		$recalc_pagina_tipo = $recalc_pagina_info[2];
+		if ($recalc_pagina_tipo == 'texto') {
+			$recalc_texto_tipo = 'anotacoes';
+		} else {
+			$recalc_texto_tipo = 'verbete';
+		}
+		$recalc_pagina_texto_id = return_texto_id($recalc_pagina_tipo, $recalc_texto_tipo, $recalc_review_pagina_id, $user_id);
+		$recalc_pagina_verbete_texto = return_verbete_text($recalc_pagina_texto_id);
+		$recalc_pagina_verbete_texto_word_count = str_word_count($recalc_pagina_verbete_texto);
+		$recalc_price = calculate_review_price($recalc_pagina_verbete_texto_word_count, $recalc_extension, $recalc_review_grade, $recalc_reviewer_chat, $recalc_reviewer_choice);
+		echo $recalc_price;
+	}
+	
 	function calculate_review_price()
 	{
 		$args = func_get_args();
@@ -118,11 +138,13 @@
 		$grade = $args[2];
 		$chat = $args[3];
 		$reviewer = $args[4];
-		
+
+		error_log("$wordcount $extension $grade $chat $reviewer");
+
 		$sum = (int)0;
 		
 		if ($grade == 'with_grade') {
-			$sum = ($sum + 10);
+			$sum = ($sum + 15);
 		}
 		switch ($reviewer) {
 			//case 'professor_especialista':
@@ -171,10 +193,8 @@
 				break;
 		}
 		
-		error_log($sum);
-		
 		$price = (int)($wordcount * $sum);
-		$price = (int)($price / 880);
+		$price = (int)($price / 900);
 		
 		$price = floor($price);
 		return $price;

@@ -401,17 +401,17 @@
     
 	$oferta_link = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=N9U85AQL7RBF8";
 	$oferta_texto = "Comprar 100 Créditos Ubwiki por R$ 100";
-	$template_modal_body_conteudo .= put_together_list_item('link', $oferta_link, 'text-primary', 'fad',
+	$template_modal_body_conteudo .= put_together_list_item('link_blank', $oferta_link, 'text-primary', 'fad',
       'fa-external-link', $oferta_texto, false, false, false);
 	
 	$oferta_link = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=43NNZHEDD6278";
 	$oferta_texto = "Comprar 300 Créditos Ubwiki por R$ 275";
-	$template_modal_body_conteudo .= put_together_list_item('link', $oferta_link, 'text-primary', 'fad',
+	$template_modal_body_conteudo .= put_together_list_item('link_blank', $oferta_link, 'text-primary', 'fad',
       'fa-external-link', $oferta_texto, false, false, false);
 	
 	$oferta_link = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AN49TH77ETDY6";
 	$oferta_texto = "Comprar 600 Créditos Ubwiki for R$ 550";
-	$template_modal_body_conteudo .= put_together_list_item('link', $oferta_link, 'text-primary', 'fad',
+	$template_modal_body_conteudo .= put_together_list_item('link_blank', $oferta_link, 'text-primary', 'fad',
       'fa-external-link', $oferta_texto, false, false, false);
 	
     $template_modal_body_conteudo .= "</ul>";

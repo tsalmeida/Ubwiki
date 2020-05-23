@@ -2319,13 +2319,14 @@
 	}
 	
 	if ($carregar_modal_correcao == true) {
-		$template_modal_div_id = 'modal_correcao';
+		$loaded_correcao_form = true;
+	    $template_modal_div_id = 'modal_correcao';
 		$template_modal_show_buttons = false;
 		$template_modal_body_conteudo = false;
 		if ($texto_revisao_ativa == false) {
 			$template_modal_titulo = $pagina_translated['Solicitar correção'];
 			$pagina_texto_wordcount = str_word_count($texto_verbete_text);
-			$revision_price = calculate_review_price($pagina_texto_wordcount, 'simplified', 'with_grade', false, 'revisor_diplomata');
+			$revision_price = calculate_review_price($pagina_texto_wordcount, 'simplified', 'with_grade', 'no_chat', 'revisor_diplomata');
 			if ($user_wallet >= $revision_price) {
 				$button_disabled = false;
 			} else {
@@ -2337,46 +2338,46 @@
             <form method='post' class='border rounded mx-2 px-4 py-2'>
                 <p class='mb-1 mt-2'><strong>{$pagina_translated['Revisor:']}</strong></p>
                 <div class='form-check'>
-                    <input type='radio' id='revisor_diplomata' name='reviewer_choice' value='revisor_diplomata' class='form-check-input' checked>
+                    <input type='radio' id='revisor_diplomata' name='reviewer_choice' value='revisor_diplomata' class='disable_submit form-check-input' checked>
                     <label for='revisor_diplomata' class='form-check-label'>{$pagina_translated['revisor diplomata']}</label>
                 </div>
                 <div class='form-check'>
-                    <input type='radio' id='professor_especialista' name='reviewer_choice' value='professor_especialista' class='form-check-input' disabled>
+                    <input type='radio' id='professor_especialista' name='reviewer_choice' value='professor_especialista' class='disable_submit form-check-input' disabled>
                     <label for='professor_especialista' class='form-check-label'>{$pagina_translated['professor especialista']}</label>
                 </div>
                 <p class='mb-1 mt-2'><strong>{$pagina_translated['Extensão da revisão:']}</strong></p>
                 <div class='form-check'>
-                    <input type='radio' id='simplified' name='extension' value='simplified' class='form-check-input' checked>
+                    <input type='radio' id='simplified' name='extension' value='simplified' class='disable_submit form-check-input' checked>
                     <label for='simplified' class='form-check-label'>{$pagina_translated['simplified review']}</label>
                 </div>
                 <div class='form-check'>
-                    <input type='radio' id='detailed' name='extension' value='detailed' class='form-check-input' disabled>
+                    <input type='radio' id='detailed' name='extension' value='detailed' class='disable_submit form-check-input' disabled>
                     <label for='detailed' class='form-check-label'>{$pagina_translated['detailed review']}</label>
                 </div>
                 <div class='form-check'>
-                    <input type='radio' id='detailed' name='extension' value='full_rewrite' class='form-check-input' disabled>
+                    <input type='radio' id='detailed' name='extension' value='full_rewrite' class='disable_submit form-check-input' disabled>
                     <label for='full_rewrite' class='form-check-label'>{$pagina_translated['full rewrite']}</label>
                 </div>
                 <p class='mb-1 mt-2'><strong>{$pagina_translated['Incluir uma nota aproximada?']}</strong></p>
                 <div class='form-check'>
-                    <input type='checkbox' id='review_grade' name='review_grade' value='grade' class='form-check-input' checked disabled>
+                    <input type='checkbox' id='review_grade' name='review_grade' value='grade' class='disable_submit form-check-input' checked disabled>
                     <label for='review_grade' class='form-check-label'>{$pagina_translated['review grade']}</label>
                 </div>
                 <p class='mb-1 mt-2'><strong>{$pagina_translated['Incluir conversa com o revisor:']}</strong></p>
                 <div class='form-check'>
-                    <input type='radio' name='reviewer_chat' value='no_chat' id='no_chat' class='form-check-input' checked>
+                    <input type='radio' name='reviewer_chat' value='no_chat' id='no_chat' class='disable_submit form-check-input' checked>
                     <label for='no_chat' class='form-check-label'>{$pagina_translated['none']}</label>
                 </div>
                 <div class='form-check'>
-                    <input type='radio' name='reviewer_chat' value='chat_20' id='chat_20' class='form-check-input' disabled>
+                    <input type='radio' name='reviewer_chat' value='chat_20' id='chat_20' class='disable_submit form-check-input' disabled>
                     <label for='chat_20' class='form-check-label'>{$pagina_translated['20 minutes']}</label>
                 </div>
                 <div class='form-check'>
-                    <input type='radio' name='reviewer_chat' value='chat_40' id='chat_40' class='form-check-input' disabled>
+                    <input type='radio' name='reviewer_chat' value='chat_40' id='chat_40' class='disable_submit form-check-input' disabled>
                     <label for='chat_40' class='form-check-label'>{$pagina_translated['40 minutes']}</label>
                 </div>
                 <div class='form-check'>
-                    <input type='radio' name='reviewer_chat' value='chat_60' id='chat_60' class='form-check-input' disabled>
+                    <input type='radio' name='reviewer_chat' value='chat_60' id='chat_60' class='disable_submit form-check-input' disabled>
                     <label for='chat_60' class='form-check-label'>{$pagina_translated['60 minutes']}</label>
                 </div>
 				<input type='hidden' name='order_review_pagina_id' value='$pagina_id'>
@@ -2386,11 +2387,12 @@
 					<label for='new_review_comments'>{$pagina_translated['Seus comentários']}</label>
 				</div>
                 <ul class='list-group'>
-                    <li class='list-group-item'><strong>{$pagina_translated['Word count:']}</strong> $pagina_texto_wordcount <span class='text-muted'><em>({$pagina_translated['Reload page to refresh']})</em></span></li>
+                    <li class='list-group-item'><strong>{$pagina_translated['Word count:']}</strong> <span id='review_wordcount'>$pagina_texto_wordcount</span> <span class='text-muted'><em>({$pagina_translated['Reload page to refresh']})</em></span></li>
                     <li class='list-group-item list-group-item-warning'><strong>{$pagina_translated['Revision price:']}</strong> $revision_price</li>
                     <li class='list-group-item'><strong>{$pagina_translated['Your credits:']}</strong> $user_wallet</li>
                 </ul>
 				<div class='row d-flex justify-content-center'>
+				    <button type='button' class='$button_classes_info hidden' name='trigger_review_recalc' id='trigger_review_recalc'>{$pagina_translated['recalculate']}</button>
 					<button type='submit' class='$button_classes' name='trigger_review_send' id='trigger_review_send' $button_disabled>{$pagina_translated['Place order']}</button>
 				</div>
             </form>
