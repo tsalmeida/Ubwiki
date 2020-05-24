@@ -150,21 +150,18 @@
 			$sum = ($sum + 15);
 		}
 
-		switch ($emphasis) {
-			//case 'professor_especialista':
-			case 'enfase_conteudo':
-				$simplified = 65;
-				$detailed = 130;
-				$rewrite = 180;
-				break;
-			default:
-				$simplified = 90;
-				$detailed = 150;
-				$rewrite = 220;
+		//preços para o tipo mais 'simples' de correção: conteúdo.
+		$simplified = 65;
+		$detailed = 130;
+		$rewrite = 180;
+
+		if ($emphasis == 'enfase_forma') {
+			$simplified = ($simplified * 1.2);
+			$detailed = ($detailed * 1.2);
+			$rewrite = ($rewrite * 1.2);
 		}
-		
+
 		switch ($extension) {
-			//case 'simplified':
 			case 'detailed':
 				$extension_price = $detailed;
 				break;
@@ -174,7 +171,7 @@
 			default:
 				$extension_price = $simplified;
 		}
-		
+
 		$sum = ($sum + $extension_price);
 
 		switch ($chat) {
