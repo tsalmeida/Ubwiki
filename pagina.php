@@ -14,7 +14,7 @@
 	$carregar_toggle_acervo = false;
 	$carregar_modal_correcao = false;
 	$carregar_carrinho = false;
-    $carregar_partes_elemento_modal = false;
+	$carregar_partes_elemento_modal = false;
 	$carregar_convite = false;
 	$item_no_acervo = false;
 	if (!isset($_GET['pagina_id'])) {
@@ -966,293 +966,292 @@
 			}
 
 			echo "<div id='coluna_esquerda' class='$coluna_classes pagina_coluna'>";
-                if ($pagina_tipo == 'elemento') {
-                    if ($elemento_tipo == 'imagem') {
-                        $template_id = 'imagem_div';
-                        $template_titulo = false;
-                        $template_col_classes = 'd-flex justify-content-center';
-                        $template_botoes = false;
-                        $template_conteudo = "<a href='../imagens/verbetes/$elemento_arquivo' ><img class='imagem_pagina border' src='../imagens/verbetes/$elemento_arquivo'></a>";
-                        include 'templates/page_element.php';
-                    } elseif (($elemento_tipo == 'video') && ($elemento_iframe != false)) {
-                        $template_id = 'video_div';
-                        $template_titulo = false;
-                        $template_col_classes = 'd-flex justify-content-center';
-                        $template_botoes = false;
-                        $template_conteudo = $elemento_iframe;
-                        include 'templates/page_element.php';
-                    } elseif (($elemento_tipo == 'referencia') && ($elemento_link != false)) {
-                        $template_id = 'referencia_link';
-                        $template_titulo = false;
-                        $template_conteudo = false;
-                        $template_conteudo_no_col = true;
-                        $elemento_link_host = parse_url($elemento_link, PHP_URL_HOST);
-                        $template_conteudo .= "
+			if ($pagina_tipo == 'elemento') {
+				if ($elemento_tipo == 'imagem') {
+					$template_id = 'imagem_div';
+					$template_titulo = false;
+					$template_col_classes = 'd-flex justify-content-center';
+					$template_botoes = false;
+					$template_conteudo = "<a href='../imagens/verbetes/$elemento_arquivo' ><img class='imagem_pagina border' src='../imagens/verbetes/$elemento_arquivo'></a>";
+					include 'templates/page_element.php';
+				} elseif (($elemento_tipo == 'video') && ($elemento_iframe != false)) {
+					$template_id = 'video_div';
+					$template_titulo = false;
+					$template_col_classes = 'd-flex justify-content-center';
+					$template_botoes = false;
+					$template_conteudo = $elemento_iframe;
+					include 'templates/page_element.php';
+				} elseif (($elemento_tipo == 'referencia') && ($elemento_link != false)) {
+					$template_id = 'referencia_link';
+					$template_titulo = false;
+					$template_conteudo = false;
+					$template_conteudo_no_col = true;
+					$elemento_link_host = parse_url($elemento_link, PHP_URL_HOST);
+					$template_conteudo .= "
                               <a href='$elemento_link' target='_blank' class='fontstack-mono' title='$elemento_link'><i class='fad fa-external-link fa-fw fa-2x'></i> {$elemento_link_host}/...</a>
                             ";
-                        include 'templates/page_element.php';
-                    }
-                } elseif ($pagina_tipo == 'texto') {
-                    if ($privilegio_edicao == false) {
-                        $template_id = 'texto_privado';
-                        $template_titulo = $pagina_titulo;
-                        $template_conteudo = return_verbete_html($pagina_item_id);
-                        include 'templates/page_element.php';
-                    }
-                    else {
-                        $template_id = $texto_tipo;
-                        $template_titulo = false;
-                        //$template_conteudo_no_col = true;
-                        //$template_no_spacer = true;
-                        //$template_p_limit = false;
-                        $template_quill_initial_state = 'edicao';
-                        $template_quill_page_id = $texto_page_id;
-                        $template_quill_pagina_id = $pagina_id;
-                        //$template_quill_pagina_de_edicao = true;
-                        $template_quill_botoes = false;
-                        //$template_background = false;
-                        $template_conteudo = include 'templates/template_quill.php';
-                        include 'templates/page_element.php';
-                    }
-                }
+					include 'templates/page_element.php';
+				}
+			} elseif ($pagina_tipo == 'texto') {
+				if ($privilegio_edicao == false) {
+					$template_id = 'texto_privado';
+					$template_titulo = $pagina_titulo;
+					$template_conteudo = return_verbete_html($pagina_item_id);
+					include 'templates/page_element.php';
+				} else {
+					$template_id = $texto_tipo;
+					$template_titulo = false;
+					//$template_conteudo_no_col = true;
+					//$template_no_spacer = true;
+					//$template_p_limit = false;
+					$template_quill_initial_state = 'edicao';
+					$template_quill_page_id = $texto_page_id;
+					$template_quill_pagina_id = $pagina_id;
+					//$template_quill_pagina_de_edicao = true;
+					$template_quill_botoes = false;
+					//$template_background = false;
+					$template_conteudo = include 'templates/template_quill.php';
+					include 'templates/page_element.php';
+				}
+			}
 
-                $paginas_sem_verbete = array('texto', 'materia', 'questao', 'texto_apoio', 'grupo');
-                if (!in_array($pagina_tipo, $paginas_sem_verbete)) {
-                    $template_id = 'verbete';
-                    if ($wiki_id == false) {
-                        if ($pagina_tipo == 'curso') {
-                            $template_classes = 'hidden';
-                            $template_titulo = $pagina_translated['Apresentação'];
-                            $template_botoes_padrao = true;
-                            $template_quill_initial_state = 'leitura';
-                        } elseif ($pagina_tipo == 'sistema') {
-                            $template_titulo = $pagina_translated['Aviso'];
-                        } else {
-                            $template_titulo = $pagina_translated['Verbete'];
-                        }
-                        if (($pagina_tipo == 'sistema') && ($user_tipo != 'admin')) {
-                            $template_quill_botoes = false;
-                            $template_quill_initial_state = 'leitura';
-                        }
-                        if (($pagina_compartilhamento == 'escritorio') && ($user_id != $pagina_user_id)) {
-                            $template_quill_botoes = false;
-                            $template_quill_initial_state = 'leitura';
-                        }
-                        if ((($pagina_compartilhamento == 'privado') && ($user_id != $pagina_user_id)) && ($check_compartilhamento == false)) {
-                            $template_quill_botoes = false;
-                            $template_quill_initial_state = 'leitura';
-                        }
-                        if ($pagina_tipo == 'resposta') {
-                            $template_titulo = $pagina_translated['Resposta'];
-                            $template_classes = 'sticky-top';
-                            $template_quill_vazio = 'Escreva aqui sua resposta.';
-                        }
-                        $template_conteudo = include 'templates/template_quill.php';
-                        include 'templates/page_element.php';
-                    } else {
-                        $template_id = 'verbete_wiki';
-                        $template_titulo = $pagina_translated['Artigo da Wikipédia'];
-                        $wiki_info = return_elemento_info($wiki_id);
-                        $wiki_url = $wiki_info[9];
-                        $wiki_conteudo = extract_wikipedia($wiki_url);
-                        $template_conteudo = false;
-                        $template_conteudo .= "<span class='strip_wikipedia'>$wiki_conteudo</span>";
-                        include 'templates/page_element.php';
-                    }
+			$paginas_sem_verbete = array('texto', 'materia', 'questao', 'texto_apoio', 'grupo');
+			if (!in_array($pagina_tipo, $paginas_sem_verbete)) {
+				$template_id = 'verbete';
+				if ($wiki_id == false) {
+					if ($pagina_tipo == 'curso') {
+						$template_classes = 'hidden';
+						$template_titulo = $pagina_translated['Apresentação'];
+						$template_botoes_padrao = true;
+						$template_quill_initial_state = 'leitura';
+					} elseif ($pagina_tipo == 'sistema') {
+						$template_titulo = $pagina_translated['Aviso'];
+					} else {
+						$template_titulo = $pagina_translated['Verbete'];
+					}
+					if (($pagina_tipo == 'sistema') && ($user_tipo != 'admin')) {
+						$template_quill_botoes = false;
+						$template_quill_initial_state = 'leitura';
+					}
+					if (($pagina_compartilhamento == 'escritorio') && ($user_id != $pagina_user_id)) {
+						$template_quill_botoes = false;
+						$template_quill_initial_state = 'leitura';
+					}
+					if ((($pagina_compartilhamento == 'privado') && ($user_id != $pagina_user_id)) && ($check_compartilhamento == false)) {
+						$template_quill_botoes = false;
+						$template_quill_initial_state = 'leitura';
+					}
+					if ($pagina_tipo == 'resposta') {
+						$template_titulo = $pagina_translated['Resposta'];
+						$template_classes = 'sticky-top';
+						$template_quill_vazio = 'Escreva aqui sua resposta.';
+					}
+					$template_conteudo = include 'templates/template_quill.php';
+					include 'templates/page_element.php';
+				} else {
+					$template_id = 'verbete_wiki';
+					$template_titulo = $pagina_translated['Artigo da Wikipédia'];
+					$wiki_info = return_elemento_info($wiki_id);
+					$wiki_url = $wiki_info[9];
+					$wiki_conteudo = extract_wikipedia($wiki_url);
+					$template_conteudo = false;
+					$template_conteudo .= "<span class='strip_wikipedia'>$wiki_conteudo</span>";
+					include 'templates/page_element.php';
+				}
 
-                    include 'pagina/leiamais.php';
+				include 'pagina/leiamais.php';
 
-                    include 'pagina/videos.php';
+				include 'pagina/videos.php';
 
-                    include 'pagina/imagens.php';
+				include 'pagina/imagens.php';
 
-                    include 'pagina/audio.php';
+				include 'pagina/audio.php';
 
-                    if ($pagina_subtipo == 'etiqueta') {
-                        include 'pagina/paginas_etiqueta.php';
-                    }
+				if ($pagina_subtipo == 'etiqueta') {
+					include 'pagina/paginas_etiqueta.php';
+				}
 
-                    // include 'pagina/usos_etiqueta.php';
-                    // not clear in which cases this should be used.
-                    // the idea is showing pages connected to the present page
-                    // does it need to exist though?
-                }
+				// include 'pagina/usos_etiqueta.php';
+				// not clear in which cases this should be used.
+				// the idea is showing pages connected to the present page
+				// does it need to exist though?
+			}
 
-                if ($pagina_tipo == 'curso') {
-                    $template_id = 'modulos';
-                    $template_titulo = $pagina_translated['Módulos'];
-                    $template_botoes = false;
-                    $template_conteudo = false;
+			if ($pagina_tipo == 'curso') {
+				$template_id = 'modulos';
+				$template_titulo = $pagina_translated['Módulos'];
+				$template_botoes = false;
+				$template_conteudo = false;
 
-                    $query = prepare_query("SELECT elemento_id FROM Paginas_elementos WHERE tipo = 'materia' AND pagina_id = $pagina_id");
-                    $materias = $conn->query($query);
+				$query = prepare_query("SELECT elemento_id FROM Paginas_elementos WHERE tipo = 'materia' AND pagina_id = $pagina_id");
+				$materias = $conn->query($query);
 
-                    if ($materias->num_rows > 0) {
-                        $template_conteudo .= "<ul class='list-group list-group-flush'>";
-                        while ($materia = $materias->fetch_assoc()) {
-                            $materia_pagina_id = $materia['elemento_id'];
-                            $template_conteudo .= return_list_item($materia_pagina_id, false, 'text-center fontstack-subtitle force-size', true, true);
-                        }
-                        $template_conteudo .= "</ul>";
-                        unset($materia_id);
-                    }
+				if ($materias->num_rows > 0) {
+					$template_conteudo .= "<ul class='list-group list-group-flush'>";
+					while ($materia = $materias->fetch_assoc()) {
+						$materia_pagina_id = $materia['elemento_id'];
+						$template_conteudo .= return_list_item($materia_pagina_id, false, 'text-center fontstack-subtitle force-size', true, true);
+					}
+					$template_conteudo .= "</ul>";
+					unset($materia_id);
+				}
 
-                    include 'templates/page_element.php';
-                }
+				include 'templates/page_element.php';
+			}
 
-                if ($pagina_tipo == 'topico') {
-                    $query = prepare_query("SELECT elemento_id, extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'questao'");
-                    $list_pagina_questoes = $conn->query($query);
-                    if ($list_pagina_questoes->num_rows > 0) {
-                        $template_id = 'pagina_questoes';
-                        $template_titulo = $pagina_translated['Questões sobre este tópico'];
-                        $template_conteudo = false;
-                        $template_conteudo .= "<ul class='list-group list-group-flush'>";
-                        while ($list_pagina_questao = $list_pagina_questoes->fetch_assoc()) {
-                            $list_pagina_questao_id = $list_pagina_questao['elemento_id'];
-                            $list_pagina_questao_info = return_questao_info($list_pagina_questao_id);
-                            if ($list_pagina_questao_info == false) {
-                                continue;
-                            }
-                            $list_pagina_questao_origem = $list_pagina_questao_info[0];
-                            $list_pagina_questao_edicao_ano = $list_pagina_questao_info[2];
-                            $list_pagina_questao_prova_id = $list_pagina_questao_info[6];
-                            $list_pagina_questao_numero = $list_pagina_questao_info[7];
-                            $list_pagina_questao_tipo = $list_pagina_questao_info[9];
-                            $list_pagina_questao_prova_info = return_info_prova_id($list_pagina_questao_prova_id);
-                            $list_pagina_questao_prova_titulo = $list_pagina_questao_prova_info[0];
+			if ($pagina_tipo == 'topico') {
+				$query = prepare_query("SELECT elemento_id, extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'questao'");
+				$list_pagina_questoes = $conn->query($query);
+				if ($list_pagina_questoes->num_rows > 0) {
+					$template_id = 'pagina_questoes';
+					$template_titulo = $pagina_translated['Questões sobre este tópico'];
+					$template_conteudo = false;
+					$template_conteudo .= "<ul class='list-group list-group-flush'>";
+					while ($list_pagina_questao = $list_pagina_questoes->fetch_assoc()) {
+						$list_pagina_questao_id = $list_pagina_questao['elemento_id'];
+						$list_pagina_questao_info = return_questao_info($list_pagina_questao_id);
+						if ($list_pagina_questao_info == false) {
+							continue;
+						}
+						$list_pagina_questao_origem = $list_pagina_questao_info[0];
+						$list_pagina_questao_edicao_ano = $list_pagina_questao_info[2];
+						$list_pagina_questao_prova_id = $list_pagina_questao_info[6];
+						$list_pagina_questao_numero = $list_pagina_questao_info[7];
+						$list_pagina_questao_tipo = $list_pagina_questao_info[9];
+						$list_pagina_questao_prova_info = return_info_prova_id($list_pagina_questao_prova_id);
+						$list_pagina_questao_prova_titulo = $list_pagina_questao_prova_info[0];
 
-                            $template_conteudo .= "<a href='pagina.php?questao_id=$list_pagina_questao_id' class='mt-1'><li class='list-group-item list-group-item-action border-top'>$list_pagina_questao_edicao_ano: Prova \"$list_pagina_questao_prova_titulo\", questão $list_pagina_questao_numero.</li></a>";
-                        }
-                        $template_conteudo .= "</ul>";
-                        include 'templates/page_element.php';
-                    }
-                }
+						$template_conteudo .= "<a href='pagina.php?questao_id=$list_pagina_questao_id' class='mt-1'><li class='list-group-item list-group-item-action border-top'>$list_pagina_questao_edicao_ano: Prova \"$list_pagina_questao_prova_titulo\", questão $list_pagina_questao_numero.</li></a>";
+					}
+					$template_conteudo .= "</ul>";
+					include 'templates/page_element.php';
+				}
+			}
 
-                if ($pagina_tipo == 'texto_apoio') {
-                    $template_id = 'conteudo_texto_apoio';
-                    $template_titulo = false;
-                    $template_conteudo = false;
-                    if ($pagina_texto_apoio_html != false) {
-                        $template_conteudo .= "
+			if ($pagina_tipo == 'texto_apoio') {
+				$template_id = 'conteudo_texto_apoio';
+				$template_titulo = false;
+				$template_conteudo = false;
+				if ($pagina_texto_apoio_html != false) {
+					$template_conteudo .= "
                                 <h2 class='h2-responsive d-flex justify-content-center'>$pagina_texto_apoio_titulo</h2>
                                 <div class='special-li'>
                                   $pagina_texto_apoio_enunciado_html
                                   $pagina_texto_apoio_html
                                 </div>
                             ";
-                    } else {
-                        $template_conteudo .= "<p class='text-muted'><em>{$pagina_translated['O conteúdo deste texto de apoio ainda não foi adicionado.']}</em></p>";
-                    }
-                    include 'templates/page_element.php';
-                }
+				} else {
+					$template_conteudo .= "<p class='text-muted'><em>{$pagina_translated['O conteúdo deste texto de apoio ainda não foi adicionado.']}</em></p>";
+				}
+				include 'templates/page_element.php';
+			}
 
-                if (($pagina_tipo == 'questao') && ($pagina_questao_enunciado_html != false)) {
+			if (($pagina_tipo == 'questao') && ($pagina_questao_enunciado_html != false)) {
 
-                    if ($pagina_questao_texto_apoio == 1) {
-                        $template_id = 'questao_texto_apoio';
-                        $template_titulo = $pagina_translated['Texto de apoio'];
-                        if ($pagina_questao_texto_apoio_pagina_id != false) {
-                            $template_botoes = "
+				if ($pagina_questao_texto_apoio == 1) {
+					$template_id = 'questao_texto_apoio';
+					$template_titulo = $pagina_translated['Texto de apoio'];
+					if ($pagina_questao_texto_apoio_pagina_id != false) {
+						$template_botoes = "
                                 <a href='pagina.php?pagina_id=$pagina_questao_texto_apoio_pagina_id' title='{$pagina_translated['Página deste texto de apoio']}' class='text-secondary'><li class='fad fa-external-link-square fa-fw'></li></a>
                                 ";
-                        }
-                        $template_conteudo = false;
-                        $template_conteudo .= "<h3 class='h3-responsive'>$pagina_questao_texto_apoio_titulo</h3>";
-                        if ($pagina_questao_texto_apoio_id == false) {
-                            $template_conteudo .= "<p class='text-muted'><em>{$pagina_translated['depende texto apoio mas']}</em></p>";
-                        } else {
-                            if ($pagina_questao_texto_apoio_html != false) {
-                                $template_conteudo .= "
+					}
+					$template_conteudo = false;
+					$template_conteudo .= "<h3 class='h3-responsive'>$pagina_questao_texto_apoio_titulo</h3>";
+					if ($pagina_questao_texto_apoio_id == false) {
+						$template_conteudo .= "<p class='text-muted'><em>{$pagina_translated['depende texto apoio mas']}</em></p>";
+					} else {
+						if ($pagina_questao_texto_apoio_html != false) {
+							$template_conteudo .= "
                                         <div class='special-li'>
                                         $pagina_questao_texto_apoio_enunciado_html
                                         $pagina_questao_texto_apoio_html
                                         </div>
                                     ";
-                            } else {
-                                $template_conteudo .= "<p class='text-muted'><em>{$pagina_translated['O conteúdo deste texto de apoio ainda não foi adicionado. Você poderá fazê-lo']} <a href='pagina.php?pagina_id=$pagina_questao_texto_apoio_pagina_id'>{$pagina_translated['na página deste texto de apoio']}</a>.</em></p>";
-                            }
-                        }
-                        include 'templates/page_element.php';
-                    }
+						} else {
+							$template_conteudo .= "<p class='text-muted'><em>{$pagina_translated['O conteúdo deste texto de apoio ainda não foi adicionado. Você poderá fazê-lo']} <a href='pagina.php?pagina_id=$pagina_questao_texto_apoio_pagina_id'>{$pagina_translated['na página deste texto de apoio']}</a>.</em></p>";
+						}
+					}
+					include 'templates/page_element.php';
+				}
 
-                    $template_id = 'gabarito_questao';
-                    if (($pagina_questao_tipo == 1) || ($pagina_questao_tipo == 2)) {
-                        $gabarito = true;
-                        $template_botoes = "
+				$template_id = 'gabarito_questao';
+				if (($pagina_questao_tipo == 1) || ($pagina_questao_tipo == 2)) {
+					$gabarito = true;
+					$template_botoes = "
                                     <span id='mostrar_gabarito' title='{$pagina_translated['Mostrar gabarito']}'>
                                         <a href='javascript:void(0);' class='text-primary'><i class='fad fa-eye fa-fw'></i></a>
                                     </span>
                                 ";
-                        $template_titulo = $pagina_translated['Itens e gabarito'];
-                    } else {
-                        $template_botoes = false;
-                        $template_titulo = $pagina_translated['Enunciado'];
-                    }
-                    $template_conteudo = false;
-                    $template_conteudo .= "<div id='special_li'>$pagina_questao_enunciado_html</div>";
-                    $template_conteudo .= "<ul class='list-group'>";
-                    $mask_cor = 'list-group-item-light';
-                    if ($pagina_questao_item1_html != false) {
-                        $gabarito_cor = convert_gabarito_cor($pagina_questao_item1_gabarito);
-                        $template_conteudo .= "
+					$template_titulo = $pagina_translated['Itens e gabarito'];
+				} else {
+					$template_botoes = false;
+					$template_titulo = $pagina_translated['Enunciado'];
+				}
+				$template_conteudo = false;
+				$template_conteudo .= "<div id='special_li'>$pagina_questao_enunciado_html</div>";
+				$template_conteudo .= "<ul class='list-group'>";
+				$mask_cor = 'list-group-item-light';
+				if ($pagina_questao_item1_html != false) {
+					$gabarito_cor = convert_gabarito_cor($pagina_questao_item1_gabarito);
+					$template_conteudo .= "
                                     <li class='list-group-item list-group-item-secondary py-1 mt-2 mb-1 d-flex justify-content-center'><strong>{$pagina_translated['Item']} 1</strong></li>
                                 ";
-                        $template_conteudo .= "<li class='list-group-item $gabarito_cor $mask_cor'>
+					$template_conteudo .= "<li class='list-group-item $gabarito_cor $mask_cor'>
                                         $pagina_questao_item1_html
                                     </li>";
-                    }
-                    if ($pagina_questao_item2_html != false) {
-                        $gabarito_cor = convert_gabarito_cor($pagina_questao_item2_gabarito);
-                        $template_conteudo .= "
+				}
+				if ($pagina_questao_item2_html != false) {
+					$gabarito_cor = convert_gabarito_cor($pagina_questao_item2_gabarito);
+					$template_conteudo .= "
                                     <li class='list-group-item list-group-item-secondary py-1 mt-2 mb-1 d-flex justify-content-center'><strong>{$pagina_translated['Item']} 2</strong></li>
                                 ";
-                        $template_conteudo .= "<li class='list-group-item $gabarito_cor $mask_cor'>
+					$template_conteudo .= "<li class='list-group-item $gabarito_cor $mask_cor'>
                                         $pagina_questao_item2_html
                                     </li>";
-                    }
-                    if ($pagina_questao_item3_html != false) {
-                        $gabarito_cor = convert_gabarito_cor($pagina_questao_item3_gabarito);
-                        $template_conteudo .= "
+				}
+				if ($pagina_questao_item3_html != false) {
+					$gabarito_cor = convert_gabarito_cor($pagina_questao_item3_gabarito);
+					$template_conteudo .= "
                                     <li class='list-group-item list-group-item-secondary py-1 mt-2 mb-1 d-flex justify-content-center'><strong>{$pagina_translated['Item']} 3</strong></li>
                                 ";
-                        $template_conteudo .= "<li class='list-group-item $gabarito_cor $mask_cor'>
+					$template_conteudo .= "<li class='list-group-item $gabarito_cor $mask_cor'>
                                         $pagina_questao_item3_html
                                     </li>";
-                    }
-                    if ($pagina_questao_item4_html != false) {
-                        $gabarito_cor = convert_gabarito_cor($pagina_questao_item4_gabarito);
-                        $template_conteudo .= "
+				}
+				if ($pagina_questao_item4_html != false) {
+					$gabarito_cor = convert_gabarito_cor($pagina_questao_item4_gabarito);
+					$template_conteudo .= "
                                     <li class='list-group-item list-group-item-secondary py-1 mt-2 mb-1 d-flex justify-content-center'><strong>{$pagina_translated['Item']} 4</strong></li>
                                 ";
-                        $template_conteudo .= "<li class='list-group-item $gabarito_cor $mask_cor'>
+					$template_conteudo .= "<li class='list-group-item $gabarito_cor $mask_cor'>
                                         $pagina_questao_item4_html
                                     </li>";
-                    }
-                    if ($pagina_questao_item5_html != false) {
-                        $gabarito_cor = convert_gabarito_cor($pagina_questao_item5_gabarito);
-                        $template_conteudo .= "
+				}
+				if ($pagina_questao_item5_html != false) {
+					$gabarito_cor = convert_gabarito_cor($pagina_questao_item5_gabarito);
+					$template_conteudo .= "
                                     <li class='list-group-item list-group-item-secondary py-1 mt-2 mb-1 d-flex justify-content-center'><strong>{$pagina_translated['Item']} 5</strong></li>
                                 ";
-                        $template_conteudo .= "<li class='list-group-item $gabarito_cor $mask_cor'>
+					$template_conteudo .= "<li class='list-group-item $gabarito_cor $mask_cor'>
                                         $pagina_questao_item5_html
                                     </li>";
-                    }
+				}
 
-                    $template_conteudo .= "</ul>";
-                    include 'templates/page_element.php';
-                }
+				$template_conteudo .= "</ul>";
+				include 'templates/page_element.php';
+			}
 
-                if ($pagina_tipo == 'curso') {
+			if ($pagina_tipo == 'curso') {
 
-                    echo "</div>";
-                    echo "<div id='coluna_direita' class='$coluna_classes pagina_coluna'>";
+				echo "</div>";
+				echo "<div id='coluna_direita' class='$coluna_classes pagina_coluna'>";
 
-                    include 'pagina/curso.php';
+				include 'pagina/curso.php';
 
-                    echo "</div>";
+				echo "</div>";
 
-                }
+			}
 
 			echo "</div>";
 		?>
@@ -1431,9 +1430,9 @@
 				$secao_ordem = $secao['ordem'];
 				$secao_pagina_id = $secao['secao_pagina_id'];
 				$template_modal_body_conteudo .= "<li class='list-group-item list-group-item-light text-center p-0 m-0 border-0'>$secao_ordem</li>";
-                $item_de_secao = return_list_item($secao_pagina_id);
-                $template_modal_body_conteudo .= $item_de_secao;
-                $lista_de_secoes .= $item_de_secao;
+				$item_de_secao = return_list_item($secao_pagina_id);
+				$template_modal_body_conteudo .= $item_de_secao;
+				$lista_de_secoes .= $item_de_secao;
 
 				/*$secao_info = return_pagina_info($secao_pagina_id);
 				$secao_titulo = $secao_info[6];
@@ -1478,15 +1477,17 @@
         ";
 
 		if (isset($secoes)) {
-			if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id) && ($secoes->num_rows == 0) && ($pagina_tipo == 'pagina') && ($pagina_titulo != false) && ($pagina_subtipo != 'produto')) {
+			if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id) && ($secoes->num_rows == 0) && ($pagina_tipo == 'pagina') && ($pagina_titulo != false) && ($pagina_subtipo != 'produto') && ($pagina_subtipo != 'modelo')) {
 				$modal_novo_curso = true;
-				$template_modal_body_conteudo .= "
-		        <span data-toggle='modal' data-target='#modal_pagina_dados'>
-                    <div class='row justify-content-center'>
-                        <button type='button' class='$button_classes btn-info' data-toggle='modal' data-target='#modal_novo_curso'>{$pagina_translated['Transformar em página inicial de curso']}</button>
-                    </div>
-                </span>
-		    ";
+				$template_modal_body_conteudo .= "<h3>{$pagina_translated['change page nature']}</h3>";
+				$template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
+				$template_modal_body_conteudo .= "<span data-toggle='modal' data-target='#modal_pagina_dados'>";
+				$template_modal_body_conteudo .= put_together_list_item('modal', '#modal_novo_curso', 'text-default', 'fad', 'fa-graduation-cap', $pagina_translated['Transformar em página inicial de curso'], false, false, 'list-group-item-action');
+				$template_modal_body_conteudo .= "</span>";
+				if ($user_id == 1) {
+					$template_modal_body_conteudo .= put_together_list_item('link_button', 'change_into_model', 'text-secondary', 'fad', 'fa-pen-nib', $pagina_translated['Change page modelo'], false, false, 'list-group-item-action');
+				}
+				$template_modal_body_conteudo .= "</ul>";
 			}
 		}
 		include 'templates/modal.php';
@@ -1581,7 +1582,7 @@
 			$template_modal_body_conteudo .= put_together_list_item('modal', '#modal_partes_form', 'text-default', 'fad', 'fa-plus-square', $pagina_translated['Adicionar seção'], false, false);
 			$template_modal_body_conteudo .= "</span>";
 		}
-        $template_modal_body_conteudo .= $lista_de_secoes;
+		$template_modal_body_conteudo .= $lista_de_secoes;
 		$template_modal_body_conteudo .= "</ul>";
 		include 'templates/modal.php';
 	}
@@ -2392,7 +2393,7 @@
 		if ($texto_revisao_ativa == false) {
 			$template_modal_titulo = $pagina_translated['Solicitar correção'];
 			$pagina_texto_wordcount = str_word_count($texto_verbete_text);
-			$revision_price = calculate_review_price($pagina_texto_wordcount, 'simplified', 'no_grade', 'no_chat', 'revisor_diplomata');
+			$revision_price = calculate_review_price($pagina_texto_wordcount, 'simplified', 'no_grade', 'no_chat', 'enfase_forma');
 			if ($user_wallet >= $revision_price) {
 				$button_disabled = false;
 			} else {
@@ -2404,12 +2405,12 @@
             <form id='review_form' method='post' class='border rounded mx-2 px-4 py-2'>
                 <p class='mb-1 mt-2'><strong>{$pagina_translated['Revisor:']}</strong></p>
                 <div class='form-check'>
-                    <input type='radio' id='revisor_diplomata' name='reviewer_choice' value='revisor_diplomata' class='disable_submit form-check-input' checked>
-                    <label for='revisor_diplomata' class='form-check-label'>{$pagina_translated['revisor diplomata']}</label>
+                    <input type='radio' id='enfase_forma' name='reviewer_choice' value='enfase_forma' class='disable_submit form-check-input' checked>
+                    <label for='enfase_forma' class='form-check-label'>{$pagina_translated['revisor diplomata']}</label>
                 </div>
                 <div class='form-check'>
-                    <input type='radio' id='professor_especialista' name='reviewer_choice' value='professor_especialista' class='disable_submit form-check-input'>
-                    <label for='professor_especialista' class='form-check-label'>{$pagina_translated['professor especialista']}</label>
+                    <input type='radio' id='enfase_conteudo' name='reviewer_choice' value='enfase_conteudo' class='disable_submit form-check-input'>
+                    <label for='enfase_conteudo' class='form-check-label'>{$pagina_translated['professor especialista']}</label>
                 </div>
                 <p class='mb-1 mt-2'><strong>{$pagina_translated['Extensão da revisão:']}</strong></p>
                 <div class='form-check'>
@@ -2515,9 +2516,9 @@
 	$sistema_etiquetas_topicos = true;
 	$sticky_toolbar = true;
 	include 'templates/html_bottom.php';
-/*	if ($pagina_tipo != 'texto') {
-		include 'templates/footer.html';
-	}*/
+	/*	if ($pagina_tipo != 'texto') {
+			include 'templates/footer.html';
+		}*/
 
 	if ($pagina_tipo == 'questao') {
 		echo "

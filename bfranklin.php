@@ -31,7 +31,7 @@ include 'templates/navbar.php';
             $template_titulo = 'Seus modelos';
             $template_conteudo = false;
             $cada_modelo_do_usuario = array();
-            $query = prepare_query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'modelos'");
+            $query = prepare_query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'modelo'");
             $modelos_do_usuario = $conn->query($query);
             if ($modelos_do_usuario->num_rows > 0) {
                 $template_conteudo .= "<ul class='list-group list-group-flush'>";
@@ -50,7 +50,7 @@ include 'templates/navbar.php';
             $template_id = 'modelos_diponiveis';
             $template_titulo = 'Outros modelos disponíveis';
             $template_conteudo = false;
-            $query = prepare_query("SELECT id, pagina_id FROM Modelos ORDER BY id DESC");
+            $query = prepare_query("SELECT id FROM Paginas WHERE tipo = 'modelo' ORDER BY id DESC");
             $modelos_disponiveis = $conn->query($query);
             if ($modelos_disponiveis->num_rows > 0) {
                 $template_conteudo .= "<ul class='list-group list-group-flush'>";
@@ -73,3 +73,7 @@ include 'templates/navbar.php';
     </div>
 </div>
 </body>
+<?php
+    include 'templates/html_bottom.php';
+?>
+</html>
