@@ -13,6 +13,9 @@
 	    adicionar_chave_traducao('options', 1);
 	    adicionar_chave_traducao('change page nature', 1);
 	    adicionar_chave_traducao('Change page modelo', 1);
+	    adicionar_chave_traducao('Revisao diplomata', 1);
+	    adicionar_chave_traducao('Revisao diplomata item', 1);
+	    $conn->query("ALTER TABLE `Orders` ADD `option6` VARCHAR(255) NULL DEFAULT NULL AFTER `option5`;");
 	}
 	
 	if (isset($_POST['novos_creditos'])) {

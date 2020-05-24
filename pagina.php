@@ -2393,7 +2393,7 @@
 		if ($texto_revisao_ativa == false) {
 			$template_modal_titulo = $pagina_translated['Solicitar correção'];
 			$pagina_texto_wordcount = str_word_count($texto_verbete_text);
-			$revision_price = calculate_review_price($pagina_texto_wordcount, 'simplified', 'no_grade', 'no_chat', 'enfase_forma');
+			$revision_price = calculate_review_price($pagina_texto_wordcount, 'simplified', 'no_grade', 'no_chat', 'enfase_forma', 'revisao_diplomata');
 			if ($user_wallet >= $revision_price) {
 				$button_disabled = false;
 			} else {
@@ -2425,9 +2425,14 @@
                     <input type='radio' id='rewrite' name='extension' value='rewrite' class='disable_submit form-check-input'>
                     <label for='rewrite' class='form-check-label'>{$pagina_translated['full rewrite']}</label>
                 </div>
+                <p class='mb-1 mt-2'><strong>{$pagina_translated['Revisao diplomata']}</strong></p>
+                <div class='form-check'>
+                    <input type='checkbox' id='revisao_diplomata' name='revisao_diplomata' class='disable_submit form-check-input' checked>
+                    <label for='revisao_diplomata' class='form-check-label'>{$pagina_translated['Revisao diplomata item']}</label>
+                </div>
                 <p class='mb-1 mt-2'><strong>{$pagina_translated['Incluir uma nota aproximada?']}</strong></p>
                 <div class='form-check'>
-                    <input type='checkbox' id='review_grade' name='review_grade' value='grade' class='disable_submit form-check-input'>
+                    <input type='checkbox' id='review_grade' name='review_grade' class='disable_submit form-check-input'>
                     <label for='review_grade' class='form-check-label'>{$pagina_translated['review grade']}</label>
                 </div>
                 <p class='mb-1 mt-2'><strong>{$pagina_translated['Incluir conversa com o revisor:']}</strong></p>

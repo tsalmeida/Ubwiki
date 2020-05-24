@@ -1240,7 +1240,12 @@ if ($loaded_correcao_form == true) {
                 if ($('#review_grade').is(':checked')) {
                     review_grade = 'with_grade';
                 } else {
-                    review_grade = false;
+                    review_grade = 'no_grade';
+                }
+                if ($('#revisao_diplomata').is(':checked')) {
+                    revisao_diplomata = 'revisao_diplomata';
+                } else {
+                    revisao_diplomata = 'nao_diplomata';
                 }
                 reviewer_choice = $('input[name=reviewer_choice]:checked', '#review_form').val();
                 extension = $('input[name=extension]:checked', '#review_form').val();
@@ -1250,7 +1255,8 @@ if ($loaded_correcao_form == true) {
                     'recalc_reviewer_choice': reviewer_choice,
                     'recalc_extension': extension,
                     'recalc_review_grade': review_grade,
-                    'recalc_reviewer_chat': reviewer_chat
+                    'recalc_reviewer_chat': reviewer_chat,
+                    'recalc_revisao_diplomata': revisao_diplomata
                 }, function (data) {
                     if (data != 0) {
                         var results = JSON.parse(data);

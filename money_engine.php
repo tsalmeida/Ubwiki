@@ -116,6 +116,7 @@
 		$recalc_extension = $_POST['recalc_extension'];
 		$recalc_review_grade = $_POST['recalc_review_grade'];
 		$recalc_reviewer_chat = $_POST['recalc_reviewer_chat'];
+		$recalc_revisao_diplomata = $_POST['recalc_revisao_diplomata'];
 		$recalc_pagina_info = return_pagina_info($recalc_review_pagina_id);
 		$recalc_pagina_tipo = $recalc_pagina_info[2];
 		if ($recalc_pagina_tipo == 'texto') {
@@ -126,7 +127,7 @@
 		$recalc_pagina_texto_id = return_texto_id($recalc_pagina_tipo, $recalc_texto_tipo, $recalc_review_pagina_id, $user_id);
 		$recalc_pagina_verbete_texto = return_verbete_text($recalc_pagina_texto_id);
 		$recalc_pagina_verbete_texto_word_count = str_word_count($recalc_pagina_verbete_texto);
-		$recalc_price = calculate_review_price($recalc_pagina_verbete_texto_word_count, $recalc_extension, $recalc_review_grade, $recalc_reviewer_chat, $recalc_reviewer_choice);
+		$recalc_price = calculate_review_price($recalc_pagina_verbete_texto_word_count, $recalc_extension, $recalc_review_grade, $recalc_reviewer_chat, $recalc_reviewer_choice, $recalc_revisao_diplomata);
 		$result = array($recalc_price, $recalc_pagina_verbete_texto_word_count);
 		echo json_encode($result);
 	}
@@ -139,31 +140,27 @@
 		$grade = $args[2];
 		$chat = $args[3];
 		$emphasis = $args[4];
+		$revisao_diplomata = $args[5];
 
-//		error_log("$wordcount $extension $grade $chat $emphasis");
+//		error_log("$wordcount $extension $grade $chat $emphasis $revisao_diplomata");
 
 		$sum = (int)0;
 		
 		if ($grade == 'with_grade') {
 			$sum = ($sum + 15);
 		}
+
 		switch ($emphasis) {
 			//case 'professor_especialista':
-			case 'enfase_forma':
-				$simplified = 100;
-				$detailed = 200;
-				$rewrite = 300;
-				$chat_20 = 100;
-				$chat_40 = 200;
-				$chat_60 = 300;
+			case 'enfase_conteudo':
+				$simplified = 65;
+				$detailed = 130;
+				$rewrite = 180;
 				break;
 			default:
-				$simplified = 60;
-				$detailed = 130;
-				$rewrite = 200;
-				$chat_20 = 50;
-				$chat_40 = 100;
-				$chat_60 = 150;
+				$simplified = 90;
+				$detailed = 150;
+				$rewrite = 220;
 		}
 		
 		switch ($extension) {
@@ -179,16 +176,16 @@
 		}
 		
 		$sum = ($sum + $extension_price);
-		
+
 		switch ($chat) {
 			case 'chat_20':
-				$sum = ($sum + $chat_20);
+				$sum = ($sum + 50);
 				break;
 			case 'chat_40':
-				$sum = ($sum + $chat_40);
+				$sum = ($sum + 100);
 				break;
 			case 'chat_60':
-				$sum = ($sum + $chat_60);
+				$sum = ($sum + 150);
 				break;
 			default:
 				break;
@@ -196,7 +193,11 @@
 		
 		$price = (int)($wordcount * $sum);
 		$price = (int)($price / 600);
-		
+
+		if ($revisao_diplomata == 'revisao_diplomata') {
+			$price = ($price * 1.5);
+		}
+
 		$price = floor($price);
 		return $price;
 	}
@@ -207,6 +208,11 @@
 			$review_grade = 'with_grade';
 		} else {
 			$review_grade = 'without_grade';
+		}
+		if (isset($_POST['revisao_diplomata'])) {
+			$revisao_diplomata = 'revisao_diplomata';
+		} else {
+			$revisao_diplomata = 'nao_diplomata';
 		}
 		$emphasis_choice = $_POST['reviewer_choice'];
 		$emphasis_chat = $_POST['reviewer_chat'];
@@ -227,14 +233,14 @@
 			$pagina_correcao_verbete_text = return_verbete_text($pagina_correcao_texto_id);
 			$pagina_correcao_wordcount = str_word_count($pagina_correcao_verbete_text);
 			$review_price = calculate_review_price($pagina_correcao_wordcount, $extension, $review_grade,
-				$emphasis_chat, $emphasis_choice);
+				$emphasis_chat, $emphasis_choice, $revisao_diplomata);
 			
 			$user_end_state = (int)($user_wallet - $review_price);
 			if ($user_end_state > 0) {
 			    $query = prepare_query("INSERT INTO Transactions (user_id, direction, value, prevstate, endstate) VALUES ($user_id, 'negative', $review_price, $user_wallet, $user_end_state)");
 				$check = $conn->query($query);
 				if ($check == true) {
-				    $query = prepare_query("INSERT INTO Orders (tipo, user_id, pagina_id, comments) VALUES ('review', $user_id, $order_review_pagina_id, '$new_review_comments')");
+				    $query = prepare_query("INSERT INTO Orders (tipo, user_id, pagina_id, option1, option2, option3, option4, option5, option6, comments) VALUES ('review', $user_id, '$order_review_pagina_id', '$pagina_correcao_wordcount', '$extension', '$review_grade', '$emphasis_chat', '$emphasis_choice', '$revisao_diplomata', '$new_review_comments')");
 					$check = $conn->query($query);
 				}
 			}
