@@ -149,7 +149,7 @@
 		}
 		switch ($reviewer) {
 			//case 'professor_especialista':
-			case 'enfase_conteudo':
+			case 'enfase_forma':
 				$simplified = 100;
 				$detailed = 200;
 				$rewrite = 300;
