@@ -138,16 +138,16 @@
 		$extension = $args[1];
 		$grade = $args[2];
 		$chat = $args[3];
-		$reviewer = $args[4];
+		$emphasis = $args[4];
 
-//		error_log("$wordcount $extension $grade $chat $reviewer");
+//		error_log("$wordcount $extension $grade $chat $emphasis");
 
 		$sum = (int)0;
 		
 		if ($grade == 'with_grade') {
 			$sum = ($sum + 15);
 		}
-		switch ($reviewer) {
+		switch ($emphasis) {
 			//case 'professor_especialista':
 			case 'enfase_forma':
 				$simplified = 100;
@@ -208,8 +208,8 @@
 		} else {
 			$review_grade = 'without_grade';
 		}
-		$reviewer_choice = $_POST['reviewer_choice'];
-		$reviewer_chat = $_POST['reviewer_chat'];
+		$emphasis_choice = $_POST['reviewer_choice'];
+		$emphasis_chat = $_POST['reviewer_chat'];
 		$new_review_comments = $_POST['new_review_comments'];
 		$new_review_comments = mysqli_real_escape_string($conn, $new_review_comments);
 		
@@ -227,7 +227,7 @@
 			$pagina_correcao_verbete_text = return_verbete_text($pagina_correcao_texto_id);
 			$pagina_correcao_wordcount = str_word_count($pagina_correcao_verbete_text);
 			$review_price = calculate_review_price($pagina_correcao_wordcount, $extension, $review_grade,
-				$reviewer_chat, $reviewer_choice);
+				$emphasis_chat, $emphasis_choice);
 			
 			$user_end_state = (int)($user_wallet - $review_price);
 			if ($user_end_state > 0) {

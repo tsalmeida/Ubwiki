@@ -444,7 +444,7 @@
       'fa-external-link', $oferta_texto, false, false, false);
 
 	$oferta_link = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=43NNZHEDD6278";
-	$oferta_texto = "Comprar 300 Créditos Ubwiki por R$ 275";
+	$oferta_texto = "Comprar 300 Créditos Ubwiki por R$ 285";
 	$template_modal_body_conteudo .= put_together_list_item('link_blank', $oferta_link, 'text-primary', 'fad',
       'fa-external-link', $oferta_texto, false, false, false);
 
