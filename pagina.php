@@ -537,28 +537,28 @@
     <div class="row d-flex justify-content-between">
         <div class='py-2 text-left col-md-4 col-sm-12'>
 			<?php
-				if (($pagina_tipo != 'sistema') && ($pagina_compartilhamento != 'escritorio') && ($pagina_tipo != 'materia')) {
+				if (($pagina_tipo != 'sistema') && ($pagina_compartilhamento != 'escritorio') && ($pagina_tipo != 'materia') && ($pagina_subtipo != 'modelo')) {
 					if ($privilegio_edicao == true) {
-						echo "<a href='javascript:void(0)' class='text-info mr-1' id='add_elements' title='{$pagina_translated['Adicionar elementos']}' data-toggle='modal' data-target='#modal_add_elementos'><i class='fad fa-2x fa-plus-circle fa-fw'></i></a>";
+						echo "<a href='javascript:void(0)' class='text-info mr-1' id='add_elements' title='{$pagina_translated['Adicionar elementos']}' data-toggle='modal' data-target='#modal_add_elementos'><i class='fad fa-lg fa-plus-circle fa-fw'></i></a>";
 					}
 				}
 				if ($pagina_tipo == 'elemento') {
 					echo "
-                            <a href='javascript:void(0);' data-toggle='modal' data-target='#modal_dados_elemento' class='text-info mr-1' id='elemento_dados' class='mr-1' title='{$pagina_translated['Editar dados']}'><i class='fad fa-info-circle fa-fw fa-2x'></i></a>
-                            <a href='javascript:void(0);' data-toggle='modal' data-target='#modal_elemento_subtipo' class='text-info mr-1' id='elemento_subtipo' class='mr-1' title='{$pagina_translated['Determinar subcategoria']}'><i class='fad fa-sort-circle fa-fw fa-2x'></i></a>
+                            <a href='javascript:void(0);' data-toggle='modal' data-target='#modal_dados_elemento' class='text-info mr-1' id='elemento_dados' title='{$pagina_translated['Editar dados']}'><i class='fad fa-info-circle fa-fw fa-lg'></i></a>
+                            <a href='javascript:void(0);' data-toggle='modal' data-target='#modal_elemento_subtipo' class='text-info mr-1' id='elemento_subtipo' title='{$pagina_translated['Determinar subcategoria']}'><i class='fad fa-sort-circle fa-fw fa-lg'></i></a>
                             ";
 				}
 				$modal_pagina_dados = false;
 				if ((($pagina_tipo == 'sistema') && ($user_tipo == 'admin')) || (($pagina_tipo == 'pagina') && ($pagina_user_id == $user_id)) || ((($pagina_tipo == 'curso') || ($pagina_tipo == 'materia') || ($pagina_tipo == 'topico')) && ($pagina_curso_user_id == $user_id)) || (($pagina_tipo == 'texto') && ($pagina_user_id == $user_id) && ($texto_page_id == 0)) || (($pagina_tipo == 'resposta') && ($pagina_user_id == $user_id)) || (($pagina_tipo == 'secao') && (($pagina_user_id == $user_id) || $pagina_original_compartilhamento == false))) {
 					$modal_pagina_dados = true;
-					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_pagina_dados' class='text-success mr-1' id='pagina_dados' title='{$pagina_translated['Editar dados']}'><i class='fad fa-info-circle fa-fw fa-2x'></i></a>";
+					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_pagina_dados' class='text-success mr-1' id='pagina_dados' title='{$pagina_translated['Editar dados']}'><i class='fad fa-info-circle fa-fw fa-lg'></i></a>";
 					$carregar_produto_setup = false;
 					if ($pagina_subtipo == 'produto') {
 						$carregar_produto_setup = true;
 						if (isset($imagem_opcoes)) {
-							echo "<a href='javascript:void(0)' data-toggle='modal' data-target='#modal_produto_nova_imagem' class='text-danger mr-1' id='produto_imagem' title='{$pagina_translated['Imagem do produto']}'><i class='fad fa-image-polaroid fa-fw fa-2x'></i></a>";
+							echo "<a href='javascript:void(0)' data-toggle='modal' data-target='#modal_produto_nova_imagem' class='text-danger mr-1' id='produto_imagem' title='{$pagina_translated['Imagem do produto']}'><i class='fad fa-image-polaroid fa-fw fa-lg'></i></a>";
 						}
-						echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_produto_preco' class='text-warning mr-1' id='produto_preco' title='{$pagina_translated['Preço do produto']}'><i class='fad fa-usd-circle fa-fw fa-2x'></i></a>";
+						echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_produto_preco' class='text-warning mr-1' id='produto_preco' title='{$pagina_translated['Preço do produto']}'><i class='fad fa-usd-circle fa-fw fa-lg'></i></a>";
 					}
 				}
 				if ((($pagina_tipo == 'texto') && ($pagina_user_id == $user_id)) || (($texto_revisao_ativa == true) && ($user_revisor == true))) {
@@ -575,24 +575,29 @@
 						$pencil_color1 = 'text-primary';
 						$pencil_color2 = "style='--fa-secondary-color: #ff3547;'";
 					}
-					echo "<a id='carregar_modal_correcao' href='javascript:void(0);' class='$pencil_color1' data-toggle='modal' data-target='#modal_correcao' title='{$pagina_translated['Solicitar correção']}'><i class='fad fa-pencil-alt fa-fw fa-2x' $pencil_color2></i></a>";
+					echo "<a id='carregar_modal_correcao' href='javascript:void(0);' class='$pencil_color1' data-toggle='modal' data-target='#modal_correcao' title='{$pagina_translated['Solicitar correção']}'><i class='fad fa-pencil-alt fa-fw fa-lg' $pencil_color2></i></a>";
 				}
 				if (($pagina_tipo == 'curso') && ($pagina_curso_user_id == $user_id)) {
 					$carregar_adicionar_materia = true;
-					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_materia' class='text-success mr-1' id='add_materia' title='{$pagina_translated['Adicionar matéria']}'><i class='fad fa-plus-circle fa-2x fa-fw'></i></a>";
+					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_materia' class='text-success mr-1' id='add_materia' title='{$pagina_translated['Adicionar matéria']}'><i class='fad fa-plus-circle fa-lg fa-fw'></i></a>";
 				}
 				if (($pagina_tipo == 'materia') && ($pagina_user_id == $user_id)) {
 					$carregar_adicionar_topico = true;
-					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_topico' class='text-success mr-1' id='add_topico' title='{$pagina_translated['Adicionar tópico']}'><i class='fad fa-plus-circle fa-2x fa-fw'></i></a>";
+					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_topico' class='text-success mr-1' id='add_topico' title='{$pagina_translated['Adicionar tópico']}'><i class='fad fa-plus-circle fa-lg fa-fw'></i></a>";
 				}
 				if (($pagina_tipo == 'topico') && ($pagina_user_id == $user_id) && ($topico_nivel < 5)) {
 					$carregar_adicionar_subtopico = true;
-					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_subtopico' class='text-success mr-1' id='add_subtopico' title='{$pagina_translated['Adicionar subtópico']}'><i class='fad fa-plus-circle fa-2x fa-fw'></i></a>";
+					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_subtopico' class='text-success mr-1' id='add_subtopico' title='{$pagina_translated['Adicionar subtópico']}'><i class='fad fa-plus-circle fa-lg fa-fw'></i></a>";
 				}
 				if ($pagina_tipo == 'questao') {
-					echo "<a href='javascript:void(0);' class='mr-1 text-secondary' title='{$pagina_translated['Dados da questão']}' data-toggle='modal' data-target='#modal_questao_dados'><i class='fad fa-check-circle fa-fw fa-2x'></i></a>";
+					echo "<a href='javascript:void(0);' class='mr-1 text-secondary' title='{$pagina_translated['Dados da questão']}' data-toggle='modal' data-target='#modal_questao_dados'><i class='fad fa-check-circle fa-fw fa-lg'></i></a>";
 				} elseif ($pagina_tipo == 'texto_apoio') {
-					echo "<a href='javascript:void(0)' data-toggle='modal' data-target='#modal_texto_apoio_dados' class='text-secondary mr-1' title='{$pagina_translated['Dados do texto de apoio']}'><i class='fad fa-check-circle fa-fw fa-2x'></i></a>";
+					echo "<a href='javascript:void(0)' data-toggle='modal' data-target='#modal_texto_apoio_dados' class='text-secondary mr-1' title='{$pagina_translated['Dados do texto de apoio']}'><i class='fad fa-check-circle fa-fw fa-lg'></i></a>";
+				}
+				if ($pagina_subtipo == 'modelo') {
+					echo "
+				        <a href='javascript:void(0);' data-toggle='modal' data-target='#modal_modelo_config' class='text-secondary mr-1' title='{$pagina_translated['Configurar modelo']}'><i class='fad fa-pen-nib fa-fw fa-lg'></i></a>
+				    ";
 				}
 			?>
         </div>
@@ -635,7 +640,7 @@
 				}
 				if ($pagina_subtipo == 'produto') {
 					if ($produto_no_carrinho == false) {
-						echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_adicionar_carrinho' id='adicionar_carrinho' class='text-success mx-1' title='{$pagina_translated['Adicionar este produto a seu carrinho']}'><i class='fad fa-cart-plus fa-fw fa-2x'></i></a>";
+						echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_adicionar_carrinho' id='adicionar_carrinho' class='text-success mx-1' title='{$pagina_translated['Adicionar este produto a seu carrinho']}'><i class='fad fa-cart-plus fa-fw fa-lg'></i></a>";
 					}
 				}
 				if ($topico_proximo != false) {
@@ -661,7 +666,7 @@
 						echo "<a href='javascript:void(0);' class='ml-1 text-success $curso_sair_hidden' title='{$pagina_translated['Sair deste curso']}' id='curso_sair'><i class='fad fa-lamp-desk fa-fw'></i></a>";
 					}
 				}
-				if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id) && ($pagina_subtipo != 'Plano de estudos')) {
+				if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id) && ($pagina_subtipo != 'Plano de estudos') && ($pagina_subtipo != 'modelo')) {
 					if (($pagina_tipo != 'materia') && ($pagina_tipo != 'topico')) {
 						echo "
                                   <a href='javascript:void(0);' class='text-default ml-1 align-top' id='compartilhar_anotacao' title='{$pagina_translated['Colaboração e publicação']}' data-toggle='modal' data-target='#modal_compartilhar_pagina'>
@@ -677,7 +682,7 @@
 	                            ";
 				}
 				if ($user_tipo == 'admin') {
-					if ((($pagina_subtipo != 'produto') && ($pagina_tipo != 'escritorio')) || ($pagina_tipo == 'escritorio') && ($pagina_use_id = $user_id)) {
+					if ((($pagina_subtipo != 'produto') && ($pagina_tipo != 'escritorio')) && ($pagina_subtipo != 'modelo') || ($pagina_tipo == 'escritorio') && ($pagina_user_id = $user_id)) {
 						$existe_produto = false;
 						if ($existe_produto == true) {
 							$produto_color = 'text-danger';
@@ -687,7 +692,7 @@
 						echo "<a href='mercado.php?pagina_id=$pagina_id' class='$produto_color ml-1 align-top' title='{$pagina_translated['visit_market']}'><i class='fad fa-bags-shopping fa-fw'></i></a>";
 					}
 				}
-				if (($pagina_tipo != 'sistema') && ($pagina_compartilhamento != 'escritorio')) {
+				if (($pagina_tipo != 'sistema') && ($pagina_compartilhamento != 'escritorio') && ($pagina_subtipo != 'modelo')) {
 					$query = prepare_query("SELECT timestamp, comentario_text, user_id FROM Forum WHERE pagina_id = $pagina_id");
 					$comments = $conn->query($query);
 					if ($comments->num_rows == 0) {
@@ -747,21 +752,23 @@
 						echo "<a title='{$pagina_translated['Adicionar como área de interesse']}' href='javascript:void(0);' class='ml-1 text-warning' data-toggle='modal' data-target='#modal_login'><i class='fad fa-lamp-desk fa-fw'></i></a>";
 					}
 				}
-				$query = prepare_query("SELECT elemento_id, extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'wikipedia'");
-				$vinculos_wikipedia = $conn->query($query);
-				if ($vinculos_wikipedia->num_rows > 0) {
-					$carregar_modal_wikipedia = true;
-					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_vinculos_wikipedia' class='text-dark ml-1' title='{$pagina_translated['Ver artigos da Wikipédia vinculados']}'><i class='fab fa-wikipedia-w fa-fw'></i></a>";
+				if ($pagina_subtipo != 'modelo') {
+					$query = prepare_query("SELECT elemento_id, extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'wikipedia'");
+					$vinculos_wikipedia = $conn->query($query);
+					if ($vinculos_wikipedia->num_rows > 0) {
+						$carregar_modal_wikipedia = true;
+						echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_vinculos_wikipedia' class='text-dark ml-1' title='{$pagina_translated['Ver artigos da Wikipédia vinculados']}'><i class='fab fa-wikipedia-w fa-fw'></i></a>";
+					}
+					if ($user_id != false) {
+						$notificacao_modal = '#modal_notificacoes';
+						$notificacao_cor = 'text-primary';
+					} else {
+						$notificacao_modal = '#modal_login';
+						$notificacao_cor = 'text-default';
+						$notificacao_icone = 'fa-bell fa-swap-opacity';
+					}
+					echo "<a href='javascript:void(0);' class='$notificacao_cor ml-1' data-toggle='modal' data-target='$notificacao_modal'><i class='fad $notificacao_icone fa-fw'></i></a>";
 				}
-				if ($user_id != false) {
-					$notificacao_modal = '#modal_notificacoes';
-					$notificacao_cor = 'text-primary';
-				} else {
-					$notificacao_modal = '#modal_login';
-					$notificacao_cor = 'text-default';
-					$notificacao_icone = 'fa-bell fa-swap-opacity';
-				}
-				echo "<a href='javascript:void(0);' class='$notificacao_cor ml-1' data-toggle='modal' data-target='$notificacao_modal'><i class='fad $notificacao_icone fa-fw'></i></a>";
 				if (($pagina_tipo != 'sistema') && ($pagina_compartilhamento != 'escritorio')) {
 					if ($etiquetados->num_rows > 0) {
 						$etiquetas_color = 'text-warning';
@@ -805,32 +812,34 @@
 						$marcar_bookmark = false;
 						$desmarcar_bookmark = 'collapse';
 					}
-					if ($user_id != false) {
-						echo "
+					if ($pagina_subtipo != 'modelo') {
+						if ($user_id != false) {
+							echo "
                                   <a href='javascript:void(0);' id='add_bookmark' class='text-primary ml-1 $marcar_bookmark' title='{$pagina_translated['Marcar para leitura']}' value='$pagina_id'><i class='fad fa-bookmark fa-fw'></i></a>
                                   <a href='javascript:void(0);' id='remove_bookmark' class='text-danger ml-1 $desmarcar_bookmark' title='{$pagina_translated['Remover da lista de leitura']}' value='$pagina_id'><i class='fad fa-bookmark fa-fw'></i></a>
                                 ";
-					} else {
-						echo "
+						} else {
+							echo "
                                     <a href='javascript:void(0);' id='login_bookmark' class='text-danger ml-1' title='{$pagina_translated['Marcar para leitura']}' data-toggle='modal' data-target='#modal_login'><i class='fad fa-bookmark fa-fw'></i></a>
                                 ";
-					}
-					$estado_cor = false;
-					$estado_icone = return_estado_icone($pagina_estado, 'pagina');
-					if ($pagina_estado == 4) {
-						$estado_cor = 'text-warning';
-					} else {
-						$estado_cor = 'text-info';
-					}
-					if ($pagina_estado != 0) {
-						if ($user_id != false) {
-							$estado_modal = '#modal_estado';
-						} else {
-							$estado_modal = '#modal_login';
 						}
-						echo "
+						$estado_cor = false;
+						$estado_icone = return_estado_icone($pagina_estado, 'pagina');
+						if ($pagina_estado == 4) {
+							$estado_cor = 'text-warning';
+						} else {
+							$estado_cor = 'text-info';
+						}
+						if ($pagina_estado != 0) {
+							if ($user_id != false) {
+								$estado_modal = '#modal_estado';
+							} else {
+								$estado_modal = '#modal_login';
+							}
+							echo "
                                         <a href='javascript:void(0);' id='change_estado_pagina' class='ml-1 $estado_cor' title='{$pagina_translated['Estado da página']}' data-toggle='modal' data-target='$estado_modal'><i class='$estado_icone fa-fw'></i></a>
                                     ";
+						}
 					}
 				}
 			?>
@@ -988,7 +997,7 @@
 					$template_conteudo_no_col = true;
 					$elemento_link_host = parse_url($elemento_link, PHP_URL_HOST);
 					$template_conteudo .= "
-                              <a href='$elemento_link' target='_blank' class='fontstack-mono' title='$elemento_link'><i class='fad fa-external-link fa-fw fa-2x'></i> {$elemento_link_host}/...</a>
+                              <a href='$elemento_link' target='_blank' class='fontstack-mono' title='$elemento_link'><i class='fad fa-external-link fa-fw fa-lg'></i> {$elemento_link_host}/...</a>
                             ";
 					include 'templates/page_element.php';
 				}
@@ -1026,6 +1035,8 @@
 						$template_quill_initial_state = 'leitura';
 					} elseif ($pagina_tipo == 'sistema') {
 						$template_titulo = $pagina_translated['Aviso'];
+					} elseif ($pagina_subtipo == 'modelo') {
+						$template_titulo = $pagina_translated['Modelo'];
 					} else {
 						$template_titulo = $pagina_translated['Verbete'];
 					}
@@ -1485,6 +1496,7 @@
 				$template_modal_body_conteudo .= put_together_list_item('modal', '#modal_novo_curso', 'text-default', 'fad', 'fa-graduation-cap', $pagina_translated['Transformar em página inicial de curso'], false, false, 'list-group-item-action');
 				$template_modal_body_conteudo .= "</span>";
 				if ($user_id == 1) {
+					$load_change_into_model = true;
 					$template_modal_body_conteudo .= put_together_list_item('link_button', 'change_into_model', 'text-secondary', 'fad', 'fa-pen-nib', $pagina_translated['Change page modelo'], false, false, 'list-group-item-action');
 				}
 				$template_modal_body_conteudo .= "</ul>";
@@ -2384,6 +2396,13 @@
 		}
 		include 'templates/modal.php';
 	}
+
+	if ($pagina_subtipo == 'modelo') {
+	    $template_modal_div_id = 'modal_modelo_config';
+	    $template_modal_titulo = $pagina_translated['Configurar modelo'];
+	    $template_modal_body_conteudo = false;
+	    include 'templates/modal.php';
+    }
 
 	if ($carregar_modal_correcao == true) {
 		$loaded_correcao_form = true;

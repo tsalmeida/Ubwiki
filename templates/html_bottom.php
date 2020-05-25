@@ -1,99 +1,103 @@
 <?php
 
-if (!isset($verbete_vazio)) {
-    $verbete_vazio = false;
-}
-if (!isset($mdb_select)) {
-    $mdb_select = false;
-}
-if (!isset($gabarito)) {
-    $gabarito = false;
-}
-if (!isset($texto_editar_titulo)) {
-    $texto_editar_titulo = false;
-}
-if (!isset($etiquetas_bottom)) {
-    $etiquetas_bottom = false;
-}
-if (!isset($etiquetas_bottom_adicionar)) {
-    $etiquetas_bottom_adicionar = false;
-}
-if (!isset($biblioteca_bottom_adicionar)) {
-    $biblioteca_bottom_adicionar = false;
-}
-if (!isset($esconder_introducao)) {
-    $esconder_introducao = false;
-}
-if (!isset($sticky_toolbar)) {
-    $sticky_toolbar = false;
-}
-if (!isset($sistema_etiquetas_elementos)) {
-    $sistema_etiquetas_elementos = false;
-}
-if (!isset($sistema_etiquetas_topicos)) {
-    $sistema_etiquetas_topicos = false;
-}
-if (!isset($carregar_adicionar_materia)) {
-    $carregar_adicionar_materia = false;
-}
-if (!isset($carregar_adicionar_topico)) {
-    $carregar_adicionar_topico = false;
-}
-if (!isset($carregar_adicionar_subtopico)) {
-    $carregar_adicionar_subtopico = false;
-}
-if (!isset($carregar_convite)) {
-    $carregar_convite = false;
-}
-if (!isset($bottom_compartilhar_usuario)) {
-    $bottom_compartilhar_usuario = false;
-}
-if (!isset($esconder_botao_determinar_acesso)) {
-    $esconder_botao_determinar_acesso = false;
-}
-if (!isset($carregar_toggle_acervo)) {
-    $carregar_toggle_acervo = false;
-}
-if (!isset($carregar_toggle_paginas_livres)) {
-    $carregar_toggle_paginas_livres = false;
-}
-if (!isset($area_interesse_ativa)) {
-    $area_interesse_ativa = false;
-}
-if (!isset($carregar_remover_usuarios)) {
-    $carregar_remover_usuarios = false;
-}
-if (!isset($carregar_notificacoes)) {
-    $carregar_notificacoes = false;
-}
-if (!isset($carregar_controle_estado)) {
-    $carregar_controle_estado = false;
-}
-if (!isset($carregar_modal_login)) {
-    $carregar_modal_login = false;
-}
-if ($user_id == false) {
-    $carregar_modal_login = true;
-}
+	if (!isset($verbete_vazio)) {
+		$verbete_vazio = false;
+	}
+	if (!isset($mdb_select)) {
+		$mdb_select = false;
+	}
+	if (!isset($gabarito)) {
+		$gabarito = false;
+	}
+	if (!isset($texto_editar_titulo)) {
+		$texto_editar_titulo = false;
+	}
+	if (!isset($etiquetas_bottom)) {
+		$etiquetas_bottom = false;
+	}
+	if (!isset($etiquetas_bottom_adicionar)) {
+		$etiquetas_bottom_adicionar = false;
+	}
+	if (!isset($biblioteca_bottom_adicionar)) {
+		$biblioteca_bottom_adicionar = false;
+	}
+	if (!isset($esconder_introducao)) {
+		$esconder_introducao = false;
+	}
+	if (!isset($sticky_toolbar)) {
+		$sticky_toolbar = false;
+	}
+	if (!isset($sistema_etiquetas_elementos)) {
+		$sistema_etiquetas_elementos = false;
+	}
+	if (!isset($sistema_etiquetas_topicos)) {
+		$sistema_etiquetas_topicos = false;
+	}
+	if (!isset($carregar_adicionar_materia)) {
+		$carregar_adicionar_materia = false;
+	}
+	if (!isset($carregar_adicionar_topico)) {
+		$carregar_adicionar_topico = false;
+	}
+	if (!isset($carregar_adicionar_subtopico)) {
+		$carregar_adicionar_subtopico = false;
+	}
+	if (!isset($carregar_convite)) {
+		$carregar_convite = false;
+	}
+	if (!isset($bottom_compartilhar_usuario)) {
+		$bottom_compartilhar_usuario = false;
+	}
+	if (!isset($esconder_botao_determinar_acesso)) {
+		$esconder_botao_determinar_acesso = false;
+	}
+	if (!isset($carregar_toggle_acervo)) {
+		$carregar_toggle_acervo = false;
+	}
+	if (!isset($carregar_toggle_paginas_livres)) {
+		$carregar_toggle_paginas_livres = false;
+	}
+	if (!isset($area_interesse_ativa)) {
+		$area_interesse_ativa = false;
+	}
+	if (!isset($carregar_remover_usuarios)) {
+		$carregar_remover_usuarios = false;
+	}
+	if (!isset($carregar_notificacoes)) {
+		$carregar_notificacoes = false;
+	}
+	if (!isset($carregar_controle_estado)) {
+		$carregar_controle_estado = false;
+	}
+	if (!isset($carregar_modal_login)) {
+		$carregar_modal_login = false;
+	}
+	if ($user_id == false) {
+		$carregar_modal_login = true;
+	}
 
-if (!isset($quill_was_loaded)) {
-    $quill_was_loaded = false;
-}
+	if (!isset($quill_was_loaded)) {
+		$quill_was_loaded = false;
+	}
 
-if (!isset($hide_and_show_wallet_form)) {
-    $hide_and_show_wallet_form = false;
-}
-if (!isset($carregar_toggle_curso)) {
-    $carregar_toggle_curso = false;
-}
-if (!isset($pagina_padrao)) {
-    $pagina_padrao = false;
-}
-if (!isset($loaded_correcao_form)) {
-    $loaded_correcao_form = false;
-}
+	if (!isset($hide_and_show_wallet_form)) {
+		$hide_and_show_wallet_form = false;
+	}
+	if (!isset($carregar_toggle_curso)) {
+		$carregar_toggle_curso = false;
+	}
+	if (!isset($pagina_padrao)) {
+		$pagina_padrao = false;
+	}
+	if (!isset($loaded_correcao_form)) {
+		$loaded_correcao_form = false;
+	}
 
-echo "
+	if (!isset($load_change_into_model)) {
+		$load_change_into_model = false;
+	}
+
+	echo "
     <!-- Bootstrap tooltips -->
     <script type='text/javascript' src='js/popper.min.js'></script>
     <!-- Bootstrap core JavaScript -->
@@ -102,18 +106,18 @@ echo "
     <script type='text/javascript' src='js/mdb.min.js'></script>
   ";
 
-if ($mdb_select == true) {
-    echo "
+	if ($mdb_select == true) {
+		echo "
 			<script type='text/javascript'>
 				$(document).ready(function() {
 					$('.mdb-select').materialSelect()
 				});
 			</script>
 		";
-}
+	}
 
-if ($gabarito == true) {
-    echo "
+	if ($gabarito == true) {
+		echo "
 			<script type='text/javascript'>
 				$('#mostrar_gabarito').click(function () {
 					$('.list-group-item').removeClass('list-group-item-light');
@@ -121,12 +125,12 @@ if ($gabarito == true) {
 		    });
 			</script>
 		";
-}
+	}
 
 // esse mecanismo precisa ser dinâmico o bastante para que funcione tanto para etiquetas de
 // elementos quanto para etiquetas de tópicos
-if (($sistema_etiquetas_topicos == true) || ($sistema_etiquetas_elementos == true)) {
-    echo "
+	if (($sistema_etiquetas_topicos == true) || ($sistema_etiquetas_elementos == true)) {
+		echo "
 			<script type='text/javascript'>
 				$(document).on('click', '.adicionar_tag', function() {
 			      var this_id = $(this).attr('value');
@@ -148,9 +152,9 @@ if (($sistema_etiquetas_topicos == true) || ($sistema_etiquetas_elementos == tru
 			  });
 			</script>
 		";
-}
-if ($sistema_etiquetas_elementos == true) {
-    echo "
+	}
+	if ($sistema_etiquetas_elementos == true) {
+		echo "
 			<script type='text/javascript'>
 					$('#criar_referencia_form').hide();
 					$('#trigger_adicionar_video').click(function() {
@@ -270,9 +274,9 @@ if ($sistema_etiquetas_elementos == true) {
 					});
 			</script>
 		";
-}
-if ($carregar_adicionar_materia == true) {
-    echo "
+	}
+	if ($carregar_adicionar_materia == true) {
+		echo "
 			<script type='text/javascript'>
 				$('#trigger_buscar_materias').click(function() {
 				   var busca_materias = $('#buscar_materias').val();
@@ -324,9 +328,9 @@ if ($carregar_adicionar_materia == true) {
 			</script>
 			
 		";
-}
-if ($carregar_adicionar_topico == true) {
-    echo "
+	}
+	if ($carregar_adicionar_topico == true) {
+		echo "
 			<script type='text/javascript'>
 				$('#trigger_buscar_topicos').click(function() {
 				   var busca_topicos = $('#buscar_topicos').val();
@@ -378,9 +382,9 @@ if ($carregar_adicionar_topico == true) {
 			</script>
 			
 		";
-}
-if ($carregar_adicionar_subtopico == true) {
-    echo "
+	}
+	if ($carregar_adicionar_subtopico == true) {
+		echo "
 			<script type='text/javascript'>
 				$('#trigger_buscar_subtopicos').click(function() {
 				   var busca_subtopicos = $('#buscar_subtopicos').val();
@@ -432,9 +436,9 @@ if ($carregar_adicionar_subtopico == true) {
 			</script>
 			
 		";
-}
-if ($sistema_etiquetas_topicos == true) {
-    echo "
+	}
+	if ($sistema_etiquetas_topicos == true) {
+		echo "
       <script type='text/javascript'>
 				$('#trigger_buscar_etiquetas').click(function() {
 			      var busca_etiquetas = $('#buscar_etiquetas').val();
@@ -478,10 +482,10 @@ if ($sistema_etiquetas_topicos == true) {
 		  	});
       </script>
 	";
-}
+	}
 
-if ($esconder_introducao == true) {
-    echo "
+	if ($esconder_introducao == true) {
+		echo "
 			<script type='text/javascript'>
 				function escritorio_initial() {
 				    $('.esconder_sessao').hide();
@@ -531,18 +535,18 @@ if ($esconder_introducao == true) {
 				});
 			</script>
 		";
-}
-if ($sticky_toolbar == true) {
-    echo "
+	}
+	if ($sticky_toolbar == true) {
+		echo "
 			<script type='text/javascript'>
 				$(document).ready(function() {
 					$('.ql-toolbar').addClass('sticky-top grey lighten-4 text-white border rounded border-0 mt-1');
 		    });
 			</script>
 		";
-}
-if (isset($quill_extra_buttons)) {
-    echo "
+	}
+	if (isset($quill_extra_buttons)) {
+		echo "
 			<script type='text/javascript'>
 			 $(document).ready(function() {
 					var extra_buttons = \"$quill_extra_buttons\";
@@ -550,9 +554,9 @@ if (isset($quill_extra_buttons)) {
 	      });
 			</script>
 		";
-}
-if (isset($adicionar_tag_pagina)) {
-    echo "
+	}
+	if (isset($adicionar_tag_pagina)) {
+		echo "
 			<script type='text/javascript'>
 				$(document).on('click', '.adicionar_tag', function() {
 			      var this_id = $(this).attr('value');
@@ -568,10 +572,10 @@ if (isset($adicionar_tag_pagina)) {
 			  });
 			</script>
 		";
-}
+	}
 
-if ($carregar_convite == true) {
-    echo "
+	if ($carregar_convite == true) {
+		echo "
 			<script type='text/javascript'>
 				$(document).on('click', '#trigger_buscar_convidado', function() {
 				    convidado_busca = $('#apelido_convidado').val();
@@ -600,10 +604,10 @@ if ($carregar_convite == true) {
 				});
 			</script>
 		";
-}
+	}
 
-if ($bottom_compartilhar_usuario == true) {
-    echo "
+	if ($bottom_compartilhar_usuario == true) {
+		echo "
 		<script type='text/javascript'>
 		$(document).on('click', '#trigger_buscar_convidado_compartilhamento', function() {
 			convidado_busca_compartilhamento = $('#apelido_convidado_compartilhamento').val();
@@ -674,30 +678,30 @@ if ($bottom_compartilhar_usuario == true) {
 		});
 	</script>
 	";
-}
-if (isset($pagina_colaboracao)) {
-    if ($pagina_colaboracao != 'selecionada') {
-        echo "
+	}
+	if (isset($pagina_colaboracao)) {
+		if ($pagina_colaboracao != 'selecionada') {
+			echo "
 			<script type='text/javascript'>
 				$('.botao_determinar_colaboracao').hide();
 			</script>
 		";
-    }
-}
-if ($esconder_botao_determinar_acesso == true) {
-    echo "
+		}
+	}
+	if ($esconder_botao_determinar_acesso == true) {
+		echo "
 			<script type='text/javascript'>
 				$('.botao_determinar_acesso').hide();
 			</script>
 		";
-}
-if ($carregar_toggle_acervo == true) {
-    if ($item_no_acervo == true) {
-        $apagar_acervo_icone = "$('#adicionar_acervo').hide();";
-    } else {
-        $apagar_acervo_icone = "$('#remover_acervo').hide();";
-    }
-    echo "
+	}
+	if ($carregar_toggle_acervo == true) {
+		if ($item_no_acervo == true) {
+			$apagar_acervo_icone = "$('#adicionar_acervo').hide();";
+		} else {
+			$apagar_acervo_icone = "$('#remover_acervo').hide();";
+		}
+		echo "
 			<script type='text/javascript'>
 				$apagar_acervo_icone
 				acervo_item = $pagina_item_id;
@@ -723,14 +727,14 @@ if ($carregar_toggle_acervo == true) {
 				});
 			</script>
 		";
-}
-if ($carregar_toggle_paginas_livres == true) {
-    if ($area_interesse_ativa == true) {
-        $apagar_area_interesse_icone = "$('#adicionar_area_interesse').hide();";
-    } else {
-        $apagar_area_interesse_icone = "$('#remover_area_interesse').hide();";
-    }
-    echo "
+	}
+	if ($carregar_toggle_paginas_livres == true) {
+		if ($area_interesse_ativa == true) {
+			$apagar_area_interesse_icone = "$('#adicionar_area_interesse').hide();";
+		} else {
+			$apagar_area_interesse_icone = "$('#remover_area_interesse').hide();";
+		}
+		echo "
 			<script type='text/javascript'>
 			$apagar_area_interesse_icone
 			area_interesse_item = $pagina_item_id;
@@ -756,9 +760,9 @@ if ($carregar_toggle_paginas_livres == true) {
 			});
 			</script>
 		";
-}
-if ($carregar_remover_usuarios == true) {
-    echo "
+	}
+	if ($carregar_remover_usuarios == true) {
+		echo "
 			<script type='text/javascript'>
 				$(document).on('click', '.remover_membro_grupo', function() {
 					var membro_remover = $(this).attr('value');
@@ -777,23 +781,23 @@ if ($carregar_remover_usuarios == true) {
 				});
 			</script>
 		";
-}
-if ($carregar_notificacoes == true) {
-    echo "
+	}
+	if ($carregar_notificacoes == true) {
+		echo "
 			<script type='text/javascript'>
 			$(document).ready(function() {
 			";
-    if ($notificacao_ativa == true) {
-        echo "$('#artefato_notificar_inativo').addClass('hidden');";
-    } else {
-        echo "$('#artefato_notificar_ativo').addClass('hidden');";
-    }
-    if ($notificacao_email == true) {
-        echo "$('#artefato_nao_notificar_email').addClass('hidden');";
-    } else {
-        echo "$('#artefato_notificar_email').addClass('hidden');";
-    }
-    echo "
+		if ($notificacao_ativa == true) {
+			echo "$('#artefato_notificar_inativo').addClass('hidden');";
+		} else {
+			echo "$('#artefato_notificar_ativo').addClass('hidden');";
+		}
+		if ($notificacao_email == true) {
+			echo "$('#artefato_nao_notificar_email').addClass('hidden');";
+		} else {
+			echo "$('#artefato_notificar_email').addClass('hidden');";
+		}
+		echo "
 				});
 				$(document).on('click', '#trigger_notificar_ativo', function() {
 				    $('#notificacao_ativa').val(0);
@@ -827,9 +831,9 @@ if ($carregar_notificacoes == true) {
 				
 			</script>
 		";
-}
-if ($carregar_controle_estado == true) {
-    echo "
+	}
+	if ($carregar_controle_estado == true) {
+		echo "
 			<script type='text/javascript'>
 				$(document).on('click', '#trigger_estado_rascunho', function() {
 				    $.post('engine.php', {
@@ -861,10 +865,10 @@ if ($carregar_controle_estado == true) {
 				});
 			</script>
 		";
-}
-if ($carregar_modal_login == true) {
-    if (!isset($thinkific_email)) {
-        echo "
+	}
+	if ($carregar_modal_login == true) {
+		if (!isset($thinkific_email)) {
+			echo "
 			<script type='text/javascript'>
 				function isEmail(email) {
                   var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
@@ -954,10 +958,10 @@ if ($carregar_modal_login == true) {
                   });
 			</script>
 		";
-    } else {
-        $usuarios = $conn->query("SELECT id FROM Usuarios WHERE email = '$thinkific_email' AND senha IS NULL");
-        if ($usuarios->num_rows == 0) {
-            echo "
+		} else {
+			$usuarios = $conn->query("SELECT id FROM Usuarios WHERE email = '$thinkific_email' AND senha IS NULL");
+			if ($usuarios->num_rows == 0) {
+				echo "
 	            <script type='text/javascript'>
 	               $('#thinkific_senha_existe').show();
 	               $('#login_thinkific_email').val('$thinkific_email');
@@ -991,8 +995,8 @@ if ($carregar_modal_login == true) {
 	               });
                 </script>
 	        ";
-        } else {
-            echo "
+			} else {
+				echo "
                 <script type='text/javascript'>
                     $('#secao_login_thinkific_email').show();
                     $('#thinkific_transfer').show();
@@ -1035,11 +1039,11 @@ if ($carregar_modal_login == true) {
                     });
                 </script>
             ";
-        }
-    }
-}
-if (($pagina_tipo == 'ubwiki') || ($pagina_tipo == 'login')) {
-    echo "
+			}
+		}
+	}
+	if (($pagina_tipo == 'ubwiki') || ($pagina_tipo == 'login')) {
+		echo "
 		<script type=\"text/javascript\">
 		
         $('.icone_sobre_stuff').removeClass('hidden');
@@ -1100,10 +1104,10 @@ if (($pagina_tipo == 'ubwiki') || ($pagina_tipo == 'login')) {
 
     </script>
 		";
-}
+	}
 
-if ($quill_was_loaded == true) {
-    echo "
+	if ($quill_was_loaded == true) {
+		echo "
 			<script type='text/javascript'>
 				$('#quill_editor_anotacoes').keydown(function (e) {
 				    if (e.ctrlKey && e.keyCode == 13) {
@@ -1141,10 +1145,10 @@ if ($quill_was_loaded == true) {
 				
 			</script>
 		";
-}
+	}
 
-if ($pagina_tipo == 'curso') {
-    echo "
+	if ($pagina_tipo == 'curso') {
+		echo "
 			<script type='text/javascript'>
 				$(document).on('click', '#reveal_introduction', function() {
 				    $(this).addClass('hidden');
@@ -1152,19 +1156,19 @@ if ($pagina_tipo == 'curso') {
 				});
 			</script>
 		";
-}
+	}
 
 //navbar titlebar functionsbar
-if ($pagina_padrao == true) {
-    if (!isset($opcao_hide_navbar)) {
-        $opcao_hide_navbar = false;
-    }
-    if ($opcao_hide_navbar == true) {
-        $hide_bars = "$('#hide_bars').click();";
-    } else {
-        $hide_bars = false;
-    }
-    echo "
+	if ($pagina_padrao == true) {
+		if (!isset($opcao_hide_navbar)) {
+			$opcao_hide_navbar = false;
+		}
+		if ($opcao_hide_navbar == true) {
+			$hide_bars = "$('#hide_bars').click();";
+		} else {
+			$hide_bars = false;
+		}
+		echo "
         <script type='text/javascript'>
             $(document).on('click', '#hide_bars', function() {
                 $(this).addClass('hidden');
@@ -1181,9 +1185,9 @@ if ($pagina_padrao == true) {
             $hide_bars
         </script>
     ";
-}
-if ($carregar_toggle_curso == true) {
-    echo "
+	}
+	if ($carregar_toggle_curso == true) {
+		echo "
         <script type='text/javascript'>
             $(document).on('click', '#curso_aderir', function() {
                 $.post('engine.php', {
@@ -1207,10 +1211,10 @@ if ($carregar_toggle_curso == true) {
             });
         </script>
     ";
-}
+	}
 
-if ($pagina_tipo == 'escritorio') {
-    echo "
+	if ($pagina_tipo == 'escritorio') {
+		echo "
         <script type='text/javascript'>
             $(document).on('click', '#mostrar_formulario_codigo', function() {
                $(this).addClass('hidden');
@@ -1218,9 +1222,9 @@ if ($pagina_tipo == 'escritorio') {
             });
         </script>
     ";
-}
-if ($loaded_correcao_form == true) {
-    echo "
+	}
+	if ($loaded_correcao_form == true) {
+		echo "
         <script type='text/javascript'>
             var disable_submit = function() {
                 $('#trigger_review_recalc').removeClass('hidden');
@@ -1271,4 +1275,20 @@ if ($loaded_correcao_form == true) {
             })
         </script>
     ";
-}
+	}
+
+	if ($load_change_into_model == true) {
+		echo "
+		<script type='text/javascript'>
+			$(document).on('click', '#change_into_model', function() {
+			    $.post('engine.php', {
+			        'change_into_model_pagina_id': $pagina_id,
+			    }, function(data) {
+			        if (data != 0) {
+						window.location.reload(true);
+			        }
+			    })
+			});
+		</script>
+	";
+	}
