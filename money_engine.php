@@ -168,26 +168,33 @@
 
 		$sum = ($sum + $extension_price);
 
-		switch ($chat) {
-			case 'chat_20':
-				$sum = ($sum + 50);
-				break;
-			case 'chat_40':
-				$sum = ($sum + 100);
-				break;
-			case 'chat_60':
-				$sum = ($sum + 150);
-				break;
-			default:
-				break;
-		}
-		
 		$price = (int)($wordcount * $sum);
 		$price = (int)($price / 600);
 
 		if ($revisao_diplomata == 'revisao_diplomata') {
 			$price = ($price * 1.5);
 		}
+
+		switch ($chat) {
+			case 'chat_20':
+				$chat_price = 50;
+				break;
+			case 'chat_40':
+				$chat_price = 100;
+				break;
+			case 'chat_60':
+				$chat_price = 150;
+				break;
+			default:
+				$chat_price = 0;
+				break;
+		}
+
+		if ($revisao_diplomata == 'revisao_diplomata') {
+			$chat_price = ($chat_price * 2);
+		}
+
+		$price = ($price + $chat_price);
 
 		$price = floor($price);
 		return $price;
