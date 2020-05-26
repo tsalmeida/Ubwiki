@@ -565,7 +565,7 @@
 					$carregar_modal_correcao = true;
 					if ($texto_revisao_ativa == true) {
 						if ($user_revisor == true) {
-							$pencil_color1 = 'text-warning';
+							$pencil_color1 = 'text-info';
 						} else {
 							$pencil_color1 = 'text-muted';
 						}
