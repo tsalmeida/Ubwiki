@@ -568,11 +568,9 @@
 							$pencil_color1 = 'text-warning';
 						} else {
 							$pencil_color1 = 'text-muted';
-							$pencil_color2 = false;
 						}
 					} else {
-						$pencil_color1 = 'text-primary';
-						$pencil_color2 = "style='--fa-secondary-color: #ff3547;'";
+						$pencil_color1 = 'text-warning';
 					}
 					echo "<a id='carregar_modal_correcao' href='javascript:void(0);' class='$pencil_color1' data-toggle='modal' data-target='#modal_correcao' title='{$pagina_translated['Solicitar correção']}'><i class='fad fa-highlighter fa-fw fa-lg'></i></a>";
 				}
