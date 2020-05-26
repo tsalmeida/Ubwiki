@@ -139,10 +139,6 @@
 //		error_log("$wordcount $extension $grade $chat $emphasis $revisao_diplomata");
 
 		$sum = (int)0;
-		
-		if ($grade == 'with_grade') {
-			$sum = ($sum + 15);
-		}
 
 		//preços para o tipo mais 'simples' de correção: conteúdo.
 		$simplified = 65;
@@ -195,8 +191,12 @@
 		}
 
 		$price = ($price + $chat_price);
-
 		$price = floor($price);
+
+		if ($grade == 'with_grade') {
+			$price = ($price + 15);
+		}
+
 		return $price;
 	}
 	
