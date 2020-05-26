@@ -565,8 +565,7 @@
 					$carregar_modal_correcao = true;
 					if ($texto_revisao_ativa == true) {
 						if ($user_revisor == true) {
-							$pencil_color1 = 'text-success';
-							$pencil_color2 = "style='--fa-secondary-color: #ff3547;'";
+							$pencil_color1 = 'text-warning';
 						} else {
 							$pencil_color1 = 'text-muted';
 							$pencil_color2 = false;
@@ -575,7 +574,7 @@
 						$pencil_color1 = 'text-primary';
 						$pencil_color2 = "style='--fa-secondary-color: #ff3547;'";
 					}
-					echo "<a id='carregar_modal_correcao' href='javascript:void(0);' class='$pencil_color1' data-toggle='modal' data-target='#modal_correcao' title='{$pagina_translated['Solicitar correção']}'><i class='fad fa-pencil-alt fa-fw fa-lg' $pencil_color2></i></a>";
+					echo "<a id='carregar_modal_correcao' href='javascript:void(0);' class='$pencil_color1' data-toggle='modal' data-target='#modal_correcao' title='{$pagina_translated['Solicitar correção']}'><i class='fad fa-highlighter fa-fw fa-lg'></i></a>";
 				}
 				if (($pagina_tipo == 'curso') && ($pagina_curso_user_id == $user_id)) {
 					$carregar_adicionar_materia = true;

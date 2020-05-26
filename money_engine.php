@@ -118,13 +118,7 @@
 		$recalc_reviewer_chat = $_POST['recalc_reviewer_chat'];
 		$recalc_revisao_diplomata = $_POST['recalc_revisao_diplomata'];
 		$recalc_pagina_info = return_pagina_info($recalc_review_pagina_id);
-		$recalc_pagina_tipo = $recalc_pagina_info[2];
-		if ($recalc_pagina_tipo == 'texto') {
-			$recalc_texto_tipo = 'anotacoes';
-		} else {
-			$recalc_texto_tipo = 'verbete';
-		}
-		$recalc_pagina_texto_id = return_texto_id($recalc_pagina_tipo, $recalc_texto_tipo, $recalc_review_pagina_id, $user_id);
+		$recalc_pagina_texto_id = $recalc_pagina_info[1];
 		$recalc_pagina_verbete_texto = return_verbete_text($recalc_pagina_texto_id);
 		$recalc_pagina_verbete_texto_word_count = str_word_count($recalc_pagina_verbete_texto);
 		$recalc_price = calculate_review_price($recalc_pagina_verbete_texto_word_count, $recalc_extension, $recalc_review_grade, $recalc_reviewer_chat, $recalc_reviewer_choice, $recalc_revisao_diplomata);
