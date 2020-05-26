@@ -1231,16 +1231,7 @@
                 $('#trigger_review_send').addClass('hidden');
                 $('#trigger_review_send').prop('disabled', true);
             }
-            $(document).on('click', '#carregar_modal_correcao', function() {
-                disable_submit();
-            })
-            $(document).on('click', '.disable_submit', function() {
-                disable_submit();
-            })
-            $(document).on('click', '#trigger_review_recalc', function() {
-                $(this).addClass('hidden');
-                $('#trigger_review_send').removeClass('hidden');
-                $('#trigger_review_send').prop('disabled', false);
+            var recalc_review = function() {
                 if ($('#review_grade').is(':checked')) {
                     review_grade = 'with_grade';
                 } else {
@@ -1272,6 +1263,20 @@
                         $('#review_wordcount').append(new_wordcount);
                     }
                 })
+            }
+            $(document).on('click', '#carregar_modal_correcao', function() {
+                recalc_review();
+                disable_submit();
+            })
+            $(document).on('click', '.disable_submit', function() {
+                recalc_review();
+                disable_submit();
+            })
+            $(document).on('click', '#trigger_review_recalc', function() {
+                recalc_review();
+                $(this).addClass('hidden');
+                $('#trigger_review_send').removeClass('hidden');
+                $('#trigger_review_send').prop('disabled', false);
             })
         </script>
     ";
