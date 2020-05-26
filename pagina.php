@@ -2409,7 +2409,7 @@
 		if ($texto_revisao_ativa == false) {
 			$template_modal_titulo = $pagina_translated['Solicitar correção'];
 			$pagina_texto_wordcount = str_word_count($texto_verbete_text);
-			$revision_price = calculate_review_price($pagina_texto_wordcount, 'simplified', 'no_grade', 'no_chat', 'enfase_forma', 'revisao_diplomata');
+			$revision_price = calculate_review_price($pagina_texto_wordcount, 'simplified', 'no_grade', 'with_chat', 'enfase_forma', 'revisao_diplomata');
 			if ($user_wallet >= $revision_price) {
 				$button_disabled = false;
 			} else {
@@ -2448,7 +2448,7 @@
                 </div>
                 <p class='mb-1 mt-2'><strong>{$pagina_translated['Incluir uma nota aproximada?']}</strong></p>
                 <div class='form-check'>
-                    <input type='checkbox' id='review_grade' name='review_grade' class='disable_submit form-check-input'>
+                    <input type='checkbox' id='review_grade' name='review_grade' class='disable_submit form-check-input' checked>
                     <label for='review_grade' class='form-check-label'>{$pagina_translated['review grade']}</label>
                 </div>
                 <p class='mb-1 mt-2'><strong>{$pagina_translated['Incluir conversa com o revisor:']}</strong></p>
