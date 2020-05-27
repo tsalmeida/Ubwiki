@@ -97,6 +97,10 @@
 		$load_change_into_model = false;
 	}
 
+	if (!isset($open_review_modal)) {
+		$open_review_modal = false;
+	}
+
 	echo "
     <!-- Bootstrap tooltips -->
     <script type='text/javascript' src='js/popper.min.js'></script>
@@ -1296,4 +1300,12 @@
 			});
 		</script>
 	";
+	}
+
+	if ($open_review_modal == true) {
+		echo "
+			<script>
+				$('#carregar_modal_correcao').click();
+			</script>
+		";
 	}

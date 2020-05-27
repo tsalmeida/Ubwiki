@@ -356,6 +356,9 @@
 		if ($texto_page_id === 0) {
 			$texto_editar_titulo = true;
 		}
+		if (isset($_GET['corr'])) {
+			$open_review_modal = true;
+		}
 	} elseif ($pagina_tipo == 'secao') {
 		$pagina_original_info = return_pagina_info($pagina_item_id);
 		$pagina_original_compartilhamento = $pagina_original_info[4];

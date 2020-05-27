@@ -154,8 +154,9 @@
 	
 	if ($template_quill_meta_tipo == 'anotacoes') {
 		$template_botoes .= "
-			<a href='javascript:void(0);' id='esconder_coluna_esquerda' title='Expandir' class='text-primary'><i class='fad fa-arrow-alt-square-left fa-fw'></i></a>
-    	<a href='javascript:void(0);' id='mostrar_coluna_esquerda' title='Comprimir' class='text-primary'><i class='fad fa-arrow-alt-square-right fa-fw'></i></a>
+			<a href='pagina.php?texto_id=$quill_texto_id&corr=1' class='text-warning' title='{$pagina_translated['review']}'><i class='fad fa-highlighter fa-fw'></i></a>
+			<a href='javascript:void(0);' id='esconder_coluna_esquerda' title='{$pagina_translated['expand']}' class='text-primary'><i class='fad fa-arrow-alt-square-left fa-fw'></i></a>
+    		<a href='javascript:void(0);' id='mostrar_coluna_esquerda' title='{$pagina_translated['compress']}' class='text-primary'><i class='fad fa-arrow-alt-square-right fa-fw'></i></a>
 			<a href='pagina.php?texto_id=$quill_texto_id' id='compartilhar_anotacao' title='{$pagina_translated['Página deste documento']}' class='text-primary'><i class='fad fa-external-link-square fa-fw'></i></a>
 		";
 	}

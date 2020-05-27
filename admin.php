@@ -12,6 +12,8 @@
 	    adicionar_chave_traducao('Modelo', 1);
 	    adicionar_chave_traducao('Sua versão', 1);
 	    adicionar_chave_traducao('Configurar modelo', 1);
+	    adicionar_chave_traducao('expand', 1);
+	    adicionar_chave_traducao('compress', 1);
 	}
 	
 	if (isset($_POST['novos_creditos'])) {
