@@ -209,6 +209,9 @@
         </div>
     </div>
 </div>
+<?php
+	include 'pagina/modal_languages.php';
+?>
 </body>
 <script type="text/javascript">
     $(document).on('click', '#trigger_emails_usuarios', function () {
