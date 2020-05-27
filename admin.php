@@ -9,11 +9,7 @@
 	}
 	
 	if (isset($_POST['trigger_atualizacao'])) {
-	    adicionar_chave_traducao('Modelo', 1);
-	    adicionar_chave_traducao('Sua versão', 1);
-	    adicionar_chave_traducao('Configurar modelo', 1);
-	    adicionar_chave_traducao('expand', 1);
-	    adicionar_chave_traducao('compress', 1);
+	    $conn->query("ALTER TABLE `Orders` ADD `option7` VARCHAR(255) NULL DEFAULT NULL AFTER `option6`;");
 	}
 	
 	if (isset($_POST['novos_creditos'])) {

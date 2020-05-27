@@ -2317,7 +2317,7 @@
 	function put_together_list_item()
 	{
 		/*
-		put_together_list_item('link', $link, $cor_icone_principal, $icone_prefixo, $icone_principal, $pagina_titulo,	$pagina_estado_cor, $pagina_estado_icone, $item_classes);
+		put_together_list_item('link', $link, $cor_icone_principal, $icone_prefixo, $icone_principal, $pagina_titulo, $pagina_estado_cor, $pagina_estado_icone, $item_classes);
 		*/
 
 		$args = func_get_args();
@@ -2590,4 +2590,19 @@
 			default:
 				return false;
 		}
+	}
+
+	function return_pagina_texto_id($pagina_id) {
+		if ($pagina_id == false) {
+			return false;
+		}
+		$pagina_info = return_pagina_info($pagina_id);
+		$pagina_tipo = $pagina_info[2];
+		if ($pagina_tipo == 'texto') {
+			$pagina_texto_id = $pagina_info[1];
+		}
+		else {
+			$pagina_texto_id = return_texto_id($pagina_tipo, 'verbete', $pagina_id, false);
+		}
+		return $pagina_texto_id;
 	}

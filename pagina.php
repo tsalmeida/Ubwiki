@@ -564,19 +564,6 @@
 						echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_produto_preco' class='text-warning mr-1' id='produto_preco' title='{$pagina_translated['Preço do produto']}'><i class='fad fa-usd-circle fa-fw fa-lg'></i></a>";
 					}
 				}
-				if ((($pagina_tipo == 'texto') && ($pagina_user_id == $user_id)) || (($texto_revisao_ativa == true) && ($user_revisor == true))) {
-					$carregar_modal_correcao = true;
-					if ($texto_revisao_ativa == true) {
-						if ($user_revisor == true) {
-							$pencil_color1 = 'text-info';
-						} else {
-							$pencil_color1 = 'text-muted';
-						}
-					} else {
-						$pencil_color1 = 'text-warning';
-					}
-					echo "<a id='carregar_modal_correcao' href='javascript:void(0);' class='$pencil_color1' data-toggle='modal' data-target='#modal_correcao' title='{$pagina_translated['Solicitar correção']}'><i class='fad fa-highlighter fa-fw fa-lg'></i></a>";
-				}
 				if (($pagina_tipo == 'curso') && ($pagina_curso_user_id == $user_id)) {
 					$carregar_adicionar_materia = true;
 					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_materia' class='text-success mr-1' id='add_materia' title='{$pagina_translated['Adicionar matéria']}'><i class='fad fa-plus-circle fa-lg fa-fw'></i></a>";
@@ -598,6 +585,19 @@
 					echo "
 				        <a href='javascript:void(0);' data-toggle='modal' data-target='#modal_modelo_config' class='text-secondary mr-1' title='{$pagina_translated['Configurar modelo']}'><i class='fad fa-pen-nib fa-fw fa-lg'></i></a>
 				    ";
+				}
+				if ((($pagina_tipo == 'texto') && ($pagina_user_id == $user_id)) || (($texto_revisao_ativa == true) && ($user_revisor == true)) || ($pagina_tipo == 'topico')) {
+					$carregar_modal_correcao = true;
+					if ($texto_revisao_ativa == true) {
+						if ($user_revisor == true) {
+							$pencil_color1 = 'text-info';
+						} else {
+							$pencil_color1 = 'text-muted';
+						}
+					} else {
+						$pencil_color1 = 'text-warning';
+					}
+					echo "<a id='carregar_modal_correcao' href='javascript:void(0);' class='$pencil_color1' data-toggle='modal' data-target='#modal_correcao' title='{$pagina_translated['Solicitar correção']}'><i class='fad fa-highlighter fa-fw fa-lg'></i></a>";
 				}
 			?>
         </div>
@@ -2411,7 +2411,13 @@
 		$template_modal_body_conteudo = false;
 		if ($texto_revisao_ativa == false) {
 			$template_modal_titulo = $pagina_translated['Solicitar correção'];
-			$pagina_texto_wordcount = str_word_count($texto_verbete_text);
+			if ($pagina_tipo == 'texto') {
+				$pagina_texto_wordcount = str_word_count($texto_verbete_text);
+			} elseif ($pagina_tipo == 'topico') {
+			    $topico_texto_info = return_texto_info($topico_texto_id);
+			    $topico_verbete_text = $topico_texto_info[6];
+			    $pagina_texto_wordcount = str_word_count($topico_verbete_text);
+            }
 			$revision_price = calculate_review_price($pagina_texto_wordcount, 'simplified', 'no_grade', 'with_chat', 'enfase_forma', 'revisao_diplomata');
 			if ($user_wallet >= $revision_price) {
 				$button_disabled = false;

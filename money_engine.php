@@ -117,8 +117,7 @@
 		$recalc_review_grade = $_POST['recalc_review_grade'];
 		$recalc_reviewer_chat = $_POST['recalc_reviewer_chat'];
 		$recalc_revisao_diplomata = $_POST['recalc_revisao_diplomata'];
-		$recalc_pagina_info = return_pagina_info($recalc_review_pagina_id);
-		$recalc_pagina_texto_id = $recalc_pagina_info[1];
+		$recalc_pagina_texto_id = return_pagina_texto_id($recalc_review_pagina_id);
 		$recalc_pagina_verbete_texto = return_verbete_text($recalc_pagina_texto_id);
 		$recalc_pagina_verbete_texto_word_count = str_word_count($recalc_pagina_verbete_texto);
 		$recalc_price = calculate_review_price($recalc_pagina_verbete_texto_word_count, $recalc_extension, $recalc_review_grade, $recalc_reviewer_chat, $recalc_reviewer_choice, $recalc_revisao_diplomata);
@@ -218,15 +217,8 @@
 		$new_review_comments = mysqli_real_escape_string($conn, $new_review_comments);
 		
 		$order_review_pagina_id = $_POST['order_review_pagina_id'];
-		$pagina_correcao_info = return_pagina_info($order_review_pagina_id);
-		$pagina_correcao_texto_id = $pagina_correcao_info[1];
-		$pagina_correcao_tipo = $pagina_correcao_info[2];
-		if ($pagina_correcao_tipo == 'texto') {
-			$correcao_template_id = 'anotacoes';
-		} else {
-			$correcao_template_id = 'verbete';
-		}
-		
+		$pagina_correcao_texto_id = return_pagina_texto_id($order_review_pagina_id);
+
 		if ($pagina_correcao_texto_id != false) {
 			$pagina_correcao_verbete_text = return_verbete_text($pagina_correcao_texto_id);
 			$pagina_correcao_wordcount = str_word_count($pagina_correcao_verbete_text);
@@ -238,7 +230,7 @@
 			    $query = prepare_query("INSERT INTO Transactions (user_id, direction, value, prevstate, endstate) VALUES ($user_id, 'negative', $review_price, $user_wallet, $user_end_state)");
 				$check = $conn->query($query);
 				if ($check == true) {
-				    $query = prepare_query("INSERT INTO Orders (tipo, user_id, pagina_id, option1, option2, option3, option4, option5, option6, comments) VALUES ('review', $user_id, '$order_review_pagina_id', '$pagina_correcao_wordcount', '$extension', '$review_grade', '$emphasis_chat', '$emphasis_choice', '$revisao_diplomata', '$new_review_comments')");
+				    $query = prepare_query("INSERT INTO Orders (tipo, user_id, pagina_id, option1, option2, option3, option4, option5, option6, option7, comments) VALUES ('review', $user_id, '$order_review_pagina_id', '$pagina_correcao_wordcount', '$extension', '$review_grade', '$emphasis_chat', '$emphasis_choice', '$revisao_diplomata', '$review_price', '$new_review_comments')");
 					$check = $conn->query($query);
 				}
 			}
