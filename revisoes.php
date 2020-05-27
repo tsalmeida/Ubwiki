@@ -48,7 +48,7 @@
                       $template_conteudo .= put_together_list_item('inactive', false, 'text-success', 'fab', 'fa-whatsapp', "<strong>Conversa:</strong> <span>$order_option4</span>", false, false, false);
                       $template_conteudo .= put_together_list_item('inactive', false, 'text-info', 'fad', 'fa-cube', "<strong>Ênfase:</strong> <span>$order_option5</span>", false, false, false);
                       $template_conteudo .= put_together_list_item('inactive', false, 'text-dark', 'fad', 'fa-user-tie', "<strong>Opção por diplomata:</strong> <span>$order_option6</span>", false, false, false);
-                      $template_conteudo .= put_together_list_item('inactive', false, 'text-success', 'fad', 'fa-usd-circle', "<strong>Preço:</strong> <span>$order_option7</span>", false, false, false);
+                      $template_conteudo .= put_together_list_item('inactive', false, 'text-success', 'fad', 'fa-usd-circle', "<strong>Preço:</strong> <span>R$ {$order_option7},00</span>", false, false, false);
                       $template_conteudo .= put_together_list_item('inactive', false, 'text-secondary', 'fad', 'fa-comment', "<strong>Comentários:</strong> <span>$order_comments</span>", false, false, false);
 
                       $template_conteudo .= return_list_item($order_pagina_id);
