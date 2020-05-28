@@ -2555,6 +2555,9 @@
 		}
 
 		$curso_titulo = return_pagina_titulo($curso_pagina_id);
+		if ($curso_titulo == false) {
+			return false;
+		}
 		$curso_texto_id = return_texto_id('curso', 'verbete', $curso_pagina_id, false);
 		$curso_verbete = return_verbete_html($curso_texto_id);
 		$curso_verbete = crop_text($curso_verbete, 400);

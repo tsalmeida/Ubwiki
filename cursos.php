@@ -30,6 +30,7 @@
 								$list_cursos_cards = return_curso_card($usuario_inscrito_curso_id, 'inscrito');
 							}
 						}
+
 					?>
         </div>
         <h2 class='text-muted my-5'><?php echo $pagina_translated['Cursos a que você tem acesso:']; ?></h2>
@@ -38,10 +39,11 @@
 					<?php
 						if ($usuario_cursos_nao_inscrito_disponiveis != false) {
 							foreach ($usuario_cursos_nao_inscrito_disponiveis as $list_cursos_disponiveis) {
-								$list_cursos_cards = return_curso_card($list_cursos_disponiveis, 'disponivel');
+							    $list_cursos_cards = return_curso_card($list_cursos_disponiveis, 'disponivel');
 							}
 						}
 					?>
+
         </div>
     </div>
 </div>
