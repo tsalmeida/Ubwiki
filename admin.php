@@ -9,7 +9,8 @@
 	}
 	
 	if (isset($_POST['trigger_atualizacao'])) {
-	    $conn->query("ALTER TABLE `Orders` ADD `option7` VARCHAR(255) NULL DEFAULT NULL AFTER `option6`;");
+	    $query = prepare_query("ALTER TABLE `Orders` ADD `option7` VARCHAR(255) NULL DEFAULT NULL AFTER `option6`;");
+	    $conn->query($query);
 	}
 	
 	if (isset($_POST['novos_creditos'])) {
@@ -22,22 +23,26 @@
 	}
 	
 	if (isset($_POST['trigger_atualizar_textos_size'])) {
-		$textos = $conn->query("SELECT id, verbete_content FROM Textos");
+	    $query = prepare_query("SELECT id, verbete_content FROM Textos");
+		$textos = $conn->query($query);
 		if ($textos->num_rows > 0) {
 			while ($texto = $textos->fetch_assoc()) {
 				$texto_id = $texto['id'];
 				$texto_verbete_content = $texto['verbete_content'];
 				$verbete_value = strlen($texto_verbete_content);
-				$conn->query("UPDATE Textos SET size = $verbete_value WHERE id = $texto_id");
+				$query = prepare_query("UPDATE Textos SET size = $verbete_value WHERE id = $texto_id");
+				$conn->query($query);
 			}
 		}
-		$textos = $conn->query("SELECT id, verbete_content FROM Textos_arquivo");
+		$query = prepare_query("SELECT id, verbete_content FROM Textos_arquivo");
+		$textos = $conn->query($query);
 		if ($textos->num_rows > 0) {
 			while ($texto = $textos->fetch_assoc()) {
 				$texto_id = $texto['id'];
 				$texto_verbete_content = $texto['verbete_content'];
 				$verbete_value = strlen($texto_verbete_content);
-				$conn->query("UPDATE Textos_arquivo SET size = $verbete_value WHERE id = $texto_id");
+				$query = prepare_query("UPDATE Textos_arquivo SET size = $verbete_value WHERE id = $texto_id");
+				$conn->query($query);
 			}
 		}
 	}
@@ -65,7 +70,8 @@
 	}
 	
 	if (isset($_POST['funcoes_gerais3'])) {
-		$cursos = $conn->query("SELECT id FROM Cursos");
+	    $query = prepare_query("SELECT id FROM Cursos");
+		$cursos = $conn->query($query);
 		if ($cursos->num_rows > 0) {
 			while ($curso = $cursos->fetch_assoc()) {
 				$find_curso_id = $curso['id'];
@@ -151,8 +157,9 @@
 						$template_titulo = 'Links para créditos gratuitos';
 						$template_conteudo = false;
 						$template_conteudo .= "<p>Próximos cinco créditos gratuitos (total de 300 originalmente disponíveis, cada um valendo 50 créditos).</p>";
-						
-						$creditos = $conn->query("SELECT codigo FROM Creditos WHERE id < 301 AND estado = 1 ORDER BY id");
+
+						$query = prepare_query("SELECT codigo FROM Creditos WHERE id < 301 AND estado = 1 ORDER BY id");
+						$creditos = $conn->query($query);
 						if ($creditos->num_rows > 0) {
 							$template_conteudo .= "<ul class='list-group'>";
 							$count = 0;

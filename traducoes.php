@@ -16,10 +16,12 @@
 		$traduzir_chave_id = $_POST['traduzir_chave_id'];
 		$traduzir_chave_string = $_POST['traduzir_chave_string'];
 		$traduzir_chave_string = mysqli_real_escape_string($conn, $traduzir_chave_string);
-		$conn->query("UPDATE Chaves_traduzidas set traducao = '$traduzir_chave_string' WHERE chave_id = $traduzir_chave_id AND lingua = '$traduzir'");
+		$query = prepare_query("UPDATE Chaves_traduzidas set traducao = '$traduzir_chave_string' WHERE chave_id = $traduzir_chave_id AND lingua = '$traduzir'");
+		$conn->query($query);
 		$update_check = $conn->affected_rows;
 		if ($update_check == 0) {
-			$conn->query("INSERT INTO Chaves_traduzidas (user_id, chave_id, lingua, traducao) VALUES ($user_id, $traduzir_chave_id, '$traduzir', '$traduzir_chave_string')");
+		    $query = prepare_query("INSERT INTO Chaves_traduzidas (user_id, chave_id, lingua, traducao) VALUES ($user_id, $traduzir_chave_id, '$traduzir', '$traduzir_chave_string')");
+			$conn->query($query);
 		}
 	}
 	
@@ -66,7 +68,8 @@
 							$template_id = 'traduzir_chaves';
 							$template_titulo = "Traduzir chaves: $traduzir";
 							$template_conteudo = false;
-							$chaves = $conn->query("SELECT chave_id, traducao FROM Chaves_traduzidas WHERE lingua = '$traduzir'");
+							$query = prepare_query("SELECT chave_id, traducao FROM Chaves_traduzidas WHERE lingua = '$traduzir'");
+							$chaves = $conn->query($query);
 							$chaves_traduzidas = array();
 							if ($chaves->num_rows > 0) {
 								while ($chave = $chaves->fetch_assoc()) {
@@ -76,7 +79,8 @@
 								}
 							}
 							$chaves_traduzidas_keys = array_keys($chaves_traduzidas);
-							$chaves = $conn->query("SELECT id, chave FROM Translation_chaves ORDER BY id DESC");
+							$query = prepare_query("SELECT id, chave FROM Translation_chaves ORDER BY id DESC");
+							$chaves = $conn->query($query);
 							if ($chaves->num_rows > 0) {
 								$template_conteudo .= "<ul class='list-group list-group-flush'>";
 								while ($chave = $chaves->fetch_assoc()) {

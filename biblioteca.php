@@ -59,11 +59,14 @@
 					<?php
 						$acervo = false;
 						if ($busca == '!all') {
-							$acervo = $conn->query("SELECT id, pagina_id, tipo, subtipo, titulo, autor, iframe FROM Elementos WHERE compartilhamento IS NULL AND estado = 1 ORDER BY titulo");
+						    $query = prepare_query("SELECT id, pagina_id, tipo, subtipo, titulo, autor, iframe FROM Elementos WHERE compartilhamento IS NULL AND estado = 1 ORDER BY titulo");
+							$acervo = $conn->query($query);
 						} elseif ($trigger_subcategoria != false) {
-							$acervo = $conn->query("SELECT id, pagina_id, tipo, subtipo, titulo, autor, iframe FROM Elementos WHERE compartilhamento IS NULL AND estado = 1 AND subtipo = '$trigger_subcategoria' ORDER BY titulo");
+						    $query = prepare_query("SELECT id, pagina_id, tipo, subtipo, titulo, autor, iframe FROM Elementos WHERE compartilhamento IS NULL AND estado = 1 AND subtipo = '$trigger_subcategoria' ORDER BY titulo");
+							$acervo = $conn->query($query);
 						} elseif ($busca != false) {
-							$acervo = $conn->query("SELECT id, pagina_id, tipo, subtipo, titulo, autor, iframe FROM Elementos WHERE compartilhamento IS NULL AND estado = 1 AND titulo LIKE '%$busca%' ORDER BY titulo");
+						    $query = prepare_query("SELECT id, pagina_id, tipo, subtipo, titulo, autor, iframe FROM Elementos WHERE compartilhamento IS NULL AND estado = 1 AND titulo LIKE '%$busca%' ORDER BY titulo");
+							$acervo = $conn->query($query);
 						}
 						if ($acervo != false) {
 							$template_id = 'biblioteca_virtual';
@@ -126,8 +129,9 @@
 								";
 							$template_conteudo_no_col = true;
 							$template_conteudo = false;
-							
-							$criados = $conn->query("SELECT id, pagina_id, titulo, autor, tipo, subtipo FROM Elementos WHERE compartilhamento IS NULL ORDER BY id DESC");
+
+							$query = prepare_query("SELECT id, pagina_id, titulo, autor, tipo, subtipo FROM Elementos WHERE compartilhamento IS NULL ORDER BY id DESC");
+							$criados = $conn->query($query);
 							if ($criados->num_rows > 0) {
 								$count = 0;
 								while ($criado = $criados->fetch_assoc()) {
@@ -181,7 +185,8 @@
 							$template_conteudo .= include 'templates/artefato_item.php';*/
 							
 							$elementos_contados = array();
-							$modificados = $conn->query("SELECT pagina_id, verbete_html FROM Textos_arquivo WHERE pagina_tipo = 'elemento' AND compartilhamento IS NULL ORDER BY id DESC");
+							$query = prepare_query("SELECT pagina_id, verbete_html FROM Textos_arquivo WHERE pagina_tipo = 'elemento' AND compartilhamento IS NULL ORDER BY id DESC");
+							$modificados = $conn->query($query);
 							if ($modificados->num_rows > 0) {
 								$count = 0;
 								while ($modificado = $modificados->fetch_assoc()) {

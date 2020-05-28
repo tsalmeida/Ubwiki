@@ -103,7 +103,8 @@
 		while ($etapa = $etapas->fetch_assoc()) {
 			$etapa_titulo = $etapa['titulo'];
 			$etapa_edicao_id = $etapa['edicao_id'];
-			$edicoes = $conn->query("SELECT ano, titulo FROM sim_edicoes WHERE id = $etapa_edicao_id");
+			$query = prepare_query("SELECT ano, titulo FROM sim_edicoes WHERE id = $etapa_edicao_id");
+			$edicoes = $conn->query($query);
 			while ($edicao = $edicoes->fetch_assoc()) {
 				$edicao_ano = $edicao['ano'];
 				$edicao_titulo = $edicao['titulo'];
@@ -127,7 +128,8 @@
 		$etapa_titulo = $etapa['titulo'];
 		$etapa_edicao_id = $etapa['edicao_id'];
 		mysqli_data_seek($edicoes, 0);
-		$edicoes = $conn->query("SELECT ano, titulo FROM sim_edicoes WHERE id = $etapa_edicao_id");
+		$query = prepare_query("SELECT ano, titulo FROM sim_edicoes WHERE id = $etapa_edicao_id");
+		$edicoes = $conn->query($query);
 		while ($edicao = $edicoes->fetch_assoc()) {
 			$edicao_ano = $edicao['ano'];
 			$edicao_titulo = $edicao['titulo'];
@@ -412,8 +414,9 @@
 	$sim_quill_id = 'questao_item5';
 	$sim_quill_form = include('templates/sim_quill.php');
 	$template_modal_body_conteudo .= $sim_quill_form;
-	
-	$questoes = $conn->query("SELECT edicao_ano, numero, materia, tipo FROM sim_questoes WHERE curso_id = $pagina_id AND origem = 1");
+
+	$query = prepare_query("SELECT edicao_ano, numero, materia, tipo FROM sim_questoes WHERE curso_id = $pagina_id AND origem = 1");
+	$questoes = $conn->query($query);
 	if ($questoes->num_rows > 0) {
 		$template_modal_body_conteudo .= "
 			<h3 class='mt-3'>Questões registradas para o $pagina_curso_sigla</h3>

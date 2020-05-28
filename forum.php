@@ -89,8 +89,10 @@
 		} else {
 			$forum_topico_id_novo = $forum_topico_id;
 		}
-		$conn->query("INSERT INTO Forum (user_id, pagina_id, pagina_tipo, topico_id, tipo, comentario_text, familia0, familia1, familia2, familia3, familia4, familia5, familia6, familia7) VALUES ($user_id, $pagina_id, '$pagina_tipo', $forum_topico_id_novo, 'comentario', '$novo_comentario', '$familia0', $familia1, $familia2, $familia3, $familia4, $familia5, $familia6, $familia7)");
-		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina, extra) VALUES ($user_id, $pagina_id, 'forum', $pagina_tipo)");
+		$query = prepare_query("INSERT INTO Forum (user_id, pagina_id, pagina_tipo, topico_id, tipo, comentario_text, familia0, familia1, familia2, familia3, familia4, familia5, familia6, familia7) VALUES ($user_id, $pagina_id, '$pagina_tipo', $forum_topico_id_novo, 'comentario', '$novo_comentario', '$familia0', $familia1, $familia2, $familia3, $familia4, $familia5, $familia6, $familia7)");
+		$conn->query($query);
+		$query = prepare_query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina, extra) VALUES ($user_id, $pagina_id, 'forum', $pagina_tipo)");
+		$conn->query($query);
 		$nao_contar = true;
 	}
 	
@@ -98,15 +100,18 @@
 		$novo_topico_titulo = $_POST['novo_topico_titulo'];
 		$novo_topico_titulo = mysqli_real_escape_string($conn, $novo_topico_titulo);
 		$novo_topico_titulo = strip_tags($novo_topico_titulo, false);
-		$conn->query("INSERT INTO Forum (user_id, pagina_id, pagina_tipo, tipo, comentario_text, familia0, familia1, familia2, familia3, familia4, familia5, familia6, familia7) VALUES ($user_id, $pagina_id, '$pagina_tipo', 'topico', '$novo_topico_titulo', '$familia0', $familia1, $familia2, $familia3, $familia4, $familia5, $familia6, $familia7)");
+		$query = prepare_query("INSERT INTO Forum (user_id, pagina_id, pagina_tipo, tipo, comentario_text, familia0, familia1, familia2, familia3, familia4, familia5, familia6, familia7) VALUES ($user_id, $pagina_id, '$pagina_tipo', 'topico', '$novo_topico_titulo', '$familia0', $familia1, $familia2, $familia3, $familia4, $familia5, $familia6, $familia7)");
+		$conn->query($query);
 		$novo_topico_id = $conn->insert_id;
 		if ($_POST['novo_topico_texto'] != false) {
 			$novo_topico_comentario = $_POST['novo_topico_texto'];
 			$novo_topico_comentario = mysqli_real_escape_string($conn, $novo_topico_comentario);
 			$novo_topico_comentario = strip_tags($novo_topico_comentario, false);
-			$conn->query("INSERT INTO Forum (user_id, pagina_id, pagina_tipo, tipo, topico_id, comentario_text, familia0, familia1, familia2, familia3, familia4, familia5, familia6, familia7) VALUES ($user_id, $pagina_id, '$pagina_tipo', 'comentario', $novo_topico_id, '$novo_topico_comentario', '$familia0', $familia1, $familia2, $familia3, $familia4, $familia5, $familia6, $familia7)");
+			$query = prepare_query("INSERT INTO Forum (user_id, pagina_id, pagina_tipo, tipo, topico_id, comentario_text, familia0, familia1, familia2, familia3, familia4, familia5, familia6, familia7) VALUES ($user_id, $pagina_id, '$pagina_tipo', 'comentario', $novo_topico_id, '$novo_topico_comentario', '$familia0', $familia1, $familia2, $familia3, $familia4, $familia5, $familia6, $familia7)");
+			$conn->query($query);
 		} else {
-			$conn->query("INSERT INTO Forum (user_id, pagina_id, pagina_tipo, tipo, topico_id, comentario_text, familia0, familia1, familia2, familia3, familia4, familia5, familia6, familia7) VALUES ($user_id, $pagina_id, '$pagina_tipo', 'comentario', $novo_topico_id, FALSE, '$familia0', $familia1, $familia2, $familia3, $familia4, $familia5, $familia6, $familia7)");
+		    $query = prepare_query("INSERT INTO Forum (user_id, pagina_id, pagina_tipo, tipo, topico_id, comentario_text, familia0, familia1, familia2, familia3, familia4, familia5, familia6, familia7) VALUES ($user_id, $pagina_id, '$pagina_tipo', 'comentario', $novo_topico_id, FALSE, '$familia0', $familia1, $familia2, $familia3, $familia4, $familia5, $familia6, $familia7)");
+			$conn->query($query);
 		}
 		header("Location:forum.php?pagina_id=$pagina_id&topico_id=$novo_topico_id");
 	}
@@ -198,7 +203,8 @@
 										array_push($debates_lista, $debate_id);
 									}
 								}
-								$debates = $conn->query("SELECT id, comentario_text, user_id, pagina_id FROM Forum WHERE id = $debate_id");
+								$query = prepare_query("SELECT id, comentario_text, user_id, pagina_id FROM Forum WHERE id = $debate_id");
+								$debates = $conn->query($query);
 								if ($debates->num_rows > 0) {
 									while ($debate = $debates->fetch_assoc()) {
 										$lista_debate_pagina_id = $debate['pagina_id'];
@@ -241,12 +247,14 @@
 						
 						$load_pagina_id = $pagina_id;
 						if ($forum_topico_id != false) {
-							$comments = $conn->query("SELECT timestamp, comentario_text, user_id FROM Forum WHERE pagina_id = $load_pagina_id AND topico_id = $forum_topico_id AND tipo = 'comentario' ORDER BY id");
+						    $query = prepare_query("SELECT timestamp, comentario_text, user_id FROM Forum WHERE pagina_id = $load_pagina_id AND topico_id = $forum_topico_id AND tipo = 'comentario' ORDER BY id");
+							$comments = $conn->query($query);
 						} else {
 							if ($topico_geral_id != false) {
 								$load_pagina_id = $topico_geral_id;
 							}
-							$comments = $conn->query("SELECT timestamp, comentario_text, user_id FROM Forum WHERE pagina_id = $load_pagina_id AND topico_id IS NULL AND tipo = 'comentario' ORDER BY id");
+							$query = prepare_query("SELECT timestamp, comentario_text, user_id FROM Forum WHERE pagina_id = $load_pagina_id AND topico_id IS NULL AND tipo = 'comentario' ORDER BY id");
+							$comments = $conn->query($query);
 						}
 						
 						if ($load_pagina_id != $pagina_id) {

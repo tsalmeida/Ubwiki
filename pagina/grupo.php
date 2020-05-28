@@ -51,8 +51,9 @@
 	$template_conteudo = false;
 	$template_conteudo_class = 'justify-content-start';
 	$template_conteudo_no_col = true;
-	
-	$itens = $conn->query("SELECT criacao, user_id, item_id, item_tipo FROM Compartilhamento WHERE recipiente_id = $grupo_id AND compartilhamento = 'grupo'");
+
+	$query = prepare_query("SELECT criacao, user_id, item_id, item_tipo FROM Compartilhamento WHERE recipiente_id = $grupo_id AND compartilhamento = 'grupo'");
+	$itens = $conn->query($query);
 	if ($itens->num_rows > 0) {
 		while ($item = $itens->fetch_assoc()) {
 			$item_criacao = $item['criacao'];

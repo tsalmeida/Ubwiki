@@ -1,5 +1,6 @@
 <?php
-	$pagina_elementos = $conn->query("SELECT DISTINCT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'referencia' AND estado = 1");
+	$query = prepare_query("SELECT DISTINCT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'referencia' AND estado = 1");
+	$pagina_elementos = $conn->query($query);
 	if ($pagina_elementos->num_rows > 0) {
 		$template_id = 'leia_mais';
 		$template_titulo = $pagina_translated['Leia mais'];

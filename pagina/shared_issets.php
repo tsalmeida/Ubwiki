@@ -1,7 +1,6 @@
 <?php
 	
 	if (isset($_POST['nova_imagem_titulo'])) {
-		error_log('this happened also');
 		$nova_imagem_titulo = $_POST['nova_imagem_titulo'];
 		$nova_imagem_subtipo = $_POST['nova_imagem_subtipo'];
 		$nova_imagem_titulo = mysqli_real_escape_string($conn, $nova_imagem_titulo);
@@ -35,7 +34,8 @@
 				}
 			}
 		}
-		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $pagina_id, '$pagina_tipo', 'adicionar_imagem')");
+		$query = prepare_query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $pagina_id, '$pagina_tipo', 'adicionar_imagem')");
+		$conn->query($query);
 		$nao_contar = true;
 	}
 	
@@ -47,11 +47,13 @@
 			$novo_video_autor = $novo_video_data['author_name'];
 			$novo_video_thumbnail = $novo_video_data['thumbnail_url'];
 			$novo_video_iframe = $novo_video_data['html'];
-			$videos = $conn->query("SELECT id FROM Elementos WHERE link = '$novo_video_link'");
+			$query = prepare_query("SELECT id FROM Elementos WHERE link = '$novo_video_link'");
+			$videos = $conn->query($query);
 			if ($videos->num_rows > 0) {
 				while ($video = $videos->fetch_assoc()) {
 					$video_id = $video['id'];
-					$conn->query("INSERT INTO Paginas_elementos (pagina_id, elemento_id, tipo, user_id) VALUES ($pagina_id, $video_id, 'video', $user_id)");
+					$query = prepare_query("INSERT INTO Paginas_elementos (pagina_id, elemento_id, tipo, user_id) VALUES ($pagina_id, $video_id, 'video', $user_id)");
+					$conn->query($query);
 					$video_etiqueta_id = return_elemento_etiqueta_id($video_id);
 				}
 			} else {
@@ -61,12 +63,15 @@
 				$novo_video_autor = mysqli_real_escape_string($conn, $novo_video_autor);
 				$novo_video_iframe = mysqli_real_escape_string($conn, $novo_video_iframe);
 				$novo_video_etiqueta_id = $novo_video_etiqueta[0];
-				$conn->query("INSERT INTO Elementos (etiqueta_id, tipo, subtipo, titulo, autor, link, iframe, arquivo, user_id) VALUES ($novo_video_etiqueta_id, 'video', 'youtube', '$novo_video_titulo', '$novo_video_autor', '$novo_video_link', '$novo_video_iframe', '$novo_youtube_thumbnail', $user_id)");
+				$query = prepare_query("INSERT INTO Elementos (etiqueta_id, tipo, subtipo, titulo, autor, link, iframe, arquivo, user_id) VALUES ($novo_video_etiqueta_id, 'video', 'youtube', '$novo_video_titulo', '$novo_video_autor', '$novo_video_link', '$novo_video_iframe', '$novo_youtube_thumbnail', $user_id)");
+				$conn->query($query);
 				$novo_video_elemento_id = $conn->insert_id;
-				$conn->query("INSERT INTO Paginas_elementos (pagina_id, elemento_id, tipo, user_id) VALUES ($pagina_id, $novo_video_elemento_id, 'video', $user_id)");
+				$query = prepare_query("INSERT INTO Paginas_elementos (pagina_id, elemento_id, tipo, user_id) VALUES ($pagina_id, $novo_video_elemento_id, 'video', $user_id)");
+				$conn->query($query);
 			}
 		}
-		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $pagina_id, '$pagina_tipo', 'adicionar_video')");
+		$query = prepare_query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $pagina_id, '$pagina_tipo', 'adicionar_video')");
+		$conn->query($query);
 		$nao_contar = true;
 	}
 	
@@ -74,9 +79,11 @@
 		$pagina_novo_titulo = $_POST['pagina_novo_titulo'];
 		$pagina_novo_titulo = mysqli_real_escape_string($conn, $pagina_novo_titulo);
 		if ($pagina_tipo == 'texto') {
-			$conn->query("UPDATE Textos SET titulo = '$pagina_novo_titulo' WHERE id = $pagina_texto_id");
+			$query = prepare_query("UPDATE Textos SET titulo = '$pagina_novo_titulo' WHERE id = $pagina_texto_id");
+			$conn->query($query);
 		} else {
-			$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($pagina_id, '$pagina_tipo', 'titulo', '$pagina_novo_titulo', $user_id)");
+			$query = prepare_query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($pagina_id, '$pagina_tipo', 'titulo', '$pagina_novo_titulo', $user_id)");
+			$conn->query($query);
 		}
 		$pagina_titulo = $pagina_novo_titulo;
 		$texto_titulo = $pagina_novo_titulo;
@@ -88,12 +95,15 @@
 		$parse_url = parse_url($novo_wikipedia_url);
 		$parse_url_domain = $parse_url['host'];
 		$novo_wikipedia_titulo = $_POST['wikipedia_titulo'];
-		$conn->query("INSERT INTO Elementos (tipo, titulo, autor, autor_etiqueta_id, link, user_id) VALUES ('wikipedia', '$novo_wikipedia_titulo', 'Wikipedia', 807, '$novo_wikipedia_url', $user_id)");
+		$query = prepare_query("INSERT INTO Elementos (tipo, titulo, autor, autor_etiqueta_id, link, user_id) VALUES ('wikipedia', '$novo_wikipedia_titulo', 'Wikipedia', 807, '$novo_wikipedia_url', $user_id)");
+		$conn->query($query);
 		$novo_wiki_id = $conn->insert_id;
-		$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, extra, user_id) VALUES ($pagina_id, '$pagina_tipo', $novo_wiki_id, 'wikipedia', '$novo_wikipedia_titulo', $user_id)");
+		$query = prepare_query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, extra, user_id) VALUES ($pagina_id, '$pagina_tipo', $novo_wiki_id, 'wikipedia', '$novo_wikipedia_titulo', $user_id)");
+		$conn->query($query);
 	}
-	
-	$grupos_do_usuario = $conn->query("SELECT grupo_id FROM Membros WHERE membro_user_id = $user_id");
+
+	$query = prepare_query("SELECT grupo_id FROM Membros WHERE membro_user_id = $user_id");
+	$grupos_do_usuario = $conn->query($query);
 	
 	if ($pagina_tipo == 'questao') {
 		// ENUNCIADO
@@ -289,20 +299,26 @@
 		}*/
 		
 		if (isset($_POST['trigger_modal_questao_dados'])) {
-			$conn->query("UPDATE sim_questoes SET enunciado_html = '$quill_novo_questao_enunciado_html', enunciado_text = '$quill_novo_questao_enunciado_text', enunciado_content = '$quill_novo_questao_enunciado_content', item1_html = $quill_novo_questao_item1_html, item1_text = $quill_novo_questao_item1_text, item1_content = $quill_novo_questao_item1_content, item2_html = $quill_novo_questao_item2_html, item2_text = $quill_novo_questao_item2_text, item2_content = $quill_novo_questao_item2_content, item3_html = $quill_novo_questao_item3_html, item3_text = $quill_novo_questao_item3_text, item3_content = $quill_novo_questao_item3_content, item4_html = $quill_novo_questao_item4_html, item4_text = $quill_novo_questao_item4_text, item4_content = $quill_novo_questao_item4_content, item5_html = $quill_novo_questao_item5_html, item5_text = $quill_novo_questao_item5_text, item5_content = $quill_novo_questao_item5_content, item1_gabarito = $nova_questao_item1_gabarito, item2_gabarito = $nova_questao_item2_gabarito, item3_gabarito = $nova_questao_item3_gabarito, item4_gabarito = $nova_questao_item4_gabarito, item5_gabarito = $nova_questao_item5_gabarito WHERE id = $pagina_item_id");
+			$query = prepare_query("UPDATE sim_questoes SET enunciado_html = '$quill_novo_questao_enunciado_html', enunciado_text = '$quill_novo_questao_enunciado_text', enunciado_content = '$quill_novo_questao_enunciado_content', item1_html = $quill_novo_questao_item1_html, item1_text = $quill_novo_questao_item1_text, item1_content = $quill_novo_questao_item1_content, item2_html = $quill_novo_questao_item2_html, item2_text = $quill_novo_questao_item2_text, item2_content = $quill_novo_questao_item2_content, item3_html = $quill_novo_questao_item3_html, item3_text = $quill_novo_questao_item3_text, item3_content = $quill_novo_questao_item3_content, item4_html = $quill_novo_questao_item4_html, item4_text = $quill_novo_questao_item4_text, item4_content = $quill_novo_questao_item4_content, item5_html = $quill_novo_questao_item5_html, item5_text = $quill_novo_questao_item5_text, item5_content = $quill_novo_questao_item5_content, item1_gabarito = $nova_questao_item1_gabarito, item2_gabarito = $nova_questao_item2_gabarito, item3_gabarito = $nova_questao_item3_gabarito, item4_gabarito = $nova_questao_item4_gabarito, item5_gabarito = $nova_questao_item5_gabarito WHERE id = $pagina_item_id");
+			$conn->query($query);
 		}
 		
 		if (isset($_POST['nova_questao_texto_de_apoio_id'])) {
 			$nova_questao_texto_de_apoio_id = $_POST['nova_questao_texto_de_apoio_id'];
 			if ($nova_questao_texto_de_apoio_id == 'novo') {
 				$novo_texto_apoio_titulo = "Texto de apoio da questão $pagina_questao_numero";
-				$conn->query("INSERT INTO sim_textos_apoio (origem, curso_id, prova_id, titulo, enunciado_html, enunciado_text, enunciado_content, texto_apoio_html, texto_apoio_text, texto_apoio_content, user_id) VALUES ($pagina_questao_origem, $pagina_questao_curso_id, $pagina_questao_prova_id, '$novo_texto_apoio_titulo', false, false, false, false, false, false, $user_id)");
+				$query = prepare_query("INSERT INTO sim_textos_apoio (origem, curso_id, prova_id, titulo, enunciado_html, enunciado_text, enunciado_content, texto_apoio_html, texto_apoio_text, texto_apoio_content, user_id) VALUES ($pagina_questao_origem, $pagina_questao_curso_id, $pagina_questao_prova_id, '$novo_texto_apoio_titulo', false, false, false, false, false, false, $user_id)");
+				$conn->query($query);
 				$novo_texto_apoio_id = $conn->insert_id;
-				$conn->query("UPDATE sim_questoes SET texto_apoio_id = $novo_texto_apoio_id WHERE id = $pagina_item_id");
-				$conn->query("INSERT INTO Paginas (tipo, item_id) VALUES ('texto_apoio', $novo_texto_apoio_id)");
+				$query = prepare_query("UPDATE sim_questoes SET texto_apoio_id = $novo_texto_apoio_id WHERE id = $pagina_item_id");
+				$conn->query($query);
+				$query = prepare_query("INSERT INTO Paginas (tipo, item_id) VALUES ('texto_apoio', $novo_texto_apoio_id)");
+				$conn->query($query);
 				$novo_texto_apoio_pagina_id = $conn->insert_id;
-				$conn->query("UPDATE sim_textos_apoio SET pagina_id = $novo_texto_apoio_pagina_id WHERE id = $novo_texto_apoio_id");
-				$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($novo_texto_apoio_pagina_id, 'texto_apoio', 'titulo', '$novo_texto_apoio_titulo', $user_id)");
+				$query = prepare_query("UPDATE sim_textos_apoio SET pagina_id = $novo_texto_apoio_pagina_id WHERE id = $novo_texto_apoio_id");
+				$conn->query($query);
+				$query = prepare_query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($novo_texto_apoio_pagina_id, 'texto_apoio', 'titulo', '$novo_texto_apoio_titulo', $user_id)");
+				$conn->query($query);
 				
 				$pagina_questao_texto_apoio_id = $novo_texto_apoio_id;
 				$pagina_questao_texto_apoio_pagina_id = $novo_texto_apoio_pagina_id;
@@ -345,8 +361,9 @@
 				$pagina_texto_apoio_content = $_POST['quill_novo_texto_apoio_content'];
 				$pagina_texto_apoio_html = $_POST['quill_novo_texto_apoio_html'];
 			}
-			
-			$conn->query("UPDATE sim_textos_apoio SET titulo = '$novo_texto_apoio_titulo', enunciado_html = '$novo_texto_apoio_enunciado_html', enunciado_text = '$novo_texto_apoio_enunciado_text', enunciado_content = '$novo_texto_apoio_enunciado_content', texto_apoio_html = '$novo_texto_apoio_html', texto_apoio_text = '$novo_texto_apoio_text', texto_apoio_content = '$novo_texto_apoio_content' WHERE id = $pagina_item_id");
+
+			$query = prepare_query("UPDATE sim_textos_apoio SET titulo = '$novo_texto_apoio_titulo', enunciado_html = '$novo_texto_apoio_enunciado_html', enunciado_text = '$novo_texto_apoio_enunciado_text', enunciado_content = '$novo_texto_apoio_enunciado_content', texto_apoio_html = '$novo_texto_apoio_html', texto_apoio_text = '$novo_texto_apoio_text', texto_apoio_content = '$novo_texto_apoio_content' WHERE id = $pagina_item_id");
+			$conn->query($query);
 			
 		}
 	}
@@ -354,7 +371,8 @@
 	if ($pagina_tipo == 'escritorio') {
 		if (isset($_POST['aderir_novo_curso'])) {
 			$aderir_novo_curso = $_POST['aderir_novo_curso'];
-			$conn->query("INSERT INTO Opcoes (user_id, opcao_tipo, opcao) VALUES ($user_id, 'curso', $aderir_novo_curso)");
+			$query = prepare_query("INSERT INTO Opcoes (user_id, opcao_tipo, opcao) VALUES ($user_id, 'curso', $aderir_novo_curso)");
+			$conn->query($query);
 		}
 		
 		if (isset($_POST['novo_grupo_titulo'])) {

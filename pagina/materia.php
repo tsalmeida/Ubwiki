@@ -6,17 +6,20 @@
 	$template_botoes_padrao = false;
 	$template_conteudo = false;
 	$template_conteudo_no_col = true;
-	
-	$planos_estudos = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'plano de estudos'");
+
+	$query = prepare_query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'plano de estudos'");
+	$planos_estudos = $conn->query($query);
 	if ($planos_estudos->num_rows > 0) {
 		while ($plano_estudos = $planos_estudos->fetch_assoc()) {
 			$plano_estudos_pagina_id = $plano_estudos['elemento_id'];
 			break;
 		}
 	} else {
-		$conn->query("INSERT INTO Paginas (tipo, subtipo, item_id) VALUES ('pagina', 'Plano de estudos', $pagina_id)");
+		$query = prepare_query("INSERT INTO Paginas (tipo, subtipo, item_id) VALUES ('pagina', 'Plano de estudos', $pagina_id)");
+		$conn->query($query);
 		$plano_estudos_pagina_id = $conn->insert_id;
-		$conn->query("INSERT INTO Paginas_elementos (pagina_id, elemento_id, tipo) VALUES ($pagina_id, $plano_estudos_pagina_id, 'plano de estudos')");
+		$query = prepare_query("INSERT INTO Paginas_elementos (pagina_id, elemento_id, tipo) VALUES ($pagina_id, $plano_estudos_pagina_id, 'plano de estudos')");
+		$conn->query($query);
 	}
 	
 	$plano_estudos_pagina_info = return_pagina_info($plano_estudos_pagina_id);
@@ -28,7 +31,8 @@
 	}
 	
 	if ($user_id != false) {
-		$completos = $conn->query("SELECT pagina_id FROM Completed WHERE user_id = $user_id AND estado = 1");
+		$query = prepare_query("SELECT pagina_id FROM Completed WHERE user_id = $user_id AND estado = 1");
+		$completos = $conn->query($query);
 		$usuario_completos = array();
 		if ($completos->num_rows > 0) {
 			while ($completo = $completos->fetch_assoc()) {
@@ -42,8 +46,9 @@
 	}
 	
 	$completo_efeito = 'border border-success green-text';
-	
-	$topicos = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'topico'");
+
+	$query = prepare_query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'topico'");
+	$topicos = $conn->query($query);
 	if ($topicos->num_rows > 0) {
 		$template_conteudo .= "<ul class='list-group list-group-flush mt-2 min-w70 topicos_collapse collapse show'>";
 		$template_conteudo .= "<a href='pagina.php?pagina_id=$plano_estudos_pagina_id' class='mx-2'><li class='list-group-item list-group-item-action list-group-item-success d-flex justify-content-between'><span class='mr-5'>{$pagina_translated['Plano de estudos']}: $pagina_titulo</span><span><i class='$plano_estudos_pagina_estado_icone'></i></span></li></a>";
@@ -69,7 +74,8 @@
 			}
 			$template_conteudo .= "<ul class='list-group grey lighten-4 rounded p-2 mt-4'>";
 			$template_conteudo .= "<a href='pagina.php?pagina_id=$topico_pagina_id'><li class='list-group-item list-group-item-action list-group-item-primary d-flex justify-content-between $topico_completo'><span class='mr-5'>$topico_pagina_titulo</span><span><i class='$topico_pagina_estado_icone'></i></span></li></a>";
-			$subtopicos = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $topico_pagina_id AND tipo = 'subtopico'");
+			$query = prepare_query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $topico_pagina_id AND tipo = 'subtopico'");
+			$subtopicos = $conn->query($query);
 			if ($subtopicos->num_rows > 0) {
 				while ($subtopico = $subtopicos->fetch_assoc()) {
 					$subtopico_pagina_id = $subtopico['elemento_id'];
@@ -86,8 +92,9 @@
 						$subtopico_pagina_estado_icone = false;
 					}
 					$template_conteudo .= "<a href='pagina.php?pagina_id=$subtopico_pagina_id' class='spacing1 mt-1'><li class='list-group-item list-group-item-action list-group-item-secondary d-flex justify-content-between $topico_completo'><span class='mr-5'>$subtopico_pagina_titulo</span><span><i class='$subtopico_pagina_estado_icone'></i></span></li></a>";
-					
-					$subsubtopicos = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $subtopico_pagina_id AND tipo = 'subtopico'");
+
+					$query = prepare_query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $subtopico_pagina_id AND tipo = 'subtopico'");
+					$subsubtopicos = $conn->query($query);
 					if ($subsubtopicos->num_rows > 0) {
 						while ($subsubtopico = $subsubtopicos->fetch_assoc()) {
 							$subsubtopico_pagina_id = $subsubtopico['elemento_id'];
@@ -104,8 +111,9 @@
 								$subsubtopico_pagina_estado_icone = false;
 							}
 							$template_conteudo .= "<a href='pagina.php?pagina_id=$subsubtopico_pagina_id' class='mt-1 spacing2'><li class='list-group-item list-group-item-action d-flex justify-content-between $topico_completo'><span class='mr-5'>$subsubtopico_pagina_titulo</span><span><i class='$subsubtopico_pagina_estado_icone'></i></span></li></a>";
-							
-							$subsubsubtopicos = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $subsubtopico_pagina_id AND tipo = 'subtopico'");
+
+							$query = prepare_query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $subsubtopico_pagina_id AND tipo = 'subtopico'");
+							$subsubsubtopicos = $conn->query($query);
 							if ($subsubsubtopicos->num_rows > 0) {
 								while ($subsubsubtopico = $subsubsubtopicos->fetch_assoc()) {
 									$subsubsubtopico_pagina_id = $subsubsubtopico['elemento_id'];
@@ -122,8 +130,9 @@
 										$subsubsubtopico_pagina_estado_icone = false;
 									}
 									$template_conteudo .= "<a href='pagina.php?pagina_id=$subsubsubtopico_pagina_id' class='spacing3 mt-1'><li class='list-group-item list-group-item-action list-group-item-light d-flex justify-content-between $topico_completo'><em class='mr-5'>$subsubsubtopico_pagina_titulo</em><span><i class='$subsubsubtopico_pagina_estado_icone'></i></span></li></a>";
-									
-									$subsubsubsubtopicos = $conn->query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $subsubsubtopico_pagina_id AND tipo = 'subtopico'");
+
+									$query = prepare_query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $subsubsubtopico_pagina_id AND tipo = 'subtopico'");
+									$subsubsubsubtopicos = $conn->query($query);
 									if ($subsubsubsubtopicos->num_rows > 0) {
 										while ($subsubsubsubtopico = $subsubsubsubtopicos->fetch_assoc()) {
 											$subsubsubsubtopico_pagina_id = $subsubsubsubtopico['elemento_id'];

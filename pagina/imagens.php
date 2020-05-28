@@ -1,5 +1,6 @@
 <?php
-	$imagens = $conn->query("SELECT DISTINCT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'imagem' AND estado = 1");
+	$query = prepare_query("SELECT DISTINCT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'imagem' AND estado = 1");
+	$imagens = $conn->query($query);
 	$count = 0;
 	if ($imagens->num_rows > 0) {
 		$template_id = 'imagens';
@@ -12,7 +13,8 @@
 		}
 		while ($imagem = $imagens->fetch_assoc()) {
 			$elemento_id = $imagem['elemento_id'];
-			$elementos = $conn->query("SELECT titulo, arquivo, estado, compartilhamento, user_id, id FROM Elementos WHERE id = $elemento_id");
+			$query = prepare_query("SELECT titulo, arquivo, estado, compartilhamento, user_id, id FROM Elementos WHERE id = $elemento_id");
+			$elementos = $conn->query($query);
 			if ($elementos->num_rows > 0) {
 				while ($elemento = $elementos->fetch_assoc()) {
 					$imagem_elemento_id = $elemento['id'];

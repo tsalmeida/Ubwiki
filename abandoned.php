@@ -270,7 +270,8 @@
                 <select class='$select_classes' name='convidar_apelido' id='convidar_apelido' required>
                     <option value='' disabled selected>Apelido do convidado</option>
                                     ";
-		$usuarios = $conn->query("SELECT apelido, id FROM Usuarios WHERE apelido IS NOT NULL ORDER BY apelido");
+		$query = prepare_query("SELECT apelido, id FROM Usuarios WHERE apelido IS NOT NULL ORDER BY apelido");
+		$usuarios = $conn->query($query);
 		while ($usuario = $usuarios->fetch_assoc()) {
 			$usuario_apelido = $usuario['apelido'];
 			$usuario_id = $usuario['id'];

@@ -43,7 +43,8 @@
 		$thinkific_login = $_POST['thinkific_login'];
 		$thinkific_senha = $_POST['thinkific_senha'];
 		$encrypted = password_hash($thinkific_senha, PASSWORD_DEFAULT);
-		$set_password = $conn->query("UPDATE Usuarios SET senha = '$encrypted' WHERE email = '$thinkific_login'");
+		$query = prepare_query("UPDATE Usuarios SET senha = '$encrypted' WHERE email = '$thinkific_login'");
+		$set_password = $conn->query($query);
 		if ($set_password == true) {
 			echo true;
 		} else {
@@ -497,18 +498,6 @@
 		echo true;
 	}
 
-	/*	if (isset($_POST['acrescentar_referencia_id'])) {
-			$acrescentar_referencia_id = $_POST['acrescentar_referencia_id'];
-			$acrescentar_referencia_info = return_etiqueta_info($acrescentar_referencia_id);
-			$acrescentar_referencia_tipo = $acrescentar_referencia_info[1];
-			$acrescentar_referencia_elemento_id = return_etiqueta_elemento_id($acrescentar_referencia_id);
-			if ($conn->query("INSERT INTO Acervo (user_id, etiqueta_id, etiqueta_tipo, elemento_id) VALUES ($user_id, $acrescentar_referencia_id, '$acrescentar_referencia_tipo', $acrescentar_referencia_elemento_id)") === true) {
-				echo true;
-			} else {
-				echo false;
-			}
-		}*/
-
 	if (isset($_POST['busca_autores'])) {
 		$busca_autores = $_POST['busca_autores'];
 		$busca_resultados = false;
@@ -549,12 +538,15 @@
 			$curso_novo_subtopico_id = $_POST['curso_novo_subtopico_id'];
 			$curso_novo_subtopico_pagina_id = $_POST['curso_novo_subtopico_pagina_id'];
 			$curso_novo_subtopico_user_id = $_POST['curso_novo_subtopico_user_id'];
-			$conn->query("INSERT INTO Paginas (tipo, item_id, etiqueta_id, user_id) VALUES ('topico', $curso_novo_subtopico_pagina_id, $curso_novo_subtopico_id, $curso_novo_subtopico_user_id)");
+			$query = prepare_query("INSERT INTO Paginas (tipo, item_id, etiqueta_id, user_id) VALUES ('topico', $curso_novo_subtopico_pagina_id, $curso_novo_subtopico_id, $curso_novo_subtopico_user_id)");
+			$conn->query($query);
 			$novo_subtopico_pagina_id = $conn->insert_id;
 			$novo_subtopico_etiqueta_info = return_etiqueta_info($curso_novo_subtopico_id);
 			$novo_subtopico_pagina_titulo = $novo_subtopico_etiqueta_info[2];
-			$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, user_id) VALUES ($curso_novo_subtopico_pagina_id, 'topico', $novo_subtopico_pagina_id, 'subtopico', $curso_novo_subtopico_user_id)");
-			$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($novo_subtopico_pagina_id, 'pagina', 'titulo', '$novo_subtopico_pagina_titulo', $curso_novo_subtopico_user_id)");
+			$query = prepare_query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, user_id) VALUES ($curso_novo_subtopico_pagina_id, 'topico', $novo_subtopico_pagina_id, 'subtopico', $curso_novo_subtopico_user_id)");
+			$conn->query($query);
+			$query = prepare_query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($novo_subtopico_pagina_id, 'pagina', 'titulo', '$novo_subtopico_pagina_titulo', $curso_novo_subtopico_user_id)");
+			$conn->query($query);
 			echo true;
 		} else {
 			echo false;
@@ -566,12 +558,15 @@
 			$curso_nova_materia_id = $_POST['curso_nova_materia_id'];
 			$curso_nova_materia_pagina_id = $_POST['curso_nova_materia_pagina_id'];
 			$curso_nova_materia_user_id = $_POST['curso_nova_materia_user_id'];
-			$check = $conn->query("INSERT INTO Paginas (tipo, item_id, etiqueta_id, user_id) VALUES ('materia', $curso_nova_materia_pagina_id, $curso_nova_materia_id, $curso_nova_materia_user_id)");
+			$query = prepare_query("INSERT INTO Paginas (tipo, item_id, etiqueta_id, user_id) VALUES ('materia', $curso_nova_materia_pagina_id, $curso_nova_materia_id, $curso_nova_materia_user_id)");
+			$check = $conn->query($query);
 			$nova_materia_pagina_id = $conn->insert_id;
 			$nova_materia_etiqueta_info = return_etiqueta_info($curso_nova_materia_id);
 			$nova_materia_pagina_titulo = $nova_materia_etiqueta_info[2];
-			$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, user_id) VALUES ($curso_nova_materia_pagina_id, 'curso', $nova_materia_pagina_id, 'materia', $curso_nova_materia_user_id)");
-			$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($nova_materia_pagina_id, 'pagina', 'titulo', '$nova_materia_pagina_titulo', $curso_nova_materia_user_id)");
+			$query = prepare_query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, user_id) VALUES ($curso_nova_materia_pagina_id, 'curso', $nova_materia_pagina_id, 'materia', $curso_nova_materia_user_id)");
+			$conn->query($query);
+			$query = prepare_query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($nova_materia_pagina_id, 'pagina', 'titulo', '$nova_materia_pagina_titulo', $curso_nova_materia_user_id)");
+			$conn->query($query);
 
 			echo $check;
 		}
@@ -586,15 +581,19 @@
 		$criar_etiqueta_cor = $criar_etiqueta_cor_icone[0];
 		$criar_etiqueta_icone = $criar_etiqueta_cor_icone[1];
 
-		$conn->query("INSERT INTO Etiquetas (tipo, titulo, user_id) VALUES ('topico', '$criar_topico_titulo', $user_id)");
+		$query = prepare_query("INSERT INTO Etiquetas (tipo, titulo, user_id) VALUES ('topico', '$criar_topico_titulo', $user_id)");
+		$conn->query($query);
 		$nova_etiqueta_id = $conn->insert_id;
 
-		$check = $conn->query("INSERT INTO Paginas (tipo, item_id, etiqueta_id, user_id) VALUES ('topico', $criar_topico_page_id, $nova_etiqueta_id, $user_id)");
+		$query = prepare_query("INSERT INTO Paginas (tipo, item_id, etiqueta_id, user_id) VALUES ('topico', $criar_topico_page_id, $nova_etiqueta_id, $user_id)");
+		$check = $conn->query($query);
 		$novo_topico_pagina_id = $conn->insert_id;
 
-		$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, elemento_id, user_id) VALUES ($criar_topico_page_id, '$criar_topico_page_tipo', 'topico', $novo_topico_pagina_id, $user_id)");
+		$query = prepare_query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, elemento_id, user_id) VALUES ($criar_topico_page_id, '$criar_topico_page_tipo', 'topico', $novo_topico_pagina_id, $user_id)");
+		$conn->query($query);
 
-		$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($novo_topico_pagina_id, 'pagina', 'titulo', '$criar_topico_titulo', $user_id)");
+		$query = prepare_query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($novo_topico_pagina_id, 'pagina', 'titulo', '$criar_topico_titulo', $user_id)");
+		$conn->query($query);
 
 		echo $check;
 
@@ -608,15 +607,19 @@
 		$criar_etiqueta_cor = $criar_etiqueta_cor_icone[0];
 		$criar_etiqueta_icone = $criar_etiqueta_cor_icone[1];
 
-		$conn->query("INSERT INTO Etiquetas (tipo, titulo, user_id) VALUES ('topico', '$criar_subtopico_titulo', $user_id)");
+		$query = prepare_query("INSERT INTO Etiquetas (tipo, titulo, user_id) VALUES ('topico', '$criar_subtopico_titulo', $user_id)");
+		$conn->query($query);
 		$nova_etiqueta_id = $conn->insert_id;
 
-		$check = $conn->query("INSERT INTO Paginas (tipo, item_id, etiqueta_id, user_id) VALUES ('topico', $criar_subtopico_page_id, $nova_etiqueta_id, $user_id)");
+		$query = prepare_query("INSERT INTO Paginas (tipo, item_id, etiqueta_id, user_id) VALUES ('topico', $criar_subtopico_page_id, $nova_etiqueta_id, $user_id)");
+		$check = $conn->query($query);
 		$novo_subtopico_pagina_id = $conn->insert_id;
 
-		$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, elemento_id, user_id) VALUES ($criar_subtopico_page_id, '$criar_subtopico_page_tipo', 'subtopico', $novo_subtopico_pagina_id, $user_id)");
+		$query = prepare_query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, elemento_id, user_id) VALUES ($criar_subtopico_page_id, '$criar_subtopico_page_tipo', 'subtopico', $novo_subtopico_pagina_id, $user_id)");
+		$conn->query($query);
 
-		$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($novo_subtopico_pagina_id, 'pagina', 'titulo', '$criar_subtopico_titulo', $user_id)");
+		$query = prepare_query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($novo_subtopico_pagina_id, 'pagina', 'titulo', '$criar_subtopico_titulo', $user_id)");
+		$conn->query($query);
 
 		echo $check;
 
@@ -632,15 +635,19 @@
 		$criar_etiqueta_cor = $criar_etiqueta_cor_icone[0];
 		$criar_etiqueta_icone = $criar_etiqueta_cor_icone[1];
 
-		$conn->query("INSERT INTO Etiquetas (tipo, titulo, user_id) VALUES ('topico', '$criar_materia_titulo', $user_id)");
+		$query = prepare_query("INSERT INTO Etiquetas (tipo, titulo, user_id) VALUES ('topico', '$criar_materia_titulo', $user_id)");
+		$conn->query($query);
 		$nova_etiqueta_id = $conn->insert_id;
 
-		$check = $conn->query("INSERT INTO Paginas (tipo, item_id, etiqueta_id, user_id) VALUES ('materia', $criar_materia_page_id, $nova_etiqueta_id, $user_id)");
+		$query = prepare_query("INSERT INTO Paginas (tipo, item_id, etiqueta_id, user_id) VALUES ('materia', $criar_materia_page_id, $nova_etiqueta_id, $user_id)");
+		$check = $conn->query($query);
 		$nova_materia_pagina_id = $conn->insert_id;
 
-		$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, elemento_id, user_id) VALUES ($criar_materia_page_id, '$criar_materia_page_tipo', 'materia', $nova_materia_pagina_id, $user_id)");
+		$query = prepare_query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, elemento_id, user_id) VALUES ($criar_materia_page_id, '$criar_materia_page_tipo', 'materia', $nova_materia_pagina_id, $user_id)");
+		$conn->query($query);
 
-		$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($nova_materia_pagina_id, 'pagina', 'titulo', '$criar_materia_titulo', $user_id)");
+		$query = prepare_query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($nova_materia_pagina_id, 'pagina', 'titulo', '$criar_materia_titulo', $user_id)");
+		$conn->query($query);
 
 		echo $check;
 
@@ -681,9 +688,11 @@
 		$busca_resultados = false;
 		if ($busca_etiquetas_tipo == 'all') {
 			$query = prepare_query("SELECT id FROM Etiquetas WHERE titulo = '$busca_etiquetas'");
+			$query = prepare_query($query);
 			$etiqueta_exata = $conn->query($query);
 		} else {
 			$query = prepare_query("SELECT id FROM Etiquetas WHERE titulo = '$busca_etiquetas' AND tipo = '$busca_etiquetas_tipo'");
+			$query = prepare_query($query);
 			$etiqueta_exata = $conn->query($query);
 		}
 		if ($etiqueta_exata->num_rows == 0) {
@@ -691,9 +700,11 @@
 		}
 		if ($busca_etiquetas_tipo == 'all') {
 			$query = prepare_query("SELECT id, tipo, titulo FROM Etiquetas WHERE titulo LIKE '%{$busca_etiquetas}%'");
+			$query = prepare_query($query);
 			$etiquetas = $conn->query($query);
 		} else {
 			$query = prepare_query("SELECT id, tipo, titulo FROM Etiquetas WHERE titulo LIKE '%{$busca_etiquetas}%' AND tipo = '$busca_etiquetas_tipo'");
+			$query = prepare_query($query);
 			$etiquetas = $conn->query($query);
 		}
 		if ($etiquetas->num_rows > 0) {
@@ -754,6 +765,7 @@
 		}
 		if ($halt == false) {
 			$query = prepare_query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, extra, user_id) VALUES ($nova_etiqueta_page_id, '$nova_etiqueta_page_tipo', $nova_etiqueta_elemento_id, '$nova_etiqueta_tipo', $nova_etiqueta_id, $user_id)");
+			$query = prepare_query($query);
 			$conn->query($query);
 			$nova_etiqueta_cor_icone = return_etiqueta_cor_icone($nova_etiqueta_tipo);
 			$nova_etiqueta_cor = $nova_etiqueta_cor_icone[0];
@@ -777,10 +789,12 @@
 		$criar_etiqueta_cor = $criar_etiqueta_cor_icone[0];
 		$criar_etiqueta_icone = $criar_etiqueta_cor_icone[1];
 
-		$conn->query("INSERT INTO Etiquetas (tipo, titulo, user_id) VALUES ('topico', '$criar_etiqueta_titulo', $user_id)");
+		$query = prepare_query("INSERT INTO Etiquetas (tipo, titulo, user_id) VALUES ('topico', '$criar_etiqueta_titulo', $user_id)");
+		$conn->query($query);
 		$nova_etiqueta_id = $conn->insert_id;
 
-		$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, extra, user_id) VALUES ($criar_etiqueta_page_id, '$criar_etiqueta_page_tipo', NULL, 'topico', $nova_etiqueta_id, $user_id)");
+		$query = prepare_query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, extra, user_id) VALUES ($criar_etiqueta_page_id, '$criar_etiqueta_page_tipo', NULL, 'topico', $nova_etiqueta_id, $user_id)");
+		$conn->query($query);
 
 		echo "<a href='javascript:void(0);' class='$tag_ativa_classes $criar_etiqueta_cor' value='$nova_etiqueta_id'><i class='far $criar_etiqueta_icone fa-fw'></i> $criar_etiqueta_titulo</a>";
 	}
@@ -789,7 +803,8 @@
 		$remover_etiqueta_id = $_POST['remover_etiqueta_id'];
 		$remover_etiqueta_page_id = $_POST['remover_etiqueta_page_id'];
 		$remover_etiqueta_page_tipo = $_POST['remover_etiqueta_page_tipo'];
-		$conn->query("UPDATE Paginas_elementos SET estado = FALSE WHERE extra IN ('$remover_etiqueta_id') AND pagina_id = $remover_etiqueta_page_id");
+		$query = prepare_query("UPDATE Paginas_elementos SET estado = FALSE WHERE extra IN ('$remover_etiqueta_id') AND pagina_id = $remover_etiqueta_page_id");
+		$conn->query($query);
 	}
 
 	$fa_secondary_color_anotacao = '#2196f3';
@@ -1078,7 +1093,8 @@
 		$adicionar_questao_info = return_questao_info($adicionar_questao_id);
 		$adicionar_questao_origem = $adicionar_questao_info[0];
 		$adicionar_questao_pagina_id = $_POST['adicionar_questao_pagina_id'];
-		$adicionar_questao_check = $conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, extra, user_id) VALUES ($adicionar_questao_pagina_id, 'topico', $adicionar_questao_id, 'questao', $adicionar_questao_origem, $user_id)");
+		$query = prepare_query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, extra, user_id) VALUES ($adicionar_questao_pagina_id, 'topico', $adicionar_questao_id, 'questao', $adicionar_questao_origem, $user_id)");
+		$adicionar_questao_check = $conn->query($query);
 		echo $adicionar_questao_check;
 	}
 
@@ -1092,28 +1108,33 @@
 		} elseif ($notificacao_ativa == true) {
 			$notificacao_tipo = 'normal';
 		}
-		$conn->query("UPDATE Notificacoes SET estado = 0 WHERE user_id = $user_id AND pagina_id = $notificacao_pagina_id");
+		$query = prepare_query("UPDATE Notificacoes SET estado = 0 WHERE user_id = $user_id AND pagina_id = $notificacao_pagina_id");
+		$conn->query($query);
 		if ($notificacao_tipo != false) {
-			$conn->query("INSERT INTO Notificacoes (user_id, pagina_id, tipo) VALUES ($user_id, $notificacao_pagina_id, '$notificacao_tipo')");
+			$query = prepare_query("INSERT INTO Notificacoes (user_id, pagina_id, tipo) VALUES ($user_id, $notificacao_pagina_id, '$notificacao_tipo')");
+			$conn->query($query);
 		}
 	}
 
 	if (isset($_POST['novo_estado_pagina'])) {
 		$novo_estado_pagina = $_POST['novo_estado_pagina'];
 		$novo_estado_pagina_id = $_POST['novo_estado_pagina_id'];
-		$conn->query("UPDATE Paginas SET estado = $novo_estado_pagina WHERE id = $novo_estado_pagina_id");
+		$query = prepare_query("UPDATE Paginas SET estado = $novo_estado_pagina WHERE id = $novo_estado_pagina_id");
+		$conn->query($query);
 		$pagina_estado = $novo_estado_pagina;
 	}
 
 	if (isset($_POST['delete_this_edit'])) {
 		$delete_this_edit = (int)$_POST['delete_this_edit'];
-		$delete_edit_check = $conn->query("DELETE FROM Textos_arquivo WHERE id = $delete_this_edit AND user_id = $user_id");
+		$query = prepare_query("DELETE FROM Textos_arquivo WHERE id = $delete_this_edit AND user_id = $user_id");
+		$delete_edit_check = $conn->query($query);
 		echo $delete_edit_check;
 	}
 
 	if (isset($_POST['popular_traducao_chave_pt'])) {
 		$popular_traducao_chave_pt = $_POST['popular_traducao_chave_pt'];
-		$chaves_pt = $conn->query("SELECT traducao FROM Chaves_traduzidas WHERE chave_id = $popular_traducao_chave_pt AND lingua = 'pt'");
+		$query = prepare_query("SELECT traducao FROM Chaves_traduzidas WHERE chave_id = $popular_traducao_chave_pt AND lingua = 'pt'");
+		$chaves_pt = $conn->query($query);
 		if ($chaves_pt->num_rows > 0) {
 			while ($chave_pt = $chaves_pt->fetch_assoc()) {
 				$chave_pt_string = $chave_pt['traducao'];
@@ -1125,7 +1146,8 @@
 	}
 	if (isset($_POST['popular_traducao_chave_en'])) {
 		$popular_traducao_chave_en = $_POST['popular_traducao_chave_en'];
-		$chaves_en = $conn->query("SELECT traducao FROM Chaves_traduzidas WHERE chave_id = $popular_traducao_chave_en AND lingua = 'en'");
+		$query = prepare_query("SELECT traducao FROM Chaves_traduzidas WHERE chave_id = $popular_traducao_chave_en AND lingua = 'en'");
+		$chaves_en = $conn->query($query);
 		if ($chaves_en->num_rows > 0) {
 			while ($chave_en = $chaves_en->fetch_assoc()) {
 				$chave_en_string = $chave_en['traducao'];
@@ -1137,7 +1159,8 @@
 	}
 	if (isset($_POST['popular_traducao_chave_es'])) {
 		$popular_traducao_chave_es = $_POST['popular_traducao_chave_es'];
-		$chaves_es = $conn->query("SELECT traducao FROM Chaves_traduzidas WHERE chave_id = $popular_traducao_chave_es AND lingua = 'es'");
+		$query = prepare_query("SELECT traducao FROM Chaves_traduzidas WHERE chave_id = $popular_traducao_chave_es AND lingua = 'es'");
+		$chaves_es = $conn->query($query);
 		if ($chaves_es->num_rows > 0) {
 			while ($chave_es = $chaves_es->fetch_assoc()) {
 				$chave_es_string = $chave_es['traducao'];
@@ -1149,7 +1172,8 @@
 	}
 	if (isset($_POST['popular_traducao_chave_fr'])) {
 		$popular_traducao_chave_fr = $_POST['popular_traducao_chave_fr'];
-		$chaves_fr = $conn->query("SELECT traducao FROM Chaves_traduzidas WHERE chave_id = $popular_traducao_chave_fr AND lingua = 'fr'");
+		$query = prepare_query("SELECT traducao FROM Chaves_traduzidas WHERE chave_id = $popular_traducao_chave_fr AND lingua = 'fr'");
+		$chaves_fr = $conn->query($query);
 		if ($chaves_fr->num_rows > 0) {
 			while ($chave_fr = $chaves_fr->fetch_assoc()) {
 				$chave_fr_string = $chave_fr['traducao'];
@@ -1162,7 +1186,8 @@
 
 	if (isset($_POST['return_chave_codigo'])) {
 		$return_chave_codigo = $_POST['return_chave_codigo'];
-		$codigos = $conn->query("SELECT chave FROM Translation_chaves WHERE id = $return_chave_codigo");
+		$query = prepare_query("SELECT chave FROM Translation_chaves WHERE id = $return_chave_codigo");
+		$codigos = $conn->query($query);
 		if ($codigos->num_rows > 0) {
 			while ($codigo = $codigos->fetch_assoc()) {
 				$codigo_chave = $codigo['chave'];
@@ -1175,7 +1200,8 @@
 
 	if (isset($_GET['confirmacao'])) {
 		$confirmacao = $_GET['confirmacao'];
-		$check = $conn->query("UPDATE Usuarios SET origem = 'confirmado' WHERE origem = '$confirmacao'");
+		$query = prepare_query("UPDATE Usuarios SET origem = 'confirmado' WHERE origem = '$confirmacao'");
+		$check = $conn->query($query);
 	}
 
 	if (isset($_POST['nova_senha'])) {
@@ -1184,14 +1210,17 @@
 		$nova_senha_encrypted = password_hash($nova_senha, PASSWORD_DEFAULT);
 		$confirmacao = generateRandomString(12);
 		$check = send_nova_senha($nova_senha_email, $confirmacao, $user_language);
-		$usuarios = $conn->query("SELECT id FROM Usuarios WHERE email = '$nova_senha_email'");
+		$query = prepare_query("SELECT id FROM Usuarios WHERE email = '$nova_senha_email'");
+		$usuarios = $conn->query($query);
 		if ($usuarios->num_rows > 0) {
 			while ($usuario = $usuarios->fetch_assoc()) {
 				$usuario_id = $usuario['id'];
-				$conn->query("UPDATE Usuarios SET senha = '$nova_senha_encrypted', origem = '$confirmacao' WHERE id = $usuario_id");
+				$query = prepare_query("UPDATE Usuarios SET senha = '$nova_senha_encrypted', origem = '$confirmacao' WHERE id = $usuario_id");
+				$conn->query($query);
 			}
 		} else {
-			$conn->query("INSERT INTO Usuarios (email, origem, senha) VALUES ('$nova_senha_email', '$confirmacao', '$nova_senha_encrypted')");
+			$query = prepare_query("INSERT INTO Usuarios (email, origem, senha) VALUES ('$nova_senha_email', '$confirmacao', '$nova_senha_encrypted')");
+			$conn->query($query);
 		}
 	}
 
@@ -1252,7 +1281,8 @@
 	}
 
 	if (isset($_POST['list_referencias'])) {
-		$referencias_usuario = $conn->query("SELECT DISTINCT elemento_id FROM Paginas_elementos WHERE user_id = $user_id ORDER BY id DESC");
+		$query = prepare_query("SELECT DISTINCT elemento_id FROM Paginas_elementos WHERE user_id = $user_id ORDER BY id DESC");
+		$referencias_usuario = $conn->query($query);
 		$list_referencias = false;
 		if ($referencias_usuario->num_rows > 0) {
 			$list_referencias .= '<ul class="list-group list-group-flush">';
@@ -1267,8 +1297,10 @@
 	}
 
 	if (isset($_POST['list_grupos_estudo'])) {
-		$grupos_estudo_usuario = $conn->query("SELECT DISTINCT grupo_id FROM Membros WHERE membro_user_id = $user_id AND estado = 1");
-		$convites_ativos = $conn->query("SELECT DISTINCT grupo_id FROM Membros WHERE membro_user_id = $user_id AND estado IS NULL");
+		$query = prepare_query("SELECT DISTINCT grupo_id FROM Membros WHERE membro_user_id = $user_id AND estado = 1");
+		$grupos_estudo_usuario = $conn->query($query);
+		$query = prepare_query("SELECT DISTINCT grupo_id FROM Membros WHERE membro_user_id = $user_id AND estado IS NULL");
+		$convites_ativos = $conn->query($query);
 		$list_grupos_estudo = false;
 		$list_grupos_estudo .= "<ul class='list-group list-group-flush'>";
 		$list_grupos_estudo .= "<span data-toggle='modal' data-target='#modal_grupos_estudo'>";
@@ -1292,7 +1324,8 @@
 	}
 
 	if (isset($_POST['list_bookmarks'])) {
-		$usuario_bookmarks = $conn->query("SELECT pagina_id FROM Bookmarks WHERE user_id = $user_id AND bookmark = 1 AND active = 1 ORDER BY id DESC");
+		$query = prepare_query("SELECT pagina_id FROM Bookmarks WHERE user_id = $user_id AND bookmark = 1 AND active = 1 ORDER BY id DESC");
+		$usuario_bookmarks = $conn->query($query);
 		$list_bookmarks = false;
 		$counted_bookmarks = array();
 		if ($usuario_bookmarks->num_rows > 0) {
@@ -1312,7 +1345,8 @@
 	}
 
 	if (isset($_POST['list_comments'])) {
-		$usuario_comments = $conn->query("SELECT DISTINCT pagina_id FROM Forum WHERE user_id = $user_id");
+		$query = prepare_query("SELECT DISTINCT pagina_id FROM Forum WHERE user_id = $user_id");
+		$usuario_comments = $conn->query($query);
 		$list_comments = false;
 		if ($usuario_comments->num_rows > 0) {
 			$list_comments .= "<ul class='list-group list-group-flush'>";
@@ -1326,7 +1360,8 @@
 	}
 
 	if (isset($_POST['list_contribuicoes'])) {
-		$usuario_contribuicoes = $conn->query("SELECT DISTINCT pagina_id FROM Textos_arquivo WHERE user_id = $user_id AND tipo = 'verbete' ORDER BY id DESC");
+		$query = prepare_query("SELECT DISTINCT pagina_id FROM Textos_arquivo WHERE user_id = $user_id AND tipo = 'verbete' ORDER BY id DESC");
+		$usuario_contribuicoes = $conn->query($query);
 		$list_contribuicoes = false;
 		if ($usuario_contribuicoes->num_rows > 0) {
 			$list_contribuicoes .= "<ul class='list-group list-group-flush'>";
@@ -1344,24 +1379,10 @@
 		echo $list_contribuicoes;
 	}
 
-	/*
-	if (isset($_POST['list_notificacoes'])) {
-		$usuario_notificacoes = $conn->query("SELECT DISTINCT pagina_id FROM Notificacoes WHERE user_id = $user_id AND estado = 1 ORDER BY id DESC");
-		$list_notificacoes = false;
-		if ($usuario_notificacoes->num_rows > 0) {
-			$list_notificacoes .= '<ul class="list-group list-group-flush">';
-			while ($usuario_notificacao = $usuario_notificacoes->fetch_assoc()) {
-				$usuario_notificacao_pagina_id = $usuario_notificacao['pagina_id'];
-				$list_notificacoes .= return_list_item($usuario_notificacao_pagina_id);
-			}
-			$list_notificacoes .= '</ul>';
-		}
-		echo $list_notificacoes;
-	}
-	*/
 	if (isset($_POST['list_notificacoes'])) {
 		$template_modal_body_conteudo = false;
-		$notificacoes = $conn->query("SELECT DISTINCT pagina_id FROM Notificacoes WHERE user_id = $user_id AND estado = 1 ORDER BY id DESC");
+		$query = prepare_query("SELECT DISTINCT pagina_id FROM Notificacoes WHERE user_id = $user_id AND estado = 1 ORDER BY id DESC");
+		$notificacoes = $conn->query($query);
 		if ($notificacoes->num_rows > 0) {
 			$template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
 			if ($user_tipo == 'admin') {
@@ -1403,7 +1424,8 @@
 
 	if (isset($_POST['list_estudos_recentes'])) {
 		$list_estudos_recentes = "<ul class='list-group list-group-flush'>";
-		$usuario_estudos_recentes = $conn->query("SELECT page_id, tipo_pagina, extra, extra2 FROM Visualizacoes WHERE user_id = $user_id ORDER BY id DESC");
+		$query = prepare_query("SELECT page_id, tipo_pagina, extra, extra2 FROM Visualizacoes WHERE user_id = $user_id ORDER BY id DESC");
+		$usuario_estudos_recentes = $conn->query($query);
 		if ($usuario_estudos_recentes->num_rows > 0) {
 			$count = 0;
 			$listados = array();
@@ -1506,7 +1528,8 @@
 	if (isset($_POST['listar_usuarios_emails'])) {
 		$usuarios_emails_results = false;
 		if ($user_tipo == 'admin') {
-			$usuarios_emails = $conn->query("SELECT email FROM Usuarios");
+			$query = prepare_query("SELECT email FROM Usuarios");
+			$usuarios_emails = $conn->query($query);
 			if ($usuarios_emails->num_rows > 0) {
 				while ($usuario_email = $usuarios_emails->fetch_assoc()) {
 					$usuario_email_one = $usuario_email['email'];
@@ -1519,7 +1542,8 @@
 
 	if (isset($_POST['finalizar_correcao'])) {
 		$finalizar_correcao_pagina_id = $_POST['finalizar_correcao'];
-		$conn->query("UPDATE Orders SET estado = 0, corretor_user_id = $user_id, data_finalizado = NOW() WHERE tipo = 'review' AND pagina_id = $finalizar_correcao_pagina_id AND estado = 1");
+		$query = prepare_query("UPDATE Orders SET estado = 0, corretor_user_id = $user_id, data_finalizado = NOW() WHERE tipo = 'review' AND pagina_id = $finalizar_correcao_pagina_id AND estado = 1");
+		$conn->query($query);
 	}
 
 	if (isset($_POST['curso_aderir'])) {

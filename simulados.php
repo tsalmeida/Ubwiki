@@ -321,11 +321,16 @@
 		$novo_simulado_tipo = $_POST['novo_simulado_tipo'];
 		header("Location:simulado.php?simulado_tipo=$novo_simulado_tipo");
 	}
-	$edicoes = $conn->query("SELECT * FROM sim_edicoes WHERE curso_id = $pagina_id ORDER BY id DESC");
-	$etapas = $conn->query("SELECT id, edicao_id, titulo FROM sim_etapas WHERE curso_id = $pagina_id ORDER BY id DESC");
-	$provas = $conn->query("SELECT id, etapa_id, titulo, tipo FROM sim_provas WHERE curso_id = $pagina_id ORDER BY id DESC");
-	$textos_apoio = $conn->query("SELECT id, origem, prova_id, titulo FROM sim_textos_apoio WHERE curso_id = $pagina_id ORDER BY id DESC");
-	$materias = $conn->query("SELECT id FROM Paginas WHERE tipo = 'materia' AND item_id = $pagina_curso_pagina_id");
+	$query = prepare_query("SELECT * FROM sim_edicoes WHERE curso_id = $pagina_id ORDER BY id DESC");
+	$edicoes = $conn->query($query);
+	$query = prepare_query("SELECT id, edicao_id, titulo FROM sim_etapas WHERE curso_id = $pagina_id ORDER BY id DESC");
+	$etapas = $conn->query($query);
+	$query = prepare_query("SELECT id, etapa_id, titulo, tipo FROM sim_provas WHERE curso_id = $pagina_id ORDER BY id DESC");
+	$provas = $conn->query($query);
+	$query = prepare_query("SELECT id, origem, prova_id, titulo FROM sim_textos_apoio WHERE curso_id = $pagina_id ORDER BY id DESC");
+	$textos_apoio = $conn->query($query);
+	$query = prepare_query("SELECT id FROM Paginas WHERE tipo = 'materia' AND item_id = $pagina_curso_pagina_id");
+	$materias = $conn->query($query);
 	
 	$html_head_template_quill_sim = true;
 	include 'templates/html_head.php';

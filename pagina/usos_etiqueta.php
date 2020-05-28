@@ -1,6 +1,7 @@
 <?php
-	
-	$usos_etiqueta = $conn->query("SELECT pagina_id, pagina_tipo FROM Paginas_elementos WHERE tipo = 'topico' AND extra = $pagina_item_id AND pagina_tipo <> 'escritorio'");
+
+	$query = prepare_query("SELECT pagina_id, pagina_tipo FROM Paginas_elementos WHERE tipo = 'topico' AND extra = $pagina_item_id AND pagina_tipo <> 'escritorio'");
+	$usos_etiqueta = $conn->query($query);
 	if ($usos_etiqueta->num_rows > 0) {
 		$template_id = 'usos_etiqueta';
 		$template_titulo = $pagina_translated['Páginas relacionadas'];

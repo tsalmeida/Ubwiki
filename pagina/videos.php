@@ -1,5 +1,6 @@
 <?php
-	$videos = $conn->query("SELECT DISTINCT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'video' AND estado = 1");
+	$query = prepare_query("SELECT DISTINCT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'video' AND estado = 1");
+	$videos = $conn->query($query);
 	$count = 0;
 	if ($videos->num_rows > 0) {
 		$template_id = 'videos';
@@ -13,7 +14,8 @@
 		$active = 'active';
 		while ($video = $videos->fetch_assoc()) {
 			$elemento_id = $video['elemento_id'];
-			$elementos = $conn->query("SELECT titulo, autor, arquivo FROM Elementos WHERE id = $elemento_id");
+			$query = prepare_query("SELECT titulo, autor, arquivo FROM Elementos WHERE id = $elemento_id");
+			$elementos = $conn->query($query);
 			if ($elementos->num_rows > 0) {
 				while ($elemento = $elementos->fetch_assoc()) {
 					$count++;

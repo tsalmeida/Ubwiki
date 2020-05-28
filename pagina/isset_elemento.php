@@ -2,7 +2,8 @@
 	
 	if (isset($_POST['trigger_subcategoria'])) {
 		$trigger_subcategoria = $_POST['trigger_subcategoria'];
-		$conn->query("UPDATE Elementos SET subtipo = '$trigger_subcategoria' WHERE id = $elemento_id");
+		$query = prepare_query("UPDATE Elementos SET subtipo = '$trigger_subcategoria' WHERE id = $elemento_id");
+		$conn->query($query);
 	}
 	
 	if (isset($_POST['submit_elemento_dados'])) {
@@ -47,10 +48,12 @@
 				$elemento_novo_ano = "NULL";
 			}
 		}
-		
-		$update = $conn->query("UPDATE Elementos SET estado = $elemento_mudanca_estado, titulo = $elemento_novo_titulo, autor = $elemento_novo_autor, capitulo = $elemento_novo_capitulo, ano = $elemento_novo_ano WHERE id = $elemento_id");
+
+		$query = prepare_query("UPDATE Elementos SET estado = $elemento_mudanca_estado, titulo = $elemento_novo_titulo, autor = $elemento_novo_autor, capitulo = $elemento_novo_capitulo, ano = $elemento_novo_ano WHERE id = $elemento_id");
+		$update = $conn->query($query);
 		update_etiqueta_elemento($elemento_id, $user_id);
-		$conn->query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $elemento_id, 'elemento_dados')");
+		$query = prepare_query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina) VALUES ($user_id, $elemento_id, 'elemento_dados')");
+		$conn->query($query);
 		$nao_contar = true;
 		
 	}

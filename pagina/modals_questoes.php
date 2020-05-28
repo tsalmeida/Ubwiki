@@ -3,7 +3,8 @@
 	if (isset($_POST['nova_edicao_ano'])) {
 		$nova_edicao_ano = $_POST['nova_edicao_ano'];
 		$nova_edicao_titulo = $_POST['nova_edicao_titulo'];
-		$conn->query("INSERT INTO sim_edicoes (curso_id, ano, titulo, user_id) VALUES ($pagina_curso_id, $nova_edicao_ano, '$nova_edicao_titulo', $user_id)");
+		$query = prepare_query("INSERT INTO sim_edicoes (curso_id, ano, titulo, user_id) VALUES ($pagina_curso_id, $nova_edicao_ano, '$nova_edicao_titulo', $user_id)");
+		$conn->query($query);
 	}
 	
 	$template_modal_div_id = 'modal_adicionar_simulado';
@@ -11,7 +12,8 @@
 	$template_modal_show_buttons = false;
 	$template_modal_body_conteudo = false;
 	$modal_scrollable = true;
-	$edicoes = $conn->query("SELECT id, ano, titulo FROM sim_edicoes WHERE curso_id = $pagina_curso_id ORDER BY ano");
+	$query = prepare_query("SELECT id, ano, titulo FROM sim_edicoes WHERE curso_id = $pagina_curso_id ORDER BY ano");
+	$edicoes = $conn->query($query);
 	$template_modal_body_conteudo .= "
 		<ul class='list-group list-group-flush mb-3'>
 			<a id='carregar_formulario_adicionar_edicao' href='javascript:void(0);'><li class='list-group-item list-group-item-action list-group-item-info d-flex justify-content-center'>Adicionar edição</li></a>
