@@ -17,7 +17,10 @@
 	if (!isset($template_subtitulo_size)) {
 		$template_subtitulo_size = 'h4';
 	}
-	
+	if (!isset($titulo_color)) {
+		$titulo_color = false;
+	}
+
 	$titulo_length = strlen($template_titulo);
 	$display_level = false;
 	if ($titulo_length < 20) {
@@ -29,7 +32,7 @@
 	} elseif ($titulo_length < 65) {
 		$display_level = 'display-4';
 	}
-	
+
 	if ($titulo_length > 280) {
 		$titulo_header = 'h4';
 	} elseif ($titulo_length > 200) {
@@ -37,11 +40,11 @@
 	} elseif ($titulo_length > 150) {
 		$titulo_header = 'h2';
 	}
-	
+
 	if (!isset($titulo_header)) {
 		$titulo_header = 'h1';
 	}
-	
+
 	if (isset($pagina_tipo)) {
 		if ($pagina_tipo == 'texto') {
 			$display_level = false;
@@ -52,7 +55,7 @@
 	} else {
 		$spacing = 'mb-2';
 	}
-	
+
 	if ($template_titulo_context == true) {
 		echo "
     	<div class='row d-flex justify-content-center my-3'>
@@ -66,18 +69,18 @@
 	}
 	if ($display_level != false) {
 		echo "
-			<{$titulo_header} class='{$display_level} d-none d-md-inline m-0'>{$template_titulo}</{$titulo_header}>
-			<{$titulo_header} class='{$titulo_header}-responsive d-sm-inline d-md-none m-0'>{$template_titulo}</{$titulo_header}>
+			<{$titulo_header} id='titulo1' class='{$display_level} $titulo_color d-none d-md-inline m-0'>{$template_titulo}</{$titulo_header}>
+			<{$titulo_header} id='titulo2' class='{$titulo_header}-responsive $titulo_color d-sm-inline d-md-none m-0'>{$template_titulo}</{$titulo_header}>
 		";
 	} else {
-		echo "<{$titulo_header} class='{$titulo_header}-responsive'>$template_titulo</{$titulo_header}>";
+		echo "<{$titulo_header} class='{$titulo_header}-responsive $titulo_color'>$template_titulo</{$titulo_header}>";
 	}
 	if ($titulo_header != 'h1') {
 		echo "<h1 class='hidden'>$template_titulo</h1>";
 	}
 	if ($template_subtitulo != false) {
 		echo "
-			<span class='text-muted d-block mt-3'><$template_subtitulo_size class='fine-subtitulo'>$template_subtitulo</$template_subtitulo_size></span>
+			<span id='subtitulo' class='text-muted d-block mt-3'><$template_subtitulo_size class='fine-subtitulo'>$template_subtitulo</$template_subtitulo_size></span>
 		";
 	}
 	if ($template_titulo_context == true) {
@@ -86,10 +89,11 @@
 			</div>
 		";
 	}
-	
+
 	unset($template_titulo);
 	unset($template_titulo_context);
 	unset($template_titulo_no_nav);
 	unset($template_subtitulo);
 	unset($template_titulo_above);
-	unset ($template_subtitulo_size);
+	unset($template_subtitulo_size);
+	unset($titulo_color);

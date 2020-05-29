@@ -1577,4 +1577,57 @@
 		echo $check;
 	}
 
+	if (isset($_POST['nxst_cmd'])) {
+		$nexus_id = return_pagina_id($user_id, 'nexus');
+		$nxst_cmd = $_POST['nxst_cmd'];
+		if (isset($_POST['nxst_pm1'])) {
+			$nxst_pm1 = $_POST['nxst_pm1'];
+		} else {
+			$nxst_pm1 = "NULL";
+		}
+		if (isset($_POST['nxst_pm2'])) {
+			$nxst_pm2 = $_POST['nxst_pm2'];
+		} else {
+			$nxst_pm2 = "NULL";
+		}
+		if (isset($_POST['nxst_pm3'])) {
+			$nxst_pm3 = $_POST['nxst_pm3'];
+		} else {
+			$nxst_pm3 = "NULL";
+		}
+		if ($nxst_cmd == 'add link title url') {
+			$element_id = false;
+			$elements = $conn->query("SELECT id FROM Nexus_elements WHERE cmd = '$nxst_cmd' AND pm1 = '$nxst_pm1' AND pm2 = '$nxst_pm2' AND pm3 = '$nxst_pm3'");
+			if ($elements->num_rows > 0) {
+				while ($element = $elements->fetch_assoc()) {
+					$element_id = $element['id'];
+				}
+			} else {
+				$conn->query("INSERT INTO Nexus_elements (cmd, pm1, pm2, pm3, user_id) VALUES ('$nxst_cmd', '$nxst_pm1', '$nxst_pm2', '$nxst_pm3', $user_id)");
+				$element_id = $conn->insert_id;
+			}
+			if ($element_id != false) {
+				$conn->query("INSERT INTO Nexus_pages (pagina_id, element_id) VALUES ($nexus_id, $element_id)");
+			}
+		} elseif ($nxst_cmd == 'go') {
+			$query = prepare_query("SELECT DISTINCT pm2 FROM Nexus_elements WHERE user_id = $user_id AND pm1 = '$nxst_pm1' AND cmd = 'add link title url' ORDER BY id DESC");
+			$element_links = $conn->query($query);
+			if ($element_links->num_rows > 0) {
+				while ($element_link = $element_links->fetch_assoc()) {
+					$element_link_pm2 = $element_link['pm2'];
+					$result = json_encode(array('open_link', $element_link_pm2));
+					break;
+				}
+			} else {
+				$result = json_encode(array('alert', 'link not found'));
+			}
+			echo $result;
+		} elseif ($nxst_cmd == 'set title confirm') {
+			$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($nexus_id, 'pagina', 'titulo', '$nxst_pm1', $user_id)");
+			echo json_encode(array('change_page_title', $nxst_pm1));
+		} else {
+			//echo json_encode(array('alert', $nxst_cmd));
+		}
+	}
+
 ?>

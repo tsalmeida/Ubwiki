@@ -252,7 +252,7 @@
 
 						    $artefato_id = 'homepage';
 						    $artefato_subtitulo = 'Homepage';
-						    $artefato_link = 'https://www.nexustation.com/';
+						    $artefato_link = 'nexus.php';
 						    $artefato_badge = 'fa-external-link';
 						    $artefato_icone_background = 'red lighten-5';
 						    $fa_icone = 'fa-house-user';

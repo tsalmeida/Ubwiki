@@ -1138,6 +1138,21 @@
 					return $texto_apoio_pagina_id;
 				}
 			}
+		} elseif ($tipo == 'nexus') {
+			$query = prepare_query("SELECT pagina_id FROM Nexus WHERE user_id = $item_id");
+			$nexus = $conn->query($query);
+			if ($nexus->num_rows > 0) {
+				while ($nexo = $nexus->fetch_assoc()) {
+					$nexo_pagina_id = $nexo['pagina_id'];
+				}
+			} else {
+				$query = prepare_query("INSERT INTO Paginas (user_id, item_id, tipo) values ($item_id, $item_id, 'nexus')");
+				$conn->query($query);
+				$nexo_pagina_id = $conn->insert_id;
+				$query = prepare_query("INSERT INTO Nexus (user_id, pagina_id) VALUES ($item_id, $nexo_pagina_id)");
+				$conn->query($query);
+			}
+			return $nexo_pagina_id;
 		}
 		return false;
 	}
@@ -2549,11 +2564,9 @@
 		$args = func_get_args();
 		$curso_pagina_id = $args[0];
 		$card_mode = $args[1];
-
 		if ($curso_pagina_id == false) {
 			return false;
 		}
-
 		$curso_titulo = return_pagina_titulo($curso_pagina_id);
 		if ($curso_titulo == false) {
 			return false;

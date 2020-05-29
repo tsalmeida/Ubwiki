@@ -11,6 +11,12 @@
 	if (isset($_POST['trigger_atualizacao'])) {
 	    $query = prepare_query("ALTER TABLE `Orders` ADD `option7` VARCHAR(255) NULL DEFAULT NULL AFTER `option6`;");
 	    $conn->query($query);
+	    $query = prepare_query("CREATE TABLE `Ubwiki`.`Nexus` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `user_id` INT(11) NOT NULL , `pagina_id` INT(11) NOT NULL , `title` VARCHAR(255) NOT NULL , PRIMARY KEY (`id`), UNIQUE `user_id` (`user_id`), UNIQUE `pagina_id` (`pagina_id`)) ENGINE = InnoDB;");
+		$conn->query($query);
+		$query = prepare_query("ALTER TABLE `Nexus` CHANGE `title` `title` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL;");
+	    $conn->query($query);
+	    $conn->query("CREATE TABLE `Ubwiki`.`Nexus_elements` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `cmd` VARCHAR(255) NULL DEFAULT NULL , `pm1` VARCHAR(255) NULL DEFAULT NULL , `pm2` VARCHAR(255) NULL DEFAULT NULL , `pm3` VARCHAR(11) NULL DEFAULT NULL , `criacao` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP , `user_id` INT(11) NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
+	    $conn->query("CREATE TABLE `Ubwiki`.`Nexus_pages` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `pagina_id` INT(11) NULL DEFAULT NULL , `element_id` INT(11) NULL DEFAULT NULL , `criacao` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
 	}
 	
 	if (isset($_POST['novos_creditos'])) {
