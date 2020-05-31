@@ -1,6 +1,8 @@
 <?php
 	include 'engine.php';
 	$page_tipo = 'cursos';
+	$usuario_cursos_nao_inscrito_disponiveis = false;
+
 	include 'templates/html_head.php';
 ?>
 <body class="grey lighten-5">
@@ -16,36 +18,50 @@
 </div>
 <div class="container-fluid">
     <div class="row d-flex justify-content-center">
-        <h2 class='text-muted mb-5'><?php echo $pagina_translated['Cursos em que você se inscreveu:']; ?></h2>
-        <div class="col-lg-10 col-md-12">
-					<?php
-						
-						$usuario_cursos_inscrito = return_usuario_cursos_inscrito($user_id);
-						$usuario_cursos_disponiveis = return_usuario_cursos($user_id);
-						$usuario_cursos_nao_inscrito_disponiveis = array_diff($usuario_cursos_disponiveis, $usuario_cursos_inscrito);
-						
-						$list_cursos_cards = false;
-						if ($usuario_cursos_inscrito != false) {
-							foreach ($usuario_cursos_inscrito as $usuario_inscrito_curso_id) {
-								$list_cursos_cards = return_curso_card($usuario_inscrito_curso_id, 'inscrito');
-							}
-						}
+		<?php
+			if ($user_email != false) {
 
-					?>
-        </div>
-        <h2 class='text-muted my-5'><?php echo $pagina_translated['Cursos a que você tem acesso:']; ?></h2>
-        <div class="col-lg-10 col-md-12">
-					
-					<?php
-						if ($usuario_cursos_nao_inscrito_disponiveis != false) {
-							foreach ($usuario_cursos_nao_inscrito_disponiveis as $list_cursos_disponiveis) {
-							    $list_cursos_cards = return_curso_card($list_cursos_disponiveis, 'disponivel');
-							}
-						}
-					?>
+				echo "<h2 class='text-muted mb-5'>{$pagina_translated['Cursos em que você se inscreveu:']}</h2>";
+				echo "<div class='col-lg-10 col-md-12'>";
+				$usuario_cursos_inscrito = return_usuario_cursos_inscrito($user_id);
+				$usuario_cursos_disponiveis = return_usuario_cursos($user_id);
+				$usuario_cursos_nao_inscrito_disponiveis = array_diff($usuario_cursos_disponiveis, $usuario_cursos_inscrito);
 
-        </div>
+				$list_cursos_cards = false;
+				if ($usuario_cursos_inscrito != false) {
+					foreach ($usuario_cursos_inscrito as $usuario_inscrito_curso_id) {
+						$list_cursos_cards = return_curso_card($usuario_inscrito_curso_id, 'inscrito');
+					}
+				}
+			} else {
+				echo "<div class='col-lg-10 col-md-12'>";
+			}
+		?>
     </div>
+    <h2 class='text-muted my-5'><?php echo $pagina_translated['Cursos a que você tem acesso:']; ?></h2>
+    <div class="col-lg-10 col-md-12">
+
+		<?php
+			if ($usuario_cursos_nao_inscrito_disponiveis != false) {
+				foreach ($usuario_cursos_nao_inscrito_disponiveis as $list_cursos_disponiveis) {
+					$list_cursos_cards = return_curso_card($list_cursos_disponiveis, 'disponivel');
+				}
+			} else {
+			    $lista_cursos = $conn->query("SELECT pagina_id FROM Cursos");
+			    if ($lista_cursos->num_rows > 0) {
+			        while ($lista_curso = $lista_cursos->fetch_assoc()) {
+			            $lista_curso_pagina_id = $lista_curso['pagina_id'];
+			            $lista_curso_compartilhamento = return_compartilhamento($lista_curso_pagina_id, false);
+			            if ($lista_curso_compartilhamento == true) {
+			                return_curso_card($lista_curso_pagina_id, 'disponivel');
+                        }
+                    }
+                }
+            }
+		?>
+
+    </div>
+</div>
 </div>
 <?php
 	if ($user_id == false) {
