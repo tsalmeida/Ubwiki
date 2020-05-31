@@ -31,15 +31,18 @@
 
 	$pagina_texto_id = return_pagina_texto_id($pagina_id);
 	$pagina_verbete = return_verbete_html($pagina_texto_id);
-
-	$final_print .= $pagina_verbete;
+	if ($pagina_verbete != false) {
+		$final_print .= $pagina_verbete;
+	}
 
 	$pagina_anotacoes_texto_id = return_texto_id($pagina_tipo, 'anotacoes', $pagina_id, $user_id);
 	if ($pagina_anotacoes_texto_id != false) {
-		$pagina_verbete = return_verbete_html($pagina_anotacoes_texto_id);
-		$final_print .= "<div class='border rounded p-2'>";
-		$final_print .= $pagina_verbete;
-		$final_print .= "</div>";
+		$pagina_anotacao_html = return_verbete_html($pagina_anotacoes_texto_id);
+		if ($pagina_anotacao_html != false) {
+			$final_print .= "<div class='border rounded p-2'>";
+			$final_print .= $pagina_anotacao_html;
+			$final_print .= "</div>";
+		}
 	}
 
 	$secoes_pagina = $conn->query("SELECT secao_pagina_id FROM Secoes WHERE pagina_id = $pagina_id ORDER BY ordem, id");
@@ -50,7 +53,9 @@
 			$secao_pagina_verbete = return_verbete_html($secao_pagina_texto_id);
 			$secao_pagina_titulo = return_pagina_titulo($secao_pagina_id);
 			$final_print .= "<h2>$secao_pagina_titulo</h2>";
-			$final_print .= $secao_pagina_verbete;
+			if ($secao_pagina_verbete != false) {
+				$final_print .= $secao_pagina_verbete;
+			}
 
 			$secao_pagina_anotacao_texto_id = return_texto_id('secao', 'anotacoes', $secao_pagina_id, $user_id);
 			if ($secao_pagina_anotacao_texto_id != false) {
