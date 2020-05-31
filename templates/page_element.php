@@ -27,14 +27,18 @@
 	if (!isset($template_background)) {
 		$template_background = 'bg-white border border-light';
 	}
-	
+	if (!isset($template_return)) {
+		$template_return = false;
+	}
+
+
 	$template_conteudo_no_col1 = false;
 	$template_conteudo_no_col2 = false;
 
 	if (!isset($template_conteudo_no_col)) {
 		$template_conteudo_no_col = false;
 	}
-	
+
 	if (!isset($template_col_classes)) {
 		$template_col_classes = false;
 	}
@@ -81,7 +85,7 @@
 					<span id='$template_mostrar' class='$template_collapse collapse $hide' data-toggle='collapse' data-target='.$template_collapse' title='{$pagina_translated['Mostrar']}'><a href='javascript:void(0);' class='text-primary'><i class='fad fa-chevron-square-down fa-fw'></i></a></span>
 		";
 	}
-	
+
 	if (!isset($template_titulo_heading)) {
 		$template_titulo_heading = 'h2';
 	}
@@ -89,8 +93,8 @@
 	if (!isset($template_spacer)) {
 		$template_spacer = "<span class='spacer text-white'><i class='fad fa-bookmark fa-fw'></i></span>";
 	}
-	
-	echo "
+	$final_result = false;
+	$final_result .= "
 <div id='$template_id' class='row show $template_classes $template_background p-2 pb-5 mb-2 rounded'>
 	<div class='$template_col_value'>
     <div class='row d-flex justify-content-end page-element-botoes mb-1'>
@@ -99,7 +103,7 @@
       $template_botoes_padrao
     </div>";
 	if ($template_titulo != false) {
-		echo "
+		$final_result .= "
     <div class='row mb-4'>
     	<div class='col'>
         <$template_titulo_heading class='{$template_titulo_heading}-responsive m-0 text-center text-black-50 pb-2'>$template_titulo</$template_titulo_heading>
@@ -107,7 +111,7 @@
     </div>
     ";
 	}
-	echo "
+	$final_result .= "
 		<div class='row $template_collapse collapse $show $template_conteudo_class'>
     	$template_conteudo_no_col1
       	$template_conteudo
@@ -116,7 +120,7 @@
   </div>
 </div>";
 	if ($template_botoes_padrao == true) {
-		echo "
+		$final_result .= "
 		<script type='text/javascript'>
 		$('#$template_esconder').click(function(){
 	    $('#$template_esconder').hide();
@@ -150,5 +154,13 @@
 	unset($template_p_limit);
 	unset($template_col_classes);
 	unset($template_spacer);
+
+	if ($template_return == true) {
+		unset($template_return);
+		return $final_result;
+	} else {
+		unset($template_return);
+		echo $final_result;
+	}
 
 ?>

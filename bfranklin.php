@@ -50,23 +50,48 @@
 				$template_id = 'modelos_diponiveis';
 				$template_titulo = 'Outros modelos disponíveis';
 				$template_conteudo = false;
-				$query = prepare_query("SELECT id FROM Paginas WHERE tipo = 'modelo' ORDER BY id DESC");
+				$query = prepare_query("SELECT id, compartilhamento, user_id FROM Paginas WHERE subtipo = 'modelo' ORDER BY id DESC");
+				$rascunhos_de_modelo_do_usuario = array();
 				$modelos_disponiveis = $conn->query($query);
 				if ($modelos_disponiveis->num_rows > 0) {
 					$template_conteudo .= "<ul class='list-group list-group-flush'>";
 					while ($modelo_disponivel = $modelos_disponiveis->fetch_assoc()) {
-						$modelo_disponivel_id = $modelo_disponivel['id'];
-						if (in_array($modelo_disponivel_id, $cada_modelo_do_usuario)) {
+						$modelo_disponivel_pagina_id = $modelo_disponivel['id'];
+						$modelo_disponivel_compartilhamento = $modelo_disponivel['compartilhamento'];
+						$modelo_disponivel_user_id = $modelo_disponivel['user_id'];
+						if (in_array($modelo_disponivel_pagina_id, $cada_modelo_do_usuario)) {
 							continue;
 						}
-						$modelo_disponivel_pagina_id = $modelo_disponivel['pagina_id'];
+						if ($modelo_disponivel_compartilhamento == 'privado') {
+						    if ($modelo_disponivel_user_id == $user_id) {
+								array_push($rascunhos_de_modelo_do_usuario, $modelo_disponivel_pagina_id);
+							}
+                            continue;
+                        }
+						$modelo_disponivel_pagina_id = $modelo_disponivel['id'];
 						$template_conteudo .= return_list_item($modelo_disponivel_pagina_id);
 					}
 					$template_conteudo .= "</ul>";
 				} else {
 					$template_conteudo .= "<p class='text-muted font-italic'>Não há modelos disponíveis a que você tenha acesso.</p>";
 				}
-				include 'templates/page_element.php';
+
+				$template_return = true;
+				$page_element_modelos_disponiveis = include 'templates/page_element.php';
+
+				if ($rascunhos_de_modelo_do_usuario != false) {
+				    $template_id = 'rascunhos_usuario';
+				    $template_titulo = $pagina_translated['Seus rascunhos'];
+                    $template_conteudo = false;
+                    $template_conteudo .= "<ul class='list-group list-group-flush'>";
+				    foreach ($rascunhos_de_modelo_do_usuario as $rascunho_pagina_id) {
+                        $template_conteudo .= return_list_item($rascunho_pagina_id);
+                    }
+					$template_conteudo .= "</ul>";
+					include 'templates/page_element.php';
+                }
+
+				echo $page_element_modelos_disponiveis;
 
 			?>
         </div>

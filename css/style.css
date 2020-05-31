@@ -596,6 +596,10 @@ ul {
   transform: translate(-50%, -50%);
 }
 
+.print-limit {
+  width: 60ch;
+}
+
 .primary-lighter-hover {
   color: #4285F4;
   -webkit-transition: 0.4s;

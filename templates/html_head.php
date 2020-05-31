@@ -44,6 +44,8 @@
 			echo "
             <script type='text/javascript'>
 	  	        var formatWhitelist_verbete = ['italic', 'script', 'link', 'blockquote', 'list', 'header', 'image', 'indent', 'bold'];
+	  	        var formatWhitelist_modelo = ['italic', 'list', 'bold'];
+	  	        var formatWhitelist_modelo_directions = formatWhitelist_modelo;
 	  	        var formatWhitelist_anotacoes = ['italic', 'script', 'link', 'blockquote', 'list', 'checkbox', 'header', 'image', 'bold', 'background', 'color', 'strike', 'underline', 'align', 'link', 'video', 'image', 'indent'];
                 var toolbarOptions_verbete = [
                     [{'header': [2, 3, false]}],
@@ -56,6 +58,13 @@
                     ['image'],
                     ['clean'],
                 ];
+                var toolbarOptions_modelo = [
+                    ['bold'],
+                    ['italic'],
+                    [{'list': 'ordered'}, {'list': 'bullet'}],
+                    ['clean'],
+                ];
+                var toolbarOptions_modelo_directions = toolbarOptions_modelo;
                 var toolbarOptions_anotacoes = [
                     [{'header': [2, 3, false]}],
                     ['bold'],

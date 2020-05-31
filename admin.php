@@ -17,6 +17,12 @@
 	    $conn->query($query);
 	    $conn->query("CREATE TABLE `Ubwiki`.`Nexus_elements` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `cmd` VARCHAR(255) NULL DEFAULT NULL , `pm1` VARCHAR(255) NULL DEFAULT NULL , `pm2` VARCHAR(255) NULL DEFAULT NULL , `pm3` VARCHAR(11) NULL DEFAULT NULL , `criacao` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP , `user_id` INT(11) NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
 	    $conn->query("CREATE TABLE `Ubwiki`.`Nexus_pages` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `pagina_id` INT(11) NULL DEFAULT NULL , `element_id` INT(11) NULL DEFAULT NULL , `criacao` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
+	    adicionar_chave_traducao('Escreva aqui sua resposta.', 1);
+        adicionar_chave_traducao('Model directions', 1);
+        adicionar_chave_traducao('Model directions explanation', 1);
+        adicionar_chave_traducao('Model explanation', 1);
+        adicionar_chave_traducao('Seus rascunhos', 1);
+        adicionar_chave_traducao('print elemento partes', 1);
 	}
 	
 	if (isset($_POST['novos_creditos'])) {

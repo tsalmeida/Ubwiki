@@ -1437,6 +1437,14 @@
 
 	function return_compartilhamento($item_id, $user_id)
 	{
+		$args = func_get_args();
+		$item_id = $args[0];
+		$user_id = $args[1];
+		if (isset($args[2])) {
+			$parent_pagina_id = $args[2];
+		}
+
+
 		if ($item_id == false) {
 			return false;
 		}
@@ -2477,6 +2485,9 @@
 						break;
 					case 'etiqueta':
 						return array('fa-tag', 'text-warning');
+						break;
+					case 'modelo':
+						return array('fa-pen-nib', 'text-secondary');
 						break;
 					default:
 						return array('fa-columns', 'text-info');

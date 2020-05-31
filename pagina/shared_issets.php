@@ -398,8 +398,18 @@
 			}
 			$conn->query("UPDATE Membros SET estado = $resposta_convite WHERE grupo_id = $responder_convite_grupo_id AND membro_user_id = $user_id");
 		}
-		
-		
+	}
+
+	if (isset($_POST['change_into_model_pagina_id'])) {
+		$new_model_pagina_id = $_POST['change_into_model_pagina_id'];
+		$new_model_pagina_info = return_pagina_info($new_model_pagina_id);
+		$new_model_pagina_user_id = $new_model_pagina_info[5];
+		$check = false;
+		if ($user_id == $new_model_pagina_user_id) {
+			$query = prepare_query("UPDATE Paginas SET subtipo = 'modelo' WHERE id = $new_model_pagina_id");
+			$check = $conn->query($query);
+		}
+		echo $check;
 	}
 	
 	

@@ -692,6 +692,11 @@
 						echo "<a href='mercado.php?pagina_id=$pagina_id' class='$produto_color ml-1 align-top' title='{$pagina_translated['visit_market']}'><i class='fad fa-bags-shopping fa-fw'></i></a>";
 					}
 				}
+				if ($carregar_partes_elemento_modal == true) {
+					echo "
+					        <a href='print_elemento.php?pagina_id=$pagina_id' target='_blank' id='print_elemento_partes' class='ml-1 text-primary' title='{$pagina_translated['print elemento partes']}'><i class='fad fa-print fa-fw'></i></a>
+					    ";
+				}
 				if (($pagina_tipo != 'sistema') && ($pagina_compartilhamento != 'escritorio') && ($pagina_subtipo != 'modelo')) {
 					$query = prepare_query("SELECT timestamp, comentario_text, user_id FROM Forum WHERE pagina_id = $pagina_id");
 					$comments = $conn->query($query);
@@ -1025,7 +1030,8 @@
 			}
 
 			$paginas_sem_verbete = array('texto', 'materia', 'questao', 'texto_apoio', 'grupo');
-			if (!in_array($pagina_tipo, $paginas_sem_verbete)) {
+			$paginas_subtipos_sem_verbete = array('modelo');
+			if ((!in_array($pagina_tipo, $paginas_sem_verbete)) && (!in_array($pagina_subtipo, $paginas_subtipos_sem_verbete))) {
 				$template_id = 'verbete';
 				if ($wiki_id == false) {
 					if ($pagina_tipo == 'curso') {
@@ -1035,8 +1041,6 @@
 						$template_quill_initial_state = 'leitura';
 					} elseif ($pagina_tipo == 'sistema') {
 						$template_titulo = $pagina_translated['Aviso'];
-					} elseif ($pagina_subtipo == 'modelo') {
-						$template_titulo = $pagina_translated['Modelo'];
 					} else {
 						$template_titulo = $pagina_translated['Verbete'];
 					}
@@ -1055,7 +1059,7 @@
 					if ($pagina_tipo == 'resposta') {
 						$template_titulo = $pagina_translated['Resposta'];
 						$template_classes = 'sticky-top';
-						$template_quill_vazio = 'Escreva aqui sua resposta.';
+						$template_quill_vazio = $pagina_translated['Escreva aqui sua resposta.'];
 					}
 					$template_conteudo = include 'templates/template_quill.php';
 					include 'templates/page_element.php';
@@ -1071,11 +1075,8 @@
 				}
 
 				include 'pagina/leiamais.php';
-
 				include 'pagina/videos.php';
-
 				include 'pagina/imagens.php';
-
 				include 'pagina/audio.php';
 
 				if ($pagina_subtipo == 'etiqueta') {
@@ -1086,6 +1087,23 @@
 				// not clear in which cases this should be used.
 				// the idea is showing pages connected to the present page
 				// does it need to exist though?
+			}
+			if ($pagina_subtipo == 'modelo') {
+				$template_id = 'modelo';
+				$template_titulo = $pagina_translated['Modelo'];
+				$template_quill_initial_state = 'leitura';
+				$template_quill_vazio = $pagina_translated['Model explanation'];
+				$template_botoes_padrao = false;
+				$template_conteudo = include 'templates/template_quill.php';
+				include 'templates/page_element.php';
+
+				$template_id = 'modelo_directions';
+				$template_titulo = $pagina_translated['Model directions'];
+				$template_quill_initial_state = 'leitura';
+				$template_quill_vazio = $pagina_translated['Model directions explanation'];
+				$template_botoes_padrao = false;
+				$template_conteudo = include 'templates/template_quill.php';
+				include 'templates/page_element.php';
 			}
 
 			if ($pagina_tipo == 'curso') {
@@ -1268,7 +1286,7 @@
 		?>
 		<?php
 			$paginas_sem_anotacoes = array('sistema', 'texto', 'resposta', 'materia', 'curso', 'grupo');
-			if (($user_id != false) && ($pagina_compartilhamento != 'escritorio') && (!in_array($pagina_tipo, $paginas_sem_anotacoes))) {
+			if (($user_id != false) && ($pagina_compartilhamento != 'escritorio') && (!in_array($pagina_tipo, $paginas_sem_anotacoes)) || (($pagina_subtipo == 'modelo') && ($pagina_compartilhamento != 'privado'))) {
 				include 'pagina/coluna_direita_anotacoes.php';
 				$carregar_quill_anotacoes = true;
 			}
@@ -2398,11 +2416,11 @@
 	}
 
 	if ($pagina_subtipo == 'modelo') {
-	    $template_modal_div_id = 'modal_modelo_config';
-	    $template_modal_titulo = $pagina_translated['Configurar modelo'];
-	    $template_modal_body_conteudo = false;
-	    include 'templates/modal.php';
-    }
+		$template_modal_div_id = 'modal_modelo_config';
+		$template_modal_titulo = $pagina_translated['Configurar modelo'];
+		$template_modal_body_conteudo = false;
+		include 'templates/modal.php';
+	}
 
 	if ($carregar_modal_correcao == true) {
 		$loaded_correcao_form = true;
@@ -2414,10 +2432,10 @@
 			if ($pagina_tipo == 'texto') {
 				$pagina_texto_wordcount = str_word_count($texto_verbete_text);
 			} elseif ($pagina_tipo == 'topico') {
-			    $topico_texto_info = return_texto_info($topico_texto_id);
-			    $topico_verbete_text = $topico_texto_info[6];
-			    $pagina_texto_wordcount = str_word_count($topico_verbete_text);
-            }
+				$topico_texto_info = return_texto_info($topico_texto_id);
+				$topico_verbete_text = $topico_texto_info[6];
+				$pagina_texto_wordcount = str_word_count($topico_verbete_text);
+			}
 			$revision_price = calculate_review_price($pagina_texto_wordcount, 'simplified', 'no_grade', 'with_chat', 'enfase_forma', 'revisao_diplomata');
 			if ($user_wallet >= $revision_price) {
 				$button_disabled = false;

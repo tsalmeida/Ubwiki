@@ -1565,18 +1565,6 @@
 		echo true;
 	}
 
-	if (isset($_POST['change_into_model_pagina_id'])) {
-		$new_model_pagina_id = $_POST['change_into_model_pagina_id'];
-		$new_model_pagina_info = return_pagina_info($new_model_pagina_id);
-		$new_model_pagina_user_id = $new_model_pagina_info[5];
-		$check = false;
-		if ($user_id == $new_model_pagina_user_id) {
-			$query = prepare_query("UPDATE Paginas SET subtipo = 'modelo' WHERE id = $new_model_pagina_id");
-			$check = $conn->query($query);
-		}
-		echo $check;
-	}
-
 	if (isset($_POST['nxst_cmd'])) {
 		$nexus_id = return_pagina_id($user_id, 'nexus');
 		$nxst_cmd = $_POST['nxst_cmd'];
