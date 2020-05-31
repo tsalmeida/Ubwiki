@@ -135,6 +135,9 @@
 	}
 
 	$privilegio_edicao = return_privilegio_edicao($pagina_id, $user_id);
+	if (($pagina_subtipo == 'modelo') && ($pagina_compartilhamento == false)) {
+		$privilegio_edicao = false;
+	}
 
 	if ($pagina_subtipo == 'Plano de estudos') {
 		$pagina_materia_familia = return_familia($pagina_item_id);
@@ -1285,10 +1288,32 @@
 			echo "</div>";
 		?>
 		<?php
-			$paginas_sem_anotacoes = array('sistema', 'texto', 'resposta', 'materia', 'curso', 'grupo');
-			if (($user_id != false) && ($pagina_compartilhamento != 'escritorio') && (!in_array($pagina_tipo, $paginas_sem_anotacoes)) || (($pagina_subtipo == 'modelo') && ($pagina_compartilhamento != 'privado'))) {
+			$carregar_quill_anotacoes = false;
+			$paginas_com_anotacoes = array('topico', 'pagina', 'elemento', 'secao', 'questao');
+			$subtipos_com_anotacoes = array('Plano de estudos', 'produto', 'etiqueta');
+			if ($user_id == false) {
+				$carregar_quill_anotacoes = false;
+			} else {
+			    if (in_array($pagina_tipo, $paginas_com_anotacoes)) {
+			        $carregar_quill_anotacoes = true;
+                } elseif (in_array($pagina_subtipo, $subtipos_com_anotacoes)) {
+                    $carregar_quill_anotacoes = true;
+                } else {
+			        $carregar_quill_anotacoes = false;
+                }
+				if ($pagina_compartilhamento == 'escritorio') {
+					$carregar_quill_anotacoes = false;
+				}
+				if ($pagina_subtipo == 'modelo') {
+					if ($pagina_compartilhamento != 'privado') {
+						$carregar_quill_anotacoes = true;
+					} else {
+						$carregar_quill_anotacoes = false;
+					}
+				}
+            }
+			if ($carregar_quill_anotacoes == true) {
 				include 'pagina/coluna_direita_anotacoes.php';
-				$carregar_quill_anotacoes = true;
 			}
 		?>
     </div>
@@ -2418,7 +2443,25 @@
 	if ($pagina_subtipo == 'modelo') {
 		$template_modal_div_id = 'modal_modelo_config';
 		$template_modal_titulo = $pagina_translated['Configurar modelo'];
+		$template_modal_show_buttons = false;
 		$template_modal_body_conteudo = false;
+		$template_modal_body_conteudo .= "
+		    <p>Em poucas palavras, o método Benjamin Franklin funciona assim:</p>
+		    <ol>
+		        <li>Identifique um trecho cujo estilo você admira;</li>
+		        <li>Separadamente, faça notas gerais e diretas de todas as informações e argumentos expressados no trecho;</li>
+		        <li>Esconda o trecho por algum tempo, de algumas horas a alguns dias, até que seus detalhes desapareçam de sua memória;</li>
+		        <li>Resgate suas anotações e escreva o melhor texto de que é capaz, exprimindo os mesmos pontos;</li>
+		        <li>Analise as diferenças entre o trecho original e a sua versão.</li>
+            </ol>
+            <p>Como se percebe, é um método simples, que qualquer pessoa pode colocar em prática sem muita dificuldade. A plataforma “BFranklin” da Ubwiki apenas facilita o processo, registra seu progresso e permite que uma comunidade se desenvolva em torno do exercício.</p>
+		";
+		if (($pagina_user_id == $user_id) && ($pagina_compartilhamento == 'privado')) {
+			$carregar_publicar_modelo = true;
+			$template_modal_body_conteudo .= "<ul class='list-group list-group-flush' method='post'>";
+			$template_modal_body_conteudo .= put_together_list_item('link_button', 'publicar_modelo', false, 'fad', 'fa-pen-nib', $pagina_translated['Publicar modelo'], false, false, 'list-group-item-success');
+			$template_modal_body_conteudo .= "</ul>";
+		}
 		include 'templates/modal.php';
 	}
 

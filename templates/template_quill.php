@@ -142,8 +142,19 @@
 	$quill_result = false;
 	
 	$template_botoes_salvar = false;
-	
-	if ((($template_id == 'verbete') && ($privilegio_edicao == true)) || ($template_id != 'verbete')) {
+
+	$quill_edicao = false;
+	if (($template_id == 'verbete') && ($privilegio_edicao == true)) {
+		$quill_edicao = true;
+	}
+	if ($template_id != 'verbete') {
+		$quill_edicao = true;
+	}
+	if ((($template_id == 'modelo') || ($template_id == 'modelo_directions')) && ($pagina_compartilhamento == false)) {
+		$quill_edicao = false;
+	}
+
+	if ($quill_edicao == true) {
 		$template_botoes_salvar .= "<a href='javascript:void(0)' id='{$template_id}_trigger_save' title='{$pagina_translated['Salvar mudanças']}' class='mr-2 text-primary'><i class='fad fa-save fa-fw'></i></a><a href='javascript:void(0)' id='{$template_id}_trigger_save_success' title='Edições salvas' class='text-success collapse mr-2'><i class='fad fa-check-square fa-fw'></i></a><a href='javascript:void(0)' id='{$template_id}_trigger_save_failure' title='{$pagina_translated['Suas edições não foram salvas']}' class='text-danger collapse mr-2'><i class='fad fa-times-square fa-fw'></i></a>";
 	}
 	if (($quill_texto_id != false) && ($template_id != 'modelo')) {
@@ -163,8 +174,8 @@
 			<a href='pagina.php?texto_id=$quill_texto_id' id='compartilhar_anotacao' title='{$pagina_translated['Página deste documento']}' class='text-primary'><i class='fad fa-external-link-square fa-fw'></i></a>
 		";
 	}
-	
-	if ((($template_id == 'verbete') && ($privilegio_edicao == true)) || ($template_id != 'verbete')) {
+
+	if ($quill_edicao == true) {
 		$template_botoes .= "
 			<!--<span id='travar_{$template_id}' title='{$pagina_translated['Travar para edição']}'>
 	      <a href='javascript:void(0);' class='text-primary'><i class='fad fa-pen-square fa-fw'></i></a>

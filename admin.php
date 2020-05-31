@@ -23,6 +23,7 @@
         adicionar_chave_traducao('Model explanation', 1);
         adicionar_chave_traducao('Seus rascunhos', 1);
         adicionar_chave_traducao('print elemento partes', 1);
+        adicionar_chave_traducao('Publicar modelo', 1);
 	}
 	
 	if (isset($_POST['novos_creditos'])) {

@@ -101,6 +101,10 @@
 		$open_review_modal = false;
 	}
 
+	if (!isset($carregar_publicar_modelo)) {
+		$carregar_publicar_modelo = false;
+	}
+
 	echo "
     <!-- Bootstrap tooltips -->
     <script type='text/javascript' src='js/popper.min.js'></script>
@@ -1296,7 +1300,7 @@
 			        if (data != 0) {
 						window.location.reload(true);
 			        }
-			    })
+			    });
 			});
 		</script>
 	";
@@ -1304,8 +1308,26 @@
 
 	if ($open_review_modal == true) {
 		echo "
-			<script>
+			<script type='text/javascript'>
 				$('#carregar_modal_correcao').click();
+			</script>
+		";
+	}
+
+	if ($carregar_publicar_modelo == true) {
+		echo "
+			<script type='text/javascript'>
+				$(document).on('click', '#publicar_modelo', function() {
+				    $.post('engine.php', {
+				        'publicar_modelo': $pagina_id,
+				    }, function (data) {
+				        if (data != 0) {
+				            window.location.reload(true);
+				        } else {
+				            alert('some problem happened');
+				        }
+				    });
+				});
 			</script>
 		";
 	}

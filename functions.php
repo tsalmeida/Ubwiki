@@ -22,9 +22,10 @@
 	{
 		$args = func_get_args();
 		$query = $args[0];
+		//print "<p class='text-danger'>$query</p>";
 		if (isset($args[1])) {
 			$extra = $args[1];
-			error_log("$extra: $query");
+			//error_log("$extra: $query");
 		}
 		return $query;
 	}
@@ -1318,13 +1319,11 @@
 						$pagina_verbete = return_verbete_html($pagina_texto_id);
 						if ($pagina_verbete == false) {
 							$query = prepare_query("UPDATE Paginas SET estado = 0 WHERE id = $pagina_id");
-							$query = prepare_query($query);
 							$conn->query($query);
 							$pagina_estado = 0;
 						}
 					} else {
 						$query = prepare_query("UPDATE Paginas SET estado = 0 WHERE id = $pagina_id");
-						$query = prepare_query($query);
 						$conn->query($query);
 						$pagina_estado = 0;
 					}
@@ -1785,7 +1784,6 @@
 		}
 		include 'templates/criar_conn.php';
 		$query = prepare_query("SELECT verbete_html FROM Textos WHERE id = $texto_id");
-		$query = prepare_query($query);
 		$textos = $conn->query($query);
 		if ($textos->num_rows > 0) {
 			while ($texto = $textos->fetch_assoc()) {
@@ -1803,7 +1801,6 @@
 		}
 		include 'templates/criar_conn.php';
 		$query = prepare_query("SELECT verbete_text FROM Textos WHERE id = $texto_id");
-		$query = prepare_query($query);
 		$textos = $conn->query($query);
 		if ($textos->num_rows > 0) {
 			while ($texto = $textos->fetch_assoc()) {
@@ -1821,7 +1818,6 @@
 		}
 		include 'templates/criar_conn.php';
 		$query = prepare_query("SELECT verbete_html FROM Textos_arquivo WHERE id = $texto_id");
-		$query = prepare_query($query);
 		$textos = $conn->query($query);
 		if ($textos->num_rows > 0) {
 			while ($texto = $textos->fetch_assoc()) {
@@ -2218,6 +2214,9 @@
 					case 'texto':
 						return array('fa-file-alt', 'text-primary', 'rgba-blue-strong');
 						break;
+					case 'secao':
+						return array('fa-bookmark', 'text-default', 'rgba-red-strong');
+						break;
 					case false:
 						return array('fa-columns', 'text-muted', 'rgba-grey-strong');
 						break;
@@ -2454,7 +2453,7 @@
 			";
 		} elseif ($type == 'link_button') {
 			return "
-			<a href='javascript:void(0);' id='$link'>
+			<a href='javascript:void(0);' id='$link' name='$link' value='$link'>
 				<li class='list-group-item list-group-item-action $item_classes border-top p-1 py-2 $dflex'>
 					<span>
 						<span class='$cor_icone_principal align-middle icone-lista'>
@@ -2494,7 +2493,7 @@
 						break;
 				}
 			case 'secao':
-				return array('fa-bookmark', 'text-danger');
+				return array('fa-bookmark', 'text-default');
 				break;
 			case 'curso':
 				return array('fa-graduation-cap', 'text-default');

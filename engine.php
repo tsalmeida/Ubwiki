@@ -72,6 +72,7 @@
 					if ($check == true) {
 						if (($hash_origem == false) || ($hash_origem == 'confirmado') || ($hash_origem == 'thinkific')) {
 							$_SESSION['user_email'] = $login_email;
+							$user_email = $login_email;
 							$_SESSION['user_info'] = 'login';
 							echo true;
 						} else {
@@ -93,6 +94,7 @@
 			$check = $conn->query($query);
 			if ($check == true) {
 				$_SESSION['user_email'] = $login_email;
+				$user_email = $login_email;
 				$_SESSION['user_info'] = 'login';
 				echo true;
 			} else {
@@ -1401,6 +1403,8 @@
 					$alteracao_recente_tipo_icone = 'fa-edit';
 				} elseif ($alteracao_recente_tipo == 'forum') {
 					$alteracao_recente_tipo_icone = 'fa-comments-alt';
+				} else {
+					$alteracao_recente_tipo_icone = 'fa-pencil';
 				}
 				$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$notificacao_pagina_id' class='mt-1'><li class='list-group-item list-group-item-action border-top d-flex justify-content-between'><span><i class='fad $alteracao_recente_tipo_icone fa-fw'></i> $notificacao_pagina_titulo</span><span class='text-muted'><em>($alteracao_recente_usuario_apelido) $alteracao_recente_data</em></span></li></a>";
 				$segunda_alteracao_recente_data = $alteracao_recente[3];
@@ -1616,6 +1620,21 @@
 		} else {
 			//echo json_encode(array('alert', $nxst_cmd));
 		}
+	}
+
+	if (isset($_POST['publicar_modelo'])) {
+		$check = false;
+		$publicar_modelo_pagina_id = $_POST['publicar_modelo'];
+		$publicar_modelo_pagina_info = return_pagina_info($publicar_modelo_pagina_id);
+		$publicar_modelo_pagina_subtipo = $publicar_modelo_pagina_info[8];
+		$publicar_modelo_user_id = $publicar_modelo_pagina_info[5];
+		if ($publicar_modelo_user_id == $user_id) {
+			if ($publicar_modelo_pagina_subtipo == 'modelo') {
+				$query = prepare_query("UPDATE Paginas SET compartilhamento = NULL WHERE id = $publicar_modelo_pagina_id");
+				$check = $conn->query($query);
+			}
+		}
+		echo $check;
 	}
 
 ?>
