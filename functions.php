@@ -2325,7 +2325,19 @@
 					$cor_icone_principal = 'text-warning';
 					break;
 				case 'pagina':
-					$cor_icone_principal = 'text-info';
+					switch ($pagina_subtipo) {
+						case 'modelo':
+							$cor_icone_principal = 'text-secondary';
+							break;
+						case 'Plano de estudos':
+							$cor_icone_principal = 'text-default';
+							break;
+						case 'etiqueta':
+							$cor_icone_principal = 'text-warning';
+							break;
+						default:
+							$cor_icone_principal = 'text-info';
+					}
 					break;
 				case 'texto':
 					$cor_icone_principal = 'text-primary';
@@ -2453,7 +2465,7 @@
 			";
 		} elseif ($type == 'link_button') {
 			return "
-			<a href='javascript:void(0);' id='$link' name='$link' value='$link'>
+			<a href='javascript:void(0);' id='$link' name='$link' value='$link' class='$link'>
 				<li class='list-group-item list-group-item-action $item_classes border-top p-1 py-2 $dflex'>
 					<span>
 						<span class='$cor_icone_principal align-middle icone-lista'>
@@ -2487,6 +2499,9 @@
 						break;
 					case 'modelo':
 						return array('fa-pen-nib', 'text-secondary');
+						break;
+					case 'Plano de estudos':
+						return array('fa-ruler-triangle', 'text-default');
 						break;
 					default:
 						return array('fa-columns', 'text-info');
@@ -2652,7 +2667,8 @@
 		}
 	}
 
-	function return_pagina_texto_id($pagina_id) {
+	function return_pagina_texto_id($pagina_id)
+	{
 		if ($pagina_id == false) {
 			return false;
 		}
@@ -2660,8 +2676,7 @@
 		$pagina_tipo = $pagina_info[2];
 		if ($pagina_tipo == 'texto') {
 			$pagina_texto_id = $pagina_info[1];
-		}
-		else {
+		} else {
 			$pagina_texto_id = return_texto_id($pagina_tipo, 'verbete', $pagina_id, false);
 		}
 		return $pagina_texto_id;

@@ -1299,6 +1299,8 @@
 			    }, function(data) {
 			        if (data != 0) {
 						window.location.reload(true);
+			        } else {
+			            alert('some problem happened');
 			        }
 			    });
 			});
@@ -1327,6 +1329,24 @@
 				            alert('some problem happened');
 				        }
 				    });
+				});
+			</script>
+		";
+	}
+
+	if ($pagina_tipo == 'bfranklin') {
+		echo "
+			<script type='text/javascript'>
+				$(document).on('click', '.criar_novo_modelo', function() {
+					$.post('engine.php', {
+						'criar_novo_modelo': true
+					}, function (data) {
+						if (data != 0) {
+						    window.location.reload(true);
+						} else {
+							alert('some problem happened')
+						}
+					});
 				});
 			</script>
 		";

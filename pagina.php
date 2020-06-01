@@ -776,7 +776,15 @@
 						$notificacao_icone = 'fa-bell fa-swap-opacity';
 					}
 					echo "<a href='javascript:void(0);' class='$notificacao_cor ml-1' data-toggle='modal' data-target='$notificacao_modal'><i class='fad $notificacao_icone fa-fw'></i></a>";
-				}
+				} else {
+					$query = prepare_query("SELECT id FROM Paginas_elementos WHERE pagina_id = $user_escritorio AND tipo = 'modelo' AND elemento_id = $pagina_id");
+					$modelos_do_usuario = $conn->query($query);
+					if ($modelos_do_usuario->num_rows == 0) {
+                        echo "<a class='text-primary' title='{$pagina_translated['Adicionar seus modelos']}'><i class='fad fa-lamp-desk fa-fw'></i></a>";
+                    } else {
+					    echo "<a class='text-secondary' title='{$pagina_translated['Remover seus modelos']}'><i class='fad fa-lamp-desk fa-fw'></i></a>";
+                    }
+                }
 				if (($pagina_tipo != 'sistema') && ($pagina_compartilhamento != 'escritorio')) {
 					if ($etiquetados->num_rows > 0) {
 						$etiquetas_color = 'text-warning';
@@ -790,10 +798,10 @@
 						$etiquetas_color = 'text-warning';
 					}
 					echo "
-                                  <a id='adicionar_etiqueta' class='ml-1 $etiquetas_color' title='{$pagina_translated['Adicionar etiqueta']}' data-dismiss='modal' data-toggle='modal' href='$etiquetas_modal'>
-                                          <i class='fad fa-tags fa-fw'></i>
-                                  </a>
-                                ";
+                      <a id='adicionar_etiqueta' class='ml-1 $etiquetas_color' title='{$pagina_translated['Adicionar etiqueta']}' data-dismiss='modal' data-toggle='modal' href='$etiquetas_modal'>
+                              <i class='fad fa-tags fa-fw'></i>
+                      </a>
+                    ";
 					if ($pagina_tipo == 'topico') {
 						if ($user_id != false) {
 							if ($estado_estudo == true) {
@@ -1533,12 +1541,13 @@
 		if (isset($secoes)) {
 			if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id) && ($secoes->num_rows == 0) && ($pagina_tipo == 'pagina') && ($pagina_titulo != false) && ($pagina_subtipo != 'produto') && ($pagina_subtipo != 'modelo')) {
 				$modal_novo_curso = true;
+				$template_modal_show_buttons = false;
 				$template_modal_body_conteudo .= "<h3>{$pagina_translated['change page nature']}</h3>";
 				$template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
 				$template_modal_body_conteudo .= "<span data-toggle='modal' data-target='#modal_pagina_dados'>";
 				$template_modal_body_conteudo .= put_together_list_item('modal', '#modal_novo_curso', 'text-default', 'fad', 'fa-graduation-cap', $pagina_translated['Transformar em página inicial de curso'], false, false, 'list-group-item-action');
 				$template_modal_body_conteudo .= "</span>";
-				if ($user_id == 1) {
+				if ($user_tipo == 'admin') {
 					$load_change_into_model = true;
 					$template_modal_body_conteudo .= put_together_list_item('link_button', 'change_into_model', 'text-secondary', 'fad', 'fa-pen-nib', $pagina_translated['Change page modelo'], false, false, 'list-group-item-action');
 				}

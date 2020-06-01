@@ -127,6 +127,7 @@
 					if ($_SESSION['user_language'] != false) {
 						$_SESSION['lg'] = $_SESSION['user_language'];
 					}
+					$_SESSION['user_escritorio'] = return_escritorio_id($_SESSION['user_id']);
 				}
 			}
 		} else {
@@ -137,6 +138,7 @@
 			$user_apelido = false;
 			$user_sobrenome = false;
 			$user_wallet = false;
+			$user_escritorio = false;
 		}
 	}
 	if ($_SESSION['user_info'] === true) {
@@ -152,6 +154,7 @@
 		if (!isset($_SESSION['lg'])) {
 			$_SESSION['lg'] = $user_language;
 		}
+		$user_escritorio = $_SESSION['user_escritorio'];
 	} elseif ($_SESSION['user_info'] == 'visitante') {
 		$user_id = false;
 		$user_tipo = false;
@@ -159,6 +162,7 @@
 		$user_apelido = false;
 		$user_sobrenome = false;
 		$user_wallet = false;
+		$user_escritorio = false;
 	}
 
 	include 'money_engine.php';
@@ -1635,6 +1639,24 @@
 			}
 		}
 		echo $check;
+	}
+
+	if (isset($_POST['change_into_model_pagina_id'])) {
+		$new_model_pagina_id = $_POST['change_into_model_pagina_id'];
+		$new_model_pagina_info = return_pagina_info($new_model_pagina_id);
+		$new_model_pagina_user_id = $new_model_pagina_info[5];
+		$check = false;
+		if ($user_id == $new_model_pagina_user_id) {
+			$query = prepare_query("UPDATE Paginas SET subtipo = 'modelo' WHERE id = $new_model_pagina_id");
+			$check = $conn->query($query);
+		}
+		echo $check;
+	}
+
+	if (isset($_POST['criar_novo_modelo'])) {
+		$conn->query("INSERT INTO Paginas (tipo, subtipo, compartilhamento, user_id) VALUES ('pagina', 'modelo', 'privado', $user_id)");
+		$novo_modelo_pagina_id = $conn->insert_id;
+		echo $novo_modelo_pagina_id;
 	}
 
 ?>
