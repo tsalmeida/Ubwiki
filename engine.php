@@ -127,7 +127,8 @@
 					if ($_SESSION['user_language'] != false) {
 						$_SESSION['lg'] = $_SESSION['user_language'];
 					}
-					$_SESSION['user_escritorio'] = return_escritorio_id($_SESSION['user_id']);
+					$_SESSION['user_escritorio'] = return_pagina_id($_SESSION['user_id'], 'escritorio');
+					$_SESSION['user_lounge'] = return_lounge_id($_SESSION['user_id']);
 				}
 			}
 		} else {
@@ -139,6 +140,7 @@
 			$user_sobrenome = false;
 			$user_wallet = false;
 			$user_escritorio = false;
+			$user_lounge = false;
 		}
 	}
 	if ($_SESSION['user_info'] === true) {
@@ -151,6 +153,7 @@
 		$user_sobrenome = $_SESSION['user_sobrenome'];
 		$user_language = $_SESSION['user_language'];
 		$user_wallet = $_SESSION['user_wallet'];
+		$user_lounge = $_SESSION['user_lounge'];
 		if (!isset($_SESSION['lg'])) {
 			$_SESSION['lg'] = $user_language;
 		}
@@ -163,6 +166,7 @@
 		$user_sobrenome = false;
 		$user_wallet = false;
 		$user_escritorio = false;
+		$user_lounge = false;
 	}
 
 	include 'money_engine.php';
@@ -939,9 +943,8 @@
 
 	if (isset($_POST['adicionar_item_acervo'])) {
 		$adicionar_item_acervo = $_POST['adicionar_item_acervo'];
-		$user_escritorio_pagina_id = return_pagina_id($user_id, 'escritorio');
 		$adicionar_item_pagina_id = return_pagina_id($adicionar_item_acervo, 'elemento');
-		$query = prepare_query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, extra, user_id) VALUES ($user_escritorio_pagina_id, 'escritorio', $adicionar_item_acervo, 'referencia', $adicionar_item_pagina_id, $user_id)");
+		$query = prepare_query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, extra, user_id) VALUES ($user_escritorio, 'escritorio', $adicionar_item_acervo, 'referencia', $adicionar_item_pagina_id, $user_id)");
 		$check_acervo = $conn->query($query);
 		if ($check_acervo == true) {
 			echo true;
@@ -963,8 +966,7 @@
 
 	if (isset($_POST['adicionar_area_interesse'])) {
 		$adicionar_area_interesse = $_POST['adicionar_area_interesse'];
-		$user_escritorio_pagina_id = return_pagina_id($user_id, 'escritorio');
-		$query = prepare_query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($user_escritorio_pagina_id, 'escritorio', 'topico', $adicionar_area_interesse, $user_id)");
+		$query = prepare_query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($user_escritorio, 'escritorio', 'topico', $adicionar_area_interesse, $user_id)");
 		$check_adicionar = $conn->query($query);
 		if ($check_adicionar == true) {
 			echo true;
@@ -1231,7 +1233,6 @@
 	}
 
 	if (isset($_POST['list_areas_interesse'])) {
-		$user_escritorio_pagina_id = return_pagina_id($user_id, 'escritorio');
 		$areas_interesse_result = false;
 		$areas_interesse_result .= "<ul class='list-group list-group-flush'>";
 
@@ -1240,7 +1241,7 @@
 		$areas_interesse_result .= put_together_list_item('modal', '#modal_gerenciar_etiquetas', 'text-info', 'fad', 'fa-plus-circle', $pagina_translated['Gerenciar etiquetas'], 'text-muted', 'fad fa-tags');
 
 		$areas_interesse_result .= "</span>";
-		$query = prepare_query("SELECT extra FROM Paginas_elementos WHERE pagina_id = $user_escritorio_pagina_id AND tipo = 'topico' AND estado = 1 ORDER BY id DESC");
+		$query = prepare_query("SELECT extra FROM Paginas_elementos WHERE pagina_id = $user_escritorio AND tipo = 'topico' AND estado = 1 ORDER BY id DESC");
 		$areas_interesse = $conn->query($query);
 		if ($areas_interesse->num_rows > 0) {
 			while ($area_interesse = $areas_interesse->fetch_assoc()) {
@@ -1255,13 +1256,12 @@
 	}
 
 	if (isset($_POST['list_biblioteca_particular'])) {
-		$user_escritorio_pagina_id = return_pagina_id($user_id, 'escritorio');
 		$list_biblioteca_particular = false;
 		$list_biblioteca_particular .= "<ul class='list-group list-group-flush'>";
 		$list_biblioteca_particular .= "<div data-toggle='modal' data-target='#modal_biblioteca_particular'>";
-		$list_biblioteca_particular .= put_together_list_item('modal', '#modal_add_elementos', 'text-info', 'fad', 'fa-plus-circle', $pagina_translated['press add collection'], 'text-muted', 'fad fa-cog');
+		$list_biblioteca_particular .= put_together_list_item('modal', '#modal_add_elementos', 'text-info', 'fad', 'fa-plus-circle', $pagina_translated['press add collection'], 'text-muted', 'fad fa-cog blue lighten-5');
 		$list_biblioteca_particular .= "</div>";
-		$query = prepare_query("SELECT DISTINCT elemento_id FROM Paginas_elementos WHERE pagina_id = $user_escritorio_pagina_id AND estado = 1 AND elemento_id IS NOT NULL ORDER BY id DESC");
+		$query = prepare_query("SELECT DISTINCT elemento_id FROM Paginas_elementos WHERE pagina_id = $user_escritorio AND estado = 1 AND elemento_id IS NOT NULL ORDER BY id DESC");
 		$biblioteca_particular = $conn->query($query);
 		if ($biblioteca_particular->num_rows > 0) {
 			while ($item_biblioteca = $biblioteca_particular->fetch_assoc()) {
@@ -1657,6 +1657,33 @@
 		$conn->query("INSERT INTO Paginas (tipo, subtipo, compartilhamento, user_id) VALUES ('pagina', 'modelo', 'privado', $user_id)");
 		$novo_modelo_pagina_id = $conn->insert_id;
 		echo $novo_modelo_pagina_id;
+	}
+
+	if (isset($_POST['escritorio_modelo_operation'])) {
+		$escritorio_modelo_operation = $_POST['escritorio_modelo_operation'];
+		$escritorio_modelo_pagina_id = $_POST['escritorio_modelo_pagina_id'];
+		$escritorio_modelo_pagina_info = return_pagina_info($escritorio_modelo_pagina_id);
+		$escritorio_modelo_pagina_subtipo = $escritorio_modelo_pagina_info[8];
+		$escritorio_modelo_user_id = $escritorio_modelo_pagina_info[5];
+		$escritorio_modelo_compartilhamento = $escritorio_modelo_pagina_info[4];
+		$permitir = false;
+		if ($escritorio_modelo_pagina_subtipo == 'modelo') {
+			if ($escritorio_modelo_compartilhamento == 'privado') {
+				if ($escritorio_modelo_user_id == $user_id) {
+					$permitir = true;
+				}
+			} else {
+				$permitir = true;
+			}
+		}
+		if ($permitir == true) {
+			if ($escritorio_modelo_operation == 'adicionar_modelo') {
+				$check = $conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, user_id) VALUES ($user_escritorio, 'escritorio', $escritorio_modelo_pagina_id, 'modelo', $user_id)");
+			} elseif ($escritorio_modelo_operation == 'remover_modelo') {
+				$check = $conn->query("UPDATE Paginas_elementos SET estado = 0 WHERE pagina_id = $user_escritorio AND tipo = 'modelo' AND elemento_id = $escritorio_modelo_pagina_id");
+			}
+			echo $check;
+		}
 	}
 
 ?>

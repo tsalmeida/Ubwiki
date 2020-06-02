@@ -1,8 +1,8 @@
 <?php
 	include 'engine.php';
 	$pagina_tipo = 'bfranklin';
-	$pagina_id = return_pagina_id($user_id, 'escritorio');
-	if ($user_id != 1) {
+	$pagina_id = $user_escritorio;
+	if ($user_tipo != 'admin') {
 		header('Location:ubwiki.php');
 		exit();
 	}
@@ -31,14 +31,13 @@
 				$template_titulo = 'Your models';
 				$template_conteudo = false;
 				$cada_modelo_do_usuario = array();
-				$query = prepare_query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'modelo'");
+				$query = prepare_query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'modelo' AND estado = 1");
 				$modelos_do_usuario = $conn->query($query);
 				if ($modelos_do_usuario->num_rows > 0) {
 					$template_conteudo .= "<ul class='list-group list-group-flush'>";
 					while ($modelo_do_usuario = $modelos_do_usuario->fetch_assoc()) {
-						$modelo_do_usuario_id = $modelo_do_usuario['modelo_id'];
-						array_push($cada_modelo_do_usuario, $modelo_do_usuario_id);
-						$modelo_do_usuario_pagina_id = return_pagina_id($modelo_do_usuario_id, 'modelo');
+					    $modelo_do_usuario_pagina_id = $modelo_do_usuario['elemento_id'];
+					    array_push($cada_modelo_do_usuario, $modelo_do_usuario_pagina_id);
 						$template_conteudo .= return_list_item($modelo_do_usuario_pagina_id);
 					}
 					$template_conteudo .= "</ul>";
@@ -53,6 +52,7 @@
 				$query = prepare_query("SELECT id, compartilhamento, user_id FROM Paginas WHERE subtipo = 'modelo' ORDER BY id DESC");
 				$rascunhos_de_modelo_do_usuario = array();
 				$modelos_disponiveis_criados_pelo_usuario = array();
+				$ha_outros_modelos_disponiveis = false;
 				$modelos_disponiveis = $conn->query($query);
 				if ($modelos_disponiveis->num_rows > 0) {
 					$template_conteudo .= "<ul class='list-group list-group-flush'>";
@@ -74,6 +74,7 @@
 								continue;
 							}
                         }
+						$ha_outros_modelos_disponiveis = true;
 						$modelo_disponivel_pagina_id = $modelo_disponivel['id'];
 						$template_conteudo .= return_list_item($modelo_disponivel_pagina_id);
 					}
@@ -114,7 +115,9 @@
 					include 'templates/page_element.php';
 				}
 
-				echo $page_element_modelos_disponiveis;
+				if ($ha_outros_modelos_disponiveis == true) {
+					echo $page_element_modelos_disponiveis;
+				}
 
 			?>
         </div>

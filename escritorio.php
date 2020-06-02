@@ -2,8 +2,7 @@
 
 	$pagina_tipo = 'escritorio';
 	include 'engine.php';
-	$pagina_id = return_pagina_id($user_id, $pagina_tipo);
-	$lounge_id = return_escritorio_id($user_id);
+	$pagina_id = $user_escritorio;
 	$query = prepare_query("SELECT DISTINCT extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'topico' AND estado = 1");
 	$etiquetados = $conn->query($query);
 
@@ -206,7 +205,7 @@
 
 						$artefato_id = 'sala_visitas';
 						$artefato_subtitulo = $pagina_translated['your office lounge'];
-						$artefato_link = "pagina.php?pagina_id=$lounge_id";
+						$artefato_link = "pagina.php?pagina_id=$user_lounge";
 						$artefato_badge = 'fa-external-link';
 						$fa_icone = 'fa-mug-tea';
 						$fa_color = 'text-secondary';
@@ -230,16 +229,7 @@
 							$template_conteudo .= include 'templates/artefato_item.php';
 						}
 
-						if ($user_id == 1) {
-
-						    $artefato_id = 'simulados';
-						    $artefato_subtitulo = 'Simulados';
-						    $artefato_link = 'simulados.php';
-						    $artefato_badge = 'fa-external-link';
-						    $artefato_icone_background = 'teal lighten-5';
-						    $fa_icone = 'fa-clipboard-list-check';
-						    $fa_color = 'text-default';
-						    $template_conteudo .= include 'templates/artefato_item.php';
+						if ($user_tipo == 'admin') {
 
 						    $artefato_id = 'bfranklin';
 						    $artefato_subtitulo = $pagina_translated['metodo bfranklin'];
@@ -250,15 +240,25 @@
 						    $fa_color = 'text-secondary';
 						    $template_conteudo .= include 'templates/artefato_item.php';
 
-						    $artefato_id = 'homepage';
-						    $artefato_subtitulo = 'Homepage';
-						    $artefato_link = 'nexus.php';
-						    $artefato_badge = 'fa-external-link';
-						    $artefato_icone_background = 'red lighten-5';
-						    $fa_icone = 'fa-house-user';
-						    $fa_color = 'text-danger';
-						    $template_conteudo .= include 'templates/artefato_item.php';
+                            if ($user_id == 1) {
+								$artefato_id = 'simulados';
+								$artefato_subtitulo = 'Simulados';
+								$artefato_link = 'simulados.php';
+								$artefato_badge = 'fa-external-link';
+								$artefato_icone_background = 'teal lighten-5';
+								$fa_icone = 'fa-clipboard-list-check';
+								$fa_color = 'text-default';
+								$template_conteudo .= include 'templates/artefato_item.php';
 
+								$artefato_id = 'homepage';
+								$artefato_subtitulo = 'Homepage';
+								$artefato_link = 'nexus.php';
+								$artefato_badge = 'fa-external-link';
+								$artefato_icone_background = 'red lighten-5';
+								$fa_icone = 'fa-house-user';
+								$fa_color = 'text-danger';
+								$template_conteudo .= include 'templates/artefato_item.php';
+							}
                         }
 
 						include 'templates/page_element.php';

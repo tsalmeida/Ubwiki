@@ -52,7 +52,7 @@
 				header("Location:pagina.php?pagina_id=6");
 				exit();
 			}
-			$escritorio_id = return_escritorio_id($escritorio_user_id);
+			$escritorio_id = return_lounge_id($escritorio_user_id);
 			$pagina_id = $escritorio_id;
 			header("Location:pagina.php?pagina_id=$escritorio_id");
 			exit();
@@ -242,7 +242,9 @@
 		}
 	} elseif ($pagina_subtipo == 'etiqueta') {
 		$pagina_etiqueta_id = $pagina_item_id;
-	}
+	} elseif ($pagina_subtipo == 'modelo') {
+	    $modelo_do_usuario = return_modelo_estado($pagina_id, $user_id);
+    }
 
 	if ($pagina_tipo == 'curso') {
 		$pagina_curso_user_id = $pagina_user_id;
@@ -777,14 +779,16 @@
 					}
 					echo "<a href='javascript:void(0);' class='$notificacao_cor ml-1' data-toggle='modal' data-target='$notificacao_modal'><i class='fad $notificacao_icone fa-fw'></i></a>";
 				} else {
-					$query = prepare_query("SELECT id FROM Paginas_elementos WHERE pagina_id = $user_escritorio AND tipo = 'modelo' AND elemento_id = $pagina_id");
-					$modelos_do_usuario = $conn->query($query);
-					if ($modelos_do_usuario->num_rows == 0) {
-                        echo "<a class='text-primary' title='{$pagina_translated['Adicionar seus modelos']}'><i class='fad fa-lamp-desk fa-fw'></i></a>";
+                    $adicionar_modelo_hidden = false;
+                    $remover_modelo_hidden = false;
+                    if ($modelo_do_usuario == true) {
+                        $adicionar_modelo_hidden = 'hidden';
                     } else {
-					    echo "<a class='text-secondary' title='{$pagina_translated['Remover seus modelos']}'><i class='fad fa-lamp-desk fa-fw'></i></a>";
+                        $remover_modelo_hidden = 'hidden';
                     }
-                }
+					echo "<a class='text-primary escritorio_modelo $adicionar_modelo_hidden' id='adicionar_modelo' value='adicionar_modelo' title='{$pagina_translated['Adicionar seus modelos']}'><i class='fad fa-lamp-desk fa-fw'></i></a>";
+					echo "<a class='text-secondary escritorio_modelo $remover_modelo_hidden' id='remover_modelo' value='remover_modelo' title='{$pagina_translated['Remover seus modelos']}'><i class='fad fa-lamp-desk fa-fw'></i></a>";
+				}
 				if (($pagina_tipo != 'sistema') && ($pagina_compartilhamento != 'escritorio')) {
 					if ($etiquetados->num_rows > 0) {
 						$etiquetas_color = 'text-warning';
@@ -1302,24 +1306,30 @@
 			if ($user_id == false) {
 				$carregar_quill_anotacoes = false;
 			} else {
-			    if (in_array($pagina_tipo, $paginas_com_anotacoes)) {
-			        $carregar_quill_anotacoes = true;
-                } elseif (in_array($pagina_subtipo, $subtipos_com_anotacoes)) {
-                    $carregar_quill_anotacoes = true;
-                } else {
-			        $carregar_quill_anotacoes = false;
-                }
+				if (in_array($pagina_tipo, $paginas_com_anotacoes)) {
+					$carregar_quill_anotacoes = true;
+				} elseif (in_array($pagina_subtipo, $subtipos_com_anotacoes)) {
+					$carregar_quill_anotacoes = true;
+				} else {
+					$carregar_quill_anotacoes = false;
+				}
 				if ($pagina_compartilhamento == 'escritorio') {
 					$carregar_quill_anotacoes = false;
 				}
 				if ($pagina_subtipo == 'modelo') {
-					if ($pagina_compartilhamento != 'privado') {
-						$carregar_quill_anotacoes = true;
+					if ($pagina_compartilhamento == 'privado') {
+					    if ($pagina_user_id == $user_id) {
+							$carregar_quill_anotacoes = true;
+                        }
 					} else {
-						$carregar_quill_anotacoes = false;
+					    if ($modelo_do_usuario == true) {
+							$carregar_quill_anotacoes = true;
+						} else {
+					        $carregar_quill_anotacoes = false;
+                        }
 					}
 				}
-            }
+			}
 			if ($carregar_quill_anotacoes == true) {
 				include 'pagina/coluna_direita_anotacoes.php';
 			}
@@ -1643,7 +1653,7 @@
 		$template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
 		if ($privilegio_edicao == true) {
 			$template_modal_body_conteudo .= "<span data-toggle='modal' data-target='#modal_partes_elemento'>";
-			$template_modal_body_conteudo .= put_together_list_item('modal', '#modal_partes_form', 'text-default', 'fad', 'fa-plus-square', $pagina_translated['Adicionar seção'], false, false);
+			$template_modal_body_conteudo .= put_together_list_item('modal', '#modal_partes_form', 'text-default', 'fad', 'fa-plus-square', $pagina_translated['Adicionar seção'], false, 'cyan lighten-5');
 			$template_modal_body_conteudo .= "</span>";
 		}
 		$template_modal_body_conteudo .= $lista_de_secoes;
@@ -2527,7 +2537,7 @@
                 </div>
                 <p class='mb-1 mt-2'><strong>{$pagina_translated['Incluir uma nota aproximada?']}</strong></p>
                 <div class='form-check'>
-                    <input type='checkbox' id='review_grade' name='review_grade' class='disable_submit form-check-input' checked>
+                    <input type='checkbox' id='review_grade' name='review_grade' class='disable_submit form-check-input'>
                     <label for='review_grade' class='form-check-label'>{$pagina_translated['review grade']}</label>
                 </div>
                 <p class='mb-1 mt-2'><strong>{$pagina_translated['Incluir conversa com o revisor:']}</strong></p>

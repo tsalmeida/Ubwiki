@@ -105,6 +105,10 @@
 		$carregar_publicar_modelo = false;
 	}
 
+	if (!isset($pagina_subtipo)) {
+		$pagina_subtipo = false;
+	}
+
 	echo "
     <!-- Bootstrap tooltips -->
     <script type='text/javascript' src='js/popper.min.js'></script>
@@ -1348,6 +1352,32 @@
 						}
 					});
 				});
+			</script>
+		";
+	}
+
+	if ($pagina_subtipo == 'modelo') {
+		echo "
+			<script type='text/javascript'>
+				$(document).on('click', '.escritorio_modelo', function() {
+					var this_operation = $(this).attr('value');
+					$.post('engine.php', {	
+					    'escritorio_modelo_operation': this_operation,
+						'escritorio_modelo_pagina_id': $pagina_id
+					}, function (data) {
+						if (data != 0) {
+						    if (this_operation == 'adicionar_modelo') {
+							    $('#adicionar_modelo').addClass('hidden');
+							    $('#remover_modelo').removeClass('hidden');
+							} else {
+						        $('#adicionar_modelo').removeClass('hidden');
+						        $('#remover_modelo').addClass('hidden');
+							}
+						} else {
+							alert('some problem happened');
+						}
+					})
+				})
 			</script>
 		";
 	}

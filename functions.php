@@ -1096,7 +1096,7 @@
 					return $etiqueta_pagina_id;
 				}
 			}
-		} elseif ($tipo == 'escritorio') {
+		} elseif ($tipo == 'escritorio') { // NA VERDADE, ESSA É A SALA DE VISITAS. O ESCRITÓRIO É O ESCRITORIO_ID NA TABELA USUARIOS
 			$query = prepare_query("SELECT pagina_id FROM Usuarios WHERE id = $item_id AND pagina_id IS NOT NULL");
 			$usuarios = $conn->query($query);
 			if ($usuarios->num_rows > 0) {
@@ -1535,7 +1535,7 @@
 	}
 
 
-	function return_escritorio_id($usuario_id)
+	function return_lounge_id($usuario_id)
 	{
 		include 'templates/criar_conn.php';
 		$query = prepare_query("SELECT escritorio_id FROM Usuarios WHERE id = $usuario_id AND escritorio_id IS NOT NULL");
@@ -2680,4 +2680,8 @@
 			$pagina_texto_id = return_texto_id($pagina_tipo, 'verbete', $pagina_id, false);
 		}
 		return $pagina_texto_id;
+	}
+
+	function return_modelo_estado($modelo_pagina_id, $user_id) {
+		return true;
 	}
