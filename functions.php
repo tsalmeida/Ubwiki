@@ -2683,5 +2683,22 @@
 	}
 
 	function return_modelo_estado($modelo_pagina_id, $user_id) {
-		return true;
+		if (($modelo_pagina_id == false) || ($user_id == false)) {
+			return false;
+		}
+		$user_escritorio_pagina_id = return_pagina_id($user_id, 'escritorio');
+		include 'templates/criar_conn.php';
+		$modelos_do_usuario = $conn->query("SELECT extra FROM Paginas_elementos WHERE pagina_id = $user_escritorio_pagina_id AND elemento_id = $modelo_pagina_id AND estado = 1");
+		if ($modelos_do_usuario->num_rows > 0) {
+			while ($modelo_do_usuario = $modelos_do_usuario->fetch_assoc()) {
+				$modelo_do_usuario_extra = $modelo_do_usuario['extra'];
+				if ($modelo_do_usuario_extra == false) {
+					return 'added';
+				} else {
+					return $modelo_do_usuario_extra;
+				}
+			}
+		} else {
+			return false;
+		}
 	}

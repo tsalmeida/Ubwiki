@@ -243,8 +243,8 @@
 	} elseif ($pagina_subtipo == 'etiqueta') {
 		$pagina_etiqueta_id = $pagina_item_id;
 	} elseif ($pagina_subtipo == 'modelo') {
-	    $modelo_do_usuario = return_modelo_estado($pagina_id, $user_id);
-    }
+		$modelo_do_usuario = return_modelo_estado($pagina_id, $user_id);
+	}
 
 	if ($pagina_tipo == 'curso') {
 		$pagina_curso_user_id = $pagina_user_id;
@@ -779,13 +779,13 @@
 					}
 					echo "<a href='javascript:void(0);' class='$notificacao_cor ml-1' data-toggle='modal' data-target='$notificacao_modal'><i class='fad $notificacao_icone fa-fw'></i></a>";
 				} else {
-                    $adicionar_modelo_hidden = false;
-                    $remover_modelo_hidden = false;
-                    if ($modelo_do_usuario == true) {
-                        $adicionar_modelo_hidden = 'hidden';
-                    } else {
-                        $remover_modelo_hidden = 'hidden';
-                    }
+					$adicionar_modelo_hidden = false;
+					$remover_modelo_hidden = false;
+					if ($modelo_do_usuario == false) {
+						$remover_modelo_hidden = 'hidden';
+					} else {
+						$adicionar_modelo_hidden = 'hidden';
+					}
 					echo "<a class='text-primary escritorio_modelo $adicionar_modelo_hidden' id='adicionar_modelo' value='adicionar_modelo' title='{$pagina_translated['Adicionar seus modelos']}'><i class='fad fa-lamp-desk fa-fw'></i></a>";
 					echo "<a class='text-secondary escritorio_modelo $remover_modelo_hidden' id='remover_modelo' value='remover_modelo' title='{$pagina_translated['Remover seus modelos']}'><i class='fad fa-lamp-desk fa-fw'></i></a>";
 				}
@@ -1109,6 +1109,13 @@
 				$template_quill_initial_state = 'leitura';
 				$template_quill_vazio = $pagina_translated['Model explanation'];
 				$template_botoes_padrao = false;
+                $template_classes = false;
+				$template_botoes = "
+				    <a class='text-secondary modelo_esconder_paragrafo' href='javascript:void(0);'><i class='fad fa-times-square fa-fw'></i></a>
+				";
+				if ($modelo_do_usuario == 'hidden') {
+				    $template_classes .= 'hidden';
+				}
 				$template_conteudo = include 'templates/template_quill.php';
 				include 'templates/page_element.php';
 
@@ -1318,15 +1325,19 @@
 				}
 				if ($pagina_subtipo == 'modelo') {
 					if ($pagina_compartilhamento == 'privado') {
-					    if ($pagina_user_id == $user_id) {
+						if ($pagina_user_id == $user_id) {
 							$carregar_quill_anotacoes = true;
-                        }
+						}
 					} else {
-					    if ($modelo_do_usuario == true) {
-							$carregar_quill_anotacoes = true;
-						} else {
-					        $carregar_quill_anotacoes = false;
-                        }
+						switch ($modelo_do_usuario) {
+							case 'added':
+                            case 'hidden':
+								$carregar_quill_anotacoes = true;
+								break;
+							case false:
+							default:
+								$carregar_quill_anotacoes = false;
+						}
 					}
 				}
 			}
@@ -2475,12 +2486,26 @@
             </ol>
             <p>Como se percebe, é um método simples, que qualquer pessoa pode colocar em prática sem muita dificuldade. A plataforma “BFranklin” da Ubwiki apenas facilita o processo, registra seu progresso e permite que uma comunidade se desenvolva em torno do exercício.</p>
 		";
+		$template_modal_body_conteudo .= "<ul class='list-group list-group-flush' method='post'>";
 		if (($pagina_user_id == $user_id) && ($pagina_compartilhamento == 'privado')) {
 			$carregar_publicar_modelo = true;
-			$template_modal_body_conteudo .= "<ul class='list-group list-group-flush' method='post'>";
-			$template_modal_body_conteudo .= put_together_list_item('link_button', 'publicar_modelo', false, 'fad', 'fa-pen-nib', $pagina_translated['Publicar modelo'], false, false, 'list-group-item-success');
-			$template_modal_body_conteudo .= "</ul>";
+			$template_modal_body_conteudo .= put_together_list_item('link_button', 'publicar_modelo', false, 'fad', 'fa-pen-nib', $pagina_translated['Publicar modelo'], false, false, 'list-group-item-warning mt-1');
 		}
+		switch ($modelo_do_usuario) {
+			case false:
+				$template_modal_body_conteudo .= put_together_list_item('link_button', 'adicionar_escritorio_modelo', false, 'fad', 'fa-pen-nib', $pagina_translated['Adicionar seus modelos'], false, false, 'list-group-item-success mt-1');
+				$esconder_paragrafo_hidden = 'hidden';
+				break;
+			case 'hidden':
+				$template_modal_body_conteudo .= put_together_list_item('link_button', 'list_item_mostrar_paragrafo', false, 'fad', 'fa-eye', $pagina_translated['Modelo mostrar paragrafo'], false, 'fa-pen-nib', 'list-group-item-success mt-1 modelo_mostrar_paragrafo');
+				$esconder_paragrafo_hidden = 'hidden';
+				break;
+			case 'added':
+			default:
+				$esconder_paragrafo_hidden = false;
+		}
+		$template_modal_body_conteudo .= put_together_list_item('link_button', 'list_item_esconder_paragrafo', false, 'fad', 'fa-eye-slash', $pagina_translated['Modelo esconder paragrafo'], false, 'fa-pen-nib', "list-group-item-info mt-1 modelo_esconder_paragrafo $esconder_paragrafo_hidden");
+		$template_modal_body_conteudo .= "</ul>";
 		include 'templates/modal.php';
 	}
 

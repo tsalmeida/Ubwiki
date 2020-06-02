@@ -1378,6 +1378,45 @@
 						}
 					})
 				})
+				$(document).on('click', '#adicionar_escritorio_modelo', function() {
+				    $.post('engine.php', {
+				        'escritorio_modelo_operation': 'adicionar_modelo',
+				        'escritorio_modelo_pagina_id': $pagina_id
+				    }, function (data) {
+				        if (data != 0) {
+				            $('#adicionar_escritorio_modelo').addClass('hidden');
+							$('#adicionar_modelo').addClass('hidden');
+							$('#remover_modelo').removeClass('hidden');
+							$('.modelo_esconder_paragrafo').removeClass('hidden');
+				        } else {
+				            alert('some problem happened')
+				        }
+				    })
+				})
+				$(document).on('click', '.modelo_esconder_paragrafo', function() {
+					$(this).addClass('hidden')
+				    $.post('engine.php', {
+				        'modelo_esconder_paragrafo': $pagina_id
+				    }, function (data) {
+				        if (data != 0) {
+				            $('#modelo').addClass('hidden');
+				        } else {
+				            alert('some problem happened')
+				        }
+				    })
+				})
+				$(document).on('click', '.modelo_mostrar_paragrafo', function() {
+					$(this).addClass('hidden')
+				    $.post('engine.php', {
+				        'modelo_mostrar_paragrafo': $pagina_id
+				    }, function (data) {
+				        if (data != 0) {
+							$('#modelo').removeClass('hidden');
+				        } else {
+				            alert('some problem has happened')
+				        }
+				    })
+				})
 			</script>
 		";
 	}

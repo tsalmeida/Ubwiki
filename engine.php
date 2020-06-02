@@ -1678,12 +1678,24 @@
 		}
 		if ($permitir == true) {
 			if ($escritorio_modelo_operation == 'adicionar_modelo') {
-				$check = $conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, user_id) VALUES ($user_escritorio, 'escritorio', $escritorio_modelo_pagina_id, 'modelo', $user_id)");
+				$check = $conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, extra, user_id) VALUES ($user_escritorio, 'escritorio', $escritorio_modelo_pagina_id, 'modelo', 'added', $user_id)");
 			} elseif ($escritorio_modelo_operation == 'remover_modelo') {
 				$check = $conn->query("UPDATE Paginas_elementos SET estado = 0 WHERE pagina_id = $user_escritorio AND tipo = 'modelo' AND elemento_id = $escritorio_modelo_pagina_id");
 			}
 			echo $check;
 		}
+	}
+
+	if (isset($_POST['modelo_esconder_paragrafo'])) {
+		$modelo_esconder_paragrafo_pagina_id = $_POST['modelo_esconder_paragrafo'];
+		$check = $conn->query("UPDATE Paginas_elementos SET extra = 'hidden' WHERE elemento_id = $modelo_esconder_paragrafo_pagina_id AND pagina_id = $user_escritorio AND estado = 1");
+		echo $check;
+	}
+
+	if (isset($_POST['modelo_mostrar_paragrafo'])) {
+		$modelo_mostrar_paragrafo_pagina_id = $_POST['modelo_mostrar_paragrafo'];
+		$check = $conn->query("UPDATE Paginas_elementos SET extra = 'added' WHERE elemento_id = $modelo_mostrar_paragrafo_pagina_id AND pagina_id = $user_escritorio AND estado = 1");
+		echo $check;
 	}
 
 ?>
