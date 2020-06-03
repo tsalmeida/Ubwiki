@@ -182,7 +182,12 @@
 	}
 
 	include 'templates/translation.php';
-	$pagina_translated = translate_pagina($user_language);
+	
+	if (!isset($_SESSION['pagina_translated'])) {
+		$pagina_translated = translate_pagina($user_language);
+	} else {
+		$pagina_translated = $_SESSION['pagina_translated'];
+	}
 
 	if (isset($_SESSION['curso_id'])) {
 		$curso_id = $_SESSION['curso_id'];
@@ -1502,14 +1507,19 @@
 
 	if (isset($_POST['list_user_texts'])) {
 		$list_user_texts = false;
-		$query = prepare_query("SELECT id, pagina_id FROM Textos WHERE tipo = 'anotacoes' AND user_id = $user_id AND verbete_text != '0' AND verbete_text != '' AND verbete_text != '\\n' ORDER BY id DESC");
+		$query = prepare_query("SELECT id, pagina_id, texto_pagina_id FROM Textos WHERE tipo = 'anotacoes' AND user_id = $user_id AND verbete_text != '0' AND verbete_text != '' AND verbete_text != '\\n' ORDER BY id DESC");
 		$user_textos = $conn->query($query);
 		if ($user_textos->num_rows > 0) {
 			while ($user_texto = $user_textos->fetch_assoc()) {
 				$user_texto_id = $user_texto['id'];
 				$user_texto_pagina_id = $user_texto['pagina_id'];
+				$user_texto_texto_pagina_id = $user_texto['texto_pagina_id'];
 				if ($user_texto_pagina_id == false) {
-					$user_texto_pagina_id = return_pagina_id($user_texto_id, 'texto');
+					if ($user_texto_texto_pagina_id == false) {
+						$user_texto_pagina_id = return_pagina_id($user_texto_id, 'texto');
+					} else {
+						$user_texto_pagina_id = $user_texto_texto_pagina_id;
+					}
 				}
 				$list_user_texts .= return_list_item($user_texto_pagina_id, 'texto');
 			}
@@ -1518,13 +1528,16 @@
 	}
 
 	if (isset($_POST['list_user_pages'])) {
-		$query = prepare_query("SELECT id FROM Paginas WHERE tipo = 'pagina' AND user_id = $user_id ORDER BY id DESC");
+		$query = prepare_query("SELECT id, subtipo FROM Paginas WHERE tipo = 'pagina' AND user_id = $user_id ORDER BY id DESC");
 		$user_pages = $conn->query($query);
 		$list_user_pages = false;
 		if ($user_pages->num_rows > 0) {
 			while ($user_page = $user_pages->fetch_assoc()) {
 				$user_page_id = $user_page['id'];
-				$user_page_titulo = return_pagina_titulo($user_page_id);
+				$user_page_subtipo = $user_page['subtipo'];
+				if ($user_page_subtipo == 'modelo') {
+					continue;
+				}
 				$list_user_pages .= return_list_item($user_page_id);
 
 				//$list_user_pages .= "<a href='pagina.php?pagina_id=$user_page_id'><li class='list-group-item list-group-item-action'><span class='text-info mr-2 align-middle'><i class='fad fa-columns fa-2x fa-fw'></i></span> $user_page_titulo</li></a>";

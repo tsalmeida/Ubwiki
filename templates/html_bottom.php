@@ -1232,8 +1232,13 @@
                $(this).addClass('hidden');
                $('#formulario_codigo').removeClass('hidden');
             });
-        </script>
-    ";
+		";
+		if (isset($_GET['wllt'])) {
+			echo "
+				$('#trigger_wallet').click();
+			";
+		}
+		echo "</script>";
 	}
 	if ($loaded_correcao_form == true) {
 		echo "

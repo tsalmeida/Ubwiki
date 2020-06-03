@@ -1110,8 +1110,13 @@
 				$template_quill_vazio = $pagina_translated['Model explanation'];
 				$template_botoes_padrao = false;
                 $template_classes = false;
+                if ($modelo_do_usuario == 'hidden') {
+                    $esconder_paragrafo_hidden_botao = 'hidden';
+                } else {
+                    $esconder_paragrafo_hidden_botao = false;
+                }
 				$template_botoes = "
-				    <a class='text-secondary modelo_esconder_paragrafo' href='javascript:void(0);'><i class='fad fa-times-square fa-fw'></i></a>
+				    <a class='text-secondary modelo_esconder_paragrafo' href='javascript:void(0);' class='$esconder_paragrafo_hidden_botao'><i class='fad fa-times-square fa-fw'></i></a>
 				";
 				if ($modelo_do_usuario == 'hidden') {
 				    $template_classes .= 'hidden';
@@ -2591,7 +2596,7 @@
                 <ul class='list-group'>
                     <li class='list-group-item'><strong>{$pagina_translated['Word count:']}</strong> <span class='fontstack-mono' id='review_wordcount'>$pagina_texto_wordcount</span></li>
                     <li class='list-group-item list-group-item-warning'><strong>{$pagina_translated['Revision price:']}</strong> <span class='fontstack-mono' id='review_price'>$revision_price</span></li>
-                    <li class='list-group-item'><strong>{$pagina_translated['Your credits:']}</strong> <span id='review_wallet' class='fontstack-mono'>$user_wallet</span></li>
+                    <li class='list-group-item d-flex justify-content-between'><span><strong>{$pagina_translated['Your credits:']}</strong> <span id='review_wallet' class='fontstack-mono'>$user_wallet</span></span><a href='escritorio.php?wllt=1' target='_blank'>{$pagina_translated['Buy more']} <i class='fad fa-external-link fa-fw'></i></a></li>
                 </ul>
 				<div class='row d-flex justify-content-center'>
 				    <button type='button' class='$button_classes_info hidden' name='trigger_review_recalc' id='trigger_review_recalc'>{$pagina_translated['recalculate']}</button>
