@@ -182,7 +182,7 @@
 	}
 
 	include 'templates/translation.php';
-	
+
 	if (!isset($_SESSION['pagina_translated'])) {
 		$pagina_translated = translate_pagina($user_language);
 	} else {
@@ -1708,6 +1708,21 @@
 	if (isset($_POST['modelo_mostrar_paragrafo'])) {
 		$modelo_mostrar_paragrafo_pagina_id = $_POST['modelo_mostrar_paragrafo'];
 		$check = $conn->query("UPDATE Paginas_elementos SET extra = 'added' WHERE elemento_id = $modelo_mostrar_paragrafo_pagina_id AND pagina_id = $user_escritorio AND estado = 1");
+		echo $check;
+	}
+
+	if (isset($_POST['apagar_etiqueta_pagina_id'])) {
+		$apagar_etiqueta_pagina_id = $_POST['apagar_etiqueta_pagina_id'];
+		$check = false;
+		if ($user_tipo == 'admin') {
+			$apagar_etiqueta_pagina_info = return_pagina_info($apagar_etiqueta_pagina_id);
+			$apagar_etiqueta_pagina_subtipo = $apagar_etiqueta_pagina_info[8];
+			if ($apagar_etiqueta_pagina_subtipo == 'etiqueta') {
+				$conn->query("DELETE FROM Paginas WHERE id = $apagar_etiqueta_pagina_id");
+				$apagar_etiqueta_id = $apagar_etiqueta_pagina_info[1];
+				$check = $conn->query("DELETE FROM Etiquetas WHERE id = $apagar_etiqueta_id");
+			}
+		}
 		echo $check;
 	}
 

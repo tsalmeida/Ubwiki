@@ -1425,3 +1425,26 @@
 			</script>
 		";
 	}
+
+	if ($pagina_subtipo == 'etiqueta') {
+		if ($user_tipo == 'admin') {
+			echo "
+				<script type='text/javascript'>
+					$(document).on('click', '#apagar_etiqueta', function() {
+					    var verify = confirm('Quer mesmo apagar essa etiqueta completamente?');
+					    if (verify == true) {
+							$.post('engine.php', {
+								'apagar_etiqueta_pagina_id': $pagina_id,
+							}, function (data) {
+								if (data != 0) {
+									window.location.reload(true);
+								} else {
+									alert('some problem has happened');
+								}
+							})
+					    }
+					})
+				</script>
+			";
+		}
+	}

@@ -681,10 +681,10 @@
 					}
 					$carregar_modal_destruir_pagina = true;
 					echo "
-                                  <a href='javascript:void(0);' class='text-danger ml-1 align-top' id='destruir_pagina' title='{$pagina_translated['Destruir esta página']}' data-toggle='modal' data-target='#modal_destruir_pagina'>
-                                      <i class='fad fa-trash-alt fa-fw'></i>
-                                  </a>
-	                            ";
+                      <a href='javascript:void(0);' class='text-danger ml-1 align-top' id='destruir_pagina' title='{$pagina_translated['Destruir esta página']}' data-toggle='modal' data-target='#modal_destruir_pagina'>
+                          <i class='fad fa-trash-alt fa-fw'></i>
+                      </a>
+                    ";
 				}
 				if ($user_tipo == 'admin') {
 					if ((($pagina_subtipo != 'produto') && ($pagina_tipo != 'escritorio')) && ($pagina_subtipo != 'modelo') || ($pagina_tipo == 'escritorio') && ($pagina_user_id = $user_id)) {
@@ -743,6 +743,9 @@
 					}
 				}
 				if ($pagina_subtipo == 'etiqueta') {
+					if ($user_tipo == 'admin') {
+						echo "<a id='apagar_etiqueta' class='text-danger ml-1' title='Apagar esta etiqueta'><i class='fad fa-trash fa-fw'></i></a>";
+					}
 					if ($user_id != false) {
 						$carregar_toggle_paginas_livres = true;
 						$query = prepare_query("SELECT id FROM Paginas_elementos WHERE pagina_tipo = 'escritorio' AND user_id = $user_id AND tipo = 'topico' AND extra = $pagina_item_id AND estado = 1");
