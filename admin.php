@@ -9,11 +9,6 @@
 	}
 	
 	if (isset($_POST['trigger_atualizacao'])) {
-        adicionar_chave_traducao('Modelo esconder paragrafo', 1);
-        adicionar_chave_traducao('Modelo mostrar paragrafo', 1);
-        adicionar_chave_traducao('Remover seus modelos', 1);
-        adicionar_chave_traducao('Buy more', 1);
-        adicionar_chave_traducao('BFranklin model', 1);
 	}
 	
 	if (isset($_POST['novos_creditos'])) {

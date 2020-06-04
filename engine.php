@@ -185,6 +185,7 @@
 
 	if (!isset($_SESSION['pagina_translated'])) {
 		$pagina_translated = translate_pagina($user_language);
+		$_SESSION['pagina_translated'] = $pagina_translated;
 	} else {
 		$pagina_translated = $_SESSION['pagina_translated'];
 	}
