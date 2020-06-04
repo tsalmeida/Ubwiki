@@ -6,7 +6,49 @@
 	if (isset($_GET['traduzir'])) {
 		$traduzir = $_GET['traduzir'];
 	}
-	
+
+	switch ($user_language) {
+        case 'en':
+            $_SESSION['chaves_en'] = $pagina_translated;
+            break;
+        case 'fr':
+            $_SESSION['chaves_fr'] = $pagina_translated;
+            break;
+        case 'es':
+            $_SESSION['chaves_es'] = $pagina_translated;
+            break;
+        case 'pt':
+            $_SESSION['chaves_pt'] = $pagina_translated;
+            break;
+    }
+
+	if (!isset($_SESSION['chaves_en'])) {
+	    $chaves_en = translate_pagina('en');
+	    $_SESSION['chaves_en'] = $chaves_en;
+    } else {
+	    $chaves_en = $_SESSION['chaves_en'];
+    }
+	if (!isset($_SESSION['chaves_pt'])) {
+	    $chaves_pt = translate_pagina('pt');
+	    $_SESSION['chaves_pt'] = $chaves_pt;
+    } else {
+	    $chaves_pt = $_SESSION['chaves_pt'];
+    }
+	if (!isset($_SESSION['chaves_fr'])) {
+	    $chaves_fr = translate_pagina('fr');
+	    $_SESSION['chaves_fr'] = $chaves_fr;
+    } else {
+	    $chaves_fr = $_SESSION['chaves_fr'];
+    }
+	if (!isset($_SESSION['chaves_es'])) {
+	    $chaves_es = translate_pagina('es');
+	    $_SESSION['chaves_es'] = $chaves_es;
+    } else {
+	    $chaves_es = $_SESSION['chaves_es'];
+    }
+
+
+
 	if (isset($_POST['nova_chave_titulo'])) {
 		$nova_chave_titulo = $_POST['nova_chave_titulo'];
 		adicionar_chave_traducao($nova_chave_titulo, $user_id);
@@ -85,6 +127,7 @@
 								$template_conteudo .= "<ul class='list-group list-group-flush'>";
 								while ($chave = $chaves->fetch_assoc()) {
 									$chave_id = $chave['id'];
+									$chave_chave = $chave['chave'];
 									if (in_array($chave_id, $chaves_traduzidas_keys)) {
 										if ($hide == 0) {
 											$list_color = 'border-success border';
@@ -94,7 +137,7 @@
 										}
 									} else {
 										$list_color = 'list-group-item-light border';
-										$list_content = return_traducao($chave_id, 'pt');
+										@$list_content = $chaves_pt[$chave_chave];
 										if ($list_content == false) {
 											$list_content = $chave['chave'];
 										}

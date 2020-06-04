@@ -61,23 +61,7 @@
 		}
 		return $resultados;
 	}
-	
-	function return_traducao($chave_id, $language)
-	{
-		if (($chave_id == false) || ($language == false)) {
-			return false;
-		}
-		include 'templates/criar_conn.php';
-		$chaves = $conn->query("SELECT traducao FROM Chaves_traduzidas WHERE chave_id = $chave_id AND lingua = '$language'");
-		if ($chaves->num_rows > 0) {
-			while ($chave = $chaves->fetch_assoc()) {
-				$chave_traducao = $chave['traducao'];
-				return $chave_traducao;
-			}
-		}
-		return false;
-	}
-	
+
 	function return_texto_pagina_login($user_language)
 	{
 		if ($user_language == 'pt') {
