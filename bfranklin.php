@@ -2,10 +2,6 @@
 	include 'engine.php';
 	$pagina_tipo = 'bfranklin';
 	$pagina_id = $user_escritorio;
-	if ($user_tipo != 'admin') {
-		header('Location:ubwiki.php');
-		exit();
-	}
 	if ($user_email == false) {
 		header('Locatin:ubwiki.php');
 		exit();

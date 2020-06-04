@@ -557,8 +557,43 @@
                             ";
 				}
 				$modal_pagina_dados = false;
-				if ((($pagina_tipo == 'sistema') && ($user_tipo == 'admin')) || (($pagina_tipo == 'pagina') && ($pagina_user_id == $user_id)) || ((($pagina_tipo == 'curso') || ($pagina_tipo == 'materia') || ($pagina_tipo == 'topico')) && ($pagina_curso_user_id == $user_id)) || (($pagina_tipo == 'texto') && ($pagina_user_id == $user_id) && ($texto_page_id == 0)) || (($pagina_tipo == 'resposta') && ($pagina_user_id == $user_id)) || (($pagina_tipo == 'secao') && (($pagina_user_id == $user_id) || $pagina_original_compartilhamento == false))) {
-					$modal_pagina_dados = true;
+				$paginas_de_curso = array('curso', 'materia', 'topico');
+				if ($pagina_tipo == 'sistema') {
+				    if ($user_tipo == 'admin') {
+				        $modal_pagina_dados = true;
+                    }
+                } elseif ($pagina_tipo == 'pagina') {
+				    if ($pagina_user_id == $user_id) {
+				        $modal_pagina_dados = true;
+                    }
+				    if ($pagina_subtipo == 'modelo') {
+				        if ($pagina_compartilhamento != 'privado') {
+				            $modal_pagina_dados = false;
+                        }
+                    }
+                } elseif (in_array($pagina_tipo, $paginas_de_curso)) {
+				    if ($pagina_curso_user_id == $user_id) {
+				        $modal_pagina_dados = true;
+                    }
+                } elseif ($pagina_tipo == 'texto') {
+				    if ($texto_page_id == 0) {
+					    if ($pagina_user_id == $user_id) {
+					        $modal_pagina_dados = true;
+                        }
+				    }
+                } elseif ($pagina_tipo == 'resposta') {
+				    if ($pagina_user_id == $user_id) {
+				        $modal_pagina_dados = true;
+                    }
+                } elseif ($pagina_tipo == 'secao') {
+				    if ($pagina_user_id == $user_id) {
+				        $modal_pagina_dados = true;
+                    } elseif ($pagina_original_compartilhamento == false) {
+				        $modal_pagina_dados = true;
+                    }
+                }
+
+				if ($modal_pagina_dados == true) {
 					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_pagina_dados' class='text-success mr-1' id='pagina_dados' title='{$pagina_translated['Editar dados']}'><i class='fad fa-info-circle fa-fw fa-lg'></i></a>";
 					$carregar_produto_setup = false;
 					if ($pagina_subtipo == 'produto') {
@@ -930,6 +965,8 @@
 				$template_subtitulo = "<a href='pagina.php?pagina_id=$pagina_item_id'>$pagina_original_titulo</a> / <a href='pagina.php?pagina_id=$pagina_original_concurso_pagina_id'>$pagina_original_concurso_titulo</a>";
 			} elseif ($pagina_subtipo == 'etiqueta') {
 				$template_subtitulo = $pagina_translated['free page'];
+			} elseif ($pagina_subtipo == 'modelo') {
+				$template_subtitulo = $pagina_translated['BFranklin model'];
 			}
 		} elseif ($pagina_tipo == 'secao') {
 			$template_titulo = $pagina_titulo;
@@ -1112,17 +1149,17 @@
 				$template_quill_initial_state = 'leitura';
 				$template_quill_vazio = $pagina_translated['Model explanation'];
 				$template_botoes_padrao = false;
-                $template_classes = false;
-                if ($modelo_do_usuario == 'hidden') {
-                    $esconder_paragrafo_hidden_botao = 'hidden';
-                } else {
-                    $esconder_paragrafo_hidden_botao = false;
-                }
+				$template_classes = false;
+				if ($modelo_do_usuario == 'hidden') {
+					$esconder_paragrafo_hidden_botao = 'hidden';
+				} else {
+					$esconder_paragrafo_hidden_botao = false;
+				}
 				$template_botoes = "
 				    <a class='text-secondary modelo_esconder_paragrafo' href='javascript:void(0);' class='$esconder_paragrafo_hidden_botao'><i class='fad fa-times-square fa-fw'></i></a>
 				";
 				if ($modelo_do_usuario == 'hidden') {
-				    $template_classes .= 'hidden';
+					$template_classes .= 'hidden';
 				}
 				$template_conteudo = include 'templates/template_quill.php';
 				include 'templates/page_element.php';
@@ -1339,7 +1376,7 @@
 					} else {
 						switch ($modelo_do_usuario) {
 							case 'added':
-                            case 'hidden':
+							case 'hidden':
 								$carregar_quill_anotacoes = true;
 								break;
 							case false:

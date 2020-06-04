@@ -68,7 +68,6 @@
 			$template_conteudo .= "<ul class='list-group grey lighten-4 rounded p-1 mt-1'>";
 			$template_conteudo .= put_together_list_item('link', "pagina.php?pagina_id=$topico_pagina_id", false, false, false, $topico_pagina_titulo, false, $topico_pagina_estado_icone, "list-group-item-primary $topico_completo");
 
-
 			//$template_conteudo .= "<a href='pagina.php?pagina_id=$topico_pagina_id'><li class='list-group-item list-group-item-action list-group-item-primary d-flex justify-content-between $topico_completo'><span class='mr-5'>$topico_pagina_titulo</span><span><i class='$topico_pagina_estado_icone'></i></span></li></a>";
 			$query = prepare_query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $topico_pagina_id AND tipo = 'subtopico'");
 			$subtopicos = $conn->query($query);
