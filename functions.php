@@ -2286,6 +2286,11 @@
 		} else {
 			$no_estado = false;
 		}
+		if (isset($args[5])) {
+			$override_pagina_estado_cor = $args[5];
+		} else {
+			$override_pagina_estado_cor = false;
+		}
 
 		if ($pagina_id == false) {
 			return false;
@@ -2376,6 +2381,10 @@
 			$pagina_estado_icone = false;
 		}
 
+		if ($override_pagina_estado_cor != false) {
+			$pagina_estado_cor = $override_pagina_estado_cor;
+		}
+
 		return put_together_list_item('link', $link, $cor_icone_principal, $icone_prefixo, $icone_principal, $pagina_titulo, $pagina_estado_cor, $pagina_estado_icone, $item_classes);
 	}
 
@@ -2397,6 +2406,11 @@
 		$pagina_titulo = $args[5];
 		$pagina_estado_cor = $args[6];
 		$pagina_estado_icone = $args[7];
+		if (isset($args[9])) {
+			$link_classes = $args[9];
+		} else {
+			$link_classes = false;
+		}
 		if (($pagina_estado_icone == false) && ($icone_principal == false)) {
 			$dflex = false;
 		} else {
@@ -2415,7 +2429,7 @@
 		}
 		if ($type == 'link') {
 			return "
-			<a href='$link' $target>
+			<a href='$link' $target class='$link_classes'>
 				<li class='list-group-item list-group-item-action $item_classes border-top p-1 py-2 $dflex'>
 					<span>
 						<span class='$cor_icone_principal align-center icone-lista'>
@@ -2432,7 +2446,7 @@
 			</a>";
 		} elseif ($type == 'modal') {
 			return "
-			<a data-toggle='modal' data-target='$link'>
+			<a data-toggle='modal' data-target='$link' class='$link_classes'>
 				<li class='list-group-item list-group-item-action $item_classes border-top p-1 py-2 $dflex'>
 					<span>
 						<span class='$cor_icone_principal align-center icone-lista'>
@@ -2465,7 +2479,7 @@
 			";
 		} elseif ($type == 'link_button') {
 			return "
-			<a href='javascript:void(0);' id='$link' name='$link' value='$link' class='$link'>
+			<a href='javascript:void(0);' id='$link' name='$link' value='$link' class='$link $link_classes'>
 				<li class='list-group-item list-group-item-action $item_classes border-top p-1 py-2 $dflex'>
 					<span>
 						<span class='$cor_icone_principal align-center icone-lista'>
