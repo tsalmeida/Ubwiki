@@ -423,7 +423,7 @@
 	$template_modal_body_conteudo = false;
 	//$template_modal_body_conteudo .= "<p>{$pagina_translated['creditos visite']} <a href='https://www.grupoubique
 	//.com.br' target='_blank'>www.grupoubique.com.br</a></p>";
-	$template_modal_body_conteudo .= "<p><a href='javascript:void(0);' id='mostrar_formulario_codigo' class='text-info'>Você tem um código de créditos a adicionar à sua conta?</a></p>";
+	$template_modal_body_conteudo .= "<p>Formar de comprar créditos Ubwiki:</p>";
 	$template_modal_body_conteudo .= "
         <form id='formulario_codigo' method='post' class='border rounded p-3 mb-2 hidden'>
             <div class='md-form'>
@@ -435,8 +435,8 @@
             </div>
         </form>
 	";
-	$template_modal_body_conteudo .= "<p>Para comprar créditos Ubwiki, siga um dos links abaixo:</p>";
     $template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
+	$template_modal_body_conteudo .= put_together_list_item('link_button', 'mostrar_formulario_codigo', 'text-info', 'fad', 'fa-gift-card', 'Adicionar crédito por código', false, false, false);
 
 	$oferta_link = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=N9U85AQL7RBF8";
 	$oferta_texto = "Comprar 100 Créditos Ubwiki por R$ 100";
@@ -453,12 +453,9 @@
 	$template_modal_body_conteudo .= put_together_list_item('link_blank', $oferta_link, 'text-primary', 'fad',
       'fa-external-link', $oferta_texto, false, false, false);
 
-    $template_modal_body_conteudo .= "</ul>";
-    $template_modal_body_conteudo .= "
-	    <ul class='list-group mt-3'>
-	        <li class='list-group-item list-group-item-info'><strong>{$pagina_translated['Ubwiki credit current']} </strong>{$user_wallet}</li>
-        </ul>
-    ";
+	$carteira_texto = "<strong>{$pagina_translated['Ubwiki credit current']} </strong>{$user_wallet}";
+	$template_modal_body_conteudo .= put_together_list_item('inactive', false, false, 'fad', 'fa-usd-circle', $carteira_texto, false, false, 'mt-2 lime lighten-5 b-0 teal-text font-italic d-flex justify-content-around');
+
 	$template_modal_show_buttons = false;
 	include 'templates/modal.php';
 

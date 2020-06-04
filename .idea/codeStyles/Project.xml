@@ -1,5 +1,6 @@
 <component name="ProjectCodeStyleConfiguration">
   <code_scheme name="Project" version="173">
+    <option name="RIGHT_MARGIN" value="110" />
     <PHPCodeStyleSettings>
       <option name="INDENT_CODE_IN_PHP_TAGS" value="true" />
     </PHPCodeStyleSettings>

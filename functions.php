@@ -2418,14 +2418,14 @@
 			<a href='$link' $target>
 				<li class='list-group-item list-group-item-action $item_classes border-top p-1 py-2 $dflex'>
 					<span>
-						<span class='$cor_icone_principal align-middle icone-lista'>
+						<span class='$cor_icone_principal align-center icone-lista'>
 							<i class='$icone_prefixo $icone_principal fa-fw fa-lg'></i>
 						</span>
 						<span class='lista-texto'>
 							$pagina_titulo
 						</span>
 					</span>
-					<span class='align-middle ml-2 icone-estado $pagina_estado_cor'>
+					<span class='align-center ml-2 icone-estado $pagina_estado_cor'>
 						<i class='$pagina_estado_icone fa-fw fa-sm'></i>
 					</span>
 				</li>
@@ -2435,14 +2435,14 @@
 			<a data-toggle='modal' data-target='$link'>
 				<li class='list-group-item list-group-item-action $item_classes border-top p-1 py-2 $dflex'>
 					<span>
-						<span class='$cor_icone_principal align-middle icone-lista'>
+						<span class='$cor_icone_principal align-center icone-lista'>
 							<i class='$icone_prefixo $icone_principal fa-fw fa-lg'></i>
 						</span>
 						<span class='lista-texto'>
 							$pagina_titulo
 						</span>
 					</span>
-					<span class='align-middle ml-2 icone-estado $pagina_estado_cor'>
+					<span class='align-center ml-2 icone-estado $pagina_estado_cor'>
 						<i class='$pagina_estado_icone fa-fw fa-sm'></i>
 					</span>
 				</li>
@@ -2451,14 +2451,14 @@
 			return "
 				<li class='list-group-item $item_classes border-top p-1 py-2 $dflex'>
 					<span>
-						<span class='$cor_icone_principal align-middle icone-lista'>
+						<span class='$cor_icone_principal align-center icone-lista'>
 							<i class='$icone_prefixo $icone_principal fa-fw fa-lg'></i>
 						</span>
 						<span class='lista-texto'>
 							$pagina_titulo
 						</span>
 					</span>
-					<span class='align-middle ml-2 icone-estado $pagina_estado_cor'>
+					<span class='align-center ml-2 icone-estado $pagina_estado_cor'>
 						<i class='$pagina_estado_icone fa-fw fa-sm'></i>
 					</span>
 				</li>
@@ -2468,14 +2468,14 @@
 			<a href='javascript:void(0);' id='$link' name='$link' value='$link' class='$link'>
 				<li class='list-group-item list-group-item-action $item_classes border-top p-1 py-2 $dflex'>
 					<span>
-						<span class='$cor_icone_principal align-middle icone-lista'>
+						<span class='$cor_icone_principal align-center icone-lista'>
 							<i class='$icone_prefixo $icone_principal fa-fw fa-lg'></i>
 						</span>
 						<span class='lista-texto'>
 							$pagina_titulo
 						</span>
 					</span>
-					<span class='align-middle ml-2 icone-estado $pagina_estado_cor'>
+					<span class='align-center ml-2 icone-estado $pagina_estado_cor'>
 						<i class='$pagina_estado_icone fa-fw fa-sm'></i>
 					</span>
 				</li>

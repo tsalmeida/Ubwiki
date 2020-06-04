@@ -1243,7 +1243,7 @@
 
 		$areas_interesse_result .= "<span data-toggle='modal' data-target='#modal_areas_interesse'>";
 
-		$areas_interesse_result .= put_together_list_item('modal', '#modal_gerenciar_etiquetas', 'text-info', 'fad', 'fa-plus-circle', $pagina_translated['Gerenciar etiquetas'], 'text-muted', 'fad fa-tags');
+		$areas_interesse_result .= put_together_list_item('modal', '#modal_gerenciar_etiquetas', false, 'fad', 'fa-plus-circle', $pagina_translated['Gerenciar etiquetas'], false, 'fad fa-tags', 'list-group-item-warning');
 
 		$areas_interesse_result .= "</span>";
 		$query = prepare_query("SELECT extra FROM Paginas_elementos WHERE pagina_id = $user_escritorio AND tipo = 'topico' AND estado = 1 ORDER BY id DESC");
@@ -1264,7 +1264,7 @@
 		$list_biblioteca_particular = false;
 		$list_biblioteca_particular .= "<ul class='list-group list-group-flush'>";
 		$list_biblioteca_particular .= "<div data-toggle='modal' data-target='#modal_biblioteca_particular'>";
-		$list_biblioteca_particular .= put_together_list_item('modal', '#modal_add_elementos', 'text-info', 'fad', 'fa-plus-circle', $pagina_translated['press add collection'], 'text-muted', 'fad fa-cog blue lighten-5');
+		$list_biblioteca_particular .= put_together_list_item('modal', '#modal_add_elementos', false, 'fad', 'fa-plus-circle', $pagina_translated['press add collection'], false, 'fad fa-cog', 'list-group-item-info');
 		$list_biblioteca_particular .= "</div>";
 		$query = prepare_query("SELECT DISTINCT elemento_id FROM Paginas_elementos WHERE pagina_id = $user_escritorio AND estado = 1 AND elemento_id IS NOT NULL ORDER BY id DESC");
 		$biblioteca_particular = $conn->query($query);
@@ -1282,7 +1282,7 @@
 	if (isset($_POST['list_cursos'])) {
 		$list_cursos = false;
 		$list_cursos .= '<ul class="list-group list-group-flush">';
-		$list_cursos .= put_together_list_item('link', 'cursos.php', 'text-success', 'fad', 'fa-portal-enter', $pagina_translated['available courses'], 'text-primary', 'fad fa-external-link');
+		$list_cursos .= put_together_list_item('link', 'cursos.php', false, 'fad', 'fa-portal-enter', $pagina_translated['available courses'], false, 'fad fa-external-link', 'list-group-item-success');
 		$usuario_cursos = return_usuario_cursos_inscrito($user_id);
 		foreach ($usuario_cursos as $usuario_curso) {
 			$list_cursos .= return_list_item($usuario_curso);
@@ -1318,7 +1318,7 @@
 		if ($convites_ativos->num_rows > 0) {
 			$list_grupos_estudo .= put_together_list_item('modal', '#modal_reagir_convite', 'text-warning', 'fad', 'fa-exclamation-triangle', $pagina_translated['Você recebeu convite para participar de grupos de estudos:'], 'text-muted', 'fad fa-users');
 		}
-		$list_grupos_estudo .= put_together_list_item('modal', '#modal_criar_grupo', 'text-info', 'fad', 'fa-plus-circle', $pagina_translated['Criar grupo de estudos'], 'text-muted', 'fad fa-users');
+		$list_grupos_estudo .= put_together_list_item('modal', '#modal_criar_grupo', false, 'fad', 'fa-plus-circle', $pagina_translated['Criar grupo de estudos'], false, 'fad fa-users', 'list-group-item-info');
 		$list_grupos_estudo .= "</span>";
 
 		if ($grupos_estudo_usuario->num_rows > 0) {
