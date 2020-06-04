@@ -1594,6 +1594,7 @@
 		}
 		$template_modal_div_id = 'modal_pagina_dados';
 		$template_modal_titulo = "{$pagina_translated['Alterar dados']} $mudar_titulo_texto";
+        $template_modal_show_buttons = true;
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
         <div class='md-form mb-2'>
@@ -1607,7 +1608,6 @@
 		if (isset($secoes)) {
 			if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id) && ($secoes->num_rows == 0) && ($pagina_tipo == 'pagina') && ($pagina_titulo != false) && ($pagina_subtipo != 'produto') && ($pagina_subtipo != 'modelo')) {
 				$modal_novo_curso = true;
-				$template_modal_show_buttons = false;
 				$template_modal_body_conteudo .= "<h3>{$pagina_translated['change page nature']}</h3>";
 				$template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
 				$template_modal_body_conteudo .= "<span data-toggle='modal' data-target='#modal_pagina_dados'>";
