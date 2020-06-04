@@ -455,7 +455,7 @@
 		}
 		*/
 		if ($estado_pagina == 0) {
-			return $icone0;
+			return false;
 		} elseif ($estado_pagina == 1) {
 			return $icone1;
 		} elseif ($estado_pagina == 2) {
