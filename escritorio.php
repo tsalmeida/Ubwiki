@@ -185,9 +185,8 @@
 				$fa_color = 'text-danger';
 				$template_conteudo .= include 'templates/artefato_item.php';
 
-				$usuario_avatar = return_avatar($user_id);
-				$fa_icone = $usuario_avatar[0];
-				$fa_color = $usuario_avatar[1];
+				$fa_icone = $user_avatar_icone;
+				$fa_color = $user_avatar_cor;
 				$artefato_modal = '#modal_opcoes';
 				$artefato_badge = 'fa-cog fa-swap-opacity';
 				$artefato_subtitulo = $pagina_translated['user settings'];
@@ -286,9 +285,9 @@
 	$template_modal_body_conteudo .= "
 		<h3>Avatar</h3>
 		<div class='row justify-content-center'>
-			<a href='pagina.php?user_id=$user_id' class='{$usuario_avatar[1]}'><i class='fad {$usuario_avatar[0]} fa-3x fa-fw'></i></a>
+			<a href='pagina.php?user_id=$user_id' class='$user_avatar_cor'><i class='fad $user_avatar_icone fa-3x fa-fw'></i></a>
 		</div>
-		<p>Alterar:</p>
+		<p>{$pagina_translated['Alterar']}:</p>
 		<select name='selecionar_avatar' class='$select_classes'>
 			<option disabled selected value=''>{$pagina_translated['Selecione seu avatar']}</option>
 			<option value='fa-user'>{$pagina_translated['Padrão']}</option>
@@ -420,7 +419,7 @@
 	$template_modal_body_conteudo = false;
 	//$template_modal_body_conteudo .= "<p>{$pagina_translated['creditos visite']} <a href='https://www.grupoubique
 	//.com.br' target='_blank'>www.grupoubique.com.br</a></p>";
-	$template_modal_body_conteudo .= "<p>Formar de comprar créditos Ubwiki:</p>";
+	$template_modal_body_conteudo .= "<p>Formas de comprar créditos Ubwiki:</p>";
 	$template_modal_body_conteudo .= "
         <form id='formulario_codigo' method='post' class='border rounded p-3 mb-2 hidden'>
             <div class='md-form'>

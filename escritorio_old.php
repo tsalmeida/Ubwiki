@@ -821,10 +821,6 @@
 		$conn->query("INSERT INTO Opcoes (user_id, opcao_tipo, opcao_string) VALUES ($user_id, 'avatar_cor', '$nova_cor')");
 	}
 	
-	$usuario_avatar_info = return_avatar($user_id);
-	$usuario_avatar = $usuario_avatar_info[0];
-	$usuario_avatar_cor = $usuario_avatar_info[1];
-	
 	$template_modal_div_id = 'modal_opcoes';
 	$template_modal_titulo = $pagina_translated['user settings'];
 	if ($opcao_texto_justificado_value == true) {
@@ -836,7 +832,7 @@
 	$template_modal_body_conteudo .= "
 		<h3>Avatar</h3>
 		<div class='row justify-content-center'>
-			<a href='pagina.php?user_id=$user_id' class='$usuario_avatar_cor'><i class='fad $usuario_avatar fa-3x fa-fw'></i></a>
+			<a href='pagina.php?user_id=$user_id' class='$user_avatar_cor'><i class='fad $user_avatar_icone fa-3x fa-fw'></i></a>
 		</div>
 		<p>Alterar:</p>
 		<select name='selecionar_avatar' class='$select_classes'>

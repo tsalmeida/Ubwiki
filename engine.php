@@ -129,6 +129,9 @@
 					}
 					$_SESSION['user_escritorio'] = return_pagina_id($_SESSION['user_id'], 'escritorio');
 					$_SESSION['user_lounge'] = return_lounge_id($_SESSION['user_id']);
+					$user_avatar_info = return_avatar($_SESSION['user_id']);
+					$_SESSION['user_avatar_icone'] = $user_avatar_info[0];
+					$_SESSION['user_avatar_cor'] = $user_avatar_info[1];
 				}
 			}
 		} else {
@@ -141,6 +144,8 @@
 			$user_wallet = false;
 			$user_escritorio = false;
 			$user_lounge = false;
+			$user_avatar_icone = 'fa-user';
+			$user_avatar_cor = 'text-primary';
 		}
 	}
 	if ($_SESSION['user_info'] === true) {
@@ -158,6 +163,8 @@
 			$_SESSION['lg'] = $user_language;
 		}
 		$user_escritorio = $_SESSION['user_escritorio'];
+		$user_avatar_icone = $_SESSION['user_avatar_icone'];
+		$user_avatar_cor = $_SESSION['user_avatar_cor'];
 	} elseif ($_SESSION['user_info'] == 'visitante') {
 		$user_id = false;
 		$user_tipo = false;
@@ -167,6 +174,8 @@
 		$user_wallet = false;
 		$user_escritorio = false;
 		$user_lounge = false;
+		$user_avatar_icone = 'fa-user';
+		$user_avatar_cor = 'text-primary';
 	}
 
 	include 'money_engine.php';

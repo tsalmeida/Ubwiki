@@ -15,13 +15,6 @@
 		$template_navbar_color = 'transparent';
 		$template_navbar_text = 'text-white';
 	}
-	if (isset($user_id)) {
-		$user_avatar_info = return_avatar($user_id);
-		$navbar_avatar = $user_avatar_info[0];
-	}
-	if (!isset($navbar_avatar)) {
-		$navbar_avatar = 'fa-user-tie';
-	}
 	echo "<nav class='navbar navbar-expand-lg $template_navbar_color' id='navbar'>";
 	if ($pagina_tipo == 'curso') {
 		echo "<a class='navbar-brand $template_navbar_text' href='ubwiki.php' title='{$pagina_translated['Retornar ao nexus']}'>Ubwiki</a>";
@@ -41,7 +34,7 @@
 		echo "<ul class='nav navbar-nav ml-auto nav-flex-icons'>";
 		echo "<li class='nav-item dropdown'>";
 		echo "<a class='navlink dropdown-toggle waves-effect waves-light rounded $template_navbar_text' id='user_dropdown' data-toggle='dropdown' href='javascript:void(0);'>
-		        <i class='fas fa-2x $navbar_avatar fa-lg fa-fw'></i>
+		        <i class='fas fa-2x $user_avatar_icone fa-lg fa-fw'></i>
 		        </a>
 		        <div class='dropdown-menu dropdown-menu-right z-depth-0'>
 		          <a class='dropdown-item navlink z-depth-0' href='escritorio.php'><i class='fad fa-lamp-desk fa-fw'></i> {$pagina_translated['office']}</a>";
