@@ -43,7 +43,6 @@
 		if ($user_language == false) {
 			return false;
 		}
-		error_log('THE FUNCTION RAN');
 		include 'templates/criar_conn.php';
 		$chaves_traduzidas = $conn->query("SELECT id, chave_id, chave_string, traducao FROM Chaves_traduzidas WHERE lingua = '$user_language'");
 		$resultados = array();
