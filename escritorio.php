@@ -95,6 +95,17 @@
     <div class="row d-flex justify-content-center mx-1">
         <div id="coluna_unica" class="col">
 			<?php
+
+                /*
+                $template_id = 'nexus_navegacao';
+                $template_titulo = false;
+                $template_conteudo = false;
+                $template_conteudo_class = 'justify-content-center';
+                $template_conteudo_no_col = true;
+
+                include 'templates/page_element.php';*/
+
+
 				$template_id = 'escritorio_primeira_janela';
 				$template_titulo = false;
 				$template_conteudo = false;

@@ -252,8 +252,14 @@
 			$query = prepare_query("UPDATE Opcoes SET opcao = $pagina_curso_id WHERE user_id = $user_id AND opcao_tipo = 'curso_ativo'");
 			$conn->query($query);
 		}
-		$_SESSION['curso_id'] = $pagina_curso_id;
 	}
+
+	if (isset($pagina_curso_id)) {
+		$_SESSION['curso_id'] = $pagina_curso_id;
+		unset($_SESSION['curso_sigla']);
+		unset($_SESSION['curso_titulo']);
+    }
+
 
 	if (isset($_POST['novo_curso'])) {
 		$novo_curso_sigla = $_POST['novo_curso_sigla'];
@@ -1579,21 +1585,8 @@
 		}
 	}
 	if ($modal_pagina_dados == true) {
-		if (($pagina_tipo == 'pagina') || ($pagina_tipo == 'sistema')) {
-			$mudar_titulo_texto = $pagina_translated['desta página'];
-		} elseif (($pagina_tipo == 'texto') || ($pagina_tipo == 'resposta')) {
-			$mudar_titulo_texto = $pagina_translated['deste texto'];
-		} elseif ($pagina_tipo == 'curso') {
-			$mudar_titulo_texto = $pagina_translated['deste curso'];
-		} elseif ($pagina_tipo == 'materia') {
-			$mudar_titulo_texto = $pagina_translated['desta matéria'];
-		} elseif ($pagina_tipo == 'topico') {
-			$mudar_titulo_texto = 'deste tópico';
-		} else {
-			$mudar_titulo_texto = $pagina_translated['deste documento'];
-		}
 		$template_modal_div_id = 'modal_pagina_dados';
-		$template_modal_titulo = "{$pagina_translated['Alterar dados']} $mudar_titulo_texto";
+		$template_modal_titulo = $pagina_translated['Alterar dados'];
         $template_modal_show_buttons = true;
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "

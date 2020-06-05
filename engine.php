@@ -11,6 +11,7 @@
 		$sessionpath .= '/../sessions';
 		session_save_path($sessionpath);
 		session_start();
+		$_SESSION['user_info'] = 'visitante';
 	}
 
 	if (!isset($user_email)) {
@@ -105,8 +106,7 @@
 
 	$user_revisor = false;
 
-
-	if ((!isset($_SESSION['user_info'])) || ($_SESSION['user_info'] == 'login')) {
+	if ((!isset($_SESSION['user_info'])) || ($_SESSION['user_info'] === 'login')) {
 		$_SESSION['user_info'] = false;
 		if ($user_email != false) {
 			$query = "SELECT id, tipo, criacao, apelido, nome, sobrenome, language FROM Usuarios WHERE email = '$user_email'";
@@ -181,12 +181,17 @@
 	include 'money_engine.php';
 
 	if ($user_id != false) {
-		$query = prepare_query("SELECT id FROM Carrinho WHERE user_id = $user_id AND estado = 1");
-		$produtos = $conn->query($query);
-		if ($produtos->num_rows > 0) {
-			$carregar_carrinho = true;
+		if (!isset($_SESSION['carregar_carrinho'])) {
+			$query = prepare_query("SELECT id FROM Carrinho WHERE user_id = $user_id AND estado = 1");
+			$user_carrinho = $conn->query($query);
+			if ($user_carrinho->num_rows > 0) {
+				$carregar_carrinho = true;
+			} else {
+				$carregar_carrinho = false;
+			}
+			$_SESSION['carregar_carrinho'] = $carregar_carrinho;
 		} else {
-			$carregar_carrinho = false;
+			$carregar_carrinho = $_SESSION['carregar_carrinho'];
 		}
 	}
 
@@ -199,60 +204,72 @@
 		$pagina_translated = $_SESSION['pagina_translated'];
 	}
 
+	if (isset($_GET['curso_id'])) {
+		$_SESSION['curso_id'] = $_GET['curso_id'];
+	}
+	if (!isset($_SESSION['curso_id'])) {
+		$_SESSION['curso_id'] = return_curso_ativo($user_id);
+	}
 	if (isset($_SESSION['curso_id'])) {
 		$curso_id = $_SESSION['curso_id'];
 	}
-	if (isset($_GET['curso_id'])) {
-		if ($user_id != false) {
+	if (isset($curso_id)) {
+		if (!isset($_SESSION['curso_sigla'])) {
+			$curso_info = return_curso_info($curso_id);
+			$_SESSION['curso_sigla'] = $curso_info[2];
+			$_SESSION['curso_titulo'] = $curso_info[3];
+		}
+		$curso_sigla = $_SESSION['curso_sigla'];
+		$curso_titulo = $_SESSION['curso_titulo'];
+	}
+	/*
+		if (isset($_GET['curso_id'])) {
 			$curso_id = $_GET['curso_id'];
 			$_SESSION['curso_id'] = $curso_id;
-			$query = prepare_query("SELECT opcao FROM Opcoes WHERE user_id = $user_id AND opcao_tipo = 'curso_ativo'");
-			$cursos_ativos = $conn->query($query);
-			if ($cursos_ativos->num_rows > 0) {
-				$query = prepare_query("UPDATE Opcoes SET opcao = $curso_id WHERE user_id = $user_id AND opcao_tipo = 'curso_ativo'");
-				$conn->query($query);
-			} else {
-				$query = prepare_query("INSERT INTO Opcoes (opcao, opcao_tipo, user_id) VALUES ($curso_id, 'curso_ativo', $user_id)");
-				$conn->query($query);
-			}
-		}
-	} else {
-		if ($user_id != false) {
-			$query = prepare_query("SELECT opcao FROM Opcoes WHERE user_id = $user_id AND opcao_tipo = 'curso_ativo'");
-			$cursos_ativos = $conn->query($query);
-			if ($cursos_ativos->num_rows > 0) {
-				while ($curso_ativo = $cursos_ativos->fetch_assoc()) {
-					$curso_id = $curso_ativo['opcao'];
-					$_SESSION['curso_id'] = $curso_id;
-					break;
+			if ($user_id != false) {
+				$query = prepare_query("SELECT opcao FROM Opcoes WHERE user_id = $user_id AND opcao_tipo = 'curso_ativo'");
+				$cursos_ativos = $conn->query($query);
+				if ($cursos_ativos->num_rows > 0) {
+					$query = prepare_query("UPDATE Opcoes SET opcao = $curso_id WHERE user_id = $user_id AND opcao_tipo = 'curso_ativo'");
+					$conn->query($query);
+				} else {
+					$query = prepare_query("INSERT INTO Opcoes (opcao, opcao_tipo, user_id) VALUES ($curso_id, 'curso_ativo', $user_id)");
+					$conn->query($query);
 				}
-			} else {
-				$query = prepare_query("SELECT opcao FROM Opcoes WHERE user_id = $user_id AND opcao_tipo = 'curso' ORDER BY id DESC");
-				$cursos = $conn->query($query);
-				if ($cursos->num_rows > 0) {
-					while ($curso = $cursos->fetch_assoc()) {
-						$curso_id = $curso['opcao'];
+			}
+		} else {
+			if ($user_id != false) {
+				$query = prepare_query("SELECT opcao FROM Opcoes WHERE user_id = $user_id AND opcao_tipo = 'curso_ativo'");
+				$cursos_ativos = $conn->query($query);
+				if ($cursos_ativos->num_rows > 0) {
+					while ($curso_ativo = $cursos_ativos->fetch_assoc()) {
+						$curso_id = $curso_ativo['opcao'];
 						$_SESSION['curso_id'] = $curso_id;
-						$query = prepare_query("INSERT INTO Opcoes (opcao, opcao_tipo, user_id) VALUES ($curso_id, 'curso_ativo', $user_id)");
-						$conn->query($query);
 						break;
 					}
 				} else {
-					$query = prepare_query("INSERT INTO Opcoes (opcao, opcao_tipo, user_id) VALUES (1, 'curso', $user_id)");
-					$conn->query($query);
-					$query = prepare_query("INSERT INTO Opcoes (opcao, opcao_tipo, user_id) VALUES (1, 'curso_ativo', $user_id)");
-					$conn->query($query);
-					$_SESSION['curso_id'] = 1;
-					$curso_id = 1;
+					$query = prepare_query("SELECT opcao FROM Opcoes WHERE user_id = $user_id AND opcao_tipo = 'curso' ORDER BY id DESC");
+					$cursos = $conn->query($query);
+					if ($cursos->num_rows > 0) {
+						while ($curso = $cursos->fetch_assoc()) {
+							$curso_id = $curso['opcao'];
+							$_SESSION['curso_id'] = $curso_id;
+							$query = prepare_query("INSERT INTO Opcoes (opcao, opcao_tipo, user_id) VALUES ($curso_id, 'curso_ativo', $user_id)");
+							$conn->query($query);
+							break;
+						}
+					} else {
+						$query = prepare_query("INSERT INTO Opcoes (opcao, opcao_tipo, user_id) VALUES (1, 'curso', $user_id)");
+						$conn->query($query);
+						$query = prepare_query("INSERT INTO Opcoes (opcao, opcao_tipo, user_id) VALUES (1, 'curso_ativo', $user_id)");
+						$conn->query($query);
+						$_SESSION['curso_id'] = 1;
+						$curso_id = 1;
+					}
 				}
 			}
 		}
-	}
-	if (isset($curso_id)) {
-		$curso_sigla = return_curso_sigla($curso_id);
-		$curso_titulo = return_curso_titulo_id($curso_id);
-	}
-
+	*/
 	$all_buttons_classes = "btn rounded btn-md text-center";
 	$button_classes = "$all_buttons_classes btn-primary";
 	$button_small = 'brn rounded btn-sm text-center';

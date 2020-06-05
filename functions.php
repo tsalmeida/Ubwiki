@@ -22,6 +22,7 @@
 	{
 		$args = func_get_args();
 		$query = $args[0];
+		//error_log($query);
 		//print "<p class='text-danger'>$query</p>";
 		if (isset($args[1])) {
 			$extra = $args[1];
@@ -246,11 +247,6 @@
 		return $output;
 	}
 
-	function return_titulo_topico($topico_id)
-	{
-		return false;
-	}
-
 	function return_titulo_elemento($elemento_id)
 	{
 		include 'templates/criar_conn.php';
@@ -281,28 +277,6 @@
 		}
 		return false;
 	}
-
-	function return_curso_id_topico($topico_id)
-	{
-		/*include 'templates/criar_conn.php';
-		if ($topico_id == false) {
-			return false;
-		}
-		$result_find_curso = $conn->query("SELECT curso_id FROM Topicos WHERE id = $topico_id");
-		if ($result_find_curso->num_rows > 0) {
-			while ($row_find_curso = $result_find_curso->fetch_assoc()) {
-				$found_curso_id = $row_find_curso['curso_id'];
-			}
-			return $found_curso_id;
-		}*/
-		return false;
-	}
-
-	function return_materia_id_topico($topico_id)
-	{
-		return false;
-	}
-
 
 	function return_simulado_info($find_simulado_id)
 	{
@@ -418,11 +392,6 @@
 				return $texto_apoio_prova_id;
 			}
 		}
-		return false;
-	}
-
-	function return_materia_titulo_id($materia_id)
-	{
 		return false;
 	}
 
@@ -947,24 +916,7 @@
 			return false;
 		}
 		include 'templates/criar_conn.php';
-		if ($tipo == 'topico') {
-			$topico_titulo = return_titulo_topico($item_id);
-			if ($topico_titulo == false) {
-				return false;
-			}
-			/*$topicos = $conn->query("SELECT pagina_id FROM Topicos WHERE id = $item_id AND pagina_id IS NOT NULL");
-			if ($topicos->num_rows > 0) {
-				while ($topico = $topicos->fetch_assoc()) {
-					$topico_pagina_id = $topico['pagina_id'];
-					return $topico_pagina_id;
-				}
-			} else {
-				$conn->query("INSERT INTO Paginas (item_id, tipo) VALUES ($item_id, 'topico')");
-				$topico_pagina_id = $conn->insert_id;
-				$conn->query("UPDATE Topicos SET pagina_id = $topico_pagina_id WHERE id = $item_id");
-				return $topico_pagina_id;
-			}*/
-		} elseif ($tipo == 'elemento') {
+		if ($tipo == 'elemento') {
 			$elemento_info = return_elemento_info($item_id);
 			if ($elemento_info == false) {
 				return false;
@@ -1010,23 +962,6 @@
 				$conn->query("UPDATE Cursos SET pagina_id = $curso_pagina_id WHERE id = $item_id");
 				return $curso_pagina_id;
 			}
-		} elseif ($tipo == 'materia') {
-			$materia_titulo = return_materia_titulo_id($item_id);
-			if ($materia_titulo == false) {
-				return false;
-			}
-			/*$materias = $conn->query("SELECT pagina_id FROM Materias WHERE id = $item_id AND pagina_id IS NOT NULL");
-			if ($materias->num_rows > 0) {
-				while ($materia = $materias->fetch_assoc()) {
-					$materia_pagina_id = $materia['pagina_id'];
-					return $materia_pagina_id;
-				}
-			} else {
-				$conn->query("INSERT INTO Paginas (item_id, tipo) VALUES ($item_id, 'materia')");
-				$materia_pagina_id = $conn->insert_id;
-				$conn->query("UPDATE Materias SET pagina_id = $materia_pagina_id WHERE id = $item_id");
-				return $materia_pagina_id;
-			}*/
 		} elseif ($tipo == 'grupo') {
 			$grupo_titulo = return_grupo_titulo_id($item_id);
 			if ($grupo_titulo == false) {
@@ -1155,16 +1090,6 @@
 			}
 			return $nexo_pagina_id;
 		}
-		return false;
-	}
-
-	function return_topico_id_pagina_id($pagina_id)
-	{
-		return false;
-	}
-
-	function return_curso_id_materia($materia_id)
-	{
 		return false;
 	}
 
@@ -1305,7 +1230,6 @@
 
 		include 'templates/criar_conn.php';
 		$query = prepare_query("SELECT criacao, item_id, tipo, estado, compartilhamento, user_id, etiqueta_id, subtipo FROM Paginas WHERE id = $pagina_id");
-		$query = prepare_query($query);
 		$paginas = $conn->query($query);
 		if ($paginas->num_rows > 0) {
 			while ($pagina = $paginas->fetch_assoc()) {
@@ -2384,14 +2308,13 @@
 		if ($override_pagina_estado_cor != false) {
 			$pagina_estado_cor = $override_pagina_estado_cor;
 		}
-
 		return put_together_list_item('link', $link, $cor_icone_principal, $icone_prefixo, $icone_principal, $pagina_titulo, $pagina_estado_cor, $pagina_estado_icone, $item_classes);
 	}
 
 	function put_together_list_item()
 	{
 		/*
-		put_together_list_item('link', $link, $cor_icone_principal, $icone_prefixo, $icone_principal, $pagina_titulo, $pagina_estado_cor, $pagina_estado_icone, $item_classes);
+		put_together_list_item('link', $link, $cor_icone_principal, $icone_prefixo, $icone_principal, $pagina_titulo, $pagina_estado_cor, $pagina_estado_icone, $item_classes, $link_classes);
 		*/
 
 		$args = func_get_args();
