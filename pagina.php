@@ -1557,12 +1557,12 @@
           </div>
         ";
 
+		$lista_de_secoes = false;
 		if ($secoes->num_rows > 0) {
 			$template_modal_body_conteudo .= "
 		      <h3>{$pagina_translated['Seções registradas desta página']}:</h3>
 		      <ul class='list-group list-group-flush'>
     		";
-			$lista_de_secoes = false;
 			while ($secao = $secoes->fetch_assoc()) {
 				$secao_ordem = $secao['ordem'];
 				$secao_pagina_id = $secao['secao_pagina_id'];

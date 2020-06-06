@@ -1,13 +1,14 @@
 <?php
 
 	$sessionpath = getcwd();
-	$sessionpath .= '/../sessions';
+	$sessionpath .= 'sessions/';
+	error_log($sessionpath);
 	session_save_path($sessionpath);
 	session_start();
 	error_log($pagina_tipo);
 	if (session_status() == PHP_SESSION_NONE) {
 		$sessionpath = getcwd();
-		$sessionpath .= '/../sessions';
+		$sessionpath .= 'sessions/';
 		session_save_path($sessionpath);
 		session_start();
 		$_SESSION['user_info'] = 'visitante';
