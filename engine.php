@@ -1,11 +1,11 @@
 <?php
 
-	include 'criar_sessao.php';
-	include 'functions.php';
-
 	if (!isset($pagina_tipo)) {
 		$pagina_tipo = false;
 	}
+
+	include 'criar_sessao.php';
+	include 'functions.php';
 
 	if (!isset($user_email)) {
 		$user_email = false;

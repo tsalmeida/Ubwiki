@@ -1,10 +1,10 @@
 <?php
+	$pagina_tipo = 'index';
 
 	include 'criar_sessao.php';
 
 	include 'templates/criar_conn.php';
 	
-	$pagina_tipo = 'index';
 	$user_email = false;
 	$new_user = false;
 	$special = false;
