@@ -1,9 +1,5 @@
 <?php
 
-	$session_check = session_status();
-	error_log('session status:');
-	error_log($session_check);
-
 	$sessionpath = getcwd();
 	$sessionpath .= '/../sessions/';
 	session_save_path($sessionpath);
@@ -21,7 +17,5 @@
 	}
 
 	if (!isset($_SESSION['user_info'])) {
-		error_log('user info has not been set, is getting set now:');
 		$_SESSION['user_info'] = 'visitante';
-		error_log($_SESSION['user_info']);
 	}
