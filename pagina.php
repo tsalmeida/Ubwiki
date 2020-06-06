@@ -1,5 +1,7 @@
 <?php
 
+    $pagina_tipo = 'pagina_geral';
+
 	include 'engine.php';
 
 	$modal_novo_curso = false;
