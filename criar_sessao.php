@@ -1,6 +1,6 @@
 <?php
 
-	//session_start();
+	session_start();
 	error_log($pagina_tipo);
 	if (session_status() == PHP_SESSION_NONE) {
 		$sessionpath = getcwd();
@@ -11,7 +11,7 @@
 		error_log("SESSAO CRIADA EM $pagina_tipo");
 	} else {
 		error_log("SESSAO CRIADA EM EXCESSO EM $pagina_tipo");
-		session_start();
+		//session_start();
 	}
 
 	if (!isset($_SESSION['user_info'])) {
