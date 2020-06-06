@@ -75,6 +75,7 @@
 							$_SESSION['user_email'] = $login_email;
 							$user_email = $login_email;
 							$_SESSION['user_info'] = 'login';
+							error_log('THIS HAPPENED');
 							echo true;
 						} else {
 							echo 'confirmacao';
@@ -106,7 +107,7 @@
 
 	$user_revisor = false;
 
-	if ((!isset($_SESSION['user_info'])) || ($_SESSION['user_info'] === 'login')) {
+	if ((!isset($_SESSION['user_info'])) || ($_SESSION['user_info'] == 'login')) {
 		$_SESSION['user_info'] = false;
 		if ($user_email != false) {
 			$query = "SELECT id, tipo, criacao, apelido, nome, sobrenome, language FROM Usuarios WHERE email = '$user_email'";
