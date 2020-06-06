@@ -38,6 +38,7 @@
 	} else {
 		$user_email = $_SESSION['user_email'];
 	}
+
 	include 'templates/criar_conn.php';
 
 	if (isset($_POST['thinkific_login'])) {
@@ -106,7 +107,15 @@
 
 	$user_revisor = false;
 
-	if ((!isset($_SESSION['user_info'])) || ($_SESSION['user_info'] == 'login')) {
+	$do_login = false;
+	if (!isset($_SESSION['user_info'])) {
+		$do_login = true;
+	}
+	if ($_SESSION['user_info'] == 'login') {
+		$do_login = true;
+	}
+	if ($do_login == true) {
+
 		$_SESSION['user_info'] = false;
 		if ($user_email != false) {
 			$query = "SELECT id, tipo, criacao, apelido, nome, sobrenome, language FROM Usuarios WHERE email = '$user_email'";
