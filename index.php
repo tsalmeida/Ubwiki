@@ -1,15 +1,5 @@
 <?php
 
-	session_start();
-
-	if (!isset($_SESSION['user_info'])) {
-		$sessionpath = getcwd();
-		$sessionpath .= '/../sessions';
-		session_save_path($sessionpath);
-		session_start();
-		$_SESSION['user_info'] = 'visitante';
-	}
-
 	if (session_status() == PHP_SESSION_NONE) {
 		$sessionpath = getcwd();
 		$sessionpath .= '/../sessions';
@@ -31,7 +21,7 @@
 		$usuarios = $conn->query("SELECT id, email, apelido FROM Usuarios WHERE special = '$special' AND special IS NOT NULL");
 		if ($usuarios->num_rows > 0) {
 			while ($usuario = $usuarios->fetch_assoc()) {
-				$_SESSION['user_info'] = 'login';
+				$_SESSION['user_info'] = true;
 				$_SESSION['user_id'] = $usuario['id'];
 				$_SESSION['user_email'] = $usuario['email'];
 			}
