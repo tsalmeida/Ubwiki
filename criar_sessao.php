@@ -4,7 +4,7 @@
 	error_log('session status:');
 	error_log($session_check);
 
-	session_start();
+	//session_start();
 
 	$sessionpath = getcwd();
 	$sessionpath .= '/../sessions/';
