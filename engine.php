@@ -1,5 +1,10 @@
 <?php
 
+	$sessionpath = getcwd();
+	$sessionpath .= '/../sessions';
+	session_save_path($sessionpath);
+	session_start();
+	
 	if (session_status() == PHP_SESSION_NONE) {
 		$sessionpath = getcwd();
 		$sessionpath .= '/../sessions';
