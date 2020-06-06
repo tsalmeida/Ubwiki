@@ -1,5 +1,8 @@
 <?php
 
+	$sessionpath = getcwd();
+	$sessionpath .= '/../sessions';
+	session_save_path($sessionpath);
 	session_start();
 	error_log($pagina_tipo);
 	if (session_status() == PHP_SESSION_NONE) {
