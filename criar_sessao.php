@@ -28,15 +28,7 @@
 		error_log($_SESSION['user_info']);
 	}
 
-	if (!isset($_SESSION['user_info'])) {
-		$_SESSION['user_info'] = 'visitante';
-	}
-
 	/*error_log("E agora session_start declared again, followed by another session_status check:");
 	session_start();
 	error_log(session_status());*/
-
-	if (!isset($_SESSION['user_info'])) {
-		$_SESSION['user_info'] = 'visitante';
-	}
 
