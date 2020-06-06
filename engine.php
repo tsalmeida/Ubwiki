@@ -6,7 +6,7 @@
 	$sessionpath = getcwd();
 	$sessionpath .= '/../sessions';
 	session_save_path($sessionpath);
-	sessin_start();
+	session_start();
 
 	if (!isset($_SESSION['user_info'])) {
 		if (session_status() == PHP_SESSION_NONE) {
