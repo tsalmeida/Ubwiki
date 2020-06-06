@@ -2,6 +2,8 @@
 
 	include 'functions.php';
 
+	error_log(serialize($_SESSION));
+
 	if (!isset($pagina_tipo)) {
 		$pagina_tipo = false;
 	}
