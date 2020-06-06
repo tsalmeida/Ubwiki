@@ -4,7 +4,7 @@
 	$sessionpath .= '/../sessions/';
 	session_save_path($sessionpath);
 
-	if (session_path() == 1) {
+	if (session_status() == 1) {
 		session_start();
 	}
 
