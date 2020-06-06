@@ -1,5 +1,9 @@
 <?php
 
+	$session_check = session_status();
+	error_log('session status:');
+	error_log($session_check);
+
 	$sessionpath = getcwd();
 	$sessionpath .= '/../sessions/';
 
