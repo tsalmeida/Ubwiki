@@ -926,6 +926,7 @@
                             'login_senha': senha,
                             'login_origem': 'desconhecido'
                         }, function(data) {
+                            alert(data);
                             if ((data == 1) || (data == 11)) {
                                 window.location.reload(true);
                             } else if (data == 0) {
