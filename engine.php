@@ -2,18 +2,22 @@
 
 	include 'functions.php';
 
-	error_log(serialize($_SESSION));
+	//error_log(serialize($_SESSION));
+	error_log(serialize($_SESSION['user_info']));
 
 	if (!isset($pagina_tipo)) {
 		$pagina_tipo = false;
 	}
 
 	if (session_status() == PHP_SESSION_NONE) {
+		error_log('PHP SESSION NONE');
 		$sessionpath = getcwd();
 		$sessionpath .= '/../sessions';
 		session_save_path($sessionpath);
 		session_start();
 		$_SESSION['user_info'] = 'visitante';
+		error_log("DENTRO DO PHP SESSION NONE, USER INFO WAS SET. RESULT:");
+		error_log($_SESSION['user_info']);
 	}
 
 	if (!isset($user_email)) {
@@ -151,6 +155,9 @@
 			$user_avatar_cor = 'text-primary';
 		}
 	}
+
+	error_log($_SESSION['user_info']);
+
 	if ($_SESSION['user_info'] === true) {
 		$user_id = $_SESSION['user_id'];
 		$user_tipo = $_SESSION['user_tipo'];
