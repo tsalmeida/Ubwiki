@@ -32,7 +32,7 @@
 
 	?>
     <div class="row d-flex justify-content-center">
-        <div class="col">
+        <div class="col align-self-center">
 			<?php
 				$template_titulo = "Ubwiki";
 				if ($user_id != false) {
