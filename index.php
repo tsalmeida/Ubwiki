@@ -1,18 +1,6 @@
 <?php
 
-	if (!isset($_SESSION['user_info'])) {
-		$_SESSION['user_info'] = 'visitante';
-	}
-
-	if (session_status() == PHP_SESSION_NONE) {
-		$sessionpath = getcwd();
-		$sessionpath .= '/../sessions';
-		session_save_path($sessionpath);
-		session_start();
-		$_SESSION['user_info'] = 'visitante';
-	} else {
-		session_start();
-	}
+	include 'criar_sessao.php';
 
 	include 'templates/criar_conn.php';
 	
@@ -37,13 +25,13 @@
 	if (isset($_GET['credito'])) {
 		$_SESSION['credito'] = $_GET['credito'];
 	}
-	
+	/*
 	if (!isset($_SESSION['user_email'])) {
 		if ((isset($_POST['email'])) && (isset($_POST['bora']))) {
 			$_SESSION['thinkific_email'] = $_POST['email'];
 			$_SESSION['thinkific_bora'] = $_POST['bora'];
 		}
-	}
+	}*/
 	
 	header('Location:ubwiki.php');
 	exit();
