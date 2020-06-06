@@ -4,8 +4,6 @@
 	error_log('session status:');
 	error_log($session_check);
 
-	//session_start();
-
 	$sessionpath = getcwd();
 	$sessionpath .= '/../sessions/';
 	session_save_path($sessionpath);
@@ -18,17 +16,12 @@
 		$_SESSION['user_info'] = 'visitante';
 		error_log('session was started inside the PHP_SESSION_NONE. session status:');
 		error_log(session_status());
+	} elseif (session_status() == 2) {
+		error_log('at this point, session_status equals 2');
 	}
-
-	error_log("user_info fora do session_status: {$_SESSION['user_info']}");
 
 	if (!isset($_SESSION['user_info'])) {
 		error_log('user info has not been set, is getting set now:');
 		$_SESSION['user_info'] = 'visitante';
 		error_log($_SESSION['user_info']);
 	}
-
-	/*error_log("E agora session_start declared again, followed by another session_status check:");
-	session_start();
-	error_log(session_status());*/
-
