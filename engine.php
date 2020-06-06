@@ -1763,4 +1763,7 @@
 		echo $check;
 	}
 
+	error_log("BY THE END OF ENGINE.PHP:");
+	error_log($_SESSION['user_info']);
+
 ?>
