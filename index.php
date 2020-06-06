@@ -5,6 +5,7 @@
 		$sessionpath .= '/../sessions';
 		session_save_path($sessionpath);
 		session_start();
+		$_SESSION['user_info'] = 'visitante';
 	}
 
 	include 'templates/criar_conn.php';
@@ -20,6 +21,7 @@
 		$usuarios = $conn->query("SELECT id, email, apelido FROM Usuarios WHERE special = '$special' AND special IS NOT NULL");
 		if ($usuarios->num_rows > 0) {
 			while ($usuario = $usuarios->fetch_assoc()) {
+				$_SESSION['user_info'] = 1;
 				$_SESSION['user_id'] = $usuario['id'];
 				$_SESSION['user_email'] = $usuario['email'];
 			}

@@ -1,23 +1,30 @@
 <?php
 
-	include 'functions.php';
-
+	error_log('before anything happens on engine.php');
 	error_log(serialize($_SESSION['user_info']));
 
+	$sessionpath = getcwd();
+	$sessionpath .= '/../sessions';
+	session_save_path($sessionpath);
+	sessin_start();
+
+	if (!isset($_SESSION['user_info'])) {
+		if (session_status() == PHP_SESSION_NONE) {
+			error_log('PHP SESSION NONE');
+			$sessionpath = getcwd();
+			$sessionpath .= '/../sessions';
+			session_save_path($sessionpath);
+			session_start();
+			$_SESSION['user_info'] = 'visitante';
+			error_log("DENTRO DO PHP SESSION NONE, USER INFO WAS SET. RESULT:");
+			error_log($_SESSION['user_info']);
+		}
+	}
 	if (!isset($pagina_tipo)) {
 		$pagina_tipo = false;
 	}
 
-	if (session_status() == PHP_SESSION_NONE) {
-		error_log('PHP SESSION NONE');
-		$sessionpath = getcwd();
-		$sessionpath .= '/../sessions';
-		session_save_path($sessionpath);
-		session_start();
-		$_SESSION['user_info'] = 'visitante';
-		error_log("DENTRO DO PHP SESSION NONE, USER INFO WAS SET. RESULT:");
-		error_log($_SESSION['user_info']);
-	}
+	include 'functions.php';
 
 	if (!isset($user_email)) {
 		$user_email = false;
