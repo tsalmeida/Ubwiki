@@ -2,7 +2,6 @@
 
 	include 'functions.php';
 
-	//error_log(serialize($_SESSION));
 	error_log(serialize($_SESSION['user_info']));
 
 	if (!isset($pagina_tipo)) {
