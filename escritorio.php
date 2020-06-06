@@ -33,7 +33,6 @@
 				$opcao_texto_justificado_value = false;
 			}
 			if (isset($_POST['hide_navbar_option'])) {
-				error_log('this happened');
 				$query = prepare_query("INSERT INTO Opcoes (user_id, opcao_tipo, opcao) VALUES ($user_id, 'hide_navbar', 1)");
 				$conn->query($query);
 				$opcao_hide_navbar = true;

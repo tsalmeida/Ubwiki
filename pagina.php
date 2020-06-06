@@ -1,6 +1,7 @@
 <?php
 
 	include 'engine.php';
+
 	$modal_novo_curso = false;
 	$nao_contar = false;
 	$carregar_adicionar_materia = false;

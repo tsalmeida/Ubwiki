@@ -1,34 +1,22 @@
 <?php
 
-	error_log('before anything happens on engine.php');
-	error_log(serialize($_SESSION['user_info']));
-
-	$sessionpath = getcwd();
-	$sessionpath .= '/../sessions';
-	session_save_path($sessionpath);
-	session_start();
-
-	if (!isset($_SESSION['user_info'])) {
-		if (session_status() == PHP_SESSION_NONE) {
-			error_log('PHP SESSION NONE');
-			$sessionpath = getcwd();
-			$sessionpath .= '/../sessions';
-			session_save_path($sessionpath);
-			session_start();
-			$_SESSION['user_info'] = 'visitante';
-			error_log("DENTRO DO PHP SESSION NONE, USER INFO WAS SET. RESULT:");
-			error_log($_SESSION['user_info']);
-		}
+	if (session_status() == PHP_SESSION_NONE) {
+		$sessionpath = getcwd();
+		$sessionpath .= '/../sessions';
+		session_save_path($sessionpath);
+		session_start();
+		$_SESSION['user_info'] = 'visitante';
 	}
+
 	if (!isset($pagina_tipo)) {
 		$pagina_tipo = false;
 	}
 
-	include 'functions.php';
-
 	if (!isset($user_email)) {
 		$user_email = false;
 	}
+
+	include 'functions.php';
 
 	$user_logged_out = false;
 
@@ -87,7 +75,6 @@
 							$_SESSION['user_email'] = $login_email;
 							$user_email = $login_email;
 							$_SESSION['user_info'] = 'login';
-							error_log('THIS HAPPENED');
 							echo true;
 						} else {
 							echo 'confirmacao';
@@ -161,8 +148,6 @@
 			$user_avatar_cor = 'text-primary';
 		}
 	}
-
-	error_log($_SESSION['user_info']);
 
 	if ($_SESSION['user_info'] === true) {
 		$user_id = $_SESSION['user_id'];
@@ -1769,8 +1754,5 @@
 		}
 		echo $check;
 	}
-
-	error_log("BY THE END OF ENGINE.PHP:");
-	error_log($_SESSION['user_info']);
 
 ?>
