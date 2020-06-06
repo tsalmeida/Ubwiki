@@ -6,9 +6,9 @@
 		session_save_path($sessionpath);
 		session_start();
 		$_SESSION['user_info'] = 'visitante';
-	} /*else {
+	} else {
 		session_start();
-	}*/
+	}
 
 	if (!isset($_SESSION['user_info'])) {
 		$_SESSION['user_info'] = 'visitante';
