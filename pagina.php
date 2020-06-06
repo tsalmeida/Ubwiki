@@ -920,7 +920,7 @@
 			$template_subtitulo = $elemento_autor;
 		} elseif ($pagina_tipo == 'curso') {
 			$template_titulo = $pagina_titulo;
-			$template_subtitulo = "<a href='javascript:void(0);' id='reveal_introduction'>{$pagina_translated['Ver detalhes']}</a>";
+			$template_subtitulo = "<a href='javascript:void(0);' id='reveal_introduction'>{$pagina_translated['Curso']}</a>";
 		} elseif ($pagina_tipo == 'materia') {
 			$template_titulo = $pagina_titulo;
 			$template_subtitulo = "{$pagina_translated['Matéria']} / <a href='pagina.php?curso_id=$pagina_curso_id'>$pagina_curso_titulo</a>";
