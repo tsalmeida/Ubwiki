@@ -208,7 +208,8 @@
 		$_SESSION['curso_id'] = $_GET['curso_id'];
 	}
 	if (!isset($_SESSION['curso_id'])) {
-		$_SESSION['curso_id'] = return_curso_ativo($user_id);
+		//$_SESSION['curso_id'] = return_curso_ativo($user_id);
+		$_SESSION['curso_id'] = 2;
 	}
 	if (isset($_SESSION['curso_id'])) {
 		$curso_id = $_SESSION['curso_id'];
