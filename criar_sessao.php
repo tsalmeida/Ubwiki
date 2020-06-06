@@ -12,6 +12,8 @@
 		error_log("user_info dentro do session_status: {$_SESSION['user_info']}");
 	}
 
+	error_log("user_info fora do session_status: {$_SESSION['user_info']}");
+
 	if (!isset($_SESSION['user_info'])) {
 		error_log('user info has not been set, is getting set now:');
 		$_SESSION['user_info'] = 'visitante';
