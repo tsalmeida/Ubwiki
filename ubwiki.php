@@ -7,10 +7,10 @@
 
 	include 'templates/html_head.php';
 
-/*	if (isset($_SESSION['thinkific_email'])) {
-		$thinkific_email = $_SESSION['thinkific_email'];
-		$thinkific_bora = $_SESSION['thinkific_bora'];
-	}*/
+	/*	if (isset($_SESSION['thinkific_email'])) {
+			$thinkific_email = $_SESSION['thinkific_email'];
+			$thinkific_bora = $_SESSION['thinkific_bora'];
+		}*/
 
 	$escritorio_col_limit = 'col-lg-2 col-md-3 col-sm-6';
 ?>
@@ -23,14 +23,15 @@
 ?>
 <div class="container">
 	<?php
-		echo "<div class='row d-flex justify-content-end p-1 mt-1'>";
 		if ($user_id == false) {
+			echo "<div class='row d-flex justify-content-end p-1'>";
 			echo "<a data-toggle='modal' data-target='#modal_languages' class='text-info mx-2'><i class='fad fa-language fa-fw fa-2x'></i></a>";
 			echo "<a data-toggle='modal' data-target='#modal_login' class='text-primary mx-2'><i class='fad fa-user-circle fa-fw fa-2x'></i></a>";
+			echo "</div>";
 		}
-		echo "</div>";
+
 	?>
-    <div class="row d-flex justify-content-center mt-2">
+    <div class="row d-flex justify-content-center">
         <div class="col">
 			<?php
 				$template_titulo = "Ubwiki";
@@ -49,6 +50,7 @@
 				$template_id = 'logo_ubwiki';
 				$template_titulo = false;
 				$template_conteudo = false;
+				$template_spacing = false;
 				$template_spacer = false;
 				$template_botoes_padrao = false;
 				$template_background = 'grey lighten-5';

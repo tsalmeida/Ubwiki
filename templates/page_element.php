@@ -93,14 +93,17 @@
 	if (!isset($template_spacer)) {
 		$template_spacer = "<span class='spacer text-white'><i class='fad fa-bookmark fa-fw'></i></span>";
 	}
+	if (!isset($template_spacing)) {
+		$template_spacing = "p-2 pb-5 mb-2";
+	}
 	$final_result = false;
 	$final_result .= "
-<div id='$template_id' class='row show $template_classes $template_background p-2 pb-5 mb-2 rounded'>
+<div id='$template_id' class='row show $template_classes $template_background $template_spacing rounded'>
 	<div class='$template_col_value'>
-    <div class='row d-flex justify-content-end page-element-botoes mb-1'>
-    	$template_spacer
-      $template_botoes
-      $template_botoes_padrao
+    <div class='row d-flex justify-content-end page-element-botoes'>
+		$template_spacer
+		$template_botoes
+		$template_botoes_padrao
     </div>";
 	if ($template_titulo != false) {
 		$final_result .= "
@@ -154,6 +157,7 @@
 	unset($template_p_limit);
 	unset($template_col_classes);
 	unset($template_spacer);
+	unset($template_spacing);
 
 	if ($template_return == true) {
 		unset($template_return);

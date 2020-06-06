@@ -24,10 +24,8 @@
 	$titulo_length = strlen($template_titulo);
 	$display_level = false;
 	if ($titulo_length < 20) {
-		$display_level = 'display-1';
-	} elseif ($titulo_length < 30) {
 		$display_level = 'display-2';
-	} elseif ($titulo_length < 50) {
+	} elseif ($titulo_length < 30) {
 		$display_level = 'display-3';
 	} elseif ($titulo_length < 65) {
 		$display_level = 'display-4';
@@ -50,21 +48,24 @@
 			$display_level = false;
 		}
 	}
+	/*
 	if ($template_titulo_no_nav == true) {
 		$spacing = 'my-2';
 	} else {
 		$spacing = 'mb-2';
 	}
+	*/
+	$spacing = false;
 
 	if ($template_titulo_context == true) {
 		echo "
-    	<div class='row d-flex justify-content-center my-3'>
+    	<div class='row d-flex justify-content-center mb-2'>
         <div class='col-lg-11 col-sm-12 text-center $spacing'>
 		";
 	}
 	if ($template_titulo_above != false) {
 		echo "
-			<span class='text-muted d-block mt-3'><em><h4 class='mb-0'>$template_titulo_above</h4></em></span>
+			<span class='text-muted d-block font-italic'><h4 class='mb-0'>$template_titulo_above</h4></span>
 		";
 	}
 	if ($display_level != false) {
@@ -80,7 +81,7 @@
 	}
 	if ($template_subtitulo != false) {
 		echo "
-			<span id='subtitulo' class='text-muted d-block mt-3'><$template_subtitulo_size class='fine-subtitulo'>$template_subtitulo</$template_subtitulo_size></span>
+			<span id='subtitulo' class='text-muted d-block'><$template_subtitulo_size class='fine-subtitulo mb-0'>$template_subtitulo</$template_subtitulo_size></span>
 		";
 	}
 	if ($template_titulo_context == true) {

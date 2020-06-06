@@ -1,7 +1,10 @@
 <?php
 	$pagina_tipo = 'index';
 
+	error_log('na pagina index.php, o criar sessao sera loaded agora:');
 	include 'criar_sessao.php';
+	error_log('na pagina index.php, o criar sessao acabou de ser loaded; checando user info:');
+	error_log($_SESSION['user_info']);
 
 	include 'templates/criar_conn.php';
 	
