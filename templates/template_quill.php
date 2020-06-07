@@ -214,16 +214,11 @@
         </div>
     </form>";
 	$quill_user_id = (int)$user_id;
-	if ($template_id == 'anotacoes') {
-		$scrollingContainer = '#anotacoes';
-	} else {
-		$scrollingContainer = 'html';
-	}
 	$quill_result .= "
     <script type='text/javascript'>
     var {$template_id}_editor = new Quill('#quill_editor_{$template_id}', {
         theme: 'snow',
-        scrollingContainer: '{$scrollingContainer}',
+        scrollingContainer: 'html',
         placeholder: '{$template_quill_vazio}',
         formats: $template_quill_whitelist,
         modules: {
@@ -326,9 +321,9 @@
 				$('#destravar_{$template_id}').show();
 				$('#travar_{$template_id}').hide();
 				$('#quill_container_{$template_id}').removeClass('ql-editor-active');
-        $('#quill_container_{$template_id}').children(':first').hide();
-        $('#botoes_salvar_{$template_id}').hide();
-        $('#{$template_id}_trigger_save').hide();
+				$('#quill_container_{$template_id}').children(':first').hide();
+				$('#botoes_salvar_{$template_id}').hide();
+				$('#{$template_id}_trigger_save').hide();
 				{$template_id}_editor.disable();
 			</script>";
 	} elseif (($template_quill_initial_state == 'edicao') && ($template_quill_pagina_de_edicao == false)) {
@@ -337,9 +332,9 @@
 				$('#destravar_{$template_id}').hide();
 				$('#travar_{$template_id}').show();
 				$('#quill_editor_{$template_id}').children(':first').addClass('ql-editor-active');
-        $('#quill_container_{$template_id}').children(':first').show();
-        $('#botoes_salvar_{$template_id}').show();
-        $('#{$template_id}_trigger_save').show();
+				$('#quill_container_{$template_id}').children(':first').show();
+				$('#botoes_salvar_{$template_id}').show();
+				$('#{$template_id}_trigger_save').show();
 				{$template_id}_editor.enable();
 			</script>";
 	}
