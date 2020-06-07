@@ -21,17 +21,19 @@
 		<?php
 			if ($user_email != false) {
 
-				echo "<h2 class='text-muted mb-5'>{$pagina_translated['Cursos em que você se inscreveu:']}</h2>";
-				echo "<div class='col-lg-10 col-md-12'>";
 				$usuario_cursos_inscrito = return_usuario_cursos_inscrito($user_id);
 				$usuario_cursos_disponiveis = return_usuario_cursos($user_id);
 				$usuario_cursos_nao_inscrito_disponiveis = array_diff($usuario_cursos_disponiveis, $usuario_cursos_inscrito);
 
 				$list_cursos_cards = false;
 				if ($usuario_cursos_inscrito != false) {
+					echo "<h2 class='text-muted mb-5'>{$pagina_translated['Cursos em que você se inscreveu:']}</h2>";
+					echo "<div class='col-lg-10 col-md-12'>";
 					foreach ($usuario_cursos_inscrito as $usuario_inscrito_curso_id) {
 						$list_cursos_cards = return_curso_card($usuario_inscrito_curso_id, 'inscrito');
 					}
+				} else {
+					echo "<div class='col-lg-10 col-md-12'>";
 				}
 			} else {
 				echo "<div class='col-lg-10 col-md-12'>";

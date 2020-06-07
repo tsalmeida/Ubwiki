@@ -84,16 +84,19 @@
 			}
 		} else {
 			$encrypted = password_hash($login_senha, PASSWORD_DEFAULT);
-			$query = "INSERT INTO Usuarios (tipo, email, senha) VALUES ('estudante', '$login_email', '$encrypted')";
-			$query = prepare_query($query);
-			$check = $conn->query($query);
-			if ($check == true) {
-				$_SESSION['user_email'] = $login_email;
-				$user_email = $login_email;
-				$_SESSION['user_info'] = 'login';
-				echo true;
-			} else {
-				echo false;
+			$query = prepare_query("SELECT id FROM Usuarios WHERE email = '$login_email'");
+			$check_preexistente = $conn->query($query);
+			if ($check_preexistente->num_rows == 0) {
+				$query = prepare_query("INSERT INTO Usuarios (tipo, email, senha) VALUES ('estudante', '$login_email', '$encrypted')");
+				$check = $conn->query($query);
+				if ($check == true) {
+					$_SESSION['user_email'] = $login_email;
+					$user_email = $login_email;
+					$_SESSION['user_info'] = 'login';
+					echo true;
+				} else {
+					echo false;
+				}
 			}
 		}
 	}

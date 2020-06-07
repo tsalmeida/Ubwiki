@@ -2540,9 +2540,9 @@
 		$template_id = "curso_$curso_pagina_id";
 		$template_titulo = "<a href='pagina.php?pagina_id=$curso_pagina_id'>$curso_titulo</a>";
 		if ($card_mode == 'inscrito') {
-			$template_botoes = "<span class='text-success'><i class='fad fa-check-circle fa-fw'></i></span>";
+			$template_botoes = "<span class='text-success'><i class='fad fa-lamp-desk fa-fw'></i></span>";
 		} elseif ($card_mode == 'disponivel') {
-			$template_botoes = "<span class='text-info'><i class='fad fa-circle fa-fw'></i></span>";
+			$template_botoes = "<span class='text-primary'><i class='fad fa-lamp-desk fa-fw'></i></span>";
 		}
 		$template_conteudo = false;
 		if ($curso_verbete != false) {

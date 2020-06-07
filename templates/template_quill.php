@@ -213,12 +213,18 @@
             </button>
         </div>
     </form>";
-	$quill_user_id = (int)$user_id;
+	$quill_user_id = (int)$user_id;/*
+	if ($template_id == 'anotacoes') {
+		$scrollingContainer = '#anotacoes';
+	} else {
+		$scrollingContainer = 'html';
+	}*/
+	$scrollingContainer = 'html';
 	$quill_result .= "
     <script type='text/javascript'>
     var {$template_id}_editor = new Quill('#quill_editor_{$template_id}', {
         theme: 'snow',
-        scrollingContainer: 'html',
+        scrollingContainer: '{$scrollingContainer}',
         placeholder: '{$template_quill_vazio}',
         formats: $template_quill_whitelist,
         modules: {

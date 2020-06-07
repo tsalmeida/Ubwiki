@@ -28,8 +28,8 @@
 			$elemento_id = (int)$_GET['elemento_id'];
 			$pagina_id = return_pagina_id($elemento_id, 'elemento');
 		} elseif (isset($_GET['curso_id'])) {
-			$curso_id = (int)$_GET['curso_id'];
-			$pagina_id = return_pagina_id($curso_id, 'curso');
+			$pagina_curso_id = (int)$_GET['curso_id'];
+			$pagina_id = return_pagina_id($pagina_curso_id, 'curso');
 		} elseif (isset($_GET['materia_id'])) {
 			$materia_id = (int)$_GET['materia_id'];
 			$pagina_id = return_pagina_id($materia_id, 'materia');
@@ -302,7 +302,6 @@
 	} elseif ($pagina_tipo == 'materia') {
 		$materia_id = $pagina_item_id;
 		$materia_curso_id = false;
-		$materia_curso_sigla = return_curso_sigla($materia_curso_id);
 		$materia_titulo = $pagina_titulo;
 	} elseif ($pagina_tipo == 'topico') {
 		include 'templates/verbetes_relacionados.php';
@@ -556,7 +555,7 @@
 			<?php
 				if (($pagina_tipo != 'sistema') && ($pagina_compartilhamento != 'escritorio') && ($pagina_tipo != 'materia') && ($pagina_subtipo != 'modelo')) {
 					if ($privilegio_edicao == true) {
-						echo "<a href='javascript:void(0)' class='text-info mr-1' id='add_elements' title='{$pagina_translated['Adicionar elementos']}' data-toggle='modal' data-target='#modal_add_elementos'><i class='fad fa-lg fa-plus-circle fa-fw'></i></a>";
+						echo "<a href='javascript:void(0)' class='text-success mr-1' id='add_elements' title='{$pagina_translated['Adicionar elementos']}' data-toggle='modal' data-target='#modal_add_elementos'><i class='fad fa-lg fa-plus-circle fa-fw'></i></a>";
 					}
 				}
 				if ($pagina_tipo == 'elemento') {
@@ -602,8 +601,12 @@
                     }
                 }
 
+				if (($pagina_tipo == 'materia') && ($pagina_user_id == $user_id)) {
+					$carregar_adicionar_topico = true;
+					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_topico' class='text-success mr-1' id='add_topico' title='{$pagina_translated['Adicionar tópico']}'><i class='fad fa-plus-circle fa-lg fa-fw'></i></a>";
+				}
 				if ($modal_pagina_dados == true) {
-					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_pagina_dados' class='text-success mr-1' id='pagina_dados' title='{$pagina_translated['Editar dados']}'><i class='fad fa-info-circle fa-fw fa-lg'></i></a>";
+					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_pagina_dados' class='text-info mr-1' id='pagina_dados' title='{$pagina_translated['Editar dados']}'><i class='fad fa-info-square fa-swap-opacity fa-fw fa-lg'></i></a>";
 					$carregar_produto_setup = false;
 					if ($pagina_subtipo == 'produto') {
 						$carregar_produto_setup = true;
@@ -615,15 +618,26 @@
 				}
 				if (($pagina_tipo == 'curso') && ($pagina_curso_user_id == $user_id)) {
 					$carregar_adicionar_materia = true;
-					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_materia' class='text-success mr-1' id='add_materia' title='{$pagina_translated['Adicionar matéria']}'><i class='fad fa-plus-circle fa-lg fa-fw'></i></a>";
-				}
-				if (($pagina_tipo == 'materia') && ($pagina_user_id == $user_id)) {
-					$carregar_adicionar_topico = true;
-					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_topico' class='text-success mr-1' id='add_topico' title='{$pagina_translated['Adicionar tópico']}'><i class='fad fa-plus-circle fa-lg fa-fw'></i></a>";
+					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_materia' class='text-info mr-1' id='add_materia' title='{$pagina_translated['Adicionar matéria']}'><i class='fad fa-plus-square fa-swap-opacity fa-lg fa-fw'></i></a>";
 				}
 				if (($pagina_tipo == 'topico') && ($pagina_user_id == $user_id) && ($topico_nivel < 5)) {
 					$carregar_adicionar_subtopico = true;
 					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_subtopico' class='text-success mr-1' id='add_subtopico' title='{$pagina_translated['Adicionar subtópico']}'><i class='fad fa-plus-circle fa-lg fa-fw'></i></a>";
+				}
+				if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id) && ($pagina_subtipo != 'Plano de estudos') && ($pagina_subtipo != 'modelo')) {
+					if (($pagina_tipo != 'materia') && ($pagina_tipo != 'topico')) {
+						echo "
+                          <a href='javascript:void(0);' class='text-default mr-1 align-top' id='compartilhar_anotacao' title='{$pagina_translated['Colaboração e publicação']}' data-toggle='modal' data-target='#modal_compartilhar_pagina'>
+                              <i class='fad fa-user-friends fa-fw fa-lg'></i>
+                          </a>
+                        ";
+					}
+					$carregar_modal_destruir_pagina = true;
+					echo "
+                      <a href='javascript:void(0);' class='text-danger mr-1 align-top' id='destruir_pagina' title='{$pagina_translated['Destruir esta página']}' data-toggle='modal' data-target='#modal_destruir_pagina'>
+                          <i class='fad fa-trash-alt fa-fw fa-lg'></i>
+                      </a>
+                    ";
 				}
 				if ($pagina_tipo == 'questao') {
 					echo "<a href='javascript:void(0);' class='mr-1 text-secondary' title='{$pagina_translated['Dados da questão']}' data-toggle='modal' data-target='#modal_questao_dados'><i class='fad fa-check-circle fa-fw fa-lg'></i></a>";
@@ -659,17 +673,17 @@
 					$topico_proximo = false;
 				}
 				if ($pagina_tipo == 'curso') {
-					echo "<a href='javascript:void(0)' data-toggle='modal' data-target='#modal_busca' class='text-primary' title='{$pagina_translated['Busca']}'><i class='fad fa-search fa-fw'></i></a>";
+					echo "<a href='javascript:void(0)' data-toggle='modal' data-target='#modal_busca' class='text-primary' title='{$pagina_translated['Busca']}'><i class='fad fa-search fa-fw fa-lg'></i></a>";
 				}
 				if ($topico_anterior != false) {
 					$topico_anterior_link = "pagina.php?topico_id=$topico_anterior";
-					echo "<a href='$topico_anterior_link' id='verbete_anterior' class='mx-1' title='{$pagina_translated['Verbete anterior']}'><i class='fad fa-arrow-left fa-fw'></i></a>";
+					echo "<a href='$topico_anterior_link' id='verbete_anterior' class='mx-1' title='{$pagina_translated['Verbete anterior']}'><i class='fad fa-arrow-left fa-fw fa-lg'></i></a>";
 				}
-				echo "<a href='javascript:void(0);' class='hidden text-dark mx-2' id='show_bars'><i class='fad fa-eye fa-fw'></i></a>";
+				echo "<a href='javascript:void(0);' class='hidden text-dark mx-2' id='show_bars'><i class='fad fa-eye fa-fw fa-lg'></i></a>";
 				if ($pagina_tipo == 'topico') {
-					echo "<a href='javascript:void(0);' id='verbetes_relacionados' class='text-primary mx-1' title='{$pagina_translated['Navegação']}' data-toggle='modal' data-target='#modal_verbetes_relacionados'><i class='fad fa-location-circle fa-lg fa-fw'></i></a>";
+					echo "<a href='javascript:void(0);' id='verbetes_relacionados' class='text-primary mx-1' title='{$pagina_translated['Navegação']}' data-toggle='modal' data-target='#modal_verbetes_relacionados'><i class='fad fa-location-circle fa-fw fa-lg'></i></a>";
 				} elseif ($pagina_tipo == 'secao') {
-					echo "<a href='javascript:void(0);' id='secoes' class='mx-1 text-primary' title='{$pagina_translated['Página e seções']}' data-toggle='modal' data-target='#modal_paginas_relacionadas'><i class='fad fa-sitemap fa-fw'></i></a>";
+					echo "<a href='javascript:void(0);' id='secoes' class='mx-1 text-primary' title='{$pagina_translated['Página e seções']}' data-toggle='modal' data-target='#modal_paginas_relacionadas'><i class='fad fa-sitemap fa-fw fa-lg'></i></a>";
 				}
 				if ($carregar_secoes == true) {
 					if ($secoes->num_rows > 0) {
@@ -684,7 +698,7 @@
 						if (!isset($template_titulo)) {
 							$partes_titulo = $pagina_translated['Seções'];
 						}
-						echo "<a href='javascript:void(0);' id='partes' class='mx-1 text-primary' title='$partes_titulo' data-toggle='modal' data-target='#modal_partes_elemento'><i class='fad fa-sitemap fa-fw'></i></a>";
+						echo "<a href='javascript:void(0);' id='partes' class='mx-1 text-primary' title='$partes_titulo' data-toggle='modal' data-target='#modal_partes_elemento'><i class='fad fa-sitemap fa-fw fa-lg'></i></a>";
 					}
 				}
 				if ($pagina_subtipo == 'produto') {
@@ -694,7 +708,7 @@
 				}
 				if ($topico_proximo != false) {
 					$topico_proximo_link = "pagina.php?topico_id=$topico_proximo";
-					echo "<a href='$topico_proximo_link' id='verbete_proximo' class='mx-1' title='{$pagina_translated['Próximo verbete']}'><i class='fad fa-arrow-right fa-fw'></i></a>";
+					echo "<a href='$topico_proximo_link' id='verbete_proximo' class='mx-1' title='{$pagina_translated['Próximo verbete']}'><i class='fad fa-arrow-right fa-fw fa-lg'></i></a>";
 				}
 			?>
         </div>
@@ -711,25 +725,11 @@
 						} else {
 							$curso_sair_hidden = 'hidden';
 						}
-						echo "<a href='javascript:void(0);' class='ml-1 text-primary $curso_aderir_hidden' title='{$pagina_translated['Aderir a este curso']}' id='curso_aderir'><i class='fad fa-lamp-desk fa-fw'></i></a>";
-						echo "<a href='javascript:void(0);' class='ml-1 text-success $curso_sair_hidden' title='{$pagina_translated['Sair deste curso']}' id='curso_sair'><i class='fad fa-lamp-desk fa-fw'></i></a>";
+						echo "<a href='javascript:void(0);' class='ml-1 text-primary $curso_aderir_hidden' title='{$pagina_translated['Aderir a este curso']}' id='curso_aderir'><i class='fad fa-lamp-desk fa-fw fa-lg'></i></a>";
+						echo "<a href='javascript:void(0);' class='ml-1 text-success $curso_sair_hidden' title='{$pagina_translated['Sair deste curso']}' id='curso_sair'><i class='fad fa-lamp-desk fa-fw fa-lg'></i></a>";
 					}
 				}
-				if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id) && ($pagina_subtipo != 'Plano de estudos') && ($pagina_subtipo != 'modelo')) {
-					if (($pagina_tipo != 'materia') && ($pagina_tipo != 'topico')) {
-						echo "
-                                  <a href='javascript:void(0);' class='text-default ml-1 align-top' id='compartilhar_anotacao' title='{$pagina_translated['Colaboração e publicação']}' data-toggle='modal' data-target='#modal_compartilhar_pagina'>
-                                      <i class='fad fa-user-friends fa-fw'></i>
-                                  </a>
-                                ";
-					}
-					$carregar_modal_destruir_pagina = true;
-					echo "
-                      <a href='javascript:void(0);' class='text-danger ml-1 align-top' id='destruir_pagina' title='{$pagina_translated['Destruir esta página']}' data-toggle='modal' data-target='#modal_destruir_pagina'>
-                          <i class='fad fa-trash-alt fa-fw'></i>
-                      </a>
-                    ";
-				}
+				/*
 				if ($user_tipo == 'admin') {
 					if ((($pagina_subtipo != 'produto') && ($pagina_tipo != 'escritorio')) && ($pagina_subtipo != 'modelo') || ($pagina_tipo == 'escritorio') && ($pagina_user_id = $user_id)) {
 						$existe_produto = false;
@@ -738,12 +738,12 @@
 						} else {
 							$produto_color = 'text-primary';
 						}
-						echo "<a href='mercado.php?pagina_id=$pagina_id' class='$produto_color ml-1 align-top' title='{$pagina_translated['visit_market']}'><i class='fad fa-bags-shopping fa-fw'></i></a>";
+						echo "<a href='mercado.php?pagina_id=$pagina_id' class='$produto_color ml-1 align-top' title='{$pagina_translated['visit_market']}'><i class='fad fa-bags-shopping fa-fw fa-lg'></i></a>";
 					}
-				}
+				}*/
 				if ($carregar_partes_elemento_modal == true) {
 					echo "
-					        <a href='print_elemento.php?pagina_id=$pagina_id' target='_blank' id='print_elemento_partes' class='ml-1 text-primary' title='{$pagina_translated['print elemento partes']}'><i class='fad fa-print fa-fw'></i></a>
+					        <a href='print_elemento.php?pagina_id=$pagina_id' target='_blank' id='print_elemento_partes' class='ml-1 text-primary' title='{$pagina_translated['print elemento partes']}'><i class='fad fa-print fa-fw fa-lg'></i></a>
 					    ";
 				}
 				if (($pagina_tipo != 'sistema') && ($pagina_compartilhamento != 'escritorio') && ($pagina_subtipo != 'modelo')) {
@@ -757,12 +757,12 @@
 					if ($user_id != false) {
 						echo "
                                 <a href='forum.php?pagina_id=$pagina_id' title='{$pagina_translated['forum']}' class='$forum_color ml-1 align-top'>
-                                    <i class='fad fa-comments-alt fa-fw'></i>
+                                    <i class='fad fa-comments-alt fa-fw fa-lg'></i>
                                 </a>
                             ";
 					} else {
 						echo "
-									<a href='javascript:void(0);' title='Fórum' class='text-secondary ml-1 align-top' data-toggle='modal' data-target='#modal_login'><i class='fad fa-comments-alt fa-fw' title='{$pagina_translated['Login']}'></i></a>
+									<a href='javascript:void(0);' title='Fórum' class='text-secondary ml-1 align-top' data-toggle='modal' data-target='#modal_login'><i class='fad fa-comments-alt fa-fw fa-lg' title='{$pagina_translated['Login']}'></i></a>
 								";
 					}
 				}
@@ -776,19 +776,19 @@
 						}
 						echo "
 								  <a id='remover_acervo' href='javascript:void(0);' class='ml-1 text-success' title='{$pagina_translated['Remover do seu acervo']}'>
-									  <i class='fad fa-lamp-desk fa-fw'></i>
+									  <i class='fad fa-lamp-desk fa-fw fa-lg'></i>
 								  </a>
 								  <a id='adicionar_acervo' href='javascript:void(0);' class='ml-1 text-primary' title='{$pagina_translated['Adicionar a seu acervo']}'>
-									  <i class='fad fa-lamp-desk fa-fw'></i>
+									  <i class='fad fa-lamp-desk fa-fw fa-lg'></i>
 								  </a>
 						        ";
 					} else {
-						echo "<a href='javascript:void(0);' class='ml-1 text-success' title='{$pagina_translated['Adicionar a seu acervo']}' data-toggle='modal' data-target='#modal_login'><i class='fad fa-lamp-desk fa-fw'></i></a>";
+						echo "<a href='javascript:void(0);' class='ml-1 text-success' title='{$pagina_translated['Adicionar a seu acervo']}' data-toggle='modal' data-target='#modal_login'><i class='fad fa-lamp-desk fa-fw fa-lg'></i></a>";
 					}
 				}
 				if ($pagina_subtipo == 'etiqueta') {
 					if ($user_tipo == 'admin') {
-						echo "<a id='apagar_etiqueta' class='text-danger ml-1' title='Apagar esta etiqueta'><i class='fad fa-trash fa-fw'></i></a>";
+						echo "<a id='apagar_etiqueta' class='text-danger ml-1' title='Apagar esta etiqueta'><i class='fad fa-trash fa-fw fa-lg'></i></a>";
 					}
 					if ($user_id != false) {
 						$carregar_toggle_paginas_livres = true;
@@ -799,14 +799,14 @@
 						}
 						echo "
 						      <a id='remover_area_interesse' href='javascript:void(0);' class='ml-1 text-warning' title='{$pagina_translated['Remover como área de interesse']}'>
-						      	<i class='fad fa-lamp-desk fa-fw'></i>
+						      	<i class='fad fa-lamp-desk fa-fw fa-lg'></i>
 							  </a>
 						      <a id='adicionar_area_interesse' href='javascript:void(0);' class='ml-1 text-primary' title='{$pagina_translated['Adicionar como área de interesse']}'>
-						      	<i class='fad fa-lamp-desk fa-fw'></i>
+						      	<i class='fad fa-lamp-desk fa-fw fa-lg'></i>
 							  </a>
 						    ";
 					} else {
-						echo "<a title='{$pagina_translated['Adicionar como área de interesse']}' href='javascript:void(0);' class='ml-1 text-warning' data-toggle='modal' data-target='#modal_login'><i class='fad fa-lamp-desk fa-fw'></i></a>";
+						echo "<a title='{$pagina_translated['Adicionar como área de interesse']}' href='javascript:void(0);' class='ml-1 text-warning' data-toggle='modal' data-target='#modal_login'><i class='fad fa-lamp-desk fa-fw fa-lg'></i></a>";
 					}
 				}
 				if ($pagina_subtipo != 'modelo') {
@@ -814,7 +814,7 @@
 					$vinculos_wikipedia = $conn->query($query);
 					if ($vinculos_wikipedia->num_rows > 0) {
 						$carregar_modal_wikipedia = true;
-						echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_vinculos_wikipedia' class='text-dark ml-1' title='{$pagina_translated['Ver artigos da Wikipédia vinculados']}'><i class='fab fa-wikipedia-w fa-fw'></i></a>";
+						echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_vinculos_wikipedia' class='text-dark ml-1' title='{$pagina_translated['Ver artigos da Wikipédia vinculados']}'><i class='fab fa-wikipedia-w fa-fw fa-lg'></i></a>";
 					}
 					if ($user_id != false) {
 						$notificacao_modal = '#modal_notificacoes';
@@ -824,7 +824,7 @@
 						$notificacao_cor = 'text-default';
 						$notificacao_icone = 'fa-bell fa-swap-opacity';
 					}
-					echo "<a href='javascript:void(0);' class='$notificacao_cor ml-1' data-toggle='modal' data-target='$notificacao_modal'><i class='fad $notificacao_icone fa-fw'></i></a>";
+					echo "<a href='javascript:void(0);' class='$notificacao_cor ml-1' data-toggle='modal' data-target='$notificacao_modal'><i class='fad $notificacao_icone fa-fw fa-lg'></i></a>";
 				} else {
 					$adicionar_modelo_hidden = false;
 					$remover_modelo_hidden = false;
@@ -833,8 +833,8 @@
 					} else {
 						$adicionar_modelo_hidden = 'hidden';
 					}
-					echo "<a class='text-primary escritorio_modelo $adicionar_modelo_hidden' id='adicionar_modelo' value='adicionar_modelo' title='{$pagina_translated['Adicionar seus modelos']}'><i class='fad fa-lamp-desk fa-fw'></i></a>";
-					echo "<a class='text-secondary escritorio_modelo $remover_modelo_hidden' id='remover_modelo' value='remover_modelo' title='{$pagina_translated['Remover seus modelos']}'><i class='fad fa-lamp-desk fa-fw'></i></a>";
+					echo "<a class='text-primary escritorio_modelo $adicionar_modelo_hidden' id='adicionar_modelo' value='adicionar_modelo' title='{$pagina_translated['Adicionar seus modelos']}'><i class='fad fa-lamp-desk fa-fw fa-lg'></i></a>";
+					echo "<a class='text-secondary escritorio_modelo $remover_modelo_hidden' id='remover_modelo' value='remover_modelo' title='{$pagina_translated['Remover seus modelos']}'><i class='fad fa-lamp-desk fa-fw fa-lg'></i></a>";
 				}
 				if (($pagina_tipo != 'sistema') && ($pagina_compartilhamento != 'escritorio')) {
 					if ($etiquetados->num_rows > 0) {
@@ -850,7 +850,7 @@
 					}
 					echo "
                       <a id='adicionar_etiqueta' class='ml-1 $etiquetas_color' title='{$pagina_translated['Adicionar etiqueta']}' data-dismiss='modal' data-toggle='modal' href='$etiquetas_modal'>
-                              <i class='fad fa-tags fa-fw'></i>
+                              <i class='fad fa-tags fa-fw fa-lg'></i>
                       </a>
                     ";
 					if ($pagina_tipo == 'topico') {
@@ -863,12 +863,12 @@
 								$marcar_incompleto = 'collapse';
 							}
 							echo "
-                                  <a id='add_completed' href='javascript:void(0);' class='text-primary ml-1 $marcar_completo' title='{$pagina_translated['Marcar estudo completo']}' value='$pagina_id'><i class='fad fa-check-circle fa-fw'></i></a>
-                                  <a id='remove_completed' href='javascript:void(0);' class='ml-1 $marcar_incompleto text-success' title='{$pagina_translated['Desmarcar como completo']}' value='$pagina_id'><i class='fad fa-check-circle fa-fw'></i></a>
+                                  <a id='add_completed' href='javascript:void(0);' class='text-primary ml-1 $marcar_completo' title='{$pagina_translated['Marcar estudo completo']}' value='$pagina_id'><i class='fad fa-check-circle fa-fw fa-lg'></i></a>
+                                  <a id='remove_completed' href='javascript:void(0);' class='ml-1 $marcar_incompleto text-success' title='{$pagina_translated['Desmarcar como completo']}' value='$pagina_id'><i class='fad fa-check-circle fa-fw fa-lg'></i></a>
                                 ";
 						} else {
 							echo "
-								        <a href='javascript:void(0);' class='text-success ml-1' title='{$pagina_translated['Marcar estudo completo']}' data-toggle='modal' data-target='#modal_login'><i class='fad fa-check-circle fa-fw'></i></a>
+								        <a href='javascript:void(0);' class='text-success ml-1' title='{$pagina_translated['Marcar estudo completo']}' data-toggle='modal' data-target='#modal_login'><i class='fad fa-check-circle fa-fw fa-lg'></i></a>
 								    ";
 						}
 					}
@@ -882,12 +882,12 @@
 					if ($pagina_subtipo != 'modelo') {
 						if ($user_id != false) {
 							echo "
-                                  <a href='javascript:void(0);' id='add_bookmark' class='text-primary ml-1 $marcar_bookmark' title='{$pagina_translated['Marcar para leitura']}' value='$pagina_id'><i class='fad fa-bookmark fa-fw'></i></a>
-                                  <a href='javascript:void(0);' id='remove_bookmark' class='text-danger ml-1 $desmarcar_bookmark' title='{$pagina_translated['Remover da lista de leitura']}' value='$pagina_id'><i class='fad fa-bookmark fa-fw'></i></a>
+                                  <a href='javascript:void(0);' id='add_bookmark' class='text-primary ml-1 $marcar_bookmark' title='{$pagina_translated['Marcar para leitura']}' value='$pagina_id'><i class='fad fa-bookmark fa-fw fa-lg'></i></a>
+                                  <a href='javascript:void(0);' id='remove_bookmark' class='text-danger ml-1 $desmarcar_bookmark' title='{$pagina_translated['Remover da lista de leitura']}' value='$pagina_id'><i class='fad fa-bookmark fa-fw fa-lg'></i></a>
                                 ";
 						} else {
 							echo "
-                                    <a href='javascript:void(0);' id='login_bookmark' class='text-danger ml-1' title='{$pagina_translated['Marcar para leitura']}' data-toggle='modal' data-target='#modal_login'><i class='fad fa-bookmark fa-fw'></i></a>
+                                    <a href='javascript:void(0);' id='login_bookmark' class='text-danger ml-1' title='{$pagina_translated['Marcar para leitura']}' data-toggle='modal' data-target='#modal_login'><i class='fad fa-bookmark fa-fw fa-lg'></i></a>
                                 ";
 						}
 						$estado_cor = false;
@@ -904,7 +904,7 @@
 								$estado_modal = '#modal_login';
 							}
 							echo "
-                                        <a href='javascript:void(0);' id='change_estado_pagina' class='ml-1 $estado_cor' title='{$pagina_translated['Estado da página']}' data-toggle='modal' data-target='$estado_modal'><i class='$estado_icone fa-fw'></i></a>
+                                        <a href='javascript:void(0);' id='change_estado_pagina' class='ml-1 $estado_cor' title='{$pagina_translated['Estado da página']}' data-toggle='modal' data-target='$estado_modal'><i class='$estado_icone fa-fw fa-lg'></i></a>
                                     ";
 						}
 					}
@@ -2195,7 +2195,7 @@
                        placeholder='{$pagina_translated['Busca de páginas deste curso']}' required>
                 <datalist id='searchlist'>
         ";
-		$query = prepare_query("SELECT chave FROM Searchbar WHERE curso_id = '$curso_id' ORDER BY ordem");
+		$query = prepare_query("SELECT chave FROM Searchbar WHERE curso_id = '$pagina_curso_id' ORDER BY ordem");
 		$result = $conn->query($query);
 		if ($result->num_rows > 0) {
 			while ($row = $result->fetch_assoc()) {
@@ -2240,7 +2240,7 @@
 
 	if ($carregar_modal_destruir_pagina == true) {
 		$template_modal_div_id = 'modal_destruir_pagina';
-		$template_modal_titulo = 'Destruir esta página';
+		$template_modal_titulo = $pagina_translated['Destroy this page'];
 		$template_modal_show_buttons = false;
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "

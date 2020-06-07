@@ -344,53 +344,54 @@
 	if ($carregar_adicionar_topico == true) {
 		echo "
 			<script type='text/javascript'>
-				$('#trigger_buscar_topicos').click(function() {
-				   var busca_topicos = $('#buscar_topicos').val();
-				   var busca_topicos_length = $('#buscar_topicos').val().length;
-				   if (busca_topicos_length > 2) {
-				       $.post('engine.php', {
-				       		'busca_etiquetas': busca_topicos,
-				       		'busca_etiquetas_tipo': 'topico',
-				       		'busca_etiquetas_contexto': 'materia'
-				       }, function(data) {
-				          if (data != 0) {
-				              $('#topicos_disponiveis').empty();
-				              $('#topicos_disponiveis').append(data);
-				          }
-				       });
-				   }
+			$('#trigger_buscar_topicos').click(function() {
+				var busca_topicos = $('#buscar_topicos').val();
+				var busca_topicos_length = $('#buscar_topicos').val().length;
+				if (busca_topicos_length > 2) {
+					$.post('engine.php', {
+						'busca_etiquetas': busca_topicos,
+						'busca_etiquetas_tipo': 'topico',
+						'busca_etiquetas_contexto': 'materia'
+						}, function(data) {
+						if (data != 0) {
+							$('#topicos_disponiveis').empty();
+							$('#topicos_disponiveis').append(data);
+						}
+					});
+				}
+			});
+			$(document).on('click', '.adicionar_topico', function() {
+				$(this).prop('disabled', true);
+				var this_id = $(this).attr('value');
+				$(this).removeClass('amber');
+				$(this).addClass('green');
+				$.post('engine.php', {
+					'curso_novo_topico_id': this_id,
+					'curso_novo_topico_pagina_id': $pagina_id,
+					'curso_novo_topico_user_id': $user_id
+				}, function(data) {
+					if (data != 0) {
+					$('#buscar_topicos').val('');
+					$('#buscar_topicos').focus();
+					}
 				});
-				$(document).on('click', '.adicionar_topico', function() {
-			      var this_id = $(this).attr('value');
-			      $(this).removeClass('amber');
-			      $(this).addClass('green');
-			      $.post('engine.php', {
-			         'curso_novo_topico_id': this_id,
-			         'curso_novo_topico_pagina_id': $pagina_id,
-			         'curso_novo_topico_user_id': $user_id
-			      }, function(data) {
-			         if (data != 0) {
-		             $('#buscar_topicos').val('');
-		             $('#buscar_topicos').focus();
-			         }
-			      });
-			  });
-				$(document).on('click', '#criar_topico', function() {
-		      var new_tag = $(this).attr('value');
-		      $(this).removeClass('btn-success');
-		      $(this).addClass('btn-light');
-		      $(this).prop('disabled', true);
-		      $.post('engine.php', {
-		         'criar_topico_titulo': new_tag,
-		         'criar_topico_page_id': {$pagina_id},
-		         'criar_topico_page_tipo': '{$pagina_tipo}'
-		      }, function(data) {
-		         if (data != 0) {
-		             $('#buscar_topicos').val('');
-		             $('#buscar_topicos').focus();
-		         }
-		      });
-		  	});
+			});
+			$(document).on('click', '#criar_topico', function() {
+				var new_tag = $(this).attr('value');
+				$(this).removeClass('btn-success');
+				$(this).addClass('btn-light');
+				$(this).prop('disabled', true);
+				$.post('engine.php', {
+					'criar_topico_titulo': new_tag,
+					'criar_topico_page_id': {$pagina_id},
+					'criar_topico_page_tipo': '{$pagina_tipo}'
+				}, function(data) {
+					if (data != 0) {
+					$('#buscar_topicos').val('');
+					$('#buscar_topicos').focus();
+					}
+				});
+			});
 			</script>
 			
 		";
@@ -917,6 +918,7 @@
                  });
 				
                   $(document).on('click', '#botao_login', function() {
+					  $(this).prop('disabled', true)
                       var login = $('#login_email').val();
                       var senha = $('#login_senha').val();
                       var senha2 = $('#login_senha_confirmacao').val();
@@ -934,8 +936,9 @@
                             } else if (data == 'novo_usuario') {
                                 $('#login_mensagem_basica').addClass('text-muted');
                                 $('#login_novo_usuario').show();
-                                $('#secao_login_confirmacao').show();
-                                $('#login_senha_confirmacao').prop('disabled', false);
+								$('#login_senha_confirmacao').prop('disabled', false);
+								$('#secao_login_confirmacao').show();
+								$('#login_senha_confirmacao').focus();
                                 $('#login_senha_incorreta').hide();
                                 $('#login_email').prop('disabled', true);
                                 $('#login_senha').prop('disabled', true);
