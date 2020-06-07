@@ -923,7 +923,8 @@
 			$template_subtitulo = $elemento_autor;
 		} elseif ($pagina_tipo == 'curso') {
 			$template_titulo = $pagina_titulo;
-			$template_subtitulo = "<a href='javascript:void(0);' id='reveal_introduction'>{$pagina_translated['Curso']}</a>";
+			$template_subtitulo = "{$pagina_translated['Curso']}</br><a class='text-light' id='reveal_introduction'><i class='fad fa-info-circle fa-fw'></i></a>";
+			//$template_subtitulo = "<a href='javascript:void(0);' id='reveal_introduction'>{$pagina_translated['Curso']}</a>";
 		} elseif ($pagina_tipo == 'materia') {
 			$template_titulo = $pagina_titulo;
 			$template_subtitulo = "{$pagina_translated['Matéria']} / <a href='pagina.php?curso_id=$pagina_curso_id'>$pagina_curso_titulo</a>";
