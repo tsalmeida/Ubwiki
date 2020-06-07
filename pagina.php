@@ -2240,7 +2240,7 @@
 
 	if ($carregar_modal_destruir_pagina == true) {
 		$template_modal_div_id = 'modal_destruir_pagina';
-		$template_modal_titulo = $pagina_translated['Destroy this page'];
+		$template_modal_titulo = $pagina_translated['Destruir esta página'];
 		$template_modal_show_buttons = false;
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
