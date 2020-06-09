@@ -1056,6 +1056,8 @@
 						$query = prepare_query("INSERT INTO Paginas (item_id, tipo) VALUES ($item_id, 'questao')");
 						$conn->query($query);
 						$questao_pagina_id = $conn->insert_id;
+						$query = prepare_query("UPDATE sim_questoes SET pagina_id = $questao_pagina_id WHERE id = $item_id");
+						$conn->query($query);
 					}
 					return $questao_pagina_id;
 				}
@@ -1070,6 +1072,8 @@
 						$query = prepare_query("INSERT INTO Paginas (item_id, tipo) VALUES ($item_id, 'texto_apoio')");
 						$conn->query($query);
 						$texto_apoio_pagina_id = $conn->insert_id;
+						$query = prepare_query("UPDATE sim_textos_apoio SET pagina_id = $texto_apoio_pagina_id WHERE id = $item_id");
+						$conn->query($query);
 					}
 					return $texto_apoio_pagina_id;
 				}

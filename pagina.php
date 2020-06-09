@@ -1282,6 +1282,10 @@
 					$template_conteudo .= "<p class='text-muted'><em>{$pagina_translated['O conteúdo deste texto de apoio ainda não foi adicionado.']}</em></p>";
 				}
 				include 'templates/page_element.php';
+
+				error_log($pagina_item_id);
+				//$texto_apoio_usos = $conn->query("SELECT ");
+
 			}
 
 			if (($pagina_tipo == 'questao') && ($pagina_questao_enunciado_html != false)) {
@@ -2400,7 +2404,7 @@
 			$template_modal_body_conteudo .= "
 					<h3>Texto de apoio</h3>
 					<select class='$select_classes' name='nova_questao_texto_de_apoio_id'>
-					<option value='' disabled $selected>{$pagina_transalated['Selecione o texto de apoio:']}</option>";
+					<option value='' disabled $selected>{$pagina_translated['Selecione o texto de apoio:']}</option>";
 			if ($pagina_questao_texto_apoio_id == false) {
 				$template_modal_body_conteudo .= "
 					<option value='novo'>{$pagina_translated['Texto de apoio não-registrado']}</option>

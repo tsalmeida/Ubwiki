@@ -324,6 +324,11 @@
 				
 				$pagina_questao_texto_apoio_id = $novo_texto_apoio_id;
 				$pagina_questao_texto_apoio_pagina_id = $novo_texto_apoio_pagina_id;
+			} else {
+				$query = prepare_query("UPDATE sim_questoes SET texto_apoio_id = $nova_questao_texto_de_apoio_id WHERE id = $pagina_item_id");
+				$conn->query($query);
+				header("Location:pagina.php?pagina_id=$pagina_id");
+				exit();
 			}
 		}
 	}
