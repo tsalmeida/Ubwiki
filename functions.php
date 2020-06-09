@@ -1124,25 +1124,27 @@
 				if ($pagina_subtipo == 'Plano de estudos') {
 					$parent_pagina_id = $pagina_item_id;
 					$parent_pagina_titulo = return_pagina_titulo($parent_pagina_id);
-					$pagina_titulo = "Plano de estudos: $parent_pagina_titulo";
-					break;
-				}
-				if ($pagina_tipo == 'topico') {
-					$buscar_pagina = true;
-				} elseif ($pagina_tipo == 'elemento') {
-					$pagina_titulo = return_titulo_elemento($pagina_item_id);
-				} elseif ($pagina_tipo == 'materia') {
-					$buscar_pagina = true;
-				} elseif ($pagina_tipo == 'curso') {
-					$buscar_pagina = true;
-				} elseif ($pagina_tipo == 'grupo') {
-					$pagina_titulo = return_grupo_titulo_id($pagina_item_id);
-				} elseif ($pagina_tipo == 'texto') {
-					$pagina_texto_info = return_texto_info($pagina_item_id);
-					$pagina_titulo = $pagina_texto_info[2];
-					break;
+					$pagina_titulo = $parent_pagina_titulo;
 				} else {
-					$buscar_pagina = true;
+					switch ($pagina_tipo) {
+						case 'topico':
+						case 'materia':
+						case 'curso':
+							$buscar_pagina = true;
+							break;
+						case 'grupo':
+							$pagina_titulo = return_grupo_titulo_id($pagina_item_id);
+							break;
+						case 'texto':
+							$pagina_texto_info = return_texto_info($pagina_item_id);
+							$pagina_titulo = $pagina_texto_info[2];
+							break;
+						case 'elemento':
+							$pagina_titulo = return_titulo_elemento($pagina_item_id);
+							break;
+						default:
+							$buscar_pagina = true;
+					}
 				}
 			}
 		}
@@ -2217,6 +2219,12 @@
 			$override_pagina_estado_cor = false;
 		}
 
+		if (isset($args[6])) {
+			$override_pagina_titulo = $args[6];
+		} else {
+			$override_pagina_titulo = false;
+		}
+
 		if ($pagina_id == false) {
 			return false;
 		} else {
@@ -2309,6 +2317,11 @@
 		if ($override_pagina_estado_cor != false) {
 			$pagina_estado_cor = $override_pagina_estado_cor;
 		}
+
+		if ($override_pagina_titulo != false) {
+			$pagina_titulo = $override_pagina_titulo;
+		}
+
 		return put_together_list_item('link', $link, $cor_icone_principal, $icone_prefixo, $icone_principal, $pagina_titulo, $pagina_estado_cor, $pagina_estado_icone, $item_classes);
 	}
 

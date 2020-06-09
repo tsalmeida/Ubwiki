@@ -43,7 +43,7 @@
 	$topicos = $conn->query($query);
 	if ($topicos->num_rows > 0) {
 		$template_conteudo .= "<ul class='list-group list-group-flush mt-1 min-w70 topicos_collapse collapse show'>";
-		$template_conteudo .= return_list_item($plano_estudos_pagina_id, false, 'list-group-item-success', true, false, 'none');
+		$template_conteudo .= return_list_item($plano_estudos_pagina_id, false, 'list-group-item-success', true, false, 'none', $pagina_translated['Plano de estudos']);
 
 		while ($topico = $topicos->fetch_assoc()) {
 			$topico_pagina_id = $topico['elemento_id'];
