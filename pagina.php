@@ -312,6 +312,9 @@
 				if (($check_compartilhamento == false) && ($add_compartilhamento == true)) {
 					$check = $conn->query("INSERT INTO Compartilhamento (tipo, user_id, item_id, item_tipo, compartilhamento, recipiente_id) VALUES ('acesso', $pagina_user_id, $pagina_checar_compartilhamento, '$pagina_tipo', 'usuario', $user_id)");
 					if ($check == true) {
+					    if ($pagina_tipo == 'curso') {
+							$conn->query("INSERT INTO Opcoes (user_id, opcao_tipo, opcao, opcao_string) VALUES ($user_id, 'curso', $pagina_item_id, '$pagina_id')");
+						}
 						$check_compartilhamento = return_compartilhamento($pagina_checar_compartilhamento, $user_id);
 					}
 				}
@@ -1799,7 +1802,7 @@
 			} else {
 				$template_modal_body_conteudo .= "
                 <div class='md-form mt-3'>
-                    <input id='endereco_share' type='text' class='form-control' value='https://www.ubwiki.com.br/ubwiki/pagina.php?pagina_id=$pagina_id&acs=$pagina_link'>
+                    <input id='endereco_share' type='text' class='form-control' value='https://www.ubwiki.com.br/ubwiki/pagina.php?pagina_id=$pagina_id&acs=$pagina_link' readonly>
                     <label for='endereco_share'>{$pagina_translated['URL de compartilhamento:']}</label>
                 </div>
 		    ";
