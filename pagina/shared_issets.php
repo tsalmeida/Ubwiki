@@ -95,7 +95,7 @@
 		$parse_url = parse_url($novo_wikipedia_url);
 		$parse_url_domain = $parse_url['host'];
 		$novo_wikipedia_titulo = $_POST['wikipedia_titulo'];
-		$novo_wikipedia_titulo = mysqli_real_escape_strin($conn, $novo_wikipedia_titulo);
+		$novo_wikipedia_titulo = mysqli_real_escape_string($conn, $novo_wikipedia_titulo);
 		$novo_wikipedia_url = mysqli_real_escape_string($conn, $novo_wikipedia_url);
 		$query = prepare_query("INSERT INTO Elementos (tipo, titulo, autor, autor_etiqueta_id, link, user_id) VALUES ('wikipedia', '$novo_wikipedia_titulo', 'Wikipedia', 807, '$novo_wikipedia_url', $user_id)");
 		$conn->query($query);

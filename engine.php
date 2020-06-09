@@ -1760,4 +1760,16 @@
 		echo $check;
 	}
 
+	if (isset($_POST['permitir_acesso_por_link'])) {
+		$permitir_acesso_por_link_pagina_id = $_POST['permitir_acesso_por_link'];
+		$permitir_acesso_por_link_pagina_info = return_pagina_info($permitir_acesso_por_link_pagina_id);
+		$permitir_acesso_por_link_user_id = $permitir_acesso_por_link_pagina_info[5];
+		if ($permitir_acesso_por_link_user_id == $user_id) {
+			$random_link = generateRandomString(12, 'capsintegers');
+			$query = prepare_query("UPDATE Paginas SET link = '$random_link' WHERE id = $permitir_acesso_por_link_pagina_id");
+			$check = $conn->query($query);
+			echo $check;
+		}
+	}
+
 ?>

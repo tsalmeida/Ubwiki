@@ -198,14 +198,14 @@
 	
 	$quill_result .= "
     <form id='quill_{$template_id}_form' method='post' class='w-100'>
-        <div class='row'>
-            <div class='container'>
+        <!--<div class='row'>
+            <div class='container'>-->
                 <div id='quill_container_{$template_id}' class='bg-white'>
                     <div id='quill_editor_{$template_id}' class='$template_quill_editor_classes'>
                     </div>
                 </div>
-            </div>
-        </div>";
+            <!--</div>
+        </div>-->";
 	$quill_result .= "
         <div id='botoes_salvar_{$template_id}' class='row justify-content-center mt-3 d-none'>
             <button type='submit' id='$quill_trigger_button' class='$button_classes' name='$quill_trigger_button'>
@@ -213,13 +213,13 @@
             </button>
         </div>
     </form>";
-	$quill_user_id = (int)$user_id;/*
-	if ($template_id == 'anotacoes') {
-		$scrollingContainer = '#anotacoes';
-	} else {
+	$quill_user_id = (int)$user_id;
+	if ($template_id != 'anotacoes') {
 		$scrollingContainer = 'html';
-	}*/
-	$scrollingContainer = 'html';
+	} else {
+		$scrollingContainer = '#anotacoes';
+	}
+
 	$quill_result .= "
     <script type='text/javascript'>
     var {$template_id}_editor = new Quill('#quill_editor_{$template_id}', {

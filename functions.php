@@ -1229,7 +1229,7 @@
 		}
 
 		include 'templates/criar_conn.php';
-		$query = prepare_query("SELECT criacao, item_id, tipo, estado, compartilhamento, user_id, etiqueta_id, subtipo FROM Paginas WHERE id = $pagina_id");
+		$query = prepare_query("SELECT * FROM Paginas WHERE id = $pagina_id");
 		$paginas = $conn->query($query);
 		if ($paginas->num_rows > 0) {
 			while ($pagina = $paginas->fetch_assoc()) {
@@ -1259,7 +1259,8 @@
 				$pagina_subtipo = $pagina['subtipo']; // 8
 				$pagina_publicacao = return_publicacao($pagina_id); // 9
 				$pagina_colaboracao = return_colaboracao($pagina_id); // 10
-				return array($pagina_criacao, $pagina_item_id, $pagina_tipo, $pagina_estado, $pagina_compartilhamento, $pagina_user_id, $pagina_titulo, $pagina_etiqueta_id, $pagina_subtipo, $pagina_publicacao, $pagina_colaboracao);
+				$pagina_link = $pagina['link'];
+				return array($pagina_criacao, $pagina_item_id, $pagina_tipo, $pagina_estado, $pagina_compartilhamento, $pagina_user_id, $pagina_titulo, $pagina_etiqueta_id, $pagina_subtipo, $pagina_publicacao, $pagina_colaboracao, $pagina_link);
 			}
 		}
 		return false;
@@ -1358,7 +1359,7 @@
 		}
 	}
 
-	function return_compartilhamento($item_id, $user_id)
+	function return_compartilhamento()
 	{
 		$args = func_get_args();
 		$item_id = $args[0];
@@ -2092,7 +2093,7 @@
 						break;
 					case 'referencia':
 						if ($subtipo == 'generico') {
-							return array('fa-book-alt', 'text-success', 'rgba-green-strong');
+							return array('fa-glasses-alt', 'text-success', 'rgba-green-strong');
 						} else {
 							return array('fa-file-alt', 'text-muted', 'rgba-grey-strong');
 						}

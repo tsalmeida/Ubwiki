@@ -129,7 +129,7 @@
 	$artefato_link_1 = false;
 	$artefato_link_2 = false;
 	if ($artefato_button != false) {
-		$artefato_link_1 = "<div id='artefato_$artefato_tipo' class='$artefato_classes'><button class='$fa_color transparent border-0 w-100' name='$artefato_name' id='$artefato_name' value='$artefato_button' $artefato_template_thumb>";
+		$artefato_link_1 = "<div id='artefato_$artefato_tipo' class='$artefato_classes'><button class='$fa_color white border-0 w-100' name='$artefato_name' id='$artefato_name' value='$artefato_button' $artefato_template_thumb>";
 		$artefato_link_2 = "</button></div>";
 	} else {
 		if ($artefato_link != false) {

@@ -109,6 +109,10 @@
 		$pagina_subtipo = false;
 	}
 
+	if (!isset($pagina_compartilhamento_por_link)) {
+		$pagina_compartilhamento_por_link = false;
+	}
+
 	echo "
     <!-- Bootstrap tooltips -->
     <script type='text/javascript' src='js/popper.min.js'></script>
@@ -1450,4 +1454,22 @@
 				</script>
 			";
 		}
+	}
+
+	if ($pagina_compartilhamento_por_link == true) {
+		echo "
+			<script type='text/javascript'>
+				$(document).on('click', '#permitir_acesso_por_link', function() {
+				    $.post('engine.php', {
+				        'permitir_acesso_por_link': $pagina_id,
+				    }, function (data) {
+				        if (data != 0) {
+				            window.location.reload(true);
+				        } else {
+				            alert('some problem happened');
+				        }
+				    })
+				})
+			</script>
+		";
 	}

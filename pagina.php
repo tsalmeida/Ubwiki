@@ -1,3 +1,4 @@
+
 <?php
 
     $pagina_tipo = 'pagina_geral';
@@ -119,6 +120,7 @@
 		$pagina_subtipo = $pagina_info[8];
 		$pagina_publicacao = $pagina_info[9];
 		$pagina_colaboracao = $pagina_info[10];
+		$pagina_link = $pagina_info[11];
 	} else {
 		header('Location:pagina.php?pagina_id=4');
 		exit();
@@ -280,17 +282,44 @@
 		$pagina_user_id = $pagina_curso_user_id;
 	}
 
-	if ($pagina_compartilhamento == 'privado') {
-		if ($pagina_user_id != $user_id) {
-			if (($pagina_tipo == 'topico') || ($pagina_tipo == 'materia') || ($pagina_subtipo == 'Plano de estudos')) {
-				$check_compartilhamento = return_compartilhamento($pagina_curso_pagina_id, $user_id);
+	$add_compartilhamento = false;
+	if (isset($_GET['acs'])) {
+		$link_de_acesso = $_GET['acs'];
+		if ($pagina_link == $link_de_acesso) {
+			if ($user_id != false) {
+				$add_compartilhamento = true;
 			} else {
-				$check_compartilhamento = return_compartilhamento($pagina_id, $user_id);
+			    $_SESSION['acesso_especial'] = $pagina_id;
+            }
+		}
+	}
+
+	if ($pagina_compartilhamento == 'privado') {
+	    $check_compartilhamento = false;
+	    if ($pagina_user_id == $user_id) {
+	        $check_compartilhamento = true;
+        } else {
+			$pagina_checar_compartilhamento = $pagina_id;
+			if (($pagina_tipo == 'topico') || ($pagina_tipo == 'materia') || ($pagina_subtipo == 'Plano de estudos')) {
+				$pagina_checar_compartilhamento = $pagina_curso_pagina_id;
 			}
-			if ($check_compartilhamento == false) {
-				header('Location:pagina.php?pagina_id=4');
-				exit();
+			if (isset($_SESSION['acesso_especial'])) {
+				if ($_SESSION['acesso_especial'] == $pagina_checar_compartilhamento) {
+					$check_compartilhamento = true;
+				}
+			} else {
+				$check_compartilhamento = return_compartilhamento($pagina_checar_compartilhamento, $user_id);
+				if (($check_compartilhamento == false) && ($add_compartilhamento == true)) {
+					$check = $conn->query("INSERT INTO Compartilhamento (tipo, user_id, item_id, item_tipo, compartilhamento, recipiente_id) VALUES ('acesso', $pagina_user_id, $pagina_checar_compartilhamento, '$pagina_tipo', 'usuario', $user_id)");
+					if ($check == true) {
+						$check_compartilhamento = return_compartilhamento($pagina_checar_compartilhamento, $user_id);
+					}
+				}
 			}
+        }
+	    if ($check_compartilhamento == false) {
+			header('Location:pagina.php?pagina_id=4');
+			exit();
 		}
 	}
 
@@ -603,7 +632,7 @@
 
 				if (($pagina_tipo == 'materia') && ($pagina_user_id == $user_id)) {
 					$carregar_adicionar_topico = true;
-					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_topico' class='text-success mr-1' id='add_topico' title='{$pagina_translated['Adicionar tópico']}'><i class='fad fa-plus-circle fa-lg fa-fw'></i></a>";
+					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_topico' class='text-info mr-1' id='add_topico' title='{$pagina_translated['Adicionar tópico']}'><i class='fad fa-plus-square fa-swap-opacity fa-lg fa-fw'></i></a>";
 				}
 				if ($modal_pagina_dados == true) {
 					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_pagina_dados' class='text-info mr-1' id='pagina_dados' title='{$pagina_translated['Editar dados']}'><i class='fad fa-info-square fa-swap-opacity fa-fw fa-lg'></i></a>";
@@ -622,7 +651,7 @@
 				}
 				if (($pagina_tipo == 'topico') && ($pagina_user_id == $user_id) && ($topico_nivel < 5)) {
 					$carregar_adicionar_subtopico = true;
-					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_subtopico' class='text-success mr-1' id='add_subtopico' title='{$pagina_translated['Adicionar subtópico']}'><i class='fad fa-plus-circle fa-lg fa-fw'></i></a>";
+					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_subtopico' class='text-info mr-1' id='add_subtopico' title='{$pagina_translated['Adicionar subtópico']}'><i class='fad fa-plus-square fa-swap-opacity fa-lg fa-fw'></i></a>";
 				}
 				if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id) && ($pagina_subtipo != 'Plano de estudos') && ($pagina_subtipo != 'modelo')) {
 					if (($pagina_tipo != 'materia') && ($pagina_tipo != 'topico')) {
@@ -1726,7 +1755,7 @@
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
 			<form method='post' id='form_modal_compartilhar_pagina'>
-			<h3>Acesso</h3>
+			<h3>{$pagina_translated['Acesso']}</h3>
 	    ";
 		if (isset($_POST['radio_publicar_opcao'])) {
 			$radio_publicar_opcao = $_POST['radio_publicar_opcao'];
@@ -1755,13 +1784,30 @@
 			</div>
 			<div class='form-check'>
 				<input type='radio' class='form-check-input radio_publicar_opcao' name='radio_publicar_opcao' id='checkbox_publicar_privado' value='privado' $radio_privado>
-				<label class='form-check-label' for='checkbox_publicar_privado'>{$pagina_translated['Seletivo.']} <span class='text-dark'><em>{$pagina_translated['Você determina quem tem acesso']}</em></span>.</label>
+				<label class='form-check-label' for='checkbox_publicar_privado'>{$pagina_translated['Seletivo.']} <span class='text-muted font-italic'>{$pagina_translated['Você determina quem tem acesso']}</span>.</label>
 			</div>
 			<div id='botao_determinar_acesso' class='row d-flex justify-content-center botao_determinar_acesso'>
 				<span data-toggle='modal' data-target='#modal_compartilhar_pagina'><a data-toggle='modal' data-target='#modal_outorgar_acesso'><button class='$button_classes botao_determinar_acesso btn-info' type='button'>{$pagina_translated['Dar acesso']}</button></a></span>
 			</div>
-			";
+        ";
+		if ($pagina_publicacao == 'privado') {
+			if ($pagina_link == false) {
+			    $pagina_compartilhamento_por_link = true;
+				$template_modal_body_conteudo .= "<ul class='list-group list-group-flush mt-3'>";
+				$template_modal_body_conteudo .= put_together_list_item('link_button', 'permitir_acesso_por_link', false, 'fad', 'fa-link', $pagina_translated['Permitir compartilhamento por link.'], false, 'fad fa-sync', 'list-group-item-info');
+				$template_modal_body_conteudo .= "</ul>";
+			} else {
+				$template_modal_body_conteudo .= "
+                <div class='md-form mt-3'>
+                    <input id='endereco_share' type='text' class='form-control' value='https://www.ubwiki.com.br/ubwiki/pagina.php?pagina_id=$pagina_id&acs=$pagina_link'>
+                    <label for='endereco_share'>{$pagina_translated['URL de compartilhamento:']}</label>
+                </div>
+		    ";
+			}
+		}
+
 		$template_modal_body_conteudo .= "<h3 class='mt-3'>{$pagina_translated['Colaboração']}</h3>";
+
 		if (isset($_POST['colaboracao_opcao'])) {
 			$colaboracao_opcao = $_POST['colaboracao_opcao'];
 			$query = prepare_query("INSERT INTO Compartilhamento (tipo, user_id, item_id, item_tipo, compartilhamento) VALUES ('colaboracao', $user_id, $pagina_id, '$pagina_tipo', '$colaboracao_opcao')");
@@ -1786,18 +1832,24 @@
 				<input type='radio' class='form-check-input colaboracao_opcao' name='colaboracao_opcao' id='colaboracao_aberta' value='aberta' $radio_colaboracao_aberta>
 				<label class='form-check-label' for='colaboracao_aberta'>{$pagina_translated['Livre.']} <span class='text-muted'><em>{$pagina_translated['Todos os grupos e indivíduos com acesso a esta página poderão editá-la.']}</em></span></label>
 			</div>
+			";
+        $template_modal_body_conteudo .= "
 			<div class='form-check'>
 				<input type='radio' class='form-check-input colaboracao_opcao' name='colaboracao_opcao' id='colaboracao_exclusiva' value='exclusiva' $radio_colaboracao_exclusiva>
 				<label class='form-check-label' for='colaboracao_exclusiva'>{$pagina_translated['Autoral.']} <span class='text-muted'><em>{$pagina_translated['Apenas você poderá editar o conteúdo desta página.']}</em></span></label>
 			</div>
-			<!--<div class='form-check'>
+			";
+
+		/*
+		$template_modal_body_conteudo .= "
+			<div class='form-check'>
 				<input type='radio' class='form-check-input colaboracao_opcao' name='colaboracao_opcao' id='colaboracao_selecionada' value='selecionada' $radio_colaboracao_selecionada>
 				<label class='form-check-label' for='colaboracao_selecionada'>Seletiva. <span class='text-muted'><em>Apenas grupos e indivíduos selecionados poderão editar o conteúdo desta página.</em></span></label>
 			</div>
 			<div class='row d-flex justify-content-center botao_determinar_colaboracao'>
 				<span data-toggle='modal' data-target='#modal_compartilhar_pagina'><a data-toggle='modal' data-target='#modal_determinar_colaboracao'><button class='$button_classes botao_determinar_colaboracao btn-info'>Adicionar colaboradores</button></a></span>
-			</div>-->
-		";
+			</div>
+		";*/
 
 		$template_modal_body_conteudo .= "</form>";
 
