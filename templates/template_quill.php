@@ -214,10 +214,9 @@
         </div>
     </form>";
 	$quill_user_id = (int)$user_id;
-	if ($template_id != 'anotacoes') {
-		$scrollingContainer = 'html';
-	} else {
-		$scrollingContainer = '#anotacoes';
+	$scrollingContainer = 'html';
+	if (($template_id != 'anotacoes') && ($pagina_tipo != 'texto')) {
+		$scrollingContainer = "#anotacoes";
 	}
 
 	$quill_result .= "
