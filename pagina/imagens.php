@@ -52,7 +52,7 @@
                                                 </a>
                                         ";
 					$template_conteudo .= "<figcaption>
-                                           <strong class='h5-responsive mt-2'>$imagem_titulo</strong>";
+                                           <span class='font-italic text-muted'>$imagem_titulo</span>";
 					$template_conteudo .= "</figcaption>";
 					$template_conteudo .= "</figure>";
 					$template_conteudo .= "</div>";
