@@ -1033,10 +1033,10 @@
 				$template_subtitulo = $pagina_translated['Referente a texto sem título'];
 			}
 		} elseif ($pagina_tipo == 'questao') {
-			$template_titulo = "{$pagina_translated['Questão']} $pagina_questao_numero";
+		    $template_titulo = $pagina_titulo;
 			$pagina_questao_curso_titulo = return_curso_titulo_id($pagina_questao_curso_id);
 			$pagina_questao_materia_titulo = return_pagina_titulo($pagina_questao_materia);
-			$template_subtitulo = "<a href='pagina.php?pagina_id=$pagina_questao_materia'>$pagina_questao_materia_titulo</a> / <a href='pagina.php?curso_id=$pagina_questao_curso_id'>$pagina_questao_curso_titulo</a> / {$pagina_translated['Edição de']} $pagina_questao_edicao_ano";
+			$template_subtitulo = "<a href='pagina.php?pagina_id=$pagina_questao_materia'>$pagina_questao_materia_titulo</a> / <a href='pagina.php?curso_id=$pagina_questao_curso_id'>$pagina_questao_curso_titulo</a>";
 		} elseif ($pagina_tipo == 'texto_apoio') {
 			$template_titulo = $pagina_texto_apoio_titulo;
 			$template_subtitulo = "{$pagina_translated['Texto de apoio']} / <a href='pagina.php?curso_id=$pagina_texto_apoio_curso_id'>$pagina_texto_apoio_curso_titulo</a>";
