@@ -1398,12 +1398,34 @@
 
 			if ($pagina_tipo == 'curso') {
 
-				echo "</div>";
-				echo "<div id='coluna_direita' class='$coluna_classes pagina_coluna'>";
+				$query = prepare_query("SELECT DISTINCT pagina_id FROM (SELECT pagina_id FROM Textos_arquivo WHERE tipo = 'verbete' AND curso_id = $pagina_curso_id AND pagina_tipo = 'topico' GROUP BY id ORDER BY id DESC) t");
+				$paginas = $conn->query($query);
+				if ($paginas->num_rows > 0) {
 
-				include 'pagina/curso.php';
+					echo "</div>";
+					echo "<div id='coluna_direita' class='$coluna_classes pagina_coluna'>";
+					$template_id = 'paginas_recentes';
+					$template_titulo = $pagina_translated['Verbetes recentemente modificados'];
+					$template_botoes = false;
+					$template_conteudo = false;
+					$template_conteudo_no_col = false;
+					$template_conteudo .= "<ul class='list-group list-group-flush paginas_recentes_collapse collapse show'>";
+					$count = 0;
+					while ($pagina = $paginas->fetch_assoc()) {
+						$topico_pagina_id = $pagina['pagina_id'];
+						$count++;
+						if ($count > 12) {
+							break;
+						}
+						$template_conteudo .= return_list_item($topico_pagina_id, false, false, true, false);
+					}
+					unset($topico_pagina_id);
+					$template_conteudo .= "</ul>";
+					include 'templates/page_element.php';
+					echo "</div>";
 
-				echo "</div>";
+				}
+
 
 			}
 
