@@ -1242,6 +1242,7 @@
 				if ($list_pagina_questoes->num_rows > 0) {
 					$template_id = 'pagina_questoes';
 					$template_titulo = $pagina_translated['Questões sobre este tópico'];
+					$template_botoes = "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_adicionar_simulado' class='text-secondary'><i class='fad fa-plus-square fa-fw'></i></a>";
 					$template_conteudo = false;
 					$template_conteudo .= "<ul class='list-group list-group-flush'>";
 					while ($list_pagina_questao = $list_pagina_questoes->fetch_assoc()) {
