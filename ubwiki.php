@@ -155,7 +155,7 @@
 				$artefato_class = 'icones_links';
 				$artefato_criacao = false;
 				$template_conteudo .= include 'templates/artefato_item.php';
-
+/*
 				$artefato_titulo = $pagina_translated['freepages'];
 				$artefato_tipo = 'areas_interesse';
 				$artefato_col_limit = $escritorio_col_limit;
@@ -180,7 +180,7 @@
 				$fa_invert = true;
 				$artefato_class = 'icones_links';
 				$artefato_criacao = false;
-				$template_conteudo .= include 'templates/artefato_item.php';
+				$template_conteudo .= include 'templates/artefato_item.php';*/
 
 				$artefato_titulo = $pagina_translated['library'];
 				$artefato_tipo = 'biblioteca';
@@ -283,7 +283,7 @@
 				$texto_ambiente_id = return_texto_ambientes('cursos', $user_language);
 				$template_conteudo .= return_verbete_html($texto_ambiente_id);
 				include 'templates/page_element.php';
-
+/*
 				$template_id = 'sobre_areas_interesse';
 				$template_titulo = $pagina_translated['about_free_pages'];
 				$template_classes = 'sobre_stuff';
@@ -291,7 +291,7 @@
 				$template_conteudo = false;
 				$texto_ambiente_id = return_texto_ambientes('paginaslivres', $user_language);
 				$template_conteudo .= return_verbete_html($texto_ambiente_id);
-				include 'templates/page_element.php';
+				include 'templates/page_element.php';*/
 
 				$template_id = 'sobre_biblioteca';
 				$template_titulo = $pagina_translated['about_library'];
