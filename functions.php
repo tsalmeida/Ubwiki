@@ -1146,6 +1146,9 @@
 						case 'elemento':
 							$pagina_titulo = return_titulo_elemento($pagina_item_id);
 							break;
+						case 'questao':
+							$pagina_titulo = return_questao_titulo($pagina_item_id);
+							break;
 						default:
 							$buscar_pagina = true;
 					}
@@ -1893,7 +1896,8 @@
 				$questao_item4_gabarito = $questao['item4_gabarito']; // 31
 				$questao_item5_gabarito = $questao['item5_gabarito']; // 32
 				$questao_user_id = $questao['user_id']; // 33
-				$results = array($questao_origem, $questao_curso_id, $questao_edicao_ano, $questao_etapa_id, $questao_texto_apoio, $questao_texto_apoio_id, $questao_prova_id, $questao_numero, $questao_materia, $questao_tipo, $questao_enunciado_html, $questao_enunciado_text, $questao_enunciado_content, $questao_item1_text, $questao_item2_text, $questao_item3_text, $questao_item4_text, $questao_item5_text, $questao_item1_html, $questao_item2_html, $questao_item3_html, $questao_item4_html, $questao_item5_html, $questao_item1_content, $questao_item2_content, $questao_item3_content, $questao_item4_content, $questao_item5_content, $questao_item1_gabarito, $questao_item2_gabarito, $questao_item3_gabarito, $questao_item4_gabarito, $questao_item5_gabarito, $questao_user_id);
+				$questao_pagina_id = $questao['pagina_id']; // 34
+				$results = array($questao_origem, $questao_curso_id, $questao_edicao_ano, $questao_etapa_id, $questao_texto_apoio, $questao_texto_apoio_id, $questao_prova_id, $questao_numero, $questao_materia, $questao_tipo, $questao_enunciado_html, $questao_enunciado_text, $questao_enunciado_content, $questao_item1_text, $questao_item2_text, $questao_item3_text, $questao_item4_text, $questao_item5_text, $questao_item1_html, $questao_item2_html, $questao_item3_html, $questao_item4_html, $questao_item5_html, $questao_item1_content, $questao_item2_content, $questao_item3_content, $questao_item4_content, $questao_item5_content, $questao_item1_gabarito, $questao_item2_gabarito, $questao_item3_gabarito, $questao_item4_gabarito, $questao_item5_gabarito, $questao_user_id, $questao_pagina_id);
 			}
 		}
 		return $results;
@@ -2497,6 +2501,9 @@
 			case 'resposta':
 				return array('fa-reply', 'text-default');
 				break;
+			case 'questao':
+				return array('fa-ballot-check', 'text-secondary');
+				break;
 			default:
 				return array('fa-circle-notch', 'text-light');
 				break;
@@ -2656,4 +2663,23 @@
 		} else {
 			return false;
 		}
+	}
+
+	function return_questao_titulo($questao_id) {
+		$questao_info = return_questao_info($questao_id);
+		$questao_origem = $questao_info[0];
+		if ($questao_origem == 0) {
+			$questao_origem_string = "(não-oficial)";
+		} else {
+			$questao_origem_string = false;
+		}
+		$questao_edicao_ano = $questao_info[2];
+		$questao_prova_id = $questao_info[6];
+		$questao_numero = $questao_info[7];
+		//$questao_tipo = $questao_info[9];
+		$questao_prova_info = return_info_prova_id($questao_prova_id);
+		$questao_prova_titulo = $questao_prova_info[0];
+		return "
+			<strong>{$questao_edicao_ano}</strong>, Prova “{$questao_prova_titulo}” <span class='text-muted'>—</span> <strong>Questão</strong> {$questao_numero} {$questao_origem_string}
+		";
 	}

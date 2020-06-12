@@ -1138,9 +1138,10 @@
 	if (isset($_POST['adicionar_questao_id'])) {
 		$adicionar_questao_id = $_POST['adicionar_questao_id'];
 		$adicionar_questao_info = return_questao_info($adicionar_questao_id);
+		$adicionar_questao_pagina_id = $adicionar_questao_info[34];
 		$adicionar_questao_origem = $adicionar_questao_info[0];
 		$adicionar_questao_pagina_id = $_POST['adicionar_questao_pagina_id'];
-		$query = prepare_query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, extra, user_id) VALUES ($adicionar_questao_pagina_id, 'topico', $adicionar_questao_id, 'questao', $adicionar_questao_origem, $user_id)");
+		$query = prepare_query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, extra, extra2, user_id) VALUES ($adicionar_questao_pagina_id, 'topico', $adicionar_questao_id, 'questao', $adicionar_questao_origem, $adicionar_questao_pagina_id, $user_id)");
 		$adicionar_questao_check = $conn->query($query);
 		echo $adicionar_questao_check;
 	}

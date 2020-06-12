@@ -13,6 +13,7 @@
 	    adicionar_chave_traducao('URL de compartilhamento:', 1);
 	    adicionar_chave_traducao('Permitir compartilhamento por link.', 1);
 	    $conn->query("ALTER TABLE `Paginas` ADD `link` VARCHAR(16) NULL DEFAULT NULL AFTER `etiqueta_id`;");
+	    $conn->query("ALTER TABLE `Paginas_elementos` ADD `extra2` VARCHAR(255) NULL DEFAULT NULL AFTER `extra`;");
 	}
 	
 	if (isset($_POST['novos_creditos'])) {
