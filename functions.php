@@ -2679,7 +2679,5 @@
 		//$questao_tipo = $questao_info[9];
 		$questao_prova_info = return_info_prova_id($questao_prova_id);
 		$questao_prova_titulo = $questao_prova_info[0];
-		return "
-			{$questao_edicao_ano}, Prova “{$questao_prova_titulo}” — Questão {$questao_numero} {$questao_origem_string}
-		";
+		return "{$questao_edicao_ano}, Prova “{$questao_prova_titulo}” — Questão {$questao_numero} {$questao_origem_string}";
 	}

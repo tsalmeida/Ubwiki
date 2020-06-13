@@ -265,6 +265,16 @@
 					$fa_icone = 'fa-house-user';
 					$fa_color = 'text-danger';
 					$template_conteudo .= include 'templates/artefato_item.php';
+
+					$artefato_id = 'reading_planner';
+					$artefato_subtitulo = 'Study planner';
+					$artefato_link = 'plan.php';
+					$artefato_badge = 'fa-external-link';
+					$artefato_icone_background = 'cyan lighten-5';
+					$fa_icone = 'fa-calendar-check';
+					$fa_color = 'text-info';
+					$template_conteudo .= include 'templates/artefato_item.php';
+
 				}
 
 				include 'templates/page_element.php';
@@ -275,10 +285,6 @@
 </div>
 <?php
 
-	if ($user_id == false) {
-		$carregar_modal_login = true;
-		include 'pagina/modal_login.php';
-	}
 	include 'pagina/modal_languages.php';
 
 	$template_modal_div_id = 'modal_opcoes';

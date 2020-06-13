@@ -3,7 +3,7 @@
 	$pagina_tipo = 'bfranklin';
 	$pagina_id = $user_escritorio;
 	if ($user_email == false) {
-		header('Locatin:ubwiki.php');
+		header('Location:ubwiki.php');
 		exit();
 	}
 
@@ -24,7 +24,7 @@
 			<?php
 
 				$template_id = 'seus_modelos';
-				$template_titulo = 'Your models';
+				$template_titulo = $pagina_translated['Your models'];
 				$template_conteudo = false;
 				$cada_modelo_do_usuario = array();
 				$query = prepare_query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'modelo' AND estado = 1");
@@ -43,7 +43,7 @@
 				include 'templates/page_element.php';
 
 				$template_id = 'modelos_diponiveis';
-				$template_titulo = 'Other available models';
+				$template_titulo = $pagina_translated['Other available models'];
 				$template_conteudo = false;
 				$query = prepare_query("SELECT id, compartilhamento, user_id FROM Paginas WHERE subtipo = 'modelo' ORDER BY id DESC");
 				$rascunhos_de_modelo_do_usuario = array();
@@ -99,7 +99,7 @@
 
 				if ($modelos_disponiveis_criados_pelo_usuario != false) {
 					$template_id = 'disponiveis_usuario';
-					$template_titulo = 'Available models you created';
+					$template_titulo = $pagina_translated['Available models you created'];
 					$template_conteudo = false;
 					$template_conteudo .= "<ul class='list-group list-group-flush'>";
 					foreach ($modelos_disponiveis_criados_pelo_usuario as $disponivel_usuario_pagina_id) {
@@ -117,6 +117,9 @@
         </div>
     </div>
 </div>
+<?php
+	include 'pagina/modal_languages.php';
+?>
 </body>
 <?php
 	include 'templates/html_bottom.php';
