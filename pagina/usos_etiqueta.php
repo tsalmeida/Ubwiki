@@ -14,7 +14,7 @@
 			$uso_etiqueta_pagina_info = return_pagina_info($uso_etiqueta_pagina_id);
 			$uso_etiqueta_pagina_titulo = $uso_etiqueta_pagina_info[6];
 			$uso_etiqueta_pagina_estado = $uso_etiqueta_pagina_info[3];
-			$uso_etiqueta_pagina_estado_icone = return_estado_icone($uso_etiqueta_pagina_estado, 'curso');
+			$uso_etiqueta_pagina_estado_icone = return_estado_icone($uso_etiqueta_pagina_estado);
 			$uso_etiqueta_li_cor = false;
 			if ($uso_etiqueta_pagina_tipo == 'topico') {
 				$uso_etiqueta_li_cor = 'list-group-item-warning';
@@ -25,7 +25,7 @@
 			} elseif ($uso_etiqueta_pagina_tipo == 'pagina') {
 				$uso_etiqueta_li_cor = 'list-group-item-info';
 			}
-			$template_conteudo .= "<a href='pagina.php?pagina_id=$uso_etiqueta_pagina_id'><li class='list-group-item list-group-item-action $uso_etiqueta_li_cor border-top mt-1 d-flex justify-content-between'><span>$uso_etiqueta_pagina_titulo</span><span><i class='fad $uso_etiqueta_pagina_estado_icone fa-fw'></i></span></li></a>";
+			$template_conteudo .= "<a href='pagina.php?pagina_id=$uso_etiqueta_pagina_id'><li class='list-group-item list-group-item-action $uso_etiqueta_li_cor border-top mt-1 d-flex justify-content-between'><span>$uso_etiqueta_pagina_titulo</span><span><i class='fad {$uso_etiqueta_pagina_estado_icone[0]} fa-fw'></i></span></li></a>";
 		}
 		$template_conteudo .= "</ul>";
 		include 'templates/page_element.php';

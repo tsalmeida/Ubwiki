@@ -409,31 +409,32 @@
 		return false;
 	}
 
-	function return_estado_icone($estado_pagina, $contexto)
+	function return_estado_icone($pagina_estado)
 	{
-		$icone0 = 'fad fa-empty-set fa-fw';
-		$icone1 = 'fad fa-acorn fa-fw';
-		$icone2 = 'fad fa-seedling fa-fw';
-		$icone3 = 'fad fa-leaf fa-fw';
-		$icone4 = 'fad fa-spa fa-fw';
-		/*
-		if ($contexto == 'pagina') {
-			$icone0 = 'fal fa-empty-set fa-fw';
-			$icone1 = 'fas fa-acorn fa-fw';
-			$icone2 = 'fas fa-seedling fa-fw';
+		switch ($pagina_estado) {
+			case 1:
+				$icone = 'fad fa-acorn fa-fw';
+				$color = 'text-info';
+				break;
+			case 2:
+				$icone = 'fad fa-seedling fa-fw';
+				$color = 'text-danger';
+				break;
+			case 3:
+				$icone = 'fad fa-leaf fa-fw';
+				$color = 'text-success';
+				break;
+			case 4:
+				$icone = 'fad fa-spa fa-fw';
+				$color = 'text-warning';
+				break;
+			case 0:
+			default:
+				$icone = 'fad fa-empty-set fa-fw';
+				$color = 'text-muted';
+				break;
 		}
-		*/
-		if ($estado_pagina == 0) {
-			return false;
-		} elseif ($estado_pagina == 1) {
-			return $icone1;
-		} elseif ($estado_pagina == 2) {
-			return $icone2;
-		} elseif ($estado_pagina == 3) {
-			return $icone3;
-		} elseif ($estado_pagina == 4) {
-			return $icone4;
-		}
+		return array($icone, $color);
 	}
 
 	function convert_gabarito_cor($gabarito)
@@ -1236,7 +1237,6 @@
 		if ($pagina_id == false) {
 			return false;
 		}
-
 		include 'templates/criar_conn.php';
 		$query = prepare_query("SELECT * FROM Paginas WHERE id = $pagina_id");
 		$paginas = $conn->query($query);
@@ -1246,19 +1246,9 @@
 				$pagina_item_id = $pagina['item_id']; // 1
 				$pagina_tipo = $pagina['tipo']; // 2
 				$pagina_estado = $pagina['estado']; // 3
-				if ((($pagina_estado == 1) || ($pagina_estado == 0)) && ($pagina_tipo != 'materia')) {
-					$pagina_texto_id = return_texto_id($pagina_tipo, 'verbete', $pagina_id, false);
-					if ($pagina_texto_id != false) {
-						$pagina_verbete = return_verbete_html($pagina_texto_id);
-						if ($pagina_verbete == false) {
-							$query = prepare_query("UPDATE Paginas SET estado = 0 WHERE id = $pagina_id");
-							$conn->query($query);
-							$pagina_estado = 0;
-						}
-					} else {
-						$query = prepare_query("UPDATE Paginas SET estado = 0 WHERE id = $pagina_id");
-						$conn->query($query);
-						$pagina_estado = 0;
+				if ($pagina_estado == 0) {
+					if ($pagina_tipo == 'materia') {
+						$pagina_estado = 1;
 					}
 				}
 				$pagina_compartilhamento = $pagina['compartilhamento']; // 4
@@ -2245,7 +2235,9 @@
 			$pagina_estado = $pagina_info[3];
 			$pagina_titulo = $pagina_info[6];
 			$pagina_item_id = $pagina_info[1];
-			$pagina_estado_icone = return_estado_icone($pagina_estado, false);
+			$pagina_estado_icone_info = return_estado_icone($pagina_estado);
+			$pagina_estado_icone = $pagina_estado_icone_info[0];
+			$pagina_estado_cor = $pagina_estado_icone_info[1];
 		}
 		$pagina_icone = return_pagina_icone($pagina_tipo, $pagina_subtipo, $pagina_item_id);
 		$icone_principal = $pagina_icone[0];
@@ -2296,8 +2288,6 @@
 				default:
 					$cor_icone_principal = 'text-light';
 			}
-		} else {
-			$pagina_estado_cor = 'text-muted';
 		}
 		if ($lista_tipo == 'forum') {
 			$link = "forum.php?pagina_id=$pagina_id";
@@ -2644,7 +2634,8 @@
 		return $pagina_texto_id;
 	}
 
-	function return_modelo_estado($modelo_pagina_id, $user_id) {
+	function return_modelo_estado($modelo_pagina_id, $user_id)
+	{
 		if (($modelo_pagina_id == false) || ($user_id == false)) {
 			return false;
 		}
@@ -2665,7 +2656,8 @@
 		}
 	}
 
-	function return_questao_titulo($questao_id) {
+	function return_questao_titulo($questao_id)
+	{
 		$questao_info = return_questao_info($questao_id);
 		$questao_origem = $questao_info[0];
 		if ($questao_origem == 0) {

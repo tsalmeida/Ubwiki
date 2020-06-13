@@ -26,7 +26,7 @@
 		include 'templates/page_element.php';
 		
 		$template_id = 'busca_paginas';
-		$template_titulo = 'Busca em títulos de páginas';
+		$template_titulo = $pagina_translated['Busca em títulos de páginas'];
 		$template_botoes = false;
 		$template_conteudo = false;
 		
@@ -37,10 +37,10 @@
 				$curso_pagina_info = return_pagina_info($curso_pagina_id);
 				$curso_pagina_titulo = $curso_pagina_info[6];
 				$curso_pagina_estado = $curso_pagina_info[3];
-				$curso_pagina_icone = return_estado_icone($curso_pagina_estado, 'materia');
+				$curso_pagina_icone = return_estado_icone($curso_pagina_estado);
 				if (stripos($curso_pagina_titulo, $busca) !== false) {
 					$busca_titulos = true;
-					$template_conteudo .= "<a href='pagina.php?pagina_id=$curso_pagina_id'><li class='list-group-item list-group-item-action border-top mt-1 d-flex justify-content-between'><span>$curso_pagina_titulo</span><span><i class='$curso_pagina_icone'></i></span></li></a>";
+					$template_conteudo .= "<a href='pagina.php?pagina_id=$curso_pagina_id'><li class='list-group-item list-group-item-action border-top mt-1 d-flex justify-content-between'><span>$curso_pagina_titulo</span><span class='{$curso_pagina_icone[1]}'><i class='{$curso_pagina_icone[0]}'></i></span></li></a>";
 				}
 			}
 			$template_conteudo .= "</ul>";

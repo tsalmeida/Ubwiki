@@ -921,24 +921,18 @@
                                     <a href='javascript:void(0);' id='login_bookmark' class='text-danger ml-1' title='{$pagina_translated['Marcar para leitura']}' data-toggle='modal' data-target='#modal_login'><i class='fad fa-bookmark fa-fw fa-lg'></i></a>
                                 ";
 						}
-						$estado_cor = false;
-						$estado_icone = return_estado_icone($pagina_estado, 'pagina');
-						if ($pagina_estado == 4) {
-							$estado_cor = 'text-warning';
-						} else {
-							$estado_cor = 'text-info';
-						}
-						if ($pagina_estado != 0) {
-							if ($user_id != false) {
-								$estado_modal = '#modal_estado';
-							} else {
-								$estado_modal = '#modal_login';
-							}
-							echo "
-                                        <a href='javascript:void(0);' id='change_estado_pagina' class='ml-1 $estado_cor' title='{$pagina_translated['Estado da página']}' data-toggle='modal' data-target='$estado_modal'><i class='$estado_icone fa-fw fa-lg'></i></a>
-                                    ";
-						}
 					}
+					$pagina_estado_icone = return_estado_icone($pagina_estado);
+					$estado_cor = $pagina_estado_icone[1];
+					$estado_icone = $pagina_estado_icone[0];
+					if ($user_id == false) {
+						$estado_modal = '#modal_login';
+					} else {
+						$estado_modal = '#modal_estado';
+					}
+					echo "
+                            <a href='javascript:void(0);' id='change_estado_pagina' class='ml-1 $estado_cor' title='{$pagina_translated['Estado da página']}' data-toggle='modal' data-target='$estado_modal'><i class='$estado_icone fa-fw fa-lg'></i></a>
+                        ";
 				}
 			?>
         </div>
@@ -1033,7 +1027,7 @@
 				$template_subtitulo = $pagina_translated['Referente a texto sem título'];
 			}
 		} elseif ($pagina_tipo == 'questao') {
-		    $template_titulo = $pagina_titulo;
+			$template_titulo = $pagina_titulo;
 			$pagina_questao_curso_titulo = return_curso_titulo_id($pagina_questao_curso_id);
 			$pagina_questao_materia_titulo = return_pagina_titulo($pagina_questao_materia);
 			$template_subtitulo = "<a href='pagina.php?pagina_id=$pagina_questao_materia'>$pagina_questao_materia_titulo</a> / <a href='pagina.php?curso_id=$pagina_questao_curso_id'>$pagina_questao_curso_titulo</a>";
@@ -1227,7 +1221,7 @@
 					$template_conteudo .= "<ul class='list-group list-group-flush'>";
 					while ($materia = $materias->fetch_assoc()) {
 						$materia_pagina_id = $materia['elemento_id'];
-						$template_conteudo .= return_list_item($materia_pagina_id, false, 'text-center fontstack-subtitle force-size', true, true);
+						$template_conteudo .= return_list_item($materia_pagina_id, false, 'fontstack-subtitle force-size', true);
 					}
 					$template_conteudo .= "</ul>";
 					unset($materia_id);
@@ -1385,11 +1379,11 @@
 					$template_conteudo .= "<ul class='list-group list-group-flush'>";
 
 					while ($uso_questao = $usos_questao->fetch_assoc()) {
-					    $uso_questao_pagina_id = $uso_questao['pagina_id'];
-					    $template_conteudo .= return_list_item($uso_questao_pagina_id);
-                    }
+						$uso_questao_pagina_id = $uso_questao['pagina_id'];
+						$template_conteudo .= return_list_item($uso_questao_pagina_id);
+					}
 
-                    $template_conteudo .= "</ul>";
+					$template_conteudo .= "</ul>";
 
 					include 'templates/page_element.php';
 				}

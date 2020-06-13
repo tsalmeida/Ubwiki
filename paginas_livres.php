@@ -94,7 +94,8 @@
 									$fa_icone = 'fa-tag';
 									if ($etiqueta_pagina_estado != 0) {
 									    $fa_color = 'text-warning';
-										$artefato_badge = return_estado_icone($etiqueta_pagina_estado, 'curso');
+										$artefato_badge = return_estado_icone($etiqueta_pagina_estado);
+										$artefato_badge = $artefato_badge[0];
 									} else {
 									    $fa_color = 'text-light';
                                     }
@@ -131,7 +132,8 @@
 									$fa_icone = 'fa-tag';
 									if ($list_etiqueta_pagina_estado != 0) {
 										$fa_color = 'text-warning';
-										$artefato_badge = return_estado_icone($list_etiqueta_pagina_estado, 'curso');
+										$artefato_badge = return_estado_icone($list_etiqueta_pagina_estado);
+										$artefato_badge = $artefato_badge[0];
 									} else {
 										$fa_color = 'text-light';
 									}
@@ -175,7 +177,8 @@
 									$fa_icone = 'fa-tag';
 									if ($etiqueta_pagina_estado != 0) {
 										$fa_color = 'text-warning';
-										$artefato_badge = return_estado_icone($etiqueta_pagina_estado, 'curso');
+										$artefato_badge = return_estado_icone($etiqueta_pagina_estado);
+										$artefato_badge = $artefato_badge[0];
 									} else {
 										$fa_color = 'text-light';
 									}
