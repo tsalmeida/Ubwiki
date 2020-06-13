@@ -249,7 +249,7 @@
 
 				if ($user_id == 1) {
 					$artefato_id = 'simulados';
-					$artefato_subtitulo = 'Simulados';
+					$artefato_subtitulo = $pagina_translated['Simulados'];
 					$artefato_link = 'simulados.php';
 					$artefato_badge = 'fa-external-link';
 					$artefato_icone_background = 'teal lighten-5';
@@ -258,7 +258,7 @@
 					$template_conteudo .= include 'templates/artefato_item.php';
 
 					$artefato_id = 'homepage';
-					$artefato_subtitulo = 'Homepage';
+					$artefato_subtitulo = $pagina_translated['Homepage'];
 					$artefato_link = 'nexus.php';
 					$artefato_badge = 'fa-external-link';
 					$artefato_icone_background = 'red lighten-5';
@@ -267,7 +267,7 @@
 					$template_conteudo .= include 'templates/artefato_item.php';
 
 					$artefato_id = 'reading_planner';
-					$artefato_subtitulo = 'Study planner';
+					$artefato_subtitulo = $pagina_translated['Study Planner'];
 					$artefato_link = 'plan.php';
 					$artefato_badge = 'fa-external-link';
 					$artefato_icone_background = 'cyan lighten-5';

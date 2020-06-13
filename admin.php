@@ -9,15 +9,8 @@
 	}
 	
 	if (isset($_POST['trigger_atualizacao'])) {
-	    adicionar_chave_traducao('Acesso', 1);
-	    adicionar_chave_traducao('URL de compartilhamento:', 1);
-	    adicionar_chave_traducao('Permitir compartilhamento por link.', 1);
-	    $conn->query("ALTER TABLE `Paginas` ADD `link` VARCHAR(16) NULL DEFAULT NULL AFTER `etiqueta_id`;");
-	    $conn->query("ALTER TABLE `Paginas_elementos` ADD `extra2` VARCHAR(255) NULL DEFAULT NULL AFTER `extra`;");
-	    adicionar_chave_traducao('Study Planner', 1);
-	    adicionar_chave_traducao('Your models', 1);
-	    adicionar_chave_traducao('Other available models', 1);
-
+	    adicionar_chave_traducao('Simulados', 1);
+	    adicionar_chave_traducao('Homepage', 1);
 	}
 	
 	if (isset($_POST['novos_creditos'])) {
