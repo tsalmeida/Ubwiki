@@ -2223,6 +2223,12 @@
 			$override_pagina_titulo = false;
 		}
 
+		if (isset($args[7])) {
+			$lista_texto_classes = $args[7];
+		} else {
+			$lista_texto_classes = false;
+		}
+
 		if ($pagina_id == false) {
 			return false;
 		} else {
@@ -2320,7 +2326,7 @@
 			$pagina_titulo = $override_pagina_titulo;
 		}
 
-		return put_together_list_item('link', $link, $cor_icone_principal, $icone_prefixo, $icone_principal, $pagina_titulo, $pagina_estado_cor, $pagina_estado_icone, $item_classes);
+		return put_together_list_item('link', $link, $cor_icone_principal, $icone_prefixo, $icone_principal, $pagina_titulo, $pagina_estado_cor, $pagina_estado_icone, $item_classes, $lista_texto_classes);
 	}
 
 	function put_together_list_item()
@@ -2356,6 +2362,11 @@
 		} else {
 			$item_classes = false;
 		}
+		if (isset($args[9])) {
+			$lista_texto_classes = $args[9];
+		} else {
+			$lista_texto_classes = false;
+		}
 		if ($type == 'link_blank') {
 			$type = 'link';
 			$target = "target='_blank'";
@@ -2370,7 +2381,7 @@
 						<span class='$cor_icone_principal align-center icone-lista'>
 							<i class='$icone_prefixo $icone_principal fa-fw fa-lg'></i>
 						</span>
-						<span class='lista-texto'>
+						<span class='lista-texto $lista_texto_classes'>
 							$pagina_titulo
 						</span>
 					</span>
@@ -2387,7 +2398,7 @@
 						<span class='$cor_icone_principal align-center icone-lista'>
 							<i class='$icone_prefixo $icone_principal fa-fw fa-lg'></i>
 						</span>
-						<span class='lista-texto'>
+						<span class='lista-texto $lista_texto_classes'>
 							$pagina_titulo
 						</span>
 					</span>
@@ -2403,7 +2414,7 @@
 						<span class='$cor_icone_principal align-center icone-lista'>
 							<i class='$icone_prefixo $icone_principal fa-fw fa-lg'></i>
 						</span>
-						<span class='lista-texto'>
+						<span class='lista-texto $lista_texto_classes'>
 							$pagina_titulo
 						</span>
 					</span>
@@ -2420,7 +2431,7 @@
 						<span class='$cor_icone_principal align-center icone-lista'>
 							<i class='$icone_prefixo $icone_principal fa-fw fa-lg'></i>
 						</span>
-						<span class='lista-texto'>
+						<span class='lista-texto $lista_texto_classes'>
 							$pagina_titulo
 						</span>
 					</span>

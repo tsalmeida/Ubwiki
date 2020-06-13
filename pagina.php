@@ -1221,7 +1221,7 @@
 					$template_conteudo .= "<ul class='list-group list-group-flush'>";
 					while ($materia = $materias->fetch_assoc()) {
 						$materia_pagina_id = $materia['elemento_id'];
-						$template_conteudo .= return_list_item($materia_pagina_id, false, 'fontstack-subtitle force-size', true);
+						$template_conteudo .= return_list_item($materia_pagina_id, false, 'fontstack-subtitle', true, false, false, false, 'force-size');
 					}
 					$template_conteudo .= "</ul>";
 					unset($materia_id);
