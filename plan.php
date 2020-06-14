@@ -29,7 +29,7 @@
 					}
 				}
 
-				$items_planejamento = $conn->query("SELECT * FROM Planejamento WHERE user_id = $user_id ORDER BY id DESC");
+				$items_planejamento = $conn->query("SELECT * FROM Planejamento WHERE user_id = $user_id ORDER BY estado DESC");
 				$all_items_planejamento = array();
 				$registered_rows = false;
 				if ($items_planejamento->num_rows > 0) {

@@ -1317,7 +1317,7 @@
 			        if (data != 0) {
 						window.location.reload(true);
 			        } else {
-			            alert('some problem happened');
+			            alert('Some problem happened');
 			        }
 			    });
 			});
