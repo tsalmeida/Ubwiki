@@ -1343,7 +1343,7 @@
 				        if (data != 0) {
 				            window.location.reload(true);
 				        } else {
-				            alert('some problem happened');
+				            alert('Some problem happened');
 				        }
 				    });
 				});
@@ -1361,7 +1361,7 @@
 						if (data != 0) {
 						    window.location.reload(true);
 						} else {
-							alert('some problem happened')
+							alert('Some problem happened')
 						}
 					});
 				});
@@ -1387,7 +1387,7 @@
 						        $('#remover_modelo').addClass('hidden');
 							}
 						} else {
-							alert('some problem happened');
+							alert('Some problem happened');
 						}
 					})
 				})
@@ -1402,7 +1402,7 @@
 							$('#remover_modelo').removeClass('hidden');
 							$('.modelo_esconder_paragrafo').removeClass('hidden');
 				        } else {
-				            alert('some problem happened')
+				            alert('Some problem happened')
 				        }
 				    })
 				})
@@ -1414,7 +1414,7 @@
 				        if (data != 0) {
 				            $('#modelo').addClass('hidden');
 				        } else {
-				            alert('some problem happened')
+				            alert('Some problem happened')
 				        }
 				    })
 				})
@@ -1426,7 +1426,7 @@
 				        if (data != 0) {
 							$('#modelo').removeClass('hidden');
 				        } else {
-				            alert('some problem has happened')
+				            alert('Some problem has happened')
 				        }
 				    })
 				})
@@ -1447,7 +1447,7 @@
 								if (data != 0) {
 									window.location.reload(true);
 								} else {
-									alert('some problem has happened');
+									alert('Some problem has happened');
 								}
 							})
 					    }
@@ -1467,7 +1467,32 @@
 				        if (data != 0) {
 				            window.location.reload(true);
 				        } else {
-				            alert('some problem happened');
+				            alert('Some problem happened');
+				        }
+				    })
+				})
+			</script>
+		";
+	}
+
+	if ($pagina_tipo == 'planner') {
+		echo "
+			<script type='text/javascript'>
+				$(document).on('click', '.set_state_elemento_value', function() {
+					  var this_elemento_id = $(this).attr('value');
+					  $('#set_state_elemento_id').val(this_elemento_id);
+				});
+				$(document).on('click', '.set_this_state', function() {
+				    var this_elemento_id = $('#set_state_elemento_id').attr('value');
+				    var this_elemento_novo_estado = $(this).attr('value');
+				    $.post('engine.php', {
+				        'novo_estado_elemento_id': this_elemento_id,
+				        'novo_estado_codigo': this_elemento_novo_estado
+				    }, function (data) {
+				        if (data != 0) {
+				            window.location.reload(true);
+				        } else {
+				            alert('Some problem happened');
 				        }
 				    })
 				})

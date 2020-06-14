@@ -2707,7 +2707,7 @@
 		$item_planejamento_subtipo = $item_planejamento_info[18];
 		$item_planejamento_ano = $item_planejamento_info[8];
 
-		$plan_item = return_plan_item($item_planejamento_pagina_id, $item_planejamento_titulo, $item_planejamento_autor, $item_planejamento_tipo, $item_planejamento_subtipo, $item_planejamento_ano, $item_planejamento_estado, $item_planejamento_classificacao, $item_planejamento_comments);
+		$plan_item = return_plan_item($item_planejamento_pagina_id, $item_planejamento_titulo, $item_planejamento_autor, $item_planejamento_tipo, $item_planejamento_subtipo, $item_planejamento_ano, $item_planejamento_estado, $item_planejamento_classificacao, $item_planejamento_comments, $item_planejamento_elemento_id);
 		return $plan_item;
 	}
 
@@ -2724,9 +2724,9 @@
 			$titulo .= " ($ano)";
 		}
 		$estado = $args[6];
-		$estado = random_int(0, 15);
 		$classificacao = $args[7];
 		$comments = $args[8];
+		$elemento_id = $args[9];
 
 		$plan_icon = return_plan_icon($estado);
 
@@ -2737,11 +2737,11 @@
 		return "
 			<div class='row grey lighten-5 mt-1'>
 				<div class='$all_cell_classes $first_cell_classes ml-0 text-center align-center d-flex justify-content-center'>
-					<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_set_state' class='align-self-center {$plan_icon[1]} p-1 {$plan_icon[0]} rounded' title='{$plan_icon[3]}'><i class='{$plan_icon[2]} fa-fw fa-lg'></i></a>
+					<a value='$elemento_id' href='javascript:void(0);' data-toggle='modal' data-target='#modal_set_state' class='align-self-center {$plan_icon[1]} p-1 {$plan_icon[0]} rounded set_state_elemento_value' title='{$plan_icon[3]}'><i class='{$plan_icon[2]} fa-fw fa-lg'></i></a>
 				</div>
 				<div class='$all_cell_classes $other_cell_classes'>
 					<span class='{$icone[1]} mr-1'><i class='fad {$icone[0]} fa-fw'></i></span>
-					<a href='pagina.php?pagina_id=$pagina_id' class='text-dark'>$titulo</a>
+					<a href='pagina.php?pagina_id=$pagina_id' class='text-primary'>$titulo</a>
 					</br><span class='text-muted font-italic'>$autor</span>
 				</div>
 				<div class='$all_cell_classes $other_cell_classes'>
@@ -2756,14 +2756,14 @@
 		$meaning = "interest level $estado";
 		switch ($estado) {
 			case 0:
-				$background = 'rgba-grey-slight';
-				$icon_color = 'text-dark';
-				$icon = 'fad fa-trash-alt';
-				$meaning = 'no interest';
+				$background = 'rgba-orange-slight';
+				$icon_color = 'deep-orange-darker-hover';
+				$icon = 'fad fa-question-circle';
+				$meaning = 'not set';
 				break;
 			case 1:
 				$background = 'rgba-grey-slight';
-				$icon_color = 'text-dark';
+				$icon_color = 'text-muted';
 				$icon = 'fad fa-circle';
 				break;
 			case 2:

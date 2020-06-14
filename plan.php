@@ -49,7 +49,7 @@
 
 				$all_items_nao_registrados = array_diff($all_items_biblioteca, $all_items_planejamento);
 				foreach ($all_items_nao_registrados as $registrar_elemento_id) {
-				    $conn->query("INSERT INTO Planejamento (elemento_id, user_id) VALUES ($registrar_elemento_id, $user_id)");
+				    $conn->query("INSERT INTO Planejamento (elemento_id, user_id, estado) VALUES ($registrar_elemento_id, $user_id, 0)");
 				    $item_row = return_plan_row($registrar_elemento_id, false, false, $pagina_translated['no comments']);
 				    echo $item_row;
                 }
@@ -63,11 +63,13 @@
     $template_modal_div_id = 'modal_set_state';
     $template_modal_titulo = 'Set state';
     $template_modal_body_conteudo = false;
+    $template_modal_body_conteudo .= "<input type='hidden' value='' id='set_state_elemento_id'>";
     $template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
     $estado = 15;
     while ($estado > -1) {
         $icone = return_plan_icon($estado);
-        $template_modal_body_conteudo .= put_together_list_item('link_button', 'set_this_state', "$icone[1] $icone[0] p-1 rounded align-self-center", false, $icone[2], $icone[3], false, false, false);
+        $icone[3] = $pagina_translated[$icone[3]];
+        $template_modal_body_conteudo .= put_together_list_item('link_button', $estado, "$icone[1] $icone[0] p-1 rounded align-self-center", false, $icone[2], $icone[3], false, false, false, 'set_this_state');
         $estado = $estado - 1;
     }
     $template_modal_body_conteudo .= "</ul>";

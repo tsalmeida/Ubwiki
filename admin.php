@@ -12,6 +12,13 @@
 	    adicionar_chave_traducao('Busca em títulos de páginas', 1);
 	    adicionar_chave_traducao('no comments', 1);
 	    $conn->query("CREATE TABLE `Ubwiki`.`Planejamento` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `estado` INT(11) NULL DEFAULT NULL , `elemento_id` INT(11) NULL DEFAULT NULL , `user_id` INT(11) NULL DEFAULT NULL , `classificacao` INT(11) NULL DEFAULT NULL , `comments` TEXT NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
+	    $count = 0;
+	    while ($count != 16) {
+	        $new_string = return_plan_icon($count);
+	        $new_string = $new_string[3];
+	        adicionar_chave_traducao($new_string, 1);
+	        $count++;
+        }
 	}
 	
 	if (isset($_POST['novos_creditos'])) {
