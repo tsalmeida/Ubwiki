@@ -2732,6 +2732,7 @@
 
 		$icone = return_icone_subtipo($tipo, $subtipo);
 		$first_cell_classes = 'col-1 p-1';
+		$last_cell_classes = 'col-1 p-1 ml-1';
 		$other_cell_classes = 'col ml-1';
 		$all_cell_classes = 'bg-white rounded text-wrap';
 		return "
@@ -2746,6 +2747,9 @@
 				</div>
 				<div class='$all_cell_classes $other_cell_classes'>
 					<small class='text-muted font-italic'>$comments</small>
+				</div>
+				<div class='$all_cell_classes $last_cell_classes'>
+					<span class='text-warning'><i class='fad fa-tag fa-fw'></i><small class='text-muted font-italic'>$classificacao</small></span>
 				</div>
 			</div>
 		";
