@@ -29,7 +29,8 @@
 			return false;
 		}
 		include 'templates/criar_conn.php';
-		$chaves = $conn->query("SELECT chave FROM Translation_chaves WHERE id = $chave_id");
+		$query = prepare_query("SELECT chave FROM Translation_chaves WHERE id = $chave_id");
+		$chaves = $conn->query($query);
 		if ($chaves->num_rows > 0) {
 			while ($chave = $chaves->fetch_assoc()) {
 				$chave_titulo = $chave['chave'];
@@ -44,7 +45,8 @@
 			return false;
 		}
 		include 'templates/criar_conn.php';
-		$chaves_traduzidas = $conn->query("SELECT id, chave_id, chave_string, traducao FROM Chaves_traduzidas WHERE lingua = '$user_language'");
+		$query = prepare_query("SELECT id, chave_id, chave_string, traducao FROM Chaves_traduzidas WHERE lingua = '$user_language'");
+		$chaves_traduzidas = $conn->query($query);
 		$resultados = array();
 		if ($chaves_traduzidas->num_rows > 0) {
 			while ($chave_traduzida = $chaves_traduzidas->fetch_assoc()) {
@@ -54,7 +56,8 @@
 				$chave_traduzida_traducao = $chave_traduzida['traducao'];
 				if ($chave_traduzida_string == false) {
 					$chave_traduzida_string = return_chave_titulo($chave_traduzida_id);
-					$conn->query("UPDATE Chaves_traduzidas SET chave_string = '$chave_traduzida_string' WHERE id = $chave_traduzida_traducao_id");
+					$query = prepare_query("UPDATE Chaves_traduzidas SET chave_string = '$chave_traduzida_string' WHERE id = $chave_traduzida_traducao_id");
+					$conn->query($query);
 				}
 				$resultados[$chave_traduzida_string] = $chave_traduzida_traducao;
 			}

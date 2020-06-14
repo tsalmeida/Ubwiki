@@ -10,6 +10,8 @@
 	
 	if (isset($_POST['trigger_atualizacao'])) {
 	    adicionar_chave_traducao('Busca em títulos de páginas', 1);
+	    adicionar_chave_traducao('no comments', 1);
+	    $conn->query("CREATE TABLE `Ubwiki`.`Planejamento` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `estado` INT(11) NULL DEFAULT NULL , `elemento_id` INT(11) NULL DEFAULT NULL , `user_id` INT(11) NULL DEFAULT NULL , `classificacao` INT(11) NULL DEFAULT NULL , `comments` TEXT NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
 	}
 	
 	if (isset($_POST['novos_creditos'])) {

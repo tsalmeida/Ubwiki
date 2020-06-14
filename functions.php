@@ -578,7 +578,8 @@
 			return false;
 		}
 		/*include 'templates/criar_conn.php';
-		$topicos = $conn->query("SELECT id FROM Topicos WHERE etiqueta_id = $etiqueta_id");
+		$query = prepare_query("SELECT id FROM Topicos WHERE etiqueta_id = $etiqueta_id";
+		$topicos = $conn->query($query);
 		if ($topicos->num_rows > 0) {
 			while ($topico = $topicos->fetch_assoc()) {
 				$topico_id = $topico['id'];
@@ -722,11 +723,12 @@
 
 	function return_elemento_info($elemento_id)
 	{
-		include 'templates/criar_conn.php';
 		if ($elemento_id == false) {
 			return false;
 		}
-		$elementos = $conn->query("SELECT estado, etiqueta_id, criacao, tipo, subtipo, titulo, autor, autor_etiqueta_id, capitulo, ano, link, iframe, arquivo, resolucao, orientacao, comentario, trecho, user_id, compartilhamento FROM Elementos WHERE id = $elemento_id");
+		include 'templates/criar_conn.php';
+		$query = prepare_query("SELECT * FROM Elementos WHERE id = $elemento_id");
+		$elementos = $conn->query($query);
 		if ($elementos->num_rows > 0) {
 			while ($elemento = $elementos->fetch_assoc()) {
 				$elemento_estado = $elemento['estado']; // 0
@@ -748,7 +750,11 @@
 				$elemento_user_id = $elemento['user_id']; // 16
 				$elemento_compartilhamento = $elemento['compartilhamento']; // 17
 				$elemento_subtipo = $elemento['subtipo']; // 18
-				$result = array($elemento_estado, $elemento_etiqueta_id, $elemento_criacao, $elemento_tipo, $elemento_titulo, $elemento_autor, $elemento_autor_etiqueta_id, $elemento_capitulo, $elemento_ano, $elemento_link, $elemento_iframe, $elemento_arquivo, $elemento_resolucao, $elemento_orientacao, $elemento_comentario, $elemento_trecho, $elemento_user_id, $elemento_compartilhamento, $elemento_subtipo);
+				$elemento_pagina_id = $elemento['pagina_id']; // 19
+				if ($elemento_pagina_id == false) {
+					$elemento_pagina_id = return_pagina_id($elemento_id, 'elemento');
+				}
+				$result = array($elemento_estado, $elemento_etiqueta_id, $elemento_criacao, $elemento_tipo, $elemento_titulo, $elemento_autor, $elemento_autor_etiqueta_id, $elemento_capitulo, $elemento_ano, $elemento_link, $elemento_iframe, $elemento_arquivo, $elemento_resolucao, $elemento_orientacao, $elemento_comentario, $elemento_trecho, $elemento_user_id, $elemento_compartilhamento, $elemento_subtipo, $elemento_pagina_id);
 				return $result;
 			}
 		}
@@ -2021,7 +2027,7 @@
 				return array('fa-podcast', 'text-secondary', 'rgba-purple-strong');
 				break;
 			case 'audiobook':
-				return array('fa-book-reader', 'text-success', 'rgba-green-strong');
+				return array('fa-book-reader', 'text-warning', 'rgba-amber-strong');
 				break;
 			case 'mapasatelite':
 				return array('fa-globe-americas', 'text-default', 'rgba-teal-strong');
@@ -2377,7 +2383,7 @@
 			return "
 			<a href='$link' $target class='$link_classes'>
 				<li class='list-group-item list-group-item-action $item_classes border-top p-1 py-2 $dflex'>
-					<span>
+					<span class='d-flex justify-content-center'>
 						<span class='$cor_icone_principal align-center icone-lista'>
 							<i class='$icone_prefixo $icone_principal fa-fw fa-lg'></i>
 						</span>
@@ -2394,7 +2400,7 @@
 			return "
 			<a data-toggle='modal' data-target='$link' class='$link_classes'>
 				<li class='list-group-item list-group-item-action $item_classes border-top p-1 py-2 $dflex'>
-					<span>
+					<span class='d-flex justify-content-center'>
 						<span class='$cor_icone_principal align-center icone-lista'>
 							<i class='$icone_prefixo $icone_principal fa-fw fa-lg'></i>
 						</span>
@@ -2410,7 +2416,7 @@
 		} elseif ($type == 'inactive') {
 			return "
 				<li class='list-group-item $item_classes border-top p-1 py-2 $dflex'>
-					<span>
+					<span class='d-flex justify-content-center'>
 						<span class='$cor_icone_principal align-center icone-lista'>
 							<i class='$icone_prefixo $icone_principal fa-fw fa-lg'></i>
 						</span>
@@ -2427,7 +2433,7 @@
 			return "
 			<a href='javascript:void(0);' id='$link' name='$link' value='$link' class='$link $link_classes'>
 				<li class='list-group-item list-group-item-action $item_classes border-top p-1 py-2 $dflex'>
-					<span>
+					<span class='d-flex justify-content-center'>
 						<span class='$cor_icone_principal align-center icone-lista'>
 							<i class='$icone_prefixo $icone_principal fa-fw fa-lg'></i>
 						</span>
@@ -2683,4 +2689,160 @@
 		$questao_prova_info = return_info_prova_id($questao_prova_id);
 		$questao_prova_titulo = $questao_prova_info[0];
 		return "{$questao_edicao_ano}, Prova “{$questao_prova_titulo}” — Questão {$questao_numero} {$questao_origem_string}";
+	}
+
+	function return_plan_row()
+	{
+		$args = func_get_args();
+		$item_planejamento_elemento_id = $args[0];
+		$item_planejamento_estado = $args[1];
+		$item_planejamento_classificacao = $args[2];
+		$item_planejamento_comments = $args[3];
+
+		$item_planejamento_info = return_elemento_info($item_planejamento_elemento_id);
+		$item_planejamento_pagina_id = $item_planejamento_info[19];
+		$item_planejamento_titulo = $item_planejamento_info[4];
+		$item_planejamento_autor = $item_planejamento_info[5];
+		$item_planejamento_tipo = $item_planejamento_info[3];
+		$item_planejamento_subtipo = $item_planejamento_info[18];
+		$item_planejamento_ano = $item_planejamento_info[8];
+
+		$plan_item = return_plan_item($item_planejamento_pagina_id, $item_planejamento_titulo, $item_planejamento_autor, $item_planejamento_tipo, $item_planejamento_subtipo, $item_planejamento_ano, $item_planejamento_estado, $item_planejamento_classificacao, $item_planejamento_comments);
+		return $plan_item;
+	}
+
+	function return_plan_item()
+	{
+		$args = func_get_args();
+		$pagina_id = $args[0];
+		$titulo = $args[1];
+		$autor = $args[2];
+		$tipo = $args[3];
+		$subtipo = $args[4];
+		$ano = $args[5];
+		if ($ano != false) {
+			$titulo .= " ($ano)";
+		}
+		$estado = $args[6];
+		$estado = random_int(0, 15);
+		$classificacao = $args[7];
+		$comments = $args[8];
+
+		$plan_icon = return_plan_icon($estado);
+
+		$icone = return_icone_subtipo($tipo, $subtipo);
+		$first_cell_classes = 'col-1 p-1';
+		$other_cell_classes = 'col ml-1';
+		$all_cell_classes = 'bg-white rounded text-wrap';
+		return "
+			<div class='row grey lighten-5 mt-1'>
+				<div class='$all_cell_classes $first_cell_classes ml-0 text-center align-center d-flex justify-content-center'>
+					<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_set_state' class='align-self-center {$plan_icon[1]} p-1 {$plan_icon[0]} rounded' title='{$plan_icon[3]}'><i class='{$plan_icon[2]} fa-fw fa-lg'></i></a>
+				</div>
+				<div class='$all_cell_classes $other_cell_classes'>
+					<span class='{$icone[1]} mr-1'><i class='fad {$icone[0]} fa-fw'></i></span>
+					<a href='pagina.php?pagina_id=$pagina_id' class='text-dark'>$titulo</a>
+					</br><span class='text-muted font-italic'>$autor</span>
+				</div>
+				<div class='$all_cell_classes $other_cell_classes'>
+					<small class='text-muted font-italic'>$comments</small>
+				</div>
+			</div>
+		";
+	}
+
+	function return_plan_icon($estado)
+	{
+		$meaning = "interest level $estado";
+		switch ($estado) {
+			case 0:
+				$background = 'rgba-grey-slight';
+				$icon_color = 'text-dark';
+				$icon = 'fad fa-trash-alt';
+				$meaning = 'no interest';
+				break;
+			case 1:
+				$background = 'rgba-grey-slight';
+				$icon_color = 'text-dark';
+				$icon = 'fad fa-circle';
+				break;
+			case 2:
+				$background = 'rgba-grey-slight';
+				$icon_color = 'text-danger';
+				$icon = 'fad fa-circle';
+				break;
+			case 3:
+				$background = 'rgba-red-slight';
+				$icon_color = 'text-danger';
+				$icon = 'fad fa-circle';
+				break;
+			case 4:
+				$background = 'rgba-orange-slight';
+				$icon_color = 'text-danger';
+				$icon = 'fad fa-circle';
+				break;
+			case 5:
+				$background = 'rgba-orange-slight';
+				$icon_color = 'text-warning';
+				$icon = 'fad fa-circle';
+				break;
+			case 6:
+				$background = 'rgba-orange-slight';
+				$icon_color = 'text-info';
+				$icon = 'fad fa-circle';
+				break;
+			case 7:
+				$background = 'rgba-blue-slight';
+				$icon_color = 'text-info';
+				$icon = 'fad fa-circle';
+				break;
+			case 8:
+				$background = 'rgba-blue-slight';
+				$icon_color = 'text-default';
+				$icon = 'fad fa-circle';
+				break;
+			case 9:
+				$background = 'rgba-blue-slight';
+				$icon_color = 'text-default';
+				$icon = 'fad fa-exclamation-circle';
+				break;
+			case 10:
+				$background = 'rgba-green-slight';
+				$icon_color = 'text-success';
+				$icon = 'fad fa-alarm-exclamation';
+				break;
+			case 11:// fully read, not planning to re-read
+				$background = 'rgba-green-slight';
+				$icon_color = 'text-success';
+				$icon = 'fad fa-check-circle';
+				$meaning = 'fully read';
+				break;
+			case 12: // full study in process or interrupted
+				$background = 'rgba-cyan-slight';
+				$icon_color = 'text-info';
+				$icon = 'fad fa-pen-alt';
+				$meaning = 'full study in process';
+				break;
+			case 13: // full study completed.
+				$background = 'rgba-green-slight';
+				$icon_color = 'text-success';
+				$icon = 'fad fa-pen-alt';
+				$meaning = 'full study completed';
+				break;
+			case 14: // re-read notes.
+				$background = 'rgba-cyan-slight';
+				$icon_color = 'text-info';
+				$icon = 'fad fa-repeat-alt';
+				$meaning = 're-read notes';
+				break;
+			case 15: // content completely absorbed.
+				$background = 'rgba-amber-strong';
+				$icon_color = 'text-danger';
+				$icon = 'fad fa-head-side-brain';
+				$meaning = 'full assimilation';
+				break;
+			default:
+				return false;
+		}
+		return array($background, $icon_color, $icon, $meaning);
 	}

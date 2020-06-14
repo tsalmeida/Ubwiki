@@ -247,6 +247,17 @@
 				$fa_color = 'text-secondary';
 				$template_conteudo .= include 'templates/artefato_item.php';
 
+				if ($user_tipo == 'admin') {
+					$artefato_id = 'reading_planner';
+					$artefato_subtitulo = $pagina_translated['Study Planner'];
+					$artefato_link = 'plan.php';
+					$artefato_badge = 'fa-external-link';
+					$artefato_icone_background = 'cyan lighten-5';
+					$fa_icone = 'fa-calendar-check';
+					$fa_color = 'text-info';
+					$template_conteudo .= include 'templates/artefato_item.php';
+                }
+
 				if ($user_id == 1) {
 					$artefato_id = 'simulados';
 					$artefato_subtitulo = $pagina_translated['Simulados'];
@@ -265,16 +276,6 @@
 					$fa_icone = 'fa-house-user';
 					$fa_color = 'text-danger';
 					$template_conteudo .= include 'templates/artefato_item.php';
-
-					$artefato_id = 'reading_planner';
-					$artefato_subtitulo = $pagina_translated['Study Planner'];
-					$artefato_link = 'plan.php';
-					$artefato_badge = 'fa-external-link';
-					$artefato_icone_background = 'cyan lighten-5';
-					$fa_icone = 'fa-calendar-check';
-					$fa_color = 'text-info';
-					$template_conteudo .= include 'templates/artefato_item.php';
-
 				}
 
 				include 'templates/page_element.php';
