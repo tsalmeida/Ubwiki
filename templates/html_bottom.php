@@ -1492,7 +1492,7 @@
 				        if (data != 0) {
 				            window.location.reload(true);
 				        } else {
-				            alert('Some problem happened');
+				            alert(data);
 				        }
 				    })
 				})
