@@ -1491,8 +1491,6 @@
 				    }, function (data) {
 				        if (data != 0) {
 				            window.location.reload(true);
-				        } else {
-				            alert(data);
 				        }
 				    })
 				})
