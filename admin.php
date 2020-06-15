@@ -9,6 +9,11 @@
 	}
 	
 	if (isset($_POST['trigger_atualizacao'])) {
+	    adicionar_chave_traducao('Set state', 1);
+	    adicionar_chave_traducao('Add comment', 1);
+	    adicionar_chave_traducao('Write comment here', 1);
+	    adicionar_chave_traducao('Set plan tag', 1);
+	    adicionar_chave_traducao('Set category', 1);
 	}
 	
 	if (isset($_POST['novos_creditos'])) {

@@ -464,6 +464,7 @@
 	}
 
 	function criar_etiqueta()
+		//criar_etiqueta($titulo, $autor, $tipo, $user_id, $criar_elemento, $link, $subtipo);
 	{
 		$args = func_get_args();
 		$titulo = $args[0];
@@ -2735,24 +2736,50 @@
 		$last_cell_classes = 'col-1 p-1 ml-1';
 		$other_cell_classes = 'col ml-1';
 		$all_cell_classes = 'bg-white rounded text-wrap';
-		return "
-			<div class='row grey lighten-5 mt-1'>
+
+		$result = false;
+		$result .= "<div class='row grey lighten-5 mt-1'>";
+		$result .= "
 				<div class='$all_cell_classes $first_cell_classes ml-0 text-center align-center d-flex justify-content-center'>
-					<a value='$elemento_id' href='javascript:void(0);' data-toggle='modal' data-target='#modal_set_state' class='align-self-center {$plan_icon[1]} p-1 {$plan_icon[0]} rounded set_state_elemento_value' title='{$plan_icon[3]}'><i class='{$plan_icon[2]} fa-fw fa-lg'></i></a>
+						<a value='$elemento_id' href='javascript:void(0);' data-toggle='modal' data-target='#modal_set_state' class='align-self-center {$plan_icon[1]} p-1 {$plan_icon[0]} rounded set_state_elemento_value' title='{$plan_icon[3]}'><i class='{$plan_icon[2]} fa-fw fa-lg'></i></a>
 				</div>
+					";
+		$result .= "
 				<div class='$all_cell_classes $other_cell_classes'>
-					<span class='{$icone[1]} mr-1'><i class='fad {$icone[0]} fa-fw'></i></span>
-					<a href='pagina.php?pagina_id=$pagina_id' class='text-primary'>$titulo</a>
-					</br><span class='text-muted font-italic'>$autor</span>
+					<div class='row'>
+						<div class='col'>
+							<span class='{$icone[1]} mr-1'><i class='fad {$icone[0]} fa-fw'></i></span>
+							<a href='pagina.php?pagina_id=$pagina_id' class='text-primary'>$titulo</a>
+						</div>
+					</div>
+					<div class='row'>
+						<div class='col'>
+							<span class='text-muted font-italic'>$autor</span>
+						</div>
+					</div>
 				</div>
+					";
+		$result .= "
 				<div class='$all_cell_classes $other_cell_classes'>
-					<small class='text-muted font-italic'>$comments</small>
+					<a class='text-dark set_comment_elemento_id font-italic' href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_comment' value='$elemento_id'><small>$comments</small></a>
 				</div>
-				<div class='$all_cell_classes $last_cell_classes'>
-					<span class='text-warning'><i class='fad fa-tag fa-fw'></i><small class='text-muted font-italic'>$classificacao</small></span>
+					";
+		if ($classificacao == false) {
+			$result .= "
+				<div class='$all_cell_classes $last_cell_classes ml-0 text-center align-center d-flex justify-content-center'>
+					<a value='$elemento_id' href='javascript:void(0);' data-toggle='modal' data-target='#modal_set_tag' class='align-self-center p-1 text-warning rgba-orange-slight rounded set_tag_elemento_value'><i class='fad fa-tag fa-fw fa-lg'></i></a>
 				</div>
-			</div>
-		";
+					";
+		} else {
+			$result .= "
+				<div class='rounded text-break $last_cell_classes ml-0 rgba-orange-slight d-flex justify-content-center'>
+					<a value='$elemento_id' class='text-muted set_tag_elemento_value align-self-center text-center' data-toggle='modal' data-target='#modal_set_tag'><small>$classificacao</small></a>
+				</div>
+				";
+		}
+		$result .= "</div>";
+
+		return $result;
 	}
 
 	function return_plan_icon($estado)

@@ -1781,4 +1781,25 @@
 		echo $check;
 	}
 
+	if (isset($_POST['set_comment'])) {
+		$set_comment = $_POST['set_comment'];
+		$set_comment = mysqli_real_escape_string($conn, $set_comment);
+		$set_comment = strip_tags($set_comment, false);
+		$set_comment_elemento_id = $_POST['set_comment_elemento_id'];
+		$query = prepare_query("UPDATE Planejamento SET comments = '$set_comment' WHERE elemento_id = $set_comment_elemento_id AND user_id = $user_id");
+		$conn->query($query);
+	}
+
+	if (isset($_POST['plan_set_tag'])) {
+		$plan_set_tag = $_POST['plan_set_tag'];
+		$plan_set_tag_elemento_id = $_POST['set_tag_elemento_id'];
+		$plan_set_tag = mysqli_real_escape_string($conn, $plan_set_tag);
+		$plan_set_tag = strip_tags($plan_set_tag, false);
+		$nova_etiqueta_id = criar_etiqueta($plan_set_tag, false, 'topico', $user_id, false, false, false);
+		$nova_etiqueta_id = $nova_etiqueta_id[0];
+		$nova_etiqueta_pagina_id = return_pagina_id($nova_etiqueta_id, 'etiqueta');
+		$query = prepare_query("UPDATE Planejamento SET classificacao = $nova_etiqueta_pagina_id WHERE elemento_id = $plan_set_tag_elemento_id AND user_id = $user_id");
+		$conn->query($query);
+	}
+
 ?>

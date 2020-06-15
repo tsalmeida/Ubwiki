@@ -1494,6 +1494,14 @@
 				        }
 				    })
 				})
+				$(document).on('click', '.set_comment_elemento_id', function() {
+				    var this_elemento_id = $(this).attr('value');
+				    $('#set_comment_elemento_id').val(this_elemento_id);
+				})
+				$(document).on('click', '.set_tag_elemento_value', function() {
+				    var this_elemento_id = $(this).attr('value');
+				    $('#set_tag_elemento_id').val(this_elemento_id);
+				})
 			</script>
 		";
 	}

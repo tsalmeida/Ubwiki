@@ -38,6 +38,7 @@
 						array_push($all_items_planejamento, $item_planejamento_elemento_id);
                         $item_planejamento_estado = $item_planejamento['estado'];
                         $item_planejamento_classificacao = $item_planejamento['classificacao'];
+                        $item_planejamento_classificacao = return_pagina_titulo($item_planejamento_classificacao);
                         $item_planejamento_comments = $item_planejamento['comments'];
                         if ($item_planejamento_comments == false) {
                             $item_planejamento_comments = $pagina_translated['no comments'];
@@ -61,7 +62,7 @@
 <?php
 
     $template_modal_div_id = 'modal_set_state';
-    $template_modal_titulo = 'Set state';
+    $template_modal_titulo = $pagina_translated['Set state'];
     $template_modal_body_conteudo = false;
     $template_modal_body_conteudo .= "<input type='hidden' value='' id='set_state_elemento_id'>";
     $template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
@@ -74,6 +75,28 @@
     }
     $template_modal_body_conteudo .= "</ul>";
     $template_modal_show_buttons = false;
+    include 'templates/modal.php';
+
+    $template_modal_div_id = 'modal_add_comment';
+    $template_modal_titulo = $pagina_translated['Add comment'];
+    $template_modal_body_conteudo = false;
+    $template_modal_body_conteudo .= "<input type='hidden' value='' id='set_comment_elemento_id' name='set_comment_elemento_id'>";
+    $template_modal_body_conteudo .= "
+        <div class='md-form'>
+            <textarea class='md-textarea form-control' id='set_comment' name='set_comment' placeholder='{$pagina_translated['Add comment here']}'></textarea>
+        </div>
+    ";
+    include 'templates/modal.php';
+
+    $template_modal_div_id = 'modal_set_tag';
+    $template_modal_titulo = $pagina_translated['Set plan tag'];
+    $template_modal_body_conteudo = false;
+    $template_modal_body_conteudo .= "
+        <input type='hidden' value='' id='set_tag_elemento_id' name='set_tag_elemento_id'>
+        <div class='md-form'>
+            <input type='text' class='form-control' name='plan_set_tag' placeholder='{$pagina_translated['Set category']}'>
+        </div>
+    ";
     include 'templates/modal.php';
 
 	include 'pagina/modal_languages.php';
