@@ -95,14 +95,14 @@
         <div id="coluna_unica" class="col">
 			<?php
 
-                /*
-                $template_id = 'nexus_navegacao';
-                $template_titulo = false;
-                $template_conteudo = false;
-                $template_conteudo_class = 'justify-content-center';
-                $template_conteudo_no_col = true;
+				/*
+				$template_id = 'nexus_navegacao';
+				$template_titulo = false;
+				$template_conteudo = false;
+				$template_conteudo_class = 'justify-content-center';
+				$template_conteudo_no_col = true;
 
-                include 'templates/page_element.php';*/
+				include 'templates/page_element.php';*/
 
 
 				$template_id = 'escritorio_primeira_janela';
@@ -247,15 +247,13 @@
 				$fa_color = 'text-secondary';
 				$template_conteudo .= include 'templates/artefato_item.php';
 
-				if ($user_tipo == 'admin') {
-					$artefato_id = 'reading_planner';
-					$artefato_subtitulo = $pagina_translated['Study Planner'];
-					$artefato_modal = '#modal_planner';
-					$artefato_icone_background = 'cyan lighten-5';
-					$fa_icone = 'fa-calendar-check';
-					$fa_color = 'text-info';
-					$template_conteudo .= include 'templates/artefato_item.php';
-                }
+				$artefato_id = 'reading_planner';
+				$artefato_subtitulo = $pagina_translated['Study Planner'];
+				$artefato_modal = '#modal_planner';
+				$artefato_icone_background = 'cyan lighten-5';
+				$fa_icone = 'fa-calendar-check';
+				$fa_color = 'text-info';
+				$template_conteudo .= include 'templates/artefato_item.php';
 
 				if ($user_id == 1) {
 					$artefato_id = 'simulados';
@@ -642,7 +640,7 @@
             }
         })
     })
-    $(document).on('click', '#artefato_reading_planner', function() {
+    $(document).on('click', '#artefato_reading_planner', function () {
         $.post('engine.php', {
             'list_planos': true
         }, function (data) {
