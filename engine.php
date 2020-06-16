@@ -127,10 +127,12 @@
 					$_SESSION['user_apelido'] = $usuario['apelido'];
 					$_SESSION['user_nome'] = $usuario['nome'];
 					$_SESSION['user_sobrenome'] = $usuario['sobrenome'];
-					if ($_SESSION['user_language'] != $usuario['language']) {
-						unset($_SESSION['pagina_translated']);
-						$_SESSION['user_language'] = $usuario['language'];
+					if (isset($_SESSION['user_language'])) {
+						if ($_SESSION['user_language'] != $usuario['language']) {
+							unset($_SESSION['pagina_translated']);
+						}
 					}
+					$_SESSION['user_language'] = $usuario['language'];
 					$_SESSION['user_wallet'] = (int)return_wallet_value($_SESSION['user_id']);
 					$_SESSION['user_escritorio'] = return_pagina_id($_SESSION['user_id'], 'escritorio');
 					$_SESSION['user_lounge'] = return_lounge_id($_SESSION['user_id']);

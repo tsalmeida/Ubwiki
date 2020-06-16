@@ -329,10 +329,9 @@
 	if (isset($_GET['acs'])) {
 		$link_de_acesso = $_GET['acs'];
 		if ($pagina_link == $link_de_acesso) {
+			$_SESSION['acesso_especial'] = $pagina_id;
 			if ($user_id != false) {
 				$add_compartilhamento = true;
-			} else {
-				$_SESSION['acesso_especial'] = $pagina_id;
 			}
 		}
 	}
