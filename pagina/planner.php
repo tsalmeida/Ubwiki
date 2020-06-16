@@ -11,7 +11,8 @@
 		}
 	}
 
-	$items_planejamento = $conn->query("SELECT * FROM Planejamento WHERE plano_id = $pagina_item_id ORDER BY estado DESC");
+	$query = prepare_query("SELECT * FROM Planejamento WHERE plano_id = $pagina_item_id ORDER BY estado DESC");
+	$items_planejamento = $conn->query($query);
 	$all_items_planejamento = array();
 	$registered_rows = false;
 	if ($items_planejamento->num_rows > 0) {

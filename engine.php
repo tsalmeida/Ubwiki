@@ -1296,6 +1296,7 @@
 		$list_biblioteca_particular .= "<ul class='list-group list-group-flush'>";
 		$list_biblioteca_particular .= "<div data-toggle='modal' data-target='#modal_biblioteca_particular'>";
 		$list_biblioteca_particular .= put_together_list_item('modal', '#modal_add_elementos', false, 'fad', 'fa-plus-circle', $pagina_translated['press add collection'], false, 'fad fa-cog', 'list-group-item-info');
+		$list_biblioteca_particular .= put_together_list_item('link', 'pagina.php?plano_id=bp', false, 'fad', 'fa-calendar-check', $pagina_translated['Plano de estudos'], false, 'fad fa-external-link', 'list-group-item-success my-1');
 		$list_biblioteca_particular .= "</div>";
 		$query = prepare_query("SELECT DISTINCT elemento_id FROM Paginas_elementos WHERE pagina_id = $user_escritorio AND estado = 1 AND elemento_id IS NOT NULL ORDER BY id DESC");
 		$biblioteca_particular = $conn->query($query);

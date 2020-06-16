@@ -2020,150 +2020,115 @@
 		}
 		switch ($subtipo) {
 			case 'livro':
-				return array('fa-book', 'text-success', 'rgba-green-strong');
+				return array('fad fa-book', 'text-success', 'rgba-green-strong');
 				break;
 			case 'pagina':
-				return array('fa-browser', 'text-primary', 'rgba-blue-strong');
+				return array('fad fa-browser', 'text-primary', 'rgba-blue-strong');
 				break;
 			case 'artigo':
-				return array('fa-newspaper', 'text-muted', 'rgba-black-strong');
+				return array('fad fa-newspaper', 'text-muted', 'rgba-black-strong');
 				break;
 			case 'wikipedia':
-				return array('fa-wikipedia-w', 'text-dark', 'rgba-black-strong');
+				return array('fab fa-wikipedia-w', 'text-dark', 'rgba-black-strong');
 				break;
 			case 'musica':
-				return array('fa-record-vinyl', 'text-dark', 'rgba-black-strong');
+				return array('fad fa-record-vinyl', 'text-dark', 'rgba-black-strong');
 				break;
 			case 'podcast':
-				return array('fa-podcast', 'text-secondary', 'rgba-purple-strong');
+				return array('fad fa-podcast', 'text-secondary', 'rgba-purple-strong');
 				break;
 			case 'audiobook':
-				return array('fa-book-reader', 'text-warning', 'rgba-amber-strong');
+				return array('fad fa-book-reader', 'text-warning', 'rgba-amber-strong');
 				break;
 			case 'mapasatelite':
-				return array('fa-globe-americas', 'text-default', 'rgba-teal-strong');
+				return array('fad fa-globe-americas', 'text-default', 'rgba-teal-strong');
 				break;
 			case 'retrato':
-				return array('fa-portrait', 'text-danger', 'rgba-red-strong');
+				return array('fad fa-portrait', 'text-danger', 'rgba-red-strong');
 				break;
 			case 'arte':
-				return array('fa-paint-brush', 'text-secondary', 'rgba-purple-strong');
+				return array('fad fa-paint-brush', 'text-secondary', 'rgba-purple-strong');
 				break;
 			case 'grafico':
-				return array('fa-chart-pie', 'text-warning', 'rgba-orange-strong');
+				return array('fad fa-chart-pie', 'text-warning', 'rgba-orange-strong');
 				break;
 			case 'paisagem':
-				return array('fa-mountain', 'text-info', 'rgba-cyan-strong');
+				return array('fad fa-mountain', 'text-info', 'rgba-cyan-strong');
 				break;
 			case 'objeto':
-				return array('fa-cube', 'text-success', 'rgba-green-strong');
+				return array('fad fa-cube', 'text-success', 'rgba-green-strong');
 				break;
 			case 'arquitetura':
-				return array('fa-university', 'text-warning', 'rgba-orange-strong');
+				return array('fad fa-university', 'text-warning', 'rgba-orange-strong');
 				break;
 			case 'planta':
-				return array('fa-flower-daffodil', 'text-danger', 'rgba-red-strong');
+				return array('fad fa-flower-daffodil', 'text-danger', 'rgba-red-strong');
 				break;
 			case 'animais':
-				return array('fa-rabbit', 'text-info', 'rgba-cyan-strong');
+				return array('fad fa-rabbit', 'text-info', 'rgba-cyan-strong');
 				break;
 			case 'outras':
-				return array('fa-camera-alt', 'text-dark', 'rgba-black-strong');
+				return array('fad fa-camera-alt', 'text-dark', 'rgba-black-strong');
 				break;
 			case 'youtube':
-				return array('fa-youtube', 'text-danger', 'rgba-red-strong');
+				return array('fab fa-youtube', 'text-danger', 'rgba-red-strong');
 				break;
 			case 'filme':
-				return array('fa-film', 'text-info', 'rgba-cyan-strong');
+				return array('fad fa-film', 'text-info', 'rgba-cyan-strong');
 				break;
 			case 'aula':
-				return array('fa-chalkboard-teacher', 'text-default', 'rgba-teal-strong');
+				return array('fad fa-chalkboard-teacher', 'text-default', 'rgba-teal-strong');
 				break;
 			case 'equacao':
-				return array('fa-greater-than-equal', 'text-info', 'rgba-cyan-strong');
+				return array('fad fa-greater-than-equal', 'text-info', 'rgba-cyan-strong');
 				break;
 			case 'etiqueta':
-				return array('fa-tag', 'text-warning', 'rgba-orange-strong');
+				return array('fad fa-tag', 'text-warning', 'rgba-orange-strong');
 				break;
 			default:
 				switch ($tipo) {
 					case 'imagem':
 						if ($subtipo == 'generico') {
-							return array('fa-image', 'text-danger', 'rgba-red-strong');
+							return array('fad fa-image', 'text-danger', 'rgba-red-strong');
 						} else {
-							return array('fa-file-image', 'text-muted', 'rgba-grey-strong');
+							return array('fad fa-file-image', 'text-muted', 'rgba-grey-strong');
 						}
 						break;
 					case 'video':
 						if ($subtipo == 'generico') {
-							return array('fa-play-circle', 'text-info', 'rgba-blue-strong');
+							return array('fad fa-play-circle', 'text-info', 'rgba-blue-strong');
 						} else {
-							return array('fa-file-video', 'text-muted', 'rgba-grey-strong');
+							return array('fad fa-file-video', 'text-muted', 'rgba-grey-strong');
 						}
 						break;
 					case 'album_musica':
 						if ($subtipo == 'generico') {
-							return array('fa-volume-up', 'text-warning', 'rgba-orange-strong');
+							return array('fad fa-volume-up', 'text-warning', 'rgba-orange-strong');
 						} else {
-							return array('fa-file-audio', 'text-muted', 'rgba-grey-strong');
+							return array('fad fa-file-audio', 'text-muted', 'rgba-grey-strong');
 						}
 						break;
 					case 'referencia':
 						if ($subtipo == 'generico') {
-							return array('fa-glasses-alt', 'text-success', 'rgba-green-strong');
+							return array('fad fa-glasses-alt', 'text-success', 'rgba-green-strong');
 						} else {
-							return array('fa-file-alt', 'text-muted', 'rgba-grey-strong');
+							return array('fad fa-file-alt', 'text-muted', 'rgba-grey-strong');
 						}
 						break;
 					case 'questao':
-						return array('fa-ballot-check', 'text-secondary', 'rgba-purple-strong');
+						return array('fad fa-ballot-check', 'text-secondary', 'rgba-purple-strong');
 						break;
 					case 'secao':
-						return array('fa-list-ol', 'text-info', 'rgba-cyan-strong');
+						return array('fad fa-list-ol', 'text-info', 'rgba-cyan-strong');
 						break;
 					case 'resposta':
-						return array('fa-comment-alt-edit', 'text-default', 'rgba-cyan-strong');
+						return array('fad fa-comment-alt-edit', 'text-default', 'rgba-cyan-strong');
 						break;
 					case 'wikipedia':
-						return array('fa-wikipedia-w', 'text-dark', 'rgba-grey-strong');
+						return array('fab fa-wikipedia-w', 'text-dark', 'rgba-grey-strong');
 						break;
 					default:
-						return array('fa-circle-notch fa-spin', 'text-danger', 'rgba-red-strong');
-				}
-		}
-	}
-
-	function return_pagina_icone_cor($anotacao_pagina_tipo, $anotacao_pagina_subtipo)
-	{
-		switch ($anotacao_pagina_subtipo) {
-			case 'etiqueta':
-				return array('fa-tag', 'text-warning', 'rgba-orange-strong');
-				break;
-			default:
-				switch ($anotacao_pagina_tipo) {
-					case 'elemento':
-						return array('fa-columns', 'text-success', 'rgba-green-strong');
-						break;
-					case 'topico':
-						return array('fa-columns', 'text-warning', 'rgba-orange-strong');
-						break;
-					case 'curso':
-						return array('fa-graduation-cap', 'text-default', 'rgba-teal-strong');
-						break;
-					case 'pagina':
-						return array('fa-columns', 'text-info', 'rgba-cyan-strong');
-						break;
-					case 'texto':
-						return array('fa-file-alt', 'text-primary', 'rgba-blue-strong');
-						break;
-					case 'secao':
-						return array('fa-bookmark', 'text-default', 'rgba-red-strong');
-						break;
-					case false:
-						return array('fa-columns', 'text-muted', 'rgba-grey-strong');
-						break;
-					default:
-						return array('fa-circle-notch fa-spin', 'text-muted', 'rgba-grey-strong');
+						return array('fad fa-circle-notch fa-spin', 'text-danger', 'rgba-red-strong');
 				}
 		}
 	}
@@ -2271,11 +2236,7 @@
 		if ($lista_tipo == 'texto') {
 
 			$pagina_estado_cor = $cor_icone_principal;
-			$fa_prefixo = 'fad';
-			if ($icone_principal == 'fa-youtube') {
-				$fa_prefixo = 'fab';
-			}
-			$pagina_estado_icone = "$fa_prefixo $icone_principal";
+			$pagina_estado_icone = $icone_principal;
 			$icone_principal = 'fad fa-file-alt fa-swap-opacity fa-fw';
 
 			switch ($pagina_tipo) {
@@ -2319,11 +2280,6 @@
 		} else {
 			$link = "pagina.php?pagina_id=$pagina_id";
 		}
-		if (($icone_principal == 'fa-youtube') || ($icone_principal == 'fa-wikipedia-w')) {
-			$icone_prefixo = 'fab';
-		} else {
-			$icone_prefixo = 'fad';
-		}
 
 		if ($no_icon == true) {
 			$cor_icone_principal = false;
@@ -2343,7 +2299,7 @@
 			$pagina_titulo = $override_pagina_titulo;
 		}
 
-		return put_together_list_item('link', $link, $cor_icone_principal, $icone_prefixo, $icone_principal, $pagina_titulo, $pagina_estado_cor, $pagina_estado_icone, $item_classes, $lista_texto_classes);
+		return put_together_list_item('link', $link, $cor_icone_principal, false, $icone_principal, $pagina_titulo, $pagina_estado_cor, $pagina_estado_icone, $item_classes, $lista_texto_classes);
 	}
 
 	function put_together_list_item()
@@ -2469,26 +2425,29 @@
 			case 'pagina':
 				switch ($pagina_subtipo) {
 					case 'escritorio':
-						return array('fa-lamp-desk', 'text-info');
+						return array('fad fa-lamp-desk', 'text-info');
 						break;
 					case 'etiqueta':
-						return array('fa-tag', 'text-warning');
+						return array('fad fa-tag', 'text-warning');
 						break;
 					case 'modelo':
-						return array('fa-pen-nib', 'text-secondary');
+						return array('fad fa-pen-nib', 'text-secondary');
 						break;
 					case 'Plano de estudos':
-						return array('fa-ruler-triangle', 'text-default');
+						return array('fad fa-ruler-triangle', 'text-default');
+						break;
+					case 'plano':
+						return array('fad fa-calendar-check', 'text-info');
 						break;
 					default:
-						return array('fa-columns', 'text-info');
+						return array('ffad a-columns', 'text-info');
 						break;
 				}
 			case 'secao':
-				return array('fa-bookmark', 'text-default');
+				return array('fad fa-bookmark', 'text-default');
 				break;
 			case 'curso':
-				return array('fa-graduation-cap', 'text-default');
+				return array('fad fa-graduation-cap', 'text-default');
 				break;
 			case 'elemento':
 				$elemento_info = return_elemento_info($pagina_item_id);
@@ -2498,33 +2457,32 @@
 				if ($elemento_subtipo_icone != false) {
 					return array($elemento_subtipo_icone[0], $elemento_subtipo_icone[1]);
 				} else {
-					return array('fa-circle-notch', 'text-success');
+					return array('fad fa-circle-notch', 'text-success');
 				}
 				break;
 			case 'topico':
-				return array('fa-columns', 'text-warning');
+				return array('fad fa-columns', 'text-warning');
 				break;
 			case 'sistema':
-				return array('fa-exclamation-triangle', 'text-warning');
+				return array('fad fa-exclamation-triangle', 'text-warning');
 				break;
 			case 'texto':
-				return array('fa-file-alt fa-swap-opacity', 'text-primary');
+				return array('fad fa-file-alt fa-swap-opacity', 'text-primary');
 				break;
 			case 'grupo':
-				return array('fa-users', 'text-default');
+				return array('fad fa-users', 'text-default');
 				break;
 			case 'materia':
-				return array('fa-th-list', 'text-default');
+				return array('fad fa-th-list', 'text-default');
 				break;
 			case 'resposta':
-				return array('fa-reply', 'text-default');
+				return array('fad fa-reply', 'text-default');
 				break;
 			case 'questao':
-				return array('fa-ballot-check', 'text-secondary');
+				return array('fad fa-ballot-check', 'text-secondary');
 				break;
 			default:
-				return array('fa-circle-notch', 'text-light');
-				break;
+				return array('fad fa-circle-notch', 'text-light');
 		}
 	}
 
@@ -2758,7 +2716,7 @@
 				<div class='$all_cell_classes $other_cell_classes'>
 					<div class='row'>
 						<div class='col'>
-							<span class='{$icone[1]} mr-1'><i class='fad {$icone[0]} fa-fw'></i></span>
+							<span class='{$icone[1]} mr-1'><i class='{$icone[0]} fa-fw'></i></span>
 							<a href='pagina.php?pagina_id=$pagina_id' class='text-primary'>$titulo</a>
 						</div>
 					</div>
@@ -2886,4 +2844,20 @@
 				return false;
 		}
 		return array($background, $icon_color, $icon, $meaning);
+	}
+
+	function return_plano_id_pagina_id($pagina_id) {
+		if ($pagina_id == false) {
+			return false;
+		}
+		$plano_id = false;
+		include 'templates/criar_conn.php';
+		$query = prepare_query("SELECT id FROM Planos WHERE pagina_id = $pagina_id");
+		$planos = $conn->query($query);
+		if ($planos->num_rows > 0) {
+			while ($plano = $planos->fetch_assoc()) {
+				$plano_id = $plano['id'];
+			}
+		}
+		return $plano_id;
 	}

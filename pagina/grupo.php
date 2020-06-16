@@ -67,13 +67,11 @@
 			$artefato_titulo = $artefato_pagina_info[6];
 			$artefato_pagina_tipo = $artefato_pagina_info[2];
 			$artefato_pagina_subtipo = $artefato_pagina_info[8];
-			if ($artefato_pagina_tipo == 'texto') {
-				$fa_icone = 'fa-file-alt fa-swap-opacity';
-			} else {
-				$artefato_info = return_pagina_icone_cor($artefato_pagina_tipo, $artefato_pagina_subtipo);
-				$fa_icone = $artefato_info[0];
-				$fa_color = $artefato_info[1];
-			}
+			$artefato_pagina_item_id = $artefato_pagina_info[1];
+
+			$artefato_info = return_pagina_icone($artefato_pagina_tipo, $artefato_pagina_subtipo, $artefato_pagina_item_id);
+			$fa_icone = $artefato_info[0];
+			$fa_color = $artefato_info[1];
 			/*if ($artefato_titulo == false) {
 				if ($item_tipo == 'texto') {
 					$nota_texto_id = $artefato_pagina_info[1];

@@ -97,8 +97,24 @@
 				$conn->query($query);
 				header("Location:pagina.php?pagina_id=$pagina_id");
 				exit();
+			} elseif ($pagina_plano_id == 'bp') {
+			    $pagina_tipo_override = 'pagina';
+			    $pagina_subtipo_override = 'plano';
+			    $pagina_titulo_override = $pagina_translated['your collection'];
+			    if (!isset($_SESSION['user_plano_id'])) {
+					$pagina_item_id_override = return_plano_id_pagina_id($user_escritorio);
+					if ($pagina_item_id_override == false) {
+					    $conn->query("INSERT INTO Planos (pagina_id, user_id) VALUES ($user_escritorio, $user_id)");
+					    $pagina_item_id_override = $conn->insert_id;
+                    }
+					$_SESSION['user_plano_id'] = $pagina_item_id_override;
+				} else {
+			        $pagina_item_id_override = $_SESSION['user_plano_id'];
+                }
+			    $pagina_id = $user_escritorio;
+            } else {
+				$pagina_id = return_pagina_id($pagina_plano_id, 'plano');
 			}
-			$pagina_id = return_pagina_id($pagina_plano_id, 'plano');
 		} else {
 			header('Location:pagina.php?pagina_id=3');
 			exit();
@@ -139,6 +155,19 @@
 		header('Location:pagina.php?pagina_id=3');
 		exit();
 	}
+
+	if (isset($pagina_tipo_override)) {
+	    $pagina_tipo = $pagina_tipo_override;
+    }
+	if (isset($pagina_subtipo_override)) {
+	    $pagina_subtipo = $pagina_subtipo_override;
+    }
+	if (isset($pagina_titulo_override)) {
+	    $pagina_titulo = $pagina_titulo_override;
+    }
+	if (isset($pagina_item_id_override)) {
+	    $pagina_item_id = $pagina_item_id_override;
+    }
 
 	if (isset($_POST['trigger_apagar_pagina'])) {
 		$query = prepare_query("DELETE FROM Paginas WHERE id = $pagina_id");
