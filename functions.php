@@ -2740,7 +2740,7 @@
 					";
 		} else {
 			$result .= "
-				<div class='rounded text-break $last_cell_classes ml-0 rgba-orange-slight d-flex justify-content-center'>
+				<div class='rounded text-break $last_cell_classes ml-0 rgba-orange-slight d-flex justify-content-center line-height-1'>
 					<a value='$elemento_id' class='text-muted set_tag_elemento_value align-self-center text-center' data-toggle='modal' data-target='#modal_set_tag'><small>$classificacao</small></a>
 				</div>
 				";
