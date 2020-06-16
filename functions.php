@@ -1101,6 +1101,17 @@
 				$conn->query($query);
 			}
 			return $nexo_pagina_id;
+		} elseif ($tipo == 'plano') {
+			$planos = $conn->query("SELECT pagina_id FROM Planos WHERE id = $item_id");
+			if ($planos->num_rows > 0) {
+				while ($plano = $planos->fetch_assoc()) {
+					$plano_pagina_id = $plano['pagina_id'];
+
+					return $plano_pagina_id;
+				}
+			} else {
+				return false;
+			}
 		}
 		return false;
 	}

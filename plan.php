@@ -6,8 +6,27 @@
 		header('Location:ubwiki.php');
 		exit();
 	}
+	$plan_id = false;
+	if (isset($_GET['plan'])) {
+	    $plan_id = $_GET['plan'];
+    }
+	if ($plan_id == false) {
+        $planos_usuario = $conn->query("SELECT id FROM Planos WHERE user_id = $user_id");
+    }
 	include 'templates/html_head.php';
 	include 'templates/navbar.php';
+
+	if (isset($_GET['build_collection'])) {
+		$items_biblioteca = $conn->query("SELECT DISTINCT elemento_id FROM Paginas_elementos WHERE pagina_id = $user_escritorio AND estado = 1 AND elemento_id IS NOT NULL ORDER BY id ASC");
+		$all_items_biblioteca = array();
+		if ($items_biblioteca->num_rows > 0) {
+			while ($item_biblioteca = $items_biblioteca->fetch_assoc()) {
+				$item_biblioteca_elemento_id = $item_biblioteca['elemento_id'];
+				array_push($all_items_biblioteca, $item_biblioteca_elemento_id);
+			}
+		}
+    }
+
 ?>
 <body class="grey lighten-5">
 <div class="container mt-1">
@@ -20,14 +39,6 @@
     <div class="row d-flex justify-content-center mx-1">
         <div id="coluna_unica" class="col">
 			<?php
-				$items_biblioteca = $conn->query("SELECT DISTINCT elemento_id FROM Paginas_elementos WHERE pagina_id = $user_escritorio AND estado = 1 AND elemento_id IS NOT NULL ORDER BY id ASC");
-				$all_items_biblioteca = array();
-				if ($items_biblioteca->num_rows > 0) {
-					while ($item_biblioteca = $items_biblioteca->fetch_assoc()) {
-						$item_biblioteca_elemento_id = $item_biblioteca['elemento_id'];
-						array_push($all_items_biblioteca, $item_biblioteca_elemento_id);
-					}
-				}
 
 				$items_planejamento = $conn->query("SELECT * FROM Planejamento WHERE user_id = $user_id ORDER BY estado DESC");
 				$all_items_planejamento = array();

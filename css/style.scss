@@ -68,7 +68,11 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 300 !important;
 }
 
-.lead {
+img {
+  max-width: 100%;
+}
+
+  .lead {
   font-family: $fontstack-subtitle !important;
 }
 

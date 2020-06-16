@@ -294,6 +294,7 @@
 	}
 
 	if ($pagina_compartilhamento == 'privado') {
+        //error_log('AT LEAST THIS SHOULD BE GUARANTEED TO HAPPEN');
 		$check_compartilhamento = false;
 		if ($pagina_user_id == $user_id) {
 			$check_compartilhamento = true;
@@ -303,16 +304,23 @@
 				$pagina_checar_compartilhamento = $pagina_curso_pagina_id;
 			}
 			if (isset($_SESSION['acesso_especial'])) {
+			    //error_log('ACESSO ESPCIAL WAS SET AT THIS POINT');
 				if ($_SESSION['acesso_especial'] == $pagina_checar_compartilhamento) {
 					$check_compartilhamento = true;
 				}
 			} else {
 				$check_compartilhamento = return_compartilhamento($pagina_checar_compartilhamento, $user_id);
 				if (($check_compartilhamento == false) && ($add_compartilhamento == true)) {
-					$check = $conn->query("INSERT INTO Compartilhamento (tipo, user_id, item_id, item_tipo, compartilhamento, recipiente_id) VALUES ('acesso', $pagina_user_id, $pagina_checar_compartilhamento, '$pagina_tipo', 'usuario', $user_id)");
+				    //error_log('DID THIS HAPPEN');
+				    $query = prepare_query("INSERT INTO Compartilhamento (tipo, user_id, item_id, item_tipo, compartilhamento, recipiente_id) VALUES ('acesso', $pagina_user_id, $pagina_checar_compartilhamento, '$pagina_tipo', 'usuario', $user_id)");
+				    //error_log($query);
+					$check = $conn->query($query);
 					if ($check == true) {
 						if ($pagina_tipo == 'curso') {
-							$conn->query("INSERT INTO Opcoes (user_id, opcao_tipo, opcao, opcao_string) VALUES ($user_id, 'curso', $pagina_item_id, '$pagina_id')");
+						    //error_log('AND THEN THIS ALSO HAPPENED');
+						    $query = prepare_query("INSERT INTO Opcoes (user_id, opcao_tipo, opcao, opcao_string) VALUES ($user_id, 'curso', $pagina_item_id, $pagina_id)");
+						    //error_log($query);
+							$conn->query($query);
 						}
 						$check_compartilhamento = return_compartilhamento($pagina_checar_compartilhamento, $user_id);
 					}

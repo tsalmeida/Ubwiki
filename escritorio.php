@@ -250,8 +250,7 @@
 				if ($user_tipo == 'admin') {
 					$artefato_id = 'reading_planner';
 					$artefato_subtitulo = $pagina_translated['Study Planner'];
-					$artefato_link = 'plan.php';
-					$artefato_badge = 'fa-external-link';
+					$artefato_modal = '#modal_planner';
 					$artefato_icone_background = 'cyan lighten-5';
 					$fa_icone = 'fa-calendar-check';
 					$fa_color = 'text-info';
@@ -427,6 +426,12 @@
 
 	$template_modal_div_id = 'modal_contribuicoes';
 	$template_modal_titulo = $pagina_translated['Verbetes em que contribuiu'];
+	$template_modal_body_conteudo = false;
+	$template_modal_show_buttons = false;
+	include 'templates/modal.php';
+
+	$template_modal_div_id = 'modal_planner';
+	$template_modal_titulo = $pagina_translated['Study Planner'];
 	$template_modal_body_conteudo = false;
 	$template_modal_show_buttons = false;
 	include 'templates/modal.php';
@@ -634,6 +639,16 @@
             if (data != 0) {
                 $('#body_modal_referencias').empty();
                 $('#body_modal_referencias').append(data);
+            }
+        })
+    })
+    $(document).on('click', '#artefato_reading_planner', function() {
+        $.post('engine.php', {
+            'list_planos': true
+        }, function (data) {
+            if (data != 0) {
+                $('#body_modal_planner').empty();
+                $('#body_modal_planner').append(data);
             }
         })
     })

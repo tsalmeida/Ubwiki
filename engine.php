@@ -1342,6 +1342,22 @@
 		echo $list_referencias;
 	}
 
+	if (isset($_POST['list_planos'])) {
+		$query = prepare_query("SELECT * FROM Planos WHERE user_id = $user_id");
+		$planos_usuario = $conn->query($query);
+		$list_planos = false;
+		$list_planos = "<ul class='list-group list-group-flush'>";
+		$list_planos .= put_together_list_item('link', 'pagina.php?plan_id=new', false, 'fad', 'fa-calendar-plus', $pagina_translated['Create new empty plan'], false, 'fad fa-external-link', 'list-group-item-info');
+		if ($planos_usuario->num_rows > 0) {
+			while ($plano_usuario = $planos_usuario->fetch_assoc()) {
+				$plano_usuario_pagina_id = $plano_usuario['pagina_id'];
+				$list_planos .= return_list_item($plano_usuario_pagina_id);
+			}
+		}
+		$list_planos .= "</ul>";
+		echo $list_planos;
+	}
+
 	if (isset($_POST['list_grupos_estudo'])) {
 		$query = prepare_query("SELECT DISTINCT grupo_id FROM Membros WHERE membro_user_id = $user_id AND estado = 1");
 		$grupos_estudo_usuario = $conn->query($query);
