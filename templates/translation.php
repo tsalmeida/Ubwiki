@@ -1,6 +1,7 @@
 <?php
 	
 	if (isset($_POST['select_language'])) {
+		unset($_SESSION['pagina_translated']);
 		$user_language = $_POST['select_language'];
 		$_SESSION['lg'] = $user_language;
 		unset($_SESSION['pagina_translated']);

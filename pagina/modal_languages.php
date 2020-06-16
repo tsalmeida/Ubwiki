@@ -11,7 +11,6 @@
 	
 	$artefato_id = 'modal_portugues';
 	$artefato_titulo = 'Português';
-	$artefato_tipo = 'lg_pt';
 	$artefato_button = 'pt';
 	$artefato_class = 'language_choose';
 	$fa_icone = 'fa-globe';
@@ -27,7 +26,6 @@
 	
 	$artefato_id = 'modal_english';
 	$artefato_titulo = 'English';
-	$artefato_tipo = 'lg_en';
 	$artefato_button = 'en';
 	$artefato_class = 'language_choose';
 	$fa_icone = 'fa-globe';
