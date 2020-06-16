@@ -127,11 +127,11 @@
 					$_SESSION['user_apelido'] = $usuario['apelido'];
 					$_SESSION['user_nome'] = $usuario['nome'];
 					$_SESSION['user_sobrenome'] = $usuario['sobrenome'];
-					$_SESSION['user_language'] = $usuario['language'];
-					$_SESSION['user_wallet'] = (int)return_wallet_value($_SESSION['user_id']);
-					if ($_SESSION['user_language'] != false) {
-						$_SESSION['lg'] = $_SESSION['user_language'];
+					if ($_SESSION['user_language'] != $usuario['language']) {
+						unset($_SESSION['pagina_translated']);
+						$_SESSION['user_language'] = $usuario['language'];
 					}
+					$_SESSION['user_wallet'] = (int)return_wallet_value($_SESSION['user_id']);
 					$_SESSION['user_escritorio'] = return_pagina_id($_SESSION['user_id'], 'escritorio');
 					$_SESSION['user_lounge'] = return_lounge_id($_SESSION['user_id']);
 					$user_avatar_info = return_avatar($_SESSION['user_id']);
@@ -165,8 +165,8 @@
 		$user_language = $_SESSION['user_language'];
 		$user_wallet = $_SESSION['user_wallet'];
 		$user_lounge = $_SESSION['user_lounge'];
-		if (!isset($_SESSION['lg'])) {
-			$_SESSION['lg'] = $user_language;
+		if (!isset($_SESSION['user_language'])) {
+			$_SESSION['user_language'] = $user_language;
 		}
 		$user_escritorio = $_SESSION['user_escritorio'];
 		$user_avatar_icone = $_SESSION['user_avatar_icone'];

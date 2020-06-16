@@ -1,9 +1,8 @@
 <?php
 	
 	if (isset($_POST['select_language'])) {
-		unset($_SESSION['pagina_translated']);
 		$user_language = $_POST['select_language'];
-		$_SESSION['lg'] = $user_language;
+		$_SESSION['user_language'] = $user_language;
 		unset($_SESSION['pagina_translated']);
 		$user_language_titulo = convert_language($user_language);
 		if ($user_id != false) {
@@ -12,18 +11,18 @@
 		}
 	}
 	
-	if (isset($_SESSION['lg'])) {
-		$user_language = $_SESSION['lg'];
-		$user_language_titulo = convert_language($user_language);
+	if (isset($_SESSION['user_language'])) {
+		$user_language = $_SESSION['user_language'];
 	} else {
 		$user_language = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
-		$user_language_titulo = convert_language($user_language);
+		$_SESSION['user_language'] = $user_language;
 	}
-	if ($user_language_titulo == false) {
-		$user_language = 'en';
-		$user_language_titulo = convert_language($user_language);
+	if (!isset($user_language)) {
+		$user_language = 'pt';
+		$_SESSION['user_language'] = $user_language;
 	}
-	
+	$user_language_titulo = convert_language($user_language);
+
 	function return_chave_titulo($chave_id)
 	{
 		if ($chave_id == false) {
