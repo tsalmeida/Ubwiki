@@ -2728,7 +2728,7 @@
 				</div>
 					";
 		$result .= "
-				<div class='$all_cell_classes $other_cell_classes'>
+				<div class='$all_cell_classes $other_cell_classes line-height-1'>
 					<a class='text-dark set_comment_elemento_id font-italic' href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_comment' value='$elemento_id'><small>$comments</small></a>
 				</div>
 					";
