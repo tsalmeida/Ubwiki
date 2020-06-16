@@ -3,7 +3,7 @@
 	include 'engine.php';
 	
 	if ($user_tipo != 'admin') {
-	    header('Location:pagina.php?pagina_id=4');
+	    header('Location:pagina.php?pagina_id=3');
     }
 	
 	$pagina_tipo = 'simulados';
@@ -17,7 +17,7 @@
 		$pagina_curso_pagina_id = $pagina_curso_info[0];
 		$pagina_curso_user_id = $pagina_curso_info[4];
 	} else {
-		header('Location:pagina.php?pagina_id=4');
+		header('Location:pagina.php?pagina_id=3');
 	}
 	
 	if (isset($_POST['nova_edicao_trigger'])) {

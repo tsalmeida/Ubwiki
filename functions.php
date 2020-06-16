@@ -1106,7 +1106,6 @@
 			if ($planos->num_rows > 0) {
 				while ($plano = $planos->fetch_assoc()) {
 					$plano_pagina_id = $plano['pagina_id'];
-
 					return $plano_pagina_id;
 				}
 			} else {
@@ -2746,7 +2745,7 @@
 		$first_cell_classes = 'col-1 p-1';
 		$last_cell_classes = 'col-1 p-1 ml-1';
 		$other_cell_classes = 'col ml-1';
-		$all_cell_classes = 'bg-white rounded text-wrap';
+		$all_cell_classes = 'bg-white rounded text-wrap border';
 
 		$result = false;
 		$result .= "<div class='row grey lighten-5 mt-1'>";

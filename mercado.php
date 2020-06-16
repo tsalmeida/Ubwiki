@@ -3,7 +3,7 @@
 	include 'engine.php';
 	
 	if ($user_tipo != 'admin') {
-		header('Location:pagina.php?pagina_id=4');
+		header('Location:pagina.php?pagina_id=3');
 	}
 	
 	$pagina_tipo = 'mercado';

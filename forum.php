@@ -62,7 +62,7 @@
 	
 	$check_compartilhamento = return_compartilhamento($pagina_id, $user_id);
 	if ($check_compartilhamento == false) {
-		header('Location:pagina.php?pagina_id=4');
+		header('Location:pagina.php?pagina_id=3');
 	}
 	
 	if (isset($_GET['topico_id'])) {

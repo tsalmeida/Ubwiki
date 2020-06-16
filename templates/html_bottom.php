@@ -1167,7 +1167,7 @@
 		";
 	}
 
-	if ($pagina_tipo == 'curso') {
+	if (($pagina_tipo == 'curso') || ($pagina_subtipo == 'plano')) {
 		echo "
 			<script type='text/javascript'>
 				$(document).on('click', '#reveal_introduction', function() {
@@ -1475,7 +1475,7 @@
 		";
 	}
 
-	if ($pagina_tipo == 'planner') {
+	if ($pagina_subtipo == 'plano') {
 		echo "
 			<script type='text/javascript'>
 				$(document).on('click', '.set_state_elemento_value', function() {

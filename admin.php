@@ -9,15 +9,7 @@
 	}
 	
 	if (isset($_POST['trigger_atualizacao'])) {
-	    adicionar_chave_traducao('Set state', 1);
-	    adicionar_chave_traducao('Add comment', 1);
-	    adicionar_chave_traducao('Write comment here', 1);
-	    adicionar_chave_traducao('Set plan tag', 1);
-	    adicionar_chave_traducao('Set category', 1);
-	    adicionar_chave_traducao('Create new empty plan', 1);
-	    $conn->query("CREATE TABLE `Ubwiki`.`Planos` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `user_id` INT(11) NULL DEFAULT NULL , `titulo` VARCHAR(255) NULL DEFAULT NULL , `criacao` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
-	    $conn->query("ALTER TABLE `Planejamento` ADD `plano_id` INT(11) NULL DEFAULT NULL AFTER `estado`;");
-	    $conn->query("ALTER TABLE `Planos` ADD `pagina_id` INT(11) NULL DEFAULT NULL AFTER `id`;");
+	    $conn->query("ALTER TABLE `Planejamento` ADD `pagina_id` INT(11) NULL AFTER `plano_id`;");
 	}
 	
 	if (isset($_POST['novos_creditos'])) {

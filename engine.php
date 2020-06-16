@@ -209,10 +209,6 @@
 	} else {
 		$pagina_translated = $_SESSION['pagina_translated'];
 	}
-
-	if (isset($_GET['curso_id'])) {
-		$_SESSION['curso_id'] = $_GET['curso_id'];
-	}
 	if (!isset($_SESSION['curso_id'])) {
 		//$_SESSION['curso_id'] = return_curso_ativo($user_id);
 		$_SESSION['curso_id'] = 2;
@@ -1347,7 +1343,7 @@
 		$planos_usuario = $conn->query($query);
 		$list_planos = false;
 		$list_planos = "<ul class='list-group list-group-flush'>";
-		$list_planos .= put_together_list_item('link', 'pagina.php?plan_id=new', false, 'fad', 'fa-calendar-plus', $pagina_translated['Create new empty plan'], false, 'fad fa-external-link', 'list-group-item-info');
+		$list_planos .= put_together_list_item('link', 'pagina.php?plano_id=new', false, 'fad', 'fa-calendar-plus', $pagina_translated['Create new empty plan'], false, 'fad fa-external-link', 'list-group-item-info');
 		if ($planos_usuario->num_rows > 0) {
 			while ($plano_usuario = $planos_usuario->fetch_assoc()) {
 				$plano_usuario_pagina_id = $plano_usuario['pagina_id'];

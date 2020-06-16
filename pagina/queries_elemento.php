@@ -21,7 +21,7 @@
 				$conn->query($query);
 				$pagina_compartilhamento = $elemento_compartilhamento;
 				if ($user_id != $elemento_user_id) {
-					header('Location:pagina.php?pagina_id=4');
+					header('Location:pagina.php?pagina_id=3');
 				}
 			}
 			$elemento_user_apelido = return_apelido_user_id($elemento_user_id);

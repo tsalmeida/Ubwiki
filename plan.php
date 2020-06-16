@@ -72,43 +72,7 @@
 </div>
 <?php
 
-    $template_modal_div_id = 'modal_set_state';
-    $template_modal_titulo = $pagina_translated['Set state'];
-    $template_modal_body_conteudo = false;
-    $template_modal_body_conteudo .= "<input type='hidden' value='' id='set_state_elemento_id'>";
-    $template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
-    $estado = 15;
-    while ($estado > -1) {
-        $icone = return_plan_icon($estado);
-        $icone[3] = $pagina_translated[$icone[3]];
-        $template_modal_body_conteudo .= put_together_list_item('link_button', $estado, "$icone[1] $icone[0] p-1 rounded align-self-center", false, $icone[2], $icone[3], false, false, false, 'set_this_state');
-        $estado = $estado - 1;
-    }
-    $template_modal_body_conteudo .= "</ul>";
-    $template_modal_show_buttons = false;
-    include 'templates/modal.php';
 
-    $template_modal_div_id = 'modal_add_comment';
-    $template_modal_titulo = $pagina_translated['Add comment'];
-    $template_modal_body_conteudo = false;
-    $template_modal_body_conteudo .= "<input type='hidden' value='' id='set_comment_elemento_id' name='set_comment_elemento_id'>";
-    $template_modal_body_conteudo .= "
-        <div class='md-form'>
-            <textarea class='md-textarea form-control' id='set_comment' name='set_comment' placeholder='{$pagina_translated['Add comment here']}'></textarea>
-        </div>
-    ";
-    include 'templates/modal.php';
-
-    $template_modal_div_id = 'modal_set_tag';
-    $template_modal_titulo = $pagina_translated['Set plan tag'];
-    $template_modal_body_conteudo = false;
-    $template_modal_body_conteudo .= "
-        <input type='hidden' value='' id='set_tag_elemento_id' name='set_tag_elemento_id'>
-        <div class='md-form'>
-            <input type='text' class='form-control' name='plan_set_tag' placeholder='{$pagina_translated['Set category']}'>
-        </div>
-    ";
-    include 'templates/modal.php';
 
 	include 'pagina/modal_languages.php';
 ?>

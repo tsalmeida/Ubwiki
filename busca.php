@@ -4,7 +4,7 @@
 	if (isset($_GET['busca'])) {
 		$busca = $_GET['busca'];
 	} else {
-		header('Location:pagina.php?pagina_id=4');
+		header('Location:pagina.php?pagina_id=3');
 	}
 	
 	$curso_paginas = return_curso_paginas($curso_id, 'all');

@@ -10,13 +10,13 @@
 						$item_grupo_id = $comp['recipiente_id'];
 						$check_membro_grupo = check_membro_grupo($user_id, $item_grupo_id);
 						if ($check_membro_grupo == false) {
-							header('Location:pagina.php?pagina_id=4');
+							header('Location:pagina.php?pagina_id=3');
 							exit();
 						}
 					} elseif ($item_comp_compartilhamento == 'usuario') {
 						$item_usuario_id = $comp['recipiente_id'];
 						if ($item_usuario_id != $user_id) {
-							header('Location:pagina.php?pagina_id=4');
+							header('Location:pagina.php?pagina_id=3');
 							exit();
 						}
 					}
