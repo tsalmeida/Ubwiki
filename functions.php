@@ -2440,7 +2440,7 @@
 						return array('fad fa-calendar-check', 'text-info');
 						break;
 					default:
-						return array('ffad a-columns', 'text-info');
+						return array('fad fa-columns', 'text-info');
 						break;
 				}
 			case 'secao':
