@@ -352,7 +352,7 @@
 						$template_conteudo_hidden .= include 'templates/artefato_item.php';
 					}
 				}
-
+/*
 				$artefato_id = 'hidden_settings';
 				$artefato_subtitulo = $pagina_translated['Hidden icons settings'];
 				$artefato_modal = '#modal_hidden_settings';
@@ -360,8 +360,7 @@
 				$fa_color = 'text-default';
 				$artefato_icone_background = 'teal lighten-5';
 				$template_conteudo_hidden .= include 'templates/artefato_item.php';
-
-				include 'templates/page_element.php';
+				include 'templates/page_element.php';*/
 
 				$template_id = 'escritorio_segunda_janela';
 				$template_titulo = false;
