@@ -92,24 +92,20 @@
 		}
 		return false;
 	}
-	
-	function registrar_credito($codigo, $value)
-	{
-		if (($codigo == false) || ($value == false)) {
+
+	function registrar_creditos($value, $quantity) {
+		if ($quantity == false) {
 			return false;
-		} else {
-			include 'templates/criar_conn.php';
-			$conn->query("INSERT INTO Creditos (codigo, value) VALUES ('$codigo', $value)");
-			$check = $conn->insert_id;
-			if ($check != false) {
-				return true;
-			} else {
-				return false;
-			}
 		}
-		return false;
+		include 'templates/criar_conn.php';
+		$count = 0;
+		while ($count < $quantity) {
+			$count++;
+			$novo_credito = generateRandomString(10, 'capsintegers');
+			$conn->query("INSERT INTO Creditos (codigo, value) VALUES ('$novo_credito', $value)");
+		}
 	}
-	
+
 	if (isset($_POST['recalc_review_pagina_id'])) {
 		$recalc_review_pagina_id = $_POST['recalc_review_pagina_id'];
 		$recalc_reviewer_choice = $_POST['recalc_reviewer_choice'];

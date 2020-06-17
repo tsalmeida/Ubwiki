@@ -10,17 +10,11 @@
 	
 	if (isset($_POST['trigger_atualizacao'])) {
 	    $conn->query("ALTER TABLE `Planejamento` ADD `pagina_id` INT(11) NULL AFTER `plano_id`;");
+	    registrar_creditos(100, 500);
+	    registrar_creditos(300, 500);
+	    registrar_creditos(600, 500);
 	}
-	
-	if (isset($_POST['novos_creditos'])) {
-		$count = 0;
-		while ($count < 300) {
-			$count++;
-			$novo_credito = generateRandomString(8, 'capsintegers');
-			registrar_credito($novo_credito, 50);
-		}
-	}
-	
+
 	if (isset($_POST['trigger_atualizar_textos_size'])) {
 	    $query = prepare_query("SELECT id, verbete_content FROM Textos");
 		$textos = $conn->query($query);
