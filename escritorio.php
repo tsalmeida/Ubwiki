@@ -359,8 +359,9 @@
 				$fa_icone = 'fa-eye';
 				$fa_color = 'text-default';
 				$artefato_icone_background = 'teal lighten-5';
-				$template_conteudo_hidden .= include 'templates/artefato_item.php';
-				include 'templates/page_element.php';*/
+				$template_conteudo_hidden .= include 'templates/artefato_item.php';*/
+
+				include 'templates/page_element.php';
 
 				$template_id = 'escritorio_segunda_janela';
 				$template_titulo = false;
