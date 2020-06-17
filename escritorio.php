@@ -75,6 +75,10 @@
 	include 'templates/html_head.php';
 	include 'templates/navbar.php';
 
+	$all_icons = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21);
+	$icons_to_show = array(1, 2, 3, 4, 6, 10, 13, 14, 16, 17);
+//	$icons_to_hide = array_diff($all_icons, $icons_to_show);
+
 ?>
 <body class="grey lighten-5">
 <div class="container mt-1">
@@ -95,20 +99,13 @@
         <div id="coluna_unica" class="col">
 			<?php
 
-				/*
-				$template_id = 'nexus_navegacao';
-				$template_titulo = false;
-				$template_conteudo = false;
-				$template_conteudo_class = 'justify-content-center';
-				$template_conteudo_no_col = true;
-
-				include 'templates/page_element.php';*/
-
+                $template_conteudo_hidden = false;
 
 				$template_id = 'escritorio_primeira_janela';
 				$template_titulo = false;
 				$template_conteudo = false;
 				$template_conteudo_class = 'justify-content-start';
+				$template_botoes = "<a id='show_hidden_icons' class='text-default' title='{$pagina_translated['Hidden icons']}'><i class='fad fa-eye-slash fa-fw fa-lg'></i></a>";
 				$template_conteudo_no_col = true;
 
 				if ($curso_id != false) {
@@ -121,7 +118,11 @@
 					$fa_type = 'fas';
 					$fa_icone = 'fa-pen-alt';
 					$fa_color = 'text-light';
-					$template_conteudo .= include 'templates/artefato_item.php';
+					if (in_array(1, $icons_to_show)) {
+						$template_conteudo .= include 'templates/artefato_item.php';
+					} else {
+						$template_conteudo_hidden .= include 'templates/artefato_item.php';
+					}
 				}
 
 				$artefato_id = 'estudos_recentes';
@@ -129,78 +130,126 @@
 				$artefato_modal = '#modal_estudos_recentes';
 				$fa_icone = 'fa-history fa-swap-opacity';
 				$fa_color = 'text-info';
-				$template_conteudo .= include 'templates/artefato_item.php';
+				if (in_array(2, $icons_to_show)) {
+					$template_conteudo .= include 'templates/artefato_item.php';
+				} else {
+					$template_conteudo_hidden .= include 'templates/artefato_item.php';
+				}
 
 				$artefato_id = 'cursos';
 				$artefato_subtitulo = $pagina_translated['Seus cursos'];
 				$fa_icone = 'fa-graduation-cap';
 				$fa_color = 'text-success';
 				$artefato_modal = '#modal_cursos';
-				$template_conteudo .= include 'templates/artefato_item.php';
+				if (in_array(3, $icons_to_show)) {
+					$template_conteudo .= include 'templates/artefato_item.php';
+				} else {
+					$template_conteudo_hidden .= include 'templates/artefato_item.php';
+				}
 
 				$artefato_id = 'typewriter';
 				$artefato_subtitulo = $pagina_translated['Suas páginas e documentos de texto'];
 				$fa_icone = 'fa-typewriter';
 				$fa_color = 'text-primary';
 				$artefato_modal = '#modal_paginas_textos';
-				$template_conteudo .= include 'templates/artefato_item.php';
+				if (in_array(4, $icons_to_show)) {
+					$template_conteudo .= include 'templates/artefato_item.php';
+				} else {
+					$template_conteudo_hidden .= include 'templates/artefato_item.php';
+				}
 
 				$artefato_id = 'suas_paginas_livres';
 				$artefato_subtitulo = $pagina_translated['your areas of interest'];
 				$fa_icone = 'fa-tags';
 				$fa_color = 'text-warning';
 				$artefato_modal = '#modal_areas_interesse';
-				$template_conteudo .= include 'templates/artefato_item.php';
+				if (in_array(5, $icons_to_show)) {
+					$template_conteudo .= include 'templates/artefato_item.php';
+				} else {
+					$template_conteudo_hidden .= include 'templates/artefato_item.php';
+				}
 
 				$artefato_id = 'biblioteca_particular';
 				$artefato_subtitulo = $pagina_translated['your collection'];
 				$fa_icone = 'fa-books';
 				$fa_color = 'text-success';
 				$artefato_modal = '#modal_biblioteca_particular';
-				$template_conteudo .= include 'templates/artefato_item.php';
+				if (in_array(6, $icons_to_show)) {
+					$template_conteudo .= include 'templates/artefato_item.php';
+				} else {
+					$template_conteudo_hidden .= include 'templates/artefato_item.php';
+				}
 
 				$artefato_id = 'grupos_estudo';
 				$artefato_subtitulo = $pagina_translated['your study groups'];
 				$fa_icone = 'fa-users';
 				$fa_color = 'text-default';
-				$template_conteudo .= include 'templates/artefato_item.php';
+				if (in_array(7, $icons_to_show)) {
+					$template_conteudo .= include 'templates/artefato_item.php';
+				} else {
+					$template_conteudo_hidden .= include 'templates/artefato_item.php';
+				}
 
 				$artefato_id = 'notificacoes';
 				$artefato_subtitulo = $pagina_translated['notifications'];
 				$fa_icone = 'fa-bell fa-swap-opacity';
 				$fa_color = 'text-info';
-				$template_conteudo .= include 'templates/artefato_item.php';
+				if (in_array(8, $icons_to_show)) {
+					$template_conteudo .= include 'templates/artefato_item.php';
+				} else {
+					$template_conteudo_hidden .= include 'templates/artefato_item.php';
+				}
 
 				$artefato_id = 'comments';
 				$artefato_subtitulo = $pagina_translated['Suas participações no fórum'];
 				$fa_icone = 'fa-comments-alt';
 				$fa_color = 'text-secondary';
-				$template_conteudo .= include 'templates/artefato_item.php';
+				if (in_array(9, $icons_to_show)) {
+					$template_conteudo .= include 'templates/artefato_item.php';
+				} else {
+					$template_conteudo_hidden .= include 'templates/artefato_item.php';
+				}
 
 				$artefato_id = 'bookmarks';
 				$artefato_subtitulo = $pagina_translated['bookmarks'];
 				$fa_icone = 'fa-bookmark';
 				$fa_color = 'text-danger';
-				$template_conteudo .= include 'templates/artefato_item.php';
+				if (in_array(10, $icons_to_show)) {
+					$template_conteudo .= include 'templates/artefato_item.php';
+				} else {
+					$template_conteudo_hidden .= include 'templates/artefato_item.php';
+				}
 
 				$artefato_id = 'contribuicoes';
 				$artefato_subtitulo = $pagina_translated['Verbetes em que contribuiu'];
 				$fa_icone = 'fa-spa';
 				$fa_color = 'text-warning';
-				$template_conteudo .= include 'templates/artefato_item.php';
+				if (in_array(11, $icons_to_show)) {
+					$template_conteudo .= include 'templates/artefato_item.php';
+				} else {
+					$template_conteudo_hidden .= include 'templates/artefato_item.php';
+				}
 
 				$artefato_id = 'referencias';
 				$artefato_subtitulo = $pagina_translated['sent references'];
 				$fa_icone = 'fa-photo-video';
 				$fa_color = 'text-danger';
-				$template_conteudo .= include 'templates/artefato_item.php';
+				if (in_array(12, $icons_to_show)) {
+					$template_conteudo .= include 'templates/artefato_item.php';
+				} else {
+					$template_conteudo_hidden .= include 'templates/artefato_item.php';
+				}
 
 				$fa_icone = $user_avatar_icone;
 				$fa_color = $user_avatar_cor;
 				$artefato_modal = '#modal_opcoes';
 				$artefato_badge = 'fa-cog fa-swap-opacity';
 				$artefato_subtitulo = $pagina_translated['user settings'];
-				$template_conteudo .= include 'templates/artefato_item.php';
+				if (in_array(13, $icons_to_show)) {
+					$template_conteudo .= include 'templates/artefato_item.php';
+				} else {
+					$template_conteudo_hidden .= include 'templates/artefato_item.php';
+				}
 
 				if ($user_tipo == 'admin') {
 					$artefato_id = 'administradores';
@@ -209,7 +258,11 @@
 					$artefato_badge = 'fa-external-link';
 					$fa_icone = 'fa-user-crown';
 					$fa_color = 'text-primary';
-					$template_conteudo .= include 'templates/artefato_item.php';
+					if (in_array(14, $icons_to_show)) {
+						$template_conteudo .= include 'templates/artefato_item.php';
+					} else {
+						$template_conteudo_hidden .= include 'templates/artefato_item.php';
+					}
 				}
 
 				$artefato_id = 'sala_visitas';
@@ -218,7 +271,11 @@
 				$artefato_badge = 'fa-external-link';
 				$fa_icone = 'fa-mug-tea';
 				$fa_color = 'text-secondary';
-				$template_conteudo .= include "templates/artefato_item.php";
+				if (in_array(15, $icons_to_show)) {
+					$template_conteudo .= include 'templates/artefato_item.php';
+				} else {
+					$template_conteudo_hidden .= include 'templates/artefato_item.php';
+				}
 
 				$artefato_id = 'wallet';
 				$artefato_titulo = $pagina_translated['sua carteira'];
@@ -226,7 +283,11 @@
 				$artefato_modal = '#modal_wallet';
 				$fa_icone = 'fa-wallet';
 				$fa_color = 'text-success';
-				$template_conteudo .= include 'templates/artefato_item.php';
+				if (in_array(16, $icons_to_show)) {
+					$template_conteudo .= include 'templates/artefato_item.php';
+				} else {
+					$template_conteudo_hidden .= include 'templates/artefato_item.php';
+				}
 
 				if ($user_revisor == true) {
 					$artefato_id = 'review';
@@ -235,25 +296,35 @@
 					$artefato_badge = 'fa-external-link';
 					$fa_icone = 'fa-highlighter';
 					$fa_color = 'text-warning';
-					$template_conteudo .= include 'templates/artefato_item.php';
+					if (in_array(17, $icons_to_show)) {
+						$template_conteudo .= include 'templates/artefato_item.php';
+					} else {
+						$template_conteudo_hidden .= include 'templates/artefato_item.php';
+					}
 				}
 
 				$artefato_id = 'bfranklin';
 				$artefato_subtitulo = $pagina_translated['metodo bfranklin'];
 				$artefato_link = 'bfranklin.php';
 				$artefato_badge = 'fa-external-link';
-				//$artefato_icone_background = 'purple lighten-5';
 				$fa_icone = 'fa-pen-nib';
 				$fa_color = 'text-secondary';
-				$template_conteudo .= include 'templates/artefato_item.php';
+				if (in_array(18, $icons_to_show)) {
+					$template_conteudo .= include 'templates/artefato_item.php';
+				} else {
+					$template_conteudo_hidden .= include 'templates/artefato_item.php';
+				}
 
 				$artefato_id = 'reading_planner';
 				$artefato_subtitulo = $pagina_translated['Study Planner'];
 				$artefato_modal = '#modal_planner';
-				$artefato_icone_background = 'cyan lighten-5';
 				$fa_icone = 'fa-calendar-check';
 				$fa_color = 'text-info';
-				$template_conteudo .= include 'templates/artefato_item.php';
+				if (in_array(19, $icons_to_show)) {
+					$template_conteudo .= include 'templates/artefato_item.php';
+				} else {
+					$template_conteudo_hidden .= include 'templates/artefato_item.php';
+				}
 
 				if ($user_id == 1) {
 					$artefato_id = 'simulados';
@@ -263,8 +334,11 @@
 					$artefato_icone_background = 'teal lighten-5';
 					$fa_icone = 'fa-clipboard-list-check';
 					$fa_color = 'text-default';
-					$template_conteudo .= include 'templates/artefato_item.php';
-
+					if (in_array(20, $icons_to_show)) {
+						$template_conteudo .= include 'templates/artefato_item.php';
+					} else {
+						$template_conteudo_hidden .= include 'templates/artefato_item.php';
+					}
 					$artefato_id = 'homepage';
 					$artefato_subtitulo = $pagina_translated['Homepage'];
 					$artefato_link = 'nexus.php';
@@ -272,10 +346,33 @@
 					$artefato_icone_background = 'red lighten-5';
 					$fa_icone = 'fa-house-user';
 					$fa_color = 'text-danger';
-					$template_conteudo .= include 'templates/artefato_item.php';
+					if (in_array(21, $icons_to_show)) {
+						$template_conteudo .= include 'templates/artefato_item.php';
+					} else {
+						$template_conteudo_hidden .= include 'templates/artefato_item.php';
+					}
 				}
 
+				$artefato_id = 'hidden_settings';
+				$artefato_subtitulo = $pagina_translated['Hidden icons settings'];
+				$artefato_modal = '#modal_hidden_settings';
+				$fa_icone = 'fa-eye';
+				$fa_color = 'text-default';
+				$artefato_icone_background = 'teal lighten-5';
+				$template_conteudo_hidden .= include 'templates/artefato_item.php';
+
 				include 'templates/page_element.php';
+
+				$template_id = 'escritorio_segunda_janela';
+				$template_titulo = false;
+				$template_classes = 'hidden';
+				$template_conteudo_class = 'justify-content-start';
+				$template_botoes = "<a id='hide_hidden_icons' class='text-success' title='{$pagina_translated['Hidden icons']}'><i class='fad fa-eye fa-fw fa-lg'></i></a>";
+				$template_conteudo_no_col = true;
+				$template_conteudo = $template_conteudo_hidden;
+
+				include 'templates/page_element.php';
+
 			?>
         </div>
     </div>
@@ -704,6 +801,14 @@
             }
         });
     });
+    $(document).on('click', '#hide_hidden_icons', function() {
+        $('#escritorio_segunda_janela').addClass('hidden')
+        $('#escritorio_primeira_janela').removeClass('hidden')
+    })
+    $(document).on('click', '#show_hidden_icons', function() {
+        $('#escritorio_primeira_janela').addClass('hidden')
+        $('#escritorio_segunda_janela').removeClass('hidden')
+    })
 </script>
 
 <?php

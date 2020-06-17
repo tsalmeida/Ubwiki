@@ -9,10 +9,8 @@
 	}
 	
 	if (isset($_POST['trigger_atualizacao'])) {
-	    $conn->query("ALTER TABLE `Planejamento` ADD `pagina_id` INT(11) NULL AFTER `plano_id`;");
-	    registrar_creditos(100, 500);
-	    registrar_creditos(300, 500);
-	    registrar_creditos(600, 500);
+	    adicionar_chave_traducao('Hidden icons', 1);
+	    adicionar_chave_traducao('Hidden icons settings', 1);
 	}
 
 	if (isset($_POST['trigger_atualizar_textos_size'])) {
