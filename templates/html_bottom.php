@@ -1417,7 +1417,7 @@
 				        if (data != 0) {
 				            $('#modelo').addClass('hidden');
 				        } else {
-				            alert('Some problem happened')
+				            alert('Some problem has happened')
 				        }
 				    })
 				})
