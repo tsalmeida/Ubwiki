@@ -825,7 +825,7 @@
 					        <a href='print_elemento.php?pagina_id=$pagina_id' target='_blank' id='print_elemento_partes' class='ml-1 text-primary' title='{$pagina_translated['print elemento partes']}'><i class='fad fa-print fa-fw fa-lg'></i></a>
 					    ";
 				}
-				if (($pagina_tipo != 'sistema') && ($pagina_compartilhamento != 'escritorio') && ($pagina_subtipo != 'modelo')) {
+				if (($pagina_tipo != 'sistema') && ($pagina_compartilhamento != 'escritorio') && ($pagina_subtipo != 'modelo') && ($pagina_id != $user_escritorio)) {
 					$query = prepare_query("SELECT timestamp, comentario_text, user_id FROM Forum WHERE pagina_id = $pagina_id");
 					$comments = $conn->query($query);
 					if ($comments->num_rows == 0) {
@@ -917,7 +917,7 @@
 					echo "<a class='text-primary escritorio_modelo $adicionar_modelo_hidden' id='adicionar_modelo' value='adicionar_modelo' title='{$pagina_translated['Adicionar seus modelos']}'><i class='fad fa-lamp-desk fa-fw fa-lg'></i></a>";
 					echo "<a class='text-secondary escritorio_modelo $remover_modelo_hidden' id='remover_modelo' value='remover_modelo' title='{$pagina_translated['Remover seus modelos']}'><i class='fad fa-lamp-desk fa-fw fa-lg'></i></a>";
 				}
-				if (($pagina_tipo != 'sistema') && ($pagina_compartilhamento != 'escritorio')) {
+				if (($pagina_tipo != 'sistema') && ($pagina_compartilhamento != 'escritorio') && ($pagina_id != $user_escritorio)) {
 					if ($etiquetados->num_rows > 0) {
 						$etiquetas_color = 'text-warning';
 					} else {
@@ -960,7 +960,7 @@
 						$marcar_bookmark = false;
 						$desmarcar_bookmark = 'collapse';
 					}
-					if ($pagina_subtipo != 'modelo') {
+					if (($pagina_subtipo != 'modelo') && ($pagina_id != $user_escritorio)) {
 						if ($user_id != false) {
 							echo "
                                   <a href='javascript:void(0);' id='add_bookmark' class='text-primary ml-1 $marcar_bookmark' title='{$pagina_translated['Marcar para leitura']}' value='$pagina_id'><i class='fad fa-bookmark fa-fw fa-lg'></i></a>
@@ -1173,7 +1173,7 @@
 
 			$paginas_sem_verbete = array('texto', 'materia', 'questao', 'texto_apoio', 'grupo');
 			$paginas_subtipos_sem_verbete = array('modelo');
-			if ((!in_array($pagina_tipo, $paginas_sem_verbete)) && (!in_array($pagina_subtipo, $paginas_subtipos_sem_verbete))) {
+			if ((!in_array($pagina_tipo, $paginas_sem_verbete)) && (!in_array($pagina_subtipo, $paginas_subtipos_sem_verbete)) && ($pagina_id != $user_escritorio)) {
 				$template_id = 'verbete';
 				if ($wiki_id == false) {
 					if (($pagina_tipo == 'curso') || ($pagina_subtipo == 'plano')) {

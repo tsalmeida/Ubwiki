@@ -1324,6 +1324,9 @@
 		if ($planos_usuario->num_rows > 0) {
 			while ($plano_usuario = $planos_usuario->fetch_assoc()) {
 				$plano_usuario_pagina_id = $plano_usuario['pagina_id'];
+				if ($plano_usuario_pagina_id == $user_escritorio) {
+					continue;
+				}
 				$list_planos .= return_list_item($plano_usuario_pagina_id);
 			}
 		}
