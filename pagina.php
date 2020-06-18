@@ -1239,14 +1239,16 @@
 				$template_quill_vazio = $pagina_translated['Model explanation'];
 				$template_botoes_padrao = false;
 				$template_classes = false;
-				if ($modelo_do_usuario == 'hidden') {
-					$esconder_paragrafo_hidden_botao = 'hidden';
-				} else {
-					$esconder_paragrafo_hidden_botao = false;
-				}
-				$template_botoes = "
+				if ($modelo_do_usuario != false) {
+					if ($modelo_do_usuario == 'hidden') {
+						$esconder_paragrafo_hidden_botao = 'hidden';
+					} else {
+						$esconder_paragrafo_hidden_botao = false;
+					}
+					$template_botoes = "
 				    <a class='text-secondary modelo_esconder_paragrafo' href='javascript:void(0);' class='$esconder_paragrafo_hidden_botao'><i class='fad fa-times-square fa-fw'></i></a>
 				";
+				}
 				if ($modelo_do_usuario == 'hidden') {
 					$template_classes .= 'hidden';
 				}
@@ -1831,7 +1833,7 @@
 		$template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
 		if ($privilegio_edicao == true) {
 			$template_modal_body_conteudo .= "<span data-toggle='modal' data-target='#modal_partes_elemento'>";
-			$template_modal_body_conteudo .= put_together_list_item('modal', '#modal_partes_form', 'text-default', 'fad', 'fa-plus-square', $pagina_translated['Adicionar seção'], false, 'cyan lighten-5');
+			$template_modal_body_conteudo .= put_together_list_item('modal', '#modal_partes_form', false, 'fad', 'fa-plus-square', $pagina_translated['Adicionar seção'], false, false, 'list-group-item-success');
 			$template_modal_body_conteudo .= "</span>";
 		}
 		$template_modal_body_conteudo .= $lista_de_secoes;

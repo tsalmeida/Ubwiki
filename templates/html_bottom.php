@@ -1382,9 +1382,11 @@
 						    if (this_operation == 'adicionar_modelo') {
 							    $('#adicionar_modelo').addClass('hidden');
 							    $('#remover_modelo').removeClass('hidden');
+							    window.location.reload(true);
 							} else {
 						        $('#adicionar_modelo').removeClass('hidden');
 						        $('#remover_modelo').addClass('hidden');
+						        window.location.reload(true);
 							}
 						} else {
 							alert('Some problem happened');
@@ -1401,6 +1403,7 @@
 							$('#adicionar_modelo').addClass('hidden');
 							$('#remover_modelo').removeClass('hidden');
 							$('.modelo_esconder_paragrafo').removeClass('hidden');
+							window.location.reload(true);
 				        } else {
 				            alert('Some problem happened')
 				        }

@@ -2846,7 +2846,8 @@
 		return array($background, $icon_color, $icon, $meaning);
 	}
 
-	function return_plano_id_pagina_id($pagina_id) {
+	function return_plano_id_pagina_id($pagina_id)
+	{
 		if ($pagina_id == false) {
 			return false;
 		}
@@ -2860,4 +2861,37 @@
 			}
 		}
 		return $plano_id;
+	}
+
+	function convert_background($fa_color)
+	{
+		switch ($fa_color) {
+			case 'text-info':
+				return 'cyan lighten-5';
+				break;
+			case 'text-primary':
+				return 'blue lighten-5';
+				break;
+			case 'text-warning':
+				return 'orange lighten-5';
+				break;
+			case 'text-danger':
+				return 'red lighten-5';
+				break;
+			case 'text-success':
+				return 'green lighten-5';
+				break;
+			case 'text-secondary':
+				return 'purple lighten-5';
+				break;
+			case 'text-default':
+				return 'teal lighten-5';
+				break;
+			case 'text-dark':
+			case 'text-muted':
+				return 'grey lighten-4';
+				break;
+			default:
+				return 'bg-white';
+		}
 	}

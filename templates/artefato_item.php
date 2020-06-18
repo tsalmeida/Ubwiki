@@ -25,9 +25,7 @@
 	if (!isset($artefato_class)) {
 		$artefato_class = false;
 	}
-	if (!isset($artefato_icone_background)) {
-		$artefato_icone_background = false;
-	}
+
 	if (!isset($fa_invert)) {
 		$fa_invert = false;
 	}
@@ -122,6 +120,11 @@
 		$artefato_badge = false;
 	} else {
 		$artefato_badge = "<span class='badge badge-pill grey lighten-5 text-dark artefato-badge position-absolute z-depth-0 m-1'><i class='fad $artefato_badge fa-fw'></i></span>";
+	}
+
+	if (!isset($artefato_icone_background)) {
+//		$artefato_icone_background = convert_background($fa_color);
+		$artefato_icone_background = false;
 	}
 	
 	$artefato_classes = "$artefato_col_limit py-1 artefato rounded $artefato_background $artefato_class d-flex justify-content-center border border-white mt-1";

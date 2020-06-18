@@ -1756,7 +1756,8 @@
 
 	if (isset($_POST['modelo_esconder_paragrafo'])) {
 		$modelo_esconder_paragrafo_pagina_id = $_POST['modelo_esconder_paragrafo'];
-		$check = $conn->query("UPDATE Paginas_elementos SET extra = 'hidden' WHERE elemento_id = $modelo_esconder_paragrafo_pagina_id AND pagina_id = $user_escritorio AND estado = 1");
+		$query = prepare_query("UPDATE Paginas_elementos SET extra = 'hidden' WHERE elemento_id = $modelo_esconder_paragrafo_pagina_id AND pagina_id = $user_escritorio AND estado = 1");
+		$check = $conn->query($query);
 		echo $check;
 	}
 
