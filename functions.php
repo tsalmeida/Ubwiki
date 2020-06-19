@@ -2346,11 +2346,16 @@
 		} else {
 			$target = false;
 		}
+		if ($icone_principal != false) {
+			$fix_things = 'd-flex justify-content-center';
+		} else {
+			$fix_things = false;
+		}
 		if ($type == 'link') {
 			return "
 			<a href='$link' $target class='$link_classes'>
 				<li class='list-group-item list-group-item-action $item_classes border-top p-1 py-2 $dflex'>
-					<span>
+					<span class='$fix_things'>
 						<span class='$cor_icone_principal align-center icone-lista'>
 							<i class='$icone_prefixo $icone_principal fa-fw fa-lg'></i>
 						</span>
@@ -2367,7 +2372,7 @@
 			return "
 			<a data-toggle='modal' data-target='$link' class='$link_classes'>
 				<li class='list-group-item list-group-item-action $item_classes border-top p-1 py-2 $dflex'>
-					<span>
+					<span class='$fix_things'>
 						<span class='$cor_icone_principal align-center icone-lista'>
 							<i class='$icone_prefixo $icone_principal fa-fw fa-lg'></i>
 						</span>
@@ -2383,7 +2388,7 @@
 		} elseif ($type == 'inactive') {
 			return "
 				<li class='list-group-item $item_classes border-top p-1 py-2 $dflex'>
-					<span>
+					<span class='$fix_things'>
 						<span class='$cor_icone_principal align-center icone-lista'>
 							<i class='$icone_prefixo $icone_principal fa-fw fa-lg'></i>
 						</span>
@@ -2400,7 +2405,7 @@
 			return "
 			<a href='javascript:void(0);' id='$link' name='$link' value='$link' class='$link $link_classes'>
 				<li class='list-group-item list-group-item-action $item_classes border-top p-1 py-2 $dflex'>
-					<span>
+					<span class='$fix_things'>
 						<span class='$cor_icone_principal align-center icone-lista'>
 							<i class='$icone_prefixo $icone_principal fa-fw fa-lg'></i>
 						</span>

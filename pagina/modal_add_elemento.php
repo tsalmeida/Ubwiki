@@ -43,6 +43,9 @@
 			include 'templates/subtipo_icone.php';
 		}
 
+		if (!isset($pagina_subtipo)) {
+			$pagina_subtipo = false;
+		}
 		if ($pagina_subtipo != 'plano') {
 			$template_subtipo = 'etiqueta';
 			$template_subtipo_tipo = 'pagina';
