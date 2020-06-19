@@ -295,6 +295,8 @@
 	} elseif ($pagina_subtipo == 'plano') {
         $plan_show_low = false;
         $plan_show_completed = false;
+        $change_show_low = true;
+        $change_show_completed = true;
         $color_show_completed = 'text-primary';
         $color_show_low = 'text-primary';
 	    if (isset($_GET['hl'])) {

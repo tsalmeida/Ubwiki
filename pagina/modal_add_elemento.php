@@ -50,7 +50,7 @@
 			$artefato_modal = '#modal_gerenciar_etiquetas';
 			include 'templates/subtipo_icone.php';
 		}
-		
+
 		if ($pagina_tipo == 'topico') {
 			$template_subtipo = false;
 			$template_subtipo_tipo = 'questao';
