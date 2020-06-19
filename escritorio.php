@@ -105,7 +105,7 @@
 				$template_titulo = false;
 				$template_conteudo = false;
 				$template_conteudo_class = 'justify-content-start';
-				$template_botoes = "<a id='show_hidden_icons' class='text-default' title='{$pagina_translated['Hidden icons']}'><i class='fad fa-eye-slash fa-fw fa-lg'></i></a>";
+				$template_botoes = "<a id='show_hidden_icons' class='text-info' title='{$pagina_translated['Hidden icons']}'><i class='fad fa-exchange fa-fw fa-lg'></i></a>";
 				$template_conteudo_no_col = true;
 
 				if ($curso_id != false) {
@@ -367,7 +367,7 @@
 				$template_titulo = false;
 				$template_classes = 'hidden';
 				$template_conteudo_class = 'justify-content-start';
-				$template_botoes = "<a id='hide_hidden_icons' class='text-success' title='{$pagina_translated['Hidden icons']}'><i class='fad fa-eye fa-fw fa-lg'></i></a>";
+				$template_botoes = "<a id='hide_hidden_icons' class='text-success' title='{$pagina_translated['Hidden icons']}'><i class='fad fa-exchange fa-fw fa-lg'></i></a>";
 				$template_conteudo_no_col = true;
 				$template_conteudo = $template_conteudo_hidden;
 
