@@ -43,12 +43,14 @@
 			include 'templates/subtipo_icone.php';
 		}
 
-		$template_subtipo = 'etiqueta';
-		$template_subtipo_tipo = 'pagina';
-		$template_subtipo_titulo = $pagina_translated['free page'];
-		$artefato_modal = '#modal_gerenciar_etiquetas';
-		include 'templates/subtipo_icone.php';
-
+		if ($pagina_subtipo != 'plano') {
+			$template_subtipo = 'etiqueta';
+			$template_subtipo_tipo = 'pagina';
+			$template_subtipo_titulo = $pagina_translated['free page'];
+			$artefato_modal = '#modal_gerenciar_etiquetas';
+			include 'templates/subtipo_icone.php';
+		}
+		
 		if ($pagina_tipo == 'topico') {
 			$template_subtipo = false;
 			$template_subtipo_tipo = 'questao';

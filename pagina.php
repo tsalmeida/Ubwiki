@@ -292,7 +292,26 @@
 		$pagina_etiqueta_id = $pagina_item_id;
 	} elseif ($pagina_subtipo == 'modelo') {
 		$modelo_do_usuario = return_modelo_estado($pagina_id, $user_id);
-	}
+	} elseif ($pagina_subtipo == 'plano') {
+        $plan_show_low = false;
+        $plan_show_completed = false;
+        $color_show_completed = 'text-primary';
+        $color_show_low = 'text-primary';
+	    if (isset($_GET['hl'])) {
+	        $plan_show_low = $_GET['hl'];
+	        if ($plan_show_low == true) {
+				$color_show_low = 'text-danger';
+			}
+	        $change_show_low = !$plan_show_low;
+        }
+	    if (isset($_GET['sc'])) {
+	        $plan_show_completed = $_GET['sc'];
+	        if ($plan_show_completed == true) {
+				$color_show_completed = 'text-success';
+			}
+	        $change_show_completed = !$plan_show_completed;
+        }
+    }
 
 	if ($pagina_tipo == 'curso') {
 		$pagina_curso_user_id = $pagina_user_id;
@@ -984,6 +1003,15 @@
                             <a href='javascript:void(0);' id='change_estado_pagina' class='ml-1 $estado_cor' title='{$pagina_translated['Estado da página']}' data-toggle='modal' data-target='$estado_modal'><i class='$estado_icone fa-fw fa-lg'></i></a>
                         ";
 				}
+				if ($pagina_subtipo == 'plano') {
+				    if ($pagina_id == $user_escritorio) {
+				        $pagina_plan = 'bp';
+                    } else {
+				        $pagina_plan = $pagina_id;
+                    }
+				    echo "<a href='pagina.php?plano_id=$pagina_plan&sc=$change_show_completed&hl=$plan_show_low' class='$color_show_completed ml-1'><i class='fad fa-badge-check fa-lg'></i></a>";
+				    echo "<a href='pagina.php?plano_id=$pagina_plan&sc=$plan_show_completed&hl=$change_show_low' class='$color_show_low ml-1'><i class='fad fa-times-octagon fa-lg'></i></a>";
+                }
 			?>
         </div>
     </div>

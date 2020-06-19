@@ -20,6 +20,16 @@
 			$item_planejamento_elemento_id = $item_planejamento['elemento_id'];
 			array_push($all_items_planejamento, $item_planejamento_elemento_id);
 			$item_planejamento_estado = $item_planejamento['estado'];
+			if ($plan_show_completed == false) {
+				if ($item_planejamento_estado > 10) {
+					continue;
+				}
+			}
+			if ($plan_show_low == false) {
+				if ($item_planejamento_estado < 6) {
+					continue;
+				}
+			}
 			$item_planejamento_classificacao = $item_planejamento['classificacao'];
 			$item_planejamento_classificacao = return_pagina_titulo($item_planejamento_classificacao);
 			$item_planejamento_comments = $item_planejamento['comments'];
