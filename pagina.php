@@ -324,12 +324,14 @@
     }
 
 	if ($pagina_tipo == 'curso') {
-		$pagina_curso_user_id = $pagina_user_id;
-		if ($user_id != false) {
-			$query = prepare_query("UPDATE Opcoes SET opcao = $pagina_curso_id WHERE user_id = $user_id AND opcao_tipo = 'curso_ativo'");
+	    $pagina_curso_user_id = $pagina_user_id;
+	    $_SESSION['raiz_ativa'] = $pagina_id;
+	    if ($user_id != false) {
+			$query = prepare_query("UPDATE Usuarios SET raiz_ativa = $pagina_id WHERE id = $user_id");
 			$conn->query($query);
 		}
-	}
+    }
+
 
 	if (isset($pagina_curso_id)) {
 		$_SESSION['curso_id'] = $pagina_curso_id;
@@ -581,7 +583,7 @@
 	if ($user_id != false) {
 		if ($nao_contar == false) {
 			if (($pagina_tipo == 'topico') || ($pagina_tipo == 'materia')) {
-				$visualizacao_extra = $curso_id;
+				$visualizacao_extra = $pagina_item_id;
 			} elseif ($pagina_tipo == 'elemento') {
 				$visualizacao_extra = $elemento_tipo;
 			} elseif ($pagina_tipo == 'texto') {
@@ -1256,6 +1258,28 @@
 					include 'templates/page_element.php';
 				}
 
+				if ($pagina_tipo == 'curso') {
+					$template_id = 'modulos';
+					$template_titulo = $pagina_translated['Módulos'];
+					$template_botoes = false;
+					$template_conteudo = false;
+
+					$query = prepare_query("SELECT elemento_id FROM Paginas_elementos WHERE tipo = 'materia' AND pagina_id = $pagina_id");
+					$materias = $conn->query($query);
+
+					if ($materias->num_rows > 0) {
+						$template_conteudo .= "<ul class='list-group list-group-flush'>";
+						while ($materia = $materias->fetch_assoc()) {
+							$materia_pagina_id = $materia['elemento_id'];
+							$template_conteudo .= return_list_item($materia_pagina_id, false, 'fontstack-subtitle text-center', true, true, false, false, 'force-size');
+						}
+						$template_conteudo .= "</ul>";
+						unset($materia_id);
+					}
+
+					include 'templates/page_element.php';
+				}
+				
 				if ($pagina_subtipo != 'plano') {
 					include 'pagina/leiamais.php';
 					include 'pagina/videos.php';
@@ -1301,28 +1325,6 @@
 				$template_quill_vazio = $pagina_translated['Model directions explanation'];
 				$template_botoes_padrao = false;
 				$template_conteudo = include 'templates/template_quill.php';
-				include 'templates/page_element.php';
-			}
-
-			if ($pagina_tipo == 'curso') {
-				$template_id = 'modulos';
-				$template_titulo = $pagina_translated['Módulos'];
-				$template_botoes = false;
-				$template_conteudo = false;
-
-				$query = prepare_query("SELECT elemento_id FROM Paginas_elementos WHERE tipo = 'materia' AND pagina_id = $pagina_id");
-				$materias = $conn->query($query);
-
-				if ($materias->num_rows > 0) {
-					$template_conteudo .= "<ul class='list-group list-group-flush'>";
-					while ($materia = $materias->fetch_assoc()) {
-						$materia_pagina_id = $materia['elemento_id'];
-						$template_conteudo .= return_list_item($materia_pagina_id, false, 'fontstack-subtitle text-center', true, true, false, false, 'force-size');
-					}
-					$template_conteudo .= "</ul>";
-					unset($materia_id);
-				}
-
 				include 'templates/page_element.php';
 			}
 

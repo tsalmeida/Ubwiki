@@ -114,7 +114,7 @@
 
 		$_SESSION['user_info'] = false;
 		if ($user_email != false) {
-			$query = "SELECT id, tipo, criacao, apelido, nome, sobrenome, language FROM Usuarios WHERE email = '$user_email'";
+			$query = "SELECT * FROM Usuarios WHERE email = '$user_email'";
 			$query = prepare_query($query);
 			$usuarios = $conn->query($query);
 			if ($usuarios->num_rows > 0) {
@@ -127,6 +127,7 @@
 					$_SESSION['user_apelido'] = $usuario['apelido'];
 					$_SESSION['user_nome'] = $usuario['nome'];
 					$_SESSION['user_sobrenome'] = $usuario['sobrenome'];
+					$_SESSION['raiz_ativa'] = $usuario['raiz_ativa'];
 					if (isset($_SESSION['user_language'])) {
 						if ($_SESSION['user_language'] != $usuario['language']) {
 							unset($_SESSION['pagina_translated']);
@@ -153,6 +154,7 @@
 			$user_lounge = false;
 			$user_avatar_icone = 'fa-user';
 			$user_avatar_cor = 'text-primary';
+			$raiz_ativa = 1118;
 		}
 	}
 
@@ -173,6 +175,7 @@
 		$user_escritorio = $_SESSION['user_escritorio'];
 		$user_avatar_icone = $_SESSION['user_avatar_icone'];
 		$user_avatar_cor = $_SESSION['user_avatar_cor'];
+		$raiz_ativa = $_SESSION['raiz_ativa'];
 	} elseif ($_SESSION['user_info'] == 'visitante') {
 		$user_id = false;
 		$user_tipo = false;
@@ -182,9 +185,19 @@
 		$user_wallet = false;
 		$user_escritorio = false;
 		$user_lounge = false;
+		$raiz_ativa = 1118;
 		$user_avatar_icone = 'fa-user';
 		$user_avatar_cor = 'text-primary';
 	}
+
+	$raiz_info = return_pagina_info($raiz_ativa);
+	$raiz_tipo = $raiz_info[2];
+	$raiz_item_id = $raiz_info[1];
+	if ($raiz_tipo == 'curso') {
+		$raiz_sigla = return_curso_sigla($raiz_item_id);
+	}
+	$raiz_titulo = $raiz_info[6];
+
 
 	if (!isset($_SESSION['acesso_especial'])) {
 		$_SESSION['acesso_especial'] = false;
@@ -216,72 +229,6 @@
 		$pagina_translated = $_SESSION['pagina_translated'];
 	}
 
-	//TODO: Resolver essa confusão em torno do curso ativo. É necessário criar uma função que retorne o curso ativo, apenas isso. Talvez seja mais fácil e simples colocar na tabela Usuarios.
-
-	if (!isset($_SESSION['curso_id'])) {
-		//$_SESSION['curso_id'] = return_curso_ativo($user_id);
-		$_SESSION['curso_id'] = 2;
-	}
-	if (isset($_SESSION['curso_id'])) {
-		$curso_id = $_SESSION['curso_id'];
-	}
-	if (isset($curso_id)) {
-		if (!isset($_SESSION['curso_sigla'])) {
-			$curso_info = return_curso_info($curso_id);
-			$_SESSION['curso_sigla'] = $curso_info[2];
-			$_SESSION['curso_titulo'] = $curso_info[3];
-		}
-		$curso_sigla = $_SESSION['curso_sigla'];
-		$curso_titulo = $_SESSION['curso_titulo'];
-	}
-	/*
-		if (isset($_GET['curso_id'])) {
-			$curso_id = $_GET['curso_id'];
-			$_SESSION['curso_id'] = $curso_id;
-			if ($user_id != false) {
-				$query = prepare_query("SELECT opcao FROM Opcoes WHERE user_id = $user_id AND opcao_tipo = 'curso_ativo'");
-				$cursos_ativos = $conn->query($query);
-				if ($cursos_ativos->num_rows > 0) {
-					$query = prepare_query("UPDATE Opcoes SET opcao = $curso_id WHERE user_id = $user_id AND opcao_tipo = 'curso_ativo'");
-					$conn->query($query);
-				} else {
-					$query = prepare_query("INSERT INTO Opcoes (opcao, opcao_tipo, user_id) VALUES ($curso_id, 'curso_ativo', $user_id)");
-					$conn->query($query);
-				}
-			}
-		} else {
-			if ($user_id != false) {
-				$query = prepare_query("SELECT opcao FROM Opcoes WHERE user_id = $user_id AND opcao_tipo = 'curso_ativo'");
-				$cursos_ativos = $conn->query($query);
-				if ($cursos_ativos->num_rows > 0) {
-					while ($curso_ativo = $cursos_ativos->fetch_assoc()) {
-						$curso_id = $curso_ativo['opcao'];
-						$_SESSION['curso_id'] = $curso_id;
-						break;
-					}
-				} else {
-					$query = prepare_query("SELECT opcao FROM Opcoes WHERE user_id = $user_id AND opcao_tipo = 'curso' ORDER BY id DESC");
-					$cursos = $conn->query($query);
-					if ($cursos->num_rows > 0) {
-						while ($curso = $cursos->fetch_assoc()) {
-							$curso_id = $curso['opcao'];
-							$_SESSION['curso_id'] = $curso_id;
-							$query = prepare_query("INSERT INTO Opcoes (opcao, opcao_tipo, user_id) VALUES ($curso_id, 'curso_ativo', $user_id)");
-							$conn->query($query);
-							break;
-						}
-					} else {
-						$query = prepare_query("INSERT INTO Opcoes (opcao, opcao_tipo, user_id) VALUES (1, 'curso', $user_id)");
-						$conn->query($query);
-						$query = prepare_query("INSERT INTO Opcoes (opcao, opcao_tipo, user_id) VALUES (1, 'curso_ativo', $user_id)");
-						$conn->query($query);
-						$_SESSION['curso_id'] = 1;
-						$curso_id = 1;
-					}
-				}
-			}
-		}
-	*/
 	$all_buttons_classes = "btn rounded btn-md text-center";
 	$button_classes = "$all_buttons_classes btn-primary";
 	$button_small = 'brn rounded btn-sm text-center';

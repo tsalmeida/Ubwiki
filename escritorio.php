@@ -113,12 +113,12 @@
 				$template_botoes = "<a id='show_hidden_icons' class='text-info' title='{$pagina_translated['Hidden icons']}'><i class='fad fa-exchange fa-fw fa-lg'></i></a>";
 				$template_conteudo_no_col = true;
 
-				if ($curso_id != false) {
+				if ($raiz_ativa != false) {
 					$artefato_id = 'curso_ativo';
-					$artefato_titulo = $curso_titulo;
+					$artefato_titulo = return_pagina_titulo($raiz_ativa);
 					$artefato_badge = 'fa-external-link';
 					$artefato_icone_background = 'rgba-black-strong';
-					$artefato_link = "pagina.php?curso_id=$curso_id";
+					$artefato_link = "pagina.php?pagina_id=$raiz_ativa";
 					$artefato_criacao = $pagina_translated['Curso ativo'];
 					$fa_type = 'fas';
 					$fa_icone = 'fa-pen-alt';

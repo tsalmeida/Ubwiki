@@ -2511,9 +2511,16 @@
 		}
 	}
 
-	function adicionar_chave_traducao($nova_chave_titulo, $user_id)
+	function adicionar_chave_traducao()
 	{
-		if (($nova_chave_titulo == false) || ($user_id == false)) {
+		$args = func_get_args();
+		$nova_chave_titulo = $args[0];
+		if (!isset($args[1])) {
+			$user_id = 1;
+		} else {
+			$user_id = $args[1];
+		}
+		if ($nova_chave_titulo == false) {
 			return false;
 		}
 		include 'templates/criar_conn.php';

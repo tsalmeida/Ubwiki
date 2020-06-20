@@ -19,10 +19,10 @@
 	if ($pagina_tipo == 'curso') {
 		echo "<a class='navbar-brand $template_navbar_text' href='ubwiki.php' title='{$pagina_translated['Retornar ao nexus']}'>Ubwiki</a>";
 	} else {
-		if (isset($curso_id)) {
-			echo "<a class='navbar-brand $template_navbar_text' href='pagina.php?curso_id=$curso_id' title='{$pagina_translated['Retornar ao curso ativo.']}'>Ubwiki: $curso_sigla</a>";
+		if (isset($raiz_ativa)) {
+			echo "<a class='navbar-brand $template_navbar_text' href='pagina.php?pagina_id=$raiz_ativa' title='$raiz_titulo'>$raiz_sigla</a>";
 		} else {
-			echo "<a class='navbar-brand $template_navbar_text' href='ubwiki.php' title='Retornar ao nexus.'>Ubwiki</a>";
+			echo "<a class='navbar-brand $template_navbar_text' href='ubwiki.php' title='{$pagina_translated['Retornar ao nexus.']}'>Ubwiki</a>";
 		}
 	}
 	if ($pagina_padrao == true) {
@@ -46,7 +46,7 @@
 			echo "<a class='dropdown-item navlink z-depth-0' href='admin.php'><i class='fad fa-cogs fa-fw'></i> {$pagina_translated['administrators page']}</a>";
 		}
 		if ($pagina_tipo != 'curso') {
-			echo "<a class='dropdown-item navlink z-depth-0' href='pagina.php?curso_id=$curso_id'><i class='fad fa-book-reader fa-fw'></i> $curso_sigla</a>";
+			echo "<a class='dropdown-item navlink z-depth-0' href='pagina.php?pagina_id=$raiz_ativa' title='$raiz_titulo'><i class='fad fa-book-reader fa-fw'></i> $raiz_sigla</a>";
 		}
 		echo "<a class='dropdown-item navlink z-depth-0' href='javascript:void(0);' data-toggle='modal' data-target='#modal_languages'><i class='fad fa-language fa-fw'></i> $user_language_titulo</a>";
 		if ($user_id != false) {

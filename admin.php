@@ -11,6 +11,8 @@
 	if (isset($_POST['trigger_atualizacao'])) {
 	    adicionar_chave_traducao('Hidden icons', 1);
 	    adicionar_chave_traducao('Hidden icons settings', 1);
+	    $conn->query("ALTER TABLE `Usuarios` CHANGE `concursos` `raiz_ativa` INT(11) NULL DEFAULT NULL;");
+	    adicionar_chave_traducao('Retornar ao nexus.', 1);
 	}
 
 	if (isset($_POST['trigger_atualizar_textos_size'])) {
