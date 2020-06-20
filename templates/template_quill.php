@@ -1,6 +1,7 @@
 <?php
 
 	//TODO: A tabela Textos_arquivo deve ser transferida a um banco de dados separado.
+	//TODO: Resolver a questão do scrollcontainer
 
 	$quill_was_loaded = true;
 	

@@ -24,7 +24,9 @@
 			$item_planejamento_estado = $item_planejamento['estado'];
 			if ($plan_show_completed == false) {
 				if ($item_planejamento_estado > 10) {
-					continue;
+					if ($item_planejamento_estado != 12) {
+						continue;
+					}
 				}
 			}
 			if ($plan_show_low == false) {

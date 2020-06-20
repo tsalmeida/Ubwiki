@@ -1279,7 +1279,7 @@
 
 					include 'templates/page_element.php';
 				}
-				
+
 				if ($pagina_subtipo != 'plano') {
 					include 'pagina/leiamais.php';
 					include 'pagina/videos.php';
