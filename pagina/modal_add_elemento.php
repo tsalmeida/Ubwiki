@@ -1,5 +1,8 @@
 <?php
 
+	//TODO Há alguns problemas com esse mecanismo, em algum momento deverá ser substituído por algo melhor e mais simples. É necessária uma racionalização geral de como ele é declarado e da relação entre os ícones e os diversos modals e funções de javascript que eles acionam.
+	//TODO Acrescentar links para documentos do Google Drive.
+
 	$template_modal_div_id = 'modal_add_elementos';
 	$template_modal_titulo = $pagina_translated['Adicionar elementos'];
 	$template_modal_show_buttons = false;

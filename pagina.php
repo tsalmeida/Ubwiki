@@ -1,5 +1,13 @@
 <?php
 
+    //TODO: Podcast episodes should be shown in reverse order.
+    //TODO: Permitir que a ordem das matérias seja diferente da ordem de criação.
+	//TODO: Permitir que a ordem dos tópicos seja diferente da ordem de criação.
+	//TODO: Permitir que a ordem de seções seja alterada.
+	//TODO: Fontes diferentes e cores diferentes apenas para leitura.
+	//TODO: Gerar PDF para impressão.
+	//TODO: Permitir baixar um arquivo com todas as suas anotações.
+
 	$pagina_tipo = 'pagina_geral';
 
 	include 'engine.php';
@@ -357,12 +365,13 @@
 		}
 	}
 
+
 	if ($pagina_compartilhamento == 'privado') {
 		$check_compartilhamento = false;
+		$pagina_checar_compartilhamento = $pagina_id;
 		if ($pagina_user_id == $user_id) {
 			$check_compartilhamento = true;
 		} else {
-			$pagina_checar_compartilhamento = $pagina_id;
 			if (($pagina_tipo == 'topico') || ($pagina_tipo == 'materia') || ($pagina_subtipo == 'Plano de estudos')) {
 				$pagina_checar_compartilhamento = $pagina_curso_pagina_id;
 			}

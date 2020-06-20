@@ -1,5 +1,7 @@
 <?php
 
+	//TODO: Ownership e classificação por ícones.
+
 	echo "<div class='container-fluid px-3'>";
 
 	$items_biblioteca = $conn->query("SELECT DISTINCT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND estado = 1 AND elemento_id IS NOT NULL AND tipo != 'modelo' ORDER BY id ASC");

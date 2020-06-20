@@ -1,5 +1,8 @@
 <?php
-	
+
+    //TODO: Uma versão simplificada do fórum no pagina.php e melhorias gerais no próprio Fórum.
+    //TODO: Mensagens em áudio, como no Whatsapp.
+
 	include 'engine.php';
 	
 	if (isset($_GET['pagina_id'])) {

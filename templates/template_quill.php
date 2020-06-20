@@ -1,5 +1,7 @@
 <?php
-	
+
+	//TODO: A tabela Textos_arquivo deve ser transferida a um banco de dados separado.
+
 	$quill_was_loaded = true;
 	
 	if (!isset($curso_id)) {

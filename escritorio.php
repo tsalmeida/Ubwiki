@@ -1,5 +1,10 @@
 <?php
 
+    //TODO: Notificações
+    //TODO: Opção de quais ícones mostrar e quais esconder.
+    //TODO: Etiquetas como pastas que organizam os textos e páginas do usuário.
+    //TODO: A sala de visitas deve ter espaço para adicionar os perfis do usuário em sites de mídia social.
+
 	$pagina_tipo = 'escritorio';
 	include 'engine.php';
 	$pagina_id = $user_escritorio;

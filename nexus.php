@@ -1,4 +1,7 @@
 <?php
+
+    //TODO: Trazer o Nexus a um nível básico que permita o uso.
+
 	$pagina_tipo = 'nexus';
 	include 'engine.php';
 	$pagina_id = return_pagina_id($user_id, 'nexus');

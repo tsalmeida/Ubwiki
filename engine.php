@@ -186,6 +186,10 @@
 		$user_avatar_cor = 'text-primary';
 	}
 
+	if (!isset($_SESSION['acesso_especial'])) {
+		$_SESSION['acesso_especial'] = false;
+	}
+
 	include 'money_engine.php';
 
 	if ($user_id != false) {
@@ -211,6 +215,9 @@
 	} else {
 		$pagina_translated = $_SESSION['pagina_translated'];
 	}
+
+	//TODO: Resolver essa confusão em torno do curso ativo. É necessário criar uma função que retorne o curso ativo, apenas isso. Talvez seja mais fácil e simples colocar na tabela Usuarios.
+
 	if (!isset($_SESSION['curso_id'])) {
 		//$_SESSION['curso_id'] = return_curso_ativo($user_id);
 		$_SESSION['curso_id'] = 2;
