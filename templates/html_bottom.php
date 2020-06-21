@@ -1443,7 +1443,7 @@
 				<script type='text/javascript'>
 					$(document).on('click', '#apagar_etiqueta', function() {
 					    var verify = confirm('Quer mesmo apagar essa etiqueta completamente?');
-					    if (verify == true) {
+					    if (verify) {
 							$.post('engine.php', {
 								'apagar_etiqueta_pagina_id': $pagina_id,
 							}, function (data) {

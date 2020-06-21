@@ -1,7 +1,7 @@
 <?php
 
 	//TODO: A tabela Textos_arquivo deve ser transferida a um banco de dados separado.
-	//TODO: Resolver a questão do scrollcontainer
+	//TODO: Auto-save
 
 	$quill_was_loaded = true;
 	
@@ -198,6 +198,8 @@
 	
 	$quill_result .= "
     <form id='quill_{$template_id}_form' method='post' class='w-100'>
+    	<input type='hidden' id='save_state_{$template_id}' value=''>
+    	<input type='hidden' id='further_changes_{$template_id}' value=''>
         <!--<div class='row'>
             <div class='container'>-->
                 <div id='quill_container_{$template_id}' class='bg-white'>
@@ -209,7 +211,7 @@
 	$quill_result .= "
         <div id='botoes_salvar_{$template_id}' class='row justify-content-center mt-3 d-none'>
             <button type='submit' id='$quill_trigger_button' class='$button_classes' name='$quill_trigger_button'>
-            	Salvar
+            	{$pagina_translated['Salvar mudanças']}
             </button>
         </div>
     </form>";
@@ -221,102 +223,127 @@
 
 	$quill_result .= "
     <script type='text/javascript'>
-    var {$template_id}_editor = new Quill('#quill_editor_{$template_id}', {
-        theme: 'snow',
-        scrollingContainer: '{$scrollingContainer}',
-        placeholder: '{$template_quill_vazio}',
-        formats: $template_quill_whitelist,
-        modules: {
-            toolbar: {
-                container: $template_quill_toolbar,
-                handlers: {
-                    image: function() {
-                        var range = this.quill.getSelection();
-								        var link = prompt('{$pagina_translated['Qual o endereço da imagem?']}');
-						            var titulo = prompt('{$pagina_translated['Título da imagem:']}');
-								        var value64 = btoa(link);
-								        if (link) {
-								            $.post('engine.php', {
-								                    'nova_imagem': value64,
-								                    'user_id': $quill_user_id,
-								                    'page_id': $template_quill_pagina_id,
-								                    'nova_imagem_titulo': titulo,
-								                    'contexto': '$template_id'
-						                },
-						                function(data) {
-						                });
-								            this.quill.insertEmbed(range.index, 'image', link, Quill.sources.USER);
-								        }
-                    }
-                }
-            }
-        }
-    });
 
-    var form_{$template_id} = document.querySelector('#quill_{$template_id}_form');
-    form_{$template_id}.onsubmit = function (e) {
-        e.preventDefault();
-
-        var quill_{$template_id}_content = {$template_id}_editor.getContents();
-        quill_{$template_id}_content = JSON.stringify(quill_{$template_id}_content);
-        
-        $.post('engine.php', {
-            'quill_novo_verbete_html': {$template_id}_editor.root.innerHTML,
-            'quill_novo_verbete_text': {$template_id}_editor.getText(),
-            'quill_novo_verbete_content': quill_{$template_id}_content,
-            'quill_pagina_id': {$pagina_id},
-            'quill_texto_tipo': '{$template_id}',
-            'quill_texto_id': {$quill_texto_id},
-            'quill_texto_page_id': {$pagina_item_id},
-            'quill_pagina_tipo': '{$pagina_tipo}',
-            'quill_pagina_subtipo': '{$pagina_subtipo}',
-            'quill_pagina_estado': {$pagina_estado},
-            'quill_curso_id': '{$pagina_curso_id}'
-        }, function(data) {
-            if (data != false) {
-                $('#{$template_id}_trigger_save').hide();
-								$('#{$template_id}_trigger_save_success').show();
-								setTimeout(function(){
-									$('#{$template_id}_trigger_save').show();
-									$('#{$template_id}_trigger_save_success').hide();
-						    }, 2000);
-            } else {
-                $('#{$template_id}_trigger_save').hide();
-								$('#{$template_id}_trigger_save_failure').show();
-								setTimeout(function(){
-									$('#{$template_id}_trigger_save').show();
-									$('#{$template_id}_trigger_save_failure').hide();
-						    }, 5000);
-            }
-        });
-    };
-   
-	  {$template_id}_editor.setContents($quill_verbete_content);
-
-	  $('#travar_{$template_id}').click(function () {
-        {$template_id}_editor.disable();
-        $('#travar_{$template_id}').hide();
-        $('#destravar_{$template_id}').show();
-        $('#quill_container_{$template_id}').children(':first').hide();
-        $('#botoes_salvar_{$template_id}').hide();
-        $('#{$template_id}_trigger_save').hide();
-        $('#quill_editor_{$template_id}').children(':first').removeClass('ql-editor-active');
-    });
-    $('#destravar_{$template_id}').click(function () {
-        {$template_id}_editor.enable();
-        $('#travar_{$template_id}').show();
-        $('#destravar_{$template_id}').hide();
-        $('#quill_container_{$template_id}').children(':first').show();
-        $('#botoes_salvar_{$template_id}').show();
-        $('#{$template_id}_trigger_save').show();
-        $('#quill_editor_{$template_id}').children(':first').addClass('ql-editor-active');
-    });
+		var {$template_id}_editor = new Quill('#quill_editor_{$template_id}', {
+			theme: 'snow',
+			scrollingContainer: '{$scrollingContainer}',
+			placeholder: '{$template_quill_vazio}',
+			formats: $template_quill_whitelist,
+			modules: {
+				toolbar: {
+					container: $template_quill_toolbar,
+					handlers: {
+						image: function() {
+							var range = this.quill.getSelection();
+							var link = prompt('{$pagina_translated['Qual o endereço da imagem?']}');
+							var titulo = prompt('{$pagina_translated['Título da imagem:']}');
+							var value64 = btoa(link);
+							if (link) {
+								$.post('engine.php', {
+									'nova_imagem': value64,
+									'user_id': $quill_user_id,
+									'page_id': $template_quill_pagina_id,
+									'nova_imagem_titulo': titulo,
+									'contexto': '$template_id'
+								},
+								function(data) {
+								});
+								this.quill.insertEmbed(range.index, 'image', link, Quill.sources.USER);
+							}
+						}
+					}
+				}
+			}
+		});
+		
+		var form_{$template_id} = document.querySelector('#quill_{$template_id}_form');
+		form_{$template_id}.onsubmit = function (e) {
+		    
+			e.preventDefault();
+	
+			var quill_{$template_id}_content = {$template_id}_editor.getContents();
+			quill_{$template_id}_content = JSON.stringify(quill_{$template_id}_content);
+			
+			$.post('engine.php', {
+				'quill_novo_verbete_html': {$template_id}_editor.root.innerHTML,
+				'quill_novo_verbete_text': {$template_id}_editor.getText(),
+				'quill_novo_verbete_content': quill_{$template_id}_content,
+				'quill_pagina_id': {$pagina_id},
+				'quill_texto_tipo': '{$template_id}',
+				'quill_texto_id': {$quill_texto_id},
+				'quill_texto_page_id': {$pagina_item_id},
+				'quill_pagina_tipo': '{$pagina_tipo}',
+				'quill_pagina_subtipo': '{$pagina_subtipo}',
+				'quill_pagina_estado': {$pagina_estado},
+				'quill_curso_id': '{$pagina_curso_id}'
+			}, function(data) {
+				if (data != false) {
+					$('#{$template_id}_trigger_save').hide();
+					$('#{$template_id}_trigger_save_success').show();
+					setTimeout(function(){
+						$('#{$template_id}_trigger_save').show();
+						$('#{$template_id}_trigger_save_success').hide();
+					}, 2000);
+				} else {
+					$('#{$template_id}_trigger_save').hide();
+					$('#{$template_id}_trigger_save_failure').show();
+					setTimeout(function(){
+						$('#{$template_id}_trigger_save').show();
+						$('#{$template_id}_trigger_save_failure').hide();
+					}, 5000);
+				}
+			});
+		};
+	   
+		{$template_id}_editor.setContents($quill_verbete_content);
+		
+		$('#travar_{$template_id}').click(function () {
+			{$template_id}_editor.disable();
+			$('#travar_{$template_id}').hide();
+			$('#destravar_{$template_id}').show();
+			$('#quill_container_{$template_id}').children(':first').hide();
+			$('#botoes_salvar_{$template_id}').hide();
+			$('#{$template_id}_trigger_save').hide();
+			$('#quill_editor_{$template_id}').children(':first').removeClass('ql-editor-active');
+		});
+		$('#destravar_{$template_id}').click(function () {
+			{$template_id}_editor.enable();
+			$('#travar_{$template_id}').show();
+			$('#destravar_{$template_id}').hide();
+			$('#quill_container_{$template_id}').children(':first').show();
+			$('#botoes_salvar_{$template_id}').show();
+			$('#{$template_id}_trigger_save').show();
+			$('#quill_editor_{$template_id}').children(':first').addClass('ql-editor-active');
+		});
 		var template_botoes_salvar = \"$template_botoes_salvar\";
-		$('#quill_container_{$template_id} > .ql-toolbar').prepend(template_botoes_salvar);
-		$('#{$template_id}_trigger_save').click(function () {
+			$('#quill_container_{$template_id} > .ql-toolbar').prepend(template_botoes_salvar);
+			$('#{$template_id}_trigger_save').click(function () {
 			$('#{$quill_trigger_button}').click();
 		});
 		
+		$('#quill_editor_{$template_id}').keyup(function() {
+		    var save_state = $('#save_state_{$template_id}').val();
+		    save_state = Boolean(save_state);
+		    if (save_state == true) {
+		        var further_changes = $('#further_changes_{$template_id}').val();
+		        if (further_changes) {
+		        } else {
+					$('#further_changes_{$template_id}').val(true);
+		        }
+		    } else {
+		        $('#{$template_id}_trigger_save').click();
+		        $('#save_state_{$template_id}').val(true);
+		        setTimeout(function() {
+					$('#save_state_{$template_id}').val('');
+					var further_changes_value = $('#further_changes_{$template_id}').val();
+					if (further_changes_value) {
+					    $('#{$template_id}_trigger_save').click();
+					    $('#further_changes_{$template_id}').val('');
+					}
+		        }, 60000)
+		    }
+		})
+			
 	</script>
 	";
 	
