@@ -337,8 +337,12 @@
 					$('#save_state_{$template_id}').val('');
 					var further_changes_value = $('#further_changes_{$template_id}').val();
 					if (further_changes_value) {
+						$('#save_state_{$template_id}').val(true);
 					    $('#{$template_id}_trigger_save').click();
 					    $('#further_changes_{$template_id}').val('');
+					    setTimeout(function() {
+							$('#save_state_{$template_id}').val('');
+					    }, 60000)
 					}
 		        }, 60000)
 		    }
