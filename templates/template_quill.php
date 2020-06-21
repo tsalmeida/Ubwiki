@@ -321,30 +321,33 @@
 			$('#{$quill_trigger_button}').click();
 		});
 		
-		$('#quill_editor_{$template_id}').keyup(function() {
-		    var save_state = $('#save_state_{$template_id}').val();
-		    save_state = Boolean(save_state);
-		    if (save_state == true) {
-		        var further_changes = $('#further_changes_{$template_id}').val();
-		        if (further_changes) {
-		        } else {
-					$('#further_changes_{$template_id}').val(true);
-		        }
-		    } else {
-		        $('#{$template_id}_trigger_save').click();
-		        $('#save_state_{$template_id}').val(true);
-		        setTimeout(function() {
-					$('#save_state_{$template_id}').val('');
-					var further_changes_value = $('#further_changes_{$template_id}').val();
-					if (further_changes_value) {
-						$('#save_state_{$template_id}').val(true);
-					    $('#{$template_id}_trigger_save').click();
-					    $('#further_changes_{$template_id}').val('');
-					    setTimeout(function() {
-							$('#save_state_{$template_id}').val('');
-					    }, 60000)
+		$('#quill_editor_{$template_id}').keyup(function(e) {
+		    keycode = e.keyCode;
+		    if ((keycode > 45) && (keycode < 91)) {
+				var save_state = $('#save_state_{$template_id}').val();
+				save_state = Boolean(save_state);
+				if (save_state == true) {
+					var further_changes = $('#further_changes_{$template_id}').val();
+					if (further_changes) {
+					} else {
+						$('#further_changes_{$template_id}').val(true);
 					}
-		        }, 60000)
+				} else {
+					$('#{$template_id}_trigger_save').click();
+					$('#save_state_{$template_id}').val(true);
+					setTimeout(function() {
+						$('#save_state_{$template_id}').val('');
+						var further_changes_value = $('#further_changes_{$template_id}').val();
+						if (further_changes_value) {
+							$('#save_state_{$template_id}').val(true);
+							$('#{$template_id}_trigger_save').click();
+							$('#further_changes_{$template_id}').val('');
+							setTimeout(function() {
+								$('#save_state_{$template_id}').val('');
+							}, 60000)
+						}
+					}, 60000)
+				}
 		    }
 		})
 			
