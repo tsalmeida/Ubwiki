@@ -215,7 +215,7 @@
     </form>";
 	$quill_user_id = (int)$user_id;
 	$scrollingContainer = 'html';
-	if (($template_id != 'anotacoes') && ($pagina_tipo != 'texto')) {
+	if (($template_id == 'anotacoes') && ($pagina_tipo != 'texto')) {
 		$scrollingContainer = "#anotacoes";
 	}
 
