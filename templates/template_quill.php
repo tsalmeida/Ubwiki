@@ -197,6 +197,7 @@
 		<form id='quill_{$template_id}_form' method='post' class='w-100'>
 			<input type='hidden' id='save_state_{$template_id}' value=''>
 			<input type='hidden' id='further_changes_{$template_id}' value=''>
+			<input type='hidden' id='arquivo_id_{$template_id}' value=''>
 			<div id='quill_container_{$template_id}' class='bg-white'>
 				<div id='quill_editor_{$template_id}' class='$template_quill_editor_classes'>
 				</div>
@@ -252,10 +253,16 @@
 			});
 			
 			var form_{$template_id} = document.querySelector('#quill_{$template_id}_form');
+			
 			form_{$template_id}.onsubmit = function (e) {
+			    
 				e.preventDefault();
+				
 				var quill_{$template_id}_content = {$template_id}_editor.getContents();
+				
 				quill_{$template_id}_content = JSON.stringify(quill_{$template_id}_content);
+				
+				arquivo_id = $('#arquivo_id_{$template_id}').val();
 				
 				$.post('engine.php', {
 					'quill_novo_verbete_html': {$template_id}_editor.root.innerHTML,
@@ -268,18 +275,26 @@
 					'quill_pagina_tipo': '{$pagina_tipo}',
 					'quill_pagina_subtipo': '{$pagina_subtipo}',
 					'quill_pagina_estado': {$pagina_estado},
-					'quill_curso_id': '{$pagina_curso_id}'
+					'quill_curso_id': '{$pagina_curso_id}',
+					'quill_arquivo_id': arquivo_id
 				}, function(data) {
 					if (data != false) {
+					    $('#arquivo_id_{$template_id}').val(data);
 						$('#{$template_id}_trigger_save').hide();
 						$('#{$template_id}_trigger_save_success').show();
+						$('#{$template_id}_trigger_save').removeClass('text-info');
+						$('#{$template_id}_trigger_save').removeClass('text-danger');
+						$('#{$template_id}_trigger_save').addClass('text-success'); //user is told: your most recent changes have been saved.
 						setTimeout(function(){
 							$('#{$template_id}_trigger_save').show();
-							$('#{$template_id}_trigger_save_success').hide();
+							$('#{$template_id}_trigger_save_success').hide(); // user is told: saving operation succeeded.
 						}, 2000);
 					} else {
 						$('#{$template_id}_trigger_save').hide();
-						$('#{$template_id}_trigger_save_failure').show();
+						$('#{$template_id}_trigger_save_failure').show(); // user is told: saving operation failed.
+						$('#{$template_id}_trigger_save').removeClass('text-info');
+						$('#{$template_id}_trigger_save').removeClass('text-success');
+						$('#{$template_id}_trigger_save').addClass('text-danger'); //user is told: your most recent changes have been saved.
 						setTimeout(function(){
 							$('#{$template_id}_trigger_save').show();
 							$('#{$template_id}_trigger_save_failure').hide();
@@ -299,6 +314,7 @@
 				$('#{$template_id}_trigger_save').hide();
 				$('#quill_editor_{$template_id}').children(':first').removeClass('ql-editor-active');
 			});
+			
 			$('#destravar_{$template_id}').click(function () {
 				{$template_id}_editor.enable();
 				$('#travar_{$template_id}').show();
@@ -308,38 +324,31 @@
 				$('#{$template_id}_trigger_save').show();
 				$('#quill_editor_{$template_id}').children(':first').addClass('ql-editor-active');
 			});
+			
 			var template_botoes_salvar = \"$template_botoes_salvar\";
-				$('#quill_container_{$template_id} > .ql-toolbar').prepend(template_botoes_salvar);
-				$('#{$template_id}_trigger_save').click(function () {
+			
+			$('#quill_container_{$template_id} > .ql-toolbar').prepend(template_botoes_salvar);
+			
+			$('#{$template_id}_trigger_save').click(function () {
 				$('#{$quill_trigger_button}').click();
 			});
 			
 			$('#quill_editor_{$template_id}').keyup(function(e) {
 				keycode = e.keyCode;
 				if ((keycode > 45) && (keycode < 91)) {
+					$('#{$template_id}_trigger_save').removeClass('text-success');
+					$('#{$template_id}_trigger_save').removeClass('text-danger');
+					$('#{$template_id}_trigger_save').removeClass('text-primary');
+					$('#{$template_id}_trigger_save').addClass('text-info'); //user is told: your most recent changes have not been saved yet.
 					var save_state = $('#save_state_{$template_id}').val();
 					save_state = Boolean(save_state);
-					if (save_state == true) {
-						var further_changes = $('#further_changes_{$template_id}').val();
-						if (further_changes) {
-						} else {
-							$('#further_changes_{$template_id}').val(true);
-						}
-					} else {
-						$('#{$template_id}_trigger_save').click();
-						$('#save_state_{$template_id}').val(true);
-						setTimeout(function() {
-							$('#save_state_{$template_id}').val('');
-							var further_changes_value = $('#further_changes_{$template_id}').val();
-							if (further_changes_value) {
-								$('#save_state_{$template_id}').val(true);
-								$('#{$template_id}_trigger_save').click();
-								$('#further_changes_{$template_id}').val('');
-								setTimeout(function() {
-									$('#save_state_{$template_id}').val('');
-								}, 60000)
-							}
-						}, 60000)
+					if (save_state == true) { //this means that the text has recently been changed and there's a timeout running for the next save.
+					} else { //this means that these are new changes the user has made, which need to be saved soon.
+					    $('#save_state_{$template_id}').val(1);
+					    setTimeout(function() { //after an interval, the changes will be saved.
+					        $('#{$quill_trigger_button}').click();
+					        $('#save_state_{$template_id}').val('');
+					    }, 45000)
 					}
 				}
 			})

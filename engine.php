@@ -830,6 +830,7 @@
 		$quill_pagina_subtipo = $_POST['quill_pagina_subtipo'];
 		$quill_pagina_estado = $_POST['quill_pagina_estado'];
 		$quill_curso_id = $_POST['quill_curso_id'];
+		$quill_arquivo_id = (int)$_POST['quill_arquivo_id'];
 
 		if ($quill_texto_tipo != 'anotacoes') {
 			$check_privilegio_edicao = return_privilegio_edicao($quill_pagina_id, $user_id);
@@ -840,8 +841,23 @@
 		if ($check_privilegio_edicao == true) {
 			$query = prepare_query("UPDATE Textos SET verbete_html = '$quill_novo_verbete_html', verbete_text = '$quill_novo_verbete_text', verbete_content = '$quill_novo_verbete_content' WHERE id = $quill_texto_id");
 			$check = $conn->query($query);
-			$query = prepare_query("INSERT INTO Textos_arquivo (texto_id, curso_id, tipo, page_id, pagina_id, pagina_tipo, pagina_subtipo, estado_texto, verbete_html, verbete_text, verbete_content, user_id) VALUES ($quill_texto_id, $quill_curso_id, '$quill_texto_tipo', $quill_texto_page_id, $quill_pagina_id, '$quill_pagina_tipo', '$quill_pagina_subtipo', 1, '$quill_novo_verbete_html', FALSE, '$quill_novo_verbete_content', $user_id)");
-			$check2 = $conn->query($query);
+
+			switch ($quill_arquivo_id) {
+				case 0:
+				case false:
+				case null:
+					$query = prepare_query("INSERT INTO Textos_arquivo (texto_id, curso_id, tipo, page_id, pagina_id, pagina_tipo, pagina_subtipo, estado_texto, verbete_html, verbete_text, verbete_content, user_id) VALUES ($quill_texto_id, $quill_curso_id, '$quill_texto_tipo', $quill_texto_page_id, $quill_pagina_id, '$quill_pagina_tipo', '$quill_pagina_subtipo', 1, '$quill_novo_verbete_html', FALSE, '$quill_novo_verbete_content', $user_id)");
+					$check2 = $conn->query($query);
+					$novo_arquivo_id = $conn->insert_id;
+					break;
+				default:
+					$query = prepare_query("UPDATE Textos_arquivo SET verbete_html = '$quill_novo_verbete_html', verbete_content = '$quill_novo_verbete_content' WHERE id = $quill_arquivo_id AND user_id = $user_id");
+					$check2 = $conn->query($query);
+					if ($check2 == true) {
+						$novo_arquivo_id = $quill_arquivo_id;
+					}
+			}
+
 
 			if (($quill_pagina_estado == false) && ($quill_novo_verbete_text != false)) {
 				$query = prepare_query("UPDATE Paginas SET estado = 1 WHERE id = $quill_pagina_id");
@@ -850,7 +866,7 @@
 			if (($check == false) || ($check2 == false)) {
 				echo false;
 			} else {
-				echo true;
+				echo $novo_arquivo_id;
 			}
 		} else {
 			echo false;
