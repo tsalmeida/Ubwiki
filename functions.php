@@ -2810,17 +2810,17 @@
 			case 8:
 				$background = 'rgba-green-slight';
 				$icon_color = 'text-default';
-				$icon = 'fad fa-circle';
+				$icon = 'fad fa-exclamation-circle';
 				break;
 			case 9:
 				$background = 'rgba-cyan-slight';
 				$icon_color = 'text-default';
-				$icon = 'fad fa-exclamation-circle';
+				$icon = 'fad fa-alarm-exclamation';
 				break;
 			case 10:
 				$background = 'rgba-cyan-slight';
 				$icon_color = 'text-info';
-				$icon = 'fad fa-alarm-exclamation';
+				$icon = 'fad fa-book-reader';
 				break;
 			case 11: // full study in process or interrupted
 				$background = 'rgba-blue-slight';
@@ -2830,26 +2830,32 @@
 				break;
 			case 12:// fully read, not planning to re-read
 				$background = 'rgba-blue-slight';
-				$icon_color = 'text-primary';
+				$icon_color = 'text-info';
 				$icon = 'fad fa-check';
+				$meaning = 'incomplete study';
+				break;
+			case 13:// fully read, not planning to re-read
+				$background = 'rgba-blue-slight';
+				$icon_color = 'text-primary';
+				$icon = 'fas fa-check';
 				$meaning = 'fully read';
 				break;
-			case 13: // full study completed.
+			case 14: // full study completed.
 				$background = 'rgba-blue-slight';
 				$icon_color = 'text-primary';
 				$icon = 'fad fa-check-double';
 				$meaning = 'full study completed';
 				break;
-			case 14: // re-read notes.
+			case 15: // re-read notes.
 				$background = 'rgba-purple-slight';
 				$icon_color = 'text-secondary';
 				$icon = 'fad fa-repeat';
 				$meaning = 're-read notes';
 				break;
-			case 15: // content completely absorbed.
-				$background = 'rgba-purple-slight';
+			case 16: // content completely absorbed.
+				$background = false;
 				$icon_color = 'text-secondary';
-				$icon = 'fad fa-head-side-brain';
+				$icon = 'fad fa-head-side-brain fa-swap-opacity';
 				$meaning = 'full assimilation';
 				break;
 			default:

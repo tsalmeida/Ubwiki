@@ -23,7 +23,7 @@
 			array_push($all_items_planejamento, $item_planejamento_elemento_id);
 			$item_planejamento_estado = $item_planejamento['estado'];
 			if ($plan_show_completed == false) {
-				if ($item_planejamento_estado > 12) {
+				if ($item_planejamento_estado > 11) {
 					continue;
 				}
 			}
@@ -60,8 +60,8 @@
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "<input type='hidden' value='' id='set_state_elemento_id'>";
 	$template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
-	$estado = 15;
-	while ($estado > -1) {
+	$estado = 16;
+	while ($estado != 0) {
 		$icone = return_plan_icon($estado);
 		$icone[3] = $pagina_translated[$icone[3]];
 		$template_modal_body_conteudo .= put_together_list_item('link_button', $estado, "$icone[1] $icone[0] p-1 rounded align-self-center", false, $icone[2], $icone[3], false, false, false, 'set_this_state');
