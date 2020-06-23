@@ -19,6 +19,7 @@
 				$_SESSION['user_id'] = $usuario['id'];
 				$_SESSION['user_email'] = $usuario['email'];
 				header('Location:escritorio.php');
+				exit();
 			}
 		}
 	}
