@@ -60,7 +60,7 @@
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "<input type='hidden' value='' id='set_state_elemento_id'>";
 	$template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
-	$estado = 16;
+	$estado = 17;
 	while ($estado != 0) {
 		$icone = return_plan_icon($estado);
 		$icone[3] = $pagina_translated[$icone[3]];

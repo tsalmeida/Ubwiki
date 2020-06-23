@@ -9,8 +9,7 @@
 	}
 	
 	if (isset($_POST['trigger_atualizacao'])) {
-	    adicionar_chave_traducao('freepages encyclopedia');
-	    adicionar_chave_traducao('incomplete study');
+	    adicionar_chave_traducao('full assimilation with notes');
 	}
 
 	if (isset($_POST['trigger_atualizar_textos_size'])) {

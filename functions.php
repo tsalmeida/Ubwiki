@@ -2847,16 +2847,22 @@
 				$meaning = 'full study completed';
 				break;
 			case 15: // re-read notes.
-				$background = 'rgba-purple-slight';
+				$background = 'rgba-blue-slight';
 				$icon_color = 'text-secondary';
 				$icon = 'fad fa-repeat';
 				$meaning = 're-read notes';
 				break;
 			case 16: // content completely absorbed.
-				$background = false;
+				$background = 'rgba-blue-slight';
 				$icon_color = 'text-secondary';
 				$icon = 'fad fa-head-side-brain fa-swap-opacity';
 				$meaning = 'full assimilation';
+				break;
+			case 17: // content completely absorbed.
+				$background = 'rgba-purple-slight';
+				$icon_color = 'text-secondary';
+				$icon = 'fad fa-galaxy fa-swap-opacity';
+				$meaning = 'full assimilation with notes';
 				break;
 			default:
 				return false;
