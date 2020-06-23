@@ -1282,9 +1282,9 @@
 
 		$list_biblioteca_particular .= put_together_list_item('link', 'biblioteca.php', false, 'fad', 'fa-books', $pagina_translated['library'], false, 'fad fa-external-link', 'list-group-item-success');
 
-		$list_biblioteca_particular .= put_together_list_item('link', 'pagina.php?plano_id=bp', false, 'fad', 'fa-calendar-check', $pagina_translated['Plano de estudos'], false, 'fad fa-external-link', 'list-group-item-warning');
+		$list_biblioteca_particular .= put_together_list_item('link', 'pagina.php?plano_id=bp', false, 'fad', 'fa-calendar-check', $pagina_translated['Plano de estudos'], false, 'fad fa-external-link', 'list-group-item-warning mt-1');
 
-		$list_biblioteca_particular .= put_together_list_item('modal', '#modal_add_elementos', false, 'fad', 'fa-plus-circle', $pagina_translated['press add collection'], false, 'fad fa-cog', 'list-group-item-info');
+		$list_biblioteca_particular .= put_together_list_item('modal', '#modal_add_elementos', false, 'fad', 'fa-plus-circle', $pagina_translated['press add collection'], false, 'fad fa-cog', 'list-group-item-info mt-1');
 
 		$list_biblioteca_particular .= "</div>";
 		$query = prepare_query("SELECT DISTINCT elemento_id FROM Paginas_elementos WHERE pagina_id = $user_escritorio AND estado = 1 AND elemento_id IS NOT NULL ORDER BY id DESC");
@@ -1324,7 +1324,7 @@
 	if (isset($_POST['list_cursos'])) {
 		$list_cursos = false;
 		$list_cursos .= '<ul class="list-group list-group-flush">';
-		$list_cursos .= put_together_list_item('link', 'cursos.php', false, 'fad', 'fa-portal-enter', $pagina_translated['available courses'], false, 'fad fa-external-link', 'list-group-item-success');
+		$list_cursos .= put_together_list_item('link', 'cursos.php', false, 'fad', 'fa-graduation-cap', $pagina_translated['available courses'], false, 'fad fa-external-link', 'list-group-item-success');
 		$usuario_cursos = return_usuario_cursos_inscrito($user_id);
 		foreach ($usuario_cursos as $usuario_curso) {
 			$list_cursos .= return_list_item($usuario_curso);

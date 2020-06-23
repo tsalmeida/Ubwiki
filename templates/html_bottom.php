@@ -933,7 +933,7 @@
                             'login_origem': 'desconhecido'
                         }, function(data) {
                             if ((data == 1) || (data == 11)) {
-                                window.location.reload(true);
+                                window.location.replace('escritorio.php');
                             } else if (data == 0) {
                                 $('#login_mensagem_basica').addClass('text-muted');
                                 $('#login_senha_incorreta').show();

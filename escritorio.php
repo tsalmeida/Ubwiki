@@ -117,12 +117,12 @@
 					$artefato_id = 'curso_ativo';
 					$artefato_titulo = return_pagina_titulo($raiz_ativa);
 					$artefato_badge = 'fa-external-link';
-					$artefato_icone_background = 'rgba-black-strong';
+					$artefato_icone_background = 'teal lighten-2';
 					$artefato_link = "pagina.php?pagina_id=$raiz_ativa";
 					$artefato_criacao = $pagina_translated['Curso ativo'];
 					$fa_type = 'fas';
 					$fa_icone = 'fa-pen-alt';
-					$fa_color = 'text-light';
+					$fa_color = 'text-white';
 					if (in_array(1, $icons_to_show)) {
 						$template_conteudo .= include 'templates/artefato_item.php';
 					} else {
@@ -144,7 +144,7 @@
 				$artefato_id = 'cursos';
 				$artefato_subtitulo = $pagina_translated['Seus cursos'];
 				$fa_icone = 'fa-graduation-cap';
-				$fa_color = 'text-success';
+				$fa_color = 'text-default';
 				$artefato_modal = '#modal_cursos';
 				if (in_array(3, $icons_to_show)) {
 					$template_conteudo .= include 'templates/artefato_item.php';

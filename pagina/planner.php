@@ -23,10 +23,8 @@
 			array_push($all_items_planejamento, $item_planejamento_elemento_id);
 			$item_planejamento_estado = $item_planejamento['estado'];
 			if ($plan_show_completed == false) {
-				if ($item_planejamento_estado > 10) {
-					if ($item_planejamento_estado != 12) {
-						continue;
-					}
+				if ($item_planejamento_estado > 12) {
+					continue;
 				}
 			}
 			if ($plan_show_low == false) {

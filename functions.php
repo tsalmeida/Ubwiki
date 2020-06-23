@@ -2767,7 +2767,7 @@
 		$meaning = "interest level $estado";
 		switch ($estado) {
 			case 0:
-				$background = 'rgba-orange-slight';
+				$background = 'rgba-amber-light';
 				$icon_color = 'deep-orange-darker-hover';
 				$icon = 'fad fa-question-circle';
 				$meaning = 'not set';
@@ -2779,17 +2779,17 @@
 				break;
 			case 2:
 				$background = 'rgba-grey-slight';
-				$icon_color = 'text-danger';
+				$icon_color = 'deep-orange-darker-hover';
 				$icon = 'fad fa-circle';
 				break;
 			case 3:
 				$background = 'rgba-red-slight';
-				$icon_color = 'text-danger';
+				$icon_color = 'deep-orange-darker-hover';
 				$icon = 'fad fa-circle';
 				break;
 			case 4:
-				$background = 'rgba-orange-slight';
-				$icon_color = 'text-danger';
+				$background = 'rgba-red-slight';
+				$icon_color = 'text-warning';
 				$icon = 'fad fa-circle';
 				break;
 			case 5:
@@ -2799,56 +2799,56 @@
 				break;
 			case 6:
 				$background = 'rgba-orange-slight';
-				$icon_color = 'text-info';
+				$icon_color = 'text-success';
 				$icon = 'fad fa-circle';
 				break;
 			case 7:
-				$background = 'rgba-blue-slight';
-				$icon_color = 'text-info';
+				$background = 'rgba-green-slight';
+				$icon_color = 'text-success';
 				$icon = 'fad fa-circle';
 				break;
 			case 8:
-				$background = 'rgba-blue-slight';
+				$background = 'rgba-green-slight';
 				$icon_color = 'text-default';
 				$icon = 'fad fa-circle';
 				break;
 			case 9:
-				$background = 'rgba-blue-slight';
+				$background = 'rgba-cyan-slight';
 				$icon_color = 'text-default';
 				$icon = 'fad fa-exclamation-circle';
 				break;
 			case 10:
-				$background = 'rgba-green-slight';
-				$icon_color = 'text-success';
+				$background = 'rgba-cyan-slight';
+				$icon_color = 'text-info';
 				$icon = 'fad fa-alarm-exclamation';
 				break;
-			case 11:// fully read, not planning to re-read
-				$background = 'rgba-green-slight';
-				$icon_color = 'text-success';
-				$icon = 'fad fa-check-circle';
-				$meaning = 'fully read';
-				break;
-			case 12: // full study in process or interrupted
-				$background = 'rgba-cyan-slight';
+			case 11: // full study in process or interrupted
+				$background = 'rgba-blue-slight';
 				$icon_color = 'text-info';
 				$icon = 'fad fa-pen-alt';
 				$meaning = 'full study in process';
 				break;
+			case 12:// fully read, not planning to re-read
+				$background = 'rgba-blue-slight';
+				$icon_color = 'text-primary';
+				$icon = 'fad fa-check';
+				$meaning = 'fully read';
+				break;
 			case 13: // full study completed.
-				$background = 'rgba-green-slight';
-				$icon_color = 'text-success';
-				$icon = 'fad fa-pen-alt';
+				$background = 'rgba-blue-slight';
+				$icon_color = 'text-primary';
+				$icon = 'fad fa-check-double';
 				$meaning = 'full study completed';
 				break;
 			case 14: // re-read notes.
-				$background = 'rgba-cyan-slight';
-				$icon_color = 'text-info';
-				$icon = 'fad fa-repeat-alt';
+				$background = 'rgba-purple-slight';
+				$icon_color = 'text-secondary';
+				$icon = 'fad fa-repeat';
 				$meaning = 're-read notes';
 				break;
 			case 15: // content completely absorbed.
-				$background = 'rgba-amber-strong';
-				$icon_color = 'text-danger';
+				$background = 'rgba-purple-slight';
+				$icon_color = 'text-secondary';
 				$icon = 'fad fa-head-side-brain';
 				$meaning = 'full assimilation';
 				break;
