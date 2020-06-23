@@ -196,7 +196,6 @@
 	$quill_result .= "
 		<form id='quill_{$template_id}_form' method='post' class='w-100'>
 			<input type='hidden' id='save_state_{$template_id}' value=''>
-			<input type='hidden' id='further_changes_{$template_id}' value=''>
 			<input type='hidden' id='arquivo_id_{$template_id}' value=''>
 			<div id='quill_container_{$template_id}' class='bg-white'>
 				<div id='quill_editor_{$template_id}' class='$template_quill_editor_classes'>
@@ -282,7 +281,7 @@
 					    $('#arquivo_id_{$template_id}').val(data);
 						$('#{$template_id}_trigger_save').hide();
 						$('#{$template_id}_trigger_save_success').show();
-						$('#{$template_id}_trigger_save').removeClass('text-info');
+						$('#{$template_id}_trigger_save').removeClass('text-warning');
 						$('#{$template_id}_trigger_save').removeClass('text-danger');
 						$('#{$template_id}_trigger_save').addClass('text-success'); //user is told: your most recent changes have been saved.
 						setTimeout(function(){
@@ -292,7 +291,7 @@
 					} else {
 						$('#{$template_id}_trigger_save').hide();
 						$('#{$template_id}_trigger_save_failure').show(); // user is told: saving operation failed.
-						$('#{$template_id}_trigger_save').removeClass('text-info');
+						$('#{$template_id}_trigger_save').removeClass('text-warning');
 						$('#{$template_id}_trigger_save').removeClass('text-success');
 						$('#{$template_id}_trigger_save').addClass('text-danger'); //user is told: your most recent changes have been saved.
 						setTimeout(function(){
@@ -339,7 +338,7 @@
 					$('#{$template_id}_trigger_save').removeClass('text-success');
 					$('#{$template_id}_trigger_save').removeClass('text-danger');
 					$('#{$template_id}_trigger_save').removeClass('text-primary');
-					$('#{$template_id}_trigger_save').addClass('text-info'); //user is told: your most recent changes have not been saved yet.
+					$('#{$template_id}_trigger_save').addClass('text-warning'); //user is told: your most recent changes have not been saved yet.
 					var save_state = $('#save_state_{$template_id}').val();
 					save_state = Boolean(save_state);
 					if (save_state == true) { //this means that the text has recently been changed and there's a timeout running for the next save.
