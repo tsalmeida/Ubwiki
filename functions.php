@@ -430,7 +430,7 @@
 				break;
 			case 0:
 			default:
-				$icone = 'fad fa-empty-set fa-fw';
+				$icone = 'fal fa-acorn fa-fw';
 				$color = 'text-muted';
 				break;
 		}

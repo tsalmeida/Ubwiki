@@ -1,7 +1,7 @@
 <?php
 
-    //TODO: Podcast episodes should be shown in reverse order.
-    //TODO: Permitir que a ordem das matérias seja diferente da ordem de criação.
+	//TODO: Podcast episodes should be shown in reverse order.
+	//TODO: Permitir que a ordem das matérias seja diferente da ordem de criação.
 	//TODO: Permitir que a ordem dos tópicos seja diferente da ordem de criação.
 	//TODO: Permitir que a ordem de seções seja alterada.
 	//TODO: Fontes diferentes e cores diferentes apenas para leitura.
@@ -106,21 +106,21 @@
 				header("Location:pagina.php?pagina_id=$pagina_id");
 				exit();
 			} elseif ($pagina_plano_id == 'bp') {
-			    $pagina_tipo_override = 'pagina';
-			    $pagina_subtipo_override = 'plano';
-			    $pagina_titulo_override = $pagina_translated['your collection'];
-			    if (!isset($_SESSION['user_plano_id'])) {
+				$pagina_tipo_override = 'pagina';
+				$pagina_subtipo_override = 'plano';
+				$pagina_titulo_override = $pagina_translated['your collection'];
+				if (!isset($_SESSION['user_plano_id'])) {
 					$pagina_item_id_override = return_plano_id_pagina_id($user_escritorio);
 					if ($pagina_item_id_override == false) {
-					    $conn->query("INSERT INTO Planos (pagina_id, user_id) VALUES ($user_escritorio, $user_id)");
-					    $pagina_item_id_override = $conn->insert_id;
-                    }
+						$conn->query("INSERT INTO Planos (pagina_id, user_id) VALUES ($user_escritorio, $user_id)");
+						$pagina_item_id_override = $conn->insert_id;
+					}
 					$_SESSION['user_plano_id'] = $pagina_item_id_override;
 				} else {
-			        $pagina_item_id_override = $_SESSION['user_plano_id'];
-                }
-			    $pagina_id = $user_escritorio;
-            } else {
+					$pagina_item_id_override = $_SESSION['user_plano_id'];
+				}
+				$pagina_id = $user_escritorio;
+			} else {
 				$pagina_id = return_pagina_id($pagina_plano_id, 'plano');
 			}
 		} else {
@@ -165,17 +165,17 @@
 	}
 
 	if (isset($pagina_tipo_override)) {
-	    $pagina_tipo = $pagina_tipo_override;
-    }
+		$pagina_tipo = $pagina_tipo_override;
+	}
 	if (isset($pagina_subtipo_override)) {
-	    $pagina_subtipo = $pagina_subtipo_override;
-    }
+		$pagina_subtipo = $pagina_subtipo_override;
+	}
 	if (isset($pagina_titulo_override)) {
-	    $pagina_titulo = $pagina_titulo_override;
-    }
+		$pagina_titulo = $pagina_titulo_override;
+	}
 	if (isset($pagina_item_id_override)) {
-	    $pagina_item_id = $pagina_item_id_override;
-    }
+		$pagina_item_id = $pagina_item_id_override;
+	}
 
 	if (isset($_POST['trigger_apagar_pagina'])) {
 		$query = prepare_query("DELETE FROM Paginas WHERE id = $pagina_id");
@@ -301,36 +301,36 @@
 	} elseif ($pagina_subtipo == 'modelo') {
 		$modelo_do_usuario = return_modelo_estado($pagina_id, $user_id);
 	} elseif ($pagina_subtipo == 'plano') {
-        $plan_show_low = false;
-        $plan_show_completed = false;
-        $change_show_low = true;
-        $change_show_completed = true;
-        $color_show_completed = 'text-primary';
-        $color_show_low = 'text-primary';
-	    if (isset($_GET['hl'])) {
-	        $plan_show_low = $_GET['hl'];
-	        if ($plan_show_low == true) {
+		$plan_show_low = false;
+		$plan_show_completed = false;
+		$change_show_low = true;
+		$change_show_completed = true;
+		$color_show_completed = 'text-primary';
+		$color_show_low = 'text-primary';
+		if (isset($_GET['hl'])) {
+			$plan_show_low = $_GET['hl'];
+			if ($plan_show_low == true) {
 				$color_show_low = 'text-danger';
 			}
-	        $change_show_low = !$plan_show_low;
-        }
-	    if (isset($_GET['sc'])) {
-	        $plan_show_completed = $_GET['sc'];
-	        if ($plan_show_completed == true) {
+			$change_show_low = !$plan_show_low;
+		}
+		if (isset($_GET['sc'])) {
+			$plan_show_completed = $_GET['sc'];
+			if ($plan_show_completed == true) {
 				$color_show_completed = 'text-success';
 			}
-	        $change_show_completed = !$plan_show_completed;
-        }
-    }
+			$change_show_completed = !$plan_show_completed;
+		}
+	}
 
 	if ($pagina_tipo == 'curso') {
-	    $pagina_curso_user_id = $pagina_user_id;
-	    $_SESSION['raiz_ativa'] = $pagina_id;
-	    if ($user_id != false) {
+		$pagina_curso_user_id = $pagina_user_id;
+		$_SESSION['raiz_ativa'] = $pagina_id;
+		if ($user_id != false) {
 			$query = prepare_query("UPDATE Usuarios SET raiz_ativa = $pagina_id WHERE id = $user_id");
 			$conn->query($query);
 		}
-    }
+	}
 
 
 	if (isset($pagina_curso_id)) {
@@ -400,7 +400,7 @@
 			$check_compartilhamento = true;
 		}
 		if ($check_compartilhamento == false) {
-		    error_log('é mais provável que esse tenha acontecido');
+			error_log('é mais provável que esse tenha acontecido');
 			header('Location:pagina.php?pagina_id=3');
 			exit();
 		}
@@ -1008,6 +1008,7 @@
 					$pagina_estado_icone = return_estado_icone($pagina_estado);
 					$estado_cor = $pagina_estado_icone[1];
 					$estado_icone = $pagina_estado_icone[0];
+
 					if ($user_id == false) {
 						$estado_modal = '#modal_login';
 					} else {
@@ -1018,14 +1019,14 @@
                         ";
 				}
 				if ($pagina_subtipo == 'plano') {
-				    if ($pagina_id == $user_escritorio) {
-				        $pagina_plan = 'bp';
-                    } else {
-				        $pagina_plan = $pagina_id;
-                    }
-				    echo "<a href='pagina.php?plano_id=$pagina_plan&sc=$change_show_completed&hl=$plan_show_low' class='$color_show_completed ml-1'><i class='fad fa-badge-check fa-lg'></i></a>";
-				    echo "<a href='pagina.php?plano_id=$pagina_plan&sc=$plan_show_completed&hl=$change_show_low' class='$color_show_low ml-1'><i class='fad fa-times-octagon fa-lg'></i></a>";
-                }
+					if ($pagina_id == $user_escritorio) {
+						$pagina_plan = 'bp';
+					} else {
+						$pagina_plan = $pagina_id;
+					}
+					echo "<a href='pagina.php?plano_id=$pagina_plan&sc=$change_show_completed&hl=$plan_show_low' class='$color_show_completed ml-1'><i class='fad fa-badge-check fa-lg'></i></a>";
+					echo "<a href='pagina.php?plano_id=$pagina_plan&sc=$plan_show_completed&hl=$change_show_low' class='$color_show_low ml-1'><i class='fad fa-times-octagon fa-lg'></i></a>";
+				}
 			?>
         </div>
     </div>
