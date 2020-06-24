@@ -111,7 +111,6 @@
 		$do_login = true;
 	}
 	if ($do_login == true) {
-
 		$_SESSION['user_info'] = false;
 		if ($user_email != false) {
 			$query = "SELECT * FROM Usuarios WHERE email = '$user_email'";
@@ -172,6 +171,14 @@
 		if (!isset($_SESSION['user_language'])) {
 			$_SESSION['user_language'] = $user_language;
 		}
+		if (!isset($_SESSION['user_bookmarks'])) {
+			$_SESSION['user_bookmarks'] = return_user_bookmarks($user_id);
+		}
+		if (!isset($_SESSION['user_completed'])) {
+			$_SESSION['user_completed'] = return_user_completed($user_id);
+		}
+		$user_bookmarks = $_SESSION['user_bookmarks'];
+		$user_completed = $_SESSION['user_completed'];
 		$user_escritorio = $_SESSION['user_escritorio'];
 		$user_avatar_icone = $_SESSION['user_avatar_icone'];
 		$user_avatar_cor = $_SESSION['user_avatar_cor'];
@@ -188,6 +195,8 @@
 		$raiz_ativa = 1118;
 		$user_avatar_icone = 'fa-user';
 		$user_avatar_cor = 'text-primary';
+		$user_bookmarks = false;
+		$user_completed = false;
 	}
 
 	$raiz_info = return_pagina_info($raiz_ativa);
@@ -265,6 +274,8 @@
 		$conn->query($query);
 		$query = prepare_query("INSERT INTO Bookmarks (user_id, pagina_id, bookmark, active) VALUES ($user_id, $bookmark_pagina_id, $bookmark_change, 1)");
 		$conn->query($query);
+		$_SESSION['user_bookmarks'] = return_user_bookmarks($user_id);
+		$user_bookmarks = $_SESSION['user_bookmarks'];
 	}
 
 	if (isset($_POST['completed_change'])) {
@@ -284,6 +295,9 @@
 		$conn->query($query);
 		$query = prepare_query("INSERT INTO Completed (user_id, pagina_id, estado, active) VALUES ($user_id, $completed_pagina_id, $completed_change, 1)");
 		$conn->query($query);
+		$_SESSION['user_completed'] = return_user_completed($user_id);
+		$user_completed = $_SESSION['user_completed'];
+//		print serialize($user_completed);
 	}
 
 	$opcao_texto_justificado_value = false;
@@ -1019,14 +1033,15 @@
 		$etapas = $conn->query($query);
 		$etapas_resultado = false;
 		if ($etapas->num_rows > 0) {
-			$etapas_resultado .= "<ul class='list-group list-group-flush'><span data-toggle='modal' data-target='#modal_vazio_edicoes'><span data-toggle='modal' data-target='#modal_vazio_provas'>";
+			$etapas_resultado .= "<span data-toggle='modal' data-target='#modal_vazio_edicoes'><span data-toggle='modal' data-target='#modal_vazio_provas'>";
 			while ($etapa = $etapas->fetch_assoc()) {
 				$etapa_id = $etapa['id'];
 				$etapa_titulo = $etapa['titulo'];
 				$etapas_resultado .= "<a href='javascript:void(0);' class='mt-1 carregar_etapa' value='$etapa_id'><li class='list-group-item list-group-item-action border-top'>$etapa_titulo</li></a>";
 			}
-			$etapas_resultado .= "</span></span></ul>";
+			$etapas_resultado .= "</span></span>";
 		}
+		$etapas_resultado = list_wrap($etapas_resultado);
 		echo $etapas_resultado;
 	}
 
@@ -1044,7 +1059,7 @@
 		$provas = $conn->query($query);
 		$provas_resultado = false;
 		if ($provas->num_rows > 0) {
-			$provas_resultado .= "<ul class='list-group list-group-flush'><span data-toggle='modal' data-target='#modal_vazio_provas'><span data-toggle='modal' data-target='#modal_vazio_questoes'>";
+			$provas_resultado .= "<span data-toggle='modal' data-target='#modal_vazio_provas'><span data-toggle='modal' data-target='#modal_vazio_questoes'>";
 			while ($prova = $provas->fetch_assoc()) {
 				$prova_id = $prova['id'];
 				$prova_titulo = $prova['titulo'];
@@ -1052,8 +1067,9 @@
 				$prova_tipo_string = convert_prova_tipo($prova_tipo);
 				$provas_resultado .= "<a href='javascript:void(0);' class='mt-1 carregar_prova' value='$prova_id'><li class='list-group-item list-group-item-action border-top'>$prova_titulo <strong>($prova_tipo_string)</strong></li></a>";
 			}
-			$provas_resultado .= "</span></span></ul>";
+			$provas_resultado .= "</span></span>";
 		}
+		$provas_resultado = list_wrap($provas_resultado);
 		echo $provas_resultado;
 	}
 
@@ -1252,13 +1268,12 @@
 
 	if (isset($_POST['list_areas_interesse'])) {
 		$areas_interesse_result = false;
-		$areas_interesse_result .= "<ul class='list-group list-group-flush'>";
 
 		$areas_interesse_result .= "<span data-toggle='modal' data-target='#modal_areas_interesse'>";
 
-		$areas_interesse_result .= put_together_list_item('link', 'paginas_livres.php', false, 'fad', 'fa-tags', $pagina_translated['freepages encyclopedia'], false, 'fad fa-external-link', 'list-group-item-warning');
+		$areas_interesse_result .= put_together_list_item('link', 'paginas_livres.php', false, 'fad fa-tags', $pagina_translated['freepages encyclopedia'], false, 'fad fa-external-link', 'list-group-item-warning');
 
-		$areas_interesse_result .= put_together_list_item('modal', '#modal_gerenciar_etiquetas', false, 'fad', 'fa-plus-circle', $pagina_translated['Gerenciar etiquetas'], false, 'fad fa-tags', 'list-group-item-info');
+		$areas_interesse_result .= put_together_list_item('modal', '#modal_gerenciar_etiquetas', false, 'fad fa-plus-circle', $pagina_translated['Gerenciar etiquetas'], false, 'fad fa-tags', 'list-group-item-info');
 
 		$areas_interesse_result .= "</span>";
 		$query = prepare_query("SELECT extra FROM Paginas_elementos WHERE pagina_id = $user_escritorio AND tipo = 'topico' AND estado = 1 ORDER BY id DESC");
@@ -1271,20 +1286,19 @@
 				$areas_interesse_result .= return_list_item($area_interesse_pagina_id);
 			}
 		}
-		$areas_interesse_result .= '</ul>';
+		$areas_interesse_result = list_wrap($areas_interesse_result);
 		echo $areas_interesse_result;
 	}
 
 	if (isset($_POST['list_biblioteca_particular'])) {
 		$list_biblioteca_particular = false;
-		$list_biblioteca_particular .= "<ul class='list-group list-group-flush'>";
 		$list_biblioteca_particular .= "<div data-toggle='modal' data-target='#modal_biblioteca_particular'>";
 
-		$list_biblioteca_particular .= put_together_list_item('link', 'biblioteca.php', false, 'fad', 'fa-books', $pagina_translated['library'], false, 'fad fa-external-link', 'list-group-item-success');
+		$list_biblioteca_particular .= put_together_list_item('link', 'biblioteca.php', false, 'fad fa-books', $pagina_translated['library'], false, 'fad fa-external-link', 'list-group-item-success');
 
-		$list_biblioteca_particular .= put_together_list_item('link', 'pagina.php?plano_id=bp', false, 'fad', 'fa-calendar-check', $pagina_translated['Plano de estudos'], false, 'fad fa-external-link', 'list-group-item-warning mt-1');
+		$list_biblioteca_particular .= put_together_list_item('link', 'pagina.php?plano_id=bp', false, 'fad fa-calendar-check', $pagina_translated['Plano de estudos'], false, 'fad fa-external-link', 'list-group-item-warning mt-1');
 
-		$list_biblioteca_particular .= put_together_list_item('modal', '#modal_add_elementos', false, 'fad', 'fa-plus-circle', $pagina_translated['press add collection'], false, 'fad fa-cog', 'list-group-item-info mt-1');
+		$list_biblioteca_particular .= put_together_list_item('modal', '#modal_add_elementos', false, 'fad fa-plus-circle', $pagina_translated['press add collection'], false, 'fad fa-cog', 'list-group-item-info mt-1');
 
 		$list_biblioteca_particular .= "</div>";
 		$query = prepare_query("SELECT DISTINCT elemento_id FROM Paginas_elementos WHERE pagina_id = $user_escritorio AND estado = 1 AND elemento_id IS NOT NULL ORDER BY id DESC");
@@ -1296,7 +1310,7 @@
 				$list_biblioteca_particular .= return_list_item($item_biblioteca_pagina_id);
 			}
 		}
-		$list_biblioteca_particular .= '</ul>';
+		$list_biblioteca_particular = list_wrap($list_biblioteca_particular);
 		echo $list_biblioteca_particular;
 	}
 
@@ -1304,9 +1318,8 @@
 		$query = prepare_query("SELECT * FROM Planos WHERE user_id = $user_id");
 		$planos_usuario = $conn->query($query);
 		$list_planos = false;
-		$list_planos = "<ul class='list-group list-group-flush'>";
-		$list_planos .= put_together_list_item('link', 'pagina.php?plano_id=new', false, 'fad', 'fa-calendar-plus', $pagina_translated['Create new empty plan'], false, 'fad fa-external-link', 'list-group-item-info');
-		$list_planos .= put_together_list_item('link', 'pagina.php?plano_id=bp', false, 'fad', 'fa-calendar-check', $pagina_translated['your collection'], false, 'fad fa-external-link', 'list-group-item-success my-1');
+		$list_planos .= put_together_list_item('link', 'pagina.php?plano_id=new', false, 'fad fa-calendar-plus', $pagina_translated['Create new empty plan'], false, 'fad fa-external-link', 'list-group-item-info');
+		$list_planos .= put_together_list_item('link', 'pagina.php?plano_id=bp', false, 'fad fa-calendar-check', $pagina_translated['your collection'], false, 'fad fa-external-link', 'list-group-item-success my-1');
 
 		if ($planos_usuario->num_rows > 0) {
 			while ($plano_usuario = $planos_usuario->fetch_assoc()) {
@@ -1317,19 +1330,18 @@
 				$list_planos .= return_list_item($plano_usuario_pagina_id);
 			}
 		}
-		$list_planos .= "</ul>";
+		$list_planos = list_wrap($list_planos);
 		echo $list_planos;
 	}
 
 	if (isset($_POST['list_cursos'])) {
 		$list_cursos = false;
-		$list_cursos .= '<ul class="list-group list-group-flush">';
-		$list_cursos .= put_together_list_item('link', 'cursos.php', false, 'fad', 'fa-graduation-cap', $pagina_translated['available courses'], false, 'fad fa-external-link', 'list-group-item-success');
+		$list_cursos .= put_together_list_item('link', 'cursos.php', false, 'fad fa-graduation-cap', $pagina_translated['available courses'], false, 'fad fa-external-link', 'list-group-item-success');
 		$usuario_cursos = return_usuario_cursos_inscrito($user_id);
 		foreach ($usuario_cursos as $usuario_curso) {
 			$list_cursos .= return_list_item($usuario_curso);
 		}
-		$list_cursos .= '</ul>';
+		$list_cursos = list_wrap($list_cursos);
 		echo $list_cursos;
 	}
 
@@ -1338,14 +1350,13 @@
 		$referencias_usuario = $conn->query($query);
 		$list_referencias = false;
 		if ($referencias_usuario->num_rows > 0) {
-			$list_referencias .= '<ul class="list-group list-group-flush">';
 			while ($referencia_usuario = $referencias_usuario->fetch_assoc()) {
 				$referencia_usuario_elemento_id = $referencia_usuario['elemento_id'];
 				$referencia_usuario_pagina_id = return_pagina_id($referencia_usuario_elemento_id, 'elemento');
 				$list_referencias .= return_list_item($referencia_usuario_pagina_id);
 			}
-			$list_referencias .= '</ul>';
 		}
+		$list_referencias = list_wrap($list_referencias);
 		echo $list_referencias;
 	}
 
@@ -1355,12 +1366,11 @@
 		$query = prepare_query("SELECT DISTINCT grupo_id FROM Membros WHERE membro_user_id = $user_id AND estado IS NULL");
 		$convites_ativos = $conn->query($query);
 		$list_grupos_estudo = false;
-		$list_grupos_estudo .= "<ul class='list-group list-group-flush'>";
 		$list_grupos_estudo .= "<span data-toggle='modal' data-target='#modal_grupos_estudo'>";
 		if ($convites_ativos->num_rows > 0) {
-			$list_grupos_estudo .= put_together_list_item('modal', '#modal_reagir_convite', 'text-warning', 'fad', 'fa-exclamation-triangle', $pagina_translated['Você recebeu convite para participar de grupos de estudos:'], 'text-muted', 'fad fa-users');
+			$list_grupos_estudo .= put_together_list_item('modal', '#modal_reagir_convite', 'text-warning', 'fad fa-exclamation-triangle', $pagina_translated['Você recebeu convite para participar de grupos de estudos:'], 'text-muted', 'fad fa-users');
 		}
-		$list_grupos_estudo .= put_together_list_item('modal', '#modal_criar_grupo', false, 'fad', 'fa-plus-circle', $pagina_translated['Criar grupo de estudos'], false, 'fad fa-users', 'list-group-item-info');
+		$list_grupos_estudo .= put_together_list_item('modal', '#modal_criar_grupo', false, 'fad fa-plus-circle', $pagina_translated['Criar grupo de estudos'], false, 'fad fa-users', 'list-group-item-info');
 		$list_grupos_estudo .= "</span>";
 
 		if ($grupos_estudo_usuario->num_rows > 0) {
@@ -1372,29 +1382,16 @@
 		} else {
 
 		}
-		$list_grupos_estudo .= '</ul>';
+		$list_grupos_estudo = list_wrap($list_grupos_estudo);
 		echo $list_grupos_estudo;
 	}
 
 	if (isset($_POST['list_bookmarks'])) {
-		$query = prepare_query("SELECT pagina_id FROM Bookmarks WHERE user_id = $user_id AND bookmark = 1 AND active = 1 ORDER BY id DESC");
-		$usuario_bookmarks = $conn->query($query);
-		$list_bookmarks = false;
-		$counted_bookmarks = array();
-		if ($usuario_bookmarks->num_rows > 0) {
-			$list_bookmarks .= "<ul class='list-group list-group-flush'>";
-			while ($usuario_bookmark = $usuario_bookmarks->fetch_assoc()) {
-				$usuario_bookmark_pagina_id = $usuario_bookmark['pagina_id'];
-				if (in_array($usuario_bookmark_pagina_id, $counted_bookmarks)) {
-					continue;
-				} else {
-					array_push($counted_bookmarks, $usuario_bookmark_pagina_id);
-				}
-				$list_bookmarks .= return_list_item($usuario_bookmark_pagina_id);
-			}
-			$list_bookmarks .= '</ul>';
+		$result_bookmarks = false;
+		foreach ($user_bookmarks as $usuario_bookmark_pagina_id) {
+			$result_bookmarks .= return_list_item($usuario_bookmark_pagina_id);
 		}
-		echo $list_bookmarks;
+		echo list_wrap($result_bookmarks);
 	}
 
 	if (isset($_POST['list_comments'])) {
@@ -1402,13 +1399,12 @@
 		$usuario_comments = $conn->query($query);
 		$list_comments = false;
 		if ($usuario_comments->num_rows > 0) {
-			$list_comments .= "<ul class='list-group list-group-flush'>";
 			while ($usuario_comment = $usuario_comments->fetch_assoc()) {
 				$usuario_comment_pagina_id = $usuario_comment['pagina_id'];
 				$list_comments .= return_list_item($usuario_comment_pagina_id, 'forum');
 			}
-			$list_comments .= "</ul>";
 		}
+		$list_comments = list_wrap($list_comments);
 		echo $list_comments;
 	}
 
@@ -1417,18 +1413,12 @@
 		$usuario_contribuicoes = $conn->query($query);
 		$list_contribuicoes = false;
 		if ($usuario_contribuicoes->num_rows > 0) {
-			$list_contribuicoes .= "<ul class='list-group list-group-flush'>";
-			//$count_contribuicoes = 0;
 			while ($usuario_contribuicao = $usuario_contribuicoes->fetch_assoc()) {
-				/*$count_contribuicoes++;
-				if ($count_contribuicoes == 21) {
-					break;
-				}*/
 				$usuario_contribuicao_pagina_id = $usuario_contribuicao['pagina_id'];
 				$list_contribuicoes .= return_list_item($usuario_contribuicao_pagina_id);
 			}
-			$list_contribuicoes .= "</ul>";
 		}
+		$list_contribuicoes = list_wrap($list_contribuicoes);
 		echo $list_contribuicoes;
 	}
 
@@ -1437,10 +1427,6 @@
 		$query = prepare_query("SELECT DISTINCT pagina_id FROM Notificacoes WHERE user_id = $user_id AND estado = 1 ORDER BY id DESC");
 		$notificacoes = $conn->query($query);
 		if ($notificacoes->num_rows > 0) {
-			$template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
-			if ($user_tipo == 'admin') {
-				//$template_modal_body_conteudo .= "<a href='notificacoes.php' class='mt-1'><li class='list-group-item list-group-item-action list-group-item-info d-flex justify-content-center'>Página de notificações</li></a>";
-			}
 			while ($notificacao = $notificacoes->fetch_assoc()) {
 				$notificacao_pagina_id = $notificacao['pagina_id'];
 				$notificacao_pagina_titulo = return_pagina_titulo($notificacao_pagina_id);
@@ -1472,13 +1458,13 @@
 					$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$notificacao_pagina_id' class='mt-1'><li class='list-group-item list-group-item-action border-top d-flex justify-content-between'><span class='ml-3'><i class='fad $segunda_alteracao_recente_tipo_icone fa-fw'></i> $notificacao_pagina_titulo</span><span class='text-muted'><em>($segunda_alteracao_recente_usuario_apelido) $segunda_alteracao_recente_data</em></span></li></a>";
 				}
 			}
-			$template_modal_body_conteudo .= "</ul>";
 		}
+		$template_modal_body_conteudo = list_wrap($template_modal_body_conteudo);
 		echo $template_modal_body_conteudo;
 	}
 
 	if (isset($_POST['list_estudos_recentes'])) {
-		$list_estudos_recentes = "<ul class='list-group list-group-flush'>";
+		$list_estudos_recentes = false;
 		$query = prepare_query("SELECT page_id, tipo_pagina, extra, extra2 FROM Visualizacoes WHERE user_id = $user_id ORDER BY id DESC");
 		$usuario_estudos_recentes = $conn->query($query);
 		if ($usuario_estudos_recentes->num_rows > 0) {
@@ -1543,7 +1529,7 @@
 				//$list_estudos_recentes .= "<a href='pagina.php?pagina_id=$usuario_estudo_recente_page_id' class='mt-1'><li class='list-group-item list-group-item-action $list_item_color'><i class='fad $list_item_icon fa-fw'></i> $usuario_estudo_recente_pagina_titulo</li></a>";
 			}
 		}
-		$list_estudos_recentes .= "</ul>";
+		$list_estudos_recentes = list_wrap($list_estudos_recentes);
 		echo $list_estudos_recentes;
 	}
 

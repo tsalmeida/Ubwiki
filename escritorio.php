@@ -554,22 +554,22 @@
         </form>
 	";
 	$template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
-	$template_modal_body_conteudo .= put_together_list_item('link_button', 'mostrar_formulario_codigo', 'text-info', 'fad', 'fa-gift-card', 'Adicionar crédito por código', false, false, false);
+	$template_modal_body_conteudo .= put_together_list_item('link_button', 'mostrar_formulario_codigo', 'text-info', 'fad fa-gift-card', 'Adicionar crédito por código', false, false, false);
 
 	$oferta_link = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=N9U85AQL7RBF8";
 	$oferta_texto = "Comprar 100 Créditos Ubwiki por R$ 100";
-	$template_modal_body_conteudo .= put_together_list_item('link_blank', $oferta_link, 'text-primary', 'fad', 'fa-external-link', $oferta_texto, false, false, false);
+	$template_modal_body_conteudo .= put_together_list_item('link_blank', $oferta_link, 'text-primary', 'fad fa-external-link', $oferta_texto, false, false, false);
 
 	$oferta_link = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=43NNZHEDD6278";
 	$oferta_texto = "Comprar 300 Créditos Ubwiki por R$ 285";
-	$template_modal_body_conteudo .= put_together_list_item('link_blank', $oferta_link, 'text-primary', 'fad', 'fa-external-link', $oferta_texto, false, false, false);
+	$template_modal_body_conteudo .= put_together_list_item('link_blank', $oferta_link, 'text-primary', 'fad fa-external-link', $oferta_texto, false, false, false);
 
 	$oferta_link = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AN49TH77ETDY6";
 	$oferta_texto = "Comprar 600 Créditos Ubwiki for R$ 550";
-	$template_modal_body_conteudo .= put_together_list_item('link_blank', $oferta_link, 'text-primary', 'fad', 'fa-external-link', $oferta_texto, false, false, false);
+	$template_modal_body_conteudo .= put_together_list_item('link_blank', $oferta_link, 'text-primary', 'fad fa-external-link', $oferta_texto, false, false, false);
 
 	$carteira_texto = "<strong>{$pagina_translated['Ubwiki credit current']} </strong>{$user_wallet}";
-	$template_modal_body_conteudo .= put_together_list_item('inactive', false, false, 'fad', 'fa-usd-circle', $carteira_texto, false, false, 'mt-2 lime lighten-5 b-0 teal-text font-italic d-flex justify-content-around');
+	$template_modal_body_conteudo .= put_together_list_item('inactive', false, false, 'fad fa-usd-circle', $carteira_texto, false, false, 'mt-2 lime lighten-5 b-0 teal-text font-italic d-flex justify-content-around');
 
 	$template_modal_show_buttons = false;
 	include 'templates/modal.php';

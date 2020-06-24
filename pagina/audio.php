@@ -5,13 +5,12 @@
 		$template_id = 'audios';
 		$template_titulo = $pagina_translated['Áudio'];
 		$template_conteudo = false;
-		$template_conteudo .= "<ul class='list-group list-group-flush'>";
 		while ($pagina_audio = $pagina_audios->fetch_assoc()) {
 			$pagina_audio_id = $pagina_audio['elemento_id'];
 			$pagina_audio_pagina_id = return_pagina_id($pagina_audio_id, 'elemento');
 			$template_conteudo .= return_list_item($pagina_audio_pagina_id);
 		}
-		$template_conteudo .= "</ul>";
+		$template_conteudo = list_wrap($template_conteudo);
 		include 'templates/page_element.php';
 	}
 

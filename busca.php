@@ -7,7 +7,7 @@
 		header('Location:pagina.php?pagina_id=3');
 	}
 	
-	$curso_paginas = return_curso_paginas($curso_id, 'all');
+	$curso_paginas = return_curso_paginas($raiz_item_id, 'all');
 
 ?>
 <body class="grey lighten-5">
@@ -22,7 +22,7 @@
 		$template_botoes_padrao = false;
 		$template_conteudo = false;
 		$template_conteudo .= "<h3>{$pagina_translated['Termos de busca:']} \"$busca\"</h3>";
-		$template_conteudo .= "<h3>{$pagina_translated['Curso']}: $curso_titulo</h3>";
+		$template_conteudo .= "<h3>{$pagina_translated['Curso']}: $raiz_titulo</h3>";
 		include 'templates/page_element.php';
 		
 		$template_id = 'busca_paginas';
@@ -32,7 +32,6 @@
 		
 		$busca_titulos = false;
 		if ($curso_paginas != false) {
-			$template_conteudo .= "<ul class='list-group list-group-flush'>";
 			foreach ($curso_paginas as $curso_pagina_id) {
 				$curso_pagina_info = return_pagina_info($curso_pagina_id);
 				$curso_pagina_titulo = $curso_pagina_info[6];
@@ -43,7 +42,7 @@
 					$template_conteudo .= "<a href='pagina.php?pagina_id=$curso_pagina_id'><li class='list-group-item list-group-item-action border-top mt-1 d-flex justify-content-between'><span>$curso_pagina_titulo</span><span class='{$curso_pagina_icone[1]}'><i class='{$curso_pagina_icone[0]}'></i></span></li></a>";
 				}
 			}
-			$template_conteudo .= "</ul>";
+			$template_conteudo = list_wrap($template_conteudo);
 		}
 		if ($busca_titulos == false) {
 			$template_conteudo .= "<p><span class='text-muted'>Nenhum resultado encontrado.</span></p>";
@@ -58,7 +57,7 @@
 		$template_conteudo = false;
 		$verbetes_resultados_materias = false;
 		$verbetes_resultados_topicos = false;
-		$verbetes = $conn->query("SELECT pagina_tipo, pagina_id, verbete_text FROM Textos WHERE verbete_text LIKE '%$busca%' AND curso_id = $curso_id AND tipo = 'verbete' ORDER BY pagina_tipo");
+		$verbetes = $conn->query("SELECT pagina_tipo, pagina_id, verbete_text FROM Textos WHERE verbete_text LIKE '%$busca%' AND curso_id = $raiz_item_id AND tipo = 'verbete' ORDER BY pagina_tipo");
 		if ($verbetes->num_rows > 0) {
 			while ($verbete = $verbetes->fetch_assoc()) {
 				$verbete_texto_pagina_id = $verbete['pagina_id'];
@@ -75,17 +74,13 @@
 		}
 		$template_conteudo .= "<h2>{$pagina_translated['Matérias']}</h2>";
 		if ($verbetes_resultados_materias != false) {
-			$template_conteudo .= "<ul class='list-group list-group-flush'>";
-			$template_conteudo .= $verbetes_resultados_materias;
-			$template_conteudo .= "</ul>";
+		    $template_conteudo .= list_wrap($verbetes_resultados_materias);
 		} else {
 			$template_conteudo .= "<p><span class='text-muted'>{$pagina_translated['Nenhum resultado encontrado.']}</span></p>";
 		}
 		$template_conteudo .= "<h2 class='mt-3'>{$pagina_translated['Tópicos']}</h2>";
 		if ($verbetes_resultados_topicos != false) {
-			$template_conteudo .= "<ul class='list-group list-group-flush'>";
-			$template_conteudo .= $verbetes_resultados_topicos;
-			$template_conteudo .= "</ul>";
+		    $template_conteudo .= list_wrap($verbetes_resultados_topicos);
 		} else {
 			$template_conteudo .= "<p><span class='text-muted'>{$pagina_translated['Nenhum resultado encontrado.']}</span></p>";
 		}

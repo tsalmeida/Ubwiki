@@ -546,34 +546,15 @@
 		}
 	}
 
-	if ($pagina_tipo != 'sistema') {
-		if ($user_id != false) {
-			$pagina_bookmark = false;
-			$query = prepare_query("SELECT bookmark FROM Bookmarks WHERE user_id = $user_id AND pagina_id = $pagina_id AND active = 1 ORDER BY id DESC");
-			$bookmarks = $conn->query($query);
-			if ($bookmarks->num_rows > 0) {
-				while ($bookmark = $bookmarks->fetch_assoc()) {
-					$pagina_bookmark = $bookmark['bookmark'];
-					break;
-				}
-			}
-			$estado_estudo = false;
-			$query = prepare_query("SELECT estado FROM Completed WHERE user_id = $user_id AND pagina_id = $pagina_id AND active = 1 ORDER BY id DESC");
-			$estudos = $conn->query($query);
-			if ($estudos->num_rows > 0) {
-				while ($estado = $estudos->fetch_assoc()) {
-					$estado_estudo = $estado['estado'];
-					break;
-				}
-			}
-		} else {
-			$pagina_bookmark = false;
-			$estado_estudo = false;
-		}
-	} else {
-		$pagina_bookmark = false;
-		$estado_estudo = false;
+	$pagina_bookmark = false;
+	$pagina_completed = false;
+	if (in_array($pagina_id, $user_bookmarks)) {
+		$pagina_bookmark = true;
 	}
+	if (in_array($pagina_id, $user_completed)) {
+	    $pagina_completed = true;
+    }
+
 	$html_head_template_quill = true;
 	if (($pagina_tipo == 'questao') || ($pagina_tipo == 'texto_apoio')) {
 		$html_head_template_quill_sim = true;
@@ -968,7 +949,7 @@
                     ";
 					if ($pagina_tipo == 'topico') {
 						if ($user_id != false) {
-							if ($estado_estudo == true) {
+							if ($pagina_completed == true) {
 								$marcar_completo = 'collapse';
 								$marcar_incompleto = false;
 							} else {
@@ -1271,7 +1252,8 @@
 						$template_conteudo .= "<ul class='list-group list-group-flush'>";
 						while ($materia = $materias->fetch_assoc()) {
 							$materia_pagina_id = $materia['elemento_id'];
-							$template_conteudo .= return_list_item($materia_pagina_id, false, 'fontstack-subtitle text-center', true, true, false, false, 'force-size');
+							$template_conteudo .= return_list_item($materia_pagina_id, false, 'fontstack-subtitle text-center force-size', true, true);
+							//$template_conteudo .= return_list_item($materia_pagina_id, false, 'fontstack-subtitle text-center', true, true, false, false, false, false, 'force-size');
 						}
 						$template_conteudo .= "</ul>";
 						unset($materia_id);
@@ -1777,11 +1759,11 @@
 				$template_modal_body_conteudo .= "<h3>{$pagina_translated['change page nature']}</h3>";
 				$template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
 				$template_modal_body_conteudo .= "<span data-toggle='modal' data-target='#modal_pagina_dados'>";
-				$template_modal_body_conteudo .= put_together_list_item('modal', '#modal_novo_curso', 'text-default', 'fad', 'fa-graduation-cap', $pagina_translated['Transformar em página inicial de curso'], false, false, 'list-group-item-action');
+				$template_modal_body_conteudo .= put_together_list_item('modal', '#modal_novo_curso', 'text-default', 'fad fa-graduation-cap', $pagina_translated['Transformar em página inicial de curso'], false, false, 'list-group-item-action');
 				$template_modal_body_conteudo .= "</span>";
 				if ($user_tipo == 'admin') {
 					$load_change_into_model = true;
-					$template_modal_body_conteudo .= put_together_list_item('link_button', 'change_into_model', 'text-secondary', 'fad', 'fa-pen-nib', $pagina_translated['Change page modelo'], false, false, 'list-group-item-action');
+					$template_modal_body_conteudo .= put_together_list_item('link_button', 'change_into_model', 'text-secondary', 'fad fa-pen-nib', $pagina_translated['Change page modelo'], false, false, 'list-group-item-action');
 				}
 				$template_modal_body_conteudo .= "</ul>";
 			}
@@ -1875,7 +1857,7 @@
 		$template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
 		if ($privilegio_edicao == true) {
 			$template_modal_body_conteudo .= "<span data-toggle='modal' data-target='#modal_partes_elemento'>";
-			$template_modal_body_conteudo .= put_together_list_item('modal', '#modal_partes_form', false, 'fad', 'fa-plus-square', $pagina_translated['Adicionar seção'], false, false, 'list-group-item-success');
+			$template_modal_body_conteudo .= put_together_list_item('modal', '#modal_partes_form', false, 'fad fa-plus-square', $pagina_translated['Adicionar seção'], false, false, 'list-group-item-success');
 			$template_modal_body_conteudo .= "</span>";
 		}
 		$template_modal_body_conteudo .= $lista_de_secoes;
@@ -1934,7 +1916,7 @@
 			if ($pagina_link == false) {
 				$pagina_compartilhamento_por_link = true;
 				$template_modal_body_conteudo .= "<ul class='list-group list-group-flush mt-3'>";
-				$template_modal_body_conteudo .= put_together_list_item('link_button', 'permitir_acesso_por_link', false, 'fad', 'fa-link', $pagina_translated['Permitir compartilhamento por link.'], false, 'fad fa-sync', 'list-group-item-info');
+				$template_modal_body_conteudo .= put_together_list_item('link_button', 'permitir_acesso_por_link', false, 'fad fa-link', $pagina_translated['Permitir compartilhamento por link.'], false, 'fad fa-sync', 'list-group-item-info');
 				$template_modal_body_conteudo .= "</ul>";
 			} else {
 				$template_modal_body_conteudo .= "
@@ -2723,22 +2705,22 @@
 		$template_modal_body_conteudo .= "<ul class='list-group list-group-flush' method='post'>";
 		if (($pagina_user_id == $user_id) && ($pagina_compartilhamento == 'privado')) {
 			$carregar_publicar_modelo = true;
-			$template_modal_body_conteudo .= put_together_list_item('link_button', 'publicar_modelo', false, 'fad', 'fa-pen-nib', $pagina_translated['Publicar modelo'], false, false, 'list-group-item-warning mt-1');
+			$template_modal_body_conteudo .= put_together_list_item('link_button', 'publicar_modelo', false, 'fad fa-pen-nib', $pagina_translated['Publicar modelo'], false, false, 'list-group-item-warning mt-1');
 		}
 		switch ($modelo_do_usuario) {
 			case false:
-				$template_modal_body_conteudo .= put_together_list_item('link_button', 'adicionar_escritorio_modelo', false, 'fad', 'fa-pen-nib', $pagina_translated['Adicionar seus modelos'], false, false, 'list-group-item-success mt-1');
+				$template_modal_body_conteudo .= put_together_list_item('link_button', 'adicionar_escritorio_modelo', false, 'fad fa-pen-nib', $pagina_translated['Adicionar seus modelos'], false, false, 'list-group-item-success mt-1');
 				$esconder_paragrafo_hidden = 'hidden';
 				break;
 			case 'hidden':
-				$template_modal_body_conteudo .= put_together_list_item('link_button', 'list_item_mostrar_paragrafo', false, 'fad', 'fa-eye', $pagina_translated['Modelo mostrar paragrafo'], false, 'fa-pen-nib', 'list-group-item-success mt-1 modelo_mostrar_paragrafo');
+				$template_modal_body_conteudo .= put_together_list_item('link_button', 'list_item_mostrar_paragrafo', false, 'fad fa-eye', $pagina_translated['Modelo mostrar paragrafo'], false, 'fa-pen-nib', 'list-group-item-success mt-1 modelo_mostrar_paragrafo');
 				$esconder_paragrafo_hidden = 'hidden';
 				break;
 			case 'added':
 			default:
 				$esconder_paragrafo_hidden = false;
 		}
-		$template_modal_body_conteudo .= put_together_list_item('link_button', 'list_item_esconder_paragrafo', false, 'fad', 'fa-eye-slash', $pagina_translated['Modelo esconder paragrafo'], false, 'fa-pen-nib', "list-group-item-info mt-1 modelo_esconder_paragrafo $esconder_paragrafo_hidden");
+		$template_modal_body_conteudo .= put_together_list_item('link_button', 'list_item_esconder_paragrafo', false, 'fad fa-eye-slash', $pagina_translated['Modelo esconder paragrafo'], false, 'fa-pen-nib', "list-group-item-info mt-1 modelo_esconder_paragrafo $esconder_paragrafo_hidden");
 		$template_modal_body_conteudo .= "</ul>";
 		include 'templates/modal.php';
 	}

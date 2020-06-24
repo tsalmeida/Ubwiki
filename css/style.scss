@@ -269,23 +269,23 @@ ul + * {
 }
 
 .spacing1 {
-  padding-left: 2ch !important;
+  padding-left: 1ch !important;
 }
 
 .spacing2 {
-  padding-left: 4ch !important;
+  padding-left: 2ch !important;
 }
 
 .spacing3 {
-  padding-left: 6ch !important;
+  padding-left: 4ch !important;
 }
 
 .spacing4 {
-  padding-left: 8ch !important;
+  padding-left: 6ch !important;
 }
 
 .spacing5 {
-  padding-left: 10ch !important;
+  padding-left: 8ch !important;
 }
 
 #mostrar_coluna_direita {
@@ -575,6 +575,10 @@ ul {
   top: 1px;
   right: 1px;
   opacity: 0.6;
+}
+
+.opacity-0 {
+  opacity: 0 !important;
 }
 
 .icone-lista {

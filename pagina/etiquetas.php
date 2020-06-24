@@ -41,7 +41,7 @@
 		}
 	}
 	$template_modal_body_conteudo .= "<span data-toggle='modal' data-target='#modal_secao_etiquetas'>";
-	$template_modal_body_conteudo .= put_together_list_item('modal', '#modal_gerenciar_etiquetas', false, 'fad', 'fa-tags', $pagina_translated['Adicionar etiqueta'], false, false, 'list-group-item-warning', false);
+	$template_modal_body_conteudo .= put_together_list_item('modal', '#modal_gerenciar_etiquetas', false, 'fad fa-tags', $pagina_translated['Adicionar etiqueta'], false, false, 'list-group-item-warning', false);
 	$template_modal_body_conteudo .= "</span>";
 	$template_modal_body_conteudo .= "</ul>";
 	

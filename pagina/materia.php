@@ -22,22 +22,9 @@
 		$conn->query($query);
 	}
 
-	if ($user_id != false) {
-		$query = prepare_query("SELECT pagina_id FROM Completed WHERE user_id = $user_id AND estado = 1");
-		$completos = $conn->query($query);
-		$usuario_completos = array();
-		if ($completos->num_rows > 0) {
-			while ($completo = $completos->fetch_assoc()) {
-				$completo_pagina_id = $completo['pagina_id'];
-				array_push($usuario_completos, $completo_pagina_id);
-			}
-		}
-	} else {
-		$completos = false;
-		$usuario_completos = array();
-	}
-	
-	$completo_efeito = 'border border-success green-text';
+	$completo_efeito = 'border border-success text-success';
+	$bookmark_icone = 'fas fa-bookmark fa-sm';
+	$bookmark_color = 'text-danger';
 
 	$query = prepare_query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'topico'");
 	$topicos = $conn->query($query);
@@ -51,8 +38,13 @@
 				continue;
 			}
 			$topico_completo = false;
-			if (in_array($topico_pagina_id, $usuario_completos)) {
+			if (in_array($topico_pagina_id, $user_completed)) {
 				$topico_completo = $completo_efeito;
+			}
+			if (in_array($topico_pagina_id, $user_bookmarks)) {
+				$li_color = $bookmark_color;
+			} else {
+				$li_color = 'opacity-0';
 			}
 			$topico_pagina_info = return_pagina_info($topico_pagina_id);
 			if ($topico_pagina_info == false) {
@@ -66,7 +58,7 @@
 				$topico_pagina_estado_icone = false;
 			}
 			$template_conteudo .= "<ul class='list-group grey lighten-4 rounded p-1 mt-1'>";
-			$template_conteudo .= put_together_list_item('link', "pagina.php?pagina_id=$topico_pagina_id", false, false, false, $topico_pagina_titulo, false, $topico_pagina_estado_icone[0], "list-group-item-primary $topico_completo");
+			$template_conteudo .= put_together_list_item('link', "pagina.php?pagina_id=$topico_pagina_id", $li_color, $bookmark_icone, $topico_pagina_titulo, false, $topico_pagina_estado_icone[0], "list-group-item-primary $topico_completo");
 
 			$query = prepare_query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $topico_pagina_id AND tipo = 'subtopico'");
 			$subtopicos = $conn->query($query);
@@ -77,15 +69,21 @@
 					$subtopico_pagina_estado = $subtopico_pagina_info[3];
 					$subtopico_pagina_titulo = $subtopico_pagina_info[6];
 					$topico_completo = false;
-					if (in_array($subtopico_pagina_id, $usuario_completos)) {
+					if (in_array($subtopico_pagina_id, $user_completed)) {
 						$topico_completo = $completo_efeito;
 					}
+					if (in_array($subtopico_pagina_id, $user_bookmarks)) {
+						$li_color = $bookmark_color;
+					} else {
+						$li_color = 'opacity-0';
+					}
+
 					if ($subtopico_pagina_estado != false) {
 						$subtopico_pagina_estado_icone = return_estado_icone($subtopico_pagina_estado);
 					} else {
 						$subtopico_pagina_estado_icone = false;
 					}
-					$template_conteudo .= put_together_list_item('link', "pagina.php?pagina_id=$subtopico_pagina_id", false, false, false, $subtopico_pagina_titulo, false, $subtopico_pagina_estado_icone[0], "list-group-item-secondary $topico_completo", 'mt-1 spacing1');
+					$template_conteudo .= put_together_list_item('link', "pagina.php?pagina_id=$subtopico_pagina_id", $li_color, $bookmark_icone, $subtopico_pagina_titulo, false, $subtopico_pagina_estado_icone[0], "list-group-item-secondary $topico_completo", 'mt-1 spacing1');
 
 					$query = prepare_query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $subtopico_pagina_id AND tipo = 'subtopico'");
 					$subsubtopicos = $conn->query($query);
@@ -96,15 +94,20 @@
 							$subsubtopico_pagina_estado = $subsubtopico_pagina_info[3];
 							$subsubtopico_pagina_titulo = $subsubtopico_pagina_info[6];
 							$topico_completo = false;
-							if (in_array($subsubtopico_pagina_id, $usuario_completos)) {
+							if (in_array($subsubtopico_pagina_id, $user_completed)) {
 								$topico_completo = $completo_efeito;
+							}
+							if (in_array($subsubtopico_pagina_id, $user_bookmarks)) {
+								$li_color = $bookmark_color;
+							} else {
+								$li_color = 'opacity-0';
 							}
 							if ($subsubtopico_pagina_estado != false) {
 								$subsubtopico_pagina_estado_icone = return_estado_icone($subsubtopico_pagina_estado);
 							} else {
 								$subsubtopico_pagina_estado_icone = false;
 							}
-							$template_conteudo .= put_together_list_item('link', "pagina.php?pagina_id=$subsubtopico_pagina_id", false, false, false, $subsubtopico_pagina_titulo, false, $subsubtopico_pagina_estado_icone[0], $topico_completo, 'mt-1 spacing2');
+							$template_conteudo .= put_together_list_item('link', "pagina.php?pagina_id=$subsubtopico_pagina_id", $li_color, $bookmark_icone, $subsubtopico_pagina_titulo, false, $subsubtopico_pagina_estado_icone[0], $topico_completo, 'mt-1 spacing2');
 
 							$query = prepare_query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $subsubtopico_pagina_id AND tipo = 'subtopico'");
 							$subsubsubtopicos = $conn->query($query);
@@ -115,8 +118,13 @@
 									$subsubsubtopico_pagina_estado = $subsubsubtopico_pagina_info[3];
 									$subsubsubtopico_pagina_titulo = $subsubsubtopico_pagina_info[6];
 									$topico_completo = false;
-									if (in_array($subsubsubtopico_pagina_id, $usuario_completos)) {
+									if (in_array($subsubsubtopico_pagina_id, $user_completed)) {
 										$topico_completo = $completo_efeito;
+									}
+									if (in_array($subsubsubtopico_pagina_id, $user_bookmarks)) {
+										$li_color = $bookmark_color;
+									} else {
+										$li_color = 'opacity-0';
 									}
 									if ($subsubsubtopico_pagina_estado != false) {
 										$subsubsubtopico_pagina_estado_icone = return_estado_icone($subsubsubtopico_pagina_estado);
@@ -124,7 +132,7 @@
 										$subsubsubtopico_pagina_estado_icone = false;
 									}
 
-									$template_conteudo .= put_together_list_item('link', "pagina.php?pagina_id=$subsubsubtopico_pagina_id", false, false, false, $subsubsubtopico_pagina_titulo, false, $subsubsubtopico_pagina_estado_icone[0], "$topico_completo font-italic text-muted", 'mt-1 spacing3');
+									$template_conteudo .= put_together_list_item('link', "pagina.php?pagina_id=$subsubsubtopico_pagina_id", $li_color, $bookmark_icone, $subsubsubtopico_pagina_titulo, false, $subsubsubtopico_pagina_estado_icone[0], "$topico_completo font-italic text-muted", 'mt-1 spacing3');
 
 									$query = prepare_query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $subsubsubtopico_pagina_id AND tipo = 'subtopico'");
 									$subsubsubsubtopicos = $conn->query($query);
@@ -135,15 +143,20 @@
 											$subsubsubsubtopico_pagina_estado = $subsubsubsubtopico_pagina_info[3];
 											$subsubsubsubtopico_pagina_titulo = $subsubsubsubtopico_pagina_info[6];
 											$topico_completo = false;
-											if (in_array($subsubsubsubtopico_pagina_id, $usuario_completos)) {
+											if (in_array($subsubsubsubtopico_pagina_id, $user_completed)) {
 												$topico_completo = $completo_efeito;
+											}
+											if (in_array($subsubsubsubtopico_pagina_id, $user_bookmarks)) {
+												$li_color = $bookmark_color;
+											} else {
+												$li_color = 'opacity-0';
 											}
 											if ($subsubsubsubtopico_pagina_estado != false) {
 												$subsubsubsubtopico_pagina_estado_icone = return_estado_icone($subsubsubsubtopico_pagina_estado);
 											} else {
 												$subsubsubsubtopico_pagina_estado_icone = false;
 											}
-											$template_conteudo .= put_together_list_item('link', "pagina.php?pagina_id=$subsubsubsubtopico_pagina_id", false, false, false, $subsubsubsubtopico_pagina_titulo, false, $subsubsubsubtopico_pagina_estado_icone[0], "$topico_completo font-italic text-muted", 'mt-1 spacing4');
+											$template_conteudo .= put_together_list_item('link', "pagina.php?pagina_id=$subsubsubsubtopico_pagina_id", $li_color, $bookmark_icone, $subsubsubsubtopico_pagina_titulo, false, $subsubsubsubtopico_pagina_estado_icone[0], "$topico_completo font-italic text-muted", 'mt-1 spacing4');
 										}
 									}
 								}

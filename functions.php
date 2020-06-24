@@ -1564,6 +1564,9 @@
 						$topico_pagina_id = $topico['elemento_id'];
 						array_push($result_topicos, $topico_pagina_id);
 						array_push($result_all, $topico_pagina_id);
+						if ($topico_pagina_id == false) {
+							continue;
+						}
 						$query = prepare_query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $topico_pagina_id AND tipo = 'subtopico'");
 						$subtopicos = $conn->query($query);
 						if ($subtopicos->num_rows > 0) {
@@ -2170,7 +2173,7 @@
 
 	function return_list_item()
 	{
-		// ($pagina_id, $lista_tipo, $item_classes, $no_icon, $no_estado)
+		// ($pagina_id, $lista_tipo, $item_classes, $no_icon, $no_estado, $override_pagina_estado_cor, $override_pagina_titulo, $link_classes, $lista_texto_classes)
 		$args = func_get_args();
 		$pagina_id = $args[0];
 		if (isset($args[1])) {
@@ -2206,7 +2209,13 @@
 		}
 
 		if (isset($args[7])) {
-			$lista_texto_classes = $args[7];
+			$link_classes = $args[7];
+		} else {
+			$link_classes = false;
+		}
+
+		if (isset($args[8])) {
+			$lista_texto_classes = $args[8];
 		} else {
 			$lista_texto_classes = false;
 		}
@@ -2283,7 +2292,6 @@
 
 		if ($no_icon == true) {
 			$cor_icone_principal = false;
-			$icone_prefixo = false;
 			$icone_principal = false;
 		}
 		if ($no_estado == true) {
@@ -2299,13 +2307,13 @@
 			$pagina_titulo = $override_pagina_titulo;
 		}
 
-		return put_together_list_item('link', $link, $cor_icone_principal, false, $icone_principal, $pagina_titulo, $pagina_estado_cor, $pagina_estado_icone, $item_classes, $lista_texto_classes);
+		return put_together_list_item('link', $link, $cor_icone_principal, $icone_principal, $pagina_titulo, $pagina_estado_cor, $pagina_estado_icone, $item_classes, $link_classes, $lista_texto_classes);
 	}
 
 	function put_together_list_item()
 	{
 		/*
-		put_together_list_item('link', $link, $cor_icone_principal, $icone_prefixo, $icone_principal, $pagina_titulo, $pagina_estado_cor, $pagina_estado_icone, $item_classes, $link_classes);
+		put_together_list_item('link', $link, $cor_icone_principal, $icone_principal, $pagina_titulo, $pagina_estado_cor, $pagina_estado_icone, $item_classes, $link_classes, $lista_texto_classes);
 		*/
 
 		$args = func_get_args();
@@ -2315,25 +2323,24 @@
 			$type = 'inactive';
 		}
 		$cor_icone_principal = $args[2];
-		$icone_prefixo = $args[3];
-		$icone_principal = $args[4];
-		$pagina_titulo = $args[5];
-		$pagina_estado_cor = $args[6];
-		$pagina_estado_icone = $args[7];
-		if (isset($args[9])) {
-			$link_classes = $args[9];
-		} else {
-			$link_classes = false;
-		}
+		$icone_principal = $args[3];
+		$pagina_titulo = $args[4];
+		$pagina_estado_cor = $args[5];
+		$pagina_estado_icone = $args[6];
 		if (($pagina_estado_icone == false) && ($icone_principal == false)) {
 			$dflex = false;
 		} else {
 			$dflex = 'd-flex justify-content-between';
 		}
-		if (isset($args[8])) {
-			$item_classes = $args[8];
+		if (isset($args[7])) {
+			$item_classes = $args[7];
 		} else {
 			$item_classes = false;
+		}
+		if (isset($args[8])) {
+			$link_classes = $args[8];
+		} else {
+			$link_classes = false;
 		}
 		if (isset($args[9])) {
 			$lista_texto_classes = $args[9];
@@ -2357,7 +2364,7 @@
 				<li class='list-group-item list-group-item-action $item_classes border-top p-1 py-2 $dflex'>
 					<span class='$fix_things'>
 						<span class='$cor_icone_principal align-center icone-lista'>
-							<i class='$icone_prefixo $icone_principal fa-fw fa-lg'></i>
+							<i class='$icone_principal fa-fw fa-lg'></i>
 						</span>
 						<span class='lista-texto $lista_texto_classes'>
 							$pagina_titulo
@@ -2374,7 +2381,7 @@
 				<li class='list-group-item list-group-item-action $item_classes border-top p-1 py-2 $dflex'>
 					<span class='$fix_things'>
 						<span class='$cor_icone_principal align-center icone-lista'>
-							<i class='$icone_prefixo $icone_principal fa-fw fa-lg'></i>
+							<i class='$icone_principal fa-fw fa-lg'></i>
 						</span>
 						<span class='lista-texto $lista_texto_classes'>
 							$pagina_titulo
@@ -2390,7 +2397,7 @@
 				<li class='list-group-item $item_classes border-top p-1 py-2 $dflex'>
 					<span class='$fix_things'>
 						<span class='$cor_icone_principal align-center icone-lista'>
-							<i class='$icone_prefixo $icone_principal fa-fw fa-lg'></i>
+							<i class='$icone_principal fa-fw fa-lg'></i>
 						</span>
 						<span class='lista-texto $lista_texto_classes'>
 							$pagina_titulo
@@ -2407,7 +2414,7 @@
 				<li class='list-group-item list-group-item-action $item_classes border-top p-1 py-2 $dflex'>
 					<span class='$fix_things'>
 						<span class='$cor_icone_principal align-center icone-lista'>
-							<i class='$icone_prefixo $icone_principal fa-fw fa-lg'></i>
+							<i class='$icone_principal fa-fw fa-lg'></i>
 						</span>
 						<span class='lista-texto $lista_texto_classes'>
 							$pagina_titulo
@@ -2918,4 +2925,46 @@
 			default:
 				return 'bg-white';
 		}
+	}
+
+	function return_user_bookmarks($user_id) {
+		if ($user_id == false) {
+			return false;
+		}
+		include 'templates/criar_conn.php';
+		$query = prepare_query("SELECT DISTINCT pagina_id FROM Bookmarks WHERE user_id = $user_id AND bookmark = 1 AND active = 1 ORDER BY id DESC");
+		$usuario_bookmarks = $conn->query($query);
+		$result_bookmarks = array();
+		if ($usuario_bookmarks->num_rows > 0) {
+			while ($usuario_bookmark = $usuario_bookmarks->fetch_assoc()) {
+				$usuario_bookmark_pagina_id = $usuario_bookmark['pagina_id'];
+				array_push($result_bookmarks, $usuario_bookmark_pagina_id);
+			}
+		}
+		return $result_bookmarks;
+	}
+
+	function return_user_completed($user_id) {
+		if ($user_id == false) {
+			return false;
+		}
+		include 'templates/criar_conn.php';
+		$query = prepare_query("SELECT DISTINCT pagina_id FROM Completed WHERE user_id = $user_id AND estado = 1 AND active = 1 ORDER BY id DESC");
+		$usuario_completos = $conn->query($query);
+		$result_completos = array();
+		if ($usuario_completos->num_rows > 0) {
+			while ($usuario_completo = $usuario_completos->fetch_assoc()) {
+				$usuario_completo_pagina_id = $usuario_completo['pagina_id'];
+				array_push($result_completos, $usuario_completo_pagina_id);
+			}
+		}
+		return $result_completos;
+	}
+
+	function list_wrap($content) {
+		return "
+			<ul class='list-group list-group-flush'>
+				$content
+			</ul>
+		";
 	}

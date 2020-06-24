@@ -30,13 +30,12 @@
 				$query = prepare_query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'modelo' AND estado = 1");
 				$modelos_do_usuario = $conn->query($query);
 				if ($modelos_do_usuario->num_rows > 0) {
-					$template_conteudo .= "<ul class='list-group list-group-flush'>";
 					while ($modelo_do_usuario = $modelos_do_usuario->fetch_assoc()) {
 						$modelo_do_usuario_pagina_id = $modelo_do_usuario['elemento_id'];
 						array_push($cada_modelo_do_usuario, $modelo_do_usuario_pagina_id);
 						$template_conteudo .= return_list_item($modelo_do_usuario_pagina_id);
 					}
-					$template_conteudo .= "</ul>";
+					$template_conteudo = list_wrap($template_conteudo);
 				} else {
 					$template_conteudo .= "<p class='text-muted font-italic'>Você ainda não acrescentou nenhum parágrafo do método BFranklin para prática futura.</p>";
 				}
@@ -51,7 +50,6 @@
 				$ha_outros_modelos_disponiveis = false;
 				$modelos_disponiveis = $conn->query($query);
 				if ($modelos_disponiveis->num_rows > 0) {
-					$template_conteudo .= "<ul class='list-group list-group-flush'>";
 					while ($modelo_disponivel = $modelos_disponiveis->fetch_assoc()) {
 						$modelo_disponivel_pagina_id = $modelo_disponivel['id'];
 						$modelo_disponivel_compartilhamento = $modelo_disponivel['compartilhamento'];
@@ -74,7 +72,7 @@
 						$modelo_disponivel_pagina_id = $modelo_disponivel['id'];
 						$template_conteudo .= return_list_item($modelo_disponivel_pagina_id);
 					}
-					$template_conteudo .= "</ul>";
+					$template_conteudo = list_wrap($template_conteudo);
 				} else {
 					$template_conteudo .= "<p class='text-muted font-italic'>Não há modelos disponíveis a que você tenha acesso.</p>";
 				}
@@ -85,27 +83,24 @@
 				$template_id = 'rascunhos_usuario';
 				$template_titulo = $pagina_translated['Seus rascunhos'];
 				$template_conteudo = false;
-				$template_conteudo .= "<ul class='list-group list-group-flush'>";
-				$template_conteudo .= put_together_list_item('link_button', 'criar_novo_modelo', 'criar_novo_modelo text-secondary', 'fad', 'fa-plus-square', 'Criar novo modelo', false, 'fad fa-pen-nib', 'purple lighten-5 text-secondary');
+				$template_conteudo .= put_together_list_item('link_button', 'criar_novo_modelo', 'criar_novo_modelo text-secondary', 'fad fa-plus-square', 'Criar novo modelo', false, 'fad fa-pen-nib', 'purple lighten-5 text-secondary');
 				if ($rascunhos_de_modelo_do_usuario != false) {
 
 					foreach ($rascunhos_de_modelo_do_usuario as $rascunho_pagina_id) {
 						$template_conteudo .= return_list_item($rascunho_pagina_id);
 					}
 				}
-
-				$template_conteudo .= "</ul>";
+                $template_conteudo = list_wrap($template_conteudo);
 				include 'templates/page_element.php';
 
 				if ($modelos_disponiveis_criados_pelo_usuario != false) {
 					$template_id = 'disponiveis_usuario';
 					$template_titulo = $pagina_translated['Available models you created'];
 					$template_conteudo = false;
-					$template_conteudo .= "<ul class='list-group list-group-flush'>";
 					foreach ($modelos_disponiveis_criados_pelo_usuario as $disponivel_usuario_pagina_id) {
 						$template_conteudo .= return_list_item($disponivel_usuario_pagina_id);
 					}
-					$template_conteudo .= "</ul>";
+					$template_conteudo = list_wrap($template_conteudo);
 					include 'templates/page_element.php';
 				}
 
