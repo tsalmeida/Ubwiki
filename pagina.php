@@ -377,7 +377,7 @@
 			if (($pagina_tipo == 'topico') || ($pagina_tipo == 'materia') || ($pagina_subtipo == 'Plano de estudos')) {
 				$pagina_checar_compartilhamento = $pagina_curso_pagina_id;
 			}
-			if (isset($_SESSION['acesso_especial'])) {
+			if ($_SESSION['acesso_especial'] != false) {
 				if ($user_id != false) {
 					$check_compartilhamento = return_compartilhamento($pagina_checar_compartilhamento, $user_id);
 					if (($check_compartilhamento == false) && ($add_compartilhamento == true)) {
@@ -400,7 +400,6 @@
 			$check_compartilhamento = true;
 		}
 		if ($check_compartilhamento == false) {
-			error_log('é mais provável que esse tenha acontecido');
 			header('Location:pagina.php?pagina_id=3');
 			exit();
 		}

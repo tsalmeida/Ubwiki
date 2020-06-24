@@ -36,8 +36,10 @@
 		echo "<a class='navlink dropdown-toggle waves-effect waves-light rounded $template_navbar_text' id='user_dropdown' data-toggle='dropdown' href='javascript:void(0);'>
 		        <i class='fas fa-2x $user_avatar_icone fa-lg fa-fw'></i>
 		        </a>
-		        <div class='dropdown-menu dropdown-menu-right z-depth-0'>
-		          <a class='dropdown-item navlink z-depth-0' href='escritorio.php'><i class='fad fa-lamp-desk fa-fw'></i> {$pagina_translated['office']}</a>";
+		        <div class='dropdown-menu dropdown-menu-right z-depth-0'>";
+		if ($pagina_tipo != 'escritorio') {
+			echo "<a class='dropdown-item navlink z-depth-0' href='escritorio.php'><i class='fad fa-lamp-desk fa-fw'></i> {$pagina_translated['office']}</a>";
+		}
 		if ($pagina_tipo != 'ubwiki') {
 			echo "<a class='dropdown-item navlink z-depth-0' href='ubwiki.php'><i class='fad fa-portal-enter fa-fw'></i> {$pagina_translated['environments']}</a>";
 		}
@@ -45,8 +47,8 @@
 		if ($user_tipo == 'admin') {
 			echo "<a class='dropdown-item navlink z-depth-0' href='admin.php'><i class='fad fa-cogs fa-fw'></i> {$pagina_translated['administrators page']}</a>";
 		}
-		if ($pagina_tipo != 'curso') {
-			echo "<a class='dropdown-item navlink z-depth-0' href='pagina.php?pagina_id=$raiz_ativa' title='$raiz_titulo'><i class='fad fa-book-reader fa-fw'></i> $raiz_sigla</a>";
+		if (!in_array($pagina_tipo, array('curso', 'escritorio'))) {
+			echo "<a class='dropdown-item navlink z-depth-0' href='pagina.php?pagina_id=$raiz_ativa' title='$raiz_titulo'><i class='fad fa-history fa-fw'></i> $raiz_sigla</a>";
 		}
 		echo "<a class='dropdown-item navlink z-depth-0' href='javascript:void(0);' data-toggle='modal' data-target='#modal_languages'><i class='fad fa-language fa-fw'></i> $user_language_titulo</a>";
 		if ($user_id != false) {

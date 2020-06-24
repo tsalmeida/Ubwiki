@@ -155,32 +155,33 @@
 				$artefato_class = 'icones_links';
 				$artefato_criacao = false;
 				$template_conteudo .= include 'templates/artefato_item.php';
-/*
-				$artefato_titulo = $pagina_translated['freepages'];
-				$artefato_tipo = 'areas_interesse';
-				$artefato_col_limit = $escritorio_col_limit;
-				//$artefato_link = '#sobre_areas_interesse';
-				$artefato_criacao = false;
-				$fa_icone = 'fa-tags';
-				$fa_color = 'text-warning';
-				$fa_size = 'fa-4x';
-				$artefato_class = 'icone_sobre_stuff';
-				$template_conteudo .= include 'templates/artefato_item.php';
+				/*
+								$artefato_titulo = $pagina_translated['freepages'];
+								$artefato_tipo = 'areas_interesse';
+								$artefato_col_limit = $escritorio_col_limit;
+								//$artefato_link = '#sobre_areas_interesse';
+								$artefato_criacao = false;
+								$fa_icone = 'fa-tags';
+								$fa_color = 'text-warning';
+								$fa_size = 'fa-4x';
+								$artefato_class = 'icone_sobre_stuff';
+								$template_conteudo .= include 'templates/artefato_item.php';
 
-				$artefato_titulo = $pagina_translated['freepages'];
-				$artefato_subtitulo = $pagina_translated['Visitar'];
-				$artefato_titulo_class = 'text-primary';
-				$artefato_link = 'paginas_livres.php';
-				$artefato_tipo = 'areas_interesse_link';
-				$artefato_col_limit = $escritorio_col_limit;
-				$fa_icone = 'fa-tags';
-				$fa_color = 'text-white';
-				$artefato_icone_background = 'icone-link rgba-orange-strong';
-				$fa_size = 'fa-4x';
-				$fa_invert = true;
-				$artefato_class = 'icones_links';
-				$artefato_criacao = false;
-				$template_conteudo .= include 'templates/artefato_item.php';*/
+								$artefato_titulo = $pagina_translated['freepages'];
+								$artefato_subtitulo = $pagina_translated['Visitar'];
+								$artefato_titulo_class = 'text-primary';
+								$artefato_link = 'paginas_livres.php';
+								$artefato_tipo = 'areas_interesse_link';
+								$artefato_col_limit = $escritorio_col_limit;
+								$fa_icone = 'fa-tags';
+								$fa_color = 'text-white';
+								$artefato_icone_background = 'icone-link rgba-orange-strong';
+								$fa_size = 'fa-4x';
+								$fa_invert = true;
+								$artefato_class = 'icones_links';
+								$artefato_criacao = false;
+								$template_conteudo .= include 'templates/artefato_item.php';
+				*/
 
 				$artefato_titulo = $pagina_translated['library'];
 				$artefato_tipo = 'biblioteca';
@@ -283,8 +284,8 @@
 				$texto_ambiente_id = return_texto_ambientes('cursos', $user_language);
 				$template_conteudo .= return_verbete_html($texto_ambiente_id);
 				include 'templates/page_element.php';
-/*
-				$template_id = 'sobre_areas_interesse';
+
+				/*$template_id = 'sobre_areas_interesse';
 				$template_titulo = $pagina_translated['about_free_pages'];
 				$template_classes = 'sobre_stuff';
 				//$template_botoes = '<a href="paginas_livres.php" class="text-primary"><i class="fad fa-external-link fa-fw fa-2x"></i></a>';

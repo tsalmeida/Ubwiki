@@ -1,7 +1,7 @@
 <?php
 
     //TODO: Notificações
-    //TODO: Opção de quais ícones mostrar e quais esconder.
+    //TODO: Os ícones devem ser determinados de acordo com as práticas do usuário. Quando há bookmarks, o ícone de bookmarks aparece, por exemplo. Essas informações precisam ser registradas em variáveis da sessão, determinadas no momento do login.
     //TODO: Etiquetas como pastas que organizam os textos e páginas do usuário.
     //TODO: A sala de visitas deve ter espaço para adicionar os perfis do usuário em sites de mídia social.
 

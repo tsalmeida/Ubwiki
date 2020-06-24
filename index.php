@@ -4,12 +4,12 @@
 	include 'criar_sessao.php';
 
 	include 'templates/criar_conn.php';
-	
+
 	$user_email = false;
 	$new_user = false;
 	$special = false;
 	$user_id = false;
-	
+
 	if (isset($_GET['special'])) {
 		$special = $_GET['special'];
 		$usuarios = $conn->query("SELECT id, email, apelido FROM Usuarios WHERE special = '$special' AND special IS NOT NULL");
@@ -23,7 +23,7 @@
 			}
 		}
 	}
-	
+
 	if (isset($_GET['credito'])) {
 		$_SESSION['credito'] = $_GET['credito'];
 	}
@@ -34,8 +34,12 @@
 			$_SESSION['thinkific_bora'] = $_POST['bora'];
 		}
 	}*/
-	
-	header('Location:ubwiki.php');
+
+	if ($_SESSION['user_info'] == true) {
+		header('Location:escritorio.php');
+	} else {
+		header('Location:ubwiki.php');
+	}
 	exit();
-	
-	?>
+
+?>
