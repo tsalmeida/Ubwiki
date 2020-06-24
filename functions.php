@@ -2961,6 +2961,25 @@
 		return $result_completos;
 	}
 
+	function return_user_areas_interesse($user_escritorio) {
+		if ($user_escritorio == false) {
+			return false;
+		}
+		include 'templates/criar_conn.php';
+		$query = prepare_query("SELECT extra FROM Paginas_elementos WHERE pagina_id = $user_escritorio AND tipo = 'topico' AND estado = 1 ORDER BY id DESC");
+		$user_areas_interesse = array();
+		$areas_interesse = $conn->query($query);
+		if ($areas_interesse->num_rows > 0) {
+			while ($area_interesse = $areas_interesse->fetch_assoc()) {
+				$area_interesse_etiqueta_id = $area_interesse['extra'];
+				$area_interesse_info = return_etiqueta_info($area_interesse_etiqueta_id);
+				$area_interesse_pagina_id = $area_interesse_info[4];
+				array_push($user_areas_interesse, $area_interesse_pagina_id);
+			}
+		}
+		return $user_areas_interesse;
+	}
+
 	function list_wrap($content) {
 		return "
 			<ul class='list-group list-group-flush'>

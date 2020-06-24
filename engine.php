@@ -180,6 +180,10 @@
 		$user_bookmarks = $_SESSION['user_bookmarks'];
 		$user_completed = $_SESSION['user_completed'];
 		$user_escritorio = $_SESSION['user_escritorio'];
+		if (!isset($_SESSION['user_areas_interesse'])) {
+			$_SESSION['user_areas_interesse'] = return_user_areas_interesse($user_escritorio);
+		}
+		$user_areas_interesse = $_SESSION['user_areas_interesse'];
 		$user_avatar_icone = $_SESSION['user_avatar_icone'];
 		$user_avatar_cor = $_SESSION['user_avatar_cor'];
 		$raiz_ativa = $_SESSION['raiz_ativa'];
@@ -195,8 +199,9 @@
 		$raiz_ativa = 1118;
 		$user_avatar_icone = 'fa-user';
 		$user_avatar_cor = 'text-primary';
-		$user_bookmarks = false;
-		$user_completed = false;
+		$user_bookmarks = array();
+		$user_completed = array();
+		$user_areas_interesse = array();
 	}
 
 	$raiz_info = return_pagina_info($raiz_ativa);
@@ -793,6 +798,9 @@
 		} else {
 			echo false;
 		}
+		if ($nova_etiqueta_page_id == $user_escritorio) {
+			$_SESSION['user_areas_interesse'] = return_user_areas_interesse($user_escritorio);
+		}
 	}
 
 	if (isset($_POST['criar_etiqueta_titulo'])) {
@@ -820,6 +828,9 @@
 		$remover_etiqueta_page_tipo = $_POST['remover_etiqueta_page_tipo'];
 		$query = prepare_query("UPDATE Paginas_elementos SET estado = FALSE WHERE extra IN ('$remover_etiqueta_id') AND pagina_id = $remover_etiqueta_page_id");
 		$conn->query($query);
+		if ($remover_etiqueta_page_id == $user_escritorio) {
+			$_SESSION['user_areas_interesse'] = return_user_areas_interesse($user_escritorio);
+		}
 	}
 
 	$fa_secondary_color_anotacao = '#2196f3';
@@ -1004,6 +1015,8 @@
 		} else {
 			echo false;
 		}
+		$_SESSION['user_areas_interesse'] = return_user_areas_interesse($user_escritorio);
+		$user_areas_interesse = $_SESSION['user_areas_interesse'];
 	}
 
 	if (isset($_POST['remover_area_interesse'])) {
@@ -1015,6 +1028,8 @@
 		} else {
 			echo false;
 		}
+		$_SESSION['user_areas_interesse'] = return_user_areas_interesse($user_escritorio);
+		$user_areas_interesse = $_SESSION['user_areas_interesse'];
 	}
 
 	if (isset($_POST['remover_membro_grupo_id'])) {
@@ -1276,15 +1291,9 @@
 		$areas_interesse_result .= put_together_list_item('modal', '#modal_gerenciar_etiquetas', false, 'fad fa-plus-circle', $pagina_translated['Gerenciar etiquetas'], false, 'fad fa-tags', 'list-group-item-info');
 
 		$areas_interesse_result .= "</span>";
-		$query = prepare_query("SELECT extra FROM Paginas_elementos WHERE pagina_id = $user_escritorio AND tipo = 'topico' AND estado = 1 ORDER BY id DESC");
-		$areas_interesse = $conn->query($query);
-		if ($areas_interesse->num_rows > 0) {
-			while ($area_interesse = $areas_interesse->fetch_assoc()) {
-				$area_interesse_etiqueta_id = $area_interesse['extra'];
-				$area_interesse_info = return_etiqueta_info($area_interesse_etiqueta_id);
-				$area_interesse_pagina_id = $area_interesse_info[4];
-				$areas_interesse_result .= return_list_item($area_interesse_pagina_id);
-			}
+		$user_areas_interesse = return_user_areas_interesse($user_escritorio);
+		foreach ($user_areas_interesse as $user_area_interesse_pagina_id) {
+			$areas_interesse_result .= return_list_item($user_area_interesse_pagina_id);
 		}
 		$areas_interesse_result = list_wrap($areas_interesse_result);
 		echo $areas_interesse_result;

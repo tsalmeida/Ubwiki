@@ -7,6 +7,7 @@
 	//TODO: Fontes diferentes e cores diferentes apenas para leitura.
 	//TODO: Gerar PDF para impressão.
 	//TODO: Permitir baixar um arquivo com todas as suas anotações.
+    //TODO: Estado da página não está sendo atualizado imediatamente, apenas após recarregar.
 
 	$pagina_tipo = 'pagina_geral';
 
@@ -884,11 +885,9 @@
 					}
 					if ($user_id != false) {
 						$carregar_toggle_paginas_livres = true;
-						$query = prepare_query("SELECT id FROM Paginas_elementos WHERE pagina_tipo = 'escritorio' AND user_id = $user_id AND tipo = 'topico' AND extra = $pagina_item_id AND estado = 1");
-						$area_interesse = $conn->query($query);
-						if ($area_interesse->num_rows > 0) {
-							$area_interesse_ativa = true;
-						}
+						if (in_array($pagina_id, $user_areas_interesse)) {
+						    $area_interesse_ativa = true;
+                        }
 						echo "
 						      <a id='remover_area_interesse' href='javascript:void(0);' class='ml-1 text-warning' title='{$pagina_translated['Remover como área de interesse']}'>
 						      	<i class='fad fa-lamp-desk fa-fw fa-lg'></i>

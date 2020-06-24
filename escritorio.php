@@ -85,6 +85,9 @@
 	if ($user_bookmarks != array()) {
 	    array_push($icons_to_show, 10);
     }
+	if ($user_areas_interesse != array()) {
+	    array_push($icons_to_show, 5);
+    }
 //	$icons_to_hide = array_diff($all_icons, $icons_to_show);
 
 ?>
