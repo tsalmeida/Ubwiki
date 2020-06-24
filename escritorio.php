@@ -81,7 +81,10 @@
 	include 'templates/navbar.php';
 
 	$all_icons = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21);
-	$icons_to_show = array(1, 2, 3, 4, 6, 10, 13, 14, 16, 17);
+	$icons_to_show = array(1, 2, 3, 4, 6, 13, 14, 16, 17);
+	if ($user_bookmarks != array()) {
+	    array_push($icons_to_show, 10);
+    }
 //	$icons_to_hide = array_diff($all_icons, $icons_to_show);
 
 ?>
