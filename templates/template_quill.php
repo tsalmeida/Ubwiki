@@ -1,6 +1,7 @@
 <?php
 
 	//TODO: A tabela Textos_arquivo deve ser transferida a um banco de dados separado.
+	//TODO: Auto-save must be done on change, not on keyup. A number of edits could be lost in the way it is today.
 
 	$quill_was_loaded = true;
 
@@ -280,9 +281,8 @@
 					    $('#arquivo_id_{$template_id}').val(data);
 						$('#{$template_id}_trigger_save').hide();
 						$('#{$template_id}_trigger_save_success').show();
-						$('#{$template_id}_trigger_save').removeClass('text-warning');
-						$('#{$template_id}_trigger_save').removeClass('text-danger');
-						$('#{$template_id}_trigger_save').addClass('text-success'); //user is told: your most recent changes have been saved.
+						$('#{$template_id}_trigger_save').removeClass();
+						$('#{$template_id}_trigger_save').addClass('mr-2 text-success'); //user is told: your most recent changes have been saved.
 						setTimeout(function(){
 							$('#{$template_id}_trigger_save').show();
 							$('#{$template_id}_trigger_save_success').hide(); // user is told: saving operation succeeded.
@@ -290,9 +290,8 @@
 					} else {
 						$('#{$template_id}_trigger_save').hide();
 						$('#{$template_id}_trigger_save_failure').show(); // user is told: saving operation failed.
-						$('#{$template_id}_trigger_save').removeClass('text-warning');
-						$('#{$template_id}_trigger_save').removeClass('text-success');
-						$('#{$template_id}_trigger_save').addClass('text-danger'); //user is told: your most recent changes have been saved.
+						$('#{$template_id}_trigger_save').removeClass();
+						$('#{$template_id}_trigger_save').addClass('mr-2 text-danger'); //user is told: your most recent changes have been saved.
 						setTimeout(function(){
 							$('#{$template_id}_trigger_save').show();
 							$('#{$template_id}_trigger_save_failure').hide();
@@ -330,27 +329,21 @@
 			$('#{$template_id}_trigger_save').click(function () {
 				$('#{$quill_trigger_button}').click();
 			});
-			
-			$('#quill_editor_{$template_id}').keyup(function(e) {
-				keycode = e.keyCode;
-				if ((keycode > 45) && (keycode < 91)) {
-					$('#{$template_id}_trigger_save').removeClass('text-success');
-					$('#{$template_id}_trigger_save').removeClass('text-danger');
-					$('#{$template_id}_trigger_save').removeClass('text-primary');
-					$('#{$template_id}_trigger_save').addClass('text-warning'); //user is told: your most recent changes have not been saved yet.
-					var save_state = $('#save_state_{$template_id}').val();
-					save_state = Boolean(save_state);
-					if (save_state == true) { //this means that the text has recently been changed and there's a timeout running for the next save.
-					} else { //this means that these are new changes the user has made, which need to be saved soon.
-					    $('#save_state_{$template_id}').val(1);
-					    setTimeout(function() { //after an interval, the changes will be saved.
-					        $('#{$quill_trigger_button}').click();
-					        $('#save_state_{$template_id}').val('');
-					    }, 45000)
-					}
+
+			{$template_id}_editor.on('text-change', function(delta) {
+				$('#{$template_id}_trigger_save').removeClass();
+				$('#{$template_id}_trigger_save').addClass('mr-2 text-warning'); //user is told: your most recent changes have not been saved yet.
+				var save_state = $('#save_state_{$template_id}').val();
+				save_state = Boolean(save_state);
+				if (save_state == true) { //this means that the text has recently been changed and there's a timeout running for the next save.
+				} else { //this means that these are new changes the user has made, which need to be saved soon.
+					$('#save_state_{$template_id}').val(1);
+					setTimeout(function() { //after an interval, the changes will be saved.
+						$('#{$quill_trigger_button}').click();
+						$('#save_state_{$template_id}').val('');
+					}, 45000)
 				}
 			})
-				
 		</script>
 	";
 
