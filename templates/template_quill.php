@@ -155,7 +155,8 @@
 	}
 
 	if ($quill_edicao == true) {
-		$template_botoes_salvar .= "<a href='javascript:void(0)' id='{$template_id}_trigger_save' title='{$pagina_translated['Salvar mudanças']}' class='mr-2 text-primary'><i class='fad fa-save fa-fw'></i></a><a href='javascript:void(0)' id='{$template_id}_trigger_save_success' title='Edições salvas' class='text-success collapse mr-2'><i class='fad fa-check-square fa-fw'></i></a><a href='javascript:void(0)' id='{$template_id}_trigger_save_failure' title='{$pagina_translated['Suas edições não foram salvas']}' class='text-danger collapse mr-2'><i class='fad fa-times-square fa-fw'></i></a>";
+		$template_botoes_salvar .= "
+			<a href='javascript:void(0)' id='{$template_id}_trigger_save' title='{$pagina_translated['Salvar mudanças']}' class='mr-2 text-primary'><i class='fad fa-save fa-fw'></i></a>";
 	}
 	if (($quill_texto_id != false) && ($template_id != 'modelo')) {
 		$template_botoes_salvar .= "<a href='historico.php?texto_id=$quill_texto_id' title='{$pagina_translated['Histórico do documento']}' class='mr-2 text-default'><i class='fad fa-history fa-fw'></i></a>";
@@ -279,23 +280,11 @@
 				}, function(data) {
 					if (data != false) {
 					    $('#arquivo_id_{$template_id}').val(data);
-						$('#{$template_id}_trigger_save').hide();
-						$('#{$template_id}_trigger_save_success').show();
 						$('#{$template_id}_trigger_save').removeClass();
 						$('#{$template_id}_trigger_save').addClass('mr-2 text-success'); //user is told: your most recent changes have been saved.
-						setTimeout(function(){
-							$('#{$template_id}_trigger_save').show();
-							$('#{$template_id}_trigger_save_success').hide(); // user is told: saving operation succeeded.
-						}, 2000);
 					} else {
-						$('#{$template_id}_trigger_save').hide();
-						$('#{$template_id}_trigger_save_failure').show(); // user is told: saving operation failed.
 						$('#{$template_id}_trigger_save').removeClass();
 						$('#{$template_id}_trigger_save').addClass('mr-2 text-danger'); //user is told: your most recent changes have been saved.
-						setTimeout(function(){
-							$('#{$template_id}_trigger_save').show();
-							$('#{$template_id}_trigger_save_failure').hide();
-						}, 5000);
 					}
 				});
 			};
