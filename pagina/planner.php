@@ -64,7 +64,7 @@
 	while ($estado != 0) {
 		$icone = return_plan_icon($estado);
 		$icone[3] = $pagina_translated[$icone[3]];
-		$template_modal_body_conteudo .= put_together_list_item('link_button', $estado, "$icone[1] $icone[0] p-1 rounded align-self-center", false, $icone[2], $icone[3], false, false, false, 'set_this_state');
+		$template_modal_body_conteudo .= put_together_list_item('link_button', $estado, "$icone[1] $icone[0] p-1 rounded align-self-center", $icone[2], $icone[3], false, false, false, 'set_this_state');
 		$estado = $estado - 1;
 	}
 	$template_modal_body_conteudo .= "</ul>";

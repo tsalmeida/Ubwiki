@@ -1,7 +1,6 @@
 <?php
 
 	//TODO: A tabela Textos_arquivo deve ser transferida a um banco de dados separado.
-	//TODO: Auto-save must be done on change, not on keyup. A number of edits could be lost in the way it is today.
 
 	$quill_was_loaded = true;
 
@@ -284,7 +283,7 @@
 						$('#{$template_id}_trigger_save').addClass('mr-2 text-success'); //user is told: your most recent changes have been saved.
 					} else {
 						$('#{$template_id}_trigger_save').removeClass();
-						$('#{$template_id}_trigger_save').addClass('mr-2 text-danger'); //user is told: your most recent changes have been saved.
+						$('#{$template_id}_trigger_save').addClass('mr-2 text-danger'); //user is told: failure to save your changes.
 					}
 				});
 			};

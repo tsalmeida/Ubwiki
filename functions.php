@@ -2862,13 +2862,13 @@
 			case 16: // content completely absorbed.
 				$background = 'rgba-blue-slight';
 				$icon_color = 'text-secondary';
-				$icon = 'fad fa-head-side-brain fa-swap-opacity';
+				$icon = 'fad fa-head-side-brain';
 				$meaning = 'full assimilation';
 				break;
 			case 17: // content completely absorbed.
 				$background = 'rgba-purple-slight';
 				$icon_color = 'text-secondary';
-				$icon = 'fad fa-galaxy fa-swap-opacity';
+				$icon = 'fad fa-galaxy';
 				$meaning = 'full assimilation with notes';
 				break;
 			default:
