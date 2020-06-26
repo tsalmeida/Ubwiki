@@ -120,7 +120,8 @@
 	if ($quill_verbete_content != false) {
 		if ($template_id == 'verbete') {
 			if ($pagina_estado == 0) {
-				$conn->query("UPDATE Paginas SET estado = 1 WHERE id = $pagina_id");
+				$query = prepare_query("UPDATE Paginas SET estado = 1 WHERE id = $pagina_id");
+				$conn->query($query);
 			}
 		} elseif ($template_id == 'anotacoes') {
 			$anotacoes_existem = true;

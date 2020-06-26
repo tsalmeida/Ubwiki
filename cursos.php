@@ -49,7 +49,8 @@
 					$list_cursos_cards = return_curso_card($list_cursos_disponiveis, 'disponivel');
 				}
 			} else {
-			    $lista_cursos = $conn->query("SELECT pagina_id FROM Cursos");
+			    $query = prepare_query("SELECT pagina_id FROM Cursos");
+			    $lista_cursos = $conn->query($query);
 			    if ($lista_cursos->num_rows > 0) {
 			        while ($lista_curso = $lista_cursos->fetch_assoc()) {
 			            $lista_curso_pagina_id = $lista_curso['pagina_id'];

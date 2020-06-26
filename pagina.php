@@ -113,7 +113,8 @@
 				if (!isset($_SESSION['user_plano_id'])) {
 					$pagina_item_id_override = return_plano_id_pagina_id($user_escritorio);
 					if ($pagina_item_id_override == false) {
-						$conn->query("INSERT INTO Planos (pagina_id, user_id) VALUES ($user_escritorio, $user_id)");
+					    $query = prepare_query("INSERT INTO Planos (pagina_id, user_id) VALUES ($user_escritorio, $user_id)");
+						$conn->query($query);
 						$pagina_item_id_override = $conn->insert_id;
 					}
 					$_SESSION['user_plano_id'] = $pagina_item_id_override;
@@ -1448,7 +1449,8 @@
 					include 'templates/page_element.php';
 				}
 
-				$usos_questao = $conn->query("SELECT pagina_id FROM Paginas_elementos WHERE tipo = 'questao' AND elemento_id = $pagina_item_id");
+				$query = prepare_query("SELECT pagina_id FROM Paginas_elementos WHERE tipo = 'questao' AND elemento_id = $pagina_item_id");
+				$usos_questao = $conn->query($query);
 
 				if ($usos_questao->num_rows > 0) {
 					$template_id = 'paginas_questao';

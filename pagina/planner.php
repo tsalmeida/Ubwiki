@@ -7,13 +7,15 @@
 		$adicionar_pagina_id = $_POST['adicionar_pagina_id'];
 		$check = return_compartilhamento($adicionar_pagina_id, $user_id);
 		if ($check == true) {
-			$conn->query("INSERT INTO Planejamento (plano_id, pagina_id, elemento_id, tipo, user_id) VALUES ($pagina_item_id, $pagina_id, $adicionar_pagina_id, 'pagina', $user_id)");
+			$query = prepare_query("INSERT INTO Planejamento (plano_id, pagina_id, elemento_id, tipo, user_id) VALUES ($pagina_item_id, $pagina_id, $adicionar_pagina_id, 'pagina', $user_id)");
+			$conn->query($query);
 		}
 	}
 
 	echo "<div class='container-fluid px-3'>";
 
-	$items_biblioteca = $conn->query("SELECT DISTINCT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND estado = 1 AND elemento_id IS NOT NULL AND tipo != 'modelo' ORDER BY id ASC");
+	$query = prepare_query("SELECT DISTINCT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND estado = 1 AND elemento_id IS NOT NULL AND tipo != 'modelo' ORDER BY id ASC");
+	$items_biblioteca = $conn->query($query);
 	$all_items_biblioteca = array();
 	if ($items_biblioteca->num_rows > 0) {
 		while ($item_biblioteca = $items_biblioteca->fetch_assoc()) {
