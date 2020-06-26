@@ -8,7 +8,6 @@
 		$check = return_compartilhamento($adicionar_pagina_id, $user_id);
 		if ($check == true) {
 			$query = prepare_query("SELECT id FROM Planejamento WHERE plano_id = $pagina_item_id AND pagina_id = $pagina_id AND elemento_id = $adicionar_pagina_id AND tipo = 'pagina' AND user_id = $user_id");
-			error_log($query);
 			$check2 = $conn->query($query);
 			if ($check2->num_rows == 0) {
 				$query = prepare_query("INSERT INTO Planejamento (plano_id, pagina_id, elemento_id, tipo, user_id) VALUES ($pagina_item_id, $pagina_id, $adicionar_pagina_id, 'pagina', $user_id)");
