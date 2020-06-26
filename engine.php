@@ -1776,10 +1776,12 @@
 		}
 	}
 
-	if (isset($_POST['novo_estado_elemento_id'])) {
-		$novo_estado_elemento_id = $_POST['novo_estado_elemento_id'];
+	if (isset($_POST['novo_estado_plano_id'])) {
+		$novo_estado_entrada_id = $_POST['novo_estado_entrada_id'];
 		$novo_estado_codigo = $_POST['novo_estado_codigo'];
-		$query = prepare_query("UPDATE Planejamento SET estado = $novo_estado_codigo WHERE elemento_id = $novo_estado_elemento_id AND user_id = $user_id");
+		$novo_estado_plano_id = $_POST['novo_estado_plano_id'];
+		$query = prepare_query("UPDATE Planejamento SET estado = $novo_estado_codigo WHERE plano_id = $novo_estado_plano_id AND id = $novo_estado_entrada_id AND user_id = $user_id");
+		error_log($query);
 		$check = $conn->query($query);
 		echo $check;
 	}

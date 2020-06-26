@@ -1481,16 +1481,17 @@
 	if ($pagina_subtipo == 'plano') {
 		echo "
 			<script type='text/javascript'>
-				$(document).on('click', '.set_state_elemento_value', function() {
-					  var this_elemento_id = $(this).attr('value');
-					  $('#set_state_elemento_id').val(this_elemento_id);
+				$(document).on('click', '.set_state_entrada_value', function() {
+					var this_entrada_id = $(this).attr('value');
+					$('#set_state_entrada_id').val(this_entrada_id);
 				});
 				$(document).on('click', '.set_this_state', function() {
-				    var this_elemento_id = $('#set_state_elemento_id').attr('value');
-				    var this_elemento_novo_estado = $(this).attr('value');
+				    var this_entrada_id = $('#set_state_entrada_id').attr('value');
+				    var this_entrada_novo_estado = $(this).attr('value');
 				    $.post('engine.php', {
-				        'novo_estado_elemento_id': this_elemento_id,
-				        'novo_estado_codigo': this_elemento_novo_estado
+				        'novo_estado_plano_id': $pagina_item_id,
+				        'novo_estado_entrada_id': this_entrada_id,
+				        'novo_estado_codigo': this_entrada_novo_estado
 				    }, function (data) {
 				        if (data != 0) {
 				            window.location.reload(true);

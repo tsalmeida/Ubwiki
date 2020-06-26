@@ -28,6 +28,7 @@
 	$registered_rows = false;
 	if ($items_planejamento->num_rows > 0) {
 		while ($item_planejamento = $items_planejamento->fetch_assoc()) {
+			$item_planejamento_entrada_id = $item_planejamento['id'];
 			$item_planejamento_tipo = $item_planejamento['tipo'];
 			$item_planejamento_elemento_id = $item_planejamento['elemento_id'];
 			array_push($all_items_planejamento, $item_planejamento_elemento_id);
@@ -49,7 +50,7 @@
 			if ($item_planejamento_comments == false) {
 				$item_planejamento_comments = $pagina_translated['no comments'];
 			}
-			$item_row = return_plan_row($item_planejamento_elemento_id, $item_planejamento_estado, $item_planejamento_classificacao, $item_planejamento_comments, $item_planejamento_tipo);
+			$item_row = return_plan_row($item_planejamento_elemento_id, $item_planejamento_estado, $item_planejamento_classificacao, $item_planejamento_comments, $item_planejamento_tipo, $item_planejamento_entrada_id);
 			$registered_rows .= $item_row;
 		}
 	}
@@ -59,7 +60,8 @@
 		$registrar_elemento_pagina_id = return_pagina_id($registrar_elemento_id, 'elemento');
 		$query = prepare_query("INSERT INTO Planejamento (plano_id, pagina_id, elemento_id, user_id, estado) VALUES ($pagina_item_id, $registrar_elemento_pagina_id, $registrar_elemento_id, $user_id, 0)");
 		$conn->query($query);
-		$item_row = return_plan_row($registrar_elemento_id, false, false, $pagina_translated['no comments']);
+		$nova_entrada_id = $conn->insert_id;
+		$item_row = return_plan_row($registrar_elemento_id, false, false, $pagina_translated['no comments'], 'elemento', $nova_entrada_id);
 		echo $item_row;
 	}
 	echo $registered_rows;
@@ -69,7 +71,7 @@
 	$template_modal_div_id = 'modal_set_state';
 	$template_modal_titulo = $pagina_translated['Set state'];
 	$template_modal_body_conteudo = false;
-	$template_modal_body_conteudo .= "<input type='hidden' value='' id='set_state_elemento_id'>";
+	$template_modal_body_conteudo .= "<input type='hidden' value='' id='set_state_entrada_id'>";
 	$template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
 	$estado = 17;
 	while ($estado != 0) {

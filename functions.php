@@ -2695,11 +2695,8 @@
 		$item_planejamento_estado = $args[1];
 		$item_planejamento_classificacao = $args[2];
 		$item_planejamento_comments = $args[3];
-		if (isset($args[4])) {
-			$item_planejamento_categoria = $args[4];
-		} else {
-			$item_planejamento_categoria = 'elemento';
-		}
+		$item_planejamento_categoria = $args[4];
+		$item_planejamento_entrada_id = $args[5];
 
 		if ($item_planejamento_categoria == 'elemento') {
 			$item_planejamento_info = return_elemento_info($item_planejamento_elemento_id);
@@ -2719,7 +2716,7 @@
 			$item_planejamento_ano = false;
 		}
 
-		$plan_item = return_plan_item($item_planejamento_pagina_id, $item_planejamento_titulo, $item_planejamento_autor, $item_planejamento_tipo, $item_planejamento_subtipo, $item_planejamento_ano, $item_planejamento_estado, $item_planejamento_classificacao, $item_planejamento_comments, $item_planejamento_elemento_id, $item_planejamento_categoria);
+		$plan_item = return_plan_item($item_planejamento_pagina_id, $item_planejamento_titulo, $item_planejamento_autor, $item_planejamento_tipo, $item_planejamento_subtipo, $item_planejamento_ano, $item_planejamento_estado, $item_planejamento_classificacao, $item_planejamento_comments, $item_planejamento_elemento_id, $item_planejamento_categoria, $item_planejamento_entrada_id);
 		return $plan_item;
 	}
 
@@ -2740,6 +2737,7 @@
 		$comments = $args[8];
 		$elemento_id = $args[9];
 		$categoria = $args[10];
+		$entrada_id = $args[11];
 
 		$plan_icon = return_plan_icon($estado);
 
@@ -2754,7 +2752,7 @@
 		$result .= "<div class='row grey lighten-5 mt-1'>";
 		$result .= "
 				<div class='$all_cell_classes $first_cell_classes ml-0 text-center align-center d-flex justify-content-center'>
-					<a value='$elemento_id' href='javascript:void(0);' data-toggle='modal' data-target='#modal_set_state' class='align-self-center {$plan_icon[1]} p-1 {$plan_icon[0]} rounded set_state_elemento_value' title='{$plan_icon[3]}'><i class='{$plan_icon[2]} fa-fw fa-lg'></i></a>
+					<a value='$entrada_id' href='javascript:void(0);' data-toggle='modal' data-target='#modal_set_state' class='align-self-center {$plan_icon[1]} p-1 {$plan_icon[0]} rounded set_state_entrada_value' title='{$plan_icon[3]}'><i class='{$plan_icon[2]} fa-fw fa-lg'></i></a>
 				</div>
 					";
 		$result .= "
