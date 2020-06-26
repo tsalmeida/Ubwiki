@@ -13,6 +13,7 @@
 	    adicionar_chave_traducao('page id');
 	    adicionar_chave_traducao('explanation page id');
 	    $conn->query("ALTER TABLE `Planejamento` ADD `tipo` VARCHAR(255) NULL DEFAULT 'elemento' AFTER `elemento_id`;");
+	    $conn->query("ALTER TABLE `Planejamento` ADD `criacao` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP AFTER `comments`;")
 	}
 
 	if (isset($_POST['trigger_atualizar_textos_size'])) {
