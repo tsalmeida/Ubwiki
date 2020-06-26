@@ -46,6 +46,7 @@
 				}
 			}
 			$item_planejamento_classificacao = $item_planejamento['classificacao'];
+			$item_planejamento_classificacao = return_pagina_titulo($item_planejamento_classificacao);
 			$item_planejamento_comments = $item_planejamento['comments'];
 			if ($item_planejamento_comments == false) {
 				$item_planejamento_comments = $pagina_translated['no comments'];
