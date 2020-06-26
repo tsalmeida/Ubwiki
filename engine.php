@@ -107,7 +107,8 @@
 	if (!isset($_SESSION['user_info'])) {
 		$do_login = true;
 	}
-	if ($_SESSION['user_info'] == 'login') {
+	if ($_SESSION['user_info'] === 'login') {
+		error_log('this happened and it should');
 		$do_login = true;
 	}
 	if ($do_login == true) {
@@ -136,9 +137,6 @@
 					$_SESSION['user_wallet'] = (int)return_wallet_value($_SESSION['user_id']);
 					$_SESSION['user_escritorio'] = return_pagina_id($_SESSION['user_id'], 'escritorio');
 					$_SESSION['user_lounge'] = return_lounge_id($_SESSION['user_id']);
-					$user_avatar_info = return_avatar($_SESSION['user_id']);
-					$_SESSION['user_avatar_icone'] = $user_avatar_info[0];
-					$_SESSION['user_avatar_cor'] = $user_avatar_info[1];
 				}
 			}
 		} else {
@@ -154,6 +152,7 @@
 			$user_avatar_icone = 'fa-user';
 			$user_avatar_cor = 'text-primary';
 			$raiz_ativa = 1118;
+			$user_opcoes = array();
 		}
 	}
 
@@ -184,9 +183,23 @@
 			$_SESSION['user_areas_interesse'] = return_user_areas_interesse($user_escritorio);
 		}
 		$user_areas_interesse = $_SESSION['user_areas_interesse'];
+		$raiz_ativa = $_SESSION['raiz_ativa'];
+		if (!isset($_SESSION['user_opcoes'])) {
+			$_SESSION['user_opcoes'] = return_user_opcoes($_SESSION['user_id']);
+			if (isset($_SESSION['user_opcoes']['avatar'])) {
+				$_SESSION['user_avatar_icone'] = $_SESSION['user_opcoes']['avatar'][1];
+			} else {
+				$_SESSION['user_avatar_icone'] = 'fa-user-tie';
+			}
+			if (isset($_SESSION['user_opcoes']['avatar_cor'])) {
+				$_SESSION['user_avatar_cor'] = $_SESSION['user_opcoes']['avatar_cor'][1];
+			} else {
+				$_SESSION['user_avatar_cor'] = 'text-primary';
+			}
+		}
+		$user_opcoes = $_SESSION['user_opcoes'];
 		$user_avatar_icone = $_SESSION['user_avatar_icone'];
 		$user_avatar_cor = $_SESSION['user_avatar_cor'];
-		$raiz_ativa = $_SESSION['raiz_ativa'];
 	} elseif ($_SESSION['user_info'] == 'visitante') {
 		$user_id = false;
 		$user_tipo = false;
@@ -202,6 +215,7 @@
 		$user_bookmarks = array();
 		$user_completed = array();
 		$user_areas_interesse = array();
+		$user_opcoes = array();
 	}
 
 	$raiz_info = return_pagina_info($raiz_ativa);
@@ -212,6 +226,13 @@
 	}
 	$raiz_titulo = $raiz_info[6];
 
+	if ($user_opcoes != array()) {
+		$opcao_texto_justificado_value = $user_opcoes['texto_justificado'][0];
+		$opcao_hide_navbar = $user_opcoes['hide_navbar'][0];
+	} else {
+		$opcao_texto_justificado_value = false;
+		$opcao_hide_navbar = false;
+	}
 
 	if (!isset($_SESSION['acesso_especial'])) {
 		$_SESSION['acesso_especial'] = false;
@@ -303,31 +324,6 @@
 		$_SESSION['user_completed'] = return_user_completed($user_id);
 		$user_completed = $_SESSION['user_completed'];
 //		print serialize($user_completed);
-	}
-
-	$opcao_texto_justificado_value = false;
-	$opcao_hide_navbar = false;
-	if ($user_id != false) {
-		$query = prepare_query("SELECT opcao, opcao_tipo FROM Opcoes WHERE user_id = $user_id ORDER BY id DESC");
-		$user_opcoes = $conn->query($query);
-		$opcao_texto_justificado_value = false;
-		$opcao_hide_navbar = false;
-		$opcoes_found = array();
-		if ($user_opcoes->num_rows > 0) {
-			while ($user_opcao = $user_opcoes->fetch_assoc()) {
-				$user_opcao_value = $user_opcao['opcao'];
-				$user_opcao_type = $user_opcao['opcao_tipo'];
-				if (!in_array($user_opcao_type, $opcoes_found)) {
-					if ($user_opcao_type == 'texto_justificado') {
-						$opcao_texto_justificado_value = $user_opcao_value;
-						array_push($opcoes_found, 'texto_justificado');
-					} elseif ($user_opcao_type == 'hide_navbar') {
-						$opcao_hide_navbar = $user_opcao_value;
-						array_push($opcoes_found, 'hide_navbar');
-					}
-				}
-			}
-		}
 	}
 
 	if (isset($_POST['sbcommand'])) {

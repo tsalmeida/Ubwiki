@@ -879,34 +879,21 @@
 
 	function return_avatar($user_id)
 	{
-
 		if ($user_id == false) {
 			return false;
 		}
-
-		include 'templates/criar_conn.php';
-
-		$usuario_avatar = 'fa-user-tie';
-		$usuario_avatar_cor = false;
-
-		$opcoes_avatar = $conn->query("SELECT opcao_string FROM Opcoes WHERE user_id = $user_id AND opcao_tipo = 'avatar' ORDER BY id DESC");
-		if ($opcoes_avatar->num_rows > 0) {
-			while ($opcao_avatar = $opcoes_avatar->fetch_assoc()) {
-				$usuario_avatar = $opcao_avatar['opcao_string'];
-				break;
-			}
+		$user_opcoes = return_user_opcoes($user_id);
+		if (isset($user_opcoes['avatar'])) {
+			$avatar = $user_opcoes['avatar'][1];
+		} else {
+			$avatar = 'fad fa-user';
 		}
-
-		$opcoes_cor = $conn->query("SELECT opcao_string FROM Opcoes WHERE user_id = $user_id AND opcao_tipo = 'avatar_cor' ORDER BY id DESC");
-		if ($opcoes_cor->num_rows > 0) {
-			while ($opcao_cor = $opcoes_cor->fetch_assoc()) {
-				$usuario_avatar_cor = $opcao_cor['opcao_string'];
-				break;
-			}
+		if (isset($user_opcoes['avatar_cor'])) {
+			$avatar_cor = $user_opcoes['avatar_cor'][1];
+		} else {
+			$avatar_cor = 'text-primary';
 		}
-
-		return array($usuario_avatar, $usuario_avatar_cor);
-
+		return array($avatar, $avatar_cor);
 	}
 
 	function return_quill_initial_state($template_id)
@@ -3012,4 +2999,29 @@
 				$content
 			</ul>
 		";
+	}
+
+	function return_user_opcoes($user_id) {
+		if ($user_id == false) {
+			return false;
+		}
+		include 'templates/criar_conn.php';
+		$query = prepare_query("SELECT opcao, opcao_tipo, opcao_string FROM Opcoes WHERE user_id = $user_id ORDER BY id DESC");
+		$user_opcoes = $conn->query($query);
+		$resultado = array();
+		if ($user_opcoes->num_rows > 0) {
+			$opcoes_registradas = array();
+			while ($user_opcao = $user_opcoes->fetch_assoc()) {
+				$opcao_tipo = $user_opcao['opcao_tipo'];
+				$opcao_value = $user_opcao['opcao'];
+				$opcao_string = $user_opcao['opcao_string'];
+				if (in_array($opcao_tipo, $opcoes_registradas)) {
+					continue;
+				}
+				array_push($opcoes_registradas, $opcao_tipo);
+				$dados_opcao = array($opcao_value, $opcao_string);
+				$resultado[$opcao_tipo] = $dados_opcao;
+			}
+		}
+		return $resultado;
 	}

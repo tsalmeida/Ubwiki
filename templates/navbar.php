@@ -34,7 +34,7 @@
 		echo "<ul class='nav navbar-nav ml-auto nav-flex-icons'>";
 		echo "<li class='nav-item dropdown'>";
 		echo "<a class='navlink dropdown-toggle waves-effect waves-light rounded $template_navbar_text' id='user_dropdown' data-toggle='dropdown' href='javascript:void(0);'>
-		        <i class='fas fa-2x $user_avatar_icone fa-lg fa-fw'></i>
+		        <i class='fas fa-2x {$_SESSION['user_avatar_icone']} fa-lg fa-fw'></i>
 		        </a>
 		        <div class='dropdown-menu dropdown-menu-right z-depth-0'>";
 		if ($pagina_tipo != 'escritorio') {
@@ -47,8 +47,10 @@
 		if ($user_tipo == 'admin') {
 			echo "<a class='dropdown-item navlink z-depth-0' href='admin.php'><i class='fad fa-cogs fa-fw'></i> {$pagina_translated['administrators page']}</a>";
 		}
-		if (!in_array($pagina_tipo, array('curso', 'escritorio'))) {
-			echo "<a class='dropdown-item navlink z-depth-0' href='pagina.php?pagina_id=$raiz_ativa' title='$raiz_titulo'><i class='fad fa-history fa-fw'></i> $raiz_sigla</a>";
+		if (isset($raiz_sigla)) {
+			if (!in_array($pagina_tipo, array('curso', 'escritorio'))) {
+				echo "<a class='dropdown-item navlink z-depth-0' href='pagina.php?pagina_id=$raiz_ativa' title='$raiz_titulo'><i class='fad fa-history fa-fw'></i> $raiz_sigla</a>";
+			}
 		}
 		echo "<a class='dropdown-item navlink z-depth-0' href='javascript:void(0);' data-toggle='modal' data-target='#modal_languages'><i class='fad fa-language fa-fw'></i> $user_language_titulo</a>";
 		if ($user_id != false) {

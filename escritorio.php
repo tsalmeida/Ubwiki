@@ -17,6 +17,7 @@
 	}
 
 	if (isset($_POST['novo_nome'])) {
+	    unset($_SESSION['user_opcoes']);
 		$novo_user_nome = $_POST['novo_nome'];
 		$novo_user_sobrenome = $_POST['novo_sobrenome'];
 		$novo_user_apelido = $_POST['novo_apelido'];
@@ -29,19 +30,23 @@
 			$user_sobrenome = $novo_user_sobrenome;
 			$user_apelido = $novo_user_apelido;
 			if (isset($_POST['opcao_texto_justificado'])) {
+			    $conn->query("DELETE FROM Opcoes WHERE user_id = $user_id AND opcao_tipo = 'texto_justificado'");
 				$query = prepare_query("INSERT INTO Opcoes (user_id, opcao_tipo, opcao) VALUES ($user_id, 'texto_justificado', 1)");
 				$conn->query($query);
 				$opcao_texto_justificado_value = true;
 			} else {
+				$conn->query("DELETE FROM Opcoes WHERE user_id = $user_id AND opcao_tipo = 'texto_justificado'");
 				$query = prepare_query("INSERT INTO Opcoes (user_id, opcao_tipo, opcao) VALUES ($user_id, 'texto_justificado', 0)");
 				$conn->query($query);
 				$opcao_texto_justificado_value = false;
 			}
 			if (isset($_POST['hide_navbar_option'])) {
+				$conn->query("DELETE FROM Opcoes WHERE user_id = $user_id AND opcao_tipo = 'hide_navbar'");
 				$query = prepare_query("INSERT INTO Opcoes (user_id, opcao_tipo, opcao) VALUES ($user_id, 'hide_navbar', 1)");
 				$conn->query($query);
 				$opcao_hide_navbar = true;
 			} else {
+				$conn->query("DELETE FROM Opcoes WHERE user_id = $user_id AND opcao_tipo = 'hide_navbar'");
 				$query = prepare_query("INSERT INTO Opcoes (user_id, opcao_tipo, opcao) VALUES ($user_id, 'hide_navbar', 0)");
 				$conn->query($query);
 				$opcao_hide_navbar = false;
@@ -53,6 +58,8 @@
 		$acceptable_avatars = array('fa-user', 'fa-user-tie', 'fa-user-secret', 'fa-user-robot', 'fa-user-ninja', 'fa-user-md', 'fa-user-injured', 'fa-user-hard-hat', 'fa-user-graduate', 'fa-user-crown', 'fa-user-cowboy', 'fa-user-astronaut', 'fa-user-alien', 'fa-cat', 'fa-cat-space', 'fa-dog', 'fa-ghost');
 		$novo_avatar = $_POST['selecionar_avatar'];
 		if (in_array($novo_avatar, $acceptable_avatars)) {
+		    $_SESSION['user_avatar_icone'] = $_POST['selecionar_avatar'];
+		    $conn->query("DELETE FROM Opcoes WHERE user_id = $user_id AND opcao_tipo = 'avatar')");
 			$query = prepare_query("INSERT INTO Opcoes (user_id, opcao_tipo, opcao_string) VALUES ($user_id, 'avatar', '$novo_avatar')");
 			$conn->query($query);
 		}
@@ -62,6 +69,8 @@
 		$acceptable_avatar_colors = array('text-primary', 'text-danger', 'text-success', 'text-warning', 'text-secondary', 'text-info', 'text-default', 'text-dark');
 		$nova_cor = $_POST['selecionar_cor'];
 		if (in_array($nova_cor, $acceptable_avatar_colors)) {
+		    $_SESSION['user_avatar_cor'] = $_POST['selecionar_cor'];
+			$conn->query("DELETE FROM Opcoes WHERE user_id = $user_id AND opcao_tipo = 'avatar_cor')");
 			$query = prepare_query("INSERT INTO Opcoes (user_id, opcao_tipo, opcao_string) VALUES ($user_id, 'avatar_cor', '$nova_cor')");
 			$conn->query($query);
 		}
@@ -251,8 +260,8 @@
 					$template_conteudo_hidden .= include 'templates/artefato_item.php';
 				}
 
-				$fa_icone = $user_avatar_icone;
-				$fa_color = $user_avatar_cor;
+				$fa_icone = $_SESSION['user_avatar_icone'];
+				$fa_color = $_SESSION['user_avatar_cor'];
 				$artefato_modal = '#modal_opcoes';
 				$artefato_badge = 'fa-cog fa-swap-opacity';
 				$artefato_subtitulo = $pagina_translated['user settings'];
@@ -407,7 +416,7 @@
 	$template_modal_body_conteudo .= "
 		<h3>Avatar</h3>
 		<div class='row justify-content-center'>
-			<a href='pagina.php?user_id=$user_id' class='$user_avatar_cor'><i class='fad $user_avatar_icone fa-3x fa-fw'></i></a>
+			<a href='pagina.php?user_id=$user_id' class='{$_SESSION['user_avatar_cor']}'><i class='fad {$_SESSION['user_avatar_icone']} fa-3x fa-fw'></i></a>
 		</div>
 		<p>{$pagina_translated['Alterar']}:</p>
 		<select name='selecionar_avatar' class='$select_classes'>
