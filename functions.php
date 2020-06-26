@@ -2743,23 +2743,25 @@
 
 		$icone = return_icone($categoria, $tipo, $subtipo, $elemento_id);
 
-		$first_cell_classes = 'col-1 p-1';
-		$last_cell_classes = 'col-1 p-1 ml-1';
-		$other_cell_classes = 'col ml-1';
-		$all_cell_classes = 'bg-white rounded text-wrap border';
+		$all_cell_classes = 'rounded text-wrap border p-1';
 
 		$result = false;
 		$result .= "<div class='row grey lighten-5 mt-1'>";
 		$result .= "
-				<div class='$all_cell_classes $first_cell_classes ml-0 text-center align-center d-flex justify-content-center'>
-					<a value='$entrada_id' href='javascript:void(0);' data-toggle='modal' data-target='#modal_set_state' class='align-self-center {$plan_icon[1]} p-1 {$plan_icon[0]} rounded set_state_entrada_value' title='{$plan_icon[3]}'><i class='{$plan_icon[2]} fa-fw fa-lg'></i></a>
+				<div class='col-1 $all_cell_classes {$plan_icon[0]} ml-0 text-center align-center d-flex justify-content-center'>
+					<a value='$entrada_id' href='javascript:void(0);' data-toggle='modal' data-target='#modal_set_state' class='align-self-center {$plan_icon[1]} p-1 rounded set_state_entrada_value' title='{$plan_icon[3]}'><i class='{$plan_icon[2]} fa-fw fa-lg'></i></a>
 				</div>
 					";
+		$icone_background = return_background($icone[1]);
 		$result .= "
-				<div class='$all_cell_classes $other_cell_classes'>
+			<div class='col-1 $all_cell_classes ml-1 text-center align-center d-flex justify-content-center $icone_background'>
+				<span class='{$icone[1]} ml-1 align-self-center rounded p-1'><i class='{$icone[0]} fa-fw fa-lg'></i></span>
+			</div>
+		";
+		$result .= "
+				<div class='col $all_cell_classes bg-white ml-1'>
 					<div class='row'>
 						<div class='col'>
-							<span class='{$icone[1]} mr-1'><i class='{$icone[0]} fa-fw'></i></span>
 							<a href='pagina.php?pagina_id=$pagina_id' class='text-primary'>$titulo</a>
 						</div>
 					</div>
@@ -2771,19 +2773,19 @@
 				</div>
 					";
 		$result .= "
-				<div class='$all_cell_classes $other_cell_classes line-height-1'>
+				<div class='col $all_cell_classes bg-white line-height-1 ml-1'>
 					<a class='text-dark set_comment_elemento_id font-italic' href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_comment' value='$elemento_id'><small>$comments</small></a>
 				</div>
 					";
 		if ($classificacao == false) {
 			$result .= "
-				<div class='$all_cell_classes $last_cell_classes ml-0 text-center align-center d-flex justify-content-center'>
-					<a value='$elemento_id' href='javascript:void(0);' data-toggle='modal' data-target='#modal_set_tag' class='align-self-center p-1 text-warning rgba-orange-slight rounded set_tag_elemento_value'><i class='fad fa-tag fa-fw fa-lg'></i></a>
+				<div class='col-1 $all_cell_classes rgba-orange-slight ml-0 text-center align-center d-flex justify-content-center ml-1'>
+					<a value='$elemento_id' href='javascript:void(0);' data-toggle='modal' data-target='#modal_set_tag' class='align-self-center p-1 text-warning rounded set_tag_elemento_value'><i class='fad fa-tag fa-fw fa-lg'></i></a>
 				</div>
 					";
 		} else {
 			$result .= "
-				<div class='rounded text-break $last_cell_classes ml-0 rgba-orange-slight d-flex justify-content-center line-height-1'>
+				<div class='col-1 $all_cell_classes rounded text-break ml-0 rgba-orange-slight d-flex justify-content-center line-height-1 ml-1'>
 					<a value='$elemento_id' class='text-muted set_tag_elemento_value align-self-center text-center' data-toggle='modal' data-target='#modal_set_tag'><small>$classificacao</small></a>
 				</div>
 				";
@@ -2918,7 +2920,7 @@
 		return $plano_id;
 	}
 
-	function convert_background($fa_color)
+	function return_background($fa_color)
 	{
 		switch ($fa_color) {
 			case 'text-info':
