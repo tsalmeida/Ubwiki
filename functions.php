@@ -2041,7 +2041,7 @@
 				return array('fad fa-podcast', 'text-secondary', 'rgba-purple-strong');
 				break;
 			case 'audiobook':
-				return array('fad fa-book-reader', 'text-warning', 'rgba-amber-strong');
+				return array('fab fa-audible', 'text-warning', 'rgba-amber-strong');
 				break;
 			case 'mapasatelite':
 				return array('fad fa-globe-americas', 'text-default', 'rgba-teal-strong');
