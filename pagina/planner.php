@@ -7,14 +7,19 @@
 		$adicionar_pagina_id = $_POST['adicionar_pagina_id'];
 		$check = return_compartilhamento($adicionar_pagina_id, $user_id);
 		if ($check == true) {
-			$query = prepare_query("INSERT INTO Planejamento (plano_id, pagina_id, elemento_id, tipo, user_id) VALUES ($pagina_item_id, $pagina_id, $adicionar_pagina_id, 'pagina', $user_id)");
-			$conn->query($query);
+			$query = prepare_query("SELECT id FROM Planejamento WHERE plano_id = $pagina_item_id AND pagina_id = $pagina_id AND elemento_id = $adicionar_pagina_id AND tipo = 'pagina' AND user_id = $user_id");
+			error_log($query);
+			$check2 = $conn->query($query);
+			if ($check2->num_rows == 0) {
+				$query = prepare_query("INSERT INTO Planejamento (plano_id, pagina_id, elemento_id, tipo, user_id) VALUES ($pagina_item_id, $pagina_id, $adicionar_pagina_id, 'pagina', $user_id)");
+				$conn->query($query);
+			}
 		}
 	}
 
 	echo "<div class='container-fluid px-3'>";
 
-	$query = prepare_query("SELECT DISTINCT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND estado = 1 AND elemento_id IS NOT NULL AND tipo != 'modelo' ORDER BY id ASC");
+	$query = prepare_query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND estado = 1 AND elemento_id IS NOT NULL AND tipo != 'modelo' ORDER BY id ASC");
 	$items_biblioteca = $conn->query($query);
 	$all_items_biblioteca = array();
 	if ($items_biblioteca->num_rows > 0) {
@@ -73,6 +78,7 @@
 
 	$template_modal_div_id = 'modal_set_state';
 	$template_modal_titulo = $pagina_translated['Set state'];
+	$template_modal_show_buttons = false;
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "<input type='hidden' value='' id='set_state_entrada_id'>";
 	$template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
@@ -84,7 +90,6 @@
 		$estado = $estado - 1;
 	}
 	$template_modal_body_conteudo .= "</ul>";
-	$template_modal_show_buttons = false;
 	include 'templates/modal.php';
 
 	$template_modal_div_id = 'modal_add_comment';
@@ -109,4 +114,16 @@
             <label for='plan_set_tag'>{$pagina_translated['Set category']}</label>
         </div>
     ";
+	include 'templates/modal.php';
+
+	$template_modal_div_id = 'modal_adicionar_pagina';
+	$template_modal_titulo = $pagina_translated['add page'];
+	$template_modal_body_conteudo = false;
+	$template_modal_body_conteudo .= "
+            <p>{$pagina_translated['explanation page id']}</p>
+            <div class='md-form'>
+                <input id='adicionar_pagina_id' name='adicionar_pagina_id' type='text' class='form-control' value=''>
+                <label for='adicionar_pagina_id'>{$pagina_translated['page id']}</label>
+            </div>
+        ";
 	include 'templates/modal.php';

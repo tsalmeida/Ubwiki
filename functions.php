@@ -22,7 +22,7 @@
 	{
 		$args = func_get_args();
 		$query = $args[0];
-		error_log($query);
+		//error_log($query);
 		//print "<p class='text-danger'>$query</p>";
 		if (isset($args[1])) {
 			$extra = $args[1];

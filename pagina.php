@@ -2687,20 +2687,6 @@
 		include 'templates/modal.php';
 	}
 
-	if ($pagina_subtipo == 'plano') {
-	    $template_modal_div_id = 'modal_adicionar_pagina';
-	    $template_modal_titulo = $pagina_translated['add page'];
-        $template_modal_body_conteudo = false;
-        $template_modal_body_conteudo .= "
-            <p>{$pagina_translated['explanation page id']}</p>
-            <div class='md-form'>
-                <input id='adicionar_pagina_id' name='adicionar_pagina_id' type='text' class='form-control'>
-                <label for='adicionar_pagina_id'>{$pagina_translated['page id']}</label>
-            </div>
-        ";
-        include 'templates/modal.php';
-	}
-
 	if ($pagina_subtipo == 'modelo') {
 		$template_modal_div_id = 'modal_modelo_config';
 		$template_modal_titulo = $pagina_translated['Configurar modelo'];
