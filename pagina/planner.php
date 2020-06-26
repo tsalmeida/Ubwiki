@@ -1,6 +1,15 @@
 <?php
 
 	//TODO: Ownership e classificação por ícones.
+	//TODO: Adicionar páginas
+
+	if (isset($_POST['adicionar_pagina_id'])) {
+		$adicionar_pagina_id = $_POST['adicionar_pagina_id'];
+		$check = return_compartilhamento($adicionar_pagina_id, $user_id);
+		if ($check == true) {
+			$conn->query("INSERT INTO Planejamento (plano_id, pagina_id, elemento_id, tipo, user_id) VALUES ($pagina_item_id, $pagina_id, $adicionar_pagina_id, 'pagina', $user_id)");
+		}
+	}
 
 	echo "<div class='container-fluid px-3'>";
 
@@ -19,6 +28,7 @@
 	$registered_rows = false;
 	if ($items_planejamento->num_rows > 0) {
 		while ($item_planejamento = $items_planejamento->fetch_assoc()) {
+			$item_planejamento_tipo = $item_planejamento['tipo'];
 			$item_planejamento_elemento_id = $item_planejamento['elemento_id'];
 			array_push($all_items_planejamento, $item_planejamento_elemento_id);
 			$item_planejamento_estado = $item_planejamento['estado'];
@@ -29,16 +39,17 @@
 			}
 			if ($plan_show_low == false) {
 				if ($item_planejamento_estado < 6) {
-					continue;
+					if ($item_planejamento_estado != 0) {
+						continue;
+					}
 				}
 			}
 			$item_planejamento_classificacao = $item_planejamento['classificacao'];
-			$item_planejamento_classificacao = return_pagina_titulo($item_planejamento_classificacao);
 			$item_planejamento_comments = $item_planejamento['comments'];
 			if ($item_planejamento_comments == false) {
 				$item_planejamento_comments = $pagina_translated['no comments'];
 			}
-			$item_row = return_plan_row($item_planejamento_elemento_id, $item_planejamento_estado, $item_planejamento_classificacao, $item_planejamento_comments);
+			$item_row = return_plan_row($item_planejamento_elemento_id, $item_planejamento_estado, $item_planejamento_classificacao, $item_planejamento_comments, $item_planejamento_tipo);
 			$registered_rows .= $item_row;
 		}
 	}

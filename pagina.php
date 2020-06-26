@@ -803,6 +803,15 @@
 					$topico_proximo_link = "pagina.php?topico_id=$topico_proximo";
 					echo "<a href='$topico_proximo_link' id='verbete_proximo' class='mx-1' title='{$pagina_translated['Próximo verbete']}'><i class='fad fa-arrow-right fa-fw fa-lg'></i></a>";
 				}
+				if ($pagina_subtipo == 'plano') {
+					if ($pagina_id == $user_escritorio) {
+						$pagina_plan = 'plano_id=bp';
+					} else {
+						$pagina_plan = "pagina_id=$pagina_id";
+					}
+					echo "<a href='pagina.php?$pagina_plan&sc=$change_show_completed&hl=$plan_show_low' class='$color_show_completed ml-1'><i class='fad fa-badge-check fa-lg'></i></a>";
+					echo "<a href='pagina.php?$pagina_plan&sc=$plan_show_completed&hl=$change_show_low' class='$color_show_low ml-1'><i class='fad fa-times-octagon fa-lg'></i></a>";
+				}
 			?>
         </div>
         <div class='py-2 text-right col-md-4 col-sm-12'>
@@ -996,15 +1005,6 @@
 					echo "
                             <a href='javascript:void(0);' id='change_estado_pagina' class='ml-1 $estado_cor' title='{$pagina_translated['Estado da página']}' data-toggle='modal' data-target='$estado_modal'><i class='$estado_icone fa-fw fa-lg'></i></a>
                         ";
-				}
-				if ($pagina_subtipo == 'plano') {
-					if ($pagina_id == $user_escritorio) {
-						$pagina_plan = 'bp';
-					} else {
-						$pagina_plan = $pagina_id;
-					}
-					echo "<a href='pagina.php?plano_id=$pagina_plan&sc=$change_show_completed&hl=$plan_show_low' class='$color_show_completed ml-1'><i class='fad fa-badge-check fa-lg'></i></a>";
-					echo "<a href='pagina.php?plano_id=$pagina_plan&sc=$plan_show_completed&hl=$change_show_low' class='$color_show_low ml-1'><i class='fad fa-times-octagon fa-lg'></i></a>";
 				}
 			?>
         </div>
@@ -2683,6 +2683,20 @@
 			$template_modal_body_conteudo .= $sim_quill_form;
 		}
 		include 'templates/modal.php';
+	}
+
+	if ($pagina_subtipo == 'plano') {
+	    $template_modal_div_id = 'modal_adicionar_pagina';
+	    $template_modal_titulo = $pagina_translated['add page'];
+        $template_modal_body_conteudo = false;
+        $template_modal_body_conteudo .= "
+            <p>{$pagina_translated['explanation page id']}</p>
+            <div class='md-form'>
+                <input id='adicionar_pagina_id' name='adicionar_pagina_id' type='text' class='form-control'>
+                <label for='adicionar_pagina_id'>{$pagina_translated['page id']}</label>
+            </div>
+        ";
+        include 'templates/modal.php';
 	}
 
 	if ($pagina_subtipo == 'modelo') {

@@ -9,7 +9,10 @@
 	}
 	
 	if (isset($_POST['trigger_atualizacao'])) {
-	    adicionar_chave_traducao('full assimilation with notes');
+	    adicionar_chave_traducao('add page');
+	    adicionar_chave_traducao('page id');
+	    adicionar_chave_traducao('explanation page id');
+	    $conn->query("ALTER TABLE `Planejamento` ADD `tipo` VARCHAR(255) NULL DEFAULT 'elemento' AFTER `elemento_id`;");
 	}
 
 	if (isset($_POST['trigger_atualizar_textos_size'])) {

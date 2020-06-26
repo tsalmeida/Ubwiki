@@ -102,6 +102,16 @@
 				$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 			}
 		}
+		if ($pagina_subtipo == 'plano') {
+			$artefato_tipo = 'adicionar_pagina';
+			$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-6';
+			$artefato_modal = '#modal_adicionar_pagina';
+			$artefato_info = return_pagina_icone('pagina', false, false);
+			$artefato_titulo = $pagina_translated['private page'];
+			$fa_icone = $artefato_info[0];
+			$fa_color = $artefato_info[1];
+			$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+		}
 	} else {
 		$artefato_tipo = 'escrever_resposta';
 		$artefato_titulo = $pagina_translated['Escrever resposta'];
