@@ -1,6 +1,7 @@
 <?php
 
 	//TODO: Ownership e classificação por ícones.
+	//TODO: When clicking a comment, its current content should load on the form.
 
 	if (isset($_POST['adicionar_pagina_id'])) {
 		$adicionar_pagina_id = $_POST['adicionar_pagina_id'];

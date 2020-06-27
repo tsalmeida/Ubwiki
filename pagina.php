@@ -8,6 +8,7 @@
 	//TODO: Gerar PDF para impressão.
 	//TODO: Permitir baixar um arquivo com todas as suas anotações.
     //TODO: Estado da página não está sendo atualizado imediatamente, apenas após recarregar.
+    //TODO: Next and Previous buttons could be easily added to Element pages.
 
 	$pagina_tipo = 'pagina_geral';
 
@@ -734,13 +735,13 @@
                     ";
 				}
 				if ($pagina_tipo == 'questao') {
-					echo "<a href='javascript:void(0);' class='mr-1 text-secondary' title='{$pagina_translated['Dados da questão']}' data-toggle='modal' data-target='#modal_questao_dados'><i class='fad fa-check-circle fa-fw fa-lg'></i></a>";
+					echo "<a href='javascript:void(0);' class='mr-1 text-secondary' title='{$pagina_translated['Dados da questão']}' data-toggle='modal' data-target='#modal_questao_dados'><i class='fad fa-info-circle fa-fw fa-lg'></i></a>";
 				} elseif ($pagina_tipo == 'texto_apoio') {
-					echo "<a href='javascript:void(0)' data-toggle='modal' data-target='#modal_texto_apoio_dados' class='text-secondary mr-1' title='{$pagina_translated['Dados do texto de apoio']}'><i class='fad fa-check-circle fa-fw fa-lg'></i></a>";
+					echo "<a href='javascript:void(0)' data-toggle='modal' data-target='#modal_texto_apoio_dados' class='text-secondary mr-1' title='{$pagina_translated['Dados do texto de apoio']}'><i class='fad fa-info-circle fa-fw fa-lg'></i></a>";
 				}
 				if ($pagina_subtipo == 'modelo') {
 					echo "
-				        <a href='javascript:void(0);' data-toggle='modal' data-target='#modal_modelo_config' class='text-secondary mr-1' title='{$pagina_translated['Configurar modelo']}'><i class='fad fa-pen-nib fa-fw fa-lg'></i></a>
+				        <a href='javascript:void(0);' data-toggle='modal' data-target='#modal_modelo_config' class='text-secondary mr-1' title='{$pagina_translated['Configurar modelo']}'><i class='fad fa-info-circle fa-fw fa-lg'></i></a>
 				    ";
 				}
 				if ((($pagina_tipo == 'texto') && ($pagina_user_id == $user_id)) || (($texto_revisao_ativa == true) && ($user_revisor == true)) || ($pagina_tipo == 'topico')) {
