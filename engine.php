@@ -1706,6 +1706,10 @@
 	}
 
 	if (isset($_POST['escritorio_modelo_operation'])) {
+		if (!isset($_SESSION['user_opcoes']['show_bfranklin'])) {
+			$_SESSION['user_opcoes']['show_bfranklin'] = array(true, 'auto');
+			$conn->query("INSERT INTO Opcoes (user_id, opcao, opcao_tipo, opcao_string) VALUES ($user_id, 'show_bfranklin', true, 'auto')");
+		}
 		$escritorio_modelo_operation = $_POST['escritorio_modelo_operation'];
 		$escritorio_modelo_pagina_id = $_POST['escritorio_modelo_pagina_id'];
 		$escritorio_modelo_pagina_info = return_pagina_info($escritorio_modelo_pagina_id);
@@ -1779,6 +1783,10 @@
 		$query = prepare_query("UPDATE Planejamento SET estado = $novo_estado_codigo WHERE plano_id = $novo_estado_plano_id AND id = $novo_estado_entrada_id AND user_id = $user_id");
 		$check = $conn->query($query);
 		echo $check;
+		if (!isset($_SESSION['user_opcoes']['show_planos'])) {
+			$_SESSION['user_opcoes']['show_planos'] = array(true, 'auto');
+			$conn->query("INSERT INTO Opcoes (user_id, opcao_tipo, opcao, opcao_string) VALUES ($user_id, 'show_planos', true, 'auto')");
+		}
 	}
 
 	if (isset($_POST['set_comment'])) {

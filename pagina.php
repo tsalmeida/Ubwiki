@@ -1470,7 +1470,7 @@
 			    $template_id = 'paginas_texto_apoio';
 			    $template_titulo = $pagina_translated['Páginas relacionadas'];
 			    $template_conteudo = false;
-                $usos_texto_apoio = $conn->query("SELECT id FROM sim_questoes  WHERE texto_apoio_id = $pagina_item_id");
+                $usos_texto_apoio = $conn->query("SELECT id FROM sim_questoes WHERE texto_apoio_id = $pagina_item_id");
                 while ($uso_texto_apoio = $usos_texto_apoio->fetch_assoc()) {
                     $uso_texto_apoio_questao_id = $uso_texto_apoio['id'];
                     $uso_texto_apoio_pagina_id = return_pagina_id($uso_texto_apoio_questao_id, 'questao');

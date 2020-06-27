@@ -1814,6 +1814,7 @@
 		return $list_usuario_cursos;
 	}
 
+	//TODO: This function should get the title automatically, so the user doesn't have to.
 	function extract_wikipedia($url)
 	{
 		$ch = curl_init();
@@ -2488,6 +2489,9 @@
 				break;
 			case 'questao':
 				return array('fad fa-ballot-check', 'text-secondary');
+				break;
+			case 'texto_apoio':
+				return array('fad fa-quote-left', 'text-secondary');
 				break;
 			default:
 				return array('fad fa-circle-notch', 'text-light');

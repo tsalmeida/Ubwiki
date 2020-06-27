@@ -1,7 +1,6 @@
 <?php
 
 	//TODO: Ownership e classificação por ícones.
-	//TODO: Adicionar páginas
 
 	if (isset($_POST['adicionar_pagina_id'])) {
 		$adicionar_pagina_id = $_POST['adicionar_pagina_id'];

@@ -1,9 +1,10 @@
 <?php
 
-    //TODO: Notificações
-    //TODO: Os ícones devem ser determinados de acordo com as práticas do usuário. Quando há bookmarks, o ícone de bookmarks aparece, por exemplo. Essas informações precisam ser registradas em variáveis da sessão, determinadas no momento do login.
-    //TODO: Etiquetas como pastas que organizam os textos e páginas do usuário.
-    //TODO: A sala de visitas deve ter espaço para adicionar os perfis do usuário em sites de mídia social.
+	//TODO: Notificações
+	//TODO: Os ícones devem ser determinados de acordo com as práticas do usuário. Quando há bookmarks, o ícone de bookmarks aparece, por exemplo. Essas informações precisam ser registradas em variáveis da sessão, determinadas no momento do login.
+	//TODO: Etiquetas como pastas que organizam os textos e páginas do usuário.
+	//TODO: A sala de visitas deve ter espaço para adicionar os perfis do usuário em sites de mídia social.
+    //TODO: Grupos de Estudos é um ótimo candidato para próximo ícone responsivo.
 
 	$pagina_tipo = 'escritorio';
 	include 'engine.php';
@@ -17,7 +18,7 @@
 	}
 
 	if (isset($_POST['novo_nome'])) {
-	    unset($_SESSION['user_opcoes']);
+		unset($_SESSION['user_opcoes']);
 		$novo_user_nome = $_POST['novo_nome'];
 		$novo_user_sobrenome = $_POST['novo_sobrenome'];
 		$novo_user_apelido = $_POST['novo_apelido'];
@@ -30,7 +31,7 @@
 			$user_sobrenome = $novo_user_sobrenome;
 			$user_apelido = $novo_user_apelido;
 			if (isset($_POST['opcao_texto_justificado'])) {
-			    $conn->query("DELETE FROM Opcoes WHERE user_id = $user_id AND opcao_tipo = 'texto_justificado'");
+				$conn->query("DELETE FROM Opcoes WHERE user_id = $user_id AND opcao_tipo = 'texto_justificado'");
 				$query = prepare_query("INSERT INTO Opcoes (user_id, opcao_tipo, opcao) VALUES ($user_id, 'texto_justificado', 1)");
 				$conn->query($query);
 				$opcao_texto_justificado_value = true;
@@ -58,8 +59,8 @@
 		$acceptable_avatars = array('fa-user', 'fa-user-tie', 'fa-user-secret', 'fa-user-robot', 'fa-user-ninja', 'fa-user-md', 'fa-user-injured', 'fa-user-hard-hat', 'fa-user-graduate', 'fa-user-crown', 'fa-user-cowboy', 'fa-user-astronaut', 'fa-user-alien', 'fa-cat', 'fa-cat-space', 'fa-dog', 'fa-ghost');
 		$novo_avatar = $_POST['selecionar_avatar'];
 		if (in_array($novo_avatar, $acceptable_avatars)) {
-		    $_SESSION['user_avatar_icone'] = $_POST['selecionar_avatar'];
-		    $conn->query("DELETE FROM Opcoes WHERE user_id = $user_id AND opcao_tipo = 'avatar')");
+			$_SESSION['user_avatar_icone'] = $_POST['selecionar_avatar'];
+			$conn->query("DELETE FROM Opcoes WHERE user_id = $user_id AND opcao_tipo = 'avatar')");
 			$query = prepare_query("INSERT INTO Opcoes (user_id, opcao_tipo, opcao_string) VALUES ($user_id, 'avatar', '$novo_avatar')");
 			$conn->query($query);
 		}
@@ -69,7 +70,7 @@
 		$acceptable_avatar_colors = array('text-primary', 'text-danger', 'text-success', 'text-warning', 'text-secondary', 'text-info', 'text-default', 'text-dark');
 		$nova_cor = $_POST['selecionar_cor'];
 		if (in_array($nova_cor, $acceptable_avatar_colors)) {
-		    $_SESSION['user_avatar_cor'] = $_POST['selecionar_cor'];
+			$_SESSION['user_avatar_cor'] = $_POST['selecionar_cor'];
 			$conn->query("DELETE FROM Opcoes WHERE user_id = $user_id AND opcao_tipo = 'avatar_cor')");
 			$query = prepare_query("INSERT INTO Opcoes (user_id, opcao_tipo, opcao_string) VALUES ($user_id, 'avatar_cor', '$nova_cor')");
 			$conn->query($query);
@@ -90,14 +91,33 @@
 	include 'templates/navbar.php';
 
 	$all_icons = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21);
-	$icons_to_show = array(1, 2, 3, 4, 6, 13, 14, 16, 17);
+	$icons_to_show = array(1, 2, 3, 4, 6, 13, 16);
 	if ($user_bookmarks != array()) {
-	    array_push($icons_to_show, 10);
-    }
+		array_push($icons_to_show, 10);
+	}
 	if ($user_areas_interesse != array()) {
-	    array_push($icons_to_show, 5);
-    }
-//	$icons_to_hide = array_diff($all_icons, $icons_to_show);
+		array_push($icons_to_show, 5);
+	}
+	if (isset($_SESSION['user_opcoes']['show_planos'])) {
+		if ($_SESSION['user_opcoes']['show_planos'][0] == true) {
+			array_push($icons_to_show, 19);
+		}
+	}
+
+	if (isset($_SESSION['user_opcoes']['show_bfranklin'])) {
+		if ($_SESSION['user_opcoes']['show_bfranklin'][0] == true) {
+			array_push($icons_to_show, 18);
+		}
+	}
+
+	if ($user_tipo == 'admin') {
+		array_push($icons_to_show, 14);
+	}
+
+	if ($user_revisor == true) {
+		array_push($icons_to_show, 17);
+	}
+	//	$icons_to_hide = array_diff($all_icons, $icons_to_show);
 
 ?>
 <body class="grey lighten-5">
@@ -119,7 +139,7 @@
         <div id="coluna_unica" class="col">
 			<?php
 
-                $template_conteudo_hidden = false;
+				$template_conteudo_hidden = false;
 
 				$template_id = 'escritorio_primeira_janela';
 				$template_titulo = false;
@@ -271,18 +291,14 @@
 					$template_conteudo_hidden .= include 'templates/artefato_item.php';
 				}
 
-				if ($user_tipo == 'admin') {
+				if (in_array(14, $icons_to_show)) {
 					$artefato_id = 'administradores';
 					$artefato_subtitulo = $pagina_translated['administrators page'];
 					$artefato_link = 'admin.php';
 					$artefato_badge = 'fa-external-link';
 					$fa_icone = 'fa-user-crown';
 					$fa_color = 'text-primary';
-					if (in_array(14, $icons_to_show)) {
-						$template_conteudo .= include 'templates/artefato_item.php';
-					} else {
-						$template_conteudo_hidden .= include 'templates/artefato_item.php';
-					}
+					$template_conteudo .= include 'templates/artefato_item.php';
 				}
 
 				$artefato_id = 'sala_visitas';
@@ -372,14 +388,14 @@
 						$template_conteudo_hidden .= include 'templates/artefato_item.php';
 					}
 				}
-/*
-				$artefato_id = 'hidden_settings';
-				$artefato_subtitulo = $pagina_translated['Hidden icons settings'];
-				$artefato_modal = '#modal_hidden_settings';
-				$fa_icone = 'fa-eye';
-				$fa_color = 'text-default';
-				$artefato_icone_background = 'teal lighten-5';
-				$template_conteudo_hidden .= include 'templates/artefato_item.php';*/
+				/*
+								$artefato_id = 'hidden_settings';
+								$artefato_subtitulo = $pagina_translated['Hidden icons settings'];
+								$artefato_modal = '#modal_hidden_settings';
+								$fa_icone = 'fa-eye';
+								$fa_color = 'text-default';
+								$artefato_icone_background = 'teal lighten-5';
+								$template_conteudo_hidden .= include 'templates/artefato_item.php';*/
 
 				include 'templates/page_element.php';
 
@@ -821,11 +837,11 @@
             }
         });
     });
-    $(document).on('click', '#hide_hidden_icons', function() {
+    $(document).on('click', '#hide_hidden_icons', function () {
         $('#escritorio_segunda_janela').addClass('hidden')
         $('#escritorio_primeira_janela').removeClass('hidden')
     })
-    $(document).on('click', '#show_hidden_icons', function() {
+    $(document).on('click', '#show_hidden_icons', function () {
         $('#escritorio_primeira_janela').addClass('hidden')
         $('#escritorio_segunda_janela').removeClass('hidden')
     })
