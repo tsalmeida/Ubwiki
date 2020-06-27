@@ -90,7 +90,7 @@
 	include 'templates/html_head.php';
 	include 'templates/navbar.php';
 
-	$all_icons = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21);
+	$all_icons = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22);
 	$icons_to_show = array(1, 2, 3, 4, 6, 13, 16);
 	if ($user_bookmarks != array()) {
 		array_push($icons_to_show, 10);
@@ -367,9 +367,9 @@
 					$artefato_subtitulo = $pagina_translated['Simulados'];
 					$artefato_link = 'simulados.php';
 					$artefato_badge = 'fa-external-link';
-					$artefato_icone_background = 'teal lighten-5';
 					$fa_icone = 'fa-clipboard-list-check';
 					$fa_color = 'text-default';
+					$artefato_icone_background = return_background($fa_color);
 					if (in_array(20, $icons_to_show)) {
 						$template_conteudo .= include 'templates/artefato_item.php';
 					} else {
@@ -379,14 +379,28 @@
 					$artefato_subtitulo = $pagina_translated['Homepage'];
 					$artefato_link = 'nexus.php';
 					$artefato_badge = 'fa-external-link';
-					$artefato_icone_background = 'red lighten-5';
 					$fa_icone = 'fa-house-user';
 					$fa_color = 'text-danger';
+					$artefato_icone_background = return_background($fa_color);
 					if (in_array(21, $icons_to_show)) {
 						$template_conteudo .= include 'templates/artefato_item.php';
 					} else {
 						$template_conteudo_hidden .= include 'templates/artefato_item.php';
 					}
+
+					$artefato_id = 'memory_planner';
+					$artefato_subtitulo = $pagina_translated['memory palace planner'];
+					$artefato_link = 'mpalace.php';
+					$artefato_badge = 'fa-external-link';
+					$fa_icone = 'fa-landmark-alt';
+					$fa_color = 'text-warning';
+					$artefato_icone_background = return_background($fa_color);
+					if (in_array(22, $icons_to_show)) {
+						$template_conteudo .= include 'templates/artefato_item.php';
+					} else {
+						$template_conteudo_hidden .= include 'templates/artefato_item.php';
+					}
+
 				}
 				/*
 								$artefato_id = 'hidden_settings';

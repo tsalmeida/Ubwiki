@@ -2531,15 +2531,40 @@
 			return false;
 		}
 		include 'templates/criar_conn.php';
+		$chave_id = false;
 		$nova_chave_titulo = mysqli_real_escape_string($conn, $nova_chave_titulo);
 		$query = prepare_query("SELECT id FROM Translation_chaves WHERE chave = '$nova_chave_titulo'");
 		$chaves = $conn->query($query);
 		if ($chaves->num_rows == 0) {
 			$query = prepare_query("INSERT INTO Translation_chaves (user_id, chave) VALUES ($user_id, '$nova_chave_titulo')");
 			$conn->query($query);
+			$chave_id = $conn->insert_id;
+		} else {
+			while ($chave = $chaves->fetch_assoc()) {
+				$chave_id = $chave['id'];
+			}
 		}
+		return $chave_id;
 	}
 
+	function adicionar_traducao($chave_id, $lingua, $conteudo, $user_id) {
+		if (($chave_id == false) || ($lingua == false) || ($conteudo == false)) {
+			return false;
+		}
+		if ($user_id == false) {
+			$user_id = 1;
+		}
+		include 'templates/criar_conn.php';
+		$conteudo = mysqli_real_escape_string($conn, $conteudo);
+		$query = prepare_query("UPDATE Chaves_traduzidas SET traducao = '$conteudo' WHERE chave_id = $chave_id AND lingua = '$lingua'");
+		$check = $conn->query($query);
+		$update_check = $conn->affected_rows;
+		if ($update_check == 0) {
+			$query = prepare_query("INSERT INTO Chaves_traduzidas (user_id, chave_id, lingua, traducao) VALUES ($user_id, $chave_id, '$lingua', '$conteudo')");
+			$check = $conn->query($query);
+		}
+		return $check;
+	}
 
 	function return_curso_card()
 	{

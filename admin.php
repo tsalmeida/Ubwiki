@@ -9,6 +9,11 @@
 	}
 	
 	if (isset($_POST['trigger_atualizacao'])) {
+	    $nova_chave_id = adicionar_chave_traducao('memory palace planner');
+	    adicionar_traducao($nova_chave_id, 'en', 'Memory Palace Planner', 1);
+	    adicionar_traducao($nova_chave_id, 'pt', 'Planejador de Palácios da Memória', 1);
+	    adicionar_traducao($nova_chave_id, 'fr', 'Palais de la Mémoire', 1);
+	    adicionar_traducao($nova_chave_id, 'es', 'Palacio de la Memoria', 1);
 	}
 
 	if (isset($_POST['trigger_atualizar_textos_size'])) {

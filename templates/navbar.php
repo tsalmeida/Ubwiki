@@ -16,9 +16,7 @@
 		$template_navbar_text = 'text-white';
 	}
 	echo "<nav class='navbar navbar-expand-lg $template_navbar_color' id='navbar'>";
-	if ($pagina_tipo == 'curso') {
-		echo "<a class='navbar-brand $template_navbar_text' href='ubwiki.php' title='{$pagina_translated['Retornar ao nexus']}'>Ubwiki</a>";
-	} else {
+	if ($pagina_tipo != 'curso') {
 		if (isset($raiz_ativa)) {
 			echo "<a class='navbar-brand $template_navbar_text' href='pagina.php?pagina_id=$raiz_ativa' title='$raiz_titulo'>$raiz_sigla</a>";
 		} else {
