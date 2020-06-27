@@ -1456,20 +1456,29 @@
 					$template_id = 'paginas_questao';
 					$template_titulo = $pagina_translated['Páginas relacionadas'];
 					$template_conteudo = false;
-
-					$template_conteudo .= "<ul class='list-group list-group-flush'>";
-
 					while ($uso_questao = $usos_questao->fetch_assoc()) {
 						$uso_questao_pagina_id = $uso_questao['pagina_id'];
 						$template_conteudo .= return_list_item($uso_questao_pagina_id);
 					}
-
-					$template_conteudo .= "</ul>";
-
+                    $template_conteudo = list_wrap($template_conteudo);
 					include 'templates/page_element.php';
 				}
 
 			}
+
+			if ($pagina_tipo == 'texto_apoio') {
+			    $template_id = 'paginas_texto_apoio';
+			    $template_titulo = $pagina_translated['Páginas relacionadas'];
+			    $template_conteudo = false;
+                $usos_texto_apoio = $conn->query("SELECT id FROM sim_questoes  WHERE texto_apoio_id = $pagina_item_id");
+                while ($uso_texto_apoio = $usos_texto_apoio->fetch_assoc()) {
+                    $uso_texto_apoio_questao_id = $uso_texto_apoio['id'];
+                    $uso_texto_apoio_pagina_id = return_pagina_id($uso_texto_apoio_questao_id, 'questao');
+                    $template_conteudo .= return_list_item($uso_texto_apoio_pagina_id);
+                }
+                $template_conteudo = list_wrap($template_conteudo);
+                include 'templates/page_element.php';
+            }
 
 			if ($pagina_tipo == 'curso') {
 
