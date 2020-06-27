@@ -1171,10 +1171,14 @@
 
 	if (isset($_POST['novo_estado_pagina'])) {
 		$novo_estado_pagina = $_POST['novo_estado_pagina'];
+		if (in_array($novo_estado_pagina,array(1,2,3,4)))
 		$novo_estado_pagina_id = $_POST['novo_estado_pagina_id'];
-		$query = prepare_query("UPDATE Paginas SET estado = $novo_estado_pagina WHERE id = $novo_estado_pagina_id");
-		$conn->query($query);
-		$pagina_estado = $novo_estado_pagina;
+		$check_compartilhamento = return_compartilhamento($novo_estado_pagina_id, $user_id);
+		if ($check_compartilhamento == true) {
+			$query = prepare_query("UPDATE Paginas SET estado = $novo_estado_pagina WHERE id = $novo_estado_pagina_id");
+			$conn->query($query);
+			$pagina_estado = $novo_estado_pagina;
+		}
 	}
 
 	if (isset($_POST['delete_this_edit'])) {
