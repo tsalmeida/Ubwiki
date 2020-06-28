@@ -57,7 +57,8 @@
 		$template_conteudo = false;
 		$verbetes_resultados_materias = false;
 		$verbetes_resultados_topicos = false;
-		$verbetes = $conn->query("SELECT pagina_tipo, pagina_id, verbete_text FROM Textos WHERE verbete_text LIKE '%$busca%' AND curso_id = $raiz_item_id AND tipo = 'verbete' ORDER BY pagina_tipo");
+		$query = prepare_query("SELECT pagina_tipo, pagina_id, verbete_text FROM Textos WHERE verbete_text LIKE '%$busca%' AND curso_id = $raiz_item_id AND tipo = 'verbete' ORDER BY pagina_tipo");
+		$verbetes = $conn->query($query);
 		if ($verbetes->num_rows > 0) {
 			while ($verbete = $verbetes->fetch_assoc()) {
 				$verbete_texto_pagina_id = $verbete['pagina_id'];

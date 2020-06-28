@@ -1,7 +1,7 @@
 <?php
 
     //TODO: Re-criar a plataforma de simulados
-
+/*
 	include 'engine.php';
 	
 	if ($user_tipo != 'admin') {

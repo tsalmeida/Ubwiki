@@ -21,9 +21,6 @@
 				$user_id = false;
 				$user_tipo = 'visitante';
 				$user_email = false;
-				if (!isset($_SESSION['curso_id'])) {
-					$_SESSION['curso_id'] = 2;
-				}
 //				header('Location:logout.php');
 //				exit();
 			}
@@ -1143,10 +1140,12 @@
 	if (isset($_POST['adicionar_questao_id'])) {
 		$adicionar_questao_id = $_POST['adicionar_questao_id'];
 		$adicionar_questao_info = return_questao_info($adicionar_questao_id);
-		$adicionar_questao_pagina_id = $adicionar_questao_info[34];
+		$adicionar_questao_questao_pagina_id = $adicionar_questao_info[34];
 		$adicionar_questao_origem = $adicionar_questao_info[0];
 		$adicionar_questao_pagina_id = $_POST['adicionar_questao_pagina_id'];
-		$query = prepare_query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, extra, extra2, user_id) VALUES ($adicionar_questao_pagina_id, 'topico', $adicionar_questao_id, 'questao', $adicionar_questao_origem, $adicionar_questao_pagina_id, $user_id)");
+		$adicionar_questao_pagina_info = return_pagina_info($adicionar_questao_pagina_id);
+		$adicionar_questao_pagina_tipo = $adicionar_questao_pagina_info[2];
+		$query = prepare_query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, extra, extra2, user_id) VALUES ($adicionar_questao_pagina_id, '$adicionar_questao_pagina_tipo', $adicionar_questao_id, 'questao', $adicionar_questao_origem, $adicionar_questao_questao_pagina_id, $user_id)");
 		$adicionar_questao_check = $conn->query($query);
 		echo $adicionar_questao_check;
 	}
@@ -1352,6 +1351,21 @@
 		}
 		$list_cursos = list_wrap($list_cursos);
 		echo $list_cursos;
+	}
+
+	if (isset($_POST['list_simulados'])) {
+		$list_simulados = false;
+		$list_simulados .= put_together_list_item('link', 'pagina.php?simulado_id=new', false, 'fad fa-ballot-check', $pagina_translated['Novo simulado'], false, 'fad fa-external-link', 'list-group-item-info');
+		$query = prepare_query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $user_escritorio AND tipo = 'simulado'");
+		$simulados = $conn->query($query);
+		if ($simulados->num_rows > 0) {
+			while ($simulado = $simulados->fetch_assoc()) {
+				$simulado_pagina_id = $simulado['elemento_id'];
+				$list_simulados .= return_list_item($simulado_pagina_id);
+			}
+		}
+		$list_simulados = list_wrap($list_simulados);
+		echo $list_simulados;
 	}
 
 	if (isset($_POST['list_referencias'])) {
@@ -1643,17 +1657,20 @@
 		}
 		if ($nxst_cmd == 'add link title url') {
 			$element_id = false;
-			$elements = $conn->query("SELECT id FROM Nexus_elements WHERE cmd = '$nxst_cmd' AND pm1 = '$nxst_pm1' AND pm2 = '$nxst_pm2' AND pm3 = '$nxst_pm3'");
+			$query = prepare_query("SELECT id FROM Nexus_elements WHERE cmd = '$nxst_cmd' AND pm1 = '$nxst_pm1' AND pm2 = '$nxst_pm2' AND pm3 = '$nxst_pm3'");
+			$elements = $conn->query($query);
 			if ($elements->num_rows > 0) {
 				while ($element = $elements->fetch_assoc()) {
 					$element_id = $element['id'];
 				}
 			} else {
-				$conn->query("INSERT INTO Nexus_elements (cmd, pm1, pm2, pm3, user_id) VALUES ('$nxst_cmd', '$nxst_pm1', '$nxst_pm2', '$nxst_pm3', $user_id)");
+				$query = prepare_query("INSERT INTO Nexus_elements (cmd, pm1, pm2, pm3, user_id) VALUES ('$nxst_cmd', '$nxst_pm1', '$nxst_pm2', '$nxst_pm3', $user_id)");
+				$conn->query($query);
 				$element_id = $conn->insert_id;
 			}
 			if ($element_id != false) {
-				$conn->query("INSERT INTO Nexus_pages (pagina_id, element_id) VALUES ($nexus_id, $element_id)");
+				$query = prepare_query("INSERT INTO Nexus_pages (pagina_id, element_id) VALUES ($nexus_id, $element_id)");
+				$conn->query($query);
 			}
 		} elseif ($nxst_cmd == 'go') {
 			$query = prepare_query("SELECT DISTINCT pm2 FROM Nexus_elements WHERE user_id = $user_id AND pm1 = '$nxst_pm1' AND cmd = 'add link title url' ORDER BY id DESC");
@@ -1669,7 +1686,8 @@
 			}
 			echo $result;
 		} elseif ($nxst_cmd == 'set title confirm') {
-			$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($nexus_id, 'pagina', 'titulo', '$nxst_pm1', $user_id)");
+			$query = prepare_query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($nexus_id, 'pagina', 'titulo', '$nxst_pm1', $user_id)");
+			$conn->query($query);
 			echo json_encode(array('change_page_title', $nxst_pm1));
 		} else {
 			//echo json_encode(array('alert', $nxst_cmd));
@@ -1704,7 +1722,8 @@
 	}
 
 	if (isset($_POST['criar_novo_modelo'])) {
-		$conn->query("INSERT INTO Paginas (tipo, subtipo, compartilhamento, user_id) VALUES ('pagina', 'modelo', 'privado', $user_id)");
+		$query = prepare_query("INSERT INTO Paginas (tipo, subtipo, compartilhamento, user_id) VALUES ('pagina', 'modelo', 'privado', $user_id)");
+		$conn->query($query);
 		$novo_modelo_pagina_id = $conn->insert_id;
 		echo $novo_modelo_pagina_id;
 	}
@@ -1712,7 +1731,8 @@
 	if (isset($_POST['escritorio_modelo_operation'])) {
 		if (!isset($_SESSION['user_opcoes']['show_bfranklin'])) {
 			$_SESSION['user_opcoes']['show_bfranklin'] = array(true, 'auto');
-			$conn->query("INSERT INTO Opcoes (user_id, opcao, opcao_tipo, opcao_string) VALUES ($user_id, 'show_bfranklin', true, 'auto')");
+			$query = prepare_query("INSERT INTO Opcoes (user_id, opcao, opcao_tipo, opcao_string) VALUES ($user_id, 'show_bfranklin', true, 'auto')");
+			$conn->query($query);
 		}
 		$escritorio_modelo_operation = $_POST['escritorio_modelo_operation'];
 		$escritorio_modelo_pagina_id = $_POST['escritorio_modelo_pagina_id'];
@@ -1732,9 +1752,11 @@
 		}
 		if ($permitir == true) {
 			if ($escritorio_modelo_operation == 'adicionar_modelo') {
-				$check = $conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, extra, user_id) VALUES ($user_escritorio, 'escritorio', $escritorio_modelo_pagina_id, 'modelo', 'added', $user_id)");
+				$query = prepare_query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, elemento_id, tipo, extra, user_id) VALUES ($user_escritorio, 'escritorio', $escritorio_modelo_pagina_id, 'modelo', 'added', $user_id)");
+				$check = $conn->query($query);
 			} elseif ($escritorio_modelo_operation == 'remover_modelo') {
-				$check = $conn->query("UPDATE Paginas_elementos SET estado = 0 WHERE pagina_id = $user_escritorio AND tipo = 'modelo' AND elemento_id = $escritorio_modelo_pagina_id");
+				$query = prepare_query("UPDATE Paginas_elementos SET estado = 0 WHERE pagina_id = $user_escritorio AND tipo = 'modelo' AND elemento_id = $escritorio_modelo_pagina_id");
+				$check = $conn->query($query);
 			}
 			echo $check;
 		}
@@ -1749,7 +1771,8 @@
 
 	if (isset($_POST['modelo_mostrar_paragrafo'])) {
 		$modelo_mostrar_paragrafo_pagina_id = $_POST['modelo_mostrar_paragrafo'];
-		$check = $conn->query("UPDATE Paginas_elementos SET extra = 'added' WHERE elemento_id = $modelo_mostrar_paragrafo_pagina_id AND pagina_id = $user_escritorio AND estado = 1");
+		$query = prepare_query("UPDATE Paginas_elementos SET extra = 'added' WHERE elemento_id = $modelo_mostrar_paragrafo_pagina_id AND pagina_id = $user_escritorio AND estado = 1");
+		$check = $conn->query($query);
 		echo $check;
 	}
 
@@ -1760,9 +1783,11 @@
 			$apagar_etiqueta_pagina_info = return_pagina_info($apagar_etiqueta_pagina_id);
 			$apagar_etiqueta_pagina_subtipo = $apagar_etiqueta_pagina_info[8];
 			if ($apagar_etiqueta_pagina_subtipo == 'etiqueta') {
-				$conn->query("DELETE FROM Paginas WHERE id = $apagar_etiqueta_pagina_id");
+				$query = prepare_query("DELETE FROM Paginas WHERE id = $apagar_etiqueta_pagina_id");
+				$conn->query($query);
 				$apagar_etiqueta_id = $apagar_etiqueta_pagina_info[1];
-				$check = $conn->query("DELETE FROM Etiquetas WHERE id = $apagar_etiqueta_id");
+				$query = prepare_query("DELETE FROM Etiquetas WHERE id = $apagar_etiqueta_id");
+				$check = $conn->query($query);
 			}
 		}
 		echo $check;
@@ -1812,6 +1837,28 @@
 		$nova_etiqueta_pagina_id = return_pagina_id($nova_etiqueta_id, 'etiqueta');
 		$query = prepare_query("UPDATE Planejamento SET classificacao = $nova_etiqueta_pagina_id WHERE elemento_id = $plan_set_tag_elemento_id AND user_id = $user_id");
 		$conn->query($query);
+	}
+
+	if (isset($_POST['criar_simulado_pagina_id'])) {
+		$criar_simulado_pagina_id = $_POST['criar_simulado_pagina_id'];
+		$criar_simulado_pagina_info = return_pagina_info($criar_simulado_pagina_id);
+		$check = false;
+		if (($user_tipo == 'admin') && ($criar_simulado_pagina_info != false)) {
+			$criar_simulado_pagina_tipo = $criar_simulado_pagina_info[2];
+			if ($criar_simulado_pagina_tipo == 'curso') {
+				$criar_simulado_curso_id = $criar_simulado_pagina_info[1];
+			}
+			$query = prepare_query("INSERT INTO Simulados (curso_id, contexto_pagina_id, user_id) VALUES ($criar_simulado_curso_id, $criar_simulado_pagina_id, $user_id)");
+			$conn->query($query);
+			$novo_simulado_id = $conn->insert_id;
+			$query = prepare_query("INSERT INTO Paginas (item_id, tipo, subtipo, compartilhamento, user_id) VALUES ($novo_simulado_id, 'pagina', 'simulado', 'privado', $user_id)");
+			$conn->query($query);
+			$novo_simulado_pagina_id = $conn->insert_id;
+			$conn->query("UPDATE Simulados SET pagina_id = $novo_simulado_pagina_id WHERE id = $novo_simulado_id");
+			$query = prepare_query("INSERT INTO Paginas_elementos (estado, pagina_id, pagina_tipo, elemento_id, tipo, extra, user_id) VALUES (0, $criar_simulado_pagina_id, '$criar_simulado_pagina_tipo', $novo_simulado_id, 'simulado', $novo_simulado_pagina_id, $user_id)");
+			$check = $conn->query($query);
+		}
+		echo $check;
 	}
 
 ?>

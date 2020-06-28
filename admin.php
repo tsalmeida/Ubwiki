@@ -1,18 +1,42 @@
 <?php
-	
+
 	include 'engine.php';
-	
+
 	$pagina_tipo = 'admin';
-	
+
 	if ($user_tipo != 'admin') {
 		header("Location:ubwiki.php");
 	}
-	
+
 	if (isset($_POST['trigger_atualizacao'])) {
+		$conn->query("ALTER TABLE `sim_gerados` ADD `pagina_id` INT(11) NULL DEFAULT NULL AFTER `criacao`;");
+		$conn->query("CREATE TABLE `Ubwiki`.`Simulados` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `pagina_id` INT(11) NULL DEFAULT NULL , `user_id` INT(11) NULL DEFAULT NULL , `criacao` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
+		adicionar_chave_e_traducoes('Simulado');
+		adicionar_chave_e_traducoes('Novo simulado', 'New test simulation');
+		unset($_SESSION['pagina_translated']);
+		$conn->query("ALTER TABLE `Simulados` ADD `contexto_pagina_id` INT(11) NULL DEFAULT NULL AFTER `pagina_id`;");
+		adicionar_chave_e_traducoes("Edições do concurso", 'Test editions');
+		adicionar_chave_e_traducoes('Adicionar edição', 'Add edition');
+		adicionar_chave_e_traducoes('Adicionar edição do concurso:', 'Add test edition:');
+		adicionar_chave_e_traducoes('Ano da nova edição', 'Edition year');
+		adicionar_chave_e_traducoes('Título da nova edição', 'New edition title');
+		adicionar_chave_e_traducoes('Não há edições registradas deste concurso.');
+		adicionar_chave_e_traducoes('Edições registradas:', 'Registered editions:');
+		adicionar_chave_e_traducoes('Etapas de edição do concurso', 'Stages of this edition of the test');
+		adicionar_chave_e_traducoes('Adicionar etapa de edição do concurso:', 'Add stage of test edition:');
+		adicionar_chave_e_traducoes('Título da nova etapa', 'New stage title');
+		adicionar_chave_e_traducoes('Adicionar etapa', 'Add stage');
+		adicionar_chave_e_traducoes('Adicionar etapa desta edição do concurso', 'Add stage of this test edition');
+		adicionar_chave_e_traducoes('Etapas registradas:', 'Registered stages:');
+		adicionar_chave_e_traducoes('Título da prova', 'Test title');
+		adicionar_chave_e_traducoes('Adicionar prova de etapa do concurso:', 'Add test of this stage');
+		adicionar_chave_e_traducoes('Tipo da prova:', 'Test title:');
+		adicionar_chave_e_traducoes('Objetiva', 'Objective');
+		$conn->query("ALTER TABLE `Simulados` ADD `curso_id` INT(11) NULL DEFAULT NULL AFTER `pagina_id`;");
 	}
 
 	if (isset($_POST['trigger_atualizar_textos_size'])) {
-	    $query = prepare_query("SELECT id, verbete_content FROM Textos");
+		$query = prepare_query("SELECT id, verbete_content FROM Textos");
 		$textos = $conn->query($query);
 		if ($textos->num_rows > 0) {
 			while ($texto = $textos->fetch_assoc()) {
@@ -35,7 +59,7 @@
 			}
 		}
 	}
-	
+
 	if (isset($_POST['funcoes_gerais'])) {
 		$conn->query("TRUNCATE `Ubwiki`.`sim_detalhes`");
 		$conn->query("TRUNCATE `Ubwiki`.`sim_edicoes`");
@@ -51,15 +75,15 @@
 		$conn->query("TRUNCATE `Ubwiki`.`sim_textos_apoio`");
 		$conn->query("TRUNCATE `Ubwiki`.`sim_textos_apoio_arquivo`");
 	}
-	
+
 	if (isset($_POST['funcoes_gerais2'])) {
 		$conn->query("TRUNCATE `Ubwiki`.`sim_detalhes`");
 		$conn->query("TRUNCATE `Ubwiki`.`sim_gerados`");
 		$conn->query("TRUNCATE `Ubwiki`.`sim_respostas`");
 	}
-	
+
 	if (isset($_POST['funcoes_gerais3'])) {
-	    $query = prepare_query("SELECT id FROM Cursos");
+		$query = prepare_query("SELECT id FROM Cursos");
 		$cursos = $conn->query($query);
 		if ($cursos->num_rows > 0) {
 			while ($curso = $cursos->fetch_assoc()) {
@@ -68,7 +92,7 @@
 			}
 		}
 	}
-	
+
 	include 'templates/html_head.php';
 
 ?>
@@ -85,91 +109,91 @@
 	?>
     <div class="row justify-content-around">
         <div id='coluna_esquerda' class="<?php echo $coluna_media_classes; ?>">
-					<?php
-						
-						$template_id = 'traducoes';
-						$template_titulo = 'Traduções';
-						$template_conteudo = false;
-						$template_conteudo .= "<div class='row d-flex justify-content-center'>";
-						
-						$artefato_tipo = 'acesso_traducoes';
-						$artefato_titulo = 'Acessar página de traduções';
-						$artefato_col_limit = 'col-lg-4';
-						$artefato_link = 'traducoes.php';
-						$fa_icone = 'fa-language';
-						$fa_color = 'text-primary';
-						$template_conteudo .= include 'templates/artefato_item.php';
-						
-						$template_conteudo .= "</div>";
-						include 'templates/page_element.php';
-						
-						$template_id = 'emails_usuarios';
-						$template_titulo = 'Emails dos usuários';
-						$template_conteudo = false;
-						$template_conteudo .= "<div class='row d-flex justify-content-center'>";
-						
-						$artefato_tipo = 'emails_usuarios';
-						$artefato_titulo = 'Listar emails dos usuários';
-						$artefato_col_limit = 'col-lg-4';
-						$artefato_button = 'carregar_emails';
-						$fa_icone = 'fa-at';
-						$fa_color = 'text-danger';
-						$template_conteudo .= include 'templates/artefato_item.php';
-						
-						$template_conteudo .= "</div>";
-						$template_conteudo .= "<ul id='lista_usuarios_emails'></ul>";
-						include 'templates/page_element.php';
-						
-						$template_id = 'atualizacao';
-						$template_titulo = 'Atualização';
-						$template_conteudo = false;
-						$template_conteudo .= "
+			<?php
+
+				$template_id = 'traducoes';
+				$template_titulo = 'Traduções';
+				$template_conteudo = false;
+				$template_conteudo .= "<div class='row d-flex justify-content-center'>";
+
+				$artefato_tipo = 'acesso_traducoes';
+				$artefato_titulo = 'Acessar página de traduções';
+				$artefato_col_limit = 'col-lg-4';
+				$artefato_link = 'traducoes.php';
+				$fa_icone = 'fa-language';
+				$fa_color = 'text-primary';
+				$template_conteudo .= include 'templates/artefato_item.php';
+
+				$template_conteudo .= "</div>";
+				include 'templates/page_element.php';
+
+				$template_id = 'emails_usuarios';
+				$template_titulo = 'Emails dos usuários';
+				$template_conteudo = false;
+				$template_conteudo .= "<div class='row d-flex justify-content-center'>";
+
+				$artefato_tipo = 'emails_usuarios';
+				$artefato_titulo = 'Listar emails dos usuários';
+				$artefato_col_limit = 'col-lg-4';
+				$artefato_button = 'carregar_emails';
+				$fa_icone = 'fa-at';
+				$fa_color = 'text-danger';
+				$template_conteudo .= include 'templates/artefato_item.php';
+
+				$template_conteudo .= "</div>";
+				$template_conteudo .= "<ul id='lista_usuarios_emails'></ul>";
+				include 'templates/page_element.php';
+
+				$template_id = 'atualizacao';
+				$template_titulo = 'Atualização';
+				$template_conteudo = false;
+				$template_conteudo .= "
 						    <form method='post'>
 						        <div class='row justify-content-center'>";
-						
-						$artefato_tipo = 'atualizacao';
-						$artefato_titulo = 'Atualização';
-						$artefato_col_limit = 'col-lg-4';
-						$artefato_button = 'trigger_atualizacao';
-						$fa_icone = 'fab fa-github';
-						$fa_color = 'text-secondary';
-						
-						$template_conteudo .= include 'templates/artefato_item.php';
-						
-						$template_conteudo .= "
+
+				$artefato_tipo = 'atualizacao';
+				$artefato_titulo = 'Atualização';
+				$artefato_col_limit = 'col-lg-4';
+				$artefato_button = 'trigger_atualizacao';
+				$fa_icone = 'fab fa-github';
+				$fa_color = 'text-secondary';
+
+				$template_conteudo .= include 'templates/artefato_item.php';
+
+				$template_conteudo .= "
 				                </div>
 						    </form>
 						";
-						include 'templates/page_element.php';
-						
-						$template_id = 'credito_gratis';
-						$template_titulo = 'Links para créditos gratuitos';
-						$template_conteudo = false;
-						$template_conteudo .= "<p>Próximos cinco créditos gratuitos (total de 300 originalmente disponíveis, cada um valendo 50 créditos).</p>";
+				include 'templates/page_element.php';
 
-						$query = prepare_query("SELECT codigo FROM Creditos WHERE id < 301 AND estado = 1 ORDER BY id");
-						$creditos = $conn->query($query);
-						if ($creditos->num_rows > 0) {
-							$template_conteudo .= "<ul class='list-group'>";
-							$count = 0;
-							while ($credito = $creditos->fetch_assoc()) {
-								$count++;
-								if ($count > 15) {
-									break;
-								}
-								$credito_codigo = $credito['codigo'];
-								$template_conteudo .= "<li class='list-group-item list-group-item-info fontstack-mono'><small>https://www.ubwiki.com.br/ubwiki/?credito={$credito_codigo}</small></li>";
-							}
-							$template_conteudo .= '</ul>';
+				$template_id = 'credito_gratis';
+				$template_titulo = 'Links para créditos gratuitos';
+				$template_conteudo = false;
+				$template_conteudo .= "<p>Próximos cinco créditos gratuitos (total de 300 originalmente disponíveis, cada um valendo 50 créditos).</p>";
+
+				$query = prepare_query("SELECT codigo FROM Creditos WHERE id < 301 AND estado = 1 ORDER BY id");
+				$creditos = $conn->query($query);
+				if ($creditos->num_rows > 0) {
+					$template_conteudo .= "<ul class='list-group'>";
+					$count = 0;
+					while ($credito = $creditos->fetch_assoc()) {
+						$count++;
+						if ($count > 15) {
+							break;
 						}
-						
-						include 'templates/page_element.php';
-						
-						$template_id = 'funcoes_gerais';
-						$template_titulo = 'Funções gerais';
-						$template_botoes = false;
-						$template_conteudo = false;
-						$template_conteudo .= "
+						$credito_codigo = $credito['codigo'];
+						$template_conteudo .= "<li class='list-group-item list-group-item-info fontstack-mono'><small>https://www.ubwiki.com.br/ubwiki/?credito={$credito_codigo}</small></li>";
+					}
+					$template_conteudo .= '</ul>';
+				}
+
+				include 'templates/page_element.php';
+
+				$template_id = 'funcoes_gerais';
+				$template_titulo = 'Funções gerais';
+				$template_botoes = false;
+				$template_conteudo = false;
+				$template_conteudo .= "
 						    <form method='post'>
 						        <p>Simulados.</p>
 						        <div class='row justify-content-center'>
@@ -195,9 +219,9 @@
 						        </div>
 						    </form>
 						";
-						include 'templates/page_element.php';
-					
-					?>
+				include 'templates/page_element.php';
+
+			?>
         </div>
     </div>
 </div>

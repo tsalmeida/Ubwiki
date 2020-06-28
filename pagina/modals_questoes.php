@@ -8,7 +8,7 @@
 	}
 	
 	$template_modal_div_id = 'modal_adicionar_simulado';
-	$template_modal_titulo = "Edições do concurso";
+	$template_modal_titulo = $pagina_translated["Edições do concurso"];
 	$template_modal_show_buttons = false;
 	$template_modal_body_conteudo = false;
 	$modal_scrollable = true;
@@ -16,28 +16,28 @@
 	$edicoes = $conn->query($query);
 	$template_modal_body_conteudo .= "
 		<ul class='list-group list-group-flush mb-3'>
-			<a id='carregar_formulario_adicionar_edicao' href='javascript:void(0);'><li class='list-group-item list-group-item-action list-group-item-info d-flex justify-content-center'>Adicionar edição</li></a>
+			<a id='carregar_formulario_adicionar_edicao' href='javascript:void(0);'><li class='list-group-item list-group-item-action list-group-item-info d-flex justify-content-center'>{$pagina_translated['Adicionar edição']}</li></a>
 		</ul>
 		<form method='post' id='esconder_formulario_adicionar_edicao' class='border rounded p-3 m-1 mb-3 grey lighten-5'>
-			<p>Adicionar edição do concurso:</p>
+			<p>{$pagina_translated['Adicionar edição do concurso:']}</p>
       <div class='md-form'>
         <input type='number' class='form-control' name='nova_edicao_ano' id='nova_edicao_ano' required>
-        <label for='nova_edicao_ano'>Ano da nova edição</label>
+        <label for='nova_edicao_ano'>{$pagina_translated['Ano da nova edição']}</label>
       </div>
       <div class='md-form'>
         <input type='text' class='form-control' name='nova_edicao_titulo' id='nova_edicao_titulo' required>
-        <label for='nova_edicao_titulo'>Título da nova edição</label>
+        <label for='nova_edicao_titulo'>{$pagina_translated['Título da nova edição']}</label>
       </div>
       <div class='row d-flex justify-content-center'>
-      	<button type='submit' class='$button_classes'>Adicionar edição</button>
+      	<button type='submit' class='$button_classes'>{$pagina_translated['Adicionar edição']}</button>
 			</div>
 		</form>
 	";
 	if ($edicoes->num_rows == 0) {
-		$template_modal_body_conteudo .= "<p>Não há edições registradas deste concurso.</p>";
+		$template_modal_body_conteudo .= "<p>{$pagina_translated['Não há edições registradas deste concurso.']}</p>";
 	} else {
 		$template_modal_body_conteudo .= "
-		<p>Edições registradas:</p>
+		<p>{$pagina_translated['Edições registradas:']}</p>
 		<ul class='list-group list-group-flush'>
 		<span data-toggle='modal' data-target='#modal_adicionar_simulado'>
 		<span data-toggle='modal' data-target='#modal_vazio_edicoes'>
@@ -53,26 +53,26 @@
 	include 'templates/modal.php';
 	
 	$template_modal_div_id = 'modal_vazio_edicoes';
-	$template_modal_titulo = 'Etapas de edição do concurso';
+	$template_modal_titulo = $pagina_translated['Etapas de edição do concurso'];
 	$template_modal_show_buttons = false;
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "
 				<form method='post' class='p-3 mb-3 grey lighten-5 border' id='esconder_formulario_adicionar_etapa'>
-					<p>Adicionar etapa de edição do concurso:</p>
+					<p>{$pagina_translated['Adicionar etapa de edição do concurso:']}</p>
 					<input type='hidden' id='nova_etapa_edicao_id' name='nova_etapa_edicao_id' value=''>
 					<input type='hidden' id='nova_etapa_curso_id' name='nova_etapa_curso_id' value='$pagina_curso_id'>
 					<div class='md-form'>
 	          <input type='text' class='form-control' name='nova_etapa_titulo' id='nova_etapa_titulo' required>
-	          <label for='nova_etapa_titulo'>Título da nova etapa</label>
+	          <label for='nova_etapa_titulo'>{$pagina_translated['Título da nova etapa']}</label>
 	        </div>
           <div class='row justify-content-center'>
-            <button class='$button_classes btn-info'>Adicionar etapa</button>
+            <button class='$button_classes btn-info'>{$pagina_translated['Adicionar etapa']}</button>
 					</div>
         </form>
         <ul class='list-group list-group-flush'>
-        	<a href='javascript:void(0);' id='carregar_formulario_adicionar_etapa'><li class='list-group-item list-group-item-action list-group-item-info'>Adicionar etapa desta edição do concurso</li></a>
+        	<a href='javascript:void(0);' id='carregar_formulario_adicionar_etapa'><li class='list-group-item list-group-item-action list-group-item-info'>{$pagina_translated['Adicionar etapa desta edição do concurso']}</li></a>
 				</ul>
-				<p>Etapas registradas:</p>
+				<p>{$pagina_translated['Etapas registradas:']}</p>
         <div id='etapas_popular'>
 				</div>
 	";
@@ -84,16 +84,16 @@
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "
 		<form method='post' class='p-3 mb-3 grey lighten-5 border' id='esconder_formulario_adicionar_prova'>
-			<p>Adicionar prova de etapa do concurso:</p>
+			<p>{$pagina_translated['Adicionar prova de etapa do concurso:']}</p>
 			<input type='hidden' id='nova_prova_etapa_id' name='nova_prova_etapa_id' value=''>
 			<input type='hidden' id='nova_prova_curso_id' name='nova_prova_curso_id' value='$pagina_curso_id'>
 			<div class='md-form'>
 				<input type='text' class='form-control' name='nova_prova_titulo' id='nova_prova_titulo' required>
-				<label for='nova_prova_titutlo'>Título da prova</label>
+				<label for='nova_prova_titutlo'>{$pagina_translated['Título da prova']}</label>
 			</div>
 			<select class='$select_classes' name='nova_prova_tipo' required>
-        <option value='' disabled selected>Tipo da prova:</option>
-        <option value='1'>Objetiva</option>
+        <option value='' disabled selected>{$pagina_translated['Tipo da prova:']}</option>
+        <option value='1'>{$pagina_translated['Objetiva']}</option>
         <option value='2'>Dissertativa</option>
         <option value='3'>Oral</option>
         <option value='4'>Física</option>

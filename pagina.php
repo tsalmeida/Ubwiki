@@ -7,8 +7,9 @@
 	//TODO: Fontes diferentes e cores diferentes apenas para leitura.
 	//TODO: Gerar PDF para impressão.
 	//TODO: Permitir baixar um arquivo com todas as suas anotações.
-    //TODO: Estado da página não está sendo atualizado imediatamente, apenas após recarregar.
-    //TODO: Next and Previous buttons could be easily added to Element pages.
+	//TODO: Estado da página não está sendo atualizado imediatamente, apenas após recarregar.
+	//TODO: Next and Previous buttons could be easily added to Element pages.
+	//TODO: Sistema de simulados automatizado, em que os alunos votam nas melhores respostas.
 
 	$pagina_tipo = 'pagina_geral';
 
@@ -114,7 +115,7 @@
 				if (!isset($_SESSION['user_plano_id'])) {
 					$pagina_item_id_override = return_plano_id_pagina_id($user_escritorio);
 					if ($pagina_item_id_override == false) {
-					    $query = prepare_query("INSERT INTO Planos (pagina_id, user_id) VALUES ($user_escritorio, $user_id)");
+						$query = prepare_query("INSERT INTO Planos (pagina_id, user_id) VALUES ($user_escritorio, $user_id)");
 						$conn->query($query);
 						$pagina_item_id_override = $conn->insert_id;
 					}
@@ -179,7 +180,6 @@
 	if (isset($pagina_item_id_override)) {
 		$pagina_item_id = $pagina_item_id_override;
 	}
-
 	if (isset($_POST['trigger_apagar_pagina'])) {
 		$query = prepare_query("DELETE FROM Paginas WHERE id = $pagina_id");
 		$conn->query($query);
@@ -324,24 +324,23 @@
 			}
 			$change_show_completed = !$plan_show_completed;
 		}
+	} elseif ($pagina_subtipo == 'simulado') {
+		$pagina_simulado_info = return_simulado_info($pagina_item_id);
+		$pagina_simulado_contexto_pagina_id = $pagina_simulado_info[2];
+		$pagina_simulado_curso_id = $pagina_simulado_info[1];
+		$pagina_curso_id = $pagina_simulado_curso_id;
 	}
 
 	if ($pagina_tipo == 'curso') {
 		$pagina_curso_user_id = $pagina_user_id;
-		$_SESSION['raiz_ativa'] = $pagina_id;
-		if ($user_id != false) {
-			$query = prepare_query("UPDATE Usuarios SET raiz_ativa = $pagina_id WHERE id = $user_id");
-			$conn->query($query);
+		if ($_SESSION['raiz_ativa'] != $pagina_id) {
+			$_SESSION['raiz_ativa'] = $pagina_id;
+			if ($user_id != false) {
+				$query = prepare_query("UPDATE Usuarios SET raiz_ativa = $pagina_id WHERE id = $user_id");
+				$conn->query($query);
+			}
 		}
 	}
-
-
-	if (isset($pagina_curso_id)) {
-		$_SESSION['curso_id'] = $pagina_curso_id;
-		unset($_SESSION['curso_sigla']);
-		unset($_SESSION['curso_titulo']);
-	}
-
 
 	if (isset($_POST['novo_curso'])) {
 		$novo_curso_sigla = $_POST['novo_curso_sigla'];
@@ -555,14 +554,9 @@
 		$pagina_bookmark = true;
 	}
 	if (in_array($pagina_id, $user_completed)) {
-	    $pagina_completed = true;
-    }
-
-	$html_head_template_quill = true;
-	if (($pagina_tipo == 'questao') || ($pagina_tipo == 'texto_apoio')) {
-		$html_head_template_quill_sim = true;
+		$pagina_completed = true;
 	}
-	include 'templates/html_head.php';
+
 	if ($user_id != false) {
 		if ($nao_contar == false) {
 			if (($pagina_tipo == 'topico') || ($pagina_tipo == 'materia')) {
@@ -615,7 +609,7 @@
 		$produto_no_carrinho = true;
 	}
 
-	if (($pagina_tipo == 'elemento') || ($pagina_tipo == 'grupo') || (($pagina_tipo == 'pagina') && (($pagina_compartilhamento != 'escritorio') && ($pagina_subtipo != 'produto') && ($pagina_subtipo != 'plano')))) {
+	if (($pagina_tipo == 'elemento') || ($pagina_tipo == 'grupo') || (($pagina_tipo == 'pagina') && (($pagina_compartilhamento != 'escritorio') && ($pagina_subtipo != 'produto') && ($pagina_subtipo != 'simulado') && ($pagina_subtipo != 'plano')))) {
 		$carregar_secoes = true;
 	} else {
 		$carregar_secoes = false;
@@ -638,6 +632,17 @@
 
 	include 'pagina/queries_notificacoes.php';
 
+	if ($_POST) {
+		header("Location: " . $_SERVER['REQUEST_URI']);
+		exit();
+	}
+
+	$html_head_template_quill = true;
+	if (($pagina_tipo == 'questao') || ($pagina_tipo == 'texto_apoio')) {
+		$html_head_template_quill_sim = true;
+	}
+	include 'templates/html_head.php';
+
 ?>
 <body class="grey lighten-5">
 <?php
@@ -655,9 +660,9 @@
 				}
 				if ($pagina_tipo == 'elemento') {
 					echo "
-                            <a href='javascript:void(0);' data-toggle='modal' data-target='#modal_dados_elemento' class='text-info mr-1' id='elemento_dados' title='{$pagina_translated['Editar dados']}'><i class='fad fa-info-circle fa-fw fa-lg'></i></a>
-                            <a href='javascript:void(0);' data-toggle='modal' data-target='#modal_elemento_subtipo' class='text-info mr-1' id='elemento_subtipo' title='{$pagina_translated['Determinar subcategoria']}'><i class='fad fa-sort-circle fa-fw fa-lg'></i></a>
-                            ";
+                        <a href='javascript:void(0);' data-toggle='modal' data-target='#modal_dados_elemento' class='text-info mr-1' id='elemento_dados' title='{$pagina_translated['Editar dados']}'><i class='fad fa-info-circle fa-fw fa-lg'></i></a>
+                        <a href='javascript:void(0);' data-toggle='modal' data-target='#modal_elemento_subtipo' class='text-info mr-1' id='elemento_subtipo' title='{$pagina_translated['Determinar subcategoria']}'><i class='fad fa-sort-circle fa-fw fa-lg'></i></a>
+                    ";
 				}
 				$modal_pagina_dados = false;
 				$paginas_de_curso = array('curso', 'materia', 'topico');
@@ -897,8 +902,8 @@
 					if ($user_id != false) {
 						$carregar_toggle_paginas_livres = true;
 						if (in_array($pagina_id, $user_areas_interesse)) {
-						    $area_interesse_ativa = true;
-                        }
+							$area_interesse_ativa = true;
+						}
 						echo "
 						      <a id='remover_area_interesse' href='javascript:void(0);' class='ml-1 text-warning' title='{$pagina_translated['Remover como área de interesse']}'>
 						      	<i class='fad fa-lamp-desk fa-fw fa-lg'></i>
@@ -1078,6 +1083,8 @@
 				$template_subtitulo = $pagina_translated['BFranklin model'];
 			} elseif ($pagina_subtipo == 'plano') {
 				$template_subtitulo = "{$pagina_translated['Plano de estudos']}</br><a class='text-light' id='reveal_introduction'><i class='fad fa-info-circle fa-fw'></i></a>";
+			} elseif ($pagina_subtipo == 'simulado') {
+				$template_subtitulo = $pagina_translated['Simulado'];
 			}
 		} elseif ($pagina_tipo == 'secao') {
 			$template_titulo = $pagina_titulo;
@@ -1263,6 +1270,26 @@
 					include 'templates/page_element.php';
 				}
 
+				if ($pagina_tipo == 'curso') {
+					if ($user_tipo == 'admin') {
+						$curso_simulados = $conn->query("SELECT extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'simulado'");
+					} else {
+						$curso_simulados = $conn->query("SELECT extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'simulado' AND estado = 1");
+					}
+					if ($curso_simulados->num_rows > 0) {
+						$template_id = 'lista_simulados';
+						$template_titulo = $pagina_translated['Simulados'];
+						$template_botoes = false;
+						$template_conteudo = false;
+						while ($curso_simulado = $curso_simulados->fetch_assoc()) {
+							$curso_simulado_pagina_id = $curso_simulado['extra'];
+							$template_conteudo .= return_list_item($curso_simulado_pagina_id);
+						}
+						$template_conteudo = list_wrap($template_conteudo);
+						include 'templates/page_element.php';
+					}
+				}
+
 				if ($pagina_subtipo != 'plano') {
 					include 'pagina/leiamais.php';
 					include 'pagina/videos.php';
@@ -1311,7 +1338,7 @@
 				include 'templates/page_element.php';
 			}
 
-			if ($pagina_tipo == 'topico') {
+			if (($pagina_tipo == 'topico') || ($pagina_subtipo == 'simulado')) {
 				$query = prepare_query("SELECT elemento_id, extra2 FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'questao'");
 				$list_pagina_questoes = $conn->query($query);
 				if ($list_pagina_questoes->num_rows > 0) {
@@ -1319,7 +1346,6 @@
 					$template_titulo = $pagina_translated['Questões sobre este tópico'];
 					$template_botoes = "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_adicionar_simulado' class='text-secondary'><i class='fad fa-plus-square fa-fw'></i></a>";
 					$template_conteudo = false;
-					$template_conteudo .= "<ul class='list-group list-group-flush'>";
 					while ($list_pagina_questao = $list_pagina_questoes->fetch_assoc()) {
 						$list_pagina_questao_pagina_id = $list_pagina_questao['extra2'];
 						if ($list_pagina_questao_pagina_id == false) {
@@ -1328,7 +1354,7 @@
 						}
 						$template_conteudo .= return_list_item($list_pagina_questao_pagina_id);
 					}
-					$template_conteudo .= "</ul>";
+					$template_conteudo = list_wrap($template_conteudo);
 					include 'templates/page_element.php';
 				}
 			}
@@ -1461,25 +1487,25 @@
 						$uso_questao_pagina_id = $uso_questao['pagina_id'];
 						$template_conteudo .= return_list_item($uso_questao_pagina_id);
 					}
-                    $template_conteudo = list_wrap($template_conteudo);
+					$template_conteudo = list_wrap($template_conteudo);
 					include 'templates/page_element.php';
 				}
 
 			}
 
 			if ($pagina_tipo == 'texto_apoio') {
-			    $template_id = 'paginas_texto_apoio';
-			    $template_titulo = $pagina_translated['Páginas relacionadas'];
-			    $template_conteudo = false;
-                $usos_texto_apoio = $conn->query("SELECT id FROM sim_questoes WHERE texto_apoio_id = $pagina_item_id");
-                while ($uso_texto_apoio = $usos_texto_apoio->fetch_assoc()) {
-                    $uso_texto_apoio_questao_id = $uso_texto_apoio['id'];
-                    $uso_texto_apoio_pagina_id = return_pagina_id($uso_texto_apoio_questao_id, 'questao');
-                    $template_conteudo .= return_list_item($uso_texto_apoio_pagina_id);
-                }
-                $template_conteudo = list_wrap($template_conteudo);
-                include 'templates/page_element.php';
-            }
+				$template_id = 'paginas_texto_apoio';
+				$template_titulo = $pagina_translated['Páginas relacionadas'];
+				$template_conteudo = false;
+				$usos_texto_apoio = $conn->query("SELECT id FROM sim_questoes WHERE texto_apoio_id = $pagina_item_id");
+				while ($uso_texto_apoio = $usos_texto_apoio->fetch_assoc()) {
+					$uso_texto_apoio_questao_id = $uso_texto_apoio['id'];
+					$uso_texto_apoio_pagina_id = return_pagina_id($uso_texto_apoio_questao_id, 'questao');
+					$template_conteudo .= return_list_item($uso_texto_apoio_pagina_id);
+				}
+				$template_conteudo = list_wrap($template_conteudo);
+				include 'templates/page_element.php';
+			}
 
 			if ($pagina_tipo == 'curso') {
 
@@ -1525,16 +1551,13 @@
 			} else {
 				if (in_array($pagina_tipo, $paginas_com_anotacoes)) {
 					$carregar_quill_anotacoes = true;
-				} elseif (in_array($pagina_subtipo, $subtipos_com_anotacoes)) {
-					$carregar_quill_anotacoes = true;
-				} else {
-					$carregar_quill_anotacoes = false;
 				}
-				if ($pagina_compartilhamento == 'escritorio') {
-					$carregar_quill_anotacoes = false;
-				}
-				if ($pagina_subtipo == 'plano') {
-					$carregar_quill_anotacoes = false;
+				if ($pagina_tipo == 'pagina') {
+					if (in_array($pagina_subtipo, $subtipos_com_anotacoes)) {
+						$carregar_quill_anotacoes = true;
+					} else {
+						$carregar_quill_anotacoes = false;
+					}
 				}
 				if ($pagina_subtipo == 'modelo') {
 					if ($pagina_compartilhamento == 'privado') {
@@ -1746,7 +1769,7 @@
 	if ($privilegio_edicao == true) {
 		include 'pagina/modal_add_elemento.php';
 		include 'pagina/modal_adicionar_imagem.php';
-		if ($pagina_tipo == 'topico') {
+		if (($pagina_tipo == 'topico') || ($pagina_subtipo == 'simulado')) {
 			include 'pagina/modals_questoes.php';
 		}
 	}
@@ -1765,7 +1788,7 @@
         ";
 
 		if (isset($secoes)) {
-			if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id) && ($secoes->num_rows == 0) && ($pagina_tipo == 'pagina') && ($pagina_titulo != false) && ($pagina_subtipo != 'produto') && ($pagina_subtipo != 'modelo') && ($pagina_subtipo != 'plano')) {
+			if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id) && ($secoes->num_rows == 0) && ($pagina_tipo == 'pagina') && ($pagina_titulo != false) && ($pagina_subtipo != 'produto') && ($pagina_subtipo != 'simulado') && ($pagina_subtipo != 'modelo') && ($pagina_subtipo != 'plano')) {
 				$modal_novo_curso = true;
 				$template_modal_body_conteudo .= "<h3>{$pagina_translated['change page nature']}</h3>";
 				$template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";

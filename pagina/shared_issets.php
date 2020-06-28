@@ -385,12 +385,16 @@
 		if (isset($_POST['novo_grupo_titulo'])) {
 			$novo_grupo_titulo = $_POST['novo_grupo_titulo'];
 			$novo_grupo_titulo = mysqli_real_escape_string($conn, $novo_grupo_titulo);
-			if ($conn->query("INSERT INTO Grupos (titulo, user_id) VALUES ('$novo_grupo_titulo', $user_id)") === true) {
+			$query = prepare_query("INSERT INTO Grupos (titulo, user_id) VALUES ('$novo_grupo_titulo', $user_id)");
+			if ($conn->query($query) === true) {
 				$novo_grupo_id = $conn->insert_id;
-				$conn->query("INSERT INTO Membros (membro_user_id, grupo_id, estado, user_id) VALUES ($user_id, $novo_grupo_id, 1, $user_id)");
-				$conn->query("INSERT INTO Paginas (item_id, tipo, compartilhamento, user_id) VALUES ($novo_grupo_id, 'grupo', 'grupo', $user_id)");
+				$query = prepare_query("INSERT INTO Membros (membro_user_id, grupo_id, estado, user_id) VALUES ($user_id, $novo_grupo_id, 1, $user_id)");
+				$conn->query($query);
+				$query = prepare_query("INSERT INTO Paginas (item_id, tipo, compartilhamento, user_id) VALUES ($novo_grupo_id, 'grupo', 'grupo', $user_id)");
+				$conn->query($query);
 				$novo_grupo_pagina_id = $conn->insert_id;
-				$conn->query("UPDATE Grupos SET pagina_id = $novo_grupo_pagina_id WHERE id = $novo_grupo_id");
+				$query = prepare_query("UPDATE Grupos SET pagina_id = $novo_grupo_pagina_id WHERE id = $novo_grupo_id");
+				$conn->query($query);
 			}
 		}
 		
@@ -403,7 +407,8 @@
 			if (isset($_POST['trigger_rejeitar_convite'])) {
 				$resposta_convite = (int)0;
 			}
-			$conn->query("UPDATE Membros SET estado = $resposta_convite WHERE grupo_id = $responder_convite_grupo_id AND membro_user_id = $user_id");
+			$query = prepare_query("UPDATE Membros SET estado = $resposta_convite WHERE grupo_id = $responder_convite_grupo_id AND membro_user_id = $user_id");
+			$conn->query($query);
 		}
 	}
 

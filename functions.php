@@ -278,7 +278,7 @@
 		return false;
 	}
 
-	function return_simulado_info($find_simulado_id)
+	function return_gerado_info($find_simulado_id)
 	{
 		include 'templates/criar_conn.php';
 		$query = prepare_query("SELECT criacao, tipo, curso_id FROM sim_gerados WHERE id = $find_simulado_id");
@@ -1089,11 +1089,23 @@
 			}
 			return $nexo_pagina_id;
 		} elseif ($tipo == 'plano') {
-			$planos = $conn->query("SELECT pagina_id FROM Planos WHERE id = $item_id");
+			$query = prepare_query("SELECT pagina_id FROM Planos WHERE id = $item_id");
+			$planos = $conn->query($query);
 			if ($planos->num_rows > 0) {
 				while ($plano = $planos->fetch_assoc()) {
 					$plano_pagina_id = $plano['pagina_id'];
 					return $plano_pagina_id;
+				}
+			} else {
+				return false;
+			}
+		} elseif ($tipo == 'simulado') {
+			$query = prepare_query("SELECT pagina_id FROM Simulados WHERE id = $item_id");
+			$simulados = $conn->query($query);
+			if ($simulados->num_rows > 0) {
+				while ($simulado = $simulados->fetch_assoc()) {
+					$simulado_pagina_id = $simulado['pagina_id'];
+					return $simulado_pagina_id;
 				}
 			} else {
 				return false;
@@ -2004,126 +2016,6 @@
 		return $data;
 	}
 
-	function return_icone_subtipo($tipo, $subtipo)
-	{
-		if (($tipo == false) && ($subtipo == false)) {
-			return array(false, false, false);
-		}
-		switch ($subtipo) {
-			case 'livro':
-				return array('fad fa-book', 'text-success', 'rgba-green-strong');
-				break;
-			case 'pagina':
-				return array('fad fa-browser', 'text-primary', 'rgba-blue-strong');
-				break;
-			case 'artigo':
-				return array('fad fa-newspaper', 'text-muted', 'rgba-black-strong');
-				break;
-			case 'wikipedia':
-				return array('fab fa-wikipedia-w', 'text-dark', 'rgba-black-strong');
-				break;
-			case 'musica':
-				return array('fad fa-record-vinyl', 'text-dark', 'rgba-black-strong');
-				break;
-			case 'podcast':
-				return array('fad fa-podcast', 'text-secondary', 'rgba-purple-strong');
-				break;
-			case 'audiobook':
-				return array('fab fa-audible', 'text-warning', 'rgba-amber-strong');
-				break;
-			case 'mapasatelite':
-				return array('fad fa-globe-americas', 'text-default', 'rgba-teal-strong');
-				break;
-			case 'retrato':
-				return array('fad fa-portrait', 'text-danger', 'rgba-red-strong');
-				break;
-			case 'arte':
-				return array('fad fa-paint-brush', 'text-secondary', 'rgba-purple-strong');
-				break;
-			case 'grafico':
-				return array('fad fa-chart-pie', 'text-warning', 'rgba-orange-strong');
-				break;
-			case 'paisagem':
-				return array('fad fa-mountain', 'text-info', 'rgba-cyan-strong');
-				break;
-			case 'objeto':
-				return array('fad fa-cube', 'text-success', 'rgba-green-strong');
-				break;
-			case 'arquitetura':
-				return array('fad fa-university', 'text-warning', 'rgba-orange-strong');
-				break;
-			case 'planta':
-				return array('fad fa-flower-daffodil', 'text-danger', 'rgba-red-strong');
-				break;
-			case 'animais':
-				return array('fad fa-rabbit', 'text-info', 'rgba-cyan-strong');
-				break;
-			case 'outras':
-				return array('fad fa-camera-alt', 'text-dark', 'rgba-black-strong');
-				break;
-			case 'youtube':
-				return array('fab fa-youtube', 'text-danger', 'rgba-red-strong');
-				break;
-			case 'filme':
-				return array('fad fa-film', 'text-info', 'rgba-cyan-strong');
-				break;
-			case 'aula':
-				return array('fad fa-chalkboard-teacher', 'text-default', 'rgba-teal-strong');
-				break;
-			case 'equacao':
-				return array('fad fa-greater-than-equal', 'text-info', 'rgba-cyan-strong');
-				break;
-			case 'etiqueta':
-				return array('fad fa-tag', 'text-warning', 'rgba-orange-strong');
-				break;
-			default:
-				switch ($tipo) {
-					case 'imagem':
-						if ($subtipo == 'generico') {
-							return array('fad fa-image', 'text-danger', 'rgba-red-strong');
-						} else {
-							return array('fad fa-file-image', 'text-muted', 'rgba-grey-strong');
-						}
-						break;
-					case 'video':
-						if ($subtipo == 'generico') {
-							return array('fad fa-play-circle', 'text-info', 'rgba-blue-strong');
-						} else {
-							return array('fad fa-file-video', 'text-muted', 'rgba-grey-strong');
-						}
-						break;
-					case 'album_musica':
-						if ($subtipo == 'generico') {
-							return array('fad fa-volume-up', 'text-warning', 'rgba-orange-strong');
-						} else {
-							return array('fad fa-file-audio', 'text-muted', 'rgba-grey-strong');
-						}
-						break;
-					case 'referencia':
-						if ($subtipo == 'generico') {
-							return array('fad fa-glasses-alt', 'text-success', 'rgba-green-strong');
-						} else {
-							return array('fad fa-file-alt', 'text-muted', 'rgba-grey-strong');
-						}
-						break;
-					case 'questao':
-						return array('fad fa-ballot-check', 'text-secondary', 'rgba-purple-strong');
-						break;
-					case 'secao':
-						return array('fad fa-list-ol', 'text-info', 'rgba-cyan-strong');
-						break;
-					case 'resposta':
-						return array('fad fa-comment-alt-edit', 'text-default', 'rgba-cyan-strong');
-						break;
-					case 'wikipedia':
-						return array('fab fa-wikipedia-w', 'text-dark', 'rgba-grey-strong');
-						break;
-					default:
-						return array('fad fa-circle-notch fa-spin', 'text-danger', 'rgba-red-strong');
-				}
-		}
-	}
-
 	function convert_language($browser_lang)
 	{
 		switch ($browser_lang) {
@@ -2416,7 +2308,20 @@
 		}
 	}
 
-	function return_icone($categoria, $tipo, $subtipo, $extra) {
+	// Esta função retorna páginas ou elementos, enviando as variáveis para uma entre as duas funções que seguem abaixo.
+	function return_icone()
+	{
+		$args = func_get_args();
+		$categoria = $args[0];
+		$tipo = $args[1];
+		if (!isset($args[2])) {
+			$args[2] = false;
+		}
+		if (!isset($args[3])) {
+			$args[3] = false;
+		}
+		$subtipo = $args[2];
+		$extra = $args[3];
 		if ($categoria == 'pagina') {
 			$result = return_pagina_icone($tipo, $subtipo, $extra);
 		} elseif ($categoria == 'elemento') {
@@ -2425,7 +2330,127 @@
 		return $result;
 	}
 
-	function return_pagina_icone($pagina_tipo, $pagina_subtipo, $pagina_item_id)
+	function return_icone_subtipo($tipo, $subtipo) // Esta função retorna os ícones dos elementos
+	{
+		if (($tipo == false) && ($subtipo == false)) {
+			return array(false, false, false);
+		}
+		switch ($subtipo) {
+			case 'livro':
+				return array('fad fa-book', 'text-success', 'rgba-green-strong');
+				break;
+			case 'pagina':
+				return array('fad fa-browser', 'text-primary', 'rgba-blue-strong');
+				break;
+			case 'artigo':
+				return array('fad fa-newspaper', 'text-muted', 'rgba-black-strong');
+				break;
+			case 'wikipedia':
+				return array('fab fa-wikipedia-w', 'text-dark', 'rgba-black-strong');
+				break;
+			case 'musica':
+				return array('fad fa-record-vinyl', 'text-dark', 'rgba-black-strong');
+				break;
+			case 'podcast':
+				return array('fad fa-podcast', 'text-secondary', 'rgba-purple-strong');
+				break;
+			case 'audiobook':
+				return array('fab fa-audible', 'text-warning', 'rgba-amber-strong');
+				break;
+			case 'mapasatelite':
+				return array('fad fa-globe-americas', 'text-default', 'rgba-teal-strong');
+				break;
+			case 'retrato':
+				return array('fad fa-portrait', 'text-danger', 'rgba-red-strong');
+				break;
+			case 'arte':
+				return array('fad fa-paint-brush', 'text-secondary', 'rgba-purple-strong');
+				break;
+			case 'grafico':
+				return array('fad fa-chart-pie', 'text-warning', 'rgba-orange-strong');
+				break;
+			case 'paisagem':
+				return array('fad fa-mountain', 'text-info', 'rgba-cyan-strong');
+				break;
+			case 'objeto':
+				return array('fad fa-cube', 'text-success', 'rgba-green-strong');
+				break;
+			case 'arquitetura':
+				return array('fad fa-university', 'text-warning', 'rgba-orange-strong');
+				break;
+			case 'planta':
+				return array('fad fa-flower-daffodil', 'text-danger', 'rgba-red-strong');
+				break;
+			case 'animais':
+				return array('fad fa-rabbit', 'text-info', 'rgba-cyan-strong');
+				break;
+			case 'outras':
+				return array('fad fa-camera-alt', 'text-dark', 'rgba-black-strong');
+				break;
+			case 'youtube':
+				return array('fab fa-youtube', 'text-danger', 'rgba-red-strong');
+				break;
+			case 'filme':
+				return array('fad fa-film', 'text-info', 'rgba-cyan-strong');
+				break;
+			case 'aula':
+				return array('fad fa-chalkboard-teacher', 'text-default', 'rgba-teal-strong');
+				break;
+			case 'equacao':
+				return array('fad fa-greater-than-equal', 'text-info', 'rgba-cyan-strong');
+				break;
+			case 'etiqueta':
+				return array('fad fa-tag', 'text-warning', 'rgba-orange-strong');
+				break;
+			default:
+				switch ($tipo) {
+					case 'imagem':
+						if ($subtipo == 'generico') {
+							return array('fad fa-image', 'text-danger', 'rgba-red-strong');
+						} else {
+							return array('fad fa-file-image', 'text-muted', 'rgba-grey-strong');
+						}
+						break;
+					case 'video':
+						if ($subtipo == 'generico') {
+							return array('fad fa-play-circle', 'text-info', 'rgba-blue-strong');
+						} else {
+							return array('fad fa-file-video', 'text-muted', 'rgba-grey-strong');
+						}
+						break;
+					case 'album_musica':
+						if ($subtipo == 'generico') {
+							return array('fad fa-volume-up', 'text-warning', 'rgba-orange-strong');
+						} else {
+							return array('fad fa-file-audio', 'text-muted', 'rgba-grey-strong');
+						}
+						break;
+					case 'referencia':
+						if ($subtipo == 'generico') {
+							return array('fad fa-glasses-alt', 'text-success', 'rgba-green-strong');
+						} else {
+							return array('fad fa-file-alt', 'text-muted', 'rgba-grey-strong');
+						}
+						break;
+					case 'questao':
+						return array('fad fa-ballot-check', 'text-secondary', 'rgba-purple-strong');
+						break;
+					case 'secao':
+						return array('fad fa-list-ol', 'text-info', 'rgba-cyan-strong');
+						break;
+					case 'resposta':
+						return array('fad fa-comment-alt-edit', 'text-default', 'rgba-cyan-strong');
+						break;
+					case 'wikipedia':
+						return array('fab fa-wikipedia-w', 'text-dark', 'rgba-grey-strong');
+						break;
+					default:
+						return array('fad fa-circle-notch fa-spin', 'text-danger', 'rgba-red-strong');
+				}
+		}
+	}
+
+	function return_pagina_icone($pagina_tipo, $pagina_subtipo, $pagina_item_id) // esta função retorna os ícones das páginas
 	{
 		if ($pagina_tipo == false) {
 			return false;
@@ -2447,6 +2472,9 @@
 						break;
 					case 'plano':
 						return array('fad fa-calendar-check', 'text-info');
+						break;
+					case 'simulado':
+						return array('fad fa-ballot-check', 'text-default');
 						break;
 					default:
 						return array('fad fa-columns', 'text-info');
@@ -2547,12 +2575,20 @@
 		return $chave_id;
 	}
 
-	function adicionar_traducao($chave_id, $lingua, $conteudo, $user_id) {
+	function adicionar_traducao()
+	{
+		$args = func_get_args();
+		error_log(serialize($args));
+		$chave_id = $args[0];
+		$lingua = $args[1];
+		$conteudo = $args[2];
+		if (isset($args[3])) {
+			$user_id = $args[3];
+		} else {
+			$user_id = 1;
+		}
 		if (($chave_id == false) || ($lingua == false) || ($conteudo == false)) {
 			return false;
-		}
-		if ($user_id == false) {
-			$user_id = 1;
 		}
 		include 'templates/criar_conn.php';
 		$conteudo = mysqli_real_escape_string($conn, $conteudo);
@@ -2564,6 +2600,37 @@
 			$check = $conn->query($query);
 		}
 		return $check;
+	}
+
+	function adicionar_chave_e_traducoes()
+	{
+		$args = func_get_args();
+		$nova_chave = $args[0];
+		if (isset($args[1])) {
+			$en = $args[1];
+		} else {
+			$en = $nova_chave;
+		}
+		if (isset($args[2])) {
+			$pt = $args[2];
+		} else {
+			$pt = $nova_chave;
+		}
+		if (isset($args[3])) {
+			$es = $args[3];
+		} else {
+			$es = $en;
+		}
+		if (isset($args[4])) {
+			$fr = $args[4];
+		} else {
+			$fr = $en;
+		}
+		$nova_chave_id = adicionar_chave_traducao($nova_chave);
+		adicionar_traducao($nova_chave_id, 'en', $en);
+		adicionar_traducao($nova_chave_id, 'pt', $pt);
+		adicionar_traducao($nova_chave_id, 'es', $es);
+		adicionar_traducao($nova_chave_id, 'fr', $fr);
 	}
 
 	function return_curso_card()
@@ -2910,7 +2977,7 @@
 			case 17: // content completely absorbed.
 				$background = 'rgba-purple-slight';
 				$icon_color = 'text-secondary';
-				$icon = 'fad fa-galaxy';
+				$icon = 'fad fa-certificate';
 				$meaning = 'full assimilation with notes';
 				break;
 			default:
@@ -2969,7 +3036,8 @@
 		}
 	}
 
-	function return_user_bookmarks($user_id) {
+	function return_user_bookmarks($user_id)
+	{
 		if ($user_id == false) {
 			return false;
 		}
@@ -2986,7 +3054,8 @@
 		return $result_bookmarks;
 	}
 
-	function return_user_completed($user_id) {
+	function return_user_completed($user_id)
+	{
 		if ($user_id == false) {
 			return false;
 		}
@@ -3003,7 +3072,8 @@
 		return $result_completos;
 	}
 
-	function return_user_areas_interesse($user_escritorio) {
+	function return_user_areas_interesse($user_escritorio)
+	{
 		if ($user_escritorio == false) {
 			return false;
 		}
@@ -3022,7 +3092,8 @@
 		return $user_areas_interesse;
 	}
 
-	function list_wrap($content) {
+	function list_wrap($content)
+	{
 		return "
 			<ul class='list-group list-group-flush'>
 				$content
@@ -3030,7 +3101,8 @@
 		";
 	}
 
-	function return_user_opcoes($user_id) {
+	function return_user_opcoes($user_id)
+	{
 		if ($user_id == false) {
 			return false;
 		}
@@ -3053,4 +3125,24 @@
 			}
 		}
 		return $resultado;
+	}
+
+
+	function return_simulado_info($simulado_id) {
+		if ($simulado_id == false) {
+			return false;
+		}
+		include 'templates/criar_conn.php';
+		$simulados = $conn->query("SELECT * FROM Simulados WHERE id = $simulado_id");
+		if ($simulados->num_rows > 0) {
+			while ($simulado = $simulados->fetch_assoc()) {
+				$simulado_pagina_id = $simulado['pagina_id'];
+				$simulado_curso_id = $simulado['curso_id'];
+				$simulado_contexto_pagina_id = $simulado['contexto_pagina_id'];
+				$simulado_user_id = $simulado['user_id'];
+				return array($simulado_pagina_id, $simulado_curso_id, $simulado_contexto_pagina_id, $simulado_user_id);
+			}
+		} else {
+			return false;
+		}
 	}

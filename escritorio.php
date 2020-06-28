@@ -4,7 +4,7 @@
 	//TODO: Os ícones devem ser determinados de acordo com as práticas do usuário. Quando há bookmarks, o ícone de bookmarks aparece, por exemplo. Essas informações precisam ser registradas em variáveis da sessão, determinadas no momento do login.
 	//TODO: Etiquetas como pastas que organizam os textos e páginas do usuário.
 	//TODO: A sala de visitas deve ter espaço para adicionar os perfis do usuário em sites de mídia social.
-    //TODO: Grupos de Estudos é um ótimo candidato para próximo ícone responsivo.
+	//TODO: Grupos de Estudos é um ótimo candidato para próximo ícone responsivo.
 
 	$pagina_tipo = 'escritorio';
 	include 'engine.php';
@@ -112,6 +112,7 @@
 
 	if ($user_tipo == 'admin') {
 		array_push($icons_to_show, 14);
+		array_push($icons_to_show, 20);
 	}
 
 	if ($user_revisor == true) {
@@ -362,19 +363,21 @@
 					$template_conteudo_hidden .= include 'templates/artefato_item.php';
 				}
 
-				if ($user_id == 1) {
+                if ($user_tipo == 'admin') {
 					$artefato_id = 'simulados';
 					$artefato_subtitulo = $pagina_translated['Simulados'];
-					$artefato_link = 'simulados.php';
-					$artefato_badge = 'fa-external-link';
-					$fa_icone = 'fa-clipboard-list-check';
+					$artefato_modal = '#modal_simulados';
+					$fa_icone = 'fa-ballot-check';
 					$fa_color = 'text-default';
-					$artefato_icone_background = return_background($fa_color);
 					if (in_array(20, $icons_to_show)) {
 						$template_conteudo .= include 'templates/artefato_item.php';
 					} else {
 						$template_conteudo_hidden .= include 'templates/artefato_item.php';
 					}
+				}
+
+				if ($user_id == 1) {
+
 					$artefato_id = 'homepage';
 					$artefato_subtitulo = $pagina_translated['Homepage'];
 					$artefato_link = 'nexus.php';
@@ -571,6 +574,12 @@
 
 	$template_modal_div_id = 'modal_contribuicoes';
 	$template_modal_titulo = $pagina_translated['Verbetes em que contribuiu'];
+	$template_modal_body_conteudo = false;
+	$template_modal_show_buttons = false;
+	include 'templates/modal.php';
+
+	$template_modal_div_id = 'modal_simulados';
+	$template_modal_titulo = $pagina_translated['Simulados'];
 	$template_modal_body_conteudo = false;
 	$template_modal_show_buttons = false;
 	include 'templates/modal.php';
@@ -824,6 +833,16 @@
             if (data != 0) {
                 $('#body_modal_cursos').empty();
                 $('#body_modal_cursos').append(data);
+            }
+        })
+    })
+    $(document).on('click', '#artefato_simulados', function () {
+        $.post('engine.php', {
+            'list_simulados': true
+        }, function (data) {
+            if (data != 0) {
+                $('#body_modal_simulados').empty();
+                $('#body_modal_simulados').append(data);
             }
         })
     })

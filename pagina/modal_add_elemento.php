@@ -57,7 +57,19 @@
 			include 'templates/subtipo_icone.php';
 		}
 
-		if ($pagina_tipo == 'topico') {
+		if (($pagina_tipo == 'curso') && ($user_tipo == 'admin')) {
+			$trigger_criar_simulado = true;
+			$artefato_tipo = 'criar_simulado';
+			$artefato_titulo = $pagina_translated['Novo simulado'];
+			$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-6';
+			$artefato_info = return_icone('pagina', 'pagina', 'simulado');
+			$artefato_icone_background = return_background($artefato_info[1]);
+			$fa_icone = $artefato_info[0];
+			$fa_color = $artefato_info[1];
+			$template_modal_body_conteudo .= include 'templates/artefato_item.php';
+		}
+
+		if (($pagina_tipo == 'topico') || $pagina_subtipo == 'simulado') {
 			$template_subtipo = false;
 			$template_subtipo_tipo = 'questao';
 			$template_subtipo_titulo = $pagina_translated['Questão'];
@@ -66,7 +78,7 @@
 		}
 
 		$paginas_sem_vinculo_wikipedia = array('curso', 'materia', 'escritorio', 'grupo', 'questao', 'biblioteca');
-		$subtipos_sem_vinculo_wikipedia = array('modelo', 'plano', 'escritorio', 'Plano de estudos', 'produto');
+		$subtipos_sem_vinculo_wikipedia = array('modelo', 'plano', 'escritorio', 'Plano de estudos', 'produto', 'simulado');
 		$carregar_modal_vincular_wikipedia = false;
 		if (!in_array($pagina_tipo, $paginas_sem_vinculo_wikipedia)) {
 			if (!in_array($pagina_subtipo, $subtipos_sem_vinculo_wikipedia)) {
@@ -135,6 +147,7 @@
 	        <p>{$pagina_translated['your collection explanation 2']}</p>
 		";
 	}
+
 	include 'templates/modal.php';
 
 	if ($pagina_tipo != 'texto') {

@@ -1,5 +1,7 @@
 <?php
-	
+
+	/*
+
 	$template_modal_div_id = 'modal_adicionar_simulado';
 	$template_modal_titulo = 'Adicionar questão de prova';
 	$template_modal_body_conteudo = false;
@@ -475,5 +477,5 @@
 	";
 	include 'templates/modal.php';
 	
-	
+	*/
 ?>
