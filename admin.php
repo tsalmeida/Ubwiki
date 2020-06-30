@@ -9,17 +9,6 @@
 	}
 
 	if (isset($_POST['trigger_atualizacao'])) {
-		adicionar_chave_e_traducoes('Questões incluídas neste simulado', 'Test questions in this simulation');
-		adicionar_chave_e_traducoes('Publicar sua resposta', 'Publish your answer');
-		adicionar_chave_e_traducoes('sobre publicar respostas');
-		adicionar_chave_e_traducoes('sobre publicar respostas 2');
-		adicionar_chave_e_traducoes('Publicar anonimamente.', 'Publish anonymously.');
-		adicionar_chave_e_traducoes('Ver anotações publicadas', 'See published notes');
-		adicionar_chave_e_traducoes('Anotações publicadas', 'Published notes');
-		adicionar_chave_e_traducoes('Anotação anônima', 'Anonymous notes');
-		unset($_SESSION['pagina_translated']);
-		$conn->query("CREATE TABLE `Ubwiki`.`Anotacoes` ( `id` INT NOT NULL AUTO_INCREMENT , `criacao` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `texto_id` INT NULL DEFAULT NULL , `estado` INT NOT NULL DEFAULT '1' , `anonimato` BOOLEAN NULL DEFAULT TRUE , `pagina_id` INT(11) NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
-		$conn->query("ALTER TABLE `Anotacoes` ADD `user_id` INT(11) NOT NULL AFTER `pagina_id`;");
 	}
 
 	if (isset($_POST['trigger_atualizar_textos_size'])) {

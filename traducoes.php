@@ -183,7 +183,7 @@
 			<li class='list-group-item' id='chave_fr'></li>
 		</ul>
 		<div class='md-form'>
-			<input type='text' class='form-control' name='traduzir_chave_string' id='traduzir_chave_string'>
+			<textarea class='md-textarea form-control' name='traduzir_chave_string' id='traduzir_chave_string' row='3'></textarea>
 			<label for='traduzir_chave_string'>{$pagina_translated['Tradução para a língua']} \"$traduzir\"</label>
 		</div>
 	";
