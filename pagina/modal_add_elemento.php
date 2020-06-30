@@ -63,7 +63,6 @@
 			$artefato_titulo = $pagina_translated['Novo simulado'];
 			$artefato_col_limit = 'col-lg-3 col-md-4 col-sm-6';
 			$artefato_info = return_icone('pagina', 'pagina', 'simulado');
-			$artefato_icone_background = return_background($artefato_info[1]);
 			$fa_icone = $artefato_info[0];
 			$fa_color = $artefato_info[1];
 			$template_modal_body_conteudo .= include 'templates/artefato_item.php';

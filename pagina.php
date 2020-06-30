@@ -1285,8 +1285,10 @@
 							$curso_simulado_pagina_id = $curso_simulado['extra'];
 							$template_conteudo .= return_list_item($curso_simulado_pagina_id);
 						}
-						$template_conteudo = list_wrap($template_conteudo);
-						include 'templates/page_element.php';
+						if ($template_conteudo != false) {
+							$template_conteudo = list_wrap($template_conteudo);
+							include 'templates/page_element.php';
+						}
 					}
 				}
 
@@ -1343,7 +1345,11 @@
 				$list_pagina_questoes = $conn->query($query);
 				if ($list_pagina_questoes->num_rows > 0) {
 					$template_id = 'pagina_questoes';
-					$template_titulo = $pagina_translated['Questões sobre este tópico'];
+					if ($pagina_subtipo == 'simulado') {
+					    $template_titulo = $pagina_translated['Questões incluídas neste simulado'];
+                    } else {
+						$template_titulo = $pagina_translated['Questões sobre este tópico'];
+					}
 					$template_botoes = "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_adicionar_simulado' class='text-secondary'><i class='fad fa-plus-square fa-fw'></i></a>";
 					$template_conteudo = false;
 					while ($list_pagina_questao = $list_pagina_questoes->fetch_assoc()) {
@@ -1354,8 +1360,10 @@
 						}
 						$template_conteudo .= return_list_item($list_pagina_questao_pagina_id);
 					}
-					$template_conteudo = list_wrap($template_conteudo);
-					include 'templates/page_element.php';
+					if ($template_conteudo != false) {
+						$template_conteudo = list_wrap($template_conteudo);
+						include 'templates/page_element.php';
+					}
 				}
 			}
 
@@ -1616,8 +1624,9 @@
 	$template_modal_div_id = 'modal_estado';
 	$template_modal_titulo = $pagina_translated['Estado da página'];
 	$template_modal_show_buttons = false;
-	$template_modal_body_conteudo = "
-        <p>{$pagina_translated['Qual das categorias abaixo melhor descreve o estado atual desta página?']}</p>
+	$template_modal_body_conteudo = false;
+	$template_modal_body_conteudo .= wrapp($pagina_translated['Qual das categorias abaixo melhor descreve o estado atual desta página?']);
+	$template_modal_body_conteudo .= "
         <input type='hidden' value='$pagina_estado' name='novo_estado_pagina' id='novo_estado_pagina'>
         <div class='row justify-content-around'>";
 
@@ -1865,11 +1874,17 @@
 		$template_modal_body_conteudo .= return_list_item($pagina_item_id, 'link', 'list-group-item-success mb-1');
 		$query = prepare_query("SELECT secao_pagina_id FROM Secoes WHERE pagina_id = $pagina_item_id ORDER BY ordem, id");
 		$parentes = $conn->query($query);
+		$found = false;
 		if ($parentes->num_rows > 0) {
 			while ($parente = $parentes->fetch_assoc()) {
 				$parente_id = $parente['secao_pagina_id'];
 				$parente_highlight = false;
+				if ($found == true) {
+					$proxima_pagina = $parente_id;
+					$found = false;
+				}
 				if ($parente_id == $pagina_id) {
+					$found = true;
 					$lista_tipo = 'inactive';
 					$item_classes = 'list-group-item-secondary';
 				} else {
@@ -1913,12 +1928,6 @@
 			<form method='post' id='form_modal_compartilhar_pagina'>
 			<h3>{$pagina_translated['Acesso']}</h3>
 	    ";
-		if (isset($_POST['radio_publicar_opcao'])) {
-			$radio_publicar_opcao = $_POST['radio_publicar_opcao'];
-			$query_cmd = "INSERT INTO Compartilhamento (tipo, user_id, item_id, item_tipo, compartilhamento, recipiente_id) VALUES ('publicacao', $user_id, $pagina_id, '$pagina_tipo', '$radio_publicar_opcao', NULL)";
-			$conn->query($query_cmd);
-			$pagina_publicacao = $radio_publicar_opcao;
-		}
 
 		$radio_privado = false;
 		$radio_ubwiki = false;
@@ -1963,13 +1972,6 @@
 		}
 
 		$template_modal_body_conteudo .= "<h3 class='mt-3'>{$pagina_translated['Colaboração']}</h3>";
-
-		if (isset($_POST['colaboracao_opcao'])) {
-			$colaboracao_opcao = $_POST['colaboracao_opcao'];
-			$query = prepare_query("INSERT INTO Compartilhamento (tipo, user_id, item_id, item_tipo, compartilhamento) VALUES ('colaboracao', $user_id, $pagina_id, '$pagina_tipo', '$colaboracao_opcao')");
-			$conn->query($query);
-			$pagina_colaboracao = $colaboracao_opcao;
-		}
 
 		$radio_colaboracao_exclusiva = false;
 		$radio_colaboracao_aberta = false;
@@ -2090,10 +2092,6 @@
 			$template_modal_body_conteudo .= "</ul>";
 		}
 		include 'templates/modal.php';
-
-		if (isset($_POST['compartilhar_usuario'])) {
-			$compartilhar_usuario = $_POST['compartilhar_usuario'];
-		}
 
 		$bottom_compartilhar_usuario = true;
 
@@ -2234,15 +2232,6 @@
 		if ($link_compartilhamento_tipo == false) {
 			$link_compartilhamento_tipo = 'disabled';
 			$link_compartilhamento_codigo = generateRandomString(8, 'integers');
-			$query = prepare_query("INSERT INTO Paginas_elementos (estado, pagina_id, pagina_tipo, tipo, subtipo, extra, user_id) VALUES (1, $pagina_id, '$pagina_tipo', 'linkshare', '$link_compartilhamento_tipo', '$link_compartilhamento_codigo', $user_id)");
-			$conn->query($query);
-		}
-
-		if (isset($_POST['link_compartilhamento_tipo'])) {
-			$link_compartilhamento_tipo = $_POST['link_compartilhamento_tipo'];
-			$link_compartilhamento_codigo = $_POST['link_compartilhamento_codigo'];
-			$query = prepare_query("UPDATE Paginas_elementos SET estado = 0 WHERE estado = 1 AND pagina_id = $pagina_id AND tipo = 'linkshare'");
-			$conn->query($query);
 			$query = prepare_query("INSERT INTO Paginas_elementos (estado, pagina_id, pagina_tipo, tipo, subtipo, extra, user_id) VALUES (1, $pagina_id, '$pagina_tipo', 'linkshare', '$link_compartilhamento_tipo', '$link_compartilhamento_codigo', $user_id)");
 			$conn->query($query);
 		}
@@ -2758,6 +2747,28 @@
 		$template_modal_body_conteudo .= "</ul>";
 		include 'templates/modal.php';
 	}
+
+	//TODO: Terminar essa história de publicação de respostas.
+	if (!isset($carregar_publicar_resposta)) {
+	    $carregar_publicar_resposta = false;
+    }
+	if ($carregar_publicar_resposta == true) {
+	    $template_modal_div_id = 'modal_publicar_resposta';
+	    $template_modal_titulo = $pagina_translated['Publicar sua resposta'];
+	    $template_modal_body_conteudo = false;
+	    $link_li = put_together_list_item('link', "anotacoes.php?pagina_id=$pagina_id", 'text-secondary', 'fad fa-comment-alt-edit', $pagina_translated['Ver anotações publicadas'], 'text-primary', 'fad fa-external-link');
+		$template_modal_body_conteudo .= list_wrap($link_li);
+		$template_modal_body_conteudo .= wrapp($pagina_translated['sobre publicar respostas']);
+		$template_modal_body_conteudo .= wrapp($pagina_translated['sobre publicar respostas 2']);
+	    $template_modal_body_conteudo .= "
+	        <input type='hidden' name='publicar_anonimamente_pagina_id' value='$pagina_id'>
+	        <div class='form-check'>
+	            <input type='checkbox' class='form-check-input' id='publicar_anonimamente' name='publicar_anonimamente'>
+	            <label class='form-check-label' for='publicar_anonimamente'>{$pagina_translated['Publicar anonimamente.']}</label>
+            </div>
+	    ";
+	    include 'templates/modal.php';
+    }
 
 	if ($carregar_modal_correcao == true) {
 		$loaded_correcao_form = true;

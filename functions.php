@@ -2578,7 +2578,6 @@
 	function adicionar_traducao()
 	{
 		$args = func_get_args();
-		error_log(serialize($args));
 		$chave_id = $args[0];
 		$lingua = $args[1];
 		$conteudo = $args[2];
@@ -2592,10 +2591,11 @@
 		}
 		include 'templates/criar_conn.php';
 		$conteudo = mysqli_real_escape_string($conn, $conteudo);
-		$query = prepare_query("UPDATE Chaves_traduzidas SET traducao = '$conteudo' WHERE chave_id = $chave_id AND lingua = '$lingua'");
-		$check = $conn->query($query);
-		$update_check = $conn->affected_rows;
-		if ($update_check == 0) {
+		$check_exists = $conn->query("SELECT id FROM Chaves_traduzidas WHERE chave_id = $chave_id AND lingua = '$lingua'");
+		if ($check_exists->num_rows > 0) {
+			$query = prepare_query("UPDATE Chaves_traduzidas SET traducao = '$conteudo' WHERE chave_id = $chave_id AND lingua = '$lingua'");
+			$check = $conn->query($query);
+		} else {
 			$query = prepare_query("INSERT INTO Chaves_traduzidas (user_id, chave_id, lingua, traducao) VALUES ($user_id, $chave_id, '$lingua', '$conteudo')");
 			$check = $conn->query($query);
 		}
@@ -3094,11 +3094,22 @@
 
 	function list_wrap($content)
 	{
+		if ($content == false) {
+			return false;
+		}
 		return "
 			<ul class='list-group list-group-flush'>
 				$content
 			</ul>
 		";
+	}
+
+	function wrapp($content)
+	{
+		if ($content == false) {
+			return false;
+		}
+		return "<p>$content</p>";
 	}
 
 	function return_user_opcoes($user_id)
@@ -3128,7 +3139,8 @@
 	}
 
 
-	function return_simulado_info($simulado_id) {
+	function return_simulado_info($simulado_id)
+	{
 		if ($simulado_id == false) {
 			return false;
 		}

@@ -223,6 +223,13 @@
 	}
 	$raiz_titulo = $raiz_info[6];
 
+	if (!isset($user_opcoes['hide_navbar'][0])) {
+		$user_opcoes['hide_navbar'][0] = false;
+	}
+	if (!isset($user_opcoes['texto_justificado'][0])) {
+		$user_opcoes['texto_justificado'][0] = false;
+	}
+
 	if ($user_opcoes != array()) {
 		$opcao_texto_justificado_value = $user_opcoes['texto_justificado'][0];
 		$opcao_hide_navbar = $user_opcoes['hide_navbar'][0];
@@ -1170,8 +1177,8 @@
 
 	if (isset($_POST['novo_estado_pagina'])) {
 		$novo_estado_pagina = $_POST['novo_estado_pagina'];
-		if (in_array($novo_estado_pagina,array(1,2,3,4)))
-		$novo_estado_pagina_id = $_POST['novo_estado_pagina_id'];
+		if (in_array($novo_estado_pagina, array(1, 2, 3, 4)))
+			$novo_estado_pagina_id = $_POST['novo_estado_pagina_id'];
 		$check_compartilhamento = return_compartilhamento($novo_estado_pagina_id, $user_id);
 		if ($check_compartilhamento == true) {
 			$query = prepare_query("UPDATE Paginas SET estado = $novo_estado_pagina WHERE id = $novo_estado_pagina_id");
@@ -1189,7 +1196,7 @@
 
 	if (isset($_POST['popular_traducao_chave_pt'])) {
 		$popular_traducao_chave_pt = $_POST['popular_traducao_chave_pt'];
-		$query = prepare_query("SELECT traducao FROM Chaves_traduzidas WHERE chave_id = $popular_traducao_chave_pt AND lingua = 'pt'");
+		$query = prepare_query("SELECT DISTINCT traducao FROM Chaves_traduzidas WHERE chave_id = $popular_traducao_chave_pt AND lingua = 'pt'");
 		$chaves_pt = $conn->query($query);
 		if ($chaves_pt->num_rows > 0) {
 			while ($chave_pt = $chaves_pt->fetch_assoc()) {
@@ -1202,7 +1209,7 @@
 	}
 	if (isset($_POST['popular_traducao_chave_en'])) {
 		$popular_traducao_chave_en = $_POST['popular_traducao_chave_en'];
-		$query = prepare_query("SELECT traducao FROM Chaves_traduzidas WHERE chave_id = $popular_traducao_chave_en AND lingua = 'en'");
+		$query = prepare_query("SELECT DISTINCT traducao FROM Chaves_traduzidas WHERE chave_id = $popular_traducao_chave_en AND lingua = 'en'");
 		$chaves_en = $conn->query($query);
 		if ($chaves_en->num_rows > 0) {
 			while ($chave_en = $chaves_en->fetch_assoc()) {
@@ -1215,43 +1222,43 @@
 	}
 	if (isset($_POST['popular_traducao_chave_es'])) {
 		$popular_traducao_chave_es = $_POST['popular_traducao_chave_es'];
-		$query = prepare_query("SELECT traducao FROM Chaves_traduzidas WHERE chave_id = $popular_traducao_chave_es AND lingua = 'es'");
+		$query = prepare_query("SELECT DISTINCT traducao FROM Chaves_traduzidas WHERE chave_id = $popular_traducao_chave_es AND lingua = 'es'");
 		$chaves_es = $conn->query($query);
+		$result = false;
 		if ($chaves_es->num_rows > 0) {
 			while ($chave_es = $chaves_es->fetch_assoc()) {
 				$chave_es_string = $chave_es['traducao'];
-				echo "<span><strong>Español</strong>: <em>$chave_es_string</em></span>";
+				$result = "<span><strong>Español</strong>: <em>$chave_es_string</em></span>";
 			}
-		} else {
-			echo false;
 		}
+		echo $result;
 	}
 	if (isset($_POST['popular_traducao_chave_fr'])) {
 		$popular_traducao_chave_fr = $_POST['popular_traducao_chave_fr'];
-		$query = prepare_query("SELECT traducao FROM Chaves_traduzidas WHERE chave_id = $popular_traducao_chave_fr AND lingua = 'fr'");
+		$query = prepare_query("SELECT DISTINCT traducao FROM Chaves_traduzidas WHERE chave_id = $popular_traducao_chave_fr AND lingua = 'fr'");
 		$chaves_fr = $conn->query($query);
+		$result = false;
 		if ($chaves_fr->num_rows > 0) {
 			while ($chave_fr = $chaves_fr->fetch_assoc()) {
 				$chave_fr_string = $chave_fr['traducao'];
-				echo "<span><strong>Français</strong>: <em>$chave_fr_string</em></span>";
+				$result = "<span><strong>Français</strong>: <em>$chave_fr_string</em></span>";
 			}
-		} else {
-			echo false;
 		}
+		echo $result;
 	}
 
 	if (isset($_POST['return_chave_codigo'])) {
 		$return_chave_codigo = $_POST['return_chave_codigo'];
 		$query = prepare_query("SELECT chave FROM Translation_chaves WHERE id = $return_chave_codigo");
 		$codigos = $conn->query($query);
+		$result = false;
 		if ($codigos->num_rows > 0) {
 			while ($codigo = $codigos->fetch_assoc()) {
 				$codigo_chave = $codigo['chave'];
-				echo "<span>$codigo_chave</span>";
+				$result = "<span>$codigo_chave</span>";
 			}
-		} else {
-			echo false;
 		}
+		echo $result;
 	}
 
 	if (isset($_GET['confirmacao'])) {

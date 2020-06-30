@@ -412,4 +412,43 @@
 		}
 	}
 
+
+	if (isset($_POST['radio_publicar_opcao'])) {
+		$radio_publicar_opcao = $_POST['radio_publicar_opcao'];
+		$query_cmd = "INSERT INTO Compartilhamento (tipo, user_id, item_id, item_tipo, compartilhamento, recipiente_id) VALUES ('publicacao', $user_id, $pagina_id, '$pagina_tipo', '$radio_publicar_opcao', NULL)";
+		$conn->query($query_cmd);
+		$pagina_publicacao = $radio_publicar_opcao;
+	}
+
+	if (isset($_POST['colaboracao_opcao'])) {
+		$colaboracao_opcao = $_POST['colaboracao_opcao'];
+		$query = prepare_query("INSERT INTO Compartilhamento (tipo, user_id, item_id, item_tipo, compartilhamento) VALUES ('colaboracao', $user_id, $pagina_id, '$pagina_tipo', '$colaboracao_opcao')");
+		$conn->query($query);
+		$pagina_colaboracao = $colaboracao_opcao;
+	}
+
+	if (isset($_POST['compartilhar_usuario'])) {
+		$compartilhar_usuario = $_POST['compartilhar_usuario'];
+	}
+
+	if (isset($_POST['link_compartilhamento_tipo'])) {
+		$link_compartilhamento_tipo = $_POST['link_compartilhamento_tipo'];
+		$link_compartilhamento_codigo = $_POST['link_compartilhamento_codigo'];
+		$query = prepare_query("UPDATE Paginas_elementos SET estado = 0 WHERE estado = 1 AND pagina_id = $pagina_id AND tipo = 'linkshare'");
+		$conn->query($query);
+		$query = prepare_query("INSERT INTO Paginas_elementos (estado, pagina_id, pagina_tipo, tipo, subtipo, extra, user_id) VALUES (1, $pagina_id, '$pagina_tipo', 'linkshare', '$link_compartilhamento_tipo', '$link_compartilhamento_codigo', $user_id)");
+		$conn->query($query);
+	}
+
+	if (isset($_POST['publicar_anonimamente_pagina_id'])) {
+		$publicar_texto_id = return_texto_id($pagina_tipo, 'anotacoes', $pagina_id, $user_id);
+		if (isset($_POST['publicar_anonimamente'])) {
+			$publicar_anonimamente = 1;
+		} else {
+			$publicar_anonimamente = 0;
+		}
+		$conn->query("UPDATE Anotacoes SET estado = 0 WHERE texto_id = $publicar_texto_id");
+		$conn->query("INSERT INTO Anotacoes (texto_id, anonimato, pagina_id, user_id) VALUES ($publicar_texto_id, $publicar_anonimamente, $pagina_id, $user_id)");
+	}
+
 ?>

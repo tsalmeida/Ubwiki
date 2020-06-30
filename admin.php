@@ -9,30 +9,17 @@
 	}
 
 	if (isset($_POST['trigger_atualizacao'])) {
-		$conn->query("ALTER TABLE `sim_gerados` ADD `pagina_id` INT(11) NULL DEFAULT NULL AFTER `criacao`;");
-		$conn->query("CREATE TABLE `Ubwiki`.`Simulados` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `pagina_id` INT(11) NULL DEFAULT NULL , `user_id` INT(11) NULL DEFAULT NULL , `criacao` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
-		adicionar_chave_e_traducoes('Simulado');
-		adicionar_chave_e_traducoes('Novo simulado', 'New test simulation');
+		adicionar_chave_e_traducoes('Questões incluídas neste simulado', 'Test questions in this simulation');
+		adicionar_chave_e_traducoes('Publicar sua resposta', 'Publish your answer');
+		adicionar_chave_e_traducoes('sobre publicar respostas');
+		adicionar_chave_e_traducoes('sobre publicar respostas 2');
+		adicionar_chave_e_traducoes('Publicar anonimamente.', 'Publish anonymously.');
+		adicionar_chave_e_traducoes('Ver anotações publicadas', 'See published notes');
+		adicionar_chave_e_traducoes('Anotações publicadas', 'Published notes');
+		adicionar_chave_e_traducoes('Anotação anônima', 'Anonymous notes');
 		unset($_SESSION['pagina_translated']);
-		$conn->query("ALTER TABLE `Simulados` ADD `contexto_pagina_id` INT(11) NULL DEFAULT NULL AFTER `pagina_id`;");
-		adicionar_chave_e_traducoes("Edições do concurso", 'Test editions');
-		adicionar_chave_e_traducoes('Adicionar edição', 'Add edition');
-		adicionar_chave_e_traducoes('Adicionar edição do concurso:', 'Add test edition:');
-		adicionar_chave_e_traducoes('Ano da nova edição', 'Edition year');
-		adicionar_chave_e_traducoes('Título da nova edição', 'New edition title');
-		adicionar_chave_e_traducoes('Não há edições registradas deste concurso.');
-		adicionar_chave_e_traducoes('Edições registradas:', 'Registered editions:');
-		adicionar_chave_e_traducoes('Etapas de edição do concurso', 'Stages of this edition of the test');
-		adicionar_chave_e_traducoes('Adicionar etapa de edição do concurso:', 'Add stage of test edition:');
-		adicionar_chave_e_traducoes('Título da nova etapa', 'New stage title');
-		adicionar_chave_e_traducoes('Adicionar etapa', 'Add stage');
-		adicionar_chave_e_traducoes('Adicionar etapa desta edição do concurso', 'Add stage of this test edition');
-		adicionar_chave_e_traducoes('Etapas registradas:', 'Registered stages:');
-		adicionar_chave_e_traducoes('Título da prova', 'Test title');
-		adicionar_chave_e_traducoes('Adicionar prova de etapa do concurso:', 'Add test of this stage');
-		adicionar_chave_e_traducoes('Tipo da prova:', 'Test title:');
-		adicionar_chave_e_traducoes('Objetiva', 'Objective');
-		$conn->query("ALTER TABLE `Simulados` ADD `curso_id` INT(11) NULL DEFAULT NULL AFTER `pagina_id`;");
+		$conn->query("CREATE TABLE `Ubwiki`.`Anotacoes` ( `id` INT NOT NULL AUTO_INCREMENT , `criacao` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `texto_id` INT NULL DEFAULT NULL , `estado` INT NOT NULL DEFAULT '1' , `anonimato` BOOLEAN NULL DEFAULT TRUE , `pagina_id` INT(11) NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
+		$conn->query("ALTER TABLE `Anotacoes` ADD `user_id` INT(11) NOT NULL AFTER `pagina_id`;");
 	}
 
 	if (isset($_POST['trigger_atualizar_textos_size'])) {

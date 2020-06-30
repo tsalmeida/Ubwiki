@@ -203,15 +203,11 @@
         var traduzir_chave_id = $(this).attr('value');
         $('#traduzir_chave_id').val(traduzir_chave_id);
         $('#modal_traduzir_chave').modal('toggle');
-        $('#chave_codigo').empty();
-        $('#chave_pt').empty();
-        $('#chave_en').empty();
-        $('#chave_es').empty();
-        $('#chave_fr').empty();
         $.post('engine.php', {
             'return_chave_codigo': traduzir_chave_id,
         }, function (data) {
             if (data != 0) {
+                $('#chave_codigo').empty();
                 $(data).appendTo('#chave_codigo');
             } else {
                 $('<span><strong>Código:</strong> <em class=\'text-muted\'>não encontrado</em></span>').appendTo('#chave_pt');
@@ -221,6 +217,7 @@
             'popular_traducao_chave_pt': traduzir_chave_id,
         }, function (data) {
             if (data != 0) {
+                $('#chave_pt').empty();
                 $(data).appendTo('#chave_pt');
             } else {
                 $('<span><strong>Português:</strong> <em class=\'text-muted\'>não há tradução registrada</em></span>').appendTo('#chave_pt');
@@ -230,6 +227,7 @@
             'popular_traducao_chave_en': traduzir_chave_id,
         }, function (data) {
             if (data != 0) {
+                $('#chave_en').empty();
                 $(data).appendTo('#chave_en');
             } else {
                 $('<span><strong>English:</strong> <em class=\'text-muted\'>não há tradução registrada</em></span>').appendTo('#chave_en');
@@ -239,6 +237,7 @@
             'popular_traducao_chave_es': traduzir_chave_id,
         }, function (data) {
             if (data != 0) {
+                $('#chave_es').empty();
                 $(data).appendTo('#chave_es');
             } else {
                 $('<span><strong>Espanhol:</strong> <em class=\'text-muted\'>não há tradução registrada</em></span>').appendTo('#chave_es');
@@ -248,6 +247,7 @@
             'popular_traducao_chave_fr': traduzir_chave_id,
         }, function (data) {
             if (data != 0) {
+                $('#chave_fr').empty();
                 $(data).appendTo('#chave_fr');
             } else {
                 $('<span><strong>Français:</strong> <em class=\'text-muted\'>não há tradução registrada</em></span>').appendTo('#chave_fr');
