@@ -497,6 +497,33 @@
 				exit();
 			}
 		}
+		$pre_fab_modal_secoes = false;
+		$pre_fab_modal_secoes .= return_list_item($pagina_item_id, 'link', 'list-group-item-success mb-1');
+		$query = prepare_query("SELECT secao_pagina_id FROM Secoes WHERE pagina_id = $pagina_item_id ORDER BY ordem, id");
+		$parentes = $conn->query($query);
+		$found = false;
+		$mais_recente = $pagina_item_id;
+		if ($parentes->num_rows > 0) {
+			while ($parente = $parentes->fetch_assoc()) {
+				$parente_id = $parente['secao_pagina_id'];
+				if ($found == true) {
+					$proxima_pagina = $parente_id;
+					$found = false;
+				}
+				if ($parente_id == $pagina_id) {
+					$found = true;
+					$pagina_anterior = $mais_recente;
+					$lista_tipo = 'inactive';
+					$item_classes = 'list-group-item-secondary';
+				} else {
+					$lista_tipo = false;
+					$item_classes = false;
+				}
+				$mais_recente = $parente_id;
+				$pre_fab_modal_secoes .= return_list_item($parente_id, $lista_tipo, $item_classes);
+			}
+		}
+		$pre_fab_modal_secoes = list_wrap($pre_fab_modal_secoes);
 	} elseif ($pagina_tipo == 'resposta') {
 		$resposta_id = $pagina_id;
 		$resposta_info = return_pagina_info($pagina_id);
@@ -766,24 +793,17 @@
         </div>
         <div class="py-2 text-center col-md-4 col-sm-12">
 			<?php
-				if (!isset($topico_anterior)) {
-					$topico_anterior = false;
-				}
-				if (!isset($topico_proximo)) {
-					$topico_proximo = false;
+				if (isset($pagina_anterior)) {
+					echo "<a href='pagina.php?pagina_id=$pagina_anterior' class='mr-2 text-default'><i class='fad fa-arrow-left fa-fw fa-lg'></i></a>";
 				}
 				if ($pagina_tipo == 'curso') {
 					echo "<a href='javascript:void(0)' data-toggle='modal' data-target='#modal_busca' class='text-primary' title='{$pagina_translated['Busca']}'><i class='fad fa-search fa-fw fa-lg'></i></a>";
-				}
-				if ($topico_anterior != false) {
-					$topico_anterior_link = "pagina.php?topico_id=$topico_anterior";
-					echo "<a href='$topico_anterior_link' id='verbete_anterior' class='mx-1' title='{$pagina_translated['Verbete anterior']}'><i class='fad fa-arrow-left fa-fw fa-lg'></i></a>";
 				}
 				echo "<a href='javascript:void(0);' class='hidden text-dark mx-2' id='show_bars'><i class='fad fa-eye fa-fw fa-lg'></i></a>";
 				if ($pagina_tipo == 'topico') {
 					echo "<a href='javascript:void(0);' id='verbetes_relacionados' class='text-primary mx-1' title='{$pagina_translated['Navegação']}' data-toggle='modal' data-target='#modal_verbetes_relacionados'><i class='fad fa-location-circle fa-fw fa-lg'></i></a>";
 				} elseif ($pagina_tipo == 'secao') {
-					echo "<a href='javascript:void(0);' id='secoes' class='mx-1 text-primary' title='{$pagina_translated['Página e seções']}' data-toggle='modal' data-target='#modal_paginas_relacionadas'><i class='fad fa-sitemap fa-fw fa-lg'></i></a>";
+					echo "<a href='javascript:void(0);' id='secoes' class='mx-1 text-default' title='{$pagina_translated['Página e seções']}' data-toggle='modal' data-target='#modal_paginas_relacionadas'><i class='fad fa-sitemap fa-fw fa-lg'></i></a>";
 				}
 				if ($carregar_secoes == true) {
 					if ($secoes->num_rows > 0) {
@@ -806,10 +826,6 @@
 						echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_adicionar_carrinho' id='adicionar_carrinho' class='text-success mx-1' title='{$pagina_translated['Adicionar este produto a seu carrinho']}'><i class='fad fa-cart-plus fa-fw fa-lg'></i></a>";
 					}
 				}
-				if ($topico_proximo != false) {
-					$topico_proximo_link = "pagina.php?topico_id=$topico_proximo";
-					echo "<a href='$topico_proximo_link' id='verbete_proximo' class='mx-1' title='{$pagina_translated['Próximo verbete']}'><i class='fad fa-arrow-right fa-fw fa-lg'></i></a>";
-				}
 				if ($pagina_subtipo == 'plano') {
 					if ($pagina_id == $user_escritorio) {
 						$pagina_plan = 'plano_id=bp';
@@ -819,6 +835,9 @@
 					echo "<a href='pagina.php?$pagina_plan&sc=$change_show_completed&hl=$plan_show_low' class='$color_show_completed ml-1'><i class='fad fa-badge-check fa-lg'></i></a>";
 					echo "<a href='pagina.php?$pagina_plan&sc=$plan_show_completed&hl=$change_show_low' class='$color_show_low ml-1'><i class='fad fa-times-octagon fa-lg'></i></a>";
 				}
+				if (isset($proxima_pagina)) {
+				    echo "<a href='pagina.php?pagina_id=$proxima_pagina' class='ml-2 text-default'><i class='fad fa-arrow-right fa-fw fa-lg'></i></a>";
+                }
 			?>
         </div>
         <div class='py-2 text-right col-md-4 col-sm-12'>
@@ -1869,32 +1888,7 @@
 		$template_modal_div_id = 'modal_paginas_relacionadas';
 		$template_modal_titulo = $pagina_translated['Página e seções'];
 		$template_modal_show_buttons = false;
-		$template_modal_body_conteudo = false;
-		$template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
-		$template_modal_body_conteudo .= return_list_item($pagina_item_id, 'link', 'list-group-item-success mb-1');
-		$query = prepare_query("SELECT secao_pagina_id FROM Secoes WHERE pagina_id = $pagina_item_id ORDER BY ordem, id");
-		$parentes = $conn->query($query);
-		$found = false;
-		if ($parentes->num_rows > 0) {
-			while ($parente = $parentes->fetch_assoc()) {
-				$parente_id = $parente['secao_pagina_id'];
-				$parente_highlight = false;
-				if ($found == true) {
-					$proxima_pagina = $parente_id;
-					$found = false;
-				}
-				if ($parente_id == $pagina_id) {
-					$found = true;
-					$lista_tipo = 'inactive';
-					$item_classes = 'list-group-item-secondary';
-				} else {
-					$lista_tipo = false;
-					$item_classes = false;
-				}
-				$template_modal_body_conteudo .= return_list_item($parente_id, $lista_tipo, $item_classes);
-			}
-		}
-		$template_modal_body_conteudo .= "</ul>";
+		$template_modal_body_conteudo = $pre_fab_modal_secoes;
 		include 'templates/modal.php';
 	}
 
