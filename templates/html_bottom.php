@@ -1539,7 +1539,6 @@
 				        'usuario_upvote_anotacao_id': user_upvoted
 				    }, function (data) {
 				        if (data != 0) {
-				            alert(data);
 				        }
 				    })
 				})

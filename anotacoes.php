@@ -52,7 +52,7 @@
 						} else {
 							$thumbs_color = 'text-success';
 						}
-						$template_botoes .= "<a class='$thumbs_color fontstack-subtitle upvote' id='upvote_$anotacao_publicada_id' value='$anotacao_publicada_id'><i class='fad fa-thumbs-up fa-fw'></i><span class='upvote_score' id='upvote_$anotacao_publicada_id'>$anotacao_score</span></a>";
+						//$template_botoes .= "<a class='$thumbs_color fontstack-subtitle upvote' id='upvote_$anotacao_publicada_id' value='$anotacao_publicada_id'><i class='fad fa-thumbs-up fa-fw'></i><span class='upvote_score' id='upvote_$anotacao_publicada_id'>$anotacao_score</span></a>";
 						if ($anotacao_publicada_anonimato == true) {
 							$template_titulo = $pagina_translated['Anotação anônima'];
 						} else {
