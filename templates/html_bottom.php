@@ -1528,3 +1528,21 @@
 			})
 		</script>";
 	}
+
+	if ($pagina_tipo == 'anotacoes') {
+		echo "
+			<script type='text/javascript'>
+				$(document).on('click', '.upvote', function() {
+				    user_upvoted = $(this).attr('value');
+				    $.post('engine.php', {
+				        'usuario_upvote_pagina_id': $pagina_id,
+				        'usuario_upvote_anotacao_id': user_upvoted
+				    }, function (data) {
+				        if (data != 0) {
+				            alert(data);
+				        }
+				    })
+				})
+			</script>
+		";
+	}

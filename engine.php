@@ -1868,4 +1868,11 @@
 		echo $check;
 	}
 
+	if (isset($_POST['usuario_upvote_anotacao_id'])) {
+		$usuario_upvote_anotacao_id = $_POST['usuario_upvote_anotacao_id'];
+		$usuario_upvote_pagina_id = $_POST['usuario_upvote_pagina_id'];
+		$check = $conn->query("INSERT INTO Votos (user_id, pagina_id, objeto, tipo, valor) VALUES ($user_id, $usuario_upvote_pagina_id, $usuario_upvote_anotacao_id, 'anotacao_publicada', 1)");
+		echo $check;
+	}
+
 ?>

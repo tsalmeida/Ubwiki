@@ -8,7 +8,6 @@
 	//TODO: Gerar PDF para impressão.
 	//TODO: Permitir baixar um arquivo com todas as suas anotações.
 	//TODO: Estado da página não está sendo atualizado imediatamente, apenas após recarregar.
-	//TODO: Next and Previous buttons could be easily added to Element pages.
 	//TODO: Sistema de simulados automatizado, em que os alunos votam nas melhores respostas.
 
 	$pagina_tipo = 'pagina_geral';
