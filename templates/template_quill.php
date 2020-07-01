@@ -1,6 +1,7 @@
 <?php
 
 	//TODO: A tabela Textos_arquivo deve ser transferida a um banco de dados separado.
+	//TODO: A shortcut for quoted text.
 
 	$quill_was_loaded = true;
 
@@ -335,7 +336,7 @@
 					setTimeout(function() { //after an interval, the changes will be saved.
 						$('#{$quill_trigger_button}').click();
 						$('#save_state_{$template_id}').val('');
-					}, 30000)
+					}, 35000)
 				}
 			})
 		</script>
