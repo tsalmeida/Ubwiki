@@ -1419,7 +1419,7 @@
 	if (isset($_POST['list_bookmarks'])) {
 		$result_bookmarks = false;
 		foreach ($user_bookmarks as $usuario_bookmark_pagina_id) {
-			$result_bookmarks .= return_list_item($usuario_bookmark_pagina_id);
+			$result_bookmarks .= return_list_item($usuario_bookmark_pagina_id, false, false, false, false, false, true);
 		}
 		echo list_wrap($result_bookmarks);
 	}
@@ -1445,7 +1445,7 @@
 		if ($usuario_contribuicoes->num_rows > 0) {
 			while ($usuario_contribuicao = $usuario_contribuicoes->fetch_assoc()) {
 				$usuario_contribuicao_pagina_id = $usuario_contribuicao['pagina_id'];
-				$list_contribuicoes .= return_list_item($usuario_contribuicao_pagina_id);
+				$list_contribuicoes .= return_list_item($usuario_contribuicao_pagina_id, false, false, false, false, false, true);
 			}
 		}
 		$list_contribuicoes = list_wrap($list_contribuicoes);

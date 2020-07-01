@@ -2084,7 +2084,12 @@
 
 		if (isset($args[6])) {
 			$override_pagina_titulo = $args[6];
+			if ($override_pagina_titulo == true) {
+				$parent_title = true;
+				$override_pagina_titulo = false;
+			}
 		} else {
+			$parent_title = false;
 			$override_pagina_titulo = false;
 		}
 
@@ -2112,6 +2117,13 @@
 			$pagina_estado = $pagina_info[3];
 			$pagina_titulo = $pagina_info[6];
 			$pagina_item_id = $pagina_info[1];
+			$paginas_secao = array('secao', 'topico', 'materia');
+			if (in_array($pagina_tipo, $paginas_secao)) {
+				if ($parent_title == true) {
+					$pagina_parent_title = return_pagina_titulo($pagina_item_id);
+					$pagina_titulo = "<span>$pagina_titulo</span><small class='ml-3 text-muted font-italic'>$pagina_parent_title</small>";
+				}
+			}
 			$pagina_estado_icone_info = return_estado_icone($pagina_estado);
 			$pagina_estado_icone = $pagina_estado_icone_info[0];
 			$pagina_estado_cor = $pagina_estado_icone_info[1];
