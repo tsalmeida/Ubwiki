@@ -335,7 +335,7 @@
 					setTimeout(function() { //after an interval, the changes will be saved.
 						$('#{$quill_trigger_button}').click();
 						$('#save_state_{$template_id}').val('');
-					}, 45000)
+					}, 30000)
 				}
 			})
 		</script>
