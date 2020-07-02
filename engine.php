@@ -1886,10 +1886,12 @@
 					$item_texto_class = 'text-muted font-italic';
 					$item_icone = 'fad fa-toggle-off fa-swap-opacity';
 					$item_color = 'text-muted';
+					$item_operacao = 'reativar_elemento_item';
 				} else {
 					$item_texto_class = false;
 					$item_icone = 'fad fa-toggle-on';
 					$item_color = 'text-default';
+					$item_operacao = 'remover_elemento_item';
 				}
 				$item_texto = false;
 				switch ($pagina_elemento['tipo']) {
@@ -1932,7 +1934,7 @@
 						$item_texto = serialize($pagina_elemento);
 				}
 				if ($item_texto != false) {
-					$final_result_elementos .= put_together_list_item('link_button', $pagina_elemento['id'], $item_color, $item_icone, $item_texto, false, false, false, 'remover_elemento_item', "text-break $item_texto_class");
+					$final_result_elementos .= put_together_list_item('link_button', $pagina_elemento['id'], $item_color, $item_icone, $item_texto, false, false, false, $item_operacao, "text-break $item_texto_class");
 				}
 			}
 		}
@@ -1943,6 +1945,11 @@
 	if (isset($_POST['desabilitar_elemento_id'])) {
 		$desabilitar_elemento_id = $_POST['desabilitar_elemento_id'];
 		$check = $conn->query("UPDATE Paginas_elementos SET estado = 0 WHERE id = $desabilitar_elemento_id");
+		echo $check;
+	}
+	if (isset($_POST['reativar_elemento_id'])) {
+		$reativar_elemento_id = $_POST['reativar_elemento_id'];
+		$check = $conn->query("UPDATE Paginas_elementos SET estado = 1 WHERE id = $reativar_elemento_id");
 		echo $check;
 	}
 

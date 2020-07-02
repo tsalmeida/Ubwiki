@@ -1575,6 +1575,18 @@
 			        }
 			    })
 			})
+			$(document).on('click', '.reativar_elemento_item', function() {
+			    reativar_elemento_id = $(this).attr('value');
+			    $.post('engine.php', {
+			        'reativar_elemento_id': reativar_elemento_id
+			    }, function(data) {
+			        if (data != 0) {
+			            window.location.reload(true);
+			        } else {
+			            alert('Some problem happened');
+			        }
+			    })
+			})
 		</script>
 		";
 	}
