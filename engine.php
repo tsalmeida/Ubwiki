@@ -885,8 +885,10 @@
 
 
 			if (($quill_pagina_estado == false) && ($quill_novo_verbete_text != false)) {
-				$query = prepare_query("UPDATE Paginas SET estado = 1 WHERE id = $quill_pagina_id");
-				$conn->query($query);
+				if ($quill_texto_tipo == 'verbete') {
+					$query = prepare_query("UPDATE Paginas SET estado = 1 WHERE id = $quill_pagina_id");
+					$conn->query($query);
+				}
 			}
 			if (($check == false) || ($check2 == false)) {
 				echo false;
