@@ -9,6 +9,7 @@
 	}
 
 	if (isset($_POST['trigger_atualizacao'])) {
+	    adicionar_chave_e_traducoes('Remover elementos', 'Remove elements');
 	    $conn->query("CREATE TABLE `Ubwiki`.`Votos` ( `id` INT NOT NULL AUTO_INCREMENT , `criacao` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `user_id` INT(11) NULL , `pagina_id` INT(11) NULL , `tipo` VARCHAR(255) NULL , `objeto` INT(11) NULL , `valor` TINYINT(1) NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
 	}
 

@@ -1875,4 +1875,75 @@
 		echo $check;
 	}
 
+	if (isset($_POST['listar_elementos_pagina_id'])) {
+		$final_result_elementos = false;
+		$listar_elementos_pagina_id = $_POST['listar_elementos_pagina_id'];
+		$pagina_elementos = $conn->query("SELECT * FROM Paginas_elementos WHERE pagina_id = $listar_elementos_pagina_id ORDER BY id DESC");
+		if ($pagina_elementos->num_rows > 0) {
+			while ($pagina_elemento = $pagina_elementos->fetch_assoc()) {
+				$pagina_elemento_estado = $pagina_elemento['estado'];
+				if ($pagina_elemento_estado == 0) {
+					$item_texto_class = 'text-muted font-italic';
+					$item_icone = 'fad fa-toggle-off fa-swap-opacity';
+					$item_color = 'text-muted';
+				} else {
+					$item_texto_class = false;
+					$item_icone = 'fad fa-toggle-on';
+					$item_color = 'text-default';
+				}
+				$item_texto = false;
+				switch ($pagina_elemento['tipo']) {
+					case 'titulo':
+						$pagina_elemento_titulo = $pagina_elemento['extra'];
+						$item_texto = "<strong>Título:</strong> $pagina_elemento_titulo";
+						break;
+					case 'materia':
+						$pagina_elemento_materia_pagina_id = $pagina_elemento['elemento_id'];
+						$pagina_elemento_materia_pagina_titulo = return_pagina_titulo($pagina_elemento_materia_pagina_id);
+						$item_texto = "<strong>Matéria:</strong> $pagina_elemento_materia_pagina_titulo";
+						break;
+					case 'simulado':
+						$pagina_elemento_simulado_pagina_id = $pagina_elemento['extra'];
+						$pagina_elemento_simulado_pagina_titulo = return_pagina_titulo($pagina_elemento_simulado_pagina_id);
+						$item_texto = "<strong>Simulado:</strong> $pagina_elemento_simulado_pagina_titulo";
+						break;
+					case 'topico':
+						break;
+					case 'plano de estudos':
+						$item_texto = "<strong>Plano de estudos</strong>";
+						break;
+					case 'referencia':
+					case 'imagem':
+						$pagina_elemento_elemento_id = $pagina_elemento['elemento_id'];
+						$pagina_elemento_pagina_id = return_pagina_id($pagina_elemento_elemento_id, 'elemento');
+						$pagina_elemento_pagina_titulo = return_pagina_titulo($pagina_elemento_pagina_id);
+						$item_texto = "<strong>Elemento:</strong> $pagina_elemento_pagina_titulo";
+						break;
+					case 'subtopico':
+						$pagina_elemento_subtopico_id = $pagina_elemento['elemento_id'];
+						$pagina_elemento_subtopico_titulo = return_pagina_titulo($pagina_elemento_subtopico_id);
+						$item_texto = "<strong>Subtópico:</strong> $pagina_elemento_subtopico_titulo";
+						break;
+					case 'wikipedia':
+						$pagina_elemento_extra = $pagina_elemento['extra'];
+						$item_texto = "<strong>Wikipédia</strong>: $pagina_elemento_extra";
+						break;
+					default:
+						$item_texto = serialize($pagina_elemento);
+				}
+				if ($item_texto != false) {
+					$final_result_elementos .= put_together_list_item('link_button', $pagina_elemento['id'], $item_color, $item_icone, $item_texto, false, false, false, 'remover_elemento_item', "text-break $item_texto_class");
+				}
+			}
+		}
+		$final_result_elementos = list_wrap($final_result_elementos);
+		echo $final_result_elementos;
+	}
+
+	if (isset($_POST['desabilitar_elemento_id'])) {
+		$desabilitar_elemento_id = $_POST['desabilitar_elemento_id'];
+		$check = $conn->query("UPDATE Paginas_elementos SET estado = 0 WHERE id = $desabilitar_elemento_id");
+		echo $check;
+	}
+
 ?>

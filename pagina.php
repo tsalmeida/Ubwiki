@@ -9,6 +9,7 @@
 	//TODO: Permitir baixar um arquivo com todas as suas anotações.
 	//TODO: Estado da página não está sendo atualizado imediatamente, apenas após recarregar.
 	//TODO: Sistema de simulados automatizado, em que os alunos votam nas melhores respostas.
+	//TODO: Chegou a hora de criar um método para apagar elementos de páginas.
 
 	$pagina_tipo = 'pagina_geral';
 
@@ -197,6 +198,7 @@
 		$privilegio_edicao = false;
 	}
 
+	$pagina_curso_user_id = false;
 	if ($pagina_subtipo == 'Plano de estudos') {
 		$pagina_materia_familia = return_familia($pagina_item_id);
 		$pagina_curso_pagina_id = $pagina_materia_familia[1];
@@ -406,7 +408,7 @@
 		}
 	}
 
-
+    $texto_page_id = false;
 	if ($pagina_tipo == 'curso') {
 		$pagina_curso_info = return_curso_info($pagina_curso_id);
 		$pagina_curso_sigla = $pagina_curso_info[2];
@@ -690,48 +692,17 @@
                         <a href='javascript:void(0);' data-toggle='modal' data-target='#modal_elemento_subtipo' class='text-info mr-1' id='elemento_subtipo' title='{$pagina_translated['Determinar subcategoria']}'><i class='fad fa-sort-circle fa-fw fa-lg'></i></a>
                     ";
 				}
-				$modal_pagina_dados = false;
-				$paginas_de_curso = array('curso', 'materia', 'topico');
-				if ($pagina_tipo == 'sistema') {
-					if ($user_tipo == 'admin') {
-						$modal_pagina_dados = true;
-					}
-				} elseif ($pagina_tipo == 'pagina') {
-					if ($pagina_user_id == $user_id) {
-						$modal_pagina_dados = true;
-					}
-					if ($pagina_subtipo == 'modelo') {
-						if ($pagina_compartilhamento != 'privado') {
-							$modal_pagina_dados = false;
-						}
-					}
-				} elseif (in_array($pagina_tipo, $paginas_de_curso)) {
-					if ($pagina_curso_user_id == $user_id) {
-						$modal_pagina_dados = true;
-					}
-				} elseif ($pagina_tipo == 'texto') {
-					if ($texto_page_id == 0) {
-						if ($pagina_user_id == $user_id) {
-							$modal_pagina_dados = true;
-						}
-					}
-				} elseif ($pagina_tipo == 'resposta') {
-					if ($pagina_user_id == $user_id) {
-						$modal_pagina_dados = true;
-					}
-				} elseif ($pagina_tipo == 'secao') {
-					if ($pagina_user_id == $user_id) {
-						$modal_pagina_dados = true;
-					} elseif ($pagina_original_compartilhamento == false) {
-						$modal_pagina_dados = true;
-					}
-				}
+				if (!isset($pagina_original_compartilhamento)) {
+				    $pagina_original_compartilhamento = $pagina_compartilhamento;
+                }
+				$modal_pagina_dados = return_admin_status($pagina_id, $pagina_tipo, $pagina_subtipo, $user_id, $user_tipo, $pagina_user_id, $pagina_compartilhamento, $pagina_curso_user_id, $texto_page_id, $pagina_original_compartilhamento);
 
 				if (($pagina_tipo == 'materia') && ($pagina_user_id == $user_id)) {
 					$carregar_adicionar_topico = true;
 					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_topico' class='text-info mr-1' id='add_topico' title='{$pagina_translated['Adicionar tópico']}'><i class='fad fa-plus-square fa-swap-opacity fa-lg fa-fw'></i></a>";
 				}
 				if ($modal_pagina_dados == true) {
+					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_remover_elementos' class='text-info mr-1' id='pagina_elementos_remover' title='{$pagina_translated['Remover elementos']}'><i class='fad fa-minus-square fa-swap-opacity fa-fw fa-lg'></i></a>";
 					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_pagina_dados' class='text-info mr-1' id='pagina_dados' title='{$pagina_translated['Editar dados']}'><i class='fad fa-info-square fa-swap-opacity fa-fw fa-lg'></i></a>";
 					$carregar_produto_setup = false;
 					if ($pagina_subtipo == 'produto') {
@@ -835,8 +806,8 @@
 					echo "<a href='pagina.php?$pagina_plan&sc=$plan_show_completed&hl=$change_show_low' class='$color_show_low ml-1'><i class='fad fa-times-octagon fa-lg'></i></a>";
 				}
 				if (isset($proxima_pagina)) {
-				    echo "<a href='pagina.php?pagina_id=$proxima_pagina' class='ml-2 text-default'><i class='fad fa-arrow-right fa-fw fa-lg'></i></a>";
-                }
+					echo "<a href='pagina.php?pagina_id=$proxima_pagina' class='ml-2 text-default'><i class='fad fa-arrow-right fa-fw fa-lg'></i></a>";
+				}
 			?>
         </div>
         <div class='py-2 text-right col-md-4 col-sm-12'>
@@ -1364,8 +1335,8 @@
 				if ($list_pagina_questoes->num_rows > 0) {
 					$template_id = 'pagina_questoes';
 					if ($pagina_subtipo == 'simulado') {
-					    $template_titulo = $pagina_translated['Questões incluídas neste simulado'];
-                    } else {
+						$template_titulo = $pagina_translated['Questões incluídas neste simulado'];
+					} else {
 						$template_titulo = $pagina_translated['Questões sobre este tópico'];
 					}
 					$template_botoes = "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_adicionar_simulado' class='text-secondary'><i class='fad fa-plus-square fa-fw'></i></a>";
@@ -1801,6 +1772,7 @@
 		}
 	}
 	if ($modal_pagina_dados == true) {
+
 		$template_modal_div_id = 'modal_pagina_dados';
 		$template_modal_titulo = $pagina_translated['Alterar dados'];
 		$template_modal_show_buttons = true;
@@ -1830,6 +1802,14 @@
 			}
 		}
 		include 'templates/modal.php';
+
+		$template_modal_div_id = 'modal_remover_elementos';
+		$template_modal_titulo = $pagina_translated['Remover elementos'];
+		$template_modal_show_buttons = false;
+		$template_modal_body_conteudo = false;
+
+		include 'templates/modal.php';
+
 	}
 	if ($privilegio_edicao == true) {
 		if ($modal_novo_curso == true) {
@@ -2743,25 +2723,25 @@
 
 	//TODO: Terminar essa história de publicação de respostas.
 	if (!isset($carregar_publicar_resposta)) {
-	    $carregar_publicar_resposta = false;
-    }
+		$carregar_publicar_resposta = false;
+	}
 	if ($carregar_publicar_resposta == true) {
-	    $template_modal_div_id = 'modal_publicar_resposta';
-	    $template_modal_titulo = $pagina_translated['Publicar sua resposta'];
-	    $template_modal_body_conteudo = false;
-	    $link_li = put_together_list_item('link', "anotacoes.php?pagina_id=$pagina_id", 'text-secondary', 'fad fa-comment-alt-edit', $pagina_translated['Ver anotações publicadas'], 'text-primary', 'fad fa-external-link');
+		$template_modal_div_id = 'modal_publicar_resposta';
+		$template_modal_titulo = $pagina_translated['Publicar sua resposta'];
+		$template_modal_body_conteudo = false;
+		$link_li = put_together_list_item('link', "anotacoes.php?pagina_id=$pagina_id", 'text-secondary', 'fad fa-comment-alt-edit', $pagina_translated['Ver anotações publicadas'], 'text-primary', 'fad fa-external-link');
 		$template_modal_body_conteudo .= list_wrap($link_li);
 		$template_modal_body_conteudo .= wrapp($pagina_translated['sobre publicar respostas']);
 		$template_modal_body_conteudo .= wrapp($pagina_translated['sobre publicar respostas 2']);
-	    $template_modal_body_conteudo .= "
+		$template_modal_body_conteudo .= "
 	        <input type='hidden' name='publicar_anonimamente_pagina_id' value='$pagina_id'>
 	        <div class='form-check'>
 	            <input type='checkbox' class='form-check-input' id='publicar_anonimamente' name='publicar_anonimamente'>
 	            <label class='form-check-label' for='publicar_anonimamente'>{$pagina_translated['Publicar anonimamente.']}</label>
             </div>
 	    ";
-	    include 'templates/modal.php';
-    }
+		include 'templates/modal.php';
+	}
 
 	if ($carregar_modal_correcao == true) {
 		$loaded_correcao_form = true;

@@ -117,6 +117,10 @@
 		$trigger_criar_simulado = false;
 	}
 
+	if (!isset($modal_pagina_dados)) {
+		$modal_pagina_dados = false;
+	}
+
 	echo "
     <!-- Bootstrap tooltips -->
     <script type='text/javascript' src='js/popper.min.js'></script>
@@ -1218,8 +1222,8 @@
                     'curso_aderir': $pagina_curso_id
                 }, function(data) {
                     if (data != 0) {
-                            $('#curso_aderir').addClass('hidden');
-                            $('#curso_sair').removeClass('hidden');
+						$('#curso_aderir').addClass('hidden');
+						$('#curso_sair').removeClass('hidden');
                     }
                 })
             });
@@ -1228,8 +1232,8 @@
                     'curso_sair': $pagina_curso_id
                 }, function (data) {
                     if (data != 0) {
-                            $('#curso_sair').addClass('hidden');
-                            $('#curso_aderir').removeClass('hidden');
+						$('#curso_sair').addClass('hidden');
+						$('#curso_aderir').removeClass('hidden');
                     }
                 })
             });
@@ -1543,5 +1547,34 @@
 				    })
 				})
 			</script>
+		";
+	}
+
+	if ($modal_pagina_dados == true) {
+		echo "
+		<script type='text/javascript'>
+			$(document).on('click', '#pagina_elementos_remover', function() {
+			    $.post('engine.php', {
+			        'listar_elementos_pagina_id': $pagina_id
+			    }, function(data) {
+			        if (data != 0) {
+			            $('#body_modal_remover_elementos').empty();
+			            $('#body_modal_remover_elementos').append(data);
+			        }
+			    })
+			})
+			$(document).on('click', '.remover_elemento_item', function() {
+			    desabilitar_elemento_id = $(this).attr('value');
+			    $.post('engine.php', {
+			        'desabilitar_elemento_id': desabilitar_elemento_id
+			    }, function(data) {
+			        if (data != 0) {
+			            window.location.reload(true);
+			        } else {
+			            alert('Some problem happened');
+			        }
+			    })
+			})
+		</script>
 		";
 	}

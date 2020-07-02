@@ -3170,3 +3170,53 @@
 			return false;
 		}
 	}
+
+	function return_admin_status($pagina_id, $pagina_tipo, $pagina_subtipo, $user_id, $user_tipo, $pagina_user_id, $pagina_compartilhamento, $pagina_curso_user_id, $texto_page_id, $pagina_original_compartilhamento) {
+		$paginas_de_curso = array('curso', 'materia', 'topico');
+		if ($pagina_tipo == 'sistema') {
+			if ($user_tipo == 'admin') {
+				return true;
+			}
+		} elseif ($pagina_tipo == 'pagina') {
+			if ($pagina_user_id == $user_id) {
+				return true;
+			}
+			if ($pagina_subtipo == 'modelo') {
+				if ($pagina_compartilhamento != 'privado') {
+					return false;
+				}
+			} elseif ($pagina_subtipo == 'etiqueta') {
+				if ($user_tipo == 'admin') {
+					return true;
+				}
+			}
+		} elseif (in_array($pagina_tipo, $paginas_de_curso)) {
+			if ($pagina_curso_user_id == $user_id) {
+				return true;
+			}
+			if ($user_tipo == 'admin') {
+				return true;
+			}
+		} elseif ($pagina_tipo == 'texto') {
+			if ($texto_page_id == 0) {
+				if ($pagina_user_id == $user_id) {
+					return true;
+				}
+			}
+		} elseif ($pagina_tipo == 'resposta') {
+			if ($pagina_user_id == $user_id) {
+				return true;
+			}
+		} elseif ($pagina_tipo == 'secao') {
+			if ($pagina_user_id == $user_id) {
+				return true;
+			} elseif ($pagina_original_compartilhamento == false) {
+				return true;
+			}
+		} elseif ($pagina_tipo == 'elemento') {
+			if ($user_tipo == 'admin') {
+				return true;
+			}
+		}
+		return false;
+	}
