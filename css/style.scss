@@ -104,13 +104,14 @@ strong {
 }
 
 blockquote + * {
-  margin-top: 1em !important;
+  margin-bottom: 1em;
+  margin-top: 1em;
 }
 
 blockquote {
   margin-bottom: 0 !important;
   margin-top: 0 !important;
-  padding-top: 0.5em !important;
+  padding-top: 0 !important;
   padding-bottom: 0.5em !important;
   font-style: italic;
 }
