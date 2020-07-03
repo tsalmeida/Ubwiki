@@ -7,11 +7,13 @@
   font-weight: 200 !important;
 }
 
-.fontstack-mono {
+.fontstack-mono html, .fontstack-mono body, .fontstack-mono p, .fontstack-mono li, .fontstack-mono select, .fontstack-mono .md-form, .fontstack-mono textarea, .fontstack-mono input {
+  font-size: 1rem !important;
   font-family: Monaco, Consolas, “Lucida Console”, monospace !important;
 }
 
-.fontstack-body-serif {
+.fontstack-body-serif html, .fontstack-body-serif body, .fontstack-body-serif p, .fontstack-body-serif li, .fontstack-body-serif select, .fontstack-body-serif .md-form, .fontstack-body-serif textarea, .fontstack-body-serif input {
+  font-size: 1.1rem !important;
   font-family: "Lora", serif !important;
 }
 

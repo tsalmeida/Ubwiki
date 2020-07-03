@@ -14,11 +14,17 @@ $fontstack-subtitle: 'Oswald', Arial, serif;
 }
 
 .fontstack-mono {
-  font-family: $fontstack-mono !important;
+  html, body, p, li, select, .md-form, textarea, input {
+    font-size: 1rem !important;
+    font-family: $fontstack-mono !important;
+  }
 }
 
 .fontstack-body-serif {
-  font-family: $fontstack-body-serif !important;
+  html, body, p, li, select, .md-form, textarea, input {
+    font-size: 1.1rem !important;
+    font-family: $fontstack-body-serif !important;
+  }
 }
 
 .fontstack-body {

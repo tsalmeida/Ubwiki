@@ -9,23 +9,6 @@
 	}
 
 	if (isset($_POST['trigger_atualizacao'])) {
-	    $conn->query("DROP TABLE `Ubwiki`.`Verbetes_elementos`");
-		$paginas_nivel_1 = $conn->query("SELECT id FROM Paginas WHERE estado = 1");
-		while ($pagina_nivel_1 = $paginas_nivel_1->fetch_assoc()) {
-		    $search_pagina_id = $pagina_nivel_1['id'];
-		    $query = prepare_query("SELECT verbete_html FROM Textos WHERE pagina_id = $search_pagina_id AND tipo = 'verbete'");
-            $conteudo_textos = $conn->query($query);
-            if ($conteudo_textos->num_rows > 0) {
-                while ($conteudo_texto = $conteudo_textos->fetch_assoc()) {
-                    $conteudo_texto_conteudo = $conteudo_texto['verbete_html'];
-                    if ($conteudo_texto_conteudo == false) {
-                        $conn->query("UPDATE Paginas SET estado = 0 WHERE id = $search_pagina_id");
-                    } elseif ($conteudo_texto_conteudo == '<p></p>') {
-						$conn->query("UPDATE Paginas SET estado = 0 WHERE id = $search_pagina_id");
-					}
-                }
-            }
-		}
 	}
 
 	if (isset($_POST['trigger_atualizar_textos_size'])) {

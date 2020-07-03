@@ -9,7 +9,6 @@
 	//TODO: Permitir baixar um arquivo com todas as suas anotações.
 	//TODO: Estado da página não está sendo atualizado imediatamente, apenas após recarregar.
 	//TODO: Sistema de simulados automatizado, em que os alunos votam nas melhores respostas.
-	//TODO: Chegou a hora de criar um método para apagar elementos de páginas.
 
 	$pagina_tipo = 'pagina_geral';
 
@@ -812,6 +811,7 @@
         </div>
         <div class='py-2 text-right col-md-4 col-sm-12'>
 			<?php
+                echo "<a id='swatch_choice' data-target='#modal_escolher_cores' data-toggle='modal' class='ml-1 text-default swatch_button' value='default'><i class='fad fa-swatchbook fa-fw fa-lg'></i></a>";
 				if ($pagina_tipo == 'curso') {
 					if ($user_id != false) {
 						$carregar_toggle_curso = true;

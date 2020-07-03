@@ -1170,7 +1170,20 @@
 				        $('#verbete_trigger_save').click();
   					}
 				});
-				
+				$(document).on('click', '#swatch_choice', function() {
+				    current_color = $(this).attr('value');
+				    if (current_color == 'default') {
+				        $('#swatch_choice').attr('value', 'yellow');
+				    	$('.ql-editor').addClass('orange p-1 lighten-5 brown-text rounded fontstack-body-serif');
+				    } else if (current_color == 'yellow') {
+				        $('#swatch_choice').attr('value', 'dark');
+						$('.ql-editor').removeClass('orange lighten-5 brown-text fontstack-body-serif');
+				    	$('.ql-editor').addClass('grey darken-4 yellow-text fontstack-mono');
+				    } else if (current_color == 'dark') {
+				        $('#swatch_choice').attr('value', 'default');
+						$('.ql-editor').removeClass('grey p-1 darken-4 yellow-text fontstack-mono');
+				    }
+				});
 			</script>
 		";
 	}
