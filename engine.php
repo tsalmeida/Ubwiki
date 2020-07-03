@@ -1,5 +1,7 @@
 <?php
 
+	//TODO: Uma função que vasculha os textos de todas as páginas cujo estado é diferente de 0 e, se o texto for vazio, retorna o estado a zero.
+
 	if (!isset($pagina_tipo)) {
 		$pagina_tipo = false;
 	}
