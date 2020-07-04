@@ -1564,7 +1564,7 @@
 		<?php
 			$carregar_quill_anotacoes = false;
 			$paginas_com_anotacoes = array('topico', 'pagina', 'elemento', 'secao', 'questao');
-			$subtipos_com_anotacoes = array('Plano de estudos', 'produto', 'etiqueta');
+			$subtipos_sem_anotacoes = array('escritorio', 'plano');
 			if ($user_id == false) {
 				$carregar_quill_anotacoes = false;
 			} else {
@@ -1572,10 +1572,10 @@
 					$carregar_quill_anotacoes = true;
 				}
 				if ($pagina_tipo == 'pagina') {
-					if (in_array($pagina_subtipo, $subtipos_com_anotacoes)) {
-						$carregar_quill_anotacoes = true;
-					} else {
+					if (in_array($pagina_subtipo, $subtipos_sem_anotacoes)) {
 						$carregar_quill_anotacoes = false;
+					} else {
+                        $carregar_quill_anotacoes = true;
 					}
 				}
 				if ($pagina_subtipo == 'modelo') {
