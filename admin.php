@@ -9,6 +9,7 @@
 	}
 
 	if (isset($_POST['trigger_atualizacao'])) {
+	    $conn->query("UPDATE Paginas SET compartilhamento = 'privado' WHERE tipo = 'escritorio'");
 	}
 
 	if (isset($_POST['trigger_atualizar_textos_size'])) {

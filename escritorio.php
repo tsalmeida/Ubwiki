@@ -5,6 +5,7 @@
 	//TODO: Etiquetas como pastas que organizam os textos e páginas do usuário.
 	//TODO: A sala de visitas deve ter espaço para adicionar os perfis do usuário em sites de mídia social.
 	//TODO: Grupos de Estudos é um ótimo candidato para próximo ícone responsivo.
+    //TODO: A LIST OF DOCUMENTS THAT HAVE BEEN SHARED WITH THE USER
 
 	$pagina_tipo = 'escritorio';
 	include 'engine.php';

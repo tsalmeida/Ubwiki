@@ -8,6 +8,11 @@
 			$elemento_criacao = $elemento['criacao'];
 			$elemento_tipo = $elemento['tipo'];
 			$elemento_subtipo = $elemento['subtipo'];
+			if ($elemento_subtipo == 'wikipedia') {
+				if ($wiki_id == false) {
+					$wiki_id = $elemento_id;
+				}
+			}
 			$elemento_titulo = $elemento['titulo'];
 			$elemento_autor = $elemento['autor'];
 			$elemento_capitulo = $elemento['capitulo'];

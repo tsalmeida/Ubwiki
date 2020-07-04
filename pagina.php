@@ -543,6 +543,10 @@
 		$original_texto_html = $original_texto_info[5];
 	}
 
+	if ($pagina_tipo == 'escritorio') {
+	    header('Location:escritorio.php');
+    }
+
 	if ($pagina_tipo == 'elemento') {
 		include 'pagina/isset_elemento.php';
 		include 'pagina/queries_elemento.php';
@@ -1504,8 +1508,23 @@
 				include 'templates/page_element.php';
 			}
 
-			if ($pagina_tipo == 'curso') {
+			if ($pagina_tipo == 'elemento') {
+			    $template_id = 'usos_elemento';
+			    $template_titulo = $pagina_translated['Páginas relacionadas'];
+			    $template_conteudo = false;
+			    $usos_elemento = $conn->query("SELECT pagina_id FROM Paginas_elementos WHERE tipo = '$elemento_tipo' AND elemento_id = $pagina_item_id AND estado = 1");
+			    if ($usos_elemento->num_rows > 0) {
+			        while ($uso_elemento = $usos_elemento->fetch_assoc()) {
+                        $template_conteudo .= return_list_item($uso_elemento['pagina_id'], false, false, false, false, false, false, false, false, true);
+                    }
+                }
+			    if ($template_conteudo != false) {
+			        $template_conteudo = list_wrap($template_conteudo);
+			        include 'templates/page_element.php';
+                }
+            }
 
+			if ($pagina_tipo == 'curso') {
 				$query = prepare_query("SELECT DISTINCT pagina_id FROM (SELECT pagina_id FROM Textos_arquivo WHERE tipo = 'verbete' AND curso_id = $pagina_curso_id AND pagina_tipo = 'topico' GROUP BY id ORDER BY id DESC) t");
 				$paginas = $conn->query($query);
 				if ($paginas->num_rows > 0) {

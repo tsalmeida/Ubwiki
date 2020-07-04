@@ -1026,7 +1026,7 @@
 					return $etiqueta_pagina_id;
 				}
 			}
-		} elseif ($tipo == 'escritorio') { // NA VERDADE, ESSA É A SALA DE VISITAS. O ESCRITÓRIO É O ESCRITORIO_ID NA TABELA USUARIOS
+		} elseif ($tipo == 'escritorio') {
 			$query = prepare_query("SELECT pagina_id FROM Usuarios WHERE id = $item_id AND pagina_id IS NOT NULL");
 			$usuarios = $conn->query($query);
 			if ($usuarios->num_rows > 0) {
@@ -1034,7 +1034,7 @@
 					$usuario_pagina_id = $usuario['pagina_id'];
 				}
 			} else {
-				$query = prepare_query("INSERT INTO Paginas (item_id, tipo) VALUES ($item_id, 'escritorio')");
+				$query = prepare_query("INSERT INTO Paginas (item_id, tipo, compartilhamento) VALUES ($item_id, 'escritorio', 'privado')");
 				$conn->query($query);
 				$usuario_pagina_id = $conn->insert_id;
 				$query = prepare_query("UPDATE Usuarios SET pagina_id = $usuario_pagina_id WHERE id = $item_id");
@@ -1165,6 +1165,9 @@
 							break;
 						case 'questao':
 							$pagina_titulo = return_questao_titulo($pagina_item_id);
+							break;
+						case 'escritorio':
+							$pagina_titulo = return_apelido_user_id($pagina_item_id);
 							break;
 						default:
 							$buscar_pagina = true;
@@ -2082,6 +2085,7 @@
 			$override_pagina_estado_cor = false;
 		}
 
+		$parent_title = false;
 		if (isset($args[6])) {
 			$override_pagina_titulo = $args[6];
 			if ($override_pagina_titulo == true) {
@@ -2089,7 +2093,6 @@
 				$override_pagina_titulo = false;
 			}
 		} else {
-			$parent_title = false;
 			$override_pagina_titulo = false;
 		}
 
@@ -2105,12 +2108,24 @@
 			$lista_texto_classes = false;
 		}
 
+		if (isset($args[9])) {
+			$show_only_public_pages = $args[9];
+		} else {
+			$show_only_public_pages = false;
+		}
+
 		if ($pagina_id == false) {
 			return false;
 		} else {
 			$pagina_info = return_pagina_info($pagina_id);
 			if ($pagina_info == false) {
 				return false;
+			}
+			$pagina_compartilhamento = $pagina_info[4];
+			if ($pagina_compartilhamento != false) {
+				if ($show_only_public_pages == true) {
+					return false;
+				}
 			}
 			$pagina_tipo = $pagina_info[2];
 			$pagina_subtipo = $pagina_info[8];
@@ -2471,7 +2486,7 @@
 			case 'pagina':
 				switch ($pagina_subtipo) {
 					case 'escritorio':
-						return array('fad fa-lamp-desk', 'text-info');
+						return array('fad fa-mug-tea', 'text-info');
 						break;
 					case 'etiqueta':
 						return array('fad fa-tag', 'text-warning');
@@ -2532,6 +2547,9 @@
 				break;
 			case 'texto_apoio':
 				return array('fad fa-quote-left', 'text-secondary');
+				break;
+			case 'escritorio':
+				return array('fad fa-lamp-desk', 'text-danger');
 				break;
 			default:
 				return array('fad fa-circle-notch', 'text-light');
