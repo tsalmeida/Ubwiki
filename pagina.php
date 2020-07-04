@@ -9,6 +9,8 @@
 	//TODO: Permitir baixar um arquivo com todas as suas anotações.
 	//TODO: Estado da página não está sendo atualizado imediatamente, apenas após recarregar.
 	//TODO: Sistema de simulados automatizado, em que os alunos votam nas melhores respostas.
+    //TODO: If the user has written anything, both columns should be visible on pageload.
+    //TODO: Verbetes relacionados should only load when the user clicks on it (and only once).
 
 	$pagina_tipo = 'pagina_geral';
 
@@ -141,7 +143,6 @@
 			exit();
 		}
 	}
-
 	if ($pagina_id == 1) {
 		header('Location:ubwiki.php');
 		exit();
@@ -402,6 +403,9 @@
 		if ($_SESSION['acesso_especial'] == $pagina_checar_compartilhamento) {
 			$check_compartilhamento = true;
 		}
+		if ($pagina_id == $user_escritorio) {
+		    $check_compartilhamento = true;
+        }
 		if ($check_compartilhamento == false) {
 			header('Location:pagina.php?pagina_id=3');
 			exit();
