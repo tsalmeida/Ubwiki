@@ -108,6 +108,7 @@
 				header("Location:pagina.php?pagina_id=$pagina_id");
 				exit();
 			} elseif ($pagina_plano_id == 'bp') {
+			    $pagina_com_verbete = false;
 				$pagina_tipo_override = 'pagina';
 				$pagina_subtipo_override = 'plano';
 				$pagina_titulo_override = $pagina_translated['your collection'];
@@ -668,6 +669,15 @@
 		exit();
 	}
 
+	$paginas_sem_verbete = array('texto', 'materia', 'questao', 'texto_apoio', 'grupo');
+	$paginas_subtipos_sem_verbete = array('modelo');
+	if (!isset($pagina_com_verbete)) {
+		$pagina_com_verbete = false;
+		if ((!in_array($pagina_tipo, $paginas_sem_verbete)) && (!in_array($pagina_subtipo, $paginas_subtipos_sem_verbete)) && ($pagina_id != $user_escritorio)) {
+			$pagina_com_verbete = true;
+		}
+	}
+
 	$html_head_template_quill = true;
 	if (($pagina_tipo == 'questao') || ($pagina_tipo == 'texto_apoio')) {
 		$html_head_template_quill_sim = true;
@@ -1181,23 +1191,16 @@
 				} else {
 					$template_id = $texto_tipo;
 					$template_titulo = false;
-					//$template_conteudo_no_col = true;
-					//$template_no_spacer = true;
-					//$template_p_limit = false;
 					$template_quill_initial_state = 'edicao';
 					$template_quill_page_id = $texto_page_id;
 					$template_quill_pagina_id = $pagina_id;
-					//$template_quill_pagina_de_edicao = true;
 					$template_quill_botoes = false;
-					//$template_background = false;
 					$template_conteudo = include 'templates/template_quill.php';
 					include 'templates/page_element.php';
 				}
 			}
 
-			$paginas_sem_verbete = array('texto', 'materia', 'questao', 'texto_apoio', 'grupo');
-			$paginas_subtipos_sem_verbete = array('modelo');
-			if ((!in_array($pagina_tipo, $paginas_sem_verbete)) && (!in_array($pagina_subtipo, $paginas_subtipos_sem_verbete)) && ($pagina_id != $user_escritorio)) {
+			if ($pagina_com_verbete) {
 				$template_id = 'verbete';
 				if ($wiki_id == false) {
 					if (($pagina_tipo == 'curso') || ($pagina_subtipo == 'plano')) {
