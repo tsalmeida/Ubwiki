@@ -2632,7 +2632,7 @@
 		return $check;
 	}
 
-	function adicionar_chave_e_traducoes()
+	function adicionar_chave_e_traducoes() // ('nova chave', 'em ingles', 'em portugues', 'em espanhol', 'em frances')
 	{
 		$args = func_get_args();
 		$nova_chave = $args[0];

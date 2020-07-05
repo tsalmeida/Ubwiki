@@ -91,7 +91,7 @@
 	include 'templates/html_head.php';
 	include 'templates/navbar.php';
 
-	$all_icons = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22);
+	$all_icons = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23);
 	$icons_to_show = array(1, 2, 3, 4, 6, 13, 16);
 	if ($user_bookmarks != array()) {
 		array_push($icons_to_show, 10);
@@ -110,6 +110,12 @@
 			array_push($icons_to_show, 18);
 		}
 	}
+
+	if (isset($_SESSION['user_opcoes']['grupos_estudo'])) {
+	    if ($_SESSION['user_opcoes']['grupos_estudo'][0] == true) {
+	        array_push($icons_to_show, 7);
+        }
+    }
 
 	if ($user_tipo == 'admin') {
 		array_push($icons_to_show, 14);
@@ -231,6 +237,16 @@
 				} else {
 					$template_conteudo_hidden .= include 'templates/artefato_item.php';
 				}
+
+				$artefato_id = 'docs_shared';
+				$artefato_subtitulo = $pagina_translated['docs shared'];
+				$fa_icone = 'fa-share-square';
+				$fa_color = 'text-info';
+				if (in_array(23, $icons_to_show)) {
+				    $template_conteudo .= include 'templates/artefato_item.php';
+                } else {
+				    $template_conteudo_hidden .= include 'templates/artefato_item.php';
+                }
 
 				$artefato_id = 'notificacoes';
 				$artefato_subtitulo = $pagina_translated['notifications'];
@@ -407,13 +423,13 @@
 
 				}
 				/*
-								$artefato_id = 'hidden_settings';
-								$artefato_subtitulo = $pagina_translated['Hidden icons settings'];
-								$artefato_modal = '#modal_hidden_settings';
-								$fa_icone = 'fa-eye';
-								$fa_color = 'text-default';
-								$artefato_icone_background = 'teal lighten-5';
-								$template_conteudo_hidden .= include 'templates/artefato_item.php';*/
+                    $artefato_id = 'hidden_settings';
+                    $artefato_subtitulo = $pagina_translated['Hidden icons settings'];
+                    $artefato_modal = '#modal_hidden_settings';
+                    $fa_icone = 'fa-eye';
+                    $fa_color = 'text-default';
+                    $artefato_icone_background = 'teal lighten-5';
+                    $template_conteudo_hidden .= include 'templates/artefato_item.php';*/
 
 				include 'templates/page_element.php';
 
@@ -527,6 +543,12 @@
 
 	$template_modal_div_id = 'modal_biblioteca_particular';
 	$template_modal_titulo = $pagina_translated['your collection'];
+	$template_modal_body_conteudo = false;
+	$template_modal_show_buttons = false;
+	include 'templates/modal.php';
+
+	$template_modal_div_id = 'modal_docs_shared';
+	$template_modal_titulo = $pagina_translated['docs shared'];
 	$template_modal_body_conteudo = false;
 	$template_modal_show_buttons = false;
 	include 'templates/modal.php';
@@ -784,6 +806,16 @@
             if (data != 0) {
                 $('#body_modal_grupos_estudo').empty();
                 $('#body_modal_grupos_estudo').append(data);
+            }
+        })
+    })
+    $(document).on('click', '#artefato_docs_shared', function () {
+        $.post('engine.php', {
+            'list_docs_shared': true
+        }, function (data) {
+            if (data != 0) {
+                $('#body_modal_docs_shared').empty();
+                $('#body_modal_docs_shared').append(data);
             }
         })
     })

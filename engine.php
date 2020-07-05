@@ -1399,7 +1399,9 @@
 		$convites_ativos = $conn->query($query);
 		$list_grupos_estudo = false;
 		$list_grupos_estudo .= "<span data-toggle='modal' data-target='#modal_grupos_estudo'>";
+		$grupos_algo = false;
 		if ($convites_ativos->num_rows > 0) {
+			$grupos_algo = true;
 			$list_grupos_estudo .= put_together_list_item('modal', '#modal_reagir_convite', 'text-warning', 'fad fa-exclamation-triangle', $pagina_translated['Você recebeu convite para participar de grupos de estudos:'], 'text-muted', 'fad fa-users');
 		}
 		$list_grupos_estudo .= put_together_list_item('modal', '#modal_criar_grupo', false, 'fad fa-plus-circle', $pagina_translated['Criar grupo de estudos'], false, 'fad fa-users', 'list-group-item-info');
@@ -1407,15 +1409,48 @@
 
 		if ($grupos_estudo_usuario->num_rows > 0) {
 			while ($grupo_estudo_usuario = $grupos_estudo_usuario->fetch_assoc()) {
+				$grupos_algo = true;
 				$grupo_estudo_id = $grupo_estudo_usuario['grupo_id'];
 				$grupo_estudo_pagina_id = return_pagina_id($grupo_estudo_id, 'grupo');
 				$list_grupos_estudo .= return_list_item($grupo_estudo_pagina_id);
 			}
-		} else {
-
 		}
 		$list_grupos_estudo = list_wrap($list_grupos_estudo);
 		echo $list_grupos_estudo;
+		if ($grupos_algo == false) {
+			if (isset($_SESSION['user_opcoes']['grupos_estudo'][0])) {
+				$user_opcoes_grupos_estudo = $_SESSION['user_opcoes']['grupos_estudo'][0];
+				if ($user_opcoes_grupos_estudo == true) {
+					$conn->query("UPDATE Opcoes SET opcao = 0 WHERE user_id = $user_id AND opcao_tipo = 'grupos_estudo'");
+				}
+			}
+		} elseif ($grupos_algo == true) {
+			if (!isset($_SESSION['user_opcoes']['grupos_estudo'][0])) {
+				$query = prepare_query("INSERT INTO Opcoes (user_id, opcao_tipo, opcao) VALUES ($user_id, 'grupos_estudo', true)");
+				error_log($query);
+				$conn->query($query);
+			} else {
+				$user_opcoes_grupos_estudo = $_SESSION['user_opcoes']['grupos_estudo'][0];
+				if ($user_opcoes_grupos_estudo == false) {
+					$query = prepare_query("UPDATE Opcoes SET opcao = 1 WHERE user_id = $user_id AND opcao_tipo = 'grupos_estudo'");
+					error_log($query);
+					$conn->query($query);
+				}
+			}
+			unset($_SESSION['user_opcoes']);
+		}
+	}
+
+	if (isset($_POST['list_docs_shared'])) {
+		$result_docs_shared = false;
+		$docs_shared = $conn->query("SELECT item_id FROM Compartilhamento WHERE compartilhamento = 'usuario' AND recipiente_id = $user_id AND estado = 1");
+		if ($docs_shared->num_rows > 0) {
+			while ($doc_shared = $docs_shared->fetch_assoc()) {
+				$result_docs_shared .= return_list_item($doc_shared['item_id']);
+			}
+		}
+		$result_docs_shared = list_wrap($result_docs_shared);
+		echo $result_docs_shared;
 	}
 
 	if (isset($_POST['list_bookmarks'])) {

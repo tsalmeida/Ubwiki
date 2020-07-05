@@ -9,7 +9,8 @@
 	}
 
 	if (isset($_POST['trigger_atualizacao'])) {
-	    $conn->query("UPDATE Paginas SET compartilhamento = 'privado' WHERE tipo = 'escritorio'");
+	    adicionar_chave_e_traducoes('docs shared', 'Shared documents', 'Documentos compartilhados');
+	    unset($_SESSION['pagina_translated']);
 	}
 
 	if (isset($_POST['trigger_atualizar_textos_size'])) {
