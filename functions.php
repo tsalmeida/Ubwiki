@@ -3238,3 +3238,28 @@
 		}
 		return false;
 	}
+
+	function return_anotacao_score() {
+		$args = func_get_args();
+		$item_id = $args[0];
+		$item_tipo = $args[1];
+		$user_id = $args[2];
+		$pagina_id = $args[3];
+
+		include 'templates/criar_conn.php';
+
+		$voto_usuario_value = false;
+		$votos = $conn->query("SELECT user_id FROM Votos WHERE pagina_id = $pagina_id AND tipo = '$item_tipo' AND objeto = $item_id AND valor = 1");
+		$votos_count = $votos->num_rows;
+		if ($votos_count > 0) {
+			$votos_usuario = $conn->query("SELECT valor FROM Votos WHERE pagina_id = $pagina_id AND tipo = '$item_tipo' AND objeto = $item_id AND user_id = $user_id");
+			if ($votos_usuario->num_rows > 0) {
+				while ($voto_usuario = $votos_usuario->fetch_assoc()) {
+					$voto_usuario_value = $voto_usuario['valor'];
+					break;
+				}
+			}
+		}
+
+		return array($votos_count, $voto_usuario_value);
+	}

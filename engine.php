@@ -1446,7 +1446,15 @@
 		$docs_shared = $conn->query("SELECT item_id FROM Compartilhamento WHERE compartilhamento = 'usuario' AND recipiente_id = $user_id AND estado = 1");
 		if ($docs_shared->num_rows > 0) {
 			while ($doc_shared = $docs_shared->fetch_assoc()) {
+				if (!isset($_SESSION['user_opcoes']['docs_shared'])) {
+					$conn->query("INSERT INTO Opcoes (user_id, opcao_tipo, opcao) VALUES ($user_id, 'docs_shared', 1)");
+					unset($_SESSION['user_opcoes']);
+				}
 				$result_docs_shared .= return_list_item($doc_shared['item_id']);
+			}
+		} else {
+			if (isset($_SESSION['user_opcoes']['docs_shared'])) {
+				$conn->query("DELETE FROM Opcoes WHERE user_id = $user_id AND opcao_tipo = 'docs_shared'");
 			}
 		}
 		$result_docs_shared = list_wrap($result_docs_shared);
@@ -1908,8 +1916,14 @@
 	if (isset($_POST['usuario_upvote_anotacao_id'])) {
 		$usuario_upvote_anotacao_id = $_POST['usuario_upvote_anotacao_id'];
 		$usuario_upvote_pagina_id = $_POST['usuario_upvote_pagina_id'];
-		$check = $conn->query("INSERT INTO Votos (user_id, pagina_id, objeto, tipo, valor) VALUES ($user_id, $usuario_upvote_pagina_id, $usuario_upvote_anotacao_id, 'anotacao_publicada', 1)");
-		echo $check;
+		$check = $conn->query("SELECT id FROM Votos WHERE user_id = $user_id AND pagina_id = $usuario_upvote_pagina_id AND objeto = $usuario_upvote_anotacao_id AND tipo = 'anotacao_publicada' AND valor = 1");
+		if ($check->num_rows > 0) {
+			error_log('this happened');
+			echo false;
+		} else {
+			$check = $conn->query("INSERT INTO Votos (user_id, pagina_id, objeto, tipo, valor) VALUES ($user_id, $usuario_upvote_pagina_id, $usuario_upvote_anotacao_id, 'anotacao_publicada', 1)");
+			echo $check;
+		}
 	}
 
 	if (isset($_POST['listar_elementos_pagina_id'])) {

@@ -45,14 +45,16 @@
 						$anotacao_publicada_user_id = $anotacao_publicada['user_id'];
 						$template_id = generateRandomString(6);
 						$template_botoes = false;
-						$anotacao_score = 0;
-						if ($anotacao_score == 0) {
+						$template_classes = 'vh-100 overflow-auto';
+						$anotacao_score_info = return_anotacao_score($anotacao_publicada_id, 'anotacao_publicada', $user_id, $pagina_id);
+						$anotacao_score = $anotacao_score_info[0];
+						$anotacao_score_usuario = $anotacao_score_info[1];
+						if ($anotacao_score_usuario == 0) {
 							$thumbs_color = 'text-muted';
-							$anotacao_score = false;
 						} else {
 							$thumbs_color = 'text-success';
 						}
-						//$template_botoes .= "<a class='$thumbs_color fontstack-subtitle upvote' id='upvote_$anotacao_publicada_id' value='$anotacao_publicada_id'><i class='fad fa-thumbs-up fa-fw'></i><span class='upvote_score' id='upvote_$anotacao_publicada_id'>$anotacao_score</span></a>";
+						$template_botoes .= "<a class='$thumbs_color fontstack-subtitle upvote' id='upvote_$anotacao_publicada_id' value='$anotacao_publicada_id'><i class='fad fa-thumbs-up fa-fw'></i><span class='upvote_score' id='upvote_$anotacao_publicada_id'>$anotacao_score</span></a>";
 						if ($anotacao_publicada_anonimato == true) {
 							$template_titulo = $pagina_translated['Anotação anônima'];
 						} else {

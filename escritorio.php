@@ -1,11 +1,8 @@
 <?php
 
 	//TODO: Notificações
-	//TODO: Os ícones devem ser determinados de acordo com as práticas do usuário. Quando há bookmarks, o ícone de bookmarks aparece, por exemplo. Essas informações precisam ser registradas em variáveis da sessão, determinadas no momento do login.
 	//TODO: Etiquetas como pastas que organizam os textos e páginas do usuário.
 	//TODO: A sala de visitas deve ter espaço para adicionar os perfis do usuário em sites de mídia social.
-	//TODO: Grupos de Estudos é um ótimo candidato para próximo ícone responsivo.
-    //TODO: A LIST OF DOCUMENTS THAT HAVE BEEN SHARED WITH THE USER
 
 	$pagina_tipo = 'escritorio';
 	include 'engine.php';
@@ -115,6 +112,10 @@
 	    if ($_SESSION['user_opcoes']['grupos_estudo'][0] == true) {
 	        array_push($icons_to_show, 7);
         }
+    }
+
+	if (isset($_SESSION['user_opcoes']['docs_shared'])) {
+	    array_push($icons_to_show, 23);
     }
 
 	if ($user_tipo == 'admin') {

@@ -1556,6 +1556,7 @@
 				        'usuario_upvote_anotacao_id': user_upvoted
 				    }, function (data) {
 				        if (data != 0) {
+				            window.location.reload(true);
 				        }
 				    })
 				})
