@@ -720,7 +720,7 @@
 					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_topico' class='text-info mr-1' id='add_topico' title='{$pagina_translated['Adicionar tópico']}'><i class='fad fa-plus-square fa-swap-opacity fa-lg fa-fw'></i></a>";
 				}
 				if ($modal_pagina_dados == true) {
-					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_remover_elementos' class='text-info mr-1' id='pagina_elementos_remover' title='{$pagina_translated['Remover elementos']}'><i class='fad fa-minus-square fa-swap-opacity fa-fw fa-lg'></i></a>";
+					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_remover_elementos' class='text-info mr-1' id='pagina_elementos_remover' title='{$pagina_translated['Remover elementos']}'><i class='fad fa-sliders-h-square fa-swap-opacity fa-fw fa-lg'></i></a>";
 					echo "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_pagina_dados' class='text-info mr-1' id='pagina_dados' title='{$pagina_translated['Editar dados']}'><i class='fad fa-info-square fa-swap-opacity fa-fw fa-lg'></i></a>";
 					$carregar_produto_setup = false;
 					if ($pagina_subtipo == 'produto') {
