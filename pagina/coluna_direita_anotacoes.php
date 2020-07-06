@@ -10,11 +10,13 @@
 	} else {
 		$template_titulo = "<span class='text-muted'><i class='fad $user_avatar_icone fa-fw'></i></span>{$pagina_translated['Notas de estudo']}";
 	}
-	$template_botoes_padrao = true;
+	$template_botoes_padrao = false;
 	$template_conteudo = include 'templates/template_quill.php';
 	$template_classes = 'elemento-anotacoes sticky-top';
 	include 'templates/page_element.php';
 
 	echo "</div>";
+
+	$anotacoes_col = true;
 
 ?>

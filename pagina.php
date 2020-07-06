@@ -1611,16 +1611,16 @@
 	if ($pagina_subtipo == 'plano') {
 		include 'pagina/planner.php';
 	}
-
-	if (!isset($anotacoes_existem)) {
-		$anotacoes_existem = false;
-	}
 	if ($carregar_quill_anotacoes == true) {
-		if ($anotacoes_existem == true) {
-			echo "<a id='mostrar_coluna_direita' class='text-light rgba-black-strong rounded m-1 p-1' tabindex='-1' title='{$pagina_translated['Notas privadas']}'><i class='fad fa-pen-alt fa-fw' style='--fa-secondary-color: #4285f4; --fa-secondary-opacity: 1.0;'></i></a>";
-		} else {
-			echo "<a id='mostrar_coluna_direita' class='text-light rgba-black-strong rounded m-1 p-1' tabindex='-1' title='{$pagina_translated['Notas privadas']}'><i class='fad fa-pen-alt fa-fw'></i></a>";
+		if (!isset($anotacoes_existem)) {
+			$anotacoes_existem = false;
 		}
+        if ($anotacoes_existem) {
+            $anotacoes_icone_colors = 'primary-color text-white';
+        } else {
+			$anotacoes_icone_colors = 'grey darken-4 text-light';
+		}
+		echo "<a id='mostrar_coluna_direita' class='$anotacoes_icone_colors rounded m-1 p-1 border' tabindex='-1' title='{$pagina_translated['Notas privadas']}'><i class='fas fa-pen-alt fa-fw'></i></a>";
 	}
 ?>
 
@@ -2936,7 +2936,6 @@
     	";
 	}
 
-	include 'templates/esconder_anotacoes.php';
 	include 'templates/bookmarks.php';
 	include 'templates/completed.php';
 	include 'templates/carousel.html';

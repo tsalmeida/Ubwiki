@@ -121,6 +121,14 @@
 		$modal_pagina_dados = false;
 	}
 
+	if (!isset($anotacoes_col)) {
+		$anotacoes_col = false;
+	}
+
+	if (!isset($anotacoes_existem)) {
+		$anotacoes_existem = false;
+	}
+
 	echo "
     <!-- Bootstrap tooltips -->
     <script type='text/javascript' src='js/popper.min.js'></script>
@@ -1608,5 +1616,49 @@
 			    })
 			})
 		</script>
+		";
+	}
+
+	if ($anotacoes_existem == true) {
+		$anotacoes_startup = "
+			$('#mostrar_coluna_direita').hide();
+			$('#mostrar_coluna_esquerda').hide();
+		";
+	} else {
+		$anotacoes_startup = "
+			$('#coluna_direita').hide();
+			$('#mostrar_coluna_esquerda').hide();
+		";
+	}
+	if ($anotacoes_col == true) {
+		echo "
+			<script type='text/javascript'>
+				
+				$anotacoes_startup
+				
+				$(document).on('click', '#mostrar_coluna_direita', function() {
+				    $('#coluna_direita').show();
+				    $('#esconder_coluna_direita').show();
+				    $(this).hide();
+				})
+				$('#anotacoes').on('click', '#esconder_coluna_direita', function() {
+				    $(this).hide();
+				    $('#coluna_direita').hide();
+				    $('#coluna_esquerda').show();
+					$('#mostrar_coluna_direita').show();
+					$('#esconder_coluna_esquerda').show();
+					$('#mostrar_coluna_esquerda').hide();
+				})
+				$('#anotacoes').on('click', '#mostrar_coluna_esquerda', function() {
+				    $('#coluna_esquerda').show();
+				    $('#esconder_coluna_esquerda').show();
+				    $(this).hide();
+				})
+				$('#anotacoes').on('click', '#esconder_coluna_esquerda', function() {
+				    $('#coluna_esquerda').hide();
+				    $('#mostrar_coluna_esquerda').show();
+				    $(this).hide();
+				})
+			</script>
 		";
 	}

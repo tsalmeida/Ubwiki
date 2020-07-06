@@ -173,12 +173,11 @@
 		$carregar_publicar_resposta = true;
 		$template_botoes .= "
 			<a data-target='#modal_publicar_resposta' data-toggle='modal' class='text-secondary'><i class='fad fa-comment-alt-edit fa-fw'></i></a>
-		";
-		$template_botoes .= "
-			<a href='pagina.php?texto_id=$quill_texto_id&corr=1' class='text-warning' title='{$pagina_translated['review']}'><i class='fad fa-highlighter fa-fw'></i></a>
+			<a href='pagina.php?texto_id=$quill_texto_id&corr=1' class='text-warning mr-3' title='{$pagina_translated['review']}'><i class='fad fa-highlighter fa-fw'></i></a>
 			<a href='javascript:void(0);' id='esconder_coluna_esquerda' title='{$pagina_translated['expand']}' class='text-primary'><i class='fad fa-arrow-alt-square-left fa-fw'></i></a>
     		<a href='javascript:void(0);' id='mostrar_coluna_esquerda' title='{$pagina_translated['compress']}' class='text-primary'><i class='fad fa-arrow-alt-square-right fa-fw'></i></a>
 			<a href='pagina.php?texto_id=$quill_texto_id' id='compartilhar_anotacao' title='{$pagina_translated['Página deste documento']}' class='text-primary'><i class='fad fa-external-link-square fa-fw'></i></a>
+			<a href='javascript:void(0);' id='esconder_coluna_direita' title='{$pagina_translated['Esconder']}' class='text-primary'><i class='fad fa-times-square fa-fw'></i></a>
 		";
 	}
 
