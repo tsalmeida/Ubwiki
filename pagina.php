@@ -12,6 +12,7 @@
     //TODO: If the user has written anything, both columns should be visible on pageload.
     //TODO: Verbetes relacionados should only load when the user clicks on it (and only once).
     //TODO: Author page. Shouldn't be hard.
+    //TODO: pagina_curso_id not being set.
 
 	$pagina_tipo = 'pagina_geral';
 

@@ -1,12 +1,5 @@
 <?php
 	
-	if (isset($_POST['nova_edicao_ano'])) {
-		$nova_edicao_ano = $_POST['nova_edicao_ano'];
-		$nova_edicao_titulo = $_POST['nova_edicao_titulo'];
-		$query = prepare_query("INSERT INTO sim_edicoes (curso_id, ano, titulo, user_id) VALUES ($pagina_curso_id, $nova_edicao_ano, '$nova_edicao_titulo', $user_id)");
-		$conn->query($query);
-	}
-	
 	$template_modal_div_id = 'modal_adicionar_simulado';
 	$template_modal_titulo = $pagina_translated["Edições do concurso"];
 	$template_modal_show_buttons = false;

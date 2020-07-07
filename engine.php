@@ -1967,6 +1967,8 @@
 						break;
 					case 'referencia':
 					case 'imagem':
+					case 'video':
+					case 'audio':
 						$pagina_elemento_elemento_id = $pagina_elemento['elemento_id'];
 						$pagina_elemento_pagina_id = return_pagina_id($pagina_elemento_elemento_id, 'elemento');
 						$pagina_elemento_pagina_titulo = return_pagina_titulo($pagina_elemento_pagina_id);
