@@ -13,7 +13,7 @@
 		header('Location:pagina.php?pagina_id=3');
 		exit();
 	}
-	$pagina_info = return_pagina_info($pagina_id);
+	$pagina_info = return_pagina_info($pagina_id, true);
 	if ($pagina_info != false) {
 		$pagina_titulo = $pagina_info[6];
 	} else {

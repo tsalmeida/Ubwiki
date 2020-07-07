@@ -33,7 +33,7 @@
 		$busca_titulos = false;
 		if ($curso_paginas != false) {
 			foreach ($curso_paginas as $curso_pagina_id) {
-				$curso_pagina_info = return_pagina_info($curso_pagina_id);
+				$curso_pagina_info = return_pagina_info($curso_pagina_id, true);
 				$curso_pagina_titulo = $curso_pagina_info[6];
 				$curso_pagina_estado = $curso_pagina_info[3];
 				$curso_pagina_icone = return_estado_icone($curso_pagina_estado);

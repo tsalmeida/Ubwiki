@@ -152,7 +152,7 @@
 
 	$texto_revisao_ativa = check_review_state($pagina_id);
 
-	$pagina_info = return_pagina_info($pagina_id);
+	$pagina_info = return_pagina_info($pagina_id, true, true, true);
 	if ($pagina_info != false) {
 		$pagina_criacao = $pagina_info[0];
 		$pagina_item_id = (int)$pagina_info[1];
@@ -215,7 +215,7 @@
 		$familia_info = return_familia($pagina_id);
 		$topico_nivel = $familia_info[0];
 		$topico_curso_pagina_id = (int)$familia_info[1];
-		$topico_curso_pagina_info = return_pagina_info($topico_curso_pagina_id);
+		$topico_curso_pagina_info = return_pagina_info($topico_curso_pagina_id, true);
 		$topico_curso_titulo = $topico_curso_pagina_info[6];
 		$pagina_curso_id = $topico_curso_pagina_info[1];
 		$pagina_curso_pagina_id = (int)$topico_curso_pagina_id;
@@ -286,7 +286,7 @@
 	} elseif (($pagina_tipo == 'materia') || ($pagina_tipo == 'curso')) {
 		$familia_info = return_familia($pagina_id);
 		$pagina_curso_pagina_id = (int)$familia_info[1];
-		$pagina_curso_info = return_pagina_info($pagina_curso_pagina_id);
+		$pagina_curso_info = return_pagina_info($pagina_curso_pagina_id, true);
 		$pagina_curso_id = (int)$pagina_curso_info[1];
 		$pagina_curso_user_id = (int)$pagina_curso_info[5];
 		$pagina_curso_compartilhamento = $pagina_curso_info[4];
@@ -493,7 +493,7 @@
 			$open_review_modal = true;
 		}
 	} elseif ($pagina_tipo == 'secao') {
-		$pagina_original_info = return_pagina_info($pagina_item_id);
+		$pagina_original_info = return_pagina_info($pagina_item_id, false, true);
 		$pagina_original_compartilhamento = $pagina_original_info[4];
 		$pagina_compartilhamento = $pagina_original_compartilhamento;
 		$pagina_original_user_id = $pagina_original_info[5];
@@ -535,7 +535,7 @@
 		$resposta_id = $pagina_id;
 		$resposta_info = return_pagina_info($pagina_id);
 		$original_id = $resposta_info[1];
-		$original_info = return_pagina_info($original_id);
+		$original_info = return_pagina_info($original_id, true, true);
 		$original_user_id = $original_info[5];
 		if ($original_user_id != $user_id) {
 			$check_compartilhamento = return_compartilhamento($original_id, $user_id);
@@ -831,7 +831,6 @@
         </div>
         <div class='py-2 text-right col-md-4 col-sm-12'>
 			<?php
-                echo "<a id='swatch_choice' data-target='#modal_escolher_cores' data-toggle='modal' class='ml-1 brown-text rounded swatch_button' value='default'><i class='fad fa-palette fa-fw fa-lg'></i></a>";
 				if ($pagina_tipo == 'curso') {
 					if ($user_id != false) {
 						$carregar_toggle_curso = true;
@@ -1274,9 +1273,11 @@
 
 				if ($pagina_tipo == 'curso') {
 					if ($user_tipo == 'admin') {
-						$curso_simulados = $conn->query("SELECT extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'simulado'");
+					    $query = prepare_query("SELECT extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'simulado'");
+						$curso_simulados = $conn->query($query);
 					} else {
-						$curso_simulados = $conn->query("SELECT extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'simulado' AND estado = 1");
+					    $query = prepare_query("SELECT extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'simulado' AND estado = 1");
+						$curso_simulados = $conn->query($query);
 					}
 					if ($curso_simulados->num_rows > 0) {
 						$template_id = 'lista_simulados';
@@ -2899,10 +2900,12 @@
 	}
 	if ($pagina_tipo == 'texto') {
 		$sticky_toolbar = true;
-		$quill_extra_buttons = false;
+		if (!isset($quill_extra_buttons)) {
+			$quill_extra_buttons = false;
+		}
 		if ($texto_user_id == $user_id) {
 			if ($pagina_compartilhamento == 'privado') {
-				$quill_extra_buttons = "<a id='apagar_anotacao' class='text-danger ql-formats' title='Destruir anotação' data-toggle='modal' data-target='#modal_apagar_anotacao' href='javascript:void(0);'><i class='fad fa-shredder fa-fw'></i></a>";
+				$quill_extra_buttons .= "<a id='apagar_anotacao' class='text-danger ql-formats' title='Destruir anotação' data-toggle='modal' data-target='#modal_apagar_anotacao' href='javascript:void(0);'><i class='fad fa-shredder fa-fw'></i></a>";
 			}
 		}
 		$quill_extra_buttons = mysqli_real_escape_string($conn, $quill_extra_buttons);

@@ -117,7 +117,9 @@
 			$template_vazio = true;
 		}
 	}
-
+	if ($quill_verbete_content == '{"ops":[{"insert":"\n"}]}') {
+		$quill_verbete_content = false;
+	}
 	if ($quill_verbete_content != false) {
 		if ($template_id == 'verbete') {
 			if ($pagina_estado == 0) {
@@ -158,14 +160,16 @@
 
 	if ($quill_edicao == true) {
 		$template_botoes_salvar .= "
-			<a href='javascript:void(0)' id='{$template_id}_trigger_save' title='{$pagina_translated['Salvar mudanças']}' class='mr-2 text-primary'><i class='fad fa-save fa-fw'></i></a>";
+			<a href='javascript:void(0)' id='{$template_id}_trigger_save' title='{$pagina_translated['Salvar mudanças']}' class='text-primary ql-formats'><i class='fad fa-save fa-fw'></i></a>";
 	}
 	if (($quill_texto_id != false) && ($template_id != 'modelo')) {
-		$template_botoes_salvar .= "<a href='historico.php?texto_id=$quill_texto_id' title='{$pagina_translated['Histórico do documento']}' class='mr-2 text-default'><i class='fad fa-history fa-fw'></i></a>";
+		$template_botoes_salvar .= "<a href='historico.php?texto_id=$quill_texto_id' title='{$pagina_translated['Histórico do documento']}' class='text-default ql-formats'><i class='fad fa-history fa-fw'></i></a>";
 		/*$template_botoes .= "
 			<a href='pagina.php?texto_id=$quill_texto_id' title='Editar na página de edição'><i class='fad fa-external-link-square fa-fw'></i></a>
 		";*/
 	}
+
+	$template_botoes_salvar .= "<a class='ql-formats brown-text rounded swatch_button' value='default'><i class='fad fa-palette fa-fw'></i></a>";
 
 	$template_botoes_salvar = mysqli_real_escape_string($conn, $template_botoes_salvar);
 
@@ -180,6 +184,7 @@
 			<a href='javascript:void(0);' id='esconder_coluna_direita' title='{$pagina_translated['Esconder']}' class='text-primary'><i class='fad fa-times-square fa-fw'></i></a>
 		";
 	}
+
 
 	if ($quill_edicao == true) {
 		$template_botoes .= "
@@ -384,5 +389,6 @@
 	unset($template_quill_pagina_de_edicao);
 	unset($quill_texto_id);
 	unset($template_quill_botoes);
+	unset($quill_extra_buttons);
 
 	return $quill_result;

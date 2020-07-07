@@ -46,7 +46,7 @@
 			} else {
 				$li_color = 'opacity-0';
 			}
-			$topico_pagina_info = return_pagina_info($topico_pagina_id);
+			$topico_pagina_info = return_pagina_info($topico_pagina_id, true);
 			if ($topico_pagina_info == false) {
 				continue;
 			}
@@ -65,7 +65,7 @@
 			if ($subtopicos->num_rows > 0) {
 				while ($subtopico = $subtopicos->fetch_assoc()) {
 					$subtopico_pagina_id = $subtopico['elemento_id'];
-					$subtopico_pagina_info = return_pagina_info($subtopico_pagina_id);
+					$subtopico_pagina_info = return_pagina_info($subtopico_pagina_id, true);
 					$subtopico_pagina_estado = $subtopico_pagina_info[3];
 					$subtopico_pagina_titulo = $subtopico_pagina_info[6];
 					$topico_completo = false;
@@ -90,7 +90,7 @@
 					if ($subsubtopicos->num_rows > 0) {
 						while ($subsubtopico = $subsubtopicos->fetch_assoc()) {
 							$subsubtopico_pagina_id = $subsubtopico['elemento_id'];
-							$subsubtopico_pagina_info = return_pagina_info($subsubtopico_pagina_id);
+							$subsubtopico_pagina_info = return_pagina_info($subsubtopico_pagina_id, true);
 							$subsubtopico_pagina_estado = $subsubtopico_pagina_info[3];
 							$subsubtopico_pagina_titulo = $subsubtopico_pagina_info[6];
 							$topico_completo = false;
@@ -114,7 +114,7 @@
 							if ($subsubsubtopicos->num_rows > 0) {
 								while ($subsubsubtopico = $subsubsubtopicos->fetch_assoc()) {
 									$subsubsubtopico_pagina_id = $subsubsubtopico['elemento_id'];
-									$subsubsubtopico_pagina_info = return_pagina_info($subsubsubtopico_pagina_id);
+									$subsubsubtopico_pagina_info = return_pagina_info($subsubsubtopico_pagina_id, true);
 									$subsubsubtopico_pagina_estado = $subsubsubtopico_pagina_info[3];
 									$subsubsubtopico_pagina_titulo = $subsubsubtopico_pagina_info[6];
 									$topico_completo = false;
@@ -139,7 +139,7 @@
 									if ($subsubsubsubtopicos->num_rows > 0) {
 										while ($subsubsubsubtopico = $subsubsubsubtopicos->fetch_assoc()) {
 											$subsubsubsubtopico_pagina_id = $subsubsubsubtopico['elemento_id'];
-											$subsubsubsubtopico_pagina_info = return_pagina_info($subsubsubsubtopico_pagina_id);
+											$subsubsubsubtopico_pagina_info = return_pagina_info($subsubsubsubtopico_pagina_id, true);
 											$subsubsubsubtopico_pagina_estado = $subsubsubsubtopico_pagina_info[3];
 											$subsubsubsubtopico_pagina_titulo = $subsubsubsubtopico_pagina_info[6];
 											$topico_completo = false;

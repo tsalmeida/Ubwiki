@@ -204,7 +204,7 @@
 										array_push($elementos_contados, $modificado_pagina_id);
 										$count++;
 									}
-									$pagina_info = return_pagina_info($modificado_pagina_id);
+									$pagina_info = return_pagina_info($modificado_pagina_id, true);
 									$modificado_pagina_titulo = $pagina_info[6];
 									$modificado_elemento_id = $pagina_info[1];
 									$modificado_elemento_info = return_elemento_info($modificado_elemento_id);

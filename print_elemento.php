@@ -6,7 +6,7 @@
 		exit();
 	}
 
-	$pagina_info = return_pagina_info($pagina_id);
+	$pagina_info = return_pagina_info($pagina_id, true);
 	if ($pagina_info != false) {
 		$pagina_item_id = (int)$pagina_info[1];
 		$pagina_tipo = $pagina_info[2];

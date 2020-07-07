@@ -63,7 +63,7 @@
 			$item_user_apelido = return_apelido_user_id($item_user_id);
 			
 			$artefato_tipo = $item_tipo;
-			$artefato_pagina_info = return_pagina_info($item_id);
+			$artefato_pagina_info = return_pagina_info($item_id, true);
 			$artefato_titulo = $artefato_pagina_info[6];
 			$artefato_pagina_tipo = $artefato_pagina_info[2];
 			$artefato_pagina_subtipo = $artefato_pagina_info[8];

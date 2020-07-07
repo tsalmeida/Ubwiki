@@ -21,7 +21,7 @@
 	}
 	
 	if (isset($pagina_id)) {
-		$pagina_info = return_pagina_info($pagina_id);
+		$pagina_info = return_pagina_info($pagina_id, true, true, true);
 		if ($pagina_info != false) {
 			$pagina_criacao = $pagina_info[0];
 			$pagina_item_id = (int)$pagina_info[1];

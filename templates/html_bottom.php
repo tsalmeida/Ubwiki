@@ -1178,24 +1178,24 @@
 				        $('#verbete_trigger_save').click();
   					}
 				});
-				$(document).on('click', '#swatch_choice', function() {
+				$(document).on('click', '.swatch_button', function() {
 				    current_color = $(this).attr('value');
 				    if (current_color == 'default') {
-				        $('#swatch_choice').attr('value', 'yellow');
+				        $('.swatch_button').attr('value', 'yellow');
 				    	$('.ql-editor').addClass('orange p-1 lighten-5 brown-text rounded fontstack-body-serif');
-						$('#swatch_choice').removeClass('brown-text');
-				    	$('#swatch_choice').addClass('text-warning');
+						$('.swatch_button').removeClass('brown-text');
+				    	$('.swatch_button').addClass('text-warning');
 				    } else if (current_color == 'yellow') {
-				        $('#swatch_choice').attr('value', 'dark');
+				        $('.swatch_button').attr('value', 'dark');
 						$('.ql-editor').removeClass('orange lighten-5 brown-text fontstack-body-serif');
 				    	$('.ql-editor').addClass('grey darken-4 yellow-text fontstack-mono');
-						$('#swatch_choice').removeClass('text-warning');
-				    	$('#swatch_choice').addClass('text-dark');
+						$('.swatch_button').removeClass('text-warning');
+				    	$('.swatch_button').addClass('text-dark');
 				    } else if (current_color == 'dark') {
-				        $('#swatch_choice').attr('value', 'default');
+				        $('.swatch_button').attr('value', 'default');
 						$('.ql-editor').removeClass('grey p-1 darken-4 yellow-text fontstack-mono');
-						$('#swatch_choice').removeClass('text-dark');
-				    	$('#swatch_choice').addClass('brown-text');
+						$('.swatch_button').removeClass('text-dark');
+				    	$('.swatch_button').addClass('brown-text');
 				    }
 				});
 			</script>

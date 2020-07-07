@@ -215,7 +215,7 @@
 		$user_opcoes = array();
 	}
 
-	$raiz_info = return_pagina_info($raiz_ativa);
+	$raiz_info = return_pagina_info($raiz_ativa, true);
 	$raiz_tipo = $raiz_info[2];
 	$raiz_item_id = $raiz_info[1];
 	if ($raiz_tipo == 'curso') {
@@ -1421,7 +1421,8 @@
 			if (isset($_SESSION['user_opcoes']['grupos_estudo'][0])) {
 				$user_opcoes_grupos_estudo = $_SESSION['user_opcoes']['grupos_estudo'][0];
 				if ($user_opcoes_grupos_estudo == true) {
-					$conn->query("UPDATE Opcoes SET opcao = 0 WHERE user_id = $user_id AND opcao_tipo = 'grupos_estudo'");
+					$query = prepare_query("UPDATE Opcoes SET opcao = 0 WHERE user_id = $user_id AND opcao_tipo = 'grupos_estudo'");
+					$conn->query($query);
 				}
 			}
 		} elseif ($grupos_algo == true) {
@@ -1443,18 +1444,21 @@
 
 	if (isset($_POST['list_docs_shared'])) {
 		$result_docs_shared = false;
-		$docs_shared = $conn->query("SELECT item_id FROM Compartilhamento WHERE compartilhamento = 'usuario' AND recipiente_id = $user_id AND estado = 1");
+		$query = prepare_query("SELECT item_id FROM Compartilhamento WHERE compartilhamento = 'usuario' AND recipiente_id = $user_id AND estado = 1");
+		$docs_shared = $conn->query($query);
 		if ($docs_shared->num_rows > 0) {
 			while ($doc_shared = $docs_shared->fetch_assoc()) {
 				if (!isset($_SESSION['user_opcoes']['docs_shared'])) {
-					$conn->query("INSERT INTO Opcoes (user_id, opcao_tipo, opcao) VALUES ($user_id, 'docs_shared', 1)");
+					$query = prepare_query("INSERT INTO Opcoes (user_id, opcao_tipo, opcao) VALUES ($user_id, 'docs_shared', 1)");
+					$conn->query($query);
 					unset($_SESSION['user_opcoes']);
 				}
 				$result_docs_shared .= return_list_item($doc_shared['item_id']);
 			}
 		} else {
 			if (isset($_SESSION['user_opcoes']['docs_shared'])) {
-				$conn->query("DELETE FROM Opcoes WHERE user_id = $user_id AND opcao_tipo = 'docs_shared'");
+				$query = prepare_query("DELETE FROM Opcoes WHERE user_id = $user_id AND opcao_tipo = 'docs_shared'");
+				$conn->query($query);
 			}
 		}
 		$result_docs_shared = list_wrap($result_docs_shared);
@@ -1866,7 +1870,8 @@
 		echo $check;
 		if (!isset($_SESSION['user_opcoes']['show_planos'])) {
 			$_SESSION['user_opcoes']['show_planos'] = array(true, 'auto');
-			$conn->query("INSERT INTO Opcoes (user_id, opcao_tipo, opcao, opcao_string) VALUES ($user_id, 'show_planos', true, 'auto')");
+			$query = prepare_query("INSERT INTO Opcoes (user_id, opcao_tipo, opcao, opcao_string) VALUES ($user_id, 'show_planos', true, 'auto')");
+			$conn->query($query);
 		}
 	}
 
@@ -1906,7 +1911,8 @@
 			$query = prepare_query("INSERT INTO Paginas (item_id, tipo, subtipo, compartilhamento, user_id) VALUES ($novo_simulado_id, 'pagina', 'simulado', 'privado', $user_id)");
 			$conn->query($query);
 			$novo_simulado_pagina_id = $conn->insert_id;
-			$conn->query("UPDATE Simulados SET pagina_id = $novo_simulado_pagina_id WHERE id = $novo_simulado_id");
+			$query = prepare_query("UPDATE Simulados SET pagina_id = $novo_simulado_pagina_id WHERE id = $novo_simulado_id");
+			$conn->query($query);
 			$query = prepare_query("INSERT INTO Paginas_elementos (estado, pagina_id, pagina_tipo, elemento_id, tipo, extra, user_id) VALUES (0, $criar_simulado_pagina_id, '$criar_simulado_pagina_tipo', $novo_simulado_id, 'simulado', $novo_simulado_pagina_id, $user_id)");
 			$check = $conn->query($query);
 		}
@@ -1916,12 +1922,14 @@
 	if (isset($_POST['usuario_upvote_anotacao_id'])) {
 		$usuario_upvote_anotacao_id = $_POST['usuario_upvote_anotacao_id'];
 		$usuario_upvote_pagina_id = $_POST['usuario_upvote_pagina_id'];
-		$check = $conn->query("SELECT id FROM Votos WHERE user_id = $user_id AND pagina_id = $usuario_upvote_pagina_id AND objeto = $usuario_upvote_anotacao_id AND tipo = 'anotacao_publicada' AND valor = 1");
+		$query = prepare_query("SELECT id FROM Votos WHERE user_id = $user_id AND pagina_id = $usuario_upvote_pagina_id AND objeto = $usuario_upvote_anotacao_id AND tipo = 'anotacao_publicada' AND valor = 1");
+		$check = $conn->query($query);
 		if ($check->num_rows > 0) {
 			error_log('this happened');
 			echo false;
 		} else {
-			$check = $conn->query("INSERT INTO Votos (user_id, pagina_id, objeto, tipo, valor) VALUES ($user_id, $usuario_upvote_pagina_id, $usuario_upvote_anotacao_id, 'anotacao_publicada', 1)");
+			$query = prepare_query("INSERT INTO Votos (user_id, pagina_id, objeto, tipo, valor) VALUES ($user_id, $usuario_upvote_pagina_id, $usuario_upvote_anotacao_id, 'anotacao_publicada', 1)");
+			$check = $conn->query($query);
 			echo $check;
 		}
 	}
@@ -1929,7 +1937,8 @@
 	if (isset($_POST['listar_elementos_pagina_id'])) {
 		$final_result_elementos = false;
 		$listar_elementos_pagina_id = $_POST['listar_elementos_pagina_id'];
-		$pagina_elementos = $conn->query("SELECT * FROM Paginas_elementos WHERE pagina_id = $listar_elementos_pagina_id ORDER BY id DESC");
+		$query = prepare_query("SELECT * FROM Paginas_elementos WHERE pagina_id = $listar_elementos_pagina_id ORDER BY id DESC");
+		$pagina_elementos = $conn->query($query);
 		if ($pagina_elementos->num_rows > 0) {
 			while ($pagina_elemento = $pagina_elementos->fetch_assoc()) {
 				$pagina_elemento_estado = $pagina_elemento['estado'];
@@ -1997,12 +2006,14 @@
 
 	if (isset($_POST['desabilitar_elemento_id'])) {
 		$desabilitar_elemento_id = $_POST['desabilitar_elemento_id'];
-		$check = $conn->query("UPDATE Paginas_elementos SET estado = 0 WHERE id = $desabilitar_elemento_id");
+		$query = prepare_query("UPDATE Paginas_elementos SET estado = 0 WHERE id = $desabilitar_elemento_id");
+		$check = $conn->query($query);
 		echo $check;
 	}
 	if (isset($_POST['reativar_elemento_id'])) {
 		$reativar_elemento_id = $_POST['reativar_elemento_id'];
-		$check = $conn->query("UPDATE Paginas_elementos SET estado = 1 WHERE id = $reativar_elemento_id");
+		$query = prepare_query("UPDATE Paginas_elementos SET estado = 1 WHERE id = $reativar_elemento_id");
+		$check = $conn->query($query);
 		echo $check;
 	}
 

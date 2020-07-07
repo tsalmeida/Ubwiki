@@ -768,7 +768,8 @@
 		if ($texto_id == false) {
 			return false;
 		}
-		$textos = $conn->query("SELECT curso_id, tipo, titulo, page_id, criacao, verbete_html, verbete_text, verbete_content, user_id, pagina_id, pagina_tipo, compartilhamento, texto_pagina_id FROM Textos WHERE id = $texto_id");
+		$query = prepare_query("SELECT curso_id, tipo, titulo, page_id, criacao, verbete_html, verbete_text, verbete_content, user_id, pagina_id, pagina_tipo, compartilhamento, texto_pagina_id FROM Textos WHERE id = $texto_id");
+		$textos = $conn->query($query);
 		if ($textos->num_rows > 0) {
 			while ($texto = $textos->fetch_assoc()) {
 				$texto_curso_id = $texto['curso_id']; // 0
@@ -1129,53 +1130,63 @@
 
 	function return_pagina_titulo($pagina_id)
 	{
+		$args = func_get_args();
+		$pagina_id = $args[0];
+		$pagina_tipo = false;
+		$pagina_subtipo = false;
+		$pagina_item_id = false;
+		if (isset($args[1])) {
+			$pagina_tipo = $args[1];
+		}
+		if (isset($args[2])) {
+			$pagina_subtipo = $args[2];
+		}
+		if (isset($args[3])) {
+			$pagina_item_id = $args[3];
+		}
 		if ($pagina_id == false) {
 			return false;
 		}
-		include 'templates/criar_conn.php';
-		$pagina_titulo = false;
+		if ($pagina_tipo == false) {
+			$pagina_info = return_pagina_info($pagina_id, false, false, false);
+			$pagina_tipo = $pagina_info[2];
+			$pagina_subtipo = $pagina_info[8];
+			$pagina_item_id = $pagina_info[1];
+		}
 		$buscar_pagina = false;
-		$query = prepare_query("SELECT tipo, subtipo, item_id FROM Paginas WHERE id = $pagina_id");
-		$paginas = $conn->query($query);
-		if ($paginas->num_rows > 0) {
-			while ($pagina = $paginas->fetch_assoc()) {
-				$pagina_tipo = $pagina['tipo'];
-				$pagina_item_id = $pagina['item_id'];
-				$pagina_subtipo = $pagina['subtipo'];
-				if ($pagina_subtipo == 'Plano de estudos') {
-					$parent_pagina_id = $pagina_item_id;
-					$parent_pagina_titulo = return_pagina_titulo($parent_pagina_id);
-					$pagina_titulo = $parent_pagina_titulo;
-				} else {
-					switch ($pagina_tipo) {
-						case 'topico':
-						case 'materia':
-						case 'curso':
-							$buscar_pagina = true;
-							break;
-						case 'grupo':
-							$pagina_titulo = return_grupo_titulo_id($pagina_item_id);
-							break;
-						case 'texto':
-							$pagina_texto_info = return_texto_info($pagina_item_id);
-							$pagina_titulo = $pagina_texto_info[2];
-							break;
-						case 'elemento':
-							$pagina_titulo = return_titulo_elemento($pagina_item_id);
-							break;
-						case 'questao':
-							$pagina_titulo = return_questao_titulo($pagina_item_id);
-							break;
-						case 'escritorio':
-							$pagina_titulo = return_apelido_user_id($pagina_item_id);
-							break;
-						default:
-							$buscar_pagina = true;
-					}
-				}
+		if ($pagina_subtipo == 'Plano de estudos') {
+			$parent_pagina_id = $pagina_item_id;
+			$parent_pagina_titulo = return_pagina_titulo($parent_pagina_id);
+			$pagina_titulo = $parent_pagina_titulo;
+		} else {
+			switch ($pagina_tipo) {
+				case 'topico':
+				case 'materia':
+				case 'curso':
+					$buscar_pagina = true;
+					break;
+				case 'grupo':
+					$pagina_titulo = return_grupo_titulo_id($pagina_item_id);
+					break;
+				case 'texto':
+					$pagina_texto_info = return_texto_info($pagina_item_id);
+					$pagina_titulo = $pagina_texto_info[2];
+					break;
+				case 'elemento':
+					$pagina_titulo = return_titulo_elemento($pagina_item_id);
+					break;
+				case 'questao':
+					$pagina_titulo = return_questao_titulo($pagina_item_id);
+					break;
+				case 'escritorio':
+					$pagina_titulo = return_apelido_user_id($pagina_item_id);
+					break;
+				default:
+					$buscar_pagina = true;
 			}
 		}
 		if ($buscar_pagina == true) {
+			include 'templates/criar_conn.php';
 			$query = prepare_query("SELECT extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'titulo' ORDER BY id DESC");
 			$paginas_elementos = $conn->query($query);
 			if ($paginas_elementos->num_rows > 0) {
@@ -1251,8 +1262,22 @@
 		return $result;
 	}
 
-	function return_pagina_info($pagina_id)
+	function return_pagina_info()
 	{
+		$args = func_get_args();
+		$pagina_id = $args[0];
+		$find_titulo = false;
+		$find_publicacao = false;
+		$find_colaboracao = false;
+		if (isset($args[1])) {
+			$find_titulo = $args[1];
+		}
+		if (isset($args[2])) {
+			$find_publicacao = $args[2];
+		}
+		if (isset($args[3])) {
+			$find_colaboracao = $args[3];
+		}
 		if ($pagina_id == false) {
 			return false;
 		}
@@ -1272,11 +1297,23 @@
 				}
 				$pagina_compartilhamento = $pagina['compartilhamento']; // 4
 				$pagina_user_id = $pagina['user_id']; // 5
-				$pagina_titulo = return_pagina_titulo($pagina_id); // 6
+				if ($find_titulo == true) {
+					$pagina_titulo = return_pagina_titulo($pagina_id, $pagina_tipo, $pagina['subtipo'], $pagina_item_id); // 6
+				} else {
+					$pagina_titulo = false;
+				}
 				$pagina_etiqueta_id = $pagina['etiqueta_id']; // 7
 				$pagina_subtipo = $pagina['subtipo']; // 8
-				$pagina_publicacao = return_publicacao($pagina_id); // 9
-				$pagina_colaboracao = return_colaboracao($pagina_id); // 10
+				if ($find_publicacao == true) {
+					$pagina_publicacao = return_publicacao($pagina_id); // 9
+				} else {
+					$pagina_publicacao = false;
+				}
+				if ($find_colaboracao == true) {
+					$pagina_colaboracao = return_colaboracao($pagina_id); // 10
+				} else {
+					$pagina_colaboracao = false;
+				}
 				$pagina_link = $pagina['link'];
 				return array($pagina_criacao, $pagina_item_id, $pagina_tipo, $pagina_estado, $pagina_compartilhamento, $pagina_user_id, $pagina_titulo, $pagina_etiqueta_id, $pagina_subtipo, $pagina_publicacao, $pagina_colaboracao, $pagina_link);
 			}
@@ -1464,7 +1501,7 @@
 			return false;
 		}
 		include 'templates/criar_conn.php';
-		$query = prepare_query("SELECT compartilhamento FROM Compartilhamento WHERE tipo = 'colaboracao' AND estado = 1 ORDER BY id DESC");
+		$query = prepare_query("SELECT compartilhamento FROM Compartilhamento WHERE tipo = 'colaboracao' AND estado = 1 AND item_id = $item_id ORDER BY id DESC");
 		$colaboracao = $conn->query($query);
 		if ($colaboracao->num_rows > 0) {
 			while ($colaboracao_tipo = $colaboracao->fetch_assoc()) {
@@ -2117,7 +2154,7 @@
 		if ($pagina_id == false) {
 			return false;
 		} else {
-			$pagina_info = return_pagina_info($pagina_id);
+			$pagina_info = return_pagina_info($pagina_id, true);
 			if ($pagina_info == false) {
 				return false;
 			}
@@ -2820,7 +2857,7 @@
 			$item_planejamento_subtipo = $item_planejamento_info[18];
 			$item_planejamento_ano = $item_planejamento_info[8];
 		} elseif ($item_planejamento_categoria == 'pagina') {
-			$item_planejamento_info = return_pagina_info($item_planejamento_elemento_id);
+			$item_planejamento_info = return_pagina_info($item_planejamento_elemento_id, true);
 			$item_planejamento_pagina_id = $item_planejamento_elemento_id;
 			$item_planejamento_titulo = $item_planejamento_info[6];
 			$item_planejamento_autor = false;
@@ -3189,7 +3226,8 @@
 		}
 	}
 
-	function return_admin_status($pagina_id, $pagina_tipo, $pagina_subtipo, $user_id, $user_tipo, $pagina_user_id, $pagina_compartilhamento, $pagina_curso_user_id, $texto_page_id, $pagina_original_compartilhamento) {
+	function return_admin_status($pagina_id, $pagina_tipo, $pagina_subtipo, $user_id, $user_tipo, $pagina_user_id, $pagina_compartilhamento, $pagina_curso_user_id, $texto_page_id, $pagina_original_compartilhamento)
+	{
 		$paginas_de_curso = array('curso', 'materia', 'topico');
 		if ($pagina_tipo == 'sistema') {
 			if ($user_tipo == 'admin') {
@@ -3239,7 +3277,8 @@
 		return false;
 	}
 
-	function return_anotacao_score() {
+	function return_anotacao_score()
+	{
 		$args = func_get_args();
 		$item_id = $args[0];
 		$item_tipo = $args[1];

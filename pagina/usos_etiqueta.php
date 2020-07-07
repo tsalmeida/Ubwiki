@@ -11,7 +11,7 @@
 		while ($uso_etiqueta = $usos_etiqueta->fetch_assoc()) {
 			$uso_etiqueta_pagina_id = $uso_etiqueta['pagina_id'];
 			$uso_etiqueta_pagina_tipo = $uso_etiqueta['pagina_tipo'];
-			$uso_etiqueta_pagina_info = return_pagina_info($uso_etiqueta_pagina_id);
+			$uso_etiqueta_pagina_info = return_pagina_info($uso_etiqueta_pagina_id, true);
 			$uso_etiqueta_pagina_titulo = $uso_etiqueta_pagina_info[6];
 			$uso_etiqueta_pagina_estado = $uso_etiqueta_pagina_info[3];
 			$uso_etiqueta_pagina_estado_icone = return_estado_icone($uso_etiqueta_pagina_estado);
