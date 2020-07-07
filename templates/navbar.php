@@ -42,9 +42,6 @@
 			echo "<a class='dropdown-item navlink z-depth-0' href='ubwiki.php'><i class='fad fa-portal-enter fa-fw'></i> {$pagina_translated['environments']}</a>";
 		}
 		//echo "<a class='dropdown-item navlink z-depth-0' href='carrinho.php'><i class='fad fa-shopping-cart fa-fw'></i> {$pagina_translated['your cart']}</a>";
-		if ($user_tipo == 'admin') {
-			echo "<a class='dropdown-item navlink z-depth-0' href='admin.php'><i class='fad fa-cogs fa-fw'></i> {$pagina_translated['administrators page']}</a>";
-		}
 		if (isset($raiz_sigla)) {
 			if (!in_array($pagina_tipo, array('curso', 'escritorio'))) {
 				echo "<a class='dropdown-item navlink z-depth-0' href='pagina.php?pagina_id=$raiz_ativa' title='$raiz_titulo'><i class='fad fa-history fa-fw'></i> $raiz_sigla</a>";
