@@ -1522,10 +1522,15 @@
 			    $template_id = 'usos_elemento';
 			    $template_titulo = $pagina_translated['Páginas relacionadas'];
 			    $template_conteudo = false;
-			    $usos_elemento = $conn->query("SELECT pagina_id FROM Paginas_elementos WHERE tipo = '$elemento_tipo' AND elemento_id = $pagina_item_id AND estado = 1");
+			    $query = prepare_query("SELECT pagina_id FROM Paginas_elementos WHERE tipo = '$elemento_tipo' AND elemento_id = $pagina_item_id AND estado = 1");
+			    $usos_elemento = $conn->query($query);
 			    if ($usos_elemento->num_rows > 0) {
 			        while ($uso_elemento = $usos_elemento->fetch_assoc()) {
-                        $template_conteudo .= return_list_item($uso_elemento['pagina_id'], false, false, false, false, false, false, false, false, true);
+			            $uso_elemento_pagina_id = $uso_elemento['pagina_id'];
+			            if ($uso_elemento_pagina_id == 1) {
+			                continue;
+                        }
+                        $template_conteudo .= return_list_item($uso_elemento_pagina_id, false, false, false, false, false, false, false, false, true);
                     }
                 }
 			    if ($template_conteudo != false) {
