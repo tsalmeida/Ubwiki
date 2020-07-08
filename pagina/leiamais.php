@@ -8,7 +8,7 @@
 		while ($pagina_elemento = $pagina_elementos->fetch_assoc()) {
 			$pagina_elemento_id = $pagina_elemento['elemento_id'];
 			$pagina_elemento_pagina_id = return_pagina_id($pagina_elemento_id, 'elemento');
-			$template_conteudo .= return_list_item($pagina_elemento_pagina_id,  true);
+			$template_conteudo .= return_list_item($pagina_elemento_pagina_id, false, false, false, false, false, true);
 		}
 		$template_conteudo = list_wrap($template_conteudo);
 		include 'templates/page_element.php';
