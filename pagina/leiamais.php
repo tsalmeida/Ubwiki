@@ -5,13 +5,12 @@
 		$template_id = 'leia_mais';
 		$template_titulo = $pagina_translated['Leia mais'];
 		$template_conteudo = false;
-		$template_conteudo .= "<ul class='list-group list-group-flush'>";
 		while ($pagina_elemento = $pagina_elementos->fetch_assoc()) {
 			$pagina_elemento_id = $pagina_elemento['elemento_id'];
 			$pagina_elemento_pagina_id = return_pagina_id($pagina_elemento_id, 'elemento');
-			$template_conteudo .= return_list_item($pagina_elemento_pagina_id);
+			$template_conteudo .= return_list_item($pagina_elemento_pagina_id,  true);
 		}
-		$template_conteudo .= "</ul>";
+		$template_conteudo = list_wrap($template_conteudo);
 		include 'templates/page_element.php';
 	}
 
