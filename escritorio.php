@@ -77,6 +77,11 @@
 
 	include 'pagina/shared_issets.php';
 
+	if ($_POST) {
+		header("Location: " . $_SERVER['REQUEST_URI']);
+		exit();
+	}
+
 	$html_head_template_quill = true;
 	$html_head_template_conteudo = "
         <script type='text/javascript'>
