@@ -7,11 +7,10 @@
 		$template_titulo = $pagina_translated['Este tópico em páginas'];
 		$template_botoes = false;
 		$template_conteudo = false;
-		$template_conteudo .= "<ul class='list-group list-group-flush'>";
 		while ($pagina_etiqueta = $paginas_etiqueta->fetch_assoc()) {
 			$pagina_etiqueta_id = $pagina_etiqueta['id'];
 			$template_conteudo .= return_list_item($pagina_etiqueta_id);
 		}
-		$template_conteudo .= "</ul>";
+		$template_conteudo = list_wrap($template_conteudo);
 		include 'templates/page_element.php';
 	}

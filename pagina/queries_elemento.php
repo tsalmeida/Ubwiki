@@ -1,5 +1,5 @@
 <?php
-	$query = prepare_query("SELECT estado, compartilhamento, criacao, tipo, subtipo, titulo, autor, capitulo, ano, link, iframe, arquivo, resolucao, orientacao, comentario, trecho, user_id FROM Elementos WHERE id = $elemento_id");
+	$query = prepare_query("SELECT * FROM Elementos WHERE id = $elemento_id");
 	$elementos = $conn->query($query);
 	if ($elementos->num_rows > 0) {
 		while ($elemento = $elementos->fetch_assoc()) {
@@ -15,6 +15,8 @@
 			}
 			$elemento_titulo = $elemento['titulo'];
 			$elemento_autor = $elemento['autor'];
+			$elemento_autor_id = $elemento['autor_etiqueta_id'];
+			$elemento_autor_pagina_id = return_pagina_id($elemento_autor_id, 'etiqueta');
 			$elemento_capitulo = $elemento['capitulo'];
 			$elemento_ano = $elemento['ano'];
 			$elemento_link = $elemento['link'];

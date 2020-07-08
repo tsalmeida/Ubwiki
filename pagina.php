@@ -305,6 +305,8 @@
 		}
 	} elseif ($pagina_subtipo == 'etiqueta') {
 		$pagina_etiqueta_id = $pagina_item_id;
+		$pagina_etiqueta_info = return_etiqueta_info($pagina_etiqueta_id);
+        $pagina_etiqueta_tipo = $pagina_etiqueta_info[1];
 	} elseif ($pagina_subtipo == 'modelo') {
 		$modelo_do_usuario = return_modelo_estado($pagina_id, $user_id);
 	} elseif ($pagina_subtipo == 'plano') {
@@ -1032,7 +1034,7 @@
 			$template_subtitulo = "<a href='pagina.php?pagina_id=$topico_materia_pagina_id' title='{$pagina_translated['Matéria']}'>$topico_materia_titulo</a> / <a href='pagina.php?pagina_id=$topico_curso_pagina_id' title='Curso'>$topico_curso_titulo</a>";
 		} elseif ($pagina_tipo == 'elemento') {
 			$template_titulo = $elemento_titulo;
-			$template_subtitulo = $elemento_autor;
+			$template_subtitulo = "<a href='pagina.php?pagina_id=$elemento_autor_pagina_id' title='{$pagina_translated['Autor']}'>$elemento_autor</a>";
 		} elseif ($pagina_tipo == 'curso') {
 			$template_titulo = $pagina_titulo;
 			$template_subtitulo = "{$pagina_translated['Curso']}</br><a class='text-light' id='reveal_introduction'><i class='fad fa-info-circle fa-fw'></i></a>";
@@ -1086,7 +1088,11 @@
 				$template_titulo = "{$pagina_translated['Plano de estudos']}: $pagina_original_titulo";
 				$template_subtitulo = "<a href='pagina.php?pagina_id=$pagina_item_id'>$pagina_original_titulo</a> / <a href='pagina.php?pagina_id=$pagina_original_concurso_pagina_id'>$pagina_original_concurso_titulo</a>";
 			} elseif ($pagina_subtipo == 'etiqueta') {
-				$template_subtitulo = $pagina_translated['free page'];
+			    if ($pagina_etiqueta_tipo == 'autor') {
+			        $template_subtitulo = $pagina_translated['Autor'];
+                } else {
+					$template_subtitulo = $pagina_translated['free page'];
+				}
 			} elseif ($pagina_subtipo == 'modelo') {
 				$template_subtitulo = $pagina_translated['BFranklin model'];
 			} elseif ($pagina_subtipo == 'plano') {
@@ -1294,7 +1300,21 @@
 						}
 					}
 				}
-
+                if ($pagina_subtipo == 'etiqueta') {
+					if ($pagina_etiqueta_tipo == 'autor') {
+						$template_id = 'autor_obras';
+						$template_titulo = $pagina_translated['author of'];
+						$template_conteudo = false;
+						$autor_obras = $conn->query("SELECT pagina_id FROM Elementos WHERE autor_etiqueta_id = $pagina_item_id");
+						if ($autor_obras->num_rows > 0) {
+							while ($autor_obra = $autor_obras->fetch_assoc()) {
+								$template_conteudo .= return_list_item($autor_obra['pagina_id']);
+							}
+							$template_conteudo = list_wrap($template_conteudo);
+							include 'templates/page_element.php';
+						}
+					}
+				}
 				if ($pagina_subtipo != 'plano') {
 					include 'pagina/leiamais.php';
 					include 'pagina/videos.php';
@@ -2755,7 +2775,6 @@
 		include 'templates/modal.php';
 	}
 
-	//TODO: Terminar essa história de publicação de respostas.
 	if (!isset($carregar_publicar_resposta)) {
 		$carregar_publicar_resposta = false;
 	}

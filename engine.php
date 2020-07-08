@@ -1324,7 +1324,7 @@
 			while ($item_biblioteca = $biblioteca_particular->fetch_assoc()) {
 				$item_biblioteca_elemento_id = $item_biblioteca['elemento_id'];
 				$item_biblioteca_pagina_id = return_pagina_id($item_biblioteca_elemento_id, 'elemento');
-				$list_biblioteca_particular .= return_list_item($item_biblioteca_pagina_id);
+				$list_biblioteca_particular .= return_list_item($item_biblioteca_pagina_id, false, false, false, false, false, true);
 			}
 		}
 		$list_biblioteca_particular = list_wrap($list_biblioteca_particular);

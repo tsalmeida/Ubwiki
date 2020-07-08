@@ -1135,6 +1135,7 @@
 		$pagina_tipo = false;
 		$pagina_subtipo = false;
 		$pagina_item_id = false;
+		$pagina_titulo = false;
 		if (isset($args[1])) {
 			$pagina_tipo = $args[1];
 		}
@@ -1165,6 +1166,9 @@
 				case 'curso':
 					$buscar_pagina = true;
 					break;
+				case 'etiqueta':
+					$pagina_titulo = false;
+					break;
 				case 'grupo':
 					$pagina_titulo = return_grupo_titulo_id($pagina_item_id);
 					break;
@@ -1180,6 +1184,9 @@
 					break;
 				case 'escritorio':
 					$pagina_titulo = return_apelido_user_id($pagina_item_id);
+					break;
+				case 'nexus':
+					$pagina_titulo = 'Nexus';
 					break;
 				default:
 					$buscar_pagina = true;
@@ -2174,6 +2181,17 @@
 				if ($parent_title == true) {
 					$pagina_parent_title = return_pagina_titulo($pagina_item_id);
 					$pagina_titulo = "<span>$pagina_titulo</span><small class='ml-3 text-muted font-italic'>$pagina_parent_title</small>";
+				}
+			}
+			if ($pagina_tipo == 'elemento') {
+				if ($parent_title == true) {
+					$pagina_item_info = return_elemento_info($pagina_item_id);
+					$pagina_item_autor_id = $pagina_item_info[6];
+					if ($pagina_item_autor_id != false) {
+						$pagina_item_autor_info = return_etiqueta_info($pagina_item_autor_id);
+						$pagina_item_autor_titulo = $pagina_item_autor_info[2];
+						$pagina_titulo = "<span>$pagina_titulo</span><small class='ml-3 text-muted font-italic'>$pagina_item_autor_titulo</small>";
+					}
 				}
 			}
 			$pagina_estado_icone_info = return_estado_icone($pagina_estado);
