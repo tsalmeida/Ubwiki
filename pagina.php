@@ -1102,7 +1102,7 @@
 			}
 		} elseif ($pagina_tipo == 'secao') {
 			$template_titulo = $pagina_titulo;
-			$paginal_original_info = return_pagina_info($pagina_item_id);
+			$pagina_original_info = return_pagina_info($pagina_item_id, true);
 			$pagina_original_titulo = $pagina_original_info[6];
 			$pagina_original_compartilhamento = $pagina_original_info[4];
 			$template_subtitulo = "{$pagina_translated['Seção de']} \"$pagina_original_titulo\"";

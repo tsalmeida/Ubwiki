@@ -1322,7 +1322,8 @@
 					$pagina_colaboracao = false;
 				}
 				$pagina_link = $pagina['link'];
-				return array($pagina_criacao, $pagina_item_id, $pagina_tipo, $pagina_estado, $pagina_compartilhamento, $pagina_user_id, $pagina_titulo, $pagina_etiqueta_id, $pagina_subtipo, $pagina_publicacao, $pagina_colaboracao, $pagina_link);
+				$result = array($pagina_criacao, $pagina_item_id, $pagina_tipo, $pagina_estado, $pagina_compartilhamento, $pagina_user_id, $pagina_titulo, $pagina_etiqueta_id, $pagina_subtipo, $pagina_publicacao, $pagina_colaboracao, $pagina_link);
+				return $result;
 			}
 		}
 		return false;
