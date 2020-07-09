@@ -291,10 +291,10 @@
 					if (data != false) {
 					    $('#arquivo_id_{$template_id}').val(data);
 						$('#{$template_id}_trigger_save').removeClass();
-						$('#{$template_id}_trigger_save').addClass('mr-2 text-success'); //user is told: your most recent changes have been saved.
+						$('#{$template_id}_trigger_save').addClass('ql-formats text-success'); //user is told: your most recent changes have been saved.
 					} else {
 						$('#{$template_id}_trigger_save').removeClass();
-						$('#{$template_id}_trigger_save').addClass('mr-2 text-danger'); //user is told: failure to save your changes.
+						$('#{$template_id}_trigger_save').addClass('ql-formats text-danger'); //user is told: failure to save your changes.
 					}
 				});
 			};
@@ -331,7 +331,7 @@
 
 			{$template_id}_editor.on('text-change', function(delta) {
 				$('#{$template_id}_trigger_save').removeClass();
-				$('#{$template_id}_trigger_save').addClass('mr-2 text-warning'); //user is told: your most recent changes have not been saved yet.
+				$('#{$template_id}_trigger_save').addClass('ql-formats text-warning'); //user is told: your most recent changes have not been saved yet.
 				var save_state = $('#save_state_{$template_id}').val();
 				save_state = Boolean(save_state);
 				if (save_state == true) { //this means that the text has recently been changed and there's a timeout running for the next save.
