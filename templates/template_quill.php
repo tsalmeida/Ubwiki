@@ -340,7 +340,7 @@
 				
 				{$template_id}_timeout = setTimeout(function() {
 					$('#{$quill_trigger_button}').click();
-				}, 15000)
+				}, 30000)
 			})
 		</script>
 	";
