@@ -36,14 +36,14 @@
     <div class="row d-flex justify-content-center mx-1">
         <div id="coluna_unica" class="col">
 			<?php
-				$anotacoes_publicadas = $conn->query("SELECT id, texto_id, anonimato, user_id FROM Anotacoes WHERE pagina_id = $pagina_id AND estado = 1");
+				$anotacoes_publicadas = $conn->query("SELECT id, texto_id, anonimato, user_id, criacao FROM Anotacoes WHERE pagina_id = $pagina_id AND estado = 1");
 				if ($anotacoes_publicadas->num_rows > 0) {
 					while ($anotacao_publicada = $anotacoes_publicadas->fetch_assoc()) {
 						$anotacao_publicada_id = $anotacao_publicada['id'];
 						$anotacao_publicada_texto_id = $anotacao_publicada['texto_id'];
 						$anotacao_publicada_anonimato = $anotacao_publicada['anonimato'];
 						$anotacao_publicada_user_id = $anotacao_publicada['user_id'];
-						$template_id = generateRandomString(6);
+						$template_id = $anotacao_publicada['criacao'];
 						$template_botoes = false;
 						$template_classes = 'vh-100 overflow-auto';
 						$anotacao_score_info = return_anotacao_score($anotacao_publicada_id, 'anotacao_publicada', $user_id, $pagina_id);

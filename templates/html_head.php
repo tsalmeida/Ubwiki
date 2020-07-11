@@ -27,7 +27,7 @@
         <!-- Material Design Bootstrap -->
         <link href='css/mdb.min.css' rel='stylesheet'>
         <!-- Your custom styles (optional) -->
-        <link href='css/style.css?20200706b' rel='stylesheet'>
+        <link href='css/style.css?20200711' rel='stylesheet'>
         <!-- Bootstrap Horizon -->
         <link href='css/bootstrap-horizon.css' rel='stylesheet'>
         <link type='image/vnd.microsoft.icon' rel='icon' href='../imagens/favicon.ico'/>
