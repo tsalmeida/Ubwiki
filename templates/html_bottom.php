@@ -1629,7 +1629,14 @@
 		</script>
 		";
 	}
-
+	if ($pagina_tipo == 'texto') {
+		echo "
+			<script type='text/javascript'>
+				$('#coluna_esquerda').removeClass('col-lg-6');
+				$('#coluna_esquerda').addClass('col-lg-8');
+			</script>
+		";
+	}
 	if ($anotacoes_existem == true) {
 		$anotacoes_startup = "
 			$('#mostrar_coluna_direita').hide();
