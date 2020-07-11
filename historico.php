@@ -79,6 +79,9 @@
 			$diff = new HtmlDiff($edicao_coluna_esquerda_html, $edicao_coluna_direita_html);
 			$diff->build();
 			$edicao_coluna_direita_html = $diff->getDifference();
+/*			use Caxy\HtmlDiff\HtmlDiff;
+			$htmlDiff = new HtmlDiff($edicao_coluna_esquerda_html, $edicao_coluna_direita_html);
+			$edicao_coluna_direita_html = $htmlDiff->build();*/
 		}
 	}
 	

@@ -171,6 +171,9 @@
 
 	$template_botoes_salvar .= "<a class='ql-formats brown-text rounded swatch_button' value='default'><i class='fad fa-palette fa-fw'></i></a>";
 
+	$template_botoes_salvar .= "<a class='zoom_in ql-formats text-secondary'><i class='fad fa-text-size fa-swap-opacity fa-fw'></i></a>";
+	$template_botoes_salvar .= "<a class='zoom_out ql-formats text-secondary'><i class='fad fa-text-size fa-fw'></i></a>";
+
 	$template_botoes_salvar = mysqli_real_escape_string($conn, $template_botoes_salvar);
 
 	if ($template_quill_meta_tipo == 'anotacoes') {
@@ -206,7 +209,6 @@
 
 	$quill_result .= "
 		<form id='quill_{$template_id}_form' method='post' class='w-100'>
-			<input type='hidden' id='save_state_{$template_id}' value=''>
 			<input type='hidden' id='arquivo_id_{$template_id}' value=''>
 			<div id='quill_container_{$template_id}' class='bg-white'>
 				<div id='quill_editor_{$template_id}' class='$template_quill_editor_classes'>
@@ -329,19 +331,16 @@
 				$('#{$quill_trigger_button}').click();
 			});
 
+			let {$template_id}_timeout = null;
+			
 			{$template_id}_editor.on('text-change', function(delta) {
+			    clearTimeout({$template_id}_timeout); // timeout is constanty cleared so that the text will only save if the user stops typing for the set duration.
 				$('#{$template_id}_trigger_save').removeClass();
 				$('#{$template_id}_trigger_save').addClass('ql-formats text-warning'); //user is told: your most recent changes have not been saved yet.
-				var save_state = $('#save_state_{$template_id}').val();
-				save_state = Boolean(save_state);
-				if (save_state == true) { //this means that the text has recently been changed and there's a timeout running for the next save.
-				} else { //this means that these are new changes the user has made, which need to be saved soon.
-					$('#save_state_{$template_id}').val(1);
-					setTimeout(function() { //after an interval, the changes will be saved.
-						$('#{$quill_trigger_button}').click();
-						$('#save_state_{$template_id}').val('');
-					}, 35000)
-				}
+				
+				{$template_id}_timeout = setTimeout(function() {
+					$('#{$quill_trigger_button}').click();
+				}, 7000)
 			})
 		</script>
 	";
