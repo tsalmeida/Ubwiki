@@ -105,7 +105,6 @@
 		$do_login = true;
 	}
 	if ($_SESSION['user_info'] === 'login') {
-		error_log('this happened and it should');
 		$do_login = true;
 	}
 	if ($do_login == true) {
@@ -1428,13 +1427,11 @@
 		} elseif ($grupos_algo == true) {
 			if (!isset($_SESSION['user_opcoes']['grupos_estudo'][0])) {
 				$query = prepare_query("INSERT INTO Opcoes (user_id, opcao_tipo, opcao) VALUES ($user_id, 'grupos_estudo', true)");
-				error_log($query);
 				$conn->query($query);
 			} else {
 				$user_opcoes_grupos_estudo = $_SESSION['user_opcoes']['grupos_estudo'][0];
 				if ($user_opcoes_grupos_estudo == false) {
 					$query = prepare_query("UPDATE Opcoes SET opcao = 1 WHERE user_id = $user_id AND opcao_tipo = 'grupos_estudo'");
-					error_log($query);
 					$conn->query($query);
 				}
 			}
@@ -1925,7 +1922,6 @@
 		$query = prepare_query("SELECT id FROM Votos WHERE user_id = $user_id AND pagina_id = $usuario_upvote_pagina_id AND objeto = $usuario_upvote_anotacao_id AND tipo = 'anotacao_publicada' AND valor = 1");
 		$check = $conn->query($query);
 		if ($check->num_rows > 0) {
-			error_log('this happened');
 			echo false;
 		} else {
 			$query = prepare_query("INSERT INTO Votos (user_id, pagina_id, objeto, tipo, valor) VALUES ($user_id, $usuario_upvote_pagina_id, $usuario_upvote_anotacao_id, 'anotacao_publicada', 1)");

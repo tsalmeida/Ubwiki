@@ -64,12 +64,16 @@
 			
 			$artefato_tipo = $item_tipo;
 			$artefato_pagina_info = return_pagina_info($item_id, true);
+			if ($artefato_pagina_info == false) {
+				continue;
+			}
 			$artefato_titulo = $artefato_pagina_info[6];
 			$artefato_pagina_tipo = $artefato_pagina_info[2];
 			$artefato_pagina_subtipo = $artefato_pagina_info[8];
 			$artefato_pagina_item_id = $artefato_pagina_info[1];
 
 			$artefato_info = return_pagina_icone($artefato_pagina_tipo, $artefato_pagina_subtipo, $artefato_pagina_item_id);
+			error_log("$artefato_pagina_tipo, $artefato_pagina_subtipo, $artefato_pagina_item_id");
 			$fa_icone = $artefato_info[0];
 			$fa_color = $artefato_info[1];
 			/*if ($artefato_titulo == false) {

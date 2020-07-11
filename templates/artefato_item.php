@@ -37,7 +37,7 @@
 	$fa_color_talvez = 'text-primary';
 	if (!isset($fa_icone)) {
 		$fa_icone = 'fa-circle-notch fa-spin';
-		$fa_color_talvez = 'text-danger';
+		$fa_color_talvez = 'text-secondary';
 	}
 	if (!isset($fa_color)) {
 		$fa_color = $fa_color_talvez;
