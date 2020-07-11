@@ -56,13 +56,11 @@
                     [{'list': 'ordered'}, {'list': 'bullet'}],
                     [{'indent': '-1'}, { 'indent': '+1' }],
                     ['image'],
-                    ['clean'],
                 ];
                 var toolbarOptions_modelo = [
                     ['bold'],
                     ['italic'],
                     [{'list': 'ordered'}, {'list': 'bullet'}],
-                    ['clean'],
                 ];
                 var toolbarOptions_modelo_directions = toolbarOptions_modelo;
                 var toolbarOptions_anotacoes = [
@@ -80,7 +78,6 @@
                     [{'align': []}],
                     ['link'],
                     ['video'],
-                    ['clean'],
                 ];
                 var BackgroundClass = Quill.import('attributors/class/background');
                 var ColorClass = Quill.import('attributors/class/color');
@@ -103,7 +100,6 @@
                     [{'list': 'ordered'}, {'list': 'bullet'}],
                     [{ 'indent': '-1'}, { 'indent': '+1' }],
                     ['image'],
-                    ['clean'],
                 ];
 		        </script>
 		    ";
