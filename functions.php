@@ -22,11 +22,18 @@
 	{
 		$args = func_get_args();
 		$query = $args[0];
-		//error_log($query);
-		//print "<p class='text-danger'>$query</p>";
 		if (isset($args[1])) {
 			$extra = $args[1];
-			//error_log("$extra: $query");
+			switch ($extra) {
+				case 'print':
+					print "<p class='text-danger'>$query</p>";
+					break;
+				case 'log':
+					error_log($query);
+					break;
+				default:
+					error_log("$extra: $query");
+			}
 		}
 		return $query;
 	}
@@ -3320,4 +3327,16 @@
 		}
 
 		return array($votos_count, $voto_usuario_value);
+	}
+
+	function delete_by_id($table_name, $id)
+	{
+		if (($table_name == false) || ($id == false)) {
+			return false;
+		}
+		include 'templates/criar_conn.php';
+		$query = prepare_query("DELETE FROM $table_name WHERE id = $id");
+		$query = mysqli_real_escape_string($conn, $query);
+		$check = $conn->query($query);
+		return $check;
 	}

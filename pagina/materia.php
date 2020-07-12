@@ -26,7 +26,7 @@
 	$bookmark_icone = 'fas fa-bookmark fa-sm';
 	$bookmark_color = 'text-danger';
 
-	$query = prepare_query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'topico'");
+	$query = prepare_query("SELECT elemento_id, id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'topico'");
 	$topicos = $conn->query($query);
 	if ($topicos->num_rows > 0) {
 		$template_conteudo .= "<ul class='list-group list-group-flush mt-1 min-w70 topicos_collapse collapse show'>";
@@ -48,6 +48,7 @@
 			}
 			$topico_pagina_info = return_pagina_info($topico_pagina_id, true);
 			if ($topico_pagina_info == false) {
+				delete_by_id('Paginas_elementos', $topico['id']);
 				continue;
 			}
 			$topico_pagina_estado = $topico_pagina_info[3];
@@ -60,13 +61,14 @@
 			$template_conteudo .= "<ul class='list-group grey lighten-4 rounded p-1 mt-1'>";
 			$template_conteudo .= put_together_list_item('link', "pagina.php?pagina_id=$topico_pagina_id", $li_color, $bookmark_icone, $topico_pagina_titulo, false, $topico_pagina_estado_icone[0], "list-group-item-primary $topico_completo");
 
-			$query = prepare_query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $topico_pagina_id AND tipo = 'subtopico'");
+			$query = prepare_query("SELECT elemento_id, id FROM Paginas_elementos WHERE pagina_id = $topico_pagina_id AND tipo = 'subtopico'");
 			$subtopicos = $conn->query($query);
 			if ($subtopicos->num_rows > 0) {
 				while ($subtopico = $subtopicos->fetch_assoc()) {
 					$subtopico_pagina_id = $subtopico['elemento_id'];
 					$subtopico_pagina_info = return_pagina_info($subtopico_pagina_id, true);
 					if ($subtopico_pagina_info == false) {
+						delete_by_id('Paginas_elementos', $subtopico['id']);
 						continue;
 					}
 					$subtopico_pagina_estado = $subtopico_pagina_info[3];
@@ -88,13 +90,14 @@
 					}
 					$template_conteudo .= put_together_list_item('link', "pagina.php?pagina_id=$subtopico_pagina_id", $li_color, $bookmark_icone, $subtopico_pagina_titulo, false, $subtopico_pagina_estado_icone[0], "list-group-item-secondary $topico_completo", 'mt-1 spacing1');
 
-					$query = prepare_query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $subtopico_pagina_id AND tipo = 'subtopico'");
+					$query = prepare_query("SELECT elemento_id, id FROM Paginas_elementos WHERE pagina_id = $subtopico_pagina_id AND tipo = 'subtopico'");
 					$subsubtopicos = $conn->query($query);
 					if ($subsubtopicos->num_rows > 0) {
 						while ($subsubtopico = $subsubtopicos->fetch_assoc()) {
 							$subsubtopico_pagina_id = $subsubtopico['elemento_id'];
 							$subsubtopico_pagina_info = return_pagina_info($subsubtopico_pagina_id, true);
 							if ($subsubtopico_pagina_info == false) {
+								delete_by_id('Paginas_elementos', $subsubtopico['id']);
 								continue;
 							}
 
@@ -116,13 +119,14 @@
 							}
 							$template_conteudo .= put_together_list_item('link', "pagina.php?pagina_id=$subsubtopico_pagina_id", $li_color, $bookmark_icone, $subsubtopico_pagina_titulo, false, $subsubtopico_pagina_estado_icone[0], $topico_completo, 'mt-1 spacing2');
 
-							$query = prepare_query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $subsubtopico_pagina_id AND tipo = 'subtopico'");
+							$query = prepare_query("SELECT elemento_id, id FROM Paginas_elementos WHERE pagina_id = $subsubtopico_pagina_id AND tipo = 'subtopico'");
 							$subsubsubtopicos = $conn->query($query);
 							if ($subsubsubtopicos->num_rows > 0) {
 								while ($subsubsubtopico = $subsubsubtopicos->fetch_assoc()) {
 									$subsubsubtopico_pagina_id = $subsubsubtopico['elemento_id'];
 									$subsubsubtopico_pagina_info = return_pagina_info($subsubsubtopico_pagina_id, true);
 									if ($subsubsubtopico_pagina_info == false) {
+										delete_by_id('Paginas_elementos', $subsubsubtopico['id']);
 										continue;
 									}
 									$subsubsubtopico_pagina_estado = $subsubsubtopico_pagina_info[3];
@@ -144,17 +148,14 @@
 
 									$template_conteudo .= put_together_list_item('link', "pagina.php?pagina_id=$subsubsubtopico_pagina_id", $li_color, $bookmark_icone, $subsubsubtopico_pagina_titulo, false, $subsubsubtopico_pagina_estado_icone[0], "$topico_completo font-italic text-muted", 'mt-1 spacing3');
 
-									$query = prepare_query("SELECT elemento_id FROM Paginas_elementos WHERE pagina_id = $subsubsubtopico_pagina_id AND tipo = 'subtopico'");
+									$query = prepare_query("SELECT elemento_id, id FROM Paginas_elementos WHERE pagina_id = $subsubsubtopico_pagina_id AND tipo = 'subtopico'");
 									$subsubsubsubtopicos = $conn->query($query);
 									if ($subsubsubsubtopicos->num_rows > 0) {
 										while ($subsubsubsubtopico = $subsubsubsubtopicos->fetch_assoc()) {
 											$subsubsubsubtopico_pagina_id = $subsubsubsubtopico['elemento_id'];
 											$subsubsubsubtopico_pagina_info = return_pagina_info($subsubsubsubtopico_pagina_id, true);
 											if ($subsubsubsubtopico_pagina_info == false) {
-												continue;
-											}
-
-											if ($subsubsubsubtopico_pagina_info == false) {
+												delete_by_id('Paginas_elementos', $subsubsubsubtopico['id']);
 												continue;
 											}
 											$subsubsubsubtopico_pagina_estado = $subsubsubsubtopico_pagina_info[3];

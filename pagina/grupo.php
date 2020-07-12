@@ -52,7 +52,7 @@
 	$template_conteudo_class = 'justify-content-start';
 	$template_conteudo_no_col = true;
 
-	$query = prepare_query("SELECT criacao, user_id, item_id, item_tipo FROM Compartilhamento WHERE recipiente_id = $grupo_id AND compartilhamento = 'grupo'");
+	$query = prepare_query("SELECT id, criacao, user_id, item_id, item_tipo FROM Compartilhamento WHERE recipiente_id = $grupo_id AND compartilhamento = 'grupo'");
 	$itens = $conn->query($query);
 	if ($itens->num_rows > 0) {
 		while ($item = $itens->fetch_assoc()) {
@@ -65,6 +65,7 @@
 			$artefato_tipo = $item_tipo;
 			$artefato_pagina_info = return_pagina_info($item_id, true);
 			if ($artefato_pagina_info == false) {
+				$conn->query("DELETE FROM Compartilhamento WHERE id = {$item['id']}");
 				continue;
 			}
 			$artefato_titulo = $artefato_pagina_info[6];
@@ -73,7 +74,6 @@
 			$artefato_pagina_item_id = $artefato_pagina_info[1];
 
 			$artefato_info = return_pagina_icone($artefato_pagina_tipo, $artefato_pagina_subtipo, $artefato_pagina_item_id);
-			error_log("$artefato_pagina_tipo, $artefato_pagina_subtipo, $artefato_pagina_item_id");
 			$fa_icone = $artefato_info[0];
 			$fa_color = $artefato_info[1];
 			/*if ($artefato_titulo == false) {
