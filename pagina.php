@@ -8,6 +8,7 @@
 	//TODO: Estado da página não está sendo atualizado imediatamente, apenas após recarregar.
 	//TODO: Sistema de simulados automatizado, em que os alunos votam nas melhores respostas.
     //TODO: Verbetes relacionados should only load when the user clicks on it (and only once).
+    //TODO: Criar várias seções ao mesmo tempo.
 
 	$pagina_tipo = 'pagina_geral';
 

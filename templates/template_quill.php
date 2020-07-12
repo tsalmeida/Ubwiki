@@ -2,6 +2,8 @@
 
 	//TODO: A tabela Textos_arquivo deve ser transferida a um banco de dados separado.
 	//TODO: A shortcut for quoted text.
+	//TODO: Shortcut for removing every formatting.
+	//TODO: Disable and enable auto-saving.
 
 	$quill_was_loaded = true;
 
@@ -26,6 +28,9 @@
 	}
 	if (!isset($template_quill_botoes)) {
 		$template_quill_botoes = true;
+	}
+	if (!isset($quill_extra_buttons)) {
+		$quill_extra_buttons = false;
 	}
 
 	if (isset($pagina_tipo)) {
@@ -160,7 +165,8 @@
 
 	if ($quill_edicao == true) {
 		$template_botoes_salvar .= "
-			<a href='javascript:void(0)' id='{$template_id}_trigger_save' title='{$pagina_translated['Salvar mudanças']}' class='text-primary ql-formats'><i class='fad fa-save fa-fw'></i></a>";
+			<a href='javascript:void(0)' id='{$template_id}_trigger_save' title='{$pagina_translated['Salvar mudanças']}' class='text-primary ql-formats'><i class='fad fa-save fa-fw'></i></a>
+		";
 	}
 	if (($quill_texto_id != false) && ($template_id != 'modelo')) {
 		$template_botoes_salvar .= "<a href='historico.php?texto_id=$quill_texto_id' title='{$pagina_translated['Histórico do documento']}' class='text-default ql-formats'><i class='fad fa-history fa-fw'></i></a>";
@@ -169,10 +175,8 @@
 		";*/
 	}
 
-	$template_botoes_salvar .= "<a class='ql-formats brown-text rounded swatch_button' value='default'><i class='fad fa-palette fa-fw'></i></a>";
-
-	$template_botoes_salvar .= "<a class='zoom_in ql-formats text-secondary'><i class='fad fa-text-size fa-swap-opacity fa-fw'></i></a>";
-	$template_botoes_salvar .= "<a class='zoom_out ql-formats text-secondary'><i class='fad fa-text-size fa-fw'></i></a>";
+	$template_botoes_salvar .= "<a class='zoom_in ql-formats text-dark'><i class='fad fa-text-size fa-swap-opacity fa-fw'></i></a>";
+	$template_botoes_salvar .= "<a class='zoom_out ql-formats text-dark'><i class='fad fa-text-size fa-fw'></i></a>";
 
 	$template_botoes_salvar = mysqli_real_escape_string($conn, $template_botoes_salvar);
 
@@ -326,6 +330,7 @@
 			var template_botoes_salvar = \"$template_botoes_salvar\";
 			
 			$('#quill_container_{$template_id} > .ql-toolbar').prepend(template_botoes_salvar);
+			$('#quill_container_{$template_id} > .ql-toolbar').append(\"<a class='ql-formats text-dark bg-white border rounded swatch_button' value='default'><i class='fad fa-tint fa-swap-opacity fa-fw'></i></a>\");
 			
 			$('#{$template_id}_trigger_save').click(function () {
 				$('#{$quill_trigger_button}').click();
@@ -376,6 +381,7 @@
 		";
 	}
 
+	unset($quill_extra_buttons);
 	unset($template_quill_initial_state);
 	unset($template_quill_editor_classes);
 	unset($template_quill_toolbar_and_whitelist);
@@ -388,6 +394,5 @@
 	unset($template_quill_pagina_de_edicao);
 	unset($quill_texto_id);
 	unset($template_quill_botoes);
-	unset($quill_extra_buttons);
 
 	return $quill_result;
