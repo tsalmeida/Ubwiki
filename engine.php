@@ -1519,7 +1519,10 @@
 				} else {
 					$alteracao_recente_tipo_icone = 'fa-pencil';
 				}
-				$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$notificacao_pagina_id' class='mt-1'><li class='list-group-item list-group-item-action border-top d-flex justify-content-between'><span><i class='fad $alteracao_recente_tipo_icone fa-fw'></i> $notificacao_pagina_titulo</span><span class='text-muted'><em>($alteracao_recente_usuario_apelido) $alteracao_recente_data</em></span></li></a>";
+				$template_modal_body_conteudo .= return_list_item($notificacao_pagina_id);
+				if ($alteracao_recente_data != false) {
+					$template_modal_body_conteudo .= put_together_list_item('inactive', false, 'text-info', "fad $alteracao_recente_tipo_icone", "$alteracao_recente_usuario_apelido <small class='text-muted'>($alteracao_recente_data)</small>", false, false, 'spacing2');
+				}
 				$segunda_alteracao_recente_data = $alteracao_recente[3];
 				if ($segunda_alteracao_recente_data != false) {
 					$segunda_alteracao_recente_data = format_data($segunda_alteracao_recente_data);

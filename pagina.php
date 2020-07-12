@@ -1,18 +1,13 @@
 <?php
 
-	//TODO: Podcast episodes should be shown in reverse order.
 	//TODO: Permitir que a ordem das matérias seja diferente da ordem de criação.
 	//TODO: Permitir que a ordem dos tópicos seja diferente da ordem de criação.
 	//TODO: Permitir que a ordem de seções seja alterada.
-	//TODO: Fontes diferentes e cores diferentes apenas para leitura.
 	//TODO: Gerar PDF para impressão.
 	//TODO: Permitir baixar um arquivo com todas as suas anotações.
 	//TODO: Estado da página não está sendo atualizado imediatamente, apenas após recarregar.
 	//TODO: Sistema de simulados automatizado, em que os alunos votam nas melhores respostas.
-    //TODO: If the user has written anything, both columns should be visible on pageload.
     //TODO: Verbetes relacionados should only load when the user clicks on it (and only once).
-    //TODO: Author page. Shouldn't be hard.
-    //TODO: pagina_curso_id not being set.
 
 	$pagina_tipo = 'pagina_geral';
 
@@ -656,7 +651,13 @@
 	}
 
 	if ($carregar_secoes == true) {
-		$query = prepare_query("SELECT secao_pagina_id, ordem FROM Secoes WHERE pagina_id = $pagina_id ORDER BY ordem, id");
+        $reverse_order = false;
+	    if (isset($elemento_subtipo)) {
+	        if ($elemento_subtipo == 'podcast') {
+	            $reverse_order = 'DESC';
+            }
+        }
+		$query = prepare_query("SELECT secao_pagina_id, ordem FROM Secoes WHERE pagina_id = $pagina_id ORDER BY ordem $reverse_order");
 		$secoes = $conn->query($query);
 	}
 	$query = prepare_query("SELECT DISTINCT extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'topico' AND estado = 1 AND extra IS NOT NULL");

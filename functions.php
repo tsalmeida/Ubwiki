@@ -2591,7 +2591,7 @@
 				return array('fad fa-columns', 'text-warning');
 				break;
 			case 'sistema':
-				return array('fad fa-exclamation-triangle', 'text-warning');
+				return array('fad fa-columns', 'text-default');
 				break;
 			case 'texto':
 				return array('fad fa-file-alt fa-swap-opacity', 'text-primary');
