@@ -74,7 +74,7 @@
 		} elseif ($user_language == 'es') {
 			return 2636;
 		} elseif ($user_language == 'fr') {
-			return 548;
+			return 8272;
 		}
 	}
 	
