@@ -130,7 +130,7 @@
 	}
 
 	if (!isset($carregar_secoes)) {
-		$carregar_secoes == false;
+		$carregar_secoes = false;
 	}
 
 	echo "
@@ -1702,6 +1702,14 @@
 			$(document).on('click', '#mostrar_instrucoes_secoes', function() {
 			    $('.instrucoes_secoes').removeClass('hidden');
 			    $(this).addClass('hidden');
+			})
+			$(document).on('click', '#adicionar_varias_secoes', function() {
+			    $('.instrucoes_secoes').addClass('hidden');
+			    $(this).addClass('hidden');
+			    $('#mostrar_instrucoes_secoes').addClass('hidden');
+			    $('#adicionar_multiplas_secoes_textarea').removeClass('hidden');
+			    $('.instrucoes_multiplas_secoes').removeClass('hidden');
+			    $('.adicionar_uma_secao').empty();
 			})
 		</script>";
 	}

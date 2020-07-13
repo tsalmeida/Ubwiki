@@ -7,8 +7,8 @@
 	//TODO: Permitir baixar um arquivo com todas as suas anotações.
 	//TODO: Estado da página não está sendo atualizado imediatamente, apenas após recarregar.
 	//TODO: Sistema de simulados automatizado, em que os alunos votam nas melhores respostas.
-    //TODO: Verbetes relacionados should only load when the user clicks on it (and only once).
-    //TODO: Criar várias seções ao mesmo tempo.
+	//TODO: Verbetes relacionados should only load when the user clicks on it (and only once).
+	//TODO: Criar várias seções ao mesmo tempo.
 
 	$pagina_tipo = 'pagina_geral';
 
@@ -108,7 +108,7 @@
 				header("Location:pagina.php?pagina_id=$pagina_id");
 				exit();
 			} elseif ($pagina_plano_id == 'bp') {
-			    $pagina_com_verbete = false;
+				$pagina_com_verbete = false;
 				$pagina_tipo_override = 'pagina';
 				$pagina_subtipo_override = 'plano';
 				$pagina_titulo_override = $pagina_translated['your collection'];
@@ -302,7 +302,7 @@
 	} elseif ($pagina_subtipo == 'etiqueta') {
 		$pagina_etiqueta_id = $pagina_item_id;
 		$pagina_etiqueta_info = return_etiqueta_info($pagina_etiqueta_id);
-        $pagina_etiqueta_tipo = $pagina_etiqueta_info[1];
+		$pagina_etiqueta_tipo = $pagina_etiqueta_info[1];
 	} elseif ($pagina_subtipo == 'modelo') {
 		$modelo_do_usuario = return_modelo_estado($pagina_id, $user_id);
 	} elseif ($pagina_subtipo == 'plano') {
@@ -404,15 +404,15 @@
 			$check_compartilhamento = true;
 		}
 		if ($pagina_id == $user_escritorio) {
-		    $check_compartilhamento = true;
-        }
+			$check_compartilhamento = true;
+		}
 		if ($check_compartilhamento == false) {
 			header('Location:pagina.php?pagina_id=3');
 			exit();
 		}
 	}
 
-    $texto_page_id = false;
+	$texto_page_id = false;
 	if ($pagina_tipo == 'curso') {
 		$pagina_curso_info = return_curso_info($pagina_curso_id);
 		$pagina_curso_sigla = $pagina_curso_info[2];
@@ -549,8 +549,8 @@
 	}
 
 	if ($pagina_tipo == 'escritorio') {
-	    header('Location:escritorio.php');
-    }
+		header('Location:escritorio.php');
+	}
 
 	if ($pagina_tipo == 'elemento') {
 		include 'pagina/isset_elemento.php';
@@ -561,26 +561,34 @@
 
 	if (($pagina_tipo == 'elemento') || ($pagina_tipo == 'pagina') || ($pagina_tipo == 'grupo')) {
 		if (isset($_POST['trigger_nova_secao'])) {
-			$nova_secao_titulo = $_POST['elemento_nova_secao'];
-			$nova_secao_titulo = mysqli_real_escape_string($conn, $nova_secao_titulo);
-			$nova_secao_ordem = (int)$_POST['elemento_nova_secao_ordem'];
-			$query = prepare_query("INSERT INTO Paginas (item_id, tipo, compartilhamento, user_id) VALUES ($pagina_id, 'secao', 'igual à página original', $user_id)");
-			$conn->query($query);
-			$nova_pagina_id = $conn->insert_id;
-			$query = prepare_query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($nova_pagina_id, 'secao', 'titulo', '$nova_secao_titulo', $user_id)");
-			$conn->query($query);
-			$query = prepare_query("INSERT INTO Secoes (ordem, user_id, pagina_id, secao_pagina_id) VALUES ($nova_secao_ordem, $user_id, $pagina_id, $nova_pagina_id)");
-			$conn->query($query);
-			if ($pagina_tipo == 'elemento') {
-				$nova_etiqueta_titulo = "$elemento_titulo // $nova_secao_titulo";
-				$nova_etiqueta_titulo = mysqli_real_escape_string($conn, $nova_etiqueta_titulo);
-				$query = prepare_query("INSERT INTO Etiquetas (tipo, titulo, user_id) VALUES ('secao', '$nova_etiqueta_titulo', $user_id)");
+			if (isset($_POST['multiplas_secoes_textarea'])) {
+				$multiplas_secoes_textarea = trim($_POST['multiplas_secoes_textarea']);
+				$multiplas_secoes_textarea = explode("\n", $multiplas_secoes_textarea);
+				$multiplas_secoes_textarea = array_filter($multiplas_secoes_textarea, 'trim');
+				$count = 0;
+				foreach ($multiplas_secoes_textarea as $nova_secao_titulo) {
+				    $count = $count + 1;
+				    if ($count == 31) {
+				        break;
+                    }
+					$nova_secao_titulo = mysqli_real_escape_string($conn, $nova_secao_titulo);
+					$conn->query("INSERT INTO Paginas (item_id, tipo, compartilhamento, user_id) VALUES ($pagina_id, 'secao', 'igual à página original', $user_id)");
+					$nova_secao_pagina_id = $conn->insert_id;
+					$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($nova_secao_pagina_id, 'secao', 'titulo', '$nova_secao_titulo', $user_id)");
+					$conn->query("INSERT INTO Secoes (ordem, user_id, pagina_id, secao_pagina_id) VALUES (0, $user_id, $pagina_id, $nova_secao_pagina_id)");
+				}
+			} else if (isset($_POST['elemento_nova_secao'])) {
+				$nova_secao_titulo = $_POST['elemento_nova_secao'];
+				$nova_secao_titulo = mysqli_real_escape_string($conn, $nova_secao_titulo);
+				$nova_secao_ordem = (int)$_POST['elemento_nova_secao_ordem'];
+				$query = prepare_query("INSERT INTO Paginas (item_id, tipo, compartilhamento, user_id) VALUES ($pagina_id, 'secao', 'igual à página original', $user_id)");
 				$conn->query($query);
-				$nova_etiqueta_id = $conn->insert_id;
-				$query = prepare_query("UPDATE Paginas SET etiqueta_id = $nova_etiqueta_id WHERE id = $nova_pagina_id");
+				$nova_pagina_id = $conn->insert_id;
+				$query = prepare_query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($nova_pagina_id, 'secao', 'titulo', '$nova_secao_titulo', $user_id)");
+				$conn->query($query);
+				$query = prepare_query("INSERT INTO Secoes (ordem, user_id, pagina_id, secao_pagina_id) VALUES ($nova_secao_ordem, $user_id, $pagina_id, $nova_pagina_id)");
 				$conn->query($query);
 			}
-			$nao_contar = true;
 		}
 	}
 
@@ -652,13 +660,13 @@
 	}
 
 	if ($carregar_secoes == true) {
-        $reverse_order = false;
-	    if (isset($elemento_subtipo)) {
-	        if ($elemento_subtipo == 'podcast') {
-	            $reverse_order = 'DESC';
-            }
-        }
-		$query = prepare_query("SELECT secao_pagina_id, ordem FROM Secoes WHERE pagina_id = $pagina_id ORDER BY ordem $reverse_order");
+		$reverse_order = ", id";
+		if (isset($elemento_subtipo)) {
+			if ($elemento_subtipo == 'podcast') {
+				$reverse_order = ' DESC';
+			}
+		}
+		$query = prepare_query("SELECT secao_pagina_id, ordem FROM Secoes WHERE pagina_id = $pagina_id ORDER BY ordem$reverse_order");
 		$secoes = $conn->query($query);
 	}
 	$query = prepare_query("SELECT DISTINCT extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'topico' AND estado = 1 AND extra IS NOT NULL");
@@ -716,8 +724,8 @@
                     ";
 				}
 				if (!isset($pagina_original_compartilhamento)) {
-				    $pagina_original_compartilhamento = $pagina_compartilhamento;
-                }
+					$pagina_original_compartilhamento = $pagina_compartilhamento;
+				}
 				$modal_pagina_dados = return_admin_status($pagina_id, $pagina_tipo, $pagina_subtipo, $user_id, $user_tipo, $pagina_user_id, $pagina_compartilhamento, $pagina_curso_user_id, $texto_page_id, $pagina_original_compartilhamento);
 
 				if (($pagina_tipo == 'materia') && ($pagina_user_id == $user_id)) {
@@ -1090,9 +1098,9 @@
 				$template_titulo = "{$pagina_translated['Plano de estudos']}: $pagina_original_titulo";
 				$template_subtitulo = "<a href='pagina.php?pagina_id=$pagina_item_id'>$pagina_original_titulo</a> / <a href='pagina.php?pagina_id=$pagina_original_concurso_pagina_id'>$pagina_original_concurso_titulo</a>";
 			} elseif ($pagina_subtipo == 'etiqueta') {
-			    if ($pagina_etiqueta_tipo == 'autor') {
-			        $template_subtitulo = $pagina_translated['Autor'];
-                } else {
+				if ($pagina_etiqueta_tipo == 'autor') {
+					$template_subtitulo = $pagina_translated['Autor'];
+				} else {
 					$template_subtitulo = $pagina_translated['free page'];
 				}
 			} elseif ($pagina_subtipo == 'modelo') {
@@ -1281,10 +1289,10 @@
 
 				if ($pagina_tipo == 'curso') {
 					if ($user_tipo == 'admin') {
-					    $query = prepare_query("SELECT extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'simulado'");
+						$query = prepare_query("SELECT extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'simulado'");
 						$curso_simulados = $conn->query($query);
 					} else {
-					    $query = prepare_query("SELECT extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'simulado' AND estado = 1");
+						$query = prepare_query("SELECT extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'simulado' AND estado = 1");
 						$curso_simulados = $conn->query($query);
 					}
 					if ($curso_simulados->num_rows > 0) {
@@ -1302,7 +1310,7 @@
 						}
 					}
 				}
-                if ($pagina_subtipo == 'etiqueta') {
+				if ($pagina_subtipo == 'etiqueta') {
 					if ($pagina_etiqueta_tipo == 'autor') {
 						$template_id = 'autor_obras';
 						$template_titulo = $pagina_translated['author of'];
@@ -1541,25 +1549,25 @@
 			}
 
 			if ($pagina_tipo == 'elemento') {
-			    $template_id = 'usos_elemento';
-			    $template_titulo = $pagina_translated['Páginas relacionadas'];
-			    $template_conteudo = false;
-			    $query = prepare_query("SELECT pagina_id FROM Paginas_elementos WHERE tipo = '$elemento_tipo' AND elemento_id = $pagina_item_id AND estado = 1");
-			    $usos_elemento = $conn->query($query);
-			    if ($usos_elemento->num_rows > 0) {
-			        while ($uso_elemento = $usos_elemento->fetch_assoc()) {
-			            $uso_elemento_pagina_id = $uso_elemento['pagina_id'];
-			            if ($uso_elemento_pagina_id == 1) {
-			                continue;
-                        }
-                        $template_conteudo .= return_list_item($uso_elemento_pagina_id, false, false, false, false, false, false, false, false, true);
-                    }
-                }
-			    if ($template_conteudo != false) {
-			        $template_conteudo = list_wrap($template_conteudo);
-			        include 'templates/page_element.php';
-                }
-            }
+				$template_id = 'usos_elemento';
+				$template_titulo = $pagina_translated['Páginas relacionadas'];
+				$template_conteudo = false;
+				$query = prepare_query("SELECT pagina_id FROM Paginas_elementos WHERE tipo = '$elemento_tipo' AND elemento_id = $pagina_item_id AND estado = 1");
+				$usos_elemento = $conn->query($query);
+				if ($usos_elemento->num_rows > 0) {
+					while ($uso_elemento = $usos_elemento->fetch_assoc()) {
+						$uso_elemento_pagina_id = $uso_elemento['pagina_id'];
+						if ($uso_elemento_pagina_id == 1) {
+							continue;
+						}
+						$template_conteudo .= return_list_item($uso_elemento_pagina_id, false, false, false, false, false, false, false, false, true);
+					}
+				}
+				if ($template_conteudo != false) {
+					$template_conteudo = list_wrap($template_conteudo);
+					include 'templates/page_element.php';
+				}
+			}
 
 			if ($pagina_tipo == 'curso') {
 				$query = prepare_query("SELECT DISTINCT pagina_id FROM (SELECT pagina_id FROM Textos_arquivo WHERE tipo = 'verbete' AND curso_id = $pagina_curso_id AND pagina_tipo = 'topico' GROUP BY id ORDER BY id DESC) t");
@@ -1609,7 +1617,7 @@
 					if (in_array($pagina_subtipo, $subtipos_sem_anotacoes)) {
 						$carregar_quill_anotacoes = false;
 					} else {
-                        $carregar_quill_anotacoes = true;
+						$carregar_quill_anotacoes = true;
 					}
 				}
 				if ($pagina_subtipo == 'modelo') {
@@ -1644,9 +1652,9 @@
 		if (!isset($anotacoes_existem)) {
 			$anotacoes_existem = false;
 		}
-        if ($anotacoes_existem) {
-            $anotacoes_icone_colors = 'primary-color text-white';
-        } else {
+		if ($anotacoes_existem) {
+			$anotacoes_icone_colors = 'primary-color text-white';
+		} else {
 			$anotacoes_icone_colors = 'grey darken-4 text-light';
 		}
 		echo "<a id='mostrar_coluna_direita' class='$anotacoes_icone_colors rounded m-1 p-1 border' tabindex='-1' title='{$pagina_translated['Notas privadas']}'><i class='fas fa-pen-alt fa-fw'></i></a>";
@@ -1758,11 +1766,16 @@
 				$secoes_sem_texto = false;
 			} else {
 				$secoes_sem_texto = false;
-				$template_modal_body_conteudo .= put_together_list_item('link_button', 'mostrar_instrucoes_secoes', 'text-info', 'fad fa-eye', $pagina_translated['Mostrar instruções'], false, false, false, false, false);
+				$template_modal_body_conteudo_sub = false;
+				$template_modal_body_conteudo_sub .= put_together_list_item('link_button', 'mostrar_instrucoes_secoes', 'text-info', 'fad fa-eye', $pagina_translated['Mostrar instruções'], false, false, false, false, false);
+				$template_modal_body_conteudo_sub .= put_together_list_item('link_button', 'adicionar_varias_secoes', 'text-danger', 'fad fa-list-ol', $pagina_translated['Adicionar várias seções'], false, false, false, false, false);
+				$template_modal_body_conteudo .= list_wrap($template_modal_body_conteudo_sub);
+				unset($template_modal_body_conteudo_sub);
 				$template_modal_body_conteudo .= "
 		        	<p class='hidden instrucoes_secoes'>{$pagina_translated['please care add chapter']}</p>
-		        	<p>{$pagina_translated['section examples']}</p>
+		        	<p class='instrucoes_secoes'>{$pagina_translated['section examples']}</p>
 		        	<p class='hidden instrucoes_secoes'>{$pagina_translated['order details']}</p>
+		        	<p class='hidden instrucoes_multiplas_secoes'>{$pagina_translated['multiplas secoes details']}</p>
 	          	";
 			}
 		} else {
@@ -1788,11 +1801,17 @@
 			$nova_secao_numero = $pagina_translated['nova secao posicao'];
 		}
 		$template_modal_body_conteudo .= "
-          <div class='md-form mb-2'>
+		    <div id='adicionar_multiplas_secoes_textarea' class='md-form hidden'>
+		        <textarea id='multiplas_secoes_textarea' name='multiplas_secoes_textarea' class='md-textarea form-control' rows='4'></textarea>
+		        <label for='multiplas_secoes_textarea'>{$pagina_translated['Um título de seção por linha']}</label>
+            </div>
+		";
+		$template_modal_body_conteudo .= "
+          <div class='md-form mb-2 adicionar_uma_secao'>
               <input type='text' id='elemento_nova_secao' name='elemento_nova_secao' class='form-control'>
               <label for='elemento_nova_secao'>$nova_secao_titulo</label>
           </div>
-          <div class='md-form mb-2'>
+          <div class='md-form mb-2 adicionar_uma_secao'>
               <input type='number' id='elemento_nova_secao_ordem' name='elemento_nova_secao_ordem' class='form-control'>
               <label for='elemento_nova_secao_ordem'>$nova_secao_numero</label>
           </div>
