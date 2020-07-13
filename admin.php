@@ -11,6 +11,7 @@
 	if (isset($_POST['trigger_atualizacao'])) {
 	    adicionar_chave_e_traducoes('docs shared', 'Shared documents', 'Documentos compartilhados');
 	    adicionar_chave_e_traducoes('author of', 'Author of:', 'Autor de:');
+	    adicionar_chave_e_traducoes('Mostrar instruções', 'Show instructions');
 	    unset($_SESSION['pagina_translated']);
 	}
 

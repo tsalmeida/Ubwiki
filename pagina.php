@@ -1758,10 +1758,11 @@
 				$secoes_sem_texto = false;
 			} else {
 				$secoes_sem_texto = false;
+				$template_modal_body_conteudo .= put_together_list_item('link_button', 'mostrar_instrucoes_secoes', 'text-info', 'fad fa-eye', $pagina_translated['Mostrar instruções'], false, false, false, false, false);
 				$template_modal_body_conteudo .= "
-		        	<p>{$pagina_translated['please care add chapter']}</p>
+		        	<p class='hidden instrucoes_secoes'>{$pagina_translated['please care add chapter']}</p>
 		        	<p>{$pagina_translated['section examples']}</p>
-		        	<p>{$pagina_translated['order details']}</p>
+		        	<p class='hidden instrucoes_secoes'>{$pagina_translated['order details']}</p>
 	          	";
 			}
 		} else {

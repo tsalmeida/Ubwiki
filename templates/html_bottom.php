@@ -129,6 +129,10 @@
 		$anotacoes_existem = false;
 	}
 
+	if (!isset($carregar_secoes)) {
+		$carregar_secoes == false;
+	}
+
 	echo "
     <!-- Bootstrap tooltips -->
     <script type='text/javascript' src='js/popper.min.js'></script>
@@ -1691,4 +1695,13 @@
 				})
 			</script>
 		";
+	}
+
+	if ($carregar_secoes == true) {
+		echo "<script type='text/javascript'>
+			$(document).on('click', '#mostrar_instrucoes_secoes', function() {
+			    $('.instrucoes_secoes').removeClass('hidden');
+			    $(this).addClass('hidden');
+			})
+		</script>";
 	}
