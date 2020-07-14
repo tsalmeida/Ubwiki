@@ -777,7 +777,7 @@
 				        <a href='javascript:void(0);' data-toggle='modal' data-target='#modal_modelo_config' class='text-secondary mr-1' title='{$pagina_translated['Configurar modelo']}'><i class='fad fa-info-circle fa-fw fa-lg'></i></a>
 				    ";
 				}
-				if ((($pagina_tipo == 'texto') && ($pagina_user_id == $user_id)) || (($texto_revisao_ativa == true) && ($user_revisor == true)) || ($pagina_tipo == 'topico')) {
+				if ((($pagina_tipo == 'texto') && ($pagina_user_id == $user_id)) || (($texto_revisao_ativa == true) && ($user_revisor == true)) || ($pagina_tipo == 'topico') && ($user_id != false)) {
 					$carregar_modal_correcao = true;
 					if ($texto_revisao_ativa == true) {
 						if ($user_revisor == true) {
@@ -946,7 +946,6 @@
 						}
 						if ($user_id != false) {
 							$notificacao_modal = '#modal_notificacoes';
-							$notificacao_cor = 'text-primary';
 						} else {
 							$notificacao_modal = '#modal_login';
 							$notificacao_cor = 'text-default';

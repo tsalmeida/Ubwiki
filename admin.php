@@ -9,29 +9,7 @@
 	}
 
 	if (isset($_POST['trigger_atualizacao'])) {
-	    adicionar_chave_e_traducoes('docs shared', 'Shared documents', 'Documentos compartilhados');
-	    adicionar_chave_e_traducoes('author of', 'Author of:', 'Autor de:');
-	    adicionar_chave_e_traducoes('Mostrar instruções', 'Show instructions');
-	    adicionar_chave_e_traducoes('Adicionar várias seções', 'Add multiple sections');
-	    adicionar_chave_e_traducoes('multiplas secoes details', 'To add multiple sections at once, write their titles on the text area below. Each line will be recorded as one section. Only 20 sections can be recorded at a time.', 'Para adicionar várias seções ao mesmo tempo, escreva seus títulos na área de texto abaixo. Cada linha será registrada como uma seção. Apenas vinte podem ser registradas por vez.');
-	    adicionar_chave_e_traducoes('Um título de seção por linha', 'One section title per line');
 	    unset($_SESSION['pagina_translated']);
-
-	    $etiquetas_secao = $conn->query("SELECT pagina_id FROM Etiquetas WHERE tipo = 'secao'");
-	    if ($etiquetas_secao > 0) {
-	        $total = 0;
-	        while ($etiqueta_secao = $etiquetas_secao->fetch_assoc()) {
-	            $etiqueta_secao_pagina_id = $etiqueta_secao['pagina_id'];
-	            if ($etiqueta_secao_pagina_id != false) {
-					$query = prepare_query("DELETE FROM Paginas WHERE id = $etiqueta_secao_pagina_id");
-					$conn->query($query);
-					$query = prepare_query("DELETE FROM Paginas_elementos WHERE pagina_id = $etiqueta_secao_pagina_id");
-					$conn->query($query);
-				}
-	        }
-        }
-	    $conn->query("DELETE FROM Etiquetas WHERE tipo = 'secao'");
-	    $paginas_secoes = $conn->num_rows;
 	}
 
 	if (isset($_POST['trigger_atualizar_textos_size'])) {

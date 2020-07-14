@@ -147,6 +147,7 @@
 			$user_lounge = false;
 			$user_avatar_icone = 'fa-user';
 			$user_avatar_cor = 'text-primary';
+			$_SESSION['raiz_ativa'] = 1118;
 			$raiz_ativa = 1118;
 			$user_opcoes = array();
 		}
@@ -221,6 +222,11 @@
 		$raiz_sigla = return_curso_sigla($raiz_item_id);
 	}
 	$raiz_titulo = $raiz_info[6];
+
+
+	if (!isset($_SESSION['raiz_ativa'])) {
+		$_SESSION['raiz_ativa'] = 1118;
+	}
 
 	if (!isset($user_opcoes['hide_navbar'][0])) {
 		$user_opcoes['hide_navbar'][0] = false;
@@ -1643,6 +1649,9 @@
 				$user_page_id = $user_page['id'];
 				$user_page_subtipo = $user_page['subtipo'];
 				if ($user_page_subtipo == 'modelo') {
+					continue;
+				}
+				if ($user_page_subtipo == 'plano') {
 					continue;
 				}
 				$list_user_pages .= return_list_item($user_page_id);

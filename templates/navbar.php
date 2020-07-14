@@ -49,7 +49,7 @@
 		}
 		echo "<a class='dropdown-item navlink z-depth-0' href='javascript:void(0);' data-toggle='modal' data-target='#modal_languages'><i class='fad fa-language fa-fw'></i> $user_language_titulo</a>";
 		if ($user_id != false) {
-			echo "<a class='dropdown-item navlink z-depth-0' href='logout.php'><i class='fad fa-portal-exit fa-fw'></i> {$pagina_translated['logout']}</a>";
+			echo "<a class='dropdown-item navlink z-depth-0' href='logout.php?pagina_id=$pagina_id'><i class='fad fa-portal-exit fa-fw'></i> {$pagina_translated['logout']}</a>";
 		}
 		echo "
 		      </li>

@@ -953,7 +953,12 @@
                             'login_origem': 'desconhecido'
                         }, function(data) {
                             if ((data == 1) || (data == 11)) {
-                                window.location.replace('escritorio.php');
+                                pagina_id = $pagina_id;
+                                if (pagina_id != false){
+                                	window.location.replace('pagina.php?pagina_id=$pagina_id');
+                                } else {
+                                    window.location.replace('escritorio.php');
+                                }
                             } else if (data == 0) {
                                 $('#login_mensagem_basica').addClass('text-muted');
                                 $('#login_senha_incorreta').show();

@@ -1,16 +1,11 @@
 <?php
 
 	$pagina_tipo = 'ubwiki';
-	$pagina_id = false;
+	$pagina_id = 0;
 
 	include 'engine.php';
 
 	include 'templates/html_head.php';
-
-	/*	if (isset($_SESSION['thinkific_email'])) {
-			$thinkific_email = $_SESSION['thinkific_email'];
-			$thinkific_bora = $_SESSION['thinkific_bora'];
-		}*/
 
 	$escritorio_col_limit = 'col-lg-2 col-md-3 col-sm-6';
 ?>

@@ -1,5 +1,6 @@
 <?php
 	$pagina_tipo = 'index';
+	$pagina_id = 1;
 
 	include 'criar_sessao.php';
 
