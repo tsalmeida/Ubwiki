@@ -504,7 +504,7 @@
 		}
 		$pre_fab_modal_secoes = false;
 		$pre_fab_modal_secoes .= return_list_item($pagina_item_id, 'link', 'list-group-item-success mb-1');
-		$query = prepare_query("SELECT secao_pagina_id FROM Secoes WHERE pagina_id = $pagina_item_id ORDER BY ordem, id");
+		$query = prepare_query("SELECT secao_pagina_id, ordem FROM Secoes WHERE pagina_id = $pagina_item_id ORDER BY ordem, id");
 		$parentes = $conn->query($query);
 		$found = false;
 		$mais_recente = $pagina_item_id;
@@ -516,6 +516,7 @@
 					$found = false;
 				}
 				if ($parente_id == $pagina_id) {
+				    $pagina_secao_position = $parente['ordem'];
 					$found = true;
 					$pagina_anterior = $mais_recente;
 					$lista_tipo = 'inactive';
@@ -1854,12 +1855,19 @@
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
         <div class='md-form mb-2'>
-            <input type='text' id='pagina_novo_titulo' name='pagina_novo_titulo'
-                   class='form-control validate' value=\"$pagina_titulo\" required>
-            <label data-error='inválido' data-success='válido'
-                   for='pagina_novo_titulo'>{$pagina_translated['Novo título']}</label>
+            <input type='text' id='pagina_novo_titulo' name='pagina_novo_titulo' class='form-control' value=\"$pagina_titulo\" required>
+            <label for='pagina_novo_titulo'>{$pagina_translated['Novo título']}</label>
         </div>
         ";
+
+        if ($pagina_tipo == 'secao') {
+            $template_modal_body_conteudo .= "
+                <div class='md-form mb-2'>
+                    <input type='number' id='secao_nova_ordem' name='secao_nova_ordem' class='form-control' value='$pagina_secao_position'>
+                    <label for='secao_nova_ordem'>{$pagina_translated['Nova posição como seção']}</label>
+                </div>
+            ";
+        }
 
 		if (isset($secoes)) {
 			if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id) && ($secoes->num_rows == 0) && ($pagina_tipo == 'pagina') && ($pagina_titulo != false) && ($pagina_subtipo != 'produto') && ($pagina_subtipo != 'simulado') && ($pagina_subtipo != 'modelo') && ($pagina_subtipo != 'plano')) {

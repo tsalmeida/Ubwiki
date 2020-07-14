@@ -9,6 +9,7 @@
 	}
 
 	if (isset($_POST['trigger_atualizacao'])) {
+	    adicionar_chave_e_traducoes('Nova posição como seção', 'New section position');
 	    unset($_SESSION['pagina_translated']);
 	}
 

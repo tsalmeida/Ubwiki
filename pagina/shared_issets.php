@@ -89,6 +89,13 @@
 		$texto_titulo = $pagina_novo_titulo;
 		$nao_contar = true;
 	}
+
+	if (isset($_POST['secao_nova_ordem'])) {
+		if ($privilegio_edicao == true) {
+			$pagina_secao_position = $_POST['secao_nova_ordem'];
+			$conn->query("UPDATE Secoes SET Ordem = $pagina_secao_position WHERE secao_pagina_id = $pagina_id");
+		}
+	}
 	
 	if (isset($_POST['wikipedia_url'])) {
 		$novo_wikipedia_url = $_POST['wikipedia_url'];
