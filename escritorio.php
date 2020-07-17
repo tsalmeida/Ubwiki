@@ -234,6 +234,18 @@
 					$template_conteudo_hidden .= include 'templates/artefato_item.php';
 				}
 
+
+				$artefato_id = 'reading_planner';
+				$artefato_subtitulo = $pagina_translated['Study Planner'];
+				$artefato_modal = '#modal_planner';
+				$fa_icone = 'fa-calendar-check';
+				$fa_color = 'text-info';
+				if (in_array(19, $icons_to_show)) {
+					$template_conteudo .= include 'templates/artefato_item.php';
+				} else {
+					$template_conteudo_hidden .= include 'templates/artefato_item.php';
+				}
+
 				$artefato_id = 'grupos_estudo';
 				$artefato_subtitulo = $pagina_translated['your study groups'];
 				$fa_icone = 'fa-users';
@@ -370,17 +382,6 @@
 				$fa_icone = 'fa-pen-nib';
 				$fa_color = 'text-secondary';
 				if (in_array(18, $icons_to_show)) {
-					$template_conteudo .= include 'templates/artefato_item.php';
-				} else {
-					$template_conteudo_hidden .= include 'templates/artefato_item.php';
-				}
-
-				$artefato_id = 'reading_planner';
-				$artefato_subtitulo = $pagina_translated['Study Planner'];
-				$artefato_modal = '#modal_planner';
-				$fa_icone = 'fa-calendar-check';
-				$fa_color = 'text-info';
-				if (in_array(19, $icons_to_show)) {
 					$template_conteudo .= include 'templates/artefato_item.php';
 				} else {
 					$template_conteudo_hidden .= include 'templates/artefato_item.php';

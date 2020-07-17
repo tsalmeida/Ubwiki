@@ -2,6 +2,8 @@
 
 	//TODO: Ownership e classificação por ícones.
 	//TODO: When clicking a comment, its current content should load on the form.
+	//TODO: Copy a plan to make it your own.
+	//TODO: I need to transfer my own Personal Library plan to a separate plan.
 
 	if (isset($_POST['adicionar_pagina_id'])) {
 		$adicionar_pagina_id = $_POST['adicionar_pagina_id'];
@@ -103,6 +105,7 @@
     ";
 	include 'templates/modal.php';
 
+	//TODO: Focus on the input when the modal opens.
 	$template_modal_div_id = 'modal_set_tag';
 	$template_modal_titulo = $pagina_translated['Set plan tag'];
 	$template_modal_body_conteudo = false;
