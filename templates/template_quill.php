@@ -165,7 +165,7 @@
 
 	if ($quill_edicao == true) {
 		$template_botoes_salvar .= "
-			<a href='javascript:void(0)' id='{$template_id}_trigger_save' title='{$pagina_translated['Salvar mudanças']}' class='text-primary ql-formats'><i class='fad fa-save fa-fw'></i></a>
+			<a href='javascript:void(0)' id='{$template_id}_trigger_save' title='{$pagina_translated['Salvar mudanças']}' class='ql-formats text-primary border border-light rounded'><i class='fad fa-save fa-fw'></i></a>
 		";
 	}
 	if (($quill_texto_id != false) && ($template_id != 'modelo')) {
@@ -211,17 +211,16 @@
 	$quill_result .= "
 		<form id='quill_{$template_id}_form' method='post' class='w-100'>
 			<input type='hidden' id='arquivo_id_{$template_id}' value=''>
+			<input type='hidden' id='changes_{$template_id}' value='0'>
 			<div id='quill_container_{$template_id}' class='bg-white'>
 				<div id='quill_editor_{$template_id}' class='$template_quill_editor_classes'>
 				</div>
 			</div>
 	";
 	$quill_result .= "
-			<div id='botoes_salvar_{$template_id}' class='row justify-content-center mt-3 d-none'>
-				<button type='submit' id='$quill_trigger_button' class='$button_classes' name='$quill_trigger_button'>
-					{$pagina_translated['Salvar mudanças']}
-				</button>
-			</div>
+			<button type='submit' id='$quill_trigger_button' class='$button_classes hidden' name='$quill_trigger_button'>
+				{$pagina_translated['Salvar mudanças']}
+			</button>
 		</form>
     ";
 	$quill_user_id = (int)$user_id;
@@ -269,13 +268,14 @@
 			
 			form_{$template_id}.onsubmit = function (e) {
 			    
-				e.preventDefault();
+			    $('#changes_{$template_id}').val(Number(1));
+				arquivo_id = $('#arquivo_id_{$template_id}').val();
+				
+			    e.preventDefault();
 				
 				var quill_{$template_id}_content = {$template_id}_editor.getContents();
 				
 				quill_{$template_id}_content = JSON.stringify(quill_{$template_id}_content);
-				
-				arquivo_id = $('#arquivo_id_{$template_id}').val();
 				
 				$.post('engine.php', {
 					'quill_novo_verbete_html': {$template_id}_editor.root.innerHTML,
@@ -294,10 +294,10 @@
 					if (data != false) {
 					    $('#arquivo_id_{$template_id}').val(data);
 						$('#{$template_id}_trigger_save').removeClass();
-						$('#{$template_id}_trigger_save').addClass('ql-formats text-success'); //user is told: your most recent changes have been saved.
+						$('#{$template_id}_trigger_save').addClass('ql-formats text-success green lighten-5 border border-success rounded'); //user is told: your most recent changes have been saved.
 					} else {
 						$('#{$template_id}_trigger_save').removeClass();
-						$('#{$template_id}_trigger_save').addClass('ql-formats text-danger'); //user is told: failure to save your changes.
+						$('#{$template_id}_trigger_save').addClass('ql-formats text-white danger-color border border-danger rounded'); //user is told: failure to save your changes.
 					}
 				});
 			};
@@ -309,7 +309,6 @@
 				$('#travar_{$template_id}').hide();
 				$('#destravar_{$template_id}').show();
 				$('#quill_container_{$template_id}').children(':first').hide();
-				$('#botoes_salvar_{$template_id}').hide();
 				$('#{$template_id}_trigger_save').hide();
 				$('#quill_editor_{$template_id}').children(':first').removeClass('ql-editor-active');
 			});
@@ -319,7 +318,6 @@
 				$('#travar_{$template_id}').show();
 				$('#destravar_{$template_id}').hide();
 				$('#quill_container_{$template_id}').children(':first').show();
-				$('#botoes_salvar_{$template_id}').show();
 				$('#{$template_id}_trigger_save').show();
 				$('#quill_editor_{$template_id}').children(':first').addClass('ql-editor-active');
 			});
@@ -336,16 +334,54 @@
 			let {$template_id}_timeout = null;
 			
 			{$template_id}_editor.on('text-change', function(delta) {
-			    clearTimeout({$template_id}_timeout); // timeout is constanty cleared so that the text will only save if the user stops typing for the set duration.
-				$('#{$template_id}_trigger_save').removeClass();
-				$('#{$template_id}_trigger_save').addClass('ql-formats text-warning'); //user is told: your most recent changes have not been saved yet.
-				
-				{$template_id}_timeout = setTimeout(function() {
+			    var changes = $('#changes_{$template_id}').val();
+				changes = Number(changes) + 1;
+				$('#changes_{$template_id}').val(changes);
+			    if (changes == 1) {
+					{$template_id}_timeout = setTimeout(function() {
+					    $('#{$quill_trigger_button}').click();
+					}, 3000)
+					$('#{$template_id}_trigger_save').removeClass();
+					$('#{$template_id}_trigger_save').addClass('ql-formats text-warning border rounded'); //user is told: your most recent changes have not been saved yet.
+			    } else if (changes == 2) {
+			        clearTimeout({$template_id}_timeout); // timeout is cleared because the user has just started typing (hasnt made one single change and stopped.)
+					{$template_id}_timeout = setTimeout(function() {
+					    $('#{$quill_trigger_button}').click();
+					}, 5000) // A longer timeout is set.
+					$('#{$template_id}_trigger_save').removeClass('text-success');
+					$('#{$template_id}_trigger_save').addClass('text-warning'); //user is told: your most recent changes have not been saved yet.
+			    } else if (changes == 15) {
+			        clearTimeout({$template_id}_timeout); // timeout is cleared because the user has just started typing (hasnt made one single change and stopped.)
+					{$template_id}_timeout = setTimeout(function() {
+					    $('#{$quill_trigger_button}').click();
+					}, 6000) // A longer timeout is set.
+					$('#{$template_id}_trigger_save').removeClass('text-success green');
+					$('#{$template_id}_trigger_save').addClass('text-warning amber lighten-5'); //user is told: your most recent changes have not been saved yet.
+			    } else if (changes == 40) {
+			        clearTimeout({$template_id}_timeout); // timeout is cleared because the user has made more than 4 changes and, therefore, is probably typing.
+					{$template_id}_timeout = setTimeout(function() {
+					    $('#{$quill_trigger_button}').click();
+					}, 10000) // A longer timeout is set.
+					$('#{$template_id}_trigger_save').removeClass('border-success');
+					$('#{$template_id}_trigger_save').addClass('border-warning'); //user is told: your most recent changes have not been saved yet.
+			    } else if (changes == 80) {
+			        clearTimeout({$template_id}_timeout); // timeout is cleared because the user has made more than 4 changes and, therefore, is probably typing.
+					{$template_id}_timeout = setTimeout(function() {
+					    $('#{$quill_trigger_button}').click();
+					}, 10000) // A longer timeout is set.
+			    } else if (changes > 180) {
+					clearTimeout({$template_id}_timeout); // timeout is cleared.
 					$('#{$quill_trigger_button}').click();
-				}, 15000)
+				}
+
+				
+
 			})
 		</script>
 	";
+
+	//TODO: change the highlight colors, they are unreadable.
+	//TODO: There should be a button to hide the left column, but only when the notes are visible.
 
 	if ($template_quill_initial_state == 'leitura') {
 		$quill_result .= "
