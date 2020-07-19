@@ -194,8 +194,8 @@
 
 	$privilegio_edicao = return_privilegio_edicao($pagina_id, $user_id, $_SESSION['user_editor_paginas_id']);
 	if ($privilegio_edicao == true) {
-	    $_SESSION['adicionar_privilegio_edicao'] = $pagina_id;
-    }
+		$_SESSION['adicionar_privilegio_edicao'] = $pagina_id;
+	}
 	if (($pagina_subtipo == 'modelo') && ($pagina_compartilhamento == false)) {
 		$privilegio_edicao = false;
 	}
@@ -519,7 +519,7 @@
 					$found = false;
 				}
 				if ($parente_id == $pagina_id) {
-				    $pagina_secao_position = $parente['ordem'];
+					$pagina_secao_position = $parente['ordem'];
 					$found = true;
 					$pagina_anterior = $mais_recente;
 					$lista_tipo = 'inactive';
@@ -566,22 +566,25 @@
 	if (($pagina_tipo == 'elemento') || ($pagina_tipo == 'pagina') || ($pagina_tipo == 'grupo')) {
 		if (isset($_POST['trigger_nova_secao'])) {
 			if (isset($_POST['multiplas_secoes_textarea'])) {
+				$multiplas_secoes_textarea = $_POST['multiplas_secoes_textarea'];
+			}
+			if ($multiplas_secoes_textarea != false) {
 				$multiplas_secoes_textarea = trim($_POST['multiplas_secoes_textarea']);
 				$multiplas_secoes_textarea = explode("\n", $multiplas_secoes_textarea);
 				$multiplas_secoes_textarea = array_filter($multiplas_secoes_textarea, 'trim');
 				$count = 0;
 				foreach ($multiplas_secoes_textarea as $nova_secao_titulo) {
-				    $count = $count + 1;
-				    if ($count == 31) {
-				        break;
-                    }
+					$count = $count + 1;
+					if ($count == 31) {
+						break;
+					}
 					$nova_secao_titulo = mysqli_real_escape_string($conn, $nova_secao_titulo);
 					$conn->query("INSERT INTO Paginas (item_id, tipo, compartilhamento, user_id) VALUES ($pagina_id, 'secao', 'igual à página original', $user_id)");
 					$nova_secao_pagina_id = $conn->insert_id;
 					$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($nova_secao_pagina_id, 'secao', 'titulo', '$nova_secao_titulo', $user_id)");
 					$conn->query("INSERT INTO Secoes (ordem, user_id, pagina_id, secao_pagina_id) VALUES (0, $user_id, $pagina_id, $nova_secao_pagina_id)");
 				}
-			} else if (isset($_POST['elemento_nova_secao'])) {
+			} else {
 				$nova_secao_titulo = $_POST['elemento_nova_secao'];
 				$nova_secao_titulo = mysqli_real_escape_string($conn, $nova_secao_titulo);
 				$nova_secao_ordem = (int)$_POST['elemento_nova_secao_ordem'];
@@ -1863,14 +1866,14 @@
         </div>
         ";
 
-        if ($pagina_tipo == 'secao') {
-            $template_modal_body_conteudo .= "
+		if ($pagina_tipo == 'secao') {
+			$template_modal_body_conteudo .= "
                 <div class='md-form mb-2'>
                     <input type='number' id='secao_nova_ordem' name='secao_nova_ordem' class='form-control' value='$pagina_secao_position'>
                     <label for='secao_nova_ordem'>{$pagina_translated['Nova posição como seção']}</label>
                 </div>
             ";
-        }
+		}
 
 		if (isset($secoes)) {
 			if (($pagina_compartilhamento == 'privado') && ($pagina_user_id == $user_id) && ($secoes->num_rows == 0) && ($pagina_tipo == 'pagina') && ($pagina_titulo != false) && ($pagina_subtipo != 'produto') && ($pagina_subtipo != 'simulado') && ($pagina_subtipo != 'modelo') && ($pagina_subtipo != 'plano')) {
