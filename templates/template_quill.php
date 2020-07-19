@@ -382,6 +382,7 @@
 
 	//TODO: change the highlight colors, they are unreadable.
 	//TODO: There should be a button to hide the left column, but only when the notes are visible.
+	//TODO: Improvements must be made to the queries triggered by saving. Session variables can make it easier.
 
 	if ($template_quill_initial_state == 'leitura') {
 		$quill_result .= "

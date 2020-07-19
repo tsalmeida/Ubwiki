@@ -192,7 +192,10 @@
 		$wiki_id = false;
 	}
 
-	$privilegio_edicao = return_privilegio_edicao($pagina_id, $user_id);
+	$privilegio_edicao = return_privilegio_edicao($pagina_id, $user_id, $_SESSION['user_editor_paginas_id']);
+	if ($privilegio_edicao == true) {
+	    $_SESSION['adicionar_privilegio_edicao'] = $pagina_id;
+    }
 	if (($pagina_subtipo == 'modelo') && ($pagina_compartilhamento == false)) {
 		$privilegio_edicao = false;
 	}
@@ -1742,6 +1745,7 @@
 		include 'pagina/modals_elemento.php';
 	}
 
+	$lista_de_secoes = false;
 	if (($carregar_secoes == true) && ($privilegio_edicao == true)) {
 		$template_modal_div_id = 'modal_partes_form';
 		if ($pagina_tipo == 'elemento') {
@@ -1817,7 +1821,6 @@
           </div>
         ";
 
-		$lista_de_secoes = false;
 		if ($secoes->num_rows > 0) {
 			$template_modal_body_conteudo .= "
 		      <h3>{$pagina_translated['Seções registradas desta página']}:</h3>

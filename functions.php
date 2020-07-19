@@ -22,6 +22,8 @@
 	{
 		$args = func_get_args();
 		$query = $args[0];
+		//$args[1] = 'log';
+		//$args[1] = 'print';
 		if (isset($args[1])) {
 			$extra = $args[1];
 			switch ($extra) {
@@ -1386,8 +1388,19 @@
 		return false;
 	}
 
-	function return_privilegio_edicao($item_id, $user_id)
+	function return_privilegio_edicao()
 	{
+		$args = func_get_args();
+		$item_id = $args[0];
+		$user_id = $args[1];
+		if (isset($args[2])) {
+			$user_editor_paginas_id = $args[2];
+		} else {
+			$user_editor_paginas_id = array();
+		}
+		if (in_array($item_id, $user_editor_paginas_id)) {
+			return true;
+		}
 		if (($item_id == false) || ($user_id == false)) {
 			return false;
 		}

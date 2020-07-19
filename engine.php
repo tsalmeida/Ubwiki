@@ -133,6 +133,7 @@
 					$_SESSION['user_wallet'] = (int)return_wallet_value($_SESSION['user_id']);
 					$_SESSION['user_escritorio'] = return_pagina_id($_SESSION['user_id'], 'escritorio');
 					$_SESSION['user_lounge'] = return_lounge_id($_SESSION['user_id']);
+					$_SESSION['user_editor_paginas_id'] = array();
 				}
 			}
 		} else {
@@ -148,8 +149,8 @@
 			$user_avatar_icone = 'fa-user';
 			$user_avatar_cor = 'text-primary';
 			$_SESSION['raiz_ativa'] = 1118;
-			$raiz_ativa = 1118;
 			$user_opcoes = array();
+			$_SESSION['user_editor_paginas_id'] = array();
 		}
 	}
 
@@ -180,7 +181,6 @@
 			$_SESSION['user_areas_interesse'] = return_user_areas_interesse($user_escritorio);
 		}
 		$user_areas_interesse = $_SESSION['user_areas_interesse'];
-		$raiz_ativa = $_SESSION['raiz_ativa'];
 		if (!isset($_SESSION['user_opcoes'])) {
 			$_SESSION['user_opcoes'] = return_user_opcoes($_SESSION['user_id']);
 			if (isset($_SESSION['user_opcoes']['avatar'])) {
@@ -206,26 +206,45 @@
 		$user_wallet = false;
 		$user_escritorio = false;
 		$user_lounge = false;
-		$raiz_ativa = 1118;
 		$user_avatar_icone = 'fa-user';
 		$user_avatar_cor = 'text-primary';
 		$user_bookmarks = array();
 		$user_completed = array();
 		$user_areas_interesse = array();
 		$user_opcoes = array();
+		$_SESSION['user_editor_paginas_id'] = array();
 	}
 
-	$raiz_info = return_pagina_info($raiz_ativa, true);
-	$raiz_tipo = $raiz_info[2];
-	$raiz_item_id = $raiz_info[1];
-	if ($raiz_tipo == 'curso') {
-		$raiz_sigla = return_curso_sigla($raiz_item_id);
+	if (!isset($_SESSION['user_editor_paginas_id'])) {
+		$_SESSION['user_editor_paginas_id'] = array();
 	}
-	$raiz_titulo = $raiz_info[6];
 
+	if (isset($_SESSION['adicionar_privilegio_edicao'])) {
+		array_push($_SESSION['user_editor_paginas_id'], $_SESSION['adicionar_privilegio_edicao']);
+		$_SESSION['user_editor_paginas_id'] = array_unique($_SESSION['user_editor_paginas_id']);
+		unset($_SESSION['adicionar_privilegio_edicao']);
+	}
 
 	if (!isset($_SESSION['raiz_ativa'])) {
 		$_SESSION['raiz_ativa'] = 1118;
+	}
+	$raiz_ativa = $_SESSION['raiz_ativa'];
+
+	if (!isset($_SESSION['raiz_ativa_info'])) {
+		$_SESSION['raiz_ativa_info'] = return_pagina_info($raiz_ativa, true);
+	}
+
+	$raiz_tipo = $_SESSION['raiz_ativa_info'][2];
+	$raiz_item_id = $_SESSION['raiz_ativa_info'][1];
+	$raiz_titulo = $_SESSION['raiz_ativa_info'][6];
+	$raiz_sigla = false;
+	if ($raiz_tipo == 'curso') {
+		if (!isset($_SESSION['raiz_ativa_info']['sigla'])) {
+			$raiz_sigla = return_curso_sigla($raiz_item_id);
+			$_SESSION['raiz_ativa_info']['sigla'] = $raiz_sigla;
+		} else {
+			$raiz_sigla = $_SESSION['raiz_ativa_info']['sigla'];
+		}
 	}
 
 	if (!isset($user_opcoes['hide_navbar'][0])) {
@@ -863,7 +882,10 @@
 		$quill_arquivo_id = (int)$_POST['quill_arquivo_id'];
 
 		if ($quill_texto_tipo != 'anotacoes') {
-			$check_privilegio_edicao = return_privilegio_edicao($quill_pagina_id, $user_id);
+			$check_privilegio_edicao = return_privilegio_edicao($quill_pagina_id, $user_id, $_SESSION['user_editor_paginas_id']);
+			if ($check_privilegio_edicao == true) {
+				$_SESSION['adicionar_privilegio_edicao'] = $quill_pagina_id;
+			}
 		} else {
 			$check_privilegio_edicao = true;
 		}
