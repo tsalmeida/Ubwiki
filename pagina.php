@@ -1772,16 +1772,12 @@
 				$secoes_sem_texto = false;
 			} else {
 				$secoes_sem_texto = false;
-				$template_modal_body_conteudo_sub = false;
 				$template_modal_body_conteudo_sub .= put_together_list_item('link_button', 'mostrar_instrucoes_secoes', 'text-info', 'fad fa-eye', $pagina_translated['Mostrar instruções'], false, false, false, false, false);
-				$template_modal_body_conteudo_sub .= put_together_list_item('link_button', 'adicionar_varias_secoes', 'text-danger', 'fad fa-list-ol', $pagina_translated['Adicionar várias seções'], false, false, false, false, false);
-				$template_modal_body_conteudo .= list_wrap($template_modal_body_conteudo_sub);
 				unset($template_modal_body_conteudo_sub);
 				$template_modal_body_conteudo .= "
 		        	<p class='hidden instrucoes_secoes'>{$pagina_translated['please care add chapter']}</p>
 		        	<p class='instrucoes_secoes'>{$pagina_translated['section examples']}</p>
 		        	<p class='hidden instrucoes_secoes'>{$pagina_translated['order details']}</p>
-		        	<p class='hidden instrucoes_multiplas_secoes'>{$pagina_translated['multiplas secoes details']}</p>
 	          	";
 			}
 		} else {
@@ -1789,9 +1785,11 @@
 		}
 		if ($secoes_sem_texto == true) {
 			$template_modal_body_conteudo .= "
-				<p>{$pagina_translated['you can sections']}</p>
+				<p class='instrucoes_secoes'>{$pagina_translated['you can sections']}</p>
 			";
 		}
+		$template_modal_body_conteudo .= "<p class='hidden instrucoes_multiplas_secoes'>{$pagina_translated['multiplas secoes details']}</p>";
+		$template_modal_body_conteudo .= put_together_list_item('link_button', 'adicionar_varias_secoes', 'text-danger', 'fad fa-list-ol', $pagina_translated['Adicionar várias seções'], false, false, false, false, false);
 		unset($nova_secao_titulo);
 		if ($pagina_tipo == 'elemento') {
 			if ($elemento_subtipo == 'podcast') {
