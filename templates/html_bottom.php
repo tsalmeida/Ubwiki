@@ -1187,24 +1187,36 @@
 				        $('#verbete_trigger_save').click();
   					}
 				});
+				function into_sepia() {
+					$('.swatch_button').attr('value', 'dark');
+					$('.ql-editor').addClass('orange p-1 lighten-5 brown-text rounded fontstack-body-serif');
+					$('.swatch_button').removeClass('text-dark bg-white');
+					$('.swatch_button').addClass('brown-text orange lighten-5');
+				}
+				function into_dark() {
+					$('.swatch_button').attr('value', 'default');
+					$('.ql-editor').removeClass('orange lighten-5 brown-text fontstack-body-serif');
+					$('.ql-editor').addClass('unique-color-dark yellow-text fontstack-mono');
+					$('.swatch_button').removeClass('brown-text orange lighten-5');
+					$('.swatch_button').addClass('unique-color-dark yellow-text');
+				}
+				function into_default() {
+					$('.swatch_button').attr('value', 'sepia');
+					$('.ql-editor').removeClass('p-1 unique-color-dark yellow-text fontstack-mono');
+					$('.swatch_button').removeClass('unique-color-dark yellow-text');
+					$('.swatch_button').addClass('bg-white text-dark');
+				}
 				$(document).on('click', '.swatch_button', function() {
 				    current_color = $(this).attr('value');
-				    if (current_color == 'default') {
-				        $('.swatch_button').attr('value', 'yellow');
-				    	$('.ql-editor').addClass('orange p-1 lighten-5 brown-text rounded fontstack-body-serif');
-						$('.swatch_button').removeClass('text-dark bg-white');
-				    	$('.swatch_button').addClass('brown-text orange lighten-5');
-				    } else if (current_color == 'yellow') {
-				        $('.swatch_button').attr('value', 'dark');
-						$('.ql-editor').removeClass('orange lighten-5 brown-text fontstack-body-serif');
-				    	$('.ql-editor').addClass('unique-color-dark yellow-text fontstack-mono');
-						$('.swatch_button').removeClass('brown-text orange lighten-5');
-				    	$('.swatch_button').addClass('unique-color-dark yellow-text');
+					$.post('engine.php', {
+				        'change_color': current_color
+				    })
+				    if (current_color == 'sepia') {
+				        into_sepia();
 				    } else if (current_color == 'dark') {
-				        $('.swatch_button').attr('value', 'default');
-						$('.ql-editor').removeClass('p-1 unique-color-dark yellow-text fontstack-mono');
-						$('.swatch_button').removeClass('unique-color-dark yellow-text');
-				    	$('.swatch_button').addClass('bg-white text-dark');
+				        into_dark();
+				    } else if (current_color == 'default') {
+						into_default();
 				    }
 				});
 				$('.zoom_out').hide();
@@ -1218,6 +1230,14 @@
 				    $('.zoom_out').show();
 				    $('.ql-editor').css('zoom','110%');
 				})
+			</script>
+		";
+	}
+	
+	if ($user_opcoes['quill_colors'] == 'sepia') {
+		echo "
+			<script type='text/javascript'>
+				into_sepia();
 			</script>
 		";
 	}

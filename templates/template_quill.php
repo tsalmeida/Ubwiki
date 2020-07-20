@@ -326,7 +326,7 @@
 			var template_botoes_salvar = \"$template_botoes_salvar\";
 			
 			$('#quill_container_{$template_id} > .ql-toolbar').prepend(template_botoes_salvar);
-			$('#quill_container_{$template_id} > .ql-toolbar').append(\"<a class='zoom_in ql-formats text-dark'><i class='fad fa-text-size fa-swap-opacity fa-fw'></i></a><a class='zoom_out ql-formats text-dark'><i class='fad fa-text-size fa-fw'></i></a><a class='ql-formats text-dark bg-white border rounded swatch_button' value='default'><i class='fad fa-tint fa-swap-opacity fa-fw'></i></a>\");
+			$('#quill_container_{$template_id} > .ql-toolbar').append(\"<a class='zoom_in ql-formats text-dark'><i class='fad fa-text-size fa-swap-opacity fa-fw'></i></a><a class='zoom_out ql-formats text-dark'><i class='fad fa-text-size fa-fw'></i></a><a class='ql-formats text-dark bg-white border rounded swatch_button' value='sepia'><i class='fad fa-palette fa-swap-opacity fa-fw'></i></a>\");
 			
 			$('#{$template_id}_trigger_save').click(function () {
 				$('#{$quill_trigger_button}').click();

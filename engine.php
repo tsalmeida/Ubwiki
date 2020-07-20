@@ -215,6 +215,13 @@
 		$_SESSION['user_editor_paginas_id'] = array();
 	}
 
+	if (!isset($_SESSION['user_opcoes']['quill_colors'])) {
+		$_SESSION['user_opcoes']['quill_colors'][1] = 'default';
+		if ($user_id != false) {
+			$conn->query("INSERT INTO Opcoes (user_id, opcao_tipo, opcao_string) VALUES ($user_id, 'quill_colors', 'default')");
+		}
+	}
+
 	if (!isset($_SESSION['user_editor_paginas_id'])) {
 		$_SESSION['user_editor_paginas_id'] = array();
 	}
@@ -2045,6 +2052,11 @@
 		$query = prepare_query("UPDATE Paginas_elementos SET estado = 1 WHERE id = $reativar_elemento_id");
 		$check = $conn->query($query);
 		echo $check;
+	}
+	if (isset($_POST['change_color'])) {
+		$change_color = $_POST['change_color'];
+		$_SESSION['user_opcoes']['quill_colors'][1] = $change_color;
+		$conn->query("UPDATE Opcoes SET opcao_string = '$change_color' WHERE user_id = $user_id AND opcao_tipo = 'quill_colors'");
 	}
 
 ?>
