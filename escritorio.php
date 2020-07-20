@@ -3,6 +3,8 @@
 	//TODO: Notificações
 	//TODO: Etiquetas como pastas que organizam os textos e páginas do usuário.
 	//TODO: A sala de visitas deve ter espaço para adicionar os perfis do usuário em sites de mídia social.
+    //TODO: Show every one of the user's entry into Textos_arquivo, allow him to delete them.
+    //TODO: Transferência de planos de estudos.
 
 	$pagina_tipo = 'escritorio';
 	include 'engine.php';

@@ -268,7 +268,6 @@
 			
 			form_{$template_id}.onsubmit = function (e) {
 			    
-			    $('#changes_{$template_id}').val(Number(1));
 				arquivo_id = $('#arquivo_id_{$template_id}').val();
 				
 			    e.preventDefault();
@@ -292,6 +291,8 @@
 					'quill_arquivo_id': arquivo_id
 				}, function(data) {
 					if (data != false) {
+					    clearTimeout({$template_id}_timeout); // timeout is cleared.
+						$('#changes_{$template_id}').val(Number(1));
 					    $('#arquivo_id_{$template_id}').val(data);
 						$('#{$template_id}_trigger_save').removeClass();
 						$('#{$template_id}_trigger_save').addClass('ql-formats text-success green lighten-5 border border-success rounded'); //user is told: your most recent changes have been saved.
@@ -382,7 +383,6 @@
 
 	//TODO: change the highlight colors, they are unreadable.
 	//TODO: There should be a button to hide the left column, but only when the notes are visible.
-	//TODO: Improvements must be made to the queries triggered by saving. Session variables can make it easier.
 
 	if ($template_quill_initial_state == 'leitura') {
 		$quill_result .= "

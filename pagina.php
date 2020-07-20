@@ -2,13 +2,12 @@
 
 	//TODO: Permitir que a ordem das matérias seja diferente da ordem de criação.
 	//TODO: Permitir que a ordem dos tópicos seja diferente da ordem de criação.
-	//TODO: Permitir que a ordem de seções seja alterada.
 	//TODO: Gerar PDF para impressão.
 	//TODO: Permitir baixar um arquivo com todas as suas anotações.
 	//TODO: Estado da página não está sendo atualizado imediatamente, apenas após recarregar.
 	//TODO: Sistema de simulados automatizado, em que os alunos votam nas melhores respostas.
 	//TODO: Verbetes relacionados should only load when the user clicks on it (and only once).
-	//TODO: Criar várias seções ao mesmo tempo.
+    //TODO: For some reason, the add section modal is different in private pages.
 
 	$pagina_tipo = 'pagina_geral';
 
