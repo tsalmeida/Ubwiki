@@ -1668,55 +1668,67 @@
 	}
 	if ($anotacoes_existem == true) {
 		$anotacoes_startup = "
-			$('#mostrar_coluna_direita').hide();
-			$('#mostrar_coluna_esquerda').hide();
+			colunas('duas');
 		";
 	} else {
 		$anotacoes_startup = "
-			$('#coluna_direita').hide();
-			$('#coluna_esquerda').removeClass('col-lg-6');
-			$('#coluna_esquerda').addClass('col-lg-8');
-			$('#mostrar_coluna_esquerda').hide();
+			colunas('esquerda');
 		";
 	}
 	if ($anotacoes_col == true) {
 		echo "
 			<script type='text/javascript'>
 				
+				var colunas = function(mode) {
+				    if (mode == 'duas') {
+						$('#coluna_esquerda').addClass('col-lg-6');
+						$('#coluna_esquerda').removeClass('col-lg-8');
+						$('#coluna_direita').addClass('col-lg-6');
+						$('#coluna_direita').removeClass('col-lg-8');
+						$('#coluna_direita').show();
+						$('#coluna_esquerda').show();
+						$('#esconder_coluna_direita').show();
+						$('#mostrar_coluna_direita').hide();
+						$('#mostrar_coluna_esquerda').hide();
+						$('#esconder_coluna_esquerda_inner').show();
+				    } else if (mode == 'esquerda') {
+						$('#coluna_direita').hide();
+						$('#coluna_esquerda').show();
+						$('#coluna_esquerda').removeClass('col-lg-6');
+						$('#coluna_esquerda').addClass('col-lg-8');
+						$('#coluna_direita').addClass('col-lg-6');
+						$('#coluna_direita').removeClass('col-lg-8');
+						$('#mostrar_coluna_direita').show();
+						$('#esconder_coluna_esquerda').show();
+						$('#mostrar_coluna_esquerda').hide();
+						$('#esconder_coluna_esquerda_inner').hide();
+				    } else if (mode == 'direita') {
+						$('#coluna_esquerda').hide();
+						$('#coluna_direita').show();
+						$('#coluna_direita').removeClass('col-lg-6');
+						$('#coluna_direita').addClass('col-lg-8');
+						$('#mostrar_coluna_esquerda').show();
+						$('#esconder_coluna_esquerda').hide();
+						$('#mostrar_coluna_direita').hide();
+				    }
+				}
+				
 				$anotacoes_startup
 				
 				$(document).on('click', '#mostrar_coluna_direita', function() {
-					$('#coluna_esquerda').addClass('col-lg-6');
-					$('#coluna_esquerda').removeClass('col-lg-8');
-				    $('#coluna_direita').show();
-				    $('#esconder_coluna_direita').show();
-				    $(this).hide();
+				    colunas('duas');
 				})
 				$('#anotacoes').on('click', '#esconder_coluna_direita', function() {
-				    $(this).hide();
-				    $('#coluna_direita').hide();
-				    $('#coluna_esquerda').show();
-					$('#coluna_esquerda').removeClass('col-lg-6');
-					$('#coluna_esquerda').addClass('col-lg-8');
-					$('#coluna_direita').addClass('col-lg-6');
-					$('#coluna_direita').removeClass('col-lg-8');
-					$('#mostrar_coluna_direita').show();
-					$('#esconder_coluna_esquerda').show();
-					$('#mostrar_coluna_esquerda').hide();
+				    colunas('esquerda');
 				})
 				$('#anotacoes').on('click', '#mostrar_coluna_esquerda', function() {
-				    $('#coluna_esquerda').show();
-					$('#coluna_direita').addClass('col-lg-6');
-					$('#coluna_direita').removeClass('col-lg-8');
-				    $('#esconder_coluna_esquerda').show();
-				    $(this).hide();
+				    colunas('duas');
 				})
 				$('#anotacoes').on('click', '#esconder_coluna_esquerda', function() {
-				    $('#coluna_esquerda').hide();
-					$('#coluna_direita').removeClass('col-lg-6');
-					$('#coluna_direita').addClass('col-lg-8');
-				    $('#mostrar_coluna_esquerda').show();
-				    $(this).hide();
+				    colunas('direita');
+				})
+				$('#verbete').on('click', '#esconder_coluna_esquerda_inner', function() {
+				    colunas('direita');
 				})
 			</script>
 		";

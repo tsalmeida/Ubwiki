@@ -189,13 +189,13 @@
 		";
 	}
 
-
 	if ($quill_edicao == true) {
 		$template_botoes .= "
-			<span id='destravar_{$template_id}' title='{$pagina_translated['Permitir edição']}'>
-					<a href='javascript:void(0);' class='text-primary'><i class='fad fa-pen-square fa-fw'></i></a>
-			</span>
+			<a href='javascript:void(0);' class='text-primary' id='destravar_{$template_id}' title='{$pagina_translated['Permitir edição']}'><i class='fad fa-pen-square fa-fw'></i></a>
 		";
+		if ($template_id == "verbete") {
+			$template_botoes .= "<a class='text-primary' id='esconder_coluna_esquerda_inner'><i class='fad fa-times-square fa-fw'></i></a>";
+		}
 	}
 	if ($user_id == false) {
 		$template_botoes .= "
