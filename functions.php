@@ -3241,6 +3241,7 @@
 				$resultado[$opcao_tipo] = $dados_opcao;
 			}
 		}
+		error_log(serialize($resultado));
 		return $resultado;
 	}
 

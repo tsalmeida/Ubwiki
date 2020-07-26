@@ -5,7 +5,7 @@
 	//TODO: Gerar PDF para impressão.
 	//TODO: Permitir baixar um arquivo com todas as suas anotações.
 	//TODO: Estado da página não está sendo atualizado imediatamente, apenas após recarregar.
-	//TODO: Sistema de simulados automatizado, em que os alunos votam nas melhores respostas.
+    //TODO: O sistema de compartilhamento de anotações deveria ordenar as anotações pelo número de upvotes.
 	//TODO: Verbetes relacionados should only load when the user clicks on it (and only once).
     //TODO: For some reason, the add section modal is different in private pages.
 

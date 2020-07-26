@@ -108,6 +108,7 @@
 		$do_login = true;
 	}
 	if ($do_login == true) {
+		unset($_SESSION['user_opcoes']);
 		$_SESSION['user_info'] = false;
 		if ($user_email != false) {
 			$query = "SELECT * FROM Usuarios WHERE email = '$user_email'";
@@ -195,8 +196,6 @@
 			}
 		}
 		$user_opcoes = $_SESSION['user_opcoes'];
-		$user_avatar_icone = $_SESSION['user_avatar_icone'];
-		$user_avatar_cor = $_SESSION['user_avatar_cor'];
 	} elseif ($_SESSION['user_info'] == 'visitante') {
 		$user_id = false;
 		$user_tipo = false;
@@ -206,13 +205,19 @@
 		$user_wallet = false;
 		$user_escritorio = false;
 		$user_lounge = false;
-		$user_avatar_icone = 'fa-user';
-		$user_avatar_cor = 'text-primary';
 		$user_bookmarks = array();
 		$user_completed = array();
 		$user_areas_interesse = array();
 		$user_opcoes = array();
 		$_SESSION['user_editor_paginas_id'] = array();
+		$_SESSION['user_avatar_icone'] = 'fa-user';
+		$_SESSION['user_avatar_cor'] = 'text-primary';
+	}
+	$user_avatar_icone = $_SESSION['user_avatar_icone'];
+	$user_avatar_cor = $_SESSION['user_avatar_cor'];
+
+	if (!isset($user_opcoes['quill_colors'])) {
+		$user_opcoes['quill_colors'] = 'default';
 	}
 
 	if (!isset($_SESSION['user_opcoes']['quill_colors'])) {
