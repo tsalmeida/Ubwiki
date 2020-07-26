@@ -8,6 +8,7 @@
     //TODO: O sistema de compartilhamento de anotações deveria ordenar as anotações pelo número de upvotes.
 	//TODO: Verbetes relacionados should only load when the user clicks on it (and only once).
     //TODO: For some reason, the add section modal is different in private pages.
+    //TODO: Transfer 975 tp 7092
 
 	$pagina_tipo = 'pagina_geral';
 

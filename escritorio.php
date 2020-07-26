@@ -95,7 +95,7 @@
 	include 'templates/html_head.php';
 	include 'templates/navbar.php';
 
-	$all_icons = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23);
+	$all_icons = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24);
 	$icons_to_show = array(1, 2, 3, 4, 6, 13, 16);
 	if ($user_bookmarks != array()) {
 		array_push($icons_to_show, 10);
@@ -404,6 +404,17 @@
 
 				if ($user_id == 1) {
 
+					$artefato_id = 'all_historico';
+					$artefato_subtitulo = $pagina_translated['todos registros'];
+					$artefato_modal = '#modal_all_historico';
+					$fa_icone = 'fa-file-edit';
+					$fa_color = 'text-info';
+					if (in_array(24, $icons_to_show)) {
+						$template_conteudo .= include 'templates/artefato_item.php';
+					} else {
+						$template_conteudo_hidden .= include 'templates/artefato_item.php';
+					}
+
 					$artefato_id = 'homepage';
 					$artefato_subtitulo = $pagina_translated['Homepage'];
 					$artefato_link = 'nexus.php';
@@ -618,6 +629,12 @@
 
 	$template_modal_div_id = 'modal_planner';
 	$template_modal_titulo = $pagina_translated['Study Planner'];
+	$template_modal_body_conteudo = false;
+	$template_modal_show_buttons = false;
+	include 'templates/modal.php';
+
+	$template_modal_div_id = 'modal_all_historico';
+	$template_modal_titulo = $pagina_translated['todos registros'];
 	$template_modal_body_conteudo = false;
 	$template_modal_show_buttons = false;
 	include 'templates/modal.php';
@@ -885,6 +902,29 @@
             if (data != 0) {
                 $('#body_modal_simulados').empty();
                 $('#body_modal_simulados').append(data);
+            }
+        })
+    })
+    var list_historico = function() {
+        $.post('engine.php', {
+            'list_historico': true
+        }, function (data) {
+            if (data != 0) {
+                $('#body_modal_all_historico').empty();
+                $('#body_modal_all_historico').append(data);
+            }
+        })
+    }
+    $(document).on('click', '#artefato_all_historico', function() {
+        list_historico();
+    })
+    $(document).on('click', '.delete_edit', function() {
+        delete_this_edit = $(this).attr('value');
+        $.post('engine.php', {
+            'delete_this_edit': delete_this_edit
+        }, function (data) {
+            if (data != 0) {
+                list_historico();
             }
         })
     })

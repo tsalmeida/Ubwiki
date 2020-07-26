@@ -1370,6 +1370,21 @@
 		echo $list_biblioteca_particular;
 	}
 
+	if (isset($_POST['list_historico'])) {
+		$edicoes_do_usuario = $conn->query("SELECT * FROM Textos_arquivo WHERE user_id = $user_id");
+		$result = false;
+		if ($edicoes_do_usuario->num_rows > 0) {
+			while ($edicao_do_usuario = $edicoes_do_usuario->fetch_assoc()) {
+				$edicao_do_usuario_pagina_id = $edicao_do_usuario['pagina_id'];
+				$edicao_do_usuario_pagina_titulo = return_pagina_titulo($edicao_do_usuario_pagina_id);
+				$edicao_do_usuario_id = $edicao_do_usuario['id'];
+				$result .= put_together_list_item('link_button', $edicao_do_usuario_id, 'text-danger', 'fad fa-trash-alt', $edicao_do_usuario_pagina_titulo, false, false, false, 'delete_edit', false, false);
+			}
+			$result = list_wrap($result);
+		}
+		echo $result;
+	}
+
 	if (isset($_POST['list_planos'])) {
 		$query = prepare_query("SELECT * FROM Planos WHERE user_id = $user_id");
 		$planos_usuario = $conn->query($query);

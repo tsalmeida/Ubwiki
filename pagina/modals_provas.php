@@ -444,7 +444,7 @@
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "
 	    <p>Fazer simulados é muito importante, mas é necessário algum cuidado para que realmente ajude a trazer você mais próximo de seus objetivos. Fazer provas é uma habilidade que pode e deve ser desenvolvida pela prática, esse é seu objetivo principal ao fazer simulados, e não necessariamente o aprendizado do conteúdo.</p>
-	    <p>Somente recomendamos que você comece a fazer simulados após haver estudado todo o conteúdo do seu concurso pelo menos uma vez, mesmo que em um primeiro nível introdutório e superficial.</p>
+	    <p>Somente recomendamos que você comece a fazer simulados após haver estudado thodo o conteúdo do seu concurso pelo menos uma vez, mesmo que em um primeiro nível introdutório e superficial.</p>
 	";
 	
 	$template_modal_body_conteudo .= "
