@@ -905,7 +905,7 @@
             }
         })
     })
-    var list_historico = function() {
+    $(document).on('click', '#artefato_all_historico', function() {
         $.post('engine.php', {
             'list_historico': true
         }, function (data) {
@@ -914,9 +914,6 @@
                 $('#body_modal_all_historico').append(data);
             }
         })
-    }
-    $(document).on('click', '#artefato_all_historico', function() {
-        list_historico();
     })
     $(document).on('click', '.delete_edit', function() {
         delete_this_edit = $(this).attr('value');
@@ -924,7 +921,7 @@
             'delete_this_edit': delete_this_edit
         }, function (data) {
             if (data != 0) {
-                list_historico();
+                $(this).remove();
             }
         })
     })
