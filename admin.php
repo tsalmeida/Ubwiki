@@ -9,7 +9,6 @@
 	}
 
 	if (isset($_POST['trigger_atualizacao'])) {
-	    adicionar_chave_e_traducoes('todos registros', 'Delete recorded edits', 'Apager suas edições salvas');
 	    unset($_SESSION['pagina_translated']);
 	}
 

@@ -921,7 +921,7 @@
             'delete_this_edit': delete_this_edit
         }, function (data) {
             if (data != 0) {
-                $(this).remove();
+                $('#' + delete_this_edit).remove();
             }
         })
     })
