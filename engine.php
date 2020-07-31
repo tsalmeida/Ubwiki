@@ -1314,17 +1314,20 @@
 		$nova_senha_encrypted = password_hash($nova_senha, PASSWORD_DEFAULT);
 		$confirmacao = generateRandomString(12);
 		$check = send_nova_senha($nova_senha_email, $confirmacao, $user_language);
-		$query = prepare_query("SELECT id FROM Usuarios WHERE email = '$nova_senha_email'");
-		$usuarios = $conn->query($query);
-		if ($usuarios->num_rows > 0) {
-			while ($usuario = $usuarios->fetch_assoc()) {
-				$usuario_id = $usuario['id'];
-				$query = prepare_query("UPDATE Usuarios SET senha = '$nova_senha_encrypted', origem = '$confirmacao' WHERE id = $usuario_id");
+		if ($check == true) {
+			//error_log('and then this happened');
+			$query = prepare_query("SELECT id FROM Usuarios WHERE email = '$nova_senha_email'");
+			$usuarios = $conn->query($query);
+			if ($usuarios->num_rows > 0) {
+				while ($usuario = $usuarios->fetch_assoc()) {
+					$usuario_id = $usuario['id'];
+					$query = prepare_query("UPDATE Usuarios SET senha = '$nova_senha_encrypted', origem = '$confirmacao' WHERE id = $usuario_id");
+					$conn->query($query);
+				}
+			} else {
+				$query = prepare_query("INSERT INTO Usuarios (email, origem, senha) VALUES ('$nova_senha_email', '$confirmacao', '$nova_senha_encrypted')");
 				$conn->query($query);
 			}
-		} else {
-			$query = prepare_query("INSERT INTO Usuarios (email, origem, senha) VALUES ('$nova_senha_email', '$confirmacao', '$nova_senha_encrypted')");
-			$conn->query($query);
 		}
 	}
 
