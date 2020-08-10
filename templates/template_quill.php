@@ -382,7 +382,6 @@
 	";
 
 	//TODO: change the highlight colors, they are unreadable.
-	//TODO: There should be a button to hide the left column, but only when the notes are visible.
 
 	if ($template_quill_initial_state == 'leitura') {
 		$quill_result .= "

@@ -1,6 +1,6 @@
 <?php
 
-    //TODO: Trazer o Nexus a um nível básico que permita o uso.
+    //TODO: Trazer o Nexus a um nível básico que permita o uso
 
 	$pagina_tipo = 'nexus';
 	include 'engine.php';

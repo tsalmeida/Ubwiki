@@ -227,6 +227,8 @@
 		}
 	}
 
+	$user_quill_colors = $_SESSION['user_opcoes']['quill_colors'][1];
+
 	if (!isset($_SESSION['user_editor_paginas_id'])) {
 		$_SESSION['user_editor_paginas_id'] = array();
 	}

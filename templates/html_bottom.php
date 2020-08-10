@@ -1190,20 +1190,20 @@
 				function into_sepia() {
 					$('.swatch_button').attr('value', 'dark');
 					$('.ql-editor').addClass('orange p-1 lighten-5 brown-text rounded fontstack-body-serif');
-					$('.swatch_button').removeClass('text-dark bg-white');
+					$('.swatch_button').removeClass('brown-text orange lighten-5 unique-color-dark yellow-text bg-white text-dark');
 					$('.swatch_button').addClass('brown-text orange lighten-5');
 				}
 				function into_dark() {
 					$('.swatch_button').attr('value', 'default');
 					$('.ql-editor').removeClass('orange lighten-5 brown-text fontstack-body-serif');
-					$('.ql-editor').addClass('unique-color-dark yellow-text fontstack-mono');
-					$('.swatch_button').removeClass('brown-text orange lighten-5');
+					$('.ql-editor').addClass('unique-color-dark yellow-text fontstack-mono p-1 rounded');
+					$('.swatch_button').removeClass('brown-text orange lighten-5 unique-color-dark yellow-text bg-white text-dark');
 					$('.swatch_button').addClass('unique-color-dark yellow-text');
 				}
 				function into_default() {
 					$('.swatch_button').attr('value', 'sepia');
 					$('.ql-editor').removeClass('p-1 unique-color-dark yellow-text fontstack-mono');
-					$('.swatch_button').removeClass('unique-color-dark yellow-text');
+					$('.swatch_button').removeClass('brown-text orange lighten-5 unique-color-dark yellow-text bg-white text-dark');
 					$('.swatch_button').addClass('bg-white text-dark');
 				}
 				$(document).on('click', '.swatch_button', function() {
@@ -1229,15 +1229,19 @@
 				    $('.zoom_in').hide();
 				    $('.zoom_out').show();
 				    $('.ql-editor').css('zoom','110%');
-				})
-			</script>
+				});
 		";
-	}
-	
-	if ($user_opcoes['quill_colors'] == 'sepia') {
+		switch ($user_quill_colors) {
+			case 'sepia':
+				echo "into_sepia();";
+				break;
+			case 'dark':
+				echo "into_dark();";
+				break;
+			default:
+				echo "into_default();";
+		}
 		echo "
-			<script type='text/javascript'>
-				into_sepia();
 			</script>
 		";
 	}
@@ -1701,7 +1705,7 @@
 						$('#mostrar_coluna_direita').show();
 						$('#esconder_coluna_esquerda').show();
 						$('#mostrar_coluna_esquerda').hide();
-						$('#esconder_coluna_esquerda_inner').hide();
+						$('#esconder_coluna_esquerda_inner').show();
 				    } else if (mode == 'direita') {
 						$('#coluna_esquerda').hide();
 						$('#coluna_direita').show();
@@ -1730,6 +1734,12 @@
 				$('#verbete').on('click', '#esconder_coluna_esquerda_inner', function() {
 				    colunas('direita');
 				})
+			</script>
+		";
+	} else {
+		echo "
+			<script type='text/javascript'>
+				$('#esconder_coluna_esquerda_inner').remove();
 			</script>
 		";
 	}

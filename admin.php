@@ -1,5 +1,7 @@
 <?php
 
+    //TODO: Função para confirmar mudança de senha por email.
+
 	include 'engine.php';
 
 	$pagina_tipo = 'admin';
