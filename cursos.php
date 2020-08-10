@@ -1,6 +1,7 @@
 <?php
 	include 'engine.php';
 	$page_tipo = 'cursos';
+	$pagina_id = 1;
 	$usuario_cursos_nao_inscrito_disponiveis = false;
 
 	include 'templates/html_head.php';

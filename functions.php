@@ -1159,6 +1159,7 @@
 		}
 		if ($pagina_tipo == false) {
 			$pagina_info = return_pagina_info($pagina_id, false, false, false);
+			error_log($pagina_id);
 			$pagina_tipo = $pagina_info[2];
 			$pagina_subtipo = $pagina_info[8];
 			$pagina_item_id = $pagina_info[1];
@@ -1447,10 +1448,6 @@
 		$args = func_get_args();
 		$item_id = $args[0];
 		$user_id = $args[1];
-		if (isset($args[2])) {
-			$parent_pagina_id = $args[2];
-		}
-
 
 		if ($item_id == false) {
 			return false;
@@ -1459,7 +1456,10 @@
 		if (($check_publicacao == 'internet') || ($check_publicacao == 'ubwiki')) {
 			return true;
 		}
-		$item_pagina_info = return_pagina_info($item_id);
+		$item_pagina_info = return_pagina_info($item_id, false, false, false);
+		if ($item_pagina_info == false) {
+			return false;
+		}
 		$item_pagina_user_id = $item_pagina_info[5];
 		$item_pagina_compartilhamento = $item_pagina_info[4];
 		$item_pagina_tipo = $item_pagina_info[2];
@@ -3243,7 +3243,7 @@
 				$resultado[$opcao_tipo] = $dados_opcao;
 			}
 		}
-		error_log(serialize($resultado));
+		//error_log(serialize($resultado));
 		return $resultado;
 	}
 
