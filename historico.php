@@ -1,5 +1,7 @@
 <?php
-	
+
+    //TODO: Colunas estão aparecendo uma em cima da outra.
+
 	$pagina_tipo = 'historico';
 	$pagina_id = false;
 	include 'engine.php';

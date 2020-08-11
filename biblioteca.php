@@ -1,4 +1,6 @@
 <?php
+    //TODO: Não deveria haver a opção "salvar" na busca de referências.
+
 	include 'engine.php';
 	$pagina_tipo = 'biblioteca';
 	$pagina_id = 1;

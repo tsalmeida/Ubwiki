@@ -8,6 +8,9 @@
     //TODO: O sistema de compartilhamento de anotações deveria ordenar as anotações pelo número de upvotes.
 	//TODO: Verbetes relacionados should only load when the user clicks on it (and only once).
     //TODO: Transfer 975 to 7092
+    //TODO: Ao destruir uma página, a Ubwiki deve enviar para o escritório.
+    //TODO: Em páginas de elementos, os capítulos de um livro não ficam aparentes. É necessário indicar aos usuários que há páginas diferentes para cada capítulo.
+    //TODO: Problemas com o mecanismo de inclusão de questões. Precisa melhorar.
 
 	$pagina_tipo = 'pagina_geral';
 
@@ -706,6 +709,113 @@
 	if (($pagina_tipo == 'questao') || ($pagina_tipo == 'texto_apoio')) {
 		$html_head_template_quill_sim = true;
 	}
+
+
+	$lista_de_secoes = false;
+	if (($carregar_secoes == true) && ($privilegio_edicao == true)) {
+		$template_modal_div_id = 'modal_partes_form';
+		if ($pagina_tipo == 'elemento') {
+			if ($elemento_subtipo == 'podcast') {
+				$template_modal_titulo = $pagina_translated['Adicionar episódio'];
+			} elseif ($elemento_subtipo == 'livro') {
+				$template_modal_titulo = $pagina_translated['Adicionar capítulo'];
+			}
+		}
+		if (!isset($template_modal_titulo)) {
+			$template_modal_titulo = $pagina_translated['Adicionar seção'];
+		}
+		$template_modal_submit_name = 'trigger_nova_secao';
+		$modal_scrollable = true;
+		$template_modal_body_conteudo = false;
+		$secoes_sem_texto = true;
+		if ($pagina_tipo == 'elemento') {
+			if ($elemento_subtipo == 'podcast') {
+				$template_modal_body_conteudo .= "
+					<p>{$pagina_translated['podcast add episode number']}</p>
+				";
+				$secoes_sem_texto = false;
+			} else {
+				$secoes_sem_texto = false;
+				$template_modal_body_conteudo .= put_together_list_item('link_button', 'mostrar_instrucoes_secoes', 'text-info', 'fad fa-eye', $pagina_translated['Mostrar instruções'], false, false, false, false, false);
+				$template_modal_body_conteudo .= "
+		        	<p class='hidden instrucoes_secoes'>{$pagina_translated['please care add chapter']}</p>
+		        	<p class='instrucoes_secoes'>{$pagina_translated['section examples']}</p>
+		        	<p class='hidden instrucoes_secoes'>{$pagina_translated['order details']}</p>
+	          	";
+			}
+		} else {
+			$secoes_sem_texto = true;
+		}
+		if ($secoes_sem_texto == true) {
+			$template_modal_body_conteudo .= "
+				<p class='instrucoes_secoes'>{$pagina_translated['you can sections']}</p>
+			";
+		}
+		$template_modal_body_conteudo .= "<p class='hidden instrucoes_multiplas_secoes'>{$pagina_translated['multiplas secoes details']}</p>";
+		$template_modal_body_conteudo .= put_together_list_item('link_button', 'adicionar_varias_secoes', 'text-danger', 'fad fa-list-ol', $pagina_translated['Adicionar várias seções'], false, false, false, false, false);
+		unset($nova_secao_titulo);
+		if ($pagina_tipo == 'elemento') {
+			if ($elemento_subtipo == 'podcast') {
+				$nova_secao_titulo = $pagina_translated['episodio titulo'];
+				$nova_secao_numero = $pagina_translated['episodio numero'];
+			} elseif ($elemento_subtipo == 'livro') {
+				$nova_secao_titulo = $pagina_translated['capitulo titulo'];
+				$nova_secao_numero = $pagina_translated['capitulo numero'];
+			}
+		}
+		if (!isset($nova_secao_titulo)) {
+			$nova_secao_titulo = $pagina_translated['nova secao titulo'];
+			$nova_secao_numero = $pagina_translated['nova secao posicao'];
+		}
+		$template_modal_body_conteudo .= "
+		    <div id='adicionar_multiplas_secoes_textarea' class='md-form hidden'>
+		        <textarea id='multiplas_secoes_textarea' name='multiplas_secoes_textarea' class='md-textarea form-control' rows='4'></textarea>
+		        <label for='multiplas_secoes_textarea'>{$pagina_translated['Um título de seção por linha']}</label>
+            </div>
+		";
+		$template_modal_body_conteudo .= "
+          <div class='md-form mb-2 adicionar_uma_secao'>
+              <input type='text' id='elemento_nova_secao' name='elemento_nova_secao' class='form-control'>
+              <label for='elemento_nova_secao'>$nova_secao_titulo</label>
+          </div>
+          <div class='md-form mb-2 adicionar_uma_secao'>
+              <input type='number' id='elemento_nova_secao_ordem' name='elemento_nova_secao_ordem' class='form-control'>
+              <label for='elemento_nova_secao_ordem'>$nova_secao_numero</label>
+          </div>
+        ";
+
+		if ($secoes->num_rows > 0) {
+			$template_modal_body_conteudo .= "
+		      <h3>{$pagina_translated['Seções registradas desta página']}:</h3>
+		      <ul class='list-group list-group-flush'>
+    		";
+			while ($secao = $secoes->fetch_assoc()) {
+				$secao_ordem = $secao['ordem'];
+				$secao_pagina_id = $secao['secao_pagina_id'];
+				$template_modal_body_conteudo .= "<li class='list-group-item list-group-item-light text-center p-0 m-0 border-0'>$secao_ordem</li>";
+				$item_de_secao = return_list_item($secao_pagina_id);
+				$template_modal_body_conteudo .= $item_de_secao;
+				$lista_de_secoes .= $item_de_secao;
+
+				/*$secao_info = return_pagina_info($secao_pagina_id);
+				$secao_titulo = $secao_info[6];
+				$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$secao_pagina_id'><li class='list-group-item list-group-item-action'>$secao_ordem: $secao_titulo</li></a>";*/
+			}
+			$template_modal_body_conteudo .= "</ul>";
+		}
+		$lista_de_secoes_modal = include 'templates/modal.php';
+		if ($lista_de_secoes != false) {
+			$lista_de_secoes_wrapped = false;
+			if ($privilegio_edicao == true) {
+				$lista_de_secoes_wrapped .= "<span data-toggle='modal' data-target='#modal_partes_elemento'>";
+				$lista_de_secoes_wrapped .= put_together_list_item('modal', '#modal_partes_form', false, 'fad fa-plus-square', $pagina_translated['Adicionar seção'], false, false, 'list-group-item-success');
+				$lista_de_secoes_wrapped .= "</span>";
+			}
+			$lista_de_secoes_wrapped .= $lista_de_secoes;
+			$lista_de_secoes_wrapped = list_wrap($lista_de_secoes_wrapped);
+		}
+	}
+
 	include 'templates/html_head.php';
 
 ?>
@@ -1330,6 +1440,14 @@
 						}
 					}
 				}
+
+				if (isset($lista_de_secoes_wrapped)) {
+				    $template_id = 'lista_de_secoes_page_element';
+				    $template_titulo = $pagina_translated['Seções registradas desta página'];
+				    $template_conteudo = $lista_de_secoes_wrapped;
+				    include 'templates/page_element.php';
+                }
+
 				if ($pagina_subtipo != 'plano') {
 					include 'pagina/leiamais.php';
 					include 'pagina/videos.php';
@@ -1747,99 +1865,8 @@
 		include 'pagina/modals_elemento.php';
 	}
 
-	$lista_de_secoes = false;
-	if (($carregar_secoes == true) && ($privilegio_edicao == true)) {
-		$template_modal_div_id = 'modal_partes_form';
-		if ($pagina_tipo == 'elemento') {
-			if ($elemento_subtipo == 'podcast') {
-				$template_modal_titulo = $pagina_translated['Adicionar episódio'];
-			} elseif ($elemento_subtipo == 'livro') {
-				$template_modal_titulo = $pagina_translated['Adicionar capítulo'];
-			}
-		}
-		if (!isset($template_modal_titulo)) {
-			$template_modal_titulo = $pagina_translated['Adicionar seção'];
-		}
-		$template_modal_submit_name = 'trigger_nova_secao';
-		$modal_scrollable = true;
-		$template_modal_body_conteudo = false;
-		$secoes_sem_texto = true;
-		if ($pagina_tipo == 'elemento') {
-			if ($elemento_subtipo == 'podcast') {
-				$template_modal_body_conteudo .= "
-					<p>{$pagina_translated['podcast add episode number']}</p>
-				";
-				$secoes_sem_texto = false;
-			} else {
-				$secoes_sem_texto = false;
-				$template_modal_body_conteudo .= put_together_list_item('link_button', 'mostrar_instrucoes_secoes', 'text-info', 'fad fa-eye', $pagina_translated['Mostrar instruções'], false, false, false, false, false);
-				$template_modal_body_conteudo .= "
-		        	<p class='hidden instrucoes_secoes'>{$pagina_translated['please care add chapter']}</p>
-		        	<p class='instrucoes_secoes'>{$pagina_translated['section examples']}</p>
-		        	<p class='hidden instrucoes_secoes'>{$pagina_translated['order details']}</p>
-	          	";
-			}
-		} else {
-			$secoes_sem_texto = true;
-		}
-		if ($secoes_sem_texto == true) {
-			$template_modal_body_conteudo .= "
-				<p class='instrucoes_secoes'>{$pagina_translated['you can sections']}</p>
-			";
-		}
-		$template_modal_body_conteudo .= "<p class='hidden instrucoes_multiplas_secoes'>{$pagina_translated['multiplas secoes details']}</p>";
-		$template_modal_body_conteudo .= put_together_list_item('link_button', 'adicionar_varias_secoes', 'text-danger', 'fad fa-list-ol', $pagina_translated['Adicionar várias seções'], false, false, false, false, false);
-		unset($nova_secao_titulo);
-		if ($pagina_tipo == 'elemento') {
-			if ($elemento_subtipo == 'podcast') {
-				$nova_secao_titulo = $pagina_translated['episodio titulo'];
-				$nova_secao_numero = $pagina_translated['episodio numero'];
-			} elseif ($elemento_subtipo == 'livro') {
-				$nova_secao_titulo = $pagina_translated['capitulo titulo'];
-				$nova_secao_numero = $pagina_translated['capitulo numero'];
-			}
-		}
-		if (!isset($nova_secao_titulo)) {
-			$nova_secao_titulo = $pagina_translated['nova secao titulo'];
-			$nova_secao_numero = $pagina_translated['nova secao posicao'];
-		}
-		$template_modal_body_conteudo .= "
-		    <div id='adicionar_multiplas_secoes_textarea' class='md-form hidden'>
-		        <textarea id='multiplas_secoes_textarea' name='multiplas_secoes_textarea' class='md-textarea form-control' rows='4'></textarea>
-		        <label for='multiplas_secoes_textarea'>{$pagina_translated['Um título de seção por linha']}</label>
-            </div>
-		";
-		$template_modal_body_conteudo .= "
-          <div class='md-form mb-2 adicionar_uma_secao'>
-              <input type='text' id='elemento_nova_secao' name='elemento_nova_secao' class='form-control'>
-              <label for='elemento_nova_secao'>$nova_secao_titulo</label>
-          </div>
-          <div class='md-form mb-2 adicionar_uma_secao'>
-              <input type='number' id='elemento_nova_secao_ordem' name='elemento_nova_secao_ordem' class='form-control'>
-              <label for='elemento_nova_secao_ordem'>$nova_secao_numero</label>
-          </div>
-        ";
-
-		if ($secoes->num_rows > 0) {
-			$template_modal_body_conteudo .= "
-		      <h3>{$pagina_translated['Seções registradas desta página']}:</h3>
-		      <ul class='list-group list-group-flush'>
-    		";
-			while ($secao = $secoes->fetch_assoc()) {
-				$secao_ordem = $secao['ordem'];
-				$secao_pagina_id = $secao['secao_pagina_id'];
-				$template_modal_body_conteudo .= "<li class='list-group-item list-group-item-light text-center p-0 m-0 border-0'>$secao_ordem</li>";
-				$item_de_secao = return_list_item($secao_pagina_id);
-				$template_modal_body_conteudo .= $item_de_secao;
-				$lista_de_secoes .= $item_de_secao;
-
-				/*$secao_info = return_pagina_info($secao_pagina_id);
-				$secao_titulo = $secao_info[6];
-				$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$secao_pagina_id'><li class='list-group-item list-group-item-action'>$secao_ordem: $secao_titulo</li></a>";*/
-			}
-			$template_modal_body_conteudo .= "</ul>";
-		}
-		include 'templates/modal.php';
+	if (isset($lista_secoes_modal)) {
+		echo $lista_de_secoes_modal;
 	}
 
 	if ($privilegio_edicao == true) {
@@ -1961,14 +1988,7 @@
 		$template_modal_titulo = $partes_titulo;
 		$template_modal_show_buttons = false;
 		$template_modal_body_conteudo = false;
-		$template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
-		if ($privilegio_edicao == true) {
-			$template_modal_body_conteudo .= "<span data-toggle='modal' data-target='#modal_partes_elemento'>";
-			$template_modal_body_conteudo .= put_together_list_item('modal', '#modal_partes_form', false, 'fad fa-plus-square', $pagina_translated['Adicionar seção'], false, false, 'list-group-item-success');
-			$template_modal_body_conteudo .= "</span>";
-		}
-		$template_modal_body_conteudo .= $lista_de_secoes;
-		$template_modal_body_conteudo .= "</ul>";
+		$template_modal_body_conteudo = $lista_de_secoes_wrapped;
 		include 'templates/modal.php';
 	}
 

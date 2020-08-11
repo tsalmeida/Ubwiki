@@ -7,17 +7,19 @@
 	$carregar_areas_relacionadas = false;
 	if (($pagina_etiqueta_id != false) && ($pagina_subtipo != 'etiqueta')) {
 		$pagina_etiqueta_info = return_etiqueta_info($pagina_etiqueta_id);
-		$pagina_etiqueta_tipo = $pagina_etiqueta_info[1];
-		if (($pagina_etiqueta_tipo != 'referencia') && ($pagina_etiqueta_tipo != 'secao')) {
-			$carregar_areas_relacionadas = true;
-			$pagina_etiqueta_pagina_id = $pagina_etiqueta_info[4];
-			$template_modal_body_conteudo .= return_list_item($pagina_etiqueta_pagina_id);
-			/*
-			$pagina_etiqueta_titulo = $pagina_etiqueta_info[2];
-			$pagina_etiqueta_pagina_info = return_pagina_info($pagina_etiqueta_pagina_id);
-			$pagina_etiqueta_pagina_estado = $pagina_etiqueta_pagina_info[3];
-			$pagina_etiqueta_pagina_estado_icone = return_estado_icone($pagina_etiqueta_pagina_estado);
-			$template_modal_body_conteudo .= "<a href='pagina.php?etiqueta_id=$pagina_etiqueta_id'><li class='list-group-item border-top list-group-item-action d-flex justify-content-between mt-1 list-group-item-warning'><span><span class='text-warning'><i class='fad fa-tag fa-fw'></i><span></span></span> $pagina_etiqueta_titulo</span><span><i class='fad $pagina_etiqueta_pagina_estado_icone fa-fw'></i></span></li></a>";*/
+		if ($pagina_etiqueta_info != false) {
+			$pagina_etiqueta_tipo = $pagina_etiqueta_info[1];
+			if (($pagina_etiqueta_tipo != 'referencia') && ($pagina_etiqueta_tipo != 'secao')) {
+				$carregar_areas_relacionadas = true;
+				$pagina_etiqueta_pagina_id = $pagina_etiqueta_info[4];
+				$template_modal_body_conteudo .= return_list_item($pagina_etiqueta_pagina_id);
+				/*
+				$pagina_etiqueta_titulo = $pagina_etiqueta_info[2];
+				$pagina_etiqueta_pagina_info = return_pagina_info($pagina_etiqueta_pagina_id);
+				$pagina_etiqueta_pagina_estado = $pagina_etiqueta_pagina_info[3];
+				$pagina_etiqueta_pagina_estado_icone = return_estado_icone($pagina_etiqueta_pagina_estado);
+				$template_modal_body_conteudo .= "<a href='pagina.php?etiqueta_id=$pagina_etiqueta_id'><li class='list-group-item border-top list-group-item-action d-flex justify-content-between mt-1 list-group-item-warning'><span><span class='text-warning'><i class='fad fa-tag fa-fw'></i><span></span></span> $pagina_etiqueta_titulo</span><span><i class='fad $pagina_etiqueta_pagina_estado_icone fa-fw'></i></span></li></a>";*/
+			}
 		}
 	}
 

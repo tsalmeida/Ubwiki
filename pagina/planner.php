@@ -4,6 +4,7 @@
 	//TODO: When clicking a comment, its current content should load on the form.
 	//TODO: Copy a plan to make it your own.
 	//TODO: I need to transfer my own Personal Library plan to a separate plan.
+	//TODO: Mouseover on the top center icons.
 
 	if (isset($_POST['adicionar_pagina_id'])) {
 		$adicionar_pagina_id = $_POST['adicionar_pagina_id'];
