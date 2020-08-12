@@ -165,7 +165,7 @@
 
 	if ($quill_edicao == true) {
 		$template_botoes_salvar .= "
-			<a href='javascript:void(0)' id='{$template_id}_trigger_save' title='{$pagina_translated['Salvar mudanças']}' class='ql-formats text-primary border border-light rounded'><i class='fad fa-save fa-fw'></i></a>
+			<a href='javascript:void(0)' id='{$template_id}_trigger_save' title='{$pagina_translated['Salvar mudanças']}' class='ql-formats text-primary border border-light rounded p-1'><i class='fad fa-save fa-fw'></i></a>
 		";
 	}
 	if (($quill_texto_id != false) && ($template_id != 'modelo')) {
@@ -295,10 +295,10 @@
 						$('#changes_{$template_id}').val(Number(1));
 					    $('#arquivo_id_{$template_id}').val(data);
 						$('#{$template_id}_trigger_save').removeClass();
-						$('#{$template_id}_trigger_save').addClass('ql-formats text-success green lighten-5 border border-success rounded'); //user is told: your most recent changes have been saved.
+						$('#{$template_id}_trigger_save').addClass('ql-formats text-success green lighten-5 border border-success rounded p-1'); //user is told: your most recent changes have been saved.
 					} else {
 						$('#{$template_id}_trigger_save').removeClass();
-						$('#{$template_id}_trigger_save').addClass('ql-formats text-white danger-color border border-danger rounded'); //user is told: failure to save your changes.
+						$('#{$template_id}_trigger_save').addClass('ql-formats text-white danger-color border border-danger rounded p-1'); //user is told: failure to save your changes.
 					}
 				});
 			};
@@ -326,7 +326,7 @@
 			var template_botoes_salvar = \"$template_botoes_salvar\";
 			
 			$('#quill_container_{$template_id} > .ql-toolbar').prepend(template_botoes_salvar);
-			$('#quill_container_{$template_id} > .ql-toolbar').append(\"<a class='zoom_in ql-formats text-dark'><i class='fad fa-text-size fa-swap-opacity fa-fw'></i></a><a class='zoom_out ql-formats text-dark'><i class='fad fa-text-size fa-fw'></i></a><a class='ql-formats text-dark bg-white border rounded swatch_button' value='sepia'><i class='fad fa-palette fa-swap-opacity fa-fw'></i></a>\");
+			$('#quill_container_{$template_id} > .ql-toolbar').append(\"<a class='zoom_in ql-formats text-dark'><i class='fad fa-text-size fa-swap-opacity fa-fw'></i></a><a class='zoom_out ql-formats text-dark'><i class='fad fa-text-size fa-fw'></i></a><a class='ql-formats text-dark bg-white border rounded swatch_button p-1' value='sepia'><i class='fad fa-palette fa-swap-opacity fa-fw'></i></a>\");
 			
 			$('#{$template_id}_trigger_save').click(function () {
 				$('#{$quill_trigger_button}').click();
@@ -343,7 +343,7 @@
 					    $('#{$quill_trigger_button}').click();
 					}, 3000)
 					$('#{$template_id}_trigger_save').removeClass();
-					$('#{$template_id}_trigger_save').addClass('ql-formats text-warning border rounded'); //user is told: your most recent changes have not been saved yet.
+					$('#{$template_id}_trigger_save').addClass('ql-formats text-warning border rounded p-1'); //user is told: your most recent changes have not been saved yet.
 			    } else if (changes == 2) {
 			        clearTimeout({$template_id}_timeout); // timeout is cleared because the user has just started typing (hasnt made one single change and stopped.)
 					{$template_id}_timeout = setTimeout(function() {
