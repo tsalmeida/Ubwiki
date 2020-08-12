@@ -5,12 +5,12 @@
 	//TODO: Gerar PDF para impressão.
 	//TODO: Permitir baixar um arquivo com todas as suas anotações.
 	//TODO: Estado da página não está sendo atualizado imediatamente, apenas após recarregar.
-    //TODO: O sistema de compartilhamento de anotações deveria ordenar as anotações pelo número de upvotes.
+	//TODO: O sistema de compartilhamento de anotações deveria ordenar as anotações pelo número de upvotes.
 	//TODO: Verbetes relacionados should only load when the user clicks on it (and only once).
-    //TODO: Transfer 975 to 7092
-    //TODO: Ao destruir uma página, a Ubwiki deve enviar para o escritório.
-    //TODO: Em páginas de elementos, os capítulos de um livro não ficam aparentes. É necessário indicar aos usuários que há páginas diferentes para cada capítulo.
-    //TODO: Problemas com o mecanismo de inclusão de questões. Precisa melhorar.
+	//TODO: Transfer 975 to 7092
+	//TODO: Ao destruir uma página, a Ubwiki deve enviar para o escritório.
+	//TODO: Em páginas de elementos, os capítulos de um livro não ficam aparentes. É necessário indicar aos usuários que há páginas diferentes para cada capítulo.
+	//TODO: Problemas com o mecanismo de inclusão de questões. Precisa melhorar.
 
 	$pagina_tipo = 'pagina_geral';
 
@@ -1442,11 +1442,11 @@
 				}
 
 				if (isset($lista_de_secoes_wrapped)) {
-				    $template_id = 'lista_de_secoes_page_element';
-				    $template_titulo = $pagina_translated['Seções registradas desta página'];
-				    $template_conteudo = $lista_de_secoes_wrapped;
-				    include 'templates/page_element.php';
-                }
+					$template_id = 'lista_de_secoes_page_element';
+					$template_titulo = $pagina_translated['Seções registradas desta página'];
+					$template_conteudo = $lista_de_secoes_wrapped;
+					include 'templates/page_element.php';
+				}
 
 				if ($pagina_subtipo != 'plano') {
 					include 'pagina/leiamais.php';

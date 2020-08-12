@@ -209,7 +209,7 @@
 	}
 
 	$quill_result .= "
-		<form id='quill_{$template_id}_form' method='post' class='w-100'>
+		<form id='quill_{$template_id}_form' method='post' class='w-100' fxFlex='100' fxLayout='row'>
 			<input type='hidden' id='arquivo_id_{$template_id}' value=''>
 			<input type='hidden' id='changes_{$template_id}' value='0'>
 			<div id='quill_container_{$template_id}' class='bg-white'>
