@@ -9,7 +9,6 @@
 	//TODO: Verbetes relacionados should only load when the user clicks on it (and only once).
 	//TODO: Transfer 975 to 7092
 	//TODO: Ao destruir uma página, a Ubwiki deve enviar para o escritório.
-	//TODO: Em páginas de elementos, os capítulos de um livro não ficam aparentes. É necessário indicar aos usuários que há páginas diferentes para cada capítulo.
 	//TODO: Problemas com o mecanismo de inclusão de questões. Precisa melhorar.
 
 	$pagina_tipo = 'pagina_geral';
@@ -184,7 +183,7 @@
 	if (isset($_POST['trigger_apagar_pagina'])) {
 		$query = prepare_query("DELETE FROM Paginas WHERE id = $pagina_id");
 		$conn->query($query);
-		header('Location:pagina.php?pagina_id=3');
+		header('Location:escritorio.php');
 		exit();
 	}
 
