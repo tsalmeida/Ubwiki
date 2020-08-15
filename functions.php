@@ -1159,7 +1159,6 @@
 		}
 		if ($pagina_tipo == false) {
 			$pagina_info = return_pagina_info($pagina_id, false, false, false);
-			error_log($pagina_id);
 			$pagina_tipo = $pagina_info[2];
 			$pagina_subtipo = $pagina_info[8];
 			$pagina_item_id = $pagina_info[1];
@@ -2755,6 +2754,7 @@
 		}
 		$curso_texto_id = return_texto_id('curso', 'verbete', $curso_pagina_id, false);
 		$curso_verbete = return_verbete_html($curso_texto_id);
+		$curso_verbete = strip_tags($curso_verbete);
 		$curso_verbete = crop_text($curso_verbete, 400);
 
 		$template_id = "curso_$curso_pagina_id";

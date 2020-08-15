@@ -8,7 +8,6 @@
 	//TODO: O sistema de compartilhamento de anotações deveria ordenar as anotações pelo número de upvotes.
 	//TODO: Verbetes relacionados should only load when the user clicks on it (and only once).
 	//TODO: Transfer 975 to 7092
-	//TODO: Ao destruir uma página, a Ubwiki deve enviar para o escritório.
 	//TODO: Problemas com o mecanismo de inclusão de questões. Precisa melhorar.
 
 	$pagina_tipo = 'pagina_geral';
