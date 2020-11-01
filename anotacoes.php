@@ -77,6 +77,11 @@
 ?>
 </body>
 <?php
+	if ($user_id == false) {
+		include 'pagina/modal_login.php';
+	}
+
+	include 'pagina/modal_languages.php';
 	include 'templates/html_bottom.php';
 ?>
 </html>
