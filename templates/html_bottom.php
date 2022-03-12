@@ -1694,6 +1694,7 @@
 						$('#esconder_coluna_direita').show();
 						$('#mostrar_coluna_direita').hide();
 						$('#mostrar_coluna_esquerda').hide();
+						$('#esconder_coluna_esquerda').show();
 						$('#esconder_coluna_esquerda_inner').show();
 				    } else if (mode == 'esquerda') {
 						$('#coluna_direita').hide();
