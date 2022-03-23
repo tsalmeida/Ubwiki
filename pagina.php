@@ -1217,7 +1217,7 @@
 					$template_subtitulo = $pagina_translated['free page'];
 				}
 			} elseif ($pagina_subtipo == 'modelo') {
-				$template_subtitulo = $pagina_translated['BFranklin model'];
+				$template_subtitulo = "<a href='bfranklin.php'>{$pagina_translated['BFranklin model']}</a>";
 			} elseif ($pagina_subtipo == 'plano') {
 				$template_subtitulo = "{$pagina_translated['Plano de estudos']}</br><a class='text-light' id='reveal_introduction'><i class='fad fa-info-circle fa-fw'></i></a>";
 			} elseif ($pagina_subtipo == 'simulado') {

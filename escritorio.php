@@ -9,6 +9,14 @@
 	$pagina_tipo = 'escritorio';
 	include 'engine.php';
 	$pagina_id = $user_escritorio;
+
+	if ($user_escritorio == false) {
+	    header('Location:ubwiki.php');
+	    exit();
+    }
+
+    //Ideally this query would only be sent when the user clicked to open the modal.
+    $etiquetados = false;
 	$query = prepare_query("SELECT DISTINCT extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'topico' AND estado = 1");
 	$etiquetados = $conn->query($query);
 

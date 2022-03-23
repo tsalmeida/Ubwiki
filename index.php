@@ -35,8 +35,7 @@
 			$_SESSION['thinkific_bora'] = $_POST['bora'];
 		}
 	}*/
-
-	if ($_SESSION['user_info'] == true) {
+	if ($_SESSION['user_info'] === true) {
 		header('Location:escritorio.php');
 	} else {
 		header('Location:ubwiki.php');
