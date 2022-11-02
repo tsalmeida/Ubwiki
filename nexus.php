@@ -50,12 +50,46 @@
 ?>
     <body class="grey lighten-5">
     <div class="container mt-5">
-        <a href=""><h1 id="page_title" class="fontstack-mono text-center"><?php echo $pagina_titulo; ?></h1></a>
+        <a href="javascript:void(0);"><h1 id="page_title" class="fontstack-mono text-center"><?php echo $pagina_titulo; ?></h1></a>
     </div>
     <div class="container">
         <div class="row d-flex justify-content-around mt-3">
             <div class="md-form input-group input-group-lg">
                 <input id="cmdbar" type="text" class="form-control text-center fontstack-mono" placeholder="<?php echo $user_apelido; ?> commands…">
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row d-flex justify-content-center mx-1">
+            <div id="coluna_unica" class="col">
+			<?php
+
+				$template_conteudo_hidden = false;
+
+				$template_id = 'nexus_main';
+				$template_titulo = false;
+				$template_conteudo = false;
+				$template_conteudo_class = 'justify-content-start';
+				$template_botoes = "<a id='show_hidden_icons' class='text-success' title='Add stuff'><i class='fad fa-grid-2-plus fa-fw fa-lg'></i></a>";
+				$template_conteudo_no_col = true;
+
+				$artefato_id = 'manage_folders';
+				$artefato_subtitulo = "Manage folders";
+				$artefato_modal = '#modal_nexus_1';
+				$fa_icone = 'fa-folder-plus';
+				$fa_color = 'text-warning';
+				$template_conteudo .= include 'templates/artefato_item.php';
+
+				$artefato_id = 'manage_links';
+				$artefato_subtitulo = "Manage links";
+				$artefato_modal = '#modal_nexus_2';
+				$fa_icone = 'fa-link';
+				$fa_color = 'text-primary';
+				$template_conteudo .= include 'templates/artefato_item.php';
+
+				include 'templates/page_element.php';
+
+            ?>
             </div>
         </div>
     </div>
