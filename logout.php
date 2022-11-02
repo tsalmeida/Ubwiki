@@ -10,6 +10,7 @@
 			exit();
 		}
 	}
+	$user_id = false;
 	header('Location:index.php');
 	exit();
 ?>

@@ -12,6 +12,7 @@
 	$user_id = false;
 
 	if (isset($_GET['special'])) {
+//		error_log("this happ1ened");
 		$special = $_GET['special'];
 		$usuarios = $conn->query("SELECT id, email, apelido FROM Usuarios WHERE special = '$special' AND special IS NOT NULL");
 		if ($usuarios->num_rows > 0) {

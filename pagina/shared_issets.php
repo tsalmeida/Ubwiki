@@ -111,8 +111,12 @@
 		$conn->query($query);
 	}
 
-	$query = prepare_query("SELECT grupo_id FROM Membros WHERE membro_user_id = $user_id");
-	$grupos_do_usuario = $conn->query($query);
+	if ($user_id != false) {
+		$query = prepare_query("SELECT grupo_id FROM Membros WHERE membro_user_id = $user_id");
+		$grupos_do_usuario = $conn->query($query);
+	} else {
+		$grupos_do_usuario = false;
+	}
 	
 	if ($pagina_tipo == 'questao') {
 		// ENUNCIADO

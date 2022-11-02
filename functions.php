@@ -2038,6 +2038,7 @@
 		if ($pagina_id == false) {
 			return false;
 		}
+//		$pick_database = "Textos_arquivo";
 		include 'templates/criar_conn.php';
 		$recente_criacao = false;
 		$comentario_timestamp = false;
