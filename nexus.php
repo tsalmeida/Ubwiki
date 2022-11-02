@@ -34,13 +34,11 @@
 ?>
     <body class="grey lighten-5">
     <div class="container mt-5">
-        <h1 id="page_title" class="fontstack-mono text-center"><?php echo $pagina_titulo; ?></h1>
+        <a href=""><h1 id="page_title" class="fontstack-mono text-center"><?php echo $pagina_titulo; ?></h1></a>
     </div>
     <div class="container">
         <div class="row d-flex justify-content-around mt-3">
             <div class="md-form input-group input-group-lg">
-                <input type="hidden" id="cmd" value="go">
-                <input type="hidden" id="title">
                 <input id="cmdbar" type="text" class="form-control text-center fontstack-mono" placeholder="<?php echo $user_apelido; ?> commands…">
             </div>
         </div>
