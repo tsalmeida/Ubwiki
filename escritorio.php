@@ -6,6 +6,7 @@
     //TODO: Show every one of the user's entry into Textos_arquivo, allow him to delete them.
     //TODO: Transferência de planos de estudos.
 
+
 	$pagina_tipo = 'escritorio';
 	include 'engine.php';
 	$pagina_id = $user_escritorio;
@@ -427,7 +428,7 @@
 					$artefato_subtitulo = $pagina_translated['Homepage'];
 					$artefato_link = 'nexus.php';
 					$artefato_badge = 'fa-external-link';
-					$fa_icone = 'fa-house-user';
+					$fa_icone = 'fa-house-turret';
 					$fa_color = 'text-danger';
 					$artefato_icone_background = return_background($fa_color);
 					if (in_array(21, $icons_to_show)) {

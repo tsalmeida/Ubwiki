@@ -30,7 +30,23 @@
 		header('Location:ubwiki.php');
 		exit();
 	}
+
+	if ($_POST) {
+		header("Location: " . $_SERVER['REQUEST_URI']);
+		exit();
+	}
+	$html_head_template_quill = true;
+	$html_head_template_conteudo = "
+        <script type='text/javascript'>
+          var user_id=$user_id;
+          var user_email='$user_email';
+        </script>
+    ";
+
 	include 'templates/html_head.php';
+	include 'templates/navbar.php';
+
+
 ?>
     <body class="grey lighten-5">
     <div class="container mt-5">
