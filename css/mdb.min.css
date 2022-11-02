@@ -7868,7 +7868,6 @@ table.table a.btn.btn-black {
   .navbar .container {
     width: 100%;
   }
-
   .navbar .container .navbar-toggler-right {
     right: 0;
   }
@@ -8070,11 +8069,9 @@ table.table a.btn.btn-black {
     padding-bottom: 12px;
     transition: background 0.5s ease-in-out, padding 0.5s ease-in-out;
   }
-
   .navbar.scrolling-navbar .navbar-nav > li {
     transition-duration: 1s;
   }
-
   .navbar.scrolling-navbar.top-nav-collapse {
     padding-top: 5px;
     padding-bottom: 5px;
@@ -8532,34 +8529,27 @@ body.scrollable {
   .modal .modal-dialog.modal-top {
     top: 0;
   }
-
   .modal .modal-dialog.modal-left {
     left: 0;
   }
-
   .modal .modal-dialog.modal-right {
     right: 0;
   }
-
   .modal .modal-dialog.modal-bottom {
     bottom: 0;
   }
-
   .modal .modal-dialog.modal-top-left {
     top: 10px;
     left: 10px;
   }
-
   .modal .modal-dialog.modal-top-right {
     top: 10px;
     right: 10px;
   }
-
   .modal .modal-dialog.modal-bottom-left {
     bottom: 10px;
     left: 10px;
   }
-
   .modal .modal-dialog.modal-bottom-right {
     right: 10px;
     bottom: 10px;
@@ -8585,41 +8575,33 @@ body.scrollable {
   .modal.modal-scrolling {
     position: relative;
   }
-
   .modal.modal-scrolling .modal-dialog {
     position: fixed;
     z-index: 1050;
   }
-
   .modal.modal-content-clickable {
     top: auto;
     bottom: auto;
   }
-
   .modal.modal-content-clickable .modal-dialog {
     position: fixed;
   }
-
   .modal .modal-fluid {
     width: 100%;
     max-width: 100%;
   }
-
   .modal .modal-fluid .modal-content {
     width: 100%;
   }
-
   .modal .modal-frame {
     position: absolute;
     width: 100%;
     max-width: 100% !important;
     margin: 0 !important;
   }
-
   .modal .modal-frame.modal-bottom {
     bottom: 0;
   }
-
   .modal .modal-full-height {
     position: absolute;
     top: 0;
@@ -8630,27 +8612,22 @@ body.scrollable {
     min-height: 100%;
     margin: 0;
   }
-
   .modal .modal-full-height.modal-top, .modal .modal-full-height.modal-bottom {
     display: block;
     width: 100%;
     max-width: 100%;
     height: auto;
   }
-
   .modal .modal-full-height.modal-top {
     bottom: auto;
   }
-
   .modal .modal-full-height.modal-bottom {
     top: auto;
     min-height: 0;
   }
-
   .modal .modal-full-height .modal-content {
     width: 100%;
   }
-
   .modal .modal-full-height.modal-lg {
     width: 90%;
     max-width: 90%;
@@ -10257,18 +10234,15 @@ ul.stepper li.active a .label, ul.stepper li.completed a .label {
   .stepper-horizontal {
     flex-direction: column;
   }
-
   .stepper-horizontal li {
     flex-direction: column;
     align-items: flex-start;
   }
-
   .stepper-horizontal li a .label {
     flex-flow: column nowrap;
     order: 2;
     margin-top: 0.2rem;
   }
-
   .stepper-horizontal li:not(:last-child):after {
     position: absolute;
     top: 3.75rem;
@@ -13276,7 +13250,6 @@ table.table a.btn.btn-whatsapp {
 .pswp--svg .pswp__button--arrow--right::before {
     background-image: url(../img/lightbox/default-skin.svg);
   }
-
   .pswp--svg .pswp__button--arrow--left,
 .pswp--svg .pswp__button--arrow--right {
     background: none;
@@ -14923,7 +14896,6 @@ select:disabled {
     .select-wrapper.md-form.md-outline input.select-dropdown {
       padding: 0 0.75rem;
     }
-
     .select-wrapper input.select-dropdown {
       line-height: 2.5rem;
     }
@@ -15642,7 +15614,6 @@ button.mdb-autocomplete-clear svg {
   .side-nav.fixed {
     transform: translateX(-105%);
   }
-
   .side-nav.fixed.right-aligned {
     transform: translateX(105%);
   }
@@ -15762,11 +15733,9 @@ button.mdb-autocomplete-clear svg {
   .side-nav .logo-wrapper {
     height: 80px;
   }
-
   .side-nav .logo-wrapper a {
     height: 80px;
   }
-
   .side-nav .logo-wrapper img {
     padding-top: 7%;
     padding-bottom: 7%;
@@ -15791,7 +15760,6 @@ button.mdb-autocomplete-clear svg {
     padding-right: 40%;
     padding-left: 40%;
   }
-
   .side-nav .logo-wrapper.sn-avatar-wrapper img {
     max-width: 50px;
   }
@@ -23692,7 +23660,7 @@ button.md-toast-close-button {
 }
 
 .picker__box .picker__header .picker__nav--prev:before {
-  content: "";
+  content: "\f104";
 }
 
 .picker__box .picker__header .picker__nav--next {
@@ -23701,7 +23669,7 @@ button.md-toast-close-button {
 }
 
 .picker__box .picker__header .picker__nav--next:before {
-  content: "";
+  content: "\f105";
 }
 
 .picker__box .picker__header .picker__nav--disabled,
