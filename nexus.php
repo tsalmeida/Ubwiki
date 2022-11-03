@@ -64,32 +64,69 @@
             <div id="coluna_unica" class="col">
 			<?php
 
-				$template_conteudo_hidden = false;
+                $template_conteudo = false;
 
-				$template_id = 'nexus_main';
+				$template_id = 'nexus_board';
 				$template_titulo = false;
 				$template_conteudo = false;
 				$template_conteudo_class = 'justify-content-start';
-				$template_botoes = "<a id='show_hidden_icons' class='text-success' title='Add stuff'><i class='fad fa-grid-2-plus fa-fw fa-lg'></i></a>";
+				$template_botoes = "<a id='show_setup_icons' class='text-muted' title='Settings'><i class='fad fa-sliders-simple fa-fw fa-lg'></i></a>";
+				$template_botoes .= "<a id='hide_setup_icons' class='text-muted hidden' title='Back home'><i class='fad fa-house-person-return fa-fw fa-lg'></i></a>";
 				$template_conteudo_no_col = true;
 
 				$artefato_id = 'manage_folders';
-				$artefato_subtitulo = "Manage folders";
-				$artefato_modal = '#modal_nexus_1';
-				$fa_icone = 'fa-folder-plus';
+				$artefato_subtitulo = "Folders";
+				$artefato_modal = '#manage_folders';
+				$artefato_class = "hidden nexus_settings_icon";
+				$fa_icone = 'fa-folder-gear';
 				$fa_color = 'text-warning';
 				$template_conteudo .= include 'templates/artefato_item.php';
 
 				$artefato_id = 'manage_links';
-				$artefato_subtitulo = "Manage links";
-				$artefato_modal = '#modal_nexus_2';
+				$artefato_subtitulo = "Links";
+				$artefato_modal = '#modal_manage_links';
+				$artefato_class = "hidden nexus_settings_icon";
 				$fa_icone = 'fa-link';
 				$fa_color = 'text-primary';
+				$template_conteudo .= include 'templates/artefato_item.php';
+
+				$artefato_id = 'manage_bookmarks';
+				$artefato_subtitulo = "Bookmarks";
+				$artefato_modal = '#modal_manage_bookmarks';
+				$artefato_class = "hidden nexus_settings_icon";
+				$fa_icone = 'fa-folder-bookmark';
+				$fa_color = 'text-danger';
+				$template_conteudo .= include 'templates/artefato_item.php';
+
+				$artefato_id = 'manage_themes';
+				$artefato_subtitulo = "Themes";
+				$artefato_modal = '#modal_manage_themes';
+				$artefato_class = "hidden nexus_settings_icon";
+				$fa_icone = 'fa-swatchbook';
+				$fa_color = 'text-secondary';
+				$template_conteudo .= include 'templates/artefato_item.php';
+
+				$artefato_id = 'timeline';
+				$artefato_subtitulo = "Activity log";
+				$artefato_modal = '#modal_timeline';
+				$artefato_class = "hidden nexus_settings_icon";
+				$fa_icone = 'fa-list-timeline';
+				$fa_color = 'text-success';
 				$template_conteudo .= include 'templates/artefato_item.php';
 
 				include 'templates/page_element.php';
 
             ?>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row d-flex justify-content-center mx-1">
+            <div id="coluna_unica" class="col">
+                <?php
+
+                ?>
             </div>
         </div>
     </div>
@@ -108,6 +145,16 @@
             }
         });
         $("input:text:visible:first").focus();
+        $(document).on('click', '#show_setup_icons', function () {
+            $('#show_setup_icons').addClass('hidden')
+            $('#hide_setup_icons').removeClass('hidden')
+            $('#nexus_board').find('.nexus_settings_icon').removeClass('hidden');
+        })
+        $(document).on('click', '#hide_setup_icons', function () {
+            $('#hide_setup_icons').addClass('hidden')
+            $('#show_setup_icons').removeClass('hidden')
+            $('#nexus_board').find('.nexus_settings_icon').addClass('hidden');
+        })
     </script>
 <?php
 	include 'templates/html_bottom.php';

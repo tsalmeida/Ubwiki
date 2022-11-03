@@ -20,19 +20,16 @@
         <meta charset='utf-8'>
         <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
         <meta http-equiv='x-ua-compatible' content='ie=edge'>
+        <!-- Bootstrap 5 -->
+        <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC\" crossorigin=\"anonymous\">
+        <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM\" crossorigin=\"anonymous\"></script>
         <!-- Font Awesome -->
         <script src='https://kit.fontawesome.com/b8e073920a.js' crossorigin='anonymous'></script>
-        <!-- Bootstrap core CSS -->
-        <link href='css/bootstrap.min.css' rel='stylesheet'>
-        <!-- Material Design Bootstrap -->
-        <link href='css/mdb.min.css' rel='stylesheet'>
         <!-- Your custom styles (optional) -->
         <link href='css/style.css?20200812' rel='stylesheet'>
-        <!-- Bootstrap Horizon -->
-        <link href='css/bootstrap-horizon.css' rel='stylesheet'>
         <link type='image/vnd.microsoft.icon' rel='icon' href='../imagens/favicon.ico'/>
         <!-- JQuery -->
-        <script type='text/javascript' src='js/jquery-3.4.1.min.js'></script>
+        <script src=\"https://code.jquery.com/jquery-3.6.1.min.js\" integrity=\"sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=\" crossorigin=\"anonymous\"></script>
         <title>Ubwiki</title>
     ";
 	

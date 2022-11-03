@@ -44,12 +44,7 @@
 		if ($pagina_tipo != 'escritorio') {
 			echo "<a class='dropdown-item navlink z-depth-0' href='escritorio.php'><i class='fad fa-lamp-desk fa-fw'></i> {$pagina_translated['office']}</a>";
 		}
-		if ($pagina_tipo == "nexus") {
-			echo "<a class='dropdown-item navlink z-depth-0' href='javascript:void(0);'><i class='fad fa-cog fa-fw'></i> Setup mode</a>";
-			echo "<a class='dropdown-item navlink z-depth-0' href='javascript:void(0);'><i class='fad fa-link-horizontal fa-fw'></i> Link dump</a>";
-			echo "<a class='dropdown-item navlink z-depth-0' href='javascript:void(0);'><i class='fad fa-folder-bookmark fa-fw'></i> Bookmarks</a>";
-			echo "<a class='dropdown-item navlink z-depth-0' href='javascript:void(0);'><i class='fad fa-swatchbook fa-fw'></i> Themes</a>";
-		} else {
+		if ($pagina_tipo != "nexus") {
 			if ($user_id == 1) {
 				echo "<a class='dropdown-item navlink z-depth-0' href='nexus.php'><i class='fad fa-house-turret fa-fw'></i> Nexus</a>";
 			}

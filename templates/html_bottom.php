@@ -133,24 +133,15 @@
 		$carregar_secoes = false;
 	}
 
-	echo "
-    <!-- Bootstrap tooltips -->
-    <script type='text/javascript' src='js/popper.min.js'></script>
-    <!-- Bootstrap core JavaScript -->
-    <script type='text/javascript' src='js/bootstrap.min.js'></script>
-    <!-- MDB core JavaScript -->
-    <script type='text/javascript' src='js/mdb.min.js'></script>
-  ";
-
-	if ($mdb_select == true) {
-		echo "
-			<script type='text/javascript'>
-				$(document).ready(function() {
-					$('.mdb-select').materialSelect()
-				});
-			</script>
-		";
-	}
+//	if ($mdb_select == true) {
+//		echo "
+//			<script type='text/javascript'>
+//				$(document).ready(function() {
+//					$('.mdb-select').materialSelect()
+//				});
+//			</script>
+//		";
+//	}
 
 	if ($gabarito == true) {
 		echo "

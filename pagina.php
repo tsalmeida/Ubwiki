@@ -955,7 +955,7 @@
 				}
 			?>
         </div>
-        <div class='py-2 text-right col-md-4 col-sm-12'>
+        <div class='py-2 text-end col-md-4 col-sm-12'>
 			<?php
 				if ($pagina_tipo == 'curso') {
 					if ($user_id != false) {
