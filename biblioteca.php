@@ -242,9 +242,9 @@
 	$template_modal_titulo = $pagina_translated['Busca de referências'];
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "
-		<div class='md-form'>
+		<div class='mb-3'>
+			<label for='termos_busca' class='form-label'>Termos de busca</label>
 			<input type='text' id='termos_busca' name='termos_busca' class='form-control'>
-			<label for='termos_busca'>Termos de busca</label>
 		</div>
 	";
 	include 'templates/modal.php';

@@ -148,9 +148,9 @@
 	$template_modal_titulo = 'Inserir chave';
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "
-		<div class='md-form'>
+		<div class='mb-3'>
+			<label for='nova_chave_titulo' class='form-label'>Título da nova chave</label>
 			<input type='text' class='form-control' name='nova_chave_titulo' id='nova_chave_titulo'>
-			<label for='nova_chave_titulo'>Título da nova chave</label>
 		</div>
 	";
 	include 'templates/modal.php';
@@ -182,9 +182,9 @@
 			<li class='list-group-item' id='chave_es'></li>
 			<li class='list-group-item' id='chave_fr'></li>
 		</ul>
-		<div class='md-form'>
+		<div class='mb-3'>
+            <label for='traduzir_chave_string' class='form-label'>{$pagina_translated['Tradução para a língua']} \"$traduzir\"</label>
 			<textarea class='md-textarea form-control' name='traduzir_chave_string' id='traduzir_chave_string' row='3'></textarea>
-			<label for='traduzir_chave_string'>{$pagina_translated['Tradução para a língua']} \"$traduzir\"</label>
 		</div>
 	";
 	include 'templates/modal.php';

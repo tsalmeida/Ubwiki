@@ -119,7 +119,7 @@
 	if (!isset($artefato_badge)) {
 		$artefato_badge = false;
 	} else {
-		$artefato_badge = "<span class='badge badge-pill bg-light link-dark artefato-badge position-absolute z-depth-0 m-1'><i class='fad $artefato_badge fa-fw'></i></span>";
+		$artefato_badge = "<span class='badge bg-secondary link-dark bg-light position-absolute translate-middle'><i class='fad $artefato_badge fa-fw'></i></span>";
 	}
 
 	if (!isset($artefato_icone_background)) {
@@ -148,8 +148,8 @@
 	
 	$artefato_template_result .= "
 				$artefato_link_1
-        $artefato_badge
-        <span class='row justify-content-center d-flex text-center p-1 m-auto rounded w-100 $artefato_icone_background'>
+				$artefato_badge
+		<span class='row justify-content-center d-flex text-center p-1 m-auto rounded w-100 $artefato_icone_background'>
         	<i class='$fa_type $fa_icone $fa_size fa-fw $fa_invert d-block'></i>
         </span>
         <span class='row justify-content-center d-flex text-center mt-2 p-1 artefato-titulo $titulo_class $artefato_titulo_class'>

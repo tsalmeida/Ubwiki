@@ -266,8 +266,8 @@
 		$template_conteudo .=
 			"
         <form method='post'>
-            <div class='md-form mb-2'>
-                <select class='$select_classes' name='convidar_apelido' id='convidar_apelido' required>
+            <div class='mb-3'>
+                <select class='$select_classes form-select' name='convidar_apelido' id='convidar_apelido' required>
                     <option value='' disabled selected>Apelido do convidado</option>
                                     ";
 		$query = prepare_query("SELECT apelido, id FROM Usuarios WHERE apelido IS NOT NULL ORDER BY apelido");
@@ -283,8 +283,8 @@
                                 ";
 		
 		$template_conteudo .= "
-                                <div class='md-form mb-2'>
-                                    <select class='$select_classes' name='convidar_grupo_id' id='convidar_grupo_id' required>
+                                <div class='mb-3'>
+                                    <select class='$select_classes form-select' name='convidar_grupo_id' id='convidar_grupo_id' required>
                                         <option value='' disabled selected>Selecione o grupo de estudo</option>
                                 ";
 		while ($grupo_do_usuario = $grupos_do_usuario->fetch_assoc()) {
@@ -304,12 +304,14 @@
 	}
 	
 	echo "
-        <select class='mdb-select md-form' name='criar_referencia_tipo' id='criar_referencia_tipo' required>
-          <option value='' disabled selected>Tipo da nova referência:</option>
-          <option value='referencia'>Materia de leitura: livros, artigos, páginas virtuais etc.</option>
-          <option value='video'>Material videográfico: vídeos virtuais, filmes etc.</option>
-          <option value='album_musica'>Material em áudio: álbuns de música, podcasts</option>
-        </select>
+        <div class='mb-3'>
+			<select class='form-select' name='criar_referencia_tipo' id='criar_referencia_tipo' required>
+			  <option value='' disabled selected>Tipo da nova referência:</option>
+			  <option value='referencia'>Materia de leitura: livros, artigos, páginas virtuais etc.</option>
+			  <option value='video'>Material videográfico: vídeos virtuais, filmes etc.</option>
+			  <option value='album_musica'>Material em áudio: álbuns de música, podcasts</option>
+			</select>
+        </div>
 	";
 	
 	/*

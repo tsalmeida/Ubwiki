@@ -42,10 +42,10 @@
     </div>
     <div class="container">
         <div class="row d-flex justify-content-around mt-3">
-            <div class="md-form input-group input-group-lg">
-                <input type="hidden" id="cmd" value="go">
-                <input type="hidden" id="title">
-                <input id="cmdbar" type="text" class="form-control text-center fontstack-mono" placeholder="<?php echo $user_apelido; ?> commands…">
+            <div class="mb-3 input-group input-group-lg">
+                <input type="hidden" id="cmd" value="go" class="form-control">
+                <input type="hidden" id="title" class="form-control">
+                <input id="cmdbar" type="text" class="form-control text-center fontstack-mono" class="form-control" placeholder="<?php echo $user_apelido; ?> commands…">
             </div>
         </div>
     </div>

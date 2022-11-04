@@ -319,7 +319,7 @@
 									"
 	                            <form method='post'>
                                     <input type='hidden' name='load_pagina_id' value='$load_pagina_id'>
-                                    <div class='md-form row px-0 mt-2 mb-0'>
+                                    <div class='mb-3'>
                                         <textarea id='novo_comentario' name='novo_comentario' class='form-control border rounded p-2 row' rows='3' placeholder='{$pagina_translated['Escreva aqui seu comentário']}' required></textarea>
                                     </div>
                                     <div class='row d-flex justify-content-center'>
@@ -357,12 +357,13 @@
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .=
 		"
-		<div class='md-form'>
+		<div class='mb-3'>
+			<label for='novo_topico_titulo' class='form-label'>{$pagina_translated['Título']}</label>
 			<input type='text' name='novo_topico_titulo' id='novo_topico_titulo' class='form-control' required>
-			<label for='novo_topico_titulo'>{$pagina_translated['Título']}</label>
 		</div>
-		<div class='md-form'>
-			<textarea class='form-control border rounded p-2 row' rows='3' placeholder='{$pagina_translated['Escreva aqui seu comentário (opcional)']}' name='novo_topico_texto' id='novo_topico_texto'></textarea>
+		<div class='mb-3'>
+		    <label for='novo_topico_texto' class='form-label'>Comentário</label>
+			<textarea class='form-control' rows='3' placeholder='{$pagina_translated['Escreva aqui seu comentário (opcional)']}' name='novo_topico_texto' id='novo_topico_texto'></textarea>
 		</div>
 	";
 	include 'templates/modal.php';

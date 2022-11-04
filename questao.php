@@ -400,7 +400,7 @@
 					?>
         </div>
     </div>
-    <button id='mostrar_coluna_direita' class='btn btn-md bg-dark link-light p-2 m-1' tabindex='-1'><i
+    <button id='mostrar_coluna_direita' class='btn bg-dark link-light p-2 m-1' tabindex='-1'><i
                 class='fas fa-pen-alt fa-fw'></i></button>
 </div>
 <?php
@@ -414,8 +414,8 @@
             ";
 	$template_modal_body_conteudo .= "
 						<div class='form-check pl-0'>
-                            <input id='nova_questao_origem' name='nova_questao_origem' type='checkbox' class='form-check-input' checked>
                             <label class='form-check-label' for='nova_questao_origem'>Questão oficial do concurso.</label>
+                            <input id='nova_questao_origem' name='nova_questao_origem' type='checkbox' class='form-check-input' checked>
                         </div>
 						";
 	$template_modal_body_conteudo .= "
@@ -503,9 +503,10 @@
 	}
 	$template_modal_body_conteudo .= "</select>";
 	$template_modal_body_conteudo .= "
-                            <div class='md-form'>
+                            <div class='mb-3'>
+                              <label for='nova_questao_numero' class='form-label'>Número da questão</label>
                               <input type='number' class='form-control' name='nova_questao_numero' id='nova_questao_numero' value='$questao_numero' required>
-                              <label for='nova_questao_numero'>Número da questão</label>
+                              
                             </div>
 						";
 	$ce_selected = false;
@@ -519,7 +520,7 @@
 		$di_selected = 'selected';
 	}
 	$template_modal_body_conteudo .= "
-                <select class='mdb-select md-form' name='nova_questao_tipo' required>
+                <select class='form-select' name='nova_questao_tipo' required>
                   <option value='' disabled>Selecione o tipo da questão:</option>
                   <option value='1' $ce_selected>Certo e errado</option>
                   <option value='2' $me_selected>Múltipla escolha</option>
@@ -545,7 +546,7 @@
 		$item_inexiste = 'selected';
 	}
 	$template_modal_body_conteudo .= "
-                            <select class='mdb-select md-form' name='nova_questao_item1_gabarito'>
+                            <select class='form-select' name='nova_questao_item1_gabarito'>
                                 <option value='' disabled $item_inexiste>Selecione o gabarito do primeiro item</option>
                                 <option value='1' $item_certo>Certo</option>
                                 <option value='2' $item_errado>Errado</option>
@@ -570,7 +571,7 @@
 		$item_inexiste = 'selected';
 	}
 	$template_modal_body_conteudo .= "
-                            <select class='mdb-select md-form' name='nova_questao_item2_gabarito'>
+                            <select class='form-select' name='nova_questao_item2_gabarito'>
                                 <option value='' disabled $item_inexiste>Selecione o gabarito do segundo item</option>
                                 <option value='1' $item_certo>Certo</option>
                                 <option value='2' $item_errado>Errado</option>
@@ -595,7 +596,7 @@
 		$item_inexiste = 'selected';
 	}
 	$template_modal_body_conteudo .= "
-                            <select class='mdb-select md-form' name='nova_questao_item3_gabarito'>
+                            <select class='form-select' name='nova_questao_item3_gabarito'>
                                 <option value='' disabled $item_inexiste>Selecione o gabarito do terceiro item</option>
                                 <option value='1' $item_certo>Certo</option>
                                 <option value='2' $item_errado>Errado</option>
@@ -620,7 +621,7 @@
 		$item_inexiste = 'selected';
 	}
 	$template_modal_body_conteudo .= "
-                            <select class='mdb-select md-form' name='nova_questao_item4_gabarito'>
+                            <select class='form-select' name='nova_questao_item4_gabarito'>
                                 <option value='' disabled $item_inexiste>Selecione o gabarito do quarto item</option>
                                 <option value='1' $item_certo>Certo</option>
                                 <option value='2' $item_errado>Errado</option>
@@ -645,7 +646,7 @@
 		$item_inexiste = 'selected';
 	}
 	$template_modal_body_conteudo .= "
-                            <select class='mdb-select md-form' name='nova_questao_item5_gabarito'>
+                            <select class='form-select' name='nova_questao_item5_gabarito'>
                                 <option value='' disabled $item_inexiste>Selecione o gabarito do quinto item</option>
                                 <option value='1' $item_certo>Certo</option>
                                 <option value='2' $item_errado>Errado</option>

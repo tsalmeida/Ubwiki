@@ -69,20 +69,23 @@
 	}
 	
 	$template_modal_body_conteudo .= "
-		      <div class='md-form mb-2'>
+		      <div class='mb-3'>
+                  <label for='elemento_novo_titulo' class='form-label'>{$pagina_translated['Título']}</label>
                   <input type='text' id='elemento_novo_titulo' name='elemento_novo_titulo' class='form-control' value='$elemento_titulo'>
-                  <label for='elemento_novo_titulo'>{$pagina_translated['Título']}</label>
+                  
               </div>
           
-              <div class='md-form mb-2'>
+              <div class='mb-3'>
+                  <label for='elemento_novo_autor' class='form-label'>{$pagina_translated['Autor']}</label>
                   <input type='text' id='elemento_novo_autor' name='elemento_novo_autor' class='form-control' value='$elemento_autor'>
-                  <label for='elemento_novo_autor'>{$pagina_translated['Autor']}</label>
+                  
               </div>
             ";
 	$template_modal_body_conteudo .= "
-		        <div class='md-form mb-2'>
+		        <div class='mb-3'>
+                    <label for='elemento_novo_ano' class='form-label'>{$pagina_translated['Ano']}</label>
                     <input type='number' id='elemento_novo_ano' name='elemento_novo_ano' class='form-control' value='$elemento_ano'>
-                    <label for='elemento_novo_ano'>{$pagina_translated['Ano']}</label>
+                    
                 </div>
 	        ";
 	

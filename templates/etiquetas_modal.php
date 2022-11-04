@@ -39,9 +39,10 @@
 	$template_modal_body_conteudo .= $etiquetas_remover_results;
 	$template_modal_body_conteudo .= "
 			<h4 class='mt-3'>{$pagina_translated['Adicionar etiquetas']}</h4>
-		    <div class='md-form'>
+		    <div class='mb-3'>
+			    <label for='buscar_etiquetas' class='form-label'>{$pagina_translated['Buscar etiqueta']}</label>
 			    <input type='text' class='form-control' name='buscar_etiquetas' id='buscar_etiquetas' required>
-			    <label for='buscar_etiquetas'>{$pagina_translated['Buscar etiqueta']}</label>
+			    
           <button type='button' class='$button_classes btn-info' id='trigger_buscar_etiquetas'>{$pagina_translated['Buscar']}</button>
 		    </div>
 		    <div class='row border p-2' id='etiquetas_disponiveis'>

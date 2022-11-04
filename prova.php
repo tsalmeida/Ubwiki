@@ -125,7 +125,7 @@
 					?>
         </div>
     </div>
-    <button id='mostrar_coluna_direita' class='btn btn-md bg-dark link-light p-2 m-1' tabindex='-1'><i
+    <button id='mostrar_coluna_direita' class='btn bg-dark link-light p-2 m-1' tabindex='-1'><i
                 class='fas fa-pen-alt fa-fw'></i></button>
 	<?php
 		$template_modal_div_id = 'modal_prova_form';
@@ -164,9 +164,9 @@
 			$tipo_fisica = 'selected';
 		}
 		$template_modal_body_conteudo .= "
-                            <div class='md-form'>
+                            <div class='mb-3'>
+                              <label for='nova_prova_titulo' class='form-label'>Título da prova</label>
                               <input type='text' class='form-control' name='nova_prova_titulo' id='nova_prova_titulo' value='$prova_titulo' required>
-                              <label for='nova_prova_titulo'>Título da prova</label>
                             </div>
                             <select class='$select_classes' name='nova_prova_tipo' required>
                               <option value='' disabled selected>Tipo de prova:</option>

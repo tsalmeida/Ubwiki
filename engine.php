@@ -306,7 +306,7 @@
 		$pagina_translated = $_SESSION['pagina_translated'];
 	}
 
-	$all_buttons_classes = "btn rounded btn-md text-center";
+	$all_buttons_classes = "btn text-center";
 	$button_classes = "$all_buttons_classes btn-primary";
 	$button_small = 'brn rounded btn-sm text-center';
 	$button_classes_light = "$all_buttons_classes btn-light";
@@ -492,7 +492,7 @@
 			$referencia_exata = $conn->query($query);
 		}
 		if ($referencia_exata->num_rows == 0) {
-			$busca_resultados .= "<div class='col-12 pl-0'><button type='button' id='criar_referencia' name='criar_referencia' class='btn rounded btn-md text-center btn-info btn-sm mb-2' value='$busca_referencias'>{$pagina_translated['Referência não encontrada, criar nova?']}</button></div>";
+			$busca_resultados .= "<div class='col-12 pl-0'><button type='button' id='criar_referencia' name='criar_referencia' class='btn text-center btn-info btn-sm mb-2' value='$busca_referencias'>{$pagina_translated['Referência não encontrada, criar nova?']}</button></div>";
 		}
 		if ($busca_referencias_tipo == false) {
 			$query = prepare_query("SELECT id, etiqueta_id, compartilhamento, titulo, autor, tipo, user_id FROM Elementos WHERE titulo LIKE '%{$busca_referencias}%'");
@@ -754,7 +754,7 @@
 			$etiqueta_exata = $conn->query($query);
 		}
 		if ($etiqueta_exata->num_rows == 0) {
-			$busca_resultados .= "<div class='col-12'><div class='row d-flex justify-content-center'><button type='button' id='$acao_etiqueta_criar' name='$acao_etiqueta_criar' class='btn rounded btn-md text-center btn-success w-50 btn-sm m-0 mb-2' value='$busca_etiquetas'>{$pagina_translated['Criar etiqueta']} \"$busca_etiquetas\"</button></div></div>";
+			$busca_resultados .= "<div class='col-12'><div class='row d-flex justify-content-center'><button type='button' id='$acao_etiqueta_criar' name='$acao_etiqueta_criar' class='btn text-center btn-success w-50 btn-sm m-0 mb-2' value='$busca_etiquetas'>{$pagina_translated['Criar etiqueta']} \"$busca_etiquetas\"</button></div></div>";
 		}
 		if ($busca_etiquetas_tipo == 'all') {
 			$query = prepare_query("SELECT id, tipo, titulo FROM Etiquetas WHERE titulo LIKE '%{$busca_etiquetas}%'");

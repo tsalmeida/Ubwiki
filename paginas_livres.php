@@ -198,9 +198,10 @@
 	$template_modal_titulo = $pagina_translated['Busca de páginas livres'];
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "
-		<div class='md-form'>
+		<div class='mb-3'>
+			<label for='termos_busca' class='form-label'>{$pagina_translated['Termos de busca']}</label>
 			<input type='text' id='termos_busca' name='termos_busca' class='form-control'>
-			<label for='termos_busca'>{$pagina_translated['Termos de busca']}</label>
+			
 		</div>
 	";
 	include 'templates/modal.php';
@@ -209,9 +210,9 @@
 	$template_modal_titulo = $pagina_translated['Criar página livre'];
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "
-		<div class='md-form'>
+		<div class='mb-3'>
+            <label for='nova_pagina_livre' class='form-label'>{$pagina_translated['Título da nova página livre']}</label>
 			<input type='text' id='nova_pagina_livre' name='nova_pagina_livre' class='form-control'>
-			<label for='nova_pagina_livre'>{$pagina_translated['Título da nova página livre']}</label>
 		</div>
 	";
 	include 'templates/modal.php';

@@ -123,9 +123,9 @@
 			$modal_scrollable = true;
 			$template_modal_body_conteudo = false;
 			$template_modal_body_conteudo .= "
-				<div class='md-form'>
+				<div class='mb-3'>
+					<label for='novo_produto_titulo' class='form-label'>{$pagina_translated['Título do novo produto']}</label>
 					<input type='text' class='form-control' name='novo_produto_titulo' id='novo_produto_titulo' required>
-					<label for='novo_produto_titulo'>{$pagina_translated['Título do novo produto']}</label>
 				</div>
 				<p>{$pagina_translated['Pressione as opções abaixo de acordo com as características do produto:']}</p>
 				<div class='row d-flex justify-content-center border p-1 rounded'>

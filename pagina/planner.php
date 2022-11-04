@@ -99,9 +99,10 @@
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "<input type='hidden' value='' id='set_comment_elemento_id' name='set_comment_elemento_id'>";
 	$template_modal_body_conteudo .= "
-        <div class='md-form'>
+        <div class='mb-3'>
+            <label for='set_comment' class='form-label'>{$pagina_translated['Write comment here']}</label>
             <textarea class='md-textarea form-control' id='set_comment' name='set_comment'></textarea>
-            <label for='set_comment'>{$pagina_translated['Write comment here']}</label>
+            
         </div>
     ";
 	include 'templates/modal.php';
@@ -112,9 +113,9 @@
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "
         <input type='hidden' value='' id='set_tag_elemento_id' name='set_tag_elemento_id'>
-        <div class='md-form'>
+        <div class='mb-3'>
+            <label for='plan_set_tag' class='form-label'>{$pagina_translated['Set category']}</label>
             <input type='text' class='form-control' name='plan_set_tag' id='plan_set_tag'>
-            <label for='plan_set_tag'>{$pagina_translated['Set category']}</label>
         </div>
     ";
 	include 'templates/modal.php';
@@ -124,9 +125,9 @@
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "
             <p>{$pagina_translated['explanation page id']}</p>
-            <div class='md-form'>
+            <div class='mb-3'>
+                <label for='adicionar_pagina_id' class='form-label'>{$pagina_translated['page id']}</label>
                 <input id='adicionar_pagina_id' name='adicionar_pagina_id' type='text' class='form-control' value=''>
-                <label for='adicionar_pagina_id'>{$pagina_translated['page id']}</label>
             </div>
         ";
 	include 'templates/modal.php';

@@ -131,7 +131,7 @@
 							?>
             </div>
         </div>
-        <button id='mostrar_coluna_direita' class='btn btn-md bg-dark link-light p-2 m-1' tabindex='-1'><i
+        <button id='mostrar_coluna_direita' class='btn bg-dark link-light p-2 m-1' tabindex='-1'><i
                     class='fas fa-pen-alt fa-fw'></i></button>
     </div>
 		
@@ -172,9 +172,9 @@
 			}
 			$template_modal_body_conteudo .= "</select>";
 			$template_modal_body_conteudo .= "
-                            <div class='md-form'>
+                            <div class='mb-3'>
+                              <label for='novo_texto_apoio_titulo' class='form-label'>Título do texto de apoio</label>
                               <input type='text' class='form-control' name='novo_texto_apoio_titulo' id='novo_texto_apoio_titulo' value='$texto_apoio_titulo' required>
-                              <label for='novo_texto_apoio_titulo'>Título do texto de apoio</label>
                             </div>
 						";
 			

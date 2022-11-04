@@ -176,13 +176,13 @@
 			$template_modal_body_conteudo = false;
 			$template_modal_body_conteudo .= "
 				<p>{$pagina_translated['wikipedia article explanation']}</p>
-				<div class='md-form'>
+				<div class='mb-3'>
+					<label for='wikipedia_url' class='form-label'>{$pagina_translated['Endereço do artigo na Wikipédia']}</label>
 					<input type='url' class='form-control' name='wikipedia_url' id='wikipedia_url' required>
-					<label for='wikipedia_url'>{$pagina_translated['Endereço do artigo na Wikipédia']}</label>
 				</div>
-				<div class='md-form'>
+				<div class='mb-3'>
+					<label for='wikipedia_titulo' class='form-label'>{$pagina_translated['Título do artigo na Wikipedia']}</label>
 					<input type='text' class='form-control' name='wikipedia_titulo' id='wikipedia_titulo' required>
-					<label for='wikipedia_titulo'>{$pagina_translated['Título do artigo na Wikipedia']}</label>
 				</div>
 			";
 			include 'templates/modal.php';

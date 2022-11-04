@@ -54,7 +54,7 @@
     </div>
     <div class="container">
         <div class="row d-flex justify-content-around mt-3">
-            <div class="md-form input-group input-group-lg">
+            <div class="mb-3 input-group input-group-lg">
                 <input id="cmdbar" type="text" class="form-control text-center fontstack-mono" placeholder="<?php echo $user_apelido; ?> commands…">
             </div>
         </div>

@@ -3,8 +3,8 @@
 	//TODO: Notificações
 	//TODO: Etiquetas como pastas que organizam os textos e páginas do usuário.
 	//TODO: A sala de visitas deve ter espaço para adicionar os perfis do usuário em sites de mídia social.
-    //TODO: Show every one of the user's entry into Textos_arquivo, allow him to delete them.
-    //TODO: Transferência de planos de estudos.
+	//TODO: Show every one of the user's entry into Textos_arquivo, allow him to delete them.
+	//TODO: Transferência de planos de estudos.
 
 
 	$pagina_tipo = 'escritorio';
@@ -12,12 +12,12 @@
 	$pagina_id = $user_escritorio;
 
 	if ($user_escritorio == false) {
-	    header('Location:ubwiki.php');
-	    exit();
-    }
+		header('Location:ubwiki.php');
+		exit();
+	}
 
-    //Ideally this query would only be sent when the user clicked to open the modal.
-    $etiquetados = false;
+	//Ideally this query would only be sent when the user clicked to open the modal.
+	$etiquetados = false;
 	$query = prepare_query("SELECT DISTINCT extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'topico' AND estado = 1");
 	$etiquetados = $conn->query($query);
 
@@ -69,7 +69,8 @@
 		$novo_avatar = $_POST['selecionar_avatar'];
 		if (in_array($novo_avatar, $acceptable_avatars)) {
 			$_SESSION['user_avatar_icone'] = $_POST['selecionar_avatar'];
-			$conn->query("DELETE FROM Opcoes WHERE user_id = $user_id AND opcao_tipo = 'avatar')");
+			$query = prepare_query("DELETE FROM Opcoes WHERE user_id = $user_id AND opcao_tipo = 'avatar'");
+			$conn->query($query);
 			$query = prepare_query("INSERT INTO Opcoes (user_id, opcao_tipo, opcao_string) VALUES ($user_id, 'avatar', '$novo_avatar')");
 			$conn->query($query);
 		}
@@ -80,7 +81,8 @@
 		$nova_cor = $_POST['selecionar_cor'];
 		if (in_array($nova_cor, $acceptable_avatar_colors)) {
 			$_SESSION['user_avatar_cor'] = $_POST['selecionar_cor'];
-			$conn->query("DELETE FROM Opcoes WHERE user_id = $user_id AND opcao_tipo = 'avatar_cor')");
+			$query = prepare_query("DELETE FROM Opcoes WHERE user_id = $user_id AND opcao_tipo = 'avatar_cor'");
+			$conn->query($query);
 			$query = prepare_query("INSERT INTO Opcoes (user_id, opcao_tipo, opcao_string) VALUES ($user_id, 'avatar_cor', '$nova_cor')");
 			$conn->query($query);
 		}
@@ -125,14 +127,14 @@
 	}
 
 	if (isset($_SESSION['user_opcoes']['grupos_estudo'])) {
-	    if ($_SESSION['user_opcoes']['grupos_estudo'][0] == true) {
-	        array_push($icons_to_show, 7);
-        }
-    }
+		if ($_SESSION['user_opcoes']['grupos_estudo'][0] == true) {
+			array_push($icons_to_show, 7);
+		}
+	}
 
 	if (isset($_SESSION['user_opcoes']['docs_shared'])) {
-	    array_push($icons_to_show, 23);
-    }
+		array_push($icons_to_show, 23);
+	}
 
 	if ($user_tipo == 'admin') {
 		array_push($icons_to_show, 14);
@@ -272,10 +274,10 @@
 				$fa_icone = 'fa-share-square';
 				$fa_color = 'link-info';
 				if (in_array(23, $icons_to_show)) {
-				    $template_conteudo .= include 'templates/artefato_item.php';
-                } else {
-				    $template_conteudo_hidden .= include 'templates/artefato_item.php';
-                }
+					$template_conteudo .= include 'templates/artefato_item.php';
+				} else {
+					$template_conteudo_hidden .= include 'templates/artefato_item.php';
+				}
 
 				$artefato_id = 'notificacoes';
 				$artefato_subtitulo = $pagina_translated['notifications'];
@@ -398,7 +400,7 @@
 					$template_conteudo_hidden .= include 'templates/artefato_item.php';
 				}
 
-                if ($user_tipo == 'admin') {
+				if ($user_tipo == 'admin') {
 					$artefato_id = 'simulados';
 					$artefato_subtitulo = $pagina_translated['Simulados'];
 					$artefato_modal = '#modal_simulados';
@@ -494,11 +496,11 @@
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "
 		<h3>Avatar</h3>
-		<div class='row justify-content-center'>
+		<div class='d-flex justify-content-center'>
 			<a href='pagina.php?user_id=$user_id' class='{$_SESSION['user_avatar_cor']}'><i class='fad {$_SESSION['user_avatar_icone']} fa-3x fa-fw'></i></a>
 		</div>
 		<p>{$pagina_translated['Alterar']}:</p>
-		<select name='selecionar_avatar' class='$select_classes'>
+		<select name='selecionar_avatar' class='$select_classes form-select'>
 			<option disabled selected value=''>{$pagina_translated['Selecione seu avatar']}</option>
 			<option value='fa-user'>{$pagina_translated['Padrão']}</option>
 			<option value='fa-user-tie'>{$pagina_translated['De terno']}</option>
@@ -518,7 +520,7 @@
 			<option value='fa-dog'>{$pagina_translated['Cachorro']}</option>
 			<option value='fa-ghost'>{$pagina_translated['Fantasma']}</option>
 		</select>
-		<select name='selecionar_cor' class='$select_classes'>
+		<select name='selecionar_cor' class='$select_classes form-select'>
 			<option disabled selected value=''>{$pagina_translated['Cor do seu avatar']}</option>
 			<option value='text-primary'>{$pagina_translated['Azul']}</option>
 			<option value='link-danger'>{$pagina_translated['Vermelho']}</option>
@@ -531,28 +533,28 @@
 		</select>
 		<h3 class='mt-3'>{$pagina_translated['Perfil']}</h3>
         <p>{$pagina_translated['Você é identificado exclusivamente por seu apelido em todas as suas atividades públicas.']}</p>
-        <div class='md-form'><input type='text' name='novo_apelido' id='novo_apelido' class='form-control validate' value='$user_apelido' pattern='([A-z0-9À-ž\s]){2,14}' required>
-            <label data-error='inválido' data-successd='válido' for='novo_apelido' required>{$pagina_translated['Apelido']}</label>
+        <div class='mb-3'>
+        <label data-error='inválido' data-successd='válido' for='novo_apelido' class='form-label' required>{$pagina_translated['Apelido']}</label>
+        <input type='text' name='novo_apelido' id='novo_apelido' class='form-control validate' value='$user_apelido' pattern='([A-z0-9À-ž\s]){2,14}' required>
         </div>
         <p>{$pagina_translated['Seu nome e seu sobrenome não serão divulgados em nenhuma seção pública da página.']}</p>
-        <div class='md-form'>
+        <div class='mb-3'>
+               <label data-error='inválido' data-successd='válido' for='novo_nome' class='form-label'>{$pagina_translated['Nome']}</label>
                <input type='text' name='novo_nome' id='novo_nome' class='form-control validate' value='$user_nome' pattern='([A-z0-9À-ž\s]){2,}' required></input>
-
-            <label data-error='inválido' data-successd='válido'
-                   for='novo_nome'>{$pagina_translated['Nome']}</label>
         </div>
-        <div class='md-form'>
+        <div class='mb-3'>
+            <label data-error='inválido' data-successd='válido' for='novo_sobrenome' pattern='([A-z0-9À-ž\s]){2,}' class='form-label' required>{$pagina_translated['Sobrenome']}</label>
             <input type='text' name='novo_sobrenome' id='novo_sobrenome' class='form-control validate' value='$user_sobrenome' required>
-            <label data-error='inválido' data-successd='válido' for='novo_sobrenome' pattern='([A-z0-9À-ž\s]){2,}' required>{$pagina_translated['Sobrenome']}</label>
         </div>
         <h3>{$pagina_translated['options']}</h3>
-        <div class='md-form'>
+        <div class='mb-3'>
             <input type='checkbox' class='form-check-input' id='hide_navbar_option' name='hide_navbar_option' $hide_navbar_checked>
             <label for='hide_navbar_option' class='form-check-label'>{$pagina_translated['Hide title and navbar']}</label>
         </div>
-        <div class='md-form'>
+        <div class='mb-3'>
         	<input type='checkbox' class='form-check-input' id='opcao_texto_justificado' name='opcao_texto_justificado' $texto_justificado_checked>
         	<label class='form-check-label' for='opcao_texto_justificado'>{$pagina_translated['Mostrar verbetes com texto justificado']}</label>
+
 		</div>
     ";
 	$template_modal_body_conteudo .= "
@@ -656,9 +658,9 @@
 	$template_modal_body_conteudo .= "<p>Formas de comprar créditos Ubwiki:</p>";
 	$template_modal_body_conteudo .= "
         <form id='formulario_codigo' method='post' class='border rounded p-3 mb-2 hidden'>
-            <div class='md-form'>
+            <div class='mb-3'>
+                <label for='adicionar_credito_codigo' class='form-label'>{$pagina_translated['adicionar credito codigo']}</label>
                 <input type='text' class='form-control' id='adicionar_credito_codigo' name='adicionar_credito_codigo'>
-                <label for='adicionar_credito_codigo'>{$pagina_translated['adicionar credito codigo']}</label>
                 <div class='row d-flex justify-content-center'>
                 <button class='$button_classes'>{$pagina_translated['send']}</button>
                 </div>
@@ -725,9 +727,9 @@
 
 	$template_modal_body_conteudo .= "
 							<form method='post'>
-								<div class='md-form mb-2'>
+								<div class='mb-3'>
+									<label data-error='inválido' data-success='válido' for='novo_grupo_titulo' class='form-label'>{$pagina_translated['Nome do novo grupo de estudos']}</label>
 									<input type='text' name='novo_grupo_titulo' id='novo_grupo_titulo' class='form-control validate mb-1' required>
-									<label data-error='inválido' data-success='válido' for='novo_grupo_titulo'>{$pagina_translated['Nome do novo grupo de estudos']}</label>
 								</div>
 								<div class='row justify-content-center'>
 									<button name='trigger_novo_grupo' class='$button_classes'>{$pagina_translated['Criar grupo de estudos']}</button>
@@ -752,9 +754,9 @@
 				$template_modal_body_conteudo .= "
                                 <h2>{$pagina_translated['Você recebeu convite para participar de grupos de estudos:']}</h2>
                                 <form method='post'>
-                                    <div class='md-form mb-2'>
-                                        <select class='$select_classes' name='responder_convite_grupo_id' id='responder_convite_grupo_id'>
-                                            <option value='' disabled selected>{$pagina_translated['Selecione o grupo de estudos']}:</option>
+                                    <div class='mb-3'>
+                                        <select class='$select_classes form-select' name='responder_convite_grupo_id' id='responder_convite_grupo_id'>
+                                        <option value='' disabled selected>{$pagina_translated['Selecione o grupo de estudos']}:</option>
                             ";
 				while ($convite_ativo = $convites_ativos->fetch_assoc()) {
 					$convite_ativo_grupo_id = $convite_ativo['grupo_id'];
@@ -914,7 +916,7 @@
             }
         })
     })
-    $(document).on('click', '#artefato_all_historico', function() {
+    $(document).on('click', '#artefato_all_historico', function () {
         $.post('engine.php', {
             'list_historico': true
         }, function (data) {
@@ -924,7 +926,7 @@
             }
         })
     })
-    $(document).on('click', '.delete_edit', function() {
+    $(document).on('click', '.delete_edit', function () {
         delete_this_edit = $(this).attr('value');
         $.post('engine.php', {
             'delete_this_edit': delete_this_edit

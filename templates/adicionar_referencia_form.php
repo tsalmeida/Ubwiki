@@ -9,9 +9,10 @@
 	
 	$form_return .=  "
 		<p>{$pagina_translated['Antes de criar uma referência, é necessário usar a ferramenta de busca, para garantir que não haja duplicidade em nosso banco de dados.']}</p>
-		<div class='md-form'>
+		<div class='mb-3'>
+	    <label for='busca_referencias' class='form-label'>$adicionar_referencia_busca_texto</label>
 	    <input type='text' class='form-control' name='busca_referencias' id='busca_referencias' required>
-	    <label for='busca_referencias'>$adicionar_referencia_busca_texto</label>
+	    
     </div>
     <div class='row d-flex justify-content-start'>
     	<div class='col'>
@@ -22,17 +23,20 @@
     </div>
     <div class='row' id='criar_referencia_form'>
       <div class='col-12'>
-        <div class='md-form'>
+        <div class='mb-3'>
+          <label for='criar_referencia_titulo' class='form-label'>{$pagina_translated['Título da nova referência']}</label>
           <input type='text' class='form-control' name='criar_referencia_titulo' id='criar_referencia_titulo' required>
-          <label for='criar_referencia_titulo'>{$pagina_translated['Título da nova referência']}</label>
+          
         </div>
-        <div class='md-form'>
+        <div class='mb-3'>
+        	<label for='criar_referencia_link' class='form-label'>{$pagina_translated['Link da nova referência (opcional)']}</label>
         	<input type='url' class='form-control' name='criar_referencia_link' id='criar_referencia_link'>
-        	<label for='criar_referencia_link'>{$pagina_translated['Link da nova referência (opcional)']}</label>
+        	
 				</div>
-        <div class='md-form'>
+        <div class='mb-3'>
+          <label for='criar_referencia_autor' class='form-label'>{$pagina_translated['Autor da nova referência (opcional)']}</label>
           <input type='text' class='form-control' name='criar_referencia_autor' id='criar_referencia_autor'>
-          <label for='criar_referencia_autor'>{$pagina_translated['Autor da nova referência (opcional)']}</label>
+          
           <button type='button' class='$button_classes btn-info' id='trigger_buscar_autores'>{$pagina_translated['Buscar']}</button>
         </div>
         <div class='row border p-1' id='autores_disponiveis'>

@@ -13,13 +13,15 @@
 		</ul>
 		<form method='post' id='esconder_formulario_adicionar_edicao' class='border rounded p-3 m-1 mb-3 bg-light'>
 			<p>{$pagina_translated['Adicionar edição do concurso:']}</p>
-      <div class='md-form'>
+      <div class='mb-3'>
+        <label for='nova_edicao_ano' class='form-label'>{$pagina_translated['Ano da nova edição']}</label>
         <input type='number' class='form-control' name='nova_edicao_ano' id='nova_edicao_ano' required>
-        <label for='nova_edicao_ano'>{$pagina_translated['Ano da nova edição']}</label>
+        
       </div>
-      <div class='md-form'>
+      <div class='mb-3'>
+        <label for='nova_edicao_titulo' class='form-label'>{$pagina_translated['Título da nova edição']}</label>
         <input type='text' class='form-control' name='nova_edicao_titulo' id='nova_edicao_titulo' required>
-        <label for='nova_edicao_titulo'>{$pagina_translated['Título da nova edição']}</label>
+        
       </div>
       <div class='row d-flex justify-content-center'>
       	<button type='submit' class='$button_classes'>{$pagina_translated['Adicionar edição']}</button>
@@ -54,9 +56,10 @@
 					<p>{$pagina_translated['Adicionar etapa de edição do concurso:']}</p>
 					<input type='hidden' id='nova_etapa_edicao_id' name='nova_etapa_edicao_id' value=''>
 					<input type='hidden' id='nova_etapa_curso_id' name='nova_etapa_curso_id' value='$pagina_curso_id'>
-					<div class='md-form'>
+					<div class='mb-3'>
+	          <label for='nova_etapa_titulo' class='form-label'>{$pagina_translated['Título da nova etapa']}</label>
 	          <input type='text' class='form-control' name='nova_etapa_titulo' id='nova_etapa_titulo' required>
-	          <label for='nova_etapa_titulo'>{$pagina_translated['Título da nova etapa']}</label>
+	          
 	        </div>
           <div class='row justify-content-center'>
             <button class='$button_classes btn-info'>{$pagina_translated['Adicionar etapa']}</button>
@@ -80,9 +83,9 @@
 			<p>{$pagina_translated['Adicionar prova de etapa do concurso:']}</p>
 			<input type='hidden' id='nova_prova_etapa_id' name='nova_prova_etapa_id' value=''>
 			<input type='hidden' id='nova_prova_curso_id' name='nova_prova_curso_id' value='$pagina_curso_id'>
-			<div class='md-form'>
+			<div class='mb-3'>
+				<label for='nova_prova_titulo' class='form-label'>{$pagina_translated['Título da prova']}</label>
 				<input type='text' class='form-control' name='nova_prova_titulo' id='nova_prova_titulo' required>
-				<label for='nova_prova_titutlo'>{$pagina_translated['Título da prova']}</label>
 			</div>
 			<select class='$select_classes' name='nova_prova_tipo' required>
         <option value='' disabled selected>{$pagina_translated['Tipo da prova:']}</option>
@@ -182,9 +185,10 @@
 				$artefatos_nova_questao
 			</div>
 			<div class='bg-white rounded p-3 border'>
-				<div class='md-form'>
+				<div class='mb-3'>
+					<label for='nova_questao_numero' class='form-label'>Número da nova questão</label>
 					<input type='number' class='form-control' name='nova_questao_numero' id='nova_questao_numero' required>
-					<label for='nova_questao_numero'>Número da nova questão</label>
+					
 				</div>
 			</div>
 			<p class='mt-2'>Será criada uma página para a nova questão, vinculada à página deste verbete. Demais detalhes deverão ser adicionados na página na questão.</p>

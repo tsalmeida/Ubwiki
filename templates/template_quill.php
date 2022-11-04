@@ -165,7 +165,7 @@
 
 	if ($quill_edicao == true) {
 		$template_botoes_salvar .= "
-			<a href='javascript:void(0)' id='{$template_id}_trigger_save' title='{$pagina_translated['Salvar mudanças']}' class='ql-formats text-primary border rounded p-1'><i class='fad fa-save fa-fw'></i></a>
+			<a href='javascript:void(0)' id='{$template_id}_trigger_save' title='{$pagina_translated['Salvar mudanças']}' class='ql-formats link-primary border rounded p-1'><i class='fad fa-save fa-fw'></i></a>
 		";
 	}
 	if (($quill_texto_id != false) && ($template_id != 'modelo')) {
@@ -295,10 +295,10 @@
 						$('#changes_{$template_id}').val(Number(1));
 					    $('#arquivo_id_{$template_id}').val(data);
 						$('#{$template_id}_trigger_save').removeClass();
-						$('#{$template_id}_trigger_save').addClass('ql-formats link-success bg-success border border-success rounded p-1'); //user is told: your most recent changes have been saved.
+						$('#{$template_id}_trigger_save').addClass('ql-formats link-success bg-success-light border border-success rounded p-1'); //user is told: your most recent changes have been saved.
 					} else {
 						$('#{$template_id}_trigger_save').removeClass();
-						$('#{$template_id}_trigger_save').addClass('ql-formats text-white danger-color border border-danger rounded p-1'); //user is told: failure to save your changes.
+						$('#{$template_id}_trigger_save').addClass('ql-formats link-light bg-danger border border-danger rounded p-1'); //user is told: failure to save your changes.
 					}
 				});
 			};
@@ -356,8 +356,8 @@
 					{$template_id}_timeout = setTimeout(function() {
 					    $('#{$quill_trigger_button}').click();
 					}, 6000) // A longer timeout is set.
-					$('#{$template_id}_trigger_save').removeClass('link-success green');
-					$('#{$template_id}_trigger_save').addClass('link-warning bg-warning'); //user is told: your most recent changes have not been saved yet.
+					$('#{$template_id}_trigger_save').removeClass('link-success bg-success-light');
+					$('#{$template_id}_trigger_save').addClass('link-warning bg-warning-light'); //user is told: your most recent changes have not been saved yet.
 			    } else if (changes == 40) {
 			        clearTimeout({$template_id}_timeout); // timeout is cleared because the user has made more than 4 changes and, therefore, is probably typing.
 					{$template_id}_timeout = setTimeout(function() {
@@ -374,9 +374,6 @@
 					clearTimeout({$template_id}_timeout); // timeout is cleared.
 					$('#{$quill_trigger_button}').click();
 				}
-
-				
-
 			})
 		</script>
 	";

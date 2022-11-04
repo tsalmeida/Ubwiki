@@ -766,19 +766,21 @@
 			$nova_secao_numero = $pagina_translated['nova secao posicao'];
 		}
 		$template_modal_body_conteudo .= "
-		    <div id='adicionar_multiplas_secoes_textarea' class='md-form hidden'>
-		        <textarea id='multiplas_secoes_textarea' name='multiplas_secoes_textarea' class='md-textarea form-control' rows='4'></textarea>
+		    <div id='adicionar_multiplas_secoes_textarea' class='mb-3'>
+		        <textarea id='multiplas_secoes_textarea' name='multiplas_secoes_textarea' class='form-control' rows='4'></textarea>
 		        <label for='multiplas_secoes_textarea'>{$pagina_translated['Um título de seção por linha']}</label>
             </div>
 		";
 		$template_modal_body_conteudo .= "
-          <div class='md-form mb-2 adicionar_uma_secao'>
+          <div class='mb-3 adicionar_uma_secao'>
+              <label for='elemento_nova_secao' class='form-label'>$nova_secao_titulo</label>
               <input type='text' id='elemento_nova_secao' name='elemento_nova_secao' class='form-control'>
-              <label for='elemento_nova_secao'>$nova_secao_titulo</label>
+              
           </div>
-          <div class='md-form mb-2 adicionar_uma_secao'>
+          <div class='mb-3 adicionar_uma_secao'>
+              <label for='elemento_nova_secao_ordem' class='form-label'>$nova_secao_numero</label>
               <input type='number' id='elemento_nova_secao_ordem' name='elemento_nova_secao_ordem' class='form-control'>
-              <label for='elemento_nova_secao_ordem'>$nova_secao_numero</label>
+              
           </div>
         ";
 
@@ -1881,17 +1883,19 @@
 		$template_modal_show_buttons = true;
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
-        <div class='md-form mb-2'>
+        <div class='mb-3'>
+            <label for='pagina_novo_titulo' class='form-label'>{$pagina_translated['Novo título']}</label>
             <input type='text' id='pagina_novo_titulo' name='pagina_novo_titulo' class='form-control' value=\"$pagina_titulo\" required>
-            <label for='pagina_novo_titulo'>{$pagina_translated['Novo título']}</label>
+            
         </div>
         ";
 
 		if ($pagina_tipo == 'secao') {
 			$template_modal_body_conteudo .= "
-                <div class='md-form mb-2'>
+                <div class='mb-3'>
+                    <label for='secao_nova_ordem' class='form-label'>{$pagina_translated['Nova posição como seção']}</label>
                     <input type='number' id='secao_nova_ordem' name='secao_nova_ordem' class='form-control' value='$pagina_secao_position'>
-                    <label for='secao_nova_ordem'>{$pagina_translated['Nova posição como seção']}</label>
+                    
                 </div>
             ";
 		}
@@ -1929,9 +1933,10 @@
 			$template_modal_body_conteudo = false;
 			$template_modal_body_conteudo .= "
 	            <p>{$pagina_translated['new course explanation']}</p>
-	            <div class='md-form mb-2'>
+	            <div class='mb-3'>
+	                <label data-error='inválido' data-success='válido' for='pagina_novo_titulo' class='form-label'>{$pagina_translated['Sigla do novo curso']}</label>
 	                <input type='text' id='novo_curso_sigla' name='novo_curso_sigla' class='form-control validade' required>
-	                <label data-error='inválido' data-success='válido' for='pagina_novo_titulo'>{$pagina_translated['Sigla do novo curso']}</label>
+	                
                 </div>
 	        ";
 			include 'templates/modal.php';
@@ -1942,7 +1947,7 @@
 		$template_modal_titulo = $pagina_translated['Determinar imagem para o cartão do produto'];
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
-            <div class='md-form mb-2'>
+            <div class='mb-3'>
 				<p>{$pagina_translated['Selecione uma entre as imagens desta página para fazer parte do cartão de oferta deste produto na Loja Virtual:']}</p>
             	<select class='$select_classes' name='produto_nova_imagem'>
             	<option value='' disabled selected>{$pagina_translated['Selecione uma imagem:']}</option>
@@ -1962,9 +1967,9 @@
 		$template_modal_titulo = $pagina_translated['Determinar preço deste produto'];
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
-			<div class='md-form mb-2'>
+			<div class='mb-3'>
 				<p>{$pagina_translated['Escreva abaixo o preço deste produto em Reais brasileiros (BRL).']}</p>
-				<input type='number' name='novo_produto_preco' id='novo_produto_preco' value='$produto_preco'>
+				<input class='form-control' type='number' name='novo_produto_preco' id='novo_produto_preco' value='$produto_preco'>
 			</div>
 		";
 		include 'templates/modal.php';
@@ -2039,9 +2044,10 @@
 				$template_modal_body_conteudo .= "</ul>";
 			} else {
 				$template_modal_body_conteudo .= "
-                <div class='md-form mt-3'>
+                <div class='mb-3'>
+                    <label for='endereco_share' class='form-label'>{$pagina_translated['URL de compartilhamento:']}</label>
                     <input id='endereco_share' type='text' class='form-control' value='https://www.ubwiki.com.br/ubwiki/pagina.php?pagina_id=$pagina_id&acs=$pagina_link' readonly>
-                    <label for='endereco_share'>{$pagina_translated['URL de compartilhamento:']}</label>
+                    
                 </div>
 		    ";
 			}
@@ -2181,11 +2187,12 @@
 		";
 		$template_modal_body_conteudo .= "
 			<p>{$pagina_translated['Pesquise o convidado por seu apelido:']}</p>
-	        <div class='md-form'>
+	        <div class='mb-3'>
+	        	<label for='apelido_convidado_compartilhamento' class='form-label'>{$pagina_translated['Apelido']}</label>
 	        	<input type='text' class='form-control' id='apelido_convidado_compartilhamento' novo='apelido_convidado_compartilhamento'>
-	        	<label for='apelido_convidado_compartilhamento'>{$pagina_translated['Apelido']}</label>
+	        	
 	        </div>
-	        <div class='md-form my-1'>
+	        <div class='mb-3'>
 	            <button type='button' id='trigger_buscar_convidado_compartilhamento' name='trigger_buscar_convidado_compartilhamento' class='$button_classes btn-sm m-0'>{$pagina_translated['Buscar']}</button>
             </div>
             <div id='convite_resultados_compartilhamento' class='row border p-2 rounded mt-4'>
@@ -2258,9 +2265,10 @@
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "<p>{$pagina_translated['Pesquise a nova matéria abaixo']}</p>";
 		$template_modal_body_conteudo .= "
-			<div class='md-form'>
+			<div class='mb-3'>
+				<label for='buscar_materias' class='form-label'>{$pagina_translated['Buscar matéria']}</label>
 				<input type='text' class='form-control' name='buscar_materias' id='buscar_materias' required>
-				<label for='buscar_materias'>{$pagina_translated['Buscar matéria']}</label>
+				
                 <button type='button' class='$button_classes' id='trigger_buscar_materias'>{$pagina_translated['Buscar']}</button>
 			</div>
 			<div class='row border p-2' id='materias_disponiveis'></div>
@@ -2275,9 +2283,10 @@
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "<p>{$pagina_translated['Pesquise o novo tópico abaixo']}</p>";
 		$template_modal_body_conteudo .= "
-			<div class='md-form'>
+			<div class='mb-3'>
+				<label for='buscar_topicos' class='form-label'>{$pagina_translated['Buscar tópico']}</label>
 				<input type='text' class='form-control' name='buscar_topicos' id='buscar_topicos' required>
-				<label for='buscar_topicos'>{$pagina_translated['Buscar tópico']}</label>
+				
                 <button type='button' class='$button_classes btn-info' id='trigger_buscar_topicos'>{$pagina_translated['Buscar']}</button>
 			</div>
 			<div class='row border p-2' id='topicos_disponiveis'></div>
@@ -2292,9 +2301,10 @@
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "<p>{$pagina_translated['Pesquise o novo subtópico abaixo']}</p>";
 		$template_modal_body_conteudo .= "
-			<div class='md-form'>
+			<div class='mb-3'>
+				<label for='buscar_topicos' class='form-label'>{$pagina_translated['Buscar subtópico']}</label>
 				<input type='text' class='form-control' name='buscar_subtopicos' id='buscar_subtopicos' required>
-				<label for='buscar_topicos'>{$pagina_translated['Buscar subtópico']}</label>
+				
 				<button type='button' class='$button_classes' id='trigger_buscar_subtopicos'>{$pagina_translated['Buscar']}</button>
 			</div>
 			<div class='row border p-2' id='subtopicos_disponiveis'></div>
@@ -2341,9 +2351,9 @@
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
 			<input type='hidden' value='$link_compartilhamento_codigo' name='link_compartilhamento_codigo'>
-			<div class='md-form'>
-				<input id='link_compartilhamento' type='text' class='form-control' readonly value='$link_compartilhamento'>
-				<label>{$pagina_translated['Link de compartilhamento']}</label>
+			<div class='mb-3'>
+				<input id='link_compartilhamento' type='text' class='form-check-input' readonly value='$link_compartilhamento'>
+				<label class='form-check-label'>{$pagina_translated['Link de compartilhamento']}</label>
 			</div>
 			<div class='form-check'>
 				<input type='radio' class='form-check-input' id='link_compartilhamento_livre' name='link_compartilhamento_tipo' value='open' $link_compartilhamento_open>
@@ -2398,11 +2408,12 @@
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
             <p>{$pagina_translated['Pesquise o convidado por seu apelido:']}</p>
-	        <div class='md-form'>
+	        <div class='mb-3'>
+	        	<label for='apelido_convidado' class='form-label'>{$pagina_translated['Apelido']}</label>
 	        	<input type='text' class='form-control' id='apelido_convidado' novo='apelido_convidado'>
-	        	<label for='apelido_convidado'>{$pagina_translated['Apelido']}</label>
+	        	
 	        </div>
-	        <div class='md-form my-1'>
+	        <div class='mb-3'>
 	            <button type='button' id='trigger_buscar_convidado' name='trigger_buscar_convidado' class='$button_classes btn-sm m-0'>{$pagina_translated['Buscar']}</button>
             </div>
             <div id='convite_resultados' class='row border p-2'>
@@ -2520,7 +2531,7 @@
 		$template_modal_body_conteudo .= "
 			<p>{$pagina_translated['Pressione para destruir esta página. Esse ato não pode ser desfeito.']}</p>
 			<form method='post'>
-			  <div class='md-form d-flex justify-content-center'>
+			  <div class='mb-3 d-flex justify-content-center'>
 				  <button class='$button_classes_red' name='trigger_apagar_pagina' id='trigger_apagar_pagina'>{$pagina_translated['Destruir esta página']}</button>
 			  </div>
 			</form>
@@ -2549,9 +2560,10 @@
 		$template_modal_body_conteudo .= "</ul>";
 		$template_modal_body_conteudo .= "
 							<h3>Título</h3>
-                            <div class='md-form'>
+                            <div class='mb-3'>
+                              <label for='novo_texto_apoio_titulo' class='form-label'>{$pagina_translated['Título do texto de apoio']}</label>
                               <input type='text' class='form-control' name='novo_texto_apoio_titulo' id='novo_texto_apoio_titulo' value='$pagina_texto_apoio_titulo' required>
-                              <label for='novo_texto_apoio_titulo'>{$pagina_translated['Título do texto de apoio']}</label>
+                              
                             </div>
 						";
 
@@ -2723,7 +2735,7 @@
 
 			$template_modal_body_conteudo .= "<h3 class='mt-3'>{$pagina_translated['Item']} 1</h3>";
 			$template_modal_body_conteudo .= "
-                            <select class='mdb-select md-form' name='nova_questao_item1_gabarito'>
+                            <select class='form-select' name='nova_questao_item1_gabarito'>
                                 <option value='' disabled $item1_none>{$pagina_translated['Selecione o gabarito do primeiro item']}</option>
                                 <option value='1' $item1_certo>{$pagina_translated['Certo']}</option>
                                 <option value='2' $item1_errado>{$pagina_translated['Errado']}</option>
@@ -2735,7 +2747,7 @@
 			$template_modal_body_conteudo .= $sim_quill_form;
 			$template_modal_body_conteudo .= "<h3 class='mt-3'>{$pagina_translated['Item']} 2</h3>";
 			$template_modal_body_conteudo .= "
-                            <select class='mdb-select md-form' name='nova_questao_item2_gabarito'>
+                            <select class='form-select' name='nova_questao_item2_gabarito'>
                                 <option value='' disabled $item2_none>{$pagina_translated['Selecione o gabarito do segundo item']}</option>
                                 <option value='1' $item2_certo>{$pagina_translated['Certo']}</option>
                                 <option value='2' $item2_errado>{$pagina_translated['Errado']}</option>
@@ -2747,7 +2759,7 @@
 			$template_modal_body_conteudo .= $sim_quill_form;
 			$template_modal_body_conteudo .= "<h3 class='mt-3'>{$pagina_translated['Item']} 3</h3>";
 			$template_modal_body_conteudo .= "
-                            <select class='mdb-select md-form' name='nova_questao_item3_gabarito'>
+                            <select class='form-select' name='nova_questao_item3_gabarito'>
                                 <option value='' disabled $item3_none>{$pagina_translated['Selecione o gabarito do terceiro item']}</option>
                                 <option value='1' $item3_certo>{$pagina_translated['Certo']}</option>
                                 <option value='2' $item3_errado>{$pagina_translated['Errado']}</option>
@@ -2759,7 +2771,7 @@
 			$template_modal_body_conteudo .= $sim_quill_form;
 			$template_modal_body_conteudo .= "<h3 class='mt-3'>{$pagina_translated['Item']} 4</h3>";
 			$template_modal_body_conteudo .= "
-                            <select class='mdb-select md-form' name='nova_questao_item4_gabarito'>
+                            <select class='form-select' name='nova_questao_item4_gabarito'>
                                 <option value='' disabled $item4_none>{$pagina_translated['Selecione o gabarito do quarto item']}</option>
                                 <option value='1' $item4_certo>{$pagina_translated['Certo']}</option>
                                 <option value='2' $item4_errado>{$pagina_translated['Errado']}</option>
@@ -2771,7 +2783,7 @@
 			$template_modal_body_conteudo .= $sim_quill_form;
 			$template_modal_body_conteudo .= "<h3 class='mt-3'>{$pagina_translated['Item']} 5</h3>";
 			$template_modal_body_conteudo .= "
-                            <select class='mdb-select md-form' name='nova_questao_item5_gabarito'>
+                            <select class='form-select' name='nova_questao_item5_gabarito'>
                                 <option value='' disabled $item5_none>{$pagina_translated['Selecione o gabarito do quinto item']}</option>
                                 <option value='1' $item5_certo>{$pagina_translated['Certo']}</option>
                                 <option value='2' $item5_errado>{$pagina_translated['Errado']}</option>
@@ -2920,9 +2932,9 @@
                 </div>
 				<input type='hidden' name='order_review_pagina_id' value='$pagina_id'>
 				<p class='mb-1 mt-2'><strong>{$pagina_translated['Inclua seus comentários:']}</strong></p>
-				<div class='md-form'>
+				<div class='mb-3'>
+					<label for='new_review_comments' class='form-label'>{$pagina_translated['Seus comentários']}</label>
 					<textarea class='md-textarea form-control' id='new_review_comments' name='new_review_comments' rows='3' $button_disabled required></textarea>
-					<label for='new_review_comments'>{$pagina_translated['Seus comentários']}</label>
 				</div>
                 <ul class='list-group'>
                     <li class='list-group-item'><strong>{$pagina_translated['Word count:']}</strong> <span class='fontstack-mono' id='review_wordcount'>$pagina_texto_wordcount</span></li>

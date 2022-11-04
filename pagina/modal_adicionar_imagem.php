@@ -4,19 +4,17 @@
 	$template_modal_enctype = "enctype='multipart/form-data'";
 	$template_modal_body_conteudo = "
 				<input type='hidden' name='nova_imagem_subtipo' id='nova_imagem_subtipo'>
-        <div class='md-form mb-2'>
-            <input type='text' id='nova_imagem_titulo' name='nova_imagem_titulo'
-                   class='form-control validate' required>
-            <label data-error='inválido' data-success='válido'
-                   for='nova_imagem_titulo'>{$pagina_translated['Título da imagem']}</label>
+        <div class='mb-3'>
+            <label data-error='inválido' data-success='válido' for='nova_imagem_titulo'>{$pagina_translated['Título da imagem']}</label>
+
+            <input type='text' id='nova_imagem_titulo' name='nova_imagem_titulo' class='form-control validate' required>
         </div>
-        <div class='md-form mb-2'>
-        <input type='url' id='nova_imagem_link' name='nova_imagem_link'
-               class='form-control validate'>
-        <label data-error='inválido' data-success='válido'
-               for='nova_imagem_link'>{$pagina_translated['Link para a imagem']}</label>
+        <div class='mb-3'>
+        <label data-error='inválido' data-success='válido' for='nova_imagem_link'>{$pagina_translated['Link para a imagem']}</label>
+
+        <input type='url' id='nova_imagem_link' name='nova_imagem_link' class='form-control validate'>
         </div>
-        <div class='md-form mb-2'>
+        <div class='mb-3'>
             <div class='file-field'>
                 <div class='btn btn-primary btn-sm float-left m-0'>
                     <span>{$pagina_translated['Selecione o arquivo']}</span>
