@@ -165,11 +165,11 @@
 
 	if ($quill_edicao == true) {
 		$template_botoes_salvar .= "
-			<a href='javascript:void(0)' id='{$template_id}_trigger_save' title='{$pagina_translated['Salvar mudanças']}' class='ql-formats text-primary border border-light rounded p-1'><i class='fad fa-save fa-fw'></i></a>
+			<a href='javascript:void(0)' id='{$template_id}_trigger_save' title='{$pagina_translated['Salvar mudanças']}' class='ql-formats text-primary border rounded p-1'><i class='fad fa-save fa-fw'></i></a>
 		";
 	}
 	if (($quill_texto_id != false) && ($template_id != 'modelo')) {
-		$template_botoes_salvar .= "<a href='historico.php?texto_id=$quill_texto_id' title='{$pagina_translated['Histórico do documento']}' class='text-default ql-formats'><i class='fad fa-history fa-fw'></i></a>";
+		$template_botoes_salvar .= "<a href='historico.php?texto_id=$quill_texto_id' title='{$pagina_translated['Histórico do documento']}' class='link-teal ql-formats'><i class='fad fa-history fa-fw'></i></a>";
 		/*$template_botoes .= "
 			<a href='pagina.php?texto_id=$quill_texto_id' title='Editar na página de edição'><i class='fad fa-external-link-square fa-fw'></i></a>
 		";*/
@@ -180,8 +180,8 @@
 	if ($template_quill_meta_tipo == 'anotacoes') {
 		$carregar_publicar_resposta = true;
 		$template_botoes .= "
-			<a data-target='#modal_publicar_resposta' data-toggle='modal' class='text-secondary'><i class='fad fa-comment-alt-edit fa-fw'></i></a>
-			<a href='pagina.php?texto_id=$quill_texto_id&corr=1' class='text-warning mr-3' title='{$pagina_translated['review']}'><i class='fad fa-highlighter fa-fw'></i></a>
+			<a data-bs-target='#modal_publicar_resposta' data-bs-toggle='modal' class='link-purple'><i class='fad fa-comment-alt-edit fa-fw'></i></a>
+			<a href='pagina.php?texto_id=$quill_texto_id&corr=1' class='link-warning me-3' title='{$pagina_translated['review']}'><i class='fad fa-highlighter fa-fw'></i></a>
 			<a href='javascript:void(0);' id='esconder_coluna_esquerda' title='{$pagina_translated['expand']}' class='text-primary'><i class='fad fa-arrow-alt-square-left fa-fw'></i></a>
     		<a href='javascript:void(0);' id='mostrar_coluna_esquerda' title='{$pagina_translated['compress']}' class='text-primary'><i class='fad fa-arrow-alt-square-right fa-fw'></i></a>
 			<a href='pagina.php?texto_id=$quill_texto_id' id='compartilhar_anotacao' title='{$pagina_translated['Página deste documento']}' class='text-primary'><i class='fad fa-external-link-square fa-fw'></i></a>
@@ -199,7 +199,7 @@
 	}
 	if ($user_id == false) {
 		$template_botoes .= "
-			<a href='javascript:void(0);' class='text-primary' data-toggle='modal' data-target='#modal_login' title='{$pagina_translated['Permitir edição']}'><i class='fad fa-pen-square fa-fw'></i></a>
+			<a href='javascript:void(0);' class='text-primary' data-bs-toggle='modal' data-bs-target='#modal_login' title='{$pagina_translated['Permitir edição']}'><i class='fad fa-pen-square fa-fw'></i></a>
 		";
 	}
 	$template_no_spacer = true;
@@ -295,7 +295,7 @@
 						$('#changes_{$template_id}').val(Number(1));
 					    $('#arquivo_id_{$template_id}').val(data);
 						$('#{$template_id}_trigger_save').removeClass();
-						$('#{$template_id}_trigger_save').addClass('ql-formats text-success green lighten-5 border border-success rounded p-1'); //user is told: your most recent changes have been saved.
+						$('#{$template_id}_trigger_save').addClass('ql-formats link-success bg-success border border-success rounded p-1'); //user is told: your most recent changes have been saved.
 					} else {
 						$('#{$template_id}_trigger_save').removeClass();
 						$('#{$template_id}_trigger_save').addClass('ql-formats text-white danger-color border border-danger rounded p-1'); //user is told: failure to save your changes.
@@ -343,21 +343,21 @@
 					    $('#{$quill_trigger_button}').click();
 					}, 3000)
 					$('#{$template_id}_trigger_save').removeClass();
-					$('#{$template_id}_trigger_save').addClass('ql-formats text-warning border rounded p-1'); //user is told: your most recent changes have not been saved yet.
+					$('#{$template_id}_trigger_save').addClass('ql-formats link-warning border rounded p-1'); //user is told: your most recent changes have not been saved yet.
 			    } else if (changes == 2) {
 			        clearTimeout({$template_id}_timeout); // timeout is cleared because the user has just started typing (hasnt made one single change and stopped.)
 					{$template_id}_timeout = setTimeout(function() {
 					    $('#{$quill_trigger_button}').click();
 					}, 5000) // A longer timeout is set.
-					$('#{$template_id}_trigger_save').removeClass('text-success');
-					$('#{$template_id}_trigger_save').addClass('text-warning'); //user is told: your most recent changes have not been saved yet.
+					$('#{$template_id}_trigger_save').removeClass('link-success');
+					$('#{$template_id}_trigger_save').addClass('link-warning'); //user is told: your most recent changes have not been saved yet.
 			    } else if (changes == 15) {
 			        clearTimeout({$template_id}_timeout); // timeout is cleared because the user has just started typing (hasnt made one single change and stopped.)
 					{$template_id}_timeout = setTimeout(function() {
 					    $('#{$quill_trigger_button}').click();
 					}, 6000) // A longer timeout is set.
-					$('#{$template_id}_trigger_save').removeClass('text-success green');
-					$('#{$template_id}_trigger_save').addClass('text-warning amber lighten-5'); //user is told: your most recent changes have not been saved yet.
+					$('#{$template_id}_trigger_save').removeClass('link-success green');
+					$('#{$template_id}_trigger_save').addClass('link-warning bg-warning'); //user is told: your most recent changes have not been saved yet.
 			    } else if (changes == 40) {
 			        clearTimeout({$template_id}_timeout); // timeout is cleared because the user has made more than 4 changes and, therefore, is probably typing.
 					{$template_id}_timeout = setTimeout(function() {

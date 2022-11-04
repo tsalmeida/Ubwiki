@@ -9,10 +9,10 @@
     <form method='post' name='form_login' id='form_login'>
         <p id='thinkific_transfer' class='collapse'>Não é mais necessário passar pela página do Grupo Ubique para acessar a Ubwiki. Crie uma senha abaixo.</p>
         <p id='thinkific_senha_existe' class='collapse'>Porque você já criou uma senha, não é mais necessário passar pela página do Grupo Ubique para acessar a Ubwiki. Insira sua senha abaixo.</p>
-        <p id='thinkific_senha_incorreta' class='collapse text-danger'>Senha incorreta. Trata-se da senha que você criou na Ubwiki, não da sua senha na página do Grupo Ubique.</p>
-        <p id='login_mensagem_basica' class='collapse'>{$pagina_translated['access_message']} <span data-toggle='modal' data-target='#modal_login'><a href='javascript:void(0);' data-toggle='modal' data-target='#modal_nova_senha'>{$pagina_translated['lost password?']}</a></span></p>
+        <p id='thinkific_senha_incorreta' class='collapse link-danger'>Senha incorreta. Trata-se da senha que você criou na Ubwiki, não da sua senha na página do Grupo Ubique.</p>
+        <p id='login_mensagem_basica' class='collapse'>{$pagina_translated['access_message']} <span data-bs-toggle='modal' data-bs-target='#modal_login'><a href='javascript:void(0);' data-bs-toggle='modal' data-bs-target='#modal_nova_senha'>{$pagina_translated['lost password?']}</a></span></p>
         <p id='login_senha_confirmar' class='collapse'>{$pagina_translated['correct_password_but']}</p>
-        <p id='login_senha_incorreta' class='collapse text-danger'>{$pagina_translated['Senha incorreta.']}</p>
+        <p id='login_senha_incorreta' class='collapse link-danger'>{$pagina_translated['Senha incorreta.']}</p>
         <p id='login_novo_usuario' class='collapse'>{$pagina_translated['Não existe conta registrada para este email. Continue para criar uma conta.']}</p>
         <p id='login_thinkific_registro' class='collapse'>Para acessar a Ubwiki diretamente e criar uma nova senha, você precisará, uma última vez, passar pela <a href='https://www.grupoubique.com.br/'>página do Grupo Ubique</a>. Alternativamente, você pode escolher a opção \"Esqueceu sua senha?\" e receber uma nova senha por email.</p>
         <div id='secao_login_email' class='md-form mt-3 collapse'>

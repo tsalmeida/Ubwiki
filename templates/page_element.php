@@ -25,7 +25,7 @@
 		$template_col_value = 'col-12';
 	}
 	if (!isset($template_background)) {
-		$template_background = 'bg-white border border-light';
+		$template_background = 'bg-white border';
 	}
 	if (!isset($template_return)) {
 		$template_return = false;
@@ -75,14 +75,14 @@
 			$fechar_icone = 'fa-times-square';
 			$fechar_cor = 'text-primary';
 			$template_botoes_padrao .= "
-					<span id='$template_esconder' class='$template_collapse collapse $show' data-toggle='collapse' data-target='.$template_collapse' title='{$pagina_translated['Esconder']}'><a href='javascript:void(0);' class='$fechar_cor'><i class='fad $fechar_icone fa-fw'></i></a></span>
+					<span id='$template_esconder' class='$template_collapse collapse $show' data-bs-toggle='collapse' data-bs-target='.$template_collapse' title='{$pagina_translated['Esconder']}'><a href='javascript:void(0);' class='$fechar_cor'><i class='fad $fechar_icone fa-fw'></i></a></span>
 		";
 		} else {
 			$fechar_icone = 'fa-chevron-square-up';
 			$fechar_cor = 'text-primary';
 		}
 		$template_botoes_padrao .= "
-					<span id='$template_mostrar' class='$template_collapse collapse $hide' data-toggle='collapse' data-target='.$template_collapse' title='{$pagina_translated['Mostrar']}'><a href='javascript:void(0);' class='text-primary'><i class='fad fa-chevron-square-down fa-fw'></i></a></span>
+					<span id='$template_mostrar' class='$template_collapse collapse $hide' data-bs-toggle='collapse' data-bs-target='.$template_collapse' title='{$pagina_translated['Mostrar']}'><a href='javascript:void(0);' class='text-primary'><i class='fad fa-chevron-square-down fa-fw'></i></a></span>
 		";
 	}
 
@@ -100,7 +100,7 @@
 	$final_result .= "
 <div id='$template_id' class='row show $template_classes $template_background $template_spacing rounded'>
 	<div class='$template_col_value'>
-    <div class='row d-flex justify-content-end page-element-botoes'>
+    <div class='d-flex justify-content-end page-element-botoes'>
 		$template_spacer
 		$template_botoes
 		$template_botoes_padrao

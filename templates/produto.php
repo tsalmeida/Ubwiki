@@ -30,8 +30,8 @@
 	
 	$produto_return = "
 					<div class='col-lg-3 col-md-4 col-sm-6 p-0 pr-2 pb-2'>
-						<div class='card z-depth-0 grey lighten-2 p-1 my-1'>
-							<div class='imagem_produto card-img-top grey lighten-3 rounded' style='background-image: url($produto_imagem);' title='$produto_titulo'>
+						<div class='card z-depth-0 bg-secondary p-1 my-1'>
+							<div class='imagem_produto card-img-top bg-secondary rounded' style='background-image: url($produto_imagem);' title='$produto_titulo'>
 								<div class='light-green rounded text-white p-1 m-1 small produto-preco'>$produto_preco</div>
 							</div>
 							<div class='card-body bg-white p-2 rounded mt-1 line-height-1'>

@@ -339,7 +339,7 @@
 
 ?>
 
-<body class="grey lighten-5">
+<body class="bg-light">
 <?php
 	include 'templates/navbar.php';
 ?>

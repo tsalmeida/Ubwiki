@@ -70,17 +70,17 @@
 	}
 
 ?>
-<body class="grey lighten-5">
+<body class="bg-light">
 <?php
 	include 'templates/navbar.php';
 ?>
 <div class="container-fluid">
     <div class="row d-flex justify-content-end p-2">
-        <a class="text-primary ml-2" data-toggle="modal" data-target="#modal_chaves"><i
+        <a class="text-primary ms-2" data-bs-toggle="modal" data-bs-target="#modal_chaves"><i
                     class="fad fa-key fa-2x fa-fw"></i></a>
-        <a class="text-success ml-2" data-toggle="modal" data-target="#modal_selecionar_lingua"><i
+        <a class="link-success ms-2" data-bs-toggle="modal" data-bs-target="#modal_selecionar_lingua"><i
                     class="fad fa-globe fa-2x fa-fw"></i></a>
-        <a class="text-danger ml-2" href="<?php echo "traducoes.php?traduzir=$traduzir&hide=$hide_opposite"; ?>"><i
+        <a class="link-danger ms-2" href="<?php echo "traducoes.php?traduzir=$traduzir&hide=$hide_opposite"; ?>"><i
                     class="fad fa-check fa-2x fa-fw"></i></a>
     </div>
 </div>

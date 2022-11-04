@@ -32,10 +32,10 @@
 	}
 	include 'templates/html_head.php';
 ?>
-    <body class="grey lighten-5">
+    <body class="bg-light">
     <div class="container mt-5">
         <h1 id="page_title" class="fontstack-mono text-center"><?php echo $pagina_titulo; ?></h1>
-        <h2 id="titulo" class="fontstack-mono rounded p-2 pl-3 my-1 text-white lighten-1"></h2>
+        <h2 id="titulo" class="fontstack-mono rounded p-2 pl-3 my-1 text-white"></h2>
         <h2 id="param1" class="fontstack-mono text-muted rounded p-2 pl-3 my-1"></h2>
         <h2 id="param2" class="fontstack-mono text-muted rounded p-2 pl-3 my-1"></h2>
         <h2 id="subtitulo" class="fontstack-mono text-muted rounded p-2 pl-3 my-1"></h2>

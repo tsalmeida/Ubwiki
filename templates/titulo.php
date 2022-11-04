@@ -65,7 +65,7 @@
 	}
 	if ($template_titulo_above != false) {
 		echo "
-			<span class='text-muted d-block font-italic'><h4 class='mb-0'>$template_titulo_above</h4></span>
+			<span class='text-muted d-block fst-italic'><h4 class='mb-0'>$template_titulo_above</h4></span>
 		";
 	}
 	if ($display_level != false) {

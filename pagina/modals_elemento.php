@@ -40,8 +40,8 @@
 	$template_modal_body_conteudo .= $dados_elemento;
 	$template_modal_body_conteudo .= "
 				<div class='row justify-content-center'>
-					<span data-toggle='modal' data-target='#modal_dados_elemento'>
-						<button type='button' data-toggle='modal' data-target='#modal_elemento_form' class='$button_classes'>{$pagina_translated['Editar']}</button>
+					<span data-bs-toggle='modal' data-bs-target='#modal_dados_elemento'>
+						<button type='button' data-bs-toggle='modal' data-bs-target='#modal_elemento_form' class='$button_classes'>{$pagina_translated['Editar']}</button>
 					</span>
 				</div>
 			";

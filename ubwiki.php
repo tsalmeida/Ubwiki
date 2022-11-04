@@ -10,7 +10,7 @@
 	$escritorio_col_limit = 'col-lg-2 col-md-3 col-sm-6';
 ?>
 
-<body class="grey lighten-5">
+<body class="bg-light">
 <?php
 	if ($user_id != false) {
 		include 'templates/navbar.php';
@@ -20,8 +20,8 @@
 	<?php
 		if ($user_id == false) {
 			echo "<div class='row d-flex justify-content-end p-1'>";
-			echo "<a data-toggle='modal' data-target='#modal_languages' class='text-info mx-2'><i class='fad fa-language fa-fw fa-2x'></i></a>";
-			echo "<a data-toggle='modal' data-target='#modal_login' class='text-primary mx-2'><i class='fad fa-user-circle fa-fw fa-2x'></i></a>";
+			echo "<a data-bs-toggle='modal' data-bs-target='#modal_languages' class='link-teal mx-2'><i class='fad fa-language fa-fw fa-2x'></i></a>";
+			echo "<a data-bs-toggle='modal' data-bs-target='#modal_login' class='text-primary mx-2'><i class='fad fa-user-circle fa-fw fa-2x'></i></a>";
 			echo "</div>";
 		}
 
@@ -33,7 +33,7 @@
 				if ($user_id != false) {
 					$template_subtitulo = $pagina_translated['slogan'];
 				} else {
-					$template_subtitulo = "<a href='javascript:void(0);' data-toggle='modal' data-target='#modal_login' class='text-primary'>{$pagina_translated['slogan']}</a>";
+					$template_subtitulo = "<a href='javascript:void(0);' data-bs-toggle='modal' data-bs-target='#modal_login' class='text-primary'>{$pagina_translated['slogan']}</a>";
 				}
 				$template_subtitulo_size = 'h2';
 				include 'templates/titulo.php';
@@ -48,7 +48,7 @@
 				$template_spacing = false;
 				$template_spacer = false;
 				$template_botoes_padrao = false;
-				$template_background = 'grey lighten-5';
+				$template_background = 'bg-light';
 				$template_conteudo_no_col = true;
 				$logo_ubwiki = 'https://ubwiki.com.br/imagens/verbetes/IA4flR71rqCSFuUJ.png';
 				$template_conteudo .= "
@@ -91,14 +91,14 @@
                                     </div>
 				                ";
 
-				$artefato_icone_background_link = 'icone-link primary-color text-white';
+				$artefato_icone_background_link = 'icone-link primary-color link-light';
 
 				$artefato_titulo = $pagina_translated['office'];
 				$artefato_tipo = 'escritorio';
 				//$artefato_link = '#sobre_escritorio';
 				$artefato_col_limit = $escritorio_col_limit;
 				$fa_icone = 'fa-lamp-desk';
-				$fa_color = 'deep-orange-darker-hover';
+				$fa_color = 'link-danger';
 				$fa_size = 'fa-4x';
 				$artefato_criacao = false;
 				$artefato_class = 'icone_sobre_stuff';
@@ -116,8 +116,8 @@
 				$artefato_subtitulo = $pagina_translated['Visitar'];
 				$artefato_titulo_class = 'text-primary';
 				$fa_icone = 'fa-lamp-desk';
-				$fa_color = 'text-white';
-				$artefato_icone_background = 'icone-link rgba-deep-orange-strong';
+				$fa_color = 'link-light';
+				$artefato_icone_background = 'icone-link bg-danger';
 				$fa_size = 'fa-4x';
 				$fa_invert = true;
 				$artefato_class = 'icones_links';
@@ -130,7 +130,7 @@
 
 				//$artefato_link = '#sobre_cursos';
 				$fa_icone = 'fa-graduation-cap';
-				$fa_color = 'text-info';
+				$fa_color = 'link-primary';
 				$fa_size = 'fa-4x';
 				$artefato_criacao = false;
 				$artefato_class = 'icone_sobre_stuff';
@@ -143,8 +143,8 @@
 				$artefato_tipo = 'cursos_link';
 				$artefato_col_limit = $escritorio_col_limit;
 				$fa_icone = 'fa-graduation-cap';
-				$fa_color = 'text-white';
-				$artefato_icone_background = 'icone-link rgba-cyan-strong';
+				$fa_color = 'link-light';
+				$artefato_icone_background = 'icone-link bg-primary';
 				$fa_size = 'fa-4x';
 				$fa_invert = true;
 				$artefato_class = 'icones_links';
@@ -157,7 +157,7 @@
 								//$artefato_link = '#sobre_areas_interesse';
 								$artefato_criacao = false;
 								$fa_icone = 'fa-tags';
-								$fa_color = 'text-warning';
+								$fa_color = 'link-warning';
 								$fa_size = 'fa-4x';
 								$artefato_class = 'icone_sobre_stuff';
 								$template_conteudo .= include 'templates/artefato_item.php';
@@ -169,8 +169,8 @@
 								$artefato_tipo = 'areas_interesse_link';
 								$artefato_col_limit = $escritorio_col_limit;
 								$fa_icone = 'fa-tags';
-								$fa_color = 'text-white';
-								$artefato_icone_background = 'icone-link rgba-orange-strong';
+								$fa_color = 'link-light';
+								$artefato_icone_background = 'icone-link bg-warning';
 								$fa_size = 'fa-4x';
 								$fa_invert = true;
 								$artefato_class = 'icones_links';
@@ -183,7 +183,7 @@
 				$artefato_col_limit = $escritorio_col_limit;
 				//$artefato_link = '#sobre_biblioteca';
 				$fa_icone = 'fa-books';
-				$fa_color = 'text-success';
+				$fa_color = 'link-success';
 				$fa_size = 'fa-4x';
 				$artefato_criacao = false;
 				$artefato_class = 'icone_sobre_stuff';
@@ -196,8 +196,8 @@
 				$artefato_tipo = 'biblioteca_link';
 				$artefato_col_limit = $escritorio_col_limit;
 				$fa_icone = 'fa-books';
-				$fa_color = 'text-white';
-				$artefato_icone_background = 'icone-link rgba-green-strong';
+				$fa_color = 'link-light';
+				$artefato_icone_background = 'icone-link bg-success';
 				$fa_size = 'fa-4x';
 				$fa_invert = true;
 				$artefato_class = 'icones_links';
@@ -209,7 +209,7 @@
 				$artefato_tipo = 'forum';
 				//$artefato_link = '#sobre_forum';
 				$fa_icone = 'fa-comments-alt';
-				$fa_color = 'text-secondary';
+				$fa_color = 'link-purple';
 				$fa_size = 'fa-4x';
 				$artefato_criacao = false;
 				$artefato_class = 'icone_sobre_stuff';
@@ -221,7 +221,7 @@
 				$artefato_link = 'forum.php';
 				$artefato_tipo = 'forum_link';
 				$fa_icone = 'fa-comments-alt';
-				$fa_color = 'text-white';
+				$fa_color = 'link-light';
 				$artefato_icone_background = 'icone-link rgba-purple-strong';
 				$fa_size = 'fa-4x';
 				$fa_invert = true;
@@ -235,7 +235,7 @@
 					$artefato_tipo = 'loja';
 					//$artefato_link = '#sobre_loja';
 					$fa_icone = 'fa-bags-shopping';
-					$fa_color = 'text-danger';
+					$fa_color = 'link-danger';
 					$fa_size = 'fa-4x';
 					$artefato_criacao = false;
 					$artefato_class = 'icone_sobre_stuff';
@@ -247,8 +247,8 @@
 					$artefato_link = 'mercado.php';
 					$artefato_tipo = 'loja_link';
 					$fa_icone = 'fa-bags-shopping';
-					$fa_color = 'text-white';
-					$artefato_icone_background = 'icone-link rgba-red-strong';
+					$fa_color = 'link-light';
+					$artefato_icone_background = 'icone-link bg-danger';
 					$fa_size = 'fa-4x';
 					$fa_invert = true;
 					$artefato_class = 'icones_links';
@@ -264,7 +264,7 @@
 				//if ($user_id != false) {
 				//	$template_botoes = '<a href="escritorio.php" class="text-primary"><i class="fad fa-external-link fa-fw fa-2x"></i></a>';
 				//} else {
-				//	$template_botoes = '<a data-toggle="modal" data-target="#modal_login" class="text-info"><i class="fad fa-user-circle fa-fw"></i></a>';
+				//	$template_botoes = '<a data-bs-toggle="modal" data-bs-target="#modal_login" class="link-teal"><i class="fad fa-user-circle fa-fw"></i></a>';
 				//}
 				$template_conteudo = false;
 				$texto_ambiente_id = return_texto_ambientes('escritorio', $user_language);

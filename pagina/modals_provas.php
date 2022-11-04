@@ -19,23 +19,23 @@
                             <p>Selecione a opção abaixo para acessar os sistemas que permitem acrescentar provas anteriores do concurso:</p>
                         ";
 	$template_modal_body_conteudo .= "
-                            <span data-toggle='modal' data-target='#modal_adicionar_simulado'><button type='button' class='$button_classes_info btn-block ml-0' data-toggle='modal' data-target='#modal_adicionar_edicao'>Adicionar edição do concurso</button></span>
+                            <span data-bs-toggle='modal' data-bs-target='#modal_adicionar_simulado'><button type='button' class='$button_classes_info btn-block ms-0' data-bs-toggle='modal' data-bs-target='#modal_adicionar_edicao'>Adicionar edição do concurso</button></span>
                         ";
 	if ($edicoes->num_rows > 0) {
 		$template_modal_body_conteudo .= "
-                            <span data-toggle='modal' data-target='#modal_adicionar_simulado'><button type='button' class='$button_classes_info btn-block ml-0' data-toggle='modal' data-target='#modal_adicionar_etapa'>Adicionar etapa da edição</button></span>
+                            <span data-bs-toggle='modal' data-bs-target='#modal_adicionar_simulado'><button type='button' class='$button_classes_info btn-block ms-0' data-bs-toggle='modal' data-bs-target='#modal_adicionar_etapa'>Adicionar etapa da edição</button></span>
                             ";
 	}
 	if ($etapas->num_rows > 0) {
 		$template_modal_body_conteudo .= "
-                            <span data-toggle='modal' data-target='#modal_adicionar_simulado'><button type='button' class='$button_classes_info btn-block ml-0' data-toggle='modal' data-target='#modal_adicionar_prova'>Adicionar prova da etapa</button></span>
+                            <span data-bs-toggle='modal' data-bs-target='#modal_adicionar_simulado'><button type='button' class='$button_classes_info btn-block ms-0' data-bs-toggle='modal' data-bs-target='#modal_adicionar_prova'>Adicionar prova da etapa</button></span>
                             ";
 	}
 	$template_modal_body_conteudo .= "
-                            <span data-toggle='modal' data-target='#modal_adicionar_simulado'><button type='button' class='$button_classes btn-block ml-0' data-toggle='modal' data-target='#modal_adicionar_texto_apoio'>Adicionar texto de apoio</button></span>
+                            <span data-bs-toggle='modal' data-bs-target='#modal_adicionar_simulado'><button type='button' class='$button_classes btn-block ms-0' data-bs-toggle='modal' data-bs-target='#modal_adicionar_texto_apoio'>Adicionar texto de apoio</button></span>
                         ";
 	$template_modal_body_conteudo .= "
-                            <span data-toggle='modal' data-target='#modal_adicionar_simulado'><button type='button' class='$button_classes btn-block ml-0' data-toggle='modal' data-target='#modal_adicionar_questao'>Adicionar questão</button></span>
+                            <span data-bs-toggle='modal' data-bs-target='#modal_adicionar_simulado'><button type='button' class='$button_classes btn-block ms-0' data-bs-toggle='modal' data-bs-target='#modal_adicionar_questao'>Adicionar questão</button></span>
                         ";
 	
 	include 'templates/modal.php';

@@ -29,7 +29,7 @@
 
 ?>
 
-    <body class="grey lighten-5">
+    <body class="bg-light">
 		<?php
 			include 'templates/navbar.php';
 		?>
@@ -39,7 +39,7 @@
             <div class="py-2 text-left col">
 							<?php
 								if (($user_tipo == 'admin') || ($user_tipo == 'professor')) {
-									echo "<span id='add_produto' class='mr-1' title='{$pagina_translated['Adicionar produto']}' data-toggle='modal' data-target='#modal_add_produto'><a href='javascript:void(0);' class='text-info'><i class='fad fa-plus-circle fa-2x fa-2x'></i></a></span>";
+									echo "<span id='add_produto' class='me-1' title='{$pagina_translated['Adicionar produto']}' data-bs-toggle='modal' data-bs-target='#modal_add_produto'><a href='javascript:void(0);' class='link-teal'><i class='fad fa-plus-circle fa-2x fa-2x'></i></a></span>";
 								}
 							?>
             </div>
@@ -137,14 +137,14 @@
 			$artefato_titulo = $pagina_translated['Gratuito'];
 			$artefato_col_limit = $produto_col_limit;
 			$fa_icone = 'fa-usd-circle';
-			$fa_color = 'text-success';
+			$fa_color = 'link-success';
 			$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 			
 			$artefato_tipo = 'produto_pago';
 			$artefato_titulo = $pagina_translated['Pago'];
 			$artefato_col_limit = $produto_col_limit;
 			$fa_icone = 'fa-usd-circle';
-			$fa_color = 'text-info';
+			$fa_color = 'link-teal';
 			$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 			
 			$template_modal_body_conteudo .= "
@@ -156,21 +156,21 @@
 			$artefato_titulo = $pagina_translated['Curso à distância'];
 			$artefato_col_limit = $produto_col_limit;
 			$fa_icone = 'fa-step-forward';
-			$fa_color = 'text-danger';
+			$fa_color = 'link-danger';
 			$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 			
 			$artefato_tipo = 'curso_presencial';
 			$artefato_titulo = $pagina_translated['Curso presencial'];
 			$artefato_col_limit = $produto_col_limit;
 			$fa_icone = 'fa-chalkboard-teacher';
-			$fa_color = 'text-warning';
+			$fa_color = 'link-warning';
 			$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 			
 			$artefato_tipo = 'mentoria';
 			$artefato_titulo = $pagina_translated['Mentoria'];
 			$artefato_col_limit = $produto_col_limit;
 			$fa_icone = 'fa-whistle';
-			$fa_color = 'text-secondary';
+			$fa_color = 'link-purple';
 			$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 			
 			$template_modal_body_conteudo .= "</div>";
@@ -184,7 +184,7 @@
 				$artefato_titulo = $pagina_translated['Mentoria pela Ubwiki'];
 				$artefato_col_limit = $produto_col_limit;
 				$fa_icone = 'fa-handshake';
-				$fa_color = 'text-success';
+				$fa_color = 'link-success';
 				$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 				
 				$artefato_tipo = 'curso_ubwiki';
@@ -198,7 +198,7 @@
 				$artefato_titulo = $pagina_translated['Acesso a grupo de estudos Ubwiki'];
 				$artefato_col_limit = $produto_col_limit;
 				$fa_icone = 'fa-users';
-				$fa_color = 'text-warning';
+				$fa_color = 'link-warning';
 				$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 				
 				$template_modal_body_conteudo .= "</div>";

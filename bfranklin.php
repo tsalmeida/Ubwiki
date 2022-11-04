@@ -11,7 +11,7 @@
 	include 'templates/html_head.php';
 	include 'templates/navbar.php';
 ?>
-<body class="grey lighten-5">
+<body class="bg-light">
 <div class="container mt-1">
 	<?php
 		$template_titulo = $pagina_translated['metodo bfranklin'];
@@ -37,7 +37,7 @@
 					}
 					$template_conteudo = list_wrap($template_conteudo);
 				} else {
-					$template_conteudo .= "<p class='text-muted font-italic'>Você ainda não acrescentou nenhum parágrafo do método BFranklin para prática futura.</p>";
+					$template_conteudo .= "<p class='text-muted fst-italic'>Você ainda não acrescentou nenhum parágrafo do método BFranklin para prática futura.</p>";
 				}
 				include 'templates/page_element.php';
 
@@ -74,7 +74,7 @@
 					}
 					$template_conteudo = list_wrap($template_conteudo);
 				} else {
-					$template_conteudo .= "<p class='text-muted font-italic'>Não há modelos disponíveis a que você tenha acesso.</p>";
+					$template_conteudo .= "<p class='text-muted fst-italic'>Não há modelos disponíveis a que você tenha acesso.</p>";
 				}
 
 				$template_return = true;
@@ -83,7 +83,7 @@
 				$template_id = 'rascunhos_usuario';
 				$template_titulo = $pagina_translated['Seus rascunhos'];
 				$template_conteudo = false;
-				$template_conteudo .= put_together_list_item('link_button', 'criar_novo_modelo', 'criar_novo_modelo text-secondary', 'fad fa-plus-square', 'Criar novo modelo', false, 'fad fa-pen-nib', 'purple lighten-5 text-secondary');
+				$template_conteudo .= put_together_list_item('link_button', 'criar_novo_modelo', 'criar_novo_modelo link-purple', 'fad fa-plus-square', 'Criar novo modelo', false, 'fad fa-pen-nib', 'bg-purple link-purple');
 				if ($rascunhos_de_modelo_do_usuario != false) {
 
 					foreach ($rascunhos_de_modelo_do_usuario as $rascunho_pagina_id) {

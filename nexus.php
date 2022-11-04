@@ -48,7 +48,7 @@
 
 
 ?>
-    <body class="grey lighten-5">
+    <body class="bg-light">
     <div class="container mt-5">
         <a href="javascript:void(0);"><h1 id="page_title" class="fontstack-mono text-center"><?php echo $pagina_titulo; ?></h1></a>
     </div>
@@ -79,7 +79,7 @@
 				$artefato_modal = '#manage_folders';
 				$artefato_class = "hidden nexus_settings_icon";
 				$fa_icone = 'fa-folder-gear';
-				$fa_color = 'text-warning';
+				$fa_color = 'link-warning';
 				$template_conteudo .= include 'templates/artefato_item.php';
 
 				$artefato_id = 'manage_links';
@@ -95,7 +95,7 @@
 				$artefato_modal = '#modal_manage_bookmarks';
 				$artefato_class = "hidden nexus_settings_icon";
 				$fa_icone = 'fa-folder-bookmark';
-				$fa_color = 'text-danger';
+				$fa_color = 'link-danger';
 				$template_conteudo .= include 'templates/artefato_item.php';
 
 				$artefato_id = 'manage_themes';
@@ -103,7 +103,7 @@
 				$artefato_modal = '#modal_manage_themes';
 				$artefato_class = "hidden nexus_settings_icon";
 				$fa_icone = 'fa-swatchbook';
-				$fa_color = 'text-secondary';
+				$fa_color = 'link-purple';
 				$template_conteudo .= include 'templates/artefato_item.php';
 
 				$artefato_id = 'timeline';
@@ -111,7 +111,7 @@
 				$artefato_modal = '#modal_timeline';
 				$artefato_class = "hidden nexus_settings_icon";
 				$fa_icone = 'fa-list-timeline';
-				$fa_color = 'text-success';
+				$fa_color = 'link-success';
 				$template_conteudo .= include 'templates/artefato_item.php';
 
 				include 'templates/page_element.php';

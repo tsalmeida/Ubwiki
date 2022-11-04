@@ -102,7 +102,7 @@
 								$template_id = 'texto_apoio';
 								$template_titulo = 'Texto de apoio';
 								$template_botoes = "
-                                    <a data-toggle='modal' data-target='#modal_texto_apoio_form' href=''>
+                                    <a data-bs-toggle='modal' data-bs-target='#modal_texto_apoio_form' href=''>
                                         <i class='fal fa-pen-square fa-fw'></i>
                                     </a>
                                 ";
@@ -131,7 +131,7 @@
 							?>
             </div>
         </div>
-        <button id='mostrar_coluna_direita' class='btn btn-md elegant-color text-white p-2 m-1' tabindex='-1'><i
+        <button id='mostrar_coluna_direita' class='btn btn-md bg-dark link-light p-2 m-1' tabindex='-1'><i
                     class='fas fa-pen-alt fa-fw'></i></button>
     </div>
 		

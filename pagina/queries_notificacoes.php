@@ -12,6 +12,6 @@
 		$notificacao_cor = 'text-primary';
 		$notificacao_icone = 'fa-bell-slash';
 	} else {
-		$notificacao_cor = 'text-default';
+		$notificacao_cor = 'link-teal';
 		$notificacao_icone = 'fa-bell-on fa-swap-opacity';
 	}

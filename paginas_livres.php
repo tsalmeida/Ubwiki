@@ -22,7 +22,7 @@
 		$busca = $_POST['listar_todas'];
 	}
 ?>
-<body class="grey lighten-5">
+<body class="bg-light">
 <?php
 	include 'templates/navbar.php';
 	
@@ -38,12 +38,12 @@
 	<div class="row d-flex justify-content-between p-1">
 		<div class="col">
 			<div class="row d-flex justify-content-start">
-				<a data-toggle="modal" data-target="<?php echo $adicionar_pagina_livre; ?>" class="text-success ml-1" title="<?php echo $pagina_translated['Criar nova página livre'] ?>" href="javascript:void(0);">
+				<a data-bs-toggle="modal" data-bs-target="<?php echo $adicionar_pagina_livre; ?>" class="link-success ms-1" title="<?php echo $pagina_translated['Criar nova página livre'] ?>" href="javascript:void(0);">
 					<i class="fad fa-plus-circle fa-2x fa-fw"></i>
 				</a>
 			</div>
 		</div>
-		<div class="col d-flex justify-content-center"><a href="javascript:void(0);" data-toggle="modal" data-target="#modal_busca" class="text-dark"><i
+		<div class="col d-flex justify-content-center"><a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#modal_busca" class="text-dark"><i
 					class="fad fa-search fa-fw"></i></a></div>
 		<?php
 			echo "<div class='col d-flex justify-content-end'><form method='post'><button name='listar_todas' id='listar_todas' value='!all' class='$button_classes btn-info btn-sm m-0'>{$pagina_translated['Listar todas']}</button></form></div>";
@@ -74,7 +74,7 @@
 							$template_titulo = 'Tópicos';
 							$template_conteudo_no_col = true;
 							$template_botoes = "
-								  <a data-toggle='modal' data-target='$adicionar_pagina_livre' class='text-success ml-1' title='{$pagina_translated['Adicionar página livre']}' href='javascript:void(0);'><i class='fad fa-plus-square fa-fw'></i></a>
+								  <a data-bs-toggle='modal' data-bs-target='$adicionar_pagina_livre' class='link-success ms-1' title='{$pagina_translated['Adicionar página livre']}' href='javascript:void(0);'><i class='fad fa-plus-square fa-fw'></i></a>
 								";
 							$template_conteudo = false;
 							if ($etiquetas->num_rows > 0) {
@@ -91,13 +91,13 @@
 												$etiqueta_verbete = return_verbete_html($etiqueta_texto_id);*/
 									
 									$artefato_titulo = $etiqueta_titulo;
-									$fa_icone = 'fa-tag';
+									$fa_icone = 'fa-tag fa-swap-opacity';
 									if ($etiqueta_pagina_estado != 0) {
-									    $fa_color = 'text-warning';
+									    $fa_color = 'link-warning';
 										$artefato_badge = return_estado_icone($etiqueta_pagina_estado);
 										$artefato_badge = $artefato_badge[0];
 									} else {
-									    $fa_color = 'text-light';
+									    $fa_color = 'link-purple';
                                     }
 									$fa_size = 'fa-4x';
 									$artefato_link = "pagina.php?pagina_id=$etiqueta_pagina_id";
@@ -111,7 +111,7 @@
 							$template_titulo = $pagina_translated['Recentemente adicionadas'];
 							$template_conteudo_no_col = true;
 							$template_botoes = "
-								  <a data-toggle='modal' data-target='$adicionar_pagina_livre' class='text-success ml-1' title='{$pagina_translated['Adicionar página livre']}' href='javascript:void(0);'><i class='fad fa-plus-square fa-fw'></i></a>
+								  <a data-bs-toggle='modal' data-bs-target='$adicionar_pagina_livre' class='link-success ms-1' title='{$pagina_translated['Adicionar página livre']}' href='javascript:void(0);'><i class='fad fa-plus-square fa-fw'></i></a>
 								";
 							$template_conteudo = false;
 							$etiquetas = $conn->query("SELECT id  FROM Etiquetas WHERE tipo = 'topico' ORDER BY id DESC");
@@ -129,13 +129,13 @@
 										break;
 									}
 									$artefato_titulo = $list_etiqueta_titulo;
-									$fa_icone = 'fa-tag';
+									$fa_icone = 'fa-tag fa-swap-opacity';
 									if ($list_etiqueta_pagina_estado != 0) {
-										$fa_color = 'text-warning';
+										$fa_color = 'link-warning';
 										$artefato_badge = return_estado_icone($list_etiqueta_pagina_estado);
 										$artefato_badge = $artefato_badge[0];
 									} else {
-										$fa_color = 'text-light';
+										$fa_color = 'link-purple';
 									}
 									$fa_size = 'fa-4x';
 									$artefato_link = "pagina.php?pagina_id=$list_etiqueta_pagina_id";
@@ -148,7 +148,7 @@
 							$template_titulo = $pagina_translated['Recentemente modificadas'];
 							$template_conteudo_no_col = true;
 							$template_botoes = "
-								  <a data-toggle='modal' data-target='$adicionar_pagina_livre' class='text-success ml-1' title='{$pagina_translated['Adicionar página livre']}' href='javascript:void(0);'><i class='fad fa-plus-square fa-fw'></i></a>
+								  <a data-bs-toggle='modal' data-bs-target='$adicionar_pagina_livre' class='link-success ms-1' title='{$pagina_translated['Adicionar página livre']}' href='javascript:void(0);'><i class='fad fa-plus-square fa-fw'></i></a>
 								";
 							$template_conteudo = false;
 							$paginas_contadas = array();
@@ -174,13 +174,13 @@
 									$artefato_titulo = $etiqueta_titulo;
 									$etiqueta_pagina_info = return_pagina_info($etiqueta_pagina_id);
 									$etiqueta_pagina_estado = $etiqueta_pagina_info[3];
-									$fa_icone = 'fa-tag';
+									$fa_icone = 'fa-tag fa-swap-opacity';
 									if ($etiqueta_pagina_estado != 0) {
-										$fa_color = 'text-warning';
+										$fa_color = 'link-warning';
 										$artefato_badge = return_estado_icone($etiqueta_pagina_estado);
 										$artefato_badge = $artefato_badge[0];
 									} else {
-										$fa_color = 'text-light';
+										$fa_color = 'link-purple';
 									}
 									$fa_size = 'fa-4x';
 									$artefato_link = "pagina.php?pagina_id=$etiqueta_pagina_id";

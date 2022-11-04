@@ -76,7 +76,7 @@
 	}
 
 	if (isset($_POST['selecionar_cor'])) {
-		$acceptable_avatar_colors = array('text-primary', 'text-danger', 'text-success', 'text-warning', 'text-secondary', 'text-info', 'text-default', 'text-dark');
+		$acceptable_avatar_colors = array('text-primary', 'link-danger', 'link-success', 'link-warning', 'link-purple', 'link-teal', 'link-teal', 'text-dark');
 		$nova_cor = $_POST['selecionar_cor'];
 		if (in_array($nova_cor, $acceptable_avatar_colors)) {
 			$_SESSION['user_avatar_cor'] = $_POST['selecionar_cor'];
@@ -145,7 +145,7 @@
 	//	$icons_to_hide = array_diff($all_icons, $icons_to_show);
 
 ?>
-<body class="grey lighten-5">
+<body class="bg-light">
 <div class="container mt-1">
 	<?php
 		if ($opcao_hide_navbar == false) {
@@ -170,19 +170,19 @@
 				$template_titulo = false;
 				$template_conteudo = false;
 				$template_conteudo_class = 'justify-content-start';
-				$template_botoes = "<a id='show_hidden_icons' class='text-success' title='{$pagina_translated['Hidden icons']}'><i class='fad fa-exchange fa-fw fa-lg'></i></a>";
+				$template_botoes = "<a id='show_hidden_icons' class='link-success' title='{$pagina_translated['Hidden icons']}' href='javascript:void(0);'><i class='fad fa-exchange fa-fw fa-lg'></i></a>";
 				$template_conteudo_no_col = true;
 
 				if ($raiz_ativa != false) {
 					$artefato_id = 'curso_ativo';
 					$artefato_titulo = return_pagina_titulo($raiz_ativa);
 					$artefato_badge = 'fa-external-link';
-					$artefato_icone_background = 'teal lighten-2';
+					$artefato_icone_background = 'bg-primary';
 					$artefato_link = "pagina.php?pagina_id=$raiz_ativa";
 					$artefato_criacao = $pagina_translated['Curso ativo'];
 					$fa_type = 'fas';
 					$fa_icone = 'fa-pen-alt';
-					$fa_color = 'text-white';
+					$fa_color = 'link-light';
 					if (in_array(1, $icons_to_show)) {
 						$template_conteudo .= include 'templates/artefato_item.php';
 					} else {
@@ -194,7 +194,7 @@
 				$artefato_subtitulo = $pagina_translated['recent_visits'];
 				$artefato_modal = '#modal_estudos_recentes';
 				$fa_icone = 'fa-history fa-swap-opacity';
-				$fa_color = 'text-info';
+				$fa_color = 'link-info';
 				if (in_array(2, $icons_to_show)) {
 					$template_conteudo .= include 'templates/artefato_item.php';
 				} else {
@@ -204,7 +204,7 @@
 				$artefato_id = 'cursos';
 				$artefato_subtitulo = $pagina_translated['Seus cursos'];
 				$fa_icone = 'fa-graduation-cap';
-				$fa_color = 'text-default';
+				$fa_color = 'link-teal';
 				$artefato_modal = '#modal_cursos';
 				if (in_array(3, $icons_to_show)) {
 					$template_conteudo .= include 'templates/artefato_item.php';
@@ -215,7 +215,7 @@
 				$artefato_id = 'typewriter';
 				$artefato_subtitulo = $pagina_translated['Suas páginas e documentos de texto'];
 				$fa_icone = 'fa-typewriter';
-				$fa_color = 'text-primary';
+				$fa_color = 'link-primary';
 				$artefato_modal = '#modal_paginas_textos';
 				if (in_array(4, $icons_to_show)) {
 					$template_conteudo .= include 'templates/artefato_item.php';
@@ -226,7 +226,7 @@
 				$artefato_id = 'suas_paginas_livres';
 				$artefato_subtitulo = $pagina_translated['your areas of interest'];
 				$fa_icone = 'fa-tags';
-				$fa_color = 'text-warning';
+				$fa_color = 'link-warning';
 				$artefato_modal = '#modal_areas_interesse';
 				if (in_array(5, $icons_to_show)) {
 					$template_conteudo .= include 'templates/artefato_item.php';
@@ -237,7 +237,7 @@
 				$artefato_id = 'biblioteca_particular';
 				$artefato_subtitulo = $pagina_translated['your collection'];
 				$fa_icone = 'fa-books';
-				$fa_color = 'text-success';
+				$fa_color = 'link-success';
 				$artefato_modal = '#modal_biblioteca_particular';
 				if (in_array(6, $icons_to_show)) {
 					$template_conteudo .= include 'templates/artefato_item.php';
@@ -250,7 +250,7 @@
 				$artefato_subtitulo = $pagina_translated['Study Planner'];
 				$artefato_modal = '#modal_planner';
 				$fa_icone = 'fa-calendar-check';
-				$fa_color = 'text-info';
+				$fa_color = 'link-info';
 				if (in_array(19, $icons_to_show)) {
 					$template_conteudo .= include 'templates/artefato_item.php';
 				} else {
@@ -260,7 +260,7 @@
 				$artefato_id = 'grupos_estudo';
 				$artefato_subtitulo = $pagina_translated['your study groups'];
 				$fa_icone = 'fa-users';
-				$fa_color = 'text-default';
+				$fa_color = 'link-teal';
 				if (in_array(7, $icons_to_show)) {
 					$template_conteudo .= include 'templates/artefato_item.php';
 				} else {
@@ -270,7 +270,7 @@
 				$artefato_id = 'docs_shared';
 				$artefato_subtitulo = $pagina_translated['docs shared'];
 				$fa_icone = 'fa-share-square';
-				$fa_color = 'text-info';
+				$fa_color = 'link-info';
 				if (in_array(23, $icons_to_show)) {
 				    $template_conteudo .= include 'templates/artefato_item.php';
                 } else {
@@ -280,7 +280,7 @@
 				$artefato_id = 'notificacoes';
 				$artefato_subtitulo = $pagina_translated['notifications'];
 				$fa_icone = 'fa-bell fa-swap-opacity';
-				$fa_color = 'text-info';
+				$fa_color = 'link-info';
 				if (in_array(8, $icons_to_show)) {
 					$template_conteudo .= include 'templates/artefato_item.php';
 				} else {
@@ -290,7 +290,7 @@
 				$artefato_id = 'comments';
 				$artefato_subtitulo = $pagina_translated['Suas participações no fórum'];
 				$fa_icone = 'fa-comments-alt';
-				$fa_color = 'text-secondary';
+				$fa_color = 'link-purple';
 				if (in_array(9, $icons_to_show)) {
 					$template_conteudo .= include 'templates/artefato_item.php';
 				} else {
@@ -300,7 +300,7 @@
 				$artefato_id = 'bookmarks';
 				$artefato_subtitulo = $pagina_translated['bookmarks'];
 				$fa_icone = 'fa-bookmark';
-				$fa_color = 'text-danger';
+				$fa_color = 'link-danger';
 				if (in_array(10, $icons_to_show)) {
 					$template_conteudo .= include 'templates/artefato_item.php';
 				} else {
@@ -310,7 +310,7 @@
 				$artefato_id = 'contribuicoes';
 				$artefato_subtitulo = $pagina_translated['Verbetes em que contribuiu'];
 				$fa_icone = 'fa-spa';
-				$fa_color = 'text-warning';
+				$fa_color = 'link-warning';
 				if (in_array(11, $icons_to_show)) {
 					$template_conteudo .= include 'templates/artefato_item.php';
 				} else {
@@ -320,7 +320,7 @@
 				$artefato_id = 'referencias';
 				$artefato_subtitulo = $pagina_translated['sent references'];
 				$fa_icone = 'fa-photo-video';
-				$fa_color = 'text-danger';
+				$fa_color = 'link-danger';
 				if (in_array(12, $icons_to_show)) {
 					$template_conteudo .= include 'templates/artefato_item.php';
 				} else {
@@ -344,7 +344,7 @@
 					$artefato_link = 'admin.php';
 					$artefato_badge = 'fa-external-link';
 					$fa_icone = 'fa-user-crown';
-					$fa_color = 'text-primary';
+					$fa_color = 'link-primary';
 					$template_conteudo .= include 'templates/artefato_item.php';
 				}
 
@@ -353,7 +353,7 @@
 				$artefato_link = "pagina.php?pagina_id=$user_lounge";
 				$artefato_badge = 'fa-external-link';
 				$fa_icone = 'fa-mug-tea';
-				$fa_color = 'text-secondary';
+				$fa_color = 'link-purple';
 				if (in_array(15, $icons_to_show)) {
 					$template_conteudo .= include 'templates/artefato_item.php';
 				} else {
@@ -365,7 +365,7 @@
 				$artefato_subtitulo = $pagina_translated['creditos ubwiki'];
 				$artefato_modal = '#modal_wallet';
 				$fa_icone = 'fa-wallet';
-				$fa_color = 'text-success';
+				$fa_color = 'link-success';
 				if (in_array(16, $icons_to_show)) {
 					$template_conteudo .= include 'templates/artefato_item.php';
 				} else {
@@ -378,7 +378,7 @@
 					$artefato_link = 'revisoes.php';
 					$artefato_badge = 'fa-external-link';
 					$fa_icone = 'fa-highlighter';
-					$fa_color = 'text-warning';
+					$fa_color = 'link-warning';
 					if (in_array(17, $icons_to_show)) {
 						$template_conteudo .= include 'templates/artefato_item.php';
 					} else {
@@ -391,7 +391,7 @@
 				$artefato_link = 'bfranklin.php';
 				$artefato_badge = 'fa-external-link';
 				$fa_icone = 'fa-pen-nib';
-				$fa_color = 'text-secondary';
+				$fa_color = 'link-purple';
 				if (in_array(18, $icons_to_show)) {
 					$template_conteudo .= include 'templates/artefato_item.php';
 				} else {
@@ -403,7 +403,7 @@
 					$artefato_subtitulo = $pagina_translated['Simulados'];
 					$artefato_modal = '#modal_simulados';
 					$fa_icone = 'fa-ballot-check';
-					$fa_color = 'text-default';
+					$fa_color = 'link-teal';
 					if (in_array(20, $icons_to_show)) {
 						$template_conteudo .= include 'templates/artefato_item.php';
 					} else {
@@ -417,7 +417,7 @@
 					$artefato_subtitulo = $pagina_translated['todos registros'];
 					$artefato_modal = '#modal_all_historico';
 					$fa_icone = 'fa-file-edit';
-					$fa_color = 'text-info';
+					$fa_color = 'link-info';
 					if (in_array(24, $icons_to_show)) {
 						$template_conteudo .= include 'templates/artefato_item.php';
 					} else {
@@ -429,7 +429,7 @@
 					$artefato_link = 'nexus.php';
 					$artefato_badge = 'fa-external-link';
 					$fa_icone = 'fa-house-turret';
-					$fa_color = 'text-danger';
+					$fa_color = 'link-danger';
 					$artefato_icone_background = return_background($fa_color);
 					if (in_array(21, $icons_to_show)) {
 						$template_conteudo .= include 'templates/artefato_item.php';
@@ -442,7 +442,7 @@
 					$artefato_link = 'mpalace.php';
 					$artefato_badge = 'fa-external-link';
 					$fa_icone = 'fa-landmark-alt';
-					$fa_color = 'text-warning';
+					$fa_color = 'link-warning';
 					$artefato_icone_background = return_background($fa_color);
 					if (in_array(22, $icons_to_show)) {
 						$template_conteudo .= include 'templates/artefato_item.php';
@@ -456,8 +456,8 @@
                     $artefato_subtitulo = $pagina_translated['Hidden icons settings'];
                     $artefato_modal = '#modal_hidden_settings';
                     $fa_icone = 'fa-eye';
-                    $fa_color = 'text-default';
-                    $artefato_icone_background = 'teal lighten-5';
+                    $fa_color = 'link-teal';
+                    $artefato_icone_background = 'bg-teal';
                     $template_conteudo_hidden .= include 'templates/artefato_item.php';*/
 
 				include 'templates/page_element.php';
@@ -466,7 +466,7 @@
 				$template_titulo = false;
 				$template_classes = 'hidden';
 				$template_conteudo_class = 'justify-content-start';
-				$template_botoes = "<a id='hide_hidden_icons' class='text-success' title='{$pagina_translated['Hidden icons']}'><i class='fad fa-exchange fa-swap-opacity fa-fw fa-lg'></i></a>";
+				$template_botoes = "<a id='hide_hidden_icons' class='link-success' title='{$pagina_translated['Hidden icons']}' href='javascript:void(0);'><i class='fad fa-exchange fa-swap-opacity fa-fw fa-lg'></i></a>";
 				$template_conteudo_no_col = true;
 				$template_conteudo = $template_conteudo_hidden;
 
@@ -521,12 +521,12 @@
 		<select name='selecionar_cor' class='$select_classes'>
 			<option disabled selected value=''>{$pagina_translated['Cor do seu avatar']}</option>
 			<option value='text-primary'>{$pagina_translated['Azul']}</option>
-			<option value='text-danger'>{$pagina_translated['Vermelho']}</option>
-			<option value='text-success'>{$pagina_translated['Verde']}</option>
-			<option value='text-warning'>{$pagina_translated['Amarelo']}</option>
-			<option value='text-secondary'>{$pagina_translated['Roxo']}</option>
-			<option value='text-info'>{$pagina_translated['Azul-claro']}</option>
-			<option value='text-default'>{$pagina_translated['Verde-azulado']}</option>
+			<option value='link-danger'>{$pagina_translated['Vermelho']}</option>
+			<option value='link-success'>{$pagina_translated['Verde']}</option>
+			<option value='link-warning'>{$pagina_translated['Amarelo']}</option>
+			<option value='link-purple'>{$pagina_translated['Roxo']}</option>
+			<option value='link-teal'>{$pagina_translated['Azul-claro']}</option>
+			<option value='link-teal'>{$pagina_translated['Verde-azulado']}</option>
 			<option value='text-dark'>{$pagina_translated['Preto']}</option>
 		</select>
 		<h3 class='mt-3'>{$pagina_translated['Perfil']}</h3>
@@ -666,7 +666,7 @@
         </form>
 	";
 	$template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
-	$template_modal_body_conteudo .= put_together_list_item('link_button', 'mostrar_formulario_codigo', 'text-info', 'fad fa-gift-card', 'Adicionar crédito por código', false, false, false);
+	$template_modal_body_conteudo .= put_together_list_item('link_button', 'mostrar_formulario_codigo', 'link-teal', 'fad fa-gift-card', 'Adicionar crédito por código', false, false, false);
 
 	$oferta_link = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=N9U85AQL7RBF8";
 	$oferta_texto = "Comprar 100 Créditos Ubwiki por R$ 100";
@@ -681,7 +681,7 @@
 	$template_modal_body_conteudo .= put_together_list_item('link_blank', $oferta_link, 'text-primary', 'fad fa-external-link', $oferta_texto, false, false, false);
 
 	$carteira_texto = "<strong>{$pagina_translated['Ubwiki credit current']} </strong>{$user_wallet}";
-	$template_modal_body_conteudo .= put_together_list_item('inactive', false, false, 'fad fa-usd-circle', $carteira_texto, false, false, 'mt-2 lime lighten-5 b-0 teal-text font-italic d-flex justify-content-around');
+	$template_modal_body_conteudo .= put_together_list_item('inactive', false, false, 'fad fa-usd-circle', $carteira_texto, false, false, 'mt-2 bg-success b-0 text-light fst-italic d-flex justify-content-around');
 
 	$template_modal_show_buttons = false;
 	include 'templates/modal.php';
@@ -698,7 +698,7 @@
 	$artefato_badge = 'fa-plus';
 	$artefato_link = 'pagina.php?pagina_id=new';
 	$fa_icone = 'fa-columns';
-	$fa_color = 'text-info';
+	$fa_color = 'link-info';
 	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 
 	$artefato_id = 'novo_documento_texto';
@@ -707,7 +707,7 @@
 	$artefato_badge = 'fa-plus';
 	$artefato_link = 'pagina.php?texto_id=new';
 	$fa_icone = 'fa-file-alt fa-swap-opacity';
-	$fa_color = 'text-primary';
+	$fa_color = 'link-primary';
 	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	$template_modal_body_conteudo .= "</div>";
 	$template_modal_body_conteudo .= "<h3 id='user_pages_hide' class='hidden mt-1'>{$pagina_translated['your_pages']}</h3>";
@@ -746,7 +746,7 @@
 		$template_modal_body_conteudo .= "<p>{$pagina_translated['joining study group explanation']}</p>";
 
 		if ($user_apelido == false) {
-			$template_modal_body_conteudo .= "<p><strong>{$pagina_translated['study groups need for nickname']} <span class='text-info'><i class='fad fa-user-cog'></i></span></strong></p>";
+			$template_modal_body_conteudo .= "<p><strong>{$pagina_translated['study groups need for nickname']} <span class='link-teal'><i class='fad fa-user-cog'></i></span></strong></p>";
 		} else {
 			if ($convites_ativos->num_rows > 0) {
 				$template_modal_body_conteudo .= "

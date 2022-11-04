@@ -64,7 +64,7 @@
 						$template_id = 'dados_prova';
 						$template_titulo = 'Dados da prova';
 						$template_botoes = "
-						    <a data-toggle='modal' data-target='#modal_prova_form' href=''>
+						    <a data-bs-toggle='modal' data-bs-target='#modal_prova_form' href=''>
                                 <i class='fal fa-pen-square fa-fw'></i>
                             </a>
 						";
@@ -125,7 +125,7 @@
 					?>
         </div>
     </div>
-    <button id='mostrar_coluna_direita' class='btn btn-md elegant-color text-white p-2 m-1' tabindex='-1'><i
+    <button id='mostrar_coluna_direita' class='btn btn-md bg-dark link-light p-2 m-1' tabindex='-1'><i
                 class='fas fa-pen-alt fa-fw'></i></button>
 	<?php
 		$template_modal_div_id = 'modal_prova_form';

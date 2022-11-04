@@ -28,7 +28,7 @@
 			$extra = $args[1];
 			switch ($extra) {
 				case 'print':
-					print "<p class='text-danger'>$query</p>";
+					print "<p class='link-danger'>$query</p>";
 					break;
 				case 'log':
 					error_log($query);
@@ -58,7 +58,7 @@
 	{
 		echo "
 		<div class='container-fluid p-0 m-0 text-center'>
-		  <div class='jumbotron col-12 mb-0 elegant-color text-white'>
+		  <div class='jumbotron col-12 mb-0 bg-dark text-white'>
 			";
 		if ($link == false) {
 			echo "<h1 class='h1-responsive logo-jumbotron d-sm-inline d-md-none'>$titulo</h1>";
@@ -423,19 +423,19 @@
 		switch ($pagina_estado) {
 			case 1:
 				$icone = 'fad fa-acorn fa-fw';
-				$color = 'text-info';
+				$color = 'link-teal';
 				break;
 			case 2:
 				$icone = 'fad fa-seedling fa-fw';
-				$color = 'text-danger';
+				$color = 'link-danger';
 				break;
 			case 3:
 				$icone = 'fad fa-leaf fa-fw';
-				$color = 'text-success';
+				$color = 'link-success';
 				break;
 			case 4:
 				$icone = 'fad fa-spa fa-fw';
-				$color = 'text-warning';
+				$color = 'link-warning';
 				break;
 			case 0:
 			default:
@@ -632,8 +632,8 @@
 			$etiqueta_icone = 'fa-file';
 			$etiqueta_cor = 'blue';
 		} elseif ($etiqueta_tipo == 'topico') {
-			$etiqueta_icone = 'fa-tag';
-			$etiqueta_cor = 'amber';
+			$etiqueta_icone = 'fa-tag fa-swap-opacity';
+			$etiqueta_cor = 'bg-warning-light';
 		} elseif ($etiqueta_tipo == 'imagem') {
 			$etiqueta_icone = 'fa-image-polaroid';
 			$etiqueta_cor = 'red';
@@ -648,7 +648,7 @@
 			$etiqueta_cor = 'lime';
 		} elseif ($etiqueta_tipo == 'album_musica') {
 			$etiqueta_icone = 'fa-microphone';
-			$etiqueta_cor = 'teal';
+			$etiqueta_cor = 'bg-teal';
 		} else {
 			return false;
 		}
@@ -2203,7 +2203,7 @@
 			if (in_array($pagina_tipo, $paginas_secao)) {
 				if ($parent_title == true) {
 					$pagina_parent_title = return_pagina_titulo($pagina_item_id);
-					$pagina_titulo = "<span>$pagina_titulo</span><small class='ml-3 text-muted font-italic'>$pagina_parent_title</small>";
+					$pagina_titulo = "<span>$pagina_titulo</span><small class='ms-3 text-muted fst-italic'>$pagina_parent_title</small>";
 				}
 			}
 			if ($pagina_tipo == 'elemento') {
@@ -2213,7 +2213,7 @@
 					if ($pagina_item_autor_id != false) {
 						$pagina_item_autor_info = return_etiqueta_info($pagina_item_autor_id);
 						$pagina_item_autor_titulo = $pagina_item_autor_info[2];
-						$pagina_titulo = "<span>$pagina_titulo</span><small class='ml-3 text-muted font-italic'>$pagina_item_autor_titulo</small>";
+						$pagina_titulo = "<span>$pagina_titulo</span><small class='ms-3 text-muted fst-italic'>$pagina_item_autor_titulo</small>";
 					}
 				}
 			}
@@ -2235,24 +2235,24 @@
 
 			switch ($pagina_tipo) {
 				case 'elemento':
-					$cor_icone_principal = 'text-success';
+					$cor_icone_principal = 'link-success';
 					break;
 				case 'topico':
-					$cor_icone_principal = 'text-warning';
+					$cor_icone_principal = 'link-warning';
 					break;
 				case 'pagina':
 					switch ($pagina_subtipo) {
 						case 'modelo':
-							$cor_icone_principal = 'text-secondary';
+							$cor_icone_principal = 'link-purple';
 							break;
 						case 'Plano de estudos':
-							$cor_icone_principal = 'text-default';
+							$cor_icone_principal = 'link-teal';
 							break;
 						case 'etiqueta':
-							$cor_icone_principal = 'text-warning';
+							$cor_icone_principal = 'link-warning';
 							break;
 						default:
-							$cor_icone_principal = 'text-info';
+							$cor_icone_principal = 'link-teal';
 					}
 					break;
 				case 'texto':
@@ -2261,10 +2261,10 @@
 					$pagina_estado_cor = false;
 					break;
 				case 'secao':
-					$cor_icone_principal = 'text-info';
+					$cor_icone_principal = 'link-teal';
 					break;
 				default:
-					$cor_icone_principal = 'text-light';
+					$cor_icone_principal = 'link-purple';
 			}
 		}
 		if ($lista_tipo == 'forum') {
@@ -2346,7 +2346,7 @@
 		if ($type == 'link') {
 			return "
 			<a href='$link' $target class='$link_classes'>
-				<li class='list-group-item list-group-item-action $item_classes border-top p-1 py-2 $dflex'>
+				<li class='list-group-item list-group-item-action $item_classes p-1 py-2 $dflex border-0 border-top'>
 					<span class='$fix_things'>
 						<span class='$cor_icone_principal align-center icone-lista'>
 							<i class='$icone_principal fa-fw fa-lg'></i>
@@ -2355,15 +2355,15 @@
 							$pagina_titulo
 						</span>
 					</span>
-					<span class='align-center ml-2 icone-estado $pagina_estado_cor'>
+					<span class='align-center ms-2 icone-estado $pagina_estado_cor'>
 						<i class='$pagina_estado_icone fa-fw fa-sm'></i>
 					</span>
 				</li>
 			</a>";
 		} elseif ($type == 'modal') {
 			return "
-			<a data-toggle='modal' data-target='$link' class='$link_classes'>
-				<li class='list-group-item list-group-item-action $item_classes border-top p-1 py-2 $dflex'>
+			<a data-bs-toggle='modal' data-bs-target='$link' class='$link_classes'>
+				<li class='list-group-item list-group-item-action $item_classes p-1 py-2 $dflex border-0'>
 					<span class='$fix_things'>
 						<span class='$cor_icone_principal align-center icone-lista'>
 							<i class='$icone_principal fa-fw fa-lg'></i>
@@ -2372,14 +2372,14 @@
 							$pagina_titulo
 						</span>
 					</span>
-					<span class='align-center ml-2 icone-estado $pagina_estado_cor'>
+					<span class='align-center ms-2 icone-estado $pagina_estado_cor'>
 						<i class='$pagina_estado_icone fa-fw fa-sm'></i>
 					</span>
 				</li>
 			</a>";
 		} elseif ($type == 'inactive') {
 			return "
-				<li class='list-group-item $item_classes border-top p-1 py-2 $dflex'>
+				<li class='list-group-item $item_classes p-1 py-2 $dflex'>
 					<span class='$fix_things'>
 						<span class='$cor_icone_principal align-center icone-lista'>
 							<i class='$icone_principal fa-fw fa-lg'></i>
@@ -2388,7 +2388,7 @@
 							$pagina_titulo
 						</span>
 					</span>
-					<span class='align-center ml-2 icone-estado $pagina_estado_cor'>
+					<span class='align-center ms-2 icone-estado $pagina_estado_cor'>
 						<i class='$pagina_estado_icone fa-fw fa-sm'></i>
 					</span>
 				</li>
@@ -2396,7 +2396,7 @@
 		} elseif ($type == 'link_button') {
 			return "
 			<a href='javascript:void(0);' id='$link' name='$link' value='$link' class='$link $link_classes'>
-				<li class='list-group-item list-group-item-action $item_classes border-top p-1 py-2 $dflex'>
+				<li class='list-group-item list-group-item-action $item_classes p-1 py-2 $dflex border-0 border-top'>
 					<span class='$fix_things'>
 						<span class='$cor_icone_principal align-center icone-lista'>
 							<i class='$icone_principal fa-fw fa-lg'></i>
@@ -2405,7 +2405,7 @@
 							$pagina_titulo
 						</span>
 					</span>
-					<span class='align-center ml-2 icone-estado $pagina_estado_cor'>
+					<span class='align-center ms-2 icone-estado $pagina_estado_cor'>
 						<i class='$pagina_estado_icone fa-fw fa-sm'></i>
 					</span>
 				</li>
@@ -2442,115 +2442,115 @@
 		}
 		switch ($subtipo) {
 			case 'livro':
-				return array('fad fa-book', 'text-success', 'rgba-green-strong');
+				return array('fad fa-book', 'link-success', 'bg-success');
 				break;
 			case 'pagina':
-				return array('fad fa-browser', 'text-primary', 'rgba-blue-strong');
+				return array('fad fa-browser', 'text-primary', 'bg-primary');
 				break;
 			case 'artigo':
-				return array('fad fa-newspaper', 'text-muted', 'rgba-black-strong');
+				return array('fad fa-newspaper', 'text-muted', 'bg-dark');
 				break;
 			case 'wikipedia':
-				return array('fab fa-wikipedia-w', 'text-dark', 'rgba-black-strong');
+				return array('fa-brands fa-wikipedia-w', 'text-dark', 'bg-dark');
 				break;
 			case 'musica':
-				return array('fad fa-record-vinyl', 'text-dark', 'rgba-black-strong');
+				return array('fad fa-record-vinyl', 'text-dark', 'bg-dark');
 				break;
 			case 'podcast':
-				return array('fad fa-podcast', 'text-secondary', 'rgba-purple-strong');
+				return array('fad fa-podcast', 'link-purple', 'bg-purple-light');
 				break;
 			case 'audiobook':
-				return array('fab fa-audible', 'text-warning', 'rgba-amber-strong');
+				return array('fad fa-microphone-lines', 'link-warning', 'bg-warning-light');
 				break;
 			case 'mapasatelite':
-				return array('fad fa-globe-americas', 'text-default', 'rgba-teal-strong');
+				return array('fad fa-globe-americas', 'link-teal', 'bg-teal-light');
 				break;
 			case 'retrato':
-				return array('fad fa-portrait', 'text-danger', 'rgba-red-strong');
+				return array('fad fa-portrait', 'link-danger', 'bg-danger-light');
 				break;
 			case 'arte':
-				return array('fad fa-paint-brush', 'text-secondary', 'rgba-purple-strong');
+				return array('fad fa-paint-brush', 'link-purple', 'bg-purple-light');
 				break;
 			case 'grafico':
-				return array('fad fa-chart-pie', 'text-warning', 'rgba-orange-strong');
+				return array('fad fa-chart-pie', 'link-warning', 'bg-warning-light');
 				break;
 			case 'paisagem':
-				return array('fad fa-mountain', 'text-info', 'rgba-cyan-strong');
+				return array('fad fa-mountain', 'link-info', 'bg-info-light');
 				break;
 			case 'objeto':
-				return array('fad fa-cube', 'text-success', 'rgba-green-strong');
+				return array('fad fa-cube', 'link-success', 'bg-success-light');
 				break;
 			case 'arquitetura':
-				return array('fad fa-university', 'text-warning', 'rgba-orange-strong');
+				return array('fad fa-university', 'link-warning', 'bg-warning-light');
 				break;
 			case 'planta':
-				return array('fad fa-flower-daffodil', 'text-danger', 'rgba-red-strong');
+				return array('fad fa-flower-daffodil', 'link-danger', 'bg-danger-light');
 				break;
 			case 'animais':
-				return array('fad fa-rabbit', 'text-info', 'rgba-cyan-strong');
+				return array('fad fa-rabbit', 'link-info', 'bg-info-light');
 				break;
 			case 'outras':
-				return array('fad fa-camera-alt', 'text-dark', 'rgba-black-strong');
+				return array('fad fa-camera-alt', 'text-dark', 'bg-dark-light');
 				break;
 			case 'youtube':
-				return array('fab fa-youtube', 'text-danger', 'rgba-red-strong');
+				return array('fa-brands fa-youtube', 'link-danger', 'bg-danger-light');
 				break;
 			case 'filme':
-				return array('fad fa-film', 'text-info', 'rgba-cyan-strong');
+				return array('fad fa-film', 'link-info', 'bg-info-light');
 				break;
 			case 'aula':
-				return array('fad fa-chalkboard-teacher', 'text-default', 'rgba-teal-strong');
+				return array('fad fa-chalkboard-teacher', 'link-teal', 'bg-teal-light');
 				break;
 			case 'equacao':
-				return array('fad fa-greater-than-equal', 'text-info', 'rgba-cyan-strong');
+				return array('fad fa-greater-than-equal', 'link-info', 'bg-info-light');
 				break;
 			case 'etiqueta':
-				return array('fad fa-tag', 'text-warning', 'rgba-orange-strong');
+				return array('fad fa-tag fa-swap-opacity', 'link-warning', 'bg-warning-light');
 				break;
 			default:
 				switch ($tipo) {
 					case 'imagem':
 						if ($subtipo == 'generico') {
-							return array('fad fa-image', 'text-danger', 'rgba-red-strong');
+							return array('fad fa-image', 'link-danger', 'bg-danger');
 						} else {
-							return array('fad fa-file-image', 'text-muted', 'rgba-grey-strong');
+							return array('fad fa-file-image', 'text-muted', 'bg-secondary');
 						}
 						break;
 					case 'video':
 						if ($subtipo == 'generico') {
-							return array('fad fa-play-circle', 'text-info', 'rgba-blue-strong');
+							return array('fad fa-play-circle', 'link-info', 'bg-primary');
 						} else {
-							return array('fad fa-file-video', 'text-muted', 'rgba-grey-strong');
+							return array('fad fa-file-video', 'text-muted', 'bg-secondary');
 						}
 						break;
 					case 'album_musica':
 						if ($subtipo == 'generico') {
-							return array('fad fa-volume-up', 'text-warning', 'rgba-orange-strong');
+							return array('fad fa-volume-up', 'link-warning', 'bg-warning');
 						} else {
-							return array('fad fa-file-audio', 'text-muted', 'rgba-grey-strong');
+							return array('fad fa-file-audio', 'text-muted', 'bg-secondary');
 						}
 						break;
 					case 'referencia':
 						if ($subtipo == 'generico') {
-							return array('fad fa-glasses-alt', 'text-success', 'rgba-green-strong');
+							return array('fad fa-glasses-alt', 'link-success', 'bg-success');
 						} else {
-							return array('fad fa-file-alt', 'text-muted', 'rgba-grey-strong');
+							return array('fad fa-file-alt', 'text-muted', 'bg-secondary');
 						}
 						break;
 					case 'questao':
-						return array('fad fa-ballot-check', 'text-secondary', 'rgba-purple-strong');
+						return array('fad fa-ballot-check', 'link-purple', 'bg-purple');
 						break;
 					case 'secao':
-						return array('fad fa-list-ol', 'text-info', 'rgba-cyan-strong');
+						return array('fad fa-list-ol', 'link-info', 'bg-info');
 						break;
 					case 'resposta':
-						return array('fad fa-comment-alt-edit', 'text-default', 'rgba-cyan-strong');
+						return array('fad fa-comment-alt-edit', 'link-teal', 'bg-info');
 						break;
 					case 'wikipedia':
-						return array('fab fa-wikipedia-w', 'text-dark', 'rgba-grey-strong');
+						return array('fa-brands fa-wikipedia-w', 'text-dark', 'bg-secondary');
 						break;
 					default:
-						return array('fad fa-circle-notch fa-spin', 'text-danger', 'rgba-red-strong');
+						return array('fad fa-circle-notch fa-spin', 'link-danger', 'bg-danger');
 				}
 		}
 	}
@@ -2564,32 +2564,32 @@
 			case 'pagina':
 				switch ($pagina_subtipo) {
 					case 'escritorio':
-						return array('fad fa-mug-tea', 'text-info');
+						return array('fad fa-mug-tea', 'link-info');
 						break;
 					case 'etiqueta':
-						return array('fad fa-tag', 'text-warning');
+						return array('fad fa-tag fa-swap-opacity', 'link-warning');
 						break;
 					case 'modelo':
-						return array('fad fa-pen-nib', 'text-secondary');
+						return array('fad fa-pen-nib', 'link-purple');
 						break;
 					case 'Plano de estudos':
-						return array('fad fa-ruler-triangle', 'text-default');
+						return array('fad fa-ruler-triangle', 'link-teal');
 						break;
 					case 'plano':
-						return array('fad fa-calendar-check', 'text-info');
+						return array('fad fa-calendar-check', 'link-info');
 						break;
 					case 'simulado':
-						return array('fad fa-ballot-check', 'text-default');
+						return array('fad fa-ballot-check', 'link-teal');
 						break;
 					default:
-						return array('fad fa-columns', 'text-info');
+						return array('fad fa-columns', 'link-info');
 						break;
 				}
 			case 'secao':
-				return array('fad fa-bookmark', 'text-default');
+				return array('fad fa-bookmark', 'link-danger');
 				break;
 			case 'curso':
-				return array('fad fa-graduation-cap', 'text-default');
+				return array('fad fa-graduation-cap', 'link-teal');
 				break;
 			case 'elemento':
 				$elemento_info = return_elemento_info($pagina_item_id);
@@ -2599,38 +2599,38 @@
 				if ($elemento_subtipo_icone != false) {
 					return array($elemento_subtipo_icone[0], $elemento_subtipo_icone[1]);
 				} else {
-					return array('fad fa-circle-notch', 'text-success');
+					return array('fad fa-circle-notch', 'link-success');
 				}
 				break;
 			case 'topico':
-				return array('fad fa-columns', 'text-warning');
+				return array('fad fa-columns', 'link-warning');
 				break;
 			case 'sistema':
-				return array('fad fa-columns', 'text-default');
+				return array('fad fa-columns', 'link-info');
 				break;
 			case 'texto':
 				return array('fad fa-file-alt fa-swap-opacity', 'text-primary');
 				break;
 			case 'grupo':
-				return array('fad fa-users', 'text-default');
+				return array('fad fa-users', 'link-teal');
 				break;
 			case 'materia':
-				return array('fad fa-th-list', 'text-default');
+				return array('fad fa-th-list', 'link-teal');
 				break;
 			case 'resposta':
-				return array('fad fa-reply', 'text-default');
+				return array('fad fa-reply', 'link-teal');
 				break;
 			case 'questao':
-				return array('fad fa-ballot-check', 'text-secondary');
+				return array('fad fa-ballot-check', 'link-purple');
 				break;
 			case 'texto_apoio':
-				return array('fad fa-quote-left', 'text-secondary');
+				return array('fad fa-quote-left', 'link-purple');
 				break;
 			case 'escritorio':
-				return array('fad fa-lamp-desk', 'text-danger');
+				return array('fad fa-lamp-desk', 'link-danger');
 				break;
 			default:
-				return array('fad fa-circle-notch', 'text-light');
+				return array('fad fa-circle-notch', 'link-purple');
 		}
 	}
 
@@ -2761,7 +2761,7 @@
 		$template_id = "curso_$curso_pagina_id";
 		$template_titulo = "<a href='pagina.php?pagina_id=$curso_pagina_id'>$curso_titulo</a>";
 		if ($card_mode == 'inscrito') {
-			$template_botoes = "<span class='text-success'><i class='fad fa-lamp-desk fa-fw'></i></span>";
+			$template_botoes = "<span class='link-success'><i class='fad fa-lamp-desk fa-fw'></i></span>";
 		} elseif ($card_mode == 'disponivel') {
 			$template_botoes = "<span class='text-primary'><i class='fad fa-lamp-desk fa-fw'></i></span>";
 		}
@@ -2938,20 +2938,20 @@
 		$all_cell_classes = 'rounded text-wrap border p-1';
 
 		$result = false;
-		$result .= "<div class='row grey lighten-5 mt-1'>";
+		$result .= "<div class='row bg-light mt-1'>";
 		$result .= "
-				<div class='col-1 $all_cell_classes {$plan_icon[0]} ml-0 text-center align-center d-flex justify-content-center'>
-					<a value='$entrada_id' href='javascript:void(0);' data-toggle='modal' data-target='#modal_set_state' class='align-self-center {$plan_icon[1]} p-1 rounded set_state_entrada_value' title='{$plan_icon[3]}'><i class='{$plan_icon[2]} fa-fw fa-lg'></i></a>
+				<div class='col-1 $all_cell_classes {$plan_icon[0]} ms-0 text-center align-center d-flex justify-content-center'>
+					<a value='$entrada_id' href='javascript:void(0);' data-bs-toggle='modal' data-bs-target='#modal_set_state' class='align-self-center {$plan_icon[1]} p-1 rounded set_state_entrada_value' title='{$plan_icon[3]}'><i class='{$plan_icon[2]} fa-fw fa-lg'></i></a>
 				</div>
 					";
 		$icone_background = return_background($icone[1]);
 		$result .= "
-			<div class='col-1 $all_cell_classes ml-1 text-center align-center d-flex justify-content-center $icone_background'>
-				<span class='{$icone[1]} ml-1 align-self-center rounded p-1'><i class='{$icone[0]} fa-fw fa-lg'></i></span>
+			<div class='col-1 $all_cell_classes ms-1 text-center align-center d-flex justify-content-center $icone_background'>
+				<span class='{$icone[1]} ms-1 align-self-center rounded p-1'><i class='{$icone[0]} fa-fw fa-lg'></i></span>
 			</div>
 					";
 		$result .= "
-				<div class='col $all_cell_classes bg-white ml-1'>
+				<div class='col $all_cell_classes bg-white ms-1'>
 					<div class='row'>
 						<div class='col'>
 							<a href='pagina.php?pagina_id=$pagina_id' class='text-primary'>$titulo</a>
@@ -2959,26 +2959,26 @@
 					</div>
 					<div class='row'>
 						<div class='col'>
-							<span class='text-muted font-italic'>$autor</span>
+							<span class='text-muted fst-italic'>$autor</span>
 						</div>
 					</div>
 				</div>
 					";
 		$result .= "
-				<div class='col $all_cell_classes bg-white line-height-1 ml-1'>
-					<a class='text-dark set_comment_elemento_id font-italic' href='javascript:void(0);' data-toggle='modal' data-target='#modal_add_comment' value='$elemento_id'><small>$comments</small></a>
+				<div class='col $all_cell_classes bg-white line-height-1 ms-1'>
+					<a class='text-dark set_comment_elemento_id fst-italic' href='javascript:void(0);' data-bs-toggle='modal' data-bs-target='#modal_add_comment' value='$elemento_id'><small>$comments</small></a>
 				</div>
 					";
 		if ($classificacao == false) {
 			$result .= "
-				<div class='col-1 $all_cell_classes rgba-orange-slight ml-0 text-center align-center d-flex justify-content-center ml-1'>
-					<a value='$elemento_id' href='javascript:void(0);' data-toggle='modal' data-target='#modal_set_tag' class='align-self-center p-1 text-warning rounded set_tag_elemento_value'><i class='fad fa-tag fa-fw fa-lg'></i></a>
+				<div class='col-1 $all_cell_classes bg-warning-light ms-0 text-center align-center d-flex justify-content-center ms-1'>
+					<a value='$elemento_id' href='javascript:void(0);' data-bs-toggle='modal' data-bs-target='#modal_set_tag' class='align-self-center p-1 link-warning rounded set_tag_elemento_value'><i class='fad fa-tag fa-swap-opacity fa-fw fa-lg'></i></a>
 				</div>
 						";
 		} else {
 			$result .= "
-				<div class='col-1 $all_cell_classes rounded text-break ml-0 rgba-orange-slight d-flex justify-content-center line-height-1 ml-1'>
-					<a value='$elemento_id' class='text-muted set_tag_elemento_value align-self-center text-center' data-toggle='modal' data-target='#modal_set_tag'><small>$classificacao</small></a>
+				<div class='col-1 $all_cell_classes rounded text-break ms-0 bg-warning-light d-flex justify-content-center line-height-1 ms-1'>
+					<a value='$elemento_id' class='text-muted set_tag_elemento_value align-self-center text-center' data-bs-toggle='modal' data-bs-target='#modal_set_tag'><small>$classificacao</small></a>
 				</div>
 						";
 		}
@@ -2992,100 +2992,100 @@
 		$meaning = "interest level $estado";
 		switch ($estado) {
 			case 0:
-				$background = 'rgba-amber-light';
+				$background = 'bg-warning-light';
 				$icon_color = 'deep-orange-darker-hover';
 				$icon = 'fad fa-question-circle';
 				$meaning = 'not set';
 				break;
 			case 1:
-				$background = 'rgba-grey-slight';
+				$background = 'bg-light';
 				$icon_color = 'text-muted';
 				$icon = 'fad fa-circle';
 				break;
 			case 2:
-				$background = 'rgba-grey-slight';
+				$background = 'bg-light';
 				$icon_color = 'deep-orange-darker-hover';
 				$icon = 'fad fa-circle';
 				break;
 			case 3:
-				$background = 'rgba-red-slight';
+				$background = 'bg-danger-light';
 				$icon_color = 'deep-orange-darker-hover';
 				$icon = 'fad fa-circle';
 				break;
 			case 4:
-				$background = 'rgba-red-slight';
-				$icon_color = 'text-warning';
+				$background = 'bg-danger-light';
+				$icon_color = 'link-warning';
 				$icon = 'fad fa-circle';
 				break;
 			case 5:
-				$background = 'rgba-orange-slight';
-				$icon_color = 'text-warning';
+				$background = 'bg-warning-light';
+				$icon_color = 'link-warning';
 				$icon = 'fad fa-circle';
 				break;
 			case 6:
-				$background = 'rgba-orange-slight';
-				$icon_color = 'text-success';
+				$background = 'bg-warning-light';
+				$icon_color = 'link-success';
 				$icon = 'fad fa-circle';
 				break;
 			case 7:
-				$background = 'rgba-green-slight';
-				$icon_color = 'text-success';
+				$background = 'bg-success-light';
+				$icon_color = 'link-success';
 				$icon = 'fad fa-circle';
 				break;
 			case 8:
-				$background = 'rgba-green-slight';
-				$icon_color = 'text-default';
+				$background = 'bg-success-light';
+				$icon_color = 'link-teal';
 				$icon = 'fad fa-exclamation-circle';
 				break;
 			case 9:
-				$background = 'rgba-cyan-slight';
-				$icon_color = 'text-default';
+				$background = 'bg-teal-light';
+				$icon_color = 'link-teal';
 				$icon = 'fad fa-alarm-exclamation';
 				break;
 			case 10:
-				$background = 'rgba-cyan-slight';
-				$icon_color = 'text-info';
+				$background = 'bg-teal-light';
+				$icon_color = 'link-teal';
 				$icon = 'fad fa-book-reader';
 				break;
 			case 11: // full study in process or interrupted
-				$background = 'rgba-blue-slight';
-				$icon_color = 'text-info';
+				$background = 'bg-primary-light';
+				$icon_color = 'link-teal';
 				$icon = 'fad fa-pen-alt';
 				$meaning = 'full study in process';
 				break;
 			case 12:// fully read, not planning to re-read
-				$background = 'rgba-blue-slight';
-				$icon_color = 'text-info';
+				$background = 'bg-primary-light';
+				$icon_color = 'link-teal';
 				$icon = 'fad fa-check';
 				$meaning = 'incomplete study';
 				break;
 			case 13:// fully read, not planning to re-read
-				$background = 'rgba-blue-slight';
+				$background = 'bg-primary-light';
 				$icon_color = 'text-primary';
 				$icon = 'fas fa-check';
 				$meaning = 'fully read';
 				break;
 			case 14: // full study completed.
-				$background = 'rgba-blue-slight';
+				$background = 'bg-primary-light';
 				$icon_color = 'text-primary';
 				$icon = 'fad fa-check-double';
 				$meaning = 'full study completed';
 				break;
 			case 15: // re-read notes.
-				$background = 'rgba-blue-slight';
-				$icon_color = 'text-secondary';
+				$background = 'bg-primary-light';
+				$icon_color = 'link-purple';
 				$icon = 'fad fa-repeat';
 				$meaning = 're-read notes';
 				break;
 			case 16: // content completely absorbed.
-				$background = 'rgba-blue-slight';
-				$icon_color = 'text-secondary';
+				$background = 'bg-primary-light';
+				$icon_color = 'link-purple';
 				$icon = 'fad fa-head-side-brain';
 				$meaning = 'full assimilation';
 				break;
 			case 17: // content completely absorbed.
-				$background = 'rgba-purple-slight';
-				$icon_color = 'text-secondary';
+				$background = 'bg-purple-light';
+				$icon_color = 'link-purple';
 				$icon = 'fad fa-certificate';
 				$meaning = 'full assimilation with notes';
 				break;
@@ -3115,30 +3115,36 @@
 	function return_background($fa_color)
 	{
 		switch ($fa_color) {
+			case 'link-info':
 			case 'text-info':
-				return 'cyan lighten-5';
+				return 'bg-info-light';
 				break;
 			case 'text-primary':
-				return 'blue lighten-5';
+				return 'bg-primary-light';
 				break;
+			case 'link-warning':
 			case 'text-warning':
-				return 'orange lighten-5';
+				return 'bg-warning-light';
 				break;
+			case 'link-danger':
 			case 'text-danger':
-				return 'red lighten-5';
+				return 'bg-danger-light';
 				break;
+			case 'link-success':
 			case 'text-success':
-				return 'green lighten-5';
+				return 'bg-success-light';
 				break;
-			case 'text-secondary':
-				return 'purple lighten-5';
+			case 'link-purple':
+			case 'text-purple':
+				return 'bg-purple-light';
 				break;
-			case 'text-default':
-				return 'teal lighten-5';
+			case 'link-teal':
+			case 'text-teal':
+				return 'bg-teal-light';
 				break;
 			case 'text-dark':
 			case 'text-muted':
-				return 'grey lighten-4';
+				return 'bg-light';
 				break;
 			default:
 				return 'bg-white';

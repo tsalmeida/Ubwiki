@@ -10,7 +10,7 @@
 	$curso_paginas = return_curso_paginas($raiz_item_id, 'all');
 
 ?>
-<body class="grey lighten-5">
+<body class="bg-light">
 <?php
 	include 'templates/navbar.php';
 ?>

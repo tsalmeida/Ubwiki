@@ -52,7 +52,7 @@
                                                 </a>
                                         ";
 					$template_conteudo .= "<figcaption>
-                                           <span class='font-italic text-muted'>$imagem_titulo</span>";
+                                           <span class='fst-italic text-muted'>$imagem_titulo</span>";
 					$template_conteudo .= "</figcaption>";
 					$template_conteudo .= "</figure>";
 					$template_conteudo .= "</div>";
@@ -67,8 +67,8 @@
 		if ($count != 1) {
 			$template_conteudo .= "
                                       <div class='controls-top'>
-                                        <a class='btn btn-floating grey lighten-3 z-depth-0' href='#carousel-imagens' data-slide='prev'><i style='transform: translateY(70%)' class='fas fa-chevron-left'></i></a>
-                                        <a class='btn btn-floating grey lighten-3 z-depth-0' href='#carousel-imagens' data-slide='next'><i style='transform: translateY(70%)' class='fas fa-chevron-right'></i></a>
+                                        <a class='btn btn-floating bg-secondary z-depth-0' href='#carousel-imagens' data-slide='prev'><i style='transform: translateY(70%)' class='fas fa-chevron-left'></i></a>
+                                        <a class='btn btn-floating bg-secondary z-depth-0' href='#carousel-imagens' data-slide='next'><i style='transform: translateY(70%)' class='fas fa-chevron-right'></i></a>
                                       </div>
                                 ";
 		}

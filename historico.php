@@ -88,7 +88,7 @@
 	include 'templates/html_head.php';
 ?>
 
-    <body class="grey lighten-5">
+    <body class="bg-light">
 		
 		<?php
 			include 'templates/navbar.php';
@@ -98,8 +98,8 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col col-12 d-flex justify-content-end p-2">
-                <a href="javascript:void(0);" class="<?php echo $notificacao_cor; ?> ml-1" data-toggle="modal"
-                   data-target="#modal_notificacoes"><i class="fad <?php echo $notificacao_icone; ?> fa-fw"></i></a>
+                <a href="javascript:void(0);" class="<?php echo $notificacao_cor; ?> ms-1" data-bs-toggle="modal"
+                   data-bs-target="#modal_notificacoes"><i class="fad <?php echo $notificacao_icone; ?> fa-fw"></i></a>
             </div>
         </div>
     </div>
@@ -123,7 +123,7 @@
 									$template_titulo = $pagina_translated['Versão de referência'];
 								}
 								$template_classes = 'elemento-anotacoes';
-								$template_botoes = "<a class='text-info' data-toggle='modal' data-target='#modal_edicao_esquerda' ><i class='fad fa-archive fa-fw'></i></a>";
+								$template_botoes = "<a class='link-teal' data-bs-toggle='modal' data-bs-target='#modal_edicao_esquerda' ><i class='fad fa-archive fa-fw'></i></a>";
 								$template_conteudo = false;
 								if ($edicao_coluna_esquerda_html != false) {
 									$template_conteudo .= $edicao_coluna_esquerda_html;
@@ -146,12 +146,12 @@
 							$template_botoes = false;
 							if ($edicao_coluna_esquerda != false) {
 								if ($correction == true) {
-									$template_botoes .= "<a class='text-danger ml-1' href='historico.php?texto_id=$texto_id&l=$edicao_coluna_esquerda&r=$edicao_coluna_direita&c=0'><i class='fad fa-highlighter fa-fw'></i></a>";
+									$template_botoes .= "<a class='link-danger ms-1' href='historico.php?texto_id=$texto_id&l=$edicao_coluna_esquerda&r=$edicao_coluna_direita&c=0'><i class='fad fa-highlighter fa-fw'></i></a>";
 								} else {
-									$template_botoes .= "<a class='text-warning ml-1' href='historico.php?texto_id=$texto_id&l=$edicao_coluna_esquerda&r=$edicao_coluna_direita&c=1'><i class='fad fa-highlighter fa-fw'></i></a>";
+									$template_botoes .= "<a class='link-warning ms-1' href='historico.php?texto_id=$texto_id&l=$edicao_coluna_esquerda&r=$edicao_coluna_direita&c=1'><i class='fad fa-highlighter fa-fw'></i></a>";
 									
 								}
-								$template_botoes .= "<a class='text-success' data-toggle='modal' data-target='#modal_edicao_direita' ><i class='fad fa-archive fa-fw'></i></a>";
+								$template_botoes .= "<a class='link-success' data-bs-toggle='modal' data-bs-target='#modal_edicao_direita' ><i class='fad fa-archive fa-fw'></i></a>";
 							}
 							if ($edicao_coluna_direita_html != false) {
 								$template_conteudo .= $edicao_coluna_direita_html;
@@ -190,14 +190,14 @@
 					$list_edicao_user_apelido = return_apelido_user_id($list_edicao_user_id);
 					
 					if ($list_edicao_user_id == $user_id) {
-						$option_to_delete = "<a href='javascript:void(0);' class='text-danger delete_edit force-size' value='$list_edicao_id' title='Apagar esta edição'><i class='fad fa-times-hexagon fa-fw'></i></a>";
+						$option_to_delete = "<a href='javascript:void(0);' class='link-danger delete_edit force-size' value='$list_edicao_id' title='Apagar esta edição'><i class='fad fa-times-hexagon fa-fw'></i></a>";
 					} else {
 						$option_to_delete = "<span class='text-white force-size'><i class='fad fa-times-hexagon fa-fw'></i></span>";
 					}
 					
 					$template_modal_body_conteudo .= "
 						<li class='list-group-item list-group-item-light d-flex justify-content-between p-1 border-bottom-0 edicao_$list_edicao_id'>
-                            <a class='text-info force-size' name='edicao_coluna_esquerda' href='historico.php?texto_id=$texto_id&l=$list_edicao_id'>
+                            <a class='link-teal force-size' name='edicao_coluna_esquerda' href='historico.php?texto_id=$texto_id&l=$list_edicao_id'>
                                 <i class='fad fa-eye fa-fw'></i>
                             </a>
                             <a href='pagina.php?user_id=$list_edicao_user_id' class='border rounded p-1 $list_edicao_user_id_avatar_cor'>
@@ -239,10 +239,10 @@
 						
 						$template_modal_body_conteudo .= "
                             <li class='list-group-item list-group-item-light mt-1 d-flex justify-content-between p-1 border-bottom-0 edicao_$list_edicao_id'>
-                              <a class='text-success force-size' name='edicao_coluna_esquerda' href='historico.php?texto_id=$texto_id&l=$edicao_coluna_esquerda&r=$list_edicao_id'>
+                              <a class='link-success force-size' name='edicao_coluna_esquerda' href='historico.php?texto_id=$texto_id&l=$edicao_coluna_esquerda&r=$list_edicao_id'>
                                   <i class='fad fa-eye fa-fw'></i>
                               </a>
-                              <a href='pagina.php?user_id=$list_edicao_user_id' class='border rounded p-1 ml-3'>
+                              <a href='pagina.php?user_id=$list_edicao_user_id' class='border rounded p-1 ms-3'>
                                   <span class='$list_edicao_user_id_avatar_cor'>
                                       <i class='fad $list_edicao_user_id_avatar_icone fa-fw'></i>
                                   </span> $list_edicao_user_apelido

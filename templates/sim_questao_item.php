@@ -5,7 +5,7 @@
 	}
 	
 	$template_questao_result = "
-					<div class='form-check-inline respostas_box justify-content-around grey lighten-5 rounded mb-2 mt-5'>
+					<div class='form-check-inline respostas_box justify-content-around bg-light rounded mb-2 mt-5'>
 						<div class='form-check form-check-inline'>
 							<strong>Item $template_questao_item: </strong>
 						</div>

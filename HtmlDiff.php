@@ -197,10 +197,10 @@
 					$this->ProcessEqualOperation($operation);
 					break;
 				case 'delete' :
-					$this->ProcessDeleteOperation($operation, "text-danger");
+					$this->ProcessDeleteOperation($operation, "link-danger");
 					break;
 				case 'insert' :
-					$this->ProcessInsertOperation($operation, "text-success");
+					$this->ProcessInsertOperation($operation, "link-success");
 					break;
 				case 'replace':
 					$this->ProcessReplaceOperation($operation);
@@ -212,7 +212,7 @@
 
 		private function ProcessReplaceOperation($operation)
 		{
-			$this->ProcessDeleteOperation($operation, "text-danger");
+			$this->ProcessDeleteOperation($operation, "link-danger");
 			$this->ProcessInsertOperation($operation, "text-primary");
 		}
 

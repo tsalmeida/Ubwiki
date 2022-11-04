@@ -75,7 +75,7 @@
 	include 'templates/html_head.php';
 
 ?>
-<body class="grey lighten-5">
+<body class="bg-light">
 <?php
 	include 'templates/navbar.php';
 ?>
@@ -116,7 +116,7 @@
 				$artefato_col_limit = 'col-lg-4';
 				$artefato_button = 'carregar_emails';
 				$fa_icone = 'fa-at';
-				$fa_color = 'text-danger';
+				$fa_color = 'link-danger';
 				$template_conteudo .= include 'templates/artefato_item.php';
 
 				$template_conteudo .= "</div>";
@@ -135,7 +135,7 @@
 				$artefato_col_limit = 'col-lg-4';
 				$artefato_button = 'trigger_atualizacao';
 				$fa_icone = 'fab fa-github';
-				$fa_color = 'text-secondary';
+				$fa_color = 'link-purple';
 
 				$template_conteudo .= include 'templates/artefato_item.php';
 

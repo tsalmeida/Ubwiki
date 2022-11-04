@@ -11,7 +11,7 @@
 		<ul class='list-group list-group-flush mb-3'>
 			<a id='carregar_formulario_adicionar_edicao' href='javascript:void(0);'><li class='list-group-item list-group-item-action list-group-item-info d-flex justify-content-center'>{$pagina_translated['Adicionar edição']}</li></a>
 		</ul>
-		<form method='post' id='esconder_formulario_adicionar_edicao' class='border rounded p-3 m-1 mb-3 grey lighten-5'>
+		<form method='post' id='esconder_formulario_adicionar_edicao' class='border rounded p-3 m-1 mb-3 bg-light'>
 			<p>{$pagina_translated['Adicionar edição do concurso:']}</p>
       <div class='md-form'>
         <input type='number' class='form-control' name='nova_edicao_ano' id='nova_edicao_ano' required>
@@ -32,8 +32,8 @@
 		$template_modal_body_conteudo .= "
 		<p>{$pagina_translated['Edições registradas:']}</p>
 		<ul class='list-group list-group-flush'>
-		<span data-toggle='modal' data-target='#modal_adicionar_simulado'>
-		<span data-toggle='modal' data-target='#modal_vazio_edicoes'>
+		<span data-bs-toggle='modal' data-bs-target='#modal_adicionar_simulado'>
+		<span data-bs-toggle='modal' data-bs-target='#modal_vazio_edicoes'>
 		";
 		while ($edicao = $edicoes->fetch_assoc()) {
 			$edicao_id = $edicao['id'];
@@ -50,7 +50,7 @@
 	$template_modal_show_buttons = false;
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "
-				<form method='post' class='p-3 mb-3 grey lighten-5 border' id='esconder_formulario_adicionar_etapa'>
+				<form method='post' class='p-3 mb-3 bg-light border' id='esconder_formulario_adicionar_etapa'>
 					<p>{$pagina_translated['Adicionar etapa de edição do concurso:']}</p>
 					<input type='hidden' id='nova_etapa_edicao_id' name='nova_etapa_edicao_id' value=''>
 					<input type='hidden' id='nova_etapa_curso_id' name='nova_etapa_curso_id' value='$pagina_curso_id'>
@@ -76,7 +76,7 @@
 	$template_modal_show_buttons = false;
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "
-		<form method='post' class='p-3 mb-3 grey lighten-5 border' id='esconder_formulario_adicionar_prova'>
+		<form method='post' class='p-3 mb-3 bg-light border' id='esconder_formulario_adicionar_prova'>
 			<p>{$pagina_translated['Adicionar prova de etapa do concurso:']}</p>
 			<input type='hidden' id='nova_prova_etapa_id' name='nova_prova_etapa_id' value=''>
 			<input type='hidden' id='nova_prova_curso_id' name='nova_prova_curso_id' value='$pagina_curso_id'>
@@ -109,14 +109,14 @@
 	$artefato_tipo = 'nova_questao_oficial';
 	$artefato_titulo = 'Nova questão oficial do concurso';
 	$fa_icone = 'fa-file-certificate';
-	$fa_color = 'text-success';
+	$fa_color = 'link-success';
 	$artefato_class = 'artefato_opcao_nova_questao';
 	$artefatos_nova_questao .= include 'templates/artefato_item.php';
 	
 	$artefato_tipo = 'nova_questao_nao_oficial';
 	$artefato_titulo = 'Nova questão não-oficial do concurso';
 	$fa_icone = 'fa-user-edit';
-	$fa_color = 'text-warning';
+	$fa_color = 'link-warning';
 	$artefato_class = 'artefato_opcao_nova_questao';
 	$artefatos_nova_questao .= include 'templates/artefato_item.php';
 	
@@ -130,28 +130,28 @@
 	$artefato_tipo = 'questao_nao_texto_de_apoio';
 	$artefato_titulo = 'Questão não depende de texto de apoio';
 	$fa_icone = 'fa-file-times';
-	$fa_color = 'text-danger';
+	$fa_color = 'link-danger';
 	$artefato_class = 'artefato_opcao_nova_questao';
 	$artefatos_nova_questao .= include 'templates/artefato_item.php';
 	
 	$artefato_tipo = 'questao_multipla_escolha';
 	$artefato_titulo = 'Questão de múltipla escolha';
 	$fa_icone = 'fa-ballot-check';
-	$fa_color = 'text-warning';
+	$fa_color = 'link-warning';
 	$artefato_class = 'artefato_opcao_nova_questao';
 	$artefatos_nova_questao .= include 'templates/artefato_item.php';
 	
 	$artefato_tipo = 'questao_verdadeiro_falso';
 	$artefato_titulo = 'Questão certo ou errado';
 	$fa_icone = 'fa-check-double';
-	$fa_color = 'text-success';
+	$fa_color = 'link-success';
 	$artefato_class = 'artefato_opcao_nova_questao';
 	$artefatos_nova_questao .= include 'templates/artefato_item.php';
 	
 	$artefato_tipo = 'questao_dissertativa';
 	$artefato_titulo = 'Questão dissertativa';
 	$fa_icone = 'fa-file-edit';
-	$fa_color = 'text-secondary';
+	$fa_color = 'link-purple';
 	$artefato_class = 'artefato_opcao_nova_questao';
 	$artefatos_nova_questao .= include 'templates/artefato_item.php';
 	
@@ -161,7 +161,7 @@
 	$template_modal_body_conteudo = false;
 	$modal_scrollable = true;
 	$template_modal_body_conteudo .= "
-		<form method='post' class='p-3 mb-3 grey lighten-5 border' id='esconder_formulario_adicionar_questao'>
+		<form method='post' class='p-3 mb-3 bg-light border' id='esconder_formulario_adicionar_questao'>
 			<p>Adicionar questão desta prova do concurso:</p>
 			<input type='hidden' id='nova_questao_curso_id' name='nova_questao_curso_id' value='$pagina_curso_id'>
 			<input type='hidden' id='nova_questao_pagina_id' name='nova_questao_pagina_id' value='$pagina_id'>
@@ -171,13 +171,13 @@
 			<input type='hidden' id='nova_questao_origem' name='nova_questao_origem' value=''>
 			<input type='hidden' id='nova_questao_texto_apoio' name='nova_questao_texto_apoio' value=''>
 			<input type='hidden' id='nova_questao_tipo' name='nova_questao_tipo' value=''>
-			<p id='p_nova_questao_oficial' class='p_nova_questao_esconder text-success'><i class='fad fa-check-square fa-fw'></i> Questão oficial do concurso.</p>
-			<p id='p_nova_questao_nao_oficial' class='p_nova_questao_esconder text-success'><i class='fad fa-check-square fa-fw'></i> Questão não-oficial do concurso.</p>
-			<p id='p_nova_questao_texto_apoio' class='p_nova_questao_esconder text-success'><i class='fad fa-check-square fa-fw'></i> Questão depende de texto de apoio.</p>
-			<p id='p_nova_questao_nao_texto_apoio' class='p_nova_questao_esconder text-success'><i class='fad fa-check-square fa-fw'></i> Questão não depende de texto de apoio.</p>
-			<p id='p_nova_questao_dissertativa' class='p_nova_questao_esconder text-success'><i class='fad fa-check-square fa-fw'></i> Questão dissertativa.</p>
-			<p id='p_nova_questao_certo_errado' class='p_nova_questao_esconder text-success'><i class='fad fa-check-square fa-fw'></i> Questão certo ou errado.</p>
-			<p id='p_nova_questao_multipla_escolha' class='p_nova_questao_esconder text-success'><i class='fad fa-check-square fa-fw'></i> Questão de múltipla escolha.</p>
+			<p id='p_nova_questao_oficial' class='p_nova_questao_esconder link-success'><i class='fad fa-check-square fa-fw'></i> Questão oficial do concurso.</p>
+			<p id='p_nova_questao_nao_oficial' class='p_nova_questao_esconder link-success'><i class='fad fa-check-square fa-fw'></i> Questão não-oficial do concurso.</p>
+			<p id='p_nova_questao_texto_apoio' class='p_nova_questao_esconder link-success'><i class='fad fa-check-square fa-fw'></i> Questão depende de texto de apoio.</p>
+			<p id='p_nova_questao_nao_texto_apoio' class='p_nova_questao_esconder link-success'><i class='fad fa-check-square fa-fw'></i> Questão não depende de texto de apoio.</p>
+			<p id='p_nova_questao_dissertativa' class='p_nova_questao_esconder link-success'><i class='fad fa-check-square fa-fw'></i> Questão dissertativa.</p>
+			<p id='p_nova_questao_certo_errado' class='p_nova_questao_esconder link-success'><i class='fad fa-check-square fa-fw'></i> Questão certo ou errado.</p>
+			<p id='p_nova_questao_multipla_escolha' class='p_nova_questao_esconder link-success'><i class='fad fa-check-square fa-fw'></i> Questão de múltipla escolha.</p>
 			<div class='row d-flex justify-content-start'>
 				$artefatos_nova_questao
 			</div>

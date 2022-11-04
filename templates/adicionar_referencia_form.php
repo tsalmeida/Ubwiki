@@ -15,7 +15,7 @@
     </div>
     <div class='row d-flex justify-content-start'>
     	<div class='col'>
-	    <button type='button' class='$button_classes btn-info ml-0' id='trigger_buscar_referencias'>{$pagina_translated['Buscar']}</button>
+	    <button type='button' class='$button_classes btn-info ms-0' id='trigger_buscar_referencias'>{$pagina_translated['Buscar']}</button>
 	    </div>
 		</div>
     <div class='row border p-1 mt-1' id='referencias_disponiveis'>

@@ -34,10 +34,10 @@
 		$fa_invert = 'fa-swap-opacity';
 	}
 	
-	$fa_color_talvez = 'text-primary';
+	$fa_color_talvez = 'link-primary';
 	if (!isset($fa_icone)) {
 		$fa_icone = 'fa-circle-notch fa-spin';
-		$fa_color_talvez = 'text-secondary';
+		$fa_color_talvez = 'link-purple';
 	}
 	if (!isset($fa_color)) {
 		$fa_color = $fa_color_talvez;
@@ -62,7 +62,7 @@
 	}
 	if (isset($artefato_estado)) {
 		if ($artefato_estado == false) {
-			$fa_color = 'text-light';
+			$fa_color = 'link-purple';
 		}
 	}
 	
@@ -99,10 +99,10 @@
 		$artefato_link_classes = false;
 	}
 	if (!isset($artefato_titulo_class)) {
-		$artefato_titulo_class = 'text-dark';
+		$artefato_titulo_class = 'link-dark';
 	}
 	if (!isset($artefato_subtitulo_class)) {
-		$artefato_subtitulo_class = 'text-muted';
+		$artefato_subtitulo_class = 'link-secondary';
 	}
 	
 	$length_check = "$artefato_titulo $artefato_subtitulo";
@@ -119,7 +119,7 @@
 	if (!isset($artefato_badge)) {
 		$artefato_badge = false;
 	} else {
-		$artefato_badge = "<span class='badge badge-pill grey lighten-5 text-dark artefato-badge position-absolute z-depth-0 m-1'><i class='fad $artefato_badge fa-fw'></i></span>";
+		$artefato_badge = "<span class='badge badge-pill bg-light link-dark artefato-badge position-absolute z-depth-0 m-1'><i class='fad $artefato_badge fa-fw'></i></span>";
 	}
 
 	if (!isset($artefato_icone_background)) {
@@ -132,14 +132,14 @@
 	$artefato_link_1 = false;
 	$artefato_link_2 = false;
 	if ($artefato_button != false) {
-		$artefato_link_1 = "<div id='artefato_$artefato_tipo' class='$artefato_classes'><button class='$fa_color white border-0 w-100' name='$artefato_name' id='$artefato_name' value='$artefato_button' $artefato_template_thumb>";
+		$artefato_link_1 = "<div id='artefato_$artefato_tipo' class='$artefato_classes'><button class='$fa_color bg-white border-0 w-100' name='$artefato_name' id='$artefato_name' value='$artefato_button' $artefato_template_thumb>";
 		$artefato_link_2 = "</button></div>";
 	} else {
 		if ($artefato_link != false) {
 			$artefato_link_1 = "<div class='$artefato_classes' id='artefato_$artefato_tipo'><a id='link_$artefato_tipo' href='$artefato_link' class='$fa_class $fa_color $artefato_link_classes w-100' title='$artefato_criacao' $artefato_value $artefato_template_thumb>";
 			$artefato_link_2 = "</a></div>";
 		} else {
-			$artefato_link_1 = "<span id='artefato_$artefato_tipo' data-toggle='modal' data-target='$artefato_modal' title='$artefato_criacao' class='$artefato_classes'><a id='trigger_$artefato_tipo' href='javascript:void(0);' class='$fa_color w-100 $artefato_link_classes' $artefato_value $artefato_template_thumb>";
+			$artefato_link_1 = "<span id='artefato_$artefato_tipo' data-bs-toggle='modal' data-bs-target='$artefato_modal' title='$artefato_criacao' class='$artefato_classes'><a id='trigger_$artefato_tipo' href='javascript:void(0);' class='$fa_color w-100 $artefato_link_classes' $artefato_value $artefato_template_thumb>";
 			$artefato_link_2 = "</a></span>";
 		}
 	}
@@ -155,7 +155,7 @@
         <span class='row justify-content-center d-flex text-center mt-2 p-1 artefato-titulo $titulo_class $artefato_titulo_class'>
         	$artefato_titulo
         </span>
-        <span class='m-0 row justify-content-center d-flex font-italic text-center p-1 $titulo_class $artefato_subtitulo_class'>
+        <span class='m-0 row justify-content-center d-flex fst-italic text-center p-1 $titulo_class $artefato_subtitulo_class'>
             $artefato_subtitulo
         </span>
         $artefato_link_2

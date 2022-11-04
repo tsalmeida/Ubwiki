@@ -14,7 +14,7 @@
 	$artefato_tipo = 'notificar_ativo';
 	$artefato_titulo = $pagina_translated['Notificar'];
 	$fa_icone = 'fa-bell';
-	$fa_color = 'text-warning';
+	$fa_color = 'link-warning';
 	$artefato_class = 'artefato_opcao_notificar';
 	$artefato_col_limit = 'col-4';
 	$template_modal_body_conteudo .= include 'templates/artefato_item.php';

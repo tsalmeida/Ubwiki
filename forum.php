@@ -131,7 +131,7 @@
 
 ?>
 
-<body class="grey lighten-5">
+<body class="bg-light">
 <?php
 	include 'templates/navbar.php';
 	include 'pagina/queries_notificacoes.php';
@@ -140,8 +140,8 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col col-12 d-flex justify-content-end p-1">
-            <a href="javascript:void(0);" class="<?php echo $notificacao_cor; ?> ml-1" data-toggle="modal"
-               data-target="#modal_notificacoes"><i class="fad <?php echo $notificacao_icone; ?> fa-fw"></i></a>
+            <a href="javascript:void(0);" class="<?php echo $notificacao_cor; ?> ms-1" data-bs-toggle="modal"
+               data-bs-target="#modal_notificacoes"><i class="fad <?php echo $notificacao_icone; ?> fa-fw"></i></a>
         </div>
     </div>
 </div>
@@ -232,10 +232,10 @@
 								}
 							}
 						}
-						$template_botoes = "<span data-toggle='modal' data-target='$modal_novo_topico' title='Novo tópico de debate'><a href='javascript:void(0);' class='text-info'><i class='fad fa-plus-square fa-fw'></i></a></span>";
+						$template_botoes = "<span data-bs-toggle='modal' data-bs-target='$modal_novo_topico' title='Novo tópico de debate'><a href='javascript:void(0);' class='link-teal'><i class='fad fa-plus-square fa-fw'></i></a></span>";
 						$template_conteudo .= "
 					        <div class='row d-flex justify-content-center mt-3'>
-						        <span data-toggle='modal' data-target='$modal_novo_topico'><button class='$button_classes btn-info btn-sm'>{$pagina_translated['Novo tópico de debate']}</button></span>
+						        <span data-bs-toggle='modal' data-bs-target='$modal_novo_topico'><button class='$button_classes btn-info btn-sm'>{$pagina_translated['Novo tópico de debate']}</button></span>
 					        </div>
 				        ";
 						
@@ -266,13 +266,13 @@
 						}
 						
 						$template_conteudo .= "
-                            <div class='row grey lighten-4 rounded p-2 mt-1'>
+                            <div class='row bg-light rounded p-2 mt-1'>
                                 <div class='col'>
-                                	<div class='row justify-content-start'><a href='pagina.php?user_id=$topico_user_id' class='text-light'>$topico_user_apelido</a></div>
+                                	<div class='row justify-content-start'><a href='pagina.php?user_id=$topico_user_id' class='link-purple'>$topico_user_apelido</a></div>
                                     <div class='row'>
                                     	<h2 class='col m-0 text-center'>$forum_topico_titulo</h2>
                                     </div>
-                                    <div class='row text-light'>.</div>
+                                    <div class='row link-purple'>.</div>
                                 </div>
                             </div>
                         ";
@@ -293,15 +293,15 @@
 								
 								$template_conteudo .=
 									"
-									  <div class='row grey lighten-4 rounded p-2 mt-1'>
+									  <div class='row bg-light rounded p-2 mt-1'>
 										<div class='col'>
                                             <span class='rounded row justify-content-between'>
-                                              <a href='pagina.php?user_id=$autor_comentario_id' class='ml-1'>
+                                              <a href='pagina.php?user_id=$autor_comentario_id' class='ms-1'>
                                                 <span class='$autor_comentario_cor'>
                                                 <i class='fad $autor_comentario_avatar'></i>
                                                 <span class='text-primary'>$autor_comentario_apelido</span>
                                               </a>
-                                              <span class='text-light comentario-timestamp'>
+                                              <span class='text-black-50 comentario-timestamp fontstack-mono'>
                                                   <em><small>$timestamp_comentario</small></em>
                                               </span>
                                             </span>
@@ -337,7 +337,7 @@
                                         </div>
                                     </section>
                                 </div>
-                                <div class='row rounded border grey lighten-5 mt-1 p-1'>
+                                <div class='row rounded border bg-light mt-1 p-1'>
                                     <section class='sound-clips'></section>
                                 </div>-->
 	                        ";

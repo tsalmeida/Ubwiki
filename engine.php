@@ -320,10 +320,10 @@
 	$coluna_pouco_maior_classes = "col-lg-6 col-md-10 col-sm-11 $coluna_todas";
 	$row_classes = "pt-3 pb-5";
 
-	$tag_ativa_classes = 'text-dark m-1 p-2 lighten-4 rounded remover_tag';
-	$tag_inativa_classes = 'text-dark m-1 p-2 lighten-4 rounded adicionar_tag';
-	$tag_neutra_classes = 'text-dark m-1 p-2 lighten-4 rounded';
-	$tag_inativa_classes2 = 'text-dark m-1 p-2 lighten-4 rounded adicionar_tag2';
+	$tag_ativa_classes = 'text-dark m-1 p-2 rounded remover_tag w-auto';
+	$tag_inativa_classes = 'text-dark m-1 p-2 rounded adicionar_tag w-auto';
+	$tag_neutra_classes = 'text-dark m-1 p-2 rounded w-auto';
+	$tag_inativa_classes2 = 'text-dark m-1 p-2 rounded adicionar_tag2 w-auto';
 
 	if (isset($_POST['bookmark_change'])) {
 		$bookmark_change = $_POST['bookmark_change'];
@@ -518,7 +518,7 @@
 				$elemento_cor_icone = return_etiqueta_cor_icone($elemento_tipo);
 				$elemento_cor = $elemento_cor_icone[0];
 				$elemento_icone = $elemento_cor_icone[1];
-				$busca_resultados .= "<a href='javascript:void(0)' class='$tag_inativa_classes $elemento_cor lighten-4 acrescentar_referencia_bibliografia' value='$elemento_etiqueta_id'><i class='far $elemento_icone fa-fw'></i> $elemento_titulo</a>";
+				$busca_resultados .= "<a href='javascript:void(0)' class='$tag_inativa_classes $elemento_cor acrescentar_referencia_bibliografia' value='$elemento_etiqueta_id'><i class='far $elemento_icone fa-fw'></i> $elemento_titulo</a>";
 			}
 		}
 		echo $busca_resultados;
@@ -966,7 +966,7 @@
 					$usuario_avatar = return_avatar($usuario_id);
 					$usuario_avatar_icone = $usuario_avatar[0];
 					$usuario_avatar_cor = $usuario_avatar[1];
-					echo "<a value='$usuario_id' class='border p-1 mr-2 mb-2 rounded $convite_tipo'><span class='$usuario_avatar_cor'><i class='fad $usuario_avatar_icone fa-fw fa-2x'></i></span> $usuario_apelido</a></a>";
+					echo "<a value='$usuario_id' class='border p-1 me-2 mb-2 rounded $convite_tipo'><span class='$usuario_avatar_cor'><i class='fad $usuario_avatar_icone fa-fw fa-2x'></i></span> $usuario_apelido</a></a>";
 				}
 			} else {
 				echo "<span class='text-muted'>{$pagina_translated['Nenhum usuário encontrado.']}</span>";
@@ -1091,7 +1091,7 @@
 		$etapas = $conn->query($query);
 		$etapas_resultado = false;
 		if ($etapas->num_rows > 0) {
-			$etapas_resultado .= "<span data-toggle='modal' data-target='#modal_vazio_edicoes'><span data-toggle='modal' data-target='#modal_vazio_provas'>";
+			$etapas_resultado .= "<span data-bs-toggle='modal' data-bs-target='#modal_vazio_edicoes'><span data-bs-toggle='modal' data-bs-target='#modal_vazio_provas'>";
 			while ($etapa = $etapas->fetch_assoc()) {
 				$etapa_id = $etapa['id'];
 				$etapa_titulo = $etapa['titulo'];
@@ -1117,7 +1117,7 @@
 		$provas = $conn->query($query);
 		$provas_resultado = false;
 		if ($provas->num_rows > 0) {
-			$provas_resultado .= "<span data-toggle='modal' data-target='#modal_vazio_provas'><span data-toggle='modal' data-target='#modal_vazio_questoes'>";
+			$provas_resultado .= "<span data-bs-toggle='modal' data-bs-target='#modal_vazio_provas'><span data-bs-toggle='modal' data-bs-target='#modal_vazio_questoes'>";
 			while ($prova = $provas->fetch_assoc()) {
 				$prova_id = $prova['id'];
 				$prova_titulo = $prova['titulo'];
@@ -1336,7 +1336,7 @@
 	if (isset($_POST['list_areas_interesse'])) {
 		$areas_interesse_result = false;
 
-		$areas_interesse_result .= "<span data-toggle='modal' data-target='#modal_areas_interesse'>";
+		$areas_interesse_result .= "<span data-bs-toggle='modal' data-bs-target='#modal_areas_interesse'>";
 
 		$areas_interesse_result .= put_together_list_item('link', 'paginas_livres.php', false, 'fad fa-tags', $pagina_translated['freepages encyclopedia'], false, 'fad fa-external-link', 'list-group-item-warning');
 
@@ -1353,7 +1353,7 @@
 
 	if (isset($_POST['list_biblioteca_particular'])) {
 		$list_biblioteca_particular = false;
-		$list_biblioteca_particular .= "<div data-toggle='modal' data-target='#modal_biblioteca_particular'>";
+		$list_biblioteca_particular .= "<div data-bs-toggle='modal' data-bs-target='#modal_biblioteca_particular'>";
 
 		$list_biblioteca_particular .= put_together_list_item('link', 'biblioteca.php', false, 'fad fa-books', $pagina_translated['library'], false, 'fad fa-external-link', 'list-group-item-success');
 
@@ -1384,7 +1384,7 @@
 				$edicao_do_usuario_pagina_titulo = return_pagina_titulo($edicao_do_usuario_pagina_id);
 				$edicao_do_usuario_id = $edicao_do_usuario['id'];
 				$edicao_do_usuario_criacao = $edicao_do_usuario['criacao'];
-				$result .= put_together_list_item('link_button', $edicao_do_usuario_id, 'text-danger', 'fad fa-trash-alt', "<span class='fontstack-mono'>$edicao_do_usuario_criacao:</span> $edicao_do_usuario_pagina_titulo", false, false, false, 'delete_edit', false, false);
+				$result .= put_together_list_item('link_button', $edicao_do_usuario_id, 'link-danger', 'fad fa-trash-alt', "<span class='fontstack-mono'>$edicao_do_usuario_criacao:</span> $edicao_do_usuario_pagina_titulo", false, false, false, 'delete_edit', false, false);
 			}
 			$result = list_wrap($result);
 		}
@@ -1458,11 +1458,11 @@
 		$query = prepare_query("SELECT DISTINCT grupo_id FROM Membros WHERE membro_user_id = $user_id AND estado IS NULL");
 		$convites_ativos = $conn->query($query);
 		$list_grupos_estudo = false;
-		$list_grupos_estudo .= "<span data-toggle='modal' data-target='#modal_grupos_estudo'>";
+		$list_grupos_estudo .= "<span data-bs-toggle='modal' data-bs-target='#modal_grupos_estudo'>";
 		$grupos_algo = false;
 		if ($convites_ativos->num_rows > 0) {
 			$grupos_algo = true;
-			$list_grupos_estudo .= put_together_list_item('modal', '#modal_reagir_convite', 'text-warning', 'fad fa-exclamation-triangle', $pagina_translated['Você recebeu convite para participar de grupos de estudos:'], 'text-muted', 'fad fa-users');
+			$list_grupos_estudo .= put_together_list_item('modal', '#modal_reagir_convite', 'link-warning', 'fad fa-exclamation-triangle', $pagina_translated['Você recebeu convite para participar de grupos de estudos:'], 'text-muted', 'fad fa-users');
 		}
 		$list_grupos_estudo .= put_together_list_item('modal', '#modal_criar_grupo', false, 'fad fa-plus-circle', $pagina_translated['Criar grupo de estudos'], false, 'fad fa-users', 'list-group-item-info');
 		$list_grupos_estudo .= "</span>";
@@ -1582,7 +1582,7 @@
 				}
 				$template_modal_body_conteudo .= return_list_item($notificacao_pagina_id);
 				if ($alteracao_recente_data != false) {
-					$template_modal_body_conteudo .= put_together_list_item('inactive', false, 'text-info', "fad $alteracao_recente_tipo_icone", "$alteracao_recente_usuario_apelido <small class='text-muted'>($alteracao_recente_data)</small>", false, false, 'spacing2');
+					$template_modal_body_conteudo .= put_together_list_item('inactive', false, 'link-teal', "fad $alteracao_recente_tipo_icone", "$alteracao_recente_usuario_apelido <small class='text-muted'>($alteracao_recente_data)</small>", false, false, 'spacing2');
 				}
 				$segunda_alteracao_recente_data = $alteracao_recente[3];
 				if ($segunda_alteracao_recente_data != false) {
@@ -1595,7 +1595,7 @@
 					}
 					$segunda_alteracao_recente_usuario = $alteracao_recente[4];
 					$segunda_alteracao_recente_usuario_apelido = return_apelido_user_id($segunda_alteracao_recente_usuario);
-					$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$notificacao_pagina_id' class='mt-1'><li class='list-group-item list-group-item-action border-top d-flex justify-content-between'><span class='ml-3'><i class='fad $segunda_alteracao_recente_tipo_icone fa-fw'></i> $notificacao_pagina_titulo</span><span class='text-muted'><em>($segunda_alteracao_recente_usuario_apelido) $segunda_alteracao_recente_data</em></span></li></a>";
+					$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$notificacao_pagina_id' class='mt-1'><li class='list-group-item list-group-item-action border-top d-flex justify-content-between'><span class='ms-3'><i class='fad $segunda_alteracao_recente_tipo_icone fa-fw'></i> $notificacao_pagina_titulo</span><span class='text-muted'><em>($segunda_alteracao_recente_usuario_apelido) $segunda_alteracao_recente_data</em></span></li></a>";
 				}
 			}
 		}
@@ -1650,7 +1650,7 @@
 						switch ($pagina_subtipo) {
 							case 'etiqueta':
 								$list_item_color = 'list-group-item-warning';
-								$list_item_icon = 'fa-tag';
+								$list_item_icon = 'fa-tag fa-swap-opacity';
 								break;
 							case 'escritorio':
 								$list_item_color = 'list-group-item-danger';
@@ -1711,7 +1711,7 @@
 				}
 				$list_user_pages .= return_list_item($user_page_id);
 
-				//$list_user_pages .= "<a href='pagina.php?pagina_id=$user_page_id'><li class='list-group-item list-group-item-action'><span class='text-info mr-2 align-middle'><i class='fad fa-columns fa-2x fa-fw'></i></span> $user_page_titulo</li></a>";
+				//$list_user_pages .= "<a href='pagina.php?pagina_id=$user_page_id'><li class='list-group-item list-group-item-action'><span class='link-teal me-2 align-middle'><i class='fad fa-columns fa-2x fa-fw'></i></span> $user_page_titulo</li></a>";
 			}
 		}
 		echo $list_user_pages;
@@ -2006,14 +2006,14 @@
 			while ($pagina_elemento = $pagina_elementos->fetch_assoc()) {
 				$pagina_elemento_estado = $pagina_elemento['estado'];
 				if ($pagina_elemento_estado == 0) {
-					$item_texto_class = 'text-muted font-italic';
+					$item_texto_class = 'text-muted fst-italic';
 					$item_icone = 'fad fa-toggle-off fa-swap-opacity';
 					$item_color = 'text-muted';
 					$item_operacao = 'reativar_elemento_item';
 				} else {
 					$item_texto_class = false;
 					$item_icone = 'fad fa-toggle-on';
-					$item_color = 'text-default';
+					$item_color = 'link-teal';
 					$item_operacao = 'remover_elemento_item';
 				}
 				$item_texto = false;

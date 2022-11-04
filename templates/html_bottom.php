@@ -323,8 +323,8 @@
 				});
 				$(document).on('click', '.adicionar_materia', function() {
 			      var this_id = $(this).attr('value');
-			      $(this).removeClass('amber');
-			      $(this).addClass('green');
+			      $(this).removeClass('bg-warning-light');
+			      $(this).addClass('bg-success-light');
 			      $.post('engine.php', {
 			         'curso_nova_materia_id': this_id,
 			         'curso_nova_materia_pagina_id': $pagina_id,
@@ -378,8 +378,8 @@
 			$(document).on('click', '.adicionar_topico', function() {
 				$(this).prop('disabled', true);
 				var this_id = $(this).attr('value');
-				$(this).removeClass('amber');
-				$(this).addClass('green');
+				$(this).removeClass('bg-warning-light');
+				$(this).addClass('bg-success-light');
 				$.post('engine.php', {
 					'curso_novo_topico_id': this_id,
 					'curso_novo_topico_pagina_id': $pagina_id,
@@ -432,8 +432,8 @@
 				});
 				$(document).on('click', '.adicionar_subtopico', function() {
 			      var this_id = $(this).attr('value');
-			      $(this).removeClass('amber');
-			      $(this).addClass('green');
+			      $(this).removeClass('bg-warning-light');
+			      $(this).addClass('bg-success-light');
 			      $.post('engine.php', {
 			         'curso_novo_subtopico_id': this_id,
 			         'curso_novo_subtopico_pagina_id': $pagina_id,
@@ -568,7 +568,7 @@
 		echo "
 			<script type='text/javascript'>
 				$(document).ready(function() {
-					$('.ql-toolbar').addClass('sticky-top grey lighten-4 text-white border rounded border-0 mt-1');
+					$('.ql-toolbar').addClass('sticky-top bg-light text-white border rounded border-0 mt-1');
 		    });
 			</script>
 		";
@@ -1180,21 +1180,21 @@
 				});
 				function into_sepia() {
 					$('.swatch_button').attr('value', 'dark');
-					$('.ql-editor').addClass('orange p-1 lighten-5 brown-text rounded fontstack-body-serif');
-					$('.swatch_button').removeClass('brown-text orange lighten-5 unique-color-dark yellow-text bg-white text-dark');
-					$('.swatch_button').addClass('brown-text orange lighten-5');
+					$('.ql-editor').addClass('bg-sepia p-1 brown-text rounded fontstack-body-serif');
+					$('.swatch_button').removeClass('brown-text bg-sepia bg-dark text-warning text-dark bg-white');
+					$('.swatch_button').addClass('bg-sepia brown-text');
 				}
 				function into_dark() {
 					$('.swatch_button').attr('value', 'default');
-					$('.ql-editor').removeClass('orange lighten-5 brown-text fontstack-body-serif');
-					$('.ql-editor').addClass('unique-color-dark yellow-text fontstack-mono p-1 rounded');
-					$('.swatch_button').removeClass('brown-text orange lighten-5 unique-color-dark yellow-text bg-white text-dark');
-					$('.swatch_button').addClass('unique-color-dark yellow-text');
+					$('.ql-editor').removeClass('bg-sepia brown-text fontstack-body-serif');
+					$('.ql-editor').addClass('bg-dark text-warning fontstack-mono p-1 rounded');
+					$('.swatch_button').removeClass('brown-text bg-sepia bg-dark text-warning text-dark bg-white');
+					$('.swatch_button').addClass('bg-dark text-warning');
 				}
 				function into_default() {
 					$('.swatch_button').attr('value', 'sepia');
-					$('.ql-editor').removeClass('p-1 unique-color-dark yellow-text fontstack-mono');
-					$('.swatch_button').removeClass('brown-text orange lighten-5 unique-color-dark yellow-text bg-white text-dark');
+					$('.ql-editor').removeClass('p-1 bg-dark text-warning fontstack-mono');
+					$('.swatch_button').removeClass('brown-text bg-sepia bg-dark text-warning text-dark bg-white');
 					$('.swatch_button').addClass('bg-white text-dark');
 				}
 				$(document).on('click', '.swatch_button', function() {

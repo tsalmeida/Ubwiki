@@ -23,7 +23,7 @@
     <div class='row'>
         <div class='container col-12'>
             <div id='quill_container_novo_{$sim_quill_id}'>
-                <div id='quill_editor_novo_{$sim_quill_id}' class='quill_editor_height border border-light ql-editor-active'>
+                <div id='quill_editor_novo_{$sim_quill_id}' class='quill_editor_height border ql-editor-active'>
                 </div>
             </div>
         </div>

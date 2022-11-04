@@ -6,7 +6,7 @@
 
 	include 'templates/html_head.php';
 ?>
-<body class="grey lighten-5">
+<body class="bg-light">
 <?php
 	include 'templates/navbar.php';
 ?>

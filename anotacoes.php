@@ -24,7 +24,7 @@
 	include 'templates/html_head.php';
 	include 'templates/navbar.php';
 ?>
-<body class="grey lighten-5">
+<body class="bg-light">
 <div class="container mt-1">
 	<?php
 		$template_titulo = $pagina_titulo;
@@ -52,7 +52,7 @@
 						if ($anotacao_score_usuario == 0) {
 							$thumbs_color = 'text-muted';
 						} else {
-							$thumbs_color = 'text-success';
+							$thumbs_color = 'link-success';
 						}
 						$template_botoes .= "<a class='$thumbs_color fontstack-subtitle upvote' id='upvote_$anotacao_publicada_id' value='$anotacao_publicada_id'><i class='fad fa-thumbs-up fa-fw'></i><span class='upvote_score' id='upvote_$anotacao_publicada_id'>$anotacao_score</span></a>";
 						if ($anotacao_publicada_anonimato == true) {

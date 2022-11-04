@@ -8,7 +8,7 @@
 	$template_modal_show_buttons = false;
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "
-		  	<span id='esconder_adicionar_elemento' data-toggle='modal' data-target='#modal_add_elementos' class='row justify-content-center'>";
+		  	<span id='esconder_adicionar_elemento' data-bs-toggle='modal' data-bs-target='#modal_add_elementos' class='row justify-content-center'>";
 
 	if ($pagina_tipo != 'texto') {
 
@@ -164,7 +164,7 @@
 		$modal_scrollable = true;
 		$template_modal_show_buttons = false;
 		$template_modal_body_conteudo = false;
-		$template_modal_body_conteudo .= "<span data-toggle='modal' data-target='#modal_selecionar_subtipo'><div class='row d-flex justify-content-center'>";
+		$template_modal_body_conteudo .= "<span data-bs-toggle='modal' data-bs-target='#modal_selecionar_subtipo'><div class='row d-flex justify-content-center'>";
 		$subtipo_artefato_modal = '#modal_buscar_elemento';
 		include 'pagina/elemento_subtipos.php';
 		$template_modal_body_conteudo .= "</div></span>";

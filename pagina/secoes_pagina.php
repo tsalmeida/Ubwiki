@@ -5,7 +5,7 @@
 	$imprimir_secoes = false;
 	$template_id = 'partes_elemento';
 	if ($privilegio_edicao == true) {
-		$template_botoes = "<a data-toggle='modal' data-target='#modal_partes_form' href='javascript:void(0);' class='text-default' title='{}'><i class='fad fa-plus-square fa-fw'></i></a>";
+		$template_botoes = "<a data-bs-toggle='modal' data-bs-target='#modal_partes_form' href='javascript:void(0);' class='link-teal' title='{}'><i class='fad fa-plus-square fa-fw'></i></a>";
 	}
 	$template_conteudo = false;
 	if ($secoes->num_rows > 0) {

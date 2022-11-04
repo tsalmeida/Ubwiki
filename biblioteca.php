@@ -21,7 +21,7 @@
 	include 'pagina/shared_issets.php';
 
 ?>
-<body class="grey lighten-5">
+<body class="bg-light">
 <?php
 	include 'templates/navbar.php';
 	if ($user_id != false) {
@@ -34,17 +34,17 @@
     <div class="row d-flex justify-content-between p-1">
         <div class="col">
             <div class="row d-flex justify-content-start">
-                <a data-toggle='modal' data-target='<?php echo $modal_add_elementos; ?>' class='text-success ml-1 mostrar_categorias'
+                <a data-bs-toggle='modal' data-bs-target='<?php echo $modal_add_elementos; ?>' class='link-success ms-1 mostrar_categorias'
                    title='<?php echo $pagina_translated['Adicionar item à biblioteca']; ?>' href='javascript:void(0);'><i
                             class='fad fa-plus-circle fa-2x fa-fw'></i></a>
             </div>
         </div>
         <div class="col d-flex justify-content-center">
-            <a href="javascript:void(0);" data-toggle="modal" data-target="#modal_busca" class="text-dark"><i
+            <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#modal_busca" class="text-dark"><i
                         class="fad fa-search fa-fw"></i></a></div>
         <div class='col d-flex justify-content-end'>
-            <a href='javascript:void(0);' data-toggle='modal' data-target='#modal_listar_itens'
-               class='ml-1 text-info esconder_subcategorias'><i class='fad fa-eye fa-2x fa-fw'></i></a>
+            <a href='javascript:void(0);' data-bs-toggle='modal' data-bs-target='#modal_listar_itens'
+               class='ms-1 link-teal esconder_subcategorias'><i class='fad fa-eye fa-2x fa-fw'></i></a>
         </div>
     </div>
 </div>
@@ -81,7 +81,7 @@
 							$artefato_id = 'adicionar_item_biblioteca';
 							$artefato_titulo = $pagina_translated['Adicionar item'];
 							$fa_icone = 'fa-plus-circle';
-							$fa_color = 'text-info';
+							$fa_color = 'link-teal';
 							$artefato_criacao = $pagina_translated['Pressione para adicionar um item à biblioteca'];
 							$artefato_tipo = 'nova_referencia';
 							$artefato_modal = $modal_add_elementos;
@@ -127,7 +127,7 @@
 							$template_titulo = $pagina_translated['Recentemente adicionados'];
 							$template_conteudo_class = 'justify-content-start';
 							$template_botoes = "
-								  <a data-toggle='modal' data-target='$modal_add_elementos' class='text-success ml-1 mostrar_categorias' title='{$pagina_translated['Adicionar item à biblioteca']}' href='javascript:void(0);'><i class='fad fa-plus-square fa-fw'></i></a>
+								  <a data-bs-toggle='modal' data-bs-target='$modal_add_elementos' class='link-success ms-1 mostrar_categorias' title='{$pagina_translated['Adicionar item à biblioteca']}' href='javascript:void(0);'><i class='fad fa-plus-square fa-fw'></i></a>
 								";
 							$template_conteudo_no_col = true;
 							$template_conteudo = false;
@@ -175,7 +175,7 @@
 							$template_conteudo_no_col = true;
 							$template_conteudo = false;
 							$template_botoes = "
-								<a data-toggle='modal' data-target='$modal_add_elementos' class='text-success ml-1 mostrar_categorias' title='Adicionar item à biblioteca' href='javascript:void(0);'><i class='fad fa-plus-square fa-fw'></i></a>
+								<a data-bs-toggle='modal' data-bs-target='$modal_add_elementos' class='link-success ms-1 mostrar_categorias' title='Adicionar item à biblioteca' href='javascript:void(0);'><i class='fad fa-plus-square fa-fw'></i></a>
 							";
 							/*
 							$artefato_id = 'adicionar_item_biblioteca';
@@ -265,20 +265,20 @@
 	$artefato_name = 'trigger_listar_todas';
 	$artefato_class = 'mb-1';
 	$fa_icone = 'fa-asterisk';
-	$fa_color = 'text-secondary';
+	$fa_color = 'link-purple';
 	$fa_size = 'fa-3x';
 	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	
 	$template_modal_body_conteudo .= "</form>";
 	
-	$template_modal_body_conteudo .= "<div class='row d-flex justify-content-start rounded grey lighten-5 mb-3'>";
+	$template_modal_body_conteudo .= "<div class='row d-flex justify-content-start rounded bg-light mb-3'>";
 	
 	$artefato_tipo = 'listar_referencias';
 	$artefato_titulo = $pagina_translated['Material de leitura'];
 	$artefato_class = 'selecionar_listar';
 	$artefato_col_limit = $lista_col_limit;
 	$fa_icone = 'fa-glasses';
-	$fa_color = 'text-success';
+	$fa_color = 'link-success';
 	$fa_size = 'fa-3x';
 	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	
@@ -287,7 +287,7 @@
 	$artefato_class = 'ativo_listar hidden';
 	$artefato_col_limit = $lista_col_limit;
 	$fa_icone = 'fa-glasses';
-	$artefato_icone_background = 'rgba-green-strong';
+	$artefato_icone_background = 'bg-success';
 	$fa_color = 'text-white';
 	$fa_size = 'fa-3x';
 	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
@@ -297,7 +297,7 @@
 	$artefato_class = 'selecionar_listar';
 	$artefato_col_limit = $lista_col_limit;
 	$fa_icone = 'fa-volume-up';
-	$fa_color = 'text-warning';
+	$fa_color = 'link-warning';
 	$fa_size = 'fa-3x';
 	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	
@@ -306,7 +306,7 @@
 	$artefato_class = 'ativo_listar hidden';
 	$artefato_col_limit = $lista_col_limit;
 	$fa_icone = 'fa-volume-up';
-	$artefato_icone_background = 'rgba-orange-strong';
+	$artefato_icone_background = 'bg-warning';
 	$fa_color = 'text-white';
 	$fa_size = 'fa-3x';
 	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
@@ -316,7 +316,7 @@
 	$artefato_class = 'selecionar_listar';
 	$artefato_col_limit = $lista_col_limit;
 	$fa_icone = 'fa-images';
-	$fa_color = 'text-danger';
+	$fa_color = 'link-danger';
 	$fa_size = 'fa-3x';
 	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	
@@ -325,7 +325,7 @@
 	$artefato_class = 'ativo_listar hidden';
 	$artefato_col_limit = $lista_col_limit;
 	$fa_icone = 'fa-images';
-	$artefato_icone_background = 'rgba-red-strong';
+	$artefato_icone_background = 'bg-danger';
 	$fa_color = 'text-white';
 	$fa_size = 'fa-3x';
 	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
@@ -335,7 +335,7 @@
 	$artefato_class = 'selecionar_listar';
 	$artefato_col_limit = $lista_col_limit;
 	$fa_icone = 'fa-play-circle';
-	$fa_color = 'text-info';
+	$fa_color = 'link-teal';
 	$fa_size = 'fa-3x';
 	$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 	
@@ -344,7 +344,7 @@
 	$artefato_class = 'ativo_listar hidden';
 	$artefato_col_limit = $lista_col_limit;
 	$fa_icone = 'fa-play-circle';
-	$artefato_icone_background = 'rgba-cyan-strong';
+	$artefato_icone_background = 'bg-info';
 	$fa_color = 'text-white';
 	$fa_size = 'fa-3x';
 	$template_modal_body_conteudo .= include 'templates/artefato_item.php';

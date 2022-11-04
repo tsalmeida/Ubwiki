@@ -12,7 +12,7 @@
 		$artefato_titulo = $pagina_translated['Gerenciar membros'];
 		$artefato_modal = '#modal_convidar_ou_remover';
 		$fa_icone = 'fa-users-cog';
-		$fa_color = 'text-default';
+		$fa_color = 'link-teal';
 		$artefato_link = false;
 		$artefato_criacao = false;
 		$template_conteudo .= include 'templates/artefato_item.php';
@@ -33,7 +33,7 @@
 			$fa_color = $avatar_info[1];
 			
 			if (is_null($membro_estado)) {
-				$fa_color = 'text-light';
+				$fa_color = 'link-purple';
 				$artefato_subtitulo = $pagina_translated['Convite enviado'];
 			}
 			

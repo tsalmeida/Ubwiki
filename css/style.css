@@ -3,6 +3,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+a {
+  text-decoration: none;
+}
+
 .fontstack-subtitle {
   font-family: "Oswald", Arial, serif !important;
   font-weight: 200 !important;
@@ -462,7 +466,7 @@ a.text-muted:hover {
 }
 
 .comentario-timestamp:hover {
-  color: #191919 !important;
+  color: black !important;
   cursor: default;
   font-size: inherit !important;
 }
@@ -617,6 +621,70 @@ ul {
 
 .print-limit {
   width: 60ch;
+}
+
+.link-purple, .link-purple {
+  color: #6f42c1 !important;
+}
+
+.link-purple:hover {
+  color: #520dc2 !important;
+}
+
+.bg-purple {
+  background-color: #6f42c1 !important;
+}
+
+.link-teal, .link-teal {
+  color: #20c997 !important;
+}
+
+.link-teal:hover {
+  color: #1aa179 !important;
+}
+
+.bg-teal {
+  background-color: #20c997 !important;
+}
+
+.bg-orange {
+  background-color: #fd7e14 !important;
+}
+
+.brown-text {
+  color: #795548 !important;
+}
+
+.bg-sepia {
+  background-color: #fff3e0 !important;
+}
+
+.bg-info-light {
+  background-color: #cff4fc !important;
+}
+
+.bg-primary-light {
+  background-color: #cfe2ff !important;
+}
+
+.bg-warning-light {
+  background-color: #fff3cd !important;
+}
+
+.bg-danger-light {
+  background-color: #f8d7da !important;
+}
+
+.bg-success-light {
+  background-color: #d1e7dd !important;
+}
+
+.bg-purple-light {
+  background-color: #e2d9f3 !important;
+}
+
+.bg-teal-light {
+  background-color: #d2f4ea !important;
 }
 
 .primary-lighter-hover {
