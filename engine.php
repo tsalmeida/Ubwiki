@@ -1,5 +1,7 @@
 <?php
 
+	error_log("engine.php loads");
+
 	if (!isset($pagina_tipo)) {
 		$pagina_tipo = false;
 	}
@@ -1757,63 +1759,6 @@
 		echo true;
 	}
 
-	if (isset($_POST['nxst_cmd'])) {
-		$nexus_id = return_pagina_id($user_id, 'nexus');
-		$nxst_cmd = $_POST['nxst_cmd'];
-		if (isset($_POST['nxst_pm1'])) {
-			$nxst_pm1 = $_POST['nxst_pm1'];
-		} else {
-			$nxst_pm1 = "NULL";
-		}
-		if (isset($_POST['nxst_pm2'])) {
-			$nxst_pm2 = $_POST['nxst_pm2'];
-		} else {
-			$nxst_pm2 = "NULL";
-		}
-		if (isset($_POST['nxst_pm3'])) {
-			$nxst_pm3 = $_POST['nxst_pm3'];
-		} else {
-			$nxst_pm3 = "NULL";
-		}
-		if ($nxst_cmd == 'add link title url') {
-			$element_id = false;
-			$query = prepare_query("SELECT id FROM Nexus_elements WHERE cmd = '$nxst_cmd' AND pm1 = '$nxst_pm1' AND pm2 = '$nxst_pm2' AND pm3 = '$nxst_pm3'");
-			$elements = $conn->query($query);
-			if ($elements->num_rows > 0) {
-				while ($element = $elements->fetch_assoc()) {
-					$element_id = $element['id'];
-				}
-			} else {
-				$query = prepare_query("INSERT INTO Nexus_elements (cmd, pm1, pm2, pm3, user_id) VALUES ('$nxst_cmd', '$nxst_pm1', '$nxst_pm2', '$nxst_pm3', $user_id)");
-				$conn->query($query);
-				$element_id = $conn->insert_id;
-			}
-			if ($element_id != false) {
-				$query = prepare_query("INSERT INTO Nexus_pages (pagina_id, element_id) VALUES ($nexus_id, $element_id)");
-				$conn->query($query);
-			}
-		} elseif ($nxst_cmd == 'go') {
-			$query = prepare_query("SELECT DISTINCT pm2 FROM Nexus_elements WHERE user_id = $user_id AND pm1 = '$nxst_pm1' AND cmd = 'add link title url' ORDER BY id DESC");
-			$element_links = $conn->query($query);
-			if ($element_links->num_rows > 0) {
-				while ($element_link = $element_links->fetch_assoc()) {
-					$element_link_pm2 = $element_link['pm2'];
-					$result = json_encode(array('open_link', $element_link_pm2));
-					break;
-				}
-			} else {
-				$result = json_encode(array('alert', 'link not found'));
-			}
-			echo $result;
-		} elseif ($nxst_cmd == 'set title confirm') {
-			$query = prepare_query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($nexus_id, 'pagina', 'titulo', '$nxst_pm1', $user_id)");
-			$conn->query($query);
-			echo json_encode(array('change_page_title', $nxst_pm1));
-		} else {
-			//echo json_encode(array('alert', $nxst_cmd));
-		}
-	}
-
 	if (isset($_POST['publicar_modelo'])) {
 		$check = false;
 		$publicar_modelo_pagina_id = $_POST['publicar_modelo'];
@@ -2082,7 +2027,123 @@
 	if (isset($_POST['change_color'])) {
 		$change_color = $_POST['change_color'];
 		$_SESSION['user_opcoes']['quill_colors'][1] = $change_color;
-		$conn->query("UPDATE Opcoes SET opcao_string = '$change_color' WHERE user_id = $user_id AND opcao_tipo = 'quill_colors'");
+		$query = prepare_query("UPDATE Opcoes SET opcao_string = '$change_color' WHERE user_id = $user_id AND opcao_tipo = 'quill_colors'");
+		$conn->query($query);
+	}
+
+	if (isset($_POST['list_nexus_links'])) {
+		echo "
+			<form method='post'>
+				<h3></h3>
+				<p></p>
+				<div class='mb-3'>
+					<label class='form-label' for='nexus_new_link_url'>Paste your link url:</label>
+					<input type='url' class='form-control' id='nexus_new_link_url' name='nexus_new_link_url'>
+				</div>
+				<button type='button' class='btn btn-info col-4 mx-auto' id='trigger_suggest_title'>Suggest title</button>
+				<div class='mb-3'>
+					<label class='form-label' for='nexus_new_link_title'>Link title:</label>
+					<input type='text' class='form-control' id='nexus_new_link_title' name='nexus_new_link_title'>
+				</div>
+				<div class='mb-3'>
+				<label class='form-label' for='nexus_new_link_location'>Where to place your new link?</label>
+				<select id='nexus_new_link_location' name='nexus_new_link_localtion' class='form-select mb-3'>
+					<option selected value='linkdump'>Link dump</option>";
+
+					$query = prepare_query("SELECT id, title, icon, color FROM nexus_folders WHERE user_id = $user_id AND pagina_id = {$_SESSION['user_nexus_pagina_id']}");
+					$user_nexus_folders_info = $conn->query($query);
+					if ($user_nexus_folders_info->num_rows > 0) {
+						while ($user_nexus_folder_info = $user_nexus_folders_info->fetch_assoc()) {
+							$user_nexus_folder_id = $user_nexus_folder_info['id'];
+							$user_nexus_folder_title = $user_nexus_folder_info['title'];
+							$user_nexus_folder_icon = $user_nexus_folder_info['icon'];
+							$user_nexus_folder_color = $user_nexus_folder_info['color'];
+							echo "<option value='$user_nexus_folder_id'>$user_nexus_folder_title</option>";
+						}
+					} else {
+						echo "<option disabled>You have not created any folders.</option>";
+					}
+
+
+			echo "
+				</select>
+				</div>
+				<button type='submit' class='btn btn-primary col-6 mx-auto'>Add link</button>
+			</form>
+		";
+	}
+
+	if (isset($_POST['scan_new_link'])) {
+		$new_link_title = get_title($_POST['scan_new_link']);
+		unset($_POST['scan_new_link']);
+		echo $new_link_title;
+	}
+
+	if (isset($_POST['list_nexus_folders'])) {
+		echo "
+			<form method='post'>
+				<h3>Add folder</h3>
+				<p>To add new folders, fill-in the form below:</p>
+				<div class='mb-3'>
+					<label class='form-label' for='nexus_new_folder_title'>Name of your new folder:</label>
+					<input type='text' class='form-control' id='nexus_new_folder_title' name='nexus_new_folder_title'>
+				</div>
+				<select id='nexus_new_folder_icon' name='nexus_new_folder_icon' class='form-select mb-3'>
+					<option selected disabled>Select an icon</option>";
+		echo "
+					<option value='fad fa-circle-quarters'>Circle-quarters</option>
+					<option value='fad fa-triangle fa-swap-opacity'>Triangle</option>
+					<option value='fad fa-square fa-swap-opacity'>Square</option>
+					<option value='fad fa-hexagon fa-swap-opacity'>Hexagon</option>
+					<option value='fad fa-circle-notch fa-swap-opacity'>Circle-notch</option>
+					<option value='fad fa-circle-dashed'>Circle-dashed</option>
+					<option value='fad fa-circle-dot'>Circle-dot</option>
+					<option value='fad fa-shield-halved'>Shield-halved</option>
+					<option value='fad fa-box-archive'>Box-archive</option>
+					<option value='fad fa-cube'>Cube</option>
+					<option value='fad fa-planet-ringed'>Planet-ringed</option>
+					<option value='fad fa-solar-system'>Solar-system</option>
+					<option value='fad fa-moon-over-sun'>Moon-over-sun</option>
+					<option value='fad fa-meteor'>Meteor</option>
+					<option value='fad fa-eclipse'>Eclipse</option>
+					<option value='fad fa-comet'>Comet</option>";
+		echo "</select>
+				<select id='nexus_new_folder_color' name='nexus_new_folder_color' class='form-select mb-3'>
+					<option selected disabled>Select a color</option>
+					<option value='link-danger'>Red</option>
+					<option value='link-warning'>Yellow</option>
+					<option value='link-success'>Green</option>
+					<option value='link-primary'>Blue</option>
+					<option value='link-teal'>Teal</option>
+					<option value='link-info'>Cyan</option>
+					<option value='link-purple'>Purple</option>
+					<option value='link-dark'>Black</option>
+				</select>
+				<button type='submit' class='btn btn-primary col-6 mx-auto'>Create folder</button>
+			</form>
+			<hr>
+			<h3>Remove folder</h3>
+			<form method='post'>
+				<p>When you remove a folder, all links that had been added to it are also removed, though you can still find everything in the log.</p>
+				<select id='nexus_del_folder_id' name='nexus_del_folder_id' class='form-select mb-3'>
+					<option selected disabled>Select a folder to remove</option>
+		";
+		$query = prepare_query("SELECT id, title, icon, color FROM nexus_folders WHERE user_id = $user_id AND pagina_id = {$_SESSION['user_nexus_pagina_id']}");
+		$user_nexus_folders_info = $conn->query($query);
+		if ($user_nexus_folders_info->num_rows > 0) {
+			while ($user_nexus_folder_info = $user_nexus_folders_info->fetch_assoc()) {
+				$user_nexus_folder_id = $user_nexus_folder_info['id'];
+				$user_nexus_folder_title = $user_nexus_folder_info['title'];
+				$user_nexus_folder_icon = $user_nexus_folder_info['icon'];
+				$user_nexus_folder_color = $user_nexus_folder_info['color'];
+				echo "<option value='$user_nexus_folder_id'>$user_nexus_folder_title, $user_nexus_folder_icon, $user_nexus_folder_color</option>";
+			}
+			echo "</select>";
+			echo "<button type='submit' class='btn btn-danger col-6 mx-auto'>Delete folder</button>";
+			echo "</form>";
+		} else {
+			echo "<p>No folders found.</p>";
+		}
 	}
 
 ?>

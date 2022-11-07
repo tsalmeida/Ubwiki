@@ -19,7 +19,6 @@
 	}
 	
 	include 'pagina/shared_issets.php';
-
 ?>
 <body class="bg-light">
 <?php

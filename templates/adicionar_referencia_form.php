@@ -6,8 +6,8 @@
 		$adicionar_referencia_form_botao = $pagina_translated['Adicionar referência'];
 	}
 	$form_return = false;
-	
-	$form_return .=  "
+
+	$form_return .= "
 		<p>{$pagina_translated['Antes de criar uma referência, é necessário usar a ferramenta de busca, para garantir que não haja duplicidade em nosso banco de dados.']}</p>
 		<div class='mb-3'>
 	    <label for='busca_referencias' class='form-label'>$adicionar_referencia_busca_texto</label>
@@ -36,9 +36,8 @@
         <div class='mb-3'>
           <label for='criar_referencia_autor' class='form-label'>{$pagina_translated['Autor da nova referência (opcional)']}</label>
           <input type='text' class='form-control' name='criar_referencia_autor' id='criar_referencia_autor'>
-          
+	  	</div>
           <button type='button' class='$button_classes btn-info' id='trigger_buscar_autores'>{$pagina_translated['Buscar']}</button>
-        </div>
         <div class='row border p-1' id='autores_disponiveis'>
         </div>
         <input type='hidden' id='criar_referencia_tipo' name='criar_referencia_tipo' value='referencia'>

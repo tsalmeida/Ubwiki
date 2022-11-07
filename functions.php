@@ -886,7 +886,6 @@
 		}
 	}
 
-
 	function return_avatar($user_id)
 	{
 		if ($user_id == false) {
@@ -922,8 +921,8 @@
 		}
 		include 'templates/criar_conn.php';
 		if ($tipo == 'elemento') {
-			$elemento_info = return_elemento_info($item_id);
-			if ($elemento_info == false) {
+			$elemento_etiqueta_id = return_elemento_etiqueta_id($item_id);
+			if ($elemento_etiqueta_id == false) {
 				return false;
 			}
 			$elementos = $conn->query("SELECT pagina_id FROM Elementos WHERE id = $item_id AND pagina_id IS NOT NULL");
@@ -2362,7 +2361,7 @@
 			</a>";
 		} elseif ($type == 'modal') {
 			return "
-			<a data-bs-toggle='modal' data-bs-target='$link' class='$link_classes'>
+			<a data-bs-toggle='modal' data-bs-target='$link' class='$link_classes' href='javascript:void(0);'>
 				<li class='list-group-item list-group-item-action $item_classes p-1 py-2 $dflex border-0'>
 					<span class='$fix_things'>
 						<span class='$cor_icone_principal align-center icone-lista'>
@@ -3362,4 +3361,23 @@
 		$query = mysqli_real_escape_string($conn, $query);
 		$check = $conn->query($query);
 		return $check;
+	}
+
+	function get_title($url)
+	{
+		if (filter_var($url, FILTER_VALIDATE_URL)) {
+			$str = file_get_contents($url);
+			if ($str == false) {
+				return false;
+			} else {
+				if (strlen($str) > 0) {
+					$str = trim(preg_replace('/\s+/', ' ', $str)); // supports line breaks inside <title>
+					preg_match("/\<title\>(.*)\<\/title\>/i", $str, $title); // ignore case
+					return $title[1];
+				}
+			}
+		} else {
+			return false;
+		}
+
 	}

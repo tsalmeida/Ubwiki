@@ -23,6 +23,7 @@
 
 	switch ($pagina_tipo) {
 		case "nexus":
+			echo $print_folders_small;
 			break;
 		case "curso":
 			break;
