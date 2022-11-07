@@ -1,6 +1,54 @@
 <?php
+
 	$query = prepare_query("SELECT DISTINCT elemento_id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'imagem' AND estado = 1");
 	$imagens = $conn->query($query);
+	$imagens_count = $imagens->num_rows;
+	if ($imagens_count == 0) {
+		return;
+	}
+
+	$template_id = 'imagens';
+	$template_titulo = $pagina_translated['Imagens'];
+	$template_botoes = false;
+	$template_conteudo = false;
+	$template_conteudo .= "
+	<div id=\"carousel-imagens\" class=\"carousel slide\" data-bs-ride=\"carousel\">
+	  <div class=\"carousel-inner\" align='center'>";
+	$active = "active";
+	while ($imagem = $imagens->fetch_assoc()) {
+		$elemento_id = $imagem['elemento_id'];
+		$elemento_info = return_elemento_info($elemento_id);
+		$template_conteudo .= "
+		
+			<div class='carousel-item $active bg-light border rounded'>
+				<a href='pagina.php?pagina_id={$elemento_info[19]}' target='_blank'>
+					<img src='/../imagens/verbetes/thumbnails/{$elemento_info[11]}' class='mx-auto'>
+				</a>
+				<div class='carousel-caption d-none d-md-block link-white rounded transparent-background p-1 mt-5'>
+					<h5 class='m-0'>{$elemento_info[4]}</h5>
+				</div>
+			
+			</div>
+		";
+		$active = false;
+	}
+	$template_conteudo .= "</div>";
+	$template_conteudo .= "
+		<button class=\"carousel-control-prev transparent-background\" type=\"button\" data-bs-target='#carousel-imagens' data-bs-slide='prev'>
+			<span class=\"carousel-control-prev-icon\" aria-hidden=\"true\"></span>
+			<span class=\"visually-hidden\">Previous</span>
+		</button>
+		<button class=\"carousel-control-next transparent-background\" type=\"button\" data-bs-target='#carousel-imagens' data-bs-slide='next'>
+			<span class=\"carousel-control-next-icon\" aria-hidden=\"true\"></span>
+			<span class=\"visually-hidden\">Next</span>
+		</button>
+	";
+	$template_conteudo .= "</div>";
+
+	include 'templates/page_element.php';
+
+	return;
+
 	$count = 0;
 	if ($imagens->num_rows > 0) {
 		$template_id = 'imagens';
@@ -39,7 +87,7 @@
 					}
 					if ($count == 1) {
 						$template_conteudo .= "
-                                                <div id='carousel-imagens' class='carousel slide carousel-multi-item mb-0' data-ride='carousel'>
+											<div id='carousel-imagens' class='carousel slide carousel-multi-item mb-0' data-ride='carousel'>
                                                 <div class='carousel-inner' role='listbox'>
                                             ";
 					}
@@ -77,5 +125,5 @@
 		}
 		include 'templates/page_element.php';
 	}
-	
-	?>
+
+?>

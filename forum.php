@@ -299,7 +299,7 @@
                                               <a href='pagina.php?user_id=$autor_comentario_id' class='ms-1'>
                                                 <span class='$autor_comentario_cor'>
                                                 <i class='fad $autor_comentario_avatar'></i>
-                                                <span class='text-primary'>$autor_comentario_apelido</span>
+                                                <span class='link-primary'>$autor_comentario_apelido</span>
                                               </a>
                                               <span class='text-black-50 comentario-timestamp fontstack-mono'>
                                                   <em><small>$timestamp_comentario</small></em>

@@ -113,7 +113,7 @@
 				$artefato_col_limit = 'col-lg-4';
 				$artefato_link = 'traducoes.php';
 				$fa_icone = 'fa-language';
-				$fa_color = 'text-primary';
+				$fa_color = 'link-primary';
 				$template_conteudo .= include 'templates/artefato_item.php';
 
 				$template_conteudo .= "</div>";

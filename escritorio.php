@@ -77,7 +77,7 @@
 	}
 
 	if (isset($_POST['selecionar_cor'])) {
-		$acceptable_avatar_colors = array('text-primary', 'link-danger', 'link-success', 'link-warning', 'link-purple', 'link-teal', 'link-teal', 'text-dark');
+		$acceptable_avatar_colors = array('link-primary', 'link-danger', 'link-success', 'link-warning', 'link-purple', 'link-teal', 'link-teal', 'text-dark');
 		$nova_cor = $_POST['selecionar_cor'];
 		if (in_array($nova_cor, $acceptable_avatar_colors)) {
 			$_SESSION['user_avatar_cor'] = $_POST['selecionar_cor'];
@@ -522,7 +522,7 @@
 		</select>
 		<select name='selecionar_cor' class='$select_classes form-select'>
 			<option disabled selected value=''>{$pagina_translated['Cor do seu avatar']}</option>
-			<option value='text-primary'>{$pagina_translated['Azul']}</option>
+			<option value='link-primary'>{$pagina_translated['Azul']}</option>
 			<option value='link-danger'>{$pagina_translated['Vermelho']}</option>
 			<option value='link-success'>{$pagina_translated['Verde']}</option>
 			<option value='link-warning'>{$pagina_translated['Amarelo']}</option>
@@ -672,15 +672,15 @@
 
 	$oferta_link = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=N9U85AQL7RBF8";
 	$oferta_texto = "Comprar 100 Créditos Ubwiki por R$ 100";
-	$template_modal_body_conteudo .= put_together_list_item('link_blank', $oferta_link, 'text-primary', 'fad fa-external-link', $oferta_texto, false, false, false);
+	$template_modal_body_conteudo .= put_together_list_item('link_blank', $oferta_link, 'link-primary', 'fad fa-external-link', $oferta_texto, false, false, false);
 
 	$oferta_link = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=43NNZHEDD6278";
 	$oferta_texto = "Comprar 300 Créditos Ubwiki por R$ 285";
-	$template_modal_body_conteudo .= put_together_list_item('link_blank', $oferta_link, 'text-primary', 'fad fa-external-link', $oferta_texto, false, false, false);
+	$template_modal_body_conteudo .= put_together_list_item('link_blank', $oferta_link, 'link-primary', 'fad fa-external-link', $oferta_texto, false, false, false);
 
 	$oferta_link = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AN49TH77ETDY6";
 	$oferta_texto = "Comprar 600 Créditos Ubwiki for R$ 550";
-	$template_modal_body_conteudo .= put_together_list_item('link_blank', $oferta_link, 'text-primary', 'fad fa-external-link', $oferta_texto, false, false, false);
+	$template_modal_body_conteudo .= put_together_list_item('link_blank', $oferta_link, 'link-primary', 'fad fa-external-link', $oferta_texto, false, false, false);
 
 	$carteira_texto = "<strong>{$pagina_translated['Ubwiki credit current']} </strong>{$user_wallet}";
 	$template_modal_body_conteudo .= put_together_list_item('inactive', false, false, 'fad fa-usd-circle', $carteira_texto, false, false, 'mt-2 bg-success b-0 text-light fst-italic d-flex justify-content-around');

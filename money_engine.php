@@ -6,7 +6,8 @@
 			return false;
 		}
 		include 'templates/criar_conn.php';
-		$reviews = $conn->query("SELECT id FROM Orders WHERE pagina_id = $pagina_id AND tipo = 'review' AND estado = 1");
+		$query = prepare_query("SELECT id FROM Orders WHERE pagina_id = $pagina_id AND  tipo = 'review' AND estado = 1");
+		$reviews = $conn->query($query);
 		if ($reviews->num_rows > 0) {
 			return true;
 		} else {

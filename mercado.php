@@ -191,7 +191,7 @@
 				$artefato_titulo = $pagina_translated['Acesso a curso Ubwiki'];
 				$artefato_col_limit = $produto_col_limit;
 				$fa_icone = 'fa-sitemap';
-				$fa_color = 'text-primary';
+				$fa_color = 'link-primary';
 				$template_modal_body_conteudo .= include 'templates/artefato_item.php';
 				
 				$artefato_tipo = 'grupo_ubwiki';

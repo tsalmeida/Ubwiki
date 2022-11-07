@@ -31,7 +31,7 @@
 		$artefato_tipo = 'notificar_email';
 		$artefato_titulo = $pagina_translated['Notificar por email'];
 		$fa_icone = 'fa-mailbox';
-		$fa_color = 'text-primary';
+		$fa_color = 'link-primary';
 		$artefato_class = 'artefato_opcao_notificar_email';
 		$artefato_col_limit = 'col-4';
 		$template_modal_body_conteudo .= include 'templates/artefato_item.php';

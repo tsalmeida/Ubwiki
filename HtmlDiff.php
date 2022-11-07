@@ -213,7 +213,7 @@
 		private function ProcessReplaceOperation($operation)
 		{
 			$this->ProcessDeleteOperation($operation, "link-danger");
-			$this->ProcessInsertOperation($operation, "text-primary");
+			$this->ProcessInsertOperation($operation, "link-primary");
 		}
 
 		private function ProcessInsertOperation($operation, $cssClass)

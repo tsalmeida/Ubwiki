@@ -900,7 +900,7 @@
 		if (isset($user_opcoes['avatar_cor'])) {
 			$avatar_cor = $user_opcoes['avatar_cor'][1];
 		} else {
-			$avatar_cor = 'text-primary';
+			$avatar_cor = 'link-primary';
 		}
 		return array($avatar, $avatar_cor);
 	}
@@ -987,10 +987,11 @@
 				return $grupo_pagina_id;
 			}
 		} elseif ($tipo == 'texto') {
-			$texto_info = return_texto_info($item_id);
-			if ($texto_info == false) {
+			$texto_check = return_texto_historico_html($item_id);
+			if ($texto_check == false) {
 				return false;
 			} else {
+				$texto_info = return_texto_info($item_id);
 				$texto_compartilhamento = $texto_info[11];
 				if (is_null($texto_compartilhamento)) {
 					$texto_compartilhamento = "NULL";
@@ -2255,7 +2256,7 @@
 					}
 					break;
 				case 'texto':
-					$cor_icone_principal = 'text-primary';
+					$cor_icone_principal = 'link-primary';
 					$pagina_estado_icone = false;
 					$pagina_estado_cor = false;
 					break;
@@ -2444,7 +2445,7 @@
 				return array('fad fa-book', 'link-success', 'bg-success');
 				break;
 			case 'pagina':
-				return array('fad fa-browser', 'text-primary', 'bg-primary');
+				return array('fad fa-browser', 'link-primary', 'bg-primary');
 				break;
 			case 'artigo':
 				return array('fad fa-newspaper', 'text-muted', 'bg-dark');
@@ -2608,7 +2609,7 @@
 				return array('fad fa-columns', 'link-info');
 				break;
 			case 'texto':
-				return array('fad fa-file-alt fa-swap-opacity', 'text-primary');
+				return array('fad fa-file-alt fa-swap-opacity', 'link-primary');
 				break;
 			case 'grupo':
 				return array('fad fa-users', 'link-teal');
@@ -2762,7 +2763,7 @@
 		if ($card_mode == 'inscrito') {
 			$template_botoes = "<span class='link-success'><i class='fad fa-lamp-desk fa-fw'></i></span>";
 		} elseif ($card_mode == 'disponivel') {
-			$template_botoes = "<span class='text-primary'><i class='fad fa-lamp-desk fa-fw'></i></span>";
+			$template_botoes = "<span class='link-primary'><i class='fad fa-lamp-desk fa-fw'></i></span>";
 		}
 		$template_conteudo = false;
 		if ($curso_verbete != false) {
@@ -2953,7 +2954,7 @@
 				<div class='col $all_cell_classes bg-white ms-1'>
 					<div class='row'>
 						<div class='col'>
-							<a href='pagina.php?pagina_id=$pagina_id' class='text-primary'>$titulo</a>
+							<a href='pagina.php?pagina_id=$pagina_id' class='link-primary'>$titulo</a>
 						</div>
 					</div>
 					<div class='row'>
@@ -3060,13 +3061,13 @@
 				break;
 			case 13:// fully read, not planning to re-read
 				$background = 'bg-primary-light';
-				$icon_color = 'text-primary';
+				$icon_color = 'link-primary';
 				$icon = 'fas fa-check';
 				$meaning = 'fully read';
 				break;
 			case 14: // full study completed.
 				$background = 'bg-primary-light';
-				$icon_color = 'text-primary';
+				$icon_color = 'link-primary';
 				$icon = 'fad fa-check-double';
 				$meaning = 'full study completed';
 				break;
@@ -3118,7 +3119,7 @@
 			case 'text-info':
 				return 'bg-info-light';
 				break;
-			case 'text-primary':
+			case 'link-primary':
 				return 'bg-primary-light';
 				break;
 			case 'link-warning':

@@ -1,7 +1,5 @@
 <?php
 
-	error_log("engine.php loads");
-
 	if (!isset($pagina_tipo)) {
 		$pagina_tipo = false;
 	}
@@ -150,7 +148,7 @@
 			$user_escritorio = false;
 			$user_lounge = false;
 			$user_avatar_icone = 'fa-user';
-			$user_avatar_cor = 'text-primary';
+			$user_avatar_cor = 'link-primary';
 			$_SESSION['raiz_ativa'] = 1118;
 			$user_opcoes = array();
 			$_SESSION['user_editor_paginas_id'] = array();
@@ -194,7 +192,7 @@
 			if (isset($_SESSION['user_opcoes']['avatar_cor'])) {
 				$_SESSION['user_avatar_cor'] = $_SESSION['user_opcoes']['avatar_cor'][1];
 			} else {
-				$_SESSION['user_avatar_cor'] = 'text-primary';
+				$_SESSION['user_avatar_cor'] = 'link-primary';
 			}
 		}
 		$user_opcoes = $_SESSION['user_opcoes'];
@@ -213,7 +211,7 @@
 		$user_opcoes = array();
 		$_SESSION['user_editor_paginas_id'] = array();
 		$_SESSION['user_avatar_icone'] = 'fa-user';
-		$_SESSION['user_avatar_cor'] = 'text-primary';
+		$_SESSION['user_avatar_cor'] = 'link-primary';
 	}
 	$user_avatar_icone = $_SESSION['user_avatar_icone'];
 	$user_avatar_cor = $_SESSION['user_avatar_cor'];
@@ -756,7 +754,11 @@
 			$etiqueta_exata = $conn->query($query);
 		}
 		if ($etiqueta_exata->num_rows == 0) {
-			$busca_resultados .= "<div class='col-12'><div class='row d-flex justify-content-center'><button type='button' id='$acao_etiqueta_criar' name='$acao_etiqueta_criar' class='btn text-center btn-success w-50 btn-sm m-0 mb-2' value='$busca_etiquetas'>{$pagina_translated['Criar etiqueta']} \"$busca_etiquetas\"</button></div></div>";
+			$busca_resultados .= "
+			<div class='col-12'>
+				<button type='button' id='$acao_etiqueta_criar' name='$acao_etiqueta_criar' class='btn text-center btn-success btn-sm m-0 mb-2 align-self-center' value='$busca_etiquetas'>{$pagina_translated['Criar etiqueta']} \"$busca_etiquetas\"</button>
+			</div>
+			";
 		}
 		if ($busca_etiquetas_tipo == 'all') {
 			$query = prepare_query("SELECT id, tipo, titulo FROM Etiquetas WHERE titulo LIKE '%{$busca_etiquetas}%'");

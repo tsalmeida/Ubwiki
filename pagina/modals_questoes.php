@@ -126,7 +126,7 @@
 	$artefato_tipo = 'questao_de_texto_de_apoio';
 	$artefato_titulo = 'Questão depende de texto de apoio';
 	$fa_icone = 'fa-file-alt';
-	$fa_color = 'text-primary';
+	$fa_color = 'link-primary';
 	$artefato_class = 'artefato_opcao_nova_questao';
 	$artefatos_nova_questao .= include 'templates/artefato_item.php';
 

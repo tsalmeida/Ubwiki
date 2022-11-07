@@ -76,7 +76,7 @@
 ?>
 <div class="container-fluid">
     <div class="row d-flex justify-content-end p-2">
-        <a class="text-primary ms-2" data-bs-toggle="modal" data-bs-target="#modal_chaves"><i
+        <a class="link-primary ms-2" data-bs-toggle="modal" data-bs-target="#modal_chaves"><i
                     class="fad fa-key fa-2x fa-fw"></i></a>
         <a class="link-success ms-2" data-bs-toggle="modal" data-bs-target="#modal_selecionar_lingua"><i
                     class="fad fa-globe fa-2x fa-fw"></i></a>

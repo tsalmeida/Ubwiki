@@ -21,7 +21,7 @@
 		if ($user_id == false) {
 			echo "<div class='d-flex justify-content-end p-1'>";
 			echo "<a data-bs-toggle='modal' data-bs-target='#modal_languages' class='link-teal mx-2'><i class='fad fa-language fa-fw fa-2x'></i></a>";
-			echo "<a data-bs-toggle='modal' data-bs-target='#modal_login' class='text-primary mx-2'><i class='fad fa-user-circle fa-fw fa-2x'></i></a>";
+			echo "<a data-bs-toggle='modal' data-bs-target='#modal_login' class='link-primary mx-2'><i class='fad fa-user-circle fa-fw fa-2x'></i></a>";
 			echo "</div>";
 		}
 
@@ -33,7 +33,7 @@
 				if ($user_id != false) {
 					$template_subtitulo = $pagina_translated['slogan'];
 				} else {
-					$template_subtitulo = "<a href='javascript:void(0);' data-bs-toggle='modal' data-bs-target='#modal_login' class='text-primary'>{$pagina_translated['slogan']}</a>";
+					$template_subtitulo = "<a href='javascript:void(0);' data-bs-toggle='modal' data-bs-target='#modal_login' class='link-primary'>{$pagina_translated['slogan']}</a>";
 				}
 				$template_subtitulo_size = 'h2';
 				include 'templates/titulo.php';
@@ -114,7 +114,7 @@
 				$artefato_col_limit = $escritorio_col_limit;
 
 				$artefato_subtitulo = $pagina_translated['Visitar'];
-				$artefato_titulo_class = 'text-primary';
+				$artefato_titulo_class = 'link-primary';
 				$fa_icone = 'fa-lamp-desk';
 				$fa_color = 'link-light';
 				$artefato_icone_background = 'icone-link bg-danger';
@@ -138,7 +138,7 @@
 
 				$artefato_titulo = $pagina_translated['courses'];;
 				$artefato_subtitulo = $pagina_translated['Visitar'];
-				$artefato_titulo_class = 'text-primary';
+				$artefato_titulo_class = 'link-primary';
 				$artefato_link = 'cursos.php';
 				$artefato_tipo = 'cursos_link';
 				$artefato_col_limit = $escritorio_col_limit;
@@ -164,7 +164,7 @@
 
 								$artefato_titulo = $pagina_translated['freepages'];
 								$artefato_subtitulo = $pagina_translated['Visitar'];
-								$artefato_titulo_class = 'text-primary';
+								$artefato_titulo_class = 'link-primary';
 								$artefato_link = 'paginas_livres.php';
 								$artefato_tipo = 'areas_interesse_link';
 								$artefato_col_limit = $escritorio_col_limit;
@@ -191,7 +191,7 @@
 
 				$artefato_titulo = $pagina_translated['library'];;
 				$artefato_subtitulo = $pagina_translated['Visitar'];
-				$artefato_titulo_class = 'text-primary';
+				$artefato_titulo_class = 'link-primary';
 				$artefato_link = 'biblioteca.php';
 				$artefato_tipo = 'biblioteca_link';
 				$artefato_col_limit = $escritorio_col_limit;
@@ -217,7 +217,7 @@
 
 				$artefato_titulo = $pagina_translated['forum'];
 				$artefato_subtitulo = $pagina_translated['Visitar'];
-				$artefato_titulo_class = 'text-primary';
+				$artefato_titulo_class = 'link-primary';
 				$artefato_link = 'forum.php';
 				$artefato_tipo = 'forum_link';
 				$fa_icone = 'fa-comments-alt';
@@ -243,7 +243,7 @@
 
 					$artefato_titulo = $pagina_translated['market'];
 					$artefato_subtitulo = $pagina_translated['Visitar'];
-					$artefato_titulo_class = 'text-primary';
+					$artefato_titulo_class = 'link-primary';
 					$artefato_link = 'mercado.php';
 					$artefato_tipo = 'loja_link';
 					$fa_icone = 'fa-bags-shopping';
@@ -262,7 +262,7 @@
 				$template_titulo = $pagina_translated['about_office'];
 				$template_classes = 'sobre_stuff';
 				//if ($user_id != false) {
-				//	$template_botoes = '<a href="escritorio.php" class="text-primary"><i class="fad fa-external-link fa-fw fa-2x"></i></a>';
+				//	$template_botoes = '<a href="escritorio.php" class="link-primary"><i class="fad fa-external-link fa-fw fa-2x"></i></a>';
 				//} else {
 				//	$template_botoes = '<a data-bs-toggle="modal" data-bs-target="#modal_login" class="link-teal"><i class="fad fa-user-circle fa-fw"></i></a>';
 				//}
@@ -274,7 +274,7 @@
 				$template_id = 'sobre_cursos';
 				$template_titulo = $pagina_translated['about_courses'];
 				$template_classes = 'sobre_stuff';
-				//$template_botoes = '<a href="cursos.php" class="text-primary"><i class="fad fa-external-link fa-fw fa-2x"></i></a>';
+				//$template_botoes = '<a href="cursos.php" class="link-primary"><i class="fad fa-external-link fa-fw fa-2x"></i></a>';
 				$template_conteudo = false;
 				$texto_ambiente_id = return_texto_ambientes('cursos', $user_language);
 				$template_conteudo .= return_verbete_html($texto_ambiente_id);
@@ -283,7 +283,7 @@
 				/*$template_id = 'sobre_areas_interesse';
 				$template_titulo = $pagina_translated['about_free_pages'];
 				$template_classes = 'sobre_stuff';
-				//$template_botoes = '<a href="paginas_livres.php" class="text-primary"><i class="fad fa-external-link fa-fw fa-2x"></i></a>';
+				//$template_botoes = '<a href="paginas_livres.php" class="link-primary"><i class="fad fa-external-link fa-fw fa-2x"></i></a>';
 				$template_conteudo = false;
 				$texto_ambiente_id = return_texto_ambientes('paginaslivres', $user_language);
 				$template_conteudo .= return_verbete_html($texto_ambiente_id);
@@ -292,7 +292,7 @@
 				$template_id = 'sobre_biblioteca';
 				$template_titulo = $pagina_translated['about_library'];
 				$template_classes = 'sobre_stuff';
-				//$template_botoes = '<a href="biblioteca.php" class="text-primary"><i class="fad fa-external-link fa-fw fa-2x"></i></a>';
+				//$template_botoes = '<a href="biblioteca.php" class="link-primary"><i class="fad fa-external-link fa-fw fa-2x"></i></a>';
 				$template_conteudo = false;
 				$texto_ambiente_id = return_texto_ambientes('biblioteca', $user_language);
 				$template_conteudo .= return_verbete_html($texto_ambiente_id);
@@ -301,7 +301,7 @@
 				$template_id = 'sobre_forum';
 				$template_titulo = $pagina_translated['about_forum'];
 				$template_classes = 'sobre_stuff';
-				//$template_botoes = '<a href="forum.php" class="text-primary"><i class="fad fa-external-link fa-fw fa-2x"></i></a>';
+				//$template_botoes = '<a href="forum.php" class="link-primary"><i class="fad fa-external-link fa-fw fa-2x"></i></a>';
 				$template_conteudo = false;
 				$texto_ambiente_id = return_texto_ambientes('forum', $user_language);
 				$template_conteudo .= return_verbete_html($texto_ambiente_id);
@@ -310,7 +310,7 @@
 				$template_id = 'sobre_loja';
 				$template_titulo = $pagina_translated['about_market'];
 				$template_classes = 'sobre_stuff';
-				//$template_botoes = '<a href="mercado.php" class="text-primary"><i class="fad fa-external-link fa-fw fa-2x"></i></a>';
+				//$template_botoes = '<a href="mercado.php" class="link-primary"><i class="fad fa-external-link fa-fw fa-2x"></i></a>';
 				$template_conteudo = false;
 				$texto_ambiente_id = return_texto_ambientes('mercado', $user_language);
 				$template_conteudo .= return_verbete_html($texto_ambiente_id);

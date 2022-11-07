@@ -31,7 +31,6 @@
 		$template_return = false;
 	}
 
-
 	$template_conteudo_no_col1 = false;
 	$template_conteudo_no_col2 = false;
 
@@ -73,16 +72,16 @@
 		$template_botoes_padrao = false;
 		if ($template_id == 'anotacoes') {
 			$fechar_icone = 'fa-times-square';
-			$fechar_cor = 'text-primary';
+			$fechar_cor = 'link-primary';
 			$template_botoes_padrao .= "
 					<span id='$template_esconder' class='$template_collapse collapse $show' data-bs-toggle='collapse' data-bs-target='.$template_collapse' title='{$pagina_translated['Esconder']}'><a href='javascript:void(0);' class='$fechar_cor'><i class='fad $fechar_icone fa-fw'></i></a></span>
 		";
 		} else {
 			$fechar_icone = 'fa-chevron-square-up';
-			$fechar_cor = 'text-primary';
+			$fechar_cor = 'link-primary';
 		}
 		$template_botoes_padrao .= "
-					<span id='$template_mostrar' class='$template_collapse collapse $hide' data-bs-toggle='collapse' data-bs-target='.$template_collapse' title='{$pagina_translated['Mostrar']}'><a href='javascript:void(0);' class='text-primary'><i class='fad fa-chevron-square-down fa-fw'></i></a></span>
+					<span id='$template_mostrar' class='$template_collapse collapse $hide' data-bs-toggle='collapse' data-bs-target='.$template_collapse' title='{$pagina_translated['Mostrar']}'><a href='javascript:void(0);' class='link-primary'><i class='fad fa-chevron-square-down fa-fw'></i></a></span>
 		";
 	}
 
@@ -98,30 +97,30 @@
 	}
 	$final_result = false;
 	$final_result .= "
-<div id='$template_id' class='row show $template_classes $template_background $template_spacing rounded'>
-	<div class='$template_col_value'>
-    <div class='d-flex justify-content-end page-element-botoes'>
-		$template_spacer
-		$template_botoes
-		$template_botoes_padrao
-    </div>";
-	if ($template_titulo != false) {
+	<div id='$template_id' class='row show $template_classes $template_background $template_spacing rounded justify-content-center'>
+		<div class='$template_col_value ch-limit'>
+		<div class='d-flex justify-content-end page-element-botoes'>
+			$template_spacer
+			$template_botoes
+			$template_botoes_padrao
+		</div>";
+		if ($template_titulo != false) {
+			$final_result .= "
+			<div class='row mb-3'>
+				<div class='col'>
+				<$template_titulo_heading class='{$template_titulo_heading}-responsive m-0 text-center text-black-50 pb-2'>$template_titulo</$template_titulo_heading>
+				</div>
+			</div>
+			";
+		}
 		$final_result .= "
-    <div class='row mb-4'>
-    	<div class='col'>
-        <$template_titulo_heading class='{$template_titulo_heading}-responsive m-0 text-center text-black-50 pb-2'>$template_titulo</$template_titulo_heading>
-    	</div>
-    </div>
-    ";
-	}
-	$final_result .= "
 		<div class='row $template_collapse collapse $show $template_conteudo_class'>
-    	$template_conteudo_no_col1
-      	$template_conteudo
-      $template_conteudo_no_col2
-    </div>
-  </div>
-</div>";
+			$template_conteudo_no_col1
+			$template_conteudo
+			$template_conteudo_no_col2
+		</div>
+	  </div>
+	</div>";
 	if ($template_botoes_padrao == true) {
 		$final_result .= "
 		<script type='text/javascript'>

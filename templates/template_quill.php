@@ -180,26 +180,26 @@
 	if ($template_quill_meta_tipo == 'anotacoes') {
 		$carregar_publicar_resposta = true;
 		$template_botoes .= "
-			<a data-bs-target='#modal_publicar_resposta' data-bs-toggle='modal' class='link-purple'><i class='fad fa-comment-alt-edit fa-fw'></i></a>
+			<a data-bs-target='#modal_publicar_resposta' data-bs-toggle='modal' class='link-purple' href='javascript:void(0);'><i class='fad fa-comment-alt-edit fa-fw'></i></a>
 			<a href='pagina.php?texto_id=$quill_texto_id&corr=1' class='link-warning me-3' title='{$pagina_translated['review']}'><i class='fad fa-highlighter fa-fw'></i></a>
-			<a href='javascript:void(0);' id='esconder_coluna_esquerda' title='{$pagina_translated['expand']}' class='text-primary'><i class='fad fa-arrow-alt-square-left fa-fw'></i></a>
-    		<a href='javascript:void(0);' id='mostrar_coluna_esquerda' title='{$pagina_translated['compress']}' class='text-primary'><i class='fad fa-arrow-alt-square-right fa-fw'></i></a>
-			<a href='pagina.php?texto_id=$quill_texto_id' id='compartilhar_anotacao' title='{$pagina_translated['Página deste documento']}' class='text-primary'><i class='fad fa-external-link-square fa-fw'></i></a>
-			<a href='javascript:void(0);' id='esconder_coluna_direita' title='{$pagina_translated['Esconder']}' class='text-primary'><i class='fad fa-times-square fa-fw'></i></a>
+			<a href='javascript:void(0);' id='esconder_coluna_esquerda' title='{$pagina_translated['expand']}' class='link-primary'><i class='fad fa-arrow-alt-square-left fa-fw'></i></a>
+    		<a href='javascript:void(0);' id='mostrar_coluna_esquerda' title='{$pagina_translated['compress']}' class='link-primary'><i class='fad fa-arrow-alt-square-right fa-fw'></i></a>
+			<a href='pagina.php?texto_id=$quill_texto_id' id='compartilhar_anotacao' title='{$pagina_translated['Página deste documento']}' class='link-primary'><i class='fad fa-external-link-square fa-fw'></i></a>
+			<a href='javascript:void(0);' id='esconder_coluna_direita' title='{$pagina_translated['Esconder']}' class='link-primary'><i class='fad fa-times-square fa-fw'></i></a>
 		";
 	}
 
 	if ($quill_edicao == true) {
 		$template_botoes .= "
-			<a href='javascript:void(0);' class='text-primary' id='destravar_{$template_id}' title='{$pagina_translated['Permitir edição']}'><i class='fad fa-pen-square fa-fw'></i></a>
+			<a href='javascript:void(0);' class='link-primary' id='destravar_{$template_id}' title='{$pagina_translated['Permitir edição']}'><i class='fad fa-pen-square fa-fw'></i></a>
 		";
 		if ($template_id == "verbete") {
-			$template_botoes .= "<a class='text-primary' id='esconder_coluna_esquerda_inner'><i class='fad fa-times-square fa-fw'></i></a>";
+			$template_botoes .= "<a class='link-primary' id='esconder_coluna_esquerda_inner' href='javascript:void(0);'><i class='fad fa-times-square fa-fw'></i></a>";
 		}
 	}
 	if ($user_id == false) {
 		$template_botoes .= "
-			<a href='javascript:void(0);' class='text-primary' data-bs-toggle='modal' data-bs-target='#modal_login' title='{$pagina_translated['Permitir edição']}'><i class='fad fa-pen-square fa-fw'></i></a>
+			<a href='javascript:void(0);' class='link-primary' data-bs-toggle='modal' data-bs-target='#modal_login' title='{$pagina_translated['Permitir edição']}'><i class='fad fa-pen-square fa-fw'></i></a>
 		";
 	}
 	$template_no_spacer = true;
@@ -326,7 +326,7 @@
 			var template_botoes_salvar = \"$template_botoes_salvar\";
 			
 			$('#quill_container_{$template_id} > .ql-toolbar').prepend(template_botoes_salvar);
-			$('#quill_container_{$template_id} > .ql-toolbar').append(\"<a class='zoom_in ql-formats text-dark' href='javascript:void(0);'><i class='fad fa-text-size fa-swap-opacity fa-fw'></i></a><a class='zoom_out ql-formats text-dark' href='javascript:void(0);'><i class='fad fa-text-size fa-fw'></i></a><a class='ql-formats text-dark bg-white border rounded swatch_button p-1' value='sepia' href='javascript:void(0);'><i class='fad fa-palette fa-swap-opacity fa-fw'></i></a>\");
+			$('#quill_container_{$template_id} > .ql-toolbar').append(\"<a class='zoom_in ql-formats link-dark' href='javascript:void(0);'><i class='fad fa-text-size fa-swap-opacity fa-fw'></i></a><a class='zoom_out ql-formats link-dark' href='javascript:void(0);'><i class='fad fa-text-size fa-fw'></i></a><a class='ql-formats link-dark bg-white border rounded swatch_button p-1' value='sepia' href='javascript:void(0);'><i class='fad fa-palette fa-swap-opacity fa-fw'></i></a>\");
 			
 			$('#{$template_id}_trigger_save').click(function () {
 				$('#{$quill_trigger_button}').click();
