@@ -74,7 +74,7 @@
 	} else {
 		$forum_topico_id = false;
 		$forum_topico_titulo = $pagina_translated['Debate geral'];
-		$topico_user_apelido = '.';
+		$topico_user_apelido = false;
 		$topico_user_id = false;
 	}
 	
@@ -266,13 +266,13 @@
 						}
 						
 						$template_conteudo .= "
-                            <div class='row bg-light rounded p-2 mt-1'>
+                            <div class='row bg-light rounded p-2 my-1'>
                                 <div class='col'>
-                                	<div class='row justify-content-start'><a href='pagina.php?user_id=$topico_user_id' class='link-purple'>$topico_user_apelido</a></div>
+                                	<div class='row justify-content-start'><a href='pagina.php?user_id=$topico_user_id' class='link-primary'>$topico_user_apelido</a></div>
                                     <div class='row'>
                                     	<h2 class='col m-0 text-center'>$forum_topico_titulo</h2>
                                     </div>
-                                    <div class='row link-purple'>.</div>
+                                    <div class='row link-purple'>_</div>
                                 </div>
                             </div>
                         ";
@@ -295,7 +295,7 @@
 									"
 									  <div class='row bg-light rounded p-2 mt-1'>
 										<div class='col'>
-                                            <span class='rounded row justify-content-between'>
+                                            <span class='rounded justify-content-between'>
                                               <a href='pagina.php?user_id=$autor_comentario_id' class='ms-1'>
                                                 <span class='$autor_comentario_cor'>
                                                 <i class='fad $autor_comentario_avatar'></i>
@@ -305,7 +305,7 @@
                                                   <em><small>$timestamp_comentario</small></em>
                                               </span>
                                             </span>
-                                            <div class='row bg-white border rounded p-2 mt-1'>
+                                            <div class='bg-white border rounded p-2 mt-1'>
                                                 $texto_comentario
 										    </div>
 										</div>
@@ -320,9 +320,10 @@
 	                            <form method='post'>
                                     <input type='hidden' name='load_pagina_id' value='$load_pagina_id'>
                                     <div class='mb-3'>
-                                        <textarea id='novo_comentario' name='novo_comentario' class='form-control border rounded p-2 row' rows='3' placeholder='{$pagina_translated['Escreva aqui seu comentário']}' required></textarea>
+                                        <label for='novo_comentario' class='form-label'>Seu comentário:</label>
+                                        <textarea id='novo_comentario' name='novo_comentario' class='form-control' rows='3' placeholder='{$pagina_translated['Escreva aqui seu comentário']}' required></textarea>
                                     </div>
-                                    <div class='row d-flex justify-content-center'>
+                                    <div class='d-flex justify-content-center mb-3'>
                                         <button class='$button_classes btn-info btn-sm mt-0'>{$pagina_translated['Enviar comentário']}</button>
                                     </div>
                                 </form><!--

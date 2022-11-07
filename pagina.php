@@ -2304,9 +2304,8 @@
 			<div class='mb-3'>
 				<label for='buscar_topicos' class='form-label'>{$pagina_translated['Buscar subtópico']}</label>
 				<input type='text' class='form-control' name='buscar_subtopicos' id='buscar_subtopicos' required>
-				
+				</div>
 				<button type='button' class='$button_classes' id='trigger_buscar_subtopicos'>{$pagina_translated['Buscar']}</button>
-			</div>
 			<div class='row border p-2' id='subtopicos_disponiveis'></div>
 		";
 		$template_modal_show_buttons = false;

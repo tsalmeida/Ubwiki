@@ -308,7 +308,7 @@
 		$pagina_translated = $_SESSION['pagina_translated'];
 	}
 
-	$all_buttons_classes = "btn text-center";
+	$all_buttons_classes = "btn text-center mb-3";
 	$button_classes = "$all_buttons_classes btn-primary";
 	$button_small = 'brn rounded btn-sm text-center';
 	$button_classes_light = "$all_buttons_classes btn-light";

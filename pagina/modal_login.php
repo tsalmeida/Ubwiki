@@ -31,7 +31,7 @@
             <input type='password' id='login_senha_confirmacao' name='login_senha_confirmacao' class='form-control' disabled>
         </div>
         <div id='secao_login_enviar' class='mb-3 d-flex justify-content-center'>
-            <button id='botao_login' name='botao_login' type='button' class='$button_classes w-50' disabled>{$pagina_translated['continue']}</button>
+            <button id='botao_login' name='botao_login' type='button' class='$button_classes' disabled>{$pagina_translated['continue']}</button>
         </div>
     </form>
 ";

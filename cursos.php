@@ -28,8 +28,8 @@
 
 				$list_cursos_cards = false;
 				if ($usuario_cursos_inscrito != false) {
-					echo "<h2 class='text-muted mb-5'>{$pagina_translated['Cursos em que você se inscreveu:']}</h2>";
 					echo "<div class='col-lg-10 col-md-12'>";
+    					echo "<h2 class='text-muted mb-5'>{$pagina_translated['Cursos em que você se inscreveu:']}</h2>";
 					foreach ($usuario_cursos_inscrito as $usuario_inscrito_curso_id) {
 						$list_cursos_cards = return_curso_card($usuario_inscrito_curso_id, 'inscrito');
 					}
@@ -41,9 +41,8 @@
 			}
 		?>
     </div>
-    <h2 class='text-muted my-5'><?php echo $pagina_translated['Cursos a que você tem acesso:']; ?></h2>
     <div class="col-lg-10 col-md-12">
-
+        <h2 class='text-muted my-5'><?php echo $pagina_translated['Cursos a que você tem acesso:']; ?></h2>
 		<?php
 			if ($usuario_cursos_nao_inscrito_disponiveis != false) {
 				foreach ($usuario_cursos_nao_inscrito_disponiveis as $list_cursos_disponiveis) {
