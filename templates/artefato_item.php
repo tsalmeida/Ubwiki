@@ -1,5 +1,5 @@
 <?php
-	
+
 	if (!isset($fa_class)) {
 		$fa_class = false;
 	}
@@ -126,8 +126,12 @@
 //		$artefato_icone_background = convert_background($fa_color);
 		$artefato_icone_background = false;
 	}
-	
-	$artefato_classes = "$artefato_col_limit py-1 artefato rounded $artefato_background $artefato_class d-flex justify-content-center border border-white mt-1";
+
+	if (!isset($artefato_classes_detail)) {
+		$artefato_classes_detail = 'py-1 artefato rounded d-flex justify-content-center border border-white mt-1';
+	}
+
+	$artefato_classes = "$artefato_col_limit $artefato_background $artefato_class $artefato_classes_detail";
 	
 	$artefato_link_1 = false;
 	$artefato_link_2 = false;
@@ -189,5 +193,6 @@
 	unset($artefato_link_classes);
 	unset($artefato_titulo_class);
 	unset($artefato_subtitulo_class);
+	unset($artefato_classes_detail);
 	
 	return $artefato_template_result;

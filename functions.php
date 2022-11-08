@@ -3143,6 +3143,7 @@
 				return 'bg-teal-light';
 				break;
 			case 'text-dark':
+			case 'link-dark':
 			case 'text-muted':
 				return 'bg-light';
 				break;
@@ -3337,10 +3338,12 @@
 		include 'templates/criar_conn.php';
 
 		$voto_usuario_value = false;
-		$votos = $conn->query("SELECT user_id FROM Votos WHERE pagina_id = $pagina_id AND tipo = '$item_tipo' AND objeto = $item_id AND valor = 1");
+		$query = prepare_query("SELECT user_id FROM Votos WHERE pagina_id = $pagina_id AND tipo = '$item_tipo' AND objeto = $item_id AND valor = 1");
+		$votos = $conn->query($query);
 		$votos_count = $votos->num_rows;
 		if ($votos_count > 0) {
-			$votos_usuario = $conn->query("SELECT valor FROM Votos WHERE pagina_id = $pagina_id AND tipo = '$item_tipo' AND objeto = $item_id AND user_id = $user_id");
+			$query = prepare_query("SELECT valor FROM Votos WHERE pagina_id = $pagina_id AND tipo = '$item_tipo' AND objeto = $item_id AND user_id = $user_id");
+			$votos_usuario = $conn->query($query);
 			if ($votos_usuario->num_rows > 0) {
 				while ($voto_usuario = $votos_usuario->fetch_assoc()) {
 					$voto_usuario_value = $voto_usuario['valor'];
@@ -3373,12 +3376,38 @@
 			} else {
 				if (strlen($str) > 0) {
 					$str = trim(preg_replace('/\s+/', ' ', $str)); // supports line breaks inside <title>
-					preg_match("/\<title\>(.*)\<\/title\>/i", $str, $title); // ignore case
+					preg_match('/<title[^>]*>(.*?)<\/title>/ims', $str, $title); // ignore case
 					return $title[1];
 				}
 			}
 		} else {
 			return false;
 		}
-
 	}
+
+	function nexus_random_icon()
+	{
+		$nexus_icons = array('fa-solid fa-circle', 'fa-solid fa-play', 'fa-solid fa-square', 'fa-solid fa-triangle', 'fa-solid fa-hexagon', 'fa-solid fa-circle-dot', 'fa-solid fa-circle-half-stroke', 'fa-solid fa-rectangle-vertical', 'fa-solid fa-rectangle-horizontal');
+		$random_icon = array_rand($nexus_icons);
+		return $nexus_icons[$random_icon];
+	}
+
+	function nexus_random_color()
+	{
+		$nexus_colors = array('link-danger', 'link-warning', 'link-success', 'link-primary', 'link-teal', 'link-info', 'link-purple', 'link-dark');
+		$random_icon = array_rand($nexus_colors);
+		return $nexus_colors[$random_icon];
+	}
+
+	function return_nexus_info_user_id($user_id)
+	{
+		include 'templates/criar_conn.php';
+		$query = prepare_query("SELECT * FROM nexus WHERE user_id = $user_id");
+		$nexus_info = $conn->query($query);
+		if ($nexus_info->num_rows > 0) {
+			while ($nexus_page_info = $nexus_info->fetch_assoc()) {
+				return array($nexus_page_info['id'], $nexus_page_info['timestamp'], $nexus_page_info['pagina_id'], $nexus_page_info['title'], $nexus_page_info['theme']);
+			};
+		}
+	}
+

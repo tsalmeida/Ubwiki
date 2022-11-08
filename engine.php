@@ -2036,49 +2036,112 @@
 	if (isset($_POST['list_nexus_links'])) {
 		echo "
 			<form method='post'>
-				<h3></h3>
-				<p></p>
 				<div class='mb-3'>
 					<label class='form-label' for='nexus_new_link_url'>Paste your link url:</label>
 					<input type='url' class='form-control' id='nexus_new_link_url' name='nexus_new_link_url'>
 				</div>
-				<button type='button' class='btn btn-info col-4 mx-auto' id='trigger_suggest_title'>Suggest title</button>
+				<button type='button' class='btn btn-info mb-3' id='trigger_suggest_title'>Suggest title</button>
 				<div class='mb-3'>
 					<label class='form-label' for='nexus_new_link_title'>Link title:</label>
 					<input type='text' class='form-control' id='nexus_new_link_title' name='nexus_new_link_title'>
 				</div>
 				<div class='mb-3'>
-				<label class='form-label' for='nexus_new_link_location'>Where to place your new link?</label>
-				<select id='nexus_new_link_location' name='nexus_new_link_localtion' class='form-select mb-3'>
-					<option selected value='linkdump'>Link dump</option>";
+					<label class='form-label' for='nexus_new_link_location'>Where to place your new link?</label>
+					<select id='nexus_new_link_location' name='nexus_new_link_location' class='form-select mb-3'>
+						<option selected value='0'>Link dump</option>";
 
-					$query = prepare_query("SELECT id, title, icon, color FROM nexus_folders WHERE user_id = $user_id AND pagina_id = {$_SESSION['user_nexus_pagina_id']}");
-					$user_nexus_folders_info = $conn->query($query);
-					if ($user_nexus_folders_info->num_rows > 0) {
-						while ($user_nexus_folder_info = $user_nexus_folders_info->fetch_assoc()) {
-							$user_nexus_folder_id = $user_nexus_folder_info['id'];
-							$user_nexus_folder_title = $user_nexus_folder_info['title'];
-							$user_nexus_folder_icon = $user_nexus_folder_info['icon'];
-							$user_nexus_folder_color = $user_nexus_folder_info['color'];
-							echo "<option value='$user_nexus_folder_id'>$user_nexus_folder_title</option>";
-						}
-					} else {
-						echo "<option disabled>You have not created any folders.</option>";
-					}
-
-
-			echo "
-				</select>
+		$query = prepare_query("SELECT id, title, icon, color FROM nexus_folders WHERE user_id = $user_id AND pagina_id = {$_SESSION['user_nexus_pagina_id']}");
+		$user_nexus_folders_info = $conn->query($query);
+		if ($user_nexus_folders_info->num_rows > 0) {
+			while ($user_nexus_folder_info = $user_nexus_folders_info->fetch_assoc()) {
+				$user_nexus_folder_id = $user_nexus_folder_info['id'];
+				$user_nexus_folder_title = $user_nexus_folder_info['title'];
+				$user_nexus_folder_icon = $user_nexus_folder_info['icon'];
+				$user_nexus_folder_color = $user_nexus_folder_info['color'];
+				echo "<option value='$user_nexus_folder_id'>$user_nexus_folder_title</option>";
+			}
+		} else {
+			echo "<option disabled>You have not created any folders.</option>";
+		}
+		echo "
+					</select>
 				</div>
-				<button type='submit' class='btn btn-primary col-6 mx-auto'>Add link</button>
+				<div class='mb-3'>
+					<label class='form-label' for='#nexus_new_link_icon'>Choose an icon:</label>
+					<select id='nexus_new_link_icon' name='nexus_new_link_icon' class='form-select'>
+						<option value='random' selected>Random</option>
+						<option value='fa-solid fa-circle'>Circle</option>
+						<option value='fa-solid fa-play'>Play</option>
+						<option value='fa-solid fa-square'>Square</option>
+						<option value='fa-solid fa-triangle'>Triangle</option>
+						<option value='fa-solid fa-hexagon'>Hexagon</option>
+						<option value='fa-solid fa-circle-dot'>Circle-dot</option>
+						<option value='fa-solid fa-circle-half-stroke'>Circle-half-stroke</option>
+						<option value='fa-solid fa-rectangle-vertical'>Rectangle-vertical</option>
+						<option value='fa-solid fa-rectangle-horizontal'>Rectangle-horizontal</option>
+					</select>
+				</div>
+				<div class='mb-3'>
+					<label class='form-label' for='#nexus_new_link_color'>Choose a color:</label>
+					<select id='nexus_new_link_color' name='nexus_new_link_color' class='form-select'>
+						<option value='random' selected>Random</option>
+						<option value='link-danger'>Red</option>
+						<option value='link-warning'>Yellow</option>
+						<option value='link-success'>Green</option>
+						<option value='link-primary'>Blue</option>
+						<option value='link-teal'>Teal</option>
+						<option value='link-info'>Cyan</option>
+						<option value='link-purple'>Purple</option>
+						<option value='link-dark'>Black</option>
+					</select>
+				</div>
+				<button type='submit' class='btn btn-primary mb-3' name='nexus_new_link_submit' id='nexus_new_link_submit'>Add link</button>
 			</form>
 		";
 	}
 
 	if (isset($_POST['scan_new_link'])) {
 		$new_link_title = get_title($_POST['scan_new_link']);
-		unset($_POST['scan_new_link']);
 		echo $new_link_title;
+	}
+	unset($_POST['scan_new_link']);
+	if (isset($_POST['populate_themes_modal'])) {
+		$light_selected = false;
+		$dark_selected = false;
+		$landscape_selected = false;
+		$whimsical_selected = false;
+		$switch_nexus_theme = $_POST['populate_themes_modal'];
+		switch ($switch_nexus_theme) {
+			case 'light':
+				$light_selected = 'selected';
+				break;
+			case 'dark':
+				$dark_selected = 'selected';
+				break;
+			case 'landscape':
+				$landscape_selected = 'selected';
+				break;
+			case 'whimsical':
+				$whimsical_selected = 'selected';
+				break;
+			default:
+				$light_selected = 'selected';
+				break;
+		}
+		$return = "
+			<form method='post'>
+				<h3>Themes</h3>
+				<label for='nexus_theme_select' class='form-label'>Take your pick of general appearance:</label>
+				<select id='nexus_theme_select' name='nexus_theme_select' class='form-select mb-3'>
+					<option value='light' $light_selected>Light</option>
+					<option value='dark' $dark_selected>Dark</option>
+					<option value='landscape' $landscape_selected>Landscape images</option>
+					<option value='whimsical' $whimsical_selected>Whimsical</option>
+				</select>
+				<button type='submit' class='$all_buttons_classes btn-primary'>Pick theme</button>
+			</form>
+		";
+		echo $return;
 	}
 
 	if (isset($_POST['list_nexus_folders'])) {
@@ -2121,7 +2184,11 @@
 					<option value='link-purple'>Purple</option>
 					<option value='link-dark'>Black</option>
 				</select>
-				<button type='submit' class='btn btn-primary col-6 mx-auto'>Create folder</button>
+				<div class='form-check mb-3'>
+					<input class='form-check-input' type='checkbox' value='' id='nexus_new_folder_type' name='nexus_new_folder_type' checked>
+					<label class='form-check-label' for='nexus_new_folder_type'>This is a main folder: its icon will appear on the top bar. Otherwise, it will only be found alongside other \"archive\" folders.</label>
+				</div>
+				<button type='submit' class='btn btn-primary'>Create folder</button>
 			</form>
 			<hr>
 			<h3>Remove folder</h3>
@@ -2141,7 +2208,7 @@
 				echo "<option value='$user_nexus_folder_id'>$user_nexus_folder_title, $user_nexus_folder_icon, $user_nexus_folder_color</option>";
 			}
 			echo "</select>";
-			echo "<button type='submit' class='btn btn-danger col-6 mx-auto'>Delete folder</button>";
+			echo "<button type='submit' class='btn btn-danger'>Delete folder</button>";
 			echo "</form>";
 		} else {
 			echo "<p>No folders found.</p>";

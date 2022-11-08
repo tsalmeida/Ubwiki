@@ -13,18 +13,7 @@
 	if (isset($_POST['trigger_atualizacao'])) {
 	    $query = prepare_query("DROP TABLE `ubwiki`.`nexus_pages`");
 	    $query = $conn->query($query);
-	    $query = prepare_query("ALTER TABLE `nexus` ADD `theme` VARCHAR(255) NULL DEFAULT 'default' AFTER `title`");
-	    $query = $conn->query($query);
-	    $query = prepare_query ("DROP TABLE `ubwiki`.`nexus_elements`");
-	    $query = $conn->query($query);
-	    $query = prepare_query("CREATE TABLE `ubwiki`.`nexus_pastas` (`id` INT(11) NOT NULL AUTO_INCREMENT , `user_id` INT(11) NULL DEFAULT NULL , `nome` VARCHAR(255) NULL DEFAULT NULL , `icone` VARCHAR(255) NULL DEFAULT NULL , `cor` VARCHAR(255) NULL DEFAULT NULL , `posicao` INT(11) NULL DEFAULT NULL , `timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , INDEX `id` (`id`)) ENGINE = InnoDB;");
-        $query = $conn->query($query);
-        $query = prepare_query("CREATE TABLE `ubwiki`.`nexus_folders` (`id` INT(11) NOT NULL AUTO_INCREMENT , `user_id` INT(11) NULL DEFAULT NULL , `pagina_id` INT(11) NULL DEFAULT NULL , `title` VARCHAR(255) NULL DEFAULT NULL , `icon` VARCHAR(255) NULL DEFAULT NULL , `color` VARCHAR(255) NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB");
-        $query = $conn->query($query);
-        $query = prepare_query("CREATE TABLE `ubwiki`.`nexus_links` (`id` INT(11) NOT NULL AUTO_INCREMENT , `user_id` INT(11) NULL DEFAULT NULL , `pagina_id` INT(11) NULL DEFAULT NULL , `pasta_id` INT(11) NULL DEFAULT NULL , `address` VARCHAR(255) NOT NULL , `title` VARCHAR(255) NOT NULL , `icon` VARCHAR(255) NOT NULL , `color` VARCHAR(255) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB");
-        $query = $conn->query($query);
-        $query = preapre_query("CREATE TABLE `ubwiki`.`nexus_elements` (`id` INT(11) NOT NULL AUTO_INCREMENT , `user_id` INT(11) NULL DEFAULT NULL , `pagina_id` INT(11) NULL DEFAULT NULL , `type` VARCHAR(255) NULL DEFAULT NULL , `param1` VARCHAR(255) NULL DEFAULT NULL , `param2` VARCHAR(255) NULL DEFAULT NULL , `param3` VARCHAR(255) NULL DEFAULT NULL , `param4` VARCHAR(255) NULL DEFAULT NULL , `param5` VARCHAR(255) NULL DEFAULT NULL , `param6` VARCHAR(255) NULL DEFAULT NULL , `param7` VARCHAR(255) NULL DEFAULT NULL , `param8` VARCHAR(255) NULL DEFAULT NULL , `param9` VARCHAR(255) NULL DEFAULT NULL , `param10` VARCHAR(255) NULL DEFAULT NULL , `param11` VARCHAR(255) NULL DEFAULT NULL , `param12` VARCHAR(255) NULL DEFAULT NULL , `param13` VARCHAR(255) NULL DEFAULT NULL , `param14` VARCHAR(255) NULL DEFAULT NULL , `param15` VARCHAR(255) NULL DEFAULT NULL , `param16` VARCHAR(255) NULL DEFAULT NULL , `param17` VARCHAR(255) NULL DEFAULT NULL , `param18` VARCHAR(255) NULL DEFAULT NULL , `param19` VARCHAR(255) NULL DEFAULT NULL , `param20` VARCHAR(255) NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB");
-        $query = $conn->query($query);
+
 	}
 
 	if (isset($_POST['trigger_atualizar_textos_size'])) {

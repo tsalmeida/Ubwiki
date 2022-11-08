@@ -524,7 +524,7 @@ ul {
   background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%); /* FF3.6-15 */
   background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%); /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#80000000", endColorstr="#80000000",GradientType=0 ); /* IE6-9 */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#80000000", endColorstr="#80000000", GradientType=0); /* IE6-9 */
 }
 
 .icone-lista {
@@ -562,6 +562,26 @@ ul {
 
 .print-limit {
   width: 60ch;
+}
+
+.all_link_icons:hover {
+  background-color: #212529 !important;
+}
+.all_link_icons:hover .link-dark {
+  color: white !important;
+}
+
+.nexus-title {
+  font-size: 7vw;
+  mix-blend-mode: color-burn;
+  user-select: none;
+  cursor: pointer;
+  word-break: keep-all;
+  line-height: normal;
+}
+
+.nexus-title:hover {
+  mix-blend-mode: difference;
 }
 
 .link-purple, .link-purple {

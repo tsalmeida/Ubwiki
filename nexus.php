@@ -38,12 +38,29 @@
 		exit();
 	}
 
+	$nexus_info = return_nexus_info_user_id($user_id);
+	if ($nexus_info != false) {
+		$nexus_id = $nexus_info[0];
+		$nexus_timestamp = $nexus_info[1];
+		$nexus_title = $nexus_info[3];
+		$nexus_theme = $nexus_info[4];
+	}
+
+	if ($nexus_title == false) {
+		$nexus_title = "Nexus";
+	}
+
 	if (isset($_POST['nexus_new_folder_title'])) {
 		$nexus_new_folder_title = $_POST['nexus_new_folder_title'];
 		$nexus_new_folder_icon = $_POST['nexus_new_folder_icon'];
 		$nexus_new_folder_color = $_POST['nexus_new_folder_color'];
+		if (isset($_POST['nexus_new_folder_type'])) {
+			$nexus_new_folder_type = 'main';
+		} else {
+		    $nexus_new_folder_type = 'archival';
+        }
 		$user_nexus_id = $_SESSION['user_nexus_pagina_id'];
-		$query = prepare_query("INSERT INTO nexus_folders (user_id, pagina_id, title, icon, color) VALUES ($user_id, $user_nexus_id, '$nexus_new_folder_title', '$nexus_new_folder_icon', '$nexus_new_folder_color')");
+		$query = prepare_query("INSERT INTO nexus_folders (user_id, pagina_id, type, title, icon, color) VALUES ($user_id, $user_nexus_id, '$nexus_new_folder_type', '$nexus_new_folder_title', '$nexus_new_folder_icon', '$nexus_new_folder_color')");
 		$conn->query($query);
 	}
 
@@ -53,6 +70,23 @@
 		$conn->query($query);
 	}
 
+	if (isset($_POST['nexus_new_link_submit'])) {
+		if ($_POST['nexus_new_link_icon'] == 'random') {
+			$_POST['nexus_new_link_icon'] = nexus_random_icon();
+		}
+		if ($_POST['nexus_new_link_color'] == 'random') {
+			$_POST['nexus_new_link_color'] = nexus_random_color();
+		}
+		$query = prepare_query("INSERT INTO nexus_links (user_id, pagina_id, pasta_id, url, title, icon, color) VALUES ($user_id, $pagina_id, {$_POST['nexus_new_link_location']}, '{$_POST['nexus_new_link_url']}', '{$_POST['nexus_new_link_title']}', '{$_POST['nexus_new_link_icon']}', '{$_POST['nexus_new_link_color']}')");
+		$conn->query($query);
+	}
+
+	if (isset($_POST['nexus_theme_select'])) {
+		$query = prepare_query("UPDATE nexus SET theme = '{$_POST['nexus_theme_select']}' WHERE user_id = $user_id");
+		$conn->query($query);
+		$nexus_theme = $_POST['nexus_theme_select'];
+	}
+
 	if ($_POST) {
 		header("Location: " . $_SERVER['REQUEST_URI']);
 		exit();
@@ -60,7 +94,7 @@
 
 	$print_folders_large = false;
 	$print_folders_small = false;
-	$query = prepare_query("SELECT id, title, icon, color FROM nexus_folders WHERE user_id = $user_id AND pagina_id = $pagina_id");
+	$query = prepare_query("SELECT id, title, icon, color, type FROM nexus_folders WHERE user_id = $user_id AND pagina_id = $pagina_id");
 	$nexus_folders_info = $conn->query($query);
 	if ($nexus_folders_info->num_rows > 0) {
 		while ($nexus_folder_info = $nexus_folders_info->fetch_assoc()) {
@@ -68,24 +102,53 @@
 			$nexus_folder_title = $nexus_folder_info['title'];
 			$nexus_folder_icon = $nexus_folder_info['icon'];
 			$nexus_folder_color = $nexus_folder_info['color'];
+			$nexus_folder_type = $nexus_folder_info['type'];
 			$fa_icone = $nexus_folder_icon;
 			$fa_color = $nexus_folder_color;
-			$artefato_class = 'all_folder_icons';
-			if ($fa_color == "link-dark") {
-			    $fa_color_small = "link-light";
-            } else {
-			    $fa_color_small = $fa_color;
+			switch($nexus_folder_type) {
+                case 'archival':
+                    $artefato_class = 'archival_folder_icons hidden';
+                    break;
+                case 'hidden':
+                    $artefato_class = 'hidden_folder_icons hidden';
+                    break;
+                default:
+                    $artefato_class = 'main_folder_icons hidden';
             }
+			$artefato_link_classes = 'bg-white rounded';
+			$artefato_classes_detail = 'py-1 artefato rounded d-flex justify-content-center mt-1';
+			$artefato_col_limit = 'col-auto';
+			if ($fa_color == "link-dark") {
+				$fa_color_small = "link-light";
+			} else {
+				$fa_color_small = $fa_color;
+			}
 
 			$artefato_id = "folder_large_{$nexus_folder_id}";
 			$artefato_subtitulo = $nexus_folder_title;
 			$fa_size = 'fa-4x';
 
-			$print_folders_small .= "<a class='navbar-brand' href='#'><i class='$fa_icone $fa_color_small hidden'></i></a>";
+			$print_folders_small .= "<a class='navbar-brand' href='javascript:void(0);'><i class='$fa_icone $fa_color_small'></i></a>";
 			$print_folders_large .= include 'templates/artefato_item.php';
 
 		}
 
+	}
+
+	$print_links = false;
+	$query = prepare_query("SELECT id, pasta_id, url, title, icon, color FROM nexus_links WHERE pagina_id = $pagina_id AND state = 1 ORDER BY timestamp DESC");
+	$nexus_links_info = $conn->query($query);
+	if ($nexus_links_info->num_rows > 0) {
+		while ($nexus_link_info = $nexus_links_info->fetch_assoc()) {
+			$nexus_link_id = $nexus_link_info['id'];
+			$nexus_link_pasta_id = $nexus_link_info['pasta_id'];
+			$nexus_link_url = $nexus_link_info['url'];
+			$nexus_link_title = $nexus_link_info['title'];
+			$fa_icone = $nexus_link_info['icon'];
+			$fa_color = $nexus_link_info['color'];
+			$fa_background = return_background($fa_color);
+			$print_links .= "<a id='link_{$nexus_link_id}' href='$nexus_link_url' target='_blank' class='all_link_icons rounded $fa_background py-2 px-3 me-1 mb-1 col-auto'><span class='$fa_color'><i class='$fa_icone me-2'></i></span> <span class='link-dark'>$nexus_link_title</span></a>";
+		}
 	}
 
 	$html_head_template_quill = true;
@@ -97,14 +160,79 @@
         </script>
     ";
 
-	$wallpaper_file = 'papyrus.webp';
-	$wallpaper_repeat = 'repeat';
+	switch ($nexus_theme) {
+		case 'light':
+			$wallpapers = array('papyrus.webp', 'y-so-serious-white.png', 'what-the-hex.webp', 'cheap_diagonal_fabric.png', 'circles-and-roundabouts.webp', 'crossline-dots.webp', 'diagonal_striped_brick.webp', 'funky-lines.webp', 'gplaypattern.png', 'interlaced.png', 'natural_paper.webp', 'subtle_white_feathers.webp', 'topography.webp', 'webb.png', 'whirlpool.webp', 'white-waves.webp', 'worn_dots.webp', 'vertical-waves.webp');
+			$wallpaper_repeat = 'repeat';
+			$wallpaper_size = 'auto';
+			$wallpaper_position = 'center center';
+			$title_color = 'text-dark';
+			$title_overlay = 'color-burn';
+			$title_overlay_hover = 'difference';
+			break;
+		case 'dark':
+			$wallpapers = array('tactile_noise.webp', 'black_lozenge.webp', 'dark_leather.webp', 'escheresque_ste.webp', 'papyrus-dark.webp', 'prism.png', 'tasky_pattern.webp', 'y-so-serious.png');
+			$wallpaper_repeat = 'repeat';
+			$wallpaper_size = 'auto';
+			$wallpaper_position = 'center center';
+			$title_color = 'text-light';
+			$title_overlay = 'color-dodge';
+			$title_overlay_hover = 'difference';
+			break;
+		case 'whimsical':
+			$wallpapers = array('pink-flowers.webp', 'morocco.png', 'pool_table.webp', 'retina_wood.png', 'wheat.webp');
+			$wallpaper_repeat = 'repeat';
+			$wallpaper_size = 'auto';
+			$wallpaper_position = 'center center';
+			$title_color = 'text-dark';
+			$title_overlay = 'overlay';
+			$title_overlay_hover = 'difference';
+			break;
+		case 'landscape':
+			$wallpapers = array('ciprian-boiciuc-354944.jpg', 'dan-aragon-387264.jpg', 'jenu-prasad-347241.jpg', 'uros-jovicic-450294.jpg');
+			$wallpaper_repeat = 'no-repeat';
+			$wallpaper_size = 'cover';
+			$wallpaper_position = 'center center';
+			$title_color = 'text-dark';
+			$title_overlay = 'overlay';
+			$title_overlay_hover = 'difference';
+			break;
+		default:
+			$wallpapers = array('papyrus.webp');
+			$wallpaper_repeat = 'repeat';
+			$wallpaper_size = 'auto';
+			$wallpaper_position = 'center center';
+			$title_color = 'text-dark';
+			$title_overlay = 'overlay';
+			$title_overlay_hover = 'difference';
+			break;
+	}
+
+	$random_wallpaper = array_rand($wallpapers);
+	$wallpaper_file = $wallpapers[$random_wallpaper];
 
 	$html_head_template_conteudo .= "
         <style>
+            html {
+                height: 100%;
+            }
             body {
                 background-image: url('../wallpapers/$wallpaper_file');
                 background-repeat: $wallpaper_repeat;
+                background-size: $wallpaper_size;
+                background-position: $wallpaper_position;
+            }
+            .nexus-title {
+              font-size: 7vw;
+              mix-blend-mode: $title_overlay;
+              user-select: none;
+              cursor: pointer;
+              word-break: keep-all;
+              line-height: normal;
+            }
+            
+            .nexus-title:hover {
+              mix-blend-mode: $title_overlay_hover;
             }
         </style>
 	";
@@ -114,8 +242,10 @@
 
 ?>
     <body id='nexus_background' class="bg-light">
-    <div class="container mt-2">
-        <h1 id="page_title" class="fontstack-mono text-center"><?php echo $pagina_titulo; ?></h1>
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div id="page_title" class="fontstack-mono text-center nexus-title col-auto <?php echo $title_color; ?>"><?php echo $nexus_title; ?></div>
+        </div>
     </div>
     <div class="container">
         <div class="row d-flex justify-content-around mt-3">
@@ -124,92 +254,164 @@
             </div>
         </div>
     </div>
-    <div id="settings_container" class="container">
-        <div class="row d-flex justify-content-start bg-white border rounded p-1">
-				<?php
+    <div id="nexus_container" class="container">
+        <div id="mode_board" class="row d-flex justify-content-start bg-transparent rounded p-1 mt-1">
+            <!--            <div class="col-12">-->
+			<?php
 
-					$template_conteudo = false;
+				$template_conteudo = false;
 
-					$artefato_id = 'show_folder_icons';
-					$artefato_subtitulo = 'Folders';
-					$artefato_class = 'mode_icons';
-					$fa_icone = 'fa-folder-bookmark';
-					$fa_color = 'link-warning';
-					$fa_size = 'fa-4x';
-					$template_conteudo .= include 'templates/artefato_item.php';
+				$artefato_id = 'show_main_folder_icons';
+				$artefato_subtitulo = 'Main folders';
+				$artefato_class = 'mode_icons';
+				$artefato_link_classes = 'bg-white rounded';
+				$artefato_col_limit = 'col-auto';
+				$artefato_classes_detail = 'py-1 artefato rounded d-flex justify-content-center mt-1';
+				$fa_icone = 'fa-folder-bookmark';
+				$fa_color = 'link-warning';
+				$fa_size = 'fa-4x';
+				$template_conteudo .= include 'templates/artefato_item.php';
 
-					$artefato_id = 'recent_links';
-					$artefato_subtitulo = 'Recent links';
-					$artefato_class = 'link_icons';
-                    $fa_icone = 'fa-clock-rotate-left';
-                    $fa_color = 'link-primary';
-                    $fa_size = 'fa-4x';
-                    $template_conteudo .= include 'templates/artefato_item.php';
+				$artefato_id = 'show_archival_folder_icons';
+				$artefato_subtitulo = 'Archival folders';
+				$artefato_class = 'mode_icons';
+				$artefato_link_classes = 'bg-white rounded';
+				$artefato_col_limit = 'col-auto';
+				$artefato_classes_detail = 'py-1 artefato rounded d-flex justify-content-center mt-1';
+				$fa_icone = 'fa-cabinet-filing';
+				$fa_color = 'link-purple';
+				$fa_size = 'fa-4x';
+				$template_conteudo .= include 'templates/artefato_item.php';
 
-					$artefato_id = 'show_setup_icons';
-					$artefato_subtitulo = 'Settings';
-					$artefato_class = 'mode_icons';
-					$fa_icone = 'fa-sliders';
-					$fa_color = 'link-secondary';
-					$fa_size = 'fa-4x';
-					$template_conteudo .= include 'templates/artefato_item.php';
+				$artefato_id = 'show_link_dump';
+				$artefato_subtitulo = 'Link dump';
+				$artefato_class = 'mode_icons';
+				$artefato_link_classes = 'bg-white rounded';
+				$artefato_col_limit = 'col-auto';
+				$artefato_classes_detail = 'py-1 artefato rounded d-flex justify-content-center mt-1';
+				$fa_icone = 'fa-box-archive';
+				$fa_color = 'link-teal';
+				$fa_size = 'fa-4x';
+				$template_conteudo .= include 'templates/artefato_item.php';
 
-					$template_conteudo .= "<hr id='hr_modes' class='mt-3'>";
+				$artefato_id = 'recent_links';
+				$artefato_subtitulo = 'Recent links';
+				$artefato_class = 'link_icons';
+				$artefato_link_classes = 'bg-white rounded';
+				$artefato_col_limit = 'col-auto';
+				$artefato_classes_detail = 'py-1 artefato rounded d-flex justify-content-center mt-1';
+				$fa_icone = 'fa-clock-rotate-left';
+				$fa_color = 'link-primary';
+				$fa_size = 'fa-4x';
+				$template_conteudo .= include 'templates/artefato_item.php';
 
-					$artefato_id = 'manage_folders';
-					$artefato_subtitulo = "Manage folders";
-					$artefato_modal = '#modal_manage_folders';
-					$artefato_class = "hidden nexus_settings_icon";
-					$fa_icone = 'fa-folder-gear';
-					$fa_color = 'link-warning';
-					$fa_size = 'fa-4x';
-					$template_conteudo .= include 'templates/artefato_item.php';
+				$artefato_id = 'show_setup_icons';
+				$artefato_subtitulo = 'Settings';
+				$artefato_class = 'mode_icons';
+				$artefato_link_classes = 'bg-white rounded';
+				$artefato_col_limit = 'col-auto';
+				$artefato_classes_detail = 'py-1 artefato rounded d-flex justify-content-center mt-1';
+				$fa_icone = 'fa-sliders';
+				$fa_color = 'link-secondary';
+				$fa_size = 'fa-4x';
+				$template_conteudo .= include 'templates/artefato_item.php';
 
-					$artefato_id = 'manage_links';
-					$artefato_subtitulo = "Manage links";
-					$artefato_modal = '#modal_manage_links';
-					$artefato_class = "hidden nexus_settings_icon";
-					$fa_icone = 'fa-bookmark';
-					$fa_color = 'text-danger';
-					$fa_size = 'fa-4x';
-					$template_conteudo .= include 'templates/artefato_item.php';
+				$template_conteudo .= "</div>";
+				$template_conteudo .= "<div id='settings_board' class=\"row d-flex justify-content-start bg-transparent rounded p-1 mt-1 hidden\">";
+				//				$template_conteudo .= "<hr id='hr_modes' class='mt-3'>";
 
-					$artefato_id = 'manage_themes';
-					$artefato_subtitulo = "Themes";
-					$artefato_modal = '#modal_manage_themes';
-					$artefato_class = "hidden nexus_settings_icon";
-					$fa_icone = 'fa-swatchbook';
-					$fa_color = 'link-purple';
-					$fa_size = 'fa-4x';
-					$template_conteudo .= include 'templates/artefato_item.php';
+				$artefato_id = 'manage_folders';
+				$artefato_subtitulo = "Manage folders";
+				$artefato_modal = '#modal_manage_folders';
+				$artefato_class = "nexus_settings_icon";
+				$artefato_link_classes = 'bg-white rounded';
+				$artefato_col_limit = 'col-auto';
+				$artefato_classes_detail = 'py-1 artefato rounded d-flex justify-content-center mt-1';
+				$fa_icone = 'fa-folder-gear';
+				$fa_color = 'link-warning';
+				$fa_size = 'fa-4x';
+				$template_conteudo .= include 'templates/artefato_item.php';
 
-					$artefato_id = 'manage_timeline';
-					$artefato_subtitulo = "Activity log";
-					$artefato_modal = '#modal_manage_timeline';
-					$artefato_class = "hidden nexus_settings_icon";
-					$fa_icone = 'fa-list-timeline';
-					$fa_color = 'link-info';
-					$fa_size = 'fa-4x';
-					$template_conteudo .= include 'templates/artefato_item.php';
+				$artefato_id = 'manage_links';
+				$artefato_subtitulo = "Manage links";
+				$artefato_modal = '#modal_manage_links';
+				$artefato_class = "nexus_settings_icon";
+				$artefato_link_classes = 'bg-white rounded';
+				$artefato_col_limit = 'col-auto';
+				$artefato_classes_detail = 'py-1 artefato rounded d-flex justify-content-center mt-1';
+				$fa_icone = 'fa-bookmark';
+				$fa_color = 'text-danger';
+				$fa_size = 'fa-4x';
+				$template_conteudo .= include 'templates/artefato_item.php';
 
-					$artefato_id = 'manage_commands';
-					$artefato_subtitulo = "Commands";
-					$artefato_modal = "#modal_commands";
-					$artefato_class = 'hidden nexus_settings_icon';
-					$fa_icone = 'fa-rectangle-terminal';
-					$fa_color = 'link-teal';
-					$fa_size = 'fa-4x';
-					$template_conteudo .= include 'templates/artefato_item.php';
+				$artefato_id = 'manage_themes';
+				$artefato_subtitulo = "Themes";
+				$artefato_modal = '#modal_manage_themes';
+				$artefato_class = "nexus_settings_icon";
+				$artefato_link_classes = 'bg-white rounded';
+				$artefato_col_limit = 'col-auto';
+				$artefato_classes_detail = 'py-1 artefato rounded d-flex justify-content-center mt-1';
+				$fa_icone = 'fa-swatchbook';
+				$fa_color = 'link-purple';
+				$fa_size = 'fa-4x';
+				$template_conteudo .= include 'templates/artefato_item.php';
 
-                    $template_conteudo .= "<hr id='hr_settings' class='mt-3'>";
+				$artefato_id = 'manage_options';
+				$artefato_subtitulo = "Options";
+				$artefato_modal = '#modal_options';
+				$artefato_class = "nexus_settings_icon";
+				$artefato_link_classes = 'bg-white rounded';
+				$artefato_col_limit = 'col-auto';
+				$artefato_classes_detail = 'py-1 artefato rounded d-flex justify-content-center mt-1';
+				$fa_icone = 'fa-gears';
+				$fa_color = 'link-dark';
+				$fa_size = 'fa-4x';
+				$template_conteudo .= include 'templates/artefato_item.php';
 
-                    $template_conteudo .= $print_folders_large;
+				$artefato_id = 'manage_timeline';
+				$artefato_subtitulo = "Activity log";
+				$artefato_modal = '#modal_manage_timeline';
+				$artefato_class = "nexus_settings_icon";
+				$artefato_link_classes = 'bg-white rounded';
+				$artefato_col_limit = 'col-auto';
+				$artefato_classes_detail = 'py-1 artefato rounded d-flex justify-content-center mt-1';
+				$fa_icone = 'fa-list-timeline';
+				$fa_color = 'link-info';
+				$fa_size = 'fa-4x';
+				$template_conteudo .= include 'templates/artefato_item.php';
 
-					$template_conteudo .= "<hr id='hr_folders' class='mt-3'>";
+				$artefato_id = 'manage_commands';
+				$artefato_subtitulo = "Commands";
+				$artefato_modal = "#modal_commands";
+				$artefato_class = 'nexus_settings_icon';
+				$artefato_link_classes = 'bg-white rounded';
+				$artefato_col_limit = 'col-auto';
+				$artefato_classes_detail = 'py-1 artefato rounded d-flex justify-content-center mt-1';
+				$fa_icone = 'fa-rectangle-terminal';
+				$fa_color = 'link-teal';
+				$fa_size = 'fa-4x';
+				$template_conteudo .= include 'templates/artefato_item.php';
 
-                    echo $template_conteudo;
+				$template_conteudo .= "</div>";
+				$template_conteudo .= "<div id='folders_board' class=\"row d-flex justify-content-start bg-transparent rounded p-1 mt-1\">";
+				//				$template_conteudo .= "<hr id='hr_settings' class='mt-3'>";
 
-				?>
+				$template_conteudo .= $print_folders_large;
+
+				$template_conteudo .= "</div>";
+				$template_conteudo .= "<div id='links_board' class=\"row d-flex justify-content-start bg-transparent rounded p-3 mt-1 hidden\">";
+
+				//				$template_conteudo .= "<hr id='hr_folders' class='mt-3'>";
+				//                $template_conteudo .= "<div class='col'>";
+
+				$template_conteudo .= $print_links;
+
+				$template_conteudo .= "</div>";
+
+				echo $template_conteudo;
+
+			?>
+            <!--            </div>-->
         </div>
     </div>
 	<?php
@@ -263,7 +465,7 @@
                 $('#cmdbar').val('');
             }
         });
-        $(document).on('click', '#trigger_suggest_title', function() {
+        $(document).on('click', '#trigger_suggest_title', function () {
             scan_new_link = $('#nexus_new_link_url').val();
             $.post('engine.php', {
                 'scan_new_link': scan_new_link,
@@ -276,13 +478,31 @@
         })
         $("input:text:visible:first").focus();
         $(document).on('click', '#trigger_show_setup_icons', function () {
-            $('#settings_container').find('.nexus_settings_icon').removeClass('hidden');
-            $('#settings_container').find('.all_folder_icons').addClass('hidden');
+            $('#nexus_container').find('#settings_board').removeClass('hidden');
+            $('#nexus_container').find('#links_board').addClass('hidden');
+            $('#folders_board').find('.main_folder_icons').addClass('hidden');
+            $('#folders_board').find('.archival_folder_icons').addClass('hidden');
         })
 
-        $(document).on('click', '#trigger_show_folder_icons', function () {
-            $('#settings_container').find('.nexus_settings_icon').addClass('hidden');
-            $('#settings_container').find('.all_folder_icons').removeClass('hidden');
+        $(document).on('click', '#trigger_show_main_folder_icons', function () {
+            $('#nexus_container').find('#settings_board').addClass('hidden');
+            $('#nexus_container').find('#links_board').addClass('hidden');
+            $('#folders_board').find('.main_folder_icons').removeClass('hidden');
+            $('#folders_board').find('.archival_folder_icons').addClass('hidden');
+        })
+
+        $(document).on('click', '#trigger_show_archival_folder_icons', function () {
+            $('#nexus_container').find('#settings_board').addClass('hidden');
+            $('#nexus_container').find('#links_board').addClass('hidden');
+            $('#folders_board').find('.main_folder_icons').addClass('hidden');
+            $('#folders_board').find('.archival_folder_icons').removeClass('hidden');
+        })
+
+        $(document).on('click', '#trigger_recent_links', function () {
+            $('#nexus_container').find('#settings_board').addClass('hidden');
+            $('#nexus_container').find('#links_board').removeClass('hidden');
+            $('#folders_board').find('.main_folder_icons').addClass('hidden');
+            $('#folders_board').find('.archival_folder_icons').addClass('hidden');
         })
 
         $(document).on('click', '#trigger_manage_folders', function () {
@@ -306,6 +526,18 @@
                 }
             });
         });
+
+        $(document).on('click', '#trigger_manage_themes', function () {
+            $.post('engine.php', {
+                'populate_themes_modal': '<?php echo $nexus_theme; ?>'
+            }, function (data) {
+                if (data != 0) {
+                    $('#body_modal_manage_themes').empty();
+                    $('#body_modal_manage_themes').append(data);
+                }
+            });
+        });
+
     </script>
 <?php
 
