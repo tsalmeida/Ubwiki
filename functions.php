@@ -1093,8 +1093,8 @@
 			} else {
 				$query = prepare_query("INSERT INTO Paginas (user_id, item_id, tipo) values ($item_id, $item_id, 'nexus')");
 				$conn->query($query);
-				$nexo_pagina_id = $conn->insert_id;
-				$query = prepare_query("INSERT INTO Nexus (user_id, pagina_id) VALUES ($item_id, $nexo_pagina_id)");
+				$nexus_pagina_id = $conn->insert_id;
+				$query = prepare_query("INSERT INTO nexus (user_id, pagina_id) VALUES ($item_id, $nexus_pagina_id)");
 				$conn->query($query);
 			}
 			return $nexo_pagina_id;

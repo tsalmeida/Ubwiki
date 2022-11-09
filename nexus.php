@@ -38,6 +38,8 @@
 		exit();
 	}
 
+	$nexus_theme = false;
+	$nexus_title = false;
 	$nexus_info = return_nexus_info_user_id($user_id);
 	if ($nexus_info != false) {
 		$nexus_id = $nexus_info[0];
