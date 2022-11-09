@@ -1084,7 +1084,7 @@
 				}
 			}
 		} elseif ($tipo == 'nexus') {
-			$query = prepare_query("SELECT pagina_id FROM Nexus WHERE user_id = $item_id");
+			$query = prepare_query("SELECT pagina_id FROM nexus WHERE user_id = $item_id");
 			$nexus = $conn->query($query);
 			if ($nexus->num_rows > 0) {
 				while ($nexo = $nexus->fetch_assoc()) {
