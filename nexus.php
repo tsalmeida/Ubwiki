@@ -156,7 +156,7 @@
 					$nexus_folder_order_identifier = $nexus_main_folder_counter;
 					$artefato_class = 'main_folder_icons hidden';
 					$close_folders_board = "$('#folders_board').addClass('hidden');";
-					$navbar_custom_leftside .= "<a class='navbar-brand navbar-button mx-1 rounded px-2' href='javascript:void(0);' id='trigger_folder_small_{$nexus_folder_order_identifier}'><i class='$fa_icone $fa_color_small'></i></a>";
+					$navbar_custom_leftside .= "<a class='navbar-brand navbar-button mx-1 rounded px-2' href='javascript:void(0);' id='trigger_folder_small_{$nexus_folder_order_identifier}'><i class='$fa_icone $fa_color_small fa-fw'></i></a>";
 					$fa_size = 'fa-5x';
 					$artefato_classes_detail = 'py-1 artefato rounded d-flex justify-content-center mt-1';
 			}
