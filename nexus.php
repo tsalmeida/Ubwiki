@@ -60,6 +60,13 @@
 			$nexus_new_folder_type = 'archival';
 		}
 		$user_nexus_id = $_SESSION['user_nexus_pagina_id'];
+		if ($nexus_new_folder_icon == false) {
+		    $nexus_new_folder_icon = nexus_random_folder_icon();
+        }
+		if ($nexus_new_folder_color == false) {
+		    $nexus_new_folder_color = nexus_random_color();
+        }
+
 		$query = prepare_query("INSERT INTO nexus_folders (user_id, pagina_id, type, title, icon, color) VALUES ($user_id, $user_nexus_id, '$nexus_new_folder_type', '$nexus_new_folder_title', '$nexus_new_folder_icon', '$nexus_new_folder_color')");
 		$conn->query($query);
 	}
@@ -77,7 +84,13 @@
 		if ($_POST['nexus_new_link_color'] == 'random') {
 			$_POST['nexus_new_link_color'] = nexus_random_color();
 		}
-		$query = prepare_query("INSERT INTO nexus_links (user_id, pagina_id, pasta_id, url, title, icon, color) VALUES ($user_id, $pagina_id, {$_POST['nexus_new_link_location']}, '{$_POST['nexus_new_link_url']}', '{$_POST['nexus_new_link_title']}', '{$_POST['nexus_new_link_icon']}', '{$_POST['nexus_new_link_color']}')");
+		$query = prepare_query("INSERT INTO nexus_links (url) VALUES ('{$_POST['nexus_new_link_url']}')");
+		$conn->query($query);
+		$new_link_id = $conn->insert_id;
+		//user_id, pagina_id, 'link', pasta_id, link_id, url, title, icon, color
+		$query = prepare_query("INSERT INTO nexus_elements (user_id, pagina_id, type, param_int_1, param_int_2, param1, param2, param3, param4) VALUES ($user_id, $pagina_id, 'link', {$_POST['nexus_new_link_location']}, $new_link_id, '{$_POST['nexus_new_link_url']}', '{$_POST['nexus_new_link_title']}', '{$_POST['nexus_new_link_icon']}', '{$_POST['nexus_new_link_color']}')");
+		$conn->query($query);
+		$query = prepare_query("INSERT INTO nexus_handles (link_id, handle) VALUES ($new_link_id, '{$_POST['nexus_new_link_title']}')");
 		$conn->query($query);
 	}
 
@@ -141,7 +154,7 @@
 					$nexus_folder_order_identifier = $nexus_main_folder_counter;
 					$artefato_class = 'main_folder_icons hidden';
 					$close_folders_board = "$('#folders_board').addClass('hidden');";
-					$navbar_custom_leftside .= "<a class='navbar-brand' href='javascript:void(0);' id='trigger_folder_small_{$nexus_folder_order_identifier}'><i class='$fa_icone $fa_color_small'></i></a>";
+					$navbar_custom_leftside .= "<a class='navbar-brand navbar-button mx-1 rounded px-2' href='javascript:void(0);' id='trigger_folder_small_{$nexus_folder_order_identifier}'><i class='$fa_icone $fa_color_small'></i></a>";
 					$fa_size = 'fa-5x';
 					$artefato_classes_detail = 'py-1 artefato rounded d-flex justify-content-center mt-1';
 			}
@@ -179,25 +192,26 @@
                     if (zEvent.altKey  &&  zEvent.key === '{$nexus_folder_order_identifier}') {
                         show_links_folder_{$nexus_folder_order_identifier}();
                     }
-                } );
+                });
 			    ";
             }
 		}
 	}
 
-	error_log(serialize($nexus_folder_pairings));
-
+    $_SESSION['cmd_links'] = array();
 	$print_links = false;
-	$query = prepare_query("SELECT id, pasta_id, url, title, icon, color FROM nexus_links WHERE pagina_id = $pagina_id AND state = 1");
+    // links = (user_id, pagina_id, type, param_int_1:folder_id, param_int_2:link_id, param1:link_url, param2:link_title, param3:link_icon, param4:link_color)
+	$query = prepare_query("SELECT param_int_1, param_int_2, param1, param2, param3, param4 FROM nexus_elements WHERE pagina_id = $pagina_id AND state = 1 AND type = 'link'");
 	$nexus_links_info = $conn->query($query);
 	if ($nexus_links_info->num_rows > 0) {
 		while ($nexus_link_info = $nexus_links_info->fetch_assoc()) {
-			$nexus_link_id = $nexus_link_info['id'];
-			$nexus_link_pasta_id = $nexus_link_info['pasta_id'];
-			$nexus_link_url = $nexus_link_info['url'];
-			$nexus_link_title = $nexus_link_info['title'];
-			$fa_icone = $nexus_link_info['icon'];
-			$fa_color = $nexus_link_info['color'];
+			$nexus_link_id = $nexus_link_info['param_int_2'];
+			$nexus_link_pasta_id = $nexus_link_info['param_int_1'];
+			$nexus_link_url = $nexus_link_info['param1'];
+			$nexus_link_title = $nexus_link_info['param2'];
+			$_SESSION['cmd_links'][$nexus_link_title] = $nexus_link_url;
+			$fa_icone = $nexus_link_info['param3'];
+			$fa_color = $nexus_link_info['param4'];
 			$fa_background = return_background($fa_color);
 			$nexus_pasta_order_identifier = $nexus_folder_pairings[$nexus_link_pasta_id];
 			$print_links .= "<a id='link_{$nexus_link_id}' href='$nexus_link_url' target='_blank' class='all_link_icons rounded $fa_background py-4 px-4 me-1 mb-1 col-auto link_icon_{$nexus_pasta_order_identifier}'><span class='$fa_color'><i class='$fa_icone me-2'></i></span> <span class='link-dark'>$nexus_link_title</span></a>";
@@ -266,7 +280,6 @@
 
 	$html_head_template_conteudo .= "
         <style>
-
             html {
                 height: 100%;
             }
@@ -277,33 +290,40 @@
                 background-position: $wallpaper_position;
             }
             .nexus-title {
-              font-size: 5vw;
+              font-size: 6em;
               mix-blend-mode: $title_overlay;
               user-select: none;
               cursor: pointer;
               word-break: keep-all;
               line-height: normal;
             }
-            
             .nexus-title:hover {
               mix-blend-mode: $title_overlay_hover;
             }
-     
+            .navbar-button:hover {
+                background-color: white !important;
+            }
+            .cmd-bar {
+                outline: none !important;
+                outline-color: transparent !important;
+                outline-style: none !important;
+            }
         </style>
 	";
 
-	$navbar_custom_dropdown_start .= "<li><a id='trigger_show_setup_icons' class='dropdown-item' href='javascript:void(0);'><i class='fad fa-sliders-simple fa-fw'></i> Settings</a></li>";
-	$navbar_custom_rightside .= "<a class='navbar-brand link-warning' href='javascript:void(0);' id='trigger_show_main_folder_icons'><i class='fad fa-folder-bookmark fa-fw'></i></a>";
-	$navbar_custom_rightside .= "<a class='navbar-brand link-purple' href='javascript:void(0);' id='trigger_show_archival_folder_icons'><i class='fad fa-cabinet-filing fa-fw'></i></a>";
-	$navbar_custom_rightside .= "<a class='navbar-brand link-teal' href='javascript:void(0);' id='trigger_show_link_dump'><i class='fad fa-box-archive fa-fw'></i></a>";
-	$navbar_custom_rightside .= "<a class='navbar-brand link-primary' href='javascript:void(0);' id='trigger_show_recent_links'><i class='fad fa-clock-rotate-left fa-fw'></i></a>";
+
+	$navbar_custom_rightside .= "<a class='navbar-brand navbar-button mx-1 rounded px-2 link-warning' href='javascript:void(0);' id='trigger_show_main_folder_icons'><i class='fad fa-folder-bookmark fa-fw'></i></a>";
+	$navbar_custom_rightside .= "<a class='navbar-brand navbar-button mx-1 rounded px-2 link-purple' href='javascript:void(0);' id='trigger_show_archival_folder_icons'><i class='fad fa-cabinet-filing fa-fw'></i></a>";
+	$navbar_custom_rightside .= "<a class='navbar-brand navbar-button mx-1 rounded px-2 link-teal' href='javascript:void(0);' id='trigger_show_link_dump'><i class='fad fa-box-archive fa-fw'></i></a>";
+	$navbar_custom_rightside .= "<a class='navbar-brand navbar-button mx-1 rounded px-2 link-primary' href='javascript:void(0);' id='trigger_show_recent_links'><i class='fad fa-clock-rotate-left fa-fw'></i></a>";
+	$navbar_custom_rightside .= "<a class='navbar-brand navbar-button mx-1 rounded px-2 link-light' href='javascript:void(0)' id='trigger_show_setup_icons'><i class='fad fa-cog fa-fw fa-swap-opacity'></i></a>";
 
 	include 'templates/html_head.php';
 	include 'templates/navbar.php';
 
 ?>
     <body id='nexus_background' class="bg-light">
-    <div class="container my-5">
+    <div class="container-fluid my-5">
         <div class="row justify-content-center">
             <div id="page_title" class="text-center nexus-title col-auto fontstack-mono <?php echo $title_color; ?>"><?php echo $nexus_title; ?></div>
         </div>
@@ -312,7 +332,14 @@
         <div class="row d-flex justify-content-around mt-3">
             <div class="col">
                 <div class="mb-3 input-group">
-                    <input id="cmdbar" type="text" class="form-control fontstack-mono mx-1" placeholder="<?php echo $user_apelido; ?> commands…">
+                    <input id="cmdbar" name="cmdbar" list="command-list" type="text" class="form-control fontstack-mono mx-1 cmd-bar" rows="1" autocomplete="off" spellcheck="false" placeholder="<?php echo $user_apelido; ?> commands…">
+                    <datalist id="command-list">
+                        <?php
+                            foreach($_SESSION['cmd_links'] as $key => $value) {
+                                echo "<option>$key</option>";
+                            }
+                        ?>
+                    </datalist>
                 </div>
             </div>
         </div>
@@ -537,9 +564,14 @@
             long = bar.length;
             var code = e.key;
             if (code == 'Enter') {
-                if (bar == '') {
-                    alert('pressed enter on an empty command bar');
-                }
+                $.post('engine.php', {
+                    'analyse_cmd_input': bar,
+                }, function (data) {
+                    if (data != 0) {
+                        window.open(data, '_blank');
+                        $("#cmdbar").val('');
+                    }
+                });
             }
         });
         $(document).on('click', '#trigger_suggest_title', function () {

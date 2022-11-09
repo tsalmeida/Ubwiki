@@ -2064,7 +2064,7 @@
 			echo "<option disabled>You have not created any folders.</option>";
 		}
 		echo "
-					</select>
+			</select>
 				</div>
 				<div class='mb-3'>
 					<label class='form-label' for='#nexus_new_link_icon'>Choose an icon:</label>
@@ -2153,9 +2153,10 @@
 					<label class='form-label' for='nexus_new_folder_title'>Name of your new folder:</label>
 					<input type='text' class='form-control' id='nexus_new_folder_title' name='nexus_new_folder_title'>
 				</div>
+				<div class='mb-3'>
+				<label for='nexus_new_folder_icon' class='form-label'>Select an icon:</label>
 				<select id='nexus_new_folder_icon' name='nexus_new_folder_icon' class='form-select mb-3'>
-					<option selected disabled>Select an icon</option>";
-		echo "
+					<option selected value='0'>Random icon</option>
 					<option value='fad fa-circle-quarters'>Circle-quarters</option>
 					<option value='fad fa-triangle fa-swap-opacity'>Triangle</option>
 					<option value='fad fa-square fa-swap-opacity'>Square</option>
@@ -2171,10 +2172,13 @@
 					<option value='fad fa-moon-over-sun'>Moon-over-sun</option>
 					<option value='fad fa-meteor'>Meteor</option>
 					<option value='fad fa-eclipse'>Eclipse</option>
-					<option value='fad fa-comet'>Comet</option>";
-		echo "</select>
+					<option value='fad fa-comet'>Comet</option>
+				</select>
+				</div>
+				<div class='mb-3'>
+				<label for='nexus_new_folder_color' class='form-label'>Select a color:</label>
 				<select id='nexus_new_folder_color' name='nexus_new_folder_color' class='form-select mb-3'>
-					<option selected disabled>Select a color</option>
+					<option value='0' selected>Random color</option>
 					<option value='link-danger'>Red</option>
 					<option value='link-warning'>Yellow</option>
 					<option value='link-success'>Green</option>
@@ -2184,6 +2188,7 @@
 					<option value='link-purple'>Purple</option>
 					<option value='link-dark'>Black</option>
 				</select>
+				</div>
 				<div class='form-check mb-3'>
 					<input class='form-check-input' type='checkbox' value='' id='nexus_new_folder_type' name='nexus_new_folder_type' checked>
 					<label class='form-check-label' for='nexus_new_folder_type'>This is a main folder: its icon will appear on the top bar. Otherwise, it will only be found alongside other \"archive\" folders.</label>
@@ -2213,6 +2218,10 @@
 		} else {
 			echo "<p>No folders found.</p>";
 		}
+	}
+
+	if (isset($_POST['analyse_cmd_input'])) {
+		echo $_SESSION['cmd_links'][$_POST['analyse_cmd_input']];
 	}
 
 ?>

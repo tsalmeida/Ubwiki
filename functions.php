@@ -3399,6 +3399,12 @@
 		return $nexus_colors[$random_icon];
 	}
 
+	function nexus_random_folder_icon() {
+		$nexus_folder_icons = array('fa-solid fa-circle', 'fa-solid fa-play', 'fa-solid fa-square', 'fa-solid fa-triangle', 'fa-solid fa-hexagon', 'fa-solid fa-circle-dot', 'fa-solid fa-circle-half-stroke', 'fa-solid fa-rectangle-vertical', 'fa-solid fa-rectangle-wide');
+		$random_icon = array_rand($nexus_folder_icons);
+		return $nexus_folder_icons[$random_icon];
+	}
+
 	function return_nexus_info_user_id($user_id)
 	{
 		include 'templates/criar_conn.php';

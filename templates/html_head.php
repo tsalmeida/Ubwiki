@@ -31,9 +31,13 @@
         <link href='css/style.css?20221109' rel='stylesheet'>
         <link type='image/vnd.microsoft.icon' rel='icon' href='../imagens/favicon.ico'/>
         <!-- JQuery -->
-        <script src=\"https://code.jquery.com/jquery-3.6.1.min.js\" integrity=\"sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=\" crossorigin=\"anonymous\"></script>
-        <title>Ubwiki</title>
-    ";
+        <script src=\"https://code.jquery.com/jquery-3.6.1.min.js\" integrity=\"sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=\" crossorigin=\"anonymous\"></script>";
+    if ($pagina_tipo == 'nexus') {
+        $pagina_title = "Nexus";
+    } else {
+        $pagina_title = 'Ubwiki';
+    }
+    echo "<title>$pagina_title</title>";
 
 	if (($html_head_template_quill == true) || ($html_head_template_quill_sim == true)) {
 		echo "<link href='css/quill.snow.css' rel='stylesheet'>";
