@@ -20,8 +20,8 @@
 	<?php
 		if ($user_id == false) {
 			echo "<div class='d-flex justify-content-end p-1'>";
-			echo "<a data-bs-toggle='modal' data-bs-target='#modal_languages' class='link-teal mx-2'><i class='fad fa-language fa-fw fa-2x'></i></a>";
-			echo "<a data-bs-toggle='modal' data-bs-target='#modal_login' class='link-primary mx-2'><i class='fad fa-user-circle fa-fw fa-2x'></i></a>";
+			echo "<a data-bs-toggle='modal' data-bs-target='#modal_languages' class='link-teal mx-2' href='javascript:void(0);'><i class='fad fa-language fa-fw fa-2x'></i></a>";
+			echo "<a data-bs-toggle='modal' data-bs-target='#modal_login' class='link-primary mx-2' href='javascript:void(0);'><i class='fad fa-user-circle fa-fw fa-2x'></i></a>";
 			echo "</div>";
 		}
 
