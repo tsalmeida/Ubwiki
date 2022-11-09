@@ -28,7 +28,7 @@
         <!-- Font Awesome -->
         <script src='https://kit.fontawesome.com/b8e073920a.js' crossorigin='anonymous'></script>
         <!-- Your custom styles (optional) -->
-        <link href='css/style.css?20221104' rel='stylesheet'>
+        <link href='css/style.css?20221109' rel='stylesheet'>
         <link type='image/vnd.microsoft.icon' rel='icon' href='../imagens/favicon.ico'/>
         <!-- JQuery -->
         <script src=\"https://code.jquery.com/jquery-3.6.1.min.js\" integrity=\"sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=\" crossorigin=\"anonymous\"></script>

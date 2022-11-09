@@ -571,19 +571,6 @@ ul {
   color: white !important;
 }
 
-.nexus-title {
-  font-size: 7vw;
-  mix-blend-mode: color-burn;
-  user-select: none;
-  cursor: pointer;
-  word-break: keep-all;
-  line-height: normal;
-}
-
-.nexus-title:hover {
-  mix-blend-mode: difference;
-}
-
 .link-purple, .link-purple {
   color: #6f42c1 !important;
 }
