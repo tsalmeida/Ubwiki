@@ -306,12 +306,12 @@
 		$pagina_translated = $_SESSION['pagina_translated'];
 	}
 
-	$all_buttons_classes = "btn text-center mb-3";
-	$button_classes = "$all_buttons_classes btn-primary";
-	$button_small = 'brn rounded btn-sm text-center';
-	$button_classes_light = "$all_buttons_classes btn-light";
-	$button_classes_info = "$all_buttons_classes btn-info";
-	$button_classes_red = "$all_buttons_classes btn-danger";
+//	$all_buttons_classes = "btn text-center mb-3";
+//	$button_classes = "$all_buttons_classes btn-primary";
+//	$button_small = 'brn rounded btn-sm text-center';
+//	$button_classes_light = "$all_buttons_classes btn-light";
+//	$button_classes_info = "$all_buttons_classes btn-info";
+//	$button_classes_red = "$all_buttons_classes btn-danger";
 	$select_classes = "browser-default custom-select mt-2";
 	$coluna_todas = false;
 	$coluna_classes = "col-lg-6 col-md-10 col-sm-11 $coluna_todas";
@@ -320,10 +320,10 @@
 	$coluna_pouco_maior_classes = "col-lg-6 col-md-10 col-sm-11 $coluna_todas";
 	$row_classes = "pt-3 pb-5";
 
-	$tag_ativa_classes = 'text-dark m-1 p-2 rounded remover_tag w-auto';
-	$tag_inativa_classes = 'text-dark m-1 p-2 rounded adicionar_tag w-auto';
-	$tag_neutra_classes = 'text-dark m-1 p-2 rounded w-auto';
-	$tag_inativa_classes2 = 'text-dark m-1 p-2 rounded adicionar_tag2 w-auto';
+	$tag_ativa_classes = 'col-auto link-dark me-1 mb-1 p-2 rounded remover_tag border';
+	$tag_inativa_classes = 'col-auto link-dark me-1 mb-1 p-2 rounded adicionar_tag border';
+	$tag_neutra_classes = 'col-auto link-dark me-1 mb-1 p-2 rounded border';
+	$tag_inativa_classes2 = 'col-auto link-dark me-1 mb-1 p-2 rounded adicionar_tag2 border';
 
 	if (isset($_POST['bookmark_change'])) {
 		$bookmark_change = $_POST['bookmark_change'];
@@ -492,7 +492,7 @@
 			$referencia_exata = $conn->query($query);
 		}
 		if ($referencia_exata->num_rows == 0) {
-			$busca_resultados .= "<div class='col-12 pl-0'><button type='button' id='criar_referencia' name='criar_referencia' class='btn text-center btn-info btn-sm mb-2' value='$busca_referencias'>{$pagina_translated['Referência não encontrada, criar nova?']}</button></div>";
+			$busca_resultados .= "<button type='button' id='criar_referencia' name='criar_referencia' class='btn btn-outline-primary mb-2 col-12' value='$busca_referencias'>{$pagina_translated['Referência não encontrada, criar nova?']}</button>";
 		}
 		if ($busca_referencias_tipo == false) {
 			$query = prepare_query("SELECT id, etiqueta_id, compartilhamento, titulo, autor, tipo, user_id FROM Elementos WHERE titulo LIKE '%{$busca_referencias}%'");
@@ -754,11 +754,7 @@
 			$etiqueta_exata = $conn->query($query);
 		}
 		if ($etiqueta_exata->num_rows == 0) {
-			$busca_resultados .= "
-			<div class='col-12'>
-				<button type='button' id='$acao_etiqueta_criar' name='$acao_etiqueta_criar' class='btn text-center btn-success btn-sm m-0 mb-2 align-self-center' value='$busca_etiquetas'>{$pagina_translated['Criar etiqueta']} \"$busca_etiquetas\"</button>
-			</div>
-			";
+			$busca_resultados .= "<button type='button' id='$acao_etiqueta_criar' name='$acao_etiqueta_criar' class='btn btn-outline-success mb-2' value='$busca_etiquetas'>{$pagina_translated['Criar etiqueta']} \"$busca_etiquetas\"</button>";
 		}
 		if ($busca_etiquetas_tipo == 'all') {
 			$query = prepare_query("SELECT id, tipo, titulo FROM Etiquetas WHERE titulo LIKE '%{$busca_etiquetas}%'");
@@ -2040,7 +2036,7 @@
 					<label class='form-label' for='nexus_new_link_url'>Paste your link url:</label>
 					<input type='url' class='form-control' id='nexus_new_link_url' name='nexus_new_link_url'>
 				</div>
-				<button type='button' class='btn btn-info mb-3' id='trigger_suggest_title'>Suggest title</button>
+				<button type='button' class='btn btn-outline-primary' id='trigger_suggest_title'>Suggest title</button>
 				<div class='mb-3'>
 					<label class='form-label' for='nexus_new_link_title'>Link title:</label>
 					<input type='text' class='form-control' id='nexus_new_link_title' name='nexus_new_link_title'>
@@ -2138,7 +2134,7 @@
 					<option value='landscape' $landscape_selected>Landscape images</option>
 					<option value='whimsical' $whimsical_selected>Whimsical</option>
 				</select>
-				<button type='submit' class='$all_buttons_classes btn-primary'>Pick theme</button>
+				<button type='submit' class='btn btn-primary'>Pick theme</button>
 			</form>
 		";
 		echo $return;
@@ -2197,10 +2193,6 @@
 			</form>
 			<hr>
 			<h3>Remove folder</h3>
-			<form method='post'>
-				<p>When you remove a folder, all links that had been added to it are also removed, though you can still find everything in the log.</p>
-				<select id='nexus_del_folder_id' name='nexus_del_folder_id' class='form-select mb-3'>
-					<option selected disabled>Select a folder to remove</option>
 		";
 		$query = prepare_query("SELECT id, title, icon, color FROM nexus_folders WHERE user_id = $user_id AND pagina_id = {$_SESSION['user_nexus_pagina_id']}");
 		$user_nexus_folders_info = $conn->query($query);
@@ -2212,11 +2204,17 @@
 				$user_nexus_folder_color = $user_nexus_folder_info['color'];
 				echo "<option value='$user_nexus_folder_id'>$user_nexus_folder_title, $user_nexus_folder_icon, $user_nexus_folder_color</option>";
 			}
+			echo "
+			<form method='post'>
+				<p>When you remove a folder, all links that had been added to it are also removed, though you can still find everything in the log.</p>
+				<select id='nexus_del_folder_id' name='nexus_del_folder_id' class='form-select mb-3'>
+					<option selected disabled>Select a folder to remove</option>
+			";
 			echo "</select>";
 			echo "<button type='submit' class='btn btn-danger'>Delete folder</button>";
 			echo "</form>";
 		} else {
-			echo "<p>No folders found.</p>";
+			echo "<p>No folders found, but you will be able to delete them here once you've created some.</p>";
 		}
 	}
 

@@ -77,7 +77,7 @@
 	}
 
 	if (isset($_POST['selecionar_cor'])) {
-		$acceptable_avatar_colors = array('link-primary', 'link-danger', 'link-success', 'link-warning', 'link-purple', 'link-teal', 'link-teal', 'text-dark');
+		$acceptable_avatar_colors = array('link-primary', 'link-danger', 'link-success', 'link-warning', 'link-purple', 'link-teal', 'link-teal', 'link-dark');
 		$nova_cor = $_POST['selecionar_cor'];
 		if (in_array($nova_cor, $acceptable_avatar_colors)) {
 			$_SESSION['user_avatar_cor'] = $_POST['selecionar_cor'];
@@ -466,7 +466,7 @@
 
 				$template_id = 'escritorio_segunda_janela';
 				$template_titulo = false;
-				$template_classes = 'hidden';
+				$template_classes = 'd-none';
 				$template_conteudo_class = 'justify-content-start';
 				$template_botoes = "<a id='hide_hidden_icons' class='link-success' title='{$pagina_translated['Hidden icons']}' href='javascript:void(0);'><i class='fad fa-exchange fa-swap-opacity fa-fw fa-lg'></i></a>";
 				$template_conteudo_no_col = true;
@@ -662,7 +662,7 @@
                 <label for='adicionar_credito_codigo' class='form-label'>{$pagina_translated['adicionar credito codigo']}</label>
                 <input type='text' class='form-control' id='adicionar_credito_codigo' name='adicionar_credito_codigo'>
                 <div class='row d-flex justify-content-center'>
-                <button class='$button_classes'>{$pagina_translated['send']}</button>
+                <button class='btn btn-primary'>{$pagina_translated['send']}</button>
                 </div>
             </div>
         </form>
@@ -732,7 +732,7 @@
 									<input type='text' name='novo_grupo_titulo' id='novo_grupo_titulo' class='form-control validate mb-1' required>
 								</div>
 								<div class='row justify-content-center'>
-									<button name='trigger_novo_grupo' class='$button_classes'>{$pagina_translated['Criar grupo de estudos']}</button>
+									<button name='trigger_novo_grupo' class='btn btn-primary'>{$pagina_translated['Criar grupo de estudos']}</button>
 								</div>
 							</form>
 						    ";
@@ -767,8 +767,8 @@
                                 </select>
                                 </div>
                                 <div class='row justify-content-center'>
-                                    <button name='trigger_aceitar_convite' class='$button_classes'>{$pagina_translated['Aceitar convite']}</button>
-                                    <button name='trigger_rejeitar_convite' class='$button_classes_red'>{$pagina_translated['Rejeitar convite']}</button>
+                                    <button name='trigger_aceitar_convite' class='btn btn-primary'>{$pagina_translated['Aceitar convite']}</button>
+                                    <button name='trigger_rejeitar_convite' class='btn btn-danger'>{$pagina_translated['Rejeitar convite']}</button>
                                 </div>
                                 </form>
                             ";
@@ -941,32 +941,32 @@
             'list_user_pages': true
         }, function (data) {
             if (data != 0) {
-                $('#user_pages_hide').removeClass('hidden');
+                $('#user_pages_hide').removeClass('d-none');
                 $('#user_pages').empty();
                 $('#user_pages').append(data);
             } else {
-                $('#user_pages_hide').addClass('hidden');
+                $('#user_pages_hide').addClass('d-none');
             }
         });
         $.post('engine.php', {
             'list_user_texts': true
         }, function (data) {
             if (data != 0) {
-                $('#user_texts_hide').removeClass('hidden');
+                $('#user_texts_hide').removeClass('d-none');
                 $('#user_texts').empty();
                 $('#user_texts').append(data);
             } else {
-                $('#user_texts_hide').addClass('hidden');
+                $('#user_texts_hide').addClass('d-none');
             }
         });
     });
     $(document).on('click', '#hide_hidden_icons', function () {
-        $('#escritorio_segunda_janela').addClass('hidden')
-        $('#escritorio_primeira_janela').removeClass('hidden')
+        $('#escritorio_segunda_janela').addClass('d-none')
+        $('#escritorio_primeira_janela').removeClass('d-none')
     })
     $(document).on('click', '#show_hidden_icons', function () {
-        $('#escritorio_primeira_janela').addClass('hidden')
-        $('#escritorio_segunda_janela').removeClass('hidden')
+        $('#escritorio_primeira_janela').addClass('d-none')
+        $('#escritorio_segunda_janela').removeClass('d-none')
     })
 </script>
 

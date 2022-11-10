@@ -9,7 +9,7 @@
 			  <p>{$pagina_translated['Tem certeza? Não será possível recuperar sua anotação.']}</p>
 	          <form method='post'>
 	            <div class='row justify-content-center'>
-		            <button class='$button_classes_red' name='destruir_anotacao'>{$pagina_translated['Destruir']}</button>
+		            <button class='btn btn-danger' name='destruir_anotacao'>{$pagina_translated['Destruir']}</button>
 	            </div>
 	          </form>
             ";

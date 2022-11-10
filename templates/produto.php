@@ -38,7 +38,7 @@
 								<h4 class='card-title'>$produto_titulo</h4>
 								<span class='card-text'><small class='line-height-1'>$produto_apresentacao</small></span>
 								<div class='row justify-content-center d-flex'>
-									<a type='button' href='pagina.php?pagina_id=$produto_pagina_id' class='btn btn-primary btn-sm'>Ver mais</a>
+									<a type='button' href='pagina.php?pagina_id=$produto_pagina_id' class='btn btn-outline-primary'>Ver mais</a>
 								</div>
 							</div>
 						</div>

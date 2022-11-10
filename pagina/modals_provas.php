@@ -19,23 +19,23 @@
                             <p>Selecione a opção abaixo para acessar os sistemas que permitem acrescentar provas anteriores do concurso:</p>
                         ";
 	$template_modal_body_conteudo .= "
-                            <span data-bs-toggle='modal' data-bs-target='#modal_adicionar_simulado'><button type='button' class='$button_classes_info btn-block ms-0' data-bs-toggle='modal' data-bs-target='#modal_adicionar_edicao'>Adicionar edição do concurso</button></span>
+                            <span data-bs-toggle='modal' data-bs-target='#modal_adicionar_simulado'><button type='button' class='btn btn-primary_info btn-block ms-0' data-bs-toggle='modal' data-bs-target='#modal_adicionar_edicao'>Adicionar edição do concurso</button></span>
                         ";
 	if ($edicoes->num_rows > 0) {
 		$template_modal_body_conteudo .= "
-                            <span data-bs-toggle='modal' data-bs-target='#modal_adicionar_simulado'><button type='button' class='$button_classes_info btn-block ms-0' data-bs-toggle='modal' data-bs-target='#modal_adicionar_etapa'>Adicionar etapa da edição</button></span>
+                            <span data-bs-toggle='modal' data-bs-target='#modal_adicionar_simulado'><button type='button' class='btn btn-primary_info btn-block ms-0' data-bs-toggle='modal' data-bs-target='#modal_adicionar_etapa'>Adicionar etapa da edição</button></span>
                             ";
 	}
 	if ($etapas->num_rows > 0) {
 		$template_modal_body_conteudo .= "
-                            <span data-bs-toggle='modal' data-bs-target='#modal_adicionar_simulado'><button type='button' class='$button_classes_info btn-block ms-0' data-bs-toggle='modal' data-bs-target='#modal_adicionar_prova'>Adicionar prova da etapa</button></span>
+                            <span data-bs-toggle='modal' data-bs-target='#modal_adicionar_simulado'><button type='button' class='btn btn-primary_info btn-block ms-0' data-bs-toggle='modal' data-bs-target='#modal_adicionar_prova'>Adicionar prova da etapa</button></span>
                             ";
 	}
 	$template_modal_body_conteudo .= "
-                            <span data-bs-toggle='modal' data-bs-target='#modal_adicionar_simulado'><button type='button' class='$button_classes btn-block ms-0' data-bs-toggle='modal' data-bs-target='#modal_adicionar_texto_apoio'>Adicionar texto de apoio</button></span>
+                            <span data-bs-toggle='modal' data-bs-target='#modal_adicionar_simulado'><button type='button' class='btn btn-primary btn-block ms-0' data-bs-toggle='modal' data-bs-target='#modal_adicionar_texto_apoio'>Adicionar texto de apoio</button></span>
                         ";
 	$template_modal_body_conteudo .= "
-                            <span data-bs-toggle='modal' data-bs-target='#modal_adicionar_simulado'><button type='button' class='$button_classes btn-block ms-0' data-bs-toggle='modal' data-bs-target='#modal_adicionar_questao'>Adicionar questão</button></span>
+                            <span data-bs-toggle='modal' data-bs-target='#modal_adicionar_simulado'><button type='button' class='btn btn-primary btn-block ms-0' data-bs-toggle='modal' data-bs-target='#modal_adicionar_questao'>Adicionar questão</button></span>
                         ";
 	
 	include 'templates/modal.php';
@@ -463,7 +463,7 @@
     ";
 	$template_modal_body_conteudo .= "
         <div class='row justify-content-center'>
-            <button name='novo_simulado_trigger' class='$button_classes'>Gerar simulado</button>
+            <button name='novo_simulado_trigger' class='btn btn-primary'>Gerar simulado</button>
         </div>
         </form>
     ";

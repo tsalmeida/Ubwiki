@@ -139,23 +139,23 @@
 				case 'archival':
 				    $nexus_archive_folder_counter++;
 				    $nexus_folder_order_identifier = $nexus_archive_folder_counter;
-					$artefato_class = 'archival_folder_icons hidden';
+					$artefato_class = 'archival_folder_icons d-none';
 					$fa_size = 'fa-3x';
 					$artefato_classes_detail = 'py-1 artefato rounded d-flex mt-1';
 					break;
 				case 'hidden':
 				    $nexus_hidden_folder_counter++;
 				    $nexus_folder_order_identifier = $nexus_hidden_folder_counter;
-					$artefato_class = 'hidden_folder_icons hidden';
-					$close_folders_board = "$('#folders_board').addClass('hidden');";
+					$artefato_class = 'hidden_folder_icons d-none';
+					$close_folders_board = "$('#folders_board').addClass('d-none');";
 					$fa_size = 'fa-5x';
 					$artefato_classes_detail = 'py-1 artefato rounded d-flex justify-content-center mt-1';
 					break;
 				default:
 					$nexus_main_folder_counter++;
 					$nexus_folder_order_identifier = $nexus_main_folder_counter;
-					$artefato_class = 'main_folder_icons hidden';
-					$close_folders_board = "$('#folders_board').addClass('hidden');";
+					$artefato_class = 'main_folder_icons d-none';
+					$close_folders_board = "$('#folders_board').addClass('d-none');";
 					$navbar_custom_leftside .= "<a class='navbar-brand navbar-button mx-1 rounded px-2' href='javascript:void(0);' id='trigger_folder_small_{$nexus_folder_order_identifier}'><i class='$fa_icone $fa_color_small fa-fw'></i></a>";
 					$fa_size = 'fa-5x';
 					$artefato_classes_detail = 'py-1 artefato rounded d-flex justify-content-center mt-1';
@@ -175,11 +175,11 @@
                 function show_links_folder_{$nexus_folder_order_identifier}() {
                     $('#page_title').empty();
                     $('#page_title').append('{$nexus_folder_title}');
-                    $('#cmd_container').addClass('hidden');
-                    $('#links_board').removeClass('hidden');
-                    $('.all_link_icons').addClass('hidden');
-                    $('#settings_board').addClass('hidden');
-                    $('.link_icon_{$nexus_folder_order_identifier}').removeClass('hidden');
+                    $('#cmd_container').addClass('d-none');
+                    $('#links_board').removeClass('d-none');
+                    $('.all_link_icons').addClass('d-none');
+                    $('#settings_board').addClass('d-none');
+                    $('.link_icon_{$nexus_folder_order_identifier}').removeClass('d-none');
                     $close_folders_board
                 }
                 $(document).on('click', '#trigger_folder_large_{$nexus_folder_order_identifier}', function () {
@@ -409,7 +409,7 @@
 				//				$template_conteudo .= include 'templates/artefato_item.php';
 
 				$template_conteudo .= "</div>";
-				$template_conteudo .= "<div id='settings_board' class=\"row d-flex justify-content-start bg-transparent rounded p-1 mt-1 hidden\">";
+				$template_conteudo .= "<div id='settings_board' class=\"row d-flex justify-content-start bg-transparent rounded p-1 mt-1 d-none\">";
 				//				$template_conteudo .= "<hr id='hr_modes' class='mt-3'>";
 
 				$artefato_id = 'manage_folders';
@@ -432,7 +432,7 @@
 				$artefato_col_limit = 'col-auto';
 				$artefato_classes_detail = 'py-1 artefato rounded d-flex justify-content-center mt-1';
 				$fa_icone = 'fa-bookmark';
-				$fa_color = 'text-danger';
+				$fa_color = 'link-danger';
 				$fa_size = 'fa-4x';
 				$template_conteudo .= include 'templates/artefato_item.php';
 
@@ -491,7 +491,7 @@
 				$template_conteudo .= $print_folders_large;
 
 				$template_conteudo .= "</div>";
-				$template_conteudo .= "<div id='links_board' class=\"row d-flex justify-content-start bg-transparent rounded p-3 mt-1 hidden\">";
+				$template_conteudo .= "<div id='links_board' class=\"row d-flex justify-content-start bg-transparent rounded p-3 mt-1 d-none\">";
 
 				//				$template_conteudo .= "<hr id='hr_folders' class='mt-3'>";
 				//                $template_conteudo .= "<div class='col'>";
@@ -549,10 +549,10 @@
             $('#page_title').empty();
             $('#page_title').append('<?php echo $nexus_title; ?>');
             $('#cmdbar').val('');
-            $('#folders_board').addClass('hidden');
-            $('#settings_board').addClass('hidden');
-            $('#links_board').addClass('hidden');
-            $('#cmd_container').removeClass('hidden');
+            $('#folders_board').addClass('d-none');
+            $('#settings_board').addClass('d-none');
+            $('#links_board').addClass('d-none');
+            $('#cmd_container').removeClass('d-none');
             $("input:text:visible:first").focus();
         }
         $(document).on('keyup', function (e) {
@@ -591,11 +591,11 @@
         $(document).on('click', '#trigger_show_setup_icons', function () {
             $('#page_title').empty();
             $('#page_title').append('Settings');
-            $('#cmd_container').addClass('hidden');
-            $('#nexus_container').find('#settings_board').removeClass('hidden');
-            $('#nexus_container').find('#links_board').addClass('hidden');
-            $('#folders_board').find('.main_folder_icons').addClass('hidden');
-            $('#folders_board').find('.archival_folder_icons').addClass('hidden');
+            $('#cmd_container').addClass('d-none');
+            $('#nexus_container').find('#settings_board').removeClass('d-none');
+            $('#nexus_container').find('#links_board').addClass('d-none');
+            $('#folders_board').find('.main_folder_icons').addClass('d-none');
+            $('#folders_board').find('.archival_folder_icons').addClass('d-none');
         })
         $(document).on('click', '#page_title', function () {
             original_state();
@@ -604,12 +604,12 @@
         function show_main_folder_icons() {
             $('#page_title').empty();
             $('#page_title').append('Main folders');
-            $('#cmd_container').addClass('hidden');
-            $('#nexus_container').find('#settings_board').addClass('hidden');
-            $('#nexus_container').find('#links_board').addClass('hidden');
-            $('#folders_board').removeClass('hidden');
-            $('#folders_board').find('.main_folder_icons').removeClass('hidden');
-            $('#folders_board').find('.archival_folder_icons').addClass('hidden');
+            $('#cmd_container').addClass('d-none');
+            $('#nexus_container').find('#settings_board').addClass('d-none');
+            $('#nexus_container').find('#links_board').addClass('d-none');
+            $('#folders_board').removeClass('d-none');
+            $('#folders_board').find('.main_folder_icons').removeClass('d-none');
+            $('#folders_board').find('.archival_folder_icons').addClass('d-none');
         }
 
         $(document).on('click', '#trigger_show_main_folder_icons', function () {
@@ -626,12 +626,12 @@
         function show_archival_folder_icons() {
             $('#page_title').empty();
             $('#page_title').append('Archives');
-            $('#cmd_container').addClass('hidden');
-            $('#nexus_container').find('#settings_board').addClass('hidden');
-            $('#nexus_container').find('#links_board').addClass('hidden');
-            $('#folders_board').removeClass('hidden');
-            $('#folders_board').find('.main_folder_icons').addClass('hidden');
-            $('#folders_board').find('.archival_folder_icons').removeClass('hidden');
+            $('#cmd_container').addClass('d-none');
+            $('#nexus_container').find('#settings_board').addClass('d-none');
+            $('#nexus_container').find('#links_board').addClass('d-none');
+            $('#folders_board').removeClass('d-none');
+            $('#folders_board').find('.main_folder_icons').addClass('d-none');
+            $('#folders_board').find('.archival_folder_icons').removeClass('d-none');
         }
 
         $(document).on('click', '#trigger_show_archival_folder_icons', function () {
@@ -647,14 +647,14 @@
         $(document).on('click', '#trigger_show_recent_links', function () {
             $('#page_title').empty();
             $('#page_title').append('Recent links');
-            $('#cmd_container').addClass('hidden');
-            $('#nexus_container').find('#settings_board').addClass('hidden');
-            $('#nexus_container').find('#links_board').removeClass('hidden');
-            $('#folders_board').find('.main_folder_icons').addClass('hidden');
-            $('#folders_board').find('.archival_folder_icons').addClass('hidden');
-            $('#links_board').removeClass('hidden');
-            $('#links_board').find('.all_link_icons').removeClass('hidden');
-        })
+            $('#cmd_container').addClass('d-none');
+            $('#nexus_container').find('#settings_board').addClass('d-none');
+            $('#nexus_container').find('#links_board').removeClass('d-none');
+            $('#folders_board').find('.main_folder_icons').addClass('d-none');
+            $('#folders_board').find('.archival_folder_icons').addClass('d-none');
+            $('#links_board').removeClass('d-none');
+            $('#links_board').find('.all_link_icons').removeClass('d-none');
+        });
 
         $(document).on('click', '#trigger_manage_folders', function () {
             $.post('engine.php', {

@@ -97,7 +97,7 @@
 	}
 	$template_conteudo .= "
 			<div class='row d-flex justify-content-center'>
-				<button type='button' class='$button_classes' id='enviar_respostas_{$questao_id}' value='$questao_id'>Enviar respostas da questão $questao_numero</button>
+				<button type='button' class='btn btn-primary' id='enviar_respostas_{$questao_id}' value='$questao_id'>Enviar respostas da questão $questao_numero</button>
 			</div>
 		";
 	if ($questao_tipo == 1) {

@@ -279,25 +279,25 @@
 					});
 					$(document).on('click', '.selecionar_categoria', function() {
 					    var categoria_value = $(this).attr('value');
-					    $('.subcategorias').addClass('hidden');
+					    $('.subcategorias').addClass('d-none');
 					    if (categoria_value == 'imagem') {
-					        $('.subcategoria_imagem').removeClass('hidden');
+					        $('.subcategoria_imagem').removeClass('d-none');
 					    } else if (categoria_value == 'video') {
-					        $('.subcategoria_video').removeClass('hidden');
+					        $('.subcategoria_video').removeClass('d-none');
 					    } else if (categoria_value == 'referencia') {
-					        $('.subcategoria_referencia').removeClass('hidden');
+					        $('.subcategoria_referencia').removeClass('d-none');
 					    } else if (categoria_value == 'album_musica') {
-					        $('.subcategoria_album_musica').removeClass('hidden');
+					        $('.subcategoria_album_musica').removeClass('d-none');
 					    }
 					});
 					$(document).on('click', '#add_elements', function() {
-					   $('.subcategorias').removeClass('hidden');
+					   $('.subcategorias').removeClass('d-none');
 					});
 					$(document).on('click', '#trigger_listar_youtube', function() {
 					    $('#modal_adicionar_youtube').toggle();
 					});
 					$(document).on('click', '#elemento_subtipo', function() {
-					   $('.subcategorias').removeClass('hidden');
+					   $('.subcategorias').removeClass('d-none');
 					});
 			</script>
 		";
@@ -486,7 +486,7 @@
 			  });
 			  $(document).on('click', '.remover_tag', function() {
 			      var this_id = $(this).attr('value');
-			      $(this).addClass('hidden');
+			      $(this).addClass('d-none');
 			      $.post('engine.php', {
 			         'remover_etiqueta_id': this_id,
 			         'remover_etiqueta_page_id': {$pagina_id},
@@ -816,45 +816,45 @@
 			$(document).ready(function() {
 			";
 		if ($notificacao_ativa == true) {
-			echo "$('#artefato_notificar_inativo').addClass('hidden');";
+			echo "$('#artefato_notificar_inativo').addClass('d-none');";
 		} else {
-			echo "$('#artefato_notificar_ativo').addClass('hidden');";
+			echo "$('#artefato_notificar_ativo').addClass('d-none');";
 		}
 		if ($notificacao_email == true) {
-			echo "$('#artefato_nao_notificar_email').addClass('hidden');";
+			echo "$('#artefato_nao_notificar_email').addClass('d-none');";
 		} else {
-			echo "$('#artefato_notificar_email').addClass('hidden');";
+			echo "$('#artefato_notificar_email').addClass('d-none');";
 		}
 		echo "
 				});
 				$(document).on('click', '#trigger_notificar_ativo', function() {
 				    $('#notificacao_ativa').val(0);
 				    $('#notificacao_email').val(0);
-				    $('#artefato_notificar_inativo').removeClass('hidden');
-				    $('#artefato_notificar_ativo').addClass('hidden');
-				    $('#artefato_notificar_email').addClass('hidden');
-				    $('#artefato_nao_notificar_email').removeClass('hidden');
+				    $('#artefato_notificar_inativo').removeClass('d-none');
+				    $('#artefato_notificar_ativo').addClass('d-none');
+				    $('#artefato_notificar_email').addClass('d-none');
+				    $('#artefato_nao_notificar_email').removeClass('d-none');
 				})
 				$(document).on('click', '#trigger_notificar_inativo', function() {
 				    $('#notificacao_ativa').val(1);
 				    $('#notificacao_email').val(0);
-				    $('#artefato_notificar_inativo').addClass('hidden');
-				    $('#artefato_notificar_ativo').removeClass('hidden');
-				    $('#artefato_notificar_email').addClass('hidden');
-				    $('#artefato_nao_notificar_email').removeClass('hidden');
+				    $('#artefato_notificar_inativo').addClass('d-none');
+				    $('#artefato_notificar_ativo').removeClass('d-none');
+				    $('#artefato_notificar_email').addClass('d-none');
+				    $('#artefato_nao_notificar_email').removeClass('d-none');
 				})
 				$(document).on('click', '#trigger_notificar_email', function() {
 				    $('#notificacao_email').val(0);
-				    $('#artefato_notificar_email').addClass('hidden');
-				    $('#artefato_nao_notificar_email').removeClass('hidden');
+				    $('#artefato_notificar_email').addClass('d-none');
+				    $('#artefato_nao_notificar_email').removeClass('d-none');
 				})
 				$(document).on('click', '#trigger_nao_notificar_email', function() {
 				    $('#notificacao_ativa').val(1);
 				    $('#notificacao_email').val(1);
-				    $('#artefato_notificar_inativo').addClass('hidden');
-				    $('#artefato_notificar_ativo').removeClass('hidden');
-				    $('#artefato_notificar_email').removeClass('hidden');
-				    $('#artefato_nao_notificar_email').addClass('hidden');
+				    $('#artefato_notificar_inativo').addClass('d-none');
+				    $('#artefato_notificar_ativo').removeClass('d-none');
+				    $('#artefato_notificar_email').removeClass('d-none');
+				    $('#artefato_nao_notificar_email').addClass('d-none');
 				})
 				
 			</script>
@@ -1082,60 +1082,60 @@
 		echo "
 		<script type=\"text/javascript\">
 		
-        $('.icone_sobre_stuff').removeClass('hidden');
-        $('.icones_links').addClass('hidden');
-        $('#artefato_escritorio_link').removeClass('hidden');
-        $('.sobre_stuff').addClass('hidden');
-        $('#sobre_escritorio').removeClass('hidden');
-        $('#artefato_escritorio').addClass('hidden');
+        $('.icone_sobre_stuff').removeClass('d-none');
+        $('.icones_links').addClass('d-none');
+        $('#artefato_escritorio_link').removeClass('d-none');
+        $('.sobre_stuff').addClass('d-none');
+        $('#sobre_escritorio').removeClass('d-none');
+        $('#artefato_escritorio').addClass('d-none');
         
         $('#artefato_escritorio').click(function () {
-            $('.icone_sobre_stuff').removeClass('hidden');
-            $('.icones_links').addClass('hidden');
-            $('#artefato_escritorio_link').removeClass('hidden');
-            $('.sobre_stuff').addClass('hidden');
-            $('#sobre_escritorio').removeClass('hidden');
-            $('#artefato_escritorio').addClass('hidden');
+            $('.icone_sobre_stuff').removeClass('d-none');
+            $('.icones_links').addClass('d-none');
+            $('#artefato_escritorio_link').removeClass('d-none');
+            $('.sobre_stuff').addClass('d-none');
+            $('#sobre_escritorio').removeClass('d-none');
+            $('#artefato_escritorio').addClass('d-none');
         });
         $('#artefato_cursos').click(function () {
-            $('.icone_sobre_stuff').removeClass('hidden');
-            $('.icones_links').addClass('hidden');
-            $('#artefato_cursos_link').removeClass('hidden');
-            $('.sobre_stuff').addClass('hidden');
-            $('#sobre_cursos').removeClass('hidden');
-            $('#artefato_cursos').addClass('hidden');
+            $('.icone_sobre_stuff').removeClass('d-none');
+            $('.icones_links').addClass('d-none');
+            $('#artefato_cursos_link').removeClass('d-none');
+            $('.sobre_stuff').addClass('d-none');
+            $('#sobre_cursos').removeClass('d-none');
+            $('#artefato_cursos').addClass('d-none');
         });
         $('#artefato_areas_interesse').click(function () {
-            $('.icone_sobre_stuff').removeClass('hidden');
-            $('.icones_links').addClass('hidden');
-            $('#artefato_areas_interesse_link').removeClass('hidden');
-            $('.sobre_stuff').addClass('hidden');
-            $('#sobre_areas_interesse').removeClass('hidden');
-            $('#artefato_areas_interesse').addClass('hidden');
+            $('.icone_sobre_stuff').removeClass('d-none');
+            $('.icones_links').addClass('d-none');
+            $('#artefato_areas_interesse_link').removeClass('d-none');
+            $('.sobre_stuff').addClass('d-none');
+            $('#sobre_areas_interesse').removeClass('d-none');
+            $('#artefato_areas_interesse').addClass('d-none');
         });
         $('#artefato_biblioteca').click(function () {
-            $('.icone_sobre_stuff').removeClass('hidden');
-            $('.icones_links').addClass('hidden');
-            $('#artefato_biblioteca_link').removeClass('hidden');
-            $('.sobre_stuff').addClass('hidden');
-            $('#sobre_biblioteca').removeClass('hidden');
-            $('#artefato_biblioteca').addClass('hidden');
+            $('.icone_sobre_stuff').removeClass('d-none');
+            $('.icones_links').addClass('d-none');
+            $('#artefato_biblioteca_link').removeClass('d-none');
+            $('.sobre_stuff').addClass('d-none');
+            $('#sobre_biblioteca').removeClass('d-none');
+            $('#artefato_biblioteca').addClass('d-none');
         });
         $('#artefato_forum').click(function () {
-            $('.icone_sobre_stuff').removeClass('hidden');
-            $('.icones_links').addClass('hidden');
-            $('#artefato_forum_link').removeClass('hidden');
-            $('.sobre_stuff').addClass('hidden');
-            $('#sobre_forum').removeClass('hidden');
-            $('#artefato_forum').addClass('hidden');
+            $('.icone_sobre_stuff').removeClass('d-none');
+            $('.icones_links').addClass('d-none');
+            $('#artefato_forum_link').removeClass('d-none');
+            $('.sobre_stuff').addClass('d-none');
+            $('#sobre_forum').removeClass('d-none');
+            $('#artefato_forum').addClass('d-none');
         });
         $('#artefato_loja').click(function () {
-            $('.icone_sobre_stuff').removeClass('hidden');
-            $('.icones_links').addClass('hidden');
-            $('#artefato_loja_link').removeClass('hidden');
-            $('.sobre_stuff').addClass('hidden');
-            $('#sobre_loja').removeClass('hidden');
-            $('#artefato_loja').addClass('hidden');
+            $('.icone_sobre_stuff').removeClass('d-none');
+            $('.icones_links').addClass('d-none');
+            $('#artefato_loja_link').removeClass('d-none');
+            $('.sobre_stuff').addClass('d-none');
+            $('#sobre_loja').removeClass('d-none');
+            $('#artefato_loja').addClass('d-none');
         });
 
     </script>
@@ -1237,12 +1237,13 @@
 		";
 	}
 
-	if (($pagina_tipo == 'curso') || ($pagina_subtipo == 'plano')) {
+
+	if ($pagina_tipo == 'curso') {
 		echo "
 			<script type='text/javascript'>
 				$(document).on('click', '#reveal_introduction', function() {
-				    $(this).addClass('hidden');
-				    $('#verbete').removeClass('hidden');
+				    $(this).addClass('d-none');
+				    $('#verbete').removeClass('d-none');
 				});
 			</script>
 		";
@@ -1261,16 +1262,16 @@
 		echo "
         <script type='text/javascript'>
             $(document).on('click', '#hide_bars', function() {
-                $(this).addClass('hidden');
-                $('#show_bars').removeClass('hidden');
-                $('#navbar').addClass('hidden');
-                $('#titlebar').addClass('hidden');
+                $(this).addClass('d-none');
+                $('#show_bars').removeClass('d-none');
+                $('#navbar').addClass('d-none');
+                $('#titlebar').addClass('d-none');
             });
             $(document).on('click', '#show_bars', function() {
-        $(this).addClass('hidden');
-        $('#hide_bars').removeClass('hidden');
-                $('#navbar').removeClass('hidden');
-                $('#titlebar').removeClass('hidden');
+        $(this).addClass('d-none');
+        $('#hide_bars').removeClass('d-none');
+                $('#navbar').removeClass('d-none');
+                $('#titlebar').removeClass('d-none');
             });
             $hide_bars
         </script>
@@ -1284,8 +1285,8 @@
                     'curso_aderir': $pagina_curso_id
                 }, function(data) {
                     if (data != 0) {
-						$('#curso_aderir').addClass('hidden');
-						$('#curso_sair').removeClass('hidden');
+						$('#curso_aderir').addClass('d-none');
+						$('#curso_sair').removeClass('d-none');
                     }
                 })
             });
@@ -1294,8 +1295,8 @@
                     'curso_sair': $pagina_curso_id
                 }, function (data) {
                     if (data != 0) {
-						$('#curso_sair').addClass('hidden');
-						$('#curso_aderir').removeClass('hidden');
+						$('#curso_sair').addClass('d-none');
+						$('#curso_aderir').removeClass('d-none');
                     }
                 })
             });
@@ -1307,8 +1308,8 @@
 		echo "
         <script type='text/javascript'>
             $(document).on('click', '#mostrar_formulario_codigo', function() {
-               $(this).addClass('hidden');
-               $('#formulario_codigo').removeClass('hidden');
+               $(this).addClass('d-none');
+               $('#formulario_codigo').removeClass('d-none');
             });
 		";
 		if (isset($_GET['wllt'])) {
@@ -1322,8 +1323,8 @@
 		echo "
         <script type='text/javascript'>
             var disable_submit = function() {
-                $('#trigger_review_recalc').removeClass('hidden');
-                $('#trigger_review_send').addClass('hidden');
+                $('#trigger_review_recalc').removeClass('d-none');
+                $('#trigger_review_send').addClass('d-none');
                 $('#trigger_review_send').prop('disabled', true);
             }
             var recalc_review = function() {
@@ -1369,8 +1370,8 @@
             })
             $(document).on('click', '#trigger_review_recalc', function() {
                 recalc_review();
-                $(this).addClass('hidden');
-                $('#trigger_review_send').removeClass('hidden');
+                $(this).addClass('d-none');
+                $('#trigger_review_send').removeClass('d-none');
                 $('#trigger_review_send').prop('disabled', false);
             })
         </script>
@@ -1450,12 +1451,12 @@
 					}, function (data) {
 						if (data != 0) {
 						    if (this_operation == 'adicionar_modelo') {
-							    $('#adicionar_modelo').addClass('hidden');
-							    $('#remover_modelo').removeClass('hidden');
+							    $('#adicionar_modelo').addClass('d-none');
+							    $('#remover_modelo').removeClass('d-none');
 							    window.location.reload(true);
 							} else {
-						        $('#adicionar_modelo').removeClass('hidden');
-						        $('#remover_modelo').addClass('hidden');
+						        $('#adicionar_modelo').removeClass('d-none');
+						        $('#remover_modelo').addClass('d-none');
 						        window.location.reload(true);
 							}
 						} else {
@@ -1469,10 +1470,10 @@
 				        'escritorio_modelo_pagina_id': $pagina_id
 				    }, function (data) {
 				        if (data != 0) {
-				            $('#adicionar_escritorio_modelo').addClass('hidden');
-							$('#adicionar_modelo').addClass('hidden');
-							$('#remover_modelo').removeClass('hidden');
-							$('.modelo_esconder_paragrafo').removeClass('hidden');
+				            $('#adicionar_escritorio_modelo').addClass('d-none');
+							$('#adicionar_modelo').addClass('d-none');
+							$('#remover_modelo').removeClass('d-none');
+							$('.modelo_esconder_paragrafo').removeClass('d-none');
 							window.location.reload(true);
 				        } else {
 				            alert('Some problem happened')
@@ -1480,24 +1481,24 @@
 				    })
 				})
 				$(document).on('click', '.modelo_esconder_paragrafo', function() {
-					$(this).addClass('hidden')
+					$(this).addClass('d-none')
 				    $.post('engine.php', {
 				        'modelo_esconder_paragrafo': $pagina_id
 				    }, function (data) {
 				        if (data != 0) {
-				            $('#modelo').addClass('hidden');
+				            $('#modelo').addClass('d-none');
 				        } else {
 				            alert('Some problem has happened')
 				        }
 				    })
 				})
 				$(document).on('click', '.modelo_mostrar_paragrafo', function() {
-					$(this).addClass('hidden')
+					$(this).addClass('d-none')
 				    $.post('engine.php', {
 				        'modelo_mostrar_paragrafo': $pagina_id
 				    }, function (data) {
 				        if (data != 0) {
-							$('#modelo').removeClass('hidden');
+							$('#modelo').removeClass('d-none');
 				        } else {
 				            alert('Some problem has happened')
 				        }
@@ -1739,15 +1740,15 @@
 	if ($carregar_secoes == true) {
 		echo "<script type='text/javascript'>
 			$(document).on('click', '#mostrar_instrucoes_secoes', function() {
-			    $('.instrucoes_secoes').removeClass('hidden');
-			    $(this).addClass('hidden');
+			    $('.instrucoes_secoes').removeClass('d-none');
+			    $(this).addClass('d-none');
 			})
 			$(document).on('click', '#adicionar_varias_secoes', function() {
-			    $('.instrucoes_secoes').addClass('hidden');
-			    $(this).addClass('hidden');
-			    $('#mostrar_instrucoes_secoes').addClass('hidden');
-			    $('#adicionar_multiplas_secoes_textarea').removeClass('hidden');
-			    $('.instrucoes_multiplas_secoes').removeClass('hidden');
+			    $('.instrucoes_secoes').addClass('d-none');
+			    $(this).addClass('d-none');
+			    $('#mostrar_instrucoes_secoes').addClass('d-none');
+			    $('#adicionar_multiplas_secoes_textarea').removeClass('d-none');
+			    $('.instrucoes_multiplas_secoes').removeClass('d-none');
 			    $('.adicionar_uma_secao').empty();
 			})
 		</script>";

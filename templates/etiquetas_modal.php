@@ -43,7 +43,7 @@
 			    <label for='buscar_etiquetas' class='form-label'>{$pagina_translated['Buscar etiqueta']}</label>
 			    <input type='text' class='form-control' name='buscar_etiquetas' id='buscar_etiquetas' required>
 			    </div>
-          <button type='button' class='$button_classes btn-info mb-3' id='trigger_buscar_etiquetas'>{$pagina_translated['Buscar']}</button>
+			<button type='button' class='btn btn-outline-primary mb-2' id='trigger_buscar_etiquetas'>{$pagina_translated['Buscar']}</button>
 		    
 		    <div class='row border p-2' id='etiquetas_disponiveis'>
 		    	

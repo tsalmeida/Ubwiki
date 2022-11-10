@@ -58,7 +58,7 @@
 			} else {
 				$topico_pagina_estado_icone = false;
 			}
-			$template_conteudo .= "<ul class='list-group bg-light rounded p-1 mt-1'>";
+			$template_conteudo .= "<ul class='list-group bg-light rounded'>";
 			$template_conteudo .= put_together_list_item('link', "pagina.php?pagina_id=$topico_pagina_id", $li_color, $bookmark_icone, $topico_pagina_titulo, false, $topico_pagina_estado_icone[0], "list-group-item-primary $topico_completo");
 
 			$query = prepare_query("SELECT elemento_id, id FROM Paginas_elementos WHERE pagina_id = $topico_pagina_id AND tipo = 'subtopico'");

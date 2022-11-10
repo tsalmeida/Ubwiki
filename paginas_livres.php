@@ -46,7 +46,7 @@
         <div class="col d-flex justify-content-center"><a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#modal_busca" class="text-dark"><i
                         class="fad fa-search fa-fw"></i></a></div>
 		<?php
-			echo "<div class='col d-flex justify-content-end'><form method='post'><button name='listar_todas' id='listar_todas' value='!all' class='$button_classes btn-info btn-sm m-0'>{$pagina_translated['Listar todas']}</button></form></div>";
+			echo "<div class='col d-flex justify-content-end'><form method='post'><button name='listar_todas' id='listar_todas' value='!all' class='btn btn-outline-primary'>{$pagina_translated['Listar todas']}</button></form></div>";
 		?>
     </div>
 </div>

@@ -218,7 +218,7 @@
 			</div>
 	";
 	$quill_result .= "
-			<button type='submit' id='$quill_trigger_button' class='$button_classes hidden' name='$quill_trigger_button'>
+			<button type='submit' id='$quill_trigger_button' class='btn btn-primary d-none' name='$quill_trigger_button'>
 				{$pagina_translated['Salvar mudanças']}
 			</button>
 		</form>

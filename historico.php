@@ -276,7 +276,7 @@
                 'delete_this_edit': delete_this_edit
             }, function (data) {
                 if (data == true) {
-                    $('.edicao_' + delete_this_edit).addClass('hidden');
+                    $('.edicao_' + delete_this_edit).addClass('d-none');
                 }
             });
         })

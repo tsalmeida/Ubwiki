@@ -77,7 +77,7 @@
 		echo "<{$titulo_header} class='{$titulo_header}-responsive $titulo_color'>$template_titulo</{$titulo_header}>";
 	}
 	if ($titulo_header != 'h1') {
-		echo "<h1 class='hidden'>$template_titulo</h1>";
+		echo "<h1 class='d-none'>$template_titulo</h1>";
 	}
 	if ($template_subtitulo != false) {
 		echo "

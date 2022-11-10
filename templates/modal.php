@@ -29,7 +29,7 @@
 	}
 	
 	echo "<div class='modal fade' id='$template_modal_div_id' role='dialog' tabindex='-1'>";
-		echo "<div id='inner_$template_modal_div_id' class='modal-dialog $modal_scrollable modal-lg' role='document'>";
+		echo "<div id='inner_$template_modal_div_id' class='modal-dialog modal-lg $modal_scrollable' role='document'>";
 
 		if ($template_modal_show_buttons == true) {
 			echo "<form id='$template_modal_form_id' name='$template_modal_form_id' method='post' $template_modal_enctype>";
@@ -37,11 +37,11 @@
 				echo "<div class='modal-content'>";
 					echo "
 						  <div class='modal-header justify-content-around'>
-								<h2 class='h2-responsive modal-title w-100' > $template_modal_titulo </h2>
+								<h2 class='modal-title' >{$template_modal_titulo}</h2>
 								<button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>
 						  </div>";
 					echo "
-						  <div id='body_$template_modal_div_id' class='modal-body mx-3'>
+						  <div id='body_$template_modal_div_id' class='modal-body'>
 				  ";
 					echo "
 									$template_modal_body_conteudo
@@ -49,9 +49,9 @@
 					";
 				if ($template_modal_show_buttons == true) {
 					echo "
-						  <div class='modal-footer d-flex justify-content-center'>
-							  <button type='button' class='$button_classes_light' data-bs-dismiss='modal' ><i class='far fa-times-circle fa-fw'></i> {$pagina_translated['cancel']}</button>
-							  <button type='submit' class='$button_classes' name='$template_modal_submit_name'><i class='far fa-check fa-fw'></i> {$pagina_translated['save']}</button>
+						  <div class='modal-footer'>
+							  <button type='button' class='btn btn-secondary' data-bs-dismiss='modal' >{$pagina_translated['cancel']}</button>
+							  <button type='submit' class='btn btn-primary' name='$template_modal_submit_name'>{$pagina_translated['save']}</button>
 						  </div>
 					";
 				}

@@ -296,7 +296,7 @@
                                     </select>
                                     </div>
                                     <div class='row justify-content-center'>
-                                        <button name='trigger_convidar_grupo' class='$button_classes'>Enviar convite</button>
+                                        <button name='trigger_convidar_grupo' class='btn btn-primary'>Enviar convite</button>
                                     </div>
                                     </form>
 							    ";

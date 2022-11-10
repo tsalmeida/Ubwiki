@@ -24,7 +24,7 @@
         
       </div>
       <div class='row d-flex justify-content-center'>
-      	<button type='submit' class='$button_classes'>{$pagina_translated['Adicionar edição']}</button>
+      	<button type='submit' class='btn btn-primary'>{$pagina_translated['Adicionar edição']}</button>
 			</div>
 		</form>
 	";
@@ -62,7 +62,7 @@
 	          
 	        </div>
           <div class='row justify-content-center'>
-            <button class='$button_classes btn-info'>{$pagina_translated['Adicionar etapa']}</button>
+            <button class='btn btn-primary btn-outline-primary'>{$pagina_translated['Adicionar etapa']}</button>
 					</div>
         </form>
         <ul class='list-group list-group-flush'>
@@ -95,7 +95,7 @@
         <option value='4'>Física</option>
       </select>
       <div class='row d-flex justify-content-center'>
-      	<button class='$button_classes'>Adicionar prova a esta edição do concurso</button>
+      	<button class='btn btn-primary'>Adicionar prova a esta edição do concurso</button>
 			</div>
 		</form>
 		<ul class='list-group list-group-flush'>
@@ -193,7 +193,7 @@
 			</div>
 			<p class='mt-2'>Será criada uma página para a nova questão, vinculada à página deste verbete. Demais detalhes deverão ser adicionados na página na questão.</p>
 			<div class='row d-flex justify-content-center'>
-				<button class='$button_classes btn-info' id='trigger_nova_questao' name='trigger_nova_questao'>Criar questão</button>
+				<button class='btn btn-primary btn-outline-primary' id='trigger_nova_questao' name='trigger_nova_questao'>Criar questão</button>
 			</div>
 		</form>
 		<ul class='list-group list-group-flush'>

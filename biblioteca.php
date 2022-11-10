@@ -370,44 +370,44 @@
 ?>
 </body>
 <script type="text/javascript">
-    $('.subcategorias').addClass('hidden');
+    $('.subcategorias').addClass('d-none');
     $(document).on('click', '.mostrar_categorias', function() {
-        $('.subcategorias').removeClass('hidden');
+        $('.subcategorias').removeClass('d-none');
     })
     $(document).on('click', '.esconder_subcategorias', function() {
-        $('.subcategorias').addClass('hidden');
+        $('.subcategorias').addClass('d-none');
     })
     $(document).on('click', '#trigger_listar_referencias', function () {
-        $('.ativo_listar').addClass('hidden');
-        $('.selecionar_listar').removeClass('hidden');
-        $('#artefato_listar_referencias').addClass('hidden');
-        $('#artefato_ativo_listar_referencias').removeClass('hidden');
-        $('.subcategorias').addClass('hidden');
-        $('.subcategoria_referencia').removeClass('hidden');
+        $('.ativo_listar').addClass('d-none');
+        $('.selecionar_listar').removeClass('d-none');
+        $('#artefato_listar_referencias').addClass('d-none');
+        $('#artefato_ativo_listar_referencias').removeClass('d-none');
+        $('.subcategorias').addClass('d-none');
+        $('.subcategoria_referencia').removeClass('d-none');
     });
     $(document).on('click', '#trigger_listar_audio', function () {
-        $('.ativo_listar').addClass('hidden');
-        $('.selecionar_listar').removeClass('hidden');
-        $('#artefato_listar_audio').addClass('hidden');
-        $('#artefato_ativo_listar_audio').removeClass('hidden');
-        $('.subcategorias').addClass('hidden');
-        $('.subcategoria_album_musica').removeClass('hidden');
+        $('.ativo_listar').addClass('d-none');
+        $('.selecionar_listar').removeClass('d-none');
+        $('#artefato_listar_audio').addClass('d-none');
+        $('#artefato_ativo_listar_audio').removeClass('d-none');
+        $('.subcategorias').addClass('d-none');
+        $('.subcategoria_album_musica').removeClass('d-none');
     });
     $(document).on('click', '#trigger_listar_imagens', function () {
-        $('.ativo_listar').addClass('hidden');
-        $('.selecionar_listar').removeClass('hidden');
-        $('#artefato_listar_imagens').addClass('hidden');
-        $('#artefato_ativo_listar_imagens').removeClass('hidden');
-        $('.subcategorias').addClass('hidden');
-        $('.subcategoria_imagem').removeClass('hidden');
+        $('.ativo_listar').addClass('d-none');
+        $('.selecionar_listar').removeClass('d-none');
+        $('#artefato_listar_imagens').addClass('d-none');
+        $('#artefato_ativo_listar_imagens').removeClass('d-none');
+        $('.subcategorias').addClass('d-none');
+        $('.subcategoria_imagem').removeClass('d-none');
     });
     $(document).on('click', '#trigger_listar_video', function () {
-        $('.ativo_listar').addClass('hidden');
-        $('.selecionar_listar').removeClass('hidden');
-        $('#artefato_listar_video').addClass('hidden');
-        $('#artefato_ativo_listar_video').removeClass('hidden');
-        $('.subcategorias').addClass('hidden');
-        $('.subcategoria_video').removeClass('hidden');
+        $('.ativo_listar').addClass('d-none');
+        $('.selecionar_listar').removeClass('d-none');
+        $('#artefato_listar_video').addClass('d-none');
+        $('#artefato_ativo_listar_video').removeClass('d-none');
+        $('.subcategorias').addClass('d-none');
+        $('.subcategoria_video').removeClass('d-none');
     });
 
 </script>

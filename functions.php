@@ -627,28 +627,28 @@
 	{
 		if ($etiqueta_tipo == 'curso') {
 			$etiqueta_icone = 'fa-books';
-			$etiqueta_cor = 'blue-grey';
+			$etiqueta_cor = 'bg-light border';
 		} elseif ($etiqueta_tipo == 'anotacao_publica') {
 			$etiqueta_icone = 'fa-file';
-			$etiqueta_cor = 'blue';
+			$etiqueta_cor = 'bg-light border';
 		} elseif ($etiqueta_tipo == 'topico') {
 			$etiqueta_icone = 'fa-tag fa-swap-opacity';
-			$etiqueta_cor = 'bg-warning-light';
+			$etiqueta_cor = 'bg-light border';
 		} elseif ($etiqueta_tipo == 'imagem') {
 			$etiqueta_icone = 'fa-image-polaroid';
-			$etiqueta_cor = 'red';
+			$etiqueta_cor = 'bg-light border';
 		} elseif ($etiqueta_tipo == 'referencia') {
 			$etiqueta_icone = 'fa-book';
-			$etiqueta_cor = 'green';
+			$etiqueta_cor = 'bg-light border';
 		} elseif ($etiqueta_tipo == 'autor') {
 			$etiqueta_icone = 'fa-user';
-			$etiqueta_cor = 'light-green';
+			$etiqueta_cor = 'bg-light border';
 		} elseif ($etiqueta_tipo == 'video') {
 			$etiqueta_icone = 'fa-film';
-			$etiqueta_cor = 'lime';
+			$etiqueta_cor = 'bg-light border';
 		} elseif ($etiqueta_tipo == 'album_musica') {
 			$etiqueta_icone = 'fa-microphone';
-			$etiqueta_cor = 'bg-teal';
+			$etiqueta_cor = 'bg-light border';
 		} else {
 			return false;
 		}
@@ -2448,13 +2448,13 @@
 				return array('fad fa-browser', 'link-primary', 'bg-primary');
 				break;
 			case 'artigo':
-				return array('fad fa-newspaper', 'text-muted', 'bg-dark');
+				return array('fad fa-newspaper', 'link-secondary', 'bg-dark');
 				break;
 			case 'wikipedia':
-				return array('fa-brands fa-wikipedia-w', 'text-dark', 'bg-dark');
+				return array('fa-brands fa-wikipedia-w', 'link-dark', 'bg-dark');
 				break;
 			case 'musica':
-				return array('fad fa-record-vinyl', 'text-dark', 'bg-dark');
+				return array('fad fa-record-vinyl', 'link-dark', 'bg-dark');
 				break;
 			case 'podcast':
 				return array('fad fa-podcast', 'link-purple', 'bg-purple-light');
@@ -2490,7 +2490,7 @@
 				return array('fad fa-rabbit', 'link-info', 'bg-info-light');
 				break;
 			case 'outras':
-				return array('fad fa-camera-alt', 'text-dark', 'bg-dark-light');
+				return array('fad fa-camera-alt', 'link-dark', 'bg-dark-light');
 				break;
 			case 'youtube':
 				return array('fa-brands fa-youtube', 'link-danger', 'bg-danger-light');
@@ -2534,7 +2534,7 @@
 						if ($subtipo == 'generico') {
 							return array('fad fa-glasses-alt', 'link-success', 'bg-success');
 						} else {
-							return array('fad fa-file-alt', 'text-muted', 'bg-secondary');
+							return array('fad fa-file-alt', 'link-secondary', 'bg-secondary');
 						}
 						break;
 					case 'questao':
@@ -2547,7 +2547,7 @@
 						return array('fad fa-comment-alt-edit', 'link-teal', 'bg-info');
 						break;
 					case 'wikipedia':
-						return array('fa-brands fa-wikipedia-w', 'text-dark', 'bg-secondary');
+						return array('fa-brands fa-wikipedia-w', 'link-dark', 'bg-secondary');
 						break;
 					default:
 						return array('fad fa-circle-notch fa-spin', 'link-danger', 'bg-danger');
@@ -2761,9 +2761,9 @@
 		$template_id = "curso_$curso_pagina_id";
 		$template_titulo = "<a href='pagina.php?pagina_id=$curso_pagina_id'>$curso_titulo</a>";
 		if ($card_mode == 'inscrito') {
-			$template_botoes = "<span class='link-success'><i class='fad fa-lamp-desk fa-fw'></i></span>";
+			$template_botoes = "<span class='text-success'><i class='fad fa-lamp-desk fa-fw'></i></span>";
 		} elseif ($card_mode == 'disponivel') {
-			$template_botoes = "<span class='link-primary'><i class='fad fa-lamp-desk fa-fw'></i></span>";
+			$template_botoes = "<span class='text-secondary'><i class='fad fa-lamp-desk fa-fw'></i></span>";
 		}
 		$template_conteudo = false;
 		if ($curso_verbete != false) {
@@ -2940,14 +2940,14 @@
 		$result = false;
 		$result .= "<div class='row bg-light mt-1'>";
 		$result .= "
-				<div class='col-1 $all_cell_classes {$plan_icon[0]} ms-0 text-center align-center d-flex justify-content-center'>
+				<div class='col-auto $all_cell_classes {$plan_icon[0]} ms-0 text-center align-center d-flex justify-content-center'>
 					<a value='$entrada_id' href='javascript:void(0);' data-bs-toggle='modal' data-bs-target='#modal_set_state' class='align-self-center {$plan_icon[1]} p-1 rounded set_state_entrada_value' title='{$plan_icon[3]}'><i class='{$plan_icon[2]} fa-fw fa-lg'></i></a>
 				</div>
 					";
 		$icone_background = return_background($icone[1]);
 		$result .= "
-			<div class='col-1 $all_cell_classes ms-1 text-center align-center d-flex justify-content-center $icone_background'>
-				<span class='{$icone[1]} ms-1 align-self-center rounded p-1'><i class='{$icone[0]} fa-fw fa-lg'></i></span>
+			<div class='col-auto $all_cell_classes ms-1 text-center align-center d-flex justify-content-center $icone_background'>
+				<a href='javascript:void(0);' class='{$icone[1]} ms-1 align-self-center rounded p-1'><i class='{$icone[0]} fa-fw fa-lg'></i></a>
 			</div>
 					";
 		$result .= "

@@ -235,7 +235,7 @@
 						$template_botoes = "<span data-bs-toggle='modal' data-bs-target='$modal_novo_topico' title='Novo tópico de debate'><a href='javascript:void(0);' class='link-teal'><i class='fad fa-plus-square fa-fw'></i></a></span>";
 						$template_conteudo .= "
 					        <div class='row d-flex justify-content-center mt-3'>
-						        <span data-bs-toggle='modal' data-bs-target='$modal_novo_topico'><button class='$button_classes btn-info btn-sm'>{$pagina_translated['Novo tópico de debate']}</button></span>
+						        <span data-bs-toggle='modal' data-bs-target='$modal_novo_topico'><button class='btn btn-outline-primary'>{$pagina_translated['Novo tópico de debate']}</button></span>
 					        </div>
 				        ";
 						
@@ -324,7 +324,7 @@
                                         <textarea id='novo_comentario' name='novo_comentario' class='form-control' rows='3' placeholder='{$pagina_translated['Escreva aqui seu comentário']}' required></textarea>
                                     </div>
                                     <div class='d-flex justify-content-center mb-3'>
-                                        <button class='$button_classes btn-info btn-sm mt-0'>{$pagina_translated['Enviar comentário']}</button>
+                                        <button class='btn btn-outline-primary'>{$pagina_translated['Enviar comentário']}</button>
                                     </div>
                                 </form><!--
                                 <div class='row d-flex justify-content-center'>
@@ -333,8 +333,8 @@
                                 <div class='row d-flex justify-content-center rounded border'>
                                     <section class='main-controls'>
                                         <div id='buttons'>
-                                            <button class='$button_classes btn-success record'>Gravar áudio</button>
-                                            <button class='$button_classes btn-danger stop'>Interromper gravação</button>
+                                            <button class='btn btn-primary btn-success record'>Gravar áudio</button>
+                                            <button class='btn btn-primary btn-danger stop'>Interromper gravação</button>
                                         </div>
                                     </section>
                                 </div>

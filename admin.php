@@ -178,25 +178,25 @@
 						    <form method='post'>
 						        <p>Simulados.</p>
 						        <div class='row justify-content-center'>
-						        	<button class='$button_classes_red' type='submit' name='funcoes_gerais'>Apagar todos os dados sobre simulados</button>
+						        	<button class='btn btn-danger' type='submit' name='funcoes_gerais'>Apagar todos os dados sobre simulados</button>
 						        </div>
 						    </form>
 						    <form method='post'>
 						        <p>Simulados/usuários.</p>
 						        <div class='row justify-content-center'>
-						        	<button class='$button_classes' type='submit' name='funcoes_gerais2'>Apagar dados de regitro em simulados</button>
+						        	<button class='btn btn-primary' type='submit' name='funcoes_gerais2'>Apagar dados de regitro em simulados</button>
 						        </div>
 						    </form>
 						    <form method='post'>
 						        <p>Reconstruir busca.</p>
 						        <div class='row justify-content-center'>
-						        	<button class='$button_classes' type='submit' name='funcoes_gerais3'>Reconstruir busca</button>
+						        	<button class='btn btn-primary' type='submit' name='funcoes_gerais3'>Reconstruir busca</button>
 						        </div>
 						    </form>
 						    <form method='post'>
 						        <p>Atualizar tamanhos dos textos.</p>
 						        <div class='row justify-content-center'>
-						        	<button class='$button_classes' type='submit' name='trigger_atualizar_textos_size'>Tamanhos dos textos</button>
+						        	<button class='btn btn-primary' type='submit' name='trigger_atualizar_textos_size'>Tamanhos dos textos</button>
 						        </div>
 						    </form>
 						";

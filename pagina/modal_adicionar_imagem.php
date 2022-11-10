@@ -16,7 +16,7 @@
         </div>
         <div class='mb-3'>
             <div class='file-field'>
-                <div class='btn btn-primary btn-sm float-left m-0'>
+                <div class='btn btn-outline-primary'>
                     <span>{$pagina_translated['Selecione o arquivo']}</span>
                     <input type='file' name='nova_imagem_upload'>
                 </div>

@@ -206,7 +206,7 @@ $prova_id)");
 							$template_conteudo .= "
 						        <div class='row d-flex justify-content-center'>
 						            <a href='resultados.php?simulado_id=$simulado_id'>
-						                <button type='button' class='$button_classes_red'>Finalizar simulado e ver resultados</button>
+						                <button type='button' class='btn btn-danger'>Finalizar simulado e ver resultados</button>
 						            </a>
                                 </div>
 						    ";

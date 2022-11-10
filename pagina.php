@@ -736,9 +736,9 @@
 				$secoes_sem_texto = false;
 				$template_modal_body_conteudo .= put_together_list_item('link_button', 'mostrar_instrucoes_secoes', 'link-teal', 'fad fa-eye', $pagina_translated['Mostrar instruções'], false, false, false, false, false);
 				$template_modal_body_conteudo .= "
-		        	<p class='hidden instrucoes_secoes'>{$pagina_translated['please care add chapter']}</p>
+		        	<p class='d-none instrucoes_secoes'>{$pagina_translated['please care add chapter']}</p>
 		        	<p class='instrucoes_secoes'>{$pagina_translated['section examples']}</p>
-		        	<p class='hidden instrucoes_secoes'>{$pagina_translated['order details']}</p>
+		        	<p class='d-none instrucoes_secoes'>{$pagina_translated['order details']}</p>
 	          	";
 			}
 		} else {
@@ -749,7 +749,7 @@
 				<p class='instrucoes_secoes'>{$pagina_translated['you can sections']}</p>
 			";
 		}
-		$template_modal_body_conteudo .= "<p class='hidden instrucoes_multiplas_secoes'>{$pagina_translated['multiplas secoes details']}</p>";
+		$template_modal_body_conteudo .= "<p class='d-none instrucoes_multiplas_secoes'>{$pagina_translated['multiplas secoes details']}</p>";
 		$template_modal_body_conteudo .= put_together_list_item('link_button', 'adicionar_varias_secoes', 'link-danger', 'fad fa-list-ol', $pagina_translated['Adicionar várias seções'], false, false, false, false, false);
 		unset($nova_secao_titulo);
 		if ($pagina_tipo == 'elemento') {
@@ -916,7 +916,7 @@
 				if ($pagina_tipo == 'curso') {
 					echo "<a href='javascript:void(0)' data-bs-toggle='modal' data-bs-target='#modal_busca' class='link-primary' title='{$pagina_translated['Busca']}'><i class='fad fa-search fa-fw fa-lg'></i></a>";
 				}
-				echo "<a href='javascript:void(0);' class='hidden text-dark mx-2' id='show_bars'><i class='fad fa-eye fa-fw fa-lg'></i></a>";
+				echo "<a href='javascript:void(0);' class='d-none text-dark mx-2' id='show_bars'><i class='fad fa-eye fa-fw fa-lg'></i></a>";
 				if ($pagina_tipo == 'topico') {
 					echo "<a href='javascript:void(0);' id='verbetes_relacionados' class='link-primary mx-1' title='{$pagina_translated['Navegação']}' data-bs-toggle='modal' data-bs-target='#modal_verbetes_relacionados'><i class='fad fa-location-circle fa-fw fa-lg'></i></a>";
 				} elseif ($pagina_tipo == 'secao') {
@@ -966,9 +966,9 @@
 						$curso_sair_hidden = false;
 						$return_usuario_cursos_inscrito = return_usuario_cursos_inscrito($user_id);
 						if (in_array($pagina_id, $return_usuario_cursos_inscrito)) {
-							$curso_aderir_hidden = 'hidden';
+							$curso_aderir_hidden = 'd-none';
 						} else {
-							$curso_sair_hidden = 'hidden';
+							$curso_sair_hidden = 'd-none';
 						}
 						echo "<a href='javascript:void(0);' class='ms-1 link-primary $curso_aderir_hidden' title='{$pagina_translated['Aderir a este curso']}' id='curso_aderir'><i class='fad fa-lamp-desk fa-fw fa-lg'></i></a>";
 						echo "<a href='javascript:void(0);' class='ms-1 link-success $curso_sair_hidden' title='{$pagina_translated['Sair deste curso']}' id='curso_sair'><i class='fad fa-lamp-desk fa-fw fa-lg'></i></a>";
@@ -1073,9 +1073,9 @@
 					$adicionar_modelo_hidden = false;
 					$remover_modelo_hidden = false;
 					if ($modelo_do_usuario == false) {
-						$remover_modelo_hidden = 'hidden';
+						$remover_modelo_hidden = 'd-none';
 					} else {
-						$adicionar_modelo_hidden = 'hidden';
+						$adicionar_modelo_hidden = 'd-none';
 					}
 					echo "<a class='link-primary escritorio_modelo $adicionar_modelo_hidden' id='adicionar_modelo' value='adicionar_modelo' title='{$pagina_translated['Adicionar seus modelos']}'><i class='fad fa-lamp-desk fa-fw fa-lg'></i></a>";
 					echo "<a class='link-purple escritorio_modelo $remover_modelo_hidden' id='remover_modelo' value='remover_modelo' title='{$pagina_translated['Remover seus modelos']}'><i class='fad fa-lamp-desk fa-fw fa-lg'></i></a>";
@@ -1221,7 +1221,7 @@
 			} elseif ($pagina_subtipo == 'modelo') {
 				$template_subtitulo = "<a href='bfranklin.php'>{$pagina_translated['BFranklin model']}</a>";
 			} elseif ($pagina_subtipo == 'plano') {
-				$template_subtitulo = "{$pagina_translated['Plano de estudos']}</br><a class='link-purple' id='reveal_introduction'><i class='fad fa-info-circle fa-fw'></i></a>";
+				$template_subtitulo = "{$pagina_translated['Plano de estudos']}</br><a class='link-purple' id='reveal_instructions' href='javascript:void(0);' data-bs-toggle='modal' data-bs-target='#modal_plano_instrucoes'><i class='fad fa-info-circle fa-fw'></i></a>";
 			} elseif ($pagina_subtipo == 'simulado') {
 				$template_subtitulo = $pagina_translated['Simulado'];
 			}
@@ -1340,7 +1340,7 @@
 				$template_id = 'verbete';
 				if ($wiki_id == false) {
 					if (($pagina_tipo == 'curso') || ($pagina_subtipo == 'plano')) {
-						$template_classes = 'hidden';
+						$template_classes = 'd-none';
 						$template_titulo = $pagina_translated['Apresentação'];
 						$template_botoes_padrao = true;
 						$template_quill_initial_state = 'leitura';
@@ -1482,7 +1482,7 @@
 				";
 				}
 				if ($modelo_do_usuario == 'hidden') {
-					$template_classes .= 'hidden';
+					$template_classes .= 'd-none';
 				}
 				$template_conteudo = include 'templates/template_quill.php';
 				include 'templates/page_element.php';
@@ -1795,6 +1795,17 @@
 		$template_modal_body_conteudo = $breadcrumbs;
 		include 'templates/modal.php';
 	}
+	if ($pagina_subtipo == 'plano') {
+	    $template_modal_div_id = 'modal_plano_instrucoes';
+	    $template_modal_titulo = 'Sobre Planos de Estudos';
+	    $template_modal_show_buttons = false;
+	    $template_modal_body_conteudo = "
+	        <p>Como usar o Plano de Estudos.</p>
+	        <p>Vantagens.</p>
+	        <p>Systems over goals.</p>
+	    ";
+	    include 'templates/modal.php';
+    }
 
 	$carregar_controle_estado = true;
 	$template_modal_div_id = 'modal_estado';
@@ -2033,7 +2044,7 @@
 				<label class='form-check-label' for='checkbox_publicar_privado'>{$pagina_translated['Seletivo.']} <span class='text-muted fst-italic'>{$pagina_translated['Você determina quem tem acesso']}</span>.</label>
 			</div>
 			<div id='botao_determinar_acesso' class='row d-flex justify-content-center botao_determinar_acesso'>
-				<span data-bs-toggle='modal' data-bs-target='#modal_compartilhar_pagina'><a data-bs-toggle='modal' data-bs-target='#modal_outorgar_acesso'><button class='$button_classes botao_determinar_acesso btn-info' type='button'>{$pagina_translated['Dar acesso']}</button></a></span>
+				<span data-bs-toggle='modal' data-bs-target='#modal_compartilhar_pagina'><a data-bs-toggle='modal' data-bs-target='#modal_outorgar_acesso'><button class='btn btn-outline-primary botao_determinar_acesso' type='button'>{$pagina_translated['Dar acesso']}</button></a></span>
 			</div>
         ";
 		if ($pagina_publicacao == 'privado') {
@@ -2087,7 +2098,7 @@
 				<label class='form-check-label' for='colaboracao_selecionada'>Seletiva. <span class='text-muted'><em>Apenas grupos e indivíduos selecionados poderão editar o conteúdo desta página.</em></span></label>
 			</div>
 			<div class='row d-flex justify-content-center botao_determinar_colaboracao'>
-				<span data-bs-toggle='modal' data-bs-target='#modal_compartilhar_pagina'><a data-bs-toggle='modal' data-bs-target='#modal_determinar_colaboracao'><button class='$button_classes botao_determinar_colaboracao btn-info'>Adicionar colaboradores</button></a></span>
+				<span data-bs-toggle='modal' data-bs-target='#modal_compartilhar_pagina'><a data-bs-toggle='modal' data-bs-target='#modal_determinar_colaboracao'><button class='btn botao_determinar_colaboracao btn-info'>Adicionar colaboradores</button></a></span>
 			</div>
 		";*/
 
@@ -2151,7 +2162,7 @@
 				$template_modal_body_conteudo .= "
                     </select>
                     <div class='row justify-content-center'>
-                        <button class='$button_classes mt-3' name='trigger_compartilhar_grupo'>{$pagina_translated['Compartilhar com grupo']}</button>
+                        <button class='btn btn-primary mt-3' name='trigger_compartilhar_grupo'>{$pagina_translated['Compartilhar com grupo']}</button>
                     </div>
                   </form>
                 ";
@@ -2193,7 +2204,7 @@
 	        	
 	        </div>
 	        <div class='mb-3'>
-	            <button type='button' id='trigger_buscar_convidado_compartilhamento' name='trigger_buscar_convidado_compartilhamento' class='$button_classes btn-sm m-0'>{$pagina_translated['Buscar']}</button>
+	            <button type='button' id='trigger_buscar_convidado_compartilhamento' name='trigger_buscar_convidado_compartilhamento' class='btn btn-outline-primary'>{$pagina_translated['Buscar']}</button>
             </div>
             <div id='convite_resultados_compartilhamento' class='row border p-2 rounded mt-4'>
 			</div>
@@ -2227,7 +2238,7 @@
 		$template_modal_body_conteudo .= "
 			<p>{$pagina_translated['pressione resposta']}</p>
 			<div class='row justify-content-center'>
-				<a href='pagina.php?original_id=$pagina_id&resposta_id=new'><button class='$button_classes'>{$pagina_translated['Escrever resposta']}</button></a>
+				<a href='pagina.php?original_id=$pagina_id&resposta_id=new'><button class='btn btn-primary'>{$pagina_translated['Escrever resposta']}</button></a>
 			</div>
 		";
 		$template_modal_body_conteudo .= "<h3 class='mt-3'>{$pagina_translated['Respostas a este texto']}</h3>";
@@ -2269,7 +2280,7 @@
 				<label for='buscar_materias' class='form-label'>{$pagina_translated['Buscar matéria']}</label>
 				<input type='text' class='form-control' name='buscar_materias' id='buscar_materias' required>
 			</div>
-            <button type='button' class='$button_classes_info mb-3' id='trigger_buscar_materias'>{$pagina_translated['Buscar']}</button>
+            <button type='button' class='btn btn-outline-primary mb-2' id='trigger_buscar_materias'>{$pagina_translated['Buscar']}</button>
 			<div class='row border p-2' id='materias_disponiveis'></div>
 		";
 		$template_modal_show_buttons = false;
@@ -2286,7 +2297,7 @@
 				<label for='buscar_topicos' class='form-label'>{$pagina_translated['Buscar tópico']}</label>
 				<input type='text' class='form-control' name='buscar_topicos' id='buscar_topicos' required>
             </div>
-                <button type='button' class='$button_classes btn-info' id='trigger_buscar_topicos'>{$pagina_translated['Buscar']}</button>
+                <button type='button' class='btn btn-outline-primary' id='trigger_buscar_topicos'>{$pagina_translated['Buscar']}</button>
 			<div class='row border p-2' id='topicos_disponiveis'></div>
 		";
 		$template_modal_show_buttons = false;
@@ -2303,7 +2314,7 @@
 				<label for='buscar_topicos' class='form-label'>{$pagina_translated['Buscar subtópico']}</label>
 				<input type='text' class='form-control' name='buscar_subtopicos' id='buscar_subtopicos' required>
             </div>
-            <button type='button' class='$button_classes' id='trigger_buscar_subtopicos'>{$pagina_translated['Buscar']}</button>
+            <button type='button' class='btn btn-primary mb-2' id='trigger_buscar_subtopicos'>{$pagina_translated['Buscar']}</button>
 			<div class='row border p-2' id='subtopicos_disponiveis'></div>
 		";
 		$template_modal_show_buttons = false;
@@ -2411,7 +2422,7 @@
 	        	
 	        </div>
 	        <div class='mb-3'>
-	            <button type='button' id='trigger_buscar_convidado' name='trigger_buscar_convidado' class='$button_classes btn-sm m-0'>{$pagina_translated['Buscar']}</button>
+	            <button type='button' id='trigger_buscar_convidado' name='trigger_buscar_convidado' class='btn btn-outline-primary'>{$pagina_translated['Buscar']}</button>
             </div>
             <div id='convite_resultados' class='row border p-2'>
 			</div>
@@ -2529,7 +2540,7 @@
 			<p>{$pagina_translated['Pressione para destruir esta página. Esse ato não pode ser desfeito.']}</p>
 			<form method='post'>
 			  <div class='mb-3 d-flex justify-content-center'>
-				  <button class='$button_classes_red' name='trigger_apagar_pagina' id='trigger_apagar_pagina'>{$pagina_translated['Destruir esta página']}</button>
+				  <button class='btn btn-danger' name='trigger_apagar_pagina' id='trigger_apagar_pagina'>{$pagina_translated['Destruir esta página']}</button>
 			  </div>
 			</form>
 		";
@@ -2818,11 +2829,11 @@
 		switch ($modelo_do_usuario) {
 			case false:
 				$template_modal_body_conteudo .= put_together_list_item('link_button', 'adicionar_escritorio_modelo', false, 'fad fa-pen-nib', $pagina_translated['Adicionar seus modelos'], false, false, 'list-group-item-success mt-1');
-				$esconder_paragrafo_hidden = 'hidden';
+				$esconder_paragrafo_hidden = 'd-none';
 				break;
 			case 'hidden':
 				$template_modal_body_conteudo .= put_together_list_item('link_button', 'list_item_mostrar_paragrafo', false, 'fad fa-eye', $pagina_translated['Modelo mostrar paragrafo'], false, 'fa-pen-nib', 'list-group-item-success mt-1 modelo_mostrar_paragrafo');
-				$esconder_paragrafo_hidden = 'hidden';
+				$esconder_paragrafo_hidden = 'd-none';
 				break;
 			case 'added':
 			default:
@@ -2941,8 +2952,8 @@
                     <li class='list-group-item d-flex justify-content-between'><span><strong>{$pagina_translated['Your credits:']}</strong> <span id='review_wallet' class='fontstack-mono'>$user_wallet</span></span><a href='escritorio.php?wllt=1' target='_blank'>{$pagina_translated['Buy more']} <i class='fad fa-external-link fa-fw'></i></a></li>
                 </ul>
 				<div class='row d-flex justify-content-center'>
-				    <button type='button' class='$button_classes_info hidden' name='trigger_review_recalc' id='trigger_review_recalc'>{$pagina_translated['recalculate']}</button>
-					<button type='submit' class='$button_classes' name='trigger_review_send' id='trigger_review_send' $button_disabled>{$pagina_translated['Place order']}</button>
+				    <button type='button' class='btn btn-outline-primary d-none' name='trigger_review_recalc' id='trigger_review_recalc'>{$pagina_translated['recalculate']}</button>
+					<button type='submit' class='btn btn-primary' name='trigger_review_send' id='trigger_review_send' $button_disabled>{$pagina_translated['Place order']}</button>
 				</div>
             </form>
     	    ";
@@ -2952,7 +2963,7 @@
 				$template_modal_body_conteudo .= "
 			        <form method='post'>
 			            <div class='row d-flex justify-content-center'>
-			                <button name='finalizar_correcao' value='$pagina_id' class='$button_classes_info'>{$pagina_translated['Finalizar correção']}</button>
+			                <button name='finalizar_correcao' value='$pagina_id' class='btn btn-outline-primary'>{$pagina_translated['Finalizar correção']}</button>
                         </div>
 			        </form>
 			    ";

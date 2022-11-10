@@ -28,20 +28,20 @@
 
 				$list_cursos_cards = false;
 				if ($usuario_cursos_inscrito != false) {
-					echo "<div class='col-lg-10 col-md-12'>";
+					echo "<div class='col-lg-7 col-md-12'>";
     					echo "<h2 class='text-muted mb-5'>{$pagina_translated['Cursos em que você se inscreveu:']}</h2>";
 					foreach ($usuario_cursos_inscrito as $usuario_inscrito_curso_id) {
 						$list_cursos_cards = return_curso_card($usuario_inscrito_curso_id, 'inscrito');
 					}
 				} else {
-					echo "<div class='col-lg-10 col-md-12'>";
+					echo "<div class='col-lg-7 col-md-12'>";
 				}
 			} else {
-				echo "<div class='col-lg-10 col-md-12'>";
+				echo "<div class='col-lg-7 col-md-12'>";
 			}
 		?>
     </div>
-    <div class="col-lg-10 col-md-12">
+    <div class="col-lg-7 col-md-12">
         <h2 class='text-muted my-5'><?php echo $pagina_translated['Cursos a que você tem acesso:']; ?></h2>
 		<?php
 			if ($usuario_cursos_nao_inscrito_disponiveis != false) {
@@ -64,7 +64,6 @@
 		?>
 
     </div>
-</div>
 </div>
 <?php
 	if ($user_id == false) {
