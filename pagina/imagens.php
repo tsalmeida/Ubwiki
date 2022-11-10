@@ -24,7 +24,7 @@
 				<a href='pagina.php?pagina_id={$elemento_info[19]}' target='_blank'>
 					<img src='/../imagens/verbetes/thumbnails/{$elemento_info[11]}' class='mx-auto'>
 				</a>
-				<div class='carousel-caption d-none d-md-block link-white rounded transparent-background p-1 mt-5'>
+				<div class='carousel-caption d-none d-md-block link-white rounded bg-black-transparent p-1 mt-5'>
 					<h5 class='m-0'>{$elemento_info[4]}</h5>
 				</div>
 			
@@ -34,11 +34,11 @@
 	}
 	$template_conteudo .= "</div>";
 	$template_conteudo .= "
-		<button class=\"carousel-control-prev transparent-background\" type=\"button\" data-bs-target='#carousel-imagens' data-bs-slide='prev'>
+		<button class=\"carousel-control-prev bg-black-transparent\" type=\"button\" data-bs-target='#carousel-imagens' data-bs-slide='prev'>
 			<span class=\"carousel-control-prev-icon\" aria-hidden=\"true\"></span>
 			<span class=\"visually-hidden\">Previous</span>
 		</button>
-		<button class=\"carousel-control-next transparent-background\" type=\"button\" data-bs-target='#carousel-imagens' data-bs-slide='next'>
+		<button class=\"carousel-control-next bg-black-transparent\" type=\"button\" data-bs-target='#carousel-imagens' data-bs-slide='next'>
 			<span class=\"carousel-control-next-icon\" aria-hidden=\"true\"></span>
 			<span class=\"visually-hidden\">Next</span>
 		</button>

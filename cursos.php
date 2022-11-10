@@ -21,11 +21,9 @@
     <div class="row d-flex justify-content-center">
 		<?php
 			if ($user_email != false) {
-
 				$usuario_cursos_inscrito = return_usuario_cursos_inscrito($user_id);
 				$usuario_cursos_disponiveis = return_usuario_cursos($user_id);
 				$usuario_cursos_nao_inscrito_disponiveis = array_diff($usuario_cursos_disponiveis, $usuario_cursos_inscrito);
-
 				$list_cursos_cards = false;
 				if ($usuario_cursos_inscrito != false) {
 					echo "<div class='col-lg-7 col-md-12'>";

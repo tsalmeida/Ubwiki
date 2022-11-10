@@ -3,6 +3,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+@import '../../bootstrap/dist/css/bootstrap.min.css';
 a {
   text-decoration: none;
 }
@@ -242,7 +243,7 @@ ul + * {
 
 .page-element-botoes {
   font-size: 1.5rem;
-}h
+}
 
 .controls-top {
   margin-bottom: 0 !important;
@@ -511,7 +512,7 @@ ul {
   opacity: 0 !important;
 }
 
-.transparent-background {
+.bg-black-transparent {
   /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#000000+0,000000+100&0.5+0,0.5+100 */
   background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%); /* FF3.6-15 */
   background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%); /* Chrome10-25,Safari5.1-6 */
@@ -554,6 +555,113 @@ ul {
 
 .print-limit {
   width: 60ch;
+}
+
+.link-purple, .text-purple {
+  color: var(--bs-purple);
+}
+
+.link-purple:hover {
+  color: var(--bs-purple);
+}
+
+:root {
+  --bs-blue: #0d6efd;
+  --bs-indigo: #6610f2;
+  --bs-purple: #6f42c1;
+  --bs-pink: #d63384;
+  --bs-red: #dc3545;
+  --bs-orange: #fd7e14;
+  --bs-yellow: #ffc107;
+  --bs-green: #198754;
+  --bs-teal: #20c997;
+  --bs-cyan: #0dcaf0;
+  --bs-white: #fff;
+  --bs-gray: #6c757d;
+  --bs-gray-dark: #343a40;
+  --bs-primary: #0d6efd;
+  --bs-secondary: #6c757d;
+  --bs-success: #198754;
+  --bs-info: #0dcaf0;
+  --bs-warning: #ffc107;
+  --bs-danger: #dc3545;
+  --bs-light: #f8f9fa;
+  --bs-dark: #212529;
+  --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
+}
+
+.primary-mix-black-20 {
+  background-color: #141414;
+}
+
+.primary-mix-white-20 {
+  background-color: #474747;
+}
+
+.primary-mix-black-30 {
+  background-color: #121212;
+}
+
+.primary-mix-white-30 {
+  background-color: #5e5e5e;
+}
+
+.primary-mix-black-40 {
+  background-color: #0f0f0f;
+}
+
+.primary-mix-white-40 {
+  background-color: #757575;
+}
+
+.primary-mix-black-50 {
+  background-color: #0d0d0d;
+}
+
+.primary-mix-white-50 {
+  background-color: #8c8c8c;
+}
+
+.primary-mix-black-60 {
+  background-color: #0a0a0a;
+}
+
+.primary-mix-white-60 {
+  background-color: #a3a3a3;
+}
+
+.primary-mix-black-70 {
+  background-color: #080808;
+}
+
+.primary-mix-white-70 {
+  background-color: #bababa;
+}
+
+.primary-mix-black-80 {
+  background-color: #050505;
+}
+
+.primary-mix-white-80 {
+  background-color: #d1d1d1;
+}
+
+.primary-mix-black-90 {
+  background-color: #030303;
+}
+
+.primary-mix-white-90 {
+  background-color: #e8e8e8;
+}
+
+.primary-mix-black-100 {
+  background-color: black;
+}
+
+.primary-mix-white-100 {
+  background-color: white;
 }
 
 /*# sourceMappingURL=style.css.map */
