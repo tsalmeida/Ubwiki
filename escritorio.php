@@ -428,7 +428,7 @@
 
 					$artefato_id = 'homepage';
 //					$artefato_subtitulo = $pagina_translated['Homepage'];
-                    $artefato_subtitulo = 'Nexus Startpage';
+					$artefato_subtitulo = 'Nexus Startpage';
 					$artefato_link = 'nexus.php';
 					$artefato_badge = 'fa-external-link';
 					$fa_icone = 'fa-house-turret';
@@ -733,7 +733,9 @@
 									<input type='text' name='novo_grupo_titulo' id='novo_grupo_titulo' class='form-control validate mb-1' required>
 								</div>
 								<div class='row justify-content-center'>
-									<button name='trigger_novo_grupo' class='btn btn-primary'>{$pagina_translated['Criar grupo de estudos']}</button>
+                                    <div class='col-12'>
+                                        <button name='trigger_novo_grupo' class='btn btn-primary'>{$pagina_translated['Criar grupo de estudos']}</button>
+                                    </div>
 								</div>
 							</form>
 						    ";

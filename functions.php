@@ -2481,10 +2481,10 @@
 				return array('fad fa-cube', 'link-success', 'bg-success-light');
 				break;
 			case 'arquitetura':
-				return array('fad fa-university', 'link-warning', 'bg-warning-light');
+				return array('fad fa-university', 'link-orange', 'bg-warning-light');
 				break;
 			case 'planta':
-				return array('fad fa-flower-daffodil', 'link-danger', 'bg-danger-light');
+				return array('fad fa-flower-daffodil', 'link-pink', 'bg-danger-light');
 				break;
 			case 'animais':
 				return array('fad fa-rabbit', 'link-info', 'bg-info-light');

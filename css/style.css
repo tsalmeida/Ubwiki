@@ -55,7 +55,7 @@
   --bs-body-color-rgb: 33, 37, 41;
   --bs-body-bg-rgb: 255, 255, 255;
   --bs-font-sans-serif: "Lato", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --bs-font-monospace: "Roboto Mono", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
   --bs-body-font-family: var(--bs-font-sans-serif);
   --bs-body-font-size: 1.2rem;
@@ -11339,9 +11339,6 @@ a {
 }
 
 .ql-editor-active {
-  /*padding: 12px 15px;
-  border: 1px solid #ccc;
-  max-height: 50vh;*/
   overflow-y: auto;
 }
 
@@ -11366,6 +11363,10 @@ a {
 
 .bg-success-light {
   background-color: #d1e7dd;
+}
+
+navbar {
+  z-index: 9999;
 }
 
 /*# sourceMappingURL=style.css.map */
