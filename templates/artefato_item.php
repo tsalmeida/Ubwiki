@@ -29,11 +29,11 @@
 	if (!isset($fa_invert)) {
 		$fa_invert = false;
 	}
-	
+
 	if ($fa_invert == true) {
 		$fa_invert = 'fa-swap-opacity';
 	}
-	
+
 	$fa_color_talvez = 'link-primary';
 	if (!isset($fa_icone)) {
 		$fa_icone = 'fa-circle-notch fa-spin';
@@ -54,9 +54,6 @@
 	if (!isset($fa_icone)) {
 		$fa_icone = 'fa-circle-notch';
 	}
-	if (($fa_icone == 'fa-youtube') || ($fa_icone == 'fa-wikipedia-w')) {
-		$fa_type = 'fab';
-	}
 	if (!isset($artefato_subtitulo)) {
 		$artefato_subtitulo = false;
 	}
@@ -65,19 +62,19 @@
 			$fa_color = 'link-purple';
 		}
 	}
-	
+
 	if (!isset($artefato_modal)) {
 		$artefato_modal = "#modal_{$artefato_tipo}";
 	}
-	
+
 	if (!isset($artefato_link)) {
 		$artefato_link = false;
 	}
-	
+
 	if (!isset($artefato_criacao)) {
 		$artefato_criacao = false;
 	}
-	
+
 	if (!isset($artefato_button)) {
 		$artefato_button = false;
 	}
@@ -104,10 +101,10 @@
 	if (!isset($artefato_subtitulo_class)) {
 		$artefato_subtitulo_class = 'link-secondary';
 	}
-	
+
 	$length_check = "$artefato_titulo $artefato_subtitulo";
 	$length_check = strip_tags($length_check, false);
-	
+
 	$titulo_class = false;
 	$titulo_length = strlen($length_check);
 	if ($titulo_length > 75) {
@@ -119,7 +116,7 @@
 	if (!isset($artefato_badge)) {
 		$artefato_badge = false;
 	} else {
-		$artefato_badge = "<span class='badge bg-secondary link-dark bg-light position-absolute translate-middle'><i class='fad $artefato_badge fa-fw'></i></span>";
+		$artefato_badge = "<span class='badge bg-secondary link-dark bg-light position-fixed translate-middle'><i class='fad $artefato_badge fa-fw'></i></span>";
 	}
 
 	if (!isset($artefato_icone_background)) {
@@ -132,7 +129,7 @@
 	}
 
 	$artefato_classes = "$artefato_col_limit $artefato_background $artefato_class $artefato_classes_detail";
-	
+
 	$artefato_link_1 = false;
 	$artefato_link_2 = false;
 	if ($artefato_button != false) {
@@ -147,9 +144,9 @@
 			$artefato_link_2 = "</a></span>";
 		}
 	}
-	
+
 	$artefato_template_result = false;
-	
+
 	$artefato_template_result .= "
 				$artefato_link_1
 				$artefato_badge
@@ -164,7 +161,7 @@
         </span>
         $artefato_link_2
   ";
-	
+
 	unset($artefato_name);
 	unset($artefato_icone_background);
 	unset($artefato_criacao);
@@ -194,5 +191,5 @@
 	unset($artefato_titulo_class);
 	unset($artefato_subtitulo_class);
 	unset($artefato_classes_detail);
-	
+
 	return $artefato_template_result;

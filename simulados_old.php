@@ -400,7 +400,7 @@
 ?>
 </body>
 <?php
-  include 'templates/footer.html';
-  $mdb_select = true;
+
+
   include 'templates/html_bottom.php';
 ?>

@@ -84,7 +84,7 @@
 				if ($pagina_subtipo != '')
 					$carregar_modal_vincular_wikipedia = true;
 				$template_subtipo = 'wikipedia';
-				$fa_type = 'fab';
+				$fa_type = 'fa-brands';
 				$template_subtipo_tipo = 'referencia';
 				$template_subtipo_titulo = $pagina_translated['Vincular a verbete da Wikipédia'];
 				$artefato_modal = '#modal_adicionar_wikipedia';

@@ -9,7 +9,7 @@
 	}
 
 	if ($notificacao_ativa == false) {
-		$notificacao_cor = 'link-secondary';
+		$notificacao_cor = 'link-primary';
 		$notificacao_icone = 'fa-bell-slash';
 	} else {
 		$notificacao_cor = 'link-warning';

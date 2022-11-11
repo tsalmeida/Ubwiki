@@ -332,7 +332,7 @@
 <?php
 	$carregar_modal_login = true;
 	include 'templates/html_bottom.php';
-	include 'templates/footer.html';
+
 ?>
 </html>
 

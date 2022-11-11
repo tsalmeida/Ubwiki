@@ -63,11 +63,11 @@
 		}
 		$user_nexus_id = $_SESSION['user_nexus_pagina_id'];
 		if ($nexus_new_folder_icon == false) {
-		    $nexus_new_folder_icon = nexus_random_folder_icon();
-        }
+			$nexus_new_folder_icon = nexus_random_folder_icon();
+		}
 		if ($nexus_new_folder_color == false) {
-		    $nexus_new_folder_color = nexus_random_color();
-        }
+			$nexus_new_folder_color = nexus_random_color();
+		}
 
 		$query = prepare_query("INSERT INTO nexus_folders (user_id, pagina_id, type, title, icon, color) VALUES ($user_id, $user_nexus_id, '$nexus_new_folder_type', '$nexus_new_folder_title', '$nexus_new_folder_icon', '$nexus_new_folder_color')");
 		$conn->query($query);
@@ -137,15 +137,15 @@
 			$close_folders_board = false;
 			switch ($nexus_folder_type) {
 				case 'archival':
-				    $nexus_archive_folder_counter++;
-				    $nexus_folder_order_identifier = $nexus_archive_folder_counter;
+					$nexus_archive_folder_counter++;
+					$nexus_folder_order_identifier = $nexus_archive_folder_counter;
 					$artefato_class = 'archival_folder_icons d-none';
 					$fa_size = 'fa-3x';
 					$artefato_classes_detail = 'py-1 artefato rounded d-flex mt-1';
 					break;
 				case 'hidden':
-				    $nexus_hidden_folder_counter++;
-				    $nexus_folder_order_identifier = $nexus_hidden_folder_counter;
+					$nexus_hidden_folder_counter++;
+					$nexus_folder_order_identifier = $nexus_hidden_folder_counter;
 					$artefato_class = 'hidden_folder_icons d-none';
 					$close_folders_board = "$('#folders_board').addClass('d-none');";
 					$fa_size = 'fa-5x';
@@ -189,20 +189,20 @@
                     show_links_folder_{$nexus_folder_order_identifier}();
                 })";
 			if ($nexus_folder_order_identifier < 10) {
-			    $html_bottom_folders .= "
+				$html_bottom_folders .= "
                 document.addEventListener ('keydown', function (zEvent) {
                     if (zEvent.altKey  &&  zEvent.key === '{$nexus_folder_order_identifier}') {
                         show_links_folder_{$nexus_folder_order_identifier}();
                     }
                 });
 			    ";
-            }
+			}
 		}
 	}
 
-    $_SESSION['cmd_links'] = array();
+	$_SESSION['cmd_links'] = array();
 	$print_links = false;
-    // links = (user_id, pagina_id, type, param_int_1:folder_id, param_int_2:link_id, param1:link_url, param2:link_title, param3:link_icon, param4:link_color)
+	// links = (user_id, pagina_id, type, param_int_1:folder_id, param_int_2:link_id, param1:link_url, param2:link_title, param3:link_icon, param4:link_color)
 	$query = prepare_query("SELECT param_int_1, param_int_2, param1, param2, param3, param4 FROM nexus_elements WHERE pagina_id = $pagina_id AND state = 1 AND type = 'link'");
 	$nexus_links_info = $conn->query($query);
 	if ($nexus_links_info->num_rows > 0) {
@@ -282,9 +282,6 @@
 
 	$html_head_template_conteudo .= "
         <style>
-            html {
-                height: 100%;
-            }
             body {
                 background-image: url('../wallpapers/$wallpaper_file');
                 background-repeat: $wallpaper_repeat;
@@ -292,7 +289,6 @@
                 background-position: $wallpaper_position;
             }
             .nexus-title {
-              font-size: 6em;
               mix-blend-mode: $title_overlay;
               user-select: none;
               cursor: pointer;
@@ -302,23 +298,15 @@
             .nexus-title:hover {
               mix-blend-mode: $title_overlay_hover;
             }
-            .navbar-button:hover {
-                background-color: white !important;
-            }
-            .cmd-bar {
-                outline: none !important;
-                outline-color: transparent !important;
-                outline-style: none !important;
-            }
         </style>
 	";
 
-
-	$navbar_custom_rightside .= "<a class='navbar-brand navbar-button mx-1 rounded px-2 link-warning' href='javascript:void(0);' id='trigger_show_main_folder_icons'><i class='fad fa-folder-bookmark fa-fw'></i></a>";
-	$navbar_custom_rightside .= "<a class='navbar-brand navbar-button mx-1 rounded px-2 link-purple' href='javascript:void(0);' id='trigger_show_archival_folder_icons'><i class='fad fa-cabinet-filing fa-fw'></i></a>";
-	$navbar_custom_rightside .= "<a class='navbar-brand navbar-button mx-1 rounded px-2 link-teal' href='javascript:void(0);' id='trigger_show_link_dump'><i class='fad fa-box-archive fa-fw'></i></a>";
-	$navbar_custom_rightside .= "<a class='navbar-brand navbar-button mx-1 rounded px-2 link-primary' href='javascript:void(0);' id='trigger_show_recent_links'><i class='fad fa-clock-rotate-left fa-fw'></i></a>";
-	$navbar_custom_rightside .= "<a class='navbar-brand navbar-button mx-1 rounded px-2 link-light' href='javascript:void(0)' id='trigger_show_setup_icons'><i class='fad fa-cog fa-fw fa-swap-opacity'></i></a>";
+	$navbar_custom_rightside .= "<a class='nexus-navbar-button navbar-brand navbar-button mx-1 rounded px-2 link-warning' href='javascript:void(0);' id='trigger_show_main_folder_icons'><i class='fad fa-folder-bookmark fa-fw'></i></a>";
+	$navbar_custom_rightside .= "<a class='nexus-navbar-button navbar-brand navbar-button mx-1 rounded px-2 link-purple' href='javascript:void(0);' id='trigger_show_archival_folder_icons'><i class='fad fa-cabinet-filing fa-swap-opacity fa-fw'></i></a>";
+	$navbar_custom_rightside .= "<a class='nexus-navbar-button navbar-brand navbar-button mx-1 rounded px-2 link-teal' href='javascript:void(0);' id='trigger_show_link_dump'><i class='fad fa-box-archive fa-swap-opacity fa-fw'></i></a>";
+	$navbar_custom_rightside .= "<a class='nexus-navbar-button navbar-brand navbar-button mx-1 rounded px-2 link-info' href='javascript:void(0);' id='trigger_show_recent_links'><i class='fad fa-clock-rotate-left fa-fw'></i></a>";
+	$navbar_custom_rightside .= "<a class='nexus-navbar-button navbar-brand navbar-button mx-1 rounded px-2 link-orange' href='javascript:void(0)' id='trigger_show_setup_icons'><i class='fad fa-cog fa-fw'></i></a>";
+	$navbar_custom_rightside .= "<a class='nexus-navbar-button navbar-brand navbar-button mx-1 rounded px-2 link-success' href='escritorio.php'><i class='fad fa-lamp-desk fa-fw'></i></a>";
 
 	include 'templates/html_head.php';
 	include 'templates/navbar.php';
@@ -327,20 +315,20 @@
     <body id='nexus_background' class="bg-light">
     <div class="container-fluid my-5">
         <div class="row justify-content-center">
-            <div id="page_title" class="text-center nexus-title col-auto font-monospace <?php echo $title_color; ?>"><?php echo $nexus_title; ?></div>
+            <div id="page_title" class="text-center nexus-title col-auto display-1 <?php echo $title_color; ?>"><?php echo $nexus_title; ?></div>
         </div>
     </div>
     <div id="cmd_container" class="container">
         <div class="row d-flex justify-content-around mt-3">
             <div class="col">
                 <div class="mb-3 input-group">
-                    <input id="cmdbar" name="cmdbar" list="command-list" type="text" class="form-control font-monospace mx-1 cmd-bar" rows="1" autocomplete="off" spellcheck="false" placeholder="<?php echo $user_apelido; ?> commands…">
+                    <input id="cmdbar" name="cmdbar" list="command-list" type="text" class="form-control font-monospace mx-1 cmd-bar rounded text-white bg-dark border-0" rows="1" autocomplete="off" spellcheck="false" placeholder="<?php echo $user_apelido; ?> commands…">
                     <datalist id="command-list">
-                        <?php
-                            foreach($_SESSION['cmd_links'] as $key => $value) {
-                                echo "<option>$key</option>";
-                            }
-                        ?>
+						<?php
+							foreach ($_SESSION['cmd_links'] as $key => $value) {
+								echo "<option>$key</option>";
+							}
+						?>
                     </datalist>
                 </div>
             </div>
@@ -538,7 +526,15 @@
 		$template_modal_div_id = 'modal_commands';
 		$template_modal_titulo = 'The Nexus Command Bar';
 		$template_modal_body_conteudo = false;
-		$template_modal_body_conteudo = "A full explanation of how the command bar works, a list of commands and the such.";
+		$template_modal_body_conteudo = "
+		    <ul>
+		        <li>Press Esc to return to the original screen, with the command bar. You may also click the large text under the navbar.</li>
+		        <li>Alt+1 to 9 will show the links from each of the main folders, in order.</li>
+		        <li>Alt+A will show the archived links.</li>
+		        <li>Alt+S will show the settings.</li>
+		        <li>Alt+R will show recent links.</li>
+            </ul>
+		";
 		$template_modal_show_buttons = false;
 		include 'templates/modal.php';
 
@@ -555,12 +551,18 @@
             $('#cmd_container').removeClass('d-none');
             $("input:text:visible:first").focus();
         }
+
         $(document).on('keyup', function (e) {
             var code = e.key;
             if (code == 'Escape') {
                 original_state();
             }
         })
+
+        $(document).on('click', '#page_title', function () {
+            original_state();
+        })
+
         $(document).on('keyup', '#cmdbar', function (e) {
             bar = $('#cmdbar').val();
             long = bar.length;
@@ -575,7 +577,8 @@
                     }
                 });
             }
-        });
+        })
+
         $(document).on('click', '#trigger_suggest_title', function () {
             scan_new_link = $('#nexus_new_link_url').val();
             $.post('engine.php', {
@@ -587,8 +590,10 @@
                 }
             });
         })
+
         $("input:text:visible:first").focus();
-        $(document).on('click', '#trigger_show_setup_icons', function () {
+
+        function show_setup_icons() {
             $('#page_title').empty();
             $('#page_title').append('Settings');
             $('#cmd_container').addClass('d-none');
@@ -596,10 +601,18 @@
             $('#nexus_container').find('#links_board').addClass('d-none');
             $('#folders_board').find('.main_folder_icons').addClass('d-none');
             $('#folders_board').find('.archival_folder_icons').addClass('d-none');
+        }
+
+        $(document).on('click', '#trigger_show_setup_icons', function () {
+            show_setup_icons();
         })
-        $(document).on('click', '#page_title', function () {
-            original_state();
-        })
+
+        document.addEventListener ('keydown', function (zEvent) {
+            if (zEvent.altKey  &&  zEvent.key === 's') {
+                event.preventDefault();
+                show_setup_icons();
+            }
+        });
 
         function show_main_folder_icons() {
             $('#page_title').empty();
@@ -616,12 +629,12 @@
             show_main_folder_icons();
         })
 
-        document.addEventListener ('keydown', function (zEvent) {
-            if (zEvent.altKey  &&  zEvent.key === 'f') {
+        document.addEventListener('keydown', function (zEvent) {
+            if (zEvent.altKey && zEvent.key === 'f') {
                 event.preventDefault();
                 show_main_folder_icons();
             }
-        } );
+        });
 
         function show_archival_folder_icons() {
             $('#page_title').empty();
@@ -638,13 +651,13 @@
             show_archival_folder_icons();
         })
 
-        document.addEventListener ('keydown', function (zEvent) {
-            if (zEvent.altKey  &&  zEvent.key === 'a') {
+        document.addEventListener('keydown', function (zEvent) {
+            if (zEvent.altKey && zEvent.key === 'a') {
                 show_archival_folder_icons();
             }
-        } );
+        });
 
-        $(document).on('click', '#trigger_show_recent_links', function () {
+        function show_recent_links() {
             $('#page_title').empty();
             $('#page_title').append('Recent links');
             $('#cmd_container').addClass('d-none');
@@ -654,6 +667,16 @@
             $('#folders_board').find('.archival_folder_icons').addClass('d-none');
             $('#links_board').removeClass('d-none');
             $('#links_board').find('.all_link_icons').removeClass('d-none');
+        }
+
+        $(document).on('click', '#trigger_show_recent_links', function () {
+            show_recent_links();
+        });
+
+        document.addEventListener('keydown', function (zEvent) {
+            if (zEvent.altKey && zEvent.key === 'r') {
+                show_recent_links();
+            }
         });
 
         $(document).on('click', '#trigger_manage_folders', function () {

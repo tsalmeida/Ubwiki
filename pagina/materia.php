@@ -29,7 +29,7 @@
 	$query = prepare_query("SELECT elemento_id, id FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'topico'");
 	$topicos = $conn->query($query);
 	if ($topicos->num_rows > 0) {
-		$template_conteudo .= "<ul class='list-group list-group-flush mt-1 min-w70 topicos_collapse collapse show'>";
+		$template_conteudo .= "<ul class='list-group list-group-flush mt-1 ch-limit topicos_collapse collapse show'>";
 		$template_conteudo .= return_list_item($plano_estudos_pagina_id, false, 'list-group-item-success', true, false, 'none', $pagina_translated['Plano de estudos']);
 
 		while ($topico = $topicos->fetch_assoc()) {
@@ -58,7 +58,7 @@
 			} else {
 				$topico_pagina_estado_icone = false;
 			}
-			$template_conteudo .= "<ul class='list-group bg-light rounded'>";
+			$template_conteudo .= "<ul class='list-group bg-light rounded p-1 mt-1'>";
 			$template_conteudo .= put_together_list_item('link', "pagina.php?pagina_id=$topico_pagina_id", $li_color, $bookmark_icone, $topico_pagina_titulo, false, $topico_pagina_estado_icone[0], "list-group-item-primary $topico_completo");
 
 			$query = prepare_query("SELECT elemento_id, id FROM Paginas_elementos WHERE pagina_id = $topico_pagina_id AND tipo = 'subtopico'");

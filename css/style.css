@@ -7230,7 +7230,7 @@ textarea.form-control-lg {
   transform: translateY(-50%) !important;
 }
 
-.border {
+.border, .ql-editor-active {
   border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color) !important;
 }
 
@@ -7701,7 +7701,7 @@ textarea.form-control-lg {
   margin-top: 0.5rem !important;
 }
 
-.mt-3 {
+.mt-3, .ql-editor-active {
   margin-top: 1rem !important;
 }
 
@@ -7809,7 +7809,7 @@ textarea.form-control-lg {
   padding: 0.25rem !important;
 }
 
-.p-2 {
+.p-2, .ql-editor-active {
   padding: 0.5rem !important;
 }
 
@@ -8457,7 +8457,7 @@ textarea.form-control-lg {
   border-bottom-right-radius: var(--bs-border-radius-pill) !important;
 }
 
-.rounded-bottom {
+.rounded-bottom, .ql-editor-active {
   border-bottom-right-radius: var(--bs-border-radius) !important;
   border-bottom-left-radius: var(--bs-border-radius) !important;
 }
@@ -11266,6 +11266,106 @@ a {
 
 .link-indigo:hover, .link-indigo:focus {
   color: #520dc2;
+}
+
+.spacing0 {
+  padding-left: 0 !important;
+}
+
+.spacing1 {
+  padding-left: 1ch !important;
+}
+
+.spacing2 {
+  padding-left: 2ch !important;
+}
+
+.spacing3 {
+  padding-left: 4ch !important;
+}
+
+.spacing4 {
+  padding-left: 6ch !important;
+}
+
+.spacing5 {
+  padding-left: 8ch !important;
+}
+
+.remover_tag:hover, .remover_materia:hover, .remover_topico:hover {
+  opacity: 0.5;
+}
+
+.adicionar_tag, .adicionar_materia, .adicionar_topico, .adicionar_tag2 {
+  opacity: 0.8;
+}
+
+.adicionar_tag:hover, .adicionar_materia:hover, .adicionar_topico:hover {
+  opacity: 1;
+}
+
+.lista-texto {
+  margin-left: 1ch;
+  margin-right: 1ch;
+}
+
+.bg-black-transparent {
+  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#000000+0,000000+100&0.5+0,0.5+100 */
+  background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#80000000", endColorstr="#80000000", GradientType=0); /* IE6-9 */
+}
+
+.quill_container {
+  width: 100%;
+  max-height: 50vh;
+  height: 50vh;
+  resize: none;
+  outline: none;
+  word-wrap: normal;
+}
+
+.quill_modal {
+  max-width: 90vw;
+  width: 70ch;
+}
+
+.quill_editor_height {
+  height: auto !important;
+  max-height: none;
+  overflow-y: initial;
+  margin-top: 0 !important;
+}
+
+.ql-editor-active {
+  /*padding: 12px 15px;
+  border: 1px solid #ccc;
+  max-height: 50vh;*/
+  overflow-y: auto;
+}
+
+.quill_pagina_de_edicao {
+  height: initial !important;
+  max-height: initial !important;
+  overflow-y: auto !important;
+  padding: 4ch 4ch;
+  /*border: 1px solid #ccc;*/
+  margin-top: 0 !important;
+  max-width: 75ch;
+}
+
+#quill_pagina_edicao {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.min-vh-50 {
+  min-height: 50vh;
+}
+
+.bg-success-light {
+  background-color: #d1e7dd;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -427,11 +427,12 @@
 					}
 
 					$artefato_id = 'homepage';
-					$artefato_subtitulo = $pagina_translated['Homepage'];
+//					$artefato_subtitulo = $pagina_translated['Homepage'];
+                    $artefato_subtitulo = 'Nexus Startpage';
 					$artefato_link = 'nexus.php';
 					$artefato_badge = 'fa-external-link';
 					$fa_icone = 'fa-house-turret';
-					$fa_color = 'link-danger';
+					$fa_color = 'link-orange';
 					$artefato_icone_background = return_background($fa_color);
 					if (in_array(21, $icons_to_show)) {
 						$template_conteudo .= include 'templates/artefato_item.php';
@@ -972,10 +973,10 @@
 
 <?php
 
-	include 'templates/footer.html';
+
 	$sistema_etiquetas_elementos = true;
 	$sistema_etiquetas_topicos = true;
-	$mdb_select = true;
+
 	$esconder_introducao = true;
 	include 'templates/html_bottom.php';
 

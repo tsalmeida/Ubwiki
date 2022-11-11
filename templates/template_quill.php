@@ -165,7 +165,7 @@
 
 	if ($quill_edicao == true) {
 		$template_botoes_salvar .= "
-			<a href='javascript:void(0)' id='{$template_id}_trigger_save' title='{$pagina_translated['Salvar mudanças']}' class='ql-formats link-primary border rounded p-1'><i class='fad fa-save fa-fw'></i></a>
+			<a href='javascript:void(0)' id='{$template_id}_trigger_save' title='{$pagina_translated['Salvar mudanças']}' class='ql-formats link-primary border rounded p-1'><i class='fad fa-save fa-swap-opacity fa-fw'></i></a>
 		";
 	}
 	if (($quill_texto_id != false) && ($template_id != 'modelo')) {

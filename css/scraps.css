@@ -113,52 +113,6 @@ ul + * {
 /*    text-align: center;*/
 /*}*/
 
-.quill_container {
-    width: 100%;
-    max-height: 50vh;
-    height: 50vh;
-    resize: none;
-    outline: none;
-    word-wrap: normal;
-}
-
-.quill_modal {
-    max-width: 90vw;
-    width: 70ch;
-}
-
-.quill_editor_height {
-    min-height: 10em !important;
-    height: auto !important;
-    max-height: none;
-    overflow-y: initial;
-    margin-top: 0 !important;
-}
-
-.ql-editor-active {
-    /*padding: 12px 15px;
-    border: 1px solid #ccc;
-    max-height: 50vh;*/
-    overflow-y: auto;
-}
-
-.quill_pagina_de_edicao {
-    height: initial !important;
-    max-height: initial !important;
-    overflow-y: auto !important;
-    padding: 4ch 4ch;
-    /*border: 1px solid #ccc;*/
-    margin-top: 0 !important;
-    max-width: 75ch;
-}
-
-#quill_pagina_edicao {
-    margin-left: auto;
-    margin-right: auto;
-}
-
-
-
 .cardmateria {
     cursor: pointer;
     border: 0;
@@ -195,30 +149,6 @@ ul + * {
 
 #page_height {
     min-height: 90vh;
-}
-
-.spacing0 {
-    padding-left: 0 !important;
-}
-
-.spacing1 {
-    padding-left: 1ch !important;
-}
-
-.spacing2 {
-    padding-left: 2ch !important;
-}
-
-.spacing3 {
-    padding-left: 4ch !important;
-}
-
-.spacing4 {
-    padding-left: 6ch !important;
-}
-
-.spacing5 {
-    padding-left: 8ch !important;
 }
 
 #mostrar_coluna_direita {
@@ -295,17 +225,7 @@ ul + * {
     background-color: #f5f5f5 !important;
 }
 
-.remover_tag:hover, .remover_materia:hover, .remover_topico:hover {
-    opacity: 0.5;
-}
 
-.adicionar_tag, .adicionar_materia, .adicionar_topico, .adicionar_tag2 {
-    opacity: 0.8;
-}
-
-.adicionar_tag:hover, .adicionar_materia:hover, .adicionar_topico:hover {
-    opacity: 1;
-}
 
 .navlink:hover {
     background-color: #212121 !important;
@@ -444,28 +364,6 @@ a:hover {
 }
 }
 
-.infobox_v2 {
-    width: 100% !important;
-    margin: 0;
-    padding: 1em;
-    background-color: #fafafa;
-    border-radius: 5px;
-    padding-left: 10%;
-    padding-right: 10%;
-    padding-top: 1em;
-    padding-bottom: 1em;
-    font-size: 1em;
-    margin-top: 1em;
-    margin-bottom: 1em;
-}
-
-.infobox_v2 {
-table {
-    width: 100% !important;
-    padding: 1em !important;
-}
-}
-
 #toc {
 a {
     color: #4285F4 !important;
@@ -500,22 +398,9 @@ li {
     opacity: 0 !important;
 }
 
-.bg-black-transparent {
-    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#000000+0,000000+100&0.5+0,0.5+100 */
-    background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#80000000', GradientType=0); /* IE6-9 */
-}
-
 .icone-lista {
     padding: 0;
     margin: 0;
-}
-
-.lista-texto {
-    margin-left: 1ch;
-    margin-right: 1ch;
 }
 
 .artefato-titulo {

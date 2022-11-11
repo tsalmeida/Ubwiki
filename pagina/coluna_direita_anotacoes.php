@@ -12,7 +12,7 @@
 	}
 	$template_botoes_padrao = false;
 	$template_conteudo = include 'templates/template_quill.php';
-	$template_classes = 'elemento-anotacoes sticky-top';
+	$template_classes = 'elemento-anotacoes sticky-top min-vh-50';
 	include 'templates/page_element.php';
 
 	echo "</div>";

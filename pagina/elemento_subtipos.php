@@ -18,7 +18,7 @@
 		include 'templates/subtipo_icone.php';
 		
 		$template_subtipo = 'wikipedia';
-		$fa_type = 'fab';
+		$fa_type = 'fa-brands';
 		$template_subtipo_tipo = 'referencia';
 		$template_subtipo_titulo = $pagina_translated['Verbetes da Wikipédia'];
 		include 'templates/subtipo_icone.php';
@@ -108,7 +108,7 @@
 		$template_subtipo = 'youtube';
 		$template_subtipo_tipo = 'video';
 		$template_subtipo_titulo = $pagina_translated['Vídeos do YouTube'];
-		$fa_type = 'fab';
+		$fa_type = 'fa-brands';
 		if (($template_modal_div_id != 'modal_elemento_subtipo') && ($template_modal_div_id != 'modal_listar_itens')) {
 			$artefato_modal = '#modal_adicionar_youtube';
 		}

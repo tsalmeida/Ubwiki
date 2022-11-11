@@ -2036,7 +2036,7 @@
 					<label class='form-label' for='nexus_new_link_url'>Paste your link url:</label>
 					<input type='url' class='form-control' id='nexus_new_link_url' name='nexus_new_link_url'>
 				</div>
-				<button type='button' class='btn btn-outline-primary' id='trigger_suggest_title'>Suggest title</button>
+				<button type='button' class='btn btn-outline-primary mb-3' id='trigger_suggest_title'>Suggest title</button>
 				<div class='mb-3'>
 					<label class='form-label' for='nexus_new_link_title'>Link title:</label>
 					<input type='text' class='form-control' id='nexus_new_link_title' name='nexus_new_link_title'>

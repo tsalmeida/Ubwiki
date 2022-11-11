@@ -95,7 +95,7 @@
 								$acervo_item_titulo = $acervo_item['titulo'];
 								$acervo_item_autor = $acervo_item['autor'];
 								$acervo_item_iframe = $acervo_item['iframe'];
-								
+
 								if ($acervo_item_tipo == 'topico') {
 									continue;
 								} elseif ($acervo_item_tipo == 'wikipedia') {
@@ -114,7 +114,8 @@
 								$artefato_info = return_icone_subtipo($acervo_item_tipo, $acervo_item_subtipo);
 								$fa_icone = $artefato_info[0];
 								$fa_color = $artefato_info[1];
-								
+                                $fa_type = false;
+
 								$artefato_link = "pagina.php?pagina_id=$acervo_item_pagina_id";
 								
 								$template_conteudo .= include 'templates/artefato_item.php';
@@ -283,7 +284,7 @@
 	
 	$artefato_tipo = 'ativo_listar_referencias';
 	$artefato_titulo = $pagina_translated['Material de leitura'];
-	$artefato_class = 'ativo_listar hidden';
+	$artefato_class = 'ativo_listar d-none';
 	$artefato_col_limit = $lista_col_limit;
 	$fa_icone = 'fa-glasses';
 	$artefato_icone_background = 'bg-success';
@@ -302,7 +303,7 @@
 	
 	$artefato_tipo = 'ativo_listar_audio';
 	$artefato_titulo = $pagina_translated['Áudio'];
-	$artefato_class = 'ativo_listar hidden';
+	$artefato_class = 'ativo_listar d-none';
 	$artefato_col_limit = $lista_col_limit;
 	$fa_icone = 'fa-volume-up';
 	$artefato_icone_background = 'bg-warning';
@@ -321,7 +322,7 @@
 	
 	$artefato_tipo = 'ativo_listar_imagens';
 	$artefato_titulo = $pagina_translated['Imagens'];
-	$artefato_class = 'ativo_listar hidden';
+	$artefato_class = 'ativo_listar d-none';
 	$artefato_col_limit = $lista_col_limit;
 	$fa_icone = 'fa-images';
 	$artefato_icone_background = 'bg-danger';
@@ -340,7 +341,7 @@
 	
 	$artefato_tipo = 'ativo_listar_video';
 	$artefato_titulo = $pagina_translated['Vídeo'];
-	$artefato_class = 'ativo_listar hidden';
+	$artefato_class = 'ativo_listar d-none';
 	$artefato_col_limit = $lista_col_limit;
 	$fa_icone = 'fa-play-circle';
 	$artefato_icone_background = 'bg-info';
@@ -412,8 +413,8 @@
 
 </script>
 <?php
-	include 'templates/footer.html';
-	$mdb_select = true;
+
+
 	$sistema_etiquetas_elementos = true;
 	include 'templates/html_bottom.php';
 ?>

@@ -125,7 +125,7 @@
 					?>
         </div>
     </div>
-    <button id='mostrar_coluna_direita' class='btn btn-dark position-absolute top-50 end-0 translate-middle-y' tabindex='-1'><i
+    <button id='mostrar_coluna_direita' class='btn btn-dark position-fixed top-50 end-0 translate-middle-y m-1 p-1' tabindex='-1'><i
                 class='fas fa-pen-alt fa-fw'></i></button>
 	<?php
 		$template_modal_div_id = 'modal_prova_form';
@@ -184,8 +184,8 @@
 </body>
 
 <?php
-	include 'templates/footer.html';
-	$mdb_select = true;
+
+
 	$anotacoes_id = 'anotacoes_prova';
 	include 'templates/esconder_anotacoes.php';
 	include 'templates/html_bottom.php';

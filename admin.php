@@ -223,8 +223,8 @@
     });
 </script>
 <?php
-	include 'templates/footer.html';
-	$mdb_select = true;
+
+
 	include 'templates/html_bottom.php';
 	$anotacoes_id = 'anotacoes_admin';
 	include 'templates/esconder_anotacoes.php';

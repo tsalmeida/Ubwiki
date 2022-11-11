@@ -423,7 +423,7 @@
 		switch ($pagina_estado) {
 			case 1:
 				$icone = 'fad fa-acorn fa-fw';
-				$color = 'link-teal';
+				$color = 'link-info';
 				break;
 			case 2:
 				$icone = 'fad fa-seedling fa-fw';
@@ -2513,21 +2513,21 @@
 						if ($subtipo == 'generico') {
 							return array('fad fa-image', 'link-danger', 'bg-danger');
 						} else {
-							return array('fad fa-file-image', 'text-muted', 'bg-secondary');
+							return array('fad fa-file-image', 'text-danger', 'bg-secondary');
 						}
 						break;
 					case 'video':
 						if ($subtipo == 'generico') {
 							return array('fad fa-play-circle', 'link-info', 'bg-primary');
 						} else {
-							return array('fad fa-file-video', 'text-muted', 'bg-secondary');
+							return array('fad fa-file-video', 'text-teal', 'bg-secondary');
 						}
 						break;
 					case 'album_musica':
 						if ($subtipo == 'generico') {
 							return array('fad fa-volume-up', 'link-warning', 'bg-warning');
 						} else {
-							return array('fad fa-file-audio', 'text-muted', 'bg-secondary');
+							return array('fad fa-file-audio', 'text-orange', 'bg-secondary');
 						}
 						break;
 					case 'referencia':
@@ -2763,7 +2763,7 @@
 		if ($card_mode == 'inscrito') {
 			$template_botoes = "<span class='text-success'><i class='fad fa-lamp-desk fa-fw'></i></span>";
 		} elseif ($card_mode == 'disponivel') {
-			$template_botoes = "<span class='text-secondary'><i class='fad fa-lamp-desk fa-fw'></i></span>";
+			$template_botoes = "<span class='text-muted'><i class='fad fa-lamp-desk fa-fw'></i></span>";
 		}
 		$template_conteudo = false;
 		if ($curso_verbete != false) {
