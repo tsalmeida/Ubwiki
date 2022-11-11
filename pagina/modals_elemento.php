@@ -10,7 +10,7 @@
 		$dados_elemento .= "<p>{$pagina_translated['Esta imagem é privada e não pode ser vista por outros usuários.']}</p>";
 	}
 	$dados_elemento .= "
-                            <ul class='list-group'>
+                            <ul class='list-group mb-3'>
 						        <li class='list-group-item'><strong>{$pagina_translated['Criado em']}:</strong> $elemento_criacao</li>";
 	if ($elemento_tipo != 'imagem_privada') {
 		$dados_elemento .= "<li class='list-group-item'><strong>{$pagina_translated['Estado de publicação']}:</strong> $elemento_estado_visivel</li>";

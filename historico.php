@@ -123,7 +123,7 @@
 									$template_titulo = $pagina_translated['Versão de referência'];
 								}
 								$template_classes = 'elemento-anotacoes';
-								$template_botoes = "<a class='link-teal' data-bs-toggle='modal' data-bs-target='#modal_edicao_esquerda' ><i class='fad fa-archive fa-fw'></i></a>";
+								$template_botoes = "<a class='link-teal' data-bs-toggle='modal' data-bs-target='#modal_edicao_esquerda' href='javascript:void(0);'><i class='fad fa-archive fa-fw'></i></a>";
 								$template_conteudo = false;
 								if ($edicao_coluna_esquerda_html != false) {
 									$template_conteudo .= $edicao_coluna_esquerda_html;
@@ -151,7 +151,7 @@
 									$template_botoes .= "<a class='link-warning ms-1' href='historico.php?texto_id=$texto_id&l=$edicao_coluna_esquerda&r=$edicao_coluna_direita&c=1'><i class='fad fa-highlighter fa-fw'></i></a>";
 									
 								}
-								$template_botoes .= "<a class='link-success' data-bs-toggle='modal' data-bs-target='#modal_edicao_direita' ><i class='fad fa-archive fa-fw'></i></a>";
+								$template_botoes .= "<a class='link-success' data-bs-toggle='modal' data-bs-target='#modal_edicao_direita' href='javascript:void(0);'><i class='fad fa-archive fa-fw'></i></a>";
 							}
 							if ($edicao_coluna_direita_html != false) {
 								$template_conteudo .= $edicao_coluna_direita_html;
