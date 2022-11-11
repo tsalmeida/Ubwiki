@@ -310,10 +310,10 @@
 //	$button_classes = "$all_buttons_classes btn-primary";
 //	$button_small = 'brn rounded btn-sm text-center';
 //	$button_classes_light = "$all_buttons_classes btn-light";
-//	$button_classes_info = "$all_buttons_classes btn-info";
+//	$button_classes_info = "$all_buttons_classes btn-outline-primary";
 //	$button_classes_red = "$all_buttons_classes btn-danger";
 	$select_classes = "browser-default custom-select mt-2";
-	$coluna_todas = false;
+	$coluna_todas = "px-3";
 	$coluna_classes = "col-lg-6 col-md-10 col-sm-11 $coluna_todas";
 	$coluna_maior_classes = "col-lg-9 col-md-10 col-sm-11 $coluna_todas";
 	$coluna_media_classes = "col-lg-7 col-md-10 col-sm-11 $coluna_todas";
@@ -1384,7 +1384,7 @@
 				$edicao_do_usuario_pagina_titulo = return_pagina_titulo($edicao_do_usuario_pagina_id);
 				$edicao_do_usuario_id = $edicao_do_usuario['id'];
 				$edicao_do_usuario_criacao = $edicao_do_usuario['criacao'];
-				$result .= put_together_list_item('link_button', $edicao_do_usuario_id, 'link-danger', 'fad fa-trash-alt', "<span class='fontstack-mono'>$edicao_do_usuario_criacao:</span> $edicao_do_usuario_pagina_titulo", false, false, false, 'delete_edit', false, false);
+				$result .= put_together_list_item('link_button', $edicao_do_usuario_id, 'link-danger', 'fad fa-trash-alt', "<span class='font-monospace'>$edicao_do_usuario_criacao:</span> $edicao_do_usuario_pagina_titulo", false, false, false, 'delete_edit', false, false);
 			}
 			$result = list_wrap($result);
 		}

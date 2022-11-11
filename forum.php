@@ -94,7 +94,7 @@
 		}
 		$query = prepare_query("INSERT INTO Forum (user_id, pagina_id, pagina_tipo, topico_id, tipo, comentario_text, familia0, familia1, familia2, familia3, familia4, familia5, familia6, familia7) VALUES ($user_id, $pagina_id, '$pagina_tipo', $forum_topico_id_novo, 'comentario', '$novo_comentario', '$familia0', $familia1, $familia2, $familia3, $familia4, $familia5, $familia6, $familia7)");
 		$conn->query($query);
-		$query = prepare_query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina, extra) VALUES ($user_id, $pagina_id, 'forum', $pagina_tipo)");
+		$query = prepare_query("INSERT INTO Visualizacoes (user_id, page_id, tipo_pagina, extra) VALUES ($user_id, $pagina_id, 'forum', '$pagina_tipo')");
 		$conn->query($query);
 		$nao_contar = true;
 	}
@@ -301,7 +301,7 @@
                                                 <i class='fad $autor_comentario_avatar'></i>
                                                 <span class='link-primary'>$autor_comentario_apelido</span>
                                               </a>
-                                              <span class='text-black-50 comentario-timestamp fontstack-mono'>
+                                              <span class='text-black-50 comentario-timestamp font-monospace'>
                                                   <em><small>$timestamp_comentario</small></em>
                                               </span>
                                             </span>

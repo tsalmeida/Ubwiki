@@ -29,12 +29,12 @@
 	if ($pagina_tipo == 'nexus') {
 		echo "
         <link href='css/nexus_style.css?20221110' rel='stylesheet'>
-        <link type='image/vnd.microsoft.icon' rel='icon' href='../imagens/nexus_favicon.ico'/>
+        <link type='image/vnd.microsoft.icon' rel='icon' href='nexus_favicon.ico'/>
         ";
 	} else {
 		echo "
         <link href='css/style.css?20221110' rel='stylesheet'>
-        <link type='image/vnd.microsoft.icon' rel='icon' href='../imagens/favicon.ico'/>
+        <link type='image/vnd.microsoft.icon' rel='icon' href='favicon.ico'/>
         ";
 	}
 	echo "
@@ -48,7 +48,6 @@
 	echo "<title>$pagina_title</title>";
 
 	if (($html_head_template_quill == true) || ($html_head_template_quill_sim == true)) {
-		echo "<link href='css/quill.snow.css' rel='stylesheet'>";
 		echo "<script src='quill.js'></script>";
 	}
 

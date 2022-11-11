@@ -970,7 +970,7 @@
 						} else {
 							$curso_sair_hidden = 'd-none';
 						}
-						echo "<a href='javascript:void(0);' class='ms-1 link-primary $curso_aderir_hidden' title='{$pagina_translated['Aderir a este curso']}' id='curso_aderir'><i class='fad fa-lamp-desk fa-fw fa-lg'></i></a>";
+						echo "<a href='javascript:void(0);' class='ms-1 link-secondary $curso_aderir_hidden' title='{$pagina_translated['Aderir a este curso']}' id='curso_aderir'><i class='fad fa-lamp-desk fa-fw fa-lg'></i></a>";
 						echo "<a href='javascript:void(0);' class='ms-1 link-success $curso_sair_hidden' title='{$pagina_translated['Sair deste curso']}' id='curso_sair'><i class='fad fa-lamp-desk fa-fw fa-lg'></i></a>";
 					}
 				}
@@ -995,7 +995,7 @@
 					$query = prepare_query("SELECT timestamp, comentario_text, user_id FROM Forum WHERE pagina_id = $pagina_id");
 					$comments = $conn->query($query);
 					if ($comments->num_rows == 0) {
-						$forum_color = 'link-primary';
+						$forum_color = 'link-secondary';
 					} else {
 						$forum_color = 'link-purple';
 					}
@@ -1023,7 +1023,7 @@
 								  <a id='remover_acervo' href='javascript:void(0);' class='ms-1 link-success' title='{$pagina_translated['Remover do seu acervo']}'>
 									  <i class='fad fa-lamp-desk fa-fw fa-lg'></i>
 								  </a>
-								  <a id='adicionar_acervo' href='javascript:void(0);' class='ms-1 link-primary' title='{$pagina_translated['Adicionar a seu acervo']}'>
+								  <a id='adicionar_acervo' href='javascript:void(0);' class='ms-1 link-secondary' title='{$pagina_translated['Adicionar a seu acervo']}'>
 									  <i class='fad fa-lamp-desk fa-fw fa-lg'></i>
 								  </a>
 						        ";
@@ -1044,7 +1044,7 @@
 						      <a id='remover_area_interesse' href='javascript:void(0);' class='ms-1 link-warning' title='{$pagina_translated['Remover como área de interesse']}'>
 						      	<i class='fad fa-lamp-desk fa-fw fa-lg'></i>
 							  </a>
-						      <a id='adicionar_area_interesse' href='javascript:void(0);' class='ms-1 link-primary' title='{$pagina_translated['Adicionar como área de interesse']}'>
+						      <a id='adicionar_area_interesse' href='javascript:void(0);' class='ms-1 link-secondary' title='{$pagina_translated['Adicionar como área de interesse']}'>
 						      	<i class='fad fa-lamp-desk fa-fw fa-lg'></i>
 							  </a>
 						    ";
@@ -1058,7 +1058,7 @@
 						$vinculos_wikipedia = $conn->query($query);
 						if ($vinculos_wikipedia->num_rows > 0) {
 							$carregar_modal_wikipedia = true;
-							echo "<a href='javascript:void(0);' data-bs-toggle='modal' data-bs-target='#modal_vinculos_wikipedia' class='text-dark ms-1' title='{$pagina_translated['Ver artigos da Wikipédia vinculados']}'><i class='fab fa-wikipedia-w fa-fw fa-lg'></i></a>";
+							echo "<a href='javascript:void(0);' data-bs-toggle='modal' data-bs-target='#modal_vinculos_wikipedia' class='link-dark ms-1' title='{$pagina_translated['Ver artigos da Wikipédia vinculados']}'><i class='fab fa-wikipedia-w fa-fw fa-lg'></i></a>";
 						}
 						if ($user_id != false) {
 							$notificacao_modal = '#modal_notificacoes';
@@ -1077,14 +1077,14 @@
 					} else {
 						$adicionar_modelo_hidden = 'd-none';
 					}
-					echo "<a class='link-primary escritorio_modelo $adicionar_modelo_hidden' id='adicionar_modelo' value='adicionar_modelo' title='{$pagina_translated['Adicionar seus modelos']}'><i class='fad fa-lamp-desk fa-fw fa-lg'></i></a>";
+					echo "<a class='link-secondary escritorio_modelo $adicionar_modelo_hidden' id='adicionar_modelo' value='adicionar_modelo' title='{$pagina_translated['Adicionar seus modelos']}'><i class='fad fa-lamp-desk fa-fw fa-lg'></i></a>";
 					echo "<a class='link-purple escritorio_modelo $remover_modelo_hidden' id='remover_modelo' value='remover_modelo' title='{$pagina_translated['Remover seus modelos']}'><i class='fad fa-lamp-desk fa-fw fa-lg'></i></a>";
 				}
 				if (($pagina_tipo != 'sistema') && ($pagina_compartilhamento != 'escritorio') && ($pagina_id != $user_escritorio)) {
 					if ($etiquetados->num_rows > 0) {
 						$etiquetas_color = 'link-warning';
 					} else {
-						$etiquetas_color = 'link-primary';
+						$etiquetas_color = 'link-secondary';
 					}
 					if ($user_id != false) {
 						$etiquetas_modal = '#modal_secao_etiquetas';
@@ -1107,7 +1107,7 @@
 								$marcar_incompleto = 'collapse';
 							}
 							echo "
-                                  <a id='add_completed' href='javascript:void(0);' class='link-primary ms-1 $marcar_completo' title='{$pagina_translated['Marcar estudo completo']}' value='$pagina_id'><i class='fad fa-check-circle fa-fw fa-lg'></i></a>
+                                  <a id='add_completed' href='javascript:void(0);' class='link-secondary ms-1 $marcar_completo' title='{$pagina_translated['Marcar estudo completo']}' value='$pagina_id'><i class='fad fa-check-circle fa-fw fa-lg'></i></a>
                                   <a id='remove_completed' href='javascript:void(0);' class='ms-1 $marcar_incompleto link-success' title='{$pagina_translated['Desmarcar como completo']}' value='$pagina_id'><i class='fad fa-check-circle fa-fw fa-lg'></i></a>
                                 ";
 						} else {
@@ -1126,7 +1126,7 @@
 					if (($pagina_subtipo != 'modelo') && ($pagina_id != $user_escritorio)) {
 						if ($user_id != false) {
 							echo "
-                                  <a href='javascript:void(0);' id='add_bookmark' class='link-primary ms-1 $marcar_bookmark' title='{$pagina_translated['Marcar para leitura']}' value='$pagina_id'><i class='fad fa-bookmark fa-fw fa-lg'></i></a>
+                                  <a href='javascript:void(0);' id='add_bookmark' class='link-secondary ms-1 $marcar_bookmark' title='{$pagina_translated['Marcar para leitura']}' value='$pagina_id'><i class='fad fa-bookmark fa-fw fa-lg'></i></a>
                                   <a href='javascript:void(0);' id='remove_bookmark' class='link-danger ms-1 $desmarcar_bookmark' title='{$pagina_translated['Remover da lista de leitura']}' value='$pagina_id'><i class='fad fa-bookmark fa-fw fa-lg'></i></a>
                                 ";
 						} else {
@@ -1314,7 +1314,7 @@
 					$template_conteudo_no_col = true;
 					$elemento_link_host = parse_url($elemento_link, PHP_URL_HOST);
 					$template_conteudo .= "
-                              <a href='$elemento_link' target='_blank' class='fontstack-mono' title='$elemento_link'><i class='fad fa-external-link fa-fw fa-lg'></i> {$elemento_link_host}/...</a>
+                              <a href='$elemento_link' target='_blank' class='font-monospace' title='$elemento_link'><i class='fad fa-external-link fa-fw fa-lg'></i> {$elemento_link_host}/...</a>
                             ";
 					include 'templates/page_element.php';
 				}
@@ -1392,7 +1392,7 @@
 						$template_conteudo .= "<ul class='list-group list-group-flush'>";
 						while ($materia = $materias->fetch_assoc()) {
 							$materia_pagina_id = $materia['elemento_id'];
-							$template_conteudo .= return_list_item($materia_pagina_id, false, 'fontstack-subtitle text-center force-size', true, true);
+							$template_conteudo .= return_list_item($materia_pagina_id, false, 'h5 text-center force-size', true, true);
 							//$template_conteudo .= return_list_item($materia_pagina_id, false, 'fontstack-subtitle text-center', true, true, false, false, false, false, 'force-size');
 						}
 						$template_conteudo .= "</ul>";
@@ -1478,7 +1478,7 @@
 						$esconder_paragrafo_hidden_botao = false;
 					}
 					$template_botoes = "
-				    <a class='link-purple modelo_esconder_paragrafo' href='javascript:void(0);' class='$esconder_paragrafo_hidden_botao'><i class='fad fa-times-square fa-fw'></i></a>
+				    <a class='link-purple modelo_esconder_paragrafo me-5' href='javascript:void(0);' class='$esconder_paragrafo_hidden_botao'><i class='fad fa-times-square fa-fw'></i></a>
 				";
 				}
 				if ($modelo_do_usuario == 'hidden') {
@@ -1776,11 +1776,11 @@
 			$anotacoes_existem = false;
 		}
 		if ($anotacoes_existem) {
-			$anotacoes_icone_colors = 'primary-color link-light';
+			$anotacoes_icone_colors = 'btn-primary';
 		} else {
-			$anotacoes_icone_colors = 'bg-dark link-light';
+			$anotacoes_icone_colors = 'btn-dark';
 		}
-		echo "<a id='mostrar_coluna_direita' class='$anotacoes_icone_colors rounded m-1 p-1 border' tabindex='-1' title='{$pagina_translated['Notas privadas']}' href='javascript:void(0);'><i class='fas fa-pen-alt fa-fw'></i></a>";
+		echo "<a id='mostrar_coluna_direita' class='$anotacoes_icone_colors btn position-absolute top-50 end-0 translate-middle-y' tabindex='-1' title='{$pagina_translated['Notas privadas']}' href='javascript:void(0);'><i class='fas fa-pen-alt fa-fw'></i></a>";
 	}
 ?>
 
@@ -1796,16 +1796,16 @@
 		include 'templates/modal.php';
 	}
 	if ($pagina_subtipo == 'plano') {
-	    $template_modal_div_id = 'modal_plano_instrucoes';
-	    $template_modal_titulo = 'Sobre Planos de Estudos';
-	    $template_modal_show_buttons = false;
-	    $template_modal_body_conteudo = "
+		$template_modal_div_id = 'modal_plano_instrucoes';
+		$template_modal_titulo = 'Sobre Planos de Estudos';
+		$template_modal_show_buttons = false;
+		$template_modal_body_conteudo = "
 	        <p>Como usar o Plano de Estudos.</p>
 	        <p>Vantagens.</p>
 	        <p>Systems over goals.</p>
 	    ";
-	    include 'templates/modal.php';
-    }
+		include 'templates/modal.php';
+	}
 
 	$carregar_controle_estado = true;
 	$template_modal_div_id = 'modal_estado';
@@ -2098,7 +2098,7 @@
 				<label class='form-check-label' for='colaboracao_selecionada'>Seletiva. <span class='text-muted'><em>Apenas grupos e indivíduos selecionados poderão editar o conteúdo desta página.</em></span></label>
 			</div>
 			<div class='row d-flex justify-content-center botao_determinar_colaboracao'>
-				<span data-bs-toggle='modal' data-bs-target='#modal_compartilhar_pagina'><a data-bs-toggle='modal' data-bs-target='#modal_determinar_colaboracao'><button class='btn botao_determinar_colaboracao btn-info'>Adicionar colaboradores</button></a></span>
+				<span data-bs-toggle='modal' data-bs-target='#modal_compartilhar_pagina'><a data-bs-toggle='modal' data-bs-target='#modal_determinar_colaboracao'><button class='btn botao_determinar_colaboracao btn-outline-primary'>Adicionar colaboradores</button></a></span>
 			</div>
 		";*/
 
@@ -2482,10 +2482,11 @@
 		$template_modal_show_buttons = false;
 		$template_modal_body_conteudo .= "
             <form id='searchform' action='' method='post'>
-            <div id='searchDiv' class='mt-5'>
-                <input id='barra_busca' list='searchlist' type='text' class='barra_busca w-100'
+            <label for='barra_busca' class='form-label'>{$pagina_translated['Busca de páginas deste curso']}</label>
+            <div id='searchDiv' class='mb-3 input-group'>
+                <input id='barra_busca' list='searchlist' type='text' class='barra_busca form-control'
                        name='searchBar' rows='1' autocomplete='off' spellcheck='false'
-                       placeholder='{$pagina_translated['Busca de páginas deste curso']}' required>
+                       required>
                 <datalist id='searchlist'>
         ";
 		$query = prepare_query("SELECT chave FROM Searchbar WHERE curso_id = '$pagina_curso_id' ORDER BY ordem");
@@ -2504,8 +2505,9 @@
         </form>";
 		$template_modal_body_conteudo .= "
             <form id='searchform' action='' method='post'>
-            <div id='searchDiv_geral' class='mt-5'>
-                <input id='barra_busca_geral' type='text' class='barra_busca w-100' name='searchBar_geral' rows='1' autocomplete='off' spellcheck='false' placeholder='{$pagina_translated['Busca geral']}' required>";
+            <label for='barra_busca_geral' class='form-label'>{$pagina_translated['Busca geral']}</label>
+            <div id='searchDiv_geral' class='mb-3 input-group'>
+                <input id='barra_busca_geral' type='text' class='form-control barra_busca' name='searchBar_geral' rows='1' autocomplete='off' spellcheck='false' required>";
 		$template_modal_body_conteudo .= "<input id='trigger_busca_geral' name='trigger_busca' value='$curso_id' type='submit' style='position: absolute; left: -9999px; width: 1px; height: 1px;' tabindex='-1' />";
 		$template_modal_body_conteudo .= "
         	</div>
@@ -2947,9 +2949,9 @@
 					<textarea class='md-textarea form-control' id='new_review_comments' name='new_review_comments' rows='3' $button_disabled required></textarea>
 				</div>
                 <ul class='list-group'>
-                    <li class='list-group-item'><strong>{$pagina_translated['Word count:']}</strong> <span class='fontstack-mono' id='review_wordcount'>$pagina_texto_wordcount</span></li>
-                    <li class='list-group-item list-group-item-warning'><strong>{$pagina_translated['Revision price:']}</strong> <span class='fontstack-mono' id='review_price'>$revision_price</span></li>
-                    <li class='list-group-item d-flex justify-content-between'><span><strong>{$pagina_translated['Your credits:']}</strong> <span id='review_wallet' class='fontstack-mono'>$user_wallet</span></span><a href='escritorio.php?wllt=1' target='_blank'>{$pagina_translated['Buy more']} <i class='fad fa-external-link fa-fw'></i></a></li>
+                    <li class='list-group-item'><strong>{$pagina_translated['Word count:']}</strong> <span class='font-monospace' id='review_wordcount'>$pagina_texto_wordcount</span></li>
+                    <li class='list-group-item list-group-item-warning'><strong>{$pagina_translated['Revision price:']}</strong> <span class='font-monospace' id='review_price'>$revision_price</span></li>
+                    <li class='list-group-item d-flex justify-content-between'><span><strong>{$pagina_translated['Your credits:']}</strong> <span id='review_wallet' class='font-monospace'>$user_wallet</span></span><a href='escritorio.php?wllt=1' target='_blank'>{$pagina_translated['Buy more']} <i class='fad fa-external-link fa-fw'></i></a></li>
                 </ul>
 				<div class='row d-flex justify-content-center'>
 				    <button type='button' class='btn btn-outline-primary d-none' name='trigger_review_recalc' id='trigger_review_recalc'>{$pagina_translated['recalculate']}</button>

@@ -262,7 +262,7 @@
 				$artefato_id = 'grupos_estudo';
 				$artefato_subtitulo = $pagina_translated['your study groups'];
 				$fa_icone = 'fa-users';
-				$fa_color = 'link-teal';
+				$fa_color = 'link-purple';
 				if (in_array(7, $icons_to_show)) {
 					$template_conteudo .= include 'templates/artefato_item.php';
 				} else {
@@ -272,7 +272,7 @@
 				$artefato_id = 'docs_shared';
 				$artefato_subtitulo = $pagina_translated['docs shared'];
 				$fa_icone = 'fa-share-square';
-				$fa_color = 'link-info';
+				$fa_color = 'link-orange';
 				if (in_array(23, $icons_to_show)) {
 					$template_conteudo .= include 'templates/artefato_item.php';
 				} else {
@@ -355,7 +355,7 @@
 				$artefato_link = "pagina.php?pagina_id=$user_lounge";
 				$artefato_badge = 'fa-external-link';
 				$fa_icone = 'fa-mug-tea';
-				$fa_color = 'link-purple';
+				$fa_color = 'link-orange';
 				if (in_array(15, $icons_to_show)) {
 					$template_conteudo .= include 'templates/artefato_item.php';
 				} else {
@@ -529,7 +529,7 @@
 			<option value='link-purple'>{$pagina_translated['Roxo']}</option>
 			<option value='link-teal'>{$pagina_translated['Azul-claro']}</option>
 			<option value='link-teal'>{$pagina_translated['Verde-azulado']}</option>
-			<option value='text-dark'>{$pagina_translated['Preto']}</option>
+			<option value='link-dark'>{$pagina_translated['Preto']}</option>
 		</select>
 		<h3 class='mt-3'>{$pagina_translated['Perfil']}</h3>
         <p>{$pagina_translated['Você é identificado exclusivamente por seu apelido em todas as suas atividades públicas.']}</p>

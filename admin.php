@@ -163,7 +163,7 @@
 							break;
 						}
 						$credito_codigo = $credito['codigo'];
-						$template_conteudo .= "<li class='list-group-item list-group-item-info fontstack-mono'><small>https://www.ubwiki.com.br/ubwiki/?credito={$credito_codigo}</small></li>";
+						$template_conteudo .= "<li class='list-group-item list-group-item-info font-monospace'><small>https://www.ubwiki.com.br/ubwiki/?credito={$credito_codigo}</small></li>";
 					}
 					$template_conteudo .= '</ul>';
 				}

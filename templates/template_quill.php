@@ -185,7 +185,7 @@
 			<a href='javascript:void(0);' id='esconder_coluna_esquerda' title='{$pagina_translated['expand']}' class='link-primary'><i class='fad fa-arrow-alt-square-left fa-fw'></i></a>
     		<a href='javascript:void(0);' id='mostrar_coluna_esquerda' title='{$pagina_translated['compress']}' class='link-primary'><i class='fad fa-arrow-alt-square-right fa-fw'></i></a>
 			<a href='pagina.php?texto_id=$quill_texto_id' id='compartilhar_anotacao' title='{$pagina_translated['Página deste documento']}' class='link-primary'><i class='fad fa-external-link-square fa-fw'></i></a>
-			<a href='javascript:void(0);' id='esconder_coluna_direita' title='{$pagina_translated['Esconder']}' class='link-primary'><i class='fad fa-times-square fa-fw'></i></a>
+			<a href='javascript:void(0);' id='esconder_coluna_direita' title='{$pagina_translated['Esconder']}' class='link-primary me-5'><i class='fad fa-times-square fa-fw'></i></a>
 		";
 	}
 
@@ -194,7 +194,7 @@
 			<a href='javascript:void(0);' class='link-primary' id='destravar_{$template_id}' title='{$pagina_translated['Permitir edição']}'><i class='fad fa-pen-square fa-fw'></i></a>
 		";
 		if ($template_id == "verbete") {
-			$template_botoes .= "<a class='link-primary' id='esconder_coluna_esquerda_inner' href='javascript:void(0);'><i class='fad fa-times-square fa-fw'></i></a>";
+			$template_botoes .= "<a class='link-primary me-5' id='esconder_coluna_esquerda_inner' href='javascript:void(0);'><i class='fad fa-times-square fa-fw'></i></a>";
 		}
 	}
 	if ($user_id == false) {

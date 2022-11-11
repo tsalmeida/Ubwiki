@@ -9,9 +9,9 @@
 	}
 
 	if ($notificacao_ativa == false) {
-		$notificacao_cor = 'link-primary';
+		$notificacao_cor = 'link-secondary';
 		$notificacao_icone = 'fa-bell-slash';
 	} else {
-		$notificacao_cor = 'link-teal';
+		$notificacao_cor = 'link-warning';
 		$notificacao_icone = 'fa-bell-on fa-swap-opacity';
 	}

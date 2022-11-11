@@ -1180,22 +1180,25 @@
 				});
 				function into_sepia() {
 					$('.swatch_button').attr('value', 'dark');
-					$('.ql-editor').addClass('bg-sepia p-1 brown-text rounded fontstack-body-serif');
-					$('.swatch_button').removeClass('brown-text bg-sepia bg-dark text-warning text-dark bg-white');
-					$('.swatch_button').addClass('bg-sepia brown-text');
+					
+					$('.ql-editor').addClass('bg-sepia p-1 text-dark-sepia rounded font-serif');
+					$('.swatch_button').removeClass('text-dark-sepia bg-sepia bg-dark link-warning link-dark bg-white');
+					$('.swatch_button').addClass('bg-sepia text-dark-sepia');
 				}
 				function into_dark() {
 					$('.swatch_button').attr('value', 'default');
-					$('.ql-editor').removeClass('bg-sepia brown-text fontstack-body-serif');
-					$('.ql-editor').addClass('bg-dark text-warning fontstack-mono p-1 rounded');
-					$('.swatch_button').removeClass('brown-text bg-sepia bg-dark text-warning text-dark bg-white');
-					$('.swatch_button').addClass('bg-dark text-warning');
+					
+					$('.ql-editor').removeClass('bg-sepia text-dark-sepia font-serif');
+					$('.ql-editor').addClass('bg-dark link-warning font-monospace p-1 rounded');
+					$('.swatch_button').removeClass('link-dark bg-white');
+					$('.swatch_button').addClass('bg-dark link-warning');
 				}
 				function into_default() {
 					$('.swatch_button').attr('value', 'sepia');
-					$('.ql-editor').removeClass('p-1 bg-dark text-warning fontstack-mono');
-					$('.swatch_button').removeClass('brown-text bg-sepia bg-dark text-warning text-dark bg-white');
-					$('.swatch_button').addClass('bg-white text-dark');
+					
+					$('.ql-editor').removeClass('p-1 bg-dark link-warning font-monospace');
+					$('.swatch_button').removeClass('text-dark-sepia bg-sepia bg-dark link-warning link-dark bg-white');
+					$('.swatch_button').addClass('bg-white link-dark');
 				}
 				$(document).on('click', '.swatch_button', function() {
 				    current_color = $(this).attr('value');

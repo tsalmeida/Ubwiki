@@ -203,7 +203,7 @@
                             <a href='pagina.php?user_id=$list_edicao_user_id' class='border rounded p-1 $list_edicao_user_id_avatar_cor'>
                                 <i class='fad $list_edicao_user_id_avatar_icone fa-fw'></i> <span class='link-primary'>$list_edicao_user_apelido</span>
                             </a>
-                            <span class='fontstack-mono'><small>$list_edicao_criacao</small> $option_to_delete</span>
+                            <span class='font-monospace'><small>$list_edicao_criacao</small> $option_to_delete</span>
                         </li>";
 				}
 				$template_modal_body_conteudo .= "</ul>";
@@ -247,7 +247,7 @@
                                       <i class='fad $list_edicao_user_id_avatar_icone fa-fw'></i>
                                   </span> $list_edicao_user_apelido
                               </a>
-                              <small class='fontstack-mono mt-2'>$list_edicao_criacao</small>
+                              <small class='font-monospace mt-2'>$list_edicao_criacao</small>
                             </li>
                         ";
 					}

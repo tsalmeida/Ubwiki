@@ -22,7 +22,7 @@
 	$artefato_tipo = 'notificar_inativo';
 	$artefato_titulo = $pagina_translated['Não notificar'];
 	$fa_icone = 'fa-bell-slash';
-	$fa_color = 'text-muted';
+	$fa_color = 'link-secondary';
 	$artefato_class = 'artefato_opcao_nao_notificar';
 	$artefato_col_limit = 'col-4';
 	$template_modal_body_conteudo .= include 'templates/artefato_item.php';

@@ -327,14 +327,14 @@
     <body id='nexus_background' class="bg-light">
     <div class="container-fluid my-5">
         <div class="row justify-content-center">
-            <div id="page_title" class="text-center nexus-title col-auto fontstack-mono <?php echo $title_color; ?>"><?php echo $nexus_title; ?></div>
+            <div id="page_title" class="text-center nexus-title col-auto font-monospace <?php echo $title_color; ?>"><?php echo $nexus_title; ?></div>
         </div>
     </div>
     <div id="cmd_container" class="container">
         <div class="row d-flex justify-content-around mt-3">
             <div class="col">
                 <div class="mb-3 input-group">
-                    <input id="cmdbar" name="cmdbar" list="command-list" type="text" class="form-control fontstack-mono mx-1 cmd-bar" rows="1" autocomplete="off" spellcheck="false" placeholder="<?php echo $user_apelido; ?> commands…">
+                    <input id="cmdbar" name="cmdbar" list="command-list" type="text" class="form-control font-monospace mx-1 cmd-bar" rows="1" autocomplete="off" spellcheck="false" placeholder="<?php echo $user_apelido; ?> commands…">
                     <datalist id="command-list">
                         <?php
                             foreach($_SESSION['cmd_links'] as $key => $value) {

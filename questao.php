@@ -385,8 +385,6 @@
 							}
 							include 'templates/page_element.php';
 						}
-					
-					
 					?>
         </div>
         <div id="coluna_direita" class="<?php echo $coluna_classes; ?>">
@@ -400,7 +398,7 @@
 					?>
         </div>
     </div>
-    <button id='mostrar_coluna_direita' class='btn bg-dark link-light p-2 m-1' tabindex='-1'><i
+    <button id='mostrar_coluna_direita' class='btn btn-dark position-absolute top-50 end-0 translate-middle-y' tabindex='-1'><i
                 class='fas fa-pen-alt fa-fw'></i></button>
 </div>
 <?php

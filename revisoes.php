@@ -91,7 +91,7 @@
 
 						}
 						if ($order_option6 == 'revisao_diplomata') {
-							$template_conteudo .= put_together_list_item('inactive', false, 'text-dark', 'fad fa-user-tie', "Revisor deve ser diplomata", false, false, false);
+							$template_conteudo .= put_together_list_item('inactive', false, 'link-dark', 'fad fa-user-tie', "Revisor deve ser diplomata", false, false, false);
                         } else {
 							$template_conteudo .= put_together_list_item('inactive', false, false, 'fad fa-user-tie', "Revisor não precisa ser diplomata", false, false, 'list-group-item-light');
 

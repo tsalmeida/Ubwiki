@@ -8,7 +8,7 @@
 		$template_modal_body_conteudo .= "
 			  <p>{$pagina_translated['Tem certeza? Não será possível recuperar sua anotação.']}</p>
 	          <form method='post'>
-	            <div class='row justify-content-center'>
+	            <div class='d-grid gap-2 col-6 mx-auto'>
 		            <button class='btn btn-danger' name='destruir_anotacao'>{$pagina_translated['Destruir']}</button>
 	            </div>
 	          </form>

@@ -74,7 +74,7 @@
 			$fechar_icone = 'fa-times-square';
 			$fechar_cor = 'link-primary';
 			$template_botoes_padrao .= "
-					<span id='$template_esconder' class='$template_collapse collapse $show' data-bs-toggle='collapse' data-bs-target='.$template_collapse' title='{$pagina_translated['Esconder']}'><a href='javascript:void(0);' class='$fechar_cor'><i class='fad $fechar_icone fa-fw'></i></a></span>
+					<span id='$template_esconder' class='$template_collapse collapse $show me-5' data-bs-toggle='collapse' data-bs-target='.$template_collapse' title='{$pagina_translated['Esconder']}'><a href='javascript:void(0);' class='$fechar_cor'><i class='fad $fechar_icone fa-fw'></i></a></span>
 		";
 		} else {
 			$fechar_icone = 'fa-chevron-square-up';
@@ -98,8 +98,8 @@
 	$final_result = false;
 	$final_result .= "
 	<div id='$template_id' class='row show $template_classes $template_background $template_spacing rounded justify-content-center'>
-		<div class='$template_col_value ch-limit'>
-		<div class='d-flex justify-content-end page-element-botoes'>
+		<div class='$template_col_value'>
+		<div class='d-flex justify-content-end slightly-larger'>
 			$template_spacer
 			$template_botoes
 			$template_botoes_padrao

@@ -125,7 +125,7 @@
 					?>
         </div>
     </div>
-    <button id='mostrar_coluna_direita' class='btn bg-dark link-light p-2 m-1' tabindex='-1'><i
+    <button id='mostrar_coluna_direita' class='btn btn-dark position-absolute top-50 end-0 translate-middle-y' tabindex='-1'><i
                 class='fas fa-pen-alt fa-fw'></i></button>
 	<?php
 		$template_modal_div_id = 'modal_prova_form';
