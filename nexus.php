@@ -156,7 +156,7 @@
 					$nexus_folder_order_identifier = $nexus_main_folder_counter;
 					$artefato_class = 'main_folder_icons d-none';
 					$close_folders_board = "$('#folders_board').addClass('d-none');";
-					$navbar_custom_leftside .= "<a class='navbar-brand navbar-button mx-1 rounded px-2' href='javascript:void(0);' id='trigger_folder_small_{$nexus_folder_order_identifier}'><i class='$fa_icone $fa_color_small fa-fw'></i></a>";
+					$navbar_custom_leftside .= "<a class='nexus-navbar-button $fa_color_small' href='javascript:void(0);' id='trigger_folder_small_{$nexus_folder_order_identifier}'><i class='$fa_icone fa-2x fa-fw'></i></a>";
 					$fa_size = 'fa-5x';
 					$artefato_classes_detail = 'py-1 artefato rounded d-flex justify-content-center mt-1';
 			}
@@ -282,6 +282,9 @@
 
 	$html_head_template_conteudo .= "
         <style>
+            html {
+                height: 100%;
+            }
             body {
                 background-image: url('../wallpapers/$wallpaper_file');
                 background-repeat: $wallpaper_repeat;
@@ -301,17 +304,27 @@
         </style>
 	";
 
-	$navbar_custom_rightside .= "<a class='nexus-navbar-button navbar-brand navbar-button mx-1 rounded px-2 link-warning' href='javascript:void(0);' id='trigger_show_main_folder_icons'><i class='fad fa-folder-bookmark fa-fw'></i></a>";
-	$navbar_custom_rightside .= "<a class='nexus-navbar-button navbar-brand navbar-button mx-1 rounded px-2 link-purple' href='javascript:void(0);' id='trigger_show_archival_folder_icons'><i class='fad fa-cabinet-filing fa-swap-opacity fa-fw'></i></a>";
-	$navbar_custom_rightside .= "<a class='nexus-navbar-button navbar-brand navbar-button mx-1 rounded px-2 link-teal' href='javascript:void(0);' id='trigger_show_link_dump'><i class='fad fa-box-archive fa-swap-opacity fa-fw'></i></a>";
-	$navbar_custom_rightside .= "<a class='nexus-navbar-button navbar-brand navbar-button mx-1 rounded px-2 link-info' href='javascript:void(0);' id='trigger_show_recent_links'><i class='fad fa-clock-rotate-left fa-fw'></i></a>";
-	$navbar_custom_rightside .= "<a class='nexus-navbar-button navbar-brand navbar-button mx-1 rounded px-2 link-orange' href='javascript:void(0)' id='trigger_show_setup_icons'><i class='fad fa-cog fa-fw'></i></a>";
-	$navbar_custom_rightside .= "<a class='nexus-navbar-button navbar-brand navbar-button mx-1 rounded px-2 link-success' href='escritorio.php'><i class='fad fa-lamp-desk fa-fw'></i></a>";
-
 	include 'templates/html_head.php';
-	include 'templates/navbar.php';
 
 ?>
+    <div class="container-fluid bg-dark">
+        <div class="row">
+            <div class="col-6 d-flex flex-row bd-highlight">
+				<?php
+					echo $navbar_custom_leftside;
+					echo $navbar_custom_rightside;
+				?>
+            </div>
+            <div class="col-6 d-flex flex-row-reverse bd-highlight">
+                <a class='nexus-navbar-button link-success' href='escritorio.php'><i class='fas fa-lamp-desk fa-2x fa-fw'></i></a>
+                <a class='nexus-navbar-button link-orange' href='javascript:void(0)' id='trigger_show_setup_icons'><i class='fas fa-cog fa-2x fa-fw'></i></a>
+                <a class='nexus-navbar-button link-info' href='javascript:void(0);' id='trigger_show_recent_links'><i class='fas fa-clock-rotate-left fa-2x fa-fw'></i></a>
+                <a class='nexus-navbar-button link-teal' href='javascript:void(0);' id='trigger_show_link_dump'><i class='fas fa-box-archive fa-swap-opacity fa-2x fa-fw'></i></a>
+                <a class='nexus-navbar-button link-purple' href='javascript:void(0);' id='trigger_show_archival_folder_icons'><i class='fas fa-cabinet-filing fa-swap-opacity fa-2x fa-fw'></i></a>
+                <a class='nexus-navbar-button link-warning' href='javascript:void(0);' id='trigger_show_main_folder_icons'><i class='fas fa-folder-bookmark fa-2x fa-fw'></i></a>
+            </div>
+        </div>
+    </div>
     <body id='nexus_background' class="bg-light">
     <div class="container-fluid my-5">
         <div class="row justify-content-center">
@@ -607,8 +620,8 @@
             show_setup_icons();
         })
 
-        document.addEventListener ('keydown', function (zEvent) {
-            if (zEvent.altKey  &&  zEvent.key === 's') {
+        document.addEventListener('keydown', function (zEvent) {
+            if (zEvent.altKey && zEvent.key === 's') {
                 event.preventDefault();
                 show_setup_icons();
             }

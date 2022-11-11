@@ -204,3 +204,11 @@ a {
 navbar {
   z-index: 9999;
 }
+
+.nexus-navbar-button {
+  @extend .p-2, .m-1, .rounded;
+}
+
+.nexus-navbar-button:hover {
+  background-color: black;
+}

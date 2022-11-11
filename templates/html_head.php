@@ -29,7 +29,6 @@
 
 	if ($pagina_tipo == 'nexus') {
 		echo "
-        <link href='css/nexus_style.css?20221110' rel='stylesheet'>
         <link type='image/vnd.microsoft.icon' rel='icon' href='nexus_favicon.ico'/>
         ";
 	} else {

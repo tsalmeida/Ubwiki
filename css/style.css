@@ -7595,7 +7595,7 @@ textarea.form-control-lg {
   margin: 0 !important;
 }
 
-.m-1 {
+.m-1, .nexus-navbar-button {
   margin: 0.25rem !important;
 }
 
@@ -7809,7 +7809,7 @@ textarea.form-control-lg {
   padding: 0.25rem !important;
 }
 
-.p-2, .ql-editor-active {
+.p-2, .nexus-navbar-button, .ql-editor-active {
   padding: 0.5rem !important;
 }
 
@@ -8331,7 +8331,7 @@ textarea.form-control-lg {
   pointer-events: auto !important;
 }
 
-.rounded {
+.rounded, .nexus-navbar-button {
   border-radius: var(--bs-border-radius) !important;
 }
 
@@ -11367,6 +11367,10 @@ a {
 
 navbar {
   z-index: 9999;
+}
+
+.nexus-navbar-button:hover {
+  background-color: black;
 }
 
 /*# sourceMappingURL=style.css.map */
