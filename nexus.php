@@ -139,14 +139,14 @@
 				case 'archival':
 					$nexus_archive_folder_counter++;
 					$nexus_folder_order_identifier = $nexus_archive_folder_counter;
-					$artefato_class = 'archival_folder_icons d-none';
+					$nexus_artefato_class = 'archival_folder_icons d-none';
 					$fa_size = 'fa-3x';
 					$artefato_classes_detail = 'py-1 artefato rounded d-flex mt-1';
 					break;
 				case 'hidden':
 					$nexus_hidden_folder_counter++;
 					$nexus_folder_order_identifier = $nexus_hidden_folder_counter;
-					$artefato_class = 'hidden_folder_icons d-none';
+					$nexus_artefato_class = 'hidden_folder_icons d-none';
 					$close_folders_board = "$('#folders_board').addClass('d-none');";
 					$fa_size = 'fa-5x';
 					$artefato_classes_detail = 'py-1 artefato rounded d-flex justify-content-center mt-1';
@@ -154,9 +154,9 @@
 				default:
 					$nexus_main_folder_counter++;
 					$nexus_folder_order_identifier = $nexus_main_folder_counter;
-					$artefato_class = 'main_folder_icons d-none';
+					$nexus_artefato_class = 'main_folder_icons d-none';
 					$close_folders_board = "$('#folders_board').addClass('d-none');";
-					$navbar_custom_leftside .= "<a class='nexus-navbar-button $fa_color_small' href='javascript:void(0);' id='trigger_folder_small_{$nexus_folder_order_identifier}'><i class='$fa_icone fa-2x fa-fw'></i></a>";
+					$navbar_custom_leftside .= "<a class='nexus-navbar-button $fa_color_small' href='javascript:void(0);' id='trigger_folder_small_{$nexus_folder_order_identifier}'><i class='$fa_icone fa-fw'></i></a>";
 					$fa_size = 'fa-5x';
 					$artefato_classes_detail = 'py-1 artefato rounded d-flex justify-content-center mt-1';
 			}
@@ -169,7 +169,7 @@
 			$artefato_subtitulo = $nexus_folder_title;
 
 
-			$print_folders_large .= include 'templates/artefato_item.php';
+			$print_folders_large .= include 'templates/nexus_artefato.php';
 
 			$html_bottom_folders .= "
                 function show_links_folder_{$nexus_folder_order_identifier}() {
@@ -312,16 +312,18 @@
             <div class="col-6 d-flex flex-row bd-highlight">
 				<?php
 					echo $navbar_custom_leftside;
-					echo $navbar_custom_rightside;
 				?>
             </div>
             <div class="col-6 d-flex flex-row-reverse bd-highlight">
-                <a class='nexus-navbar-button link-success' href='escritorio.php'><i class='fas fa-lamp-desk fa-2x fa-fw'></i></a>
-                <a class='nexus-navbar-button link-orange' href='javascript:void(0)' id='trigger_show_setup_icons'><i class='fas fa-cog fa-2x fa-fw'></i></a>
-                <a class='nexus-navbar-button link-info' href='javascript:void(0);' id='trigger_show_recent_links'><i class='fas fa-clock-rotate-left fa-2x fa-fw'></i></a>
-                <a class='nexus-navbar-button link-teal' href='javascript:void(0);' id='trigger_show_link_dump'><i class='fas fa-box-archive fa-swap-opacity fa-2x fa-fw'></i></a>
-                <a class='nexus-navbar-button link-purple' href='javascript:void(0);' id='trigger_show_archival_folder_icons'><i class='fas fa-cabinet-filing fa-swap-opacity fa-2x fa-fw'></i></a>
-                <a class='nexus-navbar-button link-warning' href='javascript:void(0);' id='trigger_show_main_folder_icons'><i class='fas fa-folder-bookmark fa-2x fa-fw'></i></a>
+                <a class='nexus-navbar-button link-success' href='escritorio.php'><i class='fas fa-lamp-desk fa-fw'></i></a>
+                <a class='nexus-navbar-button link-orange' href='javascript:void(0)' id='trigger_show_setup_icons'><i class='fas fa-cog fa-fw'></i></a>
+                <a class='nexus-navbar-button link-info' href='javascript:void(0);' id='trigger_show_recent_links'><i class='fas fa-clock-rotate-left fa-fw'></i></a>
+                <a class='nexus-navbar-button link-teal' href='javascript:void(0);' id='trigger_show_link_dump'><i class='fas fa-box-archive fa-swap-opacity fa-fw'></i></a>
+                <a class='nexus-navbar-button link-purple' href='javascript:void(0);' id='trigger_show_archival_folder_icons'><i class='fas fa-cabinet-filing fa-swap-opacity fa-fw'></i></a>
+                <a class='nexus-navbar-button link-warning' href='javascript:void(0);' id='trigger_show_main_folder_icons'><i class='fas fa-folder-bookmark fa-fw'></i></a>
+				<?php
+					echo $navbar_custom_rightside;
+				?>
             </div>
         </div>
     </div>
@@ -353,137 +355,81 @@
 			<?php
 
 				$template_conteudo = false;
-
-				//				$artefato_id = 'show_setup_icons';
-				//				$artefato_subtitulo = 'Settings';
-				//				$artefato_class = 'mode_icons';
-				//				$artefato_link_classes = 'bg-white rounded';
-				//				$artefato_col_limit = 'col-auto';
-				//				$artefato_classes_detail = 'py-1 artefato rounded d-flex justify-content-center mt-1';
-				//				$fa_icone = 'fa-sliders';
-				//				$fa_color = 'link-secondary';
-				//				$fa_size = 'fa-4x';
-				//				$template_conteudo .= include 'templates/artefato_item.php';
-
-				//				$artefato_id = 'show_main_folder_icons';
-				//				$artefato_subtitulo = 'Main folders';
-				//				$artefato_class = 'mode_icons';
-				//				$artefato_link_classes = 'bg-white rounded';
-				//				$artefato_col_limit = 'col-auto';
-				//				$artefato_classes_detail = 'py-1 artefato rounded d-flex justify-content-center mt-1';
-				//				$fa_icone = 'fa-folder-bookmark';
-				//				$fa_color = 'link-warning';
-				//				$fa_size = 'fa-4x';
-				//				$template_conteudo .= include 'templates/artefato_item.php';
-
-				//				$artefato_id = 'show_archival_folder_icons';
-				//				$artefato_subtitulo = 'Archival folders';
-				//				$artefato_class = 'mode_icons';
-				//				$artefato_link_classes = 'bg-white rounded';
-				//				$artefato_col_limit = 'col-auto';
-				//				$artefato_classes_detail = 'py-1 artefato rounded d-flex justify-content-center mt-1';
-				//				$fa_icone = 'fa-cabinet-filing';
-				//				$fa_color = 'link-purple';
-				//				$fa_size = 'fa-4x';
-				//				$template_conteudo .= include 'templates/artefato_item.php';
-
-				//				$artefato_id = 'show_link_dump';
-				//				$artefato_subtitulo = 'Link dump';
-				//				$artefato_class = 'mode_icons';
-				//				$artefato_link_classes = 'bg-white rounded';
-				//				$artefato_col_limit = 'col-auto';
-				//				$artefato_classes_detail = 'py-1 artefato rounded d-flex justify-content-center mt-1';
-				//				$fa_icone = 'fa-box-archive';
-				//				$fa_color = 'link-teal';
-				//				$fa_size = 'fa-4x';
-				//				$template_conteudo .= include 'templates/artefato_item.php';
-
-				//				$artefato_id = 'recent_links';
-				//				$artefato_subtitulo = 'Recent links';
-				//				$artefato_class = 'link_icons';
-				//				$artefato_link_classes = 'bg-white rounded';
-				//				$artefato_col_limit = 'col-auto';
-				//				$artefato_classes_detail = 'py-1 artefato rounded d-flex justify-content-center mt-1';
-				//				$fa_icone = 'fa-clock-rotate-left';
-				//				$fa_color = 'link-primary';
-				//				$fa_size = 'fa-4x';
-				//				$template_conteudo .= include 'templates/artefato_item.php';
-
 				$template_conteudo .= "</div>";
 				$template_conteudo .= "<div id='settings_board' class=\"row d-flex justify-content-start bg-transparent rounded p-1 mt-1 d-none\">";
 				//				$template_conteudo .= "<hr id='hr_modes' class='mt-3'>";
 
-				$artefato_id = 'manage_folders';
-				$artefato_subtitulo = "Manage folders";
-				$artefato_modal = '#modal_manage_folders';
-				$artefato_class = "nexus_settings_icon";
-				$artefato_link_classes = 'bg-white rounded';
-				$artefato_col_limit = 'col-auto';
-				$artefato_classes_detail = 'py-1 artefato rounded d-flex justify-content-center mt-1';
-				$fa_icone = 'fa-folder-gear';
-				$fa_color = 'link-warning';
-				$fa_size = 'fa-4x';
-				$template_conteudo .= include 'templates/artefato_item.php';
+				$nexus_artefato_id = 'manage_folders';
+				$nexus_artefato_titulo = "Manage folders";
+				$nexus_artefato_modal = '#modal_manage_folders';
+				$nexus_artefato_class = "nexus_settings_icon";
+				$nexus_artefato_link_classes = 'bg-dark rounded';
+				$nexus_artefato_col_limit = 'col-auto';
+				$nexus_artefato_classes_detail = 'py-1 nexus-artefato rounded d-flex justify-content-center mt-1';
+				$nexus_fa_icone = 'fa-folder-gear';
+				$nexus_fa_color = 'link-warning';
+				$nexus_fa_size = 'fa-4x';
+				$template_conteudo .= include 'templates/nexus_artefato.php';
 
-				$artefato_id = 'manage_links';
-				$artefato_subtitulo = "Manage links";
-				$artefato_modal = '#modal_manage_links';
-				$artefato_class = "nexus_settings_icon";
-				$artefato_link_classes = 'bg-white rounded';
-				$artefato_col_limit = 'col-auto';
-				$artefato_classes_detail = 'py-1 artefato rounded d-flex justify-content-center mt-1';
-				$fa_icone = 'fa-bookmark';
-				$fa_color = 'link-danger';
-				$fa_size = 'fa-4x';
-				$template_conteudo .= include 'templates/artefato_item.php';
+				$nexus_artefato_id = 'manage_links';
+				$nexus_artefato_titulo = "Manage links";
+				$nexus_artefato_modal = '#modal_manage_links';
+				$nexus_artefato_class = "nexus_settings_icon";
+				$nexus_artefato_link_classes = 'bg-dark rounded';
+				$nexus_artefato_col_limit = 'col-auto';
+				$nexus_artefato_classes_detail = 'py-1 nexus-artefato rounded d-flex justify-content-center mt-1';
+				$nexus_fa_icone = 'fa-bookmark';
+				$nexus_fa_color = 'link-danger';
+				$nexus_fa_size = 'fa-4x';
+				$template_conteudo .= include 'templates/nexus_artefato.php';
 
-				$artefato_id = 'manage_themes';
-				$artefato_subtitulo = "Themes";
-				$artefato_modal = '#modal_manage_themes';
-				$artefato_class = "nexus_settings_icon";
-				$artefato_link_classes = 'bg-white rounded';
-				$artefato_col_limit = 'col-auto';
-				$artefato_classes_detail = 'py-1 artefato rounded d-flex justify-content-center mt-1';
-				$fa_icone = 'fa-swatchbook';
-				$fa_color = 'link-purple';
-				$fa_size = 'fa-4x';
-				$template_conteudo .= include 'templates/artefato_item.php';
+				$nexus_artefato_id = 'manage_themes';
+				$nexus_artefato_titulo = "Themes";
+				$nexus_artefato_modal = '#modal_manage_themes';
+				$nexus_artefato_class = "nexus_settings_icon";
+				$nexus_artefato_link_classes = 'bg-dark rounded';
+				$nexus_artefato_col_limit = 'col-auto';
+				$nexus_artefato_classes_detail = 'py-1 nexus-artefato rounded d-flex justify-content-center mt-1';
+				$nexus_fa_icone = 'fa-swatchbook';
+				$nexus_fa_color = 'link-purple';
+				$nexus_fa_size = 'fa-4x';
+				$template_conteudo .= include 'templates/nexus_artefato.php';
 
-				$artefato_id = 'manage_options';
-				$artefato_subtitulo = "Options";
-				$artefato_modal = '#modal_options';
-				$artefato_class = "nexus_settings_icon";
-				$artefato_link_classes = 'bg-white rounded';
-				$artefato_col_limit = 'col-auto';
-				$artefato_classes_detail = 'py-1 artefato rounded d-flex justify-content-center mt-1';
-				$fa_icone = 'fa-toggle-large-on';
-				$fa_color = 'link-success';
-				$fa_size = 'fa-4x';
-				$template_conteudo .= include 'templates/artefato_item.php';
+				$nexus_artefato_id = 'manage_options';
+				$nexus_artefato_titulo = "Options";
+				$nexus_artefato_modal = '#modal_options';
+				$nexus_artefato_class = "nexus_settings_icon";
+				$nexus_artefato_link_classes = 'bg-dark rounded';
+				$nexus_artefato_col_limit = 'col-auto';
+				$nexus_artefato_classes_detail = 'py-1 nexus-artefato rounded d-flex justify-content-center mt-1';
+				$nexus_fa_icone = 'fa-toggle-large-on';
+				$nexus_fa_color = 'link-success';
+				$nexus_fa_size = 'fa-4x';
+				$template_conteudo .= include 'templates/nexus_artefato.php';
 
-				$artefato_id = 'manage_timeline';
-				$artefato_subtitulo = "Activity log";
-				$artefato_modal = '#modal_manage_timeline';
-				$artefato_class = "nexus_settings_icon";
-				$artefato_link_classes = 'bg-white rounded';
-				$artefato_col_limit = 'col-auto';
-				$artefato_classes_detail = 'py-1 artefato rounded d-flex justify-content-center mt-1';
-				$fa_icone = 'fa-list-timeline';
-				$fa_color = 'link-info';
-				$fa_size = 'fa-4x';
-				$template_conteudo .= include 'templates/artefato_item.php';
+				$nexus_artefato_id = 'manage_timeline';
+				$nexus_artefato_titulo = "Activity log";
+				$nexus_artefato_modal = '#modal_manage_timeline';
+				$nexus_artefato_class = "nexus_settings_icon";
+				$nexus_artefato_link_classes = 'bg-dark rounded';
+				$nexus_artefato_col_limit = 'col-auto';
+				$nexus_artefato_classes_detail = 'py-1 nexus-artefato rounded d-flex justify-content-center mt-1';
+				$nexus_fa_icone = 'fa-list-timeline';
+				$nexus_fa_color = 'link-info';
+				$nexus_fa_size = 'fa-4x';
+				$template_conteudo .= include 'templates/nexus_artefato.php';
 
-				$artefato_id = 'manage_commands';
-				$artefato_subtitulo = "Commands";
-				$artefato_modal = "#modal_commands";
-				$artefato_class = 'nexus_settings_icon';
-				$artefato_link_classes = 'bg-white rounded';
-				$artefato_col_limit = 'col-auto';
-				$artefato_classes_detail = 'py-1 artefato rounded d-flex justify-content-center mt-1';
-				$fa_icone = 'fa-rectangle-terminal';
-				$fa_color = 'link-teal';
-				$fa_size = 'fa-4x';
-				$template_conteudo .= include 'templates/artefato_item.php';
+				$nexus_artefato_id = 'manage_commands';
+				$nexus_artefato_titulo = "Commands";
+				$nexus_artefato_modal = "#modal_commands";
+				$nexus_artefato_class = 'nexus_settings_icon';
+				$nexus_artefato_link_classes = 'bg-dark rounded';
+				$nexus_artefato_col_limit = 'col-auto';
+				$nexus_artefato_classes_detail = 'py-1 nexus-artefato rounded d-flex justify-content-center mt-1';
+				$nexus_fa_icone = 'fa-rectangle-terminal';
+				$nexus_fa_color = 'link-teal';
+				$nexus_fa_size = 'fa-4x';
+				$template_conteudo .= include 'templates/nexus_artefato.php';
 
 				$template_conteudo .= "</div>";
 				$template_conteudo .= "<div id='folders_board' class=\"row d-flex justify-content-start bg-transparent rounded p-1 mt-1\">";

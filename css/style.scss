@@ -209,6 +209,6 @@ navbar {
   @extend .p-2, .m-1, .rounded;
 }
 
-.nexus-navbar-button:hover {
+.nexus-navbar-button:hover, .nexus-artefato:hover {
   background-color: black;
 }

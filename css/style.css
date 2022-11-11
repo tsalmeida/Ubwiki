@@ -11369,7 +11369,7 @@ navbar {
   z-index: 9999;
 }
 
-.nexus-navbar-button:hover {
+.nexus-navbar-button:hover, .nexus-artefato:hover {
   background-color: black;
 }
 
