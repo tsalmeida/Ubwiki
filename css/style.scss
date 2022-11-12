@@ -11,7 +11,7 @@ $font-family-sans-serif: 'Lato', system-ui, -apple-system, "Segoe UI", Roboto, "
 $font-family-serif: 'Lora', serif, Times New Roman;
 $font-family-monospace: 'Roboto Mono', SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
-@import '../../bootstrap/scss/bootstrap.scss';
+@import '../../../repositories/bootstrap/scss/bootstrap.scss';
 @import 'quill.snow.css';
 
 .font-serif {
