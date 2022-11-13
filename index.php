@@ -12,9 +12,9 @@
 	$user_id = false;
 
 	if (isset($_GET['special'])) {
-//		error_log("this happ1ened");
 		$special = $_GET['special'];
-		$usuarios = $conn->query("SELECT id, email, apelido FROM Usuarios WHERE special = '$special' AND special IS NOT NULL");
+		$query = prepare_query("SELECT id, email, apelido FROM Usuarios WHERE special = '$special' AND special IS NOT NULL");
+		$usuarios = $conn->query($query);
 		if ($usuarios->num_rows > 0) {
 			while ($usuario = $usuarios->fetch_assoc()) {
 				$_SESSION['user_info'] = 'login';

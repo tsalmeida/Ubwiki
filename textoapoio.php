@@ -49,8 +49,8 @@
 			$conn->query("UPDATE sim_textos_apoio SET origem = $novo_texto_apoio_origem, prova_id = $novo_texto_apoio_prova, titulo = '$novo_texto_apoio_titulo', enunciado_html = '$novo_texto_apoio_enunciado_html', enunciado_text = '$novo_texto_apoio_enunciado_text', enunciado_content = '$novo_texto_apoio_enunciado_content', texto_apoio_html = '$novo_texto_apoio_html', texto_apoio_text = '$novo_texto_apoio_text', texto_apoio_content = '$novo_texto_apoio_content', user_id = $user_id WHERE id = $texto_apoio_id");
 		}
 	}
-	
-	$textos_apoio = $conn->query("SELECT prova_id, titulo, enunciado_html, enunciado_content, texto_apoio_html, texto_apoio_content FROM sim_textos_apoio WHERE id = $texto_apoio_id");
+	$query = prepare_query("SELECT prova_id, titulo, enunciado_html, enunciado_content, texto_apoio_html, texto_apoio_content FROM sim_textos_apoio WHERE id = $texto_apoio_id");
+	$textos_apoio = $conn->query($query);
 	if ($textos_apoio->num_rows > 0) {
 		while ($texto_apoio = $textos_apoio->fetch_assoc()) {
 			$texto_apoio_prova_id = $texto_apoio['prova_id'];
@@ -67,8 +67,8 @@
 	$prova_info = return_info_prova_id($texto_apoio_prova_id);
 	$texto_apoio_edicao_ano = $prova_info[2];
 	$texto_apoio_prova_titulo = $prova_info[0];
-	
-	$provas = $conn->query("SELECT id, etapa_id, titulo, tipo FROM sim_provas WHERE concurso_id = $concurso_id ORDER BY id DESC");
+	$query = prepare_query("SELECT id, etapa_id, titulo, tipo FROM sim_provas WHERE concurso_id = $concurso_id ORDER BY id DESC");
+	$provas = $conn->query($query);
 	
 	$html_head_template_quill = true;
 	$html_head_template_quill_sim = true;
@@ -114,7 +114,7 @@
 								$template_id = 'texto_apoio_questoes';
 								$template_titulo = 'Questões deste texto de apoio';
 								$template_conteudo = false;
-								$questoes = $conn->query("SELECT ");
+								$questoes = $conn->query("SELECT "); // What's happening here?
 							
 							
 							?>

@@ -7,9 +7,11 @@
 
 	if (isset($_POST['nova_pagina_livre'])) {
 		$nova_pagina_livre = $_POST['nova_pagina_livre'];
-		$check_etiquetas = $conn->query("SELECT pagina_id FROM Etiquetas WHERE titulo = '$nova_pagina_livre'");
+		$query = prepare_query("SELECT pagina_id FROM Etiquetas WHERE titulo = '$nova_pagina_livre'");
+		$check_etiquetas = $conn->query($query);
 		if ($check_etiquetas->num_rows == 0) {
-			$conn->query("INSERT INTO Etiquetas (tipo, titulo, user_id) VALUES ('topico', '$nova_pagina_livre', $user_id)");
+		    $query = prepare_query("INSERT INTO Etiquetas (tipo, titulo, user_id) VALUES ('topico', '$nova_pagina_livre', $user_id)");
+			$conn->query($query);
 		} else {
 			$busca = $nova_pagina_livre;
 		}
@@ -65,9 +67,11 @@
 				if ($busca == false) {
 					$etiquetas = false;
 				} elseif ($busca == '!all') {
-					$etiquetas = $conn->query("SELECT id, titulo, pagina_id FROM Etiquetas WHERE tipo = 'topico' ORDER BY id DESC");
+				    $query = prepare_query("SELECT id, titulo, pagina_id FROM Etiquetas WHERE tipo = 'topico' ORDER BY id DESC");
+					$etiquetas = $conn->query($query);
 				} else {
-					$etiquetas = $conn->query("SELECT id, titulo, pagina_id FROM Etiquetas WHERE tipo = 'topico' AND titulo LIKE '%$busca%'");
+				    $query = prepare_query("SELECT id, titulo, pagina_id FROM Etiquetas WHERE tipo = 'topico' AND titulo LIKE '%$busca%'");
+					$etiquetas = $conn->query($query);
 				}
 				if ($etiquetas != false) {
 					$template_id = 'etiquetas';
@@ -116,7 +120,8 @@
 								  <a data-bs-toggle='modal' data-bs-target='$adicionar_pagina_livre' class='link-success ms-1' title='{$pagina_translated['Adicionar página livre']}' href='javascript:void(0);'><i class='fad fa-plus-square fa-fw'></i></a>
 								";
 					$template_conteudo = false;
-					$etiquetas = $conn->query("SELECT id  FROM Etiquetas WHERE tipo = 'topico' ORDER BY id DESC");
+					$query = prepare_query("SELECT id  FROM Etiquetas WHERE tipo = 'topico' ORDER BY id DESC");
+					$etiquetas = $conn->query($query);
 					if ($etiquetas->num_rows > 0) {
 						$count = 0;
 						while ($etiqueta = $etiquetas->fetch_assoc()) {
@@ -154,7 +159,8 @@
 								";
 					$template_conteudo = false;
 					$paginas_contadas = array();
-					$etiquetas = $conn->query("SELECT pagina_id, verbete_content FROM Textos_arquivo WHERE pagina_subtipo = 'etiqueta' ORDER BY id DESC");
+					$query = prepare_query("SELECT pagina_id, verbete_content FROM Textos_arquivo WHERE pagina_subtipo = 'etiqueta' ORDER BY id DESC");
+					$etiquetas = $conn->query($query);
 					$count = 0;
 					if ($etiquetas->num_rows > 0) {
 						while ($etiqueta = $etiquetas->fetch_assoc()) {

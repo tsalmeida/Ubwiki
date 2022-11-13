@@ -177,7 +177,8 @@
                 <p>{$pagina_translated['Para comparação, esta edição é necessariamente mais antiga do que a versão da coluna direita.']}</p>
                 <p>{$pagina_translated['Selecione, por exemplo, sua edição mais recente. Em seguida, você poderá a versão mais recente do texto, que será carregada na coluna direita.']}</p>
             ";
-			$list_edicoes = $conn->query("SELECT id, criacao, user_id FROM Textos_arquivo WHERE texto_id = $texto_id ORDER BY id DESC");
+			$query = prepare_query("SELECT id, criacao, user_id FROM Textos_arquivo WHERE texto_id = $texto_id ORDER BY id DESC");
+			$list_edicoes = $conn->query($query);
 			if ($list_edicoes->num_rows > 0) {
 				$template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
 				while ($list_edicao = $list_edicoes->fetch_assoc()) {

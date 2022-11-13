@@ -306,12 +306,12 @@
 		$pagina_translated = $_SESSION['pagina_translated'];
 	}
 
-//	$all_buttons_classes = "btn text-center mb-3";
-//	$button_classes = "$all_buttons_classes btn-primary";
-//	$button_small = 'brn rounded btn-sm text-center';
-//	$button_classes_light = "$all_buttons_classes btn-light";
-//	$button_classes_info = "$all_buttons_classes btn-outline-primary";
-//	$button_classes_red = "$all_buttons_classes btn-danger";
+	//	$all_buttons_classes = "btn text-center mb-3";
+	//	$button_classes = "$all_buttons_classes btn-primary";
+	//	$button_small = 'brn rounded btn-sm text-center';
+	//	$button_classes_light = "$all_buttons_classes btn-light";
+	//	$button_classes_info = "$all_buttons_classes btn-outline-primary";
+	//	$button_classes_red = "$all_buttons_classes btn-danger";
 	$select_classes = "browser-default custom-select mt-2";
 	$coluna_todas = "px-3";
 	$coluna_classes = "col-lg-6 col-md-10 col-sm-11 $coluna_todas";
@@ -2032,6 +2032,7 @@
 	if (isset($_POST['list_nexus_links'])) {
 		echo "
 			<form method='post'>
+				<p>Fill-in the form below to add a link or <button id='show_modal_add_links_bulk' type='button' class='btn btn-outline-primary btn-sm' class='btn btn-outline-primary btn-sm' data-bs-toggle='modal' data-bs-target='#modal_add_links_bulk'>click here</button> to add links in bulk to the <a id='trigger_show_link_dump' href='javascritp:void(0);' class='link-info'>Link Dump</a>.</p>
 				<div class='mb-3'>
 					<label class='form-label' for='nexus_new_link_url'>Paste your link url:</label>
 					<input type='url' class='form-control' id='nexus_new_link_url' name='nexus_new_link_url'>
@@ -2074,7 +2075,7 @@
 						<option value='fa-solid fa-circle-dot'>Circle-dot</option>
 						<option value='fa-solid fa-circle-half-stroke'>Circle-half-stroke</option>
 						<option value='fa-solid fa-rectangle-vertical'>Rectangle-vertical</option>
-						<option value='fa-solid fa-rectangle-horizontal'>Rectangle-horizontal</option>
+						<option value='fa-solid fa-rectangle-wide'>rectangle-wide</option>
 					</select>
 				</div>
 				<div class='mb-3'>
@@ -2097,7 +2098,7 @@
 	}
 
 	if (isset($_POST['scan_new_link'])) {
-		$new_link_title = get_title($_POST['scan_new_link']);
+		$new_link_title = nexus_suggest_title($_POST['scan_new_link']);
 		echo $new_link_title;
 	}
 	unset($_POST['scan_new_link']);
@@ -2144,7 +2145,7 @@
 		echo "
 			<form method='post'>
 				<h3>Add folder</h3>
-				<p>To add new folders, fill-in the form below:</p>
+				<p>You may add a folder by filling-in the form below or <button id='show_modal_add_folders_bulk' type='button' class='btn btn-outline-primary btn-sm' data-bs-toggle='modal' data-bs-target='#modal_add_folders_bulk'>click here</button> to add folders in bulk.</p>
 				<div class='mb-3'>
 					<label class='form-label' for='nexus_new_folder_title'>Name of your new folder:</label>
 					<input type='text' class='form-control' id='nexus_new_folder_title' name='nexus_new_folder_title'>
@@ -2197,18 +2198,20 @@
 		$query = prepare_query("SELECT id, title, icon, color FROM nexus_folders WHERE user_id = $user_id AND pagina_id = {$_SESSION['user_nexus_pagina_id']}");
 		$user_nexus_folders_info = $conn->query($query);
 		if ($user_nexus_folders_info->num_rows > 0) {
+			$user_nexus_remove_folder_options = false;
 			while ($user_nexus_folder_info = $user_nexus_folders_info->fetch_assoc()) {
 				$user_nexus_folder_id = $user_nexus_folder_info['id'];
 				$user_nexus_folder_title = $user_nexus_folder_info['title'];
 				$user_nexus_folder_icon = $user_nexus_folder_info['icon'];
 				$user_nexus_folder_color = $user_nexus_folder_info['color'];
-				echo "<option value='$user_nexus_folder_id'>$user_nexus_folder_title, $user_nexus_folder_icon, $user_nexus_folder_color</option>";
+				$user_nexus_remove_folder_options .= "<option value='$user_nexus_folder_id'>$user_nexus_folder_title, $user_nexus_folder_icon, $user_nexus_folder_color</option>";
 			}
 			echo "
 			<form method='post'>
 				<p>When you remove a folder, all links that had been added to it are also removed, though you can still find everything in the log.</p>
 				<select id='nexus_del_folder_id' name='nexus_del_folder_id' class='form-select mb-3'>
 					<option selected disabled>Select a folder to remove</option>
+					$user_nexus_remove_folder_options
 			";
 			echo "</select>";
 			echo "<button type='submit' class='btn btn-danger'>Delete folder</button>";
@@ -2220,6 +2223,107 @@
 
 	if (isset($_POST['analyse_cmd_input'])) {
 		echo $_SESSION['cmd_links'][$_POST['analyse_cmd_input']];
+	}
+
+	if (isset($_POST['populate_add_folders_bulk'])) {
+		echo "
+		<p>You will be able to change the details later. For now, all you need is a name for each.</p>
+		<form method='post'>
+			<div class='mb-3'>
+				<label for='new_bulk_folder_1' class='form-label'>Name for new folder #1</label>
+				<input id='new_bulk_folder_1' type='text' class='form-control' name='new_bulk_folder_1'>
+			</div>
+			<div class='mb-3'>
+				<label for='new_bulk_folder_2' class='form-label'>Name for new folder #2</label>
+				<input id='new_bulk_folder_2' type='text' class='form-control' name='new_bulk_folder_2'>
+			</div>
+			<div class='mb-3'>
+				<label for='new_bulk_folder_3' class='form-label'>Name for new folder #3</label>
+				<input id='new_bulk_folder_3' type='text' class='form-control' name='new_bulk_folder_3'>
+			</div>
+			<div class='mb-3'>
+				<label for='new_bulk_folder_4' class='form-label'>Name for new folder #4</label>
+				<input id='new_bulk_folder_4' type='text' class='form-control' name='new_bulk_folder_4'>
+			</div>
+			<div class='mb-3'>
+				<label for='new_bulk_folder_5' class='form-label'>Name for new folder #5</label>
+				<input id='new_bulk_folder_5' type='text' class='form-control' name='new_bulk_folder_5'>
+			</div>
+			<div class='mb-3'>
+				<label for='new_bulk_folder_6' class='form-label'>Name for new folder #6</label>
+				<input id='new_bulk_folder_6' type='text' class='form-control' name='new_bulk_folder_6'>
+			</div>
+			<div class='mb-3'>
+				<label for='new_bulk_folder_7' class='form-label'>Name for new folder #7</label>
+				<input id='new_bulk_folder_7' type='text' class='form-control' name='new_bulk_folder_7'>
+			</div>
+			<button type='submit' class='btn btn-primary'>Create new folders</button>
+		</form>
+		";
+	}
+
+	if (isset($_POST['populate_add_links_bulk'])) {
+		echo "
+		<p>Add the urls below and the Nexus will try to find a good name for each, along with random colors and icons. You may edit everything later.</p>
+		<form method='post'>
+			<select class='form-select' id='new_bulk_links_folder' name='new_bulk_links_folder'>
+				<option selected value='0'>Link Dump</option>";
+
+		$query = prepare_query("SELECT id, type, title, icon, color, type FROM nexus_folders WHERE user_id = $user_id AND pagina_id = {$_SESSION['user_nexus_pagina_id']}");
+		$folders_info = $conn->query($query);
+		if ($folders_info->num_rows > 0) {
+			$main_folders = false;
+			$archive_folders = false;
+			while ($folder = $folders_info->fetch_assoc()) {
+				$folder_id = $folder['id'];
+				$folder_type = $folder['type'];
+				$folder_title = $folder['title'];
+				$folder_icon = $folder['icon'];
+				$folder_color = $folder['color'];
+				$folder_option = "<option value='$folder_id'>$folder_title ($folder_color $folder_icon)</option>";
+				if ($folder_type == 'main') {
+					$main_folders .= $folder_option;
+				} elseif ($folder_type == 'archival') {
+					$archive_folders .= $folder_option;
+				}
+			}
+		}
+		echo $main_folders;
+		echo $archive_folders;
+
+		echo "
+			</select>
+			<div class='mb-3'>
+				<label for='new_bulk_link_1' class='form-label'>New link url #1</label>
+				<input id='new_bulk_link_1' name='new_bulk_link_1' type='url' class='form-control'>
+			</div>
+			<div class='mb-3'>
+				<label for='new_bulk_link_2' class='form-label'>New link url #2</label>
+				<input id='new_bulk_link_2' name='new_bulk_link_2' type='url' class='form-control'>
+			</div>
+			<div class='mb-3'>
+				<label for='new_bulk_link_3' class='form-label'>New link url #3</label>
+				<input id='new_bulk_link_3' name='new_bulk_link_3' type='url' class='form-control'>
+			</div>
+			<div class='mb-3'>
+				<label for='new_bulk_link_4' class='form-label'>New link url #4</label>
+				<input id='new_bulk_link_4' name='new_bulk_link_4' type='url' class='form-control'>
+			</div>
+			<div class='mb-3'>
+				<label for='new_bulk_link_5' class='form-label'>New link url #5</label>
+				<input id='new_bulk_link_5' name='new_bulk_link_5' type='url' class='form-control'>
+			</div>
+			<div class='mb-3'>
+				<label for='new_bulk_link_6' class='form-label'>New link url #6</label>
+				<input id='new_bulk_link_6' name='new_bulk_link_6' type='url' class='form-control'>
+			</div>
+			<div class='mb-3'>
+				<label for='new_bulk_link_7' class='form-label'>New link url #7</label>
+				<input id='new_bulk_link_7' name='new_bulk_link_7' type='url' class='form-control'>
+			</div>
+			<button type='submit' class='btn btn-primary'>Add links to the Link Dump</button>
+		</form>
+		";
 	}
 
 ?>

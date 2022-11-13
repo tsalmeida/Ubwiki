@@ -1431,7 +1431,8 @@
 						$template_id = 'autor_obras';
 						$template_titulo = $pagina_translated['author of'];
 						$template_conteudo = false;
-						$autor_obras = $conn->query("SELECT pagina_id FROM Elementos WHERE autor_etiqueta_id = $pagina_item_id");
+						$query = prepare_query();
+						$autor_obras = $conn->query($query);
 						if ($autor_obras->num_rows > 0) {
 							while ($autor_obra = $autor_obras->fetch_assoc()) {
 								$template_conteudo .= return_list_item($autor_obra['pagina_id']);
@@ -1662,7 +1663,8 @@
 				$template_id = 'paginas_texto_apoio';
 				$template_titulo = $pagina_translated['Páginas relacionadas'];
 				$template_conteudo = false;
-				$usos_texto_apoio = $conn->query("SELECT id FROM sim_questoes WHERE texto_apoio_id = $pagina_item_id");
+				$query = prepare_query("SELECT id FROM sim_questoes WHERE texto_apoio_id = $pagina_item_id");
+				$usos_texto_apoio = $conn->query($query);
 				while ($uso_texto_apoio = $usos_texto_apoio->fetch_assoc()) {
 					$uso_texto_apoio_questao_id = $uso_texto_apoio['id'];
 					$uso_texto_apoio_pagina_id = return_pagina_id($uso_texto_apoio_questao_id, 'questao');

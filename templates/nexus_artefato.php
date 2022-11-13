@@ -1,39 +1,59 @@
 <?php
 
 	if (!isset($nexus_artefato_id)) {
-		$nexus_artefato_id = false;
+		$nexus_artefato_id = false; //
 	}
 	if (!isset($nexus_artefato_modal)) {
-		$nexus_artefato_modal = false;
+		$nexus_artefato_modal_module = false;
+	} else {
+		$nexus_artefato_modal_module = "data-bs-toggle='modal' data-bs-target='{$nexus_artefato_modal}'";
 	}
-	if (!isset($nexus_artefato_classes_detail)) {
-		$nexus_artefato_classes_detail = false;
-	}
-	if (!isset($nexus_artefato_link_classes)) {
-		$nexus_artefato_link_classes = false;
+
+	if (!isset($nexus_artefato_link)) {
+		$nexus_artefato_link_module = "href='javascript:void(0);'";
+	} else {
+		$nexus_artefato_link_module = "href='{$nexus_artefato_link}'";
 	}
 	if (!isset($nexus_fa_color)) {
-		$nexus_fa_color = false;
+		$nexus_fa_color = 'link-indigo';
 	}
 	if (!isset($nexus_fa_icone)) {
-		$nexus_fa_icone = false;
+		$nexus_fa_icone = 'fa-solid fa-circle-notch fa-spin';
+	}
+	if (!isset($nexus_fa_size)) {
+		$nexus_fa_size = 'fa-4x';
 	}
 	if (!isset($nexus_artefato_titulo)) {
 		$nexus_artefato_titulo = false;
 	}
+	if (!isset($nexus_artefato_class)) {
+		$nexus_artefato_class = false;
+	}
 
 	$nexus_artefato_result = "
-	<a id='trigger_{$nexus_artefato_id}' class='col-2 {$nexus_artefato_link_classes}' href='javascript:void(0);'>
-		<div id='{$nexus_artefato_id}' data-bs-toggle='modal' data-bs-target='{$nexus_artefato_modal}' class='row {$nexus_artefato_class} {$nexus_artefato_classes_detail}'>
-		<span class='row justify-content-center p-1 rounded {$nexus_fa_color}'><span class='col-12'><i class='{$nexus_fa_icone} fa-fw'></i></span>
-		<span class='row justify-content-center p-1 rounded'><span class='col-12'>{$nexus_artefato_titulo}</span></span>
-	</div></a>
+	<div class='col-2 p-2 {$nexus_artefato_class}'>
+		<a id='trigger_{$nexus_artefato_id}' class='row bg-dark p-2 rounded d-flex justify-content-center' $nexus_artefato_modal_module $nexus_artefato_link_module>
+			<span class='nexus-artefato p-3 rounded'>
+			<div class='row d-flex mb-2'>
+				<span class='col-12 {$nexus_fa_color} d-flex justify-content-center'>
+					<i class='{$nexus_fa_icone} {$nexus_fa_size} fa-fw'></i>
+				</span>
+			</div>
+			<div class='row d-flex'>
+				<small class='col-12 link-light d-flex justify-content-center'>
+					{$nexus_artefato_titulo}
+				</small>
+			</div>
+			</span>
+		</a>
+	</div>
 	";
 
+	unset($nexus_artefato_id);
 	unset($nexus_artefato_modal);
-	unset($nexus_artefato_classes);
-	unset($nexus_artefato_trigger);
-	unset($nexus_artefato_fa_icon);
+	unset($nexus_artefato_link);
+	unset($nexus_fa_color);
+	unset($nexus_fa_icone);
 	unset($nexus_artefato_titulo);
 
 	return $nexus_artefato_result;

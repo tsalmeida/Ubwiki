@@ -208,16 +208,16 @@
 		} else {
 			$nova_questao_item5_gabarito = "NULL";
 		}
-
-		$conn->query("UPDATE sim_questoes SET origem = $nova_questao_origem, edicao_ano = $nova_questao_edicao_ano, texto_apoio_id = $nova_questao_texto_apoio, etapa_id = $nova_questao_etapa_id, prova_id = $nova_questao_prova, enunciado_html = '$quill_novo_questao_enunciado_html', enunciado_text = '$quill_novo_questao_enunciado_text', enunciado_content = '$quill_novo_questao_enunciado_content', numero = $nova_questao_numero, materia = $nova_questao_materia, tipo = $nova_questao_tipo, item1_html = $quill_novo_questao_item1_html, item1_text = $quill_novo_questao_item1_text, item1_content = $quill_novo_questao_item1_content, item2_html = $quill_novo_questao_item2_html, item2_text = $quill_novo_questao_item2_text, item2_content = $quill_novo_questao_item2_content, item3_html = $quill_novo_questao_item3_html, item3_text = $quill_novo_questao_item3_text, item3_content = $quill_novo_questao_item3_content, item4_html = $quill_novo_questao_item4_html, item4_text = $quill_novo_questao_item4_text, item4_content = $quill_novo_questao_item4_content, item5_html = $quill_novo_questao_item5_html, item5_text = $quill_novo_questao_item5_text, item5_content = $quill_novo_questao_item5_content, item1_gabarito = $nova_questao_item1_gabarito, item2_gabarito = $nova_questao_item2_gabarito, item3_gabarito = $nova_questao_item3_gabarito, item4_gabarito = $nova_questao_item4_gabarito, item5_gabarito = $nova_questao_item5_gabarito WHERE id = $questao_id");
+		$query = prepare_query("UPDATE sim_questoes SET origem = $nova_questao_origem, edicao_ano = $nova_questao_edicao_ano, texto_apoio_id = $nova_questao_texto_apoio, etapa_id = $nova_questao_etapa_id, prova_id = $nova_questao_prova, enunciado_html = '$quill_novo_questao_enunciado_html', enunciado_text = '$quill_novo_questao_enunciado_text', enunciado_content = '$quill_novo_questao_enunciado_content', numero = $nova_questao_numero, materia = $nova_questao_materia, tipo = $nova_questao_tipo, item1_html = $quill_novo_questao_item1_html, item1_text = $quill_novo_questao_item1_text, item1_content = $quill_novo_questao_item1_content, item2_html = $quill_novo_questao_item2_html, item2_text = $quill_novo_questao_item2_text, item2_content = $quill_novo_questao_item2_content, item3_html = $quill_novo_questao_item3_html, item3_text = $quill_novo_questao_item3_text, item3_content = $quill_novo_questao_item3_content, item4_html = $quill_novo_questao_item4_html, item4_text = $quill_novo_questao_item4_text, item4_content = $quill_novo_questao_item4_content, item5_html = $quill_novo_questao_item5_html, item5_text = $quill_novo_questao_item5_text, item5_content = $quill_novo_questao_item5_content, item1_gabarito = $nova_questao_item1_gabarito, item2_gabarito = $nova_questao_item2_gabarito, item3_gabarito = $nova_questao_item3_gabarito, item4_gabarito = $nova_questao_item4_gabarito, item5_gabarito = $nova_questao_item5_gabarito WHERE id = $questao_id");
+		$conn->query($query);
 
 		$nova_questao_id = $conn->insert_id;
 		$nova_questao_pagina_id = return_pagina_id($nova_questao_id, 'questao');
-		
-		$conn->query("INSERT INTO sim_questoes_arquivo (origem, edicao_ano, concurso_id, etapa_id, texto_apoio_id, prova_id, enunciado_html, enunciado_text, enunciado_content, numero, materia, tipo, item1_html, item1_text, item1_content, item2_html, item2_text, item2_content, item3_html, item3_text, item3_content, item4_html, item4_text, item4_content, item5_html, item5_text, item5_content, item1_gabarito, item2_gabarito, item3_gabarito, item4_gabarito, item5_gabarito, user_id) VALUES ($nova_questao_origem, $concurso_id, $nova_questao_edicao_ano, $nova_questao_texto_apoio, $nova_questao_etapa_id, $nova_questao_prova, '$quill_novo_questao_enunciado_html', '$quill_novo_questao_enunciado_text', '$quill_novo_questao_enunciado_content', $nova_questao_numero, $nova_questao_materia, $nova_questao_tipo, $quill_novo_questao_item1_html, $quill_novo_questao_item1_text, $quill_novo_questao_item1_content, $quill_novo_questao_item2_html, $quill_novo_questao_item2_text, $quill_novo_questao_item2_content, $quill_novo_questao_item3_html, $quill_novo_questao_item3_text, $quill_novo_questao_item3_content, $quill_novo_questao_item4_html, $quill_novo_questao_item4_text, $quill_novo_questao_item4_content, $quill_novo_questao_item5_html, $quill_novo_questao_item5_text, $quill_novo_questao_item5_content, $nova_questao_item1_gabarito, $nova_questao_item2_gabarito, $nova_questao_item3_gabarito, $nova_questao_item4_gabarito, $nova_questao_item5_gabarito, $user_id)");
+		$query = prepare_query();
+		$conn->query($query);
 	}
-	
-	$questoes = $conn->query("SELECT origem, concurso_id, texto_apoio_id, prova_id, enunciado_html, enunciado_content, numero, materia, tipo, item1_html, item2_html, item3_html, item4_html, item5_html, item1_content, item2_content, item3_content, item4_content, item5_content, item1_gabarito, item2_gabarito, item3_gabarito, item4_gabarito, item5_gabarito FROM sim_questoes WHERE id = $questao_id");
+	$query = prepare_query("SELECT origem, concurso_id, texto_apoio_id, prova_id, enunciado_html, enunciado_content, numero, materia, tipo, item1_html, item2_html, item3_html, item4_html, item5_html, item1_content, item2_content, item3_content, item4_content, item5_content, item1_gabarito, item2_gabarito, item3_gabarito, item4_gabarito, item5_gabarito FROM sim_questoes WHERE id = $questao_id");
+	$questoes = $conn->query($query);
 	if ($questoes->num_rows > 0) {
 		while ($questao = $questoes->fetch_assoc()) {
 			$questao_texto_apoio_id = $questao['texto_apoio_id'];
@@ -252,10 +252,12 @@
 	$prova_tipo_string = convert_prova_tipo($prova_tipo);
 	$edicao_ano = $prova_info[2];
 	$edicao_titulo = $prova_info[3];
-	
-	$textos_apoio = $conn->query("SELECT id, origem, prova_id, titulo FROM sim_textos_apoio WHERE concurso_id = $concurso_id ORDER BY id DESC");
-	$provas = $conn->query("SELECT id, etapa_id, titulo, tipo FROM sim_provas WHERE concurso_id = $concurso_id ORDER BY id DESC");
-	$materias = $conn->query("SELECT id, titulo FROM Materias WHERE concurso_id = $concurso_id ORDER BY ordem");
+	$query = prepare_query("SELECT id, origem, prova_id, titulo FROM sim_textos_apoio WHERE concurso_id = $concurso_id ORDER BY id DESC");
+	$textos_apoio = $conn->query($query);
+	$query = prepare_query("SELECT id, etapa_id, titulo, tipo FROM sim_provas WHERE concurso_id = $concurso_id ORDER BY id DESC");
+	$provas = $conn->query($query);
+	$query = prepare_query("SELECT id, titulo FROM Materias WHERE concurso_id = $concurso_id ORDER BY ordem");
+	$materias = $conn->query($query);
 	
 	$html_head_template_quill = true;
 	$html_head_template_quill_sim = true;
@@ -376,7 +378,8 @@
                                         </span>
                                     ";
 							$template_conteudo = false;
-							$textos_apoio2 = $conn->query("SELECT texto_apoio_html FROM sim_textos_apoio WHERE id = $questao_texto_apoio_id");
+							$query = prepare_query("SELECT texto_apoio_html FROM sim_textos_apoio WHERE id = $questao_texto_apoio_id");
+							$textos_apoio2 = $conn->query($query);
 							if ($textos_apoio2->num_rows > 0) {
 								while ($texto_apoio2 = $textos_apoio2->fetch_assoc()) {
 									$texto_apoio2_html = $texto_apoio2['texto_apoio_html'];

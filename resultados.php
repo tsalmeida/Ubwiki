@@ -12,7 +12,8 @@
 	
 	$simulado_user_id = false;
 	$simulado_tipo = false;
-	$simulados = $conn->query("SELECT criacao, user_id, tipo FROM sim_gerados WHERE id = $simulado_id");
+	$query = prepare_query("SELECT criacao, user_id, tipo FROM sim_gerados WHERE id = $simulado_id");
+	$simulados = $conn->query($query);
 	if ($simulados->num_rows > 0) {
 		while ($simulado = $simulados->fetch_assoc()) {
 			$simulado_criacao = $simulado['criacao'];
@@ -31,8 +32,8 @@
 	elseif ($simulado_tipo == 'todas_dissertativas_oficiais') {
 		$simulado_tipo_questoes = 'dissertativas';
 	}
-	
-	$simulados_elementos = $conn->query("SELECT tipo, elemento_id FROM sim_detalhes WHERE simulado_id = $simulado_id");
+	$query = prepare_query("SELECT tipo, elemento_id FROM sim_detalhes WHERE simulado_id = $simulado_id");
+	$simulados_elementos = $conn->query($query);
 	if ($simulados_elementos->num_rows > 0) {
 		$questoes_count = 0;
 		$materias_count = 0;
@@ -108,8 +109,8 @@
 									$template_titulo_heading = 'h2';
 									include 'templates/page_element.php';
 								} elseif ($simulado_elemento_tipo == 'texto_apoio') {
-									
-									$textos_apoio = $conn->query("SELECT titulo, enunciado_html, texto_apoio_html FROM sim_textos_apoio WHERE id = $simulado_elemento_id");
+									$query = prepare_query("SELECT titulo, enunciado_html, texto_apoio_html FROM sim_textos_apoio WHERE id = $simulado_elemento_id");
+									$textos_apoio = $conn->query($query);
 									if ($textos_apoio->num_rows > 0) {
 										while ($texto_apoio = $textos_apoio->fetch_assoc()) {
 											$texto_apoio_titulo = $texto_apoio['titulo'];
@@ -132,7 +133,8 @@
 										}
 									}
 								} elseif ($simulado_elemento_tipo == 'questao') {
-									$questoes = $conn->query("SELECT questao_numero, item1, item2, item3, item4, item5, multipla, redacao_html, redacao_text FROM sim_respostas WHERE questao_id = $simulado_elemento_id AND simulado_id = $simulado_id");
+								    $query = prepare_query("SELECT questao_numero, item1, item2, item3, item4, item5, multipla, redacao_html, redacao_text FROM sim_respostas WHERE questao_id = $simulado_elemento_id AND simulado_id = $simulado_id");
+									$questoes = $conn->query($query);
 									if ($questoes->num_rows > 0) {
 										while ($questao = $questoes->fetch_assoc()) {
 											$questao_id = $simulado_elemento_id;
@@ -145,8 +147,8 @@
 											$questao_multipla = $questao['multipla'];
 											$questao_redacao_html = $questao['redacao_html'];
 											$questao_redacao_text = $questao['redacao_text'];
-											
-											$dados_questoes = $conn->query("SELECT enunciado_html, item1_html, item2_html, item3_html, item4_html, item5_html, item1_gabarito, item2_gabarito, item3_gabarito, item4_gabarito, item5_gabarito FROM sim_questoes WHERE id = $questao_id");
+											$query = prepare_query("SELECT enunciado_html, item1_html, item2_html, item3_html, item4_html, item5_html, item1_gabarito, item2_gabarito, item3_gabarito, item4_gabarito, item5_gabarito FROM sim_questoes WHERE id = $questao_id");
+											$dados_questoes = $conn->query($query);
 											if ($dados_questoes->num_rows > 0) {
 												while ($dado_questao = $dados_questoes->fetch_assoc()) {
 													$dado_questao_enunciado = $dado_questao['enunciado_html'];

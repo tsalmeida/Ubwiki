@@ -60,7 +60,8 @@
 				case 'disable':
 					while ($check_credito = $check_creditos->fetch_assoc()) {
 						$credito_id = $check_credito['id'];
-						$conn->query("UPDATE Creditos SET estado = 0, user_id = $user_id, data_uso = NOW() WHERE id = $credito_id");
+						$query = prepare_query("UPDATE Creditos SET estado = 0, user_id = $user_id, data_uso = NOW() WHERE id = $credito_id");
+						$conn->query($query);
 						return true;
 						break;
 					}
@@ -85,7 +86,8 @@
 			include 'templates/criar_conn.php';
 			$user_wallet = (int)return_wallet_value($user_id);
 			$end_state = (int)($credit_value + $user_wallet);
-			$check_query = $conn->query("INSERT INTO Transactions (user_id, direction, value, prevstate, endstate) values ($user_id, 'positive', $credit_value, $user_wallet, $end_state)");
+			$query = prepare_query("INSERT INTO Transactions (user_id, direction, value, prevstate, endstate) values ($user_id, 'positive', $credit_value, $user_wallet, $end_state)");
+			$check_query = $conn->query($query);
 			if ($check_query === true) {
 				check_credit($credit_code, 'disable', $user_id);
 			}
@@ -103,7 +105,8 @@
 		while ($count < $quantity) {
 			$count++;
 			$novo_credito = generateRandomString(10, 'capsintegers');
-			$conn->query("INSERT INTO Creditos (codigo, value) VALUES ('$novo_credito', $value)");
+			$query = prepare_query("INSERT INTO Creditos (codigo, value) VALUES ('$novo_credito', $value)");
+			$conn->query($query);
 		}
 	}
 

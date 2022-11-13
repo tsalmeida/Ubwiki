@@ -24,7 +24,8 @@
 				$template_id = 'revisoes_disponiveis';
 				$template_titulo = 'Revisões disponíveis';
 				$template_conteudo = false;
-				$orders = $conn->query("SELECT * FROM Orders WHERE tipo = 'review' and estado = 1");
+				$query = prepare_query("SELECT * FROM Orders WHERE tipo = 'review' and estado = 1");
+				$orders = $conn->query($query);
 				if ($orders->num_rows > 0) {
 					while ($order = $orders->fetch_assoc()) {
 						$template_conteudo .= "<ul class='list-group list-group-flush border p-3 my-3 primary-color rounded'>";

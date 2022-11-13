@@ -19,10 +19,13 @@
 	if (isset($_POST['novo_produto_titulo'])) {
 		$novo_produto_titulo = $_POST['novo_produto_titulo'];
 		$novo_produto_tipo = $_POST['novo_produto_tipo'];
-		$conn->query("INSERT INTO Paginas (tipo, subtipo, compartilhamento, user_id) VALUES ('pagina', 'produto', 'privado', $user_id)");
+		$query = prepare_query("INSERT INTO Paginas (tipo, subtipo, compartilhamento, user_id) VALUES ('pagina', 'produto', 'privado', $user_id)");
+		$conn->query($query);
 		$novo_produto_pagina_id = $conn->insert_id;
-		$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($novo_produto_pagina_id, 'pagina', 'titulo', '$novo_produto_titulo', $user_id)");
-		$conn->query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($mercado_pagina_id, '$mercado_pagina_tipo', 'produto', '$novo_produto_tipo', $user_id)");
+		$query = prepare_query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($novo_produto_pagina_id, 'pagina', 'titulo', '$novo_produto_titulo', $user_id)");
+		$conn->query($query);
+		$query = prepare_query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($mercado_pagina_id, '$mercado_pagina_tipo', 'produto', '$novo_produto_tipo', $user_id)");
+		$conn->query($query);
 	}
 	
 	include 'templates/html_head.php';
@@ -59,7 +62,8 @@
 							<?php
 								
 								if ($user_tipo != 'estudante') {
-									$produtos_nao_publicados_do_usuario = $conn->query("SELECT id FROM Paginas WHERE user_id = $user_id AND compartilhamento = 'privado' AND subtipo = 'produto'");
+								    $query = prepare_query("SELECT id FROM Paginas WHERE user_id = $user_id AND compartilhamento = 'privado' AND subtipo = 'produto'");
+									$produtos_nao_publicados_do_usuario = $conn->query($query);
 								}
 								
 								if ($produtos_nao_publicados_do_usuario->num_rows > 0) {

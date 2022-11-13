@@ -47,8 +47,8 @@
 						$template_titulo = $pagina_translated['Conteúdo do seu carrinho'];
 						$template_conteudo_class = 'p-limit';
 						$template_conteudo = false;
-						
-						$produtos = $conn->query("SELECT produto_pagina_id FROM Carrinho WHERE user_id = $user_id AND estado = 1");
+						$query = prepare_query("SELECT produto_pagina_id FROM Carrinho WHERE user_id = $user_id AND estado = 1");
+						$produtos = $conn->query($query);
 						if ($produtos->num_rows > 0) {
 							$template_conteudo .= "<p>{$pagina_translated['Conteúdo do seu carrinho']}:</p>";
 							$template_conteudo .= "<ul class='list-group mb-3'>";

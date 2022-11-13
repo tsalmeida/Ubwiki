@@ -22,8 +22,8 @@
 	{
 		$args = func_get_args();
 		$query = $args[0];
-		//$args[1] = 'log';
-		//$args[1] = 'print';
+//		$args[1] = 'log';
+//		$args[1] = 'print';
 		if (isset($args[1])) {
 			$extra = $args[1];
 			switch ($extra) {
@@ -925,7 +925,8 @@
 			if ($elemento_etiqueta_id == false) {
 				return false;
 			}
-			$elementos = $conn->query("SELECT pagina_id FROM Elementos WHERE id = $item_id AND pagina_id IS NOT NULL");
+			$query = prepare_query("SELECT pagina_id FROM Elementos WHERE id = $item_id AND pagina_id IS NOT NULL");
+			$elementos = $conn->query($query);
 			if ($elementos->num_rows > 0) {
 				while ($elemento = $elementos->fetch_assoc()) {
 					$elemento_pagina_id = $elemento['pagina_id'];
@@ -1088,7 +1089,7 @@
 			$nexus = $conn->query($query);
 			if ($nexus->num_rows > 0) {
 				while ($nexo = $nexus->fetch_assoc()) {
-					$nexo_pagina_id = $nexo['pagina_id'];
+					$nexus_pagina_id = $nexo['pagina_id'];
 				}
 			} else {
 				$query = prepare_query("INSERT INTO Paginas (user_id, item_id, tipo) values ($item_id, $item_id, 'nexus')");
@@ -1097,7 +1098,7 @@
 				$query = prepare_query("INSERT INTO nexus (user_id, pagina_id) VALUES ($item_id, $nexus_pagina_id)");
 				$conn->query($query);
 			}
-			return $nexo_pagina_id;
+			return $nexus_pagina_id;
 		} elseif ($tipo == 'plano') {
 			$query = prepare_query("SELECT pagina_id FROM Planos WHERE id = $item_id");
 			$planos = $conn->query($query);
@@ -3367,7 +3368,7 @@
 		return $check;
 	}
 
-	function get_title($url)
+	function nexus_suggest_title($url)
 	{
 		if (filter_var($url, FILTER_VALIDATE_URL)) {
 			$str = file_get_contents($url);
@@ -3377,32 +3378,132 @@
 				if (strlen($str) > 0) {
 					$str = trim(preg_replace('/\s+/', ' ', $str)); // supports line breaks inside <title>
 					preg_match('/<title[^>]*>(.*?)<\/title>/ims', $str, $title); // ignore case
-					return $title[1];
+					$title_tag = $title[1];
 				}
 			}
+		}
+		$title_tag = strip_tags($title_tag);
+		$title_tag = substr($title_tag, 0, 35);
+		$host = parse_url($url, PHP_URL_HOST);
+		$host = str_replace('www.', '', $host);
+		$host = explode(".", $host)[0];
+		$host = ucfirst($host);
+		$final_suggestion = "$host: $title_tag";
+		$link_id = nexus_get_link_id($url);
+		$link_handle = nexus_get_handle($link_id);
+		if (strlen($final_suggestion) > strlen($link_handle)) {
+			return $final_suggestion;
 		} else {
+			return $link_handle;
+		}
+	}
+
+	function nexus_get_handle($link_id)
+	{
+		if ($link_id == false) {
 			return false;
 		}
+		$handle = false;
+		include 'templates/criar_conn.php';
+		$query = prepare_query("SELECT handle FROM nexus_handles WHERE link_id = $link_id GROUP BY handle ORDER BY 'value_occurrence' DESC LIMIT 1");
+		$search = $conn->query($query);
+		if ($search->num_rows > 0) {
+			while ($find = $search->fetch_assoc()) {
+				$handle = $find['handle'];
+			}
+		}
+		return $handle;
 	}
 
 	function nexus_random_icon()
 	{
-		$nexus_icons = array('fa-solid fa-circle', 'fa-solid fa-play', 'fa-solid fa-square', 'fa-solid fa-triangle', 'fa-solid fa-hexagon', 'fa-solid fa-circle-dot', 'fa-solid fa-circle-half-stroke', 'fa-solid fa-rectangle-vertical', 'fa-solid fa-rectangle-horizontal');
+		$nexus_icons = array('circle', 'square', 'triangle', 'hexagon', 'circle dot', 'half-circle', 'vertical rectangle', 'horizontal rectangle');
 		$random_icon = array_rand($nexus_icons);
 		return $nexus_icons[$random_icon];
 	}
 
-	function nexus_random_color()
+	function nexus_convert_icon($icon)
 	{
-		$nexus_colors = array('link-danger', 'link-warning', 'link-success', 'link-primary', 'link-teal', 'link-info', 'link-purple', 'link-dark');
-		$random_icon = array_rand($nexus_colors);
-		return $nexus_colors[$random_icon];
+		switch ($icon) {
+			case
+			'circle':
+				return 'fa-circle';
+				break;
+			case 'square':
+				return 'fa-square';
+				break;
+			case 'triangle':
+				return 'fa-triangle';
+				break;
+			case 'play':
+				return 'fa-play';
+				break;
+			case 'hexagon':
+				return 'fa-hexagon';
+				break;
+			case 'circle dot':
+				return 'fa-circle-dot';
+				break;
+			case 'half-circle':
+				return 'fa-circle-half-stroke';
+				break;
+			case 'vertical rectangle':
+				return 'fa-rectangle-vertical';
+				break;
+			case 'horizontal rectangle':
+				return 'fa-rectangle-wide';
+				break;}
 	}
 
-	function nexus_random_folder_icon() {
-		$nexus_folder_icons = array('fa-solid fa-circle', 'fa-solid fa-play', 'fa-solid fa-square', 'fa-solid fa-triangle', 'fa-solid fa-hexagon', 'fa-solid fa-circle-dot', 'fa-solid fa-circle-half-stroke', 'fa-solid fa-rectangle-vertical', 'fa-solid fa-rectangle-wide');
-		$random_icon = array_rand($nexus_folder_icons);
-		return $nexus_folder_icons[$random_icon];
+	function nexus_random_color()
+	{
+		$nexus_colors = array('blue', 'indigo', 'purple', 'pink', 'red', 'orange', 'yellow', 'green', 'teal', 'cyan');
+		$random_color = array_rand($nexus_colors);
+		return $nexus_colors[$random_color];
+	}
+
+	function nexus_convert_color($color)
+	{
+		switch ($color) {
+			case 'blue':
+				return array('nexus-link-blue', 'nexus-bg-blue');
+				break;
+			case 'indigo':
+				return array('nexus-link-indigo', 'nexus-bg-indigo');
+				break;
+			case 'purple':
+				return array('nexus-link-purple', 'nexus-bg-purple');
+				break;
+			case 'pink':
+				return array('nexus-link-pink', 'nexus-bg-pink');
+				break;
+			case 'red':
+				return array('nexus-link-red', 'nexus-bg-red');
+				break;
+			case 'orange':
+				return array('nexus-link-orange', 'nexus-bg-orange');
+				break;
+			case 'yellow':
+				return array('nexus-link-yellow', 'nexus-bg-yellow');
+				break;
+			case 'green':
+				return array('nexus-link-green', 'nexus-bg-green');
+				break;
+			case 'teal':
+				return array('nexus-link-teal', 'nexus-bg-teal');
+				break;
+			case 'cyan':
+				return array('nexus-link-cyan', 'nexus-bg-cyan');
+				break;
+			default:
+				return array('link-dark', 'bg-light');
+		}
+	}
+
+	function nexus_random_folder_icon()
+	{
+		$result = nexus_random_icon();
+		return $result;
 	}
 
 	function return_nexus_info_user_id($user_id)
@@ -3417,3 +3518,110 @@
 		}
 	}
 
+	function nexus_get_link_id($link_url)
+	{
+		include 'templates/criar_conn.php';
+		$query = prepare_query("SELECT id FROM nexus_links WHERE url = '$link_url'");
+		$new_link = $conn->query($query);
+		if ($new_link->num_rows > 0) {
+			while ($link = $new_link->fetch_assoc()) {
+				$new_link_id = $link['id'];
+			}
+		} else {
+			$query = prepare_query("INSERT INTO nexus_links (url) VALUES ('$link_url')");
+			$conn->query($query);
+			$new_link_id = $conn->insert_id;
+		}
+		return $new_link_id;
+	}
+
+	function nexus_get_icon_and_color($params)
+	{
+		if (isset($params['type'])) {
+			$type = $params['type'];
+		}
+		if (isset($params['icon'])) {
+			$icon = $params['icon'];
+		}
+		if (isset($params['color'])) {
+			$color = $params['color'];
+		}
+		if (isset($params['user_id'])) {
+			$user_id = $params['user_id'];
+		}
+		if (isset($params['pagina_id'])) {
+			$pagina_id = $params['pagina_id'];
+		}
+		if (isset($params['link_id'])) {
+			$link_id = $params['link_id'];
+		}
+		if (isset($params['link_url'])) {
+			$link_url = $params['link_url'];
+		}
+		if (($icon == 'random') || ($icon == false) || (!isset($icon))) {
+			$icon = nexus_random_icon();
+		}
+		if (($color == 'random') || ($color == false) || (!isset($color))) {
+			$color = nexus_random_color();
+		}
+		return array('icon' => $icon, 'color' => $color);
+	}
+
+	function nexus_add_link($params)
+	{
+		if ($params['url'] == false) {
+			return false;
+		}
+		$user_id = $params['user_id'];
+		$pagina_id = $params['pagina_id'];
+		if (isset($params['location'])) {
+			$new_link_location = $params['location'];
+		} else {
+			$new_link_location = false;
+		}
+		$new_link_url = $params['url'];
+		$new_link_id = nexus_get_link_id($new_link_url);
+		if (isset($param['title'])) {
+			$new_link_title = $params['title'];
+		} else {
+			$new_link_title = nexus_suggest_title($new_link_url);
+		}
+		if (!isset($param['icon'])) {
+			$new_link_icon = 'random';
+		}
+		if (!isset($param['color'])) {
+			$new_link_color = 'random';
+		}
+		$icon_and_color = array('location' => $new_link_location, 'icon' => $new_link_icon, 'color' => $new_link_color, 'user_id' => $user_id, 'pagina_id' => $pagina_id, 'link_id' => $new_link_id, 'link_url' => $new_link_url);
+		$new_link_icon_and_color = nexus_get_icon_and_color($icon_and_color);
+		$new_link_color = $new_link_icon_and_color['color'];
+		$new_link_icon = $new_link_icon_and_color['icon'];
+		include 'templates/criar_conn.php';
+		$query = prepare_query("INSERT INTO nexus_elements (user_id, pagina_id, type, param_int_1, param_int_2, param1, param2, param3, param4) VALUES ($user_id, $pagina_id, 'link', '$new_link_location', $new_link_id, '$new_link_url', '$new_link_title', '$new_link_icon', '$new_link_color')");
+		$conn->query($query);
+		nexus_handle(array('id' => $new_link_id, 'title' => $new_link_title));
+	}
+
+	function nexus_handle($params)
+	{
+		$new_link_id = $params['id'];
+		$new_link_title = $params['title'];
+		include 'templates/criar_conn.php';
+		$query = prepare_query("SELECT handle FROM nexus_handles WHERE link_id = '$new_link_id'");
+		$finds = $conn->query($query);
+		$same_handle = false;
+		if ($finds->num_rows > 0) {
+			while ($find = $finds->fetch_assoc()) {
+				$find_handle = $find['handle'];
+				if ($find_handle != $new_link_title) {
+					$same_handle = true;
+				}
+			}
+		}
+		if ($same_handle == false) {
+			$query = prepare_query("INSERT INTO nexus_handles (link_id, handle) VALUES ($new_link_id, '$new_link_title')");
+			$conn->query($query);
+		} else {
+			return false;
+		}
+	}
