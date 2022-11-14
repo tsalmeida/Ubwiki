@@ -1,6 +1,20 @@
 <?php
 
 	//TODO: Trazer o Nexus a um nível básico que permita o uso
+    //TODO: Clicar em "link dump" no modal de links deveria fechar o modal.
+    //TODO: Forma de alterar icones, cores e títulos de todos os elementos.
+    //TODO: Forma de alterar a ordem dos elementos.
+    //TODO: Forma de criar themes e selecioná-los.
+    //TODO: Ferramentas básicas: bloco de nots, to-do list etc.
+    //TODO: Fake RNG: na verdade, todas as combinações de ícone e cor devem se exaurir, quando em aleatório, antes que uma se repita.
+    //TODO: Não retornar à Ubwiki, mas pedir login. Para que funcione como uma Startpage de fato.
+    //TODO: Alguma integração com uma extensão do Chrome? Quem sabe?
+    //TODO: Algum elemento crypto ou inteligência artificial?
+    //TODO: Usar o curl, há possibilidades interessantes, como pesquisar e ver os resultados em baixo. Por exemplo, ver apenas os trending topics do Twitter na própria página, com um comando. Wikipédia, etc.
+    //TODO: Um Travelogue, extensão do Plano de Estudos da Ubwiki. Talvez como próximo projeto grande.
+    //TODO: E se fosse possível jogar o Chess Battles dentro da página, uma jogada por vez?
+    //TODO: A página poderia recordar a jogar Wordle, por exemplo.
+    //TODO: Links com maior e menor proeminência, alguns apenas com links, outros sem cor, outros em letras menores.
 
 	$pagina_tipo = 'nexus';
 	include 'engine.php';
