@@ -258,14 +258,13 @@
 			$fa_icone = "fa-solid $fa_icone";
 			$fa_color = $nexus_link_info['param4'];
 			$fa_colors = nexus_colors('convert', $fa_color);
-			$fa_color = $fa_colors['link-color'];
-			$fa_background = $fa_colors['bg-color'];
+			$fa_background = $fa_colors['bg-black-color'];
 			if ($nexus_link_pasta_id == false) {
 				$nexus_pasta_order_identifier = 9999;
 			} else {
 				$nexus_pasta_order_identifier = $nexus_folder_pairings[$nexus_link_pasta_id];
 			}
-			$print_links .= "<a id='link_{$nexus_link_id}' href='$nexus_link_url' target='_blank' class='all_link_icons rounded $fa_background py-4 px-4 me-1 mb-1 col-auto link_icon_{$nexus_pasta_order_identifier}'><span class='$fa_color'><i class='$fa_icone me-2'></i></span> <span class='link-light'>$nexus_link_title</span></a>";
+			$print_links .= "<a id='link_{$nexus_link_id}' href='$nexus_link_url' target='_blank' class='all_link_icons rounded $fa_background py-4 px-4 me-1 mb-1 col-auto link_icon_{$nexus_pasta_order_identifier}'><i class='$fa_icone me-2'></i> <span class='link-light'>$nexus_link_title</span></a>";
 		}
 	}
 	$html_head_template_quill = true;

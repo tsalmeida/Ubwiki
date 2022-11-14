@@ -3386,11 +3386,9 @@
 		$title_tag = strip_tags($title_tag);
 		$title_tag = substr($title_tag, 0, 35);
 		$host = parse_url($url, PHP_URL_HOST);
-		error_log($host);
 		$host = str_replace('www.', '', $host);
 		$host = explode(".", $host)[0];
 		$host = ucfirst($host);
-		error_log($host);
 		if (strpos($title_tag, $host) != false) {
 			$final_suggestion = "$host: $title_tag";
 		} else {
@@ -3400,11 +3398,9 @@
 		$link_handle = nexus_get_handle($link_id);
 		if ($link_handle != false) {
 			if (strlen($final_suggestion) > strlen($link_handle)) {
-				error_log("final suggestion: $final_suggestion");
 				return $final_suggestion;
 			}
 		} else {
-			error_log("link handle: $link_handle");
 			return $final_suggestion;
 		}
 	}
@@ -3531,9 +3527,11 @@
 		if (isset($params['type'])) {
 			$type = $params['type'];
 		}
+		$icon = false;
 		if (isset($params['icon'])) {
 			$icon = $params['icon'];
 		}
+		$color = false;
 		if (isset($params['color'])) {
 			$color = $params['color'];
 		}
@@ -3572,16 +3570,20 @@
 		}
 		$new_link_url = $params['url'];
 		$new_link_id = nexus_get_link_id($new_link_url);
-		if (isset($param['title'])) {
+		if (isset($params['title'])) {
 			$new_link_title = $params['title'];
 		} else {
 			$new_link_title = nexus_suggest_title($new_link_url);
 		}
-		if (!isset($param['icon'])) {
+		if (!isset($params['icon'])) {
 			$new_link_icon = 'random';
+		} else {
+			$new_link_icon = $params['icon'];
 		}
-		if (!isset($param['color'])) {
+		if (!isset($params['color'])) {
 			$new_link_color = 'random';
+		} else {
+			$new_link_color = $params['color'];
 		}
 		$icon_and_color = array('location' => $new_link_location, 'icon' => $new_link_icon, 'color' => $new_link_color, 'user_id' => $user_id, 'pagina_id' => $pagina_id, 'link_id' => $new_link_id, 'link_url' => $new_link_url);
 		$new_link_icon_and_color = nexus_get_icon_and_color($icon_and_color);

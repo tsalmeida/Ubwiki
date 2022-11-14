@@ -2070,7 +2070,7 @@
 							$nexus_icons = nexus_icons('list');
 							foreach (array_keys($nexus_icons) as $key) {
 								$capitalize = ucfirst($key);
-								echo "<option value='{$nexus_icons[$key]}'>$capitalize</option>";
+								echo "<option value='{$key}'>$capitalize</option>";
 							}
 echo "					</select>
 				</div>
@@ -2078,14 +2078,14 @@ echo "					</select>
 					<label class='form-label' for='#nexus_new_link_color'>Choose a color:</label>
 					<select id='nexus_new_link_color' name='nexus_new_link_color' class='form-select'>
 						<option value='random' selected>Random</option>
-						<option value=''>Blue</option>
-						<option value=''>Indigo</option>
-						<option value=''>Green</option>
-						<option value=''>Blue</option>
-						<option value=''>Teal</option>
-						<option value=''>Cyan</option>
-						<option value=''>Purple</option>
-						<option value=''>Cyan</option>
+						<option value='blue'>Blue</option>
+						<option value='indigo'>Indigo</option>
+						<option value='green'>Green</option>
+						<option value='blue'>Blue</option>
+						<option value='teal'>Teal</option>
+						<option value='cyan'>Cyan</option>
+						<option value='purple'>Purple</option>
+						<option value='cyan'>Cyan</option>
 					</select>
 				</div>
 				<button type='submit' class='btn btn-primary mb-3' name='nexus_new_link_submit' id='nexus_new_link_submit'>Add link</button>
