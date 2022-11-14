@@ -2066,30 +2066,26 @@
 				<div class='mb-3'>
 					<label class='form-label' for='#nexus_new_link_icon'>Choose an icon:</label>
 					<select id='nexus_new_link_icon' name='nexus_new_link_icon' class='form-select'>
-						<option value='random' selected>Random</option>
-						<option value='fa-solid fa-circle'>Circle</option>
-						<option value='fa-solid fa-play'>Play</option>
-						<option value='fa-solid fa-square'>Square</option>
-						<option value='fa-solid fa-triangle'>Triangle</option>
-						<option value='fa-solid fa-hexagon'>Hexagon</option>
-						<option value='fa-solid fa-circle-dot'>Circle-dot</option>
-						<option value='fa-solid fa-circle-half-stroke'>Circle-half-stroke</option>
-						<option value='fa-solid fa-rectangle-vertical'>Rectangle-vertical</option>
-						<option value='fa-solid fa-rectangle-wide'>rectangle-wide</option>
-					</select>
+						<option value='random' selected>Random</option>";
+							$nexus_icons = nexus_icons('list');
+							foreach (array_keys($nexus_icons) as $key) {
+								$capitalize = ucfirst($key);
+								echo "<option value='{$nexus_icons[$key]}'>$capitalize</option>";
+							}
+echo "					</select>
 				</div>
 				<div class='mb-3'>
 					<label class='form-label' for='#nexus_new_link_color'>Choose a color:</label>
 					<select id='nexus_new_link_color' name='nexus_new_link_color' class='form-select'>
 						<option value='random' selected>Random</option>
-						<option value='link-danger'>Red</option>
-						<option value='link-warning'>Yellow</option>
-						<option value='link-success'>Green</option>
-						<option value='link-primary'>Blue</option>
-						<option value='link-teal'>Teal</option>
-						<option value='link-info'>Cyan</option>
-						<option value='link-purple'>Purple</option>
-						<option value='link-dark'>Black</option>
+						<option value=''>Blue</option>
+						<option value=''>Indigo</option>
+						<option value=''>Green</option>
+						<option value=''>Blue</option>
+						<option value=''>Teal</option>
+						<option value=''>Cyan</option>
+						<option value=''>Purple</option>
+						<option value=''>Cyan</option>
 					</select>
 				</div>
 				<button type='submit' class='btn btn-primary mb-3' name='nexus_new_link_submit' id='nexus_new_link_submit'>Add link</button>
@@ -2153,37 +2149,29 @@
 				<div class='mb-3'>
 				<label for='nexus_new_folder_icon' class='form-label'>Select an icon:</label>
 				<select id='nexus_new_folder_icon' name='nexus_new_folder_icon' class='form-select mb-3'>
-					<option selected value='0'>Random icon</option>
-					<option value='fad fa-circle-quarters'>Circle-quarters</option>
-					<option value='fad fa-triangle fa-swap-opacity'>Triangle</option>
-					<option value='fad fa-square fa-swap-opacity'>Square</option>
-					<option value='fad fa-hexagon fa-swap-opacity'>Hexagon</option>
-					<option value='fad fa-circle-notch fa-swap-opacity'>Circle-notch</option>
-					<option value='fad fa-circle-dashed'>Circle-dashed</option>
-					<option value='fad fa-circle-dot'>Circle-dot</option>
-					<option value='fad fa-shield-halved'>Shield-halved</option>
-					<option value='fad fa-box-archive'>Box-archive</option>
-					<option value='fad fa-cube'>Cube</option>
-					<option value='fad fa-planet-ringed'>Planet-ringed</option>
-					<option value='fad fa-solar-system'>Solar-system</option>
-					<option value='fad fa-moon-over-sun'>Moon-over-sun</option>
-					<option value='fad fa-meteor'>Meteor</option>
-					<option value='fad fa-eclipse'>Eclipse</option>
-					<option value='fad fa-comet'>Comet</option>
-				</select>
+					<option selected value='0'>Random icon</option>";
+					$nexus_icons = nexus_icons('list');
+					foreach (array_keys($nexus_icons) as $key) {
+						$capitalize = ucfirst($key);
+						echo "<option value='{$nexus_icons[$key]}'>$capitalize</option>";
+					}
+
+echo "				</select>
 				</div>
 				<div class='mb-3'>
 				<label for='nexus_new_folder_color' class='form-label'>Select a color:</label>
 				<select id='nexus_new_folder_color' name='nexus_new_folder_color' class='form-select mb-3'>
 					<option value='0' selected>Random color</option>
-					<option value='link-danger'>Red</option>
-					<option value='link-warning'>Yellow</option>
-					<option value='link-success'>Green</option>
-					<option value='link-primary'>Blue</option>
-					<option value='link-teal'>Teal</option>
-					<option value='link-info'>Cyan</option>
-					<option value='link-purple'>Purple</option>
-					<option value='link-dark'>Black</option>
+					<option value='blue'>Blue</option>
+					<option value='indigo'>Indigo</option>
+					<option value='purple'>Purple</option>
+					<option value='pink'>Pink</option>
+					<option value='red'>Red</option>
+					<option value='orange'>Orange</option>
+					<option value='yellow'>Yellow</option>
+					<option value='green'>Green</option>
+					<option value='teal'>Teal</option>
+					<option value='cyan'>Cyan</option>
 				</select>
 				</div>
 				<div class='form-check mb-3'>

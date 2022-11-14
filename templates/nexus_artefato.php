@@ -29,11 +29,14 @@
 	if (!isset($nexus_artefato_class)) {
 		$nexus_artefato_class = false;
 	}
+	if (!isset($nexus_artefato_span_class)) {
+		$nexus_artefato_span_class = false;
+	}
 
 	$nexus_artefato_result = "
 	<div class='col-2 p-2 {$nexus_artefato_class}'>
-		<a id='trigger_{$nexus_artefato_id}' class='row bg-dark p-2 rounded d-flex justify-content-center' $nexus_artefato_modal_module $nexus_artefato_link_module>
-			<span class='nexus-artefato p-3 rounded'>
+		<span id='trigger_{$nexus_artefato_id}' class='row p-2 rounded d-flex justify-content-center pointer' $nexus_artefato_modal_module $nexus_artefato_link_module>
+			<span class='{$nexus_artefato_span_class} p-3 rounded'>
 			<div class='row d-flex mb-2'>
 				<span class='col-12 {$nexus_fa_color} d-flex justify-content-center'>
 					<i class='{$nexus_fa_icone} {$nexus_fa_size} fa-fw'></i>
@@ -45,15 +48,19 @@
 				</small>
 			</div>
 			</span>
-		</a>
+		</span>
 	</div>
 	";
 
+	unset($nexus_artefato_modal_module);
+	unset($nexus_artefato_link_module);
 	unset($nexus_artefato_id);
 	unset($nexus_artefato_modal);
 	unset($nexus_artefato_link);
 	unset($nexus_fa_color);
 	unset($nexus_fa_icone);
 	unset($nexus_artefato_titulo);
+	unset($nexus_artefato_class);
+	unset($nexus_artefato_span_class);
 
 	return $nexus_artefato_result;

@@ -3388,11 +3388,17 @@
 		$host = str_replace('www.', '', $host);
 		$host = explode(".", $host)[0];
 		$host = ucfirst($host);
-		$final_suggestion = "$host: $title_tag";
+		if (strpos($title_tag, $host) != false) {
+			$final_suggestion = "$host: $title_tag";
+		} else {
+			$final_suggestion = $host;
+		}
 		$link_id = nexus_get_link_id($url);
 		$link_handle = nexus_get_handle($link_id);
-		if (strlen($final_suggestion) > strlen($link_handle)) {
-			return $final_suggestion;
+		if ($link_handle != false) {
+			if (strlen($final_suggestion) > strlen($link_handle)) {
+				return $final_suggestion;
+			}
 		} else {
 			return $link_handle;
 		}
@@ -3415,95 +3421,75 @@
 		return $handle;
 	}
 
-	function nexus_random_icon()
+	function nexus_icons()
 	{
-		$nexus_icons = array('circle', 'square', 'triangle', 'hexagon', 'circle dot', 'half-circle', 'vertical rectangle', 'horizontal rectangle');
-		$random_icon = array_rand($nexus_icons);
-		return $nexus_icons[$random_icon];
-	}
-
-	function nexus_convert_icon($icon)
-	{
-		switch ($icon) {
-			case
-			'circle':
-				return 'fa-circle';
+		$args = func_get_args();
+		$nexus_icons = array('circle' => 'fa-circle', 'square' => 'fa-square', 'triangle' => 'fa-triangle', 'play' => 'fa-play', 'hexagon' => 'fa-hexagon', 'circle dot' => 'fa-circle-dot', 'half-circle' => 'fa-circle-half-stroke', 'vertical rectangle' => 'fa-rectangle-vertical', 'horizontal rectangle' => 'fa-rectangle-wide');
+		switch ($args[0]) {
+			case 'list':
+				return $nexus_icons;
 				break;
-			case 'square':
-				return 'fa-square';
+			case 'translate':
+				$translate = $nexus_icons[$args[1]];
+				if ($translate == false) {
+					return 'fa-circle';
+				} else {
+					return $translate;
+				}
 				break;
-			case 'triangle':
-				return 'fa-triangle';
+			case 'random':
+				$array_keys = array_keys($nexus_icons);
+				$random_key = array_rand($array_keys);
+				return $array_keys[$random_key];
 				break;
-			case 'play':
-				return 'fa-play';
-				break;
-			case 'hexagon':
-				return 'fa-hexagon';
-				break;
-			case 'circle dot':
-				return 'fa-circle-dot';
-				break;
-			case 'half-circle':
-				return 'fa-circle-half-stroke';
-				break;
-			case 'vertical rectangle':
-				return 'fa-rectangle-vertical';
-				break;
-			case 'horizontal rectangle':
-				return 'fa-rectangle-wide';
-				break;}
-	}
-
-	function nexus_random_color()
-	{
-		$nexus_colors = array('blue', 'indigo', 'purple', 'pink', 'red', 'orange', 'yellow', 'green', 'teal', 'cyan');
-		$random_color = array_rand($nexus_colors);
-		return $nexus_colors[$random_color];
-	}
-
-	function nexus_convert_color($color)
-	{
-		switch ($color) {
-			case 'blue':
-				return array('nexus-link-blue', 'nexus-bg-blue');
-				break;
-			case 'indigo':
-				return array('nexus-link-indigo', 'nexus-bg-indigo');
-				break;
-			case 'purple':
-				return array('nexus-link-purple', 'nexus-bg-purple');
-				break;
-			case 'pink':
-				return array('nexus-link-pink', 'nexus-bg-pink');
-				break;
-			case 'red':
-				return array('nexus-link-red', 'nexus-bg-red');
-				break;
-			case 'orange':
-				return array('nexus-link-orange', 'nexus-bg-orange');
-				break;
-			case 'yellow':
-				return array('nexus-link-yellow', 'nexus-bg-yellow');
-				break;
-			case 'green':
-				return array('nexus-link-green', 'nexus-bg-green');
-				break;
-			case 'teal':
-				return array('nexus-link-teal', 'nexus-bg-teal');
-				break;
-			case 'cyan':
-				return array('nexus-link-cyan', 'nexus-bg-cyan');
-				break;
-			default:
-				return array('link-dark', 'bg-light');
 		}
 	}
 
-	function nexus_random_folder_icon()
+	function nexus_colors()
 	{
-		$result = nexus_random_icon();
-		return $result;
+		$args = func_get_args();
+		$nexus_colors = array('blue', 'indigo', 'purple', 'pink', 'red', 'orange', 'yellow', 'green', 'teal', 'cyan');
+		if ($args[0] == 'list') {
+			return $nexus_colors;
+		} elseif ($args[0] == 'random') {
+			$random_color = array_rand($nexus_colors);
+			return $nexus_colors[$random_color];
+		} elseif ($args[0] == 'convert') {
+			switch ($args[1]) {
+				case 'blue':
+					return array('link-color' => 'nexus-link-blue', 'bg-color' => 'nexus-bg-blue', 'link-black-color' => 'nexus-link-black-blue', 'bg-black-color' => 'nexus-bg-black-blue', 'text-color' => 'nexus-text-blue');
+					break;
+				case 'indigo':
+					return array('link-color' => 'nexus-link-indigo', 'bg-color' => 'nexus-bg-indigo', 'link-black-color' => 'nexus-link-black-indigo', 'bg-black-color' => 'nexus-bg-black-indigo', 'text-color' => 'nexus-text-indigo');
+					break;
+				case 'purple':
+					return array('link-color' => 'nexus-link-purple', 'bg-color' => 'nexus-bg-purple', 'link-black-color' => 'nexus-link-black-purple', 'bg-black-color' => 'nexus-bg-black-purple', 'text-color' => 'nexus-text-purple');
+					break;
+				case 'pink':
+					return array('link-color' => 'nexus-link-pink', 'bg-color' => 'nexus-bg-pink', 'link-black-color' => 'nexus-link-black-pink', 'bg-black-color' => 'nexus-bg-black-pink', 'text-color' => 'nexus-text-pink');
+					break;
+				case 'red':
+					return array('link-color' => 'nexus-link-red', 'bg-color' => 'nexus-bg-red', 'link-black-color' => 'nexus-link-black-red', 'bg-black-color' => 'nexus-bg-black-red', 'text-color' => 'nexus-text-red');
+					break;
+				case 'orange':
+					return array('link-color' => 'nexus-link-orange', 'bg-color' => 'nexus-bg-orange', 'link-black-color' => 'nexus-link-black-orange', 'bg-black-color' => 'nexus-bg-black-orange', 'text-color' => 'nexus-text-orange');
+					break;
+				case 'yellow':
+					return array('link-color' => 'nexus-link-yellow', 'bg-color' => 'nexus-bg-yellow', 'link-black-color' => 'nexus-link-black-yellow', 'bg-black-color' => 'nexus-bg-black-yellow', 'text-color' => 'nexus-text-yellow');
+					break;
+				case 'green':
+					return array('link-color' => 'nexus-link-green', 'bg-color' => 'nexus-bg-green', 'link-black-color' => 'nexus-link-black-green', 'bg-black-color' => 'nexus-bg-black-green', 'text-color' => 'nexus-text-green');
+					break;
+				case 'teal':
+					return array('link-color' => 'nexus-link-teal', 'bg-color' => 'nexus-bg-teal', 'link-black-color' => 'nexus-link-black-teal', 'bg-black-color' => 'nexus-bg-black-teal', 'text-color' => 'nexus-text-teal');
+					break;
+				case 'cyan':
+					return array('link-color' => 'nexus-link-cyan', 'bg-color' => 'nexus-bg-cyan', 'link-black-color' => 'nexus-link-black-cyan', 'bg-black-color' => 'nexus-bg-black-cyan', 'text-color' => 'nexus-text-cyan');
+					break;
+				default:
+					return array('link-dark', 'bg-light');
+			}
+		}
 	}
 
 	function return_nexus_info_user_id($user_id)
@@ -3559,10 +3545,10 @@
 			$link_url = $params['link_url'];
 		}
 		if (($icon == 'random') || ($icon == false) || (!isset($icon))) {
-			$icon = nexus_random_icon();
+			$icon = nexus_icons('random');
 		}
 		if (($color == 'random') || ($color == false) || (!isset($color))) {
-			$color = nexus_random_color();
+			$color = nexus_colors('random');
 		}
 		return array('icon' => $icon, 'color' => $color);
 	}
@@ -3625,3 +3611,55 @@
 			return false;
 		}
 	}
+
+	function nexus_put_together($params)
+	{
+		$href = false;
+
+		if (isset($params['href'])) {
+			$href = $params['href'];
+		}
+		if ($href == false) {
+			$href = 'javascript:void(0);';
+		}
+		if (!isset($params['fa-size'])) {
+			$params['fa-size'] = 'fa-4x';
+		}
+		$colors = nexus_colors('convert', $params['color']);
+		switch ($params['type']) {
+			case 'medium':
+				$params['fa-size'] = 'fa-3x';
+			case 'large':
+				if (!isset($params['modal'])) {
+					$nexus_artefato_modal_module = false;
+				} else {
+					$nexus_artefato_modal_module = "data-bs-toggle='modal' data-bs-target='{$params['modal']}'";
+				}
+				return "
+					<div class='col-2 p-2 {$params['class']}'>
+						<span id='trigger_{$params['id']}' class='row p-2 rounded d-flex justify-content-center pointer' $nexus_artefato_modal_module href='$href'>
+							<span class='p-3 rounded {$colors['bg-black-color']}'>
+							<div class='row d-flex mb-2'>
+								<span class='col-12 d-flex justify-content-center'>
+									<i class='{$params['icon']} {$params['fa-size']} fa-fw'></i>
+								</span>
+							</div>
+							<div class='row d-flex'>
+								<small class='col-12 link-light d-flex justify-content-center'>
+									{$params['title']}
+								</small>
+							</div>
+							</span>
+						</span>
+					</div>
+				";
+				break;
+			case 'navbar':
+				return "<a class='nexus-navbar-button {$colors['bg-black-color']}' href='$href' id='{$params['id']}'><i class='{$params['icon']} fa-fw'></i></a>";
+				break;
+			case 'compact':
+				break;
+		}
+	}
+
+

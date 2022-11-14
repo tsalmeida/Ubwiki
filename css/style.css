@@ -11357,6 +11357,10 @@ a {
   margin-right: auto;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 .min-vh-50 {
   min-height: 50vh;
 }
@@ -11367,6 +11371,10 @@ a {
 
 navbar {
   z-index: 9999;
+}
+
+#cmdbar:active, #cmdbar:focus, #cmdbar:target-within {
+  color: initial;
 }
 
 .nexus-navbar-button:hover, .nexus-artefato:hover {
@@ -11496,41 +11504,291 @@ navbar {
 .nexus-bg-blue:hover {
   background-color: #084298;
 }
+.nexus-bg-blue:hover .nexus-link-blue {
+  color: #031633;
+}
 
 .nexus-bg-indigo:hover {
   background-color: #3d0a91;
+}
+.nexus-bg-indigo:hover .nexus-link-indigo {
+  color: #140330;
 }
 
 .nexus-bg-purple:hover {
   background-color: #432874;
 }
+.nexus-bg-purple:hover .nexus-link-purple {
+  color: #160d27;
+}
 
 .nexus-bg-pink:hover {
   background-color: #801f4f;
+}
+.nexus-bg-pink:hover .nexus-link-pink {
+  color: #2b0a1a;
 }
 
 .nexus-bg-red:hover {
   background-color: #842029;
 }
+.nexus-bg-red:hover .nexus-link-red {
+  color: #2c0b0e;
+}
 
 .nexus-bg-orange:hover {
   background-color: #984c0c;
+}
+.nexus-bg-orange:hover .nexus-link-orange {
+  color: #331904;
 }
 
 .nexus-bg-yellow:hover {
   background-color: #997404;
 }
+.nexus-bg-yellow:hover .nexus-link-yellow {
+  color: #332701;
+}
 
 .nexus-bg-green:hover {
   background-color: #0f5132;
+}
+.nexus-bg-green:hover .nexus-link-green {
+  color: #051b11;
 }
 
 .nexus-bg-teal:hover {
   background-color: #13795b;
 }
+.nexus-bg-teal:hover .nexus-link-teal {
+  color: #06281e;
+}
 
 .nexus-bg-cyan:hover {
-  background-color: #087990;
+  background-color: black;
+}
+.nexus-bg-cyan:hover .nexus-link-cyan {
+  color: #032830;
+}
+
+.nexus-link-black-blue {
+  color: #0d6efd;
+}
+
+.nexus-link-black-bindigo {
+  color: #6610f2;
+}
+
+.nexus-link-black-purple {
+  color: #6f42c1;
+}
+
+.nexus-link-black-pink {
+  color: #d63384;
+}
+
+.nexus-link-black-red {
+  color: #dc3545;
+}
+
+.nexus-link-black-orange {
+  color: #fd7e14;
+}
+
+.nexus-link-black-yellow {
+  color: #ffc107;
+}
+
+.nexus-link-black-green {
+  color: #198754;
+}
+
+.nexus-link-black-teal {
+  color: #20c997;
+}
+
+.nexus-link-black-cyan {
+  color: #0dcaf0;
+}
+
+.nexus-link-black-blue:hover {
+  color: #3d8bfd;
+}
+
+.nexus-link-black-indigo:hover {
+  color: #8540f5;
+}
+
+.nexus-link-black-purple:hover {
+  color: #8c68cd;
+}
+
+.nexus-link-black-pink:hover {
+  color: #de5c9d;
+}
+
+.nexus-link-black-red:hover {
+  color: #e35d6a;
+}
+
+.nexus-link-black-orange:hover {
+  color: #fd9843;
+}
+
+.nexus-link-black-yellow:hover {
+  color: #ffcd39;
+}
+
+.nexus-link-black-green:hover {
+  color: #479f76;
+}
+
+.nexus-link-black-teal:hover {
+  color: #4dd4ac;
+}
+
+.nexus-link-black-cyan:hover {
+  color: #3dd5f3;
+}
+
+.nexus-bg-black-blue {
+  color: #0d6efd;
+  background-color: black;
+}
+
+.nexus-bg-black-indigo {
+  color: #6610f2;
+  background-color: black;
+}
+
+.nexus-bg-black-purple {
+  color: #6f42c1;
+  background-color: black;
+}
+
+.nexus-bg-black-pink {
+  color: #d63384;
+  background-color: black;
+}
+
+.nexus-bg-black-red {
+  color: #dc3545;
+  background-color: black;
+}
+
+.nexus-bg-black-orange {
+  color: #fd7e14;
+  background-color: black;
+}
+
+.nexus-bg-black-yellow {
+  color: #ffc107;
+  background-color: black;
+}
+
+.nexus-bg-black-green {
+  color: #198754;
+  background-color: black;
+}
+
+.nexus-bg-black-teal {
+  color: #20c997;
+  background-color: black;
+}
+
+.nexus-bg-black-cyan {
+  color: #0dcaf0;
+  background-color: black;
+}
+
+.nexus-bg-black-blue:hover {
+  background-color: #0a58ca;
+  color: #cfe2ff;
+}
+
+.nexus-bg-black-indigo:hover {
+  background-color: #520dc2;
+  color: #e0cffc;
+}
+
+.nexus-bg-black-purple:hover {
+  background-color: #59359a;
+  color: #e2d9f3;
+}
+
+.nexus-bg-black-pink:hover {
+  background-color: #ab296a;
+  color: #f7d6e6;
+}
+
+.nexus-bg-black-red:hover {
+  background-color: #b02a37;
+  color: #f8d7da;
+}
+
+.nexus-bg-black-orange:hover {
+  background-color: #ca6510;
+  color: #ffe5d0;
+}
+
+.nexus-bg-black-yellow:hover {
+  background-color: #cc9a06;
+  color: #fff3cd;
+}
+
+.nexus-bg-black-green:hover {
+  background-color: #146c43;
+  color: #d1e7dd;
+}
+
+.nexus-bg-black-teal:hover {
+  background-color: #1aa179;
+  color: #d2f4ea;
+}
+
+.nexus-bg-black-cyan:hover {
+  background-color: #0aa2c0;
+  color: #cff4fc;
+}
+
+.nexus-text-blue {
+  color: #0d6efd;
+}
+
+.nexus-text-indigo {
+  color: #6610f2;
+}
+
+.nexus-text-purple {
+  color: #6f42c1;
+}
+
+.nexus-text-pink {
+  color: #d63384;
+}
+
+.nexus-text-red {
+  color: #dc3545;
+}
+
+.nexus-text-orange {
+  color: #fd7e14;
+}
+
+.nexus-text-yellow {
+  color: #ffc107;
+}
+
+.nexus-text-green {
+  color: #198754;
+}
+
+.nexus-text-teal {
+  color: #20c997;
+}
+
+.nexus-text-cyan {
+  color: #0dcaf0;
 }
 
 /*# sourceMappingURL=style.css.map */
