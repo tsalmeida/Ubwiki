@@ -3370,10 +3370,11 @@
 
 	function nexus_suggest_title($url)
 	{
+		$title_tag = false;
 		if (filter_var($url, FILTER_VALIDATE_URL)) {
-			$str = file_get_contents($url);
+			$str = @file_get_contents($url);
 			if ($str == false) {
-				return false;
+				$title_tag = false;
 			} else {
 				if (strlen($str) > 0) {
 					$str = trim(preg_replace('/\s+/', ' ', $str)); // supports line breaks inside <title>
@@ -3385,9 +3386,11 @@
 		$title_tag = strip_tags($title_tag);
 		$title_tag = substr($title_tag, 0, 35);
 		$host = parse_url($url, PHP_URL_HOST);
+		error_log($host);
 		$host = str_replace('www.', '', $host);
 		$host = explode(".", $host)[0];
 		$host = ucfirst($host);
+		error_log($host);
 		if (strpos($title_tag, $host) != false) {
 			$final_suggestion = "$host: $title_tag";
 		} else {
@@ -3397,10 +3400,12 @@
 		$link_handle = nexus_get_handle($link_id);
 		if ($link_handle != false) {
 			if (strlen($final_suggestion) > strlen($link_handle)) {
+				error_log("final suggestion: $final_suggestion");
 				return $final_suggestion;
 			}
 		} else {
-			return $link_handle;
+			error_log("link handle: $link_handle");
+			return $final_suggestion;
 		}
 	}
 
