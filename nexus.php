@@ -527,9 +527,16 @@
 		    <ul class='list-group mb-3'>
 		        <li class='list-group-item active'><h5>Commands:</h5></li>
 		        <li class='list-group-item'>\"/r/\" will send you to a subreddit. For example, just type \"/r/prequelmemes\".</li>
-		        <li class='list-group-item'></li>
-		        <li class='list-group-item'></li>
-		        <li class='list-group-item'></li>
+		        <li class='list-group-item'>\"/linkdump url\" to add a link to the Link Dump with random icon and color.</li>
+		        <li class='list-group-item'>\"/log message\" will add a message to your log.</li>
+		        <li class='list-group-item'>\Type a url starting with \"http\" or \"www\" to go directly to that address.</li>
+		        <li class='list-group-item'>\"/del link title\" to delete a link.</li>
+		        <li class='list-group-item'>\"/dl address\" to download an image.</li>
+		        <li class='list-group-item'>\"/go search terms\" will perform a Google seach.</li>
+		        <li class='list-group-item'>\"/gi search terms\" will perform a Google image seach.</li>
+		        <li class='list-group-item'>\"/yt search terms\" will perform a Youtube seach.</li>
+		        <li class='list-group-item'>\"/rd search terms\" will perform a Reddit seach.</li>
+		        <li class='list-group-item'>\"/tw search terms\" will perform a Twitter seach.</li>
 		        <li class='list-group-item'></li>
             </ul>
 		    <ul class='list-group'>
