@@ -3430,13 +3430,13 @@
 			case 'list':
 				return $nexus_icons;
 				break;
-			case 'translate':
-				$translate = $nexus_icons[$args[1]];
-				if ($translate == false) {
-					return 'fa-circle';
+			case 'convert':
+				if (isset($nexus_icons[$args[1]])) {
+					return $nexus_icons[$args[1]];
 				} else {
-					return $translate;
+					return $args[1];
 				}
+				$translate = $nexus_icons[$args[1]];
 				break;
 			case 'random':
 				$array_keys = array_keys($nexus_icons);
@@ -3488,7 +3488,7 @@
 					return array('link-color' => 'nexus-link-cyan', 'bg-color' => 'nexus-bg-cyan', 'link-black-color' => 'nexus-link-black-cyan', 'bg-black-color' => 'nexus-bg-black-cyan', 'text-color' => 'nexus-text-cyan');
 					break;
 				default:
-					return array('link-dark', 'bg-light');
+					return array('link-color' => 'nexus-link-red', 'bg-color' => 'nexus-bg-red', 'link-black-color' => 'nexus-link-black-red', 'bg-black-color' => 'nexus-bg-black-red', 'text-color' => 'nexus-text-red');
 			}
 		}
 	}
@@ -3556,6 +3556,44 @@
 		return array('icon' => $icon, 'color' => $color);
 	}
 
+	function nexus_log($args)
+	{
+		if (!isset($args['mode'])) {
+			return false;
+		} else {
+			$mode = $args['mode'];
+		}
+		if (!isset($args['user_id'])) {
+			return false;
+		} else {
+			$user_id = $args['user_id'];
+		}
+		switch ($mode) {
+			case 'read':
+				return 'Reading still not supported';
+				break;
+			case 'write':
+				if (isset($args['type'])) {
+					$type = $args['type'];
+				} else {
+					$type = 'system';
+				}
+				if (!isset($args['message'])) {
+					return false;
+				} else {
+					$message = $args['message'];
+				}
+				include 'templates/criar_conn.php';
+				$query = prepare_query("INSERT INTO nexus_log (user_id, type, message) VALUES ($user_id, '$type', '$message')");
+				$check = $conn->query($query);
+				if ($check != false) {
+					return true;
+				} else {
+					return false;
+				}
+		}
+	}
+
 	function nexus_add_link($params)
 	{
 		if ($params['url'] == false) {
@@ -3569,6 +3607,13 @@
 			$new_link_location = false;
 		}
 		$new_link_url = $params['url'];
+
+		$check = check_url('curl', $new_link_url);
+		if ($check == false) {
+			nexus_log(array('user_id' => $user_id, 'mode' => 'write', 'type' => 'system', 'message' => "The following link wasn\'t added because it seems to be dead: $new_link_url"));
+			return false;
+		}
+
 		$new_link_id = nexus_get_link_id($new_link_url);
 		if (isset($params['title'])) {
 			$new_link_title = $params['title'];
@@ -3593,6 +3638,35 @@
 		$query = prepare_query("INSERT INTO nexus_elements (user_id, pagina_id, type, param_int_1, param_int_2, param1, param2, param3, param4) VALUES ($user_id, $pagina_id, 'link', '$new_link_location', $new_link_id, '$new_link_url', '$new_link_title', '$new_link_icon', '$new_link_color')");
 		$conn->query($query);
 		nexus_handle(array('id' => $new_link_id, 'title' => $new_link_title));
+	}
+
+	function check_url($url)
+	{
+		$args = func_get_args();
+		if (isset($args[0])) {
+			$mode = $args[0];
+		}
+		if (isset($args[1])) {
+			$url = $args[1];
+		}
+
+		if ($mode == 'curl') {
+
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, $url);
+			curl_setopt($ch, CURLOPT_HEADER, 1);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			$data = curl_exec($ch);
+			$headers = curl_getinfo($ch);
+			curl_close($ch);
+
+			return $headers['http_code'];
+		} elseif ($mode == 'get_headers') {
+			$h = get_headers($url);
+			$status = array();
+			preg_match('/HTTP\/.* ([0-9]+) .*/', $h[0], $status);
+			return ($status[1] == 200);
+		}
 	}
 
 	function nexus_handle($params)
@@ -3629,18 +3703,33 @@
 		if ($href == false) {
 			$href = 'javascript:void(0);';
 		}
-		if (!isset($params['fa-size'])) {
-			$params['fa-size'] = 'fa-4x';
+		if (!isset($params['class'])) {
+			$params['class'] = false;
+		}
+		if (!isset($params['title'])) {
+			$params['title'] = false;
 		}
 		$colors = nexus_colors('convert', $params['color']);
+		$icon = nexus_icons('convert', $params['icon']);
+
+		if (!isset($params['modal'])) {
+			$nexus_artefato_modal_module = false;
+		} else {
+			$nexus_artefato_modal_module = "data-bs-toggle='modal' data-bs-target='{$params['modal']}'";
+		}
+
 		switch ($params['type']) {
+			case 'small':
+				if (!isset($params['fa-size'])) {
+					$params['fa-size'] = 'fa-2x';
+				}
 			case 'medium':
-				$params['fa-size'] = 'fa-3x';
+				if (!isset($params['fa-size'])) {
+					$params['fa-size'] = 'fa-3x';
+				}
 			case 'large':
-				if (!isset($params['modal'])) {
-					$nexus_artefato_modal_module = false;
-				} else {
-					$nexus_artefato_modal_module = "data-bs-toggle='modal' data-bs-target='{$params['modal']}'";
+				if (!isset($params['fa-size'])) {
+					$params['fa-size'] = 'fa-4x';
 				}
 				return "
 					<div class='col-2 p-2 {$params['class']}'>
@@ -3648,11 +3737,11 @@
 							<span class='p-3 rounded {$colors['bg-black-color']}'>
 							<div class='row d-flex mb-2'>
 								<span class='col-12 d-flex justify-content-center'>
-									<i class='{$params['icon']} {$params['fa-size']} fa-fw'></i>
+									<i class='fa-solid $icon {$params['fa-size']} fa-fw'></i>
 								</span>
 							</div>
-							<div class='row d-flex'>
-								<small class='col-12 link-light d-flex justify-content-center'>
+							<div class='row d-flex text-center'>
+								<small class='col-12 link-light'>
 									{$params['title']}
 								</small>
 							</div>
@@ -3661,12 +3750,156 @@
 					</div>
 				";
 				break;
+			case 'folder':
+				if (!isset($params['fa-size'])) {
+					$params['fa-size'] = 'fa-3x';
+				}
+				return "
+					<div class='col-3 mb-1 pe-3 {$params['class']}'>
+						<span id='trigger_{$params['id']}' class='row rounded d-flex justify-content-center pointer' $nexus_artefato_modal_module href='$href'>
+							<div class='row rounded p-2 {$colors['bg-black-color']}'>
+								<div class='col-3 d-flex justify-content-center'>
+									<i class='fa-solid $icon {$params['fa-size']} fa-fw'></i>
+								</div>
+								<div class='col-9 d-flex align-items-center'>
+									<small class='col-12 link-light align-self-center'>
+										{$params['title']}
+									</small>
+								</div>
+							</div>
+						</span>
+					</div>
+				";
+				break;
 			case 'navbar':
-				return "<a class='nexus-navbar-button {$colors['bg-black-color']}' href='$href' id='{$params['id']}'><i class='{$params['icon']} fa-fw'></i></a>";
+				return "<a class='nexus-navbar-button {$colors['bg-black-color']} {$params['class']}' href='$href' id='{$params['id']}' title='{$params['title']}'><i class='fa-solid $icon fa-fw'></i></a>";
 				break;
 			case 'compact':
+				return "<a id='link_{$params['id']}' href='$href' target='_blank' class='all_link_icons rounded {$colors['bg-black-color']} py-4 px-4 me-1 mb-1 col-auto {$params['class']}'><i class='fa-solid $icon fa-fw me-2'></i> <span class='link-light'>{$params['title']}</span></a>";
 				break;
 		}
 	}
 
+	function nexus_new_folder($args)
+	{
+		if (!isset($args['user_id'])) {
+			return false;
+		}
+		if (!isset($args['pagina_id'])) {
+			return false;
+		}
+		if (!isset($args['title'])) {
+			$args['title'] = "Folder";
+		}
+		if (!isset($args['icon']) || ($args['icon'] == false) || ($args['icon'] == 'random')) {
+			$args['icon'] = nexus_icons('random');
+		}
+		if (!isset($args['color']) || ($args['color'] == false) || ($args['color'] == 'random')) {
+			$args['color'] = nexus_colors('random');
+		}
+		if (!isset($args['type'])) {
+			$args['type'] = 'main';
+		}
+		include 'templates/criar_conn.php';
+		$query = prepare_query("INSERT INTO nexus_folders (user_id, pagina_id, type, title, icon, color) VALUES ({$args['user_id']}, {$args['pagina_id']}, '{$args['type']}', '{$args['title']}', '{$args['icon']}', '{$args['color']}')");
+		$conn->query($query);
+	}
+
+	function rebuild_cmd_links($nexus_pagina_id)
+	{
+		include 'templates/criar_conn.php';
+		if ($nexus_pagina_id == false) {
+			return false;
+		}
+
+		$query = prepare_query("SELECT id, type, title, icon, color FROM nexus_folders WHERE pagina_id = $nexus_pagina_id");
+		$nexus_folders = array();
+		$nexus_folders_info = $conn->query($query);
+		if ($nexus_folders_info->num_rows > 0) {
+			while ($nexus_folder_info = $nexus_folders_info->fetch_assoc()) {
+				$nexus_folder_id = $nexus_folder_info['id'];
+				$nexus_folders[$nexus_folder_id]['info'] = array('title' => $nexus_folder_info['title'], 'icon' => $nexus_folder_info['icon'], 'color' => $nexus_folder_info['color'], 'type' => $nexus_folder_info['type']);
+			}
+		}
+		$nexus_folders['linkdump']['info'] = array('title' => 'Link Dump', 'icon' => 'triangle', 'color' => 'red', 'type' => 'linkdump');
+
+		$query = prepare_query("SELECT param_int_1, param_int_2, param1, param2, param3, param4 FROM nexus_elements WHERE pagina_id = $nexus_pagina_id AND state = 1 AND type = 'link'");
+		$nexus_links = array();
+		$nexus_cmd = array();
+		$nexus_order = array();
+		$nexus_links_info = $conn->query($query);
+		if ($nexus_links_info->num_rows > 0) {
+		}
+		$count = 1;
+		while ($nexus_link_info = $nexus_links_info->fetch_assoc()) {
+			$nexus_link_folder_id = $nexus_link_info['param_int_1'];
+			if ($nexus_link_folder_id == false) {
+				$nexus_link_folder_id = 'linkdump';
+			}
+			$nexus_link_id = $nexus_link_info['param_int_2'];
+			$nexus_link_url = $nexus_link_info['param1'];
+			$nexus_link_title = $nexus_link_info['param2'];
+			$nexus_link_icon = $nexus_link_info['param3'];
+			$nexus_link_color = $nexus_link_info['param4'];
+			// setting the arrays with the relevant information:
+			//this first one will be used for the command bar
+			$nexus_cmd[$nexus_link_title] = $nexus_link_url;
+			//I don't know what this one will be used for yet, but it's good to have
+			$nexus_links[$nexus_link_id] = array('folder_id' => $nexus_link_folder_id, 'url' => $nexus_link_url, 'title' => $nexus_link_title, 'icon' => $nexus_link_icon, 'color' => $nexus_link_color);
+			$nexus_order[$count] = array('title' => $nexus_link_title, 'url' => $nexus_link_url);
+			//This one will be used to populate windows as the user clicks on icons
+			$nexus_folders[$nexus_link_folder_id][$nexus_link_id] = array('url' => $nexus_link_url, 'title' => $nexus_link_title, 'icon' => $nexus_link_icon, 'color' => $nexus_link_color);
+			$count++;
+		}
+		return array('nexus_links' => $nexus_links, 'nexus_cmd' => $nexus_cmd, 'nexus_folders' => $nexus_folders, 'nexus_order' => $nexus_order);
+	}
+
+	function nexus_options($args)
+	{
+		$setup_matches = array('cmd_link_id' => array('data_type' => 'bool', 'column' => 'cmd_link_id', 'default' => false));
+		if (!isset($args['mode'])) {
+			return false;
+		}
+		if (!isset($args['pagina_id'])) {
+			return false;
+		}
+		switch ($args['mode']) {
+			case 'set':
+				$column = $setup_matches[$args['option']]['column'];
+				$data_type = $setup_matches[$args['option']]['data_type'];
+				if ($data_type == 'bool') {
+					$args['choice'] = (int) filter_var($args['choice'], FILTER_VALIDATE_BOOLEAN);
+					$query = prepare_query("UPDATE nexus_options SET $column = {$args['choice']} WHERE pagina_id = {$args['pagina_id']}");
+				} else {
+					$query = prepare_query("UPDATE nexus_options SET $column = '{$args['choice']}' WHERE pagina_id = {$args['pagina_id']}");
+				}
+				include 'templates/criar_conn.php';
+				$check = $conn->query($query);
+				if ($check == false) {
+					nexus_options(array('mode' => 'create', 'pagina_id' => $args['pagina_id']));
+				}
+				return $check;
+				break;
+			case 'read':
+				include 'templates/criar_conn.php';
+				$query = prepare_query("SELECT * FROM nexus_options WHERE pagina_id = {$args['pagina_id']}");
+				$options = $conn->query($query);
+				$results = array();
+				if ($options->num_rows > 0) {
+					while ($option = $options->fetch_assoc()) {
+						$results['cmd_link_id'] = $option['cmd_link_id'];
+					}
+				}
+				return $results;
+				break;
+			case 'create':
+				$query = prepare_query("INSERT INTO nexus_options (pagina_id) values ({$args['pagina_id']})");
+				include 'templates/criar_conn.php';
+				$check = $conn->query($query);
+				return $check;
+				break;
+			default:
+				return false;
+		}
+	};
 

@@ -11,6 +11,16 @@ $font-family-sans-serif: 'Lato', system-ui, -apple-system, "Segoe UI", Roboto, "
 $font-family-serif: 'Lora', serif, Times New Roman;
 $font-family-monospace: 'Roboto Mono', SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
+$container-max-widths: (
+        sm: 540px,
+        md: 720px,
+        lg: 960px,
+        xl: 1140px,
+        xxl: 1320px,
+);
+
+$black: #131618;
+
 @import '../../../repositories/bootstrap/scss/bootstrap.scss';
 @import 'quill.snow.css';
 
@@ -221,382 +231,382 @@ navbar {
   background-color: black;
 }
 
-.nexus-link-blue {
-  color: $blue-500;
-}
+//.nexus-link-blue {
+//  color: $blue-500;
+//}
+//
+//.nexus-link-indigo {
+//  color: $indigo-500;
+//}
+//
+//.nexus-link-purple {
+//  color: $purple-500;
+//}
+//
+//.nexus-link-pink {
+//  color: $pink-500;
+//}
+//
+//.nexus-link-red {
+//  color: $red-500;
+//}
+//
+//.nexus-link-orange {
+//  color: $orange-500;
+//}
+//
+//.nexus-link-yellow {
+//  color: $yellow-500;
+//}
+//
+//.nexus-link-green {
+//  color: $green-500;
+//}
+//
+//.nexus-link-teal {
+//  color: $teal-500;
+//}
+//
+//.nexus-link-cyan {
+//  color: $cyan-500;
+//}
+//
+//.nexus-link-blue:hover {
+//  color: $blue-600;
+//}
+//
+//.nexus-link-indigo:hover {
+//  color: $indigo-600;
+//}
+//
+//.nexus-link-purple:hover {
+//  color: $purple-600;
+//}
+//
+//.nexus-link-pink:hover {
+//  color: $pink-600;
+//}
+//
+//.nexus-link-red:hover {
+//  color: $red-600;
+//}
+//
+//.nexus-link-orange:hover {
+//  color: $orange-600;
+//}
+//
+//.nexus-link-yellow:hover {
+//  color: $yellow-600;
+//}
+//
+//.nexus-link-green:hover {
+//  color: $green-600;
+//}
+//
+//.nexus-link-teal:hover {
+//  color: $teal-600;
+//}
+//
+//.nexus-link-cyan:hover {
+//  color: $cyan-600;
+//}
+//
+//.nexus-bg-blue {
+//  background-color: $blue-800;
+//}
+//
+//.nexus-bg-indigo {
+//  background-color: $indigo-800;
+//}
+//
+//.nexus-bg-purple {
+//  background-color: $purple-800;
+//}
+//
+//.nexus-bg-pink {
+//  background-color: $pink-800;
+//}
+//
+//.nexus-bg-red {
+//  background-color: $red-800;
+//}
+//
+//.nexus-bg-orange {
+//  background-color: $orange-800;
+//}
+//
+//.nexus-bg-yellow {
+//  background-color: $yellow-800;
+//}
+//
+//.nexus-bg-green {
+//  background-color: $green-800;
+//}
+//
+//.nexus-bg-teal {
+//  background-color: $teal-800;
+//}
+//
+//.nexus-bg-cyan {
+//  background-color: $cyan-800;
+//}
+//
+//.nexus-bg-blue:hover {
+//  background-color: $blue-700;
+//  .nexus-link-blue {
+//    color: $blue-900;
+//  }
+//}
+//
+//.nexus-bg-indigo:hover {
+//  background-color: $indigo-700;
+//  .nexus-link-indigo {
+//    color: $indigo-900;
+//  }
+//}
+//
+//.nexus-bg-purple:hover {
+//  background-color: $purple-700;
+//  .nexus-link-purple {
+//    color: $purple-900;
+//  }
+//}
+//
+//.nexus-bg-pink:hover {
+//  background-color: $pink-700;
+//  .nexus-link-pink {
+//    color: $pink-900;
+//  }
+//}
+//
+//.nexus-bg-red:hover {
+//  background-color: $red-700;
+//  .nexus-link-red {
+//    color: $red-900;
+//  }
+//}
+//
+//.nexus-bg-orange:hover {
+//  background-color: $orange-700;
+//  .nexus-link-orange {
+//    color: $orange-900;
+//  }
+//}
+//
+//.nexus-bg-yellow:hover {
+//  background-color: $yellow-700;
+//  .nexus-link-yellow {
+//    color: $yellow-900;
+//  }
+//}
+//
+//.nexus-bg-green:hover {
+//  background-color: $green-700;
+//  .nexus-link-green {
+//    color: $green-900;
+//  }
+//}
+//
+//.nexus-bg-teal:hover {
+//  background-color: $teal-700;
+//  .nexus-link-teal {
+//    color: $teal-900;
+//  }
+//}
+//
+//.nexus-bg-cyan:hover {
+//  background-color: black;
+//  .nexus-link-cyan {
+//    color: $cyan-900;
+//  }
+//}
 
-.nexus-link-indigo {
-  color: $indigo-500;
-}
-
-.nexus-link-purple {
-  color: $purple-500;
-}
-
-.nexus-link-pink {
-  color: $pink-500;
-}
-
-.nexus-link-red {
-  color: $red-500;
-}
-
-.nexus-link-orange {
-  color: $orange-500;
-}
-
-.nexus-link-yellow {
-  color: $yellow-500;
-}
-
-.nexus-link-green {
-  color: $green-500;
-}
-
-.nexus-link-teal {
-  color: $teal-500;
-}
-
-.nexus-link-cyan {
-  color: $cyan-500;
-}
-
-.nexus-link-blue:hover {
-  color: $blue-600;
-}
-
-.nexus-link-indigo:hover {
-  color: $indigo-600;
-}
-
-.nexus-link-purple:hover {
-  color: $purple-600;
-}
-
-.nexus-link-pink:hover {
-  color: $pink-600;
-}
-
-.nexus-link-red:hover {
-  color: $red-600;
-}
-
-.nexus-link-orange:hover {
-  color: $orange-600;
-}
-
-.nexus-link-yellow:hover {
-  color: $yellow-600;
-}
-
-.nexus-link-green:hover {
-  color: $green-600;
-}
-
-.nexus-link-teal:hover {
-  color: $teal-600;
-}
-
-.nexus-link-cyan:hover {
-  color: $cyan-600;
-}
-
-.nexus-bg-blue {
-  background-color: $blue-800;
-}
-
-.nexus-bg-indigo {
-  background-color: $indigo-800;
-}
-
-.nexus-bg-purple {
-  background-color: $purple-800;
-}
-
-.nexus-bg-pink {
-  background-color: $pink-800;
-}
-
-.nexus-bg-red {
-  background-color: $red-800;
-}
-
-.nexus-bg-orange {
-  background-color: $orange-800;
-}
-
-.nexus-bg-yellow {
-  background-color: $yellow-800;
-}
-
-.nexus-bg-green {
-  background-color: $green-800;
-}
-
-.nexus-bg-teal {
-  background-color: $teal-800;
-}
-
-.nexus-bg-cyan {
-  background-color: $cyan-800;
-}
-
-.nexus-bg-blue:hover {
-  background-color: $blue-700;
-  .nexus-link-blue {
-    color: $blue-900;
-  }
-}
-
-.nexus-bg-indigo:hover {
-  background-color: $indigo-700;
-  .nexus-link-indigo {
-    color: $indigo-900;
-  }
-}
-
-.nexus-bg-purple:hover {
-  background-color: $purple-700;
-  .nexus-link-purple {
-    color: $purple-900;
-  }
-}
-
-.nexus-bg-pink:hover {
-  background-color: $pink-700;
-  .nexus-link-pink {
-    color: $pink-900;
-  }
-}
-
-.nexus-bg-red:hover {
-  background-color: $red-700;
-  .nexus-link-red {
-    color: $red-900;
-  }
-}
-
-.nexus-bg-orange:hover {
-  background-color: $orange-700;
-  .nexus-link-orange {
-    color: $orange-900;
-  }
-}
-
-.nexus-bg-yellow:hover {
-  background-color: $yellow-700;
-  .nexus-link-yellow {
-    color: $yellow-900;
-  }
-}
-
-.nexus-bg-green:hover {
-  background-color: $green-700;
-  .nexus-link-green {
-    color: $green-900;
-  }
-}
-
-.nexus-bg-teal:hover {
-  background-color: $teal-700;
-  .nexus-link-teal {
-    color: $teal-900;
-  }
-}
-
-.nexus-bg-cyan:hover {
-  background-color: black;
-  .nexus-link-cyan {
-    color: $cyan-900;
-  }
-}
-
-.nexus-link-black-blue {
-  color: $blue-500;
-}
-.nexus-link-black-bindigo {
-  color: $indigo-500;
-}
-.nexus-link-black-purple {
-  color: $purple-500;
-}
-.nexus-link-black-pink {
-  color: $pink-500;
-}
-.nexus-link-black-red {
-  color: $red-500;
-}
-.nexus-link-black-orange {
-  color: $orange-500;
-}
-.nexus-link-black-yellow {
-  color: $yellow-500;
-}
-.nexus-link-black-green {
-  color: $green-500;
-}
-
-.nexus-link-black-teal {
-  color: $teal-500;
-}
-
-.nexus-link-black-cyan {
-  color: $cyan-500;
-}
-.nexus-link-black-blue:hover {
-  color: $blue-400;
-}
-.nexus-link-black-indigo:hover {
-  color: $indigo-400;
-}
-.nexus-link-black-purple:hover {
-  color: $purple-400;
-}
-.nexus-link-black-pink:hover {
-  color: $pink-400;
-}
-.nexus-link-black-red:hover {
-  color: $red-400;
-}
-.nexus-link-black-orange:hover {
-  color: $orange-400;
-}
-.nexus-link-black-yellow:hover {
-  color: $yellow-400;
-}
-.nexus-link-black-green:hover {
-  color: $green-400;
-}
-
-.nexus-link-black-teal:hover {
-  color: $teal-400;
-}
-
-.nexus-link-black-cyan:hover {
-  color: $cyan-400;
-}
+//.nexus-link-black-blue {
+//  color: $blue-500;
+//}
+//.nexus-link-black-bindigo {
+//  color: $indigo-500;
+//}
+//.nexus-link-black-purple {
+//  color: $purple-500;
+//}
+//.nexus-link-black-pink {
+//  color: $pink-500;
+//}
+//.nexus-link-black-red {
+//  color: $red-500;
+//}
+//.nexus-link-black-orange {
+//  color: $orange-500;
+//}
+//.nexus-link-black-yellow {
+//  color: $yellow-500;
+//}
+//.nexus-link-black-green {
+//  color: $green-500;
+//}
+//
+//.nexus-link-black-teal {
+//  color: $teal-500;
+//}
+//
+//.nexus-link-black-cyan {
+//  color: $cyan-500;
+//}
+//.nexus-link-black-blue:hover {
+//  color: $blue-400;
+//}
+//.nexus-link-black-indigo:hover {
+//  color: $indigo-400;
+//}
+//.nexus-link-black-purple:hover {
+//  color: $purple-400;
+//}
+//.nexus-link-black-pink:hover {
+//  color: $pink-400;
+//}
+//.nexus-link-black-red:hover {
+//  color: $red-400;
+//}
+//.nexus-link-black-orange:hover {
+//  color: $orange-400;
+//}
+//.nexus-link-black-yellow:hover {
+//  color: $yellow-400;
+//}
+//.nexus-link-black-green:hover {
+//  color: $green-400;
+//}
+//
+//.nexus-link-black-teal:hover {
+//  color: $teal-400;
+//}
+//
+//.nexus-link-black-cyan:hover {
+//  color: $cyan-400;
+//}
 
 .nexus-bg-black-blue {
   color: $blue-500;
-  background-color: black;
+  background-color: $black;
 }
 .nexus-bg-black-indigo {
   color: $indigo-500;
-  background-color: black;
+  background-color: $black;
 }
 .nexus-bg-black-purple {
   color: $purple-500;
-  background-color: black;
+  background-color: $black;
 }
 .nexus-bg-black-pink {
   color: $pink-500;
-  background-color: black;
+  background-color: $black;
 }
 .nexus-bg-black-red {
   color: $red-500;
-  background-color: black;
+  background-color: $black;
 }
 .nexus-bg-black-orange {
   color: $orange-500;
-  background-color: black;
+  background-color: $black;
 }
 .nexus-bg-black-yellow {
   color: $yellow-500;
-  background-color: black;
+  background-color: $black;
 }
 .nexus-bg-black-green {
   color: $green-500;
-  background-color: black;
+  background-color: $black;
 }
 .nexus-bg-black-teal {
   color: $teal-500;
-  background-color: black;
+  background-color: $black;
 }
 .nexus-bg-black-cyan {
   color: $cyan-500;
-  background-color: black;
+  background-color: $black;
 }
 
-.nexus-bg-black-blue:hover {
+.nexus-bg-black-blue:hover, .nexus-bg-black-active {
   background-color: $blue-600;
     color: $blue-100;
 }
 
-.nexus-bg-black-indigo:hover {
+.nexus-bg-black-indigo:hover, .nexus-bg-black-active {
   background-color: $indigo-600;
     color: $indigo-100;
 }
 
-.nexus-bg-black-purple:hover {
+.nexus-bg-black-purple:hover, .nexus-bg-black-active {
   background-color: $purple-600;
     color: $purple-100;
 }
 
-.nexus-bg-black-pink:hover {
+.nexus-bg-black-pink:hover, .nexus-bg-black-active {
   background-color: $pink-600;
     color: $pink-100;
 }
 
-.nexus-bg-black-red:hover {
+.nexus-bg-black-red:hover, .nexus-bg-black-active {
   background-color: $red-600;
     color: $red-100;
 }
 
-.nexus-bg-black-orange:hover {
+.nexus-bg-black-orange:hover, .nexus-bg-black-active {
   background-color: $orange-600;
     color: $orange-100;
 }
 
-.nexus-bg-black-yellow:hover {
+.nexus-bg-black-yellow:hover, .nexus-bg-black-active {
   background-color: $yellow-600;
     color: $yellow-100;
 }
 
-.nexus-bg-black-green:hover {
+.nexus-bg-black-green:hover, .nexus-bg-black-active {
   background-color: $green-600;
     color: $green-100;
 }
 
-.nexus-bg-black-teal:hover {
+.nexus-bg-black-teal:hover, .nexus-bg-black-active {
   background-color: $teal-600;
     color: $teal-100;
 }
 
-.nexus-bg-black-cyan:hover {
+.nexus-bg-black-cyan:hover, .nexus-bg-black-active {
   background-color: $cyan-600;
     color: $cyan-100;
 }
 
-.nexus-text-blue {
-  color: $blue-500;
-}
-.nexus-text-indigo {
-  color: $indigo-500;
-}
-.nexus-text-purple {
-  color: $purple-500;
-}
-.nexus-text-pink {
-  color: $pink-500;
-}
-.nexus-text-red {
-  color: $red-500;
-}
-.nexus-text-orange {
-  color: $orange-500;
-}
-.nexus-text-yellow {
-  color: $yellow-500;
-}
-.nexus-text-green {
-  color: $green-500;
-}
-.nexus-text-teal {
-  color: $teal-500;
-}
-.nexus-text-cyan {
-  color: $cyan-500;
-}
-
-
+//.nexus-text-blue {
+//  color: $blue-500;
+//}
+//.nexus-text-indigo {
+//  color: $indigo-500;
+//}
+//.nexus-text-purple {
+//  color: $purple-500;
+//}
+//.nexus-text-pink {
+//  color: $pink-500;
+//}
+//.nexus-text-red {
+//  color: $red-500;
+//}
+//.nexus-text-orange {
+//  color: $orange-500;
+//}
+//.nexus-text-yellow {
+//  color: $yellow-500;
+//}
+//.nexus-text-green {
+//  color: $green-500;
+//}
+//.nexus-text-teal {
+//  color: $teal-500;
+//}
+//.nexus-text-cyan {
+//  color: $cyan-500;
+//}
+//
+//
 

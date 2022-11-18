@@ -29,7 +29,7 @@
 
 	if ($pagina_tipo == 'nexus') {
 		echo "
-        <link type='image/vnd.microsoft.icon' rel='icon' href='nexus_favicon.ico'/>
+        <link type='image/vnd.microsoft.icon' rel='icon' href='nexusfavicon.ico'/>
         ";
 	} else {
 		echo "<link type='image/vnd.microsoft.icon' rel='icon' href='favicon.ico'/>";

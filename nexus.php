@@ -1,20 +1,20 @@
 <?php
 
 	//TODO: Trazer o Nexus a um nível básico que permita o uso
-    //TODO: Clicar em "link dump" no modal de links deveria fechar o modal.
-    //TODO: Forma de alterar icones, cores e títulos de todos os elementos.
-    //TODO: Forma de alterar a ordem dos elementos.
-    //TODO: Forma de criar themes e selecioná-los.
-    //TODO: Ferramentas básicas: bloco de nots, to-do list etc.
-    //TODO: Fake RNG: na verdade, todas as combinações de ícone e cor devem se exaurir, quando em aleatório, antes que uma se repita.
-    //TODO: Não retornar à Ubwiki, mas pedir login. Para que funcione como uma Startpage de fato.
-    //TODO: Alguma integração com uma extensão do Chrome? Quem sabe?
-    //TODO: Algum elemento crypto ou inteligência artificial?
-    //TODO: Usar o curl, há possibilidades interessantes, como pesquisar e ver os resultados em baixo. Por exemplo, ver apenas os trending topics do Twitter na própria página, com um comando. Wikipédia, etc.
-    //TODO: Um Travelogue, extensão do Plano de Estudos da Ubwiki. Talvez como próximo projeto grande.
-    //TODO: E se fosse possível jogar o Chess Battles dentro da página, uma jogada por vez?
-    //TODO: A página poderia recordar a jogar Wordle, por exemplo.
-    //TODO: Links com maior e menor proeminência, alguns apenas com links, outros sem cor, outros em letras menores.
+	//TODO: Clicar em "link dump" no modal de links deveria fechar o modal.
+	//TODO: Forma de alterar icones, cores e títulos de todos os elementos.
+	//TODO: Forma de alterar a ordem dos elementos.
+	//TODO: Forma de criar themes e selecioná-los.
+	//TODO: Ferramentas básicas: bloco de nots, to-do list etc.
+	//TODO: Fake RNG: na verdade, todas as combinações de ícone e cor devem se exaurir, quando em aleatório, antes que uma se repita.
+	//TODO: Não retornar à Ubwiki, mas pedir login. Para que funcione como uma Startpage de fato.
+	//TODO: Alguma integração com uma extensão do Chrome? Quem sabe?
+	//TODO: Algum elemento crypto ou inteligência artificial?
+	//TODO: Usar o curl, há possibilidades interessantes, como pesquisar e ver os resultados em baixo. Por exemplo, ver apenas os trending topics do Twitter na própria página, com um comando. Wikipédia, etc.
+	//TODO: Um Travelogue, extensão do Plano de Estudos da Ubwiki. Talvez como próximo projeto grande.
+	//TODO: E se fosse possível jogar o Chess Battles dentro da página, uma jogada por vez?
+	//TODO: A página poderia recordar a jogar Wordle, por exemplo.
+	//TODO: Links com maior e menor proeminência, alguns apenas com links, outros sem cor, outros em letras menores.
 
 	$pagina_tipo = 'nexus';
 	include 'engine.php';
@@ -25,6 +25,8 @@
 	} else {
 		$pagina_id = $_SESSION['user_nexus_pagina_id'];
 	}
+
+	$_SESSION['nexus_options'] = nexus_options(array('mode' => 'read', 'pagina_id' => $_SESSION['user_nexus_pagina_id']));
 
 	$pagina_info = return_pagina_info($pagina_id, false, false, false);
 	if ($pagina_info != false) {
@@ -75,19 +77,24 @@
 			$nexus_new_folder_color = nexus_colors('random');
 		}
 
+		nexus_new_folder(array('user_id' => $user_id, 'pagina_id' => $pagina_id, 'title' => $_POST['new_bulk_folder_1']));
+
 		$query = prepare_query("INSERT INTO nexus_folders (user_id, pagina_id, type, title, icon, color) VALUES ($user_id, $user_nexus_id, '$nexus_new_folder_type', '$nexus_new_folder_title', '$nexus_new_folder_icon', '$nexus_new_folder_color')");
 		$conn->query($query);
+		unset($_SESSION['nexus_links']);
 	}
 
 	if (isset($_POST['nexus_del_folder_id'])) {
 		$nexus_del_folder_id = $_POST['nexus_del_folder_id'];
 		$query = prepare_query("DELETE FROM nexus_folders WHERE id = $nexus_del_folder_id AND user_id = $user_id AND pagina_id = $pagina_id");
 		$conn->query($query);
+		unset($_SESSION['nexus_links']);
 	}
 
 	if (isset($_POST['nexus_new_link_submit'])) {
 		$params = array('user_id' => $user_id, 'pagina_id' => $pagina_id, 'location' => $_POST['nexus_new_link_location'], 'url' => $_POST['nexus_new_link_url'], 'title' => $_POST['nexus_new_link_title'], 'icon' => $_POST['nexus_new_link_icon'], 'color' => $_POST['nexus_new_link_color']);
 		nexus_add_link($params);
+		unset($_SESSION['nexus_links']);
 	}
 
 	if (isset($_POST['nexus_theme_select'])) {
@@ -98,47 +105,27 @@
 
 	if (isset($_POST['new_bulk_folder_1'])) {
 		if ($_POST['new_bulk_folder_1'] != false) {
-			$new_folder_random_icon = nexus_icons('random');
-			$new_folder_random_color = nexus_colors('random');
-			$query = prepare_query("INSERT INTO nexus_folders (user_id, pagina_id, title, icon, color) VALUES ($user_id, $pagina_id, '{$_POST['new_bulk_folder_1']}', '$new_folder_random_icon', '$new_folder_random_color')");
-			$conn->query($query);
+			nexus_new_folder(array('user_id' => $user_id, 'pagina_id' => $pagina_id, 'title' => $_POST['new_bulk_folder_1']));
 		}
 		if ($_POST['new_bulk_folder_2'] != false) {
-			$new_folder_random_icon = nexus_icons('random');
-			$new_folder_random_color = nexus_colors('random');
-			$query = prepare_query("INSERT INTO nexus_folders (user_id, pagina_id, title, icon, color) VALUES ($user_id, $pagina_id, '{$_POST['new_bulk_folder_2']}', '$new_folder_random_icon', '$new_folder_random_color')");
-			$conn->query($query);
+			nexus_new_folder(array('user_id' => $user_id, 'pagina_id' => $pagina_id, 'title' => $_POST['new_bulk_folder_2']));
 		}
 		if ($_POST['new_bulk_folder_3'] != false) {
-			$new_folder_random_icon = nexus_icons('random');
-			$new_folder_random_color = nexus_colors('random');
-			$query = prepare_query("INSERT INTO nexus_folders (user_id, pagina_id, title, icon, color) VALUES ($user_id, $pagina_id, '{$_POST['new_bulk_folder_3']}', '$new_folder_random_icon', '$new_folder_random_color')");
-			$conn->query($query);
+			nexus_new_folder(array('user_id' => $user_id, 'pagina_id' => $pagina_id, 'title' => $_POST['new_bulk_folder_3']));
 		}
 		if ($_POST['new_bulk_folder_4'] != false) {
-			$new_folder_random_icon = nexus_icons('random');
-			$new_folder_random_color = nexus_colors('random');
-			$query = prepare_query("INSERT INTO nexus_folders (user_id, pagina_id, title, icon, color) VALUES ($user_id, $pagina_id, '{$_POST['new_bulk_folder_4']}', '$new_folder_random_icon', '$new_folder_random_color')");
-			$conn->query($query);
+			nexus_new_folder(array('user_id' => $user_id, 'pagina_id' => $pagina_id, 'title' => $_POST['new_bulk_folder_4']));
 		}
 		if ($_POST['new_bulk_folder_5'] != false) {
-			$new_folder_random_icon = nexus_icons('random');
-			$new_folder_random_color = nexus_colors('random');
-			$query = prepare_query("INSERT INTO nexus_folders (user_id, pagina_id, title, icon, color) VALUES ($user_id, $pagina_id, '{$_POST['new_bulk_folder_5']}', '$new_folder_random_icon', '$new_folder_random_color')");
-			$conn->query($query);
+			nexus_new_folder(array('user_id' => $user_id, 'pagina_id' => $pagina_id, 'title' => $_POST['new_bulk_folder_5']));
 		}
 		if ($_POST['new_bulk_folder_6'] != false) {
-			$new_folder_random_icon = nexus_icons('random');
-			$new_folder_random_color = nexus_colors('random');
-			$query = prepare_query("INSERT INTO nexus_folders (user_id, pagina_id, title, icon, color) VALUES ($user_id, $pagina_id, '{$_POST['new_bulk_folder_6']}', '$new_folder_random_icon', '$new_folder_random_color')");
-			$conn->query($query);
+			nexus_new_folder(array('user_id' => $user_id, 'pagina_id' => $pagina_id, 'title' => $_POST['new_bulk_folder_6']));
 		}
 		if ($_POST['new_bulk_folder_7'] != false) {
-			$new_folder_random_icon = nexus_icons('random');
-			$new_folder_random_color = nexus_colors('random');
-			$query = prepare_query("INSERT INTO nexus_folders (user_id, pagina_id, title, icon, color) VALUES ($user_id, $pagina_id, '{$_POST['new_bulk_folder_7']}', '$new_folder_random_icon', '$new_folder_random_color')");
-			$conn->query($query);
+			nexus_new_folder(array('user_id' => $user_id, 'pagina_id' => $pagina_id, 'title' => $_POST['new_bulk_folder_7']));
 		}
+		unset($_SESSION['nexus_links']);
 	}
 
 	if (isset($_POST['new_bulk_link_1'])) {
@@ -173,6 +160,7 @@
 			$params = array('user_id' => $user_id, 'pagina_id' => $pagina_id, 'url' => $_POST['new_bulk_link_7'], 'location' => $_POST['new_bulk_links_folder']);
 			nexus_add_link($params);
 		}
+		unset($_SESSION['nexus_links']);
 	}
 
 	if ($_POST) {
@@ -180,108 +168,79 @@
 		exit();
 	}
 
-	$print_folders_large = false;
-	$navbar_custom_leftside = false;
-	$navbar_custom_dropdown_start = false;
-	$navbar_custom_dropdown_end = false;
-	$html_bottom_folders = false;
-	$query = prepare_query("SELECT id, title, icon, color, type FROM nexus_folders WHERE user_id = $user_id AND pagina_id = $pagina_id");
-	$nexus_folders_info = $conn->query($query);
+	if (!isset($_SESSION['nexus_links'])) {
+		$nexus_all_links = rebuild_cmd_links($_SESSION['user_nexus_pagina_id']);
+		$_SESSION['nexus_links'] = $nexus_all_links['nexus_links'];
+		$_SESSION['nexus_cmd'] = $nexus_all_links['nexus_cmd'];
+		$_SESSION['nexus_folders'] = $nexus_all_links['nexus_folders'];
+		$_SESSION['nexus_order'] = $nexus_all_links['nexus_order'];
+	}
+
+	$hidden_inputs = false;
+
 	$nexus_folder_order_identifier = 0;
-	$nexus_main_folder_counter = 0;
-	$nexus_archive_folder_counter = 2000;
-	$nexus_linkdump_folder_counter = 1000;
-	$nexus_folder_pairings = array();
-	if ($nexus_folders_info->num_rows > 0) {
-		while ($nexus_folder_info = $nexus_folders_info->fetch_assoc()) {
-			$nexus_folder_id = $nexus_folder_info['id'];
-			$nexus_folder_title = $nexus_folder_info['title'];
-			$nexus_fa_icone = $nexus_folder_info['icon'];
-			$nexus_fa_icone = nexus_icons('translate', $nexus_fa_icone);
-			$nexus_fa_icone = "fa-solid $nexus_fa_icone";
-			$nexus_folder_type = $nexus_folder_info['type'];
-			$close_folders_container = false;
-			switch ($nexus_folder_type) {
-				case 'archival':
-					$nexus_archive_folder_counter++;
-					$nexus_folder_order_identifier = $nexus_archive_folder_counter;
-					$nexus_artefato_class = 'archival_folder_icons d-none';
-					$nexus_fa_size = 'fa-3x';
-					break;
-				case 'main':
-					$nexus_main_folder_counter++;
-					$nexus_folder_order_identifier = $nexus_main_folder_counter;
-					$nexus_artefato_class = 'main_folder_icons d-none';
-					$close_folders_container = "$('#folders_container').addClass('d-none');";
-					$navbar_custom_leftside .= nexus_put_together(array('type' => 'navbar', 'color' => $nexus_folder_info['color'], 'href' => false, 'icon' => $nexus_fa_icone, 'id' => "trigger_folder_small_{$nexus_folder_order_identifier}"));
-			}
-			$nexus_folder_pairings[$nexus_folder_id] = $nexus_folder_order_identifier;
-
-			$print_folders_large .= nexus_put_together(array(
-				'type' => 'medium',
-				'id' => "folder_large_{$nexus_folder_order_identifier}",
-				'title' => $nexus_folder_title,
-				'class' => 'main_folder_icons d-none',
-				'icon' => $nexus_fa_icone,
-				'color' => $nexus_folder_info['color']
-			));
-
-			$html_bottom_folders .= "
-                function show_links_folder_{$nexus_folder_order_identifier}() {
-                    $('#page_title').empty();
-                    $('#page_title').append('{$nexus_folder_title}');
-                    $('#cmd_container').addClass('d-none');
-                    $('#links_container').removeClass('d-none');
-                    $('.all_link_icons').addClass('d-none');
-                    $('#settings_container').addClass('d-none');
-                    $('.link_icon_{$nexus_folder_order_identifier}').removeClass('d-none');
-                    $close_folders_container
-                }
-                $(document).on('click', '#trigger_folder_large_{$nexus_folder_order_identifier}', function () {
-                    show_links_folder_{$nexus_folder_order_identifier}();
-                })
-                $(document).on('click', '#trigger_folder_small_{$nexus_folder_order_identifier}', function () {
-                    show_links_folder_{$nexus_folder_order_identifier}();
-                })";
+	$navbar_custom_leftside = false;
+	$print_folders_large = false;
+	$html_bottom_folders = false;
+	$close_folders_container = false;
+	$icon_type = false;
+	foreach ($_SESSION['nexus_folders'] as $folder_id => $content) {
+	    $icon_type = 'medium';
+		if ($_SESSION['nexus_folders'][$folder_id]['info']['type'] == 'main') {
+			$nexus_folder_order_identifier++;
+			$close_folders_container = "$('#folders_container').addClass('d-none');";
+			$navbar_custom_leftside .= nexus_put_together(array('type' => 'navbar', 'id' => "trigger_folder_small_$folder_id", 'color' => $_SESSION['nexus_folders'][$folder_id]['info']['color'], 'icon' => $_SESSION['nexus_folders'][$folder_id]['info']['icon'], 'title' => $_SESSION['nexus_folders'][$folder_id]['info']['title']));
 			if ($nexus_folder_order_identifier < 10) {
 				$html_bottom_folders .= "
                 document.addEventListener ('keydown', function (zEvent) {
                     if (zEvent.altKey  &&  zEvent.key === '{$nexus_folder_order_identifier}') {
-                        show_links_folder_{$nexus_folder_order_identifier}();
+                        show_links_folder_{$folder_id}();
                     }
                 });
 			    ";
 			}
+		} else {
+		    $icon_type = 'folder';
+			$close_folders_container = false;
 		}
+		$print_folders_large .= nexus_put_together(array('type' => $icon_type, 'id' => "folder_large_$folder_id", 'class' => "{$_SESSION['nexus_folders'][$folder_id]['info']['type']}_folder_icons d-none", 'color' => $_SESSION['nexus_folders'][$folder_id]['info']['color'], 'icon' => $_SESSION['nexus_folders'][$folder_id]['info']['icon'], 'title' => $_SESSION['nexus_folders'][$folder_id]['info']['title']));
+		$html_bottom_folders .= "
+                function show_links_folder_{$folder_id}() {
+                    load_state = $('#nexus_body').find('#load_state_{$folder_id}').val()
+                        if (load_state == 'false') {
+                        $.post('engine.php', {
+                            'populate_links': {$folder_id},
+                        }, function (data) {
+                            if (data != 0) {
+                                $('#links_row').append(data);
+                            }
+                        })
+                    }
+                    $('#page_title').empty();
+                    $('#page_title').append('{$_SESSION['nexus_folders'][$folder_id]['info']['title']}');
+                    $('#cmd_container').addClass('d-none');
+                    $('#links_container').removeClass('d-none');
+                    $('.all_link_icons').addClass('d-none');
+                    $('#settings_container').addClass('d-none');
+                    $('.link_of_folder_{$folder_id}').removeClass('d-none');
+                    $('#nexus_body').find('#load_state_{$folder_id}').val('true');
+                    $close_folders_container
+                }
+                $(document).on('click', '#trigger_folder_large_{$folder_id}', function () {
+                    show_links_folder_{$folder_id}();
+                })
+                $(document).on('click', '#trigger_folder_small_{$folder_id}', function () {
+                    show_links_folder_{$folder_id}();
+                })";
+		$hidden_inputs .= "
+		    <input id='load_state_{$folder_id}' type='hidden' value='false'>
+		";
+
 	}
 
-	$_SESSION['cmd_links'] = array();
-	$print_links = false;
 	// links = (user_id, pagina_id, type, param_int_1:folder_id, param_int_2:link_id, param1:link_url, param2:link_title, param3:link_icon, param4:link_color)
-	$query = prepare_query("SELECT param_int_1, param_int_2, param1, param2, param3, param4 FROM nexus_elements WHERE pagina_id = $pagina_id AND state = 1 AND type = 'link'");
-	$nexus_links_info = $conn->query($query);
-	if ($nexus_links_info->num_rows > 0) {
-		while ($nexus_link_info = $nexus_links_info->fetch_assoc()) {
-			$nexus_link_pasta_id = $nexus_link_info['param_int_1'];
-			$nexus_link_id = $nexus_link_info['param_int_2'];
-			$nexus_link_url = $nexus_link_info['param1'];
-			$nexus_link_title = $nexus_link_info['param2'];
-			$_SESSION['cmd_links'][$nexus_link_title] = $nexus_link_url;
-			$fa_icone = $nexus_link_info['param3'];
-			$fa_icone = nexus_icons('translate', $fa_icone);
-			$fa_icone = "fa-solid $fa_icone";
-			$fa_color = $nexus_link_info['param4'];
-			$fa_colors = nexus_colors('convert', $fa_color);
-			$fa_background = $fa_colors['bg-black-color'];
-			if ($nexus_link_pasta_id == false) {
-				$nexus_pasta_order_identifier = 9999;
-			} else {
-				$nexus_pasta_order_identifier = $nexus_folder_pairings[$nexus_link_pasta_id];
-			}
-			$print_links .= "<a id='link_{$nexus_link_id}' href='$nexus_link_url' target='_blank' class='all_link_icons rounded $fa_background py-4 px-4 me-1 mb-1 col-auto link_icon_{$nexus_pasta_order_identifier}'><i class='$fa_icone me-2'></i> <span class='link-light'>$nexus_link_title</span></a>";
-		}
-	}
-	$html_head_template_quill = true;
+
+	$html_head_template_quill = false;
 	$html_head_template_conteudo = false;
 	$html_head_template_conteudo .= "
         <script type='text/javascript'>
@@ -346,11 +305,17 @@
             html {
                 height: 100%;
             }
-            body {
+            #screenFiller {
                 background-image: url('../wallpapers/$wallpaper_file');
                 background-repeat: $wallpaper_repeat;
                 background-size: $wallpaper_size;
                 background-position: $wallpaper_position;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 100vh;
+                overflow-y: auto;
             }
             .nexus-title {
               mix-blend-mode: $title_overlay;
@@ -368,29 +333,31 @@
 	include 'templates/html_head.php';
 
 ?>
-    <div class="container-fluid bg-dark">
-        <div class="row">
-            <div class="col-6 d-flex flex-row bd-highlight">
+    <div id="nexus_body">
+	<?php
+		echo $hidden_inputs;
+	?>
+    <div id="screenFiller">
+    <input id="load_state_linkdump" type="hidden" value="false">
+    <div class="container-fluid">
+        <div class="row sticky-top">
+            <div class="col-12 d-flex bg-dark p-1">
 				<?php
 					echo $navbar_custom_leftside;
-				?>
-            </div>
-            <div class="col-6 d-flex flex-row-reverse bd-highlight">
-				<?php
-					echo nexus_put_together(array('type' => 'navbar', 'color' => 'green', 'href' => 'escritorio.php', 'icon' => 'fas fa-lamp-desk', 'id' => 'back_to_office'));
-					echo nexus_put_together(array('type' => 'navbar', 'color' => 'orange', 'href' => false, 'icon' => 'fas fa-cog', 'id' => 'trigger_show_setup_icons'));
-					echo nexus_put_together(array('type' => 'navbar', 'color' => 'cyan', 'href' => false, 'icon' => 'fas fa-clock-rotate-left', 'id' => 'trigger_show_recent_links'));
-					echo nexus_put_together(array('type' => 'navbar', 'color' => 'teal', 'href' => false, 'icon' => 'fas fa-box-archive fa-swap-opacity', 'id' => 'trigger_show_link_dump'));
-					echo nexus_put_together(array('type' => 'navbar', 'color' => 'purple', 'href' => false, 'icon' => 'fas fa-cabinet-filing fa-swap-opacity', 'id' => 'trigger_show_archival_folder_icons'));
-					echo nexus_put_together(array('type' => 'navbar', 'color' => 'yellow', 'href' => false, 'icon' => 'fas fa-folder-bookmark', 'id' => 'trigger_show_main_folder_icons'));
+					echo nexus_put_together(array('type' => 'navbar', 'color' => 'yellow', 'class' => 'ms-auto', 'href' => false, 'icon' => 'fas fa-folder-bookmark', 'id' => 'trigger_show_main_folder_icons'));
+					echo nexus_put_together(array('type' => 'navbar', 'color' => 'purple', 'class' => false, 'href' => false, 'icon' => 'fas fa-cabinet-filing fa-swap-opacity', 'id' => 'trigger_show_archival_folder_icons'));
+					echo nexus_put_together(array('type' => 'navbar', 'color' => 'teal', 'class' => false, 'href' => false, 'icon' => 'fas fa-box-archive fa-swap-opacity', 'id' => 'trigger_show_link_dump'));
+					echo nexus_put_together(array('type' => 'navbar', 'color' => 'cyan', 'class' => false, 'href' => false, 'icon' => 'fas fa-clock-rotate-left', 'id' => 'trigger_show_recent_links'));
+					echo nexus_put_together(array('type' => 'navbar', 'color' => 'orange', 'class' => false, 'href' => false, 'icon' => 'fas fa-cog', 'id' => 'trigger_show_setup_icons'));
+					echo nexus_put_together(array('type' => 'navbar', 'color' => 'green', 'class' => false, 'href' => 'escritorio.php', 'icon' => 'fas fa-lamp-desk', 'id' => 'back_to_office'));
+
 				?>
             </div>
         </div>
-    </div>
-    <body id='nexus_background' class="bg-light">
-    <div class="container-fluid my-5">
-        <div class="row justify-content-center">
-            <div id="page_title" class="text-center nexus-title col-auto display-1 <?php echo $title_color; ?>"><?php echo $nexus_title; ?></div>
+        <div class="row d-flex">
+            <div class="col-12">
+                <div id="page_title" class="my-5 text-center nexus-title col-auto display-1 <?php echo $title_color; ?>"><?php echo $nexus_title; ?></div>
+            </div>
         </div>
     </div>
 	<?php
@@ -406,8 +373,14 @@
                     <input id="cmdbar" name="cmdbar" list="command-list" type="text" class="form-control font-monospace mx-1 cmd-bar rounded <?php echo $cmd_text; ?> bg-dark border-0" rows="1" autocomplete="off" spellcheck="false" placeholder="<?php echo $user_apelido; ?> commands…">
                     <datalist id="command-list">
 						<?php
-							foreach ($_SESSION['cmd_links'] as $key => $value) {
-								echo "<option>$key</option>";
+							if ($_SESSION['nexus_options']['cmd_link_id'] == false) {
+								foreach ($_SESSION['nexus_links'] as $key => $value) {
+									echo "<option value='{$_SESSION['nexus_links'][$key]['title']}'>";
+								}
+							} else {
+								foreach ($_SESSION['nexus_order'] as $key => $value) {
+									echo "<option value='$key'>{$_SESSION['nexus_order'][$key]['title']}</option>";
+								}
 							}
 						?>
                     </datalist>
@@ -418,75 +391,32 @@
 	<?php
 		echo "<div id='settings_container' class='container d-none'><div id='settings_row' class='row'>";
 
-		echo nexus_put_together(array(
-		        'type' => 'large',
-		        'id' => 'manage_folders',
-                'title' => 'Manage folders',
-                'modal' => '#modal_manage_folders',
-                'class' => 'nexus_settings_icon',
-                'icon' => 'fad fa-folder-gear',
-                'color' => 'yellow'
-            ));
+		echo nexus_put_together(array('type' => 'large', 'id' => 'manage_folders', 'title' => 'Manage folders', 'modal' => '#modal_manage_folders', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-folder-gear', 'color' => 'yellow'));
 
-		echo nexus_put_together(array(
-		        'type' => 'large',
-		        'id' => 'manage_links',
-                'title' => 'Manage links',
-                'modal' => '#modal_manage_links',
-                'class' => 'nexus_settings_icon',
-                'icon' => 'fad fa-bookmark',
-                'color' => 'red'
-            ));
+		echo nexus_put_together(array('type' => 'large', 'id' => 'manage_links', 'title' => 'Manage links', 'modal' => '#modal_manage_links', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-bookmark', 'color' => 'red'));
 
-		echo nexus_put_together(array(
-		        'type' => 'large',
-		        'id' => 'manage_themes',
-                'title' => 'Manage themes',
-                'modal' => '#modal_manage_themes',
-                'class' => 'nexus_settings_icon',
-                'icon' => 'fad fa-swatchbook',
-                'color' => 'purple'
-            ));
+		echo nexus_put_together(array('type' => 'large', 'id' => 'manage_themes', 'title' => 'Manage themes', 'modal' => '#modal_manage_themes', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-swatchbook', 'color' => 'purple'));
 
-		echo nexus_put_together(array(
-		        'type' => 'large',
-		        'id' => 'manage_options',
-                'title' => 'Options',
-                'modal' => '#modal_options',
-                'class' => 'nexus_settings_icon',
-                'icon' => 'fad fa-toggle-large-on',
-                'color' => 'green'
-            ));
+		echo nexus_put_together(array('type' => 'large', 'id' => 'manage_options', 'title' => 'Options', 'modal' => '#modal_options', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-toggle-large-on', 'color' => 'green'));
 
-		echo nexus_put_together(array(
-		        'type' => 'large',
-		        'id' => 'manage_timeline',
-                'title' => 'Activity log',
-                'modal' => '#modal_manage_timeline',
-                'class' => 'nexus_settings_icon',
-                'icon' => 'fad fa-list-timeline',
-                'color' => 'cyan'
-            ));
+		echo nexus_put_together(array('type' => 'large', 'id' => 'manage_timeline', 'title' => 'Activity log', 'modal' => '#modal_manage_timeline', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-list-timeline', 'color' => 'cyan'));
 
-		echo nexus_put_together(array(
-		        'type' => 'large',
-		        'id' => 'manage_commands',
-                'title' => 'Commands',
-                'modal' => '#modal_commands',
-                'class' => 'nexus_settings_icon',
-                'icon' => 'fad fa-rectangle-terminal',
-                'color' => 'orange'
-            ));
+		echo nexus_put_together(array('type' => 'large', 'id' => 'manage_commands', 'title' => 'Commands', 'modal' => '#modal_commands', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-rectangle-terminal', 'color' => 'orange'));
 
-    	echo "</div></div>";
+		if ($user_id == 1) {
+			echo nexus_put_together(array('type' => 'large', 'id' => 'transfer_nexustation', 'title' => 'Transfer Nexustation', 'modal' => false, 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-timeline-arrow', 'color' => 'indigo'));
+			echo nexus_put_together(array('type' => 'large', 'id' => 'shred_nexus', 'title' => 'Delete all Nexus data', 'modal' => false, 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-shredder', 'color' => 'red'));
+		}
+
+		echo nexus_put_together(array('type' => 'large', 'id' => 'logout', 'title' => 'Logout', 'modal' => false, 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-person-through-window', 'color' => 'red'));
+
+		echo "</div></div>";
 		echo "<div id='folders_container' class=\"container d-none\"><div id='folders_row' class='row'>";
 
 		echo $print_folders_large;
 
 		echo "</div></div>";
 		echo "<div id='links_container' class=\"container d-none\"><div id='links_row' class='row'>";
-
-		echo $print_links;
 		echo "</div></div>";
 
 	?>
@@ -520,8 +450,16 @@
 		$template_modal_show_buttons = false;
 		include 'templates/modal.php';
 
+		$template_modal_div_id = 'modal_options';
+		$template_modal_titulo = 'Options';
+		$template_modal_body_conteudo = false;
+		$template_modal_body_conteudo = "Loading...";
+		$template_modal_show_buttons = false;
+		include 'templates/modal.php';
+
 		$template_modal_div_id = 'modal_commands';
 		$template_modal_titulo = 'The Nexus Command Bar';
+		$modal_scrollable = true;
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo = "
 		    <ul class='list-group mb-3'>
@@ -537,12 +475,11 @@
 		        <li class='list-group-item'>\"/yt search terms\" will perform a Youtube seach.</li>
 		        <li class='list-group-item'>\"/rd search terms\" will perform a Reddit seach.</li>
 		        <li class='list-group-item'>\"/tw search terms\" will perform a Twitter seach.</li>
-		        <li class='list-group-item'></li>
             </ul>
 		    <ul class='list-group'>
 		        <li class='list-group-item active'><h5>Hotkeys:</h5></li>
-		        <li class='list-group-item'>Press Esc to return to the original screen and focus the command bar. You may also click the large text under the navbar or press Alt+C.</li>
-		        <li class='list-group-item'>Alt+1 to 9 will show the links from each of the main folders, in order.</li>
+		        <li class='list-group-item'>Alt+C will return to the original screen, with focus on the command bar. Clicking the title text does the same.</li>
+		        <li class='list-group-item'>Alt+1 to 9 will show the links from each of the first nine main folders, in order.</li>
 		        <li class='list-group-item'>Alt+A will show the archived links.</li>
 		        <li class='list-group-item'>Alt+S will show the settings.</li>
 		        <li class='list-group-item'>Alt+R will show recent links.</li>
@@ -566,6 +503,7 @@
 		include 'templates/modal.php';
 
 	?>
+    </div>
     </body>
     <script type="text/javascript">
         function original_state() {
@@ -579,13 +517,6 @@
             $("input:text:visible:first").focus();
         }
 
-        $(document).on('keyup', function (e) {
-            var code = e.key;
-            if (code == 'Escape') {
-                original_state();
-            }
-        })
-
         $(document).on('click', '#page_title', function () {
             original_state();
         })
@@ -597,6 +528,10 @@
             }
         });
 
+        function isUrlValid(url) {
+            return /^(https?|s?ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(url);
+        }
+
         $(document).on('keyup', '#cmdbar', function (e) {
             bar = $('#cmdbar').val();
             long = bar.length;
@@ -606,8 +541,13 @@
                     'analyse_cmd_input': bar,
                 }, function (data) {
                     if (data != 0) {
-                        window.open(data, '_blank');
-                        $("#cmdbar").val('');
+                        check = isUrlValid(data);
+                        if (check == true) {
+                            window.open(data, '_blank');
+                            $("#cmdbar").val('');
+                        } else {
+                            $("#cmdbar").val(data);
+                        }
                     }
                 });
             }
@@ -648,6 +588,18 @@
         })
 
         function show_link_dump_icons() {
+
+            load_state = $('#nexus_body').find('#load_state_linkdump').val()
+            if (load_state == 'false') {
+                $.post('engine.php', {
+                    'populate_links': 'linkdump',
+                }, function (data) {
+                    if (data != 0) {
+                        $('#links_row').append(data);
+                    }
+                })
+            }
+
             $('#page_title').empty();
             $('#page_title').append('Link Dump');
             $('#cmd_container').addClass('d-none');
@@ -655,7 +607,8 @@
             $(document).find('#folders_container').addClass('d-none');
             $(document).find('#links_container').removeClass('d-none');
             $('#links_container').find('.all_link_icons').addClass('d-none');
-            $('#links_container').find('.link_icon_9999').removeClass('d-none');
+            $('#links_container').find('.link_of_folder_linkdump').removeClass('d-none');
+            $('#nexus_body').find('#load_state_linkdump').val('true');
         }
 
         $(document).on('click', '#trigger_show_link_dump', function () {
@@ -789,6 +742,52 @@
                 }
             });
         });
+
+        $(document).on('click', '#trigger_manage_options', function () {
+            $.post('engine.php', {
+                'populate_options_modal': true
+            }, function (data) {
+                if (data != 0) {
+                    $('#body_modal_options').empty();
+                    $('#body_modal_options').append(data);
+                }
+            });
+        });
+
+        $(document).on('click', '#trigger_transfer_nexustation', function () {
+            $.post('engine.php', {
+                'transfer_nexustation': true
+            }, function (data) {
+                if (data != 0) {
+                    if (data == 'done') {
+                        window.location.reload(true);
+                    }
+                }
+            })
+        });
+
+        $(document).on('click', '#trigger_shred_nexus', function () {
+            $.post('engine.php', {
+                'shred_nexus': true
+            }, function (data) {
+                if (data != 0) {
+                    if (data == 'done') {
+                        window.location.reload(true);
+                    }
+                }
+            })
+        });
+
+        $(document).on('click', '#trigger_manage_timeline', function () {
+            $.post('engine.php', {
+                'send_log': true
+            }, function (data) {
+                if (data != 0) {
+                    $('#body_modal_manage_timeline').empty();
+                    $('#body_modal_manage_timeline').append(data);
+                }
+            })
+        })
 
 		<?php
 		echo $html_bottom_folders;
