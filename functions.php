@@ -3824,7 +3824,7 @@
 			return false;
 		}
 
-		$query = prepare_query("SELECT id, type, title, icon, color FROM nexus_folders WHERE pagina_id = $nexus_pagina_id", 'log');
+		$query = prepare_query("SELECT id, type, title, icon, color FROM nexus_folders WHERE pagina_id = $nexus_pagina_id");
 		$nexus_folders = array();
 		$nexus_folders_info = $conn->query($query);
 		$count = 0;
@@ -3896,7 +3896,7 @@
 				break;
 			case 'read':
 				include 'templates/criar_conn.php';
-				$query = prepare_query("SELECT * FROM nexus_options WHERE pagina_id = {$args['pagina_id']}", 'log');
+				$query = prepare_query("SELECT * FROM nexus_options WHERE pagina_id = {$args['pagina_id']}");
 				$options = $conn->query($query);
 				$results = array();
 				if ($options->num_rows > 0) {

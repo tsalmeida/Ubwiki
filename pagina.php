@@ -1431,7 +1431,7 @@
 						$template_id = 'autor_obras';
 						$template_titulo = $pagina_translated['author of'];
 						$template_conteudo = false;
-						$query = prepare_query();
+						$query = prepare_query("SELECT * FROM elementos WHERE autor_etiqueta_id = $pagina_item_id");
 						$autor_obras = $conn->query($query);
 						if ($autor_obras->num_rows > 0) {
 							while ($autor_obra = $autor_obras->fetch_assoc()) {

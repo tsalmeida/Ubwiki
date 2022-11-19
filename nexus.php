@@ -172,8 +172,6 @@
 		exit();
 	}
 
-	unset($_SESSION['nexus_links']);
-
 	if (!isset($_SESSION['nexus_links'])) {
 		$nexus_all_links = rebuild_cmd_links($_SESSION['user_nexus_pagina_id']);
 		$_SESSION['nexus_links'] = $nexus_all_links['nexus_links'];
@@ -398,15 +396,10 @@
 				echo "<div id='settings_container' class='container d-none'><div id='settings_row' class='row'>";
 
 				echo nexus_put_together(array('type' => 'large', 'id' => 'manage_folders', 'title' => 'Manage folders', 'modal' => '#modal_manage_folders', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-folder-gear', 'color' => 'yellow'));
-
 				echo nexus_put_together(array('type' => 'large', 'id' => 'manage_links', 'title' => 'Manage links', 'modal' => '#modal_manage_links', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-bookmark', 'color' => 'red'));
-
 				echo nexus_put_together(array('type' => 'large', 'id' => 'manage_themes', 'title' => 'Manage themes', 'modal' => '#modal_manage_themes', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-swatchbook', 'color' => 'purple'));
-
 				echo nexus_put_together(array('type' => 'large', 'id' => 'manage_options', 'title' => 'Options', 'modal' => '#modal_options', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-toggle-large-on', 'color' => 'green'));
-
 				echo nexus_put_together(array('type' => 'large', 'id' => 'manage_timeline', 'title' => 'Activity log', 'modal' => '#modal_manage_timeline', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-list-timeline', 'color' => 'cyan'));
-
 				echo nexus_put_together(array('type' => 'large', 'id' => 'manage_commands', 'title' => 'Commands', 'modal' => '#modal_commands', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-rectangle-terminal', 'color' => 'orange'));
 
 				if ($user_id == 1) {
