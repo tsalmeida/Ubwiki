@@ -1,5 +1,5 @@
 <?php
-	
+
 	if (isset($_POST['select_language'])) {
 		$user_language = $_POST['select_language'];
 		$_SESSION['user_language'] = $user_language;
@@ -10,13 +10,20 @@
 			$conn->query($query);
 		}
 	}
-	
+
+
+
 	if (isset($_SESSION['user_language'])) {
 		$user_language = $_SESSION['user_language'];
 	} else {
-		$user_language = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+		if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+			$user_language = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
+		} else {
+			$user_language = 'pt';
+		}
 		$_SESSION['user_language'] = $user_language;
 	}
+
 	if (!isset($user_language)) {
 		$user_language = 'pt';
 		$_SESSION['user_language'] = $user_language;
@@ -38,7 +45,7 @@
 			}
 		}
 	}
-	
+
 	function translate_pagina($user_language)
 	{
 		if ($user_language == false) {
@@ -77,7 +84,7 @@
 			return 8272;
 		}
 	}
-	
+
 	function return_texto_ambientes($ambiente, $user_language)
 	{
 		switch ($ambiente) {

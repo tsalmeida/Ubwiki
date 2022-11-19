@@ -2108,7 +2108,6 @@
 
 	function send_nova_senha($email, $confirmacao, $user_language)
 	{
-		//error_log('this happened');
 		if ($user_language == 'en') {
 			$msg = "Your password at Ubwiki has been changed.\nIf you do not have an Ubwiki account, one has been created for your e-mail address.\nTo activate it, please follow this link:\nhttps://www.ubwiki.com.br/ubwiki/ubwiki.php?confirmacao=$confirmacao";
 		} elseif ($user_language == 'es') {

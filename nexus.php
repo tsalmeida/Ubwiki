@@ -321,14 +321,14 @@
                 height: 100vh;
                 overflow-y: auto;
             }
-            .nexus-title {
+            #page_title_text {
               mix-blend-mode: $title_overlay;
               user-select: none;
-              cursor: pointer;
               word-break: keep-all;
               line-height: normal;
+              cursor: pointer;
             }
-            .nexus-title:hover {
+            #page_title_text:hover {
               mix-blend-mode: $title_overlay_hover;
             }
         </style>
@@ -360,7 +360,7 @@
                 </div>
                 <div class="row d-flex">
                     <div class="col-12">
-                        <div id="page_title" class="my-5 text-center nexus-title col-auto display-1 <?php echo $title_color; ?>"><?php echo $nexus_title; ?></div>
+                        <div id="page_title" class="my-5 text-center col-auto display-1"><span id="page_title_text" class="nexus-title <?php echo $title_color; ?>"><?php echo $nexus_title; ?></span></div>
                     </div>
                 </div>
             </div>
@@ -516,7 +516,7 @@
             $("input:text:visible:first").focus();
         }
 
-        $(document).on('click', '#page_title', function () {
+        $(document).on('click', '#page_title_text', function () {
             original_state();
         })
 
