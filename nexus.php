@@ -1,6 +1,5 @@
 <?php
 
-	//TODO: Trazer o Nexus a um nível básico que permita o uso
 	//TODO: Clicar em "link dump" no modal de links deveria fechar o modal.
 	//TODO: Forma de alterar icones, cores e títulos de todos os elementos.
 	//TODO: Forma de alterar a ordem dos elementos.
@@ -15,6 +14,7 @@
 	//TODO: E se fosse possível jogar o Chess Battles dentro da página, uma jogada por vez?
 	//TODO: A página poderia recordar a jogar Wordle, por exemplo.
 	//TODO: Links com maior e menor proeminência, alguns apenas com links, outros sem cor, outros em letras menores.
+    //TODO: Detect dead links and make them a different color on the scren.
 
 	$pagina_tipo = 'nexus';
 	include 'engine.php';
@@ -185,11 +185,25 @@
 	$nexus_folder_order_identifier = 0;
 	$navbar_custom_leftside = false;
 	$print_folders_large = false;
+	$print_folders_large .= nexus_put_together(array(
+	        'type'=>'folder',
+            'id'=>'add_folder',
+            'color'=>'white',
+            'icon'=>'fad fa-cog fa-spin',
+            'title'=>'Manage main folders',
+            'class'=>'d-none setup_icon main_folder_icons'
+    ));
+	$print_folders_large .= nexus_put_together(array(
+	        'type'=>'folder',
+            'id'=>'add_folder',
+            'color'=>'white',
+            'icon'=>'fad fa-cog fa-spin',
+            'title'=>'Manage archival folders',
+            'class'=>'d-none setup_icon archival_folder_icons'
+    ));
 	$html_bottom_folders = false;
 	$close_folders_container = false;
-	$icon_type = false;
 	foreach ($_SESSION['nexus_folders'] as $folder_id => $content) {
-		$icon_type = 'medium';
 		if ($_SESSION['nexus_folders'][$folder_id]['info']['type'] == 'main') {
 			$nexus_folder_order_identifier++;
 			$close_folders_container = "$('#folders_container').addClass('d-none');";
@@ -204,10 +218,9 @@
 			    ";
 			}
 		} else {
-			$icon_type = 'folder';
 			$close_folders_container = false;
 		}
-		$print_folders_large .= nexus_put_together(array('type' => $icon_type, 'id' => "folder_large_$folder_id", 'class' => "{$_SESSION['nexus_folders'][$folder_id]['info']['type']}_folder_icons d-none", 'color' => $_SESSION['nexus_folders'][$folder_id]['info']['color'], 'icon' => $_SESSION['nexus_folders'][$folder_id]['info']['icon'], 'title' => $_SESSION['nexus_folders'][$folder_id]['info']['title']));
+		$print_folders_large .= nexus_put_together(array('type' => 'folder', 'id' => "folder_large_$folder_id", 'class' => "{$_SESSION['nexus_folders'][$folder_id]['info']['type']}_folder_icons d-none", 'color' => $_SESSION['nexus_folders'][$folder_id]['info']['color'], 'icon' => $_SESSION['nexus_folders'][$folder_id]['info']['icon'], 'title' => $_SESSION['nexus_folders'][$folder_id]['info']['title']));
 		$html_bottom_folders .= "
                 function show_links_folder_{$folder_id}() {
                     load_state = $('#nexus_body').find('#load_state_{$folder_id}').val()
@@ -220,12 +233,11 @@
                             }
                         })
                     }
-                    $('#page_title').empty();
-                    $('#page_title').append('{$_SESSION['nexus_folders'][$folder_id]['info']['title']}');
+                    $('#page_title_text').empty();
+                    $('#page_title_text').append('{$_SESSION['nexus_folders'][$folder_id]['info']['title']}');
                     $('#cmd_container').addClass('d-none');
                     $('#links_container').removeClass('d-none');
                     $('.all_link_icons').addClass('d-none');
-                    $('#settings_container').addClass('d-none');
                     $('.link_of_folder_{$folder_id}').removeClass('d-none');
                     $('#nexus_body').find('#load_state_{$folder_id}').val('true');
                     $close_folders_container
@@ -354,13 +366,44 @@
 							echo nexus_put_together(array('type' => 'navbar', 'color' => 'cyan', 'class' => false, 'href' => false, 'icon' => 'fas fa-clock-rotate-left', 'id' => 'trigger_show_recent_links'));
 							echo nexus_put_together(array('type' => 'navbar', 'color' => 'orange', 'class' => false, 'href' => false, 'icon' => 'fas fa-cog', 'id' => 'trigger_show_setup_icons'));
 							echo nexus_put_together(array('type' => 'navbar', 'color' => 'green', 'class' => false, 'href' => 'escritorio.php', 'icon' => 'fas fa-lamp-desk', 'id' => 'back_to_office'));
-
 						?>
                     </div>
                 </div>
+                <?php
+					echo "<div id='settings_container' class='container d-none mt-1'><div id='settings_row' class='row'>";
+
+					echo nexus_put_together(array('type' => 'folder', 'id' => 'manage_folders', 'title' => 'Manage folders', 'modal' => '#modal_manage_folders', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-folder-gear', 'color' => 'yellow'));
+					echo nexus_put_together(array('type' => 'folder', 'id' => 'manage_links', 'title' => 'Manage links', 'modal' => '#modal_manage_links', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-bookmark', 'color' => 'red'));
+					echo nexus_put_together(array('type' => 'folder', 'id' => 'manage_themes', 'title' => 'Manage themes', 'modal' => '#modal_manage_themes', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-swatchbook', 'color' => 'purple'));
+					echo nexus_put_together(array('type' => 'folder', 'id' => 'manage_options', 'title' => 'Options', 'modal' => '#modal_options', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-toggle-large-on', 'color' => 'green'));
+					echo nexus_put_together(array('type' => 'folder', 'id' => 'manage_timeline', 'title' => 'Activity log', 'modal' => '#modal_manage_timeline', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-list-timeline', 'color' => 'cyan'));
+					echo nexus_put_together(array('type' => 'folder', 'id' => 'manage_commands', 'title' => 'Commands', 'modal' => '#modal_commands', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-rectangle-terminal', 'color' => 'orange'));
+
+					if ($user_id == 1) {
+						echo nexus_put_together(array('type' => 'folder', 'id' => 'transfer_nexustation', 'title' => 'Transfer Nexustation', 'modal' => false, 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-timeline-arrow', 'color' => 'indigo'));
+						echo nexus_put_together(array('type' => 'folder', 'id' => 'shred_nexus', 'title' => 'Delete all Nexus data', 'modal' => false, 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-shredder', 'color' => 'red'));
+					}
+
+					echo nexus_put_together(array('type' => 'folder', 'id' => 'logout', 'title' => 'Logout', 'modal' => false, 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-person-through-window', 'color' => 'red'));
+
+					echo "</div></div>";
+                ?>
+<!--                <div class="row sticky-top">-->
+<!--                    <div class="col-12 d-flex bg-transparent p-1">-->
+<!--						--><?php
+//							echo nexus_put_together(array('type' => 'navbar', 'color' => 'orange', 'class' => 'ms-auto', 'href' => false, 'icon' => 'fas fa-cog', 'id' => 'trigger_show_settings'));
+//						?>
+<!--                    </div>-->
+<!--                </div>-->
                 <div class="row d-flex">
                     <div class="col-12">
-                        <div id="page_title" class="my-5 text-center col-auto display-1"><span id="page_title_text" class="nexus-title <?php echo $title_color; ?>"><?php echo $nexus_title; ?></span></div>
+                        <div id="page_title" class="my-5 text-center col-auto">
+                            <span id="page_title_text" class="nexus-title display-1 <?php echo $title_color; ?>">
+                                <?php
+                                    echo $nexus_title;
+                                ?>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -393,29 +436,12 @@
                 </div>
             </div>
 			<?php
-				echo "<div id='settings_container' class='container d-none'><div id='settings_row' class='row'>";
-
-				echo nexus_put_together(array('type' => 'large', 'id' => 'manage_folders', 'title' => 'Manage folders', 'modal' => '#modal_manage_folders', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-folder-gear', 'color' => 'yellow'));
-				echo nexus_put_together(array('type' => 'large', 'id' => 'manage_links', 'title' => 'Manage links', 'modal' => '#modal_manage_links', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-bookmark', 'color' => 'red'));
-				echo nexus_put_together(array('type' => 'large', 'id' => 'manage_themes', 'title' => 'Manage themes', 'modal' => '#modal_manage_themes', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-swatchbook', 'color' => 'purple'));
-				echo nexus_put_together(array('type' => 'large', 'id' => 'manage_options', 'title' => 'Options', 'modal' => '#modal_options', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-toggle-large-on', 'color' => 'green'));
-				echo nexus_put_together(array('type' => 'large', 'id' => 'manage_timeline', 'title' => 'Activity log', 'modal' => '#modal_manage_timeline', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-list-timeline', 'color' => 'cyan'));
-				echo nexus_put_together(array('type' => 'large', 'id' => 'manage_commands', 'title' => 'Commands', 'modal' => '#modal_commands', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-rectangle-terminal', 'color' => 'orange'));
-
-				if ($user_id == 1) {
-					echo nexus_put_together(array('type' => 'large', 'id' => 'transfer_nexustation', 'title' => 'Transfer Nexustation', 'modal' => false, 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-timeline-arrow', 'color' => 'indigo'));
-					echo nexus_put_together(array('type' => 'large', 'id' => 'shred_nexus', 'title' => 'Delete all Nexus data', 'modal' => false, 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-shredder', 'color' => 'red'));
-				}
-
-				echo nexus_put_together(array('type' => 'large', 'id' => 'logout', 'title' => 'Logout', 'modal' => false, 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-person-through-window', 'color' => 'red'));
-
-				echo "</div></div>";
-				echo "<div id='folders_container' class=\"container d-none\"><div id='folders_row' class='row'>";
+				echo "<div id='folders_container' class='container d-none'><div id='folders_row' class='row'>";
 
 				echo $print_folders_large;
 
 				echo "</div></div>";
-				echo "<div id='links_container' class=\"container d-none\"><div id='links_row' class='row'>";
+				echo "<div id='links_container' class='container d-none'><div id='links_row' class='row'>";
 				echo "</div></div>";
 
 			?>
@@ -506,8 +532,8 @@
     </body>
     <script type="text/javascript">
         function original_state() {
-            $('#page_title').empty();
-            $('#page_title').append('<?php echo $nexus_title; ?>');
+            $('#page_title_text').empty();
+            $('#page_title_text').append('<?php echo $nexus_title; ?>');
             $('#cmdbar').val('');
             $('#folders_container').addClass('d-none');
             $('#settings_container').addClass('d-none');
@@ -599,10 +625,9 @@
                 })
             }
 
-            $('#page_title').empty();
-            $('#page_title').append('Link Dump');
+            $('#page_title_text').empty();
+            $('#page_title_text').append('Link Dump');
             $('#cmd_container').addClass('d-none');
-            $(document).find('#settings_container').addClass('d-none');
             $(document).find('#folders_container').addClass('d-none');
             $(document).find('#links_container').removeClass('d-none');
             $('#links_container').find('.all_link_icons').addClass('d-none');
@@ -624,13 +649,11 @@
         $("input:text:visible:first").focus();
 
         function show_setup_icons() {
-            $('#page_title').empty();
-            $('#page_title').append('Settings');
+            $('#page_title_text').empty();
+            $('#page_title_text').append('Settings');
             $('#cmd_container').addClass('d-none');
+            $('.setup_icon').removeClass('d-none');
             $(document).find('#settings_container').removeClass('d-none');
-            $(document).find('#links_container').addClass('d-none');
-            $('#folders_container').find('.main_folder_icons').addClass('d-none');
-            $('#folders_container').find('.archival_folder_icons').addClass('d-none');
         }
 
         $(document).on('click', '#trigger_show_setup_icons', function () {
@@ -645,10 +668,9 @@
         });
 
         function show_main_folder_icons() {
-            $('#page_title').empty();
-            $('#page_title').append('Main folders');
+            $('#page_title_text').empty();
+            $('#page_title_text').append('Main folders');
             $('#cmd_container').addClass('d-none');
-            $(document).find('#settings_container').addClass('d-none');
             $(document).find('#links_container').addClass('d-none');
             $('#folders_container').removeClass('d-none');
             $('#folders_container').find('.main_folder_icons').removeClass('d-none');
@@ -667,10 +689,9 @@
         });
 
         function show_archival_folder_icons() {
-            $('#page_title').empty();
-            $('#page_title').append('Archives');
+            $('#page_title_text').empty();
+            $('#page_title_text').append('Archives');
             $('#cmd_container').addClass('d-none');
-            $(document).find('#settings_container').addClass('d-none');
             $(document).find('#links_container').addClass('d-none');
             $('#folders_container').removeClass('d-none');
             $('#folders_container').find('.main_folder_icons').addClass('d-none');
@@ -688,10 +709,9 @@
         });
 
         function show_recent_links() {
-            $('#page_title').empty();
-            $('#page_title').append('Recent links');
+            $('#page_title_text').empty();
+            $('#page_title_text').append('Recent links');
             $('#cmd_container').addClass('d-none');
-            $(document).find('#settings_container').addClass('d-none');
             $(document).find('#links_container').removeClass('d-none');
             $('#folders_container').find('.main_folder_icons').addClass('d-none');
             $('#folders_container').find('.archival_folder_icons').addClass('d-none');

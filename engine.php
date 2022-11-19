@@ -2405,7 +2405,7 @@
 					default:
 						$location = 1;
 				}
-				nexus_add_link(array('user_id' => $_SESSION['user_id'], 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'url' => $link['four'], 'title' => $link['two'], 'location' => $location, 'check_headers'=>false, 'check_curl'=>false));
+				nexus_add_link(array('user_id' => $_SESSION['user_id'], 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'url' => $link['four'], 'title' => $link['two'], 'location' => $location, 'check_headers' => false, 'check_curl' => false));
 			}
 		}
 		$query = prepare_query("SELECT two, three, four FROM Nexustation WHERE one = 'link'");
@@ -2437,7 +2437,7 @@
 					default:
 						$location = 1;
 				}
-				nexus_add_link(array('user_id' => $_SESSION['user_id'], 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'url' => $link['four'], 'title' => $link['two'], 'location' => $location, 'check_headers'=>false, 'check_curl'=>false));
+				nexus_add_link(array('user_id' => $_SESSION['user_id'], 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'url' => $link['four'], 'title' => $link['two'], 'location' => $location, 'check_headers' => false, 'check_curl' => false));
 				unset($_SESSION['all_links']);
 			}
 		}
@@ -2536,14 +2536,14 @@
 					default:
 						$location = 0;
 				}
-				nexus_add_link(array('user_id' => $_SESSION['user_id'], 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'url' => $link['four'], 'title' => $link['two'], 'location' => $location, 'check_headers'=>false, 'check_curl'=>false));
+				nexus_add_link(array('user_id' => $_SESSION['user_id'], 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'url' => $link['four'], 'title' => $link['two'], 'location' => $location, 'check_headers' => false, 'check_curl' => false));
 			}
 		}
 		$query = prepare_query("SELECT two, four FROM Nexustation WHERE one = 'linkDump'");
 		$linkdumps = $conn->query($query);
 		if ($linkdumps->num_rows > 0) {
 			while ($linkdump = $linkdumps->fetch_assoc()) {
-				nexus_add_link(array('user_id' => $_SESSION['user_id'], 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'url' => $linkdump['four'], 'title' => $linkdump['two'], 'check_headers'=>false, 'check_curl'=>false));
+				nexus_add_link(array('user_id' => $_SESSION['user_id'], 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'url' => $linkdump['four'], 'title' => $linkdump['two'], 'check_headers' => false, 'check_curl' => false));
 			}
 		}
 		unset($_SESSION['all_links']);
@@ -2585,6 +2585,9 @@
 
 	if (isset($_POST['populate_links'])) {
 		$result = false;
+
+		$result .= nexus_put_together(array('type' => 'compact', 'id' => 'trigger_add_link', 'href' => false, 'color' => 'white', 'icon' => 'fad fa-cog fa-spin', 'title' => 'Manage links in this folder', 'class' => "d-none setup_icon link_of_folder_{$_POST['populate_links']}"));
+
 		foreach ($_SESSION['nexus_folders'][$_POST['populate_links']] as $link_id => $link_info) {
 			if (!isset($_SESSION['nexus_folders'][$_POST['populate_links']][$link_id]['url'])) {
 				continue;
@@ -2634,12 +2637,23 @@
 				if (isset($_SESSION['nexus_cmd'][$_POST['analyse_cmd_input']])) {
 					echo $_SESSION['nexus_cmd'][$_POST['analyse_cmd_input']];
 				} else {
-					$cmd_check = substr($_POST['analyze_cmd_input'], 0, 1);
+					$cmd_check = substr($_POST['analyse_cmd_input'], 0, 1);
 					if ($cmd_check == '/') {
-						echo 'command';
-						exit();
+						$result = process_cmd(array('input' => $_POST['analyse_cmd_input'], 'pagina_id'=>$_SESSION['user_nexus_pagina_id']));
+						if ($result == false) {
+							echo 'No match found';
+						} else {
+							switch ($result['type']) {
+								case 'url':
+									echo $result['url'];
+									break;
+								default:
+									echo 'No suitable command found';
+									exit();
+							}
+						}
 					} else {
-						echo 'No match';
+						echo 'No match found';
 					}
 				}
 			}
