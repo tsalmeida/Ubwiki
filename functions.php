@@ -31,10 +31,10 @@
 					print "<p class='link-danger'>$query</p>";
 					break;
 				case 'log':
-					error_log($query);
+					error_log($query); // only when activated
 					break;
 				default:
-					error_log("$extra: $query");
+					error_log("$extra: $query"); // only when activated
 			}
 		}
 		return $query;
@@ -3599,6 +3599,12 @@
 		if ($params['url'] == false) {
 			return false;
 		}
+		if (!isset($params['check_curl'])) {
+			$params['check_curl'] = false;
+		}
+		if (!isset($params['check_headers'])) {
+			$params['check_headers'] = true;
+		}
 		$user_id = $params['user_id'];
 		$pagina_id = $params['pagina_id'];
 		if (isset($params['location'])) {
@@ -3608,7 +3614,13 @@
 		}
 		$new_link_url = $params['url'];
 
-		$check = check_url('curl', $new_link_url);
+		$check = true; // in case no checks are performed, we just trust the user that his link makes sense.
+		if ($params['check_curl'] == true) {
+			$check = check_url('curl', $new_link_url);
+		} elseif ($params['check_headers'] == true) {
+			$check = get_headers($new_link_url);
+		}
+
 		if ($check == false) {
 			nexus_log(array('user_id' => $user_id, 'mode' => 'write', 'type' => 'system', 'message' => "The following link wasn\'t added because it seems to be dead: $new_link_url"));
 			return false;
@@ -3812,11 +3824,13 @@
 			return false;
 		}
 
-		$query = prepare_query("SELECT id, type, title, icon, color FROM nexus_folders WHERE pagina_id = $nexus_pagina_id");
+		$query = prepare_query("SELECT id, type, title, icon, color FROM nexus_folders WHERE pagina_id = $nexus_pagina_id", 'log');
 		$nexus_folders = array();
 		$nexus_folders_info = $conn->query($query);
+		$count = 0;
 		if ($nexus_folders_info->num_rows > 0) {
 			while ($nexus_folder_info = $nexus_folders_info->fetch_assoc()) {
+				$count++;
 				$nexus_folder_id = $nexus_folder_info['id'];
 				$nexus_folders[$nexus_folder_id]['info'] = array('title' => $nexus_folder_info['title'], 'icon' => $nexus_folder_info['icon'], 'color' => $nexus_folder_info['color'], 'type' => $nexus_folder_info['type']);
 			}
@@ -3860,15 +3874,15 @@
 		if (!isset($args['mode'])) {
 			return false;
 		}
-		if (!isset($args['pagina_id'])) {
-			return false;
+		if ((!isset($args['pagina_id'])) || ($args['pagina_id'] == false)) {
+			return array();
 		}
 		switch ($args['mode']) {
 			case 'set':
 				$column = $setup_matches[$args['option']]['column'];
 				$data_type = $setup_matches[$args['option']]['data_type'];
 				if ($data_type == 'bool') {
-					$args['choice'] = (int) filter_var($args['choice'], FILTER_VALIDATE_BOOLEAN);
+					$args['choice'] = (int)filter_var($args['choice'], FILTER_VALIDATE_BOOLEAN);
 					$query = prepare_query("UPDATE nexus_options SET $column = {$args['choice']} WHERE pagina_id = {$args['pagina_id']}");
 				} else {
 					$query = prepare_query("UPDATE nexus_options SET $column = '{$args['choice']}' WHERE pagina_id = {$args['pagina_id']}");
@@ -3882,7 +3896,7 @@
 				break;
 			case 'read':
 				include 'templates/criar_conn.php';
-				$query = prepare_query("SELECT * FROM nexus_options WHERE pagina_id = {$args['pagina_id']}");
+				$query = prepare_query("SELECT * FROM nexus_options WHERE pagina_id = {$args['pagina_id']}", 'log');
 				$options = $conn->query($query);
 				$results = array();
 				if ($options->num_rows > 0) {
@@ -3901,5 +3915,7 @@
 			default:
 				return false;
 		}
-	};
+	}
+
+	;
 

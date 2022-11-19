@@ -19,7 +19,7 @@
 	$pagina_tipo = 'nexus';
 	include 'engine.php';
 
-	if (!isset($_SESSION['user_nexus_pagina_id'])) {
+	if ((!isset($_SESSION['user_nexus_pagina_id'])) || ($_SESSION['user_nexus_pagina_id'] == false)) {
 		$pagina_id = return_pagina_id($user_id, 'nexus');
 		$_SESSION['user_nexus_pagina_id'] = $pagina_id;
 	} else {
@@ -27,6 +27,10 @@
 	}
 
 	$_SESSION['nexus_options'] = nexus_options(array('mode' => 'read', 'pagina_id' => $_SESSION['user_nexus_pagina_id']));
+	if (count($_SESSION['nexus_options']) == 0) {
+		nexus_options(array('mode'=>'create', 'pagina_id'=>$_SESSION['user_nexus_pagina_id']));
+		$_SESSION['nexus_options'] = nexus_options(array('mode' => 'read', 'pagina_id' => $_SESSION['user_nexus_pagina_id']));
+    }
 
 	$pagina_info = return_pagina_info($pagina_id, false, false, false);
 	if ($pagina_info != false) {
@@ -168,6 +172,8 @@
 		exit();
 	}
 
+	unset($_SESSION['nexus_links']);
+
 	if (!isset($_SESSION['nexus_links'])) {
 		$nexus_all_links = rebuild_cmd_links($_SESSION['user_nexus_pagina_id']);
 		$_SESSION['nexus_links'] = $nexus_all_links['nexus_links'];
@@ -185,7 +191,7 @@
 	$close_folders_container = false;
 	$icon_type = false;
 	foreach ($_SESSION['nexus_folders'] as $folder_id => $content) {
-	    $icon_type = 'medium';
+		$icon_type = 'medium';
 		if ($_SESSION['nexus_folders'][$folder_id]['info']['type'] == 'main') {
 			$nexus_folder_order_identifier++;
 			$close_folders_container = "$('#folders_container').addClass('d-none');";
@@ -200,7 +206,7 @@
 			    ";
 			}
 		} else {
-		    $icon_type = 'folder';
+			$icon_type = 'folder';
 			$close_folders_container = false;
 		}
 		$print_folders_large .= nexus_put_together(array('type' => $icon_type, 'id' => "folder_large_$folder_id", 'class' => "{$_SESSION['nexus_folders'][$folder_id]['info']['type']}_folder_icons d-none", 'color' => $_SESSION['nexus_folders'][$folder_id]['info']['color'], 'icon' => $_SESSION['nexus_folders'][$folder_id]['info']['icon'], 'title' => $_SESSION['nexus_folders'][$folder_id]['info']['title']));
@@ -334,134 +340,134 @@
 
 ?>
     <div id="nexus_body">
-	<?php
-		echo $hidden_inputs;
-	?>
-    <div id="screenFiller">
-    <input id="load_state_linkdump" type="hidden" value="false">
-    <div class="container-fluid">
-        <div class="row sticky-top">
-            <div class="col-12 d-flex bg-dark p-1">
-				<?php
-					echo $navbar_custom_leftside;
-					echo nexus_put_together(array('type' => 'navbar', 'color' => 'yellow', 'class' => 'ms-auto', 'href' => false, 'icon' => 'fas fa-folder-bookmark', 'id' => 'trigger_show_main_folder_icons'));
-					echo nexus_put_together(array('type' => 'navbar', 'color' => 'purple', 'class' => false, 'href' => false, 'icon' => 'fas fa-cabinet-filing fa-swap-opacity', 'id' => 'trigger_show_archival_folder_icons'));
-					echo nexus_put_together(array('type' => 'navbar', 'color' => 'teal', 'class' => false, 'href' => false, 'icon' => 'fas fa-box-archive fa-swap-opacity', 'id' => 'trigger_show_link_dump'));
-					echo nexus_put_together(array('type' => 'navbar', 'color' => 'cyan', 'class' => false, 'href' => false, 'icon' => 'fas fa-clock-rotate-left', 'id' => 'trigger_show_recent_links'));
-					echo nexus_put_together(array('type' => 'navbar', 'color' => 'orange', 'class' => false, 'href' => false, 'icon' => 'fas fa-cog', 'id' => 'trigger_show_setup_icons'));
-					echo nexus_put_together(array('type' => 'navbar', 'color' => 'green', 'class' => false, 'href' => 'escritorio.php', 'icon' => 'fas fa-lamp-desk', 'id' => 'back_to_office'));
-
-				?>
-            </div>
-        </div>
-        <div class="row d-flex">
-            <div class="col-12">
-                <div id="page_title" class="my-5 text-center nexus-title col-auto display-1 <?php echo $title_color; ?>"><?php echo $nexus_title; ?></div>
-            </div>
-        </div>
-    </div>
-	<?php
-		//        $cmd_text = nexus_random_color();
-		//        $cmd_text = nexus_convert_color($cmd_text);
-		//        $cmd_text = $cmd_text['text-color'];
-		$cmd_text = 'text-white';
-	?>
-    <div id="cmd_container" class="container">
-        <div class="row d-flex justify-content-around mt-3">
-            <div class="col">
-                <div class="mb-3 input-group">
-                    <input id="cmdbar" name="cmdbar" list="command-list" type="text" class="form-control font-monospace mx-1 cmd-bar rounded <?php echo $cmd_text; ?> bg-dark border-0" rows="1" autocomplete="off" spellcheck="false" placeholder="<?php echo $user_apelido; ?> commands…">
-                    <datalist id="command-list">
+		<?php
+			echo $hidden_inputs;
+		?>
+        <div id="screenFiller">
+            <input id="load_state_linkdump" type="hidden" value="false">
+            <div class="container-fluid">
+                <div class="row sticky-top">
+                    <div class="col-12 d-flex bg-dark p-1">
 						<?php
-							if ($_SESSION['nexus_options']['cmd_link_id'] == false) {
-								foreach ($_SESSION['nexus_links'] as $key => $value) {
-									echo "<option value='{$_SESSION['nexus_links'][$key]['title']}'>";
-								}
-							} else {
-								foreach ($_SESSION['nexus_order'] as $key => $value) {
-									echo "<option value='$key'>{$_SESSION['nexus_order'][$key]['title']}</option>";
-								}
-							}
+							echo $navbar_custom_leftside;
+							echo nexus_put_together(array('type' => 'navbar', 'color' => 'yellow', 'class' => 'ms-auto', 'href' => false, 'icon' => 'fas fa-folder-bookmark', 'id' => 'trigger_show_main_folder_icons'));
+							echo nexus_put_together(array('type' => 'navbar', 'color' => 'purple', 'class' => false, 'href' => false, 'icon' => 'fas fa-cabinet-filing fa-swap-opacity', 'id' => 'trigger_show_archival_folder_icons'));
+							echo nexus_put_together(array('type' => 'navbar', 'color' => 'teal', 'class' => false, 'href' => false, 'icon' => 'fas fa-box-archive fa-swap-opacity', 'id' => 'trigger_show_link_dump'));
+							echo nexus_put_together(array('type' => 'navbar', 'color' => 'cyan', 'class' => false, 'href' => false, 'icon' => 'fas fa-clock-rotate-left', 'id' => 'trigger_show_recent_links'));
+							echo nexus_put_together(array('type' => 'navbar', 'color' => 'orange', 'class' => false, 'href' => false, 'icon' => 'fas fa-cog', 'id' => 'trigger_show_setup_icons'));
+							echo nexus_put_together(array('type' => 'navbar', 'color' => 'green', 'class' => false, 'href' => 'escritorio.php', 'icon' => 'fas fa-lamp-desk', 'id' => 'back_to_office'));
+
 						?>
-                    </datalist>
+                    </div>
+                </div>
+                <div class="row d-flex">
+                    <div class="col-12">
+                        <div id="page_title" class="my-5 text-center nexus-title col-auto display-1 <?php echo $title_color; ?>"><?php echo $nexus_title; ?></div>
+                    </div>
                 </div>
             </div>
+			<?php
+				//        $cmd_text = nexus_random_color();
+				//        $cmd_text = nexus_convert_color($cmd_text);
+				//        $cmd_text = $cmd_text['text-color'];
+				$cmd_text = 'text-white';
+			?>
+            <div id="cmd_container" class="container">
+                <div class="row d-flex justify-content-around mt-3">
+                    <div class="col">
+                        <div class="mb-3 input-group">
+                            <input id="cmdbar" name="cmdbar" list="command-list" type="text" class="form-control font-monospace mx-1 cmd-bar rounded <?php echo $cmd_text; ?> bg-dark border-0" rows="1" autocomplete="off" spellcheck="false" placeholder="<?php echo $user_apelido; ?> commands…">
+                            <datalist id="command-list">
+								<?php
+									if ($_SESSION['nexus_options']['cmd_link_id'] == false) {
+										foreach ($_SESSION['nexus_links'] as $key => $value) {
+											echo "<option value='{$_SESSION['nexus_links'][$key]['title']}'>";
+										}
+									} else {
+										foreach ($_SESSION['nexus_order'] as $key => $value) {
+											echo "<option value='$key'>{$_SESSION['nexus_order'][$key]['title']}</option>";
+										}
+									}
+								?>
+                            </datalist>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			<?php
+				echo "<div id='settings_container' class='container d-none'><div id='settings_row' class='row'>";
+
+				echo nexus_put_together(array('type' => 'large', 'id' => 'manage_folders', 'title' => 'Manage folders', 'modal' => '#modal_manage_folders', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-folder-gear', 'color' => 'yellow'));
+
+				echo nexus_put_together(array('type' => 'large', 'id' => 'manage_links', 'title' => 'Manage links', 'modal' => '#modal_manage_links', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-bookmark', 'color' => 'red'));
+
+				echo nexus_put_together(array('type' => 'large', 'id' => 'manage_themes', 'title' => 'Manage themes', 'modal' => '#modal_manage_themes', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-swatchbook', 'color' => 'purple'));
+
+				echo nexus_put_together(array('type' => 'large', 'id' => 'manage_options', 'title' => 'Options', 'modal' => '#modal_options', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-toggle-large-on', 'color' => 'green'));
+
+				echo nexus_put_together(array('type' => 'large', 'id' => 'manage_timeline', 'title' => 'Activity log', 'modal' => '#modal_manage_timeline', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-list-timeline', 'color' => 'cyan'));
+
+				echo nexus_put_together(array('type' => 'large', 'id' => 'manage_commands', 'title' => 'Commands', 'modal' => '#modal_commands', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-rectangle-terminal', 'color' => 'orange'));
+
+				if ($user_id == 1) {
+					echo nexus_put_together(array('type' => 'large', 'id' => 'transfer_nexustation', 'title' => 'Transfer Nexustation', 'modal' => false, 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-timeline-arrow', 'color' => 'indigo'));
+					echo nexus_put_together(array('type' => 'large', 'id' => 'shred_nexus', 'title' => 'Delete all Nexus data', 'modal' => false, 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-shredder', 'color' => 'red'));
+				}
+
+				echo nexus_put_together(array('type' => 'large', 'id' => 'logout', 'title' => 'Logout', 'modal' => false, 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-person-through-window', 'color' => 'red'));
+
+				echo "</div></div>";
+				echo "<div id='folders_container' class=\"container d-none\"><div id='folders_row' class='row'>";
+
+				echo $print_folders_large;
+
+				echo "</div></div>";
+				echo "<div id='links_container' class=\"container d-none\"><div id='links_row' class='row'>";
+				echo "</div></div>";
+
+			?>
         </div>
-    </div>
-	<?php
-		echo "<div id='settings_container' class='container d-none'><div id='settings_row' class='row'>";
+		<?php
+			$template_modal_div_id = 'modal_manage_folders';
+			$template_modal_titulo = 'Manage folders';
+			$template_modal_body_conteudo = false;
+			$template_modal_body_conteudo .= "This will have a list of bookmark folders, with the option for each to be on quick access. It will also explain that links without folders will be in a link dump, not appearing as links";
+			$template_modal_show_buttons = false;
+			include 'templates/modal.php';
 
-		echo nexus_put_together(array('type' => 'large', 'id' => 'manage_folders', 'title' => 'Manage folders', 'modal' => '#modal_manage_folders', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-folder-gear', 'color' => 'yellow'));
+			$template_modal_div_id = 'modal_manage_links';
+			$template_modal_titulo = 'Manage links';
+			$template_modal_body_conteudo = false;
+			$template_modal_body_conteudo = "This will be the device to add links both to folders and as folderless, to a link dump.";
+			$template_modal_show_buttons = false;
+			include 'templates/modal.php';
 
-		echo nexus_put_together(array('type' => 'large', 'id' => 'manage_links', 'title' => 'Manage links', 'modal' => '#modal_manage_links', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-bookmark', 'color' => 'red'));
+			$template_modal_div_id = 'modal_manage_themes';
+			$template_modal_titulo = 'Manage themes';
+			$template_modal_body_conteudo = false;
+			$template_modal_body_conteudo = "This will give the user his choice of themes. Dark and light for starters.";
+			$template_modal_show_buttons = false;
+			include 'templates/modal.php';
 
-		echo nexus_put_together(array('type' => 'large', 'id' => 'manage_themes', 'title' => 'Manage themes', 'modal' => '#modal_manage_themes', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-swatchbook', 'color' => 'purple'));
+			$template_modal_div_id = 'modal_manage_timeline';
+			$template_modal_titulo = 'Manage timeline';
+			$template_modal_body_conteudo = false;
+			$template_modal_body_conteudo = "This will be the log stuff, which was pretty good.";
+			$template_modal_show_buttons = false;
+			include 'templates/modal.php';
 
-		echo nexus_put_together(array('type' => 'large', 'id' => 'manage_options', 'title' => 'Options', 'modal' => '#modal_options', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-toggle-large-on', 'color' => 'green'));
+			$template_modal_div_id = 'modal_options';
+			$template_modal_titulo = 'Options';
+			$template_modal_body_conteudo = false;
+			$template_modal_body_conteudo = "Loading...";
+			$template_modal_show_buttons = false;
+			include 'templates/modal.php';
 
-		echo nexus_put_together(array('type' => 'large', 'id' => 'manage_timeline', 'title' => 'Activity log', 'modal' => '#modal_manage_timeline', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-list-timeline', 'color' => 'cyan'));
-
-		echo nexus_put_together(array('type' => 'large', 'id' => 'manage_commands', 'title' => 'Commands', 'modal' => '#modal_commands', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-rectangle-terminal', 'color' => 'orange'));
-
-		if ($user_id == 1) {
-			echo nexus_put_together(array('type' => 'large', 'id' => 'transfer_nexustation', 'title' => 'Transfer Nexustation', 'modal' => false, 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-timeline-arrow', 'color' => 'indigo'));
-			echo nexus_put_together(array('type' => 'large', 'id' => 'shred_nexus', 'title' => 'Delete all Nexus data', 'modal' => false, 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-shredder', 'color' => 'red'));
-		}
-
-		echo nexus_put_together(array('type' => 'large', 'id' => 'logout', 'title' => 'Logout', 'modal' => false, 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-person-through-window', 'color' => 'red'));
-
-		echo "</div></div>";
-		echo "<div id='folders_container' class=\"container d-none\"><div id='folders_row' class='row'>";
-
-		echo $print_folders_large;
-
-		echo "</div></div>";
-		echo "<div id='links_container' class=\"container d-none\"><div id='links_row' class='row'>";
-		echo "</div></div>";
-
-	?>
-    </div>
-	<?php
-		$template_modal_div_id = 'modal_manage_folders';
-		$template_modal_titulo = 'Manage folders';
-		$template_modal_body_conteudo = false;
-		$template_modal_body_conteudo .= "This will have a list of bookmark folders, with the option for each to be on quick access. It will also explain that links without folders will be in a link dump, not appearing as links";
-		$template_modal_show_buttons = false;
-		include 'templates/modal.php';
-
-		$template_modal_div_id = 'modal_manage_links';
-		$template_modal_titulo = 'Manage links';
-		$template_modal_body_conteudo = false;
-		$template_modal_body_conteudo = "This will be the device to add links both to folders and as folderless, to a link dump.";
-		$template_modal_show_buttons = false;
-		include 'templates/modal.php';
-
-		$template_modal_div_id = 'modal_manage_themes';
-		$template_modal_titulo = 'Manage themes';
-		$template_modal_body_conteudo = false;
-		$template_modal_body_conteudo = "This will give the user his choice of themes. Dark and light for starters.";
-		$template_modal_show_buttons = false;
-		include 'templates/modal.php';
-
-		$template_modal_div_id = 'modal_manage_timeline';
-		$template_modal_titulo = 'Manage timeline';
-		$template_modal_body_conteudo = false;
-		$template_modal_body_conteudo = "This will be the log stuff, which was pretty good.";
-		$template_modal_show_buttons = false;
-		include 'templates/modal.php';
-
-		$template_modal_div_id = 'modal_options';
-		$template_modal_titulo = 'Options';
-		$template_modal_body_conteudo = false;
-		$template_modal_body_conteudo = "Loading...";
-		$template_modal_show_buttons = false;
-		include 'templates/modal.php';
-
-		$template_modal_div_id = 'modal_commands';
-		$template_modal_titulo = 'The Nexus Command Bar';
-		$modal_scrollable = true;
-		$template_modal_body_conteudo = false;
-		$template_modal_body_conteudo = "
+			$template_modal_div_id = 'modal_commands';
+			$template_modal_titulo = 'The Nexus Command Bar';
+			$modal_scrollable = true;
+			$template_modal_body_conteudo = false;
+			$template_modal_body_conteudo = "
 		    <ul class='list-group mb-3'>
 		        <li class='list-group-item active'><h5>Commands:</h5></li>
 		        <li class='list-group-item'>\"/r/\" will send you to a subreddit. For example, just type \"/r/prequelmemes\".</li>
@@ -485,24 +491,24 @@
 		        <li class='list-group-item'>Alt+R will show recent links.</li>
             </ul>
 		";
-		$template_modal_show_buttons = false;
-		include 'templates/modal.php';
+			$template_modal_show_buttons = false;
+			include 'templates/modal.php';
 
-		$template_modal_div_id = 'modal_add_folders_bulk';
-		$template_modal_titulo = 'Add folders in bulk';
-		$template_modal_body_conteudo = false;
-		$template_modal_body_conteudo .= "<p>You will be able to change the details later. For now, all you need is a name for each.</p>";
-		$template_modal_show_buttons = false;
-		include 'templates/modal.php';
+			$template_modal_div_id = 'modal_add_folders_bulk';
+			$template_modal_titulo = 'Add folders in bulk';
+			$template_modal_body_conteudo = false;
+			$template_modal_body_conteudo .= "<p>You will be able to change the details later. For now, all you need is a name for each.</p>";
+			$template_modal_show_buttons = false;
+			include 'templates/modal.php';
 
-		$template_modal_div_id = 'modal_add_links_bulk';
-		$template_modal_titulo = 'Add links in bulk to the Link Dump';
-		$template_modal_body_conteudo = false;
-		$template_modal_body_conteudo .= "<p>You will be able to change the details later. For now, all you need is a name for each.</p>";
-		$template_modal_show_buttons = false;
-		include 'templates/modal.php';
+			$template_modal_div_id = 'modal_add_links_bulk';
+			$template_modal_titulo = 'Add links in bulk to the Link Dump';
+			$template_modal_body_conteudo = false;
+			$template_modal_body_conteudo .= "<p>You will be able to change the details later. For now, all you need is a name for each.</p>";
+			$template_modal_show_buttons = false;
+			include 'templates/modal.php';
 
-	?>
+		?>
     </div>
     </body>
     <script type="text/javascript">
@@ -785,6 +791,18 @@
                 if (data != 0) {
                     $('#body_modal_manage_timeline').empty();
                     $('#body_modal_manage_timeline').append(data);
+                }
+            })
+        })
+
+        $(document).on('click', '#trigger_logout', function () {
+            $.post('engine.php', {
+                'nexus_logout': true
+            }, function (data) {
+                if (data != 0) {
+                    window.location.reload(true);
+                } else {
+                    alert('Could not log you out, somehow.');
                 }
             })
         })
