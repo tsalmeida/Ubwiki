@@ -2553,7 +2553,7 @@
 	if (isset($_POST['shred_nexus'])) {
 		$query = prepare_query("TRUNCATE TABLE `ubwiki`.`nexus_elements`");
 		$conn->query($query);
-		$query = prepare_query("TRUNCATE TABLE `ubwiki`.`nexus_folders`");
+		$query = prepare_query("TRUNCATE `Ubwiki`.`nexus_folders`");
 		$conn->query($query);
 		$query = prepare_query("TRUNCATE TABLE `ubwiki`.`nexus_handles`");
 		$conn->query($query);
