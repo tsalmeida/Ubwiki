@@ -107,11 +107,10 @@
 	include 'templates/navbar.php';
 
 	$all_icons = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24);
-	$icons_to_show = array(1, 2, 3, 4, 6, 13, 16);
+	$icons_to_show = array(1, 2, 3, 4, 6, 13, 16, 21);
 	if ($user_bookmarks != array()) {
 		array_push($icons_to_show, 10);
-	}
-	if ($user_areas_interesse != array()) {
+	}	if ($user_areas_interesse != array()) {
 		array_push($icons_to_show, 5);
 	}
 	if (isset($_SESSION['user_opcoes']['show_planos'])) {

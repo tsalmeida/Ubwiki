@@ -2049,15 +2049,14 @@
 					<select id='nexus_new_link_location' name='nexus_new_link_location' class='form-select mb-3'>
 						<option selected value='0'>Link dump</option>";
 
-		$query = prepare_query("SELECT id, title, icon, color FROM nexus_folders WHERE user_id = $user_id AND pagina_id = {$_SESSION['user_nexus_pagina_id']}");
+		$query = prepare_query("SELECT id, title, icon, color, type FROM nexus_folders WHERE user_id = $user_id AND pagina_id = {$_SESSION['user_nexus_pagina_id']}");
 		$user_nexus_folders_info = $conn->query($query);
 		if ($user_nexus_folders_info->num_rows > 0) {
 			while ($user_nexus_folder_info = $user_nexus_folders_info->fetch_assoc()) {
-				$user_nexus_folder_id = $user_nexus_folder_info['id'];
-				$user_nexus_folder_title = $user_nexus_folder_info['title'];
 				$user_nexus_folder_icon = $user_nexus_folder_info['icon'];
 				$user_nexus_folder_color = $user_nexus_folder_info['color'];
-				echo "<option value='$user_nexus_folder_id'>$user_nexus_folder_title</option>";
+				$user_nexus_type = strtoupper($user_nexus_folder_info['type']);
+				echo "<option value='{$user_nexus_folder_info['id']}'>$user_nexus_type: {$user_nexus_folder_info['title']} ($user_nexus_folder_icon $user_nexus_folder_icon)</option>";
 			}
 		} else {
 			echo "<option disabled>You have not created any folders.</option>";
@@ -2585,9 +2584,6 @@
 
 	if (isset($_POST['populate_links'])) {
 		$result = false;
-
-		$result .= nexus_put_together(array('type' => 'compact', 'id' => 'trigger_add_link', 'href' => false, 'color' => 'white', 'icon' => 'fad fa-cog fa-spin', 'title' => 'Manage links in this folder', 'class' => "d-none setup_icon link_of_folder_{$_POST['populate_links']}"));
-
 		foreach ($_SESSION['nexus_folders'][$_POST['populate_links']] as $link_id => $link_info) {
 			if (!isset($_SESSION['nexus_folders'][$_POST['populate_links']][$link_id]['url'])) {
 				continue;

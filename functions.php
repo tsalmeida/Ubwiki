@@ -3147,6 +3147,10 @@
 			case 'text-muted':
 				return 'bg-light';
 				break;
+			case 'link-orange':
+			case 'text-orange':
+				return false;
+				break;
 			default:
 				return 'bg-white';
 		}
@@ -3487,7 +3491,10 @@
 					return array('link-color' => 'nexus-link-cyan', 'bg-color' => 'nexus-bg-cyan', 'link-black-color' => 'nexus-link-black-cyan', 'bg-black-color' => 'nexus-bg-black-cyan', 'text-color' => 'nexus-text-cyan', 'title-color'=>'link-light');
 					break;
 				case 'white':
-					return array('link-color' => 'link-dark', 'bg-color'=>'bg-light', 'link-black-color'=>'link-dark', 'bg-black-color' => 'bg-light text-dark', 'text-color' => 'text-dark', 'title-color'=>'link-dark');
+					return array('link-color' => 'link-light', 'bg-color'=>'bg-dark', 'link-black-color'=>'link-light', 'bg-black-color' => 'bg-dark text-light', 'text-color' => 'text-light', 'title-color'=>'link-light');
+					break;
+				case 'black':
+					return array('link-color'=>'link-dark', 'bg-color'=>'bg-light', 'link-black-color'=>'link-dark', 'bg-black-color'=> 'bg-light text-dark', 'text-color'=>'text-dark', 'title-color'=>'link-dark');
 					break;
 				default:
 					return array('link-color' => 'nexus-link-red', 'bg-color' => 'nexus-bg-red', 'link-black-color' => 'nexus-link-black-red', 'bg-black-color' => 'nexus-bg-black-red', 'text-color' => 'nexus-text-red', 'title-color'=>'link-light');
