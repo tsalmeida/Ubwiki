@@ -2690,12 +2690,12 @@
 				<label class='form-check-label' for='manage_icon_title_folders'><i class='fad fa-folders fa-fw me-2 nexus-link-orange'></i>Folders</label>
 			</div>
 			<div class='form-check mb-3'>
-				<input class='form-check-input' type='radio' name='manage_icon_title_choice' value='folder' id='manage_icon_title_links'>
+				<input class='form-check-input' type='radio' name='manage_icon_title_choice' value='link' id='manage_icon_title_links'>
 				<label class='form-check-label' for='manage_icon_title_links'><i class='fad fa-link fa-fw me-2 nexus-link-teal'></i>Links</label>
 			</div>
 			<hr>
 			<div class='mb-3'>
-				<label for='search_manage_link'>Select link to manage:</label>
+				<label for='search_manage_link' class='form-label'>Select link to manage:</label>
 				<input id='search_manage_link' name='search_manage_link' list='link_manage_list' type='text' class='form-control mx-1' rows='1' autocomplete='off' spellcheck='false' placeholder='Search for your link here'>
 				<datalist id='link_manage_list'>";
 		foreach ($_SESSION['nexus_links'] as $key => $value) {
@@ -2705,8 +2705,8 @@
 				</datalist>
 			</div>
 			<hr>
-			<p>Select the folder:</p>
-			<select class='form-select mb-3'>
+			<label class='form-label' for='manage_icon_title_folder_id'>Select the folder:</label>
+			<select id='manage_icon_title_folder_id' name='manage_icon_title_folder_id' class='form-select mb-3'>
 				<option selected disabled>Which folder?</option>";
 		$populate_folders_main = false;
 		$populate_folders_archival = false;
@@ -2728,8 +2728,8 @@
 		$populate_icons_titles .= "
 			</select>
 			<hr>
-			<p>Select the new color:</p>
-			<select class='form-select mb-3'>
+			<label class='form-label' for='manage_icon_title_new_color'>Select the new color:</label>
+			<select id='manage_icon_title_new_color' name='manage_icon_title_new_color' class='form-select mb-3'>
 				<option selected disabled>New color</option>";
 		$colors = nexus_colors('list');
 		foreach ($colors as $color) {
@@ -2738,8 +2738,8 @@
 		}
 		$populate_icons_titles .= "
 			</select>
-			<p>Select the new icon:</p>
-			<select class='form-select mb-3'>
+			<label for='manage_icon_title_new_icon' class='form-label'>Select the new icon:</label>
+			<select id='manage_icon_title_new_icon' name='manage_icon_title_new_icon' class='form-select mb-3'>
 				<option selected disabled>New icon</option>";
 		$icons = nexus_icons('list');
 		foreach ($icons as $icon => $key) {
@@ -2748,10 +2748,41 @@
 		}
 		$populate_icons_titles .= "
 			</select>
+			<div class='mb-3'>
+				<label for='manage_icon_title_new_title' class='form-label'>New title for you link or folder:</label>
+				<input class='form-control' type='text' id='manage_icon_title_new_title' name='manage_icon_title_new_title'>
+			</div>
 			<button type='submit' class='btn btn-primary'>Submit</button>
 			</form>
 		";
 		echo $populate_icons_titles;
+	}
+
+	if (isset($_POST['manage_icon_title_choice'])) {
+		if (!isset($_POST['manage_icon_title_new_title'])) {
+			$_POST['manage_icon_title_new_title'] = false;
+		}
+		if (!isset($_POST['search_manage_link'])) {
+			$_POST['search_manage_link'] = false;
+		}
+		if (!isset($_POST['manage_icon_title_folder_id'])) {
+			$_POST['manage_icon_title_folder_id'] = false;
+		}
+		if (!isset($_POST['manage_icon_title_new_icon'])) {
+			$_POST['manage_icon_title_new_icon'] = false;
+		}
+		if (!isset($_POST['manage_icon_title_new_color'])) {
+			$_POST['manage_icon_title_new_color'] = false;
+		}
+		if (!isset($_POST['manage_icon_title_new_title'])) {
+			$_POST['manage_icon_title_new_title'] = false;
+		}
+
+		if ($_POST['manage_icon_title_choice'] == 'folder') {
+			
+		} elseif ($_POST['manage_icon_title_choice'] == 'link') {
+			
+		}
 	}
 
 ?>
