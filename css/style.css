@@ -11190,6 +11190,10 @@ textarea.form-control-lg {
   line-height: 110%;
 }
 
+img {
+  max-width: 100%;
+}
+
 .p-limit, p {
   max-width: 70ch;
 }

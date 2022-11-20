@@ -2684,6 +2684,7 @@
 		$populate_icons_titles = false;
 		$populate_icons_titles .= "
 			<p>Manage icons and titles of links or folders?</p>
+			<form method='post'>
 			<div class='form-check mb-3'>
 				<input class='form-check-input' type='radio' name='manage_icon_title_choice' value='folder' id='manage_icon_title_folders' checked>
 				<label class='form-check-label' for='manage_icon_title_folders'><i class='fad fa-folders fa-fw me-2 nexus-link-orange'></i>Folders</label>
@@ -2706,11 +2707,24 @@
 			<hr>
 			<p>Select the folder:</p>
 			<select class='form-select mb-3'>
-				<option selected>Which folder?</option>";
+				<option selected disabled>Which folder?</option>";
+		$populate_folders_main = false;
+		$populate_folders_archival = false;
 		foreach ($_SESSION['nexus_folders'] as $folder_id => $content) {
 			$folder_type = strtoupper($_SESSION['nexus_folders'][$folder_id]['info']['type']);
-			$populate_icons_titles .= "<option value='$folder_id'>$folder_type: {$_SESSION['nexus_folders'][$folder_id]['info']['title']}</option>";
+			switch ($folder_type) {
+				case 'MAIN':
+					$populate_folders_main .= "<option value='$folder_id'>$folder_type: {$_SESSION['nexus_folders'][$folder_id]['info']['title']}</option>";
+					break;
+				case 'ARCHIVAL':
+					$populate_folders_archival .= "<option value='$folder_id'>$folder_type: {$_SESSION['nexus_folders'][$folder_id]['info']['title']}</option>";
+					break;
+				default:
+					break;
+			}
 		}
+		$populate_icons_titles .= $populate_folders_main;
+		$populate_icons_titles .= $populate_folders_archival;
 		$populate_icons_titles .= "
 			</select>
 			<hr>
@@ -2719,7 +2733,8 @@
 				<option selected disabled>New color</option>";
 		$colors = nexus_colors('list');
 		foreach ($colors as $color) {
-			$populate_icons_titles .= "<option value='$color'>$color</option>";
+			$color_capitalized = ucfirst($color);
+			$populate_icons_titles .= "<option value='$color'>$color_capitalized</option>";
 		}
 		$populate_icons_titles .= "
 			</select>
@@ -2728,10 +2743,13 @@
 				<option selected disabled>New icon</option>";
 		$icons = nexus_icons('list');
 		foreach ($icons as $icon => $key) {
-			$populate_icons_titles .= "<option value='$icon'>$icon</option>";
+			$icon_capitalized = ucfirst($icon);
+			$populate_icons_titles .= "<option value='$icon'>$icon_capitalized</option>";
 		}
 		$populate_icons_titles .= "
 			</select>
+			<button type='submit' class='btn btn-primary'>Submit</button>
+			</form>
 		";
 		echo $populate_icons_titles;
 	}
