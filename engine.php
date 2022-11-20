@@ -2635,7 +2635,7 @@
 				} else {
 					$cmd_check = substr($_POST['analyse_cmd_input'], 0, 1);
 					if ($cmd_check == '/') {
-						$result = process_cmd(array('input' => $_POST['analyse_cmd_input'], 'pagina_id'=>$_SESSION['user_nexus_pagina_id']));
+						$result = process_cmd(array('input' => $_POST['analyse_cmd_input'], 'pagina_id' => $_SESSION['user_nexus_pagina_id']));
 						if ($result == false) {
 							echo 'No match found';
 						} else {
@@ -2678,6 +2678,62 @@
 		session_destroy();
 		$user_id = false;
 		echo true;
+	}
+
+	if (isset($_POST['populate_icons_titles'])) {
+		$populate_icons_titles = false;
+		$populate_icons_titles .= "
+			<p>Manage icons and titles of links or folders?</p>
+			<div class='form-check mb-3'>
+				<input class='form-check-input' type='radio' name='manage_icon_title_choice' value='folder' id='manage_icon_title_folders' checked>
+				<label class='form-check-label' for='manage_icon_title_folders'><i class='fad fa-folders fa-fw me-2 nexus-link-orange'></i>Folders</label>
+			</div>
+			<div class='form-check mb-3'>
+				<input class='form-check-input' type='radio' name='manage_icon_title_choice' value='folder' id='manage_icon_title_links'>
+				<label class='form-check-label' for='manage_icon_title_links'><i class='fad fa-link fa-fw me-2 nexus-link-teal'></i>Links</label>
+			</div>
+			<hr>
+			<div class='mb-3'>
+				<label for='search_manage_link'>Select link to manage:</label>
+				<input id='search_manage_link' name='search_manage_link' list='link_manage_list' type='text' class='form-control mx-1' rows='1' autocomplete='off' spellcheck='false' placeholder='Search for your link here'>
+				<datalist id='link_manage_list'>";
+		foreach ($_SESSION['nexus_links'] as $key => $value) {
+			$populate_icons_titles .= "<option value='{$_SESSION['nexus_links'][$key]['title']}'>";
+		}
+		$populate_icons_titles .= "
+				</datalist>
+			</div>
+			<hr>
+			<p>Select the folder:</p>
+			<select class='form-select mb-3'>
+				<option selected>Which folder?</option>";
+		foreach ($_SESSION['nexus_folders'] as $folder_id => $content) {
+			$folder_type = strtoupper($_SESSION['nexus_folders'][$folder_id]['info']['type']);
+			$populate_icons_titles .= "<option value='$folder_id'>$folder_type: {$_SESSION['nexus_folders'][$folder_id]['info']['title']}</option>";
+		}
+		$populate_icons_titles .= "
+			</select>
+			<hr>
+			<p>Select the new color:</p>
+			<select class='form-select mb-3'>
+				<option selected disabled>New color</option>";
+		$colors = nexus_colors('list');
+		foreach ($colors as $color) {
+			$populate_icons_titles .= "<option value='$color'>$color</option>";
+		}
+		$populate_icons_titles .= "
+			</select>
+			<p>Select the new icon:</p>
+			<select class='form-select mb-3'>
+				<option selected disabled>New icon</option>";
+		$icons = nexus_icons('list');
+		foreach ($icons as $icon => $key) {
+			$populate_icons_titles .= "<option value='$icon'>$icon</option>";
+		}
+		$populate_icons_titles .= "
+			</select>
+		";
+		echo $populate_icons_titles;
 	}
 
 ?>
