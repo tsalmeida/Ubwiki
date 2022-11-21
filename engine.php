@@ -2034,6 +2034,7 @@
 	if (isset($_POST['list_nexus_links'])) {
 		echo "
 			<form method='post'>
+				<h3>Add link</h3>
 				<p>Fill-in the form below to add a link or <button id='show_modal_add_links_bulk' type='button' class='btn btn-outline-primary btn-sm' class='btn btn-outline-primary btn-sm' data-bs-toggle='modal' data-bs-target='#modal_add_links_bulk'>click here</button> to add links in bulk to the <a id='trigger_show_link_dump' href='javascritp:void(0);' class='link-info'>Link Dump</a>.</p>
 				<div class='mb-3'>
 					<label class='form-label' for='nexus_new_link_url'>Paste your link url:</label>
@@ -2049,18 +2050,25 @@
 					<select id='nexus_new_link_location' name='nexus_new_link_location' class='form-select mb-3'>
 						<option selected value='0'>Link dump</option>";
 
-		$query = prepare_query("SELECT id, title, icon, color, type FROM nexus_folders WHERE user_id = $user_id AND pagina_id = {$_SESSION['user_nexus_pagina_id']}");
-		$user_nexus_folders_info = $conn->query($query);
-		if ($user_nexus_folders_info->num_rows > 0) {
-			while ($user_nexus_folder_info = $user_nexus_folders_info->fetch_assoc()) {
-				$user_nexus_folder_icon = $user_nexus_folder_info['icon'];
-				$user_nexus_folder_color = $user_nexus_folder_info['color'];
-				$user_nexus_type = strtoupper($user_nexus_folder_info['type']);
-				echo "<option value='{$user_nexus_folder_info['id']}'>$user_nexus_type: {$user_nexus_folder_info['title']} ($user_nexus_folder_icon $user_nexus_folder_icon)</option>";
+
+		$populate_add_folders_main = false;
+		$populate_add_folders_archival = false;
+
+		foreach ($_SESSION['nexus_folders'] as $folder_id => $content) {
+			$folder_type = strtoupper($_SESSION['nexus_folders'][$folder_id]['info']['type']);
+			switch ($folder_type) {
+				case 'MAIN':
+					$populate_add_folders_main .= "<option value='$folder_id'>$folder_type: {$_SESSION['nexus_folders'][$folder_id]['info']['title']}</option>";
+					break;
+				case 'ARCHIVAL':
+					$populate_add_folders_archival .= "<option value='$folder_id'>$folder_type: {$_SESSION['nexus_folders'][$folder_id]['info']['title']}</option>";
+					break;
+				default:
+					break;
 			}
-		} else {
-			echo "<option disabled>You have not created any folders.</option>";
 		}
+		echo $populate_add_folders_main;
+		echo $populate_add_folders_archival;
 		echo "
 			</select>
 				</div>
@@ -2091,7 +2099,31 @@
 				</div>
 				<button type='submit' class='btn btn-primary mb-3' name='nexus_new_link_submit' id='nexus_new_link_submit'>Add link</button>
 			</form>
+			<hr>
+			<form method='post'>
+			<h3>Remove link</h3>
+				<div class='mb-3'>
+					<label class='form-label' for='nexus_remove_this_link_id'>Link to remove:</label>
+					<select id='nexus_remove_this_link_id' name='nexus_remove_this_link_id' class='form-select'>";
+		foreach ($_SESSION['nexus_links'] as $link_id => $info) {
+			echo "<option value='$link_id'>{$_SESSION['nexus_links'][$link_id]['title']}</option>";
+		}
+		echo "
+					</select>
+				</div>
+				<button type='submit' class='btn btn-danger mb-3' name='nexus_remove_link_submit' id='nexus_remove_link_submit'>Remove link</button>
+			</form>
 		";
+	}
+
+	if (isset($_POST['nexus_remove_link_submit'])) {
+		error_log('this happened');
+		if (isset($_POST['nexus_remove_this_link_id']) && ($_POST['nexus_remove_this_link_id'] != false)) {
+			error_log('and then this happened');
+			$query = prepare_query("UPDATE nexus_elements SET state = 0 WHERE user_id = {$_SESSION['user_id']} AND state = 1 AND param_int_2 = {$_POST['nexus_remove_this_link_id']}", 'log');
+			$conn->query($query);
+			unset($_SESSION['nexus_links']);
+		}
 	}
 
 	if (isset($_POST['scan_new_link'])) {
@@ -2602,7 +2634,7 @@
 		echo "
 			<div class='form-check form-switch'>
 				<input class='form-check-input' type='checkbox' role='switch' id='nexus_cmd_link_id' $cmd_link_id_check>
-				<label class='form-check-label' for='nexus_cmd_link_id'>Use link numbers on the command bar. Though titles will still work, once you memorize the numbers, it will be faster than typing the titles. <span id='saved_cmd_link_id' class='text-success'><i class='fa-solid fa-cloud-check fa-fw'></i></span></label>
+				<label class='form-check-label' for='nexus_cmd_link_id'>Use link numbers on the command bar. Though titles will still work, once you memorize the numbers it will be faster than typing the titles. <span id='saved_cmd_link_id' class='text-success'><i class='fa-solid fa-cloud-check fa-fw'></i></span></label>
 			</div>
 			<script>
 					$(document).on('click', '#nexus_cmd_link_id', function () {
@@ -2683,7 +2715,8 @@
 	if (isset($_POST['populate_icons_titles'])) {
 		$populate_icons_titles = false;
 		$populate_icons_titles .= "
-			<p>Manage icons and titles of links or folders?</p>
+			<p>Target a link or a folder?</p>
+			<input type='hidden' id='details_loaded' value='false'>
 			<form method='post'>
 			<div class='form-check mb-3'>
 				<input class='form-check-input' type='radio' name='manage_icon_title_choice' value='folder' id='manage_icon_title_folders' checked>
@@ -2693,20 +2726,22 @@
 				<input class='form-check-input' type='radio' name='manage_icon_title_choice' value='link' id='manage_icon_title_links'>
 				<label class='form-check-label' for='manage_icon_title_links'><i class='fad fa-link fa-fw me-2 nexus-link-teal'></i>Links</label>
 			</div>
-			<hr>
-			<div class='mb-3'>
+			<hr class='manage_link_hide d-none'>
+			<div class='mb-3 manage_link_hide d-none'>
 				<label for='manage_icon_title_link_title' class='form-label'>Select link to manage:</label>
-				<select class='form-select' id='manage_icon_title_link_id' name='manage_icon_title_link_id'>";
+				<select class='form-select change_trigger_show_details' id='manage_icon_title_link_id' name='manage_icon_title_link_id'>
+				<option selected disabled>Select link</option>
+				";
 		foreach ($_SESSION['nexus_links'] as $key => $value) {
 			$populate_icons_titles .= "<option value='$key'>{$_SESSION['nexus_links'][$key]['title']}</option>";
 		}
 		$populate_icons_titles .= "
 				</select>
-			</div>
-			<hr>
-			<label class='form-label' for='manage_icon_title_folder_id'>Select the folder:</label>
-			<select id='manage_icon_title_folder_id' name='manage_icon_title_folder_id' class='form-select mb-3'>
-				<option selected disabled>Which folder?</option>";
+			</div>	
+			<hr class='manage_folder_hide'>
+			<label class='form-label  manage_folder_hide' for='manage_icon_title_folder_id'>Select folder to manage:</label>
+			<select id='manage_icon_title_folder_id' name='manage_icon_title_folder_id' class='form-select mb-3 manage_folder_hide change_trigger_show_details'>
+				<option selected disabled>Select folder</option>";
 		$populate_folders_main = false;
 		$populate_folders_archival = false;
 		foreach ($_SESSION['nexus_folders'] as $folder_id => $content) {
@@ -2726,9 +2761,9 @@
 		$populate_icons_titles .= $populate_folders_archival;
 		$populate_icons_titles .= "
 			</select>
-			<hr>
-			<label class='form-label' for='manage_icon_title_new_color'>Select the new color:</label>
-			<select id='manage_icon_title_new_color' name='manage_icon_title_new_color' class='form-select mb-3'>
+			<hr class='manage_details_hide d-none'>
+			<label class='form-label manage_details_hide d-none' for='manage_icon_title_new_color'>Select the new color:</label>
+			<select id='manage_icon_title_new_color' name='manage_icon_title_new_color' class='form-select mb-3 manage_details_hide d-none'>
 				<option selected disabled>New color</option>";
 		$colors = nexus_colors('list');
 		foreach ($colors as $color) {
@@ -2737,8 +2772,8 @@
 		}
 		$populate_icons_titles .= "
 			</select>
-			<label for='manage_icon_title_new_icon' class='form-label'>Select the new icon:</label>
-			<select id='manage_icon_title_new_icon' name='manage_icon_title_new_icon' class='form-select mb-3'>
+			<label for='manage_icon_title_new_icon' class='form-label manage_details_hide d-none'>Select the new icon:</label>
+			<select id='manage_icon_title_new_icon' name='manage_icon_title_new_icon' class='form-select mb-3 manage_details_hide d-none'>
 				<option selected disabled>New icon</option>";
 		$icons = nexus_icons('list');
 		foreach ($icons as $icon => $key) {
@@ -2747,11 +2782,11 @@
 		}
 		$populate_icons_titles .= "
 			</select>
-			<div class='mb-3'>
-				<label for='manage_icon_title_new_title' class='form-label'>New title for you link or folder:</label>
-				<input class='form-control' type='text' id='manage_icon_title_new_title' name='manage_icon_title_new_title'>
+			<div class='mb-3 manage_details_hide d-none'>
+				<label for='manage_icon_title_new_title' class='form-label manage_details_hide d-none'>New title:</label>
+				<input class='form-control manage_details_hide d-none' type='text' id='manage_icon_title_new_title' name='manage_icon_title_new_title'>
 			</div>
-			<button type='submit' class='btn btn-primary'>Change link icon</button>
+			<button type='submit' class='btn btn-primary manage_details_hide d-none'>Change link icon</button>
 			</form>
 		";
 		echo $populate_icons_titles;
@@ -2809,25 +2844,53 @@
 	}
 
 	if (isset($_POST['populate_move_links'])) {
-		echo "<form method='post'>
+		$populate_move_links = false;
+		$populate_move_links .= "<form method='post'>
 			<div class='mb-3'>
 				<label for='move_this_link_id' class='form-label'>Select link to move:</label>
 				<select id='move_this_link_id' name='move_this_link_id' class='form-select mb-3'>
-					<option disabled selected>Link to move</option>
+					<option disabled selected>Link to move</option>";
+		foreach ($_SESSION['nexus_links'] as $key => $value) {
+			$populate_move_links .= "<option value='$key'>{$_SESSION['nexus_links'][$key]['title']}</option>";
+		}
+		$populate_move_links .= "
 				</select>
 			</div>
 			<div class='mb-3'>
 				<label for='move_to_this_folder_id' class='form-label'>Select destination folder:</label>
 				<select id='move_to_this_folder_id' name='move_to_this_folder_id' class='form-select mb-3'>
-					<option disabled selected>Folder to move to</option>
+					<option disabled selected>Folder to move to</option>";
+		$populate_move_folders_main = false;
+		$populate_move_folders_archival = false;
+
+		foreach ($_SESSION['nexus_folders'] as $folder_id => $content) {
+			$folder_type = strtoupper($_SESSION['nexus_folders'][$folder_id]['info']['type']);
+			switch ($folder_type) {
+				case 'MAIN':
+					$populate_move_folders_main .= "<option value='$folder_id'>$folder_type: {$_SESSION['nexus_folders'][$folder_id]['info']['title']}</option>";
+					break;
+				case 'ARCHIVAL':
+					$populate_move_folders_archival .= "<option value='$folder_id'>$folder_type: {$_SESSION['nexus_folders'][$folder_id]['info']['title']}</option>";
+					break;
+				default:
+					break;
+			}
+		}
+		$populate_move_links .= $populate_move_folders_main;
+		$populate_move_links .= $populate_move_folders_archival;
+		$populate_move_links .= "
 				</select>
 			</div>
 			<button class='btn btn-primary' type='submit'>Move link</button>
 		</form>";
+
+		echo $populate_move_links;
 	}
 
 	if ((isset($_POST['move_this_link_id'])) && (isset($_POST['move_to_this_folder_id']))) {
-		error_log('this is when things happen');
+		$query = prepare_query("UPDATE nexus_elements SET param_int_1 = {$_POST['move_to_this_folder_id']} WHERE user_id = {$_SESSION['user_id']} AND param_int_2 = {$_POST['move_this_link_id']}", 'log');
+		$conn->query($query);
+		unset($_SESSION['nexus_links']);
 	}
 
 ?>

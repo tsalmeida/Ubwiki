@@ -424,14 +424,14 @@
         </div>
 		<?php
 			$template_modal_div_id = 'modal_manage_folders';
-			$template_modal_titulo = 'Manage folders';
+			$template_modal_titulo = 'Add or remove folders';
 			$template_modal_body_conteudo = false;
 			$template_modal_body_conteudo .= "Loading...";
 			$template_modal_show_buttons = false;
 			include 'templates/modal.php';
 
 			$template_modal_div_id = 'modal_manage_links';
-			$template_modal_titulo = 'Manage links';
+			$template_modal_titulo = 'Add or remove links';
 			$template_modal_body_conteudo = false;
 			$template_modal_body_conteudo = "Loading...";
 			$template_modal_show_buttons = false;
@@ -840,7 +840,34 @@
             })
         })
 
-		<?php
+        $('.all_link_icons').bind('click', function(event){
+            if(event.altKey) {
+                event.preventDefault();
+                alert('alt click happened');
+            }
+        });
+
+        $(document).on('change', '#manage_icon_title_folders', function() {
+            if(this.checked) {
+                $('.manage_folder_hide').removeClass('d-none');
+                $('.manage_link_hide').addClass('d-none');
+            }
+        });
+        $(document).on('change', '#manage_icon_title_links', function() {
+            if(this.checked) {
+                $('.manage_folder_hide').addClass('d-none');
+                $('.manage_link_hide').removeClass('d-none');
+            }
+        });
+        $(document).on('change', '.change_trigger_show_details', function() {
+            details_loaded = $('#details_loaded').val();
+            if (details_loaded == 'false') {
+                $('#details_loaded').val(true);
+                $(document).find('.manage_details_hide').removeClass('d-none');
+            }
+        });
+
+        <?php
 		echo $html_bottom_folders;
 		?>
 
