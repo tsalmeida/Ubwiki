@@ -3843,7 +3843,7 @@
 			while ($nexus_folder_info = $nexus_folders_info->fetch_assoc()) {
 				$count++;
 				$nexus_folder_id = $nexus_folder_info['id'];
-				$nexus_folders[$nexus_folder_id]['info'] = array('title' => $nexus_folder_info['title'], 'icon' => $nexus_folder_info['icon'], 'color' => $nexus_folder_info['color'], 'type' => $nexus_folder_info['type']);
+				$nexus_folders[$nexus_folder_id]['info'] = array('title' => $nexus_folder_info['title'], 'icon' => $nexus_folder_info['icon'], 'color' => $nexus_folder_info['color'], 'type' => $nexus_folder_info['type'], 'id' => $nexus_folder_info['id']);
 			}
 		}
 		$nexus_folders['linkdump']['info'] = array('title' => 'Link Dump', 'icon' => 'triangle', 'color' => 'red', 'type' => 'linkdump');

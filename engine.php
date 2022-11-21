@@ -2695,8 +2695,8 @@
 			</div>
 			<hr>
 			<div class='mb-3'>
-				<label for='search_manage_link' class='form-label'>Select link to manage:</label>
-				<input id='search_manage_link' name='search_manage_link' list='link_manage_list' type='text' class='form-control mx-1' rows='1' autocomplete='off' spellcheck='false' placeholder='Search for your link here'>
+				<label for='manage_icon_title_link_title' class='form-label'>Select link to manage:</label>
+				<input id='manage_icon_title_link_title' name='manage_icon_title_link_title' list='link_manage_list' type='text' class='form-control mx-1' rows='1' autocomplete='off' spellcheck='false' placeholder='Search for your link here'>
 				<datalist id='link_manage_list'>";
 		foreach ($_SESSION['nexus_links'] as $key => $value) {
 			$populate_icons_titles .= "<option value='{$_SESSION['nexus_links'][$key]['title']}'>";
@@ -2752,7 +2752,7 @@
 				<label for='manage_icon_title_new_title' class='form-label'>New title for you link or folder:</label>
 				<input class='form-control' type='text' id='manage_icon_title_new_title' name='manage_icon_title_new_title'>
 			</div>
-			<button type='submit' class='btn btn-primary'>Submit</button>
+			<button type='submit' class='btn btn-primary'>Change link icon</button>
 			</form>
 		";
 		echo $populate_icons_titles;
@@ -2762,8 +2762,8 @@
 		if (!isset($_POST['manage_icon_title_new_title'])) {
 			$_POST['manage_icon_title_new_title'] = false;
 		}
-		if (!isset($_POST['search_manage_link'])) {
-			$_POST['search_manage_link'] = false;
+		if (!isset($_POST['manage_icon_title_link_title'])) {
+			$_POST['manage_icon_title_link_title'] = false;
 		}
 		if (!isset($_POST['manage_icon_title_folder_id'])) {
 			$_POST['manage_icon_title_folder_id'] = false;
@@ -2779,10 +2779,64 @@
 		}
 
 		if ($_POST['manage_icon_title_choice'] == 'folder') {
-			
-		} elseif ($_POST['manage_icon_title_choice'] == 'link') {
-			
+			if ($_POST['manage_icon_title_new_icon'] != false) {
+				$query = prepare_query("UPDATE nexus_folders SET icon = '{$_POST['manage_icon_title_new_icon']}' WHERE user_id = {$_SESSION['user_id']} AND id = {$_POST['manage_icon_title_folder_id']} ");
+				$conn->query($query);
+			}
+			if ($_POST['manage_icon_title_new_color'] != false) {
+				$query = prepare_query("UPDATE nexus_folders SET color = '{$_POST['manage_icon_title_new_color']}' WHERE user_id = {$_SESSION['user_id']} AND id = {$_POST['manage_icon_title_folder_id']} ");
+				$conn->query($query);
+			}
+			if ($_POST['manage_icon_title_new_title'] != false) {
+				$query = prepare_query("UPDATE nexus_folders SET title = '{$_POST['manage_icon_title_new_title']}' WHERE user_id = {$_SESSION['user_id']} AND id = {$_POST['manage_icon_title_folder_id']} ");
+				$conn->query($query);
+			}
+		} elseif (($_POST['manage_icon_title_choice'] == 'link') && ($_POST['manage_icon_title_link_title']) != false) {
+			$query = prepare_query("SELECT param_int_2 FROM nexus_elements WHERE user_id = {$_SESSION['user_id']} AND state = 1 AND param2 = '{$_POST['manage_icon_title_link_title']}'");
+			$query_results = $conn->query($query);
+			if ($query_results->num_rows > 0) {
+				while ($query_result = $query_results->fetch_assoc()) {
+					$manage_icon_title_link_id = $query_result['param_int_2'];
+				}
+			}
+			if (isset($manage_icon_title_link_id)) {
+				if ($_POST['manage_icon_title_new_icon'] != false) {
+					$query = prepare_query("UPDATE nexus_elements SET param3 = '{$_POST['manage_icon_title_new_icon']}' WHERE user_id = {$_SESSION['user_id']} AND param_int_2 = $manage_icon_title_link_id");
+					$conn->query($query);
+				}
+				if ($_POST['manage_icon_title_new_color'] != false) {
+					$query = prepare_query("UPDATE nexus_elements SET param4 = '{$_POST['manage_icon_title_new_color']}' WHERE user_id = {$_SESSION['user_id']} AND param_int_2 = $manage_icon_title_link_id");
+					$conn->query($query);
+				}
+				if ($_POST['manage_icon_title_new_title'] != false) {
+					nexus_handle(array('id' => $manage_icon_title_link_id, 'title' => $_POST['manage_icon_title_new_title']));
+					$query = prepare_query("UPDATE nexus_elements SET param2 = '{$_POST['manage_icon_title_new_title']}' WHERE user_id = {$_SESSION['user_id']} AND param_int_2 = $manage_icon_title_link_id");
+					$conn->query($query);
+				}}
 		}
+		unset($_SESSION['nexus_links']);
+	}
+
+	if (isset($_POST['populate_move_links'])) {
+		echo "<form method='post'>
+			<div class='mb-3'>
+				<label for='move_this_link_id' class='form-label'>Select link to move:</label>
+				<select id='move_this_link_id' name='move_this_link_id' class='form-select mb-3'>
+					<option disabled selected>Link to move</option>
+				</select>
+			</div>
+			<div class='mb-3'>
+				<label for='move_to_this_folder_id' class='form-label'>Select destination folder:</label>
+				<select id='move_to_this_folder_id' name='move_to_this_folder_id' class='form-select mb-3'>
+					<option disabled selected>Folder to move to</option>
+				</select>
+			</div>
+			<button class='btn btn-primary' type='submit'>Move link</button>
+		</form>";
+	}
+
+	if ((isset($_POST['move_this_link_id'])) && (isset($_POST['move_to_this_folder_id']))) {
+		error_log('this is when things happen');
 	}
 
 ?>

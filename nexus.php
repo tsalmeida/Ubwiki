@@ -400,6 +400,7 @@
                 echo nexus_put_together(array('type' => 'folder', 'id' => 'manage_folders', 'title' => 'Add or remove folders', 'modal' => '#modal_manage_folders', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-folder-gear', 'color' => 'yellow'));
                 echo nexus_put_together(array('type' => 'folder', 'id' => 'manage_links', 'title' => 'Add or remove links', 'modal' => '#modal_manage_links', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-bookmark', 'color' => 'red'));
 				echo nexus_put_together(array('type' => 'folder', 'id' => 'manage_icons_titles', 'title'=>'Manage icons and titles', 'modal'=>'#modal_manage_icons_titles', 'class'=>'nexus_settings_icon', 'icon'=>'fad fa-icons', 'color'=>'pink'));
+				echo nexus_put_together(array('type' => 'folder', 'id' => 'manage_move_links', 'title'=>'Move links between folders', 'modal'=>'#modal_manage_move_links', 'class'=>'nexus_settings_icon', 'icon'=>'fad fa-arrow-right-arrow-left', 'color'=>'teal'));
                 echo nexus_put_together(array('type' => 'folder', 'id' => 'manage_themes', 'title' => 'Manage themes', 'modal' => '#modal_manage_themes', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-swatchbook', 'color' => 'purple'));
                 echo nexus_put_together(array('type' => 'folder', 'id' => 'manage_options', 'title' => 'Options', 'modal' => '#modal_options', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-toggle-large-on', 'color' => 'green'));
                 echo nexus_put_together(array('type' => 'folder', 'id' => 'manage_timeline', 'title' => 'Activity log', 'modal' => '#modal_manage_timeline', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-list-timeline', 'color' => 'cyan'));
@@ -438,6 +439,13 @@
 
 			$template_modal_div_id = 'modal_manage_icons_titles';
 			$template_modal_titulo = 'Manage icons and titles';
+			$template_modal_body_conteudo = false;
+			$template_modal_body_conteudo = "Loading...";
+			$template_modal_show_buttons = false;
+			include 'templates/modal.php';
+
+			$template_modal_div_id = 'modal_manage_move_links';
+			$template_modal_titulo = 'Move links between folders';
 			$template_modal_body_conteudo = false;
 			$template_modal_body_conteudo = "Loading...";
 			$template_modal_show_buttons = false;
@@ -748,6 +756,17 @@
                 if (data != 0) {
                     $('#body_modal_manage_icons_titles').empty();
                     $('#body_modal_manage_icons_titles').append(data);
+                }
+            });
+        });
+
+        $(document).on('click', '#trigger_manage_move_links', function () {
+            $.post('engine.php', {
+                'populate_move_links': true
+            }, function (data) {
+                if (data != 0) {
+                    $('#body_modal_manage_move_links').empty();
+                    $('#body_modal_manage_move_links').append(data);
                 }
             });
         });
