@@ -3852,6 +3852,7 @@
 		$nexus_links = array();
 		$nexus_cmd = array();
 		$nexus_order = array();
+		$nexus_alphabet = array();
 		$nexus_links_info = $conn->query($query);
 		if ($nexus_links_info->num_rows > 0) {
 		}
@@ -3874,9 +3875,11 @@
 			$nexus_order[$count] = array('title' => $nexus_link_title, 'url' => $nexus_link_url);
 			//This one will be used to populate windows as the user clicks on icons
 			$nexus_folders[$nexus_link_folder_id][$nexus_link_id] = array('url' => $nexus_link_url, 'title' => $nexus_link_title, 'icon' => $nexus_link_icon, 'color' => $nexus_link_color);
+			$nexus_alphabet[$nexus_link_title] = $nexus_link_id;
 			$count++;
 		}
-		return array('nexus_links' => $nexus_links, 'nexus_cmd' => $nexus_cmd, 'nexus_folders' => $nexus_folders, 'nexus_order' => $nexus_order);
+		ksort($nexus_alphabet);
+		return array('nexus_links' => $nexus_links, 'nexus_cmd' => $nexus_cmd, 'nexus_folders' => $nexus_folders, 'nexus_order' => $nexus_order, 'nexus_alphabet' => $nexus_alphabet);
 	}
 
 	function nexus_options($args)

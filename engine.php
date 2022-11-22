@@ -2105,8 +2105,8 @@
 				<div class='mb-3'>
 					<label class='form-label' for='nexus_remove_this_link_id'>Link to remove:</label>
 					<select id='nexus_remove_this_link_id' name='nexus_remove_this_link_id' class='form-select'>";
-		foreach ($_SESSION['nexus_links'] as $link_id => $info) {
-			echo "<option value='$link_id'>{$_SESSION['nexus_links'][$link_id]['title']}</option>";
+		foreach ($_SESSION['nexus_alphabet'] as $title => $id) {
+			echo "<option value='$id'>$title</option>";
 		}
 		echo "
 					</select>
@@ -2117,9 +2117,7 @@
 	}
 
 	if (isset($_POST['nexus_remove_link_submit'])) {
-		error_log('this happened');
 		if (isset($_POST['nexus_remove_this_link_id']) && ($_POST['nexus_remove_this_link_id'] != false)) {
-			error_log('and then this happened');
 			$query = prepare_query("UPDATE nexus_elements SET state = 0 WHERE user_id = {$_SESSION['user_id']} AND state = 1 AND param_int_2 = {$_POST['nexus_remove_this_link_id']}", 'log');
 			$conn->query($query);
 			unset($_SESSION['nexus_links']);
@@ -2732,8 +2730,8 @@
 				<select class='form-select change_trigger_show_details' id='manage_icon_title_link_id' name='manage_icon_title_link_id'>
 				<option selected disabled>Select link</option>
 				";
-		foreach ($_SESSION['nexus_links'] as $key => $value) {
-			$populate_icons_titles .= "<option value='$key'>{$_SESSION['nexus_links'][$key]['title']}</option>";
+		foreach ($_SESSION['nexus_alphabet'] as $title => $id) {
+			$populate_icons_titles .= "<option value='$id'>$title</option>";
 		}
 		$populate_icons_titles .= "
 				</select>
@@ -2850,8 +2848,8 @@
 				<label for='move_this_link_id' class='form-label'>Select link to move:</label>
 				<select id='move_this_link_id' name='move_this_link_id' class='form-select mb-3'>
 					<option disabled selected>Link to move</option>";
-		foreach ($_SESSION['nexus_links'] as $key => $value) {
-			$populate_move_links .= "<option value='$key'>{$_SESSION['nexus_links'][$key]['title']}</option>";
+		foreach ($_SESSION['nexus_alphabet'] as $title => $id) {
+			$populate_move_links .= "<option value='$id'>$title</option>";
 		}
 		$populate_move_links .= "
 				</select>

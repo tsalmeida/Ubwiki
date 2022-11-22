@@ -178,6 +178,7 @@
 		$_SESSION['nexus_cmd'] = $nexus_all_links['nexus_cmd'];
 		$_SESSION['nexus_folders'] = $nexus_all_links['nexus_folders'];
 		$_SESSION['nexus_order'] = $nexus_all_links['nexus_order'];
+		$_SESSION['nexus_alphabet'] = $nexus_all_links['nexus_alphabet'];
 	}
 
 	$hidden_inputs = false;
@@ -380,12 +381,12 @@
                             <datalist id="command-list">
 								<?php
 									if ($_SESSION['nexus_options']['cmd_link_id'] == false) {
-										foreach ($_SESSION['nexus_links'] as $key => $value) {
-											echo "<option value='{$_SESSION['nexus_links'][$key]['title']}'>";
+										foreach ($_SESSION['nexus_alphabet'] as $key => $value) {
+											echo "<option value='$value'>";
 										}
 									} else {
-										foreach ($_SESSION['nexus_order'] as $key => $value) {
-											echo "<option value='$key'>{$_SESSION['nexus_order'][$key]['title']}</option>";
+										foreach ($_SESSION['nexus_alphabet'] as $key => $value) {
+											echo "<option value='$value'>$key</option>";
 										}
 									}
 								?>
@@ -397,6 +398,7 @@
             <?php
                 echo "<div id='settings_container' class='container d-none mt-1'><div id='settings_row' class='row'>";
 
+//                echo nexus_put_together(array('type' => 'folder', 'id' => 'manage_testing', 'title' => 'Manage testing', 'modal' => '#modal_manage_testing', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-circle-notch', 'color' => 'orange'));
                 echo nexus_put_together(array('type' => 'folder', 'id' => 'manage_folders', 'title' => 'Add or remove folders', 'modal' => '#modal_manage_folders', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-folder-gear', 'color' => 'yellow'));
                 echo nexus_put_together(array('type' => 'folder', 'id' => 'manage_links', 'title' => 'Add or remove links', 'modal' => '#modal_manage_links', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-bookmark', 'color' => 'red'));
 				echo nexus_put_together(array('type' => 'folder', 'id' => 'manage_icons_titles', 'title'=>'Manage icons and titles', 'modal'=>'#modal_manage_icons_titles', 'class'=>'nexus_settings_icon', 'icon'=>'fad fa-icons', 'color'=>'pink'));
@@ -423,6 +425,23 @@
 			?>
         </div>
 		<?php
+//			$template_modal_div_id = 'modal_manage_testing';
+//			$template_modal_titulo = 'Testing array reorder';
+//			$template_modal_body_conteudo = false;
+//			$template_modal_body_conteudo .= "<ul>";
+//			$newarray = array();
+//			foreach ($_SESSION['nexus_links'] as $key => $info)
+//            {
+//                $title = $_SESSION['nexus_links'][$key]['title'];
+//                $template_modal_body_conteudo .= "<li>$key: $title</li>";
+//                $new_array[$title] = $key;
+//            }
+//			$template_modal_body_conteudo .= "</ul>";
+//			ksort($new_array);
+//			$template_modal_body_conteudo .= serialize($new_array);
+//			$template_modal_show_buttons = false;
+//			include 'templates/modal.php';
+
 			$template_modal_div_id = 'modal_manage_folders';
 			$template_modal_titulo = 'Add or remove folders';
 			$template_modal_body_conteudo = false;
