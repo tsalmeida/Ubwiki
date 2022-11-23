@@ -599,6 +599,8 @@
 		return false;
 	}
 
+
+	//TODO: This function is used a horrible number of times. It needs to be reined in.
 	function return_etiqueta_info($etiqueta_id)
 	{
 		if ($etiqueta_id == false) {

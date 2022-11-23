@@ -2098,7 +2098,7 @@
 
 	if (isset($_POST['nexus_remove_link_submit'])) {
 		if (isset($_POST['nexus_remove_this_link_id']) && ($_POST['nexus_remove_this_link_id'] != false)) {
-			$query = prepare_query("UPDATE nexus_elements SET state = 0 WHERE user_id = {$_SESSION['user_id']} AND state = 1 AND param_int_2 = {$_POST['nexus_remove_this_link_id']}", 'log');
+			$query = prepare_query("UPDATE nexus_elements SET state = 0 WHERE user_id = {$_SESSION['user_id']} AND state = 1 AND param_int_2 = {$_POST['nexus_remove_this_link_id']}");
 			$conn->query($query);
 			unset($_SESSION['nexus_links']);
 		}
@@ -2780,16 +2780,16 @@
 			}
 		} elseif (($_POST['manage_icon_title_choice'] == 'link') && ($_POST['manage_icon_title_link_id']) != false) {
 			if ($_POST['manage_icon_title_new_icon'] != false) {
-				$query = prepare_query("UPDATE nexus_elements SET param3 = '{$_POST['manage_icon_title_new_icon']}' WHERE user_id = {$_SESSION['user_id']} AND param_int_2 = {$_POST['manage_icon_title_link_id']}", 'log');
+				$query = prepare_query("UPDATE nexus_elements SET param3 = '{$_POST['manage_icon_title_new_icon']}' WHERE user_id = {$_SESSION['user_id']} AND param_int_2 = {$_POST['manage_icon_title_link_id']}");
 				$conn->query($query);
 			}
 			if ($_POST['manage_icon_title_new_color'] != false) {
-				$query = prepare_query("UPDATE nexus_elements SET param4 = '{$_POST['manage_icon_title_new_color']}' WHERE user_id = {$_SESSION['user_id']} AND param_int_2 = {$_POST['manage_icon_title_link_id']}", 'log');
+				$query = prepare_query("UPDATE nexus_elements SET param4 = '{$_POST['manage_icon_title_new_color']}' WHERE user_id = {$_SESSION['user_id']} AND param_int_2 = {$_POST['manage_icon_title_link_id']}");
 				$conn->query($query);
 			}
 			if ($_POST['manage_icon_title_new_title'] != false) {
 				nexus_handle(array('id' => $_POST['manage_icon_title_link_id'], 'title' => $_POST['manage_icon_title_new_title']));
-				$query = prepare_query("UPDATE nexus_elements SET param2 = '{$_POST['manage_icon_title_new_title']}' WHERE user_id = {$_SESSION['user_id']} AND param_int_2 = {$_POST['manage_icon_title_link_id']}", 'log');
+				$query = prepare_query("UPDATE nexus_elements SET param2 = '{$_POST['manage_icon_title_new_title']}' WHERE user_id = {$_SESSION['user_id']} AND param_int_2 = {$_POST['manage_icon_title_link_id']}");
 				$conn->query($query);
 			}
 		}
@@ -2824,7 +2824,7 @@
 	}
 
 	if ((isset($_POST['move_this_link_id'])) && (isset($_POST['move_to_this_folder_id']))) {
-		$query = prepare_query("UPDATE nexus_elements SET param_int_1 = {$_POST['move_to_this_folder_id']} WHERE user_id = {$_SESSION['user_id']} AND param_int_2 = {$_POST['move_this_link_id']}", 'log');
+		$query = prepare_query("UPDATE nexus_elements SET param_int_1 = {$_POST['move_to_this_folder_id']} WHERE user_id = {$_SESSION['user_id']} AND param_int_2 = {$_POST['move_this_link_id']}");
 		$conn->query($query);
 		unset($_SESSION['nexus_links']);
 	}
