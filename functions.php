@@ -3828,13 +3828,14 @@
 		$conn->query($query);
 	}
 
+
 	function rebuild_cmd_links($nexus_pagina_id)
 	{
 		include 'templates/criar_conn.php';
 		if ($nexus_pagina_id == false) {
 			return false;
 		}
-		$query = prepare_query("SELECT id, type, title, icon, color FROM nexus_folders WHERE pagina_id = $nexus_pagina_id");
+		$query = prepare_query("SELECT id, type, title, icon, color FROM nexus_folders WHERE pagina_id = $nexus_pagina_id ORDER BY type DESC");
 		$nexus_folders = array();
 		$nexus_folders_info = $conn->query($query);
 		$folder_count = 0;
