@@ -65,26 +65,21 @@
 	}
 
 	if (isset($_POST['nexus_new_folder_title'])) {
-		$nexus_new_folder_title = $_POST['nexus_new_folder_title'];
-		$nexus_new_folder_icon = $_POST['nexus_new_folder_icon'];
-		$nexus_new_folder_color = $_POST['nexus_new_folder_color'];
-		if (isset($_POST['nexus_new_folder_type'])) {
-			$nexus_new_folder_type = 'main';
-		} else {
-			$nexus_new_folder_type = 'archival';
-		}
-		$user_nexus_id = $_SESSION['user_nexus_pagina_id'];
-		if ($nexus_new_folder_icon == false) {
-			$nexus_new_folder_icon = nexus_icons('random');
-		}
-		if ($nexus_new_folder_color == false) {
-			$nexus_new_folder_color = nexus_colors('random');
-		}
-
-		nexus_new_folder(array('user_id' => $user_id, 'pagina_id' => $pagina_id, 'title' => $_POST['new_bulk_folder_1']));
-
-		$query = prepare_query("INSERT INTO nexus_folders (user_id, pagina_id, type, title, icon, color) VALUES ($user_id, $user_nexus_id, '$nexus_new_folder_type', '$nexus_new_folder_title', '$nexus_new_folder_icon', '$nexus_new_folder_color')");
-		$conn->query($query);
+	    if (!isset($_POST['nexus_new_folder_icon'])) {
+	        $_POST['nexus_new_folder_icon'] = false;
+        }
+	    if (!isset($_POST['nexus_new_folder_color'])) {
+	        $_POST['nexus_new_folder_color'] = false;
+        }
+	    if (!isset($_POST['nexus_new_folder_type'])) {
+	        $_POST['nexus_new_folder_type'] = 'archival';
+        } else {
+	        $_POST['nexus_new_folder_type'] = 'main';
+        }
+	    if (!isset($_POST['nexus_new_folder_title'])) {
+	        $_POST['nexus_new_folder_title'] = false;
+        }
+	    nexus_new_folder(array('user_id'=>$_SESSION['user_id'], 'pagina_id'=>$_SESSION['user_nexus_pagina_id'], 'title'=>$_POST['nexus_new_folder_title'], 'icon'=>$_POST['nexus_new_folder_icon'], 'color'=>$_POST['nexus_new_folder_color'], 'type'=>$_POST['nexus_new_folder_type']));
 		unset($_SESSION['nexus_links']);
 	}
 
@@ -172,13 +167,15 @@
 		exit();
 	}
 
+	unset($_SESSION['nexus_links']);
+
 	if (!isset($_SESSION['nexus_links'])) {
 		$nexus_all_links = rebuild_cmd_links($_SESSION['user_nexus_pagina_id']);
 		$_SESSION['nexus_links'] = $nexus_all_links['nexus_links'];
-		$_SESSION['nexus_cmd'] = $nexus_all_links['nexus_cmd'];
 		$_SESSION['nexus_folders'] = $nexus_all_links['nexus_folders'];
 		$_SESSION['nexus_order'] = $nexus_all_links['nexus_order'];
 		$_SESSION['nexus_alphabet'] = $nexus_all_links['nexus_alphabet'];
+		$_SESSION['nexus_codes'] = $nexus_all_links['nexus_codes'];
 	}
 
 	$hidden_inputs = false;
@@ -351,6 +348,7 @@
 							echo nexus_put_together(array('type' => 'navbar', 'color' => 'teal', 'class' => false, 'href' => false, 'icon' => 'fas fa-box-archive fa-swap-opacity', 'id' => 'trigger_show_link_dump'));
 							echo nexus_put_together(array('type' => 'navbar', 'color' => 'cyan', 'class' => false, 'href' => false, 'icon' => 'fas fa-clock-rotate-left', 'id' => 'trigger_show_recent_links'));
 							echo nexus_put_together(array('type' => 'navbar', 'color' => 'orange', 'class' => false, 'href' => false, 'icon' => 'fas fa-cog', 'id' => 'trigger_show_setup_icons'));
+							echo nexus_put_together(array('type' => 'navbar', 'color' => 'blue', 'class'=>false, 'href'=>'pagina.php?plano_id=bp', 'icon' => 'fas fa-books', 'id' => 'go_to_studyplan'));
 							echo nexus_put_together(array('type' => 'navbar', 'color' => 'green', 'class' => false, 'href' => 'escritorio.php', 'icon' => 'fas fa-lamp-desk', 'id' => 'back_to_office'));
 						?>
                     </div>
@@ -382,11 +380,11 @@
 								<?php
 									if ($_SESSION['nexus_options']['cmd_link_id'] == false) {
 										foreach ($_SESSION['nexus_alphabet'] as $key => $value) {
-											echo "<option value='$value'>";
+											echo "<option value='$key'>";
 										}
 									} else {
-										foreach ($_SESSION['nexus_alphabet'] as $key => $value) {
-											echo "<option value='$value'>$key</option>";
+										foreach ($_SESSION['nexus_codes'] as $key => $value) {
+											echo "<option value='$key'>{$_SESSION['nexus_codes'][$key]['title']}</option>";
 										}
 									}
 								?>
