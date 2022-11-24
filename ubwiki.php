@@ -50,7 +50,7 @@
 				$template_botoes_padrao = false;
 				$template_background = 'bg-light';
 				$template_conteudo_no_col = true;
-				$logo_ubwiki = 'https://ubwiki.com.br/imagens/verbetes/IA4flR71rqCSFuUJ.png';
+				$logo_ubwiki = '../imagens/verbetes/IA4flR71rqCSFuUJ.png';
 				$template_conteudo .= "
                     	<div class='logo_ubwiki rounded m-1' style='background-image: url($logo_ubwiki)'></div>
                     ";
