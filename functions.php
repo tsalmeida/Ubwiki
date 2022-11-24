@@ -3805,9 +3805,9 @@
 									<i class='fa-solid $icon fa-xl fa-fw'></i>
 								</div>
 								<div class='col px-1 d-flex align-items-center'>
-									<small class='col-12 {$colors['title-color']} align-self-center lh-sm'>
+									<span class='col-12 {$colors['title-color']} align-self-center lh-sm'>
 										{$params['title']}
-									</small>
+									</span>
 								</div>
 							</div>
 						</span>
