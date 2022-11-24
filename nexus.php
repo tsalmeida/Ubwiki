@@ -65,26 +65,21 @@
 	}
 
 	if (isset($_POST['nexus_new_folder_title'])) {
-		$nexus_new_folder_title = $_POST['nexus_new_folder_title'];
-		$nexus_new_folder_icon = $_POST['nexus_new_folder_icon'];
-		$nexus_new_folder_color = $_POST['nexus_new_folder_color'];
-		if (isset($_POST['nexus_new_folder_type'])) {
-			$nexus_new_folder_type = 'main';
-		} else {
-			$nexus_new_folder_type = 'archival';
-		}
-		$user_nexus_id = $_SESSION['user_nexus_pagina_id'];
-		if ($nexus_new_folder_icon == false) {
-			$nexus_new_folder_icon = nexus_icons('random');
-		}
-		if ($nexus_new_folder_color == false) {
-			$nexus_new_folder_color = nexus_colors('random');
-		}
-
-		nexus_new_folder(array('user_id' => $user_id, 'pagina_id' => $pagina_id, 'title' => $_POST['new_bulk_folder_1']));
-
-		$query = prepare_query("INSERT INTO nexus_folders (user_id, pagina_id, type, title, icon, color) VALUES ($user_id, $user_nexus_id, '$nexus_new_folder_type', '$nexus_new_folder_title', '$nexus_new_folder_icon', '$nexus_new_folder_color')");
-		$conn->query($query);
+	    if (!isset($_POST['nexus_new_folder_icon'])) {
+	        $_POST['nexus_new_folder_icon'] = false;
+        }
+	    if (!isset($_POST['nexus_new_folder_color'])) {
+	        $_POST['nexus_new_folder_color'] = false;
+        }
+	    if (!isset($_POST['nexus_new_folder_type'])) {
+	        $_POST['nexus_new_folder_type'] = 'archival';
+        } else {
+	        $_POST['nexus_new_folder_type'] = 'main';
+        }
+	    if (!isset($_POST['nexus_new_folder_title'])) {
+	        $_POST['nexus_new_folder_title'] = false;
+        }
+	    nexus_new_folder(array('user_id'=>$_SESSION['user_id'], 'pagina_id'=>$_SESSION['user_nexus_pagina_id'], 'title'=>$_POST['nexus_new_folder_title'], 'icon'=>$_POST['nexus_new_folder_icon'], 'color'=>$_POST['nexus_new_folder_color'], 'type'=>$_POST['nexus_new_folder_type']));
 		unset($_SESSION['nexus_links']);
 	}
 
@@ -172,12 +167,15 @@
 		exit();
 	}
 
+//	unset($_SESSION['nexus_links']);
+
 	if (!isset($_SESSION['nexus_links'])) {
 		$nexus_all_links = rebuild_cmd_links($_SESSION['user_nexus_pagina_id']);
 		$_SESSION['nexus_links'] = $nexus_all_links['nexus_links'];
-		$_SESSION['nexus_cmd'] = $nexus_all_links['nexus_cmd'];
 		$_SESSION['nexus_folders'] = $nexus_all_links['nexus_folders'];
 		$_SESSION['nexus_order'] = $nexus_all_links['nexus_order'];
+		$_SESSION['nexus_alphabet'] = $nexus_all_links['nexus_alphabet'];
+		$_SESSION['nexus_codes'] = $nexus_all_links['nexus_codes'];
 	}
 
 	$hidden_inputs = false;
@@ -350,6 +348,7 @@
 							echo nexus_put_together(array('type' => 'navbar', 'color' => 'teal', 'class' => false, 'href' => false, 'icon' => 'fas fa-box-archive fa-swap-opacity', 'id' => 'trigger_show_link_dump'));
 							echo nexus_put_together(array('type' => 'navbar', 'color' => 'cyan', 'class' => false, 'href' => false, 'icon' => 'fas fa-clock-rotate-left', 'id' => 'trigger_show_recent_links'));
 							echo nexus_put_together(array('type' => 'navbar', 'color' => 'orange', 'class' => false, 'href' => false, 'icon' => 'fas fa-cog', 'id' => 'trigger_show_setup_icons'));
+							echo nexus_put_together(array('type' => 'navbar', 'color' => 'blue', 'class'=>false, 'href'=>'pagina.php?plano_id=bp', 'icon' => 'fas fa-books', 'id' => 'go_to_studyplan'));
 							echo nexus_put_together(array('type' => 'navbar', 'color' => 'green', 'class' => false, 'href' => 'escritorio.php', 'icon' => 'fas fa-lamp-desk', 'id' => 'back_to_office'));
 						?>
                     </div>
@@ -380,12 +379,12 @@
                             <datalist id="command-list">
 								<?php
 									if ($_SESSION['nexus_options']['cmd_link_id'] == false) {
-										foreach ($_SESSION['nexus_links'] as $key => $value) {
-											echo "<option value='{$_SESSION['nexus_links'][$key]['title']}'>";
+										foreach ($_SESSION['nexus_alphabet'] as $key => $value) {
+											echo "<option value='$key'>";
 										}
 									} else {
-										foreach ($_SESSION['nexus_order'] as $key => $value) {
-											echo "<option value='$key'>{$_SESSION['nexus_order'][$key]['title']}</option>";
+										foreach ($_SESSION['nexus_codes'] as $key => $value) {
+											echo "<option value='$key'>{$_SESSION['nexus_codes'][$key]['title']}</option>";
 										}
 									}
 								?>
@@ -397,6 +396,7 @@
             <?php
                 echo "<div id='settings_container' class='container d-none mt-1'><div id='settings_row' class='row'>";
 
+//                echo nexus_put_together(array('type' => 'folder', 'id' => 'manage_testing', 'title' => 'Manage testing', 'modal' => '#modal_manage_testing', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-circle-notch', 'color' => 'orange'));
                 echo nexus_put_together(array('type' => 'folder', 'id' => 'manage_folders', 'title' => 'Add or remove folders', 'modal' => '#modal_manage_folders', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-folder-gear', 'color' => 'yellow'));
                 echo nexus_put_together(array('type' => 'folder', 'id' => 'manage_links', 'title' => 'Add or remove links', 'modal' => '#modal_manage_links', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-bookmark', 'color' => 'red'));
 				echo nexus_put_together(array('type' => 'folder', 'id' => 'manage_icons_titles', 'title'=>'Manage icons and titles', 'modal'=>'#modal_manage_icons_titles', 'class'=>'nexus_settings_icon', 'icon'=>'fad fa-icons', 'color'=>'pink'));
@@ -423,6 +423,23 @@
 			?>
         </div>
 		<?php
+//			$template_modal_div_id = 'modal_manage_testing';
+//			$template_modal_titulo = 'Testing array reorder';
+//			$template_modal_body_conteudo = false;
+//			$template_modal_body_conteudo .= "<ul>";
+//			$newarray = array();
+//			foreach ($_SESSION['nexus_links'] as $key => $info)
+//            {
+//                $title = $_SESSION['nexus_links'][$key]['title'];
+//                $template_modal_body_conteudo .= "<li>$key: $title</li>";
+//                $new_array[$title] = $key;
+//            }
+//			$template_modal_body_conteudo .= "</ul>";
+//			ksort($new_array);
+//			$template_modal_body_conteudo .= serialize($new_array);
+//			$template_modal_show_buttons = false;
+//			include 'templates/modal.php';
+
 			$template_modal_div_id = 'modal_manage_folders';
 			$template_modal_titulo = 'Add or remove folders';
 			$template_modal_body_conteudo = false;

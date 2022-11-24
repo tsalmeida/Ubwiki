@@ -599,6 +599,8 @@
 		return false;
 	}
 
+
+	//TODO: This function is used a horrible number of times. It needs to be reined in.
 	function return_etiqueta_info($etiqueta_id)
 	{
 		if ($etiqueta_id == false) {
@@ -3461,43 +3463,43 @@
 		} elseif ($args[0] == 'convert') {
 			switch ($args[1]) {
 				case 'blue':
-					return array('link-color' => 'nexus-link-blue', 'bg-color' => 'nexus-bg-blue', 'link-black-color' => 'nexus-link-black-blue', 'bg-black-color' => 'nexus-bg-black-blue', 'text-color' => 'nexus-text-blue', 'title-color'=>'link-light');
+					return array('link-color' => 'nexus-link-blue', 'bg-color' => 'nexus-bg-blue', 'link-black-color' => 'nexus-link-black-blue', 'bg-black-color' => 'nexus-bg-black-blue', 'text-color' => 'nexus-text-blue', 'title-color' => 'link-light');
 					break;
 				case 'indigo':
-					return array('link-color' => 'nexus-link-indigo', 'bg-color' => 'nexus-bg-indigo', 'link-black-color' => 'nexus-link-black-indigo', 'bg-black-color' => 'nexus-bg-black-indigo', 'text-color' => 'nexus-text-indigo', 'title-color'=>'link-light');
+					return array('link-color' => 'nexus-link-indigo', 'bg-color' => 'nexus-bg-indigo', 'link-black-color' => 'nexus-link-black-indigo', 'bg-black-color' => 'nexus-bg-black-indigo', 'text-color' => 'nexus-text-indigo', 'title-color' => 'link-light');
 					break;
 				case 'purple':
-					return array('link-color' => 'nexus-link-purple', 'bg-color' => 'nexus-bg-purple', 'link-black-color' => 'nexus-link-black-purple', 'bg-black-color' => 'nexus-bg-black-purple', 'text-color' => 'nexus-text-purple', 'title-color'=>'link-light');
+					return array('link-color' => 'nexus-link-purple', 'bg-color' => 'nexus-bg-purple', 'link-black-color' => 'nexus-link-black-purple', 'bg-black-color' => 'nexus-bg-black-purple', 'text-color' => 'nexus-text-purple', 'title-color' => 'link-light');
 					break;
 				case 'pink':
-					return array('link-color' => 'nexus-link-pink', 'bg-color' => 'nexus-bg-pink', 'link-black-color' => 'nexus-link-black-pink', 'bg-black-color' => 'nexus-bg-black-pink', 'text-color' => 'nexus-text-pink', 'title-color'=>'link-light');
+					return array('link-color' => 'nexus-link-pink', 'bg-color' => 'nexus-bg-pink', 'link-black-color' => 'nexus-link-black-pink', 'bg-black-color' => 'nexus-bg-black-pink', 'text-color' => 'nexus-text-pink', 'title-color' => 'link-light');
 					break;
 				case 'red':
-					return array('link-color' => 'nexus-link-red', 'bg-color' => 'nexus-bg-red', 'link-black-color' => 'nexus-link-black-red', 'bg-black-color' => 'nexus-bg-black-red', 'text-color' => 'nexus-text-red', 'title-color'=>'link-light');
+					return array('link-color' => 'nexus-link-red', 'bg-color' => 'nexus-bg-red', 'link-black-color' => 'nexus-link-black-red', 'bg-black-color' => 'nexus-bg-black-red', 'text-color' => 'nexus-text-red', 'title-color' => 'link-light');
 					break;
 				case 'orange':
-					return array('link-color' => 'nexus-link-orange', 'bg-color' => 'nexus-bg-orange', 'link-black-color' => 'nexus-link-black-orange', 'bg-black-color' => 'nexus-bg-black-orange', 'text-color' => 'nexus-text-orange', 'title-color'=>'link-light');
+					return array('link-color' => 'nexus-link-orange', 'bg-color' => 'nexus-bg-orange', 'link-black-color' => 'nexus-link-black-orange', 'bg-black-color' => 'nexus-bg-black-orange', 'text-color' => 'nexus-text-orange', 'title-color' => 'link-light');
 					break;
 				case 'yellow':
-					return array('link-color' => 'nexus-link-yellow', 'bg-color' => 'nexus-bg-yellow', 'link-black-color' => 'nexus-link-black-yellow', 'bg-black-color' => 'nexus-bg-black-yellow', 'text-color' => 'nexus-text-yellow', 'title-color'=>'link-light');
+					return array('link-color' => 'nexus-link-yellow', 'bg-color' => 'nexus-bg-yellow', 'link-black-color' => 'nexus-link-black-yellow', 'bg-black-color' => 'nexus-bg-black-yellow', 'text-color' => 'nexus-text-yellow', 'title-color' => 'link-light');
 					break;
 				case 'green':
-					return array('link-color' => 'nexus-link-green', 'bg-color' => 'nexus-bg-green', 'link-black-color' => 'nexus-link-black-green', 'bg-black-color' => 'nexus-bg-black-green', 'text-color' => 'nexus-text-green', 'title-color'=>'link-light');
+					return array('link-color' => 'nexus-link-green', 'bg-color' => 'nexus-bg-green', 'link-black-color' => 'nexus-link-black-green', 'bg-black-color' => 'nexus-bg-black-green', 'text-color' => 'nexus-text-green', 'title-color' => 'link-light');
 					break;
 				case 'teal':
-					return array('link-color' => 'nexus-link-teal', 'bg-color' => 'nexus-bg-teal', 'link-black-color' => 'nexus-link-black-teal', 'bg-black-color' => 'nexus-bg-black-teal', 'text-color' => 'nexus-text-teal', 'title-color'=>'link-light');
+					return array('link-color' => 'nexus-link-teal', 'bg-color' => 'nexus-bg-teal', 'link-black-color' => 'nexus-link-black-teal', 'bg-black-color' => 'nexus-bg-black-teal', 'text-color' => 'nexus-text-teal', 'title-color' => 'link-light');
 					break;
 				case 'cyan':
-					return array('link-color' => 'nexus-link-cyan', 'bg-color' => 'nexus-bg-cyan', 'link-black-color' => 'nexus-link-black-cyan', 'bg-black-color' => 'nexus-bg-black-cyan', 'text-color' => 'nexus-text-cyan', 'title-color'=>'link-light');
+					return array('link-color' => 'nexus-link-cyan', 'bg-color' => 'nexus-bg-cyan', 'link-black-color' => 'nexus-link-black-cyan', 'bg-black-color' => 'nexus-bg-black-cyan', 'text-color' => 'nexus-text-cyan', 'title-color' => 'link-light');
 					break;
 				case 'white':
-					return array('link-color' => 'link-light', 'bg-color'=>'bg-dark', 'link-black-color'=>'link-light', 'bg-black-color' => 'bg-dark text-light', 'text-color' => 'text-light', 'title-color'=>'link-light');
+					return array('link-color' => 'link-light', 'bg-color' => 'bg-dark', 'link-black-color' => 'link-light', 'bg-black-color' => 'bg-dark text-light', 'text-color' => 'text-light', 'title-color' => 'link-light');
 					break;
 				case 'black':
-					return array('link-color'=>'link-dark', 'bg-color'=>'bg-light', 'link-black-color'=>'link-dark', 'bg-black-color'=> 'bg-light text-dark', 'text-color'=>'text-dark', 'title-color'=>'link-dark');
+					return array('link-color' => 'link-dark', 'bg-color' => 'bg-light', 'link-black-color' => 'link-dark', 'bg-black-color' => 'bg-light text-dark', 'text-color' => 'text-dark', 'title-color' => 'link-dark');
 					break;
 				default:
-					return array('link-color' => 'nexus-link-red', 'bg-color' => 'nexus-bg-red', 'link-black-color' => 'nexus-link-black-red', 'bg-black-color' => 'nexus-bg-black-red', 'text-color' => 'nexus-text-red', 'title-color'=>'link-light');
+					return array('link-color' => 'nexus-link-red', 'bg-color' => 'nexus-bg-red', 'link-black-color' => 'nexus-link-black-red', 'bg-black-color' => 'nexus-bg-black-red', 'text-color' => 'nexus-text-red', 'title-color' => 'link-light');
 			}
 		}
 	}
@@ -3811,7 +3813,7 @@
 		if (!isset($args['pagina_id'])) {
 			return false;
 		}
-		if (!isset($args['title'])) {
+		if ((!isset($args['title'])) || ($args['title'] == false)) {
 			$args['title'] = "Folder";
 		}
 		if (!isset($args['icon']) || ($args['icon'] == false) || ($args['icon'] == 'random')) {
@@ -3820,7 +3822,7 @@
 		if (!isset($args['color']) || ($args['color'] == false) || ($args['color'] == 'random')) {
 			$args['color'] = nexus_colors('random');
 		}
-		if (!isset($args['type'])) {
+		if ((!isset($args['type'])) || ($args['type'] == false)) {
 			$args['type'] = 'main';
 		}
 		include 'templates/criar_conn.php';
@@ -3828,55 +3830,74 @@
 		$conn->query($query);
 	}
 
+
 	function rebuild_cmd_links($nexus_pagina_id)
 	{
 		include 'templates/criar_conn.php';
 		if ($nexus_pagina_id == false) {
 			return false;
 		}
-
-		$query = prepare_query("SELECT id, type, title, icon, color FROM nexus_folders WHERE pagina_id = $nexus_pagina_id");
+		$query = prepare_query("SELECT id, type, title, icon, color FROM nexus_folders WHERE pagina_id = $nexus_pagina_id ORDER BY type DESC");
 		$nexus_folders = array();
 		$nexus_folders_info = $conn->query($query);
-		$count = 0;
+		$folder_count = 0;
 		if ($nexus_folders_info->num_rows > 0) {
 			while ($nexus_folder_info = $nexus_folders_info->fetch_assoc()) {
-				$count++;
+				$folder_count++;
 				$nexus_folder_id = $nexus_folder_info['id'];
-				$nexus_folders[$nexus_folder_id]['info'] = array('title' => $nexus_folder_info['title'], 'icon' => $nexus_folder_info['icon'], 'color' => $nexus_folder_info['color'], 'type' => $nexus_folder_info['type'], 'id' => $nexus_folder_info['id']);
+				$nexus_folders[$nexus_folder_id]['info'] = array('title' => $nexus_folder_info['title'], 'icon' => $nexus_folder_info['icon'], 'color' => $nexus_folder_info['color'], 'type' => $nexus_folder_info['type'], 'id' => $nexus_folder_info['id'], 'order' => $folder_count);
 			}
 		}
-		$nexus_folders['linkdump']['info'] = array('title' => 'Link Dump', 'icon' => 'triangle', 'color' => 'red', 'type' => 'linkdump');
-
+		$nexus_folders['linkdump']['info'] = array('title' => 'Link Dump', 'icon' => 'triangle', 'color' => 'red', 'type' => 'linkdump', 'id' => false);
 		$query = prepare_query("SELECT param_int_1, param_int_2, param1, param2, param3, param4 FROM nexus_elements WHERE pagina_id = $nexus_pagina_id AND state = 1 AND type = 'link'");
 		$nexus_links = array();
-		$nexus_cmd = array();
 		$nexus_order = array();
+		$nexus_alphabet = array();
+		$nexus_codes = array();
 		$nexus_links_info = $conn->query($query);
-		if ($nexus_links_info->num_rows > 0) {
-		}
-		$count = 1;
-		while ($nexus_link_info = $nexus_links_info->fetch_assoc()) {
-			$nexus_link_folder_id = $nexus_link_info['param_int_1'];
-			if ($nexus_link_folder_id == false) {
-				$nexus_link_folder_id = 'linkdump';
+		$count = 0;
+		$code_count = array();
+		$code_count['linkdump'] = 0;
+		foreach ($nexus_folders as $key => $array) {
+			if ($key == 'linkdump') {
+				continue;
 			}
-			$nexus_link_id = $nexus_link_info['param_int_2'];
-			$nexus_link_url = $nexus_link_info['param1'];
-			$nexus_link_title = $nexus_link_info['param2'];
-			$nexus_link_icon = $nexus_link_info['param3'];
-			$nexus_link_color = $nexus_link_info['param4'];
-			// setting the arrays with the relevant information:
-			//this first one will be used for the command bar
-			$nexus_cmd[$nexus_link_title] = $nexus_link_url;
-			//I don't know what this one will be used for yet, but it's good to have
-			$nexus_links[$nexus_link_id] = array('folder_id' => $nexus_link_folder_id, 'url' => $nexus_link_url, 'title' => $nexus_link_title, 'icon' => $nexus_link_icon, 'color' => $nexus_link_color);
-			$nexus_order[$count] = array('title' => $nexus_link_title, 'url' => $nexus_link_url);
-			//This one will be used to populate windows as the user clicks on icons
-			$nexus_folders[$nexus_link_folder_id][$nexus_link_id] = array('url' => $nexus_link_url, 'title' => $nexus_link_title, 'icon' => $nexus_link_icon, 'color' => $nexus_link_color);
-			$count++;
+			$code_count[$nexus_folders[$key]['info']['order']] = 0;
 		}
-		return array('nexus_links' => $nexus_links, 'nexus_cmd' => $nexus_cmd, 'nexus_folders' => $nexus_folders, 'nexus_order' => $nexus_order);
+		if ($nexus_links_info->num_rows > 0) {
+			while ($nexus_link_info = $nexus_links_info->fetch_assoc()) {
+				$count++;
+				$nexus_link_folder_id = $nexus_link_info['param_int_1'];
+				if ($nexus_link_folder_id != 0) {
+					$nexus_link_folder_order = $nexus_folders[$nexus_link_info['param_int_1']]['info']['order'];
+					$code_count[$nexus_link_folder_order]++;
+					$nexus_link_code = "$nexus_link_folder_order.{$code_count[$nexus_link_folder_order]}";
+				} else {
+					$code_count['linkdump']++;
+					$nexus_link_folder_order = 'linkdump';
+					$nexus_link_code = "0.{$code_count[$nexus_link_folder_order]}";
+				}
+				if ($nexus_link_folder_id == false) {
+					$nexus_link_folder_id = 'linkdump';
+				}
+				$nexus_link_id = $nexus_link_info['param_int_2'];
+				$nexus_link_url = $nexus_link_info['param1'];
+				$nexus_link_title = $nexus_link_info['param2'];
+				$nexus_link_icon = $nexus_link_info['param3'];
+				$nexus_link_color = $nexus_link_info['param4'];
+				// setting the arrays with the relevant information:
+				//this first one will be used for the command bar
+				//I don't know what this one will be used for yet, but it's good to have
+				$nexus_links[$nexus_link_id] = array('folder_id' => $nexus_link_folder_id, 'url' => $nexus_link_url, 'title' => $nexus_link_title, 'icon' => $nexus_link_icon, 'color' => $nexus_link_color);
+				$nexus_order[$count] = array('title' => $nexus_link_title, 'url' => $nexus_link_url);
+				//This one will be used to populate windows as the user clicks on icons
+				$nexus_folders[$nexus_link_folder_id][$nexus_link_id] = array('url' => $nexus_link_url, 'title' => $nexus_link_title, 'icon' => $nexus_link_icon, 'color' => $nexus_link_color);
+				$nexus_alphabet[$nexus_link_title] = $nexus_link_id;
+				$nexus_codes[$nexus_link_code] = array('title'=>$nexus_link_title, 'url'=> $nexus_link_url, 'id'=>$nexus_link_id);
+			}
+		}
+		uksort($nexus_alphabet, 'strcasecmp');
+		return array('nexus_links' => $nexus_links, 'nexus_folders' => $nexus_folders, 'nexus_order' => $nexus_order, 'nexus_alphabet' => $nexus_alphabet, 'nexus_codes'=>$nexus_codes);
 	}
 
 	function nexus_options($args)
@@ -3954,5 +3975,41 @@
 			default:
 				return false;
 		}
+	}
+
+	function return_folder_list($session_nexus_folders, $params)
+	{
+		if (!isset($params['linkdump'])) {
+			$params['linkdump'] = false;
+		}
+		$folders_main = false;
+		$folders_archival = false;
+		$folders_linkdump = false;
+		foreach ($session_nexus_folders as $key => $info) {
+			if (!isset($session_nexus_folders[$key]['info'])) {
+				continue;
+			}
+			$folder_type = strtoupper($session_nexus_folders[$key]['info']['type']);
+			$option = "<option value='{$session_nexus_folders[$key]['info']['id']}'>$folder_type: {$session_nexus_folders[$key]['info']['title']} ({$session_nexus_folders[$key]['info']['color']} {$session_nexus_folders[$key]['info']['icon']})</option>";
+			switch ($folder_type) {
+				case 'MAIN':
+					$folders_main .= $option;
+					break;
+				case 'ARCHIVAL':
+					$folders_archival .= $option;
+					break;
+				case 'LINKDUMP':
+					if ($params['linkdump'] == false) {
+						break;
+					} else {
+						$folders_linkdump .= "<option value='0'>Linkdump</option>";
+					}
+					break;
+				default:
+					break;
+			}
+		}
+		$result = "$folders_linkdump $folders_main $folders_archival";
+		return $result;
 	}
 

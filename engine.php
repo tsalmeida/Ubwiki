@@ -2047,28 +2047,8 @@
 				</div>
 				<div class='mb-3'>
 					<label class='form-label' for='nexus_new_link_location'>Where to place your new link?</label>
-					<select id='nexus_new_link_location' name='nexus_new_link_location' class='form-select mb-3'>
-						<option selected value='0'>Link dump</option>";
-
-
-		$populate_add_folders_main = false;
-		$populate_add_folders_archival = false;
-
-		foreach ($_SESSION['nexus_folders'] as $folder_id => $content) {
-			$folder_type = strtoupper($_SESSION['nexus_folders'][$folder_id]['info']['type']);
-			switch ($folder_type) {
-				case 'MAIN':
-					$populate_add_folders_main .= "<option value='$folder_id'>$folder_type: {$_SESSION['nexus_folders'][$folder_id]['info']['title']}</option>";
-					break;
-				case 'ARCHIVAL':
-					$populate_add_folders_archival .= "<option value='$folder_id'>$folder_type: {$_SESSION['nexus_folders'][$folder_id]['info']['title']}</option>";
-					break;
-				default:
-					break;
-			}
-		}
-		echo $populate_add_folders_main;
-		echo $populate_add_folders_archival;
+					<select id='nexus_new_link_location' name='nexus_new_link_location' class='form-select mb-3'>";
+		echo return_folder_list($_SESSION['nexus_folders'], array('linkdump' => true));
 		echo "
 			</select>
 				</div>
@@ -2105,8 +2085,8 @@
 				<div class='mb-3'>
 					<label class='form-label' for='nexus_remove_this_link_id'>Link to remove:</label>
 					<select id='nexus_remove_this_link_id' name='nexus_remove_this_link_id' class='form-select'>";
-		foreach ($_SESSION['nexus_links'] as $link_id => $info) {
-			echo "<option value='$link_id'>{$_SESSION['nexus_links'][$link_id]['title']}</option>";
+		foreach ($_SESSION['nexus_alphabet'] as $title => $id) {
+			echo "<option value='$id'>$title</option>";
 		}
 		echo "
 					</select>
@@ -2117,10 +2097,8 @@
 	}
 
 	if (isset($_POST['nexus_remove_link_submit'])) {
-		error_log('this happened');
 		if (isset($_POST['nexus_remove_this_link_id']) && ($_POST['nexus_remove_this_link_id'] != false)) {
-			error_log('and then this happened');
-			$query = prepare_query("UPDATE nexus_elements SET state = 0 WHERE user_id = {$_SESSION['user_id']} AND state = 1 AND param_int_2 = {$_POST['nexus_remove_this_link_id']}", 'log');
+			$query = prepare_query("UPDATE nexus_elements SET state = 0 WHERE user_id = {$_SESSION['user_id']} AND state = 1 AND param_int_2 = {$_POST['nexus_remove_this_link_id']}");
 			$conn->query($query);
 			unset($_SESSION['nexus_links']);
 		}
@@ -2216,30 +2194,20 @@
 			<hr>
 			<h3>Remove folder</h3>
 		";
-		$query = prepare_query("SELECT id, title, icon, color FROM nexus_folders WHERE user_id = $user_id AND pagina_id = {$_SESSION['user_nexus_pagina_id']}");
-		$user_nexus_folders_info = $conn->query($query);
-		if ($user_nexus_folders_info->num_rows > 0) {
-			$user_nexus_remove_folder_options = false;
-			while ($user_nexus_folder_info = $user_nexus_folders_info->fetch_assoc()) {
-				$user_nexus_folder_id = $user_nexus_folder_info['id'];
-				$user_nexus_folder_title = $user_nexus_folder_info['title'];
-				$user_nexus_folder_icon = $user_nexus_folder_info['icon'];
-				$user_nexus_folder_color = $user_nexus_folder_info['color'];
-				$user_nexus_remove_folder_options .= "<option value='$user_nexus_folder_id'>$user_nexus_folder_title, $user_nexus_folder_icon, $user_nexus_folder_color</option>";
-			}
-			echo "
+
+		$user_nexus_remove_folder_options_main = false;
+		$user_nexus_remove_folder_options_archival = false;
+		$folder_list = return_folder_list($_SESSION['nexus_folders'], array('linkdump' => false));
+		echo "
 			<form method='post'>
 				<p>When you remove a folder, all links that had been added to it are also removed, though you can still find everything in the log.</p>
 				<select id='nexus_del_folder_id' name='nexus_del_folder_id' class='form-select mb-3'>
 					<option selected disabled>Select a folder to remove</option>
-					$user_nexus_remove_folder_options
+					$folder_list
 			";
-			echo "</select>";
-			echo "<button type='submit' class='btn btn-danger'>Delete folder</button>";
-			echo "</form>";
-		} else {
-			echo "<p>No folders found, but you will be able to delete them here once you've created some.</p>";
-		}
+		echo "</select>";
+		echo "<button type='submit' class='btn btn-danger'>Delete folder</button>";
+		echo "</form>";
 	}
 
 	if (isset($_POST['populate_add_folders_bulk'])) {
@@ -2659,39 +2627,40 @@
 
 	if (isset($_POST['analyse_cmd_input'])) {
 		if ($_SESSION['nexus_options']['cmd_link_id'] == true) {
-			if (isset($_SESSION['nexus_order'][$_POST['analyse_cmd_input']])) {
-				echo $_SESSION['nexus_order'][$_POST['analyse_cmd_input']]['url'];
-			} else {
-				if (isset($_SESSION['nexus_cmd'][$_POST['analyse_cmd_input']])) {
-					echo $_SESSION['nexus_cmd'][$_POST['analyse_cmd_input']];
-				} else {
-					$cmd_check = substr($_POST['analyse_cmd_input'], 0, 1);
-					if ($cmd_check == '/') {
-						$result = process_cmd(array('input' => $_POST['analyse_cmd_input'], 'pagina_id' => $_SESSION['user_nexus_pagina_id']));
-						if ($result == false) {
-							echo 'No match found';
-						} else {
-							switch ($result['type']) {
-								case 'url':
-									echo $result['url'];
-									break;
-								default:
-									echo 'No suitable command found';
-									exit();
-							}
-						}
-					} else {
-						echo 'No match found';
-					}
-				}
-			}
-		} else {
-			if (isset($_SESSION['nexus_cmd'][$_POST['analyse_cmd_input']])) {
-				echo $_SESSION['nexus_cmd'][$_POST['analyse_cmd_input']];
-			} else {
-				echo 'No match';
+			//Analysis starts here. First step: is it a code?
+			if (isset($_SESSION['nexus_codes'][$_POST['analyse_cmd_input']])) {
+				//If so, it's easy.
+				echo $_SESSION['nexus_codes'][$_POST['analyse_cmd_input']]['url'];
+				exit();
 			}
 		}
+		//Next step is to check if it's a command.
+		$cmd_check = substr($_POST['analyse_cmd_input'], 0, 1);
+		if ($cmd_check == '/') {
+			$result = process_cmd(array('input' => $_POST['analyse_cmd_input'], 'pagina_id' => $_SESSION['user_nexus_pagina_id']));
+			if ($result == false) {
+				echo 'No match found';
+				exit();
+			} else {
+				switch ($result['type']) {
+					case 'url':
+						echo $result['url'];
+						exit();
+						break;
+					default:
+						echo 'No suitable command found';
+						exit();
+				}
+			}
+		}
+		if (isset($_SESSION['nexus_alphabet'][$_POST['analyse_cmd_input']])) {
+			//This means that the user type the link's title
+			$cmd_link_id = $_SESSION['nexus_alphabet'][$_POST['analyse_cmd_input']];
+			echo $_SESSION['nexus_links'][$cmd_link_id]['url'];
+			exit();
+		}
+		echo "No match found";
+		exit();
 	}
 
 	if (isset($_POST['cmd_link_id'])) {
@@ -2732,8 +2701,8 @@
 				<select class='form-select change_trigger_show_details' id='manage_icon_title_link_id' name='manage_icon_title_link_id'>
 				<option selected disabled>Select link</option>
 				";
-		foreach ($_SESSION['nexus_links'] as $key => $value) {
-			$populate_icons_titles .= "<option value='$key'>{$_SESSION['nexus_links'][$key]['title']}</option>";
+		foreach ($_SESSION['nexus_alphabet'] as $title => $id) {
+			$populate_icons_titles .= "<option value='$id'>$title</option>";
 		}
 		$populate_icons_titles .= "
 				</select>
@@ -2742,23 +2711,7 @@
 			<label class='form-label  manage_folder_hide' for='manage_icon_title_folder_id'>Select folder to manage:</label>
 			<select id='manage_icon_title_folder_id' name='manage_icon_title_folder_id' class='form-select mb-3 manage_folder_hide change_trigger_show_details'>
 				<option selected disabled>Select folder</option>";
-		$populate_folders_main = false;
-		$populate_folders_archival = false;
-		foreach ($_SESSION['nexus_folders'] as $folder_id => $content) {
-			$folder_type = strtoupper($_SESSION['nexus_folders'][$folder_id]['info']['type']);
-			switch ($folder_type) {
-				case 'MAIN':
-					$populate_folders_main .= "<option value='$folder_id'>$folder_type: {$_SESSION['nexus_folders'][$folder_id]['info']['title']}</option>";
-					break;
-				case 'ARCHIVAL':
-					$populate_folders_archival .= "<option value='$folder_id'>$folder_type: {$_SESSION['nexus_folders'][$folder_id]['info']['title']}</option>";
-					break;
-				default:
-					break;
-			}
-		}
-		$populate_icons_titles .= $populate_folders_main;
-		$populate_icons_titles .= $populate_folders_archival;
+		$populate_icons_titles .= return_folder_list($_SESSION['nexus_folders'], array('linkdump' => false));
 		$populate_icons_titles .= "
 			</select>
 			<hr class='manage_details_hide d-none'>
@@ -2827,16 +2780,16 @@
 			}
 		} elseif (($_POST['manage_icon_title_choice'] == 'link') && ($_POST['manage_icon_title_link_id']) != false) {
 			if ($_POST['manage_icon_title_new_icon'] != false) {
-				$query = prepare_query("UPDATE nexus_elements SET param3 = '{$_POST['manage_icon_title_new_icon']}' WHERE user_id = {$_SESSION['user_id']} AND param_int_2 = {$_POST['manage_icon_title_link_id']}", 'log');
+				$query = prepare_query("UPDATE nexus_elements SET param3 = '{$_POST['manage_icon_title_new_icon']}' WHERE user_id = {$_SESSION['user_id']} AND param_int_2 = {$_POST['manage_icon_title_link_id']}");
 				$conn->query($query);
 			}
 			if ($_POST['manage_icon_title_new_color'] != false) {
-				$query = prepare_query("UPDATE nexus_elements SET param4 = '{$_POST['manage_icon_title_new_color']}' WHERE user_id = {$_SESSION['user_id']} AND param_int_2 = {$_POST['manage_icon_title_link_id']}", 'log');
+				$query = prepare_query("UPDATE nexus_elements SET param4 = '{$_POST['manage_icon_title_new_color']}' WHERE user_id = {$_SESSION['user_id']} AND param_int_2 = {$_POST['manage_icon_title_link_id']}");
 				$conn->query($query);
 			}
 			if ($_POST['manage_icon_title_new_title'] != false) {
 				nexus_handle(array('id' => $_POST['manage_icon_title_link_id'], 'title' => $_POST['manage_icon_title_new_title']));
-				$query = prepare_query("UPDATE nexus_elements SET param2 = '{$_POST['manage_icon_title_new_title']}' WHERE user_id = {$_SESSION['user_id']} AND param_int_2 = {$_POST['manage_icon_title_link_id']}", 'log');
+				$query = prepare_query("UPDATE nexus_elements SET param2 = '{$_POST['manage_icon_title_new_title']}' WHERE user_id = {$_SESSION['user_id']} AND param_int_2 = {$_POST['manage_icon_title_link_id']}");
 				$conn->query($query);
 			}
 		}
@@ -2850,8 +2803,8 @@
 				<label for='move_this_link_id' class='form-label'>Select link to move:</label>
 				<select id='move_this_link_id' name='move_this_link_id' class='form-select mb-3'>
 					<option disabled selected>Link to move</option>";
-		foreach ($_SESSION['nexus_links'] as $key => $value) {
-			$populate_move_links .= "<option value='$key'>{$_SESSION['nexus_links'][$key]['title']}</option>";
+		foreach ($_SESSION['nexus_alphabet'] as $title => $id) {
+			$populate_move_links .= "<option value='$id'>$title</option>";
 		}
 		$populate_move_links .= "
 				</select>
@@ -2860,24 +2813,7 @@
 				<label for='move_to_this_folder_id' class='form-label'>Select destination folder:</label>
 				<select id='move_to_this_folder_id' name='move_to_this_folder_id' class='form-select mb-3'>
 					<option disabled selected>Folder to move to</option>";
-		$populate_move_folders_main = false;
-		$populate_move_folders_archival = false;
-
-		foreach ($_SESSION['nexus_folders'] as $folder_id => $content) {
-			$folder_type = strtoupper($_SESSION['nexus_folders'][$folder_id]['info']['type']);
-			switch ($folder_type) {
-				case 'MAIN':
-					$populate_move_folders_main .= "<option value='$folder_id'>$folder_type: {$_SESSION['nexus_folders'][$folder_id]['info']['title']}</option>";
-					break;
-				case 'ARCHIVAL':
-					$populate_move_folders_archival .= "<option value='$folder_id'>$folder_type: {$_SESSION['nexus_folders'][$folder_id]['info']['title']}</option>";
-					break;
-				default:
-					break;
-			}
-		}
-		$populate_move_links .= $populate_move_folders_main;
-		$populate_move_links .= $populate_move_folders_archival;
+		$populate_move_links .= return_folder_list($_SESSION['nexus_folders'], array('linkdump' => true));
 		$populate_move_links .= "
 				</select>
 			</div>
@@ -2888,7 +2824,7 @@
 	}
 
 	if ((isset($_POST['move_this_link_id'])) && (isset($_POST['move_to_this_folder_id']))) {
-		$query = prepare_query("UPDATE nexus_elements SET param_int_1 = {$_POST['move_to_this_folder_id']} WHERE user_id = {$_SESSION['user_id']} AND param_int_2 = {$_POST['move_this_link_id']}", 'log');
+		$query = prepare_query("UPDATE nexus_elements SET param_int_1 = {$_POST['move_to_this_folder_id']} WHERE user_id = {$_SESSION['user_id']} AND param_int_2 = {$_POST['move_this_link_id']}");
 		$conn->query($query);
 		unset($_SESSION['nexus_links']);
 	}
