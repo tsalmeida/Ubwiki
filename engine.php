@@ -2786,7 +2786,7 @@
 				<label for='manage_icon_title_new_title' class='form-label manage_details_hide d-none'>New title:</label>
 				<input class='form-control manage_details_hide d-none' type='text' id='manage_icon_title_new_title' name='manage_icon_title_new_title'>
 			</div>
-			<button type='submit' class='btn btn-primary manage_details_hide d-none'>Change link icon</button>
+			<button type='submit' class='btn btn-primary manage_details_hide d-none'>Update</button>
 			</form>
 		";
 		echo $populate_icons_titles;
