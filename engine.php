@@ -2588,7 +2588,7 @@
 			if (!isset($_SESSION['nexus_folders'][$_POST['populate_links']][$link_id]['url'])) {
 				continue;
 			}
-			$result .= nexus_put_together(array('type' => 'compact', 'id' => $link_id, 'href' => $_SESSION['nexus_folders'][$_POST['populate_links']][$link_id]['url'], 'color' => $_SESSION['nexus_folders'][$_POST['populate_links']][$link_id]['color'], 'icon' => $_SESSION['nexus_folders'][$_POST['populate_links']][$link_id]['icon'], 'title' => $_SESSION['nexus_folders'][$_POST['populate_links']][$link_id]['title'], 'class' => "link_of_folder_{$_POST['populate_links']}"));
+			$result .= nexus_put_together(array('type' => 'link_normal', 'id' => $link_id, 'href' => $_SESSION['nexus_folders'][$_POST['populate_links']][$link_id]['url'], 'color' => $_SESSION['nexus_folders'][$_POST['populate_links']][$link_id]['color'], 'icon' => $_SESSION['nexus_folders'][$_POST['populate_links']][$link_id]['icon'], 'title' => $_SESSION['nexus_folders'][$_POST['populate_links']][$link_id]['title'], 'class' => "link_of_folder_{$_POST['populate_links']}"));
 		}
 		echo $result;
 	}

@@ -3799,8 +3799,14 @@
 			case 'navbar':
 				return "<a class='nexus-navbar-button {$colors['bg-black-color']} {$params['class']}' href='$href' id='{$params['id']}' title='{$params['title']}'><i class='fa-solid $icon fa-fw'></i></a>";
 				break;
-			case 'compact':
-				return "<a id='link_{$params['id']}' href='$href' $target_blank class='all_link_icons rounded {$colors['bg-black-color']} py-4 px-4 me-1 mb-1 col-auto {$params['class']}'><i class='fa-solid $icon fa-fw me-2'></i> <span class='{$colors['title-color']}'><small>{$params['title']}</small></span></a>";
+			case 'link_large':
+				return "<a id='link_{$params['id']}' href='$href' $target_blank class='all_link_icons rounded {$colors['bg-black-color']} py-4 px-4 me-1 mb-1 col-auto {$params['class']}'><i class='fa-solid $icon fa-fw fa-2x me-2'></i> <span class='{$colors['title-color']}'><small>{$params['title']}</small></span></a>";
+				break;
+			case 'link_normal':
+				return "<a id='link_{$params['id']}' href='$href' $target_blank class='all_link_icons rounded {$colors['bg-black-color']} py-3 px-4 me-1 mb-1 col-auto {$params['class']}'><i class='fa-solid $icon fa-fw me-2'></i> <span class='{$colors['title-color']}'><small>{$params['title']}</small></span></a>";
+				break;
+			case 'link_compact':
+				return "<a id='link_{$params['id']}' href='$href' $target_blank class='all_link_icons rounded {$colors['bg-black-color']} py-2 px-3 me-1 mb-1 col-auto {$params['class']}'><i class='fa-solid $icon fa-fw me-2'></i> <span class='{$colors['title-color']}'><small>{$params['title']}</small></span></a>";
 				break;
 		}
 	}
