@@ -3732,7 +3732,7 @@
 			$params['class'] = false;
 		}
 		if (!isset($params['title'])) {
-			$params['title'] = false;
+			$params['title'] = $params['id'];
 		}
 		$colors = nexus_colors('convert', $params['color']);
 		$icon = nexus_icons('convert', $params['icon']);
@@ -3758,7 +3758,7 @@
 				}
 				return "
 					<div class='col-2 p-2 {$params['class']}'>
-						<span id='trigger_{$params['id']}' class='row p-2 rounded d-flex justify-content-center pointer' $nexus_artefato_modal_module href='$href'>
+						<span id='trigger_{$params['id']}' class='row p-2 rounded d-flex justify-content-center pointer' $nexus_artefato_modal_module href='$href' title='{$params['title']}'>
 							<span class='p-3 rounded {$colors['bg-black-color']}'>
 							<div class='row d-flex mb-2'>
 								<span class='col-12 d-flex justify-content-center'>
@@ -3776,18 +3776,36 @@
 				";
 				break;
 			case 'folder':
-				if (!isset($params['fa-size'])) {
-					$params['fa-size'] = 'fa-2x';
-				}
 				return "
-					<div class='col-lg-3 col-md-4 mb-2 pe-3 {$params['class']}'>
-						<span id='trigger_{$params['id']}' class='row rounded d-flex justify-content-center pointer' $nexus_artefato_modal_module href='$href'>
+					<div class='col-lg-3 col-md-4 mb-1 pe-3 {$params['class']}'>
+						<span id='trigger_{$params['id']}' class='row rounded d-flex justify-content-center pointer' $nexus_artefato_modal_module href='$href' title='{$params['title']}'>
 							<div class='row rounded p-2 {$colors['bg-black-color']}'>
 								<div class='col-3 d-flex justify-content-center p-2'>
-									<i class='fa-solid $icon {$params['fa-size']} fa-fw'></i>
+									<i class='fa-solid $icon fa-2xl fa-fw'></i>
 								</div>
-								<div class='col-9 d-flex align-items-center'>
-									<small class='col-12 {$colors['title-color']} align-self-center'>
+								<div class='col-9 px-1 d-flex align-items-center'>
+									<span class='col-12 {$colors['title-color']} align-self-center lh-sm'>
+										{$params['title']}
+									</span>
+								</div>
+							</div>
+						</span>
+					</div>
+				";
+				break;
+			case 'navbar':
+				return "<a class='nexus-navbar-button {$colors['bg-black-color']} {$params['class']}' href='$href' id='{$params['id']}' title='{$params['title']}' $nexus_artefato_modal_module><i class='fa-solid $icon fa-fw'></i></a>";
+				break;
+			case 'link_large':
+				return "
+					<div class='col-auto mb-1 pe-3 {$params['class']}'>
+						<span id='trigger_{$params['id']}' class='row rounded d-flex justify-content-center pointer' $nexus_artefato_modal_module href='$href' title='{$params['title']}'>
+							<div class='row rounded p-2 {$colors['bg-black-color']}'>
+								<div class='col-2 d-flex justify-content-center p-2 px-4'>
+									<i class='fa-solid $icon fa-xl fa-fw'></i>
+								</div>
+								<div class='col px-1 d-flex align-items-center'>
+									<small class='col-12 {$colors['title-color']} align-self-center lh-sm'>
 										{$params['title']}
 									</small>
 								</div>
@@ -3796,17 +3814,11 @@
 					</div>
 				";
 				break;
-			case 'navbar':
-				return "<a class='nexus-navbar-button {$colors['bg-black-color']} {$params['class']}' href='$href' id='{$params['id']}' title='{$params['title']}'><i class='fa-solid $icon fa-fw'></i></a>";
-				break;
-			case 'link_large':
-				return "<a id='link_{$params['id']}' href='$href' $target_blank class='all_link_icons rounded {$colors['bg-black-color']} py-4 px-4 me-1 mb-1 col-auto {$params['class']}'><i class='fa-solid $icon fa-fw fa-2x me-2'></i> <span class='{$colors['title-color']}'><small>{$params['title']}</small></span></a>";
-				break;
 			case 'link_normal':
-				return "<a id='link_{$params['id']}' href='$href' $target_blank class='all_link_icons rounded {$colors['bg-black-color']} py-3 px-4 me-1 mb-1 col-auto {$params['class']}'><i class='fa-solid $icon fa-fw me-2'></i> <span class='{$colors['title-color']}'><small>{$params['title']}</small></span></a>";
+				return "<a id='link_{$params['id']}' href='$href' $target_blank class='all_link_icons rounded {$colors['bg-black-color']} py-3 px-3 me-1 mb-1 col-auto {$params['class']}' title='{$params['title']}'><small><i class='fa-solid $icon fa-lg fa-fw me-2'></i><span class='{$colors['title-color']}'>{$params['title']}</span></small></a>";
 				break;
 			case 'link_compact':
-				return "<a id='link_{$params['id']}' href='$href' $target_blank class='all_link_icons rounded {$colors['bg-black-color']} py-2 px-3 me-1 mb-1 col-auto {$params['class']}'><i class='fa-solid $icon fa-fw me-2'></i> <span class='{$colors['title-color']}'><small>{$params['title']}</small></span></a>";
+				return "<a id='link_{$params['id']}' href='$href' $target_blank class='all_link_icons rounded {$colors['bg-black-color']} py-2 px-2 me-1 mb-1 col-auto {$params['class']}' title='{$params['title']}'><small><i class='fa-solid $icon fa-fw fa-2xs mx-1'></i> <span class='{$colors['title-color']}'>{$params['title']}</span></small></a>";
 				break;
 		}
 	}
@@ -3855,7 +3867,7 @@
 			}
 		}
 		$nexus_folders['linkdump']['info'] = array('title' => 'Link Dump', 'icon' => 'triangle', 'color' => 'red', 'type' => 'linkdump', 'id' => false);
-		$query = prepare_query("SELECT param_int_1, param_int_2, param1, param2, param3, param4 FROM nexus_elements WHERE pagina_id = $nexus_pagina_id AND state = 1 AND type = 'link'");
+		$query = prepare_query("SELECT param_int_1, param_int_2, param1, param2, param3, param4, param5 FROM nexus_elements WHERE pagina_id = $nexus_pagina_id AND state = 1 AND type = 'link'");
 		$nexus_links = array();
 		$nexus_order = array();
 		$nexus_alphabet = array();
@@ -3891,13 +3903,14 @@
 				$nexus_link_title = $nexus_link_info['param2'];
 				$nexus_link_icon = $nexus_link_info['param3'];
 				$nexus_link_color = $nexus_link_info['param4'];
+				$nexus_link_diff = $nexus_link_info['param5'];
 				// setting the arrays with the relevant information:
 				//this first one will be used for the command bar
 				//I don't know what this one will be used for yet, but it's good to have
 				$nexus_links[$nexus_link_id] = array('folder_id' => $nexus_link_folder_id, 'url' => $nexus_link_url, 'title' => $nexus_link_title, 'icon' => $nexus_link_icon, 'color' => $nexus_link_color);
 				$nexus_order[$count] = array('title' => $nexus_link_title, 'url' => $nexus_link_url);
 				//This one will be used to populate windows as the user clicks on icons
-				$nexus_folders[$nexus_link_folder_id][$nexus_link_id] = array('url' => $nexus_link_url, 'title' => $nexus_link_title, 'icon' => $nexus_link_icon, 'color' => $nexus_link_color);
+				$nexus_folders[$nexus_link_folder_id][$nexus_link_id] = array('url' => $nexus_link_url, 'title' => $nexus_link_title, 'icon' => $nexus_link_icon, 'color' => $nexus_link_color, 'diff' => $nexus_link_diff);
 				$nexus_alphabet[$nexus_link_title] = $nexus_link_id;
 				$nexus_codes[$nexus_link_code] = array('title'=>$nexus_link_title, 'url'=> $nexus_link_url, 'id'=>$nexus_link_id);
 			}

@@ -35,7 +35,7 @@
 	
 	$template_modal_div_id = 'modal_dados_elemento';
 	$template_modal_titulo = $pagina_translated['Dados'];
-	$template_modal_show_buttons = false;
+
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= $dados_elemento;
 	$template_modal_body_conteudo .= "
@@ -48,6 +48,7 @@
 	include 'templates/modal.php';
 	
 	$template_modal_div_id = 'modal_elemento_form';
+	$template_modal_show_buttons = true;
 	$template_modal_titulo = $pagina_translated['Alterar dados do elemento'];
 	$template_modal_body_conteudo = false;
 	
@@ -95,7 +96,7 @@
 	
 	$template_modal_div_id = 'modal_elemento_subtipo';
 	$template_modal_titulo = $pagina_translated['Classificar subtipo'];
-	$template_modal_show_buttons = false;
+
 	$template_modal_body_conteudo = false;
 	
 	$template_modal_body_conteudo .= "<form method='post' class='row d-flex justify-content-center'>";

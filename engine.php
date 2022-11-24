@@ -2035,7 +2035,7 @@
 		echo "
 			<form method='post'>
 				<h3>Add link</h3>
-				<p>Fill-in the form below to add a link or <button id='show_modal_add_links_bulk' type='button' class='btn btn-outline-primary btn-sm' class='btn btn-outline-primary btn-sm' data-bs-toggle='modal' data-bs-target='#modal_add_links_bulk'>click here</button> to add links in bulk to the <a id='trigger_show_link_dump' href='javascritp:void(0);' class='link-info'>Link Dump</a>.</p>
+				<p>Fill-in the form below to add a link or <button id='show_modal_add_links_bulk' type='button' class='btn btn-outline-primary btn-sm' class='btn btn-outline-primary btn-sm' data-bs-toggle='modal' data-bs-target='#modal_add_links_bulk'>click here</button> to add links in bulk to the <a id='trigger_show_linkdump' href='javascritp:void(0);' class='link-info'>Link Dump</a>.</p>
 				<div class='mb-3'>
 					<label class='form-label' for='nexus_new_link_url'>Paste your link url:</label>
 					<input type='url' class='form-control' id='nexus_new_link_url' name='nexus_new_link_url'>
@@ -2583,14 +2583,39 @@
 	}
 
 	if (isset($_POST['populate_links'])) {
-		$result = false;
+		$result_folder = false;
+		$result_large = false;
+		$result_default = false;
+		$result_compact = false;
 		foreach ($_SESSION['nexus_folders'][$_POST['populate_links']] as $link_id => $link_info) {
 			if (!isset($_SESSION['nexus_folders'][$_POST['populate_links']][$link_id]['url'])) {
 				continue;
 			}
-			$result .= nexus_put_together(array('type' => 'link_normal', 'id' => $link_id, 'href' => $_SESSION['nexus_folders'][$_POST['populate_links']][$link_id]['url'], 'color' => $_SESSION['nexus_folders'][$_POST['populate_links']][$link_id]['color'], 'icon' => $_SESSION['nexus_folders'][$_POST['populate_links']][$link_id]['icon'], 'title' => $_SESSION['nexus_folders'][$_POST['populate_links']][$link_id]['title'], 'class' => "link_of_folder_{$_POST['populate_links']}"));
+			if (!isset($_SESSION['nexus_folders'][$_POST['populate_links']][$link_id]['diff'])) {
+				$diff = 'link_normal';
+			} else {
+				$diff = $_SESSION['nexus_folders'][$_POST['populate_links']][$link_id]['diff'];
+			}
+			$icon = nexus_put_together(array('type' => $diff, 'id' => $link_id, 'href' => $_SESSION['nexus_folders'][$_POST['populate_links']][$link_id]['url'], 'color' => $_SESSION['nexus_folders'][$_POST['populate_links']][$link_id]['color'], 'icon' => $_SESSION['nexus_folders'][$_POST['populate_links']][$link_id]['icon'], 'title' => $_SESSION['nexus_folders'][$_POST['populate_links']][$link_id]['title'], 'class' => "link_of_folder_{$_POST['populate_links']}"));
+			switch ($diff) {
+				case 'folder':
+					$result_folder .= $icon;
+					break;
+				case 'link_large':
+					$result_large .= $icon;
+					break;
+				case 'link_compact':
+					$result_compact .= $icon;
+					break;
+				case 'link_default':
+				default:
+					$result_default .= $icon;
+					break;
+			}
 		}
-		echo $result;
+		echo "
+			$result_folder <hr class='m-0 opacity-0'> $result_large <hr class='m-0 opacity-0'> $result_default <hr class='m-0 opacity-0'> $result_compact
+		";
 	}
 
 	if (isset($_POST['populate_options_modal'])) {
@@ -2825,6 +2850,48 @@
 
 	if ((isset($_POST['move_this_link_id'])) && (isset($_POST['move_to_this_folder_id']))) {
 		$query = prepare_query("UPDATE nexus_elements SET param_int_1 = {$_POST['move_to_this_folder_id']} WHERE user_id = {$_SESSION['user_id']} AND param_int_2 = {$_POST['move_this_link_id']}");
+		$conn->query($query);
+		unset($_SESSION['nexus_links']);
+	}
+
+	if (isset($_POST['populate_differentiate_links'])) {
+		$diff_result = false;
+		$diff_result .= "<form method='post'>";
+		$diff_result .= "<form method='post'>
+			<div class='mb-3'>
+				<label for='diff_this_link_id' class='form-label'>Select link to differentiate:</label>
+				<select id='diff_this_link_id' name='diff_this_link_id' class='form-select mb-3'>
+					<option disabled selected>Link to move</option>";
+		foreach ($_SESSION['nexus_alphabet'] as $title => $id) {
+			$diff_result .= "<option value='$id'>$title</option>";
+		}
+		$diff_result .= "
+				</select>
+			</div>
+			<div class='mb-3'>
+				<label for='diff_this_link_type' class='form-label'>How to display this link:</label>
+				<select id='diff_this_link_type' name='diff_this_link_type' class='form-select mb-3'>
+					<option disabled selected>Link mode</option>
+					<option value='folder'>Folder: as used for folders</option>
+					<option value='link_large'>Large: 3x-sized icon and centralized title</option>
+					<option value='link_normal'>Default: text-sized icon</option> 
+					<option value='link_compact'>Compact: default with less empty space</option>
+					<!--<option value='medium'>Medium</option>-->
+					<!--<option value='small'>Small</option>-->
+					<!--<option value='navbar'>Navbar: as used for navbar icons, symbol only, no title</option>-->
+				</select>
+			</div>
+			<button class='btn btn-primary' type='submit'>Update link</button>
+			";
+		$diff_result .= "</form>";
+		echo $diff_result;
+	}
+
+	if (isset($_POST['diff_this_link_id'])) {
+		if (!isset($_POST['diff_this_link_type'])) {
+			$_POST['diff_this_link_type'] = 'link_normal';
+		}
+		$query = prepare_query("UPDATE nexus_elements SET param5 = '{$_POST['diff_this_link_type']}' WHERE user_id = {$_SESSION['user_id']} AND param_int_2 = {$_POST['diff_this_link_id']} AND state = 1");
 		$conn->query($query);
 		unset($_SESSION['nexus_links']);
 	}

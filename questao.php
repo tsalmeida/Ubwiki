@@ -409,6 +409,7 @@
 	$template_modal_div_id = 'modal_questao_form';
 	$template_modal_titulo = 'Alterar questão';
 	$template_modal_form_id = 'form_editar_questao';
+	$template_modal_show_buttons = true;
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "
                 <h3>Dados gerais</h3>

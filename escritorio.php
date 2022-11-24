@@ -569,88 +569,89 @@
 	$template_modal_div_id = 'modal_estudos_recentes';
 	$template_modal_titulo = $pagina_translated['recent_visits'];
 	$template_modal_body_conteudo = false;
-	$template_modal_show_buttons = false;
+
 	include 'templates/modal.php';
 
 	$template_modal_div_id = 'modal_biblioteca_particular';
 	$template_modal_titulo = $pagina_translated['your collection'];
 	$template_modal_body_conteudo = false;
-	$template_modal_show_buttons = false;
+
 	include 'templates/modal.php';
 
 	$template_modal_div_id = 'modal_docs_shared';
 	$template_modal_titulo = $pagina_translated['docs shared'];
 	$template_modal_body_conteudo = false;
-	$template_modal_show_buttons = false;
+
 	include 'templates/modal.php';
 
 	$template_modal_div_id = 'modal_grupos_estudo';
 	$template_modal_titulo = $pagina_translated['your study groups'];
 	$template_modal_body_conteudo = false;
-	$template_modal_show_buttons = false;
+
 	include 'templates/modal.php';
 
 	$template_modal_div_id = 'modal_comments';
 	$template_modal_titulo = $pagina_translated['Suas participações no fórum'];
 	$template_modal_body_conteudo = false;
-	$template_modal_show_buttons = false;
+
 	include 'templates/modal.php';
 
 	$template_modal_div_id = 'modal_bookmarks';
 	$template_modal_titulo = $pagina_translated['bookmarks'];
 	$template_modal_body_conteudo = false;
-	$template_modal_show_buttons = false;
+
 	include 'templates/modal.php';
 
 	$template_modal_div_id = 'modal_cursos';
 	$template_modal_titulo = $pagina_translated['Seus cursos'];
 	$template_modal_body_conteudo = false;
-	$template_modal_show_buttons = false;
+
 	include 'templates/modal.php';
 
 	$template_modal_div_id = 'modal_notificacoes';
 	$template_modal_titulo = $pagina_translated['notifications'];
 	$template_modal_body_conteudo = false;
-	$template_modal_show_buttons = false;
+
 	include 'templates/modal.php';
 
 	$template_modal_div_id = 'modal_referencias';
 	$template_modal_titulo = $pagina_translated['sent references'];
 	$template_modal_body_conteudo = false;
-	$template_modal_show_buttons = false;
+
 	include 'templates/modal.php';
 
 	$template_modal_div_id = 'modal_areas_interesse';
 	$template_modal_titulo = $pagina_translated['Gerenciar etiquetas'];
 	$template_modal_body_conteudo = false;
-	$template_modal_show_buttons = false;
+
 	include 'templates/modal.php';
 
 	$template_modal_div_id = 'modal_contribuicoes';
 	$template_modal_titulo = $pagina_translated['Verbetes em que contribuiu'];
 	$template_modal_body_conteudo = false;
-	$template_modal_show_buttons = false;
+
 	include 'templates/modal.php';
 
 	$template_modal_div_id = 'modal_simulados';
 	$template_modal_titulo = $pagina_translated['Simulados'];
 	$template_modal_body_conteudo = false;
-	$template_modal_show_buttons = false;
+
 	include 'templates/modal.php';
 
 	$template_modal_div_id = 'modal_planner';
 	$template_modal_titulo = $pagina_translated['Study Planner'];
 	$template_modal_body_conteudo = false;
-	$template_modal_show_buttons = false;
+
 	include 'templates/modal.php';
 
 	$template_modal_div_id = 'modal_all_historico';
 	$template_modal_titulo = $pagina_translated['todos registros'];
 	$template_modal_body_conteudo = false;
-	$template_modal_show_buttons = false;
+
 	include 'templates/modal.php';
 
 	$template_modal_div_id = 'modal_wallet';
+	$template_modal_show_buttons = true;
 	$template_modal_titulo = $pagina_translated['sua carteira'];
 	$template_modal_body_conteudo = false;
 	//$template_modal_body_conteudo .= "<p>{$pagina_translated['creditos visite']} <a href='https://www.grupoubique
@@ -685,12 +686,12 @@
 	$carteira_texto = "<strong>{$pagina_translated['Ubwiki credit current']} </strong>{$user_wallet}";
 	$template_modal_body_conteudo .= put_together_list_item('inactive', false, false, 'fad fa-usd-circle', $carteira_texto, false, false, 'mt-2 bg-success b-0 text-light fst-italic d-flex justify-content-around');
 
-	$template_modal_show_buttons = false;
+
 	include 'templates/modal.php';
 
 	$template_modal_div_id = 'modal_paginas_textos';
 	$template_modal_titulo = $pagina_translated['Suas páginas e documentos de texto'];
-	$template_modal_show_buttons = false;
+
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "<div class='row d-flex justify-content-around border rounded m-1'>";
 
@@ -723,7 +724,7 @@
 	$template_modal_div_id = 'modal_criar_grupo';
 	$template_modal_titulo = $pagina_translated['Criar grupo de estudos'];
 	$template_modal_body_conteudo = false;
-	$template_modal_show_buttons = false;
+
 
 	$template_modal_body_conteudo .= "
 							<form method='post'>
@@ -777,10 +778,11 @@
 			}
 		}
 
-		$template_modal_show_buttons = false;
+
 		include 'templates/modal.php';
 	}
 	$template_modal_div_id = 'modal_gerenciar_etiquetas';
+	$template_modal_show_buttons = true;
 	$template_modal_titulo = $pagina_translated['Incluir área de interesse'];
 	include 'templates/etiquetas_modal.php';
 

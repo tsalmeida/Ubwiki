@@ -1,5 +1,6 @@
 <?php
 	$template_modal_div_id = 'modal_adicionar_imagem';
+	$template_modal_show_buttons = true;
 	$template_modal_titulo = $pagina_translated['Adicionar imagem'];
 	$template_modal_enctype = "enctype='multipart/form-data'";
 	$template_modal_body_conteudo = "

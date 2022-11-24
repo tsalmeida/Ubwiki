@@ -129,6 +129,7 @@
                 class='fas fa-pen-alt fa-fw'></i></button>
 	<?php
 		$template_modal_div_id = 'modal_prova_form';
+		$template_modal_show_buttons = true;
 		$template_modal_titulo = 'Adicionar prova da etapa';
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "

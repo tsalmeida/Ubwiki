@@ -239,6 +239,7 @@
 </div>
 <?php
 	$template_modal_div_id = 'modal_busca';
+	$template_modal_show_buttons = true;
 	$template_modal_titulo = $pagina_translated['Busca de referências'];
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "
@@ -253,7 +254,7 @@
 	$template_modal_div_id = 'modal_listar_itens';
 	$template_modal_titulo = $pagina_translated['Listar itens'];
 	$lista_col_limit = 'col-lg-3 col-md-4 col-sm-6';
-	$template_modal_show_buttons = false;
+
 	$template_modal_body_conteudo = false;
 	
 	$template_modal_body_conteudo .= "<form method='post' class='row d-flex justify-content-center'>";

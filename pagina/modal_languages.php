@@ -2,7 +2,7 @@
 	
 	$template_modal_div_id = 'modal_languages';
 	$template_modal_titulo = $pagina_translated['languages'];
-	$template_modal_show_buttons = false;
+
 	$template_modal_body_conteudo = false;
 	
 	$template_modal_body_conteudo .= "<form method='post' class='row d-flex justify-content-center'>";

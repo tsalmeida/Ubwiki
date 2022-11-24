@@ -1,5 +1,6 @@
 <?php
 	$template_modal_div_id = 'modal_adicionar_youtube';
+	$template_modal_show_buttons = true;
 	$template_modal_titulo = $pagina_translated['Adicionar vídeo do YouTube'];
 	$template_modal_body_conteudo = "
                     <div class='mb-3'>

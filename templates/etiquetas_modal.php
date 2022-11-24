@@ -49,6 +49,6 @@
 		    	
 				</div>
 		";
-	$template_modal_show_buttons = false;
+
 	include 'templates/modal.php';
 ?>

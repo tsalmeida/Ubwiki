@@ -1794,14 +1794,14 @@
 	if ($pagina_tipo == 'topico') {
 		$template_modal_div_id = 'modal_verbetes_relacionados';
 		$template_modal_titulo = $pagina_translated['Navegação'];
-		$template_modal_show_buttons = false;
+
 		$template_modal_body_conteudo = $breadcrumbs;
 		include 'templates/modal.php';
 	}
 	if ($pagina_subtipo == 'plano') {
 		$template_modal_div_id = 'modal_plano_instrucoes';
 		$template_modal_titulo = 'Sobre Planos de Estudos';
-		$template_modal_show_buttons = false;
+
 		$template_modal_body_conteudo = "
 	        <p>Como usar o Plano de Estudos.</p>
 	        <p>Vantagens.</p>
@@ -1813,7 +1813,7 @@
 	$carregar_controle_estado = true;
 	$template_modal_div_id = 'modal_estado';
 	$template_modal_titulo = $pagina_translated['Estado da página'];
-	$template_modal_show_buttons = false;
+
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= wrapp($pagina_translated['Qual das categorias abaixo melhor descreve o estado atual desta página?']);
 	$template_modal_body_conteudo .= "
@@ -1933,7 +1933,7 @@
 
 		$template_modal_div_id = 'modal_remover_elementos';
 		$template_modal_titulo = $pagina_translated['Remover elementos'];
-		$template_modal_show_buttons = false;
+
 		$template_modal_body_conteudo = false;
 
 		include 'templates/modal.php';
@@ -1942,6 +1942,7 @@
 	if ($privilegio_edicao == true) {
 		if ($modal_novo_curso == true) {
 			$template_modal_div_id = 'modal_novo_curso';
+			$template_modal_show_buttons = true;
 			$template_modal_titulo = $pagina_translated['Transformar em página inicial de curso'];
 			$template_modal_submit_name = 'novo_curso';
 			$template_modal_body_conteudo = false;
@@ -1958,6 +1959,7 @@
 	}
 	if (($pagina_subtipo == 'produto') && ($carregar_produto_setup == true) && ($privilegio_edicao == true) && (isset($imagem_opcoes))) {
 		$template_modal_div_id = 'modal_produto_nova_imagem';
+		$template_modal_show_buttons = true;
 		$template_modal_titulo = $pagina_translated['Determinar imagem para o cartão do produto'];
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
@@ -1978,6 +1980,7 @@
 		include 'templates/modal.php';
 
 		$template_modal_div_id = 'modal_produto_preco';
+		$template_modal_show_buttons = true;
 		$template_modal_titulo = $pagina_translated['Determinar preço deste produto'];
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
@@ -1995,7 +1998,7 @@
 	if ($pagina_tipo == 'secao') {
 		$template_modal_div_id = 'modal_paginas_relacionadas';
 		$template_modal_titulo = $pagina_translated['Página e seções'];
-		$template_modal_show_buttons = false;
+
 		$template_modal_body_conteudo = $pre_fab_modal_secoes;
 		include 'templates/modal.php';
 	}
@@ -2003,7 +2006,7 @@
 	if ($carregar_partes_elemento_modal == true) {
 		$template_modal_div_id = 'modal_partes_elemento';
 		$template_modal_titulo = $partes_titulo;
-		$template_modal_show_buttons = false;
+
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo = $lista_de_secoes_wrapped;
 		include 'templates/modal.php';
@@ -2017,7 +2020,7 @@
 
 		$template_modal_div_id = 'modal_compartilhar_pagina';
 		$template_modal_titulo = $pagina_translated['Colaboração e acesso'];
-		$template_modal_show_buttons = false;
+
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
 			<form method='post' id='form_modal_compartilhar_pagina'>
@@ -2111,7 +2114,7 @@
 
 		$template_modal_div_id = 'modal_outorgar_acesso';
 		$template_modal_titulo = 'Outorgar acesso';
-		$template_modal_show_buttons = false;
+
 		$template_modal_body_conteudo = false;
 
 		$template_modal_body_conteudo .= "
@@ -2143,7 +2146,7 @@
 
 		$template_modal_div_id = 'modal_compartilhar_grupo';
 		$template_modal_titulo = $pagina_translated['Dar acesso a grupos de estudos'];
-		$template_modal_show_buttons = false;
+
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
 			  <h3>{$pagina_translated['Grupos de estudos de que você faz parte']}</h3>
@@ -2194,7 +2197,7 @@
 		$template_modal_div_id = 'modal_compartilhar_usuario';
 		$template_modal_titulo = 'Colaborar com usuário da Ubwiki';
 		$modal_scrollable = true;
-		$template_modal_show_buttons = false;
+
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
 			<p><strong>{$pagina_translated['Colaboradores adicionados abaixo poderão alterar o conteúdo de sua página.']}</strong></p>
@@ -2236,7 +2239,7 @@
 	if ($pagina_tipo == 'texto') {
 		$template_modal_div_id = 'modal_add_reply';
 		$template_modal_titulo = $pagina_translated['Escrever resposta'];
-		$template_modal_show_buttons = false;
+
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
 			<p>{$pagina_translated['pressione resposta']}</p>
@@ -2286,7 +2289,7 @@
             <button type='button' class='btn btn-outline-primary mb-2' id='trigger_buscar_materias'>{$pagina_translated['Buscar']}</button>
 			<div class='row border p-2' id='materias_disponiveis'></div>
 		";
-		$template_modal_show_buttons = false;
+
 		include 'templates/modal.php';
 	}
 
@@ -2303,7 +2306,7 @@
                 <button type='button' class='btn btn-outline-primary mb-2' id='trigger_buscar_topicos'>{$pagina_translated['Buscar']}</button>
 			<div class='row border p-2' id='topicos_disponiveis'></div>
 		";
-		$template_modal_show_buttons = false;
+
 		include 'templates/modal.php';
 	}
 
@@ -2320,7 +2323,7 @@
             <button type='button' class='btn btn-primary mb-2' id='trigger_buscar_subtopicos'>{$pagina_translated['Buscar']}</button>
 			<div class='row border p-2' id='subtopicos_disponiveis'></div>
 		";
-		$template_modal_show_buttons = false;
+
 		include 'templates/modal.php';
 	}
 
@@ -2358,6 +2361,7 @@
 		}
 
 		$template_modal_div_id = 'modal_link_compartilhamento';
+		$template_modal_show_buttons = true;
 		$template_modal_titulo = $pagina_translated['Criar link de convite'];
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
@@ -2383,7 +2387,7 @@
 
 		$template_modal_div_id = 'modal_convidar_ou_remover';
 		$template_modal_titulo = $pagina_translated['Gerenciar membros'];
-		$template_modal_show_buttons = false;
+
 		$template_modal_body_conteudo = false;
 
 		$template_modal_body_conteudo .= "<span class='row d-flex justify-content-around' data-bs-target='#modal_convidar_ou_remover' data-bs-toggle='modal'>";
@@ -2415,7 +2419,7 @@
 
 		$template_modal_div_id = 'modal_novo_membro';
 		$template_modal_titulo = $pagina_translated['Convidar novo membro'];
-		$template_modal_show_buttons = false;
+
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
             <p>{$pagina_translated['Pesquise o convidado por seu apelido:']}</p>
@@ -2437,7 +2441,7 @@
 		$template_modal_titulo = $pagina_translated['Remover membro deste grupo'];
 		$modal_scrollable = true;
 		$template_modal_body_conteudo = false;
-		$template_modal_show_buttons = false;
+
 		if ($membros->num_rows > 1) {
 			$template_modal_body_conteudo .= "
 				<p class='mt-3'>{$pagina_translated['Selecione um membro abaixo para removê-lo do grupo ou cancelar seu convite.']}</p>
@@ -2482,7 +2486,7 @@
 		$template_modal_div_id = 'modal_busca';
 		$template_modal_titulo = $pagina_translated['slogan'];
 		$template_modal_body_conteudo = false;
-		$template_modal_show_buttons = false;
+
 		$template_modal_body_conteudo .= "
             <form id='searchform' action='' method='post'>
             <label for='barra_busca' class='form-label'>{$pagina_translated['Busca de páginas deste curso']}</label>
@@ -2521,7 +2525,7 @@
 	if ($carregar_modal_wikipedia == true) {
 		$template_modal_div_id = 'modal_vinculos_wikipedia';
 		$template_modal_titulo = $pagina_translated['Verbetes da Wikipédia relacionados'];
-		$template_modal_show_buttons = false;
+
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
 		<p>{$pagina_translated['Pressione para carregar artigo da Wikipédia:']}</p>
@@ -2539,7 +2543,7 @@
 	if ($carregar_modal_destruir_pagina == true) {
 		$template_modal_div_id = 'modal_destruir_pagina';
 		$template_modal_titulo = $pagina_translated['Destruir esta página'];
-		$template_modal_show_buttons = false;
+
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
 			<p>{$pagina_translated['Pressione para destruir esta página. Esse ato não pode ser desfeito.']}</p>
@@ -2554,6 +2558,7 @@
 
 	if ($pagina_tipo == 'texto_apoio') {
 		$template_modal_div_id = 'modal_texto_apoio_dados';
+		$template_modal_show_buttons = true;
 		$template_modal_titulo = $pagina_translated['Dados deste texto de apoio'];
 		$template_modal_form_id = 'form_texto_apoio_alterar_dados';
 		$template_modal_body_conteudo = false;
@@ -2600,6 +2605,7 @@
 
 	if ($pagina_tipo == 'questao') {
 		$template_modal_div_id = 'modal_questao_dados';
+		$template_modal_show_buttons = true;
 		$template_modal_titulo = $pagina_translated['Dados desta questão'];
 		$template_modal_form_id = 'form_questao_alterar_dados';
 		$template_modal_body_conteudo = false;
@@ -2813,7 +2819,7 @@
 	if ($pagina_subtipo == 'modelo') {
 		$template_modal_div_id = 'modal_modelo_config';
 		$template_modal_titulo = $pagina_translated['Configurar modelo'];
-		$template_modal_show_buttons = false;
+
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
 		    <p>Em poucas palavras, o método Benjamin Franklin funciona assim:</p>
@@ -2854,6 +2860,7 @@
 	}
 	if ($carregar_publicar_resposta == true) {
 		$template_modal_div_id = 'modal_publicar_resposta';
+		$template_modal_show_buttons = true;
 		$template_modal_titulo = $pagina_translated['Publicar sua resposta'];
 		$template_modal_body_conteudo = false;
 		$link_li = put_together_list_item('link', "anotacoes.php?pagina_id=$pagina_id", 'link-purple', 'fad fa-comment-alt-edit', $pagina_translated['Ver anotações publicadas'], 'link-primary', 'fad fa-external-link');
@@ -2873,7 +2880,7 @@
 	if ($carregar_modal_correcao == true) {
 		$loaded_correcao_form = true;
 		$template_modal_div_id = 'modal_correcao';
-		$template_modal_show_buttons = false;
+
 		$template_modal_body_conteudo = false;
 		if ($texto_revisao_ativa == false) {
 			$template_modal_titulo = $pagina_translated['Solicitar correção'];

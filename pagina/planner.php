@@ -79,8 +79,9 @@
 	echo "</div>";
 
 	$template_modal_div_id = 'modal_set_state';
+	$template_modal_show_buttons = true;
 	$template_modal_titulo = $pagina_translated['Set state'];
-	$template_modal_show_buttons = false;
+
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "<input type='hidden' value='' id='set_state_entrada_id'>";
 	$template_modal_body_conteudo .= "<ul class='list-group list-group-flush'>";
@@ -95,6 +96,7 @@
 	include 'templates/modal.php';
 
 	$template_modal_div_id = 'modal_add_comment';
+	$template_modal_show_buttons = true;
 	$template_modal_titulo = $pagina_translated['Add comment'];
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "<input type='hidden' value='' id='set_comment_elemento_id' name='set_comment_elemento_id'>";
@@ -109,6 +111,7 @@
 
 	//TODO: Focus on the input when the modal opens.
 	$template_modal_div_id = 'modal_set_tag';
+	$template_modal_show_buttons = true;
 	$template_modal_titulo = $pagina_translated['Set plan tag'];
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "
@@ -121,6 +124,7 @@
 	include 'templates/modal.php';
 
 	$template_modal_div_id = 'modal_adicionar_pagina';
+	$template_modal_show_buttons = true;
 	$template_modal_titulo = $pagina_translated['add page'];
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "

@@ -2,7 +2,7 @@
 	
 	$template_modal_div_id = 'modal_adicionar_simulado';
 	$template_modal_titulo = $pagina_translated["Edições do concurso"];
-	$template_modal_show_buttons = false;
+
 	$template_modal_body_conteudo = false;
 	$modal_scrollable = true;
 	$query = prepare_query("SELECT id, ano, titulo FROM sim_edicoes WHERE curso_id = $pagina_curso_id ORDER BY ano");
@@ -49,7 +49,7 @@
 	
 	$template_modal_div_id = 'modal_vazio_edicoes';
 	$template_modal_titulo = $pagina_translated['Etapas de edição do concurso'];
-	$template_modal_show_buttons = false;
+
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "
 				<form method='post' class='p-3 mb-3 bg-light border' id='esconder_formulario_adicionar_etapa'>
@@ -76,7 +76,7 @@
 	
 	$template_modal_div_id = 'modal_vazio_provas';
 	$template_modal_titulo = 'Provas de etapa do concurso';
-	$template_modal_show_buttons = false;
+
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "
 		<form method='post' class='p-3 mb-3 bg-light border' id='esconder_formulario_adicionar_prova'>
@@ -160,7 +160,7 @@
 	
 	$template_modal_div_id = 'modal_vazio_questoes';
 	$template_modal_titulo = 'Questões desta prova do concurso';
-	$template_modal_show_buttons = false;
+
 	$template_modal_body_conteudo = false;
 	$modal_scrollable = true;
 	$template_modal_body_conteudo .= "

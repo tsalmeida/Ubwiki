@@ -3,7 +3,7 @@
 	$template_modal_div_id = 'modal_login';
 	$template_modal_titulo = $pagina_translated['access'];
 	$template_modal_body_conteudo = false;
-	$template_modal_show_buttons = false;
+
 	$template_modal_body_conteudo .= "
     <form method='post' name='form_login' id='form_login'>
         <p id='thinkific_transfer' class='collapse'>Não é mais necessário passar pela página do Grupo Ubique para acessar a Ubwiki. Crie uma senha abaixo.</p>

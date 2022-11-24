@@ -1,7 +1,7 @@
 <?php
 	$template_modal_div_id = 'modal_secao_etiquetas';
 	$template_modal_titulo = $pagina_translated['freepages'];
-	$template_modal_show_buttons = false;
+
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "<ul class='list-group list-group-flush rounded'>";
 	$carregar_areas_relacionadas = false;

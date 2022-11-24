@@ -137,6 +137,7 @@
 		
 		<?php
 			$template_modal_div_id = 'modal_texto_apoio_form';
+			$template_modal_show_buttons = true;
 			$template_modal_titulo = 'Editar texto de apoio';
 			$template_modal_body_conteudo = false;
 			$template_modal_body_conteudo .= "

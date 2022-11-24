@@ -171,8 +171,8 @@
 		<?php
 			$template_modal_div_id = 'modal_edicao_esquerda';
 			$template_modal_titulo = $pagina_translated['carregar coluna esquerda'];
-			$template_modal_show_buttons = false;
 			$template_modal_body_conteudo = false;
+			$template_modal_show_buttons = true;
 			$template_modal_body_conteudo .= "
                 <p>{$pagina_translated['Para comparação, esta edição é necessariamente mais antiga do que a versão da coluna direita.']}</p>
                 <p>{$pagina_translated['Selecione, por exemplo, sua edição mais recente. Em seguida, você poderá a versão mais recente do texto, que será carregada na coluna direita.']}</p>
@@ -216,7 +216,7 @@
 			if ($edicao_coluna_esquerda != false) {
 				$template_modal_div_id = 'modal_edicao_direita';
 				$template_modal_titulo = $pagina_translated['carregar coluna direita'];
-				$template_modal_show_buttons = false;
+				$template_modal_show_buttons = true;
 				$template_modal_body_conteudo = false;
 				$template_modal_body_conteudo .= "
 	                <p>{$pagina_translated['Para comparação, esta edição é necessariamente mais recente do que a versão da coluna esquerda.']}</p>

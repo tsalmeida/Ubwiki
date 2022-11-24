@@ -19,7 +19,7 @@
 		$template_modal_enctype = false;
 	}
 	if (!isset($template_modal_show_buttons)) {
-		$template_modal_show_buttons = true;
+		$template_modal_show_buttons = false;
 	}
 	if (!isset($modal_scrollable)) {
 		$modal_scrollable = false;

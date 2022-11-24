@@ -205,6 +205,7 @@
 	$template_modal_div_id = 'modal_busca';
 	$template_modal_titulo = $pagina_translated['Busca de páginas livres'];
 	$template_modal_body_conteudo = false;
+	$template_modal_show_buttons = true;
 	$template_modal_body_conteudo .= "
 		<div class='mb-3'>
 			<label for='termos_busca' class='form-label'>{$pagina_translated['Termos de busca']}</label>
@@ -215,6 +216,7 @@
 	include 'templates/modal.php';
 
 	$template_modal_div_id = 'adicionar_pagina_livre';
+	$template_modal_show_buttons = true;
 	$template_modal_titulo = $pagina_translated['Criar página livre'];
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "

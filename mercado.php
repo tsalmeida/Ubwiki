@@ -123,6 +123,7 @@
 			<p>Ao ser criado, o produto deve ficar invisível para o público, mas visível para o criador.</p>*/
 			
 			$template_modal_div_id = 'modal_add_produto';
+			$template_modal_show_buttons = true;
 			$template_modal_titulo = $pagina_translated['Adicionar produto'];
 			$modal_scrollable = true;
 			$template_modal_body_conteudo = false;

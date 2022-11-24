@@ -3,7 +3,7 @@
 		
 		$template_modal_div_id = 'modal_apagar_anotacao';
 		$template_modal_titulo = 'Triturar documento';
-		$template_modal_show_buttons = false;
+
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "
 			  <p>{$pagina_translated['Tem certeza? Não será possível recuperar sua anotação.']}</p>

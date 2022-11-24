@@ -5,7 +5,7 @@
 
 	$template_modal_div_id = 'modal_add_elementos';
 	$template_modal_titulo = $pagina_translated['Adicionar elementos'];
-	$template_modal_show_buttons = false;
+
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "
 		  	<span id='esconder_adicionar_elemento' data-bs-toggle='modal' data-bs-target='#modal_add_elementos' class='row justify-content-center'>";
@@ -153,7 +153,7 @@
 
 		$template_modal_div_id = 'modal_buscar_elemento';
 		$template_modal_titulo = $pagina_translated['Buscar e adicionar referência'];
-		$template_modal_show_buttons = false;
+
 		$modal_scrollable = true;
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= include 'templates/adicionar_referencia_form.php';
@@ -162,7 +162,7 @@
 		$template_modal_div_id = 'modal_selecionar_subtipo';
 		$template_modal_titulo = $pagina_translated['Selecionar subtipo do novo elemento'];
 		$modal_scrollable = true;
-		$template_modal_show_buttons = false;
+
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "<span data-bs-toggle='modal' data-bs-target='#modal_selecionar_subtipo'><div class='row d-flex justify-content-center'>";
 		$subtipo_artefato_modal = '#modal_buscar_elemento';
@@ -173,6 +173,7 @@
 		if ($carregar_modal_vincular_wikipedia == true) {
 			$template_modal_div_id = 'modal_adicionar_wikipedia';
 			$template_modal_titulo = $pagina_translated['Vincular a verbete da Wikipédia'];
+			$template_modal_show_buttons = true;
 			$template_modal_body_conteudo = false;
 			$template_modal_body_conteudo .= "
 				<p>{$pagina_translated['wikipedia article explanation']}</p>

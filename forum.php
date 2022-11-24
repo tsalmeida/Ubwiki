@@ -354,6 +354,7 @@
 </div>
 <?php
 	$template_modal_div_id = 'modal_novo_topico';
+	$template_modal_show_buttons = true;
 	$template_modal_titulo = 'Iniciar nova discussão';
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .=

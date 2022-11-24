@@ -146,6 +146,7 @@
 <?php
 	$template_modal_div_id = 'modal_chaves';
 	$template_modal_titulo = 'Inserir chave';
+	$template_modal_show_buttons = true;
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "
 		<div class='mb-3'>
@@ -167,10 +168,11 @@
 								<a href='javascript:void(0);' value='fr' class='mt-1 selecionar_lingua'><li class='list-group-item list-group-item-action'>Français</li></a>
 							</ul>
 	";
-	$template_modal_show_buttons = false;
+
 	include 'templates/modal.php';
 	
 	$template_modal_div_id = 'modal_traduzir_chave';
+	$template_modal_show_buttons = true;
 	$template_modal_titulo = $pagina_translated['Traduzir chave'];
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "
