@@ -167,7 +167,7 @@
 		exit();
 	}
 
-	unset($_SESSION['nexus_links']);
+//	unset($_SESSION['nexus_links']);
 
 	if (!isset($_SESSION['nexus_links'])) {
 		$nexus_all_links = rebuild_cmd_links($_SESSION['user_nexus_pagina_id']);
