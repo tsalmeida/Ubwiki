@@ -3463,43 +3463,43 @@
 		} elseif ($args[0] == 'convert') {
 			switch ($args[1]) {
 				case 'blue':
-					return array('link-color' => 'nexus-link-blue', 'bg-color' => 'nexus-bg-blue', 'link-black-color' => 'nexus-link-black-blue', 'bg-black-color' => 'nexus-bg-black-blue', 'text-color' => 'nexus-text-blue', 'title-color' => 'link-light');
+					return array('link-color' => 'nexus-link-blue', 'bg-color' => 'nexus-bg-blue', 'link-black-color' => 'nexus-link-black-blue', 'bg-black-color' => 'nexus-bg-black-blue', 'bg-black-color-border' => 'nexus-bg-black-blue-border', 'text-color' => 'nexus-text-blue', 'title-color' => 'link-light');
 					break;
 				case 'indigo':
-					return array('link-color' => 'nexus-link-indigo', 'bg-color' => 'nexus-bg-indigo', 'link-black-color' => 'nexus-link-black-indigo', 'bg-black-color' => 'nexus-bg-black-indigo', 'text-color' => 'nexus-text-indigo', 'title-color' => 'link-light');
+					return array('link-color' => 'nexus-link-indigo', 'bg-color' => 'nexus-bg-indigo', 'link-black-color' => 'nexus-link-black-indigo', 'bg-black-color' => 'nexus-bg-black-indigo', 'bg-black-color-border' => 'nexus-bg-black-indigo-border', 'text-color' => 'nexus-text-indigo', 'title-color' => 'link-light');
 					break;
 				case 'purple':
-					return array('link-color' => 'nexus-link-purple', 'bg-color' => 'nexus-bg-purple', 'link-black-color' => 'nexus-link-black-purple', 'bg-black-color' => 'nexus-bg-black-purple', 'text-color' => 'nexus-text-purple', 'title-color' => 'link-light');
+					return array('link-color' => 'nexus-link-purple', 'bg-color' => 'nexus-bg-purple', 'link-black-color' => 'nexus-link-black-purple', 'bg-black-color' => 'nexus-bg-black-purple', 'bg-black-color-border' => 'nexus-bg-black-purple-border', 'text-color' => 'nexus-text-purple', 'title-color' => 'link-light');
 					break;
 				case 'pink':
-					return array('link-color' => 'nexus-link-pink', 'bg-color' => 'nexus-bg-pink', 'link-black-color' => 'nexus-link-black-pink', 'bg-black-color' => 'nexus-bg-black-pink', 'text-color' => 'nexus-text-pink', 'title-color' => 'link-light');
+					return array('link-color' => 'nexus-link-pink', 'bg-color' => 'nexus-bg-pink', 'link-black-color' => 'nexus-link-black-pink', 'bg-black-color' => 'nexus-bg-black-pink', 'bg-black-color-border' => 'nexus-bg-black-pink-border', 'text-color' => 'nexus-text-pink', 'title-color' => 'link-light');
 					break;
 				case 'red':
-					return array('link-color' => 'nexus-link-red', 'bg-color' => 'nexus-bg-red', 'link-black-color' => 'nexus-link-black-red', 'bg-black-color' => 'nexus-bg-black-red', 'text-color' => 'nexus-text-red', 'title-color' => 'link-light');
+					return array('link-color' => 'nexus-link-red', 'bg-color' => 'nexus-bg-red', 'link-black-color' => 'nexus-link-black-red', 'bg-black-color' => 'nexus-bg-black-red', 'bg-black-color-border' => 'nexus-bg-black-red-border', 'text-color' => 'nexus-text-red', 'title-color' => 'link-light');
 					break;
 				case 'orange':
-					return array('link-color' => 'nexus-link-orange', 'bg-color' => 'nexus-bg-orange', 'link-black-color' => 'nexus-link-black-orange', 'bg-black-color' => 'nexus-bg-black-orange', 'text-color' => 'nexus-text-orange', 'title-color' => 'link-light');
+					return array('link-color' => 'nexus-link-orange', 'bg-color' => 'nexus-bg-orange', 'link-black-color' => 'nexus-link-black-orange', 'bg-black-color' => 'nexus-bg-black-orange', 'bg-black-color-border' => 'nexus-bg-black-orange-border', 'text-color' => 'nexus-text-orange', 'title-color' => 'link-light');
 					break;
 				case 'yellow':
-					return array('link-color' => 'nexus-link-yellow', 'bg-color' => 'nexus-bg-yellow', 'link-black-color' => 'nexus-link-black-yellow', 'bg-black-color' => 'nexus-bg-black-yellow', 'text-color' => 'nexus-text-yellow', 'title-color' => 'link-light');
+					return array('link-color' => 'nexus-link-yellow', 'bg-color' => 'nexus-bg-yellow', 'link-black-color' => 'nexus-link-black-yellow', 'bg-black-color' => 'nexus-bg-black-yellow', 'bg-black-color-border' => 'nexus-bg-black-yellow-border', 'text-color' => 'nexus-text-yellow', 'title-color' => 'link-light');
 					break;
 				case 'green':
-					return array('link-color' => 'nexus-link-green', 'bg-color' => 'nexus-bg-green', 'link-black-color' => 'nexus-link-black-green', 'bg-black-color' => 'nexus-bg-black-green', 'text-color' => 'nexus-text-green', 'title-color' => 'link-light');
+					return array('link-color' => 'nexus-link-green', 'bg-color' => 'nexus-bg-green', 'link-black-color' => 'nexus-link-black-green', 'bg-black-color' => 'nexus-bg-black-green', 'bg-black-color-border' => 'nexus-bg-black-green-border', 'text-color' => 'nexus-text-green', 'title-color' => 'link-light');
 					break;
 				case 'teal':
-					return array('link-color' => 'nexus-link-teal', 'bg-color' => 'nexus-bg-teal', 'link-black-color' => 'nexus-link-black-teal', 'bg-black-color' => 'nexus-bg-black-teal', 'text-color' => 'nexus-text-teal', 'title-color' => 'link-light');
+					return array('link-color' => 'nexus-link-teal', 'bg-color' => 'nexus-bg-teal', 'link-black-color' => 'nexus-link-black-teal', 'bg-black-color' => 'nexus-bg-black-teal', 'bg-black-color-border' => 'nexus-bg-black-teal-border', 'text-color' => 'nexus-text-teal', 'title-color' => 'link-light');
 					break;
 				case 'cyan':
-					return array('link-color' => 'nexus-link-cyan', 'bg-color' => 'nexus-bg-cyan', 'link-black-color' => 'nexus-link-black-cyan', 'bg-black-color' => 'nexus-bg-black-cyan', 'text-color' => 'nexus-text-cyan', 'title-color' => 'link-light');
+					return array('link-color' => 'nexus-link-cyan', 'bg-color' => 'nexus-bg-cyan', 'link-black-color' => 'nexus-link-black-cyan', 'bg-black-color' => 'nexus-bg-black-cyan', 'bg-black-color-border' => 'nexus-bg-black-cyan-border', 'text-color' => 'nexus-text-cyan', 'title-color' => 'link-light');
 					break;
 				case 'white':
-					return array('link-color' => 'link-light', 'bg-color' => 'bg-dark', 'link-black-color' => 'link-light', 'bg-black-color' => 'bg-dark text-light', 'text-color' => 'text-light', 'title-color' => 'link-light');
+					return array('link-color' => 'link-light', 'bg-color' => 'bg-dark', 'link-black-color' => 'link-light', 'bg-black-color' => 'bg-dark text-light', 'bg-black-color-border' => 'bg-dark text-light', 'text-color' => 'text-light', 'title-color' => 'link-light');
 					break;
 				case 'black':
-					return array('link-color' => 'link-dark', 'bg-color' => 'bg-light', 'link-black-color' => 'link-dark', 'bg-black-color' => 'bg-light text-dark', 'text-color' => 'text-dark', 'title-color' => 'link-dark');
+					return array('link-color' => 'link-dark', 'bg-color' => 'bg-light', 'link-black-color' => 'link-dark', 'bg-black-color' => 'bg-light text-dark', 'bg-black-color-border' => 'bg-light text-dark', 'text-color' => 'text-dark', 'title-color' => 'link-dark');
 					break;
 				default:
-					return array('link-color' => 'nexus-link-red', 'bg-color' => 'nexus-bg-red', 'link-black-color' => 'nexus-link-black-red', 'bg-black-color' => 'nexus-bg-black-red', 'text-color' => 'nexus-text-red', 'title-color' => 'link-light');
+					return array('link-color' => 'nexus-link-red', 'bg-color' => 'nexus-bg-red', 'link-black-color' => 'nexus-link-black-red', 'bg-black-color' => 'nexus-bg-black-red', 'bg-black-color-border' => 'nexus-bg-black-red-border', 'text-color' => 'nexus-text-red', 'title-color' => 'link-light');
 			}
 		}
 	}
@@ -3780,8 +3780,8 @@
 					<div class='col-lg-3 col-md-4 mb-1 pe-3 {$params['class']}'>
 						<span id='trigger_{$params['id']}' class='row rounded d-flex justify-content-center pointer' $nexus_artefato_modal_module href='$href' title='{$params['title']}'>
 							<div class='row rounded p-2 {$colors['bg-black-color']}'>
-								<div class='col-auto d-flex justify-content-center p-2'>
-									<i class='fa-solid $icon fa-2xl fa-fw'></i>
+								<div class='col-3 d-flex justify-content-center p-2'>
+									<i class='fa-solid $icon fa-3x fa-fw'></i>
 								</div>
 								<div class='col-9 px-1 d-flex align-items-center'>
 									<span class='col-12 {$colors['title-color']} align-self-center lh-sm'>
@@ -3798,8 +3798,8 @@
 				return "
 					<div class='col-lg-3 col-md-4 mb-1 pe-3 {$params['class']}'>
 						<span id='trigger_{$params['id']}' class='row rounded d-flex justify-content-center pointer' $nexus_artefato_modal_module href='$href' title='{$params['title']}'>
-							<div class='row rounded p-1 {$colors['bg-black-color']}'>
-								<div class='col-auto d-flex justify-content-center p-1'>
+							<div class='row rounded p-1 {$colors['bg-black-color-border']}'>
+								<div class='col-3 d-flex justify-content-center p-1'>
 									<i class='fa-solid $icon fa-2xl fa-fw'></i>
 								</div>
 								<div class='col-9 px-1 d-flex align-items-center'>

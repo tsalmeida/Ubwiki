@@ -581,6 +581,138 @@ navbar {
     color: $cyan-100;
 }
 
+.nexus-bg-black-blue-border {
+  color: $blue-500;
+  background-color: $black;
+  border-bottom-color: $blue-500;
+  border-bottom-style: solid;
+  border-bottom-width: 4px;
+}
+.nexus-bg-black-indigo-border {
+  color: $indigo-500;
+  background-color: $black;
+  border-bottom-color: $indigo-500;
+  border-bottom-style: solid;
+  border-bottom-width: 4px;
+}
+.nexus-bg-black-purple-border {
+  color: $purple-500;
+  background-color: $black;
+  border-bottom-color: $purple-500;
+  border-bottom-style: solid;
+  border-bottom-width: 4px;
+}
+.nexus-bg-black-pink-border {
+  color: $pink-500;
+  background-color: $black;
+  border-bottom-color: $pink-500;
+  border-bottom-style: solid;
+  border-bottom-width: 4px;
+}
+.nexus-bg-black-red-border {
+  color: $red-500;
+  background-color: $black;
+  border-bottom-color: $red-500;
+  border-bottom-style: solid;
+  border-bottom-width: 4px;
+}
+.nexus-bg-black-orange-border {
+  color: $orange-500;
+  background-color: $black;
+  border-bottom-color: $orange-500;
+  border-bottom-style: solid;
+  border-bottom-width: 4px;
+}
+.nexus-bg-black-yellow-border {
+  color: $yellow-500;
+  background-color: $black;
+  border-bottom-color: $yellow-500;
+  border-bottom-style: solid;
+  border-bottom-width: 4px;
+}
+.nexus-bg-black-green-border {
+  color: $green-500;
+  background-color: $black;
+  border-bottom-color: $green-500;
+  border-bottom-style: solid;
+  border-bottom-width: 4px;
+}
+.nexus-bg-black-teal-border {
+  color: $teal-500;
+  background-color: $black;
+  border-bottom-color: $teal-500;
+  border-bottom-style: solid;
+  border-bottom-width: 4px;
+}
+.nexus-bg-black-cyan-border {
+  color: $cyan-500;
+  background-color: $black;
+  border-bottom-color: $cyan-500;
+  border-bottom-style: solid;
+  border-bottom-width: 4px;
+}
+
+
+.nexus-bg-black-blue-border:hover {
+  background-color: $blue-600;
+    color: $blue-100;
+  border-bottom-color: $blue-100;
+}
+
+.nexus-bg-black-indigo-border:hover {
+  background-color: $indigo-600;
+    color: $indigo-100;
+  border-bottom-color: $indigo-100;
+}
+
+.nexus-bg-black-purple-border:hover {
+  background-color: $purple-600;
+    color: $purple-100;
+  border-bottom-color: $purple-100;
+}
+
+.nexus-bg-black-pink-border:hover {
+  background-color: $pink-600;
+    color: $pink-100;
+  border-bottom-color: $pink-100;
+}
+
+.nexus-bg-black-red-border:hover {
+  background-color: $red-600;
+    color: $red-100;
+  border-bottom-color: $red-100;
+}
+
+.nexus-bg-black-orange-border:hover {
+  background-color: $orange-600;
+    color: $orange-100;
+  border-bottom-color: $orange-100;
+}
+
+.nexus-bg-black-yellow-border:hover {
+  background-color: $yellow-600;
+    color: $yellow-100;
+  border-bottom-color: $yellow-100;
+}
+
+.nexus-bg-black-green-border:hover {
+  background-color: $green-600;
+    color: $green-100;
+  border-bottom-color: $green-100;
+}
+
+.nexus-bg-black-teal-border:hover {
+  background-color: $teal-600;
+    color: $teal-100;
+  border-bottom-color: $teal-100;
+}
+
+.nexus-bg-black-cyan-border:hover {
+  background-color: $cyan-600;
+    color: $cyan-100;
+  border-bottom-color: $cyan-100;
+}
+
 //.nexus-text-blue {
 //  color: $blue-500;
 //}
