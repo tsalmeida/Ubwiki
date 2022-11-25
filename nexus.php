@@ -452,7 +452,7 @@
 			$template_modal_div_id = 'modal_leave_options';
 			$template_modal_titulo = 'Leave...';
 			$template_modal_body_conteudo = false;
-			$template_modal_body_conteudo .= nexus_put_together(array('type' => 'large', 'id' => 'trigger_logout', 'icon' => 'fad fa-person-through-window', 'color' => 'red', 'title' => 'Logout'));
+			$template_modal_body_conteudo .= nexus_put_together(array('type' => 'large', 'id' => 'logout', 'icon' => 'fad fa-person-through-window', 'color' => 'red', 'title' => 'Logout'));
 
 			include 'templates/modal.php';
 
@@ -515,7 +515,7 @@
 		        <li class='list-group-item'>\"/r/\" will send you to a subreddit. For example, just type \"/r/prequelmemes\".</li>
 		        <li class='list-group-item'>\"/linkdump url\" to add a link to the Link Dump with random icon and color.</li>
 		        <li class='list-group-item'>\"/log message\" will add a message to your log.</li>
-		        <li class='list-group-item'>\Type a url starting with \"http\" or \"www\" to go directly to that address.</li>
+		        <li class='list-group-item'>Type a url starting with \"http\" or \"www\" to go directly to that address.</li>
 		        <li class='list-group-item'>\"/del link title\" to delete a link.</li>
 		        <li class='list-group-item'>\"/dl address\" to download an image.</li>
 		        <li class='list-group-item'>\"/go search terms\" will perform a Google seach.</li>

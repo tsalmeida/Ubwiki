@@ -2061,7 +2061,8 @@
 			$capitalize = ucfirst($key);
 			echo "<option value='{$key}'>$capitalize</option>";
 		}
-		echo "					</select>
+		echo "
+			</select>
 				</div>
 				<div class='mb-3'>
 					<label class='form-label' for='#nexus_new_link_color'>Choose a color:</label>
@@ -2069,11 +2070,13 @@
 						<option value='random' selected>Random</option>
 						<option value='blue'>Blue</option>
 						<option value='indigo'>Indigo</option>
-						<option value='green'>Green</option>
-						<option value='blue'>Blue</option>
-						<option value='teal'>Teal</option>
-						<option value='cyan'>Cyan</option>
 						<option value='purple'>Purple</option>
+						<option value='pink'>Pink</option>
+						<option value='red'>Red</option>
+						<option value='orange'>Orange</option>
+						<option value='yellow'>Yellow</option>
+						<option value='green'>Green</option>
+						<option value='teal'>Teal</option>
 						<option value='cyan'>Cyan</option>
 					</select>
 				</div>
