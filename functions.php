@@ -3775,12 +3775,31 @@
 					</div>
 				";
 				break;
-			case 'folder':
+			case 'folder_fat':
 				return "
 					<div class='col-lg-3 col-md-4 mb-1 pe-3 {$params['class']}'>
 						<span id='trigger_{$params['id']}' class='row rounded d-flex justify-content-center pointer' $nexus_artefato_modal_module href='$href' title='{$params['title']}'>
 							<div class='row rounded p-2 {$colors['bg-black-color']}'>
-								<div class='col-3 d-flex justify-content-center p-2'>
+								<div class='col-auto d-flex justify-content-center p-2'>
+									<i class='fa-solid $icon fa-2xl fa-fw'></i>
+								</div>
+								<div class='col-9 px-1 d-flex align-items-center'>
+									<span class='col-12 {$colors['title-color']} align-self-center lh-sm'>
+										{$params['title']}
+									</span>
+								</div>
+							</div>
+						</span>
+					</div>
+				";
+				break;
+			case 'folder_slim':
+			case 'folder':
+				return "
+					<div class='col-lg-3 col-md-4 mb-1 pe-3 {$params['class']}'>
+						<span id='trigger_{$params['id']}' class='row rounded d-flex justify-content-center pointer' $nexus_artefato_modal_module href='$href' title='{$params['title']}'>
+							<div class='row rounded p-1 {$colors['bg-black-color']}'>
+								<div class='col-auto d-flex justify-content-center p-1'>
 									<i class='fa-solid $icon fa-2xl fa-fw'></i>
 								</div>
 								<div class='col-9 px-1 d-flex align-items-center'>
@@ -3802,7 +3821,7 @@
 						<span id='trigger_{$params['id']}' class='row rounded d-flex justify-content-center pointer' $nexus_artefato_modal_module href='$href' title='{$params['title']}'>
 							<div class='row rounded p-2 {$colors['bg-black-color']}'>
 								<div class='col-2 d-flex justify-content-center p-2 px-4'>
-									<i class='fa-solid $icon fa-xl fa-fw'></i>
+									<i class='fa-solid $icon fa-2xl fa-fw'></i>
 								</div>
 								<div class='col px-1 d-flex align-items-center'>
 									<span class='col-12 {$colors['title-color']} align-self-center lh-sm'>

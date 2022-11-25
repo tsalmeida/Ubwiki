@@ -2598,7 +2598,7 @@
 			}
 			$icon = nexus_put_together(array('type' => $diff, 'id' => $link_id, 'href' => $_SESSION['nexus_folders'][$_POST['populate_links']][$link_id]['url'], 'color' => $_SESSION['nexus_folders'][$_POST['populate_links']][$link_id]['color'], 'icon' => $_SESSION['nexus_folders'][$_POST['populate_links']][$link_id]['icon'], 'title' => $_SESSION['nexus_folders'][$_POST['populate_links']][$link_id]['title'], 'class' => "link_of_folder_{$_POST['populate_links']}"));
 			switch ($diff) {
-				case 'folder':
+				case 'folder_slim':
 					$result_folder .= $icon;
 					break;
 				case 'link_large':
@@ -2872,7 +2872,7 @@
 				<label for='diff_this_link_type' class='form-label'>How to display this link:</label>
 				<select id='diff_this_link_type' name='diff_this_link_type' class='form-select mb-3'>
 					<option disabled selected>Link mode</option>
-					<option value='folder'>Folder: as used for folders</option>
+					<option value='folder_slim'>Folder: as used for folders</option>
 					<option value='link_large'>Large: 3x-sized icon and centralized title</option>
 					<option value='link_normal'>Default: text-sized icon</option> 
 					<option value='link_compact'>Compact: default with less empty space</option>
