@@ -2716,15 +2716,15 @@
 			<input type='hidden' id='details_loaded' value='false'>
 			<form method='post'>
 			<div class='form-check mb-3'>
-				<input class='form-check-input' type='radio' name='manage_icon_title_choice' value='folder' id='manage_icon_title_folders' checked>
-				<label class='form-check-label' for='manage_icon_title_folders'><i class='fad fa-folders fa-fw me-2 nexus-link-orange'></i>Folders</label>
-			</div>
-			<div class='form-check mb-3'>
-				<input class='form-check-input' type='radio' name='manage_icon_title_choice' value='link' id='manage_icon_title_links'>
+				<input class='form-check-input' type='radio' name='manage_icon_title_choice' value='link' id='manage_icon_title_links' checked>
 				<label class='form-check-label' for='manage_icon_title_links'><i class='fad fa-link fa-fw me-2 nexus-link-teal'></i>Links</label>
 			</div>
-			<hr class='manage_link_hide d-none'>
-			<div class='mb-3 manage_link_hide d-none'>
+			<div class='form-check mb-3'>
+				<input class='form-check-input' type='radio' name='manage_icon_title_choice' value='folder' id='manage_icon_title_folders'>
+				<label class='form-check-label' for='manage_icon_title_folders'><i class='fad fa-folders fa-fw me-2 nexus-link-orange'></i>Folders</label>
+			</div>
+			<hr class='manage_link_hide'>
+			<div class='mb-3 manage_link_hide'>
 				<label for='manage_icon_title_link_title' class='form-label'>Select link to manage:</label>
 				<select class='form-select change_trigger_show_details' id='manage_icon_title_link_id' name='manage_icon_title_link_id'>
 				<option selected disabled>Select link</option>
@@ -2735,9 +2735,9 @@
 		$populate_icons_titles .= "
 				</select>
 			</div>	
-			<hr class='manage_folder_hide'>
-			<label class='form-label  manage_folder_hide' for='manage_icon_title_folder_id'>Select folder to manage:</label>
-			<select id='manage_icon_title_folder_id' name='manage_icon_title_folder_id' class='form-select mb-3 manage_folder_hide change_trigger_show_details'>
+			<hr class='manage_folder_hide d-none'>
+			<label class='form-label manage_folder_hide d-none' for='manage_icon_title_folder_id'>Select folder to manage:</label>
+			<select id='manage_icon_title_folder_id' name='manage_icon_title_folder_id' class='form-select mb-3 manage_folder_hide change_trigger_show_details d-none'>
 				<option selected disabled>Select folder</option>";
 		$populate_icons_titles .= return_folder_list($_SESSION['nexus_folders'], array('linkdump' => false));
 		$populate_icons_titles .= "
