@@ -2864,7 +2864,7 @@
 			<div class='mb-3'>
 				<label for='diff_this_link_id' class='form-label'>Select link to differentiate:</label>
 				<select id='diff_this_link_id' name='diff_this_link_id' class='form-select mb-3'>
-					<option disabled selected>Link to move</option>";
+					<option disabled selected>Link to differentiate</option>";
 		foreach ($_SESSION['nexus_alphabet'] as $title => $id) {
 			$diff_result .= "<option value='$id'>$title</option>";
 		}
