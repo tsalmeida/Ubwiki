@@ -253,7 +253,18 @@
     ";
 
 	switch ($nexus_theme) {
+        case 'random':
+            $background_color = random_bg_color();
+			$wallpapers = array(false);
+			$wallpaper_repeat = false;
+			$wallpaper_size = false;
+			$wallpaper_position = false;
+			$title_color = 'text-light';
+			$title_overlay = false;
+			$title_overlay_hover = 'color-burn';
+			break;
 		case 'light':
+			$background_color = '#f7f7f7';
 			$wallpapers = array('papyrus.webp', 'y-so-serious-white.png', 'what-the-hex.webp', 'cheap_diagonal_fabric.png', 'circles-and-roundabouts.webp', 'crossline-dots.webp', 'diagonal_striped_brick.webp', 'funky-lines.webp', 'gplaypattern.png', 'interlaced.png', 'natural_paper.webp', 'subtle_white_feathers.webp', 'topography.webp', 'webb.png', 'whirlpool.webp', 'white-waves.webp', 'worn_dots.webp', 'vertical-waves.webp');
 			$wallpaper_repeat = 'repeat';
 			$wallpaper_size = 'auto';
@@ -263,6 +274,7 @@
 			$title_overlay_hover = 'difference';
 			break;
 		case 'dark':
+			$background_color = '#191919';
 			$wallpapers = array('tactile_noise.webp', 'black_lozenge.webp', 'dark_leather.webp', 'escheresque_ste.webp', 'papyrus-dark.webp', 'prism.png', 'tasky_pattern.webp', 'y-so-serious.png');
 			$wallpaper_repeat = 'repeat';
 			$wallpaper_size = 'auto';
@@ -272,6 +284,7 @@
 			$title_overlay_hover = 'difference';
 			break;
 		case 'whimsical':
+			$background_color = '#8BA810';
 			$wallpapers = array('pink-flowers.webp', 'morocco.png', 'pool_table.webp', 'retina_wood.png', 'wheat.webp');
 			$wallpaper_repeat = 'repeat';
 			$wallpaper_size = 'auto';
@@ -281,6 +294,7 @@
 			$title_overlay_hover = 'difference';
 			break;
 		case 'landscape':
+			$background_color = '#471918';
 			$wallpapers = array('ciprian-boiciuc-354944.jpg', 'dan-aragon-387264.jpg', 'jenu-prasad-347241.jpg', 'olivia-henry-296.jpg', 'dewang-gupta-Q7jQXMk-5qU-unsplash.jpg', 'ezra-jeffrey-357875.jpg');
 			$wallpaper_repeat = 'no-repeat';
 			$wallpaper_size = 'cover';
@@ -290,6 +304,7 @@
 			$title_overlay_hover = 'difference';
 			break;
 		default:
+			$background_color = '#838A77';
 			$wallpapers = array('papyrus.webp');
 			$wallpaper_repeat = 'repeat';
 			$wallpaper_size = 'auto';
@@ -299,7 +314,6 @@
 			$title_overlay_hover = 'difference';
 			break;
 	}
-
 	$random_wallpaper = array_rand($wallpapers);
 	$wallpaper_file = $wallpapers[$random_wallpaper];
 
@@ -313,6 +327,7 @@
                 background-repeat: $wallpaper_repeat;
                 background-size: $wallpaper_size;
                 background-position: $wallpaper_position;
+                background-color: $background_color;
                 top: 0;
                 bottom: 0;
                 left: 0;
@@ -406,7 +421,6 @@
 				echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_links', 'title' => 'Add or remove links', 'modal' => '#modal_manage_links', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-bookmark', 'color' => 'red'));
 				echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_icons_titles', 'title' => 'Manage icons and titles', 'modal' => '#modal_manage_icons_titles', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-icons', 'color' => 'pink'));
 				echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_move_links', 'title' => 'Move links between folders', 'modal' => '#modal_manage_move_links', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-arrow-right-arrow-left', 'color' => 'teal'));
-				echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_differentiate_links', 'title' => 'Differentiate links', 'modal' => '#modal_differentiate_links', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-arrow-up-big-small', 'color' => 'pink'));
 				echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_themes', 'title' => 'Manage themes', 'modal' => '#modal_manage_themes', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-swatchbook', 'color' => 'purple'));
 				echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_options', 'title' => 'Options', 'modal' => '#modal_options', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-toggle-large-on', 'color' => 'green'));
 				echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_timeline', 'title' => 'Activity log', 'modal' => '#modal_manage_timeline', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-list-timeline', 'color' => 'cyan'));
@@ -452,7 +466,11 @@
 			$template_modal_div_id = 'modal_leave_options';
 			$template_modal_titulo = 'Leave...';
 			$template_modal_body_conteudo = false;
+			$template_modal_body_conteudo .= "<div class='row justify-content-center d-flex'>";
+			$template_modal_body_conteudo .= nexus_put_together(array('type' => 'large', 'id' => 'return_ubwiki', 'icon' => 'fad fa-lamp-desk', 'color' => 'yellow', 'title' => 'Office', 'href'=>'escritorio.php'));
+			$template_modal_body_conteudo .= nexus_put_together(array('type' => 'large', 'id' => 'return_ubwiki', 'icon' => 'fad fa-books', 'color' => 'green', 'title' => 'Study Plan', 'href'=>'pagina.php?plano_id=bp'));
 			$template_modal_body_conteudo .= nexus_put_together(array('type' => 'large', 'id' => 'logout', 'icon' => 'fad fa-person-through-window', 'color' => 'red', 'title' => 'Logout'));
+			$template_modal_body_conteudo .= "</div>";
 
 			include 'templates/modal.php';
 
@@ -533,27 +551,18 @@
 		        <li class='list-group-item'>Alt+R will show recent links.</li>
             </ul>
 		";
-
 			include 'templates/modal.php';
 
 			$template_modal_div_id = 'modal_add_folders_bulk';
 			$template_modal_titulo = 'Add folders in bulk';
 			$template_modal_body_conteudo = false;
 			$template_modal_body_conteudo .= "<p>You will be able to change the details later. For now, all you need is a name for each.</p>";
-
 			include 'templates/modal.php';
 
 			$template_modal_div_id = 'modal_add_links_bulk';
 			$template_modal_titulo = 'Add links in bulk to the Link Dump';
 			$template_modal_body_conteudo = false;
 			$template_modal_body_conteudo .= "<p>You will be able to change the details later. For now, all you need is a name for each.</p>";
-
-			include 'templates/modal.php';
-
-			$template_modal_div_id = 'modal_differentiate_links';
-			$template_modal_titulo = 'Differentiate links';
-			$template_modal_body_conteudo = 'Loading...';
-
 			include 'templates/modal.php';
 
 		?>
@@ -775,17 +784,6 @@
                 if (data != 0) {
                     $('#body_modal_manage_move_links').empty();
                     $('#body_modal_manage_move_links').append(data);
-                }
-            });
-        });
-
-        $(document).on('click', '#trigger_manage_differentiate_links', function () {
-            $.post('engine.php', {
-                'populate_differentiate_links': true
-            }, function (data) {
-                if (data != 0) {
-                    $('#body_modal_differentiate_links').empty();
-                    $('#body_modal_differentiate_links').append(data);
                 }
             });
         });

@@ -1570,34 +1570,36 @@
 				$notificacao_pagina_id = $notificacao['pagina_id'];
 				$notificacao_pagina_titulo = return_pagina_titulo($notificacao_pagina_id);
 				$alteracao_recente = return_alteracao_recente($notificacao_pagina_id);
-				$alteracao_recente_data = $alteracao_recente[0];
-				$alteracao_recente_data = format_data($alteracao_recente_data);
-				$alteracao_recente_usuario = $alteracao_recente[1];
-				$alteracao_recente_usuario_apelido = return_apelido_user_id($alteracao_recente_usuario);
-				$alteracao_recente_tipo = $alteracao_recente[2];
-				if ($alteracao_recente_tipo == 'verbete') {
-					$alteracao_recente_tipo_icone = 'fa-edit';
-				} elseif ($alteracao_recente_tipo == 'forum') {
-					$alteracao_recente_tipo_icone = 'fa-comments-alt';
-				} else {
-					$alteracao_recente_tipo_icone = 'fa-pencil';
-				}
-				$template_modal_body_conteudo .= return_list_item($notificacao_pagina_id);
-				if ($alteracao_recente_data != false) {
-					$template_modal_body_conteudo .= put_together_list_item('inactive', false, 'link-teal', "fad $alteracao_recente_tipo_icone", "$alteracao_recente_usuario_apelido <small class='text-muted'>($alteracao_recente_data)</small>", false, false, 'spacing2');
-				}
-				$segunda_alteracao_recente_data = $alteracao_recente[3];
-				if ($segunda_alteracao_recente_data != false) {
-					$segunda_alteracao_recente_data = format_data($segunda_alteracao_recente_data);
-					$segunda_alteracao_recente_tipo = $alteracao_recente[5];
-					if ($segunda_alteracao_recente_tipo == 'verbete') {
-						$segunda_alteracao_recente_tipo_icone = 'fa-edit';
-					} elseif ($segunda_alteracao_recente_tipo == 'forum') {
-						$segunda_alteracao_recente_tipo_icone = 'fa-comments-alt';
+				if ($alteracao_recente != false) {
+					$alteracao_recente_data = $alteracao_recente[0];
+					$alteracao_recente_data = format_data($alteracao_recente_data);
+					$alteracao_recente_usuario = $alteracao_recente[1];
+					$alteracao_recente_usuario_apelido = return_apelido_user_id($alteracao_recente_usuario);
+					$alteracao_recente_tipo = $alteracao_recente[2];
+					if ($alteracao_recente_tipo == 'verbete') {
+						$alteracao_recente_tipo_icone = 'fa-edit';
+					} elseif ($alteracao_recente_tipo == 'forum') {
+						$alteracao_recente_tipo_icone = 'fa-comments-alt';
+					} else {
+						$alteracao_recente_tipo_icone = 'fa-pencil';
 					}
-					$segunda_alteracao_recente_usuario = $alteracao_recente[4];
-					$segunda_alteracao_recente_usuario_apelido = return_apelido_user_id($segunda_alteracao_recente_usuario);
-					$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$notificacao_pagina_id' class='mt-1'><li class='list-group-item list-group-item-action border-top d-flex justify-content-between'><span class='ms-3'><i class='fad $segunda_alteracao_recente_tipo_icone fa-fw'></i> $notificacao_pagina_titulo</span><span class='text-muted'><em>($segunda_alteracao_recente_usuario_apelido) $segunda_alteracao_recente_data</em></span></li></a>";
+					$template_modal_body_conteudo .= return_list_item($notificacao_pagina_id);
+					if ($alteracao_recente_data != false) {
+						$template_modal_body_conteudo .= put_together_list_item('inactive', false, 'link-teal', "fad $alteracao_recente_tipo_icone", "$alteracao_recente_usuario_apelido <small class='text-muted'>($alteracao_recente_data)</small>", false, false, 'spacing2');
+					}
+					$segunda_alteracao_recente_data = $alteracao_recente[3];
+					if ($segunda_alteracao_recente_data != false) {
+						$segunda_alteracao_recente_data = format_data($segunda_alteracao_recente_data);
+						$segunda_alteracao_recente_tipo = $alteracao_recente[5];
+						if ($segunda_alteracao_recente_tipo == 'verbete') {
+							$segunda_alteracao_recente_tipo_icone = 'fa-edit';
+						} elseif ($segunda_alteracao_recente_tipo == 'forum') {
+							$segunda_alteracao_recente_tipo_icone = 'fa-comments-alt';
+						}
+						$segunda_alteracao_recente_usuario = $alteracao_recente[4];
+						$segunda_alteracao_recente_usuario_apelido = return_apelido_user_id($segunda_alteracao_recente_usuario);
+						$template_modal_body_conteudo .= "<a href='pagina.php?pagina_id=$notificacao_pagina_id' class='mt-1'><li class='list-group-item list-group-item-action border-top d-flex justify-content-between'><span class='ms-3'><i class='fad $segunda_alteracao_recente_tipo_icone fa-fw'></i> $notificacao_pagina_titulo</span><span class='text-muted'><em>($segunda_alteracao_recente_usuario_apelido) $segunda_alteracao_recente_data</em></span></li></a>";
+					}
 				}
 			}
 		}
@@ -2112,44 +2114,106 @@
 		echo $new_link_title;
 	}
 	unset($_POST['scan_new_link']);
-	if (isset($_POST['populate_themes_modal'])) {
-		$light_selected = false;
-		$dark_selected = false;
-		$landscape_selected = false;
-		$whimsical_selected = false;
-		$switch_nexus_theme = $_POST['populate_themes_modal'];
-		switch ($switch_nexus_theme) {
-			case 'light':
-				$light_selected = 'selected';
-				break;
-			case 'dark':
-				$dark_selected = 'selected';
-				break;
-			case 'landscape':
-				$landscape_selected = 'selected';
-				break;
-			case 'whimsical':
-				$whimsical_selected = 'selected';
-				break;
-			default:
-				$light_selected = 'selected';
-				break;
-		}
-		$return = "
+
+	if (isset($_POST['populate_new_theme'])) {
+		$pop_themes = false;
+		$pop_themes .= "
 			<form method='post'>
-				<h3>Themes</h3>
-				<label for='nexus_theme_select' class='form-label'>Take your pick of general appearance:</label>
-				<select id='nexus_theme_select' name='nexus_theme_select' class='form-select mb-3'>
-					<option value='light' $light_selected>Light</option>
-					<option value='dark' $dark_selected>Dark</option>
-					<option value='landscape' $landscape_selected>Landscape images</option>
-					<option value='whimsical' $whimsical_selected>Whimsical</option>
-				</select>
-				<button type='submit' class='btn btn-primary'>Pick theme</button>
+				<div class='mb-3'>
+					<label class='form-label' for='new_theme_title'>Please give your theme a title</label>
+					<input class='form-control' type='text' id='new_theme_title' name='new_theme_title' placeholder='Theme title'>
+				</div>
+				<div class='mb-3'>
+					<label class='form-label' for='wallpaper_file_url'>URL to the wallpaper file</label>
+					<input class='form-control' type='url' id='wallpaper_file_url' name='wallpaper_file_url' placeholder='Wallpaper file url'>
+				</div>
+				<div class='mb-3'>
+					<label class='form-label' for='new_theme_bg_color_hex'>Background color hex code</label>
+					<input class='form-control' type='text' id='new_theme_bg_color_hex' name='new_theme_bg_color_hex' placeholder='Color hex code'>
+				</div>
+				<div class='mb-3'>
+					<label class='form-label' for='new_theme_hometext_color_hex'>Hometext color hex code</label>
+					<input class='form-control' type='text' id='new_theme_hometext_color_hex' name='new_theme_hometext_color_hex' placeholder='Hometext hex code'>
+				</div>
+				<div class='mb-3'>
+					<label for='new_theme_wallpaper_display' class='form-label'>
+					<select id='new_theme_wallpaper_display' name='new_theme_wallpaper_display' class='form-select'>
+						<option value='cover'>Cover</option>
+						<option value='center-contain'>Centralized and contained</option>
+						<option value='center-contain-tile'>Centralized, contained and tiled</option>
+						<option value='tile'>Tiled</option>
+						<option value='stretch'>Stretched</option>
+						<option value='center-no-strech'>Centralized and not stretched</option>
+					</select>
+				</div>
+				<div class='mb-3'>
+					<label for='new_theme_hometext_font' class='form-label'>
+					<select id='new_theme_hometext_font' name='new_theme_hometext_font' class='form-select'>
+						<option value='lato'>Lato</option>
+						<option value='osc'>Open Sans Condensed</option>
+						<option value='vollkorn'>Vollkorn</option>
+						<option value='playfair'>Playfair Display</option>
+						<option value='comfortaa'>Comfortaa</option>
+					</select>
+				</div>
+				<div class='mb-3'>
+					<label for='new_theme_hometext_effect' class='form-label'>
+					<select id='new_theme_hometext_effect' name='new_theme_hometext_effect' class='form-select'>
+						<option value='none'>None</option>
+						<option value='overlay'>Overlay</option>
+						<option value='color-burn'>Color-burn</option>
+						<option value='color-dodge'>Color-dodge</option>
+						<option value='difference'>Difference</option>
+					</select>
+				</div>
 			</form>
 		";
-		echo $return;
+		echo $pop_themes;
 	}
+
+		if (isset($_POST['populate_themes_modal'])) {
+			$random_selected = false;
+			$light_selected = false;
+			$dark_selected = false;
+			$landscape_selected = false;
+			$whimsical_selected = false;
+			$switch_nexus_theme = $_POST['populate_themes_modal'];
+			switch ($switch_nexus_theme) {
+				case 'random':
+					$random_selected = 'selected';
+					break;
+				case 'light':
+					$light_selected = 'selected';
+					break;
+				case 'dark':
+					$dark_selected = 'selected';
+					break;
+				case 'landscape':
+					$landscape_selected = 'selected';
+					break;
+				case 'whimsical':
+					$whimsical_selected = 'selected';
+					break;
+				default:
+					$light_selected = 'selected';
+					break;
+			}
+			$return = "
+				<form method='post'>
+					<h3>Themes</h3>
+					<label for='nexus_theme_select' class='form-label'>Take your pick of general appearance:</label>
+					<select id='nexus_theme_select' name='nexus_theme_select' class='form-select mb-3'>
+						<option value='random' $random_selected>Random color</option>
+						<option value='light' $light_selected>Light</option>
+						<option value='dark' $dark_selected>Dark</option>
+						<option value='landscape' $landscape_selected>Landscape images</option>
+						<option value='whimsical' $whimsical_selected>Whimsical</option>
+					</select>
+					<button type='submit' class='btn btn-primary'>Pick theme</button>
+				</form>
+			";
+			echo $return;
+		}
 
 	if (isset($_POST['list_nexus_folders'])) {
 		echo "
@@ -2767,9 +2831,28 @@
 				<label for='manage_icon_title_new_title' class='form-label manage_details_hide d-none'>New title:</label>
 				<input class='form-control manage_details_hide d-none' type='text' id='manage_icon_title_new_title' name='manage_icon_title_new_title'>
 			</div>
+
+		";
+
+		$populate_icons_titles .= "
+		<div class='mb-3 manage_details_hide d-none'>
+			<label for='diff_this_link_type' class='form-label'>How to display this link:</label>
+			<select id='diff_this_link_type' name='diff_this_link_type' class='form-select mb-3'>
+				<option disabled selected>Link mode</option>
+				<option value='folder_slim'>Folder: as used for folders</option>
+				<option value='link_large'>Large: 3x-sized icon and centralized title</option>
+				<option value='link_normal'>Default: text-sized icon</option> 
+				<option value='link_compact'>Compact: default with less empty space</option>
+				<!--<option value='medium'>Medium</option>-->
+				<!--<option value='small'>Small</option>-->
+				<!--<option value='navbar'>Navbar: as used for navbar icons, symbol only, no title</option>-->
+			</select>
+		</div>
+		
 			<button type='submit' class='btn btn-primary manage_details_hide d-none'>Update</button>
 			</form>
 		";
+		$populate_icons_titles .= "</form>";
 		echo $populate_icons_titles;
 	}
 
@@ -2791,6 +2874,9 @@
 		}
 		if (!isset($_POST['manage_icon_title_new_title'])) {
 			$_POST['manage_icon_title_new_title'] = false;
+		}
+		if (!isset($_POST['diff_this_link_type'])) {
+			$_POST['diff_this_link_type'] = false;
 		}
 
 		if (($_POST['manage_icon_title_choice'] == 'folder') && ($_POST['manage_icon_title_folder_id'] != false)) {
@@ -2818,6 +2904,10 @@
 			if ($_POST['manage_icon_title_new_title'] != false) {
 				nexus_handle(array('id' => $_POST['manage_icon_title_link_id'], 'title' => $_POST['manage_icon_title_new_title']));
 				$query = prepare_query("UPDATE nexus_elements SET param2 = '{$_POST['manage_icon_title_new_title']}' WHERE user_id = {$_SESSION['user_id']} AND param_int_2 = {$_POST['manage_icon_title_link_id']}");
+				$conn->query($query);
+			}
+			if ($_POST['diff_this_link_type'] != false) {
+				$query = prepare_query("UPDATE nexus_elements SET param5 = '{$_POST['diff_this_link_type']}' WHERE user_id = {$_SESSION['user_id']} AND param_int_2 = {$_POST['manage_icon_title_link_id']} AND state = 1");
 				$conn->query($query);
 			}
 		}
@@ -2857,46 +2947,5 @@
 		unset($_SESSION['nexus_links']);
 	}
 
-	if (isset($_POST['populate_differentiate_links'])) {
-		$diff_result = false;
-		$diff_result .= "<form method='post'>";
-		$diff_result .= "<form method='post'>
-			<div class='mb-3'>
-				<label for='diff_this_link_id' class='form-label'>Select link to differentiate:</label>
-				<select id='diff_this_link_id' name='diff_this_link_id' class='form-select mb-3'>
-					<option disabled selected>Link to differentiate</option>";
-		foreach ($_SESSION['nexus_alphabet'] as $title => $id) {
-			$diff_result .= "<option value='$id'>$title</option>";
-		}
-		$diff_result .= "
-				</select>
-			</div>
-			<div class='mb-3'>
-				<label for='diff_this_link_type' class='form-label'>How to display this link:</label>
-				<select id='diff_this_link_type' name='diff_this_link_type' class='form-select mb-3'>
-					<option disabled selected>Link mode</option>
-					<option value='folder_slim'>Folder: as used for folders</option>
-					<option value='link_large'>Large: 3x-sized icon and centralized title</option>
-					<option value='link_normal'>Default: text-sized icon</option> 
-					<option value='link_compact'>Compact: default with less empty space</option>
-					<!--<option value='medium'>Medium</option>-->
-					<!--<option value='small'>Small</option>-->
-					<!--<option value='navbar'>Navbar: as used for navbar icons, symbol only, no title</option>-->
-				</select>
-			</div>
-			<button class='btn btn-primary' type='submit'>Update link</button>
-			";
-		$diff_result .= "</form>";
-		echo $diff_result;
-	}
-
-	if (isset($_POST['diff_this_link_id'])) {
-		if (!isset($_POST['diff_this_link_type'])) {
-			$_POST['diff_this_link_type'] = 'link_normal';
-		}
-		$query = prepare_query("UPDATE nexus_elements SET param5 = '{$_POST['diff_this_link_type']}' WHERE user_id = {$_SESSION['user_id']} AND param_int_2 = {$_POST['diff_this_link_id']} AND state = 1");
-		$conn->query($query);
-		unset($_SESSION['nexus_links']);
-	}
 
 ?>

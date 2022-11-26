@@ -3758,7 +3758,7 @@
 				}
 				return "
 					<div class='col-2 p-2 {$params['class']}'>
-						<span id='trigger_{$params['id']}' class='row p-2 rounded d-flex justify-content-center pointer' $nexus_artefato_modal_module href='$href' title='{$params['title']}'>
+						<a id='trigger_{$params['id']}' class='row p-2 rounded d-flex justify-content-center pointer' $nexus_artefato_modal_module href='$href' $target_blank title='{$params['title']}'>
 							<span class='p-3 rounded {$colors['bg-black-color']}'>
 							<div class='row d-flex mb-2'>
 								<span class='col-12 d-flex justify-content-center'>
@@ -3771,14 +3771,14 @@
 								</small>
 							</div>
 							</span>
-						</span>
+						</a>
 					</div>
 				";
 				break;
 			case 'folder_fat':
 				return "
 					<div class='col-lg-3 col-md-4 mb-1 pe-3 {$params['class']}'>
-						<span id='trigger_{$params['id']}' class='row rounded d-flex justify-content-center pointer' $nexus_artefato_modal_module href='$href' title='{$params['title']}'>
+						<a id='trigger_{$params['id']}' class='row rounded d-flex justify-content-center pointer' $nexus_artefato_modal_module href='$href' $target_blank title='{$params['title']}'>
 							<div class='row rounded p-2 {$colors['bg-black-color']}'>
 								<div class='col-3 d-flex justify-content-center p-2'>
 									<i class='fa-solid $icon fa-3x fa-fw'></i>
@@ -3789,7 +3789,7 @@
 									</span>
 								</div>
 							</div>
-						</span>
+						</a>
 					</div>
 				";
 				break;
@@ -3797,7 +3797,7 @@
 			case 'folder':
 				return "
 					<div class='col-lg-3 col-md-4 mb-1 pe-3 {$params['class']}'>
-						<span id='trigger_{$params['id']}' class='row rounded d-flex justify-content-center pointer' $nexus_artefato_modal_module href='$href' title='{$params['title']}'>
+						<a id='trigger_{$params['id']}' class='row rounded d-flex justify-content-center pointer' $nexus_artefato_modal_module href='$href' $target_blank title='{$params['title']}'>
 							<div class='row rounded p-1 {$colors['bg-black-color-border']}'>
 								<div class='col-3 d-flex justify-content-center p-1'>
 									<i class='fa-solid $icon fa-2xl fa-fw'></i>
@@ -3808,17 +3808,17 @@
 									</span>
 								</div>
 							</div>
-						</span>
+						</a>
 					</div>
 				";
 				break;
 			case 'navbar':
-				return "<a class='nexus-navbar-button {$colors['bg-black-color']} {$params['class']}' href='$href' id='{$params['id']}' title='{$params['title']}' $nexus_artefato_modal_module><i class='fa-solid $icon fa-fw'></i></a>";
+				return "<a class='nexus-navbar-button {$colors['bg-black-color']} {$params['class']}' href='$href' $target_blank id='{$params['id']}' title='{$params['title']}' $nexus_artefato_modal_module><i class='fa-solid $icon fa-fw'></i></a>";
 				break;
 			case 'link_large':
 				return "
 					<div class='col-auto mb-1 pe-3 {$params['class']}'>
-						<span id='trigger_{$params['id']}' class='row rounded d-flex justify-content-center pointer' $nexus_artefato_modal_module href='$href' title='{$params['title']}'>
+						<a id='trigger_{$params['id']}' class='row rounded d-flex justify-content-center pointer' $nexus_artefato_modal_module href='$href' $target_blank title='{$params['title']}'>
 							<div class='row rounded p-2 {$colors['bg-black-color']}'>
 								<div class='col-2 d-flex justify-content-center p-2 px-4'>
 									<i class='fa-solid $icon fa-2xl fa-fw'></i>
@@ -3829,7 +3829,7 @@
 									</span>
 								</div>
 							</div>
-						</span>
+						</a>
 					</div>
 				";
 				break;
@@ -3837,6 +3837,7 @@
 				return "<a id='link_{$params['id']}' href='$href' $target_blank class='all_link_icons rounded {$colors['bg-black-color']} py-3 px-3 me-1 mb-1 col-auto {$params['class']}' title='{$params['title']}'><small><i class='fa-solid $icon fa-lg fa-fw me-2'></i><span class='{$colors['title-color']}'>{$params['title']}</span></small></a>";
 				break;
 			case 'link_compact':
+			default:
 				return "<a id='link_{$params['id']}' href='$href' $target_blank class='all_link_icons rounded {$colors['bg-black-color']} py-2 px-2 me-1 mb-1 col-auto {$params['class']}' title='{$params['title']}'><small><i class='fa-solid $icon fa-fw fa-2xs mx-1'></i> <span class='{$colors['title-color']}'>{$params['title']}</span></small></a>";
 				break;
 		}
@@ -3931,11 +3932,11 @@
 				//This one will be used to populate windows as the user clicks on icons
 				$nexus_folders[$nexus_link_folder_id][$nexus_link_id] = array('url' => $nexus_link_url, 'title' => $nexus_link_title, 'icon' => $nexus_link_icon, 'color' => $nexus_link_color, 'diff' => $nexus_link_diff);
 				$nexus_alphabet[$nexus_link_title] = $nexus_link_id;
-				$nexus_codes[$nexus_link_code] = array('title'=>$nexus_link_title, 'url'=> $nexus_link_url, 'id'=>$nexus_link_id);
+				$nexus_codes[$nexus_link_code] = array('title' => $nexus_link_title, 'url' => $nexus_link_url, 'id' => $nexus_link_id);
 			}
 		}
 		uksort($nexus_alphabet, 'strcasecmp');
-		return array('nexus_links' => $nexus_links, 'nexus_folders' => $nexus_folders, 'nexus_order' => $nexus_order, 'nexus_alphabet' => $nexus_alphabet, 'nexus_codes'=>$nexus_codes);
+		return array('nexus_links' => $nexus_links, 'nexus_folders' => $nexus_folders, 'nexus_order' => $nexus_order, 'nexus_alphabet' => $nexus_alphabet, 'nexus_codes' => $nexus_codes);
 	}
 
 	function nexus_options($args)
@@ -4049,5 +4050,12 @@
 		}
 		$result = "$folders_linkdump $folders_main $folders_archival";
 		return $result;
+	}
+
+	function random_bg_color()
+	{
+		$bg_colors = array('#446CB3', '#4183D7', '#1E8BC3', '#4B77BE', '#22313F', '#34495E', '#6C7A89', '#9B294C', '#534E42', '#066DBA', '#85714F', '#1F0591', '#5B173A', '#DCB820', '#967D55', '#63AA50', '#265B52', '#7F024B', '#98AD91', '#533B7B', '#97124F', '#876138', '#2386A5', '#3F92CA', '#E1824D', '#CEBA79', '#74AAA8', '#A0D331', '#275E63', '#362043', '#EE0008', '#A26547', '#3B4571', '#e32934', '#056B4D', '#4C685C', '#0F5731', '#6D3E01', '#7F5F76', '#02C7A1', '#3D68AF', '#396B02', '#427D3C', '#7B9889', '#6459DA', '#C51620', '#D6665B', '#B4C427', '#79585B', '#A5D94C', '#64ABC0', '#628CB6', '#693ADC', '#455EC3', '#ED940C', '#8BA810', '#C0B4B9', '#AF6816', '#A4212B', '#806757', '#369A7D', '#708D26', '#6D0606', '#A24C07', '#72829D', '#2B8B90', '#40A0A0', '#446636', '#605E9D', '#994A34', '#FD6B30', '#838A77', '#B92C37', '#CC2811', '#DEE06A', '#96BD8D', '#B1857F', '#C32119', '#BA2E2E', '#A2B369', '#631FD6', '#4BA973', '#153250', '#5B6181', '#BADA55', '#0287AF', '#C82436', '#46368A', '#822836', '#F2C845', '#AB555A', '#D15023', '#191919', '#EC2C31', '#471918', '#EE4A3A', '#50C024', '#8F9A8A', '#779D78', '#69A79A', '#043559', '#4D5F7B', '#1C6977', '#504440', '#5A9455');
+		$chosen = array_rand($bg_colors);
+		return $bg_colors[$chosen];
 	}
 

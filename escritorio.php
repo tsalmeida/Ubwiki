@@ -663,7 +663,9 @@
                 <label for='adicionar_credito_codigo' class='form-label'>{$pagina_translated['adicionar credito codigo']}</label>
                 <input type='text' class='form-control' id='adicionar_credito_codigo' name='adicionar_credito_codigo'>
                 <div class='row d-flex justify-content-center'>
-                <button class='btn btn-primary'>{$pagina_translated['send']}</button>
+                    <div class='col-12 d-flex justify-content-center'>
+                        <button class='btn btn-primary mt-3 px-5'>{$pagina_translated['send']}</button>
+                    </div>
                 </div>
             </div>
         </form>
