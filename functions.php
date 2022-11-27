@@ -3724,10 +3724,10 @@
 		$href = false;
 
 		if (!isset($params['targetblank'])) {
-			$params['targetblank'] = false;
+			$params['targetblank'] = true;
 		}
-
 		$target_blank = "target='_blank'";
+
 		if ($params['targetblank'] == false) {
 			$target_blank = false;
 		}

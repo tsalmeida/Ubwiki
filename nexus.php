@@ -524,7 +524,7 @@
 			//			include 'templates/modal.php';
 
 			$template_modal_div_id = 'modal_leave_options';
-			$template_modal_titulo = 'Leave...';
+			$template_modal_titulo = 'Go...';
 			$template_modal_body_conteudo = false;
 			$template_modal_body_conteudo .= "<div class='row justify-content-center d-flex'>";
 			if ($user_id != false) {
