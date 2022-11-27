@@ -3506,6 +3506,9 @@
 
 	function return_nexus_info_user_id($user_id)
 	{
+		if ($user_id == false) {
+			return array(false, false, false, 'Nexus', false);
+		}
 		include 'templates/criar_conn.php';
 		$query = prepare_query("SELECT * FROM nexus WHERE user_id = $user_id");
 		$nexus_info = $conn->query($query);
@@ -3720,9 +3723,17 @@
 	{
 		$href = false;
 
+		if (!isset($params['targetblank'])) {
+			$params['targetblank'] = false;
+		}
+
+		$target_blank = "target='_blank'";
+		if ($params['targetblank'] == false) {
+			$target_blank = false;
+		}
+
 		if (isset($params['href'])) {
 			$href = $params['href'];
-			$target_blank = "target='_blank'";
 		}
 		if ($href == false) {
 			$href = 'javascript:void(0);';
@@ -3757,7 +3768,7 @@
 					$params['fa-size'] = 'fa-4x';
 				}
 				return "
-					<div class='col-2 p-2 {$params['class']}'>
+					<div class='col-3 p-2 {$params['class']}'>
 						<a id='trigger_{$params['id']}' class='row p-2 rounded d-flex justify-content-center pointer' $nexus_artefato_modal_module href='$href' $target_blank title='{$params['title']}'>
 							<span class='p-3 rounded {$colors['bg-black-color']}'>
 							<div class='row d-flex mb-2'>
@@ -3885,6 +3896,8 @@
 				$nexus_folder_id = $nexus_folder_info['id'];
 				$nexus_folders[$nexus_folder_id]['info'] = array('title' => $nexus_folder_info['title'], 'icon' => $nexus_folder_info['icon'], 'color' => $nexus_folder_info['color'], 'type' => $nexus_folder_info['type'], 'id' => $nexus_folder_info['id'], 'order' => $folder_count);
 			}
+		} else {
+			$nexus_folders[false]['info'] = array('title'=>false, 'icon'=>false, 'color'=>false, 'type'=>false, 'id'=>false, 'order'=>false);
 		}
 		$nexus_folders['linkdump']['info'] = array('title' => 'Link Dump', 'icon' => 'triangle', 'color' => 'red', 'type' => 'linkdump', 'id' => false);
 		$query = prepare_query("SELECT param_int_1, param_int_2, param1, param2, param3, param4, param5 FROM nexus_elements WHERE pagina_id = $nexus_pagina_id AND state = 1 AND type = 'link'");
@@ -4054,8 +4067,18 @@
 
 	function random_bg_color()
 	{
-		$bg_colors = array('#446CB3', '#4183D7', '#1E8BC3', '#4B77BE', '#22313F', '#34495E', '#6C7A89', '#9B294C', '#534E42', '#066DBA', '#85714F', '#1F0591', '#5B173A', '#DCB820', '#967D55', '#63AA50', '#265B52', '#7F024B', '#98AD91', '#533B7B', '#97124F', '#876138', '#2386A5', '#3F92CA', '#E1824D', '#CEBA79', '#74AAA8', '#A0D331', '#275E63', '#362043', '#EE0008', '#A26547', '#3B4571', '#e32934', '#056B4D', '#4C685C', '#0F5731', '#6D3E01', '#7F5F76', '#02C7A1', '#3D68AF', '#396B02', '#427D3C', '#7B9889', '#6459DA', '#C51620', '#D6665B', '#B4C427', '#79585B', '#A5D94C', '#64ABC0', '#628CB6', '#693ADC', '#455EC3', '#ED940C', '#8BA810', '#C0B4B9', '#AF6816', '#A4212B', '#806757', '#369A7D', '#708D26', '#6D0606', '#A24C07', '#72829D', '#2B8B90', '#40A0A0', '#446636', '#605E9D', '#994A34', '#FD6B30', '#838A77', '#B92C37', '#CC2811', '#DEE06A', '#96BD8D', '#B1857F', '#C32119', '#BA2E2E', '#A2B369', '#631FD6', '#4BA973', '#153250', '#5B6181', '#BADA55', '#0287AF', '#C82436', '#46368A', '#822836', '#F2C845', '#AB555A', '#D15023', '#191919', '#EC2C31', '#471918', '#EE4A3A', '#50C024', '#8F9A8A', '#779D78', '#69A79A', '#043559', '#4D5F7B', '#1C6977', '#504440', '#5A9455');
+//		$bg_colors = array('#446CB3', '#4183D7', '#1E8BC3', '#4B77BE', '#22313F', '#34495E', '#6C7A89', '#9B294C', '#534E42', '#066DBA', '#85714F', '#1F0591', '#5B173A', '#DCB820', '#967D55', '#63AA50', '#265B52', '#7F024B', '#98AD91', '#533B7B', '#97124F', '#876138', '#2386A5', '#3F92CA', '#E1824D', '#CEBA79', '#74AAA8', '#A0D331', '#275E63', '#362043', '#EE0008', '#A26547', '#3B4571', '#e32934', '#056B4D', '#4C685C', '#0F5731', '#6D3E01', '#7F5F76', '#02C7A1', '#3D68AF', '#396B02', '#427D3C', '#7B9889', '#6459DA', '#C51620', '#D6665B', '#B4C427', '#79585B', '#A5D94C', '#64ABC0', '#628CB6', '#693ADC', '#455EC3', '#ED940C', '#8BA810', '#C0B4B9', '#AF6816', '#A4212B', '#806757', '#369A7D', '#708D26', '#6D0606', '#A24C07', '#72829D', '#2B8B90', '#40A0A0', '#446636', '#605E9D', '#994A34', '#FD6B30', '#838A77', '#B92C37', '#CC2811', '#DEE06A', '#96BD8D', '#B1857F', '#C32119', '#BA2E2E', '#A2B369', '#631FD6', '#4BA973', '#153250', '#5B6181', '#BADA55', '#0287AF', '#C82436', '#46368A', '#822836', '#F2C845', '#AB555A', '#D15023', '#191919', '#EC2C31', '#471918', '#EE4A3A', '#50C024', '#8F9A8A', '#779D78', '#69A79A', '#043559', '#4D5F7B', '#1C6977', '#504440', '#5A9455');
+		$bg_colors = array(
+			'blue'=>array('#4871f7', '#bedce3'),
+			'brown'=>array('#e3ba8f', '#f4ede4'),
+			'green'=>array('#b7f4d8', '#90c695'),
+			'gray'=>array('#bfbfbf', '#bdc3c7'),
+			'magenta'=>array('#d2c2d1', '#947cb0'),
+			'orange'=>array('#fbc093', '#fde3a7'),
+			'red'=>array('#c44d56', '#ff9478'),
+			'yellow'=>array('#ffec8b', '#ffff7e')
+		);
 		$chosen = array_rand($bg_colors);
-		return $bg_colors[$chosen];
+		$chosen2 = array_rand($bg_colors[$chosen]);
+		return $bg_colors[$chosen][$chosen2];
 	}
-

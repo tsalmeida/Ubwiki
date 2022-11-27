@@ -2171,34 +2171,34 @@
 		echo $pop_themes;
 	}
 
-		if (isset($_POST['populate_themes_modal'])) {
-			$random_selected = false;
-			$light_selected = false;
-			$dark_selected = false;
-			$landscape_selected = false;
-			$whimsical_selected = false;
-			$switch_nexus_theme = $_POST['populate_themes_modal'];
-			switch ($switch_nexus_theme) {
-				case 'random':
-					$random_selected = 'selected';
-					break;
-				case 'light':
-					$light_selected = 'selected';
-					break;
-				case 'dark':
-					$dark_selected = 'selected';
-					break;
-				case 'landscape':
-					$landscape_selected = 'selected';
-					break;
-				case 'whimsical':
-					$whimsical_selected = 'selected';
-					break;
-				default:
-					$light_selected = 'selected';
-					break;
-			}
-			$return = "
+	if (isset($_POST['populate_themes_modal'])) {
+		$random_selected = false;
+		$light_selected = false;
+		$dark_selected = false;
+		$landscape_selected = false;
+		$whimsical_selected = false;
+		$switch_nexus_theme = $_POST['populate_themes_modal'];
+		switch ($switch_nexus_theme) {
+			case 'random':
+				$random_selected = 'selected';
+				break;
+			case 'light':
+				$light_selected = 'selected';
+				break;
+			case 'dark':
+				$dark_selected = 'selected';
+				break;
+			case 'landscape':
+				$landscape_selected = 'selected';
+				break;
+			case 'whimsical':
+				$whimsical_selected = 'selected';
+				break;
+			default:
+				$light_selected = 'selected';
+				break;
+		}
+		$return = "
 				<form method='post'>
 					<h3>Themes</h3>
 					<label for='nexus_theme_select' class='form-label'>Take your pick of general appearance:</label>
@@ -2212,8 +2212,8 @@
 					<button type='submit' class='btn btn-primary'>Pick theme</button>
 				</form>
 			";
-			echo $return;
-		}
+		echo $return;
+	}
 
 	if (isset($_POST['list_nexus_folders'])) {
 		echo "
@@ -2633,20 +2633,27 @@
 	}
 
 	if (isset($_POST['send_log'])) {
-		$user_id = $_SESSION['user_id'];
-		$query = prepare_query("SELECT timestamp, type, message FROM nexus_log WHERE user_id = $user_id");
-		$logs = $conn->query($query);
-		if ($logs->num_rows > 0) {
-			$log_list = false;
-			$log_list .= "<ul class='list-group'>";
-			while ($log = $logs->fetch_assoc()) {
-				$log_list .= "<li class='list-group-item'>{$log['timestamp']}: {$log['type']}: {$log['message']}</li>";
+		if (isset($_SESSION['user_id'])) {
+			if ($_SESSION['user_id'] != false) {
+				$query = prepare_query("SELECT timestamp, type, message FROM nexus_log WHERE user_id = {$_SESSION['user_id']}");
+				$logs = $conn->query($query);
+				if ($logs->num_rows > 0) {
+					$log_list = false;
+					$log_list .= "<ul class='list-group'>";
+					while ($log = $logs->fetch_assoc()) {
+						$log_list .= "<li class='list-group-item'>{$log['timestamp']}: {$log['type']}: {$log['message']}</li>";
+					}
+					$log_list .= "</ul>";
+				} else {
+					$log_list = "<p>No logs were found.</p>";
+				}
+				echo $log_list;
+			} else {
+				echo false;
 			}
-			$log_list .= "</ul>";
 		} else {
-			$log_list = "<p>No logs were found.</p>";
+			echo false;
 		}
-		echo $log_list;
 	}
 
 	if (isset($_POST['populate_links'])) {
@@ -2718,12 +2725,16 @@
 	}
 
 	if (isset($_POST['analyse_cmd_input'])) {
-		if ($_SESSION['nexus_options']['cmd_link_id'] == true) {
-			//Analysis starts here. First step: is it a code?
-			if (isset($_SESSION['nexus_codes'][$_POST['analyse_cmd_input']])) {
-				//If so, it's easy.
-				echo $_SESSION['nexus_codes'][$_POST['analyse_cmd_input']]['url'];
-				exit();
+		if (!isset($_SESSION['nexus_options']['cmd_link_id'])) {
+			$_SESSION['nexus_options']['cmd_link_id'] = false;
+		} else {
+			if ($_SESSION['nexus_options']['cmd_link_id'] == true) {
+				//Analysis starts here. First step: is it a code?
+				if (isset($_SESSION['nexus_codes'][$_POST['analyse_cmd_input']])) {
+					//If so, it's easy.
+					echo $_SESSION['nexus_codes'][$_POST['analyse_cmd_input']]['url'];
+					exit();
+				}
 			}
 		}
 		//Next step is to check if it's a command.
@@ -2839,7 +2850,7 @@
 			<label for='diff_this_link_type' class='form-label'>How to display this link:</label>
 			<select id='diff_this_link_type' name='diff_this_link_type' class='form-select mb-3'>
 				<option disabled selected>Link mode</option>
-				<option value='folder_slim'>Folder: as used for folders</option>
+				<!--<option value='folder_slim'>Folder: as used for folders</option>-->
 				<option value='link_large'>Large: 3x-sized icon and centralized title</option>
 				<option value='link_normal'>Default: text-sized icon</option> 
 				<option value='link_compact'>Compact: default with less empty space</option>

@@ -20,7 +20,7 @@
         </div>
         <div id='secao_login_thinkific_email' class='mb-3 collapse mb-3'>
             <label class='form-label' for='login_thinkific_email'></label>
-            <input type='email' id='login_thinkific_email' name='login_thinkific_email' class='form-control' disabled>
+            <input type='email' id='login_thinkific_email' name='login_thinkific_email' class='form-control' autocomplete='username' disabled>
         </div>
         <div id='secao_login_senha' class='mb-3 collapse mb-3'>
 	        <label class='form-label' for='login_senha'>{$pagina_translated['your_password']}</label>

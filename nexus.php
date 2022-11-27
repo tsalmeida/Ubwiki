@@ -19,6 +19,7 @@
 	$pagina_tipo = 'nexus';
 	include 'engine.php';
 
+
 	if ((!isset($_SESSION['user_nexus_pagina_id'])) || ($_SESSION['user_nexus_pagina_id'] == false)) {
 		$pagina_id = return_pagina_id($user_id, 'nexus');
 		$_SESSION['user_nexus_pagina_id'] = $pagina_id;
@@ -46,18 +47,40 @@
 		$pagina_publicacao = false;
 		$pagina_colaboracao = false;
 	} else {
-		header('Location:ubwiki.php');
-		exit();
+//		header('Location:ubwiki.php');
+//		exit();
+		$pagina_criacao = false;
+		$pagina_item_id = false;
+		$pagina_tipo = 'nexus';
+		$pagina_estado = false;
+		$pagina_compartilhamento = false;
+		$pagina_user_id = false;
+		$pagina_titulo = 'Nexus';
+		$pagina_etiqueta_id = false;
+		$pagina_subtipo = false;
+		$pagina_publicacao = false;
+		$pagina_colaboracao = false;
 	}
 
 	$nexus_theme = false;
 	$nexus_title = false;
+	$nexus_info = false;
+
+	if ($user_id == false) {
+		$carregar_modal_login = true;
+	}
 	$nexus_info = return_nexus_info_user_id($user_id);
+
 	if ($nexus_info != false) {
 		$nexus_id = $nexus_info[0];
 		$nexus_timestamp = $nexus_info[1];
 		$nexus_title = $nexus_info[3];
 		$nexus_theme = $nexus_info[4];
+	} else {
+		$nexus_id = false;
+		$nexus_timestamp = false;
+		$nexus_title = 'Nexus';
+		$nexus_theme = 'random';
 	}
 
 	if ($nexus_title == false) {
@@ -169,13 +192,27 @@
 
 //	unset($_SESSION['nexus_links']);
 
-	if (!isset($_SESSION['nexus_links'])) {
-		$nexus_all_links = rebuild_cmd_links($_SESSION['user_nexus_pagina_id']);
-		$_SESSION['nexus_links'] = $nexus_all_links['nexus_links'];
-		$_SESSION['nexus_folders'] = $nexus_all_links['nexus_folders'];
-		$_SESSION['nexus_order'] = $nexus_all_links['nexus_order'];
-		$_SESSION['nexus_alphabet'] = $nexus_all_links['nexus_alphabet'];
-		$_SESSION['nexus_codes'] = $nexus_all_links['nexus_codes'];
+	$nexus_folders_check = false;
+
+	if ((!isset($_SESSION['nexus_links'])) || (($_SESSION['nexus_links']) == array(false))) {
+		$_SESSION['nexus_links'] = array(false);
+		$_SESSION['nexus_folders'] = array(false);
+		$_SESSION['nexus_order'] = array(false);
+		$_SESSION['nexus_alphabet'] = array(false);
+		$_SESSION['nexus_codes'] = array(false);
+		if ($user_id != false) {
+			$nexus_all_links = rebuild_cmd_links($_SESSION['user_nexus_pagina_id']);
+			if ($nexus_all_links != false) {
+				$_SESSION['nexus_links'] = $nexus_all_links['nexus_links'];
+				$_SESSION['nexus_folders'] = $nexus_all_links['nexus_folders'];
+				$_SESSION['nexus_order'] = $nexus_all_links['nexus_order'];
+				$_SESSION['nexus_alphabet'] = $nexus_all_links['nexus_alphabet'];
+				$_SESSION['nexus_codes'] = $nexus_all_links['nexus_codes'];
+				$nexus_folders_check = true;
+			}
+		}
+	} else {
+		$nexus_folders_check = true;
 	}
 
 	$hidden_inputs = false;
@@ -185,27 +222,36 @@
 	$print_folders_large = false;
 	$html_bottom_folders = false;
 	$close_folders_container = false;
-
 	$folder_containers = false;
-	foreach ($_SESSION['nexus_folders'] as $folder_id => $content) {
-		if ($_SESSION['nexus_folders'][$folder_id]['info']['type'] == 'main') {
-			$nexus_folder_order_identifier++;
-			$close_folders_container = "$('#folders_container').addClass('d-none');";
-			$navbar_custom_leftside .= nexus_put_together(array('type' => 'navbar', 'id' => "trigger_folder_small_$folder_id", 'color' => $_SESSION['nexus_folders'][$folder_id]['info']['color'], 'icon' => $_SESSION['nexus_folders'][$folder_id]['info']['icon'], 'title' => $_SESSION['nexus_folders'][$folder_id]['info']['title']));
-			if ($nexus_folder_order_identifier < 10) {
-				$html_bottom_folders .= "
+
+	$close_folders_container = false;
+
+
+	if ($_SESSION['nexus_folders'] != false) {
+		foreach ($_SESSION['nexus_folders'] as $folder_id => $content) {
+			$close_folders_container = false;
+			if (!isset($_SESSION['nexus_folders'][$folder_id]['info']['type'])) {
+				continue;
+			}
+			if ($_SESSION['nexus_folders'][$folder_id]['info']['type'] == 'main') {
+				$nexus_folder_order_identifier++;
+				$close_folders_container = "$('#folders_container').addClass('d-none');";
+				$navbar_custom_leftside .= nexus_put_together(array('type' => 'navbar', 'id' => "trigger_folder_small_$folder_id", 'color' => $_SESSION['nexus_folders'][$folder_id]['info']['color'], 'icon' => $_SESSION['nexus_folders'][$folder_id]['info']['icon'], 'title' => $_SESSION['nexus_folders'][$folder_id]['info']['title']));
+				if ($nexus_folder_order_identifier < 10) {
+					$html_bottom_folders .= "
                 document.addEventListener ('keydown', function (zEvent) {
                     if (zEvent.altKey  &&  zEvent.key === '{$nexus_folder_order_identifier}') {
                         show_links_folder_{$folder_id}();
                     }
                 });
 			    ";
+				}
 			}
-		} else {
-			$close_folders_container = false;
-		}
-		$print_folders_large .= nexus_put_together(array('type' => 'folder_slim', 'id' => "folder_large_$folder_id", 'class' => "{$_SESSION['nexus_folders'][$folder_id]['info']['type']}_folder_icons d-none", 'color' => $_SESSION['nexus_folders'][$folder_id]['info']['color'], 'icon' => $_SESSION['nexus_folders'][$folder_id]['info']['icon'], 'title' => $_SESSION['nexus_folders'][$folder_id]['info']['title']));
-		$html_bottom_folders .= "
+			if ($_SESSION['nexus_folders'][$folder_id]['info']['type'] == 'linkdump') {
+				$close_folders_container = "$('#folders_container').addClass('d-none');";
+            }
+			$print_folders_large .= nexus_put_together(array('type' => 'folder_slim', 'id' => "folder_large_$folder_id", 'class' => "{$_SESSION['nexus_folders'][$folder_id]['info']['type']}_folder_icons d-none", 'color' => $_SESSION['nexus_folders'][$folder_id]['info']['color'], 'icon' => $_SESSION['nexus_folders'][$folder_id]['info']['icon'], 'title' => $_SESSION['nexus_folders'][$folder_id]['info']['title']));
+			$html_bottom_folders .= "
                 function show_links_folder_{$folder_id}() {
                     load_state = $('#nexus_body').find('#load_state_{$folder_id}').val()
                         if (load_state == 'false') {
@@ -235,11 +281,13 @@
                 $(document).on('click', '#trigger_folder_small_{$folder_id}', function () {
                     show_links_folder_{$folder_id}();
                 })";
-		$hidden_inputs .= "
+			$hidden_inputs .= "
 		    <input id='load_state_{$folder_id}' type='hidden' value='false'>
 		";
-		$folder_containers .= "<div id='links_from_folder_{$folder_id}' class='row specific_folder_links'></div>";
+			$folder_containers .= "<div id='links_from_folder_{$folder_id}' class='row specific_folder_links'></div>";
+		}
 	}
+
 
 	// links = (user_id, pagina_id, type, param_int_1:folder_id, param_int_2:link_id, param1:link_url, param2:link_title, param3:link_icon, param4:link_color)
 
@@ -247,14 +295,14 @@
 	$html_head_template_conteudo = false;
 	$html_head_template_conteudo .= "
         <script type='text/javascript'>
-          var user_id=$user_id;
+          var user_id='$user_id';
           var user_email='$user_email';
         </script>
     ";
 
 	switch ($nexus_theme) {
-        case 'random':
-            $background_color = random_bg_color();
+		case 'random':
+			$background_color = random_bg_color();
 			$wallpapers = array(false);
 			$wallpaper_repeat = false;
 			$wallpaper_size = false;
@@ -362,12 +410,17 @@
                     <div class="col-12 d-flex bg-dark p-1">
 						<?php
 							echo $navbar_custom_leftside;
-							echo nexus_put_together(array('type' => 'navbar', 'color' => 'yellow', 'class' => 'ms-auto', 'href' => false, 'icon' => 'fas fa-folder-bookmark', 'id' => 'trigger_show_main_folder_icons'));
-							echo nexus_put_together(array('type' => 'navbar', 'color' => 'purple', 'class' => false, 'href' => false, 'icon' => 'fas fa-cabinet-filing fa-swap-opacity', 'id' => 'trigger_show_archival_folder_icons'));
-							echo nexus_put_together(array('type' => 'navbar', 'color' => 'teal', 'class' => false, 'href' => false, 'icon' => 'fas fa-box-archive fa-swap-opacity', 'id' => 'trigger_show_linkdump'));
-							echo nexus_put_together(array('type' => 'navbar', 'color' => 'cyan', 'class' => false, 'href' => false, 'icon' => 'fas fa-clock-rotate-left', 'id' => 'trigger_show_recent_links'));
-							echo nexus_put_together(array('type' => 'navbar', 'color' => 'orange', 'class' => false, 'href' => false, 'icon' => 'fas fa-cog', 'id' => 'trigger_show_setup_icons'));
-							echo nexus_put_together(array('type' => 'navbar', 'color' => 'red', 'class' => false, 'href' => false, 'icon' => 'fas fa-arrow-right-from-bracket', 'id' => 'trigger_show_leave_icons', 'modal' => '#modal_leave_options'))
+							$msauto = false;
+							if ($nexus_folders_check == true) {
+								echo nexus_put_together(array('type' => 'navbar', 'color' => 'yellow', 'class' => 'ms-auto', 'href' => false, 'icon' => 'fas fa-folder-bookmark', 'id' => 'trigger_show_main_folder_icons'));
+								echo nexus_put_together(array('type' => 'navbar', 'color' => 'purple', 'class' => false, 'href' => false, 'icon' => 'fas fa-cabinet-filing fa-swap-opacity', 'id' => 'trigger_show_archival_folder_icons'));
+								echo nexus_put_together(array('type' => 'navbar', 'color' => 'teal', 'class' => 'me-3', 'href' => false, 'icon' => 'fas fa-box-archive fa-swap-opacity', 'id' => 'trigger_show_linkdump'));
+//								echo nexus_put_together(array('type' => 'navbar', 'color' => 'cyan', 'class' => false, 'href' => false, 'icon' => 'fas fa-clock-rotate-left', 'id' => 'trigger_show_recent_links'));
+							} else {
+								$msauto = 'ms-auto';
+							}
+							echo nexus_put_together(array('type' => 'navbar', 'color' => 'orange', 'class' => $msauto, 'href' => false, 'icon' => 'fas fa-cog', 'id' => 'trigger_show_setup_icons'));
+							echo nexus_put_together(array('type' => 'navbar', 'color' => 'teal', 'class' => false, 'href' => false, 'icon' => 'fad fa-circle-arrow-up-right', 'id' => 'trigger_show_leave_icons', 'modal' => '#modal_leave_options'));
 							//							echo nexus_put_together(array('type' => 'navbar', 'color' => 'blue', 'class' => false, 'href' => 'pagina.php?plano_id=bp', 'icon' => 'fas fa-books', 'id' => 'go_to_studyplan'));
 							//							echo nexus_put_together(array('type' => 'navbar', 'color' => 'green', 'class' => false, 'href' => 'escritorio.php', 'icon' => 'fas fa-lamp-desk', 'id' => 'back_to_office'));
 						?>
@@ -395,9 +448,14 @@
                 <div class="row d-flex justify-content-around mt-3">
                     <div class="col">
                         <div class="mb-3 input-group">
+                            <input type="text" id="username" style="width:0;height:0;visibility:hidden;position:absolute;left:0;top:0"/>
+                            <input type="password" style="width:0;height:0;visibility:hidden;position:absolute;left:0;top:0"/>
                             <input id="cmdbar" name="cmdbar" list="command-list" type="text" class="form-control font-monospace mx-1 cmd-bar rounded <?php echo $cmd_text; ?> bg-dark border-0" rows="1" autocomplete="off" spellcheck="false" placeholder="<?php echo $user_apelido; ?> commands…">
                             <datalist id="command-list">
 								<?php
+									if (!isset($_SESSION['nexus_options']['cmd_link_id'])) {
+										$_SESSION['nexus_options']['cmd_link_id'] = false;
+									}
 									if ($_SESSION['nexus_options']['cmd_link_id'] == false) {
 										foreach ($_SESSION['nexus_alphabet'] as $key => $value) {
 											echo "<option value='$key'>";
@@ -417,13 +475,15 @@
 				echo "<div id='settings_container' class='container d-none mt-1'><div id='settings_row' class='row'>";
 
 				//                echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_testing', 'title' => 'Manage testing', 'modal' => '#modal_manage_testing', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-circle-notch', 'color' => 'orange'));
-				echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_folders', 'title' => 'Add or remove folders', 'modal' => '#modal_manage_folders', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-folder-gear', 'color' => 'yellow'));
-				echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_links', 'title' => 'Add or remove links', 'modal' => '#modal_manage_links', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-bookmark', 'color' => 'red'));
-				echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_icons_titles', 'title' => 'Manage icons and titles', 'modal' => '#modal_manage_icons_titles', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-icons', 'color' => 'pink'));
-				echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_move_links', 'title' => 'Move links between folders', 'modal' => '#modal_manage_move_links', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-arrow-right-arrow-left', 'color' => 'teal'));
-				echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_themes', 'title' => 'Manage themes', 'modal' => '#modal_manage_themes', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-swatchbook', 'color' => 'purple'));
-				echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_options', 'title' => 'Options', 'modal' => '#modal_options', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-toggle-large-on', 'color' => 'green'));
-				echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_timeline', 'title' => 'Activity log', 'modal' => '#modal_manage_timeline', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-list-timeline', 'color' => 'cyan'));
+				if ($nexus_folders_check == true) {
+					echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_folders', 'title' => 'Add or remove folders', 'modal' => '#modal_manage_folders', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-folder-gear', 'color' => 'yellow'));
+					echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_links', 'title' => 'Add or remove links', 'modal' => '#modal_manage_links', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-bookmark', 'color' => 'red'));
+					echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_icons_titles', 'title' => 'Manage icons and titles', 'modal' => '#modal_manage_icons_titles', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-icons', 'color' => 'pink'));
+					echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_move_links', 'title' => 'Move links between folders', 'modal' => '#modal_manage_move_links', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-arrow-right-arrow-left', 'color' => 'teal'));
+					echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_themes', 'title' => 'Manage themes', 'modal' => '#modal_manage_themes', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-swatchbook', 'color' => 'purple'));
+					echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_options', 'title' => 'Options', 'modal' => '#modal_options', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-toggle-large-on', 'color' => 'green'));
+					echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_timeline', 'title' => 'Activity log', 'modal' => '#modal_manage_timeline', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-list-timeline', 'color' => 'cyan'));
+				}
 				echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_commands', 'title' => 'Commands', 'modal' => '#modal_commands', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-rectangle-terminal', 'color' => 'orange'));
 				//				echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'logout', 'title' => 'Logout', 'modal' => false, 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-person-through-window', 'color' => 'red'));
 				//					if ($user_id == 1) {
@@ -467,9 +527,17 @@
 			$template_modal_titulo = 'Leave...';
 			$template_modal_body_conteudo = false;
 			$template_modal_body_conteudo .= "<div class='row justify-content-center d-flex'>";
-			$template_modal_body_conteudo .= nexus_put_together(array('type' => 'large', 'id' => 'return_ubwiki', 'icon' => 'fad fa-lamp-desk', 'color' => 'yellow', 'title' => 'Office', 'href'=>'escritorio.php'));
-			$template_modal_body_conteudo .= nexus_put_together(array('type' => 'large', 'id' => 'return_ubwiki', 'icon' => 'fad fa-books', 'color' => 'green', 'title' => 'Study Plan', 'href'=>'pagina.php?plano_id=bp'));
-			$template_modal_body_conteudo .= nexus_put_together(array('type' => 'large', 'id' => 'logout', 'icon' => 'fad fa-person-through-window', 'color' => 'red', 'title' => 'Logout'));
+			if ($user_id != false) {
+				$template_modal_body_conteudo .= nexus_put_together(array('type' => 'large', 'id' => 'return_ubwiki', 'icon' => 'fad fa-books', 'color' => 'green', 'title' => 'Study Plan', 'href' => 'pagina.php?plano_id=bp'));
+				$template_modal_body_conteudo .= nexus_put_together(array('type' => 'large', 'id' => 'return_ubwiki', 'icon' => 'fad fa-lamp-desk', 'color' => 'yellow', 'title' => 'Office', 'href' => 'escritorio.php'));
+				$template_modal_body_conteudo .= nexus_put_together(array('type' => 'large', 'id' => 'logout', 'icon' => 'fad fa-right-from-bracket', 'color' => 'red', 'title' => 'Logout'));
+			} else {
+			    $template_modal_body_conteudo .= nexus_put_together(array('type'=>'large', 'id' => 'back_to_ubwiki', 'targetblank' => false, 'href' => 'ubwiki.php', 'icon' => 'fad fa-home', 'color' => 'blue', 'title' => 'Ubwiki'));
+				$template_modal_body_conteudo .= nexus_put_together(array('type' => 'large', 'id' => 'login', 'icon' => 'fad fa-right-to-bracket', 'color' => 'teal', 'title' => 'Login', 'href' => false, 'modal' => '#modal_login'));
+			}
+
+			//			echo nexus_put_together(array('type' => 'navbar', 'color' => 'teal', 'class' => 'ms-auto', 'href' => false, 'icon' => 'fas fa-right-to-bracket', 'id' => 'trigger_login', 'modal' => '#modal_login'));
+
 			$template_modal_body_conteudo .= "</div>";
 
 			include 'templates/modal.php';
@@ -565,6 +633,10 @@
 			$template_modal_body_conteudo .= "<p>You will be able to change the details later. For now, all you need is a name for each.</p>";
 			include 'templates/modal.php';
 
+			if ($user_id == false) {
+				include 'pagina/modal_login.php';
+			}
+
 		?>
     </div>
     </body>
@@ -577,7 +649,7 @@
             $('#settings_container').addClass('d-none');
             $('#links_container').addClass('d-none');
             $('#cmd_container').removeClass('d-none');
-            $("input:text:visible:first").focus();
+            $(document).find("#cmdbar").focus();
         }
 
         $(document).on('click', '#page_title_text', function () {
@@ -894,6 +966,7 @@
                 show_links_folder_linkdump();
             }
         });
+        $(document).find("#cmdbar").focus();
 
     </script>
 <?php

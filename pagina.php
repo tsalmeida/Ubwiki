@@ -113,13 +113,17 @@
 				$pagina_subtipo_override = 'plano';
 				$pagina_titulo_override = $pagina_translated['your collection'];
 				if (!isset($_SESSION['user_plano_id'])) {
-					$pagina_item_id_override = return_plano_id_pagina_id($user_escritorio);
-					if ($pagina_item_id_override == false) {
-						$query = prepare_query("INSERT INTO Planos (pagina_id, user_id) VALUES ($user_escritorio, $user_id)");
-						$conn->query($query);
-						$pagina_item_id_override = $conn->insert_id;
-					}
-					$_SESSION['user_plano_id'] = $pagina_item_id_override;
+					if ($user_id != false) {
+						$pagina_item_id_override = return_plano_id_pagina_id($user_escritorio);
+						if ($pagina_item_id_override == false) {
+							$query = prepare_query("INSERT INTO Planos (pagina_id, user_id) VALUES ($user_escritorio, $user_id)");
+							$conn->query($query);
+							$pagina_item_id_override = $conn->insert_id;
+						}
+						$_SESSION['user_plano_id'] = $pagina_item_id_override;
+					} else {
+					    $pagina_item_id_override = false;
+                    }
 				} else {
 					$pagina_item_id_override = $_SESSION['user_plano_id'];
 				}
