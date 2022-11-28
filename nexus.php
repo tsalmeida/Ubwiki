@@ -539,62 +539,46 @@
 			//			echo nexus_put_together(array('type' => 'navbar', 'color' => 'teal', 'class' => 'ms-auto', 'href' => false, 'icon' => 'fas fa-right-to-bracket', 'id' => 'trigger_login', 'modal' => '#modal_login'));
 
 			$template_modal_body_conteudo .= "</div>";
-
 			include 'templates/modal.php';
 
 			$template_modal_div_id = 'modal_manage_folders';
 			$template_modal_titulo = 'Add or remove folders';
-			$template_modal_body_conteudo = false;
-			$template_modal_body_conteudo .= "Loading...";
-
+			$template_modal_body_conteudo = "Loading...";
 			include 'templates/modal.php';
 
 			$template_modal_div_id = 'modal_manage_links';
 			$template_modal_titulo = 'Add or remove links';
-			$template_modal_body_conteudo = false;
 			$template_modal_body_conteudo = "Loading...";
-
 			include 'templates/modal.php';
 
 			$template_modal_div_id = 'modal_manage_icons_titles';
 			$template_modal_titulo = 'Manage icons and titles';
-			$template_modal_body_conteudo = false;
 			$template_modal_body_conteudo = "Loading...";
-
 			include 'templates/modal.php';
 
 			$template_modal_div_id = 'modal_manage_move_links';
 			$template_modal_titulo = 'Move links between folders';
-			$template_modal_body_conteudo = false;
 			$template_modal_body_conteudo = "Loading...";
-
 			include 'templates/modal.php';
 
 			$template_modal_div_id = 'modal_manage_themes';
 			$template_modal_titulo = 'Manage themes';
-			$template_modal_body_conteudo = false;
 			$template_modal_body_conteudo = "Loading...";
-
 			include 'templates/modal.php';
 
 			$template_modal_div_id = 'modal_manage_timeline';
 			$template_modal_titulo = 'Manage timeline';
-			$template_modal_body_conteudo = false;
 			$template_modal_body_conteudo = "Loading..";
-
 			include 'templates/modal.php';
 
 			$template_modal_div_id = 'modal_options';
 			$template_modal_titulo = 'Options';
-			$template_modal_body_conteudo = false;
 			$template_modal_body_conteudo = "Loading...";
-
 			include 'templates/modal.php';
 
 			$template_modal_div_id = 'modal_commands';
 			$template_modal_titulo = 'The Nexus Command Bar';
 			$modal_scrollable = true;
-			$template_modal_body_conteudo = false;
 			$template_modal_body_conteudo = "
 		    <ul class='list-group mb-3'>
 		        <li class='list-group-item active'><h5>Commands:</h5></li>
@@ -953,6 +937,20 @@
             if (details_loaded == 'false') {
                 $('#details_loaded').val(true);
                 $(document).find('.manage_details_hide').removeClass('d-none');
+            }
+        });
+
+        $(document).on('change', '#radio_pick_theme', function () {
+            if (this.checked) {
+                $(document).find('.pick_theme_details').removeClass('d-none');
+                $(document).find('.add_theme_details').addClass('d-none');
+            }
+        });
+
+        $(document).on('change', '#radio_add_theme', function () {
+            if (this.checked) {
+                $(document).find('.add_theme_details').removeClass('d-none');
+                $(document).find('.pick_theme_details').addClass('d-none');
             }
         });
 

@@ -4082,3 +4082,11 @@
 		$chosen2 = array_rand($bg_colors[$chosen]);
 		return $bg_colors[$chosen][$chosen2];
 	}
+
+	function validate_hex($hex_code) {
+		if(ctype_xdigit($hex_code) && strlen($hex_code)==6){
+			return $hex_code;
+		} else {
+			return false;
+		}
+	}

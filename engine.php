@@ -2115,28 +2115,45 @@
 	}
 	unset($_POST['scan_new_link']);
 
-	if (isset($_POST['populate_new_theme'])) {
-		$pop_themes = false;
-		$pop_themes .= "
+
+	if (isset($_POST['populate_themes_modal'])) {
+		$themes_return = false;
+		$themes_return .= "
+			<div class='form-check form-check-inline mb-3'>
+				<input class='form-check-input' type='radio' name='theme_form_options' id='radio_pick_theme' value='pick' checked>
+				<label class='form-check-label' for='radio_pick_theme'>Pick themes</label>
+			</div>
+			<div class='form-check form-check-inline mb-3'>
+				<input class='form-check-input' type='radio' name='theme_form_options' id='radio_add_theme' value='add'>
+				<label class='form-check-label' for='radio_add_theme'>Add theme</label>
+			</div>
+			<div class='form-check form-check-inline mb-3'>
+				<input class='form-check-input' type='radio' name='theme_form_options' id='radio_del_theme' value='add'>
+				<label class='form-check-label' for='radio_del_theme'>Delete theme</label>
+			</div>
+		";
+
+		$themes_return .= "
 			<form method='post'>
-				<div class='mb-3'>
+				<h3 class='add_theme_details d-none'>Add theme</h3>
+				<div class='mb-3 add_theme_details d-none'>
 					<label class='form-label' for='new_theme_title'>Please give your theme a title</label>
 					<input class='form-control' type='text' id='new_theme_title' name='new_theme_title' placeholder='Theme title'>
 				</div>
-				<div class='mb-3'>
+				<div class='mb-3 add_theme_details d-none'>
 					<label class='form-label' for='wallpaper_file_url'>URL to the wallpaper file</label>
 					<input class='form-control' type='url' id='wallpaper_file_url' name='wallpaper_file_url' placeholder='Wallpaper file url'>
 				</div>
-				<div class='mb-3'>
+				<div class='mb-3 add_theme_details d-none'>
 					<label class='form-label' for='new_theme_bg_color_hex'>Background color hex code</label>
 					<input class='form-control' type='text' id='new_theme_bg_color_hex' name='new_theme_bg_color_hex' placeholder='Color hex code'>
 				</div>
-				<div class='mb-3'>
+				<div class='mb-3 add_theme_details d-none'>
 					<label class='form-label' for='new_theme_hometext_color_hex'>Hometext color hex code</label>
 					<input class='form-control' type='text' id='new_theme_hometext_color_hex' name='new_theme_hometext_color_hex' placeholder='Hometext hex code'>
 				</div>
-				<div class='mb-3'>
-					<label for='new_theme_wallpaper_display' class='form-label'>
+				<div class='mb-3 add_theme_details d-none'>
+					<label for='new_theme_wallpaper_display' class='form-label'>How to set the wallpaper</label>
 					<select id='new_theme_wallpaper_display' name='new_theme_wallpaper_display' class='form-select'>
 						<option value='cover'>Cover</option>
 						<option value='center-contain'>Centralized and contained</option>
@@ -2146,8 +2163,8 @@
 						<option value='center-no-strech'>Centralized and not stretched</option>
 					</select>
 				</div>
-				<div class='mb-3'>
-					<label for='new_theme_hometext_font' class='form-label'>
+				<div class='mb-3 add_theme_details d-none'>
+					<label for='new_theme_hometext_font' class='form-label'>Hometext font</label>
 					<select id='new_theme_hometext_font' name='new_theme_hometext_font' class='form-select'>
 						<option value='lato'>Lato</option>
 						<option value='osc'>Open Sans Condensed</option>
@@ -2156,8 +2173,8 @@
 						<option value='comfortaa'>Comfortaa</option>
 					</select>
 				</div>
-				<div class='mb-3'>
-					<label for='new_theme_hometext_effect' class='form-label'>
+				<div class='mb-3 add_theme_details d-none'>
+					<label for='new_theme_hometext_effect' class='form-label'>Hometext effect</label>
 					<select id='new_theme_hometext_effect' name='new_theme_hometext_effect' class='form-select'>
 						<option value='none'>None</option>
 						<option value='overlay'>Overlay</option>
@@ -2166,53 +2183,100 @@
 						<option value='difference'>Difference</option>
 					</select>
 				</div>
+				<button type='submit' class='btn btn-primary add_theme_details d-none'>Save new theme</button>
 			</form>
 		";
-		echo $pop_themes;
-	}
 
-	if (isset($_POST['populate_themes_modal'])) {
-		$random_selected = false;
-		$light_selected = false;
-		$dark_selected = false;
-		$landscape_selected = false;
-		$whimsical_selected = false;
-		$switch_nexus_theme = $_POST['populate_themes_modal'];
-		switch ($switch_nexus_theme) {
-			case 'random':
-				$random_selected = 'selected';
-				break;
-			case 'light':
-				$light_selected = 'selected';
-				break;
-			case 'dark':
-				$dark_selected = 'selected';
-				break;
-			case 'landscape':
-				$landscape_selected = 'selected';
-				break;
-			case 'whimsical':
-				$whimsical_selected = 'selected';
-				break;
-			default:
-				$light_selected = 'selected';
-				break;
+		$available_themes = array(
+			'random' => array(
+				'title' => 'Random background color',
+			),
+			'light' => array(
+				'title' => 'Light tiles',
+			),
+			'dark' => array(
+				'title' => 'Dark tiles',
+			),
+			'landscape' => array(
+				'title' => 'Various landscape images',
+			),
+			'whimsical' => array(
+				'title' => 'Silly, whimsical tiles',
+			)
+		);
+		$current_nexus_theme = $_POST['populate_themes_modal'];
+		$nexus_theme_options = false;
+		foreach ($available_themes as $key => $array) {
+			$selected = false;
+			if ($available_themes[$key]['title'] == $current_nexus_theme) {
+				$selected = 'selected';
+			}
+			$nexus_theme_options .= "<option value='$key'>{$available_themes[$key]['title']}</option>";
 		}
-		$return = "
+
+		$query = prepare_query("SELECT param_int_1 from nexus_elements WHERE (user_id = {$_SESSION['user_id']} AND pagina_id = {$_SESSION['user_nexus_pagina_id']} AND type = 'theme' AND state = 1)");
+		$user_themes = $conn->query($query);
+		$user_theme_results = array();
+		if ($user_themes->num_rows > 0) {
+			while ($user_theme = $user_themes->fetch_assoc()) {
+				$user_theme_id = $user_theme['param_int_1'];
+				array_push($user_theme_results, $user_theme_id);
+			}
+		}
+		foreach ($user_theme_results as $id) {
+			$query = prepare_query("SELECT * FROM nexus_themes WHERE id = $id");
+			$user_themes_found = $conn->query($query);
+			if ($user_themes_found->num_rows > 0) {
+				while ($user_theme_found = $user_themes_found->fetch_assoc()) {
+					$user_theme_found_id = $id;
+					$user_theme_found_title = $user_theme_found['title'];
+					$nexus_theme_options .= "<option value='$user_theme_found_id'>$user_theme_found_title</option>";
+				}
+			}
+		}
+
+		$themes_return .= "
 				<form method='post'>
-					<h3>Themes</h3>
-					<label for='nexus_theme_select' class='form-label'>Take your pick of general appearance:</label>
-					<select id='nexus_theme_select' name='nexus_theme_select' class='form-select mb-3'>
-						<option value='random' $random_selected>Random color</option>
-						<option value='light' $light_selected>Light</option>
-						<option value='dark' $dark_selected>Dark</option>
-						<option value='landscape' $landscape_selected>Landscape images</option>
-						<option value='whimsical' $whimsical_selected>Whimsical</option>
+					<h3 class='pick_theme_details'>Pick themes</h3>
+					<label for='nexus_theme_select' class='form-label pick_theme_details'>Take your pick of general appearance:</label>
+					<select id='nexus_theme_select' name='nexus_theme_select' class='form-select mb-3 pick_theme_details'>
+						$nexus_theme_options
 					</select>
-					<button type='submit' class='btn btn-primary'>Pick theme</button>
+					<button type='submit' class='btn btn-primary pick_theme_details'>Pick theme</button>
 				</form>
 			";
-		echo $return;
+		echo $themes_return;
+	}
+
+	if (isset($_POST['new_theme_title'])) {
+		if ($_POST['new_theme_title'] == false) {
+			exit();
+		}
+		if (!isset($_POST['wallpaper_file_url'])) {
+			$_POST['wallpaper_file_url'] = false;
+		}
+		if (!isset($_POST['new_theme_bg_color_hex'])) {
+			$_POST['new_theme_bg_color_hex'] = false;
+		}
+		$new_theme_bg_color_hex = validate_hex($_POST['new_theme_bg_color_hex']);
+		if (!isset($_POST['new_theme_hometext_color_hex'])) {
+			$_POST['new_theme_hometext_color_hex'] = false;
+		}
+		$new_theme_hometext_color_hex = validate_hex($_POST['new_theme_hometext_color_hex']);
+		if (!isset($_POST['new_theme_wallpaper_display'])) {
+			$_POST['new_theme_wallpaper_display'] = false;
+		}
+		if (!isset($_POST['new_theme_hometext_font'])) {
+			$_POST['new_theme_hometext_font'] = false;
+		}
+		if (!isset($_POST['new_theme_hometext_effect'])) {
+			$_POST['new_theme_hometext_effect'] = false;
+		}
+		$query = prepare_query("INSERT INTO nexus_themes (user_id, title, url, bghex, homehex, wallpaper, homefont, homeeffect) VALUES ({$_SESSION['user_id']}, '{$_POST['new_theme_title']}', '{$_POST['wallpaper_file_url']}', '$new_theme_bg_color_hex', '$new_theme_hometext_color_hex', '{$_POST['new_theme_wallpaper_display']}', '{$_POST['new_theme_hometext_font']}', '{$_POST['new_theme_hometext_effect']}')");
+		$conn->query($query);
+		$new_theme_id = $conn->insert_id;
+		$query = prepare_query("INSERT INTO nexus_elements (user_id, pagina_id, type, param_int_1) VALUES ({$_SESSION['user_id']}, {$_SESSION['user_nexus_pagina_id']}, 'theme', $new_theme_id)");
+		$conn->query($query);
 	}
 
 	if (isset($_POST['list_nexus_folders'])) {
