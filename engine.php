@@ -2149,8 +2149,21 @@
 					<input class='form-control' type='text' id='new_theme_bg_color_hex' name='new_theme_bg_color_hex' placeholder='Color hex code'>
 				</div>
 				<div class='mb-3 add_theme_details d-none'>
-					<label class='form-label' for='new_theme_hometext_color_hex'>Hometext color hex code</label>
-					<input class='form-control' type='text' id='new_theme_hometext_color_hex' name='new_theme_hometext_color_hex' placeholder='Hometext hex code'>
+					<label for='new_theme_hometext_color' class='form-label'>Hometext color</label>
+					<select id='new_theme_hometext_color' name='new_theme_hometext_color' class='form-select'>
+						<option value='white'>White</option>
+						<option value='black'>Black</option>
+						<option value='blue'>Blue</option>
+						<option value='indigo'>Indigo</option>
+						<option value='purple'>Purple</option>
+						<option value='pink'>Pink</option>
+						<option value='red'>Red</option>
+						<option value='orange'>Orange</option>
+						<option value='yellow'>Yellow</option>
+						<option value='green'>Green</option>
+						<option value='teal'>Teal</option>
+						<option value='cyan'>Cyan</option>
+					</select>
 				</div>
 				<div class='mb-3 add_theme_details d-none'>
 					<label for='new_theme_wallpaper_display' class='form-label'>How to set the wallpaper</label>
@@ -2176,7 +2189,7 @@
 				<div class='mb-3 add_theme_details d-none'>
 					<label for='new_theme_hometext_effect' class='form-label'>Hometext effect</label>
 					<select id='new_theme_hometext_effect' name='new_theme_hometext_effect' class='form-select'>
-						<option value='none'>None</option>
+						<option value='unset'>None</option>
 						<option value='overlay'>Overlay</option>
 						<option value='color-burn'>Color-burn</option>
 						<option value='color-dodge'>Color-dodge</option>
@@ -2187,7 +2200,7 @@
 			</form>
 		";
 
-		$query = prepare_query("SELECT param_int_1 FROM nexus_elements WHERE pagina_id = {$_SESSION['user_nexus_pagina_id']} AND state = 1 AND type = 'theme'", 'log');
+		$query = prepare_query("SELECT param_int_1 FROM nexus_elements WHERE pagina_id = {$_SESSION['user_nexus_pagina_id']} AND state = 1 AND type = 'theme'");
 		$active_themes = $conn->query($query);
 		$nexus_del_theme_options = false;
 		if ($active_themes->num_rows > 0) {
@@ -2280,10 +2293,9 @@
 			$_POST['new_theme_bg_color_hex'] = false;
 		}
 		$new_theme_bg_color_hex = validate_hex($_POST['new_theme_bg_color_hex']);
-		if (!isset($_POST['new_theme_hometext_color_hex'])) {
-			$_POST['new_theme_hometext_color_hex'] = false;
+		if (!isset($_POST['new_theme_hometext_color'])) {
+			$_POST['new_theme_hometext_color'] = false;
 		}
-		$new_theme_hometext_color_hex = validate_hex($_POST['new_theme_hometext_color_hex']);
 		if (!isset($_POST['new_theme_wallpaper_display'])) {
 			$_POST['new_theme_wallpaper_display'] = false;
 		}
@@ -2293,7 +2305,7 @@
 		if (!isset($_POST['new_theme_hometext_effect'])) {
 			$_POST['new_theme_hometext_effect'] = false;
 		}
-		$query = prepare_query("INSERT INTO nexus_themes (user_id, title, url, bghex, homehex, wallpaper, homefont, homeeffect) VALUES ({$_SESSION['user_id']}, '{$_POST['new_theme_title']}', '{$_POST['wallpaper_file_url']}', '$new_theme_bg_color_hex', '$new_theme_hometext_color_hex', '{$_POST['new_theme_wallpaper_display']}', '{$_POST['new_theme_hometext_font']}', '{$_POST['new_theme_hometext_effect']}')");
+		$query = prepare_query("INSERT INTO nexus_themes (user_id, title, url, bghex, homehex, wallpaper, homefont, homeeffect) VALUES ({$_SESSION['user_id']}, '{$_POST['new_theme_title']}', '{$_POST['wallpaper_file_url']}', '$new_theme_bg_color_hex', '{$_POST['new_theme_hometext_color']}', '{$_POST['new_theme_wallpaper_display']}', '{$_POST['new_theme_hometext_font']}', '{$_POST['new_theme_hometext_effect']}')");
 		$conn->query($query);
 		$new_theme_id = $conn->insert_id;
 		$query = prepare_query("INSERT INTO nexus_elements (user_id, pagina_id, type, param_int_1) VALUES ({$_SESSION['user_id']}, {$_SESSION['user_nexus_pagina_id']}, 'theme', $new_theme_id)");
