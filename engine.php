@@ -2187,6 +2187,27 @@
 			</form>
 		";
 
+		$query = prepare_query("SELECT param_int_1 FROM nexus_elements WHERE pagina_id = {$_SESSION['user_nexus_pagina_id']} AND state = 1 AND type = 'theme'", 'log');
+		$active_themes = $conn->query($query);
+		$nexus_del_theme_options = false;
+		if ($active_themes->num_rows > 0) {
+			while ($active_theme = $active_themes->fetch_assoc()) {
+				$active_theme_info = return_theme($active_theme['param_int_1']);
+				$nexus_del_theme_options .= "<option value='{$active_theme['param_int_1']}'>{$active_theme_info['title']}</option>";
+			}
+		}
+
+		$themes_return .= "
+				<form method='post' class='del_theme_details d-none'>
+					<h3 class='del_theme_details d-none'>Delete theme</h3>
+					<label for='del_theme_select' class='form-label del_theme_details d-none'>Which theme to delete?</label>
+					<select id='del_theme_select' name='del_theme_select' class='form-select mb-3 del_theme_details d-none'>
+						$nexus_del_theme_options
+					</select>
+					<button type='submit' class='btn btn-danger del_theme_details d-none'>Delete theme</button>
+				</form>
+			";
+
 		$available_themes = array(
 			'random' => array(
 				'title' => 'Random background color',

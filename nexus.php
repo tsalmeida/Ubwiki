@@ -185,6 +185,11 @@
 		unset($_SESSION['nexus_links']);
 	}
 
+	if (isset($_POST['del_theme_select'])) {
+		$query = prepare_query("UPDATE nexus_elements SET state = 0 WHERE param_int_1 = {$_POST['del_theme_select']} AND pagina_id = {$_SESSION['user_nexus_pagina_id']} AND type = 'theme'", 'log');
+		$conn->query($query);
+	}
+
 	if ($_POST) {
 		header("Location: " . $_SERVER['REQUEST_URI']);
 		exit();
@@ -309,11 +314,11 @@
 			$wallpaper_position = false;
 			$title_color = 'text-light';
 			$title_overlay = false;
-			$title_overlay_hover = 'color-burn';
+			$title_overlay_hover = false;
 			break;
 		case 'light':
 			$background_color = '#f7f7f7';
-			$wallpapers = array('papyrus.webp', 'y-so-serious-white.png', 'what-the-hex.webp', 'cheap_diagonal_fabric.png', 'circles-and-roundabouts.webp', 'crossline-dots.webp', 'diagonal_striped_brick.webp', 'funky-lines.webp', 'gplaypattern.png', 'interlaced.png', 'natural_paper.webp', 'subtle_white_feathers.webp', 'topography.webp', 'webb.png', 'whirlpool.webp', 'white-waves.webp', 'worn_dots.webp', 'vertical-waves.webp');
+			$wallpapers = array('../wallpapers/tile/papyrus.webp', '../wallpapers/tile/y-so-serious-white.png', '../wallpapers/tile/what-the-hex.webp', '../wallpapers/tile/cheap_diagonal_fabric.png', '../wallpapers/tile/circles-and-roundabouts.webp', '../wallpapers/tile/crossline-dots.webp', '../wallpapers/tile/diagonal_striped_brick.webp', '../wallpapers/tile/funky-lines.webp', '../wallpapers/tile/gplaypattern.png', '../wallpapers/tile/interlaced.png', '../wallpapers/tile/natural_paper.webp', '../wallpapers/tile/subtle_white_feathers.webp', '../wallpapers/tile/topography.webp', '../wallpapers/tile/webb.png', '../wallpapers/tile/whirlpool.webp', '../wallpapers/tile/white-waves.webp', '../wallpapers/tile/worn_dots.webp', '../wallpapers/tile/vertical-waves.webp');
 			$wallpaper_repeat = 'repeat';
 			$wallpaper_size = 'auto';
 			$wallpaper_position = 'center center';
@@ -323,7 +328,7 @@
 			break;
 		case 'dark':
 			$background_color = '#191919';
-			$wallpapers = array('tactile_noise.webp', 'black_lozenge.webp', 'dark_leather.webp', 'escheresque_ste.webp', 'papyrus-dark.webp', 'prism.png', 'tasky_pattern.webp', 'y-so-serious.png');
+			$wallpapers = array('../wallpapers/tile/tactile_noise.webp', '../wallpapers/tile/black_lozenge.webp', '../wallpapers/tile/dark_leather.webp', '../wallpapers/tile/escheresque_ste.webp', '../wallpapers/tile/papyrus-dark.webp', '../wallpapers/tile/prism.png', '../wallpapers/tile/tasky_pattern.webp', '../wallpapers/tile/y-so-serious.png');
 			$wallpaper_repeat = 'repeat';
 			$wallpaper_size = 'auto';
 			$wallpaper_position = 'center center';
@@ -333,7 +338,7 @@
 			break;
 		case 'whimsical':
 			$background_color = '#8BA810';
-			$wallpapers = array('pink-flowers.webp', 'morocco.png', 'pool_table.webp', 'retina_wood.png', 'wheat.webp');
+			$wallpapers = array('../wallpapers/tile/pink-flowers.webp', '../wallpapers/tile/morocco.png', '../wallpapers/tile/pool_table.webp', '../wallpapers/tile/retina_wood.png', '../wallpapers/tile/wheat.webp');
 			$wallpaper_repeat = 'repeat';
 			$wallpaper_size = 'auto';
 			$wallpaper_position = 'center center';
@@ -343,7 +348,7 @@
 			break;
 		case 'landscape':
 			$background_color = '#471918';
-			$wallpapers = array('ciprian-boiciuc-354944.jpg', 'dan-aragon-387264.jpg', 'jenu-prasad-347241.jpg', 'olivia-henry-296.jpg', 'dewang-gupta-Q7jQXMk-5qU-unsplash.jpg', 'ezra-jeffrey-357875.jpg');
+			$wallpapers = array('../wallpapers/landscape/ciprian-boiciuc-354944.jpg', '../wallpapers/landscape/dan-aragon-387264.jpg', '../wallpapers/landscape/jenu-prasad-347241.jpg', '../wallpapers/landscape/clay-kaufmann-wn5XW0Au6s0-unsplash.jpg', '../wallpapers/landscape/dewang-gupta-Q7jQXMk-5qU-unsplash.jpg', '../wallpapers/landscape/ezra-jeffrey-357875.jpg', '../wallpapers/landscape/marek-piwnicki-XQQIjcaZzkk-unsplash.jpg');
 			$wallpaper_repeat = 'no-repeat';
 			$wallpaper_size = 'cover';
 			$wallpaper_position = 'center center';
@@ -352,13 +357,14 @@
 			$title_overlay_hover = 'difference';
 			break;
 		default:
-			$background_color = '#838A77';
-			$wallpapers = array('papyrus.webp');
-			$wallpaper_repeat = 'repeat';
-			$wallpaper_size = 'auto';
-			$wallpaper_position = 'center center';
-			$title_color = 'text-dark';
-			$title_overlay = 'overlay';
+            $theme_info = return_theme($nexus_theme);
+			$background_color = "#{$theme_info['bghex']}";
+			$wallpapers = array($theme_info['url']);
+			$wallpaper_repeat = $theme_info['repeat'];
+			$wallpaper_size = $theme_info['size'];
+			$wallpaper_position = $theme_info['position'];
+			$title_color = $theme_info['homehex'];
+			$title_overlay = $theme_info['homeeffect'];
 			$title_overlay_hover = 'difference';
 			break;
 	}
@@ -371,7 +377,7 @@
                 height: 100%;
             }
             #screenFiller {
-                background-image: url('../wallpapers/$wallpaper_file');
+                background-image: url('$wallpaper_file');
                 background-repeat: $wallpaper_repeat;
                 background-size: $wallpaper_size;
                 background-position: $wallpaper_position;
@@ -944,6 +950,7 @@
             if (this.checked) {
                 $(document).find('.pick_theme_details').removeClass('d-none');
                 $(document).find('.add_theme_details').addClass('d-none');
+                $(document).find('.del_theme_details').addClass('d-none');
             }
         });
 
@@ -951,6 +958,15 @@
             if (this.checked) {
                 $(document).find('.add_theme_details').removeClass('d-none');
                 $(document).find('.pick_theme_details').addClass('d-none');
+                $(document).find('.del_theme_details').addClass('d-none');
+            }
+        });
+
+        $(document).on('change', '#radio_del_theme', function () {
+            if (this.checked) {
+                $(document).find('.del_theme_details').removeClass('d-none');
+                $(document).find('.pick_theme_details').addClass('d-none');
+                $(document).find('.add_theme_details').addClass('d-none');
             }
         });
 
