@@ -2310,6 +2310,8 @@
 		$new_theme_id = $conn->insert_id;
 		$query = prepare_query("INSERT INTO nexus_elements (user_id, pagina_id, type, param_int_1) VALUES ({$_SESSION['user_id']}, {$_SESSION['user_nexus_pagina_id']}, 'theme', $new_theme_id)");
 		$conn->query($query);
+		$query = prepare_query("UPDATE nexus SET theme = $new_theme_id WHERE pagina_id = {$_SESSION['user_nexus_pagina_id']}");
+		$conn->query($query);
 	}
 
 	if (isset($_POST['list_nexus_folders'])) {

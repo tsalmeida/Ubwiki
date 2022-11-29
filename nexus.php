@@ -401,6 +401,9 @@
             #page_title_text:hover {
               mix-blend-mode: $title_overlay_hover;
             }
+            .nexus-title {
+                font-size: 7em;
+            }
         </style>
 	";
 
@@ -437,7 +440,7 @@
                 <div class="row d-flex">
                     <div class="col-12">
                         <div id="page_title" class="my-5 text-center col-auto">
-                            <span id="page_title_text" class="nexus-title display-1 <?php echo $title_color; ?>">
+                            <span id="page_title_text" class="nexus-title <?php echo $title_color; ?>">
                                 <?php
 									echo $nexus_title;
 								?>
@@ -446,19 +449,13 @@
                     </div>
                 </div>
             </div>
-			<?php
-				//        $cmd_text = nexus_random_color();
-				//        $cmd_text = nexus_convert_color($cmd_text);
-				//        $cmd_text = $cmd_text['text-color'];
-				$cmd_text = 'text-white';
-			?>
             <div id="cmd_container" class="container">
                 <div class="row d-flex justify-content-around mt-3">
                     <div class="col">
                         <div class="mb-3 input-group">
                             <input type="text" id="username" style="width:0;height:0;visibility:hidden;position:absolute;left:0;top:0"/>
                             <input type="password" style="width:0;height:0;visibility:hidden;position:absolute;left:0;top:0"/>
-                            <input id="cmdbar" name="cmdbar" list="command-list" type="text" class="form-control font-monospace mx-1 cmd-bar rounded <?php echo $cmd_text; ?> bg-dark border-0" rows="1" autocomplete="off" spellcheck="false" placeholder="<?php echo $user_apelido; ?> commands…">
+                            <input id="cmdbar" name="cmdbar" list="command-list" type="text" class="form-control font-monospace mx-1 cmd-bar rounded text-white bg-dark border-0" rows="1" autocomplete="off" spellcheck="false" placeholder="<?php echo $user_apelido; ?> commands…">
                             <datalist id="command-list">
 								<?php
 									if (!isset($_SESSION['nexus_options']['cmd_link_id'])) {
