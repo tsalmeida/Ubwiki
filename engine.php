@@ -2919,7 +2919,7 @@
 			<hr class='manage_details_hide d-none'>
 			<label class='form-label manage_details_hide d-none' for='manage_icon_title_new_color'>Select the new color:</label>
 			<select id='manage_icon_title_new_color' name='manage_icon_title_new_color' class='form-select mb-3 manage_details_hide d-none'>
-				<option selected disabled>New color</option>";
+				<option selected disabled>Leave as is</option>";
 		$colors = nexus_colors('list');
 		foreach ($colors as $color) {
 			$color_capitalized = ucfirst($color);
@@ -2929,7 +2929,7 @@
 			</select>
 			<label for='manage_icon_title_new_icon' class='form-label manage_details_hide d-none'>Select the new icon:</label>
 			<select id='manage_icon_title_new_icon' name='manage_icon_title_new_icon' class='form-select mb-3 manage_details_hide d-none'>
-				<option selected disabled>New icon</option>";
+				<option selected disabled>Leave as is</option>";
 		$icons = nexus_icons('list');
 		foreach ($icons as $icon => $key) {
 			$icon_capitalized = ucfirst($icon);
@@ -2939,16 +2939,27 @@
 			</select>
 			<div class='mb-3 manage_details_hide d-none'>
 				<label for='manage_icon_title_new_title' class='form-label manage_details_hide d-none'>New title:</label>
-				<input class='form-control manage_details_hide d-none' type='text' id='manage_icon_title_new_title' name='manage_icon_title_new_title'>
+				<input class='form-control manage_details_hide d-none' type='text' id='manage_icon_title_new_title' name='manage_icon_title_new_title' placeholder='Leave as is'>
 			</div>
 
+		";
+
+		$populate_icons_titles .= "
+			<div class='mb-3 manage_details_hide manage_details_folders_only d-none'>
+				<label for='change_folder_type' class='form-label manage_details_folders_only d-none'>Change folder type between main and archival:</label>
+				<select id='change_folder_type' name='change_folder_type' class='form-select manage_details_folders_only d-none'>
+					<option disabled selected>Leave as is</option>
+					<option value='main'>Main</option>
+					<option value='archival'>Archival</option>
+				</select>
+			</div>
 		";
 
 		$populate_icons_titles .= "
 			<div class='mb-3 manage_details_hide manage_details_links_only d-none'>
 				<label for='move_to_this_folder_id' class='form-label manage_details_hide manage_details_links_only d-none'>Move to another folder:</label>
 				<select id='move_to_this_folder_id' name='move_to_this_folder_id' class='form-select mb-3 manage_details_hide manage_details_links_only d-none'>
-					<option disabled selected>Folder to move to</option>";
+					<option disabled selected>Leave in current folder</option>";
 		$populate_icons_titles .= return_folder_list($_SESSION['nexus_folders'], array('linkdump' => true));
 		$populate_icons_titles .= "
 				</select>
@@ -2959,7 +2970,7 @@
 		<div class='mb-3 manage_details_hide manage_details_links_only d-none'>
 			<label for='diff_this_link_type' class='form-label'>How to display this link:</label>
 			<select id='diff_this_link_type' name='diff_this_link_type' class='form-select mb-3'>
-				<option disabled selected>Link mode</option>
+				<option disabled selected>Leave as is</option>
 				<!--<option value='folder_slim'>Folder: as used for folders</option>-->
 				<option value='link_large'>Large: 3x-sized icon and centralized title</option>
 				<option value='link_normal'>Default: text-sized icon</option> 
@@ -3002,6 +3013,9 @@
 		if (!isset($_POST['move_to_this_folder_id'])) {
 			$_POST['move_to_this_folder_id'] = false;
 		}
+		if (!isset($_POST['change_folder_type'])) {
+			$_POST['change_folder_type'] = false;
+		}
 
 		if (($_POST['manage_icon_title_choice'] == 'folder') && ($_POST['manage_icon_title_folder_id'] != false)) {
 			if ($_POST['manage_icon_title_new_icon'] != false) {
@@ -3014,6 +3028,10 @@
 			}
 			if ($_POST['manage_icon_title_new_title'] != false) {
 				$query = prepare_query("UPDATE nexus_folders SET title = '{$_POST['manage_icon_title_new_title']}' WHERE user_id = {$_SESSION['user_id']} AND id = {$_POST['manage_icon_title_folder_id']} ");
+				$conn->query($query);
+			}
+			if ($_POST['change_folder_type'] != false) {
+				$query = prepare_query("UPDATE nexus_folders SET type = '{$_POST['change_folder_type']}' WHERE user_id = {$_SESSION['user_id']} AND id = {$_POST['manage_icon_title_folder_id']}", 'log');
 				$conn->query($query);
 			}
 		} elseif (($_POST['manage_icon_title_choice'] == 'link') && ($_POST['manage_icon_title_link_id']) != false) {

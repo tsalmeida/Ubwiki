@@ -479,7 +479,7 @@
 				if ($nexus_folders_check == true) {
 					echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_folders', 'title' => 'Add or remove folders', 'modal' => '#modal_manage_folders', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-folder-gear', 'color' => 'yellow'));
 					echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_links', 'title' => 'Add or remove links', 'modal' => '#modal_manage_links', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-bookmark', 'color' => 'red'));
-					echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_icons_titles', 'title' => 'Manage icons and titles', 'modal' => '#modal_manage_icons_titles', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-icons', 'color' => 'pink'));
+					echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_icons_titles', 'title' => 'Manage links and folders', 'modal' => '#modal_manage_icons_titles', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-icons', 'color' => 'pink'));
 //					echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_move_links', 'title' => 'Move links between folders', 'modal' => '#modal_manage_move_links', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-arrow-right-arrow-left', 'color' => 'teal'));
 					echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_themes', 'title' => 'Manage themes', 'modal' => '#modal_manage_themes', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-swatchbook', 'color' => 'purple'));
 					echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_options', 'title' => 'Options', 'modal' => '#modal_options', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-toggle-large-on', 'color' => 'green'));
@@ -553,7 +553,7 @@
 			include 'templates/modal.php';
 
 			$template_modal_div_id = 'modal_manage_icons_titles';
-			$template_modal_titulo = 'Manage icons and titles';
+			$template_modal_titulo = 'Manage links and folders';
 			$template_modal_body_conteudo = "Loading...";
 			include 'templates/modal.php';
 
@@ -925,9 +925,14 @@
             if (this.checked) {
                 $('.manage_folder_hide').removeClass('d-none');
                 $('.manage_link_hide').addClass('d-none');
-                $('.manage_details_links_only').addClass('d-none');
                 $("#move_to_this_folder_id").prop('disabled', 'disabled');
                 $("#diff_this_link_type").prop('disabled', 'disabled');
+                $('.manage_details_links_only').addClass('d-none');
+
+                filled_in_folder = $('#manage_icon_title_folder_id').val();
+                if (filled_in_folder != null) {
+                    $('.manage_details_folders_only').removeClass('d-none');
+                }
             }
         });
         $(document).on('change', '#manage_icon_title_links', function () {
@@ -938,16 +943,34 @@
                 filled_in_link = $('#manage_icon_title_link_id').val();
                 if (filled_in_link != null) {
                     $('.manage_details_links_only').removeClass('d-none');
+                    $('.manage_details_folders_only').addClass('d-none');
                     $("#move_to_this_folder_id").removeAttr("disabled");
                     $("#diff_this_link_type").removeAttr("disabled");
                 }
             }
         });
-        $(document).on('change', '.change_trigger_show_details', function () {
+        $(document).on('change', '#manage_icon_title_folder_id', function () {
             details_loaded = $('#details_loaded').val();
             if (details_loaded == 'false') {
                 $('#details_loaded').val(true);
                 $(document).find('.manage_details_hide').removeClass('d-none');
+                $("#move_to_this_folder_id").prop('disabled', 'disabled');
+                $("#diff_this_link_type").prop('disabled', 'disabled');
+                $('.manage_details_links_only').addClass('d-none');
+                $('.manage_details_folders_only').removeClass('d-none');
+
+            }
+        });
+        $(document).on('change', '#manage_icon_title_link_id', function () {
+            details_loaded = $('#details_loaded').val();
+            if (details_loaded == 'false') {
+                $('#details_loaded').val(true);
+                $(document).find('.manage_details_hide').removeClass('d-none');
+                $("#move_to_this_folder_id").removeAttr("disabled");
+                $("#diff_this_link_type").removeAttr("disabled");
+                $('.manage_details_links_only').removeClass('d-none');
+                $('.manage_details_folders_only').addClass('d-none');
+
             }
         });
 
