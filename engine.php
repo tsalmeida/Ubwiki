@@ -3031,7 +3031,7 @@
 				$conn->query($query);
 			}
 			if ($_POST['change_folder_type'] != false) {
-				$query = prepare_query("UPDATE nexus_folders SET type = '{$_POST['change_folder_type']}' WHERE user_id = {$_SESSION['user_id']} AND id = {$_POST['manage_icon_title_folder_id']}", 'log');
+				$query = prepare_query("UPDATE nexus_folders SET type = '{$_POST['change_folder_type']}' WHERE user_id = {$_SESSION['user_id']} AND id = {$_POST['manage_icon_title_folder_id']}");
 				$conn->query($query);
 			}
 		} elseif (($_POST['manage_icon_title_choice'] == 'link') && ($_POST['manage_icon_title_link_id']) != false) {
