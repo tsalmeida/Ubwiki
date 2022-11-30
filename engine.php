@@ -2839,7 +2839,7 @@
 		//Next step is to check if it's a command.
 		$cmd_check = substr($_POST['analyse_cmd_input'], 0, 1);
 		if ($cmd_check == '/') {
-			$result = process_cmd(array('input' => $_POST['analyse_cmd_input'], 'pagina_id' => $_SESSION['user_nexus_pagina_id']));
+			$result = process_cmd(array('input' => $_POST['analyse_cmd_input'], 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'user_id' => $_SESSION['user_id']));
 			if ($result == false) {
 				echo 'No match found';
 				exit();

@@ -3402,12 +3402,14 @@
 		$link_id = nexus_get_link_id($url);
 		$link_handle = nexus_get_handle($link_id);
 		if ($link_handle != false) {
-			if (strlen($final_suggestion) > strlen($link_handle)) {
-				return $final_suggestion;
+			if (strlen($final_suggestion) < strlen($link_handle)) {
+				$final_suggestion = $link_handle;
 			}
-		} else {
-			return $final_suggestion;
 		}
+		if ($final_suggestion == false) {
+			$final_suggestion = $url;
+		}
+		return $final_suggestion;
 	}
 
 	function nexus_get_handle($link_id)
@@ -3662,8 +3664,9 @@
 		$new_link_icon = $new_link_icon_and_color['icon'];
 		include 'templates/criar_conn.php';
 		$query = prepare_query("INSERT INTO nexus_elements (user_id, pagina_id, type, param_int_1, param_int_2, param1, param2, param3, param4) VALUES ($user_id, $pagina_id, 'link', '$new_link_location', $new_link_id, '$new_link_url', '$new_link_title', '$new_link_icon', '$new_link_color')");
-		$conn->query($query);
+		$check = $conn->query($query);
 		nexus_handle(array('id' => $new_link_id, 'title' => $new_link_title));
+		return $check;
 	}
 
 	function check_url($url)
@@ -4065,16 +4068,15 @@
 		}
 	}
 
-	;
-
 	function process_cmd($args)
 	{
 		if (!isset($args['input'])) {
 			return false;
 		}
+		//$args['pagina_id'] $args['user_id']
 		$substring = substr($args['input'], 0, 3);
-		$param = substr($args['input'], 4);
-		$param = rawurlencode($param);
+		$param_pure = substr($args['input'], 4);
+		$param = rawurlencode($param_pure);
 		switch ($substring) {
 			case '/r/':
 				return array('type' => 'url', 'url' => "https://ww.reddit.com{$args['input']}");
@@ -4087,6 +4089,11 @@
 				break;
 			case '/rd':
 				return array('type' => 'url', 'url' => "https://www.reddit.com/search/?q=$param");
+				break;
+			case '/ld':
+				error_log($param_pure);
+				$check = nexus_add_link(array('user_id' => $args['user_id'], 'pagina_id' => $args['pagina_id'], 'url' => $param_pure, 'location' => 0));
+				return false;
 				break;
 			default:
 				return false;

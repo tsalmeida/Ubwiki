@@ -19,7 +19,6 @@
 	$pagina_tipo = 'nexus';
 	include 'engine.php';
 
-
 	if ((!isset($_SESSION['user_nexus_pagina_id'])) || ($_SESSION['user_nexus_pagina_id'] == false)) {
 		$pagina_id = return_pagina_id($user_id, 'nexus');
 		$_SESSION['user_nexus_pagina_id'] = $pagina_id;
@@ -479,7 +478,7 @@
 				if ($nexus_folders_check == true) {
 					echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_folders', 'title' => 'Add or remove folders', 'modal' => '#modal_manage_folders', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-folder-gear', 'color' => 'yellow'));
 					echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_links', 'title' => 'Add or remove links', 'modal' => '#modal_manage_links', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-bookmark', 'color' => 'red'));
-					echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_icons_titles', 'title' => 'Manage links and folders', 'modal' => '#modal_manage_icons_titles', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-icons', 'color' => 'pink'));
+					echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_icons_titles', 'title' => 'Manage links and folders', 'modal' => '#modal_manage_icons_titles', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-screwdriver-wrench', 'color' => 'pink'));
 //					echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_move_links', 'title' => 'Move links between folders', 'modal' => '#modal_manage_move_links', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-arrow-right-arrow-left', 'color' => 'teal'));
 					echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_themes', 'title' => 'Manage themes', 'modal' => '#modal_manage_themes', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-swatchbook', 'color' => 'purple'));
 					echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_options', 'title' => 'Options', 'modal' => '#modal_options', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-toggle-large-on', 'color' => 'green'));
@@ -584,7 +583,7 @@
 		    <ul class='list-group mb-3'>
 		        <li class='list-group-item active'><h5>Commands:</h5></li>
 		        <li class='list-group-item'>\"/r/\" will send you to a subreddit. For example, just type \"/r/prequelmemes\".</li>
-		        <li class='list-group-item'>\"/linkdump url\" to add a link to the Link Dump with random icon and color.</li>
+		        <li class='list-group-item'>\"/ld url\" to add a link to the Link Dump with random icon and color.</li>
 		        <li class='list-group-item'>\"/log message\" will add a message to your log.</li>
 		        <li class='list-group-item'>Type a url starting with \"http\" or \"www\" to go directly to that address.</li>
 		        <li class='list-group-item'>\"/del link title\" to delete a link.</li>
