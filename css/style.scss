@@ -35,6 +35,10 @@ $black: #131618;
   line-height: 110%;
 }
 
+.nexus-title {
+  @include font-size(10rem);
+}
+
 img {
   max-width: 100%;
 }

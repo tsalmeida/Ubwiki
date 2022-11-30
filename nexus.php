@@ -401,9 +401,6 @@
             #page_title_text:hover {
               mix-blend-mode: $title_overlay_hover;
             }
-            .nexus-title {
-                font-size: 7em;
-            }
         </style>
 	";
 

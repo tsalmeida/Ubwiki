@@ -11190,6 +11190,15 @@ textarea.form-control-lg {
   line-height: 110%;
 }
 
+.nexus-title {
+  font-size: calc(2.125rem + 10.5vw);
+}
+@media (min-width: 1200px) {
+  .nexus-title {
+    font-size: 10rem;
+  }
+}
+
 img {
   max-width: 100%;
 }
