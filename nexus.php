@@ -363,7 +363,6 @@
 			$wallpaper_repeat = $theme_info['repeat'];
 			$wallpaper_size = $theme_info['size'];
 			$wallpaper_position = $theme_info['position'];
-			error_log($theme_info['homehex']);
 			$title_color_info = nexus_colors('convert', $theme_info['homehex']);
 			$title_color = $title_color_info['link-color'];
 			$title_overlay = $theme_info['homeeffect'];
