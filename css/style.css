@@ -11191,11 +11191,11 @@ textarea.form-control-lg {
 }
 
 .nexus-title {
-  font-size: calc(2.125rem + 10.5vw);
+  font-size: calc(1.925rem + 8.1vw);
 }
 @media (min-width: 1200px) {
   .nexus-title {
-    font-size: 10rem;
+    font-size: 8rem;
   }
 }
 

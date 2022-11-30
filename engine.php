@@ -2945,7 +2945,18 @@
 		";
 
 		$populate_icons_titles .= "
-		<div class='mb-3 manage_details_hide d-none'>
+			<div class='mb-3 manage_details_hide manage_details_links_only d-none'>
+				<label for='move_to_this_folder_id' class='form-label manage_details_hide manage_details_links_only d-none'>Move to another folder:</label>
+				<select id='move_to_this_folder_id' name='move_to_this_folder_id' class='form-select mb-3 manage_details_hide manage_details_links_only d-none'>
+					<option disabled selected>Folder to move to</option>";
+		$populate_icons_titles .= return_folder_list($_SESSION['nexus_folders'], array('linkdump' => true));
+		$populate_icons_titles .= "
+				</select>
+			</div>
+		";
+
+		$populate_icons_titles .= "
+		<div class='mb-3 manage_details_hide manage_details_links_only d-none'>
 			<label for='diff_this_link_type' class='form-label'>How to display this link:</label>
 			<select id='diff_this_link_type' name='diff_this_link_type' class='form-select mb-3'>
 				<option disabled selected>Link mode</option>
@@ -2988,6 +2999,9 @@
 		if (!isset($_POST['diff_this_link_type'])) {
 			$_POST['diff_this_link_type'] = false;
 		}
+		if (!isset($_POST['move_to_this_folder_id'])) {
+			$_POST['move_to_this_folder_id'] = false;
+		}
 
 		if (($_POST['manage_icon_title_choice'] == 'folder') && ($_POST['manage_icon_title_folder_id'] != false)) {
 			if ($_POST['manage_icon_title_new_icon'] != false) {
@@ -3020,42 +3034,40 @@
 				$query = prepare_query("UPDATE nexus_elements SET param5 = '{$_POST['diff_this_link_type']}' WHERE user_id = {$_SESSION['user_id']} AND param_int_2 = {$_POST['manage_icon_title_link_id']} AND state = 1");
 				$conn->query($query);
 			}
+			if ($_POST['move_to_this_folder_id'] != false) {
+				$query = prepare_query("UPDATE nexus_elements SET param_int_1 = {$_POST['move_to_this_folder_id']} WHERE pagina_id = {$_SESSION['user_nexus_pagina_id']} AND param_int_2 = {$_POST['manage_icon_title_link_id']}");
+				$conn->query($query);
+			}
 		}
 		unset($_SESSION['nexus_links']);
 	}
 
-	if (isset($_POST['populate_move_links'])) {
-		$populate_move_links = false;
-		$populate_move_links .= "<form method='post'>
-			<div class='mb-3'>
-				<label for='move_this_link_id' class='form-label'>Select link to move:</label>
-				<select id='move_this_link_id' name='move_this_link_id' class='form-select mb-3'>
-					<option disabled selected>Link to move</option>";
-		foreach ($_SESSION['nexus_alphabet'] as $title => $id) {
-			$populate_move_links .= "<option value='$id'>$title</option>";
-		}
-		$populate_move_links .= "
-				</select>
-			</div>
-			<div class='mb-3'>
-				<label for='move_to_this_folder_id' class='form-label'>Select destination folder:</label>
-				<select id='move_to_this_folder_id' name='move_to_this_folder_id' class='form-select mb-3'>
-					<option disabled selected>Folder to move to</option>";
-		$populate_move_links .= return_folder_list($_SESSION['nexus_folders'], array('linkdump' => true));
-		$populate_move_links .= "
-				</select>
-			</div>
-			<button class='btn btn-primary' type='submit'>Move link</button>
-		</form>";
-
-		echo $populate_move_links;
-	}
-
-	if ((isset($_POST['move_this_link_id'])) && (isset($_POST['move_to_this_folder_id']))) {
-		$query = prepare_query("UPDATE nexus_elements SET param_int_1 = {$_POST['move_to_this_folder_id']} WHERE user_id = {$_SESSION['user_id']} AND param_int_2 = {$_POST['move_this_link_id']}");
-		$conn->query($query);
-		unset($_SESSION['nexus_links']);
-	}
+//	if (isset($_POST['populate_move_links'])) {
+//		$populate_move_links = false;
+//		$populate_move_links .= "<form method='post'>
+//			<div class='mb-3'>
+//				<label for='move_this_link_id' class='form-label'>Select link to move:</label>
+//				<select id='move_this_link_id' name='move_this_link_id' class='form-select mb-3'>
+//					<option disabled selected>Link to move</option>";
+//		foreach ($_SESSION['nexus_alphabet'] as $title => $id) {
+//			$populate_move_links .= "<option value='$id'>$title</option>";
+//		}
+//		$populate_move_links .= "
+//				</select>
+//			</div>
+//			<div class='mb-3'>
+//				<label for='move_to_this_folder_id' class='form-label'>Select destination folder:</label>
+//				<select id='move_to_this_folder_id' name='move_to_this_folder_id' class='form-select mb-3'>
+//					<option disabled selected>Folder to move to</option>";
+//		$populate_move_links .= return_folder_list($_SESSION['nexus_folders'], array('linkdump' => true));
+//		$populate_move_links .= "
+//				</select>
+//			</div>
+//			<button class='btn btn-primary' type='submit'>Move link</button>
+//		</form>";
+//
+//		echo $populate_move_links;
+//	}
 
 
 ?>
