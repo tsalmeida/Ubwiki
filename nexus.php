@@ -105,13 +105,6 @@
 		unset($_SESSION['nexus_links']);
 	}
 
-	if (isset($_POST['nexus_del_folder_id'])) {
-		$nexus_del_folder_id = $_POST['nexus_del_folder_id'];
-		$query = prepare_query("DELETE FROM nexus_folders WHERE id = $nexus_del_folder_id AND user_id = $user_id AND pagina_id = $pagina_id");
-		$conn->query($query);
-		unset($_SESSION['nexus_links']);
-	}
-
 	if (isset($_POST['nexus_new_link_submit'])) {
 		$params = array('user_id' => $user_id, 'pagina_id' => $pagina_id, 'location' => $_POST['nexus_new_link_location'], 'url' => $_POST['nexus_new_link_url'], 'title' => $_POST['nexus_new_link_title'], 'icon' => $_POST['nexus_new_link_icon'], 'color' => $_POST['nexus_new_link_color']);
 		nexus_add_link($params);
@@ -477,9 +470,9 @@
 
 				//                echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_testing', 'title' => 'Manage testing', 'modal' => '#modal_manage_testing', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-circle-notch', 'color' => 'orange'));
 				if ($nexus_folders_check == true) {
-					echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_folders', 'title' => 'Add or remove folders', 'modal' => '#modal_manage_folders', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-folder-gear', 'color' => 'yellow'));
-					echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_links', 'title' => 'Add or remove links', 'modal' => '#modal_manage_links', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-bookmark', 'color' => 'red'));
-					echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_icons_titles', 'title' => 'Manage links and folders', 'modal' => '#modal_manage_icons_titles', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-screwdriver-wrench', 'color' => 'pink'));
+					echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_folders', 'title' => 'Add folder', 'modal' => '#modal_manage_folders', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-folder-gear', 'color' => 'yellow'));
+					echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_links', 'title' => 'Add link', 'modal' => '#modal_manage_links', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-bookmark', 'color' => 'red'));
+					echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_icons_titles', 'title' => 'Manage icons and folders', 'modal' => '#modal_manage_icons_titles', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-screwdriver-wrench', 'color' => 'pink'));
 //					echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_move_links', 'title' => 'Move links between folders', 'modal' => '#modal_manage_move_links', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-arrow-right-arrow-left', 'color' => 'teal'));
 					echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_themes', 'title' => 'Manage themes', 'modal' => '#modal_manage_themes', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-swatchbook', 'color' => 'purple'));
 					echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_options', 'title' => 'Options', 'modal' => '#modal_options', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-toggle-large-on', 'color' => 'green'));
@@ -543,12 +536,12 @@
 			include 'templates/modal.php';
 
 			$template_modal_div_id = 'modal_manage_folders';
-			$template_modal_titulo = 'Add or remove folders';
+			$template_modal_titulo = 'Add folder';
 			$template_modal_body_conteudo = "Loading...";
 			include 'templates/modal.php';
 
 			$template_modal_div_id = 'modal_manage_links';
-			$template_modal_titulo = 'Add or remove links';
+			$template_modal_titulo = 'Add link';
 			$template_modal_body_conteudo = "Loading...";
 			include 'templates/modal.php';
 
@@ -928,7 +921,6 @@
                 $("#move_to_this_folder_id").prop('disabled', 'disabled');
                 $("#diff_this_link_type").prop('disabled', 'disabled');
                 $('.manage_details_links_only').addClass('d-none');
-
                 filled_in_folder = $('#manage_icon_title_folder_id').val();
                 if (filled_in_folder != null) {
                     $('.manage_details_folders_only').removeClass('d-none');
@@ -939,11 +931,10 @@
             if (this.checked) {
                 $('.manage_link_hide').removeClass('d-none');
                 $('.manage_folder_hide').addClass('d-none');
-
+                $('.manage_details_folders_only').addClass('d-none');
                 filled_in_link = $('#manage_icon_title_link_id').val();
                 if (filled_in_link != null) {
                     $('.manage_details_links_only').removeClass('d-none');
-                    $('.manage_details_folders_only').addClass('d-none');
                     $("#move_to_this_folder_id").removeAttr("disabled");
                     $("#diff_this_link_type").removeAttr("disabled");
                 }
@@ -951,28 +942,56 @@
         });
         $(document).on('change', '#manage_icon_title_folder_id', function () {
             details_loaded = $('#details_loaded').val();
+            $('.manage_details_folders_only').removeClass('d-none');
             if (details_loaded == 'false') {
                 $('#details_loaded').val(true);
                 $(document).find('.manage_details_hide').removeClass('d-none');
                 $("#move_to_this_folder_id").prop('disabled', 'disabled');
                 $("#diff_this_link_type").prop('disabled', 'disabled');
                 $('.manage_details_links_only').addClass('d-none');
-                $('.manage_details_folders_only').removeClass('d-none');
-
             }
         });
         $(document).on('change', '#manage_icon_title_link_id', function () {
             details_loaded = $('#details_loaded').val();
+            $('.manage_details_links_only').removeClass('d-none');
             if (details_loaded == 'false') {
                 $('#details_loaded').val(true);
                 $(document).find('.manage_details_hide').removeClass('d-none');
+                $('.manage_details_folders_only').addClass('d-none');
                 $("#move_to_this_folder_id").removeAttr("disabled");
                 $("#diff_this_link_type").removeAttr("disabled");
-                $('.manage_details_links_only').removeClass('d-none');
-                $('.manage_details_folders_only').addClass('d-none');
-
             }
         });
+        $(document).on('click', '#trigger_delete_this_folder', function() {
+            delete_folder_check = confirm('Do you really want to delete this folder?');
+            if (delete_folder_check === true) {
+                delete_folder_id = $('#manage_icon_title_folder_id').val();
+                $.post('engine.php', {
+                    'remove_this_folder': delete_folder_id
+                }, function (data) {
+                    if (data != 0) {
+                        window.location.reload(true);
+                    } else {
+                        alert('Could not delete the link, for some reason.');
+                    }
+                })
+            }
+        })
+        $(document).on('click', '#trigger_delete_this_link', function() {
+            delete_link_check = confirm('Do you really want to delete this link?');
+            if (delete_link_check == true) {
+                delete_link_id = $('#manage_icon_title_link_id').val();
+                $.post('engine.php', {
+                    'remove_this_link': delete_link_id
+                }, function (data) {
+                    if (data != 0) {
+                        window.location.reload(true);
+                    } else {
+                        alert('Could not delete the link, for some reason.');
+                    }
+                })
+            }
+        })
 
         $(document).on('change', '#radio_pick_theme', function () {
             if (this.checked) {

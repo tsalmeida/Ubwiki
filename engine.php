@@ -2036,7 +2036,6 @@
 	if (isset($_POST['list_nexus_links'])) {
 		echo "
 			<form method='post'>
-				<h3>Add link</h3>
 				<p>Fill-in the form below to add a link or <button id='show_modal_add_links_bulk' type='button' class='btn btn-outline-primary btn-sm' class='btn btn-outline-primary btn-sm' data-bs-toggle='modal' data-bs-target='#modal_add_links_bulk'>click here</button> to add links in bulk to the <a id='trigger_show_linkdump' href='javascritp:void(0);' class='link-info'>Link Dump</a>.</p>
 				<div class='mb-3'>
 					<label class='form-label' for='nexus_new_link_url'>Paste your link url:</label>
@@ -2084,27 +2083,23 @@
 				</div>
 				<button type='submit' class='btn btn-primary mb-3' name='nexus_new_link_submit' id='nexus_new_link_submit'>Add link</button>
 			</form>
-			<hr>
-			<form method='post'>
-			<h3>Remove link</h3>
-				<div class='mb-3'>
-					<label class='form-label' for='nexus_remove_this_link_id'>Link to remove:</label>
-					<select id='nexus_remove_this_link_id' name='nexus_remove_this_link_id' class='form-select'>";
-		foreach ($_SESSION['nexus_alphabet'] as $title => $id) {
-			echo "<option value='$id'>$title</option>";
-		}
-		echo "
-					</select>
-				</div>
-				<button type='submit' class='btn btn-danger mb-3' name='nexus_remove_link_submit' id='nexus_remove_link_submit'>Remove link</button>
-			</form>
 		";
 	}
 
-	if (isset($_POST['nexus_remove_link_submit'])) {
-		if (isset($_POST['nexus_remove_this_link_id']) && ($_POST['nexus_remove_this_link_id'] != false)) {
-			$query = prepare_query("UPDATE nexus_elements SET state = 0 WHERE user_id = {$_SESSION['user_id']} AND state = 1 AND param_int_2 = {$_POST['nexus_remove_this_link_id']}");
-			$conn->query($query);
+	if (isset($_POST['remove_this_link'])) {
+		if ($_POST['remove_this_link'] != false) {
+			$query = prepare_query("UPDATE nexus_elements SET state = 0 WHERE user_id = {$_SESSION['user_id']} AND state = 1 AND param_int_2 = {$_POST['remove_this_link']}", 'log');
+			$check = $conn->query($query);
+			echo $check;
+			unset($_SESSION['nexus_links']);
+		}
+	}
+
+	if (isset($_POST['remove_this_folder'])) {
+		if ($_POST['remove_this_folder'] != false) {
+			$query = prepare_query("DELETE FROM nexus_folders WHERE id = {$_POST['remove_this_folder']} AND user_id = {$_SESSION['user_id']} AND pagina_id = {$_SESSION['user_nexus_pagina_id']}", 'log');
+			$check = $conn->query($query);
+			echo $check;
 			unset($_SESSION['nexus_links']);
 		}
 	}
@@ -2206,7 +2201,9 @@
 		if ($active_themes->num_rows > 0) {
 			while ($active_theme = $active_themes->fetch_assoc()) {
 				$active_theme_info = return_theme($active_theme['param_int_1']);
-				$nexus_del_theme_options .= "<option value='{$active_theme['param_int_1']}'>{$active_theme_info['title']}</option>";
+				if ($active_theme_info != false) {
+					$nexus_del_theme_options .= "<option value='{$active_theme['param_int_1']}'>{$active_theme_info['title']}</option>";
+				}
 			}
 		}
 
@@ -2301,7 +2298,6 @@
 	if (isset($_POST['list_nexus_folders'])) {
 		echo "
 			<form method='post'>
-				<h3>Add folder</h3>
 				<p>You may add a folder by filling-in the form below or <button id='show_modal_add_folders_bulk' type='button' class='btn btn-outline-primary btn-sm' data-bs-toggle='modal' data-bs-target='#modal_add_folders_bulk'>click here</button> to add folders in bulk.</p>
 				<div class='mb-3'>
 					<label class='form-label' for='nexus_new_folder_title'>Name of your new folder:</label>
@@ -2339,25 +2335,9 @@
 					<input class='form-check-input' type='checkbox' value='' id='nexus_new_folder_type' name='nexus_new_folder_type' checked>
 					<label class='form-check-label' for='nexus_new_folder_type'>This is a main folder: its icon will appear on the top bar. Otherwise, it will only be found alongside other \"archive\" folders.</label>
 				</div>
-				<button type='submit' class='btn btn-primary'>Create folder</button>
+				<button type='submit' class='btn btn-primary'>Add folder</button>
 			</form>
-			<hr>
-			<h3>Remove folder</h3>
 		";
-
-		$user_nexus_remove_folder_options_main = false;
-		$user_nexus_remove_folder_options_archival = false;
-		$folder_list = return_folder_list($_SESSION['nexus_folders'], array('linkdump' => false));
-		echo "
-			<form method='post'>
-				<p>When you remove a folder, all links that had been added to it are also removed, though you can still find everything in the log.</p>
-				<select id='nexus_del_folder_id' name='nexus_del_folder_id' class='form-select mb-3'>
-					<option selected disabled>Select a folder to remove</option>
-					$folder_list
-			";
-		echo "</select>";
-		echo "<button type='submit' class='btn btn-danger'>Delete folder</button>";
-		echo "</form>";
 	}
 
 	if (isset($_POST['populate_add_folders_bulk'])) {
@@ -2986,8 +2966,9 @@
 				<!--<option value='navbar'>Navbar: as used for navbar icons, symbol only, no title</option>-->
 			</select>
 		</div>
-		
 			<button type='submit' class='btn btn-primary manage_details_hide d-none'>Update</button>
+			<button id='trigger_delete_this_link' type='button' class='btn btn-outline-danger manage_details_hide manage_details_links_only d-none'>Delete this link</button>
+			<button id='trigger_delete_this_folder' type='button' class='btn btn-outline-danger manage_details_hide manage_details_folders_only d-none'>Delete this folder</button>
 			</form>
 		";
 		$populate_icons_titles .= "</form>";
