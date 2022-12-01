@@ -2221,23 +2221,7 @@
 				</form>
 			";
 
-		$available_themes = array(
-			'random' => array(
-				'title' => 'Random background color',
-			),
-			'light' => array(
-				'title' => 'Light tiles',
-			),
-			'dark' => array(
-				'title' => 'Dark tiles',
-			),
-			'landscape' => array(
-				'title' => 'Various landscape images',
-			),
-			'whimsical' => array(
-				'title' => 'Silly, whimsical tiles',
-			)
-		);
+		$available_themes = array('random' => array('title' => 'Random background color',), 'light' => array('title' => 'Light tiles',), 'dark' => array('title' => 'Dark tiles',), 'landscape' => array('title' => 'Various landscape images',), 'whimsical' => array('title' => 'Silly, whimsical tiles',));
 		$current_nexus_theme = $_POST['populate_themes_modal'];
 		$nexus_theme_options = false;
 		foreach ($available_themes as $key => $array) {
@@ -2828,7 +2812,7 @@
 			$_SESSION['nexus_options']['cmd_link_id'] = false;
 		} else {
 			if ($_SESSION['nexus_options']['cmd_link_id'] == true) {
-				//Analysis starts here. First step: is it a code?
+				//Analysis starts here. First step: is it a link code?
 				if (isset($_SESSION['nexus_codes'][$_POST['analyse_cmd_input']])) {
 					//If so, it's easy.
 					echo $_SESSION['nexus_codes'][$_POST['analyse_cmd_input']]['url'];
@@ -2856,12 +2840,34 @@
 			}
 		}
 		if (isset($_SESSION['nexus_alphabet'][$_POST['analyse_cmd_input']])) {
-			//This means that the user type the link's title
+			//This means that the user typed the link's title
 			$cmd_link_id = $_SESSION['nexus_alphabet'][$_POST['analyse_cmd_input']];
 			echo $_SESSION['nexus_links'][$cmd_link_id]['url'];
 			exit();
 		}
-		echo "No match found";
+		$match = array();
+		$match['result'] = 100;
+		$match['url'] = false;
+		$match['title'] = false;
+		$count = 0;
+		foreach ($_SESSION['nexus_alphabet'] as $key => $array) {
+			$this_match = levenshtein($_POST['analyse_cmd_input'], $key);
+			if ($this_match < $match['result']) {
+				$count++;
+				$match['result'] = $this_match;
+				$this_link_id = $_SESSION['nexus_alphabet'][$key];
+				$match['url'] = $_SESSION['nexus_links'][$this_link_id]['url'];
+				$match['title'] = $key;
+			}
+		}
+		if ($match['result'] <= 2) {
+			echo $match['url'];
+			exit();
+		} elseif ($match['result'] <= 8) {
+			echo $match['title'];
+			exit();
+		}
+		echo "No match found, closest was: {$match['title']}";
 		exit();
 	}
 
@@ -3060,32 +3066,32 @@
 		unset($_SESSION['nexus_links']);
 	}
 
-//	if (isset($_POST['populate_move_links'])) {
-//		$populate_move_links = false;
-//		$populate_move_links .= "<form method='post'>
-//			<div class='mb-3'>
-//				<label for='move_this_link_id' class='form-label'>Select link to move:</label>
-//				<select id='move_this_link_id' name='move_this_link_id' class='form-select mb-3'>
-//					<option disabled selected>Link to move</option>";
-//		foreach ($_SESSION['nexus_alphabet'] as $title => $id) {
-//			$populate_move_links .= "<option value='$id'>$title</option>";
-//		}
-//		$populate_move_links .= "
-//				</select>
-//			</div>
-//			<div class='mb-3'>
-//				<label for='move_to_this_folder_id' class='form-label'>Select destination folder:</label>
-//				<select id='move_to_this_folder_id' name='move_to_this_folder_id' class='form-select mb-3'>
-//					<option disabled selected>Folder to move to</option>";
-//		$populate_move_links .= return_folder_list($_SESSION['nexus_folders'], array('linkdump' => true));
-//		$populate_move_links .= "
-//				</select>
-//			</div>
-//			<button class='btn btn-primary' type='submit'>Move link</button>
-//		</form>";
-//
-//		echo $populate_move_links;
-//	}
+	//	if (isset($_POST['populate_move_links'])) {
+	//		$populate_move_links = false;
+	//		$populate_move_links .= "<form method='post'>
+	//			<div class='mb-3'>
+	//				<label for='move_this_link_id' class='form-label'>Select link to move:</label>
+	//				<select id='move_this_link_id' name='move_this_link_id' class='form-select mb-3'>
+	//					<option disabled selected>Link to move</option>";
+	//		foreach ($_SESSION['nexus_alphabet'] as $title => $id) {
+	//			$populate_move_links .= "<option value='$id'>$title</option>";
+	//		}
+	//		$populate_move_links .= "
+	//				</select>
+	//			</div>
+	//			<div class='mb-3'>
+	//				<label for='move_to_this_folder_id' class='form-label'>Select destination folder:</label>
+	//				<select id='move_to_this_folder_id' name='move_to_this_folder_id' class='form-select mb-3'>
+	//					<option disabled selected>Folder to move to</option>";
+	//		$populate_move_links .= return_folder_list($_SESSION['nexus_folders'], array('linkdump' => true));
+	//		$populate_move_links .= "
+	//				</select>
+	//			</div>
+	//			<button class='btn btn-primary' type='submit'>Move link</button>
+	//		</form>";
+	//
+	//		echo $populate_move_links;
+	//	}
 
 
 ?>
