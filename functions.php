@@ -3902,7 +3902,6 @@
 						$theme['size'] = 'cover';
 						$theme['position'] = 'center center';
 						break;
-
 				}
 				return array(
 					'title' => $theme['title'],

@@ -141,7 +141,7 @@
 			$user_id = false;
 			$user_tipo = false;
 			$user_criacao = false;
-			$user_apelido = false;
+			$user_apelido = 'User';
 			$user_sobrenome = false;
 			$user_wallet = false;
 			$user_escritorio = false;
@@ -199,7 +199,7 @@
 		$user_id = false;
 		$user_tipo = false;
 		$user_criacao = false;
-		$user_apelido = false;
+		$user_apelido = 'User';
 		$user_sobrenome = false;
 		$user_wallet = false;
 		$user_escritorio = false;
