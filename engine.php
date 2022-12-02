@@ -2702,11 +2702,20 @@
 				$logs = $conn->query($query);
 				if ($logs->num_rows > 0) {
 					$log_list = false;
-					$log_list .= "<ul class='list-group'>";
+					$log_list .= "
+					<ul class='list-group'>";
 					while ($log = $logs->fetch_assoc()) {
-						$log_list .= "<li class='list-group-item'>{$log['timestamp']}: {$log['type']}: {$log['message']}</li>";
+						$date = substr($log['timestamp'], 0, 10);
+						$log_list .= "
+						<li class='list-group-item d-flex justify-content-between align-items-center' title='{$log['timestamp']}: {$log['type']}'>
+							{$log['message']}
+							<span class='badge nexus-bg-blue text-light rounded-pill'><em>
+								$date
+							</em></span>
+						</li>";
 					}
-					$log_list .= "</ul>";
+					$log_list .= "
+					</ul>";
 				} else {
 					$log_list = "<p>No logs were found.</p>";
 				}
@@ -2812,7 +2821,6 @@
 					case 'url':
 						echo $result['url'];
 						exit();
-						break;
 					default:
 						echo 'No suitable command found';
 						exit();

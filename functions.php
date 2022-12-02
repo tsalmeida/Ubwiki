@@ -3572,44 +3572,6 @@
 		return array('icon' => $icon, 'color' => $color);
 	}
 
-	function nexus_log($args)
-	{
-		if (!isset($args['mode'])) {
-			return false;
-		} else {
-			$mode = $args['mode'];
-		}
-		if (!isset($args['user_id'])) {
-			return false;
-		} else {
-			$user_id = $args['user_id'];
-		}
-		switch ($mode) {
-			case 'read':
-				return 'Reading still not supported';
-				break;
-			case 'write':
-				if (isset($args['type'])) {
-					$type = $args['type'];
-				} else {
-					$type = 'system';
-				}
-				if (!isset($args['message'])) {
-					return false;
-				} else {
-					$message = $args['message'];
-				}
-				include 'templates/criar_conn.php';
-				$query = prepare_query("INSERT INTO nexus_log (user_id, type, message) VALUES ($user_id, '$type', '$message')");
-				$check = $conn->query($query);
-				if ($check != false) {
-					return true;
-				} else {
-					return false;
-				}
-		}
-	}
-
 	function nexus_add_link($params)
 	{
 		if ($params['url'] == false) {
@@ -4067,6 +4029,44 @@
 		}
 	}
 
+	function nexus_log($args)
+	{
+		if (!isset($args['mode'])) {
+			return false;
+		} else {
+			$mode = $args['mode'];
+		}
+		if (!isset($args['user_id'])) {
+			return false;
+		} else {
+			$user_id = $args['user_id'];
+		}
+		switch ($mode) {
+			case 'read':
+				return 'Reading still not supported';
+				break;
+			case 'write':
+				if (isset($args['type'])) {
+					$type = $args['type'];
+				} else {
+					$type = 'system';
+				}
+				if (!isset($args['message'])) {
+					return false;
+				} else {
+					$message = $args['message'];
+				}
+				include 'templates/criar_conn.php';
+				$query = prepare_query("INSERT INTO nexus_log (user_id, type, message) VALUES ($user_id, '$type', '$message')");
+				$check = $conn->query($query);
+				if ($check != false) {
+					return true;
+				} else {
+					return false;
+				}
+		}
+	}
+
 	function process_cmd($args)
 	{
 		if (!isset($args['input'])) {
@@ -4089,8 +4089,22 @@
 			case '/rd':
 				return array('type' => 'url', 'url' => "https://www.reddit.com/search/?q=$param");
 				break;
+			case '/gi':
+				return array('type' => 'url', 'url' => "https://www.google.com/search?q=$param");
+				break;
+			case '/yt':
+				return array('type' => 'url', 'url' => "https://www.youtube.com/results?search_query=$param");
+				break;
+			case '/lg':
+				nexus_log(array(
+					'mode'=>'write',
+					'type'=>'user',
+					'user_id'=>$args['user_id'],
+					'message'=>$param_pure
+				));
+				return true;
+				break;
 			case '/ld':
-				error_log($param_pure);
 				$check = nexus_add_link(array('user_id' => $args['user_id'], 'pagina_id' => $args['pagina_id'], 'url' => $param_pure, 'location' => 0));
 				return false;
 				break;
