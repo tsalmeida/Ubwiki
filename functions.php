@@ -22,8 +22,14 @@
 	{
 		$args = func_get_args();
 		$query = $args[0];
+		if (!isset($args[1])) {
+			$args[1] = false;
+		}
+		if ($args[1] != false) {
 //		$args[1] = 'log';
 //		$args[1] = 'print';
+//		$args[1] = 'nexus_log';
+		}
 		if (isset($args[1])) {
 			$extra = $args[1];
 			switch ($extra) {
@@ -33,8 +39,11 @@
 				case 'log':
 					error_log($query); // only when activated
 					break;
+				case 'nexus_log':
+					nexus_log(array('mode' => 'write', 'type' => 'dev', 'user_id' => 1, 'message' => $query));
+					break;
 				default:
-					error_log("$extra: $query"); // only when activated
+					break;
 			}
 		}
 		return $query;
@@ -3865,18 +3874,7 @@
 						$theme['position'] = 'center center';
 						break;
 				}
-				return array(
-					'title' => $theme['title'],
-					'url' => $theme['url'],
-					'bghex' => $theme['bghex'],
-					'homehex' => $theme['homehex'],
-					'wallpaper' => $theme['wallpaper'],
-					'homefont' => $theme['homefont'],
-					'homeeffect' => $theme['homeeffect'],
-					'repeat' => $theme['repeat'],
-					'size' => $theme['size'],
-					'position' => $theme['position']
-				);
+				return array('title' => $theme['title'], 'url' => $theme['url'], 'bghex' => $theme['bghex'], 'homehex' => $theme['homehex'], 'wallpaper' => $theme['wallpaper'], 'homefont' => $theme['homefont'], 'homeeffect' => $theme['homeeffect'], 'repeat' => $theme['repeat'], 'size' => $theme['size'], 'position' => $theme['position']);
 			}
 		}
 		return false;
@@ -4057,7 +4055,7 @@
 					$message = $args['message'];
 				}
 				include 'templates/criar_conn.php';
-				$query = prepare_query("INSERT INTO nexus_log (user_id, type, message) VALUES ($user_id, '$type', '$message')");
+				$query = prepare_query("INSERT INTO nexus_log (user_id, type, message) VALUES ($user_id, '$type', '$message')", false);
 				$check = $conn->query($query);
 				if ($check != false) {
 					return true;
@@ -4096,12 +4094,7 @@
 				return array('type' => 'url', 'url' => "https://www.youtube.com/results?search_query=$param");
 				break;
 			case '/lg':
-				nexus_log(array(
-					'mode'=>'write',
-					'type'=>'user',
-					'user_id'=>$args['user_id'],
-					'message'=>$param_pure
-				));
+				nexus_log(array('mode' => 'write', 'type' => 'user', 'user_id' => $args['user_id'], 'message' => $param_pure));
 				return true;
 				break;
 			case '/ld':

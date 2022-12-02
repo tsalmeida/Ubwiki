@@ -2116,15 +2116,19 @@
 		$themes_return .= "
 			<div class='form-check form-check-inline mb-3'>
 				<input class='form-check-input' type='radio' name='theme_form_options' id='radio_pick_theme' value='pick' checked>
-				<label class='form-check-label' for='radio_pick_theme'>Pick themes</label>
+				<label class='form-check-label' for='radio_pick_theme'>Pick theme</label>
 			</div>
 			<div class='form-check form-check-inline mb-3'>
 				<input class='form-check-input' type='radio' name='theme_form_options' id='radio_add_theme' value='add'>
 				<label class='form-check-label' for='radio_add_theme'>Add theme</label>
 			</div>
 			<div class='form-check form-check-inline mb-3'>
-				<input class='form-check-input' type='radio' name='theme_form_options' id='radio_del_theme' value='add'>
+				<input class='form-check-input' type='radio' name='theme_form_options' id='radio_del_theme' value='del'>
 				<label class='form-check-label' for='radio_del_theme'>Delete theme</label>
+			</div>
+			<div class='form-check form-check-inline mb-3'>
+				<input class='form-check-input' type='radio' name='theme_form_options' id='radio_edit_theme' value='edit' disabled>
+				<label class='form-check-label' for='radio_edit_theme'>Edit theme</label>
 			</div>
 		";
 
@@ -2202,7 +2206,11 @@
 			while ($active_theme = $active_themes->fetch_assoc()) {
 				$active_theme_info = return_theme($active_theme['param_int_1']);
 				if ($active_theme_info != false) {
-					$nexus_del_theme_options .= "<option value='{$active_theme['param_int_1']}'>{$active_theme_info['title']}</option>";
+					$selected = false;
+					if ($active_theme['param_int_1'] == $_POST['populate_themes_modal']) {
+						$selected = 'selected';
+					}
+					$nexus_del_theme_options .= "<option value='{$active_theme['param_int_1']}' $selected>{$active_theme_info['title']}</option>";
 				}
 			}
 		}
@@ -2219,14 +2227,13 @@
 			";
 
 		$available_themes = array('random' => array('title' => 'Random background color',), 'light' => array('title' => 'Light tiles',), 'dark' => array('title' => 'Dark tiles',), 'landscape' => array('title' => 'Various landscape images',), 'whimsical' => array('title' => 'Silly, whimsical tiles',));
-		$current_nexus_theme = $_POST['populate_themes_modal'];
 		$nexus_theme_options = false;
 		foreach ($available_themes as $key => $array) {
 			$selected = false;
-			if ($available_themes[$key]['title'] == $current_nexus_theme) {
+			if ($key == $_POST['populate_themes_modal']) {
 				$selected = 'selected';
 			}
-			$nexus_theme_options .= "<option value='$key'>{$available_themes[$key]['title']}</option>";
+			$nexus_theme_options .= "<option value='$key' $selected>{$available_themes[$key]['title']}</option>";
 		}
 
 		$query = prepare_query("SELECT param_int_1 from nexus_elements WHERE (user_id = {$_SESSION['user_id']} AND pagina_id = {$_SESSION['user_nexus_pagina_id']} AND type = 'theme' AND state = 1)");
@@ -2243,16 +2250,20 @@
 			$user_themes_found = $conn->query($query);
 			if ($user_themes_found->num_rows > 0) {
 				while ($user_theme_found = $user_themes_found->fetch_assoc()) {
+					$selected = false;
+					if ($id == $_POST['populate_themes_modal']) {
+						$selected = 'selected';
+					}
 					$user_theme_found_id = $id;
 					$user_theme_found_title = $user_theme_found['title'];
-					$nexus_theme_options .= "<option value='$user_theme_found_id'>$user_theme_found_title</option>";
+					$nexus_theme_options .= "<option value='$user_theme_found_id' $selected>$user_theme_found_title</option>";
 				}
 			}
 		}
 
 		$themes_return .= "
 				<form method='post'>
-					<h3 class='pick_theme_details'>Pick themes</h3>
+					<h3 class='pick_theme_details'>Pick theme</h3>
 					<label for='nexus_theme_select' class='form-label pick_theme_details'>Take your pick of general appearance:</label>
 					<select id='nexus_theme_select' name='nexus_theme_select' class='form-select mb-3 pick_theme_details'>
 						$nexus_theme_options

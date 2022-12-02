@@ -12,9 +12,7 @@
 	}
 
 	if (isset($_POST['trigger_atualizacao'])) {
-	    $query = prepare_query("CREATE TABLE `ubwiki`.`nexus_themes` (`id` INT(11) NOT NULL AUTO_INCREMENT , `timestamp` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP , `user_id` INT(11) NULL DEFAULT NULL , `title` VARCHAR(255) NULL DEFAULT NULL , `url` VARCHAR(255) NULL DEFAULT NULL , `wallpaper` VARCHAR(10) NOT NULL , `homefont` VARCHAR(100) NOT NULL , `homeeffect` VARCHAR(100) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
-	    $conn->query($query);
-	    $query = prepare_query("ALTER TABLE `nexus_themes` ADD `bghex` VARCHAR(10) NULL DEFAULT NULL AFTER `url`, ADD `homehex` VARCHAR(10) NULL DEFAULT NULL AFTER `bghex`;");
+	    $query = prepare_query("ALTER TABLE `nexus` ADD `random_icons` VARCHAR(255) NULL DEFAULT NULL AFTER `theme`, ADD `random_colors` VARCHAR(255) NULL DEFAULT NULL AFTER `random_icons`;");
 	    $conn->query($query);
 	}
 
