@@ -75,6 +75,8 @@
 		$nexus_timestamp = $nexus_info[1];
 		$nexus_title = $nexus_info[3];
 		$nexus_theme = $nexus_info[4];
+//        $nexus_random_icons = $nexus_info[5];
+//        $nexus_random_colors = $nexus_info[6];
 	} else {
 		$nexus_id = false;
 		$nexus_timestamp = false;
@@ -85,6 +87,9 @@
 	if ($nexus_title == false) {
 		$nexus_title = "Nexus";
 	}
+
+//	$error = serialize(return_user_colors(array('user_id'=>$_SESSION['user_id'])));
+//    error_log($error);
 
 	if (isset($_POST['nexus_new_folder_title'])) {
 		if (!isset($_POST['nexus_new_folder_icon'])) {
@@ -118,26 +123,29 @@
 	}
 
 	if (isset($_POST['new_bulk_folder_1'])) {
+		if (!isset($_POST['new_bulk_folders_type'])) {
+			$_POST['new_builk_folders_type'] = 'main';
+		}
 		if ($_POST['new_bulk_folder_1'] != false) {
-			nexus_new_folder(array('user_id' => $user_id, 'pagina_id' => $pagina_id, 'title' => $_POST['new_bulk_folder_1']));
+			nexus_new_folder(array('user_id' => $user_id, 'pagina_id' => $pagina_id, 'title' => $_POST['new_bulk_folder_1'], 'type' => $_POST['new_bulk_folders_type']));
 		}
 		if ($_POST['new_bulk_folder_2'] != false) {
-			nexus_new_folder(array('user_id' => $user_id, 'pagina_id' => $pagina_id, 'title' => $_POST['new_bulk_folder_2']));
+			nexus_new_folder(array('user_id' => $user_id, 'pagina_id' => $pagina_id, 'title' => $_POST['new_bulk_folder_2'], 'type' => $_POST['new_bulk_folders_type']));
 		}
 		if ($_POST['new_bulk_folder_3'] != false) {
-			nexus_new_folder(array('user_id' => $user_id, 'pagina_id' => $pagina_id, 'title' => $_POST['new_bulk_folder_3']));
+			nexus_new_folder(array('user_id' => $user_id, 'pagina_id' => $pagina_id, 'title' => $_POST['new_bulk_folder_3'], 'type' => $_POST['new_bulk_folders_type']));
 		}
 		if ($_POST['new_bulk_folder_4'] != false) {
-			nexus_new_folder(array('user_id' => $user_id, 'pagina_id' => $pagina_id, 'title' => $_POST['new_bulk_folder_4']));
+			nexus_new_folder(array('user_id' => $user_id, 'pagina_id' => $pagina_id, 'title' => $_POST['new_bulk_folder_4'], 'type' => $_POST['new_bulk_folders_type']));
 		}
 		if ($_POST['new_bulk_folder_5'] != false) {
-			nexus_new_folder(array('user_id' => $user_id, 'pagina_id' => $pagina_id, 'title' => $_POST['new_bulk_folder_5']));
+			nexus_new_folder(array('user_id' => $user_id, 'pagina_id' => $pagina_id, 'title' => $_POST['new_bulk_folder_5'], 'type' => $_POST['new_bulk_folders_type']));
 		}
 		if ($_POST['new_bulk_folder_6'] != false) {
-			nexus_new_folder(array('user_id' => $user_id, 'pagina_id' => $pagina_id, 'title' => $_POST['new_bulk_folder_6']));
+			nexus_new_folder(array('user_id' => $user_id, 'pagina_id' => $pagina_id, 'title' => $_POST['new_bulk_folder_6'], 'type' => $_POST['new_bulk_folders_type']));
 		}
 		if ($_POST['new_bulk_folder_7'] != false) {
-			nexus_new_folder(array('user_id' => $user_id, 'pagina_id' => $pagina_id, 'title' => $_POST['new_bulk_folder_7']));
+			nexus_new_folder(array('user_id' => $user_id, 'pagina_id' => $pagina_id, 'title' => $_POST['new_bulk_folder_7'], 'type' => $_POST['new_bulk_folders_type']));
 		}
 		unset($_SESSION['nexus_links']);
 	}
@@ -246,7 +254,7 @@
 			}
 			if ($_SESSION['nexus_folders'][$folder_id]['info']['type'] == 'linkdump') {
 				$close_folders_container = "$('#folders_container').addClass('d-none');";
-            }
+			}
 			$print_folders_large .= nexus_put_together(array('type' => 'folder_slim', 'id' => "folder_large_$folder_id", 'class' => "{$_SESSION['nexus_folders'][$folder_id]['info']['type']}_folder_icons d-none", 'color' => $_SESSION['nexus_folders'][$folder_id]['info']['color'], 'icon' => $_SESSION['nexus_folders'][$folder_id]['info']['icon'], 'title' => $_SESSION['nexus_folders'][$folder_id]['info']['title']));
 			$html_bottom_folders .= "
                 function show_links_folder_{$folder_id}() {
@@ -350,7 +358,7 @@
 			$title_overlay_hover = 'difference';
 			break;
 		default:
-            $theme_info = return_theme($nexus_theme);
+			$theme_info = return_theme($nexus_theme);
 			$background_color = "#{$theme_info['bghex']}";
 			$wallpapers = array($theme_info['url']);
 			$wallpaper_repeat = $theme_info['repeat'];
@@ -526,7 +534,7 @@
 				$template_modal_body_conteudo .= nexus_put_together(array('type' => 'large', 'id' => 'return_ubwiki', 'icon' => 'fad fa-lamp-desk', 'color' => 'yellow', 'title' => 'Office', 'href' => 'escritorio.php'));
 				$template_modal_body_conteudo .= nexus_put_together(array('type' => 'large', 'id' => 'logout', 'icon' => 'fad fa-right-from-bracket', 'color' => 'red', 'title' => 'Logout'));
 			} else {
-			    $template_modal_body_conteudo .= nexus_put_together(array('type'=>'large', 'id' => 'back_to_ubwiki', 'targetblank' => false, 'href' => 'ubwiki.php', 'icon' => 'fad fa-home', 'color' => 'blue', 'title' => 'Ubwiki'));
+				$template_modal_body_conteudo .= nexus_put_together(array('type' => 'large', 'id' => 'back_to_ubwiki', 'targetblank' => false, 'href' => 'ubwiki.php', 'icon' => 'fad fa-home', 'color' => 'blue', 'title' => 'Ubwiki'));
 				$template_modal_body_conteudo .= nexus_put_together(array('type' => 'large', 'id' => 'login', 'icon' => 'fad fa-right-to-bracket', 'color' => 'teal', 'title' => 'Login', 'href' => false, 'modal' => '#modal_login'));
 			}
 
@@ -543,6 +551,7 @@
 			$template_modal_div_id = 'modal_manage_links';
 			$template_modal_titulo = 'Add link';
 			$template_modal_body_conteudo = "Loading...";
+			$modal_focus = 'nexus_new_link_url';
 			include 'templates/modal.php';
 
 			$template_modal_div_id = 'modal_manage_icons_titles';
@@ -558,6 +567,7 @@
 			$template_modal_div_id = 'modal_manage_themes';
 			$template_modal_titulo = 'Manage themes';
 			$template_modal_body_conteudo = "Loading...";
+			$modal_focus = 'nexus_theme_select';
 			include 'templates/modal.php';
 
 			$template_modal_div_id = 'modal_manage_timeline';
@@ -812,6 +822,7 @@
                 if (data != 0) {
                     $('#body_modal_manage_links').empty();
                     $('#body_modal_manage_links').append(data);
+                    $("#nexus_new_link_url").focus();
                 }
             });
         });
@@ -962,7 +973,7 @@
                 $("#diff_this_link_type").removeAttr("disabled");
             }
         });
-        $(document).on('click', '#trigger_delete_this_folder', function() {
+        $(document).on('click', '#trigger_delete_this_folder', function () {
             delete_folder_check = confirm('Do you really want to delete this folder?');
             if (delete_folder_check === true) {
                 delete_folder_id = $('#manage_icon_title_folder_id').val();
@@ -977,7 +988,7 @@
                 })
             }
         })
-        $(document).on('click', '#trigger_delete_this_link', function() {
+        $(document).on('click', '#trigger_delete_this_link', function () {
             delete_link_check = confirm('Do you really want to delete this link?');
             if (delete_link_check == true) {
                 delete_link_id = $('#manage_icon_title_link_id').val();

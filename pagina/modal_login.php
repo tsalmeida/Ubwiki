@@ -3,6 +3,7 @@
 	$template_modal_div_id = 'modal_login';
 	$template_modal_titulo = $pagina_translated['access'];
 	$template_modal_body_conteudo = false;
+	$modal_focus = 'login_email';
 
 	$template_modal_body_conteudo .= "
     <form method='post' name='form_login' id='form_login'>

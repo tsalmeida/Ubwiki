@@ -3462,15 +3462,60 @@
 		}
 	}
 
+	function return_user_colors($args)
+	{
+		if (!isset($args['user_id'])) {
+			return nexus_colors('list');
+		}
+		include 'templates/criar_conn.php';
+		$query = prepare_query("SELECT random_colors FROM nexus WHERE user_id = {$args['user_id']}");
+		$results = $conn->query($query);
+		if ($results->num_rows > 0) {
+			while ($result = $results->fetch_assoc()) {
+				$user_random_colors = unserialize($result['random_colors']);
+				if ($user_random_colors == false) {
+					$all_colors = nexus_colors('list');
+					$serialized = serialize($all_colors);
+					$query = prepare_query("UPDATE nexus SET random_colors = '$serialized' WHERE user_id = {$args['user_id']}");
+					$conn->query($query);
+					return $all_colors;
+				} else {
+					return $user_random_colors;
+				}
+			}
+		}
+	}
+
 	function nexus_colors()
 	{
 		$args = func_get_args();
-		$nexus_colors = array('blue', 'indigo', 'purple', 'pink', 'red', 'orange', 'yellow', 'green', 'teal', 'cyan');
+		if (isset($args[2])) {
+			$user_id = $args[2];
+		} else {
+			$user_id = false;
+		}
+		$nexus_colors = array('blue', //			'indigo',
+			'purple', 'pink', 'red', 'orange', 'yellow', 'green', 'teal', 'cyan');
 		if ($args[0] == 'list') {
 			return $nexus_colors;
 		} elseif ($args[0] == 'random') {
-			$random_color = array_rand($nexus_colors);
-			return $nexus_colors[$random_color];
+			if ($user_id != false) {
+				$rng_colors = return_user_colors(array('user_id' => $user_id));
+			} else {
+				$rng_colors = $nexus_colors;
+			}
+			$random_key = array_rand($rng_colors);
+			$random_color_result = $rng_colors[$random_key];
+			if ($user_id != false) {
+				$new_random = $rng_colors;
+				unset($new_random[$random_key]);
+				$new_random = serialize($new_random);
+				include 'templates/criar_conn.php';
+				$query = prepare_query("UPDATE nexus SET random_colors = '$new_random' WHERE user_id = $user_id");
+				$conn->query($query);
+				$conn->close();
+			}
+			return $random_color_result;
 		} elseif ($args[0] == 'convert') {
 			switch ($args[1]) {
 				case 'blue':
@@ -3525,7 +3570,8 @@
 		$nexus_info = $conn->query($query);
 		if ($nexus_info->num_rows > 0) {
 			while ($nexus_page_info = $nexus_info->fetch_assoc()) {
-				return array($nexus_page_info['id'], $nexus_page_info['timestamp'], $nexus_page_info['pagina_id'], $nexus_page_info['title'], $nexus_page_info['theme']);
+				return array($nexus_page_info['id'], $nexus_page_info['timestamp'], $nexus_page_info['pagina_id'], $nexus_page_info['title'], $nexus_page_info['theme']//				, $nexus_page_info['random_icons'], $nexus_page_info['random_colors']
+				);
 			};
 		}
 	}
@@ -3549,9 +3595,9 @@
 
 	function nexus_get_icon_and_color($params)
 	{
-		if (isset($params['type'])) {
-			$type = $params['type'];
-		}
+//		if (isset($params['type'])) {
+//			$type = $params['type'];
+//		}
 		$icon = false;
 		if (isset($params['icon'])) {
 			$icon = $params['icon'];
@@ -3560,23 +3606,23 @@
 		if (isset($params['color'])) {
 			$color = $params['color'];
 		}
-		if (isset($params['user_id'])) {
-			$user_id = $params['user_id'];
-		}
-		if (isset($params['pagina_id'])) {
-			$pagina_id = $params['pagina_id'];
-		}
-		if (isset($params['link_id'])) {
-			$link_id = $params['link_id'];
-		}
-		if (isset($params['link_url'])) {
-			$link_url = $params['link_url'];
-		}
+//		if (isset($params['user_id'])) {
+//			$user_id = $params['user_id'];
+//		}
+//		if (isset($params['pagina_id'])) {
+//			$pagina_id = $params['pagina_id'];
+//		}
+//		if (isset($params['link_id'])) {
+//			$link_id = $params['link_id'];
+//		}
+//		if (isset($params['link_url'])) {
+//			$link_url = $params['link_url'];
+//		}
 		if (($icon == 'random') || ($icon == false) || (!isset($icon))) {
-			$icon = nexus_icons('random');
+			$icon = nexus_icons('random', false, $params['user_id']);
 		}
 		if (($color == 'random') || ($color == false) || (!isset($color))) {
-			$color = nexus_colors('random');
+			$color = nexus_colors('random', false, $params['user_id']);
 		}
 		return array('icon' => $icon, 'color' => $color);
 	}
@@ -3895,7 +3941,7 @@
 			$args['icon'] = nexus_icons('random');
 		}
 		if (!isset($args['color']) || ($args['color'] == false) || ($args['color'] == 'random')) {
-			$args['color'] = nexus_colors('random');
+			$args['color'] = nexus_colors('random', false, $args['user_id']);
 		}
 		if ((!isset($args['type'])) || ($args['type'] == false)) {
 			$args['type'] = 'main';

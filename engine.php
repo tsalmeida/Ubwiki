@@ -2356,6 +2356,13 @@
 		<p>You will be able to change the details later. For now, all you need is a name for each.</p>
 		<form method='post'>
 			<div class='mb-3'>
+				<label for='new_bulk_folders_type' class='form-label'>Type of folders ot create:</label>
+				<select class='form-select' id='new_bulk_folders_type' name='new_bulk_folders_type'>
+					<option value='main'>Main</option>
+					<option value='archival'>Archival</option>
+				</select>
+			</div>
+			<div class='mb-3'>
 				<label for='new_bulk_folder_1' class='form-label'>Name for new folder #1</label>
 				<input id='new_bulk_folder_1' type='text' class='form-control' name='new_bulk_folder_1'>
 			</div>
@@ -2392,6 +2399,8 @@
 		echo "
 		<p>Add the urls below and the Nexus will try to find a good name for each, along with random colors and icons. You may edit everything later.</p>
 		<form method='post'>
+		<div class='mb-3'>
+			<label for='new_bulk_links_folder' class='form-label'>Folder in which to place the new links:</label>
 			<select class='form-select' id='new_bulk_links_folder' name='new_bulk_links_folder'>
 				<option selected value='0'>Link Dump</option>";
 
@@ -2419,6 +2428,7 @@
 
 		echo "
 			</select>
+			</div>
 			<div class='mb-3'>
 				<label for='new_bulk_link_1' class='form-label'>New link url #1</label>
 				<input id='new_bulk_link_1' name='new_bulk_link_1' type='url' class='form-control'>
@@ -2450,244 +2460,6 @@
 			<button type='submit' class='btn btn-primary'>Add links to the Link Dump</button>
 		</form>
 		";
-	}
-
-	if (isset($_POST['transfer_nexustation'])) {
-
-		nexus_new_folder(array('user_id' => 1, 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'title' => 'Main Links'));
-		nexus_new_folder(array('user_id' => 1, 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'title' => 'General interest'));
-		nexus_new_folder(array('user_id' => 1, 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'title' => 'Finance'));
-		nexus_new_folder(array('user_id' => 1, 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'title' => 'Time Investment'));
-		nexus_new_folder(array('user_id' => 1, 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'title' => 'Creation'));
-		nexus_new_folder(array('user_id' => 1, 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'title' => 'Entertainment'));
-		nexus_new_folder(array('user_id' => 1, 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'title' => 'Career'));
-		//8
-		nexus_new_folder(array('user_id' => 1, 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'title' => 'News', 'type' => 'archival'));
-		//9
-		nexus_new_folder(array('user_id' => 1, 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'title' => 'Miscellaneous', 'type' => 'archival'));
-		//10
-		nexus_new_folder(array('user_id' => 1, 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'title' => 'Design websites', 'type' => 'archival'));
-		//11
-		nexus_new_folder(array('user_id' => 1, 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'title' => 'Design links', 'type' => 'archival'));
-		//12
-		nexus_new_folder(array('user_id' => 1, 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'title' => 'Color', 'type' => 'archival'));
-		//13
-		nexus_new_folder(array('user_id' => 1, 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'title' => 'Reading list', 'type' => 'archival'));
-		//14
-		nexus_new_folder(array('user_id' => 1, 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'title' => 'Piracy', 'type' => 'archival'));
-		//15
-		nexus_new_folder(array('user_id' => 1, 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'title' => 'Good reads', 'type' => 'archival'));
-		//16
-		nexus_new_folder(array('user_id' => 1, 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'title' => 'To buy', 'type' => 'archival'));
-		//17
-		nexus_new_folder(array('user_id' => 1, 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'title' => 'Music', 'type' => 'archival'));
-		//18
-		nexus_new_folder(array('user_id' => 1, 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'title' => 'Deault wallpapers collection', 'type' => 'archival'));
-		//19
-		nexus_new_folder(array('user_id' => 1, 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'title' => 'Books', 'type' => 'archival'));
-		//20
-		nexus_new_folder(array('user_id' => 1, 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'title' => 'Typefaces', 'type' => 'archival'));
-		//21
-		nexus_new_folder(array('user_id' => 1, 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'title' => 'World Geography Course', 'type' => 'archival'));
-		//22
-		nexus_new_folder(array('user_id' => 1, 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'title' => 'Coding', 'type' => 'archival'));
-		//23
-		nexus_new_folder(array('user_id' => 1, 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'title' => 'Movies', 'type' => 'archival'));
-		//24
-		nexus_new_folder(array('user_id' => 1, 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'title' => 'Fresh install', 'type' => 'archival'));
-		//25
-		nexus_new_folder(array('user_id' => 1, 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'title' => 'How-tos', 'type' => 'archival'));
-		//26
-		nexus_new_folder(array('user_id' => 1, 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'title' => 'Bitcoin', 'type' => 'archival'));
-		//27
-		nexus_new_folder(array('user_id' => 1, 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'title' => 'Worknexus wiki', 'type' => 'archival'));
-		//28
-		nexus_new_folder(array('user_id' => 1, 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'title' => 'Gaming', 'type' => 'archival'));
-		//29
-		nexus_new_folder(array('user_id' => 1, 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'title' => 'Movies for children', 'type' => 'archival'));
-		//30
-		nexus_new_folder(array('user_id' => 1, 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'title' => 'Decoration inspiration', 'type' => 'archival'));
-		//31
-		nexus_new_folder(array('user_id' => 1, 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'title' => 'Funny', 'type' => 'archival'));
-		//32
-		nexus_new_folder(array('user_id' => 1, 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'title' => 'To print', 'type' => 'archival'));
-		//33
-		nexus_new_folder(array('user_id' => 1, 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'title' => 'Nexusblog editor access url', 'type' => 'archival'));;
-		//34
-		nexus_new_folder(array('user_id' => 1, 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'title' => 'Theme wallpapers', 'type' => 'archival'));
-
-		$query = prepare_query("SELECT two, three, four FROM Nexustation WHERE one = 'linkFA'");
-		$links = $conn->query($query);
-		if ($links->num_rows > 0) {
-			while ($link = $links->fetch_assoc()) {
-				switch ($link['three']) {
-					case 'clasx01':
-						$location = 1;
-						break;
-					case 'clasx02':
-						$location = 2;
-						break;
-					case 'clasx03':
-						$location = 3;
-						break;
-					case 'clasx04':
-						$location = 4;
-						break;
-					case 'clasx05':
-						$location = 5;
-						break;
-					case 'clasx06':
-						$location = 6;
-						break;
-					case 'clasx07':
-						$location = 7;
-						break;
-					default:
-						$location = 1;
-				}
-				nexus_add_link(array('user_id' => $_SESSION['user_id'], 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'url' => $link['four'], 'title' => $link['two'], 'location' => $location, 'check_headers' => false, 'check_curl' => false));
-			}
-		}
-		$query = prepare_query("SELECT two, three, four FROM Nexustation WHERE one = 'link'");
-		$links = $conn->query($query);
-		if ($links->num_rows > 0) {
-			while ($link = $links->fetch_assoc()) {
-				switch ($link['three']) {
-					case 'clasx01':
-						$location = 1;
-						break;
-					case 'clasx02':
-						$location = 2;
-						break;
-					case 'clasx03':
-						$location = 3;
-						break;
-					case 'clasx04':
-						$location = 4;
-						break;
-					case 'clasx05':
-						$location = 5;
-						break;
-					case 'clasx06':
-						$location = 6;
-						break;
-					case 'clasx07':
-						$location = 7;
-						break;
-					default:
-						$location = 1;
-				}
-				nexus_add_link(array('user_id' => $_SESSION['user_id'], 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'url' => $link['four'], 'title' => $link['two'], 'location' => $location, 'check_headers' => false, 'check_curl' => false));
-				unset($_SESSION['all_links']);
-			}
-		}
-		$query = prepare_query("SELECT two, three, four FROM Nexustation WHERE one = 'linkBM'");
-		$links = $conn->query($query);
-		if ($links->num_rows > 0) {
-			while ($link = $links->fetch_assoc()) {
-				switch ($link['three']) {
-					case 'bm01': //news
-						$location = 8;
-						break;
-					case 'bm02': // miscellaneous
-						$location = 9;
-						break;
-					case 'bm03':
-						$location = 0;
-						break;
-					case 'bm04': // design websites
-						$location = 10;
-						break;
-					case 'bm05': // design links
-						$location = 11;
-						break;
-					case 'bm06': // color
-						$location = 12;
-						break;
-					case 'bm07': // reading list
-						$location = 13;
-						break;
-					case 'bm08': // piracy
-						$location = 14;
-						break;
-					case 'bm09': // good reads
-						$location = 15;
-						break;
-					case 'bm10': // to buy
-						$location = 16;
-						break;
-					case 'bm11': // music
-						$location = 17;
-						break;
-					case 'bm12': // default wallpaper collections
-						$location = 18;
-						break;
-					case 'bm13': // books
-						$location = 19;
-						break;
-					case 'bm14': // typefaces
-						$location = 20;
-						break;
-					case 'bm15': // world geography course
-						$location = 21;
-						break;
-					case 'bm16': // coding
-						$location = 22;
-						break;
-					case 'bm17': // movies
-						$location = 23;
-						break;
-					case 'bm18': // fresh install
-						$location = 24;
-						break;
-					case 'bm19': // how tos
-						$location = 25;
-						break;
-					case 'bm20': // bitcoin
-						$location = 26;
-						break;
-					case 'bm21': // worknexus wiki
-						$location = 27;
-						break;
-					case 'bm22': // gaming
-						$location = 28;
-						break;
-					case 'bm23': // movies for children
-						$location = 29;
-						break;
-					case 'bm25': // decoration inspiration
-						$location = 30;
-						break;
-					case 'bm26': // funny
-						$location = 31;
-						break;
-					case 'bm27': // To print
-						$location = 32;
-						break;
-					case 'bm28': // Nexusblog editor access URL
-						$location = 33;
-						break;
-					case 'bm29':
-						$location = 0;
-						break;
-					case 'bm30': // Theme wallpapers
-						$location = 34;
-						break;
-					default:
-						$location = 0;
-				}
-				nexus_add_link(array('user_id' => $_SESSION['user_id'], 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'url' => $link['four'], 'title' => $link['two'], 'location' => $location, 'check_headers' => false, 'check_curl' => false));
-			}
-		}
-		$query = prepare_query("SELECT two, four FROM Nexustation WHERE one = 'linkDump'");
-		$linkdumps = $conn->query($query);
-		if ($linkdumps->num_rows > 0) {
-			while ($linkdump = $linkdumps->fetch_assoc()) {
-				nexus_add_link(array('user_id' => $_SESSION['user_id'], 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'url' => $linkdump['four'], 'title' => $linkdump['two'], 'check_headers' => false, 'check_curl' => false));
-			}
-		}
-		unset($_SESSION['all_links']);
-		echo 'done';
 	}
 
 	if (isset($_POST['shred_nexus'])) {
