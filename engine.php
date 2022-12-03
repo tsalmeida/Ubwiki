@@ -2859,8 +2859,8 @@
 			$query = prepare_query("UPDATE nexus_folders SET icon = '$new_icon', color = '$new_color' WHERE id = $key");
 			$conn->query($query);
 		}
-		$query = prepare_query("UPDATE nexus SET random_icons = false, random_colors = false WHERE user_id = {$_SESSION['user_id']}");
 		foreach ($_SESSION['nexus_folders'] as $key => $array) {
+			$query = prepare_query("UPDATE nexus SET random_icons = false, random_colors = false WHERE user_id = {$_SESSION['user_id']}");
 			if ($key == 'linkdump') {
 				$key = '0';
 			}
