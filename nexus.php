@@ -186,7 +186,7 @@
 	}
 
 	if (isset($_POST['del_theme_select'])) {
-		$query = prepare_query("UPDATE nexus_elements SET state = 0 WHERE param_int_1 = {$_POST['del_theme_select']} AND pagina_id = {$_SESSION['user_nexus_pagina_id']} AND type = 'theme'", 'log');
+		$query = prepare_query("UPDATE nexus_elements SET state = 0 WHERE param_int_1 = {$_POST['del_theme_select']} AND pagina_id = {$_SESSION['user_nexus_pagina_id']} AND type = 'theme'");
 		$conn->query($query);
 	}
 
@@ -364,7 +364,7 @@
 			$wallpaper_repeat = $theme_info['repeat'];
 			$wallpaper_size = $theme_info['size'];
 			$wallpaper_position = $theme_info['position'];
-			$title_color_info = nexus_colors('convert', $theme_info['homehex']);
+			$title_color_info = nexus_colors(array('mode'=>'convert', 'color'=>$theme_info['homehex']));
 			$title_color = $title_color_info['link-color'];
 			$title_overlay = $theme_info['homeeffect'];
 			$title_overlay_hover = 'difference';
@@ -485,6 +485,7 @@
 					echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_themes', 'title' => 'Manage themes', 'modal' => '#modal_manage_themes', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-swatchbook', 'color' => 'purple'));
 					echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_options', 'title' => 'Options', 'modal' => '#modal_options', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-toggle-large-on', 'color' => 'green'));
 					echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_timeline', 'title' => 'Activity log', 'modal' => '#modal_manage_timeline', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-list-timeline', 'color' => 'cyan'));
+                    echo nexus_put_together(array('type'=>'folder_fat', 'id'=>'redo_icons', 'title'=> 'Redo all icons randomly', 'class' => 'nexus_settings_icon', 'icon'=> 'fa-circle-notch', 'color' => 'indigo'));
 				}
 				echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_commands', 'title' => 'Commands', 'modal' => '#modal_commands', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-rectangle-terminal', 'color' => 'orange'));
 				//				echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'logout', 'title' => 'Logout', 'modal' => false, 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-person-through-window', 'color' => 'red'));
@@ -1027,6 +1028,18 @@
                 $(document).find('.add_theme_details').addClass('d-none');
             }
         });
+
+        $(document).on('click', '#trigger_redo_icons', function() {
+            $.post('engine.php', {
+                'redo_all_icons': true
+            }, function (data) {
+                if (data != 0) {
+                    window.location.reload(true);
+                } else {
+                    alert('Could not redo the links, for some reason.');
+                }
+            })
+        })
 
 		<?php
 		echo $html_bottom_folders;

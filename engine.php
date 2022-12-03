@@ -2057,7 +2057,7 @@
 					<label class='form-label' for='#nexus_new_link_icon'>Choose an icon:</label>
 					<select id='nexus_new_link_icon' name='nexus_new_link_icon' class='form-select'>
 						<option value='random' selected>Random</option>";
-		$nexus_icons = nexus_icons(array('mode'=>'list'));
+		$nexus_icons = nexus_icons(array('mode' => 'list'));
 		foreach (array_keys($nexus_icons) as $key) {
 			$capitalize = ucfirst($key);
 			echo "<option value='{$key}'>$capitalize</option>";
@@ -2088,7 +2088,7 @@
 
 	if (isset($_POST['remove_this_link'])) {
 		if ($_POST['remove_this_link'] != false) {
-			$query = prepare_query("UPDATE nexus_elements SET state = 0 WHERE user_id = {$_SESSION['user_id']} AND state = 1 AND param_int_2 = {$_POST['remove_this_link']}", 'log');
+			$query = prepare_query("UPDATE nexus_elements SET state = 0 WHERE user_id = {$_SESSION['user_id']} AND state = 1 AND param_int_2 = {$_POST['remove_this_link']}");
 			$check = $conn->query($query);
 			echo $check;
 			unset($_SESSION['nexus_links']);
@@ -2097,7 +2097,7 @@
 
 	if (isset($_POST['remove_this_folder'])) {
 		if ($_POST['remove_this_folder'] != false) {
-			$query = prepare_query("DELETE FROM nexus_folders WHERE id = {$_POST['remove_this_folder']} AND user_id = {$_SESSION['user_id']} AND pagina_id = {$_SESSION['user_nexus_pagina_id']}", 'log');
+			$query = prepare_query("DELETE FROM nexus_folders WHERE id = {$_POST['remove_this_folder']} AND user_id = {$_SESSION['user_id']} AND pagina_id = {$_SESSION['user_nexus_pagina_id']}");
 			$check = $conn->query($query);
 			echo $check;
 			unset($_SESSION['nexus_links']);
@@ -2318,7 +2318,7 @@
 				<label for='nexus_new_folder_icon' class='form-label'>Select an icon:</label>
 				<select id='nexus_new_folder_icon' name='nexus_new_folder_icon' class='form-select mb-3'>
 					<option selected value='0'>Random icon</option>";
-		$nexus_icons = nexus_icons(array('mode'=>'list'));
+		$nexus_icons = nexus_icons(array('mode' => 'list'));
 		foreach (array_keys($nexus_icons) as $key) {
 			$capitalize = ucfirst($key);
 			echo "<option value='{$nexus_icons[$key]}'>$capitalize</option>";
@@ -2697,7 +2697,7 @@
 			<label class='form-label manage_details_hide d-none' for='manage_icon_title_new_color'>Select the new color:</label>
 			<select id='manage_icon_title_new_color' name='manage_icon_title_new_color' class='form-select mb-3 manage_details_hide d-none'>
 				<option selected disabled>Leave as is</option>";
-		$colors = nexus_colors('list');
+		$colors = nexus_colors(array('mode' => 'list'));
 		foreach ($colors as $color) {
 			$color_capitalized = ucfirst($color);
 			$populate_icons_titles .= "<option value='$color'>$color_capitalized</option>";
@@ -2707,7 +2707,7 @@
 			<label for='manage_icon_title_new_icon' class='form-label manage_details_hide d-none'>Select the new icon:</label>
 			<select id='manage_icon_title_new_icon' name='manage_icon_title_new_icon' class='form-select mb-3 manage_details_hide d-none'>
 				<option selected disabled>Leave as is</option>";
-		$icons = nexus_icons(array('mode'=>'list'));
+		$icons = nexus_icons(array('mode' => 'list'));
 		foreach ($icons as $icon => $key) {
 			$icon_capitalized = ucfirst($icon);
 			$populate_icons_titles .= "<option value='$icon'>$icon_capitalized</option>";
@@ -2835,6 +2835,48 @@
 				$conn->query($query);
 			}
 		}
+		unset($_SESSION['nexus_links']);
+	}
+
+	if (isset($_POST['redo_all_icons'])) {
+		include 'templates/criar_conn.php';
+		$query = prepare_query("UPDATE nexus SET random_icons = false, random_colors = false WHERE user_id = {$_SESSION['user_id']}");
+		foreach ($_SESSION['nexus_folders'] as $key => $array) {
+			if ($_SESSION['nexus_folders'][$key]['info']['type'] != 'main') {
+				continue;
+			}
+			$new_icon = nexus_icons(array('mode' => 'random', 'user_id' => $_SESSION['user_id']));
+			$new_color = nexus_colors(array('mode' => 'random', 'user_id' => $_SESSION['user_id']));
+			$query = prepare_query("UPDATE nexus_folders SET icon = '$new_icon', color = '$new_color' WHERE id = $key");
+			$conn->query($query);
+		}
+		foreach ($_SESSION['nexus_folders'] as $key => $array) {
+			if ($_SESSION['nexus_folders'][$key]['info']['type'] != 'archival') {
+				continue;
+			}
+			$new_icon = nexus_icons(array('mode' => 'random', 'user_id' => $_SESSION['user_id']));
+			$new_color = nexus_colors(array('mode' => 'random', 'user_id' => $_SESSION['user_id']));
+			$query = prepare_query("UPDATE nexus_folders SET icon = '$new_icon', color = '$new_color' WHERE id = $key");
+			$conn->query($query);
+		}
+		$query = prepare_query("UPDATE nexus SET random_icons = false, random_colors = false WHERE user_id = {$_SESSION['user_id']}");
+		foreach ($_SESSION['nexus_folders'] as $key => $array) {
+			if ($key == 'linkdump') {
+				$key = '0';
+			}
+			$query = prepare_query("SELECT id FROM nexus_elements WHERE param_int_1 = $key AND state = 1");
+			$links = $conn->query($query);
+			if ($links->num_rows > 0) {
+				while ($link = $links->fetch_assoc()) {
+					$link_id = $link['id'];
+					$new_icon = nexus_icons(array('mode' => 'random', 'user_id' => $_SESSION['user_id']));
+					$new_color = nexus_colors(array('mode' => 'random', 'user_id' => $_SESSION['user_id']));
+					$query = prepare_query("UPDATE nexus_elements SET param3 = '$new_icon', param4 = '$new_color' WHERE id = $link_id");
+					$conn->query($query);
+				}
+			}
+		}
+		echo true;
 		unset($_SESSION['nexus_links']);
 	}
 
