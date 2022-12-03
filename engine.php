@@ -2057,7 +2057,7 @@
 					<label class='form-label' for='#nexus_new_link_icon'>Choose an icon:</label>
 					<select id='nexus_new_link_icon' name='nexus_new_link_icon' class='form-select'>
 						<option value='random' selected>Random</option>";
-		$nexus_icons = nexus_icons('list');
+		$nexus_icons = nexus_icons(array('mode'=>'list'));
 		foreach (array_keys($nexus_icons) as $key) {
 			$capitalize = ucfirst($key);
 			echo "<option value='{$key}'>$capitalize</option>";
@@ -2318,7 +2318,7 @@
 				<label for='nexus_new_folder_icon' class='form-label'>Select an icon:</label>
 				<select id='nexus_new_folder_icon' name='nexus_new_folder_icon' class='form-select mb-3'>
 					<option selected value='0'>Random icon</option>";
-		$nexus_icons = nexus_icons('list');
+		$nexus_icons = nexus_icons(array('mode'=>'list'));
 		foreach (array_keys($nexus_icons) as $key) {
 			$capitalize = ucfirst($key);
 			echo "<option value='{$nexus_icons[$key]}'>$capitalize</option>";
@@ -2707,7 +2707,7 @@
 			<label for='manage_icon_title_new_icon' class='form-label manage_details_hide d-none'>Select the new icon:</label>
 			<select id='manage_icon_title_new_icon' name='manage_icon_title_new_icon' class='form-select mb-3 manage_details_hide d-none'>
 				<option selected disabled>Leave as is</option>";
-		$icons = nexus_icons('list');
+		$icons = nexus_icons(array('mode'=>'list'));
 		foreach ($icons as $icon => $key) {
 			$icon_capitalized = ucfirst($icon);
 			$populate_icons_titles .= "<option value='$icon'>$icon_capitalized</option>";

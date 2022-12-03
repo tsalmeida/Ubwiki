@@ -17,7 +17,7 @@
 			$nexus_folder_id = $nexus_folder_info['id'];
 			$nexus_folder_title = $nexus_folder_info['title'];
 			$nexus_fa_icone = $nexus_folder_info['icon'];
-			$nexus_fa_icone = nexus_icons('convert', $nexus_fa_icone);
+			$nexus_fa_icone = nexus_icons(array('mode'=>'convert', 'icon'=>$nexus_fa_icone));
 			$nexus_fa_icone = "fa-solid $nexus_fa_icone";
 			$nexus_folder_type = $nexus_folder_info['type'];
 			$close_folders_container = false;
