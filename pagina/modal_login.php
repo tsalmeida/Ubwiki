@@ -17,7 +17,7 @@
         <p id='login_thinkific_registro' class='collapse'>Para acessar a Ubwiki diretamente e criar uma nova senha, você precisará, uma última vez, passar pela <a href='https://www.grupoubique.com.br/'>página do Grupo Ubique</a>. Alternativamente, você pode escolher a opção \"Esqueceu sua senha?\" e receber uma nova senha por email.</p>
         <div id='secao_login_email' class='mb-3 mb-3 collapse'>
             <label class='form-label' for='login_email'>{$pagina_translated['your_email']}</label>
-            <input type='email' id='login_email' name='login_email' class='form-control'>
+            <input type='email' id='login_email' name='login_email' class='form-control' autocomplete='username'>
         </div>
         <div id='secao_login_thinkific_email' class='mb-3 collapse mb-3'>
             <label class='form-label' for='login_thinkific_email'></label>
@@ -25,11 +25,11 @@
         </div>
         <div id='secao_login_senha' class='mb-3 collapse mb-3'>
 	        <label class='form-label' for='login_senha'>{$pagina_translated['your_password']}</label>
-            <input type='password' id='login_senha' name='login_senha' class='form-control'>
+            <input type='password' id='login_senha' name='login_senha' autocomplete='password' class='form-control'>
         </div>
         <div id='secao_login_confirmacao' class='mb-3 collapse mb-3'>
             <label class='form-label' for='login_senha_confirmacao'>{$pagina_translated['Confirme sua senha']}</label>
-            <input type='password' id='login_senha_confirmacao' name='login_senha_confirmacao' class='form-control' disabled>
+            <input type='password' id='login_senha_confirmacao' name='login_senha_confirmacao' class='form-control' autocomplete='password' disabled>
         </div>
         <div id='secao_login_enviar' class='mb-3 d-flex justify-content-center'>
             <button id='botao_login' name='botao_login' type='button' class='btn btn-primary' disabled>{$pagina_translated['continue']}</button>
@@ -43,14 +43,16 @@
 	$template_modal_body_conteudo = false;
 	$template_modal_body_conteudo .= "
 		<p>{$pagina_translated['forgot_your_password']}</p>
-		<div class='mb-3'>
-			<label for='nova_senha_email' class='form-label'>{$pagina_translated['your_email']}</label>
-			<input type='text' class='form-control' name='nova_senha_email' id='nova_senha_email'>
-		</div>
-		<div class='mb-3'>
-			<label for='nova_senha' class='form-label'>{$pagina_translated['your_new_password']}</label>
-			<input type='password' class='form-control' name='nova_senha' id='nova_senha'>
-		</div>
+		<form>
+			<div class='mb-3'>
+				<label for='nova_senha_email' class='form-label'>{$pagina_translated['your_email']}</label>
+				<input type='text' class='form-control' name='nova_senha_email' id='nova_senha_email' autocomplete='new-password'>
+			</div>
+			<div class='mb-3'>
+				<label for='nova_senha' class='form-label'>{$pagina_translated['your_new_password']}</label>
+				<input type='password' class='form-control' name='nova_senha' id='nova_senha' autocomplete='new-password'>
+			</div>
+		</form>
 	";
 	include 'templates/modal.php';
 	

@@ -450,8 +450,10 @@
                 <div class="row d-flex justify-content-around mt-3">
                     <div class="col">
                         <div class="mb-3 input-group">
-                            <input type="text" id="username" style="width:0;height:0;visibility:hidden;position:absolute;left:0;top:0"/>
-                            <input type="password" style="width:0;height:0;visibility:hidden;position:absolute;left:0;top:0"/>
+                            <form>
+                            <input type="text" id="username" autocomplete="username" style="width:0;height:0;visibility:hidden;position:absolute;left:0;top:0"/>
+                            <input type="password" autocomplete="current-password" style="width:0;height:0;visibility:hidden;position:absolute;left:0;top:0"/>
+                            </form>
                             <input id="cmdbar" name="cmdbar" list="command-list" type="text" class="form-control font-monospace mx-1 cmd-bar rounded text-white bg-dark border-0" rows="1" autocomplete="off" spellcheck="false" placeholder="<?php echo $user_apelido; ?> commands…">
                             <datalist id="command-list">
 								<?php
