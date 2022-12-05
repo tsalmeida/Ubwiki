@@ -2553,10 +2553,11 @@
 		} else {
 			$cmd_link_id_check = false;
 		}
-		echo "
-			<div class='form-check form-switch'>
+		$options_modal = false;
+		$options_modal .= "
+			<div class='form-check form-switch mb-3'>
 				<input class='form-check-input' type='checkbox' role='switch' id='nexus_cmd_link_id' $cmd_link_id_check>
-				<label class='form-check-label' for='nexus_cmd_link_id'>Use link numbers on the command bar. Though titles will still work, once you memorize the numbers it will be faster than typing the titles. <span id='saved_cmd_link_id' class='text-success'><i class='fa-solid fa-cloud-check fa-fw'></i></span></label>
+				<label class='form-check-label' for='nexus_cmd_link_id'>Use link id numbers in the command bar. It's a faster way of opening your links, but that would require memorizing their ids. The command bar will still find typed titles. <span id='saved_cmd_link_id' class='text-success'><i class='fa-solid fa-cloud-check fa-fw'></i></span></label>
 			</div>
 			<script>
 					$(document).on('click', '#nexus_cmd_link_id', function () {
@@ -2576,7 +2577,11 @@
 						})
 					});
 			</script>
+			<div class='mb-3'>
+						<p><button id='trigger_redo_icons' type='button' class='btn btn-success btn-sm'>Click here</button> to redo all icons in your Nexus randomly, with minimal control so there's not too much repetition of colors and symbols. The page will reload when finished.</p>
+			</div>
 		";
+		echo $options_modal;
 	}
 
 	if (isset($_POST['analyse_cmd_input'])) {

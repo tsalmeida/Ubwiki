@@ -106,8 +106,8 @@
 	include 'templates/html_head.php';
 	include 'templates/navbar.php';
 
-	$all_icons = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24);
-	$icons_to_show = array(1, 2, 3, 4, 6, 13, 16, 21);
+	$all_icons = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26);
+	$icons_to_show = array(1, 2, 3, 4, 6, 13, 16, 21, 25, 26);
 	if ($user_bookmarks != array()) {
 		array_push($icons_to_show, 10);
 	}	if ($user_areas_interesse != array()) {
@@ -420,6 +420,19 @@
 					$fa_icone = 'fa-file-edit';
 					$fa_color = 'link-info';
 					if (in_array(24, $icons_to_show)) {
+						$template_conteudo .= include 'templates/artefato_item.php';
+					} else {
+						$template_conteudo_hidden .= include 'templates/artefato_item.php';
+					}
+
+					$artefato_id = 'repeated_words';
+					$artefato_subtitulo = "Find repeated words";
+					$artefato_link = 'repeats.php';
+					$artefato_badge = 'fa-external-link';
+					$fa_icone = 'fa-magnifying-glass';
+					$fa_color = 'link-purple';
+					$artefato_icone_background = return_background($fa_color);
+					if (in_array(25, $icons_to_show)) {
 						$template_conteudo .= include 'templates/artefato_item.php';
 					} else {
 						$template_conteudo_hidden .= include 'templates/artefato_item.php';
