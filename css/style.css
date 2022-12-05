@@ -7809,7 +7809,7 @@ textarea.form-control-lg {
   padding: 0.25rem !important;
 }
 
-.p-2, .nexus-navbar-button, .ql-editor-active {
+.p-2, .nexus-navbar-button, #cmdbar, .ql-editor-active {
   padding: 0.5rem !important;
 }
 
@@ -11322,14 +11322,6 @@ a {
   margin-right: 1ch;
 }
 
-.bg-black-transparent {
-  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#000000+0,000000+100&0.5+0,0.5+100 */
-  background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#80000000", endColorstr="#80000000", GradientType=0); /* IE6-9 */
-}
-
 .quill_container {
   width: 100%;
   max-height: 50vh;
@@ -11388,6 +11380,11 @@ navbar {
 
 #cmdbar:active, #cmdbar:focus, #cmdbar:target-within {
   color: initial;
+  outline: none;
+}
+
+textarea:focus, input:focus {
+  outline: none;
 }
 
 #cmdbar {
@@ -11590,52 +11587,42 @@ navbar {
 
 .nexus-bg-black-blue {
   color: #0d6efd;
-  background-color: #212529;
 }
 
 .nexus-bg-black-indigo {
   color: #6610f2;
-  background-color: #212529;
 }
 
 .nexus-bg-black-purple {
   color: #6f42c1;
-  background-color: #212529;
 }
 
 .nexus-bg-black-pink {
   color: #d63384;
-  background-color: #212529;
 }
 
 .nexus-bg-black-red {
   color: #dc3545;
-  background-color: #212529;
 }
 
 .nexus-bg-black-orange {
   color: #fd7e14;
-  background-color: #212529;
 }
 
 .nexus-bg-black-yellow {
   color: #ffc107;
-  background-color: #212529;
 }
 
 .nexus-bg-black-green {
   color: #198754;
-  background-color: #212529;
 }
 
 .nexus-bg-black-teal {
   color: #20c997;
-  background-color: #212529;
 }
 
 .nexus-bg-black-cyan {
   color: #0dcaf0;
-  background-color: #212529;
 }
 
 .nexus-bg-black-blue:hover, .nexus-bg-black-active {
@@ -11690,82 +11677,77 @@ navbar {
 
 .nexus-bg-black-blue-border {
   color: #0d6efd;
-  background-color: #212529;
   border-bottom-color: #0d6efd;
-  border-bottom-style: solid;
-  border-bottom-width: 4px;
 }
 
 .nexus-bg-black-indigo-border {
   color: #6610f2;
-  background-color: #212529;
   border-bottom-color: #6610f2;
-  border-bottom-style: solid;
-  border-bottom-width: 4px;
 }
 
 .nexus-bg-black-purple-border {
   color: #6f42c1;
-  background-color: #212529;
   border-bottom-color: #6f42c1;
-  border-bottom-style: solid;
-  border-bottom-width: 4px;
 }
 
 .nexus-bg-black-pink-border {
   color: #d63384;
-  background-color: #212529;
   border-bottom-color: #d63384;
-  border-bottom-style: solid;
-  border-bottom-width: 4px;
 }
 
 .nexus-bg-black-red-border {
   color: #dc3545;
-  background-color: #212529;
   border-bottom-color: #dc3545;
-  border-bottom-style: solid;
-  border-bottom-width: 4px;
 }
 
 .nexus-bg-black-orange-border {
   color: #fd7e14;
-  background-color: #212529;
   border-bottom-color: #fd7e14;
-  border-bottom-style: solid;
-  border-bottom-width: 4px;
 }
 
 .nexus-bg-black-yellow-border {
   color: #ffc107;
-  background-color: #212529;
   border-bottom-color: #ffc107;
-  border-bottom-style: solid;
-  border-bottom-width: 4px;
 }
 
 .nexus-bg-black-green-border {
   color: #198754;
-  background-color: #212529;
   border-bottom-color: #198754;
-  border-bottom-style: solid;
-  border-bottom-width: 4px;
 }
 
 .nexus-bg-black-teal-border {
   color: #20c997;
-  background-color: #212529;
   border-bottom-color: #20c997;
-  border-bottom-style: solid;
-  border-bottom-width: 4px;
 }
 
 .nexus-bg-black-cyan-border {
   color: #0dcaf0;
-  background-color: #212529;
   border-bottom-color: #0dcaf0;
+}
+
+.include_bg-black-border, .nexus-bg-black-blue-border, .nexus-bg-black-indigo-border, .nexus-bg-black-purple-border, .nexus-bg-black-pink-border, .nexus-bg-black-red-border, .nexus-bg-black-orange-border, .nexus-bg-black-yellow-border, .nexus-bg-black-green-border, .nexus-bg-black-teal-border, .nexus-bg-black-cyan-border {
   border-bottom-style: solid;
   border-bottom-width: 4px;
+}
+
+.bg-darker, .nexus-bg-black-blue, .nexus-bg-black-indigo, .nexus-bg-black-purple, .nexus-bg-black-pink, .nexus-bg-black-red, .nexus-bg-black-orange, .nexus-bg-black-yellow, .nexus-bg-black-green, .nexus-bg-black-teal, .nexus-bg-black-cyan, .include_bg-black-border, .nexus-bg-black-blue-border, .nexus-bg-black-indigo-border, .nexus-bg-black-purple-border, .nexus-bg-black-pink-border, .nexus-bg-black-red-border, .nexus-bg-black-orange-border, .nexus-bg-black-yellow-border, .nexus-bg-black-green-border, .nexus-bg-black-teal-border, .nexus-bg-black-cyan-border {
+  background-color: #191919;
+}
+
+.bg-transparent-gray {
+  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#000000+0,000000+100&0.5+0,0.5+100 */
+  background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.9) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.9) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.9) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#80000000", endColorstr="#80000000", GradientType=0); /* IE6-9 */
+}
+
+.bg-transparent {
+  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#212529+0,212529+100&0+0,0+100 */
+  background: -moz-linear-gradient(top, rgba(33, 37, 41, 0) 0%, rgba(33, 37, 41, 0) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, rgba(33, 37, 41, 0) 0%, rgba(33, 37, 41, 0) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, rgba(33, 37, 41, 0) 0%, rgba(33, 37, 41, 0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#00212529", endColorstr="#00212529",GradientType=0 ); /* IE6-9 */
 }
 
 .nexus-bg-black-blue-border:hover {
@@ -11826,6 +11808,14 @@ navbar {
   background-color: #0aa2c0;
   color: #cff4fc;
   border-bottom-color: #cff4fc;
+}
+
+.gray900-transparent {
+  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#212529+0,212529+100&0.8+0,0.8+100 */
+  background: -moz-linear-gradient(top, rgba(33, 37, 41, 0.8) 0%, rgba(33, 37, 41, 0.8) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, rgba(33, 37, 41, 0.8) 0%, rgba(33, 37, 41, 0.8) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, rgba(33, 37, 41, 0.8) 0%, rgba(33, 37, 41, 0.8) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#cc212529", endColorstr="#cc212529",GradientType=0 ); /* IE6-9 */
 }
 
 /*# sourceMappingURL=style.css.map */

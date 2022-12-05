@@ -2729,10 +2729,14 @@
 		} else {
 			echo false;
 		}
+		unset($_SESSION['nexus_options']);
+		exit();
 	}
+
 	if (isset($_POST['option_justify_links'])) {
 		$check =  nexus_options(array('mode'=>'set', 'pagina_id'=>$_SESSION['user_nexus_pagina_id'], 'option'=>'justify_links', 'choice'=>$_POST['option_justify_links']));
 		echo $check;
+		unset($_SESSION['nexus_options']);
 		exit();
 	}
 
