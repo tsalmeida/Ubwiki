@@ -2659,21 +2659,26 @@
 			}
 		}
 		if (isset($_SESSION['nexus_alphabet'][$_POST['analyse_cmd_input']])) {
-			//This means that the user typed the link's title
 			$cmd_link_id = $_SESSION['nexus_alphabet'][$_POST['analyse_cmd_input']];
 			echo $_SESSION['nexus_links'][$cmd_link_id]['url'];
 			exit();
 		}
 		$match = array();
-		$match_result = strlen($_POST['analyse_cmd_input']) / 2;
-		$strpos_finds = array();
+		$match_result = strlen($_POST['analyse_cmd_input']);
+		$lower_cmd_input = strtolower($_POST['analyse_cmd_input']);
+		$stripos_finds = array();
 		$levenshtein_finds = array();
-		$levenshtein_threshould = strlen($_POST['analyse_cmd_input']) / 4;
+		$levenshtein_threshould = strlen($_POST['analyse_cmd_input']) / 3;
 		foreach ($_SESSION['nexus_alphabet'] as $key => $array) {
+			$lower_key = strtolower($key);
 			$this_included = stripos($key, $_POST['analyse_cmd_input']);
-			$this_match = levenshtein($_POST['analyse_cmd_input'], $key);
+			$this_match = levenshtein($lower_cmd_input, $lower_key);
+			if ($this_match == 0) {
+				echo $_SESSION['nexus_links'][$array]['url'];
+				exit();
+			}
 			if ($this_included !== false) {
-				$strpos_finds[$key] = $_SESSION['nexus_alphabet'][$key];
+				$stripos_finds[$key] = $_SESSION['nexus_alphabet'][$key];
 			} else {
 				if ($this_match <= $levenshtein_threshould) {
 					$levenshtein_finds[$key] = $_SESSION['nexus_alphabet'][$key];
@@ -2690,7 +2695,7 @@
 			}
 		}
 		$return = "<ul class='list-group'><li class='list-group-item'>No match found</li></ul>";
-		if (($levenshtein_finds != false) || ($strpos_finds != false) || ($match != false)) {
+		if (($levenshtein_finds != false) || ($stripos_finds != false) || ($match != false)) {
 			$return = false;
 		}
 		$loaded = array();
@@ -2705,11 +2710,14 @@
 				$return .= nexus_put_together(array('type' => 'link_large', 'id' => $id, 'href' => $_SESSION['nexus_links'][$id]['url'], 'color' => $_SESSION['nexus_links'][$id]['color'], 'icon' => $_SESSION['nexus_links'][$id]['icon'], 'title' => $title, 'class' => 'link_from_cmdbar'));
 			}
 		}
-		if ($strpos_finds != false) {
+		if ($stripos_finds != false) {
 			if ($levenshtein_finds != false) {
 				$return .= "<hr class='m-0 opacity-0'>";
 			}
-			foreach ($strpos_finds as $title => $id) {
+			foreach ($stripos_finds as $title => $id) {
+				if ($id == $match['best_match']) {
+					continue;
+				}
 				$return .= nexus_put_together(array('type' => 'link_large', 'id' => $id, 'href' => $_SESSION['nexus_links'][$id]['url'], 'color' => $_SESSION['nexus_links'][$id]['color'], 'icon' => $_SESSION['nexus_links'][$id]['icon'], 'title' => $title, 'class' => 'link_from_cmdbar'));
 			}
 		}
