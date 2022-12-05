@@ -32,6 +32,12 @@
 		$_SESSION['nexus_options'] = nexus_options(array('mode' => 'read', 'pagina_id' => $_SESSION['user_nexus_pagina_id']));
 	}
 
+    if (isset($_SESSION['nexus_options']['justify_links'])) {
+        if ($_SESSION['nexus_options']['justify_links'] == false) {
+            $_SESSION['nexus_options']['justify_links'] = 'justify-content-start';
+        }
+    }
+
 	$pagina_info = return_pagina_info($pagina_id, false, false, false);
 	if ($pagina_info != false) {
 		$pagina_criacao = $pagina_info[0];
@@ -287,9 +293,9 @@
                     show_links_folder_{$folder_id}();
                 })";
 			$hidden_inputs .= "
-		    <input id='load_state_{$folder_id}' type='hidden' value='false'>
+		    <input id='load_state_{$folder_id}' class='hidden_load_states' type='hidden' value='false'>
 		";
-			$folder_containers .= "<div id='links_from_folder_{$folder_id}' class='row specific_folder_links'></div>";
+			$folder_containers .= "<div id='links_from_folder_{$folder_id}' class='row specific_folder_links {$_SESSION['nexus_options']['justify_links']}'></div>";
 		}
 	}
 
@@ -447,14 +453,14 @@
                 </div>
             </div>
             <div id="cmd_container" class="container">
-                <div class="row d-flex justify-content-around mt-3">
-                    <div class="col">
-                        <div class="mb-3 input-group">
+                <div class="row d-flex justify-content-center mt-3 input-group">
+<!--                    <div class="col">-->
+<!--                        <div class="mb-3 input-group">-->
                             <form>
                             <input type="text" id="username" autocomplete="username" style="width:0;height:0;visibility:hidden;position:absolute;left:0;top:0"/>
                             <input type="password" autocomplete="current-password" style="width:0;height:0;visibility:hidden;position:absolute;left:0;top:0"/>
                             </form>
-                            <input id="cmdbar" name="cmdbar" list="command-list" type="text" class="form-control font-monospace mx-1 cmd-bar rounded text-white bg-dark border-0" rows="1" autocomplete="off" spellcheck="false" placeholder="<?php echo $user_apelido; ?> commands…">
+                            <input id="cmdbar" name="cmdbar" list="command-list" type="text" class="form-control font-monospace cmd-bar rounded text-white bg-dark border-0 mb-5" rows="1" autocomplete="off" spellcheck="false" placeholder="<?php echo $user_apelido; ?> commands…">
                             <datalist id="command-list">
 								<?php
 									if (!isset($_SESSION['nexus_options']['cmd_link_id'])) {
@@ -471,9 +477,10 @@
 									}
 								?>
                             </datalist>
-                        </div>
-                    </div>
+<!--                        </div>-->
+<!--                    </div>-->
                 </div>
+                <div id="under_cmdbar" class="row <?php echo $_SESSION['nexus_options']['justify_links']; ?>"></div>
             </div>
 			<?php
 				echo "<div id='settings_container' class='container d-none mt-1'><div id='settings_row' class='row'>";
@@ -658,6 +665,7 @@
         }
 
         $(document).on('keyup', '#cmdbar', function (e) {
+            $("#under_cmdbar").empty();
             bar = $('#cmdbar').val();
             long = bar.length;
             var code = e.key;
@@ -671,7 +679,8 @@
                             window.open(data, '_blank');
                             $("#cmdbar").val('');
                         } else {
-                            $("#cmdbar").val(data);
+                            $("#cmdbar").val('');
+                            $("#under_cmdbar").html(data);
                         }
                     }
                 });

@@ -2577,6 +2577,49 @@
 						})
 					});
 			</script>
+			<hr>
+			<div class='mb-3'>
+				<label for='option_justify_links' class='form-label'>How to justify link icons on the screen?</label> <span id='saved_option_justify_links' class='text-success'><i class='fa-solid fa-cloud-check fa-fw'></i></span>
+				<select id='option_justify_links' name='option_justify_links' class='form-select'>
+					<option value='justify-content-start'>Justify left</option>
+					<option value='justify-content-center'>Justify center</option>
+					<option value='justify-content-between'>Justify between</option>
+					<option value='justify-content-around'>Justify around</option>
+					<option value='justify-content-evenly'>Justify evenly</option>
+					<option value='justify-content-end'>Justify right</option>
+				</select>
+			</div>
+			<script>
+					$(document).on('click', '#option_justify_links', function () {
+					    $(document).find('#saved_option_justify_links').removeClass('text-success');
+					    $(document).find('#saved_option_justify_links').addClass('text-muted');
+					    let option_justify_links = $('#option_justify_links').find(':selected').val();
+						$.post('engine.php', {
+							'option_justify_links': option_justify_links
+						}, function (data) {
+							if (data == true) {
+								$(document).find('#saved_option_justify_links').removeClass('text-muted');
+								$(document).find('#saved_option_justify_links').addClass('text-success');
+                                $(document).find('.specific_folder_links').removeClass('justify-content-start');
+                                $(document).find('.specific_folder_links').removeClass('justify-content-center');
+                                $(document).find('.specific_folder_links').removeClass('justify-content-between');
+                                $(document).find('.specific_folder_links').removeClass('justify-content-around');
+                                $(document).find('.specific_folder_links').removeClass('justify-content-evenly');
+                                $(document).find('.specific_folder_links').addClass(option_justify_links);
+                                $(document).find('#under_cmdbar').removeClass('justify-content-start');
+                                $(document).find('#under_cmdbar').removeClass('justify-content-center');
+                                $(document).find('#under_cmdbar').removeClass('justify-content-between');
+                                $(document).find('#under_cmdbar').removeClass('justify-content-around');
+                                $(document).find('#under_cmdbar').removeClass('justify-content-evenly');
+                                $(document).find('#under_cmdbar').addClass(option_justify_links);
+							} else if (data == false) {
+								$(document).find('#saved_option_justify_links').removeClass('text-muted');
+								$(document).find('#saved_option_justify_links').addClass('text-danger');   
+							}
+						})
+					});
+			</script>
+			<hr>
 			<div class='mb-3'>
 						<p><button id='trigger_redo_icons' type='button' class='btn btn-success btn-sm'>Click here</button> to redo all icons in your Nexus randomly, with minimal control so there's not too much repetition of colors and symbols. The page will reload when finished.</p>
 			</div>
@@ -2602,7 +2645,7 @@
 		if ($cmd_check == '/') {
 			$result = process_cmd(array('input' => $_POST['analyse_cmd_input'], 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'user_id' => $_SESSION['user_id']));
 			if ($result == false) {
-				echo 'No match found';
+				echo "<ul class='list-group'><li class='list-group-item'>No match found</li></ul>";
 				exit();
 			} else {
 				switch ($result['type']) {
@@ -2610,7 +2653,7 @@
 						echo $result['url'];
 						exit();
 					default:
-						echo 'No suitable command found';
+						echo "<ul class='list-group'><li class='list-group-item'>No suitable command found</li></ul>";
 						exit();
 				}
 			}
@@ -2622,28 +2665,58 @@
 			exit();
 		}
 		$match = array();
-		$match['result'] = 100;
-		$match['url'] = false;
-		$match['title'] = false;
-		$count = 0;
+		$match_result = strlen($_POST['analyse_cmd_input']) / 2;
+		$strpos_finds = array();
+		$levenshtein_finds = array();
+		$levenshtein_threshould = strlen($_POST['analyse_cmd_input']) / 4;
 		foreach ($_SESSION['nexus_alphabet'] as $key => $array) {
+			$this_included = stripos($key, $_POST['analyse_cmd_input']);
 			$this_match = levenshtein($_POST['analyse_cmd_input'], $key);
-			if ($this_match < $match['result']) {
-				$count++;
-				$match['result'] = $this_match;
-				$this_link_id = $_SESSION['nexus_alphabet'][$key];
-				$match['url'] = $_SESSION['nexus_links'][$this_link_id]['url'];
-				$match['title'] = $key;
+			if ($this_included !== false) {
+				$strpos_finds[$key] = $_SESSION['nexus_alphabet'][$key];
+			} else {
+				if ($this_match <= $levenshtein_threshould) {
+					$levenshtein_finds[$key] = $_SESSION['nexus_alphabet'][$key];
+				}
+			}
+			if ($this_match < $match_result) {
+				$match_result = $this_match;
+				$match['best_match'] = $_SESSION['nexus_alphabet'][$key];
 			}
 		}
-		if ($match['result'] <= 2) {
-			echo $match['url'];
-			exit();
-		} elseif ($match['result'] <= 8) {
-			echo $match['title'];
-			exit();
+		if (isset($match['best_match'])) {
+			if (isset($levensthein_finds[$match['best_match']])) {
+				unset($levenshtein_finds[$match['best_match']]);
+			}
 		}
-		echo "No match found, closest was: {$match['title']}";
+		$return = "<ul class='list-group'><li class='list-group-item'>No match found</li></ul>";
+		if (($levenshtein_finds != false) || ($strpos_finds != false) || ($match != false)) {
+			$return = false;
+		}
+		if (isset($match['best_match'])) {
+			$return .= nexus_put_together(array('type' => 'link_large', 'id' => $match['best_match'], 'href' => $_SESSION['nexus_links'][$match['best_match']]['url'], 'color' => $_SESSION['nexus_links'][$match['best_match']]['color'], 'icon' => $_SESSION['nexus_links'][$match['best_match']]['icon'], 'title' => $_SESSION['nexus_links'][$match['best_match']]['title'], 'class' => 'link_from_cmdbar'));
+		}
+		if ($levenshtein_finds != false) {
+			foreach ($levenshtein_finds as $title => $id) {
+				if ($id = $match['best_match']) {
+					continue;
+				}
+				$return .= nexus_put_together(array('type' => 'link_large', 'id' => $id, 'href' => $_SESSION['nexus_links'][$id]['url'], 'color' => $_SESSION['nexus_links'][$id]['color'], 'icon' => $_SESSION['nexus_links'][$id]['icon'], 'title' => $title, 'class' => 'link_from_cmdbar'));
+			}
+		}
+		if ($strpos_finds != false) {
+			if ($levenshtein_finds != false) {
+				$return .= "<hr class='m-0 opacity-0'>";
+			}
+			foreach ($strpos_finds as $title => $id) {
+				$return .= nexus_put_together(array('type' => 'link_large', 'id' => $id, 'href' => $_SESSION['nexus_links'][$id]['url'], 'color' => $_SESSION['nexus_links'][$id]['color'], 'icon' => $_SESSION['nexus_links'][$id]['icon'], 'title' => $title, 'class' => 'link_from_cmdbar'));
+			}
+		}
+//		if ($match['result'] <= 8) {
+//			echo $match['title'];
+//			exit();
+//		}
+		echo $return;
 		exit();
 	}
 
@@ -2656,6 +2729,11 @@
 		} else {
 			echo false;
 		}
+	}
+	if (isset($_POST['option_justify_links'])) {
+		$check =  nexus_options(array('mode'=>'set', 'pagina_id'=>$_SESSION['user_nexus_pagina_id'], 'option'=>'justify_links', 'choice'=>$_POST['option_justify_links']));
+		echo $check;
+		exit();
 	}
 
 	if (isset($_POST['nexus_logout'])) {

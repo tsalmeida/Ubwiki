@@ -12,7 +12,7 @@
 	}
 
 	if (isset($_POST['trigger_atualizacao'])) {
-	    $query = prepare_query("ALTER TABLE `nexus` ADD `random_icons` VARCHAR(1000) NULL DEFAULT NULL AFTER `theme`, ADD `random_colors` VARCHAR(255) NULL DEFAULT NULL AFTER `random_icons`;");
+	    $query = prepare_query("ALTER TABLE `nexus_options` ADD `justify_links` VARCHAR(50) NULL DEFAULT NULL AFTER `cmd_link_id`;");
 	    $conn->query($query);
 	}
 

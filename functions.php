@@ -3820,6 +3820,10 @@
 			$nexus_artefato_modal_module = "data-bs-toggle='modal' data-bs-target='{$params['modal']}'";
 		}
 
+		if (!isset($params['type'])) {
+			$params['type'] = 'link_large';
+		}
+
 		switch ($params['type']) {
 			case 'small':
 				if (!isset($params['fa-size'])) {
@@ -4058,7 +4062,7 @@
 				// setting the arrays with the relevant information:
 				//this first one will be used for the command bar
 				//I don't know what this one will be used for yet, but it's good to have
-				$nexus_links[$nexus_link_id] = array('folder_id' => $nexus_link_folder_id, 'url' => $nexus_link_url, 'title' => $nexus_link_title, 'icon' => $nexus_link_icon, 'color' => $nexus_link_color);
+				$nexus_links[$nexus_link_id] = array('folder_id' => $nexus_link_folder_id, 'url' => $nexus_link_url, 'title' => $nexus_link_title, 'icon' => $nexus_link_icon, 'color' => $nexus_link_color, 'diff' => $nexus_link_diff);
 				$nexus_order[$count] = array('title' => $nexus_link_title, 'url' => $nexus_link_url);
 				//This one will be used to populate windows as the user clicks on icons
 				$nexus_folders[$nexus_link_folder_id][$nexus_link_id] = array('url' => $nexus_link_url, 'title' => $nexus_link_title, 'icon' => $nexus_link_icon, 'color' => $nexus_link_color, 'diff' => $nexus_link_diff);
@@ -4072,7 +4076,7 @@
 
 	function nexus_options($args)
 	{
-		$setup_matches = array('cmd_link_id' => array('data_type' => 'bool', 'column' => 'cmd_link_id', 'default' => false));
+		$setup_matches = array('cmd_link_id' => array('data_type' => 'bool', 'column' => 'cmd_link_id', 'default' => false), 'justify_links'=>array('data_type'=>'varchar', 'column'=>'justify_links', 'default'=>'justify-content-start'));
 		if (!isset($args['mode'])) {
 			return false;
 		}
@@ -4095,7 +4099,6 @@
 					nexus_options(array('mode' => 'create', 'pagina_id' => $args['pagina_id']));
 				}
 				return $check;
-				break;
 			case 'read':
 				include 'templates/criar_conn.php';
 				$query = prepare_query("SELECT * FROM nexus_options WHERE pagina_id = {$args['pagina_id']}");
@@ -4104,16 +4107,15 @@
 				if ($options->num_rows > 0) {
 					while ($option = $options->fetch_assoc()) {
 						$results['cmd_link_id'] = $option['cmd_link_id'];
+						$results['justify_links'] = $option['justify_links'];
 					}
 				}
 				return $results;
-				break;
 			case 'create':
 				$query = prepare_query("INSERT INTO nexus_options (pagina_id) values ({$args['pagina_id']})");
 				include 'templates/criar_conn.php';
 				$check = $conn->query($query);
 				return $check;
-				break;
 			default:
 				return false;
 		}

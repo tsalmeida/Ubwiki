@@ -11390,6 +11390,10 @@ navbar {
   color: initial;
 }
 
+#cmdbar {
+  max-width: 75%;
+}
+
 .nexus-navbar-button:hover, .nexus-artefato:hover {
   background-color: black;
 }
@@ -11578,7 +11582,7 @@ navbar {
 }
 
 .nexus-bg-cyan:hover {
-  background-color: black;
+  background-color: #495057;
 }
 .nexus-bg-cyan:hover .nexus-link-cyan {
   color: #032830;
@@ -11586,52 +11590,52 @@ navbar {
 
 .nexus-bg-black-blue {
   color: #0d6efd;
-  background-color: #131618;
+  background-color: #212529;
 }
 
 .nexus-bg-black-indigo {
   color: #6610f2;
-  background-color: #131618;
+  background-color: #212529;
 }
 
 .nexus-bg-black-purple {
   color: #6f42c1;
-  background-color: #131618;
+  background-color: #212529;
 }
 
 .nexus-bg-black-pink {
   color: #d63384;
-  background-color: #131618;
+  background-color: #212529;
 }
 
 .nexus-bg-black-red {
   color: #dc3545;
-  background-color: #131618;
+  background-color: #212529;
 }
 
 .nexus-bg-black-orange {
   color: #fd7e14;
-  background-color: #131618;
+  background-color: #212529;
 }
 
 .nexus-bg-black-yellow {
   color: #ffc107;
-  background-color: #131618;
+  background-color: #212529;
 }
 
 .nexus-bg-black-green {
   color: #198754;
-  background-color: #131618;
+  background-color: #212529;
 }
 
 .nexus-bg-black-teal {
   color: #20c997;
-  background-color: #131618;
+  background-color: #212529;
 }
 
 .nexus-bg-black-cyan {
   color: #0dcaf0;
-  background-color: #131618;
+  background-color: #212529;
 }
 
 .nexus-bg-black-blue:hover, .nexus-bg-black-active {
@@ -11686,7 +11690,7 @@ navbar {
 
 .nexus-bg-black-blue-border {
   color: #0d6efd;
-  background-color: #131618;
+  background-color: #212529;
   border-bottom-color: #0d6efd;
   border-bottom-style: solid;
   border-bottom-width: 4px;
@@ -11694,7 +11698,7 @@ navbar {
 
 .nexus-bg-black-indigo-border {
   color: #6610f2;
-  background-color: #131618;
+  background-color: #212529;
   border-bottom-color: #6610f2;
   border-bottom-style: solid;
   border-bottom-width: 4px;
@@ -11702,7 +11706,7 @@ navbar {
 
 .nexus-bg-black-purple-border {
   color: #6f42c1;
-  background-color: #131618;
+  background-color: #212529;
   border-bottom-color: #6f42c1;
   border-bottom-style: solid;
   border-bottom-width: 4px;
@@ -11710,7 +11714,7 @@ navbar {
 
 .nexus-bg-black-pink-border {
   color: #d63384;
-  background-color: #131618;
+  background-color: #212529;
   border-bottom-color: #d63384;
   border-bottom-style: solid;
   border-bottom-width: 4px;
@@ -11718,7 +11722,7 @@ navbar {
 
 .nexus-bg-black-red-border {
   color: #dc3545;
-  background-color: #131618;
+  background-color: #212529;
   border-bottom-color: #dc3545;
   border-bottom-style: solid;
   border-bottom-width: 4px;
@@ -11726,7 +11730,7 @@ navbar {
 
 .nexus-bg-black-orange-border {
   color: #fd7e14;
-  background-color: #131618;
+  background-color: #212529;
   border-bottom-color: #fd7e14;
   border-bottom-style: solid;
   border-bottom-width: 4px;
@@ -11734,7 +11738,7 @@ navbar {
 
 .nexus-bg-black-yellow-border {
   color: #ffc107;
-  background-color: #131618;
+  background-color: #212529;
   border-bottom-color: #ffc107;
   border-bottom-style: solid;
   border-bottom-width: 4px;
@@ -11742,7 +11746,7 @@ navbar {
 
 .nexus-bg-black-green-border {
   color: #198754;
-  background-color: #131618;
+  background-color: #212529;
   border-bottom-color: #198754;
   border-bottom-style: solid;
   border-bottom-width: 4px;
@@ -11750,7 +11754,7 @@ navbar {
 
 .nexus-bg-black-teal-border {
   color: #20c997;
-  background-color: #131618;
+  background-color: #212529;
   border-bottom-color: #20c997;
   border-bottom-style: solid;
   border-bottom-width: 4px;
@@ -11758,7 +11762,7 @@ navbar {
 
 .nexus-bg-black-cyan-border {
   color: #0dcaf0;
-  background-color: #131618;
+  background-color: #212529;
   border-bottom-color: #0dcaf0;
   border-bottom-style: solid;
   border-bottom-width: 4px;
