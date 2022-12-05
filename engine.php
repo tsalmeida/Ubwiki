@@ -2693,12 +2693,13 @@
 		if (($levenshtein_finds != false) || ($strpos_finds != false) || ($match != false)) {
 			$return = false;
 		}
+		$loaded = array();
 		if (isset($match['best_match'])) {
 			$return .= nexus_put_together(array('type' => 'link_large', 'id' => $match['best_match'], 'href' => $_SESSION['nexus_links'][$match['best_match']]['url'], 'color' => $_SESSION['nexus_links'][$match['best_match']]['color'], 'icon' => $_SESSION['nexus_links'][$match['best_match']]['icon'], 'title' => $_SESSION['nexus_links'][$match['best_match']]['title'], 'class' => 'link_from_cmdbar'));
 		}
 		if ($levenshtein_finds != false) {
 			foreach ($levenshtein_finds as $title => $id) {
-				if ($id = $match['best_match']) {
+				if ($id == $match['best_match']) {
 					continue;
 				}
 				$return .= nexus_put_together(array('type' => 'link_large', 'id' => $id, 'href' => $_SESSION['nexus_links'][$id]['url'], 'color' => $_SESSION['nexus_links'][$id]['color'], 'icon' => $_SESSION['nexus_links'][$id]['icon'], 'title' => $title, 'class' => 'link_from_cmdbar'));
