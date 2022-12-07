@@ -52,6 +52,9 @@
 				<label for='nova_senha' class='form-label'>{$pagina_translated['your_new_password']}</label>
 				<input type='password' class='form-control' name='nova_senha' id='nova_senha' autocomplete='new-password'>
 			</div>
+			<div class='mb-3'>
+				<button type='submit' class='btn btn-primary'>{$pagina_translated['send']}</button>
+			</div>
 		</form>
 	";
 	include 'templates/modal.php';
