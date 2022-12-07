@@ -26,17 +26,19 @@
 		$pagina_id = $_SESSION['user_nexus_pagina_id'];
 	}
 
-	$_SESSION['nexus_options'] = nexus_options(array('mode' => 'read', 'pagina_id' => $_SESSION['user_nexus_pagina_id']));
-	if (count($_SESSION['nexus_options']) == 0) {
-		nexus_options(array('mode' => 'create', 'pagina_id' => $_SESSION['user_nexus_pagina_id']));
+	if (!isset($_SESSION['nexus_options'])) {
 		$_SESSION['nexus_options'] = nexus_options(array('mode' => 'read', 'pagina_id' => $_SESSION['user_nexus_pagina_id']));
+		if (count($_SESSION['nexus_options']) == 0) {
+			nexus_options(array('mode' => 'create', 'pagina_id' => $_SESSION['user_nexus_pagina_id']));
+			$_SESSION['nexus_options'] = nexus_options(array('mode' => 'read', 'pagina_id' => $_SESSION['user_nexus_pagina_id']));
+		}
 	}
 
-    if (isset($_SESSION['nexus_options']['justify_links'])) {
-        if ($_SESSION['nexus_options']['justify_links'] == false) {
-            $_SESSION['nexus_options']['justify_links'] = 'justify-content-start';
-        }
-    }
+	if (isset($_SESSION['nexus_options']['justify_links'])) {
+		if ($_SESSION['nexus_options']['justify_links'] == false) {
+			$_SESSION['nexus_options']['justify_links'] = 'justify-content-start';
+		}
+	}
 
 	$pagina_info = return_pagina_info($pagina_id, false, false, false);
 	if ($pagina_info != false) {
@@ -247,7 +249,7 @@
 			if ($_SESSION['nexus_folders'][$folder_id]['info']['type'] == 'main') {
 				$nexus_folder_order_identifier++;
 				$close_folders_container = "$('#folders_container').addClass('d-none');";
-				$navbar_custom_leftside .= nexus_put_together(array('type' => 'navbar', 'id' => "trigger_folder_small_$folder_id", 'color' => $_SESSION['nexus_folders'][$folder_id]['info']['color'], 'icon' => $_SESSION['nexus_folders'][$folder_id]['info']['icon'], 'title' => $_SESSION['nexus_folders'][$folder_id]['info']['title']));
+				$navbar_custom_leftside .= nexus_put_together(array('type' => 'navbar', 'id' => "trigger_folder_small_$folder_id", 'color' => $_SESSION['nexus_folders'][$folder_id]['info']['color'], 'icon' => $_SESSION['nexus_folders'][$folder_id]['info']['icon'], 'title' => $_SESSION['nexus_folders'][$folder_id]['info']['title'], 'class' => 'col-auto'));
 				if ($nexus_folder_order_identifier < 10) {
 					$html_bottom_folders .= "
                 document.addEventListener ('keydown', function (zEvent) {
@@ -370,7 +372,7 @@
 			$wallpaper_repeat = $theme_info['repeat'];
 			$wallpaper_size = $theme_info['size'];
 			$wallpaper_position = $theme_info['position'];
-			$title_color_info = nexus_colors(array('mode'=>'convert', 'color'=>$theme_info['homehex']));
+			$title_color_info = nexus_colors(array('mode' => 'convert', 'color' => $theme_info['homehex']));
 			$title_color = $title_color_info['link-color'];
 			$title_overlay = $theme_info['homeeffect'];
 			$title_overlay_hover = 'difference';
@@ -421,24 +423,24 @@
             <input id="load_state_linkdump" type="hidden" value="false">
             <div class="container-fluid">
                 <div class="row sticky-top">
-                    <div class="col-12 d-flex bg-dark p-1">
+<!--                    <div class="col-12 d-flex bg-transparent p-1">-->
 						<?php
 							echo $navbar_custom_leftside;
 							$msauto = false;
 							if ($nexus_folders_check == true) {
-								echo nexus_put_together(array('type' => 'navbar', 'color' => 'yellow', 'class' => 'ms-auto', 'href' => false, 'icon' => 'fas fa-folder-bookmark', 'id' => 'trigger_show_main_folder_icons'));
-								echo nexus_put_together(array('type' => 'navbar', 'color' => 'purple', 'class' => false, 'href' => false, 'icon' => 'fas fa-cabinet-filing fa-swap-opacity', 'id' => 'trigger_show_archival_folder_icons'));
-								echo nexus_put_together(array('type' => 'navbar', 'color' => 'teal', 'class' => 'me-3', 'href' => false, 'icon' => 'fas fa-box-archive fa-swap-opacity', 'id' => 'trigger_show_linkdump'));
-//								echo nexus_put_together(array('type' => 'navbar', 'color' => 'cyan', 'class' => false, 'href' => false, 'icon' => 'fas fa-clock-rotate-left', 'id' => 'trigger_show_recent_links'));
+								echo nexus_put_together(array('type' => 'navbar', 'color' => 'yellow', 'class' => 'col-auto ms-auto', 'href' => false, 'icon' => 'fas fa-folder-bookmark', 'id' => 'trigger_show_main_folder_icons'));
+								echo nexus_put_together(array('type' => 'navbar', 'color' => 'purple', 'class' => 'col-auto ', 'href' => false, 'icon' => 'fas fa-cabinet-filing fa-swap-opacity', 'id' => 'trigger_show_archival_folder_icons'));
+								echo nexus_put_together(array('type' => 'navbar', 'color' => 'teal', 'class' => 'col-auto me-3', 'href' => false, 'icon' => 'fas fa-box-archive fa-swap-opacity', 'id' => 'trigger_show_linkdump'));
+//								echo nexus_put_together(array('type' => 'navbar', 'color' => 'cyan', 'class' => '', 'href' => false, 'icon' => 'fas fa-clock-rotate-left', 'id' => 'trigger_show_recent_links'));
 							} else {
 								$msauto = 'ms-auto';
 							}
-							echo nexus_put_together(array('type' => 'navbar', 'color' => 'orange', 'class' => $msauto, 'href' => false, 'icon' => 'fas fa-cog', 'id' => 'trigger_show_setup_icons'));
-							echo nexus_put_together(array('type' => 'navbar', 'color' => 'teal', 'class' => false, 'href' => false, 'icon' => 'fad fa-circle-arrow-up-right', 'id' => 'trigger_show_leave_icons', 'modal' => '#modal_leave_options'));
+							echo nexus_put_together(array('type' => 'navbar', 'color' => 'orange', 'class' => "col-auto $msauto", 'href' => false, 'icon' => 'fas fa-cog', 'id' => 'trigger_show_setup_icons'));
+							echo nexus_put_together(array('type' => 'navbar', 'color' => 'teal', 'class' => 'col-auto ', 'href' => false, 'icon' => 'fad fa-circle-arrow-up-right', 'id' => 'trigger_show_leave_icons', 'modal' => '#modal_leave_options'));
 							//							echo nexus_put_together(array('type' => 'navbar', 'color' => 'blue', 'class' => false, 'href' => 'pagina.php?plano_id=bp', 'icon' => 'fas fa-books', 'id' => 'go_to_studyplan'));
 							//							echo nexus_put_together(array('type' => 'navbar', 'color' => 'green', 'class' => false, 'href' => 'escritorio.php', 'icon' => 'fas fa-lamp-desk', 'id' => 'back_to_office'));
 						?>
-                    </div>
+<!--                    </div>-->
                 </div>
                 <div class="row d-flex">
                     <div class="col-12">
@@ -454,31 +456,31 @@
             </div>
             <div id="cmd_container" class="container">
                 <div class="row d-flex justify-content-center mt-3 input-group">
-<!--                    <div class="col">-->
-<!--                        <div class="mb-3 input-group">-->
-                            <form>
-                            <input type="text" id="username" autocomplete="username" style="width:0;height:0;visibility:hidden;position:absolute;left:0;top:0"/>
-                            <input type="password" autocomplete="current-password" style="width:0;height:0;visibility:hidden;position:absolute;left:0;top:0"/>
-                            </form>
-                            <input id="cmdbar" name="cmdbar" list="command-list" type="text" class="form-control font-monospace cmd-bar rounded text-white bg-dark border-0 mb-5" rows="1" autocomplete="off" spellcheck="false" placeholder="<?php echo $user_apelido; ?> commands…">
-                            <datalist id="command-list">
-								<?php
-									if (!isset($_SESSION['nexus_options']['cmd_link_id'])) {
-										$_SESSION['nexus_options']['cmd_link_id'] = false;
-									}
-									if ($_SESSION['nexus_options']['cmd_link_id'] == false) {
-										foreach ($_SESSION['nexus_alphabet'] as $key => $value) {
-											echo "<option value='$key'>";
-										}
-									} else {
-										foreach ($_SESSION['nexus_codes'] as $key => $value) {
-											echo "<option value='$key'>{$_SESSION['nexus_codes'][$key]['title']}</option>";
-										}
-									}
-								?>
-                            </datalist>
-<!--                        </div>-->
-<!--                    </div>-->
+                    <!--                    <div class="col">-->
+                    <!--                        <div class="mb-3 input-group">-->
+                    <form>
+                        <input type="text" id="username" autocomplete="username" style="width:0;height:0;visibility:hidden;position:absolute;left:0;top:0"/>
+                        <input type="password" autocomplete="current-password" style="width:0;height:0;visibility:hidden;position:absolute;left:0;top:0"/>
+                    </form>
+                    <input id="cmdbar" name="cmdbar" list="command-list" type="text" class="font-monospace cmd-bar rounded text-white bg-darker border-0 mb-5" rows="1" autocomplete="off" spellcheck="false" placeholder="<?php echo $user_apelido; ?> commands…">
+                    <datalist id="command-list">
+						<?php
+							if (!isset($_SESSION['nexus_options']['cmd_link_id'])) {
+								$_SESSION['nexus_options']['cmd_link_id'] = false;
+							}
+							if ($_SESSION['nexus_options']['cmd_link_id'] == false) {
+								foreach ($_SESSION['nexus_alphabet'] as $key => $value) {
+									echo "<option value='$key'>";
+								}
+							} else {
+								foreach ($_SESSION['nexus_codes'] as $key => $value) {
+									echo "<option value='$key'>{$_SESSION['nexus_codes'][$key]['title']}</option>";
+								}
+							}
+						?>
+                    </datalist>
+                    <!--                        </div>-->
+                    <!--                    </div>-->
                 </div>
                 <div id="under_cmdbar" class="row <?php echo $_SESSION['nexus_options']['justify_links']; ?>"></div>
             </div>
@@ -1039,7 +1041,7 @@
             }
         });
 
-        $(document).on('click', '#trigger_redo_icons', function() {
+        $(document).on('click', '#trigger_redo_icons', function () {
             $.post('engine.php', {
                 'redo_all_icons': true
             }, function (data) {
