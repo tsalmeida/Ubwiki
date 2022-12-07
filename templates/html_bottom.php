@@ -1756,11 +1756,11 @@
 		</script>";
 	}
 
-	echo "
-	<script class='text/javascript'>
-	$('body').on('show.bs.modal', '.modal', function () {
-    $('.modal:visible').removeClass('fade').modal('hide').addClass('fade');
-});
-	</script>
-	
-	";
+//	echo "
+//	<script class='text/javascript'>
+//	$('body').on('show.bs.modal', '.modal', function () {
+//    $('.modal:visible').removeClass('fade').modal('hide').addClass('fade');
+//});
+//	</script>
+//
+//	";

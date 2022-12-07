@@ -365,6 +365,7 @@
 				$artefato_titulo = $pagina_translated['sua carteira'];
 				$artefato_subtitulo = $pagina_translated['creditos ubwiki'];
 				$artefato_modal = '#modal_wallet';
+                $modal_scrollable = false;
 				$fa_icone = 'fa-wallet';
 				$fa_color = 'link-success';
 				if (in_array(16, $icons_to_show)) {
