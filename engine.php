@@ -2690,7 +2690,6 @@
 			}
 		}
 		if (isset($match['best_match'])) {
-			error_log("$match_result $levenshtein_threshould");
 			if ($match_result >= $levenshtein_threshould) {
 				unset($match['best_match']);
 			} else {
