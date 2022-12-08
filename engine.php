@@ -2690,7 +2690,11 @@
 			}
 		}
 		if (isset($match['best_match'])) {
-			if (isset($levensthein_finds[$match['best_match']])) {
+			error_log("$match_result $levenshtein_threshould");
+			if ($match_result >= $levenshtein_threshould) {
+				unset($match['best_match']);
+			} else {
+				if (isset($levenshtein_finds[$match['best_match']]))
 				unset($levenshtein_finds[$match['best_match']]);
 			}
 		}
@@ -2721,9 +2725,11 @@
 				$return .= "<hr class='m-0 opacity-0'>";
 			}
 			foreach ($stripos_finds as $title => $id) {
-				if ($id == $match['best_match']) {
-					continue;
-					$no_levenshtein = true;
+				if (isset($match['best_match'])) {
+					if ($id == $match['best_match']) {
+						continue;
+						$no_levenshtein = true;
+					}
 				}
 				$count++;
 				$one_title = $title;
