@@ -2698,15 +2698,21 @@
 		if (($levenshtein_finds != false) || ($stripos_finds != false) || ($match != false)) {
 			$return = false;
 		}
+		$count = 0;
+		$one_title = false;
 		$loaded = array();
 		if (isset($match['best_match'])) {
-			$return .= nexus_put_together(array('type' => 'link_large', 'id' => $match['best_match'], 'href' => $_SESSION['nexus_links'][$match['best_match']]['url'], 'color' => $_SESSION['nexus_links'][$match['best_match']]['color'], 'icon' => $_SESSION['nexus_links'][$match['best_match']]['icon'], 'title' => $_SESSION['nexus_links'][$match['best_match']]['title'], 'class' => 'link_from_cmdbar'));
+			$count++;
+			$one_title = $_SESSION['nexus_links'][$match['best_match']]['title'];
+			$return .= nexus_put_together(array('type' => 'link_large', 'id' => $match['best_match'], 'href' => $_SESSION['nexus_links'][$match['best_match']]['url'], 'color' => $_SESSION['nexus_links'][$match['best_match']]['color'], 'icon' => $_SESSION['nexus_links'][$match['best_match']]['icon'], 'title' => $one_title, 'class' => 'link_from_cmdbar'));
 		}
 		if ($levenshtein_finds != false) {
 			foreach ($levenshtein_finds as $title => $id) {
 				if ($id == $match['best_match']) {
 					continue;
 				}
+				$count++;
+				$one_title = $title;
 				$return .= nexus_put_together(array('type' => 'link_large', 'id' => $id, 'href' => $_SESSION['nexus_links'][$id]['url'], 'color' => $_SESSION['nexus_links'][$id]['color'], 'icon' => $_SESSION['nexus_links'][$id]['icon'], 'title' => $title, 'class' => 'link_from_cmdbar'));
 			}
 		}
@@ -2717,7 +2723,10 @@
 			foreach ($stripos_finds as $title => $id) {
 				if ($id == $match['best_match']) {
 					continue;
+					$no_levenshtein = true;
 				}
+				$count++;
+				$one_title = $title;
 				$return .= nexus_put_together(array('type' => 'link_large', 'id' => $id, 'href' => $_SESSION['nexus_links'][$id]['url'], 'color' => $_SESSION['nexus_links'][$id]['color'], 'icon' => $_SESSION['nexus_links'][$id]['icon'], 'title' => $title, 'class' => 'link_from_cmdbar'));
 			}
 		}
@@ -2725,7 +2734,17 @@
 //			echo $match['title'];
 //			exit();
 //		}
-		echo $return;
+		switch ($count) {
+			case 0:
+				echo "#MESSG#No match found";
+				break;
+			case 1:
+				echo "#MESSG#$title";
+				break;
+			default:
+				echo "#HTMLS#$return";
+				break;
+		}
 		exit();
 	}
 
@@ -2743,7 +2762,7 @@
 	}
 
 	if (isset($_POST['option_justify_links'])) {
-		$check =  nexus_options(array('mode'=>'set', 'pagina_id'=>$_SESSION['user_nexus_pagina_id'], 'option'=>'justify_links', 'choice'=>$_POST['option_justify_links']));
+		$check = nexus_options(array('mode' => 'set', 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'option' => 'justify_links', 'choice' => $_POST['option_justify_links']));
 		echo $check;
 		unset($_SESSION['nexus_options']);
 		exit();

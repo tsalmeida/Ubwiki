@@ -423,20 +423,20 @@
             <input id="load_state_linkdump" type="hidden" value="false">
             <div class="container-fluid">
                 <div class="row sticky-top">
-						<?php
-							echo $navbar_custom_leftside;
-							$msauto = false;
-							if ($nexus_folders_check == true) {
-								echo nexus_put_together(array('type' => 'navbar', 'color' => 'yellow', 'class' => 'col-auto ms-auto', 'href' => false, 'icon' => 'fas fa-folder-bookmark', 'id' => 'trigger_show_main_folder_icons'));
-								echo nexus_put_together(array('type' => 'navbar', 'color' => 'purple', 'class' => 'col-auto ', 'href' => false, 'icon' => 'fas fa-cabinet-filing fa-swap-opacity', 'id' => 'trigger_show_archival_folder_icons'));
-								echo nexus_put_together(array('type' => 'navbar', 'color' => 'teal', 'class' => 'col-auto me-3', 'href' => false, 'icon' => 'fas fa-box-archive fa-swap-opacity', 'id' => 'trigger_show_linkdump'));
+					<?php
+						echo $navbar_custom_leftside;
+						$msauto = false;
+						if ($nexus_folders_check == true) {
+							echo nexus_put_together(array('type' => 'navbar', 'color' => 'yellow', 'class' => 'col-auto ms-auto', 'href' => false, 'icon' => 'fas fa-folder-bookmark', 'id' => 'trigger_show_main_folder_icons'));
+							echo nexus_put_together(array('type' => 'navbar', 'color' => 'purple', 'class' => 'col-auto ', 'href' => false, 'icon' => 'fas fa-cabinet-filing fa-swap-opacity', 'id' => 'trigger_show_archival_folder_icons'));
+							echo nexus_put_together(array('type' => 'navbar', 'color' => 'teal', 'class' => 'col-auto me-3', 'href' => false, 'icon' => 'fas fa-box-archive fa-swap-opacity', 'id' => 'trigger_show_linkdump'));
 //								echo nexus_put_together(array('type' => 'navbar', 'color' => 'cyan', 'class' => '', 'href' => false, 'icon' => 'fas fa-clock-rotate-left', 'id' => 'trigger_show_recent_links'));
-							} else {
-								$msauto = 'ms-auto';
-							}
-							echo nexus_put_together(array('type' => 'navbar', 'color' => 'orange', 'class' => "col-auto $msauto", 'href' => false, 'icon' => 'fas fa-cog', 'id' => 'trigger_show_setup_icons'));
-							echo nexus_put_together(array('type' => 'navbar', 'color' => 'teal', 'class' => 'col-auto ', 'href' => false, 'icon' => 'fad fa-circle-arrow-up-right', 'id' => 'trigger_show_leave_icons', 'modal' => '#modal_leave_options'));
-6						?>
+						} else {
+							$msauto = 'ms-auto';
+						}
+						echo nexus_put_together(array('type' => 'navbar', 'color' => 'orange', 'class' => "col-auto $msauto", 'href' => false, 'icon' => 'fas fa-cog', 'id' => 'trigger_show_setup_icons'));
+						echo nexus_put_together(array('type' => 'navbar', 'color' => 'teal', 'class' => 'col-auto ', 'href' => false, 'icon' => 'fad fa-circle-arrow-up-right', 'id' => 'trigger_show_leave_icons', 'modal' => '#modal_leave_options'));
+						6 ?>
                 </div>
                 <div class="row d-flex">
                     <div class="col-12">
@@ -672,13 +672,21 @@
                     'analyse_cmd_input': bar,
                 }, function (data) {
                     if (data != 0) {
+                        data_type = data.substring(0, 7);
+                        data_content = data.substring(7);
                         check = isUrlValid(data);
                         if (check == true) {
                             window.open(data, '_blank');
                             $("#cmdbar").val('');
                         } else {
-                            $("#cmdbar").val('');
-                            $("#under_cmdbar").html(data);
+                            if (data_type == '#HTMLS#') {
+                                $("#cmdbar").val('');
+                                $("#under_cmdbar").html(data_content);
+                            } else if (data_type == '#MESSG#') {
+                                $("#cmdbar").val(data_content);
+                            } else {
+                                $("#cmdbar").val('Something went wrong');
+                            }
                         }
                     }
                 });
