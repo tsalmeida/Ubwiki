@@ -38,7 +38,9 @@
 		if ($_SESSION['nexus_options']['justify_links'] == false) {
 			$_SESSION['nexus_options']['justify_links'] = 'justify-content-start';
 		}
-	}
+	} else {
+        $_SESSION['nexus_options']['justify_links'] = 'justify-content-start';
+    }
 
 	$pagina_info = return_pagina_info($pagina_id, false, false, false);
 	if ($pagina_info != false) {
@@ -357,7 +359,7 @@
 		case 'landscape':
 		case false:
 			$background_color = '#471918';
-			$wallpapers = glob( '../wallpapers/Landscape/*.*');
+			$wallpapers = glob( '../wallpapers/landscape/*.*');
 			$wallpaper_repeat = 'no-repeat';
 			$wallpaper_size = 'cover';
 			$wallpaper_position = 'center center';
