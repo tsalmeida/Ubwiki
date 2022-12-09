@@ -4253,3 +4253,10 @@
 			return false;
 		}
 	}
+
+	function random_wallpaper()
+	{
+		$files = glob( '../wallpapers/Landscape/*.*');
+		$file = array_rand($files);
+		return $files[$file];
+	}

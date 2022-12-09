@@ -357,7 +357,7 @@
 		case 'landscape':
 		case false:
 			$background_color = '#471918';
-			$wallpapers = array('../wallpapers/landscape/ciprian-boiciuc-354944.jpg', '../wallpapers/landscape/dan-aragon-387264.jpg', '../wallpapers/landscape/jenu-prasad-347241.jpg', '../wallpapers/landscape/clay-kaufmann-wn5XW0Au6s0-unsplash.jpg', '../wallpapers/landscape/dewang-gupta-Q7jQXMk-5qU-unsplash.jpg', '../wallpapers/landscape/ezra-jeffrey-357875.jpg', '../wallpapers/landscape/marek-piwnicki-XQQIjcaZzkk-unsplash.jpg', '../wallpapers/landscape/jonny-gios--xry0C3Z04o-unsplash.jpg', '../wallpapers/landscape/mark-harpur-ixk-OHxJS6U-unsplash.jpg', '../wallpapers/landscape/colin-watts-RcwxReK7y54-unsplash.jpg');
+			$wallpapers = glob( '../wallpapers/Landscape/*.*');
 			$wallpaper_repeat = 'no-repeat';
 			$wallpaper_size = 'cover';
 			$wallpaper_position = 'center center';
