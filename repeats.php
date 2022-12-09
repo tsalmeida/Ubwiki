@@ -9,6 +9,12 @@
         $pagina_padrao = true;
         include 'templates/navbar.php';
         ?>
+    <style>
+        .ql-editor {
+            font-size: 1.5em;
+            font-family: 'Roboto Mono', SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;;
+        }
+    </style>
         <div class="container-fluid bg-light">
             <div class="row d-flex justify-content-around">
                 <div class="col-8 p-limit pagina_coluna bg-white border rounded mt-1 quill_pagina_de_edicao min-vh-50">
@@ -16,7 +22,7 @@
                     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 
                     <!-- Create the editor container -->
-                    <div id="editor" clacc="ql_editor_height">
+                    <div id="editor" clacc="ql_editor_height font-serif">
                         <p>Hello World!</p>
                         <p>Some initial <strong>bold</strong> text</p>
                         <p><br></p>

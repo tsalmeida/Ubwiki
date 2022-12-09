@@ -6,7 +6,6 @@
 	//TODO: Show every one of the user's entry into Textos_arquivo, allow him to delete them.
 	//TODO: Transferência de planos de estudos.
 
-
 	$pagina_tipo = 'escritorio';
 	include 'engine.php';
 	$pagina_id = $user_escritorio;
