@@ -1756,11 +1756,12 @@
 		</script>";
 	}
 
-//	echo "
-//	<script class='text/javascript'>
-//	$('body').on('show.bs.modal', '.modal', function () {
-//    $('.modal:visible').removeClass('fade').modal('hide').addClass('fade');
-//});
-//	</script>
-//
-//	";
+	//This is to make sure that when a modal opens, all others close.
+	echo "
+	<script class='text/javascript'>
+		$('body').on('show.bs.modal', '.modal', function () {
+			$('.modal:visible').removeClass('fade').modal('hide').addClass('fade');
+		});
+	</script>
+
+	";
