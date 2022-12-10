@@ -12,8 +12,8 @@
 	}
 
 	if (isset($_POST['trigger_atualizacao'])) {
-	    $query = prepare_query("ALTER TABLE `nexus_options` ADD `justify_links` VARCHAR(50) NULL DEFAULT NULL AFTER `cmd_link_id`;");
-	    $conn->query($query);
+		$query = prepare_query("ALTER TABLE `nexus_options` ADD `lock_theme` INT(11) NULL DEFAULT NULL AFTER `justify_links`;");
+		$conn->query($query);
 	}
 
 	if (isset($_POST['trigger_atualizar_textos_size'])) {

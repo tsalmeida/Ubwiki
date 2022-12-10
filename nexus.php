@@ -39,8 +39,8 @@
 			$_SESSION['nexus_options']['justify_links'] = 'justify-content-start';
 		}
 	} else {
-        $_SESSION['nexus_options']['justify_links'] = 'justify-content-start';
-    }
+		$_SESSION['nexus_options']['justify_links'] = 'justify-content-start';
+	}
 
 	$pagina_info = return_pagina_info($pagina_id, false, false, false);
 	if ($pagina_info != false) {
@@ -78,6 +78,7 @@
 	if ($user_id == false) {
 		$carregar_modal_login = true;
 	}
+
 	$nexus_info = return_nexus_info_user_id($user_id);
 
 	if ($nexus_info != false) {
@@ -315,73 +316,85 @@
         </script>
     ";
 
-	switch ($nexus_theme) {
-		case 'random':
-			$background_color = random_bg_color();
-			$wallpapers = array(false);
-			$wallpaper_repeat = false;
-			$wallpaper_size = false;
-			$wallpaper_position = false;
-			$title_color = 'text-light';
-			$title_overlay = false;
-			$title_overlay_hover = false;
-			break;
-		case 'light':
-			$background_color = '#f7f7f7';
-			$wallpapers = array('../wallpapers/tile/papyrus.webp', '../wallpapers/tile/y-so-serious-white.png', '../wallpapers/tile/what-the-hex.webp', '../wallpapers/tile/cheap_diagonal_fabric.png', '../wallpapers/tile/circles-and-roundabouts.webp', '../wallpapers/tile/crossline-dots.webp', '../wallpapers/tile/diagonal_striped_brick.webp', '../wallpapers/tile/funky-lines.webp', '../wallpapers/tile/gplaypattern.png', '../wallpapers/tile/interlaced.png', '../wallpapers/tile/natural_paper.webp', '../wallpapers/tile/subtle_white_feathers.webp', '../wallpapers/tile/topography.webp', '../wallpapers/tile/webb.png', '../wallpapers/tile/whirlpool.webp', '../wallpapers/tile/white-waves.webp', '../wallpapers/tile/worn_dots.webp', '../wallpapers/tile/vertical-waves.webp');
-			$wallpaper_repeat = 'repeat';
-			$wallpaper_size = 'auto';
-			$wallpaper_position = 'center center';
-			$title_color = 'text-dark';
-			$title_overlay = 'color-burn';
-			$title_overlay_hover = 'difference';
-			break;
-		case 'dark':
-			$background_color = '#191919';
-			$wallpapers = array('../wallpapers/tile/tactile_noise.webp', '../wallpapers/tile/black_lozenge.webp', '../wallpapers/tile/dark_leather.webp', '../wallpapers/tile/escheresque_ste.webp', '../wallpapers/tile/papyrus-dark.webp', '../wallpapers/tile/prism.png', '../wallpapers/tile/tasky_pattern.webp', '../wallpapers/tile/y-so-serious.png');
-			$wallpaper_repeat = 'repeat';
-			$wallpaper_size = 'auto';
-			$wallpaper_position = 'center center';
-			$title_color = 'text-light';
-			$title_overlay = 'color-dodge';
-			$title_overlay_hover = 'difference';
-			break;
-		case 'whimsical':
-			$background_color = '#8BA810';
-			$wallpapers = array('../wallpapers/tile/pink-flowers.webp', '../wallpapers/tile/morocco.png', '../wallpapers/tile/pool_table.webp', '../wallpapers/tile/retina_wood.png', '../wallpapers/tile/wheat.webp');
-			$wallpaper_repeat = 'repeat';
-			$wallpaper_size = 'auto';
-			$wallpaper_position = 'center center';
-			$title_color = 'text-dark';
-			$title_overlay = 'overlay';
-			$title_overlay_hover = 'difference';
-			break;
-		case 'landscape':
-		case false:
-			$background_color = '#471918';
-			$wallpapers = glob( '../wallpapers/landscape/*.*');
-			$wallpaper_repeat = 'no-repeat';
-			$wallpaper_size = 'cover';
-			$wallpaper_position = 'center center';
-			$title_color = 'text-dark';
-			$title_overlay = 'overlay';
-			$title_overlay_hover = 'difference';
-			break;
-		default:
-			$theme_info = return_theme($nexus_theme);
-			$background_color = "#{$theme_info['bghex']}";
-			$wallpapers = array($theme_info['url']);
-			$wallpaper_repeat = $theme_info['repeat'];
-			$wallpaper_size = $theme_info['size'];
-			$wallpaper_position = $theme_info['position'];
-			$title_color_info = nexus_colors(array('mode' => 'convert', 'color' => $theme_info['homehex']));
-			$title_color = $title_color_info['link-color'];
-			$title_overlay = $theme_info['homeeffect'];
-			$title_overlay_hover = 'difference';
-			break;
+	$theme_info = return_theme($nexus_theme);
+
+//
+//	switch ($nexus_theme) {
+//		case 'random':
+//			$background_color = random_bg_color();
+//			$wallpapers = array(false);
+//			$wallpaper_repeat = false;
+//			$wallpaper_size = false;
+//			$wallpaper_position = false;
+//			$title_color = 'text-light';
+//			$title_overlay = false;
+//			$title_overlay_hover = false;
+//			break;
+//		case 'light':
+//			$background_color = '#f7f7f7';
+//			$wallpapers = array('../wallpapers/tile/papyrus.webp', '../wallpapers/tile/y-so-serious-white.png', '../wallpapers/tile/what-the-hex.webp', '../wallpapers/tile/cheap_diagonal_fabric.png', '../wallpapers/tile/circles-and-roundabouts.webp', '../wallpapers/tile/crossline-dots.webp', '../wallpapers/tile/diagonal_striped_brick.webp', '../wallpapers/tile/funky-lines.webp', '../wallpapers/tile/gplaypattern.png', '../wallpapers/tile/interlaced.png', '../wallpapers/tile/natural_paper.webp', '../wallpapers/tile/subtle_white_feathers.webp', '../wallpapers/tile/topography.webp', '../wallpapers/tile/webb.png', '../wallpapers/tile/whirlpool.webp', '../wallpapers/tile/white-waves.webp', '../wallpapers/tile/worn_dots.webp', '../wallpapers/tile/vertical-waves.webp');
+//			$wallpaper_repeat = 'repeat';
+//			$wallpaper_size = 'auto';
+//			$wallpaper_position = 'center center';
+//			$title_color = 'text-dark';
+//			$title_overlay = 'color-burn';
+//			$title_overlay_hover = 'difference';
+//			break;
+//		case 'dark':
+//			$background_color = '#191919';
+//			$wallpapers = array('../wallpapers/tile/tactile_noise.webp', '../wallpapers/tile/black_lozenge.webp', '../wallpapers/tile/dark_leather.webp', '../wallpapers/tile/escheresque_ste.webp', '../wallpapers/tile/papyrus-dark.webp', '../wallpapers/tile/prism.png', '../wallpapers/tile/tasky_pattern.webp', '../wallpapers/tile/y-so-serious.png');
+//			$wallpaper_repeat = 'repeat';
+//			$wallpaper_size = 'auto';
+//			$wallpaper_position = 'center center';
+//			$title_color = 'text-light';
+//			$title_overlay = 'color-dodge';
+//			$title_overlay_hover = 'difference';
+//			break;
+//		case 'whimsical':
+//			$background_color = '#191919';
+//			$wallpapers = array('../wallpapers/tile/pink-flowers.webp', '../wallpapers/tile/morocco.png', '../wallpapers/tile/pool_table.webp', '../wallpapers/tile/retina_wood.png', '../wallpapers/tile/wheat.webp');
+//			$wallpaper_repeat = 'repeat';
+//			$wallpaper_size = 'auto';
+//			$wallpaper_position = 'center center';
+//			$title_color = 'text-dark';
+//			$title_overlay = 'overlay';
+//			$title_overlay_hover = 'difference';
+//			break;
+//		case 'landscape':
+//		case false:
+//			$background_color = '#191919';
+//			$wallpapers = glob( '../wallpapers/landscape/*.*');
+//			$wallpaper_repeat = 'no-repeat';
+//			$wallpaper_size = 'cover';
+//			$wallpaper_position = 'center center';
+//			$title_color = 'text-dark';
+//			$title_overlay = 'overlay';
+//			$title_overlay_hover = 'difference';
+//			break;
+//		default:
+//			$theme_info = return_theme($nexus_theme);
+//			$background_color = "#{$theme_info['bghex']}";
+//			$wallpapers = array($theme_info['url']);
+//			$wallpaper_repeat = $theme_info['repeat'];
+//			$wallpaper_size = $theme_info['size'];
+//			$wallpaper_position = $theme_info['position'];
+//			$title_color_info = nexus_colors(array('mode' => 'convert', 'color' => $theme_info['homehex']));
+//			$title_color = $title_color_info['link-color'];
+//			$title_overlay = $theme_info['homeeffect'];
+//			$title_overlay_hover = 'difference';
+//			break;
+//	}
+//
+//	$random_wallpaper = array_rand($wallpapers);
+//	$wallpaper_file = $wallpapers[$random_wallpaper];
+
+	if (!is_numeric($nexus_theme)) {
+		$_SESSION['current_theme'] = array('title' => $theme_info['title'], 'url' => $theme_info['url'], 'bghex' => $theme_info['bghex'], 'homehex' => $theme_info['homehex'], 'wallpaper' => $theme_info['wallpaper'], 'homefont' => $theme_info['homefont'], 'homeeffect' => $theme_info['homeeffect']);
+	} else {
+		if (isset($_SESSION['current_theme'])) {
+			unset($_SESSION['current_theme']);
+		}
 	}
-	$random_wallpaper = array_rand($wallpapers);
-	$wallpaper_file = $wallpapers[$random_wallpaper];
 
 	$html_head_template_conteudo .= "
         <style>
@@ -389,11 +402,11 @@
                 height: 100%;
             }
             #screenFiller {
-                background-image: url('$wallpaper_file');
-                background-repeat: $wallpaper_repeat;
-                background-size: $wallpaper_size;
-                background-position: $wallpaper_position;
-                background-color: $background_color;
+                background-image: url('{$theme_info['url']}');
+                background-repeat: {$theme_info['repeat']};
+                background-size: {$theme_info['size']};
+                background-position: {$theme_info['position']};
+                background-color: #{$theme_info['bghex']};
                 top: 0;
                 bottom: 0;
                 left: 0;
@@ -402,14 +415,14 @@
                 overflow-y: auto;
             }
             #page_title_text {
-              mix-blend-mode: $title_overlay;
+              mix-blend-mode: {$theme_info['homeeffect']};
               user-select: none;
               word-break: keep-all;
               line-height: normal;
               cursor: pointer;
             }
             #page_title_text:hover {
-              mix-blend-mode: $title_overlay_hover;
+              mix-blend-mode: {$theme_info['opposite_homeeffect']};
             }
         </style>
 	";
@@ -438,12 +451,12 @@
 						}
 						echo nexus_put_together(array('type' => 'navbar', 'color' => 'orange', 'class' => "col-auto $msauto", 'href' => false, 'icon' => 'fas fa-cog', 'id' => 'trigger_show_setup_icons'));
 						echo nexus_put_together(array('type' => 'navbar', 'color' => 'teal', 'class' => 'col-auto ', 'href' => false, 'icon' => 'fad fa-circle-arrow-up-right', 'id' => 'trigger_show_leave_icons', 'modal' => '#modal_leave_options'));
-						6 ?>
+					?>
                 </div>
                 <div class="row d-flex">
                     <div class="col-12">
                         <div id="page_title" class="my-3 text-center col-auto">
-                            <span id="page_title_text" class="nexus-title <?php echo $title_color; ?>">
+                            <span id="page_title_text" class="nexus-title <?php echo $theme_info['homeeffect']; ?>">
                                 <?php
 									echo $nexus_title;
 								?>
@@ -1055,6 +1068,18 @@
                     window.location.reload(true);
                 } else {
                     alert('Could not redo the links, for some reason.');
+                }
+            })
+        })
+
+        $(document).on('click', '#trigger_lock_theme', function () {
+            $.post('engine.php', {
+                'trigger_lock_theme': true
+            }, function (data) {
+                if (data != 0) {
+                    alert('Locked on current theme');
+                } else {
+                    alert('Something went wrong');
                 }
             })
         })

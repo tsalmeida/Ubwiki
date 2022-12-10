@@ -2952,7 +2952,7 @@
 		$result .= "<div class='row bg-light mt-1'>";
 		$result .= "
 				<div class='col-auto $all_cell_classes {$plan_icon[0]} ms-0 text-center align-center d-flex justify-content-center'>
-					<a value='$entrada_id' href='javascript:void(0);' data-bs-toggle='modal' data-bs-target='#modal_set_state' class='align-self-center {$plan_icon[1]} p-1 rounded set_state_entrada_value' title='{$plan_icon[3]}'><i class='{$plan_icon[2]} fa-fw fa-lg'></i></a>
+					<a value='$entrada_id' href='javascript:void(0);' data-bs-toggle='modal' data-bs-target='modal_set_state' class='align-self-center {$plan_icon[1]} p-1 rounded set_state_entrada_value' title='{$plan_icon[3]}'><i class='{$plan_icon[2]} fa-fw fa-lg'></i></a>
 				</div>
 					";
 		$icone_background = return_background($icone[1]);
@@ -2977,19 +2977,19 @@
 					";
 		$result .= "
 				<div class='col $all_cell_classes bg-white line-height-1 ms-1'>
-					<a class='text-dark set_comment_elemento_id fst-italic' href='javascript:void(0);' data-bs-toggle='modal' data-bs-target='#modal_add_comment' value='$elemento_id'><small>$comments</small></a>
+					<a class='text-dark set_comment_elemento_id fst-italic' href='javascript:void(0);' data-bs-toggle='modal' data-bs-target='modal_add_comment' value='$elemento_id'><small>$comments</small></a>
 				</div>
 					";
 		if ($classificacao == false) {
 			$result .= "
 				<div class='col-1 $all_cell_classes bg-warning-light ms-0 text-center align-center d-flex justify-content-center ms-1'>
-					<a value='$elemento_id' href='javascript:void(0);' data-bs-toggle='modal' data-bs-target='#modal_set_tag' class='align-self-center p-1 link-warning rounded set_tag_elemento_value'><i class='fad fa-tag fa-swap-opacity fa-fw fa-lg'></i></a>
+					<a value='$elemento_id' href='javascript:void(0);' data-bs-toggle='modal' data-bs-target='modal_set_tag' class='align-self-center p-1 link-warning rounded set_tag_elemento_value'><i class='fad fa-tag fa-swap-opacity fa-fw fa-lg'></i></a>
 				</div>
 						";
 		} else {
 			$result .= "
 				<div class='col-1 $all_cell_classes rounded text-break ms-0 bg-warning-light d-flex justify-content-center line-height-1 ms-1'>
-					<a value='$elemento_id' class='text-muted set_tag_elemento_value align-self-center text-center' data-bs-toggle='modal' data-bs-target='#modal_set_tag'><small>$classificacao</small></a>
+					<a value='$elemento_id' class='text-muted set_tag_elemento_value align-self-center text-center' data-bs-toggle='modal' data-bs-target='modal_set_tag'><small>$classificacao</small></a>
 				</div>
 						";
 		}
@@ -3924,56 +3924,141 @@
 		}
 	}
 
+	function return_theme_details($wallpaper) {
+		$theme = array();
+		switch ($wallpaper) {
+			case 'center-contain':
+				$theme['repeat'] = 'no-repeat';
+				$theme['size'] = 'contain';
+				$theme['position'] = 'center center';
+				break;
+			case 'center-contain-tile':
+				$theme['repeat'] = 'repeat';
+				$theme['size'] = 'contain';
+				$theme['position'] = 'center center';
+				break;
+			case 'tile':
+				$theme['repeat'] = 'repeat';
+				$theme['size'] = 'auto';
+				$theme['position'] = 'center center';
+				break;
+			case 'stretch':
+				$theme['repeat'] = 'no-repeat';
+				$theme['size'] = 'stretch';
+				$theme['position'] = 'center center';
+				break;
+			case 'center-no-stretch':
+				$theme['repeat'] = 'no-repeat';
+				$theme['size'] = 'no-stretch';
+				$theme['position'] = 'center';
+				break;
+			default:
+			case 'cover':
+				$theme['repeat'] = 'no-repeat';
+				$theme['size'] = 'cover';
+				$theme['position'] = 'center center';
+				break;
+		}
+		return $theme;
+	}
+
 	function return_theme($theme_id)
 	{
 		if ($theme_id == false) {
 			return false;
 		}
-		include 'templates/criar_conn.php';
-		$query = prepare_query("SELECT title, url, bghex, homehex, wallpaper, homefont, homeeffect FROM nexus_themes WHERE id = $theme_id");
-		$themes = $conn->query($query);
-		if ($themes->num_rows > 0) {
-			while ($theme = $themes->fetch_assoc()) {
-				$theme['repeat'] = false;
-				$theme['size'] = false;
-				$theme['position'] = false;
-				switch ($theme['wallpaper']) {
-					case 'center-contain':
-						$theme['repeat'] = 'no-repeat';
-						$theme['size'] = 'contain';
-						$theme['position'] = 'center center';
-						break;
-					case 'center-contain-tile':
-						$theme['repeat'] = 'repeat';
-						$theme['size'] = 'contain';
-						$theme['position'] = 'center center';
-						break;
-					case 'tile':
-						$theme['repeat'] = 'repeat';
-						$theme['size'] = 'auto';
-						$theme['position'] = 'center center';
-						break;
-					case 'stretch':
-						$theme['repeat'] = 'no-repeat';
-						$theme['size'] = 'stretch';
-						$theme['position'] = 'center center';
-						break;
-					case 'center-no-stretch':
-						$theme['repeat'] = 'no-repeat';
-						$theme['size'] = 'no-stretch';
-						$theme['position'] = 'center';
-						break;
-					default:
-					case 'cover':
-						$theme['repeat'] = 'no-repeat';
-						$theme['size'] = 'cover';
-						$theme['position'] = 'center center';
-						break;
+		$theme_result = array();
+		if (is_numeric($theme_id)) {
+			include 'templates/criar_conn.php';
+			$query = prepare_query("SELECT title, url, bghex, homehex, wallpaper, homefont, homeeffect FROM nexus_themes WHERE id = $theme_id");
+			$themes = $conn->query($query);
+			if ($themes->num_rows > 0) {
+				while ($theme = $themes->fetch_assoc()) {
+					$theme_title = $theme['title'];
+					$theme_url = $theme['url'];
+					$theme_bghex = $theme['bghex'];
+					$theme_homehex = $theme['homehex'];
+					$theme_wallpaper = $theme['wallpaper'];
+					$theme_homefont = $theme['homefont'];
+					$theme_homeeffect = $theme['homeeffect'];
 				}
-				return array('title' => $theme['title'], 'url' => $theme['url'], 'bghex' => $theme['bghex'], 'homehex' => $theme['homehex'], 'wallpaper' => $theme['wallpaper'], 'homefont' => $theme['homefont'], 'homeeffect' => $theme['homeeffect'], 'repeat' => $theme['repeat'], 'size' => $theme['size'], 'position' => $theme['position']);
+			}
+		} else {
+			switch($theme_id) {
+				case 'random':
+					$theme_title = 'Random color';
+					$theme_url = false;
+					$theme_bghex = random_bg_color();
+					$theme_homehex = 'f7f7f7';
+					$theme_wallpaper = false;
+					$theme_homefont = 'Lato';
+					$theme_homeeffect = 'overlay';
+					break;
+				case 'light':
+					$theme_title = 'Light patterns';
+					$light_tiles = array('../wallpapers/tile/papyrus.webp', '../wallpapers/tile/y-so-serious-white.png', '../wallpapers/tile/what-the-hex.webp', '../wallpapers/tile/cheap_diagonal_fabric.png', '../wallpapers/tile/circles-and-roundabouts.webp', '../wallpapers/tile/crossline-dots.webp', '../wallpapers/tile/diagonal_striped_brick.webp', '../wallpapers/tile/funky-lines.webp', '../wallpapers/tile/gplaypattern.png', '../wallpapers/tile/interlaced.png', '../wallpapers/tile/natural_paper.webp', '../wallpapers/tile/subtle_white_feathers.webp', '../wallpapers/tile/topography.webp', '../wallpapers/tile/webb.png', '../wallpapers/tile/whirlpool.webp', '../wallpapers/tile/white-waves.webp', '../wallpapers/tile/worn_dots.webp', '../wallpapers/tile/vertical-waves.webp');
+					$random_key = array_rand($light_tiles);
+					$theme_url = $light_tiles[$random_key];
+					$theme_bghex = 'f7f7f7';
+					$theme_homehex = '191919';
+					$theme_wallpaper = 'tile';
+					$theme_homefont = 'Lato';
+					$theme_homeeffect = 'difference';
+					break;
+				case 'dark':
+					$theme_title = 'Dark patterns';
+					$dark_tiles = array('../wallpapers/tile/tactile_noise.webp', '../wallpapers/tile/black_lozenge.webp', '../wallpapers/tile/dark_leather.webp', '../wallpapers/tile/escheresque_ste.webp', '../wallpapers/tile/papyrus-dark.webp', '../wallpapers/tile/prism.png', '../wallpapers/tile/tasky_pattern.webp', '../wallpapers/tile/y-so-serious.png');
+					$random_key = array_rand($dark_tiles);
+					$theme_url = $dark_tiles[$random_key];
+					$theme_bghex = '191919';
+					$theme_homehex = 'f7f7f7';
+					$theme_wallpaper = 'tile';
+					$theme_homefont = 'Lato';
+					$theme_homeeffect = 'difference';
+					break;
+				case 'whimsical':
+					$theme_title = 'Whimsical patterns';
+					$whimsical_tiles = array('../wallpapers/tile/pink-flowers.webp', '../wallpapers/tile/morocco.png', '../wallpapers/tile/pool_table.webp', '../wallpapers/tile/retina_wood.png', '../wallpapers/tile/wheat.webp');
+					$random_key = array_rand($whimsical_tiles);
+					$theme_url = $whimsical_tiles[$random_key];
+					$theme_bghex = 'BADA55';
+					$theme_homehex = 'f7f7f7';
+					$theme_wallpaper = 'tile';
+					$theme_homefont = 'Lato';
+					$theme_homeeffect = 'difference';
+					break;
+				case 'landscape':
+					$theme_title = 'Random landscape';
+					$landscapes = glob( '../wallpapers/landscape/*.*');
+					$random_key = array_rand($landscapes);
+					$theme_url = $landscapes[$random_key];
+					$theme_bghex = 'f7f7f7';
+					$theme_homehex = '191919';
+					$theme_wallpaper = 'contain';
+					$theme_homefont = 'Lato';
+					$theme_homeeffect = 'difference';
+				default:
+					break;
 			}
 		}
-		return false;
+		$theme_result['title'] = $theme_title;
+		$theme_result['url'] = $theme_url;
+		$theme_result['bghex'] = $theme_bghex;
+		$theme_result['homehex'] = $theme_homehex;
+		$theme_result['wallpaper'] = $theme_wallpaper;
+		$theme_result['homefont'] = $theme_homefont;
+		$theme_result['homeeffect'] = $theme_homeeffect;
+		if ($theme_homeeffect == 'difference') {
+			$theme_opposite_homeeffect = 'overlay';
+		} else {
+			$theme_opposite_homeeffect = 'difference';
+		}
+		$theme_result['opposite_homeeffect'] = $theme_opposite_homeeffect;
+		$theme_wallpaper = return_theme_details($theme_wallpaper);
+		$theme_result['repeat'] = $theme_wallpaper['repeat'];
+		$theme_result['size'] = $theme_wallpaper['size'];
+		$theme_result['position'] = $theme_wallpaper['position'];
+		return $theme_result;
 	}
 
 	function nexus_new_folder($args)
@@ -4238,8 +4323,8 @@
 
 	function random_bg_color()
 	{
-//		$bg_colors = array('#446CB3', '#4183D7', '#1E8BC3', '#4B77BE', '#22313F', '#34495E', '#6C7A89', '#9B294C', '#534E42', '#066DBA', '#85714F', '#1F0591', '#5B173A', '#DCB820', '#967D55', '#63AA50', '#265B52', '#7F024B', '#98AD91', '#533B7B', '#97124F', '#876138', '#2386A5', '#3F92CA', '#E1824D', '#CEBA79', '#74AAA8', '#A0D331', '#275E63', '#362043', '#EE0008', '#A26547', '#3B4571', '#e32934', '#056B4D', '#4C685C', '#0F5731', '#6D3E01', '#7F5F76', '#02C7A1', '#3D68AF', '#396B02', '#427D3C', '#7B9889', '#6459DA', '#C51620', '#D6665B', '#B4C427', '#79585B', '#A5D94C', '#64ABC0', '#628CB6', '#693ADC', '#455EC3', '#ED940C', '#8BA810', '#C0B4B9', '#AF6816', '#A4212B', '#806757', '#369A7D', '#708D26', '#6D0606', '#A24C07', '#72829D', '#2B8B90', '#40A0A0', '#446636', '#605E9D', '#994A34', '#FD6B30', '#838A77', '#B92C37', '#CC2811', '#DEE06A', '#96BD8D', '#B1857F', '#C32119', '#BA2E2E', '#A2B369', '#631FD6', '#4BA973', '#153250', '#5B6181', '#BADA55', '#0287AF', '#C82436', '#46368A', '#822836', '#F2C845', '#AB555A', '#D15023', '#191919', '#EC2C31', '#471918', '#EE4A3A', '#50C024', '#8F9A8A', '#779D78', '#69A79A', '#043559', '#4D5F7B', '#1C6977', '#504440', '#5A9455');
-		$bg_colors = array('blue' => array('#4871f7', '#bedce3'), 'brown' => array('#e3ba8f', '#f4ede4'), 'green' => array('#b7f4d8', '#90c695'), 'gray' => array('#bfbfbf', '#bdc3c7'), 'magenta' => array('#d2c2d1', '#947cb0'), 'orange' => array('#fbc093', '#fde3a7'), 'red' => array('#c44d56', '#ff9478'), 'yellow' => array('#ffec8b', '#ffff7e'));
+//		$bg_colors = array('446CB3', '4183D7', '1E8BC3', '4B77BE', '22313F', '34495E', '6C7A89', '9B294C', '534E42', '066DBA', '85714F', '1F0591', '5B173A', 'DCB820', '967D55', '63AA50', '265B52', '7F024B', '98AD91', '533B7B', '97124F', '876138', '2386A5', '3F92CA', 'E1824D', 'CEBA79', '74AAA8', 'A0D331', '275E63', '362043', 'EE0008', 'A26547', '3B4571', 'e32934', '056B4D', '4C685C', '0F5731', '6D3E01', '7F5F76', '02C7A1', '3D68AF', '396B02', '427D3C', '7B9889', '6459DA', 'C51620', 'D6665B', 'B4C427', '79585B', 'A5D94C', '64ABC0', '628CB6', '693ADC', '455EC3', 'ED940C', '8BA810', 'C0B4B9', 'AF6816', 'A4212B', '806757', '369A7D', '708D26', '6D0606', 'A24C07', '72829D', '2B8B90', '40A0A0', '446636', '605E9D', '994A34', 'FD6B30', '838A77', 'B92C37', 'CC2811', 'DEE06A', '96BD8D', 'B1857F', 'C32119', 'BA2E2E', 'A2B369', '631FD6', '4BA973', '153250', '5B6181', 'BADA55', '0287AF', 'C82436', '46368A', '822836', 'F2C845', 'AB555A', 'D15023', '191919', 'EC2C31', '471918', 'EE4A3A', '50C024', '8F9A8A', '779D78', '69A79A', '043559', '4D5F7B', '1C6977', '504440', '5A9455');
+		$bg_colors = array('blue' => array('4871f7', 'bedce3'), 'brown' => array('e3ba8f', 'f4ede4'), 'green' => array('b7f4d8', '90c695'), 'gray' => array('bfbfbf', 'bdc3c7'), 'magenta' => array('d2c2d1', '947cb0'), 'orange' => array('fbc093', 'fde3a7'), 'red' => array('c44d56', 'ff9478'), 'yellow' => array('ffec8b', 'ffff7e'));
 		$chosen = array_rand($bg_colors);
 		$chosen2 = array_rand($bg_colors[$chosen]);
 		return $bg_colors[$chosen][$chosen2];
@@ -4252,11 +4337,4 @@
 		} else {
 			return false;
 		}
-	}
-
-	function random_wallpaper()
-	{
-		$files = glob( '../wallpapers/Landscape/*.*');
-		$file = array_rand($files);
-		return $files[$file];
 	}

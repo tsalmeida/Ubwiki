@@ -2245,6 +2245,10 @@
 				array_push($user_theme_results, $user_theme_id);
 			}
 		}
+		$lock_on_current_button = false;
+		if (is_numeric($_POST['populate_themes_modal']) == false) {
+			$lock_on_current_button = "<button type='button' class='btn btn-outline-secondary pick_theme_details' id='trigger_lock_theme'>Lock on current</button>";
+		}
 		foreach ($user_theme_results as $id) {
 			$query = prepare_query("SELECT * FROM nexus_themes WHERE id = $id");
 			$user_themes_found = $conn->query($query);
@@ -2260,7 +2264,6 @@
 				}
 			}
 		}
-
 		$themes_return .= "
 				<form method='post'>
 					<h3 class='pick_theme_details'>Pick theme</h3>
@@ -2269,6 +2272,7 @@
 						$nexus_theme_options
 					</select>
 					<button type='submit' class='btn btn-primary pick_theme_details'>Pick theme</button>
+						$lock_on_current_button
 				</form>
 			";
 		echo $themes_return;
@@ -2843,7 +2847,7 @@
 
 		$populate_icons_titles .= "
 			<div class='mb-3 manage_details_hide manage_details_folders_only d-none'>
-				<label for='change_folder_type' class='form-label manage_details_folders_only d-none'>Change folder type between main and archival:</label>
+				<label for='change_folder_type' class='form-label manage_details_folders_only d-none'>Change folder type:</label>
 				<select id='change_folder_type' name='change_folder_type' class='form-select manage_details_folders_only d-none'>
 					<option disabled selected>Leave as is</option>
 					<option value='main'>Main</option>
@@ -2998,6 +3002,26 @@
 		}
 		echo true;
 		unset($_SESSION['nexus_links']);
+	}
+
+	if (isset($_POST['trigger_lock_theme'])) {
+		if (isset($_SESSION['current_theme'])) {
+			$t=time();
+			$locked_time = date("Y-m-d H:i:s",$t);
+			$locked_time = "Locked on $locked_time";
+			$query = prepare_query("INSERT INTO nexus_themes (user_id, title, url, bghex, homehex, wallpaper, homefont, homeeffect) VALUES ({$_SESSION['user_id']}, '$locked_time', '{$_SESSION['current_theme']['url']}', '{$_SESSION['current_theme']['bghex']}', '{$_SESSION['current_theme']['homehex']}', '{$_SESSION['current_theme']['wallpaper']}', '{$_SESSION['current_theme']['homefont']}', '{$_SESSION['current_theme']['homeeffect']}')", 'log');
+			$conn->query($query);
+			$new_theme_id = $conn->insert_id;
+			$query = prepare_query("INSERT INTO nexus_elements (user_id, pagina_id, type, state, param_int_1) VALUES ({$_SESSION['user_id']}, {$_SESSION['user_nexus_pagina_id']}, 'theme', 1, $new_theme_id)", 'log');
+			$conn->query($query);
+			$query = prepare_query("UPDATE nexus SET theme = $new_theme_id WHERE user_id = {$_SESSION['user_id']}", 'log');
+			$check = $conn->query($query);
+			echo $check;
+			exit();
+		} else {
+			echo false;
+			exit();
+		}
 	}
 
 	//	if (isset($_POST['populate_move_links'])) {
