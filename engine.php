@@ -2226,8 +2226,9 @@
 				</form>
 			";
 
-		$available_themes = array('random' => array('title' => 'Random background color',), 'light' => array('title' => 'Light tiles',), 'dark' => array('title' => 'Dark tiles',), 'landscape' => array('title' => 'Various landscape images',), 'whimsical' => array('title' => 'Silly, whimsical tiles',));
+		$available_themes = array('landscape' => array('title' => 'Random landscapes'), 'random' => array('title' => 'Random background colors'), 'light' => array('title' => 'Random light tiles'), 'dark' => array('title' => 'Random dark tiles'), 'whimsical' => array('title' => 'Random silly, whimsical tiles'));
 		$nexus_theme_options = false;
+		$nexus_theme_options .= "<optgroup label='Default random themes'>";
 		foreach ($available_themes as $key => $array) {
 			$selected = false;
 			if ($key == $_POST['populate_themes_modal']) {
@@ -2235,11 +2236,14 @@
 			}
 			$nexus_theme_options .= "<option value='$key' $selected>{$available_themes[$key]['title']}</option>";
 		}
+		$nexus_theme_options .= "</optgroup>";
 
 		$query = prepare_query("SELECT param_int_1 from nexus_elements WHERE (user_id = {$_SESSION['user_id']} AND pagina_id = {$_SESSION['user_nexus_pagina_id']} AND type = 'theme' AND state = 1)");
 		$user_themes = $conn->query($query);
 		$user_theme_results = array();
+		$user_themes_result = false;
 		if ($user_themes->num_rows > 0) {
+			$user_themes_result = true;
 			while ($user_theme = $user_themes->fetch_assoc()) {
 				$user_theme_id = $user_theme['param_int_1'];
 				array_push($user_theme_results, $user_theme_id);
@@ -2248,6 +2252,9 @@
 		$lock_on_current_button = false;
 		if (is_numeric($_POST['populate_themes_modal']) == false) {
 			$lock_on_current_button = "<button type='button' class='btn btn-outline-secondary pick_theme_details' id='trigger_lock_theme'>Lock on current</button>";
+		}
+		if ($user_themes_result == true) {
+			$nexus_theme_options .= "<optgroup label='Your themes'>";
 		}
 		foreach ($user_theme_results as $id) {
 			$query = prepare_query("SELECT * FROM nexus_themes WHERE id = $id");
@@ -2263,6 +2270,9 @@
 					$nexus_theme_options .= "<option value='$user_theme_found_id' $selected>$user_theme_found_title</option>";
 				}
 			}
+		}
+		if ($user_themes_result == true) {
+			$nexus_theme_options .= "</optgroup>";
 		}
 		$themes_return .= "
 				<form method='post'>
