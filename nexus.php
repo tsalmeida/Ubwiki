@@ -456,6 +456,7 @@
 				if ($user_id != false) {
 					echo "<div id='tools_container' class='container d-none mt-1'><div id='tools_row' class='row'>";
 					echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'todo_list', 'icon' => 'fad fa-list-check', 'color' => 'red', 'title' => 'Task Manager', 'href' => false, 'modal' => '#modal_todo'));
+					echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'acervo', 'icon' => 'fad fa-ticket', 'color' => 'green', 'title' => 'Travelogue', 'href' => 'travelogue.php'));
 					echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'manage_timeline', 'title' => 'Activity log', 'modal' => '#modal_manage_timeline', 'icon' => 'fad fa-list-timeline', 'color' => 'cyan'));
 					echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'manage_commands', 'title' => 'Commands', 'modal' => '#modal_commands', 'icon' => 'fad fa-rectangle-terminal', 'color' => 'orange'));
 					echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'notepad', 'icon' => 'fad fa-pen-to-square', 'color' => 'green', 'title' => 'Notepad', 'href' => false, 'modal' => '#modal_notepad'));
