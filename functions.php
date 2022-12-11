@@ -3965,7 +3965,7 @@
 	function return_theme($theme_id)
 	{
 		if ($theme_id == false) {
-			return false;
+			$theme_id = 'landscape';
 		}
 		$theme_result = array();
 		if (is_numeric($theme_id)) {

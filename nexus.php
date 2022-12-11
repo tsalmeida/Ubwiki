@@ -3,17 +3,13 @@
 	//TODO: Clicar em "link dump" no modal de links deveria fechar o modal.
 	//TODO: Forma de alterar icones, cores e títulos de todos os elementos.
 	//TODO: Forma de alterar a ordem dos elementos.
-	//TODO: Forma de criar themes e selecioná-los.
-	//TODO: Ferramentas básicas: bloco de nots, to-do list etc.
-	//TODO: Fake RNG: na verdade, todas as combinações de ícone e cor devem se exaurir, quando em aleatório, antes que uma se repita.
-	//TODO: Não retornar à Ubwiki, mas pedir login. Para que funcione como uma Startpage de fato.
+	//TODO: Ferramentas básicas: bloco de nota, to-do list etc.
 	//TODO: Alguma integração com uma extensão do Chrome? Quem sabe?
 	//TODO: Algum elemento crypto ou inteligência artificial?
 	//TODO: Usar o curl, há possibilidades interessantes, como pesquisar e ver os resultados em baixo. Por exemplo, ver apenas os trending topics do Twitter na própria página, com um comando. Wikipédia, etc.
 	//TODO: Um Travelogue, extensão do Plano de Estudos da Ubwiki. Talvez como próximo projeto grande.
 	//TODO: E se fosse possível jogar o Chess Battles dentro da página, uma jogada por vez?
 	//TODO: A página poderia recordar a jogar Wordle, por exemplo.
-	//TODO: Links com maior e menor proeminência, alguns apenas com links, outros sem cor, outros em letras menores.
 	//TODO: Detect dead links and make them a different color on the scren.
 
 	$pagina_tipo = 'nexus';
@@ -283,6 +279,7 @@
                     $('#page_title_text').append('{$_SESSION['nexus_folders'][$folder_id]['info']['title']}');
                     $('#cmd_container').addClass('d-none');
                     $('#links_container').removeClass('d-none');
+                    $('#tools_container').addClass('d-none');
                     $('.specific_folder_links').addClass('d-none');
                     $('#links_from_folder_{$folder_id}').removeClass('d-none');
                     $('#settings_container').addClass('d-none');
@@ -317,76 +314,6 @@
     ";
 
 	$theme_info = return_theme($nexus_theme);
-
-//
-//	switch ($nexus_theme) {
-//		case 'random':
-//			$background_color = random_bg_color();
-//			$wallpapers = array(false);
-//			$wallpaper_repeat = false;
-//			$wallpaper_size = false;
-//			$wallpaper_position = false;
-//			$title_color = 'text-light';
-//			$title_overlay = false;
-//			$title_overlay_hover = false;
-//			break;
-//		case 'light':
-//			$background_color = '#f7f7f7';
-//			$wallpapers = array('../wallpapers/tile/papyrus.webp', '../wallpapers/tile/y-so-serious-white.png', '../wallpapers/tile/what-the-hex.webp', '../wallpapers/tile/cheap_diagonal_fabric.png', '../wallpapers/tile/circles-and-roundabouts.webp', '../wallpapers/tile/crossline-dots.webp', '../wallpapers/tile/diagonal_striped_brick.webp', '../wallpapers/tile/funky-lines.webp', '../wallpapers/tile/gplaypattern.png', '../wallpapers/tile/interlaced.png', '../wallpapers/tile/natural_paper.webp', '../wallpapers/tile/subtle_white_feathers.webp', '../wallpapers/tile/topography.webp', '../wallpapers/tile/webb.png', '../wallpapers/tile/whirlpool.webp', '../wallpapers/tile/white-waves.webp', '../wallpapers/tile/worn_dots.webp', '../wallpapers/tile/vertical-waves.webp');
-//			$wallpaper_repeat = 'repeat';
-//			$wallpaper_size = 'auto';
-//			$wallpaper_position = 'center center';
-//			$title_color = 'text-dark';
-//			$title_overlay = 'color-burn';
-//			$title_overlay_hover = 'difference';
-//			break;
-//		case 'dark':
-//			$background_color = '#191919';
-//			$wallpapers = array('../wallpapers/tile/tactile_noise.webp', '../wallpapers/tile/black_lozenge.webp', '../wallpapers/tile/dark_leather.webp', '../wallpapers/tile/escheresque_ste.webp', '../wallpapers/tile/papyrus-dark.webp', '../wallpapers/tile/prism.png', '../wallpapers/tile/tasky_pattern.webp', '../wallpapers/tile/y-so-serious.png');
-//			$wallpaper_repeat = 'repeat';
-//			$wallpaper_size = 'auto';
-//			$wallpaper_position = 'center center';
-//			$title_color = 'text-light';
-//			$title_overlay = 'color-dodge';
-//			$title_overlay_hover = 'difference';
-//			break;
-//		case 'whimsical':
-//			$background_color = '#191919';
-//			$wallpapers = array('../wallpapers/tile/pink-flowers.webp', '../wallpapers/tile/morocco.png', '../wallpapers/tile/pool_table.webp', '../wallpapers/tile/retina_wood.png', '../wallpapers/tile/wheat.webp');
-//			$wallpaper_repeat = 'repeat';
-//			$wallpaper_size = 'auto';
-//			$wallpaper_position = 'center center';
-//			$title_color = 'text-dark';
-//			$title_overlay = 'overlay';
-//			$title_overlay_hover = 'difference';
-//			break;
-//		case 'landscape':
-//		case false:
-//			$background_color = '#191919';
-//			$wallpapers = glob( '../wallpapers/landscape/*.*');
-//			$wallpaper_repeat = 'no-repeat';
-//			$wallpaper_size = 'cover';
-//			$wallpaper_position = 'center center';
-//			$title_color = 'text-dark';
-//			$title_overlay = 'overlay';
-//			$title_overlay_hover = 'difference';
-//			break;
-//		default:
-//			$theme_info = return_theme($nexus_theme);
-//			$background_color = "#{$theme_info['bghex']}";
-//			$wallpapers = array($theme_info['url']);
-//			$wallpaper_repeat = $theme_info['repeat'];
-//			$wallpaper_size = $theme_info['size'];
-//			$wallpaper_position = $theme_info['position'];
-//			$title_color_info = nexus_colors(array('mode' => 'convert', 'color' => $theme_info['homehex']));
-//			$title_color = $title_color_info['link-color'];
-//			$title_overlay = $theme_info['homeeffect'];
-//			$title_overlay_hover = 'difference';
-//			break;
-//	}
-//
-//	$random_wallpaper = array_rand($wallpapers);
-//	$wallpaper_file = $wallpapers[$random_wallpaper];
 
 	if (!is_numeric($nexus_theme)) {
 		$_SESSION['current_theme'] = array('title' => $theme_info['title'], 'url' => $theme_info['url'], 'bghex' => $theme_info['bghex'], 'homehex' => $theme_info['homehex'], 'wallpaper' => $theme_info['wallpaper'], 'homefont' => $theme_info['homefont'], 'homeeffect' => $theme_info['homeeffect']);
@@ -444,12 +371,13 @@
 						if ($nexus_folders_check == true) {
 							echo nexus_put_together(array('type' => 'navbar', 'color' => 'yellow', 'class' => 'col-auto ms-auto', 'href' => false, 'icon' => 'fas fa-folder-bookmark', 'id' => 'trigger_show_main_folder_icons'));
 							echo nexus_put_together(array('type' => 'navbar', 'color' => 'purple', 'class' => 'col-auto ', 'href' => false, 'icon' => 'fas fa-cabinet-filing fa-swap-opacity', 'id' => 'trigger_show_archival_folder_icons'));
-							echo nexus_put_together(array('type' => 'navbar', 'color' => 'teal', 'class' => 'col-auto me-3', 'href' => false, 'icon' => 'fas fa-box-archive fa-swap-opacity', 'id' => 'trigger_show_linkdump'));
+							echo nexus_put_together(array('type' => 'navbar', 'color' => 'teal', 'class' => 'col-auto me-5', 'href' => false, 'icon' => 'fas fa-box-archive fa-swap-opacity', 'id' => 'trigger_show_linkdump'));
 //								echo nexus_put_together(array('type' => 'navbar', 'color' => 'cyan', 'class' => '', 'href' => false, 'icon' => 'fas fa-clock-rotate-left', 'id' => 'trigger_show_recent_links'));
 						} else {
 							$msauto = 'ms-auto';
 						}
 						echo nexus_put_together(array('type' => 'navbar', 'color' => 'orange', 'class' => "col-auto $msauto", 'href' => false, 'icon' => 'fas fa-cog', 'id' => 'trigger_show_setup_icons'));
+						echo nexus_put_together(array('type' => 'navbar', 'color' => 'cyan', 'class' => 'col-auto', 'href' => false, 'icon' => 'fas fa-wrench', 'id' => 'trigger_show_tools'));
 						echo nexus_put_together(array('type' => 'navbar', 'color' => 'teal', 'class' => 'col-auto ', 'href' => false, 'icon' => 'fad fa-circle-arrow-up-right', 'id' => 'trigger_show_leave_icons', 'modal' => '#modal_leave_options'));
 					?>
                 </div>
@@ -498,7 +426,7 @@
 			<?php
 				echo "<div id='settings_container' class='container d-none mt-1'><div id='settings_row' class='row'>";
 
-				//                echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_testing', 'title' => 'Manage testing', 'modal' => '#modal_manage_testing', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-circle-notch', 'color' => 'orange'));
+//                  echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_testing', 'title' => 'Manage testing', 'modal' => '#modal_manage_testing', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-circle-notch', 'color' => 'orange'));
 				if ($nexus_folders_check == true) {
 					echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_folders', 'title' => 'Add folder', 'modal' => '#modal_manage_folders', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-folder-plus', 'color' => 'yellow'));
 					echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_links', 'title' => 'Add link', 'modal' => '#modal_manage_links', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-grid-2-plus', 'color' => 'red'));
@@ -506,14 +434,12 @@
 //					echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_move_links', 'title' => 'Move links between folders', 'modal' => '#modal_manage_move_links', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-arrow-right-arrow-left', 'color' => 'teal'));
 					echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_themes', 'title' => 'Manage themes', 'modal' => '#modal_manage_themes', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-swatchbook', 'color' => 'purple'));
 					echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_options', 'title' => 'Options', 'modal' => '#modal_options', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-toggle-large-on', 'color' => 'green'));
-					echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_timeline', 'title' => 'Activity log', 'modal' => '#modal_manage_timeline', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-list-timeline', 'color' => 'cyan'));
 				}
-				echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_commands', 'title' => 'Commands', 'modal' => '#modal_commands', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-rectangle-terminal', 'color' => 'orange'));
 				//				echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'logout', 'title' => 'Logout', 'modal' => false, 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-person-through-window', 'color' => 'red'));
 				//					if ($user_id == 1) {
 				//						echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'transfer_nexustation', 'title' => 'Transfer Nexustation', 'modal' => false, 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-timeline-arrow', 'color' => 'indigo'));
 				//						echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'shred_nexus', 'title' => 'Delete all Nexus data', 'modal' => false, 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-shredder', 'color' => 'red'));
-				//					}
+            //					}
 
 				echo "</div></div>";
 				echo "<div id='folders_container' class='container d-none'><div id='folders_row' class='row'>";
@@ -526,6 +452,19 @@
 				echo $folder_containers;
 
 				echo "</div></div>";
+
+				if ($user_id != false) {
+					echo "<div id='tools_container' class='container d-none mt-1'><div id='tools_row' class='row'>";
+					echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'todo_list', 'icon' => 'fad fa-list-check', 'color' => 'red', 'title' => 'Task Manager', 'href' => false, 'modal' => '#modal_todo'));
+					echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'manage_timeline', 'title' => 'Activity log', 'modal' => '#modal_manage_timeline', 'icon' => 'fad fa-list-timeline', 'color' => 'cyan'));
+					echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'manage_commands', 'title' => 'Commands', 'modal' => '#modal_commands', 'icon' => 'fad fa-rectangle-terminal', 'color' => 'orange'));
+					echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'notepad', 'icon' => 'fad fa-pen-to-square', 'color' => 'green', 'title' => 'Notepad', 'href' => false, 'modal' => '#modal_notepad'));
+					echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'clipboard', 'icon' => 'fad fa-clipboard', 'color' => 'pink', 'title' => 'Clipboard', 'href' => false, 'modal' => '#modal_clipboard'));
+					echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'life_weeks', 'icon' => 'fad fa-calendar-week', 'color' => 'yellow', 'title' => 'Your Life in Weeks', 'href' => false, 'modal' => '#modal_clipboard'));
+					echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'password_manager', 'icon' => 'fad fa-key', 'color' => 'purple', 'title' => 'Password Manager', 'href' => false, 'modal' => '#modal_password_manager'));
+					echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'chess_battles', 'icon' => 'fad fa-chess-knight', 'color' => 'yellow', 'title' => 'Chess Battles', 'href' => '../chessbattles/'));
+					echo "</div></div>";
+				}
 
 			?>
         </div>
@@ -552,7 +491,7 @@
 			$template_modal_body_conteudo = false;
 			$template_modal_body_conteudo .= "<div class='row justify-content-center d-flex'>";
 			if ($user_id != false) {
-				$template_modal_body_conteudo .= nexus_put_together(array('type' => 'large', 'id' => 'return_ubwiki', 'icon' => 'fad fa-books', 'color' => 'green', 'title' => 'Study Plan', 'href' => 'pagina.php?plano_id=bp'));
+				$template_modal_body_conteudo .= nexus_put_together(array('type' => 'large', 'id' => 'return_ubwiki_studyplan', 'icon' => 'fad fa-books', 'color' => 'green', 'title' => 'Study Plan', 'href' => 'pagina.php?plano_id=bp'));
 				$template_modal_body_conteudo .= nexus_put_together(array('type' => 'large', 'id' => 'return_ubwiki', 'icon' => 'fad fa-lamp-desk', 'color' => 'yellow', 'title' => 'Office', 'href' => 'escritorio.php'));
 				$template_modal_body_conteudo .= nexus_put_together(array('type' => 'large', 'id' => 'logout', 'icon' => 'fad fa-right-from-bracket', 'color' => 'red', 'title' => 'Logout'));
 			} else {
@@ -658,6 +597,7 @@
             $('#folders_container').addClass('d-none');
             $('#settings_container').addClass('d-none');
             $('#links_container').addClass('d-none');
+            $('#tools_container').addClass('d-none');
             $('#cmd_container').removeClass('d-none');
             $(document).find("#cmdbar").focus();
         }
@@ -744,12 +684,36 @@
 
         $("input:text:visible:first").focus();
 
+        function show_tools() {
+            $('#page_title_text').empty();
+            $('#page_title_text').append('Tools');
+            $('#cmd_container').addClass('d-none');
+            $('#links_container').addClass('d-none');
+            $('#tools_container').removeClass('d-none');
+            $('.nexus_settings_icon').addClass('d-none');
+            $('#settings_container').removeClass('d-none');
+            $('#links_container').addClass('d-none');
+            $('#folders_container').find('.main_folder_icons').addClass('d-none');
+            $('#folders_container').find('.archival_folder_icons').addClass('d-none');
+        }
+
+        $(document).on('click', '#trigger_show_tools', function() {
+            show_tools();
+        })
+
+        document.addEventListener('keydown', function (zEvent) {
+            if (zEvent.altKey && zEvent.key === 't') {
+                show_tools();
+            }
+        });
+
         function show_setup_icons() {
             $('#page_title_text').empty();
             $('#page_title_text').append('Settings');
             $('#cmd_container').addClass('d-none');
             $('#links_container').addClass('d-none');
-            $('.setup_icon').removeClass('d-none');
+            $('#tools_container').addClass('d-none');
+            $('.nexus_settings_icon').removeClass('d-none');
             $(document).find('#settings_container').removeClass('d-none');
             $(document).find('#links_container').addClass('d-none');
             $('#folders_container').find('.main_folder_icons').addClass('d-none');
@@ -771,8 +735,9 @@
             $('#page_title_text').empty();
             $('#page_title_text').append('Main folders');
             $('#cmd_container').addClass('d-none');
-            $(document).find('#links_container').addClass('d-none');
-            $(document).find('#settings_container').addClass('d-none');
+            $('#links_container').addClass('d-none');
+            $('#settings_container').addClass('d-none');
+            $('#tools_container').addClass('d-none');
             $('#folders_container').removeClass('d-none');
             $('#folders_container').find('.main_folder_icons').removeClass('d-none');
             $('#folders_container').find('.archival_folder_icons').addClass('d-none');
@@ -793,8 +758,9 @@
             $('#page_title_text').empty();
             $('#page_title_text').append('Archives');
             $('#cmd_container').addClass('d-none');
-            $(document).find('#links_container').addClass('d-none');
-            $(document).find('#settings_container').addClass('d-none');
+            $('#links_container').addClass('d-none');
+            $('#settings_container').addClass('d-none');
+            $('#tools_container').addClass('d-none');
             $('#folders_container').removeClass('d-none');
             $('#folders_container').find('.main_folder_icons').addClass('d-none');
             $('#folders_container').find('.archival_folder_icons').removeClass('d-none');
@@ -814,8 +780,9 @@
             $('#page_title_text').empty();
             $('#page_title_text').append('Recent links');
             $('#cmd_container').addClass('d-none');
-            $(document).find('#links_container').removeClass('d-none');
-            $(document).find('#settings_container').addClass('d-none');
+            $('#links_container').addClass('d-none');
+            $('#settings_container').addClass('d-none');
+            $('#tools_container').addClass('d-none');
             $('#folders_container').find('.main_folder_icons').addClass('d-none');
             $('#folders_container').find('.archival_folder_icons').addClass('d-none');
             $('#links_container').removeClass('d-none');
