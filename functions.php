@@ -4338,3 +4338,7 @@
 			return false;
 		}
 	}
+
+	function str_word_count_utf8($str) {
+		return count(preg_split('~[^\p{L}\p{N}\']+~u',$str));
+	}

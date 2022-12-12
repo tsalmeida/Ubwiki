@@ -3062,26 +3062,39 @@
 	//	}
 
 	if (isset($_POST['find_repeats_text'])) {
+		if (!isset($_POST['repeats_word_repeats'])) {
+			$_POST['repeats_word_repeats'] = 2;
+		}
+		if (!isset($_POST['repeats_word_length'])) {
+			$_POST['repeats_word_length'] = 4;
+		}
 		$text = $_POST['find_repeats_text'];
-		error_log("ISTO: Então quinhão Brasíl qualè");
-		error_log($text);
-		$text = urldecode($text);
-		error_log($text);
-//		$text = iconv('ISO-8859-1', "UTF-8", $text);
-		$words = array_count_values(str_word_count($text, 1));
+		file_put_contents('testing', $text);
+		$words = array_count_values(str_word_count($text, 1, 'ãáèñíéõçóêîô'));
 		arsort($words);
+		$words_serialized = serialize($words);
 		$repeats_result = false;
 		foreach ($words as $key => $value) {
-			if ($value < 2) {
+			if ($value < $_POST['repeats_word_repeats']) {
+				continue;
+			}
+			if (strlen($key) <= $_POST['repeats_word_length']) {
 				continue;
 			}
 			$repeats_result .= "
 				<li class='list-group-item d-flex justify-content-between align-items-start'>
-					<div class='ms-2 me-auto'>$key</div>
+					<div class='ms-2 me-auto'><a class='link-primary repeated_word' href='javascript:void(0);' value='$key'>$key</a></div>
 					<span class='badge bg-primary rounded-pill'>$value</span>
 				</li>
 			";
 		}
+		$repeats_result .= "
+				<script type='text/javascript'>
+					$('.repeated_word').on('click', function(){
+						var repeated_word = $(this).attr('value');
+                        alert(repeated_word);
+					});
+				</script>";
 		echo $repeats_result;
 	}
 
