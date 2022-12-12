@@ -11370,6 +11370,10 @@ a {
   min-height: 50vh;
 }
 
+.min-vh-90 {
+  min-height: 90vh;
+}
+
 .bg-success-light {
   background-color: #d1e7dd;
 }

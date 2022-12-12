@@ -2708,7 +2708,7 @@
 				unset($match['best_match']);
 			} else {
 				if (isset($levenshtein_finds[$match['best_match']]))
-				unset($levenshtein_finds[$match['best_match']]);
+					unset($levenshtein_finds[$match['best_match']]);
 			}
 		}
 		$return = "<ul class='list-group'><li class='list-group-item'>No match found</li></ul>";
@@ -3016,8 +3016,8 @@
 
 	if (isset($_POST['trigger_lock_theme'])) {
 		if (isset($_SESSION['current_theme'])) {
-			$t=time();
-			$locked_time = date("Y-m-d H:i:s",$t);
+			$t = time();
+			$locked_time = date("Y-m-d H:i:s", $t);
 			$locked_time = "Locked on $locked_time";
 			$query = prepare_query("INSERT INTO nexus_themes (user_id, title, url, bghex, homehex, wallpaper, homefont, homeeffect) VALUES ({$_SESSION['user_id']}, '$locked_time', '{$_SESSION['current_theme']['url']}', '{$_SESSION['current_theme']['bghex']}', '{$_SESSION['current_theme']['homehex']}', '{$_SESSION['current_theme']['wallpaper']}', '{$_SESSION['current_theme']['homefont']}', '{$_SESSION['current_theme']['homeeffect']}')", 'log');
 			$conn->query($query);
@@ -3061,5 +3061,28 @@
 	//		echo $populate_move_links;
 	//	}
 
+	if (isset($_POST['find_repeats_text'])) {
+		$text = $_POST['find_repeats_text'];
+		error_log("ISTO: Então quinhão Brasíl qualè");
+		error_log($text);
+		$text = urldecode($text);
+		error_log($text);
+//		$text = iconv('ISO-8859-1', "UTF-8", $text);
+		$words = array_count_values(str_word_count($text, 1));
+		arsort($words);
+		$repeats_result = false;
+		foreach ($words as $key => $value) {
+			if ($value < 2) {
+				continue;
+			}
+			$repeats_result .= "
+				<li class='list-group-item d-flex justify-content-between align-items-start'>
+					<div class='ms-2 me-auto'>$key</div>
+					<span class='badge bg-primary rounded-pill'>$value</span>
+				</li>
+			";
+		}
+		echo $repeats_result;
+	}
 
 ?>

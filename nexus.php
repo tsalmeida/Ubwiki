@@ -1068,3 +1068,5 @@
 <?php
 
 	include 'templates/html_bottom.php';
+?>
+</html>

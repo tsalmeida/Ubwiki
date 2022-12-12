@@ -1763,5 +1763,4 @@
 			$('.modal:visible').removeClass('fade').modal('hide').addClass('fade');
 		});
 	</script>
-
 	";
