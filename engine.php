@@ -3071,7 +3071,7 @@
 		$text = $_POST['find_repeats_text'];
 		$text = strip_tags($text, '<p>');
 		$text = str_replace('&nbsp;', '', $text);
-		$words = array_count_values(str_word_count($text, 1, 'ãáèñíéõçóêîô'));
+		$words = array_count_values(str_word_count($text, 1, 'ãáèñíéõçóêîôâ'));
 		arsort($words);
 		$words_serialized = serialize($words);
 		$repeats_result = false;
@@ -3107,7 +3107,7 @@
 						var repeated_word = $(this).attr('value');
 					});
 				</script>";
-		file_put_contents('testing', $text);
+//		file_put_contents('testing', $text);
 		$text = base64_encode($text);
 		$repeats_result = base64_encode($repeats_result);
 		$final_result = array($text, $repeats_result);
