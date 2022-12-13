@@ -39,9 +39,9 @@
         </div>
         <div class="col-3 pagina_coluna bg-white border rounded mt-1 p-2">
             <h1>Find repeated words</h1>
-            <label for="repeats_word_length" class="form-label">Word length (from 1 to 5 characters)</label>
+            <label for="repeats_word_length" class="form-label">Word length (1-5 characters)</label>
             <input type="range" class="form-range" min="1" max="5" step="1" value="3" name="repeats_word_length" id="repeats_word_length">
-            <label for="repeats_word_repeats" class="form-label">Repetition instances (from 2 to 20)</label>
+            <label for="repeats_word_repeats" class="form-label">Repetition instances (2-20 instances)</label>
             <input type="range" class="form-range" min="2" max="20" step="1" value="2" name="repeats_word_repeats" id="repeats_word_repeats">
             <div class="mb-3">
                 <button type="button" id="trigger_analyse_repeats" class="btn btn-primary">Analyze</button>
