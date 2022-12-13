@@ -721,6 +721,56 @@ textarea:focus, input:focus{
   border-bottom-color: $cyan-100;
 }
 
+.nexus-highlight-blue {
+  background-color: $blue-200;
+    @extend .border, .rounded;
+}
+
+.nexus-highlight-indigo {
+  background-color: $indigo-200;
+    @extend .border, .rounded;
+}
+
+.nexus-highlight-purple {
+  background-color: $purple-200;
+    @extend .border, .rounded;
+}
+
+.nexus-highlight-pink {
+  background-color: $pink-200;
+    @extend .border, .rounded;
+}
+
+.nexus-highlight-red {
+  background-color: $red-200;
+    @extend .border, .rounded;
+}
+
+.nexus-highlight-orange {
+  background-color: $orange-200;
+    @extend .border, .rounded;
+}
+
+.nexus-highlight-yellow {
+  background-color: $yellow-200;
+    @extend .border, .rounded;
+}
+
+.nexus-highlight-green {
+  background-color: $green-200;
+    @extend .border, .rounded;
+}
+
+.nexus-highlight-teal {
+  background-color: $teal-200;
+    @extend .border, .rounded;
+}
+
+.nexus-highlight-cyan {
+  background-color: $cyan-200;
+    @extend .border, .rounded;
+}
+
 .gray900-transparent {
   /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#212529+0,212529+100&0.8+0,0.8+100 */
   background: -moz-linear-gradient(top,  rgba(33,37,41,0.8) 0%, rgba(33,37,41,0.8) 100%); /* FF3.6-15 */
@@ -760,5 +810,5 @@ textarea:focus, input:focus{
 //  color: $cyan-500;
 //}
 //
-//
+
 

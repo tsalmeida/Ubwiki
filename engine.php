@@ -3069,11 +3069,13 @@
 			$_POST['repeats_word_length'] = 4;
 		}
 		$text = $_POST['find_repeats_text'];
-		file_put_contents('testing', $text);
+		$text = strip_tags($text, '<p>');
+		$text = str_replace('&nbsp;', '', $text);
 		$words = array_count_values(str_word_count($text, 1, 'ãáèñíéõçóêîô'));
 		arsort($words);
 		$words_serialized = serialize($words);
 		$repeats_result = false;
+		$count = 0;
 		foreach ($words as $key => $value) {
 			if ($value < $_POST['repeats_word_repeats']) {
 				continue;
@@ -3081,9 +3083,20 @@
 			if (strlen($key) <= $_POST['repeats_word_length']) {
 				continue;
 			}
+			if ($count == 9) {
+				$count = 0;
+			}
+			$color = number_to_color($count);
+			$count++;
+			$bg_color = nexus_colors(array('mode'=>'convert', 'color'=>$color));
+			$bg_color = $bg_color['highlight'];
+			$text = str_replace($key, "<strong class='$bg_color px-1'>$key</strong>", $text);
 			$repeats_result .= "
 				<li class='list-group-item d-flex justify-content-between align-items-start'>
-					<div class='ms-2 me-auto'><a class='link-primary repeated_word' href='javascript:void(0);' value='$key'>$key</a></div>
+					<div class='form-check form-switch'>
+						<a href='javascript:void(0);' class='link-primary'><input class='form-check-input' type='checkbox' role='switch' id='repeated_word_$count' value='$key' checked></a>
+						<label class='form-check-label' for='repeated_word_$count'>$key</label>
+					</div>
 					<span class='badge bg-primary rounded-pill'>$value</span>
 				</li>
 			";
@@ -3092,10 +3105,13 @@
 				<script type='text/javascript'>
 					$('.repeated_word').on('click', function(){
 						var repeated_word = $(this).attr('value');
-                        alert(repeated_word);
 					});
 				</script>";
-		echo $repeats_result;
+		file_put_contents('testing', $text);
+		$text = base64_encode($text);
+		$repeats_result = base64_encode($repeats_result);
+		$final_result = array($text, $repeats_result);
+		echo json_encode($final_result);
 	}
 
 ?>
