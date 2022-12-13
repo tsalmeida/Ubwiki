@@ -3071,7 +3071,7 @@
 		$text = $_POST['find_repeats_text'];
 		$text = strip_tags($text, '<p>');
 		$text = str_replace('&nbsp;', '', $text);
-		$words = array_count_values(str_word_count($text, 1, 'ãáèñíéõçóêîô'));
+		$words = array_count_values(str_word_count($text, 1, 'ãáèñíéõçóêîôâ'));
 		arsort($words);
 		$words_serialized = serialize($words);
 		$repeats_result = false;
