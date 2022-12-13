@@ -14,6 +14,9 @@
 
 	$pagina_tipo = 'nexus';
 	include 'engine.php';
+	$pagina_title = "Nexus / {$_SESSION['user_apelido']}";
+//    $pagina_favicon = 'nexus-favicon-alt.ico';
+    $pagina_favicon = 'pretzel.ico';
 
 	if ((!isset($_SESSION['user_nexus_pagina_id'])) || ($_SESSION['user_nexus_pagina_id'] == false)) {
 		$pagina_id = return_pagina_id($user_id, 'nexus');
@@ -459,7 +462,7 @@
 					echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'acervo', 'icon' => 'fad fa-ticket', 'color' => 'green', 'title' => 'Travelogue', 'href' => 'travelogue.php'));
 					echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'manage_timeline', 'title' => 'Activity log', 'modal' => '#modal_manage_timeline', 'icon' => 'fad fa-list-timeline', 'color' => 'cyan'));
 					echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'manage_commands', 'title' => 'Commands', 'modal' => '#modal_commands', 'icon' => 'fad fa-rectangle-terminal', 'color' => 'orange'));
-					echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'notepad', 'icon' => 'fad fa-pen-to-square', 'color' => 'green', 'title' => 'Notepad', 'href' => false, 'modal' => '#modal_notepad'));
+					echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'notepad', 'icon' => 'fad fa-pen-to-square', 'color' => 'green', 'title' => 'Notepad', 'href' => 'notepad.php'));
 					echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'clipboard', 'icon' => 'fad fa-clipboard', 'color' => 'pink', 'title' => 'Clipboard', 'href' => false, 'modal' => '#modal_clipboard'));
 					echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'life_weeks', 'icon' => 'fad fa-calendar-week', 'color' => 'yellow', 'title' => 'Your Life in Weeks', 'href' => false, 'modal' => '#modal_clipboard'));
 					echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'password_manager', 'icon' => 'fad fa-key', 'color' => 'purple', 'title' => 'Password Manager', 'href' => false, 'modal' => '#modal_password_manager'));
@@ -534,13 +537,18 @@
 
 			$template_modal_div_id = 'modal_manage_timeline';
 			$template_modal_titulo = 'Manage timeline';
-			$template_modal_body_conteudo = "Loading..";
+			$template_modal_body_conteudo = "Loading...";
 			include 'templates/modal.php';
 
 			$template_modal_div_id = 'modal_options';
 			$template_modal_titulo = 'Options';
 			$template_modal_body_conteudo = "Loading...";
 			include 'templates/modal.php';
+
+            $template_modal_div_id = 'modal_clipboard';
+            $template_modal_titulo = 'Clipboard tool';
+            $template_modal_body_conteudo = 'Loading...';
+            include 'templates/modal.php';
 
 			$template_modal_div_id = 'modal_commands';
 			$template_modal_titulo = 'The Nexus Command Bar';

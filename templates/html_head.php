@@ -27,21 +27,18 @@
         <script src='https://kit.fontawesome.com/b8e073920a.js' crossorigin='anonymous'></script>
         <link href='css/style.css?20221110' rel='stylesheet'>";
 
-	if ($pagina_tipo == 'nexus') {
-		echo "
-        <link type='image/vnd.microsoft.icon' rel='icon' href='nexus-favicon-alt.ico'/>
-        ";
-	} else {
-		echo "<link type='image/vnd.microsoft.icon' rel='icon' href='favicon.ico'/>";
-	}
+    if (!isset($pagina_favicon)) {
+        $pagina_favicon = 'favicon.ico';
+    }
+
+    echo "<link type='image/vnd.microsoft.icon' rel='icon' href='$pagina_favicon'>";
+
 	echo "
         <!-- JQuery -->
         <script src=\"https://code.jquery.com/jquery-3.6.1.min.js\" integrity=\"sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=\" crossorigin=\"anonymous\"></script>";
-	if ($pagina_tipo == 'nexus') {
-		$pagina_title = "Nexus";
-	} else {
-		$pagina_title = 'Ubwiki';
-	}
+    if (!isset($pagina_title)) {
+        $pagina_title = 'Ubwiki';
+    }
 	echo "<title>$pagina_title</title>";
 
 	if (($html_head_template_quill == true) || ($html_head_template_quill_sim == true)) {

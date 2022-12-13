@@ -4352,6 +4352,116 @@
 		}
 	}
 
-	function str_word_count_utf8($str) {
-		return count(preg_split('~[^\p{L}\p{N}\']+~u',$str));
+	function travelogue_interpret_code($code) {
+		$favorite = substr($code, 0, 1);
+		$lyrics = substr($code, 1, 1);
+		$hifi = substr($code, 2, 1);
+		$relaxing = substr($code, 3, 1);
+		$heavy = substr($code, 4, 1);
+		$greatvibe = substr($code, 5, 1);
+		$complex = substr($code, 6, 1);
+		$instrumental = substr($code, 7, 1);
+		$live = substr($code, 8, 1);
+		if ($favorite == '1') {
+			$favorite = "<i class='fas fa-star fa-fw link-warning me-1' title='Favorite'></i>";
+		} else {
+			$favorite = "<i class='fal fa-star fa-fw link-secondary me-1' title='Favorite'></i>";
+		}
+		if ($lyrics == '1') {
+			$lyrics = "<i class='fas fa-feather fa-fw link-purple me-1' title='Great lyrics'></i>";
+		} else {
+			$lyrics = "<i class='fal fa-feather fa-fw link-secondary me-1' title='Great lyrics'></i>";
+		}
+		if ($hifi == '1') {
+			$hifi = "<i class='fas fa-waveform fa-fw link-teal me-1' title='Great audio quality'></i>";
+		} else {
+			$hifi = "<i class='fal fa-waveform fa-fw link-secondary me-1' title='Great audio quality'></i>";
+		}
+		if ($relaxing == '1') {
+			$relaxing = "<i class='fas fa-blanket fa-fw link-purple me-1' title='Relaxing'></i>";
+		} else {
+			$relaxing = "<i class='fal fa-blanket fa-fw link-secondary me-1' title='Relaxing'></i>";
+		}
+		if ($heavy == '1') {
+			$heavy = "<i class='fas fa-weight-hanging fa-fw link-primary me-1' title='Heavy'></i>";
+		} else {
+			$heavy = "<i class='fal fa-weight-hanging fa-fw link-secondary me-1' title='Heavy'></i>";
+		}
+		if ($greatvibe == '1') {
+			$greatvibe = "<i class='fas fa-pepper-hot fa-fw link-danger me-1' title='Great vibe'></i>";
+		} else {
+			$greatvibe = "<i class='fal fa-pepper-hot fa-fw link-secondary me-1' title='Great vibe'></i>";
+		}
+		if ($complex == '1') {
+			$complex = "<i class='fas fa-brain-circuit fa-fw link-orange me-1' title='Complex'></i>";
+		} else {
+			$complex = "<i class='fal fa-brain-circuit fa-fw link-secondary me-1' title='Complex'></i>";
+		}
+		if ($instrumental == '1') {
+			$instrumental = "<i class='fas fa-trumpet fa-fw link-warning me-1' title='Instrumental'></i>";
+		} else {
+			$instrumental = "<i class='fal fa-trumpet fa-fw link-secondary me-1' title='Instrumental'></i>";
+		}
+		if ($live == '1') {
+			$live = "<i class='fas fa-guitars fa-fw link-pink me-1' title='Recorded live'></i>";
+		} else {
+			$live = "<i class='fal fa-guitars fa-fw link-secondary me-1' title='Recorded live'></i>";
+		}
+		return "$favorite$lyrics$hifi$relaxing$heavy$greatvibe$complex$instrumental$live";
+	}
+
+	function travelogue_put_together($array) {
+		if (!isset($array['code'])) { $array['code'] = false; }
+		if (!isset($array['year'])) { $array['year'] = false; }
+		if (!isset($array['title'])) { $array['title'] = false; }
+		if (!isset($array['artist'])) { $array['artist'] = false; }
+		if (!isset($array['genre'])) { $array['genre'] = false; }
+		if (!isset($array['experienced'])) { $array['experienced'] = false; }
+		if (!isset($array['grade'])) { $array['grade'] = false; }
+		if (!isset($array['comment'])) { $array['comment'] = false; }
+		if (!isset($array['info'])) { $array['info'] = false; }
+
+		$array['code'] = travelogue_interpret_code($array['code']);
+		if($array['info'] != false) {
+			$row_info = "<div class='col bg-darker rounded border border-1 border-dark py-1'><small class='text-white font-half-condensed-300'>{$array['info']}</small></div>";
+		} else {
+			$row_info = "<div class='col bg-dark rounded border border-1 border-dark py-1'><small class='text-white font-half-condensed-300'>{$array['info']}</small></div>";
+		}
+		if ($array['comment'] != false) {
+			$row_comment = "<div class='col bg-darker rounded border border-1 border-dark py-1'><small class='text-white font-half-condensed-300'>{$array['comment']}</small></div>";
+		} else {
+			$row_comment = "<div class='col bg-dark rounded border border-1 border-dark py-1'><small class='text-white font-half-condensed-300'>{$array['comment']}</small></div>";
+		}
+		if ($array['experienced'] === true) {
+			$row_experienced = "<div class='col-1 bg-darker rounded border border-1 border-dark py-1'><span class='text-success font-half-condensed-300'><i class='fas fa-check fa-fw'></i></span></div>";
+		} else {
+			$row_experienced = "<div class='col-1 bg-darker rounded border border-1 border-dark py-1'><small class='text-white font-half-condensed-300'>{$array['experienced']}</small></div>";
+		}
+
+		$return = "
+            <div class='row mb-1 px-1'>
+                <div class='col-1 bg-darker rounded border border-1 border-dark py-1'><small class='text-white font-half-condensed-300'>{$array['code']}</small></div>
+                <div class='col-1 bg-darker rounded border border-1 border-dark py-1'><small class='text-white font-half-condensed-300'>{$array['year']}</small></div>
+                <div class='col bg-darker rounded border border-1 border-dark py-1'><small class='text-white font-half-condensed-300'>{$array['title']}</small></div>
+                <div class='col bg-darker rounded border border-1 border-dark py-1'><small class='text-white font-half-condensed-300'>{$array['artist']}</small></div>
+                <div class='col-1 bg-darker rounded border border-1 border-dark py-1'><small class='text-white font-half-condensed-300'>{$array['genre']}</small></div>
+                $row_experienced
+                <div class='col-1 bg-darker rounded border border-1 border-dark py-1'><small class='text-white font-half-condensed-300'>{$array['grade']}</small></div>
+                $row_comment
+                $row_info
+            </div>";
+		return $return;
+
+//		travelogue_put_together(array(
+//			'code'=>'',
+//			'year'=>'',
+//			'title'=>'',
+//			'artist'=>'',
+//			'genre'=>'',
+//			'experienced'=>'',
+//			'grade'=>'',
+//			'comment'=>'',
+//			'info'=>''
+//		));
+
 	}

@@ -425,18 +425,18 @@
 						$template_conteudo_hidden .= include 'templates/artefato_item.php';
 					}
 
-					$artefato_id = 'repeated_words';
-					$artefato_subtitulo = "Find repeated words";
-					$artefato_link = 'repeats.php';
-					$artefato_badge = 'fa-external-link';
-					$fa_icone = 'fa-magnifying-glass';
-					$fa_color = 'link-purple';
-					$artefato_icone_background = return_background($fa_color);
-					if (in_array(25, $icons_to_show)) {
-						$template_conteudo .= include 'templates/artefato_item.php';
-					} else {
-						$template_conteudo_hidden .= include 'templates/artefato_item.php';
-					}
+//					$artefato_id = 'repeated_words';
+//					$artefato_subtitulo = "Find repeated words";
+//					$artefato_link = 'notepad.php';
+//					$artefato_badge = 'fa-external-link';
+//					$fa_icone = 'fa-magnifying-glass';
+//					$fa_color = 'link-purple';
+//					$artefato_icone_background = return_background($fa_color);
+//					if (in_array(25, $icons_to_show)) {
+//						$template_conteudo .= include 'templates/artefato_item.php';
+//					} else {
+//						$template_conteudo_hidden .= include 'templates/artefato_item.php';
+//					}
 
 					$artefato_id = 'homepage';
 //					$artefato_subtitulo = $pagina_translated['Homepage'];

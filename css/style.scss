@@ -2,8 +2,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400&family=Roboto+Mono&display=swap');
 
-$headings-font-family: 'Oswald', Arial, serif;
+$headings-font-family: 'Oswald', 'Roboto Condensed', 'Lato', Arial, serif;
 $headings-font-weight: 200;
 $display-font-weight: 200;
 $font-size-base: 1.2rem;
@@ -15,6 +16,14 @@ $black: #131618;
 
 @import '../../../repositories/bootstrap/scss/bootstrap.scss';
 @import 'quill.snow.css';
+
+.font-half-condensed-400 {
+  font-family: 'Roboto Condensed', 'Oswald', 'Lato', sans-serif;
+}
+.font-half-condensed-300 {
+  font-family: 'Roboto Condensed', 'Oswald', 'Lato', sans-serif;
+  font-weight: 300;
+}
 
 .font-serif {
   font-family: $font-family-serif !important;
@@ -235,6 +244,10 @@ textarea:focus, input:focus{
 
 .nexus-navbar-button:hover, .nexus-artefato:hover {
   background-color: black;
+}
+
+.bg-gray-800 {
+  background-color: $gray-800;
 }
 
 .nexus-link-blue {

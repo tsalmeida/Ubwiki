@@ -2,6 +2,7 @@
 	include 'engine.php';
 	$pagina_tipo = 'repeats';
 	$pagina_id = $_SESSION['user_escritorio'];
+    $pagina_favicon = 'bandw.ico';
 	include 'templates/html_head.php';
 ?>
 <body class="bg-light">
