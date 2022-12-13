@@ -3107,7 +3107,7 @@
 						var repeated_word = $(this).attr('value');
 					});
 				</script>";
-		file_put_contents('testing', $text);
+//		file_put_contents('testing', $text);
 		$text = base64_encode($text);
 		$repeats_result = base64_encode($repeats_result);
 		$final_result = array($text, $repeats_result);
