@@ -122,10 +122,9 @@
 	$pagina_tipo = 'forum';
 	
 	include 'templates/html_head.php';
-	
-	if ($user_id != false) {
-		$modal_novo_topico = '#modal_novo_topico';
-	} else {
+
+    $modal_novo_topico = '#modal_novo_topico';
+	if (!$user_id) {
 		$modal_novo_topico = '#modal_login';
 	}
 

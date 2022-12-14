@@ -57,17 +57,19 @@
 	echo "</div>
 		</div>";
 
+	echo "<script type='text/javascript'>
+			var $template_modal_div_id = document.getElementById('$template_modal_div_id');";
 	if ($modal_focus != false) {
 		echo "
-		<script type='text/javascript'>
-			var myModal = document.getElementById('$template_modal_div_id')
-			var myInput = document.getElementById('$modal_focus')
-				myModal.addEventListener('shown.bs.modal', function () {
-				myInput.focus()
-			})
-		</script>
+			var $modal_focus = document.getElementById('$modal_focus');
+				$template_modal_div_id.addEventListener('shown.bs.modal', function () {
+				$modal_focus.focus();
+			});
 		";
 	}
+
+	echo "</script>";
+
 	unset($modal_focus);
 	unset($template_modal_div_id);
 	unset($template_modal_titulo);

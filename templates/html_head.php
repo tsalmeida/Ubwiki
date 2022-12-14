@@ -13,6 +13,31 @@
 		$html_head_template_quill_sim = false;
 	}
 
+	if (!isset($pagina_favicon)) {
+		$pagina_favicon = 'ubique_solid.ico';
+	}
+
+	if (!isset($pagina_title)) {
+		$pagina_title = 'Ubwiki';
+	}
+
+    $quill_module = false;
+	if (($html_head_template_quill == true) || ($html_head_template_quill_sim == true)) {
+		$quill_module = "<script src='quill.js'></script>";
+	}
+
+    $texto_justificado_module = false;
+	if ($opcao_texto_justificado_value) {
+		$texto_justificado_module = "
+		      	<style>
+		      		.ql-editor {
+		      			text-align: justify;
+		      			white-space: normal;
+		      		}
+				</style>
+		    ";
+	}
+
     echo "
         <!DOCTYPE html>
         <html lang='en'>
@@ -20,30 +45,19 @@
         <meta charset='utf-8'>
         <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
         <meta http-equiv='x-ua-compatible' content='ie=edge'>
-        <!-- Bootstrap 5 -->
-        <!--<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC\" crossorigin=\"anonymous\">-->
-        <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM\" crossorigin=\"anonymous\"></script>
+        <!-- 
+        JQuery -->
+        <script src=\"https://code.jquery.com/jquery-3.6.1.min.js\" integrity=\"sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=\" crossorigin=\"anonymous\"></script>
         <!-- Font Awesome -->
         <script src='https://kit.fontawesome.com/b8e073920a.js' crossorigin='anonymous'></script>
-        <link href='css/style.css?20221110' rel='stylesheet'>";
+        <link href='css/style.css?20221110' rel='stylesheet'>
+        <link type='image/vnd.microsoft.icon' rel='icon' href='$pagina_favicon'>
+        <title>$pagina_title</title>
+        $quill_module
+        $texto_justificado_module
+        ";
 
-    if (!isset($pagina_favicon)) {
-        $pagina_favicon = 'favicon.ico';
-    }
 
-    echo "<link type='image/vnd.microsoft.icon' rel='icon' href='$pagina_favicon'>";
-
-	echo "
-        <!-- JQuery -->
-        <script src=\"https://code.jquery.com/jquery-3.6.1.min.js\" integrity=\"sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=\" crossorigin=\"anonymous\"></script>";
-    if (!isset($pagina_title)) {
-        $pagina_title = 'Ubwiki';
-    }
-	echo "<title>$pagina_title</title>";
-
-	if (($html_head_template_quill == true) || ($html_head_template_quill_sim == true)) {
-		echo "<script src='quill.js'></script>";
-	}
 
 	if ($html_head_template_quill == true) {
 		echo "
@@ -109,16 +123,7 @@
 		        </script>
 		    ";
 	}
-	if ($opcao_texto_justificado_value == true) {
-		echo "
-		      	<style>
-		      		.ql-editor {
-		      			text-align: justify;
-		      			white-space: normal;
-		      		}
-				</style>
-		    ";
-	}
+
 ?>
     </head>
 <?php
