@@ -26,8 +26,8 @@
             <div class="row mb-3 px-1 sticky-top">
                 <div class="col-1 bg-darker rounded border border-1 border-dark text-center py-2 d-flex justify-content-between"><span class="text-white font-half-condensed-400">Codes</span><a href="javascript:void(0);"><i class="fas fa-filter-list link-success"></i></a></div>
                 <div class="col-1 bg-darker rounded border border-1 border-dark text-center py-2 d-flex justify-content-between"><span class="text-white font-half-condensed-400">Release date</span><a href="javascript:void(0);"><i class="fas fa-filter-list link-success"></i></a></div>
-                <div class="col bg-darker rounded border border-1 border-dark text-center py-2 d-flex justify-content-between"><span class="text-white font-half-condensed-400">Creator</span><a href="javascript:void(0);"><i class="fas fa-filter-list link-success"></i></a></div>
                 <div class="col bg-darker rounded border border-1 border-dark text-center py-2 d-flex justify-content-between"><span class="text-white font-half-condensed-400">Title</span><a href="javascript:void(0);"><i class="fas fa-filter-list link-success"></i></a></div>
+                <div class="col bg-darker rounded border border-1 border-dark text-center py-2 d-flex justify-content-between"><span class="text-white font-half-condensed-400">Creator</span><a href="javascript:void(0);"><i class="fas fa-filter-list link-success"></i></a></div>
                 <div class="col-1 bg-darker rounded border border-1 border-dark text-center py-2 d-flex justify-content-between"><span class="text-white font-half-condensed-400">Genre</span><a href="javascript:void(0);"><i class="fas fa-filter-list link-success"></i></a></div>
                 <div class="col-1 bg-darker rounded border border-1 border-dark text-center py-2 d-flex justify-content-between"><span class="text-white font-half-condensed-400">Date experienced</span><a href="javascript:void(0);"><i class="fas fa-filter-list link-success"></i></a></div>
                 <div class="col-1 bg-darker rounded border border-1 border-dark text-center py-2 d-flex justify-content-between"><span class="text-white font-half-condensed-400">Your rating</span><a href="javascript:void(0);"><i class="fas fa-filter-list link-success"></i></a></div>
@@ -46,7 +46,16 @@
 <?php
 	$template_modal_div_id = 'modal_add_item';
 	$template_modal_titulo = 'Add item';
-	$template_modal_body_conteudo = 'Loading...';
+	$template_modal_body_conteudo = false;
+    $template_modal_body_conteudo .= "
+    <form method='post'>
+        <div class='mb-3'>
+            <label for='travel_new_release_date' class='form-label'>Release date:</label>
+            <input id='travel_new_release_date' name='travel_new_release_date' type='text'>
+        </div>
+        <button type='submit' class='btn btn-primary'>Submit</button>
+    </form>
+    ";
 	include 'templates/modal.php';
 
 	$template_modal_div_id = 'modal_del_item';

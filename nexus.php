@@ -14,7 +14,11 @@
 
 	$pagina_tipo = 'nexus';
 	include 'engine.php';
-	$pagina_title = "Nexus / {$_SESSION['user_apelido']}";
+    if (!isset($_SESSION['user_apelido'])) {
+        $pagina_title = 'Nexus';
+    } else {
+		$pagina_title = "Nexus / {$_SESSION['user_apelido']}";
+	}
 //    $pagina_favicon = 'nexus-favicon-alt.ico';
     $pagina_favicon = 'pretzel.ico';
 
@@ -379,9 +383,12 @@
 						} else {
 							$msauto = 'ms-auto';
 						}
-						echo nexus_put_together(array('type' => 'navbar', 'color' => 'orange', 'class' => "col-auto $msauto", 'href' => false, 'icon' => 'fas fa-cog', 'id' => 'trigger_show_setup_icons'));
-						echo nexus_put_together(array('type' => 'navbar', 'color' => 'cyan', 'class' => 'col-auto', 'href' => false, 'icon' => 'fas fa-wrench', 'id' => 'trigger_show_tools'));
-						echo nexus_put_together(array('type' => 'navbar', 'color' => 'teal', 'class' => 'col-auto ', 'href' => false, 'icon' => 'fad fa-circle-arrow-up-right', 'id' => 'trigger_show_leave_icons', 'modal' => '#modal_leave_options'));
+                        if ($user_id != false) {
+							echo nexus_put_together(array('type' => 'navbar', 'color' => 'orange', 'class' => "col-auto $msauto", 'href' => false, 'icon' => 'fas fa-cog', 'id' => 'trigger_show_setup_icons'));
+                            $msauto = false;
+							echo nexus_put_together(array('type' => 'navbar', 'color' => 'cyan', 'class' => 'col-auto', 'href' => false, 'icon' => 'fas fa-wrench', 'id' => 'trigger_show_tools'));
+						}
+						echo nexus_put_together(array('type' => 'navbar', 'color' => 'teal', 'class' => "col-auto $msauto", 'href' => false, 'icon' => 'fad fa-circle-arrow-up-right', 'id' => 'trigger_show_leave_icons', 'modal' => '#modal_leave_options'));
 					?>
                 </div>
                 <div class="row d-flex">
@@ -499,7 +506,7 @@
 				$template_modal_body_conteudo .= nexus_put_together(array('type' => 'large', 'id' => 'return_ubwiki', 'icon' => 'fad fa-lamp-desk', 'color' => 'yellow', 'title' => 'Office', 'href' => 'escritorio.php'));
 				$template_modal_body_conteudo .= nexus_put_together(array('type' => 'large', 'id' => 'logout', 'icon' => 'fad fa-right-from-bracket', 'color' => 'red', 'title' => 'Logout'));
 			} else {
-				$template_modal_body_conteudo .= nexus_put_together(array('type' => 'large', 'id' => 'back_to_ubwiki', 'targetblank' => false, 'href' => 'ubwiki.php', 'icon' => 'fad fa-home', 'color' => 'blue', 'title' => 'Ubwiki'));
+				$template_modal_body_conteudo .= nexus_put_together(array('type' => 'large', 'id' => 'back_to_ubwiki', 'targetblank' => false, 'href' => 'ubwiki.php', 'icon' => 'fad fa-home', 'color' => 'blue', 'title' => 'Ubwiki', 'targetblank'=>true));
 				$template_modal_body_conteudo .= nexus_put_together(array('type' => 'large', 'id' => 'login', 'icon' => 'fad fa-right-to-bracket', 'color' => 'teal', 'title' => 'Login', 'href' => false, 'modal' => '#modal_login'));
 			}
 
@@ -1074,6 +1081,15 @@
 
     </script>
 <?php
+
+    if ($user_id == false) {
+        echo "
+            <script type='text/javascript'>
+                var login_modal = document.getElementById('modal_login')  ;       
+                $(window).on('load', login_modal.show());
+            </script>
+        ";
+    }
 
 	include 'templates/html_bottom.php';
 ?>
