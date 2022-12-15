@@ -16,6 +16,8 @@
 		$conn->query($query);
         $query = prepare_query("ALTER TABLE `travelogue` ADD `state` BOOLEAN NOT NULL DEFAULT TRUE AFTER `user_id`;");
         $conn->query($query);
+        $query = prepare_query("ALTER TABLE `travelogue` ADD `dburl` VARCHAR(500) NULL DEFAULT NULL AFTER `otherrelevant`;");
+        $conn->query($query);
 	}
 
 	if (isset($_POST['trigger_atualizar_textos_size'])) {

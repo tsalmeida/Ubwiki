@@ -4,6 +4,41 @@
 	$pagina_id = $_SESSION['user_escritorio'];
 	$pagina_title = 'Travelogue';
 	$pagina_favicon = 'faticon.ico';
+
+    if (isset($_POST['travel_new_type'])) {
+        if (!isset($_POST['travel_new_release_date'])) {
+            $_POST['travel_new_release_date'] = false;
+        }
+        if (!isset($_POST['travel_new_title'])) {
+            $_POST['travel_new_title'] = false;
+        }
+        if (!isset($_POST['travel_new_creator'])) {
+            $_POST['travel_new_creator'] = false;
+        }
+        if (!isset($_POST['travel_new_genre'])) {
+            $_POST['travel_new_genre'] = false;
+        }
+        if (!isset($_POST['travel_new_datexp'])) {
+            $_POST['travel_new_datexp'] = false;
+        }
+        if (!isset($_POST['travel_new_rating'])) {
+            $_POST['travel_new_rating'] = false;
+        }
+        if (!isset($_POST['travel_new_comments'])) {
+            $_POST['travel_new_comments'] = false;
+        }
+        if (!isset($_POST['travel_new_information'])) {
+            $_POST['travel_new_information'] = false;
+        }
+        if (!isset($_POST['travel_new_database'])) {
+            $_POST['travel_new_database'] = false;
+        }
+        $query = prepare_query("INSERT INTO travelogue (user_id, type, releasedate, title, creator, genre, datexp, yourrating, comments, otherrelevant, dburl) VALUES ({$_SESSION['user_id']}, '{$_POST['travel_new_type']}', '{$_POST['travel_new_release_date']}', '{$_POST['travel_new_title']}', '{$_POST['travel_new_creator']}', '{$_POST['travel_new_genre']}', '{$_POST['travel_new_datexp']}', '{$_POST['travel_new_rating']}', '{$_POST['travel_new_comments']}', '{$_POST['travel_new_information']}', '{$_POST['travel_new_database']}')", 'log');
+        $conn->query($query);
+    }
+
+    unset($_POST);
+
 	include 'templates/html_head.php';
 ?>
 <body class="bg-dark">
@@ -35,9 +70,25 @@
                 <div class="col bg-darker rounded border border-1 border-dark text-center py-2 d-flex justify-content-between"><span class="text-white font-half-condensed-400">Relevant information</span><a href="javascript:void(0);"><i class="fas fa-filter-list link-success"></i></a></div>
             </div>
 			<?php
-				echo travelogue_put_together(array('code' => '110100011', 'year' => '1956', 'title' => 'Cole Porter Songbook', 'artist' => 'Ella Fitzgerald', 'genre' => 'Jazz Standards', 'experienced' => true, 'grade' => '5/5', 'comment' => 'Absolutely wonderful', 'info' => false));
-				echo travelogue_put_together(array('code' => '010000111', 'year' => '1951', 'title' => 'The Genius of Modern Music, Vol. 1', 'artist' => 'Thelonious Monk', 'genre' => 'Jazz', 'experienced' => '2020/11/29', 'grade' => '5/5', 'comment' => false, 'info' => 'Recorded in 1947 and 1948.'));
-				echo travelogue_put_together(array('code' => '111101000', 'year' => '1997', 'title' => 'Time Out of Mind', 'artist' => 'Bob Dylan', 'genre' => 'Singer-Songwriter', 'experienced' => '2005', 'grade' => '5/5', 'comment' => 'Great memories of listening to this.', 'info' => false));
+                $query = prepare_query("SELECT id, type, codes, releasedate, title, creator, genre, datexp, yourrating, comments, otherrelevant, dburl FROM travelogue WHERE state = 1 AND user_id = {$_SESSION['user_id']}");
+                $records = $conn->query($query);
+                if ($records->num_rows > 0) {
+                    while ($record = $records->fetch_assoc()) {
+                        echo travelogue_put_together(array(
+                            'id'=>$record['id'],
+                            'code'=>$record['codes'],
+                            'year'=>$record['releasedate'],
+                            'title'=>$record['title'],
+                            'artist'=>$record['creator'],
+                            'genre'=>$record['genre'],
+                            'experienced'=>$record['datexp'],
+                            'grade'=>$record['yourrating'],
+                            'comment'=>$record['comments'],
+                            'info'=>$record['otherrelevant'],
+                            'dburl'=>$record['dburl']
+                        ));
+                    }
+                }
 			?>
         </div>
     </div>
@@ -50,8 +101,52 @@
     $template_modal_body_conteudo .= "
     <form method='post'>
         <div class='mb-3'>
+            <label for='travel_new_type' class='form-label'>Type:</label>
+            <select id='travel_new_type' name='travel_new_type' type='text' class='form-control'>
+                <option value='1'>Music album</option>
+                <option value='2'>Movie</option>
+                <option value='3'>Painting</option>
+                <option value='4'>Architecture</option>
+                <option value='5'>Sports event</option>
+                <option value='6'>Live event</option>
+            </select>
+        </div>
+        <div class='mb-3'>
             <label for='travel_new_release_date' class='form-label'>Release date:</label>
-            <input id='travel_new_release_date' name='travel_new_release_date' type='text'>
+            <input id='travel_new_release_date' name='travel_new_release_date' type='text' class='form-control'>
+        </div>
+        <div class='mb-3'>
+            <label for='travel_new_title' class='form-label'>Title:</label>
+            <input id='travel_new_title' name='travel_new_title' type='text' class='form-control'>
+        </div>
+        <div class='mb-3'>
+            <label for='travel_new_creator' class='form-label'>Creator:</label>
+            <input id='travel_new_creator' name='travel_new_creator' type='text' class='form-control'>
+        </div>
+        <div class='mb-3'>
+            <label for='travel_new_genre' class='form-label'>Genre:</label>
+            <input id='travel_new_genre' name='travel_new_genre' type='text' class='form-control'>
+        </div>
+        <div class='mb-3'>
+            <label for='travel_new_datexp' class='form-label'>Date experienced:</label>
+            <input id='travel_new_datexp' name='travel_new_datexp' type='text' class='form-control'>
+        </div>
+        <div class='mb-3'>
+            <label for='travel_new_rating' class='form-label'>Your rating (1 to 5):</label>
+            <input type='range' class='form-range' id='travel_new_rating' min='1' max='5' disabled>
+            <button id='trigger_enable_rating' class='btn btn-outline-secondary btn-sm' type='button'>Enable</button>
+        </div>
+        <div class='mb-3'>
+            <label for='travel_new_comments' class='form-label'>Your comments:</label>
+            <textarea id='travel_new_comments' name='travel_new_comments' type='textarea' class='form-control' rows='3'></textarea>
+        </div>
+        <div class='mb-3'>
+            <label for='travel_new_information' class='form-label'>Relevant information:</label>
+            <textarea id='travel_new_information' name='travel_new_information' type='text' class='form-control' rows='3'></textarea>
+        </div>
+        <div class='mb-3'>
+            <label for='travel_new_database' class='form-label'>Database link (Wikipedia, IMDb, AllMusic etc.):</label>
+            <input id='travel_new_database' name='travel_new_database' type='url' class='form-control'>
         </div>
         <button type='submit' class='btn btn-primary'>Submit</button>
     </form>
@@ -73,7 +168,16 @@
 	$template_modal_body_conteudo = 'Loading...';
 	include 'templates/modal.php';
 ?>
-<script></script>
+<script>
+    $(document).on('click', '#trigger_enable_rating', function () {
+        $(this).addClass('d-none');
+        $("#travel_new_rating").removeAttr("disabled");
+    })
+
+
+
+
+</script>
 <?php
 	include 'templates/html_bottom.php';
 ?>
