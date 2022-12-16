@@ -246,6 +246,10 @@ textarea:focus, input:focus{
   background-color: black;
 }
 
+.travelogue_item {
+  @extend .bg-darker, .rounded, .border, .border-1, .border-dark, .text-center, .p-2, .text-white, .font-half-condensed-300;
+}
+
 .bg-gray-800 {
   background-color: $gray-800;
 }

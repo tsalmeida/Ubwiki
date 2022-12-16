@@ -4411,57 +4411,55 @@
 	}
 
 	function travelogue_put_together($array) {
-		if (!isset($array['code'])) { $array['code'] = false; }
-		if (!isset($array['year'])) { $array['year'] = false; }
+		if (!isset($array['codes'])) { $array['codes'] = false; }
+		if (!isset($array['releasedate'])) { $array['releasedate'] = false; }
 		if (!isset($array['title'])) { $array['title'] = false; }
-		if (!isset($array['artist'])) { $array['artist'] = false; }
+		if (!isset($array['creator'])) { $array['creator'] = false; }
 		if (!isset($array['genre'])) { $array['genre'] = false; }
-		if (!isset($array['experienced'])) { $array['experienced'] = false; }
-		if (!isset($array['grade'])) { $array['grade'] = false; }
-		if (!isset($array['comment'])) { $array['comment'] = false; }
-		if (!isset($array['info'])) { $array['info'] = false; }
+		if (!isset($array['datexp'])) { $array['datexp'] = false; }
+		if (!isset($array['yourrating'])) { $array['yourrating'] = false; }
+		if (!isset($array['comments'])) { $array['comments'] = false; }
+		if (!isset($array['otherrelevant'])) { $array['otherrelevant'] = false; }
+		if (!isset($array['dburl'])) { $array['dburl'] = false; }
 
-		$array['code'] = travelogue_interpret_code($array['code']);
-		if($array['info'] != false) {
-			$row_info = "<div class='col bg-darker rounded border border-1 border-dark py-1'><small class='text-white font-half-condensed-300'>{$array['info']}</small></div>";
+		$head = "<div class='row travelogue_item'><div class='col'>";
+		$tail = "</div></div>";
+
+		$codes = travelogue_interpret_code($array['codes']);
+		$result['codes'] = "<small class=''>$codes</small>";
+		$result['releasedate'] = "<small class=''>{$array['releasedate']}</small>";
+		$result['title'] = "<small class=''>{$array['title']}</small>";
+		$result['creator'] = "<small class=''>{$array['creator']}</small>";
+		$result['genre'] = "<small class=''>{$array['genre']}</small>";
+		if (($array['datexp'] === true) || ($array['datexp'] == '1')) {
+			$result['datexp'] = "<span class='text-success font-half-condensed-300'><i class='fas fa-check fa-fw'></i></span>";
 		} else {
-			$row_info = "<div class='col bg-dark rounded border border-1 border-dark py-1'><small class='text-white font-half-condensed-300'>{$array['info']}</small></div>";
+			$result['datexp'] = "<small class=''>{$array['datexp']}</small>";
 		}
-		if ($array['comment'] != false) {
-			$row_comment = "<div class='col bg-darker rounded border border-1 border-dark py-1'><small class='text-white font-half-condensed-300'>{$array['comment']}</small></div>";
+		if ($array['yourrating'] == false) {
+			$result['yourrating'] = "<i class='fal fa-star text-muted'></i>";
 		} else {
-			$row_comment = "<div class='col bg-dark rounded border border-1 border-dark py-1'><small class='text-white font-half-condensed-300'>{$array['comment']}</small></div>";
+			$result['yourrating'] = "<small class=''>{$array['yourrating']}</small>";
 		}
-		if ($array['experienced'] === true) {
-			$row_experienced = "<div class='col-1 bg-darker rounded border border-1 border-dark py-1'><span class='text-success font-half-condensed-300'><i class='fas fa-check fa-fw'></i></span></div>";
+		if ($array['comments'] != false) {
+			$result['comments'] = "<small class=''>{$array['comments']}</small>";
 		} else {
-			$row_experienced = "<div class='col-1 bg-darker rounded border border-1 border-dark py-1'><small class='text-white font-half-condensed-300'>{$array['experienced']}</small></div>";
+			$result['comments'] = "<small class=''>{$array['comments']}</small>";
+		}
+		if($array['otherrelevant'] != false) {
+			$result['otherrelevant'] = "<small class=''>{$array['otherrelevant']}</small>";
+		} else {
+			$result['otherrelevant'] = "<small class=''>{$array['otherrelevant']}</small>";
+		}
+		if ($array['dburl'] != false) {
+			$result['dburl'] = "<a class='link-info' href='{$array['dburl']}'><i class='fas fa-link fa-fw'></i></a>";
+		} else {
+			$result['dburl'] = "<a class='link-danger' href='{$array['dburl']}'><i class='fas fa-link-broken fa-fw'></i></a>";
 		}
 
-		$return = "
-            <div class='row mb-1 px-1'>
-                <div class='col-1 bg-darker rounded border border-1 border-dark py-1'><small class='text-white font-half-condensed-300'>{$array['code']}</small></div>
-                <div class='col-1 bg-darker rounded border border-1 border-dark py-1'><small class='text-white font-half-condensed-300'>{$array['year']}</small></div>
-                <div class='col bg-darker rounded border border-1 border-dark py-1'><small class='text-white font-half-condensed-300'>{$array['title']}</small></div>
-                <div class='col bg-darker rounded border border-1 border-dark py-1'><small class='text-white font-half-condensed-300'>{$array['artist']}</small></div>
-                <div class='col-1 bg-darker rounded border border-1 border-dark py-1'><small class='text-white font-half-condensed-300'>{$array['genre']}</small></div>
-                $row_experienced
-                <div class='col-1 bg-darker rounded border border-1 border-dark py-1'><small class='text-white font-half-condensed-300'>{$array['grade']}</small></div>
-                $row_comment
-                $row_info
-            </div>";
-		return $return;
+		foreach ($result as $key => $array) {
+			$result[$key] = "$head{$result[$key]}$tail";
+		}
 
-//		travelogue_put_together(array(
-//			'code'=>'',
-//			'year'=>'',
-//			'title'=>'',
-//			'artist'=>'',
-//			'genre'=>'',
-//			'experienced'=>'',
-//			'grade'=>'',
-//			'comment'=>'',
-//			'info'=>''
-//		));
-
+		return $result;
 	}
