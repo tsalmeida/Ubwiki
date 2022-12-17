@@ -3438,7 +3438,8 @@
 		return $handle;
 	}
 
-	function return_user_icons($args) {
+	function return_user_icons($args)
+	{
 		if (!isset($args['user_id'])) {
 			return false;
 		}
@@ -3449,7 +3450,7 @@
 			while ($icon = $icons->fetch_assoc()) {
 				$random_icons = unserialize($icon['random_icons']);
 				if ($random_icons == false) {
-					$all_icons = nexus_icons(array('mode'=>'list', 'user_id'=>false));
+					$all_icons = nexus_icons(array('mode' => 'list', 'user_id' => false));
 					$all_icons_serialized = serialize($all_icons);
 					$query = prepare_query("UPDATE nexus SET random_icons = '$all_icons_serialized' WHERE user_id = {$args['user_id']}");
 					$conn->query($query);
@@ -3508,7 +3509,7 @@
 	function return_user_colors($args)
 	{
 		if (!isset($args['user_id'])) {
-			return nexus_colors(array('mode'=>'list'));
+			return nexus_colors(array('mode' => 'list'));
 		}
 		include 'templates/criar_conn.php';
 		$query = prepare_query("SELECT random_colors FROM nexus WHERE user_id = {$args['user_id']}");
@@ -3517,7 +3518,7 @@
 			while ($result = $results->fetch_assoc()) {
 				$user_random_colors = unserialize($result['random_colors']);
 				if ($user_random_colors == false) {
-					$all_colors = nexus_colors(array('mode'=>'list'));
+					$all_colors = nexus_colors(array('mode' => 'list'));
 					$serialized = serialize($all_colors);
 					$query = prepare_query("UPDATE nexus SET random_colors = '$serialized' WHERE user_id = {$args['user_id']}");
 					$conn->query($query);
@@ -3529,7 +3530,8 @@
 		}
 	}
 
-	function number_to_color($number) {
+	function number_to_color($number)
+	{
 		switch ($number) {
 			case 0:
 				return 'blue';
@@ -3590,31 +3592,31 @@
 		} elseif ($args['mode'] == 'convert') {
 			switch ($args['color']) {
 				case 'blue':
-					return array('link-color' => 'nexus-link-blue', 'bg-color' => 'nexus-bg-blue', 'link-black-color' => 'nexus-link-black-blue', 'bg-black-color' => 'nexus-bg-black-blue', 'bg-black-color-border' => 'nexus-bg-black-blue-border', 'text-color' => 'nexus-text-blue', 'title-color' => 'link-light', 'highlight'=>'nexus-highlight-blue');
+					return array('link-color' => 'nexus-link-blue', 'bg-color' => 'nexus-bg-blue', 'link-black-color' => 'nexus-link-black-blue', 'bg-black-color' => 'nexus-bg-black-blue', 'bg-black-color-border' => 'nexus-bg-black-blue-border', 'text-color' => 'nexus-text-blue', 'title-color' => 'link-light', 'highlight' => 'nexus-highlight-blue');
 				case 'indigo':
-					return array('link-color' => 'nexus-link-indigo', 'bg-color' => 'nexus-bg-indigo', 'link-black-color' => 'nexus-link-black-indigo', 'bg-black-color' => 'nexus-bg-black-indigo', 'bg-black-color-border' => 'nexus-bg-black-indigo-border', 'text-color' => 'nexus-text-indigo', 'title-color' => 'link-light', 'highlight'=>'nexus-highlight-indigo');
+					return array('link-color' => 'nexus-link-indigo', 'bg-color' => 'nexus-bg-indigo', 'link-black-color' => 'nexus-link-black-indigo', 'bg-black-color' => 'nexus-bg-black-indigo', 'bg-black-color-border' => 'nexus-bg-black-indigo-border', 'text-color' => 'nexus-text-indigo', 'title-color' => 'link-light', 'highlight' => 'nexus-highlight-indigo');
 				case 'purple':
-					return array('link-color' => 'nexus-link-purple', 'bg-color' => 'nexus-bg-purple', 'link-black-color' => 'nexus-link-black-purple', 'bg-black-color' => 'nexus-bg-black-purple', 'bg-black-color-border' => 'nexus-bg-black-purple-border', 'text-color' => 'nexus-text-purple', 'title-color' => 'link-light', 'highlight'=>'nexus-highlight-purple');
+					return array('link-color' => 'nexus-link-purple', 'bg-color' => 'nexus-bg-purple', 'link-black-color' => 'nexus-link-black-purple', 'bg-black-color' => 'nexus-bg-black-purple', 'bg-black-color-border' => 'nexus-bg-black-purple-border', 'text-color' => 'nexus-text-purple', 'title-color' => 'link-light', 'highlight' => 'nexus-highlight-purple');
 				case 'pink':
-					return array('link-color' => 'nexus-link-pink', 'bg-color' => 'nexus-bg-pink', 'link-black-color' => 'nexus-link-black-pink', 'bg-black-color' => 'nexus-bg-black-pink', 'bg-black-color-border' => 'nexus-bg-black-pink-border', 'text-color' => 'nexus-text-pink', 'title-color' => 'link-light', 'highlight'=>'nexus-highlight-pink');
+					return array('link-color' => 'nexus-link-pink', 'bg-color' => 'nexus-bg-pink', 'link-black-color' => 'nexus-link-black-pink', 'bg-black-color' => 'nexus-bg-black-pink', 'bg-black-color-border' => 'nexus-bg-black-pink-border', 'text-color' => 'nexus-text-pink', 'title-color' => 'link-light', 'highlight' => 'nexus-highlight-pink');
 				case 'red':
-					return array('link-color' => 'nexus-link-red', 'bg-color' => 'nexus-bg-red', 'link-black-color' => 'nexus-link-black-red', 'bg-black-color' => 'nexus-bg-black-red', 'bg-black-color-border' => 'nexus-bg-black-red-border', 'text-color' => 'nexus-text-red', 'title-color' => 'link-light', 'highlight'=>'nexus-highlight-red');
+					return array('link-color' => 'nexus-link-red', 'bg-color' => 'nexus-bg-red', 'link-black-color' => 'nexus-link-black-red', 'bg-black-color' => 'nexus-bg-black-red', 'bg-black-color-border' => 'nexus-bg-black-red-border', 'text-color' => 'nexus-text-red', 'title-color' => 'link-light', 'highlight' => 'nexus-highlight-red');
 				case 'orange':
-					return array('link-color' => 'nexus-link-orange', 'bg-color' => 'nexus-bg-orange', 'link-black-color' => 'nexus-link-black-orange', 'bg-black-color' => 'nexus-bg-black-orange', 'bg-black-color-border' => 'nexus-bg-black-orange-border', 'text-color' => 'nexus-text-orange', 'title-color' => 'link-light', 'highlight'=>'nexus-highlight-orange');
+					return array('link-color' => 'nexus-link-orange', 'bg-color' => 'nexus-bg-orange', 'link-black-color' => 'nexus-link-black-orange', 'bg-black-color' => 'nexus-bg-black-orange', 'bg-black-color-border' => 'nexus-bg-black-orange-border', 'text-color' => 'nexus-text-orange', 'title-color' => 'link-light', 'highlight' => 'nexus-highlight-orange');
 				case 'yellow':
-					return array('link-color' => 'nexus-link-yellow', 'bg-color' => 'nexus-bg-yellow', 'link-black-color' => 'nexus-link-black-yellow', 'bg-black-color' => 'nexus-bg-black-yellow', 'bg-black-color-border' => 'nexus-bg-black-yellow-border', 'text-color' => 'nexus-text-yellow', 'title-color' => 'link-light', 'highlight'=>'nexus-highlight-yellow');
+					return array('link-color' => 'nexus-link-yellow', 'bg-color' => 'nexus-bg-yellow', 'link-black-color' => 'nexus-link-black-yellow', 'bg-black-color' => 'nexus-bg-black-yellow', 'bg-black-color-border' => 'nexus-bg-black-yellow-border', 'text-color' => 'nexus-text-yellow', 'title-color' => 'link-light', 'highlight' => 'nexus-highlight-yellow');
 				case 'green':
-					return array('link-color' => 'nexus-link-green', 'bg-color' => 'nexus-bg-green', 'link-black-color' => 'nexus-link-black-green', 'bg-black-color' => 'nexus-bg-black-green', 'bg-black-color-border' => 'nexus-bg-black-green-border', 'text-color' => 'nexus-text-green', 'title-color' => 'link-light', 'highlight'=>'nexus-highlight-green');
+					return array('link-color' => 'nexus-link-green', 'bg-color' => 'nexus-bg-green', 'link-black-color' => 'nexus-link-black-green', 'bg-black-color' => 'nexus-bg-black-green', 'bg-black-color-border' => 'nexus-bg-black-green-border', 'text-color' => 'nexus-text-green', 'title-color' => 'link-light', 'highlight' => 'nexus-highlight-green');
 				case 'teal':
-					return array('link-color' => 'nexus-link-teal', 'bg-color' => 'nexus-bg-teal', 'link-black-color' => 'nexus-link-black-teal', 'bg-black-color' => 'nexus-bg-black-teal', 'bg-black-color-border' => 'nexus-bg-black-teal-border', 'text-color' => 'nexus-text-teal', 'title-color' => 'link-light', 'highlight'=>'nexus-highlight-teal');
+					return array('link-color' => 'nexus-link-teal', 'bg-color' => 'nexus-bg-teal', 'link-black-color' => 'nexus-link-black-teal', 'bg-black-color' => 'nexus-bg-black-teal', 'bg-black-color-border' => 'nexus-bg-black-teal-border', 'text-color' => 'nexus-text-teal', 'title-color' => 'link-light', 'highlight' => 'nexus-highlight-teal');
 				case 'cyan':
-					return array('link-color' => 'nexus-link-cyan', 'bg-color' => 'nexus-bg-cyan', 'link-black-color' => 'nexus-link-black-cyan', 'bg-black-color' => 'nexus-bg-black-cyan', 'bg-black-color-border' => 'nexus-bg-black-cyan-border', 'text-color' => 'nexus-text-cyan', 'title-color' => 'link-light', 'highlight'=>'nexus-highlight-cyan');
+					return array('link-color' => 'nexus-link-cyan', 'bg-color' => 'nexus-bg-cyan', 'link-black-color' => 'nexus-link-black-cyan', 'bg-black-color' => 'nexus-bg-black-cyan', 'bg-black-color-border' => 'nexus-bg-black-cyan-border', 'text-color' => 'nexus-text-cyan', 'title-color' => 'link-light', 'highlight' => 'nexus-highlight-cyan');
 				case 'white':
-					return array('link-color' => 'link-light', 'bg-color' => 'bg-dark', 'link-black-color' => 'link-light', 'bg-black-color' => 'bg-dark text-light', 'bg-black-color-border' => 'bg-dark text-light', 'text-color' => 'text-light', 'title-color' => 'link-light', 'highlight'=>'nexus-highlight-white');
+					return array('link-color' => 'link-light', 'bg-color' => 'bg-dark', 'link-black-color' => 'link-light', 'bg-black-color' => 'bg-dark text-light', 'bg-black-color-border' => 'bg-dark text-light', 'text-color' => 'text-light', 'title-color' => 'link-light', 'highlight' => 'nexus-highlight-white');
 				case 'black':
-					return array('link-color' => 'link-dark', 'bg-color' => 'bg-light', 'link-black-color' => 'link-dark', 'bg-black-color' => 'bg-light text-dark', 'bg-black-color-border' => 'bg-light text-dark', 'text-color' => 'text-dark', 'title-color' => 'link-dark', 'highlight'=>'nexus-highlight-black');
+					return array('link-color' => 'link-dark', 'bg-color' => 'bg-light', 'link-black-color' => 'link-dark', 'bg-black-color' => 'bg-light text-dark', 'bg-black-color-border' => 'bg-light text-dark', 'text-color' => 'text-dark', 'title-color' => 'link-dark', 'highlight' => 'nexus-highlight-black');
 				default:
-					return array('link-color' => 'nexus-link-red', 'bg-color' => 'nexus-bg-red', 'link-black-color' => 'nexus-link-black-red', 'bg-black-color' => 'nexus-bg-black-red', 'bg-black-color-border' => 'nexus-bg-black-red-border', 'text-color' => 'nexus-text-red', 'title-color' => 'link-light', 'highlight'=>'nexus-highlight-red');
+					return array('link-color' => 'nexus-link-red', 'bg-color' => 'nexus-bg-red', 'link-black-color' => 'nexus-link-black-red', 'bg-black-color' => 'nexus-bg-black-red', 'bg-black-color-border' => 'nexus-bg-black-red-border', 'text-color' => 'nexus-text-red', 'title-color' => 'link-light', 'highlight' => 'nexus-highlight-red');
 			}
 		}
 	}
@@ -3678,10 +3680,10 @@
 //			$link_url = $params['link_url'];
 //		}
 		if (($icon == 'random') || ($icon == false) || (!isset($icon))) {
-			$icon = nexus_icons(array('mode'=>'random', 'user_id'=>$params['user_id']));
+			$icon = nexus_icons(array('mode' => 'random', 'user_id' => $params['user_id']));
 		}
 		if (($color == 'random') || ($color == false) || (!isset($color))) {
-			$color = nexus_colors(array('mode'=>'random', 'user_id'=>$params['user_id']));
+			$color = nexus_colors(array('mode' => 'random', 'user_id' => $params['user_id']));
 		}
 		return array('icon' => $icon, 'color' => $color);
 	}
@@ -3824,8 +3826,8 @@
 		if (!isset($params['title'])) {
 			$params['title'] = $params['id'];
 		}
-		$colors = nexus_colors(array('mode'=>'convert', 'color'=>$params['color']));
-		$icon = nexus_icons(array('mode'=>'convert', 'icon'=>$params['icon']));
+		$colors = nexus_colors(array('mode' => 'convert', 'color' => $params['color']));
+		$icon = nexus_icons(array('mode' => 'convert', 'icon' => $params['icon']));
 
 		if (!isset($params['modal'])) {
 			$nexus_artefato_modal_module = false;
@@ -3937,7 +3939,8 @@
 		}
 	}
 
-	function return_theme_details($wallpaper) {
+	function return_theme_details($wallpaper)
+	{
 		$theme = array();
 		switch ($wallpaper) {
 			case 'center-contain':
@@ -3997,7 +4000,7 @@
 				}
 			}
 		} else {
-			switch($theme_id) {
+			switch ($theme_id) {
 				case 'random':
 					$theme_title = 'Random color';
 					$theme_url = false;
@@ -4042,7 +4045,7 @@
 					break;
 				case 'landscape':
 					$theme_title = 'Random landscape';
-					$landscapes = glob( '../wallpapers/landscape/*.*');
+					$landscapes = glob('../wallpapers/landscape/*.*');
 					$random_key = array_rand($landscapes);
 					$theme_url = $landscapes[$random_key];
 					$theme_bghex = 'f7f7f7';
@@ -4086,10 +4089,10 @@
 			$args['title'] = "Folder";
 		}
 		if (!isset($args['icon']) || ($args['icon'] == false) || ($args['icon'] == 'random')) {
-			$args['icon'] = nexus_icons(array('mode'=>'random', 'user_id'=>$args['user_id']));
+			$args['icon'] = nexus_icons(array('mode' => 'random', 'user_id' => $args['user_id']));
 		}
 		if (!isset($args['color']) || ($args['color'] == false) || ($args['color'] == 'random')) {
-			$args['color'] = nexus_colors(array('mode'=>'random', 'user_id'=>$args['user_id']));
+			$args['color'] = nexus_colors(array('mode' => 'random', 'user_id' => $args['user_id']));
 		}
 		if ((!isset($args['type'])) || ($args['type'] == false)) {
 			$args['type'] = 'main';
@@ -4174,7 +4177,7 @@
 
 	function nexus_options($args)
 	{
-		$setup_matches = array('cmd_link_id' => array('data_type' => 'bool', 'column' => 'cmd_link_id', 'default' => false), 'justify_links'=>array('data_type'=>'varchar', 'column'=>'justify_links', 'default'=>'justify-content-start'));
+		$setup_matches = array('cmd_link_id' => array('data_type' => 'bool', 'column' => 'cmd_link_id', 'default' => false), 'justify_links' => array('data_type' => 'varchar', 'column' => 'justify_links', 'default' => 'justify-content-start'));
 		if (!isset($args['mode'])) {
 			return false;
 		}
@@ -4352,7 +4355,8 @@
 		}
 	}
 
-	function travelogue_interpret_code($code) {
+	function travelogue_interpret_code($code)
+	{
 		$favorite = substr($code, 0, 1);
 		$lyrics = substr($code, 1, 1);
 		$hifi = substr($code, 2, 1);
@@ -4365,62 +4369,83 @@
 		if ($favorite == '1') {
 			$favorite = "<i class='fas fa-star fa-fw link-warning me-1' title='Favorite'></i>";
 		} else {
-			$favorite = "<i class='fal fa-star fa-fw link-secondary me-1' title='Favorite'></i>";
+			$favorite = "<i class='fas fa-star fa-fw link-secondary me-1' title='Favorite'></i>";
 		}
 		if ($lyrics == '1') {
 			$lyrics = "<i class='fas fa-feather fa-fw link-purple me-1' title='Great lyrics'></i>";
 		} else {
-			$lyrics = "<i class='fal fa-feather fa-fw link-secondary me-1' title='Great lyrics'></i>";
+			$lyrics = "<i class='fas fa-feather fa-fw link-secondary me-1' title='Great lyrics'></i>";
 		}
 		if ($hifi == '1') {
 			$hifi = "<i class='fas fa-waveform fa-fw link-teal me-1' title='Great audio quality'></i>";
 		} else {
-			$hifi = "<i class='fal fa-waveform fa-fw link-secondary me-1' title='Great audio quality'></i>";
+			$hifi = "<i class='fas fa-waveform fa-fw link-secondary me-1' title='Great audio quality'></i>";
 		}
 		if ($relaxing == '1') {
 			$relaxing = "<i class='fas fa-blanket fa-fw link-purple me-1' title='Relaxing'></i>";
 		} else {
-			$relaxing = "<i class='fal fa-blanket fa-fw link-secondary me-1' title='Relaxing'></i>";
+			$relaxing = "<i class='fas fa-blanket fa-fw link-secondary me-1' title='Relaxing'></i>";
 		}
 		if ($heavy == '1') {
 			$heavy = "<i class='fas fa-weight-hanging fa-fw link-primary me-1' title='Heavy'></i>";
 		} else {
-			$heavy = "<i class='fal fa-weight-hanging fa-fw link-secondary me-1' title='Heavy'></i>";
+			$heavy = "<i class='fas fa-weight-hanging fa-fw link-secondary me-1' title='Heavy'></i>";
 		}
 		if ($greatvibe == '1') {
 			$greatvibe = "<i class='fas fa-pepper-hot fa-fw link-danger me-1' title='Great vibe'></i>";
 		} else {
-			$greatvibe = "<i class='fal fa-pepper-hot fa-fw link-secondary me-1' title='Great vibe'></i>";
+			$greatvibe = "<i class='fas fa-pepper-hot fa-fw link-secondary me-1' title='Great vibe'></i>";
 		}
 		if ($complex == '1') {
 			$complex = "<i class='fas fa-brain-circuit fa-fw link-orange me-1' title='Complex'></i>";
 		} else {
-			$complex = "<i class='fal fa-brain-circuit fa-fw link-secondary me-1' title='Complex'></i>";
+			$complex = "<i class='fas fa-brain-circuit fa-fw link-secondary me-1' title='Complex'></i>";
 		}
 		if ($instrumental == '1') {
 			$instrumental = "<i class='fas fa-trumpet fa-fw link-warning me-1' title='Instrumental'></i>";
 		} else {
-			$instrumental = "<i class='fal fa-trumpet fa-fw link-secondary me-1' title='Instrumental'></i>";
+			$instrumental = "<i class='fas fa-trumpet fa-fw link-secondary me-1' title='Instrumental'></i>";
 		}
 		if ($live == '1') {
 			$live = "<i class='fas fa-guitars fa-fw link-pink me-1' title='Recorded live'></i>";
 		} else {
-			$live = "<i class='fal fa-guitars fa-fw link-secondary me-1' title='Recorded live'></i>";
+			$live = "<i class='fas fa-guitars fa-fw link-secondary me-1' title='Recorded live'></i>";
 		}
 		return "$favorite$lyrics$hifi$relaxing$heavy$greatvibe$complex$instrumental$live";
 	}
 
-	function travelogue_put_together($array) {
-		if (!isset($array['codes'])) { $array['codes'] = false; }
-		if (!isset($array['releasedate'])) { $array['releasedate'] = false; }
-		if (!isset($array['title'])) { $array['title'] = false; }
-		if (!isset($array['creator'])) { $array['creator'] = false; }
-		if (!isset($array['genre'])) { $array['genre'] = false; }
-		if (!isset($array['datexp'])) { $array['datexp'] = false; }
-		if (!isset($array['yourrating'])) { $array['yourrating'] = false; }
-		if (!isset($array['comments'])) { $array['comments'] = false; }
-		if (!isset($array['otherrelevant'])) { $array['otherrelevant'] = false; }
-		if (!isset($array['dburl'])) { $array['dburl'] = false; }
+	function travelogue_put_together($array)
+	{
+		if (!isset($array['codes'])) {
+			$array['codes'] = false;
+		}
+		if (!isset($array['releasedate'])) {
+			$array['releasedate'] = false;
+		}
+		if (!isset($array['title'])) {
+			$array['title'] = false;
+		}
+		if (!isset($array['creator'])) {
+			$array['creator'] = false;
+		}
+		if (!isset($array['genre'])) {
+			$array['genre'] = false;
+		}
+		if (!isset($array['datexp'])) {
+			$array['datexp'] = false;
+		}
+		if (!isset($array['yourrating'])) {
+			$array['yourrating'] = false;
+		}
+		if (!isset($array['comments'])) {
+			$array['comments'] = false;
+		}
+		if (!isset($array['otherrelevant'])) {
+			$array['otherrelevant'] = false;
+		}
+		if (!isset($array['dburl'])) {
+			$array['dburl'] = false;
+		}
 
 		$head = "<div class='row travelogue_item'><div class='col'>";
 		$tail = "</div></div>";
@@ -4439,27 +4464,45 @@
 		if ($array['yourrating'] == false) {
 			$result['yourrating'] = "<i class='fal fa-star text-muted'></i>";
 		} else {
-			$result['yourrating'] = "<small class=''>{$array['yourrating']}</small>";
+			$result['yourrating'] = process_rating($array['yourrating']);
 		}
 		if ($array['comments'] != false) {
 			$result['comments'] = "<small class=''>{$array['comments']}</small>";
 		} else {
 			$result['comments'] = "<small class=''>{$array['comments']}</small>";
 		}
-		if($array['otherrelevant'] != false) {
+		if ($array['otherrelevant'] != false) {
 			$result['otherrelevant'] = "<small class=''>{$array['otherrelevant']}</small>";
 		} else {
 			$result['otherrelevant'] = "<small class=''>{$array['otherrelevant']}</small>";
 		}
 		if ($array['dburl'] != false) {
-			$result['dburl'] = "<a class='link-info' href='{$array['dburl']}'><i class='fas fa-link fa-fw'></i></a>";
+			$result['dburl'] = "<a class='link-info' href='{$array['dburl']}' target='_blank'><i class='fas fa-link fa-fw'></i></a>";
 		} else {
-			$result['dburl'] = "<a class='link-danger' href='{$array['dburl']}'><i class='fas fa-link-broken fa-fw'></i></a>";
+			$result['dburl'] = "<a class='link-danger' href='javascript:void(0);'><i class='fas fa-square-question fa-fw'></i></a>";
 		}
 
-		foreach ($result as $key => $array) {
-			$result[$key] = "$head{$result[$key]}$tail";
-		}
+//		foreach ($result as $key => $array) {
+//			$result[$key] = "$head{$result[$key]}$tail";
+//		}
 
+		return $result;
+	}
+
+	function process_rating($rating)
+	{
+		if ($rating == false) {
+			return false;
+		}
+		$rating = intval($rating);
+		$count = 0;
+		$result = false;
+		while ($count <= $rating) {
+			if ($count == 8) {
+				break;
+			}
+			$count++;
+			$result .= "<i class='fas fa-star fa-fw text-white-50'></i>";
+		}
 		return $result;
 	}

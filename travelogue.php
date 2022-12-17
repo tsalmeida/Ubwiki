@@ -64,117 +64,66 @@
     <div class="row">
         <div class="col-12">
 			<?php
+				echo "
+                <div class='row mb-3 px-1 sticky-top'>
+                    <div class='col travelogue_col'>
+                                <span class='text-white font-half-condensed-400'>Codes</span>
+                                <a href='javascript:void(0);'><i class='fas fa-filter-list link-dark'></i></a>
+                    </div>
+                    <div class='col travelogue_col'>
+                                <span class='text-white font-half-condensed-400'>Release date</span>
+                                <a href='javascript:void(0);'><i class='fas fa-filter-list link-dark'></i></a>
+                    </div>
+                    <div class='col travelogue_col'>
+                                <span class='text-white font-half-condensed-400'>Title</span>
+                                <a href='javascript:void(0);'><i class='fas fa-filter-list link-dark'></i></a>
+                    </div>
+                    <div class='col travelogue_col'>
+                                <span class='text-white font-half-condensed-400'>Creator</span>
+                                <a href='javascript:void(0);'><i class='fas fa-filter-list link-dark'></i></a>
+                    </div>
+                    <div class='col travelogue_col'>
+                                <span class='text-white font-half-condensed-400'>Genre</span>
+                                <a href='javascript:void(0);'><i class='fas fa-filter-list link-dark'></i></a>
+                    </div>
+                    <div class='col travelogue_col'>
+                                <span class='text-white font-half-condensed-400'>Date experienced</span>
+                                <a href='javascript:void(0);'><i class='fas fa-filter-list link-dark'></i></a>
+                    </div>
+                    <div class='col travelogue_col'>
+                                <span class='text-white font-half-condensed-400'>Your rating</span>
+                                <a href='javascript:void(0);'><i class='fas fa-filter-list link-dark'></i></a>
+                    </div>
+                    <div class='col travelogue_col'>
+                                <span class='text-white font-half-condensed-400'>Comments</span>
+                                <a href='javascript:void(0);'><i class='fas fa-filter-list link-dark'></i></a>
+                    </div>
+                    <div class='col travelogue_col'>
+                                <span class='text-white font-half-condensed-400'>Relevant information</span>
+                                <a href='javascript:void(0);'><i class='fas fa-filter-list link-dark'></i></a>
+                    </div>
+                </div>";
 				$query = prepare_query("SELECT id, type, codes, releasedate, title, creator, genre, datexp, yourrating, comments, otherrelevant, dburl FROM travelogue WHERE state = 1 AND user_id = {$_SESSION['user_id']}");
 				$records = $conn->query($query);
-                $row_codes = false;
-                $row_releasedate = false;
-                $row_title = false;
-                $row_creator = false;
-                $row_genre = false;
-                $row_datexp = false;
-                $row_yourrating = false;
-                $row_comments = false;
-                $row_otherrelevant = false;
-                $row_dburl = false;
 				if ($records->num_rows > 0) {
 					while ($record = $records->fetch_assoc()) {
 						$put_together = travelogue_put_together(array('id' => $record['id'], 'codes' => $record['codes'], 'releasedate' => $record['releasedate'], 'title' => $record['title'], 'creator' => $record['creator'], 'genre' => $record['genre'], 'datexp' => $record['datexp'], 'yourrating' => $record['yourrating'], 'comments' => $record['comments'], 'otherrelevant' => $record['otherrelevant'], 'dburl' => $record['dburl']));
-						$row_codes .= $put_together['codes'];
-						$row_releasedate .= $put_together['releasedate'];
-						$row_title .= $put_together['title'];
-						$row_creator .= $put_together['creator'];
-						$row_genre .= $put_together['genre'];
-						$row_datexp .= $put_together['datexp'];
-						$row_yourrating .= $put_together['yourrating'];
-						$row_comments .= $put_together['comments'];
-						$row_otherrelevant .= $put_together['otherrelevant'];
-						$row_dburl .= $put_together['dburl'];
+                        echo "
+                        <div class='row mb-1 px-1'>
+                            <div class='col travelogue_col'>{$put_together['dburl']}<hr class='m-0 p-0'>{$put_together['codes']}</div>
+                            <div class='col travelogue_col'>{$put_together['releasedate']}</div>
+                            <div class='col travelogue_col'>{$put_together['title']}</div>
+                            <div class='col travelogue_col'>{$put_together['creator']}</div>
+                            <div class='col travelogue_col'>{$put_together['genre']}</div>
+                            <div class='col travelogue_col'>{$put_together['datexp']}</div>
+                            <div class='col travelogue_col'>{$put_together['yourrating']}</div>
+                            <div class='col travelogue_col'>{$put_together['comments']}</div>
+                            <div class='col travelogue_col'>{$put_together['otherrelevant']}</div>
+                        </div>
+                        ";
+
 					}
 				}
-				echo "
-                <div class='row mb-3 px-1 sticky-top'>
-                    <div class='col-auto travelogue_col'>
-                        <div class='row travelogue_item'>
-                            <div class='col d-flex justify-content-between'>
-                                <span class='text-white font-half-condensed-400'>Codes</span>
-                                <a href='javascript:void(0);'><i class='fas fa-filter-list link-success'></i></a>
-                            </div>
-                        </div>
-                        $row_codes
-                    </div>
-                    <div class='col-auto travelogue_col'>
-                        <div class='row travelogue_item'>
-                            <div class='col d-flex justify-content-between'>
-                                <span class='text-white font-half-condensed-400'>Release date</span>
-                                <a href='javascript:void(0);'><i class='fas fa-filter-list link-success'></i></a>
-                            </div>
-                        </div>
-                        $row_releasedate
-                    </div>
-                    <div class='col-auto travelogue_col'>
-                        <div class='row travelogue_item'>
-                            <div class='col d-flex justify-content-between'>
-                                <span class='text-white font-half-condensed-400'>Title</span>
-                                <a href='javascript:void(0);'><i class='fas fa-filter-list link-success'></i></a>
-                            </div>
-                        </div>
-                        $row_title
-                    </div>
-                    <div class='col-auto travelogue_col'>
-                        <div class='row travelogue_item'>
-                            <div class='col d-flex justify-content-between'>
-                                <span class='text-white font-half-condensed-400'>Creator</span>
-                                <a href='javascript:void(0);'><i class='fas fa-filter-list link-success'></i></a>
-                            </div>
-                        </div>
-                        $row_creator
-                    </div>
-                    <div class='col-auto travelogue_col'>
-                        <div class='row travelogue_item'>
-                            <div class='col d-flex justify-content-between'>
-                                <span class='text-white font-half-condensed-400'>Genre</span>
-                                <a href='javascript:void(0);'><i class='fas fa-filter-list link-success'></i></a>
-                            </div>
-                        </div>
-                        $row_genre
-                    </div>
-                    <div class='col-auto travelogue_col'>
-                        <div class='row travelogue_item'>
-                            <div class='col d-flex justify-content-between'>
-                                <span class='text-white font-half-condensed-400'>Date experienced</span>
-                                <a href='javascript:void(0);'><i class='fas fa-filter-list link-success'></i></a>
-                            </div>
-                        </div>
-                        $row_datexp
-                    </div>
-                    <div class='col-auto travelogue_col'>
-                        <div class='row travelogue_item'>
-                            <div class='col d-flex justify-content-between'>
-                                <span class='text-white font-half-condensed-400'>Your rating</span>
-                                <a href='javascript:void(0);'><i class='fas fa-filter-list link-success'></i></a>
-                            </div>
-                        </div>
-                        $row_yourrating
-                    </div>
-                    <div class='col-auto travelogue_col'>
-                        <div class='row travelogue_item'>
-                            <div class='col d-flex justify-content-between'>
-                                <span class='text-white font-half-condensed-400'>Comments</span>
-                                <a href='javascript:void(0);'><i class='fas fa-filter-list link-success'></i></a>
-                            </div>
-                        </div>
-                        $row_comments
-                    </div>
-                    <div class='col-auto travelogue_col'>
-                        <div class='row travelogue_item'>
-                            <div class='col d-flex justify-content-between'>
-                                <span class='text-white font-half-condensed-400'>Relevant information</span>
-                                <a href='javascript:void(0);'><i class='fas fa-filter-list link-success'></i></a>
-                            </div>
-                        </div>
-                        $row_otherrelevant
-                    </div>
-                </div>";
 			?>
         </div>
     </div>
@@ -219,7 +168,7 @@
         </div>
         <div class='mb-3'>
             <label for='travel_new_rating' class='form-label'>Your rating (1 to 5):</label>
-            <input type='range' class='form-range' id='travel_new_rating' min='1' max='5' disabled>
+            <input type='range' class='form-range' id='travel_new_rating' name='travel_new_rating' min='1' max='5' disabled>
             <button id='trigger_enable_rating' class='btn btn-outline-secondary btn-sm' type='button'>Enable</button>
         </div>
         <div class='mb-3'>
