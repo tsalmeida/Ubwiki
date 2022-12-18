@@ -37,7 +37,10 @@
 		$conn->query($query);
 	}
 
-	unset($_POST);
+	if ($_POST) {
+		header("Location: " . $_SERVER['REQUEST_URI']);
+		exit();
+	}
 
 	include 'templates/html_head.php';
 ?>
@@ -66,57 +69,40 @@
 			<?php
 				echo "
                 <div class='row mb-3 px-1 sticky-top'>
-                    <div class='col travelogue_col'>
+                    <div class='col travelogue_col text-center'>
                                 <span class='text-white font-half-condensed-400'>Codes</span>
-                                <a href='javascript:void(0);'><i class='fas fa-filter-list link-dark'></i></a>
                     </div>
-                    <div class='col travelogue_col'>
-                                <span class='text-white font-half-condensed-400'>Release date</span>
-                                <a href='javascript:void(0);'><i class='fas fa-filter-list link-dark'></i></a>
+                    <div class='col-1 travelogue_col text-center'>
+                                <span class='text-white font-half-condensed-400'>Timeline</span>
                     </div>
-                    <div class='col travelogue_col'>
+                    <div class='col travelogue_col text-center'>
                                 <span class='text-white font-half-condensed-400'>Title</span>
-                                <a href='javascript:void(0);'><i class='fas fa-filter-list link-dark'></i></a>
                     </div>
-                    <div class='col travelogue_col'>
+                    <div class='col travelogue_col text-center'>
                                 <span class='text-white font-half-condensed-400'>Creator</span>
-                                <a href='javascript:void(0);'><i class='fas fa-filter-list link-dark'></i></a>
                     </div>
-                    <div class='col travelogue_col'>
+                    <div class='col-1 travelogue_col text-center'>
                                 <span class='text-white font-half-condensed-400'>Genre</span>
-                                <a href='javascript:void(0);'><i class='fas fa-filter-list link-dark'></i></a>
                     </div>
-                    <div class='col travelogue_col'>
-                                <span class='text-white font-half-condensed-400'>Date experienced</span>
-                                <a href='javascript:void(0);'><i class='fas fa-filter-list link-dark'></i></a>
-                    </div>
-                    <div class='col travelogue_col'>
-                                <span class='text-white font-half-condensed-400'>Your rating</span>
-                                <a href='javascript:void(0);'><i class='fas fa-filter-list link-dark'></i></a>
-                    </div>
-                    <div class='col travelogue_col'>
+                    <div class='col travelogue_col text-center'>
                                 <span class='text-white font-half-condensed-400'>Comments</span>
-                                <a href='javascript:void(0);'><i class='fas fa-filter-list link-dark'></i></a>
                     </div>
-                    <div class='col travelogue_col'>
+                    <div class='col travelogue_col text-center'>
                                 <span class='text-white font-half-condensed-400'>Relevant information</span>
-                                <a href='javascript:void(0);'><i class='fas fa-filter-list link-dark'></i></a>
                     </div>
                 </div>";
 				$query = prepare_query("SELECT id, type, codes, releasedate, title, creator, genre, datexp, yourrating, comments, otherrelevant, dburl FROM travelogue WHERE state = 1 AND user_id = {$_SESSION['user_id']}");
 				$records = $conn->query($query);
 				if ($records->num_rows > 0) {
 					while ($record = $records->fetch_assoc()) {
-						$put_together = travelogue_put_together(array('id' => $record['id'], 'codes' => $record['codes'], 'releasedate' => $record['releasedate'], 'title' => $record['title'], 'creator' => $record['creator'], 'genre' => $record['genre'], 'datexp' => $record['datexp'], 'yourrating' => $record['yourrating'], 'comments' => $record['comments'], 'otherrelevant' => $record['otherrelevant'], 'dburl' => $record['dburl']));
+						$put_together = travelogue_put_together(array('id' => $record['id'], 'type' => $record['type'], 'codes' => $record['codes'], 'releasedate' => $record['releasedate'], 'title' => $record['title'], 'creator' => $record['creator'], 'genre' => $record['genre'], 'datexp' => $record['datexp'], 'yourrating' => $record['yourrating'], 'comments' => $record['comments'], 'otherrelevant' => $record['otherrelevant'], 'dburl' => $record['dburl']));
                         echo "
                         <div class='row mb-1 px-1'>
-                            <div class='col travelogue_col'>{$put_together['dburl']}<hr class='m-0 p-0'>{$put_together['codes']}</div>
-                            <div class='col travelogue_col'>{$put_together['releasedate']}</div>
-                            <div class='col travelogue_col'>{$put_together['title']}</div>
-                            <div class='col travelogue_col'>{$put_together['creator']}</div>
-                            <div class='col travelogue_col'>{$put_together['genre']}</div>
-                            <div class='col travelogue_col'>{$put_together['datexp']}</div>
-                            <div class='col travelogue_col'>{$put_together['yourrating']}</div>
+                            <div class='col travelogue_col'>{$put_together['codes']}</div>
+                            <div class='col-1 travelogue_col'>{$put_together['releasedate']}</br>{$put_together['datexp']}</div>
+                            <div class='col travelogue_col d-flex justify-content-center'>{$put_together['title']}</div>
+                            <div class='col travelogue_col d-flex justify-content-center'>{$put_together['creator']}</div>
+                            <div class='col-1 travelogue_col d-flex justify-content-center'>{$put_together['genre']}</div>
                             <div class='col travelogue_col'>{$put_together['comments']}</div>
                             <div class='col travelogue_col'>{$put_together['otherrelevant']}</div>
                         </div>
@@ -141,9 +127,10 @@
                 <option value='1'>Music album</option>
                 <option value='2'>Movie</option>
                 <option value='3'>Painting</option>
-                <option value='4'>Architecture</option>
-                <option value='5'>Sports event</option>
-                <option value='6'>Live event</option>
+                <option value='4'>Video Game</option>
+                <option value='5'>Architecture</option>
+                <option value='6'>Sports event</option>
+                <option value='7'>Live event</option>
             </select>
         </div>
         <div class='mb-3'>

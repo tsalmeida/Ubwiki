@@ -4367,9 +4367,9 @@
 		$instrumental = substr($code, 7, 1);
 		$live = substr($code, 8, 1);
 		if ($favorite == '1') {
-			$favorite = "<i class='fas fa-star fa-fw link-warning me-1' title='Favorite'></i>";
+			$favorite = "<i class='fas fa-heart fa-fw link-danger me-1' title='Favorite'></i>";
 		} else {
-			$favorite = "<i class='fas fa-star fa-fw link-secondary me-1' title='Favorite'></i>";
+			$favorite = "<i class='fas fa-heart fa-fw link-secondary me-1' title='Favorite'></i>";
 		}
 		if ($lyrics == '1') {
 			$lyrics = "<i class='fas fa-feather fa-fw link-purple me-1' title='Great lyrics'></i>";
@@ -4416,6 +4416,9 @@
 
 	function travelogue_put_together($array)
 	{
+		if (!isset($array['type'])) {
+			$array['type'] = 1;
+		}
 		if (!isset($array['codes'])) {
 			$array['codes'] = false;
 		}
@@ -4447,24 +4450,67 @@
 			$array['dburl'] = false;
 		}
 
-		$head = "<div class='row travelogue_item'><div class='col'>";
-		$tail = "</div></div>";
-
 		$codes = travelogue_interpret_code($array['codes']);
-		$result['codes'] = "<small class=''>$codes</small>";
-		$result['releasedate'] = "<small class=''>{$array['releasedate']}</small>";
-		$result['title'] = "<small class=''>{$array['title']}</small>";
-		$result['creator'] = "<small class=''>{$array['creator']}</small>";
-		$result['genre'] = "<small class=''>{$array['genre']}</small>";
-		if (($array['datexp'] === true) || ($array['datexp'] == '1')) {
-			$result['datexp'] = "<span class='text-success font-half-condensed-300'><i class='fas fa-check fa-fw'></i></span>";
+		switch ($array['type']) {
+			case 1: //music
+			default:
+				$result['type'] = "<i class='fas fa-music fa-fw link-indigo me-1'></i>";
+				break;
+			case 2: //movie
+				$result['type'] = "<i class='fas fa-film fa-fw link-teal me-1'></i>";
+				break;
+			case 3: //painting
+				$result['type'] = "<i class='fas fa-palette fa-fw link-success me-1'></i>";
+				break;
+			case 4: //video game
+				$result['type'] = "<i class='fas fa-gamepad fa-fw link-cyan me-1'></i>";
+				break;
+			case 5: //architecture
+				$result['type'] = "<i class='fas fa-building-columns fa-fw link-warning me-1'></i>";
+				break;
+			case 6: //sports event
+				$result['type'] = "<i class='fas fa-futbol fa-fw link-success me-1'></i>";
+				break;
+			case 7: //live event
+				$result['type'] = "<i class='fas fa-camera fa-fw link-danger me-1'></i>";
+				break;
+		}
+		if ($array['dburl'] != false) {
+			$result['dburl'] = "<a class='link-success me-1' href='{$array['dburl']}' target='_blank'><i class='fas fa-circle-info fa-fw'></i></a>";
 		} else {
-			$result['datexp'] = "<small class=''>{$array['datexp']}</small>";
+			$result['dburl'] = "<a class='link-secondary me-1' href='javascript:void(0);'><i class='fas fa-circle-info fa-fw'></i></a>";
 		}
 		if ($array['yourrating'] == false) {
-			$result['yourrating'] = "<i class='fal fa-star text-muted'></i>";
+			$result['yourrating'] = "<i class='fal fa-star text-muted me-1'></i>";
 		} else {
 			$result['yourrating'] = process_rating($array['yourrating']);
+		}
+		$result['codes'] = "<small class=''>{$result['type']}{$result['yourrating']}{$result['dburl']}<i class='fas fa-bookmark fa-fw link-secondary me-1'></i><i class='fas fa-thumbs-up fa-fw link-secondary me-1'></i><i class='fas fa-thumbs-down fa-fw link-secondary me-1'></i><i class='fas fa-thumbtack fa-fw link-secondary me-1'></i><i class='fas fa-arrow-pointer fa-fw link-secondary'></i></br>$codes</small>";
+		if (($array['releasedate'] === false) || ($array['releasedate'] == '')) {
+			$result['releasedate'] = "<small class=''><i class='fa-duotone fa-calendar-xmark fa-fw link-secondary'></i></small>";
+		} else {
+			$result['releasedate'] = "<small class=''><i class='fa-duotone fa-calendar fa-fw link-secondary me-1'></i>{$array['releasedate']}</small>";
+		}
+		$result['title'] = "<small class='align-self-center'>{$array['title']}</small>";
+		$result['creator'] = "<small class='align-self-center'>{$array['creator']}</small>";
+		$result['genre'] = "<small class='align-self-center'>{$array['genre']}</small>";
+		switch ($array['datexp']) {
+			case '1':
+//			case true:
+//			case 1:
+				$result['datexp'] = "<i class='fa-duotone fa-calendar-check fa-fw link-success font-half-condensed-300'></i>";
+				break;
+			case false:
+			case '':
+				$result['datexp'] = "<i class='fa-duotone fa-calendar-xmark fa-fw link-secondary'></i>";
+				break;
+			default:
+				$result['datexp'] = "<i class='fa-duotone fa-calendar-check fa-fw link-success me-1'></i><small class=''>{$array['datexp']}</small>";
+
+		}
+
+		if (($array['datexp'] === true) || ($array['datexp'] == '1')) {
+		} else {
 		}
 		if ($array['comments'] != false) {
 			$result['comments'] = "<small class=''>{$array['comments']}</small>";
@@ -4476,15 +4522,6 @@
 		} else {
 			$result['otherrelevant'] = "<small class=''>{$array['otherrelevant']}</small>";
 		}
-		if ($array['dburl'] != false) {
-			$result['dburl'] = "<a class='link-info' href='{$array['dburl']}' target='_blank'><i class='fas fa-link fa-fw'></i></a>";
-		} else {
-			$result['dburl'] = "<a class='link-danger' href='javascript:void(0);'><i class='fas fa-square-question fa-fw'></i></a>";
-		}
-
-//		foreach ($result as $key => $array) {
-//			$result[$key] = "$head{$result[$key]}$tail";
-//		}
 
 		return $result;
 	}
@@ -4495,14 +4532,26 @@
 			return false;
 		}
 		$rating = intval($rating);
-		$count = 0;
-		$result = false;
-		while ($count <= $rating) {
-			if ($count == 8) {
+		switch ($rating) {
+			case false:
+			case 0:
+				$result = '<a href="javascript:void(0);"><i class="fa-solid fa-circle-question fa-fw link-warning"></i></a>';
 				break;
-			}
-			$count++;
-			$result .= "<i class='fas fa-star fa-fw text-white-50'></i>";
+			case 1:
+				$result = '<a href="javascript:void(0);"><i class="fa-light fa-star-half fa-fw link-warning"></i></a>';
+				break;
+			case 2:
+				$result = '<a href="javascript:void(0);"><i class="fa-solid fa-star-half fa-fw link-warning"></i></a>';
+				break;
+			case 3:
+				$result = '<a href="javascript:void(0);"><i class="fa-duotone fa-star-half-stroke fa-fw link-warning"></i></a>';
+				break;
+			case 4:
+				$result = '<a href="javascript:void(0);"><i class="fa-duotone fa-star-half fa-fw link-warning"></i></a>';
+				break;
+			case 5:
+				$result = '<a href="javascript:void(0);"><i class="fas fa-star fa-fw link-warning"></i></a>';
+				break;
 		}
 		return $result;
 	}

@@ -252,12 +252,8 @@ textarea:focus, input:focus{
   }
 }
 
-.travelogue_item {
-  @extend .bg-darker, .rounded, .border, .border-1, .border-dark, .text-center, .p-2, .text-white, .font-half-condensed-300;
-}
-
 .travelogue_col {
-  @extend .bg-darker, .rounded, .border, .border-1, .border-dark, .text-center, .p-2, .text-white, .font-half-condensed-400;
+  @extend .bg-darker, .rounded, .border, .border-1, .border-dark, .p-2, .text-white, .font-half-condensed-400;
 }
 
 .bg-gray-800 {

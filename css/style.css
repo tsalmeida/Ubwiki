@@ -7231,7 +7231,7 @@ textarea.form-control-lg {
   transform: translateY(-50%) !important;
 }
 
-.border, .nexus-highlight-cyan, .nexus-highlight-teal, .nexus-highlight-green, .nexus-highlight-yellow, .nexus-highlight-orange, .nexus-highlight-red, .nexus-highlight-pink, .nexus-highlight-purple, .nexus-highlight-indigo, .nexus-highlight-blue, .travelogue_col, .travelogue_item, .ql-editor-active {
+.border, .nexus-highlight-cyan, .nexus-highlight-teal, .nexus-highlight-green, .nexus-highlight-yellow, .nexus-highlight-orange, .nexus-highlight-red, .nexus-highlight-pink, .nexus-highlight-purple, .nexus-highlight-indigo, .nexus-highlight-blue, .travelogue_col, .ql-editor-active {
   border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color) !important;
 }
 
@@ -7306,7 +7306,7 @@ textarea.form-control-lg {
   border-color: rgba(var(--bs-light-rgb), var(--bs-border-opacity)) !important;
 }
 
-.border-dark, .travelogue_col, .travelogue_item {
+.border-dark, .travelogue_col {
   --bs-border-opacity: 1;
   border-color: rgba(var(--bs-dark-rgb), var(--bs-border-opacity)) !important;
 }
@@ -7316,7 +7316,7 @@ textarea.form-control-lg {
   border-color: rgba(var(--bs-white-rgb), var(--bs-border-opacity)) !important;
 }
 
-.border-1, .travelogue_col, .travelogue_item {
+.border-1, .travelogue_col {
   --bs-border-width: 1px;
 }
 
@@ -7810,7 +7810,7 @@ textarea.form-control-lg {
   padding: 0.25rem !important;
 }
 
-.p-2, .travelogue_col, .travelogue_item, .nexus-navbar-button, #cmdbar, .ql-editor-active {
+.p-2, .travelogue_col, .nexus-navbar-button, #cmdbar, .ql-editor-active {
   padding: 0.5rem !important;
 }
 
@@ -8094,7 +8094,7 @@ textarea.form-control-lg {
   text-align: right !important;
 }
 
-.text-center, .travelogue_col, .travelogue_item {
+.text-center {
   text-align: center !important;
 }
 
@@ -8182,7 +8182,7 @@ textarea.form-control-lg {
   color: rgba(var(--bs-black-rgb), var(--bs-text-opacity)) !important;
 }
 
-.text-white, .travelogue_col, .travelogue_item {
+.text-white, .travelogue_col {
   --bs-text-opacity: 1;
   color: rgba(var(--bs-white-rgb), var(--bs-text-opacity)) !important;
 }
@@ -8332,7 +8332,7 @@ textarea.form-control-lg {
   pointer-events: auto !important;
 }
 
-.rounded, .nexus-highlight-cyan, .nexus-highlight-teal, .nexus-highlight-green, .nexus-highlight-yellow, .nexus-highlight-orange, .nexus-highlight-red, .nexus-highlight-pink, .nexus-highlight-purple, .nexus-highlight-indigo, .nexus-highlight-blue, .travelogue_col, .travelogue_item, .nexus-navbar-button {
+.rounded, .nexus-highlight-cyan, .nexus-highlight-teal, .nexus-highlight-green, .nexus-highlight-yellow, .nexus-highlight-orange, .nexus-highlight-red, .nexus-highlight-pink, .nexus-highlight-purple, .nexus-highlight-indigo, .nexus-highlight-blue, .travelogue_col, .nexus-navbar-button {
   border-radius: var(--bs-border-radius) !important;
 }
 
@@ -11184,7 +11184,7 @@ textarea.form-control-lg {
   font-family: "Roboto Condensed", "Oswald", "Lato", sans-serif;
 }
 
-.font-half-condensed-300, .travelogue_item {
+.font-half-condensed-300 {
   font-family: "Roboto Condensed", "Oswald", "Lato", sans-serif;
   font-weight: 300;
 }
@@ -11752,7 +11752,7 @@ textarea:focus, input:focus {
   border-bottom-width: 4px;
 }
 
-.bg-darker, .travelogue_item, .travelogue_col, .nexus-bg-black-blue, .nexus-bg-black-indigo, .nexus-bg-black-purple, .nexus-bg-black-pink, .nexus-bg-black-red, .nexus-bg-black-orange, .nexus-bg-black-yellow, .nexus-bg-black-green, .nexus-bg-black-teal, .nexus-bg-black-cyan, .include_bg-black-border, .nexus-bg-black-blue-border, .nexus-bg-black-indigo-border, .nexus-bg-black-purple-border, .nexus-bg-black-pink-border, .nexus-bg-black-red-border, .nexus-bg-black-orange-border, .nexus-bg-black-yellow-border, .nexus-bg-black-green-border, .nexus-bg-black-teal-border, .nexus-bg-black-cyan-border {
+.bg-darker, .travelogue_col, .nexus-bg-black-blue, .nexus-bg-black-indigo, .nexus-bg-black-purple, .nexus-bg-black-pink, .nexus-bg-black-red, .nexus-bg-black-orange, .nexus-bg-black-yellow, .nexus-bg-black-green, .nexus-bg-black-teal, .nexus-bg-black-cyan, .include_bg-black-border, .nexus-bg-black-blue-border, .nexus-bg-black-indigo-border, .nexus-bg-black-purple-border, .nexus-bg-black-pink-border, .nexus-bg-black-red-border, .nexus-bg-black-orange-border, .nexus-bg-black-yellow-border, .nexus-bg-black-green-border, .nexus-bg-black-teal-border, .nexus-bg-black-cyan-border {
   background-color: #191919;
 }
 
