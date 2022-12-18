@@ -2292,9 +2292,11 @@
 		if ($_POST['new_theme_title'] == false) {
 			exit();
 		}
+		$_POST['new_theme_title'] = mysqli_real_escape_string($conn, $_POST['new_theme_title']);
 		if (!isset($_POST['wallpaper_file_url'])) {
 			$_POST['wallpaper_file_url'] = false;
 		}
+		$_POST['wallpaper_file_url'] = mysqli_real_escape_string($conn, $_POST['wallpaper_file_url']);
 		if (!isset($_POST['new_theme_bg_color_hex'])) {
 			$_POST['new_theme_bg_color_hex'] = false;
 		}

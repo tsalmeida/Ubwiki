@@ -12,12 +12,14 @@
 		if (!isset($_POST['travel_new_title'])) {
 			$_POST['travel_new_title'] = false;
 		}
+        $_POST['travel_new_title'] = mysqli_real_escape_string($conn, $_POST['travel_new_title']);
 		if (!isset($_POST['travel_new_creator'])) {
 			$_POST['travel_new_creator'] = false;
 		}
 		if (!isset($_POST['travel_new_genre'])) {
 			$_POST['travel_new_genre'] = false;
 		}
+		$_POST[$_POST['travel_new_genre']] = mysqli_real_escape_string($conn, $_POST['travel_new_genre']);
 		if (!isset($_POST['travel_new_datexp'])) {
 			$_POST['travel_new_datexp'] = false;
 		}
@@ -27,9 +29,11 @@
 		if (!isset($_POST['travel_new_comments'])) {
 			$_POST['travel_new_comments'] = false;
 		}
+		$_POST['travel_new_comments'] = mysqli_real_escape_string($conn, $_POST['travel_new_comments']);
 		if (!isset($_POST['travel_new_information'])) {
 			$_POST['travel_new_information'] = false;
 		}
+		$_POST['travel_new_information'] = mysqli_real_escape_string($conn, $_POST['travel_new_information']);
 		if (!isset($_POST['travel_new_database'])) {
 			$_POST['travel_new_database'] = false;
 		}
