@@ -3,7 +3,7 @@
 	$pagina_tipo = 'travelogue';
 	$pagina_id = $_SESSION['user_escritorio'];
 	$pagina_title = 'Travelogue';
-	$pagina_favicon = 'faticon.ico';
+	$pagina_favicon = 'travelogue.ico';
 
 	if (isset($_POST['travel_new_type'])) {
 		if (!isset($_POST['travel_new_release_date'])) {
