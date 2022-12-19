@@ -1,17 +1,5 @@
 <?php
 
-	//TODO: Clicar em "link dump" no modal de links deveria fechar o modal.
-	//TODO: Forma de alterar icones, cores e títulos de todos os elementos.
-	//TODO: Forma de alterar a ordem dos elementos.
-	//TODO: Ferramentas básicas: bloco de nota, to-do list etc.
-	//TODO: Alguma integração com uma extensão do Chrome? Quem sabe?
-	//TODO: Algum elemento crypto ou inteligência artificial?
-	//TODO: Usar o curl, há possibilidades interessantes, como pesquisar e ver os resultados em baixo. Por exemplo, ver apenas os trending topics do Twitter na própria página, com um comando. Wikipédia, etc.
-	//TODO: Um Travelogue, extensão do Plano de Estudos da Ubwiki. Talvez como próximo projeto grande.
-	//TODO: E se fosse possível jogar o Chess Battles dentro da página, uma jogada por vez?
-	//TODO: A página poderia recordar a jogar Wordle, por exemplo.
-	//TODO: Detect dead links and make them a different color on the scren.
-
 	$pagina_tipo = 'nexus';
 	include 'engine.php';
 	if (!isset($_SESSION['user_apelido'])) {

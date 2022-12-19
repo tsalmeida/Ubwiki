@@ -64,7 +64,6 @@
 		<?php
 			echo nexus_put_together(array('type' => 'navbar', 'color' => 'teal', 'class' => 'col-auto', 'href' => false, 'icon' => 'fas fa-plus', 'id' => 'trigger_add_item', 'modal' => '#modal_add_item'));
 			echo nexus_put_together(array('type' => 'navbar', 'color' => 'red', 'class' => 'col-auto', 'href' => false, 'icon' => 'fas fa-minus', 'id' => 'trigger_del_item', 'modal' => '#modal_del_item'));
-			echo nexus_put_together(array('type' => 'navbar', 'color' => 'yellow', 'class' => 'col-auto ms-5', 'href' => false, 'icon' => 'fas fa-plus', 'id' => 'trigger_add_class', 'modal' => '#modal_add_class'));
 			echo nexus_put_together(array('type' => 'navbar', 'color' => 'purple', 'class' => 'col-auto ms-5', 'href' => false, 'icon' => 'fas fa-filter-list', 'id' => 'trigger_filter', 'modal' => '#modal_filter'));
 		?>
     </div>
@@ -101,8 +100,8 @@
 					while ($record = $records->fetch_assoc()) {
 						$put_together = travelogue_put_together(array('id' => $record['id'], 'type' => $record['type'], 'codes' => $record['codes'], 'releasedate' => $record['releasedate'], 'title' => $record['title'], 'creator' => $record['creator'], 'genre' => $record['genre'], 'datexp' => $record['datexp'], 'yourrating' => $record['yourrating'], 'comments' => $record['comments'], 'otherrelevant' => $record['otherrelevant'], 'dburl' => $record['dburl']));
                         echo "
-                        <div class='row mb-1 px-1'>
-                            <div class='col travelogue_col'>{$put_together['codes']}</div>
+                        <div class='row px-1'>
+                            <div class='col travelogue_col'><small><a href='javascript:void(0);' value='{$record['id']}' class='rounded link-dark bg-info me-1 edit_this_log' data-bs-toggle='modal' data-bs-target='#modal_update_entry'><i class='fas fa-pen-to-square fa-fw'></i></a>{$put_together['codes']}</small></div>
                             <div class='col-1 travelogue_col'>{$put_together['releasedate']}</br>{$put_together['datexp']}</div>
                             <div class='col travelogue_col d-flex justify-content-center'>{$put_together['title']}</div>
                             <div class='col travelogue_col d-flex justify-content-center'>{$put_together['creator']}</div>
@@ -135,6 +134,7 @@
                 <option value='5'>Architecture</option>
                 <option value='6'>Sports event</option>
                 <option value='7'>Live event</option>
+                <option value='8'>Other</option>
             </select>
         </div>
         <div class='mb-3'>
@@ -179,13 +179,13 @@
     ";
 	include 'templates/modal.php';
 
+    $template_modal_div_id = 'modal_update_entry';
+    $template_modal_titulo = 'Update item';
+    $template_modal_body_conteudo = 'Loading...';
+    include 'templates/modal.php';
+
 	$template_modal_div_id = 'modal_del_item';
 	$template_modal_titulo = 'Del item';
-	$template_modal_body_conteudo = 'Loading...';
-	include 'templates/modal.php';
-
-	$template_modal_div_id = 'modal_add_class';
-	$template_modal_titulo = 'Add class';
 	$template_modal_body_conteudo = 'Loading...';
 	include 'templates/modal.php';
 
@@ -198,6 +198,18 @@
     $(document).on('click', '#trigger_enable_rating', function () {
         $(this).addClass('d-none');
         $("#travel_new_rating").removeAttr("disabled");
+    })
+    $(document).on('click', '.edit_this_log', function() {
+        log_id = $(this).attr('value');
+        $.post('engine.php', {
+            'edit_this_log': log_id
+        }, function (data) {
+            if (data != 0) {
+                $('#body_modal_update_entry').html(data);
+            } else {
+                alert('Something went wrong');
+            }
+        })
     })
 
 

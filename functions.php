@@ -4474,6 +4474,9 @@
 			case 7: //live event
 				$result['type'] = "<i class='fas fa-camera fa-fw link-danger me-1'></i>";
 				break;
+			case 8: //other
+				$result['type'] = "<i class='fas fa-square-question fa-fw link-danger me-1'></i>";
+				break;
 		}
 		if ($array['dburl'] != false) {
 			$result['dburl'] = "<a class='link-success me-1' href='{$array['dburl']}' target='_blank'><i class='fas fa-circle-info fa-fw'></i></a>";
@@ -4498,14 +4501,14 @@
 			case '1':
 //			case true:
 //			case 1:
-				$result['datexp'] = "<i class='fa-duotone fa-calendar-check fa-fw link-success font-half-condensed-300'></i>";
+				$result['datexp'] = "<small class=''><i class='fa-duotone fa-calendar-check fa-fw link-success font-half-condensed-300'></i></small>";
 				break;
 			case false:
 			case '':
-				$result['datexp'] = "<i class='fa-duotone fa-calendar-xmark fa-fw link-secondary'></i>";
+				$result['datexp'] = "<small class=''><i class='fa-duotone fa-calendar-xmark fa-fw link-secondary'></i></small>";
 				break;
 			default:
-				$result['datexp'] = "<i class='fa-duotone fa-calendar-check fa-fw link-success me-1'></i><small class=''>{$array['datexp']}</small>";
+				$result['datexp'] = "<small class=''><i class='fa-duotone fa-calendar-check fa-fw link-success me-1'></i>{$array['datexp']}</small>";
 
 		}
 

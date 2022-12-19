@@ -3090,7 +3090,7 @@
 			}
 			$color = number_to_color($count);
 			$count++;
-			$bg_color = nexus_colors(array('mode'=>'convert', 'color'=>$color));
+			$bg_color = nexus_colors(array('mode' => 'convert', 'color' => $color));
 			$bg_color = $bg_color['highlight'];
 			$text = str_replace($key, "<strong class='$bg_color px-1'>$key</strong>", $text);
 			$repeats_result .= "
@@ -3114,6 +3114,94 @@
 		$repeats_result = base64_encode($repeats_result);
 		$final_result = array($text, $repeats_result);
 		echo json_encode($final_result);
+	}
+
+	if (isset($_POST['edit_this_log'])) {
+		$query = prepare_query("SELECT * FROM travelogue WHERE id = {$_POST['edit_this_log']} AND user_id = {$_SESSION['user_id']}");
+		$logs = $conn->query($query);
+		$result = false;
+		if ($logs->num_rows > 0) {
+			while ($log = $logs->fetch_assoc()) {
+				$result .= "
+					<form method='post'>
+						<div class='mb-3'>
+							<label for='update_travel_new_type' class='form-label'>Type:</label>
+							<select id='update_travel_new_type' name='update_travel_new_type' type='text' class='form-control'>
+								<option value='1'>Music album</option>
+								<option value='2'>Movie</option>
+								<option value='3'>Painting</option>
+								<option value='4'>Video Game</option>
+								<option value='5'>Architecture</option>
+								<option value='6'>Sports event</option>
+								<option value='7'>Live event</option>
+								<option value='8'>Other</option>
+							</select>
+						</div>
+						<div class='mb-3'>
+							<label for='update_travel_new_release_date' class='form-label'>Release date:</label>
+							<input id='update_travel_new_release_date' name='update_travel_new_release_date' type='text' class='form-control' value='{$log['releasedate']}'>
+						</div>
+						<div class='mb-3'>
+							<label for='update_travel_new_title' class='form-label'>Title:</label>
+							<input id='update_travel_new_title' name='update_travel_new_title' type='text' class='form-control' value='{$log['title']}'>
+						</div>
+						<div class='mb-3'>
+							<label for='update_travel_new_creator' class='form-label'>Creator:</label>
+							<input id='update_travel_new_creator' name='update_travel_new_creator' type='text' class='form-control' value='{$log['creator']}'>
+						</div>
+						<div class='mb-3'>
+							<label for='update_travel_new_genre' class='form-label'>Genre:</label>
+							<input id='update_travel_new_genre' name='update_travel_new_genre' type='text' class='form-control' value='{$log['genre']}'>
+						</div>
+						<div class='mb-3'>
+							<label for=update_travel_new_datexp' class='form-label'>Date experienced:</label>
+							<input id='update_travel_new_datexp' name='update_travel_new_datexp' type='text' class='form-control' value='{$log['datexp']}'>
+						</div>";
+				if ($log['yourrating'] == '') {
+					$result .= "<div class='mb-3'>
+							<label for='update_travel_new_rating' class='form-label'>Your rating (1 to 5):</label>
+							<input type='range' class='form-range' id='update_travel_new_rating' name='update_travel_new_rating' min='1' max='5' disabled>
+							<button id='update_trigger_enable_rating' class='btn btn-outline-secondary btn-sm' type='button'>Enable</button>
+						</div>";
+				} else {
+					$result .= "
+						<div class='mb-3'>
+							<label for='update_travel_new_rating' class='form-label'>Your rating (1 to 5):</label>
+							<input type='range' class='form-range' id='update_travel_new_rating' name='update_travel_new_rating' min='1' max='5' value='{$log['yourrating']}'>
+							<button id='update_trigger_disable_rating' class='btn btn-outline-secondary btn-sm' type='button'>Disable</button>
+						</div>
+					";
+				}
+
+				$result .= "
+						<div class='mb-3'>
+							<label for='update_travel_new_comments' class='form-label'>Your comments:</label>
+							<textarea id='update_travel_new_comments' name='update_travel_new_comments' type='textarea' class='form-control' rows='3'>{$log['comments']}</textarea>
+						</div>
+						<div class='mb-3'>
+							<label for='update_travel_new_information' class='form-label'>Relevant information:</label>
+							<textarea id='update_travel_new_information' name='update_travel_new_information' type='text' class='form-control' rows='3'>{$log['otherrelevant']}</textarea>
+						</div>
+						<div class='mb-3'>
+							<label for='update_travel_new_database' class='form-label'>Database link (Wikipedia, IMDb, AllMusic etc.):</label>
+							<input id='update_travel_new_database' name='update_travel_new_database' type='url' class='form-control' value='{$log['dburl']}'>
+						</div>
+						<button type='submit' class='btn btn-primary' name='update_this_entry' id='update_this_entry' value='{$log['id']}'>Submit</button>
+					</form>
+					";
+				echo $result;
+				exit();
+			}
+		}
+	}
+
+	if (isset($_POST['update_this_entry'])) {
+		$_POST['update_travel_new_title'] = mysqli_real_escape_string($conn, $_POST['update_travel_new_title']);
+		$_POST[$_POST['update_travel_new_genre']] = mysqli_real_escape_string($conn, $_POST['update_travel_new_genre']);
+		$_POST['update_travel_new_comments'] = mysqli_real_escape_string($conn, $_POST['update_travel_new_comments']);
+		$_POST['update_travel_new_information'] = mysqli_real_escape_string($conn, $_POST['update_travel_new_information']);
+		$query = prepare_query("UPDATE travelogue SET type = '{$_POST['update_travel_new_type']}', releasedate = '{$_POST['update_travel_new_release_date']}', title = '{$_POST['update_travel_new_title']}', creator = '{$_POST['update_travel_new_creator']}', genre = '{$_POST['update_travel_new_genre']}', datexp = '{$_POST['update_travel_new_datexp']}', yourrating = '{$_POST['update_travel_new_rating']}', comments = '{$_POST['update_travel_new_comments']}', otherrelevant = '{$_POST['update_travel_new_information']}', dburl = '{$_POST['update_travel_new_database']}' WHERE id = {$_POST['update_this_entry']} AND user_id = {$_SESSION['user_id']}", 'log');
+		$conn->query($query);
 	}
 
 ?>
