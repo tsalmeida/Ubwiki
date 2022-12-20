@@ -4463,16 +4463,16 @@
 				$result['type'] = "<i class='fas fa-palette fa-fw link-success me-1'></i>";
 				break;
 			case 4: //video game
-				$result['type'] = "<i class='fas fa-gamepad fa-fw link-cyan me-1'></i>";
+				$result['type'] = "<i class='fas fa-gamepad fa-fw link-info me-1'></i>";
 				break;
 			case 5: //architecture
 				$result['type'] = "<i class='fas fa-building-columns fa-fw link-warning me-1'></i>";
 				break;
 			case 6: //sports event
-				$result['type'] = "<i class='fas fa-futbol fa-fw link-success me-1'></i>";
+				$result['type'] = "<i class='fas fa-sportsball fa-fw link-success me-1'></i>";
 				break;
 			case 7: //live event
-				$result['type'] = "<i class='fas fa-camera fa-fw link-danger me-1'></i>";
+				$result['type'] = "<i class='fas fa-binoculars fa-fw link-teal me-1'></i>";
 				break;
 			case 8: //other
 				$result['type'] = "<i class='fas fa-square-question fa-fw link-danger me-1'></i>";
@@ -4484,7 +4484,7 @@
 			$result['dburl'] = "<a class='link-secondary me-1' href='javascript:void(0);'><i class='fas fa-circle-info fa-fw'></i></a>";
 		}
 		if ($array['yourrating'] == false) {
-			$result['yourrating'] = "<i class='fal fa-star text-muted me-1'></i>";
+			$result['yourrating'] = "<i class='fal fa-star fa-fw text-muted me-1'></i>";
 		} else {
 			$result['yourrating'] = process_rating($array['yourrating']);
 		}
@@ -4538,22 +4538,22 @@
 		switch ($rating) {
 			case false:
 			case 0:
-				$result = '<a href="javascript:void(0);"><i class="fa-solid fa-circle-question fa-fw link-warning"></i></a>';
+				$result = '<a href="javascript:void(0);"><i class="fa-solid fa-circle-question fa-fw me-1 link-warning"></i></a>';
 				break;
 			case 1:
-				$result = '<a href="javascript:void(0);"><i class="fa-light fa-star-half fa-fw link-warning"></i></a>';
+				$result = '<a href="javascript:void(0);"><i class="fa-light fa-star-half fa-fw me-1 link-warning"></i></a>';
 				break;
 			case 2:
-				$result = '<a href="javascript:void(0);"><i class="fa-solid fa-star-half fa-fw link-warning"></i></a>';
+				$result = '<a href="javascript:void(0);"><i class="fa-solid fa-star-half fa-fw me-1 link-warning"></i></a>';
 				break;
 			case 3:
-				$result = '<a href="javascript:void(0);"><i class="fa-duotone fa-star-half-stroke fa-fw link-warning"></i></a>';
+				$result = '<a href="javascript:void(0);"><i class="fa-duotone fa-star-half-stroke fa-fw me-1 link-warning"></i></a>';
 				break;
 			case 4:
-				$result = '<a href="javascript:void(0);"><i class="fa-duotone fa-star-half fa-fw link-warning"></i></a>';
+				$result = '<a href="javascript:void(0);"><i class="fa-duotone fa-star-half fa-fw me-1 link-warning"></i></a>';
 				break;
 			case 5:
-				$result = '<a href="javascript:void(0);"><i class="fas fa-star fa-fw link-warning"></i></a>';
+				$result = '<a href="javascript:void(0);"><i class="fas fa-star fa-fw me-1 link-warning"></i></a>';
 				break;
 		}
 		return $result;

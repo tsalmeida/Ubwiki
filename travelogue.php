@@ -101,7 +101,7 @@
 						$put_together = travelogue_put_together(array('id' => $record['id'], 'type' => $record['type'], 'codes' => $record['codes'], 'releasedate' => $record['releasedate'], 'title' => $record['title'], 'creator' => $record['creator'], 'genre' => $record['genre'], 'datexp' => $record['datexp'], 'yourrating' => $record['yourrating'], 'comments' => $record['comments'], 'otherrelevant' => $record['otherrelevant'], 'dburl' => $record['dburl']));
                         echo "
                         <div class='row px-1'>
-                            <div class='col travelogue_col'><small><a href='javascript:void(0);' value='{$record['id']}' class='rounded link-dark bg-info me-1 edit_this_log' data-bs-toggle='modal' data-bs-target='#modal_update_entry'><i class='fas fa-pen-to-square fa-fw'></i></a>{$put_together['codes']}</small></div>
+                            <div class='col travelogue_col'><small><a href='javascript:void(0);' value='{$record['id']}' class='rounded link-dark bg-light me-1 edit_this_log' data-bs-toggle='modal' data-bs-target='#modal_update_entry'><i class='fas fa-pen-to-square fa-fw'></i></a>{$put_together['codes']}</small></div>
                             <div class='col-1 travelogue_col'>{$put_together['releasedate']}</br>{$put_together['datexp']}</div>
                             <div class='col travelogue_col d-flex justify-content-center'>{$put_together['title']}</div>
                             <div class='col travelogue_col d-flex justify-content-center'>{$put_together['creator']}</div>

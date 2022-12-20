@@ -399,7 +399,7 @@
             <div class="row d-flex">
                 <div class="col-12">
                     <div id="page_title" class="my-3 text-center col-auto">
-                            <span id="page_title_text" class="nexus-title <?php echo $theme_info['homeeffect']; ?>">
+                            <span id="page_title_text" class="nexus-title link-light <?php echo $theme_info['homeeffect']; ?>">
                                 <?php
 									echo $nexus_title;
 								?>

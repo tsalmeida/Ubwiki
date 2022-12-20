@@ -12,12 +12,6 @@
 	}
 
 	if (isset($_POST['trigger_atualizacao'])) {
-		$query = prepare_query("CREATE TABLE `ubwiki`.`travelogue` ( `id` INT NOT NULL AUTO_INCREMENT , `user_id` INT NOT NULL , `type` INT NULL , `codes` VARCHAR(1000) NULL DEFAULT NULL , `releasedate` VARCHAR(255) NULL DEFAULT NULL , `title` VARCHAR(255) NULL DEFAULT NULL , `creator` VARCHAR(255) NULL DEFAULT NULL , `genre` VARCHAR(255) NULL DEFAULT NULL , `datexp` VARCHAR(100) NULL DEFAULT NULL , `yourrating` VARCHAR(100) NULL DEFAULT NULL , `comments` VARCHAR(500) NULL DEFAULT NULL , `otherrelevant` VARCHAR(500) NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
-		$conn->query($query);
-        $query = prepare_query("ALTER TABLE `travelogue` ADD `state` BOOLEAN NOT NULL DEFAULT TRUE AFTER `user_id`;");
-        $conn->query($query);
-        $query = prepare_query("ALTER TABLE `travelogue` ADD `dburl` VARCHAR(500) NULL DEFAULT NULL AFTER `otherrelevant`;");
-        $conn->query($query);
 	}
 
 	if (isset($_POST['trigger_atualizar_textos_size'])) {
