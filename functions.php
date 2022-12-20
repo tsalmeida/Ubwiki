@@ -4355,66 +4355,35 @@
 		}
 	}
 
-	function travelogue_interpret_code($code)
-	{
-		$favorite = substr($code, 0, 1);
-		$lyrics = substr($code, 1, 1);
-		$hifi = substr($code, 2, 1);
-		$relaxing = substr($code, 3, 1);
-		$heavy = substr($code, 4, 1);
-		$greatvibe = substr($code, 5, 1);
-		$complex = substr($code, 6, 1);
-		$instrumental = substr($code, 7, 1);
-		$live = substr($code, 8, 1);
-		if ($favorite == '1') {
-			$favorite = "<i class='fas fa-heart fa-fw link-danger me-1' title='Favorite'></i>";
-		} else {
-			$favorite = "<i class='fas fa-heart fa-fw link-secondary me-1' title='Favorite'></i>";
+	function build_travelogue_codes() {
+		include 'templates/criar_conn.php';
+		$query = prepare_query("SELECT * FROM travelogue_codes");
+		$codes = $conn->query($query);
+		$return = array();
+		while ($code = $codes->fetch_assoc()) {
+			$return[$code['title']] = array($code);
 		}
-		if ($lyrics == '1') {
-			$lyrics = "<i class='fas fa-feather fa-fw link-purple me-1' title='Great lyrics'></i>";
-		} else {
-			$lyrics = "<i class='fas fa-feather fa-fw link-secondary me-1' title='Great lyrics'></i>";
-		}
-		if ($hifi == '1') {
-			$hifi = "<i class='fas fa-waveform fa-fw link-teal me-1' title='Great audio quality'></i>";
-		} else {
-			$hifi = "<i class='fas fa-waveform fa-fw link-secondary me-1' title='Great audio quality'></i>";
-		}
-		if ($relaxing == '1') {
-			$relaxing = "<i class='fas fa-blanket fa-fw link-purple me-1' title='Relaxing'></i>";
-		} else {
-			$relaxing = "<i class='fas fa-blanket fa-fw link-secondary me-1' title='Relaxing'></i>";
-		}
-		if ($heavy == '1') {
-			$heavy = "<i class='fas fa-weight-hanging fa-fw link-primary me-1' title='Heavy'></i>";
-		} else {
-			$heavy = "<i class='fas fa-weight-hanging fa-fw link-secondary me-1' title='Heavy'></i>";
-		}
-		if ($greatvibe == '1') {
-			$greatvibe = "<i class='fas fa-pepper-hot fa-fw link-danger me-1' title='Great vibe'></i>";
-		} else {
-			$greatvibe = "<i class='fas fa-pepper-hot fa-fw link-secondary me-1' title='Great vibe'></i>";
-		}
-		if ($complex == '1') {
-			$complex = "<i class='fas fa-brain-circuit fa-fw link-orange me-1' title='Complex'></i>";
-		} else {
-			$complex = "<i class='fas fa-brain-circuit fa-fw link-secondary me-1' title='Complex'></i>";
-		}
-		if ($instrumental == '1') {
-			$instrumental = "<i class='fas fa-trumpet fa-fw link-warning me-1' title='Instrumental'></i>";
-		} else {
-			$instrumental = "<i class='fas fa-trumpet fa-fw link-secondary me-1' title='Instrumental'></i>";
-		}
-		if ($live == '1') {
-			$live = "<i class='fas fa-guitars fa-fw link-pink me-1' title='Recorded live'></i>";
-		} else {
-			$live = "<i class='fas fa-guitars fa-fw link-secondary me-1' title='Recorded live'></i>";
-		}
-		return "$favorite$lyrics$hifi$relaxing$heavy$greatvibe$complex$instrumental$live";
+		return $return;
 	}
 
-	function travelogue_put_together($array)
+	function travelogue_interpret_code($codes, $travelogue_codes)
+	{
+		$return = false;
+		foreach ($travelogue_codes as $key => $array) {
+			if (!isset($codes[$key])) {
+				continue;
+			}
+			if ($codes[$key] == true) {
+				$color = nexus_colors(array('mode'=>'convert', 'color'=>$travelogue_codes[$key][0]['color']));
+				$return .= "<i class='{$travelogue_codes[$key][0]['icon']} fa-fw {$color['link-color']}'></i>";
+			} else {
+				$return .= "<i class='{$travelogue_codes[$key][0]['icon']} fa-fw link-secondary'></i>";
+			}
+		}
+		return $return;
+	}
+
+	function travelogue_put_together($array, $travelogue_codes)
 	{
 		if (!isset($array['type'])) {
 			$array['type'] = 1;
@@ -4449,32 +4418,32 @@
 		if (!isset($array['dburl'])) {
 			$array['dburl'] = false;
 		}
-
-		$codes = travelogue_interpret_code($array['codes']);
+		$array['codes'] = unserialize($array['codes']);
+		$codes = travelogue_interpret_code($array['codes'], $travelogue_codes);
 		switch ($array['type']) {
-			case 1: //music
+			case 'music':
 			default:
 				$result['type'] = "<i class='fas fa-music fa-fw link-indigo me-1'></i>";
 				break;
-			case 2: //movie
+			case 'movie':
 				$result['type'] = "<i class='fas fa-film fa-fw link-teal me-1'></i>";
 				break;
-			case 3: //painting
+			case 'painting':
 				$result['type'] = "<i class='fas fa-palette fa-fw link-success me-1'></i>";
 				break;
-			case 4: //video game
+			case 'vidya':
 				$result['type'] = "<i class='fas fa-gamepad fa-fw link-info me-1'></i>";
 				break;
-			case 5: //architecture
+			case 'architecture':
 				$result['type'] = "<i class='fas fa-building-columns fa-fw link-warning me-1'></i>";
 				break;
-			case 6: //sports event
+			case 'sports':
 				$result['type'] = "<i class='fas fa-sportsball fa-fw link-success me-1'></i>";
 				break;
-			case 7: //live event
+			case 'live':
 				$result['type'] = "<i class='fas fa-binoculars fa-fw link-teal me-1'></i>";
 				break;
-			case 8: //other
+			case 'other':
 				$result['type'] = "<i class='fas fa-square-question fa-fw link-danger me-1'></i>";
 				break;
 		}
@@ -4484,11 +4453,11 @@
 			$result['dburl'] = "<a class='link-secondary me-1' href='javascript:void(0);'><i class='fas fa-circle-info fa-fw'></i></a>";
 		}
 		if ($array['yourrating'] == false) {
-			$result['yourrating'] = "<i class='fal fa-star fa-fw text-muted me-1'></i>";
+			$result['yourrating'] = "<i class='fas fa-star fa-fw text-muted me-1'></i>";
 		} else {
 			$result['yourrating'] = process_rating($array['yourrating']);
 		}
-		$result['codes'] = "<small class=''>{$result['type']}{$result['yourrating']}{$result['dburl']}<i class='fas fa-bookmark fa-fw link-secondary me-1'></i><i class='fas fa-thumbs-up fa-fw link-secondary me-1'></i><i class='fas fa-thumbs-down fa-fw link-secondary me-1'></i><i class='fas fa-thumbtack fa-fw link-secondary me-1'></i><i class='fas fa-arrow-pointer fa-fw link-secondary'></i></br>$codes</small>";
+		$result['codes'] = "<small class=''>{$result['type']}{$result['yourrating']}{$result['dburl']}$codes</small>";
 		if (($array['releasedate'] === false) || ($array['releasedate'] == '')) {
 			$result['releasedate'] = "<small class=''><i class='fa-duotone fa-calendar-xmark fa-fw link-secondary'></i></small>";
 		} else {

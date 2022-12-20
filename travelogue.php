@@ -5,6 +5,10 @@
 	$pagina_title = 'Travelogue';
 	$pagina_favicon = 'travelogue.ico';
 
+    if (!isset($_SESSION['travelogue_codes'])) {
+        $_SESSION['travelogue_codes'] = build_travelogue_codes();
+    }
+
 	if (isset($_POST['travel_new_type'])) {
 		if (!isset($_POST['travel_new_release_date'])) {
 			$_POST['travel_new_release_date'] = false;
@@ -98,7 +102,7 @@
 				$records = $conn->query($query);
 				if ($records->num_rows > 0) {
 					while ($record = $records->fetch_assoc()) {
-						$put_together = travelogue_put_together(array('id' => $record['id'], 'type' => $record['type'], 'codes' => $record['codes'], 'releasedate' => $record['releasedate'], 'title' => $record['title'], 'creator' => $record['creator'], 'genre' => $record['genre'], 'datexp' => $record['datexp'], 'yourrating' => $record['yourrating'], 'comments' => $record['comments'], 'otherrelevant' => $record['otherrelevant'], 'dburl' => $record['dburl']));
+						$put_together = travelogue_put_together(array('id' => $record['id'], 'type' => $record['type'], 'codes' => $record['codes'], 'releasedate' => $record['releasedate'], 'title' => $record['title'], 'creator' => $record['creator'], 'genre' => $record['genre'], 'datexp' => $record['datexp'], 'yourrating' => $record['yourrating'], 'comments' => $record['comments'], 'otherrelevant' => $record['otherrelevant'], 'dburl' => $record['dburl']), $_SESSION['travelogue_codes']);
                         echo "
                         <div class='row px-1'>
                             <div class='col travelogue_col'><small><a href='javascript:void(0);' value='{$record['id']}' class='rounded link-dark bg-light me-1 edit_this_log' data-bs-toggle='modal' data-bs-target='#modal_update_entry'><i class='fas fa-pen-to-square fa-fw'></i></a>{$put_together['codes']}</small></div>
@@ -127,14 +131,20 @@
         <div class='mb-3'>
             <label for='travel_new_type' class='form-label'>Type:</label>
             <select id='travel_new_type' name='travel_new_type' type='text' class='form-control'>
-                <option value='1'>Music album</option>
-                <option value='2'>Movie</option>
-                <option value='3'>Painting</option>
-                <option value='4'>Video Game</option>
-                <option value='5'>Architecture</option>
-                <option value='6'>Sports event</option>
-                <option value='7'>Live event</option>
-                <option value='8'>Other</option>
+                <option value='music'>Music album</option>
+                <option value='concert'>Music concert</option>
+                <option value='movie'>Movie</option>
+                <option value='tvshow'>TV Show</option>
+                <option value='episode'>TV Show episode</option>
+                <option value='book'>Book</option>
+                <option value='comic'>Comic Book</option>
+                <option value='standup'>Stand-up Show</option>
+                <option value='painting'>Painting</option>
+                <option value='vidya'>Video Game</option>
+                <option value='architecture'>Architecture</option>
+                <option value='sports'>Sports event</option>
+                <option value='live'>Live event</option>
+                <option value='other'>Other</option>
             </select>
         </div>
         <div class='mb-3'>

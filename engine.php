@@ -3127,14 +3127,20 @@
 						<div class='mb-3'>
 							<label for='update_travel_new_type' class='form-label'>Type:</label>
 							<select id='update_travel_new_type' name='update_travel_new_type' type='text' class='form-control'>
-								<option value='1'>Music album</option>
-								<option value='2'>Movie</option>
-								<option value='3'>Painting</option>
-								<option value='4'>Video Game</option>
-								<option value='5'>Architecture</option>
-								<option value='6'>Sports event</option>
-								<option value='7'>Live event</option>
-								<option value='8'>Other</option>
+								<option value='music'>Music album</option>
+								<option value='concert'>Music concert</option>
+								<option value='movie'>Movie</option>
+								<option value='tvshow'>TV Show</option>
+								<option value='episode'>TV Show episode</option>
+								<option value='book'>Book</option>
+								<option value='comic'>Comic Book</option>
+								<option value='standup'>Stand-up Show</option>
+								<option value='painting'>Painting</option>
+								<option value='vidya'>Video Game</option>
+								<option value='architecture'>Architecture</option>
+								<option value='sports'>Sports event</option>
+								<option value='live'>Live event</option>
+								<option value='other'>Other</option>
 							</select>
 						</div>
 						<div class='mb-3'>
