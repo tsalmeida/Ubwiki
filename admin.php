@@ -12,25 +12,7 @@
 	}
 
 	if (isset($_POST['trigger_atualizacao'])) {
-        $conn->query("UPDATE travelogue SET datexp = '20200505' WHERE id = 1087");
-        $conn->query("UPDATE travelogue SET datexp = '20200508' WHERE id = 1168");
-        $conn->query("UPDATE travelogue SET datexp = '20200513' WHERE id = 1169");
-        $conn->query("UPDATE travelogue SET datexp = '20201201' WHERE id = 852");
-        $conn->query("UPDATE travelogue SET datexp = '20201205' WHERE id = 1177");
-        $conn->query("UPDATE travelogue SET datexp = '20201208' WHERE id = 1129");
-        $conn->query("UPDATE travelogue SET datexp = '20210123' WHERE id = 883");
-        $conn->query("UPDATE travelogue SET datexp = '20210124' WHERE id = 1187");
-        $conn->query("UPDATE travelogue SET datexp = '20210125' WHERE id = 75");
-        $conn->query("UPDATE travelogue SET datexp = '20210125' WHERE id = 394");
-        $conn->query("UPDATE travelogue SET datexp = '20210227' WHERE id = 563");
-        $conn->query("UPDATE travelogue SET datexp = '20210415' WHERE id = 1054");
-        $conn->query("UPDATE travelogue SET datexp = '20210727' WHERE id = 1071");
-        $conn->query("UPDATE travelogue SET datexp = '20210905' WHERE id = 1100");
-        $conn->query("UPDATE travelogue SET datexp = '20221027' WHERE id = 1131");
-        $conn->query("UPDATE travelogue SET datexp = '20221114' WHERE id = 975");
-        $conn->query("UPDATE travelogue SET datexp = '20221119' WHERE id = 777");
-        $conn->query("UPDATE travelogue SET datexp = '20221123' WHERE id = 1108");
-        $conn->query("UPDATE travelogue SET datexp = '20221123' WHERE id = 1160");
+
 	}
 
 	if (isset($_POST['trigger_atualizar_textos_size'])) {
