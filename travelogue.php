@@ -133,26 +133,28 @@
 					case 'alphabetical_title':
 						$order_module = "ORDER BY title, releasedate";
 						break;
-                    case 'alphabetical_genre':
-                        $order_module = "ORDER BY genre, releasedate";
-                        break;
-                    case 'alphabetical_type':
-                        $order_module = "ORDER BY type, releasedate";
-                        break;
+					case 'alphabetical_genre':
+						$order_module = "ORDER BY genre, releasedate";
+						break;
+					case 'alphabetical_type':
+						$order_module = "ORDER BY type, releasedate";
+						break;
 					case false:
 					default:
 					case 'chronological':
 						$order_module = "ORDER BY releasedate";
 				}
-                if ($_SESSION['travelogue_separate_types'] == true) {
-                    //not yet implemented
-                }
 				$query = prepare_query("SELECT id, type, codes, releasedate, title, creator, genre, datexp, yourrating, comments, otherrelevant, dburl FROM travelogue WHERE state = 1 $filter_module AND user_id = {$_SESSION['user_id']} $order_module", 'log');
 				$records = $conn->query($query);
+				if ($_SESSION['travelogue_separate_types'] == true) {
+					$result = array();
+				} else {
+					$result = false;
+				}
 				if ($records->num_rows > 0) {
 					while ($record = $records->fetch_assoc()) {
 						$put_together = travelogue_put_together(array('id' => $record['id'], 'type' => $record['type'], 'codes' => $record['codes'], 'releasedate' => $record['releasedate'], 'title' => $record['title'], 'creator' => $record['creator'], 'genre' => $record['genre'], 'datexp' => $record['datexp'], 'yourrating' => $record['yourrating'], 'comments' => $record['comments'], 'otherrelevant' => $record['otherrelevant'], 'dburl' => $record['dburl']), $_SESSION['travelogue_codes']);
-						echo "
+						$instance = "
                         <div class='row px-1'>
                             <div class='col-1 travelogue_col'><a href='javascript:void(0);' value='{$record['id']}' class='rounded link-dark bg-light me-2 edit_this_log' data-bs-toggle='modal' data-bs-target='#modal_update_entry'><i class='fas fa-pen-to-square fa-fw'></i></a>{$put_together['codes']}</div>
                             <div class='col-1 travelogue_col'>{$put_together['releasedate']}{$put_together['datexp']}</div>
@@ -163,8 +165,25 @@
                             <div class='col travelogue_col'>{$put_together['otherrelevant']}</div>
                         </div>
                         ";
+						if ($_SESSION['travelogue_separate_types'] == true) {
+                            if (!isset($result[$put_together['type']])) {
+								$result[$put_together['type']] = $instance;
+							} else {
+								$result[$put_together['type']] .= $instance;
+							}
+						} else {
+							$result .= $instance;
+						}
 					}
 				}
+				if ($_SESSION['travelogue_separate_types'] == true) {
+					$parts = false;
+                    foreach ($result as $key => $instance) {
+						$parts .= $result[$key];
+					}
+					$result = $parts;
+				}
+				echo $result;
 			?>
         </div>
     </div>
