@@ -32,7 +32,7 @@
 	}
 
 	echo "<div class='modal fade' id='$template_modal_div_id' tabindex='-1'>";
-	echo "<div id='inner_$template_modal_div_id' class='modal-dialog modal-lg modal-dialog-centered $modal_scrollable' role='document'>";
+	echo "<div id='inner_$template_modal_div_id' class='modal-dialog modal-lg $modal_scrollable' role='document'>";
 
 	if ($template_modal_show_buttons == true) {
 		echo "<form id='$template_modal_form_id' name='$template_modal_form_id' method='post' $template_modal_enctype>";

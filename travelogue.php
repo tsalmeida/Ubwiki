@@ -45,6 +45,20 @@
 		$conn->query($query);
 	}
 
+	if (!isset($_SESSION['travelogue_separate_types'])) {
+		$_SESSION['travelogue_separate_types'] = true;
+	}
+	if (isset($_POST['trigger_modal_filter'])) {
+		if (isset($_POST['travelogue_sorting'])) {
+			$_SESSION['travelogue_sorting'] = $_POST['travelogue_sorting'];
+		}
+		if (isset($_POST['travelogue_separate_types'])) {
+			$_SESSION['travelogue_separate_types'] = true;
+		} else {
+			$_SESSION['travelogue_separate_types'] = false;
+		}
+	}
+
 	if ($_POST) {
 		header("Location: " . $_SERVER['REQUEST_URI']);
 		exit();
@@ -98,47 +112,49 @@
                                 <span class='text-white font-half-condensed-400'>Relevant information</span>
                     </div>
                 </div>";
-				if (!isset($_SESSION['travelogue_order'])) {
-					$_SESSION['travelogue_order'] = false;
+				if (!isset($_SESSION['travelogue_sorting'])) {
+					$_SESSION['travelogue_sorting'] = false;
 				}
-                $filter_module = false;
+				$filter_module = false;
 				if (!isset($_SESSION['travelogue_filter'])) {
-					$_SESSION['travelogue_filter'] = array(
-                        'title' => false,
-                        'creator' => false,
-                        'comments' => false,
-                        'otherrelevant' => false,
-                        'type' => false
-					);
-                    $filter_module = false;
+					$_SESSION['travelogue_filter'] = array('title' => false, 'creator' => false, 'comments' => false, 'otherrelevant' => false, 'type' => false);
+					$filter_module = false;
 				} else {
-                    $filter_module = false;
-                }
-                $order_module = false;
-				switch ($_SESSION['travelogue_order']) {
+					$filter_module = false;
+				}
+				$order_module = false;
+				switch ($_SESSION['travelogue_sorting']) {
+					case 'biographical':
+						$order_module = "ORDER BY datexp DESC, releasedate DESC";
+						break;
+					case 'alphabetical_creator':
+						$order_module = "ORDER BY creator, releasedate";
+						break;
+					case 'alphabetical_title':
+						$order_module = "ORDER BY title, releasedate";
+						break;
+                    case 'alphabetical_genre':
+                        $order_module = "ORDER BY genre, releasedate";
+                        break;
+                    case 'alphabetical_type':
+                        $order_module = "ORDER BY type, releasedate";
+                        break;
 					case false:
 					default:
 					case 'chronological':
 						$order_module = "ORDER BY releasedate";
-						break;
-					case 'biographical':
-						$order_module = "ORDER BY datexp";
-						break;
-					case 'alphabetical_creator':
-						$order_module = "ORDER BY creator";
-						break;
-					case 'alphabetical_title':
-						$order_module = "ORDER BY title";
-						break;
 				}
-				$query = prepare_query("SELECT id, type, codes, releasedate, title, creator, genre, datexp, yourrating, comments, otherrelevant, dburl FROM travelogue WHERE state = 1 $filter_module AND user_id = {$_SESSION['user_id']} $order_module");
+                if ($_SESSION['travelogue_separate_types'] == true) {
+                    //not yet implemented
+                }
+				$query = prepare_query("SELECT id, type, codes, releasedate, title, creator, genre, datexp, yourrating, comments, otherrelevant, dburl FROM travelogue WHERE state = 1 $filter_module AND user_id = {$_SESSION['user_id']} $order_module", 'log');
 				$records = $conn->query($query);
 				if ($records->num_rows > 0) {
 					while ($record = $records->fetch_assoc()) {
 						$put_together = travelogue_put_together(array('id' => $record['id'], 'type' => $record['type'], 'codes' => $record['codes'], 'releasedate' => $record['releasedate'], 'title' => $record['title'], 'creator' => $record['creator'], 'genre' => $record['genre'], 'datexp' => $record['datexp'], 'yourrating' => $record['yourrating'], 'comments' => $record['comments'], 'otherrelevant' => $record['otherrelevant'], 'dburl' => $record['dburl']), $_SESSION['travelogue_codes']);
 						echo "
                         <div class='row px-1'>
-                            <div class='col-1 travelogue_col'><small><a href='javascript:void(0);' value='{$record['id']}' class='rounded link-dark bg-light me-2 edit_this_log' data-bs-toggle='modal' data-bs-target='#modal_update_entry'><i class='fas fa-pen-to-square fa-fw'></i></a>{$put_together['codes']}</small></div>
+                            <div class='col-1 travelogue_col'><a href='javascript:void(0);' value='{$record['id']}' class='rounded link-dark bg-light me-2 edit_this_log' data-bs-toggle='modal' data-bs-target='#modal_update_entry'><i class='fas fa-pen-to-square fa-fw'></i></a>{$put_together['codes']}</div>
                             <div class='col-1 travelogue_col'>{$put_together['releasedate']}{$put_together['datexp']}</div>
                             <div class='col travelogue_col d-flex justify-content-center'>{$put_together['title']}</div>
                             <div class='col travelogue_col d-flex justify-content-center'>{$put_together['creator']}</div>
@@ -233,7 +249,41 @@
 
 	$template_modal_div_id = 'modal_filter';
 	$template_modal_titulo = 'Filter';
-	$template_modal_body_conteudo = 'Loading...';
+	$template_modal_show_buttons = true;
+	$template_modal_body_conteudo = false;
+	$template_modal_body_conteudo = "
+            <h3>Order</h3>
+	        <div class='mb-2'>
+	            <label class='form-label' for='travelogue_sorting'>How to order entries:</label>
+	            <select class='form-select' id='travelogue_sorting' name='travelogue_sorting'>
+	                <option value='chronological'>Chronological by release date</option>
+	                <option value='biographical'>Chronological by date experienced</option>
+	                <option value='alphabetical_creator'>Alphabetical by creator name</option>
+	                <option value='alphabetical_title'>Alphabetical by title</option>
+	                <option value='alphabetical_genre'>Alphabetical by genre</option>
+	                <option value='alphabetical_type'>Alphabetical by type</option>
+                </select>
+            </div>
+            <div class='form-check'>
+                <input name='travelogue_separate_types' id='travelogue_separate_types' class='form-check-input' type='checkbox' checked>
+                <label for='travelogue_separate_types' class='form-check-label'>Separate entries by type</label>    
+            </div>
+            <hr>
+            <h3>Filter</h3>
+            <p>Show only the following entry types:</p>
+            <div class='form-check'>
+                <input name='travelogue_filter_music' id='travelogue_filter_music' class='form-check-input' type='checkbox'>
+                <label for='travelogue_filter_music' class='form-check-label'>Music</label>
+            </div>
+            <div class='form-check'>
+                <input name='travelogue_filter_movie' id='travelogue_filter_movie' class='form-check-input' type='checkbox'>
+                <label for='travelogue_filter_movie' class='form-check-label'>Movie</label>
+            </div>
+            <div class='form-check'>
+                <input name='travelogue_filter_sports' id='travelogue_filter_sports' class='form-check-input' type='checkbox'>
+                <label for='travelogue_filter_sports' class='form-check-label'>Sports</label>
+            </div>
+	";
 	include 'templates/modal.php';
 ?>
 <script>
