@@ -5,9 +5,9 @@
 	$pagina_title = 'Travelogue';
 	$pagina_favicon = 'travelogue.ico';
 
-    if (!isset($_SESSION['travelogue_codes'])) {
-        $_SESSION['travelogue_codes'] = build_travelogue_codes();
-    }
+	if (!isset($_SESSION['travelogue_codes'])) {
+		$_SESSION['travelogue_codes'] = build_travelogue_codes();
+	}
 
 	if (isset($_POST['travel_new_type'])) {
 		if (!isset($_POST['travel_new_release_date'])) {
@@ -16,7 +16,7 @@
 		if (!isset($_POST['travel_new_title'])) {
 			$_POST['travel_new_title'] = false;
 		}
-        $_POST['travel_new_title'] = mysqli_real_escape_string($conn, $_POST['travel_new_title']);
+		$_POST['travel_new_title'] = mysqli_real_escape_string($conn, $_POST['travel_new_title']);
 		if (!isset($_POST['travel_new_creator'])) {
 			$_POST['travel_new_creator'] = false;
 		}
@@ -98,15 +98,48 @@
                                 <span class='text-white font-half-condensed-400'>Relevant information</span>
                     </div>
                 </div>";
-				$query = prepare_query("SELECT id, type, codes, releasedate, title, creator, genre, datexp, yourrating, comments, otherrelevant, dburl FROM travelogue WHERE state = 1 AND user_id = {$_SESSION['user_id']}");
+				if (!isset($_SESSION['travelogue_order'])) {
+					$_SESSION['travelogue_order'] = false;
+				}
+                $filter_module = false;
+				if (!isset($_SESSION['travelogue_filter'])) {
+					$_SESSION['travelogue_filter'] = array(
+                        'title' => false,
+                        'creator' => false,
+                        'comments' => false,
+                        'otherrelevant' => false,
+                        'type' => false
+					);
+                    $filter_module = false;
+				} else {
+                    $filter_module = false;
+                }
+                $order_module = false;
+				switch ($_SESSION['travelogue_order']) {
+					case false:
+					default:
+					case 'chronological':
+						$order_module = "ORDER BY releasedate";
+						break;
+					case 'biographical':
+						$order_module = "ORDER BY datexp";
+						break;
+					case 'alphabetical_creator':
+						$order_module = "ORDER BY creator";
+						break;
+					case 'alphabetical_title':
+						$order_module = "ORDER BY title";
+						break;
+				}
+				$query = prepare_query("SELECT id, type, codes, releasedate, title, creator, genre, datexp, yourrating, comments, otherrelevant, dburl FROM travelogue WHERE state = 1 $filter_module AND user_id = {$_SESSION['user_id']} $order_module");
 				$records = $conn->query($query);
 				if ($records->num_rows > 0) {
 					while ($record = $records->fetch_assoc()) {
 						$put_together = travelogue_put_together(array('id' => $record['id'], 'type' => $record['type'], 'codes' => $record['codes'], 'releasedate' => $record['releasedate'], 'title' => $record['title'], 'creator' => $record['creator'], 'genre' => $record['genre'], 'datexp' => $record['datexp'], 'yourrating' => $record['yourrating'], 'comments' => $record['comments'], 'otherrelevant' => $record['otherrelevant'], 'dburl' => $record['dburl']), $_SESSION['travelogue_codes']);
-                        echo "
+						echo "
                         <div class='row px-1'>
-                            <div class='col travelogue_col'><small><a href='javascript:void(0);' value='{$record['id']}' class='rounded link-dark bg-light me-1 edit_this_log' data-bs-toggle='modal' data-bs-target='#modal_update_entry'><i class='fas fa-pen-to-square fa-fw'></i></a>{$put_together['codes']}</small></div>
-                            <div class='col-1 travelogue_col'>{$put_together['releasedate']}</br>{$put_together['datexp']}</div>
+                            <div class='col travelogue_col'><small><a href='javascript:void(0);' value='{$record['id']}' class='rounded link-dark bg-light me-2 edit_this_log' data-bs-toggle='modal' data-bs-target='#modal_update_entry'><i class='fas fa-pen-to-square fa-fw'></i></a>{$put_together['codes']}</small></div>
+                            <div class='col-1 travelogue_col'>{$put_together['releasedate']}{$put_together['datexp']}</div>
                             <div class='col travelogue_col d-flex justify-content-center'>{$put_together['title']}</div>
                             <div class='col travelogue_col d-flex justify-content-center'>{$put_together['creator']}</div>
                             <div class='col-1 travelogue_col d-flex justify-content-center'>{$put_together['genre']}</div>
@@ -114,7 +147,6 @@
                             <div class='col travelogue_col'>{$put_together['otherrelevant']}</div>
                         </div>
                         ";
-
 					}
 				}
 			?>
@@ -189,10 +221,10 @@
     ";
 	include 'templates/modal.php';
 
-    $template_modal_div_id = 'modal_update_entry';
-    $template_modal_titulo = 'Update item';
-    $template_modal_body_conteudo = 'Loading...';
-    include 'templates/modal.php';
+	$template_modal_div_id = 'modal_update_entry';
+	$template_modal_titulo = 'Update item';
+	$template_modal_body_conteudo = 'Loading...';
+	include 'templates/modal.php';
 
 	$template_modal_div_id = 'modal_del_item';
 	$template_modal_titulo = 'Del item';
@@ -209,7 +241,7 @@
         $(this).addClass('d-none');
         $("#travel_new_rating").removeAttr("disabled");
     })
-    $(document).on('click', '.edit_this_log', function() {
+    $(document).on('click', '.edit_this_log', function () {
         log_id = $(this).attr('value');
         $.post('engine.php', {
             'edit_this_log': log_id

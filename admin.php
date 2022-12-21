@@ -11,111 +11,20 @@
 		header("Location:ubwiki.php");
 	}
 
-//    $conn->query("ALTER TABLE `travelogue` CHANGE `type` `type` VARCHAR(20) NOT NULL DEFAULT 'other';");
-//    $conn->query("CREATE TABLE `Ubwiki`.`travelogue_codes` ( `id` INT NOT NULL , `title` VARCHAR(20) NULL DEFAULT NULL , `icon` VARCHAR(30) NULL DEFAULT NULL , `color` VARCHAR(20) NULL DEFAULT NULL , `description` VARCHAR(280) NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
-//    $conn->query("INSERT INTO travelogue_codes (title, icon, color, description) VALUES ('favorite', 'fas fa-heart', 'red', 'A personal favorite');
-//INSERT INTO travelogue_codes (title, icon, color, description) VALUES ('lyrics', 'fas fa-feather', 'purple', 'Good lyrics');
-//INSERT INTO travelogue_codes (title, icon, color, description) VALUES ('hifi', 'fas fa-waveform', 'teal', 'Great audio quality');
-//INSERT INTO travelogue_codes (title, icon, color, description) VALUES ('relaxing', 'fas fa-blanket', 'purple', 'Relaxing');
-//INSERT INTO travelogue_codes (title, icon, color, description) VALUES ('heavy', 'fas fa-weight-hanging', 'blue', 'Heavy sound');
-//INSERT INTO travelogue_codes (title, icon, color, description) VALUES ('vibe', 'fas fa-pepper-hot', 'red', 'Great vibe');
-//INSERT INTO travelogue_codes (title, icon, color, description) VALUES ('complex', 'fas fa-brain-circuit', 'orange', 'Complex');
-//INSERT INTO travelogue_codes (title, icon, color, description) VALUES ('instrumental', 'fas fa-trumpet', 'yellow', 'Instrumental');
-//INSERT INTO travelogue_codes (title, icon, color, description) VALUES ('live', 'fas fa-guitars', 'pink', 'Recorded live');
-    //INSERT INTO travelogue_codes (title, icon, color, description) VALUES ('lists', 'fas fa-award', 'yellow', 'Critically acclaimed');
-//	INSERT INTO travelogue_codes (title, icon, color, description) VALUES ('bookmark', 'fas fa-bookmark', 'red', 'Bookmark');
-//INSERT INTO travelogue_codes (title, icon, color, description) VALUES ('thumbsup', 'fas fa-thumbs-up', 'blue', 'Thumbs up');
-//INSERT INTO travelogue_codes (title, icon, color, description) VALUES ('thumbsdown', 'fas fa-thumbs-down', 'red', 'Thumbs down');
-//INSERT INTO travelogue_codes (title, icon, color, description) VALUES ('thumbtack', 'fas fa-thumbtack', 'yellow', 'Thumbtack');
-//INSERT INTO travelogue_codes (title, icon, color, description) VALUES ('pointer', 'fas fa-arrow-pointer', 'white', 'Pointer');
-    //");
-
 	if (isset($_POST['trigger_atualizacao'])) {
-        $conn->query("TRUNCATE `ubwiki`.`travelogue`");
-        $query = prepare_query("SELECT * FROM old_travelogue");
-        $old_logs = $conn->query($query);
-        if ($old_logs->num_rows > 0) {
-//			$count = 0;
-            while ($old_log = $old_logs->fetch_assoc()) {
-//                $count++;
-//                if ($count >= 10) {
-//                    break;
-//                }
-                $old_log['type'] = strtolower($old_log['type']);
-                $releasedate = 'NULL';
-                $datexp = 'NULL';
-                if ($old_log['releasemonth'] != '') {
-                    if (strlen($old_log['releasemonth']) == 1) {
-                        $old_log['releasemonth'] = "0{$old_log['releasemonth']}";
+        $query = prepare_query("SELECT id, codes FROM travelogue");
+        $logs = $conn->query($query);
+        if ($logs->num_rows > 0) {
+            while ($log = $logs->fetch_assoc()) {
+                $codes = unserialize($log['codes']);
+                foreach ($codes as $key => $array) {
+                    if ($codes[$key] == false) {
+                        unset($codes[$key]);
                     }
-                    $releasedate = "{$old_log['releaseyear']}{$old_log['releasemonth']}";
-                } else {
-                    $releasedate = $old_log['releaseyear'];
-                }
-                if ($old_log['otherlistens'] != '') {
-                    $datexp = "{$old_log['firstlisten']}, {$old_log['otherlistens']}";
-                } else {
-                    $datexp = $old_log['firstlisten'];
-                }
-                $datexp = str_replace('/', '', $datexp);
-                $codes = array();
-                if ($old_log['favorite'] == '1') {
-                    $codes['favorite'] = true;
-                } else {
-                    $codes['favorite'] = false;
-                }
-                if ($old_log['good_lyrics'] == '1') {
-                    $codes['lyrics'] = true;
-                } else {
-                    $codes['lyrics'] = false;
-                }
-                if ($old_log['hifi'] == '1') {
-                    $codes['hifi'] = true;
-                } else {
-                    $codes['hifi'] = false;
-                }
-                if ($old_log['relaxing'] == '1') {
-                    $codes['relaxing'] = true;
-                } else {
-                    $codes['relaxing'] = false;
-                }
-                if ($old_log['heavy'] == '1') {
-                    $codes['heavy'] = true;
-                } else {
-                    $codes['heavy'] = false;
-                }
-                if ($old_log['great_feel'] == '1') {
-                    $codes['vibe'] = true;
-                } else {
-                    $codes['vibe'] = false;
-                }
-                if ($old_log['complex'] == '1') {
-                    $codes['complex'] = true;
-                } else {
-                    $codes['complex'] = false;
-                }
-                if ($old_log['instrumental'] == '1') {
-                    $codes['instrumental'] = true;
-                } else {
-                    $codes['instrumental'] = false;
-                }
-                if ($old_log['live'] == '1') {
-                    $codes['live'] = true;
-                } else {
-                    $codes['live'] = false;
-                }
-                if ($old_log['lists'] == '1') {
-                    $codes['lists'] = true;
-                } else {
-                    $codes['lists'] = false;
                 }
                 $codes = serialize($codes);
-				$old_log['title'] = mysqli_real_escape_string($conn, $old_log['title']);
-                $old_log['creator'] = mysqli_real_escape_string($conn, $old_log['creator']);
-                $old_log['comments'] = mysqli_real_escape_string($conn, $old_log['comments']);
-                $old_log['otherrelevant'] = mysqli_real_escape_string($conn, $old_log['otherrelevant']);
-                $query_transfer = prepare_query("INSERT INTO travelogue (user_id, type, codes, releasedate, title, creator, genre, datexp, yourrating, comments, otherrelevant) VALUES (1, '{$old_log['type']}', '$codes', '$releasedate', '{$old_log['title']}', '{$old_log['creator']}', '{$old_log['genre']}', '$datexp', '{$old_log['yourrating']}', '{$old_log['comments']}', '{$old_log['otherrelevant']}')", 'log');
-                $conn->query($query_transfer);
+                $query = prepare_query("UPDATE travelogue SET codes = '$codes' WHERE id = {$log['id']}");
+                $conn->query($query);
             }
         }
 	}

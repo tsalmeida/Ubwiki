@@ -4369,18 +4369,27 @@
 	function travelogue_interpret_code($codes, $travelogue_codes)
 	{
 		$return = false;
-		foreach ($travelogue_codes as $key => $array) {
-			if (!isset($codes[$key])) {
-				continue;
-			}
+		foreach ($codes as $key => $value) {
 			if ($codes[$key] == true) {
 				$color = nexus_colors(array('mode'=>'convert', 'color'=>$travelogue_codes[$key][0]['color']));
 				$return .= "<i class='{$travelogue_codes[$key][0]['icon']} fa-fw {$color['link-color']}'></i>";
-			} else {
-				$return .= "<i class='{$travelogue_codes[$key][0]['icon']} fa-fw link-secondary'></i>";
 			}
 		}
 		return $return;
+
+//		$return = false;
+//		foreach ($travelogue_codes as $key => $array) {
+//			if (!isset($codes[$key])) {
+//				continue;
+//			}
+//			if ($codes[$key] == true) {
+//				$color = nexus_colors(array('mode'=>'convert', 'color'=>$travelogue_codes[$key][0]['color']));
+//				$return .= "<i class='{$travelogue_codes[$key][0]['icon']} fa-fw {$color['link-color']}'></i>";
+//			} else {
+//				$return .= "<i class='{$travelogue_codes[$key][0]['icon']} fa-fw link-secondary'></i>";
+//			}
+//		}
+//		return $return;
 	}
 
 	function travelogue_put_together($array, $travelogue_codes)
@@ -4450,18 +4459,18 @@
 		if ($array['dburl'] != false) {
 			$result['dburl'] = "<a class='link-success me-1' href='{$array['dburl']}' target='_blank'><i class='fas fa-circle-info fa-fw'></i></a>";
 		} else {
-			$result['dburl'] = "<a class='link-secondary me-1' href='javascript:void(0);'><i class='fas fa-circle-info fa-fw'></i></a>";
+			$result['dburl'] = false;
 		}
 		if ($array['yourrating'] == false) {
 			$result['yourrating'] = "<i class='fas fa-star fa-fw text-muted me-1'></i>";
 		} else {
 			$result['yourrating'] = process_rating($array['yourrating']);
 		}
-		$result['codes'] = "<small class=''>{$result['type']}{$result['yourrating']}{$result['dburl']}$codes</small>";
+		$result['codes'] = "<span class=''>{$result['type']}{$result['yourrating']}{$result['dburl']}$codes</span>";
 		if (($array['releasedate'] === false) || ($array['releasedate'] == '')) {
-			$result['releasedate'] = "<small class=''><i class='fa-duotone fa-calendar-xmark fa-fw link-secondary'></i></small>";
+			$result['releasedate'] = "<small class='me-3'><i class='fa-duotone fa-calendar-xmark fa-fw link-secondary'></i></small>";
 		} else {
-			$result['releasedate'] = "<small class=''><i class='fa-duotone fa-calendar fa-fw link-secondary me-1'></i>{$array['releasedate']}</small>";
+			$result['releasedate'] = "<small class='me-3'><i class='fa-duotone fa-calendar fa-fw link-secondary me-1'></i>{$array['releasedate']}</small>";
 		}
 		$result['title'] = "<small class='align-self-center'>{$array['title']}</small>";
 		$result['creator'] = "<small class='align-self-center'>{$array['creator']}</small>";
