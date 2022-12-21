@@ -3149,15 +3149,15 @@
 						</div>
 						<div class='mb-3'>
 							<label for='update_travel_new_title' class='form-label'>Title:</label>
-							<input id='update_travel_new_title' name='update_travel_new_title' type='text' class='form-control' value='{$log['title']}'>
+							<input id='update_travel_new_title' name='update_travel_new_title' type='text' class='form-control' value=\"{$log['title']}\">
 						</div>
 						<div class='mb-3'>
 							<label for='update_travel_new_creator' class='form-label'>Creator:</label>
-							<input id='update_travel_new_creator' name='update_travel_new_creator' type='text' class='form-control' value='{$log['creator']}'>
+							<input id='update_travel_new_creator' name='update_travel_new_creator' type='text' class='form-control' value=\"{$log['creator']}\">
 						</div>
 						<div class='mb-3'>
 							<label for='update_travel_new_genre' class='form-label'>Genre:</label>
-							<input id='update_travel_new_genre' name='update_travel_new_genre' type='text' class='form-control' value='{$log['genre']}'>
+							<input id='update_travel_new_genre' name='update_travel_new_genre' type='text' class='form-control' value=\"{$log['genre']}\">
 						</div>
 						<div class='mb-3'>
 							<label for=update_travel_new_datexp' class='form-label'>Date experienced:</label>
@@ -3190,7 +3190,7 @@
 						</div>
 						<div class='mb-3'>
 							<label for='update_travel_new_database' class='form-label'>Database link (Wikipedia, IMDb, AllMusic etc.):</label>
-							<input id='update_travel_new_database' name='update_travel_new_database' type='url' class='form-control' value='{$log['dburl']}'>
+							<input id='update_travel_new_database' name='update_travel_new_database' type='url' class='form-control' value=\"{$log['dburl']}\">
 						</div>
 						<button type='submit' class='btn btn-primary' name='update_this_entry' id='update_this_entry' value='{$log['id']}'>Submit</button>
 					</form>
