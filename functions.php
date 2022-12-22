@@ -4434,8 +4434,29 @@
 			default:
 				$result['type'] = "<i class='fas fa-music fa-fw link-indigo me-1'></i>";
 				break;
+			case 'concert':
+				$result['type'] = "<i class='fas fa-film fa-fw link-teal me-1'></i>";
+				break;
 			case 'movie':
 				$result['type'] = "<i class='fas fa-film fa-fw link-teal me-1'></i>";
+				break;
+			case 'tvshow':
+				$result['type'] = "<i class='fas fa-film fa-fw link-teal me-1'></i>";
+				break;
+			case 'episode':
+				$result['type'] = "<i class='fas fa-film fa-fw link-teal me-1'></i>";
+				break;
+			case 'book':
+				$result['type'] = "<i class='fas fa-book fa-fw link-teal me-1'></i>";
+				break;
+			case 'classical':
+				$result['type'] = "<i class='fas fa-violin fa-fw link-teal me-1'></i>";
+				break;
+			case 'comic':
+				$result['type'] = "<i class='fas fa-palette fa-fw link-success me-1'></i>";
+				break;
+			case 'standup':
+				$result['type'] = "<i class='fas fa-palette fa-fw link-success me-1'></i>";
 				break;
 			case 'painting':
 				$result['type'] = "<i class='fas fa-palette fa-fw link-success me-1'></i>";

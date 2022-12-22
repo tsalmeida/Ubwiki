@@ -204,6 +204,7 @@
                 <option value='tvshow'>TV Show</option>
                 <option value='episode'>TV Show episode</option>
                 <option value='book'>Book</option>
+                <option value='classical'>Classical music</option>
                 <option value='comic'>Comic Book</option>
                 <option value='standup'>Stand-up Show</option>
                 <option value='painting'>Painting</option>
