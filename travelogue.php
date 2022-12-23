@@ -41,7 +41,54 @@
 		if (!isset($_POST['travel_new_database'])) {
 			$_POST['travel_new_database'] = false;
 		}
-		$query = prepare_query("INSERT INTO travelogue (user_id, type, releasedate, title, creator, genre, datexp, yourrating, comments, otherrelevant, dburl) VALUES ({$_SESSION['user_id']}, '{$_POST['travel_new_type']}', '{$_POST['travel_new_release_date']}', '{$_POST['travel_new_title']}', '{$_POST['travel_new_creator']}', '{$_POST['travel_new_genre']}', '{$_POST['travel_new_datexp']}', '{$_POST['travel_new_rating']}', '{$_POST['travel_new_comments']}', '{$_POST['travel_new_information']}', '{$_POST['travel_new_database']}')", 'log');
+		$travel_new_codes = array();
+		if (isset($_POST['travel_new_code_favorite'])) {
+			$travel_new_codes['favorite'] = true;
+		}
+		if (isset($_POST['travel_new_code_lyrics'])) {
+			$travel_new_codes['lyrics'] = true;
+		}
+		if (isset($_POST['travel_new_code_hifi'])) {
+			$travel_new_codes['hifi'] = true;
+		}
+		if (isset($_POST['travel_new_code_relaxing'])) {
+			$travel_new_codes['relaxing'] = true;
+		}
+		if (isset($_POST['travel_new_code_heavy'])) {
+			$travel_new_codes['heavy'] = true;
+		}
+		if (isset($_POST['travel_new_code_vibe'])) {
+			$travel_new_codes['vibe'] = true;
+		}
+		if (isset($_POST['travel_new_code_complex'])) {
+			$travel_new_codes['complex'] = true;
+		}
+		if (isset($_POST['travel_new_code_instrumental'])) {
+			$travel_new_codes['instrumental'] = true;
+		}
+		if (isset($_POST['travel_new_code_live'])) {
+			$travel_new_codes['live'] = true;
+		}
+		if (isset($_POST['travel_new_code_lists'])) {
+			$travel_new_codes['lists'] = true;
+		}
+		if (isset($_POST['travel_new_code_bookmark'])) {
+			$travel_new_codes['bookmark'] = true;
+		}
+		if (isset($_POST['travel_new_code_thumbsup'])) {
+			$travel_new_codes['thumbsup'] = true;
+		}
+		if (isset($_POST['travel_new_code_thumbsdown'])) {
+			$travel_new_codes['thumbsdown'] = true;
+		}
+		if (isset($_POST['travel_new_code_thumbtack'])) {
+			$travel_new_codes['thumbtack'] = true;
+		}
+		if (isset($_POST['travel_new_code_pointer'])) {
+			$travel_new_codes['pointer'] = true;
+		}
+		$travel_new_codes = serialize($travel_new_codes);
+		$query = prepare_query("INSERT INTO travelogue (user_id, type, codes, releasedate, title, creator, genre, datexp, yourrating, comments, otherrelevant, dburl) VALUES ({$_SESSION['user_id']}, '{$_POST['travel_new_type']}', '$travel_new_codes', '{$_POST['travel_new_release_date']}', '{$_POST['travel_new_title']}', '{$_POST['travel_new_creator']}', '{$_POST['travel_new_genre']}', '{$_POST['travel_new_datexp']}', '{$_POST['travel_new_rating']}', '{$_POST['travel_new_comments']}', '{$_POST['travel_new_information']}', '{$_POST['travel_new_database']}')", 'log');
 		$conn->query($query);
 	}
 
@@ -58,73 +105,56 @@
 			$_SESSION['travelogue_separate_types'] = false;
 		}
 
-        if (!isset($_POST['travelogue_filter_music'])) {
-            $_POST['travelogue_filter_music'] = false;
-        }
-        if (!isset($_POST['travelogue_filter_concert'])) {
-            $_POST['travelogue_filter_concert'] = false;
-        }
-        if (!isset($_POST['travelogue_filter_movie'])) {
-            $_POST['travelogue_filter_movie'] = false;
-        }
-        if (!isset($_POST['travelogue_filter_tvshow'])) {
-            $_POST['travelogue_filter_tvshow'] = false;
-        }
-        if (!isset($_POST['travelogue_filter_episode'])) {
-            $_POST['travelogue_filter_episode'] = false;
-        }
-        if (!isset($_POST['travelogue_filter_book'])) {
-            $_POST['travelogue_filter_book'] = false;
-        }
-        if (!isset($_POST['travelogue_filter_classical'])) {
-            $_POST['travelogue_filter_classical'] = false;
-        }
-        if (!isset($_POST['travelogue_filter_comic'])) {
-            $_POST['travelogue_filter_comic'] = false;
-        }
-        if (!isset($_POST['travelogue_filter_standup'])) {
-            $_POST['travelogue_filter_standup'] = false;
-        }
-        if (!isset($_POST['travelogue_filter_painting'])) {
-            $_POST['travelogue_filter_painting'] = false;
-        }
-        if (!isset($_POST['travelogue_filter_photo'])) {
-            $_POST['travelogue_filter_photo'] = false;
-        }
-        if (!isset($_POST['travelogue_filter_vidya'])) {
-            $_POST['travelogue_filter_vidya'] = false;
-        }
-        if (!isset($_POST['travelogue_filter_architecture'])) {
-            $_POST['travelogue_filter_architecture'] = false;
-        }
-        if (!isset($_POST['travelogue_filter_sports'])) {
-            $_POST['travelogue_filter_sports'] = false;
-        }
-        if (!isset($_POST['travelogue_filter_live'])) {
-            $_POST['travelogue_filter_live'] = false;
-        }
-        if (!isset($_POST['travelogue_filter_other'])) {
-            $_POST['travelogue_filter_other'] = false;
-        }
+		if (!isset($_POST['travelogue_filter_music'])) {
+			$_POST['travelogue_filter_music'] = false;
+		}
+		if (!isset($_POST['travelogue_filter_concert'])) {
+			$_POST['travelogue_filter_concert'] = false;
+		}
+		if (!isset($_POST['travelogue_filter_movie'])) {
+			$_POST['travelogue_filter_movie'] = false;
+		}
+		if (!isset($_POST['travelogue_filter_tvshow'])) {
+			$_POST['travelogue_filter_tvshow'] = false;
+		}
+		if (!isset($_POST['travelogue_filter_episode'])) {
+			$_POST['travelogue_filter_episode'] = false;
+		}
+		if (!isset($_POST['travelogue_filter_book'])) {
+			$_POST['travelogue_filter_book'] = false;
+		}
+		if (!isset($_POST['travelogue_filter_classical'])) {
+			$_POST['travelogue_filter_classical'] = false;
+		}
+		if (!isset($_POST['travelogue_filter_comic'])) {
+			$_POST['travelogue_filter_comic'] = false;
+		}
+		if (!isset($_POST['travelogue_filter_standup'])) {
+			$_POST['travelogue_filter_standup'] = false;
+		}
+		if (!isset($_POST['travelogue_filter_painting'])) {
+			$_POST['travelogue_filter_painting'] = false;
+		}
+		if (!isset($_POST['travelogue_filter_photo'])) {
+			$_POST['travelogue_filter_photo'] = false;
+		}
+		if (!isset($_POST['travelogue_filter_vidya'])) {
+			$_POST['travelogue_filter_vidya'] = false;
+		}
+		if (!isset($_POST['travelogue_filter_architecture'])) {
+			$_POST['travelogue_filter_architecture'] = false;
+		}
+		if (!isset($_POST['travelogue_filter_sports'])) {
+			$_POST['travelogue_filter_sports'] = false;
+		}
+		if (!isset($_POST['travelogue_filter_live'])) {
+			$_POST['travelogue_filter_live'] = false;
+		}
+		if (!isset($_POST['travelogue_filter_other'])) {
+			$_POST['travelogue_filter_other'] = false;
+		}
 
-        $_SESSION['travelogue_filter_options'] = array(
-                'music' => $_POST['travelogue_filter_music'],
-                'concert' => $_POST['travelogue_filter_concert'],
-                'movie' => $_POST['travelogue_filter_movie'],
-                'tvshow' => $_POST['travelogue_filter_tvshow'],
-                'episode' => $_POST['travelogue_filter_episode'],
-                'book' => $_POST['travelogue_filter_book'],
-                'classical' => $_POST['travelogue_filter_classical'],
-                'comic' => $_POST['travelogue_filter_comic'],
-                'standup' => $_POST['travelogue_filter_standup'],
-                'painting' => $_POST['travelogue_filter_painting'],
-                'photo' => $_POST['travelogue_filter_photo'],
-                'vidya' => $_POST['travelogue_filter_vidya'],
-                'architecture' => $_POST['travelogue_filter_architecture'],
-                'sports' => $_POST['travelogue_filter_sports'],
-                'live' => $_POST['travelogue_filter_live'],
-                'other' => $_POST['travelogue_filter_other']
-        );
+		$_SESSION['travelogue_filter_options'] = array('music' => $_POST['travelogue_filter_music'], 'concert' => $_POST['travelogue_filter_concert'], 'movie' => $_POST['travelogue_filter_movie'], 'tvshow' => $_POST['travelogue_filter_tvshow'], 'episode' => $_POST['travelogue_filter_episode'], 'book' => $_POST['travelogue_filter_book'], 'classical' => $_POST['travelogue_filter_classical'], 'comic' => $_POST['travelogue_filter_comic'], 'standup' => $_POST['travelogue_filter_standup'], 'painting' => $_POST['travelogue_filter_painting'], 'photo' => $_POST['travelogue_filter_photo'], 'vidya' => $_POST['travelogue_filter_vidya'], 'architecture' => $_POST['travelogue_filter_architecture'], 'sports' => $_POST['travelogue_filter_sports'], 'live' => $_POST['travelogue_filter_live'], 'other' => $_POST['travelogue_filter_other']);
 
 	}
 
@@ -150,8 +180,7 @@
     <div class="row sticky-top bg-dark">
 		<?php
 			echo nexus_put_together(array('type' => 'navbar', 'color' => 'teal', 'class' => 'col-auto', 'href' => false, 'icon' => 'fas fa-plus', 'id' => 'trigger_add_item', 'modal' => '#modal_add_item'));
-			echo nexus_put_together(array('type' => 'navbar', 'color' => 'red', 'class' => 'col-auto', 'href' => false, 'icon' => 'fas fa-minus', 'id' => 'trigger_del_item', 'modal' => '#modal_del_item'));
-			echo nexus_put_together(array('type' => 'navbar', 'color' => 'purple', 'class' => 'col-auto ms-5', 'href' => false, 'icon' => 'fas fa-filter-list', 'id' => 'trigger_filter', 'modal' => '#modal_filter'));
+			echo nexus_put_together(array('type' => 'navbar', 'color' => 'purple', 'class' => 'col-auto', 'href' => false, 'icon' => 'fas fa-filter-list', 'id' => 'trigger_filter', 'modal' => '#modal_filter'));
 		?>
     </div>
     <div class="row">
@@ -195,7 +224,7 @@
 				switch ($_SESSION['travelogue_sorting']) {
 					case 'chronological':
 						$order_module = "ORDER BY releasedate";
-                        break;
+						break;
 					case 'biographical':
 						$order_module = "ORDER BY datexp DESC, releasedate DESC";
 						break;
@@ -224,29 +253,61 @@
 				} else {
 					$result = false;
 				}
+//                $count = 0;
 				if ($records->num_rows > 0) {
 					while ($record = $records->fetch_assoc()) {
+//                        $count++;
+//                        if ($count == 20) {
+//                            break;
+//                        }
 						$put_together = travelogue_put_together(array('id' => $record['id'], 'type' => $record['type'], 'codes' => $record['codes'], 'releasedate' => $record['releasedate'], 'title' => $record['title'], 'creator' => $record['creator'], 'genre' => $record['genre'], 'datexp' => $record['datexp'], 'yourrating' => $record['yourrating'], 'comments' => $record['comments'], 'otherrelevant' => $record['otherrelevant'], 'dburl' => $record['dburl']), $_SESSION['travelogue_codes']);
 
-                        if (isset($_SESSION['travelogue_filter_options'])) {
-                            if ($_SESSION['travelogue_filter_options'][$record['type']] == false) {
-                                continue;
-                            }
+						if (isset($_SESSION['travelogue_filter_options'])) {
+							if ($_SESSION['travelogue_filter_options'][$record['type']] == false) {
+								continue;
+							}
+						}
+                        $highlight_module = 'text-white';
+                        $bookmark_module = false;
+                        $highlight_icon = false;
+						if ($put_together['thumbtack'] == true) {
+							$highlight_module = ' text-warning bold';
+							$highlight_icon .= "<i class='fa-solid fa-thumbtack fa-lg fa-fw me-1 text-warning align-self-center'></i>";
+						}
+                        if ($put_together['pointer'] == true) {
+                            $highlight_module .= ' bg-primary';
+                            $highlight_icon .= "<i class='fa-solid fa-arrow-pointer fa-lg fa-fw me-1 text-white align-self-center'></i>";
+                        }
+                        if ($put_together['bookmark'] == true) {
+                            $bookmark_module .= ' bg-danger p-1 my-1 rounded';
+                            $highlight_icon .= "<i class='fa-solid fa-bookmark fa-lg fa-fw me-1 text-danger align-self-center'></i>";
+                        }
+                        $lists_icon = false;
+                        if ($put_together['lists'] == true) {
+                            $lists_icon = "<i class='fa-solid fa-award fa-lg fa-fw me-1 text-warning'></i>";
+                        }
+                        $thumbsup_module = false;
+                        if ($put_together['thumbsup'] == true) {
+                            $thumbsup_module = "<i class='fa-solid fa-thumbs-up fa-lg ga-gw me-1 text-primary'></i>";
+                        }
+                        $thumbsdown_module = false;
+                        if ($put_together['thumbsdown'] == true) {
+                            $thumbsdown_module = "<i class='fa-solid fa-thumbs-down fa-lg ga-gw me-1 text-danger'></i>";
                         }
 
 						$instance = "
-                        <div class='row px-1'>
-                            <div class='col-1 travelogue_col'><a href='javascript:void(0);' value='{$record['id']}' class='rounded link-dark bg-light me-2 edit_this_log' data-bs-toggle='modal' data-bs-target='#modal_update_entry'><i class='fas fa-pen-to-square fa-fw'></i></a>{$put_together['codes']}</div>
-                            <div class='col-1 travelogue_col'>{$put_together['releasedate']}{$put_together['datexp']}</div>
-                            <div class='col travelogue_col d-flex justify-content-center'>{$put_together['title']}</div>
-                            <div class='col travelogue_col d-flex justify-content-center'>{$put_together['creator']}</div>
-                            <div class='col-1 travelogue_col d-flex justify-content-center'>{$put_together['genre']}</div>
-                            <div class='col travelogue_col'>{$put_together['comments']}</div>
-                            <div class='col travelogue_col'>{$put_together['otherrelevant']}</div>
+                        <div class='row px-1 $bookmark_module' id='travelogue_row_{$record['id']}'>
+                            <div class='col-1 travelogue_col text-white'><a href='javascript:void(0);' value='{$record['id']}' class='rounded link-dark bg-light me-2 edit_this_log' data-bs-toggle='modal' data-bs-target='#modal_update_entry'><i class='fas fa-pen-to-square fa-fw'></i></a>{$put_together['codes']}</div>
+                            <div class='col-1 travelogue_col text-white'>{$put_together['releasedate']}{$put_together['datexp']}</div>
+                            <div class='col travelogue_col d-flex justify-content-center $highlight_module'>$highlight_icon {$put_together['title']}</div>
+                            <div class='col travelogue_col d-flex justify-content-center $highlight_module'>{$put_together['creator']}</div>
+                            <div class='col-1 travelogue_col d-flex justify-content-center text-white'>{$put_together['genre']}</div>
+                            <div class='col travelogue_col text-white'>$thumbsup_module $thumbsdown_module {$put_together['comments']}</div>
+                            <div class='col travelogue_col text-white'>$lists_icon {$put_together['otherrelevant']}</div>
                         </div>
                         ";
 						if ($_SESSION['travelogue_separate_types'] == true) {
-                            if (!isset($result[$put_together['type']])) {
+							if (!isset($result[$put_together['type']])) {
 								$result[$put_together['type']] = $instance;
 							} else {
 								$result[$put_together['type']] .= $instance;
@@ -258,7 +319,7 @@
 				}
 				if ($_SESSION['travelogue_separate_types'] == true) {
 					$parts = false;
-                    foreach ($result as $key => $instance) {
+					foreach ($result as $key => $instance) {
 						$parts .= $result[$key];
 					}
 					$result = $parts;
@@ -297,16 +358,16 @@
             </select>
         </div>
         <div class='mb-3'>
-            <label for='travel_new_release_date' class='form-label'>Release date:</label>
-            <input id='travel_new_release_date' name='travel_new_release_date' type='text' class='form-control'>
+            <label for='travel_new_creator' class='form-label'>Creator:</label>
+            <input id='travel_new_creator' name='travel_new_creator' type='text' class='form-control'>
         </div>
         <div class='mb-3'>
             <label for='travel_new_title' class='form-label'>Title:</label>
             <input id='travel_new_title' name='travel_new_title' type='text' class='form-control'>
         </div>
         <div class='mb-3'>
-            <label for='travel_new_creator' class='form-label'>Creator:</label>
-            <input id='travel_new_creator' name='travel_new_creator' type='text' class='form-control'>
+            <label for='travel_new_release_date' class='form-label'>Release date:</label>
+            <input id='travel_new_release_date' name='travel_new_release_date' type='text' class='form-control'>
         </div>
         <div class='mb-3'>
             <label for='travel_new_genre' class='form-label'>Genre:</label>
@@ -332,7 +393,21 @@
         <div class='mb-3'>
             <label for='travel_new_database' class='form-label'>Database link (Wikipedia, IMDb, AllMusic etc.):</label>
             <input id='travel_new_database' name='travel_new_database' type='url' class='form-control'>
-        </div>
+        </div>";
+	$template_modal_body_conteudo .= "<div class='mb-3'>
+					<h3>Codes</h3>
+				";
+	foreach ($_SESSION['travelogue_codes'] as $key => $info) {
+		$color = nexus_colors(array('mode' => 'convert', 'color' => $_SESSION['travelogue_codes'][$key][0]['color']));
+		$template_modal_body_conteudo .= "
+					<div class='form-check'>
+						<input name='travel_new_code_$key' id='travel_new_code_$key' class='form-check-input' type='checkbox' value='$key'>
+						<label for='travel_new_code_$key' class='form-check-label'><i class='{$_SESSION['travelogue_codes'][$key][0]['icon']} me-2 {$color['link-color']} bg-dark p-1 rounded fa-fw'></i>$key</label>
+					</div>
+				";
+	}
+	$template_modal_body_conteudo .= "</div>";
+	$template_modal_body_conteudo .= "
         <button type='submit' class='btn btn-primary'>Submit</button>
     </form>
     ";
@@ -340,11 +415,6 @@
 
 	$template_modal_div_id = 'modal_update_entry';
 	$template_modal_titulo = 'Update item';
-	$template_modal_body_conteudo = 'Loading...';
-	include 'templates/modal.php';
-
-	$template_modal_div_id = 'modal_del_item';
-	$template_modal_titulo = 'Del item';
 	$template_modal_body_conteudo = 'Loading...';
 	include 'templates/modal.php';
 
@@ -377,6 +447,19 @@
         }, function (data) {
             if (data != 0) {
                 $('#body_modal_filter').html(data);
+            } else {
+                alert('Something went wrong');
+            }
+        })
+    })
+    $(document).on('click', '#delete_this_entry', function () {
+        del_id = $(this).attr('value');
+        $.post('engine.php', {
+            'delete_this_entry': del_id
+        }, function (data) {
+            if (data != 0) {
+                $('#travelogue_row_' + del_id).addClass('d-none');
+                alert('Entry deleted');
             } else {
                 alert('Something went wrong');
             }

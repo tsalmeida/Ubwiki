@@ -8182,7 +8182,7 @@ textarea.form-control-lg {
   color: rgba(var(--bs-black-rgb), var(--bs-text-opacity)) !important;
 }
 
-.text-white, .travelogue_col {
+.text-white {
   --bs-text-opacity: 1;
   color: rgba(var(--bs-white-rgb), var(--bs-text-opacity)) !important;
 }
@@ -11411,6 +11411,10 @@ textarea:focus, input:focus {
 
 .link-black a, .link-black a:hover, .link-black a:active {
   color: black !important;
+}
+
+.bold {
+  font-weight: 900;
 }
 
 .bg-gray-800 {

@@ -3109,7 +3109,6 @@
 						var repeated_word = $(this).attr('value');
 					});
 				</script>";
-//		file_put_contents('testing', $text);
 		$text = base64_encode($text);
 		$repeats_result = base64_encode($repeats_result);
 		$final_result = array($text, $repeats_result);
@@ -3122,6 +3121,7 @@
 		$result = false;
 		if ($logs->num_rows > 0) {
 			while ($log = $logs->fetch_assoc()) {
+				$log['codes'] = unserialize($log['codes']);
 				$result .= "
 					<form method='post'>
 						<div class='mb-3'>
@@ -3146,16 +3146,16 @@
 							</select>
 						</div>
 						<div class='mb-3'>
-							<label for='update_travel_new_release_date' class='form-label'>Release date:</label>
-							<input id='update_travel_new_release_date' name='update_travel_new_release_date' type='text' class='form-control' value='{$log['releasedate']}'>
+							<label for='update_travel_new_creator' class='form-label'>Creator:</label>
+							<input id='update_travel_new_creator' name='update_travel_new_creator' type='text' class='form-control' value=\"{$log['creator']}\">
 						</div>
 						<div class='mb-3'>
 							<label for='update_travel_new_title' class='form-label'>Title:</label>
 							<input id='update_travel_new_title' name='update_travel_new_title' type='text' class='form-control' value=\"{$log['title']}\">
 						</div>
 						<div class='mb-3'>
-							<label for='update_travel_new_creator' class='form-label'>Creator:</label>
-							<input id='update_travel_new_creator' name='update_travel_new_creator' type='text' class='form-control' value=\"{$log['creator']}\">
+							<label for='update_travel_new_release_date' class='form-label'>Release date:</label>
+							<input id='update_travel_new_release_date' name='update_travel_new_release_date' type='text' class='form-control' value='{$log['releasedate']}'>
 						</div>
 						<div class='mb-3'>
 							<label for='update_travel_new_genre' class='form-label'>Genre:</label>
@@ -3193,8 +3193,28 @@
 						<div class='mb-3'>
 							<label for='update_travel_new_database' class='form-label'>Database link (Wikipedia, IMDb, AllMusic etc.):</label>
 							<input id='update_travel_new_database' name='update_travel_new_database' type='url' class='form-control' value=\"{$log['dburl']}\">
-						</div>
+						</div>";
+				$result .= "<div class='mb-3'>
+					<h3>Codes</h3>
+				";
+				foreach ($_SESSION['travelogue_codes'] as $key => $info) {
+					$this_checked = false;
+					if (isset($log['codes'][$key])) {
+						$this_checked = 'checked';
+					}
+					$color = nexus_colors(array('mode' => 'convert', 'color' => $_SESSION['travelogue_codes'][$key][0]['color']));
+					$result .= "
+					<div class='form-check'>
+						<input name='travel_update_code_$key' id='travel_update_code_$key' class='form-check-input' type='checkbox' value='$key' $this_checked>
+						<label for='travel_update_code_$key' class='form-check-label'><i class='{$_SESSION['travelogue_codes'][$key][0]['icon']} me-2 {$color['link-color']} bg-dark p-1 rounded fa-fw'></i>$key</label>
+					</div>
+				";
+				}
+				$result .= "</div>";
+
+				$result .= "
 						<button type='submit' class='btn btn-primary' name='update_this_entry' id='update_this_entry' value='{$log['id']}'>Submit</button>
+						<button type='button' class='btn btn-danger' name='delete_this_entry' id='delete_this_entry' value='{$log['id']}'>Delete this entry</button>
 					</form>
 					";
 				echo $result;
@@ -3203,13 +3223,67 @@
 		}
 	}
 
+	if (isset($_POST['delete_this_entry'])) {
+		$query = "UPDATE travelogue SET state = 0 WHERE id = {$_POST['delete_this_entry']} AND user_id = {$_SESSION['user_id']}";
+		$check = $conn->query($query);
+		echo $check;
+	}
+
 	if (isset($_POST['update_this_entry'])) {
 		$_POST['update_travel_new_title'] = mysqli_real_escape_string($conn, $_POST['update_travel_new_title']);
 		$_POST[$_POST['update_travel_new_genre']] = mysqli_real_escape_string($conn, $_POST['update_travel_new_genre']);
 		$_POST['update_travel_new_comments'] = mysqli_real_escape_string($conn, $_POST['update_travel_new_comments']);
 		$_POST['update_travel_new_information'] = mysqli_real_escape_string($conn, $_POST['update_travel_new_information']);
 
-		$query = prepare_query("UPDATE travelogue SET type = '{$_POST['update_travel_new_type']}', releasedate = '{$_POST['update_travel_new_release_date']}', title = '{$_POST['update_travel_new_title']}', creator = '{$_POST['update_travel_new_creator']}', genre = '{$_POST['update_travel_new_genre']}', datexp = '{$_POST['update_travel_new_datexp']}', yourrating = '{$_POST['update_travel_new_rating']}', comments = '{$_POST['update_travel_new_comments']}', otherrelevant = '{$_POST['update_travel_new_information']}', dburl = '{$_POST['update_travel_new_database']}' WHERE id = {$_POST['update_this_entry']} AND user_id = {$_SESSION['user_id']}", 'log');
+		$travel_update_codes = array();
+		if (isset($_POST['travel_update_code_favorite'])) {
+			$travel_update_codes['favorite'] = true;
+		}
+		if (isset($_POST['travel_update_code_lyrics'])) {
+			$travel_update_codes['lyrics'] = true;
+		}
+		if (isset($_POST['travel_update_code_hifi'])) {
+			$travel_update_codes['hifi'] = true;
+		}
+		if (isset($_POST['travel_update_code_relaxing'])) {
+			$travel_update_codes['relaxing'] = true;
+		}
+		if (isset($_POST['travel_update_code_heavy'])) {
+			$travel_update_codes['heavy'] = true;
+		}
+		if (isset($_POST['travel_update_code_vibe'])) {
+			$travel_update_codes['vibe'] = true;
+		}
+		if (isset($_POST['travel_update_code_complex'])) {
+			$travel_update_codes['complex'] = true;
+		}
+		if (isset($_POST['travel_update_code_instrumental'])) {
+			$travel_update_codes['instrumental'] = true;
+		}
+		if (isset($_POST['travel_update_code_live'])) {
+			$travel_update_codes['live'] = true;
+		}
+		if (isset($_POST['travel_update_code_lists'])) {
+			$travel_update_codes['lists'] = true;
+		}
+		if (isset($_POST['travel_update_code_bookmark'])) {
+			$travel_update_codes['bookmark'] = true;
+		}
+		if (isset($_POST['travel_update_code_thumbsup'])) {
+			$travel_update_codes['thumbsup'] = true;
+		}
+		if (isset($_POST['travel_update_code_thumbsdown'])) {
+			$travel_update_codes['thumbsdown'] = true;
+		}
+		if (isset($_POST['travel_update_code_thumbtack'])) {
+			$travel_update_codes['thumbtack'] = true;
+		}
+		if (isset($_POST['travel_update_code_pointer'])) {
+			$travel_update_codes['pointer'] = true;
+		}
+		$travel_update_codes = serialize($travel_update_codes);
+		$travel_update_codes = mysqli_real_escape_string($conn, $travel_update_codes);
+		$query = prepare_query("UPDATE travelogue SET type = '{$_POST['update_travel_new_type']}', codes = '$travel_update_codes', releasedate = '{$_POST['update_travel_new_release_date']}', title = '{$_POST['update_travel_new_title']}', creator = '{$_POST['update_travel_new_creator']}', genre = '{$_POST['update_travel_new_genre']}', datexp = '{$_POST['update_travel_new_datexp']}', yourrating = '{$_POST['update_travel_new_rating']}', comments = '{$_POST['update_travel_new_comments']}', otherrelevant = '{$_POST['update_travel_new_information']}', dburl = '{$_POST['update_travel_new_database']}' WHERE id = {$_POST['update_this_entry']} AND user_id = {$_SESSION['user_id']}", 'log');
 		$conn->query($query);
 	}
 

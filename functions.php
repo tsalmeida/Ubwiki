@@ -4355,7 +4355,8 @@
 		}
 	}
 
-	function build_travelogue_codes() {
+	function build_travelogue_codes()
+	{
 		include 'templates/criar_conn.php';
 		$query = prepare_query("SELECT * FROM travelogue_codes");
 		$codes = $conn->query($query);
@@ -4373,9 +4374,19 @@
 			return false;
 		}
 		foreach ($codes as $key => $value) {
-			if ($codes[$key] == true) {
-				$color = nexus_colors(array('mode'=>'convert', 'color'=>$travelogue_codes[$key][0]['color']));
-				$return .= "<i class='{$travelogue_codes[$key][0]['icon']} fa-fw {$color['link-color']}'></i>";
+			switch ($key) {
+				case 'pointer':
+				case 'thumbtack':
+				case 'bookmark':
+				case 'lists':
+				case 'thumbsdown':
+				case 'thumbsup':
+					break;
+				default:
+					if ($codes[$key] == true) {
+						$color = nexus_colors(array('mode' => 'convert', 'color' => $travelogue_codes[$key][0]['color']));
+						$return .= "<i class='{$travelogue_codes[$key][0]['icon']} fa-fw {$color['link-color']}'></i>";
+					}
 			}
 		}
 		return $return;
@@ -4397,6 +4408,7 @@
 
 	function travelogue_put_together($array, $travelogue_codes)
 	{
+		$result = array();
 		if (!isset($array['type'])) {
 			$array['type'] = 1;
 		}
@@ -4431,6 +4443,30 @@
 			$array['dburl'] = false;
 		}
 		$array['codes'] = unserialize($array['codes']);
+		$result['bookmark'] = false;
+		if (isset($array['codes']['bookmark'])) {
+			$result['bookmark'] = true;
+		}
+		$result['pointer'] = false;
+		if (isset($array['codes']['pointer'])) {
+			$result['pointer'] = true;
+		}
+		$result['thumbtack'] = false;
+		if (isset($array['codes']['thumbtack'])) {
+			$result['thumbtack'] = true;
+		}
+		$result['lists'] = false;
+		if (isset($array['codes']['lists'])) {
+			$result['lists'] = true;
+		}
+		$result['thumbsup'] = false;
+		if (isset($array['codes']['thumbsup'])) {
+			$result['thumbsup'] = true;
+		}
+		$result['thumbsdown'] = false;
+		if (isset($array['codes']['thumbsdown'])) {
+			$result['thumbsdown'] = true;
+		}
 		$codes = travelogue_interpret_code($array['codes'], $travelogue_codes);
 		switch ($array['type']) {
 			case 'music':
