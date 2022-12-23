@@ -3208,8 +3208,58 @@
 		$_POST[$_POST['update_travel_new_genre']] = mysqli_real_escape_string($conn, $_POST['update_travel_new_genre']);
 		$_POST['update_travel_new_comments'] = mysqli_real_escape_string($conn, $_POST['update_travel_new_comments']);
 		$_POST['update_travel_new_information'] = mysqli_real_escape_string($conn, $_POST['update_travel_new_information']);
+
 		$query = prepare_query("UPDATE travelogue SET type = '{$_POST['update_travel_new_type']}', releasedate = '{$_POST['update_travel_new_release_date']}', title = '{$_POST['update_travel_new_title']}', creator = '{$_POST['update_travel_new_creator']}', genre = '{$_POST['update_travel_new_genre']}', datexp = '{$_POST['update_travel_new_datexp']}', yourrating = '{$_POST['update_travel_new_rating']}', comments = '{$_POST['update_travel_new_comments']}', otherrelevant = '{$_POST['update_travel_new_information']}', dburl = '{$_POST['update_travel_new_database']}' WHERE id = {$_POST['update_this_entry']} AND user_id = {$_SESSION['user_id']}", 'log');
 		$conn->query($query);
+	}
+
+	if (isset($_POST['load_filter_modal'])) {
+		$query = prepare_query("SELECT DISTINCT type FROM travelogue WHERE user_id = {$_SESSION['user_id']}");
+		$types = $conn->query($query);
+		$_SESSION['travel_user_types'] = array();
+		if ($types->num_rows > 0) {
+			while ($type = $types->fetch_assoc()) {
+				array_push($_SESSION['travel_user_types'], $type['type']);
+			}
+		} else {
+			echo "No entries found.";
+			exit();
+		}
+
+		$travel_options = false;
+		foreach ($_SESSION['travel_user_types'] as $travel_user_key) {
+			$travel_options .= "
+				<div class='form-check'>
+					<input name='travelogue_filter_$travel_user_key' id='travelogue_filter_$travel_user_key' class='form-check-input' type='checkbox' value='$travel_user_key' checked>
+					<label for='travelogue_filter_$travel_user_key' class='form-check-label'>$travel_user_key</label>
+				</div>
+			";
+		}
+
+		$result = "
+			<h3>Order</h3>
+	        <div class='mb-2'>
+	            <label class='form-label' for='travelogue_sorting'>How to order entries:</label>
+	            <select class='form-select' id='travelogue_sorting' name='travelogue_sorting'>
+	                <option value='dateadded'>Chronological by date added</option>
+	                <option value='chronological'>Chronological by release date</option>
+	                <option value='biographical'>Chronological by date experienced</option>
+	                <option value='alphabetical_creator'>Alphabetical by creator name</option>
+	                <option value='alphabetical_title'>Alphabetical by title</option>
+	                <option value='alphabetical_genre'>Alphabetical by genre</option>
+	                <option value='alphabetical_type'>Alphabetical by type</option>
+                </select>
+            </div>
+            <div class='form-check'>
+                <input name='travelogue_separate_types' id='travelogue_separate_types' class='form-check-input' type='checkbox'>
+                <label for='travelogue_separate_types' class='form-check-label'>Separate entries by type</label>    
+            </div>
+            <hr>
+            <h3>Filter</h3>
+            <p>Show only the following entry types:</p>
+			$travel_options
+		";
+		echo $result;
 	}
 
 ?>

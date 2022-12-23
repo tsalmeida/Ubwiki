@@ -57,6 +57,75 @@
 		} else {
 			$_SESSION['travelogue_separate_types'] = false;
 		}
+
+        if (!isset($_POST['travelogue_filter_music'])) {
+            $_POST['travelogue_filter_music'] = false;
+        }
+        if (!isset($_POST['travelogue_filter_concert'])) {
+            $_POST['travelogue_filter_concert'] = false;
+        }
+        if (!isset($_POST['travelogue_filter_movie'])) {
+            $_POST['travelogue_filter_movie'] = false;
+        }
+        if (!isset($_POST['travelogue_filter_tvshow'])) {
+            $_POST['travelogue_filter_tvshow'] = false;
+        }
+        if (!isset($_POST['travelogue_filter_episode'])) {
+            $_POST['travelogue_filter_episode'] = false;
+        }
+        if (!isset($_POST['travelogue_filter_book'])) {
+            $_POST['travelogue_filter_book'] = false;
+        }
+        if (!isset($_POST['travelogue_filter_classical'])) {
+            $_POST['travelogue_filter_classical'] = false;
+        }
+        if (!isset($_POST['travelogue_filter_comic'])) {
+            $_POST['travelogue_filter_comic'] = false;
+        }
+        if (!isset($_POST['travelogue_filter_standup'])) {
+            $_POST['travelogue_filter_standup'] = false;
+        }
+        if (!isset($_POST['travelogue_filter_painting'])) {
+            $_POST['travelogue_filter_painting'] = false;
+        }
+        if (!isset($_POST['travelogue_filter_photo'])) {
+            $_POST['travelogue_filter_photo'] = false;
+        }
+        if (!isset($_POST['travelogue_filter_vidya'])) {
+            $_POST['travelogue_filter_vidya'] = false;
+        }
+        if (!isset($_POST['travelogue_filter_architecture'])) {
+            $_POST['travelogue_filter_architecture'] = false;
+        }
+        if (!isset($_POST['travelogue_filter_sports'])) {
+            $_POST['travelogue_filter_sports'] = false;
+        }
+        if (!isset($_POST['travelogue_filter_live'])) {
+            $_POST['travelogue_filter_live'] = false;
+        }
+        if (!isset($_POST['travelogue_filter_other'])) {
+            $_POST['travelogue_filter_other'] = false;
+        }
+
+        $_SESSION['travelogue_filter_options'] = array(
+                'music' => $_POST['travelogue_filter_music'],
+                'concert' => $_POST['travelogue_filter_concert'],
+                'movie' => $_POST['travelogue_filter_movie'],
+                'tvshow' => $_POST['travelogue_filter_tvshow'],
+                'episode' => $_POST['travelogue_filter_episode'],
+                'book' => $_POST['travelogue_filter_book'],
+                'classical' => $_POST['travelogue_filter_classical'],
+                'comic' => $_POST['travelogue_filter_comic'],
+                'standup' => $_POST['travelogue_filter_standup'],
+                'painting' => $_POST['travelogue_filter_painting'],
+                'photo' => $_POST['travelogue_filter_photo'],
+                'vidya' => $_POST['travelogue_filter_vidya'],
+                'architecture' => $_POST['travelogue_filter_architecture'],
+                'sports' => $_POST['travelogue_filter_sports'],
+                'live' => $_POST['travelogue_filter_live'],
+                'other' => $_POST['travelogue_filter_other']
+        );
+
 	}
 
 	if ($_POST) {
@@ -158,6 +227,13 @@
 				if ($records->num_rows > 0) {
 					while ($record = $records->fetch_assoc()) {
 						$put_together = travelogue_put_together(array('id' => $record['id'], 'type' => $record['type'], 'codes' => $record['codes'], 'releasedate' => $record['releasedate'], 'title' => $record['title'], 'creator' => $record['creator'], 'genre' => $record['genre'], 'datexp' => $record['datexp'], 'yourrating' => $record['yourrating'], 'comments' => $record['comments'], 'otherrelevant' => $record['otherrelevant'], 'dburl' => $record['dburl']), $_SESSION['travelogue_codes']);
+
+                        if (isset($_SESSION['travelogue_filter_options'])) {
+                            if ($_SESSION['travelogue_filter_options'][$record['type']] == false) {
+                                continue;
+                            }
+                        }
+
 						$instance = "
                         <div class='row px-1'>
                             <div class='col-1 travelogue_col'><a href='javascript:void(0);' value='{$record['id']}' class='rounded link-dark bg-light me-2 edit_this_log' data-bs-toggle='modal' data-bs-target='#modal_update_entry'><i class='fas fa-pen-to-square fa-fw'></i></a>{$put_together['codes']}</div>
@@ -275,41 +351,7 @@
 	$template_modal_div_id = 'modal_filter';
 	$template_modal_titulo = 'Filter';
 	$template_modal_show_buttons = true;
-	$template_modal_body_conteudo = false;
-	$template_modal_body_conteudo = "
-            <h3>Order</h3>
-	        <div class='mb-2'>
-	            <label class='form-label' for='travelogue_sorting'>How to order entries:</label>
-	            <select class='form-select' id='travelogue_sorting' name='travelogue_sorting'>
-	                <option value='dateadded'>Chronological by date added</option>
-	                <option value='chronological'>Chronological by release date</option>
-	                <option value='biographical'>Chronological by date experienced</option>
-	                <option value='alphabetical_creator'>Alphabetical by creator name</option>
-	                <option value='alphabetical_title'>Alphabetical by title</option>
-	                <option value='alphabetical_genre'>Alphabetical by genre</option>
-	                <option value='alphabetical_type'>Alphabetical by type</option>
-                </select>
-            </div>
-            <div class='form-check'>
-                <input name='travelogue_separate_types' id='travelogue_separate_types' class='form-check-input' type='checkbox' checked>
-                <label for='travelogue_separate_types' class='form-check-label'>Separate entries by type</label>    
-            </div>
-            <hr>
-            <h3>Filter</h3>
-            <p>Show only the following entry types:</p>
-            <div class='form-check'>
-                <input name='travelogue_filter_music' id='travelogue_filter_music' class='form-check-input' type='checkbox'>
-                <label for='travelogue_filter_music' class='form-check-label'>Music</label>
-            </div>
-            <div class='form-check'>
-                <input name='travelogue_filter_movie' id='travelogue_filter_movie' class='form-check-input' type='checkbox'>
-                <label for='travelogue_filter_movie' class='form-check-label'>Movie</label>
-            </div>
-            <div class='form-check'>
-                <input name='travelogue_filter_sports' id='travelogue_filter_sports' class='form-check-input' type='checkbox'>
-                <label for='travelogue_filter_sports' class='form-check-label'>Sports</label>
-            </div>
-	";
+	$template_modal_body_conteudo = 'Loading...';
 	include 'templates/modal.php';
 ?>
 <script>
@@ -324,6 +366,17 @@
         }, function (data) {
             if (data != 0) {
                 $('#body_modal_update_entry').html(data);
+            } else {
+                alert('Something went wrong');
+            }
+        })
+    })
+    $(document).on('click', '#trigger_filter', function () {
+        $.post('engine.php', {
+            'load_filter_modal': true
+        }, function (data) {
+            if (data != 0) {
+                $('#body_modal_filter').html(data);
             } else {
                 alert('Something went wrong');
             }
