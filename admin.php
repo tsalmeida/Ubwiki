@@ -12,7 +12,7 @@
 	}
 
 	if (isset($_POST['trigger_atualizacao'])) {
-        $query = "SELECT id, codes FROM travelogue";
+        $query = prepare_query("SELECT id, codes FROM travelogue");
         $results = $conn->query($query);
         if ($results->num_rows > 0) {
             while ($result = $results->fetch_assoc()) {
@@ -27,7 +27,8 @@
                     $result_codes = array();
                 }
                 $result_codes = serialize($result_codes);
-                $query = "UPDATE travelogue SET codes = '$result_codes' WHERE id = {$result['id']}";
+                $query = prepare_query("UPDATE travelogue SET codes = '$result_codes' WHERE id = {$result['id']}");
+                $conn->query($query);
             }
         }
 	}
