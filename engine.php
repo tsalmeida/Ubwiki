@@ -3137,6 +3137,7 @@
 								<option value='comic'>Comic Book</option>
 								<option value='standup'>Stand-up Show</option>
 								<option value='painting'>Painting</option>
+								<option value='photo'>Photograph</option>
 								<option value='vidya'>Video Game</option>
 								<option value='architecture'>Architecture</option>
 								<option value='sports'>Sports event</option>

@@ -4369,6 +4369,9 @@
 	function travelogue_interpret_code($codes, $travelogue_codes)
 	{
 		$return = false;
+		if ($codes == false) {
+			return false;
+		}
 		foreach ($codes as $key => $value) {
 			if ($codes[$key] == true) {
 				$color = nexus_colors(array('mode'=>'convert', 'color'=>$travelogue_codes[$key][0]['color']));
@@ -4432,49 +4435,52 @@
 		switch ($array['type']) {
 			case 'music':
 			default:
-				$result['type'] = "<i class='fas fa-music fa-fw link-indigo me-1'></i>";
+				$result['type'] = "<i class='fa-duotone fa-music fa-fw link-purple me-1'></i>";
 				break;
 			case 'concert':
-				$result['type'] = "<i class='fas fa-film fa-fw link-teal me-1'></i>";
+				$result['type'] = "<i class='fa-duotone fa-ticket fa-fw link-danger me-1'></i>";
 				break;
 			case 'movie':
-				$result['type'] = "<i class='fas fa-film fa-fw link-teal me-1'></i>";
+				$result['type'] = "<i class='fa-duotone fa-film fa-fw link-info me-1'></i>";
 				break;
 			case 'tvshow':
-				$result['type'] = "<i class='fas fa-film fa-fw link-teal me-1'></i>";
+				$result['type'] = "<i class='fa-duotone fa-tv-retro fa-fw link-orange me-1'></i>";
 				break;
 			case 'episode':
-				$result['type'] = "<i class='fas fa-film fa-fw link-teal me-1'></i>";
+				$result['type'] = "<i class='fa-duotone fa-camcorder fa-fw link-teal me-1'></i>";
 				break;
 			case 'book':
-				$result['type'] = "<i class='fas fa-book fa-fw link-teal me-1'></i>";
+				$result['type'] = "<i class='fa-duotone fa-book fa-fw link-danger me-1'></i>";
 				break;
 			case 'classical':
-				$result['type'] = "<i class='fas fa-violin fa-fw link-teal me-1'></i>";
+				$result['type'] = "<i class='fa-duotone fa-violin fa-fw link-orange me-1'></i>";
 				break;
 			case 'comic':
-				$result['type'] = "<i class='fas fa-palette fa-fw link-success me-1'></i>";
+				$result['type'] = "<i class='fa-duotone fa-comments fa-fw link-pink me-1'></i>";
 				break;
 			case 'standup':
-				$result['type'] = "<i class='fas fa-palette fa-fw link-success me-1'></i>";
+				$result['type'] = "<i class='fa-duotone fa-microphone-stand fa-fw link-warning me-1'></i>";
 				break;
 			case 'painting':
-				$result['type'] = "<i class='fas fa-palette fa-fw link-success me-1'></i>";
+				$result['type'] = "<i class='fa-duotone fa-palette fa-fw link-pink me-1'></i>";
+				break;
+			case 'photo':
+				$result['type'] = "<i class='fa-duotone fa-camera-retro fa-fw link-purple me-1'></i>";
 				break;
 			case 'vidya':
-				$result['type'] = "<i class='fas fa-gamepad fa-fw link-info me-1'></i>";
+				$result['type'] = "<i class='fa-duotone fa-gamepad fa-fw link-info me-1'></i>";
 				break;
 			case 'architecture':
-				$result['type'] = "<i class='fas fa-building-columns fa-fw link-warning me-1'></i>";
+				$result['type'] = "<i class='fa-duotone fa-building-columns fa-fw link-warning me-1'></i>";
 				break;
 			case 'sports':
-				$result['type'] = "<i class='fas fa-sportsball fa-fw link-success me-1'></i>";
+				$result['type'] = "<i class='fa-duotone fa-sportsball fa-fw link-success me-1'></i>";
 				break;
 			case 'live':
-				$result['type'] = "<i class='fas fa-binoculars fa-fw link-teal me-1'></i>";
+				$result['type'] = "<i class='fa-duotone fa-binoculars fa-fw link-teal me-1'></i>";
 				break;
 			case 'other':
-				$result['type'] = "<i class='fas fa-square-question fa-fw link-danger me-1'></i>";
+				$result['type'] = "<i class='fa-duotone fa-square-question fa-fw link-danger me-1'></i>";
 				break;
 		}
 		if ($array['dburl'] != false) {

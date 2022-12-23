@@ -46,7 +46,7 @@
 	}
 
 	if (!isset($_SESSION['travelogue_separate_types'])) {
-		$_SESSION['travelogue_separate_types'] = true;
+		$_SESSION['travelogue_separate_types'] = false;
 	}
 	if (isset($_POST['trigger_modal_filter'])) {
 		if (isset($_POST['travelogue_sorting'])) {
@@ -124,6 +124,9 @@
 				}
 				$order_module = false;
 				switch ($_SESSION['travelogue_sorting']) {
+					case 'chronological':
+						$order_module = "ORDER BY releasedate";
+                        break;
 					case 'biographical':
 						$order_module = "ORDER BY datexp DESC, releasedate DESC";
 						break;
@@ -141,10 +144,11 @@
 						break;
 					case false:
 					default:
-					case 'chronological':
-						$order_module = "ORDER BY releasedate";
+					case 'dateadded':
+						$order_module = "ORDER BY id";
+						break;
 				}
-				$query = prepare_query("SELECT id, type, codes, releasedate, title, creator, genre, datexp, yourrating, comments, otherrelevant, dburl FROM travelogue WHERE state = 1 $filter_module AND user_id = {$_SESSION['user_id']} $order_module", 'log');
+				$query = prepare_query("SELECT id, type, codes, releasedate, title, creator, genre, datexp, yourrating, comments, otherrelevant, dburl FROM travelogue WHERE state = 1 $filter_module AND user_id = {$_SESSION['user_id']} $order_module");
 				$records = $conn->query($query);
 				if ($_SESSION['travelogue_separate_types'] == true) {
 					$result = array();
@@ -208,6 +212,7 @@
                 <option value='comic'>Comic Book</option>
                 <option value='standup'>Stand-up Show</option>
                 <option value='painting'>Painting</option>
+                <option value='photo'>Photograph</option>
                 <option value='vidya'>Video Game</option>
                 <option value='architecture'>Architecture</option>
                 <option value='sports'>Sports event</option>
@@ -276,6 +281,7 @@
 	        <div class='mb-2'>
 	            <label class='form-label' for='travelogue_sorting'>How to order entries:</label>
 	            <select class='form-select' id='travelogue_sorting' name='travelogue_sorting'>
+	                <option value='dateadded'>Chronological by date added</option>
 	                <option value='chronological'>Chronological by release date</option>
 	                <option value='biographical'>Chronological by date experienced</option>
 	                <option value='alphabetical_creator'>Alphabetical by creator name</option>
