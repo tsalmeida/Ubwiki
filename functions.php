@@ -4519,8 +4519,10 @@
 				$result['type'] = "<i class='fa-solid fa-square-question fa-fw link-danger me-1'></i>";
 				break;
 		}
+		$envelope1 = "<a class='edit_this_log' value='{$array['id']}' data-bs-toggle='modal' data-bs-target='#modal_update_entry'>";
+		$result['type'] = "$envelope1{$result['type']}</a>";
 		if ($array['dburl'] != false) {
-			$result['dburl'] = "<a class='link-success me-1' href='{$array['dburl']}' target='_blank'><i class='fas fa-circle-info fa-fw'></i></a>";
+			$result['dburl'] = "<a class='link-primary me-1' href='{$array['dburl']}' target='_blank'><i class='fa-solid fa-square-arrow-up-right fa-fw fa-lg me-1'></i></a>";
 		} else {
 			$result['dburl'] = false;
 		}
@@ -4529,11 +4531,13 @@
 		} else {
 			$result['yourrating'] = process_rating($array['yourrating']);
 		}
-		$result['codes'] = "<span class=''>{$result['type']}{$result['yourrating']}{$result['dburl']}$codes</span>";
+		$result['yourrating'] = "$envelope1{$result['yourrating']}</a>";
+
+		$result['codes'] = "<span class=''>{$result['type']}$codes</span>";
 		if (($array['releasedate'] === false) || ($array['releasedate'] == '')) {
-			$result['releasedate'] = "<small class='me-3'><i class='fa-duotone fa-calendar-xmark fa-fw link-secondary'></i></small>";
+			$result['releasedate'] = "$envelope1<small class='me-3'><i class='fa-duotone fa-calendar-xmark fa-fw link-secondary'></i></a></small>";
 		} else {
-			$result['releasedate'] = "<small class='me-3'><i class='fa-duotone fa-calendar fa-fw link-secondary me-1'></i>{$array['releasedate']}</small>";
+			$result['releasedate'] = "$envelope1<small class='me-3'><i class='fa-duotone fa-calendar fa-fw link-secondary me-1'></i></a>{$array['releasedate']}</small>";
 		}
 		$result['title'] = "<small class='align-self-center'>{$array['title']}</small>";
 		$result['creator'] = "<small class='align-self-center'>{$array['creator']}</small>";
@@ -4542,20 +4546,19 @@
 			case '1':
 //			case true:
 //			case 1:
-				$result['datexp'] = "<small class=''><i class='fa-duotone fa-calendar-check fa-fw link-success font-half-condensed-300'></i></small>";
+				$result['datexp'] = "<small>$envelope1<i class='fa-duotone fa-calendar-check fa-fw link-success font-half-condensed-300'></i></a></small>";
 				break;
 			case false:
 			case '':
-				$result['datexp'] = "<small class=''><i class='fa-duotone fa-calendar-xmark fa-fw link-secondary'></i></small>";
+				$result['datexp'] = "<small>$envelope1<i class='fa-duotone fa-calendar-xmark fa-fw link-secondary'></i></a></small>";
 				break;
 			default:
-				$result['datexp'] = "<small class=''><i class='fa-duotone fa-calendar-check fa-fw link-success me-1'></i>{$array['datexp']}</small>";
-
+				$result['datexp'] = "<small>$envelope1<i class='fa-duotone fa-calendar-check fa-fw link-success me-1'></i></a>{$array['datexp']}</small>";
 		}
 
-		if (($array['datexp'] === true) || ($array['datexp'] == '1')) {
-		} else {
-		}
+//		if (($array['datexp'] === true) || ($array['datexp'] == '1')) {
+//		} else {
+//		}
 		if ($array['comments'] != false) {
 			$result['comments'] = "<small class=''>{$array['comments']}</small>";
 		} else {
@@ -4579,22 +4582,22 @@
 		switch ($rating) {
 			case false:
 			case 0:
-				$result = '<a href="javascript:void(0);"><i class="fa-solid fa-circle-question fa-fw me-1 link-warning"></i></a>';
+				$result = '<i class="fa-solid fa-circle-question fa-fw me-1 link-warning"></i>';
 				break;
 			case 1:
-				$result = '<a href="javascript:void(0);"><i class="fa-light fa-star-half fa-fw me-1 link-warning"></i></a>';
+				$result = '<i class="fa-light fa-star-half fa-fw me-1 link-warning"></i>';
 				break;
 			case 2:
-				$result = '<a href="javascript:void(0);"><i class="fa-solid fa-star-half fa-fw me-1 link-warning"></i></a>';
+				$result = '<i class="fa-solid fa-star-half fa-fw me-1 link-warning"></i>';
 				break;
 			case 3:
-				$result = '<a href="javascript:void(0);"><i class="fa-duotone fa-star-half-stroke fa-fw me-1 link-warning"></i></a>';
+				$result = '<i class="fa-duotone fa-star-half-stroke fa-fw me-1 link-warning"></i>';
 				break;
 			case 4:
-				$result = '<a href="javascript:void(0);"><i class="fa-duotone fa-star-half fa-fw me-1 link-warning"></i></a>';
+				$result = '<i class="fa-duotone fa-star-half fa-fw me-1 link-warning"></i>';
 				break;
 			case 5:
-				$result = '<a href="javascript:void(0);"><i class="fas fa-star fa-fw me-1 link-warning"></i></a>';
+				$result = '<i class="fas fa-star fa-fw me-1 link-warning"></i>';
 				break;
 		}
 		return $result;

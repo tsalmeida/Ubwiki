@@ -189,25 +189,25 @@
 				echo "
                 <div class='row mb-3 px-1 sticky-top'>
                     <div class='col-1 travelogue_col text-center'>
-                                <span class='text-white font-half-condensed-400'>Codes</span>
+                                <span class='text-white font-half-condensed-400 user-select-none'>Codes</span>
                     </div>
                     <div class='col-1 travelogue_col text-center'>
-                                <span class='text-white font-half-condensed-400'>Timeline</span>
+                                <span class='text-white font-half-condensed-400 user-select-none'>Timeline</span>
                     </div>
                     <div class='col travelogue_col text-center'>
-                                <span class='text-white font-half-condensed-400'>Title</span>
+                                <span class='text-white font-half-condensed-400 user-select-none'>Title</span>
                     </div>
                     <div class='col travelogue_col text-center'>
-                                <span class='text-white font-half-condensed-400'>Creator</span>
+                                <span class='text-white font-half-condensed-400 user-select-none'>Creator</span>
                     </div>
                     <div class='col-1 travelogue_col text-center'>
-                                <span class='text-white font-half-condensed-400'>Genre</span>
+                                <span class='text-white font-half-condensed-400 user-select-none'>Genre</span>
                     </div>
                     <div class='col travelogue_col text-center'>
-                                <span class='text-white font-half-condensed-400'>Comments</span>
+                                <span class='text-white font-half-condensed-400 user-select-none'>Comments</span>
                     </div>
                     <div class='col travelogue_col text-center'>
-                                <span class='text-white font-half-condensed-400'>Relevant information</span>
+                                <span class='text-white font-half-condensed-400 user-select-none'>Relevant information</span>
                     </div>
                 </div>";
 				if (!isset($_SESSION['travelogue_sorting'])) {
@@ -296,14 +296,14 @@
                         }
 
 						$instance = "
-                        <div class='row px-1 $bookmark_module' id='travelogue_row_{$record['id']}'>
-                            <div class='col-1 travelogue_col text-white'><a href='javascript:void(0);' value='{$record['id']}' class='rounded link-dark bg-light me-2 edit_this_log' data-bs-toggle='modal' data-bs-target='#modal_update_entry'><i class='fas fa-pen-to-square fa-fw'></i></a>{$put_together['codes']}</div>
-                            <div class='col-1 travelogue_col text-white'>{$put_together['releasedate']}{$put_together['datexp']}</div>
+                        <div class='row px-1 $bookmark_module' id='travelogue_row_{$record['id']}' value='{$record['id']}'>
+                            <div class='col-1 travelogue_col text-white'>{$put_together['codes']}</div>
+                            <div class='col-1 travelogue_col text-white user-select-none'>{$put_together['releasedate']}{$put_together['datexp']}</div>
                             <div class='col travelogue_col d-flex justify-content-center $highlight_module'>$highlight_icon {$put_together['title']}</div>
                             <div class='col travelogue_col d-flex justify-content-center $highlight_module'>{$put_together['creator']}</div>
-                            <div class='col-1 travelogue_col d-flex justify-content-center text-white'>{$put_together['genre']}</div>
-                            <div class='col travelogue_col text-white'>$thumbsup_module $thumbsdown_module {$put_together['comments']}</div>
-                            <div class='col travelogue_col text-white'>$lists_icon {$put_together['otherrelevant']}</div>
+                            <div class='col-1 travelogue_col d-flex justify-content-center text-white user-select-none'>{$put_together['genre']}</div>
+                            <div class='col travelogue_col text-white'>{$put_together['yourrating']} $thumbsup_module $thumbsdown_module {$put_together['comments']}</div>
+                            <div class='col travelogue_col text-white'>$lists_icon {$put_together['dburl']} {$put_together['otherrelevant']}</div>
                         </div>
                         ";
 						if ($_SESSION['travelogue_separate_types'] == true) {
@@ -411,11 +411,13 @@
         <button type='submit' class='btn btn-primary'>Submit</button>
     </form>
     ";
+    $modal_scrollable = true;
 	include 'templates/modal.php';
 
 	$template_modal_div_id = 'modal_update_entry';
 	$template_modal_titulo = 'Update item';
 	$template_modal_body_conteudo = 'Loading...';
+    $modal_scrollable = true;
 	include 'templates/modal.php';
 
 	$template_modal_div_id = 'modal_filter';
@@ -453,17 +455,20 @@
         })
     })
     $(document).on('click', '#delete_this_entry', function () {
-        del_id = $(this).attr('value');
-        $.post('engine.php', {
-            'delete_this_entry': del_id
-        }, function (data) {
-            if (data != 0) {
-                $('#travelogue_row_' + del_id).addClass('d-none');
-                alert('Entry deleted');
-            } else {
-                alert('Something went wrong');
-            }
-        })
+        del_confirm = confirm('Do you really want to delete this?');
+        if (del_confirm == true) {
+            del_id = $(this).attr('value');
+            $.post('engine.php', {
+                'delete_this_entry': del_id
+            }, function (data) {
+                if (data != 0) {
+                    $('#travelogue_row_' + del_id).addClass('d-none');
+                    alert('Entry deleted');
+                } else {
+                    alert('Something went wrong');
+                }
+            })
+        }
     })
 
 
