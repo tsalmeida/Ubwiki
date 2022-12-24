@@ -431,6 +431,10 @@
         $(this).addClass('d-none');
         $("#travel_new_rating").removeAttr("disabled");
     })
+    $(document).on('click', '#update_trigger_enable_rating', function () {
+        $(this).addClass('d-none');
+        $("#update_travel_new_rating").removeAttr("disabled");
+    })
     $(document).on('click', '.edit_this_log', function () {
         log_id = $(this).attr('value');
         $.post('engine.php', {
