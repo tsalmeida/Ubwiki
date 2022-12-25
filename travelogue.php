@@ -199,7 +199,11 @@
             $_POST['travelogue_filter_code_pointer'] = false;
         }
 
-		$_SESSION['travelogue_filter_options'] = array('music' => $_POST['travelogue_filter_music'], 'concert' => $_POST['travelogue_filter_concert'], 'movie' => $_POST['travelogue_filter_movie'], 'tvshow' => $_POST['travelogue_filter_tvshow'], 'episode' => $_POST['travelogue_filter_episode'], 'book' => $_POST['travelogue_filter_book'], 'classical' => $_POST['travelogue_filter_classical'], 'comic' => $_POST['travelogue_filter_comic'], 'standup' => $_POST['travelogue_filter_standup'], 'painting' => $_POST['travelogue_filter_painting'], 'photo' => $_POST['travelogue_filter_photo'], 'vidya' => $_POST['travelogue_filter_vidya'], 'architecture' => $_POST['travelogue_filter_architecture'], 'sports' => $_POST['travelogue_filter_sports'], 'live' => $_POST['travelogue_filter_live'], 'other' => $_POST['travelogue_filter_other'], 'favorite' => $_POST['travelogue_filter_code_favorite'], 'lyrics' => $_POST['travelogue_filter_code_lyrics'], 'hifi' => $_POST['travelogue_filter_code_hifi'], 'relaxing' => $_POST['travelogue_filter_code_relaxing'], 'heavy' => $_POST['travelogue_filter_code_heavy'], 'vibe' => $_POST['travelogue_filter_code_vibe'], 'complex' => $_POST['travelogue_filter_code_complex'], 'instrumental' => $_POST['travelogue_filter_code_instrumental'], 'live' => $_POST['travelogue_filter_code_live'], 'lists' => $_POST['travelogue_filter_code_lists'], 'bookmark' => $_POST['travelogue_filter_code_bookmark'], 'thumbsup' => $_POST['travelogue_filter_code_thumbsup'], 'thumbsdown' => $_POST['travelogue_filter_code_thumbsdown'], 'thumbtack' => $_POST['travelogue_filter_code_thumbtack'], 'pointer' => $_POST['travelogue_filter_code_pointer']);
+        if (!isset($_POST['travelogue_show_no_code'])) {
+            $_POST['travelogue_show_no_code'] = false;
+        }
+
+		$_SESSION['travelogue_filter_options'] = array('music' => $_POST['travelogue_filter_music'], 'concert' => $_POST['travelogue_filter_concert'], 'movie' => $_POST['travelogue_filter_movie'], 'tvshow' => $_POST['travelogue_filter_tvshow'], 'episode' => $_POST['travelogue_filter_episode'], 'book' => $_POST['travelogue_filter_book'], 'classical' => $_POST['travelogue_filter_classical'], 'comic' => $_POST['travelogue_filter_comic'], 'standup' => $_POST['travelogue_filter_standup'], 'painting' => $_POST['travelogue_filter_painting'], 'photo' => $_POST['travelogue_filter_photo'], 'vidya' => $_POST['travelogue_filter_vidya'], 'architecture' => $_POST['travelogue_filter_architecture'], 'sports' => $_POST['travelogue_filter_sports'], 'live' => $_POST['travelogue_filter_live'], 'other' => $_POST['travelogue_filter_other'], 'favorite' => $_POST['travelogue_filter_code_favorite'], 'lyrics' => $_POST['travelogue_filter_code_lyrics'], 'hifi' => $_POST['travelogue_filter_code_hifi'], 'relaxing' => $_POST['travelogue_filter_code_relaxing'], 'heavy' => $_POST['travelogue_filter_code_heavy'], 'vibe' => $_POST['travelogue_filter_code_vibe'], 'complex' => $_POST['travelogue_filter_code_complex'], 'instrumental' => $_POST['travelogue_filter_code_instrumental'], 'live' => $_POST['travelogue_filter_code_live'], 'lists' => $_POST['travelogue_filter_code_lists'], 'bookmark' => $_POST['travelogue_filter_code_bookmark'], 'thumbsup' => $_POST['travelogue_filter_code_thumbsup'], 'thumbsdown' => $_POST['travelogue_filter_code_thumbsdown'], 'thumbtack' => $_POST['travelogue_filter_code_thumbtack'], 'pointer' => $_POST['travelogue_filter_code_pointer'], 'show_no_code' => $_POST['travelogue_show_no_code']);
 
         error_log(serialize($_SESSION['travelogue_filter_options']));
 
@@ -307,20 +311,22 @@
 //                        if ($count == 20) {
 //                            break;
 //                        }
-
 						$record['codes'] = unserialize($record['codes']);
-
 						if (isset($_SESSION['travelogue_filter_options'])) {
 							if ($_SESSION['travelogue_filter_options'][$record['type']] == false) {
 								continue;
 							}
                             $show_item = false;
-                            if ($record['codes'] != false) {
-                                foreach ($record['codes'] as $key => $data) {
-                                    if ($_SESSION['travelogue_filter_options'][$key] == true) {
-                                        $show_item = true;
-                                    }
-                                }
+                            if ($record['codes'] == false) {
+								if ($_SESSION['travelogue_filter_options']['show_no_code'] == false) {
+									continue;
+								}
+                            } else {
+								foreach ($record['codes'] as $key => $data) {
+									if ($_SESSION['travelogue_filter_options'][$key] == true) {
+										$show_item = true;
+									}
+								}
 								if ($show_item == false) {
 									continue;
 								}

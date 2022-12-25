@@ -3344,6 +3344,10 @@
             <p>Show only the following entry types:</p>
 			$travel_options
 			<p>Show only entries with the following codes:</p>
+			<div class='form-check'>
+				<input name='travelogue_show_no_code' id='travelogue_show_no_code' class='form-check-input' type='checkbox' value='show_no_code' checked>
+				<label for='travelogue_show_no_code' class='form-check-label'>Show items with no codes.</label>
+			</div>
 			$codes_options
 		";
 		echo $result;
