@@ -3310,6 +3310,17 @@
 			";
 		}
 
+		$codes_options = false;
+		foreach ($_SESSION['travelogue_codes'] as $key => $array) {
+			$color = nexus_colors(array('mode'=>'convert', 'color'=>$_SESSION['travelogue_codes'][$key][0]['color']));
+			$codes_options .= "
+				<div class='form-check'>
+					<input name='travelogue_filter_code_$key' id='travelogue_filter_code_$key' class='form-check-input' type='checkbox' value='code_$key' checked>
+					<label for='travelogue_filter_code_$key' class='form-check-label'><i class='{$_SESSION['travelogue_codes'][$key][0]['icon']} fa-fw me-1 {$color['link-color']} bg-dark p-1 rounded'></i> $key</label>
+				</div>
+			";
+		}
+
 		$result = "
 			<h3>Order</h3>
 	        <div class='mb-2'>
@@ -3332,8 +3343,69 @@
             <h3>Filter</h3>
             <p>Show only the following entry types:</p>
 			$travel_options
+			<p>Show only entries with the following codes:</p>
+			$codes_options
 		";
 		echo $result;
+		exit();
+	}
+
+	if (isset($_POST['populate_password_manager'])) {
+		$result = false;
+		$result = "
+			<p>This is far from a super safe system, but it's a fact that your password is only stored encrypted, and your passcode, which is not stored in any way, is needed to decrypt it. At any rate, do not store passwords for anything too important, especially crypto wallets. Use a proper password manager instead, like LastPass or OnePassword.</p>
+			<h3>Add password</h3>
+			<form method='post'>
+			<div class='mb-3'>
+				<label for='manager_new_password' class='form-label'>New password:</label>
+				<input type='password' id='manager_new_password' name='manager_new_password' class='form-control'>
+			</div>
+			<div class='mb-3'>
+				<label for='manager_new_passcode' class='form-label'>Encryption passcode:</label>
+				<input type='password' id='manager_new_passcode' name='manager_new_passcode' class='form-control'>
+			</div>
+			<button class='btn btn-primary'>Submit</button>
+			</form>
+			<hr>
+			<div class='mb-3'>
+				<h3>Decrypt password</h3>
+				<label class='form-label' for='manager_decrypt_password'>Select password to decrypt:</label>
+				<select class='form-select' id='manager_decrypt_password' name='manager_decrypt_password'>
+					<option>cPanel</option>
+				</select>
+			</div>
+			<button class='btn btn-primary'>Decrypt</button>
+		";
+		echo $result;
+		exit();
+	}
+
+	if (isset($_POST['populate_manage_commands'])) {
+		echo "
+		    <ul class='list-group mb-3'>
+		        <li class='list-group-item active'><h5>Commands:</h5></li>
+		        <li class='list-group-item'>\"/r/\" will send you to a subreddit. For example, just type \"/r/prequelmemes\".</li>
+		        <li class='list-group-item'>\"/ld url\" to add a link to the Link Dump with random icon and color.</li>
+		        <li class='list-group-item'>\"/log message\" will add a message to your log.</li>
+		        <li class='list-group-item'>Type an url starting with \"http\" or \"www\" to go directly to that address.</li>
+		        <li class='list-group-item'>\"/del link title\" to delete a link.</li>
+		        <li class='list-group-item'>\"/dl address\" to download an image.</li>
+		        <li class='list-group-item'>\"/go search terms\" will perform a Google seach.</li>
+		        <li class='list-group-item'>\"/gi search terms\" will perform a Google image seach.</li>
+		        <li class='list-group-item'>\"/yt search terms\" will perform a YouTube seach.</li>
+		        <li class='list-group-item'>\"/rd search terms\" will perform a Reddit seach.</li>
+		        <li class='list-group-item'>\"/tw search terms\" will perform a Twitter seach.</li>
+            </ul>
+		    <ul class='list-group'>
+		        <li class='list-group-item active'><h5>Hotkeys:</h5></li>
+		        <li class='list-group-item'>Alt+c will return to the original screen, with focus on the command bar. Clicking the title text does the same.</li>
+		        <li class='list-group-item'>Alt+1 to 9 will show the links from each of the first nine main folders, in order.</li>
+		        <li class='list-group-item'>Alt+a will show the archived links.</li>
+		        <li class='list-group-item'>Alt+s will show the settings.</li>
+		        <li class='list-group-item'>Alt+t will show the tools.</li>
+		        <li class='list-group-item'>Alt+r will show recent links.</li>
+            </ul>
+		";
 	}
 
 ?>

@@ -4442,7 +4442,6 @@
 		if (!isset($array['dburl'])) {
 			$array['dburl'] = false;
 		}
-		$array['codes'] = unserialize($array['codes']);
 		$result['bookmark'] = false;
 		if (isset($array['codes']['bookmark'])) {
 			$result['bookmark'] = true;

@@ -562,33 +562,15 @@
 		$template_modal_body_conteudo = 'Loading...';
 		include 'templates/modal.php';
 
+		$template_modal_div_id = 'modal_password_manager';
+		$template_modal_titulo = 'Password Manager';
+		$template_modal_body_conteudo = 'Loading...';
+		include 'templates/modal.php';
+
 		$template_modal_div_id = 'modal_commands';
 		$template_modal_titulo = 'The Nexus Command Bar';
 		$modal_scrollable = true;
-		$template_modal_body_conteudo = "
-		    <ul class='list-group mb-3'>
-		        <li class='list-group-item active'><h5>Commands:</h5></li>
-		        <li class='list-group-item'>\"/r/\" will send you to a subreddit. For example, just type \"/r/prequelmemes\".</li>
-		        <li class='list-group-item'>\"/ld url\" to add a link to the Link Dump with random icon and color.</li>
-		        <li class='list-group-item'>\"/log message\" will add a message to your log.</li>
-		        <li class='list-group-item'>Type a url starting with \"http\" or \"www\" to go directly to that address.</li>
-		        <li class='list-group-item'>\"/del link title\" to delete a link.</li>
-		        <li class='list-group-item'>\"/dl address\" to download an image.</li>
-		        <li class='list-group-item'>\"/go search terms\" will perform a Google seach.</li>
-		        <li class='list-group-item'>\"/gi search terms\" will perform a Google image seach.</li>
-		        <li class='list-group-item'>\"/yt search terms\" will perform a Youtube seach.</li>
-		        <li class='list-group-item'>\"/rd search terms\" will perform a Reddit seach.</li>
-		        <li class='list-group-item'>\"/tw search terms\" will perform a Twitter seach.</li>
-            </ul>
-		    <ul class='list-group'>
-		        <li class='list-group-item active'><h5>Hotkeys:</h5></li>
-		        <li class='list-group-item'>Alt+C will return to the original screen, with focus on the command bar. Clicking the title text does the same.</li>
-		        <li class='list-group-item'>Alt+1 to 9 will show the links from each of the first nine main folders, in order.</li>
-		        <li class='list-group-item'>Alt+A will show the archived links.</li>
-		        <li class='list-group-item'>Alt+S will show the settings.</li>
-		        <li class='list-group-item'>Alt+R will show recent links.</li>
-            </ul>
-		";
+        $template_modal_body_conteudo = "Loading...";
 		include 'templates/modal.php';
 
 		$template_modal_div_id = 'modal_add_folders_bulk';
@@ -876,6 +858,28 @@
             if (data != 0) {
                 $('#body_modal_manage_themes').empty();
                 $('#body_modal_manage_themes').append(data);
+            }
+        });
+    });
+
+    $(document).on('click', '#trigger_password_manager', function () {
+        $.post('engine.php', {
+            'populate_password_manager': true
+        }, function (data) {
+            if (data != 0) {
+                $('#body_modal_password_manager').empty();
+                $('#body_modal_password_manager').append(data);
+            }
+        });
+    });
+
+    $(document).on('click', '#trigger_manage_commands', function () {
+        $.post('engine.php', {
+            'populate_manage_commands': true
+        }, function (data) {
+            if (data != 0) {
+                $('#body_modal_commands').empty();
+                $('#body_modal_commands').append(data);
             }
         });
     });
