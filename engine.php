@@ -3304,7 +3304,7 @@
 		foreach ($_SESSION['travel_user_types'] as $travel_user_key) {
 			$travel_options .= "
 				<div class='form-check'>
-					<input name='travelogue_filter_$travel_user_key' id='travelogue_filter_$travel_user_key' class='form-check-input' type='checkbox' value='$travel_user_key' checked>
+					<input name='travelogue_filter_$travel_user_key' id='travelogue_filter_$travel_user_key' class='form-check-input type_filter_option' type='checkbox' value='$travel_user_key' checked>
 					<label for='travelogue_filter_$travel_user_key' class='form-check-label'>$travel_user_key</label>
 				</div>
 			";
@@ -3315,7 +3315,7 @@
 			$color = nexus_colors(array('mode'=>'convert', 'color'=>$_SESSION['travelogue_codes'][$key][0]['color']));
 			$codes_options .= "
 				<div class='form-check'>
-					<input name='travelogue_filter_code_$key' id='travelogue_filter_code_$key' class='form-check-input' type='checkbox' value='code_$key' checked>
+					<input name='travelogue_filter_code_$key' id='travelogue_filter_code_$key' class='form-check-input code_filter_option' type='checkbox' value='code_$key' checked>
 					<label for='travelogue_filter_code_$key' class='form-check-label'><i class='{$_SESSION['travelogue_codes'][$key][0]['icon']} fa-fw me-1 {$color['link-color']} bg-dark p-1 rounded'></i> $key</label>
 				</div>
 			";
@@ -3323,7 +3323,7 @@
 
 		$result = "
 			<h3>Order</h3>
-	        <div class='mb-2'>
+	        <div class='mb-3'>
 	            <label class='form-label' for='travelogue_sorting'>How to order entries:</label>
 	            <select class='form-select' id='travelogue_sorting' name='travelogue_sorting'>
 	                <option value='dateadded'>Chronological by date added</option>
@@ -3340,17 +3340,22 @@
                 <label for='travelogue_separate_types' class='form-check-label'>Separate entries by type</label>    
             </div>
             <hr>
-            <h3>Filter</h3>
+            <h3>Filter types</h3>
             <p>Show only the following entry types:</p>
 			$travel_options
+			<button class='btn btn-secondary btn-sm mb-2' id='unselect_types' type='button'>Unselect all</button>
+			<h3>Filter codes</h3>
 			<p>Show only entries with the following codes:</p>
 			<div class='form-check'>
-				<input name='travelogue_show_no_code' id='travelogue_show_no_code' class='form-check-input' type='checkbox' value='show_no_code' checked>
-				<label for='travelogue_show_no_code' class='form-check-label'>Show items with no codes.</label>
+				<input name='travelogue_show_no_code' id='travelogue_show_no_code' class='form-check-input code_filter_option' type='checkbox' value='show_no_code' checked>
+				<label for='travelogue_show_no_code' class='form-check-label'><i class='fa-solid fa-empty-set fa-fw me-1 link-light bg-dark p-1 rounded'></i> Show items with no codes</label>
 			</div>
 			$codes_options
+			<button class='btn btn-secondary btn-sm mb-2' id='unselect_codes' type='button'>Unselect all</button>
+			<hr>
+			<button class='btn btn-primary' name='trigger_modal_filter' id='trigger_modal_filter'>Submit</button>
 		";
-		echo $result;
+		echo "<form method='post'>$result</form>";
 		exit();
 	}
 

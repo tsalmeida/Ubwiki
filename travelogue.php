@@ -491,8 +491,8 @@
 
 	$template_modal_div_id = 'modal_filter';
 	$template_modal_titulo = 'Filter';
-	$template_modal_show_buttons = true;
 	$template_modal_body_conteudo = 'Loading...';
+	$modal_scrollable = true;
 	include 'templates/modal.php';
 ?>
 <script>
@@ -542,6 +542,14 @@
                 }
             })
         }
+    })
+
+    $(document).on('click', '#unselect_codes', function() {
+        $( ".code_filter_option" ).prop( "checked", false );
+    })
+
+    $(document).on('click', '#unselect_types', function() {
+        $( ".type_filter_option" ).prop( "checked", false );
     })
 
 

@@ -4534,9 +4534,9 @@
 
 		$result['codes'] = "<span class=''>{$result['type']}$codes</span>";
 		if (($array['releasedate'] === false) || ($array['releasedate'] == '')) {
-			$result['releasedate'] = "$envelope1<small class='me-3'><i class='fa-duotone fa-calendar-xmark fa-fw link-secondary'></i></a></small>";
+			$result['releasedate'] = "$envelope1<small class=''><i class='fa-duotone fa-calendar-xmark fa-fw link-secondary'></i></a></small>";
 		} else {
-			$result['releasedate'] = "$envelope1<small class='me-3'><i class='fa-duotone fa-calendar fa-fw link-secondary me-1'></i></a>{$array['releasedate']}</small>";
+			$result['releasedate'] = "$envelope1<small class=''><i class='fa-duotone fa-calendar fa-fw link-secondary me-1'></i></a>{$array['releasedate']}</small>";
 		}
 		$result['title'] = "<small class='align-self-center'>{$array['title']}</small>";
 		$result['creator'] = "<small class='align-self-center'>{$array['creator']}</small>";
@@ -4545,14 +4545,14 @@
 			case '1':
 //			case true:
 //			case 1:
-				$result['datexp'] = "<small>$envelope1<i class='fa-duotone fa-calendar-check fa-fw link-success font-half-condensed-300'></i></a></small>";
+				$result['datexp'] = "<small class='ms-1'>$envelope1<i class='fa-duotone fa-calendar-check fa-fw link-success font-half-condensed-300'></i></a></small>";
 				break;
 			case false:
 			case '':
-				$result['datexp'] = "<small>$envelope1<i class='fa-duotone fa-calendar-xmark fa-fw link-secondary'></i></a></small>";
+				$result['datexp'] = "<small class='ms-1'>$envelope1<i class='fa-duotone fa-calendar-xmark fa-fw link-secondary'></i></a></small>";
 				break;
 			default:
-				$result['datexp'] = "<small>$envelope1<i class='fa-duotone fa-calendar-check fa-fw link-success me-1'></i></a>{$array['datexp']}</small>";
+				$result['datexp'] = "<small class='ms-1'>$envelope1<i class='fa-duotone fa-calendar-check fa-fw link-success me-1'></i></a>{$array['datexp']}</small>";
 		}
 
 //		if (($array['datexp'] === true) || ($array['datexp'] == '1')) {
