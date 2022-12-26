@@ -3021,12 +3021,12 @@
 			$t = time();
 			$locked_time = date("Y-m-d H:i:s", $t);
 			$locked_time = "Locked on $locked_time";
-			$query = prepare_query("INSERT INTO nexus_themes (user_id, title, url, bghex, homehex, wallpaper, homefont, homeeffect) VALUES ({$_SESSION['user_id']}, '$locked_time', '{$_SESSION['current_theme']['url']}', '{$_SESSION['current_theme']['bghex']}', '{$_SESSION['current_theme']['homehex']}', '{$_SESSION['current_theme']['wallpaper']}', '{$_SESSION['current_theme']['homefont']}', '{$_SESSION['current_theme']['homeeffect']}')", 'log');
+			$query = prepare_query("INSERT INTO nexus_themes (user_id, title, url, bghex, homehex, wallpaper, homefont, homeeffect) VALUES ({$_SESSION['user_id']}, '$locked_time', '{$_SESSION['current_theme']['url']}', '{$_SESSION['current_theme']['bghex']}', '{$_SESSION['current_theme']['homehex']}', '{$_SESSION['current_theme']['wallpaper']}', '{$_SESSION['current_theme']['homefont']}', '{$_SESSION['current_theme']['homeeffect']}')");
 			$conn->query($query);
 			$new_theme_id = $conn->insert_id;
-			$query = prepare_query("INSERT INTO nexus_elements (user_id, pagina_id, type, state, param_int_1) VALUES ({$_SESSION['user_id']}, {$_SESSION['user_nexus_pagina_id']}, 'theme', 1, $new_theme_id)", 'log');
+			$query = prepare_query("INSERT INTO nexus_elements (user_id, pagina_id, type, state, param_int_1) VALUES ({$_SESSION['user_id']}, {$_SESSION['user_nexus_pagina_id']}, 'theme', 1, $new_theme_id)");
 			$conn->query($query);
-			$query = prepare_query("UPDATE nexus SET theme = $new_theme_id WHERE user_id = {$_SESSION['user_id']}", 'log');
+			$query = prepare_query("UPDATE nexus SET theme = $new_theme_id WHERE user_id = {$_SESSION['user_id']}");
 			$check = $conn->query($query);
 			echo $check;
 			exit();
@@ -3283,7 +3283,7 @@
 		}
 		$travel_update_codes = serialize($travel_update_codes);
 		$travel_update_codes = mysqli_real_escape_string($conn, $travel_update_codes);
-		$query = prepare_query("UPDATE travelogue SET type = '{$_POST['update_travel_new_type']}', codes = '$travel_update_codes', releasedate = '{$_POST['update_travel_new_release_date']}', title = '{$_POST['update_travel_new_title']}', creator = '{$_POST['update_travel_new_creator']}', genre = '{$_POST['update_travel_new_genre']}', datexp = '{$_POST['update_travel_new_datexp']}', yourrating = '{$_POST['update_travel_new_rating']}', comments = '{$_POST['update_travel_new_comments']}', otherrelevant = '{$_POST['update_travel_new_information']}', dburl = '{$_POST['update_travel_new_database']}' WHERE id = {$_POST['update_this_entry']} AND user_id = {$_SESSION['user_id']}", 'log');
+		$query = prepare_query("UPDATE travelogue SET type = '{$_POST['update_travel_new_type']}', codes = '$travel_update_codes', releasedate = '{$_POST['update_travel_new_release_date']}', title = '{$_POST['update_travel_new_title']}', creator = '{$_POST['update_travel_new_creator']}', genre = '{$_POST['update_travel_new_genre']}', datexp = '{$_POST['update_travel_new_datexp']}', yourrating = '{$_POST['update_travel_new_rating']}', comments = '{$_POST['update_travel_new_comments']}', otherrelevant = '{$_POST['update_travel_new_information']}', dburl = '{$_POST['update_travel_new_database']}' WHERE id = {$_POST['update_this_entry']} AND user_id = {$_SESSION['user_id']}");
 		$conn->query($query);
 	}
 
@@ -3322,21 +3322,27 @@
 		}
 
 		$genre_options = false;
-		$query = "SELECT DISTINCT genre FROM travelogue WHERE user_id = {$_SESSION['user_id']}";
+		$query = "SELECT DISTINCT genre FROM travelogue WHERE user_id = {$_SESSION['user_id']} ORDER BY genre";
 		$user_genres = $conn->query($query);
-		$count = 0;
 		if ($user_genres->num_rows > 0) {
+			$count = $user_genres->num_rows;
 			while ($user_genre = $user_genres->fetch_assoc()) {
-				$count++;
-				$genre_options .= "
-					<div class='form-check'>
-						<input name='travelogue_filter_code_$count' id='travelogue_filter_code_$count' class='form-check-input genre_filter_option' type='checkbox' value='{$user_genre['genre']}' checked>
-						<label for='travelogue_filter_code_$count' class='form-check-label'>{$user_genre['genre']}</label>
-					</div>
-				";
+				if ($user_genre['genre'] == false) {
+					continue;
+				}
+				$genre_options .= "<option value='{$user_genre['genre']}'>{$user_genre['genre']}</option>";
 			}
 		}
-		$genre_options .= "<input type='hidden' value='$count' name='filter_code_count'>";
+
+		$genre_size = $count / 3;
+		if ($genre_size < 3) {
+			$genre_size = 3;
+		}
+		if ($genre_size > 20) {
+			$genre_size = 20;
+		}
+
+//		$genre_options .= "<input type='hidden' value='$count' name='filter_code_count'>";
 
 		$result = "
 			<h3>Order</h3>
@@ -3350,6 +3356,7 @@
 	                <option value='alphabetical_title'>Alphabetical by title</option>
 	                <option value='alphabetical_genre'>Alphabetical by genre</option>
 	                <option value='alphabetical_type'>Alphabetical by type</option>
+	                <option value='rating'>By your rating</option>
                 </select>
             </div>
             <div class='form-check'>
@@ -3361,6 +3368,7 @@
             <p>Show only the following entry types:</p>
 			$travel_options
 			<button class='btn btn-secondary btn-sm mb-2' id='unselect_types' type='button'>Unselect all</button>
+			<button class='btn btn-secondary btn-sm mb-2' id='select_types' type='button'>Select all all</button>
 			<h3>Filter codes</h3>
 			<p>Show only entries with the following codes:</p>
 			<div class='form-check'>
@@ -3369,11 +3377,15 @@
 			</div>
 			$codes_options
 			<button class='btn btn-secondary btn-sm mb-2' id='unselect_codes' type='button'>Unselect all</button>
+			<button class='btn btn-secondary btn-sm mb-2' id='select_codes' type='button'>Select all</button>
 			<h3>Filter genres</h3>
-			$genre_options
-			<button class='btn btn-secondary btn-sm mb-2' id='unselect_genres' type='button'>Unselect all</button>
+			<select class='form-select mb-2' size='$genre_size' id='travelogue_filter_genres' name='travelogue_filter_genres[]' multiple disabled>
+				$genre_options
+			</select>
+			<button class='btn btn-secondary btn-sm mb-2' id='enable_genre_filter' type='button'>Enable genre filter</button>
 			<hr>
-			<button class='btn btn-primary' name='trigger_modal_filter' id='trigger_modal_filter'>Submit</button>			
+			<button class='btn btn-primary' name='trigger_modal_filter' id='trigger_modal_filter'>Submit</button>
+			<button class='btn btn-secondary' name='trigger_reset_filter' id='trigger_reset_filter'>Reset all filters</button>
 		";
 		echo "<form method='post'>$result</form>";
 		exit();

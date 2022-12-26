@@ -1070,6 +1070,7 @@
         }, function (data) {
             if (data != 0) {
                 alert('Locked on current theme');
+                $(document).find('#trigger_lock_theme').addClass('d-none');
             } else {
                 alert('Something went wrong');
             }
