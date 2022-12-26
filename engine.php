@@ -3321,6 +3321,23 @@
 			";
 		}
 
+		$genre_options = false;
+		$query = "SELECT DISTINCT genre FROM travelogue WHERE user_id = {$_SESSION['user_id']}";
+		$user_genres = $conn->query($query);
+		$count = 0;
+		if ($user_genres->num_rows > 0) {
+			while ($user_genre = $user_genres->fetch_assoc()) {
+				$count++;
+				$genre_options .= "
+					<div class='form-check'>
+						<input name='travelogue_filter_code_$count' id='travelogue_filter_code_$count' class='form-check-input code_filter_option' type='checkbox' value='{$user_genre['genre']}' checked>
+						<label for='travelogue_filter_code_$count' class='form-check-label'>{$user_genre['genre']}</label>
+					</div>
+				";
+			}
+		}
+		$genre_options .= "<input type='hidden' value='$count'>";
+
 		$result = "
 			<h3>Order</h3>
 	        <div class='mb-3'>
@@ -3352,8 +3369,11 @@
 			</div>
 			$codes_options
 			<button class='btn btn-secondary btn-sm mb-2' id='unselect_codes' type='button'>Unselect all</button>
+			<h3>Filter genres</h3>
+			$genre_options
+			<button class='btn btn-secondary btn-sm mb-2' id='unselect_genres' type='button'>Unselect all</button>
 			<hr>
-			<button class='btn btn-primary' name='trigger_modal_filter' id='trigger_modal_filter'>Submit</button>
+			<button class='btn btn-primary' name='trigger_modal_filter' id='trigger_modal_filter'>Submit</button>			
 		";
 		echo "<form method='post'>$result</form>";
 		exit();
