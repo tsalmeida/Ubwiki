@@ -3330,13 +3330,13 @@
 				$count++;
 				$genre_options .= "
 					<div class='form-check'>
-						<input name='travelogue_filter_code_$count' id='travelogue_filter_code_$count' class='form-check-input code_filter_option' type='checkbox' value='{$user_genre['genre']}' checked>
+						<input name='travelogue_filter_code_$count' id='travelogue_filter_code_$count' class='form-check-input genre_filter_option' type='checkbox' value='{$user_genre['genre']}' checked>
 						<label for='travelogue_filter_code_$count' class='form-check-label'>{$user_genre['genre']}</label>
 					</div>
 				";
 			}
 		}
-		$genre_options .= "<input type='hidden' value='$count'>";
+		$genre_options .= "<input type='hidden' value='$count' name='filter_code_count'>";
 
 		$result = "
 			<h3>Order</h3>

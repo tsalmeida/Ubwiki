@@ -552,6 +552,10 @@
         $( ".type_filter_option" ).prop( "checked", false );
     })
 
+    $(document).on('click', '#unselect_genres', function() {
+        $( ".genre_filter_option" ).prop( "checked", false );
+    })
+
 
 </script>
 <?php
