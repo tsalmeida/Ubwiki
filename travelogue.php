@@ -3,7 +3,7 @@
 	$pagina_tipo = 'travelogue';
 	$pagina_id = $_SESSION['user_escritorio'];
 	$pagina_title = 'Travelogue';
-	$pagina_favicon = 'travelogue.ico';
+	$pagina_favicon = 'new_travelogue.ico';
 
 	if (!isset($_SESSION['travelogue_codes'])) {
 		$_SESSION['travelogue_codes'] = build_travelogue_codes();
