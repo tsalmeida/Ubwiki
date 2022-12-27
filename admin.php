@@ -12,25 +12,7 @@
 	}
 
 	if (isset($_POST['trigger_atualizacao'])) {
-        $query = prepare_query("SELECT id, codes FROM travelogue");
-        $results = $conn->query($query);
-        if ($results->num_rows > 0) {
-            while ($result = $results->fetch_assoc()) {
-                $result_codes = unserialize($result['codes']);
-                if (is_array($result_codes)) {
-					foreach ($result_codes as $key => $data) {
-						if ($result_codes[$key] == false) {
-							unset($result_codes[$key]);
-						}
-					}
-				} else {
-                    $result_codes = array();
-                }
-                $result_codes = serialize($result_codes);
-                $query = prepare_query("UPDATE travelogue SET codes = '$result_codes' WHERE id = {$result['id']}");
-                $conn->query($query);
-            }
-        }
+        $conn->query("ALTER TABLE `nexus_options` ADD `travelogue_filters` TEXT NULL DEFAULT NULL AFTER `lock_theme`;");
 	}
 
 	if (isset($_POST['trigger_atualizar_textos_size'])) {

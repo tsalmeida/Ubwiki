@@ -476,7 +476,7 @@
 				echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'manage_commands', 'title' => 'Commands', 'modal' => '#modal_commands', 'icon' => 'fad fa-rectangle-terminal', 'color' => 'orange'));
 				echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'notepad', 'icon' => 'fad fa-pen-to-square', 'color' => 'green', 'title' => 'Notepad', 'href' => 'notepad.php'));
 				echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'clipboard', 'icon' => 'fad fa-clipboard', 'color' => 'pink', 'title' => 'Clipboard', 'href' => false, 'modal' => '#modal_clipboard'));
-				echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'life_weeks', 'icon' => 'fad fa-calendar-week', 'color' => 'yellow', 'title' => 'Your Life in Weeks', 'href' => false, 'modal' => '#modal_clipboard'));
+				echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'life_weeks', 'icon' => 'fad fa-calendar-week', 'color' => 'yellow', 'title' => 'Your Life in Weeks', 'href' => false, 'modal' => '#modal_lifeinweeks'));
 				echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'password_manager', 'icon' => 'fad fa-key', 'color' => 'purple', 'title' => 'Password Manager', 'href' => false, 'modal' => '#modal_password_manager'));
 				echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'chess_battles', 'icon' => 'fad fa-chess-knight', 'color' => 'yellow', 'title' => 'Chess Battles', 'href' => '../chessbattles/'));
 				echo "</div></div>";

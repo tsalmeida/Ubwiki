@@ -5,6 +5,18 @@
 	$pagina_title = 'Travelogue';
 	$pagina_favicon = 'final_travelogue.ico';
 
+//    if (!isset($_SESSION['travelogue_filter'])) {
+//		$query = prepare_query("SELECT travelogue_filters FROM nexus_options WHERE user_id = {$_SESSION['user_id']}");
+//		$travelogue_filters = $conn->query($query);
+//		if ($travelogue_filters->num_rows > 0) {
+//			while ($travelogue_filter = $travelogue_filters->fetch_assoc()) {
+//				$user_travelogue_filters = $travelogue_filter['travelogue_filters'];
+//			}
+//		} else {
+//			$user_travelogue_filters = false;
+//		}
+//	}
+
 	if (!isset($_SESSION['travelogue_codes'])) {
 		$_SESSION['travelogue_codes'] = build_travelogue_codes();
 	}
@@ -225,11 +237,6 @@
 <style>
     html {
         font-size: 1rem !important;
-    }
-
-    #wider-container {
-        width: 150vw;
-        overflow-x: scroll;
     }
 </style>
 <div class="container-fluid">
