@@ -3140,7 +3140,7 @@
 							</select>
 						</div>
 						<div class='mb-3'>
-							<label for='update_travel_new_creator' class='form-label'>Creator:</label>
+							<label for='update_travel_new_creator' class='form-label'>Author:</label>
 							<input id='update_travel_new_creator' name='update_travel_new_creator' type='text' class='form-control' value=\"{$log['creator']}\">
 						</div>
 						<div class='mb-3'>

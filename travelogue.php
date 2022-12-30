@@ -445,7 +445,7 @@
             </select>
         </div>
         <div class='mb-3'>
-            <label for='travel_new_creator' class='form-label'>Creator:</label>
+            <label for='travel_new_creator' class='form-label'>Author:</label>
             <input id='travel_new_creator' name='travel_new_creator' type='text' class='form-control'>
         </div>
         <div class='mb-3'>
