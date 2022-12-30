@@ -3120,11 +3120,16 @@
 		$logs = $conn->query($query);
 		$result = false;
 		$types_options = false;
-		foreach ($_SESSION['travelogue_types'] as $key => $array) {
-			$types_options .= "<option value='{$key}'>{$_SESSION['travelogue_types'][$key]['description']}</option>";
-		}
+
 		if ($logs->num_rows > 0) {
 			while ($log = $logs->fetch_assoc()) {
+				foreach ($_SESSION['travelogue_types'] as $key => $array) {
+					$selected = false;
+					if ($key == $log['type']) {
+						$selected = 'selected';
+					}
+					$types_options .= "<option value='{$key}' $selected>{$_SESSION['travelogue_types'][$key]['description']}</option>";
+				}
 				$log['codes'] = unserialize($log['codes']);
 				$result .= "
 					<form method='post'>
