@@ -3119,6 +3119,10 @@
 		$query = prepare_query("SELECT * FROM travelogue WHERE id = {$_POST['edit_this_log']} AND user_id = {$_SESSION['user_id']}");
 		$logs = $conn->query($query);
 		$result = false;
+		$types_options = false;
+		foreach ($_SESSION['travelogue_types'] as $key => $array) {
+			$types_options .= "<option value='{$key}'>{$_SESSION['travelogue_types'][$key]['description']}</option>";
+		}
 		if ($logs->num_rows > 0) {
 			while ($log = $logs->fetch_assoc()) {
 				$log['codes'] = unserialize($log['codes']);
@@ -3127,22 +3131,7 @@
 						<div class='mb-3'>
 							<label for='update_travel_new_type' class='form-label'>Type:</label>
 							<select id='update_travel_new_type' name='update_travel_new_type' type='text' class='form-control'>
-								<option value='music'>Music album</option>
-								<option value='concert'>Music concert</option>
-								<option value='movie'>Movie</option>
-								<option value='tvshow'>TV Show</option>
-								<option value='episode'>TV Show episode</option>
-								<option value='book'>Book</option>
-								<option value='classical'>Classical music</option>
-								<option value='comic'>Comic Book</option>
-								<option value='standup'>Stand-up Show</option>
-								<option value='painting'>Painting</option>
-								<option value='photo'>Photograph</option>
-								<option value='vidya'>Video Game</option>
-								<option value='architecture'>Architecture</option>
-								<option value='sports'>Sports event</option>
-								<option value='live'>Live event</option>
-								<option value='other'>Other</option>
+								$types_options
 							</select>
 						</div>
 						<div class='mb-3'>
@@ -3180,7 +3169,6 @@
 						</div>
 					";
 				}
-
 				$result .= "
 						<div class='mb-3'>
 							<label for='update_travel_new_comments' class='form-label'>Your comments:</label>
@@ -3202,11 +3190,11 @@
 					if (isset($log['codes'][$key])) {
 						$this_checked = 'checked';
 					}
-					$color = nexus_colors(array('mode' => 'convert', 'color' => $_SESSION['travelogue_codes'][$key][0]['color']));
+					$color = nexus_colors(array('mode' => 'convert', 'color' => $_SESSION['travelogue_codes'][$key]['color']));
 					$result .= "
 					<div class='form-check'>
 						<input name='travel_update_code_$key' id='travel_update_code_$key' class='form-check-input' type='checkbox' value='$key' $this_checked>
-						<label for='travel_update_code_$key' class='form-check-label'><i class='{$_SESSION['travelogue_codes'][$key][0]['icon']} me-2 {$color['link-color']} bg-dark p-1 rounded fa-fw'></i>$key</label>
+						<label for='travel_update_code_$key' class='form-check-label'><i class='{$_SESSION['travelogue_codes'][$key]['icon']} me-2 {$color['link-color']} bg-dark p-1 rounded fa-fw'></i>$key</label>
 					</div>
 				";
 				}
@@ -3312,11 +3300,11 @@
 
 		$codes_options = false;
 		foreach ($_SESSION['travelogue_codes'] as $key => $array) {
-			$color = nexus_colors(array('mode'=>'convert', 'color'=>$_SESSION['travelogue_codes'][$key][0]['color']));
+			$color = nexus_colors(array('mode'=>'convert', 'color'=>$_SESSION['travelogue_codes'][$key]['color']));
 			$codes_options .= "
 				<div class='form-check'>
 					<input name='travelogue_filter_code_$key' id='travelogue_filter_code_$key' class='form-check-input code_filter_option' type='checkbox' value='code_$key' checked>
-					<label for='travelogue_filter_code_$key' class='form-check-label'><i class='{$_SESSION['travelogue_codes'][$key][0]['icon']} fa-fw me-1 {$color['link-color']} bg-dark p-1 rounded'></i> $key</label>
+					<label for='travelogue_filter_code_$key' class='form-check-label'><i class='{$_SESSION['travelogue_codes'][$key]['icon']} fa-fw me-1 {$color['link-color']} bg-dark p-1 rounded'></i> {$_SESSION['travelogue_codes'][$key]['description']}</label>
 				</div>
 			";
 		}

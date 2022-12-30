@@ -12,7 +12,38 @@
 	}
 
 	if (isset($_POST['trigger_atualizacao'])) {
-        $conn->query("ALTER TABLE `nexus_options` ADD `travelogue_filters` TEXT NULL DEFAULT NULL AFTER `lock_theme`;");
+        $query = prepare_query("INSERT INTO travelogue_types (title, icon, color, description) VALUES ('music', 'fa-music', 'purple', 'Music album')");
+        $conn->query($query);
+        $query = prepare_query("INSERT INTO travelogue_types (title, icon, color, description) VALUES ('concert', 'fa-ticket', 'red', 'Music concert')");
+        $conn->query($query);
+        $query = prepare_query("INSERT INTO travelogue_types (title, icon, color, description) VALUES ('movie', 'fa-film', 'cyan', 'Movie')");
+        $conn->query($query);
+        $query = prepare_query("INSERT INTO travelogue_types (title, icon, color, description) VALUES ('tvshow', 'fa-tv-retro', 'orange', 'TV Show')");
+        $conn->query($query);
+        $query = prepare_query("INSERT INTO travelogue_types (title, icon, color, description) VALUES ('episode', 'fa-camcorder', 'teal', 'TV Show Episode')");
+        $conn->query($query);
+        $query = prepare_query("INSERT INTO travelogue_types (title, icon, color, description) VALUES ('book', 'fa-book', 'red', 'Book')");
+        $conn->query($query);
+        $query = prepare_query("INSERT INTO travelogue_types (title, icon, color, description) VALUES ('classical', 'fa-violin', 'orange', 'Classical Music')");
+        $conn->query($query);
+        $query = prepare_query("INSERT INTO travelogue_types (title, icon, color, description) VALUES ('comic', 'fa-comments', 'pink', 'Comic Book')");
+        $conn->query($query);
+        $query = prepare_query("INSERT INTO travelogue_types (title, icon, color, description) VALUES ('standup', 'fa-microphone-stand', 'yellow', 'Stand-up Show')");
+        $conn->query($query);
+        $query = prepare_query("INSERT INTO travelogue_types (title, icon, color, description) VALUES ('painting', 'fa-palette', 'pink', 'Painting')");
+        $conn->query($query);
+        $query = prepare_query("INSERT INTO travelogue_types (title, icon, color, description) VALUES ('photo', 'fa-camera-retro', 'purple', 'Photo')");
+        $conn->query($query);
+        $query = prepare_query("INSERT INTO travelogue_types (title, icon, color, description) VALUES ('vidya', 'fa-gamepad', 'cyan', 'Video Game')");
+        $conn->query($query);
+        $query = prepare_query("INSERT INTO travelogue_types (title, icon, color, description) VALUES ('architecture', 'fa-building-columns', 'yellow', 'Architecture')");
+        $conn->query($query);
+        $query = prepare_query("INSERT INTO travelogue_types (title, icon, color, description) VALUES ('sports', 'fa-sportsball', 'green', 'Sports event')");
+        $conn->query($query);
+        $query = prepare_query("INSERT INTO travelogue_types (title, icon, color, description) VALUES ('live', 'fa-binoculars', 'teal', 'Live event')");
+        $conn->query($query);
+        $query = prepare_query("INSERT INTO travelogue_types (title, icon, color, description) VALUES ('other', 'fa-square-question', 'red', 'Other')");
+        $conn->query($query);
 	}
 
 	if (isset($_POST['trigger_atualizar_textos_size'])) {

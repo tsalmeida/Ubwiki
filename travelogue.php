@@ -17,9 +17,18 @@
 //		}
 //	}
 
+//    foreach ($_SESSION as $array => $key) {
+//        error_log($array);
+//        error_log(serialize($_SESSION[$array]));
+//    }
+
 	if (!isset($_SESSION['travelogue_codes'])) {
 		$_SESSION['travelogue_codes'] = build_travelogue_codes();
 	}
+    if (!isset($_SESSION['travelogue_types'])) {
+        $_SESSION['travelogue_types'] = build_travelogue_types();
+    }
+//    error_log(serialize($_SESSION['travelogue_types']));
 
 	if (isset($_POST['travel_new_type'])) {
 		if (!isset($_POST['travel_new_release_date'])) {
@@ -319,13 +328,13 @@
 				} else {
 					$result = false;
 				}
-//                $count = 0;
+                $count = 0;
 				if ($records->num_rows > 0) {
 					while ($record = $records->fetch_assoc()) {
-//                        $count++;
-//                        if ($count == 20) {
-//                            break;
-//                        }
+                        $count++;
+                        if ($count == 20) {
+                            break;
+                        }
 						$record['codes'] = unserialize($record['codes']);
 						if (isset($_SESSION['travelogue_filter_options'])) {
                             if ($_SESSION['travelogue_filter_options']['genres'] != false) {
@@ -353,7 +362,7 @@
                             }
 						}
 
-						$put_together = travelogue_put_together(array('id' => $record['id'], 'type' => $record['type'], 'codes' => $record['codes'], 'releasedate' => $record['releasedate'], 'title' => $record['title'], 'creator' => $record['creator'], 'genre' => $record['genre'], 'datexp' => $record['datexp'], 'yourrating' => $record['yourrating'], 'comments' => $record['comments'], 'otherrelevant' => $record['otherrelevant'], 'dburl' => $record['dburl']), $_SESSION['travelogue_codes']);
+						$put_together = travelogue_put_together(array('id' => $record['id'], 'type' => $record['type'], 'codes' => $record['codes'], 'releasedate' => $record['releasedate'], 'title' => $record['title'], 'creator' => $record['creator'], 'genre' => $record['genre'], 'datexp' => $record['datexp'], 'yourrating' => $record['yourrating'], 'comments' => $record['comments'], 'otherrelevant' => $record['otherrelevant'], 'dburl' => $record['dburl']), $_SESSION['travelogue_codes'], $_SESSION['travelogue_types']);
 
 
                         $highlight_module = 'text-white';
@@ -423,27 +432,16 @@
 	$template_modal_div_id = 'modal_add_item';
 	$template_modal_titulo = 'Add item';
 	$template_modal_body_conteudo = false;
+    $options_types = false;
+    foreach ($_SESSION['travelogue_types'] as $key => $array) {
+		$options_types .= "<option value='$key'>{$_SESSION['travelogue_types'][$key]['description']}</option>";
+    }
 	$template_modal_body_conteudo .= "
     <form method='post'>
         <div class='mb-3'>
             <label for='travel_new_type' class='form-label'>Type:</label>
             <select id='travel_new_type' name='travel_new_type' type='text' class='form-control'>
-                <option value='music'>Music album</option>
-                <option value='concert'>Music concert</option>
-                <option value='movie'>Movie</option>
-                <option value='tvshow'>TV Show</option>
-                <option value='episode'>TV Show episode</option>
-                <option value='book'>Book</option>
-                <option value='classical'>Classical music</option>
-                <option value='comic'>Comic Book</option>
-                <option value='standup'>Stand-up Show</option>
-                <option value='painting'>Painting</option>
-                <option value='photo'>Photograph</option>
-                <option value='vidya'>Video Game</option>
-                <option value='architecture'>Architecture</option>
-                <option value='sports'>Sports event</option>
-                <option value='live'>Live event</option>
-                <option value='other'>Other</option>
+                $options_types
             </select>
         </div>
         <div class='mb-3'>
@@ -487,11 +485,11 @@
 					<h3>Codes</h3>
 				";
 	foreach ($_SESSION['travelogue_codes'] as $key => $info) {
-		$color = nexus_colors(array('mode' => 'convert', 'color' => $_SESSION['travelogue_codes'][$key][0]['color']));
+		$color = nexus_colors(array('mode' => 'convert', 'color' => $_SESSION['travelogue_codes'][$key]['color']));
 		$template_modal_body_conteudo .= "
 					<div class='form-check'>
 						<input name='travel_new_code_$key' id='travel_new_code_$key' class='form-check-input' type='checkbox' value='$key'>
-						<label for='travel_new_code_$key' class='form-check-label'><i class='{$_SESSION['travelogue_codes'][$key][0]['icon']} me-2 {$color['link-color']} bg-dark p-1 rounded fa-fw'></i>$key</label>
+						<label for='travel_new_code_$key' class='form-check-label'><i class='{$_SESSION['travelogue_codes'][$key]['icon']} me-2 {$color['link-color']} bg-dark p-1 rounded fa-fw'></i>{$_SESSION['travelogue_codes'][$key]['description']}</label>
 					</div>
 				";
 	}

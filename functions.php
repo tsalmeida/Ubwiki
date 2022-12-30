@@ -4362,7 +4362,30 @@
 		$codes = $conn->query($query);
 		$return = array();
 		while ($code = $codes->fetch_assoc()) {
-			$return[$code['title']] = array($code);
+			$return[$code['title']] = array(
+				'id' => $code['id'],
+				'title' => $code['title'],
+				'icon' => $code['icon'],
+				'color' => $code['color'],
+				'description' => $code['description']
+			);
+		}
+		return $return;
+	}
+
+	function build_travelogue_types() {
+		include 'templates/criar_conn.php';
+		$query = prepare_query("SELECT * FROM travelogue_types");
+		$types = $conn->query($query);
+		$return = array();
+		while ($type = $types->fetch_assoc()) {
+			$return[$type['title']] = array(
+				'id' => $type['id'],
+				'title' => $type['title'],
+				'icon' => $type['icon'],
+				'color' => $type['color'],
+				'description' => $type['description']
+			);
 		}
 		return $return;
 	}
@@ -4384,29 +4407,16 @@
 					break;
 				default:
 					if ($codes[$key] == true) {
-						$color = nexus_colors(array('mode' => 'convert', 'color' => $travelogue_codes[$key][0]['color']));
-						$return .= "<i class='{$travelogue_codes[$key][0]['icon']} fa-fw {$color['link-color']}'></i>";
+						$color = nexus_colors(array('mode' => 'convert', 'color' => $travelogue_codes[$key]['color']));
+						$return .= "<i class='{$travelogue_codes[$key]['icon']} fa-fw {$color['link-color']}'></i>";
 					}
 			}
 		}
 		return $return;
 
-//		$return = false;
-//		foreach ($travelogue_codes as $key => $array) {
-//			if (!isset($codes[$key])) {
-//				continue;
-//			}
-//			if ($codes[$key] == true) {
-//				$color = nexus_colors(array('mode'=>'convert', 'color'=>$travelogue_codes[$key][0]['color']));
-//				$return .= "<i class='{$travelogue_codes[$key][0]['icon']} fa-fw {$color['link-color']}'></i>";
-//			} else {
-//				$return .= "<i class='{$travelogue_codes[$key][0]['icon']} fa-fw link-secondary'></i>";
-//			}
-//		}
-//		return $return;
 	}
 
-	function travelogue_put_together($array, $travelogue_codes)
+	function travelogue_put_together($array, $travelogue_codes, $travelogue_types)
 	{
 		$result = array();
 		if (!isset($array['type'])) {
@@ -4467,57 +4477,9 @@
 			$result['thumbsdown'] = true;
 		}
 		$codes = travelogue_interpret_code($array['codes'], $travelogue_codes);
-		switch ($array['type']) {
-			case 'music':
-			default:
-				$result['type'] = "<i class='fa-solid fa-music fa-fw link-purple me-1'></i>";
-				break;
-			case 'concert':
-				$result['type'] = "<i class='fa-solid fa-ticket fa-fw link-danger me-1'></i>";
-				break;
-			case 'movie':
-				$result['type'] = "<i class='fa-solid fa-film fa-fw link-info me-1'></i>";
-				break;
-			case 'tvshow':
-				$result['type'] = "<i class='fa-solid fa-tv-retro fa-fw link-orange me-1'></i>";
-				break;
-			case 'episode':
-				$result['type'] = "<i class='fa-solid fa-camcorder fa-fw link-teal me-1'></i>";
-				break;
-			case 'book':
-				$result['type'] = "<i class='fa-solid fa-book fa-fw link-danger me-1'></i>";
-				break;
-			case 'classical':
-				$result['type'] = "<i class='fa-solid fa-violin fa-fw link-orange me-1'></i>";
-				break;
-			case 'comic':
-				$result['type'] = "<i class='fa-solid fa-comments fa-fw link-pink me-1'></i>";
-				break;
-			case 'standup':
-				$result['type'] = "<i class='fa-solid fa-microphone-stand fa-fw link-warning me-1'></i>";
-				break;
-			case 'painting':
-				$result['type'] = "<i class='fa-solid fa-palette fa-fw link-pink me-1'></i>";
-				break;
-			case 'photo':
-				$result['type'] = "<i class='fa-solid fa-camera-retro fa-fw link-purple me-1'></i>";
-				break;
-			case 'vidya':
-				$result['type'] = "<i class='fa-solid fa-gamepad fa-fw link-info me-1'></i>";
-				break;
-			case 'architecture':
-				$result['type'] = "<i class='fa-solid fa-building-columns fa-fw link-warning me-1'></i>";
-				break;
-			case 'sports':
-				$result['type'] = "<i class='fa-solid fa-sportsball fa-fw link-success me-1'></i>";
-				break;
-			case 'live':
-				$result['type'] = "<i class='fa-solid fa-binoculars fa-fw link-teal me-1'></i>";
-				break;
-			case 'other':
-				$result['type'] = "<i class='fa-solid fa-square-question fa-fw link-danger me-1'></i>";
-				break;
-		}
+		$type_color = nexus_colors(array('mode'=>'convert', 'color'=>$travelogue_types[$array['type']]['color']));
+		$result['type'] = "<i class='fa-solid {$travelogue_types[$array['type']]['icon']} fa-fw {$type_color['link-color']} me-1'></i>";
+
 		$envelope1 = "<a class='edit_this_log' value='{$array['id']}' data-bs-toggle='modal' data-bs-target='#modal_update_entry'>";
 		$result['type'] = "$envelope1{$result['type']}</a>";
 		if ($array['dburl'] != false) {
