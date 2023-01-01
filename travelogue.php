@@ -3,7 +3,7 @@
 	$pagina_tipo = 'travelogue';
 	$pagina_id = $_SESSION['user_escritorio'];
 	$pagina_title = 'Travelogue';
-	$pagina_favicon = 'final_travelogue.ico';
+	$pagina_favicon = 'new_travelogue.ico';
 
 //    if (!isset($_SESSION['travelogue_filter'])) {
 //		$query = prepare_query("SELECT travelogue_filters FROM nexus_options WHERE user_id = {$_SESSION['user_id']}");
