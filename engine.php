@@ -3131,6 +3131,39 @@
 					$types_options .= "<option value='{$key}' $selected>{$_SESSION['travelogue_types'][$key]['description']}</option>";
 				}
 				$log['codes'] = unserialize($log['codes']);
+				$genre_list = false;
+				if ($log['genre'] == false) {
+					$query2 = prepare_query("SELECT DISTINCT genre FROM travelogue WHERE type = '{$log['type']}' ORDER BY genre");
+					$genres = $conn->query($query2);
+					if ($genres->num_rows > 0) {
+						while ($genre = $genres->fetch_assoc()) {
+							if ($genre['genre'] == false) {
+								continue;
+							}
+							$genre_list .= "<option>{$genre['genre']}</option>";
+						}
+					}
+				}
+				if ($genre_list == false) {
+					$genre_module = "
+						<div class='mb-3'>
+							<label for='update_travel_new_genre' class='form-label'>Genre:</label>
+							<input id='update_travel_new_genre' name='update_travel_new_genre' type='text' class='form-control' value='{$log['genre']}'>
+						</div>
+					";
+				} else {
+					$genre_module = "
+						<div class='mb-3'>
+							<label for='update_travel_new_genre' class='form-label'>Genre:</label>
+							<input id='update_travel_new_genre' name='update_travel_new_genre' class='form-control' type='text' list='edit_item_genres'>
+							<datalist id='edit_item_genres'>
+								$genre_list
+							</datalist>
+						</div>
+					";
+				}
+
+
 				$result .= "
 					<form method='post'>
 						<div class='mb-3'>
@@ -3151,10 +3184,7 @@
 							<label for='update_travel_new_release_date' class='form-label'>Release date:</label>
 							<input id='update_travel_new_release_date' name='update_travel_new_release_date' type='text' class='form-control' value='{$log['releasedate']}'>
 						</div>
-						<div class='mb-3'>
-							<label for='update_travel_new_genre' class='form-label'>Genre:</label>
-							<input id='update_travel_new_genre' name='update_travel_new_genre' type='text' class='form-control' value=\"{$log['genre']}\">
-						</div>
+						$genre_module
 						<div class='mb-3'>
 							<label for=update_travel_new_datexp' class='form-label'>Date experienced:</label>
 							<input id='update_travel_new_datexp' name='update_travel_new_datexp' type='text' class='form-control' value='{$log['datexp']}'>
