@@ -431,73 +431,7 @@
 <?php
 	$template_modal_div_id = 'modal_add_item';
 	$template_modal_titulo = 'Add item';
-	$template_modal_body_conteudo = false;
-    $options_types = false;
-    foreach ($_SESSION['travelogue_types'] as $key => $array) {
-		$options_types .= "<option value='$key'>{$_SESSION['travelogue_types'][$key]['description']}</option>";
-    }
-	$template_modal_body_conteudo .= "
-    <form method='post'>
-        <div class='mb-3'>
-            <label for='travel_new_type' class='form-label'>Type:</label>
-            <select id='travel_new_type' name='travel_new_type' type='text' class='form-control'>
-                $options_types
-            </select>
-        </div>
-        <div class='mb-3'>
-            <label for='travel_new_creator' class='form-label'>Author:</label>
-            <input id='travel_new_creator' name='travel_new_creator' type='text' class='form-control'>
-        </div>
-        <div class='mb-3'>
-            <label for='travel_new_title' class='form-label'>Title:</label>
-            <input id='travel_new_title' name='travel_new_title' type='text' class='form-control'>
-        </div>
-        <div class='mb-3'>
-            <label for='travel_new_release_date' class='form-label'>Release date:</label>
-            <input id='travel_new_release_date' name='travel_new_release_date' type='text' class='form-control'>
-        </div>
-        <div class='mb-3'>
-            <label for='travel_new_genre' class='form-label'>Genre:</label>
-            <input id='travel_new_genre' name='travel_new_genre' type='text' class='form-control'>
-        </div>
-        <div class='mb-3'>
-            <label for='travel_new_datexp' class='form-label'>Date experienced:</label>
-            <input id='travel_new_datexp' name='travel_new_datexp' type='text' class='form-control'>
-        </div>
-        <div class='mb-3'>
-            <label for='travel_new_rating' class='form-label'>Your rating (1 to 5):</label>
-            <input type='range' class='form-range' id='travel_new_rating' name='travel_new_rating' min='1' max='5' disabled>
-            <button id='trigger_enable_rating' class='btn btn-outline-secondary btn-sm' type='button'>Enable</button>
-        </div>
-        <div class='mb-3'>
-            <label for='travel_new_comments' class='form-label'>Your comments:</label>
-            <textarea id='travel_new_comments' name='travel_new_comments' type='textarea' class='form-control' rows='3'></textarea>
-        </div>
-        <div class='mb-3'>
-            <label for='travel_new_information' class='form-label'>Relevant information:</label>
-            <textarea id='travel_new_information' name='travel_new_information' type='text' class='form-control' rows='3'></textarea>
-        </div>
-        <div class='mb-3'>
-            <label for='travel_new_database' class='form-label'>Database link (Wikipedia, IMDb, AllMusic etc.):</label>
-            <input id='travel_new_database' name='travel_new_database' type='url' class='form-control'>
-        </div>";
-	$template_modal_body_conteudo .= "<div class='mb-3'>
-					<h3>Codes</h3>
-				";
-	foreach ($_SESSION['travelogue_codes'] as $key => $info) {
-		$color = nexus_colors(array('mode' => 'convert', 'color' => $_SESSION['travelogue_codes'][$key]['color']));
-		$template_modal_body_conteudo .= "
-					<div class='form-check'>
-						<input name='travel_new_code_$key' id='travel_new_code_$key' class='form-check-input' type='checkbox' value='$key'>
-						<label for='travel_new_code_$key' class='form-check-label'><i class='{$_SESSION['travelogue_codes'][$key]['icon']} me-2 {$color['link-color']} bg-dark p-1 rounded fa-fw'></i>{$_SESSION['travelogue_codes'][$key]['description']}</label>
-					</div>
-				";
-	}
-	$template_modal_body_conteudo .= "</div>";
-	$template_modal_body_conteudo .= "
-        <button type='submit' class='btn btn-primary'>Submit</button>
-    </form>
-    ";
+	$template_modal_body_conteudo = 'Loading...';
     $modal_scrollable = true;
 	include 'templates/modal.php';
 
@@ -540,6 +474,17 @@
         }, function (data) {
             if (data != 0) {
                 $('#body_modal_filter').html(data);
+            } else {
+                alert('Something went wrong');
+            }
+        })
+    })
+    $(document).on('click', '#trigger_add_item', function () {
+        $.post('engine.php', {
+            'travelogue_populate_add_item': true
+        }, function (data) {
+            if (data != 0) {
+                $('#body_modal_add_item').html(data);
             } else {
                 alert('Something went wrong');
             }

@@ -3133,7 +3133,7 @@
 				$log['codes'] = unserialize($log['codes']);
 				$genre_list = false;
 				if ($log['genre'] == false) {
-					$query2 = prepare_query("SELECT DISTINCT genre FROM travelogue WHERE type = '{$log['type']}' ORDER BY genre");
+					$query2 = prepare_query("SELECT DISTINCT genre FROM travelogue WHERE type = '{$log['type']}' AND user_id = {$_SESSION['user_id']} ORDER BY genre");
 					$genres = $conn->query($query2);
 					if ($genres->num_rows > 0) {
 						while ($genre = $genres->fetch_assoc()) {
@@ -3335,7 +3335,7 @@
 
 		$codes_options = false;
 		foreach ($_SESSION['travelogue_codes'] as $key => $array) {
-			$color = nexus_colors(array('mode'=>'convert', 'color'=>$_SESSION['travelogue_codes'][$key]['color']));
+			$color = nexus_colors(array('mode' => 'convert', 'color' => $_SESSION['travelogue_codes'][$key]['color']));
 			$codes_options .= "
 				<div class='form-check'>
 					<input name='travelogue_filter_code_$key' id='travelogue_filter_code_$key' class='form-check-input code_filter_option' type='checkbox' value='code_$key' checked>
@@ -3470,6 +3470,99 @@
 		        <li class='list-group-item'>Alt+r will show recent links.</li>
             </ul>
 		";
+	}
+
+	if (isset($_POST['travelogue_populate_add_item'])) {
+
+		$all_genres_list = false;
+		$query = prepare_query("SELECT DISTINCT genre FROM travelogue WHERE user_id = {$_SESSION['user_id']} ORDER BY genre");
+		$list_genres = $conn->query($query);
+		if ($list_genres->num_rows > 0) {
+			while ($list_genre = $list_genres->fetch_assoc()) {
+				$all_genres_list .= "<option>{$list_genre['genre']}</option>";
+			}
+		}
+
+		$all_authors_list = false;
+		$query = prepare_query("SELECT DISTINCT creator FROM travelogue WHERE user_id = {$_SESSION['user_id']} ORDER BY creator");
+		$list_authors = $conn->query($query);
+		if ($list_authors->num_rows > 0) {
+			while ($list_author = $list_authors->fetch_assoc()) {
+				$all_authors_list .= "<option>{$list_author['creator']}</option>";
+			}
+		}
+
+		$template_modal_body_conteudo = false;
+		$options_types = false;
+		foreach ($_SESSION['travelogue_types'] as $key => $array) {
+			$options_types .= "<option value='$key'>{$_SESSION['travelogue_types'][$key]['description']}</option>";
+		}
+		$template_modal_body_conteudo .= "
+			<form method='post'>
+				<div class='mb-3'>
+					<label for='travel_new_type' class='form-label'>Type:</label>
+					<select id='travel_new_type' name='travel_new_type' type='text' class='form-control'>
+						$options_types
+					</select>
+				</div>
+				<div class='mb-3'>
+					<label for='travel_new_creator' class='form-label'>Author:</label>
+					<input id='travel_new_creator' name='travel_new_creator' type='text' class='form-control' list='new_item_authors_list'>
+					<datalist id='new_item_authors_list'>$all_authors_list</datalist>
+				</div>
+				<div class='mb-3'>
+					<label for='travel_new_title' class='form-label'>Title:</label>
+					<input id='travel_new_title' name='travel_new_title' type='text' class='form-control'>
+				</div>
+				<div class='mb-3'>
+					<label for='travel_new_release_date' class='form-label'>Release date:</label>
+					<input id='travel_new_release_date' name='travel_new_release_date' type='text' class='form-control'>
+				</div>
+				<div class='mb-3'>
+					<label for='travel_new_genre' class='form-label'>Genre:</label>
+					<input id='travel_new_genre' name='travel_new_genre' type='text' class='form-control' list='new_item_genres_list'>
+					<datalist id='new_item_genres_list'>$all_genres_list</datalist>
+				</div>
+				<div class='mb-3'>
+					<label for='travel_new_datexp' class='form-label'>Date experienced:</label>
+					<input id='travel_new_datexp' name='travel_new_datexp' type='text' class='form-control'>
+				</div>
+				<div class='mb-3'>
+					<label for='travel_new_rating' class='form-label'>Your rating (1 to 5):</label>
+					<input type='range' class='form-range' id='travel_new_rating' name='travel_new_rating' min='1' max='5' disabled>
+					<button id='trigger_enable_rating' class='btn btn-outline-secondary btn-sm' type='button'>Enable</button>
+				</div>
+				<div class='mb-3'>
+					<label for='travel_new_comments' class='form-label'>Your comments:</label>
+					<textarea id='travel_new_comments' name='travel_new_comments' type='textarea' class='form-control' rows='3'></textarea>
+				</div>
+				<div class='mb-3'>
+					<label for='travel_new_information' class='form-label'>Relevant information:</label>
+					<textarea id='travel_new_information' name='travel_new_information' type='text' class='form-control' rows='3'></textarea>
+				</div>
+				<div class='mb-3'>
+					<label for='travel_new_database' class='form-label'>Database link (Wikipedia, IMDb, AllMusic etc.):</label>
+					<input id='travel_new_database' name='travel_new_database' type='url' class='form-control'>
+				</div>";
+				$template_modal_body_conteudo .= "<div class='mb-3'>
+							<h3>Codes</h3>
+						";
+				foreach ($_SESSION['travelogue_codes'] as $key => $info) {
+					$color = nexus_colors(array('mode' => 'convert', 'color' => $_SESSION['travelogue_codes'][$key]['color']));
+					$template_modal_body_conteudo .= "
+							<div class='form-check'>
+								<input name='travel_new_code_$key' id='travel_new_code_$key' class='form-check-input' type='checkbox' value='$key'>
+								<label for='travel_new_code_$key' class='form-check-label'><i class='{$_SESSION['travelogue_codes'][$key]['icon']} me-2 {$color['link-color']} bg-dark p-1 rounded fa-fw'></i>{$_SESSION['travelogue_codes'][$key]['description']}</label>
+							</div>
+						";
+				}
+				$template_modal_body_conteudo .= "</div>";
+				$template_modal_body_conteudo .= "
+				<button type='submit' class='btn btn-primary'>Submit</button>
+			</form>
+		";
+		echo $template_modal_body_conteudo;
+		exit();
 	}
 
 ?>
