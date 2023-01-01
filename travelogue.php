@@ -249,19 +249,16 @@
     }
 </style>
 <div class="container-fluid">
-    <div class="row sticky-top bg-dark">
-		<?php
-			echo nexus_put_together(array('type' => 'navbar', 'color' => 'teal', 'class' => 'col-auto', 'href' => false, 'icon' => 'fas fa-plus', 'id' => 'trigger_add_item', 'modal' => '#modal_add_item'));
-			echo nexus_put_together(array('type' => 'navbar', 'color' => 'purple', 'class' => 'col-auto', 'href' => false, 'icon' => 'fas fa-filter-list', 'id' => 'trigger_filter', 'modal' => '#modal_filter'));
-		?>
-    </div>
-    <div class="row">
+    <div class="row sticky-top">
         <div class="col-12">
 			<?php
 				echo "
-                <div class='row mb-3 px-1 sticky-top'>
-                    <div class='col-1 travelogue_col text-center'>
-                                <span class='text-white font-half-condensed-400 user-select-none'>Codes</span>
+                <div class='row mb-2 px-1 sticky-top mt-1'>
+                    <div class='col-1 p-1 bg-dark d-flex justify-content-center'>
+                        ";
+                            echo nexus_put_together(array('type' => 'travelogue_button', 'color' => 'teal', 'class' => 'col-auto', 'href' => false, 'icon' => 'fas fa-plus', 'id' => 'trigger_add_item', 'modal' => '#modal_add_item'));
+                            echo nexus_put_together(array('type' => 'travelogue_button', 'color' => 'purple', 'class' => 'col-auto', 'href' => false, 'icon' => 'fas fa-filter-list', 'id' => 'trigger_filter', 'modal' => '#modal_filter'));
+                        echo "
                     </div>
                     <div class='col-1 travelogue_col text-center'>
                                 <span class='text-white font-half-condensed-400 user-select-none'>Timeline</span>

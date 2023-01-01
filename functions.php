@@ -3911,6 +3911,9 @@
 			case 'navbar':
 				return "<a class='nexus-navbar-button {$colors['bg-black-color']} {$params['class']}' href='$href' $target_blank id='{$params['id']}' title='{$params['title']}' $nexus_artefato_modal_module><i class='fa-solid $icon fa-fw'></i></a>";
 				break;
+			case 'travelogue_button':
+				return "<a class='p-2 me-1 rounded {$colors['bg-black-color']} {$params['class']}' href='$href' $target_blank id='{$params['id']}' title='{$params['title']}' $nexus_artefato_modal_module><i class='fa-solid $icon fa-fw'></i></a>";
+				break;
 			case 'link_large':
 				return "
 					<div class='col-auto mb-1 pe-3 {$params['class']}'>
