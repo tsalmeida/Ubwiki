@@ -328,13 +328,13 @@
 				} else {
 					$result = false;
 				}
-                $count = 0;
+//                $count = 0;
 				if ($records->num_rows > 0) {
 					while ($record = $records->fetch_assoc()) {
-                        $count++;
-                        if ($count == 20) {
-                            break;
-                        }
+//                        $count++;
+//                        if ($count == 20) {
+//                            break;
+//                        }
 						$record['codes'] = unserialize($record['codes']);
 						if (isset($_SESSION['travelogue_filter_options'])) {
                             if ($_SESSION['travelogue_filter_options']['genres'] != false) {
