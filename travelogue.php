@@ -244,7 +244,7 @@
                     <div class='col-1 p-1 bg-dark d-flex justify-content-center'>
                         ";
                             echo nexus_put_together(array('type' => 'travelogue_button', 'color' => 'teal', 'class' => 'col-auto', 'href' => false, 'icon' => 'fas fa-plus', 'id' => 'trigger_add_item', 'modal' => '#modal_add_item'));
-                            echo nexus_put_together(array('type' => 'travelogue_button', 'color' => 'purple', 'class' => 'col-auto', 'href' => false, 'icon' => 'fas fa-filter-list', 'id' => 'trigger_filter', 'modal' => '#modal_filter'));
+                            echo nexus_put_together(array('type' => 'travelogue_button', 'color' => 'yellow', 'class' => 'col-auto', 'href' => false, 'icon' => 'fas fa-filter-list', 'id' => 'trigger_filter', 'modal' => '#modal_filter'));
                         echo "
                     </div>
                     <div class='col-1 travelogue_col text-center'>
