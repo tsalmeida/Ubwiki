@@ -3347,8 +3347,8 @@
 		$genre_options = false;
 		$query = "SELECT DISTINCT genre FROM travelogue WHERE user_id = {$_SESSION['user_id']} ORDER BY genre";
 		$user_genres = $conn->query($query);
-		if ($user_genres->num_rows > 0) {
-			$count = $user_genres->num_rows;
+		$genre_count = $user_genres->num_rows;
+		if ($genre_count > 0) {
 			while ($user_genre = $user_genres->fetch_assoc()) {
 				if ($user_genre['genre'] == false) {
 					continue;
@@ -3357,12 +3357,33 @@
 			}
 		}
 
-		$genre_size = $count / 3;
+		$author_options = false;
+		$query = "SELECT DISTINCT creator FROM travelogue WHERE user_id = {$_SESSION['user_id']} ORDER BY creator";
+		$user_authors = $conn->query($query);
+		$author_count = $user_authors->num_rows;
+		if ($author_count > 0) {
+			while ($user_author = $user_authors->fetch_assoc()) {
+				if ($user_author['creator'] == false) {
+					continue;
+				}
+				$author_options .= "<option value='{$user_author['creator']}'>{$user_author['creator']}</option>";
+			}
+		}
+
+		$genre_size = $genre_count / 3;
 		if ($genre_size < 3) {
 			$genre_size = 3;
 		}
 		if ($genre_size > 20) {
 			$genre_size = 20;
+		}
+
+		$author_size = $author_count / 3;
+		if ($author_size < 3) {
+			$author_size = 3;
+		}
+		if ($author_size > 20) {
+			$author_size = 20;
 		}
 
 //		$genre_options .= "<input type='hidden' value='$count' name='filter_code_count'>";
@@ -3392,6 +3413,7 @@
 			$travel_options
 			<button class='btn btn-secondary btn-sm mb-2' id='unselect_types' type='button'>Unselect all</button>
 			<button class='btn btn-secondary btn-sm mb-2' id='select_types' type='button'>Select all all</button>
+			<hr>
 			<h3>Filter codes</h3>
 			<p>Show only entries with the following codes:</p>
 			<div class='form-check'>
@@ -3401,11 +3423,20 @@
 			$codes_options
 			<button class='btn btn-secondary btn-sm mb-2' id='unselect_codes' type='button'>Unselect all</button>
 			<button class='btn btn-secondary btn-sm mb-2' id='select_codes' type='button'>Select all</button>
+			<hr>
 			<h3>Filter genres</h3>
-			<select class='form-select mb-2' size='$genre_size' id='travelogue_filter_genres' name='travelogue_filter_genres[]' multiple disabled>
+			<p class='d-none' id='paragraph_explain_filter_genres'>The genres you select below will be shown once the filter is applied. All others will be hidden.</p>
+			<select class='form-select mb-2 d-none' size='$genre_size' id='travelogue_filter_genres' name='travelogue_filter_genres[]' multiple disabled>
 				$genre_options
 			</select>
 			<button class='btn btn-secondary btn-sm mb-2' id='enable_genre_filter' type='button'>Enable genre filter</button>
+			<hr>
+			<h3>Filter authors</h3>
+			<p class='d-none' id='paragraph_explain_filter_authors'>The authors you select below will be shows once the filter is applied. All others will be hidden.</p>
+			<select class='form-select mb-2 d-none' size='$author_size' id='travelogue_filter_authors' name='travelogue_filter_authors[]' multiple disabled>
+				$author_options
+			</select>
+			<button class='btn btn-secondary btn-sm mb-2' id='enable_author_filter' type='button'>Enable author filter</button>
 			<hr>
 			<button class='btn btn-primary' name='trigger_modal_filter' id='trigger_modal_filter'>Submit</button>
 			<button class='btn btn-secondary' name='trigger_reset_filter' id='trigger_reset_filter'>Reset all filters</button>

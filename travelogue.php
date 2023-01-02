@@ -4,23 +4,7 @@
 	$pagina_id = $_SESSION['user_escritorio'];
 	$pagina_title = 'Travelogue';
 	$pagina_favicon = 'new_travelogue.ico';
-
-//    if (!isset($_SESSION['travelogue_filter'])) {
-//		$query = prepare_query("SELECT travelogue_filters FROM nexus_options WHERE user_id = {$_SESSION['user_id']}");
-//		$travelogue_filters = $conn->query($query);
-//		if ($travelogue_filters->num_rows > 0) {
-//			while ($travelogue_filter = $travelogue_filters->fetch_assoc()) {
-//				$user_travelogue_filters = $travelogue_filter['travelogue_filters'];
-//			}
-//		} else {
-//			$user_travelogue_filters = false;
-//		}
-//	}
-
-//    foreach ($_SESSION as $array => $key) {
-//        error_log($array);
-//        error_log(serialize($_SESSION[$array]));
-//    }
+    $count_limit = false;
 
 	if (!isset($_SESSION['travelogue_codes'])) {
 		$_SESSION['travelogue_codes'] = build_travelogue_codes();
@@ -28,7 +12,6 @@
     if (!isset($_SESSION['travelogue_types'])) {
         $_SESSION['travelogue_types'] = build_travelogue_types();
     }
-//    error_log(serialize($_SESSION['travelogue_types']));
 
 	if (isset($_POST['travel_new_type'])) {
 		if (!isset($_POST['travel_new_release_date'])) {
@@ -228,7 +211,11 @@
             $_POST['travelogue_filter_genres'] = array();
         }
 
-		$_SESSION['travelogue_filter_options'] = array('music' => $_POST['travelogue_filter_music'], 'concert' => $_POST['travelogue_filter_concert'], 'movie' => $_POST['travelogue_filter_movie'], 'tvshow' => $_POST['travelogue_filter_tvshow'], 'episode' => $_POST['travelogue_filter_episode'], 'book' => $_POST['travelogue_filter_book'], 'classical' => $_POST['travelogue_filter_classical'], 'comic' => $_POST['travelogue_filter_comic'], 'standup' => $_POST['travelogue_filter_standup'], 'painting' => $_POST['travelogue_filter_painting'], 'photo' => $_POST['travelogue_filter_photo'], 'vidya' => $_POST['travelogue_filter_vidya'], 'architecture' => $_POST['travelogue_filter_architecture'], 'sports' => $_POST['travelogue_filter_sports'], 'live' => $_POST['travelogue_filter_live'], 'other' => $_POST['travelogue_filter_other'], 'favorite' => $_POST['travelogue_filter_code_favorite'], 'lyrics' => $_POST['travelogue_filter_code_lyrics'], 'hifi' => $_POST['travelogue_filter_code_hifi'], 'relaxing' => $_POST['travelogue_filter_code_relaxing'], 'heavy' => $_POST['travelogue_filter_code_heavy'], 'vibe' => $_POST['travelogue_filter_code_vibe'], 'complex' => $_POST['travelogue_filter_code_complex'], 'instrumental' => $_POST['travelogue_filter_code_instrumental'], 'live' => $_POST['travelogue_filter_code_live'], 'lists' => $_POST['travelogue_filter_code_lists'], 'bookmark' => $_POST['travelogue_filter_code_bookmark'], 'thumbsup' => $_POST['travelogue_filter_code_thumbsup'], 'thumbsdown' => $_POST['travelogue_filter_code_thumbsdown'], 'thumbtack' => $_POST['travelogue_filter_code_thumbtack'], 'pointer' => $_POST['travelogue_filter_code_pointer'], 'show_no_code' => $_POST['travelogue_show_no_code'], 'genres' => $_POST['travelogue_filter_genres']);
+        if (!isset($_POST['travelogue_filter_authors'])) {
+            $_POST['travelogue_filter_authors'] = array();
+		}
+
+		$_SESSION['travelogue_filter_options'] = array('music' => $_POST['travelogue_filter_music'], 'concert' => $_POST['travelogue_filter_concert'], 'movie' => $_POST['travelogue_filter_movie'], 'tvshow' => $_POST['travelogue_filter_tvshow'], 'episode' => $_POST['travelogue_filter_episode'], 'book' => $_POST['travelogue_filter_book'], 'classical' => $_POST['travelogue_filter_classical'], 'comic' => $_POST['travelogue_filter_comic'], 'standup' => $_POST['travelogue_filter_standup'], 'painting' => $_POST['travelogue_filter_painting'], 'photo' => $_POST['travelogue_filter_photo'], 'vidya' => $_POST['travelogue_filter_vidya'], 'architecture' => $_POST['travelogue_filter_architecture'], 'sports' => $_POST['travelogue_filter_sports'], 'other' => $_POST['travelogue_filter_other'], 'favorite' => $_POST['travelogue_filter_code_favorite'], 'lyrics' => $_POST['travelogue_filter_code_lyrics'], 'hifi' => $_POST['travelogue_filter_code_hifi'], 'relaxing' => $_POST['travelogue_filter_code_relaxing'], 'heavy' => $_POST['travelogue_filter_code_heavy'], 'vibe' => $_POST['travelogue_filter_code_vibe'], 'complex' => $_POST['travelogue_filter_code_complex'], 'instrumental' => $_POST['travelogue_filter_code_instrumental'], 'live' => $_POST['travelogue_filter_code_live'], 'lists' => $_POST['travelogue_filter_code_lists'], 'bookmark' => $_POST['travelogue_filter_code_bookmark'], 'thumbsup' => $_POST['travelogue_filter_code_thumbsup'], 'thumbsdown' => $_POST['travelogue_filter_code_thumbsdown'], 'thumbtack' => $_POST['travelogue_filter_code_thumbtack'], 'pointer' => $_POST['travelogue_filter_code_pointer'], 'show_no_code' => $_POST['travelogue_show_no_code'], 'genres' => $_POST['travelogue_filter_genres'], 'authors' => $_POST['travelogue_filter_authors']);
 	}
 
     if (isset($_POST['trigger_reset_filter'])) {
@@ -325,17 +312,26 @@
 				} else {
 					$result = false;
 				}
-//                $count = 0;
 				if ($records->num_rows > 0) {
 					while ($record = $records->fetch_assoc()) {
-//                        $count++;
-//                        if ($count == 20) {
-//                            break;
-//                        }
+                        if ($count_limit != false) {
+							if (!isset($count)) {
+								$count = 0;
+							}
+							$count++;
+							if ($count == $count_limit) {
+								break;
+							}
+						}
 						$record['codes'] = unserialize($record['codes']);
 						if (isset($_SESSION['travelogue_filter_options'])) {
                             if ($_SESSION['travelogue_filter_options']['genres'] != false) {
                                 if (!in_array($record['genre'], $_SESSION['travelogue_filter_options']['genres'])) {
+                                    continue;
+                                }
+                            }
+                            if ($_SESSION['travelogue_filter_options']['authors'] != false) {
+                                if (!in_array($record['creator'], $_SESSION['travelogue_filter_options']['authors'])) {
                                     continue;
                                 }
                             }
@@ -522,6 +518,15 @@
     $(document).on('click', '#enable_genre_filter', function() {
         $(this).addClass('d-none');
         $("#travelogue_filter_genres").removeAttr("disabled");
+        $("#travelogue_filter_genres").removeClass("d-none");
+        $("#paragraph_explain_filter_genres").removeClass("d-none");
+    })
+
+    $(document).on('click', '#enable_author_filter', function() {
+        $(this).addClass('d-none');
+        $("#travelogue_filter_authors").removeAttr("disabled");
+        $("#travelogue_filter_authors").removeClass("d-none");
+        $("#paragraph_explain_filter_authors").removeClass("d-none");
     })
 
 
