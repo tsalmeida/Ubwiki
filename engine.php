@@ -3233,7 +3233,7 @@
 					</div>
 				";
 				}
-				$result .= "</div>";
+				$result .= "</div><hr>";
 
 				$result .= "
 						<button type='submit' class='btn btn-primary' name='update_this_entry' id='update_this_entry' value='{$log['id']}'>Submit</button>
@@ -3587,7 +3587,7 @@
 							</div>
 						";
 				}
-				$template_modal_body_conteudo .= "</div>";
+				$template_modal_body_conteudo .= "</div><hr>";
 				$template_modal_body_conteudo .= "
 				<button type='submit' class='btn btn-primary'>Submit</button>
 			</form>
