@@ -3396,7 +3396,7 @@
 	                <option value='dateadded'>Chronological by date added</option>
 	                <option value='chronological'>Chronological by release date</option>
 	                <option value='biographical'>Chronological by date experienced</option>
-	                <option value='alphabetical_creator'>Alphabetical by creator name</option>
+	                <option value='alphabetical_creator'>Alphabetical by author name</option>
 	                <option value='alphabetical_title'>Alphabetical by title</option>
 	                <option value='alphabetical_genre'>Alphabetical by genre</option>
 	                <option value='alphabetical_type'>Alphabetical by type</option>
@@ -3594,6 +3594,95 @@
 		";
 		echo $template_modal_body_conteudo;
 		exit();
+	}
+
+	if (isset($_POST['edit_this_author'])) {
+		$result = false;
+		$result .= "<p><button id='exclusive_author_filter' class='btn btn-secondary btn-sm' value='{$_POST['edit_this_author']}'>Click here</button> to set the travelogue filter to only show works by this author.</p>";
+		$_POST['edit_this_author'] = intval($_POST['edit_this_author']);
+		$query = prepare_query("SELECT creator FROM travelogue WHERE id = {$_POST['edit_this_author']}");
+		$creators = $conn->query($query);
+		if ($creators->num_rows > 0) {
+			while ($creator = $creators->fetch_assoc()) {
+				$creator_string = $creator['creator'];
+			}
+		}
+		$query = prepare_query("SELECT * FROM travelogue WHERE creator = '$creator_string' AND user_id = {$_SESSION['user_id']} ORDER BY releasedate");
+		$works = $conn->query($query);
+		if ($works->num_rows > 0) {
+			$result .= "<p id='hide_when_show_list_author'><button id='show_list_author' class='btn btn-secondary btn-sm' type='button'>Click here</button> to show all registered works by this author:</p>";
+			$result .= "<ul class='list-group mb-1 d-none author_works_list'><li class='list-group-item active'>Registered works by this author (chronological order):</li></ul>";
+			$result .= "<ol class='list-group list-group-numbered d-none author_works_list'>";
+			while ($work = $works->fetch_assoc()) {
+				if (!isset($creator_id)) {
+					$creator_id = $work['id'];
+				}
+				$comments_module = false;
+				if ($work['comments'] != false) {
+					$comments_module = "<br><small class='text-muted bg-light py-1 px-2 rounded border border-secondary'>{$work['comments']}</small>";
+				}
+				$result .= "<li class='list-group-item'><span class='bg-secondary text-light rounded small px-2 mx-2'>{$work['releasedate']}</span> {$work['title']} $comments_module</li>";
+			}
+			$result .= "</ol>";
+		}
+		$query = prepare_query("SELECT * FROM travelogue_authors WHERE creator_id = $creator_id");
+		$creators = $conn->query($query);
+		if ($creators->num_rows > 0) {
+			while ($creator = $creators->fetch_assoc()) {
+				$creator_user_comments = $creator['comments'];
+				$creator_database = $creator['dburl'];
+			}
+		} else {
+			$query = prepare_query("INSERT INTO travelogue_authors (creator_id, user_id, title) VALUES ($creator_id, {$_SESSION['user_id']}, '$creator_string')");
+			$conn->query($query);
+			$creator_user_comments = false;
+			$creator_database = false;
+		}
+		$result .= "
+			<hr>
+			<h3>Editable author data</h3>
+			<form method='post'>
+			<div class='mb-3'>
+				<label for='update_author_comments' class='form-label'>Your comments on this author:</label>
+				<textarea id='update_author_comments' name='update_author_comments' type='textarea' class='form-control' rows='8'>$creator_user_comments</textarea>
+			</div>
+		";
+		$result .= "
+			<div class='mb-3'>
+				<label for='update_author_database' class='form-label'>Database link (Wikipedia, IMDb, AllMusic etc.):</label>
+				<input id='update_author_database' name='update_author_database' type='url' class='form-control' value=\"$creator_database\">
+			</div>
+			<hr>
+			<button class='btn btn-primary' name='update_author_data' value='{$creator_id}'>Submit</button>
+			</form>
+		";
+		echo $result;
+	}
+
+	if (isset($_POST['update_author_data'])) {
+		$_POST['update_author_data'] = intval($_POST['update_author_data']);
+		$_POST['update_author_database'] = mysqli_real_escape_string($conn, $_POST['update_author_database']);
+		$_POST['update_author_comments'] = mysqli_real_escape_string($conn, $_POST['update_author_comments']);
+		$query = prepare_query("UPDATE travelogue_authors SET comments = '{$_POST['update_author_comments']}', dburl = '{$_POST['update_author_database']}' WHERE creator_id = {$_POST['update_author_data']} AND user_id = {$_SESSION['user_id']}");
+		$conn->query($query);
+	}
+
+	if (isset($_POST['exclusive_author_filter'])) {
+		$_POST['exclusive_author_filter'] = intval($_POST['exclusive_author_filter']);
+		$query = prepare_query("SELECT creator FROM travelogue WHERE id = {$_POST['exclusive_author_filter']}");
+		$creators = $conn->query($query);
+		if ($creators->num_rows > 0) {
+			while ($creator = $creators->fetch_assoc()) {
+				$author_title = $creator['creator'];
+			}
+		}
+		if ($author_title !== false) {
+			$_SESSION['travelogue_filter_options'] = unserialize('a:33:{s:5:"music";s:5:"music";s:7:"concert";b:0;s:5:"movie";s:5:"movie";s:6:"tvshow";s:6:"tvshow";s:7:"episode";b:0;s:4:"book";s:4:"book";s:9:"classical";s:9:"classical";s:5:"comic";b:0;s:7:"standup";b:0;s:8:"painting";s:8:"painting";s:5:"photo";b:0;s:5:"vidya";b:0;s:12:"architecture";s:12:"architecture";s:6:"sports";s:6:"sports";s:5:"other";b:0;s:8:"favorite";s:13:"code_favorite";s:6:"lyrics";s:11:"code_lyrics";s:4:"hifi";s:9:"code_hifi";s:8:"relaxing";s:13:"code_relaxing";s:5:"heavy";s:10:"code_heavy";s:4:"vibe";s:9:"code_vibe";s:7:"complex";s:12:"code_complex";s:12:"instrumental";s:17:"code_instrumental";s:4:"live";s:9:"code_live";s:5:"lists";s:10:"code_lists";s:8:"bookmark";s:13:"code_bookmark";s:8:"thumbsup";s:13:"code_thumbsup";s:10:"thumbsdown";s:15:"code_thumbsdown";s:9:"thumbtack";s:14:"code_thumbtack";s:7:"pointer";s:12:"code_pointer";s:12:"show_no_code";s:12:"show_no_code";s:6:"genres";a:0:{}s:7:"authors";a:1:{i:0;s:12:"The National";}}');
+			$_SESSION['travelogue_filter_options']['authors'] = array($author_title);
+			echo true;
+		} else {
+			echo false;
+		}
 	}
 
 ?>

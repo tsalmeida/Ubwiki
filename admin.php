@@ -12,37 +12,7 @@
 	}
 
 	if (isset($_POST['trigger_atualizacao'])) {
-        $query = prepare_query("INSERT INTO travelogue_types (title, icon, color, description) VALUES ('music', 'fa-music', 'purple', 'Music album')");
-        $conn->query($query);
-        $query = prepare_query("INSERT INTO travelogue_types (title, icon, color, description) VALUES ('concert', 'fa-ticket', 'red', 'Music concert')");
-        $conn->query($query);
-        $query = prepare_query("INSERT INTO travelogue_types (title, icon, color, description) VALUES ('movie', 'fa-film', 'cyan', 'Movie')");
-        $conn->query($query);
-        $query = prepare_query("INSERT INTO travelogue_types (title, icon, color, description) VALUES ('tvshow', 'fa-tv-retro', 'orange', 'TV Show')");
-        $conn->query($query);
-        $query = prepare_query("INSERT INTO travelogue_types (title, icon, color, description) VALUES ('episode', 'fa-camcorder', 'teal', 'TV Show Episode')");
-        $conn->query($query);
-        $query = prepare_query("INSERT INTO travelogue_types (title, icon, color, description) VALUES ('book', 'fa-book', 'red', 'Book')");
-        $conn->query($query);
-        $query = prepare_query("INSERT INTO travelogue_types (title, icon, color, description) VALUES ('classical', 'fa-violin', 'orange', 'Classical Music')");
-        $conn->query($query);
-        $query = prepare_query("INSERT INTO travelogue_types (title, icon, color, description) VALUES ('comic', 'fa-comments', 'pink', 'Comic Book')");
-        $conn->query($query);
-        $query = prepare_query("INSERT INTO travelogue_types (title, icon, color, description) VALUES ('standup', 'fa-microphone-stand', 'yellow', 'Stand-up Show')");
-        $conn->query($query);
-        $query = prepare_query("INSERT INTO travelogue_types (title, icon, color, description) VALUES ('painting', 'fa-palette', 'pink', 'Painting')");
-        $conn->query($query);
-        $query = prepare_query("INSERT INTO travelogue_types (title, icon, color, description) VALUES ('photo', 'fa-camera-retro', 'purple', 'Photo')");
-        $conn->query($query);
-        $query = prepare_query("INSERT INTO travelogue_types (title, icon, color, description) VALUES ('vidya', 'fa-gamepad', 'cyan', 'Video Game')");
-        $conn->query($query);
-        $query = prepare_query("INSERT INTO travelogue_types (title, icon, color, description) VALUES ('architecture', 'fa-building-columns', 'yellow', 'Architecture')");
-        $conn->query($query);
-        $query = prepare_query("INSERT INTO travelogue_types (title, icon, color, description) VALUES ('sports', 'fa-sportsball', 'green', 'Sports event')");
-        $conn->query($query);
-        $query = prepare_query("INSERT INTO travelogue_types (title, icon, color, description) VALUES ('live', 'fa-binoculars', 'teal', 'Live event')");
-        $conn->query($query);
-        $query = prepare_query("INSERT INTO travelogue_types (title, icon, color, description) VALUES ('other', 'fa-square-question', 'red', 'Other')");
+        $query = prepare_query("CREATE TABLE `ubwiki`.`travelogue_authors` (`id` INT(11) NOT NULL AUTO_INCREMENT , `creator_id` INT(11) NOT NULL , `user_id` INT(11) NOT NULL , `title` VARCHAR(255) NOT NULL , `comments` TEXT NULL DEFAULT NULL , `dburl` VARCHAR(500) NULL DEFAULT NULL , PRIMARY KEY (`id`), UNIQUE `creator_id` (`creator_id`)) ENGINE = InnoDB;");
         $conn->query($query);
 	}
 

@@ -4,14 +4,14 @@
 	$pagina_id = $_SESSION['user_escritorio'];
 	$pagina_title = 'Travelogue';
 	$pagina_favicon = 'new_travelogue.ico';
-    $count_limit = false;
+	$count_limit = false;
 
 	if (!isset($_SESSION['travelogue_codes'])) {
 		$_SESSION['travelogue_codes'] = build_travelogue_codes();
 	}
-    if (!isset($_SESSION['travelogue_types'])) {
-        $_SESSION['travelogue_types'] = build_travelogue_types();
-    }
+	if (!isset($_SESSION['travelogue_types'])) {
+		$_SESSION['travelogue_types'] = build_travelogue_types();
+	}
 
 	if (isset($_POST['travel_new_type'])) {
 		if (!isset($_POST['travel_new_release_date'])) {
@@ -157,70 +157,70 @@
 		if (!isset($_POST['travelogue_filter_other'])) {
 			$_POST['travelogue_filter_other'] = false;
 		}
-        if (!isset($_POST['travelogue_filter_code_favorite'])) {
-            $_POST['travelogue_filter_code_favorite'] = false;
-        }
-        if (!isset($_POST['travelogue_filter_code_lyrics'])) {
-            $_POST['travelogue_filter_code_lyrics'] = false;
-        }
-        if (!isset($_POST['travelogue_filter_code_hifi'])) {
-            $_POST['travelogue_filter_code_hifi'] = false;
-        }
-        if (!isset($_POST['travelogue_filter_code_relaxing'])) {
-            $_POST['travelogue_filter_code_relaxing'] = false;
-        }
-        if (!isset($_POST['travelogue_filter_code_heavy'])) {
-            $_POST['travelogue_filter_code_heavy'] = false;
-        }
-        if (!isset($_POST['travelogue_filter_code_vibe'])) {
-            $_POST['travelogue_filter_code_vibe'] = false;
-        }
-        if (!isset($_POST['travelogue_filter_code_complex'])) {
-            $_POST['travelogue_filter_code_complex'] = false;
-        }
-        if (!isset($_POST['travelogue_filter_code_instrumental'])) {
-            $_POST['travelogue_filter_code_instrumental'] = false;
-        }
-        if (!isset($_POST['travelogue_filter_code_live'])) {
-            $_POST['travelogue_filter_code_live'] = false;
-        }
-        if (!isset($_POST['travelogue_filter_code_lists'])) {
-            $_POST['travelogue_filter_code_lists'] = false;
-        }
-        if (!isset($_POST['travelogue_filter_code_bookmark'])) {
-            $_POST['travelogue_filter_code_bookmark'] = false;
-        }
-        if (!isset($_POST['travelogue_filter_code_thumbsup'])) {
-            $_POST['travelogue_filter_code_thumbsup'] = false;
-        }
-        if (!isset($_POST['travelogue_filter_code_thumbsdown'])) {
-            $_POST['travelogue_filter_code_thumbsdown'] = false;
-        }
-        if (!isset($_POST['travelogue_filter_code_thumbtack'])) {
-            $_POST['travelogue_filter_code_thumbtack'] = false;
-        }
-        if (!isset($_POST['travelogue_filter_code_pointer'])) {
-            $_POST['travelogue_filter_code_pointer'] = false;
-        }
+		if (!isset($_POST['travelogue_filter_code_favorite'])) {
+			$_POST['travelogue_filter_code_favorite'] = false;
+		}
+		if (!isset($_POST['travelogue_filter_code_lyrics'])) {
+			$_POST['travelogue_filter_code_lyrics'] = false;
+		}
+		if (!isset($_POST['travelogue_filter_code_hifi'])) {
+			$_POST['travelogue_filter_code_hifi'] = false;
+		}
+		if (!isset($_POST['travelogue_filter_code_relaxing'])) {
+			$_POST['travelogue_filter_code_relaxing'] = false;
+		}
+		if (!isset($_POST['travelogue_filter_code_heavy'])) {
+			$_POST['travelogue_filter_code_heavy'] = false;
+		}
+		if (!isset($_POST['travelogue_filter_code_vibe'])) {
+			$_POST['travelogue_filter_code_vibe'] = false;
+		}
+		if (!isset($_POST['travelogue_filter_code_complex'])) {
+			$_POST['travelogue_filter_code_complex'] = false;
+		}
+		if (!isset($_POST['travelogue_filter_code_instrumental'])) {
+			$_POST['travelogue_filter_code_instrumental'] = false;
+		}
+		if (!isset($_POST['travelogue_filter_code_live'])) {
+			$_POST['travelogue_filter_code_live'] = false;
+		}
+		if (!isset($_POST['travelogue_filter_code_lists'])) {
+			$_POST['travelogue_filter_code_lists'] = false;
+		}
+		if (!isset($_POST['travelogue_filter_code_bookmark'])) {
+			$_POST['travelogue_filter_code_bookmark'] = false;
+		}
+		if (!isset($_POST['travelogue_filter_code_thumbsup'])) {
+			$_POST['travelogue_filter_code_thumbsup'] = false;
+		}
+		if (!isset($_POST['travelogue_filter_code_thumbsdown'])) {
+			$_POST['travelogue_filter_code_thumbsdown'] = false;
+		}
+		if (!isset($_POST['travelogue_filter_code_thumbtack'])) {
+			$_POST['travelogue_filter_code_thumbtack'] = false;
+		}
+		if (!isset($_POST['travelogue_filter_code_pointer'])) {
+			$_POST['travelogue_filter_code_pointer'] = false;
+		}
 
-        if (!isset($_POST['travelogue_show_no_code'])) {
-            $_POST['travelogue_show_no_code'] = false;
-        }
+		if (!isset($_POST['travelogue_show_no_code'])) {
+			$_POST['travelogue_show_no_code'] = false;
+		}
 
-        if (!isset($_POST['travelogue_filter_genres'])) {
-            $_POST['travelogue_filter_genres'] = array();
-        }
+		if (!isset($_POST['travelogue_filter_genres'])) {
+			$_POST['travelogue_filter_genres'] = array();
+		}
 
-        if (!isset($_POST['travelogue_filter_authors'])) {
-            $_POST['travelogue_filter_authors'] = array();
+		if (!isset($_POST['travelogue_filter_authors'])) {
+			$_POST['travelogue_filter_authors'] = array();
 		}
 
 		$_SESSION['travelogue_filter_options'] = array('music' => $_POST['travelogue_filter_music'], 'concert' => $_POST['travelogue_filter_concert'], 'movie' => $_POST['travelogue_filter_movie'], 'tvshow' => $_POST['travelogue_filter_tvshow'], 'episode' => $_POST['travelogue_filter_episode'], 'book' => $_POST['travelogue_filter_book'], 'classical' => $_POST['travelogue_filter_classical'], 'comic' => $_POST['travelogue_filter_comic'], 'standup' => $_POST['travelogue_filter_standup'], 'painting' => $_POST['travelogue_filter_painting'], 'photo' => $_POST['travelogue_filter_photo'], 'vidya' => $_POST['travelogue_filter_vidya'], 'architecture' => $_POST['travelogue_filter_architecture'], 'sports' => $_POST['travelogue_filter_sports'], 'other' => $_POST['travelogue_filter_other'], 'favorite' => $_POST['travelogue_filter_code_favorite'], 'lyrics' => $_POST['travelogue_filter_code_lyrics'], 'hifi' => $_POST['travelogue_filter_code_hifi'], 'relaxing' => $_POST['travelogue_filter_code_relaxing'], 'heavy' => $_POST['travelogue_filter_code_heavy'], 'vibe' => $_POST['travelogue_filter_code_vibe'], 'complex' => $_POST['travelogue_filter_code_complex'], 'instrumental' => $_POST['travelogue_filter_code_instrumental'], 'live' => $_POST['travelogue_filter_code_live'], 'lists' => $_POST['travelogue_filter_code_lists'], 'bookmark' => $_POST['travelogue_filter_code_bookmark'], 'thumbsup' => $_POST['travelogue_filter_code_thumbsup'], 'thumbsdown' => $_POST['travelogue_filter_code_thumbsdown'], 'thumbtack' => $_POST['travelogue_filter_code_thumbtack'], 'pointer' => $_POST['travelogue_filter_code_pointer'], 'show_no_code' => $_POST['travelogue_show_no_code'], 'genres' => $_POST['travelogue_filter_genres'], 'authors' => $_POST['travelogue_filter_authors']);
 	}
 
-    if (isset($_POST['trigger_reset_filter'])) {
-        unset($_SESSION['travelogue_filter_options']);
-    }
+	if (isset($_POST['trigger_reset_filter'])) {
+		unset($_SESSION['travelogue_filter_options']);
+	}
 
 	if ($_POST) {
 		header("Location: " . $_SERVER['REQUEST_URI']);
@@ -239,13 +239,50 @@
     <div class="row sticky-top">
         <div class="col-12">
 			<?php
+                $get_authors = false;
+				if (isset($_GET['authors'])) {
+					if ($_GET['authors'] == true) {
+                        $get_authors = true;
+                        $theres_something = false;
+						$author_result = "
+                        <div class='row sticky-top my-1'>
+                            <div class='col-2 travelogue_col text-center'><span class='text-white font-half-condensed-400 user-select-none'>Author</span></div>
+                            <div class='col travelogue_col text-center'><span class='text-white font-half-condensed-400 user-select-none'>Comments</span></div>
+                        </div>";
+						$query = prepare_query("SELECT * FROM travelogue_authors WHERE user_id = {$_SESSION['user_id']}");
+						$authors = $conn->query($query);
+						if ($authors->num_rows > 0) {
+							while ($author = $authors->fetch_assoc()) {
+								if (($author['comments'] != null) || ($author['dburl'] != null)) {
+                                    $theres_something = true;
+									$author_result .= "
+                                    <div class='row my-1'>
+                                        <div class='col-2 travelogue_col d-flex justify-content-center'><span class='text-white font-half-condensed-300'>{$author['title']}</span></div>
+                                        <div class='col travelogue_col d-flex justify-content-center'><span class='text-white font-half-condensed-300 ch-limit d-inline-block'>{$author['comments']}</span></div>
+                                    </div>
+                                    ";
+								}
+							}
+						}
+                        if ($theres_something == true) {
+                            echo $author_result;
+                            echo "<hr class='my-5'>";
+                        }
+					}
+				}
+
 				echo "
-                <div class='row mb-2 px-1 sticky-top mt-1'>
-                    <div class='col-1 p-1 bg-dark d-flex justify-content-center'>
+                <div class='row sticky-top my-1'>
+                    <div class='col-1 bg-dark rounded d-flex justify-content-center'>
                         ";
-                            echo nexus_put_together(array('type' => 'travelogue_button', 'color' => 'teal', 'class' => 'col-auto', 'href' => false, 'icon' => 'fas fa-plus', 'id' => 'trigger_add_item', 'modal' => '#modal_add_item'));
-                            echo nexus_put_together(array('type' => 'travelogue_button', 'color' => 'yellow', 'class' => 'col-auto', 'href' => false, 'icon' => 'fas fa-filter-list', 'id' => 'trigger_filter', 'modal' => '#modal_filter'));
-                        echo "
+				echo nexus_put_together(array('type' => 'travelogue_button', 'color' => 'teal', 'icon' => 'fas fa-plus', 'id' => 'trigger_add_item', 'modal' => '#modal_add_item', 'class' => 'me-1'));
+				echo nexus_put_together(array('type' => 'travelogue_button', 'color' => 'yellow', 'icon' => 'fas fa-filter-list', 'id' => 'trigger_filter', 'modal' => '#modal_filter', 'class' => 'me-1'));
+                if ($get_authors == false) {
+					echo nexus_put_together(array('type' => 'travelogue_button', 'color' => 'orange', 'icon' => 'fas fa-user-magnifying-glass', 'id' => 'trigger_authors', 'href' => 'travelogue.php?authors=true', 'targetblank' => false));
+				} else {
+					echo nexus_put_together(array('type' => 'travelogue_button', 'color' => 'cyan', 'icon' => 'fas fa-album-collection', 'id' => 'trigger_works', 'href' => 'travelogue.php', 'targetblank' => false));
+				}
+				echo "
                     </div>
                     <div class='col-1 travelogue_col text-center'>
                                 <span class='text-white font-half-condensed-400 user-select-none'>Timeline</span>
@@ -260,7 +297,7 @@
                                 <span class='text-white font-half-condensed-400 user-select-none'>Genre</span>
                     </div>
                     <div class='col travelogue_col text-center'>
-                                <span class='text-white font-half-condensed-400 user-select-none'>Comments</span>
+                                <span class='text-white font-half-condensed-400 user-select-none'>Your input</span>
                     </div>
                     <div class='col travelogue_col text-center'>
                                 <span class='text-white font-half-condensed-400 user-select-none'>Relevant information</span>
@@ -296,9 +333,9 @@
 					case 'alphabetical_type':
 						$order_module = "ORDER BY type, releasedate";
 						break;
-                    case 'rating':
-                        $order_module = "ORDER BY yourrating DESC";
-                        break;
+					case 'rating':
+						$order_module = "ORDER BY yourrating DESC";
+						break;
 					case false:
 					default:
 					case 'dateadded':
@@ -314,7 +351,7 @@
 				}
 				if ($records->num_rows > 0) {
 					while ($record = $records->fetch_assoc()) {
-                        if ($count_limit != false) {
+						if ($count_limit != false) {
 							if (!isset($count)) {
 								$count = 0;
 							}
@@ -325,25 +362,25 @@
 						}
 						$record['codes'] = unserialize($record['codes']);
 						if (isset($_SESSION['travelogue_filter_options'])) {
-                            if ($_SESSION['travelogue_filter_options']['genres'] != false) {
-                                if (!in_array($record['genre'], $_SESSION['travelogue_filter_options']['genres'])) {
-                                    continue;
-                                }
-                            }
-                            if ($_SESSION['travelogue_filter_options']['authors'] != false) {
-                                if (!in_array($record['creator'], $_SESSION['travelogue_filter_options']['authors'])) {
-                                    continue;
-                                }
-                            }
+							if ($_SESSION['travelogue_filter_options']['genres'] != false) {
+								if (!in_array($record['genre'], $_SESSION['travelogue_filter_options']['genres'])) {
+									continue;
+								}
+							}
+							if ($_SESSION['travelogue_filter_options']['authors'] != false) {
+								if (!in_array($record['creator'], $_SESSION['travelogue_filter_options']['authors'])) {
+									continue;
+								}
+							}
 							if ($_SESSION['travelogue_filter_options'][$record['type']] == false) {
 								continue;
 							}
-                            $show_item = false;
-                            if ($record['codes'] == false) {
+							$show_item = false;
+							if ($record['codes'] == false) {
 								if ($_SESSION['travelogue_filter_options']['show_no_code'] == false) {
 									continue;
 								}
-                            } else {
+							} else {
 								foreach ($record['codes'] as $key => $data) {
 									if ($_SESSION['travelogue_filter_options'][$key] == true) {
 										$show_item = true;
@@ -352,46 +389,46 @@
 								if ($show_item == false) {
 									continue;
 								}
-                            }
+							}
 						}
 
 						$put_together = travelogue_put_together(array('id' => $record['id'], 'type' => $record['type'], 'codes' => $record['codes'], 'releasedate' => $record['releasedate'], 'title' => $record['title'], 'creator' => $record['creator'], 'genre' => $record['genre'], 'datexp' => $record['datexp'], 'yourrating' => $record['yourrating'], 'comments' => $record['comments'], 'otherrelevant' => $record['otherrelevant'], 'dburl' => $record['dburl']), $_SESSION['travelogue_codes'], $_SESSION['travelogue_types']);
 
 
-                        $highlight_module = 'text-white';
-                        $bookmark_module = false;
-                        $highlight_icon = false;
+						$highlight_module = 'text-white';
+						$bookmark_module = false;
+						$highlight_icon = false;
 						if ($put_together['thumbtack'] == true) {
 							$highlight_module = ' text-warning bold';
 							$highlight_icon .= "<i class='fa-solid fa-thumbtack fa-lg fa-fw me-1 text-warning align-self-center'></i>";
 						}
-                        if ($put_together['pointer'] == true) {
-                            $highlight_module .= ' bg-primary';
-                            $highlight_icon .= "<i class='fa-solid fa-arrow-pointer fa-lg fa-fw me-1 text-white align-self-center'></i>";
-                        }
-                        if ($put_together['bookmark'] == true) {
-                            $bookmark_module .= ' bg-danger p-1 my-1 rounded';
-                            $highlight_icon .= "<i class='fa-solid fa-bookmark fa-lg fa-fw me-1 text-danger align-self-center'></i>";
-                        }
-                        $lists_icon = false;
-                        if ($put_together['lists'] == true) {
-                            $lists_icon = "<i class='fa-solid fa-award fa-lg fa-fw me-1 text-warning'></i>";
-                        }
-                        $thumbsup_module = false;
-                        if ($put_together['thumbsup'] == true) {
-                            $thumbsup_module = "<i class='fa-solid fa-thumbs-up fa-lg ga-gw me-1 text-primary'></i>";
-                        }
-                        $thumbsdown_module = false;
-                        if ($put_together['thumbsdown'] == true) {
-                            $thumbsdown_module = "<i class='fa-solid fa-thumbs-down fa-lg ga-gw me-1 text-danger'></i>";
-                        }
+						if ($put_together['pointer'] == true) {
+							$highlight_module .= ' bg-primary';
+							$highlight_icon .= "<i class='fa-solid fa-arrow-pointer fa-lg fa-fw me-1 text-white align-self-center'></i>";
+						}
+						if ($put_together['bookmark'] == true) {
+							$bookmark_module .= ' bg-danger p-1 my-1 rounded';
+							$highlight_icon .= "<i class='fa-solid fa-bookmark fa-lg fa-fw me-1 text-danger align-self-center'></i>";
+						}
+						$lists_icon = false;
+						if ($put_together['lists'] == true) {
+							$lists_icon = "<i class='fa-solid fa-award fa-lg fa-fw me-1 text-warning'></i>";
+						}
+						$thumbsup_module = false;
+						if ($put_together['thumbsup'] == true) {
+							$thumbsup_module = "<i class='fa-solid fa-thumbs-up fa-lg ga-gw me-1 text-primary'></i>";
+						}
+						$thumbsdown_module = false;
+						if ($put_together['thumbsdown'] == true) {
+							$thumbsdown_module = "<i class='fa-solid fa-thumbs-down fa-lg ga-gw me-1 text-danger'></i>";
+						}
 
 						$instance = "
-                        <div class='row px-1 $bookmark_module' id='travelogue_row_{$record['id']}' value='{$record['id']}'>
+                        <div class='row $bookmark_module' id='travelogue_row_{$record['id']}' value='{$record['id']}'>
                             <div class='col-1 travelogue_col text-white'>{$put_together['codes']}</div>
                             <div class='col-1 travelogue_col text-white user-select-none'>{$put_together['releasedate']}{$put_together['datexp']}</div>
                             <div class='col travelogue_col d-flex justify-content-center $highlight_module'>$highlight_icon {$put_together['title']}</div>
-                            <div class='col travelogue_col d-flex justify-content-center $highlight_module'>{$put_together['creator']}</div>
+                            <div class='col travelogue_col d-flex justify-content-center $highlight_module'><a class='open_author_modal link-light' value='{$record['id']}' href='javascript:void(0);' data-bs-toggle='modal' data-bs-target='#modal_one_author'>{$put_together['creator']}</a></div>
                             <div class='col-1 travelogue_col d-flex justify-content-center text-white user-select-none'>{$put_together['genre']}</div>
                             <div class='col travelogue_col text-white'>{$put_together['yourrating']} $thumbsup_module $thumbsdown_module {$put_together['comments']}</div>
                             <div class='col travelogue_col text-white'>$lists_icon {$put_together['dburl']} {$put_together['otherrelevant']}</div>
@@ -425,17 +462,23 @@
 	$template_modal_div_id = 'modal_add_item';
 	$template_modal_titulo = 'Add item';
 	$template_modal_body_conteudo = 'Loading...';
-    $modal_scrollable = true;
+	$modal_scrollable = true;
 	include 'templates/modal.php';
 
 	$template_modal_div_id = 'modal_update_entry';
 	$template_modal_titulo = 'Update item';
 	$template_modal_body_conteudo = 'Loading...';
-    $modal_scrollable = true;
+	$modal_scrollable = true;
 	include 'templates/modal.php';
 
 	$template_modal_div_id = 'modal_filter';
 	$template_modal_titulo = 'Filter';
+	$template_modal_body_conteudo = 'Loading...';
+	$modal_scrollable = true;
+	include 'templates/modal.php';
+
+	$template_modal_div_id = 'modal_one_author';
+	$template_modal_titulo = 'Author';
 	$template_modal_body_conteudo = 'Loading...';
 	$modal_scrollable = true;
 	include 'templates/modal.php';
@@ -448,6 +491,30 @@
     $(document).on('click', '#update_trigger_enable_rating', function () {
         $(this).addClass('d-none');
         $("#update_travel_new_rating").removeAttr("disabled");
+    })
+    $(document).on('click', '#exclusive_author_filter', function () {
+        author_id = $(this).attr('value');
+        $.post('engine.php', {
+            'exclusive_author_filter': author_id
+        }, function (data) {
+            if (data != 0) {
+                window.location.reload(true);
+            } else {
+                alert('Something went wrong.')
+            }
+        })
+    })
+    $(document).on('click', '.open_author_modal', function () {
+        item_id = $(this).attr('value');
+        $.post('engine.php', {
+            'edit_this_author': item_id
+        }, function (data) {
+            if (data != 0) {
+                $('#body_modal_one_author').html(data);
+            } else {
+                alert('Something went wrong');
+            }
+        })
     })
     $(document).on('click', '.edit_this_log', function () {
         log_id = $(this).attr('value');
@@ -500,35 +567,37 @@
         }
     })
 
-    $(document).on('click', '#unselect_codes', function() {
-        $( ".code_filter_option" ).prop( "checked", false );
+    $(document).on('click', '#unselect_codes', function () {
+        $(".code_filter_option").prop("checked", false);
+    })
+    $(document).on('click', '#unselect_types', function () {
+        $(".type_filter_option").prop("checked", false);
+    })
+    $(document).on('click', '#select_codes', function () {
+        $(".code_filter_option").prop("checked", true);
     })
 
-    $(document).on('click', '#unselect_types', function() {
-        $( ".type_filter_option" ).prop( "checked", false );
-    })
-    $(document).on('click', '#select_codes', function() {
-        $( ".code_filter_option" ).prop( "checked", true );
+    $(document).on('click', '#select_types', function () {
+        $(".type_filter_option").prop("checked", true);
     })
 
-    $(document).on('click', '#select_types', function() {
-        $( ".type_filter_option" ).prop( "checked", true );
-    })
-
-    $(document).on('click', '#enable_genre_filter', function() {
+    $(document).on('click', '#enable_genre_filter', function () {
         $(this).addClass('d-none');
         $("#travelogue_filter_genres").removeAttr("disabled");
         $("#travelogue_filter_genres").removeClass("d-none");
         $("#paragraph_explain_filter_genres").removeClass("d-none");
     })
 
-    $(document).on('click', '#enable_author_filter', function() {
+    $(document).on('click', '#enable_author_filter', function () {
         $(this).addClass('d-none');
         $("#travelogue_filter_authors").removeAttr("disabled");
         $("#travelogue_filter_authors").removeClass("d-none");
         $("#paragraph_explain_filter_authors").removeClass("d-none");
     })
-
+    $(document).on('click', '#show_list_author', function () {
+        $('#hide_when_show_list_author').addClass('d-none');
+        $('.author_works_list').removeClass('d-none');
+    })
 
 </script>
 <?php
