@@ -29,9 +29,9 @@
 		}
 		$_POST[$_POST['travel_new_genre']] = mysqli_real_escape_string($conn, $_POST['travel_new_genre']);
 		if (!isset($_POST['travel_new_datexp'])) {
-			$_POST['travel_new_datexp'] = array();
+			$array_datexp = false;
 		} else {
-			$_POST['travel_new_datexp'] = serialize(array($_POST['travel_new_datexp']));
+			$array_datexp = serialize(array($_POST['travel_new_datexp']));
 		}
 		if (!isset($_POST['travel_new_rating'])) {
 			$_POST['travel_new_rating'] = false;
@@ -94,7 +94,7 @@
 			$travel_new_codes['pointer'] = true;
 		}
 		$travel_new_codes = serialize($travel_new_codes);
-		$query = prepare_query("INSERT INTO travelogue (user_id, type, codes, releasedate, title, creator, genre, datexp, yourrating, comments, otherrelevant, dburl) VALUES ({$_SESSION['user_id']}, '{$_POST['travel_new_type']}', '$travel_new_codes', '{$_POST['travel_new_release_date']}', '{$_POST['travel_new_title']}', '{$_POST['travel_new_creator']}', '{$_POST['travel_new_genre']}', '{$_POST['travel_new_datexp']}', '{$_POST['travel_new_rating']}', '{$_POST['travel_new_comments']}', '{$_POST['travel_new_information']}', '{$_POST['travel_new_database']}')");
+		$query = prepare_query("INSERT INTO travelogue (user_id, type, codes, releasedate, title, creator, genre, datexp, firstdatexp, yourrating, comments, otherrelevant, dburl) VALUES ({$_SESSION['user_id']}, '{$_POST['travel_new_type']}', '$travel_new_codes', '{$_POST['travel_new_release_date']}', '{$_POST['travel_new_title']}', '{$_POST['travel_new_creator']}', '{$_POST['travel_new_genre']}', '$array_datexp', {$_POST['travel_new_datexp']}, '{$_POST['travel_new_rating']}', '{$_POST['travel_new_comments']}', '{$_POST['travel_new_information']}', '{$_POST['travel_new_database']}')");
 		$conn->query($query);
 	}
 
@@ -248,7 +248,7 @@
 						$get_authors = true;
 						$theres_something = false;
 						$author_result = "
-                        <div class='row sticky-top my-1'>
+                        <div class='row sticky-top my-1 px-1'>
                             <div class='col-2 travelogue_col bg-travelogue2 text-center'><span class='text-white font-half-condensed-400 user-select-none'>Author</span></div>
                             <div class='col travelogue_col bg-travelogue2 text-center'><span class='text-white font-half-condensed-400 user-select-none'>Comments</span></div>
                         </div>";
@@ -270,7 +270,7 @@
 									}
 									$theres_something = true;
 									$author_result .= "
-                                    <div class='row my-1'>
+                                    <div class='row my-1 px-1'>
                                         <div class='col-2 travelogue_col d-flex justify-content-center $background_color'><span class='text-white font-half-condensed-300'>{$author['title']}</span></div>
                                         <div class='col travelogue_col d-flex justify-content-center $background_color'><span class='text-white font-half-condensed-300 ch-limit d-inline-block'>{$author['comments']}</span></div>
                                     </div>
@@ -326,7 +326,7 @@
 						$order_module = "ORDER BY releasedate";
 						break;
 					case 'biographical':
-						$order_module = "ORDER BY datexp DESC, releasedate DESC";
+						$order_module = "ORDER BY firstdatexp DESC, releasedate DESC";
 						break;
 					case 'alphabetical_creator':
 						$order_module = "ORDER BY creator, releasedate";
@@ -577,6 +577,22 @@
                 alert('Something went wrong');
             }
         })
+    })
+    $(document).on('click', '#delete_datexp', function() {
+        del_confirm = confirm('Do you really want to delete all records of your past experience of this item? This cannot be undone.');
+        if (del_confirm == true) {
+            del_datexp_id = $(this).attr('value');
+            $.post('engine.php', {
+                'delete_datexp_from_this_entry': del_datexp_id
+            }, function (data) {
+                if (data != 0) {
+                    $('#travel_update_datexp_list').addClass('d-none');
+                    $('#delete_datexp').addClass('d-none');
+                } else {
+                    alert('Something went wrong');
+                }
+            })
+        }
     })
     $(document).on('click', '#delete_this_entry', function () {
         del_confirm = confirm('Do you really want to delete this?');

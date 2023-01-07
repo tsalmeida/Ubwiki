@@ -5,31 +5,33 @@
 	include 'engine.php';
 
 	$pagina_tipo = 'admin';
-    $pagina_id = 2;
+	$pagina_id = 2;
 
 	if ($user_tipo != 'admin') {
 		header("Location:ubwiki.php");
 	}
 
 	if (isset($_POST['trigger_atualizacao'])) {
-        $query = prepare_query("SELECT id, datexp FROM travelogue");
-        $datexps = $conn->query($query);
-        if ($datexps->num_rows > 0) {
-            while ($datexp = $datexps->fetch_assoc()) {
-                if ($datexp['datexp'] == false) {
-                    continue;
-                }
-                $oneentry = explode(',', $datexp['datexp']);
-                $result = array();
-                foreach ($oneentry as $key => $array) {
-                    $onedate = trim($oneentry[$key], ' ');
-                    array_push($result, $onedate);
-                }
-                $result = serialize($result);
-                $query = prepare_query("UPDATE travelogue SET datexp = '$result' WHERE id = {$datexp['id']}", 'log');
-                $conn->query($query);
-            }
-        }
+		$query = prepare_query("SELECT id, datexp FROM travelogue");
+		$entries = $conn->query($query);
+		if ($entries->num_rows > 0) {
+			while ($entry = $entries->fetch_assoc()) {
+				if ($entry['datexp'] == false) {
+					continue;
+				}
+				$entry['datexp'] = unserialize($entry['datexp']);
+				if ($entry['datexp'] != false) {
+					if (is_int($entry['datexp'][0])) {
+						$query = prepare_query("UPDATE travelogue SET firstdatexp = {$entry['datexp'][0]} WHERE id = {$entry['id']}", 'log');
+					} else {
+						$query = prepare_query("UPDATE travelogue SET firstdatexp = '{$entry['datexp'][0]}' WHERE id = {$entry['id']}", 'log');
+					}
+					$conn->query($query);
+				} else {
+					continue;
+				}
+			}
+		}
 	}
 
 	if (isset($_POST['trigger_atualizar_textos_size'])) {
