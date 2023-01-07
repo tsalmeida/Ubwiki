@@ -4501,6 +4501,9 @@
 			default:
 				$array['datexp'] = unserialize($array['datexp']);
 				foreach ($array['datexp'] as $key) {
+					if ($key == false) {
+						continue;
+					}
 					$result['datexp'] .= "<small class='ms-1'><i class='fa-duotone fa-calendar-check fa-fw text-success me-1'></i>$key</small>";
 				}
 		}

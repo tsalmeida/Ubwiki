@@ -94,8 +94,9 @@
 			$travel_new_codes['pointer'] = true;
 		}
 		$travel_new_codes = serialize($travel_new_codes);
-		$query = prepare_query("INSERT INTO travelogue (user_id, type, codes, releasedate, title, creator, genre, datexp, firstdatexp, yourrating, comments, otherrelevant, dburl) VALUES ({$_SESSION['user_id']}, '{$_POST['travel_new_type']}', '$travel_new_codes', '{$_POST['travel_new_release_date']}', '{$_POST['travel_new_title']}', '{$_POST['travel_new_creator']}', '{$_POST['travel_new_genre']}', '$array_datexp', {$_POST['travel_new_datexp']}, '{$_POST['travel_new_rating']}', '{$_POST['travel_new_comments']}', '{$_POST['travel_new_information']}', '{$_POST['travel_new_database']}')");
+		$query = prepare_query("INSERT INTO travelogue (user_id, type, codes, releasedate, title, creator, genre, yourrating, comments, otherrelevant, dburl, datexp, firstdatexp) VALUES ({$_SESSION['user_id']}, '{$_POST['travel_new_type']}', '$travel_new_codes', '{$_POST['travel_new_release_date']}', '{$_POST['travel_new_title']}', '{$_POST['travel_new_creator']}', '{$_POST['travel_new_genre']}', '{$_POST['travel_new_rating']}', '{$_POST['travel_new_comments']}', '{$_POST['travel_new_information']}', '{$_POST['travel_new_database']}', '$array_datexp', '{$_POST['travel_new_datexp']}')", 'log');
 		$conn->query($query);
+        $new_travelogue_id = $conn->insert_id;
 	}
 
 	if (!isset($_SESSION['travelogue_separate_types'])) {
