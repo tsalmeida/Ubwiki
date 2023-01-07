@@ -31,8 +31,8 @@
 		if (!isset($_POST['travel_new_datexp'])) {
 			$_POST['travel_new_datexp'] = array();
 		} else {
-            $_POST['travel_new_datexp'] = serialize(array($_POST['travel_new_datexp']));
-        }
+			$_POST['travel_new_datexp'] = serialize(array($_POST['travel_new_datexp']));
+		}
 		if (!isset($_POST['travel_new_rating'])) {
 			$_POST['travel_new_rating'] = false;
 		}
@@ -221,7 +221,7 @@
 	}
 
 	if (isset($_POST['trigger_reset_filter'])) {
-        $_SESSION['travelogue_sorting'] = false;
+		$_SESSION['travelogue_sorting'] = false;
 		unset($_SESSION['travelogue_filter_options']);
 	}
 
@@ -242,67 +242,78 @@
     <div class="row sticky-top">
         <div class="col-12">
 			<?php
-                $get_authors = false;
+				$get_authors = false;
 				if (isset($_GET['authors'])) {
 					if ($_GET['authors'] == true) {
-                        $get_authors = true;
-                        $theres_something = false;
+						$get_authors = true;
+						$theres_something = false;
 						$author_result = "
                         <div class='row sticky-top my-1'>
-                            <div class='col-2 travelogue_col text-center'><span class='text-white font-half-condensed-400 user-select-none'>Author</span></div>
-                            <div class='col travelogue_col text-center'><span class='text-white font-half-condensed-400 user-select-none'>Comments</span></div>
+                            <div class='col-2 travelogue_col bg-travelogue2 text-center'><span class='text-white font-half-condensed-400 user-select-none'>Author</span></div>
+                            <div class='col travelogue_col bg-travelogue2 text-center'><span class='text-white font-half-condensed-400 user-select-none'>Comments</span></div>
                         </div>";
 						$query = prepare_query("SELECT * FROM travelogue_authors WHERE user_id = {$_SESSION['user_id']}");
 						$authors = $conn->query($query);
+                        $background_color = false;
 						if ($authors->num_rows > 0) {
 							while ($author = $authors->fetch_assoc()) {
 								if (($author['comments'] != null) || ($author['dburl'] != null)) {
-                                    $theres_something = true;
+									switch ($background_color) {
+										case 'bg-travelogue1':
+											$background_color = 'bg-travelogue2';
+											break;
+										case 'bg-travelogue2':
+										case false:
+										default:
+											$background_color = 'bg-travelogue1';
+											break;
+									}
+									$theres_something = true;
 									$author_result .= "
                                     <div class='row my-1'>
-                                        <div class='col-2 travelogue_col d-flex justify-content-center'><span class='text-white font-half-condensed-300'>{$author['title']}</span></div>
-                                        <div class='col travelogue_col d-flex justify-content-center'><span class='text-white font-half-condensed-300 ch-limit d-inline-block'>{$author['comments']}</span></div>
+                                        <div class='col-2 travelogue_col d-flex justify-content-center $background_color'><span class='text-white font-half-condensed-300'>{$author['title']}</span></div>
+                                        <div class='col travelogue_col d-flex justify-content-center $background_color'><span class='text-white font-half-condensed-300 ch-limit d-inline-block'>{$author['comments']}</span></div>
                                     </div>
                                     ";
 								}
 							}
 						}
-                        if ($theres_something == true) {
-                            echo $author_result;
-                            echo "<hr class='my-5'>";
-                        }
+						if ($theres_something == true) {
+							echo $author_result;
+							echo "<hr class='my-5'>";
+						}
 					}
 				}
 
 				echo "
-                <div class='row sticky-top my-1'>
+                <div class='row sticky-top my-1 px-1'>
                     <div class='col-1 bg-dark rounded d-flex justify-content-center'>
                         ";
 				echo nexus_put_together(array('type' => 'travelogue_button', 'color' => 'teal', 'icon' => 'fas fa-plus', 'id' => 'trigger_add_item', 'modal' => '#modal_add_item', 'class' => 'me-1'));
 				echo nexus_put_together(array('type' => 'travelogue_button', 'color' => 'yellow', 'icon' => 'fas fa-filter-list', 'id' => 'trigger_filter', 'modal' => '#modal_filter', 'class' => 'me-1'));
-                if ($get_authors == false) {
+				if ($get_authors == false) {
 					echo nexus_put_together(array('type' => 'travelogue_button', 'color' => 'orange', 'icon' => 'fas fa-user-magnifying-glass', 'id' => 'trigger_authors', 'href' => 'travelogue.php?authors=true', 'targetblank' => false));
 				} else {
 					echo nexus_put_together(array('type' => 'travelogue_button', 'color' => 'cyan', 'icon' => 'fas fa-album-collection', 'id' => 'trigger_works', 'href' => 'travelogue.php', 'targetblank' => false));
 				}
 				echo "
                     </div>
-                    <div class='col-1 travelogue_col text-center'>
+                    <div class='col-1 travelogue_col bg-travelogue2 text-center'>
                                 <span class='text-white font-half-condensed-400 user-select-none'>Timeline</span>
                     </div>
-                    <div class='col travelogue_col text-center'>
+                    <div class='col travelogue_col bg-travelogue2 text-center'>
                                 <span class='text-white font-half-condensed-400 user-select-none'>Title</span>
                     </div>
-                    <div class='col travelogue_col text-center'>
+                    <div class='col travelogue_col bg-travelogue2 text-center'>
                                 <span class='text-white font-half-condensed-400 user-select-none'>Creator</span>
                     </div>
-                    <div class='col-1 travelogue_col text-center'>
+                    <div class='col-1 travelogue_col bg-travelogue2 text-center'>
                                 <span class='text-white font-half-condensed-400 user-select-none'>Genre</span>
                     </div>
-                    <div class='col travelogue_col text-center'>
+                    <div class='col travelogue_col bg-travelogue2 text-center'>
                                 <span class='text-white font-half-condensed-400 user-select-none'>Your input</span>
                     </div>
-                    <div class='col travelogue_col text-center'>
+                    <div class='col travelogue_col bg-travelogue2 text-center'>
                                 <span class='text-white font-half-condensed-400 user-select-none'>Relevant information</span>
                     </div>
                 </div>";
@@ -345,6 +356,7 @@
 				} else {
 					$result = false;
 				}
+                $background_color = false;
 				if ($records->num_rows > 0) {
 					while ($record = $records->fetch_assoc()) {
 						if ($count_limit != false) {
@@ -391,20 +403,26 @@
 						$put_together = travelogue_put_together(array('id' => $record['id'], 'type' => $record['type'], 'codes' => $record['codes'], 'releasedate' => $record['releasedate'], 'title' => $record['title'], 'creator' => $record['creator'], 'genre' => $record['genre'], 'datexp' => $record['datexp'], 'yourrating' => $record['yourrating'], 'comments' => $record['comments'], 'otherrelevant' => $record['otherrelevant'], 'dburl' => $record['dburl']), $_SESSION['travelogue_codes'], $_SESSION['travelogue_types']);
 
 
+                        $author_link = 'link-light';
 						$highlight_module = 'text-white';
 						$bookmark_module = false;
+                        $bookmark_module_2 = false;
 						$highlight_icon = false;
+						if ($put_together['bookmark'] == true) {
+							$bookmark_module .= ' bg-danger my-1 py-1 rounded';
+                            $bookmark_module_2 = 'bold';
+                            $author_link = 'link-danger';
+                            $highlight_module = 'text-danger';
+							$highlight_icon .= "<i class='fa-solid fa-bookmark fa-lg fa-fw me-1 text-danger align-self-center'></i>";
+						}
 						if ($put_together['thumbtack'] == true) {
 							$highlight_module = ' text-warning bold';
 							$highlight_icon .= "<i class='fa-solid fa-thumbtack fa-lg fa-fw me-1 text-warning align-self-center'></i>";
+							$author_link = 'link-warning';
 						}
 						if ($put_together['pointer'] == true) {
-							$highlight_module .= ' bg-primary';
+							$highlight_module .= ' bg-primary bold';
 							$highlight_icon .= "<i class='fa-solid fa-arrow-pointer fa-lg fa-fw me-1 text-white align-self-center'></i>";
-						}
-						if ($put_together['bookmark'] == true) {
-							$bookmark_module .= ' bg-danger p-1 my-1 rounded';
-							$highlight_icon .= "<i class='fa-solid fa-bookmark fa-lg fa-fw me-1 text-danger align-self-center'></i>";
 						}
 						$lists_icon = false;
 						if ($put_together['lists'] == true) {
@@ -418,16 +436,26 @@
 						if ($put_together['thumbsdown'] == true) {
 							$thumbsdown_module = "<i class='fa-solid fa-thumbs-down fa-lg ga-gw me-1 text-danger'></i>";
 						}
+						switch ($background_color) {
+							case 'bg-travelogue1':
+                                $background_color = 'bg-travelogue2';
+                                break;
+							case 'bg-travelogue2':
+							case false:
+							default:
+                                $background_color = 'bg-travelogue1';
+								break;
+						}
 
 						$instance = "
-                        <div class='row $bookmark_module' id='travelogue_row_{$record['id']}' value='{$record['id']}'>
-                            <div class='col-1 travelogue_col text-white'>{$put_together['codes']}</div>
-                            <div class='col-1 travelogue_col text-white user-select-none'>{$put_together['releasedate']}{$put_together['datexp']}</div>
-                            <div class='col travelogue_col d-flex justify-content-center $highlight_module'>$highlight_icon {$put_together['title']}</div>
-                            <div class='col travelogue_col d-flex justify-content-center $highlight_module'><a class='open_author_modal link-light align-self-center' value='{$record['id']}' href='javascript:void(0);' data-bs-toggle='modal' data-bs-target='#modal_one_author'>{$put_together['creator']}</a></div>
-                            <div class='col-1 travelogue_col d-flex justify-content-center text-white user-select-none'>{$put_together['genre']}</div>
-                            <div class='col travelogue_col text-white'>{$put_together['yourrating']} $thumbsup_module $thumbsdown_module {$put_together['comments']}</div>
-                            <div class='col travelogue_col text-white'>$lists_icon {$put_together['dburl']} {$put_together['otherrelevant']}</div>
+                        <div class='row $bookmark_module px-1' id='travelogue_row_{$record['id']}' value='{$record['id']}'>
+                            <div class='col-1 font-half-condensed-300 travelogue_col $background_color text-white'>{$put_together['codes']}</div>
+                            <div class='col-1 font-half-condensed-300 travelogue_col $background_color text-white user-select-none'>{$put_together['releasedate']}{$put_together['datexp']}</div>
+                            <div class='col font-half-condensed-300 travelogue_col $background_color $bookmark_module_2 d-flex justify-content-center $highlight_module'>$highlight_icon {$put_together['title']}</div>
+                            <div class='col font-half-condensed-300 travelogue_col $background_color $bookmark_module_2 d-flex justify-content-center $highlight_module'><a class='open_author_modal $author_link align-self-center' value='{$record['id']}' href='javascript:void(0);' data-bs-toggle='modal' data-bs-target='#modal_one_author'>{$put_together['creator']}</a></div>
+                            <div class='col-1 font-half-condensed-300 travelogue_col $background_color d-flex justify-content-center text-white user-select-none'>{$put_together['genre']}</div>
+                            <div class='col font-half-condensed-300 travelogue_col $background_color text-white'>{$put_together['yourrating']} $thumbsup_module $thumbsdown_module {$put_together['comments']}</div>
+                            <div class='col font-half-condensed-300 travelogue_col $background_color text-white'>$lists_icon {$put_together['dburl']} {$put_together['otherrelevant']}</div>
                         </div>
                         ";
 						if ($_SESSION['travelogue_separate_types'] == true) {

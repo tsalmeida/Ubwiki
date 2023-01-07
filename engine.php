@@ -3174,7 +3174,9 @@
 						$datexp_values .= "<ul id='travel_update_datexp_list' class='list-group'></ul>";
 					}
 				} else {
-					$datexp_values .= "<ul id='travel_update_datexp_list' class='list-group'>";
+					$datexp_values .= "<ul id='travel_update_datexp_list' class='list-group'>
+					<li class='list-group-item list-group-item-secondary'>Currently registered:</li>
+					";
 					foreach ($check as $key) {
 						$datexp_values .= "<li class='list-group-item'>$key</li>";
 					}
@@ -3184,7 +3186,7 @@
 				$datexp_module = "
 					<div class='mb-3 p-3 rounded border bg-light'>
 						<label for=update_travel_new_datexp' class='form-label'>Date experienced: <em class='text-muted'>(recommended: YYYY, YYYYMM, or YYYYMMDD)</em></label>
-						<input id='update_travel_new_datexp' name='update_travel_new_datexp' type='number' minlength='4' maxlength='8' class='form-control' value=''>
+						<input id='update_travel_new_datexp' name='update_travel_new_datexp' type='number' minlength='4' maxlength='8' class='form-control mb-2' value=''>
 						<!--<button class='btn btn-sm btn-secondary my-1' type='button' id='update_travel_add_experienced_date'>Add experienced date</button>-->
 						$datexp_values
 					</div>

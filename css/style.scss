@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400&family=Roboto+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap');
 
 $headings-font-family: 'Oswald', 'Roboto Condensed', 'Lato', Arial, serif;
 $headings-font-weight: 200;
@@ -17,8 +17,13 @@ $black: #131618;
 @import '../../../repositories/bootstrap/scss/bootstrap.scss';
 @import 'quill.snow.css';
 
+.font-half-condensed-bold {
+  font-family: 'Roboto Condensed', 'Oswald', 'Lato', sans-serif;
+  font-weight: 700;
+}
 .font-half-condensed-400 {
   font-family: 'Roboto Condensed', 'Oswald', 'Lato', sans-serif;
+  font-weight: 400;
 }
 .font-half-condensed-300 {
   font-family: 'Roboto Condensed', 'Oswald', 'Lato', sans-serif;
@@ -82,7 +87,7 @@ a {
   background-color: $gray-100;
 }
 
-.link-teal, text-teal {
+.link-teal, .text-teal {
   color: $teal;
 }
 
@@ -90,7 +95,7 @@ a {
   color: $teal-600;
 }
 
-.link-purple, text-purple {
+.link-purple, .text-purple {
   color: $purple;
 }
 
@@ -98,7 +103,7 @@ a {
   color: $purple-600;
 }
 
-.link-orange, text-orange {
+.link-orange, .text-orange {
   color: $orange;
 }
 
@@ -106,7 +111,7 @@ a {
   color: $orange-600;
 }
 
-.link-pink, text-pink {
+.link-pink, .text-pink {
   color: $pink;
 }
 
@@ -114,7 +119,7 @@ a {
   color: $pink-600;
 }
 
-.link-indigo, text-indigo {
+.link-indigo, .text-indigo {
   color: $indigo;
 }
 
@@ -253,11 +258,19 @@ textarea:focus, input:focus{
 }
 
 .travelogue_col {
-  @extend .bg-darker, .rounded, .border, .border-dark, .border-1, .p-2, .font-half-condensed-400;
+  @extend .rounded, .border, .border-dark, .border-1, .p-2;
 }
 
 .bold {
   font-weight: 900;
+}
+
+.bg-travelogue1 {
+  @extend .bg-darker;
+}
+
+.bg-travelogue2 {
+  background-color: #171717;
 }
 
 .bg-gray-800 {

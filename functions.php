@@ -4477,7 +4477,7 @@
 		}
 		$result['yourrating'] = process_rating($array['yourrating']);
 
-		$result['codes'] = "<span class=''>{$result['type']}$codes</span>";
+		$result['codes'] = "{$result['type']}$codes";
 		if (($array['releasedate'] === false) || ($array['releasedate'] == '')) {
 			$result['releasedate'] = "<small class=''><i class='fa-duotone fa-calendar-xmark fa-fw text-secondary'></i></small>";
 		} else {
@@ -4527,7 +4527,7 @@
 		$rating = intval($rating);
 		switch ($rating) {
 			case 1:
-				$result = '<i class="fa-solid fa-star-half fa-fw me-1 fa-swap-opacity text-secondary"></i>';
+				$result = '<i class="fa-duotone fa-star-half fa-fw me-1 text-muted"></i>';
 				break;
 			case 2:
 				$result = '<i class="fa-solid fa-star fa-fw me-1 text-secondary"></i>';
@@ -4539,7 +4539,7 @@
 				$result = '<i class="fa-solid fa-star fa-fw me-1 text-warning"></i>';
 				break;
 			case 5:
-				$result = '<i class="fa-solid fa-star-exclamation fa-fw me-1 text-success"></i>';
+				$result = '<i class="fa-solid fa-star-exclamation fa-fw me-1 text-teal"></i>';
 				break;
 			case false:
 			case 0:

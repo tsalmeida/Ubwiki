@@ -3,7 +3,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400&family=Roboto+Mono&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap");
 /*!
  * Bootstrap  v5.2.2 (https://getbootstrap.com/)
  * Copyright 2011-2022 The Bootstrap Authors
@@ -11180,8 +11180,14 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
-.font-half-condensed-400, .travelogue_col {
+.font-half-condensed-bold {
   font-family: "Roboto Condensed", "Oswald", "Lato", sans-serif;
+  font-weight: 700;
+}
+
+.font-half-condensed-400 {
+  font-family: "Roboto Condensed", "Oswald", "Lato", sans-serif;
+  font-weight: 400;
 }
 
 .font-half-condensed-300 {
@@ -11251,7 +11257,7 @@ a {
   background-color: #f8f9fa;
 }
 
-.link-teal, text-teal {
+.link-teal, .text-teal {
   color: #20c997;
 }
 
@@ -11259,7 +11265,7 @@ a {
   color: #1aa179;
 }
 
-.link-purple, text-purple {
+.link-purple, .text-purple {
   color: #6f42c1;
 }
 
@@ -11267,7 +11273,7 @@ a {
   color: #59359a;
 }
 
-.link-orange, text-orange {
+.link-orange, .text-orange {
   color: #fd7e14;
 }
 
@@ -11275,7 +11281,7 @@ a {
   color: #ca6510;
 }
 
-.link-pink, text-pink {
+.link-pink, .text-pink {
   color: #d63384;
 }
 
@@ -11283,7 +11289,7 @@ a {
   color: #ab296a;
 }
 
-.link-indigo, text-indigo {
+.link-indigo, .text-indigo {
   color: #6610f2;
 }
 
@@ -11415,6 +11421,10 @@ textarea:focus, input:focus {
 
 .bold {
   font-weight: 900;
+}
+
+.bg-travelogue2 {
+  background-color: #171717;
 }
 
 .bg-gray-800 {
@@ -11836,7 +11846,7 @@ textarea:focus, input:focus {
   border-bottom-width: 4px;
 }
 
-.bg-darker, .travelogue_col, .nexus-bg-black-blue, .nexus-bg-black-indigo, .nexus-bg-black-purple, .nexus-bg-black-pink, .nexus-bg-black-red, .nexus-bg-black-orange, .nexus-bg-black-yellow, .nexus-bg-black-green, .nexus-bg-black-teal, .nexus-bg-black-cyan, .include_bg-black-border, .nexus-bg-black-blue-border, .nexus-bg-black-indigo-border, .nexus-bg-black-purple-border, .nexus-bg-black-pink-border, .nexus-bg-black-red-border, .nexus-bg-black-orange-border, .nexus-bg-black-yellow-border, .nexus-bg-black-green-border, .nexus-bg-black-teal-border, .nexus-bg-black-cyan-border {
+.bg-darker, .bg-travelogue1, .nexus-bg-black-blue, .nexus-bg-black-indigo, .nexus-bg-black-purple, .nexus-bg-black-pink, .nexus-bg-black-red, .nexus-bg-black-orange, .nexus-bg-black-yellow, .nexus-bg-black-green, .nexus-bg-black-teal, .nexus-bg-black-cyan, .include_bg-black-border, .nexus-bg-black-blue-border, .nexus-bg-black-indigo-border, .nexus-bg-black-purple-border, .nexus-bg-black-pink-border, .nexus-bg-black-red-border, .nexus-bg-black-orange-border, .nexus-bg-black-yellow-border, .nexus-bg-black-green-border, .nexus-bg-black-teal-border, .nexus-bg-black-cyan-border {
   background-color: #191919;
 }
 
