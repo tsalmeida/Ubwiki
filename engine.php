@@ -3178,6 +3178,9 @@
 					<li class='list-group-item list-group-item-secondary'>Currently registered:</li>
 					";
 					foreach ($check as $key) {
+						if ($key == false) {
+							continue;
+						}
 						$datexp_values .= "<li class='list-group-item'>$key</li>";
 					}
 					$datexp_values .= "</ul>";
