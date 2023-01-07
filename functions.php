@@ -4365,30 +4365,19 @@
 		$codes = $conn->query($query);
 		$return = array();
 		while ($code = $codes->fetch_assoc()) {
-			$return[$code['title']] = array(
-				'id' => $code['id'],
-				'title' => $code['title'],
-				'icon' => $code['icon'],
-				'color' => $code['color'],
-				'description' => $code['description']
-			);
+			$return[$code['title']] = array('id' => $code['id'], 'title' => $code['title'], 'icon' => $code['icon'], 'color' => $code['color'], 'description' => $code['description']);
 		}
 		return $return;
 	}
 
-	function build_travelogue_types() {
+	function build_travelogue_types()
+	{
 		include 'templates/criar_conn.php';
 		$query = prepare_query("SELECT * FROM travelogue_types");
 		$types = $conn->query($query);
 		$return = array();
 		while ($type = $types->fetch_assoc()) {
-			$return[$type['title']] = array(
-				'id' => $type['id'],
-				'title' => $type['title'],
-				'icon' => $type['icon'],
-				'color' => $type['color'],
-				'description' => $type['description']
-			);
+			$return[$type['title']] = array('id' => $type['id'], 'title' => $type['title'], 'icon' => $type['icon'], 'color' => $type['color'], 'description' => $type['description']);
 		}
 		return $return;
 	}
@@ -4480,7 +4469,7 @@
 			$result['thumbsdown'] = true;
 		}
 		$codes = travelogue_interpret_code($array['codes'], $travelogue_codes);
-		$type_color = nexus_colors(array('mode'=>'convert', 'color'=>$travelogue_types[$array['type']]['color']));
+		$type_color = nexus_colors(array('mode' => 'convert', 'color' => $travelogue_types[$array['type']]['color']));
 		$result['type'] = "<i class='fa-solid {$travelogue_types[$array['type']]['icon']} fa-fw {$type_color['link-color']} me-1'></i>";
 
 		$envelope1 = "<a class='edit_this_log' value='{$array['id']}' data-bs-toggle='modal' data-bs-target='#modal_update_entry'>";
@@ -4490,11 +4479,7 @@
 		} else {
 			$result['dburl'] = false;
 		}
-		if ($array['yourrating'] == false) {
-			$result['yourrating'] = "<i class='fas fa-star fa-fw text-muted me-1'></i>";
-		} else {
-			$result['yourrating'] = process_rating($array['yourrating']);
-		}
+		$result['yourrating'] = process_rating($array['yourrating']);
 		$result['yourrating'] = "$envelope1{$result['yourrating']}</a>";
 
 		$result['codes'] = "<span class=''>{$result['type']}$codes</span>";
@@ -4506,6 +4491,8 @@
 		$result['title'] = "<small class='align-self-center'>{$array['title']}</small>";
 		$result['creator'] = "<small class='align-self-center'>{$array['creator']}</small>";
 		$result['genre'] = "<small class='align-self-center'>{$array['genre']}</small>";
+
+		$result['datexp'] = false;
 		switch ($array['datexp']) {
 			case '1':
 //			case true:
@@ -4517,7 +4504,16 @@
 				$result['datexp'] = "<small class='ms-1'>$envelope1<i class='fa-duotone fa-calendar-xmark fa-fw link-secondary'></i></a></small>";
 				break;
 			default:
-				$result['datexp'] = "<small class='ms-1'>$envelope1<i class='fa-duotone fa-calendar-check fa-fw link-success me-1'></i></a>{$array['datexp']}</small>";
+				$check = unserialize($result['datexp']);
+				if ($check != false) {
+					$result['datexp'] .= $check;
+//					foreach ($check as $key => $array) {
+//						$result['datexp'] .= "<small class='ms-1'>$envelope1<i class='fa-duotone fa-calendar-check fa-fw link-success me-1'></i></a>$key</small>";
+//					}
+				} else {
+					$result['datexp'] .= $check;
+//					$result['datexp'] = "<small class='ms-1'>$envelope1<i class='fa-duotone fa-calendar-check fa-fw link-success me-1'></i></a>{$array['datexp']}</small>";
+				}
 		}
 
 //		if (($array['datexp'] === true) || ($array['datexp'] == '1')) {
@@ -4539,29 +4535,27 @@
 
 	function process_rating($rating)
 	{
-		if ($rating == false) {
-			return false;
-		}
 		$rating = intval($rating);
 		switch ($rating) {
-			case false:
-			case 0:
-				$result = '<i class="fa-solid fa-circle-question fa-fw me-1 link-warning"></i>';
-				break;
 			case 1:
-				$result = '<i class="fa-light fa-star-half fa-fw me-1 link-warning"></i>';
+				$result = '<i class="fa-solid fa-star-half fa-fw me-1 fa-swap-opacity link-secondary"></i>';
 				break;
 			case 2:
-				$result = '<i class="fa-solid fa-star-half fa-fw me-1 link-warning"></i>';
+				$result = '<i class="fa-solid fa-star fa-fw me-1 link-secondary"></i>';
 				break;
 			case 3:
-				$result = '<i class="fa-duotone fa-star-half-stroke fa-fw me-1 link-warning"></i>';
+				$result = '<i class="fa-solid fa-star fa-fw me-1 link-light"></i>';
 				break;
 			case 4:
-				$result = '<i class="fa-duotone fa-star-half fa-fw me-1 link-warning"></i>';
+				$result = '<i class="fa-solid fa-star fa-fw me-1 link-warning"></i>';
 				break;
 			case 5:
-				$result = '<i class="fas fa-star fa-fw me-1 link-warning"></i>';
+				$result = '<i class="fa-solid fa-star-exclamation fa-fw me-1 link-success"></i>';
+				break;
+			case false:
+			case 0:
+			default:
+				$result = '<i class="fa-solid fa-star fa-fw me-1 link-dark"></i>';
 				break;
 		}
 		return $result;

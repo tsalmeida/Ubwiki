@@ -12,8 +12,24 @@
 	}
 
 	if (isset($_POST['trigger_atualizacao'])) {
-        $query = prepare_query("CREATE TABLE `ubwiki`.`travelogue_authors` (`id` INT(11) NOT NULL AUTO_INCREMENT , `creator_id` INT(11) NOT NULL , `user_id` INT(11) NOT NULL , `title` VARCHAR(255) NOT NULL , `comments` TEXT NULL DEFAULT NULL , `dburl` VARCHAR(500) NULL DEFAULT NULL , PRIMARY KEY (`id`), UNIQUE `creator_id` (`creator_id`)) ENGINE = InnoDB;");
-        $conn->query($query);
+        $query = prepare_query("SELECT id, datexp FROM travelogue");
+        $datexps = $conn->query($query);
+        if ($datexps->num_rows > 0) {
+            while ($datexp = $datexps->fetch_assoc()) {
+                if ($datexp['datexp'] == false) {
+                    continue;
+                }
+                $oneentry = explode(',', $datexp['datexp']);
+                $result = array();
+                foreach ($oneentry as $key => $array) {
+                    $onedate = trim($oneentry[$key], ' ');
+                    array_push($result, $onedate);
+                }
+                $result = serialize($result);
+                $query = prepare_query("UPDATE travelogue SET datexp = '$result' WHERE id = {$datexp['id']}", 'log');
+                $conn->query($query);
+            }
+        }
 	}
 
 	if (isset($_POST['trigger_atualizar_textos_size'])) {

@@ -4,7 +4,7 @@
 	$pagina_id = $_SESSION['user_escritorio'];
 	$pagina_title = 'Travelogue';
 	$pagina_favicon = 'new_travelogue.ico';
-	$count_limit = false;
+	$count_limit = 200;
 
 	if (!isset($_SESSION['travelogue_codes'])) {
 		$_SESSION['travelogue_codes'] = build_travelogue_codes();
@@ -29,8 +29,10 @@
 		}
 		$_POST[$_POST['travel_new_genre']] = mysqli_real_escape_string($conn, $_POST['travel_new_genre']);
 		if (!isset($_POST['travel_new_datexp'])) {
-			$_POST['travel_new_datexp'] = false;
-		}
+			$_POST['travel_new_datexp'] = array();
+		} else {
+            $_POST['travel_new_datexp'] = serialize(array($_POST['travel_new_datexp']));
+        }
 		if (!isset($_POST['travel_new_rating'])) {
 			$_POST['travel_new_rating'] = false;
 		}
@@ -219,6 +221,7 @@
 	}
 
 	if (isset($_POST['trigger_reset_filter'])) {
+        $_SESSION['travelogue_sorting'] = false;
 		unset($_SESSION['travelogue_filter_options']);
 	}
 
@@ -306,13 +309,6 @@
 				if (!isset($_SESSION['travelogue_sorting'])) {
 					$_SESSION['travelogue_sorting'] = false;
 				}
-				$filter_module = false;
-				if (!isset($_SESSION['travelogue_filter'])) {
-					$_SESSION['travelogue_filter'] = array('title' => false, 'creator' => false, 'comments' => false, 'otherrelevant' => false, 'type' => false);
-					$filter_module = false;
-				} else {
-					$filter_module = false;
-				}
 				$order_module = false;
 				switch ($_SESSION['travelogue_sorting']) {
 					case 'chronological':
@@ -342,7 +338,7 @@
 						$order_module = "ORDER BY id";
 						break;
 				}
-				$query = prepare_query("SELECT id, type, codes, releasedate, title, creator, genre, datexp, yourrating, comments, otherrelevant, dburl FROM travelogue WHERE state = 1 $filter_module AND user_id = {$_SESSION['user_id']} $order_module");
+				$query = prepare_query("SELECT id, type, codes, releasedate, title, creator, genre, datexp, yourrating, comments, otherrelevant, dburl FROM travelogue WHERE state = 1 AND user_id = {$_SESSION['user_id']} $order_module");
 				$records = $conn->query($query);
 				if ($_SESSION['travelogue_separate_types'] == true) {
 					$result = array();
@@ -487,6 +483,10 @@
     $(document).on('click', '#trigger_enable_rating', function () {
         $(this).addClass('d-none');
         $("#travel_new_rating").removeAttr("disabled");
+    })
+    $(document).on('click', '#update_trigger_disable_rating', function () {
+        $(this).addClass('d-none');
+        $("#update_travel_new_rating").prop("disabled", true);
     })
     $(document).on('click', '#update_trigger_enable_rating', function () {
         $(this).addClass('d-none');

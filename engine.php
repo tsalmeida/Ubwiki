@@ -3163,6 +3163,32 @@
 					";
 				}
 
+				$check = @unserialize($log['datexp']);
+				$datexp_values = false;
+				if ($check == false) {
+					if ($log['datexp'] != false) {
+						$datexp_values .= "<ul id='travel_update_datexp_list' class='list-group'>";
+						$datexp_values .= "<li class='list-group-item'>{$log['datexp']}</li>";
+						$datexp_values .= "</ul>";
+					} else {
+						$datexp_values .= "<ul id='travel_update_datexp_list' class='list-group'></ul>";
+					}
+				} else {
+					$datexp_values .= "<ul id='travel_update_datexp_list' class='list-group'>";
+					foreach ($check as $key) {
+						$datexp_values .= "<li class='list-group-item'>$key</li>";
+					}
+					$datexp_values .= "</ul>";
+				}
+
+				$datexp_module = "
+					<div class='mb-3 p-3 rounded border bg-light'>
+						<label for=update_travel_new_datexp' class='form-label'>Date experienced: <em class='text-muted'>(recommended: YYYY, YYYYMM, or YYYYMMDD)</em></label>
+						<input id='update_travel_new_datexp' name='update_travel_new_datexp' type='number' minlength='4' maxlength='8' class='form-control' value=''>
+						<button class='btn btn-sm btn-secondary my-1' type='button' id='update_travel_add_experienced_date'>Add experienced date</button>
+						$datexp_values
+					</div>
+				";
 
 				$result .= "
 					<form method='post'>
@@ -3180,27 +3206,25 @@
 							<label for='update_travel_new_title' class='form-label'>Title:</label>
 							<input id='update_travel_new_title' name='update_travel_new_title' type='text' class='form-control' value=\"{$log['title']}\">
 						</div>
-						<div class='mb-3'>
-							<label for='update_travel_new_release_date' class='form-label'>Release date:</label>
-							<input id='update_travel_new_release_date' name='update_travel_new_release_date' type='text' class='form-control' value='{$log['releasedate']}'>
-						</div>
 						$genre_module
 						<div class='mb-3'>
-							<label for=update_travel_new_datexp' class='form-label'>Date experienced:</label>
-							<input id='update_travel_new_datexp' name='update_travel_new_datexp' type='text' class='form-control' value='{$log['datexp']}'>
-						</div>";
+							<label for='update_travel_new_release_date' class='form-label'>Release date: <em class='text-muted'>(recommended: YYYY, YYYYMM, or YYYYMMDD)</em></label>
+							<input id='update_travel_new_release_date' name='update_travel_new_release_date' type='number' minlength='4' maxlength='8' class='form-control' value='{$log['releasedate']}'>
+						</div>
+						$datexp_module
+						";
 				if ($log['yourrating'] == '') {
-					$result .= "<div class='mb-3'>
+					$result .= "<div class='mb-3 border p-3 rounded bg-light'>
 							<label for='update_travel_new_rating' class='form-label'>Your rating (1 to 5):</label>
 							<input type='range' class='form-range' id='update_travel_new_rating' name='update_travel_new_rating' min='1' max='5' disabled>
 							<button id='update_trigger_enable_rating' class='btn btn-outline-secondary btn-sm' type='button'>Enable</button>
 						</div>";
 				} else {
 					$result .= "
-						<div class='mb-3'>
+						<div class='mb-3 border p-3 rounded bg-light'>
 							<label for='update_travel_new_rating' class='form-label'>Your rating (1 to 5):</label>
 							<input type='range' class='form-range' id='update_travel_new_rating' name='update_travel_new_rating' min='1' max='5' value='{$log['yourrating']}'>
-							<button id='update_trigger_disable_rating' class='btn btn-outline-secondary btn-sm' type='button'>Disable</button>
+							<button id='update_trigger_disable_rating' class='btn btn-outline-secondary btn-sm' type='button'>Disable (erase rating)</button>
 						</div>
 					";
 				}
@@ -3546,19 +3570,19 @@
 					<input id='travel_new_title' name='travel_new_title' type='text' class='form-control'>
 				</div>
 				<div class='mb-3'>
-					<label for='travel_new_release_date' class='form-label'>Release date:</label>
-					<input id='travel_new_release_date' name='travel_new_release_date' type='text' class='form-control'>
-				</div>
-				<div class='mb-3'>
 					<label for='travel_new_genre' class='form-label'>Genre:</label>
 					<input id='travel_new_genre' name='travel_new_genre' type='text' class='form-control' list='new_item_genres_list'>
 					<datalist id='new_item_genres_list'>$all_genres_list</datalist>
 				</div>
 				<div class='mb-3'>
-					<label for='travel_new_datexp' class='form-label'>Date experienced:</label>
-					<input id='travel_new_datexp' name='travel_new_datexp' type='text' class='form-control'>
+					<label for='travel_new_release_date' class='form-label'>Release date: <em class='text-muted'>(recommended: YYYY, YYYYMM, or YYYYMMDD)</em></label>
+					<input id='travel_new_release_date' name='travel_new_release_date' type='number' minlength='4' maxlength='8' class='form-control'>
 				</div>
 				<div class='mb-3'>
+					<label for='travel_new_datexp' class='form-label'>Date experienced: <em class='text-muted'>(recommended: YYYY, YYYYMM, or YYYYMMDD)</em></label>
+					<input id='travel_new_datexp' name='travel_new_datexp' type='number' minlength='4' maxlength='8' class='form-control'>
+				</div>
+				<div class='mb-3 p-1 rounded border'>
 					<label for='travel_new_rating' class='form-label'>Your rating (1 to 5):</label>
 					<input type='range' class='form-range' id='travel_new_rating' name='travel_new_rating' min='1' max='5' disabled>
 					<button id='trigger_enable_rating' class='btn btn-outline-secondary btn-sm' type='button'>Enable</button>
@@ -3679,6 +3703,7 @@
 		if ($author_title !== false) {
 			$_SESSION['travelogue_filter_options'] = unserialize('a:33:{s:5:"music";s:5:"music";s:7:"concert";b:0;s:5:"movie";s:5:"movie";s:6:"tvshow";s:6:"tvshow";s:7:"episode";b:0;s:4:"book";s:4:"book";s:9:"classical";s:9:"classical";s:5:"comic";b:0;s:7:"standup";b:0;s:8:"painting";s:8:"painting";s:5:"photo";b:0;s:5:"vidya";b:0;s:12:"architecture";s:12:"architecture";s:6:"sports";s:6:"sports";s:5:"other";b:0;s:8:"favorite";s:13:"code_favorite";s:6:"lyrics";s:11:"code_lyrics";s:4:"hifi";s:9:"code_hifi";s:8:"relaxing";s:13:"code_relaxing";s:5:"heavy";s:10:"code_heavy";s:4:"vibe";s:9:"code_vibe";s:7:"complex";s:12:"code_complex";s:12:"instrumental";s:17:"code_instrumental";s:4:"live";s:9:"code_live";s:5:"lists";s:10:"code_lists";s:8:"bookmark";s:13:"code_bookmark";s:8:"thumbsup";s:13:"code_thumbsup";s:10:"thumbsdown";s:15:"code_thumbsdown";s:9:"thumbtack";s:14:"code_thumbtack";s:7:"pointer";s:12:"code_pointer";s:12:"show_no_code";s:12:"show_no_code";s:6:"genres";a:0:{}s:7:"authors";a:1:{i:0;s:12:"The National";}}');
 			$_SESSION['travelogue_filter_options']['authors'] = array($author_title);
+			$_SESSION['travelogue_sorting'] = 'chronological';
 			echo true;
 		} else {
 			echo false;
