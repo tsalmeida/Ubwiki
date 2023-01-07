@@ -3253,7 +3253,7 @@
 					$result .= "
 					<div class='form-check'>
 						<input name='travel_update_code_$key' id='travel_update_code_$key' class='form-check-input' type='checkbox' value='$key' $this_checked>
-						<label for='travel_update_code_$key' class='form-check-label'><i class='{$_SESSION['travelogue_codes'][$key]['icon']} me-2 {$color['link-color']} bg-dark p-1 rounded fa-fw'></i>$key</label>
+						<label for='travel_update_code_$key' class='form-check-label'><i class='{$_SESSION['travelogue_codes'][$key]['icon']} me-2 {$color['link-color']} bg-dark p-1 rounded fa-fw'></i>{$_SESSION['travelogue_codes'][$key]['description']}</label>
 					</div>
 				";
 				}
@@ -3328,6 +3328,29 @@
 		if (isset($_POST['travel_update_code_pointer'])) {
 			$travel_update_codes['pointer'] = true;
 		}
+		$query = prepare_query("SELECT datexp FROM travelogue WHERE id = {$_POST['update_this_entry']} AND user_id = {$_SESSION['user_id']}");
+		$data = $conn->query($query);
+		$result = false;
+		if ($data->num_rows > 0) {
+			while ($date = $data->fetch_assoc()) {
+				if ($date['datexp'] == false) {
+					$result = array($_POST['update_travel_new_datexp']);
+					$result = serialize($result);
+					break;
+				} else {
+					$array_date = unserialize($date['datexp']);
+					if ($array_date == false) {
+						$result = "{$date['datexp']}, {$_POST['update_travel_new_datexp']}";
+						$result = array($result);
+						$result = serialize($result);
+					} else {
+						array_push($array_date, $_POST['update_travel_new_datexp']);
+						$result = serialize($array_date);
+					}
+				}
+			}
+		}
+		$_POST['update_travel_new_datexp'] = mysqli_real_escape_string($conn, $result);
 		$travel_update_codes = serialize($travel_update_codes);
 		$travel_update_codes = mysqli_real_escape_string($conn, $travel_update_codes);
 		$query = prepare_query("UPDATE travelogue SET type = '{$_POST['update_travel_new_type']}', codes = '$travel_update_codes', releasedate = '{$_POST['update_travel_new_release_date']}', title = '{$_POST['update_travel_new_title']}', creator = '{$_POST['update_travel_new_creator']}', genre = '{$_POST['update_travel_new_genre']}', datexp = '{$_POST['update_travel_new_datexp']}', yourrating = '{$_POST['update_travel_new_rating']}', comments = '{$_POST['update_travel_new_comments']}', otherrelevant = '{$_POST['update_travel_new_information']}', dburl = '{$_POST['update_travel_new_database']}' WHERE id = {$_POST['update_this_entry']} AND user_id = {$_SESSION['user_id']}");

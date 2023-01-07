@@ -4400,12 +4400,11 @@
 				default:
 					if ($codes[$key] == true) {
 						$color = nexus_colors(array('mode' => 'convert', 'color' => $travelogue_codes[$key]['color']));
-						$return .= "<i class='{$travelogue_codes[$key]['icon']} fa-fw {$color['link-color']}'></i>";
+						$return .= "<i class='{$travelogue_codes[$key]['icon']} fa-fw {$color['text-color']} me-1'></i>";
 					}
 			}
 		}
 		return $return;
-
 	}
 
 	function travelogue_put_together($array, $travelogue_codes, $travelogue_types)
@@ -4470,26 +4469,22 @@
 		}
 		$codes = travelogue_interpret_code($array['codes'], $travelogue_codes);
 		$type_color = nexus_colors(array('mode' => 'convert', 'color' => $travelogue_types[$array['type']]['color']));
-		$result['type'] = "<i class='fa-solid {$travelogue_types[$array['type']]['icon']} fa-fw {$type_color['link-color']} me-1'></i>";
-
-		$envelope1 = "<a class='edit_this_log' value='{$array['id']}' data-bs-toggle='modal' data-bs-target='#modal_update_entry'>";
-		$result['type'] = "$envelope1{$result['type']}</a>";
+		$result['type'] = "<a class='edit_this_log me-2' value='{$array['id']}' data-bs-toggle='modal' data-bs-target='#modal_update_entry' href='javascript:void(0);'><i class='fa-solid {$travelogue_types[$array['type']]['icon']} fa-fw fa-lg {$type_color['bg-color']} {$type_color['link-black-color']} p-2 rounded'></i></a>";
 		if ($array['dburl'] != false) {
 			$result['dburl'] = "<a class='link-primary me-1' href='{$array['dburl']}' target='_blank'><i class='fa-solid fa-square-arrow-up-right fa-fw fa-lg me-1'></i></a>";
 		} else {
 			$result['dburl'] = false;
 		}
 		$result['yourrating'] = process_rating($array['yourrating']);
-		$result['yourrating'] = "$envelope1{$result['yourrating']}</a>";
 
 		$result['codes'] = "<span class=''>{$result['type']}$codes</span>";
 		if (($array['releasedate'] === false) || ($array['releasedate'] == '')) {
-			$result['releasedate'] = "$envelope1<small class=''><i class='fa-duotone fa-calendar-xmark fa-fw link-secondary'></i></a></small>";
+			$result['releasedate'] = "<small class=''><i class='fa-duotone fa-calendar-xmark fa-fw text-secondary'></i></small>";
 		} else {
-			$result['releasedate'] = "$envelope1<small class=''><i class='fa-duotone fa-calendar fa-fw link-secondary me-1'></i></a>{$array['releasedate']}</small>";
+			$result['releasedate'] = "<small class=''><i class='fa-duotone fa-calendar fa-fw text-secondary me-1'></i>{$array['releasedate']}</small>";
 		}
 		$result['title'] = "<small class='align-self-center'>{$array['title']}</small>";
-		$result['creator'] = "<small class='align-self-center'>{$array['creator']}</small>";
+		$result['creator'] = "<small>{$array['creator']}</small>";
 		$result['genre'] = "<small class='align-self-center'>{$array['genre']}</small>";
 
 		$result['datexp'] = false;
@@ -4497,22 +4492,16 @@
 			case '1':
 //			case true:
 //			case 1:
-				$result['datexp'] = "<small class='ms-1'>$envelope1<i class='fa-duotone fa-calendar-check fa-fw link-success font-half-condensed-300'></i></a></small>";
+				$result['datexp'] = "<small class='ms-1'><i class='fa-duotone fa-calendar-check fa-fw text-success font-half-condensed-300'></i></small>";
 				break;
 			case false:
 			case '':
-				$result['datexp'] = "<small class='ms-1'>$envelope1<i class='fa-duotone fa-calendar-xmark fa-fw link-secondary'></i></a></small>";
+				$result['datexp'] = "<small class='ms-1'><i class='fa-duotone fa-calendar-xmark fa-fw text-secondary'></i></small>";
 				break;
 			default:
-				$check = unserialize($result['datexp']);
-				if ($check != false) {
-					$result['datexp'] .= $check;
-//					foreach ($check as $key => $array) {
-//						$result['datexp'] .= "<small class='ms-1'>$envelope1<i class='fa-duotone fa-calendar-check fa-fw link-success me-1'></i></a>$key</small>";
-//					}
-				} else {
-					$result['datexp'] .= $check;
-//					$result['datexp'] = "<small class='ms-1'>$envelope1<i class='fa-duotone fa-calendar-check fa-fw link-success me-1'></i></a>{$array['datexp']}</small>";
+				$array['datexp'] = unserialize($array['datexp']);
+				foreach ($array['datexp'] as $key) {
+					$result['datexp'] .= "<small class='ms-1'><i class='fa-duotone fa-calendar-check fa-fw text-success me-1'></i>$key</small>";
 				}
 		}
 
@@ -4538,24 +4527,24 @@
 		$rating = intval($rating);
 		switch ($rating) {
 			case 1:
-				$result = '<i class="fa-solid fa-star-half fa-fw me-1 fa-swap-opacity link-secondary"></i>';
+				$result = '<i class="fa-solid fa-star-half fa-fw me-1 fa-swap-opacity text-secondary"></i>';
 				break;
 			case 2:
-				$result = '<i class="fa-solid fa-star fa-fw me-1 link-secondary"></i>';
+				$result = '<i class="fa-solid fa-star fa-fw me-1 text-secondary"></i>';
 				break;
 			case 3:
-				$result = '<i class="fa-solid fa-star fa-fw me-1 link-light"></i>';
+				$result = '<i class="fa-solid fa-star fa-fw me-1 text-light"></i>';
 				break;
 			case 4:
-				$result = '<i class="fa-solid fa-star fa-fw me-1 link-warning"></i>';
+				$result = '<i class="fa-solid fa-star fa-fw me-1 text-warning"></i>';
 				break;
 			case 5:
-				$result = '<i class="fa-solid fa-star-exclamation fa-fw me-1 link-success"></i>';
+				$result = '<i class="fa-solid fa-star-exclamation fa-fw me-1 text-success"></i>';
 				break;
 			case false:
 			case 0:
 			default:
-				$result = '<i class="fa-solid fa-star fa-fw me-1 link-dark"></i>';
+				$result = '<i class="fa-solid fa-star fa-fw me-1 text-dark"></i>';
 				break;
 		}
 		return $result;

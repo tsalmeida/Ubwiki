@@ -4,7 +4,7 @@
 	$pagina_id = $_SESSION['user_escritorio'];
 	$pagina_title = 'Travelogue';
 	$pagina_favicon = 'new_travelogue.ico';
-	$count_limit = 200;
+	$count_limit = false;
 
 	if (!isset($_SESSION['travelogue_codes'])) {
 		$_SESSION['travelogue_codes'] = build_travelogue_codes();
@@ -424,7 +424,7 @@
                             <div class='col-1 travelogue_col text-white'>{$put_together['codes']}</div>
                             <div class='col-1 travelogue_col text-white user-select-none'>{$put_together['releasedate']}{$put_together['datexp']}</div>
                             <div class='col travelogue_col d-flex justify-content-center $highlight_module'>$highlight_icon {$put_together['title']}</div>
-                            <div class='col travelogue_col d-flex justify-content-center $highlight_module'><a class='open_author_modal link-light' value='{$record['id']}' href='javascript:void(0);' data-bs-toggle='modal' data-bs-target='#modal_one_author'>{$put_together['creator']}</a></div>
+                            <div class='col travelogue_col d-flex justify-content-center $highlight_module'><a class='open_author_modal link-light align-self-center' value='{$record['id']}' href='javascript:void(0);' data-bs-toggle='modal' data-bs-target='#modal_one_author'>{$put_together['creator']}</a></div>
                             <div class='col-1 travelogue_col d-flex justify-content-center text-white user-select-none'>{$put_together['genre']}</div>
                             <div class='col travelogue_col text-white'>{$put_together['yourrating']} $thumbsup_module $thumbsdown_module {$put_together['comments']}</div>
                             <div class='col travelogue_col text-white'>$lists_icon {$put_together['dburl']} {$put_together['otherrelevant']}</div>

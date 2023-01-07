@@ -11611,6 +11611,86 @@ textarea:focus, input:focus {
   color: #032830;
 }
 
+.nexus-link-black-blue {
+  color: #0d6efd;
+}
+
+.nexus-link-black-bindigo {
+  color: #6610f2;
+}
+
+.nexus-link-black-purple {
+  color: #6f42c1;
+}
+
+.nexus-link-black-pink {
+  color: #d63384;
+}
+
+.nexus-link-black-red {
+  color: #dc3545;
+}
+
+.nexus-link-black-orange {
+  color: #fd7e14;
+}
+
+.nexus-link-black-yellow {
+  color: #ffc107;
+}
+
+.nexus-link-black-green {
+  color: #198754;
+}
+
+.nexus-link-black-teal {
+  color: #20c997;
+}
+
+.nexus-link-black-cyan {
+  color: #0dcaf0;
+}
+
+.nexus-link-black-blue:hover {
+  color: #3d8bfd;
+}
+
+.nexus-link-black-indigo:hover {
+  color: #8540f5;
+}
+
+.nexus-link-black-purple:hover {
+  color: #8c68cd;
+}
+
+.nexus-link-black-pink:hover {
+  color: #de5c9d;
+}
+
+.nexus-link-black-red:hover {
+  color: #e35d6a;
+}
+
+.nexus-link-black-orange:hover {
+  color: #fd9843;
+}
+
+.nexus-link-black-yellow:hover {
+  color: #ffcd39;
+}
+
+.nexus-link-black-green:hover {
+  color: #479f76;
+}
+
+.nexus-link-black-teal:hover {
+  color: #4dd4ac;
+}
+
+.nexus-link-black-cyan:hover {
+  color: #3dd5f3;
+}
+
 .nexus-bg-black-blue {
   color: #0d6efd;
 }
@@ -11882,6 +11962,46 @@ textarea:focus, input:focus {
   background: -webkit-linear-gradient(top, rgba(33, 37, 41, 0.8) 0%, rgba(33, 37, 41, 0.8) 100%); /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(to bottom, rgba(33, 37, 41, 0.8) 0%, rgba(33, 37, 41, 0.8) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#cc212529", endColorstr="#cc212529",GradientType=0 ); /* IE6-9 */
+}
+
+.nexus-text-blue {
+  color: #0d6efd;
+}
+
+.nexus-text-indigo {
+  color: #6610f2;
+}
+
+.nexus-text-purple {
+  color: #6f42c1;
+}
+
+.nexus-text-pink {
+  color: #d63384;
+}
+
+.nexus-text-red {
+  color: #dc3545;
+}
+
+.nexus-text-orange {
+  color: #fd7e14;
+}
+
+.nexus-text-yellow {
+  color: #ffc107;
+}
+
+.nexus-text-green {
+  color: #198754;
+}
+
+.nexus-text-teal {
+  color: #20c997;
+}
+
+.nexus-text-cyan {
+  color: #0dcaf0;
 }
 
 /*# sourceMappingURL=style.css.map */
