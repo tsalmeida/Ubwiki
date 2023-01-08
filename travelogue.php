@@ -1,5 +1,9 @@
 <?php
 	include 'engine.php';
+	if (!isset($_SESSION['user_id'])) {
+		print('Not logged in.');
+		exit();
+	}
 	$pagina_tipo = 'travelogue';
 	$pagina_id = $_SESSION['user_escritorio'];
 	$pagina_title = 'Travelogue';
@@ -96,7 +100,7 @@
 		$travel_new_codes = serialize($travel_new_codes);
 		$query = prepare_query("INSERT INTO travelogue (user_id, type, codes, releasedate, title, creator, genre, yourrating, comments, otherrelevant, dburl, datexp, firstdatexp) VALUES ({$_SESSION['user_id']}, '{$_POST['travel_new_type']}', '$travel_new_codes', '{$_POST['travel_new_release_date']}', '{$_POST['travel_new_title']}', '{$_POST['travel_new_creator']}', '{$_POST['travel_new_genre']}', '{$_POST['travel_new_rating']}', '{$_POST['travel_new_comments']}', '{$_POST['travel_new_information']}', '{$_POST['travel_new_database']}', '$array_datexp', '{$_POST['travel_new_datexp']}')");
 		$conn->query($query);
-        $new_travelogue_id = $conn->insert_id;
+		$new_travelogue_id = $conn->insert_id;
 	}
 
 	if (!isset($_SESSION['travelogue_separate_types'])) {
@@ -104,7 +108,7 @@
 	}
 	if (isset($_POST['trigger_modal_filter'])) {
 		if (isset($_POST['travelogue_sorting'])) {
-			$_SESSION['travelogue_sorting'] = $_POST['travelogue_sorting'];
+			$_SESSION['travelogue_filter_options']['sorting'] = $_POST['travelogue_sorting'];
 		}
 		if (isset($_POST['travelogue_separate_types'])) {
 			$_SESSION['travelogue_separate_types'] = true;
@@ -222,7 +226,6 @@
 	}
 
 	if (isset($_POST['trigger_reset_filter'])) {
-		$_SESSION['travelogue_sorting'] = false;
 		unset($_SESSION['travelogue_filter_options']);
 	}
 
@@ -255,7 +258,7 @@
                         </div>";
 						$query = prepare_query("SELECT * FROM travelogue_authors WHERE user_id = {$_SESSION['user_id']}");
 						$authors = $conn->query($query);
-                        $background_color = false;
+						$background_color = false;
 						if ($authors->num_rows > 0) {
 							while ($author = $authors->fetch_assoc()) {
 								if (($author['comments'] != null) || ($author['dburl'] != null)) {
@@ -318,11 +321,11 @@
                                 <span class='text-white font-half-condensed-400 user-select-none'>Relevant information</span>
                     </div>
                 </div>";
-				if (!isset($_SESSION['travelogue_sorting'])) {
-					$_SESSION['travelogue_sorting'] = false;
+				if (!isset($_SESSION['travelogue_filter_options']['sorting'])) {
+					$_SESSION['travelogue_filter_options']['sorting'] = false;
 				}
 				$order_module = false;
-				switch ($_SESSION['travelogue_sorting']) {
+				switch ($_SESSION['travelogue_filter_options']['sorting']) {
 					case 'chronological':
 						$order_module = "ORDER BY releasedate";
 						break;
@@ -357,27 +360,20 @@
 				} else {
 					$result = false;
 				}
-                $background_color = false;
+				$background_color = false;
 				if ($records->num_rows > 0) {
 					while ($record = $records->fetch_assoc()) {
-						if ($count_limit != false) {
-							if (!isset($count)) {
-								$count = 0;
-							}
-							$count++;
-							if ($count == $count_limit) {
-								break;
-							}
-						}
 						$record['codes'] = unserialize($record['codes']);
-						if (isset($_SESSION['travelogue_filter_options'])) {
-							if ($_SESSION['travelogue_filter_options']['genres'] != false) {
-								if (!in_array($record['genre'], $_SESSION['travelogue_filter_options']['genres'])) {
+						if (isset($_SESSION['travelogue_filter_options']['authors'])) {
+							if ($_SESSION['travelogue_filter_options']['authors'] != false) {
+								if (!in_array($record['creator'], $_SESSION['travelogue_filter_options']['authors'])) {
 									continue;
 								}
 							}
-							if ($_SESSION['travelogue_filter_options']['authors'] != false) {
-								if (!in_array($record['creator'], $_SESSION['travelogue_filter_options']['authors'])) {
+						}
+						if (isset($_SESSION['travelogue_filter_options']['genres'])) {
+							if ($_SESSION['travelogue_filter_options']['genres'] != false) {
+								if (!in_array($record['genre'], $_SESSION['travelogue_filter_options']['genres'])) {
 									continue;
 								}
 							}
@@ -400,20 +396,29 @@
 								}
 							}
 						}
+						if ($count_limit != false) {
+							if (!isset($count)) {
+								$count = 0;
+							}
+							$count++;
+							if ($count == $count_limit) {
+								break;
+							}
+						}
 
 						$put_together = travelogue_put_together(array('id' => $record['id'], 'type' => $record['type'], 'codes' => $record['codes'], 'releasedate' => $record['releasedate'], 'title' => $record['title'], 'creator' => $record['creator'], 'genre' => $record['genre'], 'datexp' => $record['datexp'], 'yourrating' => $record['yourrating'], 'comments' => $record['comments'], 'otherrelevant' => $record['otherrelevant'], 'dburl' => $record['dburl']), $_SESSION['travelogue_codes'], $_SESSION['travelogue_types']);
 
 
-                        $author_link = 'link-light';
+						$author_link = 'link-light';
 						$highlight_module = 'text-white';
 						$bookmark_module = false;
-                        $bookmark_module_2 = false;
+						$bookmark_module_2 = false;
 						$highlight_icon = false;
 						if ($put_together['bookmark'] == true) {
 							$bookmark_module .= ' bg-danger my-1 py-1 rounded';
-                            $bookmark_module_2 = 'bold';
-                            $author_link = 'link-danger';
-                            $highlight_module = 'text-danger';
+							$bookmark_module_2 = 'bold';
+							$author_link = 'link-danger';
+							$highlight_module = 'text-danger';
 							$highlight_icon .= "<i class='fa-solid fa-bookmark fa-lg fa-fw me-1 text-danger align-self-center'></i>";
 						}
 						if ($put_together['thumbtack'] == true) {
@@ -439,12 +444,12 @@
 						}
 						switch ($background_color) {
 							case 'bg-travelogue1':
-                                $background_color = 'bg-travelogue2';
-                                break;
+								$background_color = 'bg-travelogue2';
+								break;
 							case 'bg-travelogue2':
 							case false:
 							default:
-                                $background_color = 'bg-travelogue1';
+								$background_color = 'bg-travelogue1';
 								break;
 						}
 
@@ -579,7 +584,7 @@
             }
         })
     })
-    $(document).on('click', '#delete_datexp', function() {
+    $(document).on('click', '#delete_datexp', function () {
         del_confirm = confirm('Do you really want to delete all records of your past experience of this item? This cannot be undone.');
         if (del_confirm == true) {
             del_datexp_id = $(this).attr('value');

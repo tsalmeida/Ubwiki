@@ -3737,9 +3737,11 @@
 			}
 		}
 		if ($author_title !== false) {
-			$_SESSION['travelogue_filter_options'] = unserialize('a:33:{s:5:"music";s:5:"music";s:7:"concert";b:0;s:5:"movie";s:5:"movie";s:6:"tvshow";s:6:"tvshow";s:7:"episode";b:0;s:4:"book";s:4:"book";s:9:"classical";s:9:"classical";s:5:"comic";b:0;s:7:"standup";b:0;s:8:"painting";s:8:"painting";s:5:"photo";b:0;s:5:"vidya";b:0;s:12:"architecture";s:12:"architecture";s:6:"sports";s:6:"sports";s:5:"other";b:0;s:8:"favorite";s:13:"code_favorite";s:6:"lyrics";s:11:"code_lyrics";s:4:"hifi";s:9:"code_hifi";s:8:"relaxing";s:13:"code_relaxing";s:5:"heavy";s:10:"code_heavy";s:4:"vibe";s:9:"code_vibe";s:7:"complex";s:12:"code_complex";s:12:"instrumental";s:17:"code_instrumental";s:4:"live";s:9:"code_live";s:5:"lists";s:10:"code_lists";s:8:"bookmark";s:13:"code_bookmark";s:8:"thumbsup";s:13:"code_thumbsup";s:10:"thumbsdown";s:15:"code_thumbsdown";s:9:"thumbtack";s:14:"code_thumbtack";s:7:"pointer";s:12:"code_pointer";s:12:"show_no_code";s:12:"show_no_code";s:6:"genres";a:0:{}s:7:"authors";a:1:{i:0;s:12:"The National";}}');
-			$_SESSION['travelogue_filter_options']['authors'] = array($author_title);
-			$_SESSION['travelogue_sorting'] = 'chronological';
+			unset($_SESSION['travelogue_filter_options']);
+			$_SESSION['travelogue_filter_options'] = array(
+				'sorting'=>'chronological',
+				'authors'=>array($author_title)
+			);
 			echo true;
 		} else {
 			echo false;
