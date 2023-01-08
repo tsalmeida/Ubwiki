@@ -330,7 +330,7 @@
 						$order_module = "ORDER BY releasedate";
 						break;
 					case 'biographical':
-						$order_module = "ORDER BY firstdatexp DESC, releasedate DESC";
+						$order_module = "ORDER BY firstdatexp, releasedate";
 						break;
 					case 'alphabetical_creator':
 						$order_module = "ORDER BY creator, releasedate";
