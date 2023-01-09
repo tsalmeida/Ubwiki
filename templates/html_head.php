@@ -50,7 +50,7 @@
         <script src=\"https://code.jquery.com/jquery-3.6.1.min.js\" integrity=\"sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=\" crossorigin=\"anonymous\"></script>
         <!-- Font Awesome -->
         <script src='https://kit.fontawesome.com/b8e073920a.js' crossorigin='anonymous'></script>
-        <link href='css/style.css?20230107b' rel='stylesheet'>
+        <link href='css/style.css?20230109' rel='stylesheet'>
         <link type='image/vnd.microsoft.icon' rel='icon' href='$pagina_favicon'>
         <title>$pagina_title</title>
         $quill_module

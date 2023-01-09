@@ -4469,7 +4469,7 @@
 		}
 		$codes = travelogue_interpret_code($array['codes'], $travelogue_codes);
 		$type_color = nexus_colors(array('mode' => 'convert', 'color' => $travelogue_types[$array['type']]['color']));
-		$result['type'] = "<a class='edit_this_log me-2' value='{$array['id']}' data-bs-toggle='modal' data-bs-target='#modal_update_entry' href='javascript:void(0);'><i class='fa-solid {$travelogue_types[$array['type']]['icon']} fa-fw fa-lg {$type_color['bg-color']} {$type_color['link-black-color']} p-2 rounded'></i></a>";
+		$result['type'] = "<a class='edit_this_log me-2' value='{$array['id']}' data-bs-toggle='modal' data-bs-target='#modal_update_entry' href='javascript:void(0);'><i class='fa-solid {$travelogue_types[$array['type']]['icon']} fa-fw {$type_color['bg-color']} {$type_color['link-black-color']} p-2 rounded'></i></a>";
 		if ($array['dburl'] != false) {
 			$result['dburl'] = "<a class='link-primary me-1' href='{$array['dburl']}' target='_blank'><i class='fa-solid fa-square-arrow-up-right fa-fw fa-lg me-1'></i></a>";
 		} else {
@@ -4479,9 +4479,9 @@
 
 		$result['codes'] = "{$result['type']}$codes";
 		if (($array['releasedate'] === false) || ($array['releasedate'] == '')) {
-			$result['releasedate'] = "<small class=''><i class='fa-duotone fa-calendar-xmark fa-fw text-secondary'></i></small>";
+			$result['releasedate'] = "<small class='text-secondary'><i class='fa-duotone fa-calendar-xmark fa-fw'></i></small>";
 		} else {
-			$result['releasedate'] = "<small class=''><i class='fa-duotone fa-calendar fa-fw text-secondary me-1'></i>{$array['releasedate']}</small>";
+			$result['releasedate'] = "<small class=''><i class='fa-duotone fa-calendar fa-fw text-primary me-1'></i>{$array['releasedate']}</small>";
 		}
 		$result['title'] = "<small class='align-self-center'>{$array['title']}</small>";
 		$result['creator'] = "<small>{$array['creator']}</small>";
@@ -4530,10 +4530,10 @@
 		$rating = intval($rating);
 		switch ($rating) {
 			case 1:
-				$result = '<i class="fa-duotone fa-star-half fa-fw me-1 text-muted"></i>';
+				$result = '<i class="fa-solid fa-star-half fa-fw me-1 text-secondary"></i>';
 				break;
 			case 2:
-				$result = '<i class="fa-solid fa-star fa-fw me-1 text-secondary"></i>';
+				$result = '<i class="fa-solid fa-star-half fa-fw me-1 text-light"></i>';
 				break;
 			case 3:
 				$result = '<i class="fa-solid fa-star fa-fw me-1 text-light"></i>';
@@ -4547,7 +4547,7 @@
 			case false:
 			case 0:
 			default:
-				$result = '<i class="fa-solid fa-star fa-fw me-1 text-dark"></i>';
+				$result = false;
 				break;
 		}
 		return $result;
