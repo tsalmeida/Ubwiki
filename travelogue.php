@@ -350,7 +350,7 @@
 					case false:
 					default:
 					case 'dateadded':
-						$order_module = "ORDER BY id";
+						$order_module = "ORDER BY id DESC";
 						break;
 				}
 				$query = prepare_query("SELECT * FROM travelogue WHERE state = 1 AND user_id = {$_SESSION['user_id']} $order_module", 'log');
