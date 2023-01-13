@@ -3385,10 +3385,11 @@
 
 		$travel_options = false;
 		foreach ($_SESSION['travel_user_types'] as $travel_user_key) {
+			$travel_color = nexus_colors(array('mode'=>'convert', 'color'=>$_SESSION['travelogue_types'][$travel_user_key]['color']));
 			$travel_options .= "
 				<div class='form-check'>
 					<input name='travelogue_filter_$travel_user_key' id='travelogue_filter_$travel_user_key' class='form-check-input type_filter_option' type='checkbox' value='$travel_user_key' checked>
-					<label for='travelogue_filter_$travel_user_key' class='form-check-label'>$travel_user_key</label>
+					<label for='travelogue_filter_$travel_user_key' class='form-check-label'><i class='fa-solid bg-dark p-2 rounded {$_SESSION['travelogue_types'][$travel_user_key]['icon']} fa-fw me-2 {$travel_color['text-color']}'></i>{$_SESSION['travelogue_types'][$travel_user_key]['description']}</label>
 				</div>
 			";
 		}
@@ -3593,6 +3594,7 @@
 				<div class='mb-3'>
 					<label for='travel_new_type' class='form-label'>Type:</label>
 					<select id='travel_new_type' name='travel_new_type' type='text' class='form-control'>
+						<option disabled selected>Select a type:</option>
 						$options_types
 					</select>
 				</div>

@@ -353,7 +353,7 @@
 						$order_module = "ORDER BY id DESC";
 						break;
 				}
-				$query = prepare_query("SELECT * FROM travelogue WHERE state = 1 AND user_id = {$_SESSION['user_id']} $order_module", 'log');
+				$query = prepare_query("SELECT * FROM travelogue WHERE state = 1 AND user_id = {$_SESSION['user_id']} $order_module");
 				$records = $conn->query($query);
 				if ($_SESSION['travelogue_separate_types'] == true) {
 					$result = array();
