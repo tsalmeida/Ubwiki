@@ -3631,7 +3631,7 @@
 		$nexus_info = $conn->query($query);
 		if ($nexus_info->num_rows > 0) {
 			while ($nexus_page_info = $nexus_info->fetch_assoc()) {
-				return array($nexus_page_info['id'], $nexus_page_info['timestamp'], $nexus_page_info['pagina_id'], $nexus_page_info['title'], $nexus_page_info['theme']//				, $nexus_page_info['random_icons'], $nexus_page_info['random_colors']
+				return array($nexus_page_info['id'], $nexus_page_info['timestamp'], $nexus_page_info['pagina_id'], $nexus_page_info['title'], $nexus_page_info['theme'], $nexus_page_info['travelogue_sorting']//				, $nexus_page_info['random_icons'], $nexus_page_info['random_colors']
 				);
 			};
 		}
@@ -4571,9 +4571,9 @@
 		}
 		if (isset($load_storage_count)) {
 			$result .= "<button class='btn btn-warning me-2 trigger_load_storage' type='button' id='load_some_storage' value='$load_storage_count'>Load $load_storage_count more items</button>";
-		}
-		if ($load_storage_count > 300) {
-			$result .= "<button class='btn btn-warning me-2 trigger_load_storage' type='button' id='load_some_storage' value='100'>Load 100 more items</button>";
+			if ($load_storage_count > 300) {
+				$result .= "<button class='btn btn-warning me-2 trigger_load_storage' type='button' id='load_some_storage' value='100'>Load 100 more items</button>";
+			}
 		}
 		$result .= "</div></div>";
 		return $result;

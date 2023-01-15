@@ -12,26 +12,8 @@
 	}
 
 	if (isset($_POST['trigger_atualizacao'])) {
-		$query = prepare_query("SELECT id, datexp FROM travelogue");
-		$entries = $conn->query($query);
-		if ($entries->num_rows > 0) {
-			while ($entry = $entries->fetch_assoc()) {
-				if ($entry['datexp'] == false) {
-					continue;
-				}
-				$entry['datexp'] = unserialize($entry['datexp']);
-				if ($entry['datexp'] != false) {
-					if (is_int($entry['datexp'][0])) {
-						$query = prepare_query("UPDATE travelogue SET firstdatexp = {$entry['datexp'][0]} WHERE id = {$entry['id']}", 'log');
-					} else {
-						$query = prepare_query("UPDATE travelogue SET firstdatexp = '{$entry['datexp'][0]}' WHERE id = {$entry['id']}", 'log');
-					}
-					$conn->query($query);
-				} else {
-					continue;
-				}
-			}
-		}
+		$query = prepare_query("ALTER TABLE `nexus` ADD `travelogue_sorting` VARCHAR(10000) NULL DEFAULT NULL AFTER `random_colors`;");
+        $conn->query($query);
 	}
 
 	if (isset($_POST['trigger_atualizar_textos_size'])) {

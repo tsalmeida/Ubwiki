@@ -8,6 +8,12 @@
 	$pagina_id = $_SESSION['user_escritorio'];
 	$pagina_title = 'Travelogue';
 	$pagina_favicon = 'new_travelogue.ico';
+
+    if (!isset($_SESSION['travelogue_filter_options'])) {
+		$nexus_info = return_nexus_info_user_id($user_id);
+        $_SESSION['travelogue_filter_options'] = unserialize($nexus_info[5]);
+    }
+
 	if (!isset($_SESSION['travelogue_limit'])) {
 		$_SESSION['travelogue_limit'] = 50;
 	}
@@ -228,10 +234,17 @@
 		}
 
 		$_SESSION['travelogue_filter_options'] = array('music' => $_POST['travelogue_filter_music'], 'concert' => $_POST['travelogue_filter_concert'], 'movie' => $_POST['travelogue_filter_movie'], 'tvshow' => $_POST['travelogue_filter_tvshow'], 'episode' => $_POST['travelogue_filter_episode'], 'book' => $_POST['travelogue_filter_book'], 'classical' => $_POST['travelogue_filter_classical'], 'comic' => $_POST['travelogue_filter_comic'], 'standup' => $_POST['travelogue_filter_standup'], 'painting' => $_POST['travelogue_filter_painting'], 'photo' => $_POST['travelogue_filter_photo'], 'vidya' => $_POST['travelogue_filter_vidya'], 'architecture' => $_POST['travelogue_filter_architecture'], 'sports' => $_POST['travelogue_filter_sports'], 'other' => $_POST['travelogue_filter_other'], 'favorite' => $_POST['travelogue_filter_code_favorite'], 'lyrics' => $_POST['travelogue_filter_code_lyrics'], 'hifi' => $_POST['travelogue_filter_code_hifi'], 'relaxing' => $_POST['travelogue_filter_code_relaxing'], 'heavy' => $_POST['travelogue_filter_code_heavy'], 'vibe' => $_POST['travelogue_filter_code_vibe'], 'complex' => $_POST['travelogue_filter_code_complex'], 'instrumental' => $_POST['travelogue_filter_code_instrumental'], 'live' => $_POST['travelogue_filter_code_live'], 'lists' => $_POST['travelogue_filter_code_lists'], 'bookmark' => $_POST['travelogue_filter_code_bookmark'], 'thumbsup' => $_POST['travelogue_filter_code_thumbsup'], 'thumbsdown' => $_POST['travelogue_filter_code_thumbsdown'], 'thumbtack' => $_POST['travelogue_filter_code_thumbtack'], 'pointer' => $_POST['travelogue_filter_code_pointer'], 'show_no_code' => $_POST['travelogue_show_no_code'], 'genres' => $_POST['travelogue_filter_genres'], 'authors' => $_POST['travelogue_filter_authors'], 'sorting' => $_POST['travelogue_sorting']);
+
+		$serialized_filter = serialize($_SESSION['travelogue_filter_options']);
+		$serialized_filter = mysqli_real_escape_string($conn, $serialized_filter);
+		$query = prepare_query("UPDATE nexus SET travelogue_sorting = '$serialized_filter' WHERE user_id = {$_SESSION['user_id']}");
+        $conn->query($query);
 	}
 
 	if (isset($_POST['trigger_reset_filter'])) {
 		unset($_SESSION['travelogue_filter_options']);
+		$query = prepare_query("UPDATE nexus SET travelogue_sorting = '' WHERE user_id = {$_SESSION['user_id']}");
+		$conn->query($query);
 	}
 
 	if ($_POST) {
