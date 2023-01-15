@@ -3456,6 +3456,7 @@
 	            <select class='form-select' id='travelogue_sorting' name='travelogue_sorting'>
 	                <option value='dateadded'>Chronological by date added</option>
 	                <option value='chronological'>Chronological by release date</option>
+	                <option value='chronological_recent_first'>Chronological by release date, most recent first</option>
 	                <option value='biographical'>Chronological by date experienced</option>
 	                <option value='alphabetical_creator'>Alphabetical by author name</option>
 	                <option value='alphabetical_title'>Alphabetical by title</option>

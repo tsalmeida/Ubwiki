@@ -334,6 +334,9 @@
 					case 'chronological':
 						$order_module = "ORDER BY releasedate";
 						break;
+					case 'chronological_recent_first':
+						$order_module = "ORDER BY releasedate DESC";
+						break;
 					case 'biographical':
 						$order_module = "ORDER BY firstdatexp DESC, releasedate DESC";
 						break;
