@@ -8,7 +8,12 @@
 	$pagina_id = $_SESSION['user_escritorio'];
 	$pagina_title = 'Travelogue';
 	$pagina_favicon = 'new_travelogue.ico';
-	$count_limit = false;
+	if (!isset($_SESSION['travelogue_limit'])) {
+		$_SESSION['travelogue_limit'] = 50;
+	}
+	if (!isset($_SESSION['travelogue_storage'])) {
+		$_SESSION['travelogue_storage'] = array();
+	}
 
 	if (!isset($_SESSION['travelogue_codes'])) {
 		$_SESSION['travelogue_codes'] = build_travelogue_codes();
@@ -244,7 +249,7 @@
 </style>
 <div class="container-fluid">
     <div class="row sticky-top">
-        <div class="col-12">
+        <div id="travelogue_container" class="col-12">
 			<?php
 				$get_authors = false;
 				if (isset($_GET['authors'])) {
@@ -361,7 +366,10 @@
 					$result = false;
 				}
 				$background_color = false;
+				$store = false;
+				$storage_count = 0;
 				if ($records->num_rows > 0) {
+                    $_SESSION['travelogue_storage'] = array();
 					while ($record = $records->fetch_assoc()) {
 						$record['codes'] = unserialize($record['codes']);
 						if (isset($_SESSION['travelogue_filter_options']['authors'])) {
@@ -396,13 +404,13 @@
 								}
 							}
 						}
-						if ($count_limit != false) {
+						if ($_SESSION['travelogue_limit'] != false) {
 							if (!isset($count)) {
 								$count = 0;
 							}
 							$count++;
-							if ($count == $count_limit) {
-								break;
+							if ($count == $_SESSION['travelogue_limit']) {
+								$store = true;
 							}
 						}
 
@@ -471,7 +479,12 @@
 								$result[$put_together['type']] .= $instance;
 							}
 						} else {
-							$result .= $instance;
+							if ($store == false) {
+								$result .= $instance;
+							} else {
+								$storage_count++;
+								array_push($_SESSION['travelogue_storage'], $instance);
+							}
 						}
 					}
 				}
@@ -481,6 +494,9 @@
 						$parts .= $result[$key];
 					}
 					$result = $parts;
+				}
+				if ($store != false) {
+					$result .= generate_storage_module($storage_count);
 				}
 				echo $result;
 			?>
@@ -615,6 +631,17 @@
                 }
             })
         }
+    })
+    $(document).on('click', '.trigger_load_storage', function () {
+        load_storage_count = $(this).attr('value');
+        $.post('engine.php', {
+            'travel_load_storage': load_storage_count
+        }, function (data) {
+            if (data != 0) {
+                $('#travelogue_container').append(data);
+                $('#storage_delete_when').remove();
+            }
+        })
     })
 
     $(document).on('click', '#unselect_codes', function () {

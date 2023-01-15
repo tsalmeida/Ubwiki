@@ -4552,3 +4552,29 @@
 		}
 		return $result;
 	}
+
+	function generate_storage_module($storage_count) {
+		if ($storage_count == 0) {
+			return false;
+		}
+		$result = false;
+		$result .= "
+			<div id='storage_delete_when' class='row my-2'>
+				<div class='col-12 d-flex justify-content-center'>
+					<button class='btn btn-warning me-2 trigger_load_storage' type='button' id='load_storage' value='all'>Load all remaining $storage_count items</button>
+		";
+		if ($storage_count > 500) {
+			$load_storage_count = $storage_count / 2;
+			$load_storage_count = intval($load_storage_count);
+		} elseif ($storage_count > 80) {
+			$load_storage_count = 50;
+		}
+		if (isset($load_storage_count)) {
+			$result .= "<button class='btn btn-warning me-2 trigger_load_storage' type='button' id='load_some_storage' value='$load_storage_count'>Load $load_storage_count more items</button>";
+		}
+		if ($load_storage_count > 300) {
+			$result .= "<button class='btn btn-warning me-2 trigger_load_storage' type='button' id='load_some_storage' value='100'>Load 100 more items</button>";
+		}
+		$result .= "</div></div>";
+		return $result;
+	}

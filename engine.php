@@ -3385,7 +3385,7 @@
 
 		$travel_options = false;
 		foreach ($_SESSION['travel_user_types'] as $travel_user_key) {
-			$travel_color = nexus_colors(array('mode'=>'convert', 'color'=>$_SESSION['travelogue_types'][$travel_user_key]['color']));
+			$travel_color = nexus_colors(array('mode' => 'convert', 'color' => $_SESSION['travelogue_types'][$travel_user_key]['color']));
 			$travel_options .= "
 				<div class='form-check'>
 					<input name='travelogue_filter_$travel_user_key' id='travelogue_filter_$travel_user_key' class='form-check-input type_filter_option' type='checkbox' value='$travel_user_key' checked>
@@ -3637,20 +3637,20 @@
 					<label for='travel_new_database' class='form-label'>Database link (Wikipedia, IMDb, AllMusic etc.):</label>
 					<input id='travel_new_database' name='travel_new_database' type='url' class='form-control'>
 				</div>";
-				$template_modal_body_conteudo .= "<div class='mb-3'>
+		$template_modal_body_conteudo .= "<div class='mb-3'>
 							<h3>Codes</h3>
 						";
-				foreach ($_SESSION['travelogue_codes'] as $key => $info) {
-					$color = nexus_colors(array('mode' => 'convert', 'color' => $_SESSION['travelogue_codes'][$key]['color']));
-					$template_modal_body_conteudo .= "
+		foreach ($_SESSION['travelogue_codes'] as $key => $info) {
+			$color = nexus_colors(array('mode' => 'convert', 'color' => $_SESSION['travelogue_codes'][$key]['color']));
+			$template_modal_body_conteudo .= "
 							<div class='form-check'>
 								<input name='travel_new_code_$key' id='travel_new_code_$key' class='form-check-input' type='checkbox' value='$key'>
 								<label for='travel_new_code_$key' class='form-check-label'><i class='{$_SESSION['travelogue_codes'][$key]['icon']} me-2 {$color['link-color']} bg-dark p-1 rounded fa-fw'></i>{$_SESSION['travelogue_codes'][$key]['description']}</label>
 							</div>
 						";
-				}
-				$template_modal_body_conteudo .= "</div><hr>";
-				$template_modal_body_conteudo .= "
+		}
+		$template_modal_body_conteudo .= "</div><hr>";
+		$template_modal_body_conteudo .= "
 				<button type='submit' class='btn btn-primary'>Submit</button>
 			</form>
 		";
@@ -3740,10 +3740,7 @@
 		}
 		if ($author_title !== false) {
 			unset($_SESSION['travelogue_filter_options']);
-			$_SESSION['travelogue_filter_options'] = array(
-				'sorting'=>'chronological',
-				'authors'=>array($author_title)
-			);
+			$_SESSION['travelogue_filter_options'] = array('sorting' => 'chronological', 'authors' => array($author_title));
 			echo true;
 		} else {
 			echo false;
@@ -3754,6 +3751,43 @@
 		$query = prepare_query("UPDATE travelogue SET datexp = NULL, firstdatexp = NULL where id = {$_POST['delete_datexp_from_this_entry']} AND user_id = {$_SESSION['user_id']}");
 		$check = $conn->query($query);
 		echo $check;
+		exit();
+	}
+
+	if (isset($_POST['travel_load_storage'])) {
+		$remaining = count($_SESSION['travelogue_storage']);
+		if ($remaining == 0) {
+			echo false;
+			exit();
+		}
+		if (isset($_SESSION['travelogue_storage'])) {
+			$result = false;
+			if ($_POST['travel_load_storage'] == 'all') {
+				foreach ($_SESSION['travelogue_storage'] as $key => $array) {
+					$result .= $_SESSION['travelogue_storage'][$key];
+					unset($_SESSION['travelogue_storage'][$key]);
+				}
+			} else {
+				$travel_limit = $_POST['travel_load_storage'];
+				$count = 0;
+				foreach ($_SESSION['travelogue_storage'] as $key => $array) {
+					if ($count >= $travel_limit) {
+						break;
+					} else {
+						$result .= $_SESSION['travelogue_storage'][$key];
+						unset($_SESSION['travelogue_storage'][$key]);
+					}
+					$count++;
+				}
+			}
+			$remaining = count($_SESSION['travelogue_storage']);
+			if ($remaining > 0) {
+				$result .= generate_storage_module($remaining);
+			}
+			echo $result;
+		} else {
+			echo false;
+		}
 		exit();
 	}
 
