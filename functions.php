@@ -4317,7 +4317,8 @@
 				continue;
 			}
 			$folder_type = strtoupper($session_nexus_folders[$key]['info']['type']);
-			$option = "<option value='{$session_nexus_folders[$key]['info']['id']}'>$folder_type: {$session_nexus_folders[$key]['info']['title']} ({$session_nexus_folders[$key]['info']['color']} {$session_nexus_folders[$key]['info']['icon']})</option>";
+//			$option = "<option value='{$session_nexus_folders[$key]['info']['id']}'>{$session_nexus_folders[$key]['info']['title']} ($folder_type) ({$session_nexus_folders[$key]['info']['color']} {$session_nexus_folders[$key]['info']['icon']})</option>";
+			$option = "<option value='{$session_nexus_folders[$key]['info']['id']}'>{$session_nexus_folders[$key]['info']['title']}</option>";
 			switch ($folder_type) {
 				case 'MAIN':
 					$folders_main .= $option;
