@@ -3762,6 +3762,7 @@
 			$new_link_title = $params['title'];
 		} else {
 			$new_link_title = nexus_suggest_title($new_link_url);
+			$new_link_title = $new_link_title[0];
 		}
 		if (!isset($params['icon'])) {
 			$new_link_icon = 'random';
