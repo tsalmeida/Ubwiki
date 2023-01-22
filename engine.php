@@ -2036,12 +2036,16 @@
 	if (isset($_POST['list_nexus_links'])) {
 		echo "
 			<form method='post'>
-				<p>Fill-in the form below to add a link or <button id='show_modal_add_links_bulk' type='button' class='btn btn-outline-primary btn-sm' class='btn btn-outline-primary btn-sm' data-bs-toggle='modal' data-bs-target='#modal_add_links_bulk'>click here</button> to add links in bulk to the <a id='trigger_show_linkdump' href='javascritp:void(0);' class='link-info'>Link Dump</a>.</p>
+				<p>Fill-in the form below to add a link or <button id='show_modal_add_links_bulk' type='button' class='btn btn-outline-primary btn-sm' class='btn btn-outline-primary btn-sm' data-bs-toggle='modal' data-bs-target='#modal_add_links_bulk'>click here</button> to add links in bulk to one destination.</p>
 				<div class='mb-3'>
 					<label class='form-label' for='nexus_new_link_url'>Paste your link url:</label>
 					<input type='url' class='form-control' id='nexus_new_link_url' name='nexus_new_link_url'>
 				</div>
-				<button type='button' class='btn btn-outline-primary mb-3' id='trigger_suggest_title'>Suggest title</button>
+				<button type='button' class='btn btn-sm btn-outline-secondary mb-3' id='trigger_suggest_title'>Suggest title</button>
+				<button type='button' class='btn btn-sm btn-outline-danger mb-3 d-none' id='trigger_hide_suggestions'>Hide suggestions</button>
+				<div class='mb-3 d-none' id='populate_with_title_suggestions'>
+				
+				</div>
 				<div class='mb-3'>
 					<label class='form-label' for='nexus_new_link_title'>Link title:</label>
 					<input type='text' class='form-control' id='nexus_new_link_title' name='nexus_new_link_title'>
@@ -2105,8 +2109,22 @@
 	}
 
 	if (isset($_POST['scan_new_link'])) {
-		$new_link_title = nexus_suggest_title($_POST['scan_new_link']);
-		echo $new_link_title;
+		$suggestions = nexus_suggest_title($_POST['scan_new_link']);
+		if ($suggestions == false) {
+			echo "No suggestions could be created.";
+		} else {
+			$result = false;
+			$result .= "<ul class='list-group'>";
+			foreach ($suggestions as $value) {
+				if ($value == false) {
+					continue;
+				}
+				$result .= "<li class='list-group-item'><button type='button' class='btn btn-sm btn-outline-secondary use_this_suggestion me-2' value='$value'>Use this</button> $value</li>";
+			}
+			$result .= "</ul>";
+
+			echo $result;
+		}
 	}
 	unset($_POST['scan_new_link']);
 
@@ -2473,7 +2491,7 @@
 				<label for='new_bulk_link_7' class='form-label'>New link url #7</label>
 				<input id='new_bulk_link_7' name='new_bulk_link_7' type='url' class='form-control'>
 			</div>
-			<button type='submit' class='btn btn-primary'>Add links to the Link Dump</button>
+			<button type='submit' class='btn btn-primary'>Add links to the selected destination</button>
 		</form>
 		";
 	}

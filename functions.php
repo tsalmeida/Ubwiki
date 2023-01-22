@@ -3384,41 +3384,78 @@
 
 	function nexus_suggest_title($url)
 	{
+		$suggestions = array();
 		$title_tag = false;
-		if (filter_var($url, FILTER_VALIDATE_URL)) {
-			$str = @file_get_contents($url);
-			if ($str == false) {
-				$title_tag = false;
-			} else {
-				if (strlen($str) > 0) {
-					$str = trim(preg_replace('/\s+/', ' ', $str)); // supports line breaks inside <title>
-					preg_match('/<title[^>]*>(.*?)<\/title>/ims', $str, $title); // ignore case
-					$title_tag = $title[1];
-				}
-			}
-		}
-		$title_tag = strip_tags($title_tag);
-		$title_tag = substr($title_tag, 0, 35);
+		$stripped_title_tag = false;
+		$stripped_title_tag_remainder = false;
+		$find = false;
+
 		$host = parse_url($url, PHP_URL_HOST);
 		$host = str_replace('www.', '', $host);
 		$host = explode(".", $host)[0];
 		$host = ucfirst($host);
-		if (strpos($title_tag, $host) != false) {
-			$final_suggestion = "$host: $title_tag";
-		} else {
-			$final_suggestion = $host;
+		array_push($suggestions, $host);
+
+		if (filter_var($url, FILTER_VALIDATE_URL)) {
+			$str = @file_get_contents($url);
+			if ($str == false) {
+				return false;
+			} else {
+				if (strlen($str) > 0) {
+					$str = trim(preg_replace('/\s+/', ' ', $str)); // supports line breaks inside <title>
+					preg_match('/<title[^>]*>(.*?)<\/title>/ims', $str, $title); // ignore case
+					if (isset($title[1])) {
+						$title_tag = $title[1];
+					} else {
+						$title_tag = false;
+					}
+				}
+			}
 		}
+		$title_tag = strip_tags($title_tag);
+//		$title_tag = substr($title_tag, 0, 35);
+		array_push($suggestions, $title_tag);
+//		if (($host != false) && ($title_tag != false) && ($title_tag != $host)) {
+//			array_push($suggestions, "$host: $title_tag");
+//			if (($stripped_title_tag != false) && ($stripped_title_tag != $host)) {
+//				array_push($suggestions, "$host: $stripped_title_tag");
+//			}
+//		}
 		$link_id = nexus_get_link_id($url);
 		$link_handle = nexus_get_handle($link_id);
 		if ($link_handle != false) {
-			if (strlen($final_suggestion) < strlen($link_handle)) {
-				$final_suggestion = $link_handle;
+			array_push($suggestions, $link_handle);
+		}
+
+		$result = false;
+
+
+		$separators = array(' - ', ': ', ' | ', ' · ', '. ');
+		foreach ($separators as $separator) {
+			$find = $separator;
+			$check = strpos($title_tag, $find);
+			if ($check === false) {
+				continue;
+			} else {
+				$sections = explode($find, $title_tag);
+				foreach ($sections as $section) {
+//					str_replace($find, '', $section);
+					array_push($suggestions, $section);
+				}
+//				$before_separator = substr($title_tag, 0, $check);
+//				$after_separator = substr($title_tag, array_sum(array($check, strlen($find))), strlen($title_tag));
+//				array_push($suggestions, $before_separator);
+//				array_push($suggestions, $after_separator);
 			}
 		}
-		if ($final_suggestion == false) {
-			$final_suggestion = $url;
-		}
-		return $final_suggestion;
+
+		$suggestions = array_unique($suggestions);
+		usort($suggestions,'sort_array_values_length');
+		return $suggestions;
+	}
+
+	function sort_array_values_length($a,$b){
+		return strlen($a)-strlen($b);
 	}
 
 	function nexus_get_handle($link_id)

@@ -580,7 +580,7 @@
 		include 'templates/modal.php';
 
 		$template_modal_div_id = 'modal_add_links_bulk';
-		$template_modal_titulo = 'Add links in bulk to the Link Dump';
+		$template_modal_titulo = 'Add links in bulk to the selected destination';
 		$template_modal_body_conteudo = false;
 		$template_modal_body_conteudo .= "<p>You will be able to change the details later. For now, all you need is a name for each.</p>";
 		include 'templates/modal.php';
@@ -657,10 +657,21 @@
             'scan_new_link': scan_new_link,
         }, function (data) {
             if (data != 0) {
-                $('#nexus_new_link_title').val('');
-                $('#nexus_new_link_title').val(data);
+                $('#populate_with_title_suggestions').html(data);
+                $('#populate_with_title_suggestions').removeClass('d-none');
+                $('#trigger_hide_suggestions').removeClass('d-none');
             }
         });
+    })
+
+    $(document).on('click', '.use_this_suggestion', function() {
+        suggestion = $(this).val();
+        $('#nexus_new_link_title').val(suggestion);
+    })
+
+    $(document).on('click', '#trigger_hide_suggestions', function() {
+        $('#populate_with_title_suggestions').addClass('d-none');
+        $(this).addClass('d-none');
     })
 
     $(document).on('click', '#show_modal_add_folders_bulk', function () {
