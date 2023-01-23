@@ -2118,7 +2118,7 @@
 				if ($value == false) {
 					continue;
 				}
-				$result .= "<button type='button' class='btn btn-sm btn-econdary use_this_suggestion mb-1 me-1' value='$value'>$value</button>";
+				$result .= "<button type='button' class='btn btn-sm btn-secondary use_this_suggestion mb-1 me-1' value='$value'>$value</button>";
 			}
 			echo $result;
 		}
