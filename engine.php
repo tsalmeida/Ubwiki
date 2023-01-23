@@ -2114,15 +2114,12 @@
 			echo "No suggestions could be created.";
 		} else {
 			$result = false;
-			$result .= "<ul class='list-group'>";
 			foreach ($suggestions as $value) {
 				if ($value == false) {
 					continue;
 				}
 				$result .= "<button type='button' class='btn btn-sm btn-outline-secondary use_this_suggestion mb-1 me-1' value='$value'>$value</button>";
 			}
-			$result .= "</ul>";
-
 			echo $result;
 		}
 		unset($_POST['scan_new_link']);
