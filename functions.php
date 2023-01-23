@@ -3395,6 +3395,7 @@
 		$host = explode(".", $host)[0];
 		$host = ucfirst($host);
 		array_push($suggestions, $host);
+//		error_log("host: $host");
 
 		if (filter_var($url, FILTER_VALIDATE_URL)) {
 			$str = @file_get_contents($url);
@@ -3415,6 +3416,7 @@
 		$title_tag = strip_tags($title_tag);
 //		$title_tag = substr($title_tag, 0, 35);
 		array_push($suggestions, $title_tag);
+//		error_log("title_tag: $title_tag");
 //		if (($host != false) && ($title_tag != false) && ($title_tag != $host)) {
 //			array_push($suggestions, "$host: $title_tag");
 //			if (($stripped_title_tag != false) && ($stripped_title_tag != $host)) {
@@ -3425,12 +3427,13 @@
 		$link_handle = nexus_get_handle($link_id);
 		if ($link_handle != false) {
 			array_push($suggestions, $link_handle);
+//			if ($host != $link_handle) {
+//				array_push($suggestions, "$host: $link_handle");
+//			}
+//			error_log("link_handle: $link_handle");
 		}
 
-		$result = false;
-
-
-		$separators = array(' - ', ': ', ' | ', ' · ', '. ');
+		$separators = array(' - ', ': ', ' | ', ' · ', '. ', ' on ', ' & ', '/r/');
 		foreach ($separators as $separator) {
 			$find = $separator;
 			$check = strpos($title_tag, $find);
@@ -3441,6 +3444,10 @@
 				foreach ($sections as $section) {
 //					str_replace($find, '', $section);
 					array_push($suggestions, $section);
+//					if (($host != $section) && ($section != false)) {
+//						array_push($suggestions, "$host: $section");
+//					}
+//					error_log("section: $section");
 				}
 //				$before_separator = substr($title_tag, 0, $check);
 //				$after_separator = substr($title_tag, array_sum(array($check, strlen($find))), strlen($title_tag));
@@ -3448,14 +3455,40 @@
 //				array_push($suggestions, $after_separator);
 			}
 		}
-
+		$new_suggestions = array();
 		$suggestions = array_unique($suggestions);
-		usort($suggestions,'sort_array_values_length');
+		foreach ($suggestions as $suggestion) {
+			$current_suggestion = $suggestion;
+			foreach ($suggestions as $suffix) {
+				if (strtolower($current_suggestion) == strtolower($suffix)) {
+					continue;
+				}
+				if (strpos(strtolower($current_suggestion), strtolower($suffix)) != false) {
+					continue;
+				}
+				if (strpos(strtolower($suffix), strtolower($current_suggestion)) != false) {
+					continue;
+				}
+				if (strlen($current_suggestion) <= strlen($suffix)) {
+					array_push($new_suggestions, "$current_suggestion: $suffix");
+				} else {
+					if (strlen($current_suggestion) <= 10) {
+						array_push($new_suggestions, "$current_suggestion: $suffix");
+					}
+				}
+			}
+		}
+		foreach ($new_suggestions as $new_suggestion) {
+			array_push($suggestions, $new_suggestion);
+		}
+		$suggestions = array_unique($suggestions);
+		usort($suggestions, 'sort_array_values_length');
 		return $suggestions;
 	}
 
-	function sort_array_values_length($a,$b){
-		return strlen($a)-strlen($b);
+	function sort_array_values_length($a, $b)
+	{
+		return strlen($a) - strlen($b);
 	}
 
 	function nexus_get_handle($link_id)
@@ -4592,7 +4625,8 @@
 		return $result;
 	}
 
-	function generate_storage_module($storage_count) {
+	function generate_storage_module($storage_count)
+	{
 		if ($storage_count == 0) {
 			return false;
 		}

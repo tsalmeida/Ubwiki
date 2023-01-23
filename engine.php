@@ -2119,14 +2119,40 @@
 				if ($value == false) {
 					continue;
 				}
-				$result .= "<li class='list-group-item'><button type='button' class='btn btn-sm btn-outline-secondary use_this_suggestion me-2' value='$value'>Use this</button> $value</li>";
+				$result .= "<button type='button' class='btn btn-sm btn-outline-secondary use_this_suggestion mb-1 me-1' value='$value'>$value</button>";
 			}
 			$result .= "</ul>";
 
 			echo $result;
 		}
+		unset($_POST['scan_new_link']);
 	}
-	unset($_POST['scan_new_link']);
+
+	if (isset($_POST['scan_new_link_id'])) {
+		$query = "SELECT param1 FROM nexus_elements WHERE param_int_2 = {$_POST['scan_new_link_id']}";
+		$elements = $conn->query($query);
+		$scan_new_link_id_url = false;
+		if ($elements->num_rows > 0) {
+			while ($element = $elements->fetch_assoc()) {
+				$scan_new_link_id_url = $element['param1'];
+				break;
+			}
+		}
+		$suggestions = nexus_suggest_title($scan_new_link_id_url);
+		if ($suggestions == false) {
+			echo "No suggestions could be created.";
+		} else {
+			$result = false;
+			foreach ($suggestions as $value) {
+				if ($value == false) {
+					continue;
+				}
+				$result .= "<button type='button' class='btn btn-sm btn-secondary manage_use_this_suggestion mb-1 me-1' value='$value'>$value</button>";
+			}
+			echo $result;
+		}
+		unset($_POST['scan_new_link_id']);
+	}
 
 
 	if (isset($_POST['populate_themes_modal'])) {
@@ -2872,7 +2898,8 @@
 				<label for='manage_icon_title_new_title' class='form-label manage_details_hide d-none'>New title:</label>
 				<input class='form-control manage_details_hide d-none' type='text' id='manage_icon_title_new_title' name='manage_icon_title_new_title' placeholder='Leave as is'>
 			</div>
-
+			<button type='button' class='btn btn-outline-secondary btn-sm d-none manage_details_hide mb-2' id='trigger_suggest_new_title'>Suggest new titles</button>
+			<div class='mb-3 manage_details_hide d-none' id='manage_suggest_titles'></div>
 		";
 
 		$populate_icons_titles .= "

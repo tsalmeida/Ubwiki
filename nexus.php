@@ -664,6 +664,23 @@
         });
     })
 
+    $(document).on('click', '#trigger_suggest_new_title', function () {
+        scan_new_link_id = $('#manage_icon_title_link_id').val();
+        $.post('engine.php', {
+            'scan_new_link_id': scan_new_link_id,
+        }, function (data) {
+            if (data != 0) {
+                $('#manage_suggest_titles').html(data);
+                $('#manage_suggest_titles').removeClass('d-none');
+            }
+        });
+    })
+
+    $(document).on('click', '.manage_use_this_suggestion', function() {
+        suggestion = $(this).val();
+        $('#manage_icon_title_new_title').val(suggestion);
+    })
+
     $(document).on('click', '.use_this_suggestion', function() {
         suggestion = $(this).val();
         $('#nexus_new_link_title').val(suggestion);
