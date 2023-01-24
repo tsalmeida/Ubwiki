@@ -3397,6 +3397,8 @@
 		array_push($suggestions, $host);
 //		error_log("host: $host");
 
+		$title_tag = false;
+		$hone_tag = false;
 		if (filter_var($url, FILTER_VALIDATE_URL)) {
 			$str = @file_get_contents($url);
 			if ($str == false) {
@@ -3404,18 +3406,24 @@
 			} else {
 				if (strlen($str) > 0) {
 					$str = trim(preg_replace('/\s+/', ' ', $str)); // supports line breaks inside <title>
+
 					preg_match('/<title[^>]*>(.*?)<\/title>/ims', $str, $title); // ignore case
 					if (isset($title[1])) {
 						$title_tag = $title[1];
-					} else {
-						$title_tag = false;
+					}
+
+					preg_match('/<h1[^>]*>(.*?)<\/h1>/ims', $str, $hone); // ignore case
+					if (isset($hone[1])) {
+						$hone_tag = $hone[1];
 					}
 				}
 			}
 		}
 		$title_tag = strip_tags($title_tag);
+		$hone_tag = strip_tags($hone_tag);
 //		$title_tag = substr($title_tag, 0, 35);
 		array_push($suggestions, $title_tag);
+		array_push($suggestions, $hone_tag);
 //		error_log("title_tag: $title_tag");
 //		if (($host != false) && ($title_tag != false) && ($title_tag != $host)) {
 //			array_push($suggestions, "$host: $title_tag");
@@ -3433,7 +3441,7 @@
 //			error_log("link_handle: $link_handle");
 		}
 
-		$separators = array(' - ', ': ', ' | ', ' · ', '. ', ' on ', ' & ', '/r/');
+		$separators = array(' - ', ': ', ' : ', ' | ', ' · ', '. ', ' on ', ' & ', '/r/');
 		foreach ($separators as $separator) {
 			$find = $separator;
 			$check = strpos($title_tag, $find);
@@ -3442,6 +3450,9 @@
 			} else {
 				$sections = explode($find, $title_tag);
 				foreach ($sections as $section) {
+					if ($section == false) {
+						continue;
+					}
 //					str_replace($find, '', $section);
 					array_push($suggestions, $section);
 //					if (($host != $section) && ($section != false)) {
@@ -3483,7 +3494,28 @@
 		}
 		$suggestions = array_unique($suggestions);
 		usort($suggestions, 'sort_array_values_length');
+		sort($suggestions);
 		return $suggestions;
+	}
+
+	function create_title_suggestion_buttons($mode, $suggestions)
+	{
+		$result = false;
+		$button_class = "use_this_suggestion";
+		if ($mode == 'update') {
+			$button_class = 'manage_use_this_suggestion';
+		}
+		foreach ($suggestions as $suggestion) {
+			if ($suggestion == false) {
+				continue;
+			}
+			$highlight_module = 'btn-outline-secondary';
+			if (strlen($suggestion) <= 18) {
+				$highlight_module = 'btn-secondary';
+			}
+			$result .= "<button type='button' class='btn btn-sm $highlight_module $button_class mb-1 me-1' value='$suggestion'>$suggestion</button>";
+		}
+		return $result;
 	}
 
 	function sort_array_values_length($a, $b)

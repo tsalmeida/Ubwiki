@@ -2043,7 +2043,7 @@
 				</div>
 				<button type='button' class='btn btn-sm btn-outline-secondary mb-3' id='trigger_suggest_title'>Suggest title</button>
 				<button type='button' class='btn btn-sm btn-outline-danger mb-3 d-none' id='trigger_hide_suggestions'>Hide suggestions</button>
-				<div class='mb-3 d-none' id='populate_with_title_suggestions'>
+				<div class='mb-3 d-none border rounded bg-light p-1' id='populate_with_title_suggestions'>
 				
 				</div>
 				<div class='mb-3'>
@@ -2113,16 +2113,11 @@
 		if ($suggestions == false) {
 			echo "No suggestions could be created.";
 		} else {
-			$result = false;
-			foreach ($suggestions as $value) {
-				if ($value == false) {
-					continue;
-				}
-				$result .= "<button type='button' class='btn btn-sm btn-secondary use_this_suggestion mb-1 me-1' value='$value'>$value</button>";
-			}
+			$result = create_title_suggestion_buttons('new', $suggestions);
 			echo $result;
 		}
 		unset($_POST['scan_new_link']);
+		exit();
 	}
 
 	if (isset($_POST['scan_new_link_id'])) {
@@ -2139,16 +2134,11 @@
 		if ($suggestions == false) {
 			echo "No suggestions could be created.";
 		} else {
-			$result = false;
-			foreach ($suggestions as $value) {
-				if ($value == false) {
-					continue;
-				}
-				$result .= "<button type='button' class='btn btn-sm btn-secondary manage_use_this_suggestion mb-1 me-1' value='$value'>$value</button>";
-			}
+			$result = create_title_suggestion_buttons('update', $suggestions);
 			echo $result;
 		}
 		unset($_POST['scan_new_link_id']);
+		exit();
 	}
 
 
@@ -2896,7 +2886,7 @@
 				<input class='form-control manage_details_hide d-none' type='text' id='manage_icon_title_new_title' name='manage_icon_title_new_title' placeholder='Leave as is'>
 			</div>
 			<button type='button' class='btn btn-outline-secondary btn-sm d-none manage_details_hide mb-2' id='trigger_suggest_new_title'>Suggest new titles</button>
-			<div class='mb-3 manage_details_hide d-none' id='manage_suggest_titles'></div>
+			<div class='mb-3 manage_details_hide d-none border rounded bg-light p-1' id='manage_suggest_titles'></div>
 		";
 
 		$populate_icons_titles .= "
