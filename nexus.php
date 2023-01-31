@@ -1120,15 +1120,20 @@
 </script>
 <?php
 
+	include 'templates/html_bottom.php';
+
 	if ($user_id == false) {
 		echo "
             <script type='text/javascript'>
-                var login_modal = document.getElementById('modal_login')  ;       
-                $(window).on('load', login_modal.show());
+            $(document).ready(function() {
+                var login_modal = new bootstrap.Modal(document.getElementById('modal_login'), {
+                  keyboard: false
+                });
+                login_modal.show();
+            });
             </script>
         ";
 	}
 
-	include 'templates/html_bottom.php';
 ?>
 </html>
