@@ -2952,7 +2952,7 @@
 		$result .= "<div class='row bg-light mt-1'>";
 		$result .= "
 				<div class='col-auto $all_cell_classes {$plan_icon[0]} ms-0 text-center align-center d-flex justify-content-center'>
-					<a value='$entrada_id' href='javascript:void(0);' data-bs-toggle='modal' data-bs-target='modal_set_state' class='align-self-center {$plan_icon[1]} p-1 rounded set_state_entrada_value' title='{$plan_icon[3]}'><i class='{$plan_icon[2]} fa-fw fa-lg'></i></a>
+					<a value='$entrada_id' href='javascript:void(0);' data-bs-toggle='modal' data-bs-target='#modal_set_state' class='align-self-center {$plan_icon[1]} p-1 rounded set_state_entrada_value' title='{$plan_icon[3]}'><i class='{$plan_icon[2]} fa-fw fa-lg'></i></a>
 				</div>
 					";
 		$icone_background = return_background($icone[1]);
