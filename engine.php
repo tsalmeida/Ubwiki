@@ -3626,7 +3626,7 @@
 			<form method='post'>
 				<div class='mb-3'>
 					<label for='travel_new_type' class='form-label'>Type:</label>
-					<select id='travel_new_type' name='travel_new_type' type='text' class='form-control'>
+					<select id='travel_new_type' name='travel_new_type' type='text' class='form-control' required>
 						<option disabled selected>Select a type:</option>
 						$options_types
 					</select>
@@ -3638,7 +3638,7 @@
 				</div>
 				<div class='mb-3'>
 					<label for='travel_new_title' class='form-label'>Title:</label>
-					<input id='travel_new_title' name='travel_new_title' type='text' class='form-control'>
+					<input id='travel_new_title' name='travel_new_title' type='text' class='form-control' required>
 				</div>
 				<div class='mb-3'>
 					<label for='travel_new_genre' class='form-label'>Genre:</label>
