@@ -3824,4 +3824,26 @@
 		exit();
 	}
 
+	$dsn = 'mysql:host=localhost;dbname=mydatabase';
+	$username = 'myusername';
+	$password = 'mypassword';
+
+	try {
+		$pdo = new PDO($dsn, $username, $password);
+		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	} catch (PDOException $e) {
+		echo 'Connection failed: ' . $e->getMessage();
+		exit;
+	}
+
+	$stmt = $pdo->prepare('SELECT * FROM users WHERE ethereum_address = :address');
+	$stmt->execute(array('address' => $address));
+	$user = $stmt->fetch();
+
+	if ($user) {
+		// the user is authenticated
+	} else {
+		// the user is not authenticated
+	}
+
 ?>

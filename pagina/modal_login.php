@@ -31,8 +31,9 @@
             <label class='form-label' for='login_senha_confirmacao'>{$pagina_translated['Confirme sua senha']}</label>
             <input type='password' id='login_senha_confirmacao' name='login_senha_confirmacao' class='form-control' autocomplete='password' disabled>
         </div>
-        <div id='secao_login_enviar' class='mb-3 d-flex justify-content-center'>
+        <div id='secao_login_enviar' class='mb-3 d-flex justify-content-around'>
             <button id='botao_login' name='botao_login' type='button' class='btn btn-primary' disabled>{$pagina_translated['continue']}</button>
+			<button id='loginBtn' type='button' class='btn btn-outline-secondary'>Login with MetaMask</button>
         </div>
     </form>
 ";

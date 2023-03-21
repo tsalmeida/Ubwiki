@@ -1770,6 +1770,29 @@
 	</script>
 	";
 
+	echo "
+	<script class='text/javascript'>
+	web3.eth.getAccounts().then(function(accounts) {
+	  var address = accounts[0];
+	});
+    
+    var xhr = new XMLHttpRequest();
+	xhr.open('POST', '/login');
+	xhr.setRequestHeader('Content-Type', 'application/json');
+	xhr.onreadystatechange = function() {
+	  if (xhr.readyState === XMLHttpRequest.DONE) {
+		if (xhr.status === 200) {
+		  // handle the case where the user is authenticated
+		} else {
+		  // handle the case where the user is not authenticated
+		}
+	  }
+	};
+	xhr.send(JSON.stringify({address: address}));
+
+	</script>
+	";
+
 //	echo "
 //	<script type='text/javascript'>
 //		var modal_login = new bootstrap.Modal(document.getElementById('modal_login'), {

@@ -57,7 +57,28 @@
         $texto_justificado_module
         ";
 
+    echo "
+    <script src='https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js'></script>
+    <script type='text/javascript'>
 
+        if (typeof web3 !== 'undefined') {
+          web3 = new Web3(web3.currentProvider);
+        } else {
+          // handle the case where the user doesn't have Metamask installed
+        }
+
+        document.getElementById('loginBtn').addEventListener('click', function() {
+          web3.eth.requestAccounts().then(function(accounts) {
+            // handle the case where the user is logged in with Metamask
+          }).catch(function(error) {
+            // handle the case where the user denies the Metamask login request
+          });
+        });
+
+        
+
+        </script>
+    ";
 
 	if ($html_head_template_quill == true) {
 		echo "
