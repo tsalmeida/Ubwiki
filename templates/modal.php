@@ -11,6 +11,8 @@
 	}
 	if (!isset($template_modal_submit_name)) {
 		$template_modal_submit_name = "trigger_$template_modal_div_id";
+	} else {
+		$template_modal_show_buttons = true;
 	}
 	if (!isset($template_modal_form_id)) {
 		$template_modal_form_id = "form_$template_modal_div_id";
