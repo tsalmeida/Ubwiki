@@ -31,22 +31,28 @@
 
 	include 'templates/criar_conn.php';
 
-	if (isset($_POST['thinkific_login'])) {
-		$thinkific_login = $_POST['thinkific_login'];
-		$thinkific_senha = $_POST['thinkific_senha'];
-		$encrypted = password_hash($thinkific_senha, PASSWORD_DEFAULT);
-		$query = prepare_query("UPDATE Usuarios SET senha = '$encrypted' WHERE email = '$thinkific_login'");
-		$set_password = $conn->query($query);
-		if ($set_password == true) {
-			echo true;
-		} else {
-			echo false;
-		}
-	}
+//	if (isset($_POST['thinkific_login'])) {
+//		$thinkific_login = $_POST['thinkific_login'];
+//		$thinkific_senha = $_POST['thinkific_senha'];
+//		$encrypted = password_hash($thinkific_senha, PASSWORD_DEFAULT);
+//		$query = prepare_query("UPDATE Usuarios SET senha = '$encrypted' WHERE email = '$thinkific_login'");
+//		$set_password = $conn->query($query);
+//		if ($set_password == true) {
+//			echo true;
+//		} else {
+//			echo false;
+//		}
+//	}
 
 	if (isset($_POST['login_email'])) {
 		$login_email = $_POST['login_email'];
+		if (filter_var($login_email, FILTER_VALIDATE_EMAIL) == false) {
+			exit();
+		}
 		$login_senha = $_POST['login_senha'];
+		if ($login_senha == false) {
+			exit();
+		}
 		$login_senha2 = false;
 		if (isset($_POST['login_senha2'])) {
 			$login_senha2 = $_POST['login_senha2'];
@@ -1325,6 +1331,9 @@
 			if ($usuarios->num_rows > 0) {
 				while ($usuario = $usuarios->fetch_assoc()) {
 					$usuario_id = $usuario['id'];
+					if ($usuario_id == false) {
+						exit();
+					}
 					$query = prepare_query("UPDATE Usuarios SET senha = '$nova_senha_encrypted', origem = '$confirmacao' WHERE id = $usuario_id");
 					$conn->query($query);
 				}
