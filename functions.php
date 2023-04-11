@@ -4394,13 +4394,16 @@
 			case '/yt':
 				return array('type' => 'url', 'url' => "https://www.youtube.com/results?search_query=$param");
 				break;
+			case '/yd':
+				return array('type' => 'url', 'url' => "https://yandex.com/search/?text=$param");
+				break;
 			case '/lg':
 				nexus_log(array('mode' => 'write', 'type' => 'user', 'user_id' => $args['user_id'], 'message' => $param_pure));
 				return true;
 				break;
 			case '/ld':
 				$check = nexus_add_link(array('user_id' => $args['user_id'], 'pagina_id' => $args['pagina_id'], 'url' => $param_pure, 'location' => 0));
-				return false;
+				return $check;
 				break;
 			default:
 				return false;

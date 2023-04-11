@@ -2692,7 +2692,7 @@
 		if ($cmd_check == '/') {
 			$result = process_cmd(array('input' => $_POST['analyse_cmd_input'], 'pagina_id' => $_SESSION['user_nexus_pagina_id'], 'user_id' => $_SESSION['user_id']));
 			if ($result == false) {
-				echo "<ul class='list-group'><li class='list-group-item'>No match found</li></ul>";
+				echo "#MESSG#No match found";
 				exit();
 			} else {
 				switch ($result['type']) {
@@ -2700,7 +2700,7 @@
 						echo $result['url'];
 						exit();
 					default:
-						echo "<ul class='list-group'><li class='list-group-item'>No suitable command found</li></ul>";
+						echo "#MESSG#No suitable command found";
 						exit();
 				}
 			}
@@ -3582,6 +3582,7 @@
 		        <li class='list-group-item'>\"/go search terms\" will perform a Google seach.</li>
 		        <li class='list-group-item'>\"/gi search terms\" will perform a Google image seach.</li>
 		        <li class='list-group-item'>\"/yt search terms\" will perform a YouTube seach.</li>
+		        <li class='list-group-item'>\"/yd search terms\" will perform a Yandex seach.</li>
 		        <li class='list-group-item'>\"/rd search terms\" will perform a Reddit seach.</li>
 		        <li class='list-group-item'>\"/tw search terms\" will perform a Twitter seach.</li>
             </ul>

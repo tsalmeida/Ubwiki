@@ -33,7 +33,7 @@
         </div>
         <div id='secao_login_enviar' class='mb-3 d-flex justify-content-around'>
             <button id='botao_login' name='botao_login' type='button' class='btn btn-primary' disabled>{$pagina_translated['continue']}</button>
-			<button id='loginBtn' type='button' class='btn btn-outline-secondary'>Login with MetaMask</button>
+			<!--<button id='loginBtn' type='button' class='btn btn-outline-secondary'>Login with MetaMask</button>-->
         </div>
     </form>
 ";
