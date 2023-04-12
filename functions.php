@@ -319,7 +319,7 @@
 		if ($find_user_id == false) {
 			return false;
 		}
-		$query = prepare_query("SELECT apelido FROM Usuarios WHERE id = $find_user_id");
+		$query = prepare_query("SELECT apelido FROM usuarios WHERE id = $find_user_id");
 		$result_find_apelido = $conn->query($query);
 		if ($result_find_apelido->num_rows > 0) {
 			while ($row_find_apelido = $result_find_apelido->fetch_assoc()) {
@@ -1049,7 +1049,7 @@
 				}
 			}
 		} elseif ($tipo == 'escritorio') {
-			$query = prepare_query("SELECT pagina_id FROM Usuarios WHERE id = $item_id AND pagina_id IS NOT NULL");
+			$query = prepare_query("SELECT pagina_id FROM usuarios WHERE id = $item_id AND pagina_id IS NOT NULL");
 			$usuarios = $conn->query($query);
 			if ($usuarios->num_rows > 0) {
 				while ($usuario = $usuarios->fetch_assoc()) {
@@ -1059,7 +1059,7 @@
 				$query = prepare_query("INSERT INTO Paginas (item_id, tipo, compartilhamento) VALUES ($item_id, 'escritorio', 'privado')");
 				$conn->query($query);
 				$usuario_pagina_id = $conn->insert_id;
-				$query = prepare_query("UPDATE Usuarios SET pagina_id = $usuario_pagina_id WHERE id = $item_id");
+				$query = prepare_query("UPDATE usuarios SET pagina_id = $usuario_pagina_id WHERE id = $item_id");
 				$conn->query($query);
 			}
 			return $usuario_pagina_id;
@@ -1557,7 +1557,7 @@
 	function return_lounge_id($usuario_id)
 	{
 		include 'templates/criar_conn.php';
-		$query = prepare_query("SELECT escritorio_id FROM Usuarios WHERE id = $usuario_id AND escritorio_id IS NOT NULL");
+		$query = prepare_query("SELECT escritorio_id FROM usuarios WHERE id = $usuario_id AND escritorio_id IS NOT NULL");
 		$usuarios = $conn->query($query);
 		if ($usuarios->num_rows > 0) {
 			while ($usuario = $usuarios->fetch_assoc()) {
@@ -1570,7 +1570,7 @@
 			$usuario_escritorio_id = $conn->insert_id;
 			$query = prepare_query("INSERT INTO Paginas_elementos (pagina_id, pagina_tipo, tipo, extra, user_id) VALUES ($usuario_escritorio_id, 'pagina', 'titulo', 'Sala de Visitas', $usuario_id)");
 			$conn->query($query);
-			$query = prepare_query("UPDATE Usuarios SET escritorio_id = $usuario_escritorio_id WHERE id = $usuario_id");
+			$query = prepare_query("UPDATE usuarios SET escritorio_id = $usuario_escritorio_id WHERE id = $usuario_id");
 			$conn->query($query);
 			return $usuario_escritorio_id;
 		}
@@ -2793,7 +2793,7 @@
 			return false;
 		}
 		include 'templates/criar_conn.php';
-		$query = prepare_query("SELECT * FROM Usuarios WHERE id = $usuario_id");
+		$query = prepare_query("SELECT * FROM usuarios WHERE id = $usuario_id");
 		$usuarios = $conn->query($query);
 		if ($usuarios->num_rows > 0) {
 			while ($usuario = $usuarios->fetch_assoc()) {

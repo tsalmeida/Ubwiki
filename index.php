@@ -13,7 +13,7 @@
 
 	if (isset($_GET['special'])) {
 		$special = $_GET['special'];
-		$query = prepare_query("SELECT id, email, apelido FROM Usuarios WHERE special = '$special' AND special IS NOT NULL");
+		$query = prepare_query("SELECT id, email, apelido FROM usuarios WHERE special = '$special' AND special IS NOT NULL");
 		$usuarios = $conn->query($query);
 		if ($usuarios->num_rows > 0) {
 			while ($usuario = $usuarios->fetch_assoc()) {

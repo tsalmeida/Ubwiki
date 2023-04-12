@@ -30,10 +30,10 @@
 		$novo_user_nome = $_POST['novo_nome'];
 		$novo_user_sobrenome = $_POST['novo_sobrenome'];
 		$novo_user_apelido = $_POST['novo_apelido'];
-		$query = prepare_query("SELECT id FROM Usuarios WHERE apelido = '$novo_user_apelido' AND id <> $user_id");
+		$query = prepare_query("SELECT id FROM usuarios WHERE apelido = '$novo_user_apelido' AND id <> $user_id");
 		$apelidos = $conn->query($query);
 		if ($apelidos->num_rows == 0) {
-			$query = prepare_query("UPDATE Usuarios SET nome = '$novo_user_nome', sobrenome = '$novo_user_sobrenome', apelido = '$novo_user_apelido' WHERE id = $user_id");
+			$query = prepare_query("UPDATE usuarios SET nome = '$novo_user_nome', sobrenome = '$novo_user_sobrenome', apelido = '$novo_user_apelido' WHERE id = $user_id");
 			$conn->query($query);
 			$user_nome = $novo_user_nome;
 			$user_sobrenome = $novo_user_sobrenome;

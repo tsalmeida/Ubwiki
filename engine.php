@@ -35,7 +35,7 @@
 		$thinkific_login = $_POST['thinkific_login'];
 		$thinkific_senha = $_POST['thinkific_senha'];
 		$encrypted = password_hash($thinkific_senha, PASSWORD_DEFAULT);
-		$query = prepare_query("UPDATE Usuarios SET senha = '$encrypted' WHERE email = '$thinkific_login'");
+		$query = prepare_query("UPDATE usuarios SET senha = '$encrypted' WHERE email = '$thinkific_login'");
 		$set_password = $conn->query($query);
 		if ($set_password == true) {
 			echo true;
@@ -53,7 +53,7 @@
 		}
 		if ($login_senha2 == false) {
 			$login_origem = $_POST['login_origem'];
-			$query = prepare_query("SELECT senha, origem FROM Usuarios WHERE email = '$login_email'");
+			$query = prepare_query("SELECT senha, origem FROM usuarios WHERE email = '$login_email'");
 			$hashes = $conn->query($query);
 			if ($hashes->num_rows > 0) {
 				while ($hash = $hashes->fetch_assoc()) {
@@ -80,10 +80,10 @@
 			}
 		} else {
 			$encrypted = password_hash($login_senha, PASSWORD_DEFAULT);
-			$query = prepare_query("SELECT id FROM Usuarios WHERE email = '$login_email'");
+			$query = prepare_query("SELECT id FROM usuarios WHERE email = '$login_email'");
 			$check_preexistente = $conn->query($query);
 			if ($check_preexistente->num_rows == 0) {
-				$query = prepare_query("INSERT INTO Usuarios (tipo, email, senha) VALUES ('estudante', '$login_email', '$encrypted')");
+				$query = prepare_query("INSERT INTO usuarios (tipo, email, senha) VALUES ('estudante', '$login_email', '$encrypted')");
 				$check = $conn->query($query);
 				if ($check == true) {
 					$_SESSION['user_email'] = $login_email;
@@ -110,7 +110,7 @@
 		unset($_SESSION['user_opcoes']);
 		$_SESSION['user_info'] = false;
 		if ($user_email != false) {
-			$query = "SELECT * FROM Usuarios WHERE email = '$user_email'";
+			$query = "SELECT * FROM usuarios WHERE email = '$user_email'";
 			$query = prepare_query($query);
 			$usuarios = $conn->query($query);
 			if ($usuarios->num_rows > 0) {
@@ -958,7 +958,7 @@
 			$convite_tipo = 'compartilhar_usuario';
 		}
 		if ($busca_apelido_continuar == true) {
-			$query = prepare_query("SELECT apelido, id FROM Usuarios WHERE apelido LIKE '%$busca_apelido%' ORDER BY apelido");
+			$query = prepare_query("SELECT apelido, id FROM usuarios WHERE apelido LIKE '%$busca_apelido%' ORDER BY apelido");
 			$query = prepare_query($query);
 			$usuarios = $conn->query($query);
 			if ($usuarios->num_rows > 0) {
@@ -1308,7 +1308,7 @@
 
 	if (isset($_GET['confirmacao'])) {
 		$confirmacao = $_GET['confirmacao'];
-		$query = prepare_query("UPDATE Usuarios SET origem = 'confirmado' WHERE origem = '$confirmacao'");
+		$query = prepare_query("UPDATE usuarios SET origem = 'confirmado' WHERE origem = '$confirmacao'");
 		$check = $conn->query($query);
 	}
 
@@ -1320,16 +1320,16 @@
 		$check = send_nova_senha($nova_senha_email, $confirmacao, $user_language);
 		if ($check == true) {
 			//error_log('and then this happened');
-			$query = prepare_query("SELECT id FROM Usuarios WHERE email = '$nova_senha_email'");
+			$query = prepare_query("SELECT id FROM usuarios WHERE email = '$nova_senha_email'");
 			$usuarios = $conn->query($query);
 			if ($usuarios->num_rows > 0) {
 				while ($usuario = $usuarios->fetch_assoc()) {
 					$usuario_id = $usuario['id'];
-					$query = prepare_query("UPDATE Usuarios SET senha = '$nova_senha_encrypted', origem = '$confirmacao' WHERE id = $usuario_id");
+					$query = prepare_query("UPDATE usuarios SET senha = '$nova_senha_encrypted', origem = '$confirmacao' WHERE id = $usuario_id");
 					$conn->query($query);
 				}
 			} else {
-				$query = prepare_query("INSERT INTO Usuarios (email, origem, senha) VALUES ('$nova_senha_email', '$confirmacao', '$nova_senha_encrypted')");
+				$query = prepare_query("INSERT INTO usuarios (email, origem, senha) VALUES ('$nova_senha_email', '$confirmacao', '$nova_senha_encrypted')");
 				$conn->query($query);
 			}
 		}
@@ -1724,7 +1724,7 @@
 	if (isset($_POST['listar_usuarios_emails'])) {
 		$usuarios_emails_results = false;
 		if ($user_tipo == 'admin') {
-			$query = prepare_query("SELECT email FROM Usuarios");
+			$query = prepare_query("SELECT email FROM usuarios");
 			$usuarios_emails = $conn->query($query);
 			if ($usuarios_emails->num_rows > 0) {
 				while ($usuario_email = $usuarios_emails->fetch_assoc()) {

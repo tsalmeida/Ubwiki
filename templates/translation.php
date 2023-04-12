@@ -6,7 +6,7 @@
 		unset($_SESSION['pagina_translated']);
 		$user_language_titulo = convert_language($user_language);
 		if ($user_id != false) {
-			$query = "UPDATE Usuarios SET language = '$user_language' WHERE id = $user_id";
+			$query = "UPDATE usuarios SET language = '$user_language' WHERE id = $user_id";
 			$conn->query($query);
 		}
 	}

@@ -345,7 +345,7 @@
 		if ($_SESSION['raiz_ativa'] != $pagina_id) {
 			$_SESSION['raiz_ativa'] = $pagina_id;
 			if ($user_id != false) {
-				$query = prepare_query("UPDATE Usuarios SET raiz_ativa = $pagina_id WHERE id = $user_id");
+				$query = prepare_query("UPDATE usuarios SET raiz_ativa = $pagina_id WHERE id = $user_id");
 				$conn->query($query);
 			}
 		}

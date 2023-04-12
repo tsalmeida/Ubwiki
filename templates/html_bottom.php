@@ -998,7 +998,7 @@
 			</script>
 		";
 		} else {
-			$query = prepare_query("SELECT id FROM Usuarios WHERE email = '$thinkific_email' AND senha IS NULL");
+			$query = prepare_query("SELECT id FROM usuarios WHERE email = '$thinkific_email' AND senha IS NULL");
 			$usuarios = $conn->query($query);
 			if ($usuarios->num_rows == 0) {
 				echo "
