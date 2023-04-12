@@ -47,11 +47,11 @@
 	if (isset($_POST['login_email'])) {
 		$login_email = $_POST['login_email'];
 		if (filter_var($login_email, FILTER_VALIDATE_EMAIL) == false) {
-//			exit();
+			exit();
 		}
 		$login_senha = $_POST['login_senha'];
 		if ($login_senha == false) {
-//			exit();
+			exit();
 		}
 		$login_senha2 = false;
 		if (isset($_POST['login_senha2'])) {
