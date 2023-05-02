@@ -3628,7 +3628,7 @@
 				<div class='mb-3'>
 					<label for='travel_new_type' class='form-label'>Type:</label>
 					<select id='travel_new_type' name='travel_new_type' type='text' class='form-control' required>
-						<option disabled selected>Select a type:</option>
+						<option value='' disabled selected>Select a type:</option>
 						$options_types
 					</select>
 				</div>
