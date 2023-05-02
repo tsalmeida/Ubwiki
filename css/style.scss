@@ -49,6 +49,11 @@ img {
   max-width: 100%;
 }
 
+.elemento-anotacoes {
+  max-height: 100vh;
+  overflow-y: auto;
+}
+
 .p-limit, p {
   max-width: 70ch;
 }
@@ -58,7 +63,7 @@ img {
 }
 
 .ch-limit {
-  max-width: 90ch;
+  max-width: 70ch;
 }
 
 a {

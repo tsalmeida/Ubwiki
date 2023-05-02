@@ -370,11 +370,6 @@ li {
 }
 }
 
-.elemento-anotacoes {
-    max-height: 100vh;
-    overflow-y: auto;
-}
-
 .ql-toolbar {
     margin-bottom: 1em !important;
 }
