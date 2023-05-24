@@ -2257,7 +2257,7 @@
 				</form>
 			";
 
-		$available_themes = array('landscape' => array('title' => 'Random landscapes'), 'random' => array('title' => 'Random background colors'), 'light' => array('title' => 'Random light tiles'), 'dark' => array('title' => 'Random dark tiles'), 'whimsical' => array('title' => 'Random silly, whimsical tiles'));
+		$available_themes = array('landscape' => array('title' => 'Random landscapes'), 'random' => array('title' => 'Random background colors'), 'light' => array('title' => 'Random light tiles'), 'dark' => array('title' => 'Random dark tiles'), 'whimsical' => array('title' => 'Random silly, whimsical tiles', ), 'AIlandscapes' => array('title' => 'Random AI landscapes'));
 		$nexus_theme_options = false;
 		$nexus_theme_options .= "<optgroup label='Default random themes'>";
 		foreach ($available_themes as $key => $array) {

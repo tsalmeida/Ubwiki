@@ -4159,6 +4159,18 @@
 					$theme_wallpaper = 'contain';
 					$theme_homefont = 'Lato';
 					$theme_homeeffect = 'difference';
+					break;
+				case 'AIlandscapes':
+					$theme_title = 'Random AI landscapes';
+					$landscapes = glob('../wallpapers/AI/landscape/*.*');
+					$random_key = array_rand($landscapes);
+					$theme_url = $landscapes[$random_key];
+					$theme_bghex = 'f7f7f7';
+					$theme_homehex = '191919';
+					$theme_wallpaper = 'contain';
+					$theme_homefont = 'Lato';
+					$theme_homeeffect = 'difference';
+					break;
 				default:
 					break;
 			}
