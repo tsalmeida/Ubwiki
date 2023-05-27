@@ -4304,7 +4304,8 @@ textarea.form-control-lg {
   overflow-y: visible;
 }
 
-.navbar-dark {
+.navbar-dark,
+.navbar[data-bs-theme=dark] {
   --bs-navbar-color: rgba(255, 255, 255, 0.55);
   --bs-navbar-hover-color: rgba(255, 255, 255, 0.75);
   --bs-navbar-disabled-color: rgba(255, 255, 255, 0.25);
@@ -11883,7 +11884,7 @@ textarea.form-control-lg {
 }
 
 .font-serif {
-  font-family: "Lora", serif, Times New Roman !important;
+  font-family: "Lora", serif, Times New Roman, Times !important;
 }
 
 .artefato-titulo {
