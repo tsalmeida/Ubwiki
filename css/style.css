@@ -4324,7 +4324,8 @@ textarea.form-control-lg {
   overflow-y: visible;
 }
 
-.navbar-dark {
+.navbar-dark,
+.navbar[data-bs-theme=dark] {
   --bs-navbar-color: rgba(255, 255, 255, 0.55);
   --bs-navbar-hover-color: rgba(255, 255, 255, 0.75);
   --bs-navbar-disabled-color: rgba(255, 255, 255, 0.25);
@@ -7441,7 +7442,7 @@ textarea.form-control-lg {
   border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color) !important;
 }
 
-.border-0, .travelogue_col {
+.border-0 {
   border: 0 !important;
 }
 
@@ -7559,7 +7560,7 @@ textarea.form-control-lg {
   border-color: var(--bs-dark-border-subtle) !important;
 }
 
-.border-1 {
+.border-1, .travelogue_col {
   border-width: 1px !important;
 }
 
@@ -8045,11 +8046,11 @@ textarea.form-control-lg {
   margin-left: auto !important;
 }
 
-.p-0, .travelogue_col {
+.p-0 {
   padding: 0 !important;
 }
 
-.p-1 {
+.p-1, .travelogue_col {
   padding: 0.25rem !important;
 }
 

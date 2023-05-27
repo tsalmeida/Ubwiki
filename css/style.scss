@@ -263,7 +263,7 @@ textarea:focus, input:focus{
 }
 
 .travelogue_col {
-  @extend .rounded, .border, .border-dark, .border-0, .p-0;
+  @extend .rounded, .border, .border-dark, .border-1, .p-1;
 }
 
 .bold {
