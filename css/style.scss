@@ -49,6 +49,11 @@ img {
   max-width: 100%;
 }
 
+.elemento-anotacoes {
+  max-height: 100vh;
+  overflow-y: auto;
+}
+
 .p-limit, p {
   max-width: 70ch;
 }
@@ -58,7 +63,7 @@ img {
 }
 
 .ch-limit {
-  max-width: 90ch;
+  max-width: 70ch;
 }
 
 a {
@@ -258,7 +263,7 @@ textarea:focus, input:focus{
 }
 
 .travelogue_col {
-  @extend .rounded, .border, .border-dark, .border-0, .p-0;
+  @extend .rounded, .border, .border-dark, .border-1, .p-1;
 }
 
 .bold {

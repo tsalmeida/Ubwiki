@@ -308,7 +308,7 @@
 				}
 
 				echo "
-                <div class='row sticky-top my-1 px-1'>
+                <div class='row sticky-top my-1 px-0'>
                     <div class='col-1 bg-dark rounded d-flex justify-content-center'>
                         ";
 				echo nexus_put_together(array('type' => 'travelogue_button', 'color' => 'teal', 'icon' => 'fas fa-plus', 'id' => 'trigger_add_item', 'modal' => '#modal_add_item', 'class' => 'me-1'));
@@ -478,7 +478,7 @@
 						}
 
 						$instance = "
-                        <div class='row $bookmark_module px-1' id='travelogue_row_{$record['id']}' value='{$record['id']}'>
+                        <div class='row $bookmark_module px-0' id='travelogue_row_{$record['id']}' value='{$record['id']}'>
                             <div class='col-1 font-half-condensed-300 travelogue_col $background_color text-white'>{$put_together['codes']}</div>
                             <div class='col-1 font-half-condensed-300 travelogue_col $background_color text-white user-select-none'>{$put_together['releasedate']}{$put_together['datexp']}</div>
                             <div class='col font-half-condensed-300 travelogue_col $background_color $bookmark_module_2 d-flex justify-content-center $highlight_module'>$highlight_icon {$put_together['title']}</div>

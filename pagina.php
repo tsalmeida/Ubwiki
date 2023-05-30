@@ -2884,8 +2884,8 @@
 	if ($carregar_modal_correcao == true) {
 		$loaded_correcao_form = true;
 		$template_modal_div_id = 'modal_correcao';
-
 		$template_modal_body_conteudo = false;
+        $pagina_texto_wordcount = false;
 		if ($texto_revisao_ativa == false) {
 			$template_modal_titulo = $pagina_translated['Solicitar correção'];
 			if ($pagina_tipo == 'texto') {

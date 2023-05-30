@@ -4159,6 +4159,18 @@
 					$theme_wallpaper = 'contain';
 					$theme_homefont = 'Lato';
 					$theme_homeeffect = 'difference';
+					break;
+				case 'AIlandscapes':
+					$theme_title = 'Random AI landscapes';
+					$landscapes = glob('../wallpapers/AI/landscape/*.*');
+					$random_key = array_rand($landscapes);
+					$theme_url = $landscapes[$random_key];
+					$theme_bghex = 'f7f7f7';
+					$theme_homehex = '191919';
+					$theme_wallpaper = 'contain';
+					$theme_homefont = 'Lato';
+					$theme_homeeffect = 'difference';
+					break;
 				default:
 					break;
 			}
@@ -4378,33 +4390,24 @@
 		switch ($substring) {
 			case '/r/':
 				return array('type' => 'url', 'url' => "https://ww.reddit.com{$args['input']}");
-				break;
 			case '/go':
 				return array('type' => 'url', 'url' => "https://www.google.com/search?q=$param");
-				break;
 			case '/tw':
 				return array('type' => 'url', 'url' => "https://twitter.com/search?q=$param");
-				break;
 			case '/rd':
 				return array('type' => 'url', 'url' => "https://www.reddit.com/search/?q=$param");
-				break;
 			case '/gi':
 				return array('type' => 'url', 'url' => "https://www.google.com/search?q=$param");
-				break;
 			case '/yt':
 				return array('type' => 'url', 'url' => "https://www.youtube.com/results?search_query=$param");
-				break;
 			case '/yd':
 				return array('type' => 'url', 'url' => "https://yandex.com/search/?text=$param");
-				break;
 			case '/lg':
 				nexus_log(array('mode' => 'write', 'type' => 'user', 'user_id' => $args['user_id'], 'message' => $param_pure));
 				return true;
-				break;
 			case '/ld':
 				$check = nexus_add_link(array('user_id' => $args['user_id'], 'pagina_id' => $args['pagina_id'], 'url' => $param_pure, 'location' => 0));
 				return $check;
-				break;
 			default:
 				return false;
 		}

@@ -360,32 +360,32 @@
 					$template_conteudo_hidden .= include 'templates/artefato_item.php';
 				}
 
-				$artefato_id = 'wallet';
-				$artefato_titulo = $pagina_translated['sua carteira'];
-				$artefato_subtitulo = $pagina_translated['creditos ubwiki'];
-				$artefato_modal = '#modal_wallet';
-                $modal_scrollable = false;
-				$fa_icone = 'fa-wallet';
-				$fa_color = 'link-success';
-				if (in_array(16, $icons_to_show)) {
-					$template_conteudo .= include 'templates/artefato_item.php';
-				} else {
-					$template_conteudo_hidden .= include 'templates/artefato_item.php';
-				}
+//				$artefato_id = 'wallet';
+//				$artefato_titulo = $pagina_translated['sua carteira'];
+//				$artefato_subtitulo = $pagina_translated['creditos ubwiki'];
+//				$artefato_modal = '#modal_wallet';
+//                $modal_scrollable = false;
+//				$fa_icone = 'fa-wallet';
+//				$fa_color = 'link-success';
+//				if (in_array(16, $icons_to_show)) {
+//					$template_conteudo .= include 'templates/artefato_item.php';
+//				} else {
+//					$template_conteudo_hidden .= include 'templates/artefato_item.php';
+//				}
 
-				if ($user_revisor == true) {
-					$artefato_id = 'review';
-					$artefato_subtitulo = $pagina_translated['review'];
-					$artefato_link = 'revisoes.php';
-					$artefato_badge = 'fa-external-link';
-					$fa_icone = 'fa-highlighter';
-					$fa_color = 'link-warning';
-					if (in_array(17, $icons_to_show)) {
-						$template_conteudo .= include 'templates/artefato_item.php';
-					} else {
-						$template_conteudo_hidden .= include 'templates/artefato_item.php';
-					}
-				}
+//				if ($user_revisor == true) {
+//					$artefato_id = 'review';
+//					$artefato_subtitulo = $pagina_translated['review'];
+//					$artefato_link = 'revisoes.php';
+//					$artefato_badge = 'fa-external-link';
+//					$fa_icone = 'fa-highlighter';
+//					$fa_color = 'link-warning';
+//					if (in_array(17, $icons_to_show)) {
+//						$template_conteudo .= include 'templates/artefato_item.php';
+//					} else {
+//						$template_conteudo_hidden .= include 'templates/artefato_item.php';
+//					}
+//				}
 
 				$artefato_id = 'bfranklin';
 				$artefato_subtitulo = $pagina_translated['metodo bfranklin'];
