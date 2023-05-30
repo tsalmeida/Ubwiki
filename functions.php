@@ -4637,19 +4637,19 @@
 		$rating = intval($rating);
 		switch ($rating) {
 			case 1:
-				$result = '<i class="fa-solid fa-star-half fa-fw me-1 text-secondary"></i>';
+				$result = '<span class="border border-1 p-1 border-secondary rounded"><i class="fa-solid fa-star fa-fw text-light"></i><i class="fa-solid fa-star fa-fw text-muted"></i><i class="fa-solid fa-star fa-fw text-muted"></i><i class="fa-solid fa-star fa-fw text-muted"></i><i class="fa-solid fa-star fa-fw text-muted"></i></span>';
 				break;
 			case 2:
-				$result = '<i class="fa-solid fa-star-half fa-fw me-1 text-light"></i>';
+				$result = '<span class="border border-1 p-1 border-secondary rounded"><i class="fa-solid fa-star fa-fw text-light"></i><i class="fa-solid fa-star fa-fw text-light"></i><i class="fa-solid fa-star fa-fw text-muted"></i><i class="fa-solid fa-star fa-fw text-muted"></i><i class="fa-solid fa-star fa-fw text-muted"></i></span>';
 				break;
 			case 3:
-				$result = '<i class="fa-solid fa-star fa-fw me-1 text-light"></i>';
+				$result = '<span class="border border-1 p-1 border-secondary rounded"><i class="fa-solid fa-star fa-fw text-warning"></i><i class="fa-solid fa-star fa-fw text-warning"></i><i class="fa-solid fa-star fa-fw text-warning"></i><i class="fa-solid fa-star fa-fw text-muted"></i><i class="fa-solid fa-star fa-fw text-muted"></i></span>';
 				break;
 			case 4:
-				$result = '<i class="fa-solid fa-star fa-fw me-1 text-warning"></i>';
+				$result = '<span class="border border-1 p-1 border-secondary rounded"><i class="fa-solid fa-star fa-fw text-warning"></i><i class="fa-solid fa-star fa-fw text-warning"></i><i class="fa-solid fa-star fa-fw text-warning"></i><i class="fa-solid fa-star fa-fw text-warning"></i><i class="fa-solid fa-star fa-fw text-muted"></i></span>';
 				break;
 			case 5:
-				$result = '<i class="fa-solid fa-star-exclamation fa-fw me-1 text-teal"></i>';
+				$result = '<span class="border border-1 p-1 border-secondary rounded"><i class="fa-solid fa-star fa-fw text-teal"></i><i class="fa-solid fa-star fa-fw text-teal"></i><i class="fa-solid fa-star fa-fw text-teal"></i><i class="fa-solid fa-star fa-fw text-teal"></i><i class="fa-solid fa-star fa-fw text-teal"></i></span>';
 				break;
 			case false:
 			case 0:
