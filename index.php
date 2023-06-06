@@ -6,7 +6,7 @@
 
 	include 'templates/criar_conn.php';
 
-	$user_email = false;
+	$_SESSION['user_email'] = false;
 	$new_user = false;
 	$special = false;
 	$user_id = false;

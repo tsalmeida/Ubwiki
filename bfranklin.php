@@ -2,7 +2,7 @@
 	include 'engine.php';
 	$pagina_tipo = 'bfranklin';
 	$pagina_id = $user_escritorio;
-	if ($user_email == false) {
+	if ($_SESSION['user_email'] == false) {
 		header('Location:index.php');
 		exit();
 	}

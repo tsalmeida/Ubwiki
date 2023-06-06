@@ -7,26 +7,20 @@
 	include 'criar_sessao.php';
 	include 'functions.php';
 
-	if (!isset($user_email)) {
-		$user_email = false;
-	}
-
 	$user_logged_out = false;
 
 	if (!isset($_SESSION['user_email'])) {
-		$user_email = false;
+		$_SESSION['user_email'] = false;
 		if ((!isset($_POST['login_email'])) && (!isset($_POST['thinkific_login']))) {
-			if (($user_email == false) && ($pagina_tipo != 'logout') && ($pagina_tipo != 'login') && ($pagina_tipo != 'index')) {
+			if (($_SESSION['user_email'] == false) && ($pagina_tipo != 'logout') && ($pagina_tipo != 'login') && ($pagina_tipo != 'index')) {
 				$user_logged_out = true;
 				$user_id = false;
 				$user_tipo = 'visitante';
-				$user_email = false;
+				$_SESSION['user_email'] = false;
 //				header('Location:logout.php');
 //				exit();
 			}
 		}
-	} else {
-		$user_email = $_SESSION['user_email'];
 	}
 
 	include 'templates/criar_conn.php';
@@ -46,24 +40,22 @@
 
 	if (isset($_POST['login_email'])) {
 		$login_email = $_POST['login_email'];
-		$login_senha = $_POST['login_senha'];
-		$login_senha2 = false;
-		if (isset($_POST['login_senha2'])) {
-			$login_senha2 = $_POST['login_senha2'];
+		if (!isset($_POST['login_senha2'])) {
+			$_POST['login_senha2'] = false;
 		}
-		if ($login_senha2 == false) {
+		if ($_POST['login_senha2'] == false) {
 			$login_origem = $_POST['login_origem'];
-			$query = prepare_query("SELECT senha, origem FROM usuarios WHERE email = '$login_email'");
+			$query = prepare_query("SELECT senha, origem FROM usuarios WHERE email = '{$_POST['login_email']}'");
 			$hashes = $conn->query($query);
 			if ($hashes->num_rows > 0) {
 				while ($hash = $hashes->fetch_assoc()) {
 					$hash_senha = $hash['senha'];
 					$hash_origem = $hash['origem'];
-					$check = password_verify($login_senha, $hash_senha);
+					$check = password_verify($_POST['login_senha'], $hash_senha);
 					if ($check == true) {
 						if (($hash_origem == false) || ($hash_origem == 'confirmado') || ($hash_origem == 'thinkific')) {
-							$_SESSION['user_email'] = $login_email;
-							$user_email = $login_email;
+
+							$_SESSION['user_email'] = $_POST['login_email'];
 							$_SESSION['user_info'] = 'login';
 							echo true;
 						} else {
@@ -79,15 +71,14 @@
 				echo 'novo_usuario';
 			}
 		} else {
-			$encrypted = password_hash($login_senha, PASSWORD_DEFAULT);
+			$encrypted = password_hash($_POST['login_senha'], PASSWORD_DEFAULT);
 			$query = prepare_query("SELECT id FROM usuarios WHERE email = '$login_email'");
 			$check_preexistente = $conn->query($query);
 			if ($check_preexistente->num_rows == 0) {
 				$query = prepare_query("INSERT INTO usuarios (tipo, email, senha) VALUES ('estudante', '$login_email', '$encrypted')");
 				$check = $conn->query($query);
 				if ($check == true) {
-					$_SESSION['user_email'] = $login_email;
-					$user_email = $login_email;
+					$_SESSION['user_email'] = $_POST['login_email'];
 					$_SESSION['user_info'] = 'login';
 					echo true;
 				} else {
@@ -109,8 +100,8 @@
 	if ($do_login == true) {
 		unset($_SESSION['user_opcoes']);
 		$_SESSION['user_info'] = false;
-		if ($user_email != false) {
-			$query = "SELECT * FROM usuarios WHERE email = '$user_email'";
+		if ($_SESSION['user_email'] != false) {
+			$query = "SELECT * FROM usuarios WHERE email = '{$_SESSION['user_email']}'";
 			$query = prepare_query($query);
 			$usuarios = $conn->query($query);
 			if ($usuarios->num_rows > 0) {

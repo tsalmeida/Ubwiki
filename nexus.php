@@ -321,7 +321,7 @@
 	$html_head_template_conteudo .= "
         <script type='text/javascript'>
           var user_id='$user_id';
-          var user_email='$user_email';
+          var user_email='{$_SESSION['user_email']}';
         </script>
     ";
 

@@ -2,7 +2,7 @@
 	$pagina_tipo = 'revisoes';
 	$pagina_id = 1;
 	include 'engine.php';
-	if (($user_revisor == false) || ($user_email == false)) {
+	if (($user_revisor == false) || ($_SESSION['user_email'] == false)) {
 		header('Location:escritorio.php');
 		exit();
 	}

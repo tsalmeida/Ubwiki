@@ -20,7 +20,7 @@
 	$query = prepare_query("SELECT DISTINCT extra FROM Paginas_elementos WHERE pagina_id = $pagina_id AND tipo = 'topico' AND estado = 1");
 	$etiquetados = $conn->query($query);
 
-	if ($user_email == false) {
+	if ($_SESSION['user_email'] == false) {
 		header('Location:ubwiki.php');
 		exit();
 	}
@@ -98,7 +98,7 @@
 	$html_head_template_conteudo = "
         <script type='text/javascript'>
           var user_id=$user_id;
-          var user_email='$user_email';
+          var user_email='{$_SESSION['user_email']}';
         </script>
     ";
 
@@ -574,7 +574,7 @@
         <h3>{$pagina_translated['Dados de cadastro']}</h3>
         <ul class='list-group'>
             <li class='list-group-item'><strong>{$pagina_translated['Conta criada em']}:</strong> $user_criacao</li>
-            <li class='list-group-item'><strong>{$pagina_translated['Email']}:</strong> $user_email</li>
+            <li class='list-group-item'><strong>{$pagina_translated['Email']}:</strong> {$_SESSION['user_email']}</li>
         </ul>
 	";
 	include 'templates/modal.php';
