@@ -2821,10 +2821,11 @@
 	if (isset($_POST['populate_icons_titles'])) {
 		$populate_icons_titles = false;
 		$populate_icons_titles .= "
+			<form method='post'>
+
 			<div class='mb-3'>
 			<p>Target a link or a folder?</p>
 			<input type='hidden' id='details_loaded' value='false'>
-			<form method='post'>
 			<div class='form-check mb-3'>
 				<input class='form-check-input' type='radio' name='manage_icon_title_choice' value='link' id='manage_icon_title_links' checked>
 				<label class='form-check-label' for='manage_icon_title_links'><i class='fad fa-link fa-fw me-2 nexus-link-teal'></i>Links</label>
@@ -2869,18 +2870,18 @@
 			</select>
 			</div>
 			<div class='mb-3'>
-			<label for='manage_icon_title_new_icon' class='form-label manage_details_hide d-none'>Select or type the new Fontawesome icon:</label>
-			<input list='icons_list' name='manage_icon_title_new_icon' id='manage_icon_title_new_icon' class='form-select manage_details_hide d-none'>
-			<div id='icon help' class='form-text manage_details_hide d-none'>Example of fontawesome icon code: \"fa-paintbrush\". To see all icon options, visite the <a href='https://fontawesome.com/icons' target='_blank'>Fontawesome Website</a>.</div>
-			<datalist id='icons_list'>
-				<option selected disabled>Leave as is</option>";
-		$icons = nexus_icons(array('mode' => 'list'));
-		foreach ($icons as $icon => $key) {
-			$icon_capitalized = ucfirst($icon);
-			$populate_icons_titles .= "<option value='$icon'>$icon_capitalized</option>";
-		}
-		$populate_icons_titles .= "
-			</datalist>
+				<label for='manage_icon_title_new_icon' class='form-label manage_details_hide d-none'>Select or type the new Fontawesome icon:</label>
+				<input list='icons_list' name='manage_icon_title_new_icon' id='manage_icon_title_new_icon' class='form-select manage_details_hide d-none'>
+				<div id='icon help' class='form-text manage_details_hide d-none'>Example of Font Awesome icon code: \"fa-paintbrush\". To see all icon options, visite the <a href='https://fontawesome.com/icons' target='_blank'>Fontawesome Website</a>.</div>
+				<datalist id='icons_list'>
+					<option selected disabled>Leave as is</option>";
+					$icons = nexus_icons(array('mode' => 'list'));
+					foreach ($icons as $icon => $key) {
+						$icon_capitalized = ucfirst($icon);
+						$populate_icons_titles .= "<option value='$icon'>$icon_capitalized</option>";
+					}
+					$populate_icons_titles .= "
+				</datalist>
 			</div>
 			<div class='mb-3 manage_details_hide d-none'>
 				<label for='manage_icon_title_new_title' class='form-label manage_details_hide d-none'>New title:</label>
