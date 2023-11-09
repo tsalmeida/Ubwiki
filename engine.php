@@ -2248,7 +2248,7 @@
 				</form>
 			";
 
-		$available_themes = array('landscape' => array('title' => 'Random landscapes'), 'random' => array('title' => 'Random background colors'), 'light' => array('title' => 'Random light tiles'), 'dark' => array('title' => 'Random dark tiles'), 'whimsical' => array('title' => 'Random silly, whimsical tiles', ), 'AIlandscapes' => array('title' => 'Random AI landscapes'));
+		$available_themes = array('landscape' => array('title' => 'Random landscapes'), 'random' => array('title' => 'Random background colors'), 'light' => array('title' => 'Random light tiles'), 'dark' => array('title' => 'Random dark tiles'), 'whimsical' => array('title' => 'Random silly, whimsical tiles',), 'AIlandscapes' => array('title' => 'Random AI landscapes'));
 		$nexus_theme_options = false;
 		$nexus_theme_options .= "<optgroup label='Default random themes'>";
 		foreach ($available_themes as $key => $array) {
@@ -2821,6 +2821,7 @@
 	if (isset($_POST['populate_icons_titles'])) {
 		$populate_icons_titles = false;
 		$populate_icons_titles .= "
+			<div class='mb-3'>
 			<p>Target a link or a folder?</p>
 			<input type='hidden' id='details_loaded' value='false'>
 			<form method='post'>
@@ -2831,6 +2832,7 @@
 			<div class='form-check mb-3'>
 				<input class='form-check-input' type='radio' name='manage_icon_title_choice' value='folder' id='manage_icon_title_folders'>
 				<label class='form-check-label' for='manage_icon_title_folders'><i class='fad fa-folders fa-fw me-2 nexus-link-orange'></i>Folders</label>
+			</div>
 			</div>
 			<hr class='manage_link_hide'>
 			<div class='mb-3 manage_link_hide'>
@@ -2845,15 +2847,18 @@
 				</select>
 			</div>	
 			<hr class='manage_folder_hide d-none'>
+			<div class='mb-3'>
 			<label class='form-label manage_folder_hide d-none' for='manage_icon_title_folder_id'>Select folder to manage:</label>
-			<select id='manage_icon_title_folder_id' name='manage_icon_title_folder_id' class='form-select mb-3 manage_folder_hide change_trigger_show_details d-none'>
+			<select id='manage_icon_title_folder_id' name='manage_icon_title_folder_id' class='form-select manage_folder_hide change_trigger_show_details d-none'>
 				<option selected disabled>Select folder</option>";
 		$populate_icons_titles .= return_folder_list($_SESSION['nexus_folders'], array('linkdump' => false));
 		$populate_icons_titles .= "
 			</select>
+			</div>
 			<hr class='manage_details_hide d-none'>
+			<div class='mb-3'>
 			<label class='form-label manage_details_hide d-none' for='manage_icon_title_new_color'>Select the new color:</label>
-			<select id='manage_icon_title_new_color' name='manage_icon_title_new_color' class='form-select mb-3 manage_details_hide d-none'>
+			<select id='manage_icon_title_new_color' name='manage_icon_title_new_color' class='form-select manage_details_hide d-none'>
 				<option selected disabled>Leave as is</option>";
 		$colors = nexus_colors(array('mode' => 'list'));
 		foreach ($colors as $color) {
@@ -2862,8 +2867,12 @@
 		}
 		$populate_icons_titles .= "
 			</select>
-			<label for='manage_icon_title_new_icon' class='form-label manage_details_hide d-none'>Select the new icon:</label>
-			<select id='manage_icon_title_new_icon' name='manage_icon_title_new_icon' class='form-select mb-3 manage_details_hide d-none'>
+			</div>
+			<div class='mb-3'>
+			<label for='manage_icon_title_new_icon' class='form-label manage_details_hide d-none'>Select or type the new Fontawesome icon:</label>
+			<input list='icons_list' name='manage_icon_title_new_icon' id='manage_icon_title_new_icon' class='form-select manage_details_hide d-none'>
+			<div id='icon help' class='form-text manage_details_hide d-none'>Example of fontawesome icon code: \"fa-paintbrush\". To see all icon options, visite the <a href='https://fontawesome.com/icons' target='_blank'>Fontawesome Website</a>.</div>
+			<datalist id='icons_list'>
 				<option selected disabled>Leave as is</option>";
 		$icons = nexus_icons(array('mode' => 'list'));
 		foreach ($icons as $icon => $key) {
@@ -2871,7 +2880,8 @@
 			$populate_icons_titles .= "<option value='$icon'>$icon_capitalized</option>";
 		}
 		$populate_icons_titles .= "
-			</select>
+			</datalist>
+			</div>
 			<div class='mb-3 manage_details_hide d-none'>
 				<label for='manage_icon_title_new_title' class='form-label manage_details_hide d-none'>New title:</label>
 				<input class='form-control manage_details_hide d-none' type='text' id='manage_icon_title_new_title' name='manage_icon_title_new_title' placeholder='Leave as is'>
@@ -3816,26 +3826,26 @@
 		exit();
 	}
 
-//	$dsn = 'mysql:host=localhost;dbname=mydatabase';
-//	$username = 'myusername';
-//	$password = 'mypassword';
-//
-//	try {
-//		$pdo = new PDO($dsn, $username, $password);
-//		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-//	} catch (PDOException $e) {
-//		echo 'Connection failed: ' . $e->getMessage();
-//		exit;
-//	}
-//
-//	$stmt = $pdo->prepare('SELECT * FROM users WHERE ethereum_address = :address');
-//	$stmt->execute(array('address' => $address));
-//	$user = $stmt->fetch();
-//
-//	if ($user) {
-//		// the user is authenticated
-//	} else {
-//		// the user is not authenticated
-//	}
+	//	$dsn = 'mysql:host=localhost;dbname=mydatabase';
+	//	$username = 'myusername';
+	//	$password = 'mypassword';
+	//
+	//	try {
+	//		$pdo = new PDO($dsn, $username, $password);
+	//		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	//	} catch (PDOException $e) {
+	//		echo 'Connection failed: ' . $e->getMessage();
+	//		exit;
+	//	}
+	//
+	//	$stmt = $pdo->prepare('SELECT * FROM users WHERE ethereum_address = :address');
+	//	$stmt->execute(array('address' => $address));
+	//	$user = $stmt->fetch();
+	//
+	//	if ($user) {
+	//		// the user is authenticated
+	//	} else {
+	//		// the user is not authenticated
+	//	}
 
 ?>
