@@ -2112,7 +2112,7 @@
 	}
 
 	if (isset($_POST['scan_new_link_id'])) {
-		$query = "SELECT param1 FROM nexus_elements WHERE param_int_2 = {$_POST['scan_new_link_id']}";
+		$query = prepare_query("SELECT param1 FROM nexus_elements WHERE param_int_2 = {$_POST['scan_new_link_id']}");
 		$elements = $conn->query($query);
 		$scan_new_link_id_url = false;
 		if ($elements->num_rows > 0) {
@@ -2873,7 +2873,7 @@
 			<input list='icons_list' name='manage_icon_title_new_icon' id='manage_icon_title_new_icon' class='form-select manage_details_hide d-none'>
 			<div id='icon help' class='form-text manage_details_hide d-none'>Example of fontawesome icon code: \"fa-paintbrush\". To see all icon options, visite the <a href='https://fontawesome.com/icons' target='_blank'>Fontawesome Website</a>.</div>
 			<datalist id='icons_list'>
-				<option selected disabled>Leave as is</option>";
+				<option selected value=''>Leave as is</option>";
 		$icons = nexus_icons(array('mode' => 'list'));
 		foreach ($icons as $icon => $key) {
 			$icon_capitalized = ucfirst($icon);
