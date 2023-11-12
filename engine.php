@@ -2041,25 +2041,35 @@
 					<label class='form-label' for='nexus_new_link_title'>Link title:</label>
 					<input type='text' class='form-control' id='nexus_new_link_title' name='nexus_new_link_title'>
 				</div>
+				
+				
 				<div class='mb-3'>
 					<label class='form-label' for='nexus_new_link_location'>Where to place your new link?</label>
 					<select id='nexus_new_link_location' name='nexus_new_link_location' class='form-select mb-3'>";
 		echo return_folder_list($_SESSION['nexus_folders'], array('linkdump' => true));
-		echo "
-			</select>
+				echo "
+					</select>
+				</div>";
+
+				echo "<div class='mb-3'>
+					<label for='nexus_new_link_icon' class='form-label'>Select or type the new Fontawesome icon:</label>
+					<input list='new_link_icons_list' name='nexus_new_link_icon' id='nexus_new_link_icon' class='form-select'>
+					<div id='icon help' class='form-text'>Example of fontawesome icon code: \"fa-paintbrush\". To see all icon options, visite the <a href='https://fontawesome.com/icons' target='_blank'>Fontawesome Website</a>.</div>
+					<datalist id='new_link_icons_list'>
+						<option value='no_icon' selected>No icon</option>
+						<option value='random'>Random</option>";
+						$icons = nexus_icons(array('mode' => 'list'));
+						foreach ($icons as $icon => $key) {
+							$icon_capitalized = ucfirst($icon);
+							echo"<option value='$icon'>$icon_capitalized</option>";
+						}
+						echo"
+					</datalist>
 				</div>
-				<div class='mb-3'>
-					<label class='form-label' for='#nexus_new_link_icon'>Choose an icon:</label>
-					<select id='nexus_new_link_icon' name='nexus_new_link_icon' class='form-select'>
-						<option value='random' selected>Random</option>";
-		$nexus_icons = nexus_icons(array('mode' => 'list'));
-		foreach (array_keys($nexus_icons) as $key) {
-			$capitalize = ucfirst($key);
-			echo "<option value='{$key}'>$capitalize</option>";
-		}
-		echo "
-			</select>
-				</div>
+
+
+
+
 				<div class='mb-3'>
 					<label class='form-label' for='#nexus_new_link_color'>Choose a color:</label>
 					<select id='nexus_new_link_color' name='nexus_new_link_color' class='form-select'>
@@ -2821,18 +2831,18 @@
 	if (isset($_POST['populate_icons_titles'])) {
 		$populate_icons_titles = false;
 		$populate_icons_titles .= "
-			<div class='mb-3'>
-			<p>Target a link or a folder?</p>
-			<input type='hidden' id='details_loaded' value='false'>
 			<form method='post'>
-			<div class='form-check mb-3'>
-				<input class='form-check-input' type='radio' name='manage_icon_title_choice' value='link' id='manage_icon_title_links' checked>
-				<label class='form-check-label' for='manage_icon_title_links'><i class='fad fa-link fa-fw me-2 nexus-link-teal'></i>Links</label>
-			</div>
-			<div class='form-check mb-3'>
-				<input class='form-check-input' type='radio' name='manage_icon_title_choice' value='folder' id='manage_icon_title_folders'>
-				<label class='form-check-label' for='manage_icon_title_folders'><i class='fad fa-folders fa-fw me-2 nexus-link-orange'></i>Folders</label>
-			</div>
+			<div class='mb-3'>
+				<p>Target a link or a folder?</p>
+				<input type='hidden' id='details_loaded' value='false'>
+				<div class='form-check mb-3'>
+					<input class='form-check-input' type='radio' name='manage_icon_title_choice' value='link' id='manage_icon_title_links' checked>
+					<label class='form-check-label' for='manage_icon_title_links'><i class='fad fa-link fa-fw me-2 nexus-link-teal'></i>Links</label>
+				</div>
+				<div class='form-check mb-3'>
+					<input class='form-check-input' type='radio' name='manage_icon_title_choice' value='folder' id='manage_icon_title_folders'>
+					<label class='form-check-label' for='manage_icon_title_folders'><i class='fad fa-folders fa-fw me-2 nexus-link-orange'></i>Folders</label>
+				</div>
 			</div>
 			<hr class='manage_link_hide'>
 			<div class='mb-3 manage_link_hide'>
@@ -2869,18 +2879,19 @@
 			</select>
 			</div>
 			<div class='mb-3'>
-			<label for='manage_icon_title_new_icon' class='form-label manage_details_hide d-none'>Select or type the new Fontawesome icon:</label>
-			<input list='icons_list' name='manage_icon_title_new_icon' id='manage_icon_title_new_icon' class='form-select manage_details_hide d-none'>
-			<div id='icon help' class='form-text manage_details_hide d-none'>Example of fontawesome icon code: \"fa-paintbrush\". To see all icon options, visite the <a href='https://fontawesome.com/icons' target='_blank'>Fontawesome Website</a>.</div>
-			<datalist id='icons_list'>
-				<option selected value=''>Leave as is</option>";
-		$icons = nexus_icons(array('mode' => 'list'));
-		foreach ($icons as $icon => $key) {
-			$icon_capitalized = ucfirst($icon);
-			$populate_icons_titles .= "<option value='$icon'>$icon_capitalized</option>";
-		}
-		$populate_icons_titles .= "
-			</datalist>
+				<label for='manage_icon_title_new_icon' class='form-label manage_details_hide d-none'>Select or type the new Fontawesome icon:</label>
+				<input list='icons_list' name='manage_icon_title_new_icon' id='manage_icon_title_new_icon' class='form-select manage_details_hide d-none'>
+				<div id='icon help' class='form-text manage_details_hide d-none'>Example of fontawesome icon code: \"fa-paintbrush\". To see all icon options, visite the <a href='https://fontawesome.com/icons' target='_blank'>Fontawesome Website</a>.</div>
+				<datalist id='icons_list'>
+					<option selected value=''>Leave as is</option>
+					<option value='no_icon'>No icon</option>";
+			$icons = nexus_icons(array('mode' => 'list'));
+			foreach ($icons as $icon => $key) {
+				$icon_capitalized = ucfirst($icon);
+				$populate_icons_titles .= "<option value='$icon'>$icon_capitalized</option>";
+			}
+			$populate_icons_titles .= "
+				</datalist>
 			</div>
 			<div class='mb-3 manage_details_hide d-none'>
 				<label for='manage_icon_title_new_title' class='form-label manage_details_hide d-none'>New title:</label>
@@ -2931,7 +2942,6 @@
 			<button id='trigger_delete_this_folder' type='button' class='btn btn-outline-danger manage_details_hide manage_details_folders_only d-none'>Delete this folder</button>
 			</form>
 		";
-		$populate_icons_titles .= "</form>";
 		echo $populate_icons_titles;
 	}
 
@@ -3399,7 +3409,7 @@
 		$_POST['update_travel_new_datexp'] = mysqli_real_escape_string($conn, $result);
 		$travel_update_codes = serialize($travel_update_codes);
 		$travel_update_codes = mysqli_real_escape_string($conn, $travel_update_codes);
-		$query = prepare_query("UPDATE travelogue SET type = '{$_POST['update_travel_new_type']}', codes = '$travel_update_codes', releasedate = '{$_POST['update_travel_new_release_date']}', title = '{$_POST['update_travel_new_title']}', creator = '{$_POST['update_travel_new_creator']}', genre = '{$_POST['update_travel_new_genre']}', datexp = '{$_POST['update_travel_new_datexp']}', firstdatexp = '$firstdatexp', yourrating = '{$_POST['update_travel_new_rating']}', comments = '{$_POST['update_travel_new_comments']}', otherrelevant = '{$_POST['update_travel_new_information']}', dburl = '{$_POST['update_travel_new_database']}' WHERE id = {$_POST['update_this_entry']} AND user_id = {$_SESSION['user_id']}", 'log');
+		$query = prepare_query("UPDATE travelogue SET type = '{$_POST['update_travel_new_type']}', codes = '$travel_update_codes', releasedate = '{$_POST['update_travel_new_release_date']}', title = '{$_POST['update_travel_new_title']}', creator = '{$_POST['update_travel_new_creator']}', genre = '{$_POST['update_travel_new_genre']}', datexp = '{$_POST['update_travel_new_datexp']}', firstdatexp = '$firstdatexp', yourrating = '{$_POST['update_travel_new_rating']}', comments = '{$_POST['update_travel_new_comments']}', otherrelevant = '{$_POST['update_travel_new_information']}', dburl = '{$_POST['update_travel_new_database']}' WHERE id = {$_POST['update_this_entry']} AND user_id = {$_SESSION['user_id']}");
 		$conn->query($query);
 	}
 

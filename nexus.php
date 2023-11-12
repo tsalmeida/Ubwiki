@@ -116,6 +116,10 @@
 	if (isset($_POST['nexus_new_link_submit'])) {
 		$_POST['nexus_new_link_title'] = mysqli_real_escape_string($conn, $_POST['nexus_new_link_title']);
 		$_POST['nexus_new_link_url'] = mysqli_real_escape_string($conn, $_POST['nexus_new_link_url']);
+        if ($_POST['nexus_new_link_icon'] == false) {
+            $_POST['nexus_new_link_icon'] = 'no_icon';
+        }
+
 		$params = array('user_id' => $user_id, 'pagina_id' => $pagina_id, 'location' => $_POST['nexus_new_link_location'], 'url' => $_POST['nexus_new_link_url'], 'title' => $_POST['nexus_new_link_title'], 'icon' => $_POST['nexus_new_link_icon'], 'color' => $_POST['nexus_new_link_color']);
 		nexus_add_link($params);
 		unset($_SESSION['nexus_links']);

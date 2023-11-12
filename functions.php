@@ -3565,6 +3565,7 @@
 
 	function nexus_icons($args)
 	{
+//		error_log(serialize($args));
 		if (!isset($args['user_id'])) {
 			$args['user_id'] = false;
 		}
@@ -3577,7 +3578,7 @@
 			$args['mode'] = 'convert';
 		}
 		if (!isset($args['icon'])) {
-			$args['icon'] = 'circle';
+			$args['icon'] = "no_icon";
 		}
 		switch ($args['mode']) {
 			case 'list':
@@ -3781,8 +3782,18 @@
 //		if (isset($params['link_url'])) {
 //			$link_url = $params['link_url'];
 //		}
-		if (($icon == 'random') || ($icon == false) || (!isset($icon))) {
-			$icon = nexus_icons(array('mode' => 'random', 'user_id' => $params['user_id']));
+
+		switch ($icon) {
+			case 'random':
+				$icon = nexus_icons(array('mode' => 'random', 'user_id' => $params['user_id']));
+				break;
+			case 'false':
+				$icon = 'no_icon';
+				break;
+			case 'no_icon':
+			default:
+				$icon = 'no_icon';
+				break;
 		}
 		if (($color == 'random') || ($color == false) || (!isset($color))) {
 			$color = nexus_colors(array('mode' => 'random', 'user_id' => $params['user_id']));
@@ -3829,8 +3840,8 @@
 			$new_link_title = nexus_suggest_title($new_link_url);
 			$new_link_title = $new_link_title[0];
 		}
-		if (!isset($params['icon'])) {
-			$new_link_icon = 'random';
+		if ((!isset($params['icon'])) || !$params['icon']) {
+			$new_link_icon = 'no_icon';
 		} else {
 			$new_link_icon = $params['icon'];
 		}
@@ -3905,8 +3916,8 @@
 
 	function nexus_put_together($params)
 	{
+//		error_log(serialize($params));
 		$href = false;
-
 		if (!isset($params['targetblank'])) {
 			$params['targetblank'] = true;
 		}
@@ -3930,7 +3941,10 @@
 			$params['title'] = $params['id'];
 		}
 		$colors = nexus_colors(array('mode' => 'convert', 'color' => $params['color']));
-		$icon = nexus_icons(array('mode' => 'convert', 'icon' => $params['icon']));
+		$icon = $params['icon'];
+		if ($params['icon'] != 'no_icon') {
+			$icon = nexus_icons(array('mode' => 'convert', 'icon' => $params['icon']));
+		}
 
 		if (!isset($params['modal'])) {
 			$nexus_artefato_modal_module = false;
@@ -4036,7 +4050,13 @@
 				";
 				break;
 			case 'link_normal':
-				return "<a id='link_{$params['id']}' href='$href' $target_blank class='all_link_icons rounded {$colors['bg-black-color']} py-3 px-3 me-1 mb-1 col-auto {$params['class']}' title='{$params['title']}'><small><i class='fa-solid $icon fa-lg fa-fw me-2'></i><span class='{$colors['title-color']}'>{$params['title']}</span></small></a>";
+//				error_log("$icon: {$params['title']}");
+				if ($icon == 'no_icon') {
+					$icon_module = false;
+				} else {
+					$icon_module = "<i class='fa-solid $icon fa-lg fa-fw me-2'></i>";
+				}
+				return "<a id='link_{$params['id']}' href='$href' $target_blank class='all_link_icons rounded {$colors['bg-black-color']} py-3 px-3 me-1 mb-1 col-auto {$params['class']}' title='{$params['title']}'><small>$icon_module<span class='{$colors['title-color']}'>{$params['title']}</span></small></a>";
 				break;
 			case 'link_compact':
 			default:
