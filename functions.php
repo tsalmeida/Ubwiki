@@ -3495,7 +3495,12 @@
 		$suggestions = array_unique($suggestions);
 		usort($suggestions, 'sort_array_values_length');
 		sort($suggestions);
-		return $suggestions;
+//		error_log(serialize($suggestions));
+		$serialized_suggestions = serialize($suggestions);
+		$chatgpt_prompt = "I'd like your help to create a handle to describe a website. The handle will be used to identify the website on a Startpage. I will show you an array with several automatically-generated suggestions for such a handle, and you need you to decide which one is best, or create a new one that you believe is better than the options. The website is: '$url'. Please respond only with the suggested handle, as the response will be sent directly to the user's interface (Don't say 'I suggest using', for example, only the actual suggestion, and dont put it in quotes either). If the end result is a mush of words together without spaces, please separate the words appropriately with spaces. This is the array: $serialized_suggestions";
+		$chatgpt_answer = chatgpt($chatgpt_prompt);
+		return array($chatgpt_answer);
+//		return $suggestions;
 	}
 
 	function create_title_suggestion_buttons($mode, $suggestions)
@@ -4709,3 +4714,48 @@
 		$result .= "</div></div>";
 		return $result;
 	}
+
+	function chatgpt($prompt) {
+		// Your OpenAI API key (Replace with your actual key)
+		$apiKey = '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';
+
+		// API endpoint for ChatGPT
+		$apiUrl = 'https://api.openai.com/v1/engines/text-davinci-003/completions';
+
+		// Create a cURL handle
+		$ch = curl_init($apiUrl);
+
+		// Set cURL options
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, [
+			'Content-Type: application/json',
+			'Authorization: Bearer ' . $apiKey
+		]);
+
+		// The data to send
+		$data = json_encode(['prompt' => $prompt, 'max_tokens' => 150]);
+
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+
+		// Execute the request and fetch the response. Check for errors
+		$response = curl_exec($ch);
+		if ($response === false) {
+			throw new Exception(curl_error($ch), curl_errno($ch));
+		}
+
+		// Close the handle
+		curl_close($ch);
+
+		// Decode the response
+		$responseData = json_decode($response, true);
+
+		// Check if the response contains an error
+		if (isset($responseData['error'])) {
+			return 'Error: ' . $responseData['error']['message'];
+		}
+
+		// Return the text part of the response
+		return $responseData['choices'][0]['text'];
+	}
+
