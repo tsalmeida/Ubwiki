@@ -105,8 +105,8 @@
 	include 'templates/html_head.php';
 	include 'templates/navbar.php';
 
-	$all_icons = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26);
-	$icons_to_show = array(1, 2, 3, 4, 6, 13, 16, 21, 25, 26);
+	$all_icons = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28);
+	$icons_to_show = array(1, 2, 3, 4, 6, 13, 16, 21, 25, 26, 27, 28);
 	if ($user_bookmarks != array()) {
 		array_push($icons_to_show, 10);
 	}	if ($user_areas_interesse != array()) {
@@ -445,8 +445,36 @@
 					$artefato_badge = 'fa-external-link';
 					$fa_icone = 'fa-house-turret';
 					$fa_color = 'link-orange';
-					$artefato_icone_background = return_background($fa_color);
+//					$artefato_icone_background = return_background($fa_color);
 					if (in_array(21, $icons_to_show)) {
+						$template_conteudo .= include 'templates/artefato_item.php';
+					} else {
+						$template_conteudo_hidden .= include 'templates/artefato_item.php';
+					}
+
+                    $artefato_id = 'cosmography';
+//					$artefato_subtitulo = $pagina_translated['Homepage'];
+					$artefato_subtitulo = 'Cosmography';
+					$artefato_link = 'cosmography.php';
+					$artefato_badge = 'fa-external-link';
+					$fa_icone = 'fa-galaxy';
+					$fa_color = 'link-purple';
+//					$artefato_icone_background = return_background($fa_color);
+					if (in_array(27, $icons_to_show)) {
+						$template_conteudo .= include 'templates/artefato_item.php';
+					} else {
+						$template_conteudo_hidden .= include 'templates/artefato_item.php';
+					}
+
+                    $artefato_id = 'travelogue';
+//					$artefato_subtitulo = $pagina_translated['Homepage'];
+					$artefato_subtitulo = 'Travelogue';
+					$artefato_link = 'travelogue.php';
+					$artefato_badge = 'fa-external-link';
+					$fa_icone = 'fa-ticket';
+					$fa_color = 'link-success';
+//					$artefato_icone_background = return_background($fa_color);
+					if (in_array(28, $icons_to_show)) {
 						$template_conteudo .= include 'templates/artefato_item.php';
 					} else {
 						$template_conteudo_hidden .= include 'templates/artefato_item.php';
