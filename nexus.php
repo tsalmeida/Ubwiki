@@ -395,7 +395,7 @@
 					if ($user_id != false) {
 						echo nexus_put_together(array('type' => 'navbar', 'color' => 'orange', 'class' => "col-auto $msauto", 'href' => false, 'icon' => 'fas fa-cog', 'id' => 'trigger_show_setup_icons'));
 						$msauto = false;
-						echo nexus_put_together(array('type' => 'navbar', 'color' => 'cyan', 'class' => 'col-auto', 'href' => false, 'icon' => 'fas fa-wrench', 'id' => 'trigger_show_tools'));
+//						echo nexus_put_together(array('type' => 'navbar', 'color' => 'cyan', 'class' => 'col-auto', 'href' => false, 'icon' => 'fas fa-wrench', 'id' => 'trigger_show_tools'));
 					}
 					echo nexus_put_together(array('type' => 'navbar', 'color' => 'teal', 'class' => "col-auto $msauto", 'href' => false, 'icon' => 'fad fa-circle-arrow-up-right', 'id' => 'trigger_show_leave_icons', 'modal' => '#modal_leave_options'));
 				?>
@@ -449,10 +449,13 @@
 			if ($nexus_folders_check == true) {
 				echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_folders', 'title' => 'Add folder', 'modal' => '#modal_manage_folders', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-folder-plus', 'color' => 'yellow'));
 				echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_links', 'title' => 'Add link', 'modal' => '#modal_manage_links', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-grid-2-plus', 'color' => 'red'));
-				echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_icons_titles', 'title' => 'Manage links and folders', 'modal' => '#modal_manage_icons_titles', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-pen-ruler', 'color' => 'pink'));
+				echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_icons_titles', 'title' => 'Manage links and folders', 'modal' => '#modal_manage_icons_titles', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-pen-ruler', 'color' => 'cyan'));
 //					echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_move_links', 'title' => 'Move links between folders', 'modal' => '#modal_manage_move_links', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-arrow-right-arrow-left', 'color' => 'teal'));
 				echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_themes', 'title' => 'Manage themes', 'modal' => '#modal_manage_themes', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-swatchbook', 'color' => 'purple'));
 				echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'manage_options', 'title' => 'Options', 'modal' => '#modal_options', 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-toggle-large-on', 'color' => 'green'));
+				echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_settings_icon', 'id' => 'clipboard', 'icon' => 'fad fa-clipboard', 'color' => 'pink', 'title' => 'Clipboard', 'href' => false, 'modal' => '#modal_clipboard'));
+				echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_settings_icon', 'id' => 'manage_commands', 'title' => 'Commands', 'modal' => '#modal_commands', 'icon' => 'fad fa-rectangle-terminal', 'color' => 'orange'));
+				echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_settings_icon', 'id' => 'password_manager', 'icon' => 'fad fa-key', 'color' => 'teal', 'title' => 'Password Manager', 'href' => false, 'modal' => '#modal_password_manager'));
 			}
 			//				echo nexus_put_together(array('type' => 'folder_fat', 'id' => 'logout', 'title' => 'Logout', 'modal' => false, 'class' => 'nexus_settings_icon', 'icon' => 'fad fa-person-through-window', 'color' => 'red'));
 			//					if ($user_id == 1) {
@@ -472,19 +475,16 @@
 
 			echo "</div></div>";
 
-			if ($user_id != false) {
-				echo "<div id='tools_container' class='container d-none mt-1'><div id='tools_row' class='row'>";
-				echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'todo_list', 'icon' => 'fad fa-list-check', 'color' => 'red', 'title' => 'Task Manager', 'href' => false, 'modal' => '#modal_todo'));
-				echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'acervo', 'icon' => 'fad fa-ticket', 'color' => 'green', 'title' => 'Travelogue', 'href' => 'travelogue.php'));
-				echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'manage_timeline', 'title' => 'Activity log', 'modal' => '#modal_manage_timeline', 'icon' => 'fad fa-list-timeline', 'color' => 'cyan'));
-				echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'manage_commands', 'title' => 'Commands', 'modal' => '#modal_commands', 'icon' => 'fad fa-rectangle-terminal', 'color' => 'orange'));
-				echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'notepad', 'icon' => 'fad fa-pen-to-square', 'color' => 'green', 'title' => 'Notepad', 'href' => 'notepad.php'));
-				echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'clipboard', 'icon' => 'fad fa-clipboard', 'color' => 'pink', 'title' => 'Clipboard', 'href' => false, 'modal' => '#modal_clipboard'));
-				echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'life_weeks', 'icon' => 'fad fa-calendar-week', 'color' => 'yellow', 'title' => 'Your Life in Weeks', 'href' => false, 'modal' => '#modal_lifeinweeks'));
-				echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'password_manager', 'icon' => 'fad fa-key', 'color' => 'purple', 'title' => 'Password Manager', 'href' => false, 'modal' => '#modal_password_manager'));
-				echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'chess_battles', 'icon' => 'fad fa-chess-knight', 'color' => 'yellow', 'title' => 'Chess Battles', 'href' => '../chessbattles/'));
-				echo "</div></div>";
-			}
+//			if ($user_id != false) {
+//				echo "<div id='tools_container' class='container d-none mt-1'><div id='tools_row' class='row'>";
+//				echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'todo_list', 'icon' => 'fad fa-list-check', 'color' => 'red', 'title' => 'Task Manager', 'href' => false, 'modal' => '#modal_todo'));
+//				echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'acervo', 'icon' => 'fad fa-ticket', 'color' => 'green', 'title' => 'Travelogue', 'href' => 'travelogue.php'));
+//				echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'manage_timeline', 'title' => 'Activity log', 'modal' => '#modal_manage_timeline', 'icon' => 'fad fa-list-timeline', 'color' => 'cyan'));
+//				echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'notepad', 'icon' => 'fad fa-pen-to-square', 'color' => 'green', 'title' => 'Notepad', 'href' => 'notepad.php'));
+//				echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'life_weeks', 'icon' => 'fad fa-calendar-week', 'color' => 'yellow', 'title' => 'Your Life in Weeks', 'href' => false, 'modal' => '#modal_lifeinweeks'));
+//				echo nexus_put_together(array('type' => 'folder_fat', 'class' => 'nexus_tool_icons', 'id' => 'chess_battles', 'icon' => 'fad fa-chess-knight', 'color' => 'yellow', 'title' => 'Chess Battles', 'href' => '../chessbattles/'));
+//				echo "</div></div>";
+//			}
 
 		?>
     </div>
